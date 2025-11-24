@@ -4,10 +4,10 @@ Welcome to my personal portfolio website repository! A modern, high-performance 
 
 ## 🚀 About
 
-This website is my professional showcase built with **vanilla HTML5, modern CSS3, and enhanced JavaScript**, featuring a sleek red-accented design with glassmorphic elements. It's optimized for performance and responsive across all devices.
+This website is my professional showcase built with **vanilla HTML5, modern CSS3, and enhanced JavaScript**, featuring a sleek blue-accented design with glassmorphic elements. It's optimized for performance and responsive across all devices.
 
 **Portfolio URL**: Hosted on GitHub Pages  
-**Theme**: Dark/Light mode support with red accent color (#DD0303)  
+**Theme**: Dark/Light mode support with blue accent color (#2563EB)  
 **Performance**: Optimized with lazy loading, debounced scroll events, and efficient animations
 
 ---
@@ -15,7 +15,7 @@ This website is my professional showcase built with **vanilla HTML5, modern CSS3
 ## ✨ Key Features
 
 ### 🎨 **Modern Design**
-- **Red Accent Theme (#DD0303)**: Bold, professional color scheme with complementary gradients (#FF4444)
+- **Blue Accent Theme (#2563EB)**: Professional, modern color scheme with complementary gradients (#60A5FA)
 - **Glassmorphism UI**: Frosted glass effects with backdrop blur on all cards and modals
 - **Dark/Light Modes**: System preference detection with localStorage persistence
 - **Smooth Animations**: Staggered scroll animations, parallax effects, and 3D tilt on cards
@@ -40,9 +40,9 @@ This website is my professional showcase built with **vanilla HTML5, modern CSS3
 - **Status Feedback**: Success/error messages for user feedback
 
 ### 🎯 **Interactive Elements**
-- **Floating Action Button (FAB)**: Quick access to chat with red gradient
+- **Floating Action Button (FAB)**: Quick access to chat with blue gradient
 - **Back-to-Top Button**: Smooth scroll navigation with glassmorphic design
-- **Progress Bar**: Visual scroll progress indicator with red gradient
+- **Progress Bar**: Visual scroll progress indicator with blue gradient
 - **Active Navigation**: Highlighted section tracking with smooth transitions
 - **Project Card Hover**: 3D tilt effect on mouse movement
 - **Timeline Animations**: Pulse animations and staggered reveals
@@ -121,20 +121,20 @@ Multiple connection options:
 ### Color Palette
 ```css
 --primary: #000 (Light) / #FFF (Dark)
---secondary: #DD0303 (Red accent)
---tertiary: #FF4444 (Light red)
+--secondary: #2563EB (Blue accent)
+--tertiary: #60A5FA (Light blue)
 --accent: #FFF (Light) / #000 (Dark)
 ```
 
 ### Gradients
-- **Primary Gradient**: `linear-gradient(135deg, #DD0303 0%, #FF4444 100%)`
-- **Section Underline**: `linear-gradient(90deg, #DD0303, #FF4444)`
-- **Navigation Active**: Solid `#DD0303`
+- **Primary Gradient**: `linear-gradient(135deg, #2563EB 0%, #60A5FA 100%)`
+- **Section Underline**: `linear-gradient(90deg, #2563EB, #60A5FA)`
+- **Navigation Active**: Solid `#2563EB`
 
 ### Shadows
-- **Shadow-sm**: `0 2px 8px rgba(221,3,3,0.08)`
-- **Shadow-md**: `0 8px 24px rgba(221,3,3,0.12)`
-- **Shadow-lg**: `0 16px 48px rgba(221,3,3,0.15)`
+- **Shadow-sm**: `0 2px 8px rgba(37,99,235,0.08)`
+- **Shadow-md**: `0 8px 24px rgba(37,99,235,0.12)`
+- **Shadow-lg**: `0 16px 48px rgba(37,99,235,0.15)`
 
 ### Typography
 - **Font**: Poppins (Google Fonts)
