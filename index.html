@@ -19,11 +19,11 @@
       color: var(--primary);
     }
     
-    /* Modern iOS-Inspired CSS Variables */
+    /* Modern Minimal CSS Variables */
     :root {
       --primary: #000;
-      --secondary: #FF3B30;
-      --tertiary: #007AFF;
+      --secondary: #6B7280;
+      --tertiary: #9CA3AF;
       --accent: #FFF;
       --on-primary: #FFF;
       --bg: #FAFAFA;
@@ -39,8 +39,8 @@
 
     body.dark {
       --primary: #FFF;
-      --secondary: #FF3B30;
-      --tertiary: #0A84FF;
+      --secondary: #6B7280;
+      --tertiary: #9CA3AF;
       --accent: #000;
       --on-primary: #000;
       --bg: #0A0A0A;
@@ -151,13 +151,13 @@
       font-weight:900;
       color:white;
       font-size:1.2rem;
-      box-shadow:0 4px 16px rgba(255,59,48,0.3);
+      box-shadow:0 4px 16px rgba(107,114,128,0.3);
       transition:var(--transition-bounce);
     }
     
     .nav-brand:hover .nav-logo{
       transform:rotate(360deg) scale(1.1);
-      box-shadow:0 8px 24px rgba(255,59,48,0.5);
+      box-shadow:0 8px 24px rgba(107,114,128,0.5);
     }
     
     .nav-links{
@@ -205,7 +205,7 @@
     .nav-links a.active{
       background:var(--secondary);
       color:white;
-      box-shadow:0 4px 16px rgba(255,59,48,0.3);
+      box-shadow:0 4px 16px rgba(107,114,128,0.3);
     }
     
     .hamburger{
@@ -430,7 +430,7 @@
       border-radius:2rem;
       box-shadow:var(--shadow-md);
       transition:var(--transition-smooth);
-      border:1px solid rgba(255,59,48,0.1);
+      border:1px solid rgba(107,114,128,0.1);
       backdrop-filter:blur(var(--glass-blur));
       -webkit-backdrop-filter:blur(var(--glass-blur));
     }
@@ -460,7 +460,7 @@
       cursor:default;
       position:relative;
       overflow:hidden;
-      border:1.5px solid rgba(255,59,48,0.15);
+      border:1.5px solid rgba(107,114,128,0.15);
       backdrop-filter:blur(var(--glass-blur));
       -webkit-backdrop-filter:blur(var(--glass-blur));
     }
@@ -472,7 +472,7 @@
       left:50%;
       width:0;
       height:0;
-      background:rgba(255,59,48,0.15);
+      background:rgba(107,114,128,0.15);
       border-radius:50%;
       transform:translate(-50%, -50%);
       transition:var(--transition-smooth);
@@ -499,7 +499,7 @@
       height:16px;
       background:linear-gradient(135deg, var(--secondary), var(--tertiary));
       border-radius:50%;
-      box-shadow:0 0 20px rgba(255,59,48,0.4);
+      box-shadow:0 0 20px rgba(107,114,128,0.4);
       animation: pulse 2s ease-in-out infinite;
     }
     
@@ -518,7 +518,7 @@
       transition:var(--transition-smooth);
       opacity:0;
       transform:translateX(30px);
-      border:1px solid rgba(255,59,48,0.1);
+      border:1px solid rgba(107,114,128,0.1);
       backdrop-filter:blur(var(--glass-blur));
       -webkit-backdrop-filter:blur(var(--glass-blur));
     }
@@ -529,7 +529,7 @@
       transform:translateX(-5px);
       box-shadow:var(--shadow-lg);
       background:var(--card-bg);
-      border-color:rgba(255,59,48,0.3);
+      border-color:rgba(107,114,128,0.3);
     }
     
     .timeline-item::before{
@@ -545,7 +545,7 @@
       box-sizing:border-box;
       z-index:1;
       transition:var(--transition-smooth);
-      box-shadow:0 0 12px rgba(255,59,48,0.3);
+      box-shadow:0 0 12px rgba(107,114,128,0.3);
     }
     
     .timeline-item:hover::before{ transform:scale(1.4); }
@@ -581,7 +581,7 @@
       border-radius:1.5rem;
       box-shadow:var(--shadow-md);
       transition:var(--transition-smooth);
-      border:1px solid rgba(255,59,48,0.1);
+      border:1px solid rgba(107,114,128,0.1);
       backdrop-filter:blur(var(--glass-blur));
       -webkit-backdrop-filter:blur(var(--glass-blur));
     }
@@ -610,7 +610,7 @@
       overflow:hidden;
       opacity:0;
       transform:translateY(30px) scale(0.9);
-      border:1px solid rgba(255,59,48,0.1);
+      border:1px solid rgba(107,114,128,0.1);
       backdrop-filter:blur(var(--glass-blur));
       -webkit-backdrop-filter:blur(var(--glass-blur));
     }
@@ -634,7 +634,7 @@
     .project-card:hover{
       transform:translateY(-8px) scale(1.02);
       box-shadow:var(--shadow-lg);
-      border-color:rgba(255,59,48,0.3);
+      border-color:rgba(107,114,128,0.3);
     }
     
     .project-card h3{
@@ -690,7 +690,7 @@
       transition:var(--transition-bounce);
       text-align:center;
       justify-content:center;
-      border:1.5px solid rgba(255,59,48,0.15);
+      border:1.5px solid rgba(107,114,128,0.15);
       backdrop-filter:blur(var(--glass-blur));
       -webkit-backdrop-filter:blur(var(--glass-blur));
       cursor:pointer;
@@ -808,7 +808,7 @@
     }
     
     .fab.visible{ opacity:1; transform:scale(1); }
-    .fab:hover{ transform:scale(1.1) rotate(90deg); box-shadow:0 12px 40px rgba(255,59,48,0.4); }
+    .fab:hover{ transform:scale(1.1) rotate(90deg); box-shadow:0 12px 40px rgba(107,114,128,0.4); }
     
     /* Back to Top Button */
     .back-to-top{
@@ -829,7 +829,7 @@
       transition:var(--transition-smooth);
       opacity:0;
       transform:translateY(100px);
-      border:1.5px solid rgba(255,59,48,0.15);
+      border:1.5px solid rgba(107,114,128,0.15);
       backdrop-filter:blur(var(--glass-blur));
       -webkit-backdrop-filter:blur(var(--glass-blur));
     }
@@ -887,6 +887,172 @@
       width:0%;
     }
     
+    /* Chat Modal Styles */
+    .chat-modal{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background:rgba(0,0,0,0.5);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:10000;
+      opacity:0;
+      visibility:hidden;
+      transition:all 0.3s ease;
+    }
+    
+    .chat-modal.active{
+      opacity:1;
+      visibility:visible;
+    }
+    
+    .chat-container{
+      background:var(--card-bg);
+      backdrop-filter:blur(var(--glass-blur));
+      -webkit-backdrop-filter:blur(var(--glass-blur));
+      border-radius:1.5rem;
+      width:90%;
+      max-width:500px;
+      max-height:90vh;
+      overflow-y:auto;
+      box-shadow:var(--shadow-lg);
+      border:1px solid rgba(107,114,128,0.1);
+      transform:scale(0.9);
+      transition:var(--transition-smooth);
+    }
+    
+    .chat-modal.active .chat-container{
+      transform:scale(1);
+    }
+    
+    .chat-header{
+      padding:1.5rem;
+      border-bottom:1px solid rgba(107,114,128,0.1);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    
+    .chat-header h3{
+      margin:0;
+      color:var(--primary);
+      font-size:1.25rem;
+      font-weight:600;
+    }
+    
+    .chat-close{
+      background:none;
+      border:none;
+      cursor:pointer;
+      padding:0.5rem;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition:var(--transition-smooth);
+      color:var(--primary);
+    }
+    
+    .chat-close:hover{
+      background:rgba(107,114,128,0.1);
+      transform:rotate(90deg);
+    }
+    
+    .chat-body{
+      padding:1.5rem;
+    }
+    
+    .form-group{
+      margin-bottom:1.5rem;
+    }
+    
+    .form-group label{
+      display:block;
+      margin-bottom:0.5rem;
+      color:var(--primary);
+      font-weight:500;
+      font-size:0.9rem;
+    }
+    
+    .form-group input,
+    .form-group textarea{
+      width:100%;
+      padding:0.75rem 1rem;
+      border:2px solid rgba(107,114,128,0.2);
+      border-radius:0.75rem;
+      background:var(--bg);
+      color:var(--primary);
+      font-family:'Poppins', sans-serif;
+      font-size:0.95rem;
+      transition:var(--transition-smooth);
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus{
+      outline:none;
+      border-color:var(--secondary);
+      box-shadow:0 0 0 3px rgba(107,114,128,0.1);
+    }
+    
+    .form-group textarea{
+      resize:vertical;
+      min-height:120px;
+    }
+    
+    .send-btn{
+      width:100%;
+      padding:1rem;
+      background:var(--secondary);
+      color:white;
+      border:none;
+      border-radius:0.75rem;
+      font-weight:600;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:0.5rem;
+      cursor:pointer;
+      transition:var(--transition-smooth);
+      font-size:1rem;
+    }
+    
+    .send-btn:hover{
+      transform:translateY(-2px);
+      box-shadow:var(--shadow-md);
+    }
+    
+    .send-btn:disabled{
+      opacity:0.6;
+      cursor:not-allowed;
+      transform:none;
+    }
+    
+    .chat-status{
+      margin-top:1rem;
+      padding:0.75rem;
+      border-radius:0.5rem;
+      text-align:center;
+      font-size:0.9rem;
+      display:none;
+    }
+    
+    .chat-status.success{
+      background:rgba(34,197,94,0.1);
+      color:rgb(34,197,94);
+      border:1px solid rgba(34,197,94,0.2);
+      display:block;
+    }
+    
+    .chat-status.error{
+      background:rgba(239,68,68,0.1);
+      color:rgb(239,68,68);
+      border:1px solid rgba(239,68,68,0.2);
+      display:block;
+    }
+    
     /* Responsive Design */
     @media(max-width:768px){
       .nav-links{
@@ -937,6 +1103,10 @@
       .project-card{ padding:1.2rem; }
       .contact-btn{ padding:1rem; }
       .resume-btn{ padding:0.9rem 1.8rem; font-size:0.95rem; }
+      .chat-container{ width:95%; margin:1rem; }
+      .chat-header{ padding:1rem; }
+      .chat-body{ padding:1rem; }
+      .form-group{ margin-bottom:1rem; }
     }
   </style>
 </head>
@@ -954,7 +1124,6 @@
     <div class="nav-container">
       <div class="nav-brand">
         <div class="nav-logo">PJ</div>
-        <span>Pranith Jain</span>
       </div>
       <div class="nav-links" id="navLinks">
         <a href="#about"><span class="material-symbols-outlined">person</span>About</a>
@@ -976,11 +1145,11 @@
   </nav>
   
   <header>
-    <h1>Hi, I'm PJ</h1>
+    <h1>PJ</h1>
     <p>MailOps Specialist & Cloud Security Enthusiast blending deliverability mastery with GenAI-driven automation.</p>
     <div class="cta">
-      <button class="cta-btn cta-btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
-        <span class="material-symbols-outlined">alternate_email</span>Let's Connect
+      <button class="cta-btn cta-btn-primary" onclick="openChatModal()">
+        <span class="material-symbols-outlined">chat</span>Send Message
       </button>
       <button class="cta-btn cta-btn-secondary" onclick="window.open('https://app.rezi.ai/s/pranithjainresume', '_blank')">
         <span class="material-symbols-outlined">description</span>View Resume
@@ -1154,9 +1323,9 @@
       <h2>Hire Me</h2>
       <p>If you're looking to fortify deliverability, secure cloud workloads, or build GenAI-driven automations, let's connect!</p>
       <div class="contact-info">
-        <button class="contact-btn" onclick="window.location.href='mailto:pranithjainbp84@gmail.com'">
-          <span class="material-symbols-outlined">mail</span>
-          <span>Send Email</span>
+        <button class="contact-btn" onclick="openChatModal()">
+          <span class="material-symbols-outlined">chat</span>
+          <span>Send Message</span>
         </button>
         <button class="contact-btn secondary" onclick="window.open('https://www.linkedin.com/in/pranithjain', '_blank')">
           <span class="material-symbols-outlined">link</span>
@@ -1173,7 +1342,7 @@
   </main>
   
   <!-- Floating Action Buttons -->
-  <button class="fab" id="fabButton" aria-label="Chat">
+  <button class="fab" id="fabButton" onclick="openChatModal()" aria-label="Chat">
     <span class="material-symbols-outlined">chat</span>
   </button>
   
@@ -1185,7 +1354,121 @@
     <p>© <span id="year"></span> PJ • Built with Modern Web Technologies & hosted on GitHub Pages</p>
   </footer>
   
+  <!-- Chat Modal -->
+  <div class="chat-modal" id="chatModal">
+    <div class="chat-container">
+      <div class="chat-header">
+        <h3>Send a Message</h3>
+        <button class="chat-close" onclick="closeChatModal()" aria-label="Close">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="chat-body">
+        <form id="messageForm" onsubmit="sendMessage(event)">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" required placeholder="Enter your name">
+          </div>
+          <div class="form-group">
+            <label for="email">Your Email</label>
+            <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" required placeholder="What's this about?">
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required placeholder="Type your message here..."></textarea>
+          </div>
+          <button type="submit" class="send-btn">
+            <span class="material-symbols-outlined">send</span>
+            Send Message
+          </button>
+        </form>
+        <div id="chatStatus" class="chat-status"></div>
+      </div>
+    </div>
+  </div>
+  
   <script>
+    // Chat Modal Functions
+    function openChatModal() {
+      const modal = document.getElementById('chatModal');
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeChatModal() {
+      const modal = document.getElementById('chatModal');
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+      document.getElementById('messageForm').reset();
+      document.getElementById('chatStatus').className = 'chat-status';
+      document.getElementById('chatStatus').textContent = '';
+    }
+    
+    function sendMessage(event) {
+      event.preventDefault();
+      
+      const form = document.getElementById('messageForm');
+      const formData = new FormData(form);
+      const statusDiv = document.getElementById('chatStatus');
+      const submitBtn = form.querySelector('.send-btn');
+      
+      // Disable submit button
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="material-symbols-outlined">hourglass_empty</span> Sending...';
+      
+      // Create email content
+      const name = formData.get('name');
+      const email = formData.get('email');
+      const subject = formData.get('subject');
+      const message = formData.get('message');
+      
+      const emailBody = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+      const mailtoLink = `mailto:pranithjainbp84@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+      
+      // Simulate sending (in real implementation, you'd use a backend service)
+      setTimeout(() => {
+        // Open email client
+        window.location.href = mailtoLink;
+        
+        // Show success message
+        statusDiv.textContent = 'Message prepared! Your email client should open shortly.';
+        statusDiv.className = 'chat-status success';
+        
+        // Reset form
+        form.reset();
+        
+        // Re-enable submit button
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<span class="material-symbols-outlined">send</span> Send Message';
+        
+        // Close modal after 3 seconds
+        setTimeout(() => {
+          closeChatModal();
+        }, 3000);
+      }, 1000);
+    }
+    
+    // Close modal when clicking outside
+    document.getElementById('chatModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeChatModal();
+      }
+    });
+    
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        const modal = document.getElementById('chatModal');
+        if (modal.classList.contains('active')) {
+          closeChatModal();
+        }
+      }
+    });
+    
     // Optimize: Remove console logs in production, preload resources
     
     // Loading overlay with optimized timing
@@ -1288,14 +1571,7 @@
       });
     });
     
-    // Floating Action Button
-    const fabButton = document.getElementById('fabButton');
-    
-    fabButton.addEventListener('click', () => {
-      document.getElementById('contact').scrollIntoView({
-        behavior: 'smooth'
-      });
-    });
+    // Floating Action Button functionality is now handled by onclick="openChatModal()" in HTML
     
     // Show/hide floating buttons based on scroll
     function toggleFloatingButtons() {
