@@ -1,0 +1,9 @@
+# Logs
+server.log
+
+# Dependency directories
+node_modules/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
