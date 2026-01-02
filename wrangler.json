@@ -1,8 +1,0 @@
-{
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "pranith-portfolio",
-  "compatibility_date": "2024-01-01",
-  "pages": {
-    "production_branch": "main"
-  }
-}

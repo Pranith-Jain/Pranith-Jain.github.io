@@ -7,11 +7,6 @@ const CONTACT = {
   location: 'Greater Bengaluru Area • UAE (Remote-friendly)',
 };
 
-const COUNT_API = {
-  namespace: 'pranithjain84-portfolio',
-  key: 'viewer-count',
-};
-
 function formatNumber(value) {
   if (typeof value !== 'number' || Number.isNaN(value)) return '—';
   return new Intl.NumberFormat(undefined).format(value);
@@ -68,72 +63,37 @@ function useTheme() {
   return { isDark, toggle };
 }
 
-async function countApiRequest(endpoint) {
-  const url = `https://api.countapi.xyz/${endpoint}/${COUNT_API.namespace}/${COUNT_API.key}`;
-  const res = await fetch(url, { cache: 'no-store' });
-  if (!res.ok) throw new Error(`CountAPI request failed: ${res.status}`);
-  const data = await res.json();
-  return typeof data?.value === 'number' ? data.value : null;
-}
-
 function useViewCount() {
   const [views, setViews] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    let cancelled = false;
-
-    const localFallback = () => {
-      try {
-        const localKey = 'pj_local_view_count';
-        const sessionKey = 'pj_viewed_this_session';
-
-        const current = Number(localStorage.getItem(localKey) || 0);
-        const hasViewed = sessionStorage.getItem(sessionKey) === '1';
-        const next = hasViewed ? current : current + 1;
-
-        if (!hasViewed) {
-          sessionStorage.setItem(sessionKey, '1');
-          localStorage.setItem(localKey, String(next));
-        }
-
-        return next;
-      } catch (e) {
-        console.warn('Local fallback failed:', e);
-        return 1;
+    try {
+      if (typeof window === "undefined") {
+        setViews(1);
+        setLoading(false);
+        return;
       }
-    };
 
-    (async () => {
-      try {
-        const sessionKey = 'pj_countapi_viewed_this_session';
-        if (typeof window === "undefined") {
-          return;
-        }
-        
-        const hasViewed = sessionStorage.getItem(sessionKey) === '1';
-        const value = hasViewed ? await countApiRequest('get') : await countApiRequest('hit');
-
-        if (!hasViewed && !cancelled) {
-          sessionStorage.setItem(sessionKey, '1');
-        }
-        
-        if (!cancelled) {
-          setViews(value ?? localFallback());
-          setLoading(false);
-        }
-      } catch (e) {
-        console.error('View count API failed:', e);
-        if (!cancelled) {
-          setViews(localFallback());
-          setLoading(false);
-        }
+      const localKey = 'pj_portfolio_views';
+      const sessionKey = 'pj_portfolio_viewed';
+      
+      let viewCount = parseInt(localStorage.getItem(localKey) || '0');
+      const hasViewed = sessionStorage.getItem(sessionKey) === 'true';
+      
+      if (!hasViewed) {
+        viewCount += 1;
+        localStorage.setItem(localKey, viewCount.toString());
+        sessionStorage.setItem(sessionKey, 'true');
       }
-    })();
-
-    return () => {
-      cancelled = true;
-    };
+      
+      setViews(viewCount || 1);
+      setLoading(false);
+    } catch (error) {
+      console.warn('View count failed, using fallback:', error);
+      setViews(1);
+      setLoading(false);
+    }
   }, []);
 
   return { views, loading };
