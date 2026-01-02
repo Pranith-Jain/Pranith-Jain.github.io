@@ -7,6 +7,7 @@ pnpm-debug.log*
 
 # Node.js
 node_modules/
+dist/
 
 # OS-specific files
 .DS_Store
