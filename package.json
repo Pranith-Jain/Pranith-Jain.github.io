@@ -1,0 +1,14 @@
+{
+  "name": "pranith-jain-portfolio",
+  "version": "1.0.0",
+  "description": "Pranith Jain - Portfolio Website",
+  "private": true,
+  "scripts": {
+    "build": "echo 'Static site - no build required'",
+    "start": "echo 'Static site - serve index.html directly'",
+    "test": "echo 'No tests configured'"
+  },
+  "keywords": ["portfolio", "static", "html", "tailwind"],
+  "author": "Pranith Jain",
+  "license": "MIT"
+}

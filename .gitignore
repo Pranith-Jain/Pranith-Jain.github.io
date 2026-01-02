@@ -5,6 +5,9 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# Node.js
+node_modules/
+
 # OS-specific files
 .DS_Store
 .DS_Store?
