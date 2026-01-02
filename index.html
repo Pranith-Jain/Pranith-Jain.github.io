@@ -20,6 +20,8 @@
 
     <!-- Tailwind Play CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
       tailwind.config = {
         darkMode: 'class',
@@ -65,6 +67,16 @@
           outline: 2px solid theme('colors.brand.400');
           outline-offset: 3px;
         }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+          width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+          @apply bg-slate-100 dark:bg-slate-900;
+        }
+        ::-webkit-scrollbar-thumb {
+          @apply rounded-full bg-slate-300 transition-colors hover:bg-slate-400 dark:bg-slate-700 dark:hover:bg-slate-600;
+        }
       }
       @layer utilities {
         .bg-dot-grid {
@@ -75,21 +87,41 @@
           background-image: radial-gradient(rgba(148, 163, 184, 0.18) 1px, transparent 1px);
         }
         .glass {
-          @apply border border-slate-200/60 bg-white/70 backdrop-blur-xl;
+          @apply border border-slate-200/60 bg-white/70 backdrop-blur-xl transition-all duration-300;
         }
         .dark .glass {
           @apply border-white/10 bg-slate-900/60;
+        }
+        .shadow-glow {
+          box-shadow: 0 0 20px -5px rgba(37, 99, 235, 0.5);
+        }
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-10px); }
+        }
+        .animate-pulse-slow {
+          animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.8; }
         }
       }
     </style>
   </head>
   <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50">
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress" class="fixed top-0 left-0 z-[60] h-1 w-0 bg-brand-600 transition-all duration-150"></div>
+
     <div class="min-h-screen bg-gradient-to-b from-brand-50 via-white to-white dark:from-slate-950 dark:via-slate-950 dark:to-slate-900">
       <div class="bg-dot-grid">
         <header class="sticky top-0 z-50 border-b border-slate-200/60 bg-white/65 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/60">
           <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
             <a href="#top" class="group inline-flex items-center gap-3">
-              <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-brand-600 to-brand-400 text-sm font-extrabold text-white shadow-glow">
+              <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-brand-600 to-brand-400 text-sm font-extrabold text-white shadow-glow animate-pulse-slow">
                 PJ
               </span>
               <span class="hidden text-sm font-semibold tracking-tight sm:inline">
@@ -124,14 +156,42 @@
                   <path d="M21 12.8A8.5 8.5 0 0 1 11.2 3a7.2 7.2 0 1 0 9.8 9.8Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
                 </svg>
               </button>
+
+              <button
+                id="mobile-menu-toggle"
+                type="button"
+                class="grid h-10 w-10 place-items-center rounded-full border border-slate-200/60 bg-white/70 text-slate-700 shadow-sm transition hover:shadow-md dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200 md:hidden"
+                aria-label="Toggle mobile menu"
+              >
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+              </button>
             </div>
+          </div>
+
+          <!-- Mobile Menu -->
+          <div id="mobile-menu" class="hidden overflow-hidden transition-all duration-300 ease-in-out border-t border-slate-200/60 bg-white/95 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/95 md:hidden">
+            <nav class="flex flex-col p-4 space-y-2">
+              <a href="#about" class="mobile-nav-link rounded-lg px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10">About</a>
+              <a href="#skills" class="mobile-nav-link rounded-lg px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10">Skills</a>
+              <a href="#companies" class="mobile-nav-link rounded-lg px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10">Companies</a>
+              <a href="#experience" class="mobile-nav-link rounded-lg px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10">Experience</a>
+              <a href="#certifications" class="mobile-nav-link rounded-lg px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10">Certifications</a>
+              <a href="#projects" class="mobile-nav-link rounded-lg px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10">Projects</a>
+              <a href="#contact" class="mobile-nav-link rounded-lg px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10">Contact</a>
+            </nav>
           </div>
         </header>
 
-        <main id="top" class="mx-auto max-w-6xl px-4 pb-20 pt-14 sm:px-6">
+        <main id="top" class="relative mx-auto max-w-6xl px-4 pb-20 pt-14 sm:px-6">
+          <!-- Decorative Background Blobs -->
+          <div class="pointer-events-none absolute left-0 top-0 -z-10 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-500/10 blur-[120px] dark:bg-brand-500/5"></div>
+          <div class="pointer-events-none absolute right-0 top-1/4 -z-10 h-[400px] w-[400px] translate-x-1/2 rounded-full bg-brand-600/10 blur-[100px] dark:bg-brand-600/5"></div>
+
           <!-- Hero Section -->
           <section class="grid items-start gap-10 md:grid-cols-[1.2fr_0.8fr]">
-            <div>
+            <div data-aos="fade-right" data-aos-duration="1000">
               <div class="mb-5 flex flex-wrap items-center gap-2">
                 <span class="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-3 py-1 text-sm font-medium text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200">Certified Cyber Criminologist</span>
                 <span class="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-3 py-1 text-sm font-medium text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200">Email Deliverability & Security</span>
@@ -151,34 +211,34 @@
               </p>
 
               <div class="mt-7 flex flex-wrap gap-3">
-                <a href="https://calendly.com/pranithjain84/30min" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center rounded-2xl bg-gradient-to-br from-brand-600 to-brand-400 px-5 py-3 text-sm font-semibold text-white shadow-glow transition hover:brightness-110">
+                <a href="https://calendly.com/pranithjain84/30min" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center rounded-2xl bg-gradient-to-br from-brand-600 to-brand-400 px-5 py-3 text-sm font-semibold text-white shadow-glow transition hover:scale-105 active:scale-95">
                   Book a 30‑min meeting
                 </a>
-                <a href="https://www.linkedin.com/in/pranithjain" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center rounded-2xl border border-slate-200/60 bg-white/70 px-5 py-3 text-sm font-semibold text-slate-800 shadow-sm transition hover:shadow-md dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-100">
+                <a href="https://www.linkedin.com/in/pranithjain" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center rounded-2xl border border-slate-200/60 bg-white/70 px-5 py-3 text-sm font-semibold text-slate-800 shadow-sm transition hover:shadow-md hover:scale-105 active:scale-95 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-100">
                   View LinkedIn
                 </a>
-                <a href="mailto:pranithjainbp84@gmail.com" class="inline-flex items-center justify-center rounded-2xl border border-slate-200/60 bg-white/70 px-5 py-3 text-sm font-semibold text-slate-800 shadow-sm transition hover:shadow-md dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-100">
+                <a href="mailto:pranithjainbp84@gmail.com" class="inline-flex items-center justify-center rounded-2xl border border-slate-200/60 bg-white/70 px-5 py-3 text-sm font-semibold text-slate-800 shadow-sm transition hover:shadow-md hover:scale-105 active:scale-95 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-100">
                   Email me
                 </a>
               </div>
 
               <div class="mt-8 grid gap-4 sm:grid-cols-3">
-                <div class="glass rounded-2xl p-6 shadow-sm p-4">
+                <div class="glass rounded-2xl p-6 shadow-sm p-4 transition-transform hover:-translate-y-1">
                   <div class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">Inbox delivery</div>
                   <div class="mt-1 text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">96.78%+</div>
                 </div>
-                <div class="glass rounded-2xl p-6 shadow-sm p-4">
+                <div class="glass rounded-2xl p-6 shadow-sm p-4 transition-transform hover:-translate-y-1">
                   <div class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">Mailboxes secured</div>
                   <div class="mt-1 text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">2,000+</div>
                 </div>
-                <div class="glass rounded-2xl p-6 shadow-sm p-4">
+                <div class="glass rounded-2xl p-6 shadow-sm p-4 transition-transform hover:-translate-y-1">
                   <div class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">Domains managed</div>
                   <div class="mt-1 text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">1,000+</div>
                 </div>
               </div>
             </div>
 
-            <aside class="space-y-4">
+            <aside class="space-y-4" data-aos="fade-left" data-aos-duration="1000">
               <div class="glass rounded-2xl p-6 shadow-sm">
                 <div class="text-sm font-semibold">Current focus</div>
                 <ul class="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
@@ -207,7 +267,7 @@
           </section>
 
           <!-- About Section -->
-          <section id="about" class="mt-20 scroll-mt-24">
+          <section id="about" class="mt-20 scroll-mt-24" data-aos="fade-up">
             <div class="mx-auto mb-8 max-w-2xl text-center">
               <div class="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-brand-700 dark:text-brand-300">About</div>
               <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">Focused on email security & deliverability across domains</h2>
@@ -219,12 +279,12 @@
 
           <!-- Skills Section -->
           <section id="skills" class="mt-20 scroll-mt-24">
-            <div class="mx-auto mb-8 max-w-2xl text-center">
+            <div class="mx-auto mb-8 max-w-2xl text-center" data-aos="fade-up">
               <div class="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-brand-700 dark:text-brand-300">Skills</div>
               <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">Core competencies</h2>
             </div>
             <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              <div class="glass rounded-2xl p-6 shadow-sm">
+              <div class="glass rounded-2xl p-6 shadow-sm transition-all duration-300 hover:shadow-glow hover:-translate-y-1" data-aos="fade-up" data-aos-delay="100">
                 <div class="text-sm font-semibold">Email Deliverability & Security</div>
                 <ul class="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
                   <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>SPF / DKIM / DMARC / BIMI</li>
@@ -233,7 +293,7 @@
                   <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Email header & forensics</li>
                 </ul>
               </div>
-              <div class="glass rounded-2xl p-6 shadow-sm">
+              <div class="glass rounded-2xl p-6 shadow-sm transition-all duration-300 hover:shadow-glow hover:-translate-y-1" data-aos="fade-up" data-aos-delay="200">
                 <div class="text-sm font-semibold">Threat Intelligence & OSINT</div>
                 <ul class="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
                   <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Advanced OSINT & Investigations</li>
@@ -242,7 +302,7 @@
                   <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Dark web intelligence gathering</li>
                 </ul>
               </div>
-              <div class="glass rounded-2xl p-6 shadow-sm">
+              <div class="glass rounded-2xl p-6 shadow-sm transition-all duration-300 hover:shadow-glow hover:-translate-y-1" data-aos="fade-up" data-aos-delay="300">
                 <div class="text-sm font-semibold">Security Tooling & Ops</div>
                 <ul class="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
                   <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>ExtraHop NDR & Sophos XDR</li>
@@ -251,7 +311,7 @@
                   <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>SOC operations & alert analysis</li>
                 </ul>
               </div>
-              <div class="glass rounded-2xl p-6 shadow-sm">
+              <div class="glass rounded-2xl p-6 shadow-sm transition-all duration-300 hover:shadow-glow hover:-translate-y-1" data-aos="fade-up" data-aos-delay="100">
                 <div class="text-sm font-semibold">Cloud Security (GCP/AWS/Azure)</div>
                 <ul class="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
                   <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>IAM design & Zero Trust</li>
@@ -259,7 +319,7 @@
                   <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>VPC controls & Cloud Armor</li>
                 </ul>
               </div>
-              <div class="glass rounded-2xl p-6 shadow-sm">
+              <div class="glass rounded-2xl p-6 shadow-sm transition-all duration-300 hover:shadow-glow hover:-translate-y-1" data-aos="fade-up" data-aos-delay="200">
                 <div class="text-sm font-semibold">Intelligence Operations</div>
                 <ul class="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
                   <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Web & WhatsApp analysis</li>
@@ -268,7 +328,7 @@
                   <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Database & OSINT workflows</li>
                 </ul>
               </div>
-              <div class="glass rounded-2xl p-6 shadow-sm">
+              <div class="glass rounded-2xl p-6 shadow-sm transition-all duration-300 hover:shadow-glow hover:-translate-y-1" data-aos="fade-up" data-aos-delay="300">
                 <div class="text-sm font-semibold">Automation & AI</div>
                 <ul class="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
                   <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>n8n workflow automation</li>
@@ -280,36 +340,36 @@
           </section>
 
           <!-- Companies Section -->
-          <section id="companies" class="mt-20 scroll-mt-24">
+          <section id="companies" class="mt-20 scroll-mt-24" data-aos="fade-up">
             <div class="mx-auto mb-8 max-w-2xl text-center">
               <div class="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-brand-700 dark:text-brand-300">Trusted By</div>
               <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">Companies I've helped</h2>
               <p class="mt-3 text-slate-600 dark:text-slate-300">Designed and secured email infrastructure for 150+ startups and enterprises across various sectors.</p>
             </div>
             <div class="flex flex-wrap justify-center gap-3">
-              <span class="glass px-4 py-2 rounded-xl text-sm font-medium">Alphasearch</span>
-              <span class="glass px-4 py-2 rounded-xl text-sm font-medium">BlendHealth</span>
-              <span class="glass px-4 py-2 rounded-xl text-sm font-medium">Axolotl Biosciences</span>
-              <span class="glass px-4 py-2 rounded-xl text-sm font-medium">Blue Vision Capital</span>
-              <span class="glass px-4 py-2 rounded-xl text-sm font-medium">MoneyVerse</span>
-              <span class="glass px-4 py-2 rounded-xl text-sm font-medium">Doctor Assistant</span>
-              <span class="glass px-4 py-2 rounded-xl text-sm font-medium">HealthSpectra AI</span>
-              <span class="glass px-4 py-2 rounded-xl text-sm font-medium">Query Health</span>
-              <span class="glass px-4 py-2 rounded-xl text-sm font-medium">Carbon Neutral Homes</span>
-              <span class="glass px-4 py-2 rounded-xl text-sm font-medium">VoltPath</span>
-              <span class="glass px-4 py-2 rounded-xl text-sm font-medium">Sentient Trader</span>
-              <span class="glass px-4 py-2 rounded-xl text-sm font-medium">SwyftFin</span>
+              <span class="glass px-4 py-2 rounded-xl text-sm font-medium transition-transform hover:scale-110">Alphasearch</span>
+              <span class="glass px-4 py-2 rounded-xl text-sm font-medium transition-transform hover:scale-110">BlendHealth</span>
+              <span class="glass px-4 py-2 rounded-xl text-sm font-medium transition-transform hover:scale-110">Axolotl Biosciences</span>
+              <span class="glass px-4 py-2 rounded-xl text-sm font-medium transition-transform hover:scale-110">Blue Vision Capital</span>
+              <span class="glass px-4 py-2 rounded-xl text-sm font-medium transition-transform hover:scale-110">MoneyVerse</span>
+              <span class="glass px-4 py-2 rounded-xl text-sm font-medium transition-transform hover:scale-110">Doctor Assistant</span>
+              <span class="glass px-4 py-2 rounded-xl text-sm font-medium transition-transform hover:scale-110">HealthSpectra AI</span>
+              <span class="glass px-4 py-2 rounded-xl text-sm font-medium transition-transform hover:scale-110">Query Health</span>
+              <span class="glass px-4 py-2 rounded-xl text-sm font-medium transition-transform hover:scale-110">Carbon Neutral Homes</span>
+              <span class="glass px-4 py-2 rounded-xl text-sm font-medium transition-transform hover:scale-110">VoltPath</span>
+              <span class="glass px-4 py-2 rounded-xl text-sm font-medium transition-transform hover:scale-110">Sentient Trader</span>
+              <span class="glass px-4 py-2 rounded-xl text-sm font-medium transition-transform hover:scale-110">SwyftFin</span>
             </div>
           </section>
 
           <!-- Experience Section -->
           <section id="experience" class="mt-20 scroll-mt-24">
-            <div class="mx-auto mb-8 max-w-2xl text-center">
+            <div class="mx-auto mb-8 max-w-2xl text-center" data-aos="fade-up">
               <div class="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-brand-700 dark:text-brand-300">Experience</div>
               <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">Career timeline</h2>
             </div>
             <div class="grid gap-8">
-              <div class="glass rounded-2xl p-6 shadow-sm">
+              <div class="glass rounded-2xl p-6 shadow-sm transition-all hover:shadow-md" data-aos="fade-up">
                 <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
                   <div>
                     <div class="text-base font-semibold">Email Deliverability and Security Specialist</div>
@@ -324,7 +384,7 @@
                   <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Automate deliverability monitoring and investigation workflows using n8n + AI tooling to reduce manual effort and response time.</li>
                 </ul>
               </div>
-              <div class="glass rounded-2xl p-6 shadow-sm">
+              <div class="glass rounded-2xl p-6 shadow-sm transition-all hover:shadow-md" data-aos="fade-up">
                 <div class="text-base font-semibold">Google Cloud Cybersecurity Scholar (GCLP '25)</div>
                 <div class="text-sm text-slate-600 dark:text-slate-300">Google Cloud Skills Boost • Hands-on training program • Jun 2025 — Sep 2025</div>
                 <ul class="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
@@ -332,7 +392,7 @@
                   <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Capstone: microservices security using Cloud Run, Cloud SQL and Cloud Armor.</li>
                 </ul>
               </div>
-              <div class="glass rounded-2xl p-6 shadow-sm">
+              <div class="glass rounded-2xl p-6 shadow-sm transition-all hover:shadow-md" data-aos="fade-up">
                 <div class="text-base font-semibold">Cloud Security Intern</div>
                 <div class="text-sm text-slate-600 dark:text-slate-300">ZeroRisk Labs • Internship • May 2025 — Jul 2025</div>
                 <ul class="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
@@ -341,7 +401,7 @@
                   <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Studied enterprise security requirements (ISO 27001, SOC 2, GDPR, HIPAA).</li>
                 </ul>
               </div>
-              <div class="glass rounded-2xl p-6 shadow-sm">
+              <div class="glass rounded-2xl p-6 shadow-sm transition-all hover:shadow-md" data-aos="fade-up">
                 <div class="text-base font-semibold">SOC Analyst Intern</div>
                 <div class="text-sm text-slate-600 dark:text-slate-300">Tracelay • Bengaluru, India • Jul 2024 — Oct 2024</div>
                 <ul class="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
@@ -349,7 +409,7 @@
                   <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Contributed to threat intelligence reports and improved detection accuracy with external intel sources.</li>
                 </ul>
               </div>
-              <div class="glass rounded-2xl p-6 shadow-sm">
+              <div class="glass rounded-2xl p-6 shadow-sm transition-all hover:shadow-md" data-aos="fade-up">
                 <div class="text-base font-semibold">Junior Support Engineer</div>
                 <div class="text-sm text-slate-600 dark:text-slate-300">UnifyCX • Mysuru, India • Sep 2023 — Jul 2024</div>
                 <ul class="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
@@ -357,7 +417,7 @@
                   <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Specialized in deliverability troubleshooting and security hardening for hosted environments.</li>
                 </ul>
               </div>
-              <div class="glass rounded-2xl p-6 shadow-sm">
+              <div class="glass rounded-2xl p-6 shadow-sm transition-all hover:shadow-md" data-aos="fade-up">
                 <div class="text-base font-semibold">Associate Software Developer</div>
                 <div class="text-sm text-slate-600 dark:text-slate-300">TekWorks • Vijayawada, India • Mar 2023 — Sep 2023</div>
                 <ul class="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
@@ -369,44 +429,44 @@
 
           <!-- Certifications Section -->
           <section id="certifications" class="mt-20 scroll-mt-24">
-            <div class="mx-auto mb-8 max-w-2xl text-center">
+            <div class="mx-auto mb-8 max-w-2xl text-center" data-aos="fade-up">
               <div class="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-brand-700 dark:text-brand-300">Certifications</div>
               <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">Credentials & continuous learning</h2>
             </div>
             <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              <div class="glass rounded-2xl p-6 shadow-sm">
+              <div class="glass rounded-2xl p-6 shadow-sm transition-transform hover:-translate-y-1" data-aos="fade-up">
                 <div class="text-sm font-semibold">Certified Cyber Criminologist</div>
                 <div class="mt-1 text-sm text-slate-600 dark:text-slate-300">Virtual Cyber Labs • 2025</div>
               </div>
-              <div class="glass rounded-2xl p-6 shadow-sm">
+              <div class="glass rounded-2xl p-6 shadow-sm transition-transform hover:-translate-y-1" data-aos="fade-up">
                 <div class="text-sm font-semibold">Proofpoint Certified AI Data Security Specialist</div>
                 <div class="mt-1 text-sm text-slate-600 dark:text-slate-300">Proofpoint • 2025</div>
               </div>
-              <div class="glass rounded-2xl p-6 shadow-sm">
+              <div class="glass rounded-2xl p-6 shadow-sm transition-transform hover:-translate-y-1" data-aos="fade-up">
                 <div class="text-sm font-semibold">Proofpoint Certified AI Email Security Specialist</div>
                 <div class="mt-1 text-sm text-slate-600 dark:text-slate-300">Proofpoint • 2025</div>
               </div>
-              <div class="glass rounded-2xl p-6 shadow-sm">
+              <div class="glass rounded-2xl p-6 shadow-sm transition-transform hover:-translate-y-1" data-aos="fade-up">
                 <div class="text-sm font-semibold">Proofpoint Certified Email Authentication Specialist</div>
                 <div class="mt-1 text-sm text-slate-600 dark:text-slate-300">Proofpoint • 2025</div>
               </div>
-              <div class="glass rounded-2xl p-6 shadow-sm">
+              <div class="glass rounded-2xl p-6 shadow-sm transition-transform hover:-translate-y-1" data-aos="fade-up">
                 <div class="text-sm font-semibold">Google Cloud Cybersecurity Certificate</div>
                 <div class="mt-1 text-sm text-slate-600 dark:text-slate-300">Google • 2025</div>
               </div>
-              <div class="glass rounded-2xl p-6 shadow-sm">
+              <div class="glass rounded-2xl p-6 shadow-sm transition-transform hover:-translate-y-1" data-aos="fade-up">
                 <div class="text-sm font-semibold">Certified Multi-Cloud Blue Team Analyst (MCBTA)</div>
                 <div class="mt-1 text-sm text-slate-600 dark:text-slate-300">CyberWarFare Labs • 2025</div>
               </div>
-              <div class="glass rounded-2xl p-6 shadow-sm">
+              <div class="glass rounded-2xl p-6 shadow-sm transition-transform hover:-translate-y-1" data-aos="fade-up">
                 <div class="text-sm font-semibold">Certified Network Security Practitioner (CNSP)</div>
                 <div class="mt-1 text-sm text-slate-600 dark:text-slate-300">The SecOps Group • 2025</div>
               </div>
-              <div class="glass rounded-2xl p-6 shadow-sm">
+              <div class="glass rounded-2xl p-6 shadow-sm transition-transform hover:-translate-y-1" data-aos="fade-up">
                 <div class="text-sm font-semibold">Certified MindStudio AI Agent Developer</div>
                 <div class="mt-1 text-sm text-slate-600 dark:text-slate-300">MindStudio • 2025</div>
               </div>
-              <div class="glass rounded-2xl p-6 shadow-sm">
+              <div class="glass rounded-2xl p-6 shadow-sm transition-transform hover:-translate-y-1" data-aos="fade-up">
                 <div class="text-sm font-semibold">OpSec – Privacy for Security Professionals</div>
                 <div class="mt-1 text-sm text-slate-600 dark:text-slate-300">Just Hacking Training • 2025</div>
               </div>
@@ -415,39 +475,39 @@
 
           <!-- Projects Section -->
           <section id="projects" class="mt-20 scroll-mt-24">
-            <div class="mx-auto mb-8 max-w-2xl text-center">
+            <div class="mx-auto mb-8 max-w-2xl text-center" data-aos="fade-up">
               <div class="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-brand-700 dark:text-brand-300">Projects</div>
               <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">Recent work & initiatives</h2>
             </div>
             <div class="grid gap-6">
-              <div class="glass rounded-2xl p-6 shadow-sm">
+              <div class="glass rounded-2xl p-6 shadow-sm transition-all hover:shadow-glow" data-aos="fade-up">
                 <div class="text-base font-semibold">Cloud-Based Ransomware Detection & Recovery (GCP)</div>
                 <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">A cloud security capstone focused on detection signals, recovery workflow design, and protective controls (logging, monitoring, and network hardening).</p>
                 <div class="mt-3 flex flex-wrap gap-2">
-                  <span class="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-3 py-1 text-sm font-medium text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200"><span class="text-xs">GCP</span></span>
-                  <span class="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-3 py-1 text-sm font-medium text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200"><span class="text-xs">Detection Engineering</span></span>
-                  <span class="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-3 py-1 text-sm font-medium text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200"><span class="text-xs">Cloud Logging</span></span>
-                  <span class="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-3 py-1 text-sm font-medium text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200"><span class="text-xs">Recovery</span></span>
+                  <span class="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-3 py-1 text-sm font-medium text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200 transition-transform hover:scale-105"><span class="text-xs">GCP</span></span>
+                  <span class="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-3 py-1 text-sm font-medium text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200 transition-transform hover:scale-105"><span class="text-xs">Detection Engineering</span></span>
+                  <span class="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-3 py-1 text-sm font-medium text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200 transition-transform hover:scale-105"><span class="text-xs">Cloud Logging</span></span>
+                  <span class="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-3 py-1 text-sm font-medium text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200 transition-transform hover:scale-105"><span class="text-xs">Recovery</span></span>
                 </div>
               </div>
-              <div class="glass rounded-2xl p-6 shadow-sm">
+              <div class="glass rounded-2xl p-6 shadow-sm transition-all hover:shadow-glow" data-aos="fade-up">
                 <div class="text-base font-semibold">Email Security Playbook & Investigation Framework</div>
                 <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Structured triage and response process for phishing, spoofing, authentication gaps and domain abuse—built to be operational and repeatable.</p>
                 <div class="mt-3 flex flex-wrap gap-2">
-                  <span class="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-3 py-1 text-sm font-medium text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200"><span class="text-xs">IR</span></span>
-                  <span class="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-3 py-1 text-sm font-medium text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200"><span class="text-xs">Email Security</span></span>
-                  <span class="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-3 py-1 text-sm font-medium text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200"><span class="text-xs">SPF/DKIM/DMARC</span></span>
-                  <span class="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-3 py-1 text-sm font-medium text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200"><span class="text-xs">OSINT</span></span>
+                  <span class="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-3 py-1 text-sm font-medium text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200 transition-transform hover:scale-105"><span class="text-xs">IR</span></span>
+                  <span class="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-3 py-1 text-sm font-medium text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200 transition-transform hover:scale-105"><span class="text-xs">Email Security</span></span>
+                  <span class="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-3 py-1 text-sm font-medium text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200 transition-transform hover:scale-105"><span class="text-xs">SPF/DKIM/DMARC</span></span>
+                  <span class="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-3 py-1 text-sm font-medium text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200 transition-transform hover:scale-105"><span class="text-xs">OSINT</span></span>
                 </div>
               </div>
-              <div class="glass rounded-2xl p-6 shadow-sm">
+              <div class="glass rounded-2xl p-6 shadow-sm transition-all hover:shadow-glow" data-aos="fade-up">
                 <div class="text-base font-semibold">Automation-led Deliverability Monitoring</div>
                 <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Workflow automation with n8n + AI agents to monitor sender reputation and authentication health, reducing manual investigation loops.</p>
                 <div class="mt-3 flex flex-wrap gap-2">
-                  <span class="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-3 py-1 text-sm font-medium text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200"><span class="text-xs">n8n</span></span>
-                  <span class="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-3 py-1 text-sm font-medium text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200"><span class="text-xs">AI Agents</span></span>
-                  <span class="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-3 py-1 text-sm font-medium text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200"><span class="text-xs">Dashboards</span></span>
-                  <span class="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-3 py-1 text-sm font-medium text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200"><span class="text-xs">Automation</span></span>
+                  <span class="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-3 py-1 text-sm font-medium text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200 transition-transform hover:scale-105"><span class="text-xs">n8n</span></span>
+                  <span class="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-3 py-1 text-sm font-medium text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200 transition-transform hover:scale-105"><span class="text-xs">AI Agents</span></span>
+                  <span class="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-3 py-1 text-sm font-medium text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200 transition-transform hover:scale-105"><span class="text-xs">Dashboards</span></span>
+                  <span class="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-3 py-1 text-sm font-medium text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200 transition-transform hover:scale-105"><span class="text-xs">Automation</span></span>
                 </div>
               </div>
             </div>
@@ -455,23 +515,23 @@
 
           <!-- Contact Section -->
           <section id="contact" class="mt-20 scroll-mt-24">
-            <div class="mx-auto mb-8 max-w-2xl text-center">
+            <div class="mx-auto mb-8 max-w-2xl text-center" data-aos="fade-up">
               <div class="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-brand-700 dark:text-brand-300">Contact</div>
               <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">Let's talk security</h2>
               <p class="mt-3 text-slate-600 dark:text-slate-300">Reach out to discuss email security, deliverability and threat intelligence challenges.</p>
             </div>
-            <div class="mx-auto max-w-3xl">
+            <div class="mx-auto max-w-3xl" data-aos="zoom-in">
               <div class="glass rounded-2xl p-6 shadow-sm">
                 <div class="text-center">
                   <div class="text-lg font-semibold mb-4">Get in Touch</div>
                   <div class="flex flex-col gap-4 sm:flex-row sm:justify-center">
-                    <a href="https://www.linkedin.com/in/pranithjain" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center rounded-xl bg-brand-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-500">
+                    <a href="https://www.linkedin.com/in/pranithjain" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center rounded-xl bg-brand-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-500 hover:scale-105 active:scale-95">
                       LinkedIn Profile
                     </a>
-                    <a href="mailto:pranithjainbp84@gmail.com" class="inline-flex items-center justify-center rounded-xl border border-slate-200/60 bg-white/70 px-6 py-3 text-sm font-semibold text-slate-800 transition hover:shadow-md dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-100">
+                    <a href="mailto:pranithjainbp84@gmail.com" class="inline-flex items-center justify-center rounded-xl border border-slate-200/60 bg-white/70 px-6 py-3 text-sm font-semibold text-slate-800 transition hover:shadow-md hover:scale-105 active:scale-95 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-100">
                       Email Direct
                     </a>
-                    <a href="https://calendly.com/pranithjain84/30min" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center rounded-xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100">
+                    <a href="https://calendly.com/pranithjain84/30min" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center rounded-xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 hover:scale-105 active:scale-95 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100">
                       Schedule Meeting
                     </a>
                   </div>
@@ -486,6 +546,18 @@
         </main>
       </div>
     </div>
+
+    <!-- Back to Top Button -->
+    <button
+      id="back-to-top"
+      type="button"
+      class="fixed bottom-8 right-8 z-50 grid h-12 w-12 translate-y-20 place-items-center rounded-full bg-brand-600 text-white shadow-lg transition-all duration-300 hover:bg-brand-700 focus:outline-none"
+      aria-label="Back to top"
+    >
+      <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+      </svg>
+    </button>
 
     <script src="script.js"></script>
   </body>
