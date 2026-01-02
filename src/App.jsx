@@ -18,24 +18,51 @@ function formatNumber(value) {
 }
 
 function useTheme() {
-  const [isDark, setIsDark] = useState(false);
-
-  useEffect(() => {
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof window === "undefined") return false;
+    
     const stored = localStorage.getItem('theme');
     const preferred = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
-    const shouldBeDark = stored ? stored === 'dark' : preferred;
+    return stored ? stored === 'dark' : preferred;
+  });
 
-    document.documentElement.classList.toggle('dark', shouldBeDark);
-    setIsDark(shouldBeDark);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    
+    try {
+      const stored = localStorage.getItem('theme');
+      const preferred = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+      const shouldBeDark = stored ? stored === 'dark' : preferred;
+      
+      document.documentElement.classList.toggle('dark', shouldBeDark);
+      setIsDark(shouldBeDark);
+    } catch (e) {
+      console.warn('Theme initialization failed:', e);
+    }
   }, []);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    
+    try {
+      document.documentElement.classList.toggle('dark', isDark);
+    } catch (e) {
+      console.warn('Theme toggle failed:', e);
+    }
+  }, [isDark]);
+
   const toggle = () => {
-    setIsDark((current) => {
-      const next = !current;
-      document.documentElement.classList.toggle('dark', next);
-      localStorage.setItem('theme', next ? 'dark' : 'light');
-      return next;
-    });
+    try {
+      setIsDark((current) => {
+        const next = !current;
+        if (typeof window !== "undefined") {
+          localStorage.setItem('theme', next ? 'dark' : 'light');
+        }
+        return next;
+      });
+    } catch (e) {
+      console.error('Theme toggle error:', e);
+    }
   };
 
   return { isDark, toggle };
@@ -51,38 +78,56 @@ async function countApiRequest(endpoint) {
 
 function useViewCount() {
   const [views, setViews] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let cancelled = false;
 
     const localFallback = () => {
-      const localKey = 'pj_local_view_count';
-      const sessionKey = 'pj_viewed_this_session';
+      try {
+        const localKey = 'pj_local_view_count';
+        const sessionKey = 'pj_viewed_this_session';
 
-      const current = Number(localStorage.getItem(localKey) || 0);
-      const hasViewed = sessionStorage.getItem(sessionKey) === '1';
-      const next = hasViewed ? current : current + 1;
+        const current = Number(localStorage.getItem(localKey) || 0);
+        const hasViewed = sessionStorage.getItem(sessionKey) === '1';
+        const next = hasViewed ? current : current + 1;
 
-      if (!hasViewed) {
-        sessionStorage.setItem(sessionKey, '1');
-        localStorage.setItem(localKey, String(next));
+        if (!hasViewed) {
+          sessionStorage.setItem(sessionKey, '1');
+          localStorage.setItem(localKey, String(next));
+        }
+
+        return next;
+      } catch (e) {
+        console.warn('Local fallback failed:', e);
+        return 1;
       }
-
-      return next;
     };
 
     (async () => {
       try {
         const sessionKey = 'pj_countapi_viewed_this_session';
+        if (typeof window === "undefined") {
+          return;
+        }
+        
         const hasViewed = sessionStorage.getItem(sessionKey) === '1';
-
         const value = hasViewed ? await countApiRequest('get') : await countApiRequest('hit');
 
-        if (!hasViewed) sessionStorage.setItem(sessionKey, '1');
-        if (!cancelled) setViews(value ?? localFallback());
-      } catch {
-        const value = localFallback();
-        if (!cancelled) setViews(value);
+        if (!hasViewed && !cancelled) {
+          sessionStorage.setItem(sessionKey, '1');
+        }
+        
+        if (!cancelled) {
+          setViews(value ?? localFallback());
+          setLoading(false);
+        }
+      } catch (e) {
+        console.error('View count API failed:', e);
+        if (!cancelled) {
+          setViews(localFallback());
+          setLoading(false);
+        }
       }
     })();
 
@@ -91,7 +136,7 @@ function useViewCount() {
     };
   }, []);
 
-  return views;
+  return { views, loading };
 }
 
 function IconSun(props) {
@@ -153,7 +198,7 @@ function Card({ children, className = '' }) {
 
 export default function App() {
   const { isDark, toggle } = useTheme();
-  const views = useViewCount();
+  const { views, loading } = useViewCount();
 
   const skills = useMemo(
     () => [
@@ -320,7 +365,9 @@ export default function App() {
               <Pill>
                 <span className="h-2 w-2 rounded-full bg-brand-500" aria-hidden="true" />
                 <span className="text-xs">Views</span>
-                <span className="font-semibold tabular-nums">{formatNumber(views)}</span>
+                <span className="font-semibold tabular-nums">
+                  {loading ? "..." : formatNumber(views)}
+                </span>
               </Pill>
 
               <button
