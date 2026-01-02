@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
+  base: '/',
   css: {
     postcss: './postcss.config.js',
   },
@@ -10,7 +11,6 @@ export default defineConfig({
     sourcemap: false,
     outDir: 'dist',
     assetsDir: 'assets',
-    base: '/',
     rollupOptions: {
       output: {
         manualChunks: {

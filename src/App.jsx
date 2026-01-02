@@ -1,3 +1,5 @@
+import React, { useState, useEffect, useMemo } from 'react';
+
 // REMOVE IFRAME that causes CSP issues - replace with a simpler contact section
 const CONTACT = {
   email: 'pranithjainbp84@gmail.com',
