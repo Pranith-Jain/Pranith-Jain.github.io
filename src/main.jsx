@@ -4,32 +4,17 @@ import App from './App.jsx';
 import ErrorBoundary from './ErrorBoundary.jsx';
 import './index.css';
 
-if (typeof window !== 'undefined' && document.readyState) {
-  const rootElement = document.getElementById('root');
-  if (rootElement) {
-    const root = ReactDOM.createRoot(rootElement);
-    root.render(
-      <React.StrictMode>
-        <ErrorBoundary>
-          <App />
-        </ErrorBoundary>
-      </React.StrictMode>
-    );
-  } else {
-    console.error("Root element #root not found");
-  }
+const rootElement = document.getElementById('root');
+
+if (rootElement) {
+  const root = ReactDOM.createRoot(rootElement);
+  root.render(
+    <React.StrictMode>
+      <ErrorBoundary>
+        <App />
+      </ErrorBoundary>
+    </React.StrictMode>
+  );
 } else {
-  document.addEventListener('DOMContentLoaded', () => {
-    const rootElement = document.getElementById('root');
-    if (rootElement) {
-      const root = ReactDOM.createRoot(rootElement);
-      root.render(
-        <React.StrictMode>
-          <ErrorBoundary>
-            <App />
-          </ErrorBoundary>
-        </React.StrictMode>
-      );
-    }
-  });
+  console.error("Root element #root not found");
 }

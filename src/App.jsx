@@ -8,18 +8,18 @@ const CONTACT = {
   location: 'Greater Bengaluru Area • UAE (Remote-friendly)',
 };
 
-function formatNumber(value) {
-  if (typeof value !== 'number' || Number.isNaN(value)) return '—';
-  return new Intl.NumberFormat(undefined).format(value);
-}
-
 function useTheme() {
   const [isDark, setIsDark] = useState(() => {
-    if (typeof window === "undefined") return false;
-    
-    const stored = localStorage.getItem('theme');
-    const preferred = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
-    return stored ? stored === 'dark' : preferred;
+    try {
+      if (typeof window === "undefined") return false;
+      
+      const stored = localStorage.getItem('theme');
+      const preferred = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+      return stored ? stored === 'dark' : preferred;
+    } catch (e) {
+      console.warn('Theme initialization from localStorage failed:', e);
+      return false;
+    }
   });
 
   useEffect(() => {
@@ -62,42 +62,6 @@ function useTheme() {
   };
 
   return { isDark, toggle };
-}
-
-function useViewCount() {
-  const [views, setViews] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    try {
-      if (typeof window === "undefined") {
-        setViews(1);
-        setLoading(false);
-        return;
-      }
-
-      const localKey = 'pj_portfolio_views';
-      const sessionKey = 'pj_portfolio_viewed';
-      
-      let viewCount = parseInt(localStorage.getItem(localKey) || '0');
-      const hasViewed = sessionStorage.getItem(sessionKey) === 'true';
-      
-      if (!hasViewed) {
-        viewCount += 1;
-        localStorage.setItem(localKey, viewCount.toString());
-        sessionStorage.setItem(sessionKey, 'true');
-      }
-      
-      setViews(viewCount || 1);
-      setLoading(false);
-    } catch (error) {
-      console.warn('View count failed, using fallback:', error);
-      setViews(1);
-      setLoading(false);
-    }
-  }, []);
-
-  return { views, loading };
 }
 
 function IconSun(props) {
@@ -159,7 +123,6 @@ function Card({ children, className = '' }) {
 
 export default function App() {
   const { isDark, toggle } = useTheme();
-  const { views, loading } = useViewCount();
 
   const skills = useMemo(
     () => [
@@ -323,14 +286,6 @@ export default function App() {
             </nav>
 
             <div className="flex items-center gap-2">
-              <Pill>
-                <span className="h-2 w-2 rounded-full bg-brand-500" aria-hidden="true" />
-                <span className="text-xs">Views</span>
-                <span className="font-semibold tabular-nums">
-                  {loading ? "..." : formatNumber(views)}
-                </span>
-              </Pill>
-
               <button
                 type="button"
                 onClick={toggle}
