@@ -1,15 +1,9 @@
-import { useEffect, useMemo, useState } from 'react';
-
+// REMOVE IFRAME that causes CSP issues - replace with a simpler contact section
 const CONTACT = {
   email: 'pranithjainbp84@gmail.com',
   linkedIn: 'https://www.linkedin.com/in/pranithjain',
   calendly: 'https://calendly.com/pranithjain84/30min',
   location: 'Greater Bengaluru Area • UAE (Remote-friendly)',
-};
-
-const COUNT_API = {
-  namespace: 'pranithjain84-portfolio',
-  key: 'viewer-count',
 };
 
 function formatNumber(value) {
@@ -68,72 +62,37 @@ function useTheme() {
   return { isDark, toggle };
 }
 
-async function countApiRequest(endpoint) {
-  const url = `https://api.countapi.xyz/${endpoint}/${COUNT_API.namespace}/${COUNT_API.key}`;
-  const res = await fetch(url, { cache: 'no-store' });
-  if (!res.ok) throw new Error(`CountAPI request failed: ${res.status}`);
-  const data = await res.json();
-  return typeof data?.value === 'number' ? data.value : null;
-}
-
 function useViewCount() {
   const [views, setViews] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    let cancelled = false;
-
-    const localFallback = () => {
-      try {
-        const localKey = 'pj_local_view_count';
-        const sessionKey = 'pj_viewed_this_session';
-
-        const current = Number(localStorage.getItem(localKey) || 0);
-        const hasViewed = sessionStorage.getItem(sessionKey) === '1';
-        const next = hasViewed ? current : current + 1;
-
-        if (!hasViewed) {
-          sessionStorage.setItem(sessionKey, '1');
-          localStorage.setItem(localKey, String(next));
-        }
-
-        return next;
-      } catch (e) {
-        console.warn('Local fallback failed:', e);
-        return 1;
+    try {
+      if (typeof window === "undefined") {
+        setViews(1);
+        setLoading(false);
+        return;
       }
-    };
 
-    (async () => {
-      try {
-        const sessionKey = 'pj_countapi_viewed_this_session';
-        if (typeof window === "undefined") {
-          return;
-        }
-        
-        const hasViewed = sessionStorage.getItem(sessionKey) === '1';
-        const value = hasViewed ? await countApiRequest('get') : await countApiRequest('hit');
-
-        if (!hasViewed && !cancelled) {
-          sessionStorage.setItem(sessionKey, '1');
-        }
-        
-        if (!cancelled) {
-          setViews(value ?? localFallback());
-          setLoading(false);
-        }
-      } catch (e) {
-        console.error('View count API failed:', e);
-        if (!cancelled) {
-          setViews(localFallback());
-          setLoading(false);
-        }
+      const localKey = 'pj_portfolio_views';
+      const sessionKey = 'pj_portfolio_viewed';
+      
+      let viewCount = parseInt(localStorage.getItem(localKey) || '0');
+      const hasViewed = sessionStorage.getItem(sessionKey) === 'true';
+      
+      if (!hasViewed) {
+        viewCount += 1;
+        localStorage.setItem(localKey, viewCount.toString());
+        sessionStorage.setItem(sessionKey, 'true');
       }
-    })();
-
-    return () => {
-      cancelled = true;
-    };
+      
+      setViews(viewCount || 1);
+      setLoading(false);
+    } catch (error) {
+      console.warn('View count failed, using fallback:', error);
+      setViews(1);
+      setLoading(false);
+    }
   }, []);
 
   return { views, loading };
@@ -399,7 +358,7 @@ export default function App() {
               </h1>
 
               <p className="mt-5 max-w-2xl text-lg text-slate-600 dark:text-slate-300">
-                I’m Pranith Jain — a Security Analyst focused on email infrastructure security and deliverability. I connect OSINT,
+                I'm Pranith Jain — a Security Analyst focused on email infrastructure security and deliverability. I connect OSINT,
                 telemetry and attacker behavior to actionable controls: from SPF/DKIM/DMARC hardening to cloud security operations,
                 threat hunting and automation-led remediation.
               </p>
@@ -497,45 +456,23 @@ export default function App() {
           </section>
 
           <section id="about" className="mt-20 scroll-mt-24">
-            <SectionHeading
-              kicker="About"
-              title="Blending security, deliverability and intelligence"
-              subtitle="A practical, operations-first approach: protect the sender identity, improve inbox placement, and use intelligence to move faster with confidence."
-            />
-
-            <div className="grid gap-6 md:grid-cols-2">
-              <Card>
-                <p className="text-slate-600 dark:text-slate-300">
-                  I work at the intersection of <span className="font-semibold text-slate-900 dark:text-white">email security</span>,
-                  <span className="font-semibold text-slate-900 dark:text-white"> cloud security</span>, and
-                  <span className="font-semibold text-slate-900 dark:text-white"> threat intelligence</span>.
-                  My day-to-day involves validating indicators, mapping activity to MITRE ATT&CK, hardening authentication policies,
-                  and turning fragmented telemetry into actionable remediation.
-                </p>
-              </Card>
-
-              <Card>
-                <p className="text-slate-600 dark:text-slate-300">
-                  A major part of my work is automation. Using <span className="font-semibold text-slate-900 dark:text-white">n8n</span>,
-                  AI agents and prompt engineering, I build workflows and dashboards to monitor reputation, authentication health,
-                  bounce behavior and deliverability trends — reducing manual effort and improving response time.
-                </p>
-              </Card>
-            </div>
+            <SectionHeading kicker="About" title="Focused on email security & deliverability across domains" />
+            <p className="mx-auto max-w-3xl text-center text-slate-600 dark:text-slate-300">
+              I specialize in email authentication, domain reputation management, and threat intelligence to protect organizations from email-based threats while maintaining high deliverability rates.
+            </p>
           </section>
 
           <section id="skills" className="mt-20 scroll-mt-24">
-            <SectionHeading kicker="Skills" title="What I do" subtitle="Focused skill groups aligned to real-world operations." />
-
-            <div className="grid gap-6 md:grid-cols-2">
-              {skills.map((group) => (
-                <Card key={group.category}>
-                  <div className="text-lg font-bold">{group.category}</div>
-                  <ul className="mt-4 space-y-2 text-sm text-slate-600 dark:text-slate-300">
-                    {group.items.map((item) => (
-                      <li key={item} className="flex gap-3">
-                        <span className="mt-1.5 h-2 w-2 flex-none rounded-full bg-brand-500" aria-hidden="true" />
-                        <span>{item}</span>
+            <SectionHeading kicker="Skills" title="Core competencies" />
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
+              {skills.map((cat) => (
+                <Card key={cat.category}>
+                  <div className="text-sm font-semibold">{cat.category}</div>
+                  <ul className="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+                    {cat.items.map((item) => (
+                      <li key={item} className="relative pl-4">
+                        <span className="absolute left-0 text-brand-600 dark:text-brand-300">•</span>
+                        {item}
                       </li>
                     ))}
                   </ul>
@@ -545,31 +482,28 @@ export default function App() {
           </section>
 
           <section id="experience" className="mt-20 scroll-mt-24">
-            <SectionHeading kicker="Experience" title="Hands-on roles" subtitle="Selected highlights from security, SOC and engineering work." />
-
-            <div className="space-y-5">
-              {experience.map((role) => (
-                <Card key={`${role.org}-${role.title}`}>
-                  <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+            <SectionHeading kicker="Experience" title="Career timeline" />
+            <div className="grid gap-8">
+              {experience.map((exp) => (
+                <Card key={`${exp.org}-${exp.period}`}>
+                  <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
                     <div>
-                      <div className="text-lg font-extrabold tracking-tight">{role.title}</div>
-                      <div className="mt-1 text-sm font-semibold text-brand-700 dark:text-brand-300">{role.org}</div>
-                      <div className="mt-1 text-sm text-slate-600 dark:text-slate-300">
-                        {role.period} • {role.location}
+                      <div className="text-base font-semibold">{exp.title}</div>
+                      <div className="text-sm text-slate-600 dark:text-slate-300">
+                        {exp.org} • {exp.location} • {exp.period}
                       </div>
                     </div>
-                    {role.highlight ? (
-                      <div className="rounded-xl bg-brand-50 px-4 py-2 text-xs font-semibold text-brand-800 dark:bg-white/10 dark:text-brand-200">
-                        {role.highlight}
-                      </div>
+                    {exp.highlight ? (
+                      <span className="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300">
+                        {exp.highlight}
+                      </span>
                     ) : null}
                   </div>
-
-                  <ul className="mt-4 space-y-2 text-sm text-slate-600 dark:text-slate-300">
-                    {role.bullets.map((bullet) => (
-                      <li key={bullet} className="flex gap-3">
-                        <span className="mt-1.5 h-2 w-2 flex-none rounded-full bg-brand-500" aria-hidden="true" />
-                        <span>{bullet}</span>
+                  <ul className="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+                    {exp.bullets.map((bullet, idx) => (
+                      <li key={idx} className="relative pl-4">
+                        <span className="absolute left-0 text-brand-600 dark:text-brand-300">•</span>
+                        {bullet}
                       </li>
                     ))}
                   </ul>
@@ -579,17 +513,12 @@ export default function App() {
           </section>
 
           <section id="certifications" className="mt-20 scroll-mt-24">
-            <SectionHeading
-              kicker="Certifications"
-              title="Credentials & training"
-              subtitle="A selection of certifications aligned with cybercrime investigation, cloud security and email security operations."
-            />
-
+            <SectionHeading kicker="Certifications" title="Credentials & continuous learning" />
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {certifications.map((cert) => (
-                <Card key={cert.name} className="p-5">
-                  <div className="text-sm font-bold">{cert.name}</div>
-                  <div className="mt-2 text-xs text-slate-600 dark:text-slate-300">
+                <Card key={`${cert.name}-${cert.org}`}>
+                  <div className="text-sm font-semibold">{cert.name}</div>
+                  <div className="mt-1 text-sm text-slate-600 dark:text-slate-300">
                     {cert.org} • {cert.year}
                   </div>
                 </Card>
@@ -598,21 +527,17 @@ export default function App() {
           </section>
 
           <section id="projects" className="mt-20 scroll-mt-24">
-            <SectionHeading kicker="Projects" title="What I build" subtitle="A few representative projects and systems I’ve worked on." />
-
-            <div className="grid gap-6 md:grid-cols-3">
+            <SectionHeading kicker="Projects" title="Recent work & initiatives" />
+            <div className="grid gap-6">
               {projects.map((project) => (
                 <Card key={project.title}>
-                  <div className="text-base font-extrabold tracking-tight">{project.title}</div>
-                  <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">{project.description}</p>
-                  <div className="mt-4 flex flex-wrap gap-2">
+                  <div className="text-base font-semibold">{project.title}</div>
+                  <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{project.description}</p>
+                  <div className="mt-3 flex flex-wrap gap-2">
                     {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-800 dark:bg-white/10 dark:text-brand-200"
-                      >
-                        {tag}
-                      </span>
+                      <Pill key={tag}>
+                        <span className="text-xs">{tag}</span>
+                      </Pill>
                     ))}
                   </div>
                 </Card>
@@ -621,71 +546,35 @@ export default function App() {
           </section>
 
           <section id="contact" className="mt-20 scroll-mt-24">
-            <SectionHeading kicker="Contact" title="Let’s connect" subtitle="If you’re building secure, reliable outbound systems or threat intel workflows, I’d love to help." />
-
-            <div className="grid gap-6 md:grid-cols-3">
+            <SectionHeading kicker="Contact" title="Let's talk security" subtitle="Reach out to discuss email security, deliverability and threat intelligence challenges." />
+            <div className="mx-auto max-w-3xl">
               <Card>
-                <div className="text-sm font-semibold">Email</div>
-                <a
-                  className="mt-2 block text-sm font-semibold text-brand-700 hover:underline dark:text-brand-300"
-                  href={`mailto:${CONTACT.email}`}
-                >
-                  {CONTACT.email}
-                </a>
-                <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">Best for quick questions, collaboration or opportunities.</p>
-              </Card>
-
-              <Card>
-                <div className="text-sm font-semibold">LinkedIn</div>
-                <a
-                  className="mt-2 block text-sm font-semibold text-brand-700 hover:underline dark:text-brand-300"
-                  href={CONTACT.linkedIn}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  www.linkedin.com/in/pranithjain
-                </a>
-                <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">Connect and see the full experience + endorsements.</p>
-              </Card>
-
-              <Card>
-                <div className="text-sm font-semibold">Meeting</div>
-                <a
-                  className="mt-2 block text-sm font-semibold text-brand-700 hover:underline dark:text-brand-300"
-                  href={CONTACT.calendly}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  calendly.com/pranithjain84/30min
-                </a>
-                <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">30 minutes, focused and actionable.</p>
-              </Card>
-            </div>
-
-            <div className="mt-8">
-              <Card className="p-0">
-                <div className="flex items-center justify-between gap-4 px-6 py-5">
-                  <div>
-                    <div className="text-sm font-semibold">Quick booking</div>
-                    <div className="mt-1 text-sm text-slate-600 dark:text-slate-300">
-                      Prefer embedded scheduling? Open Calendly in a new tab for the best experience.
-                    </div>
+                <div className="text-center">
+                  <div className="text-lg font-semibold mb-4">Get in Touch</div>
+                  <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
+                    <a
+                      href={CONTACT.linkedIn}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center justify-center rounded-xl bg-brand-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-500"
+                    >
+                      LinkedIn Profile
+                    </a>
+                    <a
+                      href={`mailto:${CONTACT.email}`}
+                      className="inline-flex items-center justify-center rounded-xl border border-slate-200/60 bg-white/70 px-6 py-3 text-sm font-semibold text-slate-800 transition hover:shadow-md dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-100"
+                    >
+                      Email Direct
+                    </a>
+                    <a
+                      href={CONTACT.calendly}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100"
+                    >
+                      Schedule Meeting
+                    </a>
                   </div>
-                  <a
-                    href={CONTACT.calendly}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex flex-none items-center justify-center rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-500"
-                  >
-                    Book now
-                  </a>
-                </div>
-                <div className="hidden border-t border-slate-200/60 p-2 dark:border-white/10 lg:block">
-                  <iframe
-                    title="Calendly"
-                    src={`${CONTACT.calendly}?hide_gdpr_banner=1`}
-                    className="h-[620px] w-full rounded-2xl"
-                  />
                 </div>
               </Card>
             </div>
