@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // REMOVE IFRAME that causes CSP issues - replace with a simpler contact section
 const CONTACT = {
@@ -7,6 +7,122 @@ const CONTACT = {
   calendly: 'https://calendly.com/pranithjain84/30min',
   location: 'Greater Bengaluru Area • UAE (Remote-friendly)',
 };
+
+const SKILLS = [
+  {
+    category: 'Email Deliverability & Security',
+    items: ['SPF / DKIM / DMARC / BIMI', 'Domain reputation hardening', 'Inbox placement optimization', 'Email header & TLS/SMTP forensics'],
+  },
+  {
+    category: 'Threat Intelligence & OSINT',
+    items: ['MITRE ATT&CK mapping', 'Threat hunting (CTH)', 'Indicators validation', 'OSINT workflows & investigation'],
+  },
+  {
+    category: 'Cloud Security (GCP/AWS/Azure)',
+    items: ['IAM design', 'Zero Trust concepts', 'CSPM / DSPM / DLP', 'VPC controls & Cloud Armor'],
+  },
+  {
+    category: 'Automation & AI',
+    items: ['n8n workflow automation', 'AI agents & LLM tooling', 'Deliverability dashboards', 'Prompt engineering for investigations'],
+  },
+];
+
+const EXPERIENCE = [
+  {
+    title: 'Email Deliverability and Security Specialist',
+    org: 'Qubit Capital',
+    period: 'Jul 2024 — Present',
+    location: 'United Arab Emirates',
+    bullets: [
+      'Secure and operate email infrastructure for 2,000+ mailboxes across 1,000+ domains (Google Workspace, Microsoft Outlook).',
+      'Implement SPF, DKIM, DMARC and BIMI; enforce strict MX/TLS policies; isolate domains to protect sender identity.',
+      'Run forensic analysis using Postmaster telemetry and SMTP/TLS logs to detect reputation drift, spoofing and abuse patterns.',
+      'Automate deliverability monitoring and investigation workflows using n8n + AI tooling to reduce manual effort and response time.',
+    ],
+    highlight: '96.78% inbox delivery • 25% reduction in spam placement',
+  },
+  {
+    title: "Google Cloud Cybersecurity Scholar (GCLP '25)",
+    org: 'Google Cloud Skills Boost',
+    period: 'Jun 2025 — Sep 2025',
+    location: 'Hands-on training program',
+    bullets: [
+      'Earned Google Cloud Cybersecurity Certificate and completed practical labs across IAM, VPC design, monitoring and incident response.',
+      'Capstone: microservices security using Cloud Run, Cloud SQL and Cloud Armor.',
+    ],
+  },
+  {
+    title: 'Cloud Security Intern',
+    org: 'ZeroRisk Labs',
+    period: 'May 2025 — Jul 2025',
+    location: 'Internship',
+    bullets: [
+      'Built cloud-based threat detection using Cloud Logging, BigQuery and Cloud Functions.',
+      'Applied zero-trust network controls using custom firewall rules and VPC Service Controls.',
+      'Studied enterprise security requirements (ISO 27001, SOC 2, GDPR, HIPAA).',
+    ],
+  },
+  {
+    title: 'SOC Analyst Intern',
+    org: 'Tracelay',
+    period: 'Jul 2024 — Oct 2024',
+    location: 'Bengaluru, India',
+    bullets: [
+      'Monitored environments using NDR/XDR/EDR and SIEM tooling; analyzed alerts and escalated incidents.',
+      'Contributed to threat intelligence reports and improved detection accuracy with external intel sources.',
+    ],
+  },
+  {
+    title: 'Junior Support Engineer',
+    org: 'UnifyCX',
+    period: 'Sep 2023 — Jul 2024',
+    location: 'Mysuru, India',
+    bullets: [
+      'Resolved 100+ weekly tickets across DNS, email, WordPress and SSL/TLS issues with strong client satisfaction.',
+      'Specialized in deliverability troubleshooting and security hardening for hosted environments.',
+    ],
+  },
+  {
+    title: 'Associate Software Developer',
+    org: 'TekWorks',
+    period: 'Mar 2023 — Sep 2023',
+    location: 'Vijayawada, India',
+    bullets: ['Built a hospital management system and responsive web UI; worked on API integration and testing workflows.'],
+  },
+];
+
+const CERTIFICATIONS = [
+  { name: 'Certified Cyber Criminologist', org: 'Virtual Cyber Labs', year: '2025' },
+  { name: 'Proofpoint Certified AI Data Security Specialist', org: 'Proofpoint', year: '2025' },
+  { name: 'Proofpoint Certified AI Email Security Specialist', org: 'Proofpoint', year: '2025' },
+  { name: 'Proofpoint Certified Email Authentication Specialist', org: 'Proofpoint', year: '2025' },
+  { name: 'Google Cloud Cybersecurity Certificate', org: 'Google', year: '2025' },
+  { name: 'Certified Multi-Cloud Blue Team Analyst (MCBTA)', org: 'CyberWarFare Labs', year: '2025' },
+  { name: 'Certified Network Security Practitioner (CNSP)', org: 'The SecOps Group', year: '2025' },
+  { name: 'Certified MindStudio AI Agent Developer', org: 'MindStudio', year: '2025' },
+  { name: 'OpSec – Privacy for Security Professionals', org: 'Just Hacking Training', year: '2025' },
+];
+
+const PROJECTS = [
+  {
+    title: 'Cloud-Based Ransomware Detection & Recovery (GCP)',
+    description:
+      'A cloud security capstone focused on detection signals, recovery workflow design, and protective controls (logging, monitoring, and network hardening).',
+    tags: ['GCP', 'Detection Engineering', 'Cloud Logging', 'Recovery'],
+  },
+  {
+    title: 'Email Security Playbook & Investigation Framework',
+    description:
+      'Structured triage and response process for phishing, spoofing, authentication gaps and domain abuse—built to be operational and repeatable.',
+    tags: ['IR', 'Email Security', 'SPF/DKIM/DMARC', 'OSINT'],
+  },
+  {
+    title: 'Automation-led Deliverability Monitoring',
+    description:
+      'Workflow automation with n8n + AI agents to monitor sender reputation and authentication health, reducing manual investigation loops.',
+    tags: ['n8n', 'AI Agents', 'Dashboards', 'Automation'],
+  },
+];
 
 function useTheme() {
   const [isDark, setIsDark] = useState(() => {
@@ -123,134 +239,6 @@ function Card({ children, className = '' }) {
 
 export default function App() {
   const { isDark, toggle } = useTheme();
-
-  const skills = useMemo(
-    () => [
-      {
-        category: 'Email Deliverability & Security',
-        items: ['SPF / DKIM / DMARC / BIMI', 'Domain reputation hardening', 'Inbox placement optimization', 'Email header & TLS/SMTP forensics'],
-      },
-      {
-        category: 'Threat Intelligence & OSINT',
-        items: ['MITRE ATT&CK mapping', 'Threat hunting (CTH)', 'Indicators validation', 'OSINT workflows & investigation'],
-      },
-      {
-        category: 'Cloud Security (GCP/AWS/Azure)',
-        items: ['IAM design', 'Zero Trust concepts', 'CSPM / DSPM / DLP', 'VPC controls & Cloud Armor'],
-      },
-      {
-        category: 'Automation & AI',
-        items: ['n8n workflow automation', 'AI agents & LLM tooling', 'Deliverability dashboards', 'Prompt engineering for investigations'],
-      },
-    ],
-    [],
-  );
-
-  const experience = useMemo(
-    () => [
-      {
-        title: 'Email Deliverability and Security Specialist',
-        org: 'Qubit Capital',
-        period: 'Jul 2024 — Present',
-        location: 'United Arab Emirates',
-        bullets: [
-          'Secure and operate email infrastructure for 2,000+ mailboxes across 1,000+ domains (Google Workspace, Microsoft Outlook).',
-          'Implement SPF, DKIM, DMARC and BIMI; enforce strict MX/TLS policies; isolate domains to protect sender identity.',
-          'Run forensic analysis using Postmaster telemetry and SMTP/TLS logs to detect reputation drift, spoofing and abuse patterns.',
-          'Automate deliverability monitoring and investigation workflows using n8n + AI tooling to reduce manual effort and response time.',
-        ],
-        highlight: '96.78% inbox delivery • 25% reduction in spam placement',
-      },
-      {
-        title: "Google Cloud Cybersecurity Scholar (GCLP '25)",
-        org: 'Google Cloud Skills Boost',
-        period: 'Jun 2025 — Sep 2025',
-        location: 'Hands-on training program',
-        bullets: [
-          'Earned Google Cloud Cybersecurity Certificate and completed practical labs across IAM, VPC design, monitoring and incident response.',
-          'Capstone: microservices security using Cloud Run, Cloud SQL and Cloud Armor.',
-        ],
-      },
-      {
-        title: 'Cloud Security Intern',
-        org: 'ZeroRisk Labs',
-        period: 'May 2025 — Jul 2025',
-        location: 'Internship',
-        bullets: [
-          'Built cloud-based threat detection using Cloud Logging, BigQuery and Cloud Functions.',
-          'Applied zero-trust network controls using custom firewall rules and VPC Service Controls.',
-          'Studied enterprise security requirements (ISO 27001, SOC 2, GDPR, HIPAA).',
-        ],
-      },
-      {
-        title: 'SOC Analyst Intern',
-        org: 'Tracelay',
-        period: 'Jul 2024 — Oct 2024',
-        location: 'Bengaluru, India',
-        bullets: [
-          'Monitored environments using NDR/XDR/EDR and SIEM tooling; analyzed alerts and escalated incidents.',
-          'Contributed to threat intelligence reports and improved detection accuracy with external intel sources.',
-        ],
-      },
-      {
-        title: 'Junior Support Engineer',
-        org: 'UnifyCX',
-        period: 'Sep 2023 — Jul 2024',
-        location: 'Mysuru, India',
-        bullets: [
-          'Resolved 100+ weekly tickets across DNS, email, WordPress and SSL/TLS issues with strong client satisfaction.',
-          'Specialized in deliverability troubleshooting and security hardening for hosted environments.',
-        ],
-      },
-      {
-        title: 'Associate Software Developer',
-        org: 'TekWorks',
-        period: 'Mar 2023 — Sep 2023',
-        location: 'Vijayawada, India',
-        bullets: ['Built a hospital management system and responsive web UI; worked on API integration and testing workflows.'],
-      },
-    ],
-    [],
-  );
-
-  const certifications = useMemo(
-    () => [
-      { name: 'Certified Cyber Criminologist', org: 'Virtual Cyber Labs', year: '2025' },
-      { name: 'Proofpoint Certified AI Data Security Specialist', org: 'Proofpoint', year: '2025' },
-      { name: 'Proofpoint Certified AI Email Security Specialist', org: 'Proofpoint', year: '2025' },
-      { name: 'Proofpoint Certified Email Authentication Specialist', org: 'Proofpoint', year: '2025' },
-      { name: 'Google Cloud Cybersecurity Certificate', org: 'Google', year: '2025' },
-      { name: 'Certified Multi-Cloud Blue Team Analyst (MCBTA)', org: 'CyberWarFare Labs', year: '2025' },
-      { name: 'Certified Network Security Practitioner (CNSP)', org: 'The SecOps Group', year: '2025' },
-      { name: 'Certified MindStudio AI Agent Developer', org: 'MindStudio', year: '2025' },
-      { name: 'OpSec – Privacy for Security Professionals', org: 'Just Hacking Training', year: '2025' },
-    ],
-    [],
-  );
-
-  const projects = useMemo(
-    () => [
-      {
-        title: 'Cloud-Based Ransomware Detection & Recovery (GCP)',
-        description:
-          'A cloud security capstone focused on detection signals, recovery workflow design, and protective controls (logging, monitoring, and network hardening).',
-        tags: ['GCP', 'Detection Engineering', 'Cloud Logging', 'Recovery'],
-      },
-      {
-        title: 'Email Security Playbook & Investigation Framework',
-        description:
-          'Structured triage and response process for phishing, spoofing, authentication gaps and domain abuse—built to be operational and repeatable.',
-        tags: ['IR', 'Email Security', 'SPF/DKIM/DMARC', 'OSINT'],
-      },
-      {
-        title: 'Automation-led Deliverability Monitoring',
-        description:
-          'Workflow automation with n8n + AI agents to monitor sender reputation and authentication health, reducing manual investigation loops.',
-        tags: ['n8n', 'AI Agents', 'Dashboards', 'Automation'],
-      },
-    ],
-    [],
-  );
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-brand-50 via-white to-white dark:from-slate-950 dark:via-slate-950 dark:to-slate-900">
@@ -422,7 +410,7 @@ export default function App() {
           <section id="skills" className="mt-20 scroll-mt-24">
             <SectionHeading kicker="Skills" title="Core competencies" />
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
-              {skills.map((cat) => (
+              {SKILLS.map((cat) => (
                 <Card key={cat.category}>
                   <div className="text-sm font-semibold">{cat.category}</div>
                   <ul className="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
@@ -441,7 +429,7 @@ export default function App() {
           <section id="experience" className="mt-20 scroll-mt-24">
             <SectionHeading kicker="Experience" title="Career timeline" />
             <div className="grid gap-8">
-              {experience.map((exp) => (
+              {EXPERIENCE.map((exp) => (
                 <Card key={`${exp.org}-${exp.period}`}>
                   <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
                     <div>
@@ -472,7 +460,7 @@ export default function App() {
           <section id="certifications" className="mt-20 scroll-mt-24">
             <SectionHeading kicker="Certifications" title="Credentials & continuous learning" />
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {certifications.map((cert) => (
+              {CERTIFICATIONS.map((cert) => (
                 <Card key={`${cert.name}-${cert.org}`}>
                   <div className="text-sm font-semibold">{cert.name}</div>
                   <div className="mt-1 text-sm text-slate-600 dark:text-slate-300">
@@ -486,7 +474,7 @@ export default function App() {
           <section id="projects" className="mt-20 scroll-mt-24">
             <SectionHeading kicker="Projects" title="Recent work & initiatives" />
             <div className="grid gap-6">
-              {projects.map((project) => (
+              {PROJECTS.map((project) => (
                 <Card key={project.title}>
                   <div className="text-base font-semibold">{project.title}</div>
                   <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{project.description}</p>

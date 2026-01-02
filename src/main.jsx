@@ -1,20 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
-import ErrorBoundary from './ErrorBoundary.jsx';
 import './index.css';
 
-const rootElement = document.getElementById('root');
-
-if (rootElement) {
-  const root = ReactDOM.createRoot(rootElement);
-  root.render(
-    <React.StrictMode>
-      <ErrorBoundary>
+if (typeof window !== 'undefined' && document.readyState) {
+  const rootElement = document.getElementById('root');
+  if (rootElement) {
+    const root = ReactDOM.createRoot(rootElement);
+    root.render(
+      <React.StrictMode>
         <App />
-      </ErrorBoundary>
-    </React.StrictMode>
-  );
+      </React.StrictMode>
+    );
+  } else {
+    console.error("Root element #root not found");
+  }
 } else {
-  console.error("Root element #root not found");
+  document.addEventListener('DOMContentLoaded', () => {
+    const rootElement = document.getElementById('root');
+    if (rootElement) {
+      const root = ReactDOM.createRoot(rootElement);
+      root.render(
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      );
+    }
+  });
 }
