@@ -4,7 +4,7 @@
   "description": "Pranith Jain - Portfolio Website",
   "private": true,
   "scripts": {
-    "build": "echo 'Static site - no build required'",
+    "build": "mkdir -p dist && cp index.html script.js dist/",
     "start": "echo 'Static site - serve index.html directly'",
     "test": "echo 'No tests configured'"
   },
