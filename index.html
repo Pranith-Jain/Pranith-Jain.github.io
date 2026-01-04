@@ -9,12 +9,12 @@
       name="description"
       content="Pranith Jain — Certified Cyber Criminologist and Security Analyst focused on email deliverability & security, OSINT/threat intelligence, and cloud security operations."
     />
-    <meta name="theme-color" content="#2563EB" />
+    <meta name="theme-color" content="#2c3ee5" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@600;700;800&display=swap"
       rel="stylesheet"
     />
 
@@ -29,21 +29,22 @@
           extend: {
             colors: {
               brand: {
-                50: '#EFF6FF',
-                100: '#DBEAFE',
-                200: '#BFDBFE',
-                300: '#93C5FD',
-                400: '#60A5FA',
-                500: '#3B82F6',
-                600: '#2563EB',
-                700: '#1D4ED8',
-                800: '#1E40AF',
-                900: '#1E3A8A',
-                950: '#172554',
+                50: '#f5f7ff',
+                100: '#ebf0fe',
+                200: '#ced9fd',
+                300: '#a1b6fb',
+                400: '#6d8bf7',
+                500: '#435ef1',
+                600: '#2c3ee5',
+                700: '#232ebf',
+                800: '#21299b',
+                900: '#1f267c',
+                950: '#121649',
               },
             },
             fontFamily: {
-              sans: ['Poppins', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+              sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+              display: ['Poppins', 'sans-serif'],
             },
             boxShadow: {
               glow: '0 0 0 1px rgba(37, 99, 235, 0.25), 0 18px 60px rgba(37, 99, 235, 0.15)',
@@ -56,6 +57,9 @@
       @layer base {
         html {
           font-family: theme('fontFamily.sans');
+        }
+        h1, h2, h3, h4, h5, h6 {
+          font-family: theme('fontFamily.display');
         }
         html.dark {
           color-scheme: dark;
@@ -129,15 +133,16 @@
               </span>
             </a>
 
-            <nav class="hidden items-center gap-1 md:flex">
-              <a href="#about" class="rounded-full px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white">About</a>
-              <a href="#skills" class="rounded-full px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white">Skills</a>
-              <a href="#companies" class="rounded-full px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white">Companies</a>
-              <a href="#experience" class="rounded-full px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white">Experience</a>
-              <a href="#certifications" class="rounded-full px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white">Certifications</a>
-              <a href="#projects" class="rounded-full px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white">Projects</a>
-              <a href="#contact" class="rounded-full px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white">Contact</a>
-            </nav>
+              <nav class="hidden items-center gap-1 md:flex">
+                <a href="#about" class="rounded-full px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white">About</a>
+                <a href="#skills" class="rounded-full px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white">Skills</a>
+                <a href="#companies" class="rounded-full px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white">Companies</a>
+                <a href="#experience" class="rounded-full px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white">Experience</a>
+                <a href="#certifications" class="rounded-full px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white">Certifications</a>
+                <a href="#projects" class="rounded-full px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white">Projects</a>
+                <a href="#featured" class="rounded-full px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white">Featured</a>
+                <a href="#contact" class="rounded-full px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white">Contact</a>
+              </nav>
 
             <div class="flex items-center gap-2">
               <button
@@ -179,6 +184,7 @@
               <a href="#experience" class="mobile-nav-link rounded-lg px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10">Experience</a>
               <a href="#certifications" class="mobile-nav-link rounded-lg px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10">Certifications</a>
               <a href="#projects" class="mobile-nav-link rounded-lg px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10">Projects</a>
+              <a href="#featured" class="mobile-nav-link rounded-lg px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10">Featured</a>
               <a href="#contact" class="mobile-nav-link rounded-lg px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10">Contact</a>
             </nav>
           </div>
@@ -217,7 +223,10 @@
                 <a href="https://www.linkedin.com/in/pranithjain" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center rounded-2xl border border-slate-200/60 bg-white/70 px-5 py-3 text-sm font-semibold text-slate-800 shadow-sm transition hover:shadow-md hover:scale-105 active:scale-95 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-100">
                   View LinkedIn
                 </a>
-                <a href="mailto:pranithjainbp84@gmail.com" class="inline-flex items-center justify-center rounded-2xl border border-slate-200/60 bg-white/70 px-5 py-3 text-sm font-semibold text-slate-800 shadow-sm transition hover:shadow-md hover:scale-105 active:scale-95 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-100">
+                <a href="https://github.com/Pranith-Jain" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center rounded-2xl border border-slate-200/60 bg-white/70 px-5 py-3 text-sm font-semibold text-slate-800 shadow-sm transition hover:shadow-md hover:scale-105 active:scale-95 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-100">
+                  GitHub
+                </a>
+                <a href="mailto:hello@pranithjain.qzz.io" class="inline-flex items-center justify-center rounded-2xl border border-slate-200/60 bg-white/70 px-5 py-3 text-sm font-semibold text-slate-800 shadow-sm transition hover:shadow-md hover:scale-105 active:scale-95 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-100">
                   Email me
                 </a>
               </div>
@@ -253,8 +262,9 @@
                 <div class="text-sm font-semibold">Contact</div>
                 <div class="mt-3 space-y-2 text-sm">
                   <div class="text-slate-600 dark:text-slate-300">Greater Bengaluru Area (Remote-friendly)</div>
-                  <a href="mailto:pranithjainbp84@gmail.com" class="block font-medium text-brand-700 hover:underline dark:text-brand-300">pranithjainbp84@gmail.com</a>
+                  <a href="mailto:hello@pranithjain.qzz.io" class="block font-medium text-brand-700 hover:underline dark:text-brand-300">hello@pranithjain.qzz.io</a>
                   <a href="https://www.linkedin.com/in/pranithjain" target="_blank" rel="noreferrer" class="block font-medium text-brand-700 hover:underline dark:text-brand-300">linkedin.com/in/pranithjain</a>
+                  <a href="https://github.com/Pranith-Jain" target="_blank" rel="noreferrer" class="block font-medium text-brand-700 hover:underline dark:text-brand-300">github.com/Pranith-Jain</a>
                 </div>
               </div>
 
@@ -268,13 +278,18 @@
 
           <!-- About Section -->
           <section id="about" class="mt-20 scroll-mt-24" data-aos="fade-up">
-            <div class="mx-auto mb-8 max-w-2xl text-center">
-              <div class="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-brand-700 dark:text-brand-300">About</div>
-              <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">Focused on email security & deliverability across domains</h2>
+            <div class="mx-auto mb-8 max-w-3xl text-center">
+              <div class="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-brand-700 dark:text-brand-300">About Me</div>
+              <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl text-slate-900 dark:text-white">Securing the Gateway to Business Operations</h2>
             </div>
-            <p class="mx-auto max-w-3xl text-center text-slate-600 dark:text-slate-300">
-              I specialize in email authentication, domain reputation management, and threat intelligence to protect organizations from email-based threats while maintaining high deliverability rates.
-            </p>
+            <div class="mx-auto mt-6 max-w-3xl space-y-4 text-center text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
+              <p>
+                I am a Security Analyst with a deep focus on <span class="text-brand-700 dark:text-brand-400 font-semibold">Email Infrastructure and Deliverability</span>. My work bridges the gap between technical security controls and business-critical communication, ensuring that organizations can reach their audience without compromising on security or reputation.
+              </p>
+              <p>
+                With experience managing over <span class="font-bold text-slate-900 dark:text-white">2,000 mailboxes</span> and <span class="font-bold text-slate-900 dark:text-white">1,000 domains</span>, I specialize in architecting resilient outbound systems, enforcing strict authentication policies (SPF/DKIM/DMARC), and utilizing OSINT and threat intelligence to stay ahead of emerging threats.
+              </p>
+            </div>
           </section>
 
           <!-- Skills Section -->
@@ -378,35 +393,11 @@
                   <span class="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300">96.78% inbox delivery • 25% reduction in spam placement</span>
                 </div>
                 <ul class="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
-                  <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Secure and operate email infrastructure for 2,000+ mailboxes across 1,000+ domains (Google Workspace, Microsoft Outlook).</li>
-                  <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Implement SPF, DKIM, DMARC and BIMI; enforce strict MX/TLS policies; isolate domains to protect sender identity.</li>
-                  <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Run forensic analysis using Postmaster telemetry and SMTP/TLS logs to detect reputation drift, spoofing and abuse patterns.</li>
-                  <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Automate deliverability monitoring and investigation workflows using n8n + AI tooling to reduce manual effort and response time.</li>
-                </ul>
-              </div>
-              <div class="glass rounded-2xl p-6 shadow-sm transition-all hover:shadow-md" data-aos="fade-up">
-                <div class="text-base font-semibold">Google Cloud Cybersecurity Scholar (GCLP '25)</div>
-                <div class="text-sm text-slate-600 dark:text-slate-300">Google Cloud Skills Boost • Hands-on training program • Jun 2025 — Sep 2025</div>
-                <ul class="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
-                  <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Earned Google Cloud Cybersecurity Certificate and completed practical labs across IAM, VPC design, monitoring and incident response.</li>
-                  <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Capstone: microservices security using Cloud Run, Cloud SQL and Cloud Armor.</li>
-                </ul>
-              </div>
-              <div class="glass rounded-2xl p-6 shadow-sm transition-all hover:shadow-md" data-aos="fade-up">
-                <div class="text-base font-semibold">Cloud Security Intern</div>
-                <div class="text-sm text-slate-600 dark:text-slate-300">ZeroRisk Labs • Internship • May 2025 — Jul 2025</div>
-                <ul class="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
-                  <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Built cloud-based threat detection using Cloud Logging, BigQuery and Cloud Functions.</li>
-                  <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Applied zero-trust network controls using custom firewall rules and VPC Service Controls.</li>
-                  <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Studied enterprise security requirements (ISO 27001, SOC 2, GDPR, HIPAA).</li>
-                </ul>
-              </div>
-              <div class="glass rounded-2xl p-6 shadow-sm transition-all hover:shadow-md" data-aos="fade-up">
-                <div class="text-base font-semibold">SOC Analyst Intern</div>
-                <div class="text-sm text-slate-600 dark:text-slate-300">Tracelay • Bengaluru, India • Jul 2024 — Oct 2024</div>
-                <ul class="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
-                  <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Monitored environments using ExtraHop NDR, Sophos XDR, Cybereason EDR and Sumo Logic SIEM; analyzed alerts and escalated incidents.</li>
-                  <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Contributed to threat intelligence reports and improved detection accuracy with external intel sources.</li>
+                  <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Architect and secure high-volume outbound email infrastructure for lead generation, cold email and investor outreach across 2,000 plus mailboxes and 1,000 plus domains on Google Workspace and Microsoft Outlook. Own SPF, DKIM, DMARC and BIMI implementation. Enforce strict MX and TLS policies, domain isolation and transport security to protect sender identity, brand visibility and inbox trust.</li>
+                  <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Design and execute domain and mailbox warmup strategies. Calibrate ramp curves, daily volumes, reply simulation and engagement ratios. Define campaign-level sending limits segmented by domain, mailbox and persona. Continuously adjust based on inbox placement, throttling signals and reputation telemetry.</li>
+                  <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Perform forensic deliverability and abuse analysis using Google Postmaster Tools, MailReach, GlockApps and SMTP or TLS logs. Detect anomalous sending behavior, reputation drift, spoofing attempts and mailbox provider enforcement patterns. Lead remediation that improved inbox placement and reply rates.</li>
+                  <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Build and harden outbound GTM infrastructure for 150 plus startups and enterprises across AI, HealthTech, FinTech, Energy and SaaS. Supported brands include AlphaSearch, BlendHealth, Axolotl Biosciences, Blue Vision Capital and MoneyVerse. Create and maintain an email deliverability dashboard to centralize inbox health, reputation signals and campaign performance for faster diagnosis and decision-making.</li>
+                  <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Apply AI and automation across deliverability and GTM workflows using GenAI, prompt engineering, agentic browsing, n8n automation and App Script. Automate warmup governance, monitoring, alerting and remediation. Maintain the Email Security and Deliverability Playbook covering phishing risk, domain abuse and compliant cold outreach.</li>
                 </ul>
               </div>
               <div class="glass rounded-2xl p-6 shadow-sm transition-all hover:shadow-md" data-aos="fade-up">
@@ -427,46 +418,126 @@
             </div>
           </section>
 
-          <!-- Certifications Section -->
+          <!-- Certifications & Coursework Section -->
           <section id="certifications" class="mt-20 scroll-mt-24">
             <div class="mx-auto mb-8 max-w-2xl text-center" data-aos="fade-up">
-              <div class="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-brand-700 dark:text-brand-300">Certifications</div>
-              <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">Credentials & continuous learning</h2>
+              <div class="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-brand-700 dark:text-brand-300">Credentials</div>
+              <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">Certifications & Coursework</h2>
             </div>
             <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <!-- Advanced Training & Bootcamps -->
               <div class="glass rounded-2xl p-6 shadow-sm transition-transform hover:-translate-y-1" data-aos="fade-up">
-                <div class="text-sm font-semibold">Certified Cyber Criminologist</div>
-                <div class="mt-1 text-sm text-slate-600 dark:text-slate-300">Virtual Cyber Labs • 2025</div>
+                <div class="text-xs font-bold text-brand-600 dark:text-brand-400 mb-1 uppercase tracking-wider">Advanced Training</div>
+                <div class="text-sm font-semibold">CTRL. ALT. ACT. (Advanced OSINT Training)</div>
+                <div class="mt-1 text-sm text-slate-600 dark:text-slate-300">Cyber Secured India • Nov 2025 - Oct 2025</div>
               </div>
               <div class="glass rounded-2xl p-6 shadow-sm transition-transform hover:-translate-y-1" data-aos="fade-up">
+                <div class="text-xs font-bold text-brand-600 dark:text-brand-400 mb-1 uppercase tracking-wider">Bootcamp</div>
+                <div class="text-sm font-semibold">MindStudio AI Agent Developer 3 Bootcamp</div>
+                <div class="mt-1 text-sm text-slate-600 dark:text-slate-300">MindStudio • Aug 2025 - Sept 2025</div>
+              </div>
+              <div class="glass rounded-2xl p-6 shadow-sm transition-transform hover:-translate-y-1" data-aos="fade-up">
+                <div class="text-xs font-bold text-brand-600 dark:text-brand-400 mb-1 uppercase tracking-wider">Certification</div>
+                <div class="text-sm font-semibold">Certified Cyber Criminologist</div>
+                <div class="mt-1 text-sm text-slate-600 dark:text-slate-300">Virtual Cyber Labs • Oct 2025 - Dec 2025</div>
+              </div>
+
+              <!-- Scholarship & Internships (Moved from Experience) -->
+              <div class="glass rounded-2xl p-6 shadow-sm transition-transform hover:-translate-y-1" data-aos="fade-up">
+                <div class="text-xs font-bold text-brand-600 dark:text-brand-400 mb-1 uppercase tracking-wider">Scholarship</div>
+                <div class="text-sm font-semibold">Google Cloud Cybersecurity Scholar (GCLP '25)</div>
+                <div class="mt-1 text-sm text-slate-600 dark:text-slate-300">Google Cloud Skills Boost • Jun 2025 - Sep 2025</div>
+              </div>
+              <div class="glass rounded-2xl p-6 shadow-sm transition-transform hover:-translate-y-1" data-aos="fade-up">
+                <div class="text-xs font-bold text-brand-600 dark:text-brand-400 mb-1 uppercase tracking-wider">Internship</div>
+                <div class="text-sm font-semibold">Cloud Security Intern</div>
+                <div class="mt-1 text-sm text-slate-600 dark:text-slate-300">ZeroRisk Labs • May 2025 - Jul 2025</div>
+              </div>
+              <div class="glass rounded-2xl p-6 shadow-sm transition-transform hover:-translate-y-1" data-aos="fade-up">
+                <div class="text-xs font-bold text-brand-600 dark:text-brand-400 mb-1 uppercase tracking-wider">Internship</div>
+                <div class="text-sm font-semibold">SOC Analyst Intern</div>
+                <div class="mt-1 text-sm text-slate-600 dark:text-slate-300">Tracelay • Jul 2024 - Oct 2024</div>
+              </div>
+
+              <!-- More Bootcamps & Internships -->
+              <div class="glass rounded-2xl p-6 shadow-sm transition-transform hover:-translate-y-1" data-aos="fade-up">
+                <div class="text-xs font-bold text-brand-600 dark:text-brand-400 mb-1 uppercase tracking-wider">Bootcamp</div>
+                <div class="text-sm font-semibold">7-Day Offensive Bootcamp</div>
+                <div class="mt-1 text-sm text-slate-600 dark:text-slate-300">ZeroRisk Labs • May 2025</div>
+              </div>
+              <div class="glass rounded-2xl p-6 shadow-sm transition-transform hover:-translate-y-1" data-aos="fade-up">
+                <div class="text-xs font-bold text-brand-600 dark:text-brand-400 mb-1 uppercase tracking-wider">Internship</div>
+                <div class="text-sm font-semibold">HCS - Penetration Testing Internship</div>
+                <div class="mt-1 text-sm text-slate-600 dark:text-slate-300">Hacktify • Feb 2025</div>
+              </div>
+              <div class="glass rounded-2xl p-6 shadow-sm transition-transform hover:-translate-y-1" data-aos="fade-up">
+                <div class="text-xs font-bold text-brand-600 dark:text-brand-400 mb-1 uppercase tracking-wider">Internship</div>
+                <div class="text-sm font-semibold">Cybersecurity Internship</div>
+                <div class="mt-1 text-sm text-slate-600 dark:text-slate-300">The Red Users • Nov 2024</div>
+              </div>
+
+              <!-- Job Simulations -->
+              <div class="glass rounded-2xl p-6 shadow-sm transition-transform hover:-translate-y-1" data-aos="fade-up">
+                <div class="text-xs font-bold text-brand-600 dark:text-brand-400 mb-1 uppercase tracking-wider">Job Simulation</div>
+                <div class="text-sm font-semibold">AIG - Shields Up: Cybersecurity</div>
+                <div class="mt-1 text-sm text-slate-600 dark:text-slate-300">Forage • Jun 2024</div>
+              </div>
+              <div class="glass rounded-2xl p-6 shadow-sm transition-transform hover:-translate-y-1" data-aos="fade-up">
+                <div class="text-xs font-bold text-brand-600 dark:text-brand-400 mb-1 uppercase tracking-wider">Job Simulation</div>
+                <div class="text-sm font-semibold">Verizon - Cloud Platform</div>
+                <div class="mt-1 text-sm text-slate-600 dark:text-slate-300">Forage • Jun 2024</div>
+              </div>
+              <div class="glass rounded-2xl p-6 shadow-sm transition-transform hover:-translate-y-1" data-aos="fade-up">
+                <div class="text-xs font-bold text-brand-600 dark:text-brand-400 mb-1 uppercase tracking-wider">Job Simulation</div>
+                <div class="text-sm font-semibold">Mastercard - Cybersecurity</div>
+                <div class="mt-1 text-sm text-slate-600 dark:text-slate-300">Forage • Jun 2024</div>
+              </div>
+
+              <!-- Lab Work -->
+              <div class="glass rounded-2xl p-6 shadow-sm transition-transform hover:-translate-y-1" data-aos="fade-up">
+                <div class="text-xs font-bold text-brand-600 dark:text-brand-400 mb-1 uppercase tracking-wider">Lab Work</div>
+                <div class="text-sm font-semibold">SOC Labs</div>
+                <div class="mt-1 text-sm text-slate-600 dark:text-slate-300">LetsDefend • June 2024 - Sept 2024</div>
+              </div>
+              <div class="glass rounded-2xl p-6 shadow-sm transition-transform hover:-translate-y-1" data-aos="fade-up">
+                <div class="text-xs font-bold text-brand-600 dark:text-brand-400 mb-1 uppercase tracking-wider">Threat Analysis</div>
+                <div class="text-sm font-semibold">Threat Analysis Training</div>
+                <div class="mt-1 text-sm text-slate-600 dark:text-slate-300">Picus Security • July 2024 - Sept 2024</div>
+              </div>
+
+              <!-- Previous Certifications -->
+              <div class="glass rounded-2xl p-6 shadow-sm transition-transform hover:-translate-y-1" data-aos="fade-up">
+                <div class="text-xs font-bold text-brand-600 dark:text-brand-400 mb-1 uppercase tracking-wider">Certification</div>
                 <div class="text-sm font-semibold">Proofpoint Certified AI Data Security Specialist</div>
                 <div class="mt-1 text-sm text-slate-600 dark:text-slate-300">Proofpoint • 2025</div>
               </div>
               <div class="glass rounded-2xl p-6 shadow-sm transition-transform hover:-translate-y-1" data-aos="fade-up">
+                <div class="text-xs font-bold text-brand-600 dark:text-brand-400 mb-1 uppercase tracking-wider">Certification</div>
                 <div class="text-sm font-semibold">Proofpoint Certified AI Email Security Specialist</div>
                 <div class="mt-1 text-sm text-slate-600 dark:text-slate-300">Proofpoint • 2025</div>
               </div>
               <div class="glass rounded-2xl p-6 shadow-sm transition-transform hover:-translate-y-1" data-aos="fade-up">
+                <div class="text-xs font-bold text-brand-600 dark:text-brand-400 mb-1 uppercase tracking-wider">Certification</div>
                 <div class="text-sm font-semibold">Proofpoint Certified Email Authentication Specialist</div>
                 <div class="mt-1 text-sm text-slate-600 dark:text-slate-300">Proofpoint • 2025</div>
               </div>
               <div class="glass rounded-2xl p-6 shadow-sm transition-transform hover:-translate-y-1" data-aos="fade-up">
+                <div class="text-xs font-bold text-brand-600 dark:text-brand-400 mb-1 uppercase tracking-wider">Certification</div>
                 <div class="text-sm font-semibold">Google Cloud Cybersecurity Certificate</div>
                 <div class="mt-1 text-sm text-slate-600 dark:text-slate-300">Google • 2025</div>
               </div>
               <div class="glass rounded-2xl p-6 shadow-sm transition-transform hover:-translate-y-1" data-aos="fade-up">
-                <div class="text-sm font-semibold">Certified Multi-Cloud Blue Team Analyst (MCBTA)</div>
+                <div class="text-xs font-bold text-brand-600 dark:text-brand-400 mb-1 uppercase tracking-wider">Certification</div>
+                <div class="text-sm font-semibold">Multi-Cloud Blue Team Analyst (MCBTA)</div>
                 <div class="mt-1 text-sm text-slate-600 dark:text-slate-300">CyberWarFare Labs • 2025</div>
               </div>
               <div class="glass rounded-2xl p-6 shadow-sm transition-transform hover:-translate-y-1" data-aos="fade-up">
-                <div class="text-sm font-semibold">Certified Network Security Practitioner (CNSP)</div>
+                <div class="text-xs font-bold text-brand-600 dark:text-brand-400 mb-1 uppercase tracking-wider">Certification</div>
+                <div class="text-sm font-semibold">Network Security Practitioner (CNSP)</div>
                 <div class="mt-1 text-sm text-slate-600 dark:text-slate-300">The SecOps Group • 2025</div>
               </div>
               <div class="glass rounded-2xl p-6 shadow-sm transition-transform hover:-translate-y-1" data-aos="fade-up">
-                <div class="text-sm font-semibold">Certified MindStudio AI Agent Developer</div>
-                <div class="mt-1 text-sm text-slate-600 dark:text-slate-300">MindStudio • 2025</div>
-              </div>
-              <div class="glass rounded-2xl p-6 shadow-sm transition-transform hover:-translate-y-1" data-aos="fade-up">
+                <div class="text-xs font-bold text-brand-600 dark:text-brand-400 mb-1 uppercase tracking-wider">Training</div>
                 <div class="text-sm font-semibold">OpSec – Privacy for Security Professionals</div>
                 <div class="mt-1 text-sm text-slate-600 dark:text-slate-300">Just Hacking Training • 2025</div>
               </div>
@@ -513,6 +584,30 @@
             </div>
           </section>
 
+          <!-- Featured On Section -->
+          <section id="featured" class="mt-20 scroll-mt-24" data-aos="fade-up">
+            <div class="mx-auto mb-8 max-w-2xl text-center">
+              <div class="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-brand-700 dark:text-brand-300">Recognition</div>
+              <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">Featured On</h2>
+            </div>
+            <div class="flex flex-wrap justify-center gap-6">
+               <a href="https://www.devx.com/cybersecurity/how-to-ensure-data-privacy-in-cybersecurity-key-protection-tips/" target="_blank" rel="noreferrer" class="glass group flex items-center gap-4 p-4 rounded-2xl transition-all hover:shadow-glow hover:-translate-y-1">
+                 <div class="grid h-12 w-12 place-items-center rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300 font-bold">DevX</div>
+                 <div>
+                   <div class="text-sm font-bold group-hover:text-brand-600 dark:group-hover:text-brand-400">How to Ensure Data Privacy in Cybersecurity</div>
+                   <div class="text-xs text-slate-500">Key Protection Tips • DevX.com</div>
+                 </div>
+               </a>
+               <a href="https://featured.com/p/pranith-jain" target="_blank" rel="noreferrer" class="glass group flex items-center gap-4 p-4 rounded-2xl transition-all hover:shadow-glow hover:-translate-y-1">
+                 <div class="grid h-12 w-12 place-items-center rounded-xl bg-slate-50 text-slate-600 dark:bg-slate-800 dark:text-slate-300 font-bold">F</div>
+                 <div>
+                   <div class="text-sm font-bold group-hover:text-brand-600 dark:group-hover:text-brand-400">Featured Expert Profile</div>
+                   <div class="text-xs text-slate-500">Expert Insights • Featured.com</div>
+                 </div>
+               </a>
+            </div>
+          </section>
+
           <!-- Contact Section -->
           <section id="contact" class="mt-20 scroll-mt-24">
             <div class="mx-auto mb-8 max-w-2xl text-center" data-aos="fade-up">
@@ -528,9 +623,14 @@
                     <a href="https://www.linkedin.com/in/pranithjain" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center rounded-xl bg-brand-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-500 hover:scale-105 active:scale-95">
                       LinkedIn Profile
                     </a>
-                    <a href="mailto:pranithjainbp84@gmail.com" class="inline-flex items-center justify-center rounded-xl border border-slate-200/60 bg-white/70 px-6 py-3 text-sm font-semibold text-slate-800 transition hover:shadow-md hover:scale-105 active:scale-95 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-100">
-                      Email Direct
+                    <a href="https://github.com/Pranith-Jain" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center rounded-xl border border-slate-200/60 bg-white/70 px-6 py-3 text-sm font-semibold text-slate-800 transition hover:shadow-md hover:scale-105 active:scale-95 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-100">
+                      GitHub
                     </a>
+                    <a href="mailto:hello@pranithjain.qzz.io" class="inline-flex items-center justify-center rounded-xl border border-slate-200/60 bg-white/70 px-6 py-3 text-sm font-semibold text-slate-800 transition hover:shadow-md hover:scale-105 active:scale-95 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-100">
+                      hello@pranithjain.qzz.io
+                    </a>
+                  </div>
+                  <div class="mt-6">
                     <a href="https://calendly.com/pranithjain84/30min" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center rounded-xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 hover:scale-105 active:scale-95 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100">
                       Schedule Meeting
                     </a>
