@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // --- AOS Initialization ---
   AOS.init({
     duration: 800,
     easing: 'ease-in-out',
@@ -8,279 +7,247 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// --- Alpine.js App Data ---
 function appData() {
   return {
     darkMode: false,
-    mobileMenuOpen: false,
+    sidebarOpen: false,
     activeSection: 'dashboard',
 
-    // Navigation items with mega menus
     navItems: [
-      { id: 'dashboard', label: 'Dashboard' },
-      { 
-        id: 'overview', 
-        label: 'Overview',
-        children: [
-          { id: 'about', label: 'About', icon: '👤', description: 'Learn more about me' },
-          { id: 'experience', label: 'Experience', icon: '💼', description: 'My professional journey' },
-          { id: 'skills', label: 'Skills', icon: '🛠️', description: 'Technical expertise' },
-        ]
-      },
-      {
-        id: 'portfolio',
-        label: 'Portfolio',
-        children: [
-          { id: 'projects', label: 'Projects', icon: '🚀', description: 'Featured work' },
-          { id: 'certifications', label: 'Certifications', icon: '🎓', description: 'Credentials' },
-        ]
-      },
+      { id: 'dashboard', label: 'Dashboard', icon: '📊' },
+      { id: 'about', label: 'About', icon: '👤' },
+      { id: 'experience', label: 'Experience', icon: '💼', badge: '3' },
+      { id: 'certifications', label: 'Certifications', icon: '🎓', badge: '15+' },
+      { id: 'projects', label: 'Projects', icon: '🚀', badge: '3' },
+      { id: 'featured', label: 'Featured', icon: '⭐', badge: '3' },
+      { id: 'contact', label: 'Contact', icon: '📧' },
+    ],
+
+    secondaryNav: [
+      { id: 'dashboard', label: 'Home' },
+      { id: 'about', label: 'About' },
+      { id: 'experience', label: 'Experience' },
+      { id: 'certifications', label: 'Certifications' },
+      { id: 'projects', label: 'Projects' },
+      { id: 'featured', label: 'Featured' },
       { id: 'contact', label: 'Contact' },
     ],
 
-    // Sidebar navigation items
-    sidebarItems: [
-      { id: 'dashboard', label: 'Dashboard', icon: '📊', badge: null },
-      { id: 'about', label: 'About Me', icon: '👤', badge: null },
-      { id: 'experience', label: 'Experience', icon: '💼', badge: '5+' },
-      { id: 'skills', label: 'Skills', icon: '🛠️', badge: null },
-      { id: 'projects', label: 'Projects', icon: '🚀', badge: '12+' },
-      { id: 'certifications', label: 'Certifications', icon: '🎓', badge: '8' },
-      { id: 'contact', label: 'Contact', icon: '📧', badge: null },
+    get currentSectionTitle() {
+      const titles = {
+        dashboard: 'Dashboard',
+        about: 'About Me',
+        experience: 'Career Timeline',
+        certifications: 'Credentials',
+        projects: 'Recent Work',
+        featured: 'Expert Features',
+        contact: 'Get In Touch',
+      };
+      return titles[this.activeSection] || 'Dashboard';
+    },
+
+    get currentSectionSubtitle() {
+      const subtitles = {
+        dashboard: 'Overview of your security platform',
+        about: 'Professional profile and background',
+        experience: 'Work history and achievements',
+        certifications: 'Training and credentials',
+        projects: 'Featured initiatives and contributions',
+        featured: 'Industry recognition and publications',
+        contact: 'Reach out for consultations',
+      };
+      return subtitles[this.activeSection] || '';
+    },
+
+    skills: [
+      {
+        id: 1,
+        icon: '🛡️',
+        title: 'Email Security',
+        delay: 0,
+        items: [
+          'SPF/DKIM/DMARC/BIMI Implementation',
+          'Inbox Placement Optimization',
+          'Reputation Management',
+          'Phishing & Spoofing Mitigation',
+          'Domain Abuse Monitoring',
+        ]
+      },
+      {
+        id: 2,
+        icon: '🎯',
+        title: 'Threat Intelligence',
+        delay: 100,
+        items: [
+          'Threat hunting & DFIR workflows',
+          'Indicator of Compromise (IoC) analysis',
+          'Dark web monitoring & intel',
+          'Malware behavior analysis',
+        ]
+      },
+      {
+        id: 3,
+        icon: '👤',
+        title: 'OSINT & Investigations',
+        delay: 200,
+        items: [
+          'Advanced Digital Footprinting',
+          'Crypto & Blockchain tracing',
+          'Social engineering risk analysis',
+          'People & Entity investigations',
+        ]
+      },
+      {
+        id: 4,
+        icon: '🛡️',
+        title: 'Security Operations',
+        delay: 300,
+        items: [
+          'ExtraHop NDR & Sophos XDR',
+          'EDR & SIEM (Sumo Logic, ELK)',
+          'SOC operations & alert analysis',
+          'Vulnerability management',
+        ]
+      },
+      {
+        id: 5,
+        icon: '☁️',
+        title: 'Cloud Security',
+        delay: 400,
+        items: [
+          'IAM design & Zero Trust',
+          'CSPM / DSPM / DLP',
+          'VPC controls & Cloud Armor',
+          'GCP/AWS/Azure environments',
+        ]
+      },
+      {
+        id: 6,
+        icon: '⚡',
+        title: 'Automation & AI',
+        delay: 500,
+        items: [
+          'n8n workflow automation',
+          'AI agents & LLM tooling',
+          'Deliverability monitoring bots',
+          'Custom reputation dashboards',
+        ]
+      },
     ],
 
-    // Feature cards for dashboard
-    features: [
-      { 
-        id: 1, 
-        icon: '🛡️', 
-        title: 'Email Security', 
-        description: 'Protect outbound communication channels with advanced authentication protocols',
-        aos: 'fade-up'
-      },
-      { 
-        id: 2, 
-        icon: '🎯', 
-        title: 'Deliverability Optimization', 
-        description: 'Maximize email deliverability rates through infrastructure hardening',
-        aos: 'fade-up'
-      },
-      { 
-        id: 3, 
-        icon: '🔍', 
-        title: 'Threat Intelligence', 
-        description: 'OSINT-based threat detection and proactive security measures',
-        aos: 'fade-up'
-      },
-      { 
-        id: 4, 
-        icon: '⚙️', 
-        title: 'Infrastructure Hardening', 
-        description: 'Secure GTM infrastructure and reputation telemetry systems',
-        aos: 'fade-up'
-      },
-      { 
-        id: 5, 
-        icon: '📊', 
-        title: 'Security Audits', 
-        description: 'Comprehensive security assessments and vulnerability management',
-        aos: 'fade-up'
-      },
-      { 
-        id: 6, 
-        icon: '🤝', 
-        title: 'Consulting', 
-        description: 'Strategic guidance on email security and deliverability best practices',
-        aos: 'fade-up'
-      },
+    companies: [
+      'Alphasearch', 'BlendHealth', 'Axolotl Biosciences', 'Blue Vision Capital',
+      'MoneyVerse', 'Doctor Assistant', 'HealthSpectra AI', 'Query Health',
+      'Carbon Neutral Homes', 'VoltPath', 'Sentient Trader', 'SwyftFin',
     ],
 
-    // Expertise tabs
-    expertiseTabs: [
-      {
-        label: 'Email Security',
-        title: 'Email Security & Deliverability',
-        description: 'Specialized in protecting outbound email infrastructure, implementing SPF/DKIM/DMARC protocols, and maintaining high deliverability rates for enterprise clients.',
-        skills: ['SPF/DKIM/DMARC', 'BIMI Implementation', 'Reputation Management', 'Deliverability Auditing', 'Email Authentication', 'Anti-Phishing']
-      },
-      {
-        label: 'Threat Intelligence',
-        title: 'OSINT & Threat Intelligence',
-        description: 'Expert in Open Source Intelligence gathering, threat hunting, and proactive security measures to identify and mitigate emerging cyber threats.',
-        skills: ['OSINT Tools', 'Threat Hunting', 'Vulnerability Assessment', 'Security Analytics', 'Threat Modeling', 'Risk Assessment']
-      },
-      {
-        label: 'Cloud Security',
-        title: 'Cloud Security & Infrastructure',
-        description: 'Securing cloud-native environments, implementing zero-trust architectures, and hardening infrastructure for maximum resilience.',
-        skills: ['Cloud Security', 'Zero Trust', 'Infrastructure Hardening', 'Network Security', 'Identity Management', 'Security Monitoring']
-      },
-      {
-        label: 'Compliance',
-        title: 'Compliance & Governance',
-        description: 'Ensuring regulatory compliance and implementing governance frameworks across security operations.',
-        skills: ['GDPR Compliance', 'SOC 2', 'ISO 27001', 'Security Policies', 'Audit Preparation', 'Risk Management']
-      },
-    ],
-
-    // Professional experience
     experience: [
       {
-        role: 'Security Analyst & Email Deliverability Expert',
-        company: 'Independent Consultant',
-        period: '2022 - Present',
-        description: 'Helping 150+ global brands secure their outbound email infrastructure and maintain optimal deliverability rates. Specializing in reputation management and threat intelligence.',
-        skills: ['Email Security', 'Deliverability', 'DMARC', 'Consulting']
+        role: 'Email Deliverability and Security Specialist',
+        company: 'Qubit Capital',
+        period: 'Jul 2024 — Present',
+        achievement: '96.78% inbox delivery • 25% reduction in spam placement',
+        details: [
+          'Architect and secure high-volume outbound email infrastructure for lead generation, cold email and investor outreach across 2,000 plus mailboxes and 1,000 plus domains on Google Workspace and Microsoft Outlook. Own SPF, DKIM, DMARC and BIMI implementation. Enforce strict MX and TLS policies, domain isolation and transport security to protect sender identity, brand visibility and inbox trust.',
+          'Design and execute domain and mailbox warmup strategies. Calibrate ramp curves, daily volumes, reply simulation and engagement ratios. Define campaign-level sending limits segmented by domain, mailbox and persona. Continuously adjust based on inbox placement, throttling signals and reputation telemetry.',
+          'Perform forensic deliverability and abuse analysis using Google Postmaster Tools, MailReach, GlockApps and SMTP or TLS logs. Detect anomalous sending behavior, reputation drift, spoofing attempts and mailbox provider enforcement patterns. Lead remediation that improved inbox placement and reply rates.',
+          'Build and harden outbound GTM infrastructure for 150 plus startups and enterprises across AI, HealthTech, FinTech, Energy and SaaS. Supported brands include AlphaSearch, BlendHealth, Axolotl Biosciences, Blue Vision Capital and MoneyVerse. Create and maintain an email deliverability dashboard to centralize inbox health, reputation signals and campaign performance for faster diagnosis and decision-making.',
+          'Apply AI and automation across deliverability and GTM workflows using GenAI, prompt engineering, agentic browsing, n8n automation and App Script. Automate warmup governance, monitoring, alerting and remediation. Maintain Email Security and Deliverability Playbook covering phishing risk, domain abuse and compliant cold outreach.',
+        ]
       },
       {
-        role: 'Cyber Security Analyst',
-        company: 'Enterprise Security',
-        period: '2020 - 2022',
-        description: 'Led threat intelligence initiatives and implemented security measures to protect organizational assets. Conducted vulnerability assessments and security audits.',
-        skills: ['Threat Intelligence', 'Security Analysis', 'Penetration Testing', 'Risk Assessment']
+        role: 'Junior Support Engineer',
+        company: 'UnifyCX',
+        period: 'Sep 2023 — Jul 2024',
+        achievement: null,
+        details: [
+          'Resolved 100+ weekly tickets across DNS, email, WordPress and SSL/TLS issues with strong client satisfaction.',
+          'Specialized in deliverability troubleshooting and security hardening for hosted environments.',
+        ]
       },
       {
-        role: 'Junior Security Engineer',
-        company: 'Tech Solutions',
-        period: '2019 - 2020',
-        description: 'Assisted in implementing security controls and monitoring systems. Participated in incident response and security operations.',
-        skills: ['Security Operations', 'Monitoring', 'Incident Response']
+        role: 'Associate Software Developer',
+        company: 'TekWorks',
+        period: 'Mar 2023 — Sep 2023',
+        achievement: null,
+        details: [
+          'Built a hospital management system and responsive web UI; worked on API integration and testing workflows.',
+        ]
       },
     ],
 
-    // Skill categories
-    skillCategories: [
-      {
-        name: 'Email Security',
-        icon: '📧',
-        skills: ['SPF', 'DKIM', 'DMARC', 'BIMI', 'MIME-Defang', 'Postfix', 'Sendmail', 'Exim']
-      },
-      {
-        name: 'Security Tools',
-        icon: '🔐',
-        skills: ['Wireshark', 'Nmap', 'Burp Suite', 'Metasploit', 'Snort', 'Suricata', 'OSSEC', 'Wazuh']
-      },
-      {
-        name: 'Threat Intelligence',
-        icon: '🎯',
-        skills: ['Maltego', 'Shodan', 'Censys', 'VirusTotal', 'AbuseIPDB', 'Have I Been Pwned', 'SecurityTrails']
-      },
-      {
-        name: 'Cloud & DevOps',
-        icon: '☁️',
-        skills: ['AWS', 'GCP', 'Docker', 'Kubernetes', 'Terraform', 'Ansible', 'Jenkins', 'Git']
-      },
-      {
-        name: 'Scripting & Automation',
-        icon: '⚡',
-        skills: ['Python', 'Bash', 'PowerShell', 'JavaScript', 'Git', 'CI/CD', 'API Integration']
-      },
-      {
-        name: 'Network Security',
-        icon: '🌐',
-        skills: ['Firewall Rules', 'VPN', 'IDS/IPS', 'SIEM', 'Log Analysis', 'Network Forensics', 'Packet Analysis']
-      },
+    certifications: [
+      { category: 'Advanced Training', name: 'CTRL. ALT. ACT. (Advanced OSINT Training)', issuer: 'Cyber Secured India', period: 'Nov 2025 - Oct 2025' },
+      { category: 'Bootcamp', name: 'MindStudio AI Agent Developer 3 Bootcamp', issuer: 'MindStudio', period: 'Aug 2025 - Sept 2025' },
+      { category: 'Certification', name: 'Certified Cyber Criminologist', issuer: 'Virtual Cyber Labs', period: 'Oct 2025 - Dec 2025' },
+      { category: 'Scholarship', name: 'Google Cloud Cybersecurity Scholar (GCLP \'25)', issuer: 'Google Cloud Skills Boost', period: 'Jun 2025 - Sep 2025' },
+      { category: 'Internship', name: 'Cloud Security Intern', issuer: 'ZeroRisk Labs', period: 'May 2025 - Jul 2025' },
+      { category: 'Internship', name: 'SOC Analyst Intern', issuer: 'Tracelay', period: 'Jul 2024 - Oct 2024' },
+      { category: 'Bootcamp', name: '7-Day Offensive Bootcamp', issuer: 'ZeroRisk Labs', period: 'May 2025' },
+      { category: 'Internship', name: 'HCS - Penetration Testing Internship', issuer: 'Hacktify', period: 'Feb 2025' },
+      { category: 'Internship', name: 'Cybersecurity Internship', issuer: 'The Red Users', period: 'Nov 2024' },
+      { category: 'Job Simulation', name: 'AIG - Shields Up: Cybersecurity', issuer: 'Forage', period: 'Jun 2024' },
+      { category: 'Job Simulation', name: 'Verizon - Cloud Platform', issuer: 'Forage', period: 'Jun 2024' },
+      { category: 'Job Simulation', name: 'Mastercard - Cybersecurity', issuer: 'Forage', period: 'Jun 2024' },
+      { category: 'Lab Work', name: 'SOC Labs', issuer: 'LetsDefend', period: 'June 2024 - Sept 2024' },
+      { category: 'Threat Analysis', name: 'Threat Analysis Training', issuer: 'Picus Security', period: 'July 2024 - Sept 2024' },
+      { category: 'Certification', name: 'Proofpoint Certified AI Data Security Specialist', issuer: 'Proofpoint', period: '2025' },
+      { category: 'Certification', name: 'Proofpoint Certified AI Email Security Specialist', issuer: 'Proofpoint', period: '2025' },
+      { category: 'Certification', name: 'Proofpoint Certified Email Authentication Specialist', issuer: 'Proofpoint', period: '2025' },
+      { category: 'Certification', name: 'Google Cloud Cybersecurity Certificate', issuer: 'Google', period: '2025' },
+      { category: 'Certification', name: 'Multi-Cloud Blue Team Analyst (MCBTA)', issuer: 'CyberWarFare Labs', period: '2025' },
+      { category: 'Certification', name: 'Network Security Practitioner (CNSP)', issuer: 'The SecOps Group', period: '2025' },
+      { category: 'Training', name: 'OpSec – Privacy for Security Professionals', issuer: 'Just Hacking Training', period: '2025' },
     ],
 
-    // Featured projects
     projects: [
       {
-        icon: '🛡️',
-        title: 'Enterprise Email Security Platform',
-        description: 'Developed a comprehensive email security solution with real-time threat detection and automated SPF/DKIM/DMARC validation for enterprise clients.',
-        tech: ['Python', 'Django', 'PostgreSQL', 'Redis', 'Docker'],
-        status: 'Active'
+        title: 'Cloud-Based Ransomware Detection & Recovery (GCP)',
+        description: 'A cloud security capstone focused on detection signals, recovery workflow design, and protective controls (logging, monitoring, and network hardening).',
+        technologies: ['GCP', 'Detection Engineering', 'Cloud Logging', 'Recovery'],
       },
       {
-        icon: '📊',
-        title: 'Deliverability Analytics Dashboard',
-        description: 'Built a real-time analytics dashboard to track email deliverability metrics, sender reputation scores, and campaign performance across multiple domains.',
-        tech: ['React', 'Node.js', 'GraphQL', 'InfluxDB', 'Grafana'],
-        status: 'Active'
+        title: 'Email Security Playbook & Investigation Framework',
+        description: 'Structured triage and response process for phishing, spoofing, authentication gaps and domain abuse—built to be operational and repeatable.',
+        technologies: ['IR', 'Email Security', 'SPF/DKIM/DMARC', 'OSINT'],
       },
       {
-        icon: '🔍',
-        title: 'OSINT Threat Intelligence Tool',
-        description: 'Created an automated OSINT gathering tool that aggregates threat data from multiple sources and generates actionable intelligence reports.',
-        tech: ['Python', 'Elasticsearch', 'Kibana', 'APIs', 'Machine Learning'],
-        status: 'Active'
-      },
-      {
-        icon: '⚙️',
-        title: 'Infrastructure Hardening Framework',
-        description: 'Developed an automated infrastructure hardening framework that applies security best practices across cloud environments and on-premises systems.',
-        tech: ['Terraform', 'Ansible', 'Python', 'CIS Benchmarks', 'AWS IAM'],
-        status: 'Completed'
-      },
-      {
-        icon: '🎯',
-        title: 'Phishing Simulation Platform',
-        description: 'Built a phishing awareness and simulation platform to train employees on email security best practices and measure susceptibility rates.',
-        tech: ['Vue.js', 'Node.js', 'MongoDB', 'SendGrid API'],
-        status: 'Completed'
-      },
-      {
-        icon: '📈',
-        title: 'Security Metrics Pipeline',
-        description: 'Implemented a security metrics collection and visualization pipeline to track key performance indicators and compliance status.',
-        tech: ['Prometheus', 'Grafana', 'Python', 'Custom Scripts'],
-        status: 'Active'
+        title: 'Automation-led Deliverability Monitoring',
+        description: 'Workflow automation with n8n + AI agents to monitor sender reputation and authentication health, reducing manual investigation loops.',
+        technologies: ['n8n', 'AI Agents', 'Dashboards', 'Automation'],
       },
     ],
 
-    // Certifications
-    certifications: [
+    featured: [
       {
-        icon: '🎓',
-        name: 'Certified Cyber Criminologist',
-        issuer: 'Cyber Crime Investigation Bureau',
-        year: '2023'
+        url: 'https://www.devx.com/cybersecurity/how-to-ensure-data-privacy-in-cybersecurity-key-protection-tips/',
+        letter: 'D',
+        type: 'Published Article',
+        title: 'How to Ensure Data Privacy in Cybersecurity',
+        description: 'Strategic tips on data protection, encryption, and threat mitigation for modern enterprises.',
+        platform: 'DevX.com',
+        category: 'Cybersecurity Insights',
       },
       {
-        icon: '🔐',
-        name: 'CEH - Certified Ethical Hacker',
-        issuer: 'EC-Council',
-        year: '2022'
+        url: 'https://www.devx.com/cybersecurity/15-initiatives-to-build-a-strong-cybersecurity-culture/',
+        letter: 'D',
+        type: 'Published Article',
+        title: '15 Initiatives to Build a Strong Cybersecurity Culture',
+        description: 'Comprehensive framework for establishing organizational cybersecurity awareness and incident response preparedness.',
+        platform: 'DevX.com',
+        category: 'Cybersecurity Culture',
       },
       {
-        icon: '📧',
-        name: 'Email Deliverability Specialist',
-        issuer: 'Return Path',
-        year: '2022'
-      },
-      {
-        icon: '☁️',
-        name: 'AWS Security Specialty',
-        issuer: 'Amazon Web Services',
-        year: '2021'
-      },
-      {
-        icon: '🛡️',
-        name: 'CompTIA Security+',
-        issuer: 'CompTIA',
-        year: '2020'
-      },
-      {
-        icon: '🔍',
-        name: 'OSINT Professional',
-        issuer: 'SANS Institute',
-        year: '2020'
-      },
-      {
-        icon: '📊',
-        name: 'Google Cloud Security',
-        issuer: 'Google Cloud',
-        year: '2021'
-      },
-      {
-        icon: '🎖️',
-        name: 'ISO 27001 Lead Implementer',
-        issuer: 'PECB',
-        year: '2022'
+        url: 'https://featured.com/p/pranith-jain',
+        letter: 'F',
+        type: 'Expert Profile',
+        title: 'Featured Expert: OSINT & Threat Intelligence',
+        description: 'Specialized expertise in OSINT, data security, threat intelligence, and email deliverability optimization.',
+        platform: 'Featured.com',
+        category: 'Security Specialist',
       },
     ],
 
-    // Theme toggle functionality
     toggleTheme() {
       this.darkMode = !this.darkMode;
       if (this.darkMode) {
@@ -292,7 +259,6 @@ function appData() {
       }
     },
 
-    // Initialize theme from localStorage or system preference
     init() {
       const savedTheme = localStorage.getItem('theme');
       if (savedTheme === 'dark') {
@@ -302,7 +268,6 @@ function appData() {
         this.darkMode = false;
         document.documentElement.classList.remove('dark');
       } else {
-        // Use system preference
         this.darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
         if (this.darkMode) {
           document.documentElement.classList.add('dark');
@@ -311,10 +276,3 @@ function appData() {
     },
   };
 }
-
-// Initialize the app - make sure Alpine is loaded first
-window.addEventListener('load', () => {
-  if (typeof Alpine !== 'undefined') {
-    Alpine.data('appData', appData);
-  }
-});

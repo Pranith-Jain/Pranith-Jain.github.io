@@ -1,17 +1,16 @@
-# Pranith Jain - Security Intelligence Platform
+# Pranith Jain - Portfolio
 
-A professional, multi-purpose web application built with Alpine.js and Tailwind CSS. Designed as a modern security platform dashboard showcasing cybersecurity expertise and professional services.
+A unique, multi-purpose web application built with Alpine.js and Tailwind CSS. Designed as a modern security platform dashboard showcasing cybersecurity expertise and professional services.
 
 ## 🚀 Features
 
-- **Modern Dashboard Layout**: Sidebar navigation with app-like interface
-- **Mega Menu Navigation**: Hover-activated dropdowns with rich descriptions
+- **Modern Dashboard Layout**: Fixed sidebar navigation with app-like interface
+- **SPA-like Navigation**: Section-based routing without page reloads
 - **Interactive Components**: Tabbed interfaces, animated cards, and smooth transitions
 - **Dark/Light Mode**: Automatic theme detection with manual toggle
-- **Responsive Design**: Fully responsive across all devices
+- **Responsive Design**: Fully responsive across all devices with mobile menu
 - **Glass Morphism UI**: Modern glass-effect components with backdrop blur
-- **Animated Backgrounds**: Floating blobs and gradient animations
-- **Section-Based Routing**: SPA-like navigation without page reloads
+- **Animated Backgrounds**: Floating gradient blobs and glow effects
 - **AOS Animations**: Scroll-triggered entrance animations
 
 ## 🛠️ Tech Stack
@@ -19,7 +18,7 @@ A professional, multi-purpose web application built with Alpine.js and Tailwind 
 - **Alpine.js 3.x** - Lightweight JavaScript framework for interactivity
 - **Tailwind CSS** - Utility-first CSS framework
 - **AOS (Animate On Scroll)** - Scroll animation library
-- **Google Fonts** - Inter & Space Grotesk typography
+- **Google Fonts** - Inter, Poppins, and Space Grotesk typography
 - **Pure HTML/JavaScript** - No build step required
 
 ## 📁 Project Structure
@@ -38,12 +37,12 @@ A professional, multi-purpose web application built with Alpine.js and Tailwind 
 
 ## 🎨 Sections
 
-1. **Dashboard** - Welcome hero, feature cards, expertise tabs
+1. **Dashboard** - Welcome hero, stats, expertise cards, companies
 2. **About** - Personal profile and background
-3. **Experience** - Professional work history
-4. **Skills** - Technical expertise by category
-5. **Projects** - Featured portfolio work
-6. **Certifications** - Professional credentials
+3. **Experience** - Career timeline with achievements
+4. **Certifications** - Professional credentials and training
+5. **Projects** - Featured initiatives and contributions
+6. **Featured** - Expert features and industry publications
 7. **Contact** - Contact information and CTA
 
 ## 🚀 Development
@@ -82,21 +81,22 @@ Or manually upload:
 
 ### Alpine.js Data Management
 All application state is managed through the `appData()` function in `script.js`, including:
-- Navigation state
-- Theme preferences
-- Section content (features, experience, skills, projects, certifications)
+- Navigation state (active section, sidebar toggle)
+- Theme preferences with localStorage persistence
+- Section content (features, experience, skills, projects, certifications, featured)
+- Computed properties for section titles and subtitles
 
 ### Multi-Level Navigation
-- **Top Navigation**: Mega menu with hover-activated dropdowns
 - **Sidebar Navigation**: Persistent sidebar with quick stats and section links
+- **Top Navigation**: Secondary horizontal navigation bar
 - **Mobile Menu**: Collapsible hamburger menu for mobile devices
 
 ### Animations & Transitions
-- Floating background blobs
-- Gradient text animations
-- Card hover effects with scaling
-- Smooth section transitions
-- AOS scroll-triggered animations
+- Floating gradient blobs in background
+- Gradient text animations for headings
+- Card hover effects with scaling and shadows
+- Smooth section transitions with fade and slide effects
+- AOS scroll-triggered animations for content cards
 
 ### Dark Mode
 - Automatic system preference detection
@@ -107,18 +107,18 @@ All application state is managed through the `appData()` function in `script.js`
 
 ### Update Content
 Edit the data objects in `script.js`:
-- `features` - Dashboard feature cards
+- `skills` - Core expertise areas
 - `experience` - Work history
-- `skillCategories` - Technical skills
+- `companies` - Client/employer list
+- `certifications` - Certifications and training
 - `projects` - Portfolio projects
-- `certifications` - Certifications and credentials
+- `featured` - Featured articles and profiles
 
 ### Update Colors
 Modify the Tailwind config in `index.html`:
 ```javascript
 colors: {
-  primary: { /* your colors */ },
-  accent: { /* your colors */ }
+  brand: { /* your colors */ },
 }
 ```
 
@@ -155,7 +155,7 @@ MIT License - Feel free to use this template for your own projects!
 **Pranith Jain**
 - [LinkedIn](https://www.linkedin.com/in/pranithjain)
 - [GitHub](https://github.com/Pranith-Jain)
-- Email: pranithjain84@gmail.com
+- Email: hello@pranithjain.qzz.io
 
 ---
 
