@@ -87,25 +87,53 @@
   }
 }
 
-/* Theme Variables */
+/* Theme Variables - Enhanced Color Science */
 :root {
-  --neon-cyan: #0891b2;
-  --neon-pink: #be185d;
-  --neon-purple: #7c3aed;
-  --neon-green: #059669;
-  --glass-bg: rgba(255, 255, 255, 0.6);
-  --glass-border: rgba(15, 23, 42, 0.08);
+  /* Improved neon palette with better saturation and luminance balance */
+  --neon-cyan: #06b6d4;
+  --neon-pink: #ec4899;
+  --neon-purple: #a855f7;
+  --neon-green: #10b981;
+  --neon-orange: #f97316;
+
+  /* Harmonious brand colors */
+  --brand-primary: #3b82f6;
+  --brand-secondary: #6366f1;
+  --brand-accent: #8b5cf6;
+
+  /* Improved glass effects */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(15, 23, 42, 0.1);
+  --glass-shadow: rgba(0, 0, 0, 0.1);
+
+  /* Better contrast text colors */
   --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-tertiary: #94a3b8;
 }
 
 .dark {
-  --neon-cyan: #00fff9;
-  --neon-pink: #ff006e;
-  --neon-purple: #8b5cf6;
-  --neon-green: #00ff88;
-  --glass-bg: rgba(15, 23, 42, 0.4);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --text-primary: #f8fafc;
+  /* Vibrant dark mode neons */
+  --neon-cyan: #22d3ee;
+  --neon-pink: #f472b6;
+  --neon-purple: #c084fc;
+  --neon-green: #34d399;
+  --neon-orange: #fb923c;
+
+  /* Dark mode brand colors with better visibility */
+  --brand-primary: #60a5fa;
+  --brand-secondary: #818cf8;
+  --brand-accent: #a78bfa;
+
+  /* Dark mode glass with improved readability */
+  --glass-bg: rgba(15, 23, 42, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: rgba(0, 0, 0, 0.3);
+
+  /* Dark mode text with proper contrast */
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-tertiary: #94a3b8;
 }
 
 /* Global Styles with Theme Support */
@@ -120,20 +148,20 @@ body {
   background-color: #0a0a0f;
 }
 
-/* Gradient Mesh Background */
+/* Gradient Mesh Background - Enhanced Color Science */
 .gradient-mesh-bg {
-  background: 
-    radial-gradient(at 27% 37%, rgba(44, 62, 229, 0.15) 0px, transparent 50%),
-    radial-gradient(at 97% 21%, rgba(0, 255, 136, 0.1) 0px, transparent 50%),
-    radial-gradient(at 52% 99%, rgba(255, 0, 110, 0.1) 0px, transparent 50%),
-    radial-gradient(at 10% 29%, rgba(139, 92, 246, 0.15) 0px, transparent 50%),
-    radial-gradient(at 97% 96%, rgba(0, 255, 249, 0.1) 0px, transparent 50%),
-    radial-gradient(at 33% 50%, rgba(44, 62, 229, 0.12) 0px, transparent 50%),
-    radial-gradient(at 79% 53%, rgba(255, 0, 110, 0.08) 0px, transparent 50%);
+  background:
+    radial-gradient(at 27% 37%, rgba(59, 130, 246, 0.18) 0px, transparent 50%),
+    radial-gradient(at 97% 21%, rgba(16, 185, 129, 0.12) 0px, transparent 50%),
+    radial-gradient(at 52% 99%, rgba(236, 72, 153, 0.12) 0px, transparent 50%),
+    radial-gradient(at 10% 29%, rgba(168, 85, 247, 0.18) 0px, transparent 50%),
+    radial-gradient(at 97% 96%, rgba(6, 182, 212, 0.12) 0px, transparent 50%),
+    radial-gradient(at 33% 50%, rgba(99, 102, 241, 0.14) 0px, transparent 50%),
+    radial-gradient(at 79% 53%, rgba(249, 115, 22, 0.10) 0px, transparent 50%);
   position: fixed;
   inset: 0;
   z-index: 0;
-  opacity: 0.4;
+  opacity: 0.5;
   transition: opacity 0.5s ease;
 }
 
@@ -157,43 +185,51 @@ body {
   opacity: 1;
 }
 
-/* Glass Morphism Modern */
+/* Glass Morphism Modern - Enhanced */
 .glass-morphism {
-  background: rgba(255, 255, 255, 0.6);
+  background: var(--glass-bg);
   backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(15, 23, 42, 0.08);
+  border: 1px solid var(--glass-border);
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .dark .glass-morphism {
-  background: rgba(15, 23, 42, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
 }
 
 .glass-morphism:hover {
-  background: rgba(255, 255, 255, 0.8);
-  border-color: rgba(44, 62, 229, 0.3);
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(59, 130, 246, 0.4);
   transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(44, 62, 229, 0.1);
+  box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);
 }
 
 .dark .glass-morphism:hover {
-  background: rgba(15, 23, 42, 0.6);
-  border-color: rgba(0, 255, 249, 0.3);
-  box-shadow: 0 20px 40px rgba(0, 255, 249, 0.15);
+  background: rgba(15, 23, 42, 0.8);
+  border-color: rgba(34, 211, 238, 0.4);
+  box-shadow: 0 20px 40px rgba(34, 211, 238, 0.2);
 }
 
-/* Neon Glow Effects */
+/* Neon Glow Effects - Enhanced */
 .neon-cyan-glow {
-  box-shadow: 0 0 20px rgba(0, 255, 249, 0.5), 0 0 40px rgba(0, 255, 249, 0.3);
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.5), 0 0 40px rgba(6, 182, 212, 0.3), 0 0 60px rgba(6, 182, 212, 0.15);
 }
 
 .neon-pink-glow {
-  box-shadow: 0 0 20px rgba(255, 0, 110, 0.5), 0 0 40px rgba(255, 0, 110, 0.3);
+  box-shadow: 0 0 20px rgba(236, 72, 153, 0.5), 0 0 40px rgba(236, 72, 153, 0.3), 0 0 60px rgba(236, 72, 153, 0.15);
 }
 
 .neon-purple-glow {
-  box-shadow: 0 0 20px rgba(139, 92, 246, 0.5), 0 0 40px rgba(139, 92, 246, 0.3);
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.5), 0 0 40px rgba(168, 85, 247, 0.3), 0 0 60px rgba(168, 85, 247, 0.15);
+}
+
+.neon-green-glow {
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.5), 0 0 40px rgba(16, 185, 129, 0.3), 0 0 60px rgba(16, 185, 129, 0.15);
+}
+
+.neon-orange-glow {
+  box-shadow: 0 0 20px rgba(249, 115, 22, 0.5), 0 0 40px rgba(249, 115, 22, 0.3), 0 0 60px rgba(249, 115, 22, 0.15);
 }
 
 /* Text Glow */
@@ -228,12 +264,12 @@ body {
   animation-play-state: paused;
 }
 
-/* Enhanced Button Styles */
+/* Enhanced Button Styles - Improved Colors */
 .btn-neon {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, #2c3ee5, #00fff9);
-  border: 2px solid rgba(0, 255, 249, 0.5);
+  background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+  border: 2px solid rgba(6, 182, 212, 0.5);
   transition: all 0.3s ease;
 }
 
@@ -254,19 +290,19 @@ body {
 
 .btn-neon:hover {
   transform: scale(1.05) translateY(-2px);
-  box-shadow: 0 0 30px rgba(0, 255, 249, 0.6), 0 0 60px rgba(0, 255, 249, 0.4);
+  box-shadow: 0 0 30px rgba(6, 182, 212, 0.6), 0 0 60px rgba(168, 85, 247, 0.4);
 }
 
-/* Dynamic Badge Styles */
+/* Dynamic Badge Styles - Improved Colors */
 .badge-dynamic {
   position: relative;
-  background: linear-gradient(135deg, rgba(0, 255, 249, 0.1), rgba(44, 62, 229, 0.1));
-  border: 1px solid rgba(0, 255, 249, 0.3);
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.15), rgba(59, 130, 246, 0.15));
+  border: 1px solid rgba(6, 182, 212, 0.4);
   backdrop-filter: blur(10px);
   animation: pulse-glow 3s ease-in-out infinite;
 }
 
-/* Skill Card Hover Effect */
+/* Skill Card Hover Effect - Improved */
 .skill-card {
   position: relative;
   overflow: hidden;
@@ -280,7 +316,7 @@ body {
   width: 0;
   height: 0;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(0, 255, 249, 0.2), transparent);
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.25), transparent);
   transform: translate(-50%, -50%);
   transition: width 0.6s, height 0.6s;
 }
@@ -298,43 +334,51 @@ body {
   grid-auto-flow: dense;
 }
 
-.modular-grid > *:nth-child(3n) {
-  grid-column: span 1;
+.modular-grid > * {
   animation: float-enhanced 8s ease-in-out infinite;
 }
 
-.modular-grid > *:nth-child(5n) {
-  animation: float-enhanced 6s ease-in-out infinite 1s;
-}
+.modular-grid > *:nth-child(1) { animation-delay: 0s; }
+.modular-grid > *:nth-child(2) { animation-delay: 0.5s; }
+.modular-grid > *:nth-child(3) { animation-delay: 1s; }
+.modular-grid > *:nth-child(4) { animation-delay: 1.5s; }
+.modular-grid > *:nth-child(5) { animation-delay: 2s; }
+.modular-grid > *:nth-child(6) { animation-delay: 2.5s; }
+.modular-grid > *:nth-child(7) { animation-delay: 3s; }
+.modular-grid > *:nth-child(8) { animation-delay: 3.5s; }
+.modular-grid > *:nth-child(9) { animation-delay: 4s; }
+.modular-grid > *:nth-child(10) { animation-delay: 4.5s; }
+.modular-grid > *:nth-child(11) { animation-delay: 5s; }
+.modular-grid > *:nth-child(12) { animation-delay: 5.5s; }
 
-/* Scroll Progress Bar */
+/* Scroll Progress Bar - Improved Colors */
 #scroll-progress-bar {
   position: fixed;
   top: 0;
   left: 0;
   height: 4px;
-  background: linear-gradient(90deg, #00fff9, #2c3ee5, #ff006e);
-  box-shadow: 0 0 10px rgba(0, 255, 249, 0.8);
+  background: linear-gradient(90deg, var(--neon-cyan), var(--brand-primary), var(--neon-pink));
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.8);
   z-index: 9999;
   transition: width 0.1s ease;
 }
 
-/* Custom Scrollbar */
+/* Custom Scrollbar - Improved Colors */
 ::-webkit-scrollbar {
   width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a0a0f;
+  background: var(--glass-border);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #00fff9, #2c3ee5);
+  background: linear-gradient(180deg, var(--neon-cyan), var(--brand-primary));
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #ff006e, #8b5cf6);
+  background: linear-gradient(180deg, var(--neon-pink), var(--neon-purple));
 }
 
 /* Responsive Adjustments */
