@@ -29,17 +29,17 @@ function applyNeonColors() {
   const logo = document.querySelector('header a[href="#top"] span:first-of-type');
   if (logo) {
     logo.classList.add('animate-pulse-glow');
-    logo.style.background = 'linear-gradient(135deg, #00fff9, #2c3ee5, #ff006e)';
-    logo.style.boxShadow = '0 0 20px rgba(0, 255, 249, 0.6), 0 0 40px rgba(0, 255, 249, 0.4)';
+    logo.style.background = 'linear-gradient(135deg, var(--neon-cyan), var(--neon-purple), var(--neon-pink))';
+    logo.style.boxShadow = '0 0 20px rgba(0, 255, 249, 0.4)';
   }
   
   // Update badges
   const badges = document.querySelectorAll('span[class*="rounded-full"]');
   badges.forEach((badge, index) => {
     if (badge.textContent.includes('Certified')) {
-      badge.style.borderColor = 'rgba(0, 255, 249, 0.4)';
-      badge.style.background = 'rgba(0, 255, 249, 0.1)';
-      badge.style.color = '#00fff9';
+      badge.style.borderColor = 'var(--neon-cyan)';
+      badge.style.background = 'rgba(8, 145, 178, 0.1)';
+      badge.style.color = 'var(--neon-cyan)';
       badge.style.fontFamily = 'Space Grotesk, monospace';
       badge.classList.add('badge-dynamic');
     }
@@ -49,7 +49,7 @@ function applyNeonColors() {
   const buttons = document.querySelectorAll('a[class*="bg-brand-600"]');
   buttons.forEach(button => {
     button.classList.add('btn-neon');
-    button.style.background = 'linear-gradient(135deg, #2c3ee5, #00fff9)';
+    button.style.background = 'linear-gradient(135deg, #2c3ee5, var(--neon-cyan))';
   });
 }
 
@@ -119,8 +119,8 @@ function addChromaticEffects() {
   // Add glow to section headings
   const sectionHeadings = document.querySelectorAll('h2');
   sectionHeadings.forEach((heading, index) => {
-    const neonColors = ['#00fff9', '#ff006e', '#8b5cf6', '#00ff88'];
-    heading.style.textShadow = `0 0 20px ${neonColors[index % 4]}40`;
+    const neonVars = ['var(--neon-cyan)', 'var(--neon-pink)', 'var(--neon-purple)', 'var(--neon-green)'];
+    heading.style.textShadow = `0 0 15px ${neonVars[index % 4]}30`;
   });
 }
 

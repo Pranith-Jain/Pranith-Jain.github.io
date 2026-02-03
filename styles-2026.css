@@ -87,12 +87,37 @@
   }
 }
 
-/* Global Styles with Dark Theme */
+/* Theme Variables */
+:root {
+  --neon-cyan: #0891b2;
+  --neon-pink: #be185d;
+  --neon-purple: #7c3aed;
+  --neon-green: #059669;
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(15, 23, 42, 0.08);
+  --text-primary: #0f172a;
+}
+
+.dark {
+  --neon-cyan: #00fff9;
+  --neon-pink: #ff006e;
+  --neon-purple: #8b5cf6;
+  --neon-green: #00ff88;
+  --glass-bg: rgba(15, 23, 42, 0.4);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --text-primary: #f8fafc;
+}
+
+/* Global Styles with Theme Support */
 body {
-  background: #0a0a0f;
-  color: #f8fafc;
+  background-color: #f8fafc;
+  color: var(--text-primary);
   position: relative;
   overflow-x: hidden;
+}
+
+.dark body {
+  background-color: #0a0a0f;
 }
 
 /* Gradient Mesh Background */
@@ -108,6 +133,11 @@ body {
   position: fixed;
   inset: 0;
   z-index: 0;
+  opacity: 0.4;
+  transition: opacity 0.5s ease;
+}
+
+.dark .gradient-mesh-bg {
   opacity: 0.6;
 }
 
@@ -120,20 +150,36 @@ body {
   inset: 0;
   z-index: 1;
   pointer-events: none;
+  opacity: 0.3;
+}
+
+.dark .noise-texture-overlay {
+  opacity: 1;
 }
 
 /* Glass Morphism Modern */
 .glass-morphism {
-  background: rgba(15, 23, 42, 0.4);
+  background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(15, 23, 42, 0.08);
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.dark .glass-morphism {
+  background: rgba(15, 23, 42, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
 .glass-morphism:hover {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(44, 62, 229, 0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(44, 62, 229, 0.1);
+}
+
+.dark .glass-morphism:hover {
   background: rgba(15, 23, 42, 0.6);
   border-color: rgba(0, 255, 249, 0.3);
-  transform: translateY(-4px);
   box-shadow: 0 20px 40px rgba(0, 255, 249, 0.15);
 }
 
