@@ -1,0 +1,314 @@
+/* 2026 Web Design Trends - Modern Cybersecurity Portfolio */
+
+/* Noise Texture Animation */
+@keyframes noise {
+  0%, 100% { background-position: 0 0; }
+  10% { background-position: -5% -10%; }
+  20% { background-position: -15% 5%; }
+  30% { background-position: 7% -25%; }
+  40% { background-position: -5% 25%; }
+  50% { background-position: -15% 10%; }
+  60% { background-position: 15% 0%; }
+  70% { background-position: 0% 15%; }
+  80% { background-position: -10% 10%; }
+  90% { background-position: 10% 5%; }
+}
+
+/* Enhanced Float Animation */
+@keyframes float-enhanced {
+  0%, 100% { 
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  33% { 
+    transform: translateY(-20px) rotate(2deg) scale(1.05);
+  }
+  66% { 
+    transform: translateY(-10px) rotate(-2deg) scale(0.95);
+  }
+}
+
+/* Glitch Effect */
+@keyframes glitch {
+  0% { 
+    transform: translate(0);
+    filter: hue-rotate(0deg);
+  }
+  20% { 
+    transform: translate(-3px, 3px);
+    filter: hue-rotate(90deg);
+  }
+  40% { 
+    transform: translate(-3px, -3px);
+    filter: hue-rotate(180deg);
+  }
+  60% { 
+    transform: translate(3px, 3px);
+    filter: hue-rotate(270deg);
+  }
+  80% { 
+    transform: translate(3px, -3px);
+    filter: hue-rotate(360deg);
+  }
+  100% { 
+    transform: translate(0);
+    filter: hue-rotate(0deg);
+  }
+}
+
+/* Horizontal Scroll Animation */
+@keyframes scroll-horizontal {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Pulse Glow Effect */
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 20px rgba(0, 255, 249, 0.5);
+  }
+  50% {
+    opacity: 0.7;
+    box-shadow: 0 0 40px rgba(0, 255, 249, 0.8), 0 0 60px rgba(255, 0, 110, 0.4);
+  }
+}
+
+/* Chromatic Aberration Effect */
+@keyframes chromatic {
+  0%, 100% {
+    text-shadow: 
+      2px 0 0 rgba(0, 255, 249, 0.7),
+      -2px 0 0 rgba(255, 0, 110, 0.7);
+  }
+  50% {
+    text-shadow: 
+      -2px 0 0 rgba(0, 255, 249, 0.7),
+      2px 0 0 rgba(255, 0, 110, 0.7);
+  }
+}
+
+/* Global Styles with Dark Theme */
+body {
+  background: #0a0a0f;
+  color: #f8fafc;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Gradient Mesh Background */
+.gradient-mesh-bg {
+  background: 
+    radial-gradient(at 27% 37%, rgba(44, 62, 229, 0.15) 0px, transparent 50%),
+    radial-gradient(at 97% 21%, rgba(0, 255, 136, 0.1) 0px, transparent 50%),
+    radial-gradient(at 52% 99%, rgba(255, 0, 110, 0.1) 0px, transparent 50%),
+    radial-gradient(at 10% 29%, rgba(139, 92, 246, 0.15) 0px, transparent 50%),
+    radial-gradient(at 97% 96%, rgba(0, 255, 249, 0.1) 0px, transparent 50%),
+    radial-gradient(at 33% 50%, rgba(44, 62, 229, 0.12) 0px, transparent 50%),
+    radial-gradient(at 79% 53%, rgba(255, 0, 110, 0.08) 0px, transparent 50%);
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+/* Noise Texture Overlay */
+.noise-texture-overlay {
+  background-image: 
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+  animation: noise 0.3s infinite;
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Glass Morphism Modern */
+.glass-morphism {
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-morphism:hover {
+  background: rgba(15, 23, 42, 0.6);
+  border-color: rgba(0, 255, 249, 0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 255, 249, 0.15);
+}
+
+/* Neon Glow Effects */
+.neon-cyan-glow {
+  box-shadow: 0 0 20px rgba(0, 255, 249, 0.5), 0 0 40px rgba(0, 255, 249, 0.3);
+}
+
+.neon-pink-glow {
+  box-shadow: 0 0 20px rgba(255, 0, 110, 0.5), 0 0 40px rgba(255, 0, 110, 0.3);
+}
+
+.neon-purple-glow {
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.5), 0 0 40px rgba(139, 92, 246, 0.3);
+}
+
+/* Text Glow */
+.text-neon-glow {
+  text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+}
+
+/* Floating Card Effect */
+.floating-card-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.floating-card-3d:hover {
+  transform: translateY(-12px) rotateX(5deg) rotateY(5deg) scale(1.02);
+}
+
+/* Chromatic Text Effect */
+.chromatic-text {
+  position: relative;
+  animation: chromatic 3s ease-in-out infinite;
+}
+
+/* Horizontal Scroll Container */
+.horizontal-scroll {
+  display: flex;
+  gap: 1rem;
+  animation: scroll-horizontal 40s linear infinite;
+}
+
+.horizontal-scroll:hover {
+  animation-play-state: paused;
+}
+
+/* Enhanced Button Styles */
+.btn-neon {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #2c3ee5, #00fff9);
+  border: 2px solid rgba(0, 255, 249, 0.5);
+  transition: all 0.3s ease;
+}
+
+.btn-neon::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.btn-neon:hover::before {
+  left: 100%;
+}
+
+.btn-neon:hover {
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 0 30px rgba(0, 255, 249, 0.6), 0 0 60px rgba(0, 255, 249, 0.4);
+}
+
+/* Dynamic Badge Styles */
+.badge-dynamic {
+  position: relative;
+  background: linear-gradient(135deg, rgba(0, 255, 249, 0.1), rgba(44, 62, 229, 0.1));
+  border: 1px solid rgba(0, 255, 249, 0.3);
+  backdrop-filter: blur(10px);
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* Skill Card Hover Effect */
+.skill-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.skill-card::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 255, 249, 0.2), transparent);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.skill-card:hover::after {
+  width: 400px;
+  height: 400px;
+}
+
+/* Modular Grid Layout */
+.modular-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  grid-auto-flow: dense;
+}
+
+.modular-grid > *:nth-child(3n) {
+  grid-column: span 1;
+  animation: float-enhanced 8s ease-in-out infinite;
+}
+
+.modular-grid > *:nth-child(5n) {
+  animation: float-enhanced 6s ease-in-out infinite 1s;
+}
+
+/* Scroll Progress Bar */
+#scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #00fff9, #2c3ee5, #ff006e);
+  box-shadow: 0 0 10px rgba(0, 255, 249, 0.8);
+  z-index: 9999;
+  transition: width 0.1s ease;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0f;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #00fff9, #2c3ee5);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ff006e, #8b5cf6);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .modular-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .floating-card-3d:hover {
+    transform: translateY(-8px) scale(1.02);
+  }
+}
+
+/* Performance Optimizations */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
