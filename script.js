@@ -1,11 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
   // --- AOS Initialization ---
-  AOS.init({
-    duration: 800,
-    easing: 'ease-in-out',
-    once: true,
-    mirror: false,
-  });
+  if (window.AOS) {
+    AOS.init({
+      duration: 0,
+      easing: 'ease-out',
+      once: true,
+      mirror: false,
+      disable: true,
+    });
+  }
 
   // --- Theme Toggle ---
   const themeToggle = document.getElementById('theme-toggle');

@@ -4,22 +4,10 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Apply neon color scheme
   applyNeonColors();
-  
-  // Add floating animations
-  addFloatingAnimations();
-  
+
   // Enhance cards with 3D effects
   enhance3DCards();
-  
-  // Add chromatic effects to headings
-  addChromaticEffects();
-  
-  // Enhance scroll effects
-  enhanceScrollEffects();
-  
-  // Add horizontal scroll to companies section
-  addHorizontalScroll();
-  
+
   // Add interactive glow effects
   addInteractiveGlowEffects();
 });
@@ -28,7 +16,6 @@ function applyNeonColors() {
   // Update header logo
   const logo = document.querySelector('header a[href="#top"] span:first-of-type');
   if (logo) {
-    logo.classList.add('animate-pulse-glow');
     logo.style.background = 'linear-gradient(135deg, var(--brand-primary), var(--neon-cyan), var(--neon-purple))';
     logo.style.boxShadow = '0 0 20px rgba(6, 182, 212, 0.4)';
   }
@@ -248,7 +235,6 @@ function addNoiseAnimation() {
 }
 
 // Initialize noise animation
-addNoiseAnimation();
 
 // Add modular grid layout to certifications
 function enhanceModularGrid() {

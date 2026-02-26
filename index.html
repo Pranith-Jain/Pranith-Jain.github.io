@@ -20,8 +20,6 @@
 
     <!-- Tailwind Play CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <link href="styles-2026.css" rel="stylesheet" />
     <script>
       tailwind.config = {
@@ -115,7 +113,7 @@
         .shadow-glow {
           box-shadow: 0 0 20px -5px rgba(37, 99, 235, 0.5);
         }
-        .animate-float {
+        .{
           animation: float 6s ease-in-out infinite;
         }
         @keyframes float {
@@ -145,7 +143,7 @@
         <header class="sticky top-0 z-50 border-b border-slate-200/60 bg-white/65 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/60">
           <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
             <a href="#top" class="group inline-flex items-center gap-3">
-              <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-brand-600 to-brand-400 text-sm font-extrabold text-white shadow-glow animate-pulse-slow">
+              <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-brand-600 to-brand-400 text-sm font-extrabold text-white shadow-glow">
                 PJ
               </span>
               <span class="hidden text-sm font-semibold tracking-tight sm:inline">
@@ -312,7 +310,7 @@
                 </div>
 
                 <!-- Decorative Background Elements -->
-                <div class="absolute -right-12 -top-12 -z-10 h-64 w-64 animate-float rounded-full bg-brand-500/20 blur-3xl"></div>
+                <div class="absolute -right-12 -top-12 -z-10 h-64 w-64 rounded-full bg-brand-500/20 blur-3xl"></div>
                 <div class="absolute -bottom-8 -left-8 -z-10 h-40 w-40 rounded-full bg-emerald-500/10 blur-2xl"></div>
               </div>
             </div>
@@ -360,7 +358,7 @@
             <div class="grid items-center gap-16 lg:grid-cols-2">
               <div>
                 <div class="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">About Me</div>
-                <h2 class="text-4xl font-extrabold tracking-tight sm:text-5xl text-slate-900 dark:text-white leading-tight">Securing the Gateway to Business Operations</h2>
+                <h2 class="text-4xl font-extrabold tracking-tight sm:text-5xl text-slate-900 dark:text-white leading-tight">Protecting the Business Communication Edge</h2>
                 <div class="mt-8 space-y-6 text-lg text-slate-700 dark:text-slate-300 leading-relaxed">
                   <p>
                     I am a Security Analyst with a deep focus on <span class="text-brand-700 dark:text-brand-400 font-semibold">Email Infrastructure and Deliverability</span>. My work bridges the gap between technical security controls and business-critical communication.
@@ -388,7 +386,7 @@
                 <div class="glass relative z-10 overflow-hidden rounded-[3rem] p-2 shadow-2xl">
                   <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800" alt="Cybersecurity Visualization" class="rounded-[2.5rem] grayscale hover:grayscale-0 transition-all duration-700">
                 </div>
-                <div class="absolute -right-8 -top-8 -z-10 h-64 w-64 rounded-full bg-brand-500/10 blur-3xl animate-pulse"></div>
+                <div class="absolute -right-8 -top-8 -z-10 h-64 w-64 rounded-full bg-brand-500/10 blur-3xl"></div>
                 <div class="absolute -bottom-8 -left-8 -z-10 h-40 w-40 rounded-full bg-emerald-500/10 blur-2xl"></div>
               </div>
             </div>
@@ -481,7 +479,7 @@
           <section id="companies" class="mt-32 scroll-mt-24" data-aos="fade-up">
             <div class="mb-12 max-w-3xl">
               <div class="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">Industry Experience</div>
-              <h2 class="text-4xl font-extrabold tracking-tight sm:text-5xl">Trusted by Innovators</h2>
+              <h2 class="text-4xl font-extrabold tracking-tight sm:text-5xl">Enterprise Partnerships</h2>
               <p class="mt-4 text-lg text-slate-700 dark:text-slate-400">Securing email infrastructure for 150+ startups and enterprises across AI, HealthTech, and SaaS.</p>
             </div>
             <div class="flex flex-wrap justify-start gap-4">
@@ -504,7 +502,7 @@
           <section id="experience" class="mt-20 scroll-mt-24">
             <div class="mb-12 max-w-2xl" data-aos="fade-up">
               <div class="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-brand-700 dark:text-brand-300">Experience</div>
-              <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">Career timeline</h2>
+              <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">Experience highlights</h2>
             </div>
             <div class="grid gap-8">
               <div class="glass rounded-2xl p-6 shadow-sm transition-all hover:shadow-md" data-aos="fade-up">
@@ -516,11 +514,12 @@
                   <span class="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300">96.78% inbox delivery • 25% reduction in spam placement</span>
                 </div>
                 <ul class="mt-3 space-y-2 text-sm text-slate-700 dark:text-slate-300">
-                  <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Architected and hardened high-availability email infrastructure for 150+ enterprise clients (including FinTech, HealthTech, and AI sectors). Managed security configurations for 2,000+ mailboxes and 1,000+ domains, ensuring resilience against availability attacks and domain blacklisting.</li>
-                  <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Enforced Zero Trust verification standards by configuring Multi-Factor Authentication (MFA) and managing OAuth scopes for secure SaaS integrations across Google Workspace and Microsoft 365. Owned the implementation of SPF, DKIM, DMARC, and BIMI alongside strict MX and TLS policies to protect sender identity and prevent domain spoofing.</li>
-                  <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Engineered automated security workflows using n8n, Webhooks, and APIs to integrate disparate tools. Implemented robust error management and exception handling logic to ensure the integrity of alert pipelines, significantly reducing Mean Time to Detect (MTTD) for reputation incidents.</li>
-                  <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Conducted digital forensics on SMTP/TLS logs and header data using Google Postmaster Tools and MailReach. Proactively detected Indicators of Compromise (IoCs) such as anomalous sending behavior, spoofing attempts, and reputation drift before they escalated into blocking incidents.</li>
-                  <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span> Developed and maintained the Email Security Playbook, defining Standard Operating Procedures (SOPs) for phishing risk mitigation, domain abuse prevention, and compliant outreach. Enforced campaign-level segmentation to minimize the "blast radius" of potential security or reputation incidents.</li>
+                  <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Architected and hardened high-availability email infrastructure for 150+ enterprise clients across FinTech, HealthTech, and AI, securing 2,000+ mailboxes and 1,000+ domains against availability attacks and blacklisting.</li>
+                  <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Enforced Zero Trust verification by configuring MFA and OAuth scopes for Google Workspace and Microsoft 365 integrations while owning SPF, DKIM, DMARC, and BIMI with strict MX and TLS policies to protect sender identity.</li>
+                  <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Engineered automated security workflows with n8n, webhooks, and APIs, adding robust error management and exception handling that reduced MTTD for reputation incidents.</li>
+                  <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Conducted digital forensics on SMTP/TLS logs and header data using Google Postmaster Tools and MailReach to detect IoCs such as anomalous sending behavior, spoofing attempts, and reputation drift.</li>
+                  <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Developed and maintained the Email Security Playbook, defining SOPs for phishing mitigation, domain abuse prevention, and compliant outreach while enforcing campaign segmentation to minimize blast radius.</li>
+                  <li class="relative pl-4"><span class="absolute left-0 text-brand-600 dark:text-brand-300">•</span>Built a centralized Security &amp; Deliverability dashboard via API integrations to monitor inbox health and reputation signals for faster diagnosis of availability incidents.</li>
                 </ul>
               </div>
               <div class="glass rounded-2xl p-6 shadow-sm transition-all hover:shadow-md" data-aos="fade-up">
@@ -671,7 +670,7 @@
           <section id="projects" class="mt-20 scroll-mt-24">
             <div class="mb-12 max-w-2xl" data-aos="fade-up">
               <div class="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-brand-700 dark:text-brand-300">Projects</div>
-              <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">Recent work & initiatives</h2>
+              <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">Selected projects & initiatives</h2>
             </div>
             <div class="grid gap-6">
               <div class="glass rounded-2xl p-6 shadow-sm transition-all hover:shadow-glow" data-aos="fade-up">
