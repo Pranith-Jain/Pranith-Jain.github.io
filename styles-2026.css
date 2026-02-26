@@ -178,11 +178,11 @@ body {
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  opacity: 0.15;
+  opacity: 0.1;
 }
 
 .dark .noise-texture-overlay {
-  opacity: 0.3;
+  opacity: 0.18;
 }
 
 /* Glass Morphism Modern - Enhanced */
