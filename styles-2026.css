@@ -402,3 +402,110 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Security-focused accent colors */
+:root {
+  --security-red: #ef4444;
+  --security-orange: #f97316;
+  --threat-blue: #3b82f6;
+  --intel-purple: #8b5cf6;
+}
+
+.dark {
+  --security-red: #f87171;
+  --security-orange: #fb923c;
+  --threat-blue: #60a5fa;
+  --intel-purple: #a78bfa;
+}
+
+/* Stat counter animation */
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.stat-counter {
+  animation: count-up 0.8s ease-out forwards;
+}
+
+/* Threat visual pulse effect */
+@keyframes threat-pulse {
+  0%, 100% { 
+    opacity: 0.1;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.3;
+    transform: scale(1.05);
+  }
+}
+
+.threat-visual {
+  animation: threat-pulse 4s ease-in-out infinite;
+}
+
+/* Experience section timeline styles */
+.experience-section h4 {
+  position: relative;
+}
+
+.experience-section h4::before {
+  content: '';
+  position: absolute;
+  left: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  background: var(--brand-primary);
+  border-radius: 50%;
+}
+
+/* Enhanced stat card hover effects */
+.stat-card:hover .stat-icon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.stat-icon {
+  transition: transform 0.3s ease;
+}
+
+/* Badge highlight for key certifications */
+.cert-highlight {
+  border-left: 4px solid var(--brand-primary);
+}
+
+/* Responsive grid adjustments for 5-column stats */
+@media (max-width: 1024px) {
+  .stats-grid-5 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .stats-grid-5 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Progress bar animation */
+@keyframes progress-fill {
+  from { width: 0; }
+}
+
+.progress-bar-animate {
+  animation: progress-fill 1.5s ease-out forwards;
+}
+
+/* Glow effect for security icons */
+.security-icon-glow {
+  filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.5));
+}
+
+.threat-icon-glow {
+  filter: drop-shadow(0 0 8px rgba(249, 115, 22, 0.5));
+}
+
+.intel-icon-glow {
+  filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.5));
+}
