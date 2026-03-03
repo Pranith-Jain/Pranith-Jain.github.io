@@ -274,4 +274,88 @@ document.querySelectorAll('section').forEach(section => {
   observer.observe(section);
 });
 
+// Animate stat counters on scroll
+function animateStatCounters() {
+  const counters = document.querySelectorAll('.stat-counter');
+  
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const counter = entry.target;
+        const target = parseInt(counter.dataset.target) || parseInt(counter.textContent);
+        const duration = 2000;
+        const start = performance.now();
+        
+        function updateCounter(currentTime) {
+          const elapsed = currentTime - start;
+          const progress = Math.min(elapsed / duration, 1);
+          const easeProgress = 1 - Math.pow(1 - progress, 3); // easeOutCubic
+          const current = Math.floor(easeProgress * target);
+          
+          counter.textContent = current + (counter.textContent.includes('+') ? '+' : '');
+          
+          if (progress < 1) {
+            requestAnimationFrame(updateCounter);
+          } else {
+            counter.textContent = target + (counter.textContent.includes('+') ? '+' : '');
+          }
+        }
+        
+        requestAnimationFrame(updateCounter);
+        counterObserver.unobserve(counter);
+      }
+    });
+  }, { threshold: 0.5 });
+  
+  counters.forEach(counter => counterObserver.observe(counter));
+}
+
+// Animate progress bars
+function animateProgressBars() {
+  const progressBars = document.querySelectorAll('[class*="w-["]');
+  progressBars.forEach(bar => {
+    const width = bar.style.width || bar.className.match(/w-\[(\d+%)\]/)?.[1];
+    if (width) {
+      bar.style.width = '0';
+      setTimeout(() => {
+        bar.style.transition = 'width 1.5s ease-out';
+        bar.style.width = width;
+      }, 200);
+    }
+  });
+}
+
+// Add threat visual to hero section
+function addThreatVisual() {
+  const hero = document.querySelector('section');
+  if (hero) {
+    const threatVisual = document.createElement('div');
+    threatVisual.className = 'absolute -right-32 top-1/2 -translate-y-1/2 opacity-10 dark:opacity-5 pointer-events-none threat-visual hidden lg:block';
+    threatVisual.innerHTML = `
+      <svg class="w-[500px] h-[500px]" viewBox="0 0 200 200" fill="none">
+        <circle cx="100" cy="100" r="80" stroke="currentColor" stroke-width="0.5" class="text-brand-500"/>
+        <circle cx="100" cy="100" r="60" stroke="currentColor" stroke-width="0.5" class="text-brand-400"/>
+        <circle cx="100" cy="100" r="40" stroke="currentColor" stroke-width="0.5" class="text-brand-300"/>
+        <path d="M100 20 L100 180 M20 100 L180 100" stroke="currentColor" stroke-width="0.5" class="text-brand-400"/>
+        <path d="M50 50 L150 150 M150 50 L50 150" stroke="currentColor" stroke-width="0.5" class="text-brand-400"/>
+        <circle cx="100" cy="100" r="5" class="fill-brand-500"/>
+        <circle cx="100" cy="50" r="3" class="fill-emerald-500 animate-pulse"/>
+        <circle cx="150" cy="100" r="3" class="fill-amber-500 animate-pulse" style="animation-delay: 0.5s"/>
+        <circle cx="100" cy="150" r="3" class="fill-rose-500 animate-pulse" style="animation-delay: 1s"/>
+        <circle cx="50" cy="100" r="3" class="fill-cyan-500 animate-pulse" style="animation-delay: 1.5s"/>
+      </svg>
+    `;
+    hero.style.position = 'relative';
+    hero.appendChild(threatVisual);
+  }
+}
+
+// Initialize all enhancements
+document.addEventListener('DOMContentLoaded', () => {
+  animateStatCounters();
+  animateProgressBars();
+  addThreatVisual();
+});
+
 console.log('🎨 2026 Design Enhancements Applied! Featuring: Mixed Scroll Directions, Chromatic Effects, Dynamic Motion Design & AI-Enhanced Creativity');
+console.log('🔒 Security Portfolio Enhanced: 200+ Incidents, MITRE ATT&CK Mapping, AI Automation');
