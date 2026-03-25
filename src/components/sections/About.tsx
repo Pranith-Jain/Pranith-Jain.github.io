@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 
 const stats = [
@@ -7,7 +8,11 @@ const stats = [
   { value: '150+', label: 'Startups Protected' },
 ];
 
+const CYBERSECURITY_IMAGE_URL = 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800';
+
 export function About() {
+  const [imageError, setImageError] = useState(false);
+
   return (
     <section id="about" className="mt-32 scroll-mt-24">
       <div className="grid items-center gap-16 lg:grid-cols-2">
@@ -76,13 +81,24 @@ export function About() {
           className="relative"
         >
           <div className="glass relative z-10 overflow-hidden rounded-[3rem] p-2 shadow-2xl">
-            <img
-              src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800"
-              alt="Cybersecurity Visualization"
-              loading="lazy"
-              decoding="async"
-              className="rounded-[2.5rem] grayscale hover:grayscale-0 transition-all duration-700 w-full"
-            />
+            {!imageError ? (
+              <img
+                src={CYBERSECURITY_IMAGE_URL}
+                alt="Cybersecurity Visualization"
+                loading="lazy"
+                decoding="async"
+                crossOrigin="anonymous"
+                onError={() => setImageError(true)}
+                className="rounded-[2.5rem] grayscale hover:grayscale-0 transition-all duration-700 w-full"
+              />
+            ) : (
+              <div className="rounded-[2.5rem] w-full aspect-video bg-gradient-to-br from-brand-500/20 to-slate-800/20 flex items-center justify-center">
+                <div className="text-center p-8">
+                  <div className="text-4xl mb-2">🛡️</div>
+                  <p className="text-sm text-slate-600 dark:text-slate-400">Cybersecurity Visualization</p>
+                </div>
+              </div>
+            )}
           </div>
           <div className="absolute -right-8 -top-8 -z-10 h-64 w-64 rounded-full bg-brand-500/10 blur-3xl"></div>
           <div className="absolute -bottom-8 -left-8 -z-10 h-40 w-40 rounded-full bg-emerald-500/10 blur-2xl"></div>
