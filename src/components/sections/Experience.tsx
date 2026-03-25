@@ -83,8 +83,18 @@ export function Experience() {
             {exp.sections &&
               exp.sections.map((section, sIndex) => {
                 const IconComponent = iconMap[section.icon];
+                const sectionId = section.title.toLowerCase()
+                  .replace(/[^\w\s]/g, '')
+                  .replace(/\s+/g, '-');
                 return (
-                  <div key={section.title} className={sIndex < exp.sections!.length - 1 ? 'mb-5' : ''}>
+                  <div
+                    key={section.title}
+                    id={sIndex === 0 ? 'experience-threat-investigation' :
+                        sIndex === 1 ? 'experience-detection-automation' :
+                        sIndex === 2 ? 'experience-domain-defense' :
+                        sIndex === 3 ? 'experience-playbooks' : `experience-${sectionId}`}
+                    className={`scroll-mt-28 ${sIndex < exp.sections!.length - 1 ? 'mb-5' : ''}`}
+                  >
                     <h4 className="text-xs font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-2 flex items-center gap-2">
                       {IconComponent && <IconComponent className="w-4 h-4" />}
                       {section.title}
