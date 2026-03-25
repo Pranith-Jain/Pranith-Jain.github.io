@@ -7,9 +7,9 @@ export function useScrollProgress() {
   useEffect(() => {
     const handleScroll = () => {
       const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const currentProgress = totalHeight > 0 ? (window.pageYOffset / totalHeight) * 100 : 0;
+      const currentProgress = totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0;
       setProgress(currentProgress);
-      setShowBackToTop(window.pageYOffset > 300);
+      setShowBackToTop(window.scrollY > 300);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
