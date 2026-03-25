@@ -54,15 +54,50 @@ interface CertItem {
   type: string;
 }
 
+interface CertCategoryProps {
+  id: string;
+  title: string;
+  certs: CertItem[];
+}
+
+function CertCategory({ id, title, certs }: CertCategoryProps) {
+  if (certs.length === 0) return null;
+
+  return (
+    <div id={id} className="scroll-mt-28">
+      <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4">
+        {title}
+      </h3>
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+      >
+        {certs.map((cert, index) => (
+          <motion.div key={`${cert.title}-${index}`} variants={itemVariants}>
+            <CertCard
+              title={cert.title}
+              issuer={cert.issuer}
+              year={cert.year}
+              featured={cert.featured}
+              type={cert.type}
+            />
+          </motion.div>
+        ))}
+      </motion.div>
+    </div>
+  );
+}
+
 export function Certifications() {
-  const allCerts: CertItem[] = [
-    ...certifications.core.map((c) => ({ ...c, type: 'Certification' })),
-    ...certifications.training.map((c) => ({ ...c, type: 'Training', featured: undefined })),
-    ...certifications.bootcamps.map((c) => ({ ...c, type: 'Bootcamp', featured: undefined })),
-    ...certifications.additional.map((c) => ({ ...c, type: 'Certification', featured: undefined })),
-    ...certifications.internships.map((c) => ({ ...c, type: 'Internship', featured: undefined })),
-    ...certifications.simulations.map((c) => ({ ...c, type: 'Job Simulation', featured: undefined })),
-  ];
+  const coreCerts: CertItem[] = certifications.core.map((c) => ({ ...c, type: 'Certification' }));
+  const trainingCerts: CertItem[] = certifications.training.map((c) => ({ ...c, type: 'Training', featured: undefined }));
+  const bootcampCerts: CertItem[] = certifications.bootcamps.map((c) => ({ ...c, type: 'Bootcamp', featured: undefined }));
+  const additionalCerts: CertItem[] = certifications.additional.map((c) => ({ ...c, type: 'Certification', featured: undefined }));
+  const internshipCerts: CertItem[] = certifications.internships.map((c) => ({ ...c, type: 'Internship', featured: undefined }));
+  const simulationCerts: CertItem[] = certifications.simulations.map((c) => ({ ...c, type: 'Job Simulation', featured: undefined }));
 
   return (
     <section id="certifications" className="mt-20 scroll-mt-24">
@@ -88,26 +123,15 @@ export function Certifications() {
         </motion.h2>
       </div>
 
-      {/* Certifications Grid */}
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
-      >
-        {allCerts.map((cert, index) => (
-          <motion.div key={`${cert.title}-${index}`} variants={itemVariants}>
-            <CertCard
-              title={cert.title}
-              issuer={cert.issuer}
-              year={cert.year}
-              featured={cert.featured}
-              type={cert.type}
-            />
-          </motion.div>
-        ))}
-      </motion.div>
+      {/* Certification Categories */}
+      <div className="space-y-10">
+        <CertCategory id="certifications-core" title="Core Certifications" certs={coreCerts} />
+        <CertCategory id="certifications-training" title="Training" certs={trainingCerts} />
+        <CertCategory id="certifications-bootcamps" title="Bootcamps" certs={bootcampCerts} />
+        <CertCategory id="certifications-additional" title="Additional Certifications" certs={additionalCerts} />
+        <CertCategory id="certifications-internships" title="Internships" certs={internshipCerts} />
+        <CertCategory id="certifications-simulations" title="Job Simulations" certs={simulationCerts} />
+      </div>
     </section>
   );
 }
