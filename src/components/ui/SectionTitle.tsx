@@ -5,17 +5,19 @@ interface SectionTitleProps {
   title: string;
   description?: string;
   className?: string;
+  id?: string;
 }
 
-export function SectionTitle({ label, title, description, className = '' }: SectionTitleProps) {
+export function SectionTitle({ label, title, description, className = '', id }: SectionTitleProps) {
   return (
-    <div className={`mb-12 max-w-3xl ${className}`}>
+    <div className={`mb-12 max-w-3xl ${className}`} id={id}>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
         className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400"
+        aria-hidden="true"
       >
         {label}
       </motion.div>

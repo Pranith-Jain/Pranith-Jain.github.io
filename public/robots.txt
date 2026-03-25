@@ -1,0 +1,13 @@
+# robots.txt for Pranith Jain Portfolio
+# https://pranithjain.qzz.io
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://pranithjain.qzz.io/sitemap.xml
+
+# Disallow any potential admin or private areas (not applicable for this static site)
+Disallow: /admin/
+Disallow: /private/
+Disallow: /api/
