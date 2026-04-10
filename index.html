@@ -4,22 +4,107 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Pranith Jain | Cybersecurity • Email Deliverability • Threat Intelligence</title>
+    <!-- Primary Meta Tags -->
+    <title>Pranith Jain | Email Security Analyst | 1300+ Domains Secured | 150+ Startups Protected</title>
     <meta
       name="description"
-      content="Pranith Jain — Certified Cyber Criminologist and Security Analyst focused on email deliverability & security, OSINT/threat intelligence, and cloud security operations."
+      content="Pranith Jain — Email Security Analyst securing 1300+ domains across 150+ startups. 200+ phishing & BEC incidents investigated. Expert in threat intelligence, OSINT, MITRE ATT&CK."
     />
-    <meta name="theme-color" content="#2563EB" />
+    <meta name="keywords" content="email security, threat intelligence, OSINT, cybersecurity analyst, phishing investigation, BEC detection, DMARC, SPF, DKIM, cloud identity security, Email Security Operations, Email Infrastructure Monitoring, Phishing Investigation, BEC Mitigation, Email Forensics, IOC Identification, Threat Remediation, SOC Automation, Incident Response Automation, n8n Workflows, MCP, Claude Code Integration, Domain Abuse Monitoring, OSINT-driven Threat Intelligence, Email Header Analysis, Sandbox Malware Detection, SMTP Authentication Controls, WAF Rule Tuning, SSL/TLS Certificate Management, Inbox Placement Rate, Email Deliverability Optimization, SPF/DKIM/DMARC Enforcement, Zero Trust Architecture, Cloud Security Monitoring, Dashboard Engineering, Alert Correlation, Threat Actor TTP Analysis, MITRE ATT&CK Mapping, False Positive Reduction, Security Metrics & Reporting" />
+    <meta name="author" content="Pranith Jain" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+    
+    <!-- Theme and Security -->
+    <meta name="theme-color" content="#2c3ee5" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), interest-cohort=()" />
+    
+    <!-- Content Security Policy - carefully tuned for Google Fonts, inline styles (Tailwind), and theme script -->
+    <meta 
+      http-equiv="Content-Security-Policy" 
+      content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
+    />
 
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://pranithjain.qzz.io" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://pranithjain.qzz.io" />
+    <meta property="og:title" content="Pranith Jain | Email Security Analyst | 1300+ Domains Secured" />
+    <meta property="og:description" content="Email Security Analyst securing 1300+ domains across 150+ startups. Expert in threat intelligence, OSINT, and phishing investigations." />
+    <meta property="og:image" content="https://pranithjain.qzz.io/og-image.jpg" />
+    <meta property="og:site_name" content="Pranith Jain Portfolio" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://pranithjain.qzz.io" />
+    <meta property="twitter:title" content="Pranith Jain | Email Security Analyst" />
+    <meta property="twitter:description" content="Email Security Analyst securing 1300+ domains. Expert in threat intelligence, OSINT, and phishing investigations." />
+    <meta property="twitter:image" content="https://pranithjain.qzz.io/og-image.jpg" />
+
+    <!-- Favicons -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'%3E%3Crect width='36' height='36' rx='8' fill='%232c3ee5'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' fill='white' font-family='Arial, sans-serif' font-weight='bold' font-size='16'%3EPJ%3C/text%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'%3E%3Crect width='36' height='36' rx='8' fill='%232c3ee5'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' fill='white' font-family='Arial, sans-serif' font-weight='bold' font-size='16'%3EPJ%3C/text%3E%3C/svg%3E" />
+    
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Preconnect to Google Fonts for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    
+    <!-- Preload critical fonts for performance -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/poppins/v21/pxiByp8kv8JHgFVrLCz7Z1xlFQ.woff2" as="font" type="font/woff2" crossorigin />
+    
+    <!-- Google Fonts with font-display swap for performance -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Theme detection script - runs before page render to prevent flash -->
+    <script>
+      (function() {
+        try {
+          const theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+          }
+        } catch (e) {
+          // Fail silently if localStorage is not available (e.g., private browsing)
+          console.warn('Theme detection failed:', e);
+        }
+      })();
+    </script>
   </head>
-  <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50">
+  <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50 overflow-x-hidden transition-colors duration-300">
+    <!-- Skip to content link for accessibility -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-brand-600 focus:text-white focus:rounded-lg focus:font-medium">
+      Skip to main content
+    </a>
+    
+    <!-- Main app root -->
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    
+    <!-- App script -->
+    <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Noscript fallback for users without JavaScript -->
+    <noscript>
+      <div style="padding: 2rem; text-align: center; font-family: system-ui, sans-serif;">
+        <h1 style="font-size: 1.5rem; margin-bottom: 1rem; color: #2c3ee5;">JavaScript Required</h1>
+        <p style="color: #475569; max-width: 600px; margin: 0 auto;">
+          This portfolio website requires JavaScript to display properly. Please enable JavaScript in your browser settings, or contact me directly at <a href="mailto:hello@pranithjain.qzz.io" style="color: #2c3ee5;">hello@pranithjain.qzz.io</a>.
+        </p>
+      </div>
+    </noscript>
   </body>
 </html>

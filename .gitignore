@@ -1,21 +1,51 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Build output
+dist
+dist-ssr
+*.local
+build
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
 # Logs
-server.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+lerna-debug.log*
 
-# Dependency directories
-node_modules/
+# Testing
+coverage
+.nyc_output
 
-# Build outputs
-/dist/
-/.vite/
+# Cache
+.eslintcache
+.stylelintcache
+*.tsbuildinfo
 
-# Local env files
-.env
-.env.*
+# Bundle analyzer
+stats.html
 
-# OS-specific files
-.DS_Store
-Thumbs.db
+# Misc
+*.log
+.cache
+.temp

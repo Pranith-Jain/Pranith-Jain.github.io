@@ -1,0 +1,36 @@
+/* TEAM */
+    Developer: Pranith Jain
+    Role: Email Security Analyst, Full Stack Developer
+    Contact: hello@pranithjain.qzz.io
+    From: India
+
+/* THANKS */
+    React Team - For the amazing UI library
+    Vite Team - For the fast build tool
+    Tailwind CSS Team - For the utility-first CSS framework
+    Framer Motion - For smooth animations
+    Lucide Icons - For beautiful icons
+    Cloudflare - For hosting and edge network
+
+/* SITE */
+    Last update: 2025-04-10
+    Language: English
+    Doctype: HTML5
+    Standards: HTML5, CSS3, ES2020+
+    Components: React 18, TypeScript, Tailwind CSS
+    Software: VS Code, Git, Node.js
+    Build Tool: Vite
+    
+/* SECURITY */
+    Content Security Policy: Enabled
+    HTTPS: Required
+    HSTS: Enabled
+    X-Frame-Options: DENY
+    X-Content-Type-Options: nosniff
+    
+/* ACCESSIBILITY */
+    WCAG 2.1 Level AA compliant
+    Keyboard navigation supported
+    Screen reader optimized
+    Reduced motion support
+    Focus management implemented

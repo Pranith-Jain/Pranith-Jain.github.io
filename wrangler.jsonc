@@ -1,6 +1,10 @@
 {
+ update_worker_name_to_pranithjain1
   "name": "pranithjain1",
   "compatibility_date": "2024-01-01",
+  "name": "pranithjain",
+  "compatibility_date": "2026-01-02",
+ main
   "assets": {
     "directory": "./dist"
   }
