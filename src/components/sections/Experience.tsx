@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Search, Zap, Shield, FileText } from 'lucide-react';
+import { Search, Zap, Shield, FileText, Monitor, Mail } from 'lucide-react';
 import { experiences } from '../../data/content';
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -7,6 +7,8 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Zap,
   Shield,
   FileText,
+  Monitor,
+  Mail,
 };
 
 const containerVariants = {
@@ -83,16 +85,26 @@ export function Experience() {
             {exp.sections &&
               exp.sections.map((section, sIndex) => {
                 const IconComponent = iconMap[section.icon];
-                const sectionId = section.title.toLowerCase()
+                const sectionId = section.title
+                  .toLowerCase()
                   .replace(/[^\w\s]/g, '')
                   .replace(/\s+/g, '-');
                 return (
                   <div
                     key={section.title}
-                    id={sIndex === 0 ? 'experience-threat-investigation' :
-                        sIndex === 1 ? 'experience-detection-automation' :
-                        sIndex === 2 ? 'experience-domain-defense' :
-                        sIndex === 3 ? 'experience-playbooks' : `experience-${sectionId}`}
+                    id={
+                      sIndex === 0
+                        ? 'experience-email-security-operations'
+                        : sIndex === 1
+                          ? 'experience-infrastructure-monitoring-dashboard'
+                          : sIndex === 2
+                            ? 'experience-phishing--bec-investigation'
+                            : sIndex === 3
+                              ? 'experience-soc-automation'
+                              : sIndex === 4
+                                ? 'experience-domain-abuse-monitoring'
+                                : `experience-${sectionId}`
+                    }
                     className={`scroll-mt-28 ${sIndex < exp.sections!.length - 1 ? 'mb-5' : ''}`}
                   >
                     <h4 className="text-xs font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-2 flex items-center gap-2">

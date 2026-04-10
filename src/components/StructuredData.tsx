@@ -2,8 +2,8 @@ import { personalInfo, stats } from '../data/content';
 
 export function StructuredData() {
   // Extract numeric values from stats for schema
-  const domainsSecured = stats.find((s) => s.label === 'Domains Secured')?.target || 1000;
-  const startupsProtected = stats.find((s) => s.label === 'Startups Protected')?.target || 150;
+  const domainsSecured = stats.find((s) => s.label === 'Domains Secured')?.target || 1300;
+  const inboxesMonitored = stats.find((s) => s.label === 'Inboxes Monitored')?.target || 2700;
   const incidentsInvestigated = stats.find((s) => s.label === 'Incidents Investigated')?.target || 200;
 
   const personSchema = {
@@ -14,23 +14,43 @@ export function StructuredData() {
     description: personalInfo.description,
     url: 'https://pranithjain.qzz.io',
     email: personalInfo.email,
+    telephone: personalInfo.phone,
     sameAs: [personalInfo.linkedInUrl, personalInfo.githubUrl, personalInfo.featuredUrl],
     worksFor: {
       '@type': 'Organization',
       name: 'Qubit Capital',
     },
     knowsAbout: [
-      'Email Security',
-      'Threat Intelligence',
-      'OSINT',
+      'Email Security Operations',
+      'Email Infrastructure Monitoring',
       'Phishing Investigation',
-      'BEC Detection',
-      'DMARC',
-      'SPF',
-      'DKIM',
-      'Cloud Identity Security',
-      'MITRE ATT&CK',
-      'Cybersecurity',
+      'BEC Mitigation',
+      'Email Forensics',
+      'IOC Identification',
+      'Threat Remediation',
+      'SOC Automation',
+      'Incident Response Automation',
+      'n8n Workflows',
+      'MCP',
+      'Claude Code Integration',
+      'Domain Abuse Monitoring',
+      'OSINT-driven Threat Intelligence',
+      'Email Header Analysis',
+      'Sandbox Malware Detection',
+      'SMTP Authentication Controls',
+      'WAF Rule Tuning',
+      'SSL/TLS Certificate Management',
+      'Inbox Placement Rate',
+      'Email Deliverability Optimization',
+      'SPF/DKIM/DMARC Enforcement',
+      'Zero Trust Architecture',
+      'Cloud Security Monitoring',
+      'Dashboard Engineering',
+      'Alert Correlation',
+      'Threat Actor TTP Analysis',
+      'MITRE ATT&CK Mapping',
+      'False Positive Reduction',
+      'Security Metrics & Reporting',
     ],
     alumniOf: [
       {
@@ -49,7 +69,11 @@ export function StructuredData() {
     award: [
       {
         '@type': 'Achievement',
-        name: `Secured ${domainsSecured}+ domains across ${startupsProtected}+ startups`,
+        name: `Secured ${domainsSecured}+ domains across email infrastructure`,
+      },
+      {
+        '@type': 'Achievement',
+        name: `Monitoring ${inboxesMonitored}+ inboxes for email infrastructure visibility`,
       },
       {
         '@type': 'Achievement',
@@ -86,6 +110,8 @@ export function StructuredData() {
       'Phishing Investigation',
       'Security Awareness Training',
       'DMARC Implementation',
+      'SOC Automation',
+      'Incident Response Automation',
     ],
     url: 'https://pranithjain.qzz.io',
     email: personalInfo.email,

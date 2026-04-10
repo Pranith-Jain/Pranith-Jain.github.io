@@ -17,6 +17,20 @@ export default defineConfig(({ mode }) => ({
   build: {
     outDir: 'dist',
     sourcemap: false,
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+        pure_funcs: ['console.log', 'console.info', 'console.debug'],
+      },
+      mangle: {
+        safari10: true,
+      },
+      format: {
+        comments: false,
+      },
+    },
     rollupOptions: {
       output: {
         // Manual chunk splitting for better caching
@@ -40,10 +54,15 @@ export default defineConfig(({ mode }) => ({
           }
           return 'assets/[name]-[hash][extname]';
         },
+        compact: true,
       },
     },
     // Reduce chunk size warnings
     chunkSizeWarningLimit: 1000,
+    // Target modern browsers for smaller bundles
+    target: 'es2020',
+    // CSS code splitting
+    cssCodeSplit: true,
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'framer-motion', 'lucide-react'],
