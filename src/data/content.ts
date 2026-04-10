@@ -2,11 +2,12 @@ export const personalInfo = {
   name: 'Pranith Jain',
   title: 'Security Analyst',
   headline: '"Most phishing investigations end at the alert. Mine start there."',
-  description: `I'm Pranith Jain — I investigate phishing incidents starting at the alert: suspicious emails, BEC attempts, and malware payloads. Currently defending communication integrity for 165+ global brands, I've expanded my focus into AI security and API threat detection, building automated pipelines that correlate threat intelligence at scale.`,
+  description: `I'm Pranith Jain — I investigate phishing incidents starting at the alert: suspicious emails, BEC attempts, and malware payloads. Currently defending communication integrity for 150+ global brands, I've expanded my focus into AI security and API threat detection, building automated pipelines that correlate threat intelligence at scale.`,
   currentFocus: 'Threat intel, email defense, and cloud identity security',
   currentlyLearning: 'LLM Security (OWASP Top 10 for LLM) & Advanced Threat Hunting',
   availability: 'Open for Consultations & Strategy Calls',
   email: 'hello@pranithjain.qzz.io',
+  phone: '+91 8310386578',
   calendlyUrl: 'https://calendly.com/pranithjain84/30min',
   linkedInUrl: 'https://www.linkedin.com/in/pranithjain',
   githubUrl: 'https://github.com/Pranith-Jain',
@@ -17,31 +18,31 @@ export const personalInfo = {
 export const stats = [
   {
     label: 'Incidents Investigated',
-    value: '250+',
-    target: 250,
+    value: '200+',
+    target: 200,
     description: 'Phishing, BEC, and malware incidents investigated and resolved.',
-    badge: '30% False Positive Reduction',
+    badge: '90%+ Remediation Success',
   },
   {
     label: 'Response Time',
-    value: '<75',
+    value: '<90',
     suffix: 'min',
     description: 'Average incident response time via automated n8n pipelines.',
-    progress: 85,
+    progress: 90,
   },
   {
     label: 'Domains Secured',
-    value: '1200+',
-    target: 1200,
-    description: 'Across 165+ Startup Portfolio',
-    badge: '99%+ Auth Alignment',
+    value: '1300+',
+    target: 1300,
+    description: 'Across 150+ Startup Portfolio',
+    badge: '98%+ Auth Alignment',
   },
   {
-    label: 'Startups Protected',
-    value: '165+',
-    target: 165,
-    description: 'Under Qubit Capital Portfolio',
-    badge: 'Enterprise Grade Security',
+    label: 'Inboxes Monitored',
+    value: '2700+',
+    target: 2700,
+    description: 'Real-time email infrastructure visibility',
+    badge: 'Automated Dashboard',
   },
 ];
 
@@ -132,51 +133,45 @@ export const companies = [
 
 export const experiences = [
   {
-    title: 'Information Technology Support Specialist',
+    title: 'System Security Analyst',
     company: 'Qubit Capital',
-    location: '',
+    location: 'Remote',
     period: 'Jul 2024 — Present',
-    badge: '250+ Incidents • <75min Response',
+    badge: '200+ Incidents • <90min Response',
     sections: [
       {
-        title: 'Threat Investigation & Incident Analysis',
+        title: 'Email Security Operations',
+        icon: 'Mail',
+        items: [
+          'Managed email security operations for 150+ early-stage startups, enforcing SPF, DKIM, and DMARC across 1,300+ domains to achieve 98%+ authentication alignment blocking spoofed and impersonation email at the perimeter and reducing spoofing incidents by 60%.',
+        ],
+      },
+      {
+        title: 'Infrastructure Monitoring Dashboard',
+        icon: 'Monitor',
+        items: [
+          'Engineered an end-to-end infrastructure monitoring dashboard using Claude Code, delivering real-time visibility across 1,300+ active domains and 2,700+ inboxes, replacing manual health checks entirely and establishing the operational backbone for portfolio-wide security process improvement.',
+        ],
+      },
+      {
+        title: 'Phishing & BEC Investigation',
         icon: 'Search',
         items: [
-          'Investigated 250+ phishing and BEC incidents, analyzing email headers, sandboxing payloads, and documenting attack chains for SOC handoffs.',
-          'Achieved 30% false positive reduction via continuous pattern tuning and feedback loops with detection engineering.',
-          'Mapped threats to MITRE ATT&CK framework for actor attribution and campaign correlation.',
-          'Correlated IoCs across campaigns to identify persistent threat actors and prevent reinfection.',
+          'Investigated 200+ phishing, BEC, and malicious attachment incidents through email header analysis, sandbox-based malware detection, IOC identification across sender IPs, domains, and attachment hashes, reducing false positives by 25%, per-incident analysis time by 35%, and maintaining a threat remediation success rate above 90%.',
         ],
       },
       {
-        title: 'Detection Improvement & Automation',
+        title: 'SOC Automation',
         icon: 'Zap',
         items: [
-          'Reduced average response time from 4 hours to under 75 minutes via automated n8n pipelines.',
-          'Implemented MCP-based threat intelligence pipelines to correlate CVEs, attacker TTPs, and OSINT indicators — reducing per-incident analysis time by 40%.',
-          'Achieved 40% reduction in analysis time through automated IoC enrichment and correlation.',
-          'Integrated APIs for automated threat intelligence enrichment and ticketing system synchronization.',
+          'Automated phishing triage, IOC enrichment, and email blocking pipelines in n8n cutting average incident response time from 4 hours to under 90 minutes, improving threat detection rate across high-volume alert queues, and systematically eliminating manual tasks through repeatable security process improvements.',
         ],
       },
       {
-        title: 'Email Authentication & Domain Defense',
+        title: 'Domain Abuse Monitoring',
         icon: 'Shield',
         items: [
-          'Secured 165+ domains with 99%+ authentication alignment (SPF/DKIM/DMARC).',
-          'Achieved 65% reduction in spoofing incidents through strict DMARC policies (p=quarantine/reject).',
-          'Coordinated 35+ lookalike domain takedown campaigns with registrars and hosting providers.',
-          'Implemented continuous monitoring of 250+ domains for authentication drift and abuse.',
-          'Built an end-to-end email infrastructure monitoring dashboard using Claude Code, providing real-time visibility across 1,450 active domains, 3,100+ inboxes, and warmup health metrics — eliminating manual domain health checks entirely.',
-        ],
-      },
-      {
-        title: 'Playbooks & Customer Reporting',
-        icon: 'FileText',
-        items: [
-          'Created and maintained incident response playbooks with step-by-step runbooks for common attack types.',
-          'Reduced escalation errors by 30% through standardized procedures and clear decision trees.',
-          'Delivered 150+ customer-facing security reports with actionable remediation steps.',
-          'Published weekly and monthly threat summaries to stakeholders with trend analysis and recommendations.',
+          'Identified and mitigated 30+ lookalike domain and impersonation campaigns through active domain abuse monitoring and OSINT-driven attacker tracing shrinking the phishing surface area by 40% and communicating threat intelligence findings to leadership to drive portfolio-wide risk decisions.',
         ],
       },
     ],
@@ -184,11 +179,12 @@ export const experiences = [
   {
     title: 'Junior Support Engineer',
     company: 'UnifyCX',
-    location: 'Mysuru, India',
+    location: 'Mysore',
     period: 'Sep 2023 — Jul 2024',
     items: [
-      'Strengthened hosted environment security posture by resolving 100+ weekly DNS, SSL/TLS, and email authentication issues — foundation for later specialization in email security infrastructure.',
-      'Specialized in deliverability troubleshooting and security hardening for hosted environments.',
+      'Restored 95% inbox placement across 200+ enterprise domains by resolving IP blacklisting and strengthening SMTP authentication controls, reducing delivery failures by over 40%.',
+      'Hardened 60+ web assets by removing malware, tuning WAF rules, and preventing XSS exploitation, achieving a 98% remediation success rate.',
+      'Automated SSL/TLS certificate lifecycle management for 300+ domains, maintaining 99.9% uptime and eliminating renewal related outages.',
     ],
   },
   {
@@ -204,11 +200,15 @@ export const experiences = [
 
 export const certifications = {
   core: [
+    { title: 'Proofpoint Certified AI Agent Security Specialist', issuer: 'Proofpoint', year: '2026', featured: true },
+    { title: 'SOC Summit 2026', issuer: 'SOC Summit', year: '2026', featured: true },
     { title: 'Certified Cyber Criminologist', issuer: 'Virtual Cyber Labs', year: '2025', featured: true },
     { title: 'Proofpoint AI Email Security Specialist', issuer: 'Proofpoint', year: '2025', featured: true },
     { title: 'Effective AI for Practical SecOps Workflows', issuer: 'ISC2', year: '2025', featured: true },
     { title: 'Mastering Cyber Threat Intelligence for SOC Analysts', issuer: 'MCSI', year: '2025', featured: true },
     { title: 'DSPM Fundamentals', issuer: 'Fortra', year: '2025', featured: true },
+    { title: 'Antisyphon Training', issuer: 'Antisyphon', year: '2026', featured: true },
+    { title: 'Data Loss Prevention (DLP) Survival Guide', issuer: 'Fortra', year: '2026', featured: true },
     { title: 'Social Media Intelligence (SOCMINT)', issuer: 'CyberSudo', year: 'Mar 2026', featured: true },
     { title: 'Certified AI Security Expert', issuer: 'Virtual Cyber Labs', year: 'Mar 2026', featured: true },
     { title: 'Certified AI Security Professional (CAISP)', issuer: 'CertNexus', year: '2025', featured: true },
@@ -241,31 +241,78 @@ export const certifications = {
 
 export const projects = [
   {
-    title: 'AI-Threat-Intel-Orchestrator',
-    description: 'An n8n-based orchestration layer that correlates multi-source intelligence to identify emerging phishing campaigns before they hit inboxes.',
-    tags: ['n8n', 'LLM', 'Threat Intel', 'Automation'],
+    title: 'Email Infrastructure Automation Platform',
+    description:
+      'Automated end-to-end domain onboarding across 1,300+ domains, cutting per-domain setup time from several hours to under 10 minutes. Built a Smartlead MCP server with 23 custom analytics tools, consolidating warmup monitoring, deliverability tracking, and campaign analytics for 2,700+ inboxes.',
+    tags: ['n8n', 'MCP', 'Smartlead', 'Automation', 'Analytics', 'Jan 2026 – Present'],
+    github: 'https://github.com/Pranith-Jain/Email-Infrastructure-Automation-Platform',
   },
   {
-    title: 'Cloud-Based Ransomware Detection & Recovery (GCP)',
-    description: 'A cloud security capstone focused on detection signals, recovery workflow design, and protective controls (logging, monitoring, and network hardening).',
-    tags: ['GCP', 'Detection Engineering', 'Cloud Logging', 'Recovery'],
+    title: 'Portfolio (Personal)',
+    description: 'Vibe coded personal portfolio and hosted on Cloudflare pages, with email routing.',
+    tags: ['React', 'Vite', 'Tailwind', 'Cloudflare Pages', 'Nov 2025 – Present'],
   },
   {
-    title: 'Email Security Playbook & Investigation Framework',
-    description: 'Structured triage and response process for phishing, spoofing, authentication gaps and domain abuse—built to be operational and repeatable.',
-    tags: ['IR', 'Email Security', 'SPF/DKIM/DMARC', 'OSINT'],
+    title: 'MindStudio AI Agents',
+    description: 'AI Agent Portfolio showcasing various AI agents and integrations.',
+    tags: ['AI', 'Agents', 'MindStudio', 'Aug 2025 – Sep 2025'],
+    github: 'https://github.com/Pranith-Jain/AI-Agent-Portfolio',
   },
   {
-    title: 'Automation-led Deliverability Monitoring',
-    description: 'Workflow automation with n8n + AI agents to monitor sender reputation and authentication health, reducing manual investigation loops.',
-    tags: ['n8n', 'AI Agents', 'Dashboards', 'Automation'],
+    title: 'Secure Patient Data Platform on Google Cloud (Capstone)',
+    description:
+      'Distinguished Capstone Project (Grade A, 93/100). Zero Trust environment on GCP, HIPAA-aligned patient data platform with comprehensive security controls.',
+    tags: ['GCP', 'Zero Trust', 'HIPAA', 'Capstone', 'Jul 2025 – Aug 2025'],
+    github: 'https://github.com/Pranith-Jain/Secure-Patient-Data-Platform-on-Google-Cloud-Capstone-',
+    badge: 'Grade A (93/100)',
+  },
+  {
+    title: 'Cloud-Based Ransomware Detection and Recovery System (GCP)',
+    description:
+      'A cloud security capstone focused on detection signals, recovery workflow design, and protective controls (logging, monitoring, and network hardening).',
+    tags: ['GCP', 'Detection Engineering', 'Cloud Logging', 'Recovery', 'Jun 2025 – Jul 2025'],
+  },
+  {
+    title: 'Detection Playbooks',
+    description:
+      'Structured triage and response process for phishing, spoofing, authentication gaps and domain abuse—built to be operational and repeatable.',
+    tags: ['IR', 'Playbooks', 'Detection', 'Feb 2025'],
+  },
+  {
+    title: 'Tracelay Internship',
+    description:
+      'SOC Analyst Intern experience working on security monitoring, incident response, and threat intelligence.',
+    tags: ['SOC', 'Internship', 'Monitoring', 'Jul 2024 – Oct 2024'],
+  },
+  {
+    title: 'Detecting Bots on Twitter Using Machine Learning',
+    description:
+      'Machine learning project to detect automated bot accounts on Twitter using feature engineering and classification algorithms.',
+    tags: ['ML', 'Python', 'NLP', 'Twitter', 'Dec 2022 – Apr 2023'],
+  },
+  {
+    title: 'CTF Writeups',
+    description:
+      'Collection of Capture The Flag challenge writeups and solutions from various cybersecurity competitions.',
+    tags: ['CTF', 'Writeups', 'Cybersecurity'],
+  },
+  {
+    title: 'SOC Automation',
+    description: 'Automation workflows and playbooks for security operations center tasks using n8n and AI agents.',
+    tags: ['n8n', 'SOC', 'Automation', 'Workflows'],
+  },
+  {
+    title: 'UrlScanner Bot',
+    description: 'Automated bot for scanning and analyzing URLs for malicious content and security threats.',
+    tags: ['Bot', 'Security', 'URL Analysis'],
   },
 ];
 
 export const featuredArticles = [
   {
     title: 'Mastering DMARC for Enterprise Security',
-    description: 'A deep dive into implementing strict DMARC policies at scale to eliminate spoofing and improve deliverability.',
+    description:
+      'A deep dive into implementing strict DMARC policies at scale to eliminate spoofing and improve deliverability.',
     source: 'DevX.com',
     category: 'Security Engineering',
     url: 'https://www.devx.com/cybersecurity/mastering-dmarc-for-enterprise-security/',
@@ -279,14 +326,16 @@ export const featuredArticles = [
   },
   {
     title: '15 Initiatives to Build a Strong Cybersecurity Culture',
-    description: 'Comprehensive framework for establishing organizational cybersecurity awareness and incident response preparedness.',
+    description:
+      'Comprehensive framework for establishing organizational cybersecurity awareness and incident response preparedness.',
     source: 'DevX.com',
     category: 'Cybersecurity Culture',
     url: 'https://www.devx.com/cybersecurity/15-initiatives-to-build-a-strong-cybersecurity-culture/',
   },
   {
     title: 'Featured Expert: OSINT & Threat Intelligence',
-    description: 'Specialized expertise in OSINT, data security, threat intelligence, and email deliverability optimization.',
+    description:
+      'Specialized expertise in OSINT, data security, threat intelligence, and email deliverability optimization.',
     source: 'Featured.com',
     category: 'Security Specialist',
     url: 'https://featured.com/p/pranith-jain',
@@ -298,11 +347,21 @@ export const memberships = [
     name: 'UK OSINT Community',
     abbreviation: 'UK',
     period: 'Jan 2026 – Present · 2 mos',
-    description: 'Active contributor to one of the premier Open Source Intelligence communities, collaborating with investigators and researchers to advance ethical tradecraft.',
+    description:
+      'Active contributor to one of the premier Open Source Intelligence communities, collaborating with investigators and researchers to advance ethical tradecraft.',
     details: [
-      { label: 'Technical Development', text: 'Participate in CTF challenges and skill-building workshops focused on SOCMINT, GEOINT, and IMINT techniques.' },
-      { label: 'Tradecraft Exchange', text: 'Test and validate OSINT tools for digital footprinting, ensuring adherence to OPSEC best practices.' },
-      { label: 'Knowledge Sharing', text: 'Engage in roundtables on privacy frameworks, breach data analysis, and digital attribution.' },
+      {
+        label: 'Technical Development',
+        text: 'Participate in CTF challenges and skill-building workshops focused on SOCMINT, GEOINT, and IMINT techniques.',
+      },
+      {
+        label: 'Tradecraft Exchange',
+        text: 'Test and validate OSINT tools for digital footprinting, ensuring adherence to OPSEC best practices.',
+      },
+      {
+        label: 'Knowledge Sharing',
+        text: 'Engage in roundtables on privacy frameworks, breach data analysis, and digital attribution.',
+      },
     ],
     color: 'brand',
   },
@@ -310,14 +369,16 @@ export const memberships = [
     name: 'Messaging, Malware, Mobile Anti-Abuse Working Group',
     abbreviation: 'M3',
     period: 'Feb 2026 – Present · 1 mo',
-    description: 'Member of the M3AAWG, a global industry collaboration working to fight messaging abuse, malware, and mobile threats.',
+    description:
+      'Member of the M3AAWG, a global industry collaboration working to fight messaging abuse, malware, and mobile threats.',
     color: 'emerald',
   },
   {
     name: 'emailexpert',
     abbreviation: 'E',
     period: 'Jun 2025 – Present · 9 mos',
-    description: 'Member of the emailexpert community, collaborating with email industry professionals on deliverability, authentication, and email security best practices.',
+    description:
+      'Member of the emailexpert community, collaborating with email industry professionals on deliverability, authentication, and email security best practices.',
     color: 'cyan',
   },
 ];
@@ -330,10 +391,11 @@ export const navLinks = [
     label: 'Experience',
     href: '#experience',
     children: [
-      { label: 'Threat Investigation', href: '#experience-threat-investigation' },
-      { label: 'Detection & Automation', href: '#experience-detection-automation' },
-      { label: 'Email & Domain Defense', href: '#experience-domain-defense' },
-      { label: 'Playbooks & Reporting', href: '#experience-playbooks' },
+      { label: 'Email Security Operations', href: '#experience-email-security-operations' },
+      { label: 'Infrastructure Dashboard', href: '#experience-infrastructure-monitoring-dashboard' },
+      { label: 'Phishing & BEC Investigation', href: '#experience-phishing--bec-investigation' },
+      { label: 'SOC Automation', href: '#experience-soc-automation' },
+      { label: 'Domain Abuse Monitoring', href: '#experience-domain-abuse-monitoring' },
     ],
   },
   {

@@ -22,11 +22,7 @@ export function Hero() {
     <section className="relative pt-6 lg:pt-10">
       <div className="grid items-center gap-12 lg:grid-cols-[1.2fr_0.8fr]">
         {/* Left Content */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-        >
+        <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
           {/* Badges */}
           <div className="mb-6 flex flex-wrap items-center gap-3">
             <span className="inline-flex items-center gap-2 rounded-full border border-brand-200/50 bg-brand-50/50 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-brand-700 backdrop-blur-md dark:border-brand-800/50 dark:bg-brand-900/30 dark:text-brand-300">
@@ -45,11 +41,14 @@ export function Hero() {
             <span className="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-4 py-1.5 text-xs font-semibold text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200">
               Email Defense
             </span>
+            <span className="inline-flex items-center gap-2 rounded-full border border-emerald-200/70 bg-emerald-50/70 px-4 py-1.5 text-xs font-semibold text-emerald-700 shadow-sm backdrop-blur-xl dark:border-emerald-800/50 dark:bg-emerald-900/30 dark:text-emerald-300">
+              AU Ambassador Program
+            </span>
           </div>
 
           {/* Headline */}
           <h1 className="text-3xl font-extrabold leading-[1.2] tracking-tight sm:text-4xl lg:text-5xl text-slate-900 dark:text-white">
-            &quot;Most phishing investigations end at the alert.{" "}
+            &quot;Most phishing investigations end at the alert.{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-brand-400 dark:from-brand-400 dark:to-brand-200">
               Mine start there.
             </span>
@@ -58,10 +57,10 @@ export function Hero() {
 
           {/* Description */}
           <p className="mt-8 max-w-2xl text-xl leading-relaxed text-slate-700 dark:text-slate-300">
-            I&apos;m{" "}
+            I&apos;m{' '}
             <span className="font-bold text-slate-900 dark:text-white underline decoration-brand-500/30 underline-offset-4">
               Pranith Jain
-            </span>{" "}
+            </span>{' '}
             — {personalInfo.description}
           </p>
 
@@ -70,16 +69,14 @@ export function Hero() {
             <div className="flex items-center gap-3 text-sm font-medium text-slate-600 dark:text-slate-400">
               <span className="flex h-2 w-2 rounded-full bg-brand-500"></span>
               <span>
-                Current Focus:{" "}
-                <span className="text-slate-900 dark:text-white font-semibold italic">
-                  {personalInfo.currentFocus}
-                </span>
+                Current Focus:{' '}
+                <span className="text-slate-900 dark:text-white font-semibold italic">{personalInfo.currentFocus}</span>
               </span>
             </div>
             <div className="flex items-center gap-3 text-sm font-medium text-slate-600 dark:text-slate-400">
               <span className="flex h-2 w-2 rounded-full bg-cyan-500"></span>
               <span>
-                Currently Learning:{" "}
+                Currently Learning:{' '}
                 <span className="text-slate-900 dark:text-white font-semibold italic">
                   {personalInfo.currentlyLearning}
                 </span>
@@ -88,10 +85,8 @@ export function Hero() {
             <div className="flex items-center gap-3 text-sm font-medium text-slate-600 dark:text-slate-400">
               <span className="flex h-2 w-2 rounded-full bg-emerald-500"></span>
               <span>
-                Availability:{" "}
-                <span className="text-emerald-600 dark:text-emerald-400 font-bold">
-                  {personalInfo.availability}
-                </span>
+                Availability:{' '}
+                <span className="text-emerald-600 dark:text-emerald-400 font-bold">{personalInfo.availability}</span>
               </span>
             </div>
           </div>
@@ -269,9 +264,7 @@ export function Hero() {
                 {stat.label}
               </div>
               <div className="mt-2 flex items-baseline gap-2">
-                <span className="text-4xl font-black tracking-tight text-slate-900 dark:text-white">
-                  {stat.value}
-                </span>
+                <span className="text-4xl font-black tracking-tight text-slate-900 dark:text-white">{stat.value}</span>
                 {stat.suffix && <span className="text-sm font-bold text-emerald-500">{stat.suffix}</span>}
               </div>
               <p className="mt-3 text-xs font-medium text-slate-600 leading-relaxed">{stat.description}</p>
