@@ -13,7 +13,7 @@
     Cloudflare - For hosting and edge network
 
 /* SITE */
-    Last update: 2025
+    Last update: 2025-04-10
     Language: English
     Doctype: HTML5
     Standards: HTML5, CSS3, ES2020+

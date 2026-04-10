@@ -46,7 +46,7 @@ export function Companies() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="mt-4 text-lg text-slate-700 dark:text-slate-400"
         >
-          Securing email infrastructure for 150+ startups and enterprises across AI, HealthTech, and SaaS.
+          Securing email infrastructure for 165+ startups and enterprises across AI, HealthTech, and SaaS.
         </motion.p>
       </div>
 

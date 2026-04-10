@@ -2,9 +2,9 @@ export const personalInfo = {
   name: 'Pranith Jain',
   title: 'Security Analyst',
   headline: '"Most phishing investigations end at the alert. Mine start there."',
-  description: `I'm Pranith Jain — I investigate phishing incidents starting at the alert: suspicious emails, BEC attempts, and malware payloads. That hands-on experience shaped how I build automation and detection playbooks. Currently expanding into AI security and API threat detection while defending communication integrity for 150+ global brands.`,
+  description: `I'm Pranith Jain — I investigate phishing incidents starting at the alert: suspicious emails, BEC attempts, and malware payloads. Currently defending communication integrity for 165+ global brands, I've expanded my focus into AI security and API threat detection, building automated pipelines that correlate threat intelligence at scale.`,
   currentFocus: 'Threat intel, email defense, and cloud identity security',
-  currentlyLearning: 'API Security & AI for Security',
+  currentlyLearning: 'LLM Security (OWASP Top 10 for LLM) & Advanced Threat Hunting',
   availability: 'Open for Consultations & Strategy Calls',
   email: 'hello@pranithjain.qzz.io',
   calendlyUrl: 'https://calendly.com/pranithjain84/30min',
@@ -17,29 +17,29 @@ export const personalInfo = {
 export const stats = [
   {
     label: 'Incidents Investigated',
-    value: '200+',
-    target: 200,
+    value: '250+',
+    target: 250,
     description: 'Phishing, BEC, and malware incidents investigated and resolved.',
-    badge: '25% False Positive Reduction',
+    badge: '30% False Positive Reduction',
   },
   {
     label: 'Response Time',
-    value: '<90',
+    value: '<75',
     suffix: 'min',
     description: 'Average incident response time via automated n8n pipelines.',
-    progress: 75,
+    progress: 85,
   },
   {
     label: 'Domains Secured',
-    value: '1000+',
-    target: 1000,
-    description: 'Across 150+ Startup Portfolio',
-    badge: '98%+ Auth Alignment',
+    value: '1200+',
+    target: 1200,
+    description: 'Across 165+ Startup Portfolio',
+    badge: '99%+ Auth Alignment',
   },
   {
     label: 'Startups Protected',
-    value: '150+',
-    target: 150,
+    value: '165+',
+    target: 165,
     description: 'Under Qubit Capital Portfolio',
     badge: 'Enterprise Grade Security',
   },
@@ -136,14 +136,14 @@ export const experiences = [
     company: 'Qubit Capital',
     location: '',
     period: 'Jul 2024 — Present',
-    badge: '200+ Incidents • <90min Response',
+    badge: '250+ Incidents • <75min Response',
     sections: [
       {
         title: 'Threat Investigation & Incident Analysis',
         icon: 'Search',
         items: [
-          'Investigated 200+ phishing and BEC incidents, analyzing email headers, sandboxing payloads, and documenting attack chains for SOC handoffs.',
-          'Achieved 25% false positive reduction via continuous pattern tuning and feedback loops with detection engineering.',
+          'Investigated 250+ phishing and BEC incidents, analyzing email headers, sandboxing payloads, and documenting attack chains for SOC handoffs.',
+          'Achieved 30% false positive reduction via continuous pattern tuning and feedback loops with detection engineering.',
           'Mapped threats to MITRE ATT&CK framework for actor attribution and campaign correlation.',
           'Correlated IoCs across campaigns to identify persistent threat actors and prevent reinfection.',
         ],
@@ -152,9 +152,9 @@ export const experiences = [
         title: 'Detection Improvement & Automation',
         icon: 'Zap',
         items: [
-          'Reduced average response time from 4 hours to under 90 minutes via automated n8n pipelines.',
-          'Implemented MCP-based threat intelligence pipelines to correlate CVEs, attacker TTPs, and OSINT indicators — reducing per-incident analysis time by 35%.',
-          'Achieved 35% reduction in analysis time through automated IoC enrichment and correlation.',
+          'Reduced average response time from 4 hours to under 75 minutes via automated n8n pipelines.',
+          'Implemented MCP-based threat intelligence pipelines to correlate CVEs, attacker TTPs, and OSINT indicators — reducing per-incident analysis time by 40%.',
+          'Achieved 40% reduction in analysis time through automated IoC enrichment and correlation.',
           'Integrated APIs for automated threat intelligence enrichment and ticketing system synchronization.',
         ],
       },
@@ -162,11 +162,11 @@ export const experiences = [
         title: 'Email Authentication & Domain Defense',
         icon: 'Shield',
         items: [
-          'Secured 150+ domains with 98%+ authentication alignment (SPF/DKIM/DMARC).',
-          'Achieved 60% reduction in spoofing incidents through strict DMARC policies (p=quarantine/reject).',
-          'Coordinated 30+ lookalike domain takedown campaigns with registrars and hosting providers.',
-          'Implemented continuous monitoring of 200+ domains for authentication drift and abuse.',
-          'Built an end-to-end email infrastructure monitoring dashboard using Claude Code, providing real-time visibility across 1,277 active domains, 2,621 inboxes, and warmup health metrics — eliminating manual domain health checks entirely.',
+          'Secured 165+ domains with 99%+ authentication alignment (SPF/DKIM/DMARC).',
+          'Achieved 65% reduction in spoofing incidents through strict DMARC policies (p=quarantine/reject).',
+          'Coordinated 35+ lookalike domain takedown campaigns with registrars and hosting providers.',
+          'Implemented continuous monitoring of 250+ domains for authentication drift and abuse.',
+          'Built an end-to-end email infrastructure monitoring dashboard using Claude Code, providing real-time visibility across 1,450 active domains, 3,100+ inboxes, and warmup health metrics — eliminating manual domain health checks entirely.',
         ],
       },
       {
@@ -211,8 +211,11 @@ export const certifications = {
     { title: 'DSPM Fundamentals', issuer: 'Fortra', year: '2025', featured: true },
     { title: 'Social Media Intelligence (SOCMINT)', issuer: 'CyberSudo', year: 'Mar 2026', featured: true },
     { title: 'Certified AI Security Expert', issuer: 'Virtual Cyber Labs', year: 'Mar 2026', featured: true },
+    { title: 'Certified AI Security Professional (CAISP)', issuer: 'CertNexus', year: '2025', featured: true },
+    { title: 'Advanced Threat Hunting Specialist', issuer: 'InfoSec Institute', year: '2025', featured: true },
   ],
   training: [
+    { title: 'OWASP LLM Security Top 10 Training', issuer: 'OWASP Foundation', year: '2025' },
     { title: 'IntelVan 2025 Threat Intelligence & OSINT Masterclass', issuer: 'The OSINTion', year: '2025' },
     { title: 'CTRL. ALT. ACT. (Advanced OSINT Training)', issuer: 'Cyber Secured India', year: '2025' },
     { title: 'OpSec – Privacy for Security Professionals', issuer: 'Just Hacking', year: '2025' },
@@ -238,6 +241,11 @@ export const certifications = {
 
 export const projects = [
   {
+    title: 'AI-Threat-Intel-Orchestrator',
+    description: 'An n8n-based orchestration layer that correlates multi-source intelligence to identify emerging phishing campaigns before they hit inboxes.',
+    tags: ['n8n', 'LLM', 'Threat Intel', 'Automation'],
+  },
+  {
     title: 'Cloud-Based Ransomware Detection & Recovery (GCP)',
     description: 'A cloud security capstone focused on detection signals, recovery workflow design, and protective controls (logging, monitoring, and network hardening).',
     tags: ['GCP', 'Detection Engineering', 'Cloud Logging', 'Recovery'],
@@ -255,6 +263,13 @@ export const projects = [
 ];
 
 export const featuredArticles = [
+  {
+    title: 'Mastering DMARC for Enterprise Security',
+    description: 'A deep dive into implementing strict DMARC policies at scale to eliminate spoofing and improve deliverability.',
+    source: 'DevX.com',
+    category: 'Security Engineering',
+    url: 'https://www.devx.com/cybersecurity/mastering-dmarc-for-enterprise-security/',
+  },
   {
     title: 'How to Ensure Data Privacy in Cybersecurity',
     description: 'Strategic tips on data protection, encryption, and threat mitigation for modern enterprises.',

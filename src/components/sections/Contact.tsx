@@ -38,7 +38,7 @@ export function Contact() {
           </h2>
           <p className="mx-auto mt-8 max-w-2xl text-lg text-slate-300">
             Whether you need threat intelligence, email security hardening, or cloud identity protection, I&apos;m here
-            to help.
+            to help. My work bridges technical controls with business-critical trust signals across 165+ global brands.
           </p>
 
           {/* Primary CTA Buttons */}
