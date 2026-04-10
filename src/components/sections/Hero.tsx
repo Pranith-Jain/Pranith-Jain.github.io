@@ -34,16 +34,16 @@ export function Hero() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
               </span>
-              Certified Cyber Criminologist
+              Certified AI Security Expert
             </span>
             <span className="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-4 py-1.5 text-xs font-semibold text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200">
               Threat Intelligence
             </span>
             <span className="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-4 py-1.5 text-xs font-semibold text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200">
-              Email Security
+              LLM Security
             </span>
             <span className="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-4 py-1.5 text-xs font-semibold text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200">
-              Cloud Identity Defense
+              Email Defense
             </span>
           </div>
 
@@ -62,10 +62,7 @@ export function Hero() {
             <span className="font-bold text-slate-900 dark:text-white underline decoration-brand-500/30 underline-offset-4">
               Pranith Jain
             </span>{" "}
-            — I investigate phishing incidents starting at the alert: suspicious emails, BEC attempts,
-            and malware payloads. That hands-on experience shaped how I build automation and detection
-            playbooks. Currently expanding into AI security and API threat detection while defending
-            communication integrity for 150+ global brands.
+            — {personalInfo.description}
           </p>
 
           {/* Current Focus */}

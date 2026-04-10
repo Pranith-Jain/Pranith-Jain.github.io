@@ -1,7 +1,7 @@
 {
   "name": "Pranith Jain - Email Security Analyst Portfolio",
   "short_name": "Pranith Jain",
-  "description": "Email Security Analyst securing 1000+ domains. Expert in threat intelligence, OSINT, and phishing investigations.",
+  "description": "Email Security Analyst securing 1200+ domains. Expert in threat intelligence, OSINT, and phishing investigations.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -23,22 +23,6 @@
       "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "any maskable"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "/screenshot-wide.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide",
-      "label": "Portfolio homepage showing hero section"
-    },
-    {
-      "src": "/screenshot-narrow.png",
-      "sizes": "750x1334",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "Portfolio on mobile device"
     }
   ],
   "related_applications": [],

@@ -70,21 +70,21 @@ export function Featured() {
             <div className="flex items-center justify-between">
               <div
                 className={`grid h-14 w-14 place-items-center rounded-2xl font-black text-xl ${
-                  index === 2
+                  article.category === 'Security Specialist'
                     ? 'bg-slate-50 text-slate-700 dark:bg-slate-800 dark:text-slate-300'
                     : 'bg-brand-50 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300'
                 }`}
               >
-                {index === 2 ? 'F' : 'D'}
+                {article.category === 'Security Specialist' ? 'F' : 'D'}
               </div>
               <div
                 className={`rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-widest ${
-                  index === 2
+                  article.category === 'Security Specialist'
                     ? 'bg-blue-50 text-blue-600 dark:bg-blue-950 dark:text-blue-400'
                     : 'bg-emerald-50 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400'
                 }`}
               >
-                {index === 2 ? 'Expert Profile' : 'Published Article'}
+                {article.category === 'Security Specialist' ? 'Expert Profile' : 'Published Article'}
               </div>
             </div>
             <div>
