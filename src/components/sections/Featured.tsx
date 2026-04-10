@@ -58,7 +58,7 @@ export function Featured() {
         viewport={{ once: true }}
         className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
       >
-        {featuredArticles.map((article, index) => (
+        {featuredArticles.map((article) => (
           <motion.a
             key={article.title}
             href={article.url}
