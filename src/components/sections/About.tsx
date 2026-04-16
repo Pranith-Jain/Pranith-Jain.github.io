@@ -43,9 +43,7 @@ export function About() {
               controls with business-critical trust signals across 165+ global brands.
             </p>
             <p>
-              Transitioned from IT support into security operations, self-building expertise in email authentication,
-              incident triage automation, and OSINT — demonstrating rapid skill acquisition in a high-stakes portfolio
-              environment.
+              I am currently seeking new security challenges where I can leverage my expertise in email defense, automation, and threat intelligence to protect and scale security operations in enterprise environments.
             </p>
           </div>
 

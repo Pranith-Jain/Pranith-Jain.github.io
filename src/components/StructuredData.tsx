@@ -55,15 +55,15 @@ export function StructuredData() {
     alumniOf: [
       {
         '@type': 'Organization',
-        name: 'Qubit Capital',
-      },
-      {
-        '@type': 'Organization',
         name: 'UnifyCX',
       },
       {
         '@type': 'Organization',
         name: 'TekWorks',
+      },
+      {
+        '@type': 'Organization',
+        name: 'AiROBOSOFT',
       },
     ],
     award: [

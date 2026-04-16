@@ -1,8 +1,8 @@
 export const personalInfo = {
   name: 'Pranith Jain',
-  title: 'System Security Analyst',
+  title: 'Security Analyst – Email Security & Automation',
   headline: '"Most phishing investigations end at the alert. Mine start there."',
-  description: `I'm Pranith Jain — I investigate phishing incidents starting at the alert: suspicious emails, BEC attempts, and malware payloads. Currently defending communication integrity for 150+ global brands, I've expanded my focus into AI security and API threat detection, building automated pipelines that correlate threat intelligence at scale.`,
+  description: `I'm Pranith Jain — I investigate phishing incidents starting at the alert: suspicious emails, BEC attempts, and malware payloads. Currently defending communication integrity for 165+ global brands, I've expanded my focus into AI security and API threat detection, building automated pipelines that correlate threat intelligence at scale.`,
   currentFocus: 'Threat intel, email defense, and cloud identity security',
   currentlyLearning: 'LLM Security (OWASP Top 10 for LLM) & Advanced Threat Hunting',
   availability: 'Open for Consultations & Strategy Calls',
@@ -18,23 +18,23 @@ export const personalInfo = {
 export const stats = [
   {
     label: 'Incidents Investigated',
-    value: '200+',
-    target: 200,
+    value: '250+',
+    target: 250,
     description: 'Phishing, BEC, and malware incidents investigated and resolved.',
     badge: '90%+ Remediation Success',
   },
   {
     label: 'Response Time',
-    value: '<90',
+    value: '<75',
     suffix: 'min',
     description: 'Average incident response time via automated n8n pipelines.',
-    progress: 90,
+    progress: 75,
   },
   {
     label: 'Domains Secured',
     value: '1300+',
     target: 1300,
-    description: 'Across 150+ Startup Portfolio',
+    description: 'Across 165+ Startup Portfolio',
     badge: '98%+ Auth Alignment',
   },
   {
@@ -133,17 +133,17 @@ export const companies = [
 
 export const experiences = [
   {
-    title: 'System Security Analyst',
+    title: 'Security Analyst – Email Security & Automation',
     company: 'Qubit Capital',
     location: 'Remote',
     period: 'Jul 2024 — Present',
-    badge: '200+ Incidents • <90min Response',
+    badge: '250+ Incidents • <75min Response',
     sections: [
       {
         title: 'Email Security Operations',
         icon: 'Mail',
         items: [
-          'Managed email security operations for 150+ early-stage startups, enforcing SPF, DKIM, and DMARC across 1,300+ domains to achieve 98%+ authentication alignment blocking spoofed and impersonation email at the perimeter and reducing spoofing incidents by 60%.',
+          'Managed email security operations for 165+ early-stage startups, enforcing SPF, DKIM, and DMARC across 1,300+ domains to achieve 98%+ authentication alignment blocking spoofed and impersonation email at the perimeter and reducing spoofing incidents by 60%.',
         ],
       },
       {
@@ -157,14 +157,14 @@ export const experiences = [
         title: 'Phishing & BEC Investigation',
         icon: 'Search',
         items: [
-          'Investigated 200+ phishing, BEC, and malicious attachment incidents through email header analysis, sandbox-based malware detection, IOC identification across sender IPs, domains, and attachment hashes, reducing false positives by 25%, per-incident analysis time by 35%, and maintaining a threat remediation success rate above 90%.',
+          'Investigated 250+ phishing, BEC, and malicious attachment incidents through email header analysis, sandbox-based malware detection, IOC identification across sender IPs, domains, and attachment hashes, reducing false positives by 25%, per-incident analysis time by 35%, and maintaining a threat remediation success rate above 90%.',
         ],
       },
       {
         title: 'SOC Automation',
         icon: 'Zap',
         items: [
-          'Automated phishing triage, IOC enrichment, and email blocking pipelines in n8n cutting average incident response time from 4 hours to under 90 minutes, improving threat detection rate across high-volume alert queues, and systematically eliminating manual tasks through repeatable security process improvements.',
+          'Automated phishing triage, IOC enrichment, and email blocking pipelines in n8n cutting average incident response time from 4 hours to under 75 minutes, improving threat detection rate across high-volume alert queues, and systematically eliminating manual tasks through repeatable security process improvements.',
         ],
       },
       {
@@ -177,7 +177,7 @@ export const experiences = [
     ],
   },
   {
-    title: 'Junior Support Engineer',
+    title: 'Tech Associate – Infrastructure & Email Security',
     company: 'UnifyCX',
     location: 'Mysore',
     period: 'Sep 2023 — Jul 2024',
@@ -199,14 +199,14 @@ export const experiences = [
     ],
   },
   {
-    title: 'Cybersecurity Intern',
+    title: 'AIML Intern',
     company: 'AiROBOSOFT',
     location: 'Remote',
-    period: 'Dec 2022 — Feb 2023',
+    period: 'Jul 2022 — Aug 2022',
     items: [
-      'Conducted vulnerability research and assisted in performing web application security assessments to identify and mitigate potential risks.',
-      'Developed automated scripts for security monitoring and log analysis, improving threat detection capabilities.',
-      'Gained hands-on experience with industry-standard security tools and participated in internal security audits.',
+      'Developed machine learning models for predictive analytics using Python.',
+      'Processed and analyzed large datasets using Scikit-learn and Pandas.',
+      'Collaborated on integrating AI solutions into software frameworks.',
     ],
   },
 ];
