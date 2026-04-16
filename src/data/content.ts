@@ -1,6 +1,6 @@
 export const personalInfo = {
   name: 'Pranith Jain',
-  title: 'Security Analyst',
+  title: 'System Security Analyst',
   headline: '"Most phishing investigations end at the alert. Mine start there."',
   description: `I'm Pranith Jain — I investigate phishing incidents starting at the alert: suspicious emails, BEC attempts, and malware payloads. Currently defending communication integrity for 150+ global brands, I've expanded my focus into AI security and API threat detection, building automated pipelines that correlate threat intelligence at scale.`,
   currentFocus: 'Threat intel, email defense, and cloud identity security',
@@ -193,7 +193,20 @@ export const experiences = [
     location: 'Vijayawada, India',
     period: 'Mar 2023 — Sep 2023',
     items: [
-      'Built a hospital management system and responsive web UI; worked on API integration and testing workflows.',
+      'Engineered "Arogya", a comprehensive Hospital Management System, improving patient record accessibility and streamlining administrative workflows.',
+      'Developed responsive web interfaces and integrated RESTful APIs to enhance user experience and system interoperability.',
+      'Collaborated on system architecture design and implemented core modules for appointment scheduling and billing.',
+    ],
+  },
+  {
+    title: 'Cybersecurity Intern',
+    company: 'AiROBOSOFT',
+    location: 'Remote',
+    period: 'Dec 2022 — Feb 2023',
+    items: [
+      'Conducted vulnerability research and assisted in performing web application security assessments to identify and mitigate potential risks.',
+      'Developed automated scripts for security monitoring and log analysis, improving threat detection capabilities.',
+      'Gained hands-on experience with industry-standard security tools and participated in internal security audits.',
     ],
   },
 ];
