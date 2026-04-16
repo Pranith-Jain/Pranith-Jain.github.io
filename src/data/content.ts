@@ -11,7 +11,7 @@ export const personalInfo = {
   calendlyUrl: 'https://calendly.com/pranithjain84/30min',
   linkedInUrl: 'https://www.linkedin.com/in/pranithjain',
   githubUrl: 'https://github.com/Pranith-Jain',
-  resumeUrl: 'https://app.rezi.ai/s/pranith-jain',
+  resumeUrl: 'https://app.rezi.ai/s/pranith',
   featuredUrl: 'https://featured.com/p/pranith-jain',
 };
 
