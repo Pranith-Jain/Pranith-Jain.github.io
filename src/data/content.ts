@@ -2,7 +2,7 @@ export const personalInfo = {
   name: 'Pranith Jain',
   title: 'Security Analyst – Email Security & Automation',
   headline: '"Most phishing investigations end at the alert. Mine start there."',
-  description: `I'm Pranith Jain — I investigate phishing incidents starting at the alert: suspicious emails, BEC attempts, and malware payloads. Currently defending communication integrity for 165+ global brands, I've expanded my focus into AI security and API threat detection, building automated pipelines that correlate threat intelligence at scale.`,
+  description: `I'm Pranith Jain — I investigate phishing incidents starting at the alert: suspicious emails, BEC attempts, and malware payloads. Currently defending communication integrity for 150+ global brands, I've expanded my focus into AI security and API threat detection, building automated pipelines that correlate threat intelligence at scale.`,
   currentFocus: 'Threat intel, email defense, and cloud identity security',
   currentlyLearning: 'LLM Security (OWASP Top 10 for LLM) & Advanced Threat Hunting',
   availability: 'Open for Consultations & Strategy Calls',
@@ -34,7 +34,7 @@ export const stats = [
     label: 'Domains Secured',
     value: '1300+',
     target: 1300,
-    description: 'Across 165+ Startup Portfolio',
+    description: 'Across 150+ Startup Portfolio',
     badge: '98%+ Auth Alignment',
   },
   {
@@ -143,7 +143,7 @@ export const experiences = [
         title: 'Email Security Operations',
         icon: 'Mail',
         items: [
-          'Managed email security operations for 165+ early-stage startups, enforcing SPF, DKIM, and DMARC across 1,300+ domains to achieve 98%+ authentication alignment blocking spoofed and impersonation email at the perimeter and reducing spoofing incidents by 60%.',
+          'Managed email security operations for 150+ early-stage startups, enforcing SPF, DKIM, and DMARC across 1,300+ domains to achieve 98%+ authentication alignment blocking spoofed and impersonation email at the perimeter and reducing spoofing incidents by 60%.',
         ],
       },
       {

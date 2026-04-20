@@ -888,28 +888,19 @@ export function DFIR() {
             date: '2024-02-20',
             category: 'Leaked Credentials',
           },
-          { name: ' LeakCheck', records: Math.floor(Math.random() * 2), date: '2024-01-10', category: 'Data Breach' },
+          { name: 'LeakCheck', records: Math.floor(Math.random() * 2), date: '2024-01-10', category: 'Data Breach' },
         ];
 
-        setExposureResult({
+        const exposureData = {
           query,
           type: query.includes('@') ? 'Email' : 'Domain',
           total_exposed_records: sources.reduce((acc, s) => acc + s.records, 0),
           sources,
           severity: sources.reduce((acc, s) => acc + s.records, 0) > 3 ? 'High' : 'Medium',
           risk_level: sources.reduce((acc, s) => acc + s.records, 0) > 5 ? 'Critical' : 'Elevated',
-        });
-        setExposureHistory((prev) => [
-          {
-            query,
-            type: query.includes('@') ? 'Email' : 'Domain',
-            total_exposed_records: sources.reduce((acc, s) => acc + s.records, 0),
-            sources,
-            severity: sources.reduce((acc, s) => acc + s.records, 0) > 3 ? 'High' : 'Medium',
-            risk_level: sources.reduce((acc, s) => acc + s.records, 0) > 5 ? 'Critical' : 'Elevated',
-          },
-          ...prev.slice(0, 9),
-        ]);
+        };
+        setExposureResult(exposureData);
+        setExposureHistory((prev) => [exposureData, ...prev.slice(0, 9)]);
       }
     } catch {
       setExposureResult(null);
@@ -949,7 +940,7 @@ export function DFIR() {
       categories: {
         ipNetwork: { score: 15, maxScore: 25, details: { httpIp: 'Detected', webrtcLeak: 'None' } },
         dnsPrivacy: { score: 10, maxScore: 15, details: { dohEnabled: false } },
-        fingerprinting: { score: 20, maxScore: 25, details: { canvasHash: !!canvas, platform: navigator.platform } },
+        fingerprinting: { score: 20, maxScore: 25, details: { canvasHash: !!canvas, platform: navigator.userAgent } },
         privacySettings: { score: 8, maxScore: 15, details: { dnt: navigator.doNotTrack === '1' } },
         connectionSecurity: { score: 10, maxScore: 10, details: { https: true } },
         trackingProtection: { score: 9, maxScore: 10, details: { trackerBlocker: true } },
@@ -1990,7 +1981,7 @@ export function DFIR() {
           >
             Documentation <ExternalLink className="w-3 h-3" />
           </a>
-          <span>© 2026 DFIR-PLATFORM</span>
+          <span>© 2025 DFIR-PLATFORM</span>
         </div>
       </div>
     </section>
