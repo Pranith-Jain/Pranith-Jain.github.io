@@ -40,7 +40,7 @@ export function About() {
               Currently expanding into{" "}
               <span className="text-brand-700 dark:text-brand-400 font-semibold">AI security and API threat detection</span>,
               applying the same investigation-first mindset to emerging attack vectors. My work bridges technical
-              controls with business-critical trust signals across 165+ global brands.
+              controls with business-critical trust signals across 150+ global brands.
             </p>
             <p>
               I am currently seeking new security challenges where I can leverage my expertise in email defense, automation, and threat intelligence to protect and scale security operations in enterprise environments.
