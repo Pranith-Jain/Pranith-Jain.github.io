@@ -1,288 +1,492 @@
 {
   "categories": [
-    { "id": "email_security", "name": "Email Security", "count": 8 },
-    { "id": "threat_intelligence", "name": "Threat Intel", "count": 14 },
-    { "id": "forensics", "name": "Forensics", "count": 6 },
-    { "id": "detection_engineering", "name": "Detection", "count": 9 },
-    { "id": "attack_types", "name": "Attack Types", "count": 13 }
+    { "id": "email_security", "name": "Email Security", "count": 12 },
+    { "id": "threat_intelligence", "name": "Threat Intel", "count": 18 },
+    { "id": "forensics", "name": "Forensics", "count": 10 },
+    { "id": "detection_engineering", "name": "Detection", "count": 12 },
+    { "id": "attack_types", "name": "Attack Types", "count": 18 },
+    { "id": "osint_tools", "name": "OSINT Tools", "count": 8 }
   ],
   "articles": {
     "email_security": [
       {
         "slug": "spf",
         "title": "SPF (Sender Policy Framework)",
-        "description": "A DNS-based email authentication protocol that specifies which mail servers are authorized to send email on behalf of a domain."
+        "description": "A DNS-based email authentication protocol that specifies which mail servers are authorized to send email on behalf of a domain.",
+        "url": "https://dfir-lab.ch/wiki/spf"
       },
       {
         "slug": "dkim",
         "title": "DKIM (DomainKeys Identified Mail)",
-        "description": "An email authentication standard that uses public-key cryptography to verify that a message was sent and authorized by the owner of a domain."
+        "description": "An email authentication standard that uses public-key cryptography to verify that a message was sent and authorized by the owner of a domain.",
+        "url": "https://dfir-lab.ch/wiki/dkim"
       },
       {
         "slug": "dmarc",
-        "title": "DMARC (Domain-based Message Authentication, Reporting and Conformance)",
-        "description": "An email authentication protocol that builds on SPF and DKIM to give domain owners control over how unauthenticated messages are handled and to enable abuse reporting."
-      },
-      {
-        "slug": "arc-authentication",
-        "title": "ARC Authentication",
-        "description": "Authenticated Received Chain preserves email authentication results across forwarding hops so receiving servers can evaluate the original authentication state."
+        "title": "DMARC (Domain-based Message Authentication)",
+        "description": "An email authentication protocol that builds on SPF and DKIM to give domain owners control over how unauthenticated messages are handled.",
+        "url": "https://dfir-lab.ch/wiki/dmarc"
       },
       {
         "slug": "email-header-analysis",
         "title": "Email Header Analysis",
-        "description": "The process of examining RFC 5322 email headers to trace a message's delivery path, verify authentication results, and identify anomalies."
-      },
-      {
-        "slug": "homoglyph-domains",
-        "title": "Homoglyph Domains",
-        "description": "Domains that substitute visually identical or near-identical Unicode characters to impersonate legitimate domains."
+        "description": "The process of examining RFC 5322 email headers to trace a message's delivery path, verify authentication results, and identify anomalies.",
+        "url": "https://dfir-lab.ch/wiki/email-header-analysis"
       },
       {
         "slug": "email-spoofing",
         "title": "Email Spoofing",
-        "description": "The forgery of email header fields to make a message appear to originate from a sender other than its true source."
+        "description": "The forgery of email header fields to make a message appear to originate from a sender other than its true source.",
+        "url": "https://dfir-lab.ch/wiki/email-spoofing"
+      },
+      {
+        "slug": "homoglyph-domains",
+        "title": "Homoglyph Domains",
+        "description": "Domains that substitute visually identical or near-identical Unicode characters to impersonate legitimate domains.",
+        "url": "https://dfir-lab.ch/wiki/homoglyph-domains"
+      },
+      {
+        "slug": "arc-authentication",
+        "title": "ARC Authentication",
+        "description": "Authenticated Received Chain preserves email authentication results across forwarding hops.",
+        "url": "https://dfir-lab.ch/wiki/arc-authentication"
       },
       {
         "slug": "link-display-mismatch",
         "title": "Link-Display Mismatch",
-        "description": "A phishing technique where the visible anchor text shows a different URL than the actual href destination."
+        "description": "A phishing technique where the visible anchor text shows a different URL than the actual href destination.",
+        "url": "https://dfir-lab.ch/wiki/link-display-mismatch"
+      },
+      {
+        "slug": "bec",
+        "title": "Business Email Compromise (BEC)",
+        "description": "A social engineering attack where adversaries hijack or spoof corporate email accounts for financial fraud.",
+        "url": "https://dfir-lab.ch/wiki/bec"
+      },
+      {
+        "slug": "thread-hijacking",
+        "title": "Thread Hijacking",
+        "description": "An attack where an adversary compromises a mailbox and replies to existing threads with malicious content.",
+        "url": "https://dfir-lab.ch/wiki/thread-hijacking"
+      },
+      {
+        "slug": "qr-phishing",
+        "title": "QR Phishing (Quishing)",
+        "description": "A phishing technique that embeds malicious URLs inside QR codes to bypass traditional email filters.",
+        "url": "https://dfir-lab.ch/wiki/qr-phishing"
+      },
+      {
+        "slug": "credential-harvesting",
+        "title": "Credential Harvesting",
+        "description": "The theft of usernames and passwords through fake login pages and phishing sites.",
+        "url": "https://dfir-lab.ch/wiki/credential-harvesting"
       }
     ],
     "threat_intelligence": [
       {
         "slug": "ioc-enrichment",
         "title": "IOC Enrichment",
-        "description": "The process of augmenting raw indicators of compromise with contextual threat intelligence."
-      },
-      {
-        "slug": "attack-surface-management",
-        "title": "Attack Surface Management",
-        "description": "The continuous process of discovering, inventorying, and reducing an organization's externally exposed digital assets."
+        "description": "The process of augmenting raw indicators of compromise with contextual threat intelligence.",
+        "url": "https://dfir-lab.ch/wiki/ioc-enrichment"
       },
       {
         "slug": "indicators-of-compromise",
         "title": "Indicators of Compromise (IOCs)",
-        "description": "Observable artifacts that indicate a system or network may have been breached."
+        "description": "Observable artifacts that indicate a system or network may have been breached.",
+        "url": "https://dfir-lab.ch/wiki/indicators-of-compromise"
       },
       {
         "slug": "threat-intelligence",
         "title": "Threat Intelligence",
-        "description": "Evidence-based knowledge about existing or emerging cyber threats."
-      },
-      {
-        "slug": "certificate-transparency",
-        "title": "Certificate Transparency",
-        "description": "A public logging framework that records all SSL/TLS certificates issued by CAs."
-      },
-      {
-        "slug": "passive-dns",
-        "title": "Passive DNS",
-        "description": "A historical record of DNS resolutions for domain-to-IP mappings."
-      },
-      {
-        "slug": "whois-lookup",
-        "title": "WHOIS Lookup",
-        "description": "A protocol for querying domain registration information."
-      },
-      {
-        "slug": "domain-reputation",
-        "title": "Domain Reputation",
-        "description": "A score or classification assigned to a domain based on historical behavior."
-      },
-      {
-        "slug": "ip-reputation",
-        "title": "IP Reputation",
-        "description": "A score or classification assigned to an IP based on malicious activity."
+        "description": "Evidence-based knowledge about existing or emerging cyber threats.",
+        "url": "https://dfir-lab.ch/wiki/threat-intelligence"
       },
       {
         "slug": "threat-actor-profiling",
         "title": "Threat Actor Profiling",
-        "description": "The process of identifying and documenting threat group tactics and infrastructure."
+        "description": "The process of identifying and documenting threat group tactics, techniques, and infrastructure.",
+        "url": "https://dfir-lab.ch/wiki/threat-actor-profiling"
+      },
+      {
+        "slug": "whois-lookup",
+        "title": "WHOIS Lookup",
+        "description": "A protocol for querying domain registration information including registrant details and dates.",
+        "url": "https://dfir-lab.ch/wiki/whois-lookup"
+      },
+      {
+        "slug": "ip-reputation",
+        "title": "IP Reputation",
+        "description": "A score or classification assigned to an IP based on historical malicious activity patterns.",
+        "url": "https://dfir-lab.ch/wiki/ip-reputation"
+      },
+      {
+        "slug": "domain-reputation",
+        "title": "Domain Reputation",
+        "description": "A score or classification assigned to a domain based on historical behavior and threat data.",
+        "url": "https://dfir-lab.ch/wiki/domain-reputation"
+      },
+      {
+        "slug": "certificate-transparency",
+        "title": "Certificate Transparency",
+        "description": "A public logging framework that records all SSL/TLS certificates issued by Certificate Authorities.",
+        "url": "https://dfir-lab.ch/wiki/certificate-transparency"
+      },
+      {
+        "slug": "passive-dns",
+        "title": "Passive DNS",
+        "description": "A historical record of DNS resolutions for domain-to-IP mappings and reverse lookups.",
+        "url": "https://dfir-lab.ch/wiki/passive-dns"
+      },
+      {
+        "slug": "attack-surface-management",
+        "title": "Attack Surface Management",
+        "description": "The continuous process of discovering, inventorying, and reducing an organization's externally exposed digital assets.",
+        "url": "https://dfir-lab.ch/wiki/attack-surface-management"
       },
       {
         "slug": "dns-security",
         "title": "DNS Security",
-        "description": "Practices and technologies for protecting DNS infrastructure."
+        "description": "Practices and technologies for protecting DNS infrastructure from manipulation and hijacking.",
+        "url": "https://dfir-lab.ch/wiki/dns-security"
       },
       {
         "slug": "ssl-tls-certificates",
         "title": "SSL/TLS Certificates",
-        "description": "Digital certificates that authenticate server identity and enable encryption."
+        "description": "Digital certificates that authenticate server identity and enable encrypted communications.",
+        "url": "https://dfir-lab.ch/wiki/ssl-tls-certificates"
       },
       {
         "slug": "open-ports",
         "title": "Open Ports",
-        "description": "Network ports on a host that are accepting connections."
+        "description": "Network ports on a host that are accepting connections and potential attack vectors.",
+        "url": "https://dfir-lab.ch/wiki/open-ports"
       },
       {
         "slug": "vulnerability-scanning",
         "title": "Vulnerability Scanning",
-        "description": "The automated process of identifying security weaknesses."
+        "description": "The automated process of identifying security weaknesses in systems and applications.",
+        "url": "https://dfir-lab.ch/wiki/vulnerability-scanning"
+      },
+      {
+        "slug": "data-removal",
+        "title": "Data Removal Services",
+        "description": "Services to request removal of personal information from data broker sites and search engines.",
+        "url": "https://serus.ai"
+      },
+      {
+        "slug": "breach-check",
+        "title": "Breach Monitoring",
+        "description": "Check if your email or domain has been exposed in known data breaches.",
+        "url": "https://breach.vip"
+      },
+      {
+        "slug": "ransomware",
+        "title": "Ransomware",
+        "description": "Malware that encrypts files and demands payment for restoration. Includes double extortion tactics.",
+        "url": "https://dfir-lab.ch/wiki/ransomware"
+      },
+      {
+        "slug": "insider-threat",
+        "title": "Insider Threat",
+        "description": "A security risk originating from within the organization, including malicious and negligent insiders.",
+        "url": "https://dfir-lab.ch/wiki/insider-threat"
       }
     ],
     "forensics": [
       {
         "slug": "phishing-analysis",
         "title": "Phishing Analysis",
-        "description": "The forensic examination of suspected phishing emails."
+        "description": "The forensic examination of suspected phishing emails, URLs, and landing pages.",
+        "url": "https://dfir-lab.ch/wiki/phishing-analysis"
       },
       {
         "slug": "digital-forensics",
         "title": "Digital Forensics",
-        "description": "The scientific discipline of identifying, preserving, and presenting digital evidence."
+        "description": "The scientific discipline of identifying, preserving, and presenting digital evidence.",
+        "url": "https://dfir-lab.ch/wiki/digital-forensics"
       },
       {
         "slug": "incident-response",
         "title": "Incident Response",
-        "description": "The organized approach to detecting, containing, and recovering from security incidents."
-      },
-      {
-        "slug": "timeline-analysis",
-        "title": "Timeline Analysis",
-        "description": "The process of reconstructing a chronological sequence of events."
-      },
-      {
-        "slug": "log-analysis",
-        "title": "Log Analysis",
-        "description": "The examination of system and network logs."
+        "description": "The organized approach to detecting, containing, eradicating, and recovering from security incidents.",
+        "url": "https://dfir-lab.ch/wiki/incident-response"
       },
       {
         "slug": "malware-analysis",
         "title": "Malware Analysis",
-        "description": "The process of examining malicious software behavior and capabilities."
+        "description": "The process of examining malicious software behavior, capabilities, and indicators.",
+        "url": "https://dfir-lab.ch/wiki/malware-analysis"
+      },
+      {
+        "slug": "log-analysis",
+        "title": "Log Analysis",
+        "description": "The examination of system and network logs to identify suspicious activities and patterns.",
+        "url": "https://dfir-lab.ch/wiki/log-analysis"
+      },
+      {
+        "slug": "timeline-analysis",
+        "title": "Timeline Analysis",
+        "description": "The process of reconstructing a chronological sequence of events from multiple sources.",
+        "url": "https://dfir-lab.ch/wiki/timeline-analysis"
+      },
+      {
+        "slug": "memory-forensics",
+        "title": "Memory Forensics",
+        "description": "Analysis of volatile memory dumps to uncover running processes and artifacts.",
+        "url": "https://dfir-lab.ch/wiki/memory-forensics"
+      },
+      {
+        "slug": "disk-forensics",
+        "title": "Disk Forensics",
+        "description": "Extraction and analysis of evidence from storage media and file systems.",
+        "url": "https://dfir-lab.ch/wiki/disk-forensics"
+      },
+      {
+        "slug": "network-forensics",
+        "title": "Network Forensics",
+        "description": "Capture and analysis of network traffic to investigate security incidents.",
+        "url": "https://dfir-lab.ch/wiki/network-forensics"
+      },
+      {
+        "slug": "artifacts",
+        "title": "Forensic Artifacts",
+        "description": "Common system and application artifacts used in digital investigations.",
+        "url": "https://dfir-lab.ch/wiki/artifacts"
       }
     ],
     "detection_engineering": [
       {
         "slug": "mitre-attack",
         "title": "MITRE ATT&CK Framework",
-        "description": "A knowledge base of adversary tactics and techniques based on real-world observations."
+        "description": "A knowledge base of adversary tactics and techniques based on real-world observations.",
+        "url": "https://dfir-lab.ch/wiki/mitre-attack"
       },
       {
         "slug": "sigma-rules",
         "title": "Sigma Rules",
-        "description": "A vendor-agnostic open standard for writing detection rules."
+        "description": "A vendor-agnostic open standard for writing detection rules in YAML format.",
+        "url": "https://dfir-lab.ch/wiki/sigma-rules"
       },
       {
         "slug": "yara-rules",
         "title": "YARA Rules",
-        "description": "A pattern-matching tool for identifying and classifying malware."
+        "description": "A pattern-matching tool for identifying and classifying malware samples.",
+        "url": "https://dfir-lab.ch/wiki/yara-rules"
       },
       {
         "slug": "threat-hunting",
         "title": "Threat Hunting",
-        "description": "The proactive search for adversary activity that has evaded security controls."
+        "description": "The proactive search for adversary activity that has evaded existing security controls.",
+        "url": "https://dfir-lab.ch/wiki/threat-hunting"
       },
       {
         "slug": "alert-triage",
         "title": "Alert Triage",
-        "description": "The process of evaluating and prioritizing security alerts."
+        "description": "The process of evaluating and prioritizing security alerts to focus on true positives.",
+        "url": "https://dfir-lab.ch/wiki/alert-triage"
       },
       {
         "slug": "siem",
-        "title": "SIEM",
-        "description": "Security Information and Event Management platform for log analysis."
+        "title": "SIEM (Security Information and Event Management)",
+        "description": "Platforms that aggregate and analyze security events from across the enterprise.",
+        "url": "https://dfir-lab.ch/wiki/siem"
       },
       {
         "slug": "soar",
-        "title": "SOAR",
-        "description": "Security Orchestration, Automation, and Response platforms."
+        "title": "SOAR (Security Orchestration, Automation, Response)",
+        "description": "Platforms that automate security operations and incident response workflows.",
+        "url": "https://dfir-lab.ch/wiki/soar"
       },
       {
         "slug": "detection-as-code",
         "title": "Detection-as-Code",
-        "description": "Managing detection rules as version-controlled code."
+        "description": "Managing detection rules as version-controlled code with CI/CD pipelines.",
+        "url": "https://dfir-lab.ch/wiki/detection-as-code"
       },
       {
         "slug": "api-security",
         "title": "API Security",
-        "description": "Practices and controls for protecting APIs."
+        "description": "Practices and controls for protecting APIs from abuse and unauthorized access.",
+        "url": "https://dfir-lab.ch/wiki/api-security"
+      },
+      {
+        "slug": "zero-trust",
+        "title": "Zero Trust Architecture",
+        "description": "Security model that assumes no implicit trust and requires continuous verification.",
+        "url": "https://dfir-lab.ch/wiki/zero-trust"
+      },
+      {
+        "slug": "endpoint-detection",
+        "title": "Endpoint Detection and Response (EDR)",
+        "description": "Security tools that monitor endpoint activities and provide response capabilities.",
+        "url": "https://dfir-lab.ch/wiki/endpoint-detection"
+      },
+      {
+        "slug": "network-detection",
+        "title": "Network Detection and Response (NDR)",
+        "description": "Security tools that analyze network traffic for threat detection and response.",
+        "url": "https://dfir-lab.ch/wiki/network-detection"
       }
     ],
     "attack_types": [
       {
-        "slug": "bec",
-        "title": "Business Email Compromise (BEC)",
-        "description": "A social engineering attack where adversaries hijack or spoof corporate email accounts."
-      },
-      {
-        "slug": "qr-phishing",
-        "title": "QR Phishing (Quishing)",
-        "description": "A phishing technique that embeds malicious URLs inside QR codes."
-      },
-      {
-        "slug": "thread-hijacking",
-        "title": "Thread Hijacking",
-        "description": "An attack where an adversary compromises a mailbox and replies to existing threads."
-      },
-      {
         "slug": "spear-phishing",
         "title": "Spear Phishing",
-        "description": "A targeted phishing attack directed at specific individuals."
-      },
-      {
-        "slug": "credential-harvesting",
-        "title": "Credential Harvesting",
-        "description": "The theft of usernames and passwords through fake login pages."
+        "description": "A targeted phishing attack directed at specific individuals or organizations.",
+        "url": "https://dfir-lab.ch/wiki/spear-phishing"
       },
       {
         "slug": "typosquatting",
         "title": "Typosquatting",
-        "description": "Registering domain names that are deliberate misspellings of legitimate domains."
+        "description": "Registering domain names that are deliberate misspellings of legitimate domains.",
+        "url": "https://dfir-lab.ch/wiki/typosquatting"
       },
       {
         "slug": "oauth-phishing",
         "title": "OAuth Phishing",
-        "description": "An attack that tricks users into granting malicious OAuth consent."
+        "description": "An attack that tricks users into granting malicious OAuth applications permissions.",
+        "url": "https://dfir-lab.ch/wiki/oauth-phishing"
       },
       {
         "slug": "social-engineering",
         "title": "Social Engineering",
-        "description": "Psychological manipulation techniques to deceive people."
-      },
-      {
-        "slug": "ransomware",
-        "title": "Ransomware",
-        "description": "Malware that encrypts files and demands payment for restoration."
+        "description": "Psychological manipulation techniques to deceive people into making security mistakes.",
+        "url": "https://dfir-lab.ch/wiki/social-engineering"
       },
       {
         "slug": "supply-chain-attack",
         "title": "Supply Chain Attack",
-        "description": "An attack that compromises a trusted third-party vendor."
+        "description": "An attack that compromises a trusted third-party vendor to reach the target.",
+        "url": "https://dfir-lab.ch/wiki/supply-chain-attack"
       },
       {
         "slug": "watering-hole-attack",
         "title": "Watering Hole Attack",
-        "description": "An attack strategy where a website frequently visited by targets is compromised."
+        "description": "An attack strategy where a website frequently visited by targets is compromised.",
+        "url": "https://dfir-lab.ch/wiki/watering-hole-attack"
       },
       {
         "slug": "brute-force-attack",
         "title": "Brute Force Attack",
-        "description": "A method that systematically tries large numbers of passwords."
+        "description": "A method that systematically tries large numbers of passwords or keys.",
+        "url": "https://dfir-lab.ch/wiki/brute-force-attack"
       },
       {
-        "slug": "insider-threat",
-        "title": "Insider Threat",
-        "description": "A security risk originating from within the organization."
+        "slug": "pass-the-hash",
+        "title": "Pass-the-Hash Attack",
+        "description": "A technique that uses password hashes to authenticate without knowing the actual password.",
+        "url": "https://dfir-lab.ch/wiki/pass-the-hash"
+      },
+      {
+        "slug": "kerberoasting",
+        "title": "Kerberoasting",
+        "description": "An attack targeting service accounts to extract their TGS tickets for cracking.",
+        "url": "https://dfir-lab.ch/wiki/kerberoasting"
+      },
+      {
+        "slug": "lateral-movement",
+        "title": "Lateral Movement",
+        "description": "Techniques used to progressively move through a network after initial access.",
+        "url": "https://dfir-lab.ch/wiki/lateral-movement"
+      },
+      {
+        "slug": "privilege-escalation",
+        "title": "Privilege Escalation",
+        "description": "The process of gaining elevated access from an initial compromised account.",
+        "url": "https://dfir-lab.ch/wiki/privilege-escalation"
+      },
+      {
+        "slug": "persistence",
+        "title": "Persistence Mechanisms",
+        "description": "Techniques used by attackers to maintain access after system reboots.",
+        "url": "https://dfir-lab.ch/wiki/persistence"
+      },
+      {
+        "slug": "data-exfiltration",
+        "title": "Data Exfiltration",
+        "description": "Unauthorized transfer of data from an organization's network.",
+        "url": "https://dfir-lab.ch/wiki/data-exfiltration"
+      },
+      {
+        "slug": "command-control",
+        "title": "Command and Control (C2)",
+        "description": "The infrastructure used by attackers to communicate with compromised systems.",
+        "url": "https://dfir-lab.ch/wiki/command-control"
+      },
+      {
+        "slug": "living-off-land",
+        "title": "Living-off-the-Land",
+        "description": "Using legitimate system tools for malicious purposes to avoid detection.",
+        "url": "https://dfir-lab.ch/wiki/living-off-land"
+      },
+      {
+        "slug": "fileless-malware",
+        "title": "Fileless Malware",
+        "description": "Malware that operates entirely in memory without writing files to disk.",
+        "url": "https://dfir-lab.ch/wiki/fileless-malware"
+      },
+      {
+        "slug": "polyglot-attack",
+        "title": "Polyglot Attacks",
+        "description": "Attacks that combine multiple attack vectors or file formats to evade detection.",
+        "url": "https://dfir-lab.ch/wiki/polyglot-attack"
+      },
+      {
+        "slug": "drive-by-download",
+        "title": "Drive-by Download",
+        "description": "Malware that downloads automatically when visiting a compromised website.",
+        "url": "https://dfir-lab.ch/wiki/drive-by-download"
+      }
+    ],
+    "osint_tools": [
+      {
+        "slug": "map-waddak",
+        "title": "MITRE ATT&CK Navigator",
+        "description": "Interactive mapping tool for exploring and visualizing ATT&CK matrices.",
+        "url": "https://map.waddak.com"
+      },
+      {
+        "slug": "wayback-machine",
+        "title": "Wayback Machine",
+        "description": "Archive of web pages that can be used to view historical versions of websites.",
+        "url": "https://web.archive.org"
+      },
+      {
+        "slug": "threat-intel-feeds",
+        "title": "Threat Intelligence RSS Feeds",
+        "description": "Aggregated RSS feeds from security researchers and organizations.",
+        "url": "https://falhumaid.github.io/DFIR_Radar_RSS/rss.xml"
+      },
+      {
+        "slug": "domain-dossier",
+        "title": "Domain Dossier",
+        "description": "Tool for investigating domain registration, DNS records, and historical data.",
+        "url": "https://centralops.net/co/DomainDossier.aspx"
+      },
+      {
+        "slug": "threat-intelligence-platforms",
+        "title": "TI Platforms",
+        "description": "Comprehensive threat intelligence platforms for IOC lookup and enrichment.",
+        "url": "https://www.mandiant.com"
+      },
+      {
+        "slug": "vulnerability-databases",
+        "title": "Vulnerability Databases",
+        "description": "Comprehensive databases of known vulnerabilities including CVE details.",
+        "url": "https://nvd.nist.gov"
+      },
+      {
+        "slug": "threat-actor-trackers",
+        "title": "Threat Actor Trackers",
+        "description": "Trackers monitoring known threat actor activities and infrastructure.",
+        "url": "https://apt.etda.or.th"
+      },
+      {
+        "slug": "brand-protection",
+        "title": "Brand Protection Tools",
+        "description": "Tools for monitoring and protecting against brand impersonation.",
+        "url": "https://www.checkphish.ai"
       }
     ]
-  },
-  "content": {
-    "spf": {
-      "title": "SPF (Sender Policy Framework)",
-      "category": "Email Security",
-      "content": "## What is SPF?\n\nSender Policy Framework (SPF) is a DNS-based email authentication protocol that allows domain owners to specify which mail servers are authorized to send email on behalf of their domain.\n\n## How It Works\n\n1. Domain owner publishes a TXT record in DNS that lists the authorized sending IP addresses\n2. Receiving mail server checks the SPF record before accepting the email\n3. If the sending server is not listed, the email may be rejected or marked as spam\n\n## SPF Record Syntax\n\nv=spf1 ip4:192.0.2.0/24 include:_spf.example.com ~all\n\n- v=spf1: Version identifier\n- ip4: IPv4 address or network\n- include: Includes another domain's SPF record\n- ~all: Softfail (recommended)\n\n## Best Practices\n\n- Always use ~all (softfail) instead of -all (fail) initially\n- Monitor reports before enforcing strict policy\n- Keep DNS lookups under 10 to avoid validation failures"
-    },
-    "dkim": {
-      "title": "DKIM (DomainKeys Identified Mail)",
-      "category": "Email Security",
-      "content": "## What is DKIM?\n\nDKIM is an email authentication standard that uses public-key cryptography to verify that an email was not altered in transit and was sent by the claimed sender.\n\n## How It Works\n\n1. Sending server signs email headers with a private key\n2. Public key is published in DNS as a TXT record\n3. Receiving server verifies the signature using the public key\n\n## DKIM Selectors\n\nDKIM uses selectors to differentiate between multiple signing keys:\n- default._domainkey.example.com\n- google._domainkey.example.com\n- selector1._domainkey.example.com\n\n## Common Email Service Providers\n\n- Google Workspace: google._domainkey\n- Microsoft 365: selector1._domainkey\n- Amazon SES: amazonses._domainkey\n- SendGrid: s1._domainkey"
-    },
-    "dmarc": {
-      "title": "DMARC (Domain-based Message Authentication, Reporting and Conformance)",
-      "category": "Email Security",
-      "content": "## What is DMARC?\n\nDMARC builds on SPF and DKIM to give domain owners control over how unauthenticated messages are handled and enables aggregate reporting.\n\n## DMARC Policy\n\n- p=none: Monitor only, no action\n- p=quarantine: Mark suspicious emails as spam\n- p=reject: Reject suspicious emails\n\n## DMARC Reports\n\n- RUA: Aggregate reports (XML)\n- RUF: Forensic reports (JSON)\n\n## Example Record\n\nv=DMARC1; p=reject; rua=mailto:dmarc@example.com;ruf=mailto:forensic@example.com;fo=1"
-    }
   }
 }

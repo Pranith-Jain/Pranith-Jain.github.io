@@ -138,6 +138,7 @@ interface ActorDetail {
   techniques: string[];
   targets: string[];
   description: string;
+  url?: string;
 }
 
 interface ResearchItem {
@@ -217,6 +218,21 @@ export function DFIR() {
   // Known Threat Actors Database
   const threatActors: ActorDetail[] = [
     {
+      name: 'Sandworm Team',
+      alias: 'Voodoo Bear, Electrum',
+      origin: 'Russia (GRU)',
+      motivation: 'Cyber Warfare',
+      active_since: '2009',
+      last_activity: '2025',
+      status: 'Active',
+      malware: ['BlackEnergy', 'NotPetya', 'Industroyer', 'KillDisk', 'GreyEnergy'],
+      techniques: ['Destructive Malware', 'OT Targeting', 'Infrastructure Disruption'],
+      targets: ['Energy', 'Critical Infrastructure', 'Government', 'Ukraine'],
+      description:
+        'Russian state-sponsored threat group known for destructive attacks against critical infrastructure, including the 2015 and 2016 Ukraine power grid attacks and the catastrophic 2017 NotPetya malware that caused billions in damages globally.',
+      url: 'https://dfir-lab.ch/actors/sandworm-team',
+    },
+    {
       name: 'Storm-1747',
       alias: 'Storm-1747',
       origin: 'Unknown',
@@ -229,6 +245,7 @@ export function DFIR() {
       targets: ['Healthcare', 'Finance', 'Technology'],
       description:
         'Emerging threat actor known for sophisticated phishing campaigns targeting healthcare and financial sectors. Uses multi-stage attack chains with custom loaders.',
+      url: 'https://dfir-lab.ch/actors/storm-1747',
     },
     {
       name: 'Rhysida',
@@ -239,10 +256,41 @@ export function DFIR() {
       last_activity: '2025',
       status: 'Active',
       malware: ['Rhysida Ransomware', 'Cobalt Strike'],
-      techniques: ['Ransomware', ' Lateral Movement', 'Data Encryption'],
+      techniques: ['Ransomware', 'Lateral Movement', 'Data Encryption'],
       targets: ['Healthcare', 'Education', 'Government'],
       description:
         'Ransomware-as-a-Service group known for high-profile attacks on hospitals and educational institutions. Employs double extortion tactics.',
+      url: 'https://dfir-lab.ch/actors/rhysida',
+    },
+    {
+      name: 'APT41 (Double Dragon)',
+      alias: 'BARIUM, WICKED PANDARIS, Double Dragon',
+      origin: 'China',
+      motivation: 'Cyber Espionage + Financial',
+      active_since: '2012',
+      last_activity: '2025',
+      status: 'Active',
+      malware: ['SPARROW', 'SHOTPUT', 'CROSSWALK', 'HOMEUNIX', 'KEYPLUG'],
+      techniques: ['Espionage', 'Cryptojacking', 'Supply Chain Attacks', 'Finance Theft'],
+      targets: ['Healthcare', 'Telecommunications', 'Media', 'Government', 'Gaming'],
+      description:
+        'Chinese nation-state actor operating for both espionage and financial gain. Known for watering hole attacks, supply chain compromises, and targeting video game companies for virtual currency theft.',
+      url: 'https://dfir-lab.ch/actors/apt41-double-dragon',
+    },
+    {
+      name: 'Lazarus Group',
+      alias: 'Hidden Cobra, Zinc, Labyrinth Chollima',
+      origin: 'North Korea (RGB)',
+      motivation: 'Cyber Espionage + Financial',
+      active_since: '2009',
+      last_activity: '2025',
+      status: 'Active',
+      malware: ['HARDRAIN', 'BRINE SPOT', 'TAINTEDMUSIC', 'FALLCHILL', 'COVERAGEBEACON'],
+      techniques: ['SWIFT Attacks', 'Cryptocurrency Heists', 'Destructive Malware', 'Strategic Web Compromise'],
+      targets: ['Banks', 'Cryptocurrency Exchanges', 'Defense Contractors', 'Government'],
+      description:
+        'North Korean state-sponsored threat group responsible for major financial heists including the Bangladesh Bank robbery ($81M), multiple cryptocurrency exchange attacks, and the destructiveattacks against Sony Pictures and Wannacry ransomware.',
+      url: 'https://dfir-lab.ch/actors/lazarus-group',
     },
     {
       name: 'BianLian',
@@ -252,39 +300,11 @@ export function DFIR() {
       active_since: '2019',
       last_activity: '2025',
       status: 'Active',
-      malware: [' BianLian Ransomware', 'Custom Backdoors'],
+      malware: ['BianLian Ransomware', 'Custom Backdoors'],
       techniques: ['Ransomware', 'Business Email Compromise', 'Wire Fraud'],
-      targets: ['Media', 'Entertainment', 'Sports'],
+      targets: ['Media', 'Entertainment', 'Sports', 'Manufacturing'],
       description:
         'China-based threat actor primarily targeting media and entertainment companies. Known for media leaks and double extortion attacks.',
-    },
-    {
-      name: 'APT41',
-      alias: 'BARIUM, WICKED PANDARIS',
-      origin: 'China',
-      motivation: 'Cyber Espionage + Financial',
-      active_since: '2012',
-      last_activity: '2025',
-      status: 'Active',
-      malware: ['SPARROW', 'SHOTPUT', 'CROSSWALK', 'HOMEUNIX'],
-      techniques: ['Espionage', 'Cryptojacking', 'Supply Chain Attacks'],
-      targets: ['Healthcare', 'Telecommunications', 'Media', 'Government'],
-      description:
-        'Chinese nation-state actor operating for both espionage and financial gain. Known for watering hole attacks and supply chain compromises.',
-    },
-    {
-      name: 'Lazarus Group',
-      alias: 'Hidden Cobra, Zinc',
-      origin: 'North Korea',
-      motivation: 'Cyber Espionage + Financial',
-      active_since: '2009',
-      last_activity: '2025',
-      status: 'Active',
-      malware: ['HARDRAIN', 'BRINE SPOT', 'TAINTEDMUSIC', 'FALLCHILL'],
-      techniques: ['SWIFT Attacks', 'Cryptocurrency Heists', 'Destructive Malware'],
-      targets: ['Banks', 'Cryptocurrency Exchanges', 'Defense Contractors'],
-      description:
-        'North Korean state-sponsored threat group responsible for major financial heists including the Bangladesh Bank robbery and numerous cryptocurrency exchange attacks.',
     },
     {
       name: 'LockBit',
@@ -298,33 +318,33 @@ export function DFIR() {
       techniques: ['Ransomware', 'Data Exfiltration', 'Extortion'],
       targets: ['Healthcare', 'Education', 'Critical Infrastructure'],
       description:
-        'Ransomware-as-a-Service group disrupted by international law enforcement in 2024. Previously one of the most active RaaS operations.',
+        'Ransomware-as-a-Service group disrupted by international law enforcement in 2024 (Operation Cronos). Previously one of the most active RaaS operations with over $100M in ransom payments.',
     },
     {
       name: 'ALPHV (BlackCat)',
-      alias: 'BlackCat, NoEscape',
+      alias: 'BlackCat, NoEscape, ALPHV',
       origin: 'Russia',
       motivation: 'Ransomware Operations',
       active_since: '2021',
       last_activity: '2024',
       status: 'Defunct',
-      malware: ['BlackCat Ransomware', 'Exmatter'],
+      malware: ['BlackCat Ransomware', 'Exmatter', 'Cobalt Strike'],
       techniques: ['Ransomware', 'Double Extortion', 'RMM Tools'],
       targets: ['Healthcare', 'Critical Infrastructure', 'Entertainment'],
       description:
-        'Rust-based ransomware group using affiliate model. Known for high ransoms and targeting critical infrastructure.',
+        'Rust-based ransomware group using affiliate model. Known for high ransoms and targeting critical infrastructure. Linked to previous DarkSide/BlackMatter operations.',
     },
     {
       name: 'Clop',
-      alias: 'Clop Ransomware',
+      alias: 'Clop Ransomware, TA505',
       origin: 'Russia/Ukraine',
       motivation: 'Financial Gain',
       active_since: '2019',
-      last_activity: '2024',
+      last_activity: '2025',
       status: 'Active',
-      malware: ['Clop Ransomware', 'Gambo'],
-      techniques: ['Ransomware', 'MOVEit Exploitation', 'Data Leaks'],
-      targets: ['Healthcare', 'Education', 'Government', 'Finance'],
+      malware: ['Clop Ransomware', 'Gambo', 'FinLoader'],
+      techniques: ['Ransomware', 'MOVEit Exploitation', 'Data Leaks', 'BEC'],
+      targets: ['Healthcare', 'Education', 'Government', 'Finance', 'Retail'],
       description:
         'Responsible for the massive MOVEit supply chain attack affecting millions. Uses double extortion and targets large enterprises.',
     },
@@ -335,74 +355,134 @@ export function DFIR() {
     () => [
       {
         id: '1',
-        title: 'Detection of Phishing Emails Using Machine Learning',
-        authors: 'Smith, J., Johnson, M.',
+        title: 'Mastering Email Header Analysis',
+        authors: 'DFIR Lab Research Team',
         published: '2024',
-        category: 'Phishing Detection',
-        summary:
-          'A comprehensive study on ML-based detection of phishing emails with 98.5% accuracy using ensemble methods combining header analysis and content features.',
-        url: 'https://arxiv.org/abs/2401.00001',
-        citations: 127,
+        category: 'Email Security',
+        summary: 'Comprehensive guide to RFC 5322 email header analysis covering SPF, DKIM, DMARC authentication verification, routing path analysis, and anomaly detection for security investigations.',
+        url: 'https://dfir-lab.ch/wiki/email-header-analysis',
+        citations: 342,
         read: false,
       },
       {
         id: '2',
-        title: 'Advanced BEC Attack Vectors and Defense Strategies',
-        authors: 'Chen, L., Williams, R.',
-        published: '2024',
-        category: 'Email Security',
-        summary:
-          'Analysis of evolving BEC attack techniques including invoice fraud, executive impersonation, and attorney impersonation with practical defense recommendations.',
-        url: 'https://arxiv.org/abs/2402.00002',
-        citations: 89,
-        read: false,
-      },
-      {
-        id: '3',
-        title: 'IoC Enrichment Automation in SOC Environments',
-        authors: 'Patel, A., Brown, K.',
+        title: 'IOC Enrichment Automation Framework',
+        authors: 'Security Research Team',
         published: '2024',
         category: 'Threat Intelligence',
-        summary:
-          'Framework for automated IOC enrichment using multiple threat intelligence sources, reducing analyst workload by 60% while maintaining high fidelity alerts.',
-        url: 'https://arxiv.org/abs/2403.00003',
-        citations: 54,
-        read: false,
-      },
-      {
-        id: '4',
-        title: 'Email Header Forensics: A Field Guide',
-        authors: 'Davis, M., Thompson, S.',
-        published: '2023',
-        category: 'Digital Forensics',
-        summary:
-          'Comprehensive guide to email header analysis covering SPF, DKIM, DMARC authentication results, routing analysis, and evidence preservation.',
-        url: 'https://arxiv.org/abs/2304.00004',
-        citations: 203,
-        read: false,
-      },
-      {
-        id: '5',
-        title: 'Zero Trust Architecture Implementation Challenges',
-        authors: 'Anderson, P., Garcia, R.',
-        published: '2024',
-        category: 'Cloud Security',
-        summary:
-          'Study of implementation challenges and best practices for zero trust in enterprise environments, with case studies from Fortune 500 companies.',
-        url: 'https://arxiv.org/abs/2405.00005',
+        summary: 'Framework for automated IOC enrichment integrating multiple threat intelligence sources including VirusTotal, AlienVault OTX, and MITRE ATT&CK for streamlined security operations.',
+        url: 'https://dfir-lab.ch/wiki/ioc-enrichment',
         citations: 156,
         read: false,
       },
       {
-        id: '6',
-        title: 'Dark Web Monitoring for Threat Intelligence',
-        authors: 'Martinez, C., Lee, H.',
+        id: '3',
+        title: 'SPF, DKIM, and DMARC Implementation Guide',
+        authors: 'Email Security Experts',
         published: '2024',
-        category: 'OSINT',
-        summary:
-          'Methodologies for effective dark web monitoring, forum analysis, and early warning systems for emerging threats and data breaches.',
-        url: 'https://arxiv.org/abs/2406.00006',
-        citations: 78,
+        category: 'Email Security',
+        summary: 'Complete guide to implementing email authentication protocols including DNS configuration, policy setup, and monitoring for email security best practices.',
+        url: 'https://dfir-lab.ch/wiki/spf',
+        citations: 289,
+        read: false,
+      },
+      {
+        id: '4',
+        title: 'Threat Actor Profiling Methodology',
+        authors: 'DFIR Lab',
+        published: '2024',
+        category: 'Threat Intelligence',
+        summary: 'Systematic approach to identifying and documenting threat group tactics, techniques, infrastructure, and attribution based on intelligence gathering and analysis.',
+        url: 'https://dfir-lab.ch/wiki/threat-actor-profiling',
+        citations: 198,
+        read: false,
+      },
+      {
+        id: '5',
+        title: 'BEC Attack Detection and Prevention',
+        authors: 'Security Operations Team',
+        published: '2024',
+        category: 'Email Security',
+        summary: 'Analysis of Business Email Compromise attack patterns including invoice fraud, executive impersonation, and attorney impersonation with detection strategies.',
+        url: 'https://dfir-lab.ch/wiki/bec',
+        citations: 245,
+        read: false,
+      },
+      {
+        id: '6',
+        title: 'Phishing Analysis Techniques',
+        authors: 'DFIR Lab Research',
+        published: '2024',
+        category: 'Phishing Analysis',
+        summary: 'Forensic examination methodology for phishing emails including URL analysis, landing page investigation, and identifying indicators of compromise.',
+        url: 'https://dfir-lab.ch/wiki/phishing-analysis',
+        citations: 167,
+        read: false,
+      },
+      {
+        id: '7',
+        title: 'MITRE ATT&CK Framework Guide',
+        authors: 'Detection Engineering Team',
+        published: '2024',
+        category: 'Detection Engineering',
+        summary: 'Comprehensive guide to understanding and applying the MITRE ATT&CK framework for threat detection, hunting, and adversary emulation.',
+        url: 'https://dfir-lab.ch/wiki/mitre-attack',
+        citations: 412,
+        read: false,
+      },
+      {
+        id: '8',
+        title: 'Domain Reputation Analysis Techniques',
+        authors: 'Threat Intelligence Analysts',
+        published: '2024',
+        category: 'Threat Intelligence',
+        summary: 'Methods for evaluating domain reputation including WHOIS analysis, passive DNS records, certificate transparency logs, and historical threat data.',
+        url: 'https://dfir-lab.ch/wiki/domain-reputation',
+        citations: 134,
+        read: false,
+      },
+      {
+        id: '9',
+        title: 'Incident Response Playbook Development',
+        authors: 'DFIR Lab',
+        published: '2024',
+        category: 'Incident Response',
+        summary: 'Step-by-step methodology for developing comprehensive incident response playbooks including containment, eradication, and recovery procedures.',
+        url: 'https://dfir-lab.ch/wiki/incident-response',
+        citations: 289,
+        read: false,
+      },
+      {
+        id: '10',
+        title: 'Homoglyph Domain Detection',
+        authors: 'Brand Protection Team',
+        published: '2024',
+        category: 'Threat Intelligence',
+        summary: 'Techniques for identifying homoglyph domains that use visually similar Unicode characters to impersonate legitimate brands.',
+        url: 'https://dfir-lab.ch/wiki/homoglyph-domains',
+        citations: 89,
+        read: false,
+      },
+      {
+        id: '11',
+        title: 'Ransomware Analysis and Response',
+        authors: 'Malware Research Team',
+        published: '2024',
+        category: 'Malware Analysis',
+        summary: 'Comprehensive analysis of ransomware operations including encryption methodologies, double extortion tactics, and recovery strategies.',
+        url: 'https://dfir-lab.ch/wiki/ransomware',
+        citations: 178,
+        read: false,
+      },
+      {
+        id: '12',
+        title: 'Data Removal and Breach Prevention',
+        authors: 'Privacy Research',
+        published: '2024',
+        category: 'Data Privacy',
+        summary: 'Guide to using data removal services like Serus.ai and breach monitoring tools to protect personal information and reduce attack surface.',
+        url: 'https://serus.ai',
+        citations: 56,
         read: false,
       },
     ],
@@ -569,6 +649,116 @@ export function DFIR() {
     setIocLoading(false);
   };
 
+  // Known trusted domains for validation
+  const trustedDomains = [
+    'google.com', 'google.co.uk', 'google.de', 'google.fr', 'google.jp', 'google.ca',
+    'microsoft.com', 'microsoftonline.com', 'office.com', 'outlook.com', 'live.com',
+    'apple.com', 'icloud.com',
+    'github.com', 'gitlab.com', 'bitbucket.org',
+    'amazon.com', 'aws.amazon.com',
+    'cloudflare.com', 'cfemail.io',
+    'facebook.com', 'meta.com', 'instagram.com',
+    'twitter.com', 'x.com', 'linkedin.com',
+  ];
+
+  const suspiciousTLDs = ['xyz', 'top', 'click', 'link', 'work', 'ru', 'cn', 'tk', 'ml', 'ga', 'cf', 'gq'];
+  const suspiciousPatterns = ['login', 'verify', 'secure', 'account', 'update', 'support', 'alert', 'signin', 'auth'];
+
+  const calculateDomainScore = (domain: string): { score: number; health_score: string; verdict: string } => {
+    const normalizedDomain = domain.toLowerCase().trim();
+    
+    // Check trusted domains first
+    const isTrusted = trustedDomains.some(td => 
+      normalizedDomain === td || normalizedDomain.endsWith('.' + td)
+    );
+    
+    if (isTrusted) {
+      return { score: 95, health_score: 'Excellent', verdict: 'Secure' };
+    }
+
+    // Base score calculation
+    let score = 70;
+    const issues: string[] = [];
+
+    // Check for suspicious TLDs
+    const tld = normalizedDomain.split('.').pop() || '';
+    if (suspiciousTLDs.includes(tld)) {
+      score -= 10;
+      issues.push('Suspicious TLD');
+    }
+
+    // Check for suspicious patterns
+    const hasSuspiciousPattern = suspiciousPatterns.some(p => normalizedDomain.includes(p));
+    if (hasSuspiciousPattern && normalizedDomain.length < 15) {
+      score -= 15;
+      issues.push('Suspicious subdomain pattern');
+    }
+
+    // Check for homoglyph characters (common lookalikes)
+    const homoglyphs = /[а-яА-Я]|[οοΟΟ]|[рР]|[сС]|[уУ]|[хХ]/;
+    if (homoglyphs.test(normalizedDomain)) {
+      score = Math.max(score - 40, 10);
+      issues.push('Homoglyph characters detected');
+    }
+
+    // Check for excessive hyphens (typosquatting indicator)
+    const hyphenCount = (normalizedDomain.match(/-/g) || []).length;
+    if (hyphenCount >= 3) {
+      score -= 15;
+      issues.push('Multiple hyphens');
+    }
+
+    // Check for numbers replacing letters (l33t speak typosquatting)
+    const numberSwaps = normalizedDomain.match(/0|1|3|4|5|6|7|8|9/g);
+    if (numberSwaps && numberSwaps.length >= 2) {
+      score -= 10;
+      issues.push('Number substitutions detected');
+    }
+
+    // Check domain length
+    if (normalizedDomain.length > 50) {
+      score -= 10;
+      issues.push('Unusually long domain');
+    }
+    if (normalizedDomain.length < 5 && !isTrusted) {
+      score -= 5;
+    }
+
+    // Known bad patterns
+    const badPatterns = ['malware', 'phishing', 'scam', 'fake', 'login-', '-login', '-secure', '-verify'];
+    const hasBadPattern = badPatterns.some(p => normalizedDomain.includes(p));
+    if (hasBadPattern) {
+      score = Math.max(score - 30, 5);
+      issues.push('Known bad pattern detected');
+    }
+
+    // Ensure score is within bounds
+    score = Math.max(Math.min(score, 100), 0);
+
+    // Determine verdict and health score
+    let health_score = 'Good';
+    let verdict = 'Good';
+
+    if (score >= 85) {
+      health_score = 'Excellent';
+      verdict = 'Secure';
+    } else if (score >= 65) {
+      health_score = 'Good';
+      verdict = 'Good';
+    } else if (score >= 40) {
+      health_score = 'Fair';
+      verdict = 'Needs Attention';
+    } else if (score >= 20) {
+      health_score = 'Poor';
+      verdict = 'Suspicious';
+    } else {
+      health_score = 'Critical';
+      verdict = 'Likely Malicious';
+    }
+
+    return { score, health_score, verdict };
+  };
+
   const checkDomain = async () => {
     if (!domainInput.trim()) return;
     setDomainLoading(true);
@@ -583,32 +773,34 @@ export function DFIR() {
         const data = await res.json();
         setDomainResult(data);
       } else {
-        // Client-side simulation
+        // Client-side simulation with improved scoring
         await new Promise((r) => setTimeout(r, 1500));
-        const domain = domainInput.toLowerCase();
-        const isGoogle = domain.includes('google') || domain.includes('microsoft');
+        const domain = domainInput.toLowerCase().trim();
+        const { score, health_score, verdict } = calculateDomainScore(domain);
 
         setDomainResult({
           domain,
-          score: isGoogle ? 95 : Math.floor(Math.random() * 40) + 50,
-          verdict: isGoogle ? 'Secure' : 'Needs Attention',
+          score,
+          verdict,
           generated: new Date().toISOString(),
-          health_score: isGoogle ? 'Excellent' : 'Good',
-          blacklist: isGoogle ? [] : [{ ip: '93.184.216.34', listed: false, blacklists: [] }],
+          health_score,
+          blacklist: score < 60 ? [{ ip: '93.184.216.34', listed: score < 40, blacklists: score < 40 ? ['spamhaus', 'surbl'] : [] }] : [],
           mx: {
-            records: isGoogle
-              ? [
-                  { priority: 10, host: 'smtp.google.com' },
-                  { priority: 20, host: 'alt1.smtp.google.com' },
-                ]
-              : [],
+            records: score >= 60 ? [
+              { priority: 10, host: 'aspmx.l.google.com' },
+              { priority: 20, host: 'alt1.aspmx.l.google.com' },
+              { priority: 30, host: 'alt2.aspmx.l.google.com' },
+            ] : [],
           },
-          spf: { found: true, record: `v=spf1 include:${domain} ~all` },
-          dmarc: { found: true, record: 'v=DMARC1; p=quarantine; rua=mailto:dmarc@' + domain },
-          dkim: [{ found: true, selector: 'default' }],
-          ssl: { valid: true, issuer: 'Google Trust Services', expires: '2026-01-01' },
-          dns: { A: ['142.250.185.78'], AAAA: ['2607:f8b0:4004:800::200e'] },
-          dnssec: { found: true },
+          spf: { found: score >= 50, record: score >= 50 ? 'v=spf1 include:_spf.google.com ~all' : undefined },
+          dmarc: { found: score >= 50, record: score >= 50 ? 'v=DMARC1; p=quarantine; rua=mailto:dmarc@' + domain : undefined },
+          dkim: [{ found: score >= 70, selector: score >= 70 ? 'google' : undefined }],
+          ssl: { valid: score >= 40, issuer: score >= 40 ? 'Google Trust Services' : undefined, expires: score >= 40 ? '2026-01-01' : undefined },
+          dns: { 
+            A: score >= 30 ? ['142.250.185.78'] : undefined, 
+            AAAA: score >= 30 ? ['2607:f8b0:4004:800::200e'] : undefined 
+          },
+          dnssec: { found: score >= 80 },
         });
       }
     } catch {
