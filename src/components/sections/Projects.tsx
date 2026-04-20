@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Github } from 'lucide-react';
+import { Github, ExternalLink } from 'lucide-react';
 import { projects } from '../../data/content';
 
 const containerVariants = {
@@ -84,6 +84,15 @@ export function Projects() {
                 >
                   <Github className="w-3.5 h-3.5" />
                   <span className="text-xs">Code</span>
+                </a>
+              )}
+              {project.link && (
+                <a
+                  href={project.link}
+                  className="inline-flex items-center gap-1 rounded-full border border-slate-200/70 bg-brand-50 px-3 py-1 text-sm font-medium text-brand-700 shadow-sm backdrop-blur-xl transition-transform hover:scale-105 hover:bg-brand-100 dark:border-white/10 dark:bg-brand-900/30 dark:text-brand-300 dark:hover:bg-brand-800/40"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span className="text-xs">{project.link.startsWith('#') ? 'View Tool' : 'Live Demo'}</span>
                 </a>
               )}
             </div>

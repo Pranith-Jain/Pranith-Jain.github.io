@@ -5,6 +5,7 @@ export { Companies } from './Companies';
 export { Experience } from './Experience';
 export { Certifications } from './Certifications';
 export { Projects } from './Projects';
+export { DFIR } from './DFIR';
 export { Featured } from './Featured';
 export { Memberships } from './Memberships';
 export { Contact } from './Contact';
