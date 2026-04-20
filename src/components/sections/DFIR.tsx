@@ -1,15 +1,15 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Shield, 
-  Search, 
-  Globe, 
-  Mail, 
-  Lock, 
-  Book, 
-  Rss, 
-  Users, 
-  Zap, 
+import {
+  Shield,
+  Search,
+  Globe,
+  Mail,
+  Lock,
+  Book,
+  Rss,
+  Users,
+  Zap,
   Activity,
   CheckCircle2,
   XCircle,
@@ -30,7 +30,7 @@ import {
   FileSearch,
   RefreshCw,
   Trash2,
-  Loader2
+  Loader2,
 } from 'lucide-react';
 import wikiData from '../../data/wiki.json';
 
@@ -51,18 +51,27 @@ interface DomainResult {
   health_score?: string;
   blacklist: Array<{ ip: string; listed: boolean; blacklists: string[] }>;
   mx: { records: Array<{ priority: number; host: string }> };
-  spf: any;
-  dmarc: any;
-  dkim: any[];
-  ssl: any;
-  dns: any;
+  spf: { found: boolean; record?: string };
+  dmarc: { found: boolean; record?: string };
+  dkim: Array<{ found: boolean; selector?: string }>;
+  ssl: { valid: boolean; issuer?: string; expires?: string };
+  dns: { A?: string[]; AAAA?: string[] };
   dnssec?: { found: boolean };
 }
 
 interface PrivacyCategory {
   score: number;
   maxScore: number;
-  details: any;
+  details: {
+    httpIp?: string;
+    webrtcLeak?: string;
+    dohEnabled?: boolean;
+    canvasHash?: boolean;
+    platform?: string;
+    dnt?: boolean;
+    https?: boolean;
+    trackerBlocker?: boolean;
+  };
 }
 
 interface PrivacyResult {
@@ -143,9 +152,20 @@ interface ResearchItem {
   read: boolean;
 }
 
-type TabType = 'home' | 'domain' | 'ioc' | 'phishing' | 'exposure' | 'privacy' | 'wiki' | 'intel' | 'actors' | 'research';
+type TabType =
+  | 'home'
+  | 'domain'
+  | 'ioc'
+  | 'phishing'
+  | 'exposure'
+  | 'privacy'
+  | 'wiki'
+  | 'intel'
+  | 'actors'
+  | 'research';
 
-const API_URL = import.meta.env.VITE_DFIR_API_URL || "";
+const API_URL = import.meta.env.VITE_DFIR_API_URL || '';
+const hasBackend = Boolean(API_URL);
 
 export function DFIR() {
   const [activeTab, setActiveTab] = useState<TabType>('home');
@@ -207,7 +227,8 @@ export function DFIR() {
       malware: ['AsyncRAT', 'RedLine Stealer', 'Custom Loader'],
       techniques: ['Phishing', 'Credential Theft', 'Data Exfiltration'],
       targets: ['Healthcare', 'Finance', 'Technology'],
-      description: 'Emerging threat actor known for sophisticated phishing campaigns targeting healthcare and financial sectors. Uses multi-stage attack chains with custom loaders.'
+      description:
+        'Emerging threat actor known for sophisticated phishing campaigns targeting healthcare and financial sectors. Uses multi-stage attack chains with custom loaders.',
     },
     {
       name: 'Rhysida',
@@ -220,7 +241,8 @@ export function DFIR() {
       malware: ['Rhysida Ransomware', 'Cobalt Strike'],
       techniques: ['Ransomware', ' Lateral Movement', 'Data Encryption'],
       targets: ['Healthcare', 'Education', 'Government'],
-      description: 'Ransomware-as-a-Service group known for high-profile attacks on hospitals and educational institutions. Employs double extortion tactics.'
+      description:
+        'Ransomware-as-a-Service group known for high-profile attacks on hospitals and educational institutions. Employs double extortion tactics.',
     },
     {
       name: 'BianLian',
@@ -233,7 +255,8 @@ export function DFIR() {
       malware: [' BianLian Ransomware', 'Custom Backdoors'],
       techniques: ['Ransomware', 'Business Email Compromise', 'Wire Fraud'],
       targets: ['Media', 'Entertainment', 'Sports'],
-      description: 'China-based threat actor primarily targeting media and entertainment companies. Known for media leaks and double extortion attacks.'
+      description:
+        'China-based threat actor primarily targeting media and entertainment companies. Known for media leaks and double extortion attacks.',
     },
     {
       name: 'APT41',
@@ -246,7 +269,8 @@ export function DFIR() {
       malware: ['SPARROW', 'SHOTPUT', 'CROSSWALK', 'HOMEUNIX'],
       techniques: ['Espionage', 'Cryptojacking', 'Supply Chain Attacks'],
       targets: ['Healthcare', 'Telecommunications', 'Media', 'Government'],
-      description: 'Chinese nation-state actor operating for both espionage and financial gain. Known for watering hole attacks and supply chain compromises.'
+      description:
+        'Chinese nation-state actor operating for both espionage and financial gain. Known for watering hole attacks and supply chain compromises.',
     },
     {
       name: 'Lazarus Group',
@@ -259,7 +283,8 @@ export function DFIR() {
       malware: ['HARDRAIN', 'BRINE SPOT', 'TAINTEDMUSIC', 'FALLCHILL'],
       techniques: ['SWIFT Attacks', 'Cryptocurrency Heists', 'Destructive Malware'],
       targets: ['Banks', 'Cryptocurrency Exchanges', 'Defense Contractors'],
-      description: 'North Korean state-sponsored threat group responsible for major financial heists including the Bangladesh Bank robbery and numerous cryptocurrency exchange attacks.'
+      description:
+        'North Korean state-sponsored threat group responsible for major financial heists including the Bangladesh Bank robbery and numerous cryptocurrency exchange attacks.',
     },
     {
       name: 'LockBit',
@@ -272,7 +297,8 @@ export function DFIR() {
       malware: ['LockBit Ransomware', 'StealBit', 'LockBit Builder'],
       techniques: ['Ransomware', 'Data Exfiltration', 'Extortion'],
       targets: ['Healthcare', 'Education', 'Critical Infrastructure'],
-      description: 'Ransomware-as-a-Service group disrupted by international law enforcement in 2024. Previously one of the most active RaaS operations.'
+      description:
+        'Ransomware-as-a-Service group disrupted by international law enforcement in 2024. Previously one of the most active RaaS operations.',
     },
     {
       name: 'ALPHV (BlackCat)',
@@ -285,7 +311,8 @@ export function DFIR() {
       malware: ['BlackCat Ransomware', 'Exmatter'],
       techniques: ['Ransomware', 'Double Extortion', 'RMM Tools'],
       targets: ['Healthcare', 'Critical Infrastructure', 'Entertainment'],
-      description: 'Rust-based ransomware group using affiliate model. Known for high ransoms and targeting critical infrastructure.'
+      description:
+        'Rust-based ransomware group using affiliate model. Known for high ransoms and targeting critical infrastructure.',
     },
     {
       name: 'Clop',
@@ -298,79 +325,89 @@ export function DFIR() {
       malware: ['Clop Ransomware', 'Gambo'],
       techniques: ['Ransomware', 'MOVEit Exploitation', 'Data Leaks'],
       targets: ['Healthcare', 'Education', 'Government', 'Finance'],
-      description: 'Responsible for the massive MOVEit supply chain attack affecting millions. Uses double extortion and targets large enterprises.'
+      description:
+        'Responsible for the massive MOVEit supply chain attack affecting millions. Uses double extortion and targets large enterprises.',
     },
   ];
 
   // Security Research Papers Database
-  const researchPapers: ResearchItem[] = [
-    {
-      id: '1',
-      title: 'Detection of Phishing Emails Using Machine Learning',
-      authors: 'Smith, J., Johnson, M.',
-      published: '2024',
-      category: 'Phishing Detection',
-      summary: 'A comprehensive study on ML-based detection of phishing emails with 98.5% accuracy using ensemble methods combining header analysis and content features.',
-      url: 'https://arxiv.org/abs/2401.00001',
-      citations: 127,
-      read: false
-    },
-    {
-      id: '2',
-      title: 'Advanced BEC Attack Vectors and Defense Strategies',
-      authors: 'Chen, L., Williams, R.',
-      published: '2024',
-      category: 'Email Security',
-      summary: 'Analysis of evolving BEC attack techniques including invoice fraud, executive impersonation, and attorney impersonation with practical defense recommendations.',
-      url: 'https://arxiv.org/abs/2402.00002',
-      citations: 89,
-      read: false
-    },
-    {
-      id: '3',
-      title: 'IoC Enrichment Automation in SOC Environments',
-      authors: 'Patel, A., Brown, K.',
-      published: '2024',
-      category: 'Threat Intelligence',
-      summary: 'Framework for automated IOC enrichment using multiple threat intelligence sources, reducing analyst workload by 60% while maintaining high fidelity alerts.',
-      url: 'https://arxiv.org/abs/2403.00003',
-      citations: 54,
-      read: false
-    },
-    {
-      id: '4',
-      title: 'Email Header Forensics: A Field Guide',
-      authors: 'Davis, M., Thompson, S.',
-      published: '2023',
-      category: 'Digital Forensics',
-      summary: 'Comprehensive guide to email header analysis covering SPF, DKIM, DMARC authentication results, routing analysis, and evidence preservation.',
-      url: 'https://arxiv.org/abs/2304.00004',
-      citations: 203,
-      read: false
-    },
-    {
-      id: '5',
-      title: 'Zero Trust Architecture Implementation Challenges',
-      authors: 'Anderson, P., Garcia, R.',
-      published: '2024',
-      category: 'Cloud Security',
-      summary: 'Study of implementation challenges and best practices for zero trust in enterprise environments, with case studies from Fortune 500 companies.',
-      url: 'https://arxiv.org/abs/2405.00005',
-      citations: 156,
-      read: false
-    },
-    {
-      id: '6',
-      title: 'Dark Web Monitoring for Threat Intelligence',
-      authors: 'Martinez, C., Lee, H.',
-      published: '2024',
-      category: 'OSINT',
-      summary: 'Methodologies for effective dark web monitoring, forum analysis, and early warning systems for emerging threats and data breaches.',
-      url: 'https://arxiv.org/abs/2406.00006',
-      citations: 78,
-      read: false
-    },
-  ];
+  const researchPapers = useMemo<ResearchItem[]>(
+    () => [
+      {
+        id: '1',
+        title: 'Detection of Phishing Emails Using Machine Learning',
+        authors: 'Smith, J., Johnson, M.',
+        published: '2024',
+        category: 'Phishing Detection',
+        summary:
+          'A comprehensive study on ML-based detection of phishing emails with 98.5% accuracy using ensemble methods combining header analysis and content features.',
+        url: 'https://arxiv.org/abs/2401.00001',
+        citations: 127,
+        read: false,
+      },
+      {
+        id: '2',
+        title: 'Advanced BEC Attack Vectors and Defense Strategies',
+        authors: 'Chen, L., Williams, R.',
+        published: '2024',
+        category: 'Email Security',
+        summary:
+          'Analysis of evolving BEC attack techniques including invoice fraud, executive impersonation, and attorney impersonation with practical defense recommendations.',
+        url: 'https://arxiv.org/abs/2402.00002',
+        citations: 89,
+        read: false,
+      },
+      {
+        id: '3',
+        title: 'IoC Enrichment Automation in SOC Environments',
+        authors: 'Patel, A., Brown, K.',
+        published: '2024',
+        category: 'Threat Intelligence',
+        summary:
+          'Framework for automated IOC enrichment using multiple threat intelligence sources, reducing analyst workload by 60% while maintaining high fidelity alerts.',
+        url: 'https://arxiv.org/abs/2403.00003',
+        citations: 54,
+        read: false,
+      },
+      {
+        id: '4',
+        title: 'Email Header Forensics: A Field Guide',
+        authors: 'Davis, M., Thompson, S.',
+        published: '2023',
+        category: 'Digital Forensics',
+        summary:
+          'Comprehensive guide to email header analysis covering SPF, DKIM, DMARC authentication results, routing analysis, and evidence preservation.',
+        url: 'https://arxiv.org/abs/2304.00004',
+        citations: 203,
+        read: false,
+      },
+      {
+        id: '5',
+        title: 'Zero Trust Architecture Implementation Challenges',
+        authors: 'Anderson, P., Garcia, R.',
+        published: '2024',
+        category: 'Cloud Security',
+        summary:
+          'Study of implementation challenges and best practices for zero trust in enterprise environments, with case studies from Fortune 500 companies.',
+        url: 'https://arxiv.org/abs/2405.00005',
+        citations: 156,
+        read: false,
+      },
+      {
+        id: '6',
+        title: 'Dark Web Monitoring for Threat Intelligence',
+        authors: 'Martinez, C., Lee, H.',
+        published: '2024',
+        category: 'OSINT',
+        summary:
+          'Methodologies for effective dark web monitoring, forum analysis, and early warning systems for emerging threats and data breaches.',
+        url: 'https://arxiv.org/abs/2406.00006',
+        citations: 78,
+        read: false,
+      },
+    ],
+    []
+  );
 
   // Fetch Threat Intelligence
   const fetchThreatIntel = useCallback(async () => {
@@ -385,10 +422,11 @@ export function DFIR() {
           published: new Date().toISOString(),
           type: 'Malware',
           severity: 'High',
-          description: 'Threat actors are distributing AsyncRAT through phishing emails disguised as medical invoices. The campaign uses compromised email accounts.',
+          description:
+            'Threat actors are distributing AsyncRAT through phishing emails disguised as medical invoices. The campaign uses compromised email accounts.',
           indicators: ['185.220.101.xxx', 'malware-payload.exe', 'suspicious-domain.com'],
           link: 'https://attack.mitre.org',
-          read: false
+          read: false,
         },
         {
           id: '2',
@@ -397,10 +435,11 @@ export function DFIR() {
           published: new Date(Date.now() - 86400000).toISOString(),
           type: 'Vulnerability',
           severity: 'Critical',
-          description: 'Authentication bypass vulnerability in FortiOS allows remote attackers to gain unauthorized access through crafted requests.',
+          description:
+            'Authentication bypass vulnerability in FortiOS allows remote attackers to gain unauthorized access through crafted requests.',
           indicators: ['CVE-2024-55591', 'FortiOS 7.0.0-7.0.14'],
           link: 'https://www.cisa.gov',
-          read: false
+          read: false,
         },
         {
           id: '3',
@@ -409,9 +448,10 @@ export function DFIR() {
           published: new Date(Date.now() - 172800000).toISOString(),
           type: 'Threat Actor',
           severity: 'Info',
-          description: 'International law enforcement operation disrupts LockBit ransomware infrastructure. Multiple arrests made across Europe.',
+          description:
+            'International law enforcement operation disrupts LockBit ransomware infrastructure. Multiple arrests made across Europe.',
           link: 'https://www.europol.europa.eu',
-          read: false
+          read: false,
         },
         {
           id: '4',
@@ -420,10 +460,11 @@ export function DFIR() {
           published: new Date(Date.now() - 259200000).toISOString(),
           type: 'Vulnerability',
           severity: 'High',
-          description: 'New exploitation attempts observed against unpatched MOVEit Transfer servers. Organizations urged to apply patches immediately.',
+          description:
+            'New exploitation attempts observed against unpatched MOVEit Transfer servers. Organizations urged to apply patches immediately.',
           indicators: ['CVE-2023-34362', 'CVE-2024-5806'],
           link: 'https://nvd.nist.gov',
-          read: false
+          read: false,
         },
         {
           id: '5',
@@ -432,10 +473,11 @@ export function DFIR() {
           published: new Date(Date.now() - 345600000).toISOString(),
           type: 'Phishing',
           severity: 'Medium',
-          description: 'New phishing kits leverage AI to create convincing login pages and emails with minimal detection rates.',
+          description:
+            'New phishing kits leverage AI to create convincing login pages and emails with minimal detection rates.',
           indicators: ['ai-generated-phish.com', 'fake-login-portal.net'],
           link: 'https://unit42.paloaltonetworks.com',
-          read: false
+          read: false,
         },
         {
           id: '6',
@@ -444,10 +486,11 @@ export function DFIR() {
           published: new Date(Date.now() - 432000000).toISOString(),
           type: 'Malware',
           severity: 'High',
-          description: 'Threat actors using pirated Cobalt Strike versions for lateral movement in enterprise networks with decreased detection times.',
+          description:
+            'Threat actors using pirated Cobalt Strike versions for lateral movement in enterprise networks with decreased detection times.',
           indicators: ['beacon.dll', 'cs.exe'],
           link: 'https://www.mandiant.com',
-          read: false
+          read: false,
         },
       ];
       setIntelItems(sampleItems);
@@ -466,7 +509,7 @@ export function DFIR() {
       console.error('Failed to load research papers');
     }
     setResearchLoading(false);
-  }, []);
+  }, [researchPapers]);
 
   useEffect(() => {
     if (activeTab === 'intel') {
@@ -484,19 +527,19 @@ export function DFIR() {
     try {
       if (API_URL) {
         const res = await fetch(`${API_URL}/ioc/check`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ indicator: iocInput }),
         });
         const data = await res.json();
         setIocResult(data);
       } else {
         // Client-side simulation
-        await new Promise(r => setTimeout(r, 1000));
+        await new Promise((r) => setTimeout(r, 1000));
         const input = iocInput.toLowerCase();
         let type = 'unknown';
         let score = 25;
-        
+
         if (/^(\d{1,3}\.){3}\d{1,3}$/.test(input)) {
           type = 'IPv4';
           if (input.startsWith('185.220') || input.startsWith('192.168')) score = 75;
@@ -510,17 +553,19 @@ export function DFIR() {
           type = 'Domain';
           score = 45;
         }
-        
+
         setIocResult({
           indicator: iocInput,
           type,
           score,
           verdict: score > 60 ? 'Malicious' : score > 30 ? 'Suspicious' : 'Clean',
           tags: score > 60 ? ['threat-actor-associated', 'active-c2'] : [],
-          defanged: input.replace('[.]', '.').replace('(dot)', '.')
+          defanged: input.replace('[.]', '.').replace('(dot)', '.'),
         });
       }
-    } catch { setIocResult(null); }
+    } catch {
+      setIocResult(null);
+    }
     setIocLoading(false);
   };
 
@@ -531,18 +576,18 @@ export function DFIR() {
     try {
       if (API_URL) {
         const res = await fetch(`${API_URL}/domain/check`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ domain: domainInput }),
         });
         const data = await res.json();
         setDomainResult(data);
       } else {
         // Client-side simulation
-        await new Promise(r => setTimeout(r, 1500));
+        await new Promise((r) => setTimeout(r, 1500));
         const domain = domainInput.toLowerCase();
         const isGoogle = domain.includes('google') || domain.includes('microsoft');
-        
+
         setDomainResult({
           domain,
           score: isGoogle ? 95 : Math.floor(Math.random() * 40) + 50,
@@ -550,19 +595,25 @@ export function DFIR() {
           generated: new Date().toISOString(),
           health_score: isGoogle ? 'Excellent' : 'Good',
           blacklist: isGoogle ? [] : [{ ip: '93.184.216.34', listed: false, blacklists: [] }],
-          mx: { records: isGoogle ? [
-            { priority: 10, host: 'smtp.google.com' },
-            { priority: 20, host: 'alt1.smtp.google.com' }
-          ] : [] },
+          mx: {
+            records: isGoogle
+              ? [
+                  { priority: 10, host: 'smtp.google.com' },
+                  { priority: 20, host: 'alt1.smtp.google.com' },
+                ]
+              : [],
+          },
           spf: { found: true, record: `v=spf1 include:${domain} ~all` },
           dmarc: { found: true, record: 'v=DMARC1; p=quarantine; rua=mailto:dmarc@' + domain },
           dkim: [{ found: true, selector: 'default' }],
           ssl: { valid: true, issuer: 'Google Trust Services', expires: '2026-01-01' },
           dns: { A: ['142.250.185.78'], AAAA: ['2607:f8b0:4004:800::200e'] },
-          dnssec: { found: true }
+          dnssec: { found: true },
         });
       }
-    } catch { setDomainResult(null); }
+    } catch {
+      setDomainResult(null);
+    }
     setDomainLoading(false);
   };
 
@@ -574,25 +625,26 @@ export function DFIR() {
     try {
       if (API_URL) {
         const res = await fetch(`${API_URL}/phishing/analyze`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ url: phishingUrl }),
         });
         const data = await res.json();
         setPhishingResult(data);
       } else {
         // Client-side simulation
-        await new Promise(r => setTimeout(r, 2000));
+        await new Promise((r) => setTimeout(r, 2000));
         const url = phishingUrl.toLowerCase();
-        const isPhishing = url.includes('login') || url.includes('signin') || url.includes('verify') || url.includes('secure');
+        const isPhishing =
+          url.includes('login') || url.includes('signin') || url.includes('verify') || url.includes('secure');
         const riskFactors: string[] = [];
-        
+
         if (url.includes('http://')) riskFactors.push('Insecure HTTP connection');
         if (url.match(/\d{1,3}\.\d{1,3}\.\d{1,3}/)) riskFactors.push('IP address in URL');
         if (url.includes('-')) riskFactors.push('Hyphenated domain (common in lookalikes)');
         if (url.match(/[a-z]+\.[a-z]{5,}/) === null) riskFactors.push('Unusual TLD');
         if (url.includes('@')) riskFactors.push('Email-style URL (potential spoofing)');
-        
+
         setPhishingResult({
           url: phishingUrl,
           verdict: isPhishing || riskFactors.length > 2 ? 'PHISHING' : 'SUSPICIOUS',
@@ -603,10 +655,12 @@ export function DFIR() {
           similar_domains: [
             { domain: 'google.com', similarity: 0.85 },
             { domain: 'microsoft.com', similarity: 0.72 },
-          ]
+          ],
         });
       }
-    } catch { setPhishingResult(null); }
+    } catch {
+      setPhishingResult(null);
+    }
     setPhishingLoading(false);
   };
 
@@ -618,60 +672,81 @@ export function DFIR() {
     try {
       if (API_URL) {
         const res = await fetch(`${API_URL}/exposure/scan`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ query: exposureQuery }),
         });
         const data = await res.json();
         setExposureResult(data);
-        setExposureHistory(prev => [data, ...prev.slice(0, 9)]);
+        setExposureHistory((prev) => [data, ...prev.slice(0, 9)]);
       } else {
         // Client-side simulation
-        await new Promise(r => setTimeout(r, 2500));
+        await new Promise((r) => setTimeout(r, 2500));
         const query = exposureQuery;
         const sources = [
-          { name: 'Have I Been Pwned', records: Math.floor(Math.random() * 5) + 1, date: '2024-03-15', category: 'Breach Data' },
-          { name: 'DeHashed', records: Math.floor(Math.random() * 3), date: '2024-02-20', category: 'Leaked Credentials' },
+          {
+            name: 'Have I Been Pwned',
+            records: Math.floor(Math.random() * 5) + 1,
+            date: '2024-03-15',
+            category: 'Breach Data',
+          },
+          {
+            name: 'DeHashed',
+            records: Math.floor(Math.random() * 3),
+            date: '2024-02-20',
+            category: 'Leaked Credentials',
+          },
           { name: ' LeakCheck', records: Math.floor(Math.random() * 2), date: '2024-01-10', category: 'Data Breach' },
         ];
-        
+
         setExposureResult({
           query,
           type: query.includes('@') ? 'Email' : 'Domain',
           total_exposed_records: sources.reduce((acc, s) => acc + s.records, 0),
           sources,
           severity: sources.reduce((acc, s) => acc + s.records, 0) > 3 ? 'High' : 'Medium',
-          risk_level: sources.reduce((acc, s) => acc + s.records, 0) > 5 ? 'Critical' : 'Elevated'
+          risk_level: sources.reduce((acc, s) => acc + s.records, 0) > 5 ? 'Critical' : 'Elevated',
         });
-        setExposureHistory(prev => [{
-          query,
-          type: query.includes('@') ? 'Email' : 'Domain',
-          total_exposed_records: sources.reduce((acc, s) => acc + s.records, 0),
-          sources,
-          severity: sources.reduce((acc, s) => acc + s.records, 0) > 3 ? 'High' : 'Medium',
-          risk_level: sources.reduce((acc, s) => acc + s.records, 0) > 5 ? 'Critical' : 'Elevated'
-        }, ...prev.slice(0, 9)]);
+        setExposureHistory((prev) => [
+          {
+            query,
+            type: query.includes('@') ? 'Email' : 'Domain',
+            total_exposed_records: sources.reduce((acc, s) => acc + s.records, 0),
+            sources,
+            severity: sources.reduce((acc, s) => acc + s.records, 0) > 3 ? 'High' : 'Medium',
+            risk_level: sources.reduce((acc, s) => acc + s.records, 0) > 5 ? 'Critical' : 'Elevated',
+          },
+          ...prev.slice(0, 9),
+        ]);
       }
-    } catch { setExposureResult(null); }
+    } catch {
+      setExposureResult(null);
+    }
     setExposureLoading(false);
   };
 
   // Browser-based privacy check
   const runPrivacyCheck = async () => {
     setPrivacyLoading(true);
-    await new Promise(r => setTimeout(r, 1500));
-    
+    await new Promise((r) => setTimeout(r, 1500));
+
     const getCanvasFingerprint = () => {
       try {
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
         if (!ctx) return '';
-        canvas.width = 200; canvas.height = 50;
-        ctx.textBaseline = 'top'; ctx.font = '14px Arial';
-        ctx.fillStyle = '#f60'; ctx.fillRect(125, 1, 62, 20);
-        ctx.fillStyle = '#069'; ctx.fillText('Privacy Check', 2, 15);
+        canvas.width = 200;
+        canvas.height = 50;
+        ctx.textBaseline = 'top';
+        ctx.font = '14px Arial';
+        ctx.fillStyle = '#f60';
+        ctx.fillRect(125, 1, 62, 20);
+        ctx.fillStyle = '#069';
+        ctx.fillText('Privacy Check', 2, 15);
         return canvas.toDataURL();
-      } catch { return ''; }
+      } catch {
+        return '';
+      }
     };
 
     const canvas = getCanvasFingerprint();
@@ -686,22 +761,18 @@ export function DFIR() {
         privacySettings: { score: 8, maxScore: 15, details: { dnt: navigator.doNotTrack === '1' } },
         connectionSecurity: { score: 10, maxScore: 10, details: { https: true } },
         trackingProtection: { score: 9, maxScore: 10, details: { trackerBlocker: true } },
-      }
+      },
     };
     setPrivacyResult(results);
     setPrivacyLoading(false);
   };
 
   const markIntelAsRead = (id: string) => {
-    setIntelItems(prev => prev.map(item => 
-      item.id === id ? { ...item, read: true } : item
-    ));
+    setIntelItems((prev) => prev.map((item) => (item.id === id ? { ...item, read: true } : item)));
   };
 
   const markResearchAsRead = (id: string) => {
-    setResearchItems(prev => prev.map(item => 
-      item.id === id ? { ...item, read: true } : item
-    ));
+    setResearchItems((prev) => prev.map((item) => (item.id === id ? { ...item, read: true } : item)));
   };
 
   const copyToClipboard = (text: string) => {
@@ -797,20 +868,46 @@ export function DFIR() {
                 <div className="space-y-8">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                     <div>
-                      <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Welcome to the DFIR Toolkit</h3>
+                      <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+                        Welcome to the DFIR Toolkit
+                      </h3>
                       <p className="text-slate-600 dark:text-slate-400 mb-6">
-                        This platform provides functional security tools for domain analysis, IOC reputation checking, 
+                        This platform provides functional security tools for domain analysis, IOC reputation checking,
                         and threat intelligence gathering. Designed for security analysts and researchers.
                       </p>
-                      <div className="flex flex-wrap gap-4">
-                        <button 
+                      {hasBackend ? (
+                        <div className="flex items-center gap-2 text-sm text-emerald-600 dark:text-emerald-400 font-medium">
+                          <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
+                          Backend Connected
+                        </div>
+                      ) : (
+                        <div className="p-4 rounded-xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/30">
+                          <p className="text-sm text-amber-800 dark:text-amber-200 font-medium mb-2">
+                            Running in offline mode
+                          </p>
+                          <p className="text-xs text-amber-700 dark:text-amber-300 mb-3">
+                            Set VITE_DFIR_API_URL environment variable to connect to the FastAPI backend for real-time
+                            intelligence feeds.
+                          </p>
+                          <a
+                            href="https://github.com/Pranith-Jain/DFIR-PLATFORM"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 text-xs font-semibold text-brand-600 dark:text-brand-400 hover:underline"
+                          >
+                            View Setup Instructions <ExternalLink className="w-3 h-3" />
+                          </a>
+                        </div>
+                      )}
+                      <div className="flex flex-wrap gap-4 mt-6">
+                        <button
                           onClick={() => setActiveTab('domain')}
                           className="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold transition-colors flex items-center gap-2"
                         >
                           <Globe className="w-4 h-4" />
                           Start Domain Scan
                         </button>
-                        <button 
+                        <button
                           onClick={() => setActiveTab('wiki')}
                           className="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold transition-colors flex items-center gap-2"
                         >
@@ -826,7 +923,10 @@ export function DFIR() {
                         { label: 'Exposure', icon: Search, color: 'text-cyan-500 dark:text-cyan-400' },
                         { label: 'Privacy', icon: Lock, color: 'text-emerald-500 dark:text-emerald-400' },
                       ].map((tool) => (
-                        <div key={tool.label} className="p-4 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-center shadow-sm">
+                        <div
+                          key={tool.label}
+                          className="p-4 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-center shadow-sm"
+                        >
                           <tool.icon className={`w-8 h-8 mx-auto mb-2 ${tool.color}`} />
                           <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{tool.label}</span>
                         </div>
@@ -847,14 +947,18 @@ export function DFIR() {
                         onChange={(e) => setDomainInput(e.target.value)}
                         placeholder="Enter domain (e.g., google.com)"
                         className="flex-1 px-4 py-3 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 transition-colors shadow-sm"
-                        onKeyDown={(e) => e.key === "Enter" && checkDomain()}
+                        onKeyDown={(e) => e.key === 'Enter' && checkDomain()}
                       />
                       <button
                         onClick={checkDomain}
                         disabled={domainLoading}
                         className="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 disabled:opacity-50 text-white font-semibold transition-all flex items-center gap-2 shadow-sm"
                       >
-                        {domainLoading ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <Globe className="w-4 h-4" />}
+                        {domainLoading ? (
+                          <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        ) : (
+                          <Globe className="w-4 h-4" />
+                        )}
                         Scan
                       </button>
                     </div>
@@ -885,12 +989,19 @@ export function DFIR() {
                         {[
                           { label: 'SPF', val: domainResult.spf?.found },
                           { label: 'DMARC', val: domainResult.dmarc?.found },
-                          { label: 'DKIM', val: domainResult.dkim?.some((d: any) => d.found) },
+                          { label: 'DKIM', val: domainResult.dkim?.some((d) => d.found) },
                           { label: 'DNSSEC', val: domainResult.dnssec?.found },
-                        ].map(s => (
-                          <div key={s.label} className="p-4 rounded-xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-between shadow-sm">
+                        ].map((s) => (
+                          <div
+                            key={s.label}
+                            className="p-4 rounded-xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-between shadow-sm"
+                          >
                             <span className="text-sm text-slate-500 dark:text-slate-400">{s.label}</span>
-                            {s.val ? <CheckCircle2 className="w-5 h-5 text-emerald-500" /> : <XCircle className="w-5 h-5 text-rose-500" />}
+                            {s.val ? (
+                              <CheckCircle2 className="w-5 h-5 text-emerald-500" />
+                            ) : (
+                              <XCircle className="w-5 h-5 text-rose-500" />
+                            )}
                           </div>
                         ))}
                       </div>
@@ -910,14 +1021,18 @@ export function DFIR() {
                         onChange={(e) => setIocInput(e.target.value)}
                         placeholder="IP, Domain, URL, or File Hash"
                         className="flex-1 px-4 py-3 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-rose-500 transition-colors shadow-sm"
-                        onKeyDown={(e) => e.key === "Enter" && checkIOC()}
+                        onKeyDown={(e) => e.key === 'Enter' && checkIOC()}
                       />
                       <button
                         onClick={checkIOC}
                         disabled={iocLoading}
                         className="px-6 py-3 rounded-xl bg-rose-600 hover:bg-rose-500 disabled:opacity-50 text-white font-semibold transition-all flex items-center gap-2 shadow-sm"
                       >
-                        {iocLoading ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <Activity className="w-4 h-4" />}
+                        {iocLoading ? (
+                          <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        ) : (
+                          <Activity className="w-4 h-4" />
+                        )}
                         Check
                       </button>
                     </div>
@@ -960,15 +1075,15 @@ export function DFIR() {
                     <Lock className="w-12 h-12 text-brand-600 dark:text-brand-400 mx-auto mb-4" />
                     <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Browser Privacy Check</h3>
                     <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-lg mx-auto">
-                      Analyze what your browser reveals to websites, including fingerprinting, 
-                      IP leaks, and security settings.
+                      Analyze what your browser reveals to websites, including fingerprinting, IP leaks, and security
+                      settings.
                     </p>
                     <button
                       onClick={runPrivacyCheck}
                       disabled={privacyLoading}
                       className="px-8 py-4 rounded-xl bg-brand-600 hover:bg-brand-500 disabled:opacity-50 text-white font-bold transition-all shadow-md"
                     >
-                      {privacyLoading ? "Analyzing Browser..." : "Run Privacy Scan"}
+                      {privacyLoading ? 'Analyzing Browser...' : 'Run Privacy Scan'}
                     </button>
                   </div>
 
@@ -977,19 +1092,23 @@ export function DFIR() {
                       <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
                         <div className="flex justify-between items-center mb-6">
                           <h4 className="font-bold text-slate-900 dark:text-white">Privacy Score</h4>
-                          <span className="text-3xl font-black text-brand-600 dark:text-brand-400">{privacyResult.score}/100</span>
+                          <span className="text-3xl font-black text-brand-600 dark:text-brand-400">
+                            {privacyResult.score}/100
+                          </span>
                         </div>
                         <div className="space-y-4">
                           {Object.entries(privacyResult.categories).map(([key, cat]) => (
                             <div key={key} className="space-y-1">
                               <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400 uppercase">
                                 <span>{key.replace(/([A-Z])/g, ' $1')}</span>
-                                <span>{cat.score}/{cat.maxScore}</span>
+                                <span>
+                                  {cat.score}/{cat.maxScore}
+                                </span>
                               </div>
                               <div className="h-1.5 bg-slate-200 dark:bg-white/5 rounded-full overflow-hidden">
-                                <div 
-                                  className="h-full bg-brand-500" 
-                                  style={{ width: `${(cat.score / cat.maxScore) * 100}%` }} 
+                                <div
+                                  className="h-full bg-brand-500"
+                                  style={{ width: `${(cat.score / cat.maxScore) * 100}%` }}
                                 />
                               </div>
                             </div>
@@ -1001,7 +1120,9 @@ export function DFIR() {
                         <div className="space-y-3 text-sm">
                           <div className="flex justify-between py-2 border-b border-slate-100 dark:border-white/5">
                             <span className="text-slate-500 dark:text-slate-400">Platform</span>
-                            <span className="text-slate-900 dark:text-slate-200">{privacyResult.categories.fingerprinting.details.platform}</span>
+                            <span className="text-slate-900 dark:text-slate-200">
+                              {privacyResult.categories.fingerprinting.details.platform}
+                            </span>
                           </div>
                           <div className="flex justify-between py-2 border-b border-slate-100 dark:border-white/5">
                             <span className="text-slate-500 dark:text-slate-400">Fingerprinting</span>
@@ -1009,7 +1130,13 @@ export function DFIR() {
                           </div>
                           <div className="flex justify-between py-2 border-b border-slate-100 dark:border-white/5">
                             <span className="text-slate-500 dark:text-slate-400">Do Not Track</span>
-                            <span className={privacyResult.categories.privacySettings.details.dnt ? 'text-emerald-600 dark:text-emerald-400 font-semibold' : 'text-slate-400'}>
+                            <span
+                              className={
+                                privacyResult.categories.privacySettings.details.dnt
+                                  ? 'text-emerald-600 dark:text-emerald-400 font-semibold'
+                                  : 'text-slate-400'
+                              }
+                            >
                               {privacyResult.categories.privacySettings.details.dnt ? 'Enabled' : 'Not Set'}
                             </span>
                           </div>
@@ -1024,8 +1151,8 @@ export function DFIR() {
                 <div className="space-y-8">
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {wikiData.categories.map((cat) => (
-                      <div 
-                        key={cat.id} 
+                      <div
+                        key={cat.id}
                         className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:border-brand-500/50 transition-all cursor-pointer group shadow-sm"
                       >
                         <div className="flex justify-between items-start mb-4">
@@ -1058,28 +1185,38 @@ export function DFIR() {
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {threatActors
-                      .filter(actor => 
-                        actor.name.toLowerCase().includes(actorSearch.toLowerCase()) ||
-                        actor.origin.toLowerCase().includes(actorSearch.toLowerCase())
+                      .filter(
+                        (actor) =>
+                          actor.name.toLowerCase().includes(actorSearch.toLowerCase()) ||
+                          actor.origin.toLowerCase().includes(actorSearch.toLowerCase())
                       )
                       .map((actor) => (
-                        <div 
-                          key={actor.name} 
+                        <div
+                          key={actor.name}
                           className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm hover:border-brand-500/50 transition-all cursor-pointer"
                         >
                           <div className="flex justify-between mb-4">
-                            <span className={`px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider ${
-                              actor.status === 'Active' ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400' : 'bg-slate-500/10 text-slate-500'
-                            }`}>
+                            <span
+                              className={`px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider ${
+                                actor.status === 'Active'
+                                  ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400'
+                                  : 'bg-slate-500/10 text-slate-500'
+                              }`}
+                            >
                               {actor.status === 'Active' ? '⚠ Active' : actor.status}
                             </span>
-                            <span className="text-[10px] text-cyan-600 dark:text-cyan-400 font-mono">{actor.motivation}</span>
+                            <span className="text-[10px] text-cyan-600 dark:text-cyan-400 font-mono">
+                              {actor.motivation}
+                            </span>
                           </div>
                           <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-1">{actor.name}</h4>
                           <p className="text-xs text-slate-500 mb-4 font-mono">{actor.origin}</p>
                           <div className="flex flex-wrap gap-1 mb-4">
-                            {actor.targets.slice(0, 2).map(target => (
-                              <span key={target} className="px-2 py-0.5 rounded-full bg-brand-500/10 text-brand-600 dark:text-brand-400 text-[10px]">
+                            {actor.targets.slice(0, 2).map((target) => (
+                              <span
+                                key={target}
+                                className="px-2 py-0.5 rounded-full bg-brand-500/10 text-brand-600 dark:text-brand-400 text-[10px]"
+                              >
                                 {target}
                               </span>
                             ))}
@@ -1110,7 +1247,7 @@ export function DFIR() {
                             onChange={(e) => setPhishingUrl(e.target.value)}
                             placeholder="Enter URL to analyze"
                             className="w-full px-4 py-3 pr-10 rounded-xl bg-white dark:bg-slate-800/50 border border-amber-500/50 text-slate-900 dark:text-white focus:outline-none transition-colors shadow-sm"
-                            onKeyDown={(e) => e.key === "Enter" && analyzePhishing()}
+                            onKeyDown={(e) => e.key === 'Enter' && analyzePhishing()}
                           />
                         ) : (
                           <input
@@ -1119,7 +1256,7 @@ export function DFIR() {
                             onChange={(e) => setPhishingUrl(e.target.value)}
                             placeholder="Enter URL to analyze"
                             className="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none transition-colors shadow-sm"
-                            onKeyDown={(e) => e.key === "Enter" && analyzePhishing()}
+                            onKeyDown={(e) => e.key === 'Enter' && analyzePhishing()}
                           />
                         )}
                         <button
@@ -1142,31 +1279,39 @@ export function DFIR() {
 
                   {phishingResult && (
                     <div className="space-y-6">
-                      <div className={`p-6 rounded-2xl border-2 ${
-                        phishingResult.verdict === 'PHISHING' 
-                          ? 'bg-rose-500/10 border-rose-500/30' 
-                          : 'bg-amber-500/10 border-amber-500/30'
-                      } shadow-md`}>
+                      <div
+                        className={`p-6 rounded-2xl border-2 ${
+                          phishingResult.verdict === 'PHISHING'
+                            ? 'bg-rose-500/10 border-rose-500/30'
+                            : 'bg-amber-500/10 border-amber-500/30'
+                        } shadow-md`}
+                      >
                         <div className="flex justify-between items-start mb-4">
                           <div>
                             <span className="text-xs uppercase tracking-wider text-slate-500">Verdict</span>
-                            <h4 className={`text-3xl font-black uppercase ${
-                              phishingResult.verdict === 'PHISHING' 
-                                ? 'text-rose-600 dark:text-rose-400' 
-                                : 'text-amber-600 dark:text-amber-400'
-                            }`}>
+                            <h4
+                              className={`text-3xl font-black uppercase ${
+                                phishingResult.verdict === 'PHISHING'
+                                  ? 'text-rose-600 dark:text-rose-400'
+                                  : 'text-amber-600 dark:text-amber-400'
+                              }`}
+                            >
                               {phishingResult.verdict}
                             </h4>
                           </div>
                           <div className="text-right">
                             <span className="text-xs uppercase tracking-wider text-slate-500">Confidence</span>
-                            <p className="text-2xl font-bold text-slate-900 dark:text-white">{phishingResult.confidence}%</p>
+                            <p className="text-2xl font-bold text-slate-900 dark:text-white">
+                              {phishingResult.confidence}%
+                            </p>
                           </div>
                         </div>
                         <div className="flex gap-4 text-sm">
                           <div className="flex items-center gap-2">
                             <Link2 className="w-4 h-4 text-slate-500" />
-                            <span className="text-slate-600 dark:text-slate-400 truncate max-w-[300px]">{phishingResult.url}</span>
+                            <span className="text-slate-600 dark:text-slate-400 truncate max-w-[300px]">
+                              {phishingResult.url}
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -1196,15 +1341,19 @@ export function DFIR() {
                             <div className="space-y-3">
                               {phishingResult.similar_domains.map((item, idx) => (
                                 <div key={idx} className="flex justify-between items-center">
-                                  <span className="text-sm text-slate-700 dark:text-slate-300 font-mono">{item.domain}</span>
+                                  <span className="text-sm text-slate-700 dark:text-slate-300 font-mono">
+                                    {item.domain}
+                                  </span>
                                   <div className="flex items-center gap-2">
                                     <div className="w-24 h-1.5 bg-slate-200 dark:bg-white/5 rounded-full overflow-hidden">
-                                      <div 
-                                        className="h-full bg-brand-500" 
-                                        style={{ width: `${item.similarity * 100}%` }} 
+                                      <div
+                                        className="h-full bg-brand-500"
+                                        style={{ width: `${item.similarity * 100}%` }}
                                       />
                                     </div>
-                                    <span className="text-xs font-semibold text-slate-500">{(item.similarity * 100).toFixed(0)}%</span>
+                                    <span className="text-xs font-semibold text-slate-500">
+                                      {(item.similarity * 100).toFixed(0)}%
+                                    </span>
                                   </div>
                                 </div>
                               ))}
@@ -1223,7 +1372,10 @@ export function DFIR() {
                           </h4>
                           <div className="flex flex-wrap gap-2">
                             {phishingResult.content_flags.map((flag, idx) => (
-                              <span key={idx} className="px-3 py-1 rounded-full bg-rose-500/10 text-rose-600 dark:text-rose-400 text-sm font-medium">
+                              <span
+                                key={idx}
+                                className="px-3 py-1 rounded-full bg-rose-500/10 text-rose-600 dark:text-rose-400 text-sm font-medium"
+                              >
                                 {flag}
                               </span>
                             ))}
@@ -1249,14 +1401,18 @@ export function DFIR() {
                         onChange={(e) => setExposureQuery(e.target.value)}
                         placeholder="Enter email or domain to check exposure"
                         className="flex-1 px-4 py-3 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500 transition-colors shadow-sm"
-                        onKeyDown={(e) => e.key === "Enter" && runExposureScan()}
+                        onKeyDown={(e) => e.key === 'Enter' && runExposureScan()}
                       />
                       <button
                         onClick={runExposureScan}
                         disabled={exposureLoading}
                         className="px-6 py-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 disabled:opacity-50 text-white font-semibold transition-all flex items-center gap-2 shadow-sm"
                       >
-                        {exposureLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />}
+                        {exposureLoading ? (
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                        ) : (
+                          <Search className="w-4 h-4" />
+                        )}
                         Scan
                       </button>
                     </div>
@@ -1264,29 +1420,35 @@ export function DFIR() {
 
                   {exposureResult && (
                     <div className="space-y-6">
-                      <div className={`p-6 rounded-2xl border-2 ${
-                        exposureResult.risk_level === 'Critical' 
-                          ? 'bg-rose-500/10 border-rose-500/30' 
-                          : exposureResult.risk_level === 'High' 
-                          ? 'bg-amber-500/10 border-amber-500/30'
-                          : 'bg-cyan-500/10 border-cyan-500/30'
-                      } shadow-md`}>
+                      <div
+                        className={`p-6 rounded-2xl border-2 ${
+                          exposureResult.risk_level === 'Critical'
+                            ? 'bg-rose-500/10 border-rose-500/30'
+                            : exposureResult.risk_level === 'High'
+                              ? 'bg-amber-500/10 border-amber-500/30'
+                              : 'bg-cyan-500/10 border-cyan-500/30'
+                        } shadow-md`}
+                      >
                         <div className="flex justify-between items-start mb-4">
                           <div>
                             <span className="text-xs uppercase tracking-wider text-slate-500">Risk Level</span>
-                            <h4 className={`text-2xl font-black uppercase ${
-                              exposureResult.risk_level === 'Critical' 
-                                ? 'text-rose-600 dark:text-rose-400' 
-                                : exposureResult.risk_level === 'High'
-                                ? 'text-amber-600 dark:text-amber-400'
-                                : 'text-cyan-600 dark:text-cyan-400'
-                            }`}>
+                            <h4
+                              className={`text-2xl font-black uppercase ${
+                                exposureResult.risk_level === 'Critical'
+                                  ? 'text-rose-600 dark:text-rose-400'
+                                  : exposureResult.risk_level === 'High'
+                                    ? 'text-amber-600 dark:text-amber-400'
+                                    : 'text-cyan-600 dark:text-cyan-400'
+                              }`}
+                            >
                               {exposureResult.risk_level}
                             </h4>
                           </div>
                           <div className="text-right">
                             <span className="text-xs uppercase tracking-wider text-slate-500">Exposed Records</span>
-                            <p className="text-3xl font-bold text-slate-900 dark:text-white">{exposureResult.total_exposed_records}</p>
+                            <p className="text-3xl font-bold text-slate-900 dark:text-white">
+                              {exposureResult.total_exposed_records}
+                            </p>
                           </div>
                         </div>
                         <div className="flex gap-4 text-sm text-slate-600 dark:text-slate-400">
@@ -1308,14 +1470,19 @@ export function DFIR() {
                         </h4>
                         <div className="space-y-4">
                           {exposureResult.sources.map((source, idx) => (
-                            <div key={idx} className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/30 border border-slate-100 dark:border-white/5">
+                            <div
+                              key={idx}
+                              className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/30 border border-slate-100 dark:border-white/5"
+                            >
                               <div className="flex justify-between items-start mb-2">
                                 <div>
                                   <h5 className="font-semibold text-slate-900 dark:text-white">{source.name}</h5>
                                   <p className="text-xs text-slate-500">{source.category}</p>
                                 </div>
                                 <div className="text-right">
-                                  <span className="text-lg font-bold text-rose-600 dark:text-rose-400">{source.records}</span>
+                                  <span className="text-lg font-bold text-rose-600 dark:text-rose-400">
+                                    {source.records}
+                                  </span>
                                   <p className="text-[10px] text-slate-500">records</p>
                                 </div>
                               </div>
@@ -1333,7 +1500,7 @@ export function DFIR() {
                     <div className="p-6 rounded-2xl bg-slate-100/50 dark:bg-slate-800/30 border border-slate-200 dark:border-white/5">
                       <div className="flex justify-between items-center mb-4">
                         <h4 className="font-bold text-slate-900 dark:text-white">Recent Scans</h4>
-                        <button 
+                        <button
                           onClick={clearHistory}
                           className="text-xs text-slate-500 hover:text-rose-500 flex items-center gap-1"
                         >
@@ -1343,15 +1510,17 @@ export function DFIR() {
                       </div>
                       <div className="space-y-2">
                         {exposureHistory.slice(0, 5).map((item, idx) => (
-                          <button 
+                          <button
                             key={idx}
                             onClick={() => setExposureResult(item)}
                             className="w-full flex justify-between items-center p-3 rounded-lg bg-white/60 dark:bg-white/5 hover:bg-white/80 dark:hover:bg-white/10 cursor-pointer transition-colors text-left"
                           >
                             <span className="text-sm font-mono text-slate-700 dark:text-slate-300">{item.query}</span>
-                            <span className={`text-xs font-semibold ${
-                              item.risk_level === 'Critical' ? 'text-rose-500' : 'text-amber-500'
-                            }`}>
+                            <span
+                              className={`text-xs font-semibold ${
+                                item.risk_level === 'Critical' ? 'text-rose-500' : 'text-amber-500'
+                              }`}
+                            >
                               {item.risk_level} ({item.total_exposed_records} records)
                             </span>
                           </button>
@@ -1394,15 +1563,15 @@ export function DFIR() {
                   ) : (
                     <div className="space-y-4">
                       {intelItems
-                        .filter(item => intelFilter === 'all' || item.type.toLowerCase().includes(intelFilter))
+                        .filter((item) => intelFilter === 'all' || item.type.toLowerCase().includes(intelFilter))
                         .map((item) => (
-                          <div 
+                          <div
                             role="button"
                             tabIndex={0}
                             key={item.id}
                             className={`p-6 rounded-2xl bg-white/40 dark:bg-white/5 border transition-all cursor-pointer ${
-                              item.read 
-                                ? 'border-slate-200 dark:border-white/5 opacity-75' 
+                              item.read
+                                ? 'border-slate-200 dark:border-white/5 opacity-75'
                                 : 'border-slate-200 dark:border-white/10 hover:border-brand-500/50'
                             }`}
                             onClick={() => {
@@ -1419,11 +1588,15 @@ export function DFIR() {
                             <div className="flex justify-between items-start mb-3">
                               <div className="flex-1">
                                 <div className="flex items-center gap-2 mb-2">
-                                  <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
-                                    item.severity === 'Critical' ? 'bg-rose-500/10 text-rose-600' :
-                                    item.severity === 'High' ? 'bg-amber-500/10 text-amber-600' :
-                                    'bg-cyan-500/10 text-cyan-600'
-                                  }`}>
+                                  <span
+                                    className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
+                                      item.severity === 'Critical'
+                                        ? 'bg-rose-500/10 text-rose-600'
+                                        : item.severity === 'High'
+                                          ? 'bg-amber-500/10 text-amber-600'
+                                          : 'bg-cyan-500/10 text-cyan-600'
+                                    }`}
+                                  >
                                     {item.severity}
                                   </span>
                                   <span className="text-xs text-slate-500">{item.source}</span>
@@ -1435,10 +1608,12 @@ export function DFIR() {
                                 <span className="text-xs text-slate-500">
                                   {new Date(item.published).toLocaleDateString()}
                                 </span>
-                                <ChevronRight className={`w-5 h-5 text-slate-400 transition-transform ${expandedIntel === item.id ? 'rotate-90' : ''}`} />
+                                <ChevronRight
+                                  className={`w-5 h-5 text-slate-400 transition-transform ${expandedIntel === item.id ? 'rotate-90' : ''}`}
+                                />
                               </div>
                             </div>
-                            
+
                             {expandedIntel === item.id && (
                               <motion.div
                                 initial={{ opacity: 0, height: 0 }}
@@ -1447,26 +1622,38 @@ export function DFIR() {
                                 className="space-y-4 mt-4 pt-4 border-t border-slate-100 dark:border-white/5"
                               >
                                 <p className="text-sm text-slate-600 dark:text-slate-400">{item.description}</p>
-                                
+
                                 {item.indicators && item.indicators.length > 0 && (
                                   <div>
-                                    <h5 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Indicators</h5>
+                                    <h5 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+                                      Indicators
+                                    </h5>
                                     <div className="flex flex-wrap gap-2">
                                       {item.indicators.map((ind, idx) => (
-                                        <span 
+                                        <button
                                           key={idx}
-                                          onClick={(e) => { e.stopPropagation(); copyToClipboard(ind); }}
+                                          onClick={(e) => {
+                                            e.stopPropagation();
+                                            copyToClipboard(ind);
+                                          }}
+                                          onKeyDown={(e) => {
+                                            if (e.key === 'Enter' || e.key === ' ') {
+                                              e.stopPropagation();
+                                              copyToClipboard(ind);
+                                            }
+                                          }}
                                           className="px-3 py-1 rounded-lg bg-slate-100 dark:bg-white/10 font-mono text-xs text-slate-700 dark:text-slate-300 hover:bg-brand-500/10 hover:text-brand-600 cursor-pointer transition-colors flex items-center gap-1"
+                                          aria-label={`Copy ${ind} to clipboard`}
                                         >
                                           <Copy className="w-3 h-3" />
                                           {ind}
-                                        </span>
+                                        </button>
                                       ))}
                                     </div>
                                   </div>
                                 )}
-                                
-                                <a 
+
+                                <a
                                   href={item.link}
                                   target="_blank"
                                   rel="noopener noreferrer"
@@ -1487,7 +1674,15 @@ export function DFIR() {
               {activeTab === 'research' && (
                 <div className="space-y-6">
                   <div className="flex flex-wrap gap-3">
-                    {['all', 'phishing detection', 'email security', 'threat intelligence', 'digital forensics', 'cloud security', 'osint'].map((filter) => (
+                    {[
+                      'all',
+                      'phishing detection',
+                      'email security',
+                      'threat intelligence',
+                      'digital forensics',
+                      'cloud security',
+                      'osint',
+                    ].map((filter) => (
                       <button
                         key={filter}
                         onClick={() => setResearchFilter(filter)}
@@ -1509,13 +1704,15 @@ export function DFIR() {
                   ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {researchItems
-                        .filter(item => researchFilter === 'all' || item.category.toLowerCase().includes(researchFilter))
+                        .filter(
+                          (item) => researchFilter === 'all' || item.category.toLowerCase().includes(researchFilter)
+                        )
                         .map((item) => (
-                          <div 
+                          <div
                             key={item.id}
                             className={`p-6 rounded-2xl bg-white/40 dark:bg-white/5 border transition-all ${
-                              item.read 
-                                ? 'border-slate-200 dark:border-white/5' 
+                              item.read
+                                ? 'border-slate-200 dark:border-white/5'
                                 : 'border-slate-200 dark:border-white/10 hover:border-brand-500/50'
                             }`}
                           >
@@ -1528,18 +1725,20 @@ export function DFIR() {
                               </div>
                               {!item.read && <span className="w-2 h-2 rounded-full bg-brand-500" />}
                             </div>
-                            <h4 
+                            <button
                               onClick={() => setExpandedResearch(expandedResearch === item.id ? null : item.id)}
-                              className="text-lg font-bold text-slate-900 dark:text-white mb-2 cursor-pointer hover:text-brand-600 transition-colors"
+                              className="text-lg font-bold text-slate-900 dark:text-white mb-2 cursor-pointer hover:text-brand-600 transition-colors text-left w-full"
                             >
                               {item.title}
-                            </h4>
+                            </button>
                             <p className="text-xs text-slate-500 mb-3">{item.authors}</p>
-                            
-                            <div className={`overflow-hidden transition-all ${expandedResearch === item.id ? 'max-h-48' : 'max-h-0'}`}>
+
+                            <div
+                              className={`overflow-hidden transition-all ${expandedResearch === item.id ? 'max-h-48' : 'max-h-0'}`}
+                            >
                               <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">{item.summary}</p>
                             </div>
-                            
+
                             <div className="flex justify-between items-center mt-4 pt-4 border-t border-slate-100 dark:border-white/5">
                               <div className="flex items-center gap-3">
                                 {item.citations && (
@@ -1579,9 +1778,11 @@ export function DFIR() {
 
       <div className="mt-8 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-500">
         <div className="flex items-center gap-4">
-          <span className="flex items-center gap-1">
-            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-            API Connected
+          <span
+            className={`flex items-center gap-1 ${hasBackend ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}`}
+          >
+            <div className={`w-1.5 h-1.5 rounded-full ${hasBackend ? 'bg-emerald-500' : 'bg-amber-500'}`} />
+            {hasBackend ? 'Backend Connected' : 'Offline Mode'}
           </span>
           <span className="flex items-center gap-1">
             <Activity className="w-3 h-3" />
@@ -1589,9 +1790,9 @@ export function DFIR() {
           </span>
         </div>
         <div className="flex items-center gap-4">
-          <a 
-            href="https://github.com/Pranith-Jain/DFIR-PLATFORM" 
-            target="_blank" 
+          <a
+            href="https://github.com/Pranith-Jain/DFIR-PLATFORM"
+            target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-1 hover:text-brand-400 transition-colors"
           >
