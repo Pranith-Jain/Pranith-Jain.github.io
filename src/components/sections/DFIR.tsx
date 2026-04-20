@@ -12,7 +12,6 @@ import {
   Zap, 
   Activity,
   CheckCircle2,
-  AlertTriangle,
   XCircle,
   ExternalLink,
   ChevronRight,
@@ -42,6 +41,27 @@ interface DomainResult {
   dkim: any[];
   ssl: any;
   dns: any;
+  dnssec?: { found: boolean };
+}
+
+interface PrivacyCategory {
+  score: number;
+  maxScore: number;
+  details: any;
+}
+
+interface PrivacyResult {
+  score: number;
+  maxScore: number;
+  grade: string;
+  categories: {
+    ipNetwork: PrivacyCategory;
+    dnsPrivacy: PrivacyCategory;
+    fingerprinting: PrivacyCategory;
+    privacySettings: PrivacyCategory;
+    connectionSecurity: PrivacyCategory;
+    trackingProtection: PrivacyCategory;
+  };
 }
 
 type TabType = 'home' | 'domain' | 'ioc' | 'phishing' | 'exposure' | 'privacy' | 'wiki' | 'intel' | 'actors' | 'research';
@@ -52,71 +72,21 @@ export function DFIR() {
   const [activeTab, setActiveTab] = useState<TabType>('home');
   const [mounted, setMounted] = useState(false);
 
-  // Home/General States
-  const [intelArticles, setIntelArticles] = useState<any[]>([]);
-  const [intelLoading, setIntelLoading] = useState(false);
-  const [researchFeeds, setResearchFeeds] = useState<any[]>([]);
-  const [researchLoading, setResearchLoading] = useState(false);
-
   // Tools States
   const [iocInput, setIocInput] = useState('');
   const [iocResult, setIocResult] = useState<IOCResult | null>(null);
   const [iocLoading, setIocLoading] = useState(false);
 
-  const [emailInput, setEmailInput] = useState('');
-  const [phishingResult, setPhishingResult] = useState<any>(null);
-  const [phishingLoading, setPhishingLoading] = useState(false);
-
   const [domainInput, setDomainInput] = useState('');
   const [domainResult, setDomainResult] = useState<DomainResult | null>(null);
   const [domainLoading, setDomainLoading] = useState(false);
 
-  const [exposureInput, setExposureInput] = useState('');
-  const [exposureResult, setExposureResult] = useState<any>(null);
-  const [exposureLoading, setExposureLoading] = useState(false);
-
-  const [privacyResult, setPrivacyResult] = useState<any>(null);
+  const [privacyResult, setPrivacyResult] = useState<PrivacyResult | null>(null);
   const [privacyLoading, setPrivacyLoading] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
-
-  const fetchIntel = async () => {
-    setIntelLoading(true);
-    try {
-      const res = await fetch(`${API_URL}/intel/feed`);
-      const data = await res.json();
-      if (data.xml) {
-        const parser = new DOMParser();
-        const xml = parser.parseFromString(data.xml, "text/xml");
-        const items = xml.querySelectorAll("item");
-        const articles = Array.from(items).map((item: any) => ({
-          title: item.querySelector("title")?.textContent || "",
-          link: item.querySelector("link")?.textContent || "",
-          pubDate: item.querySelector("pubDate")?.textContent || "",
-          categories: Array.from(item.querySelectorAll("category")).map((c: any) => c.textContent || ""),
-          desc: item.querySelector("description")?.textContent?.replace(/<[^>]*>/g, "") || "",
-        }));
-        setIntelArticles(articles);
-      }
-    } catch (e) {
-      console.error("Failed to fetch intel", e);
-    }
-    setIntelLoading(false);
-  };
-
-  const fetchResearch = async () => {
-    setResearchLoading(true);
-    try {
-      const res = await fetch(`${API_URL}/research/feeds`);
-      const data = await res.json();
-      if (data.feeds) setResearchFeeds(data.feeds);
-    } catch (e) {
-      console.error("Failed to fetch research", e);
-    }
-    setResearchLoading(false);
-  };
 
   const checkIOC = async () => {
     if (!iocInput.trim()) return;
@@ -133,21 +103,6 @@ export function DFIR() {
     setIocLoading(false);
   };
 
-  const analyzePhishing = async () => {
-    if (!emailInput.trim()) return;
-    setPhishingLoading(true);
-    try {
-      const res = await fetch(`${API_URL}/phishing/analyze`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email_raw: emailInput }),
-      });
-      const data = await res.json();
-      setPhishingResult(data);
-    } catch { setPhishingResult(null); }
-    setPhishingLoading(false);
-  };
-
   const checkDomain = async () => {
     if (!domainInput.trim()) return;
     setDomainLoading(true);
@@ -161,21 +116,6 @@ export function DFIR() {
       setDomainResult(data);
     } catch { setDomainResult(null); }
     setDomainLoading(false);
-  };
-
-  const scanExposure = async () => {
-    if (!exposureInput.trim()) return;
-    setExposureLoading(true);
-    try {
-      const res = await fetch(`${API_URL}/exposure/scan`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ domain: exposureInput }),
-      });
-      const data = await res.json();
-      setExposureResult(data);
-    } catch { setExposureResult(null); }
-    setExposureLoading(false);
   };
 
   // Browser-based privacy check
@@ -199,7 +139,7 @@ export function DFIR() {
     };
 
     const canvas = getCanvasFingerprint();
-    const results = {
+    const results: PrivacyResult = {
       score: 72,
       maxScore: 100,
       grade: 'B',
@@ -215,11 +155,6 @@ export function DFIR() {
     setPrivacyResult(results);
     setPrivacyLoading(false);
   };
-
-  useEffect(() => {
-    if (activeTab === 'intel' && intelArticles.length === 0) fetchIntel();
-    if (activeTab === 'research' && researchFeeds.length === 0) fetchResearch();
-  }, [activeTab]);
 
   if (!mounted) return null;
 
@@ -395,7 +330,7 @@ export function DFIR() {
                           { label: 'SPF', val: domainResult.spf?.found },
                           { label: 'DMARC', val: domainResult.dmarc?.found },
                           { label: 'DKIM', val: domainResult.dkim?.some((d: any) => d.found) },
-                          { label: 'DNSSEC', val: (domainResult as any).dnssec?.found },
+                          { label: 'DNSSEC', val: domainResult.dnssec?.found },
                         ].map(s => (
                           <div key={s.label} className="p-4 rounded-xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-between shadow-sm">
                             <span className="text-sm text-slate-500 dark:text-slate-400">{s.label}</span>
@@ -489,7 +424,7 @@ export function DFIR() {
                           <span className="text-3xl font-black text-brand-600 dark:text-brand-400">{privacyResult.score}/100</span>
                         </div>
                         <div className="space-y-4">
-                          {Object.entries(privacyResult.categories).map(([key, cat]: [string, any]) => (
+                          {Object.entries(privacyResult.categories).map(([key, cat]) => (
                             <div key={key} className="space-y-1">
                               <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400 uppercase">
                                 <span>{key.replace(/([A-Z])/g, ' $1')}</span>
