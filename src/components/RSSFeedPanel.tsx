@@ -5,9 +5,6 @@ import {
   ExternalLink,
   RefreshCw,
   Clock,
-  ChevronDown,
-  ChevronUp,
-  Filter,
   Loader2,
   AlertCircle,
   Globe,
@@ -31,6 +28,7 @@ interface RSSFeedPanelProps {
 const categoryIcons: Record<string, typeof Globe> = {
   vulnerability: ShieldAlert,
   advisory: AlertCircle,
+  'ics-cert': Bug,
   'threat-intel': Bug,
   news: Newspaper,
   general: Globe,
@@ -47,7 +45,7 @@ export const RSSFeedPanel = memo(function RSSFeedPanel({ className = '' }: RSSFe
   const loadFeeds = useCallback(async () => {
     setIsLoading(true);
     setError(null);
-    
+
     try {
       const results = await fetchMultipleFeeds(defaultFeeds);
       setFeeds(results);
@@ -83,9 +81,8 @@ export const RSSFeedPanel = memo(function RSSFeedPanel({ className = '' }: RSSFe
     }
   });
 
-  const filteredItems = selectedCategory === 'all'
-    ? allItems
-    : allItems.filter((item) => item.category === selectedCategory);
+  const filteredItems =
+    selectedCategory === 'all' ? allItems : allItems.filter((item) => item.category === selectedCategory);
 
   const sortedItems = sortFeedItems(filteredItems, { sortBy: 'date', limit: 50 });
 
@@ -104,7 +101,7 @@ export const RSSFeedPanel = memo(function RSSFeedPanel({ className = '' }: RSSFe
             </p>
           </div>
         </div>
-        
+
         <div className="flex items-center gap-2">
           {lastRefresh && (
             <span className="text-xs text-slate-400 flex items-center gap-1">
@@ -154,9 +151,7 @@ export const RSSFeedPanel = memo(function RSSFeedPanel({ className = '' }: RSSFe
           <AlertCircle className="w-5 h-5 text-rose-500 shrink-0 mt-0.5" />
           <div>
             <p className="text-sm font-medium text-rose-600 dark:text-rose-400">{error}</p>
-            <p className="text-xs text-rose-500/70 mt-1">
-              Some feeds may not be available due to CORS restrictions.
-            </p>
+            <p className="text-xs text-rose-500/70 mt-1">Some feeds may not be available due to CORS restrictions.</p>
           </div>
         </div>
       )}
@@ -194,9 +189,7 @@ export const RSSFeedPanel = memo(function RSSFeedPanel({ className = '' }: RSSFe
                         <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
                           {item.source}
                         </span>
-                        <span className="text-[10px] text-slate-400">
-                          {formatRelativeTime(item.pubDate)}
-                        </span>
+                        <span className="text-[10px] text-slate-400">{formatRelativeTime(item.pubDate)}</span>
                       </div>
                       <a
                         href={item.link}
@@ -231,14 +224,12 @@ export const RSSFeedPanel = memo(function RSSFeedPanel({ className = '' }: RSSFe
 
       {/* Feed Sources */}
       <div className="pt-4 border-t border-slate-200 dark:border-white/10">
-        <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3">
-          Subscribed Sources
-        </h4>
+        <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3">Subscribed Sources</h4>
         <div className="flex flex-wrap gap-2">
           {defaultFeeds.map((feedId) => {
             const feed = rssFeeds.find((f) => f.id === feedId);
             if (!feed) return null;
-            
+
             return (
               <a
                 key={feed.id}

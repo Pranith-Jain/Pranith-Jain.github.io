@@ -1,15 +1,6 @@
-import { memo } from 'react';
+import { memo, useCallback, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import {
-  Shield,
-  Globe,
-  Search,
-  Database,
-  Lock,
-  BookOpen,
-  Radar,
-  type LucideIcon,
-} from 'lucide-react';
+import { Shield, Globe, Search, Database, Lock, BookOpen, Radar, type LucideIcon } from 'lucide-react';
 
 export type NavTab = 'home' | 'domain' | 'analysis' | 'exposure' | 'privacy' | 'knowledge' | 'threatIntel';
 
@@ -19,16 +10,24 @@ interface NavItem {
   icon: LucideIcon;
   description?: string;
   badge?: string;
+  shortcut?: string;
 }
 
 const navItems: NavItem[] = [
-  { id: 'home', label: 'Home', icon: Shield, description: 'Overview' },
-  { id: 'domain', label: 'Domain', icon: Globe, description: 'Security Check' },
-  { id: 'analysis', label: 'Analysis', icon: Search, description: 'IOC + Phishing', badge: '2 tools' },
-  { id: 'exposure', label: 'Exposure', icon: Database, description: 'Breach Scanner' },
-  { id: 'privacy', label: 'Privacy', icon: Lock, description: 'Browser Check' },
-  { id: 'knowledge', label: 'Knowledge', icon: BookOpen, description: 'Wiki + Research', badge: '2 tools' },
-  { id: 'threatIntel', label: 'Intel', icon: Radar, description: 'Feeds + Actors', badge: '2 tools' },
+  { id: 'home', label: 'Home', icon: Shield, description: 'Overview', shortcut: '1' },
+  { id: 'domain', label: 'Domain', icon: Globe, description: 'Security Check', shortcut: '2' },
+  { id: 'analysis', label: 'Analysis', icon: Search, description: 'IOC + Phishing', badge: '2 tools', shortcut: '3' },
+  { id: 'exposure', label: 'Exposure', icon: Database, description: 'Breach Scanner', shortcut: '4' },
+  { id: 'privacy', label: 'Privacy', icon: Lock, description: 'Browser Check', shortcut: '5' },
+  {
+    id: 'knowledge',
+    label: 'Knowledge',
+    icon: BookOpen,
+    description: 'Wiki + Research',
+    badge: '2 tools',
+    shortcut: '6',
+  },
+  { id: 'threatIntel', label: 'Intel', icon: Radar, description: 'Feeds + Actors', badge: '2 tools', shortcut: '7' },
 ];
 
 interface DFIRNavigationProps {
@@ -42,15 +41,56 @@ export const DFIRNavigation = memo(function DFIRNavigation({
   onTabChange,
   className = '',
 }: DFIRNavigationProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const activeButtonRef = useRef<HTMLButtonElement>(null);
+
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      const currentIndex = navItems.findIndex((item) => item.id === activeTab);
+
+      if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        const nextIndex = (currentIndex + 1) % navItems.length;
+        onTabChange(navItems[nextIndex].id);
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        const prevIndex = (currentIndex - 1 + navItems.length) % navItems.length;
+        onTabChange(navItems[prevIndex].id);
+      } else if (e.key >= '1' && e.key <= '7') {
+        e.preventDefault();
+        const index = parseInt(e.key) - 1;
+        if (navItems[index]) {
+          onTabChange(navItems[index].id);
+        }
+      }
+    },
+    [activeTab, onTabChange]
+  );
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (container) {
+      container.addEventListener('keydown', handleKeyDown);
+      return () => container.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [handleKeyDown]);
+
+  useEffect(() => {
+    if (activeButtonRef.current) {
+      activeButtonRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+  }, [activeTab]);
+
   return (
     <nav
+      ref={containerRef}
       className={`flex overflow-x-auto no-scrollbar bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border-b border-slate-200 dark:border-white/5 ${className}`}
-      role="tablist"
       aria-label="DFIR Tools navigation"
     >
       {navItems.map((item, index) => (
         <motion.button
           key={item.id}
+          ref={item.id === activeTab ? activeButtonRef : undefined}
           onClick={() => onTabChange(item.id)}
           className={`relative flex items-center gap-2 px-5 py-4 text-sm font-medium transition-all whitespace-nowrap border-b-2 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-inset ${
             activeTab === item.id
@@ -61,6 +101,7 @@ export const DFIRNavigation = memo(function DFIRNavigation({
           aria-selected={activeTab === item.id}
           aria-controls={`panel-${item.id}`}
           id={`tab-${item.id}`}
+          tabIndex={activeTab === item.id ? 0 : -1}
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: index * 0.05 }}
@@ -80,6 +121,11 @@ export const DFIRNavigation = memo(function DFIRNavigation({
             <span className="ml-1 px-1.5 py-0.5 text-[10px] rounded bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hidden sm:inline">
               {item.badge}
             </span>
+          )}
+          {item.shortcut && (
+            <kbd className="ml-1 px-1.5 py-0.5 text-[10px] rounded bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 hidden md:inline font-mono">
+              {item.shortcut}
+            </kbd>
           )}
           {activeTab === item.id && (
             <motion.div
@@ -141,12 +187,7 @@ interface QuickActionsProps {
   className?: string;
 }
 
-export function QuickActions({
-  onNewScan,
-  onRefresh,
-  isLoading = false,
-  className = '',
-}: QuickActionsProps) {
+export function QuickActions({ onNewScan, onRefresh, isLoading = false, className = '' }: QuickActionsProps) {
   return (
     <div className={`flex items-center gap-2 ${className}`}>
       {onNewScan && (
