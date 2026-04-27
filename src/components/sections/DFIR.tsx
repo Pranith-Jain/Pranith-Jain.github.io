@@ -31,8 +31,12 @@ import {
   Users,
   Zap,
   Layers,
+  WifiOff,
+  HelpCircle,
 } from 'lucide-react';
 import wikiData from '../../data/wiki.json';
+import { ConnectionStatus } from '../ConnectionStatus';
+import { Breadcrumbs } from '../Breadcrumbs';
 
 // ============================================================================
 // SECURITY IMPROVEMENTS
@@ -1064,7 +1068,7 @@ export function DFIR() {
 
   return (
     <section id="dfir" className="mt-32 scroll-mt-24">
-      <div className="mb-12">
+      <div className="mb-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -1073,24 +1077,36 @@ export function DFIR() {
         >
           Functional Toolkit
         </motion.div>
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-          className="text-3xl font-extrabold tracking-tight sm:text-4xl text-slate-900 dark:text-white"
-        >
-          DFIR-PLATFORM Tools
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="mt-4 max-w-2xl text-slate-600 dark:text-slate-400"
-        >
-          A consolidated suite of digital forensics and incident response tools integrated directly into the portfolio.
-        </motion.p>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-3xl font-extrabold tracking-tight sm:text-4xl text-slate-900 dark:text-white"
+            >
+              DFIR-PLATFORM Tools
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="mt-2 max-w-2xl text-slate-600 dark:text-slate-400"
+            >
+              A consolidated suite of digital forensics and incident response tools integrated directly into the portfolio.
+            </motion.p>
+          </div>
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+          >
+            <Breadcrumbs items={useDFIRBreadcrumbs()} className="justify-end" />
+          </motion.div>
+        </div>
       </div>
 
       <div className="glass rounded-3xl overflow-hidden shadow-2xl">
@@ -1138,30 +1154,37 @@ export function DFIR() {
                         This platform provides functional security tools for domain analysis, IOC reputation checking,
                         and threat intelligence gathering. Designed for security analysts and researchers.
                       </p>
-                      {hasBackend ? (
-                        <div className="flex items-center gap-2 text-sm text-emerald-600 dark:text-emerald-400 font-medium">
-                          <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
-                          Backend Connected
-                        </div>
-                      ) : (
-                        <div className="p-4 rounded-xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/30">
-                          <p className="text-sm text-amber-800 dark:text-amber-200 font-medium mb-2">
+                      <ConnectionStatus apiUrl={API_URL} />
+                      <div className="mt-4 flex items-start gap-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/30 border border-slate-200 dark:border-white/10">
+                        <HelpCircle className="w-5 h-5 text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
+                        <div>
+                          <p className="text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
                             Running in offline mode
                           </p>
-                          <p className="text-xs text-amber-700 dark:text-amber-300 mb-3">
-                            Set VITE_DFIR_API_URL environment variable to connect to the FastAPI backend for real-time
-                            intelligence feeds.
+                          <p className="text-xs text-slate-500 dark:text-slate-400 mb-2">
+                            Client-side tools work offline. Connect to the FastAPI backend for real-time threat intelligence, RSS feeds, and additional analysis capabilities.
                           </p>
-                          <a
-                            href="https://github.com/Pranith-Jain/DFIR-PLATFORM"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 text-xs font-semibold text-brand-600 dark:text-brand-400 hover:underline"
-                          >
-                            View Setup Instructions <ExternalLink className="w-3 h-3" />
-                          </a>
+                          <div className="flex flex-wrap gap-3 text-xs">
+                            <a
+                              href="https://github.com/Pranith-Jain/DFIR-PLATFORM"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                            >
+                              View Backend <ExternalLink className="w-3 h-3" />
+                            </a>
+                            <span className="text-slate-300 dark:text-slate-600">|</span>
+                            <a
+                              href="https://github.com/Pranith-Jain/DFIR-PLATFORM#setup"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                            >
+                              Setup Instructions <ExternalLink className="w-3 h-3" />
+                            </a>
+                          </div>
                         </div>
-                      )}
+                      </div>
                       <div className="flex flex-wrap gap-4 mt-6">
                         <button
                           onClick={() => setActiveTab('domain')}
@@ -2203,15 +2226,12 @@ export function DFIR() {
 
       <div className="mt-8 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-500">
         <div className="flex items-center gap-4">
-          <span
-            className={`flex items-center gap-1 ${hasBackend ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}`}
-          >
-            <div className={`w-1.5 h-1.5 rounded-full ${hasBackend ? 'bg-emerald-500' : 'bg-amber-500'}`} />
-            {hasBackend ? 'Backend Connected' : 'Offline Mode'}
-          </span>
+          <div className="w-48">
+            <ConnectionStatus apiUrl={API_URL} />
+          </div>
           <span className="flex items-center gap-1">
             <Activity className="w-3 h-3" />
-            v2.1.0-stable
+            v2.2.0-stable
           </span>
         </div>
         <div className="flex items-center gap-4">
