@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo, memo } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Shield,
@@ -29,16 +29,13 @@ import {
   Server,
   Activity,
   Users,
-  Zap,
-  Layers,
-  WifiOff,
   HelpCircle,
 } from 'lucide-react';
 import wikiData from '../../data/wiki.json';
-import { ConnectionStatus } from '../ConnectionStatus';
-import { DFIRNavigation, SubNavigation } from '../DFIRNavigation';
 import { Breadcrumbs } from '../Breadcrumbs';
-import { RSSFeedPanel } from '../RSSFeedPanel';
+import { ConnectionStatus } from '../ConnectionStatus';
+import { DFIRNavigation } from '../DFIRNavigation';
+
 import { useDFIRRoute } from '../../hooks/useDFIRRoute';
 
 // ============================================================================
@@ -1098,7 +1095,8 @@ export function DFIR() {
               transition={{ delay: 0.2 }}
               className="mt-2 max-w-2xl text-slate-600 dark:text-slate-400"
             >
-              A consolidated suite of digital forensics and incident response tools integrated directly into the portfolio.
+              A consolidated suite of digital forensics and incident response tools integrated directly into the
+              portfolio.
             </motion.p>
           </div>
           <motion.div
@@ -1107,7 +1105,7 @@ export function DFIR() {
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
           >
-            <Breadcrumbs items={useDFIRBreadcrumbs()} className="justify-end" />
+            <Breadcrumbs items={[{ label: 'DFIR Tools' }]} className="justify-end" />
           </motion.div>
         </div>
       </div>
@@ -1165,7 +1163,8 @@ export function DFIR() {
                             Running in offline mode
                           </p>
                           <p className="text-xs text-slate-500 dark:text-slate-400 mb-2">
-                            Client-side tools work offline. Connect to the FastAPI backend for real-time threat intelligence, RSS feeds, and additional analysis capabilities.
+                            Client-side tools work offline. Connect to the FastAPI backend for real-time threat
+                            intelligence, RSS feeds, and additional analysis capabilities.
                           </p>
                           <div className="flex flex-wrap gap-3 text-xs">
                             <a

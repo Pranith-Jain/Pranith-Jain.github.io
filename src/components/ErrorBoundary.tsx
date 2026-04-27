@@ -1,98 +1,107 @@
-import { Component, type ErrorInfo, type ReactNode } from 'react';
+import { Component, type ReactNode, type ErrorInfo } from 'react';
+import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
 
-interface Props {
+interface ErrorBoundaryProps {
   children: ReactNode;
   fallback?: ReactNode;
   onError?: (error: Error, errorInfo: ErrorInfo) => void;
 }
 
-interface State {
+interface ErrorBoundaryState {
   hasError: boolean;
   error: Error | null;
-  errorInfo: ErrorInfo | null;
 }
 
-export class ErrorBoundary extends Component<Props, State> {
-  public state: State = {
-    hasError: false,
-    error: null,
-    errorInfo: null,
-  };
-
-  public static getDerivedStateFromError(error: Error): State {
-    return { hasError: true, error, errorInfo: null };
+export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props);
+    this.state = { hasError: false, error: null };
   }
 
-  public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('ErrorBoundary caught an error:', error, errorInfo);
-    
-    // Call optional error callback for logging/monitoring
-    if (this.props.onError) {
-      this.props.onError(error, errorInfo);
-    }
-    
-    this.setState({ errorInfo });
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    return { hasError: true, error };
   }
 
-  private handleReset = () => {
-    this.setState({ hasError: false, error: null, errorInfo: null });
+  componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+    console.error('Error caught by boundary:', error, errorInfo);
+    this.props.onError?.(error, errorInfo);
+  }
+
+  handleReset = (): void => {
+    this.setState({ hasError: false, error: null });
   };
 
-  public render() {
+  render(): ReactNode {
     if (this.state.hasError) {
       if (this.props.fallback) {
         return this.props.fallback;
       }
 
       return (
-        <div className="min-h-screen flex items-center justify-center p-4 bg-slate-50 dark:bg-slate-950">
-          <div className="max-w-md w-full text-center">
-            <div className="mb-6">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-100 dark:bg-red-900/30 mb-4">
-                <svg
-                  className="w-8 h-8 text-red-600 dark:text-red-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                  />
-                </svg>
-              </div>
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
-                Something went wrong
-              </h2>
-              <p className="text-slate-600 dark:text-slate-400">
-                We apologize for the inconvenience. Please try refreshing the page.
-              </p>
-              {this.state.error && (
-                <details className="mt-4 text-left text-left bg-slate-100 dark:bg-slate-800 rounded-lg p-3 text-xs">
-                  <summary className="cursor-pointer font-semibold mb-2">Error Details</summary>
-                  <pre className="whitespace-pre-wrap text-slate-600 dark:text-slate-300 overflow-auto max-h-32">
-                    {this.state.error.toString()}
-                  </pre>
-                </details>
-              )}
-            </div>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <button
-                onClick={this.handleReset}
-                className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-brand-600 text-white font-semibold hover:bg-brand-500 transition"
-              >
-                Try Again
-              </button>
-              <button
-                onClick={() => window.location.reload()}
-                className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold hover:bg-slate-300 dark:hover:bg-slate-600 transition"
-              >
-                Refresh Page
-              </button>
-            </div>
+        <div className="flex flex-col items-center justify-center p-8 rounded-2xl bg-slate-50 dark:bg-slate-800/30 border border-slate-200 dark:border-white/10 text-center">
+          <div className="p-4 rounded-full bg-amber-100 dark:bg-amber-900/30 mb-4">
+            <AlertTriangle className="w-8 h-8 text-amber-600 dark:text-amber-400" />
           </div>
+          <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">Something went wrong</h3>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mb-4 max-w-md">
+            {this.state.error?.message || 'An unexpected error occurred. Please try again.'}
+          </p>
+          <div className="flex gap-3">
+            <button
+              onClick={this.handleReset}
+              className="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-500 text-white text-sm font-medium flex items-center gap-2 transition-colors"
+            >
+              <RefreshCw className="w-4 h-4" />
+              Try Again
+            </button>
+            <a
+              href="#top"
+              className="px-4 py-2 rounded-lg bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 text-sm font-medium flex items-center gap-2 transition-colors hover:bg-slate-300 dark:hover:bg-slate-600"
+            >
+              <Home className="w-4 h-4" />
+              Go Home
+            </a>
+          </div>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
+export class TabErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean; errorMessage: string }> {
+  constructor(props: { children: ReactNode }) {
+    super(props);
+    this.state = { hasError: false, errorMessage: '' };
+  }
+
+  static getDerivedStateFromError(error: Error): { hasError: boolean; errorMessage: string } {
+    return { hasError: true, errorMessage: error.message };
+  }
+
+  handleRetry = (): void => {
+    this.setState({ hasError: false, errorMessage: '' });
+  };
+
+  render(): ReactNode {
+    if (this.state.hasError) {
+      return (
+        <div className="flex flex-col items-center justify-center p-12 rounded-2xl bg-slate-50 dark:bg-slate-800/30 border border-rose-200 dark:border-rose-800/30 text-center">
+          <div className="p-3 rounded-full bg-rose-100 dark:bg-rose-900/30 mb-4">
+            <AlertTriangle className="w-6 h-6 text-rose-600 dark:text-rose-400" />
+          </div>
+          <h4 className="text-md font-semibold text-slate-900 dark:text-white mb-2">Tab content failed to load</h4>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-4 max-w-sm">
+            {this.state.errorMessage || 'An error occurred while loading this section.'}
+          </p>
+          <button
+            onClick={this.handleRetry}
+            className="px-4 py-2 rounded-lg bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 text-sm font-medium flex items-center gap-2 hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"
+          >
+            <RefreshCw className="w-4 h-4" />
+            Retry
+          </button>
         </div>
       );
     }
