@@ -1,14 +1,22 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { ThemeToggle } from './ui/ThemeToggle';
-import { navLinks } from '../data/content';
 import { useFocusTrap } from '../hooks/useFocusTrap';
 
-interface NavLink {
+interface NavItem {
   label: string;
   href: string;
-  children?: NavLink[];
+  children?: NavItem[];
 }
+
+const navItems: NavItem[] = [
+  { label: 'About', href: '/about' },
+  { label: 'Skills', href: '/skills' },
+  { label: 'Experience', href: '/experience' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'DFIR Tools', href: '/dfir' },
+];
 
 interface HeaderProps {
   isDark: boolean;
@@ -21,6 +29,7 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const dropdownRefs = useRef<Map<string, HTMLDivElement>>(new Map());
   const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
+  const location = useLocation();
 
   // Track scroll position for header styling
   useEffect(() => {
@@ -31,6 +40,11 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location.pathname]);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -50,7 +64,6 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
   // Handle mobile menu close and return focus to button
   const closeMobileMenu = useCallback(() => {
     setIsMobileMenuOpen(false);
-    // Return focus to menu button when closing
     setTimeout(() => {
       mobileMenuButtonRef.current?.focus();
     }, 0);
@@ -96,6 +109,8 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
     setOpenDropdown((prev) => (prev === href ? null : href));
   }, []);
 
+  const isActive = (href: string) => location.pathname === href;
+
   return (
     <>
       <header
@@ -108,10 +123,10 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
       >
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
           {/* Logo */}
-          <a
-            href="#top"
+          <Link
+            to="/"
             className="group inline-flex items-center gap-3 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 rounded-lg"
-            aria-label="Pranith Jain Portfolio - Back to top"
+            aria-label="Pranith Jain Portfolio - Back to home"
           >
             <span className="h-9 w-9 rounded-xl shadow-glow flex items-center justify-center overflow-hidden">
               <svg viewBox="0 0 36 36" className="h-full w-full" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -139,11 +154,11 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
             <span className="hidden text-sm font-semibold tracking-tight sm:inline text-slate-900 dark:text-white">
               Pranith Jain<span className="text-slate-600 dark:text-slate-300"> • Portfolio</span>
             </span>
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden items-center gap-1 md:flex" role="navigation" aria-label="Main navigation">
-            {(navLinks as NavLink[]).map((link) => (
+            {navItems.map((link) => (
               <div
                 key={link.href}
                 className="relative"
@@ -162,10 +177,14 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
                           toggleDropdown(link.href);
                         }
                       }}
-                      className="flex items-center gap-1 rounded-full px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
+                      className={`flex items-center gap-1 rounded-full px-3 py-2 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
+                        isActive(link.href)
+                          ? 'text-brand-600 dark:text-brand-400 bg-brand-500/10'
+                          : 'text-slate-700 hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white'
+                      }`}
                       aria-expanded={openDropdown === link.href}
                       aria-haspopup="true"
-                      aria-controls={`dropdown-${link.href.replace('#', '')}`}
+                      aria-controls={`dropdown-${link.href.replace('/', '')}`}
                     >
                       {link.label}
                       <ChevronDown
@@ -175,31 +194,35 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
                     </button>
                     {openDropdown === link.href && (
                       <div
-                        id={`dropdown-${link.href.replace('#', '')}`}
+                        id={`dropdown-${link.href.replace('/', '')}`}
                         className="absolute left-0 top-full mt-1 min-w-[200px] rounded-xl border border-slate-200/60 bg-white/95 py-2 shadow-lg backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/95"
                         onMouseLeave={() => setOpenDropdown(null)}
                       >
                         {link.children.map((child) => (
-                          <a
+                          <Link
                             key={child.href}
-                            href={child.href}
+                            to={child.href}
                             className="block px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10 focus:outline-none focus:bg-slate-100 dark:focus:bg-white/10"
                             onClick={() => setOpenDropdown(null)}
                             role="menuitem"
                           >
                             {child.label}
-                          </a>
+                          </Link>
                         ))}
                       </div>
                     )}
                   </>
                 ) : (
-                  <a
-                    href={link.href}
-                    className="rounded-full px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
+                  <Link
+                    to={link.href}
+                    className={`rounded-full px-3 py-2 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
+                      isActive(link.href)
+                        ? 'text-brand-600 dark:text-brand-400 bg-brand-500/10'
+                        : 'text-slate-700 hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white'
+                    }`}
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 )}
               </div>
             ))}
@@ -249,30 +272,41 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
             aria-label="Mobile navigation"
           >
             <div className="flex flex-col p-4 space-y-1">
-              {(navLinks as NavLink[]).map((link) => (
+              <Link
+                to="/"
+                onClick={closeMobileMenu}
+                className={`rounded-lg px-4 py-3 text-sm font-medium block focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
+                  isActive('/')
+                    ? 'text-brand-600 dark:text-brand-400 bg-brand-500/10'
+                    : 'text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10'
+                }`}
+              >
+                Home
+              </Link>
+              {navItems.map((link) => (
                 <div key={link.href}>
-                  <a
-                    href={link.href}
-                    onClick={() => {
-                      if (!link.children) {
-                        closeMobileMenu();
-                      }
-                    }}
-                    className="rounded-lg px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10 block focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
+                  <Link
+                    to={link.href}
+                    onClick={closeMobileMenu}
+                    className={`rounded-lg px-4 py-3 text-sm font-medium block focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
+                      isActive(link.href)
+                        ? 'text-brand-600 dark:text-brand-400 bg-brand-500/10'
+                        : 'text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10'
+                    }`}
                   >
                     {link.label}
-                  </a>
+                  </Link>
                   {link.children && (
                     <div className="ml-4 mt-1 space-y-1">
                       {link.children.map((child) => (
-                        <a
+                        <Link
                           key={child.href}
-                          href={child.href}
+                          to={child.href}
                           onClick={closeMobileMenu}
                           className="block rounded-lg px-4 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
                         >
                           {child.label}
-                        </a>
+                        </Link>
                       ))}
                     </div>
                   )}
