@@ -19,6 +19,7 @@ import {
   XCircle,
   Info,
 } from 'lucide-react';
+import { defaultFeeds } from '../data/rssFeeds';
 
 interface ConnectionStatusProps {
   apiUrl: string;
