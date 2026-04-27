@@ -36,7 +36,10 @@ import {
 } from 'lucide-react';
 import wikiData from '../../data/wiki.json';
 import { ConnectionStatus } from '../ConnectionStatus';
+import { DFIRNavigation, SubNavigation } from '../DFIRNavigation';
 import { Breadcrumbs } from '../Breadcrumbs';
+import { RSSFeedPanel } from '../RSSFeedPanel';
+import { useDFIRRoute } from '../../hooks/useDFIRRoute';
 
 // ============================================================================
 // SECURITY IMPROVEMENTS
@@ -199,7 +202,7 @@ const API_URL = import.meta.env.VITE_DFIR_API_URL || '';
 const hasBackend = Boolean(API_URL);
 
 export function DFIR() {
-  const [activeTab, setActiveTab] = useState<TabType>('home');
+  const { tab: activeTab, setTab: setActiveTab } = useDFIRRoute();
   const [mounted, setMounted] = useState(false);
 
   // Tools States
