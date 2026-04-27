@@ -3,29 +3,39 @@ import { Component, type ErrorInfo, type ReactNode } from 'react';
 interface Props {
   children: ReactNode;
   fallback?: ReactNode;
+  onError?: (error: Error, errorInfo: ErrorInfo) => void;
 }
 
 interface State {
   hasError: boolean;
   error: Error | null;
+  errorInfo: ErrorInfo | null;
 }
 
 export class ErrorBoundary extends Component<Props, State> {
   public state: State = {
     hasError: false,
     error: null,
+    errorInfo: null,
   };
 
   public static getDerivedStateFromError(error: Error): State {
-    return { hasError: true, error };
+    return { hasError: true, error, errorInfo: null };
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error('ErrorBoundary caught an error:', error, errorInfo);
+    
+    // Call optional error callback for logging/monitoring
+    if (this.props.onError) {
+      this.props.onError(error, errorInfo);
+    }
+    
+    this.setState({ errorInfo });
   }
 
   private handleReset = () => {
-    this.setState({ hasError: false, error: null });
+    this.setState({ hasError: false, error: null, errorInfo: null });
   };
 
   public render() {
@@ -59,13 +69,29 @@ export class ErrorBoundary extends Component<Props, State> {
               <p className="text-slate-600 dark:text-slate-400">
                 We apologize for the inconvenience. Please try refreshing the page.
               </p>
+              {this.state.error && (
+                <details className="mt-4 text-left text-left bg-slate-100 dark:bg-slate-800 rounded-lg p-3 text-xs">
+                  <summary className="cursor-pointer font-semibold mb-2">Error Details</summary>
+                  <pre className="whitespace-pre-wrap text-slate-600 dark:text-slate-300 overflow-auto max-h-32">
+                    {this.state.error.toString()}
+                  </pre>
+                </details>
+              )}
             </div>
-            <button
-              onClick={this.handleReset}
-              className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-brand-600 text-white font-semibold hover:bg-brand-500 transition"
-            >
-              Try Again
-            </button>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <button
+                onClick={this.handleReset}
+                className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-brand-600 text-white font-semibold hover:bg-brand-500 transition"
+              >
+                Try Again
+              </button>
+              <button
+                onClick={() => window.location.reload()}
+                className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold hover:bg-slate-300 dark:hover:bg-slate-600 transition"
+              >
+                Refresh Page
+              </button>
+            </div>
           </div>
         </div>
       );
