@@ -15,7 +15,6 @@ const Companies = lazy(() => import('./components/sections').then((m) => ({ defa
 const Experience = lazy(() => import('./components/sections').then((m) => ({ default: m.Experience })));
 const Certifications = lazy(() => import('./components/sections').then((m) => ({ default: m.Certifications })));
 const Projects = lazy(() => import('./components/sections').then((m) => ({ default: m.Projects })));
-const DFIR = lazy(() => import('./components/sections').then((m) => ({ default: m.DFIR })));
 const Featured = lazy(() => import('./components/sections').then((m) => ({ default: m.Featured })));
 const Memberships = lazy(() => import('./components/sections').then((m) => ({ default: m.Memberships })));
 const Contact = lazy(() => import('./components/sections').then((m) => ({ default: m.Contact })));
@@ -98,9 +97,6 @@ function App() {
           </Suspense>
           <Suspense fallback={<SectionLoader />}>
             <Projects />
-          </Suspense>
-          <Suspense fallback={<SectionLoader />}>
-            <DFIR />
           </Suspense>
           <Suspense fallback={<SectionLoader />}>
             <Featured />
