@@ -34,7 +34,6 @@ import {
 import wikiData from '../../data/wiki.json';
 import { Breadcrumbs } from '../Breadcrumbs';
 import { ConnectionStatus } from '../ConnectionStatus';
-import { DFIRNavigation } from '../DFIRNavigation';
 
 import { useDFIRRoute } from '../../hooks/useDFIRRoute';
 
@@ -196,7 +195,6 @@ type TabType =
   | 'threatIntel'; // MERGED: Intel + Actors
 
 const API_URL = import.meta.env.VITE_DFIR_API_URL || '';
-const hasBackend = Boolean(API_URL);
 
 export function DFIR() {
   const { tab: activeTab, setTab: setActiveTab } = useDFIRRoute();

@@ -6,10 +6,13 @@ export interface RSSFeed {
   category: 'vulnerability' | 'advisory' | 'threat-intel' | 'news' | 'general' | 'ics-cert';
   icon?: string;
   source?: string;
+  language?: string;
 }
 
 export const rssFeeds: RSSFeed[] = [
-  // Government & Security Advisories
+  // ============================================================================
+  // GOVERNMENT & SECURITY ADVISORIES
+  // ============================================================================
   {
     id: 'cisa-alerts',
     name: 'CISA Alerts',
@@ -17,6 +20,7 @@ export const rssFeeds: RSSFeed[] = [
     description: 'US-CERT Current Activity - Latest cybersecurity alerts and advisories',
     category: 'advisory',
     source: 'CISA',
+    language: 'en-US',
   },
   {
     id: 'cisa-current',
@@ -25,6 +29,16 @@ export const rssFeeds: RSSFeed[] = [
     description: 'Current cybersecurity activity, known malware, and exploits',
     category: 'advisory',
     source: 'CISA',
+    language: 'en-US',
+  },
+  {
+    id: 'cisa-medical-advisories',
+    name: 'CISA Medical Advisories',
+    url: 'https://www.cisa.gov/uscert/ncas/current-activity.xml',
+    description: 'Healthcare and medical device cybersecurity advisories',
+    category: 'advisory',
+    source: 'CISA',
+    language: 'en-US',
   },
   {
     id: 'nist-nvd',
@@ -33,25 +47,48 @@ export const rssFeeds: RSSFeed[] = [
     description: 'National Vulnerability Database - CVE vulnerabilities and CVSS scores',
     category: 'vulnerability',
     source: 'NIST',
+    language: 'en-US',
+  },
+  {
+    id: 'nist-nvd-api',
+    name: 'NIST NVD Recent CVEs',
+    url: 'https://nvd.nist.gov/feeds/json/cve/1.1/nvd-cve-1.1-recent.rss',
+    description: 'Recently published CVE entries from NIST NVD',
+    category: 'vulnerability',
+    source: 'NIST',
+    language: 'en-US',
   },
   {
     id: 'ics-cert',
-    name: 'ICS-CERT Alerts',
+    name: 'ICS-CERT Advisories',
     url: 'https://www.cisa.gov/ics/advisories.xml',
     description: 'Industrial Control Systems Cyber Emergency Response Team advisories',
     category: 'ics-cert',
     source: 'CISA',
+    language: 'en-US',
+  },
+  {
+    id: 'ics-cert-alerts',
+    name: 'ICS-CERT Alerts',
+    url: 'https://www.cisa.gov/ics/alerts.xml',
+    description: 'Time-sensitive alerts for industrial control systems',
+    category: 'ics-cert',
+    source: 'CISA',
+    language: 'en-US',
+  },
+  {
+    id: 'federal-cisa-advisories',
+    name: 'Federal CISA Known Exploited Vulnerabilities',
+    url: 'https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.xml',
+    description: 'Catalog of vulnerabilities known to be exploited in the wild',
+    category: 'advisory',
+    source: 'CISA',
+    language: 'en-US',
   },
 
-  // Threat Intelligence
-  {
-    id: 'mitre-attack',
-    name: 'MITRE ATT&CK',
-    url: 'https://attack.mitre.org/docs/v13/attack-search/',
-    description: 'MITRE ATT&CK framework updates and technique mappings',
-    category: 'threat-intel',
-    source: 'MITRE',
-  },
+  // ============================================================================
+  // THREAT INTELLIGENCE
+  // ============================================================================
   {
     id: 'sans-isc',
     name: 'SANS Internet Storm Center',
@@ -59,6 +96,16 @@ export const rssFeeds: RSSFeed[] = [
     description: 'Daily handler diaries and security threat intelligence',
     category: 'threat-intel',
     source: 'SANS',
+    language: 'en-US',
+  },
+  {
+    id: 'sans-isc-threats',
+    name: 'SANS ISC Top Threats',
+    url: 'https://isc.sans.edu/rss/topthreats.xml',
+    description: 'Current top threats tracked by SANS Internet Storm Center',
+    category: 'threat-intel',
+    source: 'SANS',
+    language: 'en-US',
   },
   {
     id: 'packetstorm',
@@ -67,9 +114,57 @@ export const rssFeeds: RSSFeed[] = [
     description: 'Latest exploits, vulnerabilities, and security tools',
     category: 'threat-intel',
     source: 'PacketStorm',
+    language: 'en-US',
+  },
+  {
+    id: 'packetstorm-files',
+    name: 'PacketStorm Files',
+    url: 'https://rss.packetstormsecurity.com/files/',
+    description: 'Newly published files, exploits, and tools',
+    category: 'threat-intel',
+    source: 'PacketStorm',
+    language: 'en-US',
+  },
+  {
+    id: 'alienvault-otx',
+    name: 'AlienVault OTX',
+    url: 'https://otx.alienvault.com/api/v1/pulses/subscribe/user/1037989/rss',
+    description: 'Open Threat Exchange pulses and threat research',
+    category: 'threat-intel',
+    source: 'AlienVault',
+    language: 'en-US',
+  },
+  {
+    id: 'threatfox',
+    name: 'Abuse.ch ThreatFox',
+    url: 'https://threatfox.abuse.ch/rss/',
+    description: 'Malware indicators and threat intelligence from Abuse.ch',
+    category: 'threat-intel',
+    source: 'Abuse.ch',
+    language: 'en-US',
+  },
+  {
+    id: 'malwarebazaar',
+    name: 'Abuse.ch MalwareBazaar',
+    url: 'https://mb-api.abuse.ch/rss/',
+    description: 'Malware samples database and analysis',
+    category: 'threat-intel',
+    source: 'Abuse.ch',
+    language: 'en-US',
+  },
+  {
+    id: 'urlhaus',
+    name: 'Abuse.ch URLhaus',
+    url: 'https://urlhaus.abuse.ch/rss/',
+    description: 'Malware distribution URLs database',
+    category: 'threat-intel',
+    source: 'Abuse.ch',
+    language: 'en-US',
   },
 
-  // Security News
+  // ============================================================================
+  // SECURITY NEWS
+  // ============================================================================
   {
     id: 'threatpost',
     name: 'Threatpost',
@@ -77,6 +172,7 @@ export const rssFeeds: RSSFeed[] = [
     description: 'Independent cybersecurity news and analysis',
     category: 'news',
     source: 'Threatpost',
+    language: 'en-US',
   },
   {
     id: 'darkreading',
@@ -85,6 +181,7 @@ export const rssFeeds: RSSFeed[] = [
     description: 'Security strategies and technology insights',
     category: 'news',
     source: 'Dark Reading',
+    language: 'en-US',
   },
   {
     id: 'krebsonsecurity',
@@ -93,6 +190,7 @@ export const rssFeeds: RSSFeed[] = [
     description: 'In-depth security journalism by Brian Krebs',
     category: 'news',
     source: 'Krebs on Security',
+    language: 'en-US',
   },
   {
     id: 'hackernews',
@@ -101,6 +199,7 @@ export const rssFeeds: RSSFeed[] = [
     description: 'Latest cybersecurity news, exploits, and vulnerabilities',
     category: 'news',
     source: 'The Hacker News',
+    language: 'en-US',
   },
   {
     id: 'bleepingcomputer',
@@ -109,6 +208,7 @@ export const rssFeeds: RSSFeed[] = [
     description: 'Computer security news, tutorials, and how-to guides',
     category: 'news',
     source: 'BleepingComputer',
+    language: 'en-US',
   },
   {
     id: 'securityweek',
@@ -117,6 +217,7 @@ export const rssFeeds: RSSFeed[] = [
     description: 'Cybersecurity news, analysis, and enterprise security insights',
     category: 'news',
     source: 'SecurityWeek',
+    language: 'en-US',
   },
   {
     id: 'schneier',
@@ -125,17 +226,8 @@ export const rssFeeds: RSSFeed[] = [
     description: "Bruce Schneier's security blog and essays",
     category: 'general',
     source: 'Schneier',
+    language: 'en-US',
   },
-  {
-    id: 'us-cert-alerts',
-    name: 'US-CERT Alerts',
-    url: 'https://www.cisa.gov/uscert/ncas/alerts.xml',
-    description: 'Current cybersecurity activity alerts',
-    category: 'advisory',
-    source: 'CISA',
-  },
-
-  // Additional Security Feeds
   {
     id: 'zdnet-security',
     name: 'ZDNet Security',
@@ -143,6 +235,7 @@ export const rssFeeds: RSSFeed[] = [
     description: 'Cybersecurity news and analysis from ZDNet',
     category: 'news',
     source: 'ZDNet',
+    language: 'en-US',
   },
   {
     id: 'arstechnica-security',
@@ -151,6 +244,7 @@ export const rssFeeds: RSSFeed[] = [
     description: 'In-depth security coverage and analysis',
     category: 'news',
     source: 'Ars Technica',
+    language: 'en-US',
   },
   {
     id: 'vice-security',
@@ -159,11 +253,145 @@ export const rssFeeds: RSSFeed[] = [
     description: 'Cybersecurity and privacy investigative journalism',
     category: 'news',
     source: 'Vice',
+    language: 'en-US',
+  },
+  {
+    id: 'wired-security',
+    name: 'Wired Security',
+    url: 'https://www.wired.com/feed/category/security/latest/rss',
+    description: 'Security news and features from Wired',
+    category: 'news',
+    source: 'Wired',
+    language: 'en-US',
+  },
+  {
+    id: 'theregister-security',
+    name: 'The Register - Security',
+    url: 'https://www.theregister.com/security/headlines.atom',
+    description: 'Biting the hand that feeds IT - Security news',
+    category: 'news',
+    source: 'The Register',
+    language: 'en-GB',
+  },
+  {
+    id: 'helpnetsecurity',
+    name: 'Help Net Security',
+    url: 'https://www.helpnetsecurity.com/feed/',
+    description: 'Computer security news and cybersecurity insights',
+    category: 'news',
+    source: 'Help Net Security',
+    language: 'en-US',
+  },
+  {
+    id: 'securitymagazine',
+    name: 'Security Magazine',
+    url: 'https://www.securitymagazine.com/rss',
+    description: 'Enterprise security news and analysis',
+    category: 'news',
+    source: 'Security Magazine',
+    language: 'en-US',
+  },
+  {
+    id: 'csoconline',
+    name: 'CSO Online',
+    url: 'https://www.csoonline.com/feed/',
+    description: 'Security and risk management leadership news',
+    category: 'news',
+    source: 'CSO Online',
+    language: 'en-US',
+  },
+
+  // ============================================================================
+  // VULNERABILITY & RESEARCH
+  // ============================================================================
+  {
+    id: 'cvedetails',
+    name: 'CVE Details',
+    url: 'https://www.cvedetails.com/rss.xml',
+    description: 'CVE vulnerability details and statistics',
+    category: 'vulnerability',
+    source: 'CVE Details',
+    language: 'en-US',
+  },
+  {
+    id: 'exploitdb',
+    name: 'Exploit-DB',
+    url: 'https://www.exploit-db.com/rss.xml',
+    description: 'The Exploit Database - latest exploits and vulnerabilities',
+    category: 'vulnerability',
+    source: 'Offensive Security',
+    language: 'en-US',
+  },
+  {
+    id: 'nuclei-templates',
+    name: 'Nuclei Templates',
+    url: 'https://raw.githubusercontent.com/projectdiscovery/nuclei-templates/master/README.md',
+    description: 'Community-contributed nuclei templates for vulnerability scanning',
+    category: 'vulnerability',
+    source: 'ProjectDiscovery',
+    language: 'en-US',
+  },
+
+  // ============================================================================
+  // MALWARE ANALYSIS & SANDBOX
+  // ============================================================================
+  {
+    id: 'hybrid-analysis',
+    name: 'Hybrid Analysis',
+    url: 'https://feed.hybrid-analysis.com/rss/latest',
+    description: 'Public malware analysis reports from Hybrid Analysis sandbox',
+    category: 'threat-intel',
+    source: 'Hybrid Analysis',
+    language: 'en-US',
+  },
+  {
+    id: 'anyrun',
+    name: 'ANY.RUN',
+    url: 'https://any.run/cybersecurity-blog/rss/',
+    description: 'Interactive malware analysis sandbox - latest reports',
+    category: 'threat-intel',
+    source: 'ANY.RUN',
+    language: 'en-US',
+  },
+
+  // ============================================================================
+  // GENERAL SECURITY
+  // ============================================================================
+  {
+    id: 'reddit-netsec',
+    name: 'Reddit r/netsec',
+    url: 'https://www.reddit.com/r/netsec/.rss',
+    description: 'Network security community discussions',
+    category: 'general',
+    source: 'Reddit',
+    language: 'en-US',
+  },
+  {
+    id: 'twitter-security',
+    name: 'Twitter Security Feed',
+    url: 'https://twitrss.me/twitter_user_to_rss/?user=CISAgov',
+    description: 'CISA Twitter updates in RSS format',
+    category: 'general',
+    source: 'Twitter',
+    language: 'en-US',
   },
 ];
 
-// Default feeds to display
-export const defaultFeeds = ['cisa-alerts', 'sans-isc', 'krebsonsecurity', 'threatpost'];
+// Default feeds to display (curated selection of high-value sources)
+export const defaultFeeds = [
+  'cisa-current',
+  'cisa-alerts',
+  'nist-nvd',
+  'sans-isc',
+  'threatpost',
+  'krebsonsecurity',
+  'hackernews',
+  'bleepingcomputer',
+  'threatfox',
+  'malwarebazaar',
+  'securityweek',
+  'darkreading',
+];
 
 // Feed categories for filtering
 export const feedCategories = [
@@ -175,3 +403,14 @@ export const feedCategories = [
   { id: 'news', label: 'News' },
   { id: 'general', label: 'General' },
 ];
+
+// Get feed statistics
+export function getFeedStats() {
+  return {
+    total: rssFeeds.length,
+    byCategory: feedCategories.slice(1).map((cat) => ({
+      ...cat,
+      count: rssFeeds.filter((f) => f.category === cat.id).length,
+    })),
+  };
+}
