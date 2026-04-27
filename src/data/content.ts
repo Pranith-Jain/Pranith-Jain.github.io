@@ -254,14 +254,6 @@ export const certifications = {
 
 export const projects = [
   {
-    title: 'DFIR Platform',
-    description:
-      'Full-stack DFIR platform - domain security checker, IOC enrichment, phishing analyzer, exposure scanner, privacy check, threat intel feeds.',
-    tags: ['TypeScript', 'FastAPI', 'Threat Intel', 'Security Tools', 'Feb 2026 – Present'],
-    github: 'https://github.com/Pranith-Jain/DFIR-PLATFORM',
-    link: '#dfir',
-  },
-  {
     title: 'Email Infrastructure Automation Platform',
     description:
       'Automated end-to-end domain onboarding across 1,300+ domains, cutting per-domain setup time from several hours to under 10 minutes. Built a Smartlead MCP server with 23 custom analytics tools, consolidating warmup monitoring, deliverability tracking, and campaign analytics for 2,700+ inboxes.',
@@ -432,7 +424,6 @@ export const navLinks = [
     ],
   },
   { label: 'Projects', href: '#projects' },
-  { label: 'DFIR Tools', href: '#dfir' },
   { label: 'Featured', href: '#featured' },
   { label: 'Memberships', href: '#memberships' },
   { label: 'Contact', href: '#contact' },
