@@ -185,11 +185,11 @@ interface ResearchItem {
 type TabType =
   | 'home'
   | 'domain'
-  | 'analysis'     // MERGED: IOC + Phishing
+  | 'analysis' // MERGED: IOC + Phishing
   | 'exposure'
   | 'privacy'
-  | 'knowledge'     // MERGED: Wiki + Research
-  | 'threatIntel';  // MERGED: Intel + Actors
+  | 'knowledge' // MERGED: Wiki + Research
+  | 'threatIntel'; // MERGED: Intel + Actors
 
 const API_URL = import.meta.env.VITE_DFIR_API_URL || '';
 const hasBackend = Boolean(API_URL);
@@ -392,7 +392,8 @@ export function DFIR() {
         authors: 'DFIR Lab Research Team',
         published: '2024',
         category: 'Email Security',
-        summary: 'Comprehensive guide to RFC 5322 email header analysis covering SPF, DKIM, DMARC authentication verification, routing path analysis, and anomaly detection for security investigations.',
+        summary:
+          'Comprehensive guide to RFC 5322 email header analysis covering SPF, DKIM, DMARC authentication verification, routing path analysis, and anomaly detection for security investigations.',
         url: 'https://dfir-lab.ch/wiki/email-header-analysis',
         citations: 342,
         read: false,
@@ -403,7 +404,8 @@ export function DFIR() {
         authors: 'Security Research Team',
         published: '2024',
         category: 'Threat Intelligence',
-        summary: 'Framework for automated IOC enrichment integrating multiple threat intelligence sources including VirusTotal, AlienVault OTX, and MITRE ATT&CK for streamlined security operations.',
+        summary:
+          'Framework for automated IOC enrichment integrating multiple threat intelligence sources including VirusTotal, AlienVault OTX, and MITRE ATT&CK for streamlined security operations.',
         url: 'https://dfir-lab.ch/wiki/ioc-enrichment',
         citations: 156,
         read: false,
@@ -414,7 +416,8 @@ export function DFIR() {
         authors: 'Email Security Experts',
         published: '2024',
         category: 'Email Security',
-        summary: 'Complete guide to implementing email authentication protocols including DNS configuration, policy setup, and monitoring for email security best practices.',
+        summary:
+          'Complete guide to implementing email authentication protocols including DNS configuration, policy setup, and monitoring for email security best practices.',
         url: 'https://dfir-lab.ch/wiki/spf',
         citations: 289,
         read: false,
@@ -425,7 +428,8 @@ export function DFIR() {
         authors: 'DFIR Lab',
         published: '2024',
         category: 'Threat Intelligence',
-        summary: 'Systematic approach to identifying and documenting threat group tactics, techniques, infrastructure, and attribution based on intelligence gathering and analysis.',
+        summary:
+          'Systematic approach to identifying and documenting threat group tactics, techniques, infrastructure, and attribution based on intelligence gathering and analysis.',
         url: 'https://dfir-lab.ch/wiki/threat-actor-profiling',
         citations: 198,
         read: false,
@@ -436,7 +440,8 @@ export function DFIR() {
         authors: 'Security Operations Team',
         published: '2024',
         category: 'Email Security',
-        summary: 'Analysis of Business Email Compromise attack patterns including invoice fraud, executive impersonation, and attorney impersonation with detection strategies.',
+        summary:
+          'Analysis of Business Email Compromise attack patterns including invoice fraud, executive impersonation, and attorney impersonation with detection strategies.',
         url: 'https://dfir-lab.ch/wiki/bec',
         citations: 245,
         read: false,
@@ -447,7 +452,8 @@ export function DFIR() {
         authors: 'DFIR Lab Research',
         published: '2024',
         category: 'Phishing Analysis',
-        summary: 'Forensic examination methodology for phishing emails including URL analysis, landing page investigation, and identifying indicators of compromise.',
+        summary:
+          'Forensic examination methodology for phishing emails including URL analysis, landing page investigation, and identifying indicators of compromise.',
         url: 'https://dfir-lab.ch/wiki/phishing-analysis',
         citations: 167,
         read: false,
@@ -458,7 +464,8 @@ export function DFIR() {
         authors: 'Detection Engineering Team',
         published: '2024',
         category: 'Detection Engineering',
-        summary: 'Comprehensive guide to understanding and applying the MITRE ATT&CK framework for threat detection, hunting, and adversary emulation.',
+        summary:
+          'Comprehensive guide to understanding and applying the MITRE ATT&CK framework for threat detection, hunting, and adversary emulation.',
         url: 'https://dfir-lab.ch/wiki/mitre-attack',
         citations: 412,
         read: false,
@@ -469,7 +476,8 @@ export function DFIR() {
         authors: 'Threat Intelligence Analysts',
         published: '2024',
         category: 'Threat Intelligence',
-        summary: 'Methods for evaluating domain reputation including WHOIS analysis, passive DNS records, certificate transparency logs, and historical threat data.',
+        summary:
+          'Methods for evaluating domain reputation including WHOIS analysis, passive DNS records, certificate transparency logs, and historical threat data.',
         url: 'https://dfir-lab.ch/wiki/domain-reputation',
         citations: 134,
         read: false,
@@ -480,7 +488,8 @@ export function DFIR() {
         authors: 'DFIR Lab',
         published: '2024',
         category: 'Incident Response',
-        summary: 'Step-by-step methodology for developing comprehensive incident response playbooks including containment, eradication, and recovery procedures.',
+        summary:
+          'Step-by-step methodology for developing comprehensive incident response playbooks including containment, eradication, and recovery procedures.',
         url: 'https://dfir-lab.ch/wiki/incident-response',
         citations: 289,
         read: false,
@@ -491,7 +500,8 @@ export function DFIR() {
         authors: 'Brand Protection Team',
         published: '2024',
         category: 'Threat Intelligence',
-        summary: 'Techniques for identifying homoglyph domains that use visually similar Unicode characters to impersonate legitimate brands.',
+        summary:
+          'Techniques for identifying homoglyph domains that use visually similar Unicode characters to impersonate legitimate brands.',
         url: 'https://dfir-lab.ch/wiki/homoglyph-domains',
         citations: 89,
         read: false,
@@ -502,7 +512,8 @@ export function DFIR() {
         authors: 'Malware Research Team',
         published: '2024',
         category: 'Malware Analysis',
-        summary: 'Comprehensive analysis of ransomware operations including encryption methodologies, double extortion tactics, and recovery strategies.',
+        summary:
+          'Comprehensive analysis of ransomware operations including encryption methodologies, double extortion tactics, and recovery strategies.',
         url: 'https://dfir-lab.ch/wiki/ransomware',
         citations: 178,
         read: false,
@@ -513,7 +524,8 @@ export function DFIR() {
         authors: 'Privacy Research',
         published: '2024',
         category: 'Data Privacy',
-        summary: 'Guide to using data removal services like Serus.ai and breach monitoring tools to protect personal information and reduce attack surface.',
+        summary:
+          'Guide to using data removal services like Serus.ai and breach monitoring tools to protect personal information and reduce attack surface.',
         url: 'https://serus.ai',
         citations: 56,
         read: false,
@@ -685,14 +697,32 @@ export function DFIR() {
 
   // Known trusted domains for validation
   const trustedDomains = [
-    'google.com', 'google.co.uk', 'google.de', 'google.fr', 'google.jp', 'google.ca',
-    'microsoft.com', 'microsoftonline.com', 'office.com', 'outlook.com', 'live.com',
-    'apple.com', 'icloud.com',
-    'github.com', 'gitlab.com', 'bitbucket.org',
-    'amazon.com', 'aws.amazon.com',
-    'cloudflare.com', 'cfemail.io',
-    'facebook.com', 'meta.com', 'instagram.com',
-    'twitter.com', 'x.com', 'linkedin.com',
+    'google.com',
+    'google.co.uk',
+    'google.de',
+    'google.fr',
+    'google.jp',
+    'google.ca',
+    'microsoft.com',
+    'microsoftonline.com',
+    'office.com',
+    'outlook.com',
+    'live.com',
+    'apple.com',
+    'icloud.com',
+    'github.com',
+    'gitlab.com',
+    'bitbucket.org',
+    'amazon.com',
+    'aws.amazon.com',
+    'cloudflare.com',
+    'cfemail.io',
+    'facebook.com',
+    'meta.com',
+    'instagram.com',
+    'twitter.com',
+    'x.com',
+    'linkedin.com',
   ];
 
   const suspiciousTLDs = ['xyz', 'top', 'click', 'link', 'work', 'ru', 'cn', 'tk', 'ml', 'ga', 'cf', 'gq'];
@@ -700,12 +730,10 @@ export function DFIR() {
 
   const calculateDomainScore = (domain: string): { score: number; health_score: string; verdict: string } => {
     const normalizedDomain = domain.toLowerCase().trim();
-    
+
     // Check trusted domains first
-    const isTrusted = trustedDomains.some(td => 
-      normalizedDomain === td || normalizedDomain.endsWith('.' + td)
-    );
-    
+    const isTrusted = trustedDomains.some((td) => normalizedDomain === td || normalizedDomain.endsWith('.' + td));
+
     if (isTrusted) {
       return { score: 95, health_score: 'Excellent', verdict: 'Secure' };
     }
@@ -722,7 +750,7 @@ export function DFIR() {
     }
 
     // Check for suspicious patterns
-    const hasSuspiciousPattern = suspiciousPatterns.some(p => normalizedDomain.includes(p));
+    const hasSuspiciousPattern = suspiciousPatterns.some((p) => normalizedDomain.includes(p));
     if (hasSuspiciousPattern && normalizedDomain.length < 15) {
       score -= 15;
       issues.push('Suspicious subdomain pattern');
@@ -760,7 +788,7 @@ export function DFIR() {
 
     // Known bad patterns
     const badPatterns = ['malware', 'phishing', 'scam', 'fake', 'login-', '-login', '-secure', '-verify'];
-    const hasBadPattern = badPatterns.some(p => normalizedDomain.includes(p));
+    const hasBadPattern = badPatterns.some((p) => normalizedDomain.includes(p));
     if (hasBadPattern) {
       score = Math.max(score - 30, 5);
       issues.push('Known bad pattern detected');
@@ -818,21 +846,34 @@ export function DFIR() {
           verdict,
           generated: new Date().toISOString(),
           health_score,
-          blacklist: score < 60 ? [{ ip: '93.184.216.34', listed: score < 40, blacklists: score < 40 ? ['spamhaus', 'surbl'] : [] }] : [],
+          blacklist:
+            score < 60
+              ? [{ ip: '93.184.216.34', listed: score < 40, blacklists: score < 40 ? ['spamhaus', 'surbl'] : [] }]
+              : [],
           mx: {
-            records: score >= 60 ? [
-              { priority: 10, host: 'aspmx.l.google.com' },
-              { priority: 20, host: 'alt1.aspmx.l.google.com' },
-              { priority: 30, host: 'alt2.aspmx.l.google.com' },
-            ] : [],
+            records:
+              score >= 60
+                ? [
+                    { priority: 10, host: 'aspmx.l.google.com' },
+                    { priority: 20, host: 'alt1.aspmx.l.google.com' },
+                    { priority: 30, host: 'alt2.aspmx.l.google.com' },
+                  ]
+                : [],
           },
           spf: { found: score >= 50, record: score >= 50 ? 'v=spf1 include:_spf.google.com ~all' : undefined },
-          dmarc: { found: score >= 50, record: score >= 50 ? 'v=DMARC1; p=quarantine; rua=mailto:dmarc@' + domain : undefined },
+          dmarc: {
+            found: score >= 50,
+            record: score >= 50 ? 'v=DMARC1; p=quarantine; rua=mailto:dmarc@' + domain : undefined,
+          },
           dkim: [{ found: score >= 70, selector: score >= 70 ? 'google' : undefined }],
-          ssl: { valid: score >= 40, issuer: score >= 40 ? 'Google Trust Services' : undefined, expires: score >= 40 ? '2026-01-01' : undefined },
-          dns: { 
-            A: score >= 30 ? ['142.250.185.78'] : undefined, 
-            AAAA: score >= 30 ? ['2607:f8b0:4004:800::200e'] : undefined 
+          ssl: {
+            valid: score >= 40,
+            issuer: score >= 40 ? 'Google Trust Services' : undefined,
+            expires: score >= 40 ? '2026-01-01' : undefined,
+          },
+          dns: {
+            A: score >= 30 ? ['142.250.185.78'] : undefined,
+            AAAA: score >= 30 ? ['2607:f8b0:4004:800::200e'] : undefined,
           },
           dnssec: { found: score >= 80 },
         });
@@ -1008,11 +1049,11 @@ export function DFIR() {
   const tabs = [
     { id: 'home', label: 'Home', icon: Shield },
     { id: 'domain', label: 'Domain', icon: Globe },
-    { id: 'analysis', label: 'Analysis', icon: Search, description: 'IOC + Phishing' },  // MERGED
+    { id: 'analysis', label: 'Analysis', icon: Search, description: 'IOC + Phishing' }, // MERGED
     { id: 'exposure', label: 'Exposure', icon: Database },
     { id: 'privacy', label: 'Privacy', icon: Lock },
-    { id: 'knowledge', label: 'Knowledge', icon: BookOpen, description: 'Wiki + Research' },  // MERGED
-    { id: 'threatIntel', label: 'Threat Intel', icon: Radar, description: 'Intel + Actors' },  // MERGED
+    { id: 'knowledge', label: 'Knowledge', icon: BookOpen, description: 'Wiki + Research' }, // MERGED
+    { id: 'threatIntel', label: 'Threat Intel', icon: Radar, description: 'Intel + Actors' }, // MERGED
   ];
 
   const getScoreColor = (score: number) => {
@@ -1140,10 +1181,25 @@ export function DFIR() {
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                       {[
-                        { label: 'IOC Check', icon: Activity, color: 'text-rose-500 dark:text-rose-400', tab: 'analysis' },
+                        {
+                          label: 'IOC Check',
+                          icon: Activity,
+                          color: 'text-rose-500 dark:text-rose-400',
+                          tab: 'analysis',
+                        },
                         { label: 'Phishing', icon: Bug, color: 'text-amber-500 dark:text-amber-400', tab: 'analysis' },
-                        { label: 'Exposure', icon: Database, color: 'text-cyan-500 dark:text-cyan-400', tab: 'exposure' },
-                        { label: 'Privacy', icon: Lock, color: 'text-emerald-500 dark:text-emerald-400', tab: 'privacy' },
+                        {
+                          label: 'Exposure',
+                          icon: Database,
+                          color: 'text-cyan-500 dark:text-cyan-400',
+                          tab: 'exposure',
+                        },
+                        {
+                          label: 'Privacy',
+                          icon: Lock,
+                          color: 'text-emerald-500 dark:text-emerald-400',
+                          tab: 'privacy',
+                        },
                       ].map((tool) => (
                         <button
                           key={tool.label}
@@ -1317,7 +1373,10 @@ export function DFIR() {
                                   <span>{iocResult.score}/100</span>
                                 </div>
                                 <div className="w-full h-2 bg-black/10 dark:bg-black/20 rounded-full overflow-hidden">
-                                  <div className="h-full bg-current transition-all" style={{ width: `${iocResult.score}%` }} />
+                                  <div
+                                    className="h-full bg-current transition-all"
+                                    style={{ width: `${iocResult.score}%` }}
+                                  />
                                 </div>
                               </div>
                               {iocResult.defanged && (
@@ -1335,7 +1394,9 @@ export function DFIR() {
                           <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
                             <div className="flex items-center gap-3 mb-4">
                               <Bug className="w-6 h-6 text-amber-500" />
-                              <h3 className="text-xl font-bold text-slate-900 dark:text-white">Phishing URL Analyzer</h3>
+                              <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                                Phishing URL Analyzer
+                              </h3>
                             </div>
                             <div className="flex gap-3">
                               <div className="relative flex-1">
@@ -1370,7 +1431,11 @@ export function DFIR() {
                                 disabled={phishingLoading}
                                 className="px-6 py-3 rounded-xl bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-white font-semibold transition-all flex items-center gap-2 shadow-sm"
                               >
-                                {phishingLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Bug className="w-4 h-4" />}
+                                {phishingLoading ? (
+                                  <Loader2 className="w-4 h-4 animate-spin" />
+                                ) : (
+                                  <Bug className="w-4 h-4" />
+                                )}
                                 Analyze
                               </button>
                             </div>
@@ -1425,7 +1490,9 @@ export function DFIR() {
                                     {phishingResult.risk_factors.map((factor, idx) => (
                                       <div key={idx} className="flex items-start gap-2 text-sm">
                                         <XCircle className="w-4 h-4 text-rose-500 mt-0.5 shrink-0" />
-                                        <span className="text-slate-700 dark:text-slate-300">{sanitizeText(factor)}</span>
+                                        <span className="text-slate-700 dark:text-slate-300">
+                                          {sanitizeText(factor)}
+                                        </span>
                                       </div>
                                     ))}
                                   </div>
@@ -1617,7 +1684,9 @@ export function DFIR() {
                                 </div>
                                 <span className="text-xs font-mono text-slate-500">{cat.count} Articles</span>
                               </div>
-                              <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-2">{sanitizeText(cat.name)}</h4>
+                              <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                                {sanitizeText(cat.name)}
+                              </h4>
                               <div className="flex items-center text-sm text-brand-600 dark:text-brand-400 opacity-0 group-hover:opacity-100 transition-opacity">
                                 View Details <ChevronRight className="w-4 h-4" />
                               </div>
@@ -1660,7 +1729,8 @@ export function DFIR() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                               {researchItems
                                 .filter(
-                                  (item) => researchFilter === 'all' || item.category.toLowerCase().includes(researchFilter)
+                                  (item) =>
+                                    researchFilter === 'all' || item.category.toLowerCase().includes(researchFilter)
                                 )
                                 .map((item) => (
                                   <div
@@ -1676,7 +1746,9 @@ export function DFIR() {
                                         <span className="px-2 py-0.5 rounded bg-brand-500/10 text-brand-600 dark:text-brand-400 text-[10px] font-bold">
                                           {sanitizeText(item.category)}
                                         </span>
-                                        <span className="text-xs text-slate-500 ml-2">{sanitizeText(item.published)}</span>
+                                        <span className="text-xs text-slate-500 ml-2">
+                                          {sanitizeText(item.published)}
+                                        </span>
                                       </div>
                                       {!item.read && <span className="w-2 h-2 rounded-full bg-brand-500" />}
                                     </div>
@@ -1691,7 +1763,9 @@ export function DFIR() {
                                     <div
                                       className={`overflow-hidden transition-all ${expandedResearch === item.id ? 'max-h-48' : 'max-h-0'}`}
                                     >
-                                      <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">{sanitizeText(item.summary)}</p>
+                                      <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
+                                        {sanitizeText(item.summary)}
+                                      </p>
                                     </div>
 
                                     <div className="flex justify-between items-center mt-4 pt-4 border-t border-slate-100 dark:border-white/5">
@@ -1799,7 +1873,9 @@ export function DFIR() {
                           ) : (
                             <div className="space-y-4">
                               {intelItems
-                                .filter((item) => intelFilter === 'all' || item.type.toLowerCase().includes(intelFilter))
+                                .filter(
+                                  (item) => intelFilter === 'all' || item.type.toLowerCase().includes(intelFilter)
+                                )
                                 .map((item) => (
                                   <div
                                     role="button"
@@ -1838,7 +1914,9 @@ export function DFIR() {
                                           <span className="text-xs text-slate-500">{sanitizeText(item.source)}</span>
                                           {!item.read && <span className="w-2 h-2 rounded-full bg-brand-500" />}
                                         </div>
-                                        <h4 className="text-lg font-bold text-slate-900 dark:text-white">{sanitizeText(item.title)}</h4>
+                                        <h4 className="text-lg font-bold text-slate-900 dark:text-white">
+                                          {sanitizeText(item.title)}
+                                        </h4>
                                       </div>
                                       <div className="flex items-center gap-2">
                                         <span className="text-xs text-slate-500">
@@ -1857,7 +1935,9 @@ export function DFIR() {
                                         exit={{ opacity: 0, height: 0 }}
                                         className="space-y-4 mt-4 pt-4 border-t border-slate-100 dark:border-white/5"
                                       >
-                                        <p className="text-sm text-slate-600 dark:text-slate-400">{sanitizeText(item.description)}</p>
+                                        <p className="text-sm text-slate-600 dark:text-slate-400">
+                                          {sanitizeText(item.description)}
+                                        </p>
 
                                         {item.indicators && item.indicators.length > 0 && (
                                           <div>
@@ -1945,7 +2025,9 @@ export function DFIR() {
                                       {sanitizeText(actor.motivation)}
                                     </span>
                                   </div>
-                                  <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-1">{sanitizeText(actor.name)}</h4>
+                                  <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-1">
+                                    {sanitizeText(actor.name)}
+                                  </h4>
                                   <p className="text-xs text-slate-500 mb-4 font-mono">{sanitizeText(actor.origin)}</p>
                                   <div className="flex flex-wrap gap-1 mb-4">
                                     {actor.targets.slice(0, 2).map((target) => (
@@ -1970,8 +2052,6 @@ export function DFIR() {
                   </AnimatePresence>
                 </div>
               )}
-
-              
 
               {activeTab === 'exposure' && (
                 <div className="max-w-4xl mx-auto space-y-6">
@@ -2112,111 +2192,6 @@ export function DFIR() {
                           </button>
                         ))}
                       </div>
-                    </div>
-                  )}
-                </div>
-              )}
-
-
-
-              {/* Research merged into Knowledge tab */
-              /* REMOVED: research tab - now part of Knowledge */
-              /*{activeTab === 'research' && (*/
-                <div className="space-y-6">
-                  <div className="flex flex-wrap gap-3">
-                    {[
-                      'all',
-                      'phishing detection',
-                      'email security',
-                      'threat intelligence',
-                      'digital forensics',
-                      'cloud security',
-                      'osint',
-                    ].map((filter) => (
-                      <button
-                        key={filter}
-                        onClick={() => setResearchFilter(filter)}
-                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                          researchFilter === filter
-                            ? 'bg-brand-600 text-white'
-                            : 'bg-white/40 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-white/60'
-                        }`}
-                      >
-                        {filter.charAt(0).toUpperCase() + filter.slice(1)}
-                      </button>
-                    ))}
-                  </div>
-
-                  {researchLoading ? (
-                    <div className="flex items-center justify-center py-20">
-                      <Loader2 className="w-8 h-8 text-brand-500 animate-spin" />
-                    </div>
-                  ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {researchItems
-                        .filter(
-                          (item) => researchFilter === 'all' || item.category.toLowerCase().includes(researchFilter)
-                        )
-                        .map((item) => (
-                          <div
-                            key={item.id}
-                            className={`p-6 rounded-2xl bg-white/40 dark:bg-white/5 border transition-all ${
-                              item.read
-                                ? 'border-slate-200 dark:border-white/5'
-                                : 'border-slate-200 dark:border-white/10 hover:border-brand-500/50'
-                            }`}
-                          >
-                            <div className="flex items-start justify-between mb-4">
-                              <div>
-                                <span className="px-2 py-0.5 rounded bg-brand-500/10 text-brand-600 dark:text-brand-400 text-[10px] font-bold">
-                                  {item.category}
-                                </span>
-                                <span className="text-xs text-slate-500 ml-2">{item.published}</span>
-                              </div>
-                              {!item.read && <span className="w-2 h-2 rounded-full bg-brand-500" />}
-                            </div>
-                            <button
-                              onClick={() => setExpandedResearch(expandedResearch === item.id ? null : item.id)}
-                              className="text-lg font-bold text-slate-900 dark:text-white mb-2 cursor-pointer hover:text-brand-600 transition-colors text-left w-full"
-                            >
-                              {item.title}
-                            </button>
-                            <p className="text-xs text-slate-500 mb-3">{item.authors}</p>
-
-                            <div
-                              className={`overflow-hidden transition-all ${expandedResearch === item.id ? 'max-h-48' : 'max-h-0'}`}
-                            >
-                              <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">{item.summary}</p>
-                            </div>
-
-                            <div className="flex justify-between items-center mt-4 pt-4 border-t border-slate-100 dark:border-white/5">
-                              <div className="flex items-center gap-3">
-                                {item.citations && (
-                                  <span className="text-xs text-slate-500 flex items-center gap-1">
-                                    <FileText className="w-3 h-3" />
-                                    {item.citations} citations
-                                  </span>
-                                )}
-                                <button
-                                  onClick={() => markResearchAsRead(item.id)}
-                                  className="text-xs text-slate-500 hover:text-brand-500"
-                                >
-                                  {item.read ? '✓ Read' : 'Mark read'}
-                                </button>
-                              </div>
-                              <a
-                                href={item.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onClick={() => markResearchAsRead(item.id)}
-                                className="px-3 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white text-xs font-medium flex items-center gap-1 transition-colors"
-                              >
-                                <FileText className="w-3 h-3" />
-                                Read Paper
-                              </a>
-                            </div>
-                          </div>
-                        ))}
                     </div>
                   )}
                 </div>
