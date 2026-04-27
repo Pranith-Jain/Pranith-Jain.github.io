@@ -1,25 +1,12 @@
 import { Suspense, lazy } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useTheme, useScrollProgress } from './hooks';
 import { Header } from './components/Header';
-import { Footer } from './components/Footer';
-import { Layout } from './components/Layout';
 import { SkipToContent } from './components/SkipToContent';
 import { StructuredData } from './components/StructuredData';
 import { ScrollProgress, BackToTop } from './components/ui';
+import { Home, About, Skills, Experience, Projects, DFIR } from './pages';
 
-// Lazy load sections below the fold for better initial load performance
-const Hero = lazy(() => import('./components/sections').then((m) => ({ default: m.Hero })));
-const About = lazy(() => import('./components/sections').then((m) => ({ default: m.About })));
-const Skills = lazy(() => import('./components/sections').then((m) => ({ default: m.Skills })));
-const Companies = lazy(() => import('./components/sections').then((m) => ({ default: m.Companies })));
-const Experience = lazy(() => import('./components/sections').then((m) => ({ default: m.Experience })));
-const Certifications = lazy(() => import('./components/sections').then((m) => ({ default: m.Certifications })));
-const Projects = lazy(() => import('./components/sections').then((m) => ({ default: m.Projects })));
-const Featured = lazy(() => import('./components/sections').then((m) => ({ default: m.Featured })));
-const Memberships = lazy(() => import('./components/sections').then((m) => ({ default: m.Memberships })));
-const Contact = lazy(() => import('./components/sections').then((m) => ({ default: m.Contact })));
-
-// Loading fallback for lazy-loaded sections
 function SectionLoader() {
   return (
     <div className="min-h-[200px] flex items-center justify-center" aria-hidden="true">
@@ -28,19 +15,16 @@ function SectionLoader() {
   );
 }
 
-function App() {
+function AppContent() {
   const { isDark, toggleTheme } = useTheme();
   const { progress, showBackToTop, scrollToTop } = useScrollProgress();
 
   return (
     <>
-      {/* JSON-LD Structured Data for SEO */}
       <StructuredData />
 
-      {/* Skip to content link for keyboard navigation */}
       <SkipToContent />
 
-      {/* Gradient Mesh Background */}
       <div
         className="fixed inset-0 -z-10 transition-opacity duration-500"
         style={{
@@ -58,7 +42,6 @@ function App() {
         aria-hidden="true"
       />
 
-      {/* Noise Texture Overlay */}
       <div
         className="fixed inset-0 -z-10 pointer-events-none transition-opacity duration-500"
         style={{
@@ -68,55 +51,33 @@ function App() {
         aria-hidden="true"
       />
 
-      {/* Scroll Progress Indicator */}
       <ScrollProgress progress={progress} />
 
-      {/* Header with navigation */}
       <Header isDark={isDark} onToggleTheme={toggleTheme} />
 
-      {/* Main Content - with skip link target */}
       <main id="main-content" tabIndex={-1}>
-        <Layout>
-          <Suspense fallback={<SectionLoader />}>
-            <Hero />
-          </Suspense>
-          <Suspense fallback={<SectionLoader />}>
-            <About />
-          </Suspense>
-          <Suspense fallback={<SectionLoader />}>
-            <Skills />
-          </Suspense>
-          <Suspense fallback={<SectionLoader />}>
-            <Companies />
-          </Suspense>
-          <Suspense fallback={<SectionLoader />}>
-            <Experience />
-          </Suspense>
-          <Suspense fallback={<SectionLoader />}>
-            <Certifications />
-          </Suspense>
-          <Suspense fallback={<SectionLoader />}>
-            <Projects />
-          </Suspense>
-          <Suspense fallback={<SectionLoader />}>
-            <Featured />
-          </Suspense>
-          <Suspense fallback={<SectionLoader />}>
-            <Memberships />
-          </Suspense>
-          <Suspense fallback={<SectionLoader />}>
-            <Contact />
-          </Suspense>
-          <Footer />
-        </Layout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/skills" element={<Skills />} />
+          <Route path="/experience" element={<Experience />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/dfir" element={<DFIR />} />
+        </Routes>
       </main>
 
-      {/* Back to Top Button */}
       <BackToTop visible={showBackToTop} onClick={scrollToTop} />
 
-      {/* Live region for dynamic announcements */}
       <div id="aria-live-region" aria-live="polite" aria-atomic="true" className="sr-only" />
     </>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
   );
 }
 
