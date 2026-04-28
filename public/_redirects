@@ -1,1 +1,16 @@
+# Static file routes
+/favicon.ico /favicon.ico 200
+/robots.txt /robots.txt 200
+/sitemap.xml /sitemap.xml 200
+
+# SPA routes - explicit mapping to prevent infinite loops
+/index.html /index.html 200
+/about /index.html 200
+/skills /index.html 200
+/experience /index.html 200
+/projects /index.html 200
+/dfir /index.html 200
+/difr /dfir 301
+
+# Catch-all for any other unmatched routes
 /* /index.html 200

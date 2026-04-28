@@ -32,6 +32,8 @@ import {
 } from 'lucide-react';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { ConnectionStatus } from '../components/ConnectionStatus';
+import { fetchMultipleFeeds, formatRelativeTime } from '../services/rssService';
+import { rssFeeds } from '../data/rssFeeds';
 
 const sanitizeText = (text: string): string => {
   return text
@@ -259,7 +261,7 @@ export default function DFIRPage() {
   }, []);
 
   // Initial threat actors data (used as fallback when API is unavailable)
-const initialActors: ActorDetail[] = [
+  const initialActors: ActorDetail[] = [
     {
       name: 'Sandworm Team',
       alias: 'Voodoo Bear, Electrum',
@@ -924,23 +926,64 @@ const initialActors: ActorDetail[] = [
             link: item.link || item.url || '#',
             read: false,
           }));
-          // Sort by date, newest first
           items.sort((a, b) => new Date(b.published).getTime() - new Date(a.published).getTime());
           setIntelItems(items.slice(0, 50));
         } else {
-          // Fallback to sample items on API error
-          setIntelItems(getSampleIntelItems());
+          // Fallback to RSS feeds
+          await fetchRSSFeeds();
         }
       } else {
-        // No API URL configured, use sample items
-        setIntelItems(getSampleIntelItems());
+        // Fetch actual RSS feeds from threat intelligence sources
+        await fetchRSSFeeds();
       }
     } catch {
-      // On error, use fallback data
       setIntelItems(getSampleIntelItems());
     }
     setIntelLoading(false);
   }, []);
+
+  // Fetch actual RSS feeds for threat intel
+  const fetchRSSFeeds = async () => {
+    try {
+      // Get threat intel feeds (CISA, SANS ISC, threat feeds)
+      const threatIntelFeedIds = rssFeeds
+        .filter((f) => f.category === 'threat-intel' || f.category === 'advisory' || f.category === 'vulnerability')
+        .map((f) => f.id);
+
+      const results = await fetchMultipleFeeds(threatIntelFeedIds);
+      const items: ThreatIntelItem[] = [];
+
+      results.forEach((result, feedId) => {
+        if (result.items && result.items.length > 0) {
+          result.items.forEach((item) => {
+            items.push({
+              id: item.guid || `${feedId}-${item.title}`,
+              title: item.title,
+              source: item.source,
+              published: item.pubDate,
+              type: getType(item.title, item.description),
+              severity: getSeverity(item.title, item.description),
+              description: item.description,
+              indicators: [],
+              link: item.link,
+              read: false,
+            });
+          });
+        }
+      });
+
+      // Sort by date, newest first
+      items.sort((a, b) => new Date(b.published).getTime() - new Date(a.published).getTime());
+
+      if (items.length > 0) {
+        setIntelItems(items.slice(0, 50));
+      } else {
+        setIntelItems(getSampleIntelItems());
+      }
+    } catch {
+      setIntelItems(getSampleIntelItems());
+    }
+  };
 
   const getSampleIntelItems = (): ThreatIntelItem[] => [
     {
