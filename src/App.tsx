@@ -1,5 +1,5 @@
 import { useEffect, Suspense, lazy } from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { useTheme, useScrollProgress } from './hooks';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
@@ -79,6 +79,7 @@ function AppContent() {
             <Route path="/experience" element={<Experience />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/dfir" element={<DFIR />} />
+            <Route path="/difr" element={<Navigate to="/dfir" replace />} />
           </Routes>
         </Layout>
       </main>

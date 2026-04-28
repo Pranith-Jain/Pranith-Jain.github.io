@@ -693,7 +693,7 @@ export function DFIR() {
           body: JSON.stringify({ indicator: iocInput }),
         });
         const data = await res.json();
-        setIocResult({ ...data, suggestions: generateSecuritySuggestions("ioc", data) });
+        setIocResult({ ...data, suggestions: generateSecuritySuggestions('ioc', data) });
       } else {
         // Client-side simulation
         await new Promise((r) => setTimeout(r, 1000));
@@ -763,7 +763,7 @@ export function DFIR() {
   const suspiciousTLDs = ['xyz', 'top', 'click', 'link', 'work', 'ru', 'cn', 'tk', 'ml', 'ga', 'cf', 'gq'];
   const suspiciousPatterns = ['login', 'verify', 'secure', 'account', 'update', 'support', 'alert', 'signin', 'auth'];
 
-    const generateSecuritySuggestions = (type: string, data: any): string[] => {
+  const generateSecuritySuggestions = (type: string, data: any): string[] => {
     const suggestions: string[] = [];
     if (type === 'domain') {
       const res = data as DomainResult;
@@ -802,28 +802,43 @@ export function DFIR() {
     return suggestions;
   };
 
-const calculateDomainScore = (domain: string): { score: number; health_score: string; verdict: string; additional_checks: any } => {
+  const calculateDomainScore = (
+    domain: string
+  ): { score: number; health_score: string; verdict: string; additional_checks: any } => {
     const normalizedDomain = domain.toLowerCase().trim();
     const isTrusted = [
-      'google.com', 'microsoft.com', 'github.com', 'cloudflare.com', 'apple.com',
-      'amazon.com', 'facebook.com', 'linkedin.com', 'twitter.com', 'x.com'
+      'google.com',
+      'microsoft.com',
+      'github.com',
+      'cloudflare.com',
+      'apple.com',
+      'amazon.com',
+      'facebook.com',
+      'linkedin.com',
+      'twitter.com',
+      'x.com',
     ].some((td) => normalizedDomain === td || normalizedDomain.endsWith('.' + td));
-    if (isTrusted) return { score: 95, health_score: 'Excellent', verdict: 'Secure', additional_checks: { is_trusted: true, entropy: 2.5 } };
+    if (isTrusted)
+      return {
+        score: 95,
+        health_score: 'Excellent',
+        verdict: 'Secure',
+        additional_checks: { is_trusted: true, entropy: 2.5 },
+      };
 
     let score = 70;
     const parts = normalizedDomain.split('.');
     const tld = parts.pop() || '';
     const mainPart = parts.join('.');
-    
-    const suspiciousTLDs = ['xyz', 'top', 'click', 'link', 'work', 'ru', 'cn', 'tk', 'ml', 'ga', 'cf', 'gq'];
-    const suspiciousPatterns = ['login', 'verify', 'secure', 'account', 'update', 'support', 'alert', 'signin', 'auth'];
 
     if (suspiciousTLDs.includes(tld)) score -= 15;
     const hasSuspiciousPattern = suspiciousPatterns.some((p) => normalizedDomain.includes(p));
     if (hasSuspiciousPattern) score -= 20;
 
-        const charCounts: Record<string, number> = {};
-    for (const char of mainPart) { charCounts[char] = (charCounts[char] || 0) + 1; }
+    const charCounts: Record<string, number> = {};
+    for (const char of mainPart) {
+      charCounts[char] = (charCounts[char] || 0) + 1;
+    }
     let entropy = 0;
     for (const char in charCounts) {
       const p = charCounts[char] / mainPart.length;
@@ -833,27 +848,41 @@ const calculateDomainScore = (domain: string): { score: number; health_score: st
 
     const homoglyphs = /[а-яА-Я]|[οοΟΟ]|[рР]|[сС]|[уУ]|[хХ]/;
     if (homoglyphs.test(normalizedDomain)) score = Math.max(score - 45, 10);
-    
+
     if (normalizedDomain.length > 25) score -= 10;
     const hyphenCount = (normalizedDomain.match(/-/g) || []).length;
     if (hyphenCount >= 3) score -= 15;
-    
+
     score = Math.max(Math.min(score, 100), 0);
 
-    let health_score = 'Good', verdict = 'Good';
-    if (score >= 85) { health_score = 'Excellent'; verdict = 'Secure'; }
-    else if (score >= 65) { health_score = 'Good'; verdict = 'Good'; }
-    else if (score >= 40) { health_score = 'Fair'; verdict = 'Needs Attention'; }
-    else if (score >= 20) { health_score = 'Poor'; verdict = 'Suspicious'; }
-    else { health_score = 'Critical'; verdict = 'Likely Malicious'; }
-    return { 
-      score, health_score, verdict, 
-      additional_checks: { 
+    let health_score = 'Good',
+      verdict = 'Good';
+    if (score >= 85) {
+      health_score = 'Excellent';
+      verdict = 'Secure';
+    } else if (score >= 65) {
+      health_score = 'Good';
+      verdict = 'Good';
+    } else if (score >= 40) {
+      health_score = 'Fair';
+      verdict = 'Needs Attention';
+    } else if (score >= 20) {
+      health_score = 'Poor';
+      verdict = 'Suspicious';
+    } else {
+      health_score = 'Critical';
+      verdict = 'Likely Malicious';
+    }
+    return {
+      score,
+      health_score,
+      verdict,
+      additional_checks: {
         entropy: Number(entropy.toFixed(2)),
         length: normalizedDomain.length,
         has_homoglyphs: homoglyphs.test(normalizedDomain),
-        is_suspicious_tld: suspiciousTLDs.includes(tld)
-      } 
+        is_suspicious_tld: suspiciousTLDs.includes(tld),
+      },
     };
   };
 
@@ -869,7 +898,7 @@ const calculateDomainScore = (domain: string): { score: number; health_score: st
           body: JSON.stringify({ domain: domainInput }),
         });
         const data = await res.json();
-        setDomainResult({ ...data, suggestions: generateSecuritySuggestions("domain", data) });
+        setDomainResult({ ...data, suggestions: generateSecuritySuggestions('domain', data) });
       } else {
         // Client-side simulation with improved scoring
         await new Promise((r) => setTimeout(r, 1500));
@@ -912,7 +941,7 @@ const calculateDomainScore = (domain: string): { score: number; health_score: st
             AAAA: score >= 30 ? ['2607:f8b0:4004:800::200e'] : undefined,
           },
           dnssec: { found: score >= 80 },
-          additional_checks
+          additional_checks,
         };
         result.suggestions = generateSecuritySuggestions('domain', result);
         setDomainResult(result);
@@ -936,7 +965,7 @@ const calculateDomainScore = (domain: string): { score: number; health_score: st
           body: JSON.stringify({ url: phishingUrl }),
         });
         const data = await res.json();
-        setPhishingResult({ ...data, suggestions: generateSecuritySuggestions("phishing", data) });
+        setPhishingResult({ ...data, suggestions: generateSecuritySuggestions('phishing', data) });
       } else {
         // Client-side simulation
         await new Promise((r) => setTimeout(r, 2000));
@@ -983,7 +1012,8 @@ const calculateDomainScore = (domain: string): { score: number; health_score: st
           body: JSON.stringify({ query: exposureQuery }),
         });
         const data = await res.json();
-        const exposureWithSuggestions = { ...data, suggestions: generateSecuritySuggestions("exposure", data) }; setExposureResult(exposureWithSuggestions);
+        const exposureWithSuggestions = { ...data, suggestions: generateSecuritySuggestions('exposure', data) };
+        setExposureResult(exposureWithSuggestions);
         setExposureHistory((prev) => [exposureWithSuggestions, ...prev.slice(0, 9)]);
       } else {
         // Client-side simulation

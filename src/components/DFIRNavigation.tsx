@@ -1,4 +1,4 @@
-import { memo, useCallback, useRef, useEffect } from 'react';
+import React, { memo, useCallback, useRef, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Shield, Globe, Search, Database, Lock, BookOpen, Radar, type LucideIcon } from 'lucide-react';
 
@@ -89,7 +89,7 @@ export const DFIRNavigation = memo(function DFIRNavigation({
 }: DFIRNavigationProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const activeButtonRef = useRef<HTMLButtonElement>(null);
-  const [hoveredTab, setHoveredTab] = React.useState<NavTab | null>(null);
+  const [hoveredTab, setHoveredTab] = useState<NavTab | null>(null);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -405,6 +405,3 @@ export function TabPanel({ id, activeTab, children, className = '' }: TabPanelPr
     </div>
   );
 }
-
-// Need to import React for useState in the component
-import React from 'react';
