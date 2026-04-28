@@ -1,7 +1,2 @@
-{
-  "name": "pranithjain1",
-  "compatibility_date": "2024-01-01",
-  "assets": {
-    "directory": "./dist"
-  }
-}
+// wrangler.jsonc
+"name": "pranithjain",
