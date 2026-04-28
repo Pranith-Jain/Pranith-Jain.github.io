@@ -18,11 +18,11 @@
     "prepare": "husky install || true"
   },
   "dependencies": {
+    "framer-motion": "^11.18.2",
+    "lucide-react": "^0.468.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.22.3",
-    "framer-motion": "^11.15.0",
-    "lucide-react": "^0.468.0"
+    "react-router-dom": "^6.22.3"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.3",
