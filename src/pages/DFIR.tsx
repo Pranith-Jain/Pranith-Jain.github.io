@@ -26,7 +26,6 @@ import {
   Activity,
   Users,
   ChevronRight,
-  HelpCircle,
   CheckCircle2,
   XCircle,
   FileText,
@@ -146,6 +145,7 @@ interface PhishingResult {
   similar_domains?: Array<{ domain: string; similarity: number }>;
   suggestions?: string[];
   additional_checks?: Record<string, any>;
+  screenshot?: string;
 }
 
 interface ExposureResult {
@@ -354,20 +354,24 @@ export default function DFIRPage() {
         suggestions.push('Block this domain at the perimeter firewall and DNS filtering level.');
         suggestions.push('Conduct an internal search for any logs showing connections to this indicator.');
         suggestions.push('Alert users about this specific campaign if it targeted your organization.');
+        suggestions.push('Investigate for any potential session cookie theft if the user interacted with the page.');
       } else if (res.verdict === 'SUSPICIOUS') {
         suggestions.push('Exercise extreme caution before interacting with this URL.');
         suggestions.push('Verify the identity of the source through out-of-band communication.');
         suggestions.push('Sandboxing the URL in a secure environment before opening.');
+        suggestions.push('Monitor for any DNS requests to this domain across the environment.');
       }
     } else if (type === 'ioc') {
       const res = data as IOCResult;
       if (res.verdict === 'Malicious') {
-        suggestions.push('Block this indicator immediately across all security controls.');
+        suggestions.push('Block this indicator immediately across all security controls (Firewall, EDR, Proxy).');
         suggestions.push('Check EDR/SIEM logs for any historical matches with this indicator.');
         suggestions.push('Isolate any hosts that have communicated with this malicious resource.');
+        if (res.type === 'Hash') suggestions.push('Search for this file hash on all endpoints via EDR and delete occurrences.');
+        if (res.type === 'IPv4') suggestions.push('Check firewall and VPC flow logs for any inbound/outbound traffic to this IP.');
       } else if (res.verdict === 'Suspicious') {
         suggestions.push('Monitor traffic to/from this indicator for unusual patterns.');
-        suggestions.push('Cross-reference with other threat intelligence feeds.');
+        suggestions.push('Cross-reference with other threat intelligence feeds (VirusTotal, AlienVault).');
       }
     } else if (type === 'exposure') {
       const res = data as ExposureResult;
@@ -427,7 +431,13 @@ export default function DFIRPage() {
     if (hyphenCount >= 3) score -= 15;
     
     // Lookalike checks (basic)
-    if (normalizedDomain.includes('g00gle') || normalizedDomain.includes('m1crosoft') || normalizedDomain.includes('0ffice')) score -= 40;
+    if (normalizedDomain.includes('g00gle') || normalizedDomain.includes('m1crosoft') || normalizedDomain.includes('0ffice') || normalizedDomain.includes('googIe')) score -= 40;
+    if (normalizedDomain.includes('paypa1') || normalizedDomain.includes('appIe') || normalizedDomain.includes('bi11ing')) score -= 40;
+
+    const commonBrands = ['google', 'microsoft', 'apple', 'amazon', 'facebook', 'netflix', 'paypal'];
+    commonBrands.forEach(brand => {
+      if (normalizedDomain.includes(brand) && !isTrusted) score -= 20;
+    });
     
     score = Math.max(Math.min(score, 100), 0);
 
@@ -450,10 +460,10 @@ export default function DFIRPage() {
     };
   };
 
-  const checkDomain = async () => {
-    if (!domainInput.trim()) return;
-    setDomainLoading(true);
-    setDomainResult(null);
+  const checkIOC = async () => {
+    if (!iocInput.trim()) return;
+    setIocLoading(true);
+    setIocResult(null);
     try {
       if (API_URL) {
         const res = await fetch(`${API_URL}/ioc/check`, {
@@ -568,6 +578,12 @@ export default function DFIRPage() {
         if (url.startsWith('http://')) riskFactors.push('Insecure HTTP connection (unencrypted traffic)');
         if (url.match(/\d{1,3}\.\d{1,3}\.\d{1,3}/)) riskFactors.push('Numerical IP address used instead of domain name');
         
+        // Port detection
+        const portMatch = url.match(/:(\d+)/);
+        if (portMatch && !['80', '443'].includes(portMatch[1])) {
+          riskFactors.push(`Non-standard port detected (:${portMatch[1]}), common in phishing/C2`);
+        }
+
         const domainMatch = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n?]+)/im);
         const domain = domainMatch ? domainMatch[1] : '';
         const tld = domain.split('.').pop() || '';
@@ -1092,6 +1108,7 @@ export default function DFIRPage() {
                             </div>
                           </div>
                           {iocResult && (
+                            <>
                               <div className={`p-6 rounded-2xl border-2 ${getScoreColor(iocResult.score)}`}>
                                 <div className="flex justify-between items-start mb-4">
                                   <div>
@@ -1121,6 +1138,7 @@ export default function DFIRPage() {
                               <div className="mt-6">
                                 <SecurityChecklist suggestions={(iocResult as any).suggestions} />
                               </div>
+                            </>
                           )}
                         </div>
                       )}
@@ -1170,7 +1188,7 @@ export default function DFIRPage() {
 
                                 <div className="p-4 rounded-xl bg-white/60 dark:bg-black/20 border border-slate-200 dark:border-white/5 flex items-center gap-3 overflow-hidden">
                                   <Link2 className="w-5 h-5 text-slate-400 flex-shrink-0" />
-                                  <span className="text-sm font-mono text-slate-600 dark:text-slate-300 truncate select-all">{sanitizeText(phishingResult.url)}</span>
+                                  <span className="text-sm font-mono text-slate-600 dark:text-slate-300 truncate select-all">{phishingResult.url}</span>
                                   <button onClick={() => copyToClipboard(phishingResult.url)} className="p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-white/10 text-slate-500 transition-colors ml-auto" title="Copy URL">
                                     <Copy className="w-4 h-4" />
                                   </button>
@@ -1188,7 +1206,7 @@ export default function DFIRPage() {
                                       {phishingResult.risk_factors.map((factor, idx) => (
                                         <div key={idx} className="flex items-center gap-3 p-3 rounded-xl bg-rose-500/5 border border-rose-500/10">
                                           <div className="w-2 h-2 rounded-full bg-rose-500" />
-                                          <span className="text-sm text-slate-700 dark:text-slate-300 font-medium">{sanitizeText(factor)}</span>
+                                          <span className="text-sm text-slate-700 dark:text-slate-300 font-medium">{factor}</span>
                                         </div>
                                       ))}
                                     </div>
@@ -1200,7 +1218,7 @@ export default function DFIRPage() {
                                       <div className="flex flex-wrap gap-2">
                                         {phishingResult.content_flags.map((flag, idx) => (
                                           <span key={idx} className="px-3 py-1.5 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs font-bold uppercase tracking-wider">
-                                            {sanitizeText(flag)}
+                                            {flag}
                                           </span>
                                         ))}
                                       </div>
@@ -1215,7 +1233,7 @@ export default function DFIRPage() {
                                       {phishingResult.similar_domains?.map((item, idx) => (
                                         <div key={idx} className="flex flex-col gap-2">
                                           <div className="flex justify-between items-center text-sm">
-                                            <span className="font-mono text-slate-700 dark:text-slate-300">{sanitizeText(item.domain)}</span>
+                                            <span className="font-mono text-slate-700 dark:text-slate-300">{item.domain}</span>
                                             <span className="font-bold text-slate-500">{(item.similarity * 100).toFixed(0)}% Match</span>
                                           </div>
                                           <div className="h-1.5 bg-slate-200 dark:bg-white/5 rounded-full overflow-hidden">
@@ -1521,23 +1539,23 @@ export default function DFIRPage() {
                                   <div className="flex justify-between items-start mb-3">
                                     <div className="flex-1">
                                       <div className="flex items-center gap-2 mb-2">
-                                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${item.severity === 'Critical' ? 'bg-rose-500/10 text-rose-600' : item.severity === 'High' ? 'bg-amber-500/10 text-amber-600' : 'bg-cyan-500/10 text-cyan-600'}`}>{sanitizeText(item.severity)}</span>
-                                        <span className="text-xs text-slate-500">{sanitizeText(item.source)}</span>
+                                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${item.severity === 'Critical' ? 'bg-rose-500/10 text-rose-600' : item.severity === 'High' ? 'bg-amber-500/10 text-amber-600' : 'bg-cyan-500/10 text-cyan-600'}`}>{item.severity}</span>
+                                        <span className="text-xs text-slate-500">{item.source}</span>
                                         {!item.read && <span className="w-2 h-2 rounded-full bg-brand-500" />}
                                       </div>
-                                      <h4 className="text-lg font-bold text-slate-900 dark:text-white">{sanitizeText(item.title)}</h4>
+                                      <h4 className="text-lg font-bold text-slate-900 dark:text-white">{item.title}</h4>
                                     </div>
                                     <div className="flex items-center gap-2"><span className="text-xs text-slate-500">{new Date(item.published).toLocaleDateString()}</span><ChevronRight className={`w-5 h-5 text-slate-400 transition-transform ${expandedIntel === item.id ? 'rotate-90' : ''}`} /></div>
                                   </div>
                                   {expandedIntel === item.id && (
                                     <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="space-y-4 mt-4 pt-4 border-t border-slate-100 dark:border-white/5">
-                                      <p className="text-sm text-slate-600 dark:text-slate-400">{sanitizeText(item.description)}</p>
+                                      <p className="text-sm text-slate-600 dark:text-slate-400">{item.description}</p>
                                       {item.indicators && item.indicators.length > 0 && (
                                         <div>
                                           <h5 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Indicators</h5>
                                           <div className="flex flex-wrap gap-2">
                                             {item.indicators.map((ind, idx) => (
-                                              <button key={idx} onClick={(e) => { e.stopPropagation(); copyToClipboard(ind); }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.stopPropagation(); copyToClipboard(ind); } }} className="px-3 py-1 rounded-lg bg-slate-100 dark:bg-white/10 font-mono text-xs text-slate-700 dark:text-slate-300 hover:bg-brand-500/10 hover:text-brand-600 cursor-pointer transition-colors flex items-center gap-1"><Copy className="w-3 h-3" />{sanitizeText(ind)}</button>
+                                              <button key={idx} onClick={(e) => { e.stopPropagation(); copyToClipboard(ind); }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.stopPropagation(); copyToClipboard(ind); } }} className="px-3 py-1 rounded-lg bg-slate-100 dark:bg-white/10 font-mono text-xs text-slate-700 dark:text-slate-300 hover:bg-brand-500/10 hover:text-brand-600 cursor-pointer transition-colors flex items-center gap-1"><Copy className="w-3 h-3" />{ind}</button>
                                             ))}
                                           </div>
                                         </div>
@@ -1563,12 +1581,12 @@ export default function DFIRPage() {
                               <div key={actor.name} className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm hover:border-brand-500/50 transition-all cursor-pointer">
                                 <div className="flex justify-between mb-4">
                                   <span className={`px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider ${actor.status === 'Active' ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400' : 'bg-slate-500/10 text-slate-500'}`}>{actor.status === 'Active' ? '⚠ Active' : actor.status}</span>
-                                  <span className="text-[10px] text-cyan-600 dark:text-cyan-400 font-mono">{sanitizeText(actor.motivation)}</span>
+                                  <span className="text-[10px] text-cyan-600 dark:text-cyan-400 font-mono">{actor.motivation}</span>
                                 </div>
-                                <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-1">{sanitizeText(actor.name)}</h4>
-                                <p className="text-xs text-slate-500 mb-4 font-mono">{sanitizeText(actor.origin)}</p>
+                                <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-1">{actor.name}</h4>
+                                <p className="text-xs text-slate-500 mb-4 font-mono">{actor.origin}</p>
                                 <div className="flex flex-wrap gap-1 mb-4">
-                                  {actor.targets.slice(0, 2).map((target) => (<span key={target} className="px-2 py-0.5 rounded-full bg-brand-500/10 text-brand-600 dark:text-brand-400 text-[10px]">{sanitizeText(target)}</span>))}
+                                  {actor.targets.slice(0, 2).map((target) => (<span key={target} className="px-2 py-0.5 rounded-full bg-brand-500/10 text-brand-600 dark:text-brand-400 text-[10px]">{target}</span>))}
                                 </div>
                                 <button className="w-full py-2 rounded-lg bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/10 transition-colors flex items-center justify-center gap-2"><FileSearch className="w-3 h-3" /> View Profile</button>
                               </div>
