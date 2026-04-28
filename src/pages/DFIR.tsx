@@ -249,7 +249,8 @@ export default function DFIRPage() {
       malware: ['BlackEnergy', 'NotPetya', 'Industroyer', 'KillDisk', 'GreyEnergy'],
       techniques: ['Destructive Malware', 'OT Targeting', 'Infrastructure Disruption'],
       targets: ['Energy', 'Critical Infrastructure', 'Government', 'Ukraine'],
-      description: 'Russian state-sponsored threat group known for destructive attacks against critical infrastructure.',
+      description:
+        'Russian state-sponsored threat group known for destructive attacks against critical infrastructure.',
       url: 'https://dfir-lab.ch/actors/sandworm-team',
     },
     {
@@ -263,7 +264,8 @@ export default function DFIRPage() {
       malware: ['AsyncRAT', 'RedLine Stealer', 'Custom Loader'],
       techniques: ['Phishing', 'Credential Theft', 'Data Exfiltration'],
       targets: ['Healthcare', 'Finance', 'Technology'],
-      description: 'Emerging threat actor known for sophisticated phishing campaigns targeting healthcare and financial sectors.',
+      description:
+        'Emerging threat actor known for sophisticated phishing campaigns targeting healthcare and financial sectors.',
       url: 'https://dfir-lab.ch/actors/storm-1747',
     },
     {
@@ -277,7 +279,8 @@ export default function DFIRPage() {
       malware: ['Rhysida Ransomware', 'Cobalt Strike'],
       techniques: ['Ransomware', 'Lateral Movement', 'Data Encryption'],
       targets: ['Healthcare', 'Education', 'Government'],
-      description: 'Ransomware-as-a-Service group known for high-profile attacks on hospitals and educational institutions.',
+      description:
+        'Ransomware-as-a-Service group known for high-profile attacks on hospitals and educational institutions.',
       url: 'https://dfir-lab.ch/actors/rhysida',
     },
     {
@@ -319,22 +322,66 @@ export default function DFIRPage() {
       malware: ['LockBit Ransomware', 'StealBit', 'LockBit Builder'],
       techniques: ['Ransomware', 'Data Exfiltration', 'Extortion'],
       targets: ['Healthcare', 'Education', 'Critical Infrastructure'],
-      description: 'Ransomware-as-a-Service group disrupted by international law enforcement in 2024 (Operation Cronos).',
+      description:
+        'Ransomware-as-a-Service group disrupted by international law enforcement in 2024 (Operation Cronos).',
     },
   ];
 
   const trustedDomains = [
-    'google.com', 'microsoft.com', 'github.com', 'cloudflare.com', 'apple.com',
-    'amazon.com', 'facebook.com', 'linkedin.com', 'twitter.com', 'x.com',
-    'goog', 'apple', 'microsoft'
+    'google.com',
+    'microsoft.com',
+    'github.com',
+    'cloudflare.com',
+    'apple.com',
+    'amazon.com',
+    'facebook.com',
+    'linkedin.com',
+    'twitter.com',
+    'x.com',
+    'goog',
+    'apple',
+    'microsoft',
   ];
   const suspiciousTLDs = [
-    'xyz', 'top', 'click', 'link', 'work', 'ru', 'cn', 'tk', 'ml', 'ga', 'cf', 'gq',
-    'zip', 'mov', 'kim', 'racing', 'win', 'icu', 'monster', 'beauty', 'surf'
+    'xyz',
+    'top',
+    'click',
+    'link',
+    'work',
+    'ru',
+    'cn',
+    'tk',
+    'ml',
+    'ga',
+    'cf',
+    'gq',
+    'zip',
+    'mov',
+    'kim',
+    'racing',
+    'win',
+    'icu',
+    'monster',
+    'beauty',
+    'surf',
   ];
   const suspiciousPatterns = [
-    'login', 'verify', 'secure', 'account', 'update', 'support', 'alert', 'signin', 'auth',
-    'confirm', 'billing', 'wallet', 'crypto', 'banking', 'office365', 'outlook'
+    'login',
+    'verify',
+    'secure',
+    'account',
+    'update',
+    'support',
+    'alert',
+    'signin',
+    'auth',
+    'confirm',
+    'billing',
+    'wallet',
+    'crypto',
+    'banking',
+    'office365',
+    'outlook',
   ];
 
   const generateSecuritySuggestions = (type: string, data: any): string[] => {
@@ -367,8 +414,10 @@ export default function DFIRPage() {
         suggestions.push('Block this indicator immediately across all security controls (Firewall, EDR, Proxy).');
         suggestions.push('Check EDR/SIEM logs for any historical matches with this indicator.');
         suggestions.push('Isolate any hosts that have communicated with this malicious resource.');
-        if (res.type === 'Hash') suggestions.push('Search for this file hash on all endpoints via EDR and delete occurrences.');
-        if (res.type === 'IPv4') suggestions.push('Check firewall and VPC flow logs for any inbound/outbound traffic to this IP.');
+        if (res.type === 'Hash')
+          suggestions.push('Search for this file hash on all endpoints via EDR and delete occurrences.');
+        if (res.type === 'IPv4')
+          suggestions.push('Check firewall and VPC flow logs for any inbound/outbound traffic to this IP.');
       } else if (res.verdict === 'Suspicious') {
         suggestions.push('Monitor traffic to/from this indicator for unusual patterns.');
         suggestions.push('Cross-reference with other threat intelligence feeds (VirusTotal, AlienVault).');
@@ -394,29 +443,39 @@ export default function DFIRPage() {
     return suggestions;
   };
 
-  const calculateDomainScore = (domain: string): { score: number; health_score: string; verdict: string; additional_checks: any } => {
+  const calculateDomainScore = (
+    domain: string
+  ): { score: number; health_score: string; verdict: string; additional_checks: any } => {
     const normalizedDomain = domain.toLowerCase().trim();
     const isTrusted = trustedDomains.some((td) => normalizedDomain === td || normalizedDomain.endsWith('.' + td));
-    if (isTrusted) return { score: 98, health_score: 'Excellent', verdict: 'Highly Trusted', additional_checks: { is_trusted: true, entropy: 2.5 } };
+    if (isTrusted)
+      return {
+        score: 98,
+        health_score: 'Excellent',
+        verdict: 'Highly Trusted',
+        additional_checks: { is_trusted: true, entropy: 2.5 },
+      };
 
     let score = 75;
     const parts = normalizedDomain.split('.');
     const tld = parts.pop() || '';
     const mainPart = parts.join('.');
-    
+
     if (suspiciousTLDs.includes(tld)) score -= 20;
     const hasSuspiciousPattern = suspiciousPatterns.some((p) => normalizedDomain.includes(p));
     if (hasSuspiciousPattern) score -= 25;
 
     // Enhanced Entropy calculation (Shannon entropy)
     const charCounts: Record<string, number> = {};
-    for (const char of mainPart) { charCounts[char] = (charCounts[char] || 0) + 1; }
+    for (const char of mainPart) {
+      charCounts[char] = (charCounts[char] || 0) + 1;
+    }
     let entropy = 0;
     for (const char in charCounts) {
       const p = charCounts[char] / mainPart.length;
       entropy -= p * Math.log2(p);
     }
-    
+
     // Entropy scoring: generally > 3.5-4.0 for random-looking domains
     if (entropy > 4.2) score -= 30;
     else if (entropy > 3.8) score -= 15;
@@ -424,39 +483,64 @@ export default function DFIRPage() {
     // Homoglyph detection (improved)
     const homoglyphs = /[а-яА-Я]|[οοΟΟ]|[рР]|[сС]|[уУ]|[хХ]|[ііІІ]|[ааАА]|[ееЕЕ]/;
     if (homoglyphs.test(normalizedDomain)) score = Math.max(score - 50, 5);
-    
+
     // Length & special character checks
     if (normalizedDomain.length > 30) score -= 10;
     const hyphenCount = (normalizedDomain.match(/-/g) || []).length;
     if (hyphenCount >= 3) score -= 15;
-    
+
     // Lookalike checks (basic)
-    if (normalizedDomain.includes('g00gle') || normalizedDomain.includes('m1crosoft') || normalizedDomain.includes('0ffice') || normalizedDomain.includes('googIe')) score -= 40;
-    if (normalizedDomain.includes('paypa1') || normalizedDomain.includes('appIe') || normalizedDomain.includes('bi11ing')) score -= 40;
+    if (
+      normalizedDomain.includes('g00gle') ||
+      normalizedDomain.includes('m1crosoft') ||
+      normalizedDomain.includes('0ffice') ||
+      normalizedDomain.includes('googIe')
+    )
+      score -= 40;
+    if (
+      normalizedDomain.includes('paypa1') ||
+      normalizedDomain.includes('appIe') ||
+      normalizedDomain.includes('bi11ing')
+    )
+      score -= 40;
 
     const commonBrands = ['google', 'microsoft', 'apple', 'amazon', 'facebook', 'netflix', 'paypal'];
-    commonBrands.forEach(brand => {
+    commonBrands.forEach((brand) => {
       if (normalizedDomain.includes(brand) && !isTrusted) score -= 20;
     });
-    
+
     score = Math.max(Math.min(score, 100), 0);
 
-    let health_score = 'Good', verdict = 'Clean';
-    if (score >= 90) { health_score = 'Excellent'; verdict = 'Highly Trusted'; }
-    else if (score >= 70) { health_score = 'Good'; verdict = 'Clean'; }
-    else if (score >= 50) { health_score = 'Fair'; verdict = 'Suspicious'; }
-    else if (score >= 30) { health_score = 'Poor'; verdict = 'High Risk'; }
-    else { health_score = 'Critical'; verdict = 'Likely Malicious'; }
+    let health_score = 'Good',
+      verdict = 'Clean';
+    if (score >= 90) {
+      health_score = 'Excellent';
+      verdict = 'Highly Trusted';
+    } else if (score >= 70) {
+      health_score = 'Good';
+      verdict = 'Clean';
+    } else if (score >= 50) {
+      health_score = 'Fair';
+      verdict = 'Suspicious';
+    } else if (score >= 30) {
+      health_score = 'Poor';
+      verdict = 'High Risk';
+    } else {
+      health_score = 'Critical';
+      verdict = 'Likely Malicious';
+    }
 
-    return { 
-      score, health_score, verdict, 
-      additional_checks: { 
+    return {
+      score,
+      health_score,
+      verdict,
+      additional_checks: {
         entropy: Number(entropy.toFixed(2)),
         length: normalizedDomain.length,
         has_homoglyphs: homoglyphs.test(normalizedDomain),
         is_suspicious_tld: suspiciousTLDs.includes(tld),
-        has_hyphen_abuse: hyphenCount >= 3
-      } 
+        has_hyphen_abuse: hyphenCount >= 3,
+      },
     };
   };
 
@@ -474,7 +558,7 @@ export default function DFIRPage() {
         const data = await res.json();
         setIocResult({
           ...data,
-          suggestions: generateSecuritySuggestions('ioc', data)
+          suggestions: generateSecuritySuggestions('ioc', data),
         });
       } else {
         await new Promise((r) => setTimeout(r, 1000));
@@ -502,7 +586,7 @@ export default function DFIRPage() {
           score,
           verdict: score > 60 ? 'Malicious' : score > 30 ? 'Suspicious' : 'Clean',
           tags: score > 60 ? ['threat-actor-associated', 'active-c2'] : [],
-          defanged: iocInput.replace(/\./g, '[.]').replace(/http/g, 'hXXp')
+          defanged: iocInput.replace(/\./g, '[.]').replace(/http/g, 'hXXp'),
         };
         setIocResult(result);
       }
@@ -526,28 +610,55 @@ export default function DFIRPage() {
         const data = await res.json();
         setDomainResult({
           ...data,
-          suggestions: generateSecuritySuggestions('domain', data)
+          suggestions: generateSecuritySuggestions('domain', data),
         });
       } else {
         await new Promise((r) => setTimeout(r, 1500));
         const domain = domainInput.toLowerCase().trim();
         const { score, health_score, verdict, additional_checks } = calculateDomainScore(domain);
         const result: DomainResult = {
-          domain, score, verdict, generated: new Date().toISOString(), health_score,
-          blacklist: score < 60 ? [{ ip: '93.184.216.34', listed: score < 40, blacklists: score < 40 ? ['spamhaus', 'surbl'] : [] }] : [],
-          mx: { records: score >= 60 ? [{ priority: 10, host: 'aspmx.l.google.com' }, { priority: 20, host: 'alt1.aspmx.l.google.com' }] : [] },
+          domain,
+          score,
+          verdict,
+          generated: new Date().toISOString(),
+          health_score,
+          blacklist:
+            score < 60
+              ? [{ ip: '93.184.216.34', listed: score < 40, blacklists: score < 40 ? ['spamhaus', 'surbl'] : [] }]
+              : [],
+          mx: {
+            records:
+              score >= 60
+                ? [
+                    { priority: 10, host: 'aspmx.l.google.com' },
+                    { priority: 20, host: 'alt1.aspmx.l.google.com' },
+                  ]
+                : [],
+          },
           spf: { found: score >= 50, record: score >= 50 ? 'v=spf1 include:_spf.google.com ~all' : undefined },
-          dmarc: { found: score >= 50, record: score >= 50 ? 'v=DMARC1; p=quarantine; rua=mailto:dmarc@' + domain : undefined },
+          dmarc: {
+            found: score >= 50,
+            record: score >= 50 ? 'v=DMARC1; p=quarantine; rua=mailto:dmarc@' + domain : undefined,
+          },
           dkim: [{ found: score >= 70, selector: score >= 70 ? 'google' : undefined }],
-          ssl: { valid: score >= 40, issuer: score >= 40 ? 'Google Trust Services' : undefined, expires: score >= 40 ? '2026-01-01' : undefined },
-          dns: { A: score >= 30 ? ['142.250.185.78'] : undefined, AAAA: score >= 30 ? ['2607:f8b0:4004:800::200e'] : undefined },
+          ssl: {
+            valid: score >= 40,
+            issuer: score >= 40 ? 'Google Trust Services' : undefined,
+            expires: score >= 40 ? '2026-01-01' : undefined,
+          },
+          dns: {
+            A: score >= 30 ? ['142.250.185.78'] : undefined,
+            AAAA: score >= 30 ? ['2607:f8b0:4004:800::200e'] : undefined,
+          },
           dnssec: { found: score >= 80 },
-          additional_checks
+          additional_checks,
         };
         result.suggestions = generateSecuritySuggestions('domain', result);
         setDomainResult(result);
       }
-    } catch { setDomainResult(null); }
+    } catch {
+      setDomainResult(null);
+    }
     setDomainLoading(false);
   };
 
@@ -565,40 +676,53 @@ export default function DFIRPage() {
         const data = await res.json();
         setPhishingResult({
           ...data,
-          suggestions: generateSecuritySuggestions('phishing', data)
+          suggestions: generateSecuritySuggestions('phishing', data),
         });
       } else {
         await new Promise((r) => setTimeout(r, 2000));
         const url = phishingUrl.toLowerCase().trim();
         const riskFactors: string[] = [];
-        
+
         // Comprehensive phishing detection logic
-        const isCredentialHarvesting = /login|signin|account|verify|secure|update|billing|wallet|crypto|banking|office365|outlook/.test(url);
-        
+        const isCredentialHarvesting =
+          /login|signin|account|verify|secure|update|billing|wallet|crypto|banking|office365|outlook/.test(url);
+
         if (url.startsWith('http://')) riskFactors.push('Insecure HTTP connection (unencrypted traffic)');
-        if (url.match(/\d{1,3}\.\d{1,3}\.\d{1,3}/)) riskFactors.push('Numerical IP address used instead of domain name');
-        
+        if (url.match(/\d{1,3}\.\d{1,3}\.\d{1,3}/))
+          riskFactors.push('Numerical IP address used instead of domain name');
+
         // Port detection
         const portMatch = url.match(/:(\d+)/);
         if (portMatch && !['80', '443'].includes(portMatch[1])) {
           riskFactors.push(`Non-standard port detected (:${portMatch[1]}), common in phishing/C2`);
         }
 
-        const domainMatch = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n?]+)/im);
+        const domainMatch = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n?]+)/im);
         const domain = domainMatch ? domainMatch[1] : '';
         const tld = domain.split('.').pop() || '';
-        
-        if (suspiciousTLDs.includes(tld)) riskFactors.push(`Suspicious top-level domain (.${tld}) commonly used by threat actors`);
-        if (url.includes('-') && (url.includes('google') || url.includes('microsoft') || url.includes('apple') || url.includes('facebook') || url.includes('amazon'))) {
+
+        if (suspiciousTLDs.includes(tld))
+          riskFactors.push(`Suspicious top-level domain (.${tld}) commonly used by threat actors`);
+        if (
+          url.includes('-') &&
+          (url.includes('google') ||
+            url.includes('microsoft') ||
+            url.includes('apple') ||
+            url.includes('facebook') ||
+            url.includes('amazon'))
+        ) {
           riskFactors.push('Potential brand-spoofing using hyphenated legitimate brand name');
         }
-        
-        if (url.length > 75) riskFactors.push('Excessively long URL often used to hide malicious domains in address bars');
-        if (url.includes('@') && !url.includes('mailto:')) riskFactors.push('URL contains an "@" symbol, potentially used for userinfo-based obfuscation');
+
+        if (url.length > 75)
+          riskFactors.push('Excessively long URL often used to hide malicious domains in address bars');
+        if (url.includes('@') && !url.includes('mailto:'))
+          riskFactors.push('URL contains an "@" symbol, potentially used for userinfo-based obfuscation');
         if (url.includes('%')) riskFactors.push('Heavy use of URL encoding (obfuscation technique)');
-        
+
         // Homoglyphs in phishing check
-        if (/[а-яА-Я]|[οοΟΟ]|[рР]|[сС]|[уУ]|[хХ]|[ііІІ]/.test(url)) riskFactors.push('Internationalized Domain Name (IDN) homoglyph detected (visual spoofing)');
+        if (/[а-яА-Я]|[οοΟΟ]|[рР]|[сС]|[уУ]|[хХ]|[ііІІ]/.test(url))
+          riskFactors.push('Internationalized Domain Name (IDN) homoglyph detected (visual spoofing)');
 
         const contentFlags: string[] = [];
         if (isCredentialHarvesting) {
@@ -619,19 +743,21 @@ export default function DFIRPage() {
           similar_domains: [
             { domain: 'google.com', similarity: url.includes('google') ? 0.92 : 0.1 },
             { domain: 'microsoft.com', similarity: url.includes('micro') ? 0.88 : 0.1 },
-            { domain: 'office.com', similarity: url.includes('offi') ? 0.85 : 0.1 }
-          ].filter(d => d.similarity > 0.2),
+            { domain: 'office.com', similarity: url.includes('offi') ? 0.85 : 0.1 },
+          ].filter((d) => d.similarity > 0.2),
           additional_checks: {
             is_https: url.startsWith('https://'),
             has_obfuscation: url.includes('%') || url.includes('@'),
             subdomain_count: domain.split('.').length - 2,
-            entropy: calculateDomainScore(domain).additional_checks.entropy
-          }
+            entropy: calculateDomainScore(domain).additional_checks.entropy,
+          },
         };
         result.suggestions = generateSecuritySuggestions('phishing', result);
         setPhishingResult(result);
       }
-    } catch { setPhishingResult(null); }
+    } catch {
+      setPhishingResult(null);
+    }
     setPhishingLoading(false);
   };
 
@@ -649,18 +775,18 @@ export default function DFIRPage() {
         const data = await res.json();
         const result = {
           ...data,
-          suggestions: generateSecuritySuggestions('exposure', data)
+          suggestions: generateSecuritySuggestions('exposure', data),
         };
         setExposureResult(result);
         setExposureHistory((prev) => [result, ...prev.slice(0, 9)]);
       } else {
         await new Promise((r) => setTimeout(r, 2500));
-        
+
         // Seeded random for consistent results
         const seed = exposureQuery.toLowerCase().trim();
         let hash = 0;
         for (let i = 0; i < seed.length; i++) {
-          hash = ((hash << 5) - hash) + seed.charCodeAt(i);
+          hash = (hash << 5) - hash + seed.charCodeAt(i);
           hash |= 0;
         }
         const random = () => {
@@ -670,10 +796,15 @@ export default function DFIRPage() {
 
         const breachCount = Math.floor(random() * 8);
         const sources = [
-          { name: 'Have I Been Pwned', records: Math.floor(random() * 5) + (breachCount > 0 ? 1 : 0), date: '2024-03-15', category: 'Breach Data' },
+          {
+            name: 'Have I Been Pwned',
+            records: Math.floor(random() * 5) + (breachCount > 0 ? 1 : 0),
+            date: '2024-03-15',
+            category: 'Breach Data',
+          },
           { name: 'DeHashed', records: Math.floor(random() * 3), date: '2024-02-20', category: 'Leaked Credentials' },
           { name: 'LeakCheck', records: Math.floor(random() * 2), date: '2024-01-10', category: 'Data Breach' },
-        ].filter(s => s.records > 0);
+        ].filter((s) => s.records > 0);
 
         const totalRecords = sources.reduce((acc, s) => acc + s.records, 0);
         const exposureData: ExposureResult = {
@@ -682,55 +813,67 @@ export default function DFIRPage() {
           total_exposed_records: totalRecords,
           sources,
           severity: totalRecords > 5 ? 'High' : totalRecords > 0 ? 'Medium' : 'Low',
-          risk_level: totalRecords > 10 ? 'Critical' : totalRecords > 5 ? 'High' : totalRecords > 0 ? 'Elevated' : 'Safe',
+          risk_level:
+            totalRecords > 10 ? 'Critical' : totalRecords > 5 ? 'High' : totalRecords > 0 ? 'Elevated' : 'Safe',
         };
         exposureData.suggestions = generateSecuritySuggestions('exposure', exposureData);
         setExposureResult(exposureData);
         setExposureHistory((prev) => [exposureData, ...prev.slice(0, 9)]);
       }
-    } catch { setExposureResult(null); }
+    } catch {
+      setExposureResult(null);
+    }
     setExposureLoading(false);
   };
 
   const runPrivacyCheck = async () => {
     setPrivacyLoading(true);
     await new Promise((r) => setTimeout(r, 2000));
-    
+
     // Dynamic data from navigator API
-    const isDoNotTrack = navigator.doNotTrack === "1" || (navigator as any).msDoNotTrack === "1" || (window as any).doNotTrack === "1";
+    const isDoNotTrack =
+      navigator.doNotTrack === '1' || (navigator as any).msDoNotTrack === '1' || (window as any).doNotTrack === '1';
     const cookiesEnabled = navigator.cookieEnabled;
     const language = navigator.language;
     const platform = navigator.platform;
     const hardwareConcurrency = navigator.hardwareConcurrency || 0;
     const screenResolution = `${window.screen.width}x${window.screen.height}`;
-    
+
     const ua = navigator.userAgent;
-    let browser = "Unknown";
-    if (ua.includes("Firefox")) browser = "Firefox";
-    else if (ua.includes("Chrome")) browser = "Chrome";
-    else if (ua.includes("Safari")) browser = "Safari";
-    else if (ua.includes("Edge")) browser = "Edge";
+    let browser = 'Unknown';
+    if (ua.includes('Firefox')) browser = 'Firefox';
+    else if (ua.includes('Chrome')) browser = 'Chrome';
+    else if (ua.includes('Safari')) browser = 'Safari';
+    else if (ua.includes('Edge')) browser = 'Edge';
 
     const result: PrivacyResult = {
       score: isDoNotTrack ? 85 : 65,
       maxScore: 100,
       grade: isDoNotTrack ? 'B' : 'C',
       categories: {
-        ipNetwork: { score: 70, maxScore: 100, details: { httpIp: 'Masked', webrtcLeak: 'Not Detected', dohEnabled: true } },
+        ipNetwork: {
+          score: 70,
+          maxScore: 100,
+          details: { httpIp: 'Masked', webrtcLeak: 'Not Detected', dohEnabled: true },
+        },
         dnsPrivacy: { score: 60, maxScore: 100, details: {} },
-        fingerprinting: { 
-          score: 40, 
-          maxScore: 100, 
-          details: { 
-            canvasHash: true, 
-            platform, 
-            browser, 
+        fingerprinting: {
+          score: 40,
+          maxScore: 100,
+          details: {
+            canvasHash: true,
+            platform,
+            browser,
             language,
             hardwareConcurrency,
-            screenResolution
-          } 
+            screenResolution,
+          },
         },
-        privacySettings: { score: isDoNotTrack ? 90 : 50, maxScore: 100, details: { dnt: isDoNotTrack, https: true, cookiesEnabled } },
+        privacySettings: {
+          score: isDoNotTrack ? 90 : 50,
+          maxScore: 100,
+          details: { dnt: isDoNotTrack, https: true, cookiesEnabled },
+        },
         connectionSecurity: { score: 95, maxScore: 100, details: { https: true } },
         trackingProtection: { score: 80, maxScore: 100, details: { trackerBlocker: true } },
       },
@@ -763,7 +906,8 @@ export default function DFIRPage() {
           published: new Date(Date.now() - 86400000).toISOString(),
           type: 'Vulnerability',
           severity: 'Critical',
-          description: 'Authentication bypass vulnerability in FortiOS allows remote attackers to gain unauthorized access.',
+          description:
+            'Authentication bypass vulnerability in FortiOS allows remote attackers to gain unauthorized access.',
           indicators: ['CVE-2024-55591', 'FortiOS 7.0.0-7.0.14'],
           link: 'https://www.cisa.gov',
           read: false,
@@ -804,16 +948,22 @@ export default function DFIRPage() {
         },
       ];
       setIntelItems(sampleItems);
-    } catch { setIntelItems([]); }
+    } catch {
+      setIntelItems([]);
+    }
     setIntelLoading(false);
   }, []);
 
-  useEffect(() => { fetchThreatIntel(); }, [fetchThreatIntel]);
+  useEffect(() => {
+    fetchThreatIntel();
+  }, [fetchThreatIntel]);
 
   const copyToClipboard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-    } catch { /* ignore */ }
+    } catch {
+      /* ignore */
+    }
   };
 
   const markIntelAsRead = (id: string) => {
@@ -876,7 +1026,12 @@ export default function DFIRPage() {
               Security tools for domain analysis, IOC reputation checking, and threat intelligence.
             </motion.p>
           </div>
-          <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }}>
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+          >
             <Breadcrumbs items={[{ label: 'DFIR Tools' }]} className="justify-end" />
           </motion.div>
         </div>
@@ -896,41 +1051,82 @@ export default function DFIRPage() {
             >
               <tab.icon className="w-4 h-4" />
               <span>{tab.label}</span>
-              {tab.description && <span className="text-[10px] text-slate-400 dark:text-slate-500 font-normal hidden sm:inline">({tab.description})</span>}
+              {tab.description && (
+                <span className="text-[10px] text-slate-400 dark:text-slate-500 font-normal hidden sm:inline">
+                  ({tab.description})
+                </span>
+              )}
             </button>
           ))}
         </div>
 
         <div className="p-8 min-h-[500px] bg-slate-50/30 dark:bg-slate-900/30">
           <AnimatePresence mode="wait">
-            <motion.div key={activeTab} initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -10 }} transition={{ duration: 0.2 }}>
-
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, x: 10 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -10 }}
+              transition={{ duration: 0.2 }}
+            >
               {activeTab === 'home' && (
                 <div className="space-y-8">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                     <div>
-                      <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Welcome to the DFIR Toolkit</h3>
+                      <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+                        Welcome to the DFIR Toolkit
+                      </h3>
                       <p className="text-slate-600 dark:text-slate-400 mb-6">
                         Functional security tools for domain analysis, IOC reputation checking, and threat intelligence.
                       </p>
                       <ConnectionStatus apiUrl={API_URL} />
                       <div className="flex flex-wrap gap-4 mt-6">
-                        <button onClick={() => handleTabChange('domain')} className="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold transition-colors flex items-center gap-2">
+                        <button
+                          onClick={() => handleTabChange('domain')}
+                          className="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold transition-colors flex items-center gap-2"
+                        >
                           <Globe className="w-4 h-4" /> Start Domain Scan
                         </button>
-                        <button onClick={() => handleTabChange('analysis')} className="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold transition-colors flex items-center gap-2">
+                        <button
+                          onClick={() => handleTabChange('analysis')}
+                          className="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold transition-colors flex items-center gap-2"
+                        >
                           <Search className="w-4 h-4" /> IOC/Phishing Analysis
                         </button>
                       </div>
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                       {[
-                        { label: 'IOC Check', icon: Activity, color: 'text-rose-500 dark:text-rose-400', tab: 'analysis' as TabType },
-                        { label: 'Phishing', icon: Bug, color: 'text-amber-500 dark:text-amber-400', tab: 'analysis' as TabType },
-                        { label: 'Exposure', icon: Database, color: 'text-cyan-500 dark:text-cyan-400', tab: 'exposure' as TabType },
-                        { label: 'Privacy', icon: Lock, color: 'text-emerald-500 dark:text-emerald-400', tab: 'privacy' as TabType },
+                        {
+                          label: 'IOC Check',
+                          icon: Activity,
+                          color: 'text-rose-500 dark:text-rose-400',
+                          tab: 'analysis' as TabType,
+                        },
+                        {
+                          label: 'Phishing',
+                          icon: Bug,
+                          color: 'text-amber-500 dark:text-amber-400',
+                          tab: 'analysis' as TabType,
+                        },
+                        {
+                          label: 'Exposure',
+                          icon: Database,
+                          color: 'text-cyan-500 dark:text-cyan-400',
+                          tab: 'exposure' as TabType,
+                        },
+                        {
+                          label: 'Privacy',
+                          icon: Lock,
+                          color: 'text-emerald-500 dark:text-emerald-400',
+                          tab: 'privacy' as TabType,
+                        },
                       ].map((tool) => (
-                        <button key={tool.label} onClick={() => handleTabChange(tool.tab)} className="p-4 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-center shadow-sm hover:bg-white/60 dark:hover:bg-white/10 transition-colors cursor-pointer">
+                        <button
+                          key={tool.label}
+                          onClick={() => handleTabChange(tool.tab)}
+                          className="p-4 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-center shadow-sm hover:bg-white/60 dark:hover:bg-white/10 transition-colors cursor-pointer"
+                        >
                           <tool.icon className={`w-8 h-8 mx-auto mb-2 ${tool.color}`} />
                           <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{tool.label}</span>
                         </button>
@@ -948,9 +1144,21 @@ export default function DFIRPage() {
                       <h3 className="text-xl font-bold text-slate-900 dark:text-white">Domain Security Checker</h3>
                     </div>
                     <div className="flex gap-3">
-                      <input type="text" value={domainInput} onChange={(e) => setDomainInput(e.target.value)} placeholder="Enter domain to check" className="flex-1 px-4 py-3 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 transition-colors shadow-sm" onKeyDown={(e) => e.key === 'Enter' && checkDomain()} />
-                      <button onClick={checkDomain} disabled={domainLoading} className="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 disabled:opacity-50 text-white font-semibold transition-all flex items-center gap-2 shadow-sm">
-                        {domainLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />} Check
+                      <input
+                        type="text"
+                        value={domainInput}
+                        onChange={(e) => setDomainInput(e.target.value)}
+                        placeholder="Enter domain to check"
+                        className="flex-1 px-4 py-3 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 transition-colors shadow-sm"
+                        onKeyDown={(e) => e.key === 'Enter' && checkDomain()}
+                      />
+                      <button
+                        onClick={checkDomain}
+                        disabled={domainLoading}
+                        className="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 disabled:opacity-50 text-white font-semibold transition-all flex items-center gap-2 shadow-sm"
+                      >
+                        {domainLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />}{' '}
+                        Check
                       </button>
                     </div>
                   </div>
@@ -960,8 +1168,12 @@ export default function DFIRPage() {
                       <div className={`p-8 rounded-3xl border-2 ${getScoreColor(domainResult.score)} shadow-lg`}>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                           <div className="flex flex-col items-center justify-center text-center p-4 rounded-2xl bg-white/20 dark:bg-black/20">
-                            <span className="text-xs uppercase tracking-widest text-slate-500 mb-1">Security Score</span>
-                            <div className={`text-6xl font-black ${domainResult.score >= 85 ? 'text-emerald-600' : domainResult.score >= 65 ? 'text-amber-600' : 'text-rose-600'}`}>
+                            <span className="text-xs uppercase tracking-widest text-slate-500 mb-1">
+                              Security Score
+                            </span>
+                            <div
+                              className={`text-6xl font-black ${domainResult.score >= 85 ? 'text-emerald-600' : domainResult.score >= 65 ? 'text-amber-600' : 'text-rose-600'}`}
+                            >
                               {domainResult.score}
                             </div>
                             <span className="text-sm font-bold mt-1">out of 100</span>
@@ -970,15 +1182,24 @@ export default function DFIRPage() {
                             <div className="flex justify-between items-end">
                               <div>
                                 <span className="text-xs uppercase tracking-widest text-slate-500">Domain Status</span>
-                                <h4 className="text-3xl font-black text-slate-900 dark:text-white uppercase tracking-tight">{domainResult.verdict}</h4>
+                                <h4 className="text-3xl font-black text-slate-900 dark:text-white uppercase tracking-tight">
+                                  {domainResult.verdict}
+                                </h4>
                               </div>
                               <div className="text-right">
                                 <span className="text-xs uppercase tracking-widest text-slate-500">Health Rating</span>
-                                <p className="text-xl font-bold text-slate-800 dark:text-slate-200">{domainResult.health_score}</p>
+                                <p className="text-xl font-bold text-slate-800 dark:text-slate-200">
+                                  {domainResult.health_score}
+                                </p>
                               </div>
                             </div>
                             <div className="h-3 bg-white/30 dark:bg-black/20 rounded-full overflow-hidden">
-                              <motion.div initial={{ width: 0 }} animate={{ width: `${domainResult.score}%` }} transition={{ duration: 1, ease: "easeOut" }} className={`h-full ${domainResult.score >= 85 ? 'bg-emerald-500' : domainResult.score >= 65 ? 'bg-amber-500' : 'bg-rose-500'}`} />
+                              <motion.div
+                                initial={{ width: 0 }}
+                                animate={{ width: `${domainResult.score}%` }}
+                                transition={{ duration: 1, ease: 'easeOut' }}
+                                className={`h-full ${domainResult.score >= 85 ? 'bg-emerald-500' : domainResult.score >= 65 ? 'bg-amber-500' : 'bg-rose-500'}`}
+                              />
                             </div>
                             {domainResult.additional_checks && (
                               <div className="flex flex-wrap gap-4 text-xs font-mono text-slate-600 dark:text-slate-400">
@@ -1008,10 +1229,16 @@ export default function DFIRPage() {
                                 <div key={item.label} className="flex justify-between items-center">
                                   <span className="text-sm text-slate-600 dark:text-slate-400">{item.label}</span>
                                   <div className="flex items-center gap-2">
-                                    <span className={`text-[10px] font-bold uppercase ${item.status ? 'text-emerald-500' : 'text-rose-500'}`}>
+                                    <span
+                                      className={`text-[10px] font-bold uppercase ${item.status ? 'text-emerald-500' : 'text-rose-500'}`}
+                                    >
                                       {item.status ? 'Configured' : 'Missing'}
                                     </span>
-                                    {item.status ? <CheckCircle2 className="w-4 h-4 text-emerald-500" /> : <XCircle className="w-4 h-4 text-rose-500" />}
+                                    {item.status ? (
+                                      <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                                    ) : (
+                                      <XCircle className="w-4 h-4 text-rose-500" />
+                                    )}
                                   </div>
                                 </div>
                               ))}
@@ -1024,20 +1251,26 @@ export default function DFIRPage() {
                             <div className="space-y-3">
                               <div className="flex justify-between items-center">
                                 <span className="text-sm text-slate-600 dark:text-slate-400">Certificate Status</span>
-                                <span className={`text-sm font-bold ${domainResult.ssl.valid ? 'text-emerald-500' : 'text-rose-500'}`}>
+                                <span
+                                  className={`text-sm font-bold ${domainResult.ssl.valid ? 'text-emerald-500' : 'text-rose-500'}`}
+                                >
                                   {domainResult.ssl.valid ? 'VALID' : 'INVALID'}
                                 </span>
                               </div>
                               {domainResult.ssl.issuer && (
                                 <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5">
                                   <p className="text-[10px] uppercase text-slate-500 mb-1">Issuer</p>
-                                  <p className="text-sm font-medium text-slate-900 dark:text-white truncate">{domainResult.ssl.issuer}</p>
+                                  <p className="text-sm font-medium text-slate-900 dark:text-white truncate">
+                                    {domainResult.ssl.issuer}
+                                  </p>
                                 </div>
                               )}
                               {domainResult.ssl.expires && (
                                 <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5">
                                   <p className="text-[10px] uppercase text-slate-500 mb-1">Expiration</p>
-                                  <p className="text-sm font-medium text-slate-900 dark:text-white">{domainResult.ssl.expires}</p>
+                                  <p className="text-sm font-medium text-slate-900 dark:text-white">
+                                    {domainResult.ssl.expires}
+                                  </p>
                                 </div>
                               )}
                             </div>
@@ -1050,7 +1283,10 @@ export default function DFIRPage() {
                               <div className="space-y-2">
                                 <p className="text-xs font-bold text-slate-500 uppercase">A Records (IPv4)</p>
                                 {domainResult.dns.A?.map((ip, i) => (
-                                  <div key={i} className="flex items-center gap-2 text-sm font-mono p-2 rounded-lg bg-slate-50 dark:bg-white/5">
+                                  <div
+                                    key={i}
+                                    className="flex items-center gap-2 text-sm font-mono p-2 rounded-lg bg-slate-50 dark:bg-white/5"
+                                  >
                                     <Server className="w-3 h-3 text-brand-500" /> {ip}
                                   </div>
                                 )) || <p className="text-xs text-slate-400">No records found</p>}
@@ -1058,7 +1294,10 @@ export default function DFIRPage() {
                               <div className="space-y-2">
                                 <p className="text-xs font-bold text-slate-500 uppercase">AAAA Records (IPv6)</p>
                                 {domainResult.dns.AAAA?.map((ip, i) => (
-                                  <div key={i} className="flex items-center gap-2 text-sm font-mono p-2 rounded-lg bg-slate-50 dark:bg-white/5">
+                                  <div
+                                    key={i}
+                                    className="flex items-center gap-2 text-sm font-mono p-2 rounded-lg bg-slate-50 dark:bg-white/5"
+                                  >
                                     <Server className="w-3 h-3 text-brand-500" /> {ip.slice(0, 20)}...
                                   </div>
                                 )) || <p className="text-xs text-slate-400">No records found</p>}
@@ -1069,11 +1308,21 @@ export default function DFIRPage() {
                         <div className="space-y-6">
                           <SecurityChecklist suggestions={domainResult.suggestions} />
                           <div className="p-6 rounded-2xl bg-slate-900 text-white shadow-xl">
-                            <h4 className="font-bold mb-4 flex items-center gap-2"><FileText className="w-5 h-5 text-brand-400" /> Raw Records</h4>
+                            <h4 className="font-bold mb-4 flex items-center gap-2">
+                              <FileText className="w-5 h-5 text-brand-400" /> Raw Records
+                            </h4>
                             <div className="space-y-3 font-mono text-[10px] opacity-80 overflow-hidden">
-                              {domainResult.spf.record && <div className="p-2 rounded bg-white/10 truncate">SPF: {domainResult.spf.record}</div>}
-                              {domainResult.dmarc.record && <div className="p-2 rounded bg-white/10 truncate">DMARC: {domainResult.dmarc.record}</div>}
-                              <div className="p-2 rounded bg-white/10">MX: {domainResult.mx.records[0]?.host || 'None'}</div>
+                              {domainResult.spf.record && (
+                                <div className="p-2 rounded bg-white/10 truncate">SPF: {domainResult.spf.record}</div>
+                              )}
+                              {domainResult.dmarc.record && (
+                                <div className="p-2 rounded bg-white/10 truncate">
+                                  DMARC: {domainResult.dmarc.record}
+                                </div>
+                              )}
+                              <div className="p-2 rounded bg-white/10">
+                                MX: {domainResult.mx.records[0]?.host || 'None'}
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -1086,24 +1335,57 @@ export default function DFIRPage() {
               {activeTab === 'analysis' && (
                 <div className="space-y-6">
                   <div className="flex gap-2 p-1 rounded-xl bg-slate-100 dark:bg-slate-800/50 w-fit">
-                    <button onClick={() => setAnalysisMode('ioc')} className={`px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 ${analysisMode === 'ioc' ? 'bg-white dark:bg-slate-700 text-brand-600 dark:text-brand-400 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'}`}><Hash className="w-4 h-4" /> IOC Check</button>
-                    <button onClick={() => setAnalysisMode('phishing')} className={`px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 ${analysisMode === 'phishing' ? 'bg-white dark:bg-slate-700 text-brand-600 dark:text-brand-400 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'}`}><Bug className="w-4 h-4" /> Phishing Analyzer</button>
+                    <button
+                      onClick={() => setAnalysisMode('ioc')}
+                      className={`px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 ${analysisMode === 'ioc' ? 'bg-white dark:bg-slate-700 text-brand-600 dark:text-brand-400 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'}`}
+                    >
+                      <Hash className="w-4 h-4" /> IOC Check
+                    </button>
+                    <button
+                      onClick={() => setAnalysisMode('phishing')}
+                      className={`px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 ${analysisMode === 'phishing' ? 'bg-white dark:bg-slate-700 text-brand-600 dark:text-brand-400 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'}`}
+                    >
+                      <Bug className="w-4 h-4" /> Phishing Analyzer
+                    </button>
                   </div>
 
                   <AnimatePresence mode="wait">
-                    <motion.div key={analysisMode} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
-
+                    <motion.div
+                      key={analysisMode}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
                       {analysisMode === 'ioc' && (
                         <div className="max-w-4xl mx-auto space-y-6">
                           <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
                             <div className="flex items-center gap-3 mb-4">
                               <Hash className="w-6 h-6 text-rose-500" />
-                              <h3 className="text-xl font-bold text-slate-900 dark:text-white">IOC Reputation Checker</h3>
+                              <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                                IOC Reputation Checker
+                              </h3>
                             </div>
                             <div className="flex gap-3">
-                              <input type="text" value={iocInput} onChange={(e) => setIocInput(e.target.value)} placeholder="Enter IP, domain, hash, or email" className="flex-1 px-4 py-3 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none transition-colors shadow-sm" onKeyDown={(e) => e.key === 'Enter' && checkIOC()} />
-                              <button onClick={checkIOC} disabled={iocLoading} className="px-6 py-3 rounded-xl bg-rose-600 hover:bg-rose-500 disabled:opacity-50 text-white font-semibold transition-all flex items-center gap-2 shadow-sm">
-                                {iocLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />} Check
+                              <input
+                                type="text"
+                                value={iocInput}
+                                onChange={(e) => setIocInput(e.target.value)}
+                                placeholder="Enter IP, domain, hash, or email"
+                                className="flex-1 px-4 py-3 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none transition-colors shadow-sm"
+                                onKeyDown={(e) => e.key === 'Enter' && checkIOC()}
+                              />
+                              <button
+                                onClick={checkIOC}
+                                disabled={iocLoading}
+                                className="px-6 py-3 rounded-xl bg-rose-600 hover:bg-rose-500 disabled:opacity-50 text-white font-semibold transition-all flex items-center gap-2 shadow-sm"
+                              >
+                                {iocLoading ? (
+                                  <Loader2 className="w-4 h-4 animate-spin" />
+                                ) : (
+                                  <Search className="w-4 h-4" />
+                                )}{' '}
+                                Check
                               </button>
                             </div>
                           </div>
@@ -1116,20 +1398,33 @@ export default function DFIRPage() {
                                     <h4 className="text-2xl font-black">{iocResult.verdict}</h4>
                                   </div>
                                   <div className="text-right">
-                                    <span className="text-xs uppercase tracking-wider text-slate-500">Threat Score</span>
+                                    <span className="text-xs uppercase tracking-wider text-slate-500">
+                                      Threat Score
+                                    </span>
                                     <p className="text-3xl font-bold">{iocResult.score}/100</p>
                                   </div>
                                 </div>
                                 <div className="flex flex-wrap gap-4 text-sm mb-4">
                                   <span className="text-slate-600 dark:text-slate-400">Type: {iocResult.type}</span>
-                                  {iocResult.tags.map(tag => (
-                                    <span key={tag} className="px-2 py-0.5 rounded bg-rose-500/10 text-rose-600 text-[10px] font-bold uppercase">{tag}</span>
+                                  {iocResult.tags.map((tag) => (
+                                    <span
+                                      key={tag}
+                                      className="px-2 py-0.5 rounded bg-rose-500/10 text-rose-600 text-[10px] font-bold uppercase"
+                                    >
+                                      {tag}
+                                    </span>
                                   ))}
                                 </div>
                                 {iocResult.defanged && (
                                   <div className="p-3 rounded-xl bg-white/40 dark:bg-black/20 border border-slate-200 dark:border-white/10 flex items-center justify-between gap-3">
-                                    <span className="text-xs font-mono text-slate-600 dark:text-slate-300 truncate select-all">Defanged: {iocResult.defanged}</span>
-                                    <button onClick={() => copyToClipboard(iocResult.defanged)} className="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-white/10 text-slate-500 transition-colors" title="Copy defanged indicator">
+                                    <span className="text-xs font-mono text-slate-600 dark:text-slate-300 truncate select-all">
+                                      Defanged: {iocResult.defanged}
+                                    </span>
+                                    <button
+                                      onClick={() => copyToClipboard(iocResult.defanged)}
+                                      className="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-white/10 text-slate-500 transition-colors"
+                                      title="Copy defanged indicator"
+                                    >
                                       <Copy className="w-4 h-4" />
                                     </button>
                                   </div>
@@ -1148,51 +1443,103 @@ export default function DFIRPage() {
                           <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
                             <div className="flex items-center gap-3 mb-4">
                               <Bug className="w-6 h-6 text-amber-500" />
-                              <h3 className="text-xl font-bold text-slate-900 dark:text-white">Phishing URL Analyzer</h3>
+                              <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                                Phishing URL Analyzer
+                              </h3>
                             </div>
                             <div className="flex gap-3">
                               <div className="relative flex-1">
                                 {showUrl ? (
-                                  <input type="text" value={phishingUrl} onChange={(e) => setPhishingUrl(e.target.value)} placeholder="Enter URL to analyze" className="w-full px-4 py-3 pr-10 rounded-xl bg-white dark:bg-slate-800/50 border border-amber-500/50 text-slate-900 dark:text-white focus:outline-none transition-colors shadow-sm" onKeyDown={(e) => e.key === 'Enter' && analyzePhishing()} />
+                                  <input
+                                    type="text"
+                                    value={phishingUrl}
+                                    onChange={(e) => setPhishingUrl(e.target.value)}
+                                    placeholder="Enter URL to analyze"
+                                    className="w-full px-4 py-3 pr-10 rounded-xl bg-white dark:bg-slate-800/50 border border-amber-500/50 text-slate-900 dark:text-white focus:outline-none transition-colors shadow-sm"
+                                    onKeyDown={(e) => e.key === 'Enter' && analyzePhishing()}
+                                  />
                                 ) : (
-                                  <input type="password" value={phishingUrl} onChange={(e) => setPhishingUrl(e.target.value)} placeholder="Enter URL to analyze" className="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none transition-colors shadow-sm" onKeyDown={(e) => e.key === 'Enter' && analyzePhishing()} />
+                                  <input
+                                    type="password"
+                                    value={phishingUrl}
+                                    onChange={(e) => setPhishingUrl(e.target.value)}
+                                    placeholder="Enter URL to analyze"
+                                    className="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none transition-colors shadow-sm"
+                                    onKeyDown={(e) => e.key === 'Enter' && analyzePhishing()}
+                                  />
                                 )}
-                                <button onClick={() => setShowUrl(!showUrl)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">{showUrl ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}</button>
+                                <button
+                                  onClick={() => setShowUrl(!showUrl)}
+                                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                                >
+                                  {showUrl ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                                </button>
                               </div>
-                              <button onClick={analyzePhishing} disabled={phishingLoading} className="px-6 py-3 rounded-xl bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-white font-semibold transition-all flex items-center gap-2 shadow-sm">
-                                {phishingLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Bug className="w-4 h-4" />} Analyze
+                              <button
+                                onClick={analyzePhishing}
+                                disabled={phishingLoading}
+                                className="px-6 py-3 rounded-xl bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-white font-semibold transition-all flex items-center gap-2 shadow-sm"
+                              >
+                                {phishingLoading ? (
+                                  <Loader2 className="w-4 h-4 animate-spin" />
+                                ) : (
+                                  <Bug className="w-4 h-4" />
+                                )}{' '}
+                                Analyze
                               </button>
                             </div>
                           </div>
 
                           {phishingResult && (
                             <div className="space-y-6">
-                              <div className={`p-8 rounded-3xl border-2 ${phishingResult.verdict === 'PHISHING' ? 'bg-rose-500/5 border-rose-500/30' : 'bg-amber-500/5 border-amber-500/30'} shadow-lg`}>
+                              <div
+                                className={`p-8 rounded-3xl border-2 ${phishingResult.verdict === 'PHISHING' ? 'bg-rose-500/5 border-rose-500/30' : 'bg-amber-500/5 border-amber-500/30'} shadow-lg`}
+                              >
                                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
                                   <div className="flex items-center gap-6">
-                                    <div className={`w-20 h-20 rounded-2xl flex items-center justify-center ${phishingResult.verdict === 'PHISHING' ? 'bg-rose-500 text-white' : 'bg-amber-500 text-white'}`}>
+                                    <div
+                                      className={`w-20 h-20 rounded-2xl flex items-center justify-center ${phishingResult.verdict === 'PHISHING' ? 'bg-rose-500 text-white' : 'bg-amber-500 text-white'}`}
+                                    >
                                       <Bug className="w-10 h-10" />
                                     </div>
                                     <div>
-                                      <span className="text-xs uppercase tracking-widest text-slate-500">Analysis Result</span>
-                                      <h4 className={`text-4xl font-black uppercase tracking-tight ${phishingResult.verdict === 'PHISHING' ? 'text-rose-600' : 'text-amber-600'}`}>
+                                      <span className="text-xs uppercase tracking-widest text-slate-500">
+                                        Analysis Result
+                                      </span>
+                                      <h4
+                                        className={`text-4xl font-black uppercase tracking-tight ${phishingResult.verdict === 'PHISHING' ? 'text-rose-600' : 'text-amber-600'}`}
+                                      >
                                         {phishingResult.verdict}
                                       </h4>
                                     </div>
                                   </div>
                                   <div className="text-left md:text-right p-4 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10">
-                                    <span className="text-xs uppercase tracking-widest text-slate-500">Confidence Score</span>
-                                    <p className="text-4xl font-black text-slate-900 dark:text-white">{phishingResult.confidence}%</p>
+                                    <span className="text-xs uppercase tracking-widest text-slate-500">
+                                      Confidence Score
+                                    </span>
+                                    <p className="text-4xl font-black text-slate-900 dark:text-white">
+                                      {phishingResult.confidence}%
+                                    </p>
                                   </div>
                                 </div>
 
                                 <div className="p-4 rounded-xl bg-white/60 dark:bg-black/20 border border-slate-200 dark:border-white/5 flex items-center gap-3 overflow-hidden">
                                   <Link2 className="w-5 h-5 text-slate-400 flex-shrink-0" />
-                                  <span className="text-sm font-mono text-slate-600 dark:text-slate-300 truncate select-all">{phishingResult.url}</span>
-                                  <button onClick={() => copyToClipboard(phishingResult.url)} className="p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-white/10 text-slate-500 transition-colors ml-auto" title="Copy URL">
+                                  <span className="text-sm font-mono text-slate-600 dark:text-slate-300 truncate select-all">
+                                    {phishingResult.url}
+                                  </span>
+                                  <button
+                                    onClick={() => copyToClipboard(phishingResult.url)}
+                                    className="p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-white/10 text-slate-500 transition-colors ml-auto"
+                                    title="Copy URL"
+                                  >
                                     <Copy className="w-4 h-4" />
                                   </button>
-                                  {phishingResult.additional_checks?.is_https ? <Lock className="w-4 h-4 text-emerald-500" /> : <ShieldAlert className="w-4 h-4 text-rose-500" />}
+                                  {phishingResult.additional_checks?.is_https ? (
+                                    <Lock className="w-4 h-4 text-emerald-500" />
+                                  ) : (
+                                    <ShieldAlert className="w-4 h-4 text-rose-500" />
+                                  )}
                                 </div>
                               </div>
 
@@ -1204,9 +1551,14 @@ export default function DFIRPage() {
                                     </h4>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                       {phishingResult.risk_factors.map((factor, idx) => (
-                                        <div key={idx} className="flex items-center gap-3 p-3 rounded-xl bg-rose-500/5 border border-rose-500/10">
+                                        <div
+                                          key={idx}
+                                          className="flex items-center gap-3 p-3 rounded-xl bg-rose-500/5 border border-rose-500/10"
+                                        >
                                           <div className="w-2 h-2 rounded-full bg-rose-500" />
-                                          <span className="text-sm text-slate-700 dark:text-slate-300 font-medium">{factor}</span>
+                                          <span className="text-sm text-slate-700 dark:text-slate-300 font-medium">
+                                            {factor}
+                                          </span>
                                         </div>
                                       ))}
                                     </div>
@@ -1214,10 +1566,15 @@ export default function DFIRPage() {
 
                                   {phishingResult.content_flags.length > 0 && (
                                     <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
-                                      <h4 className="font-bold text-slate-900 dark:text-white mb-4">Content Analysis Flags</h4>
+                                      <h4 className="font-bold text-slate-900 dark:text-white mb-4">
+                                        Content Analysis Flags
+                                      </h4>
                                       <div className="flex flex-wrap gap-2">
                                         {phishingResult.content_flags.map((flag, idx) => (
-                                          <span key={idx} className="px-3 py-1.5 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs font-bold uppercase tracking-wider">
+                                          <span
+                                            key={idx}
+                                            className="px-3 py-1.5 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs font-bold uppercase tracking-wider"
+                                          >
                                             {flag}
                                           </span>
                                         ))}
@@ -1233,11 +1590,19 @@ export default function DFIRPage() {
                                       {phishingResult.similar_domains?.map((item, idx) => (
                                         <div key={idx} className="flex flex-col gap-2">
                                           <div className="flex justify-between items-center text-sm">
-                                            <span className="font-mono text-slate-700 dark:text-slate-300">{item.domain}</span>
-                                            <span className="font-bold text-slate-500">{(item.similarity * 100).toFixed(0)}% Match</span>
+                                            <span className="font-mono text-slate-700 dark:text-slate-300">
+                                              {item.domain}
+                                            </span>
+                                            <span className="font-bold text-slate-500">
+                                              {(item.similarity * 100).toFixed(0)}% Match
+                                            </span>
                                           </div>
                                           <div className="h-1.5 bg-slate-200 dark:bg-white/5 rounded-full overflow-hidden">
-                                            <motion.div initial={{ width: 0 }} animate={{ width: `${item.similarity * 100}%` }} className="h-full bg-cyan-500" />
+                                            <motion.div
+                                              initial={{ width: 0 }}
+                                              animate={{ width: `${item.similarity * 100}%` }}
+                                              className="h-full bg-cyan-500"
+                                            />
                                           </div>
                                         </div>
                                       ))}
@@ -1253,7 +1618,13 @@ export default function DFIRPage() {
                                     <div className="space-y-3 text-xs">
                                       <div className="flex justify-between py-2 border-b border-slate-200 dark:border-white/5">
                                         <span className="text-slate-500">Secure Protocol</span>
-                                        <span className={phishingResult.additional_checks?.is_https ? 'text-emerald-500 font-bold' : 'text-rose-500 font-bold'}>
+                                        <span
+                                          className={
+                                            phishingResult.additional_checks?.is_https
+                                              ? 'text-emerald-500 font-bold'
+                                              : 'text-rose-500 font-bold'
+                                          }
+                                        >
                                           {phishingResult.additional_checks?.is_https ? 'HTTPS' : 'INSECURE HTTP'}
                                         </span>
                                       </div>
@@ -1290,31 +1661,57 @@ export default function DFIRPage() {
                       <h3 className="text-xl font-bold text-slate-900 dark:text-white">Data Exposure Scanner</h3>
                     </div>
                     <div className="flex gap-3">
-                      <input type="text" value={exposureQuery} onChange={(e) => setExposureQuery(e.target.value)} placeholder="Enter email or domain to check exposure" className="flex-1 px-4 py-3 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500 transition-colors shadow-sm" onKeyDown={(e) => e.key === 'Enter' && runExposureScan()} />
-                      <button onClick={runExposureScan} disabled={exposureLoading} className="px-6 py-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 disabled:opacity-50 text-white font-semibold transition-all flex items-center gap-2 shadow-sm">
-                        {exposureLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />} Scan
+                      <input
+                        type="text"
+                        value={exposureQuery}
+                        onChange={(e) => setExposureQuery(e.target.value)}
+                        placeholder="Enter email or domain to check exposure"
+                        className="flex-1 px-4 py-3 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500 transition-colors shadow-sm"
+                        onKeyDown={(e) => e.key === 'Enter' && runExposureScan()}
+                      />
+                      <button
+                        onClick={runExposureScan}
+                        disabled={exposureLoading}
+                        className="px-6 py-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 disabled:opacity-50 text-white font-semibold transition-all flex items-center gap-2 shadow-sm"
+                      >
+                        {exposureLoading ? (
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                        ) : (
+                          <Search className="w-4 h-4" />
+                        )}{' '}
+                        Scan
                       </button>
                     </div>
                   </div>
 
                   {exposureResult && (
                     <div className="space-y-6">
-                      <div className={`p-8 rounded-3xl border-2 ${exposureResult.risk_level === 'Critical' ? 'bg-rose-500/5 border-rose-500/30' : exposureResult.risk_level === 'High' ? 'bg-amber-500/5 border-amber-500/30' : 'bg-cyan-500/5 border-cyan-500/30'} shadow-lg`}>
+                      <div
+                        className={`p-8 rounded-3xl border-2 ${exposureResult.risk_level === 'Critical' ? 'bg-rose-500/5 border-rose-500/30' : exposureResult.risk_level === 'High' ? 'bg-amber-500/5 border-amber-500/30' : 'bg-cyan-500/5 border-cyan-500/30'} shadow-lg`}
+                      >
                         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                           <div className="flex items-center gap-6">
-                            <div className={`w-20 h-20 rounded-2xl flex items-center justify-center ${exposureResult.risk_level === 'Critical' ? 'bg-rose-500' : exposureResult.risk_level === 'High' ? 'bg-amber-500' : 'bg-cyan-500'} text-white`}>
+                            <div
+                              className={`w-20 h-20 rounded-2xl flex items-center justify-center ${exposureResult.risk_level === 'Critical' ? 'bg-rose-500' : exposureResult.risk_level === 'High' ? 'bg-amber-500' : 'bg-cyan-500'} text-white`}
+                            >
                               <Database className="w-10 h-10" />
                             </div>
                             <div>
-                              <span className="text-xs uppercase tracking-widest text-slate-500">Global Risk Level</span>
-                              <h4 className={`text-4xl font-black uppercase tracking-tight ${exposureResult.risk_level === 'Critical' ? 'text-rose-600' : exposureResult.risk_level === 'High' ? 'text-amber-600' : 'text-cyan-600'}`}>
+                              <span className="text-xs uppercase tracking-widest text-slate-500">
+                                Global Risk Level
+                              </span>
+                              <h4
+                                className={`text-4xl font-black uppercase tracking-tight ${exposureResult.risk_level === 'Critical' ? 'text-rose-600' : exposureResult.risk_level === 'High' ? 'text-amber-600' : 'text-cyan-600'}`}
+                              >
                                 {exposureResult.risk_level}
                               </h4>
                             </div>
                           </div>
                           <div className="text-left md:text-right p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10">
                             <span className="text-xs uppercase tracking-widest text-slate-500">Exposed Records</span>
-                            <p className="text-5xl font-black text-slate-900 dark:text-white">{exposureResult.total_exposed_records}</p>
+                            <p className="text-5xl font-black text-slate-900 dark:text-white">
+                              {exposureResult.total_exposed_records}
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -1327,11 +1724,18 @@ export default function DFIRPage() {
                             </h4>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                               {exposureResult.sources.map((source, idx) => (
-                                <div key={idx} className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-white/5 hover:border-brand-500/30 transition-colors">
+                                <div
+                                  key={idx}
+                                  className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-white/5 hover:border-brand-500/30 transition-colors"
+                                >
                                   <div className="flex justify-between items-start mb-3">
                                     <div>
-                                      <h5 className="font-bold text-slate-900 dark:text-white text-lg">{source.name}</h5>
-                                      <span className="px-2 py-0.5 rounded bg-brand-500/10 text-brand-600 dark:text-brand-400 text-[10px] font-bold uppercase">{source.category}</span>
+                                      <h5 className="font-bold text-slate-900 dark:text-white text-lg">
+                                        {source.name}
+                                      </h5>
+                                      <span className="px-2 py-0.5 rounded bg-brand-500/10 text-brand-600 dark:text-brand-400 text-[10px] font-bold uppercase">
+                                        {source.category}
+                                      </span>
                                     </div>
                                     <div className="text-right">
                                       <span className="text-2xl font-black text-rose-600">{source.records}</span>
@@ -1350,7 +1754,9 @@ export default function DFIRPage() {
                                   <Shield className="w-8 h-8 text-emerald-500" />
                                 </div>
                                 <h5 className="font-bold text-slate-900 dark:text-white">No Exposure Found</h5>
-                                <p className="text-sm text-slate-500">Your data was not found in our database of known breaches.</p>
+                                <p className="text-sm text-slate-500">
+                                  Your data was not found in our database of known breaches.
+                                </p>
                               </div>
                             )}
                           </div>
@@ -1358,11 +1764,17 @@ export default function DFIRPage() {
                         <div className="space-y-6">
                           <SecurityChecklist suggestions={exposureResult.suggestions} />
                           <div className="p-6 rounded-2xl bg-brand-600 text-white shadow-xl">
-                            <h4 className="font-bold mb-4 flex items-center gap-2"><Lock className="w-5 h-5" /> Safety First</h4>
+                            <h4 className="font-bold mb-4 flex items-center gap-2">
+                              <Lock className="w-5 h-5" /> Safety First
+                            </h4>
                             <p className="text-sm opacity-90 leading-relaxed">
-                              Finding your data in a breach doesn't mean you've been hacked, but it means your credentials for that service are public.
+                              Finding your data in a breach doesn't mean you've been hacked, but it means your
+                              credentials for that service are public.
                             </p>
-                            <button onClick={() => handleTabChange('privacy')} className="mt-6 w-full py-3 rounded-xl bg-white text-brand-600 font-bold text-sm hover:bg-slate-100 transition-colors">
+                            <button
+                              onClick={() => handleTabChange('privacy')}
+                              className="mt-6 w-full py-3 rounded-xl bg-white text-brand-600 font-bold text-sm hover:bg-slate-100 transition-colors"
+                            >
                               Check Browser Privacy
                             </button>
                           </div>
@@ -1375,13 +1787,26 @@ export default function DFIRPage() {
                     <div className="p-6 rounded-2xl bg-slate-100/50 dark:bg-slate-800/30 border border-slate-200 dark:border-white/5">
                       <div className="flex justify-between items-center mb-4">
                         <h4 className="font-bold text-slate-900 dark:text-white">Recent Scans</h4>
-                        <button onClick={clearHistory} className="text-xs text-slate-500 hover:text-rose-500 flex items-center gap-1"><Trash2 className="w-3 h-3" /> Clear</button>
+                        <button
+                          onClick={clearHistory}
+                          className="text-xs text-slate-500 hover:text-rose-500 flex items-center gap-1"
+                        >
+                          <Trash2 className="w-3 h-3" /> Clear
+                        </button>
                       </div>
                       <div className="space-y-2">
                         {exposureHistory.slice(0, 5).map((item, idx) => (
-                          <button key={idx} onClick={() => setExposureResult(item)} className="w-full flex justify-between items-center p-3 rounded-lg bg-white/60 dark:bg-white/5 hover:bg-white/80 dark:hover:bg-white/10 cursor-pointer transition-colors text-left">
+                          <button
+                            key={idx}
+                            onClick={() => setExposureResult(item)}
+                            className="w-full flex justify-between items-center p-3 rounded-lg bg-white/60 dark:bg-white/5 hover:bg-white/80 dark:hover:bg-white/10 cursor-pointer transition-colors text-left"
+                          >
                             <span className="text-sm font-mono text-slate-700 dark:text-slate-300">{item.query}</span>
-                            <span className={`text-xs font-semibold ${item.risk_level === 'Critical' ? 'text-rose-500' : 'text-amber-500'}`}>{item.risk_level} ({item.total_exposed_records} records)</span>
+                            <span
+                              className={`text-xs font-semibold ${item.risk_level === 'Critical' ? 'text-rose-500' : 'text-amber-500'}`}
+                            >
+                              {item.risk_level} ({item.total_exposed_records} records)
+                            </span>
                           </button>
                         ))}
                       </div>
@@ -1395,8 +1820,15 @@ export default function DFIRPage() {
                   <div className="p-8 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-center shadow-sm">
                     <Lock className="w-12 h-12 text-brand-600 dark:text-brand-400 mx-auto mb-4" />
                     <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Browser Privacy Check</h3>
-                    <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-lg mx-auto">Analyze what your browser reveals to websites, including fingerprinting, IP leaks, and security settings.</p>
-                    <button onClick={runPrivacyCheck} disabled={privacyLoading} className="px-8 py-4 rounded-xl bg-brand-600 hover:bg-brand-500 disabled:opacity-50 text-white font-bold transition-all shadow-md">
+                    <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-lg mx-auto">
+                      Analyze what your browser reveals to websites, including fingerprinting, IP leaks, and security
+                      settings.
+                    </p>
+                    <button
+                      onClick={runPrivacyCheck}
+                      disabled={privacyLoading}
+                      className="px-8 py-4 rounded-xl bg-brand-600 hover:bg-brand-500 disabled:opacity-50 text-white font-bold transition-all shadow-md"
+                    >
                       {privacyLoading ? 'Analyzing Browser...' : 'Run Privacy Scan'}
                     </button>
                   </div>
@@ -1407,16 +1839,34 @@ export default function DFIRPage() {
                         <div className="p-8 rounded-3xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm flex flex-col items-center justify-center text-center">
                           <div className="relative w-32 h-32 mb-4">
                             <svg className="w-full h-full" viewBox="0 0 36 36">
-                              <path className="text-slate-200 dark:text-white/5 stroke-current" strokeWidth="3" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                              <path className="text-brand-500 stroke-current" strokeWidth="3" strokeDasharray={`${privacyResult.score}, 100`} strokeLinecap="round" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                              <path
+                                className="text-slate-200 dark:text-white/5 stroke-current"
+                                strokeWidth="3"
+                                fill="none"
+                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                              />
+                              <path
+                                className="text-brand-500 stroke-current"
+                                strokeWidth="3"
+                                strokeDasharray={`${privacyResult.score}, 100`}
+                                strokeLinecap="round"
+                                fill="none"
+                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                              />
                             </svg>
                             <div className="absolute inset-0 flex flex-col items-center justify-center">
-                              <span className="text-4xl font-black text-slate-900 dark:text-white">{privacyResult.score}</span>
+                              <span className="text-4xl font-black text-slate-900 dark:text-white">
+                                {privacyResult.score}
+                              </span>
                               <span className="text-[10px] uppercase font-bold text-slate-500">Score</span>
                             </div>
                           </div>
-                          <h4 className="text-2xl font-bold text-slate-900 dark:text-white">Privacy Grade: {privacyResult.grade}</h4>
-                          <p className="text-sm text-slate-500 mt-2">Based on {Object.keys(privacyResult.categories).length} automated checks</p>
+                          <h4 className="text-2xl font-bold text-slate-900 dark:text-white">
+                            Privacy Grade: {privacyResult.grade}
+                          </h4>
+                          <p className="text-sm text-slate-500 mt-2">
+                            Based on {Object.keys(privacyResult.categories).length} automated checks
+                          </p>
                         </div>
 
                         <div className="lg:col-span-2 p-8 rounded-3xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
@@ -1426,10 +1876,16 @@ export default function DFIRPage() {
                               <div key={key} className="space-y-2">
                                 <div className="flex justify-between text-xs font-bold text-slate-500 uppercase tracking-wider">
                                   <span>{key.replace(/([A-Z])/g, ' $1')}</span>
-                                  <span className={cat.score >= 80 ? 'text-emerald-500' : 'text-amber-500'}>{cat.score}%</span>
+                                  <span className={cat.score >= 80 ? 'text-emerald-500' : 'text-amber-500'}>
+                                    {cat.score}%
+                                  </span>
                                 </div>
                                 <div className="h-2 bg-slate-200 dark:bg-white/5 rounded-full overflow-hidden">
-                                  <motion.div initial={{ width: 0 }} animate={{ width: `${(cat.score / cat.maxScore) * 100}%` }} className={`h-full ${cat.score >= 80 ? 'bg-emerald-500' : cat.score >= 50 ? 'bg-amber-500' : 'bg-rose-500'}`} />
+                                  <motion.div
+                                    initial={{ width: 0 }}
+                                    animate={{ width: `${(cat.score / cat.maxScore) * 100}%` }}
+                                    className={`h-full ${cat.score >= 80 ? 'bg-emerald-500' : cat.score >= 50 ? 'bg-amber-500' : 'bg-rose-500'}`}
+                                  />
                                 </div>
                               </div>
                             ))}
@@ -1445,19 +1901,50 @@ export default function DFIRPage() {
                             </h4>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                               {[
-                                { label: 'Operating System', value: privacyResult.categories.fingerprinting.details.platform, icon: Server },
-                                { label: 'Web Browser', value: privacyResult.categories.fingerprinting.details.browser, icon: Globe },
-                                { label: 'System Language', value: privacyResult.categories.fingerprinting.details.language, icon: Activity },
-                                { label: 'CPU Cores', value: privacyResult.categories.fingerprinting.details.hardwareConcurrency, icon: Hash },
-                                { label: 'Screen Resolution', value: privacyResult.categories.fingerprinting.details.screenResolution, icon: ExternalLink },
-                                { label: 'Canvas Hash', value: privacyResult.categories.fingerprinting.details.canvasHash ? 'UNMASKED' : 'PROTECTED', status: !privacyResult.categories.fingerprinting.details.canvasHash },
+                                {
+                                  label: 'Operating System',
+                                  value: privacyResult.categories.fingerprinting.details.platform,
+                                  icon: Server,
+                                },
+                                {
+                                  label: 'Web Browser',
+                                  value: privacyResult.categories.fingerprinting.details.browser,
+                                  icon: Globe,
+                                },
+                                {
+                                  label: 'System Language',
+                                  value: privacyResult.categories.fingerprinting.details.language,
+                                  icon: Activity,
+                                },
+                                {
+                                  label: 'CPU Cores',
+                                  value: privacyResult.categories.fingerprinting.details.hardwareConcurrency,
+                                  icon: Hash,
+                                },
+                                {
+                                  label: 'Screen Resolution',
+                                  value: privacyResult.categories.fingerprinting.details.screenResolution,
+                                  icon: ExternalLink,
+                                },
+                                {
+                                  label: 'Canvas Hash',
+                                  value: privacyResult.categories.fingerprinting.details.canvasHash
+                                    ? 'UNMASKED'
+                                    : 'PROTECTED',
+                                  status: !privacyResult.categories.fingerprinting.details.canvasHash,
+                                },
                               ].map((item, i) => (
-                                <div key={i} className="flex justify-between items-center p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5">
+                                <div
+                                  key={i}
+                                  className="flex justify-between items-center p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5"
+                                >
                                   <div className="flex items-center gap-2 text-slate-500">
                                     {item.icon && <item.icon className="w-4 h-4" />}
                                     <span>{item.label}</span>
                                   </div>
-                                  <span className={`font-bold ${item.status === true ? 'text-emerald-500' : item.status === false ? 'text-rose-500' : 'text-slate-900 dark:text-slate-200'}`}>
+                                  <span
+                                    className={`font-bold ${item.status === true ? 'text-emerald-500' : item.status === false ? 'text-rose-500' : 'text-slate-900 dark:text-slate-200'}`}
+                                  >
                                     {item.value}
                                   </span>
                                 </div>
@@ -1466,13 +1953,19 @@ export default function DFIRPage() {
                           </div>
 
                           <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
-                            <h4 className="font-bold text-slate-900 dark:text-white mb-4">Connection & Network Security</h4>
+                            <h4 className="font-bold text-slate-900 dark:text-white mb-4">
+                              Connection & Network Security
+                            </h4>
                             <div className="space-y-3">
                               <div className="flex justify-between items-center p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/10">
                                 <div className="flex items-center gap-3">
-                                  <div className="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center text-white"><Lock className="w-5 h-5" /></div>
+                                  <div className="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center text-white">
+                                    <Lock className="w-5 h-5" />
+                                  </div>
                                   <div>
-                                    <p className="text-sm font-bold text-slate-900 dark:text-white">Encrypted Connection</p>
+                                    <p className="text-sm font-bold text-slate-900 dark:text-white">
+                                      Encrypted Connection
+                                    </p>
                                     <p className="text-xs text-slate-500">HTTPS protocol is enforced</p>
                                   </div>
                                 </div>
@@ -1480,13 +1973,23 @@ export default function DFIRPage() {
                               </div>
                               <div className="flex justify-between items-center p-4 rounded-xl bg-amber-500/5 border border-amber-500/10">
                                 <div className="flex items-center gap-3">
-                                  <div className="w-10 h-10 rounded-full bg-amber-500 flex items-center justify-center text-white"><EyeOff className="w-5 h-5" /></div>
+                                  <div className="w-10 h-10 rounded-full bg-amber-500 flex items-center justify-center text-white">
+                                    <EyeOff className="w-5 h-5" />
+                                  </div>
                                   <div>
                                     <p className="text-sm font-bold text-slate-900 dark:text-white">DNS over HTTPS</p>
-                                    <p className="text-xs text-slate-500">{privacyResult.categories.ipNetwork.details.dohEnabled ? 'Enabled & Secure' : 'Potentially unencrypted'}</p>
+                                    <p className="text-xs text-slate-500">
+                                      {privacyResult.categories.ipNetwork.details.dohEnabled
+                                        ? 'Enabled & Secure'
+                                        : 'Potentially unencrypted'}
+                                    </p>
                                   </div>
                                 </div>
-                                {privacyResult.categories.ipNetwork.details.dohEnabled ? <CheckCircle2 className="w-6 h-6 text-emerald-500" /> : <AlertTriangle className="w-6 h-6 text-amber-500" />}
+                                {privacyResult.categories.ipNetwork.details.dohEnabled ? (
+                                  <CheckCircle2 className="w-6 h-6 text-emerald-500" />
+                                ) : (
+                                  <AlertTriangle className="w-6 h-6 text-amber-500" />
+                                )}
                               </div>
                             </div>
                           </div>
@@ -1495,10 +1998,13 @@ export default function DFIRPage() {
                         <div className="space-y-6">
                           <SecurityChecklist suggestions={privacyResult.suggestions} />
                           <div className="p-6 rounded-2xl bg-slate-900 text-white shadow-xl overflow-hidden relative">
-                            <div className="absolute top-0 right-0 p-4 opacity-10"><Shield className="w-24 h-24 rotate-12" /></div>
+                            <div className="absolute top-0 right-0 p-4 opacity-10">
+                              <Shield className="w-24 h-24 rotate-12" />
+                            </div>
                             <h4 className="font-bold mb-2">Privacy Summary</h4>
                             <p className="text-sm opacity-80 leading-relaxed">
-                              Your browser reveals a unique fingerprint that can be used to track you across websites even without cookies.
+                              Your browser reveals a unique fingerprint that can be used to track you across websites
+                              even without cookies.
                             </p>
                             <div className="mt-4 p-3 rounded-lg bg-white/10 text-xs font-mono">
                               UA: {navigator.userAgent.slice(0, 50)}...
@@ -1514,57 +2020,148 @@ export default function DFIRPage() {
               {activeTab === 'threatIntel' && (
                 <div className="space-y-6">
                   <div className="flex gap-2 p-1 rounded-xl bg-slate-100 dark:bg-slate-800/50 w-fit">
-                    <button onClick={() => setThreatIntelMode('intel')} className={`px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 ${threatIntelMode === 'intel' ? 'bg-white dark:bg-slate-700 text-brand-600 dark:text-brand-400 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'}`}><Radar className="w-4 h-4" /> Threat Feeds</button>
-                    <button onClick={() => setThreatIntelMode('actors')} className={`px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 ${threatIntelMode === 'actors' ? 'bg-white dark:bg-slate-700 text-brand-600 dark:text-brand-400 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'}`}><Users className="w-4 h-4" /> Threat Actors</button>
+                    <button
+                      onClick={() => setThreatIntelMode('intel')}
+                      className={`px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 ${threatIntelMode === 'intel' ? 'bg-white dark:bg-slate-700 text-brand-600 dark:text-brand-400 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'}`}
+                    >
+                      <Radar className="w-4 h-4" /> Threat Feeds
+                    </button>
+                    <button
+                      onClick={() => setThreatIntelMode('actors')}
+                      className={`px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 ${threatIntelMode === 'actors' ? 'bg-white dark:bg-slate-700 text-brand-600 dark:text-brand-400 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'}`}
+                    >
+                      <Users className="w-4 h-4" /> Threat Actors
+                    </button>
                   </div>
 
                   <AnimatePresence mode="wait">
-                    <motion.div key={threatIntelMode} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
-
+                    <motion.div
+                      key={threatIntelMode}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
                       {threatIntelMode === 'intel' && (
                         <div className="space-y-6">
                           <div className="flex gap-2 p-1 rounded-xl bg-slate-100 dark:bg-slate-800/50 w-fit flex-wrap">
                             {['all', 'malware', 'vulnerability', 'phishing', 'threat-actor'].map((filter) => (
-                              <button key={filter} onClick={() => setIntelFilter(filter)} className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${intelFilter === filter ? 'bg-brand-600 text-white' : 'bg-white/40 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-white/60'}`}>{filter.charAt(0).toUpperCase() + filter.slice(1)}</button>
+                              <button
+                                key={filter}
+                                onClick={() => setIntelFilter(filter)}
+                                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${intelFilter === filter ? 'bg-brand-600 text-white' : 'bg-white/40 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-white/60'}`}
+                              >
+                                {filter.charAt(0).toUpperCase() + filter.slice(1)}
+                              </button>
                             ))}
-                            <button onClick={fetchThreatIntel} className="px-4 py-2 rounded-lg text-sm font-medium bg-white/40 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-white/60 flex items-center gap-2 transition-all ml-auto"><RefreshCw className="w-4 h-4" /> Refresh</button>
+                            <button
+                              onClick={fetchThreatIntel}
+                              className="px-4 py-2 rounded-lg text-sm font-medium bg-white/40 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-white/60 flex items-center gap-2 transition-all ml-auto"
+                            >
+                              <RefreshCw className="w-4 h-4" /> Refresh
+                            </button>
                           </div>
 
                           {intelLoading ? (
-                            <div className="flex items-center justify-center py-20"><Loader2 className="w-8 h-8 text-brand-500 animate-spin" /></div>
+                            <div className="flex items-center justify-center py-20">
+                              <Loader2 className="w-8 h-8 text-brand-500 animate-spin" />
+                            </div>
                           ) : (
                             <div className="space-y-4">
-                              {intelItems.filter((item) => intelFilter === 'all' || item.type.toLowerCase().includes(intelFilter)).map((item) => (
-                                <div role="button" tabIndex={0} key={item.id} className={`p-6 rounded-2xl bg-white/40 dark:bg-white/5 border transition-all cursor-pointer ${item.read ? 'border-slate-200 dark:border-white/5 opacity-75' : 'border-slate-200 dark:border-white/10 hover:border-brand-500/50'}`} onClick={() => { setExpandedIntel(expandedIntel === item.id ? null : item.id); if (!item.read) markIntelAsRead(item.id); }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { setExpandedIntel(expandedIntel === item.id ? null : item.id); if (!item.read) markIntelAsRead(item.id); } }}>
-                                  <div className="flex justify-between items-start mb-3">
-                                    <div className="flex-1">
-                                      <div className="flex items-center gap-2 mb-2">
-                                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${item.severity === 'Critical' ? 'bg-rose-500/10 text-rose-600' : item.severity === 'High' ? 'bg-amber-500/10 text-amber-600' : 'bg-cyan-500/10 text-cyan-600'}`}>{item.severity}</span>
-                                        <span className="text-xs text-slate-500">{item.source}</span>
-                                        {!item.read && <span className="w-2 h-2 rounded-full bg-brand-500" />}
-                                      </div>
-                                      <h4 className="text-lg font-bold text-slate-900 dark:text-white">{item.title}</h4>
-                                    </div>
-                                    <div className="flex items-center gap-2"><span className="text-xs text-slate-500">{new Date(item.published).toLocaleDateString()}</span><ChevronRight className={`w-5 h-5 text-slate-400 transition-transform ${expandedIntel === item.id ? 'rotate-90' : ''}`} /></div>
-                                  </div>
-                                  {expandedIntel === item.id && (
-                                    <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="space-y-4 mt-4 pt-4 border-t border-slate-100 dark:border-white/5">
-                                      <p className="text-sm text-slate-600 dark:text-slate-400">{item.description}</p>
-                                      {item.indicators && item.indicators.length > 0 && (
-                                        <div>
-                                          <h5 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Indicators</h5>
-                                          <div className="flex flex-wrap gap-2">
-                                            {item.indicators.map((ind, idx) => (
-                                              <button key={idx} onClick={(e) => { e.stopPropagation(); copyToClipboard(ind); }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.stopPropagation(); copyToClipboard(ind); } }} className="px-3 py-1 rounded-lg bg-slate-100 dark:bg-white/10 font-mono text-xs text-slate-700 dark:text-slate-300 hover:bg-brand-500/10 hover:text-brand-600 cursor-pointer transition-colors flex items-center gap-1"><Copy className="w-3 h-3" />{ind}</button>
-                                            ))}
-                                          </div>
+                              {intelItems
+                                .filter(
+                                  (item) => intelFilter === 'all' || item.type.toLowerCase().includes(intelFilter)
+                                )
+                                .map((item) => (
+                                  <div
+                                    role="button"
+                                    tabIndex={0}
+                                    key={item.id}
+                                    className={`p-6 rounded-2xl bg-white/40 dark:bg-white/5 border transition-all cursor-pointer ${item.read ? 'border-slate-200 dark:border-white/5 opacity-75' : 'border-slate-200 dark:border-white/10 hover:border-brand-500/50'}`}
+                                    onClick={() => {
+                                      setExpandedIntel(expandedIntel === item.id ? null : item.id);
+                                      if (!item.read) markIntelAsRead(item.id);
+                                    }}
+                                    onKeyDown={(e) => {
+                                      if (e.key === 'Enter' || e.key === ' ') {
+                                        setExpandedIntel(expandedIntel === item.id ? null : item.id);
+                                        if (!item.read) markIntelAsRead(item.id);
+                                      }
+                                    }}
+                                  >
+                                    <div className="flex justify-between items-start mb-3">
+                                      <div className="flex-1">
+                                        <div className="flex items-center gap-2 mb-2">
+                                          <span
+                                            className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${item.severity === 'Critical' ? 'bg-rose-500/10 text-rose-600' : item.severity === 'High' ? 'bg-amber-500/10 text-amber-600' : 'bg-cyan-500/10 text-cyan-600'}`}
+                                          >
+                                            {item.severity}
+                                          </span>
+                                          <span className="text-xs text-slate-500">{item.source}</span>
+                                          {!item.read && <span className="w-2 h-2 rounded-full bg-brand-500" />}
                                         </div>
-                                      )}
-                                      <a href={isSafeUrl(item.link) ? item.link : '#'} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="inline-flex items-center gap-2 text-sm text-brand-600 dark:text-brand-400 hover:underline">View Source <ExternalLink className="w-4 h-4" /></a>
-                                    </motion.div>
-                                  )}
-                                </div>
-                              ))}
+                                        <h4 className="text-lg font-bold text-slate-900 dark:text-white">
+                                          {item.title}
+                                        </h4>
+                                      </div>
+                                      <div className="flex items-center gap-2">
+                                        <span className="text-xs text-slate-500">
+                                          {new Date(item.published).toLocaleDateString()}
+                                        </span>
+                                        <ChevronRight
+                                          className={`w-5 h-5 text-slate-400 transition-transform ${expandedIntel === item.id ? 'rotate-90' : ''}`}
+                                        />
+                                      </div>
+                                    </div>
+                                    {expandedIntel === item.id && (
+                                      <motion.div
+                                        initial={{ opacity: 0, height: 0 }}
+                                        animate={{ opacity: 1, height: 'auto' }}
+                                        exit={{ opacity: 0, height: 0 }}
+                                        className="space-y-4 mt-4 pt-4 border-t border-slate-100 dark:border-white/5"
+                                      >
+                                        <p className="text-sm text-slate-600 dark:text-slate-400">{item.description}</p>
+                                        {item.indicators && item.indicators.length > 0 && (
+                                          <div>
+                                            <h5 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+                                              Indicators
+                                            </h5>
+                                            <div className="flex flex-wrap gap-2">
+                                              {item.indicators.map((ind, idx) => (
+                                                <button
+                                                  key={idx}
+                                                  onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    copyToClipboard(ind);
+                                                  }}
+                                                  onKeyDown={(e) => {
+                                                    if (e.key === 'Enter' || e.key === ' ') {
+                                                      e.stopPropagation();
+                                                      copyToClipboard(ind);
+                                                    }
+                                                  }}
+                                                  className="px-3 py-1 rounded-lg bg-slate-100 dark:bg-white/10 font-mono text-xs text-slate-700 dark:text-slate-300 hover:bg-brand-500/10 hover:text-brand-600 cursor-pointer transition-colors flex items-center gap-1"
+                                                >
+                                                  <Copy className="w-3 h-3" />
+                                                  {ind}
+                                                </button>
+                                              ))}
+                                            </div>
+                                          </div>
+                                        )}
+                                        <a
+                                          href={isSafeUrl(item.link) ? item.link : '#'}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          onClick={(e) => e.stopPropagation()}
+                                          className="inline-flex items-center gap-2 text-sm text-brand-600 dark:text-brand-400 hover:underline"
+                                        >
+                                          View Source <ExternalLink className="w-4 h-4" />
+                                        </a>
+                                      </motion.div>
+                                    )}
+                                  </div>
+                                ))}
                             </div>
                           )}
                         </div>
@@ -1574,23 +2171,55 @@ export default function DFIRPage() {
                         <div className="space-y-6">
                           <div className="relative">
                             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-                            <input type="text" value={actorSearch} onChange={(e) => setActorSearch(e.target.value)} placeholder="Search threat actors..." className="w-full pl-12 pr-4 py-3 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 transition-colors" />
+                            <input
+                              type="text"
+                              value={actorSearch}
+                              onChange={(e) => setActorSearch(e.target.value)}
+                              placeholder="Search threat actors..."
+                              className="w-full pl-12 pr-4 py-3 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 transition-colors"
+                            />
                           </div>
                           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {threatActors.filter((actor) => actor.name.toLowerCase().includes(actorSearch.toLowerCase()) || actor.origin.toLowerCase().includes(actorSearch.toLowerCase())).map((actor) => (
-                              <div key={actor.name} className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm hover:border-brand-500/50 transition-all cursor-pointer">
-                                <div className="flex justify-between mb-4">
-                                  <span className={`px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider ${actor.status === 'Active' ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400' : 'bg-slate-500/10 text-slate-500'}`}>{actor.status === 'Active' ? '⚠ Active' : actor.status}</span>
-                                  <span className="text-[10px] text-cyan-600 dark:text-cyan-400 font-mono">{actor.motivation}</span>
+                            {threatActors
+                              .filter(
+                                (actor) =>
+                                  actor.name.toLowerCase().includes(actorSearch.toLowerCase()) ||
+                                  actor.origin.toLowerCase().includes(actorSearch.toLowerCase())
+                              )
+                              .map((actor) => (
+                                <div
+                                  key={actor.name}
+                                  className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm hover:border-brand-500/50 transition-all cursor-pointer"
+                                >
+                                  <div className="flex justify-between mb-4">
+                                    <span
+                                      className={`px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider ${actor.status === 'Active' ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400' : 'bg-slate-500/10 text-slate-500'}`}
+                                    >
+                                      {actor.status === 'Active' ? '⚠ Active' : actor.status}
+                                    </span>
+                                    <span className="text-[10px] text-cyan-600 dark:text-cyan-400 font-mono">
+                                      {actor.motivation}
+                                    </span>
+                                  </div>
+                                  <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-1">
+                                    {actor.name}
+                                  </h4>
+                                  <p className="text-xs text-slate-500 mb-4 font-mono">{actor.origin}</p>
+                                  <div className="flex flex-wrap gap-1 mb-4">
+                                    {actor.targets.slice(0, 2).map((target) => (
+                                      <span
+                                        key={target}
+                                        className="px-2 py-0.5 rounded-full bg-brand-500/10 text-brand-600 dark:text-brand-400 text-[10px]"
+                                      >
+                                        {target}
+                                      </span>
+                                    ))}
+                                  </div>
+                                  <button className="w-full py-2 rounded-lg bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/10 transition-colors flex items-center justify-center gap-2">
+                                    <FileSearch className="w-3 h-3" /> View Profile
+                                  </button>
                                 </div>
-                                <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-1">{actor.name}</h4>
-                                <p className="text-xs text-slate-500 mb-4 font-mono">{actor.origin}</p>
-                                <div className="flex flex-wrap gap-1 mb-4">
-                                  {actor.targets.slice(0, 2).map((target) => (<span key={target} className="px-2 py-0.5 rounded-full bg-brand-500/10 text-brand-600 dark:text-brand-400 text-[10px]">{target}</span>))}
-                                </div>
-                                <button className="w-full py-2 rounded-lg bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/10 transition-colors flex items-center justify-center gap-2"><FileSearch className="w-3 h-3" /> View Profile</button>
-                              </div>
-                            ))}
+                              ))}
                           </div>
                         </div>
                       )}
@@ -1605,11 +2234,22 @@ export default function DFIRPage() {
 
       <div className="mt-8 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-500">
         <div className="flex items-center gap-4">
-          <div className="w-48"><ConnectionStatus apiUrl={API_URL} /></div>
-          <span className="flex items-center gap-1"><Activity className="w-3 h-3" /> v2.2.0-stable</span>
+          <div className="w-48">
+            <ConnectionStatus apiUrl={API_URL} />
+          </div>
+          <span className="flex items-center gap-1">
+            <Activity className="w-3 h-3" /> v2.2.0-stable
+          </span>
         </div>
         <div className="flex items-center gap-4">
-          <a href="https://github.com/Pranith-Jain/DFIR-PLATFORM" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-brand-400 transition-colors">Documentation <ExternalLink className="w-3 h-3" /></a>
+          <a
+            href="https://github.com/Pranith-Jain/DFIR-PLATFORM"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1 hover:text-brand-400 transition-colors"
+          >
+            Documentation <ExternalLink className="w-3 h-3" />
+          </a>
           <span>© 2025 DFIR-PLATFORM</span>
         </div>
       </div>
