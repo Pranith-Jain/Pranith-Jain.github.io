@@ -3,20 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { ThemeToggle } from './ui/ThemeToggle';
 import { useFocusTrap } from '../hooks/useFocusTrap';
-
-interface NavItem {
-  label: string;
-  href: string;
-  children?: NavItem[];
-}
-
-const navItems: NavItem[] = [
-  { label: 'About', href: '/about' },
-  { label: 'Skills', href: '/skills' },
-  { label: 'Experience', href: '/experience' },
-  { label: 'Projects', href: '/projects' },
-  { label: 'DFIR Tools', href: '/dfir' },
-];
+import { navLinks } from '../data/content';
 
 interface HeaderProps {
   isDark: boolean;
@@ -158,7 +145,7 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
 
           {/* Desktop Navigation */}
           <nav className="hidden items-center gap-1 md:flex" role="navigation" aria-label="Main navigation">
-            {navItems.map((link) => (
+            {navLinks.filter(link => link.label !== 'Home').map((link) => (
               <div
                 key={link.href}
                 className="relative"
@@ -166,7 +153,7 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
                   if (el) dropdownRefs.current.set(link.href, el);
                 }}
               >
-                {link.children ? (
+                {'children' in link && link.children ? (
                   <>
                     <button
                       onClick={() => toggleDropdown(link.href)}
@@ -272,18 +259,7 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
             aria-label="Mobile navigation"
           >
             <div className="flex flex-col p-4 space-y-1">
-              <Link
-                to="/"
-                onClick={closeMobileMenu}
-                className={`rounded-lg px-4 py-3 text-sm font-medium block focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
-                  isActive('/')
-                    ? 'text-brand-600 dark:text-brand-400 bg-brand-500/10'
-                    : 'text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10'
-                }`}
-              >
-                Home
-              </Link>
-              {navItems.map((link) => (
+              {navLinks.map((link) => (
                 <div key={link.href}>
                   <Link
                     to={link.href}
@@ -296,9 +272,9 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
                   >
                     {link.label}
                   </Link>
-                  {link.children && (
+                  {'children' in link && link.children && (
                     <div className="ml-4 mt-1 space-y-1">
-                      {link.children.map((child) => (
+                      {link.children.map((child: any) => (
                         <Link
                           key={child.href}
                           to={child.href}

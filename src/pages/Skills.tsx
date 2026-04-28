@@ -1,5 +1,10 @@
-import { Skills } from '../components/sections';
+import { Skills, Certifications } from '../components/sections';
 
 export default function SkillsPage() {
-  return <Skills />;
+  return (
+    <>
+      <Skills />
+      <Certifications />
+    </>
+  );
 }
