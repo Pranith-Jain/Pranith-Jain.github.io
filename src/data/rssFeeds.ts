@@ -409,6 +409,8 @@ export const defaultFeeds = [
   'malwarebazaar',
   'securityweek',
   'darkreading',
+  'dfir-lab',
+  'dfir-radar',
 ];
 
 // Feed categories for filtering
