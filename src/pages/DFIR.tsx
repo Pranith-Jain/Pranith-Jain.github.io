@@ -33,6 +33,7 @@ import {
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { ConnectionStatus } from '../components/ConnectionStatus';
 import { fetchMultipleFeeds, formatRelativeTime } from '../services/rssService';
+import { useDFIRSettings } from '../hooks/useDFIRSettings';
 import { rssFeeds } from '../data/rssFeeds';
 
 const sanitizeText = (text: string): string => {
@@ -195,7 +196,6 @@ interface ActorDetail {
 
 type TabType = 'home' | 'domain' | 'analysis' | 'exposure' | 'privacy' | 'threatIntel';
 
-const API_URL = import.meta.env.VITE_DFIR_API_URL || '';
 
 // Helper functions for classifying threat intel items
 const getType = (title: string, description: string): string => {
@@ -219,6 +219,7 @@ const getSeverity = (title: string, description: string): string => {
 export default function DFIRPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [mounted, setMounted] = useState(false);
+  const { apiUrl, setApiUrl } = useDFIRSettings();
 
   const initialTab = (searchParams.get('tab') as TabType) || 'home';
   const [activeTab, setActiveTab] = useState<TabType>(initialTab);
@@ -573,8 +574,8 @@ export default function DFIRPage() {
     setIocLoading(true);
     setIocResult(null);
     try {
-      if (API_URL) {
-        const res = await fetch(`${API_URL}/api/v1/ioc/check`, {
+      if (apiUrl) {
+        const res = await fetch(`${apiUrl}/api/v1/ioc/check`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ indicator: iocInput }),
@@ -625,8 +626,8 @@ export default function DFIRPage() {
     setDomainLoading(true);
     setDomainResult(null);
     try {
-      if (API_URL) {
-        const res = await fetch(`${API_URL}/api/v1/domain/check`, {
+      if (apiUrl) {
+        const res = await fetch(`${apiUrl}/api/v1/domain/check`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ domain: domainInput }),
@@ -691,8 +692,8 @@ export default function DFIRPage() {
     setPhishingLoading(true);
     setPhishingResult(null);
     try {
-      if (API_URL) {
-        const res = await fetch(`${API_URL}/api/v1/phishing/analyze`, {
+      if (apiUrl) {
+        const res = await fetch(`${apiUrl}/api/v1/phishing/analyze`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ url: phishingUrl }),
@@ -790,8 +791,8 @@ export default function DFIRPage() {
     setExposureLoading(true);
     setExposureResult(null);
     try {
-      if (API_URL) {
-        const res = await fetch(`${API_URL}/api/v1/exposure/scan`, {
+      if (apiUrl) {
+        const res = await fetch(`${apiUrl}/api/v1/exposure/scan`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ query: exposureQuery }),
@@ -910,8 +911,8 @@ export default function DFIRPage() {
   const fetchThreatIntel = useCallback(async () => {
     setIntelLoading(true);
     try {
-      if (API_URL) {
-        const res = await fetch(`${API_URL}/api/v1/intel/feed`);
+      if (apiUrl) {
+        const res = await fetch(`${apiUrl}/api/v1/intel/feed`);
         if (res.ok) {
           const data = await res.json();
           // Handle nested feed structure from API (feeds array with nested items)
@@ -1052,8 +1053,8 @@ export default function DFIRPage() {
 
   const fetchActors = useCallback(async () => {
     try {
-      if (API_URL) {
-        const res = await fetch(`${API_URL}/api/v1/actors`);
+      if (apiUrl) {
+        const res = await fetch(`${apiUrl}/api/v1/actors`);
         if (res.ok) {
           const data = await res.json();
           const actors: ActorDetail[] = (data.actors || data.items || []).map((actor: any) => ({
@@ -1208,7 +1209,7 @@ export default function DFIRPage() {
                       <p className="text-slate-600 dark:text-slate-400 mb-6">
                         Functional security tools for domain analysis, IOC reputation checking, and threat intelligence.
                       </p>
-                      <ConnectionStatus apiUrl={API_URL} />
+                      <ConnectionStatus apiUrl={apiUrl} onApiUrlChange={setApiUrl} />
                       <div className="flex flex-wrap gap-4 mt-6">
                         <button
                           onClick={() => handleTabChange('domain')}
@@ -2364,7 +2365,7 @@ export default function DFIRPage() {
       <div className="mt-8 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-500">
         <div className="flex items-center gap-4">
           <div className="w-48">
-            <ConnectionStatus apiUrl={API_URL} />
+            <ConnectionStatus apiUrl={apiUrl} onApiUrlChange={setApiUrl} />
           </div>
           <span className="flex items-center gap-1">
             <Activity className="w-3 h-3" /> v2.2.0-stable

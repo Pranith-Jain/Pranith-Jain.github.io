@@ -1,17 +1,20 @@
 import { useState, useEffect, useCallback, memo } from 'react';
-import { Wifi, WifiOff, RefreshCw, AlertCircle, CheckCircle, Info } from 'lucide-react';
+import { Wifi, WifiOff, RefreshCw, AlertCircle, Settings, X, Check, Loader2 } from 'lucide-react';
 
 interface ConnectionStatusProps {
   apiUrl: string;
+  onApiUrlChange?: (url: string) => void;
   onConnectionChange?: (connected: boolean) => void;
 }
 
 type ConnectionState = 'checking' | 'connected' | 'disconnected' | 'error';
 
-export const ConnectionStatus = memo(function ConnectionStatus({ apiUrl, onConnectionChange }: ConnectionStatusProps) {
+export const ConnectionStatus = memo(function ConnectionStatus({ apiUrl, onApiUrlChange, onConnectionChange }: ConnectionStatusProps) {
   const [status, setStatus] = useState<ConnectionState>(apiUrl ? 'checking' : 'disconnected');
   const [lastChecked, setLastChecked] = useState<Date | null>(null);
   const [retryCount, setRetryCount] = useState(0);
+  const [isEditing, setIsEditing] = useState(false);
+  const [tempUrl, setTempUrl] = useState(apiUrl);
 
   const checkConnection = useCallback(async () => {
     if (!apiUrl) {
@@ -62,47 +65,118 @@ export const ConnectionStatus = memo(function ConnectionStatus({ apiUrl, onConne
     checkConnection();
   };
 
-  // No backend configured - show helpful offline message
+  const handleSaveUrl = () => {
+    if (tempUrl === apiUrl) {
+      setIsEditing(false);
+      return;
+    }
+    
+    if (tempUrl && !isValidUrl(tempUrl)) {
+      return;
+    }
+    
+    onApiUrlChange?.(tempUrl);
+    setIsEditing(false);
+  };
+
+  const handleCancelEdit = () => {
+    setTempUrl(apiUrl);
+    setIsEditing(false);
+  };
+
+  const isValidUrl = (url: string): boolean => {
+    if (!url) return true;
+    try {
+      const parsed = new URL(url);
+      return ['http:', 'https:'].includes(parsed.protocol);
+    } catch {
+      return false;
+    }
+  };
+
+  const startEditing = () => {
+    setTempUrl(apiUrl);
+    setIsEditing(true);
+  };
+
+  // Settings editing mode
+  if (isEditing) {
+    return (
+      <div className="p-4 rounded-lg bg-slate-100 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 space-y-3">
+        <div className="flex items-center gap-2">
+          <Settings className="w-4 h-4 text-slate-500" />
+          <p className="text-sm font-medium text-slate-600 dark:text-slate-300">API Settings</p>
+          <button
+            onClick={handleCancelEdit}
+            className="ml-auto p-1 rounded hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+            aria-label="Cancel"
+          >
+            <X className="w-4 h-4 text-slate-500" />
+          </button>
+        </div>
+        <div className="space-y-2">
+          <label className="text-xs text-slate-500 dark:text-slate-400 block">Backend API URL</label>
+          <input
+            type="text"
+            value={tempUrl}
+            onChange={(e) => setTempUrl(e.target.value)}
+            placeholder="https://api.example.com"
+            className={`w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-slate-900 border ${
+              tempUrl && !isValidUrl(tempUrl)
+                ? 'border-rose-500 dark:border-rose-400'
+                : 'border-slate-200 dark:border-slate-700'
+            } dark:text-white focus:outline-none focus:border-brand-500 transition-colors`}
+            autoFocus
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') handleSaveUrl();
+              if (e.key === 'Escape') handleCancelEdit();
+            }}
+          />
+          {tempUrl && !isValidUrl(tempUrl) && (
+            <p className="text-xs text-rose-500 dark:text-rose-400">URL must start with http:// or https://</p>
+          )}
+          <div className="text-xs text-slate-400 dark:text-slate-500">
+            Leave empty to use client-side tools only
+          </div>
+        </div>
+        <div className="flex gap-2">
+          <button
+            onClick={handleSaveUrl}
+            disabled={tempUrl !== '' && !isValidUrl(tempUrl)}
+            className="flex-1 py-2 px-3 rounded-lg bg-brand-600 hover:bg-brand-500 disabled:opacity-50 text-white text-sm font-medium transition-colors flex items-center justify-center gap-2"
+          >
+            <Check className="w-4 h-4" />
+            Save
+          </button>
+          <button
+            onClick={handleCancelEdit}
+            className="py-2 px-3 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 text-sm font-medium transition-colors"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // No backend configured - show simple offline message
   if (!apiUrl) {
     return (
       <div className="space-y-2">
         <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
           <WifiOff className="w-4 h-4 text-slate-500 dark:text-slate-400" />
-          <p className="text-xs font-medium text-slate-600 dark:text-slate-300">Client-Side Mode</p>
+          <div className="flex-1">
+            <p className="text-xs font-medium text-slate-600 dark:text-slate-300">Client-Side Mode</p>
+            <p className="text-[10px] text-slate-400 dark:text-slate-500">Live feeds require backend</p>
+          </div>
+          <button
+            onClick={startEditing}
+            className="p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+            aria-label="Configure API URL"
+          >
+            <Settings className="w-4 h-4 text-slate-500 dark:text-slate-400" />
+          </button>
         </div>
-        <div className="text-xs text-slate-500 dark:text-slate-400 space-y-1">
-          <div className="flex items-center gap-1.5">
-            <CheckCircle className="w-3 h-3 text-emerald-500" />
-            <span>IOC Check (offline)</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <CheckCircle className="w-3 h-3 text-emerald-500" />
-            <span>Domain Scan (offline)</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <CheckCircle className="w-3 h-3 text-emerald-500" />
-            <span>Phishing Analyzer (offline)</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <CheckCircle className="w-3 h-3 text-emerald-500" />
-            <span>Privacy Check (offline)</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <CheckCircle className="w-3 h-3 text-emerald-500" />
-            <span>Wiki / Knowledge Base</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <CheckCircle className="w-3 h-3 text-emerald-500" />
-            <span>Threat Actors Database</span>
-          </div>
-          <div className="flex items-center gap-1.5 text-amber-600 dark:text-amber-400">
-            <Info className="w-3 h-3" />
-            <span>Live Feeds (requires backend)</span>
-          </div>
-        </div>
-        <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-1">
-          Set VITE_DFIR_API_URL to enable live feeds
-        </p>
       </div>
     );
   }
@@ -132,7 +206,7 @@ export const ConnectionStatus = memo(function ConnectionStatus({ apiUrl, onConne
       )}
       {status === 'checking' && (
         <>
-          <RefreshCw className="w-4 h-4 text-blue-600 dark:text-blue-400 animate-spin" />
+          <Loader2 className="w-4 h-4 text-blue-600 dark:text-blue-400 animate-spin" />
           <p className="text-sm font-medium text-blue-800 dark:text-blue-200">Checking connection...</p>
         </>
       )}
@@ -163,6 +237,13 @@ export const ConnectionStatus = memo(function ConnectionStatus({ apiUrl, onConne
           </div>
         </>
       )}
+      <button
+        onClick={startEditing}
+        className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-colors ml-1"
+        aria-label="Configure API URL"
+      >
+        <Settings className="w-4 h-4 text-slate-500 dark:text-slate-400" />
+      </button>
     </div>
   );
 });

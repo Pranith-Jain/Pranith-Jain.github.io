@@ -36,6 +36,7 @@ import { Breadcrumbs } from '../Breadcrumbs';
 import { ConnectionStatus } from '../ConnectionStatus';
 
 import { useDFIRRoute } from '../../hooks/useDFIRRoute';
+import { useDFIRSettings } from '../../hooks/useDFIRSettings';
 
 // ============================================================================
 // SECURITY IMPROVEMENTS
@@ -227,11 +228,11 @@ type TabType =
   | 'knowledge' // MERGED: Wiki + Research
   | 'threatIntel'; // MERGED: Intel + Actors
 
-const API_URL = import.meta.env.VITE_DFIR_API_URL || '';
 
 export function DFIR() {
   const { tab: activeTab, setTab: setActiveTab } = useDFIRRoute();
   const [mounted, setMounted] = useState(false);
+  const { apiUrl, setApiUrl } = useDFIRSettings();
 
   // Tools States
   const [iocInput, setIocInput] = useState('');
@@ -686,8 +687,8 @@ export function DFIR() {
     setIocLoading(true);
     setIocResult(null);
     try {
-      if (API_URL) {
-        const res = await fetch(`${API_URL}/ioc/check`, {
+      if (apiUrl) {
+        const res = await fetch(`${apiUrl}/ioc/check`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ indicator: iocInput }),
@@ -891,8 +892,8 @@ export function DFIR() {
     setDomainLoading(true);
     setDomainResult(null);
     try {
-      if (API_URL) {
-        const res = await fetch(`${API_URL}/domain/check`, {
+      if (apiUrl) {
+        const res = await fetch(`${apiUrl}/domain/check`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ domain: domainInput }),
@@ -958,8 +959,8 @@ export function DFIR() {
     setPhishingLoading(true);
     setPhishingResult(null);
     try {
-      if (API_URL) {
-        const res = await fetch(`${API_URL}/phishing/analyze`, {
+      if (apiUrl) {
+        const res = await fetch(`${apiUrl}/phishing/analyze`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ url: phishingUrl }),
@@ -1005,8 +1006,8 @@ export function DFIR() {
     setExposureLoading(true);
     setExposureResult(null);
     try {
-      if (API_URL) {
-        const res = await fetch(`${API_URL}/exposure/scan`, {
+      if (apiUrl) {
+        const res = await fetch(`${apiUrl}/exposure/scan`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ query: exposureQuery }),
@@ -1220,7 +1221,7 @@ export function DFIR() {
                         This platform provides functional security tools for domain analysis, IOC reputation checking,
                         and threat intelligence gathering. Designed for security analysts and researchers.
                       </p>
-                      <ConnectionStatus apiUrl={API_URL} />
+                      <ConnectionStatus apiUrl={apiUrl} onApiUrlChange={setApiUrl} />
                       <div className="mt-4 flex items-start gap-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/30 border border-slate-200 dark:border-white/10">
                         <HelpCircle className="w-5 h-5 text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
                         <div>
@@ -2294,7 +2295,7 @@ export function DFIR() {
       <div className="mt-8 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-500">
         <div className="flex items-center gap-4">
           <div className="w-48">
-            <ConnectionStatus apiUrl={API_URL} />
+            <ConnectionStatus apiUrl={apiUrl} onApiUrlChange={setApiUrl} />
           </div>
           <span className="flex items-center gap-1">
             <Activity className="w-3 h-3" />

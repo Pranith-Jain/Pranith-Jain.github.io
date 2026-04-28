@@ -11,3 +11,4 @@ export {
   generateShareableLink,
   copyLinkToClipboard,
 } from './useDFIRRoute';
+export { useDFIRSettings } from './useDFIRSettings';
