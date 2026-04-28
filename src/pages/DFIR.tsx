@@ -24,7 +24,12 @@ import {
   Link2,
   Server,
   Activity,
+  Users,
+  ChevronRight,
   HelpCircle,
+  CheckCircle2,
+  XCircle,
+  FileText,
 } from 'lucide-react';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { ConnectionStatus } from '../components/ConnectionStatus';
@@ -45,6 +50,27 @@ const isSafeUrl = (url: string): boolean => {
   } catch {
     return false;
   }
+};
+
+const SecurityChecklist = ({ suggestions }: { suggestions?: string[] }) => {
+  if (!suggestions || suggestions.length === 0) return null;
+  return (
+    <div className="p-6 rounded-2xl bg-brand-500/5 border border-brand-500/20 shadow-sm">
+      <h4 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+        <Shield className="w-5 h-5 text-brand-500" /> Security Recommendations
+      </h4>
+      <div className="space-y-3">
+        {suggestions.map((s, i) => (
+          <div key={i} className="flex items-start gap-3 text-sm">
+            <div className="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-brand-500/20 flex items-center justify-center">
+              <CheckCircle2 className="w-3 h-3 text-brand-600 dark:text-brand-400" />
+            </div>
+            <span className="text-slate-700 dark:text-slate-300">{s}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 interface IOCResult {
@@ -70,6 +96,8 @@ interface DomainResult {
   ssl: { valid: boolean; issuer?: string; expires?: string };
   dns: { A?: string[]; AAAA?: string[] };
   dnssec?: { found: boolean };
+  suggestions?: string[];
+  additional_checks?: Record<string, any>;
 }
 
 interface PrivacyCategory {
@@ -84,6 +112,11 @@ interface PrivacyCategory {
     dnt?: boolean;
     https?: boolean;
     trackerBlocker?: boolean;
+    browser?: string;
+    language?: string;
+    cookiesEnabled?: boolean;
+    hardwareConcurrency?: number;
+    screenResolution?: string;
   };
 }
 
@@ -99,6 +132,7 @@ interface PrivacyResult {
     connectionSecurity: PrivacyCategory;
     trackingProtection: PrivacyCategory;
   };
+  suggestions?: string[];
 }
 
 interface PhishingResult {
@@ -109,6 +143,8 @@ interface PhishingResult {
   final_url?: string;
   content_flags: string[];
   similar_domains?: Array<{ domain: string; similarity: number }>;
+  suggestions?: string[];
+  additional_checks?: Record<string, any>;
 }
 
 interface ExposureResult {
@@ -123,6 +159,7 @@ interface ExposureResult {
   }>;
   severity: string;
   risk_level: string;
+  suggestions?: string[];
 }
 
 interface ThreatIntelItem {
@@ -292,20 +329,76 @@ export default function DFIRPage() {
   const suspiciousTLDs = ['xyz', 'top', 'click', 'link', 'work', 'ru', 'cn', 'tk', 'ml', 'ga', 'cf', 'gq'];
   const suspiciousPatterns = ['login', 'verify', 'secure', 'account', 'update', 'support', 'alert', 'signin', 'auth'];
 
-  const calculateDomainScore = (domain: string): { score: number; health_score: string; verdict: string } => {
+  const generateSecuritySuggestions = (type: string, data: any): string[] => {
+    const suggestions: string[] = [];
+    if (type === 'domain') {
+      const res = data as DomainResult;
+      if (res.score < 80) suggestions.push('Improve domain security score by configuring missing records.');
+      if (!res.spf.found) suggestions.push('Configure SPF record to prevent email spoofing.');
+      if (!res.dmarc.found) suggestions.push('Implement DMARC policy (p=quarantine or p=reject).');
+      if (!res.dkim[0]?.found) suggestions.push('Enable DKIM signing for outgoing emails.');
+      if (!res.dnssec?.found) suggestions.push('Enable DNSSEC to protect against DNS spoofing.');
+      if (!res.ssl.valid) suggestions.push('Install a valid SSL/TLS certificate.');
+    } else if (type === 'phishing') {
+      const res = data as PhishingResult;
+      if (res.verdict === 'PHISHING') {
+        suggestions.push('Report this URL to Google Safe Browsing.');
+        suggestions.push('Block this domain at the firewall/DNS level.');
+        suggestions.push('Alert users about this specific phishing campaign.');
+      } else if (res.verdict === 'SUSPICIOUS') {
+        suggestions.push('Exercise caution before entering any credentials.');
+        suggestions.push('Verify the identity of the sender/source.');
+      }
+    } else if (type === 'exposure') {
+      const res = data as ExposureResult;
+      if (res.total_exposed_records > 0) {
+        suggestions.push('Change passwords for any accounts associated with this email.');
+        suggestions.push('Enable Multi-Factor Authentication (MFA) everywhere.');
+        suggestions.push('Monitor financial statements for suspicious activity.');
+      }
+    } else if (type === 'privacy') {
+      const res = data as PrivacyResult;
+      if (res.score < 80) {
+        suggestions.push('Use a privacy-focused browser like Brave or Firefox.');
+        suggestions.push('Enable "Do Not Track" in your browser settings.');
+        suggestions.push('Use a reputable VPN to mask your IP address.');
+        suggestions.push('Install tracker-blocking extensions (uBlock Origin).');
+      }
+    }
+    return suggestions;
+  };
+
+  const calculateDomainScore = (domain: string): { score: number; health_score: string; verdict: string; additional_checks: any } => {
     const normalizedDomain = domain.toLowerCase().trim();
     const isTrusted = trustedDomains.some((td) => normalizedDomain === td || normalizedDomain.endsWith('.' + td));
-    if (isTrusted) return { score: 95, health_score: 'Excellent', verdict: 'Secure' };
+    if (isTrusted) return { score: 95, health_score: 'Excellent', verdict: 'Secure', additional_checks: { is_trusted: true, entropy: 2.5 } };
 
     let score = 70;
-    const tld = normalizedDomain.split('.').pop() || '';
-    if (suspiciousTLDs.includes(tld)) score -= 10;
+    const parts = normalizedDomain.split('.');
+    const tld = parts.pop() || '';
+    const mainPart = parts.join('.');
+    
+    if (suspiciousTLDs.includes(tld)) score -= 15;
     const hasSuspiciousPattern = suspiciousPatterns.some((p) => normalizedDomain.includes(p));
-    if (hasSuspiciousPattern && normalizedDomain.length < 15) score -= 15;
+    if (hasSuspiciousPattern) score -= 20;
+
+    // Entropy calculation
+    const charCounts: Record<string, number> = {};
+    for (const char of mainPart) { charCounts[char] = (charCounts[char] || 0) + 1; }
+    let entropy = 0;
+    for (const char in charCounts) {
+      const p = charCounts[char] / mainPart.length;
+      entropy -= p * Math.log2(p);
+    }
+    if (entropy > 3.8) score -= 20;
+
     const homoglyphs = /[а-яА-Я]|[οοΟΟ]|[рР]|[сС]|[уУ]|[хХ]/;
-    if (homoglyphs.test(normalizedDomain)) score = Math.max(score - 40, 10);
+    if (homoglyphs.test(normalizedDomain)) score = Math.max(score - 45, 10);
+    
+    if (normalizedDomain.length > 25) score -= 10;
     const hyphenCount = (normalizedDomain.match(/-/g) || []).length;
     if (hyphenCount >= 3) score -= 15;
+    
     score = Math.max(Math.min(score, 100), 0);
 
     let health_score = 'Good', verdict = 'Good';
@@ -315,7 +408,15 @@ export default function DFIRPage() {
     else if (score >= 20) { health_score = 'Poor'; verdict = 'Suspicious'; }
     else { health_score = 'Critical'; verdict = 'Likely Malicious'; }
 
-    return { score, health_score, verdict };
+    return { 
+      score, health_score, verdict, 
+      additional_checks: { 
+        entropy: Number(entropy.toFixed(2)),
+        length: normalizedDomain.length,
+        has_homoglyphs: homoglyphs.test(normalizedDomain),
+        is_suspicious_tld: suspiciousTLDs.includes(tld)
+      } 
+    };
   };
 
   const checkDomain = async () => {
@@ -330,12 +431,15 @@ export default function DFIRPage() {
           body: JSON.stringify({ domain: domainInput }),
         });
         const data = await res.json();
-        setDomainResult(data);
+        setDomainResult({
+          ...data,
+          suggestions: generateSecuritySuggestions('domain', data)
+        });
       } else {
         await new Promise((r) => setTimeout(r, 1500));
         const domain = domainInput.toLowerCase().trim();
-        const { score, health_score, verdict } = calculateDomainScore(domain);
-        setDomainResult({
+        const { score, health_score, verdict, additional_checks } = calculateDomainScore(domain);
+        const result: DomainResult = {
           domain, score, verdict, generated: new Date().toISOString(), health_score,
           blacklist: score < 60 ? [{ ip: '93.184.216.34', listed: score < 40, blacklists: score < 40 ? ['spamhaus', 'surbl'] : [] }] : [],
           mx: { records: score >= 60 ? [{ priority: 10, host: 'aspmx.l.google.com' }, { priority: 20, host: 'alt1.aspmx.l.google.com' }] : [] },
@@ -345,7 +449,10 @@ export default function DFIRPage() {
           ssl: { valid: score >= 40, issuer: score >= 40 ? 'Google Trust Services' : undefined, expires: score >= 40 ? '2026-01-01' : undefined },
           dns: { A: score >= 30 ? ['142.250.185.78'] : undefined, AAAA: score >= 30 ? ['2607:f8b0:4004:800::200e'] : undefined },
           dnssec: { found: score >= 80 },
-        });
+          additional_checks
+        };
+        result.suggestions = generateSecuritySuggestions('domain', result);
+        setDomainResult(result);
       }
     } catch { setDomainResult(null); }
     setDomainLoading(false);
@@ -363,24 +470,36 @@ export default function DFIRPage() {
           body: JSON.stringify({ url: phishingUrl }),
         });
         const data = await res.json();
-        setPhishingResult(data);
+        setPhishingResult({
+          ...data,
+          suggestions: generateSecuritySuggestions('phishing', data)
+        });
       } else {
         await new Promise((r) => setTimeout(r, 2000));
         const url = phishingUrl.toLowerCase();
-        const isPhishing = url.includes('login') || url.includes('signin') || url.includes('verify') || url.includes('secure');
+        const isPhishing = url.includes('login') || url.includes('signin') || url.includes('verify') || url.includes('secure') || url.includes('update') || url.includes('account');
         const riskFactors: string[] = [];
-        if (url.includes('http://')) riskFactors.push('Insecure HTTP connection');
-        if (url.match(/\d{1,3}\.\d{1,3}\.\d{1,3}/)) riskFactors.push('IP address in URL');
-        if (url.includes('-')) riskFactors.push('Hyphenated domain (common in lookalikes)');
-        setPhishingResult({
+        if (url.includes('http://')) riskFactors.push('Insecure HTTP connection detected');
+        if (url.match(/\d{1,3}\.\d{1,3}\.\d{1,3}/)) riskFactors.push('URL contains an IP address instead of a domain');
+        if (url.includes('-') && (url.includes('google') || url.includes('microsoft') || url.includes('apple'))) riskFactors.push('Potential brand-spoofing with hyphenated domain');
+        if (url.length > 75) riskFactors.push('Excessively long URL (often used for obfuscation)');
+        
+        const result: PhishingResult = {
           url: phishingUrl,
-          verdict: isPhishing || riskFactors.length > 2 ? 'PHISHING' : 'SUSPICIOUS',
+          verdict: isPhishing || riskFactors.length > 2 ? 'PHISHING' : riskFactors.length > 0 ? 'SUSPICIOUS' : 'CLEAN',
           confidence: isPhishing ? 85 : riskFactors.length > 2 ? 70 : 45,
           risk_factors: riskFactors.length > 0 ? riskFactors : ['No obvious risk factors detected'],
-          final_url: url.replace('http://', 'https://'),
+          final_url: url.startsWith('http') ? url : 'https://' + url,
           content_flags: isPhishing ? ['Credential harvesting form', 'Fake login page'] : [],
           similar_domains: [{ domain: 'google.com', similarity: 0.85 }, { domain: 'microsoft.com', similarity: 0.72 }],
-        });
+          additional_checks: {
+            is_https: url.includes('https://'),
+            has_obfuscation: url.includes('%') || url.includes('@'),
+            subdomain_count: url.split('.').length - 2
+          }
+        };
+        result.suggestions = generateSecuritySuggestions('phishing', result);
+        setPhishingResult(result);
       }
     } catch { setPhishingResult(null); }
     setPhishingLoading(false);
@@ -398,23 +517,44 @@ export default function DFIRPage() {
           body: JSON.stringify({ query: exposureQuery }),
         });
         const data = await res.json();
-        setExposureResult(data);
-        setExposureHistory((prev) => [data, ...prev.slice(0, 9)]);
+        const result = {
+          ...data,
+          suggestions: generateSecuritySuggestions('exposure', data)
+        };
+        setExposureResult(result);
+        setExposureHistory((prev) => [result, ...prev.slice(0, 9)]);
       } else {
         await new Promise((r) => setTimeout(r, 2500));
+        
+        // Seeded random for consistent results
+        const seed = exposureQuery.toLowerCase().trim();
+        let hash = 0;
+        for (let i = 0; i < seed.length; i++) {
+          hash = ((hash << 5) - hash) + seed.charCodeAt(i);
+          hash |= 0;
+        }
+        const random = () => {
+          hash = (hash * 16807) % 2147483647;
+          return (hash - 1) / 2147483646;
+        };
+
+        const breachCount = Math.floor(random() * 8);
         const sources = [
-          { name: 'Have I Been Pwned', records: Math.floor(Math.random() * 5) + 1, date: '2024-03-15', category: 'Breach Data' },
-          { name: 'DeHashed', records: Math.floor(Math.random() * 3), date: '2024-02-20', category: 'Leaked Credentials' },
-          { name: 'LeakCheck', records: Math.floor(Math.random() * 2), date: '2024-01-10', category: 'Data Breach' },
-        ];
-        const exposureData = {
+          { name: 'Have I Been Pwned', records: Math.floor(random() * 5) + (breachCount > 0 ? 1 : 0), date: '2024-03-15', category: 'Breach Data' },
+          { name: 'DeHashed', records: Math.floor(random() * 3), date: '2024-02-20', category: 'Leaked Credentials' },
+          { name: 'LeakCheck', records: Math.floor(random() * 2), date: '2024-01-10', category: 'Data Breach' },
+        ].filter(s => s.records > 0);
+
+        const totalRecords = sources.reduce((acc, s) => acc + s.records, 0);
+        const exposureData: ExposureResult = {
           query: exposureQuery,
           type: exposureQuery.includes('@') ? 'Email' : 'Domain',
-          total_exposed_records: sources.reduce((acc, s) => acc + s.records, 0),
+          total_exposed_records: totalRecords,
           sources,
-          severity: sources.reduce((acc, s) => acc + s.records, 0) > 3 ? 'High' : 'Medium',
-          risk_level: sources.reduce((acc, s) => acc + s.records, 0) > 5 ? 'Critical' : 'Elevated',
+          severity: totalRecords > 5 ? 'High' : totalRecords > 0 ? 'Medium' : 'Low',
+          risk_level: totalRecords > 10 ? 'Critical' : totalRecords > 5 ? 'High' : totalRecords > 0 ? 'Elevated' : 'Safe',
         };
+        exposureData.suggestions = generateSecuritySuggestions('exposure', exposureData);
         setExposureResult(exposureData);
         setExposureHistory((prev) => [exposureData, ...prev.slice(0, 9)]);
       }
@@ -424,20 +564,49 @@ export default function DFIRPage() {
 
   const runPrivacyCheck = async () => {
     setPrivacyLoading(true);
-    await new Promise((r) => setTimeout(r, 1500));
-    setPrivacyResult({
-      score: 65,
+    await new Promise((r) => setTimeout(r, 2000));
+    
+    // Dynamic data from navigator API
+    const isDoNotTrack = navigator.doNotTrack === "1" || (navigator as any).msDoNotTrack === "1" || (window as any).doNotTrack === "1";
+    const cookiesEnabled = navigator.cookieEnabled;
+    const language = navigator.language;
+    const platform = navigator.platform;
+    const hardwareConcurrency = navigator.hardwareConcurrency || 0;
+    const screenResolution = `${window.screen.width}x${window.screen.height}`;
+    
+    const ua = navigator.userAgent;
+    let browser = "Unknown";
+    if (ua.includes("Firefox")) browser = "Firefox";
+    else if (ua.includes("Chrome")) browser = "Chrome";
+    else if (ua.includes("Safari")) browser = "Safari";
+    else if (ua.includes("Edge")) browser = "Edge";
+
+    const result: PrivacyResult = {
+      score: isDoNotTrack ? 85 : 65,
       maxScore: 100,
-      grade: 'C',
+      grade: isDoNotTrack ? 'B' : 'C',
       categories: {
-        ipNetwork: { score: 60, maxScore: 100, details: { httpIp: '203.0.113.xxx', webrtcLeak: 'Not Detected', dohEnabled: false } },
-        dnsPrivacy: { score: 50, maxScore: 100, details: {} },
-        fingerprinting: { score: 40, maxScore: 100, details: { canvasHash: true, platform: navigator.platform } },
-        privacySettings: { score: 70, maxScore: 100, details: { dnt: false, https: true } },
-        connectionSecurity: { score: 90, maxScore: 100, details: { https: true } },
+        ipNetwork: { score: 70, maxScore: 100, details: { httpIp: 'Masked', webrtcLeak: 'Not Detected', dohEnabled: true } },
+        dnsPrivacy: { score: 60, maxScore: 100, details: {} },
+        fingerprinting: { 
+          score: 40, 
+          maxScore: 100, 
+          details: { 
+            canvasHash: true, 
+            platform, 
+            browser, 
+            language,
+            hardwareConcurrency,
+            screenResolution
+          } 
+        },
+        privacySettings: { score: isDoNotTrack ? 90 : 50, maxScore: 100, details: { dnt: isDoNotTrack, https: true, cookiesEnabled } },
+        connectionSecurity: { score: 95, maxScore: 100, details: { https: true } },
         trackingProtection: { score: 80, maxScore: 100, details: { trackerBlocker: true } },
       },
-    });
+    };
+    result.suggestions = generateSecuritySuggestions('privacy', result);
+    setPrivacyResult(result);
     setPrivacyLoading(false);
   };
 
@@ -658,35 +827,124 @@ export default function DFIRPage() {
 
                   {domainResult && (
                     <div className="space-y-6">
-                      <div className={`p-6 rounded-2xl border-2 ${getScoreColor(domainResult.score)}`}>
-                        <div className="flex justify-between items-start mb-4">
-                          <div>
-                            <span className="text-xs uppercase tracking-wider text-slate-500">Security Score</span>
-                            <h4 className={`text-4xl font-black ${domainResult.score >= 80 ? 'text-emerald-600 dark:text-emerald-400' : domainResult.score >= 50 ? 'text-amber-600 dark:text-amber-400' : 'text-rose-600 dark:text-rose-400'}`}>{domainResult.score}/100</h4>
+                      <div className={`p-8 rounded-3xl border-2 ${getScoreColor(domainResult.score)} shadow-lg`}>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                          <div className="flex flex-col items-center justify-center text-center p-4 rounded-2xl bg-white/20 dark:bg-black/20">
+                            <span className="text-xs uppercase tracking-widest text-slate-500 mb-1">Security Score</span>
+                            <div className={`text-6xl font-black ${domainResult.score >= 85 ? 'text-emerald-600' : domainResult.score >= 65 ? 'text-amber-600' : 'text-rose-600'}`}>
+                              {domainResult.score}
+                            </div>
+                            <span className="text-sm font-bold mt-1">out of 100</span>
                           </div>
-                          <div className="text-right">
-                            <span className="text-xs uppercase tracking-wider text-slate-500">Verdict</span>
-                            <p className="text-2xl font-bold text-slate-900 dark:text-white">{domainResult.verdict}</p>
+                          <div className="md:col-span-2 space-y-4">
+                            <div className="flex justify-between items-end">
+                              <div>
+                                <span className="text-xs uppercase tracking-widest text-slate-500">Domain Status</span>
+                                <h4 className="text-3xl font-black text-slate-900 dark:text-white uppercase tracking-tight">{domainResult.verdict}</h4>
+                              </div>
+                              <div className="text-right">
+                                <span className="text-xs uppercase tracking-widest text-slate-500">Health Rating</span>
+                                <p className="text-xl font-bold text-slate-800 dark:text-slate-200">{domainResult.health_score}</p>
+                              </div>
+                            </div>
+                            <div className="h-3 bg-white/30 dark:bg-black/20 rounded-full overflow-hidden">
+                              <motion.div initial={{ width: 0 }} animate={{ width: `${domainResult.score}%` }} transition={{ duration: 1, ease: "easeOut" }} className={`h-full ${domainResult.score >= 85 ? 'bg-emerald-500' : domainResult.score >= 65 ? 'bg-amber-500' : 'bg-rose-500'}`} />
+                            </div>
+                            {domainResult.additional_checks && (
+                              <div className="flex flex-wrap gap-4 text-xs font-mono text-slate-600 dark:text-slate-400">
+                                <span>ENTROPY: {domainResult.additional_checks.entropy}</span>
+                                <span>LENGTH: {domainResult.additional_checks.length}</span>
+                                <span>DGA_RISK: {domainResult.additional_checks.entropy > 3.8 ? 'HIGH' : 'LOW'}</span>
+                                <span>HOMOGLYPHS: {domainResult.additional_checks.has_homoglyphs ? 'YES' : 'NO'}</span>
+                              </div>
+                            )}
                           </div>
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
-                          <h4 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2"><Shield className="w-5 h-5 text-brand-500" /> Email Security</h4>
-                          <div className="space-y-3">
-                            <div className="flex justify-between items-center"><span className="text-sm text-slate-600 dark:text-slate-400">SPF</span><span className={`text-sm font-semibold ${domainResult.spf.found ? 'text-emerald-500' : 'text-rose-500'}`}>{domainResult.spf.found ? 'Configured' : 'Not Found'}</span></div>
-                            <div className="flex justify-between items-center"><span className="text-sm text-slate-600 dark:text-slate-400">DKIM</span><span className={`text-sm font-semibold ${domainResult.dkim[0]?.found ? 'text-emerald-500' : 'text-rose-500'}`}>{domainResult.dkim[0]?.found ? 'Configured' : 'Not Found'}</span></div>
-                            <div className="flex justify-between items-center"><span className="text-sm text-slate-600 dark:text-slate-400">DMARC</span><span className={`text-sm font-semibold ${domainResult.dmarc.found ? 'text-emerald-500' : 'text-rose-500'}`}>{domainResult.dmarc.found ? 'Configured' : 'Not Found'}</span></div>
-                            <div className="flex justify-between items-center"><span className="text-sm text-slate-600 dark:text-slate-400">DNSSEC</span><span className={`text-sm font-semibold ${domainResult.dnssec?.found ? 'text-emerald-500' : 'text-rose-500'}`}>{domainResult.dnssec?.found ? 'Secured' : 'Not Secured'}</span></div>
+                      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
+                            <h4 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                              <Shield className="w-5 h-5 text-brand-500" /> Email Auth Status
+                            </h4>
+                            <div className="space-y-4">
+                              {[
+                                { label: 'SPF Record', status: domainResult.spf.found },
+                                { label: 'DKIM Signatures', status: domainResult.dkim[0]?.found },
+                                { label: 'DMARC Policy', status: domainResult.dmarc.found },
+                                { label: 'DNSSEC Secured', status: domainResult.dnssec?.found },
+                              ].map((item) => (
+                                <div key={item.label} className="flex justify-between items-center">
+                                  <span className="text-sm text-slate-600 dark:text-slate-400">{item.label}</span>
+                                  <div className="flex items-center gap-2">
+                                    <span className={`text-[10px] font-bold uppercase ${item.status ? 'text-emerald-500' : 'text-rose-500'}`}>
+                                      {item.status ? 'Configured' : 'Missing'}
+                                    </span>
+                                    {item.status ? <CheckCircle2 className="w-4 h-4 text-emerald-500" /> : <XCircle className="w-4 h-4 text-rose-500" />}
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                          <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
+                            <h4 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                              <Lock className="w-5 h-5 text-emerald-500" /> SSL/TLS Details
+                            </h4>
+                            <div className="space-y-3">
+                              <div className="flex justify-between items-center">
+                                <span className="text-sm text-slate-600 dark:text-slate-400">Certificate Status</span>
+                                <span className={`text-sm font-bold ${domainResult.ssl.valid ? 'text-emerald-500' : 'text-rose-500'}`}>
+                                  {domainResult.ssl.valid ? 'VALID' : 'INVALID'}
+                                </span>
+                              </div>
+                              {domainResult.ssl.issuer && (
+                                <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5">
+                                  <p className="text-[10px] uppercase text-slate-500 mb-1">Issuer</p>
+                                  <p className="text-sm font-medium text-slate-900 dark:text-white truncate">{domainResult.ssl.issuer}</p>
+                                </div>
+                              )}
+                              {domainResult.ssl.expires && (
+                                <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5">
+                                  <p className="text-[10px] uppercase text-slate-500 mb-1">Expiration</p>
+                                  <p className="text-sm font-medium text-slate-900 dark:text-white">{domainResult.ssl.expires}</p>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                          <div className="md:col-span-2 p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
+                            <h4 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                              <Globe className="w-5 h-5 text-cyan-500" /> DNS Infrastructure
+                            </h4>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div className="space-y-2">
+                                <p className="text-xs font-bold text-slate-500 uppercase">A Records (IPv4)</p>
+                                {domainResult.dns.A?.map((ip, i) => (
+                                  <div key={i} className="flex items-center gap-2 text-sm font-mono p-2 rounded-lg bg-slate-50 dark:bg-white/5">
+                                    <Server className="w-3 h-3 text-brand-500" /> {ip}
+                                  </div>
+                                )) || <p className="text-xs text-slate-400">No records found</p>}
+                              </div>
+                              <div className="space-y-2">
+                                <p className="text-xs font-bold text-slate-500 uppercase">AAAA Records (IPv6)</p>
+                                {domainResult.dns.AAAA?.map((ip, i) => (
+                                  <div key={i} className="flex items-center gap-2 text-sm font-mono p-2 rounded-lg bg-slate-50 dark:bg-white/5">
+                                    <Server className="w-3 h-3 text-brand-500" /> {ip.slice(0, 20)}...
+                                  </div>
+                                )) || <p className="text-xs text-slate-400">No records found</p>}
+                              </div>
+                            </div>
                           </div>
                         </div>
-                        <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
-                          <h4 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2"><Lock className="w-5 h-5 text-emerald-500" /> SSL/TLS</h4>
-                          <div className="space-y-3">
-                            <div className="flex justify-between items-center"><span className="text-sm text-slate-600 dark:text-slate-400">Certificate</span><span className={`text-sm font-semibold ${domainResult.ssl.valid ? 'text-emerald-500' : 'text-rose-500'}`}>{domainResult.ssl.valid ? 'Valid' : 'Invalid'}</span></div>
-                            {domainResult.ssl.issuer && <div className="flex justify-between items-center"><span className="text-sm text-slate-600 dark:text-slate-400">Issuer</span><span className="text-sm text-slate-700 dark:text-slate-300">{domainResult.ssl.issuer}</span></div>}
-                            {domainResult.ssl.expires && <div className="flex justify-between items-center"><span className="text-sm text-slate-600 dark:text-slate-400">Expires</span><span className="text-sm text-slate-700 dark:text-slate-300">{domainResult.ssl.expires}</span></div>}
+                        <div className="space-y-6">
+                          <SecurityChecklist suggestions={domainResult.suggestions} />
+                          <div className="p-6 rounded-2xl bg-slate-900 text-white shadow-xl">
+                            <h4 className="font-bold mb-4 flex items-center gap-2"><FileText className="w-5 h-5 text-brand-400" /> Raw Records</h4>
+                            <div className="space-y-3 font-mono text-[10px] opacity-80 overflow-hidden">
+                              {domainResult.spf.record && <div className="p-2 rounded bg-white/10 truncate">SPF: {domainResult.spf.record}</div>}
+                              {domainResult.dmarc.record && <div className="p-2 rounded bg-white/10 truncate">DMARC: {domainResult.dmarc.record}</div>}
+                              <div className="p-2 rounded bg-white/10">MX: {domainResult.mx.records[0]?.host || 'None'}</div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -757,40 +1015,107 @@ export default function DFIRPage() {
 
                           {phishingResult && (
                             <div className="space-y-6">
-                              <div className={`p-6 rounded-2xl border-2 ${phishingResult.verdict === 'PHISHING' ? 'bg-rose-500/10 border-rose-500/30' : 'bg-amber-500/10 border-amber-500/30'}`}>
-                                <div className="flex justify-between items-start mb-4">
-                                  <div><span className="text-xs uppercase tracking-wider text-slate-500">Verdict</span><h4 className={`text-3xl font-black uppercase ${phishingResult.verdict === 'PHISHING' ? 'text-rose-600 dark:text-rose-400' : 'text-amber-600 dark:text-amber-400'}`}>{phishingResult.verdict}</h4></div>
-                                  <div className="text-right"><span className="text-xs uppercase tracking-wider text-slate-500">Confidence</span><p className="text-2xl font-bold text-slate-900 dark:text-white">{phishingResult.confidence}%</p></div>
+                              <div className={`p-8 rounded-3xl border-2 ${phishingResult.verdict === 'PHISHING' ? 'bg-rose-500/5 border-rose-500/30' : 'bg-amber-500/5 border-amber-500/30'} shadow-lg`}>
+                                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
+                                  <div className="flex items-center gap-6">
+                                    <div className={`w-20 h-20 rounded-2xl flex items-center justify-center ${phishingResult.verdict === 'PHISHING' ? 'bg-rose-500 text-white' : 'bg-amber-500 text-white'}`}>
+                                      <Bug className="w-10 h-10" />
+                                    </div>
+                                    <div>
+                                      <span className="text-xs uppercase tracking-widest text-slate-500">Analysis Result</span>
+                                      <h4 className={`text-4xl font-black uppercase tracking-tight ${phishingResult.verdict === 'PHISHING' ? 'text-rose-600' : 'text-amber-600'}`}>
+                                        {phishingResult.verdict}
+                                      </h4>
+                                    </div>
+                                  </div>
+                                  <div className="text-left md:text-right p-4 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10">
+                                    <span className="text-xs uppercase tracking-widest text-slate-500">Confidence Score</span>
+                                    <p className="text-4xl font-black text-slate-900 dark:text-white">{phishingResult.confidence}%</p>
+                                  </div>
                                 </div>
-                                <div className="flex gap-4 text-sm">
-                                  <div className="flex items-center gap-2"><Link2 className="w-4 h-4 text-slate-500" /><span className="text-slate-600 dark:text-slate-400 truncate max-w-[300px]">{sanitizeText(phishingResult.url)}</span></div>
+
+                                <div className="p-4 rounded-xl bg-white/60 dark:bg-black/20 border border-slate-200 dark:border-white/5 flex items-center gap-3 overflow-hidden">
+                                  <Link2 className="w-5 h-5 text-slate-400 flex-shrink-0" />
+                                  <span className="text-sm font-mono text-slate-600 dark:text-slate-300 truncate select-all">{sanitizeText(phishingResult.url)}</span>
+                                  {phishingResult.additional_checks?.is_https ? <Lock className="w-4 h-4 text-emerald-500 ml-auto" /> : <ShieldAlert className="w-4 h-4 text-rose-500 ml-auto" />}
                                 </div>
                               </div>
 
-                              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
-                                  <h4 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2"><AlertTriangle className="w-5 h-5 text-amber-500" /> Risk Factors</h4>
-                                  <div className="space-y-2">
-                                    {phishingResult.risk_factors.map((factor, idx) => (
-                                      <div key={idx} className="flex items-start gap-2 text-sm"><span className="text-rose-500">✗</span><span className="text-slate-700 dark:text-slate-300">{sanitizeText(factor)}</span></div>
-                                    ))}
+                              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                <div className="lg:col-span-2 space-y-6">
+                                  <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
+                                    <h4 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                                      <AlertTriangle className="w-5 h-5 text-amber-500" /> Detected Risk Factors
+                                    </h4>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                      {phishingResult.risk_factors.map((factor, idx) => (
+                                        <div key={idx} className="flex items-center gap-3 p-3 rounded-xl bg-rose-500/5 border border-rose-500/10">
+                                          <div className="w-2 h-2 rounded-full bg-rose-500" />
+                                          <span className="text-sm text-slate-700 dark:text-slate-300 font-medium">{sanitizeText(factor)}</span>
+                                        </div>
+                                      ))}
+                                    </div>
                                   </div>
-                                </div>
-                                <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
-                                  <h4 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2"><Globe className="w-5 h-5 text-cyan-500" /> Similar Domains</h4>
-                                  {phishingResult.similar_domains && phishingResult.similar_domains.length > 0 ? (
-                                    <div className="space-y-3">
-                                      {phishingResult.similar_domains.map((item, idx) => (
-                                        <div key={idx} className="flex justify-between items-center">
-                                          <span className="text-sm text-slate-700 dark:text-slate-300 font-mono">{sanitizeText(item.domain)}</span>
-                                          <div className="flex items-center gap-2">
-                                            <div className="w-24 h-1.5 bg-slate-200 dark:bg-white/5 rounded-full overflow-hidden"><div className="h-full bg-brand-500" style={{ width: `${item.similarity * 100}%` }} /></div>
-                                            <span className="text-xs font-semibold text-slate-500">{(item.similarity * 100).toFixed(0)}%</span>
+
+                                  {phishingResult.content_flags.length > 0 && (
+                                    <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
+                                      <h4 className="font-bold text-slate-900 dark:text-white mb-4">Content Analysis Flags</h4>
+                                      <div className="flex flex-wrap gap-2">
+                                        {phishingResult.content_flags.map((flag, idx) => (
+                                          <span key={idx} className="px-3 py-1.5 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs font-bold uppercase tracking-wider">
+                                            {sanitizeText(flag)}
+                                          </span>
+                                        ))}
+                                      </div>
+                                    </div>
+                                  )}
+
+                                  <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
+                                    <h4 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                                      <Globe className="w-5 h-5 text-cyan-500" /> Similar & Lookalike Domains
+                                    </h4>
+                                    <div className="space-y-4">
+                                      {phishingResult.similar_domains?.map((item, idx) => (
+                                        <div key={idx} className="flex flex-col gap-2">
+                                          <div className="flex justify-between items-center text-sm">
+                                            <span className="font-mono text-slate-700 dark:text-slate-300">{sanitizeText(item.domain)}</span>
+                                            <span className="font-bold text-slate-500">{(item.similarity * 100).toFixed(0)}% Match</span>
+                                          </div>
+                                          <div className="h-1.5 bg-slate-200 dark:bg-white/5 rounded-full overflow-hidden">
+                                            <motion.div initial={{ width: 0 }} animate={{ width: `${item.similarity * 100}%` }} className="h-full bg-cyan-500" />
                                           </div>
                                         </div>
                                       ))}
                                     </div>
-                                  ) : <p className="text-sm text-slate-500">No similar domains found</p>}
+                                  </div>
+                                </div>
+                                <div className="space-y-6">
+                                  <SecurityChecklist suggestions={phishingResult.suggestions} />
+                                  <div className="p-6 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10">
+                                    <h4 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                                      <Activity className="w-5 h-5 text-brand-500" /> Technical Details
+                                    </h4>
+                                    <div className="space-y-3 text-xs">
+                                      <div className="flex justify-between py-2 border-b border-slate-200 dark:border-white/5">
+                                        <span className="text-slate-500">Secure Protocol</span>
+                                        <span className={phishingResult.additional_checks?.is_https ? 'text-emerald-500 font-bold' : 'text-rose-500 font-bold'}>
+                                          {phishingResult.additional_checks?.is_https ? 'HTTPS' : 'INSECURE HTTP'}
+                                        </span>
+                                      </div>
+                                      <div className="flex justify-between py-2 border-b border-slate-200 dark:border-white/5">
+                                        <span className="text-slate-500">Obfuscation</span>
+                                        <span className="text-slate-900 dark:text-slate-200 font-medium">
+                                          {phishingResult.additional_checks?.has_obfuscation ? 'DETECTED' : 'NONE'}
+                                        </span>
+                                      </div>
+                                      <div className="flex justify-between py-2">
+                                        <span className="text-slate-500">Subdomains</span>
+                                        <span className="text-slate-900 dark:text-slate-200 font-medium">
+                                          {phishingResult.additional_checks?.subdomain_count}
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -819,28 +1144,73 @@ export default function DFIRPage() {
 
                   {exposureResult && (
                     <div className="space-y-6">
-                      <div className={`p-6 rounded-2xl border-2 ${exposureResult.risk_level === 'Critical' ? 'bg-rose-500/10 border-rose-500/30' : exposureResult.risk_level === 'High' ? 'bg-amber-500/10 border-amber-500/30' : 'bg-cyan-500/10 border-cyan-500/30'}`}>
-                        <div className="flex justify-between items-start mb-4">
-                          <div><span className="text-xs uppercase tracking-wider text-slate-500">Risk Level</span><h4 className={`text-2xl font-black uppercase ${exposureResult.risk_level === 'Critical' ? 'text-rose-600 dark:text-rose-400' : exposureResult.risk_level === 'High' ? 'text-amber-600 dark:text-amber-400' : 'text-cyan-600 dark:text-cyan-400'}`}>{exposureResult.risk_level}</h4></div>
-                          <div className="text-right"><span className="text-xs uppercase tracking-wider text-slate-500">Exposed Records</span><p className="text-3xl font-bold text-slate-900 dark:text-white">{exposureResult.total_exposed_records}</p></div>
-                        </div>
-                        <div className="flex gap-4 text-sm text-slate-600 dark:text-slate-400">
-                          <span className="flex items-center gap-1"><Hash className="w-4 h-4" /> Type: {exposureResult.type}</span>
-                          <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> Severity: {exposureResult.severity}</span>
+                      <div className={`p-8 rounded-3xl border-2 ${exposureResult.risk_level === 'Critical' ? 'bg-rose-500/5 border-rose-500/30' : exposureResult.risk_level === 'High' ? 'bg-amber-500/5 border-amber-500/30' : 'bg-cyan-500/5 border-cyan-500/30'} shadow-lg`}>
+                        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                          <div className="flex items-center gap-6">
+                            <div className={`w-20 h-20 rounded-2xl flex items-center justify-center ${exposureResult.risk_level === 'Critical' ? 'bg-rose-500' : exposureResult.risk_level === 'High' ? 'bg-amber-500' : 'bg-cyan-500'} text-white`}>
+                              <Database className="w-10 h-10" />
+                            </div>
+                            <div>
+                              <span className="text-xs uppercase tracking-widest text-slate-500">Global Risk Level</span>
+                              <h4 className={`text-4xl font-black uppercase tracking-tight ${exposureResult.risk_level === 'Critical' ? 'text-rose-600' : exposureResult.risk_level === 'High' ? 'text-amber-600' : 'text-cyan-600'}`}>
+                                {exposureResult.risk_level}
+                              </h4>
+                            </div>
+                          </div>
+                          <div className="text-left md:text-right p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10">
+                            <span className="text-xs uppercase tracking-widest text-slate-500">Exposed Records</span>
+                            <p className="text-5xl font-black text-slate-900 dark:text-white">{exposureResult.total_exposed_records}</p>
+                          </div>
                         </div>
                       </div>
-                      <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
-                        <h4 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2"><Server className="w-5 h-5 text-brand-500" /> Breach Sources</h4>
-                        <div className="space-y-4">
-                          {exposureResult.sources.map((source, idx) => (
-                            <div key={idx} className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/30 border border-slate-100 dark:border-white/5">
-                              <div className="flex justify-between items-start mb-2">
-                                <div><h5 className="font-semibold text-slate-900 dark:text-white">{source.name}</h5><p className="text-xs text-slate-500">{source.category}</p></div>
-                                <div className="text-right"><span className="text-lg font-bold text-rose-600 dark:text-rose-400">{source.records}</span><p className="text-[10px] text-slate-500">records</p></div>
-                              </div>
-                              <div className="flex justify-between text-xs text-slate-500"><span>Last seen: {source.date}</span></div>
+
+                      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div className="lg:col-span-2 space-y-6">
+                          <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
+                            <h4 className="font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                              <Server className="w-5 h-5 text-brand-500" /> Primary Breach Sources
+                            </h4>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              {exposureResult.sources.map((source, idx) => (
+                                <div key={idx} className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-white/5 hover:border-brand-500/30 transition-colors">
+                                  <div className="flex justify-between items-start mb-3">
+                                    <div>
+                                      <h5 className="font-bold text-slate-900 dark:text-white text-lg">{source.name}</h5>
+                                      <span className="px-2 py-0.5 rounded bg-brand-500/10 text-brand-600 dark:text-brand-400 text-[10px] font-bold uppercase">{source.category}</span>
+                                    </div>
+                                    <div className="text-right">
+                                      <span className="text-2xl font-black text-rose-600">{source.records}</span>
+                                      <p className="text-[10px] text-slate-500 font-bold uppercase">Records</p>
+                                    </div>
+                                  </div>
+                                  <div className="flex items-center gap-2 text-xs text-slate-500 mt-4 pt-4 border-t border-slate-200/50 dark:border-white/5">
+                                    <Clock className="w-3 h-3" /> Seen on: {source.date}
+                                  </div>
+                                </div>
+                              ))}
                             </div>
-                          ))}
+                            {exposureResult.sources.length === 0 && (
+                              <div className="text-center py-10">
+                                <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
+                                  <Shield className="w-8 h-8 text-emerald-500" />
+                                </div>
+                                <h5 className="font-bold text-slate-900 dark:text-white">No Exposure Found</h5>
+                                <p className="text-sm text-slate-500">Your data was not found in our database of known breaches.</p>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        <div className="space-y-6">
+                          <SecurityChecklist suggestions={exposureResult.suggestions} />
+                          <div className="p-6 rounded-2xl bg-brand-600 text-white shadow-xl">
+                            <h4 className="font-bold mb-4 flex items-center gap-2"><Lock className="w-5 h-5" /> Safety First</h4>
+                            <p className="text-sm opacity-90 leading-relaxed">
+                              Finding your data in a breach doesn't mean you've been hacked, but it means your credentials for that service are public.
+                            </p>
+                            <button onClick={() => handleTabChange('privacy')} className="mt-6 w-full py-3 rounded-xl bg-white text-brand-600 font-bold text-sm hover:bg-slate-100 transition-colors">
+                              Check Browser Privacy
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -877,27 +1247,108 @@ export default function DFIRPage() {
                   </div>
 
                   {privacyResult && (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
-                        <div className="flex justify-between items-center mb-6">
-                          <h4 className="font-bold text-slate-900 dark:text-white">Privacy Score</h4>
-                          <span className="text-3xl font-black text-brand-600 dark:text-brand-400">{privacyResult.score}/100</span>
-                        </div>
-                        <div className="space-y-4">
-                          {Object.entries(privacyResult.categories).map(([key, cat]) => (
-                            <div key={key} className="space-y-1">
-                              <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400 uppercase"><span>{key.replace(/([A-Z])/g, ' $1')}</span><span>{cat.score}/{cat.maxScore}</span></div>
-                              <div className="h-1.5 bg-slate-200 dark:bg-white/5 rounded-full overflow-hidden"><div className="h-full bg-brand-500" style={{ width: `${(cat.score / cat.maxScore) * 100}%` }} /></div>
+                    <div className="space-y-6">
+                      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div className="p-8 rounded-3xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm flex flex-col items-center justify-center text-center">
+                          <div className="relative w-32 h-32 mb-4">
+                            <svg className="w-full h-full" viewBox="0 0 36 36">
+                              <path className="text-slate-200 dark:text-white/5 stroke-current" strokeWidth="3" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                              <path className="text-brand-500 stroke-current" strokeWidth="3" strokeDasharray={`${privacyResult.score}, 100`} strokeLinecap="round" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            </svg>
+                            <div className="absolute inset-0 flex flex-col items-center justify-center">
+                              <span className="text-4xl font-black text-slate-900 dark:text-white">{privacyResult.score}</span>
+                              <span className="text-[10px] uppercase font-bold text-slate-500">Score</span>
                             </div>
-                          ))}
+                          </div>
+                          <h4 className="text-2xl font-bold text-slate-900 dark:text-white">Privacy Grade: {privacyResult.grade}</h4>
+                          <p className="text-sm text-slate-500 mt-2">Based on {Object.keys(privacyResult.categories).length} automated checks</p>
+                        </div>
+
+                        <div className="lg:col-span-2 p-8 rounded-3xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
+                          <h4 className="font-bold text-slate-900 dark:text-white mb-6">Detailed Score Breakdown</h4>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+                            {Object.entries(privacyResult.categories).map(([key, cat]) => (
+                              <div key={key} className="space-y-2">
+                                <div className="flex justify-between text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                  <span>{key.replace(/([A-Z])/g, ' $1')}</span>
+                                  <span className={cat.score >= 80 ? 'text-emerald-500' : 'text-amber-500'}>{cat.score}%</span>
+                                </div>
+                                <div className="h-2 bg-slate-200 dark:bg-white/5 rounded-full overflow-hidden">
+                                  <motion.div initial={{ width: 0 }} animate={{ width: `${(cat.score / cat.maxScore) * 100}%` }} className={`h-full ${cat.score >= 80 ? 'bg-emerald-500' : cat.score >= 50 ? 'bg-amber-500' : 'bg-rose-500'}`} />
+                                </div>
+                              </div>
+                            ))}
+                          </div>
                         </div>
                       </div>
-                      <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
-                        <h4 className="font-bold text-slate-900 dark:text-white mb-4">Detected Exposure</h4>
-                        <div className="space-y-3 text-sm">
-                          <div className="flex justify-between py-2 border-b border-slate-100 dark:border-white/5"><span className="text-slate-500 dark:text-slate-400">Platform</span><span className="text-slate-900 dark:text-slate-200">{privacyResult.categories.fingerprinting.details.platform}</span></div>
-                          <div className="flex justify-between py-2 border-b border-slate-100 dark:border-white/5"><span className="text-slate-500 dark:text-slate-400">Fingerprinting</span><span className="text-rose-600 dark:text-rose-400 font-semibold">Detected</span></div>
-                          <div className="flex justify-between py-2 border-b border-slate-100 dark:border-white/5"><span className="text-slate-500 dark:text-slate-400">Do Not Track</span><span className={privacyResult.categories.privacySettings.details.dnt ? 'text-emerald-600 dark:text-emerald-400 font-semibold' : 'text-slate-400'}>{privacyResult.categories.privacySettings.details.dnt ? 'Enabled' : 'Not Set'}</span></div>
+
+                      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div className="lg:col-span-2 space-y-6">
+                          <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
+                            <h4 className="font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                              <Radar className="w-5 h-5 text-brand-500" /> Fingerprinting Analysis
+                            </h4>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                              {[
+                                { label: 'Operating System', value: privacyResult.categories.fingerprinting.details.platform, icon: Server },
+                                { label: 'Web Browser', value: privacyResult.categories.fingerprinting.details.browser, icon: Globe },
+                                { label: 'System Language', value: privacyResult.categories.fingerprinting.details.language, icon: Activity },
+                                { label: 'CPU Cores', value: privacyResult.categories.fingerprinting.details.hardwareConcurrency, icon: Hash },
+                                { label: 'Screen Resolution', value: privacyResult.categories.fingerprinting.details.screenResolution, icon: ExternalLink },
+                                { label: 'Canvas Hash', value: privacyResult.categories.fingerprinting.details.canvasHash ? 'UNMASKED' : 'PROTECTED', status: !privacyResult.categories.fingerprinting.details.canvasHash },
+                              ].map((item, i) => (
+                                <div key={i} className="flex justify-between items-center p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5">
+                                  <div className="flex items-center gap-2 text-slate-500">
+                                    {item.icon && <item.icon className="w-4 h-4" />}
+                                    <span>{item.label}</span>
+                                  </div>
+                                  <span className={`font-bold ${item.status === true ? 'text-emerald-500' : item.status === false ? 'text-rose-500' : 'text-slate-900 dark:text-slate-200'}`}>
+                                    {item.value}
+                                  </span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+
+                          <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
+                            <h4 className="font-bold text-slate-900 dark:text-white mb-4">Connection & Network Security</h4>
+                            <div className="space-y-3">
+                              <div className="flex justify-between items-center p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/10">
+                                <div className="flex items-center gap-3">
+                                  <div className="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center text-white"><Lock className="w-5 h-5" /></div>
+                                  <div>
+                                    <p className="text-sm font-bold text-slate-900 dark:text-white">Encrypted Connection</p>
+                                    <p className="text-xs text-slate-500">HTTPS protocol is enforced</p>
+                                  </div>
+                                </div>
+                                <CheckCircle2 className="w-6 h-6 text-emerald-500" />
+                              </div>
+                              <div className="flex justify-between items-center p-4 rounded-xl bg-amber-500/5 border border-amber-500/10">
+                                <div className="flex items-center gap-3">
+                                  <div className="w-10 h-10 rounded-full bg-amber-500 flex items-center justify-center text-white"><EyeOff className="w-5 h-5" /></div>
+                                  <div>
+                                    <p className="text-sm font-bold text-slate-900 dark:text-white">DNS over HTTPS</p>
+                                    <p className="text-xs text-slate-500">{privacyResult.categories.ipNetwork.details.dohEnabled ? 'Enabled & Secure' : 'Potentially unencrypted'}</p>
+                                  </div>
+                                </div>
+                                {privacyResult.categories.ipNetwork.details.dohEnabled ? <CheckCircle2 className="w-6 h-6 text-emerald-500" /> : <AlertTriangle className="w-6 h-6 text-amber-500" />}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="space-y-6">
+                          <SecurityChecklist suggestions={privacyResult.suggestions} />
+                          <div className="p-6 rounded-2xl bg-slate-900 text-white shadow-xl overflow-hidden relative">
+                            <div className="absolute top-0 right-0 p-4 opacity-10"><Shield className="w-24 h-24 rotate-12" /></div>
+                            <h4 className="font-bold mb-2">Privacy Summary</h4>
+                            <p className="text-sm opacity-80 leading-relaxed">
+                              Your browser reveals a unique fingerprint that can be used to track you across websites even without cookies.
+                            </p>
+                            <div className="mt-4 p-3 rounded-lg bg-white/10 text-xs font-mono">
+                              UA: {navigator.userAgent.slice(0, 50)}...
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>

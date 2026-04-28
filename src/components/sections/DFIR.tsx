@@ -65,6 +65,27 @@ const isSafeUrl = (url: string): boolean => {
   }
 };
 
+const SecurityChecklist = ({ suggestions }: { suggestions?: string[] }) => {
+  if (!suggestions || suggestions.length === 0) return null;
+  return (
+    <div className="p-6 rounded-2xl bg-brand-500/5 border border-brand-500/20 shadow-sm">
+      <h4 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+        <Shield className="w-5 h-5 text-brand-500" /> Security Recommendations
+      </h4>
+      <div className="space-y-3">
+        {suggestions.map((s, i) => (
+          <div key={i} className="flex items-start gap-3 text-sm">
+            <div className="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-brand-500/20 flex items-center justify-center">
+              <CheckCircle2 className="w-3 h-3 text-brand-600 dark:text-brand-400" />
+            </div>
+            <span className="text-slate-700 dark:text-slate-300">{s}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 interface IOCResult {
   indicator: string;
   type: string;
@@ -88,6 +109,8 @@ interface DomainResult {
   ssl: { valid: boolean; issuer?: string; expires?: string };
   dns: { A?: string[]; AAAA?: string[] };
   dnssec?: { found: boolean };
+  suggestions?: string[];
+  additional_checks?: Record<string, any>;
 }
 
 interface PrivacyCategory {
@@ -102,6 +125,11 @@ interface PrivacyCategory {
     dnt?: boolean;
     https?: boolean;
     trackerBlocker?: boolean;
+    browser?: string;
+    language?: string;
+    cookiesEnabled?: boolean;
+    hardwareConcurrency?: number;
+    screenResolution?: string;
   };
 }
 
@@ -117,6 +145,7 @@ interface PrivacyResult {
     connectionSecurity: PrivacyCategory;
     trackingProtection: PrivacyCategory;
   };
+  suggestions?: string[];
 }
 
 interface PhishingResult {
@@ -128,6 +157,8 @@ interface PhishingResult {
   final_url?: string;
   content_flags: string[];
   similar_domains?: Array<{ domain: string; similarity: number }>;
+  suggestions?: string[];
+  additional_checks?: Record<string, any>;
 }
 
 interface ExposureResult {
@@ -142,6 +173,7 @@ interface ExposureResult {
   }>;
   severity: string;
   risk_level: string;
+  suggestions?: string[];
 }
 
 interface ThreatIntelItem {
@@ -730,97 +762,101 @@ export function DFIR() {
   const suspiciousTLDs = ['xyz', 'top', 'click', 'link', 'work', 'ru', 'cn', 'tk', 'ml', 'ga', 'cf', 'gq'];
   const suspiciousPatterns = ['login', 'verify', 'secure', 'account', 'update', 'support', 'alert', 'signin', 'auth'];
 
-  const calculateDomainScore = (domain: string): { score: number; health_score: string; verdict: string } => {
+    const generateSecuritySuggestions = (type: string, data: any): string[] => {
+    const suggestions: string[] = [];
+    if (type === 'domain') {
+      const res = data as DomainResult;
+      if (res.score < 80) suggestions.push('Improve domain security score by configuring missing records.');
+      if (!res.spf.found) suggestions.push('Configure SPF record to prevent email spoofing.');
+      if (!res.dmarc.found) suggestions.push('Implement DMARC policy (p=quarantine or p=reject).');
+      if (!res.dkim[0]?.found) suggestions.push('Enable DKIM signing for outgoing emails.');
+      if (!res.dnssec?.found) suggestions.push('Enable DNSSEC to protect against DNS spoofing.');
+      if (!res.ssl.valid) suggestions.push('Install a valid SSL/TLS certificate.');
+    } else if (type === 'phishing') {
+      const res = data as PhishingResult;
+      if (res.verdict === 'PHISHING') {
+        suggestions.push('Report this URL to Google Safe Browsing.');
+        suggestions.push('Block this domain at the firewall/DNS level.');
+        suggestions.push('Alert users about this specific phishing campaign.');
+      } else if (res.verdict === 'SUSPICIOUS') {
+        suggestions.push('Exercise caution before entering any credentials.');
+        suggestions.push('Verify the identity of the sender/source.');
+      }
+    } else if (type === 'exposure') {
+      const res = data as ExposureResult;
+      if (res.total_exposed_records > 0) {
+        suggestions.push('Change passwords for any accounts associated with this email.');
+        suggestions.push('Enable Multi-Factor Authentication (MFA) everywhere.');
+        suggestions.push('Monitor financial statements for suspicious activity.');
+      }
+    } else if (type === 'privacy') {
+      const res = data as PrivacyResult;
+      if (res.score < 80) {
+        suggestions.push('Use a privacy-focused browser like Brave or Firefox.');
+        suggestions.push('Enable "Do Not Track" in your browser settings.');
+        suggestions.push('Use a reputable VPN to mask your IP address.');
+        suggestions.push('Install tracker-blocking extensions (uBlock Origin).');
+      }
+    }
+    return suggestions;
+  };
+
+const calculateDomainScore = (domain: string): { score: number; health_score: string; verdict: string; additional_checks: any } => {
     const normalizedDomain = domain.toLowerCase().trim();
+    const isTrusted = [
+      'google.com', 'microsoft.com', 'github.com', 'cloudflare.com', 'apple.com',
+      'amazon.com', 'facebook.com', 'linkedin.com', 'twitter.com', 'x.com'
+    ].some((td) => normalizedDomain === td || normalizedDomain.endsWith('.' + td));
+    if (isTrusted) return { score: 95, health_score: 'Excellent', verdict: 'Secure', additional_checks: { is_trusted: true, entropy: 2.5 } };
 
-    // Check trusted domains first
-    const isTrusted = trustedDomains.some((td) => normalizedDomain === td || normalizedDomain.endsWith('.' + td));
-
-    if (isTrusted) {
-      return { score: 95, health_score: 'Excellent', verdict: 'Secure' };
-    }
-
-    // Base score calculation
     let score = 70;
-    const issues: string[] = [];
+    const parts = normalizedDomain.split('.');
+    const tld = parts.pop() || '';
+    const mainPart = parts.join('.');
+    
+    const suspiciousTLDs = ['xyz', 'top', 'click', 'link', 'work', 'ru', 'cn', 'tk', 'ml', 'ga', 'cf', 'gq'];
+    const suspiciousPatterns = ['login', 'verify', 'secure', 'account', 'update', 'support', 'alert', 'signin', 'auth'];
 
-    // Check for suspicious TLDs
-    const tld = normalizedDomain.split('.').pop() || '';
-    if (suspiciousTLDs.includes(tld)) {
-      score -= 10;
-      issues.push('Suspicious TLD');
-    }
-
-    // Check for suspicious patterns
+    if (suspiciousTLDs.includes(tld)) score -= 15;
     const hasSuspiciousPattern = suspiciousPatterns.some((p) => normalizedDomain.includes(p));
-    if (hasSuspiciousPattern && normalizedDomain.length < 15) {
-      score -= 15;
-      issues.push('Suspicious subdomain pattern');
-    }
+    if (hasSuspiciousPattern) score -= 20;
 
-    // Check for homoglyph characters (common lookalikes)
+        const charCounts: Record<string, number> = {};
+    for (const char of mainPart) { charCounts[char] = (charCounts[char] || 0) + 1; }
+    let entropy = 0;
+    for (const char in charCounts) {
+      const p = charCounts[char] / mainPart.length;
+      entropy -= p * Math.log2(p);
+    }
+    if (entropy > 3.8) score -= 20;
+
     const homoglyphs = /[а-яА-Я]|[οοΟΟ]|[рР]|[сС]|[уУ]|[хХ]/;
-    if (homoglyphs.test(normalizedDomain)) {
-      score = Math.max(score - 40, 10);
-      issues.push('Homoglyph characters detected');
-    }
-
-    // Check for excessive hyphens (typosquatting indicator)
+    if (homoglyphs.test(normalizedDomain)) score = Math.max(score - 45, 10);
+    
+    if (normalizedDomain.length > 25) score -= 10;
     const hyphenCount = (normalizedDomain.match(/-/g) || []).length;
-    if (hyphenCount >= 3) {
-      score -= 15;
-      issues.push('Multiple hyphens');
-    }
-
-    // Check for numbers replacing letters (l33t speak typosquatting)
-    const numberSwaps = normalizedDomain.match(/0|1|3|4|5|6|7|8|9/g);
-    if (numberSwaps && numberSwaps.length >= 2) {
-      score -= 10;
-      issues.push('Number substitutions detected');
-    }
-
-    // Check domain length
-    if (normalizedDomain.length > 50) {
-      score -= 10;
-      issues.push('Unusually long domain');
-    }
-    if (normalizedDomain.length < 5 && !isTrusted) {
-      score -= 5;
-    }
-
-    // Known bad patterns
-    const badPatterns = ['malware', 'phishing', 'scam', 'fake', 'login-', '-login', '-secure', '-verify'];
-    const hasBadPattern = badPatterns.some((p) => normalizedDomain.includes(p));
-    if (hasBadPattern) {
-      score = Math.max(score - 30, 5);
-      issues.push('Known bad pattern detected');
-    }
-
-    // Ensure score is within bounds
+    if (hyphenCount >= 3) score -= 15;
+    
     score = Math.max(Math.min(score, 100), 0);
 
-    // Determine verdict and health score
-    let health_score = 'Good';
-    let verdict = 'Good';
+    let health_score = 'Good', verdict = 'Good';
+    if (score >= 85) { health_score = 'Excellent'; verdict = 'Secure'; }
+    else if (score >= 65) { health_score = 'Good'; verdict = 'Good'; }
+    else if (score >= 40) { health_score = 'Fair'; verdict = 'Needs Attention'; }
+    else if (score >= 20) { health_score = 'Poor'; verdict = 'Suspicious'; }
+    else { health_score = 'Critical'; verdict = 'Likely Malicious'; }
 
-    if (score >= 85) {
-      health_score = 'Excellent';
-      verdict = 'Secure';
-    } else if (score >= 65) {
-      health_score = 'Good';
-      verdict = 'Good';
-    } else if (score >= 40) {
-      health_score = 'Fair';
-      verdict = 'Needs Attention';
-    } else if (score >= 20) {
-      health_score = 'Poor';
-      verdict = 'Suspicious';
-    } else {
-      health_score = 'Critical';
-      verdict = 'Likely Malicious';
-    }
-
-    return { score, health_score, verdict };
+    return { 
+      score, health_score, verdict, 
+      additional_checks: { 
+        entropy: Number(entropy.toFixed(2)),
+        length: normalizedDomain.length,
+        has_homoglyphs: homoglyphs.test(normalizedDomain),
+        is_suspicious_tld: suspiciousTLDs.includes(tld)
+      } 
+    };
+ 
+    };
   };
 
   const checkDomain = async () => {
@@ -840,7 +876,7 @@ export function DFIR() {
         // Client-side simulation with improved scoring
         await new Promise((r) => setTimeout(r, 1500));
         const domain = domainInput.toLowerCase().trim();
-        const { score, health_score, verdict } = calculateDomainScore(domain);
+        const { score, health_score, verdict, additional_checks } = calculateDomainScore(domain);
 
         setDomainResult({
           domain,
