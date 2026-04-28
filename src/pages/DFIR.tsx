@@ -80,6 +80,7 @@ interface IOCResult {
   verdict: string;
   tags: string[];
   defanged: string;
+  suggestions?: string[];
 }
 
 interface DomainResult {
@@ -324,45 +325,66 @@ export default function DFIRPage() {
 
   const trustedDomains = [
     'google.com', 'microsoft.com', 'github.com', 'cloudflare.com', 'apple.com',
-    'amazon.com', 'facebook.com', 'linkedin.com', 'twitter.com', 'x.com'
+    'amazon.com', 'facebook.com', 'linkedin.com', 'twitter.com', 'x.com',
+    'goog', 'apple', 'microsoft'
   ];
-  const suspiciousTLDs = ['xyz', 'top', 'click', 'link', 'work', 'ru', 'cn', 'tk', 'ml', 'ga', 'cf', 'gq'];
-  const suspiciousPatterns = ['login', 'verify', 'secure', 'account', 'update', 'support', 'alert', 'signin', 'auth'];
+  const suspiciousTLDs = [
+    'xyz', 'top', 'click', 'link', 'work', 'ru', 'cn', 'tk', 'ml', 'ga', 'cf', 'gq',
+    'zip', 'mov', 'kim', 'racing', 'win', 'icu', 'monster', 'beauty', 'surf'
+  ];
+  const suspiciousPatterns = [
+    'login', 'verify', 'secure', 'account', 'update', 'support', 'alert', 'signin', 'auth',
+    'confirm', 'billing', 'wallet', 'crypto', 'banking', 'office365', 'outlook'
+  ];
 
   const generateSecuritySuggestions = (type: string, data: any): string[] => {
     const suggestions: string[] = [];
     if (type === 'domain') {
       const res = data as DomainResult;
-      if (res.score < 80) suggestions.push('Improve domain security score by configuring missing records.');
-      if (!res.spf.found) suggestions.push('Configure SPF record to prevent email spoofing.');
-      if (!res.dmarc.found) suggestions.push('Implement DMARC policy (p=quarantine or p=reject).');
-      if (!res.dkim[0]?.found) suggestions.push('Enable DKIM signing for outgoing emails.');
-      if (!res.dnssec?.found) suggestions.push('Enable DNSSEC to protect against DNS spoofing.');
-      if (!res.ssl.valid) suggestions.push('Install a valid SSL/TLS certificate.');
+      if (res.score < 80) suggestions.push('Improve domain security score by configuring missing DNS records.');
+      if (!res.spf.found) suggestions.push('Configure SPF record to prevent unauthorized email spoofing.');
+      if (!res.dmarc.found) suggestions.push('Implement a strong DMARC policy (p=quarantine or p=reject).');
+      if (!res.dkim[0]?.found) suggestions.push('Enable DKIM signing to authenticate outgoing email origin.');
+      if (!res.dnssec?.found) suggestions.push('Enable DNSSEC to protect against DNS hijacking/spoofing.');
+      if (!res.ssl.valid) suggestions.push('Install a valid SSL/TLS certificate to secure web traffic.');
     } else if (type === 'phishing') {
       const res = data as PhishingResult;
       if (res.verdict === 'PHISHING') {
-        suggestions.push('Report this URL to Google Safe Browsing.');
-        suggestions.push('Block this domain at the firewall/DNS level.');
-        suggestions.push('Alert users about this specific phishing campaign.');
+        suggestions.push('Report this malicious URL to Google Safe Browsing and Microsoft SmartScreen.');
+        suggestions.push('Block this domain at the perimeter firewall and DNS filtering level.');
+        suggestions.push('Conduct an internal search for any logs showing connections to this indicator.');
+        suggestions.push('Alert users about this specific campaign if it targeted your organization.');
       } else if (res.verdict === 'SUSPICIOUS') {
-        suggestions.push('Exercise caution before entering any credentials.');
-        suggestions.push('Verify the identity of the sender/source.');
+        suggestions.push('Exercise extreme caution before interacting with this URL.');
+        suggestions.push('Verify the identity of the source through out-of-band communication.');
+        suggestions.push('Sandboxing the URL in a secure environment before opening.');
+      }
+    } else if (type === 'ioc') {
+      const res = data as IOCResult;
+      if (res.verdict === 'Malicious') {
+        suggestions.push('Block this indicator immediately across all security controls.');
+        suggestions.push('Check EDR/SIEM logs for any historical matches with this indicator.');
+        suggestions.push('Isolate any hosts that have communicated with this malicious resource.');
+      } else if (res.verdict === 'Suspicious') {
+        suggestions.push('Monitor traffic to/from this indicator for unusual patterns.');
+        suggestions.push('Cross-reference with other threat intelligence feeds.');
       }
     } else if (type === 'exposure') {
       const res = data as ExposureResult;
       if (res.total_exposed_records > 0) {
-        suggestions.push('Change passwords for any accounts associated with this email.');
-        suggestions.push('Enable Multi-Factor Authentication (MFA) everywhere.');
-        suggestions.push('Monitor financial statements for suspicious activity.');
+        suggestions.push('Change passwords immediately for any accounts associated with this identity.');
+        suggestions.push('Enable Multi-Factor Authentication (MFA) using hardware keys or authenticator apps.');
+        suggestions.push('Monitor financial statements and credit reports for unauthorized activity.');
+        suggestions.push('Consider using a data removal service to reduce your digital footprint.');
       }
     } else if (type === 'privacy') {
       const res = data as PrivacyResult;
       if (res.score < 80) {
-        suggestions.push('Use a privacy-focused browser like Brave or Firefox.');
-        suggestions.push('Enable "Do Not Track" in your browser settings.');
-        suggestions.push('Use a reputable VPN to mask your IP address.');
-        suggestions.push('Install tracker-blocking extensions (uBlock Origin).');
+        suggestions.push('Use a privacy-focused browser like Brave or Firefox with strict settings.');
+        suggestions.push('Enable "Global Privacy Control" or "Do Not Track" in your browser.');
+        suggestions.push('Use a reputable, no-logs VPN to mask your true IP and location.');
+        suggestions.push('Install tracker-blocking extensions like uBlock Origin or Privacy Badger.');
+        suggestions.push('Disable WebRTC in your browser to prevent local IP leaks.');
       }
     }
     return suggestions;
@@ -371,18 +393,18 @@ export default function DFIRPage() {
   const calculateDomainScore = (domain: string): { score: number; health_score: string; verdict: string; additional_checks: any } => {
     const normalizedDomain = domain.toLowerCase().trim();
     const isTrusted = trustedDomains.some((td) => normalizedDomain === td || normalizedDomain.endsWith('.' + td));
-    if (isTrusted) return { score: 95, health_score: 'Excellent', verdict: 'Secure', additional_checks: { is_trusted: true, entropy: 2.5 } };
+    if (isTrusted) return { score: 98, health_score: 'Excellent', verdict: 'Highly Trusted', additional_checks: { is_trusted: true, entropy: 2.5 } };
 
-    let score = 70;
+    let score = 75;
     const parts = normalizedDomain.split('.');
     const tld = parts.pop() || '';
     const mainPart = parts.join('.');
     
-    if (suspiciousTLDs.includes(tld)) score -= 15;
+    if (suspiciousTLDs.includes(tld)) score -= 20;
     const hasSuspiciousPattern = suspiciousPatterns.some((p) => normalizedDomain.includes(p));
-    if (hasSuspiciousPattern) score -= 20;
+    if (hasSuspiciousPattern) score -= 25;
 
-    // Entropy calculation
+    // Enhanced Entropy calculation (Shannon entropy)
     const charCounts: Record<string, number> = {};
     for (const char of mainPart) { charCounts[char] = (charCounts[char] || 0) + 1; }
     let entropy = 0;
@@ -390,22 +412,30 @@ export default function DFIRPage() {
       const p = charCounts[char] / mainPart.length;
       entropy -= p * Math.log2(p);
     }
-    if (entropy > 3.8) score -= 20;
-
-    const homoglyphs = /[а-яА-Я]|[οοΟΟ]|[рР]|[сС]|[уУ]|[хХ]/;
-    if (homoglyphs.test(normalizedDomain)) score = Math.max(score - 45, 10);
     
-    if (normalizedDomain.length > 25) score -= 10;
+    // Entropy scoring: generally > 3.5-4.0 for random-looking domains
+    if (entropy > 4.2) score -= 30;
+    else if (entropy > 3.8) score -= 15;
+
+    // Homoglyph detection (improved)
+    const homoglyphs = /[а-яА-Я]|[οοΟΟ]|[рР]|[сС]|[уУ]|[хХ]|[ііІІ]|[ааАА]|[ееЕЕ]/;
+    if (homoglyphs.test(normalizedDomain)) score = Math.max(score - 50, 5);
+    
+    // Length & special character checks
+    if (normalizedDomain.length > 30) score -= 10;
     const hyphenCount = (normalizedDomain.match(/-/g) || []).length;
     if (hyphenCount >= 3) score -= 15;
     
+    // Lookalike checks (basic)
+    if (normalizedDomain.includes('g00gle') || normalizedDomain.includes('m1crosoft') || normalizedDomain.includes('0ffice')) score -= 40;
+    
     score = Math.max(Math.min(score, 100), 0);
 
-    let health_score = 'Good', verdict = 'Good';
-    if (score >= 85) { health_score = 'Excellent'; verdict = 'Secure'; }
-    else if (score >= 65) { health_score = 'Good'; verdict = 'Good'; }
-    else if (score >= 40) { health_score = 'Fair'; verdict = 'Needs Attention'; }
-    else if (score >= 20) { health_score = 'Poor'; verdict = 'Suspicious'; }
+    let health_score = 'Good', verdict = 'Clean';
+    if (score >= 90) { health_score = 'Excellent'; verdict = 'Highly Trusted'; }
+    else if (score >= 70) { health_score = 'Good'; verdict = 'Clean'; }
+    else if (score >= 50) { health_score = 'Fair'; verdict = 'Suspicious'; }
+    else if (score >= 30) { health_score = 'Poor'; verdict = 'High Risk'; }
     else { health_score = 'Critical'; verdict = 'Likely Malicious'; }
 
     return { 
@@ -414,9 +444,62 @@ export default function DFIRPage() {
         entropy: Number(entropy.toFixed(2)),
         length: normalizedDomain.length,
         has_homoglyphs: homoglyphs.test(normalizedDomain),
-        is_suspicious_tld: suspiciousTLDs.includes(tld)
+        is_suspicious_tld: suspiciousTLDs.includes(tld),
+        has_hyphen_abuse: hyphenCount >= 3
       } 
     };
+  };
+
+  const checkDomain = async () => {
+    if (!domainInput.trim()) return;
+    setDomainLoading(true);
+    setDomainResult(null);
+    try {
+      if (API_URL) {
+        const res = await fetch(`${API_URL}/ioc/check`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ indicator: iocInput }),
+        });
+        const data = await res.json();
+        setIocResult({
+          ...data,
+          suggestions: generateSecuritySuggestions('ioc', data)
+        });
+      } else {
+        await new Promise((r) => setTimeout(r, 1000));
+        const input = iocInput.toLowerCase().trim();
+        let type = 'unknown';
+        let score = 25;
+
+        if (/^(\d{1,3}\.){3}\d{1,3}$/.test(input)) {
+          type = 'IPv4';
+          if (input.startsWith('185.220') || input.startsWith('192.168')) score = 75;
+        } else if (input.startsWith('http')) {
+          type = 'URL';
+          score = 60;
+        } else if (input.length === 64 || input.length === 40 || input.length === 32) {
+          type = 'Hash';
+          score = 45;
+        } else if (input.includes('.')) {
+          type = 'Domain';
+          score = 35;
+        }
+
+        const result: IOCResult = {
+          indicator: iocInput,
+          type,
+          score,
+          verdict: score > 60 ? 'Malicious' : score > 30 ? 'Suspicious' : 'Clean',
+          tags: score > 60 ? ['threat-actor-associated', 'active-c2'] : [],
+          defanged: iocInput.replace(/\./g, '[.]').replace(/http/g, 'hXXp')
+        };
+        setIocResult(result);
+      }
+    } catch {
+      setIocResult(null);
+    }
+    setIocLoading(false);
   };
 
   const checkDomain = async () => {
@@ -476,26 +559,57 @@ export default function DFIRPage() {
         });
       } else {
         await new Promise((r) => setTimeout(r, 2000));
-        const url = phishingUrl.toLowerCase();
-        const isPhishing = url.includes('login') || url.includes('signin') || url.includes('verify') || url.includes('secure') || url.includes('update') || url.includes('account');
+        const url = phishingUrl.toLowerCase().trim();
         const riskFactors: string[] = [];
-        if (url.includes('http://')) riskFactors.push('Insecure HTTP connection detected');
-        if (url.match(/\d{1,3}\.\d{1,3}\.\d{1,3}/)) riskFactors.push('URL contains an IP address instead of a domain');
-        if (url.includes('-') && (url.includes('google') || url.includes('microsoft') || url.includes('apple'))) riskFactors.push('Potential brand-spoofing with hyphenated domain');
-        if (url.length > 75) riskFactors.push('Excessively long URL (often used for obfuscation)');
         
+        // Comprehensive phishing detection logic
+        const isCredentialHarvesting = /login|signin|account|verify|secure|update|billing|wallet|crypto|banking|office365|outlook/.test(url);
+        
+        if (url.startsWith('http://')) riskFactors.push('Insecure HTTP connection (unencrypted traffic)');
+        if (url.match(/\d{1,3}\.\d{1,3}\.\d{1,3}/)) riskFactors.push('Numerical IP address used instead of domain name');
+        
+        const domainMatch = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n?]+)/im);
+        const domain = domainMatch ? domainMatch[1] : '';
+        const tld = domain.split('.').pop() || '';
+        
+        if (suspiciousTLDs.includes(tld)) riskFactors.push(`Suspicious top-level domain (.${tld}) commonly used by threat actors`);
+        if (url.includes('-') && (url.includes('google') || url.includes('microsoft') || url.includes('apple') || url.includes('facebook') || url.includes('amazon'))) {
+          riskFactors.push('Potential brand-spoofing using hyphenated legitimate brand name');
+        }
+        
+        if (url.length > 75) riskFactors.push('Excessively long URL often used to hide malicious domains in address bars');
+        if (url.includes('@') && !url.includes('mailto:')) riskFactors.push('URL contains an "@" symbol, potentially used for userinfo-based obfuscation');
+        if (url.includes('%')) riskFactors.push('Heavy use of URL encoding (obfuscation technique)');
+        
+        // Homoglyphs in phishing check
+        if (/[а-яА-Я]|[οοΟΟ]|[рР]|[сС]|[уУ]|[хХ]|[ііІІ]/.test(url)) riskFactors.push('Internationalized Domain Name (IDN) homoglyph detected (visual spoofing)');
+
+        const contentFlags: string[] = [];
+        if (isCredentialHarvesting) {
+          contentFlags.push('Detected patterns of credential harvesting forms');
+          contentFlags.push('Deceptive login/authentication request');
+        }
+
+        const score = isCredentialHarvesting ? 85 : riskFactors.length * 15;
+        const verdict = score >= 70 ? 'PHISHING' : score >= 30 ? 'SUSPICIOUS' : 'CLEAN';
+
         const result: PhishingResult = {
           url: phishingUrl,
-          verdict: isPhishing || riskFactors.length > 2 ? 'PHISHING' : riskFactors.length > 0 ? 'SUSPICIOUS' : 'CLEAN',
-          confidence: isPhishing ? 85 : riskFactors.length > 2 ? 70 : 45,
-          risk_factors: riskFactors.length > 0 ? riskFactors : ['No obvious risk factors detected'],
+          verdict,
+          confidence: Math.min(score, 98),
+          risk_factors: riskFactors.length > 0 ? riskFactors : ['No high-risk technical indicators detected'],
           final_url: url.startsWith('http') ? url : 'https://' + url,
-          content_flags: isPhishing ? ['Credential harvesting form', 'Fake login page'] : [],
-          similar_domains: [{ domain: 'google.com', similarity: 0.85 }, { domain: 'microsoft.com', similarity: 0.72 }],
+          content_flags: contentFlags,
+          similar_domains: [
+            { domain: 'google.com', similarity: url.includes('google') ? 0.92 : 0.1 },
+            { domain: 'microsoft.com', similarity: url.includes('micro') ? 0.88 : 0.1 },
+            { domain: 'office.com', similarity: url.includes('offi') ? 0.85 : 0.1 }
+          ].filter(d => d.similarity > 0.2),
           additional_checks: {
-            is_https: url.includes('https://'),
+            is_https: url.startsWith('https://'),
             has_obfuscation: url.includes('%') || url.includes('@'),
-            subdomain_count: url.split('.').length - 2
+            subdomain_count: domain.split('.').length - 2,
+            entropy: calculateDomainScore(domain).additional_checks.entropy
           }
         };
         result.suggestions = generateSecuritySuggestions('phishing', result);
@@ -971,22 +1085,42 @@ export default function DFIRPage() {
                               <h3 className="text-xl font-bold text-slate-900 dark:text-white">IOC Reputation Checker</h3>
                             </div>
                             <div className="flex gap-3">
-                              <input type="text" value={iocInput} onChange={(e) => setIocInput(e.target.value)} placeholder="Enter IP, domain, hash, or email" className="flex-1 px-4 py-3 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none transition-colors shadow-sm" onKeyDown={(e) => e.key === 'Enter' && checkDomain()} />
-                              <button disabled={iocLoading} className="px-6 py-3 rounded-xl bg-rose-600 hover:bg-rose-500 disabled:opacity-50 text-white font-semibold transition-all flex items-center gap-2 shadow-sm">
+                              <input type="text" value={iocInput} onChange={(e) => setIocInput(e.target.value)} placeholder="Enter IP, domain, hash, or email" className="flex-1 px-4 py-3 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none transition-colors shadow-sm" onKeyDown={(e) => e.key === 'Enter' && checkIOC()} />
+                              <button onClick={checkIOC} disabled={iocLoading} className="px-6 py-3 rounded-xl bg-rose-600 hover:bg-rose-500 disabled:opacity-50 text-white font-semibold transition-all flex items-center gap-2 shadow-sm">
                                 {iocLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />} Check
                               </button>
                             </div>
                           </div>
                           {iocResult && (
-                            <div className={`p-6 rounded-2xl border-2 ${getScoreColor(iocResult.score)}`}>
-                              <div className="flex justify-between items-start mb-4">
-                                <div><span className="text-xs uppercase tracking-wider text-slate-500">Verdict</span><h4 className="text-2xl font-black">{iocResult.verdict}</h4></div>
-                                <div className="text-right"><span className="text-xs uppercase tracking-wider text-slate-500">Threat Score</span><p className="text-3xl font-bold">{iocResult.score}/100</p></div>
+                              <div className={`p-6 rounded-2xl border-2 ${getScoreColor(iocResult.score)}`}>
+                                <div className="flex justify-between items-start mb-4">
+                                  <div>
+                                    <span className="text-xs uppercase tracking-wider text-slate-500">Verdict</span>
+                                    <h4 className="text-2xl font-black">{iocResult.verdict}</h4>
+                                  </div>
+                                  <div className="text-right">
+                                    <span className="text-xs uppercase tracking-wider text-slate-500">Threat Score</span>
+                                    <p className="text-3xl font-bold">{iocResult.score}/100</p>
+                                  </div>
+                                </div>
+                                <div className="flex flex-wrap gap-4 text-sm mb-4">
+                                  <span className="text-slate-600 dark:text-slate-400">Type: {iocResult.type}</span>
+                                  {iocResult.tags.map(tag => (
+                                    <span key={tag} className="px-2 py-0.5 rounded bg-rose-500/10 text-rose-600 text-[10px] font-bold uppercase">{tag}</span>
+                                  ))}
+                                </div>
+                                {iocResult.defanged && (
+                                  <div className="p-3 rounded-xl bg-white/40 dark:bg-black/20 border border-slate-200 dark:border-white/10 flex items-center justify-between gap-3">
+                                    <span className="text-xs font-mono text-slate-600 dark:text-slate-300 truncate select-all">Defanged: {iocResult.defanged}</span>
+                                    <button onClick={() => copyToClipboard(iocResult.defanged)} className="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-white/10 text-slate-500 transition-colors" title="Copy defanged indicator">
+                                      <Copy className="w-4 h-4" />
+                                    </button>
+                                  </div>
+                                )}
                               </div>
-                              <div className="flex gap-4 text-sm">
-                                <span className="text-slate-600 dark:text-slate-400">Type: {iocResult.type}</span>
+                              <div className="mt-6">
+                                <SecurityChecklist suggestions={(iocResult as any).suggestions} />
                               </div>
-                            </div>
                           )}
                         </div>
                       )}
@@ -1037,7 +1171,10 @@ export default function DFIRPage() {
                                 <div className="p-4 rounded-xl bg-white/60 dark:bg-black/20 border border-slate-200 dark:border-white/5 flex items-center gap-3 overflow-hidden">
                                   <Link2 className="w-5 h-5 text-slate-400 flex-shrink-0" />
                                   <span className="text-sm font-mono text-slate-600 dark:text-slate-300 truncate select-all">{sanitizeText(phishingResult.url)}</span>
-                                  {phishingResult.additional_checks?.is_https ? <Lock className="w-4 h-4 text-emerald-500 ml-auto" /> : <ShieldAlert className="w-4 h-4 text-rose-500 ml-auto" />}
+                                  <button onClick={() => copyToClipboard(phishingResult.url)} className="p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-white/10 text-slate-500 transition-colors ml-auto" title="Copy URL">
+                                    <Copy className="w-4 h-4" />
+                                  </button>
+                                  {phishingResult.additional_checks?.is_https ? <Lock className="w-4 h-4 text-emerald-500" /> : <ShieldAlert className="w-4 h-4 text-rose-500" />}
                                 </div>
                               </div>
 

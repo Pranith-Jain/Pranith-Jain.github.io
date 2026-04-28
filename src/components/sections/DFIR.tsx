@@ -93,6 +93,7 @@ interface IOCResult {
   verdict: string;
   tags: string[];
   defanged: string;
+  suggestions?: string[];
 }
 
 interface DomainResult {
@@ -692,7 +693,7 @@ export function DFIR() {
           body: JSON.stringify({ indicator: iocInput }),
         });
         const data = await res.json();
-        setIocResult(data);
+        setIocResult({ ...data, suggestions: generateSecuritySuggestions("ioc", data) });
       } else {
         // Client-side simulation
         await new Promise((r) => setTimeout(r, 1000));
@@ -845,7 +846,6 @@ const calculateDomainScore = (domain: string): { score: number; health_score: st
     else if (score >= 40) { health_score = 'Fair'; verdict = 'Needs Attention'; }
     else if (score >= 20) { health_score = 'Poor'; verdict = 'Suspicious'; }
     else { health_score = 'Critical'; verdict = 'Likely Malicious'; }
-
     return { 
       score, health_score, verdict, 
       additional_checks: { 
@@ -854,8 +854,6 @@ const calculateDomainScore = (domain: string): { score: number; health_score: st
         has_homoglyphs: homoglyphs.test(normalizedDomain),
         is_suspicious_tld: suspiciousTLDs.includes(tld)
       } 
-    };
- 
     };
   };
 
@@ -871,14 +869,14 @@ const calculateDomainScore = (domain: string): { score: number; health_score: st
           body: JSON.stringify({ domain: domainInput }),
         });
         const data = await res.json();
-        setDomainResult(data);
+        setDomainResult({ ...data, suggestions: generateSecuritySuggestions("domain", data) });
       } else {
         // Client-side simulation with improved scoring
         await new Promise((r) => setTimeout(r, 1500));
         const domain = domainInput.toLowerCase().trim();
         const { score, health_score, verdict, additional_checks } = calculateDomainScore(domain);
 
-        setDomainResult({
+        const result: DomainResult = {
           domain,
           score,
           verdict,
@@ -914,7 +912,10 @@ const calculateDomainScore = (domain: string): { score: number; health_score: st
             AAAA: score >= 30 ? ['2607:f8b0:4004:800::200e'] : undefined,
           },
           dnssec: { found: score >= 80 },
-        });
+          additional_checks
+        };
+        result.suggestions = generateSecuritySuggestions('domain', result);
+        setDomainResult(result);
       }
     } catch {
       setDomainResult(null);
@@ -935,7 +936,7 @@ const calculateDomainScore = (domain: string): { score: number; health_score: st
           body: JSON.stringify({ url: phishingUrl }),
         });
         const data = await res.json();
-        setPhishingResult(data);
+        setPhishingResult({ ...data, suggestions: generateSecuritySuggestions("phishing", data) });
       } else {
         // Client-side simulation
         await new Promise((r) => setTimeout(r, 2000));
@@ -982,8 +983,8 @@ const calculateDomainScore = (domain: string): { score: number; health_score: st
           body: JSON.stringify({ query: exposureQuery }),
         });
         const data = await res.json();
-        setExposureResult(data);
-        setExposureHistory((prev) => [data, ...prev.slice(0, 9)]);
+        const exposureWithSuggestions = { ...data, suggestions: generateSecuritySuggestions("exposure", data) }; setExposureResult(exposureWithSuggestions);
+        setExposureHistory((prev) => [exposureWithSuggestions, ...prev.slice(0, 9)]);
       } else {
         // Client-side simulation
         await new Promise((r) => setTimeout(r, 2500));
