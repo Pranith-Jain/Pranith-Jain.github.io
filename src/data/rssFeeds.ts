@@ -90,6 +90,24 @@ export const rssFeeds: RSSFeed[] = [
   // THREAT INTELLIGENCE
   // ============================================================================
   {
+    id: 'dfir-lab',
+    name: 'DFIR Lab',
+    url: 'https://dfir-lab.ch/feed.xml',
+    description: 'Digital forensics and incident response research, threat analysis, and case studies',
+    category: 'threat-intel',
+    source: 'DFIR Lab',
+    language: 'en-US',
+  },
+  {
+    id: 'dfir-radar',
+    name: 'DFIR Radar',
+    url: 'https://falhumaid.github.io/DFIR_Radar_RSS/rss.xml',
+    description: 'Security advisories and threat intelligence from the DFIR Radar project',
+    category: 'threat-intel',
+    source: 'DFIR Radar',
+    language: 'en-US',
+  },
+  {
     id: 'sans-isc',
     name: 'SANS Internet Storm Center',
     url: 'https://isc.sans.edu/rssfeed.xml',

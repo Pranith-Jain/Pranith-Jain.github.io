@@ -195,6 +195,25 @@ type TabType = 'home' | 'domain' | 'analysis' | 'exposure' | 'privacy' | 'threat
 
 const API_URL = import.meta.env.VITE_DFIR_API_URL || '';
 
+// Helper functions for classifying threat intel items
+const getType = (title: string, description: string): string => {
+  const text = `${title} ${description}`.toLowerCase();
+  if (text.includes('ransomware')) return 'Ransomware';
+  if (text.includes('phishing')) return 'Phishing';
+  if (text.includes('cve-') || text.includes('vulnerability') || text.includes('exploit')) return 'Vulnerability';
+  if (text.includes('malware') || text.includes('trojan') || text.includes('botnet')) return 'Malware';
+  if (text.includes('apt')) return 'APT';
+  return 'General';
+};
+
+const getSeverity = (title: string, description: string): string => {
+  const text = `${title} ${description}`.toLowerCase();
+  if (text.includes('critical') || text.includes('zero-day') || text.includes('0-day')) return 'Critical';
+  if (text.includes('high') || text.includes('severe') || text.includes('ransomware')) return 'High';
+  if (text.includes('medium') || text.includes('moderate')) return 'Medium';
+  return 'Info';
+};
+
 export default function DFIRPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [mounted, setMounted] = useState(false);
@@ -230,6 +249,8 @@ export default function DFIRPage() {
 
   const [actorSearch, setActorSearch] = useState('');
 
+  const [threatActors, setThreatActors] = useState<ActorDetail[]>([]);
+
   const [analysisMode, setAnalysisMode] = useState<'ioc' | 'phishing'>('ioc');
   const [threatIntelMode, setThreatIntelMode] = useState<'intel' | 'actors'>('intel');
 
@@ -237,7 +258,8 @@ export default function DFIRPage() {
     setMounted(true);
   }, []);
 
-  const threatActors: ActorDetail[] = [
+  // Initial threat actors data (used as fallback when API is unavailable)
+const initialActors: ActorDetail[] = [
     {
       name: 'Sandworm Team',
       alias: 'Voodoo Bear, Electrum',
@@ -886,77 +908,138 @@ export default function DFIRPage() {
   const fetchThreatIntel = useCallback(async () => {
     setIntelLoading(true);
     try {
-      const sampleItems: ThreatIntelItem[] = [
-        {
-          id: '1',
-          title: 'New AsyncRAT Campaign Targeting Healthcare Sector',
-          source: 'MITRE ATT&CK',
-          published: new Date().toISOString(),
-          type: 'Malware',
-          severity: 'High',
-          description: 'Threat actors distributing AsyncRAT through phishing emails disguised as medical invoices.',
-          indicators: ['185.220.101.xxx', 'malware-payload.exe', 'suspicious-domain.com'],
-          link: 'https://attack.mitre.org',
-          read: false,
-        },
-        {
-          id: '2',
-          title: 'Critical Fortinet VPN Vulnerability (CVE-2024-55591)',
-          source: 'CISA',
-          published: new Date(Date.now() - 86400000).toISOString(),
-          type: 'Vulnerability',
-          severity: 'Critical',
-          description:
-            'Authentication bypass vulnerability in FortiOS allows remote attackers to gain unauthorized access.',
-          indicators: ['CVE-2024-55591', 'FortiOS 7.0.0-7.0.14'],
-          link: 'https://www.cisa.gov',
-          read: false,
-        },
-        {
-          id: '3',
-          title: 'LockBit 3.0 Ransomware Affiliate Network Dismantled',
-          source: 'Europol',
-          published: new Date(Date.now() - 172800000).toISOString(),
-          type: 'Threat Actor',
-          severity: 'Info',
-          description: 'International law enforcement operation disrupts LockBit ransomware infrastructure.',
-          link: 'https://www.europol.europa.eu',
-          read: false,
-        },
-        {
-          id: '4',
-          title: 'MOVEit Transfer Exploitation Resurfaces',
-          source: 'NIST NVD',
-          published: new Date(Date.now() - 259200000).toISOString(),
-          type: 'Vulnerability',
-          severity: 'High',
-          description: 'New exploitation attempts observed against unpatched MOVEit Transfer servers.',
-          indicators: ['CVE-2023-34362', 'CVE-2024-5806'],
-          link: 'https://nvd.nist.gov',
-          read: false,
-        },
-        {
-          id: '5',
-          title: 'Phishing Kit Using AI-Generated Content Detected',
-          source: 'Palo Alto Unit 42',
-          published: new Date(Date.now() - 345600000).toISOString(),
-          type: 'Phishing',
-          severity: 'High',
-          description: 'New phishing kits leverage AI to generate convincing login pages and email content.',
-          link: 'https://unit42.paloaltonetworks.com',
-          read: false,
-        },
-      ];
-      setIntelItems(sampleItems);
+      if (API_URL) {
+        const res = await fetch(`${API_URL}/intel/feed`);
+        if (res.ok) {
+          const data = await res.json();
+          const items: ThreatIntelItem[] = (data.items || []).map((item: any, idx: number) => ({
+            id: item.guid || item.id || `feed-${idx}`,
+            title: item.title || 'Untitled',
+            source: item.feed_name || item.source || 'Unknown Source',
+            published: item.published || item.pubDate || new Date().toISOString(),
+            type: getType(item.title || '', item.description || ''),
+            severity: getSeverity(item.title || '', item.description || ''),
+            description: item.description || '',
+            indicators: item.indicators || [],
+            link: item.link || item.url || '#',
+            read: false,
+          }));
+          // Sort by date, newest first
+          items.sort((a, b) => new Date(b.published).getTime() - new Date(a.published).getTime());
+          setIntelItems(items.slice(0, 50));
+        } else {
+          // Fallback to sample items on API error
+          setIntelItems(getSampleIntelItems());
+        }
+      } else {
+        // No API URL configured, use sample items
+        setIntelItems(getSampleIntelItems());
+      }
     } catch {
-      setIntelItems([]);
+      // On error, use fallback data
+      setIntelItems(getSampleIntelItems());
     }
     setIntelLoading(false);
   }, []);
 
+  const getSampleIntelItems = (): ThreatIntelItem[] => [
+    {
+      id: '1',
+      title: 'New AsyncRAT Campaign Targeting Healthcare Sector',
+      source: 'MITRE ATT&CK',
+      published: new Date().toISOString(),
+      type: 'Malware',
+      severity: 'High',
+      description: 'Threat actors distributing AsyncRAT through phishing emails disguised as medical invoices.',
+      indicators: ['185.220.101.xxx', 'malware-payload.exe', 'suspicious-domain.com'],
+      link: 'https://attack.mitre.org',
+      read: false,
+    },
+    {
+      id: '2',
+      title: 'Critical Fortinet VPN Vulnerability (CVE-2024-55591)',
+      source: 'CISA',
+      published: new Date(Date.now() - 86400000).toISOString(),
+      type: 'Vulnerability',
+      severity: 'Critical',
+      description:
+        'Authentication bypass vulnerability in FortiOS allows remote attackers to gain unauthorized access.',
+      indicators: ['CVE-2024-55591', 'FortiOS 7.0.0-7.0.14'],
+      link: 'https://www.cisa.gov',
+      read: false,
+    },
+    {
+      id: '3',
+      title: 'LockBit 3.0 Ransomware Affiliate Network Dismantled',
+      source: 'Europol',
+      published: new Date(Date.now() - 172800000).toISOString(),
+      type: 'Threat Actor',
+      severity: 'Info',
+      description: 'International law enforcement operation disrupts LockBit ransomware infrastructure.',
+      link: 'https://www.europol.europa.eu',
+      read: false,
+    },
+    {
+      id: '4',
+      title: 'MOVEit Transfer Exploitation Resurfaces',
+      source: 'NIST NVD',
+      published: new Date(Date.now() - 259200000).toISOString(),
+      type: 'Vulnerability',
+      severity: 'High',
+      description: 'New exploitation attempts observed against unpatched MOVEit Transfer servers.',
+      indicators: ['CVE-2023-34362', 'CVE-2024-5806'],
+      link: 'https://nvd.nist.gov',
+      read: false,
+    },
+    {
+      id: '5',
+      title: 'Phishing Kit Using AI-Generated Content Detected',
+      source: 'Palo Alto Unit 42',
+      published: new Date(Date.now() - 345600000).toISOString(),
+      type: 'Phishing',
+      severity: 'High',
+      description: 'New phishing kits leverage AI to generate convincing login pages and email content.',
+      link: 'https://unit42.paloaltonetworks.com',
+      read: false,
+    },
+  ];
+
+  const fetchActors = useCallback(async () => {
+    try {
+      if (API_URL) {
+        const res = await fetch(`${API_URL}/actors`);
+        if (res.ok) {
+          const data = await res.json();
+          const actors: ActorDetail[] = (data.actors || data.items || []).map((actor: any) => ({
+            name: actor.name || actor.actor || 'Unknown Actor',
+            alias: actor.aliases || actor.alias || actor.name || '',
+            origin: actor.origin || actor.country || actor.location || 'Unknown',
+            motivation: actor.motivation || actor.motive || 'Unknown',
+            active_since: actor.active_since || actor.first_seen || actor.last_activity || 'Unknown',
+            last_activity: actor.last_activity || actor.last_seen || actor.active_since || 'Unknown',
+            status: actor.status || actor.state || 'Unknown',
+            malware: actor.tools || actor.malware || actor.malware_used || [],
+            techniques: actor.techniques || actor.ttps || actor.attck_techniques || [],
+            targets: actor.targets || actor.target_sectors || actor.victims || [],
+            description: actor.desc || actor.description || actor.summary || '',
+            url: actor.url || actor.reference || actor.link || undefined,
+          }));
+          setThreatActors(actors);
+        } else {
+          setThreatActors(initialActors);
+        }
+      } else {
+        setThreatActors(initialActors);
+      }
+    } catch {
+      setThreatActors(initialActors);
+    }
+  }, []);
+
   useEffect(() => {
     fetchThreatIntel();
-  }, [fetchThreatIntel]);
+    fetchActors();
+  }, [fetchThreatIntel, fetchActors]);
 
   const copyToClipboard = async (text: string) => {
     try {
