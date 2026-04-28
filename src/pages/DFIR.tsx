@@ -574,7 +574,7 @@ export default function DFIRPage() {
     setIocResult(null);
     try {
       if (API_URL) {
-        const res = await fetch(`${API_URL}/ioc/check`, {
+        const res = await fetch(`${API_URL}/api/v1/ioc/check`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ indicator: iocInput }),
@@ -626,7 +626,7 @@ export default function DFIRPage() {
     setDomainResult(null);
     try {
       if (API_URL) {
-        const res = await fetch(`${API_URL}/domain/check`, {
+        const res = await fetch(`${API_URL}/api/v1/domain/check`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ domain: domainInput }),
@@ -692,7 +692,7 @@ export default function DFIRPage() {
     setPhishingResult(null);
     try {
       if (API_URL) {
-        const res = await fetch(`${API_URL}/phishing/analyze`, {
+        const res = await fetch(`${API_URL}/api/v1/phishing/analyze`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ url: phishingUrl }),
@@ -791,7 +791,7 @@ export default function DFIRPage() {
     setExposureResult(null);
     try {
       if (API_URL) {
-        const res = await fetch(`${API_URL}/exposure/scan`, {
+        const res = await fetch(`${API_URL}/api/v1/exposure/scan`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ query: exposureQuery }),
@@ -911,21 +911,24 @@ export default function DFIRPage() {
     setIntelLoading(true);
     try {
       if (API_URL) {
-        const res = await fetch(`${API_URL}/intel/feed`);
+        const res = await fetch(`${API_URL}/api/v1/intel/feed`);
         if (res.ok) {
           const data = await res.json();
-          const items: ThreatIntelItem[] = (data.items || []).map((item: any, idx: number) => ({
-            id: item.guid || item.id || `feed-${idx}`,
-            title: item.title || 'Untitled',
-            source: item.feed_name || item.source || 'Unknown Source',
-            published: item.published || item.pubDate || new Date().toISOString(),
-            type: getType(item.title || '', item.description || ''),
-            severity: getSeverity(item.title || '', item.description || ''),
-            description: item.description || '',
-            indicators: item.indicators || [],
-            link: item.link || item.url || '#',
-            read: false,
-          }));
+          // Handle nested feed structure from API (feeds array with nested items)
+          const items: ThreatIntelItem[] = (data.feeds || []).flatMap((feed: any) =>
+            (feed.items || []).map((item: any, idx: number) => ({
+              id: item.guid || item.id || `${feed.name}-${idx}`,
+              title: item.title || 'Untitled',
+              source: feed.name || 'Unknown Source',
+              published: item.published || item.pubDate || new Date().toISOString(),
+              type: getType(item.title || '', item.desc || item.description || ''),
+              severity: getSeverity(item.title || '', item.desc || item.description || ''),
+              description: item.desc || item.description || '',
+              indicators: item.indicators || [],
+              link: item.link || item.url || '#',
+              read: false,
+            }))
+          );
           items.sort((a, b) => new Date(b.published).getTime() - new Date(a.published).getTime());
           setIntelItems(items.slice(0, 50));
         } else {
@@ -1050,7 +1053,7 @@ export default function DFIRPage() {
   const fetchActors = useCallback(async () => {
     try {
       if (API_URL) {
-        const res = await fetch(`${API_URL}/actors`);
+        const res = await fetch(`${API_URL}/api/v1/actors`);
         if (res.ok) {
           const data = await res.json();
           const actors: ActorDetail[] = (data.actors || data.items || []).map((actor: any) => ({
