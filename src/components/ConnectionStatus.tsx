@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, memo } from 'react';
-import { Wifi, WifiOff, RefreshCw, AlertCircle, CheckCircle, Info } from 'lucide-react';
+import { Wifi, WifiOff, RefreshCw, AlertCircle } from 'lucide-react';
 
 interface ConnectionStatusProps {
   apiUrl: string;
@@ -62,47 +62,23 @@ export const ConnectionStatus = memo(function ConnectionStatus({ apiUrl, onConne
     checkConnection();
   };
 
-  // No backend configured - show helpful offline message
+  const toggleSection = (section: string) => {
+    setExpandedSections((prev) => {
+      const next = new Set(prev);
+      if (next.has(section)) {
+        next.delete(section);
+      } else {
+        next.add(section);
+      }
+      return next;
+    });
+  };
+
   if (!apiUrl) {
     return (
-      <div className="space-y-2">
-        <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
-          <WifiOff className="w-4 h-4 text-slate-500 dark:text-slate-400" />
-          <p className="text-xs font-medium text-slate-600 dark:text-slate-300">Client-Side Mode</p>
-        </div>
-        <div className="text-xs text-slate-500 dark:text-slate-400 space-y-1">
-          <div className="flex items-center gap-1.5">
-            <CheckCircle className="w-3 h-3 text-emerald-500" />
-            <span>IOC Check (offline)</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <CheckCircle className="w-3 h-3 text-emerald-500" />
-            <span>Domain Scan (offline)</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <CheckCircle className="w-3 h-3 text-emerald-500" />
-            <span>Phishing Analyzer (offline)</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <CheckCircle className="w-3 h-3 text-emerald-500" />
-            <span>Privacy Check (offline)</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <CheckCircle className="w-3 h-3 text-emerald-500" />
-            <span>Wiki / Knowledge Base</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <CheckCircle className="w-3 h-3 text-emerald-500" />
-            <span>Threat Actors Database</span>
-          </div>
-          <div className="flex items-center gap-1.5 text-amber-600 dark:text-amber-400">
-            <Info className="w-3 h-3" />
-            <span>Live Feeds (requires backend)</span>
-          </div>
-        </div>
-        <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-1">
-          Set VITE_DFIR_API_URL to enable live feeds
-        </p>
+      <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/30">
+        <WifiOff className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+        <p className="text-xs font-medium text-amber-800 dark:text-amber-200">Offline Mode</p>
       </div>
     );
   }
@@ -124,7 +100,7 @@ export const ConnectionStatus = memo(function ConnectionStatus({ apiUrl, onConne
             <p className="text-sm font-medium text-emerald-800 dark:text-emerald-200">Backend Connected</p>
             {lastChecked && (
               <p className="text-xs text-emerald-700 dark:text-emerald-300">
-                Live feeds enabled
+                Last checked: {lastChecked.toLocaleTimeString()}
               </p>
             )}
           </div>
@@ -142,7 +118,7 @@ export const ConnectionStatus = memo(function ConnectionStatus({ apiUrl, onConne
           <div className="flex-1">
             <p className="text-sm font-medium text-rose-800 dark:text-rose-200">Backend unreachable</p>
             <p className="text-xs text-rose-700 dark:text-rose-300">
-              {retryCount > 0 ? `Retry ${retryCount} failed` : 'Client-side tools still work'}
+              {retryCount > 0 ? `Retry ${retryCount} failed` : 'Unable to connect to API'}
             </p>
           </div>
           <button
