@@ -1,10 +1,12 @@
-import { Suspense, lazy } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useEffect, Suspense, lazy } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { useTheme, useScrollProgress } from './hooks';
 import { Header } from './components/Header';
+import { Footer } from './components/Footer';
 import { SkipToContent } from './components/SkipToContent';
 import { StructuredData } from './components/StructuredData';
 import { ScrollProgress, BackToTop } from './components/ui';
+import { Layout } from './components/Layout';
 import { Home, About, Skills, Experience, Projects, DFIR } from './pages';
 
 function SectionLoader() {
@@ -18,6 +20,19 @@ function SectionLoader() {
 function AppContent() {
   const { isDark, toggleTheme } = useTheme();
   const { progress, showBackToTop, scrollToTop } = useScrollProgress();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.substring(1);
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [location]);
 
   return (
     <>
@@ -56,15 +71,19 @@ function AppContent() {
       <Header isDark={isDark} onToggleTheme={toggleTheme} />
 
       <main id="main-content" tabIndex={-1}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/skills" element={<Skills />} />
-          <Route path="/experience" element={<Experience />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/dfir" element={<DFIR />} />
-        </Routes>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/skills" element={<Skills />} />
+            <Route path="/experience" element={<Experience />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/dfir" element={<DFIR />} />
+          </Routes>
+        </Layout>
       </main>
+
+      <Footer />
 
       <BackToTop visible={showBackToTop} onClick={scrollToTop} />
 

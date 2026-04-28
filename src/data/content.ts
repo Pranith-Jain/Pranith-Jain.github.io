@@ -397,34 +397,11 @@ export const memberships = [
 ];
 
 export const navLinks = [
-  { label: 'About', href: '#about' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Companies', href: '#companies' },
-  {
-    label: 'Experience',
-    href: '#experience',
-    children: [
-      { label: 'Email Security Operations', href: '#experience-email-security-operations' },
-      { label: 'Infrastructure Dashboard', href: '#experience-infrastructure-monitoring-dashboard' },
-      { label: 'Phishing & BEC Investigation', href: '#experience-phishing--bec-investigation' },
-      { label: 'SOC Automation', href: '#experience-soc-automation' },
-      { label: 'Domain Abuse Monitoring', href: '#experience-domain-abuse-monitoring' },
-    ],
-  },
-  {
-    label: 'Certifications',
-    href: '#certifications',
-    children: [
-      { label: 'Core Certifications', href: '#certifications-core' },
-      { label: 'Training', href: '#certifications-training' },
-      { label: 'Bootcamps', href: '#certifications-bootcamps' },
-      { label: 'Additional', href: '#certifications-additional' },
-      { label: 'Internships', href: '#certifications-internships' },
-      { label: 'Simulations', href: '#certifications-simulations' },
-    ],
-  },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Featured', href: '#featured' },
-  { label: 'Memberships', href: '#memberships' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Skills', href: '/skills' },
+  { label: 'Experience', href: '/experience' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'DFIR Tools', href: '/dfir' },
+  { label: 'Contact', href: '/#contact' },
 ];

@@ -1,5 +1,10 @@
-import { Experience } from '../components/sections';
+import { Experience, Companies } from '../components/sections';
 
 export default function ExperiencePage() {
-  return <Experience />;
+  return (
+    <>
+      <Experience />
+      <Companies />
+    </>
+  );
 }
