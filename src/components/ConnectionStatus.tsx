@@ -9,7 +9,11 @@ interface ConnectionStatusProps {
 
 type ConnectionState = 'checking' | 'connected' | 'disconnected' | 'error';
 
-export const ConnectionStatus = memo(function ConnectionStatus({ apiUrl, onApiUrlChange, onConnectionChange }: ConnectionStatusProps) {
+export const ConnectionStatus = memo(function ConnectionStatus({
+  apiUrl,
+  onApiUrlChange,
+  onConnectionChange,
+}: ConnectionStatusProps) {
   const [status, setStatus] = useState<ConnectionState>(apiUrl ? 'checking' : 'disconnected');
   const [lastChecked, setLastChecked] = useState<Date | null>(null);
   const [retryCount, setRetryCount] = useState(0);
@@ -70,11 +74,11 @@ export const ConnectionStatus = memo(function ConnectionStatus({ apiUrl, onApiUr
       setIsEditing(false);
       return;
     }
-    
+
     if (tempUrl && !isValidUrl(tempUrl)) {
       return;
     }
-    
+
     onApiUrlChange?.(tempUrl);
     setIsEditing(false);
   };
@@ -115,8 +119,11 @@ export const ConnectionStatus = memo(function ConnectionStatus({ apiUrl, onApiUr
           </button>
         </div>
         <div className="space-y-2">
-          <label className="text-xs text-slate-500 dark:text-slate-400 block">Backend API URL</label>
+          <label htmlFor="api-url-input" className="text-xs text-slate-500 dark:text-slate-400 block">
+            Backend API URL
+          </label>
           <input
+            id="api-url-input"
             type="text"
             value={tempUrl}
             onChange={(e) => setTempUrl(e.target.value)}
@@ -126,7 +133,6 @@ export const ConnectionStatus = memo(function ConnectionStatus({ apiUrl, onApiUr
                 ? 'border-rose-500 dark:border-rose-400'
                 : 'border-slate-200 dark:border-slate-700'
             } dark:text-white focus:outline-none focus:border-brand-500 transition-colors`}
-            autoFocus
             onKeyDown={(e) => {
               if (e.key === 'Enter') handleSaveUrl();
               if (e.key === 'Escape') handleCancelEdit();
@@ -135,9 +141,7 @@ export const ConnectionStatus = memo(function ConnectionStatus({ apiUrl, onApiUr
           {tempUrl && !isValidUrl(tempUrl) && (
             <p className="text-xs text-rose-500 dark:text-rose-400">URL must start with http:// or https://</p>
           )}
-          <div className="text-xs text-slate-400 dark:text-slate-500">
-            Leave empty to use client-side tools only
-          </div>
+          <div className="text-xs text-slate-400 dark:text-slate-500">Leave empty to use client-side tools only</div>
         </div>
         <div className="flex gap-2">
           <button
@@ -196,11 +200,7 @@ export const ConnectionStatus = memo(function ConnectionStatus({ apiUrl, onApiUr
           <Wifi className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
           <div className="flex-1">
             <p className="text-sm font-medium text-emerald-800 dark:text-emerald-200">Backend Connected</p>
-            {lastChecked && (
-              <p className="text-xs text-emerald-700 dark:text-emerald-300">
-                Live feeds enabled
-              </p>
-            )}
+            {lastChecked && <p className="text-xs text-emerald-700 dark:text-emerald-300">Live feeds enabled</p>}
           </div>
         </>
       )}
