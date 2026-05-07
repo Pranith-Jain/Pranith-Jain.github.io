@@ -1,5 +1,8 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { safeErrorMessage } from '../lib/error';
+
+const TIMEOUT_MS = 10_000;
 
 const ALLOWED_HOSTS = new Set([
   'www.cisa.gov',
@@ -45,8 +48,13 @@ export async function feedProxyHandler(c: Context<{ Bindings: Env }>) {
 
   try {
     const upstream = await fetch(parsed.toString(), {
+      redirect: 'manual',
       headers: { 'user-agent': 'pranithjain-rss-proxy/1.0' },
+      signal: AbortSignal.timeout(TIMEOUT_MS),
     });
+    if (upstream.status >= 300 && upstream.status < 400) {
+      return c.json({ error: 'upstream redirect not followed' }, 502);
+    }
     if (!upstream.ok) {
       return c.json({ error: `upstream ${upstream.status}` }, 502);
     }
@@ -59,6 +67,6 @@ export async function feedProxyHandler(c: Context<{ Bindings: Env }>) {
       },
     });
   } catch (err) {
-    return c.json({ error: err instanceof Error ? err.message : String(err) }, 502);
+    return c.json({ error: safeErrorMessage(c.env as unknown as Record<string, unknown>, err) }, 502);
   }
 }

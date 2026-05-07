@@ -22,9 +22,10 @@ export interface AuthResults {
 const HEADER_LINE_RE = /^([!-9;-~]+):\s?(.*)$/;
 
 export function parseHeaders(source: string): ParsedHeaders {
+  const safe = (source ?? '').slice(0, 64 * 1024); // already capped at route, defense-in-depth
   // Split header section (everything before first blank line)
-  const idx = source.search(/\r?\n\r?\n/);
-  const headerSection = idx >= 0 ? source.slice(0, idx) : source;
+  const idx = safe.search(/\r?\n\r?\n/);
+  const headerSection = idx >= 0 ? safe.slice(0, idx) : safe;
 
   // Unfold continuations: lines starting with whitespace are continuations of previous line
   const unfolded: string[] = [];
@@ -56,8 +57,9 @@ export function parseHeaders(source: string): ParsedHeaders {
 const URL_RE = /\b(https?|hxxps?):\/\/[^\s<>"')]+/gi;
 
 export function extractUrls(source: string): string[] {
+  const safe = (source ?? '').slice(0, 64 * 1024);
   const found = new Set<string>();
-  for (const match of source.matchAll(URL_RE)) {
+  for (const match of safe.matchAll(URL_RE)) {
     const refanged = refang(match[0]);
     found.add(refanged);
   }

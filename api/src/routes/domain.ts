@@ -59,6 +59,12 @@ export async function domainLookupHandler(c: Context<{ Bindings: Env }>) {
     dkimSelectorsFound,
   });
 
+  const anyError =
+    !!rdap.error ||
+    ['A', 'AAAA', 'NS', 'MX', 'TXT', 'CNAME', 'SOA', 'CAA'].some((t) => dns[t as keyof typeof dns]?.error);
+
+  const cacheControl = anyError ? 'no-store' : 'public, max-age=300, s-maxage=600';
+
   return c.json(
     {
       domain: raw,
@@ -78,6 +84,6 @@ export async function domainLookupHandler(c: Context<{ Bindings: Env }>) {
       certificates: ct,
     },
     200,
-    { 'Cache-Control': 'public, max-age=300, s-maxage=600' }
+    { 'Cache-Control': cacheControl }
   );
 }

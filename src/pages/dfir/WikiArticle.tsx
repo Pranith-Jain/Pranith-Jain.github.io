@@ -2,12 +2,19 @@ import { useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { marked } from 'marked';
+import DOMPurify from 'isomorphic-dompurify';
 import { wikiArticles } from '../../data/dfir/wiki-articles';
 
 export default function WikiArticle(): JSX.Element {
   const { slug } = useParams<{ slug: string }>();
   const article = wikiArticles.find((a) => a.slug === slug);
-  const html = useMemo(() => (article ? (marked.parse(article.body) as string) : ''), [article]);
+  const html = useMemo(() => {
+    if (!article) return '';
+    const raw = marked.parse(article.body) as string;
+    return DOMPurify.sanitize(raw, {
+      ALLOWED_URI_REGEXP: /^(?:(?:https?|mailto|#):|[^a-z]|[a-z+.-]+(?:[^a-z+.\-:]|$))/i,
+    });
+  }, [article]);
 
   if (!article) {
     return (

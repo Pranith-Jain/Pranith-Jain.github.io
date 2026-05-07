@@ -92,4 +92,19 @@ describe('parseStixBundle', () => {
   it('rejects non-bundle input', () => {
     expect(() => parseStixBundle({ type: 'not-a-bundle' } as never)).toThrow();
   });
+
+  it('rejects bundles with > 1000 objects', () => {
+    const objs = Array.from({ length: 1001 }, (_, i) => ({
+      type: 'indicator',
+      id: `i--${i}`,
+      pattern: "[ipv4-addr:value = '1.2.3.4']",
+      labels: [],
+    }));
+    expect(() => parseStixBundle({ type: 'bundle', id: 'b', objects: objs as never })).toThrow(/too large/);
+  });
+
+  it('treats overlong patterns as unknown', () => {
+    const long = "[ipv4-addr:value = '" + 'x'.repeat(600) + "']";
+    expect(parseStixPattern(long).type).toBe('unknown');
+  });
 });

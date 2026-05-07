@@ -100,7 +100,8 @@ function isValidIpv4(ip: string): boolean {
  */
 export function extractIndicators(text: string, max = 6): ExtractedIndicator[] {
   if (!text) return [];
-  const refanged = refang(text);
+  const safe = text.slice(0, 8 * 1024); // ReDoS guard
+  const refanged = refang(safe);
   const seen = new Set<string>();
   const out: ExtractedIndicator[] = [];
 

@@ -21,5 +21,6 @@ export async function exposureScanHandler(c: Context<{ Bindings: Env }>) {
   };
 
   const result = await aggregateExposure(raw, env);
-  return c.json(result, 200, { 'Cache-Control': 'public, max-age=300' });
+  const cacheControl = result.subdomains.length === 0 ? 'no-store' : 'public, max-age=300';
+  return c.json(result, 200, { 'Cache-Control': cacheControl });
 }

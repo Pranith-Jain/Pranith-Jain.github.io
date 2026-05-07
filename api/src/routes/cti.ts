@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { parseStixBundle } from '../lib/stix-parse';
+import { safeErrorMessage } from '../lib/error';
 
 const MAX_BODY_BYTES = 1024 * 1024; // 1MB
 
@@ -22,6 +23,6 @@ export async function ctiParseHandler(c: Context<{ Bindings: Env }>) {
     const parsed = parseStixBundle(bundle as never);
     return c.json(parsed);
   } catch (err) {
-    return c.json({ error: err instanceof Error ? err.message : 'parse failed' }, 400);
+    return c.json({ error: safeErrorMessage(c.env as unknown as Record<string, unknown>, err) }, 400);
   }
 }

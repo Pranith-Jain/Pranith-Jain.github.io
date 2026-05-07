@@ -8,8 +8,11 @@ import { fileAnalyzeHandler } from './routes/file';
 import { feedProxyHandler } from './routes/feeds';
 import { ctiParseHandler } from './routes/cti';
 import { privacyInspectHandler } from './routes/privacy';
+import { rateLimit } from './lib/ratelimit';
 
 const app = new Hono<{ Bindings: Env }>();
+
+app.use('/api/v1/*', rateLimit);
 
 app.get('/api/v1/health', (c) => c.json({ ok: true }, 200, { 'Cache-Control': 'public, max-age=60' }));
 app.get('/api/v1/ioc/check', iocCheckHandler);

@@ -49,4 +49,14 @@ describe('GET /api/v1/feeds/proxy', () => {
     );
     expect(r.status).toBe(502);
   });
+
+  it('returns 502 when upstream issues a redirect', async () => {
+    vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(
+      new Response(null, { status: 302, headers: { location: 'https://evil.example/' } })
+    );
+    const r = await SELF.fetch(
+      'https://x/api/v1/feeds/proxy?url=' + encodeURIComponent('https://www.cisa.gov/feed.xml')
+    );
+    expect(r.status).toBe(502);
+  });
 });

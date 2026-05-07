@@ -35,8 +35,11 @@ export interface ParsedStix {
 }
 
 const PATTERN_RE = /^\[(?<obj>[a-z][a-z0-9-]*)(?::(?<prop>[^\s=]+))?\s*=\s*'(?<val>[^']+)'\s*\]$/i;
+const MAX_OBJECTS = 1000;
+const MAX_PATTERN_LENGTH = 512;
 
 export function parseStixPattern(pattern: string): { type: StixIndicator['type']; value: string } {
+  if (!pattern || pattern.length > MAX_PATTERN_LENGTH) return { type: 'unknown', value: '' };
   const m = pattern.trim().match(PATTERN_RE);
   if (!m || !m.groups) return { type: 'unknown', value: '' };
   const { obj, prop, val } = m.groups;
@@ -66,6 +69,9 @@ export function parseStixBundle(bundle: StixBundle): ParsedStix {
     throw new Error('not a STIX bundle');
   }
   const objs = bundle.objects ?? [];
+  if (objs.length > MAX_OBJECTS) {
+    throw new Error(`bundle too large: ${objs.length} objects (max ${MAX_OBJECTS})`);
+  }
   const out: ParsedStix = { actors: [], campaigns: [], attack_patterns: [], indicators: [] };
   const relationships: Array<{ source_ref: string; target_ref: string; relationship_type: string }> = [];
 
@@ -114,10 +120,12 @@ export function parseStixBundle(bundle: StixBundle): ParsedStix {
   }
 
   // Resolve campaign → actor relationships ("attributed-to")
+  const intrusionSetIds = new Set(out.actors.map((a) => a.id));
+
   for (const rel of relationships) {
     if (rel.relationship_type === 'attributed-to') {
       const camp = out.campaigns.find((c) => c.id === rel.source_ref);
-      if (camp && rel.target_ref.startsWith('intrusion-set--')) {
+      if (camp && intrusionSetIds.has(rel.target_ref)) {
         camp.actor_id = rel.target_ref;
       }
     }
