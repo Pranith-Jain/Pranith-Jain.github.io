@@ -9,7 +9,7 @@ import { ScrollProgress, BackToTop } from './components/ui';
 import { Layout } from './components/Layout';
 import { Home, About, Skills, Experience, Projects, DFIR } from './pages';
 
-const IocCheckPlaceholder = lazy(() => import('./pages/dfir/IocCheckPlaceholder'));
+const IocCheck = lazy(() => import('./pages/dfir/IocCheck'));
 const PhishingPlaceholder = lazy(() => import('./pages/dfir/PhishingPlaceholder'));
 const DomainPlaceholder = lazy(() => import('./pages/dfir/DomainPlaceholder'));
 const ExposurePlaceholder = lazy(() => import('./pages/dfir/ExposurePlaceholder'));
@@ -91,7 +91,7 @@ export function AppContent() {
               path="/dfir/ioc-check"
               element={
                 <Suspense fallback={<SectionLoader />}>
-                  <IocCheckPlaceholder />
+                  <IocCheck />
                 </Suspense>
               }
             />
