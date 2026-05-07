@@ -9,6 +9,14 @@ import { ScrollProgress, BackToTop } from './components/ui';
 import { Layout } from './components/Layout';
 import { Home, About, Skills, Experience, Projects, DFIR } from './pages';
 
+const IocCheckPlaceholder = lazy(() => import('./pages/dfir/IocCheckPlaceholder'));
+const PhishingPlaceholder = lazy(() => import('./pages/dfir/PhishingPlaceholder'));
+const DomainPlaceholder = lazy(() => import('./pages/dfir/DomainPlaceholder'));
+const ExposurePlaceholder = lazy(() => import('./pages/dfir/ExposurePlaceholder'));
+const FilePlaceholder = lazy(() => import('./pages/dfir/FilePlaceholder'));
+const WikiPlaceholder = lazy(() => import('./pages/dfir/WikiPlaceholder'));
+const DashboardPlaceholder = lazy(() => import('./pages/dfir/DashboardPlaceholder'));
+
 function SectionLoader() {
   return (
     <div className="min-h-[200px] flex items-center justify-center" aria-hidden="true">
@@ -17,7 +25,7 @@ function SectionLoader() {
   );
 }
 
-function AppContent() {
+export function AppContent() {
   const { isDark, toggleTheme } = useTheme();
   const { progress, showBackToTop, scrollToTop } = useScrollProgress();
   const location = useLocation();
@@ -79,6 +87,62 @@ function AppContent() {
             <Route path="/experience" element={<Experience />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/dfir" element={<DFIR />} />
+            <Route
+              path="/dfir/ioc-check"
+              element={
+                <Suspense fallback={<SectionLoader />}>
+                  <IocCheckPlaceholder />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/dfir/phishing"
+              element={
+                <Suspense fallback={<SectionLoader />}>
+                  <PhishingPlaceholder />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/dfir/domain"
+              element={
+                <Suspense fallback={<SectionLoader />}>
+                  <DomainPlaceholder />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/dfir/exposure"
+              element={
+                <Suspense fallback={<SectionLoader />}>
+                  <ExposurePlaceholder />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/dfir/file"
+              element={
+                <Suspense fallback={<SectionLoader />}>
+                  <FilePlaceholder />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/dfir/wiki"
+              element={
+                <Suspense fallback={<SectionLoader />}>
+                  <WikiPlaceholder />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/dfir/dashboard"
+              element={
+                <Suspense fallback={<SectionLoader />}>
+                  <DashboardPlaceholder />
+                </Suspense>
+              }
+            />
             <Route path="/difr" element={<Navigate to="/dfir" replace />} />
           </Routes>
         </Layout>
