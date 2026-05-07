@@ -17,7 +17,7 @@ const subRoutes: Array<{ path: string; heading: string; skipComingSoon?: boolean
   { path: '/dfir/phishing', heading: 'Phishing Email Analyzer', skipComingSoon: true },
   { path: '/dfir/domain', heading: 'Domain Lookup', skipComingSoon: true },
   { path: '/dfir/exposure', heading: 'Exposure Scanner', skipComingSoon: true },
-  { path: '/dfir/file', heading: 'File Analyzer' },
+  { path: '/dfir/file', heading: 'File Analyzer', skipComingSoon: true },
   { path: '/dfir/wiki', heading: 'DFIR Knowledge Base' },
   { path: '/dfir/dashboard', heading: 'Recent Lookups' },
 ];

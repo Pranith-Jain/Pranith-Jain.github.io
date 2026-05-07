@@ -70,6 +70,15 @@ export interface DoneEvent {
   contributing: number;
 }
 
+export interface FileAnalysisResponse {
+  hash: string;
+  hash_type: 'md5' | 'sha1' | 'sha256';
+  providers: ProviderResultWire[];
+  score: number;
+  verdict: 'clean' | 'suspicious' | 'malicious' | 'unknown';
+  confidence: 'low' | 'medium' | 'high';
+}
+
 export interface DomainLookupResponse {
   domain: string;
   score: number;
