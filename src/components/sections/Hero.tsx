@@ -36,9 +36,6 @@ export function Hero() {
               Threat Intelligence
             </span>
             <span className="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-4 py-1.5 text-xs font-semibold text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200">
-              LLM Security
-            </span>
-            <span className="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-4 py-1.5 text-xs font-semibold text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200">
               Email Defense
             </span>
             <span className="inline-flex items-center gap-2 rounded-full border border-emerald-200/70 bg-emerald-50/70 px-4 py-1.5 text-xs font-semibold text-emerald-700 shadow-sm backdrop-blur-xl dark:border-emerald-800/50 dark:bg-emerald-900/30 dark:text-emerald-300">
@@ -97,13 +94,13 @@ export function Hero() {
               href={personalInfo.calendlyUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center justify-center rounded-2xl bg-brand-600 px-8 py-4 text-base font-bold text-white shadow-glow transition hover:bg-brand-500 hover:scale-105 active:scale-95"
+              className="inline-flex items-center justify-center rounded-2xl bg-brand-600 px-8 py-4 text-base font-bold text-white shadow-glow transition hover:bg-brand-500 hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-900"
             >
               Book Strategy Call
             </a>
             <a
               href="#skills"
-              className="inline-flex items-center justify-center rounded-2xl border border-slate-200/60 bg-white/70 px-8 py-4 text-base font-bold text-slate-800 shadow-sm transition hover:shadow-md hover:scale-105 active:scale-95 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-100"
+              className="inline-flex items-center justify-center rounded-2xl border border-slate-200/60 bg-white/70 px-8 py-4 text-base font-bold text-slate-800 shadow-sm transition hover:shadow-md hover:scale-105 active:scale-95 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-900"
             >
               Explore Focus Areas
             </a>
@@ -115,26 +112,26 @@ export function Hero() {
               href={personalInfo.linkedInUrl}
               target="_blank"
               rel="noreferrer"
-              className="text-slate-500 transition hover:text-brand-600 dark:hover:text-brand-400"
+              className="text-slate-500 transition hover:text-brand-600 dark:hover:text-brand-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded"
               aria-label="LinkedIn"
             >
-              <Linkedin className="h-6 w-6" />
+              <Linkedin className="h-6 w-6" aria-hidden="true" />
             </a>
             <a
               href={personalInfo.githubUrl}
               target="_blank"
               rel="noreferrer"
-              className="text-slate-500 transition hover:text-brand-600 dark:hover:text-brand-400"
+              className="text-slate-500 transition hover:text-brand-600 dark:hover:text-brand-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded"
               aria-label="GitHub"
             >
-              <Github className="h-6 w-6" />
+              <Github className="h-6 w-6" aria-hidden="true" />
             </a>
             <a
               href={`mailto:${personalInfo.email}`}
-              className="text-slate-500 transition hover:text-brand-600 dark:hover:text-brand-400"
+              className="text-slate-500 transition hover:text-brand-600 dark:hover:text-brand-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded"
               aria-label="Email"
             >
-              <Mail className="h-6 w-6" />
+              <Mail className="h-6 w-6" aria-hidden="true" />
             </a>
           </div>
         </motion.div>

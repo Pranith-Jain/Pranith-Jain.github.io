@@ -1,10 +1,10 @@
 export const personalInfo = {
   name: 'Pranith Jain',
-  title: 'Security Analyst – Email Security & Automation',
+  title: 'Security Analyst – Threat Intel, Security Automation',
   headline: '"Most phishing investigations end at the alert. Mine start there."',
-  description: `I'm Pranith Jain — I investigate phishing incidents starting at the alert: suspicious emails, BEC attempts, and malware payloads. Currently defending communication integrity for 150+ global brands, I've expanded my focus into AI security and API threat detection, building automated pipelines that correlate threat intelligence at scale.`,
+  description: `I'm Pranith Jain — I investigate phishing incidents starting at the alert: suspicious emails, BEC attempts, and malware payloads. Currently defending communication integrity for 150+ global brands, I've expanded my focus into AI security and NHI (Non-Human Identity) governance, building automated pipelines that correlate threat intelligence at scale.`,
   currentFocus: 'Threat intel, email defense, and cloud identity security',
-  currentlyLearning: 'LLM Security (OWASP Top 10 for LLM) & Advanced Threat Hunting',
+  currentlyLearning: 'NHI Security & Advanced Threat Hunting',
   availability: 'Open for Consultations & Strategy Calls',
   email: 'hello@pranithjain.qzz.io',
   phone: '+91 8310386578',
@@ -99,7 +99,7 @@ export const skills = [
       'IAM design & Zero Trust',
       'Identity governance & access reviews',
       'SSO, MFA, and conditional access',
-      'API security & threat detection',
+      'NHI security & threat detection',
       'Cloud directory hardening (GCP/AWS/Azure)',
     ],
   },
@@ -111,7 +111,7 @@ export const skills = [
       'AI for security detection & analysis',
       'AI security & prompt injection defense',
       'Security automation playbooks',
-      'API security testing & integration',
+      'NHI security testing & integration',
     ],
   },
 ];
@@ -133,7 +133,7 @@ export const companies = [
 
 export const experiences = [
   {
-    title: 'Security Analyst – Email Security & Automation',
+    title: 'Security Analyst – Threat Intel, Security Automation',
     company: 'Qubit Capital',
     location: 'Remote',
     period: 'Jul 2024 — Present',
@@ -253,6 +253,22 @@ export const certifications = {
 };
 
 export const projects = [
+  {
+    title: 'DFIR Toolkit',
+    description:
+      'A live, Cloudflare-Workers-hosted security toolkit at /dfir on this site. IOC checker (8 threat-intel providers via SSE), domain lookup (RDAP + DoH + email-auth), phishing email analyzer, exposure scanner, file hash analyzer, knowledge base, threat actor catalog, and privacy/browser-fingerprint inspector. Same-origin API at /api/v1/* with rate limiting, security headers, and STIX 2.1 ingest.',
+    tags: ['Cloudflare Workers', 'Hono', 'TypeScript', 'SSE', 'STIX 2.1', 'May 2026 – Present'],
+    github: 'https://github.com/Pranith-Jain/Pranith-Jain.github.io',
+    badge: 'Live · /dfir',
+    href: '/dfir',
+  },
+  {
+    title: 'CTI STIX Connector',
+    description:
+      'Containerized Python CLI that ingests JSON campaign + CSV IOC feeds, classifies and enriches indicators, and emits valid STIX 2.1 bundles. Docker, non-root container (UID 1000), strict-mode entrypoint, 38 pytest unit tests. Integrated with this portfolio at /dfir/actors and /api/v1/cti/parse.',
+    tags: ['Python', 'STIX 2.1', 'Docker', 'CTI', 'Apr 2026 – Present'],
+    github: 'https://github.com/Pranith-Jain/cti-stix-connector',
+  },
   {
     title: 'Email Infrastructure Automation Platform',
     description:
@@ -402,6 +418,6 @@ export const navLinks = [
   { label: 'Skills', href: '/skills' },
   { label: 'Experience', href: '/experience' },
   { label: 'Projects', href: '/projects' },
-  { label: 'DFIR Tools', href: '/dfir' },
+  { label: 'DFIR', href: '/dfir' },
   { label: 'Contact', href: '/#contact' },
 ];

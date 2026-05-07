@@ -27,7 +27,7 @@ export function Projects() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-brand-700 dark:text-brand-300"
+          className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400"
         >
           Projects
         </motion.div>
@@ -54,7 +54,7 @@ export function Projects() {
           <motion.div
             key={project.title}
             variants={itemVariants}
-            className="glass rounded-2xl p-6 shadow-sm transition-all hover:shadow-glow"
+            className="glass rounded-2xl p-6 shadow-sm transition-all hover:shadow-glow hover:border-brand-500/40"
           >
             <div className="flex items-start justify-between gap-4">
               <div className="text-base font-semibold text-slate-900 dark:text-white">{project.title}</div>
@@ -64,7 +64,7 @@ export function Projects() {
                 </span>
               )}
             </div>
-            <p className="mt-2 text-sm text-slate-700 dark:text-slate-300">{project.description}</p>
+            <p className="mt-2 text-sm text-slate-700 dark:text-slate-300 line-clamp-3">{project.description}</p>
             <div className="mt-3 flex flex-wrap items-center gap-2">
               {project.tags.map((tag) => (
                 <span
@@ -86,12 +86,21 @@ export function Projects() {
                   <span className="text-xs">Code</span>
                 </a>
               )}
+              {project.href && (
+                <a
+                  href={project.href}
+                  className="inline-flex items-center gap-1 rounded-full border border-slate-200/70 bg-brand-50 px-3 py-1 text-sm font-medium text-brand-700 shadow-sm backdrop-blur-xl transition-transform hover:scale-105 hover:bg-brand-100 dark:border-white/10 dark:bg-brand-900/30 dark:text-brand-300 dark:hover:bg-brand-800/40"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
+                  <span className="text-xs">Live</span>
+                </a>
+              )}
               {project.link && (
                 <a
                   href={project.link}
                   className="inline-flex items-center gap-1 rounded-full border border-slate-200/70 bg-brand-50 px-3 py-1 text-sm font-medium text-brand-700 shadow-sm backdrop-blur-xl transition-transform hover:scale-105 hover:bg-brand-100 dark:border-white/10 dark:bg-brand-900/30 dark:text-brand-300 dark:hover:bg-brand-800/40"
                 >
-                  <ExternalLink className="w-3.5 h-3.5" />
+                  <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
                   <span className="text-xs">{project.link.startsWith('#') ? 'View Tool' : 'Live Demo'}</span>
                 </a>
               )}

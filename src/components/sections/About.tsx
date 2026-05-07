@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { stats } from '../../data/content';
 
-const CYBERSECURITY_IMAGE_URL = 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800';
+const CYBERSECURITY_IMAGE_URL =
+  'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=900';
 
 export function About() {
   const [imageError, setImageError] = useState(false);
@@ -25,25 +26,30 @@ export function About() {
           </h2>
           <div className="mt-8 space-y-6 text-lg text-slate-700 dark:text-slate-300 leading-relaxed">
             <p>
-              My approach starts with the alert. I&apos;ve investigated{" "}
-              <span className="font-bold text-slate-900 dark:text-white">250+ phishing, BEC, and malware incidents</span>
-              —from suspicious email headers to payload analysis. Each investigation taught me how attackers think,
-              what patterns they follow, and where defenses fail.
+              My approach starts with the alert. I&apos;ve investigated{' '}
+              <span className="font-bold text-slate-900 dark:text-white">
+                250+ phishing, BEC, and malware incidents
+              </span>
+              —from suspicious email headers to payload analysis. Each investigation taught me how attackers think, what
+              patterns they follow, and where defenses fail.
             </p>
             <p>
-              That hands-on experience shaped how I build automation. Using{" "}
-              <span className="text-brand-700 dark:text-brand-400 font-semibold">n8n playbooks and MCP frameworks</span>,
-              I reduced response times from 4 hours to under 75 minutes. I map threats to MITRE ATT&CK, correlate IoCs
+              That hands-on experience shaped how I build automation. Using{' '}
+              <span className="text-brand-700 dark:text-brand-400 font-semibold">n8n playbooks and MCP frameworks</span>
+              , I reduced response times from 4 hours to under 75 minutes. I map threats to MITRE ATT&CK, correlate IoCs
               across campaigns, and continuously tune detection to minimize false positives.
             </p>
             <p>
-              Currently expanding into{" "}
-              <span className="text-brand-700 dark:text-brand-400 font-semibold">AI security and API threat detection</span>,
-              applying the same investigation-first mindset to emerging attack vectors. My work bridges technical
+              Currently expanding into{' '}
+              <span className="text-brand-700 dark:text-brand-400 font-semibold">
+                AI security and NHI (Non-Human Identity) governance
+              </span>
+              , applying the same investigation-first mindset to emerging attack vectors. My work bridges technical
               controls with business-critical trust signals across 150+ global brands.
             </p>
             <p>
-              I am currently seeking new security challenges where I can leverage my expertise in email defense, automation, and threat intelligence to protect and scale security operations in enterprise environments.
+              I am currently seeking new security challenges where I can leverage my expertise in email defense,
+              automation, and threat intelligence to protect and scale security operations in enterprise environments.
             </p>
           </div>
 
@@ -76,12 +82,11 @@ export function About() {
             {!imageError ? (
               <img
                 src={CYBERSECURITY_IMAGE_URL}
-                alt="Cybersecurity Visualization"
+                alt="Pranith Jain — security analyst portfolio"
                 loading="lazy"
                 decoding="async"
-                crossOrigin="anonymous"
                 onError={() => setImageError(true)}
-                className="rounded-[2.5rem] grayscale hover:grayscale-0 transition-all duration-700 w-full"
+                className="rounded-[2.5rem] grayscale hover:grayscale-0 hover:scale-[1.02] transition-all duration-700 w-full"
               />
             ) : (
               <div className="rounded-[2.5rem] w-full aspect-video bg-gradient-to-br from-brand-500/20 to-slate-800/20 flex items-center justify-center">

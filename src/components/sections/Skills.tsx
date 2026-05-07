@@ -74,10 +74,10 @@ export function Skills() {
             <motion.div
               key={skill.title}
               variants={itemVariants}
-              className="group glass rounded-3xl p-8 transition-all duration-300 hover:shadow-glow hover:-translate-y-1 h-full flex flex-col"
+              className="group glass rounded-3xl p-8 transition-all duration-300 hover:shadow-glow hover:-translate-y-1 hover:border-brand-500/40 h-full flex flex-col"
             >
               <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-50 text-brand-600 transition-colors group-hover:bg-brand-600 group-hover:text-white dark:bg-brand-900/30 dark:text-brand-300">
-                {IconComponent && <IconComponent className="h-6 w-6" />}
+                {IconComponent && <IconComponent className="h-6 w-6" aria-hidden="true" />}
               </div>
               <div className="text-xl font-bold text-slate-900 dark:text-white">{skill.title}</div>
               <ul className="mt-4 space-y-3 text-sm text-slate-700 dark:text-slate-400">

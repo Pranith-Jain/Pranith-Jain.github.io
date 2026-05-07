@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from 'react';
-import { ExternalLink } from 'lucide-react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { ExternalLink, RefreshCw } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { fetchMultipleFeeds, formatRelativeTime, type FeedItem } from '../../services/rssService';
 import { defaultFeeds } from '../../data/rssFeeds';
@@ -35,41 +35,40 @@ export function ThreatIntelFeed(): JSX.Element {
   const [error, setError] = useState<string | null>(null);
   const [sourceCount, setSourceCount] = useState(0);
 
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      try {
-        const resultsMap = await fetchMultipleFeeds(defaultFeeds);
-        if (cancelled) return;
+  const fetchFeeds = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const resultsMap = await fetchMultipleFeeds(defaultFeeds);
 
-        // Group by source, cap each, then flatten
-        const all: FeedItem[] = [];
-        let activeSources = 0;
-        resultsMap.forEach((result) => {
-          if (!result.error && result.items.length > 0) {
-            activeSources++;
-            all.push(...result.items.slice(0, MAX_PER_SOURCE));
-          }
-        });
-        setSourceCount(activeSources);
+      // Group by source, cap each, then flatten
+      const all: FeedItem[] = [];
+      let activeSources = 0;
+      resultsMap.forEach((result) => {
+        if (!result.error && result.items.length > 0) {
+          activeSources++;
+          all.push(...result.items.slice(0, MAX_PER_SOURCE));
+        }
+      });
+      setSourceCount(activeSources);
 
-        all.sort((a, b) => {
-          const dateA = new Date(a.pubDate).getTime() || 0;
-          const dateB = new Date(b.pubDate).getTime() || 0;
-          return dateB - dateA;
-        });
+      all.sort((a, b) => {
+        const dateA = new Date(a.pubDate).getTime() || 0;
+        const dateB = new Date(b.pubDate).getTime() || 0;
+        return dateB - dateA;
+      });
 
-        setItems(all.slice(0, MAX_ITEMS));
-      } catch (err) {
-        if (!cancelled) setError(err instanceof Error ? err.message : 'feed unavailable');
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
+      setItems(all.slice(0, MAX_ITEMS));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'feed unavailable');
+    } finally {
+      setLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    void fetchFeeds();
+  }, [fetchFeeds]);
 
   const itemsWithIocs = useMemo(
     () =>
@@ -84,11 +83,23 @@ export function ThreatIntelFeed(): JSX.Element {
 
   return (
     <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
-      <header className="flex items-baseline justify-between mb-4">
+      <header className="flex items-center justify-between mb-4">
         <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">Threat Intel</h2>
-        <span className="text-xs font-mono text-slate-600 dark:text-slate-400">
-          {sourceCount} sources · {totalIocs > 0 ? `${totalIocs} IOCs found · ` : ''}live
-        </span>
+        <div className="flex items-center gap-3">
+          <span className="text-xs font-mono text-slate-600 dark:text-slate-400">
+            {sourceCount} sources · {totalIocs > 0 ? `${totalIocs} IOCs found · ` : ''}live
+          </span>
+          <button
+            type="button"
+            onClick={() => void fetchFeeds()}
+            disabled={loading}
+            aria-label="refresh threat intel feed"
+            className="inline-flex items-center gap-1.5 text-xs font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 disabled:opacity-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+          >
+            <RefreshCw size={12} aria-hidden="true" className={loading ? 'animate-spin' : ''} />
+            refresh
+          </button>
+        </div>
       </header>
 
       {loading && <p className="font-mono text-sm text-slate-600 dark:text-slate-400">Fetching…</p>}
