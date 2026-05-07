@@ -75,16 +75,6 @@ const SecurityChecklist = ({ suggestions }: { suggestions?: string[] }) => {
   );
 };
 
-interface IOCResult {
-  indicator: string;
-  type: string;
-  score: number;
-  verdict: string;
-  tags: string[];
-  defanged: string;
-  suggestions?: string[];
-}
-
 interface DomainResult {
   domain: string;
   score: number;
@@ -196,7 +186,6 @@ interface ActorDetail {
 
 type TabType = 'home' | 'domain' | 'analysis' | 'exposure' | 'privacy' | 'threatIntel';
 
-
 // Helper functions for classifying threat intel items
 const getType = (title: string, description: string): string => {
   const text = `${title} ${description}`.toLowerCase();
@@ -224,10 +213,6 @@ export default function DFIRPage() {
   const initialTab = (searchParams.get('tab') as TabType) || 'home';
   const [activeTab, setActiveTab] = useState<TabType>(initialTab);
 
-  const [iocInput, setIocInput] = useState('');
-  const [iocResult, setIocResult] = useState<IOCResult | null>(null);
-  const [iocLoading, setIocLoading] = useState(false);
-
   const [domainInput, setDomainInput] = useState('');
   const [domainResult, setDomainResult] = useState<DomainResult | null>(null);
   const [domainLoading, setDomainLoading] = useState(false);
@@ -254,7 +239,6 @@ export default function DFIRPage() {
 
   const [threatActors, setThreatActors] = useState<ActorDetail[]>([]);
 
-  const [analysisMode, setAnalysisMode] = useState<'ioc' | 'phishing'>('ioc');
   const [threatIntelMode, setThreatIntelMode] = useState<'intel' | 'actors'>('intel');
 
   useEffect(() => {
@@ -433,20 +417,6 @@ export default function DFIRPage() {
         suggestions.push('Sandboxing the URL in a secure environment before opening.');
         suggestions.push('Monitor for any DNS requests to this domain across the environment.');
       }
-    } else if (type === 'ioc') {
-      const res = data as IOCResult;
-      if (res.verdict === 'Malicious') {
-        suggestions.push('Block this indicator immediately across all security controls (Firewall, EDR, Proxy).');
-        suggestions.push('Check EDR/SIEM logs for any historical matches with this indicator.');
-        suggestions.push('Isolate any hosts that have communicated with this malicious resource.');
-        if (res.type === 'Hash')
-          suggestions.push('Search for this file hash on all endpoints via EDR and delete occurrences.');
-        if (res.type === 'IPv4')
-          suggestions.push('Check firewall and VPC flow logs for any inbound/outbound traffic to this IP.');
-      } else if (res.verdict === 'Suspicious') {
-        suggestions.push('Monitor traffic to/from this indicator for unusual patterns.');
-        suggestions.push('Cross-reference with other threat intelligence feeds (VirusTotal, AlienVault).');
-      }
     } else if (type === 'exposure') {
       const res = data as ExposureResult;
       if (res.total_exposed_records > 0) {
@@ -567,58 +537,6 @@ export default function DFIRPage() {
         has_hyphen_abuse: hyphenCount >= 3,
       },
     };
-  };
-
-  const checkIOC = async () => {
-    if (!iocInput.trim()) return;
-    setIocLoading(true);
-    setIocResult(null);
-    try {
-      if (apiUrl) {
-        const res = await fetch(`${apiUrl}/api/v1/ioc/check`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ indicator: iocInput }),
-        });
-        const data = await res.json();
-        setIocResult({
-          ...data,
-          suggestions: generateSecuritySuggestions('ioc', data),
-        });
-      } else {
-        await new Promise((r) => setTimeout(r, 1000));
-        const input = iocInput.toLowerCase().trim();
-        let type = 'unknown';
-        let score = 25;
-
-        if (/^(\d{1,3}\.){3}\d{1,3}$/.test(input)) {
-          type = 'IPv4';
-          if (input.startsWith('185.220') || input.startsWith('192.168')) score = 75;
-        } else if (input.startsWith('http')) {
-          type = 'URL';
-          score = 60;
-        } else if (input.length === 64 || input.length === 40 || input.length === 32) {
-          type = 'Hash';
-          score = 45;
-        } else if (input.includes('.')) {
-          type = 'Domain';
-          score = 35;
-        }
-
-        const result: IOCResult = {
-          indicator: iocInput,
-          type,
-          score,
-          verdict: score > 60 ? 'Malicious' : score > 30 ? 'Suspicious' : 'Clean',
-          tags: score > 60 ? ['threat-actor-associated', 'active-c2'] : [],
-          defanged: iocInput.replace(/\./g, '[.]').replace(/http/g, 'hXXp'),
-        };
-        setIocResult(result);
-      }
-    } catch {
-      setIocResult(null);
-    }
-    setIocLoading(false);
   };
 
   const checkDomain = async () => {
@@ -1464,322 +1382,206 @@ export default function DFIRPage() {
 
               {activeTab === 'analysis' && (
                 <div className="space-y-6">
-                  <div className="flex gap-2 p-1 rounded-xl bg-slate-100 dark:bg-slate-800/50 w-fit">
-                    <button
-                      onClick={() => setAnalysisMode('ioc')}
-                      className={`px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 ${analysisMode === 'ioc' ? 'bg-white dark:bg-slate-700 text-brand-600 dark:text-brand-400 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'}`}
-                    >
-                      <Hash className="w-4 h-4" /> IOC Check
-                    </button>
-                    <button
-                      onClick={() => setAnalysisMode('phishing')}
-                      className={`px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 ${analysisMode === 'phishing' ? 'bg-white dark:bg-slate-700 text-brand-600 dark:text-brand-400 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'}`}
-                    >
-                      <Bug className="w-4 h-4" /> Phishing Analyzer
-                    </button>
-                  </div>
+                  <div className="max-w-4xl mx-auto space-y-6">
+                    <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
+                      <div className="flex items-center gap-3 mb-4">
+                        <Bug className="w-6 h-6 text-amber-500" />
+                        <h3 className="text-xl font-bold text-slate-900 dark:text-white">Phishing URL Analyzer</h3>
+                      </div>
+                      <div className="flex gap-3">
+                        <div className="relative flex-1">
+                          {showUrl ? (
+                            <input
+                              type="text"
+                              value={phishingUrl}
+                              onChange={(e) => setPhishingUrl(e.target.value)}
+                              placeholder="Enter URL to analyze"
+                              className="w-full px-4 py-3 pr-10 rounded-xl bg-white dark:bg-slate-800/50 border border-amber-500/50 text-slate-900 dark:text-white focus:outline-none transition-colors shadow-sm"
+                              onKeyDown={(e) => e.key === 'Enter' && analyzePhishing()}
+                            />
+                          ) : (
+                            <input
+                              type="password"
+                              value={phishingUrl}
+                              onChange={(e) => setPhishingUrl(e.target.value)}
+                              placeholder="Enter URL to analyze"
+                              className="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none transition-colors shadow-sm"
+                              onKeyDown={(e) => e.key === 'Enter' && analyzePhishing()}
+                            />
+                          )}
+                          <button
+                            onClick={() => setShowUrl(!showUrl)}
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                          >
+                            {showUrl ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                          </button>
+                        </div>
+                        <button
+                          onClick={analyzePhishing}
+                          disabled={phishingLoading}
+                          className="px-6 py-3 rounded-xl bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-white font-semibold transition-all flex items-center gap-2 shadow-sm"
+                        >
+                          {phishingLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Bug className="w-4 h-4" />}{' '}
+                          Analyze
+                        </button>
+                      </div>
+                    </div>
 
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={analysisMode}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      {analysisMode === 'ioc' && (
-                        <div className="max-w-4xl mx-auto space-y-6">
-                          <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
-                            <div className="flex items-center gap-3 mb-4">
-                              <Hash className="w-6 h-6 text-rose-500" />
-                              <h3 className="text-xl font-bold text-slate-900 dark:text-white">
-                                IOC Reputation Checker
-                              </h3>
-                            </div>
-                            <div className="flex gap-3">
-                              <input
-                                type="text"
-                                value={iocInput}
-                                onChange={(e) => setIocInput(e.target.value)}
-                                placeholder="Enter IP, domain, hash, or email"
-                                className="flex-1 px-4 py-3 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none transition-colors shadow-sm"
-                                onKeyDown={(e) => e.key === 'Enter' && checkIOC()}
-                              />
-                              <button
-                                onClick={checkIOC}
-                                disabled={iocLoading}
-                                className="px-6 py-3 rounded-xl bg-rose-600 hover:bg-rose-500 disabled:opacity-50 text-white font-semibold transition-all flex items-center gap-2 shadow-sm"
+                    {phishingResult && (
+                      <div className="space-y-6">
+                        <div
+                          className={`p-8 rounded-3xl border-2 ${phishingResult.verdict === 'PHISHING' ? 'bg-rose-500/5 border-rose-500/30' : 'bg-amber-500/5 border-amber-500/30'} shadow-lg`}
+                        >
+                          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
+                            <div className="flex items-center gap-6">
+                              <div
+                                className={`w-20 h-20 rounded-2xl flex items-center justify-center ${phishingResult.verdict === 'PHISHING' ? 'bg-rose-500 text-white' : 'bg-amber-500 text-white'}`}
                               >
-                                {iocLoading ? (
-                                  <Loader2 className="w-4 h-4 animate-spin" />
-                                ) : (
-                                  <Search className="w-4 h-4" />
-                                )}{' '}
-                                Check
-                              </button>
+                                <Bug className="w-10 h-10" />
+                              </div>
+                              <div>
+                                <span className="text-xs uppercase tracking-widest text-slate-500">
+                                  Analysis Result
+                                </span>
+                                <h4
+                                  className={`text-4xl font-black uppercase tracking-tight ${phishingResult.verdict === 'PHISHING' ? 'text-rose-600' : 'text-amber-600'}`}
+                                >
+                                  {phishingResult.verdict}
+                                </h4>
+                              </div>
+                            </div>
+                            <div className="text-left md:text-right p-4 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10">
+                              <span className="text-xs uppercase tracking-widest text-slate-500">Confidence Score</span>
+                              <p className="text-4xl font-black text-slate-900 dark:text-white">
+                                {phishingResult.confidence}%
+                              </p>
                             </div>
                           </div>
-                          {iocResult && (
-                            <>
-                              <div className={`p-6 rounded-2xl border-2 ${getScoreColor(iocResult.score)}`}>
-                                <div className="flex justify-between items-start mb-4">
-                                  <div>
-                                    <span className="text-xs uppercase tracking-wider text-slate-500">Verdict</span>
-                                    <h4 className="text-2xl font-black">{iocResult.verdict}</h4>
-                                  </div>
-                                  <div className="text-right">
-                                    <span className="text-xs uppercase tracking-wider text-slate-500">
-                                      Threat Score
+
+                          <div className="p-4 rounded-xl bg-white/60 dark:bg-black/20 border border-slate-200 dark:border-white/5 flex items-center gap-3 overflow-hidden">
+                            <Link2 className="w-5 h-5 text-slate-400 flex-shrink-0" />
+                            <span className="text-sm font-mono text-slate-600 dark:text-slate-300 truncate select-all">
+                              {phishingResult.url}
+                            </span>
+                            <button
+                              onClick={() => copyToClipboard(phishingResult.url)}
+                              className="p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-white/10 text-slate-500 transition-colors ml-auto"
+                              title="Copy URL"
+                            >
+                              <Copy className="w-4 h-4" />
+                            </button>
+                            {phishingResult.additional_checks?.is_https ? (
+                              <Lock className="w-4 h-4 text-emerald-500" />
+                            ) : (
+                              <ShieldAlert className="w-4 h-4 text-rose-500" />
+                            )}
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                          <div className="lg:col-span-2 space-y-6">
+                            <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
+                              <h4 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                                <AlertTriangle className="w-5 h-5 text-amber-500" /> Detected Risk Factors
+                              </h4>
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                {phishingResult.risk_factors.map((factor, idx) => (
+                                  <div
+                                    key={idx}
+                                    className="flex items-center gap-3 p-3 rounded-xl bg-rose-500/5 border border-rose-500/10"
+                                  >
+                                    <div className="w-2 h-2 rounded-full bg-rose-500" />
+                                    <span className="text-sm text-slate-700 dark:text-slate-300 font-medium">
+                                      {factor}
                                     </span>
-                                    <p className="text-3xl font-bold">{iocResult.score}/100</p>
                                   </div>
-                                </div>
-                                <div className="flex flex-wrap gap-4 text-sm mb-4">
-                                  <span className="text-slate-600 dark:text-slate-400">Type: {iocResult.type}</span>
-                                  {iocResult.tags.map((tag) => (
+                                ))}
+                              </div>
+                            </div>
+
+                            {phishingResult.content_flags.length > 0 && (
+                              <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
+                                <h4 className="font-bold text-slate-900 dark:text-white mb-4">
+                                  Content Analysis Flags
+                                </h4>
+                                <div className="flex flex-wrap gap-2">
+                                  {phishingResult.content_flags.map((flag, idx) => (
                                     <span
-                                      key={tag}
-                                      className="px-2 py-0.5 rounded bg-rose-500/10 text-rose-600 text-[10px] font-bold uppercase"
+                                      key={idx}
+                                      className="px-3 py-1.5 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs font-bold uppercase tracking-wider"
                                     >
-                                      {tag}
+                                      {flag}
                                     </span>
                                   ))}
                                 </div>
-                                {iocResult.defanged && (
-                                  <div className="p-3 rounded-xl bg-white/40 dark:bg-black/20 border border-slate-200 dark:border-white/10 flex items-center justify-between gap-3">
-                                    <span className="text-xs font-mono text-slate-600 dark:text-slate-300 truncate select-all">
-                                      Defanged: {iocResult.defanged}
-                                    </span>
-                                    <button
-                                      onClick={() => copyToClipboard(iocResult.defanged)}
-                                      className="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-white/10 text-slate-500 transition-colors"
-                                      title="Copy defanged indicator"
-                                    >
-                                      <Copy className="w-4 h-4" />
-                                    </button>
-                                  </div>
-                                )}
                               </div>
-                              <div className="mt-6">
-                                <SecurityChecklist suggestions={(iocResult as any).suggestions} />
-                              </div>
-                            </>
-                          )}
-                        </div>
-                      )}
+                            )}
 
-                      {analysisMode === 'phishing' && (
-                        <div className="max-w-4xl mx-auto space-y-6">
-                          <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
-                            <div className="flex items-center gap-3 mb-4">
-                              <Bug className="w-6 h-6 text-amber-500" />
-                              <h3 className="text-xl font-bold text-slate-900 dark:text-white">
-                                Phishing URL Analyzer
-                              </h3>
-                            </div>
-                            <div className="flex gap-3">
-                              <div className="relative flex-1">
-                                {showUrl ? (
-                                  <input
-                                    type="text"
-                                    value={phishingUrl}
-                                    onChange={(e) => setPhishingUrl(e.target.value)}
-                                    placeholder="Enter URL to analyze"
-                                    className="w-full px-4 py-3 pr-10 rounded-xl bg-white dark:bg-slate-800/50 border border-amber-500/50 text-slate-900 dark:text-white focus:outline-none transition-colors shadow-sm"
-                                    onKeyDown={(e) => e.key === 'Enter' && analyzePhishing()}
-                                  />
-                                ) : (
-                                  <input
-                                    type="password"
-                                    value={phishingUrl}
-                                    onChange={(e) => setPhishingUrl(e.target.value)}
-                                    placeholder="Enter URL to analyze"
-                                    className="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none transition-colors shadow-sm"
-                                    onKeyDown={(e) => e.key === 'Enter' && analyzePhishing()}
-                                  />
-                                )}
-                                <button
-                                  onClick={() => setShowUrl(!showUrl)}
-                                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
-                                >
-                                  {showUrl ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                                </button>
+                            <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
+                              <h4 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                                <Globe className="w-5 h-5 text-cyan-500" /> Similar & Lookalike Domains
+                              </h4>
+                              <div className="space-y-4">
+                                {phishingResult.similar_domains?.map((item, idx) => (
+                                  <div key={idx} className="flex flex-col gap-2">
+                                    <div className="flex justify-between items-center text-sm">
+                                      <span className="font-mono text-slate-700 dark:text-slate-300">
+                                        {item.domain}
+                                      </span>
+                                      <span className="font-bold text-slate-500">
+                                        {(item.similarity * 100).toFixed(0)}% Match
+                                      </span>
+                                    </div>
+                                    <div className="h-1.5 bg-slate-200 dark:bg-white/5 rounded-full overflow-hidden">
+                                      <motion.div
+                                        initial={{ width: 0 }}
+                                        animate={{ width: `${item.similarity * 100}%` }}
+                                        className="h-full bg-cyan-500"
+                                      />
+                                    </div>
+                                  </div>
+                                ))}
                               </div>
-                              <button
-                                onClick={analyzePhishing}
-                                disabled={phishingLoading}
-                                className="px-6 py-3 rounded-xl bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-white font-semibold transition-all flex items-center gap-2 shadow-sm"
-                              >
-                                {phishingLoading ? (
-                                  <Loader2 className="w-4 h-4 animate-spin" />
-                                ) : (
-                                  <Bug className="w-4 h-4" />
-                                )}{' '}
-                                Analyze
-                              </button>
                             </div>
                           </div>
-
-                          {phishingResult && (
-                            <div className="space-y-6">
-                              <div
-                                className={`p-8 rounded-3xl border-2 ${phishingResult.verdict === 'PHISHING' ? 'bg-rose-500/5 border-rose-500/30' : 'bg-amber-500/5 border-amber-500/30'} shadow-lg`}
-                              >
-                                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
-                                  <div className="flex items-center gap-6">
-                                    <div
-                                      className={`w-20 h-20 rounded-2xl flex items-center justify-center ${phishingResult.verdict === 'PHISHING' ? 'bg-rose-500 text-white' : 'bg-amber-500 text-white'}`}
-                                    >
-                                      <Bug className="w-10 h-10" />
-                                    </div>
-                                    <div>
-                                      <span className="text-xs uppercase tracking-widest text-slate-500">
-                                        Analysis Result
-                                      </span>
-                                      <h4
-                                        className={`text-4xl font-black uppercase tracking-tight ${phishingResult.verdict === 'PHISHING' ? 'text-rose-600' : 'text-amber-600'}`}
-                                      >
-                                        {phishingResult.verdict}
-                                      </h4>
-                                    </div>
-                                  </div>
-                                  <div className="text-left md:text-right p-4 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10">
-                                    <span className="text-xs uppercase tracking-widest text-slate-500">
-                                      Confidence Score
-                                    </span>
-                                    <p className="text-4xl font-black text-slate-900 dark:text-white">
-                                      {phishingResult.confidence}%
-                                    </p>
-                                  </div>
-                                </div>
-
-                                <div className="p-4 rounded-xl bg-white/60 dark:bg-black/20 border border-slate-200 dark:border-white/5 flex items-center gap-3 overflow-hidden">
-                                  <Link2 className="w-5 h-5 text-slate-400 flex-shrink-0" />
-                                  <span className="text-sm font-mono text-slate-600 dark:text-slate-300 truncate select-all">
-                                    {phishingResult.url}
-                                  </span>
-                                  <button
-                                    onClick={() => copyToClipboard(phishingResult.url)}
-                                    className="p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-white/10 text-slate-500 transition-colors ml-auto"
-                                    title="Copy URL"
+                          <div className="space-y-6">
+                            <SecurityChecklist suggestions={phishingResult.suggestions} />
+                            <div className="p-6 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10">
+                              <h4 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                                <Activity className="w-5 h-5 text-brand-500" /> Technical Details
+                              </h4>
+                              <div className="space-y-3 text-xs">
+                                <div className="flex justify-between py-2 border-b border-slate-200 dark:border-white/5">
+                                  <span className="text-slate-500">Secure Protocol</span>
+                                  <span
+                                    className={
+                                      phishingResult.additional_checks?.is_https
+                                        ? 'text-emerald-500 font-bold'
+                                        : 'text-rose-500 font-bold'
+                                    }
                                   >
-                                    <Copy className="w-4 h-4" />
-                                  </button>
-                                  {phishingResult.additional_checks?.is_https ? (
-                                    <Lock className="w-4 h-4 text-emerald-500" />
-                                  ) : (
-                                    <ShieldAlert className="w-4 h-4 text-rose-500" />
-                                  )}
+                                    {phishingResult.additional_checks?.is_https ? 'HTTPS' : 'INSECURE HTTP'}
+                                  </span>
                                 </div>
-                              </div>
-
-                              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                                <div className="lg:col-span-2 space-y-6">
-                                  <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
-                                    <h4 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                                      <AlertTriangle className="w-5 h-5 text-amber-500" /> Detected Risk Factors
-                                    </h4>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                      {phishingResult.risk_factors.map((factor, idx) => (
-                                        <div
-                                          key={idx}
-                                          className="flex items-center gap-3 p-3 rounded-xl bg-rose-500/5 border border-rose-500/10"
-                                        >
-                                          <div className="w-2 h-2 rounded-full bg-rose-500" />
-                                          <span className="text-sm text-slate-700 dark:text-slate-300 font-medium">
-                                            {factor}
-                                          </span>
-                                        </div>
-                                      ))}
-                                    </div>
-                                  </div>
-
-                                  {phishingResult.content_flags.length > 0 && (
-                                    <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
-                                      <h4 className="font-bold text-slate-900 dark:text-white mb-4">
-                                        Content Analysis Flags
-                                      </h4>
-                                      <div className="flex flex-wrap gap-2">
-                                        {phishingResult.content_flags.map((flag, idx) => (
-                                          <span
-                                            key={idx}
-                                            className="px-3 py-1.5 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs font-bold uppercase tracking-wider"
-                                          >
-                                            {flag}
-                                          </span>
-                                        ))}
-                                      </div>
-                                    </div>
-                                  )}
-
-                                  <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
-                                    <h4 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                                      <Globe className="w-5 h-5 text-cyan-500" /> Similar & Lookalike Domains
-                                    </h4>
-                                    <div className="space-y-4">
-                                      {phishingResult.similar_domains?.map((item, idx) => (
-                                        <div key={idx} className="flex flex-col gap-2">
-                                          <div className="flex justify-between items-center text-sm">
-                                            <span className="font-mono text-slate-700 dark:text-slate-300">
-                                              {item.domain}
-                                            </span>
-                                            <span className="font-bold text-slate-500">
-                                              {(item.similarity * 100).toFixed(0)}% Match
-                                            </span>
-                                          </div>
-                                          <div className="h-1.5 bg-slate-200 dark:bg-white/5 rounded-full overflow-hidden">
-                                            <motion.div
-                                              initial={{ width: 0 }}
-                                              animate={{ width: `${item.similarity * 100}%` }}
-                                              className="h-full bg-cyan-500"
-                                            />
-                                          </div>
-                                        </div>
-                                      ))}
-                                    </div>
-                                  </div>
+                                <div className="flex justify-between py-2 border-b border-slate-200 dark:border-white/5">
+                                  <span className="text-slate-500">Obfuscation</span>
+                                  <span className="text-slate-900 dark:text-slate-200 font-medium">
+                                    {phishingResult.additional_checks?.has_obfuscation ? 'DETECTED' : 'NONE'}
+                                  </span>
                                 </div>
-                                <div className="space-y-6">
-                                  <SecurityChecklist suggestions={phishingResult.suggestions} />
-                                  <div className="p-6 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10">
-                                    <h4 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                                      <Activity className="w-5 h-5 text-brand-500" /> Technical Details
-                                    </h4>
-                                    <div className="space-y-3 text-xs">
-                                      <div className="flex justify-between py-2 border-b border-slate-200 dark:border-white/5">
-                                        <span className="text-slate-500">Secure Protocol</span>
-                                        <span
-                                          className={
-                                            phishingResult.additional_checks?.is_https
-                                              ? 'text-emerald-500 font-bold'
-                                              : 'text-rose-500 font-bold'
-                                          }
-                                        >
-                                          {phishingResult.additional_checks?.is_https ? 'HTTPS' : 'INSECURE HTTP'}
-                                        </span>
-                                      </div>
-                                      <div className="flex justify-between py-2 border-b border-slate-200 dark:border-white/5">
-                                        <span className="text-slate-500">Obfuscation</span>
-                                        <span className="text-slate-900 dark:text-slate-200 font-medium">
-                                          {phishingResult.additional_checks?.has_obfuscation ? 'DETECTED' : 'NONE'}
-                                        </span>
-                                      </div>
-                                      <div className="flex justify-between py-2">
-                                        <span className="text-slate-500">Subdomains</span>
-                                        <span className="text-slate-900 dark:text-slate-200 font-medium">
-                                          {phishingResult.additional_checks?.subdomain_count}
-                                        </span>
-                                      </div>
-                                    </div>
-                                  </div>
+                                <div className="flex justify-between py-2">
+                                  <span className="text-slate-500">Subdomains</span>
+                                  <span className="text-slate-900 dark:text-slate-200 font-medium">
+                                    {phishingResult.additional_checks?.subdomain_count}
+                                  </span>
                                 </div>
                               </div>
                             </div>
-                          )}
+                          </div>
                         </div>
-                      )}
-                    </motion.div>
-                  </AnimatePresence>
+                      </div>
+                    )}
+                  </div>
                 </div>
               )}
 

@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useRef, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Shield, Globe, Search, Database, Lock, BookOpen, Radar, type LucideIcon } from 'lucide-react';
+import { Shield, Globe, Search, Database, Lock, BookOpen, Radar, ShieldAlert, type LucideIcon } from 'lucide-react';
 
 export type NavTab = 'home' | 'domain' | 'analysis' | 'exposure' | 'privacy' | 'knowledge' | 'threatIntel';
 
@@ -33,10 +33,9 @@ const navItems: NavItem[] = [
   },
   {
     id: 'analysis',
-    label: 'Analysis',
-    icon: Search,
-    description: 'IOC + Phishing',
-    badge: '2 tools',
+    label: 'Phishing',
+    icon: ShieldAlert,
+    description: 'Email Analysis',
     shortcut: '3',
     color: 'from-rose-500 to-rose-600',
   },
