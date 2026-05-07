@@ -11,17 +11,14 @@ import {
   Hash,
   ShieldAlert,
   Clock,
-  Bug,
   FileSearch,
   RefreshCw,
   Trash2,
   Loader2,
   ExternalLink,
   AlertTriangle,
-  Eye,
   EyeOff,
   Copy,
-  Link2,
   Server,
   Activity,
   Users,
@@ -108,19 +105,6 @@ interface PrivacyResult {
   suggestions?: string[];
 }
 
-interface PhishingResult {
-  url: string;
-  verdict: string;
-  confidence: number;
-  risk_factors: string[];
-  final_url?: string;
-  content_flags: string[];
-  similar_domains?: Array<{ domain: string; similarity: number }>;
-  suggestions?: string[];
-  additional_checks?: Record<string, any>;
-  screenshot?: string;
-}
-
 interface ExposureResult {
   query: string;
   type: string;
@@ -164,7 +148,7 @@ interface ActorDetail {
   url?: string;
 }
 
-type TabType = 'home' | 'analysis' | 'exposure' | 'privacy' | 'threatIntel';
+type TabType = 'home' | 'exposure' | 'privacy' | 'threatIntel';
 
 // Helper functions for classifying threat intel items
 const getType = (title: string, description: string): string => {
@@ -195,11 +179,6 @@ export default function DFIRPage() {
 
   const [privacyResult, setPrivacyResult] = useState<PrivacyResult | null>(null);
   const [privacyLoading, setPrivacyLoading] = useState(false);
-
-  const [phishingUrl, setPhishingUrl] = useState('');
-  const [phishingResult, setPhishingResult] = useState<PhishingResult | null>(null);
-  const [phishingLoading, setPhishingLoading] = useState(false);
-  const [showUrl, setShowUrl] = useState(false);
 
   const [exposureQuery, setExposureQuery] = useState('');
   const [exposureResult, setExposureResult] = useState<ExposureResult | null>(null);
@@ -312,80 +291,9 @@ export default function DFIRPage() {
     },
   ];
 
-  const trustedDomains = [
-    'google.com',
-    'microsoft.com',
-    'github.com',
-    'cloudflare.com',
-    'apple.com',
-    'amazon.com',
-    'facebook.com',
-    'linkedin.com',
-    'twitter.com',
-    'x.com',
-    'goog',
-    'apple',
-    'microsoft',
-  ];
-  const suspiciousTLDs = [
-    'xyz',
-    'top',
-    'click',
-    'link',
-    'work',
-    'ru',
-    'cn',
-    'tk',
-    'ml',
-    'ga',
-    'cf',
-    'gq',
-    'zip',
-    'mov',
-    'kim',
-    'racing',
-    'win',
-    'icu',
-    'monster',
-    'beauty',
-    'surf',
-  ];
-  const suspiciousPatterns = [
-    'login',
-    'verify',
-    'secure',
-    'account',
-    'update',
-    'support',
-    'alert',
-    'signin',
-    'auth',
-    'confirm',
-    'billing',
-    'wallet',
-    'crypto',
-    'banking',
-    'office365',
-    'outlook',
-  ];
-
   const generateSecuritySuggestions = (type: string, data: any): string[] => {
     const suggestions: string[] = [];
-    if (type === 'phishing') {
-      const res = data as PhishingResult;
-      if (res.verdict === 'PHISHING') {
-        suggestions.push('Report this malicious URL to Google Safe Browsing and Microsoft SmartScreen.');
-        suggestions.push('Block this domain at the perimeter firewall and DNS filtering level.');
-        suggestions.push('Conduct an internal search for any logs showing connections to this indicator.');
-        suggestions.push('Alert users about this specific campaign if it targeted your organization.');
-        suggestions.push('Investigate for any potential session cookie theft if the user interacted with the page.');
-      } else if (res.verdict === 'SUSPICIOUS') {
-        suggestions.push('Exercise extreme caution before interacting with this URL.');
-        suggestions.push('Verify the identity of the source through out-of-band communication.');
-        suggestions.push('Sandboxing the URL in a secure environment before opening.');
-        suggestions.push('Monitor for any DNS requests to this domain across the environment.');
-      }
-    } else if (type === 'exposure') {
+    if (type === 'exposure') {
       const res = data as ExposureResult;
       if (res.total_exposed_records > 0) {
         suggestions.push('Change passwords immediately for any accounts associated with this identity.');
@@ -404,105 +312,6 @@ export default function DFIRPage() {
       }
     }
     return suggestions;
-  };
-
-  const analyzePhishing = async () => {
-    if (!phishingUrl.trim()) return;
-    setPhishingLoading(true);
-    setPhishingResult(null);
-    try {
-      if (apiUrl) {
-        const res = await fetch(`${apiUrl}/api/v1/phishing/analyze`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ url: phishingUrl }),
-        });
-        const data = await res.json();
-        setPhishingResult({
-          ...data,
-          suggestions: generateSecuritySuggestions('phishing', data),
-        });
-      } else {
-        await new Promise((r) => setTimeout(r, 2000));
-        const url = phishingUrl.toLowerCase().trim();
-        const riskFactors: string[] = [];
-
-        // Comprehensive phishing detection logic
-        const isCredentialHarvesting =
-          /login|signin|account|verify|secure|update|billing|wallet|crypto|banking|office365|outlook/.test(url);
-
-        if (url.startsWith('http://')) riskFactors.push('Insecure HTTP connection (unencrypted traffic)');
-        if (url.match(/\d{1,3}\.\d{1,3}\.\d{1,3}/))
-          riskFactors.push('Numerical IP address used instead of domain name');
-
-        // Port detection
-        const portMatch = url.match(/:(\d+)/);
-        if (portMatch && !['80', '443'].includes(portMatch[1])) {
-          riskFactors.push(`Non-standard port detected (:${portMatch[1]}), common in phishing/C2`);
-        }
-
-        const domainMatch = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n?]+)/im);
-        const domain = domainMatch ? domainMatch[1] : '';
-        const tld = domain.split('.').pop() || '';
-
-        if (suspiciousTLDs.includes(tld))
-          riskFactors.push(`Suspicious top-level domain (.${tld}) commonly used by threat actors`);
-        if (
-          url.includes('-') &&
-          (url.includes('google') ||
-            url.includes('microsoft') ||
-            url.includes('apple') ||
-            url.includes('facebook') ||
-            url.includes('amazon'))
-        ) {
-          riskFactors.push('Potential brand-spoofing using hyphenated legitimate brand name');
-        }
-
-        if (url.length > 75)
-          riskFactors.push('Excessively long URL often used to hide malicious domains in address bars');
-        if (url.includes('@') && !url.includes('mailto:'))
-          riskFactors.push('URL contains an "@" symbol, potentially used for userinfo-based obfuscation');
-        if (url.includes('%')) riskFactors.push('Heavy use of URL encoding (obfuscation technique)');
-
-        // Homoglyphs in phishing check
-        if (/[а-яА-Я]|[οοΟΟ]|[рР]|[сС]|[уУ]|[хХ]|[ііІІ]/.test(url))
-          riskFactors.push('Internationalized Domain Name (IDN) homoglyph detected (visual spoofing)');
-
-        const contentFlags: string[] = [];
-        if (isCredentialHarvesting) {
-          contentFlags.push('Detected patterns of credential harvesting forms');
-          contentFlags.push('Deceptive login/authentication request');
-        }
-
-        const score = isCredentialHarvesting ? 85 : riskFactors.length * 15;
-        const verdict = score >= 70 ? 'PHISHING' : score >= 30 ? 'SUSPICIOUS' : 'CLEAN';
-
-        const result: PhishingResult = {
-          url: phishingUrl,
-          verdict,
-          confidence: Math.min(score, 98),
-          risk_factors: riskFactors.length > 0 ? riskFactors : ['No high-risk technical indicators detected'],
-          final_url: url.startsWith('http') ? url : 'https://' + url,
-          content_flags: contentFlags,
-          similar_domains: [
-            { domain: 'google.com', similarity: url.includes('google') ? 0.92 : 0.1 },
-            { domain: 'microsoft.com', similarity: url.includes('micro') ? 0.88 : 0.1 },
-            { domain: 'office.com', similarity: url.includes('offi') ? 0.85 : 0.1 },
-          ].filter((d) => d.similarity > 0.2),
-          additional_checks: {
-            is_https: url.startsWith('https://'),
-            has_obfuscation: url.includes('%') || url.includes('@'),
-            subdomain_count: domain.split('.').length - 2,
-            entropy: calculateDomainScore(domain).additional_checks.entropy,
-          },
-        };
-        result.suggestions = generateSecuritySuggestions('phishing', result);
-        setPhishingResult(result);
-      }
-    } catch {
-      setPhishingResult(null);
-    }
-    setPhishingLoading(false);
   };
 
   const runExposureScan = async () => {
@@ -830,7 +639,6 @@ export default function DFIRPage() {
 
   const tabs = [
     { id: 'home', label: 'Home', icon: Shield },
-    { id: 'analysis', label: 'Analysis', icon: Search, description: 'IOC + Phishing' },
     { id: 'exposure', label: 'Exposure', icon: Database },
     { id: 'privacy', label: 'Privacy', icon: Lock },
     { id: 'threatIntel', label: 'Threat Intel', icon: Radar },
@@ -924,27 +732,15 @@ export default function DFIRPage() {
                       <ConnectionStatus />
                       <div className="flex flex-wrap gap-4 mt-6">
                         <button
-                          onClick={() => handleTabChange('analysis')}
+                          onClick={() => handleTabChange('exposure')}
                           className="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold transition-colors flex items-center gap-2"
                         >
-                          <Search className="w-4 h-4" /> IOC/Phishing Analysis
+                          <Database className="w-4 h-4" /> Exposure Scanner
                         </button>
                       </div>
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                       {[
-                        {
-                          label: 'IOC Check',
-                          icon: Activity,
-                          color: 'text-rose-500 dark:text-rose-400',
-                          tab: 'analysis' as TabType,
-                        },
-                        {
-                          label: 'Phishing',
-                          icon: Bug,
-                          color: 'text-amber-500 dark:text-amber-400',
-                          tab: 'analysis' as TabType,
-                        },
                         {
                           label: 'Exposure',
                           icon: Database,
@@ -968,211 +764,6 @@ export default function DFIRPage() {
                         </button>
                       ))}
                     </div>
-                  </div>
-                </div>
-              )}
-
-              {activeTab === 'analysis' && (
-                <div className="space-y-6">
-                  <div className="max-w-4xl mx-auto space-y-6">
-                    <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
-                      <div className="flex items-center gap-3 mb-4">
-                        <Bug className="w-6 h-6 text-amber-500" />
-                        <h3 className="text-xl font-bold text-slate-900 dark:text-white">Phishing URL Analyzer</h3>
-                      </div>
-                      <div className="flex gap-3">
-                        <div className="relative flex-1">
-                          {showUrl ? (
-                            <input
-                              type="text"
-                              value={phishingUrl}
-                              onChange={(e) => setPhishingUrl(e.target.value)}
-                              placeholder="Enter URL to analyze"
-                              className="w-full px-4 py-3 pr-10 rounded-xl bg-white dark:bg-slate-800/50 border border-amber-500/50 text-slate-900 dark:text-white focus:outline-none transition-colors shadow-sm"
-                              onKeyDown={(e) => e.key === 'Enter' && analyzePhishing()}
-                            />
-                          ) : (
-                            <input
-                              type="password"
-                              value={phishingUrl}
-                              onChange={(e) => setPhishingUrl(e.target.value)}
-                              placeholder="Enter URL to analyze"
-                              className="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none transition-colors shadow-sm"
-                              onKeyDown={(e) => e.key === 'Enter' && analyzePhishing()}
-                            />
-                          )}
-                          <button
-                            onClick={() => setShowUrl(!showUrl)}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
-                          >
-                            {showUrl ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                          </button>
-                        </div>
-                        <button
-                          onClick={analyzePhishing}
-                          disabled={phishingLoading}
-                          className="px-6 py-3 rounded-xl bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-white font-semibold transition-all flex items-center gap-2 shadow-sm"
-                        >
-                          {phishingLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Bug className="w-4 h-4" />}{' '}
-                          Analyze
-                        </button>
-                      </div>
-                    </div>
-
-                    {phishingResult && (
-                      <div className="space-y-6">
-                        <div
-                          className={`p-8 rounded-3xl border-2 ${phishingResult.verdict === 'PHISHING' ? 'bg-rose-500/5 border-rose-500/30' : 'bg-amber-500/5 border-amber-500/30'} shadow-lg`}
-                        >
-                          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
-                            <div className="flex items-center gap-6">
-                              <div
-                                className={`w-20 h-20 rounded-2xl flex items-center justify-center ${phishingResult.verdict === 'PHISHING' ? 'bg-rose-500 text-white' : 'bg-amber-500 text-white'}`}
-                              >
-                                <Bug className="w-10 h-10" />
-                              </div>
-                              <div>
-                                <span className="text-xs uppercase tracking-widest text-slate-500">
-                                  Analysis Result
-                                </span>
-                                <h4
-                                  className={`text-4xl font-black uppercase tracking-tight ${phishingResult.verdict === 'PHISHING' ? 'text-rose-600' : 'text-amber-600'}`}
-                                >
-                                  {phishingResult.verdict}
-                                </h4>
-                              </div>
-                            </div>
-                            <div className="text-left md:text-right p-4 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10">
-                              <span className="text-xs uppercase tracking-widest text-slate-500">Confidence Score</span>
-                              <p className="text-4xl font-black text-slate-900 dark:text-white">
-                                {phishingResult.confidence}%
-                              </p>
-                            </div>
-                          </div>
-
-                          <div className="p-4 rounded-xl bg-white/60 dark:bg-black/20 border border-slate-200 dark:border-white/5 flex items-center gap-3 overflow-hidden">
-                            <Link2 className="w-5 h-5 text-slate-400 flex-shrink-0" />
-                            <span className="text-sm font-mono text-slate-600 dark:text-slate-300 truncate select-all">
-                              {phishingResult.url}
-                            </span>
-                            <button
-                              onClick={() => copyToClipboard(phishingResult.url)}
-                              className="p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-white/10 text-slate-500 transition-colors ml-auto"
-                              title="Copy URL"
-                            >
-                              <Copy className="w-4 h-4" />
-                            </button>
-                            {phishingResult.additional_checks?.is_https ? (
-                              <Lock className="w-4 h-4 text-emerald-500" />
-                            ) : (
-                              <ShieldAlert className="w-4 h-4 text-rose-500" />
-                            )}
-                          </div>
-                        </div>
-
-                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                          <div className="lg:col-span-2 space-y-6">
-                            <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
-                              <h4 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                                <AlertTriangle className="w-5 h-5 text-amber-500" /> Detected Risk Factors
-                              </h4>
-                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                {phishingResult.risk_factors.map((factor, idx) => (
-                                  <div
-                                    key={idx}
-                                    className="flex items-center gap-3 p-3 rounded-xl bg-rose-500/5 border border-rose-500/10"
-                                  >
-                                    <div className="w-2 h-2 rounded-full bg-rose-500" />
-                                    <span className="text-sm text-slate-700 dark:text-slate-300 font-medium">
-                                      {factor}
-                                    </span>
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-
-                            {phishingResult.content_flags.length > 0 && (
-                              <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
-                                <h4 className="font-bold text-slate-900 dark:text-white mb-4">
-                                  Content Analysis Flags
-                                </h4>
-                                <div className="flex flex-wrap gap-2">
-                                  {phishingResult.content_flags.map((flag, idx) => (
-                                    <span
-                                      key={idx}
-                                      className="px-3 py-1.5 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs font-bold uppercase tracking-wider"
-                                    >
-                                      {flag}
-                                    </span>
-                                  ))}
-                                </div>
-                              </div>
-                            )}
-
-                            <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
-                              <h4 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                                <Globe className="w-5 h-5 text-cyan-500" /> Similar & Lookalike Domains
-                              </h4>
-                              <div className="space-y-4">
-                                {phishingResult.similar_domains?.map((item, idx) => (
-                                  <div key={idx} className="flex flex-col gap-2">
-                                    <div className="flex justify-between items-center text-sm">
-                                      <span className="font-mono text-slate-700 dark:text-slate-300">
-                                        {item.domain}
-                                      </span>
-                                      <span className="font-bold text-slate-500">
-                                        {(item.similarity * 100).toFixed(0)}% Match
-                                      </span>
-                                    </div>
-                                    <div className="h-1.5 bg-slate-200 dark:bg-white/5 rounded-full overflow-hidden">
-                                      <motion.div
-                                        initial={{ width: 0 }}
-                                        animate={{ width: `${item.similarity * 100}%` }}
-                                        className="h-full bg-cyan-500"
-                                      />
-                                    </div>
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-                          </div>
-                          <div className="space-y-6">
-                            <SecurityChecklist suggestions={phishingResult.suggestions} />
-                            <div className="p-6 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10">
-                              <h4 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                                <Activity className="w-5 h-5 text-brand-500" /> Technical Details
-                              </h4>
-                              <div className="space-y-3 text-xs">
-                                <div className="flex justify-between py-2 border-b border-slate-200 dark:border-white/5">
-                                  <span className="text-slate-500">Secure Protocol</span>
-                                  <span
-                                    className={
-                                      phishingResult.additional_checks?.is_https
-                                        ? 'text-emerald-500 font-bold'
-                                        : 'text-rose-500 font-bold'
-                                    }
-                                  >
-                                    {phishingResult.additional_checks?.is_https ? 'HTTPS' : 'INSECURE HTTP'}
-                                  </span>
-                                </div>
-                                <div className="flex justify-between py-2 border-b border-slate-200 dark:border-white/5">
-                                  <span className="text-slate-500">Obfuscation</span>
-                                  <span className="text-slate-900 dark:text-slate-200 font-medium">
-                                    {phishingResult.additional_checks?.has_obfuscation ? 'DETECTED' : 'NONE'}
-                                  </span>
-                                </div>
-                                <div className="flex justify-between py-2">
-                                  <span className="text-slate-500">Subdomains</span>
-                                  <span className="text-slate-900 dark:text-slate-200 font-medium">
-                                    {phishingResult.additional_checks?.subdomain_count}
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    )}
                   </div>
                 </div>
               )}
