@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useRef, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Shield, Search, Lock, BookOpen, Radar, type LucideIcon } from 'lucide-react';
+import { Shield, Search, Database, Lock, BookOpen, Radar, type LucideIcon } from 'lucide-react';
 
 export type NavTab = 'home' | 'privacy' | 'knowledge' | 'threatIntel';
 
