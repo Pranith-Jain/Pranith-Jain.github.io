@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Hash, ShieldAlert, Globe, Radar, FileSearch, BookOpen, Clock, type LucideIcon } from 'lucide-react';
+import { Hash, ShieldAlert, Globe, Radar, FileSearch, BookOpen, Clock, Users, type LucideIcon } from 'lucide-react';
 
 interface Tool {
   path: string;
@@ -16,6 +16,7 @@ const TOOLS: Tool[] = [
   { path: '/dfir/file', label: 'File Analyzer', desc: 'Hash-based lookups', icon: FileSearch },
   { path: '/dfir/wiki', label: 'Knowledge Base', desc: 'Concepts + playbooks', icon: BookOpen },
   { path: '/dfir/dashboard', label: 'Recent Lookups', desc: 'Your last 20 queries', icon: Clock },
+  { path: '/dfir/actors', label: 'Threat Actors', desc: 'APT catalog · STIX-aware', icon: Users },
 ];
 
 export function ToolGrid(): JSX.Element {

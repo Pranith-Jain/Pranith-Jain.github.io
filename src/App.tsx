@@ -17,6 +17,8 @@ const File = lazy(() => import('./pages/dfir/File'));
 const Wiki = lazy(() => import('./pages/dfir/Wiki'));
 const WikiArticle = lazy(() => import('./pages/dfir/WikiArticle'));
 const Dashboard = lazy(() => import('./pages/dfir/Dashboard'));
+const Actors = lazy(() => import('./pages/dfir/Actors'));
+const ActorDetail = lazy(() => import('./pages/dfir/ActorDetail'));
 
 function SectionLoader() {
   return (
@@ -149,6 +151,22 @@ export function AppContent() {
               element={
                 <Suspense fallback={<SectionLoader />}>
                   <Dashboard />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/dfir/actors"
+              element={
+                <Suspense fallback={<SectionLoader />}>
+                  <Actors />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/dfir/actors/:slug"
+              element={
+                <Suspense fallback={<SectionLoader />}>
+                  <ActorDetail />
                 </Suspense>
               }
             />

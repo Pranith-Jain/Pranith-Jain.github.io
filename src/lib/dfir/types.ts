@@ -1,3 +1,12 @@
+export type { ThreatActor, ActorStatus, Sophistication } from '../../data/dfir/threat-actors';
+
+export interface StixParseResponse {
+  actors: Array<{ id: string; name: string; aliases: string[]; motivation?: string }>;
+  campaigns: Array<{ id: string; name: string; description?: string; first_seen?: string; actor_id?: string }>;
+  attack_patterns: Array<{ id: string; name: string; mitre_id?: string }>;
+  indicators: Array<{ id: string; pattern: string; type: string; value: string; labels: string[] }>;
+}
+
 export type Verdict = 'clean' | 'suspicious' | 'malicious' | 'unknown';
 
 export interface ExposureScanResponse {
