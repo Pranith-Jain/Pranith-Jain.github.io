@@ -9,10 +9,10 @@ interface ChipProps {
 
 function Chip({ label, ok, detail, warn }: ChipProps): JSX.Element {
   const cls = !ok
-    ? 'border-[#ef4444]/40 text-[#ef4444]'
+    ? 'border-rose-500/40 text-rose-600 dark:text-rose-400'
     : warn
-      ? 'border-[#f59e0b]/40 text-[#f59e0b]'
-      : 'border-[#10b981]/40 text-[#10b981]';
+      ? 'border-amber-500/40 text-amber-600 dark:text-amber-400'
+      : 'border-emerald-500/40 text-emerald-600 dark:text-emerald-400';
   return (
     <div className={`flex flex-col gap-0.5 px-3 py-2 rounded-lg border ${cls}`}>
       <span className="text-xs font-mono uppercase tracking-wider">{label}</span>
@@ -23,18 +23,18 @@ function Chip({ label, ok, detail, warn }: ChipProps): JSX.Element {
 
 export function EmailAuthCard({ auth }: { auth: DomainLookupResponse['email_auth'] }): JSX.Element {
   return (
-    <section className="rounded-2xl border border-[#1f1f23] bg-[#111113] p-6">
+    <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
       <div className="flex items-baseline justify-between mb-3">
         <h3 className="font-display font-bold text-lg">Email Authentication</h3>
-        <span className="font-mono text-sm text-[#a1a1aa]">
+        <span className="font-mono text-sm text-slate-600 dark:text-slate-400">
           {auth.evaluation.score}/100 ·{' '}
           <span
             className={
               auth.evaluation.verdict === 'strong'
-                ? 'text-[#10b981]'
+                ? 'text-emerald-600 dark:text-emerald-400'
                 : auth.evaluation.verdict === 'partial'
-                  ? 'text-[#f59e0b]'
-                  : 'text-[#ef4444]'
+                  ? 'text-amber-600 dark:text-amber-400'
+                  : 'text-rose-600 dark:text-rose-400'
             }
           >
             {auth.evaluation.verdict}
@@ -70,8 +70,10 @@ export function EmailAuthCard({ auth }: { auth: DomainLookupResponse['email_auth
       </div>
       {auth.evaluation.weaknesses.length > 0 && (
         <div>
-          <span className="text-xs font-mono uppercase tracking-wider text-[#a1a1aa]">Weaknesses</span>
-          <ul className="mt-1 space-y-0.5 list-disc list-inside text-sm text-[#a1a1aa]">
+          <span className="text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400">
+            Weaknesses
+          </span>
+          <ul className="mt-1 space-y-0.5 list-disc list-inside text-sm text-slate-600 dark:text-slate-400">
             {auth.evaluation.weaknesses.map((w) => (
               <li key={w}>{w}</li>
             ))}

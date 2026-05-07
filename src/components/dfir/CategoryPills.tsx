@@ -19,8 +19,8 @@ export function CategoryPills({ categories, active, onSelect }: Props): JSX.Elem
             onClick={() => onSelect(c)}
             className={`px-3 py-1 rounded-full text-xs font-mono uppercase tracking-wider border transition-colors ${
               isActive
-                ? 'bg-[#00fff9]/15 text-[#00fff9] border-[#00fff9]/40'
-                : 'bg-[#111113] text-[#a1a1aa] border-[#1f1f23] hover:border-[#00fff9]/30'
+                ? 'bg-brand-500/15 dark:bg-brand-400/15 text-brand-600 dark:text-brand-400 border-brand-500/40'
+                : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-800 hover:border-brand-500/30'
             }`}
           >
             {c === 'all' ? 'All' : c}

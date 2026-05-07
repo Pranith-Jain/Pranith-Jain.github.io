@@ -11,38 +11,36 @@ export default function WikiArticle(): JSX.Element {
 
   if (!article) {
     return (
-      <div className="min-h-screen bg-[#0a0a0a] text-[#fafafa]">
-        <div className="max-w-3xl mx-auto px-8 py-20">
-          <Link
-            to="/dfir/wiki"
-            className="inline-flex items-center gap-2 text-sm text-[#a1a1aa] hover:text-[#00fff9] mb-8 font-mono"
-          >
-            <ArrowLeft size={14} /> /dfir/wiki
-          </Link>
-          <h1 className="font-display font-bold text-3xl">Article not found</h1>
-        </div>
+      <div className="max-w-3xl mx-auto px-8 py-20 text-slate-900 dark:text-slate-100">
+        <Link
+          to="/dfir/wiki"
+          className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+        >
+          <ArrowLeft size={14} /> /dfir/wiki
+        </Link>
+        <h1 className="font-display font-bold text-3xl">Article not found</h1>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-[#fafafa]">
-      <div className="max-w-3xl mx-auto px-8 py-12">
-        <Link
-          to="/dfir/wiki"
-          className="inline-flex items-center gap-2 text-sm text-[#a1a1aa] hover:text-[#00fff9] mb-8 font-mono"
-        >
-          <ArrowLeft size={14} /> /dfir/wiki
-        </Link>
-        <span className="block text-xs font-mono uppercase tracking-wider text-[#00fff9] mb-2">{article.category}</span>
-        <h1 className="text-4xl font-display font-bold mb-4">{article.title}</h1>
-        <p className="text-lg text-[#a1a1aa] mb-8">{article.description}</p>
+    <div className="max-w-3xl mx-auto px-8 py-12 text-slate-900 dark:text-slate-100">
+      <Link
+        to="/dfir/wiki"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+      >
+        <ArrowLeft size={14} /> /dfir/wiki
+      </Link>
+      <span className="block text-xs font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-2">
+        {article.category}
+      </span>
+      <h1 className="text-4xl font-display font-bold mb-4">{article.title}</h1>
+      <p className="text-lg text-slate-600 dark:text-slate-400 mb-8">{article.description}</p>
 
-        <article
-          className="prose prose-invert max-w-none [&_h2]:font-display [&_h2]:text-2xl [&_h2]:mt-8 [&_h3]:font-display [&_h3]:text-xl [&_h3]:mt-6 [&_p]:text-[#a1a1aa] [&_strong]:text-[#fafafa] [&_a]:text-[#00fff9] [&_code]:text-[#00fff9] [&_code]:font-mono [&_pre]:bg-[#111113] [&_pre]:border [&_pre]:border-[#1f1f23] [&_pre]:p-4 [&_pre]:rounded-lg [&_li]:text-[#a1a1aa] [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6"
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
-      </div>
+      <article
+        className="prose prose-invert max-w-none [&_h2]:font-display [&_h2]:text-2xl [&_h2]:mt-8 [&_h3]:font-display [&_h3]:text-xl [&_h3]:mt-6 [&_p]:text-slate-600 [&_strong]:text-slate-900 [&_a]:text-brand-600 [&_code]:text-brand-600 [&_code]:font-mono [&_pre]:bg-white [&_pre]:border [&_pre]:border-slate-200 [&_pre]:p-4 [&_pre]:rounded-lg [&_li]:text-slate-600 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 dark:[&_p]:text-slate-400 dark:[&_strong]:text-slate-100 dark:[&_a]:text-brand-400 dark:[&_code]:text-brand-400 dark:[&_pre]:bg-slate-900 dark:[&_pre]:border-slate-800 dark:[&_li]:text-slate-400"
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
     </div>
   );
 }

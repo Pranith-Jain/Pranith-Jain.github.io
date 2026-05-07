@@ -49,28 +49,31 @@ export function ThreatIntelFeed(): JSX.Element {
   }, []);
 
   return (
-    <section className="rounded-2xl border border-[#1f1f23] bg-[#111113] p-6">
+    <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
       <header className="flex items-baseline justify-between mb-4">
-        <h2 className="font-display font-bold text-xl text-[#fafafa]">Threat Intel</h2>
-        <span className="text-xs font-mono text-[#a1a1aa]">{sourceCount} sources · live</span>
+        <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">Threat Intel</h2>
+        <span className="text-xs font-mono text-slate-600 dark:text-slate-400">{sourceCount} sources · live</span>
       </header>
 
-      {loading && <p className="font-mono text-sm text-[#a1a1aa]">Fetching…</p>}
-      {error && <p className="font-mono text-sm text-[#ef4444]">error: {error}</p>}
+      {loading && <p className="font-mono text-sm text-slate-600 dark:text-slate-400">Fetching…</p>}
+      {error && <p className="font-mono text-sm text-rose-600 dark:text-rose-400">error: {error}</p>}
 
       {!loading && !error && (
         <ul className="space-y-3">
           {items.map((it) => (
-            <li key={it.guid ?? it.link} className="border-t border-[#1f1f23] pt-3 first:border-t-0 first:pt-0">
+            <li
+              key={it.guid ?? it.link}
+              className="border-t border-slate-200 dark:border-slate-800 pt-3 first:border-t-0 first:pt-0"
+            >
               <a href={it.link} target="_blank" rel="noopener noreferrer" className="group block">
                 <div className="flex items-baseline justify-between gap-3">
-                  <h3 className="font-semibold text-[#fafafa] group-hover:text-[#00fff9] transition-colors">
+                  <h3 className="font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:text-brand-400 transition-colors">
                     {it.title}
                   </h3>
-                  <ExternalLink size={12} className="text-[#71717a] shrink-0 mt-1" />
+                  <ExternalLink size={12} className="text-slate-500 shrink-0 mt-1" />
                 </div>
-                <div className="mt-1 flex items-center gap-3 text-xs font-mono text-[#71717a]">
-                  {it.source && <span className="text-[#00fff9]">{it.source}</span>}
+                <div className="mt-1 flex items-center gap-3 text-xs font-mono text-slate-500">
+                  {it.source && <span className="text-brand-600 dark:text-brand-400">{it.source}</span>}
                   {it.pubDate && <span>{formatRelativeTime(it.pubDate)}</span>}
                 </div>
               </a>

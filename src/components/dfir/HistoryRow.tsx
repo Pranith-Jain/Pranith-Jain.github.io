@@ -33,19 +33,21 @@ export function HistoryRow({ e }: { e: HistoryEntry }): JSX.Element {
     ? (e.verdict as 'clean' | 'suspicious' | 'malicious')
     : 'unknown';
   return (
-    <li className="flex items-center justify-between rounded-lg border border-[#1f1f23] bg-[#111113] p-3">
+    <li className="flex items-center justify-between rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3">
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-3">
-          <span className="text-xs font-mono uppercase tracking-wider text-[#00fff9] w-20 shrink-0">{e.tool}</span>
-          <span className="font-mono text-sm text-[#fafafa] truncate">{e.indicator}</span>
+          <span className="text-xs font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 w-20 shrink-0">
+            {e.tool}
+          </span>
+          <span className="font-mono text-sm text-slate-900 dark:text-slate-100 truncate">{e.indicator}</span>
         </div>
-        <span className="text-xs font-mono text-[#71717a] mt-1 block">{timeAgo(e.timestamp)}</span>
+        <span className="text-xs font-mono text-slate-500 mt-1 block">{timeAgo(e.timestamp)}</span>
       </div>
       <div className="flex items-center gap-3 shrink-0 ml-4">
         <VerdictChip verdict={verdictType} />
         <Link
           to={`${ROUTE_BY_TOOL[e.tool]}?${PARAM_BY_TOOL[e.tool]}=${encodeURIComponent(e.indicator)}`}
-          className="text-xs font-mono text-[#00fff9] hover:underline"
+          className="text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline"
         >
           re-run
         </Link>

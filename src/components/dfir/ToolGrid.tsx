@@ -38,15 +38,15 @@ export function ToolGrid(): JSX.Element {
         <Link
           key={path}
           to={path}
-          className="group block rounded-lg border border-[#1f1f23] bg-[#111113] p-5 hover:border-[#00fff9]/40 hover:bg-[#161618] transition-colors"
+          className="group block rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 hover:border-brand-500/40 hover:bg-slate-50 dark:bg-slate-800 transition-colors"
         >
           <div className="flex items-center gap-3 mb-2">
-            <Icon size={18} className="text-[#00fff9]" aria-hidden="true" />
-            <span className="font-display font-semibold text-[#fafafa] group-hover:text-[#00fff9] transition-colors">
+            <Icon size={18} className="text-brand-600 dark:text-brand-400" aria-hidden="true" />
+            <span className="font-display font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:text-brand-400 transition-colors">
               {label}
             </span>
           </div>
-          <p className="text-sm font-mono text-[#a1a1aa] leading-relaxed">{desc}</p>
+          <p className="text-sm font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{desc}</p>
         </Link>
       ))}
     </div>

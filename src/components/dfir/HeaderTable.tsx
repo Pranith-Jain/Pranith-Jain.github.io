@@ -39,21 +39,27 @@ export function HeaderTable({ headers }: HeaderTableProps): JSX.Element {
   const displayEntries = expanded ? [...priorityEntries, ...otherEntries] : priorityEntries;
 
   return (
-    <section className="rounded-2xl border border-[#1f1f23] bg-[#111113] p-6">
+    <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
       <h2 className="font-display font-bold text-xl mb-4">Email Headers</h2>
       {hops !== undefined && (
-        <div className="mb-4 text-xs font-mono text-[#a1a1aa]">
+        <div className="mb-4 text-xs font-mono text-slate-600 dark:text-slate-400">
           Received hops:{' '}
-          <span className={`font-semibold ${hops > 8 ? 'text-[#ef4444]' : 'text-[#fafafa]'}`}>{hops}</span>
+          <span
+            className={`font-semibold ${hops > 8 ? 'text-rose-600 dark:text-rose-400' : 'text-slate-900 dark:text-slate-100'}`}
+          >
+            {hops}
+          </span>
         </div>
       )}
       <div className="overflow-x-auto">
         <table className="w-full text-sm font-mono">
           <tbody>
             {displayEntries.map(([key, value]) => (
-              <tr key={key} className="border-b border-[#1f1f23] last:border-0">
-                <td className="py-2 pr-4 text-[#a1a1aa] align-top whitespace-nowrap w-40">{key}</td>
-                <td className="py-2 text-[#fafafa] break-all whitespace-pre-wrap">{String(value)}</td>
+              <tr key={key} className="border-b border-slate-200 dark:border-slate-800 last:border-0">
+                <td className="py-2 pr-4 text-slate-600 dark:text-slate-400 align-top whitespace-nowrap w-40">{key}</td>
+                <td className="py-2 text-slate-900 dark:text-slate-100 break-all whitespace-pre-wrap">
+                  {String(value)}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -62,7 +68,7 @@ export function HeaderTable({ headers }: HeaderTableProps): JSX.Element {
       {otherEntries.length > 0 && (
         <button
           onClick={() => setExpanded((e) => !e)}
-          className="mt-3 flex items-center gap-1 text-xs font-mono text-[#a1a1aa] hover:text-[#00fff9]"
+          className="mt-3 flex items-center gap-1 text-xs font-mono text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400"
         >
           {expanded ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
           {expanded ? 'Show less' : `Show ${otherEntries.length} more header${otherEntries.length > 1 ? 's' : ''}`}

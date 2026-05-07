@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from 'react';
+import { motion } from 'framer-motion';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, ScanText } from 'lucide-react';
 import type { PhishingAnalysisResponse } from '../../lib/dfir/types';
@@ -44,66 +45,66 @@ export default function Phishing(): JSX.Element {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-[#fafafa]">
-      <div className="max-w-5xl mx-auto px-8 py-12">
-        <Link
-          to="/dfir"
-          className="inline-flex items-center gap-2 text-sm text-[#a1a1aa] hover:text-[#00fff9] mb-8 font-mono"
-        >
-          <ArrowLeft size={14} /> /dfir
-        </Link>
+    <div className="max-w-5xl mx-auto px-8 py-12 text-slate-900 dark:text-slate-100">
+      <Link
+        to="/dfir"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+      >
+        <ArrowLeft size={14} /> /dfir
+      </Link>
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
         <h1 className="text-4xl font-display font-bold mb-2">Phishing Email Analyzer</h1>
-        <p className="text-[#a1a1aa] mb-8 max-w-2xl">
+        <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
           Paste raw email source. We parse headers, check SPF/DKIM/DMARC results, extract URLs, and compute a risk
           score. URLs link straight into the IOC checker.
         </p>
+      </motion.div>
 
-        <form onSubmit={onSubmit} className="mb-10">
-          <textarea
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Paste raw email here (View Original / Show Source from your mail client)"
-            rows={12}
-            className="w-full px-4 py-3 bg-[#111113] border border-[#1f1f23] rounded-lg font-mono text-xs text-[#fafafa] placeholder:text-[#71717a] focus:outline-none focus:border-[#00fff9]/50"
-          />
-          <div className="mt-3 flex justify-end">
-            <button
-              type="submit"
-              disabled={!input.trim() || loading}
-              className="px-5 py-3 bg-[#00fff9] text-[#0a0a0a] font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-[#22d3ee]"
-            >
-              <ScanText size={16} className="inline mr-2" /> Analyze
-            </button>
-          </div>
-        </form>
+      <form onSubmit={onSubmit} className="mb-10">
+        <textarea
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Paste raw email here (View Original / Show Source from your mail client)"
+          rows={12}
+          className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-xs text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+        />
+        <div className="mt-3 flex justify-end">
+          <button
+            type="submit"
+            disabled={!input.trim() || loading}
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+          >
+            <ScanText size={16} className="inline mr-2" /> Analyze
+          </button>
+        </div>
+      </form>
 
-        {loading && <p className="font-mono text-[#a1a1aa]">Analyzing...</p>}
-        {error && <p className="font-mono text-[#ef4444]">error: {error}</p>}
+      {loading && <p className="font-mono text-slate-600 dark:text-slate-400">Analyzing...</p>}
+      {error && <p className="font-mono text-rose-600 dark:text-rose-400">error: {error}</p>}
 
-        {result && (
-          <div className="space-y-6">
-            <section className="rounded-2xl border border-[#1f1f23] bg-[#111113] p-6">
-              <div className="flex items-baseline justify-between mb-3">
-                <h2 className="font-display font-bold text-2xl">Risk verdict</h2>
-                <VerdictChip verdict={result.verdict} />
-              </div>
-              <div className="font-mono text-sm text-[#a1a1aa]">
-                score: <span className="text-[#fafafa]">{result.score}</span> / 100
-              </div>
-              {result.flags.length > 0 && (
-                <ul className="mt-3 space-y-1 list-disc list-inside text-sm text-[#a1a1aa]">
-                  {result.flags.map((f) => (
-                    <li key={f}>{f}</li>
-                  ))}
-                </ul>
-              )}
-            </section>
-            <AuthResultsChips auth={result.auth} />
-            <HeaderTable headers={result.headers} />
-            <UrlList urls={result.urls} />
-          </div>
-        )}
-      </div>
+      {result && (
+        <div className="space-y-6">
+          <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+            <div className="flex items-baseline justify-between mb-3">
+              <h2 className="font-display font-bold text-2xl">Risk verdict</h2>
+              <VerdictChip verdict={result.verdict} />
+            </div>
+            <div className="font-mono text-sm text-slate-600 dark:text-slate-400">
+              score: <span className="text-slate-900 dark:text-slate-100">{result.score}</span> / 100
+            </div>
+            {result.flags.length > 0 && (
+              <ul className="mt-3 space-y-1 list-disc list-inside text-sm text-slate-600 dark:text-slate-400">
+                {result.flags.map((f) => (
+                  <li key={f}>{f}</li>
+                ))}
+              </ul>
+            )}
+          </section>
+          <AuthResultsChips auth={result.auth} />
+          <HeaderTable headers={result.headers} />
+          <UrlList urls={result.urls} />
+        </div>
+      )}
     </div>
   );
 }
