@@ -22,7 +22,7 @@ export default function DFIRPage(): JSX.Element {
           </p>
           <div className="flex items-center gap-4 text-sm font-mono text-[#a1a1aa]">
             <span>
-              <span className="text-[#fafafa] text-base">8</span> tools
+              <span className="text-[#fafafa] text-base">9</span> tools
             </span>
             <span aria-hidden="true">·</span>
             <span>

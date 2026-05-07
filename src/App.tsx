@@ -19,6 +19,7 @@ const WikiArticle = lazy(() => import('./pages/dfir/WikiArticle'));
 const Dashboard = lazy(() => import('./pages/dfir/Dashboard'));
 const Actors = lazy(() => import('./pages/dfir/Actors'));
 const ActorDetail = lazy(() => import('./pages/dfir/ActorDetail'));
+const Privacy = lazy(() => import('./pages/dfir/Privacy'));
 
 function SectionLoader() {
   return (
@@ -167,6 +168,14 @@ export function AppContent() {
               element={
                 <Suspense fallback={<SectionLoader />}>
                   <ActorDetail />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/dfir/privacy"
+              element={
+                <Suspense fallback={<SectionLoader />}>
+                  <Privacy />
                 </Suspense>
               }
             />
