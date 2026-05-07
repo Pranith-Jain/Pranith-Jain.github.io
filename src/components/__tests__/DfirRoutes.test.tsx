@@ -14,7 +14,7 @@ if (typeof EventSource === 'undefined') {
 
 const subRoutes: Array<{ path: string; heading: string; skipComingSoon?: boolean }> = [
   { path: '/dfir/ioc-check', heading: 'IOC Checker', skipComingSoon: true },
-  { path: '/dfir/phishing', heading: 'Phishing Email Analyzer' },
+  { path: '/dfir/phishing', heading: 'Phishing Email Analyzer', skipComingSoon: true },
   { path: '/dfir/domain', heading: 'Domain Lookup', skipComingSoon: true },
   { path: '/dfir/exposure', heading: 'Exposure Scanner' },
   { path: '/dfir/file', heading: 'File Analyzer' },

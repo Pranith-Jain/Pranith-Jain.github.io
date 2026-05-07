@@ -1,5 +1,19 @@
 export type Verdict = 'clean' | 'suspicious' | 'malicious' | 'unknown';
 
+export interface PhishingAnalysisResponse {
+  headers: Record<string, string | number | undefined>;
+  auth: {
+    spf: string;
+    dkim: string;
+    dmarc: string;
+    raw?: string;
+  };
+  urls: string[];
+  score: number;
+  verdict: 'clean' | 'suspicious' | 'malicious';
+  flags: string[];
+}
+
 export type ProviderId =
   | 'virustotal'
   | 'abuseipdb'
