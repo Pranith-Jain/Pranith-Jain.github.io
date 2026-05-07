@@ -2,3 +2,10 @@ name = "pranithjain-api"
 main = "src/index.ts"
 compatibility_date = "2025-04-01"
 compatibility_flags = ["nodejs_compat"]
+
+# NOTE: id "test-only-not-deployed" is a placeholder. The vitest-pool-workers
+# test pool uses in-memory KV regardless. Real production id gets set when
+# Plan 1 Task 5 (deferred — Cloudflare provisioning) is completed.
+[[kv_namespaces]]
+binding = "KV_CACHE"
+id = "test-only-not-deployed"
