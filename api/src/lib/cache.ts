@@ -12,7 +12,7 @@ const TTL_BY_TYPE: Record<IndicatorType, number> = {
 };
 
 export class ProviderCache {
-  constructor(private kv: KVNamespace) {}
+  constructor(private kv: KVNamespace | undefined) {}
 
   static ttlSeconds(type: IndicatorType): number {
     return TTL_BY_TYPE[type];
@@ -23,9 +23,10 @@ export class ProviderCache {
   }
 
   async get(provider: ProviderId, indicator: Indicator): Promise<ProviderResult | null> {
-    const raw = await this.kv.get(ProviderCache.key(provider, indicator));
-    if (!raw) return null;
+    if (!this.kv) return null;
     try {
+      const raw = await this.kv.get(ProviderCache.key(provider, indicator));
+      if (!raw) return null;
       const parsed = JSON.parse(raw) as ProviderResult;
       return { ...parsed, cached: true };
     } catch {
@@ -34,9 +35,14 @@ export class ProviderCache {
   }
 
   async set(provider: ProviderId, indicator: Indicator, value: ProviderResult): Promise<void> {
-    const ttl = ProviderCache.ttlSeconds(indicator.type);
-    await this.kv.put(ProviderCache.key(provider, indicator), JSON.stringify(value), {
-      expirationTtl: ttl,
-    });
+    if (!this.kv) return;
+    try {
+      const ttl = ProviderCache.ttlSeconds(indicator.type);
+      await this.kv.put(ProviderCache.key(provider, indicator), JSON.stringify(value), {
+        expirationTtl: ttl,
+      });
+    } catch {
+      // KV write failed (quota / network) — non-fatal, just skip caching
+    }
   }
 }
