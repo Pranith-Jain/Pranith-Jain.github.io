@@ -3,29 +3,32 @@ import { ExternalLink } from 'lucide-react';
 import { fetchMultipleFeeds, formatRelativeTime, type FeedItem } from '../../services/rssService';
 import { defaultFeeds } from '../../data/rssFeeds';
 
-const MAX_ITEMS = 8;
+const MAX_ITEMS = 12;
+const MAX_PER_SOURCE = 2;
 
 export function ThreatIntelFeed(): JSX.Element {
   const [items, setItems] = useState<FeedItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [sourceCount, setSourceCount] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
     (async () => {
       try {
-        // fetchMultipleFeeds takes feed IDs; use a curated subset
-        const feedIds = defaultFeeds.slice(0, 5);
-        const resultsMap = await fetchMultipleFeeds(feedIds);
+        const resultsMap = await fetchMultipleFeeds(defaultFeeds);
         if (cancelled) return;
 
-        // Flatten all items from the Map, sort by date, cap at MAX_ITEMS
+        // Group by source, cap each, then flatten
         const all: FeedItem[] = [];
+        let activeSources = 0;
         resultsMap.forEach((result) => {
-          if (!result.error) {
-            all.push(...result.items);
+          if (!result.error && result.items.length > 0) {
+            activeSources++;
+            all.push(...result.items.slice(0, MAX_PER_SOURCE));
           }
         });
+        setSourceCount(activeSources);
 
         all.sort((a, b) => {
           const dateA = new Date(a.pubDate).getTime() || 0;
@@ -49,7 +52,7 @@ export function ThreatIntelFeed(): JSX.Element {
     <section className="rounded-2xl border border-[#1f1f23] bg-[#111113] p-6">
       <header className="flex items-baseline justify-between mb-4">
         <h2 className="font-display font-bold text-xl text-[#fafafa]">Threat Intel</h2>
-        <span className="text-xs font-mono text-[#a1a1aa]">live · curated feeds</span>
+        <span className="text-xs font-mono text-[#a1a1aa]">{sourceCount} sources · live</span>
       </header>
 
       {loading && <p className="font-mono text-sm text-[#a1a1aa]">Fetching…</p>}
@@ -67,7 +70,7 @@ export function ThreatIntelFeed(): JSX.Element {
                   <ExternalLink size={12} className="text-[#71717a] shrink-0 mt-1" />
                 </div>
                 <div className="mt-1 flex items-center gap-3 text-xs font-mono text-[#71717a]">
-                  {it.source && <span>{it.source}</span>}
+                  {it.source && <span className="text-[#00fff9]">{it.source}</span>}
                   {it.pubDate && <span>{formatRelativeTime(it.pubDate)}</span>}
                 </div>
               </a>
