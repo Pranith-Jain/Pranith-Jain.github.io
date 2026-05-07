@@ -1,0 +1,64 @@
+import type { Context } from 'hono';
+import type { Env } from '../env';
+
+const ALLOWED_HOSTS = new Set([
+  'www.cisa.gov',
+  'cisa.gov',
+  'nvd.nist.gov',
+  'isc.sans.edu',
+  'threatpost.com',
+  'krebsonsecurity.com',
+  'feeds.feedburner.com',
+  'thehackernews.com',
+  'www.bleepingcomputer.com',
+  'bleepingcomputer.com',
+  'threatfox.abuse.ch',
+  'urlhaus.abuse.ch',
+  'bazaar.abuse.ch',
+  'www.securityweek.com',
+  'securityweek.com',
+  'www.darkreading.com',
+  'darkreading.com',
+  'dfir-lab.ch',
+  'www.dfir-lab.ch',
+  'feeds.fireeye.com',
+  'us-cert.cisa.gov',
+]);
+
+export async function feedProxyHandler(c: Context<{ Bindings: Env }>) {
+  const url = c.req.query('url');
+  if (!url) return c.json({ error: 'missing url' }, 400);
+
+  let parsed: URL;
+  try {
+    parsed = new URL(url);
+  } catch {
+    return c.json({ error: 'invalid url' }, 400);
+  }
+  if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
+    return c.json({ error: 'unsupported protocol' }, 400);
+  }
+  // Allow-list to prevent SSRF / abuse
+  if (!ALLOWED_HOSTS.has(parsed.hostname.toLowerCase())) {
+    return c.json({ error: `host not in allow-list: ${parsed.hostname}` }, 403);
+  }
+
+  try {
+    const upstream = await fetch(parsed.toString(), {
+      headers: { 'user-agent': 'pranithjain-rss-proxy/1.0' },
+    });
+    if (!upstream.ok) {
+      return c.json({ error: `upstream ${upstream.status}` }, 502);
+    }
+    const body = await upstream.text();
+    return new Response(body, {
+      status: 200,
+      headers: {
+        'content-type': upstream.headers.get('content-type') ?? 'application/xml',
+        'cache-control': 'public, max-age=300', // 5min cache hint
+      },
+    });
+  } catch (err) {
+    return c.json({ error: err instanceof Error ? err.message : String(err) }, 502);
+  }
+}

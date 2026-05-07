@@ -1,3 +1,6 @@
+# !! TEST-ONLY — NOT used for deployment !!
+# This file exists solely to configure the @cloudflare/vitest-pool-workers test runtime.
+# The production Worker is deployed from the repo root via wrangler.jsonc.
 name = "pranithjain-api"
 main = "src/index.ts"
 compatibility_date = "2025-04-01"

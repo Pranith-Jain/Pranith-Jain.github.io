@@ -5,6 +5,7 @@ import { domainLookupHandler } from './routes/domain';
 import { phishingAnalyzeHandler } from './routes/phishing';
 import { exposureScanHandler } from './routes/exposure';
 import { fileAnalyzeHandler } from './routes/file';
+import { feedProxyHandler } from './routes/feeds';
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -14,6 +15,7 @@ app.get('/api/v1/domain/lookup', domainLookupHandler);
 app.post('/api/v1/phishing/analyze', phishingAnalyzeHandler);
 app.get('/api/v1/exposure/scan', exposureScanHandler);
 app.post('/api/v1/file/analyze', fileAnalyzeHandler);
+app.get('/api/v1/feeds/proxy', feedProxyHandler);
 
 app.notFound((c) => c.json({ error: 'not_found' }, 404));
 

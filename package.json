@@ -5,7 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:web": "vite",
+    "dev:api": "wrangler dev --port 8787",
     "build": "vite build",
+    "deploy": "vite build && wrangler deploy",
     "preview": "vite preview",
     "test": "vitest",
     "test:run": "vitest run",
@@ -26,6 +29,7 @@
     "react-router-dom": "^6.22.3"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260507.1",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
     "@testing-library/user-event": "^14.5.2",
@@ -48,7 +52,8 @@
     "tailwindcss": "^3.4.17",
     "typescript": "^5.7.2",
     "vite": "^6.0.5",
-    "vitest": "^2.1.8"
+    "vitest": "^2.1.8",
+    "wrangler": "^4.88.0"
   },
   "keywords": [
     "portfolio",

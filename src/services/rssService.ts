@@ -25,20 +25,20 @@ const feedCache = new Map<string, { data: FeedResult; timestamp: number }>();
 function parseFeed(text: string, feed: RSSFeed): FeedItem[] {
   const parser = new DOMParser();
   const doc = parser.parseFromString(text, 'text/xml');
-  
+
   const items: FeedItem[] = [];
-  
+
   // Try RSS format first
   const rssItems = doc.querySelectorAll('item');
   if (rssItems.length > 0) {
     rssItems.forEach((item) => {
       const title = item.querySelector('title')?.textContent || '';
       const link = item.querySelector('link')?.textContent || '';
-      const description = item.querySelector('description')?.textContent || 
-                         item.querySelector('content\\:encoded')?.textContent || '';
+      const description =
+        item.querySelector('description')?.textContent || item.querySelector('content\\:encoded')?.textContent || '';
       const pubDate = item.querySelector('pubDate')?.textContent || '';
       const guid = item.querySelector('guid')?.textContent || link;
-      
+
       items.push({
         title: sanitizeText(title),
         link: sanitizeUrl(link),
@@ -51,7 +51,7 @@ function parseFeed(text: string, feed: RSSFeed): FeedItem[] {
     });
     return items;
   }
-  
+
   // Try Atom format
   const atomItems = doc.querySelectorAll('entry');
   if (atomItems.length > 0) {
@@ -59,12 +59,11 @@ function parseFeed(text: string, feed: RSSFeed): FeedItem[] {
       const title = item.querySelector('title')?.textContent || '';
       const linkEl = item.querySelector('link[href]') || item.querySelector('link');
       const link = linkEl?.getAttribute('href') || linkEl?.textContent || '';
-      const description = item.querySelector('summary')?.textContent || 
-                         item.querySelector('content')?.textContent || '';
-      const pubDate = item.querySelector('published')?.textContent || 
-                      item.querySelector('updated')?.textContent || '';
+      const description =
+        item.querySelector('summary')?.textContent || item.querySelector('content')?.textContent || '';
+      const pubDate = item.querySelector('published')?.textContent || item.querySelector('updated')?.textContent || '';
       const guid = item.querySelector('id')?.textContent || link;
-      
+
       items.push({
         title: sanitizeText(title),
         link: sanitizeUrl(link),
@@ -77,7 +76,7 @@ function parseFeed(text: string, feed: RSSFeed): FeedItem[] {
     });
     return items;
   }
-  
+
   return items;
 }
 
@@ -111,74 +110,49 @@ function sanitizeUrl(url: string): string {
   }
 }
 
-// Fetch a single feed with CORS proxy fallback
+// Fetch a single feed via our server-side RSS proxy (replaces public CORS proxies)
 async function fetchFeedWithProxy(feed: RSSFeed): Promise<FeedResult> {
-  const cacheKey = feed.id;
-  const cached = feedCache.get(cacheKey);
-  
-  if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
-    return cached.data;
-  }
-  
   const result: FeedResult = {
     feed,
     items: [],
     lastUpdated: new Date(),
   };
-  
-  // CORS proxy options (try multiple)
-  const corsProxies = [
-    'https://api.allorigins.win/raw?url=',
-    'https://corsproxy.io/?',
-  ];
-  
-  for (const proxy of corsProxies) {
-    try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000);
-      
-      const response = await fetch(`${proxy}${encodeURIComponent(feed.url)}`, {
-        signal: controller.signal,
-        headers: {
-          'Accept': 'application/rss+xml, application/xml, text/xml, */*',
-        },
-      });
-      
-      clearTimeout(timeoutId);
-      
-      if (response.ok) {
-        const text = await response.text();
-        result.items = parseFeed(text, feed);
-        result.lastUpdated = new Date();
-        
-        feedCache.set(cacheKey, {
-          data: result,
-          timestamp: Date.now(),
-        });
-        
-        return result;
-      }
-    } catch {
-      continue;
-    }
+
+  // Check cache first
+  const cached = feedCache.get(feed.id);
+  if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
+    return cached.data;
   }
-  
-  result.error = 'Unable to fetch feed. Try refreshing or check your connection.';
-  return result;
+
+  try {
+    const proxyUrl = `/api/v1/feeds/proxy?url=${encodeURIComponent(feed.url)}`;
+    const response = await fetch(proxyUrl, { signal: AbortSignal.timeout(10000) });
+    if (!response.ok) {
+      result.error = `proxy returned ${response.status}`;
+      return result;
+    }
+    const text = await response.text();
+    result.items = parseFeed(text, feed);
+    feedCache.set(feed.id, { data: result, timestamp: Date.now() });
+    return result;
+  } catch (err) {
+    result.error = err instanceof Error ? err.message : 'feed unavailable';
+    return result;
+  }
 }
 
 // Fetch multiple feeds in parallel
 export async function fetchMultipleFeeds(feedIds: string[]): Promise<Map<string, FeedResult>> {
   const feeds = rssFeeds.filter((f) => feedIds.includes(f.id));
   const results = new Map<string, FeedResult>();
-  
+
   await Promise.all(
     feeds.map(async (feed) => {
       const result = await fetchFeedWithProxy(feed);
       results.set(feed.id, result);
     })
   );
-  
+
   return results;
 }
 
@@ -191,7 +165,7 @@ export async function fetchAllFeeds(): Promise<Map<string, FeedResult>> {
 export async function fetchSingleFeed(feedId: string): Promise<FeedResult | null> {
   const feed = rssFeeds.find((f) => f.id === feedId);
   if (!feed) return null;
-  
+
   return fetchFeedWithProxy(feed);
 }
 
@@ -218,16 +192,14 @@ export function sortFeedItems(
   } = {}
 ): FeedItem[] {
   let filtered = [...items];
-  
+
   // Filter by category/source
   if (options.filter && options.filter !== 'all') {
     filtered = filtered.filter(
-      (item) =>
-        item.category === options.filter ||
-        item.source.toLowerCase().includes(options.filter.toLowerCase())
+      (item) => item.category === options.filter || item.source.toLowerCase().includes(options.filter.toLowerCase())
     );
   }
-  
+
   // Sort by date
   if (options.sortBy === 'date') {
     filtered.sort((a, b) => {
@@ -236,12 +208,12 @@ export function sortFeedItems(
       return dateB - dateA;
     });
   }
-  
+
   // Limit results
   if (options.limit && options.limit > 0) {
     filtered = filtered.slice(0, options.limit);
   }
-  
+
   return filtered;
 }
 
@@ -250,18 +222,18 @@ export function formatRelativeTime(dateString: string): string {
   try {
     const date = new Date(dateString);
     if (isNaN(date.getTime())) return '';
-    
+
     const now = new Date();
     const diff = now.getTime() - date.getTime();
     const minutes = Math.floor(diff / 60000);
     const hours = Math.floor(diff / 3600000);
     const days = Math.floor(diff / 86400000);
-    
+
     if (minutes < 1) return 'Just now';
     if (minutes < 60) return `${minutes}m ago`;
     if (hours < 24) return `${hours}h ago`;
     if (days < 7) return `${days}d ago`;
-    
+
     return date.toLocaleDateString();
   } catch {
     return '';
