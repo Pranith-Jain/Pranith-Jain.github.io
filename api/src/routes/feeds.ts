@@ -18,6 +18,7 @@ const ALLOWED_HOSTS = new Set([
   'threatfox.abuse.ch',
   'urlhaus.abuse.ch',
   'bazaar.abuse.ch',
+  'mb-api.abuse.ch',
   'www.securityweek.com',
   'securityweek.com',
   'www.darkreading.com',
@@ -26,6 +27,21 @@ const ALLOWED_HOSTS = new Set([
   'www.dfir-lab.ch',
   'feeds.fireeye.com',
   'us-cert.cisa.gov',
+  // Vendor threat-intel feeds — probed and confirmed returning XML (2026-05-07)
+  'blog.talosintelligence.com',
+  'talosintelligence.com',
+  'unit42.paloaltonetworks.com',
+  'www.welivesecurity.com',
+  'welivesecurity.com',
+  'securelist.com',
+  'www.securelist.com',
+  'www.crowdstrike.com',
+  'crowdstrike.com',
+  'www.sentinelone.com',
+  'sentinelone.com',
+  'flashpoint.io',
+  'www.flashpoint.io',
+  'falhumaid.github.io',
 ]);
 
 export async function feedProxyHandler(c: Context<{ Bindings: Env }>) {

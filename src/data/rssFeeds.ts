@@ -89,6 +89,72 @@ export const rssFeeds: RSSFeed[] = [
   // ============================================================================
   // THREAT INTELLIGENCE
   // ============================================================================
+
+  // Vendor research feeds (probed and confirmed returning XML)
+  {
+    id: 'talos',
+    name: 'Cisco Talos Intelligence',
+    url: 'https://blog.talosintelligence.com/rss/',
+    description: 'Threat research from Cisco Talos — daily IOCs, malware analysis, campaign tracking',
+    category: 'threat-intel',
+    source: 'talosintelligence.com',
+    language: 'en',
+  },
+  {
+    id: 'unit42',
+    name: 'Unit 42 (Palo Alto)',
+    url: 'https://unit42.paloaltonetworks.com/feed/',
+    description: 'Active campaign tracking and malware analysis',
+    category: 'threat-intel',
+    source: 'unit42.paloaltonetworks.com',
+    language: 'en',
+  },
+  {
+    id: 'eset',
+    name: 'ESET WeLiveSecurity',
+    url: 'https://www.welivesecurity.com/feed/',
+    description: 'European-focused threat research, esp. Russia/Ukraine cyber operations',
+    category: 'threat-intel',
+    source: 'welivesecurity.com',
+    language: 'en',
+  },
+  {
+    id: 'kaspersky-securelist',
+    name: 'Kaspersky SecureList',
+    url: 'https://securelist.com/feed/',
+    description: 'Long-tail threat and malware research from Kaspersky GReAT',
+    category: 'threat-intel',
+    source: 'securelist.com',
+    language: 'en',
+  },
+  {
+    id: 'crowdstrike',
+    name: 'CrowdStrike Blog',
+    url: 'https://www.crowdstrike.com/blog/feed/',
+    description: 'Endpoint-driven adversary intelligence and incident reports',
+    category: 'threat-intel',
+    source: 'crowdstrike.com',
+    language: 'en',
+  },
+  {
+    id: 'sentinelone-labs',
+    name: 'SentinelOne Labs',
+    url: 'https://www.sentinelone.com/labs/feed/',
+    description: 'Malware reverse engineering and threat hunting',
+    category: 'threat-intel',
+    source: 'sentinelone.com',
+    language: 'en',
+  },
+  {
+    id: 'flashpoint',
+    name: 'Flashpoint',
+    url: 'https://flashpoint.io/blog/feed/',
+    description: 'Underground forum / ransomware leak-site / dark web monitoring reports',
+    category: 'threat-intel',
+    source: 'flashpoint.io',
+    language: 'en',
+  },
+
   {
     id: 'dfir-lab',
     name: 'DFIR Lab',
@@ -411,6 +477,12 @@ export const defaultFeeds = [
   'darkreading',
   'dfir-lab',
   'dfir-radar',
+  // Vendor threat-intel feeds added in feat(dfir): expand threat-intel feed library
+  'talos',
+  'unit42',
+  'kaspersky-securelist',
+  'flashpoint',
+  'crowdstrike',
 ];
 
 // Feed categories for filtering
