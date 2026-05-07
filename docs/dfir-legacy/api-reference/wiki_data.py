@@ -1,0 +1,349 @@
+wiki_articles = {
+    "email_security": [
+        {
+            "slug": "spf",
+            "title": "SPF (Sender Policy Framework)",
+            "description": "A DNS-based email authentication protocol that specifies which mail servers are authorized to send email on behalf of a domain."
+        },
+        {
+            "slug": "dkim",
+            "title": "DKIM (DomainKeys Identified Mail)",
+            "description": "An email authentication standard that uses public-key cryptography to verify that a message was sent and authorized by the owner of a domain."
+        },
+        {
+            "slug": "dmarc",
+            "title": "DMARC (Domain-based Message Authentication, Reporting and Conformance)",
+            "description": "An email authentication protocol that builds on SPF and DKIM to give domain owners control over how unauthenticated messages are handled and to enable abuse reporting."
+        },
+        {
+            "slug": "arc-authentication",
+            "title": "ARC Authentication",
+            "description": "Authenticated Received Chain preserves email authentication results across forwarding hops so receiving servers can evaluate the original authentication state."
+        },
+        {
+            "slug": "email-header-analysis",
+            "title": "Email Header Analysis",
+            "description": "The process of examining RFC 5322 email headers to trace a message's delivery path, verify authentication results, and identify anomalies."
+        },
+        {
+            "slug": "homoglyph-domains",
+            "title": "Homoglyph Domains",
+            "description": "Domains that substitute visually identical or near-identical Unicode characters to impersonate legitimate domains."
+        },
+        {
+            "slug": "email-spoofing",
+            "title": "Email Spoofing",
+            "description": "The forgery of email header fields to make a message appear to originate from a sender other than its true source."
+        },
+        {
+            "slug": "link-display-mismatch",
+            "title": "Link-Display Mismatch",
+            "description": "A phishing technique where the visible anchor text shows a different URL than the actual href destination."
+        }
+    ],
+    "threat_intelligence": [
+        {
+            "slug": "ioc-enrichment",
+            "title": "IOC Enrichment",
+            "description": "The process of augmenting raw indicators of compromise with contextual threat intelligence."
+        },
+        {
+            "slug": "attack-surface-management",
+            "title": "Attack Surface Management",
+            "description": "The continuous process of discovering, inventorying, and reducing an organization's externally exposed digital assets."
+        },
+        {
+            "slug": "indicators-of-compromise",
+            "title": "Indicators of Compromise (IOCs)",
+            "description": "Observable artifacts that indicate a system or network may have been breached."
+        },
+        {
+            "slug": "threat-intelligence",
+            "title": "Threat Intelligence",
+            "description": "Evidence-based knowledge about existing or emerging cyber threats."
+        },
+        {
+            "slug": "certificate-transparency",
+            "title": "Certificate Transparency",
+            "description": "A public logging framework that records all SSL/TLS certificates issued by CAs."
+        },
+        {
+            "slug": "passive-dns",
+            "title": "Passive DNS",
+            "description": "A historical record of DNS resolutions for domain-to-IP mappings."
+        },
+        {
+            "slug": "whois-lookup",
+            "title": "WHOIS Lookup",
+            "description": "A protocol for querying domain registration information."
+        },
+        {
+            "slug": "domain-reputation",
+            "title": "Domain Reputation",
+            "description": "A score or classification assigned to a domain based on historical behavior."
+        },
+        {
+            "slug": "ip-reputation",
+            "title": "IP Reputation",
+            "description": "A score or classification assigned to an IP based on malicious activity."
+        },
+        {
+            "slug": "threat-actor-profiling",
+            "title": "Threat Actor Profiling",
+            "description": "The process of identifying and documenting threat group tactics and infrastructure."
+        },
+        {
+            "slug": "dns-security",
+            "title": "DNS Security",
+            "description": "Practices and technologies for protecting DNS infrastructure."
+        },
+        {
+            "slug": "ssl-tls-certificates",
+            "title": "SSL/TLS Certificates",
+            "description": "Digital certificates that authenticate server identity and enable encryption."
+        },
+        {
+            "slug": "open-ports",
+            "title": "Open Ports",
+            "description": "Network ports on a host that are accepting connections."
+        },
+        {
+            "slug": "vulnerability-scanning",
+            "title": "Vulnerability Scanning",
+            "description": "The automated process of identifying security weaknesses."
+        }
+    ],
+    "forensics": [
+        {
+            "slug": "phishing-analysis",
+            "title": "Phishing Analysis",
+            "description": "The forensic examination of suspected phishing emails."
+        },
+        {
+            "slug": "digital-forensics",
+            "title": "Digital Forensics",
+            "description": "The scientific discipline of identifying, preserving, and presenting digital evidence."
+        },
+        {
+            "slug": "incident-response",
+            "title": "Incident Response",
+            "description": "The organized approach to detecting, containing, and recovering from security incidents."
+        },
+        {
+            "slug": "timeline-analysis",
+            "title": "Timeline Analysis",
+            "description": "The process of reconstructing a chronological sequence of events."
+        },
+        {
+            "slug": "log-analysis",
+            "title": "Log Analysis",
+            "description": "The examination of system and network logs."
+        },
+        {
+            "slug": "malware-analysis",
+            "title": "Malware Analysis",
+            "description": "The process of examining malicious software behavior and capabilities."
+        }
+    ],
+    "detection_engineering": [
+        {
+            "slug": "mitre-attack",
+            "title": "MITRE ATT&CK Framework",
+            "description": "A knowledge base of adversary tactics and techniques based on real-world observations."
+        },
+        {
+            "slug": "sigma-rules",
+            "title": "Sigma Rules",
+            "description": "A vendor-agnostic open standard for writing detection rules."
+        },
+        {
+            "slug": "yara-rules",
+            "title": "YARA Rules",
+            "description": "A pattern-matching tool for identifying and classifying malware."
+        },
+        {
+            "slug": "threat-hunting",
+            "title": "Threat Hunting",
+            "description": "The proactive search for adversary activity that has evaded security controls."
+        },
+        {
+            "slug": "alert-triage",
+            "title": "Alert Triage",
+            "description": "The process of evaluating and prioritizing security alerts."
+        },
+        {
+            "slug": "siem",
+            "title": "SIEM",
+            "description": "Security Information and Event Management platform for log analysis."
+        },
+        {
+            "slug": "soar",
+            "title": "SOAR",
+            "description": "Security Orchestration, Automation, and Response platforms."
+        },
+        {
+            "slug": "detection-as-code",
+            "title": "Detection-as-Code",
+            "description": "Managing detection rules as version-controlled code."
+        },
+        {
+            "slug": "api-security",
+            "title": "API Security",
+            "description": "Practices and controls for protecting APIs."
+        }
+    ],
+    "attack_types": [
+        {
+            "slug": "bec",
+            "title": "Business Email Compromise (BEC)",
+            "description": "A social engineering attack where adversaries hijack or spoof corporate email accounts."
+        },
+        {
+            "slug": "qr-phishing",
+            "title": "QR Phishing (Quishing)",
+            "description": "A phishing technique that embeds malicious URLs inside QR codes."
+        },
+        {
+            "slug": "thread-hijacking",
+            "title": "Thread Hijacking",
+            "description": "An attack where an adversary compromises a mailbox and replies to existing threads."
+        },
+        {
+            "slug": "spear-phishing",
+            "title": "Spear Phishing",
+            "description": "A targeted phishing attack directed at specific individuals."
+        },
+        {
+            "slug": "credential-harvesting",
+            "title": "Credential Harvesting",
+            "description": "The theft of usernames and passwords through fake login pages."
+        },
+        {
+            "slug": "typosquatting",
+            "title": "Typosquatting",
+            "description": "Registering domain names that are deliberate misspellings of legitimate domains."
+        },
+        {
+            "slug": "oauth-phishing",
+            "title": "OAuth Phishing",
+            "description": "An attack that tricks users into granting malicious OAuth consent."
+        },
+        {
+            "slug": "social-engineering",
+            "title": "Social Engineering",
+            "description": "Psychological manipulation techniques to deceive people."
+        },
+        {
+            "slug": "ransomware",
+            "title": "Ransomware",
+            "description": "Malware that encrypts files and demands payment for restoration."
+        },
+        {
+            "slug": "supply-chain-attack",
+            "title": "Supply Chain Attack",
+            "description": "An attack that compromises a trusted third-party vendor."
+        },
+        {
+            "slug": "watering-hole-attack",
+            "title": "Watering Hole Attack",
+            "description": "An attack strategy where a website frequently visited by targets is compromised."
+        },
+        {
+            "slug": "brute-force-attack",
+            "title": "Brute Force Attack",
+            "description": "A method that systematically tries large numbers of passwords."
+        },
+        {
+            "slug": "insider-threat",
+            "title": "Insider Threat",
+            "description": "A security risk originating from within the organization."
+        }
+    ]
+}
+
+# Article content with full details
+wiki_content = {
+    "spf": {
+        "title": "SPF (Sender Policy Framework)",
+        "category": "Email Security",
+        "content": """
+## What is SPF?
+
+Sender Policy Framework (SPF) is a DNS-based email authentication protocol that allows domain owners to specify which mail servers are authorized to send email on behalf of their domain.
+
+## How It Works
+
+1. Domain owner publishes a TXT record in DNS that lists the authorized sending IP addresses
+2. Receiving mail server checks the SPF record before accepting the email
+3. If the sending server is not listed, the email may be rejected or marked as spam
+
+## SPF Record Syntax
+
+v=spf1 ip4:192.0.2.0/24 include:_spf.example.com ~all
+
+- v=spf1: Version identifier
+- ip4: IPv4 address or network
+- include: Includes another domain's SPF record
+- ~all: Softfail (recommended)
+
+## Best Practices
+
+- Always use ~all (softfail) instead of -all (fail) initially
+- Monitor reports before enforcing strict policy
+- Keep DNS lookups under 10 to avoid validation failures
+        """
+    },
+    "dkim": {
+        "title": "DKIM (DomainKeys Identified Mail)",
+        "category": "Email Security",
+        "content": """
+## What is DKIM?
+
+DKIM is an email authentication standard that uses public-key cryptography to verify that an email was not altered in transit and was sent by the claimed sender.
+
+## How It Works
+
+1. Sending server signs email headers with a private key
+2. Public key is published in DNS as a TXT record
+3. Receiving server verifies the signature using the public key
+
+## DKIM Selectors
+
+DKIM uses selectors to differentiate between multiple signing keys:
+- default._domainkey.example.com
+- google._domainkey.example.com
+- selector1._domainkey.example.com
+
+## Common Email Service Providers
+
+- Google Workspace: google._domainkey
+- Microsoft 365: selector1._domainkey
+- Amazon SES:/amazonses._domainkey
+- SendGrid: s1._domainkey
+        """
+    },
+    "dmarc": {
+        "title": "DMARC (Domain-based Message Authentication, Reporting and Conformance)",
+        "category": "Email Security",
+        "content": """
+## What is DMARC?
+
+DMARC builds on SPF and DKIM to give domain owners control over how unauthenticated messages are handled and enables aggregate reporting.
+
+## DMARC Policy
+
+- p=none: Monitor only, no action
+- p=quarantine: Mark suspicious emails as spam
+- p=reject: Reject suspicious emails
+
+## DMARC Reports
+
+- RUA: Aggregate reports (XML)
+- RUF: Forensic reports (JSON)
+
+## Example Record
+
+v=DMARC1; p=reject; rua=mailto:dmarc@example.com;ruf=mailto:forensic@example.com;fo=1
+        """
+    }
+}
