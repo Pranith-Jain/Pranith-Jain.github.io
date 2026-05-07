@@ -1,8 +1,0 @@
-# SPA routes - explicit mapping to prevent infinite loops
-/index.html /index.html 200
-/about /index.html 200
-/skills /index.html 200
-/experience /index.html 200
-/projects /index.html 200
-/dfir /index.html 200
-/difr /dfir 301
