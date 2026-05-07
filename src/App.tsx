@@ -16,7 +16,7 @@ const Exposure = lazy(() => import('./pages/dfir/Exposure'));
 const File = lazy(() => import('./pages/dfir/File'));
 const Wiki = lazy(() => import('./pages/dfir/Wiki'));
 const WikiArticle = lazy(() => import('./pages/dfir/WikiArticle'));
-const DashboardPlaceholder = lazy(() => import('./pages/dfir/DashboardPlaceholder'));
+const Dashboard = lazy(() => import('./pages/dfir/Dashboard'));
 
 function SectionLoader() {
   return (
@@ -148,7 +148,7 @@ export function AppContent() {
               path="/dfir/dashboard"
               element={
                 <Suspense fallback={<SectionLoader />}>
-                  <DashboardPlaceholder />
+                  <Dashboard />
                 </Suspense>
               }
             />

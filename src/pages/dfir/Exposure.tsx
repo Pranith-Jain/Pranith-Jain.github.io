@@ -1,13 +1,16 @@
 import { useState, type FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, Radar } from 'lucide-react';
 import type { ExposureScanResponse } from '../../lib/dfir/types';
 import { SubdomainTree } from '../../components/dfir/SubdomainTree';
+import { recordHistory } from '../../lib/dfir/history';
 
 const DOMAIN_RE = /^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/;
 
 export default function Exposure(): JSX.Element {
-  const [input, setInput] = useState('');
+  const [searchParams] = useSearchParams();
+  const initialInput = searchParams.get('domain') ?? '';
+  const [input, setInput] = useState(initialInput);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<ExposureScanResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -25,7 +28,9 @@ export default function Exposure(): JSX.Element {
         const body = (await r.json().catch(() => null)) as { error?: string } | null;
         throw new Error(body?.error ?? `${r.status}`);
       }
-      setResult((await r.json()) as ExposureScanResponse);
+      const r2 = (await r.json()) as ExposureScanResponse;
+      setResult(r2);
+      recordHistory({ tool: 'exposure', indicator: r2.domain, verdict: r2.verdict, score: r2.score });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'scan failed');
     } finally {

@@ -19,7 +19,7 @@ const subRoutes: Array<{ path: string; heading: string; skipComingSoon?: boolean
   { path: '/dfir/exposure', heading: 'Exposure Scanner', skipComingSoon: true },
   { path: '/dfir/file', heading: 'File Analyzer', skipComingSoon: true },
   { path: '/dfir/wiki', heading: 'DFIR Knowledge Base', skipComingSoon: true },
-  { path: '/dfir/dashboard', heading: 'Recent Lookups' },
+  { path: '/dfir/dashboard', heading: 'Recent Lookups', skipComingSoon: true },
 ];
 
 describe('DFIR sub-routes', () => {

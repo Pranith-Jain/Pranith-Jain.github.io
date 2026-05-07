@@ -1,14 +1,17 @@
 import { useState, type FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, Search } from 'lucide-react';
 import { detectType } from '../../lib/dfir/indicator-client';
 import { streamIoc } from '../../lib/dfir/api';
 import type { ProviderResultWire, DoneEvent, ProviderId } from '../../lib/dfir/types';
 import { IocResultRow } from '../../components/dfir/IocResultRow';
 import { VerdictChip } from '../../components/dfir/VerdictChip';
+import { recordHistory } from '../../lib/dfir/history';
 
 export default function IocCheck(): JSX.Element {
-  const [input, setInput] = useState('');
+  const [searchParams] = useSearchParams();
+  const initialInput = searchParams.get('indicator') ?? '';
+  const [input, setInput] = useState(initialInput);
   const [streaming, setStreaming] = useState(false);
   const [results, setResults] = useState<ProviderResultWire[]>([]);
   const [summary, setSummary] = useState<DoneEvent | null>(null);
@@ -32,6 +35,7 @@ export default function IocCheck(): JSX.Element {
       onDone: (s) => {
         setSummary(s);
         setStreaming(false);
+        recordHistory({ tool: 'ioc', indicator: input.trim(), verdict: s.verdict, score: s.score });
       },
       onError: (e) => {
         setError(e);

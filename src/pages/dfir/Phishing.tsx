@@ -1,14 +1,17 @@
 import { useState, type FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, ScanText } from 'lucide-react';
 import type { PhishingAnalysisResponse } from '../../lib/dfir/types';
 import { VerdictChip } from '../../components/dfir/VerdictChip';
 import { HeaderTable } from '../../components/dfir/HeaderTable';
 import { AuthResultsChips } from '../../components/dfir/AuthResultsChips';
 import { UrlList } from '../../components/dfir/UrlList';
+import { recordHistory } from '../../lib/dfir/history';
 
 export default function Phishing(): JSX.Element {
-  const [input, setInput] = useState('');
+  const [searchParams] = useSearchParams();
+  const initialInput = searchParams.get('q') ?? '';
+  const [input, setInput] = useState(initialInput);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<PhishingAnalysisResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -29,7 +32,10 @@ export default function Phishing(): JSX.Element {
         const body = (await r.json().catch(() => null)) as { error?: string } | null;
         throw new Error(body?.error ?? `${r.status}`);
       }
-      setResult((await r.json()) as PhishingAnalysisResponse);
+      const r2 = (await r.json()) as PhishingAnalysisResponse;
+      setResult(r2);
+      const indicator = String(r2.headers['subject'] ?? r2.headers['from'] ?? 'email');
+      recordHistory({ tool: 'phishing', indicator, verdict: r2.verdict, score: r2.score });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'analysis failed');
     } finally {

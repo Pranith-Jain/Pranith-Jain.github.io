@@ -1,14 +1,17 @@
 import { useState, type FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, FileSearch } from 'lucide-react';
 import type { FileAnalysisResponse } from '../../lib/dfir/types';
 import { VerdictChip } from '../../components/dfir/VerdictChip';
 import { IocResultRow } from '../../components/dfir/IocResultRow';
+import { recordHistory } from '../../lib/dfir/history';
 
 const HASH_RE = /^[a-fA-F0-9]{32}$|^[a-fA-F0-9]{40}$|^[a-fA-F0-9]{64}$/;
 
 export default function File(): JSX.Element {
-  const [input, setInput] = useState('');
+  const [searchParams] = useSearchParams();
+  const initialInput = searchParams.get('hash') ?? '';
+  const [input, setInput] = useState(initialInput);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<FileAnalysisResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -31,7 +34,9 @@ export default function File(): JSX.Element {
         const body = (await r.json().catch(() => null)) as { error?: string } | null;
         throw new Error(body?.error ?? `${r.status}`);
       }
-      setResult((await r.json()) as FileAnalysisResponse);
+      const r2 = (await r.json()) as FileAnalysisResponse;
+      setResult(r2);
+      recordHistory({ tool: 'file', indicator: r2.hash, verdict: r2.verdict, score: r2.score });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'analysis failed');
     } finally {

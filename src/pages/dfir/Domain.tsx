@@ -1,16 +1,19 @@
 import { useState, type FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, Search } from 'lucide-react';
 import type { DomainLookupResponse } from '../../lib/dfir/types';
 import { WhoisCard } from '../../components/dfir/WhoisCard';
 import { DnsRecordList } from '../../components/dfir/DnsRecordList';
 import { EmailAuthCard } from '../../components/dfir/EmailAuthCard';
 import { CertList } from '../../components/dfir/CertList';
+import { recordHistory } from '../../lib/dfir/history';
 
 const DOMAIN_RE = /^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/;
 
 export default function Domain(): JSX.Element {
-  const [input, setInput] = useState('');
+  const [searchParams] = useSearchParams();
+  const initialInput = searchParams.get('domain') ?? '';
+  const [input, setInput] = useState(initialInput);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<DomainLookupResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -28,7 +31,9 @@ export default function Domain(): JSX.Element {
         const body = (await r.json().catch(() => null)) as { error?: string } | null;
         throw new Error(body?.error ?? `${r.status}`);
       }
-      setResult((await r.json()) as DomainLookupResponse);
+      const r2 = (await r.json()) as DomainLookupResponse;
+      setResult(r2);
+      recordHistory({ tool: 'domain', indicator: r2.domain, verdict: r2.verdict, score: r2.score });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'lookup failed');
     } finally {
