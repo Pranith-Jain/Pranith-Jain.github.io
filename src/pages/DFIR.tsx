@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -7,13 +7,10 @@ import {
   Globe,
   Lock,
   Radar,
-  Database,
   Hash,
-  ShieldAlert,
   Clock,
   FileSearch,
   RefreshCw,
-  Trash2,
   Loader2,
   ExternalLink,
   AlertTriangle,
@@ -27,7 +24,7 @@ import {
 } from 'lucide-react';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { ConnectionStatus } from '../components/ConnectionStatus';
-import { fetchMultipleFeeds, formatRelativeTime } from '../services/rssService';
+import { fetchMultipleFeeds } from '../services/rssService';
 import { useDFIRSettings } from '../hooks/useDFIRSettings';
 import { rssFeeds } from '../data/rssFeeds';
 
@@ -105,21 +102,6 @@ interface PrivacyResult {
   suggestions?: string[];
 }
 
-interface ExposureResult {
-  query: string;
-  type: string;
-  total_exposed_records: number;
-  sources: Array<{
-    name: string;
-    records: number;
-    date: string;
-    category: string;
-  }>;
-  severity: string;
-  risk_level: string;
-  suggestions?: string[];
-}
-
 interface ThreatIntelItem {
   id: string;
   title: string;
@@ -148,7 +130,7 @@ interface ActorDetail {
   url?: string;
 }
 
-type TabType = 'home' | 'exposure' | 'privacy' | 'threatIntel';
+type TabType = 'home' | 'privacy' | 'threatIntel';
 
 // Helper functions for classifying threat intel items
 const getType = (title: string, description: string): string => {
@@ -179,11 +161,6 @@ export default function DFIRPage() {
 
   const [privacyResult, setPrivacyResult] = useState<PrivacyResult | null>(null);
   const [privacyLoading, setPrivacyLoading] = useState(false);
-
-  const [exposureQuery, setExposureQuery] = useState('');
-  const [exposureResult, setExposureResult] = useState<ExposureResult | null>(null);
-  const [exposureLoading, setExposureLoading] = useState(false);
-  const [exposureHistory, setExposureHistory] = useState<ExposureResult[]>([]);
 
   const [intelItems, setIntelItems] = useState<ThreatIntelItem[]>([]);
   const [intelLoading, setIntelLoading] = useState(false);
@@ -291,92 +268,16 @@ export default function DFIRPage() {
     },
   ];
 
-  const generateSecuritySuggestions = (type: string, data: any): string[] => {
+  const generateSecuritySuggestions = (data: PrivacyResult): string[] => {
     const suggestions: string[] = [];
-    if (type === 'exposure') {
-      const res = data as ExposureResult;
-      if (res.total_exposed_records > 0) {
-        suggestions.push('Change passwords immediately for any accounts associated with this identity.');
-        suggestions.push('Enable Multi-Factor Authentication (MFA) using hardware keys or authenticator apps.');
-        suggestions.push('Monitor financial statements and credit reports for unauthorized activity.');
-        suggestions.push('Consider using a data removal service to reduce your digital footprint.');
-      }
-    } else if (type === 'privacy') {
-      const res = data as PrivacyResult;
-      if (res.score < 80) {
-        suggestions.push('Use a privacy-focused browser like Brave or Firefox with strict settings.');
-        suggestions.push('Enable "Global Privacy Control" or "Do Not Track" in your browser.');
-        suggestions.push('Use a reputable, no-logs VPN to mask your true IP and location.');
-        suggestions.push('Install tracker-blocking extensions like uBlock Origin or Privacy Badger.');
-        suggestions.push('Disable WebRTC in your browser to prevent local IP leaks.');
-      }
+    if (data.score < 80) {
+      suggestions.push('Use a privacy-focused browser like Brave or Firefox with strict settings.');
+      suggestions.push('Enable "Global Privacy Control" or "Do Not Track" in your browser.');
+      suggestions.push('Use a reputable, no-logs VPN to mask your true IP and location.');
+      suggestions.push('Install tracker-blocking extensions like uBlock Origin or Privacy Badger.');
+      suggestions.push('Disable WebRTC in your browser to prevent local IP leaks.');
     }
     return suggestions;
-  };
-
-  const runExposureScan = async () => {
-    if (!exposureQuery.trim()) return;
-    setExposureLoading(true);
-    setExposureResult(null);
-    try {
-      if (apiUrl) {
-        const res = await fetch(`${apiUrl}/api/v1/exposure/scan`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ query: exposureQuery }),
-        });
-        const data = await res.json();
-        const result = {
-          ...data,
-          suggestions: generateSecuritySuggestions('exposure', data),
-        };
-        setExposureResult(result);
-        setExposureHistory((prev) => [result, ...prev.slice(0, 9)]);
-      } else {
-        await new Promise((r) => setTimeout(r, 2500));
-
-        // Seeded random for consistent results
-        const seed = exposureQuery.toLowerCase().trim();
-        let hash = 0;
-        for (let i = 0; i < seed.length; i++) {
-          hash = (hash << 5) - hash + seed.charCodeAt(i);
-          hash |= 0;
-        }
-        const random = () => {
-          hash = (hash * 16807) % 2147483647;
-          return (hash - 1) / 2147483646;
-        };
-
-        const breachCount = Math.floor(random() * 8);
-        const sources = [
-          {
-            name: 'Have I Been Pwned',
-            records: Math.floor(random() * 5) + (breachCount > 0 ? 1 : 0),
-            date: '2024-03-15',
-            category: 'Breach Data',
-          },
-          { name: 'DeHashed', records: Math.floor(random() * 3), date: '2024-02-20', category: 'Leaked Credentials' },
-          { name: 'LeakCheck', records: Math.floor(random() * 2), date: '2024-01-10', category: 'Data Breach' },
-        ].filter((s) => s.records > 0);
-
-        const totalRecords = sources.reduce((acc, s) => acc + s.records, 0);
-        const exposureData: ExposureResult = {
-          query: exposureQuery,
-          type: exposureQuery.includes('@') ? 'Email' : 'Domain',
-          total_exposed_records: totalRecords,
-          sources,
-          severity: totalRecords > 5 ? 'High' : totalRecords > 0 ? 'Medium' : 'Low',
-          risk_level:
-            totalRecords > 10 ? 'Critical' : totalRecords > 5 ? 'High' : totalRecords > 0 ? 'Elevated' : 'Safe',
-        };
-        exposureData.suggestions = generateSecuritySuggestions('exposure', exposureData);
-        setExposureResult(exposureData);
-        setExposureHistory((prev) => [exposureData, ...prev.slice(0, 9)]);
-      }
-    } catch {
-      setExposureResult(null);
-    }
-    setExposureLoading(false);
   };
 
   const runPrivacyCheck = async () => {
@@ -431,7 +332,7 @@ export default function DFIRPage() {
         trackingProtection: { score: 80, maxScore: 100, details: { trackerBlocker: true } },
       },
     };
-    result.suggestions = generateSecuritySuggestions('privacy', result);
+    result.suggestions = generateSecuritySuggestions(result);
     setPrivacyResult(result);
     setPrivacyLoading(false);
   };
@@ -628,8 +529,6 @@ export default function DFIRPage() {
     setIntelItems((items) => items.map((item) => (item.id === id ? { ...item, read: true } : item)));
   };
 
-  const clearHistory = () => setExposureHistory([]);
-
   const handleTabChange = (tab: TabType) => {
     setActiveTab(tab);
     setSearchParams({ tab });
@@ -639,7 +538,6 @@ export default function DFIRPage() {
 
   const tabs = [
     { id: 'home', label: 'Home', icon: Shield },
-    { id: 'exposure', label: 'Exposure', icon: Database },
     { id: 'privacy', label: 'Privacy', icon: Lock },
     { id: 'threatIntel', label: 'Threat Intel', icon: Radar },
   ];
@@ -730,28 +628,20 @@ export default function DFIRPage() {
                         Functional security tools for domain analysis, IOC reputation checking, and threat intelligence.
                       </p>
                       <ConnectionStatus />
-                      <div className="flex flex-wrap gap-4 mt-6">
-                        <button
-                          onClick={() => handleTabChange('exposure')}
-                          className="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold transition-colors flex items-center gap-2"
-                        >
-                          <Database className="w-4 h-4" /> Exposure Scanner
-                        </button>
-                      </div>
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                       {[
-                        {
-                          label: 'Exposure',
-                          icon: Database,
-                          color: 'text-cyan-500 dark:text-cyan-400',
-                          tab: 'exposure' as TabType,
-                        },
                         {
                           label: 'Privacy',
                           icon: Lock,
                           color: 'text-emerald-500 dark:text-emerald-400',
                           tab: 'privacy' as TabType,
+                        },
+                        {
+                          label: 'Threat Intel',
+                          icon: Radar,
+                          color: 'text-blue-500 dark:text-blue-400',
+                          tab: 'threatIntel' as TabType,
                         },
                       ].map((tool) => (
                         <button
@@ -765,168 +655,6 @@ export default function DFIRPage() {
                       ))}
                     </div>
                   </div>
-                </div>
-              )}
-
-              {activeTab === 'exposure' && (
-                <div className="max-w-4xl mx-auto space-y-6">
-                  <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
-                    <div className="flex items-center gap-3 mb-4">
-                      <Database className="w-6 h-6 text-cyan-500" />
-                      <h3 className="text-xl font-bold text-slate-900 dark:text-white">Data Exposure Scanner</h3>
-                    </div>
-                    <div className="flex gap-3">
-                      <input
-                        type="text"
-                        value={exposureQuery}
-                        onChange={(e) => setExposureQuery(e.target.value)}
-                        placeholder="Enter email or domain to check exposure"
-                        className="flex-1 px-4 py-3 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500 transition-colors shadow-sm"
-                        onKeyDown={(e) => e.key === 'Enter' && runExposureScan()}
-                      />
-                      <button
-                        onClick={runExposureScan}
-                        disabled={exposureLoading}
-                        className="px-6 py-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 disabled:opacity-50 text-white font-semibold transition-all flex items-center gap-2 shadow-sm"
-                      >
-                        {exposureLoading ? (
-                          <Loader2 className="w-4 h-4 animate-spin" />
-                        ) : (
-                          <Search className="w-4 h-4" />
-                        )}{' '}
-                        Scan
-                      </button>
-                    </div>
-                  </div>
-
-                  {exposureResult && (
-                    <div className="space-y-6">
-                      <div
-                        className={`p-8 rounded-3xl border-2 ${exposureResult.risk_level === 'Critical' ? 'bg-rose-500/5 border-rose-500/30' : exposureResult.risk_level === 'High' ? 'bg-amber-500/5 border-amber-500/30' : 'bg-cyan-500/5 border-cyan-500/30'} shadow-lg`}
-                      >
-                        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-                          <div className="flex items-center gap-6">
-                            <div
-                              className={`w-20 h-20 rounded-2xl flex items-center justify-center ${exposureResult.risk_level === 'Critical' ? 'bg-rose-500' : exposureResult.risk_level === 'High' ? 'bg-amber-500' : 'bg-cyan-500'} text-white`}
-                            >
-                              <Database className="w-10 h-10" />
-                            </div>
-                            <div>
-                              <span className="text-xs uppercase tracking-widest text-slate-500">
-                                Global Risk Level
-                              </span>
-                              <h4
-                                className={`text-4xl font-black uppercase tracking-tight ${exposureResult.risk_level === 'Critical' ? 'text-rose-600' : exposureResult.risk_level === 'High' ? 'text-amber-600' : 'text-cyan-600'}`}
-                              >
-                                {exposureResult.risk_level}
-                              </h4>
-                            </div>
-                          </div>
-                          <div className="text-left md:text-right p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10">
-                            <span className="text-xs uppercase tracking-widest text-slate-500">Exposed Records</span>
-                            <p className="text-5xl font-black text-slate-900 dark:text-white">
-                              {exposureResult.total_exposed_records}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                        <div className="lg:col-span-2 space-y-6">
-                          <div className="p-6 rounded-2xl bg-white/40 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
-                            <h4 className="font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
-                              <Server className="w-5 h-5 text-brand-500" /> Primary Breach Sources
-                            </h4>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                              {exposureResult.sources.map((source, idx) => (
-                                <div
-                                  key={idx}
-                                  className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-white/5 hover:border-brand-500/30 transition-colors"
-                                >
-                                  <div className="flex justify-between items-start mb-3">
-                                    <div>
-                                      <h5 className="font-bold text-slate-900 dark:text-white text-lg">
-                                        {source.name}
-                                      </h5>
-                                      <span className="px-2 py-0.5 rounded bg-brand-500/10 text-brand-600 dark:text-brand-400 text-[10px] font-bold uppercase">
-                                        {source.category}
-                                      </span>
-                                    </div>
-                                    <div className="text-right">
-                                      <span className="text-2xl font-black text-rose-600">{source.records}</span>
-                                      <p className="text-[10px] text-slate-500 font-bold uppercase">Records</p>
-                                    </div>
-                                  </div>
-                                  <div className="flex items-center gap-2 text-xs text-slate-500 mt-4 pt-4 border-t border-slate-200/50 dark:border-white/5">
-                                    <Clock className="w-3 h-3" /> Seen on: {source.date}
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
-                            {exposureResult.sources.length === 0 && (
-                              <div className="text-center py-10">
-                                <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
-                                  <Shield className="w-8 h-8 text-emerald-500" />
-                                </div>
-                                <h5 className="font-bold text-slate-900 dark:text-white">No Exposure Found</h5>
-                                <p className="text-sm text-slate-500">
-                                  Your data was not found in our database of known breaches.
-                                </p>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                        <div className="space-y-6">
-                          <SecurityChecklist suggestions={exposureResult.suggestions} />
-                          <div className="p-6 rounded-2xl bg-brand-600 text-white shadow-xl">
-                            <h4 className="font-bold mb-4 flex items-center gap-2">
-                              <Lock className="w-5 h-5" /> Safety First
-                            </h4>
-                            <p className="text-sm opacity-90 leading-relaxed">
-                              Finding your data in a breach doesn't mean you've been hacked, but it means your
-                              credentials for that service are public.
-                            </p>
-                            <button
-                              onClick={() => handleTabChange('privacy')}
-                              className="mt-6 w-full py-3 rounded-xl bg-white text-brand-600 font-bold text-sm hover:bg-slate-100 transition-colors"
-                            >
-                              Check Browser Privacy
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {exposureHistory.length > 0 && (
-                    <div className="p-6 rounded-2xl bg-slate-100/50 dark:bg-slate-800/30 border border-slate-200 dark:border-white/5">
-                      <div className="flex justify-between items-center mb-4">
-                        <h4 className="font-bold text-slate-900 dark:text-white">Recent Scans</h4>
-                        <button
-                          onClick={clearHistory}
-                          className="text-xs text-slate-500 hover:text-rose-500 flex items-center gap-1"
-                        >
-                          <Trash2 className="w-3 h-3" /> Clear
-                        </button>
-                      </div>
-                      <div className="space-y-2">
-                        {exposureHistory.slice(0, 5).map((item, idx) => (
-                          <button
-                            key={idx}
-                            onClick={() => setExposureResult(item)}
-                            className="w-full flex justify-between items-center p-3 rounded-lg bg-white/60 dark:bg-white/5 hover:bg-white/80 dark:hover:bg-white/10 cursor-pointer transition-colors text-left"
-                          >
-                            <span className="text-sm font-mono text-slate-700 dark:text-slate-300">{item.query}</span>
-                            <span
-                              className={`text-xs font-semibold ${item.risk_level === 'Critical' ? 'text-rose-500' : 'text-amber-500'}`}
-                            >
-                              {item.risk_level} ({item.total_exposed_records} records)
-                            </span>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
                 </div>
               )}
 

@@ -1,8 +1,8 @@
 import React, { memo, useCallback, useRef, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Shield, Search, Database, Lock, BookOpen, Radar, type LucideIcon } from 'lucide-react';
+import { Shield, Search, Lock, BookOpen, Radar, type LucideIcon } from 'lucide-react';
 
-export type NavTab = 'home' | 'exposure' | 'privacy' | 'knowledge' | 'threatIntel';
+export type NavTab = 'home' | 'privacy' | 'knowledge' | 'threatIntel';
 
 interface NavItem {
   id: NavTab;
@@ -24,19 +24,11 @@ const navItems: NavItem[] = [
     color: 'from-brand-500 to-brand-600',
   },
   {
-    id: 'exposure',
-    label: 'Exposure',
-    icon: Database,
-    description: 'Breach Scanner',
-    shortcut: '2',
-    color: 'from-amber-500 to-amber-600',
-  },
-  {
     id: 'privacy',
     label: 'Privacy',
     icon: Lock,
     description: 'Browser Check',
-    shortcut: '3',
+    shortcut: '2',
     color: 'from-emerald-500 to-emerald-600',
   },
   {
@@ -45,7 +37,7 @@ const navItems: NavItem[] = [
     icon: BookOpen,
     description: 'Wiki + Research',
     badge: '2 tools',
-    shortcut: '4',
+    shortcut: '3',
     color: 'from-violet-500 to-violet-600',
   },
   {
@@ -54,7 +46,7 @@ const navItems: NavItem[] = [
     icon: Radar,
     description: 'Feeds + Actors',
     badge: '2 tools',
-    shortcut: '5',
+    shortcut: '4',
     color: 'from-blue-500 to-blue-600',
   },
 ];
@@ -86,7 +78,7 @@ export const DFIRNavigation = memo(function DFIRNavigation({
         e.preventDefault();
         const prevIndex = (currentIndex - 1 + navItems.length) % navItems.length;
         onTabChange(navItems[prevIndex].id);
-      } else if (e.key >= '1' && e.key <= '5') {
+      } else if (e.key >= '1' && e.key <= '4') {
         e.preventDefault();
         const index = parseInt(e.key) - 1;
         if (navItems[index]) {
