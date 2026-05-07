@@ -26,32 +26,97 @@ interface RdapResponse {
   status?: string[];
 }
 
+// Authoritative RDAP base URLs by TLD. Covers the most common TLDs we'll see.
+// Source: IANA RDAP bootstrap registry (data.iana.org/rdap/dns.json)
+// Each base ends with a slash; the path is "domain/<name>".
+const TLD_RDAP_BASE: Record<string, string> = {
+  com: 'https://rdap.verisign.com/com/v1/',
+  net: 'https://rdap.verisign.com/net/v1/',
+  org: 'https://rdap.publicinterestregistry.org/rdap/',
+  info: 'https://rdap.afilias.net/rdap/info/',
+  biz: 'https://rdap.nic.biz/',
+  io: 'https://rdap.identitydigital.services/rdap/',
+  dev: 'https://rdap.nic.google/',
+  app: 'https://rdap.nic.google/',
+  page: 'https://rdap.nic.google/',
+  cloud: 'https://rdap.nic.cloud/',
+  tech: 'https://rdap.identitydigital.services/rdap/',
+  capital: 'https://rdap.identitydigital.services/rdap/',
+  xyz: 'https://rdap.centralnic.com/xyz/',
+  online: 'https://rdap.centralnic.com/online/',
+  co: 'https://rdap.nic.co/',
+  ai: 'https://rdap.nic.ai/',
+  me: 'https://rdap.nic.me/',
+  tv: 'https://rdap.nic.tv/',
+  uk: 'https://rdap.nominet.uk/uk/',
+  us: 'https://rdap.nic.us/',
+  in: 'https://rdap.registry.in/rdap/',
+  de: 'https://rdap.denic.de/',
+  fr: 'https://rdap.nic.fr/',
+  eu: 'https://rdap.eu.org/',
+};
+
+// User-agent that's more likely to be honored than the default fetch UA
+const UA = 'Mozilla/5.0 (compatible; pranithjain-dfir/1.0; +https://pranithjain.qzz.io)';
+
 function vcardName(entity: RdapEntity): string | undefined {
   const arr = entity.vcardArray?.[1] ?? [];
   const fn = arr.find((p) => p[0] === 'fn');
   return fn ? fn[3] : undefined;
 }
 
+function tldOf(domain: string): string | undefined {
+  const parts = domain.toLowerCase().split('.');
+  return parts.length > 1 ? parts[parts.length - 1] : undefined;
+}
+
+async function tryRdap(
+  url: string
+): Promise<{ ok: true; json: RdapResponse } | { ok: false; status: number; statusText: string }> {
+  const res = await fetch(url, {
+    headers: { accept: 'application/rdap+json', 'user-agent': UA },
+    redirect: 'follow',
+    signal: AbortSignal.timeout(5000),
+  });
+  if (!res.ok) return { ok: false, status: res.status, statusText: res.statusText };
+  const json = (await res.json()) as RdapResponse;
+  return { ok: true, json };
+}
+
 export async function rdapLookup(domain: string): Promise<RdapResult> {
   const empty: RdapResult = { nameservers: [], status: [] };
-  try {
-    const res = await fetch(`https://rdap.org/domain/${encodeURIComponent(domain)}`, {
-      headers: { accept: 'application/rdap+json' },
-      redirect: 'follow',
-    });
-    if (!res.ok) return { ...empty, error: `${res.status} ${res.statusText}`.trim() };
-    const j = (await res.json()) as RdapResponse;
-    const eventBy = (action: string) => j.events?.find((e) => e.eventAction === action)?.eventDate;
-    const registrarEntity = j.entities?.find((e) => e.roles?.includes('registrar'));
-    return {
-      registrar: registrarEntity ? vcardName(registrarEntity) : undefined,
-      created: eventBy('registration'),
-      expires: eventBy('expiration'),
-      updated: eventBy('last changed'),
-      nameservers: (j.nameservers ?? []).map((n) => n.ldhName),
-      status: j.status ?? [],
-    };
-  } catch (err) {
-    return { ...empty, error: err instanceof Error ? err.message : String(err) };
+  const lower = domain.trim().toLowerCase();
+  const tld = tldOf(lower);
+
+  // Try authoritative TLD endpoint first (more reliable, no rdap.org middleman)
+  const candidates: string[] = [];
+  if (tld && TLD_RDAP_BASE[tld]) {
+    candidates.push(`${TLD_RDAP_BASE[tld]}domain/${encodeURIComponent(lower)}`);
   }
+  // Always include rdap.org as a fallback for unknown TLDs
+  candidates.push(`https://rdap.org/domain/${encodeURIComponent(lower)}`);
+
+  let lastError = '';
+  for (const url of candidates) {
+    try {
+      const result = await tryRdap(url);
+      if (result.ok) {
+        const j = result.json;
+        const eventBy = (action: string) => j.events?.find((e) => e.eventAction === action)?.eventDate;
+        const registrarEntity = j.entities?.find((e) => e.roles?.includes('registrar'));
+        return {
+          registrar: registrarEntity ? vcardName(registrarEntity) : undefined,
+          created: eventBy('registration'),
+          expires: eventBy('expiration'),
+          updated: eventBy('last changed'),
+          nameservers: (j.nameservers ?? []).map((n) => n.ldhName),
+          status: j.status ?? [],
+        };
+      }
+      lastError = `${result.status} ${result.statusText}`.trim();
+    } catch (err) {
+      lastError = err instanceof Error ? err.message : String(err);
+    }
+  }
+  return { ...empty, error: lastError || 'rdap unavailable' };
 }

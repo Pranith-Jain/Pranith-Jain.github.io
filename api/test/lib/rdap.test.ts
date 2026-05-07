@@ -29,10 +29,13 @@ describe('rdapLookup', () => {
     expect(r.status).toContain('client transfer prohibited');
   });
 
-  it('returns error on 404', async () => {
-    vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(new Response('not found', { status: 404 }));
+  it('returns error when both authoritative and fallback return non-2xx', async () => {
+    // First call fails (authoritative), second call fails (rdap.org)
+    vi.spyOn(globalThis, 'fetch')
+      .mockResolvedValueOnce(new Response('forbidden', { status: 403 }))
+      .mockResolvedValueOnce(new Response('forbidden', { status: 403 }));
     const r = await rdapLookup('does-not-exist.invalid');
-    expect(r.error).toMatch(/404/);
+    expect(r.error).toMatch(/403/);
   });
 
   it('handles empty response gracefully', async () => {

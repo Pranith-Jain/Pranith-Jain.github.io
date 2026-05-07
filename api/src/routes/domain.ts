@@ -6,7 +6,37 @@ import { ctLogs } from '../lib/crt-sh';
 import { parseSpf, parseDmarc, parseBimi, parseMtaSts, parseTlsRpt, evaluateEmailAuth } from '../lib/email-auth';
 
 const DOMAIN_RE = /^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/;
-const COMMON_DKIM_SELECTORS = ['default', 'google', 'k1', 'mail', 'selector1', 'selector2', 's1', 's2'];
+const COMMON_DKIM_SELECTORS = [
+  // Generic / catch-all
+  'default',
+  'dkim',
+  'dkim1',
+  'mail',
+  // Numbered keys (Mailchimp, generic)
+  'k1',
+  'k2',
+  's1',
+  's2',
+  // Microsoft 365
+  'selector1',
+  'selector2',
+  // Google Workspace
+  'google',
+  // Cloudflare Email Routing (current year + previous year)
+  'cf2024-1',
+  'cf2024-2',
+  'cf2025-1',
+  'cf2025-2',
+  'cf2026-1',
+  'cf2026-2',
+  // Postmark
+  'pm',
+  // Mailgun
+  'mailgun',
+  'mg',
+  // Klaviyo
+  'klaviyo',
+];
 
 export async function domainLookupHandler(c: Context<{ Bindings: Env }>) {
   const raw = c.req.query('domain')?.trim().toLowerCase();
