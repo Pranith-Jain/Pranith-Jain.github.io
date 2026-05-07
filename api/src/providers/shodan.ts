@@ -54,10 +54,10 @@ export const shodan: ProviderAdapter = async (indicator, env, signal) => {
         score,
         verdict,
         raw_summary: {
-          ports: ports.slice(0, 20),
+          ports: ports.slice(0, 8),
           country: json.country_name ?? '',
           org: json.org ?? '',
-          vulns: vulns.slice(0, 10),
+          vulns: vulns.slice(0, 5),
         },
         tags: uniqueTags,
       });

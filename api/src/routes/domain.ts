@@ -18,7 +18,8 @@ export async function domainLookupHandler(c: Context<{ Bindings: Env }>) {
   const tlsRptDomain = `_smtp._tls.${raw}`;
   const mtaStsUrl = `https://mta-sts.${raw}/.well-known/mta-sts.txt`;
 
-  const [dns, rdap, ct, dmarcTxt, bimiTxt, tlsRptTxt, mtaStsBody, ...dkimChecks] = await Promise.all([
+  // First batch: all non-DKIM parallel calls
+  const [dns, rdap, ct, dmarcTxt, bimiTxt, tlsRptTxt, mtaStsBody] = await Promise.all([
     resolveAllStandard(raw),
     rdapLookup(raw),
     ctLogs(raw),
@@ -28,14 +29,20 @@ export async function domainLookupHandler(c: Context<{ Bindings: Env }>) {
     fetch(mtaStsUrl)
       .then((r) => (r.ok ? r.text() : ''))
       .catch(() => ''),
-    ...COMMON_DKIM_SELECTORS.map((s) => resolveRecord(`${s}._domainkey.${raw}`, 'TXT')),
   ]);
 
+  // Only probe DKIM selectors when MX records indicate email use (~8 fewer subrequests for non-mail domains)
   const dkimSelectorsFound: string[] = [];
-  COMMON_DKIM_SELECTORS.forEach((sel, i) => {
-    const r = dkimChecks[i];
-    if (r && r.records.length > 0) dkimSelectorsFound.push(sel);
-  });
+  const hasMx = (dns.MX?.records?.length ?? 0) > 0;
+  if (hasMx) {
+    const dkimChecks = await Promise.all(
+      COMMON_DKIM_SELECTORS.map((s) => resolveRecord(`${s}._domainkey.${raw}`, 'TXT'))
+    );
+    COMMON_DKIM_SELECTORS.forEach((sel, i) => {
+      const r = dkimChecks[i];
+      if (r && r.records.length > 0) dkimSelectorsFound.push(sel);
+    });
+  }
 
   const spf = parseSpf(dns.TXT.records);
   const dmarc = parseDmarc(dmarcTxt.records);
@@ -52,21 +59,25 @@ export async function domainLookupHandler(c: Context<{ Bindings: Env }>) {
     dkimSelectorsFound,
   });
 
-  return c.json({
-    domain: raw,
-    score: evaluation.score,
-    verdict: evaluation.verdict,
-    dns,
-    rdap,
-    email_auth: {
-      spf,
-      dmarc,
-      dkim: { selectors_found: dkimSelectorsFound },
-      bimi,
-      mta_sts: mtaSts,
-      tls_rpt: tlsRpt,
-      evaluation,
+  return c.json(
+    {
+      domain: raw,
+      score: evaluation.score,
+      verdict: evaluation.verdict,
+      dns,
+      rdap,
+      email_auth: {
+        spf,
+        dmarc,
+        dkim: { selectors_found: dkimSelectorsFound },
+        bimi,
+        mta_sts: mtaSts,
+        tls_rpt: tlsRpt,
+        evaluation,
+      },
+      certificates: ct,
     },
-    certificates: ct,
-  });
+    200,
+    { 'Cache-Control': 'public, max-age=300, s-maxage=600' }
+  );
 }

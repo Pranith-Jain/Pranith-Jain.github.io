@@ -17,7 +17,6 @@ export interface AuthResults {
   spf: 'pass' | 'fail' | 'softfail' | 'neutral' | 'none' | 'temperror' | 'permerror' | 'unknown';
   dkim: 'pass' | 'fail' | 'none' | 'temperror' | 'permerror' | 'unknown';
   dmarc: 'pass' | 'fail' | 'none' | 'temperror' | 'permerror' | 'unknown';
-  raw?: string;
 }
 
 const HEADER_LINE_RE = /^([!-9;-~]+):\s?(.*)$/;
@@ -80,7 +79,6 @@ export function parseAuthResults(authResultsHeader: string): AuthResults {
     spf: extractVerdict(authResultsHeader, 'spf'),
     dkim: extractVerdict(authResultsHeader, 'dkim') as AuthResults['dkim'],
     dmarc: extractVerdict(authResultsHeader, 'dmarc') as AuthResults['dmarc'],
-    raw: authResultsHeader,
   };
 }
 

@@ -11,7 +11,7 @@ import { privacyInspectHandler } from './routes/privacy';
 
 const app = new Hono<{ Bindings: Env }>();
 
-app.get('/api/v1/health', (c) => c.json({ ok: true }));
+app.get('/api/v1/health', (c) => c.json({ ok: true }, 200, { 'Cache-Control': 'public, max-age=60' }));
 app.get('/api/v1/ioc/check', iocCheckHandler);
 app.get('/api/v1/domain/lookup', domainLookupHandler);
 app.post('/api/v1/phishing/analyze', phishingAnalyzeHandler);

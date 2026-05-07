@@ -41,4 +41,22 @@ describe('GET /api/v1/domain/lookup', () => {
     expect(body.score).toBeDefined();
     expect(body.certificates).toBeDefined();
   });
+
+  it('skips DKIM probes when no MX records', async () => {
+    let dkimCalls = 0;
+    vi.spyOn(globalThis, 'fetch').mockImplementation(async (input) => {
+      const url = String(input);
+      if (url.includes('_domainkey')) dkimCalls++;
+      // MX query returns empty Answer; all others return minimal valid JSON
+      if (url.includes('cloudflare-dns.com') && url.includes('type=MX')) {
+        return new Response(JSON.stringify({ Status: 0, Answer: [] }), { status: 200 });
+      }
+      return new Response(
+        JSON.stringify({ Status: 0, Answer: [], events: [], entities: [], nameservers: [], status: [] }),
+        { status: 200 }
+      );
+    });
+    await SELF.fetch('https://x/api/v1/domain/lookup?domain=example.com');
+    expect(dkimCalls).toBe(0);
+  });
 });
