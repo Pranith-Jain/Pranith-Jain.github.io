@@ -1,5 +1,26 @@
 export type Verdict = 'clean' | 'suspicious' | 'malicious' | 'unknown';
 
+export interface ExposureScanResponse {
+  domain: string;
+  subdomains: Array<{
+    name: string;
+    ips: string[];
+    shodan?: {
+      source: string;
+      status: string;
+      score: number;
+      verdict: string;
+      raw_summary: { ports?: number[]; country?: string; org?: string; vulns?: string[] };
+      tags: string[];
+      error?: string;
+    };
+  }>;
+  total_subdomains_seen: number;
+  score: number;
+  verdict: 'low' | 'medium' | 'high';
+  shodan_enabled: boolean;
+}
+
 export interface PhishingAnalysisResponse {
   headers: Record<string, string | number | undefined>;
   auth: {

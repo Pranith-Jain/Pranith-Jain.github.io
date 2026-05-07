@@ -12,7 +12,7 @@ import { Home, About, Skills, Experience, Projects, DFIR } from './pages';
 const IocCheck = lazy(() => import('./pages/dfir/IocCheck'));
 const Phishing = lazy(() => import('./pages/dfir/Phishing'));
 const Domain = lazy(() => import('./pages/dfir/Domain'));
-const ExposurePlaceholder = lazy(() => import('./pages/dfir/ExposurePlaceholder'));
+const Exposure = lazy(() => import('./pages/dfir/Exposure'));
 const FilePlaceholder = lazy(() => import('./pages/dfir/FilePlaceholder'));
 const WikiPlaceholder = lazy(() => import('./pages/dfir/WikiPlaceholder'));
 const DashboardPlaceholder = lazy(() => import('./pages/dfir/DashboardPlaceholder'));
@@ -115,7 +115,7 @@ export function AppContent() {
               path="/dfir/exposure"
               element={
                 <Suspense fallback={<SectionLoader />}>
-                  <ExposurePlaceholder />
+                  <Exposure />
                 </Suspense>
               }
             />
