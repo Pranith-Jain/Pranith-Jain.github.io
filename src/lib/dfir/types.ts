@@ -34,3 +34,39 @@ export interface DoneEvent {
   confidence: 'low' | 'medium' | 'high';
   contributing: number;
 }
+
+export interface DomainLookupResponse {
+  domain: string;
+  score: number;
+  verdict: 'strong' | 'partial' | 'weak';
+  dns: Record<'A' | 'AAAA' | 'NS' | 'CNAME' | 'SOA' | 'MX' | 'TXT' | 'CAA', { records: string[]; error?: string }>;
+  rdap: {
+    registrar?: string;
+    created?: string;
+    expires?: string;
+    updated?: string;
+    nameservers: string[];
+    status: string[];
+    error?: string;
+  };
+  email_auth: {
+    spf: { present: boolean; policy?: string; record?: string };
+    dmarc: { present: boolean; policy?: string; pct?: number; record?: string };
+    dkim: { selectors_found: string[] };
+    bimi: { present: boolean; logo?: string };
+    mta_sts: { present: boolean; mode?: string; maxAge?: number };
+    tls_rpt: { present: boolean; rua?: string };
+    evaluation: {
+      score: number;
+      verdict: 'strong' | 'partial' | 'weak';
+      weaknesses: string[];
+    };
+  };
+  certificates: Array<{
+    id: number;
+    issuer: string;
+    not_before: string;
+    not_after: string;
+    subjects: string[];
+  }>;
+}
