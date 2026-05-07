@@ -228,11 +228,10 @@ type TabType =
   | 'knowledge' // MERGED: Wiki + Research
   | 'threatIntel'; // MERGED: Intel + Actors
 
-
 export function DFIR() {
   const { tab: activeTab, setTab: setActiveTab } = useDFIRRoute();
   const [mounted, setMounted] = useState(false);
-  const { apiUrl, setApiUrl } = useDFIRSettings();
+  const { apiUrl } = useDFIRSettings();
 
   // Tools States
   const [iocInput, setIocInput] = useState('');
@@ -1221,7 +1220,7 @@ export function DFIR() {
                         This platform provides functional security tools for domain analysis, IOC reputation checking,
                         and threat intelligence gathering. Designed for security analysts and researchers.
                       </p>
-                      <ConnectionStatus apiUrl={apiUrl} onApiUrlChange={setApiUrl} />
+                      <ConnectionStatus />
                       <div className="mt-4 flex items-start gap-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/30 border border-slate-200 dark:border-white/10">
                         <HelpCircle className="w-5 h-5 text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
                         <div>
@@ -2295,7 +2294,7 @@ export function DFIR() {
       <div className="mt-8 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-500">
         <div className="flex items-center gap-4">
           <div className="w-48">
-            <ConnectionStatus apiUrl={apiUrl} onApiUrlChange={setApiUrl} />
+            <ConnectionStatus />
           </div>
           <span className="flex items-center gap-1">
             <Activity className="w-3 h-3" />

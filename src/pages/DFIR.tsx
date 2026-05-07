@@ -208,7 +208,7 @@ const getSeverity = (title: string, description: string): string => {
 export default function DFIRPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [mounted, setMounted] = useState(false);
-  const { apiUrl, setApiUrl } = useDFIRSettings();
+  const { apiUrl } = useDFIRSettings();
 
   const initialTab = (searchParams.get('tab') as TabType) || 'home';
   const [activeTab, setActiveTab] = useState<TabType>(initialTab);
@@ -1127,7 +1127,7 @@ export default function DFIRPage() {
                       <p className="text-slate-600 dark:text-slate-400 mb-6">
                         Functional security tools for domain analysis, IOC reputation checking, and threat intelligence.
                       </p>
-                      <ConnectionStatus apiUrl={apiUrl} onApiUrlChange={setApiUrl} />
+                      <ConnectionStatus />
                       <div className="flex flex-wrap gap-4 mt-6">
                         <button
                           onClick={() => handleTabChange('domain')}
@@ -2167,7 +2167,7 @@ export default function DFIRPage() {
       <div className="mt-8 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-500">
         <div className="flex items-center gap-4">
           <div className="w-48">
-            <ConnectionStatus apiUrl={apiUrl} onApiUrlChange={setApiUrl} />
+            <ConnectionStatus />
           </div>
           <span className="flex items-center gap-1">
             <Activity className="w-3 h-3" /> v2.2.0-stable
