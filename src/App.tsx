@@ -14,7 +14,8 @@ const Phishing = lazy(() => import('./pages/dfir/Phishing'));
 const Domain = lazy(() => import('./pages/dfir/Domain'));
 const Exposure = lazy(() => import('./pages/dfir/Exposure'));
 const File = lazy(() => import('./pages/dfir/File'));
-const WikiPlaceholder = lazy(() => import('./pages/dfir/WikiPlaceholder'));
+const Wiki = lazy(() => import('./pages/dfir/Wiki'));
+const WikiArticle = lazy(() => import('./pages/dfir/WikiArticle'));
 const DashboardPlaceholder = lazy(() => import('./pages/dfir/DashboardPlaceholder'));
 
 function SectionLoader() {
@@ -131,7 +132,15 @@ export function AppContent() {
               path="/dfir/wiki"
               element={
                 <Suspense fallback={<SectionLoader />}>
-                  <WikiPlaceholder />
+                  <Wiki />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/dfir/wiki/:slug"
+              element={
+                <Suspense fallback={<SectionLoader />}>
+                  <WikiArticle />
                 </Suspense>
               }
             />
