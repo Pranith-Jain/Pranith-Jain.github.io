@@ -8,6 +8,7 @@ import { DnsRecordList } from '../../components/dfir/DnsRecordList';
 import { EmailAuthCard } from '../../components/dfir/EmailAuthCard';
 import { CertList } from '../../components/dfir/CertList';
 import { recordHistory } from '../../lib/dfir/history';
+import { RelatedActors } from '../../components/dfir/RelatedActors';
 
 const DOMAIN_RE = /^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/;
 
@@ -108,6 +109,15 @@ export default function Domain(): JSX.Element {
           <EmailAuthCard auth={result.email_auth} />
           <DnsRecordList dns={result.dns} />
           <CertList certs={result.certificates} />
+          <RelatedActors
+            hints={{
+              free_text: [result.rdap.registrar, ...result.rdap.nameservers].filter((s): s is string => !!s),
+              tags: [
+                ...(result.email_auth.bimi.present ? [] : ['phishing']),
+                ...(result.email_auth.dmarc.policy === 'none' ? ['phishing'] : []),
+              ],
+            }}
+          />
         </div>
       )}
     </div>

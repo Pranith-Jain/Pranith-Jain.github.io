@@ -5,6 +5,7 @@ import { ArrowLeft, Radar } from 'lucide-react';
 import type { ExposureScanResponse } from '../../lib/dfir/types';
 import { SubdomainTree } from '../../components/dfir/SubdomainTree';
 import { recordHistory } from '../../lib/dfir/history';
+import { RelatedActors } from '../../components/dfir/RelatedActors';
 
 const DOMAIN_RE = /^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/;
 
@@ -106,6 +107,19 @@ export default function Exposure(): JSX.Element {
             <h3 className="font-display font-bold text-lg mb-3">Subdomains seen in CT logs</h3>
             <SubdomainTree subdomains={result.subdomains} />
           </section>
+          <RelatedActors
+            hints={{
+              free_text: result.subdomains.flatMap((s) => [
+                ...(s.shodan?.tags ?? []),
+                ...((s.shodan?.raw_summary as { org?: string })?.org
+                  ? [(s.shodan!.raw_summary as { org?: string }).org!]
+                  : []),
+              ]),
+              country:
+                result.subdomains[0]?.shodan?.raw_summary &&
+                (result.subdomains[0].shodan.raw_summary as { country?: string }).country,
+            }}
+          />
         </div>
       )}
     </div>

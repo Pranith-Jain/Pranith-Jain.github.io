@@ -8,6 +8,7 @@ import { HeaderTable } from '../../components/dfir/HeaderTable';
 import { AuthResultsChips } from '../../components/dfir/AuthResultsChips';
 import { UrlList } from '../../components/dfir/UrlList';
 import { recordHistory } from '../../lib/dfir/history';
+import { RelatedActors } from '../../components/dfir/RelatedActors';
 
 export default function Phishing(): JSX.Element {
   const [searchParams] = useSearchParams();
@@ -103,6 +104,13 @@ export default function Phishing(): JSX.Element {
           <AuthResultsChips auth={result.auth} />
           <HeaderTable headers={result.headers} />
           <UrlList urls={result.urls} />
+          <RelatedActors
+            hints={{
+              tags: ['phishing', 'spear-phishing'],
+              techniques: ['T1566.001', 'T1566.002'],
+              free_text: result.urls,
+            }}
+          />
         </div>
       )}
     </div>

@@ -6,6 +6,7 @@ import type { FileAnalysisResponse } from '../../lib/dfir/types';
 import { VerdictChip } from '../../components/dfir/VerdictChip';
 import { IocResultRow } from '../../components/dfir/IocResultRow';
 import { recordHistory } from '../../lib/dfir/history';
+import { RelatedActors } from '../../components/dfir/RelatedActors';
 
 const HASH_RE = /^[a-fA-F0-9]{32}$|^[a-fA-F0-9]{40}$|^[a-fA-F0-9]{64}$/;
 
@@ -118,6 +119,17 @@ export default function File(): JSX.Element {
               ))}
             </div>
           </section>
+          <RelatedActors
+            hints={{
+              tags: result.providers.flatMap((p) => p.tags),
+              malware: result.providers.flatMap((p) =>
+                typeof (p.raw_summary as { vx_family?: string }).vx_family === 'string'
+                  ? [(p.raw_summary as { vx_family: string }).vx_family]
+                  : []
+              ),
+              free_text: result.providers.flatMap((p) => p.tags),
+            }}
+          />
         </div>
       )}
     </div>

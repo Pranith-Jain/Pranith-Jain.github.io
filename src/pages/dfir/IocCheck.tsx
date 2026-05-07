@@ -8,6 +8,7 @@ import type { ProviderResultWire, DoneEvent, ProviderId } from '../../lib/dfir/t
 import { IocResultRow } from '../../components/dfir/IocResultRow';
 import { VerdictChip } from '../../components/dfir/VerdictChip';
 import { recordHistory } from '../../lib/dfir/history';
+import { RelatedActors } from '../../components/dfir/RelatedActors';
 
 export default function IocCheck(): JSX.Element {
   const [searchParams] = useSearchParams();
@@ -133,6 +134,19 @@ export default function IocCheck(): JSX.Element {
       )}
 
       {error && <p className="mt-6 text-sm font-mono text-rose-600 dark:text-rose-400">stream error: {error}</p>}
+
+      {summary && (
+        <div className="mt-6">
+          <RelatedActors
+            hints={{
+              tags: results.flatMap((r) => r.tags),
+              free_text: results.flatMap(
+                (r) => Object.values(r.raw_summary).filter((v) => typeof v === 'string') as string[]
+              ),
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 }
