@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Shield,
@@ -196,7 +197,6 @@ interface ActorDetail {
 
 type TabType = 'home' | 'domain' | 'analysis' | 'exposure' | 'privacy' | 'threatIntel';
 
-
 // Helper functions for classifying threat intel items
 const getType = (title: string, description: string): string => {
   const text = `${title} ${description}`.toLowerCase();
@@ -215,6 +215,43 @@ const getSeverity = (title: string, description: string): string => {
   if (text.includes('medium') || text.includes('moderate')) return 'Medium';
   return 'Info';
 };
+
+const dfirTools = [
+  { path: '/dfir/ioc-check', label: 'IOC Checker', desc: 'IPs · domains · URLs · hashes', icon: Hash },
+  { path: '/dfir/phishing', label: 'Phishing Analyzer', desc: 'Email headers + content', icon: ShieldAlert },
+  { path: '/dfir/domain', label: 'Domain Lookup', desc: 'WHOIS · DNS · SSL', icon: Globe },
+  { path: '/dfir/exposure', label: 'Exposure Scanner', desc: 'Subdomains + open ports', icon: Radar },
+  { path: '/dfir/file', label: 'File Analyzer', desc: 'Hash-based lookups', icon: FileSearch },
+  { path: '/dfir/wiki', label: 'Knowledge Base', desc: 'Concepts + playbooks', icon: FileText },
+  { path: '/dfir/dashboard', label: 'Recent Lookups', desc: 'Your last 20 queries', icon: Clock },
+];
+
+function ToolGrid(): JSX.Element {
+  return (
+    <section className="my-10 rounded-2xl bg-[#0a0a0a] p-6 sm:p-8 border border-[#1f1f23]">
+      <header className="flex items-baseline justify-between mb-6">
+        <h2 className="text-xl font-display font-bold text-[#fafafa]">DFIR Tools</h2>
+        <span className="text-xs font-mono text-[#a1a1aa]">7 tools · live in phase 2</span>
+      </header>
+
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {dfirTools.map(({ path, label, desc, icon: Icon }) => (
+          <Link
+            key={path}
+            to={path}
+            className="group block rounded-lg border border-[#1f1f23] bg-[#111113] p-4 hover:border-[#00fff9]/40 hover:bg-[#161618] transition-colors"
+          >
+            <div className="flex items-center gap-3 mb-2">
+              <Icon size={18} className="text-[#00fff9]" aria-hidden="true" />
+              <span className="font-semibold text-[#fafafa] group-hover:text-[#00fff9] transition-colors">{label}</span>
+            </div>
+            <p className="text-sm font-mono text-[#a1a1aa] leading-relaxed">{desc}</p>
+          </Link>
+        ))}
+      </div>
+    </section>
+  );
+}
 
 export default function DFIRPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -1166,6 +1203,8 @@ export default function DFIRPage() {
           </motion.div>
         </div>
       </div>
+
+      <ToolGrid />
 
       <div className="glass rounded-3xl overflow-hidden shadow-2xl">
         <div className="flex overflow-x-auto no-scrollbar bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border-b border-slate-200 dark:border-white/5">
