@@ -1,8 +1,8 @@
 import React, { memo, useCallback, useRef, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Shield, Search, Database, Lock, BookOpen, Radar, type LucideIcon } from 'lucide-react';
+import { Shield, Search, Database, Lock, Radar, type LucideIcon } from 'lucide-react';
 
-export type NavTab = 'home' | 'privacy' | 'knowledge' | 'threatIntel';
+export type NavTab = 'home' | 'privacy' | 'threatIntel';
 
 interface NavItem {
   id: NavTab;
@@ -32,21 +32,12 @@ const navItems: NavItem[] = [
     color: 'from-emerald-500 to-emerald-600',
   },
   {
-    id: 'knowledge',
-    label: 'Knowledge',
-    icon: BookOpen,
-    description: 'Wiki + Research',
-    badge: '2 tools',
-    shortcut: '3',
-    color: 'from-violet-500 to-violet-600',
-  },
-  {
     id: 'threatIntel',
     label: 'Intel',
     icon: Radar,
     description: 'Feeds + Actors',
     badge: '2 tools',
-    shortcut: '4',
+    shortcut: '3',
     color: 'from-blue-500 to-blue-600',
   },
 ];
@@ -78,7 +69,7 @@ export const DFIRNavigation = memo(function DFIRNavigation({
         e.preventDefault();
         const prevIndex = (currentIndex - 1 + navItems.length) % navItems.length;
         onTabChange(navItems[prevIndex].id);
-      } else if (e.key >= '1' && e.key <= '4') {
+      } else if (e.key >= '1' && e.key <= '3') {
         e.preventDefault();
         const index = parseInt(e.key) - 1;
         if (navItems[index]) {
