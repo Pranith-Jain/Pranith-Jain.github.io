@@ -217,8 +217,9 @@ export function parseCisaKev(body: string): { entries: IocEntry[]; total: number
   }
   const vulns = parsed.vulnerabilities ?? [];
   const total = parsed.total ?? vulns.length;
-  // Take last CAP (newest) since feed is oldest-first
-  const slice = vulns.slice(-CAP);
+  // Sort by dateAdded DESC so newest entries come first, then take CAP
+  const sorted = [...vulns].sort((a, b) => (b.dateAdded ?? '').localeCompare(a.dateAdded ?? ''));
+  const slice = sorted.slice(0, CAP);
   const entries: IocEntry[] = slice
     .map((v) => {
       const value = v.cveID ?? '';

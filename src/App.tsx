@@ -21,6 +21,10 @@ const Actors = lazy(() => import('./pages/dfir/Actors'));
 const ActorDetail = lazy(() => import('./pages/dfir/ActorDetail'));
 const Privacy = lazy(() => import('./pages/dfir/Privacy'));
 const Briefings = lazy(() => import('./pages/dfir/Briefings'));
+const Cve = lazy(() => import('./pages/dfir/Cve'));
+const Decode = lazy(() => import('./pages/dfir/Decode'));
+const Technique = lazy(() => import('./pages/dfir/Technique'));
+const Share = lazy(() => import('./pages/dfir/Share'));
 
 function SectionLoader() {
   return (
@@ -185,6 +189,38 @@ export function AppContent() {
               element={
                 <Suspense fallback={<SectionLoader />}>
                   <Briefings />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/dfir/cve"
+              element={
+                <Suspense fallback={<SectionLoader />}>
+                  <Cve />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/dfir/decode"
+              element={
+                <Suspense fallback={<SectionLoader />}>
+                  <Decode />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/dfir/technique"
+              element={
+                <Suspense fallback={<SectionLoader />}>
+                  <Technique />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/dfir/share/:id"
+              element={
+                <Suspense fallback={<SectionLoader />}>
+                  <Share />
                 </Suspense>
               }
             />

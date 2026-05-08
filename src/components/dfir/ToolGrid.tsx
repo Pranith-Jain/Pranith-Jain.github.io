@@ -10,6 +10,10 @@ import {
   Users,
   Lock,
   Newspaper,
+  Search,
+  Target,
+  Link as LinkIcon,
+  Braces,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -26,11 +30,15 @@ const TOOLS: Tool[] = [
   { path: '/dfir/domain', label: 'Domain Lookup', desc: 'WHOIS · DNS · email auth', icon: Globe },
   { path: '/dfir/exposure', label: 'Exposure Scanner', desc: 'Subdomains + open ports', icon: Radar },
   { path: '/dfir/file', label: 'File Analyzer', desc: 'Hash-based lookups', icon: FileSearch },
+  { path: '/dfir/cve', label: 'CVE Lookup', desc: 'NVD · EPSS · KEV · Exploit-DB', icon: Search },
+  { path: '/dfir/technique', label: 'MITRE Technique', desc: 'T-id · tactics · actors', icon: Target },
   { path: '/dfir/wiki', label: 'Knowledge Base', desc: 'Concepts + playbooks', icon: BookOpen },
   { path: '/dfir/dashboard', label: 'Recent Lookups', desc: 'Your last 20 queries', icon: Clock },
   { path: '/dfir/actors', label: 'Threat Actors', desc: 'APT catalog · STIX-aware', icon: Users },
   { path: '/dfir/privacy', label: 'Privacy Check', desc: 'IP · WebRTC · fingerprint', icon: Lock },
   { path: '/dfir/briefings', label: 'Intel Briefings', desc: 'IOC feeds · daily summaries', icon: Newspaper },
+  { path: '/dfir/decode', label: 'Decoder', desc: 'Base64 · URL · multi-pass', icon: Braces },
+  { path: '/dfir/share/demo', label: 'Share Demo', desc: 'Generate shareable links', icon: LinkIcon },
 ];
 
 export function ToolGrid(): JSX.Element {

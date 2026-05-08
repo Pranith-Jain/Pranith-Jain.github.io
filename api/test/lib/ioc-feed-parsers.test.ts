@@ -250,12 +250,12 @@ describe('parseCisaKev', () => {
 
   it('extracts cveID as value and vendor/product/name as context', () => {
     const { entries } = parseCisaKev(CISA_KEV_FIXTURE);
-    // slice(-100) preserves order; newest is last in array
+    // Sorted DESC by dateAdded; newest is CVE-2026-11111
     expect(entries[0]).toMatchObject({
       type: 'cve',
-      value: 'CVE-2024-12345',
-      context: 'Acme Corp | WebServer | Remote Code Execution',
-      timestamp: '2024-01-15',
+      value: 'CVE-2026-11111',
+      context: 'CloudVend | API Gateway | SQL Injection',
+      timestamp: '2026-05-01',
     });
   });
 
@@ -275,12 +275,32 @@ describe('parseCisaKev', () => {
       vendorProject: 'V',
       product: 'P',
       vulnerabilityName: 'N',
-      dateAdded: '2025-01-01',
+      dateAdded: `2025-01-${String((i % 28) + 1).padStart(2, '0')}`,
     }));
     const { entries } = parseCisaKev(JSON.stringify({ vulnerabilities: vulns }));
     expect(entries).toHaveLength(100);
-    // Should be the last 100 (newest) of 150
-    expect(entries[0].value).toBe('CVE-2025-00050');
+  });
+
+  it('returns entries sorted DESC by dateAdded', () => {
+    const fixture = JSON.stringify({
+      vulnerabilities: [
+        { cveID: 'CVE-2021-1111', vendorProject: 'A', product: 'B', vulnerabilityName: 'C', dateAdded: '2021-11-03' },
+        { cveID: 'CVE-2024-9999', vendorProject: 'D', product: 'E', vulnerabilityName: 'F', dateAdded: '2024-09-15' },
+        { cveID: 'CVE-2022-5555', vendorProject: 'G', product: 'H', vulnerabilityName: 'I', dateAdded: '2022-06-01' },
+        { cveID: 'CVE-2025-0001', vendorProject: 'J', product: 'K', vulnerabilityName: 'L', dateAdded: '2025-01-10' },
+        { cveID: 'CVE-2023-3333', vendorProject: 'M', product: 'N', vulnerabilityName: 'O', dateAdded: '2023-03-20' },
+      ],
+    });
+    const { entries } = parseCisaKev(fixture);
+    expect(entries).toHaveLength(5);
+    // Newest first
+    expect(entries[0].value).toBe('CVE-2025-0001');
+    expect(entries[1].value).toBe('CVE-2024-9999');
+    expect(entries[2].value).toBe('CVE-2023-3333');
+    expect(entries[3].value).toBe('CVE-2022-5555');
+    expect(entries[4].value).toBe('CVE-2021-1111');
+    // Timestamps should be in DESC order
+    expect(entries[0].timestamp! > entries[1].timestamp!).toBe(true);
   });
 });
 

@@ -1,5 +1,21 @@
 export type IndicatorType = 'ipv4' | 'ipv6' | 'domain' | 'url' | 'hash' | 'email' | 'unknown';
 
+export type HashSubtype = 'md5' | 'sha1' | 'sha256';
+
+/**
+ * Detect the specific hash algorithm from a hex string.
+ * Returns null if the input is not a recognized hash format.
+ * This is intentionally separate from detectType() so the 'hash'
+ * return value of that function is preserved for routing logic.
+ */
+export function detectHashSubtype(input: string): HashSubtype | null {
+  const trimmed = input.trim().toLowerCase();
+  if (/^[a-f0-9]{32}$/.test(trimmed)) return 'md5';
+  if (/^[a-f0-9]{40}$/.test(trimmed)) return 'sha1';
+  if (/^[a-f0-9]{64}$/.test(trimmed)) return 'sha256';
+  return null;
+}
+
 const IPV4_RE = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/;
 const IPV6_RE = /^([0-9a-fA-F]{0,4}:){2,7}[0-9a-fA-F]{0,4}$/;
 const HASH_RE = /^[a-fA-F0-9]{32}$|^[a-fA-F0-9]{40}$|^[a-fA-F0-9]{64}$/;

@@ -2,7 +2,7 @@ import { useState, type FormEvent } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, Search } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { detectType } from '../../lib/dfir/indicator-client';
+import { detectType, detectHashSubtype } from '../../lib/dfir/indicator-client';
 import { streamIoc } from '../../lib/dfir/api';
 import type { ProviderResultWire, DoneEvent, ProviderId } from '../../lib/dfir/types';
 import { IocResultRow } from '../../components/dfir/IocResultRow';
@@ -74,7 +74,15 @@ export default function IocCheck(): JSX.Element {
             />
             {input && detectedType !== 'unknown' && (
               <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-mono text-brand-600 dark:text-brand-400 uppercase">
-                {detectedType}
+                {detectedType === 'hash'
+                  ? (() => {
+                      const sub = detectHashSubtype(input);
+                      if (sub === 'md5') return 'MD5';
+                      if (sub === 'sha1') return 'SHA-1';
+                      if (sub === 'sha256') return 'SHA-256';
+                      return 'HASH';
+                    })()
+                  : detectedType}
               </span>
             )}
           </div>

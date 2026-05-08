@@ -7,6 +7,7 @@ import { VerdictChip } from '../../components/dfir/VerdictChip';
 import { IocResultRow } from '../../components/dfir/IocResultRow';
 import { recordHistory } from '../../lib/dfir/history';
 import { RelatedActors } from '../../components/dfir/RelatedActors';
+import { detectHashSubtype } from '../../lib/dfir/indicator-client';
 
 const HASH_RE = /^[a-fA-F0-9]{32}$|^[a-fA-F0-9]{40}$|^[a-fA-F0-9]{64}$/;
 
@@ -18,7 +19,9 @@ export default function File(): JSX.Element {
   const [result, setResult] = useState<FileAnalysisResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const valid = HASH_RE.test(input.trim());
-  const detected = valid ? (input.trim().length === 32 ? 'MD5' : input.trim().length === 40 ? 'SHA-1' : 'SHA-256') : '';
+  const detectedSub = valid ? detectHashSubtype(input.trim()) : null;
+  const detected =
+    detectedSub === 'md5' ? 'MD5' : detectedSub === 'sha1' ? 'SHA-1' : detectedSub === 'sha256' ? 'SHA-256' : '';
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
