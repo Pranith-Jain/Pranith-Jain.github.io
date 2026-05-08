@@ -45,6 +45,11 @@ const ALLOWED_HOSTS = new Set([
   'flashpoint.io',
   'www.flashpoint.io',
   'falhumaid.github.io',
+  // Hacker News + YC (AI / Tech / Cybersecurity feeds)
+  'hnrss.org',
+  'news.ycombinator.com',
+  'www.ycombinator.com',
+  'ycombinator.com',
 ]);
 
 export async function feedProxyHandler(c: Context<{ Bindings: Env }>) {

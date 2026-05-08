@@ -386,6 +386,64 @@ export const rssFeeds: RSSFeed[] = [
   },
 
   // ============================================================================
+  // HACKER NEWS / Y COMBINATOR (AI / Tech / Cybersecurity)
+  // ============================================================================
+  {
+    id: 'hn-frontpage',
+    name: 'Hacker News',
+    url: 'https://hnrss.org/frontpage',
+    description: 'Hacker News front page - top tech, AI, and security stories',
+    category: 'news',
+    source: 'Hacker News',
+    language: 'en-US',
+  },
+  {
+    id: 'hn-ask',
+    name: 'Ask HN',
+    url: 'https://hnrss.org/ask',
+    description: 'Ask Hacker News - questions and discussions from the community',
+    category: 'news',
+    source: 'Hacker News',
+    language: 'en-US',
+  },
+  {
+    id: 'hn-show',
+    name: 'Show HN',
+    url: 'https://hnrss.org/show',
+    description: 'Show Hacker News - new projects, products, and demos',
+    category: 'news',
+    source: 'Hacker News',
+    language: 'en-US',
+  },
+  {
+    id: 'hn-ai',
+    name: 'HN — AI',
+    url: 'https://hnrss.org/newest?q=AI',
+    description: 'Newest Hacker News stories matching "AI"',
+    category: 'news',
+    source: 'Hacker News',
+    language: 'en-US',
+  },
+  {
+    id: 'hn-cybersecurity',
+    name: 'HN — Cybersecurity',
+    url: 'https://hnrss.org/newest?q=cybersecurity',
+    description: 'Newest Hacker News stories matching "cybersecurity"',
+    category: 'news',
+    source: 'Hacker News',
+    language: 'en-US',
+  },
+  {
+    id: 'yc-blog',
+    name: 'Y Combinator Blog',
+    url: 'https://www.ycombinator.com/blog/rss',
+    description: 'Y Combinator blog - startup essays, announcements, and YC news',
+    category: 'general',
+    source: 'Y Combinator',
+    language: 'en-US',
+  },
+
+  // ============================================================================
   // VULNERABILITY & RESEARCH
   // ============================================================================
   {
