@@ -1,34 +1,59 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 
+const HIBP_RANGE = 'https://api.pwnedpasswords.com/range';
+const UA = 'Mozilla/5.0 (compatible; pranithjain-dfir/1.0; +https://pranithjain.qzz.io)';
 const PREFIX_RE = /^[A-Fa-f0-9]{5}$/;
 
-export async function breachRangeHandler(c: Context<{ Bindings: Env }>) {
+/**
+ * Pwned Password k-anonymity proxy.
+ *
+ * Takes a 5-hex-character prefix of a SHA-1 password hash, queries the HIBP
+ * Pwned Passwords range endpoint with `Add-Padding: true` so response sizes
+ * can't leak whether a specific suffix matched, and returns the upstream
+ * text/plain body unchanged.
+ *
+ * The user's password never reaches this Worker — only the first 5 chars of
+ * its SHA-1 hash. Hashing happens in the browser.
+ *
+ * Free, no auth required by HIBP.
+ */
+export async function breachRangeHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const prefix = c.req.query('prefix');
-
   if (!prefix) {
-    return c.json({ error: 'missing_param', message: 'Provide ?prefix=<5-hex-chars>' }, 400);
+    return c.json({ error: 'missing_param' }, 400, { 'Cache-Control': 'no-store' });
   }
-
   if (!PREFIX_RE.test(prefix)) {
-    return c.json({ error: 'invalid_prefix', message: 'prefix must be exactly 5 hexadecimal characters' }, 400);
+    return c.json({ error: 'invalid_prefix' }, 400, { 'Cache-Control': 'no-store' });
   }
 
-  const upstream = await fetch(`https://api.pwnedpasswords.com/range/${prefix.toUpperCase()}`, {
-    headers: {
-      'User-Agent': 'pranithjain-dfir/1.0 (+https://pranithjain.qzz.io)',
-      'Add-Padding': 'true',
-    },
-  }).catch(() => null);
+  try {
+    const upstream = await fetch(`${HIBP_RANGE}/${prefix.toUpperCase()}`, {
+      headers: {
+        'user-agent': UA,
+        'Add-Padding': 'true',
+        accept: 'text/plain',
+      },
+      signal: AbortSignal.timeout(8000),
+    });
 
-  if (!upstream || !upstream.ok) {
-    return c.json({ error: 'upstream_error', message: 'Could not reach HIBP API' }, 502);
+    if (!upstream.ok) {
+      return c.json({ error: `upstream_${upstream.status}` }, 502, {
+        'Cache-Control': 'no-store',
+      });
+    }
+
+    const body = await upstream.text();
+    return new Response(body, {
+      status: 200,
+      headers: {
+        'content-type': 'text/plain; charset=utf-8',
+        'Cache-Control': 'public, max-age=3600',
+      },
+    });
+  } catch {
+    return c.json({ error: 'upstream_error' }, 502, {
+      'Cache-Control': 'no-store',
+    });
   }
-
-  const text = await upstream.text();
-
-  return c.body(text, 200, {
-    'Content-Type': 'text/plain; charset=utf-8',
-    'Cache-Control': 'public, max-age=3600',
-  });
 }

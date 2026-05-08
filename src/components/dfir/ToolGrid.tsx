@@ -15,6 +15,9 @@ import {
   Shield,
   Grid3x3,
   Eye,
+  Network,
+  Code2,
+  Image as ImageIcon,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -35,7 +38,10 @@ const TOOLS: Tool[] = [
   { path: '/dfir/technique', label: 'MITRE Technique', desc: 'T-id · tactics · actors', icon: Target },
   { path: '/dfir/mitre', label: 'MITRE ATT&CK Matrix', desc: 'Full tactics · technique grid', icon: Grid3x3 },
   { path: '/dfir/url-preview', label: 'URL Preview', desc: 'Server-side metadata · safe fetch', icon: Eye },
-  { path: '/dfir/breach', label: 'Breach Checker', desc: 'Email · domain · password', icon: Shield },
+  { path: '/dfir/asn', label: 'ASN Lookup', desc: 'BGP · prefixes · abuse contacts', icon: Network },
+  { path: '/dfir/breach', label: 'Breach Checker', desc: 'Pwned password · k-anonymity', icon: Shield },
+  { path: '/dfir/exif', label: 'EXIF Parser', desc: 'GPS · camera · client-only', icon: ImageIcon },
+  { path: '/dfir/decode', label: 'Decoder', desc: 'Base64 · URL · multi-pass', icon: Code2 },
   { path: '/dfir/wiki', label: 'Knowledge Base', desc: 'Concepts + playbooks', icon: BookOpen },
   { path: '/dfir/dashboard', label: 'Recent Lookups', desc: 'Your last 20 queries', icon: Clock },
   { path: '/dfir/actors', label: 'Threat Actors', desc: 'APT catalog · STIX-aware', icon: Users },

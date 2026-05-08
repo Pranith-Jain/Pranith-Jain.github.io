@@ -12,7 +12,7 @@ import { iocFeedSummaryHandler } from './routes/ioc-feeds';
 import { cveSearchHandler } from './routes/cve';
 import { mitreTechniqueHandler } from './routes/mitre';
 import { asnLookupHandler } from './routes/asn';
-import { breachCheckHandler } from './routes/breach';
+import { breachRangeHandler } from './routes/breach';
 import { urlPreviewHandler } from './routes/url-preview';
 import { rateLimit } from './lib/ratelimit';
 
@@ -34,7 +34,7 @@ app.get('/api/v1/cve/lookup', cveSearchHandler);
 app.get('/api/v1/cve/search', cveSearchHandler);
 app.get('/api/v1/mitre/technique', mitreTechniqueHandler);
 app.get('/api/v1/asn/lookup', asnLookupHandler);
-app.get('/api/v1/breach/check', breachCheckHandler);
+app.get('/api/v1/breach/range', breachRangeHandler);
 app.get('/api/v1/url-preview', urlPreviewHandler);
 app.notFound((c) => c.json({ error: 'not_found' }, 404));
 
