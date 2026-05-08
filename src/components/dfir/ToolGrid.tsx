@@ -12,10 +12,9 @@ import {
   Newspaper,
   Search,
   Target,
-  Braces,
-  Network,
-  KeyRound,
-  ScanEye,
+  Shield,
+  Grid3x3,
+  Eye,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -34,15 +33,14 @@ const TOOLS: Tool[] = [
   { path: '/dfir/file', label: 'File Analyzer', desc: 'Hash-based lookups', icon: FileSearch },
   { path: '/dfir/cve', label: 'CVE Lookup', desc: 'NVD · EPSS · KEV · Exploit-DB', icon: Search },
   { path: '/dfir/technique', label: 'MITRE Technique', desc: 'T-id · tactics · actors', icon: Target },
+  { path: '/dfir/mitre', label: 'MITRE ATT&CK Matrix', desc: 'Full tactics · technique grid', icon: Grid3x3 },
+  { path: '/dfir/url-preview', label: 'URL Preview', desc: 'Server-side metadata · safe fetch', icon: Eye },
+  { path: '/dfir/breach', label: 'Breach Checker', desc: 'Email · domain · password', icon: Shield },
   { path: '/dfir/wiki', label: 'Knowledge Base', desc: 'Concepts + playbooks', icon: BookOpen },
   { path: '/dfir/dashboard', label: 'Recent Lookups', desc: 'Your last 20 queries', icon: Clock },
   { path: '/dfir/actors', label: 'Threat Actors', desc: 'APT catalog · STIX-aware', icon: Users },
   { path: '/dfir/privacy', label: 'Privacy Check', desc: 'IP · WebRTC · fingerprint', icon: Lock },
   { path: '/dfir/briefings', label: 'Intel Briefings', desc: 'IOC feeds · daily summaries', icon: Newspaper },
-  { path: '/dfir/decode', label: 'Decoder', desc: 'Base64 · URL · multi-pass', icon: Braces },
-  { path: '/dfir/asn', label: 'ASN Lookup', desc: 'BGP · RIR · IP prefixes', icon: Network },
-  { path: '/dfir/breach', label: 'Breach Checker', desc: 'Password k-anon via HIBP', icon: KeyRound },
-  { path: '/dfir/exif', label: 'EXIF Parser', desc: 'GPS · camera · image metadata', icon: ScanEye },
 ];
 
 export function ToolGrid(): JSX.Element {

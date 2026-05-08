@@ -1,58 +1,27 @@
 import { useState, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Network, ExternalLink } from 'lucide-react';
+import { ArrowLeft, Network } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const ASN_RE = /^(AS)?\d{1,10}$/i;
 
 interface RirData {
-  name: string;
-  country: string;
-  date_allocated?: string;
+  name?: string;
+  description?: string;
 }
 
 interface AsnResult {
   asn: number;
   name?: string;
   description?: string;
-  country_code?: string;
-  website?: string;
+  type?: string;
+  is_announced?: boolean;
   abuse_contacts?: string[];
-  email_contacts?: string[];
   rir?: RirData;
   prefixes_v4: number;
   prefixes_v6: number;
   sample_prefixes_v4?: string[];
   sample_prefixes_v6?: string[];
-  date_updated?: string;
-}
-
-const COUNTRY_FLAGS: Record<string, string> = {
-  US: '🇺🇸',
-  GB: '🇬🇧',
-  DE: '🇩🇪',
-  FR: '🇫🇷',
-  NL: '🇳🇱',
-  CA: '🇨🇦',
-  AU: '🇦🇺',
-  JP: '🇯🇵',
-  CN: '🇨🇳',
-  RU: '🇷🇺',
-  BR: '🇧🇷',
-  IN: '🇮🇳',
-  SG: '🇸🇬',
-  SE: '🇸🇪',
-  NO: '🇳🇴',
-  CH: '🇨🇭',
-  IE: '🇮🇪',
-  IL: '🇮🇱',
-  KR: '🇰🇷',
-  HK: '🇭🇰',
-};
-
-function countryFlag(code?: string): string {
-  if (!code) return '';
-  return COUNTRY_FLAGS[code.toUpperCase()] ?? '';
 }
 
 export default function AsnLookup(): JSX.Element {
@@ -96,7 +65,7 @@ export default function AsnLookup(): JSX.Element {
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
         <h1 className="text-4xl font-display font-bold mb-2">ASN Lookup</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
-          Query BGPView for Autonomous System details — name, country, RIR, and announced IP prefixes.
+          Query RIPEstat for Autonomous System details — name, RIR, abuse contacts, and announced IP prefixes.
         </p>
       </motion.div>
 
@@ -127,7 +96,7 @@ export default function AsnLookup(): JSX.Element {
         )}
       </form>
 
-      {loading && <p className="font-mono text-slate-600 dark:text-slate-400">Querying BGPView…</p>}
+      {loading && <p className="font-mono text-slate-600 dark:text-slate-400">Querying RIPEstat…</p>}
       {error && <p className="font-mono text-rose-600 dark:text-rose-400">error: {error}</p>}
 
       {result && (
@@ -136,106 +105,63 @@ export default function AsnLookup(): JSX.Element {
           <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
             <div className="flex flex-wrap items-start gap-3 mb-3">
               <h2 className="font-display font-bold text-2xl font-mono">AS{result.asn}</h2>
-              {result.country_code && (
-                <span className="text-2xl" title={result.country_code}>
-                  {countryFlag(result.country_code)}
-                </span>
-              )}
               {result.name && (
                 <span className="inline-flex items-center px-2 py-0.5 rounded text-sm font-bold font-mono bg-brand-100 text-brand-800 dark:bg-brand-900/30 dark:text-brand-300 border border-brand-300 dark:border-brand-700">
                   {result.name}
                 </span>
               )}
+              {result.type && (
+                <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-300 dark:border-slate-700">
+                  {result.type}
+                </span>
+              )}
             </div>
             {result.description && <p className="text-slate-700 dark:text-slate-300 mb-3">{result.description}</p>}
             <div className="flex flex-wrap gap-4 font-mono text-xs text-slate-500">
-              {result.country_code && (
+              {result.is_announced !== undefined && (
                 <span>
-                  Country: <span className="text-slate-700 dark:text-slate-300">{result.country_code}</span>
-                </span>
-              )}
-              {result.date_updated && (
-                <span>
-                  Updated:{' '}
-                  <span className="text-slate-700 dark:text-slate-300">{result.date_updated.slice(0, 10)}</span>
+                  Announced:{' '}
+                  <span className={result.is_announced ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-500'}>
+                    {result.is_announced ? 'Yes' : 'No'}
+                  </span>
                 </span>
               )}
             </div>
           </section>
 
-          {/* Website */}
-          {result.website && (
-            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
-              <h3 className="font-display font-semibold text-lg mb-3">Website</h3>
-              <a
-                href={result.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-brand-600 dark:text-brand-400 hover:underline font-mono text-sm flex items-center gap-1"
-              >
-                {result.website}
-                <ExternalLink size={12} />
-              </a>
-            </section>
-          )}
-
           {/* Contacts */}
-          {((result.abuse_contacts && result.abuse_contacts.length > 0) ||
-            (result.email_contacts && result.email_contacts.length > 0)) && (
+          {result.abuse_contacts && result.abuse_contacts.length > 0 && (
             <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
-              <h3 className="font-display font-semibold text-lg mb-3">Contacts</h3>
-              {result.abuse_contacts && result.abuse_contacts.length > 0 && (
-                <div className="mb-3">
-                  <div className="text-xs uppercase tracking-wider text-slate-500 font-mono mb-1">Abuse</div>
-                  <div className="flex flex-wrap gap-2">
-                    {result.abuse_contacts.map((email) => (
-                      <a
-                        key={email}
-                        href={`mailto:${email}`}
-                        className="text-sm font-mono text-brand-600 dark:text-brand-400 hover:underline"
-                      >
-                        {email}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              )}
-              {result.email_contacts && result.email_contacts.length > 0 && (
-                <div>
-                  <div className="text-xs uppercase tracking-wider text-slate-500 font-mono mb-1">General</div>
-                  <div className="flex flex-wrap gap-2">
-                    {result.email_contacts.map((email) => (
-                      <a
-                        key={email}
-                        href={`mailto:${email}`}
-                        className="text-sm font-mono text-brand-600 dark:text-brand-400 hover:underline"
-                      >
-                        {email}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              )}
+              <h3 className="font-display font-semibold text-lg mb-3">Abuse Contacts</h3>
+              <div className="flex flex-wrap gap-2">
+                {result.abuse_contacts.map((email) => (
+                  <a
+                    key={email}
+                    href={`mailto:${email}`}
+                    className="text-sm font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                  >
+                    {email}
+                  </a>
+                ))}
+              </div>
             </section>
           )}
 
           {/* RIR */}
-          {result.rir && (
+          {result.rir && (result.rir.name || result.rir.description) && (
             <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
-              <h3 className="font-display font-semibold text-lg mb-3">RIR Allocation</h3>
-              <div className="grid sm:grid-cols-3 gap-4 font-mono text-sm">
-                <div>
-                  <div className="text-xs text-slate-500 mb-1">Registry</div>
-                  <div className="text-slate-800 dark:text-slate-200 font-semibold">{result.rir.name}</div>
-                </div>
-                <div>
-                  <div className="text-xs text-slate-500 mb-1">Country</div>
-                  <div className="text-slate-800 dark:text-slate-200">{result.rir.country}</div>
-                </div>
-                {result.rir.date_allocated && (
+              <h3 className="font-display font-semibold text-lg mb-3">RIR / Registry</h3>
+              <div className="grid sm:grid-cols-2 gap-4 font-mono text-sm">
+                {result.rir.name && (
                   <div>
-                    <div className="text-xs text-slate-500 mb-1">Allocated</div>
-                    <div className="text-slate-800 dark:text-slate-200">{result.rir.date_allocated}</div>
+                    <div className="text-xs text-slate-500 mb-1">Registry</div>
+                    <div className="text-slate-800 dark:text-slate-200 font-semibold">{result.rir.name}</div>
+                  </div>
+                )}
+                {result.rir.description && (
+                  <div>
+                    <div className="text-xs text-slate-500 mb-1">Description</div>
+                    <div className="text-slate-800 dark:text-slate-200">{result.rir.description}</div>
                   </div>
                 )}
               </div>

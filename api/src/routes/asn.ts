@@ -1,131 +1,105 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { safeErrorMessage } from '../lib/error';
 
-const ASN_RE = /^(AS)?\d{1,10}$/i;
+const ASN_RE = /^(?:AS)?(\d{1,10})$/i;
+const UA = 'Mozilla/5.0 (compatible; pranithjain-dfir/1.0; +https://pranithjain.qzz.io)';
 
-interface BgpViewAsnData {
-  asn: number;
-  name?: string;
-  description_short?: string;
-  country_code?: string;
-  website?: string;
-  email_contacts?: string[];
-  abuse_contacts?: string[];
-  rir_allocation?: {
-    rir_name?: string;
-    country_code?: string;
-    date_allocated?: string;
+interface RipeAsOverview {
+  data?: {
+    holder?: string;
+    type?: string;
+    block?: { resource?: string; desc?: string; name?: string };
+    is_announced?: boolean;
   };
-  date_updated?: string;
 }
 
-interface BgpViewPrefixEntry {
-  prefix: string;
+interface RipeAnnouncedPrefixes {
+  data?: {
+    prefixes?: Array<{ prefix?: string; timelines?: Array<{ starttime?: string }> }>;
+  };
 }
 
-interface BgpViewPrefixData {
-  ipv4_prefixes?: BgpViewPrefixEntry[];
-  ipv6_prefixes?: BgpViewPrefixEntry[];
+interface RipeWhois {
+  data?: {
+    records?: Array<Array<{ key?: string; value?: string }>>;
+  };
 }
 
 export interface AsnLookupResponse {
   asn: number;
   name?: string;
   description?: string;
-  country_code?: string;
-  website?: string;
+  type?: string;
+  is_announced?: boolean;
   abuse_contacts?: string[];
-  email_contacts?: string[];
-  rir?: { name: string; country: string; date_allocated?: string };
+  rir?: { name?: string; description?: string };
   prefixes_v4: number;
   prefixes_v6: number;
-  sample_prefixes_v4?: string[];
-  sample_prefixes_v6?: string[];
-  date_updated?: string;
+  sample_prefixes_v4: string[];
+  sample_prefixes_v6: string[];
+}
+
+function isV6(prefix: string): boolean {
+  return prefix.includes(':');
 }
 
 export async function asnLookupHandler(c: Context<{ Bindings: Env }>) {
   const raw = c.req.query('asn');
+  if (!raw) return c.json({ error: 'missing asn' }, 400);
+  const m = raw.match(ASN_RE);
+  if (!m) return c.json({ error: 'invalid asn (expected AS15169 or 15169)' }, 400);
+  const num = parseInt(m[1], 10);
 
-  if (!raw) {
-    return c.json({ error: 'missing_param', message: 'Provide ?asn=AS15169 or ?asn=15169' }, 400);
-  }
-
-  if (!ASN_RE.test(raw.trim())) {
-    return c.json(
-      { error: 'invalid_asn', message: 'ASN must be a number with optional AS prefix (e.g. AS15169 or 15169)' },
-      400
-    );
-  }
-
-  const num = raw.trim().replace(/^AS/i, '');
-
-  const [asnRes, prefixRes] = await Promise.all([
-    fetch(`https://api.bgpview.io/asn/${num}`, {
-      headers: { 'User-Agent': 'pranithjain-dfir/1.0 (+https://pranithjain.qzz.io)' },
-    }).catch(() => null),
-    fetch(`https://api.bgpview.io/asn/${num}/prefixes`, {
-      headers: { 'User-Agent': 'pranithjain-dfir/1.0 (+https://pranithjain.qzz.io)' },
-    }).catch(() => null),
-  ]);
-
-  if (!asnRes || !asnRes.ok) {
-    return c.json({ error: 'upstream_error', message: 'Could not reach BGPView API' }, 502);
-  }
-
-  let asnBody: { status: string; data?: BgpViewAsnData };
   try {
-    asnBody = (await asnRes.json()) as typeof asnBody;
-  } catch {
-    return c.json({ error: 'parse_error', message: 'Failed to parse BGPView response' }, 502);
-  }
+    const headers = { 'user-agent': UA, accept: 'application/json' };
+    const signal = AbortSignal.timeout(8000);
+    const [overviewRes, prefixesRes, whoisRes] = await Promise.all([
+      fetch(`https://stat.ripe.net/data/as-overview/data.json?resource=AS${num}`, { headers, signal }),
+      fetch(`https://stat.ripe.net/data/announced-prefixes/data.json?resource=AS${num}`, { headers, signal }),
+      fetch(`https://stat.ripe.net/data/whois/data.json?resource=AS${num}`, { headers, signal }),
+    ]);
 
-  if (asnBody.status !== 'ok' || !asnBody.data) {
-    return c.json({ error: 'not_found', message: `ASN ${num} not found` }, 404);
-  }
-
-  const d = asnBody.data;
-
-  let prefixV4: string[] = [];
-  let prefixV6: string[] = [];
-
-  if (prefixRes?.ok) {
-    try {
-      const prefixBody = (await prefixRes.json()) as { status?: string; data?: BgpViewPrefixData };
-      if (prefixBody.data) {
-        prefixV4 = (prefixBody.data.ipv4_prefixes ?? []).map((p) => p.prefix);
-        prefixV6 = (prefixBody.data.ipv6_prefixes ?? []).map((p) => p.prefix);
-      }
-    } catch {
-      // prefix data is optional — silently ignore
+    if (!overviewRes.ok) {
+      return c.json({ error: `upstream ${overviewRes.status}` }, 502, { 'Cache-Control': 'no-store' });
     }
+    const overview = (await overviewRes.json()) as RipeAsOverview;
+    const prefixes = prefixesRes.ok
+      ? ((await prefixesRes.json()) as RipeAnnouncedPrefixes)
+      : { data: { prefixes: [] } };
+    const whois = whoisRes.ok ? ((await whoisRes.json()) as RipeWhois) : { data: { records: [] } };
+
+    const allPrefixes = (prefixes.data?.prefixes ?? []).map((p) => p.prefix).filter((s): s is string => !!s);
+    const v4 = allPrefixes.filter((p) => !isV6(p));
+    const v6 = allPrefixes.filter(isV6);
+
+    // Extract abuse contacts from whois records (looking for keys like 'abuse-mailbox')
+    const abuseContacts: string[] = [];
+    for (const record of whois.data?.records ?? []) {
+      for (const field of record) {
+        if (field.key === 'abuse-mailbox' && field.value) abuseContacts.push(field.value);
+      }
+    }
+
+    const body: AsnLookupResponse = {
+      asn: num,
+      name: overview.data?.holder,
+      description: overview.data?.holder,
+      type: overview.data?.type,
+      is_announced: overview.data?.is_announced,
+      abuse_contacts: Array.from(new Set(abuseContacts)).slice(0, 5),
+      rir: {
+        name: overview.data?.block?.name,
+        description: overview.data?.block?.desc,
+      },
+      prefixes_v4: v4.length,
+      prefixes_v6: v6.length,
+      sample_prefixes_v4: v4.slice(0, 5),
+      sample_prefixes_v6: v6.slice(0, 5),
+    };
+
+    return c.json(body, 200, { 'Cache-Control': 'public, max-age=86400' });
+  } catch (err) {
+    return c.json({ error: safeErrorMessage(c.env as never, err) }, 502, { 'Cache-Control': 'no-store' });
   }
-
-  const response: AsnLookupResponse = {
-    asn: d.asn,
-    ...(d.name ? { name: d.name } : {}),
-    ...(d.description_short ? { description: d.description_short } : {}),
-    ...(d.country_code ? { country_code: d.country_code } : {}),
-    ...(d.website ? { website: d.website } : {}),
-    ...(d.abuse_contacts?.length ? { abuse_contacts: d.abuse_contacts } : {}),
-    ...(d.email_contacts?.length ? { email_contacts: d.email_contacts } : {}),
-    ...(d.rir_allocation?.rir_name
-      ? {
-          rir: {
-            name: d.rir_allocation.rir_name,
-            country: d.rir_allocation.country_code ?? '',
-            ...(d.rir_allocation.date_allocated ? { date_allocated: d.rir_allocation.date_allocated } : {}),
-          },
-        }
-      : {}),
-    prefixes_v4: prefixV4.length,
-    prefixes_v6: prefixV6.length,
-    ...(prefixV4.length ? { sample_prefixes_v4: prefixV4.slice(0, 5) } : {}),
-    ...(prefixV6.length ? { sample_prefixes_v6: prefixV6.slice(0, 5) } : {}),
-    ...(d.date_updated ? { date_updated: d.date_updated } : {}),
-  };
-
-  return c.json(response, 200, {
-    'Cache-Control': 'public, max-age=86400',
-  });
 }

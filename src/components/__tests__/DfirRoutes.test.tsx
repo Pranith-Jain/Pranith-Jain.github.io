@@ -26,6 +26,8 @@ const subRoutes: Array<{ path: string; heading: string; skipComingSoon?: boolean
   { path: '/dfir/asn', heading: 'ASN Lookup', skipComingSoon: true },
   { path: '/dfir/breach', heading: 'Breach Checker', skipComingSoon: true },
   { path: '/dfir/exif', heading: 'EXIF Parser', skipComingSoon: true },
+  { path: '/dfir/mitre', heading: 'MITRE ATT&CK Matrix', skipComingSoon: true },
+  { path: '/dfir/url-preview', heading: 'URL Preview', skipComingSoon: true },
 ];
 
 describe('DFIR sub-routes', () => {
