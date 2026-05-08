@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { RefreshCw, AlertCircle, Loader2 } from 'lucide-react';
 import {
@@ -101,6 +101,13 @@ export function IocFeedStream(): JSX.Element {
       void loadFeed(id);
     }
   };
+
+  // Auto-load the default feed (URLhaus) on mount so the user sees the latest
+  // indicators immediately instead of having to click "Load feed".
+  useEffect(() => {
+    void loadFeed('urlhaus');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleRefresh = () => {
     setFeedStates((prev) => ({ ...prev, [activeId]: { status: 'idle' } }));
