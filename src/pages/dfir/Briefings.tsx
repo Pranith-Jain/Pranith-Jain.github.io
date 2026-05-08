@@ -170,6 +170,13 @@ export default function Briefings(): JSX.Element {
                 </span>
                 <span aria-hidden="true">·</span>
                 <span>
+                  <span className="text-brand-600 dark:text-brand-400 font-semibold">
+                    {item.metadata.stats.iocs ?? 0}
+                  </span>{' '}
+                  IOCs
+                </span>
+                <span aria-hidden="true">·</span>
+                <span>
                   <span className="text-rose-600 dark:text-rose-400 font-semibold">{item.metadata.stats.critical}</span>{' '}
                   critical
                 </span>
@@ -179,8 +186,8 @@ export default function Briefings(): JSX.Element {
                   high
                 </span>
                 <span aria-hidden="true">·</span>
-                <span className="text-slate-400">{(item.metadata.sources ?? []).join(', ')}</span>
-                <ChevronRight size={14} className="ml-auto text-slate-400" />
+                <span className="text-slate-400 truncate">{(item.metadata.sources ?? []).join(', ')}</span>
+                <ChevronRight size={14} className="ml-auto text-slate-400 shrink-0" />
               </div>
             </Link>
           ))}
