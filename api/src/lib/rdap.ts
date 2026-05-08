@@ -73,11 +73,17 @@ function tldOf(domain: string): string | undefined {
 async function tryRdap(
   url: string
 ): Promise<{ ok: true; json: RdapResponse } | { ok: false; status: number; statusText: string }> {
+  // Identity Digital (.ai, .capital, .io, .tech) rate-limits shared CF Worker IPs;
+  // edge-cache successful responses for 24h to absorb 429 storms after the first hit lands.
   const res = await fetch(url, {
     headers: { accept: 'application/rdap+json', 'user-agent': UA },
     redirect: 'follow',
     signal: AbortSignal.timeout(5000),
-  });
+    cf: {
+      cacheTtlByStatus: { '200-299': 86400, '400-499': 0, '500-599': 0 },
+      cacheEverything: true,
+    },
+  } as RequestInit);
   if (!res.ok) return { ok: false, status: res.status, statusText: res.statusText };
   const json = (await res.json()) as RdapResponse;
   return { ok: true, json };
