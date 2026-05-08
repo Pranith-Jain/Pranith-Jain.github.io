@@ -49,3 +49,4 @@ stats.html
 *.log
 .cache
 .temp
+.wrangler/

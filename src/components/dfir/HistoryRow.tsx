@@ -8,6 +8,8 @@ const ROUTE_BY_TOOL: Record<HistoryEntry['tool'], string> = {
   phishing: '/dfir/phishing',
   exposure: '/dfir/exposure',
   file: '/dfir/file',
+  cve: '/dfir/cve',
+  technique: '/dfir/technique',
 };
 
 const PARAM_BY_TOOL: Record<HistoryEntry['tool'], string> = {
@@ -16,6 +18,8 @@ const PARAM_BY_TOOL: Record<HistoryEntry['tool'], string> = {
   phishing: 'q',
   exposure: 'domain',
   file: 'hash',
+  cve: 'cve',
+  technique: 't',
 };
 
 function timeAgo(ts: string): string {

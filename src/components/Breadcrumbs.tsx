@@ -72,6 +72,7 @@ export const Breadcrumbs = memo(function Breadcrumbs({
 });
 
 // Hook for generating DFIR breadcrumbs
+// eslint-disable-next-line react-refresh/only-export-components
 export function useDFIRBreadcrumbs(activeTab: string, subMode?: string | null): BreadcrumbItem[] {
   return useMemo(() => {
     const items: BreadcrumbItem[] = [{ label: 'DFIR Tools', href: '#dfir' }];

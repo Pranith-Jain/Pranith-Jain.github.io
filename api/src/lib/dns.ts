@@ -30,7 +30,7 @@ interface DoHResponse {
   Answer?: DoHAnswer[];
 }
 
-function clean(data: string, type: RecordType): string {
+function clean(data: string, _type: RecordType): string {
   let v = data.trim();
   if (v.startsWith('"') && v.endsWith('"')) v = v.slice(1, -1);
   // For other record types: pass through verbatim (MX comes as "<priority> <host>")

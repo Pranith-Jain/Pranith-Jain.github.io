@@ -194,9 +194,10 @@ export function sortFeedItems(
   let filtered = [...items];
 
   // Filter by category/source
-  if (options.filter && options.filter !== 'all') {
+  const filterValue = options.filter;
+  if (filterValue && filterValue !== 'all') {
     filtered = filtered.filter(
-      (item) => item.category === options.filter || item.source.toLowerCase().includes(options.filter.toLowerCase())
+      (item) => item.category === filterValue || item.source.toLowerCase().includes(filterValue.toLowerCase())
     );
   }
 

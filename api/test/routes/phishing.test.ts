@@ -30,7 +30,7 @@ describe('POST /api/v1/phishing/analyze', () => {
     expect(body.auth).toBeDefined();
     expect(body.urls).toBeDefined();
     expect(body.score).toBeDefined();
-    expect((body as any).verdict).toMatch(/malicious|suspicious/);
+    expect((body as { verdict?: string }).verdict).toMatch(/malicious|suspicious/);
   });
 
   it('rejects oversize body (>64 KB)', async () => {

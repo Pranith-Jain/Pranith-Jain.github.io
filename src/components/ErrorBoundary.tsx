@@ -190,6 +190,7 @@ function ErrorFallback({ error, errorInfo, isExpanded, onReset, onToggleDetails 
 // Hook to use error boundary functionality in function components
 import { useState, useCallback } from 'react';
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useErrorBoundary() {
   const [error, setError] = useState<Error | null>(null);
 
@@ -229,6 +230,7 @@ export function useErrorBoundary() {
 }
 
 // Lazy loading wrapper with error boundary
+// eslint-disable-next-line react-refresh/only-export-components
 export function withErrorBoundary<P extends object>(WrappedComponent: React.ComponentType<P>, fallback?: ReactNode) {
   return function WithErrorBoundary(props: P) {
     return (

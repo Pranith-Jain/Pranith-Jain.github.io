@@ -41,8 +41,9 @@ export function parseHeaders(source: string): ParsedHeaders {
   for (const line of unfolded) {
     const m = line.match(HEADER_LINE_RE);
     if (!m) continue;
-    const key = m[1].toLowerCase();
-    const val = m[2];
+    const key = m[1]?.toLowerCase();
+    if (!key) continue;
+    const val = m[2] ?? '';
     if (key === 'received') {
       out._received_hops = (out._received_hops as number) + 1;
       continue;
@@ -71,7 +72,7 @@ const VERDICT_VALUES = new Set(['pass', 'fail', 'softfail', 'neutral', 'none', '
 function extractVerdict(haystack: string, key: string): AuthResults['spf'] {
   const re = new RegExp(`\\b${key}=(\\w+)`, 'i');
   const m = haystack.match(re);
-  if (!m) return 'unknown';
+  if (!m || !m[1]) return 'unknown';
   const v = m[1].toLowerCase();
   return VERDICT_VALUES.has(v) ? (v as AuthResults['spf']) : 'unknown';
 }
@@ -86,5 +87,5 @@ export function parseAuthResults(authResultsHeader: string): AuthResults {
 
 export function normalizeAddress(value: string): string {
   const m = value.match(/<([^>]+)>/);
-  return m ? m[1] : value.trim();
+  return m?.[1] ?? value.trim();
 }

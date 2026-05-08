@@ -3,7 +3,7 @@ const CAP = 20;
 
 export interface HistoryEntry {
   id: string;
-  tool: 'ioc' | 'domain' | 'phishing' | 'exposure' | 'file';
+  tool: 'ioc' | 'domain' | 'phishing' | 'exposure' | 'file' | 'cve' | 'technique';
   indicator: string;
   verdict: string;
   score: number;

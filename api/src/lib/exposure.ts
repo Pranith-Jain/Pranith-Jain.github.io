@@ -56,7 +56,10 @@ export async function aggregateExposure(domain: string, env: ProviderEnv): Promi
       let shodanResult: ProviderResult | undefined;
       if (env.SHODAN_API_KEY && ips.length > 0) {
         try {
-          shodanResult = await shodan({ type: 'ipv4', value: ips[0] }, env, AbortSignal.timeout(5000));
+          const firstIp = ips[0];
+          shodanResult = firstIp
+            ? await shodan({ type: 'ipv4', value: firstIp }, env, AbortSignal.timeout(5000))
+            : undefined;
         } catch {
           /* swallow */
         }

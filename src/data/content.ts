@@ -252,7 +252,17 @@ export const certifications = {
   ],
 };
 
-export const projects = [
+interface Project {
+  title: string;
+  description: string;
+  tags: string[];
+  github?: string;
+  badge?: string;
+  href?: string;
+  link?: string;
+}
+
+export const projects: Project[] = [
   {
     title: 'DFIR Toolkit',
     description:
@@ -412,7 +422,18 @@ export const memberships = [
   },
 ];
 
-export const navLinks = [
+interface NavLinkChild {
+  label: string;
+  href: string;
+}
+
+interface NavLink {
+  label: string;
+  href: string;
+  children?: NavLinkChild[];
+}
+
+export const navLinks: NavLink[] = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
   { label: 'Skills', href: '/skills' },

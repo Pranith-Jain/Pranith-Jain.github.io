@@ -145,74 +145,76 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
 
           {/* Desktop Navigation */}
           <nav className="hidden items-center gap-1 md:flex" role="navigation" aria-label="Main navigation">
-            {navLinks.filter(link => link.label !== 'Home').map((link) => (
-              <div
-                key={link.href}
-                className="relative"
-                ref={(el) => {
-                  if (el) dropdownRefs.current.set(link.href, el);
-                }}
-              >
-                {'children' in link && link.children ? (
-                  <>
-                    <button
-                      onClick={() => toggleDropdown(link.href)}
-                      onMouseEnter={() => setOpenDropdown(link.href)}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                          e.preventDefault();
-                          toggleDropdown(link.href);
-                        }
-                      }}
-                      className={`flex items-center gap-1 rounded-full px-3 py-2 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
+            {navLinks
+              .filter((link) => link.label !== 'Home')
+              .map((link) => (
+                <div
+                  key={link.href}
+                  className="relative"
+                  ref={(el) => {
+                    if (el) dropdownRefs.current.set(link.href, el);
+                  }}
+                >
+                  {'children' in link && link.children ? (
+                    <>
+                      <button
+                        onClick={() => toggleDropdown(link.href)}
+                        onMouseEnter={() => setOpenDropdown(link.href)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            toggleDropdown(link.href);
+                          }
+                        }}
+                        className={`flex items-center gap-1 rounded-full px-3 py-2 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
+                          isActive(link.href)
+                            ? 'text-brand-600 dark:text-brand-400 bg-brand-500/10'
+                            : 'text-slate-700 hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white'
+                        }`}
+                        aria-expanded={openDropdown === link.href}
+                        aria-haspopup="true"
+                        aria-controls={`dropdown-${link.href.replace('/', '')}`}
+                      >
+                        {link.label}
+                        <ChevronDown
+                          className={`h-4 w-4 transition-transform ${openDropdown === link.href ? 'rotate-180' : ''}`}
+                          aria-hidden="true"
+                        />
+                      </button>
+                      {openDropdown === link.href && (
+                        <div
+                          id={`dropdown-${link.href.replace('/', '')}`}
+                          className="absolute left-0 top-full mt-1 min-w-[200px] rounded-xl border border-slate-200/60 bg-white/95 py-2 shadow-lg backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/95"
+                          onMouseLeave={() => setOpenDropdown(null)}
+                        >
+                          {link.children.map((child) => (
+                            <Link
+                              key={child.href}
+                              to={child.href}
+                              className="block px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10 focus:outline-none focus:bg-slate-100 dark:focus:bg-white/10"
+                              onClick={() => setOpenDropdown(null)}
+                              role="menuitem"
+                            >
+                              {child.label}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <Link
+                      to={link.href}
+                      className={`rounded-full px-3 py-2 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
                         isActive(link.href)
                           ? 'text-brand-600 dark:text-brand-400 bg-brand-500/10'
                           : 'text-slate-700 hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white'
                       }`}
-                      aria-expanded={openDropdown === link.href}
-                      aria-haspopup="true"
-                      aria-controls={`dropdown-${link.href.replace('/', '')}`}
                     >
                       {link.label}
-                      <ChevronDown
-                        className={`h-4 w-4 transition-transform ${openDropdown === link.href ? 'rotate-180' : ''}`}
-                        aria-hidden="true"
-                      />
-                    </button>
-                    {openDropdown === link.href && (
-                      <div
-                        id={`dropdown-${link.href.replace('/', '')}`}
-                        className="absolute left-0 top-full mt-1 min-w-[200px] rounded-xl border border-slate-200/60 bg-white/95 py-2 shadow-lg backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/95"
-                        onMouseLeave={() => setOpenDropdown(null)}
-                      >
-                        {link.children.map((child) => (
-                          <Link
-                            key={child.href}
-                            to={child.href}
-                            className="block px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10 focus:outline-none focus:bg-slate-100 dark:focus:bg-white/10"
-                            onClick={() => setOpenDropdown(null)}
-                            role="menuitem"
-                          >
-                            {child.label}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </>
-                ) : (
-                  <Link
-                    to={link.href}
-                    className={`rounded-full px-3 py-2 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
-                      isActive(link.href)
-                        ? 'text-brand-600 dark:text-brand-400 bg-brand-500/10'
-                        : 'text-slate-700 hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white'
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                )}
-              </div>
-            ))}
+                    </Link>
+                  )}
+                </div>
+              ))}
           </nav>
 
           {/* Actions */}
@@ -274,7 +276,7 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
                   </Link>
                   {'children' in link && link.children && (
                     <div className="ml-4 mt-1 space-y-1">
-                      {link.children.map((child: any) => (
+                      {link.children.map((child) => (
                         <Link
                           key={child.href}
                           to={child.href}
