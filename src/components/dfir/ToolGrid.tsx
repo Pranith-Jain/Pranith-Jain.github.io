@@ -9,6 +9,7 @@ import {
   Clock,
   Users,
   Lock,
+  Newspaper,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -29,6 +30,7 @@ const TOOLS: Tool[] = [
   { path: '/dfir/dashboard', label: 'Recent Lookups', desc: 'Your last 20 queries', icon: Clock },
   { path: '/dfir/actors', label: 'Threat Actors', desc: 'APT catalog · STIX-aware', icon: Users },
   { path: '/dfir/privacy', label: 'Privacy Check', desc: 'IP · WebRTC · fingerprint', icon: Lock },
+  { path: '/dfir/briefings', label: 'Intel Briefings', desc: 'IOC feeds · daily summaries', icon: Newspaper },
 ];
 
 export function ToolGrid(): JSX.Element {

@@ -20,6 +20,7 @@ const Dashboard = lazy(() => import('./pages/dfir/Dashboard'));
 const Actors = lazy(() => import('./pages/dfir/Actors'));
 const ActorDetail = lazy(() => import('./pages/dfir/ActorDetail'));
 const Privacy = lazy(() => import('./pages/dfir/Privacy'));
+const Briefings = lazy(() => import('./pages/dfir/Briefings'));
 
 function SectionLoader() {
   return (
@@ -176,6 +177,14 @@ export function AppContent() {
               element={
                 <Suspense fallback={<SectionLoader />}>
                   <Privacy />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/dfir/briefings"
+              element={
+                <Suspense fallback={<SectionLoader />}>
+                  <Briefings />
                 </Suspense>
               }
             />

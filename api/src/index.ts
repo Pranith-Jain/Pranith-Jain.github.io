@@ -8,6 +8,7 @@ import { fileAnalyzeHandler } from './routes/file';
 import { feedProxyHandler } from './routes/feeds';
 import { ctiParseHandler } from './routes/cti';
 import { privacyInspectHandler } from './routes/privacy';
+import { iocFeedSummaryHandler } from './routes/ioc-feeds';
 import { rateLimit } from './lib/ratelimit';
 
 const app = new Hono<{ Bindings: Env }>();
@@ -21,6 +22,7 @@ app.post('/api/v1/phishing/analyze', phishingAnalyzeHandler);
 app.get('/api/v1/exposure/scan', exposureScanHandler);
 app.post('/api/v1/file/analyze', fileAnalyzeHandler);
 app.get('/api/v1/feeds/proxy', feedProxyHandler);
+app.get('/api/v1/feeds/ioc-summary', iocFeedSummaryHandler);
 app.post('/api/v1/cti/parse', ctiParseHandler);
 app.get('/api/v1/privacy/inspect', privacyInspectHandler);
 

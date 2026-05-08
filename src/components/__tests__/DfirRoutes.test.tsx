@@ -20,6 +20,7 @@ const subRoutes: Array<{ path: string; heading: string; skipComingSoon?: boolean
   { path: '/dfir/file', heading: 'File Analyzer', skipComingSoon: true },
   { path: '/dfir/wiki', heading: 'DFIR Knowledge Base', skipComingSoon: true },
   { path: '/dfir/dashboard', heading: 'Recent Lookups', skipComingSoon: true },
+  { path: '/dfir/briefings', heading: 'Threat Intel Briefings', skipComingSoon: true },
 ];
 
 describe('DFIR sub-routes', () => {
