@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Rss, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { IocFeedStream } from '../../components/dfir/IocFeedStream';
 
 type Filter = 'all' | 'daily' | 'weekly';
 
@@ -92,6 +93,21 @@ export default function Briefings(): JSX.Element {
           verify all indicators in your own environment.
         </p>
       </motion.header>
+
+      {/* Live IOC Streams — current indicators from CISA KEV + abuse.ch + OpenPhish */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.4 }}
+        className="mb-14"
+      >
+        <div className="flex items-baseline justify-between mb-4">
+          <h2 className="font-display font-bold text-xl">Live IOC Streams</h2>
+          <span className="text-xs font-mono text-slate-400">6 sources · capped at 100 entries · 30 min cache</span>
+        </div>
+        <IocFeedStream />
+      </motion.section>
 
       {/* Briefings list */}
       <motion.section
