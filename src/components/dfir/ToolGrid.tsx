@@ -12,8 +12,10 @@ import {
   Newspaper,
   Search,
   Target,
-  Link as LinkIcon,
   Braces,
+  Network,
+  KeyRound,
+  ScanEye,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -38,7 +40,9 @@ const TOOLS: Tool[] = [
   { path: '/dfir/privacy', label: 'Privacy Check', desc: 'IP · WebRTC · fingerprint', icon: Lock },
   { path: '/dfir/briefings', label: 'Intel Briefings', desc: 'IOC feeds · daily summaries', icon: Newspaper },
   { path: '/dfir/decode', label: 'Decoder', desc: 'Base64 · URL · multi-pass', icon: Braces },
-  { path: '/dfir/share/demo', label: 'Share Demo', desc: 'Generate shareable links', icon: LinkIcon },
+  { path: '/dfir/asn', label: 'ASN Lookup', desc: 'BGP · RIR · IP prefixes', icon: Network },
+  { path: '/dfir/breach', label: 'Breach Checker', desc: 'Password k-anon via HIBP', icon: KeyRound },
+  { path: '/dfir/exif', label: 'EXIF Parser', desc: 'GPS · camera · image metadata', icon: ScanEye },
 ];
 
 export function ToolGrid(): JSX.Element {

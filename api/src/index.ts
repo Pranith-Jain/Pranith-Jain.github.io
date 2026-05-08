@@ -11,7 +11,8 @@ import { privacyInspectHandler } from './routes/privacy';
 import { iocFeedSummaryHandler } from './routes/ioc-feeds';
 import { cveSearchHandler } from './routes/cve';
 import { mitreTechniqueHandler } from './routes/mitre';
-import { createShareHandler, getShareHandler, deleteShareHandler } from './routes/share';
+import { asnLookupHandler } from './routes/asn';
+import { breachRangeHandler } from './routes/breach';
 import { rateLimit } from './lib/ratelimit';
 
 const app = new Hono<{ Bindings: Env }>();
@@ -31,10 +32,8 @@ app.get('/api/v1/privacy/inspect', privacyInspectHandler);
 app.get('/api/v1/cve/lookup', cveSearchHandler);
 app.get('/api/v1/cve/search', cveSearchHandler);
 app.get('/api/v1/mitre/technique', mitreTechniqueHandler);
-app.post('/api/v1/share', createShareHandler);
-app.get('/api/v1/share/:id', getShareHandler);
-app.delete('/api/v1/share/:id', deleteShareHandler);
-
+app.get('/api/v1/asn/lookup', asnLookupHandler);
+app.get('/api/v1/breach/range', breachRangeHandler);
 app.notFound((c) => c.json({ error: 'not_found' }, 404));
 
 export default app;

@@ -24,7 +24,9 @@ const Briefings = lazy(() => import('./pages/dfir/Briefings'));
 const Cve = lazy(() => import('./pages/dfir/Cve'));
 const Decode = lazy(() => import('./pages/dfir/Decode'));
 const Technique = lazy(() => import('./pages/dfir/Technique'));
-const Share = lazy(() => import('./pages/dfir/Share'));
+const AsnLookup = lazy(() => import('./pages/dfir/AsnLookup'));
+const BreachCheck = lazy(() => import('./pages/dfir/BreachCheck'));
+const ExifParse = lazy(() => import('./pages/dfir/ExifParse'));
 
 function SectionLoader() {
   return (
@@ -217,10 +219,26 @@ export function AppContent() {
               }
             />
             <Route
-              path="/dfir/share/:id"
+              path="/dfir/asn"
               element={
                 <Suspense fallback={<SectionLoader />}>
-                  <Share />
+                  <AsnLookup />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/dfir/breach"
+              element={
+                <Suspense fallback={<SectionLoader />}>
+                  <BreachCheck />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/dfir/exif"
+              element={
+                <Suspense fallback={<SectionLoader />}>
+                  <ExifParse />
                 </Suspense>
               }
             />

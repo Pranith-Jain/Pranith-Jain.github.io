@@ -23,6 +23,9 @@ const subRoutes: Array<{ path: string; heading: string; skipComingSoon?: boolean
   { path: '/dfir/briefings', heading: 'Threat Intel Briefings', skipComingSoon: true },
   { path: '/dfir/cve', heading: 'CVE Lookup', skipComingSoon: true },
   { path: '/dfir/decode', heading: 'Decoder', skipComingSoon: true },
+  { path: '/dfir/asn', heading: 'ASN Lookup', skipComingSoon: true },
+  { path: '/dfir/breach', heading: 'Breach Checker', skipComingSoon: true },
+  { path: '/dfir/exif', heading: 'EXIF Parser', skipComingSoon: true },
 ];
 
 describe('DFIR sub-routes', () => {
