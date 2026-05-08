@@ -192,3 +192,108 @@ interface BatteryManager {
   level: number;
   charging: boolean;
 }
+
+export type OpsecGrade = 'strong' | 'moderate' | 'weak' | 'poor';
+
+export interface OpsecFactor {
+  id: string;
+  label: string;
+  weight: number; // points deducted when triggered
+  hit: boolean;
+  advice: string;
+}
+
+export interface OpsecScore {
+  score: number; // 0–100, higher is more private
+  grade: OpsecGrade;
+  factors: OpsecFactor[];
+}
+
+export function computeOpsecScore(args: {
+  fingerprint: FingerprintData;
+  webrtc: WebRtcLeak;
+  network?: NetworkInfo;
+  battery?: { level?: number; charging?: boolean };
+}): OpsecScore {
+  const { fingerprint: fp, webrtc, network, battery } = args;
+
+  const factors: OpsecFactor[] = [
+    {
+      id: 'webrtc-public-leak',
+      label: 'WebRTC leaks public IP',
+      weight: 35,
+      hit: webrtc.publicIps.length > 0,
+      advice: 'Disable WebRTC or use a VPN with WebRTC leak protection (Mullvad, ProtonVPN).',
+    },
+    {
+      id: 'webrtc-local-leak',
+      label: 'WebRTC exposes local IPs',
+      weight: 8,
+      hit: webrtc.localIps.length > 0,
+      advice: 'Block local-network discovery via about:config (media.peerconnection.enabled = false in Firefox).',
+    },
+    {
+      id: 'dnt-unset',
+      label: 'Do-Not-Track header not set',
+      weight: 6,
+      hit: fp.doNotTrack !== '1',
+      advice: 'Enable "Send Do Not Track" or "Global Privacy Control" in your browser privacy settings.',
+    },
+    {
+      id: 'cookies-enabled',
+      label: 'Cookies enabled (3rd-party tracking risk)',
+      weight: 5,
+      hit: fp.cookieEnabled === true,
+      advice: 'Block third-party cookies; consider Firefox Total Cookie Protection or Brave Shields.',
+    },
+    {
+      id: 'canvas-fingerprint',
+      label: 'Canvas fingerprint is readable',
+      weight: 10,
+      hit: !!fp.canvasHash && fp.canvasHash.length > 0,
+      advice: 'Use a privacy browser (Brave, Tor) or anti-fingerprinting extension (CanvasBlocker).',
+    },
+    {
+      id: 'webgl-renderer',
+      label: 'WebGL renderer / GPU revealed',
+      weight: 10,
+      hit: !!fp.webglRenderer,
+      advice: 'Spoof WebGL via an anti-fingerprinting extension or browser hardening flags.',
+    },
+    {
+      id: 'battery-api',
+      label: 'Battery API exposed',
+      weight: 4,
+      hit: !!battery,
+      advice: 'Battery info is fingerprintable; modern Firefox/Safari already block it — Chrome still exposes it.',
+    },
+    {
+      id: 'network-info',
+      label: 'Network connection info exposed',
+      weight: 4,
+      hit: !!network?.effectiveType,
+      advice: 'navigator.connection leaks downlink/RTT — Brave and privacy.resistFingerprinting (Firefox) hide it.',
+    },
+    {
+      id: 'hardware-detailed',
+      label: 'Detailed hardware info (cores + memory)',
+      weight: 4,
+      hit: !!fp.deviceMemory && fp.hardwareConcurrency > 0,
+      advice: 'navigator.deviceMemory + hardwareConcurrency narrow you to a small device class.',
+    },
+    {
+      id: 'languages-multi',
+      label: 'Multiple languages disclosed',
+      weight: 3,
+      hit: fp.languages.length > 1,
+      advice: 'navigator.languages leaks UI locale list — set one language to reduce uniqueness.',
+    },
+  ];
+
+  const deduction = factors.reduce((sum, f) => sum + (f.hit ? f.weight : 0), 0);
+  const score = Math.max(0, 100 - deduction);
+
+  const grade: OpsecGrade = score >= 80 ? 'strong' : score >= 60 ? 'moderate' : score >= 40 ? 'weak' : 'poor';
+
+  return { score, grade, factors };
+}

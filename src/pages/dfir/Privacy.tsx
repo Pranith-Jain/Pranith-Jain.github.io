@@ -1,17 +1,46 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Shield, Eye } from 'lucide-react';
+import { ArrowLeft, Shield, Eye, Check, X } from 'lucide-react';
 import {
   gatherFingerprint,
   fingerprintHash,
   detectWebRtcLeaks,
   getNetworkInfo,
   getBattery,
+  computeOpsecScore,
   type FingerprintData,
   type WebRtcLeak,
   type NetworkInfo,
+  type OpsecGrade,
 } from '../../lib/dfir/privacy-checks';
+
+const GRADE_STYLES: Record<OpsecGrade, { ring: string; text: string; bg: string; label: string }> = {
+  strong: {
+    ring: 'ring-emerald-500/40',
+    text: 'text-emerald-600 dark:text-emerald-400',
+    bg: 'bg-emerald-500/10 dark:bg-emerald-400/10',
+    label: 'Strong',
+  },
+  moderate: {
+    ring: 'ring-amber-500/40',
+    text: 'text-amber-600 dark:text-amber-400',
+    bg: 'bg-amber-500/10 dark:bg-amber-400/10',
+    label: 'Moderate',
+  },
+  weak: {
+    ring: 'ring-orange-500/40',
+    text: 'text-orange-600 dark:text-orange-400',
+    bg: 'bg-orange-500/10 dark:bg-orange-400/10',
+    label: 'Weak',
+  },
+  poor: {
+    ring: 'ring-rose-500/40',
+    text: 'text-rose-600 dark:text-rose-400',
+    bg: 'bg-rose-500/10 dark:bg-rose-400/10',
+    label: 'Poor',
+  },
+};
 
 interface ServerInfo {
   ip?: string;
@@ -34,6 +63,11 @@ export default function Privacy(): JSX.Element {
   const [network, setNetwork] = useState<NetworkInfo | undefined>(undefined);
   const [battery, setBattery] = useState<{ level?: number; charging?: boolean } | undefined>(undefined);
   const [error, setError] = useState<string | null>(null);
+
+  const opsec = useMemo(
+    () => (fp && webrtc ? computeOpsecScore({ fingerprint: fp, webrtc, network, battery }) : null),
+    [fp, webrtc, network, battery]
+  );
 
   const runScan = async () => {
     setScanning(true);
@@ -113,6 +147,56 @@ export default function Privacy(): JSX.Element {
       </div>
 
       {error && <p className="font-mono text-sm text-rose-600 dark:text-rose-400">error: {error}</p>}
+
+      {opsec && (
+        <section
+          className={`mb-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 ring-1 ${GRADE_STYLES[opsec.grade].ring}`}
+        >
+          <div className="flex items-center gap-6 mb-4">
+            <div
+              className={`flex flex-col items-center justify-center w-24 h-24 rounded-full ${GRADE_STYLES[opsec.grade].bg} ${GRADE_STYLES[opsec.grade].text}`}
+            >
+              <span className="text-3xl font-display font-bold leading-none">{opsec.score}</span>
+              <span className="text-[10px] font-mono uppercase tracking-wider mt-1">/ 100</span>
+            </div>
+            <div className="min-w-0">
+              <h2 className="font-display font-bold text-xl mb-1 flex items-center gap-2">
+                OpSec Score
+                <span
+                  className={`text-xs font-mono uppercase tracking-wider px-2 py-0.5 rounded ${GRADE_STYLES[opsec.grade].bg} ${GRADE_STYLES[opsec.grade].text}`}
+                >
+                  {GRADE_STYLES[opsec.grade].label}
+                </span>
+              </h2>
+              <p className="text-sm text-slate-600 dark:text-slate-400">
+                {opsec.factors.filter((f) => f.hit).length} of {opsec.factors.length} privacy weaknesses detected.
+                Higher score = less identifying signal exposed.
+              </p>
+            </div>
+          </div>
+          <div className="space-y-1.5">
+            {opsec.factors.map((f) => (
+              <div
+                key={f.id}
+                className="flex items-start gap-3 py-1.5 border-t border-slate-100 dark:border-slate-800 first:border-t-0"
+                title={f.advice}
+              >
+                {f.hit ? (
+                  <X size={14} className="text-rose-500 dark:text-rose-400 mt-0.5 shrink-0" />
+                ) : (
+                  <Check size={14} className="text-emerald-500 dark:text-emerald-400 mt-0.5 shrink-0" />
+                )}
+                <span
+                  className={`text-sm flex-1 ${f.hit ? 'text-slate-900 dark:text-slate-100' : 'text-slate-500 line-through decoration-slate-400/40'}`}
+                >
+                  {f.label}
+                </span>
+                <span className="text-xs font-mono text-slate-400 shrink-0">−{f.weight}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       <div className="space-y-6">
         {server && (

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { ExternalLink } from 'lucide-react';
 import type { Briefing } from '../../data/dfir/briefings';
 
 function TypeChip({ type }: { type: 'daily' | 'weekly' }): JSX.Element {
@@ -93,6 +94,19 @@ export function BriefingCard({ briefing }: { briefing: Briefing }): JSX.Element 
             ))}
           </div>
         </div>
+      )}
+
+      {/* External publisher link */}
+      {briefing.external_url && (
+        <a
+          href={briefing.external_url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-4 inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 text-slate-700 dark:text-slate-300 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+        >
+          View on {briefing.external_publisher ?? new URL(briefing.external_url).hostname}
+          <ExternalLink size={12} />
+        </a>
       )}
     </article>
   );

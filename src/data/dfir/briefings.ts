@@ -23,6 +23,8 @@ export interface Briefing {
   mitre_techniques: string[];
   sources: string[];
   key_iocs?: KeyIoc[];
+  external_url?: string; // when set, the card links out to the original publisher
+  external_publisher?: string; // display name for the external link button
 }
 
 export const briefings: Briefing[] = [
@@ -90,5 +92,20 @@ export const briefings: Briefing[] = [
         context: 'Placeholder — replace with real MalwareBazaar hash',
       },
     ],
+  },
+  {
+    slug: 'dfirlab-2026-04-28-weekly',
+    type: 'weekly',
+    title: 'Weekly Threat Briefing — 2026-04-28 to 2026-05-04 (DFIR Lab)',
+    date: '2026-05-04',
+    date_range: '2026-04-28 – 2026-05-04',
+    summary:
+      "DFIR Lab's weekly intelligence briefing for April 28 – May 4, 2026. Reports a significant surge in critical authentication-bypass and injection vulnerabilities across enterprise products, with active exploitation observed in the wild. Full analysis, IOCs, and recommendations on dfir-lab.ch.",
+    findings_count: 0,
+    cves_count: 0,
+    mitre_techniques: [],
+    sources: ['DFIR Lab'],
+    external_url: 'https://dfir-lab.ch/intel-briefings/weekly-briefing-2026-04-28',
+    external_publisher: 'dfir-lab.ch',
   },
 ];

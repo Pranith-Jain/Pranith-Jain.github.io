@@ -103,6 +103,7 @@ export async function rdapLookup(domain: string): Promise<RdapResult> {
   candidates.push(`https://rdap.org/domain/${encodeURIComponent(lower)}`);
 
   let lastError = '';
+  let rateLimited = false;
   for (const url of candidates) {
     try {
       const result = await tryRdap(url);
@@ -119,10 +120,16 @@ export async function rdapLookup(domain: string): Promise<RdapResult> {
           status: j.status ?? [],
         };
       }
+      if (result.status === 429) rateLimited = true;
       lastError = `${result.status} ${result.statusText}`.trim();
     } catch (err) {
       lastError = err instanceof Error ? err.message : String(err);
     }
+  }
+  // Identity Digital (.ai/.capital/.io/.tech) and a few others rate-limit shared
+  // CF Worker IPs. Surface a friendlier message so users know to retry.
+  if (rateLimited) {
+    return { ...empty, error: 'registry rate-limited — try again in a few minutes' };
   }
   return { ...empty, error: lastError || 'rdap unavailable' };
 }
