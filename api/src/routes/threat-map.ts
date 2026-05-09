@@ -12,7 +12,7 @@ import { parseFeodo, parseUrlhaus, parseThreatfox, parseIpsum, parsePlainTextIps
  * Cached 1h in Cache API so each visitor doesn't re-trigger the geolocation.
  */
 
-const CACHE_KEY = 'https://threat-map-cache.internal/v1';
+const CACHE_KEY = 'https://threat-map-cache.internal/v2-6sources';
 const CACHE_TTL_SECONDS = 3600;
 const MAX_IPS = 200; // ip-api.com batch is 100; we'll do 2 batches max
 const FETCH_TIMEOUT_MS = 12_000;
