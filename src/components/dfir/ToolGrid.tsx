@@ -1,3 +1,4 @@
+import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Hash,
@@ -8,6 +9,8 @@ import {
   Clock,
   Users,
   Lock,
+  Search as SearchIcon,
+  X,
   Newspaper,
   Search,
   Shield,
@@ -401,34 +404,110 @@ function SectionBlock({ section }: { section: Section }): JSX.Element {
 
 export const TOOL_COUNT = SECTIONS.reduce((n, s) => n + s.tools.length, 0);
 
+function matches(tool: Tool, q: string): boolean {
+  if (!q) return true;
+  const haystack = `${tool.label} ${tool.desc} ${tool.path}`.toLowerCase();
+  // Tokenise on whitespace; every token must match (AND).
+  return q
+    .toLowerCase()
+    .split(/\s+/)
+    .filter(Boolean)
+    .every((tok) => haystack.includes(tok));
+}
+
 export function ToolGrid(): JSX.Element {
-  const totalInternal = TOOL_COUNT;
+  const [query, setQuery] = useState('');
+  const q = query.trim();
+
+  const filteredSections = useMemo(
+    () =>
+      SECTIONS.map((s) => ({
+        ...s,
+        tools: s.tools.filter((t) => matches(t, q)),
+      })).filter((s) => s.tools.length > 0),
+    [q]
+  );
+  const filteredExternal = useMemo(() => EXTERNAL.filter((t) => matches(t, q)), [q]);
+
+  const matchCount = filteredSections.reduce((n, s) => n + s.tools.length, 0) + filteredExternal.length;
+
   return (
-    <div className="space-y-8">
-      <p className="text-xs font-mono text-slate-500 dark:text-slate-500">
-        {totalInternal} tools across {SECTIONS.length} categories. All client-side or run from this site's edge worker —
-        nothing leaves your browser unless explicitly stated on the tool's page.
-      </p>
-
-      {SECTIONS.map((s) => (
-        <SectionBlock key={s.id} section={s} />
-      ))}
-
-      <div>
-        <div className="flex items-baseline justify-between gap-3 mb-3 mt-2 flex-wrap">
-          <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
-            External resources
-          </h3>
-          <span className="text-[11px] font-mono text-slate-500 dark:text-slate-500">
-            Curated tools and catalogs hosted elsewhere · {EXTERNAL.length} links
-          </span>
-        </div>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {EXTERNAL.map((t) => (
-            <Card key={t.path} tool={t} />
-          ))}
+    <div className="space-y-6">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3">
+        <div className="relative">
+          <SearchIcon
+            size={14}
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+            aria-hidden="true"
+          />
+          <input
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search tools — e.g. dmarc, kill chain, mcp, owasp, jwt…"
+            className="w-full pl-9 pr-9 py-2 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 font-mono text-sm focus:border-brand-500/60 focus:outline-none"
+            aria-label="Search DFIR tools"
+          />
+          {query && (
+            <button
+              onClick={() => setQuery('')}
+              className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+              aria-label="Clear search"
+            >
+              <X size={14} />
+            </button>
+          )}
         </div>
       </div>
+
+      <p className="text-xs font-mono text-slate-500 dark:text-slate-500">
+        {q ? (
+          <>
+            {matchCount} match{matchCount === 1 ? '' : 'es'} for{' '}
+            <span className="text-slate-700 dark:text-slate-300">"{q}"</span>
+          </>
+        ) : (
+          <>
+            {TOOL_COUNT} tools across {SECTIONS.length} categories. All client-side or run from this site's edge worker
+            — nothing leaves your browser unless explicitly stated on the tool's page.
+          </>
+        )}
+      </p>
+
+      {filteredSections.length === 0 && filteredExternal.length === 0 ? (
+        <div className="rounded-lg border border-dashed border-slate-300 dark:border-slate-700 p-8 text-center text-sm font-mono text-slate-500 dark:text-slate-500">
+          No tools match "{q}". Try a different keyword or{' '}
+          <button onClick={() => setQuery('')} className="text-brand-600 dark:text-brand-400 hover:underline">
+            clear the search
+          </button>
+          .
+        </div>
+      ) : (
+        <>
+          {filteredSections.map((s) => (
+            <SectionBlock key={s.id} section={s} />
+          ))}
+
+          {filteredExternal.length > 0 && (
+            <div>
+              <div className="flex items-baseline justify-between gap-3 mb-3 mt-2 flex-wrap">
+                <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
+                  External resources
+                </h3>
+                <span className="text-[11px] font-mono text-slate-500 dark:text-slate-500">
+                  Curated tools and catalogs hosted elsewhere · {filteredExternal.length}
+                  {q ? ` of ${EXTERNAL.length}` : ''} link{filteredExternal.length === 1 ? '' : 's'}
+                </span>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {filteredExternal.map((t) => (
+                  <Card key={t.path} tool={t} />
+                ))}
+              </div>
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 }

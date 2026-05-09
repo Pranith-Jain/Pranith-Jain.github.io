@@ -9,12 +9,24 @@ describe('wikiArticles', () => {
     const slugs = wikiArticles.map((a) => a.slug);
     expect(new Set(slugs).size).toBe(slugs.length);
   });
-  it('all have category from the 5 known buckets', () => {
-    const ok = ['Email Security', 'Threat Intelligence', 'Forensics', 'Detection Engineering', 'Attack Types'];
+  it('all have category from the known buckets', () => {
+    const ok = [
+      'Email Security',
+      'Threat Intelligence',
+      'Forensics',
+      'Detection Engineering',
+      'Attack Types',
+      'AI Security',
+      'Identity & NHI',
+      'Compliance & Frameworks',
+      'Data Security & Privacy',
+    ];
     for (const a of wikiArticles) expect(ok).toContain(a.category);
   });
-  it('has at least one article in each category', () => {
+  it('has at least one article in each of the foundational five categories', () => {
     const cats = new Set(wikiArticles.map((a) => a.category));
-    expect(cats.size).toBe(5);
+    for (const c of ['Email Security', 'Threat Intelligence', 'Forensics', 'Detection Engineering', 'Attack Types']) {
+      expect(cats.has(c as never)).toBe(true);
+    }
   });
 });

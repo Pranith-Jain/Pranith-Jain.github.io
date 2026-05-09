@@ -12,6 +12,10 @@ const ALL_CATEGORIES: WikiCategory[] = [
   'Forensics',
   'Detection Engineering',
   'Attack Types',
+  'AI Security',
+  'Identity & NHI',
+  'Compliance & Frameworks',
+  'Data Security & Privacy',
 ];
 
 export default function Wiki(): JSX.Element {
