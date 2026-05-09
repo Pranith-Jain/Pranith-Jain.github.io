@@ -35,7 +35,9 @@ const STORAGE_KEY_SOURCES = 'dfir.darkweb.activeSources';
 const MAX_PER_SOURCE = 12;
 const MAX_ITEMS = 200;
 
-type DateWindow = 'all' | '24h' | '7d' | '30d';
+// Watch window is capped at 30 days. Older items are dropped on the client so
+// the feed reflects current threat activity, not historical noise.
+type DateWindow = '24h' | '7d' | '30d';
 
 function loadJson<T>(key: string, fallback: T): T {
   if (typeof window === 'undefined') return fallback;
@@ -93,7 +95,6 @@ function compileSearch(query: string): ((item: FeedItem) => boolean) | null {
 }
 
 function withinWindow(item: FeedItem, win: DateWindow): boolean {
-  if (win === 'all') return true;
   const t = new Date(item.pubDate).getTime();
   if (!t) return false;
   const ageMs = Date.now() - t;
@@ -144,7 +145,7 @@ export default function DarkWeb(): JSX.Element {
   // Search controls
   const [search, setSearch] = useState('');
   const [activeSources, setActiveSources] = useState<Set<string>>(() => new Set(ALL_FEED_IDS));
-  const [dateWindow, setDateWindow] = useState<DateWindow>('all');
+  const [dateWindow, setDateWindow] = useState<DateWindow>('30d');
 
   // Hydrate from localStorage
   useEffect(() => {
@@ -317,7 +318,7 @@ export default function DarkWeb(): JSX.Element {
 
         <div className="flex flex-wrap items-center gap-2 text-xs font-mono">
           <span className="text-slate-500">Window:</span>
-          {(['24h', '7d', '30d', 'all'] as DateWindow[]).map((w) => (
+          {(['24h', '7d', '30d'] as DateWindow[]).map((w) => (
             <button
               key={w}
               type="button"
@@ -328,9 +329,10 @@ export default function DarkWeb(): JSX.Element {
                   : 'border-slate-200 dark:border-slate-800 text-slate-500'
               }`}
             >
-              {w === 'all' ? 'all' : `last ${w}`}
+              last {w}
             </button>
           ))}
+          <span className="text-slate-500">(max 30 days)</span>
         </div>
       </section>
 
@@ -433,7 +435,7 @@ export default function DarkWeb(): JSX.Element {
             onClick={() => {
               setSearch('');
               setActiveSources(new Set(ALL_FEED_IDS));
-              setDateWindow('all');
+              setDateWindow('30d');
             }}
             className="text-brand-600 dark:text-brand-400 hover:underline"
           >
