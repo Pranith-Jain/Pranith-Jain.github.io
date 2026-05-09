@@ -272,6 +272,8 @@ export default function DarkWeb(): JSX.Element {
         </p>
       </motion.div>
 
+      <BreachDisclosuresPanel />
+
       {/* Search + filters */}
       <section className="mb-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 space-y-4">
         <div className="flex items-center gap-2">
@@ -511,5 +513,174 @@ export default function DarkWeb(): JSX.Element {
         for an index of those.
       </footer>
     </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Breach Disclosures panel — pulls Have I Been Pwned's public breach corpus
+// ─────────────────────────────────────────────────────────────────────────
+
+interface BreachDisclosure {
+  name: string;
+  title: string;
+  domain?: string;
+  breach_date?: string;
+  added_date?: string;
+  modified_date?: string;
+  pwn_count?: number;
+  description?: string;
+  data_classes?: string[];
+  verified: boolean;
+  sensitive: boolean;
+  logo_path?: string;
+}
+
+interface BreachDisclosuresResponse {
+  generated_at: string;
+  source: string;
+  count: number;
+  breaches: BreachDisclosure[];
+}
+
+function formatPwnCount(n?: number): string {
+  if (!n || n <= 0) return '—';
+  if (n >= 1_000_000_000) return `${(n / 1_000_000_000).toFixed(1)}B`;
+  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
+  if (n >= 1_000) return `${(n / 1_000).toFixed(0)}k`;
+  return String(n);
+}
+
+function BreachDisclosuresPanel(): JSX.Element {
+  const [data, setData] = useState<BreachDisclosuresResponse | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [expanded, setExpanded] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch('/api/v1/breach-disclosures');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const json = (await res.json()) as BreachDisclosuresResponse;
+        if (!cancelled) setData(json);
+      } catch (e) {
+        if (!cancelled) setError((e as Error).message);
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const visible = data?.breaches.slice(0, expanded ? data.breaches.length : 8) ?? [];
+
+  return (
+    <section className="mb-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+      <div className="flex flex-wrap items-baseline justify-between gap-3 mb-3">
+        <h2 className="font-display font-semibold text-lg inline-flex items-center gap-2">
+          Recent breach disclosures
+          <span className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300">
+            HIBP corpus
+          </span>
+        </h2>
+        <span className="text-[11px] font-mono text-slate-500 dark:text-slate-500">
+          {loading ? 'loading…' : data ? `${data.count} disclosures · cached 6 h` : ''}
+        </span>
+      </div>
+
+      {error && (
+        <p className="text-sm font-mono text-rose-600 dark:text-rose-400">Could not load breach disclosures: {error}</p>
+      )}
+
+      {data && data.breaches.length === 0 && !error && (
+        <p className="text-sm font-mono text-slate-500 dark:text-slate-500">
+          No disclosures returned. The upstream HIBP API may be unavailable; the in-feed sources below still cover
+          breach reporting.
+        </p>
+      )}
+
+      {visible.length > 0 && (
+        <ul className="grid gap-2 sm:grid-cols-2">
+          {visible.map((b) => (
+            <li
+              key={b.name}
+              className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-2.5"
+            >
+              <div className="flex flex-wrap items-baseline gap-2 mb-1">
+                <a
+                  href={b.domain ? `https://haveibeenpwned.com/PwnedWebsites#${b.name}` : '#'}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400"
+                >
+                  {b.title}
+                </a>
+                {b.verified && (
+                  <span className="text-[9px] font-mono uppercase tracking-wider px-1 py-0.5 rounded border border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300">
+                    verified
+                  </span>
+                )}
+                {b.sensitive && (
+                  <span className="text-[9px] font-mono uppercase tracking-wider px-1 py-0.5 rounded border border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300">
+                    sensitive
+                  </span>
+                )}
+              </div>
+              <div className="flex flex-wrap items-baseline gap-3 text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-1">
+                {b.domain && <span>{b.domain}</span>}
+                {b.breach_date && <span>breached {b.breach_date}</span>}
+                {b.added_date && <span>disclosed {b.added_date.slice(0, 10)}</span>}
+                {typeof b.pwn_count === 'number' && b.pwn_count > 0 && (
+                  <span className="text-slate-700 dark:text-slate-300 font-bold">
+                    {formatPwnCount(b.pwn_count)} accounts
+                  </span>
+                )}
+              </div>
+              {b.data_classes && b.data_classes.length > 0 && (
+                <div className="flex flex-wrap gap-1 mb-1">
+                  {b.data_classes.slice(0, 5).map((c) => (
+                    <span
+                      key={c}
+                      className="text-[9px] font-mono px-1 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400"
+                    >
+                      {c}
+                    </span>
+                  ))}
+                  {b.data_classes.length > 5 && (
+                    <span className="text-[9px] font-mono text-slate-500 dark:text-slate-500">
+                      +{b.data_classes.length - 5}
+                    </span>
+                  )}
+                </div>
+              )}
+              {b.description && (
+                <p className="text-[11px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">
+                  {b.description}
+                </p>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {data && data.breaches.length > 8 && (
+        <div className="mt-3 flex items-center justify-between text-[11px] font-mono text-slate-500 dark:text-slate-500">
+          <button onClick={() => setExpanded((v) => !v)} className="text-brand-600 dark:text-brand-400 hover:underline">
+            {expanded ? 'Show fewer' : `Show all ${data.breaches.length}`}
+          </button>
+          <a
+            href="https://haveibeenpwned.com/PwnedWebsites"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+          >
+            full HIBP list <ExternalLink size={10} />
+          </a>
+        </div>
+      )}
+    </section>
   );
 }

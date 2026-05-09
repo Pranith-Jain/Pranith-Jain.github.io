@@ -25,7 +25,6 @@ const TTL_BY_TYPE: Record<IndicatorType, number> = {
 export class ProviderCache {
   // Argument retained so the existing `new ProviderCache(c.env.KV_CACHE)` call
   // sites compile without change. Not actually used.
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   constructor(_kv?: KVNamespace) {}
 
   static ttlSeconds(type: IndicatorType): number {

@@ -42,6 +42,7 @@ import {
   ScrollText,
   FileCheck,
   FolderTree,
+  Scale,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -158,6 +159,12 @@ const SECTIONS: Section[] = [
         label: 'Data Classification & Handling',
         desc: 'Tier policies · dataset inventory · matrix view · markdown export',
         icon: FolderTree,
+      },
+      {
+        path: '/dfir/privacy-hub',
+        label: 'Privacy & Data-Protection Hub',
+        desc: 'GDPR · CCPA / CPRA · DPDP · HIPAA Privacy Rule · PCI DSS · breach-notification timelines',
+        icon: Scale,
       },
     ],
   },

@@ -72,7 +72,7 @@ export async function phishingAnalyzeHandler(c: Context<{ Bindings: Env }>) {
         .filter((r) => r.status === 'ok' && (r.verdict === 'malicious' || r.verdict === 'suspicious'))
         .map((r) => ({ source: r.source, tags: r.tags }));
       const verdict: UrlVerdict['verdict'] =
-        hits.some((h) => true) && hits.length >= 2
+        hits.length >= 2
           ? 'malicious'
           : hits.length === 1
             ? 'suspicious'

@@ -63,6 +63,7 @@ const Tabletop = lazy(() => import('./pages/dfir/Tabletop'));
 const Grc = lazy(() => import('./pages/dfir/Grc'));
 const DlpScan = lazy(() => import('./pages/dfir/DlpScan'));
 const DataClassification = lazy(() => import('./pages/dfir/DataClassification'));
+const PrivacyHub = lazy(() => import('./pages/dfir/PrivacyHub'));
 
 function TechniqueRedirect() {
   const params = new URLSearchParams(window.location.search);
@@ -513,6 +514,14 @@ export function AppContent() {
               element={
                 <Suspense fallback={<SectionLoader />}>
                   <DataClassification />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/dfir/privacy-hub"
+              element={
+                <Suspense fallback={<SectionLoader />}>
+                  <PrivacyHub />
                 </Suspense>
               }
             />

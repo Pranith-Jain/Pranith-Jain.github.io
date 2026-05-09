@@ -18,6 +18,7 @@ import { takeoverCheckHandler } from './routes/takeover';
 import { threatMapHandler } from './routes/threat-map';
 import { feedsAggregateHandler } from './routes/feeds-aggregate';
 import { detectionRulesHandler } from './routes/detection-rules';
+import { breachDisclosuresHandler } from './routes/breach-disclosures';
 import { abuseRssHandler } from './routes/abuse-rss';
 import {
   listBriefingsHandler,
@@ -56,6 +57,7 @@ app.get('/api/v1/takeover/check', takeoverCheckHandler);
 app.get('/api/v1/threat-map', threatMapHandler);
 app.get('/api/v1/feeds/aggregate', feedsAggregateHandler);
 app.get('/api/v1/rules', detectionRulesHandler);
+app.get('/api/v1/breach-disclosures', breachDisclosuresHandler);
 app.get('/api/v1/briefings/list', listBriefingsHandler);
 app.get('/api/v1/briefings/today', todayBriefingHandler);
 app.post('/api/v1/briefings/build', buildBriefingHandler);
