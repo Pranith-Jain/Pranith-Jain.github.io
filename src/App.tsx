@@ -70,7 +70,7 @@ const GithubOsint = lazy(() => import('./pages/dfir/GithubOsint'));
 const OsintFramework = lazy(() => import('./pages/dfir/OsintFramework'));
 const ScamWatch = lazy(() => import('./pages/dfir/ScamWatch'));
 const CryptoTrace = lazy(() => import('./pages/dfir/CryptoTrace'));
-const IndustryNews = lazy(() => import('./pages/dfir/IndustryNews'));
+const TechAiNews = lazy(() => import('./pages/dfir/TechAiNews'));
 
 function TechniqueRedirect() {
   const params = new URLSearchParams(window.location.search);
@@ -581,13 +581,15 @@ export function AppContent() {
               }
             />
             <Route
-              path="/dfir/industry-news"
+              path="/dfir/tech-ai-news"
               element={
                 <Suspense fallback={<SectionLoader />}>
-                  <IndustryNews />
+                  <TechAiNews />
                 </Suspense>
               }
             />
+            {/* Old path renamed; preserve any in-flight links. */}
+            <Route path="/dfir/industry-news" element={<Navigate to="/dfir/tech-ai-news" replace />} />
             <Route path="/difr" element={<Navigate to="/dfir" replace />} />
             <Route
               path="*"

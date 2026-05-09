@@ -47,7 +47,6 @@ import {
   History,
   AlertTriangle,
   Coins,
-  TrendingUp,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -244,10 +243,10 @@ const SECTIONS: Section[] = [
         icon: AlertTriangle,
       },
       {
-        path: '/dfir/industry-news',
-        label: 'Industry & Fundraising News',
-        desc: 'Cybersecurity vendor funding · M&A · IPOs · launches · TechCrunch + VentureBeat + Google News',
-        icon: TrendingUp,
+        path: '/dfir/tech-ai-news',
+        label: 'Tech & AI News',
+        desc: 'AI labs · cyber-vendor funding · M&A · general tech · 13 sources, threat-intel kept separate',
+        icon: Sparkles,
       },
       { path: '/dfir/actors', label: 'Threat Actors', desc: 'APT catalog · STIX-aware', icon: Users },
       {

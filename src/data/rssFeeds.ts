@@ -725,6 +725,104 @@ export const rssFeeds: RSSFeed[] = [
     source: 'Google News',
     language: 'en-US',
   },
+
+  // ============================================================================
+  // AI — vendor blogs, AI-section tags, AI-specific Google News queries
+  // ============================================================================
+  {
+    id: 'techcrunch-ai',
+    name: 'TechCrunch — AI',
+    url: 'https://techcrunch.com/category/artificial-intelligence/feed/',
+    description: 'TechCrunch AI tag — model releases, AI funding, agentic-AI products, lab moves',
+    category: 'tech',
+    source: 'techcrunch.com',
+    language: 'en-US',
+  },
+  {
+    id: 'venturebeat-ai',
+    name: 'VentureBeat — AI',
+    url: 'https://venturebeat.com/category/ai/feed/',
+    description: 'Enterprise AI / GenAI deployment, security crossover, vendor releases',
+    category: 'tech',
+    source: 'venturebeat.com',
+    language: 'en-US',
+  },
+  {
+    id: 'verge-ai',
+    name: 'The Verge — AI',
+    url: 'https://www.theverge.com/rss/ai-artificial-intelligence/index.xml',
+    description: 'Consumer + product-side AI coverage from The Verge',
+    category: 'tech',
+    source: 'theverge.com',
+    language: 'en-US',
+  },
+  {
+    id: 'openai-news',
+    name: 'OpenAI News',
+    url: 'https://openai.com/news/rss.xml',
+    description: 'Official OpenAI announcements — model releases, safety + research notes, policy',
+    category: 'tech',
+    source: 'openai.com',
+    language: 'en-US',
+  },
+  {
+    id: 'google-ai',
+    name: 'Google AI Blog',
+    url: 'https://blog.google/technology/ai/rss/',
+    description: 'Google research and product launches under the AI tag',
+    category: 'tech',
+    source: 'blog.google',
+    language: 'en-US',
+  },
+  {
+    id: 'gnews-ai-security',
+    name: 'Google News — AI security incident',
+    url: 'https://news.google.com/rss/search?q=AI+security+incident&hl=en-US&gl=US&ceid=US:en',
+    description: 'Recent AI-system security incidents — prompt injection in production, agent failures, model leaks',
+    category: 'tech',
+    source: 'Google News',
+    language: 'en-US',
+  },
+  {
+    id: 'gnews-ai-funding',
+    name: 'Google News — AI startup funding',
+    url: 'https://news.google.com/rss/search?q=AI+startup+funding&hl=en-US&gl=US&ceid=US:en',
+    description: 'Funding rounds across the AI vendor / model / tooling space',
+    category: 'tech',
+    source: 'Google News',
+    language: 'en-US',
+  },
+  {
+    id: 'gnews-genai-enterprise',
+    name: 'Google News — GenAI enterprise deployment',
+    url: 'https://news.google.com/rss/search?q=GenAI+enterprise+deployment&hl=en-US&gl=US&ceid=US:en',
+    description: 'Enterprise GenAI rollouts — security posture, ROI claims, governance moves',
+    category: 'tech',
+    source: 'Google News',
+    language: 'en-US',
+  },
+
+  // ============================================================================
+  // General tech — broader signal beyond pure security / AI
+  // ============================================================================
+  {
+    id: 'ars-tech',
+    name: 'Ars Technica — Technology Lab',
+    url: 'https://feeds.arstechnica.com/arstechnica/technology-lab',
+    description: 'Long-form Ars coverage of infrastructure, OS, networking, devices, and the security crossover',
+    category: 'tech',
+    source: 'arstechnica.com',
+    language: 'en-US',
+  },
+  {
+    id: 'mit-tech-review',
+    name: 'MIT Technology Review',
+    url: 'https://www.technologyreview.com/feed/',
+    description: 'Independent reporting on emerging technology, AI ethics, biotech, computing',
+    category: 'tech',
+    source: 'technologyreview.com',
+    language: 'en-US',
+  },
 ];
 
 // Default feeds shown in the ThreatIntelFeed surface on /dfir.
