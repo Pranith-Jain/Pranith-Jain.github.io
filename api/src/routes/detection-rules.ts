@@ -10,7 +10,7 @@ import type { Env } from '../env';
  * should go through the existing feeds proxy allow-list.
  */
 
-const CACHE_KEY = 'https://detection-rules-cache.internal/v1';
+const CACHE_KEY = 'https://detection-rules-cache.internal/v2-dlp';
 const CACHE_TTL_SECONDS = 3600;
 const FETCH_TIMEOUT_MS = 10_000;
 
@@ -18,7 +18,7 @@ interface SourceConfig {
   id: string;
   label: string;
   repo: string; // owner/name
-  type: 'Sigma' | 'YARA' | 'Elastic' | 'Splunk SPL' | 'KQL' | 'Suricata';
+  type: 'Sigma' | 'YARA' | 'Elastic' | 'Splunk SPL' | 'KQL' | 'Suricata' | 'DLP';
   description: string;
   rules_path: string; // path within the repo where rules live (for direct browse link)
   homepage?: string;
@@ -76,6 +76,44 @@ const SOURCES: SourceConfig[] = [
       'Suricata IDS engine. Pair with the open ET ruleset at rules.emergingthreats.net/open/ for live detection content.',
     rules_path: 'rules',
     homepage: 'https://rules.emergingthreats.net/open/',
+  },
+  {
+    id: 'gitleaks',
+    label: 'gitleaks/gitleaks',
+    repo: 'gitleaks/gitleaks',
+    type: 'DLP',
+    description:
+      'Open-source secrets detection. Default ruleset (config/gitleaks.toml) covers ~150 secret types — AWS, GCP, Azure, GitHub, Stripe, JWT, PEM, etc.',
+    rules_path: 'config',
+    homepage: 'https://gitleaks.io',
+  },
+  {
+    id: 'trufflehog',
+    label: 'trufflesecurity/trufflehog',
+    repo: 'trufflesecurity/trufflehog',
+    type: 'DLP',
+    description:
+      'Secret-scanning engine with hundreds of detectors and live verification. Detector definitions live under pkg/detectors/ — one per credential type.',
+    rules_path: 'pkg/detectors',
+    homepage: 'https://trufflesecurity.com',
+  },
+  {
+    id: 'secrets-patterns-db',
+    label: 'mazen160/secrets-patterns-db',
+    repo: 'mazen160/secrets-patterns-db',
+    type: 'DLP',
+    description:
+      'Curated pattern database for secret detection (~1600 regexes). Use as a corpus for building DLP scanners or supplementing gitleaks.',
+    rules_path: 'db',
+  },
+  {
+    id: 'detect-secrets',
+    label: 'Yelp/detect-secrets',
+    repo: 'Yelp/detect-secrets',
+    type: 'DLP',
+    description:
+      'Pre-commit-friendly secret scanner with pluggable detectors. Useful as a CI gate for the patterns gitleaks already covers, with different tuning trade-offs.',
+    rules_path: 'detect_secrets/plugins',
   },
 ];
 

@@ -61,6 +61,8 @@ const PowershellDeobf = lazy(() => import('./pages/dfir/PowershellDeobf'));
 const AgentMap = lazy(() => import('./pages/dfir/AgentMap'));
 const Tabletop = lazy(() => import('./pages/dfir/Tabletop'));
 const Grc = lazy(() => import('./pages/dfir/Grc'));
+const DlpScan = lazy(() => import('./pages/dfir/DlpScan'));
+const DataClassification = lazy(() => import('./pages/dfir/DataClassification'));
 
 function TechniqueRedirect() {
   const params = new URLSearchParams(window.location.search);
@@ -495,6 +497,22 @@ export function AppContent() {
               element={
                 <Suspense fallback={<SectionLoader />}>
                   <Grc />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/dfir/dlp-scan"
+              element={
+                <Suspense fallback={<SectionLoader />}>
+                  <DlpScan />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/dfir/data-classification"
+              element={
+                <Suspense fallback={<SectionLoader />}>
+                  <DataClassification />
                 </Suspense>
               }
             />

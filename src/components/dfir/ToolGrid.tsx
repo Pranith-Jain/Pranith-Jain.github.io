@@ -41,6 +41,7 @@ import {
   FlaskConical,
   ScrollText,
   FileCheck,
+  FolderTree,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -138,6 +139,25 @@ const SECTIONS: Section[] = [
         label: 'Email Defense / BEC Score',
         desc: 'SPF · DMARC · DKIM · MTA-STS · spoofability score · attack scenarios per gap',
         icon: Mail,
+      },
+    ],
+  },
+  {
+    id: 'data-sec',
+    label: 'Data Security & DLP',
+    blurb: 'Find sensitive data; decide how to handle it.',
+    tools: [
+      {
+        path: '/dfir/dlp-scan',
+        label: 'Sensitive Data Detector',
+        desc: '28 patterns · Luhn / IBAN / Verhoeff / NHS verified · severity + confidence · redact-and-copy',
+        icon: ShieldAlert,
+      },
+      {
+        path: '/dfir/data-classification',
+        label: 'Data Classification & Handling',
+        desc: 'Tier policies · dataset inventory · matrix view · markdown export',
+        icon: FolderTree,
       },
     ],
   },
