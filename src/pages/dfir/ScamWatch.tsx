@@ -24,15 +24,33 @@ const SECTIONS: { id: string; label: string; blurb: string; feedIds: string[] }[
   },
   {
     id: 'deepfake',
-    label: 'Deepfake incidents',
+    label: 'Deepfake & AI voice',
     blurb: 'Synthetic-media-driven scams — voice clones, face-swaps, AI impersonation.',
-    feedIds: ['gnews-deepfake'],
+    feedIds: ['gnews-deepfake', 'gnews-voice-clone'],
+  },
+  {
+    id: 'pig-butchering',
+    label: 'Pig butchering & investment',
+    blurb: 'Long-con investment scams — sha zhu pan, fake brokers, romance-baiting into crypto / forex.',
+    feedIds: ['gnews-pig-butcher', 'gnews-investment-scam', 'reddit-cryptoscams', 'reddit-romance-scams'],
+  },
+  {
+    id: 'job',
+    label: 'Job & recruitment',
+    blurb: 'Fake recruiters, fake interviews, fake offer letters — fastest-growing scam category.',
+    feedIds: ['gnews-job-scam', 'reddit-jobscams'],
+  },
+  {
+    id: 'impersonation',
+    label: 'Impersonation & social engineering',
+    blurb: 'Tech-support, IRS, Microsoft, SIM-swap, vishing — anyone-but-them on the phone.',
+    feedIds: ['gnews-tech-support', 'gnews-sim-swap', 'reddit-scammer-payback'],
   },
   {
     id: 'victims',
     label: 'Victim reports',
     blurb: 'First-person reports posted to Reddit fraud-recovery communities.',
-    feedIds: ['reddit-scams', 'reddit-cryptoscams', 'reddit-romance-scams', 'reddit-phishing-scams'],
+    feedIds: ['reddit-scams', 'reddit-phishing-scams'],
   },
   {
     id: 'news',
@@ -272,6 +290,12 @@ function sectionStyle(section: string): string {
       return 'border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300';
     case 'deepfake':
       return 'border-violet-500/30 bg-violet-500/10 text-violet-700 dark:text-violet-300';
+    case 'pig-butchering':
+      return 'border-pink-500/30 bg-pink-500/10 text-pink-700 dark:text-pink-300';
+    case 'job':
+      return 'border-orange-500/30 bg-orange-500/10 text-orange-700 dark:text-orange-300';
+    case 'impersonation':
+      return 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300';
     case 'victims':
       return 'border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300';
     case 'news':
