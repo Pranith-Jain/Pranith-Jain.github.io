@@ -58,7 +58,7 @@ export default function EmailDefense(): JSX.Element {
     setError(null);
     setData(null);
     try {
-      const res = await fetch(`/api/v1/domain?domain=${encodeURIComponent(trimmed)}`);
+      const res = await fetch(`/api/v1/domain/lookup?domain=${encodeURIComponent(trimmed)}`);
       if (!res.ok) {
         const body = await res.text();
         throw new Error(`API ${res.status}: ${body.slice(0, 200)}`);
