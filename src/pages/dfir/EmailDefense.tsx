@@ -1,0 +1,372 @@
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowLeft, Mail, Search, Loader2, CheckCircle2, AlertTriangle, ExternalLink, Copy, Check } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { assess, type DomainApiResponse, type Severity } from '../../lib/dfir/bec-score';
+
+const SEV_STYLES: Record<Severity, string> = {
+  critical: 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/30',
+  high: 'bg-orange-500/15 text-orange-700 dark:text-orange-300 border-orange-500/30',
+  medium: 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30',
+  low: 'bg-sky-500/15 text-sky-700 dark:text-sky-300 border-sky-500/30',
+  info: 'bg-slate-500/15 text-slate-700 dark:text-slate-300 border-slate-500/30',
+};
+
+const GRADE_BARS: Record<string, string> = {
+  safe: 'bg-emerald-500',
+  low: 'bg-sky-500',
+  medium: 'bg-amber-500',
+  high: 'bg-orange-500',
+  critical: 'bg-rose-500',
+};
+
+function CopyChip({ value }: { value: string }): JSX.Element {
+  const [done, setDone] = useState(false);
+  return (
+    <button
+      onClick={async () => {
+        try {
+          await navigator.clipboard.writeText(value);
+          setDone(true);
+          setTimeout(() => setDone(false), 1200);
+        } catch {
+          /* ignore */
+        }
+      }}
+      className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1"
+    >
+      {done ? <Check size={10} /> : <Copy size={10} />}
+      {done ? 'copied' : 'copy'}
+    </button>
+  );
+}
+
+export default function EmailDefense(): JSX.Element {
+  const [domain, setDomain] = useState('');
+  const [data, setData] = useState<DomainApiResponse | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const lookup = async () => {
+    const trimmed = domain
+      .trim()
+      .toLowerCase()
+      .replace(/^https?:\/\//, '')
+      .replace(/\/.*$/, '');
+    if (!trimmed) return;
+    setLoading(true);
+    setError(null);
+    setData(null);
+    try {
+      const res = await fetch(`/api/v1/domain?domain=${encodeURIComponent(trimmed)}`);
+      if (!res.ok) {
+        const body = await res.text();
+        throw new Error(`API ${res.status}: ${body.slice(0, 200)}`);
+      }
+      const json = (await res.json()) as DomainApiResponse;
+      setData(json);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Lookup failed');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const assessment = data ? assess(data) : null;
+
+  return (
+    <div className="max-w-6xl mx-auto px-8 py-12 text-slate-900 dark:text-slate-100">
+      <Link
+        to="/dfir"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+      >
+        <ArrowLeft size={14} /> /dfir
+      </Link>
+
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+        <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
+          <Mail size={28} className="text-brand-600 dark:text-brand-400" /> Email Defense / BEC Score
+        </h1>
+        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2">
+          Look up a domain's SPF / DMARC / DKIM / MTA-STS posture and score how easy it is to spoof for a BEC pretext.
+          Each gap is paired with the specific BEC scenario it enables and a copy-pastable corrected record.
+        </p>
+        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
+          Different angle from the generic{' '}
+          <Link to="/dfir/domain" className="text-brand-600 dark:text-brand-400 hover:underline">
+            Domain Lookup
+          </Link>{' '}
+          — same data, defender-side framing focused on direct-domain spoofing.
+        </p>
+      </motion.div>
+
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            lookup();
+          }}
+          className="flex flex-wrap gap-2"
+        >
+          <div className="relative flex-1 min-w-[220px]">
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+            <input
+              type="text"
+              value={domain}
+              onChange={(e) => setDomain(e.target.value)}
+              placeholder="example.com"
+              className="w-full pl-9 pr-3 py-2 rounded border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 font-mono text-sm focus:border-brand-500/60 focus:outline-none"
+              aria-label="Domain to check"
+            />
+          </div>
+          <button
+            type="submit"
+            disabled={loading || !domain.trim()}
+            className="text-sm font-mono px-3 py-2 rounded border border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300 hover:border-brand-500 disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center gap-1.5"
+          >
+            {loading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
+            {loading ? 'Looking up' : 'Check'}
+          </button>
+        </form>
+
+        {error && (
+          <p className="mt-2 text-xs font-mono text-rose-600 dark:text-rose-400 inline-flex items-center gap-1.5">
+            <AlertTriangle size={12} /> {error}
+          </p>
+        )}
+      </section>
+
+      {assessment && data && (
+        <>
+          {/* Score */}
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
+              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
+                Spoofability score for {data.domain}
+              </h2>
+              <span
+                className={`text-xs font-mono uppercase tracking-wider px-2.5 py-1 rounded border ${
+                  assessment.grade === 'safe'
+                    ? SEV_STYLES.info
+                    : assessment.grade === 'low'
+                      ? SEV_STYLES.low
+                      : assessment.grade === 'medium'
+                        ? SEV_STYLES.medium
+                        : assessment.grade === 'high'
+                          ? SEV_STYLES.high
+                          : SEV_STYLES.critical
+                }`}
+              >
+                {assessment.grade} · {assessment.spoofScore}/100
+              </span>
+            </div>
+            <div className="h-2 rounded bg-slate-200 dark:bg-slate-800 overflow-hidden mb-3">
+              <div
+                className={`h-full transition-all ${GRADE_BARS[assessment.grade]}`}
+                style={{ width: `${Math.max(2, assessment.spoofScore)}%` }}
+              />
+            </div>
+            <p className="text-sm font-mono text-slate-700 dark:text-slate-300 mb-3">{assessment.headline}</p>
+            <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500">
+              Higher score = easier for an attacker to send mail "from" {data.domain} that lands in someone's inbox. 0
+              means well-defended.
+            </p>
+          </section>
+
+          {/* Quick facts */}
+          <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 mb-6">
+            <Fact
+              label="SPF"
+              value={
+                data.email_auth.spf.present
+                  ? data.email_auth.spf.policy === 'fail'
+                    ? '-all (hard fail)'
+                    : (data.email_auth.spf.policy ?? 'present')
+                  : 'missing'
+              }
+              good={data.email_auth.spf.present && data.email_auth.spf.policy === 'fail'}
+            />
+            <Fact
+              label="DMARC"
+              value={
+                data.email_auth.dmarc.present
+                  ? `${data.email_auth.dmarc.policy ?? 'present'} (pct ${data.email_auth.dmarc.pct ?? 100})`
+                  : 'missing'
+              }
+              good={data.email_auth.dmarc.present && data.email_auth.dmarc.policy === 'reject'}
+            />
+            <Fact
+              label="DKIM selectors"
+              value={
+                data.email_auth.dkim.selectors_found.length === 0
+                  ? 'none observed'
+                  : data.email_auth.dkim.selectors_found.join(', ')
+              }
+              good={data.email_auth.dkim.selectors_found.length > 0}
+            />
+            <Fact
+              label="MTA-STS"
+              value={data.email_auth.mta_sts.present ? (data.email_auth.mta_sts.mode ?? 'present') : 'missing'}
+              good={data.email_auth.mta_sts.mode === 'enforce'}
+            />
+          </section>
+
+          {/* Records observed */}
+          {(data.email_auth.spf.record || data.email_auth.dmarc.record) && (
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+                Records observed
+              </h2>
+              <div className="space-y-2">
+                {data.email_auth.spf.record && (
+                  <RecordRow name={`${data.domain} TXT`} value={data.email_auth.spf.record} />
+                )}
+                {data.email_auth.dmarc.record && (
+                  <RecordRow name={`_dmarc.${data.domain} TXT`} value={data.email_auth.dmarc.record} />
+                )}
+              </div>
+            </section>
+          )}
+
+          {/* Gaps */}
+          {assessment.gaps.length > 0 && (
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+                Gaps & BEC scenarios ({assessment.gaps.length})
+              </h2>
+              <ul className="space-y-3">
+                {assessment.gaps.map((g) => (
+                  <li
+                    key={g.id}
+                    className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3"
+                  >
+                    <div className="flex flex-wrap items-center gap-2 mb-1">
+                      <span className="font-display font-semibold text-slate-900 dark:text-slate-100">{g.title}</span>
+                      <span
+                        className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_STYLES[g.severity]}`}
+                      >
+                        {g.severity}
+                      </span>
+                    </div>
+                    <p className="text-sm font-mono text-slate-700 dark:text-slate-300 mb-2">
+                      <span className="text-rose-600 dark:text-rose-400 font-bold">Attack: </span>
+                      {g.scenario}
+                    </p>
+                    <p className="text-sm font-mono text-emerald-700 dark:text-emerald-400 mb-2">→ {g.remediation}</p>
+                    {g.record && (
+                      <div className="rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-2.5 mt-2">
+                        <div className="flex items-center justify-between gap-2 mb-1">
+                          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500">
+                            Suggested record · {g.record.name} {g.record.type}
+                          </span>
+                          <CopyChip value={g.record.value} />
+                        </div>
+                        <pre className="text-[12px] font-mono text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-all">
+                          {g.record.value}
+                        </pre>
+                      </div>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {/* Positives */}
+          {assessment.positives.length > 0 && (
+            <section className="rounded-lg border border-emerald-500/30 bg-emerald-500/5 p-4 mb-6">
+              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 font-mono mb-2 inline-flex items-center gap-1.5">
+                <CheckCircle2 size={12} /> What you're already doing
+              </h2>
+              <ul className="space-y-1 text-sm font-mono text-slate-700 dark:text-slate-300 list-disc pl-5">
+                {assessment.positives.map((p) => (
+                  <li key={p}>{p}</li>
+                ))}
+              </ul>
+            </section>
+          )}
+        </>
+      )}
+
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+        <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+          References
+        </h2>
+        <ul className="space-y-1.5 text-sm font-mono text-slate-600 dark:text-slate-400">
+          <li>
+            <a
+              href="https://datatracker.ietf.org/doc/html/rfc7489"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+            >
+              RFC 7489 — Domain-based Message Authentication, Reporting &amp; Conformance (DMARC)
+              <ExternalLink size={11} aria-hidden="true" />
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.cisa.gov/news-events/news/binding-operational-directive-18-01"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+            >
+              CISA BOD 18-01 — DMARC enforcement requirements
+              <ExternalLink size={11} aria-hidden="true" />
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://datatracker.ietf.org/doc/html/rfc8461"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+            >
+              RFC 8461 — SMTP MTA Strict Transport Security (MTA-STS)
+              <ExternalLink size={11} aria-hidden="true" />
+            </a>
+          </li>
+        </ul>
+      </section>
+    </div>
+  );
+}
+
+function Fact({ label, value, good }: { label: string; value: string; good: boolean }): JSX.Element {
+  return (
+    <div
+      className={`rounded-lg border p-3 ${
+        good
+          ? 'border-emerald-500/30 bg-emerald-500/5'
+          : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900'
+      }`}
+    >
+      <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500 mb-1">
+        {label}
+      </div>
+      <div
+        className={`text-sm font-mono ${
+          good ? 'text-emerald-700 dark:text-emerald-300' : 'text-slate-800 dark:text-slate-200'
+        }`}
+      >
+        {value}
+      </div>
+    </div>
+  );
+}
+
+function RecordRow({ name, value }: { name: string; value: string }): JSX.Element {
+  return (
+    <div className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-2.5">
+      <div className="flex items-center justify-between gap-2 mb-1">
+        <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500">
+          {name}
+        </span>
+        <CopyChip value={value} />
+      </div>
+      <pre className="text-[12px] font-mono text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-all">
+        {value}
+      </pre>
+    </div>
+  );
+}

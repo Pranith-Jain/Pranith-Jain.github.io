@@ -33,6 +33,9 @@ import {
   Plug,
   Crosshair,
   Diamond,
+  Mail,
+  Terminal,
+  FlaskConical,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -64,6 +67,12 @@ const FEATURED: Tool[] = [
     label: 'Phishing Analyzer',
     desc: 'Email headers · auth · embedded URLs',
     icon: ShieldAlert,
+  },
+  {
+    path: '/dfir/email-defense',
+    label: 'Email Defense / BEC Score',
+    desc: 'SPF · DMARC · DKIM · MTA-STS · spoofability score · attack scenarios per gap',
+    icon: Mail,
   },
   { path: '/dfir/mitre', label: 'MITRE ATT&CK', desc: 'Matrix · technique deep-dive · actor mapping', icon: Grid3x3 },
   {
@@ -144,6 +153,18 @@ const UTILITIES: Tool[] = [
   { path: '/dfir/dashboard', label: 'Recent Lookups', desc: 'Your last 20 queries', icon: Clock },
   { path: '/dfir/actors', label: 'Threat Actors', desc: 'APT catalog · STIX-aware', icon: Users },
   { path: '/dfir/privacy', label: 'Privacy Check', desc: 'IP · WebRTC · fingerprint', icon: Lock },
+  {
+    path: '/dfir/lolbins',
+    label: 'LOLBins / GTFOBins',
+    desc: 'Curated living-off-the-land catalog · ATT&CK-mapped · detection ideas',
+    icon: Terminal,
+  },
+  {
+    path: '/dfir/rule-playground',
+    label: 'YARA / Sigma Playground',
+    desc: 'Paste rule + sample · highlight matches · client-side',
+    icon: FlaskConical,
+  },
 ];
 
 const EXTERNAL: Tool[] = [

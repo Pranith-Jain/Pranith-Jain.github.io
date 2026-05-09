@@ -53,6 +53,9 @@ const PromptInjection = lazy(() => import('./pages/dfir/PromptInjection'));
 const McpAudit = lazy(() => import('./pages/dfir/McpAudit'));
 const KillChain = lazy(() => import('./pages/dfir/KillChain'));
 const Diamond = lazy(() => import('./pages/dfir/Diamond'));
+const Lolbins = lazy(() => import('./pages/dfir/Lolbins'));
+const RulePlayground = lazy(() => import('./pages/dfir/RulePlayground'));
+const EmailDefense = lazy(() => import('./pages/dfir/EmailDefense'));
 
 function TechniqueRedirect() {
   const params = new URLSearchParams(window.location.search);
@@ -423,6 +426,30 @@ export function AppContent() {
               element={
                 <Suspense fallback={<SectionLoader />}>
                   <Diamond />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/dfir/lolbins"
+              element={
+                <Suspense fallback={<SectionLoader />}>
+                  <Lolbins />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/dfir/rule-playground"
+              element={
+                <Suspense fallback={<SectionLoader />}>
+                  <RulePlayground />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/dfir/email-defense"
+              element={
+                <Suspense fallback={<SectionLoader />}>
+                  <EmailDefense />
                 </Suspense>
               }
             />
