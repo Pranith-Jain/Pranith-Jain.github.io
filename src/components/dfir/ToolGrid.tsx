@@ -43,6 +43,8 @@ import {
   FileCheck,
   FolderTree,
   Scale,
+  AtSign,
+  History,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -121,6 +123,37 @@ const SECTIONS: Section[] = [
         label: 'Cyber Threat Map',
         desc: 'Live geolocation of malicious infrastructure · choropleth + leaderboard',
         icon: Globe2,
+      },
+    ],
+  },
+  {
+    id: 'osint',
+    label: 'OSINT',
+    blurb: 'Open-source pivots — username, archive, code-host metadata, curated directory.',
+    tools: [
+      {
+        path: '/dfir/username',
+        label: 'Username Pivot',
+        desc: 'Sherlock-lite · 50+ services · live CORS checks for GitHub/GitLab/Reddit/HN/Mastodon · client-side',
+        icon: AtSign,
+      },
+      {
+        path: '/dfir/wayback',
+        label: 'Wayback Machine Pivot',
+        desc: 'Internet Archive CDX timeline · first/last seen · status-code distribution · snapshot links',
+        icon: History,
+      },
+      {
+        path: '/dfir/github-osint',
+        label: 'GitHub Recon',
+        desc: 'Profile · top repos · languages · activity · opt-in commit-author email scan',
+        icon: Github,
+      },
+      {
+        path: '/dfir/osint-framework',
+        label: 'OSINT Framework',
+        desc: '70+ curated OSINT tools across 15 categories · pricing-tier + category filter · search',
+        icon: Compass,
       },
     ],
   },

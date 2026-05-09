@@ -64,6 +64,10 @@ const Grc = lazy(() => import('./pages/dfir/Grc'));
 const DlpScan = lazy(() => import('./pages/dfir/DlpScan'));
 const DataClassification = lazy(() => import('./pages/dfir/DataClassification'));
 const PrivacyHub = lazy(() => import('./pages/dfir/PrivacyHub'));
+const UsernamePivot = lazy(() => import('./pages/dfir/UsernamePivot'));
+const Wayback = lazy(() => import('./pages/dfir/Wayback'));
+const GithubOsint = lazy(() => import('./pages/dfir/GithubOsint'));
+const OsintFramework = lazy(() => import('./pages/dfir/OsintFramework'));
 
 function TechniqueRedirect() {
   const params = new URLSearchParams(window.location.search);
@@ -522,6 +526,38 @@ export function AppContent() {
               element={
                 <Suspense fallback={<SectionLoader />}>
                   <PrivacyHub />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/dfir/username"
+              element={
+                <Suspense fallback={<SectionLoader />}>
+                  <UsernamePivot />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/dfir/wayback"
+              element={
+                <Suspense fallback={<SectionLoader />}>
+                  <Wayback />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/dfir/github-osint"
+              element={
+                <Suspense fallback={<SectionLoader />}>
+                  <GithubOsint />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/dfir/osint-framework"
+              element={
+                <Suspense fallback={<SectionLoader />}>
+                  <OsintFramework />
                 </Suspense>
               }
             />

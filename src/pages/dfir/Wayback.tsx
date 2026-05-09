@@ -1,0 +1,339 @@
+import { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowLeft, History, Search, Loader2, ExternalLink, AlertTriangle, CheckCircle2 } from 'lucide-react';
+import { motion } from 'framer-motion';
+
+interface Snapshot {
+  timestamp: string; // YYYYMMDDhhmmss
+  original: string;
+  status: string;
+  mime: string;
+  digest: string;
+  length: string;
+}
+
+const CDX_BASE = 'https://web.archive.org/cdx/search/cdx';
+
+function buildCdxUrl(target: string, limit = 200): string {
+  const params = new URLSearchParams({
+    url: target,
+    output: 'json',
+    fl: 'timestamp,original,statuscode,mimetype,digest,length',
+    limit: String(limit),
+    collapse: 'digest', // dedupe identical content
+  });
+  return `${CDX_BASE}?${params.toString()}`;
+}
+
+function fmtTs(ts: string): string {
+  if (ts.length < 14) return ts;
+  return `${ts.slice(0, 4)}-${ts.slice(4, 6)}-${ts.slice(6, 8)} ${ts.slice(8, 10)}:${ts.slice(10, 12)}:${ts.slice(12, 14)} UTC`;
+}
+
+function snapshotUrl(ts: string, target: string): string {
+  return `https://web.archive.org/web/${ts}/${target}`;
+}
+
+function statusClass(status: string): string {
+  if (status.startsWith('2')) return 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300';
+  if (status.startsWith('3')) return 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300';
+  if (status.startsWith('4')) return 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300';
+  if (status.startsWith('5')) return 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300';
+  return 'border-slate-300 dark:border-slate-700 text-slate-500';
+}
+
+export default function Wayback(): JSX.Element {
+  const [url, setUrl] = useState('');
+  const [snapshots, setSnapshots] = useState<Snapshot[] | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const lookup = async () => {
+    const t = url.trim();
+    if (!t) return;
+    setLoading(true);
+    setError(null);
+    setSnapshots(null);
+    try {
+      // CDX returns [[header...],[row...],...] as 2D array.
+      const res = await fetch(buildCdxUrl(t));
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = (await res.json()) as string[][];
+      if (!Array.isArray(data) || data.length === 0) {
+        setSnapshots([]);
+        return;
+      }
+      const [, ...rows] = data;
+      const parsed: Snapshot[] = rows.map(([timestamp, original, status, mime, digest, length]) => ({
+        timestamp,
+        original,
+        status,
+        mime,
+        digest,
+        length,
+      }));
+      setSnapshots(parsed);
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const stats = useMemo(() => {
+    if (!snapshots || snapshots.length === 0) return null;
+    const sorted = [...snapshots].sort((a, b) => a.timestamp.localeCompare(b.timestamp));
+    const first = sorted[0];
+    const last = sorted[sorted.length - 1];
+    const statusCounts: Record<string, number> = {};
+    for (const s of snapshots) {
+      const bucket = s.status ? `${s.status[0]}xx` : 'unknown';
+      statusCounts[bucket] = (statusCounts[bucket] || 0) + 1;
+    }
+    return { first, last, statusCounts };
+  }, [snapshots]);
+
+  // Most recent first for display
+  const displaySnapshots = useMemo(() => {
+    if (!snapshots) return [];
+    return [...snapshots].sort((a, b) => b.timestamp.localeCompare(a.timestamp));
+  }, [snapshots]);
+
+  return (
+    <div className="max-w-6xl mx-auto px-8 py-12 text-slate-900 dark:text-slate-100">
+      <Link
+        to="/dfir"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+      >
+        <ArrowLeft size={14} /> /dfir
+      </Link>
+
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+        <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
+          <History size={28} className="text-brand-600 dark:text-brand-400" /> Wayback Machine Pivot
+        </h1>
+        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2">
+          Paste a URL — get the Internet Archive snapshot timeline (first / last seen, status-code distribution, deduped
+          via content digest). Useful for phishing-site evolution, infrastructure churn, and content provenance.
+        </p>
+        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
+          Powered by the public Internet Archive CDX API. Capped at 200 snapshots per query for responsiveness; for
+          deeper history use{' '}
+          <a
+            href="https://web.archive.org/web/*/example.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-brand-600 dark:text-brand-400 hover:underline"
+          >
+            archive.org's calendar view
+          </a>
+          .
+        </p>
+      </motion.div>
+
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            void lookup();
+          }}
+          className="flex flex-wrap gap-2"
+        >
+          <div className="relative flex-1 min-w-[280px]">
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+            <input
+              type="url"
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              placeholder="https://example.com  (or example.com/some/path)"
+              className="w-full pl-9 pr-3 py-2 rounded border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 font-mono text-sm focus:border-brand-500/60 focus:outline-none"
+              aria-label="URL to look up"
+              autoComplete="off"
+            />
+          </div>
+          <button
+            type="submit"
+            disabled={loading || !url.trim()}
+            className="text-sm font-mono px-3 py-2 rounded border border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300 hover:border-brand-500 disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center gap-1.5"
+          >
+            {loading ? <Loader2 size={14} className="animate-spin" /> : <History size={14} />}
+            {loading ? 'Loading' : 'Lookup'}
+          </button>
+        </form>
+        {error && (
+          <p className="mt-2 text-xs font-mono text-rose-600 dark:text-rose-400 inline-flex items-center gap-1.5">
+            <AlertTriangle size={12} /> {error}
+          </p>
+        )}
+      </section>
+
+      {snapshots && snapshots.length === 0 && !error && (
+        <section className="rounded-lg border border-amber-500/30 bg-amber-500/5 p-4 mb-6 text-sm font-mono text-amber-700 dark:text-amber-300 inline-flex items-center gap-2">
+          <AlertTriangle size={14} /> No snapshots found for this URL. The Internet Archive may not have crawled it, or
+          the path is too specific — try the bare domain.
+        </section>
+      )}
+
+      {stats && (
+        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
+            <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
+              Timeline summary
+            </h2>
+            <span className="text-[11px] font-mono text-slate-500 dark:text-slate-500 inline-flex items-center gap-1.5">
+              <CheckCircle2 size={12} className="text-emerald-500" /> {snapshots?.length ?? 0} unique snapshots
+            </span>
+          </div>
+          <div className="grid gap-2 sm:grid-cols-3 mb-3 text-[12px] font-mono">
+            <Stat
+              label="First seen"
+              value={fmtTs(stats.first.timestamp)}
+              url={snapshotUrl(stats.first.timestamp, stats.first.original)}
+            />
+            <Stat
+              label="Last seen"
+              value={fmtTs(stats.last.timestamp)}
+              url={snapshotUrl(stats.last.timestamp, stats.last.original)}
+            />
+            <Stat label="Span" value={daysBetween(stats.first.timestamp, stats.last.timestamp)} />
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            {Object.entries(stats.statusCounts).map(([bucket, n]) => (
+              <span
+                key={bucket}
+                className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${statusClass(bucket[0])}`}
+              >
+                {bucket} · {n}
+              </span>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {displaySnapshots.length > 0 && (
+        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+            Snapshots (most recent first)
+          </h2>
+          <div className="overflow-x-auto">
+            <table className="w-full text-[12px] font-mono">
+              <thead className="text-left text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-500">
+                <tr>
+                  <th className="pb-2 pr-3">Timestamp</th>
+                  <th className="pb-2 pr-3">Status</th>
+                  <th className="pb-2 pr-3">MIME</th>
+                  <th className="pb-2 pr-3">Length</th>
+                  <th className="pb-2 pr-3">Open</th>
+                </tr>
+              </thead>
+              <tbody>
+                {displaySnapshots.slice(0, 100).map((s) => (
+                  <tr key={`${s.timestamp}-${s.digest}`} className="border-t border-slate-200 dark:border-slate-800">
+                    <td className="py-1.5 pr-3 text-slate-700 dark:text-slate-300 whitespace-nowrap">
+                      {fmtTs(s.timestamp)}
+                    </td>
+                    <td className="py-1.5 pr-3">
+                      <span
+                        className={`text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded border ${statusClass(s.status || '0')}`}
+                      >
+                        {s.status || '—'}
+                      </span>
+                    </td>
+                    <td className="py-1.5 pr-3 text-slate-600 dark:text-slate-400">{s.mime || '—'}</td>
+                    <td className="py-1.5 pr-3 text-slate-600 dark:text-slate-400">{s.length}</td>
+                    <td className="py-1.5 pr-3">
+                      <a
+                        href={snapshotUrl(s.timestamp, s.original)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                      >
+                        view <ExternalLink size={10} />
+                      </a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {displaySnapshots.length > 100 && (
+              <p className="mt-3 text-[11px] font-mono text-slate-500 dark:text-slate-500">
+                Showing the 100 most recent of {displaySnapshots.length}. Re-run with a more specific URL or use{' '}
+                <a
+                  href={`https://web.archive.org/web/*/${url}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-brand-600 dark:text-brand-400 hover:underline"
+                >
+                  archive.org's calendar view
+                </a>
+                .
+              </p>
+            )}
+          </div>
+        </section>
+      )}
+
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+        <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2">
+          Companion lookups
+        </h2>
+        <ul className="space-y-1.5 text-sm font-mono text-slate-600 dark:text-slate-400 list-disc pl-5">
+          <li>
+            <Link to="/dfir/domain" className="text-brand-600 dark:text-brand-400 hover:underline">
+              Domain Lookup
+            </Link>{' '}
+            — RDAP, DNS, email-auth posture.
+          </li>
+          <li>
+            <Link to="/dfir/url-preview" className="text-brand-600 dark:text-brand-400 hover:underline">
+              URL Preview
+            </Link>{' '}
+            — server-side metadata for live URLs.
+          </li>
+          <li>
+            <Link to="/dfir/exposure" className="text-brand-600 dark:text-brand-400 hover:underline">
+              Exposure Scanner
+            </Link>{' '}
+            — subdomains and open ports.
+          </li>
+        </ul>
+      </section>
+    </div>
+  );
+}
+
+function Stat({ label, value, url }: { label: string; value: string; url?: string }): JSX.Element {
+  return (
+    <div className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-2.5">
+      <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500 mb-1">
+        {label}
+      </div>
+      {url ? (
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-slate-800 dark:text-slate-200 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+        >
+          {value} <ExternalLink size={10} />
+        </a>
+      ) : (
+        <span className="text-slate-800 dark:text-slate-200">{value}</span>
+      )}
+    </div>
+  );
+}
+
+function daysBetween(a: string, b: string): string {
+  // YYYYMMDDhhmmss → ISO
+  const toIso = (s: string) =>
+    `${s.slice(0, 4)}-${s.slice(4, 6)}-${s.slice(6, 8)}T${s.slice(8, 10)}:${s.slice(10, 12)}:${s.slice(12, 14)}Z`;
+  const start = new Date(toIso(a)).getTime();
+  const end = new Date(toIso(b)).getTime();
+  if (!start || !end) return '—';
+  const days = Math.round((end - start) / 86_400_000);
+  if (days <= 1) return '<1 day';
+  if (days < 365) return `${days} days`;
+  const years = (days / 365).toFixed(1);
+  return `${years} years`;
+}
