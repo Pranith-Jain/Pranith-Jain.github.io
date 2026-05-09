@@ -5,7 +5,7 @@ export const personalInfo = {
   // Short form, used in tight UI like the profile card to avoid overflow.
   shortTitle: 'Security Analyst & Detection Engineer',
   headline: '"Investigating attacks at human scale. Building defenders at AI scale."',
-  description: `a security analyst and detection engineer. I investigate phishing, BEC, and malware incidents for 150+ global brands, and ship the tools I use. There's a free DFIR toolkit on Cloudflare Workers (28 tools, 22 threat intel sources, no signup) at /dfir, including OWASP Top 10, prompt-injection detection, and MCP server auditing. Currently expanding into AI security and NHI (Non-Human Identity) governance.`,
+  description: `a security analyst and detection engineer. I investigate phishing, BEC, and malware incidents for 150+ global brands, and ship the tools I use. There's a free DFIR toolkit on Cloudflare Workers (29 tools, 22 threat intel sources, no signup) at /dfir, including the Cyber Kill Chain, Diamond Model, OWASP Top 10, prompt-injection detection, and a Claude Code / MCP auditor. Currently expanding into AI security and NHI (Non-Human Identity) governance.`,
   currentFocus: 'Threat intel, email defense, and cloud identity security',
   currentlyLearning: 'NHI Security & Advanced Threat Hunting',
   availability: 'Open for Consultations & Strategy Calls',

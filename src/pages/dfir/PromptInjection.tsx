@@ -1,11 +1,14 @@
 import { useMemo, useState } from 'react';
-import { ShieldAlert, AlertTriangle, CheckCircle2, ExternalLink } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { ShieldAlert, AlertTriangle, CheckCircle2, ExternalLink, ArrowLeft } from 'lucide-react';
 import {
   PATTERNS,
   detectInjections,
   severityScore,
+  LLM_TOP10,
   type InjectionMatch,
   type Severity,
+  type LlmTop10Id,
 } from '../../lib/dfir/prompt-injection-patterns';
 
 const SAMPLES: { label: string; text: string }[] = [
@@ -98,6 +101,7 @@ function highlight(input: string, matches: InjectionMatch[]): JSX.Element[] {
 
 export default function PromptInjection(): JSX.Element {
   const [input, setInput] = useState('');
+  const [owaspFilter, setOwaspFilter] = useState<LlmTop10Id | 'all'>('all');
 
   const matches = useMemo(() => (input.trim() ? detectInjections(input) : []), [input]);
   const { score, grade } = useMemo(() => severityScore(matches), [matches]);
@@ -112,8 +116,22 @@ export default function PromptInjection(): JSX.Element {
     return Array.from(groups.entries());
   }, [matches]);
 
+  const filteredCatalog = useMemo(() => {
+    if (owaspFilter === 'all') return PATTERNS;
+    return PATTERNS.filter((p) => p.owasp.includes(owaspFilter));
+  }, [owaspFilter]);
+
+  const owaspIds = Object.keys(LLM_TOP10) as LlmTop10Id[];
+
   return (
     <div className="space-y-6">
+      <Link
+        to="/dfir"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 font-mono"
+      >
+        <ArrowLeft size={14} /> /dfir
+      </Link>
+
       <header className="flex items-start gap-3">
         <div className="rounded-lg bg-brand-500/10 p-2.5">
           <ShieldAlert className="h-5 w-5 text-brand-600 dark:text-brand-400" aria-hidden="true" />
@@ -240,6 +258,15 @@ export default function PromptInjection(): JSX.Element {
                       <span className="text-[10px] font-mono text-slate-500 dark:text-slate-500">
                         {m.pattern.category}
                       </span>
+                      {m.pattern.owasp.map((id) => (
+                        <span
+                          key={id}
+                          title={`OWASP ${id} — ${LLM_TOP10[id].title}`}
+                          className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300"
+                        >
+                          {id}
+                        </span>
+                      ))}
                     </div>
                     <p className="text-sm font-mono text-slate-600 dark:text-slate-400">{m.pattern.description}</p>
                     {m.pattern.reference && (
@@ -256,22 +283,69 @@ export default function PromptInjection(): JSX.Element {
       )}
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
-        <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
-          Pattern catalog ({PATTERNS.length})
-        </h2>
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
+          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
+            Pattern catalog ({filteredCatalog.length}/{PATTERNS.length})
+          </h2>
+        </div>
+        <div className="flex flex-wrap gap-1.5 mb-4">
+          <button
+            onClick={() => setOwaspFilter('all')}
+            className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
+              owaspFilter === 'all'
+                ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
+                : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+            }`}
+          >
+            All
+          </button>
+          {owaspIds.map((id) => {
+            const count = PATTERNS.filter((p) => p.owasp.includes(id)).length;
+            const meta = LLM_TOP10[id];
+            return (
+              <button
+                key={id}
+                onClick={() => setOwaspFilter(id)}
+                title={`${meta.title} — ${meta.short}`}
+                className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
+                  owaspFilter === id
+                    ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
+                    : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+                }`}
+              >
+                {id} <span className="opacity-60">· {count}</span>
+              </button>
+            );
+          })}
+        </div>
+        {owaspFilter !== 'all' && (
+          <p className="text-xs font-mono text-slate-500 dark:text-slate-500 mb-3">
+            <span className="font-semibold text-slate-700 dark:text-slate-300">{LLM_TOP10[owaspFilter].title}</span>
+            {' — '}
+            {LLM_TOP10[owaspFilter].short}
+          </p>
+        )}
         <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-          {PATTERNS.map((p) => (
+          {filteredCatalog.map((p) => (
             <div
               key={p.id}
               className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-2.5"
             >
-              <div className="flex items-center gap-1.5 mb-1">
+              <div className="flex flex-wrap items-center gap-1.5 mb-1">
                 <span className="text-xs font-display font-semibold text-slate-900 dark:text-slate-100">{p.name}</span>
                 <span
                   className={`text-[9px] font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${SEVERITY_STYLES[p.severity]}`}
                 >
                   {p.severity}
                 </span>
+                {p.owasp.map((id) => (
+                  <span
+                    key={id}
+                    className="text-[9px] font-mono px-1 py-0.5 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300"
+                  >
+                    {id}
+                  </span>
+                ))}
               </div>
               <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500 leading-relaxed">
                 {p.description}

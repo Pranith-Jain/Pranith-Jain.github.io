@@ -4,7 +4,6 @@ import {
   ShieldAlert,
   Globe,
   Radar,
-  FileSearch,
   BookOpen,
   Clock,
   Users,
@@ -32,6 +31,8 @@ import {
   ShieldCheck,
   Sparkles,
   Plug,
+  Crosshair,
+  Diamond,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -47,8 +48,8 @@ interface Tool {
 const FEATURED: Tool[] = [
   {
     path: '/dfir/ioc-check',
-    label: 'IOC Checker',
-    desc: '24 sources · streaming results · IPs · domains · URLs · hashes',
+    label: 'IOC & Hash Checker',
+    desc: '24 sources · streaming results · IPs · domains · URLs · file hashes',
     icon: Hash,
   },
   { path: '/dfir/extract', label: 'IOC Extractor', desc: 'Pull IOCs from any text blob · refang-aware', icon: Filter },
@@ -65,6 +66,18 @@ const FEATURED: Tool[] = [
     icon: ShieldAlert,
   },
   { path: '/dfir/mitre', label: 'MITRE ATT&CK', desc: 'Matrix · technique deep-dive · actor mapping', icon: Grid3x3 },
+  {
+    path: '/dfir/kill-chain',
+    label: 'Cyber Kill Chain',
+    desc: '7 phases · 28 techniques · ATT&CK cross-links',
+    icon: Crosshair,
+  },
+  {
+    path: '/dfir/diamond',
+    label: 'Diamond Model',
+    desc: '4 vertices · meta-features · interactive event template',
+    icon: Diamond,
+  },
   {
     path: '/dfir/stix',
     label: 'STIX Viewer',
@@ -103,8 +116,8 @@ const FEATURED: Tool[] = [
   },
   {
     path: '/dfir/mcp-audit',
-    label: 'MCP Server Auditor',
-    desc: 'Audit MCP configs for tool poisoning · hardcoded secrets · excessive agency',
+    label: 'MCP & Claude Code Auditor',
+    desc: 'MCP configs + Claude Code settings · hooks · permission rules · tool poisoning',
     icon: Plug,
   },
   {
@@ -119,7 +132,6 @@ const FEATURED: Tool[] = [
 const UTILITIES: Tool[] = [
   { path: '/dfir/domain', label: 'Domain Lookup', desc: 'WHOIS · DNS · email auth', icon: Globe },
   { path: '/dfir/exposure', label: 'Exposure Scanner', desc: 'Subdomains + open ports', icon: Radar },
-  { path: '/dfir/file', label: 'File Analyzer', desc: 'Hash-based lookups', icon: FileSearch },
   { path: '/dfir/jwt', label: 'JWT Inspector', desc: 'Decode + flag alg=none, exp, weak claims', icon: KeyRound },
   { path: '/dfir/punycode', label: 'Homograph Detector', desc: 'IDN · mixed scripts · brand lookalikes', icon: Type },
   { path: '/dfir/cve', label: 'CVE Lookup', desc: 'NVD · EPSS · KEV · Exploit-DB', icon: Search },

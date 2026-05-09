@@ -310,3 +310,371 @@ export function summarise(findings: Finding[]): {
   const worst = order.find((s) => counts[s] > 0) ?? 'info';
   return { counts, worst };
 }
+
+// ─────────────────────────────────────────────────────────────────────────
+// Claude Code settings scanner
+// ─────────────────────────────────────────────────────────────────────────
+// Settings shape (per ~/.claude/settings.json):
+//   {
+//     "permissions": { "allow": ["Bash(git:*)"], "deny": ["Bash(rm:*)"], "ask": [...] },
+//     "hooks": { "PreToolUse": [{ "matcher": "Bash", "hooks": [{ "type": "command", "command": "...", "timeout": 5 }] }] },
+//     "mcpServers": {...},
+//     "apiKeyHelper": "/path/to/script",
+//     "env": {...}
+//   }
+
+interface ClaudeCodeSettings {
+  permissions?: {
+    allow?: string[];
+    deny?: string[];
+    ask?: string[];
+    defaultMode?: string;
+  };
+  hooks?: Record<
+    string,
+    Array<{
+      matcher?: string;
+      hooks?: Array<{ type?: string; command?: string; timeout?: number }>;
+    }>
+  >;
+  mcpServers?: Record<string, McpServerEntry>;
+  apiKeyHelper?: string;
+  env?: Record<string, string>;
+  enableAllProjectMcpServers?: boolean;
+  enabledMcpjsonServers?: string[];
+  disabledMcpjsonServers?: string[];
+}
+
+const DANGEROUS_BASH_HEADS = [
+  'rm',
+  'mv',
+  'dd',
+  'mkfs',
+  'shutdown',
+  'reboot',
+  'kill',
+  'killall',
+  'chmod',
+  'chown',
+  'sudo',
+  'su',
+  'curl',
+  'wget',
+  'eval',
+  'sh',
+  'bash',
+  'find',
+];
+
+function checkPermissionRule(rule: string, kind: 'allow' | 'deny' | 'ask', out: Finding[]): void {
+  // Bash(*) — full shell access
+  if (rule === 'Bash(*)' || rule === 'Bash' || rule === '*') {
+    pushIfNew(out, {
+      id: 'permission-blank-cheque',
+      title: `${kind === 'allow' ? 'Blank-cheque allow rule' : 'Catch-all rule'}: ${rule}`,
+      severity: kind === 'allow' ? 'critical' : 'low',
+      scope: `permissions.${kind}`,
+      detail:
+        kind === 'allow'
+          ? `Rule "${rule}" allows the model to invoke any shell command without prompting. Tool poisoning, prompt injection, or a misjudged step can run anything.`
+          : `Rule "${rule}" is a catch-all in ${kind}.`,
+      remediation:
+        'Replace with task-specific allow rules like Bash(git status), Bash(npm test), Bash(ls *). Keep destructive primitives (rm, mv, curl) out of allow.',
+    });
+  }
+
+  // Bash(<dangerous>:*) in allow
+  const m = rule.match(/^Bash\((\w+)(?::\*?)?\)/);
+  if (m && kind === 'allow') {
+    const head = m[1].toLowerCase();
+    if (DANGEROUS_BASH_HEADS.includes(head)) {
+      pushIfNew(out, {
+        id: `permission-dangerous-${head}`,
+        title: `Dangerous allow rule: Bash(${head}:*)`,
+        severity: head === 'rm' || head === 'curl' || head === 'wget' || head === 'sudo' ? 'critical' : 'high',
+        scope: `permissions.allow`,
+        detail: `Allow rule "${rule}" auto-approves "${head}" with any args. ${head === 'curl' || head === 'wget' ? 'Trivially exfiltrates files or pulls payloads from C2.' : head === 'rm' ? 'Wipes anything the model thinks needs cleaning up.' : 'Broad-permission shell primitive — moves it from "ask" to silent execution.'}`,
+        remediation: `Tighten the rule (e.g. Bash(${head} ./safe/path) or move it back to "ask"). Don't auto-approve destructive or network primitives.`,
+      });
+    }
+  }
+
+  // Read(/etc/*), Read(~/.ssh/*) etc. in allow
+  const r = rule.match(/^Read\((.+)\)$/);
+  if (r && kind === 'allow') {
+    const target = r[1];
+    if (
+      /\/etc\/|~\/\.ssh|\/\.env|\/\.aws|\/\.config|\/Library\/Keychains/i.test(target) ||
+      target === '*' ||
+      target === '/' ||
+      target === '~'
+    ) {
+      pushIfNew(out, {
+        id: 'permission-sensitive-read',
+        title: `Sensitive read allow: Read(${target})`,
+        severity: 'high',
+        scope: `permissions.allow`,
+        detail: `Auto-approving reads on "${target}" lets the model surface secrets, SSH keys, AWS creds, or tokens — which a prompt-injection then exfiltrates.`,
+        remediation: 'Scope reads to the project tree. Keep secret-bearing paths in "ask" or "deny".',
+      });
+    }
+  }
+
+  // WebFetch(*) etc. — broad network egress
+  if (/^WebFetch(\(\*?\))?$/i.test(rule) && kind === 'allow') {
+    pushIfNew(out, {
+      id: 'permission-broad-webfetch',
+      title: 'Broad WebFetch allow',
+      severity: 'medium',
+      scope: `permissions.allow`,
+      detail: 'WebFetch with no host scope lets indirect-injection content reach attacker-controlled URLs.',
+      remediation: 'Pin WebFetch to specific hosts: WebFetch(domain:github.com), WebFetch(domain:docs.example.com).',
+    });
+  }
+}
+
+function checkHookEntry(
+  event: string,
+  matcher: string | undefined,
+  hookCmd: { type?: string; command?: string; timeout?: number },
+  idx: number,
+  out: Finding[]
+): void {
+  const cmd = (hookCmd.command ?? '').trim();
+  const scope = `hooks.${event}[${idx}]${matcher ? `(${matcher})` : ''}`;
+
+  if (!cmd) return;
+
+  if (cmd.includes('| sh') || cmd.includes('|sh') || /\bcurl\b.*\|\s*(ba)?sh/.test(cmd)) {
+    pushIfNew(out, {
+      id: 'hook-curl-pipe-sh',
+      title: 'Hook downloads and executes code',
+      severity: 'critical',
+      scope,
+      detail: `Hook command "${cmd.slice(0, 80)}..." pipes a network download into a shell. The hook fires automatically — there's no user prompt — so this is silent RCE.`,
+      remediation: 'Install hook scripts out-of-band, then point command at the resolved local path.',
+    });
+  }
+
+  if (/^https?:\/\//.test(cmd)) {
+    pushIfNew(out, {
+      id: 'hook-remote-url',
+      title: 'Hook command is a remote URL',
+      severity: 'critical',
+      scope,
+      detail: `Hook command begins with "${cmd.slice(0, 60)}..." — every fired hook becomes a remote-code-execution gadget if the host is compromised.`,
+      remediation: 'Hooks should run vetted local scripts only.',
+    });
+  }
+
+  if (/\b(rm|dd|mkfs)\s+-rf?\s+\//.test(cmd)) {
+    pushIfNew(out, {
+      id: 'hook-destructive',
+      title: 'Hook contains destructive command',
+      severity: 'critical',
+      scope,
+      detail: `Hook would run "${cmd}" — destructive on every trigger.`,
+      remediation: 'Remove the destructive op or scope it to a known temp path.',
+    });
+  }
+
+  if (LITERAL_SECRET_RE.test(cmd) || /(ghp_|sk-|AKIA|xox[abprs]-)/.test(cmd)) {
+    pushIfNew(out, {
+      id: 'hook-secret-in-command',
+      title: 'Hook command contains a literal secret',
+      severity: 'critical',
+      scope,
+      detail:
+        'A token, key, or PAT is embedded directly in the hook command. Anyone with read access to settings.json gets the credential.',
+      remediation: 'Read secrets from env/keychain inside the hook script — never inline them in settings.',
+    });
+  }
+
+  if (typeof hookCmd.timeout !== 'number' || hookCmd.timeout > 60) {
+    pushIfNew(out, {
+      id: 'hook-no-timeout',
+      title: 'Hook has no / large timeout',
+      severity: 'low',
+      scope,
+      detail: `Hook ${typeof hookCmd.timeout !== 'number' ? 'has no timeout' : `times out after ${hookCmd.timeout}s`}. Long/missing timeouts let a hung hook block the agent or run cost-bombs.`,
+      remediation: 'Set "timeout" to a small number (e.g. 5–10 seconds) appropriate for the script.',
+    });
+  }
+
+  if (event === 'UserPromptSubmit' || event === 'PreToolUse') {
+    if (/^https?:\/\/|curl|wget|nc\s/i.test(cmd)) {
+      pushIfNew(out, {
+        id: 'hook-egress-pretool',
+        title: `Network egress in ${event} hook`,
+        severity: 'high',
+        scope,
+        detail:
+          'Pre-tool / pre-prompt hooks see every user input. If they egress to the network, every prompt is leaking.',
+        remediation: 'Keep PreToolUse and UserPromptSubmit hooks local-only.',
+      });
+    }
+  }
+}
+
+export function auditClaudeCodeSettings(raw: unknown): Finding[] {
+  const out: Finding[] = [];
+  if (!raw || typeof raw !== 'object') {
+    out.push({
+      id: 'parse',
+      title: 'Input is not a JSON object',
+      severity: 'low',
+      scope: '$',
+      detail: 'Paste a valid Claude Code settings.json (~/.claude/settings.json or .claude/settings.json).',
+      remediation: 'Paste your settings file content.',
+    });
+    return out;
+  }
+  const cfg = raw as ClaudeCodeSettings;
+
+  // Permissions
+  if (cfg.permissions) {
+    for (const rule of cfg.permissions.allow ?? []) {
+      if (typeof rule === 'string') checkPermissionRule(rule, 'allow', out);
+    }
+    for (const rule of cfg.permissions.deny ?? []) {
+      if (typeof rule === 'string') checkPermissionRule(rule, 'deny', out);
+    }
+
+    // No deny rules at all
+    if (!cfg.permissions.deny || cfg.permissions.deny.length === 0) {
+      pushIfNew(out, {
+        id: 'permissions-no-deny',
+        title: 'No deny rules configured',
+        severity: 'low',
+        scope: 'permissions.deny',
+        detail:
+          'A deny list is the safety net for prompt injection. Without explicit denies (rm:*, curl:*, sudo:*, sensitive paths), allow-list mistakes have no backstop.',
+        remediation: 'Add Bash(rm:*), Bash(curl:*), Bash(wget:*), Read(~/.ssh/*), Read(/etc/*) to deny.',
+      });
+    }
+
+    if (cfg.permissions.defaultMode === 'bypassPermissions' || cfg.permissions.defaultMode === 'acceptEdits') {
+      pushIfNew(out, {
+        id: 'permissions-permissive-default',
+        title: `Permissive defaultMode: ${cfg.permissions.defaultMode}`,
+        severity: cfg.permissions.defaultMode === 'bypassPermissions' ? 'critical' : 'medium',
+        scope: 'permissions.defaultMode',
+        detail:
+          cfg.permissions.defaultMode === 'bypassPermissions'
+            ? 'bypassPermissions disables ALL prompts. The agent runs anything the model decides to run. Reserve for sandboxes only.'
+            : 'acceptEdits silently accepts file edits. Combined with prompt injection, this writes attacker-chosen content to disk.',
+        remediation: 'Use "default" (asks for risky actions) for normal projects.',
+      });
+    }
+  } else {
+    pushIfNew(out, {
+      id: 'no-permissions-block',
+      title: 'No "permissions" block',
+      severity: 'info',
+      scope: '$',
+      detail:
+        'Without permissions Claude Code falls back to its built-in defaults. Consider declaring an explicit deny list.',
+      remediation: 'Add at least: { "permissions": { "deny": ["Bash(rm:*)", "Bash(curl:*)", "Read(~/.ssh/*)"] } }.',
+    });
+  }
+
+  // Hooks
+  if (cfg.hooks) {
+    for (const [event, matchers] of Object.entries(cfg.hooks)) {
+      if (!Array.isArray(matchers)) continue;
+      matchers.forEach((m, mi) => {
+        const hookCmds = m?.hooks ?? [];
+        hookCmds.forEach((h, hi) => {
+          if (!h || typeof h !== 'object') return;
+          checkHookEntry(event, m?.matcher, h, mi * 100 + hi, out);
+        });
+      });
+    }
+  }
+
+  // apiKeyHelper
+  if (cfg.apiKeyHelper && typeof cfg.apiKeyHelper === 'string') {
+    if (/^https?:\/\//.test(cfg.apiKeyHelper) || cfg.apiKeyHelper.includes('| sh')) {
+      pushIfNew(out, {
+        id: 'api-key-helper-remote',
+        title: 'apiKeyHelper executes remote code',
+        severity: 'critical',
+        scope: 'apiKeyHelper',
+        detail: 'apiKeyHelper runs every time the agent boots. A remote/curl|sh helper is unauditable RCE.',
+        remediation: 'Point apiKeyHelper at a local script that reads from your OS keychain.',
+      });
+    }
+  }
+
+  // env
+  if (cfg.env) {
+    for (const [k, v] of Object.entries(cfg.env)) {
+      const looksSecret = SECRET_KEY_HINTS.some((re) => re.test(k));
+      if (
+        looksSecret &&
+        typeof v === 'string' &&
+        v.length > 0 &&
+        !v.startsWith('${') &&
+        !v.startsWith('$') &&
+        (LITERAL_SECRET_RE.test(v) || (v.length >= 16 && /[A-Za-z]/.test(v) && /[0-9]/.test(v)))
+      ) {
+        pushIfNew(out, {
+          id: 'env-hardcoded-secret',
+          title: `Hardcoded secret in env (${k})`,
+          severity: 'critical',
+          scope: `env.${k}`,
+          detail: `${k} contains a literal credential. settings.json is checked into dotfile repos more often than people remember.`,
+          remediation: 'Use ${env:SECRET_NAME} placeholders; keep the real value out of source control.',
+        });
+      }
+    }
+  }
+
+  // mcpServers re-uses the existing auditor
+  if (cfg.mcpServers) {
+    for (const [name, entry] of Object.entries(cfg.mcpServers)) {
+      if (!entry || typeof entry !== 'object') continue;
+      auditServer(name, entry, out);
+    }
+  }
+
+  // enableAllProjectMcpServers
+  if (cfg.enableAllProjectMcpServers === true) {
+    pushIfNew(out, {
+      id: 'enable-all-project-mcp',
+      title: 'enableAllProjectMcpServers is true',
+      severity: 'medium',
+      scope: 'enableAllProjectMcpServers',
+      detail:
+        'Trusts every .mcp.json found in the project tree without prompting. Cloning a malicious repo silently activates its MCP servers.',
+      remediation: 'Leave this off; rely on the per-server prompt or curate enabledMcpjsonServers.',
+    });
+  }
+
+  if (out.length === 0) {
+    out.push({
+      id: 'clean',
+      title: 'No issues found',
+      severity: 'info',
+      scope: '$',
+      detail:
+        'No heuristic findings. Heuristics only — keep deny rules tight, vet hook scripts, and pin MCP server versions.',
+      remediation: 'Re-run after every settings change.',
+    });
+  }
+  return out;
+}
+
+/**
+ * Auto-detect: pick MCP-style or Claude-Code-style based on the keys present.
+ * Falls back to MCP if ambiguous (most common case).
+ */
+export function auditConfig(raw: unknown): { findings: Finding[]; mode: 'mcp' | 'claude-code' } {
+  if (raw && typeof raw === 'object') {
+    const obj = raw as Record<string, unknown>;
+    if ('permissions' in obj || 'hooks' in obj || 'apiKeyHelper' in obj || 'enableAllProjectMcpServers' in obj) {
+      return { findings: auditClaudeCodeSettings(raw), mode: 'claude-code' };
+    }
+  }
+  return { findings: auditMcpConfig(raw), mode: 'mcp' };
+}

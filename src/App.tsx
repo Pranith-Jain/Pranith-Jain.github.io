@@ -24,7 +24,6 @@ const IocCheck = lazy(() => import('./pages/dfir/IocCheck'));
 const Phishing = lazy(() => import('./pages/dfir/Phishing'));
 const Domain = lazy(() => import('./pages/dfir/Domain'));
 const Exposure = lazy(() => import('./pages/dfir/Exposure'));
-const File = lazy(() => import('./pages/dfir/File'));
 const Wiki = lazy(() => import('./pages/dfir/Wiki'));
 const WikiArticle = lazy(() => import('./pages/dfir/WikiArticle'));
 const Dashboard = lazy(() => import('./pages/dfir/Dashboard'));
@@ -52,6 +51,8 @@ const Rules = lazy(() => import('./pages/dfir/Rules'));
 const Owasp = lazy(() => import('./pages/dfir/Owasp'));
 const PromptInjection = lazy(() => import('./pages/dfir/PromptInjection'));
 const McpAudit = lazy(() => import('./pages/dfir/McpAudit'));
+const KillChain = lazy(() => import('./pages/dfir/KillChain'));
+const Diamond = lazy(() => import('./pages/dfir/Diamond'));
 
 function TechniqueRedirect() {
   const params = new URLSearchParams(window.location.search);
@@ -197,14 +198,8 @@ export function AppContent() {
                 </Suspense>
               }
             />
-            <Route
-              path="/dfir/file"
-              element={
-                <Suspense fallback={<SectionLoader />}>
-                  <File />
-                </Suspense>
-              }
-            />
+            {/* Hash Analyzer was merged into the IOC Checker, which already handles hashes. */}
+            <Route path="/dfir/file" element={<Navigate to="/dfir/ioc-check" replace />} />
             <Route
               path="/dfir/wiki"
               element={
@@ -412,6 +407,22 @@ export function AppContent() {
               element={
                 <Suspense fallback={<SectionLoader />}>
                   <McpAudit />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/dfir/kill-chain"
+              element={
+                <Suspense fallback={<SectionLoader />}>
+                  <KillChain />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/dfir/diamond"
+              element={
+                <Suspense fallback={<SectionLoader />}>
+                  <Diamond />
                 </Suspense>
               }
             />
