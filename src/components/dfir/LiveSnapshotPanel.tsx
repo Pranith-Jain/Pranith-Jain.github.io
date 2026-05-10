@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Bell, Send, Globe2, ExternalLink, AlertTriangle, Newspaper, Sparkles } from 'lucide-react';
 import { type AggregatedFeedResponse } from '../../services/rssService';
+import { SnapshotCard } from './SnapshotCard';
 
 /**
  * Live "right now" snapshot of dark-web + Telegram + .onion + scam activity.
@@ -179,35 +180,6 @@ function isNewSince(iso: string | undefined, since: number): boolean {
   return t > since;
 }
 
-function NewBadge({ count, label = 'new' }: { count: number; label?: string }): JSX.Element | null {
-  if (count <= 0) return null;
-  return (
-    <span
-      className="text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded-full border border-amber-500/50 bg-amber-500/15 text-amber-700 dark:text-amber-300 shrink-0"
-      title={`${count} new since your last visit`}
-    >
-      {count} {label}
-    </span>
-  );
-}
-
-/** Visual marker for items matching the analyst's watchlist. */
-function WatchPill({ count, terms }: { count: number; terms?: string[] }): JSX.Element | null {
-  if (count <= 0) return null;
-  const tooltip =
-    terms && terms.length > 0
-      ? `watchlist match: ${terms.join(', ')}`
-      : `${count} watchlist match${count === 1 ? '' : 'es'}`;
-  return (
-    <span
-      className="text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded-full border border-violet-500/50 bg-violet-500/15 text-violet-700 dark:text-violet-300 shrink-0"
-      title={tooltip}
-    >
-      {count} watch
-    </span>
-  );
-}
-
 export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
   const { compact = false, headerLabel = 'Right now', subtitle, mbClass = 'mb-12' } = props;
 
@@ -289,7 +261,6 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
   }, []);
 
   const itemLimit = compact ? 3 : 4;
-  const cardPad = compact ? 'p-3' : 'p-4';
 
   const recentVictims = useMemo(() => {
     if (!ransomware) return [];
@@ -410,24 +381,26 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {/* Ransomware activity */}
-        <div
-          className={`rounded-2xl border border-rose-500/30 bg-white dark:bg-slate-900 ${cardPad} flex flex-col min-h-[200px]`}
-        >
-          <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
-            <h3 className="font-display font-semibold text-sm inline-flex items-center gap-1.5 flex-wrap">
-              <Bell size={14} className="text-rose-600 dark:text-rose-400" /> Ransomware
-              {lastVisit > 0 && <NewBadge count={newRansomwareCount} />}
-              <WatchPill count={watchedRansomware} />
-            </h3>
+        <SnapshotCard
+          accent="rose"
+          icon={Bell}
+          title="Ransomware"
+          newCount={newRansomwareCount}
+          watchCount={watchedRansomware}
+          watchTerms={watchlist}
+          showNewBadge={lastVisit > 0}
+          rightAction={
             <Link
               to="/dfir/darkweb"
-              className="text-[10px] font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
             >
               feed <ExternalLink size={9} />
             </Link>
-          </div>
-          {errors.ransomware && <p className="text-[11px] font-mono text-rose-500">load error: {errors.ransomware}</p>}
-          {!ransomware && !errors.ransomware && <p className="text-[11px] font-mono text-slate-500">loading…</p>}
+          }
+          loading={!ransomware}
+          error={errors.ransomware}
+          compact={compact}
+        >
           {ransomware && (
             <>
               <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-2">
@@ -479,29 +452,31 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
               )}
             </>
           )}
-        </div>
+        </SnapshotCard>
 
         {/* Cybersec Telegram firehose — links to the DarkWeb panel which has the
             full filterable view; the Telegram catalog (/dfir/telegram-watch) is
             the channel-discovery surface, not the message stream. */}
-        <div
-          className={`rounded-2xl border border-sky-500/30 bg-white dark:bg-slate-900 ${cardPad} flex flex-col min-h-[200px]`}
-        >
-          <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
-            <h3 className="font-display font-semibold text-sm inline-flex items-center gap-1.5">
-              <Send size={14} className="text-sky-600 dark:text-sky-400" /> Cybersec Telegram firehose
-              {lastVisit > 0 && <NewBadge count={newTelegramCount} />}
-              <WatchPill count={watchedTelegram} />
-            </h3>
+        <SnapshotCard
+          accent="sky"
+          icon={Send}
+          title="Cybersec Telegram firehose"
+          newCount={newTelegramCount}
+          watchCount={watchedTelegram}
+          watchTerms={watchlist}
+          showNewBadge={lastVisit > 0}
+          rightAction={
             <Link
               to="/dfir/darkweb"
-              className="text-[10px] font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
             >
               full feed <ExternalLink size={9} />
             </Link>
-          </div>
-          {errors.telegram && <p className="text-[11px] font-mono text-rose-500">load error: {errors.telegram}</p>}
-          {!telegram && !errors.telegram && <p className="text-[11px] font-mono text-slate-500">loading…</p>}
+          }
+          loading={!telegram}
+          error={errors.telegram}
+          compact={compact}
+        >
           {telegram && (
             <>
               <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-2">
@@ -551,26 +526,28 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
               )}
             </>
           )}
-        </div>
+        </SnapshotCard>
 
         {/* Onion watch */}
-        <div
-          className={`rounded-2xl border border-violet-500/30 bg-white dark:bg-slate-900 ${cardPad} flex flex-col min-h-[200px]`}
-        >
-          <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
-            <h3 className="font-display font-semibold text-sm inline-flex items-center gap-1.5 flex-wrap">
-              <Globe2 size={14} className="text-violet-600 dark:text-violet-400" /> .onion reachability
-              <WatchPill count={watchedOnion} />
-            </h3>
+        <SnapshotCard
+          accent="violet"
+          icon={Globe2}
+          title=".onion reachability"
+          watchCount={watchedOnion}
+          watchTerms={watchlist}
+          showNewBadge={false}
+          rightAction={
             <Link
               to="/dfir/onion-watch"
-              className="text-[10px] font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
             >
               full inventory <ExternalLink size={9} />
             </Link>
-          </div>
-          {errors.onion && <p className="text-[11px] font-mono text-rose-500">load error: {errors.onion}</p>}
-          {!onion && !errors.onion && <p className="text-[11px] font-mono text-slate-500">loading…</p>}
+          }
+          loading={!onion}
+          error={errors.onion}
+          compact={compact}
+        >
           {onion && (
             <>
               <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-2">
@@ -607,27 +584,29 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
               </div>
             </>
           )}
-        </div>
+        </SnapshotCard>
 
         {/* Scam intel — FTC + IC3 official alerts */}
-        <div
-          className={`rounded-2xl border border-amber-500/30 bg-white dark:bg-slate-900 ${cardPad} flex flex-col min-h-[200px]`}
-        >
-          <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
-            <h3 className="font-display font-semibold text-sm inline-flex items-center gap-1.5">
-              <AlertTriangle size={14} className="text-amber-600 dark:text-amber-400" /> Scam intel
-              {lastVisit > 0 && <NewBadge count={newScamCount} />}
-              <WatchPill count={watchedScam} />
-            </h3>
+        <SnapshotCard
+          accent="amber"
+          icon={AlertTriangle}
+          title="Scam intel"
+          newCount={newScamCount}
+          watchCount={watchedScam}
+          watchTerms={watchlist}
+          showNewBadge={lastVisit > 0}
+          rightAction={
             <Link
               to="/dfir/scam-watch"
-              className="text-[10px] font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
             >
               full feed <ExternalLink size={9} />
             </Link>
-          </div>
-          {errors.scam && <p className="text-[11px] font-mono text-rose-500">load error: {errors.scam}</p>}
-          {!scam && !errors.scam && <p className="text-[11px] font-mono text-slate-500">loading…</p>}
+          }
+          loading={!scam}
+          error={errors.scam}
+          compact={compact}
+        >
           {scam && (
             <>
               <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-2">
@@ -676,29 +655,29 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
               )}
             </>
           )}
-        </div>
+        </SnapshotCard>
 
         {/* Threat-intel firehose — BleepingComputer + Krebs + DFIR Report + SecurityWeek */}
-        <div
-          className={`rounded-2xl border border-emerald-500/30 bg-white dark:bg-slate-900 ${cardPad} flex flex-col min-h-[200px]`}
-        >
-          <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
-            <h3 className="font-display font-semibold text-sm inline-flex items-center gap-1.5">
-              <Newspaper size={14} className="text-emerald-600 dark:text-emerald-400" /> Threat intel
-              {lastVisit > 0 && <NewBadge count={newThreatIntelCount} />}
-              <WatchPill count={watchedThreatIntel} />
-            </h3>
+        <SnapshotCard
+          accent="emerald"
+          icon={Newspaper}
+          title="Threat intel"
+          newCount={newThreatIntelCount}
+          watchCount={watchedThreatIntel}
+          watchTerms={watchlist}
+          showNewBadge={lastVisit > 0}
+          rightAction={
             <Link
               to="/dfir/threat-feeds"
-              className="text-[10px] font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
             >
               full feeds <ExternalLink size={9} />
             </Link>
-          </div>
-          {errors.threatIntel && (
-            <p className="text-[11px] font-mono text-rose-500">load error: {errors.threatIntel}</p>
-          )}
-          {!threatIntel && !errors.threatIntel && <p className="text-[11px] font-mono text-slate-500">loading…</p>}
+          }
+          loading={!threatIntel}
+          error={errors.threatIntel}
+          compact={compact}
+        >
           {threatIntel && (
             <>
               <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-2">
@@ -749,27 +728,29 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
               )}
             </>
           )}
-        </div>
+        </SnapshotCard>
 
         {/* Tech & AI news — TechCrunch AI / VentureBeat AI / TechCrunch security / cybersec funding */}
-        <div
-          className={`rounded-2xl border border-fuchsia-500/30 bg-white dark:bg-slate-900 ${cardPad} flex flex-col min-h-[200px]`}
-        >
-          <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
-            <h3 className="font-display font-semibold text-sm inline-flex items-center gap-1.5">
-              <Sparkles size={14} className="text-fuchsia-600 dark:text-fuchsia-400" /> Tech &amp; AI
-              {lastVisit > 0 && <NewBadge count={newTechAiCount} />}
-              <WatchPill count={watchedTechAi} />
-            </h3>
+        <SnapshotCard
+          accent="fuchsia"
+          icon={Sparkles}
+          title="Tech & AI"
+          newCount={newTechAiCount}
+          watchCount={watchedTechAi}
+          watchTerms={watchlist}
+          showNewBadge={lastVisit > 0}
+          rightAction={
             <Link
               to="/dfir/tech-ai-news"
-              className="text-[10px] font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
+              className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
             >
               full feeds <ExternalLink size={9} />
             </Link>
-          </div>
-          {errors.techAi && <p className="text-[11px] font-mono text-rose-500">load error: {errors.techAi}</p>}
-          {!techAi && !errors.techAi && <p className="text-[11px] font-mono text-slate-500">loading…</p>}
+          }
+          loading={!techAi}
+          error={errors.techAi}
+          compact={compact}
+        >
           {techAi && (
             <>
               <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-2">
@@ -819,7 +800,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
               )}
             </>
           )}
-        </div>
+        </SnapshotCard>
       </div>
     </section>
   );

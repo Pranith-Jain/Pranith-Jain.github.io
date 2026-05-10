@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Link2, FileWarning, Crosshair, Fish, ExternalLink } from 'lucide-react';
+import { SnapshotCard, type SnapshotAccent } from './SnapshotCard';
 
 /**
  * Watchlist key shared with /dfir/darkweb + the news LiveSnapshotPanel. An
@@ -85,8 +86,7 @@ interface CardSpec {
   key: string;
   title: string;
   Icon: typeof Link2;
-  accentClass: string;
-  accentText: string;
+  accent: SnapshotAccent;
   /** Pivot URL when clicking an entry value. */
   pivot?: (e: IocEntry) => string;
 }
@@ -96,32 +96,28 @@ const CARDS: CardSpec[] = [
     key: 'urlhaus',
     title: 'Malicious URLs',
     Icon: Link2,
-    accentClass: 'border-rose-500/30',
-    accentText: 'text-rose-600 dark:text-rose-400',
+    accent: 'rose',
     pivot: (e) => `/dfir/url-preview?url=${encodeURIComponent(e.value)}`,
   },
   {
     key: 'malwarebazaar',
     title: 'Malware samples',
     Icon: FileWarning,
-    accentClass: 'border-orange-500/30',
-    accentText: 'text-orange-600 dark:text-orange-400',
+    accent: 'orange',
     pivot: (e) => `/dfir/ioc-check?q=${encodeURIComponent(e.value)}`,
   },
   {
     key: 'threatfox',
     title: 'IOCs by type',
     Icon: Crosshair,
-    accentClass: 'border-amber-500/30',
-    accentText: 'text-amber-600 dark:text-amber-400',
+    accent: 'amber',
     pivot: (e) => `/dfir/ioc-check?q=${encodeURIComponent(e.value)}`,
   },
   {
     key: 'openphish',
     title: 'Phishing URLs',
     Icon: Fish,
-    accentClass: 'border-fuchsia-500/30',
-    accentText: 'text-fuchsia-600 dark:text-fuchsia-400',
+    accent: 'fuchsia',
     pivot: (e) => `/dfir/url-preview?url=${encodeURIComponent(e.value)}`,
   },
 ];
@@ -224,38 +220,27 @@ export function IocSnapshotPanel(): JSX.Element {
           const summary = payload?.data;
           const entries = summary?.entries.slice(0, ITEM_LIMIT) ?? [];
           return (
-            <div
+            <SnapshotCard
               key={c.key}
-              className={`rounded-2xl border ${c.accentClass} bg-white dark:bg-slate-900 p-4 flex flex-col min-h-[200px]`}
-            >
-              <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
-                <h3 className="font-display font-semibold text-sm inline-flex items-center gap-1.5 flex-wrap">
-                  <c.Icon size={14} className={c.accentText} /> {c.title}
-                  {(watchedBySource[c.key] ?? 0) > 0 && (
-                    <span
-                      className="text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded-full border border-violet-500/50 bg-violet-500/15 text-violet-700 dark:text-violet-300 shrink-0"
-                      title={`${watchedBySource[c.key]} watchlist matches in this card`}
-                    >
-                      {watchedBySource[c.key]} watch
-                    </span>
-                  )}
-                </h3>
+              accent={c.accent}
+              icon={c.Icon}
+              title={c.title}
+              showNewBadge={false}
+              watchCount={watchedBySource[c.key] ?? 0}
+              watchTerms={watchlist}
+              rightAction={
                 <a
                   href={`https://abuse.ch/${c.key === 'openphish' ? '' : c.key + '/'}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[10px] font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
+                  className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
                 >
                   source <ExternalLink size={9} />
                 </a>
-              </div>
-
-              {payload && !payload.ok && (
-                <p className="text-[11px] font-mono text-rose-500">load error: {payload.error}</p>
-              )}
-
-              {!payload && !err && <p className="text-[11px] font-mono text-slate-500">loading…</p>}
-
+              }
+              loading={!payload && !err}
+              error={payload && !payload.ok ? payload.error : undefined}
+            >
               {summary && (
                 <>
                   <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-2">
@@ -309,7 +294,7 @@ export function IocSnapshotPanel(): JSX.Element {
                   )}
                 </>
               )}
-            </div>
+            </SnapshotCard>
           );
         })}
       </div>

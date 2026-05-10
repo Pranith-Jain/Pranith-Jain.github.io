@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { GitCommit, Network, Bug, Database, Shield, ExternalLink } from 'lucide-react';
+import { SnapshotCard, type SnapshotAccent } from './SnapshotCard';
 
 /**
  * Live snapshot for /dfir/rules — buckets the recent_commits returned by
@@ -61,8 +62,7 @@ interface CardSpec {
   key: string;
   title: string;
   Icon: typeof GitCommit;
-  accentClass: string;
-  accentText: string;
+  accent: SnapshotAccent;
   /** Which raw `type` strings from the API map into this card. */
   matches: string[];
 }
@@ -75,36 +75,14 @@ interface CardSpec {
  * itself a signal worth seeing.
  */
 const CARDS: CardSpec[] = [
-  {
-    key: 'sigma',
-    title: 'Sigma',
-    Icon: Shield,
-    accentClass: 'border-blue-500/30',
-    accentText: 'text-blue-600 dark:text-blue-400',
-    matches: ['Sigma'],
-  },
-  {
-    key: 'yara',
-    title: 'YARA',
-    Icon: Bug,
-    accentClass: 'border-orange-500/30',
-    accentText: 'text-orange-600 dark:text-orange-400',
-    matches: ['YARA'],
-  },
-  {
-    key: 'suricata',
-    title: 'Suricata',
-    Icon: Network,
-    accentClass: 'border-emerald-500/30',
-    accentText: 'text-emerald-600 dark:text-emerald-400',
-    matches: ['Suricata'],
-  },
+  { key: 'sigma', title: 'Sigma', Icon: Shield, accent: 'blue', matches: ['Sigma'] },
+  { key: 'yara', title: 'YARA', Icon: Bug, accent: 'orange', matches: ['YARA'] },
+  { key: 'suricata', title: 'Suricata', Icon: Network, accent: 'emerald', matches: ['Suricata'] },
   {
     key: 'siem',
     title: 'SIEM (Splunk · Elastic · KQL)',
     Icon: Database,
-    accentClass: 'border-violet-500/30',
-    accentText: 'text-violet-600 dark:text-violet-400',
+    accent: 'violet',
     matches: ['Splunk SPL', 'Elastic', 'KQL'],
   },
 ];
@@ -206,29 +184,18 @@ export function RulesSnapshotPanel(): JSX.Element {
           const commits = bucketed[c.key].slice(0, ITEM_LIMIT);
           const watched = watchedByCard[c.key] ?? 0;
           return (
-            <div
+            <SnapshotCard
               key={c.key}
-              className={`rounded-2xl border ${c.accentClass} bg-white dark:bg-slate-900 p-4 flex flex-col min-h-[200px]`}
+              accent={c.accent}
+              icon={c.Icon}
+              title={c.title}
+              showNewBadge={false}
+              watchCount={watched}
+              watchTerms={watchlist}
+              rightAction={<span className="text-slate-500 dark:text-slate-500">{bucketed[c.key].length} commits</span>}
+              loading={!data && !err}
+              error={err ?? undefined}
             >
-              <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
-                <h3 className="font-display font-semibold text-sm inline-flex items-center gap-1.5 flex-wrap">
-                  <c.Icon size={14} className={c.accentText} /> {c.title}
-                  {watched > 0 && (
-                    <span
-                      className="text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded-full border border-violet-500/50 bg-violet-500/15 text-violet-700 dark:text-violet-300 shrink-0"
-                      title={`${watched} watchlist matches`}
-                    >
-                      {watched} watch
-                    </span>
-                  )}
-                </h3>
-                <span className="text-[10px] font-mono text-slate-500 dark:text-slate-500">
-                  {bucketed[c.key].length} commits
-                </span>
-              </div>
-
-              {!data && !err && <p className="text-[11px] font-mono text-slate-500">loading…</p>}
-
               {data && commits.length === 0 && (
                 <p className="text-[11px] font-mono text-slate-500">No recent commits in window.</p>
               )}
@@ -276,7 +243,7 @@ export function RulesSnapshotPanel(): JSX.Element {
                   more {c.title.split(' ')[0].toLowerCase()} repos <ExternalLink size={9} />
                 </a>
               )}
-            </div>
+            </SnapshotCard>
           );
         })}
       </div>
