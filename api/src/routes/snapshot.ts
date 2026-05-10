@@ -4,6 +4,9 @@ import { fetchRansomwareRecent } from './ransomware-recent';
 import { fetchTelegramFeed } from './telegram-feed';
 import { fetchOnionWatch } from './onion-watch';
 import { aggregateFeeds } from './feeds-aggregate';
+import { fetchDetectionRules } from './detection-rules';
+import { fetchThreatMap } from './threat-map';
+import { listBriefings } from '../lib/briefing-builder';
 
 /**
  * Unified live-snapshot endpoint. Replaces six client-side fetches that the
@@ -66,6 +69,9 @@ export interface SnapshotResponse {
   scam: SourcePayload;
   threat_intel: SourcePayload;
   tech_ai: SourcePayload;
+  rules: SourcePayload;
+  briefings: SourcePayload;
+  threat_map: SourcePayload;
 }
 
 async function safe<T>(fn: () => Promise<T>): Promise<SourcePayload<T>> {
@@ -79,11 +85,14 @@ async function safe<T>(fn: () => Promise<T>): Promise<SourcePayload<T>> {
 
 export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;
-  const cacheKey = new Request('https://snapshot-cache.internal/v2');
+  // v3: added rules + briefings + threat_map source payloads.
+  const cacheKey = new Request('https://snapshot-cache.internal/v3');
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
-  const [ransomware, telegram, onion, scam, threatIntel, techAi] = await Promise.all([
+  const kv = c.env.BRIEFINGS;
+
+  const [ransomware, telegram, onion, scam, threatIntel, techAi, rules, briefings, threatMap] = await Promise.all([
     safe(async () => {
       const { body, upstreamOk, rateLimited } = await fetchRansomwareRecent();
       if (rateLimited) throw new Error(`upstream rate-limited (retry-after ${rateLimited.retryAfter})`);
@@ -99,6 +108,30 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
     safe(() => aggregateFeeds(SCAM_FEED_URLS, 12, 6)),
     safe(() => aggregateFeeds(THREAT_INTEL_FEED_URLS, 16, 4)),
     safe(() => aggregateFeeds(TECH_AI_FEED_URLS, 18, 3)),
+    // Trim rules payload — snapshot card only uses recent_commits + counts.
+    safe(async () => {
+      const r = await fetchDetectionRules();
+      return {
+        generated_at: r.generated_at,
+        recent_commits: r.recent_commits.slice(0, 16),
+        sources_count: r.sources.length,
+      };
+    }),
+    safe(async () => {
+      if (!kv) throw new Error('briefings KV not bound');
+      const items = await listBriefings(kv, { limit: 5 });
+      return { items };
+    }),
+    // Trim threat-map — snapshot card only uses total_ips + top countries.
+    safe(async () => {
+      const t = await fetchThreatMap();
+      return {
+        generated_at: t.generated_at,
+        total_ips: t.total_ips,
+        countries: t.countries.slice(0, 8),
+        iocs_by_type: t.iocs_by_type,
+      };
+    }),
   ]);
 
   const body: SnapshotResponse = {
@@ -109,6 +142,9 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
     scam,
     threat_intel: threatIntel,
     tech_ai: techAi,
+    rules,
+    briefings,
+    threat_map: threatMap,
   };
 
   const response = c.json(body, 200, { 'Cache-Control': `public, max-age=${CACHE_TTL}` });

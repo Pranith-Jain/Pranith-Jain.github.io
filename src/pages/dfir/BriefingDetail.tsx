@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, ExternalLink, AlertTriangle, ShieldAlert } from 'lucide-react';
-import { LiveSnapshotPanel } from '../../components/dfir/LiveSnapshotPanel';
 
 type Severity = 'critical' | 'high' | 'medium' | 'low' | 'unknown';
 
@@ -324,17 +323,6 @@ export default function BriefingDetail(): JSX.Element {
           <StatPill label="low" value={stats.low} accent="text-emerald-600 dark:text-emerald-400" />
         </div>
       </section>
-
-      {/* Live snapshot — same panel as /dfir/briefings + /dfir landing.
-          Pulls current ransomware / Telegram / .onion / scam activity. The
-          subtitle makes the temporal mismatch explicit so readers don't
-          conflate "right now" data with the briefing's historical date range. */}
-      <LiveSnapshotPanel
-        compact
-        headerLabel="Live activity right now"
-        subtitle={`live · separate from this briefing's ${briefing.date_range} window`}
-        mbClass="mb-10"
-      />
 
       {/* Executive Summary */}
       <section className="mb-10">

@@ -237,24 +237,12 @@ async function fetchRecentCommits(source: SourceConfig): Promise<FetchResult<Rec
   }
 }
 
-export async function detectionRulesHandler(c: Context<{ Bindings: Env }>) {
-  const cache = caches.default;
-  const cacheReq = new Request(CACHE_KEY);
-  const cached = await cache.match(cacheReq);
-  if (cached) {
-    return new Response(cached.body, {
-      status: 200,
-      headers: {
-        'content-type': 'application/json',
-        'cache-control': `public, max-age=${CACHE_TTL_SECONDS}`,
-        'x-cache': 'HIT',
-      },
-    });
-  }
-
-  // Parallel fan-out: meta + commits per source. Track rate-limited
-  // sources separately so the response can flag degraded fields rather
-  // than silently misrepresenting them as zero.
+/**
+ * Pure-data fetcher exposed for /api/v1/snapshot. Returns the body without
+ * Response wrapping so the snapshot handler can compose it directly without
+ * a worker-internal HTTP call (which Cloudflare 522s on same-worker recursion).
+ */
+export async function fetchDetectionRules(): Promise<DetectionRulesResponse> {
   const results = await Promise.all(
     SOURCES.map(async (source) => {
       const [metaResult, commitsResult] = await Promise.all([fetchRepoMeta(source.repo), fetchRecentCommits(source)]);
@@ -296,12 +284,30 @@ export async function detectionRulesHandler(c: Context<{ Bindings: Env }>) {
     .slice(0, 30);
   const rateLimitedSources = results.filter((r) => r.rate_limited).map((r) => r.source_id);
 
-  const body: DetectionRulesResponse = {
+  return {
     generated_at: new Date().toISOString(),
     sources,
     recent_commits: recentCommits,
     ...(rateLimitedSources.length > 0 ? { rate_limited_sources: rateLimitedSources } : {}),
   };
+}
+
+export async function detectionRulesHandler(c: Context<{ Bindings: Env }>) {
+  const cache = caches.default;
+  const cacheReq = new Request(CACHE_KEY);
+  const cached = await cache.match(cacheReq);
+  if (cached) {
+    return new Response(cached.body, {
+      status: 200,
+      headers: {
+        'content-type': 'application/json',
+        'cache-control': `public, max-age=${CACHE_TTL_SECONDS}`,
+        'x-cache': 'HIT',
+      },
+    });
+  }
+
+  const body = await fetchDetectionRules();
 
   const json = JSON.stringify(body);
   const response = new Response(json, {

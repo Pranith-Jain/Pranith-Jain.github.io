@@ -119,26 +119,12 @@ async function geolocateBatch(ips: string[]): Promise<Map<string, { country: str
   return out;
 }
 
-export async function threatMapHandler(c: Context<{ Bindings: Env }>) {
-  // Try cache first
-  const cache = caches.default;
-  const cacheReq = new Request(CACHE_KEY);
-  const cached = await cache.match(cacheReq);
-  if (cached) {
-    trackEvent(c.env, 'threat_map_fetch', {
-      blobs: ['hit'],
-      indexes: [visitorCountry(c.req.raw)],
-    });
-    return new Response(cached.body, {
-      status: 200,
-      headers: {
-        'content-type': 'application/json',
-        'cache-control': `public, max-age=${CACHE_TTL_SECONDS}`,
-        'x-cache': 'HIT',
-      },
-    });
-  }
-
+/**
+ * Pure-data fetcher exposed for /api/v1/snapshot. Same body the HTTP handler
+ * returns, just without the Response/cache wrapping so the snapshot endpoint
+ * can compose it without a worker-internal HTTP call.
+ */
+export async function fetchThreatMap(): Promise<ThreatMapResponse> {
   // Fan out to all IOC feeds we have access to, in parallel.
   const [feodoText, urlhausText, threatfoxText, ipsumText, cinsText, bitwireText, malwarebazaarText] =
     await Promise.all([
@@ -272,7 +258,7 @@ export async function threatMapHandler(c: Context<{ Bindings: Env }>) {
     }
   }
 
-  const body: ThreatMapResponse = {
+  return {
     generated_at: new Date().toISOString(),
     total_ips: ips.length,
     countries,
@@ -280,7 +266,28 @@ export async function threatMapHandler(c: Context<{ Bindings: Env }>) {
     source_counts: sourceCounts,
     iocs_by_type: [urlBucket, domainBucket, hashBucket].filter((b) => b.count > 0),
   };
+}
 
+export async function threatMapHandler(c: Context<{ Bindings: Env }>) {
+  const cache = caches.default;
+  const cacheReq = new Request(CACHE_KEY);
+  const cached = await cache.match(cacheReq);
+  if (cached) {
+    trackEvent(c.env, 'threat_map_fetch', {
+      blobs: ['hit'],
+      indexes: [visitorCountry(c.req.raw)],
+    });
+    return new Response(cached.body, {
+      status: 200,
+      headers: {
+        'content-type': 'application/json',
+        'cache-control': `public, max-age=${CACHE_TTL_SECONDS}`,
+        'x-cache': 'HIT',
+      },
+    });
+  }
+
+  const body = await fetchThreatMap();
   const json = JSON.stringify(body);
   const response = new Response(json, {
     status: 200,
@@ -290,7 +297,6 @@ export async function threatMapHandler(c: Context<{ Bindings: Env }>) {
       'x-cache': 'MISS',
     },
   });
-  // Cache async; don't block the response on the put
   c.executionCtx.waitUntil(cache.put(cacheReq, response.clone()));
   trackEvent(c.env, 'threat_map_fetch', {
     blobs: ['miss'],
