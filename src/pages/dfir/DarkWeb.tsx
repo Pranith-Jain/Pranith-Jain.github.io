@@ -816,7 +816,7 @@ function RansomwareActivityPanel(): JSX.Element {
                   <button
                     type="button"
                     onClick={() => setLightbox({ url: v.screen_url!, victim: v.victim, group: v.group })}
-                    className="shrink-0 group relative w-20 h-14 rounded overflow-hidden border border-slate-300 dark:border-slate-700 bg-slate-200 dark:bg-slate-800 hover:border-brand-500/60"
+                    className="shrink-0 group relative w-14 h-10 sm:w-20 sm:h-14 rounded overflow-hidden border border-slate-300 dark:border-slate-700 bg-slate-200 dark:bg-slate-800 hover:border-brand-500/60"
                     title="Click to view full leak-site screenshot"
                     aria-label={`View leak-site screenshot for ${v.victim}`}
                   >
@@ -1158,21 +1158,29 @@ function TelegramFeedPanel(): JSX.Element {
             t.me/s preview
           </span>
         </h2>
-        <span className="text-[11px] font-mono text-slate-500 dark:text-slate-500">
-          {loading
-            ? 'loading…'
-            : data
-              ? `${data.items.length} posts · ${data.channels.filter((c) => c.ok).length}/${data.channels.length} channels · cached 30 min`
-              : ''}
+        <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 text-[11px] font-mono text-slate-500 dark:text-slate-500">
+          {loading ? (
+            <span>loading…</span>
+          ) : data ? (
+            <>
+              <span>{data.items.length} posts</span>
+              <span aria-hidden="true">·</span>
+              <span>
+                {data.channels.filter((c) => c.ok).length}/{data.channels.length} channels
+              </span>
+              <span aria-hidden="true">·</span>
+              <span>cached 30 min</span>
+            </>
+          ) : null}
           {watchHits > 0 && (
             <>
-              {' · '}
+              <span aria-hidden="true">·</span>
               <span className="text-amber-600 dark:text-amber-400">
                 {watchHits} watchlist hit{watchHits === 1 ? '' : 's'}
               </span>
             </>
           )}
-        </span>
+        </div>
       </div>
 
       <p className="text-[12px] font-mono text-slate-500 dark:text-slate-500 mb-3 leading-relaxed">
@@ -1255,7 +1263,7 @@ function TelegramFeedPanel(): JSX.Element {
                     <span className="text-[10px] font-mono text-slate-500 dark:text-slate-500">{it.views} views</span>
                   )}
                   {hasMatch && (
-                    <span className="text-[9px] font-mono uppercase tracking-wider px-1 py-0.5 rounded bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/40 ml-auto">
+                    <span className="text-[9px] font-mono uppercase tracking-wider px-1 py-0.5 rounded bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/40 sm:ml-auto">
                       watch: {matches.join(', ')}
                     </span>
                   )}
