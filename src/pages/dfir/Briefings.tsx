@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Rss, ChevronRight, Bell, Send, Globe2, ExternalLink, AlertTriangle } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -79,7 +79,65 @@ function withinWindow(iso: string, hours: number): boolean {
  */
 const SCAM_SNAPSHOT_FEED_IDS = ['ftc-consumer', 'ic3-psas'];
 
+const LAST_VISIT_KEY = 'dfir.briefings.last_visit';
+
+/**
+ * Capture the previous-visit timestamp at mount, then write the current
+ * time on unmount so this visit becomes the next baseline.
+ *
+ * Returns the prior timestamp in ms, or 0 on first visit. Stable per mount
+ * (won't flip mid-session) so items flagged as "new" stay flagged while
+ * the user is on the page.
+ */
+function useLastVisit(): number {
+  const prevRef = useRef<number | null>(null);
+  if (prevRef.current === null) {
+    if (typeof window === 'undefined') {
+      prevRef.current = 0;
+    } else {
+      try {
+        const raw = window.localStorage.getItem(LAST_VISIT_KEY);
+        prevRef.current = raw ? Number(raw) || 0 : 0;
+      } catch {
+        prevRef.current = 0;
+      }
+    }
+  }
+  useEffect(() => {
+    return () => {
+      if (typeof window === 'undefined') return;
+      try {
+        window.localStorage.setItem(LAST_VISIT_KEY, String(Date.now()));
+      } catch {
+        /* private mode / quota */
+      }
+    };
+  }, []);
+  return prevRef.current;
+}
+
+function isNewSince(iso: string | undefined, since: number): boolean {
+  if (!since) return false;
+  if (!iso) return false;
+  const t = new Date(iso).getTime();
+  if (!Number.isFinite(t)) return false;
+  return t > since;
+}
+
+function NewBadge({ count, label = 'new' }: { count: number; label?: string }): JSX.Element | null {
+  if (count <= 0) return null;
+  return (
+    <span
+      className="text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded-full border border-amber-500/50 bg-amber-500/15 text-amber-700 dark:text-amber-300 shrink-0"
+      title={`${count} new since your last visit`}
+    >
+      {count} {label}
+    </span>
+  );
+}
+
 function LiveSnapshotPanel(): JSX.Element {
+  const lastVisit = useLastVisit();
   const [ransomware, setRansomware] = useState<RansomwareResp | null>(null);
   const [telegram, setTelegram] = useState<TelegramResp | null>(null);
   const [onion, setOnion] = useState<OnionResp | null>(null);
@@ -137,10 +195,41 @@ function LiveSnapshotPanel(): JSX.Element {
     return scam.items.slice(0, 4);
   }, [scam]);
 
+  // "New since last visit" counts — counted across the FULL response, not
+  // just the visible top-N, so the badge reflects real activity.
+  const newRansomwareCount = useMemo(
+    () => (ransomware ? ransomware.victims.filter((v) => isNewSince(v.discovered, lastVisit)).length : 0),
+    [ransomware, lastVisit]
+  );
+  const newTelegramCount = useMemo(
+    () => (telegram ? telegram.items.filter((m) => isNewSince(m.datetime, lastVisit)).length : 0),
+    [telegram, lastVisit]
+  );
+  // Onion-watch has no per-item timestamp — just a snapshot of current
+  // reachability. We can't honestly say "X new" without storing the prior
+  // reachable set in localStorage too, which is more state than this view
+  // wants. Leaving the onion card without a "new" badge — the other three
+  // cards carry the "what's new" story.
+  const newScamCount = useMemo(
+    () => (scam ? scam.items.filter((it) => isNewSince(it.pubDate, lastVisit)).length : 0),
+    [scam, lastVisit]
+  );
+  const totalNew = newRansomwareCount + newTelegramCount + newScamCount;
+
   return (
     <section className="mb-12">
-      <div className="flex items-baseline justify-between mb-4">
-        <h2 className="font-display font-bold text-xl">Right now</h2>
+      <div className="flex items-baseline justify-between mb-4 flex-wrap gap-2">
+        <h2 className="font-display font-bold text-xl inline-flex items-center gap-2">
+          Right now
+          {lastVisit > 0 && totalNew > 0 && (
+            <span
+              className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full border border-amber-500/50 bg-amber-500/15 text-amber-700 dark:text-amber-300"
+              title={`${totalNew} new items since your last visit`}
+            >
+              {totalNew} new since last visit
+            </span>
+          )}
+        </h2>
         <span className="text-[11px] font-mono text-slate-500 dark:text-slate-500">
           live · between KV-baked briefings
         </span>
@@ -149,9 +238,10 @@ function LiveSnapshotPanel(): JSX.Element {
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {/* Ransomware activity */}
         <div className="rounded-2xl border border-rose-500/30 bg-white dark:bg-slate-900 p-4 flex flex-col">
-          <div className="flex items-baseline justify-between gap-2 mb-1">
+          <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
             <h3 className="font-display font-semibold text-sm inline-flex items-center gap-1.5">
               <Bell size={14} className="text-rose-600 dark:text-rose-400" /> Ransomware
+              {lastVisit > 0 && <NewBadge count={newRansomwareCount} />}
             </h3>
             <Link
               to="/dfir/darkweb"
@@ -172,23 +262,35 @@ function LiveSnapshotPanel(): JSX.Element {
                 <p className="text-[11px] font-mono text-slate-500">No claims in the last 24 h.</p>
               ) : (
                 <ul className="space-y-1.5 mt-1">
-                  {recentVictims.map((v, i) => (
-                    <li key={`${v.group}-${v.victim}-${i}`} className="flex items-baseline gap-2 text-[11px] font-mono">
-                      <span className="text-[9px] uppercase tracking-wider px-1 rounded border border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300 shrink-0">
-                        {v.group}
-                      </span>
-                      <a
-                        href={v.source_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="truncate text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 flex-1 min-w-0"
-                        title={v.victim}
+                  {recentVictims.map((v, i) => {
+                    const isNew = isNewSince(v.discovered, lastVisit);
+                    return (
+                      <li
+                        key={`${v.group}-${v.victim}-${i}`}
+                        className="flex items-baseline gap-2 text-[11px] font-mono"
                       >
-                        {v.victim}
-                      </a>
-                      <span className="text-slate-400 shrink-0">{shortRel(v.discovered)}</span>
-                    </li>
-                  ))}
+                        <span
+                          className={`inline-block w-1.5 h-1.5 rounded-full shrink-0 ${
+                            isNew ? 'bg-amber-500' : 'bg-transparent'
+                          }`}
+                          aria-label={isNew ? 'new since last visit' : undefined}
+                        />
+                        <span className="text-[9px] uppercase tracking-wider px-1 rounded border border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300 shrink-0">
+                          {v.group}
+                        </span>
+                        <a
+                          href={v.source_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="truncate text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 flex-1 min-w-0"
+                          title={v.victim}
+                        >
+                          {v.victim}
+                        </a>
+                        <span className="text-slate-400 shrink-0">{shortRel(v.discovered)}</span>
+                      </li>
+                    );
+                  })}
                 </ul>
               )}
             </>
@@ -197,9 +299,10 @@ function LiveSnapshotPanel(): JSX.Element {
 
         {/* Telegram firehose */}
         <div className="rounded-2xl border border-sky-500/30 bg-white dark:bg-slate-900 p-4 flex flex-col">
-          <div className="flex items-baseline justify-between gap-2 mb-1">
+          <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
             <h3 className="font-display font-semibold text-sm inline-flex items-center gap-1.5">
               <Send size={14} className="text-sky-600 dark:text-sky-400" /> Telegram firehose
+              {lastVisit > 0 && <NewBadge count={newTelegramCount} />}
             </h3>
             <Link
               to="/dfir/telegram-watch"
@@ -220,22 +323,31 @@ function LiveSnapshotPanel(): JSX.Element {
                 <p className="text-[11px] font-mono text-slate-500">No recent messages.</p>
               ) : (
                 <ul className="space-y-1.5 mt-1">
-                  {recentMessages.map((m) => (
-                    <li key={m.permalink} className="text-[11px] font-mono">
-                      <div className="flex items-baseline gap-2">
-                        <a
-                          href={m.permalink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="font-display font-semibold text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 truncate flex-1 min-w-0"
-                        >
-                          {m.channel_name}
-                        </a>
-                        <span className="text-slate-400 shrink-0">{shortRel(m.datetime)}</span>
-                      </div>
-                      <p className="text-slate-500 dark:text-slate-500 line-clamp-1 break-all">{m.text}</p>
-                    </li>
-                  ))}
+                  {recentMessages.map((m) => {
+                    const isNew = isNewSince(m.datetime, lastVisit);
+                    return (
+                      <li key={m.permalink} className="text-[11px] font-mono">
+                        <div className="flex items-baseline gap-2">
+                          <span
+                            className={`inline-block w-1.5 h-1.5 rounded-full shrink-0 ${
+                              isNew ? 'bg-amber-500' : 'bg-transparent'
+                            }`}
+                            aria-label={isNew ? 'new since last visit' : undefined}
+                          />
+                          <a
+                            href={m.permalink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-display font-semibold text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 truncate flex-1 min-w-0"
+                          >
+                            {m.channel_name}
+                          </a>
+                          <span className="text-slate-400 shrink-0">{shortRel(m.datetime)}</span>
+                        </div>
+                        <p className="text-slate-500 dark:text-slate-500 line-clamp-1 break-all pl-3.5">{m.text}</p>
+                      </li>
+                    );
+                  })}
                 </ul>
               )}
             </>
@@ -287,9 +399,10 @@ function LiveSnapshotPanel(): JSX.Element {
 
         {/* Scam intel — FTC + IC3 official alerts */}
         <div className="rounded-2xl border border-amber-500/30 bg-white dark:bg-slate-900 p-4 flex flex-col">
-          <div className="flex items-baseline justify-between gap-2 mb-1">
+          <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
             <h3 className="font-display font-semibold text-sm inline-flex items-center gap-1.5">
               <AlertTriangle size={14} className="text-amber-600 dark:text-amber-400" /> Scam intel
+              {lastVisit > 0 && <NewBadge count={newScamCount} />}
             </h3>
             <Link
               to="/dfir/scam-watch"
@@ -310,23 +423,32 @@ function LiveSnapshotPanel(): JSX.Element {
                 <p className="text-[11px] font-mono text-slate-500">No recent alerts.</p>
               ) : (
                 <ul className="space-y-1.5 mt-1">
-                  {recentScam.map((it) => (
-                    <li key={it.guid ?? it.link} className="text-[11px] font-mono">
-                      <div className="flex items-baseline gap-2">
-                        <a
-                          href={it.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="font-display font-semibold text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 truncate flex-1 min-w-0"
-                          title={it.title}
-                        >
-                          {it.title}
-                        </a>
-                        <span className="text-slate-400 shrink-0">{shortRel(it.pubDate)}</span>
-                      </div>
-                      <p className="text-slate-500 dark:text-slate-500 truncate">{it.source}</p>
-                    </li>
-                  ))}
+                  {recentScam.map((it) => {
+                    const isNew = isNewSince(it.pubDate, lastVisit);
+                    return (
+                      <li key={it.guid ?? it.link} className="text-[11px] font-mono">
+                        <div className="flex items-baseline gap-2">
+                          <span
+                            className={`inline-block w-1.5 h-1.5 rounded-full shrink-0 ${
+                              isNew ? 'bg-amber-500' : 'bg-transparent'
+                            }`}
+                            aria-label={isNew ? 'new since last visit' : undefined}
+                          />
+                          <a
+                            href={it.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-display font-semibold text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 truncate flex-1 min-w-0"
+                            title={it.title}
+                          >
+                            {it.title}
+                          </a>
+                          <span className="text-slate-400 shrink-0">{shortRel(it.pubDate)}</span>
+                        </div>
+                        <p className="text-slate-500 dark:text-slate-500 truncate pl-3.5">{it.source}</p>
+                      </li>
+                    );
+                  })}
                 </ul>
               )}
             </>
@@ -525,9 +647,28 @@ export default function Briefings(): JSX.Element {
 
       <div className="mt-16 flex items-center gap-3 p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60">
         <Rss size={16} className="text-slate-400 shrink-0" />
-        <p className="text-sm font-mono text-slate-500">
-          RSS feed coming soon. Subscribe to get briefings in your favourite reader.
+        <p className="text-sm font-mono text-slate-500 flex-1">
+          Subscribe in your reader:{' '}
+          <a
+            href="/api/v1/briefings/rss"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-brand-600 dark:text-brand-400 hover:underline"
+          >
+            /api/v1/briefings/rss
+          </a>{' '}
+          · RSS 2.0 · last 10 briefings, edge-cached 1 h.
         </p>
+        <button
+          type="button"
+          onClick={() => {
+            void navigator.clipboard.writeText(`${window.location.origin}/api/v1/briefings/rss`);
+          }}
+          className="text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline shrink-0"
+          title="Copy RSS URL"
+        >
+          copy URL
+        </button>
       </div>
     </div>
   );

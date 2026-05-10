@@ -2431,4 +2431,286 @@ DLP detects and (optionally) blocks the movement of sensitive data outside an ap
 - [Insider threat article](/dfir/wiki/insider-threat) — why DLP matters in the first place.
 `,
   },
+
+  // ── Threat Intelligence (dark web / messaging-app monitoring) ───────────────
+  {
+    slug: 'dark-web-monitoring',
+    title: 'Dark-web monitoring tradecraft',
+    category: 'Threat Intelligence',
+    description:
+      'Practical guide to monitoring ransomware leak sites and other .onion services from clearnet, without standing up Tor infrastructure.',
+    body: `## Why monitor the dark web?
+
+For most defenders the question is narrower than it sounds: you want to know
+whether *your organisation* (or a third party in your supply chain) has shown
+up on a ransomware leak site, breach forum, or stealer-log market. You almost
+never need to actually browse the underlying \`.onion\` services.
+
+That distinction matters because the most opsec-hostile thing you can do is
+visit hostile dark-web infrastructure from an account or IP that ties back to
+you. Monitoring is mostly a clearnet activity.
+
+## What you can do without Tor
+
+Several free aggregators run their own Tor-equipped backends and publish the
+results on clearnet. The two we lean on:
+
+- **[Ransomlook.io](https://www.ransomlook.io)** — tracks 500+ ransomware
+  groups, publishes a JSON API of recent leak posts (\`/api/recent\`) plus
+  per-group \`.onion\` mirror inventories with reachability flags. Crucially,
+  it captures a **PNG screenshot of every leak post** and rehosts it on
+  clearnet, so you can see the actual leak page without ever opening a Tor
+  client.
+- **[deepdarkCTI](https://github.com/fastfire/deepdarkCTI)** — continuously
+  maintained markdown index of dark-web Telegram channels, Discord servers,
+  forums, marketplaces, and stealer-log distribution channels. Hard-coding
+  individual handles is futile (they rotate weekly); deepdarkCTI is the
+  living register.
+
+This site surfaces both at \`/dfir/darkweb\` (recent ransomware activity with
+screenshot thumbnails) and \`/dfir/onion-watch\` (live .onion mirror inventory
+with per-group reachability).
+
+## Why we don't fetch .onion content from this toolkit
+
+Cloudflare Workers cannot egress through Tor. Standing up a separate VPS
+running \`tor\` + a small HTTP proxy would be straightforward, but it
+introduces a permanent **single point of correlation**: anyone who can read
+the CF Worker logs (user IP → request) plus the VPS logs (timing → .onion
+host) can link the user to the host they visited. That's structural — short
+log retention helps but doesn't eliminate it.
+
+For real investigations, run **Tor Browser on a clean device with no
+logged-in accounts**. The toolkit's job is to give you the addresses to
+visit and tell you which mirrors are alive — not to make the click for you.
+
+## Leak-site etiquette
+
+When you do visit a leak site (in your own Tor Browser):
+
+- **Sock-puppet identity.** Different machine, different network egress,
+  no logged-in accounts, no installed extensions that fingerprint.
+- **Don't download.** Most leak sites bait visitors with "samples" that
+  are malware-laced. Treat the site as a pure read surface.
+- **Don't comment, don't react.** Many leak sites track which visitors
+  click which buttons. Stay passive.
+- **Document via screenshots, not URLs.** Tor URLs rotate. Screenshot
+  what you need; the screenshot is the evidence.
+- **Don't engage with negotiation chats.** That's a separate workstream
+  with legal + IR involvement, not a casual look.
+
+## What the toolkit doesn't tell you
+
+- **Stealer-log marketplaces.** Most are paywalled or invite-only; the
+  exposure data ends up on HIBP / DeHashed / SpyCloud weeks later.
+- **Carding shops.** The fraud team's beat, not the IR team's.
+- **Cybercrime forum threads.** Best monitored via paid CTI vendors
+  (Recorded Future, KELA, Flashpoint) that maintain undercover personas.
+
+## Cadence
+
+Ransomlook polls leak sites roughly hourly. The toolkit caches their
+\`/api/recent\` for 1 hour and the per-group profile data for 6 hours. So
+the worst-case staleness is ~7 hours — fine for "did our org get
+claimed" alerting, not enough for "is the site online right now"
+operational decisions.
+
+## See also
+
+- [\`/dfir/darkweb\`](/dfir/darkweb) — recent ransomware activity + Telegram firehose + breach disclosures
+- [\`/dfir/onion-watch\`](/dfir/onion-watch) — live .onion mirror inventory
+- [\`/dfir/telegram-watch\`](/dfir/telegram-watch) — curated index of cybersec Telegram channels
+`,
+  },
+  {
+    slug: 'telegram-osint',
+    title: 'Telegram OSINT for analysts',
+    category: 'Threat Intelligence',
+    description:
+      'How to discover, monitor, and pull threat-relevant content from public Telegram channels without compromising your opsec.',
+    body: `## Why Telegram matters
+
+Telegram has become the default low-friction broadcast medium for ransomware
+crews, hacktivist collectives, infostealer-log distributors, and a long tail
+of regional cybercrime communities. Unlike Discord, public Telegram channels
+expose a server-rendered preview at \`https://t.me/s/<handle>\` that anyone
+can read **without an account**. That's the entire technical foundation of
+"Telegram OSINT" for a defender.
+
+## Three classes of channel worth monitoring
+
+1. **Researcher / news channels.** vx-underground, Malware Traffic Analysis,
+   FalconFeedsIO, CyberKnow, abuse.ch — stable handles, signal-dense.
+   These are safe to follow openly.
+2. **Threat-actor-adjacent.** RansomWatch, DDoSecrets, mirror channels
+   for ransomware groups and hacktivist crews. Public channels but
+   monitoring them via your real account links your interests to a profile.
+3. **Cybercrime communities.** Stealer-log distribution, carding chatter,
+   regional forum mirrors. Mostly catalogued in
+   [deepdarkCTI](https://github.com/fastfire/deepdarkCTI) — handles rotate
+   constantly after Telegram bans.
+
+This site indexes ~25 channels from class (1) and (2) at
+\`/dfir/telegram-watch\` and pipes the firehose of public messages into the
+\`/dfir/darkweb\` panel.
+
+## How discovery actually works
+
+Telegram channels grow by mention, fork from each other, and rebrand often.
+The realistic discovery loop:
+
+1. Start with deepdarkCTI's category indexes for the topic you care about
+   (ransomware, infostealer, hacktivist, country-specific cybercrime).
+2. Open candidates in \`t.me/s/<handle>\` first — preview-only, no account
+   needed. If the preview is empty, the channel has disabled previews
+   (often a sign of stricter access control); decide whether to join.
+3. For channels worth tracking, pin the preview URL in your monitoring
+   tool. The toolkit's Telegram firehose panel server-side scrapes 10
+   curated channels every 30 minutes; you can extend the curated list in
+   \`api/src/routes/telegram-feed.ts\`.
+
+## Sock-puppet opsec for joining
+
+If you must join a channel (e.g. preview disabled, you need to see media):
+
+- **Dedicated number.** Google Voice, MySudo, TextNow — never your real
+  carrier number. Telegram's account is bound to the number; carrier-bound
+  identity is a one-way ratchet to deanonymisation.
+- **Dedicated device.** Or at minimum a dedicated Telegram client install
+  with no contact-sync, no notifications, no profile photo.
+- **Don't read in real time.** Telegram leaks "last seen" status to anyone
+  in the same channel by default. Lurk in scheduled batches; turn on the
+  privacy setting that hides last-seen from non-contacts.
+- **Never post.** Forwarded messages carry metadata that links to your
+  account ID even after deletion.
+
+## Signal-vs-noise
+
+Telegram channels post a *lot*. The realistic signal extraction:
+
+- **Watchlist matching.** Put your org name, brand variants, partner names,
+  and key technologies into the toolkit's watchlist on \`/dfir/darkweb\`.
+  The Telegram firehose panel highlights any message mentioning a
+  watchlist term.
+- **Cross-reference timestamps.** Many channels mirror the same news from
+  BleepingComputer / The Hacker News with hours of lag. The freshest
+  source usually wins your attention; the rest is noise.
+- **Trust the researcher channels first.** vx-underground and
+  Malware Traffic Analysis don't post hourly junk. CyberKnow + FalconFeeds
+  are higher-volume but lower-signal — useful as background, not as
+  primary alerting.
+
+## What you can't do
+
+- **No bot-API access to public channels you're not admin of.** The Bot
+  API only reads messages where the bot is an admin. There's no read-only
+  "follow this public channel" mode short of MTProto + a sock-puppet user
+  account.
+- **No history beyond the preview window.** \`t.me/s/<handle>\` shows only
+  the most recent ~20 messages. Older content requires joining.
+- **No private channels / supergroups.** Preview pages don't exist for
+  these by design.
+
+## See also
+
+- [\`/dfir/telegram-watch\`](/dfir/telegram-watch) — curated channel catalogue with category + language filters
+- [\`/dfir/darkweb\`](/dfir/darkweb) — Telegram firehose panel with watchlist matching
+- [Dark-web monitoring tradecraft](/dfir/wiki/dark-web-monitoring) — companion article on .onion + Ransomlook
+`,
+  },
+  {
+    slug: 'discord-osint',
+    title: "Discord OSINT — what works, what doesn't",
+    category: 'Threat Intelligence',
+    description:
+      'Honest scope of Discord as a monitoring surface: which security communities are worth joining, why automated content monitoring is mostly impossible, and how to verify invites.',
+    body: `## What Discord is and isn't for
+
+Discord's strength as an analyst tool is the **community surface**: the
+de-facto homes of the security training scene (HTB, TryHackMe, BHIS), the
+malware-research collectives, conference communities (DEF CON, BSides), and
+maintainer servers for the tools you actually use (SigmaHQ, OWASP, abuse.ch).
+These are stable, public, and useful.
+
+Discord is **not** a good monitoring surface for threat actors. Most
+threat-actor servers get reported and removed within weeks; the survivors
+are invite-only with vetting; and there's no public read API for non-bot
+users. The \`/dfir/discord-watch\` catalogue therefore skews heavily toward
+legitimate communities.
+
+## What you can technically do
+
+- **Join a server.** Click an invite, accept the rules, you're in.
+  Standard Discord account requirements apply (phone verification on most
+  larger servers).
+- **Search a server's history (after joining).** Discord's built-in search
+  is decent for keyword pivots within channels you have read access to.
+- **Run a bot, if the server admin invites it.** Bots can read every message
+  in channels the admin grants. Almost no public server will give you a
+  bot grant unless you're the server owner.
+
+## What you can't do
+
+- **No public read API for arbitrary servers.** Unlike Telegram, there is
+  no \`t.me/s\` equivalent. Joining is the only read path.
+- **No "subscribe to a server" feed.** Discord's gateway is real-time and
+  account-bound; there's no RSS / Atom / push-feed mode.
+- **No reliable scraping.** Selenium + a sock-puppet account works but
+  violates ToS, gets accounts banned routinely, and produces brittle output.
+- **No long history of deleted threat-actor servers.** Once Discord T&S
+  removes a server, the messages are gone; researchers archive what they
+  can but coverage is partial.
+
+This is why \`/dfir/darkweb\` doesn't have a "Discord firehose" panel
+analogous to the Telegram one. The plumbing isn't there.
+
+## Verifying invites before joining
+
+Phishing servers impersonating popular communities (HTB, TryHackMe,
+SigmaHQ, OWASP) are common. Always cross-check:
+
+1. The invite URL on the catalogue card has a \`source\` link that points
+   at the **org's own public website** — that's where the canonical invite
+   lives. Check that the invite code in the catalogue matches.
+2. Discord shows the server's verified status + member count in the
+   join-confirmation modal. If a "DEF CON" server has 50 members, it's
+   not the real one.
+3. New invite codes from the same server are fine. Phishing servers from
+   a different server ID with the same name are not. The "About" modal
+   shows the server ID.
+
+## Opsec for joining cybercrime-adjacent servers
+
+If you join anything on the threat-intel side:
+
+- **Sock-puppet account.** Different email, different Discord handle,
+  no profile photo, no friends, no shared mutuals.
+- **Phone verification on a sock-puppet number.** Many gated servers
+  require phone verification; same number rules as Telegram apply.
+- **Don't link voice / activity status.** Discord leaks "currently
+  playing", voice channel presence, and activity by default. Disable in
+  the privacy settings before joining anything sensitive.
+- **Read-only by default.** Don't react to messages, don't join voice,
+  don't message admins. Reactions and joins both create audit trail.
+- **Periodic account hygiene.** Sock-puppet accounts you don't actively
+  curate get pulled into mutual-friend networks accidentally. Audit
+  monthly.
+
+## What the catalogue is for
+
+The \`/dfir/discord-watch\` catalogue is a **learning + community
+discovery tool**. The recommendations skew toward HTB / TryHackMe / BHIS /
+DEF CON / SigmaHQ / abuse.ch — places an analyst genuinely benefits from
+being in. The threat-actor side is documented at
+[deepdarkCTI](https://github.com/fastfire/deepdarkCTI) where the indexes
+are kept current; we link out rather than mirror entries that decay
+within months.
+
+## See also
+
+- [\`/dfir/discord-watch\`](/dfir/discord-watch) — curated security Discord servers
+- [Telegram OSINT for analysts](/dfir/wiki/telegram-osint) — companion article
+- [Dark-web monitoring tradecraft](/dfir/wiki/dark-web-monitoring) — companion article
+`,
+  },
 ];
