@@ -407,7 +407,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           showNewBadge={lastVisit > 0}
           rightAction={
             <Link
-              to="/dfir/darkweb"
+              to="/dfir/darkweb#ransomware"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
             >
               feed <ExternalLink size={9} />
@@ -483,7 +483,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           showNewBadge={lastVisit > 0}
           rightAction={
             <Link
-              to="/dfir/darkweb"
+              to="/dfir/darkweb#telegram"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
             >
               full feed <ExternalLink size={9} />

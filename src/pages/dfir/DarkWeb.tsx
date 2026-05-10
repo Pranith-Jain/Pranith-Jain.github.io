@@ -271,13 +271,21 @@ export default function DarkWeb(): JSX.Element {
         </p>
       </div>
 
-      <RansomwareActivityPanel />
+      <section id="ransomware" className="scroll-mt-24">
+        <RansomwareActivityPanel />
+      </section>
 
-      <OnionMirrorsTeaser />
+      <hr className="my-8 border-slate-200 dark:border-slate-800" aria-hidden="true" />
 
-      <TelegramFeedPanel />
+      <section id="telegram" className="scroll-mt-24">
+        <TelegramFeedPanel />
+      </section>
 
-      <BreachDisclosuresPanel />
+      <hr className="my-8 border-slate-200 dark:border-slate-800" aria-hidden="true" />
+
+      <section id="breaches" className="scroll-mt-24">
+        <BreachDisclosuresPanel />
+      </section>
 
       {/* Search + filters */}
       <section className="mb-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 space-y-4">
@@ -935,106 +943,10 @@ function RansomwareActivityPanel(): JSX.Element {
 }
 
 // ─────────────────────────────────────────────────────────────────────────
-// Onion Mirrors teaser — the full inventory now lives at /dfir/onion-watch
-// (its own page with search, sort, copy-all). This panel is just a
-// summary card that pulls the same API for headline counts and links out.
-// ─────────────────────────────────────────────────────────────────────────
-
-interface OnionWatchResponse {
-  generated_at: string;
-  groups: { group: string; any_reachable: boolean }[];
-  reachable_count: number;
-  total_count: number;
-}
-
-function OnionMirrorsTeaser(): JSX.Element {
-  const [data, setData] = useState<OnionWatchResponse | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      try {
-        const res = await fetch('/api/v1/onion-watch');
-        if (!res.ok) return;
-        const json = (await res.json()) as OnionWatchResponse;
-        if (!cancelled) setData(json);
-      } catch {
-        /* swallow — teaser is best-effort */
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  const reachableNames = useMemo(
-    () =>
-      data?.groups
-        .filter((g) => g.any_reachable)
-        .slice(0, 8)
-        .map((g) => g.group) ?? [],
-    [data]
-  );
-
-  return (
-    <section className="mb-6 rounded-2xl border border-violet-500/30 bg-violet-500/5 p-5">
-      <div className="flex flex-wrap items-baseline justify-between gap-3 mb-2">
-        <h2 className="font-display font-semibold text-lg inline-flex items-center gap-2">
-          Active leak-site .onion mirrors
-          <span className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-violet-500/30 bg-violet-500/10 text-violet-700 dark:text-violet-300">
-            ransomlook.io
-          </span>
-        </h2>
-        <Link
-          to="/dfir/onion-watch"
-          className="text-[12px] font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
-        >
-          open full Onion Watch <ExternalLink size={11} />
-        </Link>
-      </div>
-
-      <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 mb-3 leading-relaxed">
-        {loading
-          ? 'Loading current reachability snapshot…'
-          : data
-            ? `${data.reachable_count} of ${data.groups.length} tracked groups reachable · ${data.total_count} mirrors observed.`
-            : 'Could not load current reachability snapshot.'}{' '}
-        Full URLs, per-group breakdown, search and copy-all live on the dedicated page.
-      </p>
-
-      {reachableNames.length > 0 && (
-        <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-[10px] font-mono text-slate-500">currently reachable:</span>
-          {reachableNames.map((g) => (
-            <Link
-              key={g}
-              to="/dfir/onion-watch"
-              className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/20"
-            >
-              {g}
-            </Link>
-          ))}
-          {data && data.reachable_count > reachableNames.length && (
-            <span className="text-[10px] font-mono text-slate-500">
-              +{data.reachable_count - reachableNames.length} more
-            </span>
-          )}
-        </div>
-      )}
-    </section>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────────────
 // Telegram firehose panel — aggregated cybersec channel preview from
-// /api/v1/telegram-feed. Server fetches t.me/s/<handle> for ~10
-// hand-picked channels (vx-underground, malware_traffic, ransomwatch,
-// CyberKnow, FalconFeedsIO, DDoSecrets, BleepingComputer, The Hacker News,
-// Bellingcat, IntelCrab) and we render the merged stream here. Watchlist
-// matches use the same localStorage key as the main feed.
+// /api/v1/telegram-feed. Server fetches t.me/s/<handle> for ~10 curated
+// channels and we render the merged stream here. Watchlist matches use
+// the same localStorage key as the main feed.
 // ─────────────────────────────────────────────────────────────────────────
 
 interface TelegramFeedItem {
