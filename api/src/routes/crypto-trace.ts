@@ -1,6 +1,8 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { checkAddress, type SanctionsCheck } from '../lib/ofac-sanctions';
+import { checkScamSniffer, loadScamSnifferSet, type ScamSnifferCheck } from '../lib/scamsniffer';
+import { getAddressContext, getRecentTransfers, type AddressContext, type TokenTransfer } from '../lib/blockscout';
 
 /**
  * Multi-chain crypto address inspector — Etherscan / Solscan / mempool.space
@@ -54,6 +56,11 @@ interface TraceResponse {
   detected_kind: ChainKind | 'unknown';
   results: ChainResult[];
   sanctions: SanctionsCheck;
+  scam: ScamSnifferCheck;
+  /** Blockscout enrichment: ENS, label, contract/EOA, reputation. EVM only. */
+  context?: AddressContext;
+  /** Recent ERC-20 transfers with counterparty cross-referenced against ScamSniffer. EVM only. */
+  recent_token_transfers?: TokenTransfer[];
   generated_at: string;
 }
 
@@ -395,16 +402,34 @@ export async function cryptoTraceHandler(c: Context<{ Bindings: Env }>): Promise
     source: 'OFAC SDN (via 0xB10C/ofac-sanctioned-digital-currency-addresses)',
     source_url: 'https://github.com/0xB10C/ofac-sanctioned-digital-currency-addresses',
   };
+  let scam: ScamSnifferCheck = {
+    flagged: false,
+    source: 'ScamSniffer scam-database',
+    source_url: 'https://github.com/scamsniffer/scam-database',
+  };
+  let context: AddressContext | undefined;
+  let recentTokenTransfers: TokenTransfer[] | undefined;
 
   if (detected === 'btc') {
     [results, sanctions] = await Promise.all([Promise.all([fetchBtc(address)]), checkAddress(address, ['XBT'])]);
   } else if (detected === 'evm') {
     // ETH list covers most EVM addresses; USDT/USDC overlap heavily but we
-    // include them so token-specific entries are caught.
-    [results, sanctions] = await Promise.all([
+    // include them so token-specific entries are caught. ScamSniffer is
+    // EVM-only so it runs alongside the OFAC + RPC fan-out here. We also
+    // pull Blockscout enrichment (ENS, label, contract flag) and the last
+    // 12 ERC-20 transfers; transfer counterparties are cross-referenced
+    // against the ScamSniffer set so victims of drainers see a red flag
+    // even when their own wallet is clean.
+    const scamSetPromise = loadScamSnifferSet();
+    let scamSet: Set<string>;
+    [results, sanctions, scam, context, scamSet] = await Promise.all([
       Promise.all(EVM_CHAINS.map((cfg) => fetchEvmChain(address, cfg))),
       checkAddress(address, ['ETH', 'USDT', 'USDC', 'ARB', 'BSC']),
+      checkScamSniffer(address),
+      getAddressContext(address),
+      scamSetPromise,
     ]);
+    recentTokenTransfers = await getRecentTransfers(address, scamSet);
   } else if (detected === 'solana') {
     // No SOL list published; we still resolve balance.
     results = [await fetchSolana(address)];
@@ -415,6 +440,9 @@ export async function cryptoTraceHandler(c: Context<{ Bindings: Env }>): Promise
     detected_kind: detected,
     results,
     sanctions,
+    scam,
+    ...(context ? { context } : {}),
+    ...(recentTokenTransfers ? { recent_token_transfers: recentTokenTransfers } : {}),
     generated_at: new Date().toISOString(),
   };
 

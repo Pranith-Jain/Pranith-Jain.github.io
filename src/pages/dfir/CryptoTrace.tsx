@@ -42,11 +42,46 @@ interface SanctionsCheck {
   source_url: string;
 }
 
+interface ScamCheck {
+  flagged: boolean;
+  source: string;
+  source_url: string;
+  list_size?: number;
+}
+
+interface AddressContext {
+  found: boolean;
+  is_contract: boolean;
+  is_scam: boolean;
+  ens_name: string | null;
+  label: string | null;
+  reputation: string | null;
+  source: string;
+  source_url: string;
+}
+
+interface TokenTransfer {
+  tx_hash: string;
+  timestamp: string | null;
+  direction: 'in' | 'out' | 'self';
+  counterparty: string;
+  counterparty_label: string | null;
+  counterparty_flagged: boolean;
+  token_symbol: string | null;
+  token_name: string | null;
+  amount: string | null;
+  method: string | null;
+  explorer_url: string;
+}
+
 interface TraceResponse {
   address: string;
   detected_kind: 'btc' | 'evm' | 'solana' | 'unknown';
   results: ChainResult[];
   sanctions?: SanctionsCheck;
+  scam?: ScamCheck;
+  context?: AddressContext;
+  recent_token_transfers?: TokenTransfer[];
   generated_at: string;
 }
 
@@ -238,13 +273,52 @@ export default function CryptoTrace(): JSX.Element {
               <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
                 Address inspected
               </h2>
-              <span className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-300">
-                {data.detected_kind}
-              </span>
+              <div className="flex flex-wrap items-center gap-1.5">
+                <span className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-300">
+                  {data.detected_kind}
+                </span>
+                {data.context?.found && (
+                  <span
+                    className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${
+                      data.context.is_contract
+                        ? 'border-violet-500/30 bg-violet-500/10 text-violet-700 dark:text-violet-300'
+                        : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400'
+                    }`}
+                  >
+                    {data.context.is_contract ? 'contract' : 'EOA'}
+                  </span>
+                )}
+                {data.context?.is_scam && (
+                  <span className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300">
+                    blockscout: scam
+                  </span>
+                )}
+              </div>
             </div>
+            {(data.context?.ens_name || data.context?.label) && (
+              <div className="flex flex-wrap items-center gap-2 mb-2 text-sm font-mono">
+                {data.context?.ens_name && (
+                  <span className="text-brand-700 dark:text-brand-300 font-semibold">{data.context.ens_name}</span>
+                )}
+                {data.context?.label && (
+                  <span className="px-1.5 py-0.5 rounded border border-cyan-500/30 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 text-xs">
+                    {data.context.label}
+                  </span>
+                )}
+              </div>
+            )}
             <code className="block font-mono text-sm text-slate-900 dark:text-slate-100 break-all bg-slate-50 dark:bg-slate-950 rounded border border-slate-200 dark:border-slate-800 p-2">
               {data.address}
             </code>
+            {data.context?.found && (
+              <p className="text-[10px] font-mono text-slate-500 dark:text-slate-500 mt-2">
+                Enrichment via{' '}
+                <a href={data.context.source_url} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                  Blockscout
+                </a>
+                {data.context.reputation && <> · reputation: {data.context.reputation}</>}
+              </p>
+            )}
           </section>
 
           {/* OFAC sanctions verdict */}
@@ -291,6 +365,50 @@ export default function CryptoTrace(): JSX.Element {
                   </span>
                 </section>
               )
+            ))}
+
+          {/* ScamSniffer phishing / wallet-drainer verdict (EVM-only) */}
+          {data.scam &&
+            data.detected_kind === 'evm' &&
+            (data.scam.flagged ? (
+              <section className="rounded-lg border-2 border-amber-500/60 bg-amber-500/10 p-4 mb-6">
+                <div className="flex items-baseline gap-2 mb-2">
+                  <AlertTriangle size={16} className="text-amber-700 dark:text-amber-300" />
+                  <h2 className="text-sm font-bold uppercase tracking-wider text-amber-700 dark:text-amber-300 font-mono">
+                    Flagged by ScamSniffer
+                  </h2>
+                </div>
+                <p className="text-sm font-mono text-slate-700 dark:text-slate-300 mb-2">
+                  This address has been observed in phishing kits, wallet drainers, fake-airdrop sites, or malicious
+                  contracts tracked by ScamSniffer's crawler. Funds sent here are commonly lost. Treat any signing
+                  request involving this address as hostile.
+                </p>
+                <a
+                  href={data.scam.source_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[11px] font-mono text-amber-700 dark:text-amber-300 hover:underline inline-flex items-center gap-1"
+                >
+                  source: {data.scam.source} <ExternalLink size={10} />
+                </a>
+              </section>
+            ) : (
+              <section className="rounded-lg border border-emerald-500/30 bg-emerald-500/5 p-3 mb-6 text-xs font-mono text-emerald-700 dark:text-emerald-300 inline-flex items-center gap-2 w-full">
+                <span className="inline-flex items-center gap-1">
+                  ✓ Not flagged in the ScamSniffer phishing / wallet-drainer database
+                  {typeof data.scam.list_size === 'number' && (
+                    <> ({data.scam.list_size.toLocaleString()} addresses tracked)</>
+                  )}
+                  .
+                </span>
+                <span className="text-slate-500 dark:text-slate-500 ml-auto">
+                  (per{' '}
+                  <a href={data.scam.source_url} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                    scamsniffer/scam-database
+                  </a>
+                  )
+                </span>
+              </section>
             ))}
 
           <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
@@ -343,6 +461,80 @@ export default function CryptoTrace(): JSX.Element {
               ))}
             </div>
           </section>
+
+          {data.recent_token_transfers && data.recent_token_transfers.length > 0 && (
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+              <div className="flex items-baseline justify-between gap-2 mb-3">
+                <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
+                  Recent ERC-20 transfers (Ethereum)
+                </h2>
+                {data.recent_token_transfers.some((t) => t.counterparty_flagged) && (
+                  <span className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 inline-flex items-center gap-1">
+                    <AlertTriangle size={10} /> drainer interaction
+                  </span>
+                )}
+              </div>
+              <ul className="space-y-1.5">
+                {data.recent_token_transfers.map((t, i) => (
+                  <li
+                    key={`${t.tx_hash}-${i}`}
+                    className={`text-[12px] font-mono flex flex-wrap items-baseline gap-2 border rounded p-2 ${
+                      t.counterparty_flagged
+                        ? 'border-rose-500/40 bg-rose-500/5'
+                        : 'border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950'
+                    }`}
+                  >
+                    <DirectionPill d={t.direction} />
+                    {t.amount && <span className="text-slate-900 dark:text-slate-100 font-bold">{t.amount}</span>}
+                    <span className="text-slate-500 dark:text-slate-500">
+                      {t.direction === 'out' ? '→' : t.direction === 'in' ? '←' : '↔'}
+                    </span>
+                    <span
+                      className={`break-all ${
+                        t.counterparty_flagged
+                          ? 'text-rose-700 dark:text-rose-300 font-semibold'
+                          : 'text-slate-700 dark:text-slate-300'
+                      }`}
+                    >
+                      {t.counterparty_label ?? shortHash(t.counterparty, 6)}
+                    </span>
+                    {t.counterparty_flagged && (
+                      <span className="text-[10px] uppercase tracking-wider px-1 py-0.5 rounded bg-rose-500/20 text-rose-700 dark:text-rose-300 border border-rose-500/40">
+                        scamsniffer
+                      </span>
+                    )}
+                    {t.method && (
+                      <span className="text-[10px] uppercase tracking-wider text-violet-600 dark:text-violet-400">
+                        {t.method}
+                      </span>
+                    )}
+                    {t.timestamp && <span className="text-slate-500 dark:text-slate-500">{fmtRel(t.timestamp)}</span>}
+                    <a
+                      href={t.explorer_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="ml-auto text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                    >
+                      tx <ExternalLink size={10} />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <p className="text-[10px] font-mono text-slate-500 dark:text-slate-500 mt-2">
+                Source:{' '}
+                <a
+                  href={`https://eth.blockscout.com/address/${data.address}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:underline"
+                >
+                  Blockscout
+                </a>{' '}
+                · counterparties cross-referenced against ScamSniffer drainer/phishing list. Ethereum mainnet only —
+                other chains' Blockscout instances are not yet wired in.
+              </p>
+            </section>
+          )}
 
           {data.results.some((r) => r.recent_txs.length > 0) && (
             <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
