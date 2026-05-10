@@ -38,10 +38,19 @@ interface ChannelSpec {
 }
 
 /**
- * Curated channel set. Picked for signal density + handle stability.
- * Sourced from the public TelegramWatch catalogue.
+ * Curated channel set. Each handle is liveness-probed before inclusion —
+ * we only ship channels that (a) expose t.me/s/<handle> previews and
+ * (b) have posted within the last ~30 days. Last verified 2026-05-11.
+ *
+ * Channels we used to carry but had to drop because they went silent or
+ * disabled previews (kept here as a "do not re-add without re-checking"
+ * audit trail): malware_traffic (Oct'25), CyberKnow20 (Oct'23),
+ * FalconFeedsio (May'24), bellingcat (Jan'24), ransomwatch (no preview),
+ * DDoSecrets / IntelCrab / osintfounder / cisa_alerts / krebsonsecurity
+ * (preview disabled or channel removed).
  */
 const CHANNELS: ChannelSpec[] = [
+  // Malware research
   {
     handle: 'vxunderground',
     name: 'vx-underground',
@@ -49,24 +58,39 @@ const CHANNELS: ChannelSpec[] = [
     topic: 'malware',
   },
   {
-    handle: 'malware_traffic',
-    name: 'Malware Traffic Analysis',
-    blurb: 'Brad Duncan — daily PCAPs + IOCs',
+    handle: 'androidmalware',
+    name: 'Android Malware',
+    blurb: 'Daily Android-malware sample drops + analysis',
     topic: 'malware',
   },
-  // ransomwatch / DDoSecrets / IntelCrab disabled their t.me/s preview pages,
-  // so we substitute equivalents that still expose previews:
-  //   ransomware leak feed   → secharvester (high-volume threat-intel firehose)
-  //   leak datasets          → dataleak (data-breach repost channel)
-  //   conflict CTI crossover → group_ib (Group-IB official)
+  // Threat intel / CTI feeds
   { handle: 'secharvester', name: 'SecHarvester', blurb: 'High-volume threat-intel firehose', topic: 'leaks' },
-  { handle: 'CyberKnow20', name: 'CyberKnow', blurb: 'Hacktivist collective tracking', topic: 'hacktivism' },
-  { handle: 'FalconFeedsio', name: 'FalconFeedsIO', blurb: 'Real-time dark-web monitoring', topic: 'leaks' },
+  { handle: 'group_ib', name: 'Group-IB', blurb: 'Official Group-IB threat-intel channel', topic: 'osint' },
+  { handle: 'ctinow', name: 'CTI Now', blurb: 'Real-time CTI aggregator — IOCs, advisories, leaks', topic: 'osint' },
+  {
+    handle: 'Cyber_Ti_Reports_VN',
+    name: 'Cyber TI Reports',
+    blurb: 'Curated CTI report digest (multi-language)',
+    topic: 'osint',
+  },
+  // Breach / leak feeds
   { handle: 'dataleak', name: 'DataLeak', blurb: 'Data-breach repost channel', topic: 'leaks' },
+  // News mirrors
   { handle: 'BleepingComputer', name: 'BleepingComputer', blurb: 'Breaking incident news', topic: 'news' },
   { handle: 'TheHackerNews', name: 'The Hacker News', blurb: 'Security news headlines', topic: 'news' },
-  { handle: 'bellingcat', name: 'Bellingcat', blurb: 'Investigative-OSINT case studies', topic: 'osint' },
-  { handle: 'group_ib', name: 'Group-IB', blurb: 'Official Group-IB threat-intel channel', topic: 'osint' },
+  {
+    handle: 'cyber_security_channel',
+    name: 'Cyber Security Channel',
+    blurb: 'High-volume security-news aggregator',
+    topic: 'news',
+  },
+  // Bug-bounty / offensive research
+  {
+    handle: 'dailybountywriteup',
+    name: 'Daily Bounty Writeup',
+    blurb: 'Curated bug-bounty write-ups + disclosed vuln reports',
+    topic: 'osint',
+  },
 ];
 
 interface ParsedMessage {
@@ -227,9 +251,11 @@ export async function fetchTelegramFeed(): Promise<TelegramFeedResponse> {
 
 export async function telegramFeedHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;
-  // v2: channel set rotated after preview-disabled handles were swapped out.
+  // v3: 2026-05-11 audit — dropped 4 stale handles (CyberKnow20, FalconFeedsio,
+  // bellingcat, malware_traffic), added 5 active ones (ctinow, Cyber_Ti_Reports_VN,
+  // dailybountywriteup, cyber_security_channel, androidmalware).
   // Bump on response-shape changes or curated-channel-list changes.
-  const cacheKey = new Request('https://telegram-feed-cache.internal/v2');
+  const cacheKey = new Request('https://telegram-feed-cache.internal/v3');
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
