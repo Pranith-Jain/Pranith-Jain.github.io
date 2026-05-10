@@ -23,7 +23,9 @@ import { trackEvent, visitorCountry } from '../lib/analytics';
  * Cached 1h in Cache API so each visitor doesn't re-trigger the geolocation.
  */
 
-const CACHE_KEY = 'https://threat-map-cache.internal/v3-multitype';
+/** Exported so /api/v1/snapshot can read the same cached payload directly. */
+export const THREAT_MAP_CACHE_KEY = 'https://threat-map-cache.internal/v3-multitype';
+const CACHE_KEY = THREAT_MAP_CACHE_KEY;
 const CACHE_TTL_SECONDS = 3600;
 const MAX_IPS = 500; // ip-api.com batch is 100; we'll do up to 5 batches
 const MAX_PER_TYPE = 60; // per non-IP IOC type (urls / domains / hashes)

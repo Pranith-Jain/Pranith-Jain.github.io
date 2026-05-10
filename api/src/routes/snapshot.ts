@@ -5,7 +5,7 @@ import { fetchTelegramFeed } from './telegram-feed';
 import { fetchOnionWatch } from './onion-watch';
 import { aggregateFeeds } from './feeds-aggregate';
 import { fetchDetectionRules } from './detection-rules';
-import { fetchThreatMap } from './threat-map';
+import { fetchThreatMap, THREAT_MAP_CACHE_KEY } from './threat-map';
 import { listBriefings } from '../lib/briefing-builder';
 
 /**
@@ -85,10 +85,10 @@ async function safe<T>(fn: () => Promise<T>): Promise<SourcePayload<T>> {
 
 export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;
-  // v4: bust the v3 cache that captured an empty threat_map.countries
-  // payload from a transient ip-api outage; v4 also adds the retry fallback
-  // when threat_map.countries is empty but total_ips > 0.
-  const cacheKey = new Request('https://snapshot-cache.internal/v4');
+  // v5: snapshot now reads the threat-map handler's own cache instead of
+  // always doing fresh upstream fetches — was producing 0/0 payloads when
+  // the snapshot's first call to fetchThreatMap raced ip-api flakiness.
+  const cacheKey = new Request('https://snapshot-cache.internal/v5');
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
@@ -125,11 +125,17 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
       return { items };
     }),
     // Trim threat-map — snapshot card only uses total_ips + top countries.
-    // If geolocation came back empty (ip-api flaky / cold cache), retry once
-    // before giving up — the underlying handler caches its own result so
-    // the second call is fast either way.
+    // Read the threat-map handler's own cache first; fall back to a fresh
+    // upstream fetch on miss. Calling fetchThreatMap() directly always does
+    // ~7 upstream IOC-feed fetches + an ip-api geolocation batch, which is
+    // both slow and prone to per-request flakes — the handler-side cache is
+    // 1 h TTL, so reading it first means we usually get a 290-IP / 32-country
+    // payload instantly instead of risking a 0-IP cold-call.
     safe(async () => {
-      let t = await fetchThreatMap();
+      const cached = await cache.match(new Request(THREAT_MAP_CACHE_KEY));
+      let t = cached ? ((await cached.json()) as Awaited<ReturnType<typeof fetchThreatMap>>) : await fetchThreatMap();
+      // Defensive retry if the cached payload (or fresh call) shows the
+      // ip-api outage signature (IPs counted but no countries geolocated).
       if (t.countries.length === 0 && t.total_ips > 0) {
         t = await fetchThreatMap();
       }
