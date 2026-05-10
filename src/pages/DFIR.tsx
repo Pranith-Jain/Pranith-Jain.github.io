@@ -45,11 +45,12 @@ export default function DFIRPage(): JSX.Element {
           DFIR Toolkit
         </span>
         <h1 className="text-5xl sm:text-6xl font-display font-bold text-slate-900 dark:text-slate-100 mb-4 leading-tight">
-          A working DFIR toolkit on the edge.
+          Interactive DFIR tools on the edge.
         </h1>
         <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mb-6 leading-relaxed">
-          Real DFIR tools, not screenshots. Sub-200ms IOC checks across 22 threat intelligence sources, with no signup
-          required. The whole stack runs on Cloudflare Workers, free at the edge.
+          The action surface — scanners, decoders, lookup tools, frameworks, and analysers. Sub-200ms IOC checks across
+          22 threat-intel sources, with no signup required. The whole stack runs on Cloudflare Workers, free at the
+          edge.
         </p>
         <div className="flex flex-wrap items-center gap-4 text-sm font-mono text-slate-600 dark:text-slate-400">
           <span>
@@ -69,6 +70,13 @@ export default function DFIRPage(): JSX.Element {
             edge, last build {__BUILD_DATE__}
           </span>
         </div>
+        <p className="text-sm text-slate-500 dark:text-slate-500 font-mono mt-4">
+          Looking for sources, briefings, RSS feeds, leak-site mirrors, or news? →{' '}
+          <Link to="/threatintel" className="text-brand-600 dark:text-brand-400 hover:underline">
+            /threatintel
+          </Link>{' '}
+          (separate platform).
+        </p>
       </header>
 
       <section className="animate-fade-in-up">

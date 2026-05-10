@@ -5,20 +5,17 @@ import {
   ShieldAlert,
   Globe,
   Radar,
-  BookOpen,
   Clock,
   Users,
   Lock,
   Search as SearchIcon,
   X,
-  Newspaper,
   Search,
   Shield,
-  Grid3x3,
+  Sparkles,
   Eye,
   Network,
   Code2,
-  Compass,
   ExternalLink,
   Image as ImageIcon,
   Filter,
@@ -26,13 +23,9 @@ import {
   Type,
   Unplug,
   Share2,
-  Github,
   Microscope,
-  Bell,
   Globe2,
-  FileCode,
   ShieldCheck,
-  Sparkles,
   Plug,
   Crosshair,
   Diamond,
@@ -42,16 +35,11 @@ import {
   ScrollText,
   FileCheck,
   FolderTree,
-  Layers,
   Paperclip,
-  BookText,
   Scale,
   AtSign,
   History,
-  AlertTriangle,
   Coins,
-  Radio,
-  Send,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -141,18 +129,12 @@ export const SECTIONS: Section[] = [
         desc: 'CT log enumeration via SSLMate Cert Spotter — find subdomains by their issued certs',
         icon: ShieldCheck,
       },
-      {
-        path: '/dfir/threat-map',
-        label: 'Cyber Threat Map',
-        desc: 'Live geolocation of malicious infrastructure · choropleth + leaderboard',
-        icon: Globe2,
-      },
     ],
   },
   {
     id: 'osint',
-    label: 'OSINT',
-    blurb: 'Open-source pivots — username, archive, code-host metadata, curated directory.',
+    label: 'OSINT Tools',
+    blurb: 'Open-source pivots — username, archive, code-host metadata.',
     tools: [
       {
         path: '/dfir/username',
@@ -177,24 +159,6 @@ export const SECTIONS: Section[] = [
         label: 'SOCMINT Pivots',
         desc: 'Email/domain/handle/name → categorised OSINT lookup links · breach + B2B (ZoomInfo, Apollo, Hunter, RocketReach) + social + dev + paste dorks',
         icon: Users,
-      },
-      {
-        path: '/dfir/osint-framework',
-        label: 'OSINT Framework',
-        desc: '70+ curated OSINT tools across 15 categories · pricing-tier + category filter · search',
-        icon: Compass,
-      },
-      {
-        path: '/dfir/secops-tools',
-        label: 'SecOps Tools Catalog',
-        desc: '~140 hand-picked tools across 14 categories — DFIR / Threat Intel / AI Sec / Malware / Vuln / DLP / Detection / Email / Cloud / AppSec / Pentest',
-        icon: Layers,
-      },
-      {
-        path: '/dfir/awesome-lists',
-        label: 'Awesome Lists',
-        desc: 'Curated GitHub awesome-lists for OSINT, Threat Intel, IR, MCP / AI security · star + focus filter · canonical README links',
-        icon: Sparkles,
       },
       {
         path: '/dfir/url-preview',
@@ -279,78 +243,10 @@ export const SECTIONS: Section[] = [
     ],
   },
   {
-    id: 'intel',
-    label: 'Threat Intelligence',
-    blurb: 'Feeds, actors, and the data behind the indicators.',
-    tools: [
-      {
-        path: '/dfir/briefings',
-        label: 'Intel Briefings',
-        desc: 'Daily + weekly digest · auto-generated from feeds',
-        icon: Newspaper,
-      },
-      {
-        path: '/dfir/darkweb',
-        label: 'Dark Web Watch',
-        desc: 'Aggregated leak-site, ransomware, breach activity · keyword watchlist',
-        icon: Bell,
-      },
-      {
-        path: '/dfir/onion-watch',
-        label: 'Onion Watch',
-        desc: 'Live .onion mirror inventory for top ransomware leak sites · per-group reachability from Ransomlook · search · copy-all URLs',
-        icon: Globe2,
-      },
-      {
-        path: '/dfir/telegram-watch',
-        label: 'Telegram Watch',
-        desc: 'Curated index of public threat-intel, malware-research, OSINT, ransomware-tracking, and cybercrime Telegram channels · category + language filters',
-        icon: Send,
-      },
-      {
-        path: '/dfir/scam-watch',
-        label: 'Scam Watch',
-        desc: 'Live FTC + FBI IC3 alerts · deepfake-scam news · Reddit victim reports · search + filter',
-        icon: AlertTriangle,
-      },
-      {
-        path: '/dfir/tech-ai-news',
-        label: 'Tech & AI News',
-        desc: 'AI labs · cyber-vendor funding · M&A · general tech · HN/YC · 16 sources, threat-intel kept separate',
-        icon: Sparkles,
-      },
-      {
-        path: '/dfir/threat-feeds',
-        label: 'Threat Feeds',
-        desc: 'CISA · vendor labs · IR write-ups · Reddit infosec · CVE/Exploit-DB · security press · 40 sources',
-        icon: Radio,
-      },
-      { path: '/dfir/actors', label: 'Threat Actors', desc: 'APT catalog · STIX-aware', icon: Users },
-      {
-        path: '/dfir/mitre',
-        label: 'MITRE ATT&CK',
-        desc: 'Matrix · technique deep-dive · actor mapping',
-        icon: Grid3x3,
-      },
-      {
-        path: '/dfir/stix',
-        label: 'STIX Viewer',
-        desc: 'Visualise STIX 2.1 bundles · interactive relationship graph',
-        icon: Share2,
-      },
-    ],
-  },
-  {
     id: 'det-eng',
     label: 'Detection Engineering',
-    blurb: 'Build, test, and maintain detection content.',
+    blurb: 'Build, test, and run detection content.',
     tools: [
-      {
-        path: '/dfir/rules',
-        label: 'Detection Rules',
-        desc: 'Sigma · YARA · Elastic · Splunk · KQL · Suricata · live commit feeds',
-        icon: FileCode,
-      },
       {
         path: '/dfir/rule-playground',
         label: 'YARA / Sigma Playground',
@@ -368,6 +264,12 @@ export const SECTIONS: Section[] = [
         label: 'Log Parser',
         desc: 'WinEvent / Sysmon / syslog / JSON-line / key=value · MITRE tagging · Splunk + Elastic + Sentinel queries',
         icon: ScrollText,
+      },
+      {
+        path: '/dfir/stix',
+        label: 'STIX Viewer',
+        desc: 'Drop a STIX 2.1 bundle · interactive relationship graph · validate + browse SDOs/SROs',
+        icon: Share2,
       },
     ],
   },
@@ -450,86 +352,28 @@ export const SECTIONS: Section[] = [
         desc: 'NVD · CVSS · EPSS · KEV · combined patch-priority score with rationale',
         icon: Search,
       },
-      {
-        path: '/dfir/cve-resources',
-        label: 'CVE Resources Catalog',
-        desc: '~70 curated CVE sources — databases · exploit/PoC · vendor PSIRTs · scoring · research labs · alert feeds',
-        icon: BookText,
-      },
       { path: '/dfir/breach', label: 'Breach Checker', desc: 'Pwned password · k-anonymity', icon: Shield },
       { path: '/dfir/jwt', label: 'JWT Inspector', desc: 'Decode + flag alg=none, exp, weak claims', icon: KeyRound },
     ],
   },
   {
     id: 'reference',
-    label: 'Reference & Personal',
-    blurb: 'Knowledge base, your own state, and privacy hygiene.',
+    label: 'Personal',
+    blurb: 'Your own state and privacy hygiene.',
     tools: [
-      { path: '/dfir/wiki', label: 'Knowledge Base', desc: 'Concepts + playbooks', icon: BookOpen },
       { path: '/dfir/dashboard', label: 'Recent Lookups', desc: 'Your last 20 queries', icon: Clock },
       { path: '/dfir/privacy', label: 'Privacy Check', desc: 'IP · WebRTC · fingerprint', icon: Lock },
     ],
   },
 ];
 
-const EXTERNAL: Tool[] = [
-  {
-    path: 'https://threatlandscape.io/free-tools',
-    label: 'Threat Landscape Free Tools',
-    desc: 'Curated free DFIR and threat intel tools directory',
-    icon: Compass,
-    external: true,
-  },
-  {
-    path: 'https://analyzer.vecert.io/index',
-    label: 'Vecert Analyzer',
-    desc: 'Free file and indicator analyzer for incident response',
-    icon: Microscope,
-    external: true,
-  },
-  {
-    path: 'https://github.com/fastfire/deepdarkCTI',
-    label: 'deepdarkCTI',
-    desc: 'Continuously updated repository of dark web and CTI sources, by fastfire',
-    icon: Github,
-    external: true,
-  },
-  {
-    path: 'https://github.com/nitefood/asn',
-    label: 'asn (nitefood)',
-    desc: 'Multi-protocol BGP, ASN, and IP-to-ASN command-line lookup tool',
-    icon: Github,
-    external: true,
-  },
-  {
-    path: 'https://www.worldmonitor.app',
-    label: 'World Monitor',
-    desc: 'Real-time OSINT dashboard, news, markets, ADS-B and AIS tracking across 435+ sources',
-    icon: Compass,
-    external: true,
-  },
-  {
-    path: 'https://github.com/rawfilejson/awesome-osint-arsenal',
-    label: 'awesome-osint-arsenal',
-    desc: 'Curated arsenal of OSINT tools, frameworks, and references by rawfilejson',
-    icon: Github,
-    external: true,
-  },
-  {
-    path: 'https://osinttools.io/tools',
-    label: 'OSINT Tools',
-    desc: 'Curated OSINT directory',
-    icon: Compass,
-    external: true,
-  },
-  {
-    path: 'https://osintrack.com/',
-    label: 'OSINTrack',
-    desc: 'OSINT investigation tracker',
-    icon: Compass,
-    external: true,
-  },
-];
+/**
+ * Off-site sources / catalogs the External-Resources block used to render.
+ * Moved to /threatintel as part of the 2026-05-11 split — see
+ * `EXTERNAL_SOURCES` in `src/pages/threatintel/Home.tsx`. Kept here as
+ * an empty array so the page renderer below doesn't need a conditional.
+ */
+const EXTERNAL: Tool[] = [];
 
 function Card({ tool }: { tool: Tool }): JSX.Element {
   const { path, label, desc, icon: Icon, external } = tool;
