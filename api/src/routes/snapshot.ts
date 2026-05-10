@@ -1,5 +1,9 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { fetchRansomwareRecent } from './ransomware-recent';
+import { fetchTelegramFeed } from './telegram-feed';
+import { fetchOnionWatch } from './onion-watch';
+import { aggregateFeeds } from './feeds-aggregate';
 
 /**
  * Unified live-snapshot endpoint. Replaces six client-side fetches that the
@@ -9,25 +13,24 @@ import type { Env } from '../env';
  * The browser pays one HTTP round-trip + one setState cycle instead of six,
  * which materially cuts client TBT (Total Blocking Time) on Lighthouse.
  *
- * Server cost is unchanged — we still fetch the six upstreams. We do it via
- * worker-internal `fetch(new URL('/api/v1/...', request.url))` calls so the
- * existing handlers + their per-route edge caches stay in play untouched.
+ * Implementation: each per-source handler now exports a pure-data fetcher
+ * (`fetchRansomwareRecent`, `fetchTelegramFeed`, `fetchOnionWatch`,
+ * `aggregateFeeds`) alongside its HTTP handler. We call those directly here
+ * instead of doing worker-internal HTTP fetches (which Cloudflare 522s on
+ * same-worker recursion). The dedicated routes keep their per-route caches.
  *
- * Per-source failures don't fail the whole snapshot. Each key in the response
- * is independently `null` (with the failure reason in `errors`) or populated.
+ * Per-source failures don't fail the whole snapshot. Each key in the
+ * response is independently `ok: true/false` with the failure reason.
  *
- * Cache: 5 min at the edge. The underlying handlers cache longer (1 h for
- * ransomware, 30 min for Telegram, 6 h for onion) so even on a snapshot
- * cache miss we typically only pay the merge cost, not the upstream cost.
+ * Cache: 5 min at the edge so repeat snapshot calls within that window are
+ * free; the underlying handlers cache much longer (1 h ransomware, 30 min
+ * Telegram, 6 h onion) so even on a snapshot miss we typically only pay the
+ * merge cost.
  */
 
 const CACHE_TTL = 5 * 60;
 
-/**
- * Curated feed groups for the three "feed-aggregator" cards. Kept in sync
- * with the constants in src/components/dfir/LiveSnapshotPanel.tsx — change
- * one, change the other.
- */
+/** Curated feed URLs — kept in sync with the constants the panel used to use. */
 const SCAM_FEED_URLS = ['https://consumer.ftc.gov/blog/rss', 'https://www.ic3.gov/CSA/RSS'];
 const THREAT_INTEL_FEED_URLS = [
   'https://www.bleepingcomputer.com/feed/',
@@ -65,14 +68,9 @@ export interface SnapshotResponse {
   tech_ai: SourcePayload;
 }
 
-async function safeJson(url: string): Promise<SourcePayload> {
+async function safe<T>(fn: () => Promise<T>): Promise<SourcePayload<T>> {
   try {
-    const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), 20_000);
-    const r = await fetch(url, { signal: ctrl.signal, cf: { cacheTtl: CACHE_TTL } as RequestInitCfProperties });
-    clearTimeout(timer);
-    if (!r.ok) return { ok: false, data: null, error: `HTTP ${r.status}` };
-    const data = (await r.json()) as unknown;
+    const data = await fn();
     return { ok: true, data };
   } catch (e) {
     return { ok: false, data: null, error: (e as Error).message };
@@ -81,22 +79,26 @@ async function safeJson(url: string): Promise<SourcePayload> {
 
 export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;
-  const cacheKey = new Request('https://snapshot-cache.internal/v1');
+  const cacheKey = new Request('https://snapshot-cache.internal/v2');
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
-  const reqUrl = new URL(c.req.url);
-  const origin = `${reqUrl.protocol}//${reqUrl.host}`;
-  const aggUrl = (urls: string[], limit: number, perSource: number) =>
-    `${origin}/api/v1/feeds/aggregate?urls=${encodeURIComponent(urls.join(','))}&limit=${limit}&perSource=${perSource}`;
-
   const [ransomware, telegram, onion, scam, threatIntel, techAi] = await Promise.all([
-    safeJson(`${origin}/api/v1/ransomware-recent`),
-    safeJson(`${origin}/api/v1/telegram-feed`),
-    safeJson(`${origin}/api/v1/onion-watch`),
-    safeJson(aggUrl(SCAM_FEED_URLS, 12, 6)),
-    safeJson(aggUrl(THREAT_INTEL_FEED_URLS, 16, 4)),
-    safeJson(aggUrl(TECH_AI_FEED_URLS, 18, 3)),
+    safe(async () => {
+      const { body, upstreamOk, rateLimited } = await fetchRansomwareRecent();
+      if (rateLimited) throw new Error(`upstream rate-limited (retry-after ${rateLimited.retryAfter})`);
+      if (!upstreamOk) throw new Error('upstream unreachable');
+      return body;
+    }),
+    safe(() => fetchTelegramFeed()),
+    safe(async () => {
+      const body = await fetchOnionWatch();
+      if (!body) throw new Error('ransomlook unreachable');
+      return body;
+    }),
+    safe(() => aggregateFeeds(SCAM_FEED_URLS, 12, 6)),
+    safe(() => aggregateFeeds(THREAT_INTEL_FEED_URLS, 16, 4)),
+    safe(() => aggregateFeeds(TECH_AI_FEED_URLS, 18, 3)),
   ]);
 
   const body: SnapshotResponse = {

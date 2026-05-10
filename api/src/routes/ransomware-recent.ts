@@ -63,14 +63,20 @@ function toIsoDate(s: string): string {
   return Number.isFinite(d.getTime()) ? d.toISOString() : s;
 }
 
-export async function ransomwareRecentHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const cache = (caches as unknown as { default: Cache }).default;
-  const cacheKey = new Request(CACHE_KEY);
-  const cached = await cache.match(cacheKey);
-  if (cached) return cached;
-
+/**
+ * Pure-data fetcher — exported for the unified /api/v1/snapshot endpoint
+ * which calls upstream handlers directly (worker-internal fetch loops on
+ * Cloudflare). Returns `{ body, upstreamOk, rateLimited }` so the calling
+ * handler can decide on cache + status semantics.
+ */
+export async function fetchRansomwareRecent(): Promise<{
+  body: ResponseBody;
+  upstreamOk: boolean;
+  rateLimited?: { retryAfter: string };
+}> {
   let victims: RansomwareVictim[] = [];
   let upstreamOk = false;
+  let rateLimited: { retryAfter: string } | undefined;
 
   try {
     const ctrl = new AbortController();
@@ -84,13 +90,8 @@ export async function ransomwareRecentHandler(c: Context<{ Bindings: Env }>): Pr
     });
     clearTimeout(timer);
     if (res.status === 429) {
-      const retryAfter = res.headers.get('retry-after') ?? '60';
-      return c.json({ error: 'upstream_rate_limited', upstream: 'www.ransomlook.io', upstream_status: 429 }, 429, {
-        'retry-after': retryAfter,
-        'cache-control': 'no-store',
-      });
-    }
-    if (res.ok) {
+      rateLimited = { retryAfter: res.headers.get('retry-after') ?? '60' };
+    } else if (res.ok) {
       const raw = (await res.json()) as RansomlookEntry[];
       upstreamOk = true;
       victims = raw
@@ -126,6 +127,24 @@ export async function ransomwareRecentHandler(c: Context<{ Bindings: Env }>): Pr
     groups,
     victims,
   };
+
+  return { body, upstreamOk, rateLimited };
+}
+
+export async function ransomwareRecentHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const cache = (caches as unknown as { default: Cache }).default;
+  const cacheKey = new Request(CACHE_KEY);
+  const cached = await cache.match(cacheKey);
+  if (cached) return cached;
+
+  const { body, upstreamOk, rateLimited } = await fetchRansomwareRecent();
+
+  if (rateLimited) {
+    return c.json({ error: 'upstream_rate_limited', upstream: 'www.ransomlook.io', upstream_status: 429 }, 429, {
+      'retry-after': rateLimited.retryAfter,
+      'cache-control': 'no-store',
+    });
+  }
 
   const response = c.json(body, 200, {
     'Cache-Control': upstreamOk ? `public, max-age=${CACHE_TTL_SECONDS}` : 'no-store',

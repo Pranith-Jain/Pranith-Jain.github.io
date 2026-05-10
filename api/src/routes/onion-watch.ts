@@ -136,25 +136,17 @@ async function fetchGroupMirrors(group: string): Promise<RansomlookLocation[]> {
   return data as RansomlookLocation[];
 }
 
-export async function onionWatchHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const cache = (caches as unknown as { default: Cache }).default;
-  // v2: parser bug fix — old v1 cache entries hold the broken empty-groups
-  // response. Bump on any breaking response-shape change.
-  const cacheKey = new Request('https://onion-watch-cache.internal/v2');
-  const cached = await cache.match(cacheKey);
-  if (cached) return cached;
-
+/**
+ * Pure-data fetcher exposed for /api/v1/snapshot. Returns the body or null
+ * if the upstream is unreachable (vs the handler which returns a 502 in
+ * that case). Snapshot wraps null into its envelope.
+ */
+export async function fetchOnionWatch(): Promise<OnionWatchResponse | null> {
   const warnings: string[] = [];
 
-  // Pull recent feed to get the active group set + most-recent timestamps.
   const recent = await fetchJson<RecentEntry[]>('https://www.ransomlook.io/api/recent');
-  if (!Array.isArray(recent)) {
-    return c.json({ error: 'ransomlook unreachable', detail: 'failed to fetch /api/recent' }, 502, {
-      'cache-control': 'no-store',
-    });
-  }
+  if (!Array.isArray(recent)) return null;
 
-  // Aggregate per group: the most-recent timestamp + first-seen ordering.
   const byGroup = new Map<string, string>();
   for (const r of recent) {
     if (!r.group_name) continue;
@@ -167,7 +159,6 @@ export async function onionWatchHandler(c: Context<{ Bindings: Env }>): Promise<
     .slice(0, TOP_N_GROUPS)
     .map(([g]) => g);
 
-  // Bounded-concurrency fan-out.
   const results = new Map<string, RansomlookLocation[]>();
   const queue = [...groupOrder];
   async function worker() {
@@ -213,7 +204,7 @@ export async function onionWatchHandler(c: Context<{ Bindings: Env }>): Promise<
     });
   }
 
-  const body: OnionWatchResponse = {
+  return {
     generated_at: new Date().toISOString(),
     source: 'Ransomlook.io',
     source_url: 'https://www.ransomlook.io',
@@ -222,6 +213,22 @@ export async function onionWatchHandler(c: Context<{ Bindings: Env }>): Promise<
     total_count: total,
     warnings,
   };
+}
+
+export async function onionWatchHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const cache = (caches as unknown as { default: Cache }).default;
+  // v2: parser bug fix — old v1 cache entries hold the broken empty-groups
+  // response. Bump on any breaking response-shape change.
+  const cacheKey = new Request('https://onion-watch-cache.internal/v2');
+  const cached = await cache.match(cacheKey);
+  if (cached) return cached;
+
+  const body = await fetchOnionWatch();
+  if (!body) {
+    return c.json({ error: 'ransomlook unreachable', detail: 'failed to fetch /api/recent' }, 502, {
+      'cache-control': 'no-store',
+    });
+  }
 
   const response = c.json(body, 200, { 'Cache-Control': `public, max-age=${CACHE_TTL}` });
   c.executionCtx.waitUntil(cache.put(cacheKey, response.clone()));

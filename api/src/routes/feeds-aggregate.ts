@@ -233,6 +233,48 @@ async function fetchOne(url: string, perSource: number): Promise<AggregatedItem[
   }
 }
 
+/**
+ * Pure-data aggregator exposed for /api/v1/snapshot. Same logic as the HTTP
+ * handler but returns the body directly so the snapshot endpoint can
+ * compose without a worker-internal HTTP call.
+ */
+export async function aggregateFeeds(
+  urls: string[],
+  limit: number = DEFAULT_LIMIT,
+  perSource: number = DEFAULT_PER_SOURCE
+): Promise<AggregateResponse> {
+  const cleanUrls = urls
+    .map((u) => u.trim())
+    .filter(Boolean)
+    .slice(0, MAX_FEEDS);
+  const cappedLimit = Math.min(limit || DEFAULT_LIMIT, MAX_LIMIT);
+  const cappedPerSource = Math.min(perSource || DEFAULT_PER_SOURCE, MAX_PER_SOURCE);
+
+  const settled = await Promise.allSettled(cleanUrls.map((u) => fetchOne(u, cappedPerSource)));
+  const allItems: AggregatedItem[] = [];
+  let feedsReturned = 0;
+  for (const s of settled) {
+    if (s.status === 'fulfilled' && s.value.length > 0) {
+      feedsReturned += 1;
+      allItems.push(...s.value);
+    }
+  }
+
+  allItems.sort((a, b) => {
+    const da = new Date(a.pubDate).getTime() || 0;
+    const db = new Date(b.pubDate).getTime() || 0;
+    return db - da;
+  });
+
+  return {
+    generated_at: new Date().toISOString(),
+    total_items: allItems.length,
+    feeds_attempted: cleanUrls.length,
+    feeds_returned: feedsReturned,
+    items: allItems.slice(0, cappedLimit),
+  };
+}
+
 export async function feedsAggregateHandler(c: Context<{ Bindings: Env }>) {
   const urlsParam = c.req.query('urls');
   if (!urlsParam) return c.json({ error: 'missing urls param' }, 400);

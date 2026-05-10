@@ -174,14 +174,12 @@ function parseChannelHtml(html: string): ParsedMessage[] {
   return out.slice(-MAX_MESSAGES_PER_CHANNEL).reverse();
 }
 
-export async function telegramFeedHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const cache = (caches as unknown as { default: Cache }).default;
-  // v2: channel set rotated after preview-disabled handles were swapped out.
-  // Bump on response-shape changes or curated-channel-list changes.
-  const cacheKey = new Request('https://telegram-feed-cache.internal/v2');
-  const cached = await cache.match(cacheKey);
-  if (cached) return cached;
-
+/**
+ * Pure-data fetcher exposed for /api/v1/snapshot. Returns the full payload
+ * (no Response wrapping) so the snapshot handler can compose it directly
+ * without a worker-internal HTTP call (which Cloudflare 522s on same-worker).
+ */
+export async function fetchTelegramFeed(): Promise<TelegramFeedResponse> {
   const warnings: string[] = [];
   const channelStatus: TelegramFeedResponse['channels'] = [];
   const allItems: TelegramFeedItem[] = [];
@@ -201,7 +199,6 @@ export async function telegramFeedHandler(c: Context<{ Bindings: Env }>): Promis
       const messages = parseChannelHtml(html);
       channelStatus.push({ handle: ch.handle, name: ch.name, topic: ch.topic, ok: true, count: messages.length });
       for (const m of messages) {
-        // Skip empty-text messages (channel-created, photo-changed, sticker-only, etc).
         if (!m.text) continue;
         allItems.push({
           channel_handle: ch.handle,
@@ -218,16 +215,25 @@ export async function telegramFeedHandler(c: Context<{ Bindings: Env }>): Promis
   }
   await Promise.all(Array.from({ length: CONCURRENCY }, worker));
 
-  // Newest first across all channels.
   allItems.sort((a, b) => b.datetime.localeCompare(a.datetime));
 
-  const body: TelegramFeedResponse = {
+  return {
     generated_at: new Date().toISOString(),
     channels: channelStatus.sort((a, b) => a.name.localeCompare(b.name)),
     items: allItems,
     warnings,
   };
+}
 
+export async function telegramFeedHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const cache = (caches as unknown as { default: Cache }).default;
+  // v2: channel set rotated after preview-disabled handles were swapped out.
+  // Bump on response-shape changes or curated-channel-list changes.
+  const cacheKey = new Request('https://telegram-feed-cache.internal/v2');
+  const cached = await cache.match(cacheKey);
+  if (cached) return cached;
+
+  const body = await fetchTelegramFeed();
   const response = c.json(body, 200, { 'Cache-Control': `public, max-age=${CACHE_TTL}` });
   c.executionCtx.waitUntil(cache.put(cacheKey, response.clone()));
   return response;
