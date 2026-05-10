@@ -29,7 +29,6 @@ import { certSearchHandler } from './routes/cert-search';
 import { webScanHandler } from './routes/web-scan';
 import { onionWatchHandler } from './routes/onion-watch';
 import { telegramFeedHandler } from './routes/telegram-feed';
-import { onionFetchHandler } from './routes/onion-fetch';
 import {
   listBriefingsHandler,
   getBriefingHandler,
@@ -77,7 +76,6 @@ app.get('/api/v1/cert-search', certSearchHandler);
 app.get('/api/v1/web-scan', webScanHandler);
 app.get('/api/v1/onion-watch', onionWatchHandler);
 app.get('/api/v1/telegram-feed', telegramFeedHandler);
-app.get('/api/v1/onion-fetch', onionFetchHandler);
 app.get('/api/v1/briefings/list', listBriefingsHandler);
 app.get('/api/v1/briefings/today', todayBriefingHandler);
 app.post('/api/v1/briefings/build', buildBriefingHandler);

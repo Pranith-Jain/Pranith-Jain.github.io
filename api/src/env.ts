@@ -12,11 +12,4 @@ export interface Env {
   ABUSECH_AUTH_KEY?: string;
   DFIR_DEV_ERRORS?: string;
   DFIR_ANALYTICS?: AnalyticsEngineDataset;
-  /**
-   * Optional .onion fetch proxy. When both are set, /api/v1/onion-fetch is
-   * live. When unset, the route returns 503 service_unavailable. See
-   * docs/onion-proxy-design.md for the proxy design.
-   */
-  ONION_PROXY_URL?: string;
-  ONION_PROXY_SECRET?: string;
 }
