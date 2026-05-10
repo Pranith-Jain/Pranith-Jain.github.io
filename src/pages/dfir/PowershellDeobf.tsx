@@ -13,18 +13,7 @@ import {
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { deobfuscate, findRisks, type Step } from '../../lib/dfir/powershell-deobf';
-
-// Quick-and-loose IOC presence check for the "send to extractor" button.
-// We don't actually parse here — just decide whether the button is worth
-// showing. The IOC Extractor itself does the precise extraction.
-function hasIocCandidates(text: string): boolean {
-  if (!text) return false;
-  if (/\bhttps?:\/\//i.test(text)) return true;
-  if (/\b(?:\d{1,3}\.){3}\d{1,3}\b/.test(text)) return true;
-  if (/\b[a-f0-9]{32,64}\b/i.test(text)) return true;
-  if (/\b[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.(?:[a-z]{2,63})\b/i.test(text)) return true;
-  return false;
-}
+import { hasIocCandidates } from '../../lib/dfir/ioc-detect';
 
 const SAMPLES: { label: string; value: string }[] = [
   {

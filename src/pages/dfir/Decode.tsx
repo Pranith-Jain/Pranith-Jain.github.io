@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Copy, Check, ChevronRight, Search } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { detectEncoding, decodeBase64, decodeUrl, decodeChain, type DecodeStep } from '../../lib/dfir/decode';
+import { hasIocCandidates } from '../../lib/dfir/ioc-detect';
 
 function CopyButton({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
@@ -28,15 +29,6 @@ const FORMAT_BADGE: Record<string, string> = {
   url: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300',
   unknown: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400',
 };
-
-function hasIocCandidates(text: string): boolean {
-  if (!text) return false;
-  if (/\bhttps?:\/\//i.test(text)) return true;
-  if (/\b(?:\d{1,3}\.){3}\d{1,3}\b/.test(text)) return true;
-  if (/\b[a-f0-9]{32,64}\b/i.test(text)) return true;
-  if (/\b[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.(?:[a-z]{2,63})\b/i.test(text)) return true;
-  return false;
-}
 
 export default function Decode(): JSX.Element {
   const navigate = useNavigate();

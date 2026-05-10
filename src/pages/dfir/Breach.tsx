@@ -1,5 +1,5 @@
-import { useState, type FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import {
   ArrowLeft,
   Shield,
@@ -320,22 +320,32 @@ function PasswordTab(): JSX.Element {
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function EmailTab(): JSX.Element {
-  const [email, setEmail] = useState('');
+function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element {
+  const [email, setEmail] = useState(initialQuery);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<BreachEmailResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const autoFetched = useRef(false);
+  const [, setSearchParams] = useSearchParams();
 
   const isValid = EMAIL_RE.test(email.trim());
 
-  const onSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    if (!isValid || loading) return;
+  const runLookup = async (q: string) => {
+    if (!EMAIL_RE.test(q.trim()) || loading) return;
     setLoading(true);
     setResult(null);
     setError(null);
+    setSearchParams(
+      (prev) => {
+        const out = new URLSearchParams(prev);
+        out.set('tab', 'email');
+        out.set('q', q.trim());
+        return out;
+      },
+      { replace: true }
+    );
     try {
-      const r = await fetch(`/api/v1/breach/email?email=${encodeURIComponent(email.trim())}`);
+      const r = await fetch(`/api/v1/breach/email?email=${encodeURIComponent(q.trim())}`);
       if (!r.ok) {
         const body = (await r.json().catch(() => null)) as { error?: string } | null;
         throw new Error(body?.error ?? `HTTP ${r.status}`);
@@ -347,6 +357,21 @@ function EmailTab(): JSX.Element {
       setLoading(false);
     }
   };
+
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    void runLookup(email);
+  };
+
+  // Auto-run if the page was opened with ?tab=email&q=<addr>.
+  useEffect(() => {
+    if (autoFetched.current) return;
+    if (initialQuery && EMAIL_RE.test(initialQuery)) {
+      autoFetched.current = true;
+      void runLookup(initialQuery);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>
@@ -471,22 +496,32 @@ function EmailTab(): JSX.Element {
 
 const DOMAIN_RE = /^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/;
 
-function DomainTab(): JSX.Element {
-  const [domain, setDomain] = useState('');
+function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element {
+  const [domain, setDomain] = useState(initialQuery);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<BreachDomainResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const autoFetched = useRef(false);
+  const [, setSearchParams] = useSearchParams();
 
   const isValid = DOMAIN_RE.test(domain.trim());
 
-  const onSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    if (!isValid || loading) return;
+  const runLookup = async (q: string) => {
+    if (!DOMAIN_RE.test(q.trim()) || loading) return;
     setLoading(true);
     setResult(null);
     setError(null);
+    setSearchParams(
+      (prev) => {
+        const out = new URLSearchParams(prev);
+        out.set('tab', 'domain');
+        out.set('q', q.trim());
+        return out;
+      },
+      { replace: true }
+    );
     try {
-      const r = await fetch(`/api/v1/breach/domain?domain=${encodeURIComponent(domain.trim())}`);
+      const r = await fetch(`/api/v1/breach/domain?domain=${encodeURIComponent(q.trim())}`);
       if (!r.ok) {
         const body = (await r.json().catch(() => null)) as { error?: string } | null;
         throw new Error(body?.error ?? `HTTP ${r.status}`);
@@ -498,6 +533,21 @@ function DomainTab(): JSX.Element {
       setLoading(false);
     }
   };
+
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    void runLookup(domain);
+  };
+
+  // Auto-run if the page was opened with ?tab=domain&q=<domain>.
+  useEffect(() => {
+    if (autoFetched.current) return;
+    if (initialQuery && DOMAIN_RE.test(initialQuery)) {
+      autoFetched.current = true;
+      void runLookup(initialQuery);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>
@@ -627,8 +677,36 @@ function DomainTab(): JSX.Element {
 
 // ─── Page shell ───────────────────────────────────────────────────────────────
 
+function isMode(v: string | null): v is Mode {
+  return v === 'password' || v === 'email' || v === 'domain';
+}
+
 export default function BreachPage(): JSX.Element {
-  const [mode, setMode] = useState<Mode>('password');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const urlMode = searchParams.get('tab');
+  const urlQuery = searchParams.get('q') ?? '';
+  const [mode, setModeState] = useState<Mode>(isMode(urlMode) ? urlMode : 'password');
+
+  // Sync mode → URL whenever the user changes tabs. Drops ?q= since
+  // queries are scoped per tab and don't survive a tab switch.
+  const setMode = (next: Mode) => {
+    setModeState(next);
+    setSearchParams(
+      (prev) => {
+        const out = new URLSearchParams(prev);
+        out.set('tab', next);
+        out.delete('q');
+        return out;
+      },
+      { replace: false }
+    );
+  };
+
+  // React to URL changes from outside (back/forward, deep links).
+  useEffect(() => {
+    if (isMode(urlMode) && urlMode !== mode) setModeState(urlMode);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [urlMode]);
 
   return (
     <div className="max-w-4xl mx-auto px-8 py-12 text-slate-900 dark:text-slate-100">
@@ -676,8 +754,8 @@ export default function BreachPage(): JSX.Element {
         transition={{ duration: 0.25 }}
       >
         {mode === 'password' && <PasswordTab />}
-        {mode === 'email' && <EmailTab />}
-        {mode === 'domain' && <DomainTab />}
+        {mode === 'email' && <EmailTab initialQuery={urlQuery} />}
+        {mode === 'domain' && <DomainTab initialQuery={urlQuery} />}
       </motion.div>
     </div>
   );

@@ -36,7 +36,7 @@ export async function takeoverCheckHandler(c: Context<{ Bindings: Env }>) {
 
   if (chain.length === 0) {
     result.notes.push('No CNAME chain. NXDOMAIN or apex/A-record only — takeover unlikely via this vector.');
-    return c.json(result);
+    return c.json(result, 200, { 'Cache-Control': 'public, max-age=3600' });
   }
 
   const finalCname = chain[chain.length - 1];
@@ -44,7 +44,7 @@ export async function takeoverCheckHandler(c: Context<{ Bindings: Env }>) {
 
   if (!match) {
     result.notes.push(`Final CNAME ${finalCname} does not match any known takeover fingerprint.`);
-    return c.json(result);
+    return c.json(result, 200, { 'Cache-Control': 'public, max-age=3600' });
   }
 
   result.service = match.service;
@@ -66,7 +66,10 @@ export async function takeoverCheckHandler(c: Context<{ Bindings: Env }>) {
     result.notes.push(`CNAME points to ${match.service} (status-based fingerprint).`);
   }
 
-  return c.json(result);
+  // 1h edge cache. Vulnerable verdicts also cache — operators want
+  // refreshed status anyway via the explorer link, and a vulnerable
+  // takeover is a high-confidence finding for that hour.
+  return c.json(result, 200, { 'Cache-Control': 'public, max-age=3600' });
 }
 
 async function resolveCnameChain(domain: string): Promise<string[]> {

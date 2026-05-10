@@ -1,5 +1,5 @@
-import { useState, type FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, BookText, Copy, Check, ExternalLink, Gauge } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { prioritise, TIER_LABELS, TIER_STYLES, TIER_BARS } from '../../lib/dfir/cve-priority';
@@ -67,22 +67,26 @@ function CopyButton({ text }: { text: string }) {
 }
 
 export default function CveLookup(): JSX.Element {
-  const [input, setInput] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialQuery = (searchParams.get('cve') ?? searchParams.get('q') ?? '').toUpperCase();
+  const [input, setInput] = useState(initialQuery);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<CveLookupResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const autoFetched = useRef(false);
 
   const valid = CVE_RE.test(input.trim());
   const canSubmit = valid && !loading;
 
-  const onSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    if (!canSubmit) return;
+  const runLookup = async (q: string) => {
+    const id = q.trim().toUpperCase();
+    if (!CVE_RE.test(id)) return;
     setLoading(true);
     setResult(null);
     setError(null);
+    setSearchParams({ cve: id }, { replace: true });
     try {
-      const r = await fetch(`/api/v1/cve/search?id=${encodeURIComponent(input.trim().toUpperCase())}`);
+      const r = await fetch(`/api/v1/cve/search?id=${encodeURIComponent(id)}`);
       if (!r.ok) {
         const body = (await r.json().catch(() => null)) as { message?: string } | null;
         throw new Error(body?.message ?? `HTTP ${r.status}`);
@@ -94,6 +98,21 @@ export default function CveLookup(): JSX.Element {
       setLoading(false);
     }
   };
+
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    if (!canSubmit) return;
+    void runLookup(input);
+  };
+
+  useEffect(() => {
+    if (autoFetched.current) return;
+    if (initialQuery && CVE_RE.test(initialQuery)) {
+      autoFetched.current = true;
+      void runLookup(initialQuery);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="max-w-4xl mx-auto px-8 py-12 text-slate-900 dark:text-slate-100">

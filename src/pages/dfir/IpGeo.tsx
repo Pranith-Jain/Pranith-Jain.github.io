@@ -358,8 +358,10 @@ export default function IpGeo(): JSX.Element {
                     </span>
                     <span className="text-slate-900 dark:text-slate-100">
                       {data.geo.asn ? (
+                        // ip-api returns asn as "AS15169 Google LLC" — the ASN tool
+                        // accepts that shape directly via its ?asn= prefill.
                         <Link
-                          to={`/dfir/asn?ip=${encodeURIComponent(data.ip)}`}
+                          to={`/dfir/asn?asn=${encodeURIComponent(data.geo.asn)}`}
                           className="text-brand-600 dark:text-brand-400 hover:underline"
                         >
                           {data.geo.asn} {data.geo.asname && `(${data.geo.asname})`}

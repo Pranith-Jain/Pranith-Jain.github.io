@@ -1,5 +1,5 @@
-import { useState, type FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, Network } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -25,22 +25,31 @@ interface AsnResult {
 }
 
 export default function AsnLookup(): JSX.Element {
-  const [input, setInput] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  // Accept ?asn= or ?q=. Strip "AS" prefix and any trailing org suffix
+  // (e.g. "AS15169 Google LLC" → "15169") so deep-links from IpGeo work.
+  const initialQuery = (searchParams.get('asn') ?? searchParams.get('q') ?? '')
+    .trim()
+    .replace(/^AS/i, '')
+    .split(/\s+/)[0]
+    .replace(/^AS/i, '');
+  const [input, setInput] = useState(initialQuery);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<AsnResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const autoFetched = useRef(false);
 
   const valid = ASN_RE.test(input.trim());
   const canSubmit = valid && !loading;
 
-  const onSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    if (!canSubmit) return;
+  const runLookup = async (q: string) => {
+    if (!ASN_RE.test(q.trim())) return;
     setLoading(true);
     setResult(null);
     setError(null);
+    setSearchParams({ asn: q.trim() }, { replace: true });
     try {
-      const r = await fetch(`/api/v1/asn/lookup?asn=${encodeURIComponent(input.trim())}`);
+      const r = await fetch(`/api/v1/asn/lookup?asn=${encodeURIComponent(q.trim())}`);
       if (!r.ok) {
         const body = (await r.json().catch(() => null)) as { message?: string } | null;
         throw new Error(body?.message ?? `HTTP ${r.status}`);
@@ -52,6 +61,21 @@ export default function AsnLookup(): JSX.Element {
       setLoading(false);
     }
   };
+
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    if (!canSubmit) return;
+    void runLookup(input);
+  };
+
+  useEffect(() => {
+    if (autoFetched.current) return;
+    if (initialQuery && ASN_RE.test(initialQuery)) {
+      autoFetched.current = true;
+      void runLookup(initialQuery);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="max-w-4xl mx-auto px-8 py-12 text-slate-900 dark:text-slate-100">
