@@ -795,8 +795,18 @@ export async function buildBriefing(type: BriefingType, anchor: Date = new Date(
   };
 }
 
-/** How long briefings live in KV. 21 days = 3 weeks of history. */
-export const BRIEFING_TTL_SECONDS = 21 * 86400;
+/**
+ * Hard retention ceiling for briefings — and for any source/findings data
+ * derived per briefing. 30 days. After that, the KV entry expires and the
+ * sweep deletes any straggler entries that pre-date the TTL.
+ *
+ * If you're tempted to bump this higher: don't. The portfolio publishes a
+ * 30-day retention promise; longer storage requires reopening that
+ * decision. Edge-cached upstream responses (Cache API) have their own
+ * shorter TTLs and are unaffected by this constant.
+ */
+export const BRIEFING_TTL_SECONDS = 30 * 86400;
+export const BRIEFING_MAX_AGE_DAYS = 30;
 
 export async function writeBriefing(
   kv: KVNamespace,
@@ -830,11 +840,13 @@ export async function writeBriefing(
 /**
  * Delete briefings whose `date` metadata is older than `maxAgeDays`.
  * Belt-and-braces alongside KV's expirationTtl: handles entries that pre-date
- * the TTL change (which lack expiration) and any other stragglers.
+ * the TTL change (which lack expiration) and any other stragglers. Default
+ * matches BRIEFING_MAX_AGE_DAYS (30); the admin handler can override but the
+ * default and the TTL must stay aligned.
  */
 export async function sweepOldBriefings(
   kv: KVNamespace,
-  maxAgeDays = 21,
+  maxAgeDays = BRIEFING_MAX_AGE_DAYS,
   now: Date = new Date()
 ): Promise<{ deleted: string[]; kept: number }> {
   const cutoffMs = now.getTime() - maxAgeDays * 86400_000;

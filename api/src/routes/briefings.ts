@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import {
+  BRIEFING_MAX_AGE_DAYS,
   buildBriefing,
   listBriefings,
   readBriefing,
@@ -214,7 +215,12 @@ export async function backfillBriefingsHandler(c: AdminCtx) {
   );
 }
 
-/** Admin sweep — delete briefings older than maxAgeDays (default 21). */
+/**
+ * Admin sweep — delete briefings older than maxAgeDays (default matches the
+ * BRIEFING_MAX_AGE_DAYS retention ceiling). Operators can pass a smaller
+ * value to force-prune (e.g. `?max_age_days=7`); larger values are clamped
+ * to the ceiling so the sweep can never extend retention beyond policy.
+ */
 export async function sweepBriefingsHandler(c: AdminCtx) {
   const kv = kvOrError(c);
   if (!kv) return c.json({ error: 'briefings KV not bound' }, 503);
@@ -222,7 +228,8 @@ export async function sweepBriefingsHandler(c: AdminCtx) {
   if ('error' in auth) return auth.error;
 
   const maxAgeRaw = c.req.query('max_age_days');
-  const maxAge = maxAgeRaw ? Math.max(parseInt(maxAgeRaw, 10) || 21, 1) : 21;
+  const requested = maxAgeRaw ? Math.max(parseInt(maxAgeRaw, 10) || BRIEFING_MAX_AGE_DAYS, 1) : BRIEFING_MAX_AGE_DAYS;
+  const maxAge = Math.min(requested, BRIEFING_MAX_AGE_DAYS);
 
   try {
     const result = await sweepOldBriefings(kv, maxAge);

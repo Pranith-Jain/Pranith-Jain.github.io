@@ -1,5 +1,10 @@
 import apiApp from '../api/src/index';
-import { buildBriefing, writeBriefing, sweepOldBriefings } from '../api/src/lib/briefing-builder';
+import {
+  BRIEFING_MAX_AGE_DAYS,
+  buildBriefing,
+  writeBriefing,
+  sweepOldBriefings,
+} from '../api/src/lib/briefing-builder';
 
 export interface Env {
   ASSETS: { fetch: (req: Request) => Promise<Response> };
@@ -87,7 +92,7 @@ export default {
         }
         // Always run the sweep, even if the build failed — keeps KV tidy.
         try {
-          const result = await sweepOldBriefings(kv, 21);
+          const result = await sweepOldBriefings(kv, BRIEFING_MAX_AGE_DAYS);
           if (result.deleted.length > 0) {
             console.log(
               `scheduled: swept ${result.deleted.length} old briefings (${result.deleted.join(', ')}); kept ${result.kept}`
