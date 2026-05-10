@@ -276,6 +276,8 @@ export default function DarkWeb(): JSX.Element {
 
       <OnionMirrorsTeaser />
 
+      <TelegramFeedPanel />
+
       <BreachDisclosuresPanel />
 
       {/* Search + filters */}
@@ -929,6 +931,267 @@ function OnionMirrorsTeaser(): JSX.Element {
               +{data.reachable_count - reachableNames.length} more
             </span>
           )}
+        </div>
+      )}
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Telegram firehose panel — aggregated cybersec channel preview from
+// /api/v1/telegram-feed. Server fetches t.me/s/<handle> for ~10
+// hand-picked channels (vx-underground, malware_traffic, ransomwatch,
+// CyberKnow, FalconFeedsIO, DDoSecrets, BleepingComputer, The Hacker News,
+// Bellingcat, IntelCrab) and we render the merged stream here. Watchlist
+// matches use the same localStorage key as the main feed.
+// ─────────────────────────────────────────────────────────────────────────
+
+interface TelegramFeedItem {
+  channel_handle: string;
+  channel_name: string;
+  channel_topic: 'malware' | 'ransomware' | 'hacktivism' | 'osint' | 'news' | 'leaks';
+  channel_blurb: string;
+  permalink: string;
+  datetime: string;
+  text: string;
+  views?: string;
+}
+
+interface TelegramFeedResponse {
+  generated_at: string;
+  channels: { handle: string; name: string; topic: string; ok: boolean; count: number }[];
+  items: TelegramFeedItem[];
+  warnings: string[];
+}
+
+const TG_TOPIC_PILL: Record<TelegramFeedItem['channel_topic'], string> = {
+  malware: 'border-fuchsia-500/40 bg-fuchsia-500/10 text-fuchsia-700 dark:text-fuchsia-300',
+  ransomware: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
+  hacktivism: 'border-pink-500/40 bg-pink-500/10 text-pink-700 dark:text-pink-300',
+  osint: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
+  news: 'border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300',
+  leaks: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
+};
+
+function highlightTelegramText(text: string, watchTerms: string[]): JSX.Element {
+  if (watchTerms.length === 0) return <>{text}</>;
+  // Build a single regex of all watch terms (escaped, case-insensitive).
+  const escaped = watchTerms
+    .filter(Boolean)
+    .map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+    .filter(Boolean);
+  if (escaped.length === 0) return <>{text}</>;
+  const re = new RegExp(`(${escaped.join('|')})`, 'gi');
+  const parts = text.split(re);
+  return (
+    <>
+      {parts.map((p, i) =>
+        re.test(p) ? (
+          <mark key={i} className="bg-amber-300/40 dark:bg-amber-400/30 text-inherit rounded px-0.5">
+            {p}
+          </mark>
+        ) : (
+          <span key={i}>{p}</span>
+        )
+      )}
+    </>
+  );
+}
+
+function TelegramFeedPanel(): JSX.Element {
+  const [data, setData] = useState<TelegramFeedResponse | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [activeChannel, setActiveChannel] = useState<string | 'all'>('all');
+  const [expanded, setExpanded] = useState(false);
+  const [watchlist, setWatchlist] = useState<string[]>(() => loadJson<string[]>(STORAGE_KEY_WATCH, []));
+
+  // Re-read watchlist when other components on the page mutate it.
+  useEffect(() => {
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === STORAGE_KEY_WATCH) setWatchlist(loadJson<string[]>(STORAGE_KEY_WATCH, []));
+    };
+    window.addEventListener('storage', onStorage);
+    // Also poll once after a short delay — same-tab writes don't fire `storage`.
+    const t = setTimeout(() => setWatchlist(loadJson<string[]>(STORAGE_KEY_WATCH, [])), 1000);
+    return () => {
+      window.removeEventListener('storage', onStorage);
+      clearTimeout(t);
+    };
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch('/api/v1/telegram-feed');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const json = (await res.json()) as TelegramFeedResponse;
+        if (!cancelled) setData(json);
+      } catch (e) {
+        if (!cancelled) setError((e as Error).message);
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const filteredItems = useMemo(() => {
+    if (!data) return [];
+    if (activeChannel === 'all') return data.items;
+    return data.items.filter((it) => it.channel_handle === activeChannel);
+  }, [data, activeChannel]);
+
+  const matchedItems = useMemo(() => {
+    if (watchlist.length === 0) return filteredItems.map((it) => ({ it, matches: [] as string[] }));
+    const lc = watchlist.map((w) => w.toLowerCase()).filter(Boolean);
+    return filteredItems.map((it) => {
+      const hay = it.text.toLowerCase();
+      return { it, matches: lc.filter((w) => hay.includes(w)) };
+    });
+  }, [filteredItems, watchlist]);
+
+  const visible = matchedItems.slice(0, expanded ? matchedItems.length : 10);
+  const watchHits = matchedItems.filter((m) => m.matches.length > 0).length;
+
+  return (
+    <section className="mb-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+      <div className="flex flex-wrap items-baseline justify-between gap-3 mb-1">
+        <h2 className="font-display font-semibold text-lg inline-flex items-center gap-2">
+          Cybersec Telegram firehose
+          <span className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-sky-500/30 bg-sky-500/10 text-sky-700 dark:text-sky-300">
+            t.me/s preview
+          </span>
+        </h2>
+        <span className="text-[11px] font-mono text-slate-500 dark:text-slate-500">
+          {loading
+            ? 'loading…'
+            : data
+              ? `${data.items.length} posts · ${data.channels.filter((c) => c.ok).length}/${data.channels.length} channels · cached 30 min`
+              : ''}
+          {watchHits > 0 && (
+            <>
+              {' · '}
+              <span className="text-amber-600 dark:text-amber-400">
+                {watchHits} watchlist hit{watchHits === 1 ? '' : 's'}
+              </span>
+            </>
+          )}
+        </span>
+      </div>
+
+      <p className="text-[12px] font-mono text-slate-500 dark:text-slate-500 mb-3 leading-relaxed">
+        Latest messages from a curated set of public threat-intel and cybercrime-tracking Telegram channels —{' '}
+        <Link to="/dfir/telegram-watch" className="text-brand-600 dark:text-brand-400 hover:underline">
+          full catalogue
+        </Link>
+        . Server-side scrape of <code>t.me/s/&lt;handle&gt;</code>; no Telegram account required.
+      </p>
+
+      {error && (
+        <p className="text-sm font-mono text-rose-600 dark:text-rose-400">Could not load Telegram feed: {error}</p>
+      )}
+
+      {data && data.channels.length > 0 && (
+        <div className="flex flex-wrap gap-1.5 mb-3">
+          <button
+            onClick={() => setActiveChannel('all')}
+            className={`text-[11px] font-mono px-2 py-1 rounded border transition-colors ${
+              activeChannel === 'all'
+                ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
+                : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+            }`}
+          >
+            All <span className="opacity-60">· {data.items.length}</span>
+          </button>
+          {data.channels.map((ch) => (
+            <button
+              key={ch.handle}
+              onClick={() => setActiveChannel(ch.handle)}
+              disabled={!ch.ok}
+              className={`text-[11px] font-mono px-2 py-1 rounded border transition-colors ${
+                activeChannel === ch.handle
+                  ? 'border-sky-500/60 bg-sky-500/15 text-sky-700 dark:text-sky-300'
+                  : ch.ok
+                    ? 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-sky-500/40'
+                    : 'border-slate-200 dark:border-slate-800 text-slate-400 dark:text-slate-600 cursor-not-allowed opacity-50'
+              }`}
+              title={ch.ok ? `@${ch.handle}` : `@${ch.handle} unreachable`}
+            >
+              {ch.name} <span className="opacity-60">· {ch.count}</span>
+            </button>
+          ))}
+        </div>
+      )}
+
+      {visible.length > 0 && (
+        <ul className="space-y-2">
+          {visible.map(({ it, matches }) => {
+            const hasMatch = matches.length > 0;
+            return (
+              <li
+                key={it.permalink}
+                className={`rounded border p-2.5 ${
+                  hasMatch
+                    ? 'border-amber-500/40 bg-amber-500/5'
+                    : 'border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950'
+                }`}
+              >
+                <div className="flex flex-wrap items-baseline gap-2 mb-1">
+                  <a
+                    href={it.permalink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                    title={it.channel_blurb}
+                  >
+                    {it.channel_name}
+                    <ExternalLink size={10} className="opacity-50" />
+                  </a>
+                  <span
+                    className={`text-[9px] font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${TG_TOPIC_PILL[it.channel_topic]}`}
+                  >
+                    {it.channel_topic}
+                  </span>
+                  <span className="text-[10px] font-mono text-slate-500 dark:text-slate-500">
+                    {formatRelativeTime(it.datetime)}
+                  </span>
+                  {it.views && (
+                    <span className="text-[10px] font-mono text-slate-500 dark:text-slate-500">{it.views} views</span>
+                  )}
+                  {hasMatch && (
+                    <span className="text-[9px] font-mono uppercase tracking-wider px-1 py-0.5 rounded bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/40 ml-auto">
+                      watch: {matches.join(', ')}
+                    </span>
+                  )}
+                </div>
+                <p className="text-[12px] font-mono text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap break-words">
+                  {highlightTelegramText(it.text, watchlist)}
+                </p>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+
+      {data && filteredItems.length === 0 && !loading && !error && (
+        <p className="text-sm font-mono text-slate-500 dark:text-slate-500">No messages from the selected channel.</p>
+      )}
+
+      {matchedItems.length > 10 && (
+        <div className="mt-3 flex items-center justify-between text-[11px] font-mono text-slate-500 dark:text-slate-500">
+          <button onClick={() => setExpanded((v) => !v)} className="text-brand-600 dark:text-brand-400 hover:underline">
+            {expanded ? 'Show fewer' : `Show all ${matchedItems.length}`}
+          </button>
+          <Link
+            to="/dfir/telegram-watch"
+            className="hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+          >
+            full Telegram catalogue <ExternalLink size={10} />
+          </Link>
         </div>
       )}
     </section>
