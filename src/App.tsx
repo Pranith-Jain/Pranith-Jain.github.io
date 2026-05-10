@@ -9,11 +9,9 @@ import { ScrollProgress, BackToTop } from './components/ui';
 import { Layout } from './components/Layout';
 import { CommandPalette } from './components/dfir/CommandPalette';
 
-// Top-level pages were eagerly imported, which dragged framer-motion (used
-// by their inner section components) into the initial bundle. Lazy them so
-// the initial paint only loads what's needed for the current route.
-// Home stays eager-ish via a synchronous import inside the lazy promise so
-// landing on `/` doesn't show a Suspense flash on the most-likely entry.
+// Top-level pages are lazy-loaded so the initial paint only ships the JS
+// needed for the current route. Home stays eagerly imported because it's
+// the most-likely landing page — avoids a Suspense flash there.
 import Home from './pages/Home';
 const About = lazy(() => import('./pages/About'));
 const Skills = lazy(() => import('./pages/Skills'));
