@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, FileJson, Trash2, Copy, Check, Filter } from 'lucide-react';
+import { ArrowLeft, FileJson, Trash2, Copy, Check, Filter, Globe2, Loader2, ExternalLink } from 'lucide-react';
 import { motion } from 'framer-motion';
 import {
   ReactFlow,
@@ -164,6 +164,52 @@ export default function StixViewer(): JSX.Element {
   const [filterTypes, setFilterTypes] = useState<Set<string>>(new Set());
   const [selected, setSelected] = useState<StixObject | null>(null);
   const [copied, setCopied] = useState(false);
+  const [stixId, setStixId] = useState('');
+  const [fetching, setFetching] = useState(false);
+  const [fetchError, setFetchError] = useState<string | null>(null);
+  const [fetchedFrom, setFetchedFrom] = useState<{ collection: string; attackId?: string } | null>(null);
+
+  /**
+   * Fetch a single STIX object by ID from the MITRE TAXII server. The
+   * returned object is wrapped in a synthetic bundle so the existing
+   * parse + graph pipeline lights up unchanged.
+   */
+  const fetchById = async () => {
+    const id = stixId.trim();
+    if (!id) return;
+    setFetching(true);
+    setFetchError(null);
+    setFetchedFrom(null);
+    try {
+      const res = await fetch(`/api/v1/stix/fetch?id=${encodeURIComponent(id)}`);
+      if (res.status === 404) throw new Error(`Not found in MITRE ATT&CK collections: ${id}`);
+      if (!res.ok) {
+        const body = (await res.json().catch(() => ({}))) as { error?: string };
+        throw new Error(body.error ?? `HTTP ${res.status}`);
+      }
+      const data = (await res.json()) as {
+        found: boolean;
+        object?: Record<string, unknown>;
+        collection?: string;
+        attack_id?: string;
+      };
+      if (!data.found || !data.object) throw new Error(`Not found: ${id}`);
+      const synthetic = {
+        type: 'bundle',
+        id: `bundle--fetched-${id}`,
+        spec_version: '2.1',
+        objects: [data.object],
+      };
+      setInput(JSON.stringify(synthetic, null, 2));
+      setSelected(null);
+      setFilterTypes(new Set());
+      setFetchedFrom({ collection: data.collection ?? 'unknown', attackId: data.attack_id });
+    } catch (e) {
+      setFetchError((e as Error).message);
+    } finally {
+      setFetching(false);
+    }
+  };
 
   const bundle = useMemo<StixBundle | null>(() => {
     if (!input.trim()) return null;
@@ -248,6 +294,59 @@ export default function StixViewer(): JSX.Element {
       <div className="grid lg:grid-cols-[400px_1fr] gap-6">
         {/* Left: input + filter + selected detail */}
         <aside className="space-y-4">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3">
+            <div className="flex items-center gap-2 mb-2">
+              <Globe2 size={12} className="text-brand-600 dark:text-brand-400" />
+              <label htmlFor="stix-id" className="text-xs font-mono uppercase tracking-wider text-slate-500">
+                Fetch by STIX ID
+              </label>
+            </div>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                void fetchById();
+              }}
+              className="flex gap-1.5"
+            >
+              <input
+                id="stix-id"
+                type="text"
+                value={stixId}
+                onChange={(e) => setStixId(e.target.value)}
+                placeholder="attack-pattern--01a5a209-b94c-450b-b7f9-946497d91055"
+                className="flex-1 min-w-0 px-2 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-[11px] focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                spellCheck={false}
+              />
+              <button
+                type="submit"
+                disabled={fetching || !stixId.trim()}
+                className="px-2 py-1.5 rounded bg-brand-600 hover:bg-brand-700 text-white font-mono text-xs disabled:opacity-50 inline-flex items-center gap-1"
+              >
+                {fetching ? <Loader2 size={11} className="animate-spin" /> : 'fetch'}
+              </button>
+            </form>
+            <p className="text-[10px] font-mono text-slate-500 dark:text-slate-500 mt-2 leading-relaxed">
+              Public MITRE ATT&amp;CK TAXII 2.1 server (Enterprise / ICS / Mobile). Cached 7d. Other STIX feeds need
+              auth — paste a bundle below for those.
+            </p>
+            {fetchError && <p className="mt-2 text-[11px] font-mono text-rose-600 dark:text-rose-400">{fetchError}</p>}
+            {fetchedFrom && !fetchError && (
+              <p className="mt-2 text-[11px] font-mono text-emerald-700 dark:text-emerald-300 inline-flex items-center gap-1">
+                ✓ {fetchedFrom.collection}
+                {fetchedFrom.attackId && (
+                  <a
+                    href={`https://attack.mitre.org/techniques/${fetchedFrom.attackId.replace(/\./, '/')}/`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline inline-flex items-center gap-0.5"
+                  >
+                    · {fetchedFrom.attackId} <ExternalLink size={9} />
+                  </a>
+                )}
+              </p>
+            )}
+          </section>
+
           <section>
             <div className="flex items-center justify-between mb-2">
               <label htmlFor="stix-input" className="text-xs font-mono uppercase tracking-wider text-slate-500">

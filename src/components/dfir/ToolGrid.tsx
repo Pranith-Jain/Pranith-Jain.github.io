@@ -151,6 +151,12 @@ const SECTIONS: Section[] = [
         icon: Globe2,
       },
       {
+        path: '/dfir/socmint',
+        label: 'SOCMINT Pivots',
+        desc: 'Email/domain/handle/name → categorised OSINT lookup links · breach + B2B (ZoomInfo, Apollo, Hunter, RocketReach) + social + dev + paste dorks',
+        icon: Users,
+      },
+      {
         path: '/dfir/osint-framework',
         label: 'OSINT Framework',
         desc: '70+ curated OSINT tools across 15 categories · pricing-tier + category filter · search',
@@ -298,6 +304,12 @@ const SECTIONS: Section[] = [
         label: 'LOLBins / GTFOBins',
         desc: 'Curated living-off-the-land catalog · ATT&CK-mapped · detection ideas',
         icon: Terminal,
+      },
+      {
+        path: '/dfir/log-parser',
+        label: 'Log Parser',
+        desc: 'WinEvent / Sysmon / syslog / JSON-line / key=value · MITRE tagging · Splunk + Elastic + Sentinel queries',
+        icon: ScrollText,
       },
     ],
   },

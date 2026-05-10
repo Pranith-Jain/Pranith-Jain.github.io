@@ -12,6 +12,7 @@ import {
   EyeOff,
   ExternalLink,
   AlertTriangle,
+  Users,
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -439,6 +440,27 @@ function EmailTab(): JSX.Element {
               </p>
             </div>
           )}
+
+          {/* SOCMINT pivot CTA */}
+          <Link
+            to={`/dfir/socmint?q=${encodeURIComponent(result.email)}`}
+            className="block rounded-2xl border border-brand-500/30 bg-brand-500/5 p-5 hover:border-brand-500/60 transition-colors"
+          >
+            <div className="flex items-center gap-3">
+              <Users size={22} className="text-brand-600 dark:text-brand-400 shrink-0" />
+              <div className="flex-1">
+                <h3 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100">
+                  Pivot this email to SOCMINT sources →
+                </h3>
+                <p className="text-xs font-mono text-slate-600 dark:text-slate-400 mt-0.5">
+                  Look up <code>{result.email}</code> across XposedOrNot, IntelX, EmailRep, Hunter, Apollo, ZoomInfo,
+                  RocketReach, Lusha, GitHub commit-author search, paste-site dorks, social profiles, Gravatar, and
+                  more.
+                </p>
+              </div>
+              <ExternalLink size={14} className="text-slate-500 shrink-0" />
+            </div>
+          </Link>
         </motion.div>
       )}
     </div>
@@ -577,6 +599,26 @@ function DomainTab(): JSX.Element {
               </p>
             </div>
           )}
+
+          {/* SOCMINT pivot CTA */}
+          <Link
+            to={`/dfir/socmint?q=${encodeURIComponent(result.domain)}`}
+            className="block rounded-2xl border border-brand-500/30 bg-brand-500/5 p-5 hover:border-brand-500/60 transition-colors"
+          >
+            <div className="flex items-center gap-3">
+              <Users size={22} className="text-brand-600 dark:text-brand-400 shrink-0" />
+              <div className="flex-1">
+                <h3 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100">
+                  Pivot this domain to SOCMINT sources →
+                </h3>
+                <p className="text-xs font-mono text-slate-600 dark:text-slate-400 mt-0.5">
+                  Look up <code>{result.domain}</code> across Hunter, Apollo, ZoomInfo, RocketReach, GitHub
+                  commit-author search, paste-site dorks, LinkedIn @domain dork, Shodan, Censys, crt.sh, and more.
+                </p>
+              </div>
+              <ExternalLink size={14} className="text-slate-500 shrink-0" />
+            </div>
+          </Link>
         </motion.div>
       )}
     </div>
