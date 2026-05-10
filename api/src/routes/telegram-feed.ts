@@ -54,14 +54,19 @@ const CHANNELS: ChannelSpec[] = [
     blurb: 'Brad Duncan — daily PCAPs + IOCs',
     topic: 'malware',
   },
-  { handle: 'ransomwatch', name: 'RansomWatch', blurb: 'Live ransomware leak-site posts', topic: 'ransomware' },
+  // ransomwatch / DDoSecrets / IntelCrab disabled their t.me/s preview pages,
+  // so we substitute equivalents that still expose previews:
+  //   ransomware leak feed   → secharvester (high-volume threat-intel firehose)
+  //   leak datasets          → dataleak (data-breach repost channel)
+  //   conflict CTI crossover → group_ib (Group-IB official)
+  { handle: 'secharvester', name: 'SecHarvester', blurb: 'High-volume threat-intel firehose', topic: 'leaks' },
   { handle: 'CyberKnow20', name: 'CyberKnow', blurb: 'Hacktivist collective tracking', topic: 'hacktivism' },
   { handle: 'FalconFeedsio', name: 'FalconFeedsIO', blurb: 'Real-time dark-web monitoring', topic: 'leaks' },
-  { handle: 'DDoSecrets', name: 'DDoSecrets', blurb: 'Verified-provenance leak datasets', topic: 'leaks' },
+  { handle: 'dataleak', name: 'DataLeak', blurb: 'Data-breach repost channel', topic: 'leaks' },
   { handle: 'BleepingComputer', name: 'BleepingComputer', blurb: 'Breaking incident news', topic: 'news' },
   { handle: 'TheHackerNews', name: 'The Hacker News', blurb: 'Security news headlines', topic: 'news' },
   { handle: 'bellingcat', name: 'Bellingcat', blurb: 'Investigative-OSINT case studies', topic: 'osint' },
-  { handle: 'IntelCrab', name: 'IntelCrab', blurb: 'Conflict + cyber OSINT crossover', topic: 'osint' },
+  { handle: 'group_ib', name: 'Group-IB', blurb: 'Official Group-IB threat-intel channel', topic: 'osint' },
 ];
 
 interface ParsedMessage {
@@ -171,8 +176,9 @@ function parseChannelHtml(html: string): ParsedMessage[] {
 
 export async function telegramFeedHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;
-  // v1 cache key — bump on response-shape changes.
-  const cacheKey = new Request('https://telegram-feed-cache.internal/v1');
+  // v2: channel set rotated after preview-disabled handles were swapped out.
+  // Bump on response-shape changes or curated-channel-list changes.
+  const cacheKey = new Request('https://telegram-feed-cache.internal/v2');
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
