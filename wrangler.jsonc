@@ -24,8 +24,9 @@
   ],
   "triggers": {
     // Daily briefing at 00:05 UTC (covers prior 24h window). Weekly at 00:15 UTC Monday (covers prior week).
-    // "*/5 * * * *" warms /api/v1/snapshot + /api/v1/ioc-snapshot every 5 min so users always hit warm edge cache.
-    "crons": ["5 0 * * *", "15 0 * * 1", "*/5 * * * *"]
+    // "0 * * * *" warms /api/v1/snapshot + /api/v1/ioc-snapshot once per hour so users always hit warm edge cache.
+    // (Was "*/5 * * * *" — 5-min cadence was burning Workers KV writes for negligible UX gain.)
+    "crons": ["5 0 * * *", "15 0 * * 1", "0 * * * *"]
   },
   // Cloudflare Analytics Engine — usage telemetry. Free tier: 100k writes/day,
   // 10M reads/month. Only writes high-signal events (IOC checks, threat-map

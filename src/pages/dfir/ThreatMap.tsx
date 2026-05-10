@@ -430,10 +430,10 @@ export default function ThreatMap(): JSX.Element {
                   const slug = bucket.type === 'url' ? 'urls' : bucket.type === 'domain' ? 'domains' : 'hashs';
                   const label =
                     bucket.type === 'url'
-                      ? 'Recent URLs'
+                      ? 'Live URLs'
                       : bucket.type === 'domain'
-                        ? 'Recent Domains'
-                        : 'Recent File hashes';
+                        ? 'Live Domains'
+                        : 'Live File hashes';
                   return (
                     <Link
                       key={bucket.type}

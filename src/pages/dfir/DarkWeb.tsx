@@ -139,37 +139,14 @@ function highlightInText(text: string, query: string, watchTerms: string[]): JSX
   );
 }
 
-interface DarkWebProps {
-  /**
-   * When set, render only that section's panel and skip the unified
-   * intro paragraph + the aggregated-feed search UI. Lets the same
-   * component back the unified /threatintel/darkweb landing AND the
-   * three dedicated single-section pages
-   * (/threatintel/ransomware-activity, /threatintel/cybersec,
-   * /threatintel/breach).
-   */
-  singleSection?: 'ransomware' | 'telegram' | 'breach';
-}
-
-const SECTION_HEADERS: Record<NonNullable<DarkWebProps['singleSection']>, { h1: string; intro: string }> = {
-  ransomware: {
-    h1: 'Recent ransomware activity',
-    intro:
-      'Live feed of ransomware leak-site claims aggregated from Ransomlook (~100 most-recent victim posts, refreshed hourly server-side). Each victim card links back to the source post; per-leak screenshots are surfaced when Ransomlook has captured one. Reference only — verify before acting.',
-  },
-  telegram: {
-    h1: 'Cybersec Telegram firehose',
-    intro:
-      'Curated stream from active public cybersec Telegram channels — IOC drops, threat-intel commentary, leak announcements, and security-news mirrors. Channel set is liveness-probed; see the catalog at /threatintel/telegram-watch.',
-  },
-  breach: {
-    h1: 'Recent breach disclosures',
-    intro:
-      'Disclosed breaches from the Have I Been Pwned public corpus, with verification flags, sensitivity markers, and exposed data classes. Reference for incident-response triage; verify in your environment before acting.',
-  },
-};
-
-export default function DarkWeb({ singleSection }: DarkWebProps = {}): JSX.Element {
+/**
+ * DarkWeb is now the aggregated dark-web RSS feed view only — the three
+ * per-source widgets (ransomware activity / cybersec Telegram firehose /
+ * breach disclosures) live as their own dedicated /threatintel/* pages
+ * and import their panel components from this file. See
+ * RansomwareActivity.tsx, CybersecTelegram.tsx, BreachDisclosures.tsx.
+ */
+export default function DarkWeb(): JSX.Element {
   const [items, setItems] = useState<FeedItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [sourceCount, setSourceCount] = useState(0);
@@ -291,293 +268,273 @@ export default function DarkWeb({ singleSection }: DarkWebProps = {}): JSX.Eleme
       </Link>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-4xl font-display font-bold mb-2">
-          {singleSection ? SECTION_HEADERS[singleSection].h1 : 'Dark Web Watch'}
-        </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
-          {singleSection ? (
-            SECTION_HEADERS[singleSection].intro
-          ) : (
-            <>
-              Aggregated dark web, ransomware leak-site, breach, and security-research activity from
-              {` ${DARKWEB_FEEDS.length} `}curated free sources. Use the search box for live filtering (regex like{' '}
-              <code className="font-mono text-xs bg-slate-100 dark:bg-slate-800 px-1 rounded">/lockbit|alphv/i</code>{' '}
-              works), filter by source, narrow by date window, and add long-running keywords to your watchlist for
-              highlighted matches across visits. Watchlist + source preferences are stored locally; nothing is uploaded.
-            </>
-          )}
+        <h1 className="text-4xl font-display font-bold mb-2">Dark Web Watch</h1>
+        <p className="text-slate-600 dark:text-slate-400 mb-4 max-w-2xl">
+          Aggregated dark web, leak-site, breach, and security-research activity from
+          {` ${DARKWEB_FEEDS.length} `}curated free sources. Use the search box for live filtering (regex like{' '}
+          <code className="font-mono text-xs bg-slate-100 dark:bg-slate-800 px-1 rounded">/lockbit|alphv/i</code>{' '}
+          works), filter by source, narrow by date window, and add long-running keywords to your watchlist for
+          highlighted matches across visits. Watchlist + source preferences are stored locally; nothing is uploaded.
+        </p>
+        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
+          Per-source widgets —{' '}
+          <Link to="/threatintel/ransomware-activity" className="text-brand-600 dark:text-brand-400 hover:underline">
+            ransomware activity
+          </Link>
+          ,{' '}
+          <Link to="/threatintel/cybersec" className="text-brand-600 dark:text-brand-400 hover:underline">
+            cybersec Telegram firehose
+          </Link>
+          ,{' '}
+          <Link to="/threatintel/breach" className="text-brand-600 dark:text-brand-400 hover:underline">
+            breach disclosures
+          </Link>{' '}
+          — live as their own pages.
         </p>
       </div>
 
-      {(!singleSection || singleSection === 'ransomware') && (
-        <section id="ransomware" className="scroll-mt-24">
-          <RansomwareActivityPanel />
-        </section>
-      )}
-
-      {!singleSection && <hr className="my-8 border-slate-200 dark:border-slate-800" aria-hidden="true" />}
-
-      {(!singleSection || singleSection === 'telegram') && (
-        <section id="telegram" className="scroll-mt-24">
-          <TelegramFeedPanel />
-        </section>
-      )}
-
-      {!singleSection && <hr className="my-8 border-slate-200 dark:border-slate-800" aria-hidden="true" />}
-
-      {(!singleSection || singleSection === 'breach') && (
-        <section id="breaches" className="scroll-mt-24">
-          <BreachDisclosuresPanel />
-        </section>
-      )}
-
-      {/* Aggregated-feed UI (search + filters + watchlist + recent-activity list)
-          only shown on the unified /threatintel/darkweb view. The dedicated
-          single-section pages skip this — each panel above has its own controls. */}
-      {!singleSection && (
-        <>
-          {/* Search + filters */}
-          <section className="mb-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 space-y-4">
-            <div className="flex items-center gap-2">
-              <Search size={14} className="text-brand-600 dark:text-brand-400" />
-              <input
-                type="text"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="Live search. Plain words = AND. /regex/i for regex."
-                className="flex-1 px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
-              />
-              {search && (
-                <button
-                  type="button"
-                  onClick={() => setSearch('')}
-                  className="text-xs font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
-                >
-                  clear
-                </button>
-              )}
-            </div>
-
-            <div className="flex flex-wrap items-center gap-3 text-xs font-mono">
-              <Filter size={12} className="text-brand-600 dark:text-brand-400" />
-              <span className="text-slate-500">Sources:</span>
+      <>
+        {/* Search + filters */}
+        <section className="mb-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 space-y-4">
+          <div className="flex items-center gap-2">
+            <Search size={14} className="text-brand-600 dark:text-brand-400" />
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Live search. Plain words = AND. /regex/i for regex."
+              className="flex-1 px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            />
+            {search && (
               <button
                 type="button"
-                onClick={toggleAllSources}
-                className="text-brand-600 dark:text-brand-400 hover:underline"
+                onClick={() => setSearch('')}
+                className="text-xs font-mono text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
               >
-                {allSourcesOn ? 'clear all' : 'select all'}
+                clear
               </button>
-              {DARKWEB_FEEDS.map((f) => {
-                const on = activeSources.has(f.id);
-                return (
-                  <button
-                    key={f.id}
-                    type="button"
-                    onClick={() => toggleSource(f.id)}
-                    className={`px-2 py-0.5 rounded border transition-colors ${
-                      on
-                        ? 'border-brand-500/50 text-slate-900 dark:text-slate-100 bg-brand-50 dark:bg-brand-900/20'
-                        : 'border-slate-200 dark:border-slate-800 text-slate-500'
-                    }`}
-                  >
-                    {f.label}
-                  </button>
-                );
-              })}
-            </div>
+            )}
+          </div>
 
-            <div className="flex flex-wrap items-center gap-2 text-xs font-mono">
-              <span className="text-slate-500">Window:</span>
-              {(['24h', '7d', '30d'] as DateWindow[]).map((w) => (
+          <div className="flex flex-wrap items-center gap-3 text-xs font-mono">
+            <Filter size={12} className="text-brand-600 dark:text-brand-400" />
+            <span className="text-slate-500">Sources:</span>
+            <button
+              type="button"
+              onClick={toggleAllSources}
+              className="text-brand-600 dark:text-brand-400 hover:underline"
+            >
+              {allSourcesOn ? 'clear all' : 'select all'}
+            </button>
+            {DARKWEB_FEEDS.map((f) => {
+              const on = activeSources.has(f.id);
+              return (
                 <button
-                  key={w}
+                  key={f.id}
                   type="button"
-                  onClick={() => setDateWindow(w)}
+                  onClick={() => toggleSource(f.id)}
                   className={`px-2 py-0.5 rounded border transition-colors ${
-                    dateWindow === w
+                    on
                       ? 'border-brand-500/50 text-slate-900 dark:text-slate-100 bg-brand-50 dark:bg-brand-900/20'
                       : 'border-slate-200 dark:border-slate-800 text-slate-500'
                   }`}
                 >
-                  last {w}
+                  {f.label}
                 </button>
-              ))}
-              <span className="text-slate-500">(max 30 days)</span>
-            </div>
-          </section>
+              );
+            })}
+          </div>
 
-          {/* Watchlist control */}
-          <section className="mb-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
-            <div className="flex items-center gap-2 mb-3">
-              <Bell size={14} className="text-brand-600 dark:text-brand-400" />
-              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
-                Watchlist
-              </h2>
-            </div>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                addTerm(newTerm);
-              }}
-              className="flex gap-2 mb-3"
+          <div className="flex flex-wrap items-center gap-2 text-xs font-mono">
+            <span className="text-slate-500">Window:</span>
+            {(['24h', '7d', '30d'] as DateWindow[]).map((w) => (
+              <button
+                key={w}
+                type="button"
+                onClick={() => setDateWindow(w)}
+                className={`px-2 py-0.5 rounded border transition-colors ${
+                  dateWindow === w
+                    ? 'border-brand-500/50 text-slate-900 dark:text-slate-100 bg-brand-50 dark:bg-brand-900/20'
+                    : 'border-slate-200 dark:border-slate-800 text-slate-500'
+                }`}
+              >
+                last {w}
+              </button>
+            ))}
+            <span className="text-slate-500">(max 30 days)</span>
+          </div>
+        </section>
+
+        {/* Watchlist control */}
+        <section className="mb-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+          <div className="flex items-center gap-2 mb-3">
+            <Bell size={14} className="text-brand-600 dark:text-brand-400" />
+            <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
+              Watchlist
+            </h2>
+          </div>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              addTerm(newTerm);
+            }}
+            className="flex gap-2 mb-3"
+          >
+            <input
+              type="text"
+              value={newTerm}
+              onChange={(e) => setNewTerm(e.target.value)}
+              placeholder="company name, domain, sector, threat actor…"
+              className="flex-1 px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            />
+            <button
+              type="submit"
+              disabled={!newTerm.trim()}
+              className="inline-flex items-center gap-1 px-3 py-2 bg-brand-600 dark:bg-brand-500 text-white text-sm font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
             >
-              <input
-                type="text"
-                value={newTerm}
-                onChange={(e) => setNewTerm(e.target.value)}
-                placeholder="company name, domain, sector, threat actor…"
-                className="flex-1 px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
-              />
-              <button
-                type="submit"
-                disabled={!newTerm.trim()}
-                className="inline-flex items-center gap-1 px-3 py-2 bg-brand-600 dark:bg-brand-500 text-white text-sm font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
-              >
-                <Plus size={14} /> Track
-              </button>
-            </form>
-            {watchlist.length === 0 ? (
-              <p className="text-xs font-mono text-slate-500">
-                Empty. Add a keyword above to highlight matching posts in the feed below.
-              </p>
-            ) : (
-              <ul className="flex flex-wrap gap-2">
-                {watchlist.map((term) => (
-                  <li
-                    key={term}
-                    className="inline-flex items-center gap-2 text-xs font-mono px-2 py-1 rounded-full border border-brand-500/40 bg-brand-50 dark:bg-brand-900/20 text-brand-700 dark:text-brand-300"
-                  >
-                    <span>{term}</span>
-                    <span className="text-slate-500">{perTermCount[term] ?? 0}</span>
-                    <button
-                      type="button"
-                      onClick={() => removeTerm(term)}
-                      aria-label={`stop tracking ${term}`}
-                      className="text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
-                    >
-                      <X size={12} />
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </section>
-
-          {/* Stats */}
-          <header className="flex items-baseline justify-between mb-4 flex-wrap gap-2">
-            <h2 className="font-display font-bold text-xl">Recent activity</h2>
-            <div className="flex items-center gap-3 text-xs font-mono text-slate-600 dark:text-slate-400">
-              <span>
-                {sourceCount} of {DARKWEB_FEEDS.length} sources
-              </span>
-              <span aria-hidden="true">·</span>
-              <span>
-                {matched.length} of {items.length} items
-              </span>
-              {watchlist.length > 0 && (
-                <>
-                  <span aria-hidden="true">·</span>
-                  <span className="text-brand-600 dark:text-brand-400">
-                    {matchCount} watchlist match{matchCount === 1 ? '' : 'es'}
-                  </span>
-                </>
-              )}
-              <span aria-hidden="true">·</span>
-              <button
-                type="button"
-                onClick={() => void fetchFeeds()}
-                disabled={loading}
-                aria-label="refresh dark web feeds"
-                className="inline-flex items-center gap-1 hover:text-brand-600 dark:hover:text-brand-400 disabled:opacity-50"
-              >
-                <RefreshCw size={12} className={loading ? 'animate-spin' : ''} /> refresh
-              </button>
-            </div>
-          </header>
-
-          {loading && items.length === 0 && (
-            <p className="font-mono text-sm text-slate-600 dark:text-slate-400">Fetching…</p>
-          )}
-
-          {!loading && matched.length === 0 && items.length > 0 && (
-            <p className="font-mono text-sm text-slate-500">
-              No items match the current filters.{' '}
-              <button
-                type="button"
-                onClick={() => {
-                  setSearch('');
-                  setActiveSources(new Set(ALL_FEED_IDS));
-                  setDateWindow('30d');
-                }}
-                className="text-brand-600 dark:text-brand-400 hover:underline"
-              >
-                reset filters
-              </button>
+              <Plus size={14} /> Track
+            </button>
+          </form>
+          {watchlist.length === 0 ? (
+            <p className="text-xs font-mono text-slate-500">
+              Empty. Add a keyword above to highlight matching posts in the feed below.
             </p>
-          )}
-
-          {matched.length > 0 && (
-            <ul className="space-y-3">
-              {matched.map(({ item: it, watchMatches }) => {
-                const hit = watchMatches.length > 0;
-                return (
-                  <li
-                    key={it.guid ?? it.link}
-                    className={`rounded-lg border p-4 transition-colors ${
-                      hit
-                        ? 'border-amber-400 bg-amber-50/50 dark:bg-amber-900/15 dark:border-amber-700'
-                        : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900'
-                    }`}
+          ) : (
+            <ul className="flex flex-wrap gap-2">
+              {watchlist.map((term) => (
+                <li
+                  key={term}
+                  className="inline-flex items-center gap-2 text-xs font-mono px-2 py-1 rounded-full border border-brand-500/40 bg-brand-50 dark:bg-brand-900/20 text-brand-700 dark:text-brand-300"
+                >
+                  <span>{term}</span>
+                  <span className="text-slate-500">{perTermCount[term] ?? 0}</span>
+                  <button
+                    type="button"
+                    onClick={() => removeTerm(term)}
+                    aria-label={`stop tracking ${term}`}
+                    className="text-slate-500 hover:text-rose-600 dark:hover:text-rose-400"
                   >
-                    <a href={it.link} target="_blank" rel="noopener noreferrer" className="group block">
-                      <div className="flex items-baseline justify-between gap-3">
-                        <h3 className="font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
-                          {highlightInText(it.title, search, watchlist)}
-                        </h3>
-                        <ExternalLink size={12} className="text-slate-500 shrink-0 mt-1" />
-                      </div>
-                      <div className="mt-1 flex items-center gap-3 text-xs font-mono text-slate-500">
-                        {it.source && <span className="text-brand-600 dark:text-brand-400">{it.source}</span>}
-                        {it.pubDate && <span>{formatRelativeTime(it.pubDate)}</span>}
-                      </div>
-                    </a>
-                    {hit && (
-                      <div className="mt-2 flex items-center gap-2 flex-wrap">
-                        <Eye size={12} className="text-amber-700 dark:text-amber-400" />
-                        {watchMatches.map((m) => (
-                          <span
-                            key={m}
-                            className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-amber-200/60 dark:bg-amber-700/30 text-amber-900 dark:text-amber-200"
-                          >
-                            {m}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </li>
-                );
-              })}
+                    <X size={12} />
+                  </button>
+                </li>
+              ))}
             </ul>
           )}
+        </section>
 
-          <footer className="mt-12 text-xs font-mono text-slate-500 leading-relaxed">
-            Sources: Dark Web Informer · Ransomware.live · DataBreaches.net · The DFIR Report · The Record · Curated
-            Intelligence · Reddit (r/Malware, r/blueteamsec, r/threatintel, r/netsec) · BleepingComputer · Krebs ·
-            Malware Traffic Analysis · DoublePulsar · Sophos X-Ops. Closed-darknet content (private Telegram, paid leak
-            sites, invite-only forums) is not in scope; see{' '}
-            <a
-              href="https://github.com/fastfire/deepdarkCTI"
-              target="_blank"
-              rel="noopener noreferrer"
+        {/* Stats */}
+        <header className="flex items-baseline justify-between mb-4 flex-wrap gap-2">
+          <h2 className="font-display font-bold text-xl">Recent activity</h2>
+          <div className="flex items-center gap-3 text-xs font-mono text-slate-600 dark:text-slate-400">
+            <span>
+              {sourceCount} of {DARKWEB_FEEDS.length} sources
+            </span>
+            <span aria-hidden="true">·</span>
+            <span>
+              {matched.length} of {items.length} items
+            </span>
+            {watchlist.length > 0 && (
+              <>
+                <span aria-hidden="true">·</span>
+                <span className="text-brand-600 dark:text-brand-400">
+                  {matchCount} watchlist match{matchCount === 1 ? '' : 'es'}
+                </span>
+              </>
+            )}
+            <span aria-hidden="true">·</span>
+            <button
+              type="button"
+              onClick={() => void fetchFeeds()}
+              disabled={loading}
+              aria-label="refresh dark web feeds"
+              className="inline-flex items-center gap-1 hover:text-brand-600 dark:hover:text-brand-400 disabled:opacity-50"
+            >
+              <RefreshCw size={12} className={loading ? 'animate-spin' : ''} /> refresh
+            </button>
+          </div>
+        </header>
+
+        {loading && items.length === 0 && (
+          <p className="font-mono text-sm text-slate-600 dark:text-slate-400">Fetching…</p>
+        )}
+
+        {!loading && matched.length === 0 && items.length > 0 && (
+          <p className="font-mono text-sm text-slate-500">
+            No items match the current filters.{' '}
+            <button
+              type="button"
+              onClick={() => {
+                setSearch('');
+                setActiveSources(new Set(ALL_FEED_IDS));
+                setDateWindow('30d');
+              }}
               className="text-brand-600 dark:text-brand-400 hover:underline"
             >
-              deepdarkCTI
-            </a>{' '}
-            for an index of those.
-          </footer>
-        </>
-      )}
+              reset filters
+            </button>
+          </p>
+        )}
+
+        {matched.length > 0 && (
+          <ul className="space-y-3">
+            {matched.map(({ item: it, watchMatches }) => {
+              const hit = watchMatches.length > 0;
+              return (
+                <li
+                  key={it.guid ?? it.link}
+                  className={`rounded-lg border p-4 transition-colors ${
+                    hit
+                      ? 'border-amber-400 bg-amber-50/50 dark:bg-amber-900/15 dark:border-amber-700'
+                      : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900'
+                  }`}
+                >
+                  <a href={it.link} target="_blank" rel="noopener noreferrer" className="group block">
+                    <div className="flex items-baseline justify-between gap-3">
+                      <h3 className="font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+                        {highlightInText(it.title, search, watchlist)}
+                      </h3>
+                      <ExternalLink size={12} className="text-slate-500 shrink-0 mt-1" />
+                    </div>
+                    <div className="mt-1 flex items-center gap-3 text-xs font-mono text-slate-500">
+                      {it.source && <span className="text-brand-600 dark:text-brand-400">{it.source}</span>}
+                      {it.pubDate && <span>{formatRelativeTime(it.pubDate)}</span>}
+                    </div>
+                  </a>
+                  {hit && (
+                    <div className="mt-2 flex items-center gap-2 flex-wrap">
+                      <Eye size={12} className="text-amber-700 dark:text-amber-400" />
+                      {watchMatches.map((m) => (
+                        <span
+                          key={m}
+                          className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-amber-200/60 dark:bg-amber-700/30 text-amber-900 dark:text-amber-200"
+                        >
+                          {m}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        )}
+
+        <footer className="mt-12 text-xs font-mono text-slate-500 leading-relaxed">
+          Sources: Dark Web Informer · Ransomware.live · DataBreaches.net · The DFIR Report · The Record · Curated
+          Intelligence · Reddit (r/Malware, r/blueteamsec, r/threatintel, r/netsec) · BleepingComputer · Krebs · Malware
+          Traffic Analysis · DoublePulsar · Sophos X-Ops. Closed-darknet content (private Telegram, paid leak sites,
+          invite-only forums) is not in scope; see{' '}
+          <a
+            href="https://github.com/fastfire/deepdarkCTI"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-brand-600 dark:text-brand-400 hover:underline"
+          >
+            deepdarkCTI
+          </a>{' '}
+          for an index of those.
+        </footer>
+      </>
     </div>
   );
 }
@@ -616,7 +573,7 @@ function formatPwnCount(n?: number): string {
   return String(n);
 }
 
-function BreachDisclosuresPanel(): JSX.Element {
+export function BreachDisclosuresPanel(): JSX.Element {
   const [data, setData] = useState<BreachDisclosuresResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -773,7 +730,7 @@ interface RansomwareResponse {
   victims: RansomwareVictim[];
 }
 
-function RansomwareActivityPanel(): JSX.Element {
+export function RansomwareActivityPanel(): JSX.Element {
   const [data, setData] = useState<RansomwareResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -1054,7 +1011,7 @@ function highlightTelegramText(text: string, watchTerms: string[]): JSX.Element 
   );
 }
 
-function TelegramFeedPanel(): JSX.Element {
+export function TelegramFeedPanel(): JSX.Element {
   const [data, setData] = useState<TelegramFeedResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

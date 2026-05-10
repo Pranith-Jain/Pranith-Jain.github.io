@@ -64,18 +64,17 @@ export default {
 
   /**
    * Cron-triggered work. Dispatched on cron string:
-   * - "5 0 * * *"    → daily briefing for the prior calendar day
-   * - "15 0 * * 1"   → weekly briefing for the prior ISO week (Mon → Sun)
-   * - "*\/5 * * * *" → warm /api/v1/snapshot + /api/v1/ioc-snapshot so the
-   *                   first-of-each-cache-window user request lands warm.
-   *                   Re-dispatches each request through the Hono app
-   *                   (apiApp.fetch) so the per-route + outer-snapshot
-   *                   caches all populate.
+   * - "5 0 * * *"  → daily briefing for the prior calendar day
+   * - "15 0 * * 1" → weekly briefing for the prior ISO week (Mon → Sun)
+   * - "0 * * * *"  → warm /api/v1/snapshot + /api/v1/ioc-snapshot once
+   *                  per hour. Was every 5 min — that cadence was burning
+   *                  Workers KV writes for negligible UX gain. Snapshot
+   *                  cache TTL bumped to 1h to match.
    */
   async scheduled(event: ScheduledEvent, env: Env, ctx: ExecutionContext): Promise<void> {
     const cron = event.cron;
 
-    if (cron === '*/5 * * * *') {
+    if (cron === '0 * * * *') {
       ctx.waitUntil(
         (async () => {
           const start = Date.now();

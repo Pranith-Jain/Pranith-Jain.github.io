@@ -52,21 +52,21 @@ interface PageMeta {
 
 const META: Record<Kind, PageMeta> = {
   url: {
-    title: 'Recent URLs',
+    title: 'Live URLs',
     intro:
       'URLs aggregated from URLhaus and ThreatFox in the last hour. Each entry shows the source feed and any tag/context the upstream provided. Reference only — verify in your environment before blocking.',
     icon: Globe,
     bucketTypes: ['url'],
   },
   domain: {
-    title: 'Recent Domains',
+    title: 'Live Domains',
     intro:
       'Malicious domains aggregated from ThreatFox in the last hour. Per-entry timestamp shows when the upstream first saw it. Reference only — verify before blocking.',
     icon: Globe,
     bucketTypes: ['domain'],
   },
   hash: {
-    title: 'Recent File Hashes',
+    title: 'Live File Hashes',
     intro:
       'File hashes aggregated from MalwareBazaar and ThreatFox in the last hour. Per-entry timestamp shows when the upstream first saw the sample. Click any hash to run it through the IOC Checker (24 sources).',
     icon: Hash,

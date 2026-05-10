@@ -10,11 +10,13 @@ import { buildSummary, FEED_SOURCES, type IocFeedSummary, type SourceId } from '
  * as /api/v1/snapshot for the news cards: per-source `ok`/`error` so a
  * single bad upstream doesn't blank the whole panel.
  *
- * Cache: 5 min at the edge. The underlying upstreams cache 30 min via
- * buildSummary defaults.
+ * Cache: 1h at the edge — matches the hourly snapshot warmup cron. Was
+ * 5 min, but the per-IOC upstream feeds rebuild every 30-60 min anyway,
+ * so the 5-min churn was burning Workers KV writes for negligible UX
+ * gain.
  */
 
-const CACHE_TTL = 5 * 60;
+const CACHE_TTL = 60 * 60;
 const FETCH_TIMEOUT_MS = 15_000;
 const PER_SOURCE_LIMIT = 8; // keep payload small — panel renders top 4-5 anyway
 
@@ -56,7 +58,7 @@ async function fetchOne(id: SourceId): Promise<SourcePayload> {
 
 export async function iocSnapshotHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;
-  const cacheKey = new Request('https://ioc-snapshot-cache.internal/v1');
+  const cacheKey = new Request('https://ioc-snapshot-cache.internal/v2-1h');
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 

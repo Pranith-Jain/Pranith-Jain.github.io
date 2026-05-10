@@ -166,6 +166,20 @@ export const LISTS: AwesomeList[] = [
     why: 'The reference list to hand a junior IR analyst on day one.',
   },
 
+  // ─── Detection Engineering ───────────────────────────────────────────────
+  {
+    id: 'slimkql-detections-ai',
+    name: 'SlimKQL · Detections.AI',
+    repo: 'SlimKQL/Detections.AI',
+    url: 'https://github.com/SlimKQL/Detections.AI',
+    description:
+      'Mirrored KQL detection-rule library — Defender XDR / Microsoft Sentinel rules with a focus on AI-related, identity-attack, and emerging-threat detections. Active commit cadence.',
+    focus: ['threat-intel', 'soc-cert'],
+    stars: '114',
+    badge: 'specialised',
+    why: 'Sharper / niche complement to Azure-Sentinel — wired into /threatintel/rules as a detection-rule source so latest commits appear in the live feed.',
+  },
+
   // ─── SOC / CERT ──────────────────────────────────────────────────────────
   {
     id: 'mthcht-awesome-lists',

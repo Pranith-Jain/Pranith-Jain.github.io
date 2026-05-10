@@ -25,13 +25,17 @@ import { listBriefings } from '../lib/briefing-builder';
  * Per-source failures don't fail the whole snapshot. Each key in the
  * response is independently `ok: true/false` with the failure reason.
  *
- * Cache: 5 min at the edge so repeat snapshot calls within that window are
+ * Cache: 1h at the edge so repeat snapshot calls within that window are
  * free; the underlying handlers cache much longer (1 h ransomware, 30 min
  * Telegram, 6 h onion) so even on a snapshot miss we typically only pay the
  * merge cost.
  */
 
-const CACHE_TTL = 5 * 60;
+// 1h server-side TTL — matches the hourly cron warmup. Was 5 min, but
+// per-IOC snapshot data only changes meaningfully on the order of hours
+// upstream (most upstream feeds rebuild every 15-60 min themselves), and
+// 5-min bursts were hammering Workers KV writes for negligible UX gain.
+const CACHE_TTL = 60 * 60;
 
 /** Curated feed URLs — kept in sync with the constants the panel used to use. */
 const SCAM_FEED_URLS = ['https://consumer.ftc.gov/blog/rss', 'https://www.ic3.gov/CSA/RSS'];
@@ -89,7 +93,7 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
   // defendor_eng + cyberscoop). Bumped to force a clean rebuild so the
   // LiveSnapshotPanel.tsx telegram card stops showing the previously-cached
   // payload that pre-dated the channel change.
-  const cacheKey = new Request('https://snapshot-cache.internal/v7');
+  const cacheKey = new Request('https://snapshot-cache.internal/v8-1h');
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 

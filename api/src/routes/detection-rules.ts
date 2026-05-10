@@ -10,7 +10,7 @@ import type { Env } from '../env';
  * should go through the existing feeds proxy allow-list.
  */
 
-const CACHE_KEY = 'https://detection-rules-cache.internal/v2-dlp';
+const CACHE_KEY = 'https://detection-rules-cache.internal/v3-slimkql';
 const CACHE_TTL_SECONDS = 3600;
 const FETCH_TIMEOUT_MS = 10_000;
 
@@ -66,6 +66,15 @@ const SOURCES: SourceConfig[] = [
     type: 'KQL',
     description: 'Microsoft Sentinel detection rules in KQL. The largest open-source KQL detection collection.',
     rules_path: 'Detections',
+  },
+  {
+    id: 'slimkql-detections-ai',
+    label: 'SlimKQL/Detections.AI',
+    repo: 'SlimKQL/Detections.AI',
+    type: 'KQL',
+    description:
+      'KQL detection-rule mirror maintained by SlimKQL. Defender XDR / Sentinel rules with a focus on AI-related and identity-attack detections — complements Azure-Sentinel with a sharper, niche selection.',
+    rules_path: 'KQL',
   },
   {
     id: 'emerging-threats',

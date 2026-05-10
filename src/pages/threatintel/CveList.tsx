@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ExternalLink, Loader2, RefreshCw, Search, ShieldAlert } from 'lucide-react';
+import { AlertOctagon, ArrowLeft, ExternalLink, Flame, Loader2, RefreshCw, Search, ShieldAlert } from 'lucide-react';
 
 interface RecentCve {
   id: string;
@@ -10,12 +10,18 @@ interface RecentCve {
   severity: 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW' | 'NONE' | 'UNKNOWN';
   score: number | null;
   reference?: string;
+  kev: boolean;
+  kev_added?: string;
+  kev_due?: string;
+  kev_ransomware?: boolean;
+  origin: 'nvd' | 'kev';
 }
 
-interface Response {
+interface CveResponse {
   generated_at: string;
-  source: string;
+  sources: { id: string; ok: boolean; count: number }[];
   count: number;
+  kev_count: number;
   cves: RecentCve[];
 }
 
@@ -39,12 +45,13 @@ function shortRel(iso: string): string {
 }
 
 export default function CveList(): JSX.Element {
-  const [data, setData] = useState<Response | null>(null);
+  const [data, setData] = useState<CveResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState('');
   const [refreshKey, setRefreshKey] = useState(0);
   const [severityFilter, setSeverityFilter] = useState<Set<RecentCve['severity']>>(new Set());
+  const [kevOnly, setKevOnly] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -53,7 +60,7 @@ export default function CveList(): JSX.Element {
     fetch('/api/v1/cve-recent')
       .then((r) => {
         if (!r.ok) throw new Error(`upstream ${r.status}`);
-        return r.json() as Promise<Response>;
+        return r.json() as Promise<CveResponse>;
       })
       .then((d) => {
         if (!cancelled) setData(d);
@@ -73,11 +80,12 @@ export default function CveList(): JSX.Element {
     if (!data) return [];
     const q = query.trim().toLowerCase();
     return data.cves.filter((c) => {
+      if (kevOnly && !c.kev) return false;
       if (severityFilter.size > 0 && !severityFilter.has(c.severity)) return false;
       if (!q) return true;
       return c.id.toLowerCase().includes(q) || c.description.toLowerCase().includes(q);
     });
-  }, [data, query, severityFilter]);
+  }, [data, query, severityFilter, kevOnly]);
 
   const toggleSeverity = (s: RecentCve['severity']) => {
     setSeverityFilter((prev) => {
@@ -99,19 +107,21 @@ export default function CveList(): JSX.Element {
 
       <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
-          <ShieldAlert size={28} className="text-brand-600 dark:text-brand-400" /> Recent CVE updates
+          <ShieldAlert size={28} className="text-brand-600 dark:text-brand-400" /> Live CVE updates
         </h1>
         <p className="text-slate-600 dark:text-slate-400 font-mono mb-2 max-w-3xl">
-          CVEs published or modified in the last 7 days, pulled from NVD's modified-CVE feed. Severity from CVSS v3.1 ›
-          v3.0 › v2 (whichever the entry has). Click a CVE id to drill into{' '}
+          CVEs <em>newly published</em> in the last 14 days (NVD), merged with recent additions to{' '}
+          <strong>CISA's Known-Exploited-Vulnerabilities catalogue</strong> (last 30 days). Entries flagged with KEV are
+          known to be exploited in the wild — prioritise those. Click a CVE id to drill into{' '}
           <Link to="/dfir/cve" className="text-brand-600 dark:text-brand-400 hover:underline">
             CVE Lookup
           </Link>{' '}
-          (NVD + EPSS + KEV in one call).
+          (full NVD + EPSS + KEV record).
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-6">
-          Source: <span className="text-slate-700 dark:text-slate-300">/api/v1/cve-recent</span> · cached 30 min
-          server-side.
+          Sources: <span className="text-slate-700 dark:text-slate-300">NVD published-CVE feed</span> +{' '}
+          <span className="text-slate-700 dark:text-slate-300">CISA KEV catalogue</span> via{' '}
+          <span className="text-slate-700 dark:text-slate-300">/api/v1/cve-recent</span> · cached 30 min server-side.
         </p>
       </div>
 
@@ -128,6 +138,18 @@ export default function CveList(): JSX.Element {
               aria-label="Filter CVEs"
             />
           </div>
+          <button
+            type="button"
+            onClick={() => setKevOnly((v) => !v)}
+            className={`inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border ${
+              kevOnly
+                ? 'border-rose-500/60 bg-rose-500/10 text-rose-700 dark:text-rose-300'
+                : 'border-slate-200 dark:border-slate-800 hover:border-brand-500/40'
+            }`}
+            title="Toggle CISA KEV-only — actively exploited CVEs"
+          >
+            <Flame size={12} /> KEV only{data ? ` · ${data.kev_count}` : ''}
+          </button>
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
@@ -167,7 +189,8 @@ export default function CveList(): JSX.Element {
 
       {data && (
         <p className="text-[11px] font-mono text-slate-500 mb-4">
-          Showing {filtered.length} of {data.count} · upstream snapshot{' '}
+          Showing {filtered.length} of {data.count} ({data.kev_count} on KEV) · sources:{' '}
+          {data.sources.map((s) => `${s.id} ${s.ok ? `(${s.count})` : 'OFFLINE'}`).join(' · ')} · snapshot{' '}
           <span className="text-slate-700 dark:text-slate-300">{shortRel(data.generated_at)}</span>
         </p>
       )}
@@ -188,7 +211,11 @@ export default function CveList(): JSX.Element {
         {filtered.map((c) => (
           <li
             key={c.id}
-            className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4"
+            className={`rounded-lg border p-4 ${
+              c.kev
+                ? 'border-rose-500/40 bg-rose-50/30 dark:bg-rose-900/10'
+                : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900'
+            }`}
           >
             <div className="flex items-baseline justify-between gap-2 mb-2 flex-wrap">
               <Link
@@ -197,13 +224,32 @@ export default function CveList(): JSX.Element {
               >
                 {c.id}
               </Link>
-              <div className="flex items-center gap-2 text-[11px] font-mono">
+              <div className="flex items-center gap-2 text-[11px] font-mono flex-wrap">
+                {c.kev && (
+                  <span
+                    className="uppercase tracking-wider px-1.5 py-0.5 rounded border border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300 inline-flex items-center gap-1"
+                    title={`Listed on CISA KEV ${c.kev_added ?? ''}${c.kev_due ? ` · federal due ${c.kev_due}` : ''}`}
+                  >
+                    <Flame size={9} /> KEV
+                  </span>
+                )}
+                {c.kev_ransomware && (
+                  <span
+                    className="uppercase tracking-wider px-1.5 py-0.5 rounded border border-amber-500/60 bg-amber-500/15 text-amber-700 dark:text-amber-300 inline-flex items-center gap-1"
+                    title="CISA flags this as used in known ransomware campaigns"
+                  >
+                    <AlertOctagon size={9} /> ransomware
+                  </span>
+                )}
                 <span className={`uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEVERITY_PILL[c.severity]}`}>
                   {c.severity}
                 </span>
                 {c.score !== null && <span className="text-slate-500">{c.score.toFixed(1)}</span>}
-                <span className="text-slate-400" title={`Modified ${c.modified}`}>
-                  {shortRel(c.modified)}
+                <span
+                  className="text-slate-400"
+                  title={c.origin === 'kev' ? `Added to KEV ${c.kev_added}` : `Published ${c.published}`}
+                >
+                  {shortRel(c.published)}
                 </span>
               </div>
             </div>

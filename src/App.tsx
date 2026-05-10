@@ -89,6 +89,9 @@ const IocFeed = lazy(() => import('./pages/threatintel/IocFeed'));
 const CveList = lazy(() => import('./pages/threatintel/CveList'));
 const PhishingUrlsPage = lazy(() => import('./pages/threatintel/PhishingUrls'));
 const MalwareSamplesPage = lazy(() => import('./pages/threatintel/MalwareSamples'));
+const RansomwareActivityPage = lazy(() => import('./pages/threatintel/RansomwareActivity'));
+const CybersecTelegramPage = lazy(() => import('./pages/threatintel/CybersecTelegram'));
+const BreachDisclosuresPage = lazy(() => import('./pages/threatintel/BreachDisclosures'));
 
 function TechniqueRedirect() {
   const params = new URLSearchParams(window.location.search);
@@ -440,7 +443,7 @@ export function AppContent() {
               path="/threatintel/ransomware-activity"
               element={
                 <Suspense fallback={<SectionLoader />}>
-                  <DarkWeb singleSection="ransomware" />
+                  <RansomwareActivityPage />
                 </Suspense>
               }
             />
@@ -448,7 +451,7 @@ export function AppContent() {
               path="/threatintel/cybersec"
               element={
                 <Suspense fallback={<SectionLoader />}>
-                  <DarkWeb singleSection="telegram" />
+                  <CybersecTelegramPage />
                 </Suspense>
               }
             />
@@ -456,7 +459,7 @@ export function AppContent() {
               path="/threatintel/breach"
               element={
                 <Suspense fallback={<SectionLoader />}>
-                  <DarkWeb singleSection="breach" />
+                  <BreachDisclosuresPage />
                 </Suspense>
               }
             />

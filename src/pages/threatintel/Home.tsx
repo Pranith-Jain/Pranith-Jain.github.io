@@ -170,21 +170,21 @@ const SECTIONS: Section[] = [
     tools: [
       {
         to: '/threatintel/cve-list',
-        label: 'Recent CVE updates',
-        desc: 'NVD modified-CVE feed (last 7 days) · severity + CVSS score · click to drill into CVE Lookup',
+        label: 'Live CVE updates',
+        desc: 'NVD published-CVE (last 14d) merged with CISA KEV catalogue (last 30d) · severity + KEV + ransomware flags · pivot to CVE Lookup',
         icon: ShieldAlert,
         badge: 'live',
       },
       {
         to: '/threatintel/malware-samples',
-        label: 'Recent malware samples',
+        label: 'Live malware samples',
         desc: 'MalwareBazaar latest · family signature · file type · size · reporter · link to Bazaar sample page',
         icon: Bug,
         badge: 'live',
       },
       {
         to: '/threatintel/phishing-urls',
-        label: 'Recent phishing URLs',
+        label: 'Live phishing URLs',
         desc: 'PhishTank + OpenPhish · target brand + verification flag · pivot to IOC Checker',
         icon: Fish,
         badge: 'live',
@@ -198,19 +198,19 @@ const SECTIONS: Section[] = [
       },
       {
         to: '/threatintel/urls',
-        label: 'Recent URLs (all sources)',
+        label: 'Live URLs (all sources)',
         desc: 'URLhaus + ThreatFox aggregate · per-entry timestamp + source + context',
         icon: Globe,
       },
       {
         to: '/threatintel/domains',
-        label: 'Recent domains',
+        label: 'Live domains',
         desc: 'Malicious domains from ThreatFox · per-entry timestamp showing when upstream first saw it',
         icon: Globe,
       },
       {
         to: '/threatintel/hashs',
-        label: 'Recent file hashes',
+        label: 'Live file hashes',
         desc: 'MalwareBazaar + ThreatFox hashes · per-entry timestamp · click hash to run through IOC Checker',
         icon: Hash,
       },
