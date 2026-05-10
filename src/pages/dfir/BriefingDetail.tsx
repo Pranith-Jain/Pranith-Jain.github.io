@@ -165,7 +165,44 @@ function FindingCard({ finding }: { finding: BriefingFinding }) {
   );
 }
 
-function IocTable({ title, entries }: { title: string; entries: IocEntry[] }) {
+type IocKind = 'url' | 'domain' | 'ipv4' | 'hash';
+
+/** Build per-kind pivot links so each IOC offers more than just /dfir/ioc-check. */
+function pivotsFor(kind: IocKind, value: string): Array<{ to: string; label: string }> {
+  const enc = encodeURIComponent(value);
+  const out: Array<{ to: string; label: string }> = [];
+  switch (kind) {
+    case 'url': {
+      out.push({ to: `/dfir/url-preview?url=${enc}`, label: 'preview' });
+      try {
+        const host = new URL(value).hostname;
+        out.push({ to: `/dfir/domain?d=${encodeURIComponent(host)}`, label: 'domain' });
+      } catch {
+        /* malformed URL — skip the host pivot */
+      }
+      break;
+    }
+    case 'domain': {
+      out.push({ to: `/dfir/domain?d=${enc}`, label: 'inspect' });
+      out.push({ to: `/dfir/cert-search?domain=${enc}`, label: 'certs' });
+      out.push({ to: `/dfir/takeover?domain=${enc}`, label: 'takeover' });
+      break;
+    }
+    case 'ipv4': {
+      out.push({ to: `/dfir/ip-geo?ip=${enc}`, label: 'geo' });
+      break;
+    }
+    case 'hash': {
+      // /dfir/file accepts hash as POST body, so a deep-link doesn't auto-run;
+      // the page does prefill from ?h= for convenience.
+      out.push({ to: `/dfir/file?h=${enc}`, label: 'file' });
+      break;
+    }
+  }
+  return out;
+}
+
+function IocTable({ title, kind, entries }: { title: string; kind: IocKind; entries: IocEntry[] }) {
   if (entries.length === 0) return null;
   return (
     <section className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
@@ -173,17 +210,37 @@ function IocTable({ title, entries }: { title: string; entries: IocEntry[] }) {
         {title} <span className="text-slate-400 font-normal">({entries.length})</span>
       </h3>
       <div className="space-y-1.5 font-mono text-xs">
-        {entries.map((e, i) => (
-          <Link
-            key={`${e.value}-${i}`}
-            to={`/dfir/ioc-check?indicator=${encodeURIComponent(e.value)}`}
-            className="block px-2 py-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 truncate"
-            title={e.context}
-          >
-            {e.value}
-            {e.context && <span className="text-slate-400 ml-2">— {e.context}</span>}
-          </Link>
-        ))}
+        {entries.map((e, i) => {
+          const pivots = pivotsFor(kind, e.value);
+          return (
+            <div
+              key={`${e.value}-${i}`}
+              className="px-2 py-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors group"
+            >
+              <Link
+                to={`/dfir/ioc-check?indicator=${encodeURIComponent(e.value)}`}
+                className="block text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 truncate"
+                title={e.context}
+              >
+                {e.value}
+                {e.context && <span className="text-slate-400 ml-2">— {e.context}</span>}
+              </Link>
+              {pivots.length > 0 && (
+                <div className="flex flex-wrap gap-1 mt-0.5 ml-1">
+                  {pivots.map((p) => (
+                    <Link
+                      key={p.label}
+                      to={p.to}
+                      className="text-[9px] uppercase tracking-wider px-1 py-0 rounded text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
+                    >
+                      → {p.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
     </section>
   );
@@ -322,10 +379,10 @@ export default function BriefingDetail(): JSX.Element {
         <section className="mb-10">
           <h2 className="font-display font-bold text-lg mb-4">Active Threat Indicators</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <IocTable title="URLs" entries={briefing.iocs.urls} />
-            <IocTable title="Domains" entries={briefing.iocs.domains} />
-            <IocTable title="IPv4" entries={briefing.iocs.ipv4s} />
-            <IocTable title="Hashes" entries={briefing.iocs.hashes} />
+            <IocTable title="URLs" kind="url" entries={briefing.iocs.urls} />
+            <IocTable title="Domains" kind="domain" entries={briefing.iocs.domains} />
+            <IocTable title="IPv4" kind="ipv4" entries={briefing.iocs.ipv4s} />
+            <IocTable title="Hashes" kind="hash" entries={briefing.iocs.hashes} />
           </div>
         </section>
       )}

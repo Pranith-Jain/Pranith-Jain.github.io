@@ -200,6 +200,43 @@ export default function UrlPreview(): JSX.Element {
               {result.final_url}
               <ExternalLink size={12} className="flex-shrink-0" />
             </a>
+            {/* Per-final-URL pivots — let the analyst go directly to the host
+                inspector / cert-search / IOC reputation rather than copy-pasting. */}
+            {(() => {
+              try {
+                const host = new URL(result.final_url).hostname;
+                return (
+                  <div className="flex flex-wrap gap-2 mt-3 text-[10px] font-mono">
+                    <Link
+                      to={`/dfir/ioc-check?indicator=${encodeURIComponent(result.final_url)}`}
+                      className="px-1.5 py-0.5 rounded border border-rose-500/30 bg-rose-500/5 text-rose-700 dark:text-rose-300 hover:bg-rose-500/10"
+                    >
+                      → IOC check
+                    </Link>
+                    <Link
+                      to={`/dfir/domain?d=${encodeURIComponent(host)}`}
+                      className="px-1.5 py-0.5 rounded border border-cyan-500/30 bg-cyan-500/5 text-cyan-700 dark:text-cyan-300 hover:bg-cyan-500/10"
+                    >
+                      → {host}
+                    </Link>
+                    <Link
+                      to={`/dfir/cert-search?domain=${encodeURIComponent(host)}`}
+                      className="px-1.5 py-0.5 rounded border border-violet-500/30 bg-violet-500/5 text-violet-700 dark:text-violet-300 hover:bg-violet-500/10"
+                    >
+                      → certs
+                    </Link>
+                    <Link
+                      to={`/dfir/wayback?url=${encodeURIComponent(result.final_url)}`}
+                      className="px-1.5 py-0.5 rounded border border-amber-500/30 bg-amber-500/5 text-amber-700 dark:text-amber-300 hover:bg-amber-500/10"
+                    >
+                      → wayback
+                    </Link>
+                  </div>
+                );
+              } catch {
+                return null;
+              }
+            })()}
           </section>
 
           {/* Redirect blocked */}

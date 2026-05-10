@@ -13,7 +13,9 @@ const HASH_RE = /^[a-fA-F0-9]{32}$|^[a-fA-F0-9]{40}$|^[a-fA-F0-9]{64}$/;
 
 export default function File(): JSX.Element {
   const [searchParams] = useSearchParams();
-  const initialInput = searchParams.get('hash') ?? '';
+  // Accept ?hash=, ?h=, ?q= so BriefingDetail and other inbound pivots
+  // don't have to remember the canonical param name.
+  const initialInput = searchParams.get('hash') ?? searchParams.get('h') ?? searchParams.get('q') ?? '';
   const [input, setInput] = useState(initialInput);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<FileAnalysisResponse | null>(null);

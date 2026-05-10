@@ -150,6 +150,16 @@ export async function urlPreviewHandler(c: Context<{ Bindings: Env }>) {
       signal: AbortSignal.timeout(TIMEOUT_MS),
     });
 
+    // Surface upstream rate-limit so the client can back off rather than
+    // get a generic 502. Pass through the upstream Retry-After if given.
+    if (res.status === 429) {
+      const retryAfter = res.headers.get('retry-after') ?? '60';
+      return c.json({ error: 'upstream_rate_limited', upstream: parsed.hostname, upstream_status: 429 }, 429, {
+        'retry-after': retryAfter,
+        'cache-control': 'no-store',
+      });
+    }
+
     if (res.status >= 300 && res.status < 400) {
       const location = res.headers.get('location') ?? '';
       return c.json<UrlPreviewResponse>(

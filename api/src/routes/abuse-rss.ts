@@ -55,6 +55,14 @@ export async function abuseRssHandler(c: Context<{ Bindings: Env }>) {
       signal: AbortSignal.timeout(15_000),
       cf: { cacheTtlByStatus: { '200-299': 1800, '400-599': 0 }, cacheEverything: true },
     } as RequestInit);
+    if (upstream.status === 429) {
+      const retryAfter = upstream.headers.get('retry-after') ?? '60';
+      return c.json(
+        { error: 'upstream_rate_limited', upstream: new URL(meta.url).host, source: sourceParam, upstream_status: 429 },
+        429,
+        { 'retry-after': retryAfter, 'cache-control': 'no-store' }
+      );
+    }
     if (!upstream.ok) {
       return c.json({ error: `upstream ${upstream.status} for ${sourceParam}` }, 502);
     }

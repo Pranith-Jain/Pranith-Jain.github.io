@@ -254,14 +254,23 @@ export default function Wayback(): JSX.Element {
                     <td className="py-1.5 pr-3 text-slate-600 dark:text-slate-400">{s.mime || '—'}</td>
                     <td className="py-1.5 pr-3 text-slate-600 dark:text-slate-400">{s.length}</td>
                     <td className="py-1.5 pr-3">
-                      <a
-                        href={snapshotUrl(s.timestamp, s.original)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
-                      >
-                        view <ExternalLink size={10} />
-                      </a>
+                      <div className="flex items-center gap-2">
+                        <a
+                          href={snapshotUrl(s.timestamp, s.original)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                        >
+                          view <ExternalLink size={10} />
+                        </a>
+                        <Link
+                          to={`/dfir/url-preview?url=${encodeURIComponent(snapshotUrl(s.timestamp, s.original))}`}
+                          className="text-[10px] text-amber-700 dark:text-amber-300 hover:underline"
+                          title="Server-side preview of this archived snapshot (SSRF-guarded)"
+                        >
+                          preview
+                        </Link>
+                      </div>
                     </td>
                   </tr>
                 ))}

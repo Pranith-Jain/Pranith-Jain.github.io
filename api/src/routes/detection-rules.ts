@@ -151,6 +151,8 @@ interface DetectionRulesResponse {
   generated_at: string;
   sources: SourceEntry[];
   recent_commits: RecentCommit[];
+  /** Sources that returned 429 / 403-with-zero-quota — their meta/commits in this response are stale or empty, not authoritative. Empty array on a healthy response. */
+  rate_limited_sources?: string[];
 }
 
 interface GhRepo {
@@ -161,7 +163,13 @@ interface GhRepo {
   open_issues_count?: number;
 }
 
-async function fetchRepoMeta(repo: string): Promise<GhRepo | null> {
+// Aggregator-style 429 handling: GitHub anonymous API caps at 60/hr per IP.
+// We can't fail the whole response if one repo gets rate-limited, but we
+// SHOULD surface which ones did so the UI can show "n/a (rate limited)"
+// instead of "0 stars" implying an empty repo.
+type FetchResult<T> = { value: T; rate_limited: boolean };
+
+async function fetchRepoMeta(repo: string): Promise<FetchResult<GhRepo | null>> {
   try {
     const res = await fetch(`https://api.github.com/repos/${repo}`, {
       headers: {
@@ -171,14 +179,20 @@ async function fetchRepoMeta(repo: string): Promise<GhRepo | null> {
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
       cf: { cacheTtl: CACHE_TTL_SECONDS, cacheEverything: true },
     });
-    if (!res.ok) return null;
-    return (await res.json()) as GhRepo;
+    if (res.status === 429 || res.status === 403) {
+      // GitHub returns 403 with a `x-ratelimit-remaining: 0` header when
+      // the unauthenticated quota is exhausted — treat both as rate-limit.
+      const remaining = res.headers.get('x-ratelimit-remaining');
+      if (res.status === 429 || remaining === '0') return { value: null, rate_limited: true };
+    }
+    if (!res.ok) return { value: null, rate_limited: false };
+    return { value: (await res.json()) as GhRepo, rate_limited: false };
   } catch {
-    return null;
+    return { value: null, rate_limited: false };
   }
 }
 
-async function fetchRecentCommits(source: SourceConfig): Promise<RecentCommit[]> {
+async function fetchRecentCommits(source: SourceConfig): Promise<FetchResult<RecentCommit[]>> {
   const url = `https://github.com/${source.repo}/commits.atom`;
   try {
     const res = await fetch(url, {
@@ -191,7 +205,8 @@ async function fetchRecentCommits(source: SourceConfig): Promise<RecentCommit[]>
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
       cf: { cacheTtl: CACHE_TTL_SECONDS, cacheEverything: true },
     });
-    if (!res.ok) return [];
+    if (res.status === 429) return { value: [], rate_limited: true };
+    if (!res.ok) return { value: [], rate_limited: false };
     const body = await res.text();
     const out: RecentCommit[] = [];
     const entryRe = /<entry>([\s\S]*?)<\/entry>/g;
@@ -216,9 +231,9 @@ async function fetchRecentCommits(source: SourceConfig): Promise<RecentCommit[]>
         pubDate: updated,
       });
     }
-    return out;
+    return { value: out, rate_limited: false };
   } catch {
-    return [];
+    return { value: [], rate_limited: false };
   }
 }
 
@@ -237,10 +252,13 @@ export async function detectionRulesHandler(c: Context<{ Bindings: Env }>) {
     });
   }
 
-  // Parallel fan-out: meta + commits per source
+  // Parallel fan-out: meta + commits per source. Track rate-limited
+  // sources separately so the response can flag degraded fields rather
+  // than silently misrepresenting them as zero.
   const results = await Promise.all(
     SOURCES.map(async (source) => {
-      const [meta, commits] = await Promise.all([fetchRepoMeta(source.repo), fetchRecentCommits(source)]);
+      const [metaResult, commitsResult] = await Promise.all([fetchRepoMeta(source.repo), fetchRecentCommits(source)]);
+      const meta = metaResult.value;
       const entry: SourceEntry = {
         id: source.id,
         label: source.label,
@@ -258,7 +276,12 @@ export async function detectionRulesHandler(c: Context<{ Bindings: Env }>) {
         rules_url: `https://github.com/${source.repo}/tree/${meta?.default_branch ?? 'main'}/${source.rules_path}`,
         commits_url: `https://github.com/${source.repo}/commits/${meta?.default_branch ?? 'main'}`,
       };
-      return { entry, commits };
+      return {
+        entry,
+        commits: commitsResult.value,
+        rate_limited: metaResult.rate_limited || commitsResult.rate_limited,
+        source_id: source.id,
+      };
     })
   );
 
@@ -271,11 +294,13 @@ export async function detectionRulesHandler(c: Context<{ Bindings: Env }>) {
       return db - da;
     })
     .slice(0, 30);
+  const rateLimitedSources = results.filter((r) => r.rate_limited).map((r) => r.source_id);
 
   const body: DetectionRulesResponse = {
     generated_at: new Date().toISOString(),
     sources,
     recent_commits: recentCommits,
+    ...(rateLimitedSources.length > 0 ? { rate_limited_sources: rateLimitedSources } : {}),
   };
 
   const json = JSON.stringify(body);

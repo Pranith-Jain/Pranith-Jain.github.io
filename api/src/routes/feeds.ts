@@ -158,6 +158,13 @@ export async function feedProxyHandler(c: Context<{ Bindings: Env }>) {
       },
       signal: AbortSignal.timeout(TIMEOUT_MS),
     });
+    if (upstream.status === 429) {
+      const retryAfter = upstream.headers.get('retry-after') ?? '60';
+      return c.json({ error: 'upstream_rate_limited', upstream: parsed.hostname, upstream_status: 429 }, 429, {
+        'retry-after': retryAfter,
+        'cache-control': 'no-store',
+      });
+    }
     if (!upstream.ok) {
       return c.json({ error: `upstream ${upstream.status}` }, 502);
     }

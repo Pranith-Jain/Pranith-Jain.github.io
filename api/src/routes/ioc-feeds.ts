@@ -42,6 +42,14 @@ export async function iocFeedSummaryHandler(c: Context<{ Bindings: Env }>) {
       signal: AbortSignal.timeout(TIMEOUT_MS),
     });
 
+    if (upstream.status === 429) {
+      const retryAfter = upstream.headers.get('retry-after') ?? '60';
+      return c.json(
+        { error: 'upstream_rate_limited', upstream: new URL(feed.url).host, source: sourceId, upstream_status: 429 },
+        429,
+        { 'retry-after': retryAfter, 'cache-control': 'no-store' }
+      );
+    }
     if (!upstream.ok) {
       return c.json({ error: `upstream ${upstream.status} from ${feed.url}` }, 502);
     }

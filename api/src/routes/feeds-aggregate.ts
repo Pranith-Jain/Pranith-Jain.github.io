@@ -218,6 +218,13 @@ async function fetchOne(url: string, perSource: number): Promise<AggregatedItem[
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
       cf: { cacheTtl: CACHE_TTL_SECONDS, cacheEverything: true },
     });
+    if (res.status === 429) {
+      // Surface to wrangler tail so ops see which upstreams are pushing
+      // back. Per-source degradation is acceptable here — the aggregator
+      // returns whatever feeds DID succeed.
+      console.warn(`feeds-aggregate: 429 from ${parsed.hostname} for ${url}`);
+      return [];
+    }
     if (!res.ok) return [];
     const body = await res.text();
     return parseFeedBody(body, url, parsed.hostname, perSource);

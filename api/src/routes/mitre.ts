@@ -45,12 +45,29 @@ interface MitreStixObject {
 
 let mitreCache: { data: MitreStixObject[]; timestamp: number } | null = null;
 
+/**
+ * Typed upstream-failure marker so the handler can return the right
+ * status. GitHub raw is ratelimited at 60/hr unauthenticated — we
+ * cache for 24h so this rarely fires, but a cold start mid-quota
+ * burn would otherwise produce a confusing 500.
+ */
+class UpstreamError extends Error {
+  constructor(
+    public upstreamStatus: number,
+    public retryAfter: string | null
+  ) {
+    super(`MITRE API failed: ${upstreamStatus}`);
+  }
+}
+
 async function fetchMitreData(): Promise<MitreStixObject[]> {
   if (mitreCache && Date.now() - mitreCache.timestamp < CACHE_TTL * 1000) {
     return mitreCache.data;
   }
   const res = await fetch(MITRE_ATTCK_API, { signal: AbortSignal.timeout(30000) });
-  if (!res.ok) throw new Error(`MITRE API failed: ${res.status}`);
+  if (!res.ok) {
+    throw new UpstreamError(res.status, res.headers.get('retry-after'));
+  }
   const bundle = (await res.json()) as { objects: MitreStixObject[] };
   mitreCache = { data: bundle.objects, timestamp: Date.now() };
   return bundle.objects;
@@ -67,7 +84,27 @@ export async function mitreTechniqueHandler(c: Context<{ Bindings: Env }>) {
     return c.json({ error: 'invalid technique ID (expected T1234 or T1234.001)' }, 400);
   }
 
-  const objects = await fetchMitreData();
+  let objects: MitreStixObject[];
+  try {
+    objects = await fetchMitreData();
+  } catch (err) {
+    if (err instanceof UpstreamError) {
+      const status = err.upstreamStatus === 429 ? 429 : 502;
+      return c.json(
+        { error: 'mitre_upstream', upstream: 'raw.githubusercontent.com', upstream_status: err.upstreamStatus },
+        status,
+        {
+          ...(err.retryAfter
+            ? { 'retry-after': err.retryAfter }
+            : err.upstreamStatus === 429
+              ? { 'retry-after': '60' }
+              : {}),
+          'cache-control': 'no-store',
+        }
+      );
+    }
+    return c.json({ error: 'mitre_unreachable', detail: (err as Error).message }, 502);
+  }
 
   const technique = objects.find(
     (o) =>

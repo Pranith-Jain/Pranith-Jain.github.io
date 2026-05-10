@@ -42,7 +42,13 @@ interface TaxiiEnvelope {
   more?: boolean;
 }
 
-async function fetchFromCollection(collectionId: string, stixId: string): Promise<TaxiiObject | null> {
+interface FetchOutcome {
+  obj: TaxiiObject | null;
+  /** Upstream HTTP status. -1 = network error / abort. */
+  status: number;
+}
+
+async function fetchFromCollection(collectionId: string, stixId: string): Promise<FetchOutcome> {
   // TAXII spec uses ?match[id]=... — brackets must be URL-encoded.
   const url = `${TAXII_BASE}/collections/${collectionId}/objects/?match%5Bid%5D=${encodeURIComponent(stixId)}`;
   const ctrl = new AbortController();
@@ -55,11 +61,11 @@ async function fetchFromCollection(collectionId: string, stixId: string): Promis
         'user-agent': 'pranithjain-dfir/1.0',
       },
     });
-    if (!res.ok) return null;
+    if (!res.ok) return { obj: null, status: res.status };
     const body = (await res.json()) as TaxiiEnvelope;
-    return body.objects?.[0] ?? null;
+    return { obj: body.objects?.[0] ?? null, status: 200 };
   } catch {
-    return null;
+    return { obj: null, status: -1 };
   } finally {
     clearTimeout(timer);
   }
@@ -94,7 +100,7 @@ export async function stixFetchHandler(c: Context<{ Bindings: Env }>): Promise<R
 
   // Fan out to all three collections in parallel — first match wins.
   const settled = await Promise.all(
-    COLLECTIONS.map((c) => fetchFromCollection(c.id, stixId).then((obj) => ({ obj, meta: c })))
+    COLLECTIONS.map((c) => fetchFromCollection(c.id, stixId).then((r) => ({ ...r, meta: c })))
   );
 
   let found: { obj: TaxiiObject; meta: (typeof COLLECTIONS)[number] } | null = null;
@@ -102,6 +108,23 @@ export async function stixFetchHandler(c: Context<{ Bindings: Env }>): Promise<R
     if (r.obj) {
       found = { obj: r.obj, meta: r.meta };
       break;
+    }
+  }
+
+  // If not found, distinguish "definitively absent" (all 3 returned 200
+  // with empty objects) from "upstream told us to back off" (any 429).
+  if (!found) {
+    if (settled.every((r) => r.status === 429)) {
+      return c.json(
+        { error: 'mitre_taxii_rate_limited', upstream: 'attack-taxii.mitre.org', upstream_status: 429 },
+        429,
+        { 'retry-after': '60', 'cache-control': 'no-store' }
+      );
+    }
+    if (settled.every((r) => r.status !== 200)) {
+      return c.json({ error: 'mitre_taxii_unreachable', statuses: settled.map((r) => r.status) }, 502, {
+        'cache-control': 'no-store',
+      });
     }
   }
 

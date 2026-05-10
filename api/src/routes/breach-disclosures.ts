@@ -94,6 +94,14 @@ export async function breachDisclosuresHandler(c: Context<{ Bindings: Env }>): P
     });
     clearTimeout(timer);
 
+    if (res.status === 429) {
+      const retryAfter = res.headers.get('retry-after') ?? '60';
+      return c.json({ error: 'upstream_rate_limited', upstream: 'haveibeenpwned.com', upstream_status: 429 }, 429, {
+        'retry-after': retryAfter,
+        'cache-control': 'no-store',
+      });
+    }
+
     if (res.ok) {
       const raw = (await res.json()) as HibpBreach[];
       upstreamOk = true;
