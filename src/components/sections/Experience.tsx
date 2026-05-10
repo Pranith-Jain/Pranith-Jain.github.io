@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import { Search, Zap, Shield, FileText, Monitor, Mail } from 'lucide-react';
 import { experiences } from '../../data/content';
 
@@ -11,59 +10,25 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Mail,
 };
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
-};
-
 export function Experience() {
   return (
     <section id="experience" className="mt-20 scroll-mt-24">
       {/* Header */}
       <div className="mb-12 max-w-2xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400"
-        >
+        <div className="animate-fade-in-up mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
           Experience
-        </motion.div>
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-3xl font-extrabold tracking-tight sm:text-4xl text-slate-900 dark:text-white"
-        >
+        </div>
+        <h2 className="animate-fade-in-up text-3xl font-extrabold tracking-tight sm:text-4xl text-slate-900 dark:text-white">
           Experience highlights
-        </motion.h2>
+        </h2>
       </div>
 
       {/* Experience Cards */}
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        className="grid gap-8"
-      >
+      <div className="animate-fade-in-up grid gap-8">
         {experiences.map((exp, index) => (
-          <motion.div
+          <div
             key={`${exp.title}-${index}`}
-            variants={itemVariants}
-            className="glass rounded-2xl p-6 shadow-sm transition-all hover:shadow-md"
+            className="animate-fade-in-up glass rounded-2xl p-6 shadow-sm transition-all hover:shadow-md"
           >
             {/* Header */}
             <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between mb-4">
@@ -122,9 +87,9 @@ export function Experience() {
                 ))}
               </ul>
             )}
-          </motion.div>
+          </div>
         ))}
-      </motion.div>
+      </div>
     </section>
   );
 }

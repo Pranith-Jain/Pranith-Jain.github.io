@@ -1,5 +1,4 @@
 import { Component, type ReactNode, type ErrorInfo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { AlertTriangle, RefreshCw, Home, ChevronDown, ChevronUp } from 'lucide-react';
 
 interface Props {
@@ -108,11 +107,7 @@ interface ErrorFallbackProps {
 
 function ErrorFallback({ error, errorInfo, isExpanded, onReset, onToggleDetails }: ErrorFallbackProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="w-full p-6 rounded-2xl bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800/30"
-    >
+    <div className="animate-fade-in-up w-full p-6 rounded-2xl bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800/30">
       <div className="flex items-start gap-4">
         <div className="shrink-0">
           <div className="w-12 h-12 rounded-full bg-rose-100 dark:bg-rose-900/40 flex items-center justify-center">
@@ -135,33 +130,26 @@ function ErrorFallback({ error, errorInfo, isExpanded, onReset, onToggleDetails 
             {isExpanded ? 'Hide' : 'Show'} error details
           </button>
 
-          <AnimatePresence>
-            {isExpanded && errorInfo && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                className="overflow-hidden"
-              >
-                <div className="p-3 rounded-lg bg-slate-900 dark:bg-black/50 text-left">
-                  <div className="text-[10px] font-mono text-rose-300 mb-2 uppercase tracking-wider">Stack Trace</div>
-                  <pre className="text-[10px] font-mono text-slate-300 overflow-x-auto whitespace-pre-wrap break-all max-h-48">
-                    {error.stack}
-                  </pre>
-                  {errorInfo.componentStack && (
-                    <>
-                      <div className="text-[10px] font-mono text-rose-300 mt-3 mb-2 uppercase tracking-wider">
-                        Component Stack
-                      </div>
-                      <pre className="text-[10px] font-mono text-slate-300 overflow-x-auto whitespace-pre-wrap break-all max-h-32">
-                        {errorInfo.componentStack}
-                      </pre>
-                    </>
-                  )}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {isExpanded && errorInfo && (
+            <div className="animate-fade-in-up overflow-hidden">
+              <div className="p-3 rounded-lg bg-slate-900 dark:bg-black/50 text-left">
+                <div className="text-[10px] font-mono text-rose-300 mb-2 uppercase tracking-wider">Stack Trace</div>
+                <pre className="text-[10px] font-mono text-slate-300 overflow-x-auto whitespace-pre-wrap break-all max-h-48">
+                  {error.stack}
+                </pre>
+                {errorInfo.componentStack && (
+                  <>
+                    <div className="text-[10px] font-mono text-rose-300 mt-3 mb-2 uppercase tracking-wider">
+                      Component Stack
+                    </div>
+                    <pre className="text-[10px] font-mono text-slate-300 overflow-x-auto whitespace-pre-wrap break-all max-h-32">
+                      {errorInfo.componentStack}
+                    </pre>
+                  </>
+                )}
+              </div>
+            </div>
+          )}
 
           {/* Actions */}
           <div className="flex flex-wrap gap-2 mt-4">
@@ -183,7 +171,7 @@ function ErrorFallback({ error, errorInfo, isExpanded, onReset, onToggleDetails 
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 

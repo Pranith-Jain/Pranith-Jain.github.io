@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, RefreshCw, Globe } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
+import { IocSnapshotPanel } from '../../components/dfir/IocSnapshotPanel';
 
 interface CountryAgg {
   countryCode: string;
@@ -267,7 +267,7 @@ export default function ThreatMap(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <Globe size={28} className="text-brand-600 dark:text-brand-400" /> Cyber Threat Map
         </h1>
@@ -277,7 +277,7 @@ export default function ThreatMap(): JSX.Element {
           geolocated and aggregated by country; URLs / domains / hashes appear in dedicated panels. Refreshes hourly,
           real data.
         </p>
-      </motion.div>
+      </div>
 
       {loading && !data && <p className="font-mono text-sm text-slate-500">Aggregating IOCs and geolocating…</p>}
       {error && <p className="font-mono text-sm text-rose-600 dark:text-rose-400">error: {error}</p>}
@@ -451,6 +451,8 @@ export default function ThreatMap(): JSX.Element {
               </div>
             </section>
           ))}
+
+          <IocSnapshotPanel />
 
           <footer className="mt-8 text-xs font-mono text-slate-500">
             IPs refresh hourly. Geolocation via ip-api.com (free, no key). URLs / domains / hashes come from the same

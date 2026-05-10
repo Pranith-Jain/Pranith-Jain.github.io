@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, ExternalLink, Search, MessageCircle, AlertTriangle, ShieldCheck } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { CATALOG, CATEGORY_LABELS, CATEGORY_BLURB, type DiscordCategory } from '../../data/dfir/discord-watch-catalog';
 
 const ALL_CATEGORIES = Object.keys(CATEGORY_LABELS) as DiscordCategory[];
@@ -81,7 +80,7 @@ export default function DiscordWatch(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <MessageCircle size={28} className="text-brand-600 dark:text-brand-400" /> Discord Watch
         </h1>
@@ -90,7 +89,7 @@ export default function DiscordWatch(): JSX.Element {
           intelligence, and event communities. Each invite is sourced from the running organisation&apos;s own public
           site.
         </p>
-      </motion.div>
+      </div>
 
       {/* Honest scope card */}
       <section className="rounded-lg border border-amber-500/30 bg-amber-500/5 p-4 mb-6">

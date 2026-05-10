@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ExternalLink, RefreshCw, AlertTriangle, Loader2, Search } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { fetchAggregatedFeed, formatRelativeTime, type AggregatedFeedItem } from '../../services/rssService';
 import { rssFeeds } from '../../data/rssFeeds';
 
@@ -149,7 +148,7 @@ export default function ScamWatch(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <AlertTriangle size={28} className="text-brand-600 dark:text-brand-400" /> Scam Watch
         </h1>
@@ -170,7 +169,7 @@ export default function ScamWatch(): JSX.Element {
           </Link>
           .
         </p>
-      </motion.div>
+      </div>
 
       {/* Filters */}
       <section className="mb-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 space-y-3">

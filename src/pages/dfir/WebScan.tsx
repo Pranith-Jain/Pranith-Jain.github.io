@@ -12,7 +12,6 @@ import {
   Globe,
   FileText,
 } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
 
 type Severity = 'critical' | 'high' | 'medium' | 'low' | 'info' | 'good';
@@ -144,7 +143,7 @@ export default function WebScan(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <ShieldAlert size={28} className="text-brand-600 dark:text-brand-400" /> Web Vulnerability Scanner
         </h1>
@@ -169,7 +168,7 @@ export default function WebScan(): JSX.Element {
           (CNAME drift). <strong>Only scan targets you own or have authorisation for.</strong> No port-scanning, no
           authenticated app scan, no exploitation — those need Nuclei/Nessus and target-owner consent.
         </p>
-      </motion.div>
+      </div>
 
       {/* Input */}
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">

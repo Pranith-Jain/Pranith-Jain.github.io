@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from 'react';
-import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Shield, Eye, Check, X } from 'lucide-react';
 import {
@@ -130,14 +129,14 @@ export default function Privacy(): JSX.Element {
       >
         <ArrowLeft size={14} /> /dfir
       </Link>
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2">Privacy Check</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-2xl">
           Your browser reveals more than you think. This tool surfaces what trackers, advertisers, and threat actors can
           see about you — but the scan itself collects identifying signal, so it requires your explicit consent before
           running.
         </p>
-      </motion.div>
+      </div>
 
       {!fp && !scanning && (
         <section className="mb-8 rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5">

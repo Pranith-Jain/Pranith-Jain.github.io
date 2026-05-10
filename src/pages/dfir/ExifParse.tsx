@@ -1,7 +1,6 @@
 import { useState, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Upload, MapPin, Camera, Image, FileText, ShieldCheck } from 'lucide-react';
-import { motion } from 'framer-motion';
 import exifr from 'exifr';
 
 interface ExifData {
@@ -135,12 +134,12 @@ export default function ExifParse(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2">EXIF Parser</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-4 max-w-2xl">
           Extract metadata from images. Includes GPS coordinates, camera make and model, capture settings, and more.
         </p>
-      </motion.div>
+      </div>
 
       {/* Privacy notice */}
       <div className="mb-8 rounded-xl border border-emerald-200 dark:border-emerald-900/50 bg-emerald-50 dark:bg-emerald-900/10 p-4">
@@ -197,12 +196,7 @@ export default function ExifParse(): JSX.Element {
       {error && <p className="font-mono text-sm text-rose-600 dark:text-rose-400">error: {error}</p>}
 
       {metadata && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-          className="space-y-6"
-        >
+        <div className="animate-fade-in-up space-y-6">
           {/* File name */}
           <div className="font-mono text-xs text-slate-500">
             Parsed: <span className="text-slate-700 dark:text-slate-300">{fileName}</span>
@@ -298,7 +292,7 @@ export default function ExifParse(): JSX.Element {
               <Row label="keywords" value={keywordsStr} />
             </section>
           )}
-        </motion.div>
+        </div>
       )}
     </div>
   );

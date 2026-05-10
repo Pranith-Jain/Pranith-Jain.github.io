@@ -26,8 +26,6 @@ export default defineConfig(({ mode }) => ({
         manualChunks: {
           // Core React vendor chunk
           'vendor-react': ['react', 'react-dom'],
-          // Animation library chunk
-          'vendor-motion': ['framer-motion'],
           // Icons chunk
           'vendor-icons': ['lucide-react'],
         },
@@ -54,7 +52,7 @@ export default defineConfig(({ mode }) => ({
     cssCodeSplit: true,
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', 'framer-motion', 'lucide-react'],
+    include: ['react', 'react-dom', 'lucide-react'],
   },
   server: {
     proxy: {

@@ -1,7 +1,6 @@
 import { useCallback, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, FileJson, Trash2, Copy, Check, Filter, Globe2, Loader2, ExternalLink } from 'lucide-react';
-import { motion } from 'framer-motion';
 import {
   ReactFlow,
   Background,
@@ -284,13 +283,13 @@ export default function StixViewer(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2">STIX Viewer</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-3xl">
           Paste a STIX 2.1 bundle and explore the relationship graph between threat actors, campaigns, malware, attack
           patterns, indicators, and more. Everything parses in your browser. Nothing is uploaded.
         </p>
-      </motion.div>
+      </div>
 
       <div className="grid lg:grid-cols-[400px_1fr] gap-6">
         {/* Left: input + filter + selected detail */}

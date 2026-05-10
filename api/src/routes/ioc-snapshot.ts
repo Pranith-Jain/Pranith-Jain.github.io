@@ -1,0 +1,77 @@
+import type { Context } from 'hono';
+import type { Env } from '../env';
+import { buildSummary, FEED_SOURCES, type IocFeedSummary, type SourceId } from '../lib/ioc-feed-parsers';
+
+/**
+ * IOC live-snapshot — paired with /dfir/threat-map.
+ *
+ * Fans out to four free abuse.ch + OpenPhish CSV feeds in parallel server-side
+ * and returns each source's most-recent entries in one envelope. Same shape
+ * as /api/v1/snapshot for the news cards: per-source `ok`/`error` so a
+ * single bad upstream doesn't blank the whole panel.
+ *
+ * Cache: 5 min at the edge. The underlying upstreams cache 30 min via
+ * buildSummary defaults.
+ */
+
+const CACHE_TTL = 5 * 60;
+const FETCH_TIMEOUT_MS = 15_000;
+const PER_SOURCE_LIMIT = 8; // keep payload small — panel renders top 4-5 anyway
+
+const SNAPSHOT_SOURCES: SourceId[] = ['urlhaus', 'malwarebazaar', 'threatfox', 'openphish'];
+
+interface SourcePayload {
+  ok: boolean;
+  data: IocFeedSummary | null;
+  error?: string;
+}
+
+export interface IocSnapshotResponse {
+  generated_at: string;
+  sources: Record<string, SourcePayload>;
+}
+
+async function fetchOne(id: SourceId): Promise<SourcePayload> {
+  const feed = FEED_SOURCES[id];
+  try {
+    const r = await fetch(feed.url, {
+      redirect: 'follow',
+      headers: {
+        'user-agent': 'pranithjain-ioc-snapshot/1.0',
+        accept: '*/*',
+      },
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+    });
+    if (!r.ok) return { ok: false, data: null, error: `HTTP ${r.status}` };
+    const body = await r.text();
+    const summary = buildSummary(id, body);
+    // Trim entries to the top N most-recent — buildSummary may return up to
+    // CAP=100 entries which would bloat the snapshot payload.
+    summary.entries = summary.entries.slice(0, PER_SOURCE_LIMIT);
+    return { ok: true, data: summary };
+  } catch (e) {
+    return { ok: false, data: null, error: (e as Error).message };
+  }
+}
+
+export async function iocSnapshotHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const cache = (caches as unknown as { default: Cache }).default;
+  const cacheKey = new Request('https://ioc-snapshot-cache.internal/v1');
+  const cached = await cache.match(cacheKey);
+  if (cached) return cached;
+
+  const settled = await Promise.all(SNAPSHOT_SOURCES.map(fetchOne));
+  const sources: Record<string, SourcePayload> = {};
+  for (let i = 0; i < SNAPSHOT_SOURCES.length; i++) {
+    sources[SNAPSHOT_SOURCES[i]] = settled[i];
+  }
+
+  const body: IocSnapshotResponse = {
+    generated_at: new Date().toISOString(),
+    sources,
+  };
+
+  const response = c.json(body, 200, { 'Cache-Control': `public, max-age=${CACHE_TTL}` });
+  c.executionCtx.waitUntil(cache.put(cacheKey, response.clone()));
+  return response;
+}

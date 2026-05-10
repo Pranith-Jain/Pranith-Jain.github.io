@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, FlaskConical, ExternalLink, AlertTriangle, CheckCircle2 } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { matchRule, type RuleStringMatch } from '../../lib/dfir/rule-playground';
 
 const SAMPLE_YARA = `rule SuspiciousPowerShellLoader
@@ -133,7 +132,7 @@ export default function RulePlayground(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <FlaskConical size={28} className="text-brand-600 dark:text-brand-400" /> YARA / Sigma Playground
         </h1>
@@ -146,7 +145,7 @@ export default function RulePlayground(): JSX.Element {
           "selection and not filter") are shown but not evaluated. For real validation, run the rule through{' '}
           <code>yara</code> or a Sigma converter.
         </p>
-      </motion.div>
+      </div>
 
       <div className="flex flex-wrap gap-1.5 mb-4">
         <button

@@ -1,5 +1,4 @@
 import { useState, type FormEvent } from 'react';
-import { motion } from 'framer-motion';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, Search } from 'lucide-react';
 import type { DomainLookupResponse } from '../../lib/dfir/types';
@@ -52,12 +51,12 @@ export default function Domain(): JSX.Element {
       >
         <ArrowLeft size={14} /> /dfir
       </Link>
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2">Domain Lookup</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
           WHOIS, DNS, SPF, DMARC, DKIM, BIMI, MTA-STS, and Certificate Transparency, all from one query.
         </p>
-      </motion.div>
+      </div>
 
       <form onSubmit={onSubmit} className="mb-10">
         <div className="flex gap-2">

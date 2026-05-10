@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, ChevronRight, Search } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { detectEncoding, decodeBase64, decodeUrl, decodeChain, type DecodeStep } from '../../lib/dfir/decode';
 import { hasIocCandidates } from '../../lib/dfir/ioc-detect';
 import { CopyButton } from '../../components/dfir/CopyButton';
@@ -132,12 +131,12 @@ export default function Decode(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2">Decoder</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
           Base64 and URL decode with auto-detect and multi-pass chaining for nested encodings.
         </p>
-      </motion.div>
+      </div>
 
       {/* Mode buttons */}
       <div className="flex gap-2 mb-6">

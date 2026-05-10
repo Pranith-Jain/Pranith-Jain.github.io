@@ -1,8 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, AlertTriangle, ShieldCheck, Info } from 'lucide-react';
-import { motion } from 'framer-motion';
-
 interface DecodedJwt {
   raw: string;
   header: Record<string, unknown>;
@@ -138,13 +136,13 @@ export default function JwtInspect(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2">JWT Inspector</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
           Paste a JSON Web Token. Header and payload are decoded locally; common security weaknesses are flagged.
           Nothing leaves your browser.
         </p>
-      </motion.div>
+      </div>
 
       <textarea
         value={token}

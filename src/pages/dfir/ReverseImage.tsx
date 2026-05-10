@@ -10,7 +10,6 @@ import {
   Clipboard,
   Check,
 } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { ENGINES } from '../../data/dfir/reverse-image-engines';
 
 const SAMPLES: { label: string; url: string }[] = [
@@ -73,7 +72,7 @@ export default function ReverseImage(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <ImageIcon size={28} className="text-brand-600 dark:text-brand-400" /> Reverse Image Search
         </h1>
@@ -93,7 +92,7 @@ export default function ReverseImage(): JSX.Element {
           </Link>{' '}
           (provenance from metadata). Run multiple engines in parallel — none has full coverage on its own.
         </p>
-      </motion.div>
+      </div>
 
       {/* Input */}
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">

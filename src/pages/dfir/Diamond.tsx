@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Diamond as DiamondIcon, RotateCcw, Download, ExternalLink } from 'lucide-react';
-import { motion } from 'framer-motion';
 import {
   DIAMOND_VERTICES,
   META_FEATURES,
@@ -115,7 +114,7 @@ function Diamond(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <DiamondIcon size={28} className="text-brand-600 dark:text-brand-400" /> Diamond Model
         </h1>
@@ -134,7 +133,7 @@ function Diamond(): JSX.Element {
           </Link>{' '}
           (which TTPs).
         </p>
-      </motion.div>
+      </div>
 
       {/* Diagram + tabs */}
       <div className="grid gap-6 lg:grid-cols-[400px_1fr] mb-8">

@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ExternalLink, RefreshCw, Plus, X, Eye, Bell, Search, Filter } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { fetchAggregatedFeed, formatRelativeTime, type AggregatedFeedItem } from '../../services/rssService';
 import { rssFeeds } from '../../data/rssFeeds';
 
@@ -261,7 +260,7 @@ export default function DarkWeb(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2">Dark Web Watch</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
           Aggregated dark web, ransomware leak-site, breach, and security-research activity from
@@ -270,7 +269,7 @@ export default function DarkWeb(): JSX.Element {
           works), filter by source, narrow by date window, and add long-running keywords to your watchlist for
           highlighted matches across visits. Watchlist + source preferences are stored locally; nothing is uploaded.
         </p>
-      </motion.div>
+      </div>
 
       <RansomwareActivityPanel />
 

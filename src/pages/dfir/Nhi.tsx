@@ -11,7 +11,6 @@ import {
   Download,
   ExternalLink,
 } from 'lucide-react';
-import { motion } from 'framer-motion';
 import {
   NHI_TOP_10,
   NHI_TYPES,
@@ -180,7 +179,7 @@ export default function Nhi(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <KeyRound size={28} className="text-brand-600 dark:text-brand-400" /> NHI Inventory &amp; OWASP Top 10
         </h1>
@@ -200,7 +199,7 @@ export default function Nhi(): JSX.Element {
           </Link>{' '}
           (Web / API / LLM).
         </p>
-      </motion.div>
+      </div>
 
       {/* Tabs */}
       <div className="flex gap-2 mb-6">
@@ -262,12 +261,7 @@ export default function Nhi(): JSX.Element {
                   )}
                 </button>
                 {expanded && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    transition={{ duration: 0.18 }}
-                    className="overflow-hidden"
-                  >
+                  <div className="animate-fade-in-up overflow-hidden">
                     <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/50 mt-2 p-4 space-y-3">
                       <p className="text-sm font-mono text-slate-700 dark:text-slate-300 leading-relaxed">
                         {item.summary}
@@ -305,7 +299,7 @@ export default function Nhi(): JSX.Element {
                         </div>
                       )}
                     </div>
-                  </motion.div>
+                  </div>
                 )}
               </div>
             );

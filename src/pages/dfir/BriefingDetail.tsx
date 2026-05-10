@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { ArrowLeft, ExternalLink, AlertTriangle, ShieldAlert } from 'lucide-react';
 import { LiveSnapshotPanel } from '../../components/dfir/LiveSnapshotPanel';
 
@@ -301,12 +300,7 @@ export default function BriefingDetail(): JSX.Element {
         <ArrowLeft size={14} /> all briefings
       </Link>
 
-      <motion.header
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
-        className="mb-8"
-      >
+      <header className="animate-fade-in-up mb-8">
         <span className="inline-block text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 mb-3">
           Intel Briefing · {briefing.type}
         </span>
@@ -314,7 +308,7 @@ export default function BriefingDetail(): JSX.Element {
         <p className="text-sm font-mono text-slate-500">
           {briefing.date_range} · generated {new Date(briefing.generated_at).toUTCString()}
         </p>
-      </motion.header>
+      </header>
 
       {/* Stats bar */}
       <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 mb-8">

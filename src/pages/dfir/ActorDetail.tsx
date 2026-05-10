@@ -1,5 +1,4 @@
 import { Link, useParams } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { ArrowLeft, ExternalLink } from 'lucide-react';
 import { threatActors } from '../../data/dfir/threat-actors';
 
@@ -30,12 +29,7 @@ export default function ActorDetail(): JSX.Element {
         <ArrowLeft size={14} /> /dfir/actors
       </Link>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-        className="mb-8"
-      >
+      <div className="animate-fade-in-up mb-8">
         <h1 className="text-5xl font-display font-bold mb-3">{actor.name}</h1>
         {actor.aliases.length > 0 && (
           <p className="text-base font-mono text-slate-600 dark:text-slate-400 mb-4">aka {actor.aliases.join(', ')}</p>
@@ -59,7 +53,7 @@ export default function ActorDetail(): JSX.Element {
             </span>
           )}
         </div>
-      </motion.div>
+      </div>
 
       <section className="mb-8 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
         <p className="text-base text-slate-600 dark:text-slate-400 leading-relaxed whitespace-pre-line">

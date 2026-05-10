@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Compass, ExternalLink, Search } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { ENTRIES, CATEGORY_LABELS, type Category, type Pricing } from '../../data/osint-framework';
 
 const PRICING_STYLES: Record<Pricing, string> = {
@@ -54,7 +53,7 @@ export default function OsintFramework(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <Compass size={28} className="text-brand-600 dark:text-brand-400" /> OSINT Framework
         </h1>
@@ -77,7 +76,7 @@ export default function OsintFramework(): JSX.Element {
           </Link>
           .
         </p>
-      </motion.div>
+      </div>
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6 space-y-3">
         <div className="relative">

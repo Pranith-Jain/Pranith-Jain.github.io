@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Crosshair, ChevronDown, ChevronRight, ExternalLink } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { KILL_CHAIN, KILL_CHAIN_TECHNIQUE_COUNT, type KillChainPhase } from '../../data/kill-chain';
 
 function PhaseHeader({
@@ -40,12 +39,7 @@ function PhaseHeader({
 
 function PhaseBody({ phase }: { phase: KillChainPhase }): JSX.Element {
   return (
-    <motion.div
-      initial={{ opacity: 0, height: 0 }}
-      animate={{ opacity: 1, height: 'auto' }}
-      transition={{ duration: 0.18 }}
-      className="overflow-hidden"
-    >
+    <div className="animate-fade-in-up overflow-hidden">
       <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/50 mt-2 p-4 space-y-4">
         <p className="text-sm font-mono text-slate-700 dark:text-slate-300 leading-relaxed">{phase.description}</p>
 
@@ -117,7 +111,7 @@ function PhaseBody({ phase }: { phase: KillChainPhase }): JSX.Element {
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -146,7 +140,7 @@ export default function KillChain(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <Crosshair size={28} className="text-brand-600 dark:text-brand-400" /> Cyber Kill Chain
         </h1>
@@ -162,7 +156,7 @@ export default function KillChain(): JSX.Element {
           : the kill chain answers <em>where</em> in the intrusion timeline; the diamond answers <em>who</em> and{' '}
           <em>against what</em>.
         </p>
-      </motion.div>
+      </div>
 
       <div className="flex justify-end gap-2 mb-3">
         <button

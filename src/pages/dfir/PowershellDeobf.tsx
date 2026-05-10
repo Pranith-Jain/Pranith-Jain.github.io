@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Terminal, AlertTriangle, CheckCircle2, ChevronDown, ChevronRight, Search } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { deobfuscate, findRisks, type Step } from '../../lib/dfir/powershell-deobf';
 import { hasIocCandidates } from '../../lib/dfir/ioc-detect';
 import { CopyChip } from '../../components/dfir/CopyButton';
@@ -134,7 +133,7 @@ export default function PowershellDeobf(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <Terminal size={28} className="text-brand-600 dark:text-brand-400" /> PowerShell Deobfuscator
         </h1>
@@ -148,7 +147,7 @@ export default function PowershellDeobf(): JSX.Element {
           dangerous primitives (<code>IEX</code>, <code>DownloadString</code>, <code>VirtualAlloc</code>, Defender
           tampering) are flagged.
         </p>
-      </motion.div>
+      </div>
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">

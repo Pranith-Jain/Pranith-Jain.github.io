@@ -1,20 +1,4 @@
-import { motion } from 'framer-motion';
 import { memberships } from '../../data/content';
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
-};
 
 const colorMap: Record<string, { bg: string; text: string; darkBg: string; darkText: string }> = {
   brand: {
@@ -42,50 +26,25 @@ export function Memberships() {
     <section id="memberships" className="mt-32 scroll-mt-24">
       {/* Header */}
       <div className="mb-16 max-w-3xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400"
-        >
+        <div className="animate-fade-in-up mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
           Professional Affiliations
-        </motion.div>
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-4xl font-extrabold tracking-tight sm:text-5xl text-slate-900 dark:text-white"
-        >
+        </div>
+        <h2 className="animate-fade-in-up text-4xl font-extrabold tracking-tight sm:text-5xl text-slate-900 dark:text-white">
           Memberships
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-4 text-lg text-slate-700 dark:text-slate-400"
-        >
+        </h2>
+        <p className="animate-fade-in-up mt-4 text-lg text-slate-700 dark:text-slate-400">
           Active contributor to premier cybersecurity and intelligence communities.
-        </motion.p>
+        </p>
       </div>
 
       {/* Memberships Grid */}
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
-      >
+      <div className="animate-fade-in-up grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {memberships.map((membership) => {
           const colors = colorMap[membership.color] || colorMap.brand;
           return (
-            <motion.div
+            <div
               key={membership.name}
-              variants={itemVariants}
-              className="glass group flex flex-col gap-6 p-8 rounded-[2rem] transition-all hover:shadow-glow hover:-translate-y-2 border-white/20 bg-white/40 dark:bg-slate-900/40 h-full"
+              className="animate-fade-in-up glass group flex flex-col gap-6 p-8 rounded-[2rem] transition-all hover:shadow-glow hover:-translate-y-2 border-white/20 bg-white/40 dark:bg-slate-900/40 h-full"
             >
               <div className="flex items-center justify-between">
                 <div
@@ -103,9 +62,7 @@ export function Memberships() {
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                   {membership.name}
                 </h3>
-                <p className="mt-1 text-xs font-semibold text-slate-500 dark:text-slate-400">
-                  {membership.period}
-                </p>
+                <p className="mt-1 text-xs font-semibold text-slate-500 dark:text-slate-400">{membership.period}</p>
                 <p className="mt-3 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                   {membership.description}
                 </p>
@@ -122,10 +79,10 @@ export function Memberships() {
                   </ul>
                 )}
               </div>
-            </motion.div>
+            </div>
           );
         })}
-      </motion.div>
+      </div>
     </section>
   );
 }

@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, FileCheck, ChevronDown, ChevronRight, Download, RotateCcw, ExternalLink } from 'lucide-react';
-import { motion } from 'framer-motion';
 import {
   NIST_CSF,
   ISO_27001,
@@ -134,7 +133,7 @@ export default function Grc(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <FileCheck size={28} className="text-brand-600 dark:text-brand-400" /> GRC Compliance &amp; Maturity
         </h1>
@@ -156,7 +155,7 @@ export default function Grc(): JSX.Element {
           </Link>{' '}
           (Web/API/LLM application controls).
         </p>
-      </motion.div>
+      </div>
 
       {/* Coverage dashboard */}
       <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 mb-6">

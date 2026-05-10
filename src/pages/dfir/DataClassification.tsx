@@ -11,7 +11,6 @@ import {
   ChevronRight,
   ExternalLink,
 } from 'lucide-react';
-import { motion } from 'framer-motion';
 import {
   TIERS,
   TIER_LABELS,
@@ -99,7 +98,7 @@ export default function DataClassification(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <FolderTree size={28} className="text-brand-600 dark:text-brand-400" /> Data Classification &amp; Handling
         </h1>
@@ -119,7 +118,7 @@ export default function DataClassification(): JSX.Element {
           </Link>{' '}
           (NIST PR.DS / ISO 27001 A.5.12 / ISO 42001 A.7).
         </p>
-      </motion.div>
+      </div>
 
       {/* Distribution */}
       <section className="grid gap-2 sm:grid-cols-4 mb-6">

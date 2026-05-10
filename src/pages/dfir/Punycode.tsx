@@ -1,8 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, AlertTriangle, ShieldCheck } from 'lucide-react';
-import { motion } from 'framer-motion';
-
 // Common Unicode characters used in homograph attacks → ASCII fold.
 const CONFUSABLES: Record<string, string> = {
   // Cyrillic
@@ -195,13 +193,13 @@ export default function Punycode(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2">Punycode / Homograph Detector</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
           Paste a domain. Detects internationalized (IDN) tricks: mixed scripts, Cyrillic / Greek lookalikes, and
           confusables that mimic well-known brand names.
         </p>
-      </motion.div>
+      </div>
 
       <input
         type="text"

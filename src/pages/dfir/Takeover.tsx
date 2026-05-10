@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, AlertTriangle, ShieldCheck, Search, Info } from 'lucide-react';
-import { motion } from 'framer-motion';
-
 interface TakeoverResult {
   domain: string;
   cname_chain: string[];
@@ -67,14 +65,14 @@ export default function Takeover(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2">Subdomain Takeover Check</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
           Resolves a subdomain's CNAME chain and matches it against ~15 known dangling-service patterns (S3, GitHub
           Pages, Heroku, Azure, Shopify, Webflow, Statuspage, and more). If the CNAME points to an unclaimed service,
           the dangling fingerprint is verified by fetching the page.
         </p>
-      </motion.div>
+      </div>
 
       <form onSubmit={onSubmit} className="mb-10">
         <div className="flex gap-2">

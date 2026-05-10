@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, ClipboardCopy, Check, ShieldAlert, Terminal } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
 
 type IocBucket = 'ipv4' | 'ipv6' | 'domain' | 'url' | 'md5' | 'sha1' | 'sha256' | 'email';
@@ -233,13 +232,13 @@ export default function IocExtractor(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2">IOC Extractor</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
           Paste any blob of text, like an email, log line, blog post, or threat report. The extractor pulls out every
           IP, domain, URL, hash, and email it finds. Refanging is automatic.
         </p>
-      </motion.div>
+      </div>
 
       {pipedFrom && (
         <div className="mb-3 rounded border border-cyan-500/30 bg-cyan-500/5 p-2.5 text-[12px] font-mono text-cyan-700 dark:text-cyan-300 inline-flex items-center gap-2">

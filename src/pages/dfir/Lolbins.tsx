@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft, Terminal, ExternalLink, Search } from 'lucide-react';
 import { CopyChip } from '../../components/dfir/CopyButton';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
-import { motion } from 'framer-motion';
 import {
   LOLBINS,
   LOLBIN_CATEGORIES,
@@ -50,7 +49,7 @@ export default function Lolbins(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <Terminal size={28} className="text-brand-600 dark:text-brand-400" /> Living-off-the-Land Binaries
         </h1>
@@ -62,7 +61,7 @@ export default function Lolbins(): JSX.Element {
           A subset of the full catalogues — pick the entries I reach for during phishing / BEC / commodity-malware IRs.
           Use the upstream sources (linked on each card) for the complete coverage.
         </p>
-      </motion.div>
+      </div>
 
       {/* Filters */}
       <div className="space-y-3 mb-6">

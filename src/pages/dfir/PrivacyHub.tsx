@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Scale, ExternalLink, Download, RotateCcw } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { REGIMES, type Article, type RegimeId } from '../../data/privacy-hub';
 
 const STORAGE_KEY = 'dfir.privacy-hub.checks.v1';
@@ -146,7 +145,7 @@ export default function PrivacyHub(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <Scale size={28} className="text-brand-600 dark:text-brand-400" /> Privacy &amp; Data-Protection Hub
         </h1>
@@ -171,7 +170,7 @@ export default function PrivacyHub(): JSX.Element {
           </Link>
           .
         </p>
-      </motion.div>
+      </div>
 
       {/* Coverage dashboard */}
       <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5 mb-6">

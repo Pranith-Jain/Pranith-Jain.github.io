@@ -1,5 +1,4 @@
 import { memo, useMemo } from 'react';
-import { motion } from 'framer-motion';
 import { ChevronRight, Home, type LucideIcon } from 'lucide-react';
 
 interface BreadcrumbItem {
@@ -118,13 +117,7 @@ export function AnimatedBreadcrumbs({ items, className = '' }: { items: Breadcru
   return (
     <nav aria-label="Breadcrumb" className={`flex items-center gap-1 text-sm ${className}`}>
       {items.map((item, index) => (
-        <motion.div
-          key={index}
-          initial={{ opacity: 0, x: -10 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: index * 0.05 }}
-          className="flex items-center gap-1"
-        >
+        <div key={index} className="animate-fade-in-up flex items-center gap-1">
           {index > 0 && <ChevronRight className="w-4 h-4 text-slate-300 dark:text-slate-600" aria-hidden="true" />}
 
           {index === 0 && (
@@ -148,7 +141,7 @@ export function AnimatedBreadcrumbs({ items, className = '' }: { items: Breadcru
               {item.label}
             </span>
           )}
-        </motion.div>
+        </div>
       ))}
     </nav>
   );

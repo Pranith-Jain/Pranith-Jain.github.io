@@ -1,7 +1,6 @@
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, ExternalLink, Search, X } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { mitreMatrix } from '../../data/dfir/mitre-matrix';
 import { threatActors } from '../../data/dfir/threat-actors';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
@@ -249,7 +248,7 @@ export default function MitreMatrix(): JSX.Element {
           <ArrowLeft size={14} /> /dfir
         </Link>
 
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+        <div className="animate-fade-in-up">
           <h1 className="text-4xl font-display font-bold mb-2">MITRE ATT&amp;CK</h1>
           <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl">
             Enterprise tactics and techniques. Click any technique tile to open a side drawer with description, tactics,
@@ -295,7 +294,7 @@ export default function MitreMatrix(): JSX.Element {
               </>
             )}
           </div>
-        </motion.div>
+        </div>
 
         {/* Search + coverage toolbar */}
         <div className="flex flex-wrap items-center gap-2 mb-8">

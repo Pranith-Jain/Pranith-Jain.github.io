@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ScrollText, Shuffle, Download, ExternalLink } from 'lucide-react';
-import { motion } from 'framer-motion';
 import {
   ARCHETYPES,
   ROLE_LABELS,
@@ -109,7 +108,7 @@ export default function Tabletop(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <ScrollText size={28} className="text-brand-600 dark:text-brand-400" /> Tabletop / IR Exercise Generator
         </h1>
@@ -125,7 +124,7 @@ export default function Tabletop(): JSX.Element {
           Designed for 60-90 minute exercises with IR Lead, Tech Lead, Communications, Legal, and Executive Sponsor at
           the table.
         </p>
-      </motion.div>
+      </div>
 
       {/* Controls */}
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">

@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { Home, Terminal } from 'lucide-react';
 
 export default function NotFound(): JSX.Element {
   return (
     <div className="max-w-2xl mx-auto px-8 py-24 text-center text-slate-900 dark:text-slate-100">
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <div className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 mb-3">
           404 · Not Found
         </div>
@@ -28,7 +27,7 @@ export default function NotFound(): JSX.Element {
             <Terminal size={14} /> DFIR Toolkit
           </Link>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }

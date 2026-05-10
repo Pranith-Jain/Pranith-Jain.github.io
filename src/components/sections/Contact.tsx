@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import { Mail, Calendar, Linkedin, Github, FileText } from 'lucide-react';
 import { personalInfo } from '../../data/content';
 import { CopyToClipboard } from '../../components/CopyToClipboard';
@@ -6,13 +5,7 @@ import { CopyToClipboard } from '../../components/CopyToClipboard';
 export function Contact() {
   return (
     <section id="contact" className="mt-32 scroll-mt-24" aria-labelledby="contact-heading">
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="relative overflow-hidden rounded-[3rem] bg-slate-900 px-6 py-20 dark:bg-brand-950 sm:px-12 lg:py-28"
-      >
+      <div className="animate-fade-in-up relative overflow-hidden rounded-[3rem] bg-slate-900 px-6 py-20 dark:bg-brand-950 sm:px-12 lg:py-28">
         {/* Background patterns */}
         <div
           className="absolute inset-0 opacity-20 [mask-image:radial-gradient(ellipse_at_center,white,transparent)]"
@@ -133,7 +126,7 @@ export function Contact() {
             </li>
           </ul>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

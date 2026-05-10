@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Rss, ChevronRight } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { LiveSnapshotPanel } from '../../components/dfir/LiveSnapshotPanel';
 
 type Filter = 'all' | 'daily' | 'weekly';
@@ -77,12 +76,7 @@ export default function Briefings(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.header
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-        className="mb-12"
-      >
+      <header className="animate-fade-in-up mb-12">
         <span className="inline-block text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 mb-3">
           Intel Briefings
         </span>
@@ -93,17 +87,12 @@ export default function Briefings(): JSX.Element {
           briefings drawn from CISA KEV, NVD, and abuse.ch / OpenPhish — daily at 00:05 UTC, weekly at 00:15 UTC Monday.
           Reference only — verify all indicators in your own environment.
         </p>
-      </motion.header>
+      </header>
 
       <LiveSnapshotPanel subtitle="live · between KV-baked briefings" />
 
       {/* Briefings list */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.4 }}
-      >
+      <section className="animate-fade-in-up">
         <div className="flex items-baseline justify-between mb-6">
           <h2 className="font-display font-bold text-xl">Briefings</h2>
         </div>
@@ -206,7 +195,7 @@ export default function Briefings(): JSX.Element {
             </Link>
           ))}
         </div>
-      </motion.section>
+      </section>
 
       <div className="mt-16 flex items-center gap-3 p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60">
         <Rss size={16} className="text-slate-400 shrink-0" />

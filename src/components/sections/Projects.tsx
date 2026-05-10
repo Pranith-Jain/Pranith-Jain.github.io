@@ -1,23 +1,7 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 import { Github, ExternalLink, ChevronDown, ChevronUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { projects } from '../../data/content';
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
-};
 
 const TRUNCATE_THRESHOLD = 240;
 
@@ -30,10 +14,7 @@ function ProjectCard({ project }: ProjectCardProps): JSX.Element {
   const needsToggle = project.description.length > TRUNCATE_THRESHOLD;
 
   return (
-    <motion.div
-      variants={itemVariants}
-      className="glass rounded-2xl p-6 shadow-sm transition-all hover:shadow-glow hover:border-brand-500/40"
-    >
+    <div className="animate-fade-in-up glass rounded-2xl p-6 shadow-sm transition-all hover:shadow-glow hover:border-brand-500/40">
       <div className="flex items-start justify-between gap-4">
         <div className="text-base font-semibold text-slate-900 dark:text-white">{project.title}</div>
         {project.badge && (
@@ -108,7 +89,7 @@ function ProjectCard({ project }: ProjectCardProps): JSX.Element {
           </a>
         )}
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -116,37 +97,19 @@ export function Projects() {
   return (
     <section id="projects" className="mt-20 scroll-mt-24">
       <div className="mb-12 max-w-2xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400"
-        >
+        <div className="animate-fade-in-up mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
           Projects
-        </motion.div>
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-3xl font-extrabold tracking-tight sm:text-4xl text-slate-900 dark:text-white"
-        >
+        </div>
+        <h2 className="animate-fade-in-up text-3xl font-extrabold tracking-tight sm:text-4xl text-slate-900 dark:text-white">
           Selected projects & initiatives
-        </motion.h2>
+        </h2>
       </div>
 
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        className="grid gap-6"
-      >
+      <div className="animate-fade-in-up grid gap-6">
         {projects.map((project) => (
           <ProjectCard key={project.title} project={project} />
         ))}
-      </motion.div>
+      </div>
     </section>
   );
 }

@@ -1,7 +1,6 @@
 import { useState, type FormEvent } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, Search, ShieldAlert, ShieldCheck, AlertCircle } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { detectType, detectHashSubtype } from '../../lib/dfir/indicator-client';
 import { streamIoc } from '../../lib/dfir/api';
 import type { ProviderResultWire, DoneEvent, ProviderId } from '../../lib/dfir/types';
@@ -105,13 +104,13 @@ export default function IocCheck(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2">IOC Checker</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
           Check IPs, domains, URLs, and file hashes against 24 threat intelligence sources in parallel. Streaming
           verdicts, weighted scoring, and tagged evidence for every IOC.
         </p>
-      </motion.div>
+      </div>
 
       <form onSubmit={onSubmit} className="mb-10">
         <div className="flex gap-2">

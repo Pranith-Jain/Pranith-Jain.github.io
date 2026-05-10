@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Mail, Search, Loader2, CheckCircle2, AlertTriangle, ExternalLink } from 'lucide-react';
 import { CopyChip } from '../../components/dfir/CopyButton';
-import { motion } from 'framer-motion';
 import { assess, type DomainApiResponse, type Severity } from '../../lib/dfir/bec-score';
 
 const SEV_STYLES: Record<Severity, string> = {
@@ -63,7 +62,7 @@ export default function EmailDefense(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <Mail size={28} className="text-brand-600 dark:text-brand-400" /> Email Defense / BEC Score
         </h1>
@@ -78,7 +77,7 @@ export default function EmailDefense(): JSX.Element {
           </Link>{' '}
           — same data, defender-side framing focused on direct-domain spoofing.
         </p>
-      </motion.div>
+      </div>
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
         <form

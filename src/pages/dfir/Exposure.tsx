@@ -1,5 +1,4 @@
 import { useState, type FormEvent } from 'react';
-import { motion } from 'framer-motion';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, Radar } from 'lucide-react';
 import type { ExposureScanResponse } from '../../lib/dfir/types';
@@ -48,13 +47,13 @@ export default function Exposure(): JSX.Element {
       >
         <ArrowLeft size={14} /> /dfir
       </Link>
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2">Exposure Scanner</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
           Subdomains seen in Certificate Transparency logs, resolved to IPs, with optional Shodan host info (when
           SHODAN_API_KEY is set).
         </p>
-      </motion.div>
+      </div>
 
       <form onSubmit={onSubmit} className="mb-10">
         <div className="flex gap-2">

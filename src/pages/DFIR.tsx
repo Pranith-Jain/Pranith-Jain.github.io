@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Cloud, Github, Mail } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { ToolGrid, TOOL_COUNT } from '../components/dfir/ToolGrid';
 import { LiveSnapshotPanel } from '../components/dfir/LiveSnapshotPanel';
 import { personalInfo } from '../data/content';
@@ -41,12 +40,7 @@ const PROVIDER_GROUPS: { label: string; items: string[] }[] = [
 export default function DFIRPage(): JSX.Element {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-16 text-slate-900 dark:text-slate-100">
-      <motion.header
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-        className="mb-12"
-      >
+      <header className="animate-fade-in-up mb-12">
         <span className="inline-block text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 mb-3">
           DFIR Toolkit
         </span>
@@ -75,24 +69,13 @@ export default function DFIRPage(): JSX.Element {
             edge, last build {__BUILD_DATE__}
           </span>
         </div>
-      </motion.header>
+      </header>
 
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.4 }}
-      >
+      <section className="animate-fade-in-up">
         <LiveSnapshotPanel compact subtitle="live activity across the toolkit" mbClass="mb-12" />
-      </motion.section>
+      </section>
 
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.4 }}
-        className="mb-16"
-      >
+      <section className="animate-fade-in-up mb-16">
         <div className="flex items-baseline justify-between mb-6">
           <h2 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100">Tools</h2>
           <Link
@@ -103,7 +86,7 @@ export default function DFIRPage(): JSX.Element {
           </Link>
         </div>
         <ToolGrid />
-      </motion.section>
+      </section>
 
       <section className="mt-20 pt-10 border-t border-slate-200 dark:border-slate-800">
         <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-6">

@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Trash2 } from 'lucide-react';
 import { readHistory, clearHistory, type HistoryEntry } from '../../lib/dfir/history';
@@ -25,12 +24,12 @@ export default function Dashboard(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
       <div className="flex items-baseline justify-between mb-8">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+        <div className="animate-fade-in-up">
           <h1 className="text-4xl font-display font-bold mb-2">Recent Lookups</h1>
           <p className="text-slate-600 dark:text-slate-400 max-w-xl">
             Your last 20 queries, kept anonymously in this browser.
           </p>
-        </motion.div>
+        </div>
         {entries.length > 0 && (
           <button
             onClick={handleClear}

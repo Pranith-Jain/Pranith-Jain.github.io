@@ -774,7 +774,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
             <>
               <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-2">
                 <span className="text-slate-900 dark:text-slate-100 font-bold text-base">{techAi.total_items}</span>{' '}
-                posts · AI labs · cyber funding · M&amp;A
+                posts · TechCrunch · VentureBeat · HN AI · YC blog · cyber funding
               </p>
               {recentTechAi.length === 0 ? (
                 <p className="text-[11px] font-mono text-slate-500">No recent posts.</p>
@@ -810,7 +810,8 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                           </a>
                           <span className="text-slate-500 shrink-0">{shortRel(it.pubDate)}</span>
                         </div>
-                        {!compact && <p className="text-slate-500 dark:text-slate-500 truncate pl-3.5">{it.source}</p>}
+                        {/* Tech & AI always shows source — analysts want to see when YC blog / HN surfaces. */}
+                        <p className="text-slate-500 dark:text-slate-500 truncate pl-3.5">{it.source}</p>
                       </li>
                     );
                   })}

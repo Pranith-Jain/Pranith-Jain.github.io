@@ -11,7 +11,6 @@ import {
   ArrowUp,
   ArrowLeftRight,
 } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { EXPLORERS, CATEGORY_LABELS, CATEGORY_ORDER, buildLink } from '../../lib/dfir/crypto-explorers';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
 
@@ -189,7 +188,7 @@ export default function CryptoTrace(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <Coins size={28} className="text-brand-600 dark:text-brand-400" /> Crypto Address Tracer
         </h1>
@@ -210,7 +209,7 @@ export default function CryptoTrace(): JSX.Element {
           </Link>
           .
         </p>
-      </motion.div>
+      </div>
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
         <form

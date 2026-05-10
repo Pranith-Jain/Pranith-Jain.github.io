@@ -2,7 +2,6 @@ import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ShieldAlert, AlertTriangle, CheckCircle2, ExternalLink } from 'lucide-react';
 import { CopyChip } from '../../components/dfir/CopyButton';
-import { motion } from 'framer-motion';
 import {
   PATTERNS,
   detect,
@@ -130,7 +129,7 @@ export default function DlpScan(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <ShieldAlert size={28} className="text-brand-600 dark:text-brand-400" /> Sensitive Data Detector
         </h1>
@@ -150,7 +149,7 @@ export default function DlpScan(): JSX.Element {
           </Link>{' '}
           (NIST PR.DS / ISO 27001 A.5.12 / ISO 42001 A.7).
         </p>
-      </motion.div>
+      </div>
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">

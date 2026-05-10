@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ScrollText, ClipboardCopy, Check, Crosshair, AlertTriangle, Filter } from 'lucide-react';
-import { motion } from 'framer-motion';
 import {
   parseLogs,
   generateQueries,
@@ -94,7 +93,7 @@ export default function LogParser(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <ScrollText size={28} className="text-brand-600 dark:text-brand-400" /> Log Parser
         </h1>
@@ -107,7 +106,7 @@ export default function LogParser(): JSX.Element {
           Pure client-side. Nothing leaves your browser. MITRE tagging is conservative — only fires on confident matches
           (Sysmon EID + cmdline pattern, Security 4625, etc). Treat this as a triage starting point.
         </p>
-      </motion.div>
+      </div>
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">

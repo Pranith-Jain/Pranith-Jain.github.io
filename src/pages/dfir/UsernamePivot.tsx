@@ -2,7 +2,6 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, AtSign, ExternalLink, Search, AlertTriangle, CheckCircle2, Loader2 } from 'lucide-react';
 import { CopyChip } from '../../components/dfir/CopyButton';
-import { motion } from 'framer-motion';
 import {
   SERVICES,
   CATEGORY_LABELS,
@@ -135,7 +134,7 @@ export default function UsernamePivot(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <AtSign size={28} className="text-brand-600 dark:text-brand-400" /> Username Pivot
         </h1>
@@ -149,7 +148,7 @@ export default function UsernamePivot(): JSX.Element {
           Inspired by Sherlock. Designed for IR / threat-actor pivoting and brand-monitoring; "exists" doesn't always
           mean the same person — confirm via cross-correlation (display name, profile photo, post timing).
         </p>
-      </motion.div>
+      </div>
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
         <form

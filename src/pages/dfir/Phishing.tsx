@@ -1,5 +1,4 @@
 import { useState, type FormEvent } from 'react';
-import { motion } from 'framer-motion';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, ScanText, Search } from 'lucide-react';
 import type { PhishingAnalysisResponse } from '../../lib/dfir/types';
@@ -65,13 +64,13 @@ export default function Phishing(): JSX.Element {
       >
         <ArrowLeft size={14} /> /dfir
       </Link>
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2">Phishing Email Analyzer</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
           Paste raw email source. We parse headers, check SPF/DKIM/DMARC results, extract URLs, and compute a risk
           score. URLs link straight into the IOC checker.
         </p>
-      </motion.div>
+      </div>
 
       <form onSubmit={onSubmit} className="mb-10">
         <textarea

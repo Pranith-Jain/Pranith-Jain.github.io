@@ -1,29 +1,13 @@
-import { motion } from 'framer-motion';
 import { Linkedin, Github, Mail, Terminal } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { personalInfo, stats } from '../../data/content';
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
-};
 
 export function Hero() {
   return (
     <section className="relative pt-6 lg:pt-10">
       <div className="grid items-center gap-12 lg:grid-cols-[1.2fr_0.8fr]">
         {/* Left Content */}
-        <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
+        <div className="animate-fade-in-up">
           {/* Badges */}
           <div className="mb-6 flex flex-wrap items-center gap-3">
             <span className="inline-flex items-center gap-2 rounded-full border border-brand-200/50 bg-brand-50/50 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-brand-700 backdrop-blur-md dark:border-brand-800/50 dark:bg-brand-900/30 dark:text-brand-300">
@@ -141,15 +125,10 @@ export function Hero() {
               <Mail className="h-6 w-6" aria-hidden="true" />
             </a>
           </div>
-        </motion.div>
+        </div>
 
         {/* Right Content - Profile Card */}
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative mt-12 lg:mt-0"
-        >
+        <div className="animate-fade-in-up relative mt-12 lg:mt-0">
           <div className="glass relative z-10 overflow-hidden rounded-[2.5rem] border-white/20 bg-white/40 shadow-2xl backdrop-blur-3xl dark:border-white/10 dark:bg-slate-900/40">
             <div className="absolute inset-0 bg-gradient-to-br from-brand-500/10 via-transparent to-brand-500/10"></div>
 
@@ -247,22 +226,15 @@ export function Hero() {
           {/* Decorative Background Elements */}
           <div className="absolute -right-12 -top-12 -z-10 h-64 w-64 rounded-full bg-brand-500/20 blur-3xl"></div>
           <div className="absolute -bottom-8 -left-8 -z-10 h-40 w-40 rounded-full bg-emerald-500/10 blur-2xl"></div>
-        </motion.div>
+        </div>
       </div>
 
       {/* Stats Section */}
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        className="mt-20 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
-      >
+      <div className="animate-fade-in-up mt-20 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat) => (
-          <motion.div
+          <div
             key={stat.label}
-            variants={itemVariants}
-            className="group glass relative overflow-hidden rounded-3xl p-8 transition-all hover:shadow-glow hover:-translate-y-1"
+            className="animate-fade-in-up group glass relative overflow-hidden rounded-3xl p-8 transition-all hover:shadow-glow hover:-translate-y-1"
           >
             <div className="absolute right-0 top-0 -mr-4 -mt-4 h-24 w-24 rounded-full bg-brand-500/5 transition-transform group-hover:scale-150"></div>
             <div className="relative">
@@ -296,9 +268,9 @@ export function Hero() {
                 </div>
               )}
             </div>
-          </motion.div>
+          </div>
         ))}
-      </motion.div>
+      </div>
     </section>
   );
 }

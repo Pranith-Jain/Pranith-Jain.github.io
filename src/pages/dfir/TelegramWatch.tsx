@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, ExternalLink, Search, Send, AlertTriangle, Eye } from 'lucide-react';
-import { motion } from 'framer-motion';
 import {
   CATALOG,
   CATEGORY_LABELS,
@@ -118,7 +117,7 @@ export default function TelegramWatch(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <Send size={28} className="text-brand-600 dark:text-brand-400" /> Telegram Watch
         </h1>
@@ -127,7 +126,7 @@ export default function TelegramWatch(): JSX.Element {
           situational awareness. Channels are publicly documented in threat-intel writeups or run by reputable
           researchers.
         </p>
-      </motion.div>
+      </div>
 
       {/* Honest scope card */}
       <section className="rounded-lg border border-amber-500/30 bg-amber-500/5 p-4 mb-6">

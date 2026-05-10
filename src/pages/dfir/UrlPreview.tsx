@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, Eye, ExternalLink, AlertTriangle } from 'lucide-react';
-import { motion } from 'framer-motion';
-
 interface OgData {
   title?: string;
   description?: string;
@@ -131,13 +129,13 @@ export default function UrlPreview(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2">URL Preview</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
           Fetch metadata from a URL server-side. Get title, meta description, Open Graph, and Twitter Card tags. No
           JavaScript execution, no rendering.
         </p>
-      </motion.div>
+      </div>
 
       {/* Security note */}
       <div className="flex gap-3 p-4 mb-8 rounded-lg border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/10 text-sm font-mono text-amber-800 dark:text-amber-300">

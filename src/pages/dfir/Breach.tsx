@@ -13,7 +13,6 @@ import {
   AlertTriangle,
   Users,
 } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
 
 // ─── types ────────────────────────────────────────────────────────────────────
@@ -255,7 +254,7 @@ function PasswordTab(): JSX.Element {
       {error && <p className="font-mono text-rose-600 dark:text-rose-400">error: {error}</p>}
 
       {result && (
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
+        <div className="animate-fade-in-up">
           {result.found && result.count !== undefined ? (
             <section className="rounded-2xl border border-amber-200 dark:border-amber-900/40 bg-amber-50 dark:bg-amber-900/10 p-6">
               <div className="flex items-start gap-4">
@@ -310,7 +309,7 @@ function PasswordTab(): JSX.Element {
               </div>
             </section>
           )}
-        </motion.div>
+        </div>
       )}
     </div>
   );
@@ -425,12 +424,7 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
       {error && <p className="font-mono text-rose-600 dark:text-rose-400">error: {error}</p>}
 
       {result && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-          className="space-y-6"
-        >
+        <div className="animate-fade-in-up space-y-6">
           {/* Summary */}
           <section
             className={`rounded-2xl border p-6 ${
@@ -497,7 +491,7 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
               <ExternalLink size={14} className="text-slate-500 shrink-0" />
             </div>
           </Link>
-        </motion.div>
+        </div>
       )}
     </div>
   );
@@ -617,12 +611,7 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
       {error && <p className="font-mono text-rose-600 dark:text-rose-400">error: {error}</p>}
 
       {result && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-          className="space-y-6"
-        >
+        <div className="animate-fade-in-up space-y-6">
           {/* Summary */}
           <section
             className={`rounded-2xl border p-6 ${
@@ -688,7 +677,7 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
               <ExternalLink size={14} className="text-slate-500 shrink-0" />
             </div>
           </Link>
-        </motion.div>
+        </div>
       )}
     </div>
   );
@@ -736,12 +725,12 @@ export default function BreachPage(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2">Breach Checker</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
           Check if a password, email address, or domain has appeared in known data breaches.
         </p>
-      </motion.div>
+      </div>
 
       {/* Tab pills */}
       <div className="flex flex-wrap gap-2 mb-8">
@@ -766,16 +755,11 @@ export default function BreachPage(): JSX.Element {
       </div>
 
       {/* Tab content */}
-      <motion.div
-        key={mode}
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.25 }}
-      >
+      <div className="animate-fade-in-up" key={mode}>
         {mode === 'password' && <PasswordTab />}
         {mode === 'email' && <EmailTab initialQuery={urlQuery} />}
         {mode === 'domain' && <DomainTab initialQuery={urlQuery} />}
-      </motion.div>
+      </div>
       <RelatedWikiArticles />
     </div>
   );

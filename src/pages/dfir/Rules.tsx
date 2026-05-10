@@ -1,8 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ExternalLink, RefreshCw, Star, GitFork, GitCommit, FileCode } from 'lucide-react';
-import { motion } from 'framer-motion';
-
 interface SourceEntry {
   id: string;
   label: string;
@@ -113,7 +111,7 @@ export default function Rules(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <FileCode size={28} className="text-brand-600 dark:text-brand-400" /> Detection Rules
         </h1>
@@ -122,7 +120,7 @@ export default function Rules(): JSX.Element {
           KQL, Suricata. Pulled fresh from each repo's public metadata + commit feed, cached hourly. No GitHub auth
           required, no signup, no paid tier.
         </p>
-      </motion.div>
+      </div>
 
       {loading && !data && <p className="font-mono text-sm text-slate-500">Loading rule sources…</p>}
       {error && <p className="font-mono text-sm text-rose-600 dark:text-rose-400">error: {error}</p>}

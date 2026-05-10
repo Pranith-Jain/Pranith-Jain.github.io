@@ -107,3 +107,41 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ─────────────────────────────────────────────────────────────────────
+   Entrance animations
+   Used as Tailwind-ish utility classes (animate-fade-in, animate-fade-in-up)
+   to replace framer-motion's <motion.X initial=... animate=... /> pattern
+   across the DFIR pages. Single 400ms ease-out, fill-mode `both` so the
+   element starts opaque-zero and ends opaque-one without any flash.
+
+   The `prefers-reduced-motion: reduce` block above already neutralises
+   these for users who opt out, so no per-utility tweak needed.
+   ───────────────────────────────────────────────────────────────────── */
+@keyframes dfir-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dfir-fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: dfir-fade-in 0.4s ease-out both;
+}
+
+.animate-fade-in-up {
+  animation: dfir-fade-in-up 0.4s ease-out both;
+}

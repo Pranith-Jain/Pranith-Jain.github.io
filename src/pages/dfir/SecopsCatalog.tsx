@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, ExternalLink, Github, Search, Layers, Lock, Star } from 'lucide-react';
-import { motion } from 'framer-motion';
 import {
   TOOLS,
   CATEGORY_LABELS,
@@ -116,7 +115,7 @@ export default function SecopsCatalog(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <Layers size={28} className="text-brand-600 dark:text-brand-400" /> SecOps Tools Catalog
         </h1>
@@ -135,7 +134,7 @@ export default function SecopsCatalog(): JSX.Element {
           </Link>
           . Paid services are listed for landscape awareness — they're not proxied or invoked on your behalf.
         </p>
-      </motion.div>
+      </div>
 
       {/* Search + summary */}
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">

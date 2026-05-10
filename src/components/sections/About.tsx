@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Terminal, ArrowRight } from 'lucide-react';
 import { stats } from '../../data/content';
@@ -8,12 +7,7 @@ export function About() {
     <section id="about" className="mt-32 scroll-mt-24">
       <div className="grid items-center gap-16 lg:grid-cols-2">
         {/* Left Content */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
+        <div className="animate-fade-in-up">
           <div className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
             About Me
           </div>
@@ -55,31 +49,18 @@ export function About() {
           </div>
 
           {/* Stats Grid */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-6"
-          >
+          <div className="animate-fade-in-up mt-10 grid grid-cols-2 sm:grid-cols-4 gap-6">
             {stats.map((stat) => (
               <div key={stat.label} className="glass rounded-2xl p-4 text-center">
                 <div className="text-3xl font-black text-brand-600 dark:text-brand-400">{stat.value}</div>
                 <div className="text-xs font-bold uppercase tracking-wider text-slate-600 mt-1">{stat.label}</div>
               </div>
             ))}
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
         {/* Right Content - On-brand visual */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="relative"
-          aria-hidden="true"
-        >
+        <div className="animate-fade-in-up relative" aria-hidden="true">
           <div className="glass relative z-10 overflow-hidden rounded-[3rem] p-8 shadow-2xl bg-gradient-to-br from-slate-900 to-brand-950">
             {/* Terminal-style mock showing the toolkit in action */}
             <div className="rounded-2xl bg-slate-950 p-5 font-mono text-xs text-slate-300 shadow-inner border border-white/5">
@@ -118,7 +99,7 @@ export function About() {
           </div>
           <div className="absolute -right-8 -top-8 -z-10 h-64 w-64 rounded-full bg-brand-500/10 blur-3xl"></div>
           <div className="absolute -bottom-8 -left-8 -z-10 h-40 w-40 rounded-full bg-emerald-500/10 blur-2xl"></div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

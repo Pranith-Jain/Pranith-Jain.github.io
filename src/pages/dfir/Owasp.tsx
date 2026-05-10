@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ShieldCheck, ExternalLink, RotateCcw, Download } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { OWASP_LISTS, OWASP_ITEMS, type OwaspList, type OwaspItem } from '../../data/owasp';
 
 const STORAGE_KEY = 'dfir.owasp.checks';
@@ -143,7 +142,7 @@ export default function Owasp(): JSX.Element {
         <ArrowLeft size={14} /> /dfir
       </Link>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <ShieldCheck size={28} className="text-brand-600 dark:text-brand-400" /> OWASP Top 10
         </h1>
@@ -156,7 +155,7 @@ export default function Owasp(): JSX.Element {
           <span className="text-rose-600 dark:text-rose-400 font-mono">gap</span> — your assessment is stored locally
           and exportable as a Markdown audit trail.
         </p>
-      </motion.div>
+      </div>
 
       {/* List tabs */}
       <div className="flex flex-wrap gap-2 mb-8">

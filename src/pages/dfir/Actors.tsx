@@ -1,5 +1,4 @@
 import { useState, useMemo } from 'react';
-import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { threatActors, type ActorStatus, type Sophistication } from '../../data/dfir/threat-actors';
@@ -32,12 +31,12 @@ export default function Actors(): JSX.Element {
       >
         <ArrowLeft size={14} /> /dfir
       </Link>
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+      <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2">Threat Actors</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
           A catalog of known APT groups, ransomware operators, and threat actors. Click any card for details.
         </p>
-      </motion.div>
+      </div>
 
       <ActorFilterBar
         search={search}
