@@ -61,7 +61,7 @@ export function Footer() {
       </div>
 
       {/* Additional footer links for accessibility */}
-      <div className="mt-6 flex flex-wrap justify-center gap-6 text-xs text-slate-400 dark:text-slate-500">
+      <div className="mt-6 flex flex-wrap justify-center gap-6 text-xs text-slate-500 dark:text-slate-400">
         <a
           href={`mailto:${personalInfo.email}`}
           className="hover:text-slate-600 dark:hover:text-slate-300 transition focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 rounded"
