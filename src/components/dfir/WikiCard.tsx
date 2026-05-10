@@ -4,7 +4,7 @@ import type { WikiArticle } from '../../data/dfir/wiki-articles';
 export function WikiCard({ article }: { article: WikiArticle }): JSX.Element {
   return (
     <Link
-      to={`/dfir/wiki/${article.slug}`}
+      to={`/threatintel/wiki/${article.slug}`}
       className="block rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 hover:border-brand-500/40 transition-colors"
     >
       <span className="block text-xs font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-1">

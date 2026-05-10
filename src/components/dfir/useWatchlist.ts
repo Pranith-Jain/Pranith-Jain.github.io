@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 
 /**
  * Shared analyst watchlist hook. The localStorage key originates on the
- * /dfir/darkweb feed (DarkWeb.tsx) — that page is the canonical place to
+ * /threatintel/darkweb feed (DarkWeb.tsx) — that page is the canonical place to
  * add/remove terms. Every snapshot panel READS the list and highlights
  * items mentioning any of those terms, but doesn't modify it.
  *
  * Cross-tab `storage` events keep the list in sync. Same-tab writes don't
  * fire `storage`, so we also re-poll once after mount with a 1 s delay —
- * covers the case where the user edits the watchlist on /dfir/darkweb in
+ * covers the case where the user edits the watchlist on /threatintel/darkweb in
  * one route, navigates here, and the change should reflect on next render.
  */
 

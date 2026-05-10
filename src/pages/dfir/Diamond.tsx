@@ -128,7 +128,7 @@ function Diamond(): JSX.Element {
             Cyber Kill Chain
           </Link>{' '}
           (where in the timeline) and{' '}
-          <Link to="/dfir/mitre" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/threatintel/mitre" className="text-brand-600 dark:text-brand-400 hover:underline">
             MITRE ATT&amp;CK
           </Link>{' '}
           (which TTPs).

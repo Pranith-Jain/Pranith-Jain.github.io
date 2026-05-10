@@ -242,10 +242,10 @@ export default function MitreMatrix(): JSX.Element {
     <div className="max-w-full px-8 py-12 text-slate-900 dark:text-slate-100">
       <div className="max-w-7xl mx-auto">
         <Link
-          to="/dfir"
+          to="/threatintel"
           className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
         >
-          <ArrowLeft size={14} /> /dfir
+          <ArrowLeft size={14} /> /threatintel
         </Link>
 
         <div className="animate-fade-in-up">
@@ -566,7 +566,7 @@ export default function MitreMatrix(): JSX.Element {
                     {detail.actors.map((a) => (
                       <Link
                         key={a.id}
-                        to={`/dfir/actors/${a.id}`}
+                        to={`/threatintel/actors/${a.id}`}
                         className="block px-3 py-2 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 hover:border-brand-500/40 transition-colors"
                       >
                         <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">{a.name}</div>

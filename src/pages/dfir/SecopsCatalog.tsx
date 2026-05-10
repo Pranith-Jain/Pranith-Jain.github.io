@@ -109,10 +109,10 @@ export default function SecopsCatalog(): JSX.Element {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <Link
-        to="/dfir"
+        to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> /dfir
+        <ArrowLeft size={14} /> /threatintel
       </Link>
 
       <div className="animate-fade-in-up">
@@ -125,11 +125,11 @@ export default function SecopsCatalog(): JSX.Element {
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
           OSINT-only directory with deeper recon coverage:{' '}
-          <Link to="/dfir/osint-framework" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/threatintel/osint-framework" className="text-brand-600 dark:text-brand-400 hover:underline">
             OSINT Framework
           </Link>
           . Tools that work end-to-end inside this portfolio:{' '}
-          <Link to="/dfir" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/threatintel" className="text-brand-600 dark:text-brand-400 hover:underline">
             /dfir tile grid
           </Link>
           . Paid services are listed for landscape awareness — they're not proxied or invoked on your behalf.

@@ -36,7 +36,7 @@ export function RelatedWikiArticles({ path, limit = 5, className = '' }: Props):
         {visible.map((a) => (
           <li key={a.slug}>
             <Link
-              to={`/dfir/wiki/${a.slug}`}
+              to={`/threatintel/wiki/${a.slug}`}
               className="block rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 hover:border-cyan-500/40"
             >
               <div className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 mb-0.5">
@@ -53,7 +53,7 @@ export function RelatedWikiArticles({ path, limit = 5, className = '' }: Props):
       {articles.length > limit && (
         <p className="text-[10px] font-mono text-slate-500 dark:text-slate-500 mt-2">
           {articles.length - limit} more articles also backlink to this tool —{' '}
-          <Link to="/dfir/wiki" className="text-cyan-700 dark:text-cyan-300 hover:underline">
+          <Link to="/threatintel/wiki" className="text-cyan-700 dark:text-cyan-300 hover:underline">
             browse the full wiki
           </Link>
           .

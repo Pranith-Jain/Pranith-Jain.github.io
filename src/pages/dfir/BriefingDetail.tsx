@@ -277,7 +277,10 @@ export default function BriefingDetail(): JSX.Element {
   if (error || !briefing) {
     return (
       <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 sm:py-16">
-        <Link to="/dfir/briefings" className="inline-flex items-center gap-2 text-sm text-slate-500 mb-6 font-mono">
+        <Link
+          to="/threatintel/briefings"
+          className="inline-flex items-center gap-2 text-sm text-slate-500 mb-6 font-mono"
+        >
           <ArrowLeft size={14} /> back
         </Link>
         <h1 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100 mb-2">Briefing not found</h1>
@@ -293,7 +296,7 @@ export default function BriefingDetail(): JSX.Element {
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <Link
-        to="/dfir/briefings"
+        to="/threatintel/briefings"
         className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono transition-colors"
       >
         <ArrowLeft size={14} /> all briefings

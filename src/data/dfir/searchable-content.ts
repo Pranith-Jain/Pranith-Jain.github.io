@@ -86,19 +86,19 @@ export function loadCatalogIndex(): Promise<SearchEntry[]> {
         kind: 'wiki',
         label: a.title,
         desc: a.description,
-        path: `/dfir/wiki/${a.slug}`,
+        path: `/threatintel/wiki/${a.slug}`,
         sectionLabel: a.category,
       });
     }
 
-    // Telegram channels — link to /dfir/telegram-watch with q= so the catalog
+    // Telegram channels — link to /threatintel/telegram-watch with q= so the catalog
     // page filters down to the matched entry on arrival.
     for (const e of tgM.CATALOG) {
       out.push({
         kind: 'telegram',
         label: e.name,
         desc: e.description,
-        path: `/dfir/telegram-watch?q=${encodeURIComponent(e.name)}`,
+        path: `/threatintel/telegram-watch?q=${encodeURIComponent(e.name)}`,
         sectionLabel: tgM.CATEGORY_LABELS[e.categories[0]] ?? 'Telegram',
       });
     }
@@ -110,7 +110,7 @@ export function loadCatalogIndex(): Promise<SearchEntry[]> {
         kind: 'secops',
         label: t.name,
         desc: t.description,
-        path: `/dfir/secops-tools?q=${encodeURIComponent(t.name)}`,
+        path: `/threatintel/secops-tools?q=${encodeURIComponent(t.name)}`,
         sectionLabel: secopsM.CATEGORY_LABELS[t.categories[0]] ?? 'SecOps',
       });
     }
@@ -121,7 +121,7 @@ export function loadCatalogIndex(): Promise<SearchEntry[]> {
         kind: 'cve',
         label: r.name,
         desc: r.description,
-        path: `/dfir/cve-resources?q=${encodeURIComponent(r.name)}`,
+        path: `/threatintel/cve-resources?q=${encodeURIComponent(r.name)}`,
         sectionLabel: cveM.CATEGORY_LABELS[r.categories[0]] ?? 'CVE Resources',
       });
     }
@@ -135,7 +135,7 @@ export function loadCatalogIndex(): Promise<SearchEntry[]> {
         kind: 'actor',
         label: a.name,
         desc: (desc ? desc.slice(0, 120) : 'Threat actor profile') + aliasHint,
-        path: `/dfir/actors/${a.slug}`,
+        path: `/threatintel/actors/${a.slug}`,
         sectionLabel: 'Threat Actor',
       });
     }

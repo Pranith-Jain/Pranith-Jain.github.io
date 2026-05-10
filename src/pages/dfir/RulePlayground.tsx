@@ -349,7 +349,7 @@ export default function RulePlayground(): JSX.Element {
             </a>
           </li>
           <li>
-            <Link to="/dfir/rules" className="text-brand-600 dark:text-brand-400 hover:underline">
+            <Link to="/threatintel/rules" className="text-brand-600 dark:text-brand-400 hover:underline">
               Browse the Detection Rules registry on this site
             </Link>
           </li>

@@ -9,7 +9,7 @@
  *     freemium vs paid-only) — see the standing improvement-goal doc:
  *     paid services are listed as outbound URL pivots, not proxied.
  *
- * Inspired by but distinct from /dfir/osint-framework — that page is
+ * Inspired by but distinct from /threatintel/osint-framework — that page is
  * OSINT-only with deeper coverage of search/recon angles. This one
  * spans the whole SecOps surface.
  *

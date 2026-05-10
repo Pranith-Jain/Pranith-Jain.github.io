@@ -290,7 +290,7 @@ export default function Nhi(): JSX.Element {
                           {item.attCK.map((id) => (
                             <Link
                               key={id}
-                              to={`/dfir/mitre?id=${encodeURIComponent(id)}`}
+                              to={`/threatintel/mitre?id=${encodeURIComponent(id)}`}
                               className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:border-brand-500/60"
                             >
                               {id}

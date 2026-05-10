@@ -6,12 +6,12 @@ import { shortRel } from '../../lib/relativeTime';
 import { decodeHtml } from '../../lib/htmlDecode';
 
 /**
- * Live snapshot for /dfir/rules — buckets the recent_commits returned by
+ * Live snapshot for /threatintel/rules — buckets the recent_commits returned by
  * /api/v1/rules by detection-rule platform (Sigma / YARA / Suricata / SIEM)
  * so the analyst sees "what just landed in upstream rule repos" at a glance.
  *
  * Same compact-card UX as LiveSnapshotPanel + IocSnapshotPanel. The bigger
- * source-list table on /dfir/rules is the canonical detail view; this panel
+ * source-list table on /threatintel/rules is the canonical detail view; this panel
  * is the "what changed in the last day" entry point.
  */
 

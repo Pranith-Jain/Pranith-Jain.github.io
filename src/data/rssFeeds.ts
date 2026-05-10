@@ -411,7 +411,7 @@ export const rssFeeds: RSSFeed[] = [
   // has been Cloudflare-bot-protected and returns 403 to non-browser User-Agents
   // even via the worker proxy. The /dfir/cve page (NVD-backed) covers the same
   // workflow more authoritatively. The cvedetails.com landing page remains
-  // listed in /dfir/cve-resources as an external-link reference.
+  // listed in /threatintel/cve-resources as an external-link reference.
   {
     id: 'exploitdb',
     name: 'Exploit-DB',
@@ -829,11 +829,11 @@ export const rssFeeds: RSSFeed[] = [
  * Feeds shown in the live Threat Intel panel on the /dfir landing page.
  * Auto-derived from category but with an explicit exclusion list so the
  * scam-watch / industry / AI feeds (which live in their own dedicated
- * tools — /dfir/scam-watch and /dfir/tech-ai-news) don't pollute the
+ * tools — /threatintel/scam-watch and /threatintel/tech-ai-news) don't pollute the
  * landing page's threat-intel surface.
  */
 const EXCLUDE_FROM_LANDING = new Set<string>([
-  // Scam Watch sources (live at /dfir/scam-watch)
+  // Scam Watch sources (live at /threatintel/scam-watch)
   'ftc-consumer',
   'ic3-psas',
   'snopes',
@@ -865,7 +865,7 @@ export const defaultFeeds = rssFeeds
 
 /**
  * Tech / AI / Industry feeds — rendered as the full surface at
- * /dfir/tech-ai-news. The /dfir landing page used to host these via the
+ * /threatintel/tech-ai-news. The /dfir landing page used to host these via the
  * standalone TechNewsFeed component; that role has been folded into the
  * Tech & AI card on LiveSnapshotPanel (which uses a smaller curated subset
  * of these IDs — see TECH_AI_SNAPSHOT_FEED_IDS in that file). Three
@@ -905,7 +905,7 @@ export const landingGeneralTechFeeds = [
 export const defaultTechFeeds = landingGeneralTechFeeds;
 
 /**
- * Threat-feeds surface — used as the dedicated /dfir/threat-feeds page.
+ * Threat-feeds surface — used as the dedicated /threatintel/threat-feeds page.
  * The /dfir landing page used to host these via the standalone
  * ThreatIntelFeed component; that role has been folded into the Threat
  * Intel card on LiveSnapshotPanel (which uses a smaller curated subset —

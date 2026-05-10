@@ -277,7 +277,7 @@ export const projects: Project[] = [
   {
     title: 'CTI STIX Connector',
     description:
-      'Containerized Python CLI that ingests JSON campaign + CSV IOC feeds, classifies and enriches indicators, and emits valid STIX 2.1 bundles. Docker, non-root container (UID 1000), strict-mode entrypoint, 38 pytest unit tests. Integrated with this portfolio at /dfir/actors and /api/v1/cti/parse.',
+      'Containerized Python CLI that ingests JSON campaign + CSV IOC feeds, classifies and enriches indicators, and emits valid STIX 2.1 bundles. Docker, non-root container (UID 1000), strict-mode entrypoint, 38 pytest unit tests. Integrated with this portfolio at /threatintel/actors and /api/v1/cti/parse.',
     tags: ['Python', 'STIX 2.1', 'Docker', 'CTI', 'Apr 2026 - Present'],
     github: 'https://github.com/Pranith-Jain/cti-stix-connector',
   },

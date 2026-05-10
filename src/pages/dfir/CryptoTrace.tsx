@@ -200,7 +200,7 @@ export default function CryptoTrace(): JSX.Element {
         <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
           Free public APIs only — Blockstream Esplora for BTC, public JSON-RPC for EVM, public Solana RPC. No keys, no
           signup. Cached 60 s server-side. Pairs with{' '}
-          <Link to="/dfir/scam-watch" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/threatintel/scam-watch" className="text-brand-600 dark:text-brand-400 hover:underline">
             Scam Watch
           </Link>{' '}
           and{' '}

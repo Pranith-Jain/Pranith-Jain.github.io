@@ -21,7 +21,7 @@ import { decodeHtml } from '../../lib/htmlDecode';
 /**
  * Live "right now" snapshot of dark-web + Telegram + .onion + scam activity.
  *
- * Originally embedded in /dfir/briefings; extracted here so /dfir landing
+ * Originally embedded in /threatintel/briefings; extracted here so /dfir landing
  * and per-briefing detail pages can mount it too.
  *
  * Behaviour notes:
@@ -33,7 +33,7 @@ import { decodeHtml } from '../../lib/htmlDecode';
  *   visit becomes the next baseline.
  * - The localStorage key is shared across every place we mount the panel —
  *   on purpose. Visiting /dfir landing should reset the baseline so the
- *   user doesn't see the same "12 new" pill on /dfir/briefings ten seconds
+ *   user doesn't see the same "12 new" pill on /threatintel/briefings ten seconds
  *   later. If you mount this on multiple pages and want independent
  *   baselines, parameterise `lastVisitKey` per call.
  *
@@ -408,7 +408,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           showNewBadge={lastVisit > 0}
           rightAction={
             <Link
-              to="/dfir/darkweb#ransomware"
+              to="/threatintel/darkweb#ransomware"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
             >
               feed <ExternalLink size={9} />
@@ -472,7 +472,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
         </SnapshotCard>
 
         {/* Cybersec Telegram firehose — links to the DarkWeb panel which has the
-            full filterable view; the Telegram catalog (/dfir/telegram-watch) is
+            full filterable view; the Telegram catalog (/threatintel/telegram-watch) is
             the channel-discovery surface, not the message stream. */}
         <SnapshotCard
           accent="sky"
@@ -484,7 +484,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           showNewBadge={lastVisit > 0}
           rightAction={
             <Link
-              to="/dfir/darkweb#telegram"
+              to="/threatintel/darkweb#telegram"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
             >
               full feed <ExternalLink size={9} />
@@ -555,7 +555,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           showNewBadge={false}
           rightAction={
             <Link
-              to="/dfir/onion-watch"
+              to="/threatintel/onion-watch"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
             >
               full inventory <ExternalLink size={9} />
@@ -581,7 +581,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                     return (
                       <Link
                         key={g.group}
-                        to="/dfir/onion-watch"
+                        to="/threatintel/onion-watch"
                         className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${
                           isWatched
                             ? 'border-violet-500/60 bg-violet-500/15 text-violet-700 dark:text-violet-300 hover:bg-violet-500/25'
@@ -614,7 +614,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           showNewBadge={lastVisit > 0}
           rightAction={
             <Link
-              to="/dfir/scam-watch"
+              to="/threatintel/scam-watch"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
             >
               full feed <ExternalLink size={9} />
@@ -685,7 +685,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           showNewBadge={lastVisit > 0}
           rightAction={
             <Link
-              to="/dfir/threat-feeds"
+              to="/threatintel/threat-feeds"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
             >
               full feeds <ExternalLink size={9} />
@@ -758,7 +758,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           showNewBadge={lastVisit > 0}
           rightAction={
             <Link
-              to="/dfir/tech-ai-news"
+              to="/threatintel/tech-ai-news"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
             >
               full feeds <ExternalLink size={9} />
@@ -827,7 +827,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           showNewBadge={false}
           rightAction={
             <Link
-              to="/dfir/rules"
+              to="/threatintel/rules"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
             >
               all rule repos <ExternalLink size={9} />
@@ -880,7 +880,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           showNewBadge={false}
           rightAction={
             <Link
-              to="/dfir/briefings"
+              to="/threatintel/briefings"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
             >
               archive <ExternalLink size={9} />
@@ -920,7 +920,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                           {m.type ?? 'daily'}
                         </span>
                         <Link
-                          to={`/dfir/briefings/${b.slug}`}
+                          to={`/threatintel/briefings/${b.slug}`}
                           className="truncate text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 flex-1 min-w-0"
                           title={m.title ?? b.slug}
                         >
@@ -949,7 +949,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
           showNewBadge={false}
           rightAction={
             <Link
-              to="/dfir/threat-map"
+              to="/threatintel/threat-map"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
             >
               full map <ExternalLink size={9} />
@@ -975,7 +975,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                         {c.countryCode}
                       </span>
                       <Link
-                        to="/dfir/threat-map"
+                        to="/threatintel/threat-map"
                         className="truncate text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 flex-1 min-w-0"
                       >
                         {c.country}

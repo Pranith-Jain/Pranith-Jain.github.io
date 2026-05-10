@@ -13,7 +13,7 @@
 export interface KillChainTechnique {
   /** Short label shown on the matrix card. */
   label: string;
-  /** Optional MITRE ATT&CK ID — links into /dfir/mitre. */
+  /** Optional MITRE ATT&CK ID — links into /threatintel/mitre. */
   attack?: string;
   /** One-sentence example. */
   example: string;

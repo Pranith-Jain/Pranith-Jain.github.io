@@ -174,7 +174,7 @@ export default function Lolbins(): JSX.Element {
               {b.attack.map((a) => (
                 <Link
                   key={a}
-                  to={`/dfir/mitre?id=${encodeURIComponent(a)}`}
+                  to={`/threatintel/mitre?id=${encodeURIComponent(a)}`}
                   className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:border-brand-500/60"
                   title={`Open ${a} in MITRE ATT&CK`}
                 >

@@ -6,7 +6,7 @@ import { useWatchlist, watchHits } from './useWatchlist';
 import { shortRel } from '../../lib/relativeTime';
 
 /**
- * Live IOC snapshot for /dfir/threat-map.
+ * Live IOC snapshot for /threatintel/threat-map.
  *
  * Pairs the threat-map's geolocation choropleth with a real-time IOC
  * feed strip showing the freshest entries from URLhaus + MalwareBazaar +

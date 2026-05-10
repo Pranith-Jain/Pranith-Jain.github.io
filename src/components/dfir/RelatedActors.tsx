@@ -16,7 +16,7 @@ export function RelatedActors({ hints }: { hints: CtiHints }): JSX.Element | nul
         {matches.map(({ actor, matched }) => (
           <Link
             key={actor.slug}
-            to={`/dfir/actors/${actor.slug}`}
+            to={`/threatintel/actors/${actor.slug}`}
             className="block rounded-lg border border-slate-200 dark:border-slate-800 p-3 hover:border-brand-500/40 transition-colors"
           >
             <div className="flex items-baseline justify-between mb-1">

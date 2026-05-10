@@ -64,44 +64,44 @@ const SECTIONS: Section[] = [
     blurb: 'Streaming intel surfaces — fresh data each visit.',
     tools: [
       {
-        to: '/dfir/darkweb',
+        to: '/threatintel/darkweb',
         label: 'Dark Web Watch',
         desc: 'Aggregated leak-site, ransomware, breach activity · keyword watchlist · per-source separation',
         icon: Bell,
         badge: 'live',
       },
       {
-        to: '/dfir/onion-watch',
+        to: '/threatintel/onion-watch',
         label: 'Onion Watch',
         desc: 'Live .onion mirror inventory for top ransomware leak sites · per-group reachability from Ransomlook · search · copy-all URLs',
         icon: Globe,
       },
       {
-        to: '/dfir/telegram-watch',
+        to: '/threatintel/telegram-watch',
         label: 'Telegram Watch',
         desc: 'Curated index of public threat-intel + cybercrime channels · category + language filters',
         icon: Send,
       },
       {
-        to: '/dfir/threat-feeds',
+        to: '/threatintel/threat-feeds',
         label: 'Threat Feeds',
         desc: 'CISA · vendor labs · IR write-ups · Reddit infosec · CVE/Exploit-DB · security press · 40 sources',
         icon: Radio,
       },
       {
-        to: '/dfir/scam-watch',
+        to: '/threatintel/scam-watch',
         label: 'Scam Watch',
         desc: 'Live FTC + FBI IC3 alerts · deepfake-scam news · Reddit victim reports · search + filter',
         icon: AlertTriangle,
       },
       {
-        to: '/dfir/tech-ai-news',
+        to: '/threatintel/tech-ai-news',
         label: 'Tech & AI News',
         desc: 'AI labs · cyber-vendor funding · M&A · general tech · HN/YC · 16 sources, threat-intel kept separate',
         icon: Newspaper,
       },
       {
-        to: '/dfir/threat-map',
+        to: '/threatintel/threat-map',
         label: 'Cyber Threat Map',
         desc: 'Live geolocation of malicious infrastructure · choropleth + leaderboard · IP / URL / domain / hash buckets',
         icon: Globe2,
@@ -114,7 +114,7 @@ const SECTIONS: Section[] = [
     blurb: 'Synthesised intel — daily, weekly, and per-group write-ups.',
     tools: [
       {
-        to: '/dfir/briefings',
+        to: '/threatintel/briefings',
         label: 'Intel Briefings',
         desc: 'Daily + weekly digest · auto-generated from feeds · ransomware claims · breach disclosures · IOCs of the day',
         icon: Briefcase,
@@ -134,13 +134,13 @@ const SECTIONS: Section[] = [
     blurb: 'Who is attacking, with what — browseable indexes.',
     tools: [
       {
-        to: '/dfir/actors',
+        to: '/threatintel/actors',
         label: 'Threat Actors',
         desc: 'APT catalog · STIX-aware · TTPs · associated tooling · MITRE technique mapping',
         icon: Users,
       },
       {
-        to: '/dfir/mitre',
+        to: '/threatintel/mitre',
         label: 'MITRE ATT&CK',
         desc: 'Matrix · technique deep-dive · actor-to-technique and technique-to-actor pivots',
         icon: Grid3x3,
@@ -153,7 +153,7 @@ const SECTIONS: Section[] = [
     blurb: 'Public rule + indicator catalogues — pull and ingest.',
     tools: [
       {
-        to: '/dfir/rules',
+        to: '/threatintel/rules',
         label: 'Detection Rules',
         desc: 'Sigma · YARA · Elastic · Splunk · KQL · Suricata · live commit feeds from upstream repos',
         icon: FileCode,
@@ -165,7 +165,7 @@ const SECTIONS: Section[] = [
         icon: ShieldAlert,
       },
       {
-        to: '/dfir/cve-resources',
+        to: '/threatintel/cve-resources',
         label: 'CVE Resources Catalog',
         desc: '~70 curated CVE sources — databases · exploit/PoC · vendor PSIRTs · scoring · research labs · alert feeds',
         icon: BookText,
@@ -178,25 +178,25 @@ const SECTIONS: Section[] = [
     blurb: 'Reference indexes — start here when a question is broader than a single tool.',
     tools: [
       {
-        to: '/dfir/secops-tools',
+        to: '/threatintel/secops-tools',
         label: 'SecOps Tools Catalog',
         desc: '~140 hand-picked tools across 14 categories — DFIR / Threat Intel / AI Sec / Malware / Vuln / Detection',
         icon: Layers,
       },
       {
-        to: '/dfir/awesome-lists',
+        to: '/threatintel/awesome-lists',
         label: 'Awesome Lists',
         desc: 'Curated GitHub awesome-lists for OSINT, Threat Intel, IR, MCP / AI security · star + focus filter',
         icon: Sparkles,
       },
       {
-        to: '/dfir/osint-framework',
+        to: '/threatintel/osint-framework',
         label: 'OSINT Framework',
         desc: '70+ curated OSINT tools across 15 categories · pricing-tier + category filter',
         icon: Compass,
       },
       {
-        to: '/dfir/wiki',
+        to: '/threatintel/wiki',
         label: 'Knowledge Base',
         desc: 'Long-form articles — Telegram OSINT tradecraft, dark-web monitoring, MITRE workflows, briefing methodology',
         icon: BookOpen,

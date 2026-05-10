@@ -254,10 +254,10 @@ export default function DarkWeb(): JSX.Element {
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <Link
-        to="/dfir"
+        to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> /dfir
+        <ArrowLeft size={14} /> /threatintel
       </Link>
 
       <div className="animate-fade-in-up">
@@ -1096,7 +1096,7 @@ function TelegramFeedPanel(): JSX.Element {
 
       <p className="text-[12px] font-mono text-slate-500 dark:text-slate-500 mb-3 leading-relaxed">
         Latest messages from a curated set of public threat-intel and cybercrime-tracking Telegram channels —{' '}
-        <Link to="/dfir/telegram-watch" className="text-brand-600 dark:text-brand-400 hover:underline">
+        <Link to="/threatintel/telegram-watch" className="text-brand-600 dark:text-brand-400 hover:underline">
           full catalogue
         </Link>
         . Server-side scrape of <code>t.me/s/&lt;handle&gt;</code>; no Telegram account required.
@@ -1198,7 +1198,7 @@ function TelegramFeedPanel(): JSX.Element {
             {expanded ? 'Show fewer' : `Show all ${matchedItems.length}`}
           </button>
           <Link
-            to="/dfir/telegram-watch"
+            to="/threatintel/telegram-watch"
             className="hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
           >
             full Telegram catalogue <ExternalLink size={10} />

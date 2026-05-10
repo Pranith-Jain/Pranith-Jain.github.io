@@ -528,12 +528,18 @@ export default function DataClassification(): JSX.Element {
             </a>
           </li>
           <li>
-            <Link to="/dfir/wiki/data-classification" className="text-brand-600 dark:text-brand-400 hover:underline">
+            <Link
+              to="/threatintel/wiki/data-classification"
+              className="text-brand-600 dark:text-brand-400 hover:underline"
+            >
               Wiki — Data classification primer
             </Link>
           </li>
           <li>
-            <Link to="/dfir/wiki/dlp-architectures" className="text-brand-600 dark:text-brand-400 hover:underline">
+            <Link
+              to="/threatintel/wiki/dlp-architectures"
+              className="text-brand-600 dark:text-brand-400 hover:underline"
+            >
               Wiki — DLP architectures
             </Link>
           </li>

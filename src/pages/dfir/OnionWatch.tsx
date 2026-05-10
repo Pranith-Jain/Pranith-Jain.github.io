@@ -12,7 +12,7 @@ import { formatRelativeTime } from '../../services/rssService';
  * fetch .onion sites ourselves — Cloudflare Workers cannot route through
  * Tor — so this is a navigation/inventory aid, not a live prober.
  *
- * Companion summary panel lives on /dfir/darkweb. This page is the deeper
+ * Companion summary panel lives on /threatintel/darkweb. This page is the deeper
  * view: search across groups + fqdns, sort options, copy-all-mirrors, and
  * a per-group breakdown of every mirror including chat/file-share endpoints.
  */
@@ -131,10 +131,10 @@ export default function OnionWatch(): JSX.Element {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <Link
-        to="/dfir"
+        to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> /dfir
+        <ArrowLeft size={14} /> /threatintel
       </Link>
 
       <div className="animate-fade-in-up">
@@ -148,7 +148,7 @@ export default function OnionWatch(): JSX.Element {
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
           Companion ransomware victim feed:{' '}
-          <Link to="/dfir/darkweb" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/threatintel/darkweb" className="text-brand-600 dark:text-brand-400 hover:underline">
             Dark Web Watch
           </Link>
           . Edge-cached 6 hours. Reachability is upstream-observed; your own Tor client may see different status. Treat

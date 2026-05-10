@@ -13,7 +13,7 @@ const SOPH_STYLES: Record<string, string> = {
 export function ActorCard({ actor }: { actor: ThreatActor }): JSX.Element {
   return (
     <Link
-      to={`/dfir/actors/${actor.slug}`}
+      to={`/threatintel/actors/${actor.slug}`}
       className="block rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 hover:border-brand-500/40 transition-colors"
     >
       <div className="flex items-start justify-between mb-2">

@@ -6,7 +6,7 @@ import { rssFeeds } from '../../data/rssFeeds';
 
 /**
  * Tech & AI News — sectioned aggregator for the non-threat half of "what's
- * happening." Threat-intel content lives in /dfir/darkweb and /dfir/scam-watch
+ * happening." Threat-intel content lives in /threatintel/darkweb and /threatintel/scam-watch
  * and stays out of this surface deliberately.
  */
 
@@ -128,10 +128,10 @@ export default function TechAiNews(): JSX.Element {
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <Link
-        to="/dfir"
+        to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> /dfir
+        <ArrowLeft size={14} /> /threatintel
       </Link>
 
       <div className="animate-fade-in-up">
@@ -144,11 +144,11 @@ export default function TechAiNews(): JSX.Element {
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
           Threat-intel content (ransomware activity, breach disclosures, scam victim reports) lives separately in{' '}
-          <Link to="/dfir/darkweb" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/threatintel/darkweb" className="text-brand-600 dark:text-brand-400 hover:underline">
             Dark Web Watch
           </Link>{' '}
           and{' '}
-          <Link to="/dfir/scam-watch" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/threatintel/scam-watch" className="text-brand-600 dark:text-brand-400 hover:underline">
             Scam Watch
           </Link>
           . This page is the "what's the industry building / paying for" surface.

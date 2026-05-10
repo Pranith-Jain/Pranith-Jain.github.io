@@ -17,15 +17,15 @@ const subRoutes: Array<{ path: string; heading: string; skipComingSoon?: boolean
   { path: '/dfir/phishing', heading: 'Phishing Email Analyzer', skipComingSoon: true },
   { path: '/dfir/domain', heading: 'Domain Lookup', skipComingSoon: true },
   { path: '/dfir/exposure', heading: 'Exposure Scanner', skipComingSoon: true },
-  { path: '/dfir/wiki', heading: 'DFIR Knowledge Base', skipComingSoon: true },
+  { path: '/threatintel/wiki', heading: 'DFIR Knowledge Base', skipComingSoon: true },
   { path: '/dfir/dashboard', heading: 'Recent Lookups', skipComingSoon: true },
-  { path: '/dfir/briefings', heading: 'Threat Intel Briefings', skipComingSoon: true },
+  { path: '/threatintel/briefings', heading: 'Threat Intel Briefings', skipComingSoon: true },
   { path: '/dfir/cve', heading: 'CVE Lookup', skipComingSoon: true },
   { path: '/dfir/decode', heading: 'Decoder', skipComingSoon: true },
   { path: '/dfir/asn', heading: 'ASN Lookup', skipComingSoon: true },
   { path: '/dfir/breach', heading: 'Breach Checker', skipComingSoon: true },
   { path: '/dfir/exif', heading: 'EXIF Parser', skipComingSoon: true },
-  { path: '/dfir/mitre', heading: 'MITRE ATT&CK', skipComingSoon: true },
+  { path: '/threatintel/mitre', heading: 'MITRE ATT&CK', skipComingSoon: true },
   { path: '/dfir/url-preview', heading: 'URL Preview', skipComingSoon: true },
 ];
 

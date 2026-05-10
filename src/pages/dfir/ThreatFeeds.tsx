@@ -15,7 +15,7 @@ import {
 /**
  * Threat Feeds — sectioned aggregator for the threat-intelligence half of
  * "what's happening." Industry / AI / general-tech content lives in
- * /dfir/tech-ai-news; scam-watch content lives in /dfir/scam-watch.
+ * /threatintel/tech-ai-news; scam-watch content lives in /threatintel/scam-watch.
  */
 
 interface Section {
@@ -142,10 +142,10 @@ export default function ThreatFeeds(): JSX.Element {
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <Link
-        to="/dfir"
+        to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> /dfir
+        <ArrowLeft size={14} /> /threatintel
       </Link>
 
       <div className="animate-fade-in-up">
@@ -158,15 +158,15 @@ export default function ThreatFeeds(): JSX.Element {
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
           Industry / AI / general-tech content lives in{' '}
-          <Link to="/dfir/tech-ai-news" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/threatintel/tech-ai-news" className="text-brand-600 dark:text-brand-400 hover:underline">
             Tech &amp; AI News
           </Link>
           ; scam-watch content in{' '}
-          <Link to="/dfir/scam-watch" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/threatintel/scam-watch" className="text-brand-600 dark:text-brand-400 hover:underline">
             Scam Watch
           </Link>
           ; ransomware leak-sites and breach disclosures with their own watchlist UI in{' '}
-          <Link to="/dfir/darkweb" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/threatintel/darkweb" className="text-brand-600 dark:text-brand-400 hover:underline">
             Dark Web Watch
           </Link>
           .

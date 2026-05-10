@@ -22,28 +22,32 @@ export interface ToolTopic {
 
 export const TOOL_TOPICS: ToolTopic[] = [
   // Authoritative concepts → matrix / lookup pages
-  { term: 'MITRE ATT&CK', href: '/dfir/mitre', blurb: 'Browse the ATT&CK matrix and tag your detection coverage' },
-  { term: 'ATT&CK', href: '/dfir/mitre', blurb: 'Browse the ATT&CK matrix and tag your detection coverage' },
+  {
+    term: 'MITRE ATT&CK',
+    href: '/threatintel/mitre',
+    blurb: 'Browse the ATT&CK matrix and tag your detection coverage',
+  },
+  { term: 'ATT&CK', href: '/threatintel/mitre', blurb: 'Browse the ATT&CK matrix and tag your detection coverage' },
   { term: 'CISA KEV', href: '/dfir/cve', blurb: 'Search the Known Exploited Vulnerabilities catalog' },
   { term: 'EPSS', href: '/dfir/cve', blurb: 'Look up Exploit Prediction Scoring System scores' },
   {
     term: 'CVE',
-    href: '/dfir/cve-resources',
+    href: '/threatintel/cve-resources',
     blurb: 'Curated CVE resources catalog — databases, exploits, PSIRTs, scoring, feeds',
   },
   {
     term: 'PSIRT',
-    href: '/dfir/cve-resources?cat=vendor-psirt',
+    href: '/threatintel/cve-resources?cat=vendor-psirt',
     blurb: 'Vendor-PSIRT subset of the CVE resources catalog',
   },
   {
     term: 'Exploit-DB',
-    href: '/dfir/cve-resources?cat=exploit-poc',
+    href: '/threatintel/cve-resources?cat=exploit-poc',
     blurb: 'Exploit/PoC subset of the CVE resources catalog',
   },
   {
     term: 'CVSS',
-    href: '/dfir/cve-resources?cat=scoring-prioritization',
+    href: '/threatintel/cve-resources?cat=scoring-prioritization',
     blurb: 'Scoring + prioritisation subset of the CVE resources catalog',
   },
 
@@ -54,9 +58,9 @@ export const TOOL_TOPICS: ToolTopic[] = [
   { term: 'BIMI', href: '/dfir/domain', blurb: 'Check email-auth records for any domain' },
 
   // Detection authoring
-  { term: 'Sigma rule', href: '/dfir/rules', blurb: 'Browse curated Sigma + YARA rule repositories' },
-  { term: 'YARA', href: '/dfir/rules', blurb: 'Browse curated Sigma + YARA rule repositories' },
-  { term: 'Sigma', href: '/dfir/rules', blurb: 'Browse curated Sigma + YARA rule repositories' },
+  { term: 'Sigma rule', href: '/threatintel/rules', blurb: 'Browse curated Sigma + YARA rule repositories' },
+  { term: 'YARA', href: '/threatintel/rules', blurb: 'Browse curated Sigma + YARA rule repositories' },
+  { term: 'Sigma', href: '/threatintel/rules', blurb: 'Browse curated Sigma + YARA rule repositories' },
 
   // IOC + STIX + threat intel
   { term: 'STIX', href: '/dfir/stix', blurb: 'View STIX 2.1 bundles in a structured graph' },
@@ -101,11 +105,15 @@ export const TOOL_TOPICS: ToolTopic[] = [
   { term: 'CCPA', href: '/dfir/privacy-hub', blurb: 'Browse the privacy & data-protection hub' },
 
   // OSINT
-  { term: 'OSINT', href: '/dfir/osint-framework', blurb: 'Open-source intelligence framework' },
-  { term: 'SecOps tools', href: '/dfir/secops-tools', blurb: '~140 curated security tools across 14 categories' },
+  { term: 'OSINT', href: '/threatintel/osint-framework', blurb: 'Open-source intelligence framework' },
+  {
+    term: 'SecOps tools',
+    href: '/threatintel/secops-tools',
+    blurb: '~140 curated security tools across 14 categories',
+  },
   {
     term: 'detection engineering',
-    href: '/dfir/secops-tools?cat=detection-engineering',
+    href: '/threatintel/secops-tools?cat=detection-engineering',
     blurb: 'Detection-engineering tooling subset of the catalog',
   },
   { term: 'Wayback Machine', href: '/dfir/wayback', blurb: 'Wayback Machine timeline pivot' },
@@ -114,14 +122,26 @@ export const TOOL_TOPICS: ToolTopic[] = [
   { term: 'IP geolocation', href: '/dfir/ip-geo', blurb: 'Country, ASN, ISP + AbuseIPDB reputation' },
 
   // Watch tools (.onion / Telegram)
-  { term: '.onion', href: '/dfir/onion-watch', blurb: 'Live .onion leak-site mirror inventory + reachability' },
-  { term: 'onion mirrors', href: '/dfir/onion-watch', blurb: 'Live .onion leak-site mirror inventory + reachability' },
-  { term: 'Tor', href: '/dfir/onion-watch', blurb: 'Top ransomware leak-site .onion mirrors with reachability flags' },
-  { term: 'Ransomlook', href: '/dfir/onion-watch', blurb: 'Ransomlook-backed .onion mirror inventory' },
-  { term: 'Telegram', href: '/dfir/telegram-watch', blurb: 'Curated threat-intel & cybercrime Telegram channel index' },
+  { term: '.onion', href: '/threatintel/onion-watch', blurb: 'Live .onion leak-site mirror inventory + reachability' },
+  {
+    term: 'onion mirrors',
+    href: '/threatintel/onion-watch',
+    blurb: 'Live .onion leak-site mirror inventory + reachability',
+  },
+  {
+    term: 'Tor',
+    href: '/threatintel/onion-watch',
+    blurb: 'Top ransomware leak-site .onion mirrors with reachability flags',
+  },
+  { term: 'Ransomlook', href: '/threatintel/onion-watch', blurb: 'Ransomlook-backed .onion mirror inventory' },
+  {
+    term: 'Telegram',
+    href: '/threatintel/telegram-watch',
+    blurb: 'Curated threat-intel & cybercrime Telegram channel index',
+  },
   {
     term: 'deepdarkCTI',
-    href: '/dfir/telegram-watch',
+    href: '/threatintel/telegram-watch',
     blurb: 'See the deepdarkCTI-backed Telegram catalogue + cybercrime channel index',
   },
 ];

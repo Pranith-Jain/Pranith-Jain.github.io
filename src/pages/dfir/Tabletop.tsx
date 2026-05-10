@@ -115,7 +115,7 @@ export default function Tabletop(): JSX.Element {
         <p className="text-slate-600 dark:text-slate-400 font-mono mb-2">
           Generate a tabletop scenario from {ARCHETYPES.length} archetypes (ransomware, BEC, supply-chain, espionage,
           edge-exploit, insider) populated with a real threat-actor profile from{' '}
-          <Link to="/dfir/actors" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <Link to="/threatintel/actors" className="text-brand-600 dark:text-brand-400 hover:underline">
             the catalog
           </Link>
           . Inject sequence with role-specific discussion prompts; markdown export for your facilitator pack.
@@ -210,7 +210,10 @@ export default function Tabletop(): JSX.Element {
         <div className="grid gap-1.5 sm:grid-cols-3 text-[11px] font-mono mb-3">
           <span>
             <span className="text-slate-500 dark:text-slate-500">Actor: </span>
-            <Link to={`/dfir/actors/${actor.slug}`} className="text-brand-600 dark:text-brand-400 hover:underline">
+            <Link
+              to={`/threatintel/actors/${actor.slug}`}
+              className="text-brand-600 dark:text-brand-400 hover:underline"
+            >
               {actor.name}
             </Link>
           </span>

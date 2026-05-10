@@ -488,7 +488,7 @@ export const ENTRIES: Entry[] = [
     url: 'https://www.ransomlook.io',
     category: 'dark-web-cti',
     pricing: 'free',
-    description: 'Active leak-site tracker with API + RSS. See also /dfir/darkweb on this site.',
+    description: 'Active leak-site tracker with API + RSS. See also /threatintel/darkweb on this site.',
   },
   {
     id: 'ransomwarelive',

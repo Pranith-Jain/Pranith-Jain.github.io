@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Cloud, Github, Mail } from 'lucide-react';
 import { ToolGrid, TOOL_COUNT } from '../components/dfir/ToolGrid';
-import { LiveSnapshotPanel } from '../components/dfir/LiveSnapshotPanel';
 import { personalInfo } from '../data/content';
 
 const PROVIDER_GROUPS: { label: string; items: string[] }[] = [
@@ -78,10 +77,6 @@ export default function DFIRPage(): JSX.Element {
           (separate platform).
         </p>
       </header>
-
-      <section className="animate-fade-in-up">
-        <LiveSnapshotPanel compact subtitle="live activity across the toolkit" mbClass="mb-12" />
-      </section>
 
       <section className="animate-fade-in-up mb-16">
         <div className="flex items-baseline justify-between mb-6">

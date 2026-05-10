@@ -2428,7 +2428,7 @@ DLP detects and (optionally) blocks the movement of sensitive data outside an ap
 
 ## See also
 
-- [Insider threat article](/dfir/wiki/insider-threat) — why DLP matters in the first place.
+- [Insider threat article](/threatintel/wiki/insider-threat) — why DLP matters in the first place.
 `,
   },
 
@@ -2467,8 +2467,8 @@ results on clearnet. The two we lean on:
   individual handles is futile (they rotate weekly); deepdarkCTI is the
   living register.
 
-This site surfaces both at \`/dfir/darkweb\` (recent ransomware activity with
-screenshot thumbnails) and \`/dfir/onion-watch\` (live .onion mirror inventory
+This site surfaces both at \`/threatintel/darkweb\` (recent ransomware activity with
+screenshot thumbnails) and \`/threatintel/onion-watch\` (live .onion mirror inventory
 with per-group reachability).
 
 ## Why we don't fetch .onion content from this toolkit
@@ -2517,9 +2517,9 @@ operational decisions.
 
 ## See also
 
-- [\`/dfir/darkweb\`](/dfir/darkweb) — recent ransomware activity + Telegram firehose + breach disclosures
-- [\`/dfir/onion-watch\`](/dfir/onion-watch) — live .onion mirror inventory
-- [\`/dfir/telegram-watch\`](/dfir/telegram-watch) — curated index of cybersec Telegram channels
+- [\`/threatintel/darkweb\`](/threatintel/darkweb) — recent ransomware activity + Telegram firehose + breach disclosures
+- [\`/threatintel/onion-watch\`](/threatintel/onion-watch) — live .onion mirror inventory
+- [\`/threatintel/telegram-watch\`](/threatintel/telegram-watch) — curated index of cybersec Telegram channels
 `,
   },
   {
@@ -2551,8 +2551,8 @@ can read **without an account**. That's the entire technical foundation of
    constantly after Telegram bans.
 
 This site indexes ~25 channels from class (1) and (2) at
-\`/dfir/telegram-watch\` and pipes the firehose of public messages into the
-\`/dfir/darkweb\` panel.
+\`/threatintel/telegram-watch\` and pipes the firehose of public messages into the
+\`/threatintel/darkweb\` panel.
 
 ## How discovery actually works
 
@@ -2589,7 +2589,7 @@ If you must join a channel (e.g. preview disabled, you need to see media):
 Telegram channels post a *lot*. The realistic signal extraction:
 
 - **Watchlist matching.** Put your org name, brand variants, partner names,
-  and key technologies into the toolkit's watchlist on \`/dfir/darkweb\`.
+  and key technologies into the toolkit's watchlist on \`/threatintel/darkweb\`.
   The Telegram firehose panel highlights any message mentioning a
   watchlist term.
 - **Cross-reference timestamps.** Many channels mirror the same news from
@@ -2613,9 +2613,9 @@ Telegram channels post a *lot*. The realistic signal extraction:
 
 ## See also
 
-- [\`/dfir/telegram-watch\`](/dfir/telegram-watch) — curated channel catalogue with category + language filters
-- [\`/dfir/darkweb\`](/dfir/darkweb) — Telegram firehose panel with watchlist matching
-- [Dark-web monitoring tradecraft](/dfir/wiki/dark-web-monitoring) — companion article on .onion + Ransomlook
+- [\`/threatintel/telegram-watch\`](/threatintel/telegram-watch) — curated channel catalogue with category + language filters
+- [\`/threatintel/darkweb\`](/threatintel/darkweb) — Telegram firehose panel with watchlist matching
+- [Dark-web monitoring tradecraft](/threatintel/wiki/dark-web-monitoring) — companion article on .onion + Ransomlook
 `,
   },
 ];

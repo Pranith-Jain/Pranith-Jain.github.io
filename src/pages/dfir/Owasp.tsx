@@ -261,7 +261,7 @@ export default function Owasp(): JSX.Element {
                       {it.attack.map((t) => (
                         <Link
                           key={t}
-                          to={`/dfir/mitre?id=${encodeURIComponent(t)}`}
+                          to={`/threatintel/mitre?id=${encodeURIComponent(t)}`}
                           className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
                         >
                           {t} <ExternalLink size={10} />

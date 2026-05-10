@@ -249,7 +249,7 @@ export default function LogParser(): JSX.Element {
                     {r.mitre_techniques.map((t) => (
                       <Link
                         key={t}
-                        to={`/dfir/mitre?id=${t}`}
+                        to={`/threatintel/mitre?id=${t}`}
                         className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:bg-rose-500/20"
                       >
                         {t}

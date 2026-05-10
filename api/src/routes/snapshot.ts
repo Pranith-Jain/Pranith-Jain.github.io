@@ -10,8 +10,8 @@ import { listBriefings } from '../lib/briefing-builder';
 
 /**
  * Unified live-snapshot endpoint. Replaces six client-side fetches that the
- * LiveSnapshotPanel was making in parallel from /dfir, /dfir/briefings, and
- * /dfir/briefings/<slug>.
+ * LiveSnapshotPanel was making in parallel from /dfir, /threatintel/briefings, and
+ * /threatintel/briefings/<slug>.
  *
  * The browser pays one HTTP round-trip + one setState cycle instead of six,
  * which materially cuts client TBT (Total Blocking Time) on Lighthouse.

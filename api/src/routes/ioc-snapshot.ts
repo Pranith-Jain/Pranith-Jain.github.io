@@ -3,7 +3,7 @@ import type { Env } from '../env';
 import { buildSummary, FEED_SOURCES, type IocFeedSummary, type SourceId } from '../lib/ioc-feed-parsers';
 
 /**
- * IOC live-snapshot — paired with /dfir/threat-map.
+ * IOC live-snapshot — paired with /threatintel/threat-map.
  *
  * Fans out to four free abuse.ch + OpenPhish CSV feeds in parallel server-side
  * and returns each source's most-recent entries in one envelope. Same shape

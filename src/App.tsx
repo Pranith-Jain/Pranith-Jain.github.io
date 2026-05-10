@@ -1,5 +1,5 @@
 import { useEffect, Suspense, lazy } from 'react';
-import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation, useParams, Navigate } from 'react-router-dom';
 import { useTheme, useScrollProgress } from './hooks';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
@@ -90,8 +90,20 @@ const RansomLibrary = lazy(() => import('./pages/threatintel/RansomLibrary'));
 function TechniqueRedirect() {
   const params = new URLSearchParams(window.location.search);
   const id = params.get('technique') || params.get('t') || params.get('q') || '';
-  const target = id ? `/dfir/mitre?id=${encodeURIComponent(id)}` : '/dfir/mitre';
+  const target = id ? `/threatintel/mitre?id=${encodeURIComponent(id)}` : '/threatintel/mitre';
   return <Navigate to={target} replace />;
+}
+
+/**
+ * Preserves the path slug (when `withSlug`), the query string, and the hash
+ * fragment when redirecting an old /dfir/<slug> URL to its new
+ * /threatintel/<slug> home. Keeps every existing bookmark working.
+ */
+function MovedRedirect({ to, withSlug }: { to: string; withSlug?: boolean }) {
+  const params = useParams();
+  const location = useLocation();
+  const tail = withSlug ? `/${params.slug ?? ''}` : '';
+  return <Navigate to={`${to}${tail}${location.search}${location.hash}`} replace />;
 }
 
 function SectionLoader() {
@@ -236,7 +248,7 @@ export function AppContent() {
             {/* Hash Analyzer was merged into the IOC Checker, which already handles hashes. */}
             <Route path="/dfir/file" element={<Navigate to="/dfir/ioc-check" replace />} />
             <Route
-              path="/dfir/wiki"
+              path="/threatintel/wiki"
               element={
                 <Suspense fallback={<SectionLoader />}>
                   <Wiki />
@@ -244,7 +256,7 @@ export function AppContent() {
               }
             />
             <Route
-              path="/dfir/wiki/:slug"
+              path="/threatintel/wiki/:slug"
               element={
                 <Suspense fallback={<SectionLoader />}>
                   <WikiArticle />
@@ -260,7 +272,7 @@ export function AppContent() {
               }
             />
             <Route
-              path="/dfir/actors"
+              path="/threatintel/actors"
               element={
                 <Suspense fallback={<SectionLoader />}>
                   <Actors />
@@ -268,7 +280,7 @@ export function AppContent() {
               }
             />
             <Route
-              path="/dfir/actors/:slug"
+              path="/threatintel/actors/:slug"
               element={
                 <Suspense fallback={<SectionLoader />}>
                   <ActorDetail />
@@ -284,7 +296,7 @@ export function AppContent() {
               }
             />
             <Route
-              path="/dfir/briefings"
+              path="/threatintel/briefings"
               element={
                 <Suspense fallback={<SectionLoader />}>
                   <Briefings />
@@ -292,7 +304,7 @@ export function AppContent() {
               }
             />
             <Route
-              path="/dfir/briefings/:slug"
+              path="/threatintel/briefings/:slug"
               element={
                 <Suspense fallback={<SectionLoader />}>
                   <BriefingDetail />
@@ -331,7 +343,7 @@ export function AppContent() {
                 </Suspense>
               }
             />
-            {/* Legacy route — merged into /dfir/mitre. Forward the technique param as ?id= */}
+            {/* Legacy route — merged into /threatintel/mitre. Forward the technique param as ?id= */}
             <Route path="/dfir/technique" element={<TechniqueRedirect />} />
             <Route
               path="/dfir/asn"
@@ -358,7 +370,7 @@ export function AppContent() {
               }
             />
             <Route
-              path="/dfir/mitre"
+              path="/threatintel/mitre"
               element={
                 <Suspense fallback={<SectionLoader />}>
                   <MitreMatrix />
@@ -414,7 +426,7 @@ export function AppContent() {
               }
             />
             <Route
-              path="/dfir/darkweb"
+              path="/threatintel/darkweb"
               element={
                 <Suspense fallback={<SectionLoader />}>
                   <DarkWeb />
@@ -422,7 +434,7 @@ export function AppContent() {
               }
             />
             <Route
-              path="/dfir/threat-map"
+              path="/threatintel/threat-map"
               element={
                 <Suspense fallback={<SectionLoader />}>
                   <ThreatMap />
@@ -430,7 +442,7 @@ export function AppContent() {
               }
             />
             <Route
-              path="/dfir/rules"
+              path="/threatintel/rules"
               element={
                 <Suspense fallback={<SectionLoader />}>
                   <Rules />
@@ -606,7 +618,7 @@ export function AppContent() {
               }
             />
             <Route
-              path="/dfir/osint-framework"
+              path="/threatintel/osint-framework"
               element={
                 <Suspense fallback={<SectionLoader />}>
                   <OsintFramework />
@@ -614,7 +626,7 @@ export function AppContent() {
               }
             />
             <Route
-              path="/dfir/secops-tools"
+              path="/threatintel/secops-tools"
               element={
                 <Suspense fallback={<SectionLoader />}>
                   <SecopsCatalog />
@@ -622,7 +634,7 @@ export function AppContent() {
               }
             />
             <Route
-              path="/dfir/cve-resources"
+              path="/threatintel/cve-resources"
               element={
                 <Suspense fallback={<SectionLoader />}>
                   <CveResourcesCatalog />
@@ -662,7 +674,7 @@ export function AppContent() {
               }
             />
             <Route
-              path="/dfir/scam-watch"
+              path="/threatintel/scam-watch"
               element={
                 <Suspense fallback={<SectionLoader />}>
                   <ScamWatch />
@@ -678,7 +690,7 @@ export function AppContent() {
               }
             />
             <Route
-              path="/dfir/tech-ai-news"
+              path="/threatintel/tech-ai-news"
               element={
                 <Suspense fallback={<SectionLoader />}>
                   <TechAiNews />
@@ -686,7 +698,7 @@ export function AppContent() {
               }
             />
             <Route
-              path="/dfir/threat-feeds"
+              path="/threatintel/threat-feeds"
               element={
                 <Suspense fallback={<SectionLoader />}>
                   <ThreatFeeds />
@@ -694,7 +706,7 @@ export function AppContent() {
               }
             />
             <Route
-              path="/dfir/onion-watch"
+              path="/threatintel/onion-watch"
               element={
                 <Suspense fallback={<SectionLoader />}>
                   <OnionWatch />
@@ -702,7 +714,7 @@ export function AppContent() {
               }
             />
             <Route
-              path="/dfir/telegram-watch"
+              path="/threatintel/telegram-watch"
               element={
                 <Suspense fallback={<SectionLoader />}>
                   <TelegramWatch />
@@ -710,7 +722,7 @@ export function AppContent() {
               }
             />
             <Route
-              path="/dfir/awesome-lists"
+              path="/threatintel/awesome-lists"
               element={
                 <Suspense fallback={<SectionLoader />}>
                   <AwesomeLists />
@@ -734,10 +746,31 @@ export function AppContent() {
               }
             />
             {/* Discord Watch was removed 2026-05-11; redirect bookmarks to Awesome Lists. */}
-            <Route path="/dfir/discord-watch" element={<Navigate to="/dfir/awesome-lists" replace />} />
+            <Route path="/dfir/discord-watch" element={<Navigate to="/threatintel/awesome-lists" replace />} />
             {/* Old path renamed; preserve any in-flight links. */}
-            <Route path="/dfir/industry-news" element={<Navigate to="/dfir/tech-ai-news" replace />} />
+            <Route path="/dfir/industry-news" element={<Navigate to="/threatintel/tech-ai-news" replace />} />
             <Route path="/difr" element={<Navigate to="/dfir" replace />} />
+            {/* 2026-05-11 — intel pages moved from /dfir/<slug> to /threatintel/<slug>.
+                Old URLs redirect (preserving query + hash) so bookmarks keep working. */}
+            <Route path="/dfir/briefings" element={<MovedRedirect to="/threatintel/briefings" />} />
+            <Route path="/dfir/briefings/:slug" element={<MovedRedirect to="/threatintel/briefings" withSlug />} />
+            <Route path="/dfir/darkweb" element={<MovedRedirect to="/threatintel/darkweb" />} />
+            <Route path="/dfir/onion-watch" element={<MovedRedirect to="/threatintel/onion-watch" />} />
+            <Route path="/dfir/telegram-watch" element={<MovedRedirect to="/threatintel/telegram-watch" />} />
+            <Route path="/dfir/scam-watch" element={<MovedRedirect to="/threatintel/scam-watch" />} />
+            <Route path="/dfir/tech-ai-news" element={<MovedRedirect to="/threatintel/tech-ai-news" />} />
+            <Route path="/dfir/threat-feeds" element={<MovedRedirect to="/threatintel/threat-feeds" />} />
+            <Route path="/dfir/threat-map" element={<MovedRedirect to="/threatintel/threat-map" />} />
+            <Route path="/dfir/actors" element={<MovedRedirect to="/threatintel/actors" />} />
+            <Route path="/dfir/actors/:slug" element={<MovedRedirect to="/threatintel/actors" withSlug />} />
+            <Route path="/dfir/mitre" element={<MovedRedirect to="/threatintel/mitre" />} />
+            <Route path="/dfir/rules" element={<MovedRedirect to="/threatintel/rules" />} />
+            <Route path="/dfir/cve-resources" element={<MovedRedirect to="/threatintel/cve-resources" />} />
+            <Route path="/dfir/wiki" element={<MovedRedirect to="/threatintel/wiki" />} />
+            <Route path="/dfir/wiki/:slug" element={<MovedRedirect to="/threatintel/wiki" withSlug />} />
+            <Route path="/dfir/secops-tools" element={<MovedRedirect to="/threatintel/secops-tools" />} />
+            <Route path="/dfir/awesome-lists" element={<MovedRedirect to="/threatintel/awesome-lists" />} />
+            <Route path="/dfir/osint-framework" element={<MovedRedirect to="/threatintel/osint-framework" />} />
             <Route
               path="*"
               element={
