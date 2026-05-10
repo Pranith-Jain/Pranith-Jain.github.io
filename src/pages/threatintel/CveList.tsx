@@ -189,8 +189,8 @@ export default function CveList(): JSX.Element {
 
       {data && (
         <p className="text-[11px] font-mono text-slate-500 mb-4">
-          Showing {filtered.length} of {data.count} ({data.kev_count} on KEV) · sources:{' '}
-          {data.sources.map((s) => `${s.id} ${s.ok ? `(${s.count})` : 'OFFLINE'}`).join(' · ')} · snapshot{' '}
+          Showing {filtered.length} of {data.count} ({data.kev_count ?? 0} on KEV) · sources:{' '}
+          {(data.sources ?? []).map((s) => `${s.id} ${s.ok ? `(${s.count})` : 'OFFLINE'}`).join(' · ')} · snapshot{' '}
           <span className="text-slate-700 dark:text-slate-300">{shortRel(data.generated_at)}</span>
         </p>
       )}

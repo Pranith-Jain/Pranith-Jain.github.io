@@ -75,16 +75,31 @@ const SECTIONS: Section[] = [
         badge: 'live',
       },
       {
+        to: '/threatintel/ransomware-activity',
+        label: 'Live ransomware activity',
+        desc: 'Recent ransomware leak-site claims aggregated from Ransomlook · per-victim screenshots when available',
+        icon: AlertTriangle,
+        badge: 'live',
+      },
+      {
+        to: '/threatintel/cybersec',
+        label: 'Cybersec Telegram firehose',
+        desc: 'Curated message stream from active public cybersec Telegram channels · IOCs · advisories · leak announcements',
+        icon: Send,
+        badge: 'live',
+      },
+      {
+        to: '/threatintel/breach',
+        label: 'Live breach disclosures',
+        desc: 'Have I Been Pwned public breach corpus · verification flags · sensitivity markers · exposed data classes',
+        icon: ShieldAlert,
+        badge: 'live',
+      },
+      {
         to: '/threatintel/onion-watch',
         label: 'Onion Watch',
         desc: 'Live .onion mirror inventory for top ransomware leak sites · per-group reachability from Ransomlook · search · copy-all URLs',
         icon: Globe,
-      },
-      {
-        to: '/threatintel/telegram-watch',
-        label: 'Telegram Catalog',
-        desc: 'Curated index of public threat-intel + cybercrime channels · category + language filters',
-        icon: Send,
       },
       {
         to: '/threatintel/threat-feeds',
@@ -227,6 +242,12 @@ const SECTIONS: Section[] = [
     label: 'Curated Catalogs',
     blurb: 'Reference indexes — start here when a question is broader than a single tool.',
     tools: [
+      {
+        to: '/threatintel/telegram-watch',
+        label: 'Telegram Catalog',
+        desc: 'Curated index of public threat-intel + cybercrime + OSINT Telegram channels · category + language filters · channel-discovery surface (the firehose lives at /threatintel/cybersec)',
+        icon: Send,
+      },
       {
         to: '/threatintel/secops-tools',
         label: 'SecOps Tools Catalog',
