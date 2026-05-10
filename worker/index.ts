@@ -63,18 +63,53 @@ export default {
   },
 
   /**
-   * Cron-triggered briefing generation.
-   * - "5 0 * * *"   → daily briefing for the prior calendar day
-   * - "15 0 * * 1"  → weekly briefing for the prior ISO week (Monday → Sunday)
-   *
-   * Both registered together; we dispatch on cron string.
+   * Cron-triggered work. Dispatched on cron string:
+   * - "5 0 * * *"    → daily briefing for the prior calendar day
+   * - "15 0 * * 1"   → weekly briefing for the prior ISO week (Mon → Sun)
+   * - "*\/5 * * * *" → warm /api/v1/snapshot + /api/v1/ioc-snapshot so the
+   *                   first-of-each-cache-window user request lands warm.
+   *                   Re-dispatches each request through the Hono app
+   *                   (apiApp.fetch) so the per-route + outer-snapshot
+   *                   caches all populate.
    */
   async scheduled(event: ScheduledEvent, env: Env, ctx: ExecutionContext): Promise<void> {
+    const cron = event.cron;
+
+    if (cron === '*/5 * * * *') {
+      ctx.waitUntil(
+        (async () => {
+          const start = Date.now();
+          // Use the production hostname so the cached Response key matches what
+          // user requests look up. Cache API is keyed by the full Request URL.
+          const baseUrl = 'https://pranithjain.qzz.io';
+          const targets = ['/api/v1/snapshot', '/api/v1/ioc-snapshot'];
+          const results = await Promise.allSettled(
+            targets.map(async (path) => {
+              const req = new Request(baseUrl + path, { method: 'GET' });
+              const res = await apiApp.fetch(req, env as never, ctx);
+              // Drain body so the Response is fully realised in the cache.
+              await res.arrayBuffer();
+              return { path, status: res.status };
+            })
+          );
+          const summary = results
+            .map((r, i) =>
+              r.status === 'fulfilled'
+                ? `${r.value.path}=${r.value.status}`
+                : `${targets[i]}=err(${(r.reason as Error).message})`
+            )
+            .join(' ');
+          console.log(`scheduled: warmed snapshots in ${Date.now() - start}ms — ${summary}`);
+        })()
+      );
+      return;
+    }
+
+    // Briefings cron path.
     if (!env.BRIEFINGS) {
       console.warn('scheduled: BRIEFINGS KV not bound, skipping');
       return;
     }
-    const cron = event.cron;
     const isWeekly = cron === '15 0 * * 1';
     const type = isWeekly ? 'weekly' : 'daily';
 

@@ -3,6 +3,33 @@ import { Link } from 'react-router-dom';
 import { Link2, FileWarning, Crosshair, Fish, ExternalLink } from 'lucide-react';
 
 /**
+ * Watchlist key shared with /dfir/darkweb + the news LiveSnapshotPanel. An
+ * analyst types a term once on the DarkWeb feed (company name, brand, actor
+ * alias) and matching IOC entries here highlight too. Cross-tab `storage`
+ * events keep the highlight in sync.
+ */
+const WATCHLIST_KEY = 'dfir.darkweb.watchlist';
+
+function loadWatchlist(): string[] {
+  if (typeof window === 'undefined') return [];
+  try {
+    const raw = window.localStorage.getItem(WATCHLIST_KEY);
+    if (!raw) return [];
+    const arr = JSON.parse(raw) as unknown;
+    if (!Array.isArray(arr)) return [];
+    return arr.filter((s): s is string => typeof s === 'string' && s.trim() !== '');
+  } catch {
+    return [];
+  }
+}
+
+function watchHits(haystack: string, watchlist: string[]): string[] {
+  if (watchlist.length === 0) return [];
+  const lc = haystack.toLowerCase();
+  return watchlist.filter((term) => lc.includes(term.toLowerCase()));
+}
+
+/**
  * Live IOC snapshot for /dfir/threat-map.
  *
  * Pairs the threat-map's geolocation choropleth with a real-time IOC
@@ -119,6 +146,19 @@ function typeBadge(t: IocEntry['type']): string {
 export function IocSnapshotPanel(): JSX.Element {
   const [data, setData] = useState<IocSnapshotResp | null>(null);
   const [err, setErr] = useState<string | null>(null);
+  const [watchlist, setWatchlist] = useState<string[]>(() => loadWatchlist());
+
+  useEffect(() => {
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === WATCHLIST_KEY) setWatchlist(loadWatchlist());
+    };
+    window.addEventListener('storage', onStorage);
+    const t = setTimeout(() => setWatchlist(loadWatchlist()), 1000);
+    return () => {
+      window.removeEventListener('storage', onStorage);
+      clearTimeout(t);
+    };
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -142,10 +182,33 @@ export function IocSnapshotPanel(): JSX.Element {
     return Object.values(data.sources).reduce((n, s) => n + (s.data?.count ?? 0), 0);
   }, [data]);
 
+  // Per-card watchlist hit counts — across the FULL response per source so
+  // the badge reflects real matches even when the visible top-N hides them.
+  const watchedBySource = useMemo(() => {
+    const out: Record<string, number> = {};
+    if (!data) return out;
+    for (const [k, s] of Object.entries(data.sources)) {
+      if (!s.data) continue;
+      out[k] = s.data.entries.filter((e) => watchHits(`${e.value} ${e.context ?? ''}`, watchlist).length > 0).length;
+    }
+    return out;
+  }, [data, watchlist]);
+  const totalWatched = Object.values(watchedBySource).reduce((a, b) => a + b, 0);
+
   return (
     <section className="mt-12 mb-6">
       <div className="flex items-baseline justify-between mb-4 flex-wrap gap-2">
-        <h2 className="font-display font-bold text-xl">Live IOC feeds</h2>
+        <h2 className="font-display font-bold text-xl inline-flex items-center gap-2 flex-wrap">
+          Live IOC feeds
+          {watchlist.length > 0 && totalWatched > 0 && (
+            <span
+              className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full border border-violet-500/50 bg-violet-500/15 text-violet-700 dark:text-violet-300"
+              title={`${totalWatched} IOCs match your watchlist (${watchlist.join(', ')})`}
+            >
+              {totalWatched} watchlist hits
+            </span>
+          )}
+        </h2>
         <span className="text-[11px] font-mono text-slate-500 dark:text-slate-500">
           {data
             ? `${totalEntries} fresh indicators across 4 abuse.ch + OpenPhish feeds`
@@ -166,8 +229,16 @@ export function IocSnapshotPanel(): JSX.Element {
               className={`rounded-2xl border ${c.accentClass} bg-white dark:bg-slate-900 p-4 flex flex-col min-h-[200px]`}
             >
               <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
-                <h3 className="font-display font-semibold text-sm inline-flex items-center gap-1.5">
+                <h3 className="font-display font-semibold text-sm inline-flex items-center gap-1.5 flex-wrap">
                   <c.Icon size={14} className={c.accentText} /> {c.title}
+                  {(watchedBySource[c.key] ?? 0) > 0 && (
+                    <span
+                      className="text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded-full border border-violet-500/50 bg-violet-500/15 text-violet-700 dark:text-violet-300 shrink-0"
+                      title={`${watchedBySource[c.key]} watchlist matches in this card`}
+                    >
+                      {watchedBySource[c.key]} watch
+                    </span>
+                  )}
                 </h3>
                 <a
                   href={`https://abuse.ch/${c.key === 'openphish' ? '' : c.key + '/'}`}
@@ -195,35 +266,45 @@ export function IocSnapshotPanel(): JSX.Element {
                     <p className="text-[11px] font-mono text-slate-500">No fresh entries.</p>
                   ) : (
                     <ul className="space-y-1.5 mt-1">
-                      {entries.map((e, i) => (
-                        <li
-                          key={`${e.type}-${e.value}-${i}`}
-                          className="flex items-baseline gap-2 text-[11px] font-mono py-0.5"
-                        >
-                          <span
-                            className={`text-[9px] uppercase tracking-wider px-1 rounded border shrink-0 ${typeBadge(e.type)}`}
+                      {entries.map((e, i) => {
+                        const matched = watchHits(`${e.value} ${e.context ?? ''}`, watchlist);
+                        return (
+                          <li
+                            key={`${e.type}-${e.value}-${i}`}
+                            className="flex items-baseline gap-2 text-[11px] font-mono py-0.5"
                           >
-                            {e.type}
-                          </span>
-                          {c.pivot ? (
-                            <Link
-                              to={c.pivot(e)}
-                              className="truncate text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 flex-1 min-w-0"
-                              title={e.value}
+                            <span
+                              className={`inline-block w-1.5 h-1.5 rounded-full shrink-0 ${
+                                matched.length > 0 ? 'bg-violet-500' : 'bg-transparent'
+                              }`}
+                              aria-label={matched.length > 0 ? `watchlist match: ${matched.join(', ')}` : undefined}
+                              title={matched.length > 0 ? `watchlist match: ${matched.join(', ')}` : undefined}
+                            />
+                            <span
+                              className={`text-[9px] uppercase tracking-wider px-1 rounded border shrink-0 ${typeBadge(e.type)}`}
                             >
-                              {e.value}
-                            </Link>
-                          ) : (
-                            <code
-                              className="truncate text-slate-700 dark:text-slate-300 flex-1 min-w-0"
-                              title={e.value}
-                            >
-                              {e.value}
-                            </code>
-                          )}
-                          <span className="text-slate-500 shrink-0">{shortRel(e.timestamp)}</span>
-                        </li>
-                      ))}
+                              {e.type}
+                            </span>
+                            {c.pivot ? (
+                              <Link
+                                to={c.pivot(e)}
+                                className="truncate text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 flex-1 min-w-0"
+                                title={e.value}
+                              >
+                                {e.value}
+                              </Link>
+                            ) : (
+                              <code
+                                className="truncate text-slate-700 dark:text-slate-300 flex-1 min-w-0"
+                                title={e.value}
+                              >
+                                {e.value}
+                              </code>
+                            )}
+                            <span className="text-slate-500 shrink-0">{shortRel(e.timestamp)}</span>
+                          </li>
+                        );
+                      })}
                     </ul>
                   )}
                 </>
