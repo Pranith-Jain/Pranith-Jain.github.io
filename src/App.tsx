@@ -94,6 +94,7 @@ const CybersecTelegramPage = lazy(() => import('./pages/threatintel/CybersecTele
 const BreachDisclosuresPage = lazy(() => import('./pages/threatintel/BreachDisclosures'));
 const RedditFirehosePage = lazy(() => import('./pages/threatintel/RedditFirehose'));
 const XFirehosePage = lazy(() => import('./pages/threatintel/XFirehose'));
+const FeedStatusPage = lazy(() => import('./pages/threatintel/FeedStatus'));
 
 function TechniqueRedirect() {
   const params = new URLSearchParams(window.location.search);
@@ -478,6 +479,14 @@ export function AppContent() {
               element={
                 <Suspense fallback={<SectionLoader />}>
                   <XFirehosePage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/threatintel/status"
+              element={
+                <Suspense fallback={<SectionLoader />}>
+                  <FeedStatusPage />
                 </Suspense>
               }
             />

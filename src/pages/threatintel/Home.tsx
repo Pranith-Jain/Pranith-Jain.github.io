@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import {
+  Activity,
   AlertTriangle,
   ArrowRight,
   Bell,
@@ -287,6 +288,12 @@ const SECTIONS: Section[] = [
         label: 'Knowledge Base',
         desc: 'Long-form articles — Telegram OSINT tradecraft, dark-web monitoring, MITRE workflows, briefing methodology',
         icon: BookOpen,
+      },
+      {
+        to: '/threatintel/status',
+        label: 'Feed status',
+        desc: 'Health of every upstream-backed feed on /threatintel — when a page looks empty, check here first to see if it is upstream or our worker',
+        icon: Activity,
       },
     ],
   },
