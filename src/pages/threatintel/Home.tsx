@@ -7,6 +7,7 @@ import {
   BookText,
   Briefcase,
   Bug,
+  Cloud,
   Compass,
   ExternalLink,
   FileCode,
@@ -25,7 +26,6 @@ import {
   ShieldAlert,
   Sparkles,
   Tag,
-  Twitter,
   Users,
   type LucideIcon,
 } from 'lucide-react';
@@ -99,9 +99,9 @@ const SECTIONS: Section[] = [
       },
       {
         to: '/threatintel/x',
-        label: 'Cybersec X firehose',
-        desc: '12 cybersec researchers + vendor labs + official feeds on X — vxunderground, MalwareHunterTeam, Talos, ESET, abuse.ch, CISAgov, Mandiant · via Nitter mirrors with failover',
-        icon: Twitter,
+        label: 'Cybersec social firehose',
+        desc: '16 cybersec researchers + vendor labs on Bluesky + Mastodon (infosec.exchange) — Krebs, MalwareTech, Talos, Mandiant, Beaumont, Florian Roth, Cimpanu, vxunderground · keyless RSS',
+        icon: Cloud,
         badge: 'live',
       },
       {

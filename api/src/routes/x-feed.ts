@@ -2,44 +2,34 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 
 /**
- * Cybersec X (Twitter) firehose.
+ * Cybersec social-media firehose at /api/v1/x-feed.
  *
- * X killed its free read API in 2023. The only practical way to pull
- * tweets without a paid plan is third-party mirrors. We use Nitter
- * instances with FAILOVER — Nitter mirrors rotate/die frequently, so
- * a single primary is too fragile. As of 2026-05-11 verification:
- *   nitter.net          → 200, ~17 KB per RSS  ✓
- *   nitter.cz           → 200, ~5 KB per RSS   ✓
- *   nitter.tiekoetter.com→200, ~5 KB per RSS   ✓
- *   nitter.privacydev.net→ dead
- *   nitter.poast.org    → 403 (Cloudflare-walled)
- *   nitter.unixfox.eu   → dead
+ * Endpoint kept named 'x-feed' for compatibility with the existing
+ * /threatintel/x route. Implementation pivoted 2026-05-11 — Nitter
+ * mirrors all block Cloudflare's egress IPs as scrapers, so the prior
+ * attempt to pull X via Nitter returned 0 of 12 handles consistently.
  *
- * Curated handle set is small (12 accounts) so total fan-out cost is
- * 12 × ~10 KB = ~120 KB. Cached 1 h server-side because Nitter mirrors
- * rate-limit aggressively when hammered.
+ * Many of the same cybersec researchers + vendor accounts have moved
+ * to Bluesky and Mastodon (infosec.exchange) since X killed the free
+ * read API in 2023. Both expose proper, keyless RSS — Bluesky at
+ * bsky.app/profile/<handle>/rss and Mastodon at
+ * <instance>/@<handle>.rss.
+ *
+ * The handle set is HAND-PROBED — each was verified 200 OK with actual
+ * content (not the 404-shell that Bluesky returns for unknown profiles).
  */
 
 const FETCH_TIMEOUT_MS = 9_000;
-const CACHE_TTL = 60 * 60; // 1 h — Nitter rate-limits past this anyway
-const CONCURRENCY = 3; // Lower than Reddit/Telegram to be polite to mirrors
+const CACHE_TTL = 60 * 60;
+const CONCURRENCY = 4;
 const MAX_POSTS_PER_HANDLE = 6;
-const MAX_TEXT_LEN = 280;
+const MAX_TEXT_LEN = 400;
 
-/**
- * Mirror failover chain — top to bottom. Probed live 2026-05-11.
- * Nitter instances regularly block known Cloudflare egress IPs (the
- * Workers shared-IP pool gets the same UA reputation as scrapers), so
- * we try multiple mirrors before declaring a handle dead.
- */
-const NITTER_MIRRORS = [
-  'https://nitter.net',
-  'https://nitter.it',
-  'https://nitter.cz',
-  'https://nitter.tiekoetter.com',
-];
+type Platform = 'bluesky' | 'mastodon';
 
 interface HandleSpec {
+  platform: Platform;
+  /** Full handle as the platform writes it (bsky.app domain, mastodon @user). */
   handle: string;
   /** Display name. */
   name: string;
@@ -48,22 +38,125 @@ interface HandleSpec {
 }
 
 /**
- * Curated cybersec X handles. Mix of researchers, vendor accounts,
- * and government / official feeds. Last verified 2026-05-11.
+ * Curated cybersec accounts on Bluesky + Mastodon (infosec.exchange).
+ * All verified live 2026-05-11.
  */
 const HANDLES: HandleSpec[] = [
-  { handle: 'vxunderground', name: 'vx-underground', blurb: 'Malware archive + commentary', topic: 'research' },
-  { handle: 'malwrhunterteam', name: 'MalwareHunterTeam', blurb: 'Daily malware spotting', topic: 'malware' },
-  { handle: 'BushidoToken', name: 'BushidoToken', blurb: 'CTI write-ups + actor tracking', topic: 'research' },
-  { handle: 'TalosSecurity', name: 'Cisco Talos', blurb: 'Cisco Talos research', topic: 'vendor' },
-  { handle: 'ESETresearch', name: 'ESET Research', blurb: 'ESET threat-research lab', topic: 'vendor' },
-  { handle: 'BleepinComputer', name: 'BleepingComputer', blurb: 'Security-news headlines', topic: 'news' },
-  { handle: 'TheHackersNews', name: 'The Hacker News', blurb: 'Security-news headlines', topic: 'news' },
-  { handle: 'CISAgov', name: 'CISA', blurb: 'Official US CISA advisories', topic: 'gov' },
-  { handle: 'Mandiant', name: 'Mandiant', blurb: 'Mandiant / Google Cloud threat research', topic: 'vendor' },
-  { handle: 'abuse_ch', name: 'abuse.ch', blurb: 'Roman Hüssy — URLhaus / Bazaar / ThreatFox', topic: 'research' },
-  { handle: 'malware_traffic', name: 'Brad Duncan (MTA)', blurb: 'Daily PCAPs + IOCs', topic: 'malware' },
-  { handle: 'decalage2', name: 'Philippe Lagadec', blurb: 'olevba / oletools / Office-doc malware', topic: 'research' },
+  // Bluesky — cybersec researchers + vendor labs
+  {
+    platform: 'bluesky',
+    handle: 'malwaretech.com',
+    name: 'Marcus Hutchins',
+    blurb: 'WannaCry kill-switch — malware research',
+    topic: 'research',
+  },
+  {
+    platform: 'bluesky',
+    handle: 'thedfirreport.bsky.social',
+    name: 'The DFIR Report',
+    blurb: 'Real intrusion case-studies',
+    topic: 'research',
+  },
+  {
+    platform: 'bluesky',
+    handle: 'talosintelligence.com',
+    name: 'Cisco Talos',
+    blurb: 'Cisco Talos threat research',
+    topic: 'vendor',
+  },
+  {
+    platform: 'bluesky',
+    handle: 'mandiant.com',
+    name: 'Mandiant',
+    blurb: 'Mandiant / Google Cloud threat research',
+    topic: 'vendor',
+  },
+  {
+    platform: 'bluesky',
+    handle: 'huntress.com',
+    name: 'Huntress',
+    blurb: 'Huntress threat lab + IR write-ups',
+    topic: 'vendor',
+  },
+  {
+    platform: 'bluesky',
+    handle: 'sentinelone.com',
+    name: 'SentinelOne',
+    blurb: 'SentinelLabs malware + APT research',
+    topic: 'vendor',
+  },
+  {
+    platform: 'bluesky',
+    handle: 'vxunderground.bsky.social',
+    name: 'vx-underground',
+    blurb: 'Malware-source archive announcements',
+    topic: 'research',
+  },
+  {
+    platform: 'bluesky',
+    handle: 'swiftonsecurity.bsky.social',
+    name: 'SwiftOnSecurity',
+    blurb: 'Security tradecraft + commentary',
+    topic: 'research',
+  },
+
+  // Mastodon — infosec.exchange (the de-facto cybersec instance)
+  {
+    platform: 'mastodon',
+    handle: 'briankrebs',
+    name: 'Brian Krebs',
+    blurb: 'KrebsOnSecurity author — breach reporting',
+    topic: 'news',
+  },
+  {
+    platform: 'mastodon',
+    handle: 'GossiTheDog',
+    name: 'Kevin Beaumont',
+    blurb: 'Live exploitation tracking — DoublePulsar',
+    topic: 'research',
+  },
+  {
+    platform: 'mastodon',
+    handle: 'campuscodi',
+    name: 'Catalin Cimpanu',
+    blurb: 'Risky Biz News — daily cyber news',
+    topic: 'news',
+  },
+  {
+    platform: 'mastodon',
+    handle: 'malwaretech',
+    name: 'Marcus Hutchins (Mastodon)',
+    blurb: 'Marcus on Mastodon — same content',
+    topic: 'research',
+  },
+  {
+    platform: 'mastodon',
+    handle: 'cyb3rops',
+    name: 'Florian Roth',
+    blurb: 'Signature-base / YARA author — Sigma maintainer',
+    topic: 'research',
+  },
+  {
+    platform: 'mastodon',
+    handle: 'mttaggart',
+    name: 'Matt Taggart',
+    blurb: 'Detection engineering + threat hunting',
+    topic: 'research',
+  },
+  {
+    platform: 'mastodon',
+    handle: 'x0rz',
+    name: '@x0rz',
+    blurb: 'IOC drops + threat-actor commentary',
+    topic: 'research',
+  },
+  {
+    platform: 'mastodon',
+    handle: 'vxunderground',
+    name: 'vx-underground (Mastodon)',
+    blurb: 'Sample drops + research commentary',
+    topic: 'research',
+  },
 ];
 
 export interface XFeedItem {
@@ -71,17 +164,22 @@ export interface XFeedItem {
   handle_name: string;
   handle_topic: HandleSpec['topic'];
   handle_blurb: string;
+  platform: Platform;
   text: string;
   link: string;
-  /** RFC-822 from Nitter's <pubDate>; we leave as-is and let the UI parse. */
   pub_date: string;
-  /** Mirror that served this item — surfaces upstream failover for debugging. */
-  via_mirror: string;
 }
 
 export interface XFeedResponse {
   generated_at: string;
-  handles: { handle: string; name: string; topic: HandleSpec['topic']; ok: boolean; count: number; via?: string }[];
+  handles: {
+    handle: string;
+    name: string;
+    platform: Platform;
+    topic: HandleSpec['topic'];
+    ok: boolean;
+    count: number;
+  }[];
   items: XFeedItem[];
   warnings: string[];
 }
@@ -91,90 +189,97 @@ function stripCdata(s: string): string {
 }
 
 function decodeEntities(s: string): string {
-  return s
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&apos;/g, "'")
-    .replace(/&nbsp;/g, ' ');
+  return (
+    s
+      .replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/&apos;/g, "'")
+      .replace(/&nbsp;/g, ' ')
+      // Common numeric escapes Mastodon emits
+      .replace(/&#xA;/g, '\n')
+  );
 }
 
 function stripHtml(s: string): string {
-  const withBreaks = s.replace(/<br\s*\/?>/gi, '\n').replace(/<p[^>]*>/gi, '\n');
-  return decodeEntities(withBreaks.replace(/<[^>]+>/g, '')).trim();
+  // Mastodon's RSS double-encodes HTML inside <description> (so `<p>foo</p>`
+  // comes through as `&lt;p&gt;foo&lt;/p&gt;`). Decoding entities FIRST
+  // gives us real tags that the regex passes can then strip; otherwise the
+  // user sees literal "<p>foo</p>" in the rendered text.
+  const decoded = decodeEntities(s);
+  return decoded
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<p[^>]*>/gi, '\n')
+    .replace(/<[^>]+>/g, '')
+    .trim();
 }
 
-/** Parse Nitter's RSS 2.0 — <item> blocks with title/description/link/pubDate. */
-function parseRssItems(
-  xml: string,
-  via: string,
-  handleHost: string
-): Array<{
-  title: string;
-  link: string;
-  pub_date: string;
-  via: string;
-}> {
-  const out: Array<{ title: string; link: string; pub_date: string; via: string }> = [];
-  const itemRe = /<item>([\s\S]*?)<\/item>/g;
+/** Both Bluesky + Mastodon use RSS 2.0 with <item>. Parsing is shared. */
+function parseRssItems(xml: string): Array<{ title: string; description: string; link: string; pub_date: string }> {
+  const out: Array<{ title: string; description: string; link: string; pub_date: string }> = [];
+  const itemRe = /<item[^>]*>([\s\S]*?)<\/item>/g;
   let m: RegExpExecArray | null;
   while ((m = itemRe.exec(xml)) !== null) {
     const block = m[1];
-    const titleRaw = /<title[^>]*>([\s\S]*?)<\/title>/.exec(block)?.[1] ?? '';
-    let link = /<link[^>]*>([\s\S]*?)<\/link>/.exec(block)?.[1] ?? '';
+    const title = /<title[^>]*>([\s\S]*?)<\/title>/.exec(block)?.[1] ?? '';
+    const description = /<description[^>]*>([\s\S]*?)<\/description>/.exec(block)?.[1] ?? '';
+    const link = /<link[^>]*>([\s\S]*?)<\/link>/.exec(block)?.[1] ?? '';
     const pub = /<pubDate[^>]*>([^<]+)<\/pubDate>/.exec(block)?.[1] ?? '';
-    // Nitter emits its own host in the link; rewrite to x.com so the user
-    // hits the real tweet (handleHost is "x.com" or "twitter.com").
-    if (link) {
-      link = link.replace(/^https?:\/\/[^/]+/, `https://${handleHost}`).replace(/#m$/, '');
-    }
-    const title = decodeEntities(stripCdata(titleRaw)).trim();
-    if (title && link) out.push({ title, link, pub_date: pub, via });
+    if (!link) continue;
+    out.push({
+      title: decodeEntities(stripCdata(title)).trim(),
+      description: stripHtml(stripCdata(description)),
+      link: link.trim(),
+      pub_date: pub.trim(),
+    });
   }
   return out;
 }
 
-async function fetchHandle(spec: HandleSpec): Promise<{ ok: boolean; items: XFeedItem[]; via?: string }> {
-  for (const mirror of NITTER_MIRRORS) {
-    const url = `${mirror}/${encodeURIComponent(spec.handle)}/rss`;
-    const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
-    try {
-      const r = await fetch(url, {
-        signal: ctrl.signal,
-        headers: {
-          'user-agent': 'Mozilla/5.0 (compatible; pranithjain-dfir/1.0; +https://pranithjain.qzz.io)',
-          accept: 'application/rss+xml, application/xml;q=0.9, */*;q=0.5',
-        },
-        redirect: 'follow',
-        cf: { cacheTtl: 1800, cacheEverything: true },
-      });
-      clearTimeout(timer);
-      // 200 may still be a bot-challenge HTML — sniff for an RSS root.
-      if (!r.ok) continue;
-      const body = await r.text();
-      if (!body.includes('<rss') && !body.includes('<channel>')) continue;
-      const parsed = parseRssItems(body, mirror, 'x.com').slice(0, MAX_POSTS_PER_HANDLE);
-      if (parsed.length === 0) continue;
-      const items: XFeedItem[] = parsed.map((p) => ({
+function rssUrl(spec: HandleSpec): string {
+  if (spec.platform === 'bluesky') return `https://bsky.app/profile/${encodeURIComponent(spec.handle)}/rss`;
+  return `https://infosec.exchange/@${encodeURIComponent(spec.handle)}.rss`;
+}
+
+async function fetchHandle(spec: HandleSpec): Promise<{ ok: boolean; items: XFeedItem[] }> {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
+  try {
+    const r = await fetch(rssUrl(spec), {
+      signal: ctrl.signal,
+      headers: {
+        'user-agent': 'Mozilla/5.0 (compatible; pranithjain-dfir/1.0; +https://pranithjain.qzz.io)',
+        accept: 'application/rss+xml, application/atom+xml, application/xml;q=0.9, */*;q=0.5',
+      },
+      redirect: 'follow',
+      cf: { cacheTtl: 1800, cacheEverything: true },
+    });
+    clearTimeout(timer);
+    if (!r.ok) return { ok: false, items: [] };
+    const body = await r.text();
+    if (!body.includes('<rss') && !body.includes('<channel>')) return { ok: false, items: [] };
+    const parsed = parseRssItems(body).slice(0, MAX_POSTS_PER_HANDLE);
+    const items: XFeedItem[] = parsed
+      .filter((p) => p.link)
+      .map((p) => ({
         handle: spec.handle,
         handle_name: spec.name,
         handle_topic: spec.topic,
         handle_blurb: spec.blurb,
-        text: stripHtml(p.title).slice(0, MAX_TEXT_LEN),
+        platform: spec.platform,
+        // Bluesky lacks <title>, only <description>. Mastodon has the post
+        // text in <description>. Prefer description; fall back to title.
+        text: (p.description || p.title || '').slice(0, MAX_TEXT_LEN),
         link: p.link,
         pub_date: p.pub_date,
-        via_mirror: new URL(p.via).hostname,
       }));
-      return { ok: true, items, via: new URL(mirror).hostname };
-    } catch {
-      clearTimeout(timer);
-      /* try next mirror */
-    }
+    return { ok: items.length > 0, items };
+  } catch {
+    clearTimeout(timer);
+    return { ok: false, items: [] };
   }
-  return { ok: false, items: [] };
 }
 
 export async function fetchXFeed(): Promise<XFeedResponse> {
@@ -188,22 +293,22 @@ export async function fetchXFeed(): Promise<XFeedResponse> {
       const spec = queue.shift();
       if (!spec) return;
       const r = await fetchHandle(spec);
-      if (!r.ok) warnings.push(`no mirror returned data for @${spec.handle}`);
+      if (!r.ok) warnings.push(`no posts for ${spec.platform}:${spec.handle}`);
       handleStatus.push({
         handle: spec.handle,
         name: spec.name,
+        platform: spec.platform,
         topic: spec.topic,
         ok: r.ok,
         count: r.items.length,
-        via: r.via,
       });
       allItems.push(...r.items);
     }
   }
   await Promise.all(Array.from({ length: CONCURRENCY }, worker));
 
-  // Newest-first across all handles. Nitter pubDate is RFC-822 string;
-  // Date.parse handles it.
+  // Newest-first across all handles. Bluesky pubDate is RFC-822-ish ("11 May
+  // 2026 00:56 +0000"); Mastodon is RFC-3339. Date.parse handles both.
   allItems.sort((a, b) => Date.parse(b.pub_date) - Date.parse(a.pub_date));
 
   return {
@@ -214,7 +319,7 @@ export async function fetchXFeed(): Promise<XFeedResponse> {
   };
 }
 
-export const X_FEED_CACHE_KEY = 'https://x-feed-cache.internal/v2-nitter-it';
+export const X_FEED_CACHE_KEY = 'https://x-feed-cache.internal/v4-social-decode';
 
 export async function xFeedHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;

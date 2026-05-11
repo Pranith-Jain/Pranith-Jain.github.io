@@ -1,16 +1,18 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { ArrowLeft, ExternalLink, Loader2, RefreshCw, Search, Twitter } from 'lucide-react';
+import { ArrowLeft, AtSign, Cloud, ExternalLink, Loader2, RefreshCw, Search } from 'lucide-react';
+
+type Platform = 'bluesky' | 'mastodon';
 
 interface XFeedItem {
   handle: string;
   handle_name: string;
   handle_topic: 'research' | 'news' | 'vendor' | 'gov' | 'malware';
   handle_blurb: string;
+  platform: Platform;
   text: string;
   link: string;
   pub_date: string;
-  via_mirror: string;
 }
 
 interface XFeedResponse {
@@ -18,10 +20,10 @@ interface XFeedResponse {
   handles: {
     handle: string;
     name: string;
+    platform: Platform;
     topic: XFeedItem['handle_topic'];
     ok: boolean;
     count: number;
-    via?: string;
   }[];
   items: XFeedItem[];
   warnings: string[];
@@ -120,16 +122,17 @@ export default function XFirehose(): JSX.Element {
 
       <div className="animate-fade-in-up">
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
-          <Twitter size={28} className="text-brand-600 dark:text-brand-400" /> Cybersec X firehose
+          <Cloud size={28} className="text-brand-600 dark:text-brand-400" /> Cybersec social firehose
         </h1>
         <p className="text-slate-600 dark:text-slate-400 font-mono mb-2 max-w-3xl">
-          Curated stream from 12 cybersec researchers, vendor labs, and official feeds on X (Twitter). X killed its free
-          read API in 2023, so this pulls through Nitter mirrors with multi-instance failover. Click any tweet to open
-          on x.com.
+          Curated stream from cybersec researchers and vendor labs on <strong>Bluesky</strong> and{' '}
+          <strong>Mastodon (infosec.exchange)</strong>. X killed its free read API in 2023 and Nitter mirrors block
+          Cloudflare's Worker IPs — many of the same accounts have migrated to Bluesky / Mastodon since, both of which
+          expose proper keyless RSS. Click any post to open the original.
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-6">
-          Source: <span className="text-slate-700 dark:text-slate-300">/api/v1/x-feed</span> · cached 1h server-side ·
-          mirrors rotate — if a handle goes empty, an upstream mirror likely rate-limited or died.
+          Source: <span className="text-slate-700 dark:text-slate-300">/api/v1/x-feed</span> · cached 1h server-side ·{' '}
+          {data ? `${data.handles.length} accounts indexed` : '~16 accounts'}.
         </p>
       </div>
 
@@ -159,12 +162,17 @@ export default function XFirehose(): JSX.Element {
             <span className="text-[11px] font-mono text-slate-500 mr-1">handles:</span>
             {data.handles.map((h) => {
               const active = handleFilter.has(h.handle);
+              const platformGlyph = h.platform === 'bluesky' ? '🦋' : '🐘';
               return (
                 <button
                   key={h.handle}
                   type="button"
                   onClick={() => toggleHandle(h.handle)}
-                  title={h.ok ? `${h.count} tweets via ${h.via ?? '?'}` : 'no mirror returned data'}
+                  title={
+                    h.ok
+                      ? `${h.count} posts · ${h.platform} · ${h.name}`
+                      : `${h.platform} fetch failed — see warning count`
+                  }
                   className={`text-[11px] font-mono px-2 py-1 rounded border ${
                     active
                       ? TOPIC_PILL[h.topic]
@@ -173,7 +181,8 @@ export default function XFirehose(): JSX.Element {
                         : 'border-slate-300 dark:border-slate-700 text-slate-400 opacity-50'
                   }`}
                 >
-                  @{h.handle} <span className="opacity-70">· {h.count}</span>
+                  {platformGlyph} {h.name.length > 18 ? h.name.slice(0, 18) + '…' : h.name}{' '}
+                  <span className="opacity-70">· {h.count}</span>
                 </button>
               );
             })}
@@ -220,8 +229,9 @@ export default function XFirehose(): JSX.Element {
           >
             <a href={it.link} target="_blank" rel="noopener noreferrer" className="group block">
               <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
-                <span className="font-mono text-[12px] text-brand-600 dark:text-brand-400">
-                  @{it.handle}{' '}
+                <span className="font-mono text-[12px] text-brand-600 dark:text-brand-400 inline-flex items-center gap-1">
+                  <span aria-hidden="true">{it.platform === 'bluesky' ? '🦋' : '🐘'}</span>
+                  {it.handle_name}{' '}
                   <span
                     className={`px-1.5 py-0.5 rounded border text-[9px] uppercase tracking-wider ${TOPIC_PILL[it.handle_topic]}`}
                   >
@@ -230,11 +240,12 @@ export default function XFirehose(): JSX.Element {
                 </span>
                 <ExternalLink size={11} className="text-slate-400 shrink-0" />
               </div>
-              <p className="text-[13px] text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 leading-relaxed mb-1.5">
+              <p className="text-[13px] text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 leading-relaxed mb-1.5 whitespace-pre-line">
                 {it.text}
               </p>
               <div className="text-[10px] font-mono text-slate-500 flex items-center gap-2 flex-wrap">
-                <span title={`via ${it.via_mirror}`}>{it.handle_name}</span>
+                <AtSign size={9} className="text-slate-400" />
+                <span>{it.handle}</span>
                 <span className="ml-auto text-slate-400" title={it.pub_date}>
                   {shortRel(it.pub_date)}
                 </span>
@@ -247,27 +258,32 @@ export default function XFirehose(): JSX.Element {
       {!loading && !error && filtered.length === 0 && (
         <div className="rounded-lg border border-dashed border-slate-300 dark:border-slate-700 p-6 text-sm font-mono text-slate-500">
           {query || handleFilter.size > 0 ? (
-            <p className="text-center">No tweets match the current filter.</p>
+            <p className="text-center">No posts match the current filter.</p>
           ) : (
             <>
               <p className="mb-3 text-center">
-                No tweets in the upstream snapshot — all Nitter mirrors blocked the Worker's request (the
-                Cloudflare-shared egress IP pool gets the same reputation as scrapers).
+                No posts in the upstream snapshot — Bluesky / Mastodon may have returned empty for the curated handle
+                set this hour. Try refresh, or follow the accounts directly:
               </p>
-              <p className="mb-2 text-center text-xs">You can still follow these accounts directly on x.com:</p>
               <ul className="flex flex-wrap justify-center gap-2 mt-3">
-                {(data?.handles ?? []).map((h) => (
-                  <li key={h.handle}>
-                    <a
-                      href={`https://x.com/${h.handle}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`inline-flex items-center gap-1 text-[11px] font-mono px-2 py-1 rounded border ${TOPIC_PILL[h.topic]} hover:opacity-90`}
-                    >
-                      @{h.handle} <ExternalLink size={10} />
-                    </a>
-                  </li>
-                ))}
+                {(data?.handles ?? []).map((h) => {
+                  const url =
+                    h.platform === 'bluesky'
+                      ? `https://bsky.app/profile/${h.handle}`
+                      : `https://infosec.exchange/@${h.handle}`;
+                  return (
+                    <li key={`${h.platform}-${h.handle}`}>
+                      <a
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`inline-flex items-center gap-1 text-[11px] font-mono px-2 py-1 rounded border ${TOPIC_PILL[h.topic]} hover:opacity-90`}
+                      >
+                        {h.platform === 'bluesky' ? '🦋' : '🐘'} {h.name} <ExternalLink size={10} />
+                      </a>
+                    </li>
+                  );
+                })}
               </ul>
             </>
           )}
