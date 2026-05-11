@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { fetchRansomwareRecent } from './ransomware-recent';
-import { fetchTelegramFeed } from './telegram-feed';
+import { fetchRansomwareRecent, RANSOMWARE_RECENT_CACHE_KEY } from './ransomware-recent';
+import { fetchTelegramFeed, TELEGRAM_FEED_CACHE_KEY, type TelegramFeedResponse } from './telegram-feed';
 import { fetchOnionWatch } from './onion-watch';
 import { aggregateFeeds } from './feeds-aggregate';
 import { fetchDetectionRules } from './detection-rules';
@@ -93,7 +93,7 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
   // defendor_eng + cyberscoop). Bumped to force a clean rebuild so the
   // LiveSnapshotPanel.tsx telegram card stops showing the previously-cached
   // payload that pre-dated the channel change.
-  const cacheKey = new Request('https://snapshot-cache.internal/v8-1h');
+  const cacheKey = new Request('https://snapshot-cache.internal/v9-cacheread');
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
@@ -101,12 +101,27 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
 
   const [ransomware, telegram, onion, scam, threatIntel, techAi, rules, briefings, threatMap] = await Promise.all([
     safe(async () => {
+      // Same read-cache-first pattern as threat-map below: cheaper than
+      // re-fanning out to Ransomlook and avoids cold-start flakes that
+      // briefly emptied the card after the hourly snapshot rebuild.
+      const cached = await cache.match(RANSOMWARE_RECENT_CACHE_KEY);
+      if (cached) {
+        const json = (await cached.json()) as { generated_at: string; count: number; victims: unknown[] };
+        return json;
+      }
       const { body, upstreamOk, rateLimited } = await fetchRansomwareRecent();
       if (rateLimited) throw new Error(`upstream rate-limited (retry-after ${rateLimited.retryAfter})`);
       if (!upstreamOk) throw new Error('upstream unreachable');
       return body;
     }),
-    safe(() => fetchTelegramFeed()),
+    safe(async () => {
+      // Read /api/v1/telegram-feed's edge-cache first; only fan out to the
+      // 11 Telegram channels if the per-route cache is cold. This is the
+      // single biggest win on snapshot rebuild time + KV pressure.
+      const cached = await cache.match(TELEGRAM_FEED_CACHE_KEY);
+      if (cached) return (await cached.json()) as TelegramFeedResponse;
+      return fetchTelegramFeed();
+    }),
     safe(async () => {
       const body = await fetchOnionWatch();
       if (!body) throw new Error('ransomlook unreachable');
@@ -144,15 +159,17 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
       }
       // If the result has IPs but no countries (ip-api outage signature),
       // try once more — fetchThreatMap is the only path that can give us
-      // fresh geolocation. Throw on second failure so the card surfaces a
-      // real error instead of misleading 0s.
+      // fresh geolocation. After that we just surface whatever we have;
+      // throwing in this branch used to surface a misleading "no IPs"
+      // error on the card whenever ip-api or the upstream blocklists
+      // briefly 429'd. Better to render an empty-state card than a
+      // false-positive error message.
       if (t.total_ips > 0 && t.countries.length === 0) {
-        t = await fetchThreatMap();
-      }
-      // Reject empty results so the snapshot envelope reports `ok: false` +
-      // an error string. Better than showing fake "0 IPs / 0 countries".
-      if (t.total_ips === 0) {
-        throw new Error('threat-map upstream returned no IPs');
+        try {
+          t = await fetchThreatMap();
+        } catch {
+          /* fall through to whatever we already have */
+        }
       }
       return {
         generated_at: t.generated_at,

@@ -93,6 +93,12 @@ export default {
             '/api/v1/ransomware-recent',
             '/api/v1/telegram-feed',
             '/api/v1/onion-watch',
+            // 2026-05-11 additions — keep these warm so the per-type IOC
+            // pages and CVE list render instantly on the first visit
+            // each hour. Each is independent; failures don't cascade.
+            '/api/v1/cve-recent',
+            '/api/v1/phishing-urls',
+            '/api/v1/malware-samples',
           ];
           const composerTargets = ['/api/v1/snapshot', '/api/v1/ioc-snapshot'];
           async function warm(path: string) {

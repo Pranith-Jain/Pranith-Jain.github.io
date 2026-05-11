@@ -20,6 +20,8 @@ interface KevData {
   vulnerability_name?: string;
   required_action?: string;
   due_date?: string;
+  /** True when CISA flags it as used in known ransomware campaigns. */
+  known_ransomware?: boolean;
 }
 
 interface EpssData {
@@ -152,6 +154,14 @@ export default function CveLookup(): JSX.Element {
               {result.kev.in_kev && (
                 <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-300 border border-rose-300 dark:border-rose-700">
                   CISA KEV
+                </span>
+              )}
+              {result.kev.in_kev && result.kev.known_ransomware && (
+                <span
+                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider bg-amber-100 text-amber-900 dark:bg-amber-900/40 dark:text-amber-300 border border-amber-400 dark:border-amber-700"
+                  title="CISA has tied this CVE to a known ransomware campaign — top remediation priority"
+                >
+                  Ransomware
                 </span>
               )}
               {result.cvss && (
@@ -331,10 +341,33 @@ export default function CveLookup(): JSX.Element {
 
           {/* KEV Details */}
           {result.kev.in_kev && (
-            <section className="rounded-2xl border border-rose-200 dark:border-rose-900/40 bg-rose-50 dark:bg-rose-900/10 p-6">
-              <h3 className="font-display font-semibold text-lg mb-3 text-rose-800 dark:text-rose-300">
-                CISA KEV, Known Exploited
+            <section
+              className={`rounded-2xl border p-6 ${
+                result.kev.known_ransomware
+                  ? 'border-amber-400 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/15'
+                  : 'border-rose-200 dark:border-rose-900/40 bg-rose-50 dark:bg-rose-900/10'
+              }`}
+            >
+              <h3
+                className={`font-display font-semibold text-lg mb-3 ${
+                  result.kev.known_ransomware
+                    ? 'text-amber-900 dark:text-amber-300'
+                    : 'text-rose-800 dark:text-rose-300'
+                }`}
+              >
+                CISA KEV — Known Exploited
+                {result.kev.known_ransomware && (
+                  <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider bg-amber-200 dark:bg-amber-800/40 text-amber-900 dark:text-amber-200 border border-amber-400 dark:border-amber-700">
+                    Ransomware
+                  </span>
+                )}
               </h3>
+              {result.kev.known_ransomware && (
+                <p className="text-xs font-mono text-amber-900 dark:text-amber-300 mb-3 leading-relaxed">
+                  CISA has linked this CVE to known ransomware campaigns. Treat as top-of-queue remediation — patch
+                  immediately and hunt for active exploitation indicators in your environment.
+                </p>
+              )}
               <div className="grid sm:grid-cols-3 gap-4 font-mono text-sm">
                 {result.kev.date_added && (
                   <div>

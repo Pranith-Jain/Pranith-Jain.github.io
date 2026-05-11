@@ -16,7 +16,9 @@ import type { Env } from '../env';
  * 404 when followed and add no value.
  */
 
-const CACHE_KEY = 'https://ransomware-recent-cache.internal/v2';
+/** Exported so /api/v1/snapshot can read the same cached payload directly. */
+export const RANSOMWARE_RECENT_CACHE_KEY = 'https://ransomware-recent-cache.internal/v2';
+const CACHE_KEY = RANSOMWARE_RECENT_CACHE_KEY;
 const CACHE_TTL_SECONDS = 3600;
 const FETCH_TIMEOUT_MS = 15_000;
 const UPSTREAM = 'https://www.ransomlook.io/api/recent';

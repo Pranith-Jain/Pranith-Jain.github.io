@@ -20,6 +20,8 @@ interface CisaKevVuln {
   vulnerabilityName: string;
   requiredAction: string;
   dueDate: string;
+  /** 'Known' when CISA has tied this CVE to a known ransomware campaign. */
+  knownRansomwareCampaignUse?: string;
 }
 
 interface NvdCvssMetric {
@@ -70,6 +72,8 @@ export interface CveLookupResponse {
     vulnerability_name?: string;
     required_action?: string;
     due_date?: string;
+    /** True when CISA marks this CVE as used in known ransomware campaigns. */
+    known_ransomware?: boolean;
   };
   epss?: { score: number; percentile: number; date: string };
 }
@@ -210,6 +214,7 @@ export async function cveSearchHandler(c: Context<{ Bindings: Env }>) {
         vulnerability_name: kevMatch.vulnerabilityName,
         required_action: kevMatch.requiredAction,
         due_date: kevMatch.dueDate,
+        known_ransomware: kevMatch.knownRansomwareCampaignUse === 'Known',
       }
     : { in_kev: false };
 

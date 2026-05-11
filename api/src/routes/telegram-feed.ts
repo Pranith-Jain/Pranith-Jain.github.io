@@ -256,11 +256,14 @@ export async function fetchTelegramFeed(): Promise<TelegramFeedResponse> {
   };
 }
 
+/** Exported so /api/v1/snapshot can read the same cached payload directly. */
+export const TELEGRAM_FEED_CACHE_KEY = 'https://telegram-feed-cache.internal/v4';
+
 export async function telegramFeedHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;
   // v4: 2026-05-11 follow-up — added defendor_eng + cyberscoop after handle
   // verification.  Bump on response-shape changes or curated-channel-list changes.
-  const cacheKey = new Request('https://telegram-feed-cache.internal/v4');
+  const cacheKey = new Request(TELEGRAM_FEED_CACHE_KEY);
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
