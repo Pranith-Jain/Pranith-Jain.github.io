@@ -11,6 +11,10 @@ import { RANSOMWARE_RECENT_CACHE_KEY } from './ransomware-recent';
 import { ONION_WATCH_CACHE_KEY } from './onion-watch';
 import { THREAT_MAP_CACHE_KEY } from './threat-map';
 import { DETECTION_RULES_CACHE_KEY } from './detection-rules';
+import { IOC_CORRELATION_CACHE_KEY } from './ioc-correlation';
+import { ACTOR_TIMELINE_CACHE_KEY } from './actor-timeline';
+import { VICTIM_RELEAKS_CACHE_KEY } from './victim-releaks';
+import { LIVE_IOCS_CACHE_KEY } from './live-iocs';
 
 /**
  * Feed-status dashboard. Reads every per-feed edge-cache entry directly
@@ -134,7 +138,7 @@ const PROBES: FeedProbeSpec[] = [
   {
     id: 'malware-samples',
     label: 'Malware samples (MalwareBazaar)',
-    page_path: '/threatintel/malware-samples',
+    page_path: '/threatintel/live-iocs',
     api_path: '/api/v1/malware-samples',
     cache_key: MALWARE_SAMPLES_CACHE_KEY,
     evaluate: (body) => {
@@ -152,7 +156,7 @@ const PROBES: FeedProbeSpec[] = [
   {
     id: 'phishing-urls',
     label: 'Phishing URLs (PhishTank + OpenPhish)',
-    page_path: '/threatintel/phishing-urls',
+    page_path: '/threatintel/live-iocs',
     api_path: '/api/v1/phishing-urls',
     cache_key: PHISHING_URLS_CACHE_KEY,
     evaluate: (body) => {
@@ -311,6 +315,94 @@ const PROBES: FeedProbeSpec[] = [
         status,
         reason: `${sources} repos · ${commits.length} recent commits`,
         metrics: { sources, commits: commits.length },
+        ageS,
+      };
+    },
+  },
+  {
+    id: 'victim-releaks',
+    label: 'Victim re-leak detection (Ransomlook)',
+    page_path: '/threatintel/re-leaks',
+    api_path: '/api/v1/victim-releaks',
+    cache_key: VICTIM_RELEAKS_CACHE_KEY,
+    evaluate: (body) => {
+      const releaks = (arrField(body, 'releaks') ?? []).length;
+      const scanned = intField(body, 'victims_scanned') ?? 0;
+      const groups = intField(body, 'groups_scanned') ?? 0;
+      const ageS = ageSeconds(strField(body, 'generated_at'));
+      const status: Status = groups >= 5 ? 'ok' : groups > 0 ? 'degraded' : 'down';
+      return {
+        status,
+        reason:
+          groups > 0
+            ? `${groups} groups · ${scanned.toLocaleString()} victims scanned · ${releaks} re-leaks`
+            : 'Ransomlook unreachable',
+        metrics: { releaks, scanned, groups },
+        ageS,
+      };
+    },
+  },
+  {
+    id: 'actor-timeline',
+    label: 'Actor activity timeline (Ransomlook + MITRE)',
+    page_path: '/threatintel/actor-timeline',
+    api_path: '/api/v1/actor-timeline',
+    cache_key: ACTOR_TIMELINE_CACHE_KEY,
+    evaluate: (body) => {
+      const groups = (arrField(body, 'groups') ?? []).length;
+      const warnings = (arrField(body, 'warnings') ?? []).length;
+      const ageS = ageSeconds(strField(body, 'generated_at'));
+      const status: Status = groups >= 5 ? 'ok' : groups > 0 ? 'degraded' : 'down';
+      return {
+        status,
+        reason:
+          groups > 0
+            ? `${groups} active groups · ${warnings} per-group fetch warnings`
+            : 'Ransomlook per-group endpoints unreachable',
+        metrics: { groups, warnings },
+        ageS,
+      };
+    },
+  },
+  {
+    id: 'live-iocs',
+    label: 'Live IOC stream',
+    page_path: '/threatintel/live-iocs',
+    api_path: '/api/v1/live-iocs',
+    cache_key: LIVE_IOCS_CACHE_KEY,
+    evaluate: (body) => {
+      const total = intField(body, 'total') ?? 0;
+      const sources = arrField(body, 'sources') ?? [];
+      const okSrc = sources.filter((s) => (s as { ok?: boolean }).ok === true).length;
+      const ageS = ageSeconds(strField(body, 'generated_at'));
+      const status: Status = okSrc >= sources.length * 0.6 && total > 0 ? 'ok' : okSrc >= 2 ? 'degraded' : 'down';
+      return {
+        status,
+        reason: `${okSrc} / ${sources.length} sources · ${total} live indicators`,
+        metrics: { total, sources_ok: okSrc },
+        ageS,
+      };
+    },
+  },
+  {
+    id: 'ioc-correlation',
+    label: 'Cross-source IOC correlation',
+    page_path: '/threatintel/correlation',
+    api_path: '/api/v1/ioc-correlation',
+    cache_key: IOC_CORRELATION_CACHE_KEY,
+    evaluate: (body) => {
+      const totals = (body as { totals?: { correlated_indicators?: number; indicators_scanned?: number } }).totals;
+      const correlated = totals?.correlated_indicators ?? 0;
+      const scanned = totals?.indicators_scanned ?? 0;
+      const sources = arrField(body, 'sources') ?? [];
+      const okSrc = sources.filter((s) => (s as { ok?: boolean }).ok === true).length;
+      const ageS = ageSeconds(strField(body, 'generated_at'));
+      const status: Status =
+        okSrc >= sources.length * 0.7 && correlated > 0 ? 'ok' : okSrc >= sources.length * 0.4 ? 'degraded' : 'down';
+      return {
+        status,
+        reason: `${okSrc} / ${sources.length} feeds · ${correlated} correlated of ${scanned.toLocaleString()} scanned`,
+        metrics: { correlated, scanned, sources_ok: okSrc },
         ageS,
       };
     },

@@ -35,6 +35,12 @@ interface HandleSpec {
   name: string;
   blurb: string;
   topic: 'research' | 'news' | 'vendor' | 'gov' | 'malware';
+  /**
+   * Optional Mastodon instance host override. Defaults to infosec.exchange
+   * (where most cybersec accounts live). Some accounts are on other servers
+   * — e.g. cyberplace.social hosts a fedi-cybersec community.
+   */
+  instance?: string;
 }
 
 /**
@@ -85,13 +91,9 @@ const HANDLES: HandleSpec[] = [
     blurb: 'SentinelLabs malware + APT research',
     topic: 'vendor',
   },
-  {
-    platform: 'bluesky',
-    handle: 'vxunderground.bsky.social',
-    name: 'vx-underground',
-    blurb: 'Malware-source archive announcements',
-    topic: 'research',
-  },
+  // vxunderground.bsky.social was dropped 2026-05-11 — Bluesky RSS returned
+  // 187 bytes with zero items (account dormant). The Mastodon variant
+  // (@vxunderground@infosec.exchange) is healthy and remains below.
   {
     platform: 'bluesky',
     handle: 'swiftonsecurity.bsky.social',
@@ -111,6 +113,7 @@ const HANDLES: HandleSpec[] = [
   {
     platform: 'mastodon',
     handle: 'GossiTheDog',
+    instance: 'cyberplace.social',
     name: 'Kevin Beaumont',
     blurb: 'Live exploitation tracking — DoublePulsar',
     topic: 'research',
@@ -118,6 +121,7 @@ const HANDLES: HandleSpec[] = [
   {
     platform: 'mastodon',
     handle: 'campuscodi',
+    instance: 'mastodon.social',
     name: 'Catalin Cimpanu',
     blurb: 'Risky Biz News — daily cyber news',
     topic: 'news',
@@ -247,7 +251,8 @@ function parseRssItems(xml: string): Array<{ title: string; description: string;
 
 function rssUrl(spec: HandleSpec): string {
   if (spec.platform === 'bluesky') return `https://bsky.app/profile/${encodeURIComponent(spec.handle)}/rss`;
-  return `https://infosec.exchange/@${encodeURIComponent(spec.handle)}.rss`;
+  const instance = spec.instance ?? 'infosec.exchange';
+  return `https://${instance}/@${encodeURIComponent(spec.handle)}.rss`;
 }
 
 async function fetchHandle(spec: HandleSpec): Promise<{ ok: boolean; items: XFeedItem[] }> {
@@ -326,7 +331,7 @@ export async function fetchXFeed(): Promise<XFeedResponse> {
   };
 }
 
-export const X_FEED_CACHE_KEY = 'https://x-feed-cache.internal/v5-numentities';
+export const X_FEED_CACHE_KEY = 'https://x-feed-cache.internal/v6-instances';
 
 export async function xFeedHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;

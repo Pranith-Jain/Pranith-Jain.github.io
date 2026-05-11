@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ExternalLink, RefreshCw, Plus, X, Eye, Bell, Search, Filter } from 'lucide-react';
+import { ArrowLeft, ExternalLink, RefreshCw, Plus, X, Eye, Bell, Search, Filter, Sparkles } from 'lucide-react';
+import { useLastVisit, isNewSince } from '../../hooks';
 import { fetchAggregatedFeed, formatRelativeTime, type AggregatedFeedItem } from '../../services/rssService';
 import { rssFeeds } from '../../data/rssFeeds';
 
@@ -737,6 +738,8 @@ export function RansomwareActivityPanel(): JSX.Element {
   const [groupFilter, setGroupFilter] = useState<string | 'all'>('all');
   const [expanded, setExpanded] = useState(false);
   const [lightbox, setLightbox] = useState<{ url: string; victim: string; group: string } | null>(null);
+  const [newOnly, setNewOnly] = useState(false);
+  const { previous: lastVisit, markVisited } = useLastVisit('ransomware-activity');
 
   // Esc closes the lightbox.
   useEffect(() => {
@@ -769,9 +772,23 @@ export function RansomwareActivityPanel(): JSX.Element {
 
   const filteredVictims = useMemo(() => {
     if (!data) return [];
-    if (groupFilter === 'all') return data.victims;
-    return data.victims.filter((v) => v.group === groupFilter);
-  }, [data, groupFilter]);
+    return data.victims.filter((v) => {
+      if (groupFilter !== 'all' && v.group !== groupFilter) return false;
+      if (newOnly && !isNewSince(v.discovered, lastVisit)) return false;
+      return true;
+    });
+  }, [data, groupFilter, newOnly, lastVisit]);
+
+  const newCount = useMemo(() => {
+    if (!data || !lastVisit) return 0;
+    return data.victims.filter((v) => isNewSince(v.discovered, lastVisit)).length;
+  }, [data, lastVisit]);
+
+  useEffect(() => {
+    if (!data) return;
+    const id = window.setTimeout(markVisited, 1500);
+    return () => window.clearTimeout(id);
+  }, [data, markVisited]);
 
   const visible = filteredVictims.slice(0, expanded ? filteredVictims.length : 12);
 
@@ -805,6 +822,19 @@ export function RansomwareActivityPanel(): JSX.Element {
           >
             All <span className="opacity-60">· {data.count}</span>
           </button>
+          {newCount > 0 && (
+            <button
+              onClick={() => setNewOnly((v) => !v)}
+              className={`text-[11px] font-mono px-2 py-1 rounded border transition-colors inline-flex items-center gap-1 ${
+                newOnly
+                  ? 'border-emerald-500/60 bg-emerald-500/15 text-emerald-700 dark:text-emerald-300'
+                  : 'border-emerald-500/40 bg-emerald-500/5 text-emerald-700 dark:text-emerald-300 hover:border-emerald-500/60'
+              }`}
+              title={`${newCount} claims since your last visit${lastVisit ? ` (${new Date(lastVisit).toLocaleString()})` : ''}`}
+            >
+              <Sparkles size={10} /> {newCount} new
+            </button>
+          )}
           {data.groups.map((g) => (
             <button
               key={g.group}
@@ -970,11 +1000,38 @@ interface TelegramFeedItem {
   views?: string;
 }
 
+interface ChannelQuality {
+  score: number;
+  signals: {
+    recent_pct: number;
+    dupe_pct: number;
+    median_text_len: number;
+    posts_per_day: number;
+  };
+}
+
 interface TelegramFeedResponse {
   generated_at: string;
-  channels: { handle: string; name: string; topic: string; ok: boolean; count: number }[];
+  channels: {
+    handle: string;
+    name: string;
+    topic: string;
+    ok: boolean;
+    count: number;
+    quality?: ChannelQuality;
+  }[];
   items: TelegramFeedItem[];
   warnings: string[];
+}
+
+function qualityPill(score?: number): { label: string; cls: string } {
+  if (score === undefined) return { label: '—', cls: 'border-slate-300 dark:border-slate-700 text-slate-400' };
+  if (score >= 75)
+    return { label: `${score}`, cls: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300' };
+  if (score >= 50) return { label: `${score}`, cls: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300' };
+  if (score >= 25)
+    return { label: `${score}`, cls: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300' };
+  return { label: `${score}`, cls: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300' };
 }
 
 const TG_TOPIC_PILL: Record<TelegramFeedItem['channel_topic'], string> = {
@@ -1018,6 +1075,8 @@ export function TelegramFeedPanel(): JSX.Element {
   const [activeChannel, setActiveChannel] = useState<string | 'all'>('all');
   const [expanded, setExpanded] = useState(false);
   const [watchlist, setWatchlist] = useState<string[]>(() => loadJson<string[]>(STORAGE_KEY_WATCH, []));
+  const [newOnly, setNewOnly] = useState(false);
+  const { previous: lastVisit, markVisited } = useLastVisit('telegram-feed');
 
   // Re-read watchlist when other components on the page mutate it.
   useEffect(() => {
@@ -1054,9 +1113,23 @@ export function TelegramFeedPanel(): JSX.Element {
 
   const filteredItems = useMemo(() => {
     if (!data) return [];
-    if (activeChannel === 'all') return data.items;
-    return data.items.filter((it) => it.channel_handle === activeChannel);
-  }, [data, activeChannel]);
+    return data.items.filter((it) => {
+      if (activeChannel !== 'all' && it.channel_handle !== activeChannel) return false;
+      if (newOnly && !isNewSince(it.datetime, lastVisit)) return false;
+      return true;
+    });
+  }, [data, activeChannel, newOnly, lastVisit]);
+
+  const newCount = useMemo(() => {
+    if (!data || !lastVisit) return 0;
+    return data.items.filter((it) => isNewSince(it.datetime, lastVisit)).length;
+  }, [data, lastVisit]);
+
+  useEffect(() => {
+    if (!data) return;
+    const id = window.setTimeout(markVisited, 1500);
+    return () => window.clearTimeout(id);
+  }, [data, markVisited]);
 
   const matchedItems = useMemo(() => {
     if (watchlist.length === 0) return filteredItems.map((it) => ({ it, matches: [] as string[] }));
@@ -1128,23 +1201,53 @@ export function TelegramFeedPanel(): JSX.Element {
           >
             All <span className="opacity-60">· {data.items.length}</span>
           </button>
-          {data.channels.map((ch) => (
+          {newCount > 0 && (
             <button
-              key={ch.handle}
-              onClick={() => setActiveChannel(ch.handle)}
-              disabled={!ch.ok}
-              className={`text-[11px] font-mono px-2 py-1 rounded border transition-colors ${
-                activeChannel === ch.handle
-                  ? 'border-sky-500/60 bg-sky-500/15 text-sky-700 dark:text-sky-300'
-                  : ch.ok
-                    ? 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-sky-500/40'
-                    : 'border-slate-200 dark:border-slate-800 text-slate-400 dark:text-slate-600 cursor-not-allowed opacity-50'
+              onClick={() => setNewOnly((v) => !v)}
+              className={`text-[11px] font-mono px-2 py-1 rounded border transition-colors inline-flex items-center gap-1 ${
+                newOnly
+                  ? 'border-emerald-500/60 bg-emerald-500/15 text-emerald-700 dark:text-emerald-300'
+                  : 'border-emerald-500/40 bg-emerald-500/5 text-emerald-700 dark:text-emerald-300 hover:border-emerald-500/60'
               }`}
-              title={ch.ok ? `@${ch.handle}` : `@${ch.handle} unreachable`}
+              title={`${newCount} messages since your last visit${lastVisit ? ` (${new Date(lastVisit).toLocaleString()})` : ''}`}
             >
-              {ch.name} <span className="opacity-60">· {ch.count}</span>
+              <Sparkles size={10} /> {newCount} new
             </button>
-          ))}
+          )}
+          {[...data.channels]
+            .sort((a, b) => {
+              if (a.ok !== b.ok) return a.ok ? -1 : 1;
+              return (b.quality?.score ?? 0) - (a.quality?.score ?? 0);
+            })
+            .map((ch) => {
+              const qp = qualityPill(ch.quality?.score);
+              const sig = ch.quality?.signals;
+              const tip = ch.ok
+                ? sig
+                  ? `@${ch.handle} · quality ${ch.quality?.score}/100 · recent ${sig.recent_pct}% · dupes ${sig.dupe_pct}% · median ${sig.median_text_len} chars · ${sig.posts_per_day}/day`
+                  : `@${ch.handle}`
+                : `@${ch.handle} unreachable`;
+              return (
+                <button
+                  key={ch.handle}
+                  onClick={() => setActiveChannel(ch.handle)}
+                  disabled={!ch.ok}
+                  className={`text-[11px] font-mono px-2 py-1 rounded border transition-colors inline-flex items-center gap-1.5 ${
+                    activeChannel === ch.handle
+                      ? 'border-sky-500/60 bg-sky-500/15 text-sky-700 dark:text-sky-300'
+                      : ch.ok
+                        ? 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-sky-500/40'
+                        : 'border-slate-200 dark:border-slate-800 text-slate-400 dark:text-slate-600 cursor-not-allowed opacity-50'
+                  }`}
+                  title={tip}
+                >
+                  {ch.name} <span className="opacity-60">· {ch.count}</span>
+                  {ch.ok && ch.quality && (
+                    <span className={`text-[9px] px-1 rounded border ${qp.cls}`}>q{qp.label}</span>
+                  )}
+                </button>
+              );
+            })}
         </div>
       )}
 

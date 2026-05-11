@@ -121,9 +121,32 @@ export interface TelegramFeedItem {
   views?: string;
 }
 
+export interface ChannelQuality {
+  /** 0-100. Combined score; higher = healthier signal-to-noise. */
+  score: number;
+  /** What we used to compute the score — exposed so the UI can show the math. */
+  signals: {
+    /** Share of messages within the last 30d. Stale channels drag this down. */
+    recent_pct: number;
+    /** Share of messages whose text duplicates another in the same window. */
+    dupe_pct: number;
+    /** Median text length across messages — proxy for content depth. */
+    median_text_len: number;
+    /** Posts per day across the message window (rolling, days-since-oldest basis). */
+    posts_per_day: number;
+  };
+}
+
 export interface TelegramFeedResponse {
   generated_at: string;
-  channels: { handle: string; name: string; topic: string; ok: boolean; count: number }[];
+  channels: {
+    handle: string;
+    name: string;
+    topic: string;
+    ok: boolean;
+    count: number;
+    quality?: ChannelQuality;
+  }[];
   items: TelegramFeedItem[];
   warnings: string[];
 }
@@ -206,6 +229,89 @@ function parseChannelHtml(html: string): ParsedMessage[] {
 }
 
 /**
+ * Compute a 0-100 quality score for a channel from its recent messages.
+ *
+ * The four signals:
+ *   - recent_pct  → fraction posted in last 30d (dead channels drop sharply)
+ *   - dupe_pct    → fraction of msgs whose text matches another (spam/repost)
+ *   - median_len  → content depth proxy; <50 chars is "title-only" noise
+ *   - posts/day   → cadence sanity; both <0.05 and >25 are penalized
+ *
+ * Each signal feeds a sub-score in [0,1]; we average them and scale to 100.
+ * The intent is decision-support — a channel scoring 35 should be sorted
+ * below one scoring 80, but we don't drop it from the firehose entirely.
+ */
+function scoreChannel(messages: ParsedMessage[]): ChannelQuality {
+  if (messages.length === 0) {
+    return {
+      score: 0,
+      signals: { recent_pct: 0, dupe_pct: 0, median_text_len: 0, posts_per_day: 0 },
+    };
+  }
+
+  const now = Date.now();
+  const recentMs = 30 * 24 * 3600 * 1000;
+  let recent = 0;
+  const lengths: number[] = [];
+  const normalized = new Map<string, number>();
+  const timestamps: number[] = [];
+
+  for (const m of messages) {
+    const t = Date.parse(m.datetime);
+    if (Number.isFinite(t)) {
+      timestamps.push(t);
+      if (now - t <= recentMs) recent += 1;
+    }
+    const len = (m.text ?? '').length;
+    lengths.push(len);
+    const key = (m.text ?? '').toLowerCase().replace(/\s+/g, ' ').trim();
+    if (key) normalized.set(key, (normalized.get(key) ?? 0) + 1);
+  }
+
+  const recentPct = recent / messages.length;
+
+  // Dupes: any text appearing >1× contributes (count - 1) to dupe count.
+  let dupes = 0;
+  for (const c of normalized.values()) if (c > 1) dupes += c - 1;
+  const dupePct = dupes / messages.length;
+
+  lengths.sort((a, b) => a - b);
+  const medianLen = lengths[Math.floor(lengths.length / 2)] ?? 0;
+
+  // posts/day across the message window: oldest→newest delta.
+  let postsPerDay = 0;
+  if (timestamps.length >= 2) {
+    timestamps.sort((a, b) => a - b);
+    const spanDays = Math.max(0.5, (timestamps[timestamps.length - 1]! - timestamps[0]!) / (24 * 3600 * 1000));
+    postsPerDay = messages.length / spanDays;
+  }
+
+  // Sub-scores
+  const sRecent = recentPct;
+  const sDupe = 1 - Math.min(1, dupePct * 2); // penalize duplicates aggressively
+  const sLen = Math.min(1, medianLen / 200); // 200 chars ≈ a good post body
+  // Cadence: ideal 0.3 → 15 posts/day. Below 0.05 = dead; above 25 = firehose.
+  let sCadence: number;
+  if (postsPerDay <= 0.05) sCadence = 0;
+  else if (postsPerDay >= 25) sCadence = 0.3;
+  else if (postsPerDay < 0.3) sCadence = postsPerDay / 0.3;
+  else if (postsPerDay <= 15) sCadence = 1;
+  else sCadence = 1 - (postsPerDay - 15) / 10; // taper 15 → 25
+
+  const score = Math.round(((sRecent + sDupe + sLen + sCadence) / 4) * 100);
+
+  return {
+    score,
+    signals: {
+      recent_pct: Math.round(recentPct * 100),
+      dupe_pct: Math.round(dupePct * 100),
+      median_text_len: medianLen,
+      posts_per_day: Math.round(postsPerDay * 10) / 10,
+    },
+  };
+}
+
+/**
  * Pure-data fetcher exposed for /api/v1/snapshot. Returns the full payload
  * (no Response wrapping) so the snapshot handler can compose it directly
  * without a worker-internal HTTP call (which Cloudflare 522s on same-worker).
@@ -228,7 +334,15 @@ export async function fetchTelegramFeed(): Promise<TelegramFeedResponse> {
         continue;
       }
       const messages = parseChannelHtml(html);
-      channelStatus.push({ handle: ch.handle, name: ch.name, topic: ch.topic, ok: true, count: messages.length });
+      const quality = scoreChannel(messages);
+      channelStatus.push({
+        handle: ch.handle,
+        name: ch.name,
+        topic: ch.topic,
+        ok: true,
+        count: messages.length,
+        quality,
+      });
       for (const m of messages) {
         if (!m.text) continue;
         allItems.push({
@@ -257,7 +371,7 @@ export async function fetchTelegramFeed(): Promise<TelegramFeedResponse> {
 }
 
 /** Exported so /api/v1/snapshot can read the same cached payload directly. */
-export const TELEGRAM_FEED_CACHE_KEY = 'https://telegram-feed-cache.internal/v4';
+export const TELEGRAM_FEED_CACHE_KEY = 'https://telegram-feed-cache.internal/v5-quality';
 
 export async function telegramFeedHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;

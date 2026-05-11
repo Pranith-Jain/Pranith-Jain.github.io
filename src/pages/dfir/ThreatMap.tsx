@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft, RefreshCw, Globe } from 'lucide-react';
 import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
 import { IocSnapshotPanel } from '../../components/dfir/IocSnapshotPanel';
+import { ActorTtpsPanel } from '../../components/threatintel/ActorTtpsPanel';
 
 interface CountryAgg {
   countryCode: string;
@@ -463,6 +464,13 @@ export default function ThreatMap(): JSX.Element {
           )}
 
           <IocSnapshotPanel />
+
+          <div className="mt-8">
+            <ActorTtpsPanel
+              title="MITRE technique distribution from currently-active actors"
+              subtitle="Beyond geo — what TTPs to tune detections for, weighted by who's posting right now. Pulls the same actor-timeline data as /threatintel/actor-timeline."
+            />
+          </div>
 
           <footer className="mt-8 text-xs font-mono text-slate-500">
             IPs refresh hourly. Geolocation via ip-api.com (free, no key). URLs / domains / hashes are surfaced on their

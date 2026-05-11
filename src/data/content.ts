@@ -5,7 +5,7 @@ export const personalInfo = {
   // Short form, used in tight UI like the profile card to avoid overflow.
   shortTitle: 'Security Analyst & Detection Engineer',
   headline: '"Investigating attacks at human scale. Building defenders at AI scale."',
-  description: `a security analyst and detection engineer. By day I work phishing, BEC, and commodity-malware incidents across 150+ global brands. The rest of the time I ship the tools I wish I'd had during those investigations — that's the toolkit at /dfir, free and edge-hosted, no signup required. Right now I'm spending most of my thinking time on AI security (prompt injection, MCP servers, agent attack-surface), Non-Human Identity governance, compliance frameworks, and DLP / data-protection. If you're hiring for those problems, or working on similar ones in the open, I'd like to talk.`,
+  description: `a security analyst and detection engineer. By day I work phishing, BEC, and commodity-malware incidents across 150+ global brands. The rest of the time I ship the tools I wish I'd had during those investigations. The interactive ones live at /dfir, the live threat-intel surface at /threatintel. Both are free, edge-hosted on Cloudflare, no signup. Right now I'm spending most of my thinking time on AI security (prompt injection, MCP servers, agent attack-surface), Non-Human Identity governance, compliance frameworks, and DLP. If you're hiring for those problems, or working on similar ones in the open, I'd like to talk.`,
   currentFocus: 'Threat intel, email defense, and cloud identity security',
   currentlyLearning: 'NHI Security & Advanced Threat Hunting',
   availability: 'Open for Consultations & Strategy Calls',
@@ -146,35 +146,35 @@ export const experiences = [
         title: 'Email Security Operations',
         icon: 'Mail',
         items: [
-          'Managed email security operations for 150+ early-stage startups, enforcing SPF, DKIM, and DMARC across 1,300+ domains to achieve 98%+ authentication alignment blocking spoofed and impersonation email at the perimeter and reducing spoofing incidents by 60%.',
+          'Email security for 150+ early-stage startups. Got SPF, DKIM, and DMARC to 98%+ alignment across 1,300+ domains, which dropped spoofing incidents 60% by blocking impersonation at the perimeter instead of catching it in inboxes.',
         ],
       },
       {
         title: 'Infrastructure Monitoring Dashboard',
         icon: 'Monitor',
         items: [
-          'Engineered an end-to-end infrastructure monitoring dashboard using Claude Code, delivering real-time visibility across 1,300+ active domains and 2,700+ inboxes, replacing manual health checks entirely and establishing the operational backbone for portfolio-wide security process improvement.',
+          'Built an end-to-end monitoring dashboard with Claude Code that shows the health of every domain and inbox we run (1,300+ and 2,700+ respectively). Replaced the manual health-check pass we used to do every Monday morning.',
         ],
       },
       {
         title: 'Phishing & BEC Investigation',
         icon: 'Search',
         items: [
-          'Investigated 250+ phishing, BEC, and malicious attachment incidents through email header analysis, sandbox-based malware detection, IOC identification across sender IPs, domains, and attachment hashes, reducing false positives by 25%, per-incident analysis time by 35%, and maintaining a threat remediation success rate above 90%.',
+          'Worked 250+ phishing, BEC, and malicious-attachment cases. Header analysis, sandbox detonation, IOC pivots across sender IPs, domains, and attachment hashes. False positives down 25%, per-incident analysis time down 35%, remediation success above 90%.',
         ],
       },
       {
         title: 'SOC Automation',
         icon: 'Zap',
         items: [
-          'Automated phishing triage, IOC enrichment, and email blocking pipelines in n8n cutting average incident response time from 4 hours to under 75 minutes, improving threat detection rate across high-volume alert queues, and systematically eliminating manual tasks through repeatable security process improvements.',
+          'Automated phishing triage, IOC enrichment, and email-block pipelines in n8n. Mean response time on incidents went from 4 hours to under 75 minutes. The biggest single win was getting enrichment off the analyst critical path.',
         ],
       },
       {
         title: 'Domain Abuse Monitoring',
         icon: 'Shield',
         items: [
-          'Identified and mitigated 30+ lookalike domain and impersonation campaigns through active domain abuse monitoring and OSINT-driven attacker tracing shrinking the phishing surface area by 40% and communicating threat intelligence findings to leadership to drive portfolio-wide risk decisions.',
+          'Caught and shut down 30+ lookalike-domain and impersonation campaigns by watching cert-transparency logs and pivoting on OSINT. Phishing surface area shrank ~40%. Findings went to leadership weekly so portfolio-wide risk decisions had something to point at.',
         ],
       },
     ],
@@ -185,9 +185,9 @@ export const experiences = [
     location: 'Mysore',
     period: 'Sep 2023 - Jul 2024',
     items: [
-      'Restored 95% inbox placement across 200+ enterprise domains by resolving IP blacklisting and strengthening SMTP authentication controls, reducing delivery failures by over 40%.',
-      'Hardened 60+ web assets by removing malware, tuning WAF rules, and preventing XSS exploitation, achieving a 98% remediation success rate.',
-      'Automated SSL/TLS certificate lifecycle management for 300+ domains, maintaining 99.9% uptime and eliminating renewal related outages.',
+      'Pulled 200+ enterprise domains back to 95% inbox placement after IP blacklisting and weak SMTP auth had tanked delivery. Failures dropped 40%+ once the auth posture was clean.',
+      'Cleaned 60+ web assets: malware removal, WAF tuning, XSS hardening. 98% of the cases closed first-pass with no regression.',
+      'Automated SSL/TLS renewals for 300+ domains. The renewal-day outages we used to firefight stopped happening.',
     ],
   },
   {
@@ -196,9 +196,8 @@ export const experiences = [
     location: 'Vijayawada, India',
     period: 'Mar 2023 - Sep 2023',
     items: [
-      'Engineered "Arogya", a comprehensive Hospital Management System, improving patient record accessibility and streamlining administrative workflows.',
-      'Developed responsive web interfaces and integrated RESTful APIs to enhance user experience and system interoperability.',
-      'Collaborated on system architecture design and implemented core modules for appointment scheduling and billing.',
+      'Built "Arogya", a hospital management system. The administrative team had been on paper-and-Excel for years, so patient-record lookup time was the headline metric.',
+      'Wrote the responsive front-end and the REST APIs underneath it. Appointment scheduling and billing were the modules I owned end-to-end.',
     ],
   },
   {
@@ -207,9 +206,7 @@ export const experiences = [
     location: 'Remote',
     period: 'Jul 2022 - Aug 2022',
     items: [
-      'Developed machine learning models for predictive analytics using Python.',
-      'Processed and analyzed large datasets using Scikit-learn and Pandas.',
-      'Collaborated on integrating AI solutions into software frameworks.',
+      'Trained predictive-analytics models in Python with Scikit-learn and Pandas. First exposure to the gap between a notebook that works and a model that ships.',
     ],
   },
 ];
@@ -266,10 +263,19 @@ interface Project {
 
 export const projects: Project[] = [
   {
+    title: 'Threat Intel Platform',
+    description:
+      "Live CTI surface at /threatintel. It correlates indicators across 18 free IOC feeds so I can tell whether a flagged IP is consensus-malicious or one source crying wolf. The live stream gives each indicator a reporter handle and a freshness badge, so I know which feeds are actually publishing today. There's a Gantt of which ransomware groups are posting right now, with MITRE Group profiles linked inline. Victim re-leak detection catches the cases where one company shows up under two different groups in the same year, which usually means a failed double-extortion or an affiliate moving shop. Everything that can be exported is exported as STIX 2.1 so it drops straight into MISP or a SIEM.",
+    tags: ['Cloudflare Workers', 'STIX 2.1', 'MITRE ATT&CK', 'IOC Correlation', 'CTI', 'May 2026 - Present'],
+    github: 'https://github.com/Pranith-Jain/Pranith-Jain.github.io',
+    badge: 'Live · /threatintel',
+    href: '/threatintel',
+  },
+  {
     title: 'DFIR Toolkit',
     description:
-      'A live, Cloudflare-Workers-hosted security toolkit at /dfir on this site. 22 tools across IOC analysis (24 threat intel sources via SSE, including VirusTotal, AbuseIPDB, Shodan, OTX, URLScan, the abuse.ch trio of ThreatFox, URLhaus, MalwareBazaar, plus Feodo, Spamhaus, Tor exits, OpenPhish, PhishStats, CINS Army, CIRCL Hashlookup, Cloudflare DoH, Quad9, Hybrid Analysis, Bitwire, Blocklist.de, Binary Defense, Ipsum, Phishing Army, and TweetFeed), IOC extraction from text, subdomain takeover detection across 15 service fingerprints, STIX 2.1 viewer with interactive relationship graph, JWT inspection, IDN homograph detection, domain lookup with RDAP, DoH, and email auth, phishing email analyzer, exposure scanner, file hash analyzer, MITRE ATT&CK matrix, threat actor catalog, daily and weekly intel briefings, knowledge base, and privacy and browser fingerprint inspector. Same-origin API at /api/v1/* with rate limiting, security headers, KV caching, and STIX 2.1 ingest.',
-    tags: ['Cloudflare Workers', 'Hono', 'TypeScript', 'SSE', 'STIX 2.1', 'May 2026 - Present'],
+      'The interactive side of the same site, at /dfir. The piece I use the most is the IOC checker. Paste anything (IP, domain, URL, hash, CVE), and it fans out to about two dozen providers over SSE so the verdicts stream back as they arrive. VirusTotal, AbuseIPDB, OTX, GreyNoise, the abuse.ch trio, and a long tail of free reputation lists. Around that sits a Diamond Model builder that auto-fills its corners from whatever indicator you hand it, a STIX 2.1 viewer with an interactive relationship graph, subdomain-takeover fingerprinting, JWT inspection, IDN homograph detection, the MITRE ATT&CK matrix, and a small knowledge base I write to whenever I learn something the hard way. Edge-hosted, free, no signup.',
+    tags: ['Cloudflare Workers', 'Hono', 'SSE', 'TypeScript', 'May 2026 - Present'],
     github: 'https://github.com/Pranith-Jain/Pranith-Jain.github.io',
     badge: 'Live · /dfir',
     href: '/dfir',
@@ -277,32 +283,34 @@ export const projects: Project[] = [
   {
     title: 'CTI STIX Connector',
     description:
-      'Containerized Python CLI that ingests JSON campaign + CSV IOC feeds, classifies and enriches indicators, and emits valid STIX 2.1 bundles. Docker, non-root container (UID 1000), strict-mode entrypoint, 38 pytest unit tests. Integrated with this portfolio at /threatintel/actors and /api/v1/cti/parse.',
+      'A small Python CLI that takes the messy stuff (JSON campaign blobs, CSV IOC dumps from wherever) and emits a clean STIX 2.1 bundle on the other side. Containerized, runs as non-root (UID 1000), strict-mode entrypoint, 38 pytest tests because I got bitten once by a silent parse failure that made it through review. Plugs into this site at /threatintel/actors and /api/v1/cti/parse.',
     tags: ['Python', 'STIX 2.1', 'Docker', 'CTI', 'Apr 2026 - Present'],
     github: 'https://github.com/Pranith-Jain/cti-stix-connector',
   },
   {
     title: 'Email Infrastructure Automation Platform',
     description:
-      'Automated end-to-end domain onboarding across 1,300+ domains, cutting per-domain setup time from several hours to under 10 minutes. Built a Smartlead MCP server with 23 custom analytics tools, consolidating warmup monitoring, deliverability tracking, and campaign analytics for 2,700+ inboxes.',
+      'Built when onboarding a new client domain was taking the team most of an afternoon. End-to-end domain setup across 1,300+ domains, now down to under 10 minutes per domain. The Smartlead MCP server on top of it bundles 23 analytics tools so warmup health, deliverability, and campaign metrics for 2,700+ inboxes all live in one place instead of three tabs.',
     tags: ['n8n', 'MCP', 'Smartlead', 'Automation', 'Analytics', 'Jan 2026 - Present'],
     github: 'https://github.com/Pranith-Jain/Email-Infrastructure-Automation-Platform',
   },
   {
     title: 'Portfolio (Personal)',
-    description: 'Vibe coded personal portfolio and hosted on Cloudflare pages, with email routing.',
+    description:
+      'This site. React + Vite, hosted on Cloudflare Pages, mail routed through Cloudflare too. The DFIR toolkit and threat-intel platform run as Workers next to it.',
     tags: ['React', 'Vite', 'Tailwind', 'Cloudflare Pages', 'Nov 2025 - Present'],
   },
   {
     title: 'MindStudio AI Agents',
-    description: 'AI Agent Portfolio showcasing various AI agents and integrations.',
+    description:
+      'Workshop for the AI agent patterns I was experimenting with at the time. A few of them got useful enough to keep around.',
     tags: ['AI', 'Agents', 'MindStudio', 'Aug 2025 - Sep 2025'],
     github: 'https://github.com/Pranith-Jain/AI-Agent-Portfolio',
   },
   {
     title: 'Secure Patient Data Platform on Google Cloud (Capstone)',
     description:
-      'Distinguished Capstone Project (Grade A, 93/100). Zero Trust environment on GCP, HIPAA-aligned patient data platform with comprehensive security controls.',
+      'Final capstone. Zero Trust on GCP with HIPAA-aligned controls for a patient-data platform. Got a 93/100. Spent more time thinking about audit-log retention than I expected to.',
     tags: ['GCP', 'Zero Trust', 'HIPAA', 'Capstone', 'Jul 2025 - Aug 2025'],
     github: 'https://github.com/Pranith-Jain/Secure-Patient-Data-Platform-on-Google-Cloud-Capstone-',
     badge: 'Grade A (93/100)',
@@ -310,41 +318,43 @@ export const projects: Project[] = [
   {
     title: 'Cloud-Based Ransomware Detection and Recovery System (GCP)',
     description:
-      'A cloud security capstone focused on detection signals, recovery workflow design, and protective controls (logging, monitoring, and network hardening).',
+      "A cloud-security capstone scoped around what a small team would actually do post-incident. Detection signals from Cloud Logging, a recovery workflow that doesn't assume the SOC has 24/7 staff, and network hardening that survives a key-rotation event.",
     tags: ['GCP', 'Detection Engineering', 'Cloud Logging', 'Recovery', 'Jun 2025 - Jul 2025'],
   },
   {
     title: 'Detection Playbooks',
     description:
-      'Structured triage and response process for phishing, spoofing, authentication gaps and domain abuse—built to be operational and repeatable.',
+      'Triage and response runbooks I wrote up after enough phishing, spoofing, and domain-abuse cases that the steps were starting to look the same every time. Written so the next analyst on shift can pick one up without a 30-minute briefing first.',
     tags: ['IR', 'Playbooks', 'Detection', 'Feb 2025'],
   },
   {
     title: 'Tracelay Internship',
     description:
-      'SOC Analyst Intern experience working on security monitoring, incident response, and threat intelligence.',
+      'First real SOC seat. Tier-1 monitoring and a lot of "what does this alert actually mean" pattern-matching. The foundation for almost everything I built after.',
     tags: ['SOC', 'Internship', 'Monitoring', 'Jul 2024 - Oct 2024'],
   },
   {
     title: 'Detecting Bots on Twitter Using Machine Learning',
     description:
-      'Machine learning project to detect automated bot accounts on Twitter using feature engineering and classification algorithms.',
+      'Final-year project. Engineered features off behavioural metadata: posting cadence, follower-to-following ratios, content entropy, then trained classifiers to call out automated accounts. Mostly useful for learning where signal hides in noisy social data.',
     tags: ['ML', 'Python', 'NLP', 'Twitter', 'Dec 2022 - Apr 2023'],
   },
   {
     title: 'CTF Writeups',
     description:
-      'Collection of Capture The Flag challenge writeups and solutions from various cybersecurity competitions.',
+      "Notes from CTFs I've worked through. I keep them around because the techniques recur in real investigations more often than they should.",
     tags: ['CTF', 'Writeups', 'Cybersecurity'],
   },
   {
     title: 'SOC Automation',
-    description: 'Automation workflows and playbooks for security operations center tasks using n8n and AI agents.',
+    description:
+      "n8n workflows that took the boring half of triage off my plate. Enrichment, IOC pivots, ticket-comment automation. Some of the lessons from this work fed into the DFIR toolkit's API design.",
     tags: ['n8n', 'SOC', 'Automation', 'Workflows'],
   },
   {
     title: 'UrlScanner Bot',
-    description: 'Automated bot for scanning and analyzing URLs for malicious content and security threats.',
+    description:
+      'Small chat bot. Paste a URL, it runs through urlscan and a couple of reputation feeds, then posts the verdict back in the channel. Built when I got tired of manually pivoting on every link a client forwarded.',
     tags: ['Bot', 'Security', 'URL Analysis'],
   },
 ];

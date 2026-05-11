@@ -12,3 +12,4 @@ export {
   copyLinkToClipboard,
 } from './useDFIRRoute';
 export { useDFIRSettings } from './useDFIRSettings';
+export { useLastVisit, isNewSince } from './useLastVisit';

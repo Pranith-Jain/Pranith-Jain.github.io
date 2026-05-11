@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { ArrowLeft, ExternalLink, Loader2, MessageSquare, RefreshCw, Search } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Loader2, MessageSquare, RefreshCw, Search, Sparkles } from 'lucide-react';
+import { useLastVisit, isNewSince } from '../../hooks';
 
 interface RedditFeedItem {
   sub: string;
@@ -49,7 +50,9 @@ export default function RedditFirehose(): JSX.Element {
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState(searchParams.get('q') ?? '');
   const [subFilter, setSubFilter] = useState<Set<string>>(new Set(searchParams.get('sub')?.split(',') ?? []));
+  const [newOnly, setNewOnly] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
+  const { previous: lastVisit, markVisited } = useLastVisit('reddit-firehose');
 
   useEffect(() => {
     let cancelled = false;
@@ -93,10 +96,22 @@ export default function RedditFirehose(): JSX.Element {
     const q = query.trim().toLowerCase();
     return data.items.filter((it) => {
       if (subFilter.size > 0 && !subFilter.has(it.sub)) return false;
+      if (newOnly && !isNewSince(it.pub_date, lastVisit)) return false;
       if (!q) return true;
       return it.title.toLowerCase().includes(q) || it.text.toLowerCase().includes(q) || it.author.includes(q);
     });
-  }, [data, query, subFilter]);
+  }, [data, query, subFilter, newOnly, lastVisit]);
+
+  const newCount = useMemo(() => {
+    if (!data || !lastVisit) return 0;
+    return data.items.filter((it) => isNewSince(it.pub_date, lastVisit)).length;
+  }, [data, lastVisit]);
+
+  useEffect(() => {
+    if (!data) return;
+    const id = window.setTimeout(markVisited, 1500);
+    return () => window.clearTimeout(id);
+  }, [data, markVisited]);
 
   const toggleSub = (sub: string) =>
     setSubFilter((prev) => {
@@ -125,7 +140,7 @@ export default function RedditFirehose(): JSX.Element {
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-6">
           Source: <span className="text-slate-700 dark:text-slate-300">/api/v1/reddit-feed</span> · cached 30 min
-          server-side · 12 subreddits.
+          server-side · 16 subreddits.
         </p>
       </div>
 
@@ -142,6 +157,20 @@ export default function RedditFirehose(): JSX.Element {
               aria-label="Filter Reddit posts"
             />
           </div>
+          {newCount > 0 && (
+            <button
+              type="button"
+              onClick={() => setNewOnly((v) => !v)}
+              className={`inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border ${
+                newOnly
+                  ? 'border-emerald-500/60 bg-emerald-500/15 text-emerald-700 dark:text-emerald-300'
+                  : 'border-emerald-500/40 bg-emerald-500/5 text-emerald-700 dark:text-emerald-300 hover:border-emerald-500/60'
+              }`}
+              title={`${newCount} posts since your last visit${lastVisit ? ` (${new Date(lastVisit).toLocaleString()})` : ''}`}
+            >
+              <Sparkles size={12} /> {newCount} new
+            </button>
+          )}
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}

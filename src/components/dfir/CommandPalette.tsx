@@ -77,7 +77,302 @@ function pushRecent(path: string): void {
 }
 
 interface MatchedEntry extends SearchEntry {
-  matchedBy: 'recent' | 'search';
+  matchedBy: 'recent' | 'search' | 'pivot';
+}
+
+/**
+ * Detect whether a query string is an IOC.
+ * Pure regex — no network. Used to synthesize "pivot" entries at the top of
+ * the command-palette results so typing e.g. "1.2.3.4" surfaces:
+ *   → Check 1.2.3.4 in IOC Checker
+ *   → Lookup 1.2.3.4 in ASN tool
+ * Coverage:
+ *   - Network indicators: IP, IPv6, domain, URL
+ *   - File indicators: MD5, SHA-1, SHA-256
+ *   - Vuln + actor identifiers: CVE, MITRE ATT&CK technique (Txxxx), MITRE Group ID (Gxxxx)
+ *   - Identity indicators: ASN, email address, BTC address
+ *   - Free-form: ransomware actor name (matched against curated lookup)
+ */
+type IocType =
+  | 'ip'
+  | 'ipv6'
+  | 'domain'
+  | 'url'
+  | 'hash-md5'
+  | 'hash-sha1'
+  | 'hash-sha256'
+  | 'cve'
+  | 'mitre-technique'
+  | 'mitre-group'
+  | 'asn'
+  | 'email'
+  | 'btc'
+  | 'actor-slug';
+
+/** Known ransomware/APT actor slugs — kept in sync with api/src/lib/ransomware-mitre-groups.ts. */
+const KNOWN_ACTOR_SLUGS = new Set([
+  'lockbit',
+  'alphv',
+  'blackcat',
+  'cl0p',
+  'clop',
+  'akira',
+  'play',
+  'playcrypt',
+  'black basta',
+  'blackbasta',
+  'royal',
+  'medusa',
+  'bianlian',
+  'qilin',
+  'agenda',
+  'conti',
+  'revil',
+  'sodinokibi',
+  'darkside',
+  'blackbyte',
+  'hive',
+  'ryuk',
+  'ragnarlocker',
+  'ragnar locker',
+  'rhysida',
+  'volt-typhoon',
+  'lazarus-group',
+  'fancy-bear',
+]);
+
+function detectIoc(raw: string): { type: IocType; value: string } | null {
+  const v = raw.trim();
+  if (!v) return null;
+  if (/^CVE-\d{4}-\d{4,7}$/i.test(v)) return { type: 'cve', value: v.toUpperCase() };
+  if (/^T\d{4}(?:\.\d{3})?$/i.test(v)) return { type: 'mitre-technique', value: v.toUpperCase() };
+  if (/^G\d{4}$/i.test(v)) return { type: 'mitre-group', value: v.toUpperCase() };
+  if (/^AS\d{1,7}$/i.test(v)) return { type: 'asn', value: v.toUpperCase() };
+  if (/^https?:\/\/\S+$/i.test(v)) return { type: 'url', value: v };
+  if (/^[a-fA-F0-9]{32}$/.test(v)) return { type: 'hash-md5', value: v.toLowerCase() };
+  if (/^[a-fA-F0-9]{40}$/.test(v)) return { type: 'hash-sha1', value: v.toLowerCase() };
+  if (/^[a-fA-F0-9]{64}$/.test(v)) return { type: 'hash-sha256', value: v.toLowerCase() };
+  if (/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) return { type: 'email', value: v.toLowerCase() };
+  // Bitcoin (legacy 1*, P2SH 3*, bech32 bc1*)
+  if (/^(?:1|3)[a-zA-HJ-NP-Z0-9]{25,34}$|^bc1[a-z0-9]{25,87}$/.test(v)) return { type: 'btc', value: v };
+  // IPv4 octet-form
+  if (/^(?:\d{1,3}\.){3}\d{1,3}$/.test(v)) {
+    const octets = v.split('.').map(Number);
+    if (octets.every((n) => n >= 0 && n <= 255)) return { type: 'ip', value: v };
+  }
+  // IPv6 colon-form (loose — must have ≥2 colons and only hex/colons)
+  if (/^[0-9a-fA-F:]+$/.test(v) && (v.match(/:/g)?.length ?? 0) >= 2) return { type: 'ipv6', value: v.toLowerCase() };
+  // Domain — lowercase alnum-hyphen-dot, must contain a dot, no spaces
+  if (/^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}$/i.test(v)) {
+    return { type: 'domain', value: v.toLowerCase() };
+  }
+  // Actor slug — last-resort match (loose: alnum + hyphen + space, length 3-30,
+  // must be in our curated lookup).
+  const lower = v.toLowerCase();
+  if (lower.length >= 3 && lower.length <= 30 && KNOWN_ACTOR_SLUGS.has(lower)) {
+    return { type: 'actor-slug', value: lower };
+  }
+  return null;
+}
+
+/**
+ * Build pivot entries for a detected IOC. Each pivot becomes a synthetic
+ * top-row in the command palette that navigates to a tool route with the
+ * indicator pre-filled.
+ */
+function buildPivots(query: string): MatchedEntry[] {
+  const ioc = detectIoc(query);
+  if (!ioc) return [];
+  const enc = encodeURIComponent(ioc.value);
+  const pivots: MatchedEntry[] = [];
+
+  if (ioc.type === 'cve') {
+    pivots.push({
+      kind: 'tool',
+      label: `CVE Lookup → ${ioc.value}`,
+      desc: 'NVD + CISA KEV + curated actor mapping',
+      path: `/dfir/cve?id=${enc}`,
+      sectionLabel: 'IOC pivot',
+      matchedBy: 'pivot',
+    });
+    pivots.push({
+      kind: 'tool',
+      label: `CVE list page → search for ${ioc.value}`,
+      desc: 'Filter platform CVE list — see actor pills + KEV flags inline',
+      path: `/threatintel/cve-list?q=${enc}`,
+      sectionLabel: 'IOC pivot',
+      matchedBy: 'pivot',
+    });
+    return pivots;
+  }
+
+  if (ioc.type === 'mitre-technique') {
+    pivots.push({
+      kind: 'tool',
+      label: `MITRE technique → ${ioc.value}`,
+      desc: 'Open ATT&CK matrix scoped to this technique — actors, mitigations, detections',
+      path: `/threatintel/mitre?id=${enc}`,
+      sectionLabel: 'IOC pivot',
+      matchedBy: 'pivot',
+    });
+    return pivots;
+  }
+
+  if (ioc.type === 'mitre-group') {
+    pivots.push({
+      kind: 'tool',
+      label: `MITRE Group → ${ioc.value}`,
+      desc: 'Open ATT&CK Group profile (techniques, software, references)',
+      path: `https://attack.mitre.org/groups/${enc}/`,
+      sectionLabel: 'IOC pivot',
+      matchedBy: 'pivot',
+    });
+    return pivots;
+  }
+
+  if (ioc.type === 'asn') {
+    pivots.push({
+      kind: 'tool',
+      label: `ASN Lookup → ${ioc.value}`,
+      desc: 'Routes + prefixes + neighbours via team-cymru / RIPE',
+      path: `/dfir/asn-lookup?asn=${enc}`,
+      sectionLabel: 'IOC pivot',
+      matchedBy: 'pivot',
+    });
+    return pivots;
+  }
+
+  if (ioc.type === 'email') {
+    pivots.push({
+      kind: 'tool',
+      label: `Breach check → ${ioc.value}`,
+      desc: 'Have-I-Been-Pwned breach exposure for this address',
+      path: `/dfir/breach-check?email=${enc}`,
+      sectionLabel: 'IOC pivot',
+      matchedBy: 'pivot',
+    });
+    return pivots;
+  }
+
+  if (ioc.type === 'btc') {
+    pivots.push({
+      kind: 'tool',
+      label: `Crypto Trace → ${ioc.value.slice(0, 24)}…`,
+      desc: 'On-chain BTC tracing — flow + cluster + exchange-attribution',
+      path: `/dfir/crypto-trace?address=${enc}`,
+      sectionLabel: 'IOC pivot',
+      matchedBy: 'pivot',
+    });
+    return pivots;
+  }
+
+  if (ioc.type === 'actor-slug') {
+    pivots.push({
+      kind: 'tool',
+      label: `Actor timeline → ${ioc.value}`,
+      desc: 'Gantt of leak-site cadence + MITRE Group profile + TTPs',
+      path: `/threatintel/actor-timeline?actor=${enc}`,
+      sectionLabel: 'IOC pivot',
+      matchedBy: 'pivot',
+    });
+    pivots.push({
+      kind: 'tool',
+      label: `Threat actors catalogue → ${ioc.value}`,
+      desc: 'Curated APT/ransomware profile with full TTPs',
+      path: `/threatintel/actors/${enc}`,
+      sectionLabel: 'IOC pivot',
+      matchedBy: 'pivot',
+    });
+    return pivots;
+  }
+
+  // All non-CVE IOCs get IOC Checker as the primary pivot.
+  pivots.push({
+    kind: 'tool',
+    label: `IOC Checker → ${ioc.value}`,
+    desc: `Run ${ioc.type} through 20+ providers (VT, AbuseIPDB, OTX, GreyNoise, threatfox, urlhaus, …)`,
+    path: `/dfir/ioc-check?indicator=${enc}`,
+    sectionLabel: 'IOC pivot',
+    matchedBy: 'pivot',
+  });
+
+  // Cross-source correlation lookup is universal for network indicators —
+  // the page's text filter accepts the indicator value directly.
+  if (ioc.type === 'ip' || ioc.type === 'ipv6' || ioc.type === 'domain' || ioc.type === 'url') {
+    pivots.push({
+      kind: 'tool',
+      label: `Correlation lookup → ${ioc.value.slice(0, 60)}${ioc.value.length > 60 ? '…' : ''}`,
+      desc: 'Is this indicator in 2+ feeds? Confidence + per-feed attribution',
+      path: `/threatintel/correlation?q=${enc}`,
+      sectionLabel: 'IOC pivot',
+      matchedBy: 'pivot',
+    });
+  }
+
+  // Kind-specific secondary pivots.
+  if (ioc.type === 'ip' || ioc.type === 'ipv6') {
+    pivots.push({
+      kind: 'tool',
+      label: `ASN Lookup → ${ioc.value}`,
+      desc: 'WHOIS + ASN + reverse-DNS + geolocation',
+      path: `/dfir/asn-lookup?ip=${enc}`,
+      sectionLabel: 'IOC pivot',
+      matchedBy: 'pivot',
+    });
+    pivots.push({
+      kind: 'tool',
+      label: `IP Geolocation → ${ioc.value}`,
+      desc: 'Country / city / ISP / org via ip-api.com',
+      path: `/dfir/ip-geo?ip=${enc}`,
+      sectionLabel: 'IOC pivot',
+      matchedBy: 'pivot',
+    });
+  } else if (ioc.type === 'domain') {
+    pivots.push({
+      kind: 'tool',
+      label: `Domain Lookup → ${ioc.value}`,
+      desc: 'WHOIS + DNS records + subdomains + cert transparency',
+      path: `/dfir/domain-lookup?domain=${enc}`,
+      sectionLabel: 'IOC pivot',
+      matchedBy: 'pivot',
+    });
+    pivots.push({
+      kind: 'tool',
+      label: `Cert Search → ${ioc.value}`,
+      desc: 'crt.sh certificate transparency log lookup',
+      path: `/dfir/cert-search?q=${enc}`,
+      sectionLabel: 'IOC pivot',
+      matchedBy: 'pivot',
+    });
+  } else if (ioc.type === 'url') {
+    pivots.push({
+      kind: 'tool',
+      label: `URL Preview → ${ioc.value}`,
+      desc: 'Server-side fetch + screenshot + headers — safe to inspect',
+      path: `/dfir/url-preview?url=${enc}`,
+      sectionLabel: 'IOC pivot',
+      matchedBy: 'pivot',
+    });
+    pivots.push({
+      kind: 'tool',
+      label: `Wayback CDX → ${ioc.value}`,
+      desc: 'Archive.org historical captures of this URL',
+      path: `/dfir/wayback?url=${enc}`,
+      sectionLabel: 'IOC pivot',
+      matchedBy: 'pivot',
+    });
+  } else if (ioc.type.startsWith('hash-')) {
+    pivots.push({
+      kind: 'tool',
+      label: `File Analysis → ${ioc.value.slice(0, 24)}…`,
+      desc: 'Hash lookup across malware sample sources',
+      path: `/dfir/file-analyze?hash=${enc}`,
+      sectionLabel: 'IOC pivot',
+      matchedBy: 'pivot',
+    });
+  }
+
+  return pivots;
 }
 
 function searchEntries(
@@ -178,10 +473,14 @@ export function CommandPalette(): JSX.Element | null {
   }, [open]);
 
   const fullIndex = useMemo<SearchEntry[]>(() => [...TOOL_ENTRIES, ...catalog], [catalog]);
-  const matches = useMemo(
-    () => searchEntries(query, recent, fullIndex, kindFilter),
-    [query, recent, fullIndex, kindFilter]
-  );
+  const matches = useMemo(() => {
+    const base = searchEntries(query, recent, fullIndex, kindFilter);
+    // Pivots only when no kind-filter is active (otherwise they'd be silently
+    // hidden by the filter, which is confusing).
+    if (kindFilter && kindFilter !== 'tool') return base;
+    const pivots = buildPivots(query);
+    return [...pivots, ...base];
+  }, [query, recent, fullIndex, kindFilter]);
 
   const select = useCallback(
     (path: string) => {
@@ -361,6 +660,11 @@ export function CommandPalette(): JSX.Element | null {
                       {m.matchedBy === 'recent' && (
                         <span className="text-[9px] uppercase tracking-wider px-1 rounded border border-cyan-500/30 bg-cyan-500/5 text-cyan-700 dark:text-cyan-300">
                           recent
+                        </span>
+                      )}
+                      {m.matchedBy === 'pivot' && (
+                        <span className="text-[9px] uppercase tracking-wider px-1 rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300">
+                          pivot
                         </span>
                       )}
                     </div>

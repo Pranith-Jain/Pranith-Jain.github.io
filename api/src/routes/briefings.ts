@@ -7,8 +7,26 @@ import {
   readBriefing,
   sweepOldBriefings,
   writeBriefing,
+  type Briefing,
   type BriefingType,
 } from '../lib/briefing-builder';
+import { extractBriefingTags } from '../lib/briefing-tags';
+
+/**
+ * Walk every finding in the briefing and attach auto-extracted tags
+ * (CVE IDs, known ransomware actors, heuristic sector). Lazy — applied on
+ * read so existing KV-stored briefings get tags without a backfill.
+ */
+function enrichBriefingWithTags(b: Briefing): Briefing {
+  const sections = b.sections.map((s) => ({
+    ...s,
+    findings: s.findings.map((f) => {
+      const blob = `${f.title} ${f.description} ${f.vendor ?? ''} ${f.product ?? ''}`;
+      return { ...f, tags: extractBriefingTags(blob) };
+    }),
+  }));
+  return { ...b, sections } as Briefing;
+}
 
 function kvOrError(c: Context<{ Bindings: Env }>): KVNamespace | null {
   const kv = c.env.BRIEFINGS;
@@ -36,7 +54,7 @@ export async function getBriefingHandler(c: Context<{ Bindings: Env }>) {
   }
   const briefing = await readBriefing(kv, slug);
   if (!briefing) return c.json({ error: 'not found' }, 404);
-  return c.json(briefing, 200, { 'cache-control': 'public, max-age=600, s-maxage=1800' });
+  return c.json(enrichBriefingWithTags(briefing), 200, { 'cache-control': 'public, max-age=600, s-maxage=1800' });
 }
 
 export async function todayBriefingHandler(c: Context<{ Bindings: Env }>) {
@@ -48,7 +66,7 @@ export async function todayBriefingHandler(c: Context<{ Bindings: Env }>) {
   const slug = `daily-${yesterday.toISOString().slice(0, 10)}`;
   const briefing = await readBriefing(kv, slug);
   if (!briefing) return c.json({ error: 'not yet generated', slug }, 404);
-  return c.json(briefing, 200, { 'cache-control': 'public, max-age=300' });
+  return c.json(enrichBriefingWithTags(briefing), 200, { 'cache-control': 'public, max-age=300' });
 }
 
 /**

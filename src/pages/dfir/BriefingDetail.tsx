@@ -16,6 +16,11 @@ interface BriefingFinding {
   added?: string;
   vendor?: string;
   product?: string;
+  tags?: {
+    cves: string[];
+    actors: Array<{ slug: string; mitre_id?: string }>;
+    sectors: string[];
+  };
 }
 
 interface BriefingSection {
@@ -137,6 +142,42 @@ function FindingCard({ finding }: { finding: BriefingFinding }) {
           {finding.description}
         </p>
       )}
+      {finding.tags &&
+        (finding.tags.cves.length > 0 || finding.tags.actors.length > 0 || finding.tags.sectors.length > 0) && (
+          <div className="flex flex-wrap gap-1.5 mb-3">
+            {finding.tags.cves.map((cve) => (
+              <a
+                key={`cve-${cve}`}
+                href={`https://nvd.nist.gov/vuln/detail/${cve}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:underline"
+                title={`Look up ${cve} on NVD`}
+              >
+                {cve}
+              </a>
+            ))}
+            {finding.tags.actors.map((a) => (
+              <span
+                key={`actor-${a.slug}`}
+                className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300"
+                title={a.mitre_id ? `MITRE ${a.mitre_id}` : 'actor name detected'}
+              >
+                actor:{a.slug}
+                {a.mitre_id && <span className="opacity-70"> · {a.mitre_id}</span>}
+              </span>
+            ))}
+            {finding.tags.sectors.map((s) => (
+              <span
+                key={`sector-${s}`}
+                className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300"
+                title="heuristic sector classification"
+              >
+                sector:{s}
+              </span>
+            ))}
+          </div>
+        )}
       <div className="flex flex-wrap items-center gap-2 text-[11px] font-mono text-slate-500">
         <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-800">
           {finding.source}

@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { classifySector, type Sector } from '../lib/sector-classifier';
 
 /**
  * Recent ransomware leak-site posts via Ransomlook.io's free `/api/recent`
@@ -17,7 +18,7 @@ import type { Env } from '../env';
  */
 
 /** Exported so /api/v1/snapshot can read the same cached payload directly. */
-export const RANSOMWARE_RECENT_CACHE_KEY = 'https://ransomware-recent-cache.internal/v2';
+export const RANSOMWARE_RECENT_CACHE_KEY = 'https://ransomware-recent-cache.internal/v3-sectors';
 const CACHE_KEY = RANSOMWARE_RECENT_CACHE_KEY;
 const CACHE_TTL_SECONDS = 3600;
 const FETCH_TIMEOUT_MS = 15_000;
@@ -47,6 +48,8 @@ export interface RansomwareVictim {
    * already permits this.
    */
   screen_url?: string;
+  /** Heuristic sector classification — see lib/sector-classifier.ts. */
+  sector?: Sector;
 }
 
 interface ResponseBody {
@@ -54,6 +57,8 @@ interface ResponseBody {
   source: string;
   count: number;
   groups: Array<{ group: string; count: number }>;
+  /** Heuristic sector aggregation. `pct` is share of classified (non-Unknown) victims. */
+  sectors: Array<{ sector: Sector; count: number; pct: number }>;
   victims: RansomwareVictim[];
 }
 
@@ -99,16 +104,21 @@ export async function fetchRansomwareRecent(): Promise<{
       victims = raw
         .filter((e) => e && e.post_title && e.group_name)
         .slice(0, MAX_ITEMS)
-        .map((e) => ({
-          victim: e.post_title.trim(),
-          group: e.group_name!.trim().toLowerCase(),
-          discovered: toIsoDate(e.discovered),
-          description: e.description?.trim() || undefined,
-          source_url: e.link
-            ? `https://www.ransomlook.io${e.link.startsWith('/') ? '' : '/'}${e.link}`
-            : 'https://www.ransomlook.io/recent',
-          screen_url: e.screen ? `https://www.ransomlook.io/${e.screen.replace(/^\//, '')}` : undefined,
-        }));
+        .map((e) => {
+          const victim = e.post_title.trim();
+          const description = e.description?.trim() || undefined;
+          return {
+            victim,
+            group: e.group_name!.trim().toLowerCase(),
+            discovered: toIsoDate(e.discovered),
+            description,
+            source_url: e.link
+              ? `https://www.ransomlook.io${e.link.startsWith('/') ? '' : '/'}${e.link}`
+              : 'https://www.ransomlook.io/recent',
+            screen_url: e.screen ? `https://www.ransomlook.io/${e.screen.replace(/^\//, '')}` : undefined,
+            sector: classifySector(victim, description),
+          };
+        });
     }
   } catch {
     /* upstream unreachable — fall through with empty list */
@@ -122,11 +132,30 @@ export async function fetchRansomwareRecent(): Promise<{
     .sort((a, b) => b.count - a.count)
     .slice(0, 12);
 
+  // Sector aggregation — pct is share of *classified* victims (excludes Unknown
+  // from the denominator so the percentages mean "of the ones we could
+  // identify, what share is each sector"). The Unknown row is still surfaced
+  // with its own count so analysts see how much we couldn't classify.
+  const sectorCounts = new Map<Sector, number>();
+  for (const v of victims) {
+    const s = v.sector ?? 'Unknown';
+    sectorCounts.set(s, (sectorCounts.get(s) ?? 0) + 1);
+  }
+  const classifiedTotal = victims.filter((v) => v.sector && v.sector !== 'Unknown').length;
+  const sectors = [...sectorCounts.entries()]
+    .map(([sector, count]) => ({
+      sector,
+      count,
+      pct: sector === 'Unknown' || classifiedTotal === 0 ? 0 : Math.round((count / classifiedTotal) * 100),
+    }))
+    .sort((a, b) => b.count - a.count);
+
   const body: ResponseBody = {
     generated_at: new Date().toISOString(),
     source: 'ransomlook.io /api/recent',
     count: victims.length,
     groups,
+    sectors,
     victims,
   };
 

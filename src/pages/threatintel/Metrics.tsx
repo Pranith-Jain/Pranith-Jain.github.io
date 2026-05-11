@@ -1,6 +1,20 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Activity, ArrowLeft, BarChart3, Flame, Globe2, Loader2, RefreshCw, Skull, TrendingUp } from 'lucide-react';
+import {
+  Activity,
+  ArrowLeft,
+  BarChart3,
+  Briefcase,
+  Bug,
+  Flame,
+  Globe2,
+  Loader2,
+  RefreshCw,
+  Shield,
+  Skull,
+  TrendingUp,
+  Users,
+} from 'lucide-react';
 
 /**
  * Threat Intel Metrics — quantitative read of what's flowing through the
@@ -8,13 +22,17 @@ import { Activity, ArrowLeft, BarChart3, Flame, Globe2, Loader2, RefreshCw, Skul
  * four endpoints the other /threatintel pages use, so there's no new
  * worker code and no risk of stale aggregates: refresh → fresh chart.
  *
- * Six panels answer the questions a CTI team actually asks:
+ * Ten panels answer the questions a CTI team actually asks:
  *   1. Who's most active in ransomware right now?              (HBar)
  *   2. What's the pace of ransomware claims this month?         (Area)
  *   3. How is CVE severity distributed in the current window?   (Stacked HBar)
  *   4. How often is CISA adding to KEV?                         (Sparkbars)
  *   5. Which brands are most-impersonated in active phishing?   (HBar)
  *   6. Which upstream feeds contribute the most IOCs right now? (HBar)
+ *   7. Which sectors are ransomware groups targeting?           (HBar, heuristic)
+ *   8. Which vendors are most-exploited on the KEV catalogue?   (HBar)
+ *   9. Which malware families are spreading right now?          (HBar)
+ *   10. Re-leak hotspots — groups doing the most cross-claims    (HBar)
  *
  * Charts are hand-rolled SVG — no Recharts/D3 dependency. Each is small,
  * presentational, and accessible (title/aria on rects + percentage labels).
@@ -26,12 +44,15 @@ interface RansomwareVictim {
   discovered: string;
   description?: string;
   source_url: string;
+  /** Heuristic sector classification — see api/src/lib/sector-classifier.ts. */
+  sector?: string;
 }
 
 interface RecentCve {
   id: string;
   published: string;
   modified: string;
+  description?: string;
   severity: 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW' | 'NONE' | 'UNKNOWN';
   score: number | null;
   kev: boolean;
@@ -50,6 +71,21 @@ interface ThreatMapResponse {
   total_ips: number;
   countries: { country: string; countryCode: string; count: number }[];
   source_counts: Record<string, number>;
+}
+
+interface MalwareSample {
+  sha256: string;
+  signature?: string;
+  tags?: string[];
+  file_type?: string;
+  first_seen?: string;
+}
+
+interface ReleakRow {
+  key: string;
+  group_count: number;
+  raw_names: string[];
+  claims: { group: string; raw_victim: string; discovered: string }[];
 }
 
 const SEVERITY_COLORS: Record<RecentCve['severity'], string> = {
@@ -239,6 +275,8 @@ interface State {
   cves: RecentCve[] | null;
   phishing: PhishingUrl[] | null;
   threatMap: ThreatMapResponse | null;
+  malware: MalwareSample[] | null;
+  releaks: ReleakRow[] | null;
   refreshedAt: string | null;
   loading: boolean;
   error: string | null;
@@ -249,6 +287,8 @@ const INITIAL: State = {
   cves: null,
   phishing: null,
   threatMap: null,
+  malware: null,
+  releaks: null,
   refreshedAt: null,
   loading: true,
   error: null,
@@ -264,11 +304,13 @@ export default function Metrics(): JSX.Element {
 
     (async () => {
       try {
-        const [rRes, cRes, pRes, tmRes] = await Promise.allSettled([
+        const [rRes, cRes, pRes, tmRes, mRes, rlRes] = await Promise.allSettled([
           fetch('/api/v1/ransomware-recent').then((r) => (r.ok ? r.json() : Promise.reject(`ransomware ${r.status}`))),
           fetch('/api/v1/cve-recent').then((r) => (r.ok ? r.json() : Promise.reject(`cve ${r.status}`))),
           fetch('/api/v1/phishing-urls').then((r) => (r.ok ? r.json() : Promise.reject(`phishing ${r.status}`))),
           fetch('/api/v1/threat-map').then((r) => (r.ok ? r.json() : Promise.reject(`threat-map ${r.status}`))),
+          fetch('/api/v1/malware-samples').then((r) => (r.ok ? r.json() : Promise.reject(`malware ${r.status}`))),
+          fetch('/api/v1/victim-releaks').then((r) => (r.ok ? r.json() : Promise.reject(`releaks ${r.status}`))),
         ]);
         if (cancelled) return;
         setState({
@@ -277,6 +319,8 @@ export default function Metrics(): JSX.Element {
           cves: cRes.status === 'fulfilled' ? ((cRes.value as { cves: RecentCve[] }).cves ?? []) : null,
           phishing: pRes.status === 'fulfilled' ? ((pRes.value as { urls: PhishingUrl[] }).urls ?? []) : null,
           threatMap: tmRes.status === 'fulfilled' ? (tmRes.value as ThreatMapResponse) : null,
+          malware: mRes.status === 'fulfilled' ? ((mRes.value as { samples: MalwareSample[] }).samples ?? []) : null,
+          releaks: rlRes.status === 'fulfilled' ? ((rlRes.value as { releaks: ReleakRow[] }).releaks ?? []) : null,
           refreshedAt: new Date().toISOString(),
           loading: false,
           error: null,
@@ -380,6 +424,76 @@ export default function Metrics(): JSX.Element {
       .sort((a, b) => b.value - a.value);
   }, [state.threatMap]);
 
+  const targetedSectors = useMemo<HBarItem[]>(() => {
+    if (!state.ransomware) return [];
+    const map = new Map<string, number>();
+    for (const v of state.ransomware) {
+      if (!withinDays(v.discovered, 30)) continue;
+      const s = v.sector || 'Unknown';
+      if (s === 'Unknown') continue;
+      map.set(s, (map.get(s) ?? 0) + 1);
+    }
+    return [...map.entries()]
+      .map(([label, value]) => ({ label, value }))
+      .sort((a, b) => b.value - a.value)
+      .slice(0, 10);
+  }, [state.ransomware]);
+
+  const sectorClassifiedPct = useMemo(() => {
+    if (!state.ransomware?.length) return 0;
+    const within = state.ransomware.filter((v) => withinDays(v.discovered, 30));
+    if (!within.length) return 0;
+    const known = within.filter((v) => v.sector && v.sector !== 'Unknown').length;
+    return Math.round((known / within.length) * 100);
+  }, [state.ransomware]);
+
+  /** Top vendors on the KEV catalogue. Parsed from "[KEV] Vendor Product:" prefix in description. */
+  const topKevVendors = useMemo<HBarItem[]>(() => {
+    if (!state.cves) return [];
+    const map = new Map<string, number>();
+    for (const c of state.cves) {
+      if (!c.kev) continue;
+      const m = /^\[KEV\]\s+([^:]+):/.exec(c.description ?? '');
+      if (!m) continue;
+      // First token of "Vendor Product Subproduct" is usually the vendor.
+      const vendor = m[1]!.split(/[\s/]+/)[0]!.trim();
+      if (!vendor) continue;
+      map.set(vendor, (map.get(vendor) ?? 0) + 1);
+    }
+    return [...map.entries()]
+      .map(([label, value]) => ({ label, value }))
+      .sort((a, b) => b.value - a.value)
+      .slice(0, 10);
+  }, [state.cves]);
+
+  /** Top malware families seen in the last 24h (MalwareBazaar signature field). */
+  const topMalwareFamilies = useMemo<HBarItem[]>(() => {
+    if (!state.malware) return [];
+    const map = new Map<string, number>();
+    for (const s of state.malware) {
+      const family = (s.signature ?? '').trim();
+      if (!family || family.toLowerCase() === 'n/a' || family.toLowerCase() === 'unknown') continue;
+      map.set(family, (map.get(family) ?? 0) + 1);
+    }
+    return [...map.entries()]
+      .map(([label, value]) => ({ label, value }))
+      .sort((a, b) => b.value - a.value)
+      .slice(0, 10);
+  }, [state.malware]);
+
+  /** Groups making the most cross-claims (re-leak hotspots). */
+  const releakGroups = useMemo<HBarItem[]>(() => {
+    if (!state.releaks) return [];
+    const map = new Map<string, number>();
+    for (const r of state.releaks) {
+      for (const c of r.claims) map.set(c.group, (map.get(c.group) ?? 0) + 1);
+    }
+    return [...map.entries()]
+      .map(([label, value]) => ({ label, value }))
+      .sort((a, b) => b.value - a.value)
+      .slice(0, 10);
+  }, [state.releaks]);
+
   /* ─── Summary header counts ─── */
   const summary = useMemo(() => {
     const r = state.ransomware?.filter((v) => withinDays(v.discovered, 30)).length ?? 0;
@@ -404,14 +518,16 @@ export default function Metrics(): JSX.Element {
           <BarChart3 size={28} className="text-brand-600 dark:text-brand-400" /> Threat Intel Metrics
         </h1>
         <p className="text-slate-600 dark:text-slate-400 font-mono mb-2 max-w-3xl">
-          Six panels answering the questions a CTI team actually asks. Everything is computed live in the browser from
+          Ten panels answering the questions a CTI team actually asks. Everything is computed live in the browser from
           the same upstream feeds the rest of /threatintel reads — refresh to recompute. No new worker endpoints.
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-6">
           Sources: <span className="text-slate-700 dark:text-slate-300">/api/v1/ransomware-recent</span> ·{' '}
           <span className="text-slate-700 dark:text-slate-300">/cve-recent</span> ·{' '}
           <span className="text-slate-700 dark:text-slate-300">/phishing-urls</span> ·{' '}
-          <span className="text-slate-700 dark:text-slate-300">/threat-map</span>
+          <span className="text-slate-700 dark:text-slate-300">/threat-map</span> ·{' '}
+          <span className="text-slate-700 dark:text-slate-300">/malware-samples</span> ·{' '}
+          <span className="text-slate-700 dark:text-slate-300">/victim-releaks</span>
         </p>
       </div>
 
@@ -497,7 +613,7 @@ export default function Metrics(): JSX.Element {
             title="Most-impersonated brands"
             question="Whose customers are getting phished right now?"
             footer={`From PhishTank — ${state.phishing?.filter((u) => u.target).length ?? 0} URLs have brand attribution`}
-            href="/threatintel/phishing-urls"
+            href="/threatintel/live-iocs"
           >
             <HBar items={topPhishingBrands} color="#0ea5e9" />
           </ChartCard>
@@ -512,6 +628,50 @@ export default function Metrics(): JSX.Element {
           >
             <HBar items={iocSourceVolume} color="#8b5cf6" />
           </ChartCard>
+
+          {/* 7. Targeted sectors (heuristic) */}
+          <ChartCard
+            icon={Briefcase}
+            title="Targeted sectors · 30d (heuristic)"
+            question="Which industries are ransomware groups hitting right now?"
+            footer={`Classified ${sectorClassifiedPct}% of recent victims by keyword match on victim name + description — best-effort, verify before action`}
+            href="/threatintel/ransomware-activity"
+          >
+            <HBar items={targetedSectors} color="#0891b2" />
+          </ChartCard>
+
+          {/* 8. Top KEV vendors */}
+          <ChartCard
+            icon={Shield}
+            title="Most-exploited vendors on CISA KEV"
+            question="Whose products are taking the most active-exploitation hits?"
+            footer={`Parsed from KEV vulnerability descriptions in the current CVE window`}
+            href="/threatintel/cve-list"
+          >
+            <HBar items={topKevVendors} color="#dc2626" />
+          </ChartCard>
+
+          {/* 9. Top malware families */}
+          <ChartCard
+            icon={Bug}
+            title="Most-active malware families · 24h"
+            question="Which malware families are dropping on MalwareBazaar right now?"
+            footer={`From MalwareBazaar recent samples · ${state.malware?.length ?? 0} samples in window`}
+            href="/threatintel/live-iocs"
+          >
+            <HBar items={topMalwareFamilies} color="#a855f7" />
+          </ChartCard>
+
+          {/* 10. Re-leak hotspot groups */}
+          <ChartCard
+            icon={Users}
+            title="Re-leak hotspots — groups doing the most cross-claims"
+            question="Which groups appear in cross-actor re-leaks the most? (affiliate-movement signal)"
+            footer={`From /api/v1/victim-releaks · ${state.releaks?.length ?? 0} re-leaks across top-8 active groups`}
+            href="/threatintel/re-leaks"
+          >
+            <HBar items={releakGroups} color="#f43f5e" />
+          </ChartCard>
         </div>
       )}
 
@@ -520,22 +680,44 @@ export default function Metrics(): JSX.Element {
         <h3 className="font-display font-semibold text-sm mb-2">What this view doesn't (yet) answer</h3>
         <ul className="text-[12px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed space-y-1">
           <li>
-            <strong className="text-slate-700 dark:text-slate-300">Cross-source correlation</strong> — same IP in 3+
-            independent blocklists is a much stronger signal than appearance in 1. Currently each feed renders
-            independently; a per-IOC "seen in N feeds" enrichment would change triage substantially.
+            <span className="text-emerald-600 dark:text-emerald-400">✓ shipped</span>{' '}
+            <strong className="text-slate-700 dark:text-slate-300">Cross-source correlation</strong> — same indicator in
+            2+ feeds is high-signal. See{' '}
+            <a href="/threatintel/correlation" className="text-brand-600 dark:text-brand-400 hover:underline">
+              /threatintel/correlation
+            </a>{' '}
+            for the ranked overlap across 11 IOC feeds.
           </li>
           <li>
-            <strong className="text-slate-700 dark:text-slate-300">Sector targeting</strong> — Ransomlook posts often
-            carry sector metadata (healthcare, manufacturing, …). A treemap of "who's hitting whom" would tell defenders
-            in a given industry whether they're in the crosshairs this month.
+            <span className="text-emerald-600 dark:text-emerald-400">✓ shipped (heuristic)</span>{' '}
+            <strong className="text-slate-700 dark:text-slate-300">Sector targeting</strong> — see the "Targeted
+            sectors" panel above. Ransomlook doesn't expose sector metadata, so we classify with a keyword matcher.
+            Validate before acting; the Unknown bucket is non-trivial.
           </li>
           <li>
-            <strong className="text-slate-700 dark:text-slate-300">Actor activity timeline</strong> — MITRE ATT&CK
-            mapping per active ransomware group + a Gantt-style timeline of when each group's TTPs were last observed.
+            <span className="text-emerald-600 dark:text-emerald-400">✓ shipped</span>{' '}
+            <strong className="text-slate-700 dark:text-slate-300">Actor activity timeline</strong> — see{' '}
+            <a href="/threatintel/actor-timeline" className="text-brand-600 dark:text-brand-400 hover:underline">
+              /threatintel/actor-timeline
+            </a>{' '}
+            for a Gantt of leak-site cadence per group, joined with curated MITRE ATT&CK Group references for known
+            actors.
           </li>
           <li>
-            <strong className="text-slate-700 dark:text-slate-300">Watchlist alerting</strong> — current watchlist
-            highlights matches; doesn't notify. An RSS / webhook / email "new hit on $term" wire would close the loop.
+            <span className="text-emerald-600 dark:text-emerald-400">✓ shipped</span>{' '}
+            <strong className="text-slate-700 dark:text-slate-300">
+              MITRE technique distribution from active actors
+            </strong>{' '}
+            — surfaced on both{' '}
+            <a href="/threatintel/actor-timeline" className="text-brand-600 dark:text-brand-400 hover:underline">
+              /threatintel/actor-timeline
+            </a>{' '}
+            and{' '}
+            <a href="/threatintel/threat-map" className="text-brand-600 dark:text-brand-400 hover:underline">
+              /threatintel/threat-map
+            </a>
+            . Aggregates the TTPs of every currently-active group with a curated MITRE entry — the "what to tune
+            detections for, right now" pivot.
           </li>
         </ul>
       </section>

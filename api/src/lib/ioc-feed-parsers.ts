@@ -276,7 +276,7 @@ export function parseIpsum(body: string, cap: number = CAP): IocEntry[] {
     if (!trimmed || trimmed.startsWith('#')) continue;
     const parts = trimmed.split(/\s+/);
     const ip = parts[0];
-    if (!IPV4_LINE_RE.test(ip)) continue;
+    if (!ip || !IPV4_LINE_RE.test(ip)) continue;
     const score = parts[1];
     entries.push({ type: 'ipv4', value: ip, context: score ? `consensus: ${score} sources` : undefined });
     if (entries.length >= cap) break;
@@ -325,9 +325,13 @@ export function parseTweetFeed(body: string, cap: number = CAP): IocEntry[] {
     .filter(Boolean);
   // Iterate newest-first
   for (let i = lines.length - 1; i >= 0; i--) {
-    const cols = lines[i].split(',');
+    const line = lines[i];
+    if (!line) continue;
+    const cols = line.split(',');
     if (cols.length < 4) continue;
-    const type = tweetfeedType(cols[2]);
+    const typeCol = cols[2];
+    if (!typeCol) continue;
+    const type = tweetfeedType(typeCol);
     if (!type) continue;
     const value = cols[3];
     if (!value) continue;
@@ -336,6 +340,105 @@ export function parseTweetFeed(body: string, cap: number = CAP): IocEntry[] {
     const context = [reporter, tags].filter(Boolean).join(' | ') || undefined;
     const timestamp = cols[0] || undefined;
     entries.push({ type, value, context, timestamp });
+    if (entries.length >= cap) break;
+  }
+  return entries;
+}
+
+// ─── SANS ISC top attack sources ────────────────────────────────────────────
+// JSON: [{ ip, attacks, count, firstseen, lastseen }, ...]
+// Newest-touched first (ISC sorts by attack count desc, lastseen is recent).
+
+interface SansIscEntry {
+  ip?: string;
+  attacks?: number;
+  count?: number;
+  lastseen?: string;
+}
+
+export function parseSansIsc(body: string, cap: number = CAP): IocEntry[] {
+  let parsed: SansIscEntry[];
+  try {
+    parsed = JSON.parse(body) as SansIscEntry[];
+  } catch {
+    return [];
+  }
+  const entries: IocEntry[] = [];
+  for (const e of parsed) {
+    const ip = e.ip?.trim();
+    if (!ip || !IPV4_LINE_RE.test(ip)) continue;
+    const attacks = e.attacks ?? 0;
+    const count = e.count ?? 0;
+    entries.push({
+      type: 'ipv4',
+      value: ip,
+      context: `attacks=${attacks} · sensors=${count}`,
+      timestamp: e.lastseen,
+    });
+    if (entries.length >= cap) break;
+  }
+  return entries;
+}
+
+// ─── C2IntelFeeds (drb-ra) — Cobalt Strike + similar C2 IPs ─────────────────
+// CSV: header `#ip,ioc` then rows `<ip>,<context>`. Context is e.g.
+// "Possible Cobaltstrike C2 IP", "Sliver C2 server" — usable as-is for
+// downstream display.
+
+export function parseC2IntelFeeds(body: string, cap: number = CAP): IocEntry[] {
+  const entries: IocEntry[] = [];
+  for (const line of body.split('\n')) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) continue;
+    const idx = trimmed.indexOf(',');
+    const ip = idx === -1 ? trimmed : trimmed.slice(0, idx).trim();
+    const context = idx === -1 ? undefined : trimmed.slice(idx + 1).trim() || undefined;
+    if (!IPV4_LINE_RE.test(ip)) continue;
+    entries.push({ type: 'ipv4', value: ip, context });
+    if (entries.length >= cap) break;
+  }
+  return entries;
+}
+
+// ─── AlienVault OTX reputation ──────────────────────────────────────────────
+// Plain text with comments. Data lines: `<ip> # <classification> <country>,,<lat>,<lon>`
+// Classification examples: "Malicious Host", "Scanning Host", "Spamming".
+
+export function parseAlienVaultReputation(body: string, cap: number = CAP): IocEntry[] {
+  const entries: IocEntry[] = [];
+  for (const line of body.split('\n')) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) continue;
+    // Split on '#' to separate IP from classification metadata.
+    const hashIdx = trimmed.indexOf('#');
+    const ip = (hashIdx === -1 ? trimmed : trimmed.slice(0, hashIdx)).trim();
+    if (!IPV4_LINE_RE.test(ip)) continue;
+    const meta = hashIdx === -1 ? '' : trimmed.slice(hashIdx + 1).trim();
+    // Take the classification phrase up to first comma (drops lat/lon noise).
+    const classification = meta.split(',')[0]?.trim() || undefined;
+    entries.push({ type: 'ipv4', value: ip, context: classification });
+    if (entries.length >= cap) break;
+  }
+  return entries;
+}
+
+// ─── BlocklistProject hosts-format domain lists ──────────────────────────────
+// Format: `0.0.0.0 <domain>` (hosts(5) style). Skips comments. Used for
+// category-specific lists (ransomware, scam, malware, phishing).
+
+const HOSTS_LINE_RE = /^(?:0\.0\.0\.0|127\.0\.0\.1)\s+([a-z0-9.-]+)$/i;
+
+export function parseHostsFormat(body: string, cap: number = CAP): IocEntry[] {
+  const entries: IocEntry[] = [];
+  for (const line of body.split('\n')) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#') || trimmed.startsWith('!')) continue;
+    const match = HOSTS_LINE_RE.exec(trimmed);
+    if (!match) continue;
+    const domain = match[1]!.toLowerCase();
+    // Skip the localhost-style entries that some hosts files include.
+    if (domain === 'localhost' || domain === 'localhost.localdomain') continue;
+    entries.push({ type: 'domain', value: domain });
     if (entries.length >= cap) break;
   }
   return entries;

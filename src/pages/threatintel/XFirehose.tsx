@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { ArrowLeft, AtSign, Cloud, ExternalLink, Loader2, RefreshCw, Search } from 'lucide-react';
+import { ArrowLeft, AtSign, Cloud, ExternalLink, Loader2, RefreshCw, Search, Sparkles } from 'lucide-react';
+import { useLastVisit, isNewSince } from '../../hooks';
 
 type Platform = 'bluesky' | 'mastodon';
 
@@ -54,7 +55,9 @@ export default function XFirehose(): JSX.Element {
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState(searchParams.get('q') ?? '');
   const [handleFilter, setHandleFilter] = useState<Set<string>>(new Set(searchParams.get('h')?.split(',') ?? []));
+  const [newOnly, setNewOnly] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
+  const { previous: lastVisit, markVisited } = useLastVisit('x-firehose');
 
   useEffect(() => {
     let cancelled = false;
@@ -98,10 +101,22 @@ export default function XFirehose(): JSX.Element {
     const q = query.trim().toLowerCase();
     return data.items.filter((it) => {
       if (handleFilter.size > 0 && !handleFilter.has(it.handle)) return false;
+      if (newOnly && !isNewSince(it.pub_date, lastVisit)) return false;
       if (!q) return true;
       return it.text.toLowerCase().includes(q) || it.handle.toLowerCase().includes(q);
     });
-  }, [data, query, handleFilter]);
+  }, [data, query, handleFilter, newOnly, lastVisit]);
+
+  const newCount = useMemo(() => {
+    if (!data || !lastVisit) return 0;
+    return data.items.filter((it) => isNewSince(it.pub_date, lastVisit)).length;
+  }, [data, lastVisit]);
+
+  useEffect(() => {
+    if (!data) return;
+    const id = window.setTimeout(markVisited, 1500);
+    return () => window.clearTimeout(id);
+  }, [data, markVisited]);
 
   const toggleHandle = (h: string) =>
     setHandleFilter((prev) => {
@@ -149,6 +164,20 @@ export default function XFirehose(): JSX.Element {
               aria-label="Filter X posts"
             />
           </div>
+          {newCount > 0 && (
+            <button
+              type="button"
+              onClick={() => setNewOnly((v) => !v)}
+              className={`inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border ${
+                newOnly
+                  ? 'border-emerald-500/60 bg-emerald-500/15 text-emerald-700 dark:text-emerald-300'
+                  : 'border-emerald-500/40 bg-emerald-500/5 text-emerald-700 dark:text-emerald-300 hover:border-emerald-500/60'
+              }`}
+              title={`${newCount} posts since your last visit${lastVisit ? ` (${new Date(lastVisit).toLocaleString()})` : ''}`}
+            >
+              <Sparkles size={12} /> {newCount} new
+            </button>
+          )}
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}

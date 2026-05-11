@@ -8,17 +8,15 @@ import {
   BookOpen,
   BookText,
   Briefcase,
-  Bug,
   Cloud,
   Compass,
   ExternalLink,
   FileCode,
-  Fish,
+  GitBranchPlus,
   Github,
   Globe,
   Globe2,
   Grid3x3,
-  Hash,
   Layers,
   MessageSquare,
   Microscope,
@@ -207,39 +205,6 @@ const SECTIONS: Section[] = [
         icon: ShieldAlert,
         badge: 'live',
       },
-      {
-        to: '/threatintel/malware-samples',
-        label: 'Live malware samples',
-        desc: 'MalwareBazaar latest · family signature · file type · size · reporter · link to Bazaar sample page',
-        icon: Bug,
-        badge: 'live',
-      },
-      {
-        to: '/threatintel/phishing-urls',
-        label: 'Live phishing URLs',
-        desc: 'PhishTank + OpenPhish · target brand + verification flag · pivot to IOC Checker',
-        icon: Fish,
-        badge: 'live',
-      },
-      {
-        to: '/threatintel/urls',
-        label: 'Live malicious URLs',
-        desc: 'URLhaus + ThreatFox aggregate · malware-distribution + C2 URLs · per-entry timestamp + source + context · refreshed hourly',
-        icon: Globe,
-        badge: 'live',
-      },
-      {
-        to: '/threatintel/domains',
-        label: 'Live domains',
-        desc: 'Malicious domains from ThreatFox · per-entry timestamp showing when upstream first saw it',
-        icon: Globe,
-      },
-      {
-        to: '/threatintel/hashs',
-        label: 'Live file hashes',
-        desc: 'MalwareBazaar + ThreatFox hashes · per-entry timestamp · click hash to run through IOC Checker',
-        icon: Hash,
-      },
     ],
   },
   {
@@ -282,6 +247,30 @@ const SECTIONS: Section[] = [
         label: 'Threat Intel Metrics',
         desc: 'Six charts answering the questions CTI teams actually ask — most-active ransomware groups, CVE severity, KEV cadence, top-impersonated brands, IOC volume by source',
         icon: BarChart3,
+      },
+      {
+        to: '/threatintel/correlation',
+        label: 'Cross-source IOC correlation',
+        desc: 'Indicators appearing in 2+ independent feeds — ranked by source consensus. Single-feed entries can be false positives; cross-source overlap is the signal CTI analysts actually trust.',
+        icon: GitBranchPlus,
+      },
+      {
+        to: '/threatintel/actor-timeline',
+        label: 'Actor activity timeline',
+        desc: 'Per-actor leak-site cadence Gantt for the most-active ransomware groups · joins Ransomlook per-group history with curated MITRE Group lookup',
+        icon: ShieldAlert,
+      },
+      {
+        to: '/threatintel/re-leaks',
+        label: 'Victim re-leak detection',
+        desc: 'Victims claimed by 2+ groups in the last 12 months — failed double-extortion or affiliate disputes. Cross-actor match on normalized victim names.',
+        icon: Users,
+      },
+      {
+        to: '/threatintel/live-iocs',
+        label: 'Live IOC stream',
+        desc: 'Chronological firehose with per-IOC reporter handles + timestamps. Sources: TweetFeed, SANS ISC, C2IntelFeeds, URLhaus, ThreatFox, MalwareBazaar, PhishTank, OpenPhish.',
+        icon: Radio,
       },
       {
         to: '/threatintel/status',
@@ -375,6 +364,12 @@ export default function ThreatIntelHome(): JSX.Element {
           <span>
             <Link to="/threatintel/metrics" className="text-brand-600 dark:text-brand-400 hover:underline">
               metrics dashboard
+            </Link>
+          </span>
+          <span aria-hidden="true">·</span>
+          <span>
+            <Link to="/threatintel/correlation" className="text-brand-600 dark:text-brand-400 hover:underline">
+              cross-source correlation
             </Link>
           </span>
           <span aria-hidden="true">·</span>

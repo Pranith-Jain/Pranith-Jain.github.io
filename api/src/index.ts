@@ -35,6 +35,11 @@ import { malwareSamplesHandler } from './routes/malware-samples';
 import { redditFeedHandler } from './routes/reddit-feed';
 import { xFeedHandler } from './routes/x-feed';
 import { feedStatusHandler } from './routes/feed-status';
+import { iocCorrelationHandler } from './routes/ioc-correlation';
+import { iocCorrelationStixHandler } from './routes/ioc-correlation-stix';
+import { actorTimelineHandler } from './routes/actor-timeline';
+import { victimReleaksHandler } from './routes/victim-releaks';
+import { liveIocsHandler } from './routes/live-iocs';
 import {
   listBriefingsHandler,
   getBriefingHandler,
@@ -91,6 +96,11 @@ app.get('/api/v1/malware-samples', malwareSamplesHandler);
 app.get('/api/v1/reddit-feed', redditFeedHandler);
 app.get('/api/v1/x-feed', xFeedHandler);
 app.get('/api/v1/feed-status', feedStatusHandler);
+app.get('/api/v1/ioc-correlation', iocCorrelationHandler);
+app.get('/api/v1/ioc-correlation/stix.json', iocCorrelationStixHandler);
+app.get('/api/v1/actor-timeline', actorTimelineHandler);
+app.get('/api/v1/victim-releaks', victimReleaksHandler);
+app.get('/api/v1/live-iocs', liveIocsHandler);
 app.get('/api/v1/snapshot', snapshotHandler);
 app.get('/api/v1/ioc-snapshot', iocSnapshotHandler);
 app.get('/api/v1/briefings/list', listBriefingsHandler);

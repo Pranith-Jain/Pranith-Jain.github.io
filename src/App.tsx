@@ -85,10 +85,7 @@ const OnionWatch = lazy(() => import('./pages/dfir/OnionWatch'));
 const TelegramWatch = lazy(() => import('./pages/dfir/TelegramWatch'));
 const AwesomeLists = lazy(() => import('./pages/dfir/AwesomeLists'));
 const ThreatIntelHome = lazy(() => import('./pages/threatintel/Home'));
-const IocFeed = lazy(() => import('./pages/threatintel/IocFeed'));
 const CveList = lazy(() => import('./pages/threatintel/CveList'));
-const PhishingUrlsPage = lazy(() => import('./pages/threatintel/PhishingUrls'));
-const MalwareSamplesPage = lazy(() => import('./pages/threatintel/MalwareSamples'));
 const RansomwareActivityPage = lazy(() => import('./pages/threatintel/RansomwareActivity'));
 const CybersecTelegramPage = lazy(() => import('./pages/threatintel/CybersecTelegram'));
 const BreachDisclosuresPage = lazy(() => import('./pages/threatintel/BreachDisclosures'));
@@ -96,6 +93,10 @@ const RedditFirehosePage = lazy(() => import('./pages/threatintel/RedditFirehose
 const XFirehosePage = lazy(() => import('./pages/threatintel/XFirehose'));
 const FeedStatusPage = lazy(() => import('./pages/threatintel/FeedStatus'));
 const MetricsPage = lazy(() => import('./pages/threatintel/Metrics'));
+const IocCorrelationPage = lazy(() => import('./pages/threatintel/IocCorrelation'));
+const ActorTimelinePage = lazy(() => import('./pages/threatintel/ActorTimeline'));
+const VictimReleaksPage = lazy(() => import('./pages/threatintel/VictimReleaks'));
+const LiveIocsPage = lazy(() => import('./pages/threatintel/LiveIocs'));
 
 function TechniqueRedirect() {
   const params = new URLSearchParams(window.location.search);
@@ -500,56 +501,55 @@ export function AppContent() {
               }
             />
             <Route
-              path="/threatintel/urls"
+              path="/threatintel/correlation"
               element={
                 <Suspense fallback={<SectionLoader />}>
-                  <IocFeed kind="url" />
+                  <IocCorrelationPage />
                 </Suspense>
               }
             />
             <Route
-              path="/threatintel/domains"
+              path="/threatintel/actor-timeline"
               element={
                 <Suspense fallback={<SectionLoader />}>
-                  <IocFeed kind="domain" />
+                  <ActorTimelinePage />
                 </Suspense>
               }
             />
             <Route
-              path="/threatintel/hashs"
+              path="/threatintel/re-leaks"
               element={
                 <Suspense fallback={<SectionLoader />}>
-                  <IocFeed kind="hash" />
+                  <VictimReleaksPage />
                 </Suspense>
               }
             />
-            {/* 2026-05-11: malicious-urls merged into /threatintel/urls (same
-                upstream sources, single combined view). iocs-by-type removed —
-                the per-type pages cover it. Both redirect to /threatintel/urls
-                so existing bookmarks still land somewhere useful. */}
-            <Route path="/threatintel/malicious-urls" element={<Navigate to="/threatintel/urls" replace />} />
-            <Route path="/threatintel/iocs-by-type" element={<Navigate to="/threatintel/urls" replace />} />
+            <Route
+              path="/threatintel/live-iocs"
+              element={
+                <Suspense fallback={<SectionLoader />}>
+                  <LiveIocsPage />
+                </Suspense>
+              }
+            />
+            {/* 2026-05-11: per-type IOC pages (urls/domains/hashs) and the
+                standalone malware-samples / phishing-urls pages collapsed
+                into /threatintel/live-iocs (unified, time-ordered firehose).
+                The /api/v1/{phishing-urls,malware-samples} backends remain
+                for the Metrics page; the old page URLs redirect so bookmarks
+                still land somewhere useful. */}
+            <Route path="/threatintel/urls" element={<Navigate to="/threatintel/live-iocs" replace />} />
+            <Route path="/threatintel/domains" element={<Navigate to="/threatintel/live-iocs" replace />} />
+            <Route path="/threatintel/hashs" element={<Navigate to="/threatintel/live-iocs" replace />} />
+            <Route path="/threatintel/malicious-urls" element={<Navigate to="/threatintel/live-iocs" replace />} />
+            <Route path="/threatintel/iocs-by-type" element={<Navigate to="/threatintel/live-iocs" replace />} />
+            <Route path="/threatintel/phishing-urls" element={<Navigate to="/threatintel/live-iocs" replace />} />
+            <Route path="/threatintel/malware-samples" element={<Navigate to="/threatintel/live-iocs" replace />} />
             <Route
               path="/threatintel/cve-list"
               element={
                 <Suspense fallback={<SectionLoader />}>
                   <CveList />
-                </Suspense>
-              }
-            />
-            <Route
-              path="/threatintel/phishing-urls"
-              element={
-                <Suspense fallback={<SectionLoader />}>
-                  <PhishingUrlsPage />
-                </Suspense>
-              }
-            />
-            <Route
-              path="/threatintel/malware-samples"
-              element={
-                <Suspense fallback={<SectionLoader />}>
-                  <MalwareSamplesPage />
                 </Suspense>
               }
             />

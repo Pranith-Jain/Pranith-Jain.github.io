@@ -34,6 +34,16 @@ export interface BriefingFinding {
   added?: string;
   vendor?: string;
   product?: string;
+  /**
+   * Auto-extracted tags. Populated lazily on read by routes/briefings.ts via
+   * lib/briefing-tags.ts — not stored in KV. Frontend uses these to render
+   * filter pills on the briefing detail page.
+   */
+  tags?: {
+    cves: string[];
+    actors: Array<{ slug: string; mitre_id?: string }>;
+    sectors: string[];
+  };
 }
 
 export interface BriefingSection {
