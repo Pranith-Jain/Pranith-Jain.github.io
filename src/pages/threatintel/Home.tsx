@@ -315,13 +315,6 @@ const SECTIONS: Section[] = [
         external: true,
       },
       {
-        to: 'https://github.com/rawfilejson/awesome-osint-arsenal',
-        label: 'awesome-osint-arsenal',
-        desc: 'Curated arsenal of OSINT tools, frameworks, and references by rawfilejson',
-        icon: Github,
-        external: true,
-      },
-      {
         to: 'https://osinttools.io/tools',
         label: 'OSINT Tools',
         desc: 'Curated OSINT directory',
@@ -435,19 +428,6 @@ export default function ThreatIntelHome(): JSX.Element {
           </ul>
         </section>
       ))}
-
-      <section className="mt-16 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8">
-        <h3 className="font-display font-bold text-xl mb-2">Strict separation</h3>
-        <p className="text-sm text-slate-600 dark:text-slate-400 mb-3 leading-relaxed">
-          /threatintel and /dfir are two separate platforms on the same domain. /threatintel is sources you READ; /dfir
-          is interactive tools you RUN. No threat-intel sources live on the /dfir landing; no scanners or decoders live
-          here. Use the top nav to switch between them.
-        </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono">
-          Old /dfir/&lt;slug&gt; bookmarks for moved pages 302 to the new /threatintel/&lt;slug&gt; URL (query string
-          and hash preserved), so existing links keep working without doubling up on routes.
-        </p>
-      </section>
     </div>
   );
 }

@@ -245,4 +245,146 @@ export const LISTS: AwesomeList[] = [
     badge: 'specialised',
     why: 'Useful pattern reference for building security-flavoured skills in Claude Code.',
   },
+
+  // ─── Meta lists + General Cybersecurity (added 2026-05-11) ───────────────
+  {
+    id: 'hack-with-github-awesome-hacking',
+    name: 'Awesome Hacking (Hack-with-Github)',
+    repo: 'Hack-with-Github/Awesome-Hacking',
+    url: 'https://github.com/Hack-with-Github/Awesome-Hacking',
+    description:
+      'Meta-list of awesome-lists — pen-test, exploit dev, web security, mobile, hardware, malware, CTF, OSINT, social engineering. The "start here" index for everything else.',
+    focus: ['cybersecurity-general', 'osint', 'threat-intel'],
+    stars: '112k',
+    badge: 'essential',
+    why: 'The directory of directories. When a sub-domain is too niche for the lists in this catalogue, find its sibling here.',
+  },
+  {
+    id: 'carpedm20-awesome-hacking',
+    name: 'Awesome Hacking (carpedm20)',
+    repo: 'carpedm20/awesome-hacking',
+    url: 'https://github.com/carpedm20/awesome-hacking',
+    description:
+      'Broad hacking tutorials, tools, conference talks, papers, books — older but well-organised, complements the Hack-with-Github meta-list with deeper per-topic curation.',
+    focus: ['cybersecurity-general'],
+    stars: '16k',
+    badge: 'reference',
+    why: 'Stronger on conference talks + papers than the Hack-with-Github meta-list — pair the two.',
+  },
+  {
+    id: 'onlurking-awesome-infosec',
+    name: 'Awesome InfoSec',
+    repo: 'onlurking/awesome-infosec',
+    url: 'https://github.com/onlurking/awesome-infosec',
+    description:
+      'Curated infosec courses + training resources — university lecture series, free MOOCs, books, lab platforms, certification prep.',
+    focus: ['cybersecurity-general'],
+    stars: '5.7k',
+    badge: 'reference',
+    why: 'The reference list when someone asks "how do I get into infosec" — has actual learning paths, not just tool lists.',
+  },
+
+  // ─── Offensive Security / AppSec ─────────────────────────────────────────
+  {
+    id: 'enaqx-awesome-pentest',
+    name: 'Awesome Penetration Testing',
+    repo: 'enaqx/awesome-pentest',
+    url: 'https://github.com/enaqx/awesome-pentest',
+    description:
+      'Penetration-testing tools, books, courses, conferences, intentionally-vulnerable apps, online resources. The canonical pentest meta-list.',
+    focus: ['cybersecurity-general'],
+    stars: '26k',
+    badge: 'essential',
+    why: 'Best single index of pentest tooling — keeps you from rebuilding a discovery list every engagement.',
+  },
+  {
+    id: 'paragonie-awesome-appsec',
+    name: 'Awesome AppSec',
+    repo: 'paragonie/awesome-appsec',
+    url: 'https://github.com/paragonie/awesome-appsec',
+    description:
+      'Application-security learning resources — cryptography pitfalls, secure-code reviews, OWASP Top-10 deep dives, language-specific guidance.',
+    focus: ['cybersecurity-general'],
+    stars: '6.9k',
+    badge: 'reference',
+    why: 'AppSec-focused complement to the broader pentest list — heavier on theory + code-review craft.',
+  },
+  {
+    id: '0xInfection-awesome-waf',
+    name: 'Awesome WAF',
+    repo: '0xInfection/Awesome-WAF',
+    url: 'https://github.com/0xInfection/Awesome-WAF',
+    description:
+      'Everything WAF — fingerprints, bypass techniques, evasion research, vendor-specific notes, related CVEs. From an offensive-research perspective.',
+    focus: ['cybersecurity-general'],
+    stars: '7.5k',
+    badge: 'specialised',
+    why: 'The reference when you need to fingerprint or test against a WAF during a pentest or red-team engagement.',
+  },
+  {
+    id: 'analysis-tools-dev-static-analysis',
+    name: 'Static Analysis (SAST) tools',
+    repo: 'analysis-tools-dev/static-analysis',
+    url: 'https://github.com/analysis-tools-dev/static-analysis',
+    description:
+      'Curated SAST tools + linters across every language — Semgrep, CodeQL, SonarQube, Checkmarx, Bandit, gosec, ESLint security plugins, and language-specific entries.',
+    focus: ['cybersecurity-general'],
+    stars: '14k',
+    badge: 'reference',
+    why: 'Single source of truth when scoping AppSec automation or evaluating SAST vendors.',
+  },
+
+  // ─── Wordlists / payloads / training ─────────────────────────────────────
+  {
+    id: 'danielmiessler-seclists',
+    name: 'SecLists',
+    repo: 'danielmiessler/SecLists',
+    url: 'https://github.com/danielmiessler/SecLists',
+    description:
+      "The security tester's companion — usernames, passwords, fuzzing payloads, web-content discovery wordlists, data patterns. Not strictly an awesome-list, but the most-referenced security wordlist collection in existence.",
+    focus: ['cybersecurity-general'],
+    stars: '71k',
+    badge: 'essential',
+    why: 'Half of the security-testing tools in this catalogue have SecLists as a default wordlist dependency.',
+  },
+  {
+    id: 'joe-shenouda-awesome-cyber-skills',
+    name: 'Awesome Cyber Skills',
+    repo: 'joe-shenouda/awesome-cyber-skills',
+    url: 'https://github.com/joe-shenouda/awesome-cyber-skills',
+    description:
+      'Curated list of legal hacking environments to practise on — CTF platforms, intentionally-vulnerable apps, lab simulators, war games. Skill-building only, no live targets.',
+    focus: ['cybersecurity-general'],
+    stars: '4.4k',
+    badge: 'reference',
+    why: 'When upskilling on a new technique, this is faster than building a lab from scratch.',
+  },
+
+  // ─── Network forensics ───────────────────────────────────────────────────
+  {
+    id: 'caesar0301-awesome-pcaptools',
+    name: 'Awesome PCAP Tools',
+    repo: 'caesar0301/awesome-pcaptools',
+    url: 'https://github.com/caesar0301/awesome-pcaptools',
+    description:
+      'Tools for PCAP capture, analysis, and protocol dissection — from Wireshark plugins to ML-driven anomaly detectors. Includes sample-PCAP corpora for testing.',
+    focus: ['incident-response'],
+    stars: '3.4k',
+    badge: 'specialised',
+    why: 'IR-focused complement to meirwah/awesome-incident-response — sharper on the network-forensics niche.',
+  },
+
+  // ─── OSINT (kept distinct because of focus tagging) ───────────────────────
+  {
+    id: 'rawfilejson-awesome-osint-arsenal',
+    name: 'Awesome OSINT Arsenal',
+    repo: 'rawfilejson/awesome-osint-arsenal',
+    url: 'https://github.com/rawfilejson/awesome-osint-arsenal',
+    description:
+      'Curated OSINT + recon toolkit for Kali Linux — 100+ tools with a one-command installer. Strong on the "ready-to-go investigator workstation" angle.',
+    focus: ['osint'],
+    stars: '382',
+    badge: 'specialised',
+    why: 'Useful when bootstrapping a fresh OSINT VM — saves an hour of apt+pip+go installs.',
+  },
 ];
