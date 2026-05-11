@@ -15,7 +15,9 @@ import type { Env } from '../env';
  * Cached 1h server-side — these feeds update on the order of hours.
  */
 
-const CACHE_KEY = 'https://phishing-urls-cache.internal/v1';
+/** Exported so /api/v1/feed-status can read the same cached payload directly. */
+export const PHISHING_URLS_CACHE_KEY = 'https://phishing-urls-cache.internal/v1';
+const CACHE_KEY = PHISHING_URLS_CACHE_KEY;
 const CACHE_TTL_SECONDS = 3600;
 const FETCH_TIMEOUT_MS = 15_000;
 const MAX_ITEMS = 100;

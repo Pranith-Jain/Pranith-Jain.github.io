@@ -34,6 +34,9 @@ const CACHE_TTL = 6 * 3600; // 6h — Ransomlook scrapes hourly
 const TOP_N_GROUPS = 15;
 const CONCURRENCY = 5;
 
+/** Exported so /api/v1/feed-status can read the same cached payload directly. */
+export const ONION_WATCH_CACHE_KEY = 'https://onion-watch-cache.internal/v2';
+
 interface RansomlookLocation {
   slug?: string;
   fqdn?: string;
@@ -219,7 +222,7 @@ export async function onionWatchHandler(c: Context<{ Bindings: Env }>): Promise<
   const cache = (caches as unknown as { default: Cache }).default;
   // v2: parser bug fix — old v1 cache entries hold the broken empty-groups
   // response. Bump on any breaking response-shape change.
-  const cacheKey = new Request('https://onion-watch-cache.internal/v2');
+  const cacheKey = new Request(ONION_WATCH_CACHE_KEY);
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 

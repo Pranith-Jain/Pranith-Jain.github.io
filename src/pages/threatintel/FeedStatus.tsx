@@ -5,13 +5,15 @@ import {
   AlertTriangle,
   ArrowLeft,
   CheckCircle2,
+  CircleDashed,
   ExternalLink,
   Loader2,
   RefreshCw,
   XCircle,
+  type LucideIcon,
 } from 'lucide-react';
 
-type Status = 'ok' | 'degraded' | 'down';
+type Status = 'ok' | 'degraded' | 'down' | 'cold';
 
 interface Row {
   id: string;
@@ -30,7 +32,7 @@ interface FeedStatusResponse {
   overall: Status;
 }
 
-const PILL: Record<Status, { cls: string; label: string; icon: React.ComponentType<{ size?: number }> }> = {
+const PILL: Record<Status, { cls: string; label: string; icon: LucideIcon }> = {
   ok: {
     cls: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
     label: 'OK',
@@ -42,6 +44,11 @@ const PILL: Record<Status, { cls: string; label: string; icon: React.ComponentTy
     icon: AlertTriangle,
   },
   down: { cls: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300', label: 'DOWN', icon: XCircle },
+  cold: {
+    cls: 'border-slate-400/40 bg-slate-400/10 text-slate-600 dark:text-slate-400',
+    label: 'COLD',
+    icon: CircleDashed,
+  },
 };
 
 function ageString(s?: number): string {
@@ -117,7 +124,7 @@ export default function FeedStatus(): JSX.Element {
               })()}
               overall {PILL[data.overall].label}
             </span>
-            {(['ok', 'degraded', 'down'] as const).map((s) => {
+            {(['ok', 'degraded', 'down', 'cold'] as const).map((s) => {
               const n = data.rows.filter((r) => r.status === s).length;
               if (n === 0) return null;
               return (

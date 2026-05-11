@@ -10,7 +10,9 @@ import type { Env } from '../env';
  * should go through the existing feeds proxy allow-list.
  */
 
-const CACHE_KEY = 'https://detection-rules-cache.internal/v3-slimkql';
+/** Exported so /api/v1/feed-status can read the same cached payload directly. */
+export const DETECTION_RULES_CACHE_KEY = 'https://detection-rules-cache.internal/v3-slimkql';
+const CACHE_KEY = DETECTION_RULES_CACHE_KEY;
 const CACHE_TTL_SECONDS = 3600;
 const FETCH_TIMEOUT_MS = 10_000;
 

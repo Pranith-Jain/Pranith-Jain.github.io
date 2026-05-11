@@ -1,37 +1,42 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { SNAPSHOT_CACHE_KEY } from './snapshot';
+import { CVE_RECENT_CACHE_KEY } from './cve-recent';
+import { MALWARE_SAMPLES_CACHE_KEY } from './malware-samples';
+import { PHISHING_URLS_CACHE_KEY } from './phishing-urls';
+import { REDDIT_FEED_CACHE_KEY } from './reddit-feed';
+import { X_FEED_CACHE_KEY } from './x-feed';
+import { TELEGRAM_FEED_CACHE_KEY } from './telegram-feed';
+import { RANSOMWARE_RECENT_CACHE_KEY } from './ransomware-recent';
+import { ONION_WATCH_CACHE_KEY } from './onion-watch';
+import { THREAT_MAP_CACHE_KEY } from './threat-map';
+import { DETECTION_RULES_CACHE_KEY } from './detection-rules';
 
 /**
- * Feed-status dashboard endpoint.
+ * Feed-status dashboard. Reads every per-feed edge-cache entry directly
+ * (cache.match) so we get exactly the body a real user request would see.
  *
- * Probes every public /threatintel/* upstream by hitting our own
- * /api/v1/<feed> route and reading a signal-of-life from the body.
- * Returns one row per feed: ok/degraded/down + a one-line reason +
- * the snapshot's age. Powers /threatintel/status — a single-page
- * health view so when a feed shows empty, you can tell whether it's
- * "our worker bug" vs "upstream is degraded".
- *
- * Cached 5 min — health changes faster than the feeds themselves
- * (which cache 30 min–1 h). Short cache, but not real-time.
+ * We CAN'T fetch /api/v1/<feed> from inside the worker — Cloudflare blocks
+ * same-zone subrequests with HTTP 522. So the original "probe over HTTP"
+ * design failed, and we now read the Cache API entries each feed handler
+ * writes. When a cache entry doesn't exist we report status='cold' — the
+ * feed isn't broken per se, just hasn't been hit yet (or its cache TTL
+ * lapsed and no one re-requested).
  */
 
 const CACHE_TTL = 5 * 60;
-const PER_FEED_TIMEOUT_MS = 8_000;
-const CACHE_KEY = 'https://feed-status-cache.internal/v1';
+const FEED_STATUS_CACHE_KEY = 'https://feed-status-cache.internal/v2-cachereads';
 
-type Status = 'ok' | 'degraded' | 'down';
+type Status = 'ok' | 'degraded' | 'down' | 'cold';
 
 interface FeedStatusRow {
   id: string;
   label: string;
-  page_path: string; // What /threatintel page reads this feed
+  page_path: string;
   api_path: string;
   status: Status;
-  /** One-line reason — green for `ok`, amber for `degraded`, rose for `down`. */
   reason: string;
-  /** Optional numeric signal — counts of items / handles / groups returned. */
   metrics?: Record<string, number>;
-  /** ISO of upstream's `generated_at` if present in body. */
   upstream_age_s?: number;
 }
 
@@ -46,7 +51,7 @@ interface FeedProbeSpec {
   label: string;
   page_path: string;
   api_path: string;
-  /** Health-check: take the JSON body and return (status, reason, metrics). */
+  cache_key: string;
   evaluate: (body: unknown) => { status: Status; reason: string; metrics?: Record<string, number>; ageS?: number };
 }
 
@@ -81,6 +86,7 @@ const PROBES: FeedProbeSpec[] = [
     label: 'Snapshot (composite)',
     page_path: '/threatintel',
     api_path: '/api/v1/snapshot',
+    cache_key: SNAPSHOT_CACHE_KEY,
     evaluate: (body) => {
       const ageS = ageSeconds(strField(body, 'generated_at'));
       const sources = ['ransomware', 'telegram', 'onion', 'threat_map', 'rules', 'briefings'];
@@ -102,6 +108,7 @@ const PROBES: FeedProbeSpec[] = [
     label: 'CVE — NVD + CISA KEV',
     page_path: '/threatintel/cve-list',
     api_path: '/api/v1/cve-recent',
+    cache_key: CVE_RECENT_CACHE_KEY,
     evaluate: (body) => {
       const count = intField(body, 'count') ?? 0;
       const ageS = ageSeconds(strField(body, 'generated_at'));
@@ -129,6 +136,7 @@ const PROBES: FeedProbeSpec[] = [
     label: 'Malware samples (MalwareBazaar)',
     page_path: '/threatintel/malware-samples',
     api_path: '/api/v1/malware-samples',
+    cache_key: MALWARE_SAMPLES_CACHE_KEY,
     evaluate: (body) => {
       const count = intField(body, 'count') ?? 0;
       const ageS = ageSeconds(strField(body, 'generated_at'));
@@ -146,6 +154,7 @@ const PROBES: FeedProbeSpec[] = [
     label: 'Phishing URLs (PhishTank + OpenPhish)',
     page_path: '/threatintel/phishing-urls',
     api_path: '/api/v1/phishing-urls',
+    cache_key: PHISHING_URLS_CACHE_KEY,
     evaluate: (body) => {
       const total = intField(body, 'total') ?? 0;
       const ageS = ageSeconds(strField(body, 'generated_at'));
@@ -165,6 +174,7 @@ const PROBES: FeedProbeSpec[] = [
     label: 'Reddit firehose',
     page_path: '/threatintel/reddit',
     api_path: '/api/v1/reddit-feed',
+    cache_key: REDDIT_FEED_CACHE_KEY,
     evaluate: (body) => {
       const items = (arrField(body, 'items') ?? []).length;
       const subs = arrField(body, 'subs') ?? [];
@@ -184,6 +194,7 @@ const PROBES: FeedProbeSpec[] = [
     label: 'Social firehose (Bluesky + Mastodon)',
     page_path: '/threatintel/x',
     api_path: '/api/v1/x-feed',
+    cache_key: X_FEED_CACHE_KEY,
     evaluate: (body) => {
       const items = (arrField(body, 'items') ?? []).length;
       const handles = arrField(body, 'handles') ?? [];
@@ -203,6 +214,7 @@ const PROBES: FeedProbeSpec[] = [
     label: 'Telegram firehose',
     page_path: '/threatintel/cybersec',
     api_path: '/api/v1/telegram-feed',
+    cache_key: TELEGRAM_FEED_CACHE_KEY,
     evaluate: (body) => {
       const items = (arrField(body, 'items') ?? []).length;
       const channels = arrField(body, 'channels') ?? [];
@@ -222,6 +234,7 @@ const PROBES: FeedProbeSpec[] = [
     label: 'Ransomware activity (Ransomlook)',
     page_path: '/threatintel/ransomware-activity',
     api_path: '/api/v1/ransomware-recent',
+    cache_key: RANSOMWARE_RECENT_CACHE_KEY,
     evaluate: (body) => {
       const count = intField(body, 'count') ?? 0;
       const ageS = ageSeconds(strField(body, 'generated_at'));
@@ -239,12 +252,12 @@ const PROBES: FeedProbeSpec[] = [
     label: 'Onion mirror inventory (Ransomlook)',
     page_path: '/threatintel/onion-watch',
     api_path: '/api/v1/onion-watch',
+    cache_key: ONION_WATCH_CACHE_KEY,
     evaluate: (body) => {
       const groups = (arrField(body, 'groups') ?? []).length;
       const reachable = intField(body, 'reachable_count') ?? 0;
       const total = intField(body, 'total_count') ?? 0;
       const ageS = ageSeconds(strField(body, 'generated_at'));
-      // Total>=20 + reachable==0 is the Ransomlook-prober-degraded signature.
       const status: Status =
         total >= 20 && reachable === 0
           ? 'degraded'
@@ -269,6 +282,7 @@ const PROBES: FeedProbeSpec[] = [
     label: 'Threat map (geo + IOC types)',
     page_path: '/threatintel/threat-map',
     api_path: '/api/v1/threat-map',
+    cache_key: THREAT_MAP_CACHE_KEY,
     evaluate: (body) => {
       const totalIps = intField(body, 'total_ips') ?? 0;
       const countries = (arrField(body, 'countries') ?? []).length;
@@ -287,6 +301,7 @@ const PROBES: FeedProbeSpec[] = [
     label: 'Detection rules (multi-source commits)',
     page_path: '/threatintel/rules',
     api_path: '/api/v1/rules',
+    cache_key: DETECTION_RULES_CACHE_KEY,
     evaluate: (body) => {
       const sources = (arrField(body, 'sources') ?? []).length;
       const commits = arrField(body, 'recent_commits') ?? [];
@@ -302,24 +317,21 @@ const PROBES: FeedProbeSpec[] = [
   },
 ];
 
-async function probeOne(env: Env, spec: FeedProbeSpec, origin: string): Promise<FeedStatusRow> {
+async function probeOne(spec: FeedProbeSpec): Promise<FeedStatusRow> {
+  const cache = (caches as unknown as { default: Cache }).default;
   try {
-    const res = await fetch(new URL(spec.api_path, origin), {
-      method: 'GET',
-      signal: AbortSignal.timeout(PER_FEED_TIMEOUT_MS),
-      headers: { accept: 'application/json' },
-    });
-    if (!res.ok) {
+    const cached = await cache.match(spec.cache_key);
+    if (!cached) {
       return {
         id: spec.id,
         label: spec.label,
         page_path: spec.page_path,
         api_path: spec.api_path,
-        status: 'down',
-        reason: `worker returned HTTP ${res.status}`,
+        status: 'cold',
+        reason: 'no cached payload (visit the page once to warm the cache)',
       };
     }
-    const body = (await res.json()) as unknown;
+    const body = (await cached.json()) as unknown;
     const evaluated = spec.evaluate(body);
     return {
       id: spec.id,
@@ -338,25 +350,23 @@ async function probeOne(env: Env, spec: FeedProbeSpec, origin: string): Promise<
       page_path: spec.page_path,
       api_path: spec.api_path,
       status: 'down',
-      reason: `worker error: ${(e as Error).message}`,
+      reason: `cache read error: ${(e as Error).message}`,
     };
   }
 }
 
 export async function feedStatusHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;
-  const cacheReq = new Request(CACHE_KEY);
+  const cacheReq = new Request(FEED_STATUS_CACHE_KEY);
   const cached = await cache.match(cacheReq);
   if (cached) return cached;
 
-  // Hit ourselves over HTTP so each feed goes through its own edge cache —
-  // mirrors what a real user request would see, not the in-process state.
-  const origin = new URL(c.req.url).origin;
-
-  const rows = await Promise.all(PROBES.map((p) => probeOne(c.env, p, origin)));
+  const rows = await Promise.all(PROBES.map(probeOne));
   const downs = rows.filter((r) => r.status === 'down').length;
   const degraded = rows.filter((r) => r.status === 'degraded').length;
-  const overall: Status = downs >= 3 ? 'down' : downs >= 1 || degraded >= 3 ? 'degraded' : 'ok';
+  const cold = rows.filter((r) => r.status === 'cold').length;
+  const overall: Status =
+    downs >= 3 ? 'down' : downs >= 1 || degraded >= 3 ? 'degraded' : cold >= rows.length / 2 ? 'cold' : 'ok';
 
   const body: FeedStatusResponse = {
     generated_at: new Date().toISOString(),
