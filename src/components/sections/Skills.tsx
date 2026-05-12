@@ -11,93 +11,41 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Zap,
 };
 
-// Per-card accent stripe so each capability area has its own visual
-// identity without breaking the palette: all six accents are already
-// in the brand family (brand-, emerald-, rose-, cyan-, amber-, violet-).
-const ACCENTS = [
-  {
-    bg: 'bg-brand-500',
-    border: 'hover:border-brand-500/50',
-    iconBg: 'bg-brand-50 dark:bg-brand-900/30',
-    iconText: 'text-brand-600 dark:text-brand-300',
-    dot: 'bg-brand-500',
-  },
-  {
-    bg: 'bg-emerald-500',
-    border: 'hover:border-emerald-500/50',
-    iconBg: 'bg-emerald-50 dark:bg-emerald-900/30',
-    iconText: 'text-emerald-600 dark:text-emerald-300',
-    dot: 'bg-emerald-500',
-  },
-  {
-    bg: 'bg-rose-500',
-    border: 'hover:border-rose-500/50',
-    iconBg: 'bg-rose-50 dark:bg-rose-900/30',
-    iconText: 'text-rose-600 dark:text-rose-300',
-    dot: 'bg-rose-500',
-  },
-  {
-    bg: 'bg-cyan-500',
-    border: 'hover:border-cyan-500/50',
-    iconBg: 'bg-cyan-50 dark:bg-cyan-900/30',
-    iconText: 'text-cyan-600 dark:text-cyan-300',
-    dot: 'bg-cyan-500',
-  },
-  {
-    bg: 'bg-amber-500',
-    border: 'hover:border-amber-500/50',
-    iconBg: 'bg-amber-50 dark:bg-amber-900/30',
-    iconText: 'text-amber-600 dark:text-amber-300',
-    dot: 'bg-amber-500',
-  },
-  {
-    bg: 'bg-violet-500',
-    border: 'hover:border-violet-500/50',
-    iconBg: 'bg-violet-50 dark:bg-violet-900/30',
-    iconText: 'text-violet-600 dark:text-violet-300',
-    dot: 'bg-violet-500',
-  },
-];
-
 /**
- * Skills — tighter cards, less chrome. Each card is a small panel with
- * an icon and a bullet list. No hover-glow, no -translate, no rounded-3xl.
- * The eyebrow uses mono caps (same rhythm as Hero/About).
+ * Skills — monochrome capability cards. Single accent only on the icon
+ * surface and the hover border. The 6-color accent stripe system from
+ * the previous design is dropped — typography and ordering carry the
+ * differentiation.
  */
 export function Skills() {
   return (
-    <section id="skills" className="mt-24 scroll-mt-24">
-      <div className="mb-8 max-w-3xl">
-        <FiledTag number="06" subject="Expertise — Practice Areas" accent="violet" />
-        <h2 className="animate-fade-in-up font-serif text-3xl font-normal italic tracking-tight text-slate-900 sm:text-4xl dark:text-white">
+    <section id="skills" className="scroll-mt-24 py-16 lg:py-24">
+      <div className="mb-10 max-w-[65ch]">
+        <FiledTag number="06" subject="Expertise — Practice Areas" />
+        <h2 className="font-serif text-3xl font-medium leading-[1.15] tracking-[-0.01em] text-ink-1 sm:text-4xl">
           Core competencies
         </h2>
-        <p className="animate-fade-in-up mt-3 max-w-[65ch] text-base text-slate-700 dark:text-slate-400">
+        <p className="mt-4 text-base leading-[1.55] text-ink-2">
           Threat intelligence, cyber criminology, email security, and cloud identity defense.
         </p>
       </div>
 
-      <div className="animate-fade-in-up grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {skills.map((skill, idx) => {
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {skills.map((skill) => {
           const IconComponent = iconMap[skill.icon];
-          const accent = ACCENTS[idx % ACCENTS.length];
           return (
             <div
               key={skill.title}
-              className={`group relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 transition-colors duration-200 dark:border-slate-800 dark:bg-slate-900 ${accent.border}`}
+              className="group flex h-full flex-col border border-rule bg-surface-raised p-6 transition-colors duration-enter hover:border-ink-1"
             >
-              {/* Top accent stripe */}
-              <div className={`absolute inset-x-0 top-0 h-0.5 ${accent.bg}`} aria-hidden="true" />
-              <div
-                className={`mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl ${accent.iconBg} ${accent.iconText}`}
-              >
+              <div className="mb-4 inline-flex h-10 w-10 items-center justify-center bg-accent-soft text-accent">
                 {IconComponent && <IconComponent className="h-4 w-4" aria-hidden="true" />}
               </div>
-              <div className="text-sm font-semibold text-slate-900 dark:text-white">{skill.title}</div>
-              <ul className="mt-3 space-y-1.5 text-[13px] text-slate-700 dark:text-slate-400">
+              <h3 className="text-base font-semibold text-ink-1">{skill.title}</h3>
+              <ul className="mt-3 space-y-1.5 text-sm leading-[1.55] text-ink-2">
                 {skill.items.map((item) => (
                   <li key={item} className="flex items-start gap-2">
-                    <span className={`mt-1.5 inline-block h-1 w-1 shrink-0 rounded-full ${accent.dot}`} />
+                    <span className="mt-1.5 inline-block h-1 w-1 shrink-0 rounded-full bg-accent" aria-hidden="true" />
                     <span>{item}</span>
                   </li>
                 ))}
