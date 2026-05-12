@@ -66,14 +66,14 @@ const ACCENTS = [
 export function Skills() {
   return (
     <section id="skills" className="mt-24 scroll-mt-24">
-      <div className="mb-10 max-w-3xl">
-        <div className="animate-fade-in-up mb-2 font-mono text-[11px] uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
-          Expertise
+      <div className="mb-8 max-w-3xl">
+        <div className="animate-fade-in-up mb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
+          06 — Expertise
         </div>
-        <h2 className="animate-fade-in-up text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
+        <h2 className="animate-fade-in-up font-serif text-3xl font-normal italic tracking-tight text-slate-900 sm:text-4xl dark:text-white">
           Core competencies
         </h2>
-        <p className="animate-fade-in-up mt-3 text-base text-slate-700 dark:text-slate-400">
+        <p className="animate-fade-in-up mt-3 max-w-[65ch] text-base text-slate-700 dark:text-slate-400">
           Threat intelligence, cyber criminology, email security, and cloud identity defense.
         </p>
       </div>
@@ -85,7 +85,7 @@ export function Skills() {
           return (
             <div
               key={skill.title}
-              className={`group relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 transition hover:-translate-y-0.5 hover:shadow-md dark:border-slate-800 dark:bg-slate-900 ${accent.border}`}
+              className={`group relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 transition-colors duration-200 dark:border-slate-800 dark:bg-slate-900 ${accent.border}`}
             >
               {/* Top accent stripe */}
               <div className={`absolute inset-x-0 top-0 h-0.5 ${accent.bg}`} aria-hidden="true" />

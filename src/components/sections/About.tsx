@@ -15,13 +15,13 @@ export function About() {
       <div className="grid items-start gap-12 lg:grid-cols-[1.1fr_0.9fr]">
         {/* LEFT: prose */}
         <div className="animate-fade-in-up">
-          <div className="mb-2 font-mono text-[11px] uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
-            About
+          <div className="mb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
+            02 — About
           </div>
-          <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
+          <h2 className="font-serif text-3xl font-normal italic tracking-tight text-slate-900 sm:text-4xl dark:text-white">
             Alerts first, then everything else
           </h2>
-          <div className="mt-7 space-y-5 text-base leading-relaxed text-slate-700 dark:text-slate-300">
+          <div className="mt-7 max-w-[65ch] space-y-5 text-base leading-relaxed text-slate-700 dark:text-slate-300">
             <p>
               The work that taught me anything useful was the alert work. Phishing, BEC, malware, lookalike domains. Two
               hundred and fifty incidents in, you start seeing the same attacker patterns, the same defensive blind
@@ -83,7 +83,7 @@ export function About() {
           <div className="absolute -right-6 -top-6 -z-10 h-48 w-48 rounded-full bg-brand-500/15 blur-3xl" />
           <div className="absolute -bottom-6 -left-6 -z-10 h-32 w-32 rounded-full bg-emerald-500/10 blur-2xl" />
 
-          <div className="relative overflow-hidden rounded-2xl bg-slate-950 p-5 shadow-2xl ring-1 ring-white/10">
+          <div className="relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-950 p-5">
             <div className="mb-4 flex items-center gap-2 border-b border-white/10 pb-3">
               <span className="h-2.5 w-2.5 rounded-full bg-rose-500/80" />
               <span className="h-2.5 w-2.5 rounded-full bg-amber-500/80" />

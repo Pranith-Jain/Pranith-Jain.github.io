@@ -24,18 +24,11 @@ export function Contact() {
             }}
           />
         </div>
-        {/* Subtle blur blobs */}
-        <div className="absolute -left-16 -top-16 h-56 w-56 rounded-full bg-brand-500/20 blur-3xl" aria-hidden="true" />
-        <div
-          className="absolute -right-16 -bottom-16 h-56 w-56 rounded-full bg-brand-400/20 blur-3xl"
-          aria-hidden="true"
-        />
-
         <div className="relative mx-auto max-w-3xl">
-          <div className="mb-2 font-mono text-[11px] uppercase tracking-[0.2em] text-brand-300">Contact</div>
+          <div className="mb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-brand-300">07 — Contact</div>
           <h2
             id="contact-heading"
-            className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl"
+            className="font-serif text-3xl font-normal italic tracking-tight text-white sm:text-4xl lg:text-5xl"
           >
             Ready to secure your <br className="hidden sm:inline" />
             digital presence?
@@ -46,24 +39,26 @@ export function Contact() {
           </p>
 
           {/* Primary CTAs */}
-          <div className="mt-8 flex flex-wrap items-center gap-3">
-            <a
-              href={`mailto:${personalInfo.email}`}
-              className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-2.5 text-sm font-semibold text-slate-900 transition hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
-              aria-label={`Send email to ${personalInfo.email}`}
-            >
-              <Mail className="h-4 w-4" aria-hidden="true" />
-              Email Me
-            </a>
+          <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3">
+            {/* ONE primary CTA */}
             <a
               href={personalInfo.calendlyUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-brand-600/30 transition hover:bg-brand-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+              className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-2.5 text-sm font-semibold text-slate-900 transition-all duration-200 ease-spring hover:-translate-y-0.5 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
               aria-label="Schedule a 30-minute consultation call"
             >
               <Calendar className="h-4 w-4" aria-hidden="true" />
               Schedule Call
+            </a>
+            {/* Secondary actions as quiet text-links */}
+            <a
+              href={`mailto:${personalInfo.email}`}
+              className="inline-flex items-center gap-1.5 font-mono text-[12px] text-slate-300 underline decoration-brand-400 decoration-1 underline-offset-4 transition-colors hover:text-white"
+              aria-label={`Send email to ${personalInfo.email}`}
+            >
+              <Mail className="h-3 w-3" aria-hidden="true" />
+              hello@pranithjain.qzz.io
             </a>
             <CopyToClipboard text={personalInfo.email} label="Copy email address" />
           </div>

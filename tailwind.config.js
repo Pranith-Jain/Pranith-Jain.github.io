@@ -1,10 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: 'class',
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
@@ -32,6 +29,18 @@ export default {
         sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         display: ['Poppins', 'sans-serif'],
         mono: ['Space Grotesk', 'monospace'],
+        // Editorial italic-light serif for hero / section H2 — adopted
+        // from impeccable.style's signature voice. Newsreader is a Google
+        // Fonts open-source descendant of the Cormorant Garamond family,
+        // optimized for screen rendering and includes a true italic at
+        // weight 300 (the "light italic" impeccable uses on its hero).
+        serif: ['Newsreader', 'ui-serif', 'Georgia', 'serif'],
+      },
+      transitionTimingFunction: {
+        // Adopted from impeccable.style — a slight overshoot bounce on
+        // small interactive elements (buttons, pills, toggles). Keep
+        // section-level reveals on ease-out; spring is a seasoning.
+        spring: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
       },
       boxShadow: {
         glow: '0 0 0 1px rgba(37, 99, 235, 0.25), 0 18px 60px rgba(37, 99, 235, 0.15)',
@@ -78,4 +87,4 @@ export default {
     },
   },
   plugins: [],
-}
+};

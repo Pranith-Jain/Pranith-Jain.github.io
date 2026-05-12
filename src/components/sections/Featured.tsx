@@ -1,80 +1,84 @@
-import { ExternalLink } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { featuredArticles } from '../../data/content';
 
 /**
- * Featured — restored "F"/"D" letter mark on each card as a signature
- * visual. Background blur blob behind the grid gives the section
- * subtle texture without competing with the cards.
+ * Featured — editorial divider rows. F/D letter mark on the left rail
+ * (kept as a brand signature), title + description + source on the
+ * right. Hover: arrow translates 2px on the spring easing.
  */
 export function Featured() {
   return (
-    <section id="featured" className="relative mt-24 scroll-mt-24">
-      {/* Subtle texture blob */}
-      <div
-        className="pointer-events-none absolute -top-20 left-1/2 -z-10 h-72 w-72 -translate-x-1/2 rounded-full bg-brand-500/10 blur-3xl"
-        aria-hidden="true"
-      />
-
-      <div className="mb-10 max-w-3xl">
-        <div className="animate-fade-in-up mb-2 font-mono text-[11px] uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
-          Recognition
+    <section id="featured" className="mt-24 scroll-mt-24">
+      <div className="mb-8 max-w-3xl">
+        <div className="animate-fade-in-up mb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
+          05 — Recognition
         </div>
-        <h2 className="animate-fade-in-up text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
+        <h2 className="animate-fade-in-up font-serif text-3xl font-normal italic tracking-tight text-slate-900 sm:text-4xl dark:text-white">
           Where the work shows up
         </h2>
-        <p className="animate-fade-in-up mt-3 text-base text-slate-700 dark:text-slate-400">
+        <p className="animate-fade-in-up mt-3 max-w-[65ch] text-base text-slate-700 dark:text-slate-400">
           Interviews and write-ups across security platforms.
         </p>
       </div>
 
-      <div className="animate-fade-in-up grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <ul className="animate-fade-in-up divide-y divide-slate-200 border-y border-slate-200 dark:divide-slate-800 dark:border-slate-800">
         {featuredArticles.map((article) => {
           const isExpert = article.category === 'Security Specialist';
           const markLetter = isExpert ? 'F' : 'D';
           return (
-            <a
-              key={article.title}
-              href={article.url}
-              target="_blank"
-              rel="noreferrer"
-              className="group flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-5 transition hover:-translate-y-0.5 hover:border-brand-500/50 hover:shadow-md dark:border-slate-800 dark:bg-slate-900"
-            >
-              <div className="mb-4 flex items-start justify-between gap-3">
-                {/* Signature letter mark */}
+            <li key={article.title}>
+              <a
+                href={article.url}
+                target="_blank"
+                rel="noreferrer"
+                className="group grid grid-cols-[auto_1fr_auto] items-baseline gap-x-4 gap-y-2 py-7 sm:gap-x-6"
+              >
+                {/* Left mark — F (profile) / D (article) */}
                 <div
-                  className={`grid h-11 w-11 place-items-center rounded-xl font-black text-base ${
+                  className={`grid h-10 w-10 shrink-0 place-items-center self-start rounded-lg font-display text-base font-black ${
                     isExpert
                       ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900'
-                      : 'bg-gradient-to-br from-brand-600 to-brand-400 text-white shadow-md shadow-brand-600/20'
+                      : 'bg-gradient-to-br from-brand-600 to-brand-400 text-white'
                   }`}
                   aria-hidden="true"
                 >
                   {markLetter}
                 </div>
-                <span
-                  className={`rounded-md border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider ${
-                    isExpert
-                      ? 'border-slate-400/40 bg-slate-500/10 text-slate-700 dark:text-slate-300'
-                      : 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
-                  }`}
-                >
-                  {isExpert ? 'profile' : 'article'}
-                </span>
-              </div>
-              <h3 className="text-base font-semibold leading-tight text-slate-900 transition-colors group-hover:text-brand-700 dark:text-white dark:group-hover:text-brand-300">
-                {article.title}
-              </h3>
-              <p className="mt-2 flex-1 text-[13px] leading-relaxed text-slate-600 dark:text-slate-400">
-                {article.description}
-              </p>
-              <div className="mt-4 flex items-center justify-between font-mono text-[10px] uppercase tracking-wider text-slate-500">
-                <span>{article.source}</span>
-                <ExternalLink className="h-3 w-3 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
-              </div>
-            </a>
+
+                {/* Title + description */}
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                    <h3 className="font-serif text-lg font-normal italic leading-tight text-slate-900 transition-transform duration-200 ease-spring group-hover:translate-x-1 sm:text-xl dark:text-white">
+                      {article.title}
+                    </h3>
+                    <span
+                      className={`inline-flex items-center rounded border px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider ${
+                        isExpert
+                          ? 'border-slate-400/40 bg-slate-500/10 text-slate-700 dark:text-slate-300'
+                          : 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
+                      }`}
+                    >
+                      {isExpert ? 'profile' : 'article'}
+                    </span>
+                  </div>
+                  <p className="mt-2 max-w-[65ch] text-[13px] leading-relaxed text-slate-700 dark:text-slate-400">
+                    {article.description}
+                  </p>
+                  <div className="mt-2 font-mono text-[10px] uppercase tracking-wider text-slate-500">
+                    {article.source}
+                  </div>
+                </div>
+
+                {/* Right arrow — spring nudge on hover */}
+                <ArrowUpRight
+                  className="hidden h-4 w-4 shrink-0 self-start text-slate-400 transition-transform duration-200 ease-spring group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand-600 sm:block dark:group-hover:text-brand-400"
+                  aria-hidden="true"
+                />
+              </a>
+            </li>
           );
         })}
-      </div>
+      </ul>
     </section>
   );
 }
