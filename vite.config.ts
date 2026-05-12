@@ -87,6 +87,24 @@ const clientBuild = {
   },
 };
 
+// Client-only Preact alias. The CLIENT bundle swaps react/react-dom for
+// preact/compat (saves ~120KB of parse work; mobile Lighthouse bottleneck
+// is React's parse cost on simulated slow CPU). The SERVER bundle keeps
+// react/react-dom because:
+//   1. renderToReadableStream from 'react-dom/server.browser' is needed
+//      for Phase 3 streaming SSR (await Suspense boundaries).
+//   2. Server runs once at build time on fast Node CPU — Preact's parse
+//      win doesn't apply there.
+// Preact's hydration is designed to be lenient about React's HTML output
+// (including <!--$--> Suspense markers), so the cross-runtime split is
+// supported. Verified empirically on the deploy below.
+const clientResolveAlias = {
+  react: 'preact/compat',
+  'react-dom': 'preact/compat',
+  'react-dom/test-utils': 'preact/test-utils',
+  'react/jsx-runtime': 'preact/jsx-runtime',
+};
+
 export default defineConfig(({ mode }) => ({
   define: {
     __BUILD_DATE__: JSON.stringify(new Date().toISOString().slice(0, 10)),
@@ -103,8 +121,10 @@ export default defineConfig(({ mode }) => ({
   ].filter(Boolean),
   base: '/',
   build: isSsrBuild ? ssrBuild : clientBuild,
+  // SSR build keeps React; client build swaps to preact/compat.
+  resolve: isSsrBuild ? {} : { alias: clientResolveAlias },
   optimizeDeps: {
-    include: ['react', 'react-dom', 'lucide-react'],
+    include: ['lucide-react'],
   },
   server: {
     proxy: {
