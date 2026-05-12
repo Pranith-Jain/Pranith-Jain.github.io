@@ -94,6 +94,20 @@ export const WRITEUP_SOURCES: WriteupSourceSpec[] = [
   // closest machine-readable view of their research output.
   { kind: 'rss', url: 'https://www.aikido.dev/blog/rss.xml', label: 'Aikido Security' },
 
+  // cvefeed.io newsroom — curated CTI-news aggregator pulling from
+  // cybersecuritynews.com, thecyberexpress.com, securityonline.info, etc.
+  // Same-day cadence, structured RSS. The /severity/high.xml feed from the
+  // same site is wired into /api/v1/cve-recent (not here) so the CVE detail
+  // stream and the news stream stay in their own surfaces.
+  //
+  // HTML-only cvefeed.io surfaces (not ingested — listed here so future
+  // probes don't re-test): /newsroom/latest, /githubcrawler/initial-access-
+  // intelligence, /vuln/technology-vendors/, /vuln/products-security-index/,
+  // /vuln/latest/, /epss/exploit-prediction-scoring-system/. These return
+  // HTML 200 but no inline data island; the RSS feeds expose the same
+  // underlying content in machine-readable form.
+  { kind: 'rss', url: 'https://cvefeed.io/rssfeed/newsroom.xml', label: 'cvefeed.io Newsroom' },
+
   // ─── Skipped sources (documented so we don't re-add them blindly) ────
   // ransomnews.online (requested 2026-05-12): no machine-readable feed.
   //   Probed /feed/, /rss/, /feed.xml, /atom.xml, /sitemap.xml, /posts.json,
