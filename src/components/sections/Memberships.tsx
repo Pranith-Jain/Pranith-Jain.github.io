@@ -1,87 +1,53 @@
 import { memberships } from '../../data/content';
+import { FiledTag } from '../editorial';
 
-const colorMap: Record<string, { bg: string; text: string; darkBg: string; darkText: string }> = {
-  brand: {
-    bg: 'bg-brand-50',
-    text: 'text-brand-600',
-    darkBg: 'dark:bg-brand-900/30',
-    darkText: 'dark:text-brand-300',
-  },
-  emerald: {
-    bg: 'bg-emerald-50',
-    text: 'text-emerald-600',
-    darkBg: 'dark:bg-emerald-900/30',
-    darkText: 'dark:text-emerald-300',
-  },
-  cyan: {
-    bg: 'bg-cyan-50',
-    text: 'text-cyan-600',
-    darkBg: 'dark:bg-cyan-900/30',
-    darkText: 'dark:text-cyan-300',
-  },
-};
-
+/**
+ * Memberships — flat editorial list. Monochrome abbreviation tile +
+ * serif name + sans description. No glass, no hover-glow, no
+ * per-org color differentiation.
+ */
 export function Memberships() {
   return (
-    <section id="memberships" className="mt-32 scroll-mt-24">
-      {/* Header */}
-      <div className="mb-16 max-w-3xl">
-        <div className="animate-fade-in-up mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
-          Professional Affiliations
-        </div>
-        <h2 className="animate-fade-in-up text-4xl font-extrabold tracking-tight sm:text-5xl text-slate-900 dark:text-white">
-          Memberships
+    <section id="memberships" className="scroll-mt-24 py-16 lg:py-24">
+      <div className="mb-10 max-w-[65ch]">
+        <FiledTag number="10" subject="Memberships — Professional Affiliations" />
+        <h2 className="font-serif text-3xl font-medium leading-[1.15] tracking-[-0.01em] text-ink-1 sm:text-4xl">
+          Professional affiliations
         </h2>
-        <p className="animate-fade-in-up mt-4 text-lg text-slate-700 dark:text-slate-400">
-          Active contributor to premier cybersecurity and intelligence communities.
+        <p className="mt-4 text-base leading-[1.55] text-ink-2">
+          Active contributor to cybersecurity and intelligence communities.
         </p>
       </div>
 
-      {/* Memberships Grid */}
-      <div className="animate-fade-in-up grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {memberships.map((membership) => {
-          const colors = colorMap[membership.color] || colorMap.brand;
-          return (
-            <div
-              key={membership.name}
-              className="animate-fade-in-up glass group flex flex-col gap-6 p-8 rounded-[2rem] transition-all hover:shadow-glow hover:-translate-y-2 border-white/20 bg-white/40 dark:bg-slate-900/40 h-full"
-            >
-              <div className="flex items-center justify-between">
-                <div
-                  className={`grid h-14 w-14 place-items-center rounded-2xl font-black text-xl ${colors.bg} ${colors.text} ${colors.darkBg} ${colors.darkText}`}
-                >
-                  {membership.abbreviation}
-                </div>
-                <div
-                  className={`rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-widest ${colors.bg} ${colors.text} ${colors.darkBg} ${colors.darkText}`}
-                >
-                  Member
-                </div>
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {memberships.map((membership) => (
+          <article
+            key={membership.name}
+            className="flex h-full flex-col border border-rule bg-surface-raised p-6 transition-colors duration-enter hover:border-ink-1"
+          >
+            <div className="flex items-center justify-between">
+              <div className="grid h-12 w-12 place-items-center bg-accent-soft text-sm font-semibold tracking-tight text-accent">
+                {membership.abbreviation}
               </div>
-              <div>
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
-                  {membership.name}
-                </h3>
-                <p className="mt-1 text-xs font-semibold text-slate-500 dark:text-slate-400">{membership.period}</p>
-                <p className="mt-3 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                  {membership.description}
-                </p>
-                {membership.details && (
-                  <ul className="mt-4 space-y-2 text-xs text-slate-600 dark:text-slate-400">
-                    {membership.details.map((detail) => (
-                      <li key={detail.label} className="flex items-start gap-2">
-                        <span className="text-brand-500 mt-0.5">•</span>
-                        <span>
-                          <strong>{detail.label}:</strong> {detail.text}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
+              <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-3">Member</div>
             </div>
-          );
-        })}
+            <h3 className="mt-5 font-serif text-xl font-medium leading-tight text-ink-1">{membership.name}</h3>
+            <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.18em] text-ink-3">{membership.period}</p>
+            <p className="mt-3 text-sm leading-[1.55] text-ink-2">{membership.description}</p>
+            {membership.details && (
+              <ul className="mt-4 space-y-2 text-sm text-ink-2">
+                {membership.details.map((detail) => (
+                  <li key={detail.label} className="flex items-start gap-2">
+                    <span className="mt-1.5 inline-block h-1 w-1 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+                    <span>
+                      <span className="text-ink-1">{detail.label}:</span> {detail.text}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </article>
+        ))}
       </div>
     </section>
   );

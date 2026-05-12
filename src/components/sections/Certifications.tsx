@@ -1,4 +1,5 @@
 import { certifications } from '../../data/content';
+import { FiledTag } from '../editorial';
 
 interface CertCardProps {
   title: string;
@@ -11,14 +12,14 @@ interface CertCardProps {
 function CertCard({ title, issuer, year, featured, type }: CertCardProps) {
   return (
     <div
-      className={`animate-fade-in-up glass rounded-2xl p-6 shadow-sm transition-all hover:-translate-y-1 h-full flex flex-col ${
-        featured ? 'border-l-4 border-brand-500' : ''
+      className={`flex h-full flex-col border border-rule bg-surface-raised p-5 transition-colors duration-enter hover:border-ink-1 ${
+        featured ? 'border-l-2 border-l-accent' : ''
       }`}
     >
-      <div className="text-xs font-bold text-brand-600 dark:text-brand-400 mb-1 uppercase tracking-wider">{type}</div>
-      <div className="text-sm font-semibold text-slate-900 dark:text-white">{title}</div>
-      <div className="mt-1 text-sm text-slate-700 dark:text-slate-300">
-        {issuer} • {year}
+      <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-3">{type}</div>
+      <div className="mt-2 text-sm font-medium text-ink-1">{title}</div>
+      <div className="mt-1 text-sm text-ink-2">
+        {issuer} · {year}
       </div>
     </div>
   );
@@ -40,21 +41,19 @@ interface CertCategoryProps {
 
 function CertCategory({ id, title, certs }: CertCategoryProps) {
   if (certs.length === 0) return null;
-
   return (
     <div id={id} className="scroll-mt-28">
-      <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4">{title}</h3>
-      <div className="animate-fade-in-up grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <h3 className="mb-4 font-mono text-[10px] uppercase tracking-[0.18em] text-ink-3">{title}</h3>
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {certs.map((cert, index) => (
-          <div className="animate-fade-in-up" key={`${cert.title}-${index}`}>
-            <CertCard
-              title={cert.title}
-              issuer={cert.issuer}
-              year={cert.year}
-              featured={cert.featured}
-              type={cert.type}
-            />
-          </div>
+          <CertCard
+            key={`${cert.title}-${index}`}
+            title={cert.title}
+            issuer={cert.issuer}
+            year={cert.year}
+            featured={cert.featured}
+            type={cert.type}
+          />
         ))}
       </div>
     </div>
@@ -90,19 +89,15 @@ export function Certifications() {
   }));
 
   return (
-    <section id="certifications" className="mt-20 scroll-mt-24">
-      {/* Header */}
-      <div className="mb-12 max-w-2xl">
-        <div className="animate-fade-in-up mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-brand-700 dark:text-brand-300">
-          Credentials
-        </div>
-        <h2 className="animate-fade-in-up text-3xl font-extrabold tracking-tight sm:text-4xl text-slate-900 dark:text-white">
-          Certifications & Coursework
+    <section id="certifications" className="scroll-mt-24 py-16 lg:py-24">
+      <div className="mb-10 max-w-[65ch]">
+        <FiledTag number="09" subject="Credentials — Certifications & Coursework" />
+        <h2 className="font-serif text-3xl font-medium leading-[1.15] tracking-[-0.01em] text-ink-1 sm:text-4xl">
+          Certifications &amp; coursework
         </h2>
       </div>
 
-      {/* Certification Categories */}
-      <div className="space-y-10">
+      <div className="space-y-12">
         <CertCategory id="certifications-core" title="Core Certifications" certs={coreCerts} />
         <CertCategory id="certifications-training" title="Training" certs={trainingCerts} />
         <CertCategory id="certifications-bootcamps" title="Bootcamps" certs={bootcampCerts} />
