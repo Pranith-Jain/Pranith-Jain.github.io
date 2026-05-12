@@ -107,6 +107,7 @@ const IocCorrelationPage = lazy(() => import('./pages/threatintel/IocCorrelation
 const ActorTimelinePage = lazy(() => import('./pages/threatintel/ActorTimeline'));
 const VictimReleaksPage = lazy(() => import('./pages/threatintel/VictimReleaks'));
 const LiveIocsPage = lazy(() => import('./pages/threatintel/LiveIocs'));
+const CyberCrimePage = lazy(() => import('./pages/threatintel/CyberCrime'));
 
 function TechniqueRedirect() {
   const params = new URLSearchParams(window.location.search);
@@ -512,6 +513,14 @@ export function AppContent() {
         element={
           <Suspense fallback={<SectionLoader />}>
             <LiveIocsPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/threatintel/cyber-crime"
+        element={
+          <Suspense fallback={<SectionLoader />}>
+            <CyberCrimePage />
           </Suspense>
         }
       />
