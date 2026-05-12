@@ -53,51 +53,27 @@ export const WRITEUP_SOURCES: WriteupSourceSpec[] = [
   { kind: 'rss', url: 'https://blog.aquasec.com/rss.xml', label: 'Aqua Security (cloud)' },
   { kind: 'rss', url: 'https://www.varonis.com/blog/rss.xml', label: 'Varonis (data security)' },
 
-  // ─── Medium / dev.to / Hashnode (CTI analysts who publish there) ──────
-  // To add an analyst Medium handle, uncomment and replace the placeholder:
+  // ─── Medium tag feeds (technical, on-topic) ──────────────────────────
+  // Tag feeds publish every Medium post tagged with the given topic. Quality
+  // varies — these tags were probed for signal in 2026-05-12 and the broader
+  // tags (cybersecurity, penetration-testing, hacking) were dropped because
+  // they're dominated by SEO/beginner content. The set below leans technical:
+  // malware reversing, threat hunting, detection engineering, etc.
+  //
+  // URL convention: https://medium.com/feed/tag/<tag>. Treated as generic RSS.
+  // To add a specific analyst's Medium feed, use kind:'medium' + handle.
+  { kind: 'rss', url: 'https://medium.com/feed/tag/threat-intelligence', label: 'Medium · #threat-intelligence' },
+  { kind: 'rss', url: 'https://medium.com/feed/tag/threat-hunting', label: 'Medium · #threat-hunting' },
+  { kind: 'rss', url: 'https://medium.com/feed/tag/malware-analysis', label: 'Medium · #malware-analysis' },
+  { kind: 'rss', url: 'https://medium.com/feed/tag/dfir', label: 'Medium · #dfir' },
+  { kind: 'rss', url: 'https://medium.com/feed/tag/incident-response', label: 'Medium · #incident-response' },
+  { kind: 'rss', url: 'https://medium.com/feed/tag/red-team', label: 'Medium · #red-team' },
+  { kind: 'rss', url: 'https://medium.com/feed/tag/detection-engineering', label: 'Medium · #detection-engineering' },
+  { kind: 'rss', url: 'https://medium.com/feed/tag/reverse-engineering', label: 'Medium · #reverse-engineering' },
+  { kind: 'rss', url: 'https://medium.com/feed/tag/cti', label: 'Medium · #cti' },
+
+  // To add an analyst-specific Medium handle instead of a topic tag:
   // { kind: 'medium', handle: '@some-analyst' },
   // { kind: 'devto', handle: 'some-analyst' },
   // { kind: 'hashnode', host: 'some-analyst.hashnode.dev' },
-
-  // ─── Featured one-offs (interviews, guest articles) ───────────────────
-  {
-    kind: 'manual',
-    title: 'Mastering DMARC for Enterprise Security',
-    url: 'https://www.devx.com/cybersecurity/mastering-dmarc-for-enterprise-security/',
-    source: 'DevX.com',
-    published: '2025-09-15',
-    description:
-      'What strict DMARC at scale actually requires. The compatibility traps, the staged-enforcement playbook, and the bits that get overlooked because they only break at p=reject.',
-    tags: ['DMARC', 'Email Security', 'Authentication'],
-  },
-  {
-    kind: 'manual',
-    title: 'How to Ensure Data Privacy in Cybersecurity',
-    url: 'https://www.devx.com/cybersecurity/how-to-ensure-data-privacy-in-cybersecurity-key-protection-tips/',
-    source: 'DevX.com',
-    published: '2025-07-20',
-    description:
-      'Concrete data-protection moves for teams that have to make tradeoffs. Encryption choices, threat-modelling the data flow first, and avoiding policies nobody actually follows.',
-    tags: ['Data Privacy', 'Encryption', 'Threat Modelling'],
-  },
-  {
-    kind: 'manual',
-    title: '15 Initiatives to Build a Strong Cybersecurity Culture',
-    url: 'https://www.devx.com/cybersecurity/15-initiatives-to-build-a-strong-cybersecurity-culture/',
-    source: 'DevX.com',
-    published: '2025-05-10',
-    description:
-      "Security culture is mostly downstream of incident-response habits. A breakdown of the initiatives I've seen actually shift behaviour, and the ones that just produce posters.",
-    tags: ['Security Culture', 'Awareness', 'IR'],
-  },
-  {
-    kind: 'manual',
-    title: 'Featured Expert: OSINT & Threat Intelligence',
-    url: 'https://featured.com/p/pranith-jain',
-    source: 'Featured.com',
-    published: '2026-01-01',
-    description:
-      'Q&A on how I work the OSINT-to-actioned-intel pipeline, the tools I lean on, and what I think most enterprises get wrong about email-threat tradecraft.',
-    tags: ['OSINT', 'Threat Intel'],
-  },
 ];
