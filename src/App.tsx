@@ -8,9 +8,6 @@ import { StructuredData } from './components/StructuredData';
 import { ScrollProgress, BackToTop } from './components/ui';
 import { Layout } from './components/Layout';
 import { AppShell } from './components/AppShell';
-import { BackgroundLayer } from './components/BackgroundLayer';
-import { GrainOverlay } from './components/GrainOverlay';
-import { IntelTicker } from './components/IntelTicker';
 import { CommandPalette } from './components/dfir/CommandPalette';
 
 // Note (2026-05-12): tried React.lazy on these four shell components to
@@ -908,8 +905,6 @@ export function AppContent() {
       <>
         <StructuredData />
         <SkipToContent />
-        <BackgroundLayer isDark={isDark} />
-        <GrainOverlay />
         <CommandPalette />
         <AppShell mode={appMode} isDark={isDark} onToggleTheme={toggleTheme}>
           {routes}
@@ -924,11 +919,8 @@ export function AppContent() {
     <>
       <StructuredData />
       <SkipToContent />
-      <BackgroundLayer isDark={isDark} />
-      <GrainOverlay />
 
       <ScrollProgress progress={progress} />
-      <IntelTicker />
       <Header isDark={isDark} onToggleTheme={toggleTheme} />
       <CommandPalette />
 
