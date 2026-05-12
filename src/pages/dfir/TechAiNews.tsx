@@ -24,7 +24,6 @@ const SECTIONS: Section[] = [
     blurb: 'Model releases, AI funding, agentic-AI products, AI-system security incidents.',
     feedIds: [
       'techcrunch-ai',
-      'venturebeat-ai',
       'verge-ai',
       'openai-news',
       'google-ai',

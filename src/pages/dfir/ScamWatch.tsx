@@ -31,7 +31,7 @@ const SECTIONS: { id: string; label: string; blurb: string; feedIds: string[] }[
     id: 'pig-butchering',
     label: 'Pig butchering & investment',
     blurb: 'Long-con investment scams — sha zhu pan, fake brokers, romance-baiting into crypto / forex.',
-    feedIds: ['gnews-pig-butcher', 'gnews-investment-scam', 'reddit-romance-scams'],
+    feedIds: ['gnews-pig-butcher', 'gnews-investment-scam'],
   },
   {
     id: 'crypto-nft',

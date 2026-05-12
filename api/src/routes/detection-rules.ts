@@ -20,7 +20,7 @@ interface SourceConfig {
   id: string;
   label: string;
   repo: string; // owner/name
-  type: 'Sigma' | 'YARA' | 'Elastic' | 'Splunk SPL' | 'KQL' | 'Suricata' | 'DLP';
+  type: 'Sigma' | 'YARA' | 'Elastic' | 'Splunk SPL' | 'KQL' | 'Suricata' | 'DLP' | 'Supply chain';
   description: string;
   rules_path: string; // path within the repo where rules live (for direct browse link)
   homepage?: string;
@@ -109,13 +109,13 @@ const SOURCES: SourceConfig[] = [
     homepage: 'https://trufflesecurity.com',
   },
   {
-    id: 'secrets-patterns-db',
-    label: 'mazen160/secrets-patterns-db',
-    repo: 'mazen160/secrets-patterns-db',
-    type: 'DLP',
+    id: 'guarddog',
+    label: 'DataDog/guarddog',
+    repo: 'DataDog/guarddog',
+    type: 'Supply chain',
     description:
-      'Curated pattern database for secret detection (~1600 regexes). Use as a corpus for building DLP scanners or supplementing gitleaks.',
-    rules_path: 'db',
+      'Supply-chain malware scanner for PyPI and npm. Semgrep-style YAML rules detect package-takeover, install-script abuse, obfuscation, and exfil patterns — different from credential-leak scanners.',
+    rules_path: 'guarddog/analyzer/sourcecode',
   },
   {
     id: 'detect-secrets',
