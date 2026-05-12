@@ -22,11 +22,9 @@ interface ColophonHeadProps {
 function ColophonHead({ numeral, label }: ColophonHeadProps): JSX.Element {
   return (
     <div className="mb-4 flex items-baseline gap-3">
-      <span className="font-mono text-[11px] uppercase tracking-[0.32em] text-brand-600 dark:text-brand-400">
-        {numeral}
-      </span>
-      <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-slate-500">{label}</span>
-      <span className="h-px flex-1 bg-slate-200 dark:bg-slate-800" aria-hidden="true" />
+      <span className="font-mono text-[11px] uppercase tracking-[0.32em] text-accent">{numeral}</span>
+      <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-3">{label}</span>
+      <span className="h-px flex-1 bg-rule" aria-hidden="true" />
     </div>
   );
 }
@@ -46,24 +44,24 @@ export function Footer() {
   const { count, isNewSession } = usePageViewCounter();
 
   return (
-    <footer className="mt-32 border-t border-slate-200 dark:border-slate-800" role="contentinfo">
+    <footer className="mt-32 border-t border-rule" role="contentinfo">
       {/* Top rule pair — magazine-style heavy + hairline */}
-      <div aria-hidden="true" className="-mt-px h-0.5 bg-slate-900 dark:bg-white/60" />
+      <div aria-hidden="true" className="-mt-px h-0.5 bg-ink-1" />
 
       <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
         {/* Masthead bar */}
         <div className="mb-12 flex flex-col items-baseline justify-between gap-3 sm:flex-row">
           <a
             href="#top"
-            className="group inline-flex items-baseline gap-3 rounded focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
+            className="group inline-flex items-baseline gap-3"
             aria-label={`${personalInfo.name} — back to top`}
           >
-            <span className="font-serif text-3xl font-light italic leading-none text-slate-900 transition-transform duration-200 ease-spring group-hover:-translate-y-0.5 dark:text-white">
-              P.&nbsp;Jain
+            <span className="font-serif text-3xl font-medium leading-none text-ink-1 transition-colors duration-enter group-hover:text-accent">
+              Pranith Jain
             </span>
-            <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-slate-500">Dossier</span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-ink-3">Dossier</span>
           </a>
-          <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-slate-500">
+          <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-ink-3">
             Issue&nbsp;26.05 — Threat&nbsp;Intel · Email&nbsp;Defense · Cloud&nbsp;Identity
           </div>
         </div>
@@ -77,14 +75,14 @@ export function Footer() {
               {SECTIONS_INDEX.map((s) => {
                 const isExternal = s.href.startsWith('#') || s.href.startsWith('/#');
                 const className =
-                  'group flex items-baseline gap-3 text-slate-700 transition-colors hover:text-brand-700 dark:text-slate-300 dark:hover:text-brand-300';
+                  'group flex items-baseline gap-3 text-ink-2 transition-colors duration-enter hover:text-accent';
                 const inner = (
                   <>
-                    <span className="tabular-nums text-slate-500">{s.no}</span>
-                    <span className="flex-1 italic">{s.subject}</span>
+                    <span className="tabular-nums text-ink-3">{s.no}</span>
+                    <span className="flex-1">{s.subject}</span>
                     <span
                       aria-hidden="true"
-                      className="h-px flex-1 bg-slate-200 transition-colors group-hover:bg-brand-400 dark:bg-slate-800"
+                      className="h-px flex-1 bg-rule transition-colors duration-enter group-hover:bg-accent"
                     />
                   </>
                 );
@@ -111,24 +109,24 @@ export function Footer() {
           {/* II. Masthead / typeface credit / edition */}
           <section>
             <ColophonHead numeral="II" label="Colophon" />
-            <dl className="space-y-3 font-mono text-[11px] leading-relaxed text-slate-600 dark:text-slate-400">
+            <dl className="space-y-3 font-mono text-[11px] leading-relaxed text-ink-2">
               <div>
-                <dt className="text-[9px] uppercase tracking-[0.22em] text-slate-500">Set in</dt>
-                <dd className="mt-1 text-slate-800 dark:text-slate-200">
-                  <span className="font-serif text-[15px] italic">Newsreader</span> · Space&nbsp;Grotesk · Inter
+                <dt className="text-[9px] uppercase tracking-[0.22em] text-ink-3">Set in</dt>
+                <dd className="mt-1 text-ink-2">
+                  <span className="font-serif text-[15px]">Newsreader</span> · Inter · JetBrains Mono
                 </dd>
               </div>
               <div>
-                <dt className="text-[9px] uppercase tracking-[0.22em] text-slate-500">Hosted</dt>
-                <dd className="mt-1 text-slate-800 dark:text-slate-200">Cloudflare Workers · edge · no signup</dd>
+                <dt className="text-[9px] uppercase tracking-[0.22em] text-ink-3">Hosted</dt>
+                <dd className="mt-1 text-ink-2">Cloudflare Workers · edge · no signup</dd>
               </div>
               <div>
-                <dt className="text-[9px] uppercase tracking-[0.22em] text-slate-500">Filed from</dt>
-                <dd className="mt-1 text-slate-800 dark:text-slate-200">Remote</dd>
+                <dt className="text-[9px] uppercase tracking-[0.22em] text-ink-3">Filed from</dt>
+                <dd className="mt-1 text-ink-2">Remote</dd>
               </div>
               <div>
-                <dt className="text-[9px] uppercase tracking-[0.22em] text-slate-500">Built with</dt>
-                <dd className="mt-1 text-slate-800 dark:text-slate-200">React · Vite · Tailwind · Hono</dd>
+                <dt className="text-[9px] uppercase tracking-[0.22em] text-ink-3">Built with</dt>
+                <dd className="mt-1 text-ink-2">React · Vite · Tailwind · Hono</dd>
               </div>
             </dl>
           </section>
@@ -140,10 +138,10 @@ export function Footer() {
               <li>
                 <a
                   href={`mailto:${personalInfo.email}`}
-                  className="group inline-flex items-baseline gap-2 text-slate-700 transition-colors hover:text-brand-700 dark:text-slate-300 dark:hover:text-brand-300"
+                  className="group inline-flex items-baseline gap-2 text-ink-2 transition-colors duration-enter hover:text-accent"
                 >
-                  <span className="text-[9px] uppercase tracking-[0.22em] text-slate-500">Email</span>
-                  <span className="underline decoration-1 underline-offset-4 group-hover:decoration-brand-500">
+                  <span className="text-[9px] uppercase tracking-[0.22em] text-ink-3">Email</span>
+                  <span className="underline decoration-1 underline-offset-4 group-hover:decoration-accent">
                     hello@pranithjain.qzz.io
                   </span>
                 </a>
@@ -153,9 +151,9 @@ export function Footer() {
                   href={personalInfo.linkedInUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex items-baseline gap-2 text-slate-700 transition-colors hover:text-brand-700 dark:text-slate-300 dark:hover:text-brand-300"
+                  className="group inline-flex items-baseline gap-2 text-ink-2 transition-colors duration-enter hover:text-accent"
                 >
-                  <span className="text-[9px] uppercase tracking-[0.22em] text-slate-500">LinkedIn</span>
+                  <span className="text-[9px] uppercase tracking-[0.22em] text-ink-3">LinkedIn</span>
                   <span className="underline decoration-1 underline-offset-4">in/pranithjain</span>
                 </a>
               </li>
@@ -164,9 +162,9 @@ export function Footer() {
                   href={personalInfo.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex items-baseline gap-2 text-slate-700 transition-colors hover:text-brand-700 dark:text-slate-300 dark:hover:text-brand-300"
+                  className="group inline-flex items-baseline gap-2 text-ink-2 transition-colors duration-enter hover:text-accent"
                 >
-                  <span className="text-[9px] uppercase tracking-[0.22em] text-slate-500">GitHub</span>
+                  <span className="text-[9px] uppercase tracking-[0.22em] text-ink-3">GitHub</span>
                   <span className="underline decoration-1 underline-offset-4">@Pranith-Jain</span>
                 </a>
               </li>
@@ -175,9 +173,9 @@ export function Footer() {
                   href={personalInfo.calendlyUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex items-baseline gap-2 text-slate-700 transition-colors hover:text-brand-700 dark:text-slate-300 dark:hover:text-brand-300"
+                  className="group inline-flex items-baseline gap-2 text-ink-2 transition-colors duration-enter hover:text-accent"
                 >
-                  <span className="text-[9px] uppercase tracking-[0.22em] text-slate-500">Calls</span>
+                  <span className="text-[9px] uppercase tracking-[0.22em] text-ink-3">Calls</span>
                   <span className="underline decoration-1 underline-offset-4">calendly · 30m</span>
                 </a>
               </li>
@@ -185,24 +183,24 @@ export function Footer() {
 
             {/* Circulation note */}
             <div
-              className="mt-6 inline-flex items-center gap-2 rounded border border-slate-200 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-slate-500 dark:border-slate-800"
+              className="mt-6 inline-flex items-center gap-2 rounded border border-rule px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-ink-3"
               aria-live="polite"
               aria-atomic="true"
             >
               <Eye className="h-3 w-3" aria-hidden="true" />
               Circulation&nbsp;·&nbsp;
-              <span className="text-slate-800 dark:text-slate-200">{formatViewCount(count)}</span>
+              <span className="text-ink-2">{formatViewCount(count)}</span>
               {isNewSession && <span className="sr-only"> (new session)</span>}
             </div>
           </section>
         </div>
 
         {/* Bottom rule + copyright */}
-        <div className="mt-14 flex flex-col items-baseline justify-between gap-3 border-t border-slate-200 pt-6 font-mono text-[10px] uppercase tracking-[0.22em] text-slate-500 sm:flex-row dark:border-slate-800">
+        <div className="mt-14 flex flex-col items-baseline justify-between gap-3 border-t border-rule pt-6 font-mono text-[10px] uppercase tracking-[0.22em] text-ink-3 sm:flex-row">
           <span>
             © MMXXVI · {personalInfo.name} · All rights reserved · <span aria-label="Year">{currentYear}</span>
           </span>
-          <span className="text-slate-400 dark:text-slate-600">— end of issue —</span>
+          <span className="text-ink-3">— end of issue —</span>
         </div>
       </div>
     </footer>
