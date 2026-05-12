@@ -15,6 +15,12 @@ import { TOOL_TOPICS, type ToolTopic } from '../../data/dfir/tool-topics';
  *   - text inside inline code (`...`)
  *   - text already inside a markdown link [...](...)
  *   - links inside headers (already styled distinctly)
+ *
+ * Implementation note: when a topic is wrapped, the wrapped link is spliced
+ * into the segments array as a NEW skip-segment immediately. Earlier versions
+ * mutated the plain segment's text in place, which let a later topic's regex
+ * scan inside the freshly-injected link's title attribute and re-wrap a term
+ * — producing nested `[DKIM](...)` markup inside SPF's tooltip text.
  */
 function injectToolLinks(body: string): { body: string; matched: ToolTopic[] } {
   // Tokenise into segments we will/won't touch.
@@ -32,23 +38,34 @@ function injectToolLinks(body: string): { body: string; matched: ToolTopic[] } {
   const matched = new Map<string, ToolTopic>();
   const usedTopics = new Set<string>();
 
-  for (const seg of segments) {
-    if (seg.kind === 'skip') continue;
-    let txt = seg.text;
-    for (const topic of TOOL_TOPICS) {
-      if (usedTopics.has(topic.term.toLowerCase())) continue;
-      // Word-boundary match. Escape regex specials in the term.
-      const escaped = topic.term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      const re = new RegExp(`\\b(${escaped})\\b`, 'i');
-      if (re.test(txt)) {
-        // Wrap in markdown link. Use HTML-style title via the
-        // post-render rewrite below so the tooltip survives sanitization.
-        txt = txt.replace(re, `[$1](${topic.href} "${topic.blurb}")`);
-        usedTopics.add(topic.term.toLowerCase());
-        matched.set(topic.href, topic);
-      }
+  for (const topic of TOOL_TOPICS) {
+    if (usedTopics.has(topic.term.toLowerCase())) continue;
+    const escaped = topic.term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const re = new RegExp(`\\b(${escaped})\\b`, 'i');
+    // Find the FIRST plain segment containing the term, then splice it into
+    // three sub-segments: [plain-before, skip-link, plain-after]. Subsequent
+    // iterations only see plain-before / plain-after — the link's title
+    // text is in a skip-segment and is invisible to the scanner.
+    for (let i = 0; i < segments.length; i++) {
+      const seg = segments[i];
+      if (!seg || seg.kind !== 'plain') continue;
+      const m = re.exec(seg.text);
+      if (!m) continue;
+      const before = seg.text.slice(0, m.index);
+      const matchText = m[0];
+      const link = `[${matchText}](${topic.href} "${topic.blurb}")`;
+      const after = seg.text.slice(m.index + matchText.length);
+      segments.splice(
+        i,
+        1,
+        { kind: 'plain', text: before },
+        { kind: 'skip', text: link },
+        { kind: 'plain', text: after }
+      );
+      usedTopics.add(topic.term.toLowerCase());
+      matched.set(topic.href, topic);
+      break;
     }
-    seg.text = txt;
   }
 
   return { body: segments.map((s) => s.text).join(''), matched: [...matched.values()] };
