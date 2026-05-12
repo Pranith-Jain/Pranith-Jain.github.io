@@ -3,18 +3,66 @@
 @tailwind utilities;
 
 @layer base {
+  /* ─── Editorial design tokens ──────────────────────────────────────
+     Semantic, paired light/dark per
+     docs/superpowers/specs/2026-05-12-portfolio-editorial-redesign-design.md
+     ──────────────────────────────────────────────────────────────── */
+  :root {
+    --surface-page: #faf9f6;
+    --surface-raised: #ffffff;
+    --surface-sunken: #f2f0ea;
+    --ink-1: #111111;
+    --ink-2: #4a4a4a;
+    --ink-3: #8b8780;
+    --rule: #d8d4cb;
+    --accent: #1b3a6b;
+    --accent-soft: #e6ecf4;
+
+    --motion-enter: 220ms;
+    --motion-exit: 140ms;
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in: cubic-bezier(0.5, 0, 0.75, 0);
+  }
+
+  html.dark {
+    --surface-page: #0e0e10;
+    --surface-raised: #16161a;
+    --surface-sunken: #08080b;
+    --ink-1: #eceae3;
+    --ink-2: #a8a39a;
+    --ink-3: #6e6963;
+    --rule: #2a2a2e;
+    --accent: #6c8ec9;
+    --accent-soft: #1b2333;
+  }
+
   html {
     font-family: theme('fontFamily.sans');
     scroll-behavior: smooth;
+    background: var(--surface-page);
+    color: var(--ink-1);
+  }
+
+  body {
+    background: var(--surface-page);
+    color: var(--ink-1);
   }
 
   h1,
-  h2,
+  h2 {
+    font-family: theme('fontFamily.serif');
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+
   h3,
   h4,
   h5,
   h6 {
-    font-family: theme('fontFamily.display');
+    font-family: theme('fontFamily.sans');
+    font-weight: 600;
+    line-height: 1.2;
   }
 
   html.dark {
@@ -26,21 +74,23 @@
   }
 
   :focus-visible {
-    outline: 2px solid theme('colors.brand.400');
+    outline: 2px solid var(--accent);
     outline-offset: 3px;
   }
 
-  /* Custom Scrollbar */
+  /* Custom scrollbar — quieted to use the rule token */
   ::-webkit-scrollbar {
     width: 8px;
   }
-
   ::-webkit-scrollbar-track {
-    @apply bg-slate-100 dark:bg-slate-900;
+    background: var(--surface-page);
   }
-
   ::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-slate-300 transition-colors hover:bg-slate-400 dark:bg-slate-700 dark:hover:bg-slate-600;
+    background: var(--rule);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--ink-3);
   }
 }
 
@@ -62,38 +112,6 @@
 
   .dark .bg-dot-grid {
     background-image: radial-gradient(rgba(148, 163, 184, 0.18) 1px, transparent 1px);
-  }
-
-  .shadow-glow {
-    box-shadow: 0 0 20px -5px rgba(37, 99, 235, 0.5);
-  }
-
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
-
-  @keyframes float {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
-  }
-
-  .animate-pulse-slow {
-    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
-
-  @keyframes pulse {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.8;
-    }
   }
 }
 
@@ -144,48 +162,4 @@
 
 .animate-fade-in-up {
   animation: dfir-fade-in-up 0.4s ease-out both;
-}
-
-/*
- * Hero cascade — each top-level child of `.hero-cascade` fades in
- * sequentially so the page reads like a printed dossier (eyebrow ->
- * pill -> identity row -> headline -> prose -> meta -> CTAs ->
- * socials). Capped at 9 elements which is more than any real hero
- * column. motion-reduce users see everything at once.
- */
-.hero-cascade > * {
-  animation: dfir-fade-in-up 0.5s ease-out both;
-}
-.hero-cascade > *:nth-child(1) {
-  animation-delay: 0s;
-}
-.hero-cascade > *:nth-child(2) {
-  animation-delay: 0.06s;
-}
-.hero-cascade > *:nth-child(3) {
-  animation-delay: 0.12s;
-}
-.hero-cascade > *:nth-child(4) {
-  animation-delay: 0.18s;
-}
-.hero-cascade > *:nth-child(5) {
-  animation-delay: 0.24s;
-}
-.hero-cascade > *:nth-child(6) {
-  animation-delay: 0.3s;
-}
-.hero-cascade > *:nth-child(7) {
-  animation-delay: 0.36s;
-}
-.hero-cascade > *:nth-child(8) {
-  animation-delay: 0.42s;
-}
-.hero-cascade > *:nth-child(9) {
-  animation-delay: 0.48s;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-cascade > * {
-    animation: none !important;
-  }
 }
