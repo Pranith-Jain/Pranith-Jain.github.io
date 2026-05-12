@@ -1,32 +1,60 @@
+import { useState } from 'react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { companies } from '../../data/content';
+import { FiledTag } from '../editorial';
 
+const DEFAULT_VISIBLE = 6;
+
+/**
+ * Companies — quiet wordmark row. By default shows the first 6 brands
+ * as a typeset row; "Show all" reveals the rest. No logos, no chip
+ * chrome — typography carries the trust signal.
+ */
 export function Companies() {
+  const [expanded, setExpanded] = useState(false);
+  const visible = expanded ? companies : companies.slice(0, DEFAULT_VISIBLE);
+  const remaining = companies.length - DEFAULT_VISIBLE;
+
   return (
-    <section id="companies" className="mt-32 scroll-mt-24">
-      {/* Header */}
-      <div className="mb-12 max-w-3xl">
-        <div className="animate-fade-in-up mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
-          Industry Experience
-        </div>
-        <h2 className="animate-fade-in-up text-4xl font-extrabold tracking-tight sm:text-5xl text-slate-900 dark:text-white">
-          Enterprise Partnerships
+    <section id="companies" className="scroll-mt-24 py-16 lg:py-24">
+      <div className="mb-10 max-w-[65ch]">
+        <FiledTag number="08" subject="Partners — Work Has Appeared At" />
+        <h2 className="font-serif text-3xl font-medium leading-[1.15] tracking-[-0.01em] text-ink-1 sm:text-4xl">
+          Enterprise partnerships
         </h2>
-        <p className="animate-fade-in-up mt-4 text-lg text-slate-700 dark:text-slate-400">
-          Securing email infrastructure for 150+ startups and enterprises across AI, HealthTech, and SaaS.
+        <p className="mt-4 text-base leading-[1.55] text-ink-2">
+          Email infrastructure secured for 150+ startups and enterprises across AI, HealthTech, and SaaS.
         </p>
       </div>
 
-      {/* Companies Grid */}
-      <div className="animate-fade-in-up flex flex-wrap justify-start gap-4">
-        {companies.map((company) => (
-          <div
-            key={company}
-            className="animate-fade-in-up glass px-6 py-3 rounded-2xl text-sm font-bold text-slate-700 dark:text-slate-200 transition-all hover:border-brand-500/50 hover:bg-brand-500/5 hover:-translate-y-1 cursor-default"
-          >
+      <ul className="flex flex-wrap gap-x-8 gap-y-3 border-t border-rule pt-8 text-base font-medium text-ink-2">
+        {visible.map((company) => (
+          <li key={company} className="transition-colors duration-enter hover:text-ink-1">
             {company}
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
+
+      {remaining > 0 && (
+        <button
+          type="button"
+          onClick={() => setExpanded((v) => !v)}
+          className="mt-6 inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.18em] text-accent transition-colors duration-enter hover:text-brand-700"
+          aria-expanded={expanded}
+        >
+          {expanded ? (
+            <>
+              <ChevronUp className="h-3 w-3" aria-hidden="true" />
+              Show fewer
+            </>
+          ) : (
+            <>
+              <ChevronDown className="h-3 w-3" aria-hidden="true" />
+              Show all {companies.length}
+            </>
+          )}
+        </button>
+      )}
     </section>
   );
 }
