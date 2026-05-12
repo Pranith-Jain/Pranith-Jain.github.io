@@ -76,4 +76,35 @@ export const WRITEUP_SOURCES: WriteupSourceSpec[] = [
   // { kind: 'medium', handle: '@some-analyst' },
   // { kind: 'devto', handle: 'some-analyst' },
   // { kind: 'hashnode', host: 'some-analyst.hashnode.dev' },
+
+  // ─── General security news + ransomware coverage ─────────────────────
+  // Added 2026-05-12 after user requested ransomware-focused sources.
+  // Each was probed for working RSS + non-trivial item count first; the
+  // ones that returned 403/0-items under server-side fetch are documented
+  // in the "skipped" block below.
+  { kind: 'rss', url: 'https://socprime.com/feed/', label: 'SOC Prime' },
+  { kind: 'rss', url: 'https://thehackernews.com/feeds/posts/default', label: 'The Hacker News' },
+  { kind: 'rss', url: 'https://www.helpnetsecurity.com/feed/', label: 'Help Net Security' },
+  { kind: 'rss', url: 'https://hackread.com/feed/', label: 'HackRead' },
+  { kind: 'rss', url: 'https://www.databreaches.net/feed/', label: 'DataBreaches.net' },
+  { kind: 'rss', url: 'https://www.cisa.gov/cybersecurity-advisories/all.xml', label: 'CISA Advisories' },
+
+  // ─── Skipped sources (documented so we don't re-add them blindly) ────
+  // ransomnews.online (requested 2026-05-12): no machine-readable feed.
+  //   Probed /feed/, /rss/, /feed.xml, /atom.xml, /sitemap.xml, /posts.json,
+  //   /?feed=rss2 — all 404 or HTML homepage. HTML scraping was rejected
+  //   as too brittle.
+  // valhalla.nextron-systems.com (requested 2026-05-12): commercial Valhalla
+  //   YARA rule platform. Requires an API key — no public RSS.
+  // socprime.com/active-threats/feed/ (requested 2026-05-12): the category
+  //   subfeed 404s. The site-wide socprime.com/feed/ above is the working
+  //   surface and includes the same active-threats articles.
+  // bleepingcomputer.com/feed/tag/ransomware/: returns 403 to server-side
+  //   fetchers (bot detection). Re-add if we add residential-IP egress.
+  // therecord.media/feed: 5 items only and content overlaps with Recorded
+  //   Future feed already in the vendor section.
+  // infosecurity-magazine.com/rss/news/: 250-item feed; would dominate the
+  //   round-robin distribution. Re-add only if per-source cap is lowered.
+  // blog.talosintelligence.com/feeds/posts/default: 403 to bot UAs.
+  // scworld.com/topic/ransomware/feed: 403 to bot UAs.
 ];

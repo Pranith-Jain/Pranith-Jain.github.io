@@ -13,7 +13,7 @@ import { WRITEUP_SOURCES, type WriteupSourceSpec } from '../lib/writeup-sources'
  * Cache 1h server-side. Adding a new platform = one line in WRITEUP_SOURCES.
  */
 
-export const WRITEUPS_CACHE_KEY = 'https://writeups-cache.internal/v6-medium-tags';
+export const WRITEUPS_CACHE_KEY = 'https://writeups-cache.internal/v7-cti-news-sources';
 const CACHE_KEY = WRITEUPS_CACHE_KEY;
 const CACHE_TTL_SECONDS = 3600;
 const FETCH_TIMEOUT_MS = 12_000;
