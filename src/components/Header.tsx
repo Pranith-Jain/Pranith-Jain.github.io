@@ -4,6 +4,7 @@ import { Menu, X, ChevronDown } from 'lucide-react';
 import { ThemeToggle } from './ui/ThemeToggle';
 import { useFocusTrap } from '../hooks/useFocusTrap';
 import { navLinks } from '../data/content';
+import { preloadRoute } from '../lib/route-preloaders';
 
 interface HeaderProps {
   isDark: boolean;
@@ -193,6 +194,8 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
                               to={child.href}
                               className="block px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10 focus:outline-none focus:bg-slate-100 dark:focus:bg-white/10"
                               onClick={() => setOpenDropdown(null)}
+                              onMouseEnter={() => preloadRoute(child.href)}
+                              onFocus={() => preloadRoute(child.href)}
                               role="menuitem"
                             >
                               {child.label}
@@ -204,6 +207,8 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
                   ) : (
                     <Link
                       to={link.href}
+                      onMouseEnter={() => preloadRoute(link.href)}
+                      onFocus={() => preloadRoute(link.href)}
                       className={`rounded-full px-3 py-2 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
                         isActive(link.href)
                           ? 'text-brand-600 dark:text-brand-400 bg-brand-500/10'

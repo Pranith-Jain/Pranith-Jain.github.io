@@ -95,9 +95,8 @@ export default function VictimReleaks(): JSX.Element {
           affiliate moved between programs and re-published the same haul).
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-6">
-          Source: <span className="text-slate-700 dark:text-slate-300">/api/v1/victim-releaks</span> · cached 6h
-          server-side · scans top-8 active groups' per-group histories on Ransomlook · names normalized for matching;
-          verify each surfaced match against the raw strings.
+          Scans the top-8 active ransomware groups' per-group histories. Victim names are normalized before matching, so
+          verify any surfaced row against the raw strings before acting.
         </p>
       </div>
 
@@ -226,11 +225,11 @@ export default function VictimReleaks(): JSX.Element {
               (acme.com → acme), masking asterisks dropped, non-alphanumerics collapsed.
             </li>
             <li>
-              Match is "same normalized key." This is lossy by design — verify each surfaced row against the raw
+              Match is "same normalized key." This is lossy by design, so verify each surfaced row against the raw
               strings.
             </li>
             <li>Keys shorter than 3 chars are rejected (mostly heavily-masked names like "***").</li>
-            <li>Only the last {data.window_days} days are considered — older co-occurrences are dropped.</li>
+            <li>Only the last {data.window_days} days are considered. Older co-occurrences are dropped.</li>
           </ul>
         </section>
       )}

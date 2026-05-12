@@ -9,10 +9,10 @@ export function Featured() {
           Recognition
         </div>
         <h2 className="animate-fade-in-up text-4xl font-extrabold tracking-tight sm:text-5xl text-slate-900 dark:text-white">
-          Expert Features & Insights
+          Where the work shows up
         </h2>
         <p className="animate-fade-in-up mt-4 text-lg text-slate-700 dark:text-slate-400">
-          Contributing cybersecurity expertise to industry-leading platforms.
+          Interviews and writeups across security platforms.
         </p>
       </div>
 

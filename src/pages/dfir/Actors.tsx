@@ -74,20 +74,6 @@ export default function Actors(): JSX.Element {
           </Link>{' '}
           to paste a bundle and explore the relationship graph in your browser.
         </p>
-        <details className="mt-3 text-xs font-mono text-slate-600 dark:text-slate-400">
-          <summary className="cursor-pointer hover:text-brand-600 dark:hover:text-brand-400">
-            API for power users
-          </summary>
-          <div className="mt-2 pl-3 border-l-2 border-slate-300 dark:border-slate-700">
-            POST a raw JSON body (max 1MB) to{' '}
-            <code className="bg-slate-200 dark:bg-slate-800 px-1 rounded">/api/v1/cti/parse</code> to extract actors
-            programmatically. Top-level shape:{' '}
-            <code className="bg-slate-200 dark:bg-slate-800 px-1 rounded">
-              {'{ "type": "bundle", "objects": [ ... ] }'}
-            </code>
-            .
-          </div>
-        </details>
       </section>
     </div>
   );

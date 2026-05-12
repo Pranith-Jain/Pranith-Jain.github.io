@@ -1,9 +1,11 @@
-import { useEffect, useMemo, useState } from 'react';
+import { Suspense, lazy, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, RefreshCw, Globe } from 'lucide-react';
-import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
+import { ArrowLeft, RefreshCw, Globe, Loader2 } from 'lucide-react';
 import { IocSnapshotPanel } from '../../components/dfir/IocSnapshotPanel';
 import { ActorTtpsPanel } from '../../components/threatintel/ActorTtpsPanel';
+
+// Lazy-loaded — react-simple-maps is ~80KB. Side panel + stats render first.
+const ThreatMapChart = lazy(() => import('./ThreatMapChart'));
 
 interface CountryAgg {
   countryCode: string;
@@ -320,40 +322,22 @@ export default function ThreatMap(): JSX.Element {
               className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 overflow-hidden relative"
               style={{ minHeight: 420 }}
             >
-              <ComposableMap
-                projectionConfig={{ scale: 140 }}
-                width={900}
-                height={460}
-                style={{ width: '100%', height: 'auto' }}
+              <Suspense
+                fallback={
+                  <div className="flex items-center justify-center h-[420px] text-slate-500 font-mono text-xs gap-2">
+                    <Loader2 size={14} className="animate-spin" /> loading world map…
+                  </div>
+                }
               >
-                <Geographies geography={WORLD_TOPO_URL}>
-                  {({ geographies }) =>
-                    geographies.map((geo) => {
-                      const numericId = String(geo.id ?? '').padStart(3, '0');
-                      const alpha2 = NUMERIC_TO_ALPHA2[numericId];
-                      const agg = alpha2 ? countryByAlpha2.get(alpha2) : undefined;
-                      const fill = agg ? colourFor(agg.count, maxCount) : '#1e293b';
-                      const name = (geo.properties as { name?: string })?.name ?? alpha2 ?? '';
-                      return (
-                        <Geography
-                          key={geo.rsmKey}
-                          geography={geo}
-                          fill={fill}
-                          stroke="#0f172a"
-                          strokeWidth={0.4}
-                          onMouseEnter={() => alpha2 && setHovered({ alpha2, name })}
-                          onMouseLeave={() => setHovered(null)}
-                          style={{
-                            default: { outline: 'none' },
-                            hover: { outline: 'none', fill: '#fbbf24', cursor: 'pointer' },
-                            pressed: { outline: 'none' },
-                          }}
-                        />
-                      );
-                    })
-                  }
-                </Geographies>
-              </ComposableMap>
+                <ThreatMapChart
+                  topoUrl={WORLD_TOPO_URL}
+                  numericToAlpha2={NUMERIC_TO_ALPHA2}
+                  countryByAlpha2={countryByAlpha2}
+                  maxCount={maxCount}
+                  colourFor={colourFor}
+                  onHover={setHovered}
+                />
+              </Suspense>
               {hoveredAgg && (
                 <div className="absolute top-3 left-3 rounded-lg bg-slate-900/90 dark:bg-slate-950/90 backdrop-blur px-3 py-2 text-xs font-mono text-slate-100 border border-amber-400/40 max-w-[240px]">
                   <div className="font-bold text-amber-300">{hoveredAgg.country}</div>

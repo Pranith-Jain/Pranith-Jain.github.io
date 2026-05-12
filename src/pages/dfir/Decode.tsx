@@ -224,7 +224,7 @@ export default function Decode(): JSX.Element {
       {/* Multi-pass steps */}
       {steps.length > 1 && (
         <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
-          <h3 className="font-display font-semibold text-lg mb-4">Decode chain — {steps.length} passes</h3>
+          <h3 className="font-display font-semibold text-lg mb-4">Decode chain: {steps.length} passes</h3>
           <div className="space-y-3">
             {steps.map((step, i) => (
               <div key={i} className="flex items-start gap-3">

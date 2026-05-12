@@ -40,13 +40,17 @@ function clean(data: string, _type: RecordType): string {
 export async function resolveRecord(name: string, type: RecordType): Promise<ResolveResult> {
   try {
     const url = `${DOH}?name=${encodeURIComponent(name)}&type=${type}`;
-    const res = await fetch(url, { headers: { accept: 'application/dns-json' } });
-    if (!res.ok) return { records: [], error: `${res.status} ${res.statusText}`.trim() };
+    const res = await fetch(url, {
+      headers: { accept: 'application/dns-json' },
+      signal: AbortSignal.timeout(5000),
+    });
+    if (!res.ok) return { records: [], error: `dns lookup failed (${res.status})` };
     const json = (await res.json()) as DoHResponse;
     const answers = json.Answer ?? [];
     return { records: answers.map((a) => clean(a.data, type)) };
   } catch (err) {
-    return { records: [], error: err instanceof Error ? err.message : String(err) };
+    const isTimeout = err instanceof Error && (err.name === 'TimeoutError' || err.name === 'AbortError');
+    return { records: [], error: isTimeout ? 'dns lookup timed out' : 'dns lookup failed' };
   }
 }
 

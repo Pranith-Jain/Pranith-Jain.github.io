@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import type { WikiArticle } from '../../data/dfir/wiki-articles';
+import type { WikiArticleMeta } from '../../data/dfir/wiki-meta';
 
-export function WikiCard({ article }: { article: WikiArticle }): JSX.Element {
+export function WikiCard({ article }: { article: WikiArticleMeta }): JSX.Element {
   return (
     <Link
       to={`/threatintel/wiki/${article.slug}`}

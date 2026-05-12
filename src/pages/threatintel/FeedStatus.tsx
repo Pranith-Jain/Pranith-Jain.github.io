@@ -103,12 +103,11 @@ export default function FeedStatus(): JSX.Element {
         </h1>
         <p className="text-slate-600 dark:text-slate-400 font-mono mb-2 max-w-3xl">
           Live health of every upstream-backed feed on /threatintel. Each row probes its API endpoint and reports
-          whether the upstream is contributing data. When a page looks empty, check here first — the answer is usually
+          whether the upstream is contributing data. When a page looks empty, check here first. The answer is usually
           "upstream is down", not "your config is wrong".
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-6">
-          Source: <span className="text-slate-700 dark:text-slate-300">/api/v1/feed-status</span> · cached 5 min
-          server-side · probes 11 endpoints in parallel.
+          Probes every upstream-backed surface in parallel and reports a per-feed status row.
         </p>
       </div>
 

@@ -275,9 +275,8 @@ export default function IocCorrelation(): JSX.Element {
           malicious.
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-6">
-          Source: <span className="text-slate-700 dark:text-slate-300">/api/v1/ioc-correlation</span> · cached 1h
-          server-side · 18 IOC feeds (TweetFeed, SANS ISC, C2IntelFeeds, Emerging Threats, AlienVault OTX,
-          BlocklistProject ransomware + scam, abuse.ch suite, Ipsum, CINS, more).
+          Aggregated across 18 public IOC feeds: TweetFeed, SANS ISC, C2IntelFeeds, Emerging Threats, AlienVault OTX,
+          BlocklistProject (ransomware + scam), the abuse.ch suite, Ipsum, CINS, and more.
         </p>
       </div>
 
@@ -333,7 +332,7 @@ export default function IocCorrelation(): JSX.Element {
             href="/api/v1/ioc-correlation/stix.json"
             download
             className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 hover:border-emerald-500/60"
-            title="Download STIX 2.1 bundle — drop into MISP / OpenCTI / SIEM"
+            title="Download STIX 2.1 bundle. Drops straight into MISP, OpenCTI, or a SIEM."
           >
             <Download size={12} /> STIX 2.1
           </a>
@@ -445,19 +444,19 @@ export default function IocCorrelation(): JSX.Element {
           <h3 className="font-display font-semibold text-sm mb-2">How to read this</h3>
           <ul className="text-[12px] font-mono text-slate-600 dark:text-slate-400 space-y-1 list-disc list-inside">
             <li>
-              <span className="text-rose-700 dark:text-rose-300">very high (5+ sources)</span> — broad consensus, treat
-              as confirmed malicious infra
+              <span className="text-rose-700 dark:text-rose-300">very high (5+ sources)</span>: broad consensus, treat
+              as confirmed malicious infra.
             </li>
             <li>
-              <span className="text-amber-700 dark:text-amber-300">high (4 sources)</span> — strong signal across
-              independent feeds
+              <span className="text-amber-700 dark:text-amber-300">high (4 sources)</span>: strong signal across
+              independent feeds.
             </li>
             <li>
-              <span className="text-sky-700 dark:text-sky-300">medium (3 sources)</span> — worth blocking and tracking
+              <span className="text-sky-700 dark:text-sky-300">medium (3 sources)</span>: worth blocking and tracking.
             </li>
             <li>
-              <span className="text-slate-600 dark:text-slate-400">low (2 sources)</span> — corroborated but verify
-              before action
+              <span className="text-slate-600 dark:text-slate-400">low (2 sources)</span>: corroborated, but verify
+              before action.
             </li>
           </ul>
           <p className="text-[11px] font-mono text-slate-500 mt-3">

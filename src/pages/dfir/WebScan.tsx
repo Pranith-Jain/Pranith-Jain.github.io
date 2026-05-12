@@ -148,9 +148,9 @@ export default function WebScan(): JSX.Element {
           <ShieldAlert size={28} className="text-brand-600 dark:text-brand-400" /> Web Vulnerability Scanner
         </h1>
         <p className="text-slate-600 dark:text-slate-400 font-mono mb-2 max-w-3xl">
-          Audit a public web URL — HTTP security headers, cookie attributes, version disclosure, and ~30 common exposed
-          paths (<code>.git/</code>, <code>.env</code>, <code>/admin</code>, <code>phpinfo.php</code>,
-          <code>robots.txt</code>, etc). Cached 30 min at the edge.
+          Audit a public web URL. HTTP security headers, cookie attributes, version disclosure, and around 30 common
+          exposed paths (<code>.git/</code>, <code>.env</code>, <code>/admin</code>, <code>phpinfo.php</code>,
+          <code>robots.txt</code>, and similar).
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
           Pairs with{' '}
@@ -166,7 +166,7 @@ export default function WebScan(): JSX.Element {
             Subdomain Takeover
           </Link>{' '}
           (CNAME drift). <strong>Only scan targets you own or have authorisation for.</strong> No port-scanning, no
-          authenticated app scan, no exploitation — those need Nuclei/Nessus and target-owner consent.
+          authenticated app scan, no exploitation. Those need Nuclei or Nessus and target-owner consent.
         </p>
       </div>
 

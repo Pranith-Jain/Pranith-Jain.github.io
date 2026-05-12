@@ -264,10 +264,20 @@ export default function CveLookup(): JSX.Element {
                       <span className="text-slate-400 dark:text-slate-600 select-none">›</span>
                       <span
                         dangerouslySetInnerHTML={{
-                          __html: r.replace(
-                            /\*\*([^*]+)\*\*/g,
-                            '<strong class="text-slate-900 dark:text-slate-100">$1</strong>'
-                          ),
+                          __html: r
+                            // Escape any HTML in the upstream rationale string
+                            // before pattern-replacing the markdown bold.
+                            // KEV due-dates and similar fields flow in from
+                            // CISA/NVD upstream and shouldn't be trusted as
+                            // pre-escaped HTML.
+                            .replace(/&/g, '&amp;')
+                            .replace(/</g, '&lt;')
+                            .replace(/>/g, '&gt;')
+                            .replace(/"/g, '&quot;')
+                            .replace(
+                              /\*\*([^*]+)\*\*/g,
+                              '<strong class="text-slate-900 dark:text-slate-100">$1</strong>'
+                            ),
                         }}
                       />
                     </li>

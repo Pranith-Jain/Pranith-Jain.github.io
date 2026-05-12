@@ -1,7 +1,10 @@
 import { useState, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Upload, MapPin, Camera, Image, FileText, ShieldCheck } from 'lucide-react';
-import exifr from 'exifr';
+
+// exifr is ~76KB. Lazy-load on first file drop so the route's initial chunk
+// only ships the drop-zone UI, not the parser library.
+type ExifrModule = typeof import('exifr');
 
 interface ExifData {
   // GPS
@@ -71,6 +74,8 @@ export default function ExifParse(): JSX.Element {
   const [dragging, setDragging] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const exifrRef = useRef<ExifrModule | null>(null);
+
   const handleFile = useCallback(async (file: File) => {
     setLoading(true);
     setError(null);
@@ -78,10 +83,11 @@ export default function ExifParse(): JSX.Element {
     setFileName(file.name);
     try {
       const arrayBuf = await file.arrayBuffer();
+      const exifr = exifrRef.current ?? (exifrRef.current = await import('exifr'));
       const parseOptions = { gps: true, exif: true, ifd0: true, iptc: true } as unknown as Parameters<
-        typeof exifr.parse
+        typeof exifr.default.parse
       >[1];
-      const data = (await exifr.parse(arrayBuf, parseOptions)) as ExifData | null;
+      const data = (await exifr.default.parse(arrayBuf, parseOptions)) as ExifData | null;
 
       if (!data || Object.keys(data).length === 0) {
         setError('No EXIF metadata found in this file. Try a JPEG taken by a camera or phone.');

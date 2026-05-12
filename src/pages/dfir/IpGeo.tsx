@@ -399,7 +399,7 @@ export default function IpGeo(): JSX.Element {
               <a href={data.geo.source_url} target="_blank" rel="noopener noreferrer" className="hover:underline">
                 {data.geo.source}
               </a>{' '}
-              · cached 1h at the edge · resolved {new Date(data.generated_at).toLocaleTimeString()}
+              · resolved {new Date(data.generated_at).toLocaleTimeString()}
             </p>
           </section>
         </>

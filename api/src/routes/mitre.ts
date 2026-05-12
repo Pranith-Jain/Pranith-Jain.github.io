@@ -103,7 +103,8 @@ export async function mitreTechniqueHandler(c: Context<{ Bindings: Env }>) {
         }
       );
     }
-    return c.json({ error: 'mitre_unreachable', detail: (err as Error).message }, 502);
+    if (err instanceof Error) console.warn('mitre fetch failed:', err.message);
+    return c.json({ error: 'mitre_unreachable' }, 502);
   }
 
   const technique = objects.find(

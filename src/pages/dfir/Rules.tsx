@@ -293,8 +293,8 @@ export default function Rules(): JSX.Element {
           </section>
 
           <footer className="text-xs font-mono text-slate-500 leading-relaxed">
-            Sources and commits refresh hourly via the Cloudflare Cache API. No GitHub authentication required — all
-            data comes from public repo metadata and the public commits.atom feed. Want to add a source? Pin it to me on{' '}
+            Sources and commits refresh hourly. No GitHub authentication required; all data comes from public repo
+            metadata and the public commits.atom feed. Want to add a source? Pin it to me on{' '}
             <a
               href="https://github.com/Pranith-Jain/Pranith-Jain.github.io/issues"
               target="_blank"

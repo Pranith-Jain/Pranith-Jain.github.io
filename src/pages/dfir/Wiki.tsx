@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import { wikiArticles, type WikiCategory } from '../../data/dfir/wiki-articles';
+import { wikiMeta, type WikiCategory } from '../../data/dfir/wiki-meta';
 import { CategoryPills } from '../../components/dfir/CategoryPills';
 import { WikiCard } from '../../components/dfir/WikiCard';
 
@@ -20,7 +20,7 @@ const ALL_CATEGORIES: WikiCategory[] = [
 export default function Wiki(): JSX.Element {
   const [active, setActive] = useState<WikiCategory | 'all'>('all');
   const filtered = useMemo(
-    () => (active === 'all' ? wikiArticles : wikiArticles.filter((a) => a.category === active)),
+    () => (active === 'all' ? wikiMeta : wikiMeta.filter((a) => a.category === active)),
     [active]
   );
 

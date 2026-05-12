@@ -255,9 +255,9 @@ interface Project {
   tags: string[];
   github?: string;
   badge?: string;
-  /** Internal SPA route (rendered as <Link>) — e.g. "/dfir". */
+  /** Internal SPA route (rendered as <Link>), e.g. "/dfir". */
   href?: string;
-  /** External URL (rendered as <a target=_blank>) — e.g. "https://example.com". */
+  /** External URL (rendered as <a target=_blank>), e.g. "https://example.com". */
   externalUrl?: string;
 }
 
@@ -363,14 +363,15 @@ export const featuredArticles = [
   {
     title: 'Mastering DMARC for Enterprise Security',
     description:
-      'A deep dive into implementing strict DMARC policies at scale to eliminate spoofing and improve deliverability.',
+      'What strict DMARC at scale actually requires. The compatibility traps, the staged-enforcement playbook, and the bits that get overlooked because they only break at p=reject.',
     source: 'DevX.com',
     category: 'Security Engineering',
     url: 'https://www.devx.com/cybersecurity/mastering-dmarc-for-enterprise-security/',
   },
   {
     title: 'How to Ensure Data Privacy in Cybersecurity',
-    description: 'Strategic tips on data protection, encryption, and threat mitigation for modern enterprises.',
+    description:
+      'Concrete data-protection moves for teams that have to make tradeoffs. Encryption choices, threat-modelling the data flow first, and avoiding policies nobody actually follows.',
     source: 'DevX.com',
     category: 'Cybersecurity Insights',
     url: 'https://www.devx.com/cybersecurity/how-to-ensure-data-privacy-in-cybersecurity-key-protection-tips/',
@@ -378,7 +379,7 @@ export const featuredArticles = [
   {
     title: '15 Initiatives to Build a Strong Cybersecurity Culture',
     description:
-      'Comprehensive framework for establishing organizational cybersecurity awareness and incident response preparedness.',
+      "Security culture is mostly downstream of incident-response habits. A breakdown of the initiatives I've seen actually shift behaviour, and the ones that just produce posters.",
     source: 'DevX.com',
     category: 'Cybersecurity Culture',
     url: 'https://www.devx.com/cybersecurity/15-initiatives-to-build-a-strong-cybersecurity-culture/',
@@ -386,7 +387,7 @@ export const featuredArticles = [
   {
     title: 'Featured Expert: OSINT & Threat Intelligence',
     description:
-      'Specialized expertise in OSINT, data security, threat intelligence, and email deliverability optimization.',
+      'Q&A on how I work the OSINT-to-actioned-intel pipeline, the tools I lean on, and what I think most enterprises get wrong about email-threat tradecraft.',
     source: 'Featured.com',
     category: 'Security Specialist',
     url: 'https://featured.com/p/pranith-jain',
@@ -399,19 +400,19 @@ export const memberships = [
     abbreviation: 'UK',
     period: 'Jan 2026 - Present · 2 mos',
     description:
-      'Active contributor to one of the premier Open Source Intelligence communities, collaborating with investigators and researchers to advance ethical tradecraft.',
+      'Working alongside investigators and researchers in one of the more active OSINT communities. The discussions sharpen tradecraft faster than anything I do alone.',
     details: [
       {
         label: 'Technical Development',
-        text: 'Participate in CTF challenges and skill-building workshops focused on SOCMINT, GEOINT, and IMINT techniques.',
+        text: 'CTF challenges and workshops on SOCMINT, GEOINT, and IMINT. Good for staying current with what techniques actually work this quarter.',
       },
       {
         label: 'Tradecraft Exchange',
-        text: 'Test and validate OSINT tools for digital footprinting, ensuring adherence to OPSEC best practices.',
+        text: 'Validate digital-footprinting tools against real targets so OPSEC stays clean. Hands-on, with peer review.',
       },
       {
         label: 'Knowledge Sharing',
-        text: 'Engage in roundtables on privacy frameworks, breach data analysis, and digital attribution.',
+        text: 'Roundtables on privacy frameworks, breach-data handling, and attribution. The conversations are where most of my "ah, I had been doing this wrong" moments happen.',
       },
     ],
     color: 'brand',
@@ -421,7 +422,7 @@ export const memberships = [
     abbreviation: 'M3',
     period: 'Feb 2026 - Present · 1 mo',
     description:
-      'Member of the M3AAWG, a global industry collaboration working to fight messaging abuse, malware, and mobile threats.',
+      'M3AAWG. Global working group focused on the practical defence side of messaging abuse, malware, and mobile threats. Standards conversations that actually ship.',
     color: 'emerald',
   },
   {
@@ -429,7 +430,7 @@ export const memberships = [
     abbreviation: 'E',
     period: 'Jun 2025 - Present · 9 mos',
     description:
-      'Member of the emailexpert community, collaborating with email industry professionals on deliverability, authentication, and email security best practices.',
+      'Email-deliverability and authentication community. Where I go to sanity-check a DMARC posture decision before rolling it across a fleet.',
     color: 'cyan',
   },
 ];

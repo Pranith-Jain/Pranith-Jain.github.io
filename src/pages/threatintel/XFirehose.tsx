@@ -141,13 +141,12 @@ export default function XFirehose(): JSX.Element {
         </h1>
         <p className="text-slate-600 dark:text-slate-400 font-mono mb-2 max-w-3xl">
           Curated stream from cybersec researchers and vendor labs on <strong>Bluesky</strong> and{' '}
-          <strong>Mastodon (infosec.exchange)</strong>. X killed its free read API in 2023 and Nitter mirrors block
-          Cloudflare's Worker IPs — many of the same accounts have migrated to Bluesky / Mastodon since, both of which
-          expose proper keyless RSS. Click any post to open the original.
+          <strong>Mastodon (infosec.exchange)</strong>. X killed its free read API in 2023 and the available Nitter
+          mirrors are unreliable, so most of these accounts have a mirror on Bluesky or Mastodon. Both expose proper
+          keyless RSS. Click any post to open the original.
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-6">
-          Source: <span className="text-slate-700 dark:text-slate-300">/api/v1/x-feed</span> · cached 1h server-side ·{' '}
-          {data ? `${data.handles.length} accounts indexed` : '~16 accounts'}.
+          {data ? `${data.handles.length} accounts indexed.` : '~16 accounts indexed.'}
         </p>
       </div>
 
@@ -200,7 +199,7 @@ export default function XFirehose(): JSX.Element {
                   title={
                     h.ok
                       ? `${h.count} posts · ${h.platform} · ${h.name}`
-                      : `${h.platform} fetch failed — see warning count`
+                      : `${h.platform} fetch failed. See warning count.`
                   }
                   className={`text-[11px] font-mono px-2 py-1 rounded border ${
                     active
@@ -291,7 +290,7 @@ export default function XFirehose(): JSX.Element {
           ) : (
             <>
               <p className="mb-3 text-center">
-                No posts in the upstream snapshot — Bluesky / Mastodon may have returned empty for the curated handle
+                No posts in the upstream snapshot. Bluesky or Mastodon may have returned empty for the curated handle
                 set this hour. Try refresh, or follow the accounts directly:
               </p>
               <ul className="flex flex-wrap justify-center gap-2 mt-3">

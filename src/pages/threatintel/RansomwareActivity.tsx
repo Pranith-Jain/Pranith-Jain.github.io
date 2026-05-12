@@ -34,12 +34,9 @@ export default function RansomwareActivity(): JSX.Element {
             Ransomlook
           </a>{' '}
           (~100 most-recent victim posts, refreshed hourly server-side). Per-victim screenshots when Ransomlook has
-          captured one. Reference only — verify before acting.
+          captured one. Reference only; verify before acting.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
-          Source: <span className="text-slate-700 dark:text-slate-300">/api/v1/ransomware-recent</span> · cached 1h
-          server-side.
-        </p>
+        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">Refreshed hourly from upstream.</p>
       </div>
 
       <RansomwareActivityPanel />

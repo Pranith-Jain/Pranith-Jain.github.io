@@ -110,7 +110,7 @@ export default function OnionWatch(): JSX.Element {
       groups.sort((a, b) => (b.last_active ?? '').localeCompare(a.last_active ?? ''));
     }
     return groups;
-  }, [data, query, showOffline, sortMode]);
+  }, [data, query, effectiveShowOffline, sortMode]);
 
   const visibleMirrorCount = useMemo(() => visibleGroups.reduce((n, g) => n + g.mirrors.length, 0), [visibleGroups]);
 
@@ -150,16 +150,16 @@ export default function OnionWatch(): JSX.Element {
         </h1>
         <p className="text-slate-600 dark:text-slate-400 font-mono mb-2 max-w-3xl">
           Live inventory of <code>.onion</code> leak-site mirrors for the most-active ransomware groups, with
-          reachability flags from Ransomlook.io&apos;s last scrape. Pivots open in your own Tor Browser — we don&apos;t
-          fetch .onion content from this site (Cloudflare Workers can&apos;t route through Tor).
+          reachability flags from Ransomlook.io&apos;s last scrape. Pivots open in your own Tor Browser. We do not fetch
+          any .onion content from this site.
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
           Companion ransomware victim feed:{' '}
           <Link to="/threatintel/darkweb" className="text-brand-600 dark:text-brand-400 hover:underline">
             Dark Web Watch
           </Link>
-          . Edge-cached 6 hours. Reachability is upstream-observed; your own Tor client may see different status. Treat
-          any leak-site visit as opsec-sensitive.
+          . Reachability is upstream-observed and your own Tor client may see different status. Treat any leak-site
+          visit as opsec-sensitive.
         </p>
       </div>
 
@@ -414,7 +414,7 @@ export default function OnionWatch(): JSX.Element {
             >
               Ransomlook.io <ExternalLink size={9} />
             </a>{' '}
-            · per-group profile API · cached 6 h at the edge · generated {formatRelativeTime(data.generated_at)}.
+            · generated {formatRelativeTime(data.generated_at)}.
           </p>
         </>
       )}

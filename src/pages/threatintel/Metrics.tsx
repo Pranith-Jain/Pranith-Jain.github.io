@@ -517,17 +517,9 @@ export default function Metrics(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <BarChart3 size={28} className="text-brand-600 dark:text-brand-400" /> Threat Intel Metrics
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2 max-w-3xl">
+        <p className="text-slate-600 dark:text-slate-400 font-mono mb-6 max-w-3xl">
           Ten panels answering the questions a CTI team actually asks. Everything is computed live in the browser from
-          the same upstream feeds the rest of /threatintel reads — refresh to recompute. No new worker endpoints.
-        </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-6">
-          Sources: <span className="text-slate-700 dark:text-slate-300">/api/v1/ransomware-recent</span> ·{' '}
-          <span className="text-slate-700 dark:text-slate-300">/cve-recent</span> ·{' '}
-          <span className="text-slate-700 dark:text-slate-300">/phishing-urls</span> ·{' '}
-          <span className="text-slate-700 dark:text-slate-300">/threat-map</span> ·{' '}
-          <span className="text-slate-700 dark:text-slate-300">/malware-samples</span> ·{' '}
-          <span className="text-slate-700 dark:text-slate-300">/victim-releaks</span>
+          the same upstream feeds the rest of the platform reads. Refresh to recompute.
         </p>
       </div>
 
@@ -612,7 +604,7 @@ export default function Metrics(): JSX.Element {
             icon={Activity}
             title="Most-impersonated brands"
             question="Whose customers are getting phished right now?"
-            footer={`From PhishTank — ${state.phishing?.filter((u) => u.target).length ?? 0} URLs have brand attribution`}
+            footer={`From PhishTank. ${state.phishing?.filter((u) => u.target).length ?? 0} URLs have brand attribution.`}
             href="/threatintel/live-iocs"
           >
             <HBar items={topPhishingBrands} color="#0ea5e9" />
@@ -623,7 +615,7 @@ export default function Metrics(): JSX.Element {
             icon={Globe2}
             title="IOC volume by upstream feed"
             question="Which feed is publishing the most malicious IPs right now?"
-            footer={`From /api/v1/threat-map · ${summary.ips} total IPs across feeds`}
+            footer={`Cross-feed view · ${summary.ips} total IPs across upstream sources`}
             href="/threatintel/threat-map"
           >
             <HBar items={iocSourceVolume} color="#8b5cf6" />
@@ -634,7 +626,7 @@ export default function Metrics(): JSX.Element {
             icon={Briefcase}
             title="Targeted sectors · 30d (heuristic)"
             question="Which industries are ransomware groups hitting right now?"
-            footer={`Classified ${sectorClassifiedPct}% of recent victims by keyword match on victim name + description — best-effort, verify before action`}
+            footer={`Classified ${sectorClassifiedPct}% of recent victims by keyword match on victim name + description. Best-effort; verify before action.`}
             href="/threatintel/ransomware-activity"
           >
             <HBar items={targetedSectors} color="#0891b2" />
@@ -665,9 +657,9 @@ export default function Metrics(): JSX.Element {
           {/* 10. Re-leak hotspot groups */}
           <ChartCard
             icon={Users}
-            title="Re-leak hotspots — groups doing the most cross-claims"
+            title="Re-leak hotspots: groups doing the most cross-claims"
             question="Which groups appear in cross-actor re-leaks the most? (affiliate-movement signal)"
-            footer={`From /api/v1/victim-releaks · ${state.releaks?.length ?? 0} re-leaks across top-8 active groups`}
+            footer={`${state.releaks?.length ?? 0} re-leaks across top-8 active groups`}
             href="/threatintel/re-leaks"
           >
             <HBar items={releakGroups} color="#f43f5e" />
@@ -675,51 +667,35 @@ export default function Metrics(): JSX.Element {
         </div>
       )}
 
-      {/* What's NOT here, for the honest analyst */}
+      {/* Related-surfaces footer (replaces the old "what's missing / shipped" changelog) */}
       <section className="mt-10 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
-        <h3 className="font-display font-semibold text-sm mb-2">What this view doesn't (yet) answer</h3>
-        <ul className="text-[12px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed space-y-1">
-          <li>
-            <span className="text-emerald-600 dark:text-emerald-400">✓ shipped</span>{' '}
-            <strong className="text-slate-700 dark:text-slate-300">Cross-source correlation</strong> — same indicator in
-            2+ feeds is high-signal. See{' '}
-            <a href="/threatintel/correlation" className="text-brand-600 dark:text-brand-400 hover:underline">
-              /threatintel/correlation
-            </a>{' '}
-            for the ranked overlap across 11 IOC feeds.
-          </li>
-          <li>
-            <span className="text-emerald-600 dark:text-emerald-400">✓ shipped (heuristic)</span>{' '}
-            <strong className="text-slate-700 dark:text-slate-300">Sector targeting</strong> — see the "Targeted
-            sectors" panel above. Ransomlook doesn't expose sector metadata, so we classify with a keyword matcher.
-            Validate before acting; the Unknown bucket is non-trivial.
-          </li>
-          <li>
-            <span className="text-emerald-600 dark:text-emerald-400">✓ shipped</span>{' '}
-            <strong className="text-slate-700 dark:text-slate-300">Actor activity timeline</strong> — see{' '}
-            <a href="/threatintel/actor-timeline" className="text-brand-600 dark:text-brand-400 hover:underline">
-              /threatintel/actor-timeline
-            </a>{' '}
-            for a Gantt of leak-site cadence per group, joined with curated MITRE ATT&CK Group references for known
-            actors.
-          </li>
-          <li>
-            <span className="text-emerald-600 dark:text-emerald-400">✓ shipped</span>{' '}
-            <strong className="text-slate-700 dark:text-slate-300">
-              MITRE technique distribution from active actors
-            </strong>{' '}
-            — surfaced on both{' '}
-            <a href="/threatintel/actor-timeline" className="text-brand-600 dark:text-brand-400 hover:underline">
-              /threatintel/actor-timeline
-            </a>{' '}
-            and{' '}
-            <a href="/threatintel/threat-map" className="text-brand-600 dark:text-brand-400 hover:underline">
-              /threatintel/threat-map
-            </a>
-            . Aggregates the TTPs of every currently-active group with a curated MITRE entry — the "what to tune
-            detections for, right now" pivot.
-          </li>
-        </ul>
+        <h3 className="font-display font-semibold text-sm mb-3">Related surfaces</h3>
+        <div className="grid sm:grid-cols-2 gap-2 text-[12px] font-mono">
+          <a
+            href="/threatintel/correlation"
+            className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 text-slate-700 dark:text-slate-300"
+          >
+            Cross-source IOC correlation →
+          </a>
+          <a
+            href="/threatintel/actor-timeline"
+            className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 text-slate-700 dark:text-slate-300"
+          >
+            Actor activity timeline + MITRE TTPs →
+          </a>
+          <a
+            href="/threatintel/re-leaks"
+            className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 text-slate-700 dark:text-slate-300"
+          >
+            Victim re-leak detection →
+          </a>
+          <a
+            href="/threatintel/live-iocs"
+            className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 text-slate-700 dark:text-slate-300"
+          >
+            Live IOC stream →
+          </a>
+        </div>
       </section>
 
       {state.refreshedAt && (

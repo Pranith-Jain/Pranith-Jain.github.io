@@ -40,6 +40,7 @@ import { iocCorrelationStixHandler } from './routes/ioc-correlation-stix';
 import { actorTimelineHandler } from './routes/actor-timeline';
 import { victimReleaksHandler } from './routes/victim-releaks';
 import { liveIocsHandler } from './routes/live-iocs';
+import { writeupsHandler } from './routes/writeups';
 import {
   listBriefingsHandler,
   getBriefingHandler,
@@ -101,6 +102,7 @@ app.get('/api/v1/ioc-correlation/stix.json', iocCorrelationStixHandler);
 app.get('/api/v1/actor-timeline', actorTimelineHandler);
 app.get('/api/v1/victim-releaks', victimReleaksHandler);
 app.get('/api/v1/live-iocs', liveIocsHandler);
+app.get('/api/v1/writeups', writeupsHandler);
 app.get('/api/v1/snapshot', snapshotHandler);
 app.get('/api/v1/ioc-snapshot', iocSnapshotHandler);
 app.get('/api/v1/briefings/list', listBriefingsHandler);

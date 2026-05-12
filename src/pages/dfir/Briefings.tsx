@@ -200,16 +200,16 @@ export default function Briefings(): JSX.Element {
       <div className="mt-16 flex items-center gap-3 p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60">
         <Rss size={16} className="text-slate-400 shrink-0" />
         <p className="text-sm font-mono text-slate-500 flex-1">
-          Subscribe in your reader:{' '}
+          Subscribe in your reader.{' '}
           <a
             href="/api/v1/briefings/rss"
             target="_blank"
             rel="noopener noreferrer"
             className="text-brand-600 dark:text-brand-400 hover:underline"
           >
-            /api/v1/briefings/rss
+            RSS 2.0 feed
           </a>{' '}
-          · RSS 2.0 · last 10 briefings, edge-cached 1 h.
+          — last 10 briefings.
         </p>
         <button
           type="button"
@@ -217,7 +217,7 @@ export default function Briefings(): JSX.Element {
             void navigator.clipboard.writeText(`${window.location.origin}/api/v1/briefings/rss`);
           }}
           className="text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline shrink-0"
-          title="Copy RSS URL"
+          title="Copy feed URL"
         >
           copy URL
         </button>

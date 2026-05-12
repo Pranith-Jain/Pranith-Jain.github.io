@@ -1,18 +1,7 @@
-import { useCallback, useMemo, useState } from 'react';
+import { Suspense, lazy, useCallback, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, FileJson, Trash2, Copy, Check, Filter, Globe2, Loader2, ExternalLink } from 'lucide-react';
-import {
-  ReactFlow,
-  Background,
-  Controls,
-  MiniMap,
-  Handle,
-  Position,
-  type Node,
-  type Edge,
-  type NodeTypes,
-} from '@xyflow/react';
-import '@xyflow/react/dist/style.css';
+import type { Node, Edge } from '@xyflow/react';
 import {
   type StixBundle,
   type StixObject,
@@ -22,6 +11,10 @@ import {
   bundleToGraph,
 } from '../../lib/dfir/stix-graph';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
+
+// Lazy-loaded — @xyflow/react is ~133KB. Only mount once the user has a parsed
+// bundle so the route's initial chunk stays slim.
+const StixGraph = lazy(() => import('./StixGraph'));
 
 const SAMPLE_BUNDLE: StixBundle = {
   type: 'bundle',
@@ -130,33 +123,6 @@ const SAMPLE_BUNDLE: StixBundle = {
     },
   ],
 };
-
-function StixNodeBox({
-  data,
-  selected,
-}: {
-  data: { label: string; stixType: StixObjectType };
-  selected?: boolean;
-}): JSX.Element {
-  const color = STIX_TYPE_COLOR[data.stixType] ?? '#94a3b8';
-  return (
-    <div
-      className={`rounded-lg border-2 px-3 py-2 text-xs font-mono shadow-sm bg-white dark:bg-slate-900 ${
-        selected ? 'ring-2 ring-brand-500 ring-offset-2 ring-offset-white dark:ring-offset-slate-950' : ''
-      }`}
-      style={{ borderColor: color, minWidth: 140, maxWidth: 200 }}
-    >
-      <Handle type="target" position={Position.Top} style={{ background: color }} />
-      <div className="text-[10px] uppercase tracking-wider font-bold mb-0.5" style={{ color }}>
-        {data.stixType}
-      </div>
-      <div className="text-slate-900 dark:text-slate-100 break-words leading-tight">{data.label}</div>
-      <Handle type="source" position={Position.Bottom} style={{ background: color }} />
-    </div>
-  );
-}
-
-const NODE_TYPES: NodeTypes = { stixNode: StixNodeBox };
 
 export default function StixViewer(): JSX.Element {
   const [input, setInput] = useState('');
@@ -452,28 +418,15 @@ export default function StixViewer(): JSX.Element {
           style={{ height: '70vh', minHeight: 520 }}
         >
           {bundle && nodes.length > 0 ? (
-            <ReactFlow
-              nodes={nodes}
-              edges={edges}
-              nodeTypes={NODE_TYPES}
-              onNodeClick={onNodeClick}
-              fitView
-              minZoom={0.2}
-              maxZoom={2}
-              proOptions={{ hideAttribution: true }}
+            <Suspense
+              fallback={
+                <div className="flex h-full items-center justify-center text-slate-500 font-mono text-xs gap-2">
+                  <Loader2 size={14} className="animate-spin" /> loading graph viewer…
+                </div>
+              }
             >
-              <Background gap={24} size={1} />
-              <Controls position="bottom-right" showInteractive={false} />
-              <MiniMap
-                pannable
-                zoomable
-                maskColor="rgba(15, 23, 42, 0.6)"
-                nodeColor={(n) =>
-                  STIX_TYPE_COLOR[(n.data as { stixType?: StixObjectType })?.stixType ?? 'unknown'] ?? '#94a3b8'
-                }
-                style={{ height: 80 }}
-              />
-            </ReactFlow>
+              <StixGraph nodes={nodes} edges={edges} onNodeClick={onNodeClick} />
+            </Suspense>
           ) : (
             <div className="flex h-full flex-col items-center justify-center text-slate-500 font-mono text-sm gap-3 p-8 text-center">
               {bundle ? (

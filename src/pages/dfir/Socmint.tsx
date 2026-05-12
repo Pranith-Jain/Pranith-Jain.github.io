@@ -177,9 +177,9 @@ export default function Socmint(): JSX.Element {
           <Users size={28} className="text-brand-600 dark:text-brand-400" /> SOCMINT Pivots
         </h1>
         <p className="text-slate-600 dark:text-slate-400 font-mono mb-2 max-w-3xl">
-          Paste an email / domain / username / handle / name — get a categorised list of OSINT lookup links across
+          Paste an email, domain, username, handle, or name. You get a categorised list of OSINT lookup links across
           breach, B2B contact databases (ZoomInfo, Apollo, Hunter, RocketReach…), social, dev, paste-site dorks,
-          search-engine dorks, identity, and infra. URL-only — no scraping.
+          search-engine dorks, identity, and infra. URL-only; no scraping.
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
           Pairs with{' '}
@@ -342,7 +342,7 @@ export default function Socmint(): JSX.Element {
 
       {value && (
         <p className="text-[10px] font-mono text-slate-500 dark:text-slate-500 mt-8">
-          {matchingPivots.length} pivot{matchingPivots.length === 1 ? '' : 's'} for {KIND_LABEL[kind!]} — input shape
+          {matchingPivots.length} pivot{matchingPivots.length === 1 ? '' : 's'} for {KIND_LABEL[kind!]}. Input shape
           detected as <code>{kind}</code>. Pivots are URL templates; nothing about your input is sent anywhere except
           the destination service when you click a link.
         </p>

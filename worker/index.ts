@@ -53,13 +53,220 @@ function withSecurityHeaders(response: Response): Response {
   });
 }
 
+/**
+ * Per-route social metadata overrides. The SPA serves the same index.html
+ * for every path, so without rewriting the OG tags at the edge, any social-
+ * media bot that fetches `/threatintel/correlation` sees the portfolio-root
+ * meta and routes preview-clicks back to `/`.
+ *
+ * Lookup is exact-match first, then longest-matching prefix (so
+ * `/threatintel/anything-else` still inherits the `/threatintel` card).
+ */
+interface OgOverride {
+  title: string;
+  description: string;
+}
+
+const OG_OVERRIDES: Record<string, OgOverride> = {
+  '/threatintel': {
+    title: 'Threat Intel Platform · pranithjain.qzz.io',
+    description:
+      'A working CTI surface on the edge. Live ransomware leak claims, CVE merged with CISA KEV, cross-source IOC correlation across 18 feeds, an actor-activity Gantt joined with MITRE Group profiles, victim re-leak detection, ten-panel metrics, STIX 2.1 export, and a writeups aggregator across 18 analyst blogs.',
+  },
+  '/threatintel/correlation': {
+    title: 'Cross-source IOC correlation · pranithjain.qzz.io',
+    description:
+      'Indicators that appear in 2+ independent IOC feeds, ranked by source consensus. Single-feed flags can be false positives; cross-source overlap is the signal analysts trust. 18 feeds aggregated.',
+  },
+  '/threatintel/live-iocs': {
+    title: 'Live IOC stream · pranithjain.qzz.io',
+    description:
+      'Chronological firehose of individual indicators. Each entry carries a reporter handle, source feed, and first-observed timestamp. 10 sources including TweetFeed, SANS ISC, C2IntelFeeds, URLhaus, ThreatFox.',
+  },
+  '/threatintel/actor-timeline': {
+    title: 'Ransomware actor activity timeline · pranithjain.qzz.io',
+    description:
+      'Per-actor leak-site cadence across the last 30 days, joined with curated MITRE ATT&CK Group references. Pivot from "who is posting" to "what TTPs to hunt for."',
+  },
+  '/threatintel/re-leaks': {
+    title: 'Victim re-leak detection · pranithjain.qzz.io',
+    description:
+      'Victims claimed by 2+ ransomware groups in the last 12 months. Usually a failed double-extortion or an affiliate moving programs.',
+  },
+  '/threatintel/metrics': {
+    title: 'Threat Intel Metrics · pranithjain.qzz.io',
+    description:
+      'Ten panels answering the questions a CTI team actually asks. Most-active ransomware groups, CVE severity, KEV cadence, top-impersonated brands, IOC volume by source, sector targeting, malware families, re-leak hotspots.',
+  },
+  '/threatintel/writeups': {
+    title: 'CTI writeups feed · pranithjain.qzz.io',
+    description:
+      'Live aggregation of long-form CTI writeups from 18 analyst blogs and vendor research labs: The DFIR Report, BushidoToken, DoublePulsar, Krebs, SentinelLabs, Unit 42, Check Point Research, Huntress, and more.',
+  },
+  '/threatintel/cve-list': {
+    title: 'Live CVE updates · pranithjain.qzz.io',
+    description:
+      'NVD published-CVE feed merged with the CISA KEV catalogue. Severity, KEV flag, ransomware-use flag, and a curated actor pill where attribution exists.',
+  },
+  '/threatintel/status': {
+    title: 'Feed status · pranithjain.qzz.io',
+    description: 'Health of every upstream-backed feed on the threat-intel platform.',
+  },
+  '/dfir': {
+    title: 'DFIR Toolkit · pranithjain.qzz.io',
+    description:
+      'Interactive DFIR tools on the edge. IOC checker streaming verdicts from 24 providers, Diamond Model builder with auto-fill, STIX 2.1 viewer, subdomain-takeover fingerprinting, MITRE ATT&CK matrix, and a long tail of analyst utilities. Free, no signup.',
+  },
+  '/dfir/ioc-check': {
+    title: 'IOC Checker · pranithjain.qzz.io',
+    description:
+      'Paste any IP, domain, URL, hash, or CVE. Get streaming verdicts from VirusTotal, AbuseIPDB, OTX, GreyNoise, the abuse.ch trio, and a long tail of free reputation lists.',
+  },
+  '/dfir/diamond': {
+    title: 'Diamond Model auto-fill · pranithjain.qzz.io',
+    description:
+      'Build an intrusion-event Diamond Model. Paste any IOC or actor name and the four corners auto-populate from IOC checker, ip-geo, cross-source correlation, KEV-actor mapping, MalwareBazaar, and ransomware-victim cross-match.',
+  },
+  '/about': {
+    title: 'About · Pranith Jain',
+    description:
+      'Security analyst and detection engineer. Phishing, BEC, and malware incidents at human scale; defenders built at AI scale. 250+ incidents, 1300+ domains secured, 75-minute mean response time.',
+  },
+  '/projects': {
+    title: 'Projects · Pranith Jain',
+    description:
+      'A working CTI platform, a DFIR toolkit, a CTI STIX connector, email-infrastructure automation across 1,300+ domains, and a handful of older capstones.',
+  },
+  '/skills': {
+    title: 'Skills · Pranith Jain',
+    description:
+      'Email security and deliverability, threat intelligence, cyber criminology and OSINT, email threat response, cloud identity security, and AI for security automation.',
+  },
+  '/experience': {
+    title: 'Experience · Pranith Jain',
+    description:
+      'Security Analyst at Qubit Capital, Tech Associate at UnifyCX, and earlier engineering roles. Email security operations, infrastructure monitoring, phishing and BEC investigation, SOC automation, and domain-abuse monitoring.',
+  },
+};
+
+function findOgOverride(pathname: string): OgOverride | null {
+  if (OG_OVERRIDES[pathname]) return OG_OVERRIDES[pathname];
+  // Longest-matching prefix.
+  let best: OgOverride | null = null;
+  let bestLen = 0;
+  for (const [k, v] of Object.entries(OG_OVERRIDES)) {
+    if (pathname.startsWith(`${k}/`) && k.length > bestLen) {
+      best = v;
+      bestLen = k.length;
+    }
+  }
+  return best;
+}
+
+const HTML_ATTR_ESCAPE: Record<string, string> = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#39;',
+};
+
+function escapeAttr(s: string): string {
+  return s.replace(/[&<>"']/g, (c) => HTML_ATTR_ESCAPE[c] ?? c);
+}
+
+function rewriteOgMeta(html: string, override: OgOverride, fullUrl: string): string {
+  const t = escapeAttr(override.title);
+  const d = escapeAttr(override.description);
+  return html
+    .replace(/<title>[^<]*<\/title>/i, `<title>${t}</title>`)
+    .replace(/<link rel="canonical" href="[^"]*"/i, `<link rel="canonical" href="${escapeAttr(fullUrl)}"`)
+    .replace(/<meta name="description" content="[^"]*"/i, `<meta name="description" content="${d}"`)
+    .replace(/<meta property="og:url" content="[^"]*"/i, `<meta property="og:url" content="${escapeAttr(fullUrl)}"`)
+    .replace(/<meta property="og:title" content="[^"]*"/i, `<meta property="og:title" content="${t}"`)
+    .replace(/<meta property="og:description" content="[^"]*"/i, `<meta property="og:description" content="${d}"`)
+    .replace(/<meta name="twitter:title" content="[^"]*"/i, `<meta name="twitter:title" content="${t}"`)
+    .replace(/<meta name="twitter:description" content="[^"]*"/i, `<meta name="twitter:description" content="${d}"`)
+    .replace(/<meta name="twitter:url" content="[^"]*"/i, `<meta name="twitter:url" content="${escapeAttr(fullUrl)}"`);
+}
+
+/**
+ * Mutate the static index.html so the OG / Twitter / canonical metadata
+ * reflects the actual route. Only kicks in for HTML responses (asset router
+ * returns text/html for SPA fallback paths). Anything else passes through.
+ */
+async function injectOgMeta(response: Response, url: URL): Promise<Response> {
+  const ct = response.headers.get('content-type') ?? '';
+  if (!ct.toLowerCase().includes('text/html')) return response;
+  const override = findOgOverride(url.pathname);
+  if (!override) return response;
+  const fullUrl = `${url.origin}${url.pathname}`;
+  const html = await response.text();
+  const rewritten = rewriteOgMeta(html, override, fullUrl);
+  const headers = new Headers(response.headers);
+  return new Response(rewritten, { status: response.status, statusText: response.statusText, headers });
+}
+
+/**
+ * Cache the OG-rewritten HTML in the Cache API, keyed by `pathname @ etag`.
+ *
+ * Why the etag matters: a redeploy bumps Vite's chunk hashes inside index.html,
+ * so the rewritten HTML now references new <script src> filenames. The OLD
+ * filenames are deleted from the assets binding on deploy. If we cached only
+ * by pathname, users would hit stale HTML referencing deleted bundles and
+ * get 404s on the chunk fetch for up to TTL.
+ *
+ * The asset binding's etag is content-derived, so on every redeploy the
+ * underlying index.html gets a new etag → new cache key → cold rewrite →
+ * cached version always matches the assets currently on disk. That makes
+ * it safe to use a much longer TTL than the 10 min we'd need without the
+ * etag suffix; 1d gives us very high hit rate with zero staleness risk.
+ */
+const OG_CACHE_TTL_SECONDS = 86_400;
+
+async function getOrInjectOg(request: Request, env: Env, ctx: ExecutionContext, url: URL): Promise<Response> {
+  // Cache only matters for paths we actually rewrite. Skip the cache layer
+  // entirely for non-override paths — saves one cache.match round-trip.
+  const override = findOgOverride(url.pathname);
+  if (!override) return env.ASSETS.fetch(request);
+
+  // Asset fetch is required up-front because the cache key depends on the
+  // etag of the underlying asset. This is cheap — env.ASSETS.fetch is a
+  // local-edge lookup, and on cache hit we never read the body (no
+  // .text() call) so the bytes don't move.
+  const assetRes = await env.ASSETS.fetch(request);
+  const ct = assetRes.headers.get('content-type') ?? '';
+  if (!ct.toLowerCase().includes('text/html')) return assetRes;
+
+  const etag = assetRes.headers.get('etag') ?? assetRes.headers.get('last-modified') ?? 'unversioned';
+  const cache = caches.default;
+  const cacheKey = new Request(`https://og-html.internal${url.pathname}@${encodeURIComponent(etag)}`);
+  const cached = await cache.match(cacheKey);
+  if (cached) return cached;
+
+  const withOg = await injectOgMeta(assetRes, url);
+  const toCache = new Response(withOg.clone().body, {
+    status: withOg.status,
+    statusText: withOg.statusText,
+    headers: (() => {
+      const h = new Headers(withOg.headers);
+      h.set('cache-control', `public, max-age=${OG_CACHE_TTL_SECONDS}`);
+      return h;
+    })(),
+  });
+  ctx.waitUntil(cache.put(cacheKey, toCache));
+  return withOg;
+}
+
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
-    const response = url.pathname.startsWith('/api/')
-      ? await apiApp.fetch(request, env as never, ctx)
-      : await env.ASSETS.fetch(request);
-    return withSecurityHeaders(response);
+    if (url.pathname.startsWith('/api/')) {
+      const apiRes = await apiApp.fetch(request, env as never, ctx);
+      return withSecurityHeaders(apiRes);
+    }
+    const withOg = await getOrInjectOg(request, env, ctx, url);
+    return withSecurityHeaders(withOg);
   },
 
   /**

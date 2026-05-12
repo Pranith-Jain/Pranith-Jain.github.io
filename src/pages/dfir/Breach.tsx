@@ -389,8 +389,8 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
               <a href="https://leakcheck.io" target="_blank" rel="noopener noreferrer" className="underline">
                 LeakCheck
               </a>
-              . Cloudflare access logs record the request as standard. Results are edge-cached for 1h. The address is
-              not stored in our app database. <strong>Don't query addresses you don't own.</strong>
+              . Transit logs may record the request as standard HTTP. The address is not stored in our app database.
+              <strong>Don't query addresses you don't own.</strong>
             </p>
           </div>
         </div>
@@ -567,8 +567,8 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
               <a href="https://xposedornot.com" target="_blank" rel="noopener noreferrer" className="underline">
                 XposedOrNot
               </a>
-              ; Cloudflare access logs record the request as standard. Edge-cached for 1h. Domain breach data aggregates
-              many third-party sites — treat any single hit as a starting point, not a verdict.{' '}
+              . Transit logs may record the request as standard HTTP. Domain breach data aggregates many third-party
+              sites, so treat any single hit as a starting point, not a verdict.{' '}
               <strong>Don't query domains you don't have authorization for.</strong>
             </p>
           </div>

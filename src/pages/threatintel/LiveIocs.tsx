@@ -207,9 +207,8 @@ export default function LiveIocs(): JSX.Element {
           observed and by whom."
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-6">
-          Source: <span className="text-slate-700 dark:text-slate-300">/api/v1/live-iocs</span> · cached 30 min
-          server-side · 10 sources (TweetFeed, SANS ISC, C2IntelFeeds, Emerging Threats compromised-ips, AlienVault OTX
-          reputation, URLhaus, ThreatFox, MalwareBazaar, PhishTank, OpenPhish).
+          10 sources: TweetFeed, SANS ISC, C2IntelFeeds, Emerging Threats compromised-ips, AlienVault OTX reputation,
+          URLhaus, ThreatFox, MalwareBazaar, PhishTank, OpenPhish.
         </p>
       </div>
 

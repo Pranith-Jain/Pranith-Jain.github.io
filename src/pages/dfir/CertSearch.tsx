@@ -104,7 +104,7 @@ export default function CertSearch(): JSX.Element {
           <ShieldAlert size={28} className="text-brand-600 dark:text-brand-400" /> Certificate Search
         </h1>
         <p className="text-slate-600 dark:text-slate-400 font-mono mb-2 max-w-3xl">
-          Enumerate certificates issued for a domain — fast subdomain discovery via Certificate Transparency logs. Free,
+          Enumerate certificates issued for a domain. Fast subdomain discovery via Certificate Transparency logs. Free,
           no key, powered by{' '}
           <a
             href="https://sslmate.com/certspotter/"
@@ -125,7 +125,7 @@ export default function CertSearch(): JSX.Element {
           <Link to="/dfir/exposure" className="text-brand-600 dark:text-brand-400 hover:underline">
             Exposure Scan
           </Link>{' '}
-          (open ports). CT logs are append-only — once an issuance is logged it never disappears.
+          (open ports). CT logs are append-only; once an issuance is logged it never disappears.
         </p>
       </div>
 
@@ -244,7 +244,7 @@ export default function CertSearch(): JSX.Element {
                 type="search"
                 value={filter}
                 onChange={(e) => setFilter(e.target.value)}
-                placeholder="filter — e.g. api, dev, staging"
+                placeholder="filter (e.g. api, dev, staging)"
                 className="w-full pl-7 pr-3 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-[11px] focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               />
             </div>
@@ -318,7 +318,7 @@ export default function CertSearch(): JSX.Element {
             >
               {data.source} <ExternalLink size={9} />
             </a>{' '}
-            · resolved {new Date(data.generated_at).toLocaleTimeString()} · response cached 6h at the edge
+            · resolved {new Date(data.generated_at).toLocaleTimeString()}
           </p>
         </>
       )}

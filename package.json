@@ -7,6 +7,8 @@
     "dev": "vite",
     "dev:web": "vite",
     "dev:api": "wrangler dev --port 8787",
+    "wiki:meta": "node scripts/extract-wiki-meta.mjs",
+    "prebuild": "node scripts/extract-wiki-meta.mjs",
     "build": "vite build",
     "deploy": "vite build && wrangler deploy",
     "preview": "vite preview",

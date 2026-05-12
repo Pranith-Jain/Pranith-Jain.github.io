@@ -24,7 +24,7 @@ export default function CybersecTelegram(): JSX.Element {
           <Send size={28} className="text-brand-600 dark:text-brand-400" /> Cybersec Telegram firehose
         </h1>
         <p className="text-slate-600 dark:text-slate-400 font-mono mb-2 max-w-3xl">
-          Curated stream from active public cybersec Telegram channels — IOC drops, threat-intel commentary, leak
+          Curated stream from active public cybersec Telegram channels. IOC drops, threat-intel commentary, leak
           announcements, and security-news mirrors. Channel set is liveness-probed; see the catalogue at{' '}
           <Link to="/threatintel/telegram-watch" className="text-brand-600 dark:text-brand-400 hover:underline">
             /threatintel/telegram-watch
@@ -32,8 +32,7 @@ export default function CybersecTelegram(): JSX.Element {
           for descriptions of each channel.
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
-          Source: <span className="text-slate-700 dark:text-slate-300">/api/v1/telegram-feed</span> · cached 30 min
-          server-side.
+          Server-side aggregation of public Telegram channel previews.
         </p>
       </div>
 

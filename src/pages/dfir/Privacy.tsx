@@ -144,7 +144,7 @@ export default function Privacy(): JSX.Element {
             What this scan collects
           </h2>
           <ul className="text-sm font-mono text-slate-700 dark:text-slate-300 space-y-1.5 list-disc list-inside mb-4">
-            <li>Public IP, ASN, country (via /api/v1/privacy/inspect — one server-side call)</li>
+            <li>Public IP, ASN, country (one server-side lookup)</li>
             <li>User-Agent, language, timezone, screen + viewport size, color depth</li>
             <li>
               Canvas fingerprint hash, WebGL renderer + vendor, audio context fingerprint — collectively unique enough

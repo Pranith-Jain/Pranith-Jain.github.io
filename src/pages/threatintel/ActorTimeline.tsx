@@ -145,11 +145,10 @@ export default function ActorTimeline(): JSX.Element {
         <p className="text-slate-600 dark:text-slate-400 font-mono mb-2 max-w-3xl">
           Per-actor leak-site cadence across the last {data?.window_days ?? 30} days. Rows are the most-active groups
           this week; cells are daily post counts (relative shading per row so a slow week is still visible). MITRE
-          ATT&CK Group profile linked where known — pivot from "who's posting" to "what TTPs to hunt for."
+          ATT&CK Group profile linked where known, so you can pivot from "who's posting" to "what TTPs to hunt for."
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-6">
-          Source: <span className="text-slate-700 dark:text-slate-300">/api/v1/actor-timeline</span> · cached 4h
-          server-side · joins Ransomlook per-group history with curated MITRE Group lookup.
+          Joins Ransomlook per-group history with a curated MITRE Group lookup.
         </p>
       </div>
 
@@ -298,8 +297,8 @@ export default function ActorTimeline(): JSX.Element {
             <h3 className="font-display font-semibold text-sm mb-2">How to read this</h3>
             <ul className="text-[12px] font-mono text-slate-600 dark:text-slate-400 space-y-1 list-disc list-inside">
               <li>
-                Cell shading is relative to <em>each row's</em> peak — a slow week for one group can still highlight its
-                peak day.
+                Cell shading is relative to <em>each row's</em> peak, so a slow week for one group can still highlight
+                its peak day.
               </li>
               <li>Empty cells = zero posts on that day. Hover any cell for exact count + date.</li>
               <li>

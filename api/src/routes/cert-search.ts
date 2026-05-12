@@ -100,7 +100,8 @@ export async function certSearchHandler(c: Context<{ Bindings: Env }>): Promise<
     raw = (await res.json()) as CertSpotterIssuance[];
     if (!Array.isArray(raw)) raw = [];
   } catch (e) {
-    return c.json({ error: 'cert-spotter unreachable', detail: (e as Error).message }, 502);
+    if (e instanceof Error) console.warn('cert-spotter fetch failed:', e.message);
+    return c.json({ error: 'cert-spotter unreachable' }, 502);
   }
 
   // Aggregate

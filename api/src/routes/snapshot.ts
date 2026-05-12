@@ -86,7 +86,11 @@ async function safe<T>(fn: () => Promise<T>): Promise<SourcePayload<T>> {
     const data = await fn();
     return { ok: true, data };
   } catch (e) {
-    return { ok: false, data: null, error: (e as Error).message };
+    // Generic surface — the err.message often names upstream services or
+    // internal paths. Wrangler tail still sees the real error for ops.
+    const isTimeout = e instanceof Error && (e.name === 'TimeoutError' || e.name === 'AbortError');
+    if (e instanceof Error) console.warn('snapshot source failed:', e.message);
+    return { ok: false, data: null, error: isTimeout ? 'upstream timeout' : 'upstream error' };
   }
 }
 

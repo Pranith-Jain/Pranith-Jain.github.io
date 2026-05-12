@@ -65,7 +65,8 @@ export async function waybackCdxHandler(c: Context<{ Bindings: Env }>): Promise<
       return c.json({ error: 'wayback upstream error', upstream_status: res.status }, 502);
     }
   } catch (e) {
-    return c.json({ error: 'wayback unreachable', detail: (e as Error).message }, 502);
+    if (e instanceof Error) console.warn('wayback fetch failed:', e.message);
+    return c.json({ error: 'wayback unreachable' }, 502);
   }
 
   const response = c.json(upstreamJson, 200, {

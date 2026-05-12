@@ -422,13 +422,26 @@ export async function cryptoTraceHandler(c: Context<{ Bindings: Env }>): Promise
     // even when their own wallet is clean.
     const scamSetPromise = loadScamSnifferSet();
     let scamSet: Set<string>;
-    [results, sanctions, scam, context, scamSet] = await Promise.all([
-      Promise.all(EVM_CHAINS.map((cfg) => fetchEvmChain(address, cfg))),
+    // allSettled — one degraded EVM RPC (e.g., Arbitrum) must not blank the
+    // whole trace. Failed chains are dropped from the response with a
+    // wrangler-tail warning, succeeded chains render.
+    const evmSettled = await Promise.all([
+      Promise.allSettled(EVM_CHAINS.map((cfg) => fetchEvmChain(address, cfg))),
       checkAddress(address, ['ETH', 'USDT', 'USDC', 'ARB', 'BSC']),
       checkScamSniffer(address),
       getAddressContext(address),
       scamSetPromise,
     ]);
+    const evmResults = evmSettled[0];
+    results = evmResults
+      .map((r, i) => {
+        if (r.status === 'fulfilled') return r.value;
+        const chain = EVM_CHAINS[i]?.label ?? 'unknown';
+        console.warn(`crypto-trace: ${chain} RPC failed:`, r.reason instanceof Error ? r.reason.message : r.reason);
+        return null;
+      })
+      .filter((x): x is ChainResult => x !== null);
+    [, sanctions, scam, context, scamSet] = evmSettled;
     recentTokenTransfers = await getRecentTransfers(address, scamSet);
   } else if (detected === 'solana') {
     // No SOL list published; we still resolve balance.

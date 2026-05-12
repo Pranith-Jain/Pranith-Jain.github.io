@@ -17,7 +17,12 @@ interface CrtShRow {
 
 export async function ctLogs(domain: string): Promise<CtEntry[]> {
   try {
-    const res = await fetch(`https://crt.sh/?q=${encodeURIComponent(domain)}&output=json`);
+    // crt.sh is slow under load. 15s upper bound prevents pinning the Worker
+    // invocation budget when the CT log frontend is degraded.
+    const res = await fetch(`https://crt.sh/?q=${encodeURIComponent(domain)}&output=json`, {
+      signal: AbortSignal.timeout(15_000),
+      cf: { cacheTtlByStatus: { '200-299': 3600, '400-599': 0 }, cacheEverything: true },
+    } as RequestInit);
     if (!res.ok) return [];
     const rows = (await res.json()) as CrtShRow[];
     return rows

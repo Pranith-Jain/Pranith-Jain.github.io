@@ -134,7 +134,7 @@ export default function DlpScan(): JSX.Element {
           <ShieldAlert size={28} className="text-brand-600 dark:text-brand-400" /> Sensitive Data Detector
         </h1>
         <p className="text-slate-600 dark:text-slate-400 font-mono mb-2">
-          Scan any text for {PATTERNS.length} sensitive-data patterns — credentials, financial identifiers, government
+          Scan any text for {PATTERNS.length} sensitive-data patterns. Credentials, financial identifiers, government
           IDs, health, network, personal contact. Credit cards are Luhn-checked, IBANs are mod-97 verified, AADHAAR is
           Verhoeff-checked, NHS is mod-11. Pure client-side; nothing leaves your browser.
         </p>
@@ -180,7 +180,7 @@ export default function DlpScan(): JSX.Element {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           rows={10}
-          placeholder="Paste a log line, support-ticket transcript, file fragment, email body — anything that might contain PII / secrets / regulated identifiers."
+          placeholder="Paste a log line, support-ticket transcript, file fragment, or email body. Anything that might contain PII, secrets, or regulated identifiers."
           className="w-full rounded border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
           aria-label="Text to scan for sensitive data"
         />
@@ -303,8 +303,8 @@ export default function DlpScan(): JSX.Element {
 
           {findings.length === 0 && (
             <section className="rounded-lg border border-emerald-500/30 bg-emerald-500/5 p-4 mb-6 text-sm font-mono text-emerald-700 dark:text-emerald-300 inline-flex items-center gap-2">
-              <CheckCircle2 size={14} /> No sensitive data patterns detected. This is a regex sweep, not a guarantee —
-              entity-aware classifiers (Microsoft Purview, AWS Macie, GCP DLP) will catch things this tool can't.
+              <CheckCircle2 size={14} /> No sensitive data patterns detected. This is a regex sweep, not a guarantee.
+              Entity-aware classifiers (Microsoft Purview, AWS Macie, GCP DLP) will catch things this tool can't.
             </section>
           )}
         </>
@@ -356,7 +356,7 @@ export default function DlpScan(): JSX.Element {
               rel="noopener noreferrer"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
             >
-              secrets-patterns-db — curated regex DB for secret detection
+              secrets-patterns-db · curated regex DB for secret detection
               <ExternalLink size={11} aria-hidden="true" />
             </a>
           </li>
@@ -367,7 +367,7 @@ export default function DlpScan(): JSX.Element {
               rel="noopener noreferrer"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
             >
-              gitleaks — open-source secrets detection
+              gitleaks · open-source secrets detection
               <ExternalLink size={11} aria-hidden="true" />
             </a>
           </li>
@@ -378,13 +378,13 @@ export default function DlpScan(): JSX.Element {
               rel="noopener noreferrer"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
             >
-              Microsoft Purview — Sensitive Information Type definitions (reference for confidence tiers)
+              Microsoft Purview · Sensitive Information Type definitions (reference for confidence tiers)
               <ExternalLink size={11} aria-hidden="true" />
             </a>
           </li>
           <li>
             <p className="text-xs font-mono text-slate-500 dark:text-slate-500 inline-flex items-center gap-1">
-              <AlertTriangle size={11} /> Heuristic only — does not replace a managed DLP product. Use as a triage tool,
+              <AlertTriangle size={11} /> Heuristic only. Does not replace a managed DLP product. Use as a triage tool,
               not as the sole control.
             </p>
           </li>

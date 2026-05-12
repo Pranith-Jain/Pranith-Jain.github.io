@@ -93,7 +93,7 @@ export function ActorTtpsPanel({
             {unmapped > 0 && (
               <>
                 {' '}
-                ({unmapped} active group{unmapped === 1 ? '' : 's'} not yet in MITRE — coverage gap.)
+                ({unmapped} active group{unmapped === 1 ? '' : 's'} not yet in MITRE. Coverage gap.)
               </>
             )}
           </p>
@@ -116,7 +116,7 @@ export function ActorTtpsPanel({
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:underline text-slate-700 dark:text-slate-300 truncate inline-flex items-center gap-1"
-                  title={`${t.id} — ${t.name}`}
+                  title={`${t.id} · ${t.name}`}
                 >
                   <span className="text-brand-600 dark:text-brand-400">{t.id}</span>
                   <span className="truncate"> · {t.name}</span>

@@ -1,0 +1,316 @@
+import { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowLeft, BookText, ExternalLink, Loader2, RefreshCw, Search } from 'lucide-react';
+
+/**
+ * /threatintel/writeups — live aggregation of long-form CTI writeups from
+ * security-research blogs, vendor labs, and analyst Medium handles.
+ *
+ * Source list lives in api/src/lib/writeup-sources.ts and is pulled live
+ * via /api/v1/writeups (RSS in, unified JSON out). Adding a new analyst
+ * blog is one line: append to WRITEUP_SOURCES, redeploy, done.
+ */
+
+type WriteupKind = 'medium' | 'devto' | 'hashnode' | 'rss' | 'manual';
+
+interface Writeup {
+  title: string;
+  url: string;
+  source: string;
+  published?: string;
+  description?: string;
+  tags?: string[];
+  author?: string;
+  kind: WriteupKind;
+}
+
+interface WriteupsResponse {
+  generated_at: string;
+  sources: Array<{ kind: string; label: string; ok: boolean; count: number; error?: string }>;
+  total: number;
+  items: Writeup[];
+}
+
+const KIND_PILL: Record<WriteupKind, string> = {
+  medium: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
+  devto: 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
+  hashnode: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300',
+  rss: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
+  manual: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
+};
+
+const KIND_LABEL: Record<WriteupKind, string> = {
+  medium: 'Medium',
+  devto: 'dev.to',
+  hashnode: 'Hashnode',
+  rss: 'Vendor / Blog',
+  manual: 'Featured',
+};
+
+function formatDate(iso?: string): string {
+  if (!iso) return '';
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return '';
+  return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+}
+
+function shortRel(iso?: string): string {
+  if (!iso) return '';
+  const t = Date.parse(iso);
+  if (Number.isNaN(t)) return '';
+  const diff = Math.max(0, Date.now() - t) / 1000;
+  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
+  if (diff < 86400 * 7) return `${Math.floor(diff / 86400)}d ago`;
+  if (diff < 86400 * 30) return `${Math.floor(diff / (86400 * 7))}w ago`;
+  return `${Math.floor(diff / (86400 * 30))}mo ago`;
+}
+
+export default function Writeups(): JSX.Element {
+  const [data, setData] = useState<WriteupsResponse | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [query, setQuery] = useState('');
+  const [kindFilter, setKindFilter] = useState<Set<WriteupKind>>(new Set());
+  const [sourceFilter, setSourceFilter] = useState<Set<string>>(new Set());
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  useEffect(() => {
+    let cancelled = false;
+    setLoading(true);
+    setError(null);
+    fetch('/api/v1/writeups')
+      .then((r) => {
+        if (!r.ok) throw new Error(`upstream ${r.status}`);
+        return r.json() as Promise<WriteupsResponse>;
+      })
+      .then((d) => {
+        if (!cancelled) setData(d);
+      })
+      .catch((e: Error) => {
+        if (!cancelled) setError(e.message);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [refreshKey]);
+
+  const filtered = useMemo(() => {
+    if (!data) return [] as Writeup[];
+    const q = query.trim().toLowerCase();
+    return data.items.filter((it) => {
+      if (kindFilter.size > 0 && !kindFilter.has(it.kind)) return false;
+      if (sourceFilter.size > 0 && !sourceFilter.has(it.source)) return false;
+      if (!q) return true;
+      return (
+        it.title.toLowerCase().includes(q) ||
+        (it.description ?? '').toLowerCase().includes(q) ||
+        it.source.toLowerCase().includes(q) ||
+        (it.author ?? '').toLowerCase().includes(q) ||
+        (it.tags ?? []).some((t) => t.toLowerCase().includes(q))
+      );
+    });
+  }, [data, query, kindFilter, sourceFilter]);
+
+  const kindCounts = useMemo(() => {
+    const m: Record<WriteupKind, number> = { medium: 0, devto: 0, hashnode: 0, rss: 0, manual: 0 };
+    if (!data) return m;
+    for (const it of data.items) m[it.kind] += 1;
+    return m;
+  }, [data]);
+
+  const sourceCounts = useMemo(() => {
+    const m = new Map<string, number>();
+    if (!data) return m;
+    for (const it of data.items) m.set(it.source, (m.get(it.source) ?? 0) + 1);
+    return m;
+  }, [data]);
+
+  const toggleKind = (k: WriteupKind) =>
+    setKindFilter((prev) => {
+      const next = new Set(prev);
+      if (next.has(k)) next.delete(k);
+      else next.add(k);
+      return next;
+    });
+
+  const toggleSource = (s: string) =>
+    setSourceFilter((prev) => {
+      const next = new Set(prev);
+      if (next.has(s)) next.delete(s);
+      else next.add(s);
+      return next;
+    });
+
+  return (
+    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
+      <Link
+        to="/threatintel"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
+      >
+        <ArrowLeft size={14} /> /threatintel
+      </Link>
+
+      <div className="mb-6 inline-flex items-center gap-3">
+        <BookText size={24} className="text-brand-600 dark:text-brand-400" />
+        <h1 className="text-3xl font-display font-bold">Writeups feed</h1>
+      </div>
+
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-4">
+        <div className="flex items-center gap-3">
+          <div className="relative flex-1">
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <input
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Filter by title, source, author, tag, or summary…"
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              aria-label="Filter writeups"
+            />
+          </div>
+          <button
+            type="button"
+            onClick={() => setRefreshKey((k) => k + 1)}
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40"
+          >
+            <RefreshCw size={12} /> refresh
+          </button>
+        </div>
+        {data && (
+          <div className="flex flex-wrap items-center gap-1.5 mt-3">
+            <span className="text-[11px] font-mono text-slate-500 mr-1">platform:</span>
+            {(['rss', 'medium', 'devto', 'hashnode', 'manual'] as const).map((k) => {
+              const count = kindCounts[k];
+              if (count === 0) return null;
+              const active = kindFilter.has(k);
+              return (
+                <button
+                  key={k}
+                  type="button"
+                  onClick={() => toggleKind(k)}
+                  className={`text-[11px] font-mono px-2 py-1 rounded border ${
+                    active ? KIND_PILL[k] : 'border-slate-300 dark:border-slate-700 text-slate-500'
+                  }`}
+                >
+                  {KIND_LABEL[k]} <span className="opacity-70">· {count}</span>
+                </button>
+              );
+            })}
+          </div>
+        )}
+        {data && sourceCounts.size > 1 && (
+          <div className="flex flex-wrap items-center gap-1.5 mt-2">
+            <span className="text-[11px] font-mono text-slate-500 mr-1">source:</span>
+            {Array.from(sourceCounts.entries())
+              .sort((a, b) => b[1] - a[1])
+              .map(([src, count]) => {
+                const active = sourceFilter.has(src);
+                return (
+                  <button
+                    key={src}
+                    type="button"
+                    onClick={() => toggleSource(src)}
+                    className={`text-[11px] font-mono px-2 py-1 rounded border ${
+                      active
+                        ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
+                        : 'border-slate-300 dark:border-slate-700 text-slate-500'
+                    }`}
+                  >
+                    {src} <span className="opacity-70">· {count}</span>
+                  </button>
+                );
+              })}
+            {(sourceFilter.size > 0 || kindFilter.size > 0) && (
+              <button
+                type="button"
+                onClick={() => {
+                  setSourceFilter(new Set());
+                  setKindFilter(new Set());
+                }}
+                className="text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline ml-2"
+              >
+                clear
+              </button>
+            )}
+          </div>
+        )}
+        {data && (
+          <p className="text-[11px] font-mono text-slate-500 mt-3">
+            Showing <span className="text-slate-700 dark:text-slate-300">{filtered.length}</span> of{' '}
+            <span className="text-slate-700 dark:text-slate-300">{data.total}</span> writeups across{' '}
+            <span className="text-slate-700 dark:text-slate-300">
+              {data.sources.filter((s) => s.ok).length}/{data.sources.length}
+            </span>{' '}
+            sources.
+          </p>
+        )}
+      </section>
+
+      {loading && (
+        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 flex items-center gap-3 font-mono text-sm text-slate-500">
+          <Loader2 size={16} className="animate-spin" /> aggregating writeup feeds…
+        </div>
+      )}
+
+      {error && (
+        <div className="rounded-lg border border-rose-500/40 bg-rose-500/5 p-4 font-mono text-sm text-rose-600 dark:text-rose-300">
+          Failed to load: {error}
+        </div>
+      )}
+
+      <ul className="space-y-3">
+        {filtered.map((it, i) => (
+          <li
+            key={`${it.url}-${i}`}
+            className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 hover:border-brand-500/40 transition-colors"
+          >
+            <a href={it.url} target="_blank" rel="noopener noreferrer" className="group block">
+              <div className="flex items-start justify-between gap-3 mb-1.5 flex-wrap">
+                <h3 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 flex-1 min-w-0">
+                  {it.title}
+                </h3>
+                <ExternalLink size={12} className="text-slate-400 shrink-0 mt-1" />
+              </div>
+              {it.description && (
+                <p className="text-[13px] text-slate-600 dark:text-slate-400 leading-relaxed mb-2 line-clamp-3">
+                  {it.description}
+                </p>
+              )}
+              <div className="flex items-center gap-2 text-[11px] font-mono text-slate-500 flex-wrap">
+                <span className={`px-1.5 py-0.5 rounded border ${KIND_PILL[it.kind]}`}>{it.source}</span>
+                {it.published && (
+                  <span title={formatDate(it.published)}>{shortRel(it.published) || formatDate(it.published)}</span>
+                )}
+                {it.author && <span>by {it.author}</span>}
+                {it.tags && it.tags.length > 0 && (
+                  <span className="flex flex-wrap gap-1 ml-1">
+                    {it.tags.slice(0, 4).map((t) => (
+                      <span
+                        key={t}
+                        className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </span>
+                )}
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      {!loading && !error && filtered.length === 0 && (
+        <div className="rounded-lg border border-dashed border-slate-300 dark:border-slate-700 p-8 text-center text-sm font-mono text-slate-500">
+          {query || kindFilter.size > 0 || sourceFilter.size > 0
+            ? 'No writeups match the current filter.'
+            : 'No writeups in the current snapshot.'}
+        </div>
+      )}
+    </div>
+  );
+}

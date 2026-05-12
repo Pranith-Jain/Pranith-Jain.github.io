@@ -503,7 +503,8 @@ export async function webScanHandler(c: Context<{ Bindings: Env }>): Promise<Res
     });
     clearTimeout(timer);
   } catch (e) {
-    return c.json({ error: 'fetch failed', detail: (e as Error).message }, 502);
+    if (e instanceof Error) console.warn('web-scan fetch failed:', e.message);
+    return c.json({ error: 'fetch failed' }, 502);
   }
 
   // Drain a small body slice to avoid hanging connections.

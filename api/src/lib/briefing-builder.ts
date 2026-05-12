@@ -450,6 +450,44 @@ async function fetchKev(): Promise<KevEntry[]> {
   return doc.vulnerabilities ?? [];
 }
 
+/**
+ * Fetch every NVD CVE published within [start, end). Used to back-fill findings
+ * on days when CISA didn't add anything to KEV. The NVD API supports an
+ * extended ISO-8601 timestamp with explicit offset (no Z suffix) for the
+ * `pubStartDate` / `pubEndDate` params, and returns up to 2000 entries per
+ * page. We page until exhausted, with a hard cap so a runaway pagination
+ * loop can't blow the briefing budget.
+ */
+async function fetchNvdRecent(start: Date, end: Date): Promise<NvdCve[]> {
+  const fmt = (d: Date) => d.toISOString().replace(/Z$/, '+00:00');
+  const out: NvdCve[] = [];
+  const PAGE = 2000;
+  const HARD_CAP = 4000; // 2 pages — enough headroom for any 7-day window
+  let startIndex = 0;
+  for (let i = 0; i < 4 && out.length < HARD_CAP; i++) {
+    const url =
+      `${NVD_API}?pubStartDate=${encodeURIComponent(fmt(start))}` +
+      `&pubEndDate=${encodeURIComponent(fmt(end))}` +
+      `&resultsPerPage=${PAGE}&startIndex=${startIndex}`;
+    try {
+      const res = await fetch(url, {
+        headers: { 'user-agent': NVD_UA, accept: 'application/json' },
+        signal: AbortSignal.timeout(20_000),
+        cf: { cacheTtlByStatus: { '200-299': 1800, '400-599': 0 }, cacheEverything: true },
+      } as RequestInit);
+      if (!res.ok) break;
+      const json = (await res.json()) as NvdResponse & { totalResults?: number };
+      const batch = json.vulnerabilities ?? [];
+      for (const v of batch) if (v.cve) out.push(v.cve);
+      if (batch.length < PAGE) break;
+      startIndex += PAGE;
+    } catch {
+      break;
+    }
+  }
+  return out;
+}
+
 async function fetchNvdByIds(cveIds: string[]): Promise<Map<string, NvdCve>> {
   // NVD doesn't support bulk by-ID; query one at a time but cache aggressively.
   // Limit: 5 req per 30s anonymous. Cap at 30 lookups per briefing to stay under budget.
@@ -514,6 +552,31 @@ function withinRange(timestamp: string | undefined, startMs: number, endMs: numb
   const t = Date.parse(timestamp);
   if (Number.isNaN(t)) return false;
   return t >= startMs && t < endMs;
+}
+
+function findingFromNvd(nvd: NvdCve): BriefingFinding {
+  const cvss =
+    nvd.metrics?.cvssMetricV31?.[0]?.cvssData.baseScore ??
+    nvd.metrics?.cvssMetricV30?.[0]?.cvssData.baseScore ??
+    nvd.metrics?.cvssMetricV2?.[0]?.cvssData.baseScore;
+  const description = nvd.descriptions?.find((d) => d.lang === 'en')?.value ?? '';
+  // Compose a readable title from the first sentence of the description.
+  // NVD doesn't ship vendor/product as structured fields the way KEV does, so
+  // a 90-char excerpt is the best heuristic we have without per-CVE CPE parsing.
+  const firstSentence = description.split(/(?<=[.!?])\s/)[0] ?? description;
+  const excerpt = firstSentence.length > 90 ? `${firstSentence.slice(0, 87)}…` : firstSentence;
+  const title = excerpt ? `${nvd.id}: ${excerpt}` : nvd.id;
+  return {
+    id: nvd.id,
+    title,
+    description,
+    severity: severityFromCvss(cvss),
+    cvss,
+    cwes: extractCwes(nvd),
+    source: 'NVD',
+    source_url: `https://nvd.nist.gov/vuln/detail/${nvd.id}`,
+    mitre_techniques: deriveMitreTechniques(`${title} ${description}`),
+  };
 }
 
 function findingFromKev(kev: KevEntry, nvd: NvdCve | undefined): BriefingFinding {
@@ -622,14 +685,33 @@ function buildExecutiveSummary(args: {
   const vendors = topVendors(findings, 3);
   const vendorStr = vendors.length > 0 ? `affecting ${vendors.join(', ')}` : 'across multiple vendors';
 
+  const kevCount = findings.filter((f) => f.source === 'CISA KEV').length;
+  const nvdOnlyCount = findings.length - kevCount;
+
   const parts: string[] = [];
   if (findings.length > 0) {
-    parts.push(
-      `${span} (${range_label}), CISA's Known Exploited Vulnerabilities catalog added ${findings.length} new entries${critCount > 0 ? `, including ${critCount} critical-severity` : highCount > 0 ? `, with ${highCount} high-severity` : ''} ${vendorStr}.`
-    );
+    const severityClause =
+      critCount > 0
+        ? `, including ${critCount} critical-severity`
+        : highCount > 0
+          ? `, with ${highCount} high-severity`
+          : '';
+    if (kevCount > 0 && nvdOnlyCount > 0) {
+      parts.push(
+        `${span} (${range_label}), CISA added ${kevCount} new KEV ${kevCount === 1 ? 'entry' : 'entries'} and NVD published ${nvdOnlyCount} additional high/critical ${nvdOnlyCount === 1 ? 'CVE' : 'CVEs'}${severityClause} ${vendorStr}.`
+      );
+    } else if (kevCount > 0) {
+      parts.push(
+        `${span} (${range_label}), CISA's Known Exploited Vulnerabilities catalog added ${kevCount} new ${kevCount === 1 ? 'entry' : 'entries'}${severityClause} ${vendorStr}.`
+      );
+    } else {
+      parts.push(
+        `${span} (${range_label}), NVD published ${nvdOnlyCount} high/critical ${nvdOnlyCount === 1 ? 'CVE' : 'CVEs'}${severityClause}; none have been added to CISA KEV yet.`
+      );
+    }
   } else {
     parts.push(
-      `${span} (${range_label}), no new entries were added to CISA's Known Exploited Vulnerabilities catalog.`
+      `${span} (${range_label}), no new high/critical CVEs were published to NVD and no entries were added to CISA's Known Exploited Vulnerabilities catalog.`
     );
   }
 
@@ -718,38 +800,38 @@ export async function buildBriefing(type: BriefingType, anchor: Date = new Date(
   const endMs = rangeEnd.getTime();
 
   // Fetch in parallel. Each feed is independent; one failure should not break the briefing.
-  const [
-    kev,
-    urlhaus,
-    malwarebazaar,
-    threatfox,
-    openphish,
-    feodo,
-    blocklistDe,
-    binaryDefense,
-    ipsum,
-    phishingArmy,
-    tweetfeed,
-    bitwire,
-  ] = await Promise.all([
+  //
+  // Live-only policy (2026-05-11): every feed here must carry per-entry timestamps so
+  // the briefing window can date-filter it. Snapshot blocklists (Blocklist.de, Binary
+  // Defense, Ipsum, Phishing Army, Bitwire) were removed because they publish a
+  // current-state list with no per-IP "first seen" — they inflated IOC counts on quiet
+  // KEV days and made daily briefings look richer than they were.
+  const [kev, urlhaus, malwarebazaar, threatfox, openphish, feodo, tweetfeed, nvdRecent] = await Promise.all([
     fetchKev().catch(() => [] as KevEntry[]),
     fetchAbuseFeed('urlhaus').catch(() => [] as IocEntry[]),
     fetchAbuseFeed('malwarebazaar').catch(() => [] as IocEntry[]),
     fetchAbuseFeed('threatfox').catch(() => [] as IocEntry[]),
     fetchAbuseFeed('openphish').catch(() => [] as IocEntry[]),
     fetchAbuseFeed('feodo').catch(() => [] as IocEntry[]),
-    fetchAbuseFeed('blocklist-de').catch(() => [] as IocEntry[]),
-    fetchAbuseFeed('binary-defense').catch(() => [] as IocEntry[]),
-    fetchAbuseFeed('ipsum').catch(() => [] as IocEntry[]),
-    fetchAbuseFeed('phishing-army').catch(() => [] as IocEntry[]),
     fetchAbuseFeed('tweetfeed').catch(() => [] as IocEntry[]),
-    fetchAbuseFeed('bitwire').catch(() => [] as IocEntry[]),
+    fetchNvdRecent(rangeStart, rangeEnd).catch(() => [] as NvdCve[]),
   ]);
 
-  // Filter KEV to window
+  // Findings: KEV-added-in-window first (these are the high-signal items —
+  // CISA only adds a CVE to KEV when active exploitation is observed), then
+  // NVD-published-in-window CVEs of CVSS >= 7.0 (high+critical) that aren't
+  // already covered by KEV. This is what fixes the "0 findings" daily briefing
+  // on KEV-quiet days while still keeping the bar high — we don't surface
+  // every newly-published CVE, only the ones that matter.
   const kevWindow = kev.filter((k) => withinRange(k.dateAdded, startMs, endMs));
   const nvdMap = await fetchNvdByIds(kevWindow.map((k) => k.cveID));
-  const findings = kevWindow.map((k) => findingFromKev(k, nvdMap.get(k.cveID)));
+  const kevFindings = kevWindow.map((k) => findingFromKev(k, nvdMap.get(k.cveID)));
+  const kevIds = new Set(kevFindings.map((f) => f.id));
+  const nvdFindings = nvdRecent
+    .filter((c) => !kevIds.has(c.id))
+    .map(findingFromNvd)
+    .filter((f) => f.severity === 'critical' || f.severity === 'high');
+  const findings = [...kevFindings, ...nvdFindings];
 
   // Per-source counts for transparent reporting — match-in-window only.
   // Helps a future reader verify "URLhaus 4,712; ThreatFox 215; …" instead
@@ -770,8 +852,9 @@ export async function buildBriefing(type: BriefingType, anchor: Date = new Date(
   if (feodoMatched.length > 0) iocPerSource['Feodo Tracker'] = feodoMatched.length;
   if (tweetfeedMatched.length > 0) iocPerSource['TweetFeed'] = tweetfeedMatched.length;
 
-  // Windowed feeds — entries carry per-IOC timestamps, so we can date-filter them.
-  const windowedIocs = [
+  // Windowed feeds only — every entry carries a per-IOC timestamp inside the
+  // briefing window. Snapshot blocklists were removed in the live-only refactor.
+  const allIocs = [
     ...urlhausMatched,
     ...malwarebazaarMatched,
     ...threatfoxMatched,
@@ -779,23 +862,6 @@ export async function buildBriefing(type: BriefingType, anchor: Date = new Date(
     ...feodoMatched,
     ...tweetfeedMatched,
   ];
-
-  // Snapshot feeds — current-state blocklists with no per-entry timestamp.
-  // Treat them as "live indicators at briefing time" and cap so they do not drown the windowed signal.
-  const SNAPSHOT_PER_FEED = 30;
-  const blocklistDeSnap = blocklistDe.slice(0, SNAPSHOT_PER_FEED);
-  const binaryDefenseSnap = binaryDefense.slice(0, SNAPSHOT_PER_FEED);
-  const ipsumSnap = ipsum.slice(0, SNAPSHOT_PER_FEED);
-  const phishingArmySnap = phishingArmy.slice(0, SNAPSHOT_PER_FEED);
-  const bitwireSnap = bitwire.slice(0, SNAPSHOT_PER_FEED);
-  if (blocklistDeSnap.length > 0) iocPerSource['Blocklist.de'] = blocklistDeSnap.length;
-  if (binaryDefenseSnap.length > 0) iocPerSource['Binary Defense'] = binaryDefenseSnap.length;
-  if (ipsumSnap.length > 0) iocPerSource['Ipsum'] = ipsumSnap.length;
-  if (phishingArmySnap.length > 0) iocPerSource['Phishing Army'] = phishingArmySnap.length;
-  if (bitwireSnap.length > 0) iocPerSource['Bitwire'] = bitwireSnap.length;
-  const snapshotIocs = [...blocklistDeSnap, ...binaryDefenseSnap, ...ipsumSnap, ...phishingArmySnap, ...bitwireSnap];
-
-  const allIocs = [...windowedIocs, ...snapshotIocs];
 
   // Pre-cap total — what's actually visible upstream in this window. The
   // served `iocs` payload below is then capped per-bucket so the briefing
@@ -806,18 +872,14 @@ export async function buildBriefing(type: BriefingType, anchor: Date = new Date(
 
   // IOC source attribution — only feeds that actually returned data this run.
   // KEV/NVD belong to the findings half of the briefing, not the IOC half.
+  // Live windowed feeds only (post-2026-05-11 refactor).
   const iocSources: string[] = [];
-  if (urlhaus.length > 0) iocSources.push('URLhaus');
-  if (malwarebazaar.length > 0) iocSources.push('MalwareBazaar');
-  if (threatfox.length > 0) iocSources.push('ThreatFox');
-  if (feodo.length > 0) iocSources.push('Feodo Tracker');
-  if (openphish.length > 0) iocSources.push('OpenPhish');
-  if (blocklistDe.length > 0) iocSources.push('Blocklist.de');
-  if (binaryDefense.length > 0) iocSources.push('Binary Defense');
-  if (ipsum.length > 0) iocSources.push('Ipsum');
-  if (phishingArmy.length > 0) iocSources.push('Phishing Army');
-  if (tweetfeed.length > 0) iocSources.push('TweetFeed');
-  if (bitwire.length > 0) iocSources.push('Bitwire');
+  if (urlhausMatched.length > 0) iocSources.push('URLhaus');
+  if (malwarebazaarMatched.length > 0) iocSources.push('MalwareBazaar');
+  if (threatfoxMatched.length > 0) iocSources.push('ThreatFox');
+  if (feodoMatched.length > 0) iocSources.push('Feodo Tracker');
+  if (openphishMatched.length > 0) iocSources.push('OpenPhish');
+  if (tweetfeedMatched.length > 0) iocSources.push('TweetFeed');
 
   const sections = buildSections(findings);
   const stats = buildStats(findings, sections, iocsRawTotal);
@@ -835,7 +897,8 @@ export async function buildBriefing(type: BriefingType, anchor: Date = new Date(
   for (const f of findings) for (const t of f.mitre_techniques) techniqueSet.add(t);
 
   const sources: string[] = [];
-  if (findings.length > 0) sources.push('CISA KEV', 'NVD');
+  if (findings.some((f) => f.source === 'CISA KEV')) sources.push('CISA KEV');
+  if (findings.length > 0) sources.push('NVD');
   sources.push(...iocSources);
 
   return {

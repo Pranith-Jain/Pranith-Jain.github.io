@@ -90,10 +90,11 @@ export async function briefingsRssHandler(c: Context<{ Bindings: Env }>): Promis
   type Enriched = { slug: string; meta: BriefingMeta; body: Briefing | null };
   const items: Enriched[] = list.map((it, i) => {
     const r = settled[i];
+    const body = r && r.status === 'fulfilled' ? r.value : null;
     return {
       slug: it.slug,
       meta: (it.metadata as BriefingMeta | undefined) ?? {},
-      body: r.status === 'fulfilled' ? r.value : null,
+      body,
     };
   });
 

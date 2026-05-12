@@ -44,7 +44,7 @@ async function fetchOne(id: SourceId): Promise<SourcePayload> {
       },
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
     });
-    if (!r.ok) return { ok: false, data: null, error: `HTTP ${r.status}` };
+    if (!r.ok) return { ok: false, data: null, error: `upstream ${r.status}` };
     const body = await r.text();
     const summary = buildSummary(id, body);
     // Trim entries to the top N most-recent — buildSummary may return up to
@@ -52,7 +52,8 @@ async function fetchOne(id: SourceId): Promise<SourcePayload> {
     summary.entries = summary.entries.slice(0, PER_SOURCE_LIMIT);
     return { ok: true, data: summary };
   } catch (e) {
-    return { ok: false, data: null, error: (e as Error).message };
+    const isTimeout = e instanceof Error && (e.name === 'TimeoutError' || e.name === 'AbortError');
+    return { ok: false, data: null, error: isTimeout ? 'upstream timeout' : 'upstream error' };
   }
 }
 
@@ -65,7 +66,9 @@ export async function iocSnapshotHandler(c: Context<{ Bindings: Env }>): Promise
   const settled = await Promise.all(SNAPSHOT_SOURCES.map(fetchOne));
   const sources: Record<string, SourcePayload> = {};
   for (let i = 0; i < SNAPSHOT_SOURCES.length; i++) {
-    sources[SNAPSHOT_SOURCES[i]] = settled[i];
+    const id = SNAPSHOT_SOURCES[i];
+    const payload = settled[i];
+    if (id !== undefined && payload !== undefined) sources[id] = payload;
   }
 
   const body: IocSnapshotResponse = {

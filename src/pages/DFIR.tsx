@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Cloud, Github, Mail } from 'lucide-react';
+import { ArrowRight, Github, Mail } from 'lucide-react';
 import { ToolGrid, TOOL_COUNT } from '../components/dfir/ToolGrid';
 import { personalInfo } from '../data/content';
 
@@ -38,45 +38,23 @@ const PROVIDER_GROUPS: { label: string; items: string[] }[] = [
 
 export default function DFIRPage(): JSX.Element {
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-16 text-slate-900 dark:text-slate-100">
-      <header className="animate-fade-in-up mb-12">
-        <span className="inline-block text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 mb-3">
-          DFIR Toolkit
-        </span>
-        <h1 className="text-5xl sm:text-6xl font-display font-bold text-slate-900 dark:text-slate-100 mb-4 leading-tight">
-          Interactive DFIR tools on the edge.
-        </h1>
-        <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mb-6 leading-relaxed">
-          The action surface — scanners, decoders, lookup tools, frameworks, and analysers. Sub-200ms IOC checks across
-          22 threat-intel sources, with no signup required. The whole stack runs on Cloudflare Workers, free at the
-          edge.
-        </p>
-        <div className="flex flex-wrap items-center gap-4 text-sm font-mono text-slate-600 dark:text-slate-400">
-          <span>
-            <span className="text-slate-900 dark:text-slate-100 text-base">{TOOL_COUNT}</span> tools
-          </span>
-          <span aria-hidden="true">·</span>
-          <span>
-            <span className="text-slate-900 dark:text-slate-100 text-base">90+</span> data sources
-          </span>
-          <span aria-hidden="true">·</span>
-          <span>
-            <span className="text-slate-900 dark:text-slate-100 text-base">0</span> credits required
-          </span>
-          <span aria-hidden="true">·</span>
-          <span className="inline-flex items-center gap-1">
-            <Cloud size={12} aria-hidden="true" />
-            edge, last build {__BUILD_DATE__}
-          </span>
-        </div>
-        <p className="text-sm text-slate-500 dark:text-slate-500 font-mono mt-4">
-          Looking for sources, briefings, RSS feeds, leak-site mirrors, or news? →{' '}
-          <Link to="/threatintel" className="text-brand-600 dark:text-brand-400 hover:underline">
-            /threatintel
-          </Link>{' '}
-          (separate platform).
-        </p>
-      </header>
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
+      {/* App-style stat bar — replaces the portfolio-style 6xl hero on app routes */}
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <Stat label="Tools" value={String(TOOL_COUNT)} />
+        <Stat label="Data sources" value="90+" />
+        <Stat label="Credits required" value="0" />
+        <Stat label="Last build" value={__BUILD_DATE__} mono />
+      </section>
+
+      <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+        Scanners, decoders, lookup tools, frameworks, and analysers I reach for on shift. Sub-200ms IOC checks across 22
+        threat-intel sources, no signup, no key. Looking for live feeds, briefings, RSS, or leak-site mirrors? Try{' '}
+        <Link to="/threatintel" className="text-rose-600 dark:text-rose-400 hover:underline">
+          /threatintel
+        </Link>{' '}
+        (separate app).
+      </p>
 
       <section className="animate-fade-in-up mb-16">
         <div className="flex items-baseline justify-between mb-6">
@@ -144,6 +122,19 @@ export default function DFIRPage(): JSX.Element {
           </a>
         </div>
       </section>
+    </div>
+  );
+}
+
+function Stat({ label, value, mono }: { label: string; value: string; mono?: boolean }) {
+  return (
+    <div>
+      <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-500">{label}</div>
+      <div
+        className={`font-display font-bold text-xl text-slate-900 dark:text-slate-100 ${mono ? 'font-mono text-sm' : ''}`}
+      >
+        {value}
+      </div>
     </div>
   );
 }

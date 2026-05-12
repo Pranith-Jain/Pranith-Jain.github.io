@@ -22,12 +22,23 @@ export default defineConfig(({ mode }) => ({
     sourcemap: false,
     rollupOptions: {
       output: {
-        // Manual chunk splitting for better caching
+        // Manual chunk splitting for better caching. Each entry below produces
+        // a dedicated chunk so that bumping one consumer doesn't invalidate
+        // the vendor's edge cache.
         manualChunks: {
-          // Core React vendor chunk
-          'vendor-react': ['react', 'react-dom'],
-          // Icons chunk
+          // Core React stack.
+          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+          // Icon set used across every page.
           'vendor-icons': ['lucide-react'],
+          // Graph viz used ONLY by /dfir/stix. Splitting it ensures the
+          // 133KB xyflow runtime is its own chunk that's lazy-fetched.
+          'vendor-xyflow': ['@xyflow/react'],
+          // World-map renderer used ONLY by /threatintel/threat-map.
+          'vendor-maps': ['react-simple-maps'],
+          // Markdown stack used ONLY by /threatintel/wiki/:slug. Loaded
+          // dynamically by WikiArticle, so isolating it keeps the wiki
+          // detail chunk slim.
+          'vendor-md': ['marked', 'isomorphic-dompurify'],
         },
         // Asset naming for better caching
         entryFileNames: 'assets/[name]-[hash].js',

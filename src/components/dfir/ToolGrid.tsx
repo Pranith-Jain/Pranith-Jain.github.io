@@ -98,7 +98,7 @@ export function ToolGrid(): JSX.Element {
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search tools — e.g. dmarc, kill chain, mcp, owasp, jwt…"
+            placeholder="Search tools (dmarc, kill chain, mcp, owasp, jwt…)"
             className="w-full pl-9 pr-9 py-2 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 font-mono text-sm focus:border-brand-500/60 focus:outline-none"
             aria-label="Search DFIR tools"
           />
@@ -122,8 +122,8 @@ export function ToolGrid(): JSX.Element {
           </>
         ) : (
           <>
-            {TOOL_COUNT} tools across {SECTIONS.length} categories. All client-side or run from this site's edge worker
-            — nothing leaves your browser unless explicitly stated on the tool's page.
+            {TOOL_COUNT} tools across {SECTIONS.length} categories. Everything runs client-side or through this site's
+            edge worker. Nothing leaves your browser unless the tool page says otherwise.
           </>
         )}
       </p>

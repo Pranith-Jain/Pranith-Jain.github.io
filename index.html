@@ -72,12 +72,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     
-    <!-- Preload critical fonts for performance -->
-    <link rel="preload" href="https://fonts.gstatic.com/s/poppins/v21/pxiByp8kv8JHgFVrLCz7Z1xlFQ.woff2" as="font" type="font/woff2" crossorigin />
-    
-    <!-- Google Fonts with font-display swap for performance -->
+    <!-- The previous preload pinned Poppins regular (400), which the CSS below doesn't even request.
+         Browsers were downloading an unused font on every cold visit. Removed entirely; Google Fonts
+         delivers the right subsets via the css2 request below, and font-display: swap covers FOIT. -->
+
+    <!-- Google Fonts with font-display swap for performance.
+         Poppins weights 800/900 were dropped 2026-05-12 — only `font-display font-semibold` (600)
+         and `font-display font-bold` (700) are used in the codebase. -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
 

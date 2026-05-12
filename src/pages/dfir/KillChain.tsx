@@ -188,7 +188,7 @@ export default function KillChain(): JSX.Element {
               rel="noopener noreferrer"
               className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
             >
-              Lockheed Martin — Cyber Kill Chain
+              Lockheed Martin · Cyber Kill Chain
               <ExternalLink size={11} aria-hidden="true" />
             </a>
           </li>

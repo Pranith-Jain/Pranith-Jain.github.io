@@ -1,9 +1,7 @@
-import { useMemo, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, Wrench } from 'lucide-react';
-import { marked } from 'marked';
-import DOMPurify from 'isomorphic-dompurify';
-import { wikiArticles } from '../../data/dfir/wiki-articles';
+import { wikiMeta } from '../../data/dfir/wiki-meta';
 import { TOOL_TOPICS, type ToolTopic } from '../../data/dfir/tool-topics';
 
 /**
@@ -60,18 +58,44 @@ export default function WikiArticle(): JSX.Element {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const articleRef = useRef<HTMLDivElement | null>(null);
-  const article = wikiArticles.find((a) => a.slug === slug);
+  const articleMeta = wikiMeta.find((a) => a.slug === slug);
+  const [html, setHtml] = useState<string>('');
+  const [relatedTools, setRelatedTools] = useState<ToolTopic[]>([]);
 
-  const { html, relatedTools } = useMemo(() => {
-    if (!article) return { html: '', relatedTools: [] as ToolTopic[] };
-    const { body: linked, matched } = injectToolLinks(article.body);
-    const raw = marked.parse(linked) as string;
-    const sanitised = DOMPurify.sanitize(raw, {
-      ALLOWED_URI_REGEXP: /^(?:(?:https?|mailto|#|\/):|[^a-z]|[a-z+.-]+(?:[^a-z+.\-:]|$))/i,
-      ADD_ATTR: ['title'],
-    });
-    return { html: sanitised, relatedTools: matched };
-  }, [article]);
+  // Lazy-load the wiki body data + the markdown libs (~80KB combined). The
+  // article meta (title, description, category) is already in scope via the
+  // slim wiki-meta module so the page renders immediately while bodies stream in.
+  useEffect(() => {
+    // Clear stale render from the previous slug. Without this, navigating
+    // wiki-to-wiki briefly shows the previous article's body until the new
+    // dynamic import resolves.
+    setHtml('');
+    setRelatedTools([]);
+    if (!articleMeta) return;
+    let cancelled = false;
+    void (async () => {
+      const [{ wikiArticles }, { marked }, { default: DOMPurify }] = await Promise.all([
+        import('../../data/dfir/wiki-articles'),
+        import('marked'),
+        import('isomorphic-dompurify'),
+      ]);
+      const article = wikiArticles.find((a) => a.slug === slug);
+      if (!article || cancelled) return;
+      const { body: linked, matched } = injectToolLinks(article.body);
+      const raw = marked.parse(linked) as string;
+      const sanitised = DOMPurify.sanitize(raw, {
+        ALLOWED_URI_REGEXP: /^(?:(?:https?|mailto|#|\/):|[^a-z]|[a-z+.-]+(?:[^a-z+.\-:]|$))/i,
+        ADD_ATTR: ['title'],
+      });
+      if (!cancelled) {
+        setHtml(sanitised);
+        setRelatedTools(matched);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [articleMeta, slug]);
 
   // Intercept clicks on internal /dfir links so they navigate via React
   // Router instead of triggering a full page reload.
@@ -93,7 +117,7 @@ export default function WikiArticle(): JSX.Element {
     return () => root.removeEventListener('click', onClick);
   }, [navigate, html]);
 
-  if (!article) {
+  if (!articleMeta) {
     return (
       <div className="max-w-3xl mx-auto px-4 sm:px-8 py-20 text-slate-900 dark:text-slate-100">
         <Link
@@ -116,10 +140,10 @@ export default function WikiArticle(): JSX.Element {
         <ArrowLeft size={14} /> /threatintel/wiki
       </Link>
       <span className="block text-xs font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-2">
-        {article.category}
+        {articleMeta.category}
       </span>
-      <h1 className="text-4xl font-display font-bold mb-4">{article.title}</h1>
-      <p className="text-lg text-slate-600 dark:text-slate-400 mb-8">{article.description}</p>
+      <h1 className="text-4xl font-display font-bold mb-4">{articleMeta.title}</h1>
+      <p className="text-lg text-slate-600 dark:text-slate-400 mb-8">{articleMeta.description}</p>
 
       <article
         ref={articleRef}

@@ -5,3 +5,13 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+
+# Hashed asset bundles never change — long immutable cache lets browsers skip
+# revalidation entirely and stops Cloudflare from refetching from origin on
+# every navigation. Vite emits `assets/<name>-<hash>.<ext>` so this is safe.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Topojson is 190KB and stable for years; cache it for a week.
+/world-110m.json
+  Cache-Control: public, max-age=604800

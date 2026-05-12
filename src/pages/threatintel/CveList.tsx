@@ -140,7 +140,7 @@ export default function CveList(): JSX.Element {
         <p className="text-slate-600 dark:text-slate-400 font-mono mb-2 max-w-3xl">
           Up to <strong>150 CVEs newly published in the last 30 days</strong> (NVD), merged with recent additions to{' '}
           <strong>CISA's Known-Exploited-Vulnerabilities catalogue</strong> (last 30 days). NVD reports ~5,500 CVEs per
-          30-day window; this is a triage sample, not the full corpus — for exhaustive search use{' '}
+          30-day window. This is a triage sample, not the full corpus. For exhaustive search use{' '}
           <a
             href="https://nvd.nist.gov/vuln/search"
             target="_blank"
@@ -149,16 +149,15 @@ export default function CveList(): JSX.Element {
           >
             nvd.nist.gov/vuln/search
           </a>
-          . Entries flagged KEV are known to be exploited in the wild — prioritise those. Click a CVE id to drill into{' '}
+          . Entries flagged KEV are known to be exploited in the wild, so prioritise those. Click a CVE id to drill into{' '}
           <Link to="/dfir/cve" className="text-brand-600 dark:text-brand-400 hover:underline">
             CVE Lookup
           </Link>{' '}
           (full NVD + EPSS + KEV record).
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-6">
-          Sources: <span className="text-slate-700 dark:text-slate-300">NVD published-CVE feed</span> +{' '}
-          <span className="text-slate-700 dark:text-slate-300">CISA KEV catalogue</span> via{' '}
-          <span className="text-slate-700 dark:text-slate-300">/api/v1/cve-recent</span> · cached 30 min server-side.
+          Sources: <span className="text-slate-700 dark:text-slate-300">NVD published-CVE feed</span> merged with the{' '}
+          <span className="text-slate-700 dark:text-slate-300">CISA KEV catalogue</span>.
         </p>
       </div>
 
@@ -183,7 +182,7 @@ export default function CveList(): JSX.Element {
                 ? 'border-rose-500/60 bg-rose-500/10 text-rose-700 dark:text-rose-300'
                 : 'border-slate-200 dark:border-slate-800 hover:border-brand-500/40'
             }`}
-            title="Toggle CISA KEV-only — actively exploited CVEs"
+            title="Toggle CISA KEV-only (actively exploited CVEs)"
           >
             <Flame size={12} /> KEV only{data ? ` · ${data.kev_count}` : ''}
           </button>
@@ -323,7 +322,7 @@ export default function CveList(): JSX.Element {
                           <span
                             key={a.slug}
                             className="px-1.5 py-0.5 rounded border border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300 lowercase tracking-normal"
-                            title="curated actor — not yet in MITRE"
+                            title="curated actor (not yet in MITRE)"
                           >
                             {a.slug}
                           </span>

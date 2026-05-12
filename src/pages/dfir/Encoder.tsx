@@ -84,7 +84,7 @@ export default function Encoder(): JSX.Element {
           <Type size={28} className="text-brand-600 dark:text-brand-400" /> Encoder
         </h1>
         <p className="text-slate-600 dark:text-slate-400 font-mono mb-2 max-w-3xl">
-          Multi-pass encoder — counterpart to{' '}
+          Multi-pass encoder. Counterpart to{' '}
           <Link to="/dfir/decode" className="text-brand-600 dark:text-brand-400 hover:underline">
             Decoder
           </Link>
@@ -128,7 +128,7 @@ export default function Encoder(): JSX.Element {
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Plain text, JSON, command-line, URL — anything you want to encode."
+          placeholder="Plain text, JSON, command-line, URL. Anything you want to encode."
           rows={6}
           className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-xs text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           spellCheck={false}
@@ -192,7 +192,7 @@ export default function Encoder(): JSX.Element {
                 type="button"
                 onClick={sendToDecoder}
                 className="inline-flex items-center gap-1.5 text-[11px] font-mono px-2 py-1 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:bg-brand-500/20"
-                title="Round-trip — decode this back via /dfir/decode"
+                title="Round-trip: decode this back via /dfir/decode"
               >
                 <ArrowRight size={11} /> round-trip in Decoder
               </button>

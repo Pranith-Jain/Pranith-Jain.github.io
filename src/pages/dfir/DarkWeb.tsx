@@ -611,7 +611,7 @@ export function BreachDisclosuresPanel(): JSX.Element {
           </span>
         </h2>
         <span className="text-[11px] font-mono text-slate-500 dark:text-slate-500">
-          {loading ? 'loading…' : data ? `${data.count} disclosures · cached 6 h` : ''}
+          {loading ? 'loading…' : data ? `${data.count} disclosures` : ''}
         </span>
       </div>
 
@@ -802,7 +802,7 @@ export function RansomwareActivityPanel(): JSX.Element {
           </span>
         </h2>
         <span className="text-[11px] font-mono text-slate-500 dark:text-slate-500">
-          {loading ? 'loading…' : data ? `${data.count} leak-site posts · cached 1 h` : ''}
+          {loading ? 'loading…' : data ? `${data.count} leak-site posts` : ''}
         </span>
       </div>
 

@@ -1,0 +1,334 @@
+import type { Context } from 'hono';
+import type { Env } from '../env';
+import { WRITEUP_SOURCES, type WriteupSourceSpec } from '../lib/writeup-sources';
+
+/**
+ * Unified writeups aggregator.
+ *
+ * Pulls every source listed in WRITEUP_SOURCES (Medium, dev.to, Hashnode,
+ * generic RSS, plus curated manual entries), parses RSS where applicable,
+ * dedupes by URL, sorts newest-first, and returns a single JSON payload
+ * the /writeups page renders.
+ *
+ * Cache 1h server-side. Adding a new platform = one line in WRITEUP_SOURCES.
+ */
+
+export const WRITEUPS_CACHE_KEY = 'https://writeups-cache.internal/v4-entity-decode';
+const CACHE_KEY = WRITEUPS_CACHE_KEY;
+const CACHE_TTL_SECONDS = 3600;
+const FETCH_TIMEOUT_MS = 12_000;
+/** Hard cap on total items in the response (post-merge, post-sort). */
+const MAX_ITEMS = 150;
+/** Per-source cap so a single chatty feed (e.g. Huntress at ~600 items) can't drown the rest. */
+const MAX_PER_SOURCE = 15;
+
+export interface Writeup {
+  title: string;
+  url: string;
+  /** Display label for the source (Medium, dev.to, Personal Blog, etc). */
+  source: string;
+  /** ISO 8601 publish date when known, else undefined. */
+  published?: string;
+  /** Short summary — first ~280 chars of the body, plain text. */
+  description?: string;
+  /** Per-post tags from RSS category fields (when available). */
+  tags?: string[];
+  /** Per-post author when the feed exposes one. */
+  author?: string;
+  /** Type of source for UI filtering. */
+  kind: 'medium' | 'devto' | 'hashnode' | 'rss' | 'manual';
+}
+
+export interface WriteupsResponse {
+  generated_at: string;
+  sources: Array<{
+    kind: string;
+    label: string;
+    ok: boolean;
+    count: number;
+    error?: string;
+  }>;
+  total: number;
+  items: Writeup[];
+}
+
+async function fetchText(url: string): Promise<string | null> {
+  try {
+    const res = await fetch(url, {
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      headers: {
+        'user-agent': 'Mozilla/5.0 (compatible; pranithjain-writeups/1.0; +https://pranithjain.qzz.io)',
+        accept: 'application/rss+xml, application/xml, text/xml, */*',
+      },
+      cf: { cacheTtl: 1800, cacheEverything: true },
+    });
+    if (!res.ok) return null;
+    return await res.text();
+  } catch {
+    return null;
+  }
+}
+
+/** Strip CDATA + decode HTML entities (named + numeric) commonly emitted by RSS / Atom. */
+function unwrap(s: string | undefined): string {
+  if (!s) return '';
+  let out = s.trim();
+  // <![CDATA[ … ]]>
+  const m = /^<!\[CDATA\[([\s\S]*?)\]\]>$/.exec(out);
+  if (m) out = m[1] ?? '';
+  // Named entities (the common five RSS / Atom feeds emit).
+  out = out
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&nbsp;/g, ' ');
+  // Numeric entities, decimal (e.g. &#8211; en dash) and hex (e.g. &#x2014; em dash).
+  out = out
+    .replace(/&#(\d+);/g, (_, code) => {
+      const n = parseInt(code, 10);
+      return Number.isFinite(n) ? String.fromCodePoint(n) : _;
+    })
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, code) => {
+      const n = parseInt(code, 16);
+      return Number.isFinite(n) ? String.fromCodePoint(n) : _;
+    });
+  return out;
+}
+
+/** Convert HTML to plain text, collapse whitespace, truncate. */
+function htmlToText(html: string, max = 280): string {
+  // Drop tags and common entities; squeeze whitespace.
+  let t = html
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/p>/gi, '\n')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (t.length > max) t = t.slice(0, max).trimEnd() + '…';
+  return t;
+}
+
+/** Tiny RSS 2.0 + Atom feed-item extractor. Auto-detects format on the body. */
+function parseFeedItems(body: string, kind: Writeup['kind'], sourceLabel: string): Writeup[] {
+  // Detect format: Atom feeds open with <feed xmlns="…/Atom"> or contain <entry>.
+  const isAtom = /<feed\b[^>]*xmlns=["'][^"']*Atom/i.test(body) || /<entry\b/i.test(body);
+  return isAtom ? parseAtom(body, kind, sourceLabel) : parseRss(body, kind, sourceLabel);
+}
+
+function parseRss(body: string, kind: Writeup['kind'], sourceLabel: string): Writeup[] {
+  const out: Writeup[] = [];
+  const itemRe = /<item\b[^>]*>([\s\S]*?)<\/item>/gi;
+  let m: RegExpExecArray | null;
+  while ((m = itemRe.exec(body))) {
+    const block = m[1]!;
+    const title = unwrap(/<title>([\s\S]*?)<\/title>/i.exec(block)?.[1]);
+    const link = unwrap(/<link>([\s\S]*?)<\/link>/i.exec(block)?.[1]);
+    const pubDate = unwrap(/<pubDate>([\s\S]*?)<\/pubDate>/i.exec(block)?.[1]);
+    const author =
+      unwrap(/<dc:creator>([\s\S]*?)<\/dc:creator>/i.exec(block)?.[1]) ||
+      unwrap(/<author>([\s\S]*?)<\/author>/i.exec(block)?.[1]) ||
+      undefined;
+    const contentEncoded = unwrap(/<content:encoded>([\s\S]*?)<\/content:encoded>/i.exec(block)?.[1]);
+    const description = unwrap(/<description>([\s\S]*?)<\/description>/i.exec(block)?.[1]);
+    const tags = Array.from(block.matchAll(/<category[^>]*>([\s\S]*?)<\/category>/gi))
+      .map((c) => unwrap(c[1]).trim())
+      .filter(Boolean);
+
+    if (!title || !link) continue;
+    const summary = contentEncoded || description;
+    const isoPublished = pubDate ? new Date(pubDate).toISOString() : undefined;
+
+    out.push({
+      title: title.trim(),
+      url: link.trim(),
+      source: sourceLabel,
+      published: isoPublished && !Number.isNaN(Date.parse(isoPublished)) ? isoPublished : undefined,
+      description: summary ? htmlToText(summary) : undefined,
+      tags: tags.length > 0 ? tags : undefined,
+      author,
+      kind,
+    });
+  }
+  return out;
+}
+
+function parseAtom(body: string, kind: Writeup['kind'], sourceLabel: string): Writeup[] {
+  const out: Writeup[] = [];
+  const entryRe = /<entry\b[^>]*>([\s\S]*?)<\/entry>/gi;
+  let m: RegExpExecArray | null;
+  while ((m = entryRe.exec(body))) {
+    const block = m[1]!;
+    const title = unwrap(/<title(?:\s[^>]*)?>([\s\S]*?)<\/title>/i.exec(block)?.[1]);
+    // <link href="…" rel="alternate" type="text/html" /> — prefer rel=alternate, fall back to first link.
+    let link =
+      /<link\s+[^>]*rel=["']alternate["'][^>]*href=["']([^"']+)["']/i.exec(block)?.[1] ??
+      /<link\s+[^>]*href=["']([^"']+)["'][^>]*rel=["']alternate["']/i.exec(block)?.[1] ??
+      /<link\s+[^>]*href=["']([^"']+)["']/i.exec(block)?.[1];
+    link = link ? link.trim() : undefined;
+    const published = unwrap(/<published>([\s\S]*?)<\/published>/i.exec(block)?.[1]);
+    const updated = unwrap(/<updated>([\s\S]*?)<\/updated>/i.exec(block)?.[1]);
+    const dateRaw = published || updated;
+    const summary = unwrap(/<summary(?:\s[^>]*)?>([\s\S]*?)<\/summary>/i.exec(block)?.[1]);
+    const content = unwrap(/<content(?:\s[^>]*)?>([\s\S]*?)<\/content>/i.exec(block)?.[1]);
+    const author =
+      unwrap(/<author\b[^>]*>[\s\S]*?<name>([\s\S]*?)<\/name>[\s\S]*?<\/author>/i.exec(block)?.[1]) || undefined;
+    const tags = Array.from(block.matchAll(/<category\s+[^>]*term=["']([^"']+)["']/gi))
+      .map((c) => c[1]!.trim())
+      .filter(Boolean);
+
+    if (!title || !link) continue;
+    const body = content || summary;
+    const isoPublished = dateRaw ? new Date(dateRaw).toISOString() : undefined;
+
+    out.push({
+      title: title.trim(),
+      url: link,
+      source: sourceLabel,
+      published: isoPublished && !Number.isNaN(Date.parse(isoPublished)) ? isoPublished : undefined,
+      description: body ? htmlToText(body) : undefined,
+      tags: tags.length > 0 ? tags : undefined,
+      author,
+      kind,
+    });
+  }
+  return out;
+}
+
+/** Resolve a source spec to (label, RSS URL). */
+function sourceRss(spec: WriteupSourceSpec): { label: string; rssUrl: string | null; kind: Writeup['kind'] } {
+  switch (spec.kind) {
+    case 'medium': {
+      const h = spec.handle.startsWith('@') ? spec.handle : `@${spec.handle}`;
+      return {
+        label: spec.label ?? 'Medium',
+        rssUrl: `https://medium.com/feed/${encodeURIComponent(h)}`,
+        kind: 'medium',
+      };
+    }
+    case 'devto':
+      return {
+        label: spec.label ?? 'dev.to',
+        rssUrl: `https://dev.to/feed/${encodeURIComponent(spec.handle)}`,
+        kind: 'devto',
+      };
+    case 'hashnode':
+      return { label: spec.label ?? 'Hashnode', rssUrl: `https://${spec.host}/rss.xml`, kind: 'hashnode' };
+    case 'rss':
+      return { label: spec.label, rssUrl: spec.url, kind: 'rss' };
+    case 'manual':
+      return { label: spec.source, rssUrl: null, kind: 'manual' };
+  }
+}
+
+export async function fetchWriteups(): Promise<WriteupsResponse> {
+  const sourceMeta: WriteupsResponse['sources'] = [];
+  const all: Writeup[] = [];
+
+  // ─── Manual / curated entries first (always succeed, no fetch needed) ──
+  const manuals = WRITEUP_SOURCES.filter(
+    (s): s is Extract<WriteupSourceSpec, { kind: 'manual' }> => s.kind === 'manual'
+  );
+  for (const m of manuals) {
+    all.push({
+      title: m.title,
+      url: m.url,
+      source: m.source,
+      published: m.published,
+      description: m.description,
+      tags: m.tags,
+      kind: 'manual',
+    });
+  }
+  if (manuals.length > 0) {
+    sourceMeta.push({ kind: 'manual', label: 'Curated', ok: true, count: manuals.length });
+  }
+
+  // ─── RSS-backed sources in parallel ────────────────────────────────────
+  const rssSpecs = WRITEUP_SOURCES.filter((s) => s.kind !== 'manual') as Exclude<
+    WriteupSourceSpec,
+    { kind: 'manual' }
+  >[];
+  const results = await Promise.all(
+    rssSpecs.map(async (spec) => {
+      const { label, rssUrl, kind } = sourceRss(spec);
+      if (!rssUrl) return { spec, label, kind, ok: false, items: [] as Writeup[], error: 'no rss url' };
+      const body = await fetchText(rssUrl);
+      if (!body) return { spec, label, kind, ok: false, items: [] as Writeup[], error: 'fetch failed' };
+      const parsed = parseFeedItems(body, kind, label);
+      // Trim per-source. Items inside a single feed are typically already
+      // newest-first; sort defensively before truncating in case a feed
+      // returns oldest-first (rare but seen in the wild).
+      parsed.sort((a, b) => {
+        if (a.published && b.published) return b.published.localeCompare(a.published);
+        if (a.published) return -1;
+        if (b.published) return 1;
+        return 0;
+      });
+      const items = parsed.slice(0, MAX_PER_SOURCE);
+      return { spec, label, kind, ok: items.length > 0, items };
+    })
+  );
+
+  for (const r of results) {
+    sourceMeta.push({
+      kind: r.kind,
+      label: r.label,
+      ok: r.ok,
+      count: r.items.length,
+      error: r.ok ? undefined : r.error,
+    });
+    for (const it of r.items) all.push(it);
+  }
+
+  // Dedupe by URL (manual + RSS overlap is possible if the user includes both
+  // a Medium handle and a curated one-off pointing at the same Medium post).
+  const seen = new Set<string>();
+  const deduped: Writeup[] = [];
+  for (const it of all) {
+    const key = it.url.replace(/[?#].*$/, '');
+    if (seen.has(key)) continue;
+    seen.add(key);
+    deduped.push(it);
+  }
+
+  // Sort newest-first (undated entries to the tail).
+  deduped.sort((a, b) => {
+    if (a.published && b.published) return b.published.localeCompare(a.published);
+    if (a.published) return -1;
+    if (b.published) return 1;
+    return 0;
+  });
+
+  return {
+    generated_at: new Date().toISOString(),
+    sources: sourceMeta,
+    total: deduped.length,
+    items: deduped.slice(0, MAX_ITEMS),
+  };
+}
+
+export async function writeupsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const cache = (caches as unknown as { default: Cache }).default;
+  const cacheReq = new Request(CACHE_KEY);
+  const cached = await cache.match(cacheReq);
+  if (cached) return cached;
+
+  const body = await fetchWriteups();
+  const response = new Response(JSON.stringify(body), {
+    status: 200,
+    headers: {
+      'content-type': 'application/json',
+      'cache-control': `public, max-age=${CACHE_TTL_SECONDS}`,
+    },
+  });
+  c.executionCtx.waitUntil(cache.put(cacheReq, response.clone()));
+  return response;
+}

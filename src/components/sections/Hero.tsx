@@ -84,10 +84,16 @@ export function Hero() {
               Book Strategy Call
             </a>
             <Link
+              to="/threatintel"
+              className="inline-flex items-center justify-center gap-2 rounded-2xl border border-rose-300/60 bg-rose-50/70 px-8 py-4 text-base font-bold text-rose-700 shadow-sm transition hover:shadow-md hover:scale-105 active:scale-95 dark:border-rose-700/60 dark:bg-rose-900/30 dark:text-rose-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-900"
+            >
+              <Terminal className="h-4 w-4" aria-hidden="true" /> Live Threat Intel
+            </Link>
+            <Link
               to="/dfir"
               className="inline-flex items-center justify-center gap-2 rounded-2xl border border-brand-300/60 bg-brand-50/70 px-8 py-4 text-base font-bold text-brand-700 shadow-sm transition hover:shadow-md hover:scale-105 active:scale-95 dark:border-brand-700/60 dark:bg-brand-900/30 dark:text-brand-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-900"
             >
-              <Terminal className="h-4 w-4" aria-hidden="true" /> Try the DFIR Toolkit
+              <Terminal className="h-4 w-4" aria-hidden="true" /> DFIR Toolkit
             </Link>
             <a
               href="#skills"

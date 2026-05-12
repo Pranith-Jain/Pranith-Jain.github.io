@@ -80,8 +80,7 @@ export default function BreachDisclosures(): JSX.Element {
           incident-response triage; verify in your environment before acting.
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
-          Source: <span className="text-slate-700 dark:text-slate-300">/api/v1/breach-disclosures</span> · cached
-          server-side.
+          Public breach disclosure corpus via Have I Been Pwned.
         </p>
       </div>
 
