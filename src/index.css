@@ -25,15 +25,15 @@
   }
 
   html.dark {
-    --surface-page: #0e0e10;
-    --surface-raised: #16161a;
-    --surface-sunken: #08080b;
-    --ink-1: #eceae3;
-    --ink-2: #a8a39a;
-    --ink-3: #6e6963;
-    --rule: #2a2a2e;
-    --accent: #6c8ec9;
-    --accent-soft: #1b2333;
+    --surface-page: #0f1b2d;
+    --surface-raised: #16243b;
+    --surface-sunken: #0a1322;
+    --ink-1: #e8edf4;
+    --ink-2: #a1acc0;
+    --ink-3: #5f6d85;
+    --rule: #243349;
+    --accent: #7ba3e0;
+    --accent-soft: #1b2b47;
   }
 
   html {
