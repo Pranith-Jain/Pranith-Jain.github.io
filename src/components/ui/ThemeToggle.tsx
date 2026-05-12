@@ -17,7 +17,7 @@ export function ThemeToggle({ isDark, onToggle }: ThemeToggleProps) {
     <button
       type="button"
       onClick={onToggle}
-      className="inline-flex items-baseline gap-1.5 font-mono text-[10px] uppercase tracking-[0.22em] focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-accent"
+      className="inline-flex items-baseline gap-1.5 font-mono text-[10px] uppercase tracking-[0.22em]"
       aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
       title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
     >
