@@ -5,19 +5,44 @@ export default {
   theme: {
     extend: {
       colors: {
-        brand: {
-          50: '#f5f7ff',
-          100: '#ebf0fe',
-          200: '#ced9fd',
-          300: '#a1b6fb',
-          400: '#6d8bf7',
-          500: '#435ef1',
-          600: '#2c3ee5',
-          700: '#232ebf',
-          800: '#21299b',
-          900: '#1f267c',
-          950: '#121649',
+        // Semantic, CSS-variable backed. Use these by default.
+        surface: {
+          page: 'var(--surface-page)',
+          raised: 'var(--surface-raised)',
+          sunken: 'var(--surface-sunken)',
         },
+        ink: {
+          1: 'var(--ink-1)',
+          2: 'var(--ink-2)',
+          3: 'var(--ink-3)',
+        },
+        rule: 'var(--rule)',
+        accent: {
+          DEFAULT: 'var(--accent)',
+          soft: 'var(--accent-soft)',
+        },
+
+        // Brand palette — repointed so `brand-600` is the editorial ink-blue.
+        // Every existing `bg-brand-600`, `text-brand-600`, `ring-brand-600`,
+        // etc. stays valid; the rendered colour just becomes deeper and more
+        // editorial. The full scale is rebuilt around `#1B3A6B`.
+        brand: {
+          50: '#f4f7fb',
+          100: '#e6ecf4',
+          200: '#c5d2e5',
+          300: '#9ab1cf',
+          400: '#6c8ec9',
+          500: '#3f689f',
+          600: '#1b3a6b',
+          700: '#16305a',
+          800: '#112648',
+          900: '#0d1d38',
+          950: '#06122a',
+        },
+
+        // Neon palette retained temporarily for backwards compatibility with
+        // the existing /dfir tool pages. Phase 4 removes references and then
+        // removes this block.
         neon: {
           cyan: '#00fff9',
           pink: '#ff006e',
@@ -27,20 +52,23 @@ export default {
       },
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        display: ['Poppins', 'sans-serif'],
-        mono: ['Space Grotesk', 'monospace'],
-        // Editorial italic-light serif for hero / section H2 — adopted
-        // from impeccable.style's signature voice. Newsreader is a Google
-        // Fonts open-source descendant of the Cormorant Garamond family,
-        // optimized for screen rendering and includes a true italic at
-        // weight 300 (the "light italic" impeccable uses on its hero).
         serif: ['Newsreader', 'ui-serif', 'Georgia', 'serif'],
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+        // `display` aliased to serif so any lingering `font-display` class
+        // renders Newsreader, not the dropped Poppins. Removed in Phase 4.
+        display: ['Newsreader', 'ui-serif', 'Georgia', 'serif'],
+      },
+      transitionDuration: {
+        enter: 'var(--motion-enter)',
+        exit: 'var(--motion-exit)',
       },
       transitionTimingFunction: {
-        // Adopted from impeccable.style — a slight overshoot bounce on
-        // small interactive elements (buttons, pills, toggles). Keep
-        // section-level reveals on ease-out; spring is a seasoning.
-        spring: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+        // Tailwind has `ease-out`/`ease-in` defaults; we add our token aliases
+        // so component code can use `transition-enter ease-out-token` style
+        // utilities. The `spring` overshoot used previously is intentionally
+        // dropped — no part of the new system uses it.
+        'out-token': 'var(--ease-out)',
+        'in-token': 'var(--ease-in)',
       },
       boxShadow: {
         glow: '0 0 0 1px rgba(37, 99, 235, 0.25), 0 18px 60px rgba(37, 99, 235, 0.15)',
@@ -48,6 +76,9 @@ export default {
         'glow-pink': '0 0 30px rgba(255, 0, 110, 0.5)',
         'glow-purple': '0 0 30px rgba(139, 92, 246, 0.5)',
       },
+      // Animations + keyframes retained temporarily — the only one wired into
+      // the chrome (`scroll-horizontal` for the companies row) is removed in
+      // Phase 2. The rest survive until Phase 4 clean-up.
       animation: {
         'float-enhanced': 'float-enhanced 6s ease-in-out infinite',
         'pulse-glow': 'pulse-glow 3s ease-in-out infinite',
