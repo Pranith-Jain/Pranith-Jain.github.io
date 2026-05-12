@@ -65,11 +65,19 @@ export default {
       transitionTimingFunction: {
         // Tailwind has `ease-out`/`ease-in` defaults; we add our token aliases
         // so component code can use `transition-enter ease-out-token` style
-        // utilities. The `spring` overshoot used previously is intentionally
-        // dropped — no part of the new system uses it.
+        // utilities.
         'out-token': 'var(--ease-out)',
         'in-token': 'var(--ease-in)',
+        // `spring` overshoot is no longer part of the new editorial system,
+        // but ~13 consumers (Hero / Featured / Contact / Projects / etc.)
+        // still reference it via `ease-spring`. Kept as a temporary alias so
+        // their hover transitions don't snap to instant during the Phase 2
+        // sweep that rewrites those consumers. Removed in Phase 4 cleanup.
+        spring: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
       },
+      // Old indigo brand glow — no longer harmonises with the ink-blue accent.
+      // Retained for Phase-2/3 consumers that still reference `shadow-glow*`.
+      // Removed in Phase 4 cleanup.
       boxShadow: {
         glow: '0 0 0 1px rgba(37, 99, 235, 0.25), 0 18px 60px rgba(37, 99, 235, 0.15)',
         'glow-cyan': '0 0 30px rgba(0, 255, 249, 0.5)',
