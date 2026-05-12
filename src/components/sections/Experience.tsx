@@ -1,6 +1,5 @@
 import { Search, Zap, Shield, FileText, Monitor, Mail } from 'lucide-react';
 import { experiences } from '../../data/content';
-import { FiledTag } from '../editorial';
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Search,
@@ -20,7 +19,6 @@ export function Experience() {
   return (
     <section id="experience" className="scroll-mt-24 py-16 lg:py-24">
       <div className="mb-10 max-w-[65ch]">
-        <FiledTag number="03" subject="Experience — Field Record" />
         <h2 className="font-serif text-3xl font-medium leading-[1.15] tracking-[-0.01em] text-ink-1 sm:text-4xl">
           Experience highlights
         </h2>

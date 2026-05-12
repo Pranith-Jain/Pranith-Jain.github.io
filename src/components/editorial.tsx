@@ -3,48 +3,12 @@ import type { ReactNode } from 'react';
 /**
  * Editorial primitives shared across the portfolio surfaces.
  *
- * The site reads as an editorial dossier: numbered sections filed under
- * subjects, drop-capped lead paragraphs, and a centered pull-quote that
- * breathes between sections. Single accent throughout — no per-section
- * color differentiation; the numbered subjects do the work of hierarchy.
+ * The site reads as a quiet editorial layout: drop-capped lead
+ * paragraphs and a centered pull-quote that breathes between
+ * sections. Single accent throughout.
  *
  * Per docs/superpowers/specs/2026-05-12-portfolio-editorial-redesign-design.md
  */
-
-interface FiledTagProps {
-  /** Two-digit issue / section number — 01, 02, 03 … */
-  number: string;
-  /** Subject line in caps, e.g. "WELCOME", "ABOUT", "EXPERIENCE". */
-  subject: string;
-  /** Optional date stamp on the right side. Defaults to the current month/year. */
-  date?: string;
-  /** Render in light text for inverted backgrounds (rare in the new system). */
-  inverted?: boolean;
-}
-
-const DEFAULT_DATE = 'MAY · MMXXVI';
-
-/**
- * Mono caps with the accent ink-blue picking up the FILED label + the
- * number; subject in ink-2; date stamp in ink-3 on the right. Hairlines
- * between elements use the rule token.
- */
-export function FiledTag({ number, subject, date = DEFAULT_DATE, inverted }: FiledTagProps): JSX.Element {
-  const labelClass = inverted ? 'text-surface-page/85' : 'text-ink-2';
-  const stampClass = inverted ? 'text-surface-page/45' : 'text-ink-3';
-  const accentClass = inverted ? 'text-surface-page' : 'text-accent';
-  const ruleClass = inverted ? 'bg-surface-page/20' : 'bg-rule';
-  return (
-    <div className="mb-4 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.22em]">
-      <span className={accentClass}>Filed</span>
-      <span className={`${accentClass} tabular-nums`}>{number}</span>
-      <span aria-hidden="true" className={`hidden h-px w-6 ${ruleClass} sm:inline-block`} />
-      <span className={labelClass}>{subject}</span>
-      <span aria-hidden="true" className={`hidden h-px flex-1 ${ruleClass} sm:inline-block`} />
-      <span className={stampClass}>{date}</span>
-    </div>
-  );
-}
 
 interface DropCapParagraphProps {
   /** First character will be rendered as the drop cap; rest as prose. */

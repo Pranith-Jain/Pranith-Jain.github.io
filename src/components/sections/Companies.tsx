@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { companies } from '../../data/content';
-import { FiledTag } from '../editorial';
 
 const DEFAULT_VISIBLE = 6;
 
@@ -18,7 +17,6 @@ export function Companies() {
   return (
     <section id="companies" className="scroll-mt-24 py-16 lg:py-24">
       <div className="mb-10 max-w-[65ch]">
-        <FiledTag number="08" subject="Partners — Work Has Appeared At" />
         <h2 className="font-serif text-3xl font-medium leading-[1.15] tracking-[-0.01em] text-ink-1 sm:text-4xl">
           Enterprise partnerships
         </h2>

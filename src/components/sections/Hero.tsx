@@ -1,7 +1,6 @@
 import { Linkedin, Github, Mail, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { personalInfo, stats } from '../../data/content';
-import { FiledTag } from '../editorial';
 
 /**
  * Hero — editorial subject brief. Single-column type stack:
@@ -15,8 +14,6 @@ import { FiledTag } from '../editorial';
 export function Hero() {
   return (
     <section className="relative pt-10 pb-24 sm:pt-16">
-      <FiledTag number="01" subject="Welcome — Subject Profile" />
-
       {/* Live status — one small pill, semantic green (open / available) */}
       <div className="mb-8 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-ink-2">
         <span className="relative inline-flex h-1.5 w-1.5">

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Terminal, ArrowRight } from 'lucide-react';
 import { stats } from '../../data/content';
-import { DropCapParagraph, FiledTag } from '../editorial';
+import { DropCapParagraph } from '../editorial';
 
 /**
  * About — prose left, /dfir terminal preview right.
@@ -17,7 +17,6 @@ export function About() {
       <div className="grid items-start gap-12 lg:grid-cols-[1.1fr_0.9fr]">
         {/* LEFT: prose */}
         <div>
-          <FiledTag number="02" subject="About — Subject Brief" />
           <h2 className="font-serif text-3xl font-medium leading-[1.15] tracking-[-0.01em] text-ink-1 sm:text-4xl">
             Alerts first, then everything else
           </h2>

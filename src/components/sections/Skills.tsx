@@ -1,6 +1,5 @@
 import { Mail, Search, Users, Shield, Cloud, Zap } from 'lucide-react';
 import { skills } from '../../data/content';
-import { FiledTag } from '../editorial';
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Mail,
@@ -21,7 +20,6 @@ export function Skills() {
   return (
     <section id="skills" className="scroll-mt-24 py-16 lg:py-24">
       <div className="mb-10 max-w-[65ch]">
-        <FiledTag number="06" subject="Expertise — Practice Areas" />
         <h2 className="font-serif text-3xl font-medium leading-[1.15] tracking-[-0.01em] text-ink-1 sm:text-4xl">
           Core competencies
         </h2>

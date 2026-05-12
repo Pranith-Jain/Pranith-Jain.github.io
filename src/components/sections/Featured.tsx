@@ -1,6 +1,5 @@
 import { ArrowUpRight } from 'lucide-react';
 import { featuredArticles } from '../../data/content';
-import { FiledTag } from '../editorial';
 
 /**
  * Featured — divider rows. Mono numeral + serif title + sans body.
@@ -10,7 +9,6 @@ export function Featured() {
   return (
     <section id="featured" className="scroll-mt-24 py-16 lg:py-24">
       <div className="mb-10 max-w-[65ch]">
-        <FiledTag number="05" subject="Recognition — Press Index" />
         <h2 className="font-serif text-3xl font-medium leading-[1.15] tracking-[-0.01em] text-ink-1 sm:text-4xl">
           Where the work shows up
         </h2>

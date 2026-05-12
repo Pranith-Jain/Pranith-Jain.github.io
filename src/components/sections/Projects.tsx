@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Github, ExternalLink, ChevronDown, ChevronUp, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { projects } from '../../data/content';
-import { FiledTag } from '../editorial';
 
 const TRUNCATE_THRESHOLD = 240;
 
@@ -109,7 +108,6 @@ export function Projects() {
   return (
     <section id="projects" className="scroll-mt-24 py-16 lg:py-24">
       <div className="mb-10 max-w-[65ch]">
-        <FiledTag number="04" subject="Projects — Shipped Tooling" />
         <h2 className="font-serif text-3xl font-medium leading-[1.15] tracking-[-0.01em] text-ink-1 sm:text-4xl">
           Selected projects &amp; initiatives
         </h2>
