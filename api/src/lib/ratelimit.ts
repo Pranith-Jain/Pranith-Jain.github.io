@@ -1,20 +1,75 @@
 import type { Context, Next } from 'hono';
 import type { Env } from '../env';
 
-const LIMIT = 30; // requests per minute, applied to every /api/v1/* route below
+const LIMIT = 30; // requests per minute, applied to user-input endpoints
 const WINDOW_SEC = 60;
 const TTL = 120; // KV TTL > window so the bucket survives
-// Paths exempt from the KV-backed bucket. `/feeds/proxy` was bypassed for
-// quota reasons: the ThreatIntelFeed widget batch-fetches ~38 feeds per
-// /dfir page load, which previously consumed the bulk of our daily KV writes
-// on the free tier. The SSRF allow-list in routes/feeds.ts is the actual
-// defense for the proxy; counting hits in KV gave us no real protection.
-const BYPASS_PATHS = ['/api/v1/health', '/api/v1/feeds/proxy'];
+
+/**
+ * KV write budget on the free Workers KV tier is 1,000 writes/day per
+ * namespace. Every non-bypassed request to /api/v1/* costs one write
+ * (read-modify-write of the per-IP token bucket). Without aggressive
+ * bypass, even modest portfolio traffic burns through the quota — every
+ * /threatintel page load fans out to a dozen feed endpoints and turns
+ * them all into KV writes.
+ *
+ * Strategy: only rate-limit endpoints that have an actual abuse vector
+ * (user-input lookups that fan out to expensive upstream APIs). Cached
+ * read-only feeds are bypassed; they're already protected by edge cache
+ * (CF serves the cached response without invoking the worker most of the
+ * time), and they're parameter-free so there's nothing to abuse anyway.
+ */
+
+/** Exact-match exempt paths. */
+const BYPASS_EXACT = new Set<string>([
+  '/api/v1/health',
+  // Cached read-only aggregators — all served from edge cache; even cold-
+  // cache hits do bounded upstream work and don't expose anything an
+  // abuser couldn't get from RSS directly.
+  '/api/v1/threat-pulse',
+  '/api/v1/writeups',
+  '/api/v1/cyber-crime',
+  '/api/v1/telegram-feed',
+  '/api/v1/reddit-feed',
+  '/api/v1/x-feed',
+  '/api/v1/live-iocs',
+  '/api/v1/feed-status',
+  '/api/v1/ransomware-recent',
+  '/api/v1/breach-disclosures',
+  '/api/v1/cve-recent',
+  '/api/v1/phishing-urls',
+  '/api/v1/malware-samples',
+  '/api/v1/onion-watch',
+  '/api/v1/threat-map',
+  '/api/v1/rules',
+  '/api/v1/ioc-correlation',
+  '/api/v1/ioc-correlation/stix.json',
+  '/api/v1/snapshot',
+  '/api/v1/ioc-snapshot',
+  '/api/v1/actor-timeline',
+  '/api/v1/victim-releaks',
+  '/api/v1/atlas/technique',
+  '/api/v1/mitre/technique',
+]);
+
+/** Prefix-match exempt paths. */
+const BYPASS_PREFIX = [
+  '/api/v1/feeds/', // proxy, abuse-rss, ioc-summary, aggregate — all read-only feed aggregators
+  '/api/v1/briefings/', // list/today/rss/<slug> — read-only; admin endpoints have their own token gate
+];
+
+function isBypassed(pathname: string): boolean {
+  if (BYPASS_EXACT.has(pathname)) return true;
+  for (const prefix of BYPASS_PREFIX) {
+    if (pathname.startsWith(prefix)) return true;
+  }
+  return false;
+}
 
 export async function rateLimit(c: Context<{ Bindings: Env }>, next: Next): Promise<Response | void> {
   const url = new URL(c.req.url);
   if (!url.pathname.startsWith('/api/v1/')) return next();
-  if (BYPASS_PATHS.includes(url.pathname)) return next();
+  if (isBypassed(url.pathname)) return next();
 
   const ip = c.req.header('cf-connecting-ip') ?? 'anon';
   const bucket = Math.floor(Date.now() / 1000 / WINDOW_SEC);

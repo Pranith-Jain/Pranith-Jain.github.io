@@ -63,23 +63,15 @@ export async function claimSseSlot(c: Context<{ Bindings: Env }>, ip: string): P
     /* swallow — fail open */
   }
 
-  return {
-    release: async () => {
-      if (!c.env.KV_CACHE) return;
-      try {
-        const raw = await c.env.KV_CACHE.get(key);
-        const cur = raw ? parseInt(raw, 10) : 1;
-        const next = Math.max(0, cur - 1);
-        if (next === 0) {
-          await c.env.KV_CACHE.delete(key);
-        } else {
-          await c.env.KV_CACHE.put(key, String(next), { expirationTtl: COUNTER_TTL });
-        }
-      } catch {
-        /* swallow — counter will TTL out */
-      }
-    },
-  };
+  // Release is intentionally a no-op now to halve the KV-write cost of
+  // every SSE stream (was 2 writes per stream: acquire + decrement).
+  // The COUNTER_TTL (90s) handles cleanup automatically — long enough
+  // that legitimate concurrent streams still see each other, short
+  // enough that a user who finishes a stream isn't blocked for long.
+  // Trade-off: rolling 90s window instead of true live-stream count.
+  // Acceptable: this is a soft cap; the real protection for SSE-driven
+  // upstream burn lives in each stream's own provider-fan-out budget.
+  return { release: async () => {} };
 }
 
 export const SSE_MAX_CONCURRENT = MAX_CONCURRENT;
