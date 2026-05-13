@@ -1,5 +1,8 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { fetchTelegramFeed } from './telegram-feed';
+import { fetchWriteups } from './writeups';
+import { fetchCybercrime } from './cybercrime';
 
 const CACHE_TTL = 1800;
 const FETCH_TIMEOUT_MS = 20_000;
@@ -220,20 +223,24 @@ async function fetchBlueskyPulse(out: Map<string, PulseEntity>): Promise<void> {
 }
 
 async function fetchWriteupsPulse(out: Map<string, PulseEntity>): Promise<void> {
-  const data = await fetchJson('https://pranithjain.qzz.io/api/v1/writeups');
-  if (!data) return;
-  const items = (data as { items?: Array<{ title?: string; description?: string }> }).items ?? [];
-  for (const item of items) {
-    classifyEntities(`${item.title ?? ''} ${item.description ?? ''}`, 'writeups', out);
+  try {
+    const data = await fetchWriteups();
+    for (const item of data.items) {
+      classifyEntities(`${item.title ?? ''} ${item.description ?? ''}`, 'writeups', out);
+    }
+  } catch {
+    /* upstream feed aggregator slow — degrade gracefully */
   }
 }
 
 async function fetchCybercrimePulse(out: Map<string, PulseEntity>): Promise<void> {
-  const data = await fetchJson('https://pranithjain.qzz.io/api/v1/cyber-crime');
-  if (!data) return;
-  const items = (data as { items?: Array<{ title?: string; description?: string }> }).items ?? [];
-  for (const item of items) {
-    classifyEntities(`${item.title ?? ''} ${item.description ?? ''}`, 'cybercrime', out);
+  try {
+    const data = await fetchCybercrime();
+    for (const item of data.items) {
+      classifyEntities(`${item.title ?? ''} ${item.description ?? ''}`, 'cybercrime', out);
+    }
+  } catch {
+    /* upstream feed aggregator slow — degrade gracefully */
   }
 }
 
@@ -242,20 +249,20 @@ async function fetchCybercrimePulse(out: Map<string, PulseEntity>): Promise<void
  * actors, techniques, and malware mentions per channel. Each channel is its
  * OWN surface (`tg:<handle>`) so cross-source counting treats them as
  * independent — the same way Reddit subreddits are counted independently.
+ *
+ * Calls fetchTelegramFeed() directly (not via HTTP) — worker→same-worker
+ * sub-requests don't work reliably under Cloudflare's recursion model, so
+ * we share the same in-memory function the public handler uses.
  */
 async function fetchTelegramPulse(out: Map<string, PulseEntity>): Promise<void> {
-  const data = await fetchJson('https://pranithjain.qzz.io/api/v1/telegram-feed');
-  if (!data) return;
-  const items =
-    (
-      data as {
-        items?: Array<{ channel_handle?: string; text?: string }>;
-      }
-    ).items ?? [];
-  for (const item of items) {
-    const handle = item.channel_handle ?? '';
-    if (!handle) continue;
-    classifyEntities(item.text ?? '', `tg:${handle}`, out);
+  try {
+    const data = await fetchTelegramFeed();
+    for (const item of data.items) {
+      if (!item.channel_handle) continue;
+      classifyEntities(item.text ?? '', `tg:${item.channel_handle}`, out);
+    }
+  } catch {
+    /* upstream Telegram preview slow or unreachable — degrade gracefully */
   }
 }
 
