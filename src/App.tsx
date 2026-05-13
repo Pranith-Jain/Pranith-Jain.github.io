@@ -174,65 +174,81 @@ export function AppContent() {
       <Route
         path="/about"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <About />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <About />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/skills"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <Skills />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <Skills />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/experience"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <Experience />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <Experience />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/projects"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <Projects />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <Projects />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <DFIR />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <DFIR />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/ioc-check"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <IocCheck />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <IocCheck />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/phishing"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <Phishing />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <Phishing />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/domain"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <Domain />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <Domain />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
@@ -246,9 +262,11 @@ export function AppContent() {
       <Route
         path="/dfir/exposure"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <Exposure />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <Exposure />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       {/* Hash Analyzer was merged into the IOC Checker, which already handles hashes. */}
@@ -264,137 +282,162 @@ export function AppContent() {
       <Route
         path="/threatintel/wiki"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <Wiki />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <Wiki />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/threatintel/wiki/:slug"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <WikiArticle />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <WikiArticle />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/dashboard"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <Dashboard />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <Dashboard />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/threatintel/actors"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <Actors />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <Actors />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/threatintel/actors/:slug"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <ActorDetail />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <ActorDetail />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/privacy"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <Privacy />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <Privacy />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/threatintel/briefings"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <Briefings />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <Briefings />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/threatintel/briefings/:slug"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <BriefingDetail />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <BriefingDetail />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/cve"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <Cve />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <Cve />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/decode"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <Decode />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <Decode />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/encoder"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <Encoder />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <Encoder />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/cert-search"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <CertSearch />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <CertSearch />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
-      <Route
-        path="/dfir/atlas"
-        element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <AtlasMatrix />
-          </Suspense></ErrorBoundary>
-        }
-      />
+      <Route path="/dfir/atlas" element={<Navigate to="/dfir/mitre" replace />} />
       <Route
         path="/dfir/mitre"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <MitreMatrix />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <MitreMatrix />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/asn"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <AsnLookup />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <AsnLookup />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/breach"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <Breach />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <Breach />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/exif"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <ExifParse />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <ExifParse />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
@@ -408,57 +451,71 @@ export function AppContent() {
       <Route
         path="/dfir/url-preview"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <UrlPreview />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <UrlPreview />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/extract"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <IocExtractor />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <IocExtractor />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/jwt"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <JwtInspect />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <JwtInspect />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/punycode"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <Punycode />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <Punycode />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/takeover"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <Takeover />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <Takeover />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/stix"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <StixViewer />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <StixViewer />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/threatintel/darkweb"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <DarkWeb />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <DarkWeb />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
@@ -589,185 +646,231 @@ export function AppContent() {
       <Route
         path="/threatintel/threat-map"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <ThreatMap />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <ThreatMap />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/threatintel/rules"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <Rules />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <Rules />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/owasp"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <Owasp />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <Owasp />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/prompt-injection"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <PromptInjection />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <PromptInjection />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/mcp-audit"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <McpAudit />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <McpAudit />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/kill-chain"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <KillChain />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <KillChain />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/diamond"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <Diamond />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <Diamond />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/lolbins"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <Lolbins />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <Lolbins />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/rule-playground"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <RulePlayground />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <RulePlayground />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/email-defense"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <EmailDefense />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <EmailDefense />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/nhi"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <Nhi />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <Nhi />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/powershell-deobf"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <PowershellDeobf />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <PowershellDeobf />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/agent-map"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <AgentMap />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <AgentMap />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/tabletop"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <Tabletop />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <Tabletop />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/grc"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <Grc />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <Grc />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/dlp-scan"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <DlpScan />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <DlpScan />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/data-classification"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <DataClassification />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <DataClassification />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/privacy-hub"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <PrivacyHub />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <PrivacyHub />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/username"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <UsernamePivot />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <UsernamePivot />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/wayback"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <Wayback />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <Wayback />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/ip-geo"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <IpGeo />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <IpGeo />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/log-parser"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <LogParser />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <LogParser />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/socmint"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <Socmint />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <Socmint />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
@@ -797,33 +900,41 @@ export function AppContent() {
       <Route
         path="/dfir/web-scan"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <WebScan />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <WebScan />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/malware-scan"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <MalwareScan />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <MalwareScan />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/reverse-image"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <ReverseImage />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <ReverseImage />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/dfir/eml"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <EmlExtractor />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <EmlExtractor />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
@@ -837,9 +948,11 @@ export function AppContent() {
       <Route
         path="/dfir/crypto-trace"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <CryptoTrace />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <CryptoTrace />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
@@ -923,9 +1036,11 @@ export function AppContent() {
       <Route
         path="*"
         element={
-          <ErrorBoundary><Suspense fallback={<SectionLoader />}>
-            <NotFound />
-          </Suspense></ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <NotFound />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
     </Routes>
