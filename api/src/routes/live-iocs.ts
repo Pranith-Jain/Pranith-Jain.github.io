@@ -36,7 +36,7 @@ import { trackEvent, visitorCountry } from '../lib/analytics';
  * Cached 30 min — these feeds churn faster than the correlation endpoint.
  */
 
-export const LIVE_IOCS_CACHE_KEY = 'https://live-iocs-cache.internal/v10-adaptive-ttl';
+export const LIVE_IOCS_CACHE_KEY = 'https://live-iocs-cache.internal/v11-freshness-filter';
 const CACHE_KEY = LIVE_IOCS_CACHE_KEY;
 const CACHE_TTL_SECONDS = 30 * 60;
 const FETCH_TIMEOUT_MS = 12_000;
@@ -46,6 +46,13 @@ const PER_FEED_CAP = 300;
 // untimestamped source (c2-intel, emerging-threats, otx-reputation, openphish)
 // because the 4 timestamped sources alone produced >400 items.
 const MAX_ITEMS = 3000;
+// Freshness window for items WITH per-entry timestamps. Items observed
+// before this cutoff are dropped — the page is called "live IOCs"; an
+// indicator first seen weeks ago is rarely actionable. Bulk-snapshot
+// sources (c2-intel, emerging-threats, otx-reputation) have no per-entry
+// timestamps and are not affected by this filter — they reflect the
+// upstream feed's current state by definition.
+const STALENESS_HOURS = 24 * 7;
 
 type IocKind = 'ip' | 'url' | 'domain' | 'hash';
 
@@ -353,13 +360,37 @@ export async function fetchLiveIocs(
     sources.push({ id: 'openphish', ok: false, count: 0 });
   }
 
+  // Drop stale items — observed before the freshness cutoff. Items without
+  // observed_at survive (they're bulk-snapshot feeds whose freshness is
+  // governed by the upstream publish cadence, not per-entry).
+  const staleCutoffMs = Date.now() - STALENESS_HOURS * 3600 * 1000;
+  const staleCutoffIso = new Date(staleCutoffMs).toISOString();
+  const freshItems = items.filter((it) => !it.observed_at || it.observed_at >= staleCutoffIso);
+
   // Sort newest-first; entries without observed_at land at the tail.
-  items.sort((a, b) => {
+  freshItems.sort((a, b) => {
     if (a.observed_at && b.observed_at) return b.observed_at.localeCompare(a.observed_at);
     if (a.observed_at && !b.observed_at) return -1;
     if (!a.observed_at && b.observed_at) return 1;
     return 0;
   });
+
+  // Recompute per-source counts after the freshness filter — the response
+  // should not advertise contribution counts that include dropped stale items.
+  const freshCountBySource = new Map<string, number>();
+  for (const it of freshItems) {
+    freshCountBySource.set(it.source, (freshCountBySource.get(it.source) ?? 0) + 1);
+  }
+  for (const s of sources) {
+    s.count = freshCountBySource.get(s.id) ?? 0;
+    if (s.count === 0) s.ok = false;
+  }
+
+  // Drop silent-failure sources from the response — sources that returned
+  // zero usable items are noise in the UI and look like permanent breakage
+  // when they're often a one-off upstream hiccup. They'll be re-tried on the
+  // next cache miss.
+  const activeSources = sources.filter((s) => s.count > 0);
 
   // Per-source freshness: newest per-entry observation timestamp.
   // Sources without per-entry timestamps (C2IntelFeeds, ET compromised-ips,
@@ -367,21 +398,21 @@ export async function fetchLiveIocs(
   // "no per-entry timestamp" so analysts know the data is bulk-snapshot,
   // not per-entry-dated.
   const newestBySource = new Map<string, string>();
-  for (const it of items) {
+  for (const it of freshItems) {
     if (!it.observed_at) continue;
     const cur = newestBySource.get(it.source);
     if (!cur || it.observed_at > cur) newestBySource.set(it.source, it.observed_at);
   }
-  for (const s of sources) {
+  for (const s of activeSources) {
     const newest = newestBySource.get(s.id);
     if (newest) s.newest_observation = newest;
   }
 
   return {
     generated_at: new Date().toISOString(),
-    sources,
-    total: items.length,
-    items: items.slice(0, MAX_ITEMS),
+    sources: activeSources,
+    total: freshItems.length,
+    items: freshItems.slice(0, MAX_ITEMS),
   };
 }
 

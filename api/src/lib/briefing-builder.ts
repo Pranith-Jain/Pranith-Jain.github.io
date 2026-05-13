@@ -1,7 +1,7 @@
 /**
  * Threat briefing builder.
  *
- * Aggregates CISA KEV + NVD + abuse.ch + OpenPhish over a time window, categorises
+ * Aggregates CISA KEV + NVD + abuse.ch over a time window, categorises
  * findings, and produces a structured briefing object. Stored in KV under
  *   briefing:daily:YYYY-MM-DD
  *   briefing:weekly:YYYY-Www
@@ -807,12 +807,14 @@ export async function buildBriefing(type: BriefingType, anchor: Date = new Date(
   // current-state list with no per-IP "first seen" — they inflated IOC counts on quiet
   // KEV days and made daily briefings look richer than they were. Feodo Tracker
   // (2026-05-12) was removed for the same reason: upstream publication had stopped.
-  const [kev, urlhaus, malwarebazaar, threatfox, openphish, tweetfeed, nvdRecent] = await Promise.all([
+  // OpenPhish (2026-05-13) was removed because parseOpenPhish emits no per-entry
+  // timestamps — every entry was silently dropped by matchTimestamp, so the fetch
+  // was wasted latency that never contributed to a single briefing.
+  const [kev, urlhaus, malwarebazaar, threatfox, tweetfeed, nvdRecent] = await Promise.all([
     fetchKev().catch(() => [] as KevEntry[]),
     fetchAbuseFeed('urlhaus').catch(() => [] as IocEntry[]),
     fetchAbuseFeed('malwarebazaar').catch(() => [] as IocEntry[]),
     fetchAbuseFeed('threatfox').catch(() => [] as IocEntry[]),
-    fetchAbuseFeed('openphish').catch(() => [] as IocEntry[]),
     fetchAbuseFeed('tweetfeed').catch(() => [] as IocEntry[]),
     fetchNvdRecent(rangeStart, rangeEnd).catch(() => [] as NvdCve[]),
   ]);
@@ -842,23 +844,15 @@ export async function buildBriefing(type: BriefingType, anchor: Date = new Date(
   const urlhausMatched = urlhaus.filter(matchTimestamp);
   const malwarebazaarMatched = malwarebazaar.filter(matchTimestamp);
   const threatfoxMatched = threatfox.filter(matchTimestamp);
-  const openphishMatched = openphish.filter(matchTimestamp);
   const tweetfeedMatched = tweetfeed.filter(matchTimestamp);
   if (urlhausMatched.length > 0) iocPerSource['URLhaus'] = urlhausMatched.length;
   if (malwarebazaarMatched.length > 0) iocPerSource['MalwareBazaar'] = malwarebazaarMatched.length;
   if (threatfoxMatched.length > 0) iocPerSource['ThreatFox'] = threatfoxMatched.length;
-  if (openphishMatched.length > 0) iocPerSource['OpenPhish'] = openphishMatched.length;
   if (tweetfeedMatched.length > 0) iocPerSource['TweetFeed'] = tweetfeedMatched.length;
 
   // Windowed feeds only — every entry carries a per-IOC timestamp inside the
   // briefing window. Snapshot blocklists were removed in the live-only refactor.
-  const allIocs = [
-    ...urlhausMatched,
-    ...malwarebazaarMatched,
-    ...threatfoxMatched,
-    ...openphishMatched,
-    ...tweetfeedMatched,
-  ];
+  const allIocs = [...urlhausMatched, ...malwarebazaarMatched, ...threatfoxMatched, ...tweetfeedMatched];
 
   // Pre-cap total — what's actually visible upstream in this window. The
   // served `iocs` payload below is then capped per-bucket so the briefing
@@ -874,7 +868,6 @@ export async function buildBriefing(type: BriefingType, anchor: Date = new Date(
   if (urlhausMatched.length > 0) iocSources.push('URLhaus');
   if (malwarebazaarMatched.length > 0) iocSources.push('MalwareBazaar');
   if (threatfoxMatched.length > 0) iocSources.push('ThreatFox');
-  if (openphishMatched.length > 0) iocSources.push('OpenPhish');
   if (tweetfeedMatched.length > 0) iocSources.push('TweetFeed');
 
   const sections = buildSections(findings);

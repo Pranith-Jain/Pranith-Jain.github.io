@@ -36,6 +36,7 @@ export const WRITEUP_SOURCES: WriteupSourceSpec[] = [
   { kind: 'rss', url: 'https://doublepulsar.com/feed', label: 'DoublePulsar (Kevin Beaumont)' },
   { kind: 'rss', url: 'https://krebsonsecurity.com/feed/', label: 'Krebs on Security' },
   { kind: 'rss', url: 'https://research.openanalysis.net/feed.xml', label: 'OpenAnalysis Lab' },
+  { kind: 'rss', url: 'https://opensourcemalware.com/rss.xml', label: 'OpenSourceMalware' },
 
   // ─── Vendor research labs ─────────────────────────────────────────────
   { kind: 'rss', url: 'https://www.sentinelone.com/labs/feed/', label: 'SentinelLabs' },
