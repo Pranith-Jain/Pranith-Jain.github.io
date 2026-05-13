@@ -1,3 +1,4 @@
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Activity,
@@ -23,10 +24,12 @@ import {
   Microscope,
   Newspaper,
   Radio,
+  Search,
   Send,
   ShieldAlert,
   Sparkles,
   Users,
+  X,
   type LucideIcon,
 } from 'lucide-react';
 import { LiveSnapshotPanel } from '../../components/dfir/LiveSnapshotPanel';
@@ -308,13 +311,6 @@ const SECTIONS: Section[] = [
     blurb: 'Off-site catalogues and dashboards I cross-reference.',
     tools: [
       {
-        to: 'https://aisoc.pplx.app/',
-        label: 'AI SOC',
-        desc: 'Perplexity-Labs hosted AI-assisted SOC playground · triage IOCs, summarise incidents, and reason over CTI feeds with an LLM-backed analyst loop',
-        icon: Sparkles,
-        external: true,
-      },
-      {
         to: 'https://www.mythreatintel.com/?lang=en',
         label: 'My Threat Intel',
         desc: 'Live ransomware dashboard · country / sector / timeline charts · 180+ ransomware groups with ransom-note transcripts and leak-site screenshots',
@@ -364,6 +360,13 @@ const SECTIONS: Section[] = [
         external: true,
       },
       {
+        to: 'https://aisoc.pplx.app/',
+        label: 'AI SOC',
+        desc: 'AI-assisted SOC playground by Perplexity Labs.',
+        icon: Sparkles,
+        external: true,
+      },
+      {
         to: 'https://leakradar.io/en/leaks',
         label: 'LeakRadar',
         desc: '290B+ leaked credentials indexed from stealer logs, combolists, and database dumps. REST API + Telegram/Slack/webhook alerts.',
@@ -381,8 +384,55 @@ const SECTIONS: Section[] = [
   },
 ];
 
+/** Flat tool + parent-section pair used by the search results view. */
+interface ToolMatch {
+  tool: Tool;
+  section: Section;
+}
+
+function flattenTools(sections: Section[]): ToolMatch[] {
+  return sections.flatMap((s) => s.tools.map((t) => ({ tool: t, section: s })));
+}
+
+function matchesQuery(t: ToolMatch, q: string): boolean {
+  if (!q) return true;
+  const hay = `${t.tool.label} ${t.tool.desc} ${t.section.label}`.toLowerCase();
+  return q
+    .toLowerCase()
+    .split(/\s+/)
+    .filter(Boolean)
+    .every((token) => hay.includes(token));
+}
+
 export default function ThreatIntelHome(): JSX.Element {
   const totalTiles = SECTIONS.reduce((sum, s) => sum + s.tools.length, 0);
+  const [query, setQuery] = useState('');
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const allTools = useMemo(() => flattenTools(SECTIONS), []);
+  const searchResults = useMemo(
+    () => (query.trim() ? allTools.filter((t) => matchesQuery(t, query.trim())) : []),
+    [allTools, query]
+  );
+  const isSearching = query.trim().length > 0;
+
+  // Keyboard: '/' or 'Cmd/Ctrl+K' focuses the search; 'Esc' clears.
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement | null;
+      const inField = target && /^(INPUT|TEXTAREA)$/.test(target.tagName);
+      if (e.key === 'Escape' && document.activeElement === inputRef.current) {
+        setQuery('');
+        return;
+      }
+      if (inField) return;
+      if (e.key === '/' || ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k')) {
+        e.preventDefault();
+        inputRef.current?.focus();
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, []);
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
@@ -445,40 +495,84 @@ export default function ThreatIntelHome(): JSX.Element {
         </Link>
       </div>
 
-      <section className="animate-fade-in-up">
-        <LiveSnapshotPanel compact subtitle="live intel pulse across the platform" mbClass="mb-12" />
-      </section>
-
-      {SECTIONS.map((section) => (
-        <section key={section.id} className="animate-fade-in-up mb-12">
-          <div className="mb-4">
-            <h2 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100">{section.label}</h2>
-            <p className="text-sm text-slate-600 dark:text-slate-400 font-mono mt-1">
-              {section.blurb} · {section.tools.length} {section.tools.length === 1 ? 'source' : 'sources'}
-            </p>
+      {/* Search bar — '/' or Cmd/Ctrl+K to focus, Esc to clear */}
+      <div className="relative mb-10">
+        <div className="relative">
+          <Search
+            size={14}
+            className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+            aria-hidden="true"
+          />
+          <input
+            ref={inputRef}
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search every intel surface, catalog, feed…"
+            className="w-full rounded-lg border border-slate-200 bg-white py-2.5 pl-9 pr-20 font-mono text-[13px] text-slate-900 placeholder:text-slate-400 focus:border-brand-500/60 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500"
+            aria-label="Search intel surfaces"
+          />
+          {query ? (
+            <button
+              type="button"
+              onClick={() => {
+                setQuery('');
+                inputRef.current?.focus();
+              }}
+              className="absolute right-2 top-1/2 inline-flex -translate-y-1/2 items-center gap-1 rounded px-1.5 py-0.5 text-[10px] font-mono text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-100"
+              aria-label="Clear search"
+            >
+              <X size={11} /> clear
+            </button>
+          ) : (
+            <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 hidden items-center gap-1 font-mono text-[10px] text-slate-400 sm:inline-flex">
+              <kbd className="rounded border border-slate-200 bg-slate-50 px-1 py-0.5 text-[9px] dark:border-slate-700 dark:bg-slate-800">
+                /
+              </kbd>
+              <span>or</span>
+              <kbd className="rounded border border-slate-200 bg-slate-50 px-1 py-0.5 text-[9px] dark:border-slate-700 dark:bg-slate-800">
+                ⌘K
+              </kbd>
+            </span>
+          )}
+        </div>
+        {isSearching && (
+          <div className="mt-2 font-mono text-[11px] text-slate-500">
+            {searchResults.length} {searchResults.length === 1 ? 'match' : 'matches'} for &ldquo;{query.trim()}&rdquo;
+            {searchResults.length === 0 && ' · try fewer or different keywords'}
           </div>
+        )}
+      </div>
+
+      {!isSearching && (
+        <section className="animate-fade-in-up">
+          <LiveSnapshotPanel compact subtitle="live intel pulse across the platform" mbClass="mb-12" />
+        </section>
+      )}
+
+      {isSearching ? (
+        <section className="animate-fade-in-up mb-12">
           <ul className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-            {section.tools.map((t) => {
+            {searchResults.map(({ tool: t, section }) => {
               const Icon = t.icon;
               const cardClass =
                 'block h-full rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 hover:border-brand-500/40 dark:hover:border-brand-400/40 transition-colors group';
               const inner = (
                 <>
-                  <div className="flex items-start justify-between gap-2 mb-2">
-                    <Icon size={18} className="text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
-                    <ArrowRight
-                      size={14}
-                      className="text-slate-300 dark:text-slate-700 group-hover:text-brand-500 dark:group-hover:text-brand-400 transition-colors mt-0.5 shrink-0"
-                    />
+                  <div className="mb-2 flex items-start justify-between gap-2">
+                    <Icon size={18} className="mt-0.5 shrink-0 text-brand-600 dark:text-brand-400" />
+                    <span className="mt-0.5 inline-flex items-center rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-slate-500 dark:border-slate-700 dark:bg-slate-800/50">
+                      {section.label}
+                    </span>
                   </div>
-                  <div className="flex items-baseline justify-between gap-2 mb-1">
-                    <h3 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors flex items-center gap-1">
+                  <div className="mb-1 flex items-baseline justify-between gap-2">
+                    <h3 className="flex items-center gap-1 font-display font-semibold text-base text-slate-900 transition-colors group-hover:text-brand-600 dark:text-slate-100 dark:group-hover:text-brand-400">
                       {t.label}
                       {t.external && <ExternalLink size={11} className="opacity-60" aria-hidden="true" />}
                     </h3>
                     {t.badge && (
                       <span
-                        className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border shrink-0 ${
+                        className={`shrink-0 rounded border px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider ${
                           t.badge === 'live'
                             ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
                             : 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300'
@@ -488,12 +582,12 @@ export default function ThreatIntelHome(): JSX.Element {
                       </span>
                     )}
                   </div>
-                  <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{t.desc}</p>
+                  <p className="font-mono text-[12px] leading-relaxed text-slate-600 dark:text-slate-400">{t.desc}</p>
                 </>
               );
               if (t.external) {
                 return (
-                  <li key={t.to}>
+                  <li key={`${section.id}:${t.to}`}>
                     <a href={t.to} target="_blank" rel="noopener noreferrer" className={cardClass}>
                       {inner}
                     </a>
@@ -501,7 +595,7 @@ export default function ThreatIntelHome(): JSX.Element {
                 );
               }
               return (
-                <li key={t.to}>
+                <li key={`${section.id}:${t.to}`}>
                   <Link to={t.to} className={cardClass}>
                     {inner}
                   </Link>
@@ -509,8 +603,76 @@ export default function ThreatIntelHome(): JSX.Element {
               );
             })}
           </ul>
+          {searchResults.length === 0 && (
+            <div className="rounded-lg border border-dashed border-slate-300 p-8 text-center font-mono text-[12px] text-slate-500 dark:border-slate-700">
+              No matches. Searching across {allTools.length} intel surfaces, catalogs, and feeds.
+            </div>
+          )}
         </section>
-      ))}
+      ) : (
+        SECTIONS.map((section) => (
+          <section key={section.id} className="animate-fade-in-up mb-12">
+            <div className="mb-4">
+              <h2 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100">{section.label}</h2>
+              <p className="text-sm text-slate-600 dark:text-slate-400 font-mono mt-1">
+                {section.blurb} · {section.tools.length} {section.tools.length === 1 ? 'source' : 'sources'}
+              </p>
+            </div>
+            <ul className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+              {section.tools.map((t) => {
+                const Icon = t.icon;
+                const cardClass =
+                  'block h-full rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 hover:border-brand-500/40 dark:hover:border-brand-400/40 transition-colors group';
+                const inner = (
+                  <>
+                    <div className="flex items-start justify-between gap-2 mb-2">
+                      <Icon size={18} className="text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
+                      <ArrowRight
+                        size={14}
+                        className="text-slate-300 dark:text-slate-700 group-hover:text-brand-500 dark:group-hover:text-brand-400 transition-colors mt-0.5 shrink-0"
+                      />
+                    </div>
+                    <div className="flex items-baseline justify-between gap-2 mb-1">
+                      <h3 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors flex items-center gap-1">
+                        {t.label}
+                        {t.external && <ExternalLink size={11} className="opacity-60" aria-hidden="true" />}
+                      </h3>
+                      {t.badge && (
+                        <span
+                          className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border shrink-0 ${
+                            t.badge === 'live'
+                              ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
+                              : 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300'
+                          }`}
+                        >
+                          {t.badge}
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{t.desc}</p>
+                  </>
+                );
+                if (t.external) {
+                  return (
+                    <li key={t.to}>
+                      <a href={t.to} target="_blank" rel="noopener noreferrer" className={cardClass}>
+                        {inner}
+                      </a>
+                    </li>
+                  );
+                }
+                return (
+                  <li key={t.to}>
+                    <Link to={t.to} className={cardClass}>
+                      {inner}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        ))
+      )}
     </div>
   );
 }

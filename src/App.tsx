@@ -68,6 +68,7 @@ const KillChain = lazy(() => import('./pages/dfir/KillChain'));
 const Diamond = lazy(() => import('./pages/dfir/Diamond'));
 const Lolbins = lazy(() => import('./pages/dfir/Lolbins'));
 const RulePlayground = lazy(() => import('./pages/dfir/RulePlayground'));
+const YaraManager = lazy(() => import('./pages/dfir/YaraManager'));
 const EmailDefense = lazy(() => import('./pages/dfir/EmailDefense'));
 const Nhi = lazy(() => import('./pages/dfir/Nhi'));
 const PowershellDeobf = lazy(() => import('./pages/dfir/PowershellDeobf'));
@@ -729,6 +730,16 @@ export function AppContent() {
           <ErrorBoundary>
             <Suspense fallback={<SectionLoader />}>
               <RulePlayground />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/dfir/yara"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <YaraManager />
             </Suspense>
           </ErrorBoundary>
         }

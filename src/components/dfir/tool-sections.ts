@@ -262,6 +262,12 @@ export const SECTIONS: Section[] = [
         icon: FlaskConical,
       },
       {
+        path: '/dfir/yara',
+        label: 'YARA Rule Manager',
+        desc: 'Create, edit, validate, and export YARA rules · localStorage-backed library · multi-rule .yar file builder',
+        icon: FileCheck,
+      },
+      {
         path: '/dfir/lolbins',
         label: 'LOLBins / GTFOBins',
         desc: 'Curated living-off-the-land catalog · ATT&CK-mapped · detection ideas',
