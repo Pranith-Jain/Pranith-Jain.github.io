@@ -89,6 +89,20 @@ export default function ThreatPulse(): JSX.Element {
     return counts;
   }, [data]);
 
+  // Highest threshold that still yields at least one entity under the current
+  // kind filter — used to power the "lower the threshold for me" recovery
+  // button in the empty state instead of dead-ending the analyst on a
+  // "try lowering it yourself" instruction.
+  const recovery = useMemo(() => {
+    if (!data) return null;
+    const eligible = kindFilter ? data.entities.filter((e) => e.kind === kindFilter) : data.entities;
+    if (eligible.length === 0) return null;
+    const bestThreshold = Math.max(...eligible.map((e) => e.source_count));
+    if (bestThreshold >= minSources) return null;
+    const matchCount = eligible.filter((e) => e.source_count >= bestThreshold).length;
+    return { threshold: bestThreshold, count: matchCount };
+  }, [data, kindFilter, minSources]);
+
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-8 text-ink-1">
       <Link
@@ -170,16 +184,38 @@ export default function ThreatPulse(): JSX.Element {
       )}
 
       {data && filtered.length === 0 && (
-        <div className="border border-dashed border-rule p-12 text-center">
+        <div className="border border-dashed border-rule p-10 text-center">
           <Activity size={32} className="mx-auto mb-3 text-ink-3" />
           <p className="font-mono text-sm text-ink-2">
-            No entities found at or above {minSources} source{minSources > 1 ? 's' : ''}. Try lowering the minimum
-            source threshold.
+            No entities at ≥{minSources} source{minSources > 1 ? 's' : ''}
+            {kindFilter ? ` in ${KIND_LABEL[kindFilter as keyof typeof KIND_LABEL]}` : ''}.
           </p>
           {data.entities.length > 0 && (
-            <p className="text-xs font-mono text-ink-3 mt-2">
-              {data.entities.length} total entities found across all sources.
+            <p className="text-xs font-mono text-ink-3 mt-1.5">
+              {data.entities.length} total entit{data.entities.length === 1 ? 'y' : 'ies'} across all surfaces.
             </p>
+          )}
+          {(recovery || kindFilter) && (
+            <div className="mt-5 flex flex-wrap gap-2 justify-center">
+              {recovery && (
+                <button
+                  type="button"
+                  onClick={() => setMinSources(recovery.threshold)}
+                  className="inline-flex items-center gap-1.5 border border-accent bg-accent/10 px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-accent transition-colors duration-enter hover:bg-accent hover:text-surface-page"
+                >
+                  Show {recovery.count} at ≥{recovery.threshold} source{recovery.threshold > 1 ? 's' : ''}
+                </button>
+              )}
+              {kindFilter && (
+                <button
+                  type="button"
+                  onClick={() => setKindFilter(null)}
+                  className="inline-flex items-center gap-1.5 border border-rule px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-ink-2 transition-colors duration-enter hover:border-ink-1 hover:text-ink-1"
+                >
+                  Clear {KIND_LABEL[kindFilter as keyof typeof KIND_LABEL]} filter
+                </button>
+              )}
+            </div>
           )}
         </div>
       )}
