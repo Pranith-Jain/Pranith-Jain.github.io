@@ -1,8 +1,31 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { fetchTelegramFeed } from './telegram-feed';
-import { fetchWriteups } from './writeups';
-import { fetchCybercrime } from './cybercrime';
+import { fetchTelegramFeed, TELEGRAM_FEED_CACHE_KEY } from './telegram-feed';
+import { fetchWriteups, WRITEUPS_CACHE_KEY } from './writeups';
+import { fetchCybercrime, CYBERCRIME_CACHE_KEY } from './cybercrime';
+
+/**
+ * Read a same-origin feed by checking the edge cache first, then falling
+ * back to the in-memory fetch helper. This is the cheapest way to share
+ * data between handlers — every public handler writes to that cache key
+ * after its first successful upstream fetch, so we usually hit warm cache.
+ */
+async function readCachedFeed<T>(cacheKey: string, fetcher: () => Promise<T>): Promise<T | null> {
+  try {
+    const cache = (caches as unknown as { default: Cache }).default;
+    const cached = await cache.match(new Request(cacheKey));
+    if (cached) {
+      return (await cached.json()) as T;
+    }
+  } catch {
+    /* cold cache or cache lookup failed — fall through to live fetch */
+  }
+  try {
+    return await fetcher();
+  } catch {
+    return null;
+  }
+}
 
 const CACHE_TTL = 1800;
 const FETCH_TIMEOUT_MS = 20_000;
@@ -223,24 +246,20 @@ async function fetchBlueskyPulse(out: Map<string, PulseEntity>): Promise<void> {
 }
 
 async function fetchWriteupsPulse(out: Map<string, PulseEntity>): Promise<void> {
-  try {
-    const data = await fetchWriteups();
-    for (const item of data.items) {
-      classifyEntities(`${item.title ?? ''} ${item.description ?? ''}`, 'writeups', out);
-    }
-  } catch {
-    /* upstream feed aggregator slow — degrade gracefully */
+  type WriteupItem = { title?: string; description?: string };
+  const data = await readCachedFeed<{ items: WriteupItem[] }>(WRITEUPS_CACHE_KEY, fetchWriteups);
+  if (!data) return;
+  for (const item of data.items ?? []) {
+    classifyEntities(`${item.title ?? ''} ${item.description ?? ''}`, 'writeups', out);
   }
 }
 
 async function fetchCybercrimePulse(out: Map<string, PulseEntity>): Promise<void> {
-  try {
-    const data = await fetchCybercrime();
-    for (const item of data.items) {
-      classifyEntities(`${item.title ?? ''} ${item.description ?? ''}`, 'cybercrime', out);
-    }
-  } catch {
-    /* upstream feed aggregator slow — degrade gracefully */
+  type CybercrimeItem = { title?: string; description?: string };
+  const data = await readCachedFeed<{ items: CybercrimeItem[] }>(CYBERCRIME_CACHE_KEY, fetchCybercrime);
+  if (!data) return;
+  for (const item of data.items ?? []) {
+    classifyEntities(`${item.title ?? ''} ${item.description ?? ''}`, 'cybercrime', out);
   }
 }
 
@@ -255,14 +274,12 @@ async function fetchCybercrimePulse(out: Map<string, PulseEntity>): Promise<void
  * we share the same in-memory function the public handler uses.
  */
 async function fetchTelegramPulse(out: Map<string, PulseEntity>): Promise<void> {
-  try {
-    const data = await fetchTelegramFeed();
-    for (const item of data.items) {
-      if (!item.channel_handle) continue;
-      classifyEntities(item.text ?? '', `tg:${item.channel_handle}`, out);
-    }
-  } catch {
-    /* upstream Telegram preview slow or unreachable — degrade gracefully */
+  type TgItem = { channel_handle?: string; text?: string };
+  const data = await readCachedFeed<{ items: TgItem[] }>(TELEGRAM_FEED_CACHE_KEY, fetchTelegramFeed);
+  if (!data) return;
+  for (const item of data.items ?? []) {
+    if (!item.channel_handle) continue;
+    classifyEntities(item.text ?? '', `tg:${item.channel_handle}`, out);
   }
 }
 
