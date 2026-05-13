@@ -56,7 +56,23 @@ export default function Wayback(): JSX.Element {
     try {
       // CDX returns [[header...],[row...],...] as 2D array.
       const res = await fetch(buildCdxUrl(t));
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      if (!res.ok) {
+        // Server returns structured { error, upstream_status, hint, retry_after_seconds }
+        // — surface the human-readable hint when available, else fall back to
+        // the HTTP code so the analyst at least sees what happened.
+        let detail: { error?: string; hint?: string; retry_after_seconds?: number } = {};
+        try {
+          detail = (await res.json()) as typeof detail;
+        } catch {
+          /* upstream returned non-JSON */
+        }
+        if (res.status === 429 && detail.retry_after_seconds) {
+          throw new Error(`Wayback Machine rate-limited — try again in ${detail.retry_after_seconds}s`);
+        }
+        if (detail.hint) throw new Error(detail.hint);
+        if (detail.error) throw new Error(detail.error);
+        throw new Error(`Wayback Machine unreachable (HTTP ${res.status})`);
+      }
       const data = (await res.json()) as string[][];
       if (!Array.isArray(data) || data.length === 0) {
         setSnapshots([]);
