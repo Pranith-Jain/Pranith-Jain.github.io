@@ -214,9 +214,9 @@ export const CATALOG: TelegramEntry[] = [
       'High-volume breach-repost channel — fresh database dumps, sample releases, and breach announcements aggregated from multiple sources.',
   },
   {
-    id: 'leakradario',
+    id: 'leakradar-io',
     name: 'LeakRadar',
-    handle: 'leakradario',
+    handle: 'leakradar_io',
     attribution: 'leakradar.io',
     categories: ['breach-leaks', 'stealer-logs'],
     language: 'en',

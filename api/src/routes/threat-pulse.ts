@@ -184,6 +184,16 @@ const REDDIT_SUBS = [
   'infosec',
   'cyber',
   'blackhat',
+  // Expanded 2026-05-13 — additional active cybersec subs
+  'AskNetsec',
+  'pwned',
+  'crypto',
+  'ransomware',
+  'CyberSecurityCareers',
+  'HowToHack',
+  'hacking',
+  'antivirus',
+  'privacy',
 ];
 
 async function fetchRedditPulse(out: Map<string, PulseEntity>): Promise<void> {
@@ -224,6 +234,19 @@ async function fetchBlueskyPulse(out: Map<string, PulseEntity>): Promise<void> {
     'vanhoefm.bsky.social',
     'intel.overresearched.net',
     'campuscodi.bsky.social',
+    // Expanded 2026-05-13
+    'swiftonsecurity.bsky.social',
+    'briankrebs.bsky.social',
+    'volexity.bsky.social',
+    'unit42.paloaltonetworks.com',
+    'crowdstrike.com',
+    'recordedfuture.com',
+    'securelist.com',
+    'eclypsium.com',
+    'binarly.io',
+    'jaketheripper.bsky.social',
+    'jcesar.bsky.social',
+    'binaryphoenix.bsky.social',
   ];
   const results = await Promise.allSettled(
     handles.map(async (handle) => {
@@ -239,6 +262,47 @@ async function fetchBlueskyPulse(out: Map<string, PulseEntity>): Promise<void> {
         const desc = /<description[^>]*>([\s\S]*?)<\/description>/.exec(entry[0])?.[1] ?? '';
         const blob = `${title} ${desc}`.replace(/<[^>]+>/g, '').replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1');
         classifyEntities(blob, `bsky:${handle}`, out);
+      }
+    })
+  );
+  void results;
+}
+
+/**
+ * Mastodon — infosec.exchange (the de-facto cybersec instance). Each
+ * account exposes /users/<handle>.rss with a simple Atom feed. Tagged as
+ * `mastodon:<handle>` so cross-source counting treats each researcher as
+ * an independent surface.
+ */
+async function fetchMastodonPulse(out: Map<string, PulseEntity>): Promise<void> {
+  const handles = [
+    'GossiTheDog', // Kevin Beaumont
+    'campuscodi', // Catalin Cimpanu
+    'malwaretech', // Marcus Hutchins
+    'cyb3rops', // Florian Roth
+    'mttaggart',
+    'x0rz',
+    'vxunderground',
+    'briankrebs',
+    'malwarejake', // Jake Williams
+    'jerry',
+    'da_667',
+    'hacks4pancakes', // Lesley Carhart
+  ];
+  const results = await Promise.allSettled(
+    handles.map(async (handle) => {
+      const res = await fetch(`https://infosec.exchange/users/${handle}.rss`, {
+        headers: { 'user-agent': UA, accept: 'application/rss+xml' },
+        signal: AbortSignal.timeout(10_000),
+      });
+      if (!res.ok) return;
+      const xml = await res.text();
+      const entries = [...xml.matchAll(/<item>[\s\S]*?<\/item>/g)];
+      for (const entry of entries) {
+        const title = /<title[^>]*>([\s\S]*?)<\/title>/.exec(entry[0])?.[1] ?? '';
+        const desc = /<description[^>]*>([\s\S]*?)<\/description>/.exec(entry[0])?.[1] ?? '';
+        const blob = `${title} ${desc}`.replace(/<[^>]+>/g, '').replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1');
+        classifyEntities(blob, `mastodon:${handle}`, out);
       }
     })
   );
@@ -291,6 +355,7 @@ export async function threatPulseHandler(c: Context<{ Bindings: Env }>): Promise
   await Promise.all([
     fetchRedditPulse(entityMap),
     fetchBlueskyPulse(entityMap),
+    fetchMastodonPulse(entityMap),
     fetchWriteupsPulse(entityMap),
     fetchCybercrimePulse(entityMap),
     fetchTelegramPulse(entityMap),

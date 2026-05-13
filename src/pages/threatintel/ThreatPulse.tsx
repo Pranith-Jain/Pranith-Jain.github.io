@@ -50,6 +50,7 @@ const SURFACE_LABEL: Record<string, string> = {
 function surfaceLabel(s: string): string {
   if (s.startsWith('reddit:')) return `Reddit r/${s.slice(7)}`;
   if (s.startsWith('bsky:')) return `Bluesky @${s.slice(5)}`;
+  if (s.startsWith('mastodon:')) return `Mastodon @${s.slice(9)}`;
   if (s.startsWith('tg:')) return `Telegram @${s.slice(3)}`;
   return SURFACE_LABEL[s] ?? s;
 }
@@ -132,8 +133,9 @@ export default function ThreatPulse(): JSX.Element {
         </h1>
         <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed max-w-3xl">
           Entities mentioned across multiple independent intelligence surfaces simultaneously. Higher cross-source count
-          = higher confidence that this is a real, active threat. Scans Reddit (24 subs), Bluesky (12 researchers),
-          Telegram (curated cybersec channels), CTI writeups (35+ blogs), and cybercrime news in real time.
+          = higher confidence that this is a real, active threat. Scans Reddit (23 subs), Bluesky (24 researchers),
+          Mastodon (infosec.exchange — 12 accounts), Telegram (curated cybersec channels), CTI writeups (35+ blogs), and
+          cybercrime news in real time.
         </p>
       </header>
 

@@ -146,6 +146,12 @@ const CHANNELS: ChannelSpec[] = [
   },
   // Breach / leak feeds
   { handle: 'dataleak', name: 'DataLeak', blurb: 'Data-breach repost channel', topic: 'leaks' },
+  {
+    handle: 'leakradar_io',
+    name: 'LeakRadar',
+    blurb: 'Official LeakRadar drops — fresh stealer logs, breach files, combolist availability alerts',
+    topic: 'leaks',
+  },
   // News mirrors
   { handle: 'BleepingComputer', name: 'BleepingComputer', blurb: 'Breaking incident news', topic: 'news' },
   { handle: 'TheHackerNews', name: 'The Hacker News', blurb: 'Security news headlines', topic: 'news' },

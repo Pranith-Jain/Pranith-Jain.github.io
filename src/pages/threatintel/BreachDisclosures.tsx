@@ -14,6 +14,10 @@ import { fetchAggregatedFeed, formatRelativeTime, type AggregatedFeedItem } from
 const BREACH_NEWS_FEED_IDS = [
   'databreaches',
   'databreachtoday',
+  'bleepingcomputer-breaches',
+  'hackread-breaches',
+  'securityweek-breaches',
+  'cyberscoop-breaches',
   'vpnmentor-research',
   'grcsolutions-breaches',
   'comparitech-breaches',
