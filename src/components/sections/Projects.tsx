@@ -93,7 +93,13 @@ function ProjectCard({ project }: ProjectCardProps): JSX.Element {
   );
 }
 
+const INITIAL_PROJECTS = 6;
+
 export function Projects() {
+  const [showAll, setShowAll] = useState(false);
+  const visible = showAll ? projects : projects.slice(0, INITIAL_PROJECTS);
+  const remaining = projects.length - INITIAL_PROJECTS;
+
   return (
     <section id="projects" className="mt-20 scroll-mt-24">
       <div className="mb-12 max-w-2xl">
@@ -101,15 +107,36 @@ export function Projects() {
           Projects
         </div>
         <h2 className="animate-fade-in-up text-3xl font-extrabold tracking-tight sm:text-4xl text-slate-900 dark:text-white">
-          Selected projects & initiatives
+          Selected projects &amp; initiatives
         </h2>
       </div>
 
       <div className="animate-fade-in-up grid gap-6">
-        {projects.map((project) => (
+        {visible.map((project) => (
           <ProjectCard key={project.title} project={project} />
         ))}
       </div>
+
+      {remaining > 0 && (
+        <div className="mt-8 flex justify-center">
+          <button
+            type="button"
+            onClick={() => setShowAll((v) => !v)}
+            className="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-5 py-2.5 text-sm font-semibold text-slate-700 backdrop-blur-md transition-all hover:border-brand-500/50 hover:text-brand-600 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200 dark:hover:text-brand-400"
+            aria-expanded={showAll}
+          >
+            {showAll ? (
+              <>
+                <ChevronUp size={14} aria-hidden="true" /> Show fewer
+              </>
+            ) : (
+              <>
+                <ChevronDown size={14} aria-hidden="true" /> Show all {projects.length} projects
+              </>
+            )}
+          </button>
+        </div>
+      )}
     </section>
   );
 }

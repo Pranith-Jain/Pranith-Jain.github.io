@@ -32,6 +32,7 @@ const DFIR = lazy(() => import('./pages/DFIR'));
 const IocCheck = lazy(() => import('./pages/dfir/IocCheck'));
 const Phishing = lazy(() => import('./pages/dfir/Phishing'));
 const Domain = lazy(() => import('./pages/dfir/Domain'));
+const FullSpectrum = lazy(() => import('./pages/dfir/FullSpectrum'));
 const Exposure = lazy(() => import('./pages/dfir/Exposure'));
 const Wiki = lazy(() => import('./pages/dfir/Wiki'));
 const WikiArticle = lazy(() => import('./pages/dfir/WikiArticle'));
@@ -95,6 +96,7 @@ const OnionWatch = lazy(() => import('./pages/dfir/OnionWatch'));
 const TelegramWatch = lazy(() => import('./pages/dfir/TelegramWatch'));
 const AwesomeLists = lazy(() => import('./pages/dfir/AwesomeLists'));
 const ThreatIntelHome = lazy(() => import('./pages/threatintel/Home'));
+const ThreatPulse = lazy(() => import('./pages/threatintel/ThreatPulse'));
 const CveList = lazy(() => import('./pages/threatintel/CveList'));
 const RansomwareActivityPage = lazy(() => import('./pages/threatintel/RansomwareActivity'));
 const CybersecTelegramPage = lazy(() => import('./pages/threatintel/CybersecTelegram'));
@@ -233,6 +235,14 @@ export function AppContent() {
         }
       />
       <Route
+        path="/dfir/full-spectrum"
+        element={
+          <Suspense fallback={<SectionLoader />}>
+            <FullSpectrum />
+          </Suspense>
+        }
+      />
+      <Route
         path="/dfir/exposure"
         element={
           <Suspense fallback={<SectionLoader />}>
@@ -242,6 +252,14 @@ export function AppContent() {
       />
       {/* Hash Analyzer was merged into the IOC Checker, which already handles hashes. */}
       <Route path="/dfir/file" element={<Navigate to="/dfir/ioc-check" replace />} />
+      <Route
+        path="/threatintel/pulse"
+        element={
+          <Suspense fallback={<SectionLoader />}>
+            <ThreatPulse />
+          </Suspense>
+        }
+      />
       <Route
         path="/threatintel/wiki"
         element={

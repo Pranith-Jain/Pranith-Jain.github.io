@@ -1,4 +1,8 @@
+import { useState } from 'react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { certifications } from '../../data/content';
+
+const INITIAL_PER_CATEGORY = 6;
 
 interface CertCardProps {
   title: string;
@@ -39,13 +43,19 @@ interface CertCategoryProps {
 }
 
 function CertCategory({ id, title, certs }: CertCategoryProps) {
+  const [showAll, setShowAll] = useState(false);
   if (certs.length === 0) return null;
+  const visible = showAll ? certs : certs.slice(0, INITIAL_PER_CATEGORY);
+  const remaining = certs.length - INITIAL_PER_CATEGORY;
 
   return (
     <div id={id} className="scroll-mt-28">
-      <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4">{title}</h3>
+      <div className="flex items-baseline justify-between mb-4">
+        <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">{title}</h3>
+        <span className="text-[11px] font-mono text-slate-500">{certs.length}</span>
+      </div>
       <div className="animate-fade-in-up grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {certs.map((cert, index) => (
+        {visible.map((cert, index) => (
           <div className="animate-fade-in-up" key={`${cert.title}-${index}`}>
             <CertCard
               title={cert.title}
@@ -57,6 +67,26 @@ function CertCategory({ id, title, certs }: CertCategoryProps) {
           </div>
         ))}
       </div>
+      {remaining > 0 && (
+        <div className="mt-4 flex">
+          <button
+            type="button"
+            onClick={() => setShowAll((v) => !v)}
+            className="inline-flex items-center gap-1.5 rounded-full border border-slate-200/70 bg-white/70 px-4 py-1.5 text-xs font-semibold text-slate-700 backdrop-blur-md transition-all hover:border-brand-500/50 hover:text-brand-600 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200 dark:hover:text-brand-400"
+            aria-expanded={showAll}
+          >
+            {showAll ? (
+              <>
+                <ChevronUp size={12} aria-hidden="true" /> Show fewer
+              </>
+            ) : (
+              <>
+                <ChevronDown size={12} aria-hidden="true" /> Read more ({remaining} more)
+              </>
+            )}
+          </button>
+        </div>
+      )}
     </div>
   );
 }

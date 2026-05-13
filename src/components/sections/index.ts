@@ -8,3 +8,4 @@ export { Projects } from './Projects';
 export { Featured } from './Featured';
 export { Memberships } from './Memberships';
 export { Contact } from './Contact';
+export { Solutions } from './Solutions';

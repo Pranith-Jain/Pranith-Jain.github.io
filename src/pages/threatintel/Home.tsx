@@ -84,6 +84,13 @@ const SECTIONS: Section[] = [
         badge: 'live',
       },
       {
+        to: '/threatintel/pulse',
+        label: 'Threat Pulse',
+        desc: 'Real-time aggregator of fresh threat entities — actors, malware families, CVEs, IOCs — ranked by cross-source activity over the last 24h',
+        icon: Activity,
+        badge: 'live',
+      },
+      {
         to: '/threatintel/cybersec',
         label: 'Cybersec Telegram firehose',
         desc: 'Message stream from curated public cybersec Telegram channels. IOC drops, vendor advisories, leak announcements, with per-channel quality scores so the loud channels stop drowning the signal.',

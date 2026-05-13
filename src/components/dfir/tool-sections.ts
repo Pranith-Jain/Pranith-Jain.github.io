@@ -111,6 +111,12 @@ export const SECTIONS: Section[] = [
     blurb: 'Where does this thing live, what does it expose, who owns it.',
     tools: [
       { path: '/dfir/domain', label: 'Domain Lookup', desc: 'WHOIS · DNS · email auth · CT logs', icon: Globe },
+      {
+        path: '/dfir/full-spectrum',
+        label: 'Full Spectrum Domain',
+        desc: 'One-shot orchestrator — runs WHOIS, DNS, ASN, breach check, exposure, certs, takeover, web scan, IP geo on a single domain and stitches the results',
+        icon: Radar,
+      },
       { path: '/dfir/asn', label: 'ASN Lookup', desc: 'BGP · prefixes · abuse contacts', icon: Network },
       { path: '/dfir/exposure', label: 'Exposure Scanner', desc: 'Subdomains + open ports', icon: Radar },
       {
