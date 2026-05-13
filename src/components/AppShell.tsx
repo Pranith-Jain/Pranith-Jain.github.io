@@ -32,6 +32,10 @@ const DFIR_NAV: NavItem[] = [
   { label: 'URL Preview', to: '/dfir/url-preview' },
   { label: 'Domain', to: '/dfir/domain' },
   { label: 'CVE', to: '/dfir/cve' },
+  { label: 'Extract', to: '/dfir/extract' },
+  { label: 'Breach', to: '/dfir/breach' },
+  { label: 'Decode', to: '/dfir/decode' },
+  { label: 'WebScan', to: '/dfir/web-scan' },
   { label: 'Diamond', to: '/dfir/diamond' },
 ];
 
