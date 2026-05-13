@@ -169,11 +169,12 @@ async function fetchJson(url: string): Promise<unknown | null> {
   }
 }
 
+// 16 subs total — kept under the parallel-fetch budget that the
+// Cloudflare worker has across all surface fetchers (~50 subrequests/req).
 const REDDIT_SUBS = [
   'netsec',
   'cybersecurity',
   'blueteamsec',
-  'redteamsec',
   'malware',
   'reverseengineering',
   'computerforensics',
@@ -181,19 +182,12 @@ const REDDIT_SUBS = [
   'threatintel',
   'security',
   'bugbounty',
-  'infosec',
-  'cyber',
-  'blackhat',
-  // Expanded 2026-05-13 — additional active cybersec subs
   'AskNetsec',
-  'pwned',
-  'crypto',
   'ransomware',
-  'CyberSecurityCareers',
-  'HowToHack',
   'hacking',
   'antivirus',
   'privacy',
+  'infosec',
 ];
 
 async function fetchRedditPulse(out: Map<string, PulseEntity>): Promise<void> {
@@ -221,6 +215,9 @@ async function fetchRedditPulse(out: Map<string, PulseEntity>): Promise<void> {
 }
 
 async function fetchBlueskyPulse(out: Map<string, PulseEntity>): Promise<void> {
+  // 16 handles — capped so total fanout (Reddit 16 + Bsky 16 + Mastodon 8
+  // + 3 internal cache reads = 43) fits under Cloudflare's 50-subrequest
+  // ceiling. Verified handles only.
   const handles = [
     'malwaretech.com',
     'thedfirreport.bsky.social',
@@ -228,25 +225,16 @@ async function fetchBlueskyPulse(out: Map<string, PulseEntity>): Promise<void> {
     'mandiant.com',
     'huntress.com',
     'sentinelone.com',
-    'cti.fyi',
-    'cyberalliance.bsky.social',
-    'bushidotoken.net',
-    'vanhoefm.bsky.social',
-    'intel.overresearched.net',
     'campuscodi.bsky.social',
-    // Expanded 2026-05-13
-    'swiftonsecurity.bsky.social',
     'briankrebs.bsky.social',
+    'swiftonsecurity.bsky.social',
     'volexity.bsky.social',
     'unit42.paloaltonetworks.com',
     'crowdstrike.com',
     'recordedfuture.com',
-    'securelist.com',
-    'eclypsium.com',
-    'binarly.io',
-    'jaketheripper.bsky.social',
-    'jcesar.bsky.social',
-    'binaryphoenix.bsky.social',
+    'cti.fyi',
+    'bushidotoken.net',
+    'cyberalliance.bsky.social',
   ];
   const results = await Promise.allSettled(
     handles.map(async (handle) => {
@@ -275,6 +263,8 @@ async function fetchBlueskyPulse(out: Map<string, PulseEntity>): Promise<void> {
  * an independent surface.
  */
 async function fetchMastodonPulse(out: Map<string, PulseEntity>): Promise<void> {
+  // 8 handles — capped for subrequest budget. Names verified against
+  // x-feed.ts's curated FEEDS list (those handles are liveness-tested).
   const handles = [
     'GossiTheDog', // Kevin Beaumont
     'campuscodi', // Catalin Cimpanu
@@ -284,10 +274,6 @@ async function fetchMastodonPulse(out: Map<string, PulseEntity>): Promise<void> 
     'x0rz',
     'vxunderground',
     'briankrebs',
-    'malwarejake', // Jake Williams
-    'jerry',
-    'da_667',
-    'hacks4pancakes', // Lesley Carhart
   ];
   const results = await Promise.allSettled(
     handles.map(async (handle) => {
