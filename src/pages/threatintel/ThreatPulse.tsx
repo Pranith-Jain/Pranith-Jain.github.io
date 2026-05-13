@@ -28,11 +28,18 @@ const KIND_LABEL = {
   malware: 'Malware',
 } as const;
 
+/**
+ * Per-kind pill colour. Sourced from Tailwind defaults so dark mode works
+ * without any custom token mapping — every class lists an explicit
+ * `dark:` variant.
+ */
 const KIND_COLOR = {
-  cve: 'border-warn/30 bg-warn/10 text-warn',
-  actor: 'border-threat/30 bg-threat/10 text-threat',
-  technique: 'border-accent/30 bg-accent/10 text-accent',
-  malware: 'border-safe/30 bg-safe/10 text-safe',
+  cve: 'border-amber-300 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-400',
+  actor: 'border-rose-300 dark:border-rose-800 bg-rose-50 dark:bg-rose-950/30 text-rose-700 dark:text-rose-400',
+  technique:
+    'border-brand-300 dark:border-brand-700 bg-brand-50 dark:bg-brand-950/30 text-brand-700 dark:text-brand-400',
+  malware:
+    'border-emerald-300 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-400',
 } as const;
 
 const SURFACE_LABEL: Record<string, string> = {
@@ -43,6 +50,7 @@ const SURFACE_LABEL: Record<string, string> = {
 function surfaceLabel(s: string): string {
   if (s.startsWith('reddit:')) return `Reddit r/${s.slice(7)}`;
   if (s.startsWith('bsky:')) return `Bluesky @${s.slice(5)}`;
+  if (s.startsWith('tg:')) return `Telegram @${s.slice(3)}`;
   return SURFACE_LABEL[s] ?? s;
 }
 
@@ -104,24 +112,28 @@ export default function ThreatPulse(): JSX.Element {
   }, [data, kindFilter, minSources]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-8 text-ink-1">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-8 text-slate-900 dark:text-slate-100">
       <Link
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-ink-2 hover:text-accent mb-6 font-mono transition-colors"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono transition-colors"
       >
         <ArrowLeft size={14} /> /threatintel
       </Link>
 
       <header className="mb-8">
         <div className="flex items-center gap-3 mb-3">
-          <Activity size={24} className="text-accent" />
-          <span className="text-xs font-bold uppercase tracking-[0.2em] text-accent">Threat Pulse</span>
+          <Activity size={24} className="text-brand-600 dark:text-brand-400" />
+          <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
+            Threat Pulse
+          </span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-serif font-bold leading-tight mb-2">Cross-source threat pulse</h1>
-        <p className="text-sm text-ink-2 leading-relaxed max-w-3xl">
+        <h1 className="text-3xl sm:text-4xl font-display font-bold leading-tight mb-2 text-slate-900 dark:text-white">
+          Cross-source threat pulse
+        </h1>
+        <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed max-w-3xl">
           Entities mentioned across multiple independent intelligence surfaces simultaneously. Higher cross-source count
-          = higher confidence that this is a real, active threat. Scans Reddit (24 subs), Bluesky (12 researchers), CTI
-          writeups (35+ blogs), and cybercrime news in real time.
+          = higher confidence that this is a real, active threat. Scans Reddit (24 subs), Bluesky (12 researchers),
+          Telegram (curated cybersec channels), CTI writeups (35+ blogs), and cybercrime news in real time.
         </p>
       </header>
 
@@ -141,8 +153,8 @@ export default function ThreatPulse(): JSX.Element {
               onClick={() => setKindFilter(f.id)}
               className={`px-3 py-1 text-xs font-mono uppercase tracking-wider border transition-colors ${
                 kindFilter === f.id
-                  ? 'bg-accent-soft text-accent border-rule'
-                  : 'bg-surface-page text-ink-2 border-rule hover:border-ink-1'
+                  ? 'bg-brand-50 dark:bg-brand-950/30 text-brand-700 dark:text-brand-300 border-brand-300 dark:border-brand-700'
+                  : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-800 hover:border-brand-500/40'
               }`}
             >
               {f.label}
@@ -152,14 +164,17 @@ export default function ThreatPulse(): JSX.Element {
         </div>
 
         <div className="flex items-center gap-2 ml-auto">
-          <label htmlFor="pulse-min-sources" className="text-[10px] font-mono uppercase tracking-wider text-ink-3">
+          <label
+            htmlFor="pulse-min-sources"
+            className="text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-500"
+          >
             Min. sources
           </label>
           <select
             id="pulse-min-sources"
             value={minSources}
             onChange={(e) => setMinSources(Number(e.target.value))}
-            className="border border-rule bg-surface-page px-2 py-1 text-xs font-mono text-ink-1 focus:outline-none"
+            className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-2 py-1 text-xs font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500/60"
           >
             {[1, 2, 3, 4].map((n) => (
               <option key={n} value={n}>
@@ -171,27 +186,27 @@ export default function ThreatPulse(): JSX.Element {
       </div>
 
       {loading && (
-        <div className="flex items-center gap-2 py-12 justify-center text-ink-2">
-          <div className="animate-spin w-5 h-5 border-2 border-accent border-t-transparent rounded-full" />
+        <div className="flex items-center gap-2 py-12 justify-center text-slate-600 dark:text-slate-400">
+          <div className="animate-spin w-5 h-5 border-2 border-brand-500 border-t-transparent rounded-full" />
           <span className="font-mono text-sm">Pulsing threat surfaces…</span>
         </div>
       )}
 
       {error && (
-        <div className="border border-rose-300 dark:border-rose-900 bg-rose-50 dark:bg-rose-950/20 p-6 text-center">
+        <div className="border border-rose-300 dark:border-rose-800 bg-rose-50 dark:bg-rose-950/20 p-6 text-center rounded-lg">
           <p className="font-mono text-sm text-rose-600 dark:text-rose-400">error: {error}</p>
         </div>
       )}
 
       {data && filtered.length === 0 && (
-        <div className="border border-dashed border-rule p-10 text-center">
-          <Activity size={32} className="mx-auto mb-3 text-ink-3" />
-          <p className="font-mono text-sm text-ink-2">
+        <div className="border border-dashed border-slate-300 dark:border-slate-700 p-10 text-center rounded-lg">
+          <Activity size={32} className="mx-auto mb-3 text-slate-400 dark:text-slate-600" />
+          <p className="font-mono text-sm text-slate-600 dark:text-slate-400">
             No entities at ≥{minSources} source{minSources > 1 ? 's' : ''}
             {kindFilter ? ` in ${KIND_LABEL[kindFilter as keyof typeof KIND_LABEL]}` : ''}.
           </p>
           {data.entities.length > 0 && (
-            <p className="text-xs font-mono text-ink-3 mt-1.5">
+            <p className="text-xs font-mono text-slate-500 dark:text-slate-500 mt-1.5">
               {data.entities.length} total entit{data.entities.length === 1 ? 'y' : 'ies'} across all surfaces.
             </p>
           )}
@@ -201,7 +216,7 @@ export default function ThreatPulse(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setMinSources(recovery.threshold)}
-                  className="inline-flex items-center gap-1.5 border border-accent bg-accent/10 px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-accent transition-colors duration-enter hover:bg-accent hover:text-surface-page"
+                  className="inline-flex items-center gap-1.5 border border-brand-500 bg-brand-500/10 px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-brand-700 dark:text-brand-400 transition-colors hover:bg-brand-500 hover:text-white rounded"
                 >
                   Show {recovery.count} at ≥{recovery.threshold} source{recovery.threshold > 1 ? 's' : ''}
                 </button>
@@ -210,7 +225,7 @@ export default function ThreatPulse(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setKindFilter(null)}
-                  className="inline-flex items-center gap-1.5 border border-rule px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-ink-2 transition-colors duration-enter hover:border-ink-1 hover:text-ink-1"
+                  className="inline-flex items-center gap-1.5 border border-slate-200 dark:border-slate-800 px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-slate-600 dark:text-slate-400 transition-colors hover:border-slate-400 hover:text-slate-900 dark:hover:text-slate-100 rounded"
                 >
                   Clear {KIND_LABEL[kindFilter as keyof typeof KIND_LABEL]} filter
                 </button>
@@ -227,14 +242,16 @@ export default function ThreatPulse(): JSX.Element {
             return (
               <div
                 key={`${entity.kind}:${entity.label}`}
-                className="border border-rule bg-surface-page p-4 hover:border-ink-2 transition-colors"
+                className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 hover:border-brand-500/40 dark:hover:border-brand-400/40 transition-colors rounded-lg"
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-center gap-3 min-w-0 flex-1">
-                    <Icon size={18} className="shrink-0 text-accent" />
+                    <Icon size={18} className="shrink-0 text-brand-600 dark:text-brand-400" />
                     <div className="min-w-0 flex-1">
                       <div className="flex items-baseline gap-2 flex-wrap">
-                        <span className="font-serif font-semibold text-base">{entity.label}</span>
+                        <span className="font-display font-semibold text-base text-slate-900 dark:text-slate-100">
+                          {entity.label}
+                        </span>
                         <span
                           className={`text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${KIND_COLOR[entity.kind]}`}
                         >
@@ -245,7 +262,7 @@ export default function ThreatPulse(): JSX.Element {
                         {entity.sources.map((s) => (
                           <span
                             key={s}
-                            className="text-[9px] font-mono px-1.5 py-0.5 rounded border border-rule bg-surface-raised text-ink-2"
+                            className="text-[9px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-400"
                           >
                             {surfaceLabel(s)}
                           </span>
@@ -259,7 +276,7 @@ export default function ThreatPulse(): JSX.Element {
                         ? 'bg-rose-500/15 text-rose-700 dark:text-rose-400'
                         : entity.source_count === 2
                           ? 'bg-amber-500/15 text-amber-700 dark:text-amber-400'
-                          : 'bg-accent-soft text-accent'
+                          : 'bg-brand-500/10 text-brand-700 dark:text-brand-400'
                     }`}
                   >
                     <span className="text-lg font-bold">{entity.source_count}</span>
@@ -273,7 +290,7 @@ export default function ThreatPulse(): JSX.Element {
       )}
 
       {data && (
-        <p className="mt-6 text-[11px] font-mono text-ink-3 text-center">
+        <p className="mt-6 text-[11px] font-mono text-slate-500 dark:text-slate-500 text-center">
           Generated {new Date(data.generated_at).toUTCString()} · {data.entities.length} total entities
         </p>
       )}

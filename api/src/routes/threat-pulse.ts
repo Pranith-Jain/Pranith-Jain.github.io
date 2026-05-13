@@ -237,6 +237,28 @@ async function fetchCybercrimePulse(out: Map<string, PulseEntity>): Promise<void
   }
 }
 
+/**
+ * Pulls the curated cybersec Telegram channel firehose and extracts CVEs,
+ * actors, techniques, and malware mentions per channel. Each channel is its
+ * OWN surface (`tg:<handle>`) so cross-source counting treats them as
+ * independent — the same way Reddit subreddits are counted independently.
+ */
+async function fetchTelegramPulse(out: Map<string, PulseEntity>): Promise<void> {
+  const data = await fetchJson('https://pranithjain.qzz.io/api/v1/telegram-feed');
+  if (!data) return;
+  const items =
+    (
+      data as {
+        items?: Array<{ channel_handle?: string; text?: string }>;
+      }
+    ).items ?? [];
+  for (const item of items) {
+    const handle = item.channel_handle ?? '';
+    if (!handle) continue;
+    classifyEntities(item.text ?? '', `tg:${handle}`, out);
+  }
+}
+
 // ─── Handler ─────────────────────────────────────────────────────────────────
 
 export async function threatPulseHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
@@ -247,6 +269,7 @@ export async function threatPulseHandler(c: Context<{ Bindings: Env }>): Promise
     fetchBlueskyPulse(entityMap),
     fetchWriteupsPulse(entityMap),
     fetchCybercrimePulse(entityMap),
+    fetchTelegramPulse(entityMap),
   ]);
 
   const entities = [...entityMap.values()].sort(
