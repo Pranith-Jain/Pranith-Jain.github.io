@@ -308,6 +308,13 @@ const SECTIONS: Section[] = [
     blurb: 'Off-site catalogues and dashboards I cross-reference.',
     tools: [
       {
+        to: 'https://aisoc.pplx.app/',
+        label: 'AI SOC',
+        desc: 'Perplexity-Labs hosted AI-assisted SOC playground · triage IOCs, summarise incidents, and reason over CTI feeds with an LLM-backed analyst loop',
+        icon: Sparkles,
+        external: true,
+      },
+      {
         to: 'https://www.mythreatintel.com/?lang=en',
         label: 'My Threat Intel',
         desc: 'Live ransomware dashboard · country / sector / timeline charts · 180+ ransomware groups with ransom-note transcripts and leak-site screenshots',
