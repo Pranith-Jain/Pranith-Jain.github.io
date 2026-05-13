@@ -81,7 +81,7 @@ const SEVERITY_COLORS: Record<string, string> = {
   high: 'text-orange-600 dark:text-orange-400',
   medium: 'text-amber-600 dark:text-amber-400',
   low: 'text-sky-600 dark:text-sky-400',
-  info: 'text-ink-3',
+  info: 'text-slate-500 dark:text-slate-500',
 };
 
 const TOOL_CONFIG: Array<{ key: ToolKey; label: string; icon: typeof Shield; buildUrl: (d: string) => string }> = [
@@ -173,13 +173,16 @@ function ResultCard({ tool, state }: { tool: (typeof TOOL_CONFIG)[number]; state
       case 'domain_lookup': {
         const dmarc = (data.email_auth as { dmarc?: { policy: string } } | undefined)?.dmarc?.policy;
         return (
-          <div className="text-[11px] font-mono text-ink-2 space-y-0.5 mt-1">
+          <div className="text-[11px] font-mono text-slate-600 dark:text-slate-400 space-y-0.5 mt-1">
             <span>
-              SPF: <span className="text-ink-1">{(data as Record<string, unknown>).spf_present ? '✅' : '❌'}</span>
+              SPF:{' '}
+              <span className="text-slate-900 dark:text-slate-100">
+                {(data as Record<string, unknown>).spf_present ? '✅' : '❌'}
+              </span>
             </span>
             <br />
             <span>
-              DMARC: <span className="text-ink-1">{dmarc ? dmarc.toUpperCase() : '❌'}</span>
+              DMARC: <span className="text-slate-900 dark:text-slate-100">{dmarc ? dmarc.toUpperCase() : '❌'}</span>
             </span>
           </div>
         );
@@ -187,7 +190,7 @@ function ResultCard({ tool, state }: { tool: (typeof TOOL_CONFIG)[number]; state
       case 'exposure': {
         const s = (data.subdomains as number) ?? 0;
         return (
-          <p className="text-[11px] font-mono text-ink-2 mt-1">
+          <p className="text-[11px] font-mono text-slate-600 dark:text-slate-400 mt-1">
             {s} subdomain{s !== 1 ? 's' : ''} discovered
           </p>
         );
@@ -200,7 +203,7 @@ function ResultCard({ tool, state }: { tool: (typeof TOOL_CONFIG)[number]; state
           <ul className="text-[11px] font-mono mt-1 space-y-0.5">
             {issues.slice(0, 3).map((i, idx) => (
               <li key={idx} className="truncate">
-                <span className={SEVERITY_COLORS[i.severity] ?? 'text-ink-2'}>●</span> {i.label}
+                <span className={SEVERITY_COLORS[i.severity] ?? 'text-slate-600 dark:text-slate-400'}>●</span> {i.label}
               </li>
             ))}
           </ul>
@@ -223,10 +226,10 @@ function ResultCard({ tool, state }: { tool: (typeof TOOL_CONFIG)[number]; state
         const names = data.names as string[] | undefined;
         const c = data.count as number | undefined;
         return (
-          <div className="text-[11px] font-mono text-ink-2 mt-1">
+          <div className="text-[11px] font-mono text-slate-600 dark:text-slate-400 mt-1">
             <span>{c ?? names?.length ?? 0} certificates</span>
             {names && names.length > 0 && (
-              <p className="truncate text-ink-3">
+              <p className="truncate text-slate-500 dark:text-slate-500">
                 {names.slice(0, 3).join(', ')}
                 {names.length > 3 ? '…' : ''}
               </p>
@@ -254,29 +257,33 @@ function ResultCard({ tool, state }: { tool: (typeof TOOL_CONFIG)[number]; state
     }
   })();
 
-  const borderCls = state.error ? 'border-rose-500/50' : state.data ? 'border-rule' : 'border-rule/50';
+  const borderCls = state.error
+    ? 'border-rose-500/50'
+    : state.data
+      ? 'border-slate-200 dark:border-slate-800'
+      : 'border-slate-200 dark:border-slate-800/50';
 
   return (
-    <div className={`border ${borderCls} bg-surface-page p-4 flex flex-col gap-2`}>
+    <div className={`border ${borderCls} bg-white dark:bg-slate-900 p-4 flex flex-col gap-2`}>
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2 min-w-0">
-          <Icon size={14} className="text-accent shrink-0" />
-          <h3 className="text-[11px] font-bold uppercase tracking-[0.15em] text-ink-1 font-mono truncate">
+          <Icon size={14} className="text-brand-600 dark:text-brand-400 shrink-0" />
+          <h3 className="text-[11px] font-bold uppercase tracking-[0.15em] text-slate-900 dark:text-slate-100 font-mono truncate">
             {tool.label}
           </h3>
         </div>
-        {state.loading && <Loader2 size={12} className="animate-spin text-ink-3 shrink-0" />}
+        {state.loading && <Loader2 size={12} className="animate-spin text-slate-500 dark:text-slate-500 shrink-0" />}
         {!state.loading && !!state.data && !state.error && (
           <Link
             to={`/dfir/${tool.key === 'domain_lookup' ? 'domain' : tool.key === 'web_scan' ? 'web-scan' : tool.key === 'cert_search' ? 'cert-search' : tool.key === 'breach' ? 'breach' : tool.key}`}
-            className="text-[10px] text-accent hover:underline shrink-0 inline-flex items-center gap-0.5"
+            className="text-[10px] text-brand-600 dark:text-brand-400 hover:underline shrink-0 inline-flex items-center gap-0.5"
           >
             full <ExternalLink size={9} />
           </Link>
         )}
       </div>
       <p
-        className={`text-[13px] font-mono font-semibold ${state.error ? 'text-rose-600' : state.data ? 'text-ink-1' : 'text-ink-3'}`}
+        className={`text-[13px] font-mono font-semibold ${state.error ? 'text-rose-600' : state.data ? 'text-slate-900 dark:text-slate-100' : 'text-slate-500 dark:text-slate-500'}`}
       >
         {summary}
       </p>
@@ -320,16 +327,19 @@ export default function FullSpectrum(): JSX.Element {
   const hasResults = TOOL_CONFIG.some((t) => state[t.key].data || state[t.key].error);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-ink-1">
-      <Link to="/dfir" className="inline-flex items-center gap-2 text-sm text-ink-2 hover:text-accent mb-8 font-mono">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+      <Link
+        to="/dfir"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+      >
         <ArrowLeft size={14} /> /dfir
       </Link>
 
       <div>
-        <h1 className="text-4xl font-serif font-bold mb-2 inline-flex items-center gap-3">
-          <Shield size={28} className="text-accent" /> Full Spectrum Investigation
+        <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
+          <Shield size={28} className="text-brand-600 dark:text-brand-400" /> Full Spectrum Investigation
         </h1>
-        <p className="text-ink-2 mb-8 max-w-3xl">
+        <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-3xl">
           Fire six parallel domain-intelligence tools from one input — domain lookup, exposure scan, web vulnerability
           scan, takeover check, certificate search, and breach database check.
         </p>
@@ -342,12 +352,12 @@ export default function FullSpectrum(): JSX.Element {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="example.com"
-            className="flex-1 px-4 py-3 bg-surface-page border border-rule font-mono text-ink-1 placeholder:text-ink-3 focus:outline-none"
+            className="flex-1 px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:text-slate-500 focus:outline-none"
           />
           <button
             type="submit"
             disabled={!valid || TOOL_CONFIG.some((t) => state[t.key].loading)}
-            className="px-5 py-3 bg-accent text-white font-mono font-semibold disabled:opacity-30 hover:bg-brand-700 inline-flex items-center gap-2"
+            className="px-5 py-3 bg-brand-500 text-white font-mono font-semibold disabled:opacity-30 hover:bg-brand-700 inline-flex items-center gap-2"
           >
             {TOOL_CONFIG.some((t) => state[t.key].loading) ? (
               <Loader2 size={16} className="animate-spin" />
@@ -363,9 +373,9 @@ export default function FullSpectrum(): JSX.Element {
       </form>
 
       {hasResults && (
-        <section className="border border-rule bg-surface-page p-4 mb-6">
+        <section className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
           <div className="flex items-baseline justify-between gap-2">
-            <h2 className="font-serif font-bold text-xl truncate">{state.domain}</h2>
+            <h2 className="font-display font-bold text-xl truncate">{state.domain}</h2>
             <div className="flex items-center gap-2 shrink-0">
               {TOOL_CONFIG.map((t) => {
                 const s = state[t.key];

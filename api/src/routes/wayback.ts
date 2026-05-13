@@ -90,16 +90,24 @@ export async function waybackCdxHandler(c: Context<{ Bindings: Env }>): Promise<
         break;
       }
       if (res.status === 429) {
+        // Internet Archive rate-limits aggressively. Cache the 429 in the
+        // edge so subsequent users in the throttle window get an immediate
+        // structured response instead of hammering the upstream and getting
+        // their own 429. Cache window = max(retry-after, 60s).
         const retryAfter = res.headers.get('retry-after') ?? '60';
-        return c.json(
-          {
-            error: 'wayback rate-limited upstream',
-            upstream_status: 429,
-            retry_after_seconds: parseInt(retryAfter, 10) || 60,
-          },
-          429,
-          { 'Retry-After': retryAfter }
-        );
+        const retrySec = Math.max(parseInt(retryAfter, 10) || 60, 60);
+        const body = {
+          error: 'wayback rate-limited upstream',
+          upstream_status: 429,
+          retry_after_seconds: retrySec,
+          hint: `Internet Archive is rate-limiting this client. Try again in ${retrySec}s — the result will be cached at the edge so retries elsewhere on the site share the cooldown.`,
+        };
+        const resp = c.json(body, 429, {
+          'Retry-After': String(retrySec),
+          'Cache-Control': `public, max-age=${retrySec}`,
+        });
+        c.executionCtx.waitUntil(cache.put(cacheKey, resp.clone()));
+        return resp;
       }
       lastError = { status: res.status };
       if (!transientStatus(res.status)) break; // 4xx other than 429 — don't bother retrying.

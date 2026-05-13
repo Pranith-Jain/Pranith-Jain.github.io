@@ -105,20 +105,25 @@ export default function YaraManager(): JSX.Element {
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6">
-      <Link to="/dfir" className="inline-flex items-center gap-2 text-sm text-ink-2 hover:text-accent mb-6 font-mono">
+      <Link
+        to="/dfir"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-6 font-mono"
+      >
         <ArrowLeft size={14} /> /dfir
       </Link>
 
       <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
         <div>
-          <h1 className="font-mono text-xl font-semibold text-ink-1 uppercase tracking-[-0.02em]">YARA Rule Manager</h1>
-          <p className="mt-1 text-sm text-ink-2">{rules.length} rules stored locally</p>
+          <h1 className="font-mono text-xl font-semibold text-slate-900 dark:text-slate-100 uppercase tracking-[-0.02em]">
+            YARA Rule Manager
+          </h1>
+          <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">{rules.length} rules stored locally</p>
         </div>
         <div className="flex items-center gap-2">
           <button
             type="button"
             onClick={createRule}
-            className="inline-flex items-center gap-1.5 bg-accent px-3 py-1.5 font-mono text-xs font-medium text-surface-page transition-colors duration-enter hover:brightness-110"
+            className="inline-flex items-center gap-1.5 bg-brand-500 px-3 py-1.5 font-mono text-xs font-medium text-surface-page transition-colors duration-enter hover:brightness-110"
           >
             <Plus className="h-3 w-3" /> new rule
           </button>
@@ -126,7 +131,7 @@ export default function YaraManager(): JSX.Element {
             <button
               type="button"
               onClick={exportAll}
-              className="inline-flex items-center gap-1.5 border border-rule px-3 py-1.5 font-mono text-xs text-ink-2 transition-colors duration-enter hover:border-accent hover:text-accent"
+              className="inline-flex items-center gap-1.5 border border-slate-200 dark:border-slate-800 px-3 py-1.5 font-mono text-xs text-slate-600 dark:text-slate-400 transition-colors duration-enter hover:border-brand-500 hover:text-brand-600 dark:text-brand-400"
             >
               <FileDown className="h-3 w-3" /> export all
             </button>
@@ -140,13 +145,13 @@ export default function YaraManager(): JSX.Element {
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
           placeholder="Filter by name, description, or tag…"
-          className="w-full px-3 py-2 bg-surface-page border border-rule font-mono text-sm text-ink-1 placeholder:text-ink-3 focus:outline-none"
+          className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:text-slate-500 focus:outline-none"
         />
       </div>
 
       {filtered.length === 0 && (
-        <div className="border border-rule p-8 text-center">
-          <p className="font-mono text-sm text-ink-2">
+        <div className="border border-slate-200 dark:border-slate-800 p-8 text-center">
+          <p className="font-mono text-sm text-slate-600 dark:text-slate-400">
             {rules.length === 0 ? 'No rules yet. Create one to get started.' : 'No rules match your filter.'}
           </p>
         </div>
@@ -154,22 +159,24 @@ export default function YaraManager(): JSX.Element {
 
       <div className="space-y-3">
         {filtered.map((rule) => (
-          <div key={rule.id} className="border border-rule bg-surface-raised">
-            <div className="flex items-center justify-between gap-3 px-4 py-3 border-b border-rule">
+          <div key={rule.id} className="border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60">
+            <div className="flex items-center justify-between gap-3 px-4 py-3 border-b border-slate-200 dark:border-slate-800">
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="font-mono text-sm font-medium text-ink-1">{rule.name}</span>
-                  <span className="font-mono text-[9px] tracking-[0.1em] text-accent uppercase border border-accent/20 bg-accent-soft px-1">
+                  <span className="font-mono text-sm font-medium text-slate-900 dark:text-slate-100">{rule.name}</span>
+                  <span className="font-mono text-[9px] tracking-[0.1em] text-brand-600 dark:text-brand-400 uppercase border border-brand-500/20 bg-brand-50 dark:bg-brand-950/30 px-1">
                     {rule.category}
                   </span>
                 </div>
-                {rule.description && <p className="text-xs text-ink-2 mt-0.5">{rule.description}</p>}
+                {rule.description && (
+                  <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">{rule.description}</p>
+                )}
               </div>
               <div className="flex items-center gap-1 shrink-0">
                 <button
                   type="button"
                   onClick={() => setEditingId(editingId === rule.id ? null : rule.id)}
-                  className="p-1.5 text-ink-3 hover:text-accent transition-colors"
+                  className="p-1.5 text-slate-500 dark:text-slate-500 hover:text-brand-600 dark:text-brand-400 transition-colors"
                   aria-label="Edit"
                 >
                   {editingId === rule.id ? <X className="h-3.5 w-3.5" /> : <Edit2 className="h-3.5 w-3.5" />}
@@ -177,7 +184,7 @@ export default function YaraManager(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => deleteRule(rule.id)}
-                  className="p-1.5 text-ink-3 hover:text-threat transition-colors"
+                  className="p-1.5 text-slate-500 dark:text-slate-500 hover:text-rose-700 dark:text-rose-400 transition-colors"
                   aria-label="Delete"
                 >
                   <Trash2 className="h-3.5 w-3.5" />
@@ -186,7 +193,7 @@ export default function YaraManager(): JSX.Element {
             </div>
 
             {editingId === rule.id && (
-              <div className="p-4 space-y-3 border-b border-rule">
+              <div className="p-4 space-y-3 border-b border-slate-200 dark:border-slate-800">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label htmlFor={`yara-name-${rule.id}`} className="mono-label block mb-1">
@@ -197,7 +204,7 @@ export default function YaraManager(): JSX.Element {
                       type="text"
                       value={rule.name}
                       onChange={(e) => updateRule(rule.id, { name: e.target.value })}
-                      className="w-full px-2 py-1.5 bg-surface-page border border-rule font-mono text-xs text-ink-1 focus:outline-none"
+                      className="w-full px-2 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 font-mono text-xs text-slate-900 dark:text-slate-100 focus:outline-none"
                     />
                   </div>
                   <div>
@@ -208,7 +215,7 @@ export default function YaraManager(): JSX.Element {
                       id={`yara-cat-${rule.id}`}
                       value={rule.category}
                       onChange={(e) => updateRule(rule.id, { category: e.target.value })}
-                      className="w-full px-2 py-1.5 bg-surface-page border border-rule font-mono text-xs text-ink-1 focus:outline-none"
+                      className="w-full px-2 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 font-mono text-xs text-slate-900 dark:text-slate-100 focus:outline-none"
                     >
                       {categories.map((c) => (
                         <option key={c} value={c}>
@@ -227,17 +234,17 @@ export default function YaraManager(): JSX.Element {
                     type="text"
                     value={rule.description}
                     onChange={(e) => updateRule(rule.id, { description: e.target.value })}
-                    className="w-full px-2 py-1.5 bg-surface-page border border-rule font-mono text-xs text-ink-1 focus:outline-none"
+                    className="w-full px-2 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 font-mono text-xs text-slate-900 dark:text-slate-100 focus:outline-none"
                   />
                 </div>
               </div>
             )}
 
             <details className="group">
-              <summary className="px-4 py-2 font-mono text-[10px] text-ink-3 cursor-pointer hover:text-ink-1 transition-colors select-none">
+              <summary className="px-4 py-2 font-mono text-[10px] text-slate-500 dark:text-slate-500 cursor-pointer hover:text-slate-900 dark:text-slate-100 transition-colors select-none">
                 rule source ({rule.rule.split('\n').length} lines)
               </summary>
-              <pre className="px-4 pb-3 pt-1 overflow-x-auto text-[11px] font-mono text-ink-2 leading-relaxed whitespace-pre">
+              <pre className="px-4 pb-3 pt-1 overflow-x-auto text-[11px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed whitespace-pre">
                 {rule.rule}
               </pre>
             </details>

@@ -93,28 +93,30 @@ export default function AtlasMatrix(): JSX.Element {
   const totalTechniques = atlasMatrix.reduce((acc, t) => acc + t.techniques.length, 0);
 
   return (
-    <div className="max-w-full px-8 py-12 text-ink-1">
+    <div className="max-w-full px-8 py-12 text-slate-900 dark:text-slate-100">
       <div className="max-w-7xl mx-auto">
         <Link
           to="/threatintel"
-          className="inline-flex items-center gap-2 text-sm text-ink-2 hover:text-accent mb-8 font-mono"
+          className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
         >
           <ArrowLeft size={14} /> /threatintel
         </Link>
 
         <div>
-          <h1 className="text-4xl font-mono font-bold mb-2 text-ink-1 tracking-[-0.03em] uppercase">MITRE ATLAS</h1>
-          <p className="text-ink-2 mb-2 max-w-3xl">
+          <h1 className="text-4xl font-mono font-bold mb-2 text-slate-900 dark:text-slate-100 tracking-[-0.03em] uppercase">
+            MITRE ATLAS
+          </h1>
+          <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl">
             Adversarial Threat Landscape for Artificial-Intelligence Systems. ATLAS maps tactics and techniques
             targeting ML models, AI pipelines, and LLM-based applications. Click any technique for live details.
           </p>
-          <div className="flex flex-wrap items-center gap-4 text-sm font-mono text-ink-2 mb-3">
+          <div className="flex flex-wrap items-center gap-4 text-sm font-mono text-slate-600 dark:text-slate-400 mb-3">
             <span>
-              <span className="text-ink-1">{totalTactics}</span> tactics
+              <span className="text-slate-900 dark:text-slate-100">{totalTactics}</span> tactics
             </span>
             <span aria-hidden="true">·</span>
             <span>
-              <span className="text-ink-1">{totalTechniques}</span> techniques
+              <span className="text-slate-900 dark:text-slate-100">{totalTechniques}</span> techniques
             </span>
             <span aria-hidden="true">·</span>
             <span>
@@ -122,7 +124,7 @@ export default function AtlasMatrix(): JSX.Element {
                 href="https://atlas.mitre.org/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-accent hover:underline inline-flex items-center gap-1"
+                className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
               >
                 atlas.mitre.org <ExternalLink size={10} />
               </a>
@@ -132,13 +134,17 @@ export default function AtlasMatrix(): JSX.Element {
 
         <div className="flex flex-wrap items-center gap-2 mb-8">
           <div className="relative flex-1 min-w-0 w-full sm:min-w-[260px] sm:max-w-md">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-3" aria-hidden="true" />
+            <Search
+              size={16}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-500"
+              aria-hidden="true"
+            />
             <input
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search ID, name, or description…"
-              className="w-full pl-9 pr-4 py-2.5 bg-surface-page border border-rule font-mono text-sm text-ink-1 placeholder:text-ink-3 focus:outline-none"
+              className="w-full pl-9 pr-4 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:text-slate-500 focus:outline-none"
               aria-label="Search ATLAS techniques"
             />
           </div>
@@ -156,10 +162,10 @@ export default function AtlasMatrix(): JSX.Element {
                     className="block"
                     title={tactic.description}
                   >
-                    <div className="text-[10px] font-mono text-accent font-bold uppercase tracking-wider">
+                    <div className="text-[10px] font-mono text-brand-600 dark:text-brand-400 font-bold uppercase tracking-wider">
                       {tactic.id}
                     </div>
-                    <div className="text-sm font-mono font-semibold text-ink-1 flex items-center gap-1 hover:text-accent transition-colors mt-0.5">
+                    <div className="text-sm font-mono font-semibold text-slate-900 dark:text-slate-100 flex items-center gap-1 hover:text-brand-600 dark:text-brand-400 transition-colors mt-0.5">
                       {tactic.name}
                       <ExternalLink size={10} className="opacity-50 flex-shrink-0" />
                     </div>
@@ -183,16 +189,16 @@ export default function AtlasMatrix(): JSX.Element {
                           isSelected ? 'ring-2 ring-rule' : '',
                           isHighlighted ? 'ring-2 ring-accent/60' : '',
                           isDimmed ? 'opacity-30' : '',
-                          'bg-surface-raised border-rule hover:bg-accent-soft',
+                          'bg-slate-50 dark:bg-slate-800/60 border-slate-200 dark:border-slate-800 hover:bg-brand-50 dark:bg-brand-950/30',
                         ].join(' ')}
                         title={technique.description ?? technique.name}
                       >
-                        <div className="text-[10px] font-mono text-ink-2">{technique.id}</div>
-                        <div className="text-xs font-medium text-ink-1 leading-tight line-clamp-2 mt-0.5">
+                        <div className="text-[10px] font-mono text-slate-600 dark:text-slate-400">{technique.id}</div>
+                        <div className="text-xs font-medium text-slate-900 dark:text-slate-100 leading-tight line-clamp-2 mt-0.5">
                           {technique.name}
                         </div>
                         {technique.subtechniques && technique.subtechniques.length > 0 && (
-                          <div className="mt-1 text-[10px] font-mono text-ink-3">
+                          <div className="mt-1 text-[10px] font-mono text-slate-500 dark:text-slate-500">
                             +{technique.subtechniques.length} sub-techniques
                           </div>
                         )}
@@ -205,9 +211,9 @@ export default function AtlasMatrix(): JSX.Element {
           </div>
         </div>
 
-        <div className="mt-8 flex flex-wrap gap-4 text-xs font-mono text-ink-2">
+        <div className="mt-8 flex flex-wrap gap-4 text-xs font-mono text-slate-600 dark:text-slate-400">
           <span className="inline-flex items-center gap-2">
-            <span className="inline-block w-4 h-4 border bg-surface-raised border-rule" />
+            <span className="inline-block w-4 h-4 border bg-slate-50 dark:bg-slate-800/60 border-slate-200 dark:border-slate-800" />
             AI/ML attack technique
           </span>
         </div>
@@ -221,12 +227,17 @@ export default function AtlasMatrix(): JSX.Element {
             role="dialog"
             aria-modal="true"
             aria-labelledby="atlas-detail-title"
-            className="fixed right-0 top-0 z-50 h-full w-full max-w-xl overflow-y-auto bg-surface-page border-l border-rule"
+            className="fixed right-0 top-0 z-50 h-full w-full max-w-xl overflow-y-auto bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800"
           >
-            <div className="sticky top-0 z-10 flex items-center justify-between gap-4 px-6 py-4 bg-surface-page border-b border-rule">
+            <div className="sticky top-0 z-10 flex items-center justify-between gap-4 px-6 py-4 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
               <div className="min-w-0">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-accent">{selectedId}</span>
-                <h2 id="atlas-detail-title" className="font-mono font-semibold text-lg text-ink-1 truncate mt-0.5">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
+                  {selectedId}
+                </span>
+                <h2
+                  id="atlas-detail-title"
+                  className="font-mono font-semibold text-lg text-slate-900 dark:text-slate-100 truncate mt-0.5"
+                >
                   {detail?.technique?.name ?? (detailLoading ? 'Loading…' : selectedId)}
                 </h2>
               </div>
@@ -234,39 +245,51 @@ export default function AtlasMatrix(): JSX.Element {
                 type="button"
                 onClick={closeDrawer}
                 aria-label="close"
-                className="shrink-0 p-1.5 text-ink-2 hover:text-ink-1 hover:bg-surface-raised transition-colors"
+                className="shrink-0 p-1.5 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:text-slate-100 hover:bg-slate-50 dark:bg-slate-800/60 transition-colors"
               >
                 <X size={18} aria-hidden="true" />
               </button>
             </div>
 
             <div className="px-6 py-5 space-y-6">
-              {detailLoading && <p className="font-mono text-sm text-ink-2">Fetching live data…</p>}
-              {detailError && <p className="font-mono text-sm text-threat">error: {detailError}</p>}
+              {detailLoading && (
+                <p className="font-mono text-sm text-slate-600 dark:text-slate-400">Fetching live data…</p>
+              )}
+              {detailError && (
+                <p className="font-mono text-sm text-rose-700 dark:text-rose-400">error: {detailError}</p>
+              )}
               {detail?.technique && (
                 <>
                   {detail.technique.tactic && (
-                    <div className="text-xs font-mono text-ink-2">
-                      Tactic: <span className="text-ink-1">{detail.technique.tactic}</span>
-                      {detail.technique.tacticId && <span className="text-ink-3"> · {detail.technique.tacticId}</span>}
+                    <div className="text-xs font-mono text-slate-600 dark:text-slate-400">
+                      Tactic: <span className="text-slate-900 dark:text-slate-100">{detail.technique.tactic}</span>
+                      {detail.technique.tacticId && (
+                        <span className="text-slate-500 dark:text-slate-500"> · {detail.technique.tacticId}</span>
+                      )}
                     </div>
                   )}
                   {detail.technique.description && (
                     <div>
-                      <h3 className="text-xs font-mono uppercase tracking-wider text-ink-2 mb-1.5">Description</h3>
-                      <p className="text-sm text-ink-1 leading-relaxed">{detail.technique.description}</p>
+                      <h3 className="text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">
+                        Description
+                      </h3>
+                      <p className="text-sm text-slate-900 dark:text-slate-100 leading-relaxed">
+                        {detail.technique.description}
+                      </p>
                     </div>
                   )}
                   {detail.relatedTechniques.length > 0 && (
                     <div>
-                      <h3 className="text-xs font-mono uppercase tracking-wider text-ink-2 mb-2">Related techniques</h3>
+                      <h3 className="text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">
+                        Related techniques
+                      </h3>
                       <div className="flex flex-wrap gap-1.5">
                         {detail.relatedTechniques.map((rid) => (
                           <button
                             key={rid}
                             type="button"
                             onClick={() => openTechnique(rid)}
-                            className="text-xs font-mono px-2 py-1 bg-surface-raised border border-rule text-accent hover:border-rule transition-colors"
+                            className="text-xs font-mono px-2 py-1 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 text-brand-600 dark:text-brand-400 hover:border-slate-200 dark:border-slate-800 transition-colors"
                           >
                             {rid}
                           </button>
@@ -278,14 +301,14 @@ export default function AtlasMatrix(): JSX.Element {
                     href={detail.technique.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 border border-rule bg-surface-raised text-ink-1 hover:border-accent hover:text-accent transition-colors"
+                    className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100 hover:border-brand-500 hover:text-brand-600 dark:text-brand-400 transition-colors"
                   >
                     Open on atlas.mitre.org <ExternalLink size={12} />
                   </a>
                 </>
               )}
               {!detailLoading && !detail && !detailError && (
-                <p className="font-mono text-sm text-ink-2">No live data available.</p>
+                <p className="font-mono text-sm text-slate-600 dark:text-slate-400">No live data available.</p>
               )}
             </div>
           </aside>
