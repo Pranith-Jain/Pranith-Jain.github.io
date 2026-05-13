@@ -112,6 +112,16 @@ export const rssFeeds: RSSFeed[] = [
     language: 'en',
   },
   {
+    id: 'databreachtoday',
+    name: 'DataBreachToday',
+    url: 'https://feeds.feedburner.com/databreachtoday/com',
+    description:
+      'ISMG breach-focused publication. Editorial coverage of incident disclosures, regulator filings, and post-breach analysis',
+    category: 'threat-intel',
+    source: 'databreachtoday.com',
+    language: 'en',
+  },
+  {
     id: 'databreaches',
     name: 'DataBreaches.net',
     url: 'https://www.databreaches.net/feed/',

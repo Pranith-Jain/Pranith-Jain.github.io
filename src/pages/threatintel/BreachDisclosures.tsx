@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ExternalLink, Loader2, Newspaper, ShieldAlert } from 'lucide-react';
 import { BreachDisclosuresPanel } from '../dfir/DarkWeb';
+import { BreachDatabasesPanel } from '../../components/dfir/BreachDatabasesPanel';
 import { fetchAggregatedFeed, formatRelativeTime, type AggregatedFeedItem } from '../../services/rssService';
 
 /**
@@ -12,6 +13,7 @@ import { fetchAggregatedFeed, formatRelativeTime, type AggregatedFeedItem } from
  */
 const BREACH_NEWS_FEED_IDS = [
   'databreaches',
+  'databreachtoday',
   'vpnmentor-research',
   'grcsolutions-breaches',
   'comparitech-breaches',
@@ -142,6 +144,8 @@ export default function BreachDisclosures(): JSX.Element {
           </ul>
         )}
       </section>
+
+      <BreachDatabasesPanel />
     </div>
   );
 }

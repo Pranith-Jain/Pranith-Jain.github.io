@@ -349,6 +349,20 @@ const SECTIONS: Section[] = [
         icon: Compass,
         external: true,
       },
+      {
+        to: 'https://leakradar.io/en/leaks',
+        label: 'LeakRadar',
+        desc: '290B+ leaked credentials indexed from stealer logs, combolists, and database dumps. REST API + Telegram/Slack/webhook alerts.',
+        icon: ShieldAlert,
+        external: true,
+      },
+      {
+        to: 'https://serus.ai',
+        label: 'Serus',
+        desc: 'AI-powered data-exposure monitoring and dark-web surveillance for individuals and orgs. Combines breach search with takedown automation.',
+        icon: ShieldAlert,
+        external: true,
+      },
     ],
   },
 ];

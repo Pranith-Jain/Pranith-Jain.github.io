@@ -6,13 +6,14 @@ export function Companies() {
       {/* Header */}
       <div className="mb-12 max-w-3xl">
         <div className="animate-fade-in-up mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
-          Industry Experience
+          Worked with
         </div>
         <h2 className="animate-fade-in-up text-4xl font-extrabold tracking-tight sm:text-5xl text-slate-900 dark:text-white">
-          Enterprise Partnerships
+          Brands I&rsquo;ve worked with
         </h2>
         <p className="animate-fade-in-up mt-4 text-lg text-slate-700 dark:text-slate-400">
-          Securing email infrastructure for 150+ startups and enterprises across AI, HealthTech, and SaaS.
+          Email infrastructure, DFIR, and detection work shipped across 150+ startups and enterprises in AI, HealthTech,
+          and SaaS.
         </p>
       </div>
 

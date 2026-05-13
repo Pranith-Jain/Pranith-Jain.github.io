@@ -51,3 +51,8 @@ stats.html
 .cache
 .temp
 .wrangler/
+
+# Reference images dropped into repo root for design conversations
+/[0-9]*.jpg
+/[0-9]*.jpeg
+/[0-9]*.png

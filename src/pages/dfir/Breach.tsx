@@ -14,6 +14,7 @@ import {
   Users,
 } from 'lucide-react';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
+import { BreachDatabasesPanel } from '../../components/dfir/BreachDatabasesPanel';
 
 // ─── types ────────────────────────────────────────────────────────────────────
 
@@ -760,6 +761,9 @@ export default function BreachPage(): JSX.Element {
         {mode === 'email' && <EmailTab initialQuery={urlQuery} />}
         {mode === 'domain' && <DomainTab initialQuery={urlQuery} />}
       </div>
+
+      <BreachDatabasesPanel initialQuery={mode === 'password' ? undefined : urlQuery} />
+
       <RelatedWikiArticles />
     </div>
   );
