@@ -51,6 +51,7 @@ const AsnLookup = lazy(() => import('./pages/dfir/AsnLookup'));
 const Breach = lazy(() => import('./pages/dfir/Breach'));
 const ExifParse = lazy(() => import('./pages/dfir/ExifParse'));
 const MitreMatrix = lazy(() => import('./pages/dfir/MitreMatrix'));
+const AtlasMatrix = lazy(() => import('./pages/dfir/AtlasMatrix'));
 const UrlPreview = lazy(() => import('./pages/dfir/UrlPreview'));
 const IocExtractor = lazy(() => import('./pages/dfir/IocExtractor'));
 const JwtInspect = lazy(() => import('./pages/dfir/JwtInspect'));
@@ -400,7 +401,26 @@ export function AppContent() {
           </ErrorBoundary>
         }
       />
-      <Route path="/dfir/atlas" element={<Navigate to="/dfir/mitre" replace />} />
+      <Route
+        path="/dfir/atlas"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <AtlasMatrix />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/threatintel/atlas"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <AtlasMatrix />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
       <Route
         path="/dfir/mitre"
         element={

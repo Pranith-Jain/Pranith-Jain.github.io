@@ -353,6 +353,12 @@ export const SECTIONS: Section[] = [
         desc: 'Capability graph from MCP/CC config · flags exfil + RCE chains · SVG visual',
         icon: Network,
       },
+      {
+        path: '/dfir/atlas',
+        label: 'MITRE ATLAS',
+        desc: 'Adversarial-ML technique matrix — tactics + techniques for AI/ML attack surface · live from mitre/atlas-data',
+        icon: Crosshair,
+      },
     ],
   },
   {
