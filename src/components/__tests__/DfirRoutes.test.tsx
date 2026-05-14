@@ -27,6 +27,7 @@ const subRoutes: Array<{ path: string; heading: string; skipComingSoon?: boolean
   { path: '/dfir/exif', heading: 'EXIF Parser', skipComingSoon: true },
   { path: '/threatintel/mitre', heading: 'MITRE ATT&CK', skipComingSoon: true },
   { path: '/dfir/url-preview', heading: 'URL Preview', skipComingSoon: true },
+  { path: '/threatintel/external-resources', heading: 'External Resources', skipComingSoon: true },
 ];
 
 describe('DFIR sub-routes', () => {
