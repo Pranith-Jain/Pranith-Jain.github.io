@@ -42,13 +42,10 @@ interface PlatformHost {
 }
 
 interface PlatformResponse {
-  result?: PlatformHost;
-  // Some endpoints wrap differently — fall back to top-level fields.
-  ip?: string;
-  services?: PlatformService[];
-  location?: PlatformLocation;
-  autonomous_system?: PlatformAS;
-  labels?: string[];
+  // Censys Platform v3 nests host data as result.resource.{...} —
+  // confirmed empirically against api.platform.censys.io. The legacy
+  // (Search) API used a flatter result.{...} shape.
+  result?: { resource?: PlatformHost } & PlatformHost;
 }
 
 export const censys: ProviderAdapter = async (indicator, env, signal) => {
@@ -131,8 +128,9 @@ export const censys: ProviderAdapter = async (indicator, env, signal) => {
     } catch {
       json = {};
     }
-    // Tolerate both `{ result: {...} }` and top-level shapes.
-    const host: PlatformHost = json.result ?? (json as PlatformHost);
+    // Censys Platform v3 wraps host fields under result.resource.
+    // Fall back to result.{...} and top-level shapes for tolerance.
+    const host: PlatformHost = json.result?.resource ?? (json.result as PlatformHost) ?? (json as PlatformHost) ?? {};
 
     const services = host.services ?? [];
     const ports = services.map((s) => s.port).filter((p): p is number => typeof p === 'number');
