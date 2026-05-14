@@ -20,14 +20,23 @@ import type { Env } from '../env';
 // so cluster blips don't surface as 502 to the analyst. Median IA
 // response is well under our timeouts; the long tail (40-60s) is where
 // most 502s came from. With a retry, ~70% of transient failures recover.
-const FETCH_TIMEOUT_FIRST = 20_000;
-const FETCH_TIMEOUT_RETRY = 18_000;
+//
+// Note (2026-05-14): popular URLs (google.com, github.com, …) have
+// millions of historical snapshots. Without `fastLatest=true`, IA scans
+// the full history before truncating to `limit`, regularly blowing past
+// 20s. Adding fastLatest makes those queries return in ~1-3s. Timeouts
+// bumped accordingly to give the long tail of less-popular domains a
+// chance even when IA's cluster is loaded.
+const FETCH_TIMEOUT_FIRST = 30_000;
+const FETCH_TIMEOUT_RETRY = 20_000;
 const RETRY_DELAY_MS = 1_500;
 const CACHE_TTL = 6 * 3600;
 // Brief negative cache during an upstream outage so a single user reload
-// doesn't fire 5 retry-rounds at IA. 60s is short enough that recovery
+// doesn't fire 5 retry-rounds at IA. 30s is short enough that recovery
 // is visible the next hit; long enough to break a hot retry loop.
-const NEGATIVE_CACHE_TTL = 60;
+// (Was 60s; lowered after a sweep of popular-URL timeouts left users
+// stuck behind a stale failure for a full minute on each one.)
+const NEGATIVE_CACHE_TTL = 30;
 const CDX_BASE = 'https://web.archive.org/cdx/search/cdx';
 
 async function fetchCdxOnce(upstream: string, timeoutMs: number): Promise<Response> {
@@ -64,6 +73,10 @@ export async function waybackCdxHandler(c: Context<{ Bindings: Env }>): Promise<
     fl: 'timestamp,original,statuscode,mimetype,digest,length',
     limit: String(limit),
     collapse: 'digest',
+    // fastLatest tells IA to return the most recent `limit` captures
+    // without scanning the full history. For popular URLs this cuts
+    // response time from 30s+ (often timing out) to ~1-3s.
+    fastLatest: 'true',
   });
   const upstream = `${CDX_BASE}?${params.toString()}`;
 
