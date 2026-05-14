@@ -116,6 +116,7 @@ const LiveIocsPage = lazy(() => import('./pages/threatintel/LiveIocs'));
 const CyberCrimePage = lazy(() => import('./pages/threatintel/CyberCrime'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
+const AdminApp = lazy(() => import('./pages/admin/AdminApp'));
 
 /**
  * Preserves the path slug (when `withSlug`), the query string, and the hash
@@ -1144,6 +1145,16 @@ export function AppContent() {
       <Route path="/dfir/secops-tools" element={<MovedRedirect to="/threatintel/secops-tools" />} />
       <Route path="/dfir/awesome-lists" element={<MovedRedirect to="/threatintel/awesome-lists" />} />
       <Route path="/dfir/osint-framework" element={<MovedRedirect to="/threatintel/osint-framework" />} />
+      <Route
+        path="/admin"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <AdminApp />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
       <Route
         path="*"
         element={
