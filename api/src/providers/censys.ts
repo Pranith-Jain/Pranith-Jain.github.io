@@ -67,12 +67,27 @@ export const censys: ProviderAdapter = async (indicator, env, signal) => {
 
     // 401 / 403 = bad / missing credentials. Treat as graceful "no data" so
     // the rest of the pipeline isn't poisoned by a permission failure.
+    // Capture Censys's error body — the exact wording distinguishes missing
+    // auth ("You must authenticate...") from invalid credentials ("Invalid
+    // API ID or secret"), which is the difference between a config drop and
+    // a typo when setting the secrets.
     if (res.status === 401 || res.status === 403) {
+      const body = await res.text().catch(() => '');
+      let censysError = '';
+      try {
+        const parsed = JSON.parse(body) as { error?: string };
+        if (typeof parsed.error === 'string') censysError = parsed.error;
+      } catch {
+        censysError = body.slice(0, 200);
+      }
       return base('ok', {
         score: 0,
         verdict: 'unknown',
         tags: ['censys-no-access'],
-        raw_summary: { reason: `${res.status} from Censys (check CENSYS_API_ID / CENSYS_API_SECRET)` },
+        raw_summary: {
+          reason: `${res.status} from Censys (check CENSYS_API_ID / CENSYS_API_SECRET)`,
+          censys_error: censysError,
+        },
       });
     }
     // 429 = free-tier quota exhausted (≈250 lookups / month). Don't escalate
