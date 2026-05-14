@@ -325,6 +325,49 @@ export default function IocCorrelation(): JSX.Element {
         </section>
       )}
 
+      {/* Feed-health row — was buried at the bottom as a comma-separated
+          run-on. If 5 feeds are offline the user had no way to know the
+          corpus was degraded. Now: explicit per-feed dot + count + the
+          aggregate "N of M online". */}
+      {data && (
+        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-4">
+          <div className="flex items-baseline justify-between gap-3 mb-3 flex-wrap">
+            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
+              Feed health
+            </h3>
+            <span className="text-[11px] font-mono text-slate-500 tabular-nums">
+              {data.sources.filter((s) => s.ok).length} of {data.sources.length} feeds online ·{' '}
+              {data.totals.indicators_scanned.toLocaleString()} indicators scanned
+            </span>
+          </div>
+          <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-1.5">
+            {data.sources
+              .slice()
+              .sort((a, b) => Number(b.ok) - Number(a.ok) || b.count - a.count)
+              .map((s) => (
+                <li
+                  key={s.id}
+                  className={`flex items-center gap-2 text-[11px] font-mono px-2 py-1 rounded border ${
+                    s.ok
+                      ? 'border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-950'
+                      : 'border-rose-400/40 bg-rose-500/5 text-rose-700 dark:text-rose-300'
+                  }`}
+                  title={s.ok ? `${s.id}: ${s.count} indicators` : `${s.id}: offline`}
+                >
+                  <span
+                    className={`inline-block w-1.5 h-1.5 rounded-full shrink-0 ${
+                      s.ok ? 'bg-emerald-500 dark:bg-emerald-400' : 'bg-rose-500 dark:bg-rose-400'
+                    }`}
+                    aria-hidden="true"
+                  />
+                  <span className="truncate flex-1">{s.id}</span>
+                  <span className="tabular-nums opacity-70">{s.ok ? s.count.toLocaleString() : 'off'}</span>
+                </li>
+              ))}
+          </ul>
+        </section>
+      )}
+
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-4">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
@@ -352,6 +395,15 @@ export default function IocCorrelation(): JSX.Element {
               <Sparkles size={12} /> {newCount} new
             </button>
           )}
+          <button
+            type="button"
+            onClick={() => downloadFilteredCsv(filtered)}
+            disabled={filtered.length === 0}
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-brand-500/40 disabled:opacity-40"
+            title="Download the currently filtered IOCs as CSV. Pasteable straight into a firewall blocklist."
+          >
+            <Download size={12} /> CSV
+          </button>
           <a
             href="/api/v1/ioc-correlation/stix.json"
             download
@@ -483,11 +535,51 @@ export default function IocCorrelation(): JSX.Element {
               before action.
             </li>
           </ul>
-          <p className="text-[11px] font-mono text-slate-500 mt-3">
-            Feeds queried this snapshot: {data.sources.map((s) => `${s.id}${s.ok ? '' : ' (offline)'}`).join(', ')}.
-          </p>
+          {/* Feeds-queried run-on line removed 2026-05-14 — replaced by
+              the dedicated "Feed health" panel above which shows per-feed
+              status as a visual grid instead of comma-separated text. */}
         </section>
       )}
     </div>
   );
+}
+
+/**
+ * CSV serialiser. Quotes any field that contains a comma, quote, or newline
+ * and escapes inner quotes by doubling per RFC 4180. Works for the IOC
+ * value/context fields which can contain commas (CIDR ranges) and quotes.
+ */
+function csvCell(s: string | number | undefined): string {
+  if (s === undefined || s === null) return '';
+  const v = String(s);
+  if (/[",\n]/.test(v)) return `"${v.replace(/"/g, '""')}"`;
+  return v;
+}
+
+function downloadFilteredCsv(rows: CorrelatedIoc[]): void {
+  if (rows.length === 0) return;
+  const header = ['value', 'kind', 'source_count', 'sources', 'last_seen', 'context'];
+  const lines = [header.join(',')];
+  for (const r of rows) {
+    lines.push(
+      [
+        csvCell(r.value),
+        csvCell(r.kind),
+        csvCell(r.source_count),
+        csvCell(r.sources.join('; ')),
+        csvCell(r.last_seen ?? ''),
+        csvCell(r.context ?? ''),
+      ].join(',')
+    );
+  }
+  const blob = new Blob([lines.join('\n')], { type: 'text/csv;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  const ts = new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-');
+  a.download = `ioc-correlation-${ts}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }
