@@ -74,7 +74,7 @@ export default function TechAiNews(): JSX.Element {
     setItems([]);
     try {
       const data = await fetchAggregatedFeed(ALL_FEED_IDS, { limit: 250, perSource: 20 });
-      if (!data) throw new Error('Aggregator returned no data');
+      if (!data) throw new Error('no aggregator-eligible feeds configured');
       setItems(data.items);
       setFeedsReturned(data.feeds_returned);
     } catch (e) {

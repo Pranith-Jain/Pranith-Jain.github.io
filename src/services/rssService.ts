@@ -207,6 +207,15 @@ export interface AggregatedFeedResponse {
  * 60-second client cache + 60-second edge cache. For the common feed-widget
  * use case this is much faster than `fetchFeedsProgressive` and uses far
  * fewer network requests.
+ *
+ * Returns:
+ *   - null   only when zero feeds in the requested set are aggregator-
+ *            eligible (local config issue — callers can treat as "no data
+ *            to show" without alarming the user).
+ *   - throws on HTTP / network / timeout errors with a descriptive message
+ *            so the page-level error UI surfaces the real reason instead
+ *            of a generic "Aggregator returned no data". Previously all
+ *            three failure modes collapsed to null + a useless string.
  */
 export async function fetchAggregatedFeed(
   feedIds: string[],
@@ -218,15 +227,30 @@ export async function fetchAggregatedFeed(
     .map((f) => f.url)
     .filter((u) => !u.startsWith('/')) // synthesised feeds aren't aggregator-eligible
     .join(',');
+  if (!urls) return null;
   const limit = options.limit ?? 30;
   const perSource = options.perSource ?? 3;
   const url = `/api/v1/feeds/aggregate?urls=${encodeURIComponent(urls)}&limit=${limit}&perSource=${perSource}`;
+  let res: Response;
   try {
-    const res = await fetch(url, { signal: AbortSignal.timeout(15000) });
-    if (!res.ok) return null;
+    // 15s was too tight: the aggregator fans out to N feeds (10-30 in the
+    // common paths) and the slowest tail is regularly 8-12s on the worker
+    // edge. A single slow feed shouldn't paint the whole call as failed.
+    res = await fetch(url, { signal: AbortSignal.timeout(25000) });
+  } catch (err) {
+    const reason = err instanceof Error ? err.message : 'network error';
+    if (reason.toLowerCase().includes('timed out') || reason.toLowerCase().includes('abort')) {
+      throw new Error('feed aggregator timed out (25s) — upstream RSS sources are slow right now');
+    }
+    throw new Error(`feed aggregator unreachable: ${reason}`);
+  }
+  if (!res.ok) {
+    throw new Error(`feed aggregator returned ${res.status} ${res.statusText}`.trim());
+  }
+  try {
     return (await res.json()) as AggregatedFeedResponse;
   } catch {
-    return null;
+    throw new Error('feed aggregator returned a malformed response');
   }
 }
 
