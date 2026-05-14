@@ -61,6 +61,7 @@ import {
 import { snapshotHandler } from './routes/snapshot';
 import { iocSnapshotHandler } from './routes/ioc-snapshot';
 import { registerBlogRoutes } from './routes/blog-public';
+import { registerAdminRoutes } from './routes/case-study-admin';
 import { rateLimit } from './lib/ratelimit';
 
 const app = new Hono<{ Bindings: Env }>();
@@ -128,6 +129,7 @@ app.get('/api/v1/external-resources', listExternalResourcesHandler);
 app.post('/api/v1/external-resources', createExternalResourceHandler);
 app.delete('/api/v1/external-resources/:id', deleteExternalResourceHandler);
 registerBlogRoutes(app);
+registerAdminRoutes(app);
 app.notFound((c) => c.json({ error: 'not_found' }, 404));
 
 export default app;
