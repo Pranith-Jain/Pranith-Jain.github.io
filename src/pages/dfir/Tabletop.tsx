@@ -95,7 +95,10 @@ export default function Tabletop(): JSX.Element {
     const a = document.createElement('a');
     a.href = url;
     a.download = `tabletop-${archetype.id}-${actor.slug}.md`;
+    // Firefox / Safari require the anchor to be in the document for click() to fire.
+    document.body.appendChild(a);
     a.click();
+    document.body.removeChild(a);
     URL.revokeObjectURL(url);
   };
 

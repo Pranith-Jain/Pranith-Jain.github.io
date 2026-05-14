@@ -355,12 +355,17 @@ export default function FullSpectrum(): JSX.Element {
 
       <form onSubmit={onSubmit} className="mb-10">
         <div className="flex gap-2">
+          <label htmlFor="full-spectrum-input" className="sr-only">
+            Domain to investigate
+          </label>
           <input
+            id="full-spectrum-input"
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="example.com"
-            className="flex-1 px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:text-slate-500 focus:outline-none"
+            aria-label="Domain to investigate"
+            className="flex-1 px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
           <button
             type="submit"

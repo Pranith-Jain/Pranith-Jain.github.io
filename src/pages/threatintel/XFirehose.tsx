@@ -158,7 +158,7 @@ export default function XFirehose(): JSX.Element {
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Filter by tweet text or handle…"
+              placeholder="Filter by post text or handle…"
               className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
               aria-label="Filter X posts"
             />
@@ -229,7 +229,7 @@ export default function XFirehose(): JSX.Element {
 
       {data && (
         <p className="text-[11px] font-mono text-slate-500 mb-4">
-          Showing {filtered.length} of {data.items.length} tweets · snapshot{' '}
+          Showing {filtered.length} of {data.items.length} posts · snapshot{' '}
           <span className="text-slate-700 dark:text-slate-300">{shortRel(data.generated_at)}</span>
           {data.warnings.length > 0 && (
             <span className="text-amber-600 dark:text-amber-400 ml-2">· {data.warnings.length} handle warnings</span>

@@ -59,7 +59,9 @@ export function About() {
             {stats.map((stat) => (
               <div key={stat.label} className="glass rounded-2xl p-4 text-center">
                 <div className="text-3xl font-black text-brand-600 dark:text-brand-400">{stat.value}</div>
-                <div className="text-xs font-bold uppercase tracking-wider text-slate-600 mt-1">{stat.label}</div>
+                <div className="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mt-1">
+                  {stat.label}
+                </div>
               </div>
             ))}
           </div>

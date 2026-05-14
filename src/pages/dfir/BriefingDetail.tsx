@@ -349,7 +349,7 @@ export default function BriefingDetail(): JSX.Element {
         </span>
         <h1 className="text-3xl sm:text-4xl font-display font-bold leading-tight mb-2">{briefing.title}</h1>
         <p className="text-sm font-mono text-slate-500">
-          {briefing.date_range} · generated {new Date(briefing.generated_at).toUTCString()}
+          {briefing.date_range} · generated {briefing.generated_at.slice(0, 16).replace('T', ' ')} UTC
         </p>
       </header>
 
@@ -433,7 +433,7 @@ export default function BriefingDetail(): JSX.Element {
       <footer className="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 text-xs font-mono text-slate-500">
         <p>
           Sources: {briefing.sources.join(', ') || 'none'}. Reference only. Verify all indicators in your own
-          environment. Generated {new Date(briefing.generated_at).toUTCString()}.
+          environment. Generated {briefing.generated_at.slice(0, 16).replace('T', ' ')} UTC.
         </p>
       </footer>
     </div>

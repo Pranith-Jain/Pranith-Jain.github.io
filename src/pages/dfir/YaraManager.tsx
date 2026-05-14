@@ -88,7 +88,10 @@ export default function YaraManager(): JSX.Element {
     const a = document.createElement('a');
     a.href = url;
     a.download = 'yara-rules-export.yara';
+    // Firefox / Safari require the anchor to be in the document for click() to fire.
+    document.body.appendChild(a);
     a.click();
+    document.body.removeChild(a);
     URL.revokeObjectURL(url);
   }, [rules]);
 

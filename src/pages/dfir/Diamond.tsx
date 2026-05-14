@@ -472,7 +472,10 @@ function Diamond(): JSX.Element {
     const a = document.createElement('a');
     a.href = url;
     a.download = 'diamond-event.md';
+    // Firefox / Safari require the anchor to be in the document for click() to fire.
+    document.body.appendChild(a);
     a.click();
+    document.body.removeChild(a);
     URL.revokeObjectURL(url);
   };
 
