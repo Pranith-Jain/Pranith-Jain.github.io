@@ -272,12 +272,15 @@ function CmdkHint(): JSX.Element | null {
         });
         window.dispatchEvent(ev);
       }}
-      className="hidden sm:inline-flex items-center gap-1 text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500 hover:text-slate-900 dark:hover:text-slate-100"
-      aria-label="Open command palette"
-      title="Command palette"
+      className="hidden sm:inline-flex items-center gap-1.5 text-[11px] font-mono px-2 py-1 rounded border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 hover:border-brand-500/40 hover:bg-slate-50 dark:hover:bg-slate-900"
+      aria-label="Search across tools, wiki, actors, CVEs, and Telegram channels"
+      title="Search across tools, wiki, actors, CVEs, and Telegram channels"
     >
-      <Command size={10} />
-      <span>{isMac ? '⌘' : 'Ctrl'} K</span>
+      <Command size={11} />
+      <span>Search</span>
+      <kbd className="ml-1 px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-[9px] font-mono text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
+        {isMac ? '⌘' : 'Ctrl'} K
+      </kbd>
     </button>
   );
 }

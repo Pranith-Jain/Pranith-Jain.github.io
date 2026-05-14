@@ -646,49 +646,18 @@ export default function ThreatMap(): JSX.Element {
             </section>
           )}
 
-          {/* IOC tables (URLs / Domains / Hashes) moved to dedicated pages 2026-05-11.
-              The same upstream snapshot drives them — no extra fetch cost. */}
-          {data.iocs_by_type && data.iocs_by_type.length > 0 && (
-            <section className="mt-8 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
-              <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 mb-3">
-                Per-type IOC feeds
-              </h3>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2 text-xs font-mono">
-                {data.iocs_by_type.map((bucket) => {
-                  const slug = bucket.type === 'url' ? 'urls' : bucket.type === 'domain' ? 'domains' : 'hashs';
-                  const label =
-                    bucket.type === 'url'
-                      ? 'Live URLs'
-                      : bucket.type === 'domain'
-                        ? 'Live Domains'
-                        : 'Live File hashes';
-                  return (
-                    <Link
-                      key={bucket.type}
-                      to={`/threatintel/${slug}`}
-                      className="rounded border border-slate-200 dark:border-slate-800 px-3 py-2 hover:border-brand-500/40 transition-colors"
-                    >
-                      <div className="text-slate-900 dark:text-slate-100 font-display font-semibold text-sm">
-                        {label} →
-                      </div>
-                      <div className="text-[11px] text-slate-500 mt-0.5">
-                        {bucket.count} unique · /threatintel/{slug}
-                      </div>
-                    </Link>
-                  );
-                })}
-                <Link
-                  to="/threatintel/iocs-by-type"
-                  className="rounded border border-slate-200 dark:border-slate-800 px-3 py-2 hover:border-brand-500/40 transition-colors"
-                >
-                  <div className="text-slate-900 dark:text-slate-100 font-display font-semibold text-sm">
-                    All IOC types →
-                  </div>
-                  <div className="text-[11px] text-slate-500 mt-0.5">URLs + domains + hashes in one view</div>
-                </Link>
-              </div>
-            </section>
-          )}
+          {/* Per-type IOC feed tiles were removed 2026-05-14 — the new
+              IocTypeBreakdown stacked bar above covers the same ground
+              with the percentage context the tile row was missing. */}
+
+          {/* Sources panel — per-feed contribution to this snapshot, with
+              what each feed type is good for. Replaces the old single
+              text-line header that just listed "URLhaus: 4712 · ThreatFox: 215". */}
+          <SourcesBreakdown
+            sourceCounts={data.source_counts}
+            iocTypes={data.iocs_by_type ?? []}
+            totalIps={data.total_ips}
+          />
 
           <IocSnapshotPanel />
 
@@ -744,6 +713,155 @@ const KIND_HREF: Record<'ip' | IocTypeBucket['type'], string> = {
   domain: '/threatintel/domains',
   hash: '/threatintel/hashs',
 };
+
+/**
+ * Per-source contribution panel. Shows which IOC feeds contributed to
+ * this snapshot, with: name, count, what kind of IOCs the feed
+ * specialises in, and a one-line "what it's good for" description. The
+ * `source_counts` value in /api/v1/threat-map only covers IP-flagging
+ * feeds; the iocs_by_type buckets carry per-source counts for URL /
+ * domain / hash feeds. Merging both gives a complete picture.
+ */
+interface SourcesBreakdownProps {
+  sourceCounts: Record<string, number>;
+  iocTypes: IocTypeBucket[];
+  totalIps: number;
+}
+
+interface SourceMeta {
+  desc: string;
+  ipsType?: 'url' | 'domain' | 'hash' | 'ip';
+  href?: string;
+}
+
+const SOURCE_META: Record<string, SourceMeta> = {
+  URLhaus: { desc: 'Malicious URLs hosting malware payloads', ipsType: 'url', href: 'https://urlhaus.abuse.ch/' },
+  ThreatFox: {
+    desc: 'C2 IOCs (IPs / domains / hashes) cross-referenced',
+    ipsType: 'ip',
+    href: 'https://threatfox.abuse.ch/',
+  },
+  Ipsum: {
+    desc: 'IP blocklist consensus (flagged by 3+ sources)',
+    ipsType: 'ip',
+    href: 'https://github.com/stamparm/ipsum',
+  },
+  'CINS Army': { desc: 'Top attackers reputation list', ipsType: 'ip', href: 'https://cinsscore.com/' },
+  Bitwire: { desc: 'C2 / scanner IP reputation', ipsType: 'ip' },
+  MalwareBazaar: { desc: 'Recent malware sample hashes', ipsType: 'hash', href: 'https://bazaar.abuse.ch/' },
+  'Binary Defense': {
+    desc: 'Banlist of known-bad IPs',
+    ipsType: 'ip',
+    href: 'https://www.binarydefense.com/banlist.txt',
+  },
+  'Blocklist.de': { desc: 'Recent attacker IPs (per-port)', ipsType: 'ip', href: 'https://www.blocklist.de/' },
+  'Phishing Army': { desc: 'Phishing-domain blocklist', ipsType: 'domain', href: 'https://phishing.army/' },
+  'Feodo Tracker': { desc: 'Banking-trojan C2 infrastructure', ipsType: 'ip', href: 'https://feodotracker.abuse.ch/' },
+  OpenPhish: { desc: 'Real-time phishing-URL feed', ipsType: 'url', href: 'https://openphish.com/' },
+  TweetFeed: { desc: 'Community-shared IOCs from Twitter/X', ipsType: 'ip', href: 'https://tweetfeed.live/' },
+};
+
+interface SourceRow {
+  name: string;
+  count: number;
+  kind: 'ip' | 'url' | 'domain' | 'hash';
+  meta: SourceMeta;
+}
+
+function SourcesBreakdown({ sourceCounts, iocTypes, totalIps }: SourcesBreakdownProps): JSX.Element {
+  // Build a flat row list: IP-flagging sources from source_counts, plus
+  // per-bucket source contributions for URL / domain / hash feeds.
+  const rows: SourceRow[] = [];
+  for (const [name, count] of Object.entries(sourceCounts)) {
+    if (count <= 0) continue;
+    rows.push({ name, count, kind: 'ip', meta: SOURCE_META[name] ?? { desc: '' } });
+  }
+  for (const bucket of iocTypes) {
+    for (const [name, count] of Object.entries(bucket.source_counts ?? {})) {
+      if (count <= 0) continue;
+      // De-dup against IP rows (e.g. ThreatFox appears in both).
+      const existing = rows.find((r) => r.name === name && r.kind === bucket.type);
+      if (existing) existing.count += count;
+      else rows.push({ name, count, kind: bucket.type, meta: SOURCE_META[name] ?? { desc: '' } });
+    }
+  }
+  rows.sort((a, b) => b.count - a.count);
+
+  const totalAcrossSources = rows.reduce((a, r) => a + r.count, 0) + totalIps;
+
+  if (rows.length === 0) {
+    return (
+      <section className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+        <p className="text-xs font-mono text-slate-500">No source attribution available in this snapshot.</p>
+      </section>
+    );
+  }
+
+  return (
+    <section className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 sm:p-5">
+      <div className="flex flex-wrap items-baseline justify-between gap-2 mb-3">
+        <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
+          Sources contributing to this snapshot
+        </h3>
+        <span className="text-[11px] font-mono text-slate-500 tabular-nums">
+          {rows.length} feeds · {totalAcrossSources.toLocaleString()} indicators
+        </span>
+      </div>
+      <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+        {rows.map((r) => (
+          <li
+            key={`${r.name}-${r.kind}`}
+            className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950 p-3"
+          >
+            <div className="flex items-baseline justify-between gap-2 mb-1">
+              {r.meta.href ? (
+                <a
+                  href={r.meta.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 truncate"
+                >
+                  {r.name}
+                </a>
+              ) : (
+                <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 truncate">
+                  {r.name}
+                </span>
+              )}
+              <span
+                className={`text-[9px] font-mono uppercase tracking-wider px-1 py-0.5 rounded border shrink-0 ${KIND_COLOUR_FOR_TAG(r.kind)}`}
+                title={KIND_LABEL[r.kind]}
+              >
+                {KIND_LABEL[r.kind]}
+              </span>
+            </div>
+            <div className="flex items-baseline justify-between gap-2 text-[12px] font-mono">
+              <span className="text-slate-600 dark:text-slate-400 truncate" title={r.meta.desc}>
+                {r.meta.desc || '—'}
+              </span>
+              <span className="text-brand-600 dark:text-brand-400 font-bold tabular-nums shrink-0">
+                {r.count.toLocaleString()}
+              </span>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+function KIND_COLOUR_FOR_TAG(k: 'ip' | 'url' | 'domain' | 'hash'): string {
+  switch (k) {
+    case 'ip':
+      return 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300';
+    case 'url':
+      return 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300';
+    case 'domain':
+      return 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300';
+    case 'hash':
+      return 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300';
+  }
+}
 
 function IocTypeBreakdown({ ipsCount, buckets }: { ipsCount: number; buckets: IocTypeBucket[] }): JSX.Element {
   const rows = [
