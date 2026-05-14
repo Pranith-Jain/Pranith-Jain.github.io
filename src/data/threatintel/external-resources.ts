@@ -186,4 +186,12 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'community',
     description: 'Red-team practitioner community hub.',
   },
+  {
+    id: 'hunter-how',
+    name: 'hunter.how',
+    url: 'https://hunter.how/',
+    kind: 'tool',
+    description:
+      'Internet asset search engine in the Shodan/Censys/FOFA family. Fingerprints 500+ network protocols across 2,000+ products with country, SSL-certificate, and subdomain filters. Free daily quota; paid plans for higher throughput.',
+  },
 ];

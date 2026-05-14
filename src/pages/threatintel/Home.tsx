@@ -256,7 +256,7 @@ const SECTIONS: Section[] = [
       {
         to: '/threatintel/external-resources',
         label: 'External Resources',
-        desc: '16 off-site cross-references — dashboards, OSINT directories, training labs, malware samples, and research portfolios. Filter by kind.',
+        desc: 'Off-site cross-references — dashboards, OSINT directories, training labs, malware samples, and research portfolios. Filter by kind.',
         icon: ExternalLink,
       },
       {
