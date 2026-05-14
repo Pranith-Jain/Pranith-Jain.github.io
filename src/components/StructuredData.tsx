@@ -108,9 +108,9 @@ export function StructuredData() {
   const professionalServiceSchema = {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
-    name: `${personalInfo.name}, Security Analyst and Detection Engineer`,
+    name: `${personalInfo.name} — Security Analyst, Threat Intel & Security Automation`,
     description:
-      'Security analysis, detection engineering, threat intelligence, email security hardening, and DFIR tooling. Builder of an open, edge-hosted DFIR toolkit on Cloudflare Workers.',
+      'Security analysis, threat intelligence, and security automation. Phishing / BEC / commodity-malware response across 150+ global brands. Builder of an open, edge-hosted DFIR toolkit on Cloudflare Workers.',
     provider: {
       '@type': 'Person',
       name: personalInfo.name,

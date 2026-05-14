@@ -95,12 +95,12 @@ export function Hero() {
             >
               <Terminal className="h-4 w-4" aria-hidden="true" /> DFIR Toolkit
             </Link>
-            <a
-              href="#skills"
+            <Link
+              to="/skills"
               className="inline-flex items-center justify-center rounded-2xl border border-slate-200/60 bg-white/70 px-8 py-4 text-base font-bold text-slate-800 shadow-sm transition hover:shadow-md hover:scale-105 active:scale-95 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-900"
             >
               Explore Focus Areas
-            </a>
+            </Link>
           </div>
 
           {/* Social Links */}

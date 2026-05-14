@@ -1,11 +1,11 @@
 export const personalInfo = {
   name: 'Pranith Jain',
   // Long form, used in headlines, SEO, and structured-data schema.
-  title: 'Security Analyst & Detection Engineer. Threat Intel, Email Defense, Edge-native Tooling',
+  title: 'Security Analyst — Threat Intel & Security Automation',
   // Short form, used in tight UI like the profile card to avoid overflow.
-  shortTitle: 'Security Analyst & Detection Engineer',
+  shortTitle: 'Security Analyst · Threat Intel · Security Automation',
   headline: '"Investigating attacks at human scale. Building defenders at AI scale."',
-  description: `a security analyst and detection engineer. By day I work phishing, BEC, and commodity-malware incidents across 150+ global brands. The rest of the time I ship the tools I wish I'd had during those investigations. The interactive ones live at /dfir, the live threat-intel surface at /threatintel. Both are free, edge-hosted on Cloudflare, no signup. Right now I'm spending most of my thinking time on AI security (prompt injection, MCP servers, agent attack-surface), Non-Human Identity governance, compliance frameworks, and DLP. If you're hiring for those problems, or working on similar ones in the open, I'd like to talk.`,
+  description: `a security analyst working phishing, BEC, and commodity-malware incidents across 150+ global brands. The rest of the time I ship the tools I wished I had during those investigations — interactive ones at /dfir, the live threat-intel surface at /threatintel. Free, edge-hosted on Cloudflare, no signup. Currently focused on AI security (prompt injection, MCP, agent attack-surface), Non-Human Identity governance, compliance, and DLP. If you're hiring or working in the open on these problems, let's talk.`,
   currentFocus: 'Threat intel, email defense, and cloud identity security',
   currentlyLearning: 'NHI Security & Advanced Threat Hunting',
   availability: 'Open for Consultations & Strategy Calls',
