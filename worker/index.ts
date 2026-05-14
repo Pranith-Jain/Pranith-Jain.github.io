@@ -73,6 +73,11 @@ const OG_OVERRIDES: Record<string, OgOverride> = {
     description:
       'A working CTI surface on the edge. Live ransomware leak claims, CVE merged with CISA KEV, cross-source IOC correlation across 18 feeds, an actor-activity Gantt joined with MITRE Group profiles, victim re-leak detection, ten-panel metrics, STIX 2.1 export, and a writeups aggregator across 18 analyst blogs.',
   },
+  '/threatintel/external-resources': {
+    title: 'External Resources Catalog · pranithjain.qzz.io',
+    description:
+      '16 off-site cross-references for threat-intel work — dashboards (My Threat Intel, World Monitor), OSINT directories, training labs (AI Goat, WebVerse, VulnOS), malware samples, and AI-security research. Filterable by kind, searchable by name/description.',
+  },
   '/threatintel/correlation': {
     title: 'Cross-source IOC correlation · pranithjain.qzz.io',
     description:
