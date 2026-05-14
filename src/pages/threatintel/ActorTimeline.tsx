@@ -219,11 +219,14 @@ export default function ActorTimeline(): JSX.Element {
                         className="grid items-center gap-1"
                         style={{ gridTemplateColumns: `200px repeat(${g.buckets.length}, minmax(0,1fr))` }}
                       >
-                        <div className="pr-3">
-                          <div className="font-display font-semibold text-sm truncate" title={g.display_name}>
-                            {g.display_name}
+                        <div className="pr-3 min-w-0">
+                          <div className="flex items-center gap-1.5 flex-wrap">
+                            <div className="font-display font-semibold text-sm truncate min-w-0" title={g.display_name}>
+                              {g.display_name}
+                            </div>
+                            <AccelerationBadge buckets={g.buckets} />
                           </div>
-                          <div className="text-[10px] font-mono text-slate-500">
+                          <div className="text-[10px] font-mono text-slate-500 mt-0.5">
                             {g.posts_in_window} in {data.window_days}d · {g.all_time_count} all-time
                           </div>
                         </div>
@@ -257,8 +260,21 @@ export default function ActorTimeline(): JSX.Element {
                             RaaS
                           </span>
                         )}
-                        <span className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800">
-                          mirrors: {g.mirrors_reachable}/{g.mirrors_total} reachable
+                        <span
+                          className={`inline-flex items-center gap-1.5 px-1.5 py-0.5 rounded ${
+                            g.mirrors_total > 0 && g.mirrors_reachable === 0
+                              ? 'border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300'
+                              : 'bg-slate-100 dark:bg-slate-800'
+                          }`}
+                          title={`${g.mirrors_reachable} of ${g.mirrors_total} leak-site mirrors currently reachable${
+                            g.mirrors_total > 0 && g.mirrors_reachable === 0 ? ' (site possibly down or seized)' : ''
+                          }`}
+                        >
+                          mirrors:
+                          <MirrorDots reachable={g.mirrors_reachable} total={g.mirrors_total} />
+                          <span className="tabular-nums text-[10px]">
+                            {g.mirrors_reachable}/{g.mirrors_total}
+                          </span>
                         </span>
                         {g.references.slice(0, 3).map((ref, i) => {
                           let host = ref;
@@ -329,5 +345,64 @@ export default function ActorTimeline(): JSX.Element {
         </div>
       )}
     </div>
+  );
+}
+
+/**
+ * Acceleration badge — compares last-7-day post count vs the prior 7-day
+ * window. A persistent +/-N signal next to the actor name flags groups
+ * that are heating up or cooling off without forcing the analyst to
+ * eyeball the heatmap.
+ */
+function AccelerationBadge({ buckets }: { buckets: ActorBucket[] }): JSX.Element | null {
+  if (buckets.length < 14) return null;
+  const last7 = buckets.slice(-7).reduce((a, b) => a + b.count, 0);
+  const prior7 = buckets.slice(-14, -7).reduce((a, b) => a + b.count, 0);
+  const delta = last7 - prior7;
+  if (delta === 0 && last7 === 0) return null;
+  const sign = delta > 0 ? '+' : '';
+  const cls =
+    delta > 0
+      ? 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300'
+      : delta < 0
+        ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
+        : 'border-slate-300 dark:border-slate-700 text-slate-500';
+  const arrow = delta > 0 ? '▲' : delta < 0 ? '▼' : '·';
+  return (
+    <span
+      className={`inline-flex items-center gap-0.5 text-[9px] font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${cls}`}
+      title={`7-day acceleration: ${last7} posts this week vs ${prior7} the prior week`}
+    >
+      <span aria-hidden="true">{arrow}</span>
+      <span className="tabular-nums">
+        {sign}
+        {delta}
+      </span>
+      <span className="opacity-60">7d</span>
+    </span>
+  );
+}
+
+/**
+ * Mirror-reachability dot strip. Filled dot = reachable, empty dot =
+ * unreachable. Caps the display at 8 dots to keep the row compact; the
+ * full N/M counts still show as text next to it. Red recoloration when
+ * 0 reachable lives in the surrounding pill class.
+ */
+function MirrorDots({ reachable, total }: { reachable: number; total: number }): JSX.Element {
+  const cap = Math.min(total, 8);
+  const reachableCapped = Math.min(reachable, cap);
+  const dots = Array.from({ length: cap }, (_, i) => i < reachableCapped);
+  return (
+    <span className="inline-flex items-center gap-0.5" aria-hidden="true">
+      {dots.map((on, i) => (
+        <span
+          key={i}
+          className={`inline-block w-1.5 h-1.5 rounded-full ${
+            on ? 'bg-emerald-500 dark:bg-emerald-400' : 'bg-slate-300 dark:bg-slate-700'
+          }`}
+        />
+      ))}
+    </span>
   );
 }
