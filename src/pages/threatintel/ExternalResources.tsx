@@ -182,7 +182,7 @@ export default function ExternalResources(): JSX.Element {
       {filtered.length === 0 && (
         <p className="text-sm font-mono text-slate-500 dark:text-slate-500 mt-6">
           Nothing matches the current filters.{' '}
-          <button onClick={clearAll} className="underline text-brand-600 dark:text-brand-400">
+          <button type="button" onClick={clearAll} className="underline text-brand-600 dark:text-brand-400">
             Clear all
           </button>
           ?
