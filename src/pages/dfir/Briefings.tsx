@@ -107,7 +107,7 @@ export default function Briefings(): JSX.Element {
                 key={id}
                 type="button"
                 onClick={() => setFilter(id)}
-                className={`px-3 py-1 rounded-full text-xs font-mono uppercase tracking-wider border transition-colors ${
+                className={`px-3 py-2 sm:py-1 min-h-[44px] sm:min-h-0 rounded-full text-xs font-mono uppercase tracking-wider border transition-colors inline-flex items-center ${
                   isActive
                     ? 'bg-brand-500/15 dark:bg-brand-400/15 text-brand-600 dark:text-brand-400 border-brand-500/40'
                     : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-800 hover:border-brand-500/30'
@@ -212,10 +212,8 @@ export default function Briefings(): JSX.Element {
                     </span>{' '}
                     high
                   </span>
-                  <span aria-hidden="true" className="hidden sm:inline">
-                    ·
-                  </span>
-                  <span className="hidden sm:inline text-slate-400 truncate max-w-md">
+                  <span aria-hidden="true">·</span>
+                  <span className="text-slate-400 truncate w-full sm:w-auto sm:max-w-md">
                     {(item.metadata.sources ?? []).join(', ')}
                   </span>
                 </div>

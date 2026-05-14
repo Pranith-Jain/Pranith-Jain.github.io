@@ -81,17 +81,18 @@ export default function Phishing(): JSX.Element {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Paste raw email here (View Original / Show Source from your mail client)"
-          rows={12}
+          rows={6}
           aria-label="Raw email source"
-          className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-xs text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm sm:text-xs text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 sm:rows-12"
+          style={{ minHeight: '12rem' }}
         />
-        <div className="mt-3 flex justify-end">
+        <div className="mt-3 flex flex-col-reverse sm:flex-row sm:justify-end gap-2">
           <button
             type="submit"
             disabled={!input.trim() || loading}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+            className="w-full sm:w-auto px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center justify-center gap-2"
           >
-            <ScanText size={16} className="inline mr-2" /> Analyze
+            <ScanText size={16} /> Analyze
           </button>
         </div>
       </form>

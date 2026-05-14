@@ -32,10 +32,11 @@ export default function Dashboard(): JSX.Element {
         </div>
         {entries.length > 0 && (
           <button
+            type="button"
             onClick={handleClear}
-            className="inline-flex items-center gap-1.5 text-xs font-mono text-slate-600 dark:text-slate-400 hover:text-rose-600 dark:text-rose-400"
+            className="inline-flex items-center gap-1.5 px-3 py-2 min-h-[44px] sm:min-h-0 sm:py-1 text-xs font-mono text-slate-600 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 rounded hover:bg-rose-500/10"
           >
-            <Trash2 size={12} /> clear
+            <Trash2 size={14} /> clear
           </button>
         )}
       </div>

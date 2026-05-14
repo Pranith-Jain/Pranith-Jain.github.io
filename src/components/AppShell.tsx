@@ -161,13 +161,13 @@ function AppHeader({
         </div>
 
         {/* Utility row */}
-        <div className="flex items-center gap-1 shrink-0">
+        <div className="flex items-center gap-2 sm:gap-1 shrink-0">
           <CmdkHint />
           <button
             type="button"
             onClick={onToggleTheme}
             aria-label="Toggle theme"
-            className="p-1.5 rounded text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800"
+            className="min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 p-2.5 sm:p-1.5 rounded inline-flex items-center justify-center text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800"
           >
             {isDark ? <Sun size={14} /> : <Moon size={14} />}
           </button>
@@ -185,7 +185,7 @@ function AppHeader({
             aria-label="Open navigation menu"
             aria-expanded={mobileOpen}
             aria-controls="appshell-mobile-nav"
-            className="md:hidden p-2 rounded text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800"
+            className="md:hidden min-h-[44px] min-w-[44px] p-2.5 rounded inline-flex items-center justify-center text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800"
           >
             <Menu size={16} />
           </button>
@@ -323,7 +323,7 @@ function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' }): JSX.Element {
 
   return (
     <footer className="border-t border-slate-200/60 dark:border-white/10 bg-white/60 dark:bg-slate-950/60 backdrop-blur-xl">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-9 flex items-center justify-between gap-3 text-[10px] font-mono text-slate-500 dark:text-slate-500">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 min-h-[44px] sm:h-9 py-2 sm:py-0 flex items-center justify-between gap-3 text-[10px] font-mono text-slate-500 dark:text-slate-500">
         <div className="flex items-center gap-3">
           {mode === 'dfir' ? (
             <>
@@ -334,16 +334,19 @@ function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' }): JSX.Element {
             <StatusPip status={status} error={error} />
           )}
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <a
             href="https://github.com/Pranith-Jain/Pranith-Jain.github.io"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-slate-900 dark:hover:text-slate-100"
+            className="inline-flex items-center min-h-[44px] sm:min-h-0 px-2 sm:px-0 hover:text-slate-900 dark:hover:text-slate-100"
           >
             github
           </a>
-          <Link to="/" className="hover:text-slate-900 dark:hover:text-slate-100">
+          <Link
+            to="/"
+            className="inline-flex items-center min-h-[44px] sm:min-h-0 px-2 sm:px-0 hover:text-slate-900 dark:hover:text-slate-100"
+          >
             portfolio
           </Link>
         </div>

@@ -180,7 +180,7 @@ export default function IocCheck(): JSX.Element {
                   <h2 className="font-display font-bold text-2xl">Composite verdict</h2>
                   <VerdictChip verdict={summary.verdict} />
                 </div>
-                <div className="flex items-center gap-4 font-mono text-sm text-slate-600 dark:text-slate-400">
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-sm text-slate-600 dark:text-slate-400">
                   <span>
                     score: <span className="font-semibold text-slate-900 dark:text-slate-100">{summary.score}</span> /
                     100

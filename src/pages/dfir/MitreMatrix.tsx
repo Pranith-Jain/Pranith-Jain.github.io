@@ -239,7 +239,7 @@ export default function MitreMatrix(): JSX.Element {
   }, [coverage, totalTechniques]);
 
   return (
-    <div className="max-w-full px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-full px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <div className="max-w-7xl mx-auto">
         <Link
           to="/threatintel"
@@ -359,8 +359,11 @@ export default function MitreMatrix(): JSX.Element {
           <p className="font-mono text-slate-500 text-sm">No techniques to show with current filters.</p>
         )}
 
-        {/* Matrix — horizontally scrollable */}
-        <div className="overflow-x-auto pb-4">
+        {/* Matrix — horizontally scrollable; explicit hint so touch users know to swipe */}
+        <p className="sm:hidden text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-2 italic">
+          Swipe horizontally to scan tactics →
+        </p>
+        <div className="overflow-x-auto pb-4 -mx-4 sm:mx-0 px-4 sm:px-0">
           <div className="flex gap-3 min-w-max">
             {visibleMatrix.map((tactic) => (
               <div key={tactic.id} className="w-52 flex-shrink-0">
@@ -422,7 +425,7 @@ export default function MitreMatrix(): JSX.Element {
                           />
                         )}
                         <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400">{technique.id}</div>
-                        <div className="text-xs font-medium text-slate-800 dark:text-slate-200 leading-tight line-clamp-2 mt-0.5">
+                        <div className="text-[13px] sm:text-xs font-medium text-slate-800 dark:text-slate-200 leading-snug line-clamp-2 mt-0.5">
                           {technique.name}
                         </div>
                         {isUsed && (
@@ -490,8 +493,8 @@ export default function MitreMatrix(): JSX.Element {
               <button
                 type="button"
                 onClick={closeDrawer}
-                aria-label="close"
-                className="shrink-0 rounded p-1.5 text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                aria-label="Close technique details"
+                className="shrink-0 inline-flex items-center justify-center min-h-[44px] min-w-[44px] rounded text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
               >
                 <X size={18} aria-hidden="true" />
               </button>

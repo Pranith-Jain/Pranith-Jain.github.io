@@ -87,9 +87,9 @@ export default function Domain(): JSX.Element {
       {result && (
         <div className="space-y-6">
           <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
-            <div className="flex items-baseline justify-between">
-              <h2 className="font-display font-bold text-2xl">{result.domain}</h2>
-              <span className="font-mono text-sm">
+            <div className="flex flex-wrap items-baseline justify-between gap-2">
+              <h2 className="font-display font-bold text-2xl min-w-0 break-all">{result.domain}</h2>
+              <span className="font-mono text-sm shrink-0">
                 health: <span className="text-slate-900 dark:text-slate-100">{result.score}/100</span>{' '}
                 <span
                   className={

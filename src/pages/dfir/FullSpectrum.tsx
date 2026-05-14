@@ -272,7 +272,7 @@ function ResultCard({
       : 'border-slate-200 dark:border-slate-800/50';
 
   return (
-    <div className={`border ${borderCls} bg-white dark:bg-slate-900 p-4 flex flex-col gap-2`}>
+    <div className={`rounded-lg border ${borderCls} bg-white dark:bg-slate-900 p-4 flex flex-col gap-2`}>
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2 min-w-0">
           <Icon size={14} className="text-brand-600 dark:text-brand-400 shrink-0" />
@@ -386,7 +386,7 @@ export default function FullSpectrum(): JSX.Element {
       </form>
 
       {hasResults && (
-        <section className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
           <div className="flex items-baseline justify-between gap-2">
             <h2 className="font-display font-bold text-xl truncate">{state.domain}</h2>
             <div className="flex items-center gap-2 shrink-0">

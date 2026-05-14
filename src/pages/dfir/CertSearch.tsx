@@ -169,14 +169,14 @@ export default function CertSearch(): JSX.Element {
           </div>
         </form>
 
-        <div className="flex flex-wrap gap-1.5 mt-3">
-          <span className="text-[10px] font-mono text-slate-500 dark:text-slate-500 self-center mr-1">samples:</span>
+        <div className="flex flex-wrap gap-2 mt-3 items-center">
+          <span className="text-[10px] font-mono text-slate-500 dark:text-slate-500 mr-1">samples:</span>
           {SAMPLES.map((s) => (
             <button
               key={s.domain}
               type="button"
               onClick={() => void lookup(s.domain)}
-              className="text-[11px] font-mono px-2 py-0.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+              className="text-[11px] font-mono px-3 py-2 sm:px-2 sm:py-0.5 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center"
             >
               {s.label}
             </button>

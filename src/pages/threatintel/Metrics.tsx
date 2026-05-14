@@ -525,7 +525,7 @@ export default function Metrics(): JSX.Element {
 
       {/* Headline totals + refresh */}
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
-        <div className="flex flex-wrap gap-3 text-[12px] font-mono">
+        <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-3 text-[13px] sm:text-[12px] font-mono w-full sm:w-auto">
           <Stat label="ransomware claims · 30d" value={summary.r} loading={state.loading} />
           <Stat label="CVEs in window" value={summary.c} loading={state.loading} />
           <Stat label="on CISA KEV" value={summary.kevCount} loading={state.loading} accent="rose" />
