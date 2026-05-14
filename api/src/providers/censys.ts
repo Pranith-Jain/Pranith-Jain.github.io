@@ -124,7 +124,13 @@ export const censys: ProviderAdapter = async (indicator, env, signal) => {
     }
     if (!res.ok) return base('error', { error: `${res.status} ${res.statusText}`.trim() });
 
-    const json = (await res.json()) as PlatformResponse;
+    const bodyText = await res.text();
+    let json: PlatformResponse = {};
+    try {
+      json = JSON.parse(bodyText) as PlatformResponse;
+    } catch {
+      json = {};
+    }
     // Tolerate both `{ result: {...} }` and top-level shapes.
     const host: PlatformHost = json.result ?? (json as PlatformHost);
 
@@ -156,6 +162,10 @@ export const censys: ProviderAdapter = async (indicator, env, signal) => {
         asn: host.autonomous_system?.asn ?? '',
         as_name: host.autonomous_system?.name ?? '',
         vulns_count: vulnsCount,
+        body_preview: bodyText.slice(0, 500),
+        top_keys: Object.keys(json as Record<string, unknown>)
+          .slice(0, 20)
+          .join(','),
       },
       tags: uniqueTags,
     });
