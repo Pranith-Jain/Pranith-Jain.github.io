@@ -53,6 +53,11 @@ import {
   sweepBriefingsHandler,
 } from './routes/briefings';
 import { briefingsRssHandler } from './routes/briefings-rss';
+import {
+  listExternalResourcesHandler,
+  createExternalResourceHandler,
+  deleteExternalResourceHandler,
+} from './routes/external-resources';
 import { snapshotHandler } from './routes/snapshot';
 import { iocSnapshotHandler } from './routes/ioc-snapshot';
 import { rateLimit } from './lib/ratelimit';
@@ -118,6 +123,9 @@ app.post('/api/v1/briefings/build', buildBriefingHandler);
 app.post('/api/v1/briefings/backfill', backfillBriefingsHandler);
 app.post('/api/v1/briefings/sweep', sweepBriefingsHandler);
 app.get('/api/v1/briefings/:slug', getBriefingHandler);
+app.get('/api/v1/external-resources', listExternalResourcesHandler);
+app.post('/api/v1/external-resources', createExternalResourceHandler);
+app.delete('/api/v1/external-resources/:id', deleteExternalResourceHandler);
 app.notFound((c) => c.json({ error: 'not_found' }, 404));
 
 export default app;
