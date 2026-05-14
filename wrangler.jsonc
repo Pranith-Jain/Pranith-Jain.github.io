@@ -27,8 +27,12 @@
     {
       "binding": "KV_CACHE",
       "id": "5125e769e49f4a1586f81d1935f9856a"
-    }
+    },
+    // TODO: run `npx wrangler kv namespace create CASE_STUDIES` and replace
+    // the placeholder id below with the namespace id printed by wrangler.
+    { "binding": "CASE_STUDIES", "id": "REPLACE_AFTER_WRANGLER_KV_CREATE" }
   ],
+  "ai": { "binding": "AI" },
   "triggers": {
     // Daily briefing at 00:05 UTC (covers prior 24h window). Weekly at 00:15 UTC Monday (covers prior week).
     // "0 * * * *" warms /api/v1/snapshot + /api/v1/ioc-snapshot once per hour so users always hit warm edge cache.
