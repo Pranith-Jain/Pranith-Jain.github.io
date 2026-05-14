@@ -361,6 +361,35 @@ export default {
     const cron = event.cron;
 
     if (cron === '0 * * * *') {
+      // Self-heal: Cloudflare crons are best-effort and the 00:05 UTC daily
+      // build can miss (silent failure, CPU limit, or a missed firing).
+      // Once per hour, check whether the expected daily briefing exists; if
+      // not, build it. Skip at UTC hour 0 — the daily cron is 5 minutes away
+      // and will produce a fresher version. Independent from the warm work
+      // below so a slow build can't delay snapshot warming.
+      if (env.BRIEFINGS && new Date().getUTCHours() !== 0) {
+        ctx.waitUntil(
+          (async () => {
+            const kv = env.BRIEFINGS as KVNamespace;
+            const yesterday = new Date(Date.now() - 86400_000);
+            const slug = `daily-${yesterday.toISOString().slice(0, 10)}`;
+            const existing = await kv.get(`briefing:${slug}`);
+            if (existing) return;
+            try {
+              const briefing = await buildBriefing('daily');
+              const result = await writeBriefing(kv, briefing, { skipIfExists: true });
+              if (result.written) {
+                console.log(
+                  `scheduled(catch-up): wrote ${briefing.slug} (findings=${briefing.stats.findings}, iocs=${briefing.stats.iocs})`
+                );
+              }
+            } catch (err) {
+              console.error('scheduled(catch-up): briefing build failed', err);
+            }
+          })()
+        );
+      }
+
       ctx.waitUntil(
         (async () => {
           const start = Date.now();
