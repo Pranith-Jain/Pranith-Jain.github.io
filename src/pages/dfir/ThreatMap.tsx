@@ -1,6 +1,6 @@
 import { Suspense, lazy, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, RefreshCw, Globe, Loader2 } from 'lucide-react';
+import { ArrowLeft, RefreshCw, Globe, Loader2, X } from 'lucide-react';
 import { IocSnapshotPanel } from '../../components/dfir/IocSnapshotPanel';
 import { ActorTtpsPanel } from '../../components/threatintel/ActorTtpsPanel';
 
@@ -233,6 +233,11 @@ export default function ThreatMap(): JSX.Element {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [hovered, setHovered] = useState<{ alpha2: string; name: string } | null>(null);
+  // Clicking a country (on the map or in the leaderboard) sets a sticky
+  // selection — replaces the hover-only tooltip with a persistent detail
+  // panel listing all IPs from that country. Clicking the same country
+  // again clears it. Required for mobile, where hover doesn't fire.
+  const [selected, setSelected] = useState<{ alpha2: string; name: string } | null>(null);
 
   const load = async () => {
     setLoading(true);
@@ -260,6 +265,27 @@ export default function ThreatMap(): JSX.Element {
 
   const maxCount = data?.countries[0]?.count ?? 0;
   const hoveredAgg = hovered ? countryByAlpha2.get(hovered.alpha2) : null;
+  const selectedAgg = selected ? countryByAlpha2.get(selected.alpha2) : null;
+
+  // Combine sample_ips (capped to 5 per country in the backend) with the
+  // global samples array (capped to 60 across all countries) filtered to
+  // the selected country. Dedup'd, gives up to ~10–15 IPs per country in
+  // practice — enough to triage without paginating.
+  const selectedIps = useMemo(() => {
+    if (!selected || !data) return [] as Array<{ ip: string; sources: string[] }>;
+    const out = new Map<string, string[]>();
+    if (selectedAgg) {
+      for (const ip of selectedAgg.sample_ips) {
+        if (!out.has(ip)) out.set(ip, Object.keys(selectedAgg.sources));
+      }
+    }
+    for (const s of data.samples) {
+      if (s.countryCode === selected.alpha2 && !out.has(s.ip)) {
+        out.set(s.ip, s.sources);
+      }
+    }
+    return [...out.entries()].map(([ip, sources]) => ({ ip, sources }));
+  }, [selected, selectedAgg, data]);
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
@@ -351,6 +377,8 @@ export default function ThreatMap(): JSX.Element {
                   maxCount={maxCount}
                   colourFor={colourFor}
                   onHover={setHovered}
+                  onSelect={setSelected}
+                  selectedAlpha2={selected?.alpha2 ?? null}
                 />
               </Suspense>
               {hoveredAgg && (
@@ -377,21 +405,99 @@ export default function ThreatMap(): JSX.Element {
                 Top origins
               </h3>
               <ul className="space-y-1.5">
-                {data.countries.slice(0, 15).map((c) => (
-                  <li
-                    key={c.countryCode}
-                    className="flex items-baseline justify-between gap-3 text-sm font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900"
-                  >
-                    <span className="truncate">
-                      <span className="text-slate-500 mr-2">{c.countryCode}</span>
-                      <span className="text-slate-800 dark:text-slate-200">{c.country}</span>
-                    </span>
-                    <span className="text-brand-600 dark:text-brand-400 font-bold shrink-0">{c.count}</span>
-                  </li>
-                ))}
+                {data.countries.slice(0, 15).map((c) => {
+                  const isSelected = selected?.alpha2 === c.countryCode;
+                  return (
+                    <li key={c.countryCode}>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (isSelected) setSelected(null);
+                          else setSelected({ alpha2: c.countryCode, name: c.country });
+                        }}
+                        className={`w-full flex items-baseline justify-between gap-3 text-sm font-mono px-3 py-2 min-h-[44px] sm:min-h-0 sm:py-1.5 rounded border transition-colors ${
+                          isSelected
+                            ? 'border-amber-400/60 bg-amber-400/10 text-slate-900 dark:text-slate-100'
+                            : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-brand-500/40'
+                        }`}
+                        aria-pressed={isSelected}
+                      >
+                        <span className="truncate">
+                          <span className="text-slate-500 mr-2">{c.countryCode}</span>
+                          <span className="text-slate-800 dark:text-slate-200">{c.country}</span>
+                        </span>
+                        <span className="text-brand-600 dark:text-brand-400 font-bold shrink-0">{c.count}</span>
+                      </button>
+                    </li>
+                  );
+                })}
               </ul>
             </aside>
           </div>
+
+          {/* Country drill-down detail panel.
+              Persistent click-selection state — replaces the hover-only
+              tooltip behaviour, which doesn't work on touch. Shows source
+              breakdown + every IP we have for the selected country with
+              one-click IOC Checker links. */}
+          {selected && (
+            <section className="mt-6 rounded-lg border border-amber-400/40 bg-amber-50/40 dark:border-amber-400/30 dark:bg-amber-500/5 p-4 sm:p-5">
+              <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
+                <div>
+                  <h3 className="font-display font-bold text-lg inline-flex items-center gap-2">
+                    <span className="text-amber-600 dark:text-amber-400 font-mono text-xs uppercase tracking-wider">
+                      Selected
+                    </span>
+                    {selectedAgg?.country ?? selected.name}
+                    <span className="text-slate-500 dark:text-slate-500 text-xs font-mono">({selected.alpha2})</span>
+                  </h3>
+                  {selectedAgg ? (
+                    <p className="text-xs font-mono text-slate-600 dark:text-slate-400 mt-1">
+                      <span className="font-semibold text-slate-900 dark:text-slate-100">{selectedAgg.count}</span>{' '}
+                      malicious IPs · sources:{' '}
+                      {Object.entries(selectedAgg.sources)
+                        .map(([s, n]) => `${s} (${n})`)
+                        .join(' · ')}
+                    </p>
+                  ) : (
+                    <p className="text-xs font-mono text-slate-500 mt-1">No current IOCs reported from this country.</p>
+                  )}
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setSelected(null)}
+                  className="inline-flex items-center gap-1 text-xs font-mono px-3 py-2 min-h-[44px] sm:min-h-0 rounded border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+                  aria-label="Clear country selection"
+                >
+                  <X size={12} /> clear
+                </button>
+              </div>
+
+              {selectedIps.length > 0 && (
+                <>
+                  <p className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-500 mb-2">
+                    IPs from {selectedAgg?.country ?? selected.name} ({selectedIps.length} shown
+                    {selectedAgg && selectedIps.length < selectedAgg.count ? ` of ${selectedAgg.count}` : ''})
+                  </p>
+                  <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                    {selectedIps.map(({ ip, sources }) => (
+                      <li key={ip}>
+                        <Link
+                          to={`/dfir/ioc-check?indicator=${encodeURIComponent(ip)}`}
+                          className="block rounded border border-amber-400/30 hover:border-brand-500/40 bg-white dark:bg-slate-900 px-3 py-2 transition-colors"
+                        >
+                          <div className="font-mono text-sm text-slate-900 dark:text-slate-100 break-all">{ip}</div>
+                          <div className="text-[11px] font-mono text-slate-500 mt-0.5">
+                            sources: {sources.join(', ')}
+                          </div>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
+            </section>
+          )}
 
           {/* Recent IPs (geolocated) */}
           {data.samples.length > 0 && (

@@ -25,6 +25,8 @@ interface ThreatMapChartProps {
   maxCount: number;
   colourFor: (count: number, max: number) => string;
   onHover: (h: { alpha2: string; name: string } | null) => void;
+  onSelect: (h: { alpha2: string; name: string } | null) => void;
+  selectedAlpha2: string | null;
 }
 
 export default function ThreatMapChart({
@@ -34,6 +36,8 @@ export default function ThreatMapChart({
   maxCount,
   colourFor,
   onHover,
+  onSelect,
+  selectedAlpha2,
 }: ThreatMapChartProps): JSX.Element {
   return (
     <ComposableMap projectionConfig={{ scale: 140 }} width={900} height={460} style={{ width: '100%', height: 'auto' }}>
@@ -45,15 +49,22 @@ export default function ThreatMapChart({
             const agg = alpha2 ? countryByAlpha2.get(alpha2) : undefined;
             const fill = agg ? colourFor(agg.count, maxCount) : '#1e293b';
             const name = (geo.properties as { name?: string })?.name ?? alpha2 ?? '';
+            const isSelected = !!alpha2 && alpha2 === selectedAlpha2;
             return (
               <Geography
                 key={geo.rsmKey}
                 geography={geo}
-                fill={fill}
-                stroke="#0f172a"
-                strokeWidth={0.4}
+                fill={isSelected ? '#fbbf24' : fill}
+                stroke={isSelected ? '#fbbf24' : '#0f172a'}
+                strokeWidth={isSelected ? 1.5 : 0.4}
                 onMouseEnter={() => alpha2 && onHover({ alpha2, name })}
                 onMouseLeave={() => onHover(null)}
+                onClick={() => {
+                  if (!alpha2) return;
+                  // Toggle: clicking the already-selected country clears the selection.
+                  if (alpha2 === selectedAlpha2) onSelect(null);
+                  else onSelect({ alpha2, name });
+                }}
                 style={{
                   default: { outline: 'none' },
                   hover: { outline: 'none', fill: '#fbbf24', cursor: 'pointer' },
