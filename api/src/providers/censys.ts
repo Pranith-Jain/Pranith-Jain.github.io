@@ -96,8 +96,6 @@ export const censys: ProviderAdapter = async (indicator, env, signal) => {
         raw_summary: {
           reason: `${res.status} from Censys (check CENSYS_PAT / CENSYS_ORG_ID)`,
           censys_error: censysError,
-          pat_len: pat.length,
-          org_id_len: orgId.length,
         },
       });
     }
@@ -121,13 +119,7 @@ export const censys: ProviderAdapter = async (indicator, env, signal) => {
     }
     if (!res.ok) return base('error', { error: `${res.status} ${res.statusText}`.trim() });
 
-    const bodyText = await res.text();
-    let json: PlatformResponse = {};
-    try {
-      json = JSON.parse(bodyText) as PlatformResponse;
-    } catch {
-      json = {};
-    }
+    const json = (await res.json()) as PlatformResponse;
     // Censys Platform v3 wraps host fields under result.resource.
     // Fall back to result.{...} and top-level shapes for tolerance.
     const host: PlatformHost = json.result?.resource ?? (json.result as PlatformHost) ?? (json as PlatformHost) ?? {};
@@ -160,10 +152,6 @@ export const censys: ProviderAdapter = async (indicator, env, signal) => {
         asn: host.autonomous_system?.asn ?? '',
         as_name: host.autonomous_system?.name ?? '',
         vulns_count: vulnsCount,
-        body_preview: bodyText.slice(0, 500),
-        top_keys: Object.keys(json as Record<string, unknown>)
-          .slice(0, 20)
-          .join(','),
       },
       tags: uniqueTags,
     });
