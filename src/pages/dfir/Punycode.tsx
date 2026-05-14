@@ -201,11 +201,16 @@ export default function Punycode(): JSX.Element {
         </p>
       </div>
 
+      <label htmlFor="punycode-input" className="sr-only">
+        Domain to check for homograph attacks
+      </label>
       <input
+        id="punycode-input"
         type="text"
         value={input}
         onChange={(e) => setInput(e.target.value)}
         placeholder="example.com or аpple.com"
+        aria-label="Domain to check for homograph attacks"
         className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 mb-8"
       />
 

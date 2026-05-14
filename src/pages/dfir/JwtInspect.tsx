@@ -144,11 +144,16 @@ export default function JwtInspect(): JSX.Element {
         </p>
       </div>
 
+      <label htmlFor="jwt-input" className="sr-only">
+        JSON Web Token to decode
+      </label>
       <textarea
+        id="jwt-input"
         value={token}
         onChange={(e) => setToken(e.target.value)}
         placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.…"
         rows={5}
+        aria-label="JSON Web Token"
         className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm break-all text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
       />
 

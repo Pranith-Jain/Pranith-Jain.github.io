@@ -38,6 +38,7 @@ const PROVIDER_GROUPS: { label: string; items: string[] }[] = [
 export default function DFIRPage(): JSX.Element {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
+      <h1 className="sr-only">DFIR Toolkit</h1>
       {/* App-style stat bar — replaces the portfolio-style 6xl hero on app routes */}
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
         <Stat label="Tools" value={String(TOOL_COUNT)} />
@@ -46,7 +47,7 @@ export default function DFIRPage(): JSX.Element {
         <Stat label="Last build" value={__BUILD_DATE__} mono />
       </section>
 
-      <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+      <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
         Scanners, decoders, lookup tools, frameworks, and analysers I reach for on shift. Sub-200ms IOC checks across 22
         threat-intel sources, no signup, no key. Looking for live feeds, briefings, RSS, or leak-site mirrors? Try{' '}
         <Link to="/threatintel" className="text-rose-600 dark:text-rose-400 hover:underline">

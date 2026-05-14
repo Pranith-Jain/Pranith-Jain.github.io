@@ -257,11 +257,16 @@ export default function IocExtractor(): JSX.Element {
         </div>
       )}
 
+      <label htmlFor="ioc-extractor-input" className="sr-only">
+        Text blob to extract IOCs from
+      </label>
       <textarea
+        id="ioc-extractor-input"
         value={input}
         onChange={(e) => setInput(e.target.value)}
         placeholder="Paste raw email, chat log, threat report, or any blob — refanging is automatic. Try patterns like example[.]com, hxxps://bad[.]site, 1[.]2[.]3[.]4[:]8080, [[.]] nesting, or Cyrillic homographs."
         rows={14}
+        aria-label="Text blob to extract IOCs from"
         className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
       />
 

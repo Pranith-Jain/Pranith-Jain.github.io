@@ -126,11 +126,16 @@ export default function LogParser(): JSX.Element {
             ))}
           </div>
         </div>
+        <label htmlFor="logparser-input" className="sr-only">
+          Log lines to parse
+        </label>
         <textarea
+          id="logparser-input"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Paste log lines here — one per line, or paste a multi-line WinEvent XML blob (will be auto-collapsed per Event)…"
           rows={14}
+          aria-label="Log lines input"
           className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-[11px] text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           spellCheck={false}
         />

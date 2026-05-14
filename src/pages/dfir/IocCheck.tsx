@@ -155,7 +155,11 @@ export default function IocCheck(): JSX.Element {
           </button>
         </div>
         {input && detectedType === 'unknown' && (
-          <p className="mt-2 text-xs font-mono text-amber-600 dark:text-amber-400">Unrecognized indicator format.</p>
+          <p className="mt-2 text-xs font-mono text-amber-600 dark:text-amber-400">
+            Unrecognized format. Accepted: IPv4 (e.g. <code className="font-semibold">1.1.1.1</code>), IPv6, domain
+            (e.g. <code className="font-semibold">example.com</code>), URL (with scheme), or file hash (MD5 / SHA-1 /
+            SHA-256).
+          </p>
         )}
       </form>
 

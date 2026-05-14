@@ -175,7 +175,10 @@ export default function RulePlayground(): JSX.Element {
 
       <div className="grid gap-3 lg:grid-cols-2 mb-6">
         <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
-          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2">
+          <h2
+            id="rule-playground-rule-label"
+            className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2"
+          >
             Rule
           </h2>
           <textarea
@@ -184,12 +187,16 @@ export default function RulePlayground(): JSX.Element {
             rows={16}
             spellCheck={false}
             placeholder="rule MyRule { strings: $a = ... condition: ... }   — or —   title: …\nlogsource: …\ndetection: …"
+            aria-labelledby="rule-playground-rule-label"
             className="w-full rounded border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
           />
         </section>
 
         <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
-          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2">
+          <h2
+            id="rule-playground-sample-label"
+            className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2"
+          >
             Sample
           </h2>
           <textarea
@@ -198,6 +205,7 @@ export default function RulePlayground(): JSX.Element {
             rows={16}
             spellCheck={false}
             placeholder="Paste a log line, EDR cmdline, file fragment, or any text the rule should be tested against."
+            aria-labelledby="rule-playground-sample-label"
             className="w-full rounded border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500/60 focus:outline-none"
           />
         </section>

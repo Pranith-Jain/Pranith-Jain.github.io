@@ -372,7 +372,7 @@ export default function ThreatIntelHome(): JSX.Element {
         <TiStat label="Refresh cadence" value="30m–1h" mono />
       </section>
 
-      <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+      <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
         Live ransomware leak claims, CVE merged with CISA KEV (active-exploitation flag inline), a malware-sample
         stream, a phishing-URL feed with brand attribution, and firehoses from Bluesky, Mastodon, Reddit, and Telegram.
         Daily briefings, ten-panel metrics, STIX 2.1 export. Need interactive tools instead?{' '}

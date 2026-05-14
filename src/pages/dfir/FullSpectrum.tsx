@@ -123,7 +123,15 @@ const TOOL_CONFIG: Array<{ key: ToolKey; label: string; icon: typeof Shield; bui
   },
 ];
 
-function ResultCard({ tool, state }: { tool: (typeof TOOL_CONFIG)[number]; state: ToolResult }) {
+function ResultCard({
+  tool,
+  state,
+  domain,
+}: {
+  tool: (typeof TOOL_CONFIG)[number];
+  state: ToolResult;
+  domain: string;
+}) {
   const Icon = tool.icon;
   const data = state.data as Record<string, unknown> | null;
 
@@ -275,7 +283,7 @@ function ResultCard({ tool, state }: { tool: (typeof TOOL_CONFIG)[number]; state
         {state.loading && <Loader2 size={12} className="animate-spin text-slate-500 dark:text-slate-500 shrink-0" />}
         {!state.loading && !!state.data && !state.error && (
           <Link
-            to={`/dfir/${tool.key === 'domain_lookup' ? 'domain' : tool.key === 'web_scan' ? 'web-scan' : tool.key === 'cert_search' ? 'cert-search' : tool.key === 'breach' ? 'breach' : tool.key}`}
+            to={`/dfir/${tool.key === 'domain_lookup' ? 'domain' : tool.key === 'web_scan' ? 'web-scan' : tool.key === 'cert_search' ? 'cert-search' : tool.key === 'breach' ? 'breach' : tool.key}?domain=${encodeURIComponent(domain)}`}
             className="text-[10px] text-brand-600 dark:text-brand-400 hover:underline shrink-0 inline-flex items-center gap-0.5"
           >
             full <ExternalLink size={9} />
@@ -399,7 +407,7 @@ export default function FullSpectrum(): JSX.Element {
 
       <div className="grid sm:grid-cols-2 gap-4">
         {TOOL_CONFIG.map((t) => (
-          <ResultCard key={t.key} tool={t} state={state[t.key]} />
+          <ResultCard key={t.key} tool={t} state={state[t.key]} domain={state.domain} />
         ))}
       </div>
     </div>

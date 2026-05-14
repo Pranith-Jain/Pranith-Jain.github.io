@@ -73,11 +73,16 @@ export default function Phishing(): JSX.Element {
       </div>
 
       <form onSubmit={onSubmit} className="mb-10">
+        <label htmlFor="phishing-input" className="sr-only">
+          Raw email source for phishing analysis
+        </label>
         <textarea
+          id="phishing-input"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Paste raw email here (View Original / Show Source from your mail client)"
           rows={12}
+          aria-label="Raw email source"
           className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-xs text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
         />
         <div className="mt-3 flex justify-end">
