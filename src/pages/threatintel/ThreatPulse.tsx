@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Activity, Crosshair, Shield, Bug, Hash } from 'lucide-react';
+import { ArrowLeft, Activity, Crosshair, Shield, Bug, Hash, Copy, Check, Layers } from 'lucide-react';
 
 interface PulseEntity {
   label: string;
@@ -53,6 +53,21 @@ function surfaceLabel(s: string): string {
   if (s.startsWith('mastodon:')) return `Mastodon @${s.slice(9)}`;
   if (s.startsWith('tg:')) return `Telegram @${s.slice(3)}`;
   return SURFACE_LABEL[s] ?? s;
+}
+
+/**
+ * Coarse platform-type taxonomy: which surface family does each source
+ * identifier belong to? An entity that shows up across multiple distinct
+ * platform types is a stronger signal than the same count of mentions all
+ * inside one platform (e.g. 3 Reddit subs == one community echoing itself;
+ * 1 Reddit + 1 Telegram + 1 writeup == genuine cross-platform corroboration).
+ */
+function platformType(s: string): string {
+  if (s.startsWith('reddit:')) return 'reddit';
+  if (s.startsWith('bsky:')) return 'bluesky';
+  if (s.startsWith('mastodon:')) return 'mastodon';
+  if (s.startsWith('tg:')) return 'telegram';
+  return s; // 'writeups', 'cybercrime' etc are already platform-type level.
 }
 
 export default function ThreatPulse(): JSX.Element {
@@ -121,7 +136,7 @@ export default function ThreatPulse(): JSX.Element {
         <ArrowLeft size={14} /> /threatintel
       </Link>
 
-      <header className="mb-8">
+      <header className="mb-6">
         <div className="flex items-center gap-3 mb-3">
           <Activity size={24} className="text-brand-600 dark:text-brand-400" />
           <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
@@ -138,6 +153,37 @@ export default function ThreatPulse(): JSX.Element {
           cybercrime news in real time.
         </p>
       </header>
+
+      {/* Kind summary — at-a-glance counts before the filter row.
+          Computed off the entire entities array so the numbers reflect the
+          full snapshot regardless of active filter / threshold. */}
+      {data && data.entities.length > 0 && (
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+          {(['cve', 'actor', 'technique', 'malware'] as const).map((k) => {
+            const Icon = KIND_ICONS[k];
+            const n = kindCounts[k] ?? 0;
+            return (
+              <button
+                key={k}
+                type="button"
+                onClick={() => setKindFilter(kindFilter === k ? null : k)}
+                aria-pressed={kindFilter === k}
+                className={`flex items-center gap-3 rounded-lg border p-3 text-left transition-colors ${
+                  kindFilter === k
+                    ? 'border-brand-500/60 bg-brand-500/10'
+                    : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-brand-500/40'
+                }`}
+              >
+                <Icon size={18} className="shrink-0 text-brand-600 dark:text-brand-400" />
+                <div className="min-w-0">
+                  <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500">{KIND_LABEL[k]}s</div>
+                  <div className="text-xl font-display font-bold tabular-nums">{n.toLocaleString()}</div>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      )}
 
       {/* Controls */}
       <div className="flex flex-wrap items-center gap-4 mb-6">
@@ -241,6 +287,8 @@ export default function ThreatPulse(): JSX.Element {
         <div className="space-y-2">
           {filtered.map((entity) => {
             const Icon = KIND_ICONS[entity.kind];
+            const platformCount = new Set(entity.sources.map(platformType)).size;
+            const isCrossPlatform = platformCount >= 2;
             return (
               <div
                 key={`${entity.kind}:${entity.label}`}
@@ -251,7 +299,7 @@ export default function ThreatPulse(): JSX.Element {
                     <Icon size={18} className="shrink-0 text-brand-600 dark:text-brand-400" />
                     <div className="min-w-0 flex-1">
                       <div className="flex items-baseline gap-2 flex-wrap">
-                        <span className="font-display font-semibold text-base text-slate-900 dark:text-slate-100">
+                        <span className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 break-all">
                           {entity.label}
                         </span>
                         <span
@@ -259,6 +307,27 @@ export default function ThreatPulse(): JSX.Element {
                         >
                           {KIND_LABEL[entity.kind]}
                         </span>
+                        {/* Platform-diversity badge — same source_count means
+                            different things when all from one platform vs
+                            spread across many. The badge separates the two
+                            without needing more screen space than a pill. */}
+                        {isCrossPlatform ? (
+                          <span
+                            className="inline-flex items-center gap-1 text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
+                            title={`${platformCount} distinct platform types — cross-platform corroboration, stronger signal than same-platform mentions`}
+                          >
+                            <Layers size={9} aria-hidden="true" />
+                            {platformCount} platforms
+                          </span>
+                        ) : entity.source_count > 1 ? (
+                          <span
+                            className="inline-flex items-center gap-1 text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-500"
+                            title="All mentions on a single platform — same-platform corroboration, weaker signal than cross-platform"
+                          >
+                            same-platform
+                          </span>
+                        ) : null}
+                        <CopyEntityButton entity={entity} />
                       </div>
                       <div className="flex flex-wrap gap-1 mt-1">
                         {entity.sources.map((s) => (
@@ -293,9 +362,40 @@ export default function ThreatPulse(): JSX.Element {
 
       {data && (
         <p className="mt-6 text-[11px] font-mono text-slate-500 dark:text-slate-500 text-center">
-          Generated {new Date(data.generated_at).toUTCString()} · {data.entities.length} total entities
+          Generated {data.generated_at.slice(0, 16).replace('T', ' ')} UTC · {data.entities.length} total entities
         </p>
       )}
     </div>
+  );
+}
+
+/**
+ * Inline copy-to-clipboard for an entity. Formats as
+ *   "<kind>: <label> [<sources>]"
+ * so the analyst can paste straight into a ticket / Slack with full
+ * context. Uses the standard transient-check feedback pattern.
+ */
+function CopyEntityButton({ entity }: { entity: PulseEntity }): JSX.Element {
+  const [done, setDone] = useState(false);
+  const onClick = async () => {
+    const line = `${KIND_LABEL[entity.kind]}: ${entity.label} [${entity.sources.map(surfaceLabel).join(', ')}]`;
+    try {
+      await navigator.clipboard.writeText(line);
+      setDone(true);
+      setTimeout(() => setDone(false), 1200);
+    } catch {
+      /* clipboard blocked — silent */
+    }
+  };
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={`Copy ${entity.label} with sources`}
+      title="Copy entity + sources for tickets / Slack"
+      className="inline-flex items-center justify-center min-h-[22px] min-w-[22px] rounded text-slate-400 hover:text-brand-500 transition-colors"
+    >
+      {done ? <Check size={12} /> : <Copy size={12} />}
+    </button>
   );
 }
