@@ -294,9 +294,15 @@ const INITIAL: State = {
   error: null,
 };
 
+// Window options (in days) for the panel-wide time-range toggle. KEV cadence
+// has its own fixed 12-week scale and intentionally ignores this control.
+const WINDOW_OPTIONS = [7, 30, 90] as const;
+type WindowDays = (typeof WINDOW_OPTIONS)[number];
+
 export default function Metrics(): JSX.Element {
   const [state, setState] = useState<State>(INITIAL);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [windowDays, setWindowDays] = useState<WindowDays>(30);
 
   useEffect(() => {
     let cancelled = false;
@@ -341,14 +347,25 @@ export default function Metrics(): JSX.Element {
     if (!state.ransomware) return [];
     const map = new Map<string, number>();
     for (const v of state.ransomware) {
-      if (!withinDays(v.discovered, 30)) continue;
+      if (!withinDays(v.discovered, windowDays)) continue;
       map.set(v.group, (map.get(v.group) ?? 0) + 1);
     }
     return [...map.entries()]
       .map(([label, value]) => ({ label, value }))
       .sort((a, b) => b.value - a.value)
       .slice(0, 10);
-  }, [state.ransomware]);
+  }, [state.ransomware, windowDays]);
+
+  // 11. NEW — country-origin of malicious IPs. data.threatMap.countries was
+  // already being fetched but never visualised. Plain HBar; not gated by
+  // windowDays because threat-map is a live snapshot, not historical.
+  const topCountries = useMemo<HBarItem[]>(() => {
+    if (!state.threatMap?.countries?.length) return [];
+    return state.threatMap.countries
+      .map((c) => ({ label: `${c.countryCode} · ${c.country}`, value: c.count }))
+      .sort((a, b) => b.value - a.value)
+      .slice(0, 10);
+  }, [state.threatMap]);
 
   const ransomwareCadence = useMemo(() => {
     if (!state.ransomware) return [] as { label: string; value: number }[];
@@ -428,7 +445,7 @@ export default function Metrics(): JSX.Element {
     if (!state.ransomware) return [];
     const map = new Map<string, number>();
     for (const v of state.ransomware) {
-      if (!withinDays(v.discovered, 30)) continue;
+      if (!withinDays(v.discovered, windowDays)) continue;
       const s = v.sector || 'Unknown';
       if (s === 'Unknown') continue;
       map.set(s, (map.get(s) ?? 0) + 1);
@@ -437,15 +454,15 @@ export default function Metrics(): JSX.Element {
       .map(([label, value]) => ({ label, value }))
       .sort((a, b) => b.value - a.value)
       .slice(0, 10);
-  }, [state.ransomware]);
+  }, [state.ransomware, windowDays]);
 
   const sectorClassifiedPct = useMemo(() => {
     if (!state.ransomware?.length) return 0;
-    const within = state.ransomware.filter((v) => withinDays(v.discovered, 30));
+    const within = state.ransomware.filter((v) => withinDays(v.discovered, windowDays));
     if (!within.length) return 0;
     const known = within.filter((v) => v.sector && v.sector !== 'Unknown').length;
     return Math.round((known / within.length) * 100);
-  }, [state.ransomware]);
+  }, [state.ransomware, windowDays]);
 
   /** Top vendors on the KEV catalogue. Parsed from "[KEV] Vendor Product:" prefix in description. */
   const topKevVendors = useMemo<HBarItem[]>(() => {
@@ -496,13 +513,13 @@ export default function Metrics(): JSX.Element {
 
   /* ─── Summary header counts ─── */
   const summary = useMemo(() => {
-    const r = state.ransomware?.filter((v) => withinDays(v.discovered, 30)).length ?? 0;
+    const r = state.ransomware?.filter((v) => withinDays(v.discovered, windowDays)).length ?? 0;
     const c = state.cves?.length ?? 0;
     const kevCount = state.cves?.filter((x) => x.kev).length ?? 0;
     const p = state.phishing?.length ?? 0;
     const ips = state.threatMap?.total_ips ?? 0;
     return { r, c, kevCount, p, ips };
-  }, [state]);
+  }, [state, windowDays]);
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
@@ -523,22 +540,52 @@ export default function Metrics(): JSX.Element {
         </p>
       </div>
 
-      {/* Headline totals + refresh */}
+      {/* Headline totals + window toggle + refresh */}
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
         <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-3 text-[13px] sm:text-[12px] font-mono w-full sm:w-auto">
-          <Stat label="ransomware claims · 30d" value={summary.r} loading={state.loading} />
+          <Stat label={`ransomware claims · ${windowDays}d`} value={summary.r} loading={state.loading} />
           <Stat label="CVEs in window" value={summary.c} loading={state.loading} />
           <Stat label="on CISA KEV" value={summary.kevCount} loading={state.loading} accent="rose" />
           <Stat label="active phishing URLs" value={summary.p} loading={state.loading} />
           <Stat label="malicious IPs · live" value={summary.ips} loading={state.loading} />
         </div>
-        <button
-          type="button"
-          onClick={() => setRefreshKey((k) => k + 1)}
-          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40"
-        >
-          <RefreshCw size={12} /> refresh
-        </button>
+        <div className="flex items-center gap-2 flex-wrap">
+          {/* Window selector — gates ransomware-based panels (groups, cadence,
+              sectors, sector-classified-pct) and the summary count. KEV
+              cadence keeps its own 12-week scale; CVE list returns its own
+              server-side window; threat-map is a live snapshot. */}
+          <div
+            role="group"
+            aria-label="Time window"
+            className="inline-flex rounded border border-slate-200 dark:border-slate-800 overflow-hidden text-[11px] font-mono"
+          >
+            {WINDOW_OPTIONS.map((d) => {
+              const active = d === windowDays;
+              return (
+                <button
+                  key={d}
+                  type="button"
+                  onClick={() => setWindowDays(d)}
+                  aria-pressed={active}
+                  className={`px-2.5 py-1.5 transition-colors ${
+                    active
+                      ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300'
+                      : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800'
+                  }`}
+                >
+                  {d}d
+                </button>
+              );
+            })}
+          </div>
+          <button
+            type="button"
+            onClick={() => setRefreshKey((k) => k + 1)}
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40"
+          >
+            <RefreshCw size={12} /> refresh
+          </button>
+        </div>
       </section>
 
       {state.loading && (
@@ -559,7 +606,7 @@ export default function Metrics(): JSX.Element {
           <ChartCard
             icon={Skull}
             title="Most active ransomware groups"
-            question="Who's claiming the most victims in the last 30 days?"
+            question={`Who's claiming the most victims in the last ${windowDays} days?`}
             footer={`From Ransomlook · ${state.ransomware?.length ?? 0} total claims indexed`}
             href="/threatintel/ransomware-activity"
           >
@@ -571,7 +618,7 @@ export default function Metrics(): JSX.Element {
             icon={TrendingUp}
             title="Ransomware cadence · last 30 days"
             question="Is leak-site posting accelerating or cooling?"
-            footer="Daily claim count; sparse x-axis labels every 5 days"
+            footer="Daily claim count; sparse x-axis labels every 5 days · fixed 30-day axis"
             href="/threatintel/ransomware-activity"
           >
             <Sparkbars buckets={ransomwareCadence} color="#e11d48" />
@@ -624,7 +671,7 @@ export default function Metrics(): JSX.Element {
           {/* 7. Targeted sectors (heuristic) */}
           <ChartCard
             icon={Briefcase}
-            title="Targeted sectors · 30d (heuristic)"
+            title={`Targeted sectors · ${windowDays}d (heuristic)`}
             question="Which industries are ransomware groups hitting right now?"
             footer={`Classified ${sectorClassifiedPct}% of recent victims by keyword match on victim name + description. Best-effort; verify before action.`}
             href="/threatintel/ransomware-activity"
@@ -663,6 +710,19 @@ export default function Metrics(): JSX.Element {
             href="/threatintel/re-leaks"
           >
             <HBar items={releakGroups} color="#f43f5e" />
+          </ChartCard>
+
+          {/* 11. Country-origin of malicious IPs (data was already fetched
+              but never visualised before 2026-05-14). Not gated by windowDays
+              — threat-map is a live snapshot, not historical. */}
+          <ChartCard
+            icon={Globe2}
+            title="Malicious-IP origins · live"
+            question="Where in the world are the malicious IPs originating?"
+            footer={`Top 10 countries · ${state.threatMap?.countries?.length ?? 0} countries seen across upstream feeds`}
+            href="/threatintel/threat-map"
+          >
+            <HBar items={topCountries} color="#3b82f6" />
           </ChartCard>
         </div>
       )}
