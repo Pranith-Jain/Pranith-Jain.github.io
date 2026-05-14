@@ -10,19 +10,23 @@ const supports = new Set(['ipv4', 'ipv6']);
 // Auth:      Authorization: Bearer <NETLAS_API_KEY>
 //            (X-API-Key is still accepted but documented as deprecated.)
 // Docs:      https://docs.netlas.io/api-reference/
+//
+// Response shape verified empirically against the live API (2026-05-14):
+//   {
+//     ports: [{ port, protocol, prot4, prot7 }, ...],
+//     domains: ["...", ...],
+//     domains_count: N,
+//     geo: { country, country_code, city, ... },
+//     organization: string | { name, ... },   ← varies; handle both
+//     whois: {...}, software: {...}, ptr: ..., ip: ..., type: ...,
+//     source: ..., ioc: ..., privacy: ...
+//   }
 
-// Response shape: defensive — Netlas's host envelope has varied across
-// schema versions. Common fields documented below; the parser falls back
-// to empty when a field is absent. A body_preview is included in
-// raw_summary on first deploy so we can confirm the actual shape and
-// drop the diagnostic in a follow-up commit (same approach that worked
-// for the Censys provider).
-
-interface NetlasService {
+interface NetlasPort {
   port?: number;
   protocol?: string;
-  service?: string;
-  product?: string;
+  prot4?: string;
+  prot7?: string;
 }
 
 interface NetlasGeo {
@@ -32,21 +36,18 @@ interface NetlasGeo {
   city?: string;
 }
 
-interface NetlasAS {
-  number?: number;
-  asn?: number;
+interface NetlasOrganization {
   name?: string;
   organization?: string;
-  org?: string;
+  asn?: number;
+  number?: number;
 }
 
 interface NetlasHost {
   ip?: string;
-  data?: NetlasService[];
-  ports?: number[];
-  services?: NetlasService[];
+  ports?: NetlasPort[];
   geo?: NetlasGeo;
-  asn?: NetlasAS;
+  organization?: string | NetlasOrganization;
   domains?: string[];
   tags?: string[];
   vulns?: unknown[];
@@ -121,26 +122,27 @@ export const netlas: ProviderAdapter = async (indicator, env, signal) => {
     }
     if (!res.ok) return base('error', { error: `${res.status} ${res.statusText}`.trim() });
 
-    const bodyText = await res.text();
-    let host: NetlasHost = {};
-    try {
-      const parsed = JSON.parse(bodyText) as NetlasHost | { data?: NetlasHost; result?: NetlasHost };
-      // Netlas wraps the host record in different envelopes depending on
-      // tier / endpoint version. Try common containers, fall back to top.
-      host =
-        (parsed as { data?: NetlasHost }).data ?? (parsed as { result?: NetlasHost }).result ?? (parsed as NetlasHost);
-    } catch {
-      host = {};
+    const host = (await res.json()) as NetlasHost;
+
+    // Ports: array of objects with .port + .protocol. Deduplicate because
+    // the same port often appears with prot4=tcp + prot4=udp variants.
+    const portObjects = host.ports ?? [];
+    const portsAll = [...new Set(portObjects.map((p) => p.port).filter((p): p is number => typeof p === 'number'))];
+
+    // Organization can arrive as a plain string ("Cloudflare, Inc.") or as
+    // an object with name/asn fields. Normalise into asName + asn separately
+    // so the UI summary stays consistent with Shodan/Censys.
+    let asName = '';
+    let asn: string | number = '';
+    if (typeof host.organization === 'string') {
+      asName = host.organization;
+    } else if (host.organization && typeof host.organization === 'object') {
+      asName = host.organization.name ?? host.organization.organization ?? '';
+      asn = host.organization.asn ?? host.organization.number ?? '';
     }
 
-    // Port extraction: services[]/data[] objects each carry a port field;
-    // some responses also expose a top-level ports[] array.
-    const serviceItems = (host.services ?? host.data ?? []) as NetlasService[];
-    const portsFromServices = serviceItems.map((s) => s.port).filter((p): p is number => typeof p === 'number');
-    const portsTopLevel = Array.isArray(host.ports)
-      ? (host.ports.filter((p) => typeof p === 'number') as number[])
-      : [];
-    const portsAll = [...new Set([...portsFromServices, ...portsTopLevel])];
+    const country = host.geo?.country ?? host.geo?.country_name ?? '';
+    const countryCode = host.geo?.country_code ?? '';
 
     const vulns = (host.vulns ?? host.cves ?? []) as unknown[];
     const vulnsCount = vulns.length;
@@ -148,11 +150,6 @@ export const netlas: ProviderAdapter = async (indicator, env, signal) => {
 
     const score = Math.min(100, vulnsCount * 10 + (openPorts > 100 ? 30 : openPorts > 20 ? 15 : 0));
     const verdict: Verdict = score >= 70 ? 'malicious' : score >= 40 ? 'suspicious' : 'clean';
-
-    const country = host.geo?.country ?? host.geo?.country_name ?? '';
-    const countryCode = host.geo?.country_code ?? '';
-    const asn = host.asn?.number ?? host.asn?.asn ?? '';
-    const asName = host.asn?.name ?? host.asn?.organization ?? host.asn?.org ?? '';
 
     const tags: string[] = [];
     (host.tags ?? []).slice(0, 5).forEach((t) => tags.push(t));
@@ -165,21 +162,15 @@ export const netlas: ProviderAdapter = async (indicator, env, signal) => {
       verdict,
       raw_summary: {
         ports: portsAll.slice(0, 8),
-        services: serviceItems
+        services: portObjects
           .slice(0, 8)
-          .map((s) => `${s.port}/${s.service ?? s.protocol ?? '?'}`)
+          .map((p) => `${p.port}/${p.protocol ?? p.prot7 ?? p.prot4 ?? '?'}`)
           .join(', '),
         country,
         asn,
         as_name: asName,
         domains: (host.domains ?? []).slice(0, 5),
         vulns_count: vulnsCount,
-        // Diagnostic — remove once we've verified the actual response shape
-        // for a populated host. The Censys provider used the same approach.
-        body_preview: bodyText.slice(0, 400),
-        top_keys: Object.keys(host as Record<string, unknown>)
-          .slice(0, 20)
-          .join(','),
       },
       tags: uniqueTags,
     });
