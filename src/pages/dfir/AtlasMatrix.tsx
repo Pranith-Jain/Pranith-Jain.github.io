@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ExternalLink, Search, X } from 'lucide-react';
 import { atlasMatrix } from '../../data/dfir/atlas-matrix';
@@ -27,11 +27,11 @@ export default function AtlasMatrix(): JSX.Element {
   const [detailError, setDetailError] = useState<string | null>(null);
 
   const openTechnique = (id: string) => setSelectedId(id);
-  const closeDrawer = () => {
+  const closeDrawer = useCallback(() => {
     setSelectedId(null);
     setDetail(null);
     setDetailError(null);
-  };
+  }, []);
 
   useEffect(() => {
     if (!selectedId) return;

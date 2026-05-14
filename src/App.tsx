@@ -115,13 +115,6 @@ const VictimReleaksPage = lazy(() => import('./pages/threatintel/VictimReleaks')
 const LiveIocsPage = lazy(() => import('./pages/threatintel/LiveIocs'));
 const CyberCrimePage = lazy(() => import('./pages/threatintel/CyberCrime'));
 
-function TechniqueRedirect() {
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get('technique') || params.get('t') || params.get('q') || '';
-  const target = id ? `/threatintel/mitre?id=${encodeURIComponent(id)}` : '/threatintel/mitre';
-  return <Navigate to={target} replace />;
-}
-
 /**
  * Preserves the path slug (when `withSlug`), the query string, and the hash
  * fragment when redirecting an old /dfir/<slug> URL to its new
