@@ -98,6 +98,7 @@ const ThreatFeeds = lazy(() => import('./pages/dfir/ThreatFeeds'));
 const OnionWatch = lazy(() => import('./pages/dfir/OnionWatch'));
 const TelegramWatch = lazy(() => import('./pages/dfir/TelegramWatch'));
 const AwesomeLists = lazy(() => import('./pages/dfir/AwesomeLists'));
+const ExternalResources = lazy(() => import('./pages/threatintel/ExternalResources'));
 const ThreatIntelHome = lazy(() => import('./pages/threatintel/Home'));
 const ThreatPulse = lazy(() => import('./pages/threatintel/ThreatPulse'));
 const CveList = lazy(() => import('./pages/threatintel/CveList'));
@@ -113,13 +114,6 @@ const ActorTimelinePage = lazy(() => import('./pages/threatintel/ActorTimeline')
 const VictimReleaksPage = lazy(() => import('./pages/threatintel/VictimReleaks'));
 const LiveIocsPage = lazy(() => import('./pages/threatintel/LiveIocs'));
 const CyberCrimePage = lazy(() => import('./pages/threatintel/CyberCrime'));
-
-function TechniqueRedirect() {
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get('technique') || params.get('t') || params.get('q') || '';
-  const target = id ? `/threatintel/mitre?id=${encodeURIComponent(id)}` : '/threatintel/mitre';
-  return <Navigate to={target} replace />;
-}
 
 /**
  * Preserves the path slug (when `withSlug`), the query string, and the hash
@@ -1023,6 +1017,14 @@ export function AppContent() {
         element={
           <Suspense fallback={<SectionLoader />}>
             <AwesomeLists />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/threatintel/external-resources"
+        element={
+          <Suspense fallback={<SectionLoader />}>
+            <ExternalResources />
           </Suspense>
         }
       />

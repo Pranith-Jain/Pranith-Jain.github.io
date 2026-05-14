@@ -28,7 +28,6 @@ async function readCachedFeed<T>(cacheKey: string, fetcher: () => Promise<T>): P
 }
 
 const CACHE_TTL = 1800;
-const FETCH_TIMEOUT_MS = 20_000;
 const UA = 'Mozilla/5.0 (compatible; pranithjain-threat-pulse/1.0; +https://pranithjain.qzz.io)';
 
 /** Entity extracted from feed content. */
@@ -152,21 +151,6 @@ function classifyEntities(text: string, source: string, out: Map<string, PulseEn
   for (const t of extractTechniques(text)) mergeEntity(out, 'technique', t, source);
   for (const a of extractActors(text)) mergeEntity(out, 'actor', a, source);
   for (const m of extractMalware(text)) mergeEntity(out, 'malware', m, source);
-}
-
-// ─── Feed fetchers ──────────────────────────────────────────────────────────
-
-async function fetchJson(url: string): Promise<unknown | null> {
-  try {
-    const res = await fetch(url, {
-      headers: { 'user-agent': UA, accept: 'application/json' },
-      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-    });
-    if (!res.ok) return null;
-    return res.json() as unknown;
-  } catch {
-    return null;
-  }
 }
 
 // 16 subs total — kept under the parallel-fetch budget that the
