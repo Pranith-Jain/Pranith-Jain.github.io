@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { AlertOctagon, ArrowLeft, ExternalLink, Loader2, RefreshCw, Search } from 'lucide-react';
 
 /**
@@ -74,13 +74,35 @@ function formatDate(iso?: string): string {
   return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
 }
 
+const ALL_CATEGORIES_FOR_URL = ['all'] as const;
+
 export default function CyberCrime(): JSX.Element {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [data, setData] = useState<CybercrimeResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(searchParams.get('q') ?? '');
   const [refreshKey, setRefreshKey] = useState(0);
-  const [activeCategory, setActiveCategory] = useState<Category | 'all'>('all');
+  const [activeCategory, setActiveCategory] = useState<Category | 'all'>(() => {
+    const cat = searchParams.get('cat');
+    if (cat && cat in CATEGORY_LABEL) return cat as Category;
+    return ALL_CATEGORIES_FOR_URL[0];
+  });
+
+  // Keep filter state in the URL so a curated view is shareable.
+  useEffect(() => {
+    setSearchParams(
+      (prev) => {
+        const out = new URLSearchParams(prev);
+        if (query.trim()) out.set('q', query.trim());
+        else out.delete('q');
+        if (activeCategory !== 'all') out.set('cat', activeCategory);
+        else out.delete('cat');
+        return out;
+      },
+      { replace: true }
+    );
+  }, [query, activeCategory, setSearchParams]);
 
   useEffect(() => {
     let cancelled = false;

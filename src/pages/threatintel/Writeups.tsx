@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, BookText, ExternalLink, Loader2, RefreshCw, Search } from 'lucide-react';
 
 /**
@@ -67,13 +67,35 @@ function shortRel(iso?: string): string {
 }
 
 export default function Writeups(): JSX.Element {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [data, setData] = useState<WriteupsResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [query, setQuery] = useState('');
-  const [kindFilter, setKindFilter] = useState<Set<WriteupKind>>(new Set());
-  const [sourceFilter, setSourceFilter] = useState<Set<string>>(new Set());
+  const [query, setQuery] = useState(searchParams.get('q') ?? '');
+  const [kindFilter, setKindFilter] = useState<Set<WriteupKind>>(
+    () => new Set((searchParams.get('kind')?.split(',').filter(Boolean) ?? []) as WriteupKind[])
+  );
+  const [sourceFilter, setSourceFilter] = useState<Set<string>>(
+    () => new Set(searchParams.get('src')?.split(',').filter(Boolean) ?? [])
+  );
   const [refreshKey, setRefreshKey] = useState(0);
+
+  // Keep filter state in the URL so a curated view is shareable.
+  useEffect(() => {
+    setSearchParams(
+      (prev) => {
+        const out = new URLSearchParams(prev);
+        if (query.trim()) out.set('q', query.trim());
+        else out.delete('q');
+        if (kindFilter.size > 0) out.set('kind', [...kindFilter].join(','));
+        else out.delete('kind');
+        if (sourceFilter.size > 0) out.set('src', [...sourceFilter].join(','));
+        else out.delete('src');
+        return out;
+      },
+      { replace: true }
+    );
+  }, [query, kindFilter, sourceFilter, setSearchParams]);
 
   useEffect(() => {
     let cancelled = false;

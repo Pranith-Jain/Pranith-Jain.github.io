@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import {
   AlertOctagon,
   ArrowLeft,
@@ -84,14 +84,36 @@ function shortRel(iso: string): string {
 }
 
 export default function CveList(): JSX.Element {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [data, setData] = useState<CveResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(searchParams.get('q') ?? '');
   const [refreshKey, setRefreshKey] = useState(0);
-  const [severityFilter, setSeverityFilter] = useState<Set<RecentCve['severity']>>(new Set());
-  const [kevOnly, setKevOnly] = useState(false);
-  const [newOnly, setNewOnly] = useState(false);
+  const [severityFilter, setSeverityFilter] = useState<Set<RecentCve['severity']>>(
+    () => new Set((searchParams.get('sev')?.split(',').filter(Boolean) ?? []) as RecentCve['severity'][])
+  );
+  const [kevOnly, setKevOnly] = useState(searchParams.get('kev') === '1');
+  const [newOnly, setNewOnly] = useState(searchParams.get('new') === '1');
+
+  // Keep filter state in the URL so a curated view is shareable.
+  useEffect(() => {
+    setSearchParams(
+      (prev) => {
+        const out = new URLSearchParams(prev);
+        if (query.trim()) out.set('q', query.trim());
+        else out.delete('q');
+        if (severityFilter.size > 0) out.set('sev', [...severityFilter].join(','));
+        else out.delete('sev');
+        if (kevOnly) out.set('kev', '1');
+        else out.delete('kev');
+        if (newOnly) out.set('new', '1');
+        else out.delete('new');
+        return out;
+      },
+      { replace: true }
+    );
+  }, [query, severityFilter, kevOnly, newOnly, setSearchParams]);
   const { previous: lastVisit, markVisited } = useLastVisit('cve-list');
 
   useEffect(() => {

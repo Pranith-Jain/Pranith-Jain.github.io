@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, Download, GitBranchPlus, Loader2, RefreshCw, Search, Sparkles, Copy, Check } from 'lucide-react';
 import { useLastVisit, isNewSince } from '../../hooks';
 
@@ -170,14 +170,38 @@ function IocRow({ ioc }: { ioc: CorrelatedIoc }) {
 }
 
 export default function IocCorrelation(): JSX.Element {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [data, setData] = useState<CorrelationResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [query, setQuery] = useState('');
-  const [kindFilter, setKindFilter] = useState<Set<IocKind>>(new Set());
-  const [freshFilter, setFreshFilter] = useState<Set<Freshness>>(new Set());
-  const [newOnly, setNewOnly] = useState(false);
+  const [query, setQuery] = useState(searchParams.get('q') ?? '');
+  const [kindFilter, setKindFilter] = useState<Set<IocKind>>(
+    () => new Set((searchParams.get('kind')?.split(',').filter(Boolean) ?? []) as IocKind[])
+  );
+  const [freshFilter, setFreshFilter] = useState<Set<Freshness>>(
+    () => new Set((searchParams.get('fresh')?.split(',').filter(Boolean) ?? []) as Freshness[])
+  );
+  const [newOnly, setNewOnly] = useState(searchParams.get('new') === '1');
   const [refreshKey, setRefreshKey] = useState(0);
+
+  // Keep filter state in the URL so a curated view is shareable.
+  useEffect(() => {
+    setSearchParams(
+      (prev) => {
+        const out = new URLSearchParams(prev);
+        if (query.trim()) out.set('q', query.trim());
+        else out.delete('q');
+        if (kindFilter.size > 0) out.set('kind', [...kindFilter].join(','));
+        else out.delete('kind');
+        if (freshFilter.size > 0) out.set('fresh', [...freshFilter].join(','));
+        else out.delete('fresh');
+        if (newOnly) out.set('new', '1');
+        else out.delete('new');
+        return out;
+      },
+      { replace: true }
+    );
+  }, [query, kindFilter, freshFilter, newOnly, setSearchParams]);
   const { previous: lastVisit, markVisited } = useLastVisit('ioc-correlation');
 
   useEffect(() => {
