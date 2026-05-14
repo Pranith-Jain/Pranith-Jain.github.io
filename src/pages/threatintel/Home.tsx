@@ -363,6 +363,7 @@ export default function ThreatIntelHome(): JSX.Element {
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
+      <h1 className="sr-only">Threat Intel Platform</h1>
       {/* App-style stat bar — replaces the portfolio-style 6xl hero on app routes */}
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
         <TiStat label="Intel surfaces" value={String(totalTiles)} />
@@ -386,37 +387,37 @@ export default function ThreatIntelHome(): JSX.Element {
         <span>quick:</span>
         <Link
           to="/threatintel/metrics"
-          className="px-2 py-0.5 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40"
+          className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 min-h-[44px] sm:min-h-0 sm:py-1 flex items-center"
         >
           metrics
         </Link>
         <Link
           to="/threatintel/correlation"
-          className="px-2 py-0.5 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40"
+          className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 min-h-[44px] sm:min-h-0 sm:py-1 flex items-center"
         >
           correlation
         </Link>
         <Link
           to="/threatintel/actor-timeline"
-          className="px-2 py-0.5 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40"
+          className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 min-h-[44px] sm:min-h-0 sm:py-1 flex items-center"
         >
           actor timeline
         </Link>
         <Link
           to="/threatintel/re-leaks"
-          className="px-2 py-0.5 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40"
+          className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 min-h-[44px] sm:min-h-0 sm:py-1 flex items-center"
         >
           re-leaks
         </Link>
         <Link
           to="/threatintel/live-iocs"
-          className="px-2 py-0.5 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40"
+          className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 min-h-[44px] sm:min-h-0 sm:py-1 flex items-center"
         >
           live stream
         </Link>
         <Link
           to="/threatintel/status"
-          className="px-2 py-0.5 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40"
+          className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 min-h-[44px] sm:min-h-0 sm:py-1 flex items-center"
         >
           feed status
         </Link>

@@ -123,14 +123,17 @@ export default function ExternalResources(): JSX.Element {
             const count = kindCounts.get(k) ?? 0;
             const active = activeKinds.has(k);
             const cls = active ? KIND_PILL[k] : 'border-slate-300 dark:border-slate-700 text-slate-500';
+            const isDisabled = count === 0 && !active;
             return (
               <button
                 key={k}
                 type="button"
                 onClick={() => toggleKind(k)}
                 className={`text-[11px] font-mono px-2 py-1 rounded border ${cls} ${count === 0 ? 'opacity-30' : ''}`}
-                title={KIND_BLURB[k]}
-                disabled={count === 0 && !active}
+                title={isDisabled ? `${KIND_LABELS[k]} — no entries match the current search` : KIND_BLURB[k]}
+                disabled={isDisabled}
+                aria-pressed={active}
+                aria-label={`Filter by ${KIND_LABELS[k]} (${count} ${count === 1 ? 'entry' : 'entries'})`}
               >
                 {KIND_LABELS[k]} <span className="opacity-70">· {count}</span>
               </button>
@@ -163,6 +166,8 @@ export default function ExternalResources(): JSX.Element {
                 onClick={() => toggleKind(r.kind)}
                 className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border shrink-0 ${KIND_PILL[r.kind]}`}
                 title={`Filter by ${KIND_LABELS[r.kind]}`}
+                aria-pressed={activeKinds.has(r.kind)}
+                aria-label={`${KIND_LABELS[r.kind]} — toggle filter`}
               >
                 {KIND_LABELS[r.kind]}
               </button>
@@ -185,7 +190,7 @@ export default function ExternalResources(): JSX.Element {
           <button type="button" onClick={clearAll} className="underline text-brand-600 dark:text-brand-400">
             Clear all
           </button>
-          ?
+          .
         </p>
       )}
     </div>

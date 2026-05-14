@@ -71,8 +71,7 @@ export default function IocCheck(): JSX.Element {
   const detectedType = input ? detectType(input) : 'unknown';
   const canSubmit = !!input.trim() && detectedType !== 'unknown' && !streaming;
 
-  const onSubmit = (e: FormEvent) => {
-    e.preventDefault();
+  const runCheck = () => {
     if (!canSubmit) return;
     setStreaming(true);
     setResults([]);
@@ -95,6 +94,11 @@ export default function IocCheck(): JSX.Element {
     });
   };
 
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    runCheck();
+  };
+
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <Link
@@ -113,13 +117,18 @@ export default function IocCheck(): JSX.Element {
       </div>
 
       <form onSubmit={onSubmit} className="mb-10">
+        <label htmlFor="ioc-input" className="sr-only">
+          Indicator of compromise (IP, domain, URL, or hash)
+        </label>
         <div className="flex gap-2">
           <div className="flex-1 relative">
             <input
+              id="ioc-input"
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="paste an IP, domain, URL, or hash"
+              aria-label="Indicator of compromise"
               className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
             {input && detectedType !== 'unknown' && (
@@ -169,10 +178,12 @@ export default function IocCheck(): JSX.Element {
                 </div>
                 <div className="flex items-center gap-4 font-mono text-sm text-slate-600 dark:text-slate-400">
                   <span>
-                    score: <span className="text-slate-900 dark:text-slate-100">{summary.score}</span> / 100
+                    score: <span className="font-semibold text-slate-900 dark:text-slate-100">{summary.score}</span> /
+                    100
                   </span>
                   <span>
-                    confidence: <span className="text-slate-900 dark:text-slate-100">{summary.confidence}</span>
+                    confidence:{' '}
+                    <span className="font-semibold text-slate-900 dark:text-slate-100">{summary.confidence}</span>
                   </span>
                   <span>
                     {summary.contributing} of {eligible.length} responding
@@ -197,27 +208,49 @@ export default function IocCheck(): JSX.Element {
         })()}
 
       {(streaming || results.length > 0) && (
-        <section>
+        <section aria-busy={streaming && eligible.length === 0}>
           <h3 className="font-display font-semibold mb-4 text-lg">Per-source</h3>
-          <div className="grid sm:grid-cols-2 gap-3">
-            {eligible.map((p) => {
-              const r = results.find((res) => res.source === p);
-              if (r) return <IocResultRow key={p} r={r} />;
-              return (
-                <div
-                  key={p}
-                  className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 animate-pulse"
-                >
-                  <span className="font-display capitalize text-slate-600 dark:text-slate-400">{p}</span>
-                  <span className="block mt-2 text-xs font-mono text-slate-500">querying…</span>
-                </div>
-              );
-            })}
-          </div>
+          {streaming && eligible.length === 0 ? (
+            <p className="text-xs font-mono text-slate-500 dark:text-slate-500 animate-pulse">
+              opening stream — waiting for eligible providers…
+            </p>
+          ) : (
+            <div className="grid sm:grid-cols-2 gap-3">
+              {eligible.map((p) => {
+                const r = results.find((res) => res.source === p);
+                if (r) return <IocResultRow key={p} r={r} />;
+                return (
+                  <div
+                    key={p}
+                    className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 animate-pulse"
+                  >
+                    <span className="font-display capitalize text-slate-600 dark:text-slate-400">{p}</span>
+                    <span className="block mt-2 text-xs font-mono text-slate-500">querying…</span>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </section>
       )}
 
-      {error && <p className="mt-6 text-sm font-mono text-rose-600 dark:text-rose-400">stream error: {error}</p>}
+      {error && (
+        <div
+          role="alert"
+          className="mt-6 rounded-lg border border-rose-300 dark:border-rose-800 bg-rose-50/50 dark:bg-rose-900/15 p-4 flex items-start justify-between gap-3"
+        >
+          <div className="text-sm font-mono text-rose-700 dark:text-rose-300">
+            <span className="font-semibold">stream error:</span> {error}
+          </div>
+          <button
+            type="button"
+            onClick={runCheck}
+            className="shrink-0 text-xs font-mono px-3 py-1.5 rounded border border-rose-400/60 text-rose-700 dark:text-rose-300 hover:bg-rose-500/10"
+          >
+            retry
+          </button>
+        </div>
+      )}
 
       {summary && (
         <div className="mt-6">

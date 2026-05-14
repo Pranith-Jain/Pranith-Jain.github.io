@@ -379,6 +379,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                           className={`inline-block w-1.5 h-1.5 rounded-full shrink-0 ${
                             matched.length > 0 ? 'bg-violet-500' : isNew ? 'bg-amber-500' : 'bg-transparent'
                           }`}
+                          role={matched.length > 0 || isNew ? 'img' : undefined}
                           aria-label={
                             matched.length > 0
                               ? `watchlist match: ${matched.join(', ')}`
@@ -386,6 +387,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                                 ? 'new since last visit'
                                 : undefined
                           }
+                          aria-hidden={matched.length === 0 && !isNew ? true : undefined}
                           title={matched.length > 0 ? `watchlist match: ${matched.join(', ')}` : undefined}
                         />
                         <span className="text-[9px] uppercase tracking-wider px-1 rounded border border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300 shrink-0">
@@ -695,8 +697,8 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                           </a>
                           <span className="text-slate-500 shrink-0">{shortRel(it.pubDate)}</span>
                         </div>
-                        {/* Tech & AI always shows source — analysts want to see when YC blog / HN surfaces. */}
-                        <p className="text-slate-500 dark:text-slate-500 truncate pl-3.5">{it.source}</p>
+                        {/* Tech & AI shows source for non-compact only — analysts want to see when YC blog / HN surfaces. */}
+                        {!compact && <p className="text-slate-500 dark:text-slate-500 truncate pl-3.5">{it.source}</p>}
                       </li>
                     );
                   })}

@@ -38,9 +38,11 @@ export default function Briefings(): JSX.Element {
   const [items, setItems] = useState<ListItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [reloadKey, setReloadKey] = useState(0);
 
   useEffect(() => {
     setLoading(true);
+    setError(null);
     fetch('/api/v1/briefings/list?limit=60')
       .then(async (r) => {
         if (!r.ok) {
@@ -52,7 +54,7 @@ export default function Briefings(): JSX.Element {
       .then((d) => setItems(d.items))
       .catch((err: Error) => setError(err.message))
       .finally(() => setLoading(false));
-  }, []);
+  }, [reloadKey]);
 
   const filtered = useMemo(() => {
     return items
@@ -70,7 +72,7 @@ export default function Briefings(): JSX.Element {
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 sm:py-16 text-slate-900 dark:text-slate-100">
       <Link
         to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-10 font-mono transition-colors"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-10 font-mono transition-colors"
       >
         <ArrowLeft size={14} /> /threatintel
       </Link>
@@ -117,9 +119,36 @@ export default function Briefings(): JSX.Element {
           })}
         </div>
 
-        {loading && <p className="text-sm font-mono text-slate-400 py-10 text-center">Loading briefings…</p>}
+        {loading && (
+          <div className="space-y-4" aria-busy="true" aria-label="Loading briefings">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div
+                key={i}
+                className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 animate-pulse"
+              >
+                <div className="h-4 bg-slate-200 dark:bg-slate-800 rounded w-1/2 mb-2" />
+                <div className="h-3 bg-slate-200 dark:bg-slate-800 rounded w-1/4 mb-4" />
+                <div className="h-3 bg-slate-200 dark:bg-slate-800 rounded w-3/4" />
+              </div>
+            ))}
+          </div>
+        )}
         {error && (
-          <p className="text-sm font-mono text-rose-600 dark:text-rose-400 py-10 text-center">error: {error}</p>
+          <div
+            role="alert"
+            className="rounded-2xl border border-rose-300 dark:border-rose-800 bg-rose-50/50 dark:bg-rose-900/15 p-6 flex items-start justify-between gap-3"
+          >
+            <div className="text-sm font-mono text-rose-700 dark:text-rose-300">
+              <span className="font-semibold">error:</span> {error}
+            </div>
+            <button
+              type="button"
+              onClick={() => setReloadKey((k) => k + 1)}
+              className="shrink-0 text-xs font-mono px-3 py-1.5 rounded border border-rose-400/60 text-rose-700 dark:text-rose-300 hover:bg-rose-500/10"
+            >
+              retry
+            </button>
+          </div>
         )}
         {!loading && !error && filtered.length === 0 && (
           <p className="text-sm font-mono text-slate-400 py-10 text-center">
