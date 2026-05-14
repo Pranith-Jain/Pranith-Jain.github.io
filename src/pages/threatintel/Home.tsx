@@ -31,6 +31,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { LiveSnapshotPanel } from '../../components/dfir/LiveSnapshotPanel';
+import { WhatsNewBanner } from '../../components/threatintel/WhatsNewBanner';
 
 /**
  * Threat-Intel landing page — the SOLE entry point for sources, feeds, RSS,
@@ -364,6 +365,10 @@ export default function ThreatIntelHome(): JSX.Element {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
       <h1 className="sr-only">Threat Intel Platform</h1>
+      {/* "What's new since your last visit" banner — silent on first
+          visit / zero deltas. Reuses the localStorage marker key
+          'threatintel-home'. */}
+      <WhatsNewBanner />
       {/* App-style stat bar — replaces the portfolio-style 6xl hero on app routes */}
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
         <TiStat label="Intel surfaces" value={String(totalTiles)} />
