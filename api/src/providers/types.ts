@@ -5,6 +5,7 @@ export type ProviderId =
   | 'abuseipdb'
   | 'shodan'
   | 'censys'
+  | 'netlas'
   | 'otx'
   | 'urlscan'
   | 'hybridanalysis'
@@ -50,6 +51,7 @@ export interface ProviderEnv {
   SHODAN_API_KEY: string;
   CENSYS_PAT: string;
   CENSYS_ORG_ID: string;
+  NETLAS_API_KEY: string;
   OTX_API_KEY: string;
   URLSCAN_API_KEY: string;
   HYBRID_ANALYSIS_API_KEY: string;
@@ -69,6 +71,7 @@ export const PROVIDER_SUPPORT: Record<ProviderId, IndicatorType[]> = {
   abuseipdb: ['ipv4', 'ipv6'],
   shodan: ['ipv4', 'ipv6', 'domain'],
   censys: ['ipv4', 'ipv6'],
+  netlas: ['ipv4', 'ipv6'],
   otx: ['ipv4', 'ipv6', 'domain', 'url', 'hash'],
   urlscan: ['url', 'domain'],
   hybridanalysis: ['hash'],

@@ -49,6 +49,7 @@ export type ProviderId =
   | 'abuseipdb'
   | 'shodan'
   | 'censys'
+  | 'netlas'
   | 'otx'
   | 'urlscan'
   | 'hybridanalysis'
