@@ -15,8 +15,8 @@ export interface Env {
   VT_API_KEY?: string;
   ABUSEIPDB_API_KEY?: string;
   SHODAN_API_KEY?: string;
-  CENSYS_API_ID?: string;
-  CENSYS_API_SECRET?: string;
+  CENSYS_PAT?: string;
+  CENSYS_ORG_ID?: string;
   OTX_API_KEY?: string;
   URLSCAN_API_KEY?: string;
   HYBRID_ANALYSIS_API_KEY?: string;
