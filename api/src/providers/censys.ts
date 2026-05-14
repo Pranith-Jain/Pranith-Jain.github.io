@@ -99,6 +99,8 @@ export const censys: ProviderAdapter = async (indicator, env, signal) => {
         raw_summary: {
           reason: `${res.status} from Censys (check CENSYS_PAT / CENSYS_ORG_ID)`,
           censys_error: censysError,
+          pat_len: pat.length,
+          org_id_len: orgId.length,
         },
       });
     }
