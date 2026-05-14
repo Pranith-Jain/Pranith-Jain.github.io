@@ -1,54 +1,64 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "pranithjain",
-  "main": "worker/index.ts",
-  "compatibility_date": "2025-04-01",
-  "compatibility_flags": ["nodejs_compat"],
-  "workers_dev": false,
-  "preview_urls": false,
-  "assets": {
-    "directory": "./dist",
-    "binding": "ASSETS",
-    "not_found_handling": "single-page-application",
-    "html_handling": "drop-trailing-slash",
-    // run_worker_first: by default Cloudflare serves matched static assets
-    // directly without invoking the Worker. That broke SSR Phase 2 — the
-    // Worker's PRERENDERED_ROUTES handler never ran for `/` because CF
-    // intercepted it and served dist/index.html (the SPA shell) instead.
-    // With this true, the Worker handles every request and explicitly
-    // calls env.ASSETS.fetch() when it wants an asset.
-    "run_worker_first": true
-  },
-  "kv_namespaces": [
-    {
-      "binding": "BRIEFINGS",
-      "id": "d7a0a96be0ef452087baef1172bbbe34"
-    },
-    {
-      "binding": "KV_CACHE",
-      "id": "5125e769e49f4a1586f81d1935f9856a"
-    },
-    // TODO: run `npx wrangler kv namespace create CASE_STUDIES` and replace
-    // the placeholder id below with the namespace id printed by wrangler.
-    { "binding": "CASE_STUDIES", "id": "REPLACE_AFTER_WRANGLER_KV_CREATE" }
-  ],
-  "ai": { "binding": "AI" },
-  "triggers": {
-    // Daily briefing at 00:05 UTC (covers prior 24h window). Weekly at 00:15 UTC Monday (covers prior week).
-    // "0 * * * *" warms /api/v1/snapshot + /api/v1/ioc-snapshot once per hour so users always hit warm edge cache.
-    // (Was "*/5 * * * *" — 5-min cadence was burning Workers KV writes for negligible UX gain.)
-    "crons": ["5 0 * * *", "15 0 * * 1", "0 * * * *"]
-  },
-  // Cloudflare Analytics Engine — usage telemetry. Free tier: 100k writes/day,
-  // 10M reads/month. Only writes high-signal events (IOC checks, threat-map
-  // fetches), never PII. Code path is wired in api/src/lib/analytics.ts and
-  // gracefully no-ops when the binding is missing.
-  //
-  // ONE-TIME ENABLE: click "Enable" once at
-  //   https://dash.cloudflare.com/6a7461d701e2e1c989e05137b0255405/workers/analytics-engine
-  // then uncomment the block below and redeploy.
-  //
-  // "analytics_engine_datasets": [
-  //   { "binding": "DFIR_ANALYTICS", "dataset": "dfir_analytics" }
-  // ]
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "pranithjain",
+	"main": "worker/index.ts",
+	"compatibility_date": "2025-04-01",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"workers_dev": false,
+	"preview_urls": false,
+	"assets": {
+		"directory": "./dist",
+		"binding": "ASSETS",
+		"not_found_handling": "single-page-application",
+		"html_handling": "drop-trailing-slash",
+		// run_worker_first: by default Cloudflare serves matched static assets
+		// directly without invoking the Worker. That broke SSR Phase 2 — the
+		// Worker's PRERENDERED_ROUTES handler never ran for `/` because CF
+		// intercepted it and served dist/index.html (the SPA shell) instead.
+		// With this true, the Worker handles every request and explicitly
+		// calls env.ASSETS.fetch() when it wants an asset.
+		"run_worker_first": true
+	},
+	"kv_namespaces": [
+		{
+			"binding": "BRIEFINGS",
+			"id": "d7a0a96be0ef452087baef1172bbbe34"
+		},
+		{
+			"binding": "KV_CACHE",
+			"id": "5125e769e49f4a1586f81d1935f9856a"
+		},
+		{
+			"binding": "CASE_STUDIES",
+			"id": "e6876bf17dcb4845aac079f355978235",
+			"remote": true
+		}
+	],
+	"ai": {
+		"binding": "AI"
+	},
+	"triggers": {
+		// Daily briefing at 00:05 UTC (covers prior 24h window). Weekly at 00:15 UTC Monday (covers prior week).
+		// "0 * * * *" warms /api/v1/snapshot + /api/v1/ioc-snapshot once per hour so users always hit warm edge cache.
+		// (Was "*/5 * * * *" — 5-min cadence was burning Workers KV writes for negligible UX gain.)
+		"crons": [
+			"5 0 * * *",
+			"15 0 * * 1",
+			"0 * * * *"
+		]
+	},
+	// Cloudflare Analytics Engine — usage telemetry. Free tier: 100k writes/day,
+	// 10M reads/month. Only writes high-signal events (IOC checks, threat-map
+	// fetches), never PII. Code path is wired in api/src/lib/analytics.ts and
+	// gracefully no-ops when the binding is missing.
+	//
+	// ONE-TIME ENABLE: click "Enable" once at
+	//   https://dash.cloudflare.com/6a7461d701e2e1c989e05137b0255405/workers/analytics-engine
+	// then uncomment the block below and redeploy.
+	//
+	// "analytics_engine_datasets": [
+	//   { "binding": "DFIR_ANALYTICS", "dataset": "dfir_analytics" }
+	// ]
 }
