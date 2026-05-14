@@ -1,5 +1,25 @@
 import { Component, type ReactNode, type ErrorInfo } from 'react';
-import { AlertTriangle, RefreshCw, Home, ChevronDown, ChevronUp } from 'lucide-react';
+import { AlertTriangle, RefreshCw, Home, ChevronDown, ChevronUp, Download } from 'lucide-react';
+
+/**
+ * Detect "stale chunk" failures: when a deploy bumped Vite's content-hashed
+ * filenames, an already-loaded SPA shell tries to import e.g.
+ *   /assets/DFIR-LooD3RJ-.js
+ * which no longer exists, throwing one of these messages depending on the
+ * browser. Treating these as "update available, please reload" gives a
+ * much friendlier recovery than the generic stack trace.
+ */
+function isChunkLoadError(err: Error): boolean {
+  const msg = `${err.name} ${err.message}`.toLowerCase();
+  return (
+    msg.includes('dynamically imported module') ||
+    msg.includes('failed to fetch dynamically imported module') ||
+    msg.includes('importing a module script failed') ||
+    msg.includes('chunkloaderror') ||
+    msg.includes('loading chunk') ||
+    msg.includes('loading css chunk')
+  );
+}
 
 interface Props {
   children: ReactNode;
@@ -82,6 +102,13 @@ export class ErrorBoundary extends Component<Props, State> {
         return fallback;
       }
 
+      // Stale-chunk-after-deploy is a common SPA failure that masquerades
+      // as a generic crash. Render a dedicated "update available" view so
+      // the user reloads instead of staring at a stack trace.
+      if (isChunkLoadError(error)) {
+        return <StaleChunkFallback />;
+      }
+
       return (
         <ErrorFallback
           error={error}
@@ -95,6 +122,52 @@ export class ErrorBoundary extends Component<Props, State> {
 
     return children;
   }
+}
+
+/**
+ * Friendly view for the stale-chunk case: a new deploy invalidated the
+ * lazy chunk URLs this SPA shell was holding. A hard reload pulls the
+ * new index.html (with the new chunk filenames) and the import succeeds.
+ */
+function StaleChunkFallback(): JSX.Element {
+  return (
+    <div className="animate-fade-in-up w-full max-w-2xl mx-auto p-6 rounded-2xl bg-amber-50 dark:bg-amber-900/20 border border-amber-300 dark:border-amber-700/40">
+      <div className="flex items-start gap-4">
+        <div className="shrink-0">
+          <div className="w-12 h-12 rounded-full bg-amber-100 dark:bg-amber-900/40 flex items-center justify-center">
+            <Download className="w-6 h-6 text-amber-600 dark:text-amber-400" />
+          </div>
+        </div>
+        <div className="flex-1 min-w-0">
+          <h3 className="text-lg font-bold text-amber-900 dark:text-amber-100 mb-1">Update available</h3>
+          <p className="text-sm text-amber-800 dark:text-amber-200 mb-1">
+            A new version of the site was deployed since you opened this tab. The browser is holding stale references to
+            removed asset files.
+          </p>
+          <p className="text-xs font-mono text-amber-700/80 dark:text-amber-300/70 mb-4">
+            Reload to fetch the latest version.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={() => window.location.reload()}
+              className="px-4 py-2 rounded-lg bg-amber-600 hover:bg-amber-500 text-white text-sm font-medium transition-colors inline-flex items-center gap-2"
+            >
+              <RefreshCw className="w-4 h-4" />
+              Reload page
+            </button>
+            <a
+              href="/"
+              className="px-4 py-2 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 text-sm font-medium transition-colors inline-flex items-center gap-2"
+            >
+              <Home className="w-4 h-4" />
+              Go home
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 interface ErrorFallbackProps {

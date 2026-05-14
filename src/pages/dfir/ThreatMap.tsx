@@ -1,6 +1,6 @@
-import { Suspense, lazy, useEffect, useMemo, useState } from 'react';
+import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, RefreshCw, Globe, Loader2, X } from 'lucide-react';
+import { ArrowLeft, RefreshCw, Globe, Loader2, Pause, Play, X } from 'lucide-react';
 import { IocSnapshotPanel } from '../../components/dfir/IocSnapshotPanel';
 import { ActorTtpsPanel } from '../../components/threatintel/ActorTtpsPanel';
 
@@ -228,6 +228,12 @@ function colourFor(count: number, max: number): string {
   return `rgb(${r}, ${g}, ${b})`;
 }
 
+// Auto-refresh cadence when "live" mode is on. 60s is generous on the
+// upstream cache (which holds 5min anyway) so the polling isn't burning
+// bandwidth — it's there for the UX of seeing the counter tick up when
+// real changes land.
+const REFRESH_INTERVAL_MS = 60_000;
+
 export default function ThreatMap(): JSX.Element {
   const [data, setData] = useState<ThreatMapResponse | null>(null);
   const [loading, setLoading] = useState(true);
@@ -238,6 +244,20 @@ export default function ThreatMap(): JSX.Element {
   // panel listing all IPs from that country. Clicking the same country
   // again clears it. Required for mobile, where hover doesn't fire.
   const [selected, setSelected] = useState<{ alpha2: string; name: string } | null>(null);
+  // Globe vs flat (mercator) projection toggle. Using react-simple-maps'
+  // built-in geoOrthographic — gives a true sphere shape without pulling
+  // in three.js (would be ~150KB extra gzipped).
+  const [globeView, setGlobeView] = useState(false);
+  // Live mode = poll /api/v1/threat-map every REFRESH_INTERVAL_MS and
+  // animate the total-IPs counter when the value changes. Off by default
+  // so accidental left-open tabs don't keep hitting the worker.
+  const [liveMode, setLiveMode] = useState(false);
+  const [nextRefreshIn, setNextRefreshIn] = useState(REFRESH_INTERVAL_MS / 1000);
+  // Display-only counter that animates from previous total to new total
+  // over ~600ms when data changes. Keeps the ticker feeling alive without
+  // affecting the underlying state.
+  const [displayTotal, setDisplayTotal] = useState(0);
+  const prevTotalRef = useRef(0);
 
   const load = async () => {
     setLoading(true);
@@ -256,6 +276,50 @@ export default function ThreatMap(): JSX.Element {
   useEffect(() => {
     void load();
   }, []);
+
+  // Live-mode polling. Doubled-up: a 1s tick drives the visible countdown
+  // pill; the actual fetch fires every REFRESH_INTERVAL_MS. Cleaning up
+  // both on unmount or when liveMode flips off prevents leaks.
+  useEffect(() => {
+    if (!liveMode) return;
+    setNextRefreshIn(REFRESH_INTERVAL_MS / 1000);
+    const fetchTimer = window.setInterval(() => {
+      void load();
+      setNextRefreshIn(REFRESH_INTERVAL_MS / 1000);
+    }, REFRESH_INTERVAL_MS);
+    const countdownTimer = window.setInterval(() => {
+      setNextRefreshIn((n) => Math.max(0, n - 1));
+    }, 1000);
+    return () => {
+      window.clearInterval(fetchTimer);
+      window.clearInterval(countdownTimer);
+    };
+  }, [liveMode]);
+
+  // Animate the total-IPs ticker between snapshots. 600ms ease-out gives
+  // a "count up" feel without dragging into noticeable lag.
+  useEffect(() => {
+    if (!data) return;
+    const from = prevTotalRef.current;
+    const to = data.total_ips;
+    if (from === to) {
+      setDisplayTotal(to);
+      return;
+    }
+    const start = performance.now();
+    const dur = 600;
+    let raf = 0;
+    const tick = (t: number) => {
+      const k = Math.min(1, (t - start) / dur);
+      // ease-out-cubic
+      const eased = 1 - Math.pow(1 - k, 3);
+      setDisplayTotal(Math.round(from + (to - from) * eased));
+      if (k < 1) raf = window.requestAnimationFrame(tick);
+      else prevTotalRef.current = to;
+    };
+    raf = window.requestAnimationFrame(tick);
+    return () => window.cancelAnimationFrame(raf);
+  }, [data]);
 
   const countryByAlpha2 = useMemo(() => {
     const map = new Map<string, CountryAgg>();
@@ -321,30 +385,76 @@ export default function ThreatMap(): JSX.Element {
 
       {data && (
         <>
-          <header className="flex flex-wrap items-baseline gap-x-4 gap-y-2 text-xs font-mono text-slate-600 dark:text-slate-400 mb-6">
+          <header className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-mono text-slate-600 dark:text-slate-400 mb-6">
             <span>
-              <span className="text-slate-900 dark:text-slate-100 text-base font-bold">{data.total_ips}</span> malicious
-              IPs
+              <span
+                className="text-slate-900 dark:text-slate-100 text-base font-bold tabular-nums"
+                aria-live="polite"
+                aria-atomic="true"
+              >
+                {displayTotal.toLocaleString()}
+              </span>{' '}
+              malicious IPs
             </span>
             <span aria-hidden="true">·</span>
             <span>
-              <span className="text-slate-900 dark:text-slate-100 text-base font-bold">{data.countries.length}</span>{' '}
+              <span className="text-slate-900 dark:text-slate-100 text-base font-bold tabular-nums">
+                {data.countries.length}
+              </span>{' '}
               countries
             </span>
             <span aria-hidden="true">·</span>
-            {Object.entries(data.source_counts)
-              .filter(([, n]) => n > 0)
-              .map(([k, n]) => (
-                <span key={k}>
-                  {k}: {n}
-                </span>
-              ))}
+            <span className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5">
+              {Object.entries(data.source_counts)
+                .filter(([, n]) => n > 0)
+                .map(([k, n]) => (
+                  <span key={k}>
+                    {k}: {n}
+                  </span>
+                ))}
+            </span>
             <span aria-hidden="true">·</span>
+            <button
+              type="button"
+              onClick={() => setLiveMode((v) => !v)}
+              className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded border transition-colors ${
+                liveMode
+                  ? 'border-emerald-400/60 bg-emerald-500/15 text-emerald-700 dark:text-emerald-300'
+                  : 'border-slate-300 dark:border-slate-700 hover:border-brand-500/40'
+              }`}
+              aria-pressed={liveMode}
+              title={liveMode ? 'Pause auto-refresh' : `Auto-refresh every ${REFRESH_INTERVAL_MS / 1000}s`}
+            >
+              {liveMode ? <Pause size={12} /> : <Play size={12} />}
+              {liveMode ? (
+                <>
+                  <span className="hidden sm:inline">live · next in</span>
+                  <span className="tabular-nums">{nextRefreshIn}s</span>
+                </>
+              ) : (
+                'go live'
+              )}
+            </button>
+            <button
+              type="button"
+              onClick={() => setGlobeView((v) => !v)}
+              className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded border transition-colors ${
+                globeView
+                  ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
+                  : 'border-slate-300 dark:border-slate-700 hover:border-brand-500/40'
+              }`}
+              aria-pressed={globeView}
+              title={globeView ? 'Switch to flat (mercator) projection' : 'Switch to globe (orthographic) projection'}
+            >
+              <Globe size={12} />
+              {globeView ? 'globe' : 'flat'}
+            </button>
             <button
               type="button"
               onClick={() => void load()}
               disabled={loading}
               className="inline-flex items-center gap-1 hover:text-brand-600 dark:hover:text-brand-400 disabled:opacity-50"
+              title="Refresh now"
             >
               <RefreshCw size={12} className={loading ? 'animate-spin' : ''} /> refresh
             </button>
@@ -379,6 +489,7 @@ export default function ThreatMap(): JSX.Element {
                   onHover={setHovered}
                   onSelect={setSelected}
                   selectedAlpha2={selected?.alpha2 ?? null}
+                  globeView={globeView}
                 />
               </Suspense>
               {hoveredAgg && (
@@ -434,6 +545,17 @@ export default function ThreatMap(): JSX.Element {
               </ul>
             </aside>
           </div>
+
+          {/* Attack-type breakdown — stacked-bar visualization of the
+              IOC-kind split (URLs / domains / hashes / IPs). Uses the
+              data.iocs_by_type buckets already returned by the upstream
+              snapshot — no extra fetch. Inspired by Checkpoint / Fortiguard's
+              attack-type categories, adapted to our IOC taxonomy (we don't
+              classify by malware/phishing/DDoS individually; the source
+              feeds do that implicitly). */}
+          {(data.iocs_by_type?.length ?? 0) > 0 && (
+            <IocTypeBreakdown ipsCount={data.total_ips} buckets={data.iocs_by_type ?? []} />
+          )}
 
           {/* Country drill-down detail panel.
               Persistent click-selection state — replaces the hover-only
@@ -585,5 +707,100 @@ export default function ThreatMap(): JSX.Element {
         </>
       )}
     </div>
+  );
+}
+
+/**
+ * Stacked-bar visualisation of the IOC-type split (URLs, domains, hashes)
+ * alongside the geolocated-IPs count. Plays the role Checkpoint /
+ * Fortiguard maps fill with their "attack types" sidebar — but uses the
+ * honest taxonomy we have (kind of IOC, not malware/phishing/DDoS, which
+ * the source feeds classify implicitly).
+ */
+interface IocTypeBucket {
+  type: 'url' | 'domain' | 'hash';
+  count: number;
+  source_counts: Record<string, number>;
+  recent: Array<{ value: string; source: string; context?: string; timestamp?: string }>;
+}
+
+const KIND_COLOUR: Record<'ip' | IocTypeBucket['type'], string> = {
+  ip: 'bg-rose-500 dark:bg-rose-400',
+  url: 'bg-amber-500 dark:bg-amber-400',
+  domain: 'bg-sky-500 dark:bg-sky-400',
+  hash: 'bg-violet-500 dark:bg-violet-400',
+};
+
+const KIND_LABEL: Record<'ip' | IocTypeBucket['type'], string> = {
+  ip: 'IPs',
+  url: 'URLs',
+  domain: 'Domains',
+  hash: 'Hashes',
+};
+
+const KIND_HREF: Record<'ip' | IocTypeBucket['type'], string> = {
+  ip: '/threatintel/threat-map',
+  url: '/threatintel/urls',
+  domain: '/threatintel/domains',
+  hash: '/threatintel/hashs',
+};
+
+function IocTypeBreakdown({ ipsCount, buckets }: { ipsCount: number; buckets: IocTypeBucket[] }): JSX.Element {
+  const rows = [
+    { kind: 'ip' as const, count: ipsCount },
+    ...buckets.map((b) => ({ kind: b.type, count: b.count })),
+  ].filter((r) => r.count > 0);
+  const total = rows.reduce((a, b) => a + b.count, 0) || 1;
+
+  return (
+    <section className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 sm:p-5">
+      <div className="flex flex-wrap items-baseline justify-between gap-2 mb-3">
+        <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
+          IOC type breakdown
+        </h3>
+        <span className="text-[11px] font-mono text-slate-500 tabular-nums">
+          {total.toLocaleString()} total · share of current snapshot
+        </span>
+      </div>
+
+      {/* Stacked bar */}
+      <div
+        className="flex w-full h-3 rounded overflow-hidden bg-slate-100 dark:bg-slate-800 mb-3"
+        role="img"
+        aria-label={`IOC type breakdown: ${rows.map((r) => `${KIND_LABEL[r.kind]} ${r.count}`).join(', ')}`}
+      >
+        {rows.map((r) => {
+          const pct = (r.count / total) * 100;
+          if (pct < 0.5) return null;
+          return (
+            <div
+              key={r.kind}
+              className={KIND_COLOUR[r.kind]}
+              style={{ width: `${pct}%` }}
+              title={`${KIND_LABEL[r.kind]}: ${r.count.toLocaleString()} (${pct.toFixed(1)}%)`}
+            />
+          );
+        })}
+      </div>
+
+      {/* Legend / per-kind links */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-mono">
+        {rows.map((r) => {
+          const pct = (r.count / total) * 100;
+          return (
+            <Link
+              key={r.kind}
+              to={KIND_HREF[r.kind]}
+              className="flex items-center gap-2 rounded border border-slate-200 dark:border-slate-800 px-2.5 py-2 hover:border-brand-500/40 transition-colors"
+            >
+              <span className={`inline-block w-2.5 h-2.5 rounded shrink-0 ${KIND_COLOUR[r.kind]}`} aria-hidden="true" />
+              <span className="text-slate-800 dark:text-slate-200 font-semibold">{KIND_LABEL[r.kind]}</span>
+              <span className="text-slate-500 ml-auto tabular-nums">{r.count.toLocaleString()}</span>
+              <span className="text-slate-400 dark:text-slate-600 text-[10px] tabular-nums">{pct.toFixed(0)}%</span>
+            </Link>
+          );
+        })}
+      </div>
+    </section>
   );
 }
