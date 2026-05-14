@@ -32,6 +32,7 @@ import {
 } from 'lucide-react';
 import { LiveSnapshotPanel } from '../../components/dfir/LiveSnapshotPanel';
 import { WhatsNewBanner } from '../../components/threatintel/WhatsNewBanner';
+import { PlatformPulse } from '../../components/threatintel/PlatformPulse';
 
 /**
  * Threat-Intel landing page — the SOLE entry point for sources, feeds, RSS,
@@ -369,6 +370,11 @@ export default function ThreatIntelHome(): JSX.Element {
           visit / zero deltas. Reuses the localStorage marker key
           'threatintel-home'. */}
       <WhatsNewBanner />
+      {/* 7-day platform-pulse sparklines (IOCs + findings per day). Real
+          data from /api/v1/briefings/list — the daily-briefing cron has
+          ~30 days of history. Decorative only when fewer than 2 days
+          are available. */}
+      <PlatformPulse />
       {/* App-style stat bar — replaces the portfolio-style 6xl hero on app routes */}
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
         <TiStat label="Intel surfaces" value={String(totalTiles)} />
