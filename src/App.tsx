@@ -250,9 +250,11 @@ export function AppContent() {
       <Route
         path="/dfir/full-spectrum"
         element={
-          <Suspense fallback={<SectionLoader />}>
-            <FullSpectrum />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <FullSpectrum />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
@@ -270,9 +272,11 @@ export function AppContent() {
       <Route
         path="/threatintel/pulse"
         element={
-          <Suspense fallback={<SectionLoader />}>
-            <ThreatPulse />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <ThreatPulse />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
@@ -458,9 +462,11 @@ export function AppContent() {
       <Route
         path="/threatintel/mitre"
         element={
-          <Suspense fallback={<SectionLoader />}>
-            <MitreMatrix />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <MitreMatrix />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
@@ -536,105 +542,131 @@ export function AppContent() {
       <Route
         path="/threatintel/ransomware-activity"
         element={
-          <Suspense fallback={<SectionLoader />}>
-            <RansomwareActivityPage />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <RansomwareActivityPage />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/threatintel/cybersec"
         element={
-          <Suspense fallback={<SectionLoader />}>
-            <CybersecTelegramPage />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <CybersecTelegramPage />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/threatintel/breach"
         element={
-          <Suspense fallback={<SectionLoader />}>
-            <BreachDisclosuresPage />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <BreachDisclosuresPage />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/threatintel/reddit"
         element={
-          <Suspense fallback={<SectionLoader />}>
-            <RedditFirehosePage />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <RedditFirehosePage />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/threatintel/x"
         element={
-          <Suspense fallback={<SectionLoader />}>
-            <XFirehosePage />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <XFirehosePage />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/threatintel/status"
         element={
-          <Suspense fallback={<SectionLoader />}>
-            <FeedStatusPage />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <FeedStatusPage />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/threatintel/metrics"
         element={
-          <Suspense fallback={<SectionLoader />}>
-            <MetricsPage />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <MetricsPage />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/threatintel/correlation"
         element={
-          <Suspense fallback={<SectionLoader />}>
-            <IocCorrelationPage />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <IocCorrelationPage />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/threatintel/actor-timeline"
         element={
-          <Suspense fallback={<SectionLoader />}>
-            <ActorTimelinePage />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <ActorTimelinePage />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/threatintel/re-leaks"
         element={
-          <Suspense fallback={<SectionLoader />}>
-            <VictimReleaksPage />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <VictimReleaksPage />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/threatintel/live-iocs"
         element={
-          <Suspense fallback={<SectionLoader />}>
-            <LiveIocsPage />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <LiveIocsPage />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/threatintel/cyber-crime"
         element={
-          <Suspense fallback={<SectionLoader />}>
-            <CyberCrimePage />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <CyberCrimePage />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/threatintel/writeups"
         element={
-          <Suspense fallback={<SectionLoader />}>
-            <Writeups />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <Writeups />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       {/* 2026-05-11: per-type IOC pages (urls/domains/hashs) and the
@@ -653,9 +685,11 @@ export function AppContent() {
       <Route
         path="/threatintel/cve-list"
         element={
-          <Suspense fallback={<SectionLoader />}>
-            <CveList />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <CveList />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
@@ -901,25 +935,31 @@ export function AppContent() {
       <Route
         path="/threatintel/osint-framework"
         element={
-          <Suspense fallback={<SectionLoader />}>
-            <OsintFramework />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <OsintFramework />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/threatintel/secops-tools"
         element={
-          <Suspense fallback={<SectionLoader />}>
-            <SecopsCatalog />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <SecopsCatalog />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/threatintel/cve-resources"
         element={
-          <Suspense fallback={<SectionLoader />}>
-            <CveResourcesCatalog />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <CveResourcesCatalog />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
@@ -965,9 +1005,11 @@ export function AppContent() {
       <Route
         path="/threatintel/scam-watch"
         element={
-          <Suspense fallback={<SectionLoader />}>
-            <ScamWatch />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <ScamWatch />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
@@ -983,57 +1025,71 @@ export function AppContent() {
       <Route
         path="/threatintel/tech-ai-news"
         element={
-          <Suspense fallback={<SectionLoader />}>
-            <TechAiNews />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <TechAiNews />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/threatintel/threat-feeds"
         element={
-          <Suspense fallback={<SectionLoader />}>
-            <ThreatFeeds />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <ThreatFeeds />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/threatintel/onion-watch"
         element={
-          <Suspense fallback={<SectionLoader />}>
-            <OnionWatch />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <OnionWatch />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/threatintel/telegram-watch"
         element={
-          <Suspense fallback={<SectionLoader />}>
-            <TelegramWatch />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <TelegramWatch />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/threatintel/awesome-lists"
         element={
-          <Suspense fallback={<SectionLoader />}>
-            <AwesomeLists />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <AwesomeLists />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/threatintel/external-resources"
         element={
-          <Suspense fallback={<SectionLoader />}>
-            <ExternalResources />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <ExternalResources />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       <Route
         path="/threatintel"
         element={
-          <Suspense fallback={<SectionLoader />}>
-            <ThreatIntelHome />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <ThreatIntelHome />
+            </Suspense>
+          </ErrorBoundary>
         }
       />
       {/* Ransom Note Library was removed 2026-05-11; mythreatintel.com is now

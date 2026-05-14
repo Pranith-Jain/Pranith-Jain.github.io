@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { ArrowLeft, Command, Moon, Sun, type LucideIcon } from 'lucide-react';
+import { ArrowLeft, Command, Menu, Moon, Sun, X, type LucideIcon } from 'lucide-react';
 import { preloadRoute } from '../lib/route-preloaders';
 
 /**
@@ -77,7 +77,9 @@ export function AppShell({ mode, isDark, onToggleTheme, children }: AppShellProp
   return (
     <div className="min-h-screen flex flex-col text-slate-900 dark:text-slate-50">
       <AppHeader brand={brand} nav={nav} isActive={isActive} isDark={isDark} onToggleTheme={onToggleTheme} />
-      <main className="flex-1">{children}</main>
+      <main id="main-content" className="flex-1">
+        {children}
+      </main>
       <AppStatusBar mode={mode} />
     </div>
   );
@@ -96,6 +98,30 @@ function AppHeader({
   isDark: boolean;
   onToggleTheme: () => void;
 }): JSX.Element {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const location = useLocation();
+
+  // Auto-close the drawer when the route changes (link tap) — depending on
+  // useLocation alone isn't enough because the same Link can be tapped while
+  // already on that path.
+  useEffect(() => setMobileOpen(false), [location.pathname]);
+
+  // Lock body scroll while the drawer is open so the page underneath doesn't
+  // scroll under the user's finger. ESC to dismiss.
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMobileOpen(false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [mobileOpen]);
+
   return (
     <header className="sticky top-0 z-40 border-b border-slate-200/60 dark:border-white/10 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-12 flex items-center gap-4">
@@ -107,7 +133,7 @@ function AppHeader({
           </span>
         </Link>
 
-        {/* In-app nav */}
+        {/* In-app nav (md+) */}
         <nav className="flex-1 hidden md:flex items-center gap-0.5 overflow-x-auto">
           {nav.map((item) => {
             const active = isActive(item);
@@ -152,8 +178,75 @@ function AppHeader({
           >
             <ArrowLeft size={11} /> portfolio
           </Link>
+          {/* Mobile menu trigger */}
+          <button
+            type="button"
+            onClick={() => setMobileOpen(true)}
+            aria-label="Open navigation menu"
+            aria-expanded={mobileOpen}
+            aria-controls="appshell-mobile-nav"
+            className="md:hidden p-2 rounded text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800"
+          >
+            <Menu size={16} />
+          </button>
         </div>
       </div>
+
+      {/* Mobile nav drawer */}
+      {mobileOpen && (
+        <div className="md:hidden fixed inset-0 z-50">
+          <button
+            type="button"
+            aria-label="Close navigation menu"
+            onClick={() => setMobileOpen(false)}
+            className="absolute inset-0 bg-slate-900/50 dark:bg-black/60 backdrop-blur-sm"
+          />
+          <nav
+            id="appshell-mobile-nav"
+            aria-label={`${brand.long} navigation`}
+            className="absolute right-0 top-0 bottom-0 w-72 max-w-[85vw] bg-white dark:bg-slate-950 border-l border-slate-200 dark:border-slate-800 shadow-2xl flex flex-col"
+          >
+            <div className="flex items-center justify-between h-12 px-4 border-b border-slate-200 dark:border-slate-800">
+              <span className={`font-mono font-bold text-sm ${brand.accent}`}>{brand.short}</span>
+              <button
+                type="button"
+                onClick={() => setMobileOpen(false)}
+                aria-label="Close navigation menu"
+                className="p-2 rounded text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800"
+              >
+                <X size={16} />
+              </button>
+            </div>
+            <ul className="flex-1 overflow-y-auto p-2">
+              {nav.map((item) => {
+                const active = isActive(item);
+                return (
+                  <li key={item.to}>
+                    <Link
+                      to={item.to}
+                      className={`block font-mono text-sm px-3 py-3 rounded transition-colors ${
+                        active
+                          ? 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100'
+                          : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+            <div className="border-t border-slate-200 dark:border-slate-800 p-2">
+              <Link
+                to="/"
+                className="flex items-center gap-2 font-mono text-xs px-3 py-2 rounded text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800"
+              >
+                <ArrowLeft size={12} /> Back to portfolio
+              </Link>
+            </div>
+          </nav>
+        </div>
+      )}
     </header>
   );
 }
