@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Github, Mail } from 'lucide-react';
 import { ToolGrid, TOOL_COUNT } from '../components/dfir/ToolGrid';
+import { IocDispatchInput } from '../components/dfir/IocDispatchInput';
 import { personalInfo } from '../data/content';
 
 const PROVIDER_GROUPS: { label: string; items: string[] }[] = [
@@ -55,6 +56,11 @@ export default function DFIRPage(): JSX.Element {
         </Link>{' '}
         (separate app).
       </p>
+
+      {/* Paste-to-dispatch — sits above the tool grid so the most common
+          workflow (paste an indicator -> jump to the right tool) doesn't
+          require opening Cmd+K or scrolling through 60 tiles. */}
+      <IocDispatchInput />
 
       <section className="animate-fade-in-up mb-16">
         <div className="flex items-baseline justify-between mb-6">
