@@ -48,6 +48,7 @@ export type ProviderId =
   | 'virustotal'
   | 'abuseipdb'
   | 'shodan'
+  | 'censys'
   | 'otx'
   | 'urlscan'
   | 'hybridanalysis'

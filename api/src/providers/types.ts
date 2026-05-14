@@ -4,6 +4,7 @@ export type ProviderId =
   | 'virustotal'
   | 'abuseipdb'
   | 'shodan'
+  | 'censys'
   | 'otx'
   | 'urlscan'
   | 'hybridanalysis'
@@ -47,6 +48,8 @@ export interface ProviderEnv {
   VT_API_KEY: string;
   ABUSEIPDB_API_KEY: string;
   SHODAN_API_KEY: string;
+  CENSYS_API_ID: string;
+  CENSYS_API_SECRET: string;
   OTX_API_KEY: string;
   URLSCAN_API_KEY: string;
   HYBRID_ANALYSIS_API_KEY: string;
@@ -65,6 +68,7 @@ export const PROVIDER_SUPPORT: Record<ProviderId, IndicatorType[]> = {
   virustotal: ['ipv4', 'ipv6', 'domain', 'url', 'hash'],
   abuseipdb: ['ipv4', 'ipv6'],
   shodan: ['ipv4', 'ipv6', 'domain'],
+  censys: ['ipv4', 'ipv6'],
   otx: ['ipv4', 'ipv6', 'domain', 'url', 'hash'],
   urlscan: ['url', 'domain'],
   hybridanalysis: ['hash'],

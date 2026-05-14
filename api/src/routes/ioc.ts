@@ -9,6 +9,7 @@ import { trackEvent, visitorCountry } from '../lib/analytics';
 import { virustotal } from '../providers/virustotal';
 import { abuseipdb } from '../providers/abuseipdb';
 import { shodan } from '../providers/shodan';
+import { censys } from '../providers/censys';
 import { otx } from '../providers/otx';
 import { urlscan } from '../providers/urlscan';
 import { hybridanalysis } from '../providers/hybridanalysis';
@@ -40,6 +41,7 @@ const ADAPTERS: Record<ProviderId, ProviderAdapter> = {
   virustotal,
   abuseipdb,
   shodan,
+  censys,
   otx,
   urlscan,
   hybridanalysis,
@@ -97,6 +99,8 @@ export async function iocCheckHandler(c: Context<{ Bindings: Env }>) {
       VT_API_KEY: c.env.VT_API_KEY ?? '',
       ABUSEIPDB_API_KEY: c.env.ABUSEIPDB_API_KEY ?? '',
       SHODAN_API_KEY: c.env.SHODAN_API_KEY ?? '',
+      CENSYS_API_ID: c.env.CENSYS_API_ID ?? '',
+      CENSYS_API_SECRET: c.env.CENSYS_API_SECRET ?? '',
       OTX_API_KEY: c.env.OTX_API_KEY ?? '',
       URLSCAN_API_KEY: c.env.URLSCAN_API_KEY ?? '',
       HYBRID_ANALYSIS_API_KEY: c.env.HYBRID_ANALYSIS_API_KEY ?? '',
