@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Github, Mail } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { TOOL_COUNT } from '../components/dfir/ToolGrid';
 import { GROUP_META, type ToolGroup } from '../components/dfir/tool-sections';
 import { IocDispatchInput } from '../components/dfir/IocDispatchInput';
 import { personalInfo } from '../data/content';
+import { AppHero } from '../components/AppHero';
+import { AppFooter } from '../components/AppFooter';
 
 const PROVIDER_GROUPS: { label: string; items: string[] }[] = [
   {
@@ -40,23 +42,39 @@ const PROVIDER_GROUPS: { label: string; items: string[] }[] = [
 export default function DFIRPage(): JSX.Element {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
-      <h1 className="sr-only">DFIR Toolkit</h1>
-      {/* App-style stat bar — replaces the portfolio-style 6xl hero on app routes */}
+      <AppHero
+        kicker="Privacy-first · No upload · No login · Local analysis only"
+        title="DFIR & security toolkit"
+        sub="Scanners, decoders, forensic parsers, lookups and frameworks that run entirely in your browser. Sub-200ms IOC checks across 22 sources — no signup, no key."
+        meta={
+          <>
+            {TOOL_COUNT} tools · by{' '}
+            <a
+              href={personalInfo.githubUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="text-brand-600 dark:text-brand-400 hover:underline"
+            >
+              {personalInfo.name}
+            </a>{' '}
+            ·{' '}
+            <Link to="/dfir/tools/about" className="text-brand-600 dark:text-brand-400 hover:underline">
+              about
+            </Link>{' '}
+            · live feeds:{' '}
+            <Link to="/threatintel" className="text-brand-600 dark:text-brand-400 hover:underline">
+              /threatintel
+            </Link>
+          </>
+        }
+      />
+      {/* App-style stat bar */}
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
         <Stat label="Tools" value={String(TOOL_COUNT)} />
         <Stat label="Data sources" value="90+" />
         <Stat label="Credits required" value="0" />
         <Stat label="Last build" value={__BUILD_DATE__} mono />
       </section>
-
-      <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-        Scanners, decoders, lookup tools, frameworks, and analysers I reach for on shift. Sub-200ms IOC checks across 22
-        threat-intel sources, no signup, no key. Looking for live feeds, briefings, RSS, or leak-site mirrors? Try{' '}
-        <Link to="/threatintel" className="text-rose-600 dark:text-rose-400 hover:underline">
-          /threatintel
-        </Link>{' '}
-        (separate app).
-      </p>
 
       {/* Paste-to-dispatch — sits above the tool grid so the most common
           workflow (paste an indicator -> jump to the right tool) doesn't
@@ -122,36 +140,10 @@ export default function DFIRPage(): JSX.Element {
         </details>
       </section>
 
-      <section className="mt-16 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8">
-        <h3 className="font-display font-bold text-xl mb-2">Built by Pranith Jain</h3>
-        <p className="text-sm text-slate-600 dark:text-slate-400 mb-5 leading-relaxed">
-          Security analyst and detection engineer. I defend email integrity for 150+ startups, with 1,300+ domains under
-          active monitoring. Open to collaboration on DFIR tooling, threat intelligence platforms, and edge-native
-          security infrastructure.
-        </p>
-        <div className="flex flex-wrap gap-3">
-          <Link
-            to="/about"
-            className="inline-flex items-center gap-2 rounded-lg bg-brand-600 dark:bg-brand-500 text-white px-4 py-2 text-sm font-mono font-semibold hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
-          >
-            About me <ArrowRight size={14} />
-          </Link>
-          <a
-            href={`mailto:${personalInfo.email}`}
-            className="inline-flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-800 px-4 py-2 text-sm font-mono text-slate-700 dark:text-slate-300 hover:border-brand-500/40 transition-colors"
-          >
-            <Mail size={14} /> Get in touch
-          </a>
-          <a
-            href={personalInfo.githubUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-800 px-4 py-2 text-sm font-mono text-slate-700 dark:text-slate-300 hover:border-brand-500/40 transition-colors"
-          >
-            <Github size={14} /> GitHub
-          </a>
-        </div>
-      </section>
+      <AppFooter
+        aboutTo="/dfir/tools/about"
+        blurb={`DFIR & security toolkit by ${personalInfo.name}. Everything runs in your browser — no uploads, no keys, no tracking. Triage support only; validate findings with your standard workflow.`}
+      />
     </div>
   );
 }

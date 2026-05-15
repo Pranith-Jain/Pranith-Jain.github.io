@@ -1,8 +1,10 @@
 import { Link, useParams, Navigate } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, ShieldCheck, Lock, Cpu, Github, Linkedin, Mail } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ShieldCheck, Cpu } from 'lucide-react';
 import { SECTIONS } from '../../components/dfir/ToolGrid';
 import { GROUP_META, type ToolGroup } from '../../components/dfir/tool-sections';
 import { personalInfo } from '../../data/content';
+import { AppHero } from '../../components/AppHero';
+import { AppFooter } from '../../components/AppFooter';
 
 const VALID: ToolGroup[] = ['dfir', 'ir', 'ti', 'osint', 'aisec', 'datasec', 'grc'];
 
@@ -74,25 +76,24 @@ export default function ToolsCategory(): JSX.Element {
         <ArrowLeft size={14} /> all tools
       </Link>
 
-      {/* Hero */}
-      <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 mb-8">
-        <div className="text-[11px] font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400 mb-3 inline-flex items-center gap-2">
-          <Lock size={12} /> {hero.kicker}
-        </div>
-        <h1 className="font-display font-bold text-3xl sm:text-4xl leading-tight">{hero.title}</h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mt-3 max-w-3xl leading-relaxed">{hero.sub}</p>
-        <div className="mt-4 font-mono text-[12px] text-slate-500">
-          {total} tools · {meta.label} · by{' '}
-          <a
-            href={personalInfo.githubUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
-          >
-            {personalInfo.name}
-          </a>
-        </div>
-      </section>
+      <AppHero
+        kicker={hero.kicker}
+        title={hero.title}
+        sub={hero.sub}
+        meta={
+          <>
+            {total} tools · {meta.label} · by{' '}
+            <a
+              href={personalInfo.githubUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="text-brand-600 dark:text-brand-400 hover:underline"
+            >
+              {personalInfo.name}
+            </a>
+          </>
+        }
+      />
 
       {/* Sibling category nav */}
       <div className="flex flex-wrap items-center gap-2 mb-8 text-[11px] font-mono">
@@ -193,55 +194,10 @@ export default function ToolsCategory(): JSX.Element {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div className="font-mono text-[12px] text-slate-500 max-w-xl">
-            Privacy-first DFIR & OSINT tooling by {personalInfo.name}. All analysis happens locally in your browser — no
-            uploads, no tracking, no accounts. Triage support only; validate findings with your standard forensic
-            workflow.
-          </div>
-          <div className="flex flex-wrap gap-4 text-[12px] font-mono">
-            <Link
-              to="/dfir/tools/about"
-              className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
-            >
-              About
-            </Link>
-            <Link
-              to="/dfir/privacy-hub"
-              className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
-            >
-              Privacy
-            </Link>
-            <a
-              href={`mailto:${personalInfo.email}`}
-              className="inline-flex items-center gap-1 text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
-            >
-              <Mail size={12} /> Contact
-            </a>
-            <a
-              href={personalInfo.githubUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-1 text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
-            >
-              <Github size={12} /> GitHub
-            </a>
-            <a
-              href={personalInfo.linkedInUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-1 text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
-            >
-              <Linkedin size={12} /> LinkedIn
-            </a>
-          </div>
-        </div>
-        <div className="font-mono text-[11px] text-slate-400 mt-4">
-          © {new Date().getFullYear()} {personalInfo.name} · {meta.label}. Maintained by {personalInfo.name}.
-        </div>
-      </footer>
+      <AppFooter
+        aboutTo="/dfir/tools/about"
+        blurb={`${meta.label} — privacy-first tooling by ${personalInfo.name}. All analysis runs locally in your browser; triage support only, validate findings with your standard workflow.`}
+      />
     </div>
   );
 }
