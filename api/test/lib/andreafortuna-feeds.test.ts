@@ -6,6 +6,8 @@ import {
   MAX_ITEMS_PER_FEED,
   fetchAFDatamarkets,
   fetchAFDefacements,
+  parseAFRansomwareVictims,
+  parseAFDataleaks,
   type AFEntry,
 } from '../../src/lib/andreafortuna-feeds';
 
@@ -202,5 +204,89 @@ describe('fetchAFDatamarkets / fetchAFDefacements', () => {
   it('fetchAFDefacements returns [] when upstream gives non-array JSON', async () => {
     fetchSpy.mockResolvedValueOnce(new Response('{"oops": true}', { status: 200 }));
     expect(await fetchAFDefacements()).toEqual([]);
+  });
+});
+
+describe('parseAFRansomwareVictims', () => {
+  it('splits "Group: Victim - description" into structured fields', () => {
+    const out = parseAFRansomwareVictims([
+      {
+        url: 'http://kyblog.onion',
+        name: 'Kyber: L3HARRIS - L3Harris is a global aerospace and defense innovator',
+        source: 'ransomlook',
+        screenshot: '',
+        timestamp: '2026-03-19T07:35:53.186331',
+      },
+    ]);
+    expect(out).toHaveLength(1);
+    expect(out[0]).toMatchObject({
+      victim: 'L3HARRIS',
+      group: 'kyber',
+      description: 'L3Harris is a global aerospace and defense innovator',
+      source_url: 'http://kyblog.onion',
+      origin: 'andreafortuna',
+    });
+    expect(out[0]!.discovered).toBe('2026-03-19T07:35:53.186Z');
+  });
+
+  it('handles entries with no description segment', () => {
+    const out = parseAFRansomwareVictims([
+      {
+        url: 'http://x.onion',
+        name: 'Loki: Credit Freedom & Restoration',
+        source: 'ransomlook',
+        screenshot: 'https://www.ransomlook.io/screenshots/loki/x.png',
+        timestamp: '2026-03-12T18:27:54.917558',
+      },
+    ]);
+    expect(out[0]).toMatchObject({
+      victim: 'Credit Freedom & Restoration',
+      group: 'loki',
+      screen_url: 'https://www.ransomlook.io/screenshots/loki/x.png',
+    });
+    expect(out[0]!.description).toBeUndefined();
+  });
+
+  it('falls back to source as group when no colon present', () => {
+    const out = parseAFRansomwareVictims([
+      { url: 'http://y.onion', name: 'SomeVictimOnly', source: 'ransomlook', timestamp: '2026-01-01T00:00:00' },
+    ]);
+    expect(out[0]).toMatchObject({ victim: 'SomeVictimOnly', group: 'ransomlook' });
+  });
+});
+
+describe('parseAFDataleaks', () => {
+  it('parses HIBP-style name into title + pwn_count, slug as name', () => {
+    const out = parseAFDataleaks([
+      {
+        url: 'https://haveibeenpwned.com/Breach/Abrigo',
+        name: 'Have i been pwned? - Abrigo - 711,099 breached accounts',
+        source: 'haveibeenpwned',
+        timestamp: '2026-05-14T08:27:19.421028',
+      },
+    ]);
+    expect(out).toHaveLength(1);
+    expect(out[0]).toMatchObject({
+      name: 'Abrigo',
+      title: 'Abrigo',
+      pwn_count: 711099,
+      verified: false,
+      sensitive: false,
+      origin: 'andreafortuna',
+    });
+    expect(out[0]!.added_date).toBe('2026-05-14T08:27:19.421Z');
+  });
+
+  it('handles a title with no pwn-count tail', () => {
+    const out = parseAFDataleaks([
+      {
+        url: 'https://haveibeenpwned.com/Breach/FooCorp',
+        name: 'Have i been pwned? - FooCorp',
+        source: 'haveibeenpwned',
+        timestamp: '2026-05-14T08:27:19.421028',
+      },
+    ]);
+    expect(out[0]).toMatchObject({ name: 'FooCorp', title: 'FooCorp' });
+    expect(out[0]!.pwn_count).toBeUndefined();
   });
 });

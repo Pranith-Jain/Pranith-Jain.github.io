@@ -2,6 +2,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { classifySector, type Sector } from '../lib/sector-classifier';
 import { fetchMythreatintelRansomwareVictims } from '../lib/mythreatintel-parser';
+import { fetchAFRansomwareVictims } from '../lib/andreafortuna-feeds';
 
 /**
  * Recent ransomware leak-site posts via Ransomlook.io's free `/api/recent`
@@ -19,7 +20,7 @@ import { fetchMythreatintelRansomwareVictims } from '../lib/mythreatintel-parser
  */
 
 /** Exported so /api/v1/snapshot can read the same cached payload directly. */
-export const RANSOMWARE_RECENT_CACHE_KEY = 'https://ransomware-recent-cache.internal/v7-origin-tags';
+export const RANSOMWARE_RECENT_CACHE_KEY = 'https://ransomware-recent-cache.internal/v8-af-source';
 const CACHE_KEY = RANSOMWARE_RECENT_CACHE_KEY;
 const CACHE_TTL_SECONDS = 3600;
 const FETCH_TIMEOUT_MS = 15_000;
@@ -45,7 +46,7 @@ interface RansomlookEntry {
  * fetcher; preserved by mergeVictims() so the frontend can render an
  * origin-pill per row.
  */
-export type RansomwareOrigin = 'ransomlook' | 'mti' | 'ransomfeed' | 'ransomwatch';
+export type RansomwareOrigin = 'ransomlook' | 'mti' | 'ransomfeed' | 'ransomwatch' | 'andreafortuna';
 
 export interface RansomwareVictim {
   victim: string;
@@ -241,7 +242,7 @@ export async function fetchRansomwareRecent(): Promise<{
   //   2. mythreatintel     — Spanish CTI channel, real-time, has descriptions
   //   3. ransomfeed.it     — RSS of victim claims, has descriptions
   //   4. ransomwatch       — id-only, fills coverage gaps from leak-site scrapes
-  const [primarySettled, mtiVictims, secondaryVictims, tertiaryVictims] = await Promise.all([
+  const [primarySettled, mtiVictims, secondaryVictims, tertiaryVictims, afVictims] = await Promise.all([
     (async () => {
       try {
         const ctrl = new AbortController();
@@ -265,6 +266,7 @@ export async function fetchRansomwareRecent(): Promise<{
     fetchMythreatintelRansomwareVictims().catch(() => []),
     fetchRansomfeedVictims(),
     fetchRansomwatchVictims(),
+    fetchAFRansomwareVictims().catch(() => []),
   ]);
 
   try {
@@ -301,14 +303,22 @@ export async function fetchRansomwareRecent(): Promise<{
   // Single-source-down tolerance: cacheable as long as ANY non-primary
   // tracker returned data. The page shouldn't blank when 3/4 trackers are
   // healthy.
-  if (!upstreamOk && (mtiVictims.length > 0 || secondaryVictims.length > 0 || tertiaryVictims.length > 0)) {
+  if (
+    !upstreamOk &&
+    (mtiVictims.length > 0 || secondaryVictims.length > 0 || tertiaryVictims.length > 0 || afVictims.length > 0)
+  ) {
     upstreamOk = true;
   }
 
-  const victims = mergeVictims(primary, mtiVictims as RansomwareVictim[], secondaryVictims, tertiaryVictims).slice(
-    0,
-    MAX_ITEMS
-  );
+  // AF passed last → lowest dedupe priority. It re-aggregates Ransomlook, so
+  // originals win ties; AF only fills gaps the four primary trackers missed.
+  const victims = mergeVictims(
+    primary,
+    mtiVictims as RansomwareVictim[],
+    secondaryVictims,
+    tertiaryVictims,
+    afVictims
+  ).slice(0, MAX_ITEMS);
 
   const groupCounts = new Map<string, number>();
   for (const v of victims) groupCounts.set(v.group, (groupCounts.get(v.group) ?? 0) + 1);

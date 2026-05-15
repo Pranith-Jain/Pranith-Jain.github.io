@@ -1,8 +1,13 @@
 import type { CybercrimeItem } from '../routes/cybercrime';
 import type { LiveIoc } from '../routes/live-iocs';
+import type { RansomwareVictim } from '../routes/ransomware-recent';
+import type { BreachDisclosure } from '../routes/breach-disclosures';
+import { classifySector } from './sector-classifier';
 
 const DATAMARKETS_URL = 'https://ctifeeds.andreafortuna.org/datamarkets.json';
 const DEFACEMENTS_URL = 'https://ctifeeds.andreafortuna.org/recent_defacements.json';
+const RANSOMWARE_VICTIMS_URL = 'https://ctifeeds.andreafortuna.org/ransomware_victims.json';
+const DATALEAKS_URL = 'https://ctifeeds.andreafortuna.org/dataleaks.json';
 const FETCH_TIMEOUT_MS = 12_000;
 
 export const MAX_ITEMS_PER_FEED = 200;
@@ -104,4 +109,78 @@ export async function fetchAFDefacements(): Promise<LiveIoc[]> {
   const raw = await fetchJson(DEFACEMENTS_URL);
   if (!raw) return [];
   return parseDefacements(raw);
+}
+
+/**
+ * AF ransomware-victim `name` is "<Group>: <Victim> - <description>".
+ * The description segment is optional ("Loki: Credit Freedom & Restoration").
+ * Group is lowercased to match the convention in ransomware-recent.ts.
+ */
+export function parseAFRansomwareVictims(entries: AFEntry[]): RansomwareVictim[] {
+  const out: RansomwareVictim[] = [];
+  for (const e of entries) {
+    if (!e.name) continue;
+    const colon = e.name.indexOf(': ');
+    const group = colon > 0 ? e.name.slice(0, colon).trim() : (e.source || 'unknown').trim();
+    const rest = colon > 0 ? e.name.slice(colon + 2) : e.name;
+    const dash = rest.indexOf(' - ');
+    const victim = (dash > 0 ? rest.slice(0, dash) : rest).trim();
+    const description = dash > 0 ? rest.slice(dash + 3).trim() || undefined : undefined;
+    if (!victim || !group) continue;
+    out.push({
+      victim,
+      group: group.toLowerCase(),
+      discovered: toIso(e.timestamp) ?? e.timestamp,
+      description,
+      source_url: e.url || 'https://ctifeeds.andreafortuna.org/',
+      screen_url: e.screenshot || undefined,
+      sector: classifySector(victim, description),
+      origin: 'andreafortuna',
+    });
+    if (out.length >= MAX_ITEMS_PER_FEED) break;
+  }
+  return out;
+}
+
+/**
+ * AF dataleak `name` is "Have i been pwned? - <Title> - <N> breached accounts".
+ * `url` is https://haveibeenpwned.com/Breach/<Slug> — the slug is HIBP's
+ * canonical Name, used as the dedupe key against the primary HIBP source.
+ */
+export function parseAFDataleaks(entries: AFEntry[]): BreachDisclosure[] {
+  const out: BreachDisclosure[] = [];
+  for (const e of entries) {
+    if (!e.name) continue;
+    const s = e.name.replace(/^Have i been pwned\?\s*-\s*/i, '').trim();
+    const dash = s.indexOf(' - ');
+    const title = (dash > 0 ? s.slice(0, dash) : s).trim();
+    const tail = dash > 0 ? s.slice(dash + 3) : '';
+    const m = tail.match(/([\d,]+)\s+breached/i);
+    const pwn_count = m ? Number(m[1]!.replace(/,/g, '')) : undefined;
+    const slug = (e.url.split('/').pop() || title).trim();
+    if (!title) continue;
+    out.push({
+      name: slug,
+      title,
+      pwn_count: Number.isFinite(pwn_count) ? pwn_count : undefined,
+      added_date: toIso(e.timestamp),
+      verified: false,
+      sensitive: false,
+      origin: 'andreafortuna',
+    });
+    if (out.length >= MAX_ITEMS_PER_FEED) break;
+  }
+  return out;
+}
+
+export async function fetchAFRansomwareVictims(): Promise<RansomwareVictim[]> {
+  const raw = await fetchJson(RANSOMWARE_VICTIMS_URL);
+  if (!raw) return [];
+  return parseAFRansomwareVictims(raw);
+}
+
+export async function fetchAFDataleaks(): Promise<BreachDisclosure[]> {
+  const raw = await fetchJson(DATALEAKS_URL);
+  if (!raw) return [];
+  return parseAFDataleaks(raw);
 }

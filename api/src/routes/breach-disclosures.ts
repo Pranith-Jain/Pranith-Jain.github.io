@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { fetchAFDataleaks } from '../lib/andreafortuna-feeds';
 
 /**
  * Recent breach disclosures from the Have I Been Pwned public breach corpus.
@@ -14,7 +15,7 @@ import type { Env } from '../env';
  * checker route, which uses the k-anonymity API.
  */
 
-const CACHE_KEY = 'https://breach-disclosures-cache.internal/v1';
+const CACHE_KEY = 'https://breach-disclosures-cache.internal/v2-af-source';
 const CACHE_TTL_SECONDS = 6 * 3600;
 const FETCH_TIMEOUT_MS = 15_000;
 const HIBP_URL = 'https://haveibeenpwned.com/api/v3/breaches';
@@ -50,6 +51,8 @@ export interface BreachDisclosure {
   verified: boolean;
   sensitive: boolean;
   logo_path?: string;
+  /** Which corpus surfaced this entry. Absent ⇒ HIBP (back-compat). */
+  origin?: 'hibp' | 'andreafortuna';
 }
 
 interface DisclosuresResponse {
@@ -122,15 +125,32 @@ export async function breachDisclosuresHandler(c: Context<{ Bindings: Env }>): P
           verified: !!b.IsVerified,
           sensitive: !!b.IsSensitive,
           logo_path: b.LogoPath,
+          origin: 'hibp' as const,
         }));
     }
   } catch {
     /* fall through with empty list */
   }
 
+  // Andrea Fortuna dataleaks feed — a HIBP re-aggregation. Dedupe by breach
+  // name (HIBP entry wins, it carries richer fields); AF only fills in
+  // disclosures HIBP's window dropped or hasn't surfaced yet.
+  const afBreaches = await fetchAFDataleaks().catch(() => []);
+  if (afBreaches.length > 0) {
+    if (!upstreamOk && breaches.length === 0) upstreamOk = true;
+    const seen = new Set(breaches.map((b) => b.name.toLowerCase()));
+    for (const af of afBreaches) {
+      const k = af.name.toLowerCase();
+      if (seen.has(k)) continue;
+      seen.add(k);
+      breaches.push(af);
+    }
+    breaches.sort((a, b) => (b.added_date ?? '').localeCompare(a.added_date ?? '')).splice(MAX_ITEMS);
+  }
+
   const body: DisclosuresResponse = {
     generated_at: new Date().toISOString(),
-    source: 'haveibeenpwned.com /api/v3/breaches',
+    source: 'haveibeenpwned.com /api/v3/breaches + andreafortuna.org/dataleaks',
     count: breaches.length,
     breaches,
   };
