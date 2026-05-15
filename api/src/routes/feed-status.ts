@@ -15,6 +15,7 @@ import { IOC_CORRELATION_CACHE_KEY } from './ioc-correlation';
 import { ACTOR_TIMELINE_CACHE_KEY } from './actor-timeline';
 import { VICTIM_RELEAKS_CACHE_KEY } from './victim-releaks';
 import { LIVE_IOCS_CACHE_KEY } from './live-iocs';
+import { CYBERCRIME_CACHE_KEY } from './cybercrime';
 
 /**
  * Feed-status dashboard. Reads every per-feed edge-cache entry directly
@@ -29,7 +30,7 @@ import { LIVE_IOCS_CACHE_KEY } from './live-iocs';
  */
 
 const CACHE_TTL = 5 * 60;
-const FEED_STATUS_CACHE_KEY = 'https://feed-status-cache.internal/v2-cachereads';
+const FEED_STATUS_CACHE_KEY = 'https://feed-status-cache.internal/v3-af-feeds';
 
 type Status = 'ok' | 'degraded' | 'down' | 'cold';
 
@@ -405,6 +406,51 @@ const PROBES: FeedProbeSpec[] = [
         metrics: { correlated, scanned, sources_ok: okSrc },
         ageS,
       };
+    },
+  },
+  {
+    id: 'af-datamarkets',
+    label: 'AF Datamarkets',
+    page_path: '/threatintel/cyber-crime',
+    api_path: '/api/v1/cyber-crime',
+    cache_key: CYBERCRIME_CACHE_KEY,
+    evaluate: (body) => {
+      const sources = (body as { sources?: Array<{ label?: string; ok?: boolean; count?: number; stale?: boolean }> })
+        ?.sources;
+      const row = Array.isArray(sources) ? sources.find((s) => s.label === 'AndreaFortuna Datamarkets') : undefined;
+      if (!row) return { status: 'cold' as const, reason: 'no AF row in cybercrime cache' };
+      if (row.ok && !row.stale)
+        return { status: 'ok' as const, reason: `${row.count ?? 0} items`, metrics: { items: row.count ?? 0 } };
+      if (row.ok && row.stale) return { status: 'degraded' as const, reason: 'serving stale (last-good fallback)' };
+      return { status: 'down' as const, reason: 'upstream failed; no fallback' };
+    },
+  },
+  {
+    id: 'af-defacements',
+    label: 'AF Defacements',
+    page_path: '/threatintel/live-iocs',
+    api_path: '/api/v1/live-iocs',
+    cache_key: LIVE_IOCS_CACHE_KEY,
+    evaluate: (body) => {
+      const sources = (
+        body as {
+          sources?: Array<{ id?: string; ok?: boolean; count?: number; stale?: boolean; newest_observation?: string }>;
+        }
+      )?.sources;
+      const row = Array.isArray(sources) ? sources.find((s) => s.id === 'andreafortuna-defacements') : undefined;
+      if (!row) return { status: 'cold' as const, reason: 'no AF row in live-iocs cache' };
+      if (row.ok && !row.stale) {
+        return {
+          status: 'ok' as const,
+          reason: `${row.count ?? 0} items`,
+          metrics: { items: row.count ?? 0 },
+          ageS: row.newest_observation
+            ? Math.max(0, Math.round((Date.now() - Date.parse(row.newest_observation)) / 1000))
+            : undefined,
+        };
+      }
+      if (row.ok && row.stale) return { status: 'degraded' as const, reason: 'serving stale (last-good fallback)' };
+      return { status: 'down' as const, reason: 'upstream failed; no fallback' };
     },
   },
 ];
