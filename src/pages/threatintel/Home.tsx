@@ -262,6 +262,12 @@ const SECTIONS: Section[] = [
         icon: ExternalLink,
       },
       {
+        to: '/threatintel/deepdarkcti',
+        label: 'deepdarkCTI Index',
+        desc: 'Parsed mirror of fastfire/deepdarkCTI — ransomware leak sites, dark markets, criminal forums, infostealer & threat-actor Telegram/Twitter channels, dark-web search engines. 18 source lists, filterable, onion-aware.',
+        icon: Globe,
+      },
+      {
         to: '/threatintel/osint-framework',
         label: 'OSINT Framework',
         desc: '70+ curated OSINT tools across 15 categories. Filter by pricing tier and category.',

@@ -16,6 +16,7 @@ import { ACTOR_TIMELINE_CACHE_KEY } from './actor-timeline';
 import { VICTIM_RELEAKS_CACHE_KEY } from './victim-releaks';
 import { LIVE_IOCS_CACHE_KEY } from './live-iocs';
 import { CYBERCRIME_CACHE_KEY } from './cybercrime';
+import { DEEPDARKCTI_CACHE_KEY } from './deepdarkcti';
 
 /**
  * Feed-status dashboard. Reads every per-feed edge-cache entry directly
@@ -30,7 +31,7 @@ import { CYBERCRIME_CACHE_KEY } from './cybercrime';
  */
 
 const CACHE_TTL = 5 * 60;
-const FEED_STATUS_CACHE_KEY = 'https://feed-status-cache.internal/v3-af-feeds';
+const FEED_STATUS_CACHE_KEY = 'https://feed-status-cache.internal/v4-af-ddc';
 
 type Status = 'ok' | 'degraded' | 'down' | 'cold';
 
@@ -451,6 +452,35 @@ const PROBES: FeedProbeSpec[] = [
       }
       if (row.ok && row.stale) return { status: 'degraded' as const, reason: 'serving stale (last-good fallback)' };
       return { status: 'down' as const, reason: 'upstream failed; no fallback' };
+    },
+  },
+  {
+    id: 'deepdarkcti',
+    label: 'deepdarkCTI Index',
+    page_path: '/threatintel/deepdarkcti',
+    api_path: '/api/v1/deepdarkcti',
+    cache_key: DEEPDARKCTI_CACHE_KEY,
+    evaluate: (body) => {
+      const b = body as {
+        sources?: Array<{ ok?: boolean; stale?: boolean }>;
+        total?: number;
+      };
+      if (!b || !Array.isArray(b.sources)) {
+        return { status: 'cold' as const, reason: 'no cached payload (visit the page once to warm the cache)' };
+      }
+      const total = b.total ?? 0;
+      const files = b.sources.length;
+      if (total === 0) return { status: 'down' as const, reason: 'all sources empty' };
+      const anyStale = b.sources.some((s) => s.stale);
+      const anyHardFail = b.sources.some((s) => !s.ok && !s.stale);
+      if (anyHardFail || anyStale) {
+        return {
+          status: 'degraded' as const,
+          reason: anyStale ? 'serving stale slices (last-good)' : 'some sources failed',
+          metrics: { files, entries: total },
+        };
+      }
+      return { status: 'ok' as const, reason: `${total} entries`, metrics: { files, entries: total } };
     },
   },
 ];
