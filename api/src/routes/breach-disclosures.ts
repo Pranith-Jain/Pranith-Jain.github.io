@@ -1,25 +1,11 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { fetchAFDataleaks } from '../lib/andreafortuna-feeds';
 
-/**
- * Recent breach disclosures from the Have I Been Pwned public breach corpus.
- *
- * HIBP exposes /api/v3/breaches without authentication for read-only access
- * to the full breach list. We cache the response for 6 h and surface the
- * 50 most recent disclosures in `AddedDate` order. Fields preserved:
- *   - Name, Title, Domain, BreachDate, AddedDate, ModifiedDate, PwnCount,
- *     Description, DataClasses, IsVerified, IsSensitive, LogoPath.
- *
- * No PII / lookup-by-email — that's handled separately by the breach
- * checker route, which uses the k-anonymity API.
- */
-
-const CACHE_KEY = 'https://breach-disclosures-cache.internal/v3-final-dedup';
-const CACHE_TTL_SECONDS = 6 * 3600;
-const FETCH_TIMEOUT_MS = 15_000;
+const FETCH_TIMEOUT_MS = 20_000;
 const HIBP_URL = 'https://haveibeenpwned.com/api/v3/breaches';
 const MAX_ITEMS = 50;
+const CACHE_TTL = 3600;
+const CACHE_KEY = 'https://breach-cache.internal/v5-hibp-only';
 
 interface HibpBreach {
   Name: string;
@@ -27,7 +13,6 @@ interface HibpBreach {
   Domain?: string;
   BreachDate?: string;
   AddedDate?: string;
-  ModifiedDate?: string;
   PwnCount?: number;
   Description?: string;
   DataClasses?: string[];
@@ -35,7 +20,6 @@ interface HibpBreach {
   IsSensitive?: boolean;
   IsRetired?: boolean;
   IsSpamList?: boolean;
-  LogoPath?: string;
 }
 
 export interface BreachDisclosure {
@@ -44,27 +28,15 @@ export interface BreachDisclosure {
   domain?: string;
   breach_date?: string;
   added_date?: string;
-  modified_date?: string;
   pwn_count?: number;
   description?: string;
   data_classes?: string[];
   verified: boolean;
   sensitive: boolean;
-  logo_path?: string;
-  /** Which corpus surfaced this entry. Absent ⇒ HIBP (back-compat). */
-  origin?: 'hibp' | 'andreafortuna';
-}
-
-interface DisclosuresResponse {
-  generated_at: string;
-  source: string;
-  count: number;
-  breaches: BreachDisclosure[];
 }
 
 function strip(html?: string): string | undefined {
   if (!html) return undefined;
-  // HIBP returns lightly-marked-up HTML in Description. Convert to plain text.
   return html
     .replace(/<a [^>]*href="([^"]+)"[^>]*>([^<]+)<\/a>/g, '$2 ($1)')
     .replace(/<[^>]+>/g, '')
@@ -77,101 +49,55 @@ function strip(html?: string): string | undefined {
 }
 
 export async function breachDisclosuresHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  // Try cache first
   const cache = (caches as unknown as { default: Cache }).default;
-  const cacheKey = new Request(CACHE_KEY);
-  const cached = await cache.match(cacheKey);
+  const cached = await cache.match(new Request(CACHE_KEY));
   if (cached) return cached;
 
   let breaches: BreachDisclosure[] = [];
-  let upstreamOk = false;
 
   try {
-    const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
     const res = await fetch(HIBP_URL, {
-      headers: {
-        Accept: 'application/json',
-        'User-Agent': 'pranithjain.qzz.io DFIR toolkit (read-only public breach list)',
-      },
-      signal: ctrl.signal,
+      headers: { Accept: 'application/json', 'User-Agent': 'pranithjain.qzz.io DFIR toolkit' },
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
     });
-    clearTimeout(timer);
-
-    if (res.status === 429) {
-      const retryAfter = res.headers.get('retry-after') ?? '60';
-      return c.json({ error: 'upstream_rate_limited', upstream: 'haveibeenpwned.com', upstream_status: 429 }, 429, {
-        'retry-after': retryAfter,
-        'cache-control': 'no-store',
-      });
-    }
 
     if (res.ok) {
       const raw = (await res.json()) as HibpBreach[];
-      upstreamOk = true;
-      breaches = raw
-        .filter((b) => !b.IsRetired && !b.IsSpamList)
-        .sort((a, b) => (b.AddedDate ?? '').localeCompare(a.AddedDate ?? ''))
-        .slice(0, MAX_ITEMS)
-        .map((b) => ({
+      const seen = new Set<string>();
+      for (const b of raw) {
+        if (b.IsRetired || b.IsSpamList) continue;
+        const key = b.Name.toLowerCase();
+        if (seen.has(key)) continue;
+        seen.add(key);
+        breaches.push({
           name: b.Name,
           title: b.Title ?? b.Name,
           domain: b.Domain || undefined,
           breach_date: b.BreachDate,
           added_date: b.AddedDate,
-          modified_date: b.ModifiedDate,
           pwn_count: b.PwnCount,
           description: strip(b.Description),
           data_classes: b.DataClasses,
           verified: !!b.IsVerified,
           sensitive: !!b.IsSensitive,
-          logo_path: b.LogoPath,
-          origin: 'hibp' as const,
-        }));
+        });
+      }
+      breaches.sort((a, b) => (b.added_date ?? '').localeCompare(a.added_date ?? ''));
+      breaches = breaches.slice(0, MAX_ITEMS);
     }
   } catch {
-    /* fall through with empty list */
+    /* HIBP unreachable - return what we have */
   }
 
-  // Andrea Fortuna dataleaks feed — a HIBP re-aggregation. Dedupe by breach
-  // name (HIBP entry wins, it carries richer fields); AF only fills in
-  // disclosures HIBP's window dropped or hasn't surfaced yet.
-  const afBreaches = await fetchAFDataleaks().catch(() => []);
-
-  // Dedup the AF feed itself: it often has 10+ entries for the same breach
-  // (Leak-Lookup appearing at different timestamps as the scraper re-checks).
-  // Keep only the most recent entry per breach name.
-  {
-    const afDeduped = new Map<string, BreachDisclosure>();
-    for (const af of afBreaches) {
-      const key = af.name.toLowerCase();
-      const existing = afDeduped.get(key);
-      if (!existing || (af.added_date ?? '') > (existing.added_date ?? '')) {
-        afDeduped.set(key, af);
-      }
-    }
-    if (afDeduped.size > 0) {
-      if (!upstreamOk && breaches.length === 0) upstreamOk = true;
-      for (const [, af] of afDeduped) {
-        const k = `${af.name.toLowerCase()}::${(af.title ?? '').toLowerCase()}`;
-        if (new Set(breaches.map((b) => `${b.name.toLowerCase()}::${(b.title ?? '').toLowerCase()}`)).has(k)) continue;
-        breaches.push(af);
-      }
-      breaches.sort((a, b) => (b.added_date ?? '').localeCompare(a.added_date ?? '')).splice(MAX_ITEMS);
-    }
-  }
-
-  const body: DisclosuresResponse = {
+  const body = {
     generated_at: new Date().toISOString(),
-    source: 'haveibeenpwned.com /api/v3/breaches + andreafortuna.org/dataleaks',
+    source: 'haveibeenpwned.com /api/v3/breaches',
     count: breaches.length,
     breaches,
   };
 
-  const response = c.json(body, 200, {
-    'Cache-Control': upstreamOk ? `public, max-age=${CACHE_TTL_SECONDS}` : 'no-store',
-  });
-  if (upstreamOk) {
-    c.executionCtx.waitUntil(cache.put(cacheKey, response.clone()));
-  }
+  const response = c.json(body, 200, { 'Cache-Control': `public, max-age=${CACHE_TTL}` });
+  c.executionCtx.waitUntil(cache.put(new Request(CACHE_KEY), response.clone()));
   return response;
 }
