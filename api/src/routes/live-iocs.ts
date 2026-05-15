@@ -56,7 +56,7 @@ const STALENESS_HOURS = 24 * 7;
 
 type IocKind = 'ip' | 'url' | 'domain' | 'hash';
 
-interface LiveIoc {
+export interface LiveIoc {
   value: string;
   kind: IocKind;
   source: string;
