@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { CYBERCRIME_SOURCES, type CybercrimeSource } from '../lib/cybercrime-sources';
+import { fetchAFDatamarkets } from '../lib/andreafortuna-feeds';
 
 /**
  * Cyber fraud + cyber crime aggregator for /threatintel/cyber-crime.
@@ -24,6 +25,8 @@ const CACHE_TTL_SECONDS = 1800;
 const FETCH_TIMEOUT_MS = 12_000;
 const MAX_ITEMS = 120;
 const MAX_PER_SOURCE = 15;
+const AF_DATAMARKETS_LASTGOOD_KEY = 'cybercrime/af-datamarkets-lastgood/v1';
+const LASTGOOD_TTL_SECONDS = 24 * 60 * 60;
 
 export interface CybercrimeItem {
   title: string;
@@ -45,6 +48,7 @@ export interface CybercrimeResponse {
     count: number;
     filtered_out?: number;
     error?: string;
+    stale?: boolean;
   }>;
   total: number;
   items: CybercrimeItem[];
@@ -222,20 +226,26 @@ function roundRobinBySource(items: CybercrimeItem[], maxItems: number): Cybercri
   return visible;
 }
 
-export async function fetchCybercrime(): Promise<CybercrimeResponse> {
+export async function fetchCybercrime(
+  executionCtx?: { waitUntil: (p: Promise<unknown>) => void },
+  kv?: KVNamespace
+): Promise<CybercrimeResponse> {
   const sourceMeta: CybercrimeResponse['sources'] = [];
   const all: CybercrimeItem[] = [];
 
-  const results = await Promise.all(
-    CYBERCRIME_SOURCES.map(async (src) => {
-      const body = await fetchText(src.url);
-      if (!body) return { src, ok: false, items: [] as CybercrimeItem[], dropped: 0, error: 'fetch failed' };
-      const parsed = parseFeed(body, src);
-      parsed.sort(cmpByPublished);
-      const { kept, dropped } = applyFilter(parsed, src.filterKeywords);
-      return { src, ok: kept.length > 0, items: kept.slice(0, MAX_PER_SOURCE), dropped };
-    })
-  );
+  const [results, afItemsRaw] = await Promise.all([
+    Promise.all(
+      CYBERCRIME_SOURCES.map(async (src) => {
+        const body = await fetchText(src.url);
+        if (!body) return { src, ok: false, items: [] as CybercrimeItem[], dropped: 0, error: 'fetch failed' };
+        const parsed = parseFeed(body, src);
+        parsed.sort(cmpByPublished);
+        const { kept, dropped } = applyFilter(parsed, src.filterKeywords);
+        return { src, ok: kept.length > 0, items: kept.slice(0, MAX_PER_SOURCE), dropped };
+      })
+    ),
+    fetchAFDatamarkets(),
+  ]);
 
   for (const r of results) {
     sourceMeta.push({
@@ -248,6 +258,42 @@ export async function fetchCybercrime(): Promise<CybercrimeResponse> {
     });
     for (const it of r.items) all.push(it);
   }
+
+  // ─── Andrea Fortuna Datamarkets (underground forum threads) ─────────────
+  let afItems = afItemsRaw;
+  let afOk = afItems.length > 0;
+  let afStale = false;
+
+  if (afOk && kv) {
+    executionCtx?.waitUntil(
+      kv.put(AF_DATAMARKETS_LASTGOOD_KEY, JSON.stringify({ items: afItems, refreshed_at: new Date().toISOString() }), {
+        expirationTtl: LASTGOOD_TTL_SECONDS,
+      })
+    );
+  } else if (!afOk && kv) {
+    try {
+      const raw = await kv.get(AF_DATAMARKETS_LASTGOOD_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw) as { items: typeof afItems };
+        if (Array.isArray(parsed.items) && parsed.items.length > 0) {
+          afItems = parsed.items;
+          afOk = true;
+          afStale = true;
+        }
+      }
+    } catch {
+      /* leave afOk = false */
+    }
+  }
+
+  sourceMeta.push({
+    label: 'AndreaFortuna Datamarkets',
+    category: 'underground-forums',
+    ok: afOk,
+    count: afItems.length,
+    ...(afStale ? { stale: true } : {}),
+  });
+  for (const it of afItems) all.push(it);
 
   // Dedupe by URL (ignore querystrings/fragments).
   const seen = new Set<string>();
@@ -273,7 +319,7 @@ export async function cybercrimeHandler(c: Context<{ Bindings: Env }>): Promise<
   const cached = await cache.match(cacheReq);
   if (cached) return cached;
 
-  const body = await fetchCybercrime();
+  const body = await fetchCybercrime(c.executionCtx, c.env.KV_CACHE);
   const response = new Response(JSON.stringify(body), {
     status: 200,
     headers: {
