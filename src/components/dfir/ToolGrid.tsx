@@ -1,12 +1,12 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ExternalLink, Search as SearchIcon, X } from 'lucide-react';
-import { SECTIONS, EXTERNAL, TOOL_COUNT, type Tool, type Section } from './tool-sections';
+import { SECTIONS, EXTERNAL, TOOL_COUNT, type Tool, type Section, type ToolGroup } from './tool-sections';
 
 // Re-export so existing call sites (CommandPalette, DFIR.tsx) that previously
 // imported these from ToolGrid keep working without churn.
 export { SECTIONS, TOOL_COUNT };
-export type { Tool, Section };
+export type { Tool, Section, ToolGroup };
 
 function Card({ tool }: { tool: Tool }): JSX.Element {
   const { path, label, desc, icon: Icon, external } = tool;
@@ -69,19 +69,24 @@ function matches(tool: Tool, q: string): boolean {
     .every((tok) => haystack.includes(tok));
 }
 
-export function ToolGrid(): JSX.Element {
+export function ToolGrid({ group }: { group?: ToolGroup } = {}): JSX.Element {
   const [query, setQuery] = useState('');
   const q = query.trim();
 
+  const baseSections = useMemo(() => (group ? SECTIONS.filter((s) => s.group === group) : SECTIONS), [group]);
+
   const filteredSections = useMemo(
     () =>
-      SECTIONS.map((s) => ({
-        ...s,
-        tools: s.tools.filter((t) => matches(t, q)),
-      })).filter((s) => s.tools.length > 0),
-    [q]
+      baseSections
+        .map((s) => ({
+          ...s,
+          tools: s.tools.filter((t) => matches(t, q)),
+        }))
+        .filter((s) => s.tools.length > 0),
+    [baseSections, q]
   );
-  const filteredExternal = useMemo(() => EXTERNAL.filter((t) => matches(t, q)), [q]);
+  // The "External resources" block only belongs on the full, ungrouped grid.
+  const filteredExternal = useMemo(() => (group ? [] : EXTERNAL.filter((t) => matches(t, q))), [group, q]);
 
   const matchCount = filteredSections.reduce((n, s) => n + s.tools.length, 0) + filteredExternal.length;
 
@@ -123,8 +128,9 @@ export function ToolGrid(): JSX.Element {
           </>
         ) : (
           <>
-            {TOOL_COUNT} tools across {SECTIONS.length} categories. Everything runs client-side or through this site's
-            edge worker. Nothing leaves your browser unless the tool page says otherwise.
+            {group ? baseSections.reduce((n, s) => n + s.tools.length, 0) : TOOL_COUNT} tools across{' '}
+            {baseSections.length} categor{baseSections.length === 1 ? 'y' : 'ies'}. Everything runs client-side or
+            through this site's edge worker. Nothing leaves your browser unless the tool page says otherwise.
           </>
         )}
       </p>

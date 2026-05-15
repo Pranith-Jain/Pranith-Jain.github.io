@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Github, Mail } from 'lucide-react';
 import { ToolGrid, TOOL_COUNT } from '../components/dfir/ToolGrid';
+import { GROUP_META, type ToolGroup } from '../components/dfir/tool-sections';
 import { IocDispatchInput } from '../components/dfir/IocDispatchInput';
 import { personalInfo } from '../data/content';
 
@@ -71,6 +72,18 @@ export default function DFIRPage(): JSX.Element {
           >
             recent lookups <ArrowRight size={12} />
           </Link>
+        </div>
+        <div className="flex flex-wrap items-center gap-2 mb-6 text-[11px] font-mono">
+          <span className="text-slate-500">jump to:</span>
+          {(['dfir', 'osint', 'aisec', 'datasec', 'grc'] as ToolGroup[]).map((g) => (
+            <Link
+              key={g}
+              to={`/dfir/tools/${g}`}
+              className="px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+            >
+              {GROUP_META[g].label}
+            </Link>
+          ))}
         </div>
         <ToolGrid />
       </section>

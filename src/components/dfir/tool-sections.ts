@@ -53,11 +53,35 @@ export interface Tool {
   external?: boolean;
 }
 
+/**
+ * Top-level tool group. Each section belongs to exactly one group so the
+ * grid can be sliced into dedicated, less-overwhelming category pages
+ * (separate OSINT / AI-sec / Data-security / GRC surfaces) while the
+ * full /dfir grid stays as the power-user index.
+ */
+export type ToolGroup = 'dfir' | 'osint' | 'aisec' | 'datasec' | 'grc';
+
+export const GROUP_META: Record<ToolGroup, { label: string; blurb: string }> = {
+  dfir: {
+    label: 'DFIR & IR Tools',
+    blurb: 'Triage, decoders, domain/network, email, detection, vulns — the core IR kit.',
+  },
+  osint: { label: 'OSINT Tools', blurb: 'Recon, attribution, public-record pivots. Username, image, archive, geo.' },
+  aisec: {
+    label: 'AI Security Tools',
+    blurb: 'LLM red-teaming, prompt-injection, MCP audit, agent attack surface, ATLAS.',
+  },
+  datasec: { label: 'Data Security Tools', blurb: 'Sensitive-data detection, classification & handling, privacy hub.' },
+  grc: { label: 'GRC & Posture Tools', blurb: 'Compliance & maturity, tabletop exercises, kill chain, OWASP, NHI.' },
+};
+
 export interface Section {
   id: string;
   label: string;
   /** One-line hint shown under the section heading. */
   blurb: string;
+  /** Which dedicated category page this section belongs to. */
+  group: ToolGroup;
   tools: Tool[];
 }
 
@@ -69,6 +93,7 @@ export interface Section {
 export const SECTIONS: Section[] = [
   {
     id: 'triage',
+    group: 'dfir',
     label: 'Triage & IOCs',
     blurb: 'First stop when an indicator lands in your inbox.',
     tools: [
@@ -107,6 +132,7 @@ export const SECTIONS: Section[] = [
   },
   {
     id: 'domain',
+    group: 'dfir',
     label: 'Domain, Network & Edge',
     blurb: 'Where does this thing live, what does it expose, who owns it.',
     tools: [
@@ -141,6 +167,7 @@ export const SECTIONS: Section[] = [
   },
   {
     id: 'osint',
+    group: 'osint',
     label: 'OSINT Tools',
     blurb: 'Open-source pivots — username, archive, code-host metadata.',
     tools: [
@@ -202,6 +229,7 @@ export const SECTIONS: Section[] = [
   },
   {
     id: 'email',
+    group: 'dfir',
     label: 'Email Security',
     blurb: 'Phishing analysis and BEC-defense for the domain you protect.',
     tools: [
@@ -227,6 +255,7 @@ export const SECTIONS: Section[] = [
   },
   {
     id: 'data-sec',
+    group: 'datasec',
     label: 'Data Security & DLP',
     blurb: 'Find sensitive data; decide how to handle it.',
     tools: [
@@ -252,6 +281,7 @@ export const SECTIONS: Section[] = [
   },
   {
     id: 'det-eng',
+    group: 'dfir',
     label: 'Detection Engineering',
     blurb: 'Build, test, and run detection content.',
     tools: [
@@ -289,6 +319,7 @@ export const SECTIONS: Section[] = [
   },
   {
     id: 'frameworks',
+    group: 'grc',
     label: 'Frameworks & Posture',
     blurb: 'Models analysts use to structure intrusions and security programs.',
     tools: [
@@ -332,6 +363,7 @@ export const SECTIONS: Section[] = [
   },
   {
     id: 'ai-sec',
+    group: 'aisec',
     label: 'AI Security',
     blurb: 'AI-system threat surface — prompts, agents, MCP servers.',
     tools: [
@@ -363,6 +395,7 @@ export const SECTIONS: Section[] = [
   },
   {
     id: 'vulns-identity',
+    group: 'dfir',
     label: 'Vulnerabilities & Identity',
     blurb: 'CVE triage, breach exposure, and identity verification.',
     tools: [
@@ -378,6 +411,7 @@ export const SECTIONS: Section[] = [
   },
   {
     id: 'reference',
+    group: 'dfir',
     label: 'Personal',
     blurb: 'Your own state and privacy hygiene.',
     tools: [
