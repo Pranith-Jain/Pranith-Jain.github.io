@@ -36,11 +36,11 @@ const CANONICAL_ORIGIN = 'https://pranithjain.qzz.io';
 const SECURITY_HEADERS: Record<string, string> = {
   'content-security-policy': [
     "default-src 'self'",
-    "script-src 'self' 'wasm-unsafe-eval'",
-    "style-src 'self' 'unsafe-inline'",
+    "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://static.cloudflareinsights.com",
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
     "img-src 'self' data: https:",
-    "connect-src 'self' https://api.cloudflare.com",
-    "font-src 'self' data:",
+    "connect-src 'self' https://api.cloudflare.com https://cloudflareinsights.com https://*.cloudflareinsights.com",
+    "font-src 'self' data: https://fonts.gstatic.com",
     "frame-ancestors 'none'",
     "base-uri 'self'",
     "form-action 'self'",
@@ -51,6 +51,7 @@ const SECURITY_HEADERS: Record<string, string> = {
   'referrer-policy': 'strict-origin-when-cross-origin',
   'permissions-policy': 'camera=(), microphone=(), geolocation=(), payment=(), usb=()',
   'strict-transport-security': 'max-age=63072000; includeSubDomains; preload',
+  server: 'PranithJain',
 };
 
 function withSecurityHeaders(response: Response): Response {
