@@ -146,6 +146,12 @@ export const SECTIONS: Section[] = [
         desc: 'Apple binary/XML plists + schema-less protobuf · hand-rolled parsers · client-side',
         icon: Code2,
       },
+      {
+        path: '/dfir/pcap-triage',
+        label: 'PCAP Triage',
+        desc: '.pcap/.pcapng → protocol mix · top talkers · conversations · DNS + HTTP extraction · client-side',
+        icon: Network,
+      },
     ],
   },
   {

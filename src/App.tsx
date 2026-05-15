@@ -93,6 +93,7 @@ const DorkBuilder = lazy(() => import('./pages/dfir/DorkBuilder'));
 const BrandImpersonation = lazy(() => import('./pages/dfir/BrandImpersonation'));
 const ImageFingerprint = lazy(() => import('./pages/dfir/ImageFingerprint'));
 const PlistProtobuf = lazy(() => import('./pages/dfir/PlistProtobuf'));
+const PcapTriage = lazy(() => import('./pages/dfir/PcapTriage'));
 const CveResourcesCatalog = lazy(() => import('./pages/dfir/CveResourcesCatalog'));
 const WebScan = lazy(() => import('./pages/dfir/WebScan'));
 const MalwareScan = lazy(() => import('./pages/dfir/MalwareScan'));
@@ -1033,6 +1034,7 @@ export function AppContent() {
           ['/dfir/brand-impersonation', <BrandImpersonation key="bi" />],
           ['/dfir/image-fingerprint', <ImageFingerprint key="if" />],
           ['/dfir/plist-protobuf', <PlistProtobuf key="pp" />],
+          ['/dfir/pcap-triage', <PcapTriage key="pc" />],
         ] as Array<[string, JSX.Element]>
       ).map(([p, el]) => (
         <Route
