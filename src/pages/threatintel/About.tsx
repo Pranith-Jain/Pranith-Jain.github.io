@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ShieldCheck, Radio, Layers, GitBranch, Mail } from 'lucide-react';
+import { ArrowLeft, ShieldCheck, Radio, Layers, GitBranch } from 'lucide-react';
 import { personalInfo } from '../../data/content';
+import { AppFooter } from '../../components/AppFooter';
 
 const PRINCIPLES = [
   {
@@ -102,19 +103,7 @@ export default function ThreatIntelAbout(): JSX.Element {
         </ul>
       </Section>
 
-      <p className="text-sm font-mono text-slate-600 dark:text-slate-400">
-        Feedback or feed suggestions:{' '}
-        <a
-          href={`mailto:${personalInfo.email}`}
-          className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline"
-        >
-          <Mail size={13} /> {personalInfo.email}
-        </a>
-      </p>
-      <p className="font-mono text-[11px] text-slate-400 mt-6">
-        © {new Date().getFullYear()} {personalInfo.name}. Reference only — verify all indicators in your own
-        environment.
-      </p>
+      <AppFooter blurb="Live, edge-aggregated threat intelligence — privacy-first, no accounts. Reference only; verify all indicators in your own environment." />
     </div>
   );
 }

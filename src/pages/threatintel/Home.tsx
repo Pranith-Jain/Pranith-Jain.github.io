@@ -37,6 +37,7 @@ import { PlatformPulse } from '../../components/threatintel/PlatformPulse';
 import { personalInfo } from '../../data/content';
 import { AppHero } from '../../components/AppHero';
 import { AppFooter } from '../../components/AppFooter';
+import { StatBar } from '../../components/StatBar';
 
 /**
  * Threat-Intel landing page — the SOLE entry point for sources, feeds, RSS,
@@ -427,13 +428,14 @@ export default function ThreatIntelHome(): JSX.Element {
           </>
         }
       />
-      {/* App-style stat bar — replaces the portfolio-style 6xl hero on app routes */}
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <TiStat label="Intel surfaces" value={String(totalTiles)} />
-        <TiStat label="IOC feeds correlated" value="18" />
-        <TiStat label="Live IOC sources" value="10" />
-        <TiStat label="Refresh cadence" value="30m–1h" mono />
-      </section>
+      <StatBar
+        items={[
+          { label: 'Intel surfaces', value: String(totalTiles) },
+          { label: 'IOC feeds correlated', value: '18' },
+          { label: 'Live IOC sources', value: '10' },
+          { label: 'Refresh cadence', value: '30m–1h', mono: true },
+        ]}
+      />
 
       {/* Quick links to power-user surfaces */}
       <div className="flex flex-wrap items-center gap-2 mb-12 text-[11px] font-mono text-slate-500 dark:text-slate-500">
@@ -616,6 +618,9 @@ export default function ThreatIntelHome(): JSX.Element {
               {activeSection.blurb} · {activeSection.tools.length}{' '}
               {activeSection.tools.length === 1 ? 'source' : 'sources'}
             </p>
+            <p className="text-[11px] font-mono text-slate-400 mt-2">
+              Reference only — feeds refreshed at the edge each visit; verify indicators in your own environment.
+            </p>
           </div>
           <ul className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
             {activeSection.tools.map((t) => {
@@ -705,19 +710,6 @@ export default function ThreatIntelHome(): JSX.Element {
         aboutTo="/threatintel/about"
         blurb={`Privacy-first threat intelligence by ${personalInfo.name}. Live feeds aggregated at the edge — no tracking, no accounts. Reference only; verify indicators in your own environment.`}
       />
-    </div>
-  );
-}
-
-function TiStat({ label, value, mono }: { label: string; value: string; mono?: boolean }) {
-  return (
-    <div>
-      <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-500">{label}</div>
-      <div
-        className={`font-display font-bold text-xl text-slate-900 dark:text-slate-100 ${mono ? 'font-mono text-sm' : ''}`}
-      >
-        {value}
-      </div>
     </div>
   );
 }

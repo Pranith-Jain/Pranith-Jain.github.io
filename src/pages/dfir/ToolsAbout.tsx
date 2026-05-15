@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ShieldCheck, Eye, Zap, GitBranch, Mail } from 'lucide-react';
+import { ArrowLeft, ShieldCheck, Eye, Zap, GitBranch } from 'lucide-react';
 import { personalInfo } from '../../data/content';
+import { AppFooter } from '../../components/AppFooter';
 
 const PRINCIPLES = [
   {
@@ -103,19 +104,7 @@ export default function ToolsAbout(): JSX.Element {
         </ul>
       </Section>
 
-      <p className="text-sm font-mono text-slate-600 dark:text-slate-400">
-        Feedback, issues or feature ideas:{' '}
-        <a
-          href={`mailto:${personalInfo.email}`}
-          className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline"
-        >
-          <Mail size={13} /> {personalInfo.email}
-        </a>
-      </p>
-      <p className="font-mono text-[11px] text-slate-400 mt-6">
-        © {new Date().getFullYear()} {personalInfo.name}. Triage support only — validate findings with your standard
-        forensic workflow.
-      </p>
+      <AppFooter blurb="DFIR & OSINT toolkit — privacy-first, runs entirely in your browser. Triage support only; validate findings with your standard forensic workflow." />
     </div>
   );
 }

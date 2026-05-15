@@ -6,6 +6,7 @@ import { IocDispatchInput } from '../components/dfir/IocDispatchInput';
 import { personalInfo } from '../data/content';
 import { AppHero } from '../components/AppHero';
 import { AppFooter } from '../components/AppFooter';
+import { StatBar } from '../components/StatBar';
 
 const PROVIDER_GROUPS: { label: string; items: string[] }[] = [
   {
@@ -68,13 +69,14 @@ export default function DFIRPage(): JSX.Element {
           </>
         }
       />
-      {/* App-style stat bar */}
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <Stat label="Tools" value={String(TOOL_COUNT)} />
-        <Stat label="Data sources" value="90+" />
-        <Stat label="Credits required" value="0" />
-        <Stat label="Last build" value={__BUILD_DATE__} mono />
-      </section>
+      <StatBar
+        items={[
+          { label: 'Tools', value: String(TOOL_COUNT) },
+          { label: 'Data sources', value: '90+' },
+          { label: 'Credits required', value: '0' },
+          { label: 'Last build', value: __BUILD_DATE__, mono: true },
+        ]}
+      />
 
       {/* Paste-to-dispatch — sits above the tool grid so the most common
           workflow (paste an indicator -> jump to the right tool) doesn't
@@ -144,19 +146,6 @@ export default function DFIRPage(): JSX.Element {
         aboutTo="/dfir/tools/about"
         blurb={`DFIR & security toolkit by ${personalInfo.name}. Everything runs in your browser — no uploads, no keys, no tracking. Triage support only; validate findings with your standard workflow.`}
       />
-    </div>
-  );
-}
-
-function Stat({ label, value, mono }: { label: string; value: string; mono?: boolean }) {
-  return (
-    <div>
-      <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-500">{label}</div>
-      <div
-        className={`font-display font-bold text-xl text-slate-900 dark:text-slate-100 ${mono ? 'font-mono text-sm' : ''}`}
-      >
-        {value}
-      </div>
     </div>
   );
 }
