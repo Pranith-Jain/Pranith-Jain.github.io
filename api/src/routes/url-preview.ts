@@ -28,8 +28,78 @@ interface UrlPreviewResponse {
     card?: string;
   };
   canonical?: string;
+  lang?: string;
+  charset?: string;
+  favicon?: string;
+  feeds?: { title?: string; url: string; type: string }[];
+  meta?: {
+    author?: string;
+    generator?: string;
+    robots?: string;
+    keywords?: string;
+    theme_color?: string;
+    viewport?: string;
+  };
+  urlscan?: {
+    result: string;
+    screenshot?: string;
+    scanned_at?: string;
+    page?: { ip?: string; server?: string; country?: string; domain?: string };
+  };
   bytes_read: number;
   redirect_blocked?: { location: string };
+}
+
+/**
+ * Enrich with the most recent EXISTING urlscan.io scan for this URL (or its
+ * domain). Uses the free search API — no scan submission, so it's instant
+ * and doesn't make the queried site public on our behalf. Best-effort:
+ * never blocks or fails the preview if urlscan is slow/unavailable.
+ */
+async function fetchUrlscan(finalUrl: string, env: Env): Promise<UrlPreviewResponse['urlscan'] | undefined> {
+  let host = '';
+  try {
+    host = new URL(finalUrl).hostname;
+  } catch {
+    return undefined;
+  }
+  const q = `page.url:"${finalUrl.replace(/"/g, '\\"')}" OR page.domain:${host}`;
+  const api = `https://urlscan.io/api/v1/search/?q=${encodeURIComponent(q)}&size=20`;
+  try {
+    const headers: Record<string, string> = { Accept: 'application/json' };
+    if (env.URLSCAN_API_KEY) headers['API-Key'] = env.URLSCAN_API_KEY;
+    const res = await fetch(api, { headers, signal: AbortSignal.timeout(6000) });
+    if (!res.ok) return undefined;
+    const json = (await res.json()) as {
+      results?: Array<{
+        _id?: string;
+        screenshot?: string;
+        task?: { time?: string };
+        page?: { ip?: string; server?: string; country?: string; domain?: string };
+      }>;
+    };
+    const results = json.results ?? [];
+    if (results.length === 0) return undefined;
+    // Newest scan first.
+    results.sort((a, b) => (b.task?.time ?? '').localeCompare(a.task?.time ?? ''));
+    const top = results[0];
+    if (!top?._id) return undefined;
+    return {
+      result: `https://urlscan.io/result/${top._id}/`,
+      screenshot: top.screenshot ?? `https://urlscan.io/screenshots/${top._id}.png`,
+      scanned_at: top.task?.time,
+      page: top.page
+        ? {
+            ip: top.page.ip,
+            server: top.page.server,
+            country: top.page.country,
+            domain: top.page.domain,
+          }
+        : undefined,
+    };
+  } catch {
+    return undefined;
+  }
 }
 
 // Raw HTML attribute/text values carry entities (&amp; &#39; &#x27;) and
@@ -96,12 +166,74 @@ function titleOf(html: string): string | undefined {
   return cleanText(m?.[1]);
 }
 
+function tagAttr(tag: string, name: string): string | undefined {
+  const m = tag.match(new RegExp(`\\b${name}\\s*=\\s*("([^"]*)"|'([^']*)'|([^\\s>]+))`, 'i'));
+  const v = m ? (m[2] ?? m[3] ?? m[4]) : undefined;
+  return v != null ? decodeEntities(v).trim() || undefined : undefined;
+}
+
+function absUrl(href: string | undefined, base: string): string | undefined {
+  if (!href) return undefined;
+  try {
+    return new URL(href, base).toString();
+  } catch {
+    return undefined;
+  }
+}
+
+interface ParsedLink {
+  rel?: string;
+  type?: string;
+  href?: string;
+  title?: string;
+}
+
+function parseLinks(html: string): ParsedLink[] {
+  return (html.match(/<link\b[^>]*>/gi) ?? []).map((tag) => ({
+    rel: tagAttr(tag, 'rel')?.toLowerCase(),
+    type: tagAttr(tag, 'type')?.toLowerCase(),
+    href: tagAttr(tag, 'href'),
+    title: tagAttr(tag, 'title'),
+  }));
+}
+
 function canonicalOf(html: string): string | undefined {
   const m = html.match(/<link\s+rel=["']canonical["']\s+href=["']([^"']*)["']/i);
   // URLs shouldn't contain raw whitespace; decode entities (&amp; in query
   // strings is common) and trim, but don't collapse internal spaces.
   const v = m?.[1];
   return v ? decodeEntities(v).trim() || undefined : undefined;
+}
+
+function langOf(html: string): string | undefined {
+  const m = html.match(/<html[^>]*\blang\s*=\s*["']([^"']+)["']/i);
+  return cleanText(m?.[1]);
+}
+
+function charsetOf(html: string): string | undefined {
+  const direct = html.match(/<meta[^>]*\bcharset\s*=\s*["']?([\w-]+)/i);
+  if (direct?.[1]) return direct[1].toLowerCase();
+  const httpEquiv = html.match(/<meta[^>]*content\s*=\s*["'][^"']*charset=([\w-]+)/i);
+  return httpEquiv?.[1]?.toLowerCase();
+}
+
+function faviconOf(links: ParsedLink[], base: string): string | undefined {
+  // Prefer a standard icon; fall back to apple-touch-icon; finally /favicon.ico.
+  const icon =
+    links.find((l) => l.rel === 'icon' || l.rel === 'shortcut icon') ?? links.find((l) => l.rel?.includes('icon'));
+  return absUrl(icon?.href, base) ?? absUrl('/favicon.ico', base);
+}
+
+function feedsOf(links: ParsedLink[], base: string): { title?: string; url: string; type: string }[] {
+  const out: { title?: string; url: string; type: string }[] = [];
+  for (const l of links) {
+    if (l.rel !== 'alternate' || !l.type) continue;
+    if (!l.type.includes('rss+xml') && !l.type.includes('atom+xml')) continue;
+    const url = absUrl(l.href, base);
+    if (!url) continue;
+    out.push({ title: cleanText(l.title), url, type: l.type });
+  }
+  return out;
 }
 
 export async function urlPreviewHandler(c: Context<{ Bindings: Env }>) {
@@ -128,6 +260,10 @@ export async function urlPreviewHandler(c: Context<{ Bindings: Env }>) {
       (hostCheck.status ?? 403) as 400 | 403 | 502
     );
   }
+
+  // Kick off the urlscan.io lookup now so it runs concurrently with the
+  // main page fetch + body read — it adds no latency to the critical path.
+  const urlscanPromise = fetchUrlscan(parsed.toString(), c.env as Env);
 
   try {
     const res = await fetch(parsed.toString(), {
@@ -206,7 +342,28 @@ export async function urlPreviewHandler(c: Context<{ Bindings: Env }>) {
         card: metaContent(chunks, 'twitter:card'),
       };
       body.canonical = canonicalOf(chunks);
+
+      const base = parsed.toString();
+      const links = parseLinks(chunks);
+      body.lang = langOf(chunks);
+      body.charset = charsetOf(chunks);
+      body.favicon = faviconOf(links, base);
+      const feeds = feedsOf(links, base);
+      if (feeds.length > 0) body.feeds = feeds;
+
+      const meta = {
+        author: metaContent(chunks, 'author'),
+        generator: metaContent(chunks, 'generator'),
+        robots: metaContent(chunks, 'robots'),
+        keywords: metaContent(chunks, 'keywords'),
+        theme_color: metaContent(chunks, 'theme-color'),
+        viewport: metaContent(chunks, 'viewport'),
+      };
+      if (Object.values(meta).some(Boolean)) body.meta = meta;
     }
+
+    const urlscan = await urlscanPromise;
+    if (urlscan) body.urlscan = urlscan;
 
     return c.json(body, 200, { 'Cache-Control': 'public, max-age=600, s-maxage=1800' });
   } catch (err) {

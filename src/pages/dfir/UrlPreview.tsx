@@ -26,6 +26,24 @@ interface UrlPreviewResult {
   og?: OgData;
   twitter?: TwitterData;
   canonical?: string;
+  lang?: string;
+  charset?: string;
+  favicon?: string;
+  feeds?: { title?: string; url: string; type: string }[];
+  meta?: {
+    author?: string;
+    generator?: string;
+    robots?: string;
+    keywords?: string;
+    theme_color?: string;
+    viewport?: string;
+  };
+  urlscan?: {
+    result: string;
+    screenshot?: string;
+    scanned_at?: string;
+    page?: { ip?: string; server?: string; country?: string; domain?: string };
+  };
   bytes_read: number;
   redirect_blocked?: { location: string };
 }
@@ -268,6 +286,147 @@ export default function UrlPreview(): JSX.Element {
             <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
               <div className="text-xs uppercase tracking-wider text-slate-500 font-mono mb-1">Meta Description</div>
               <p className="text-slate-700 dark:text-slate-300 text-sm">{result.description}</p>
+            </section>
+          )}
+
+          {/* Site basics: favicon, lang, charset, feeds */}
+          {(result.favicon || result.lang || result.charset || (result.feeds && result.feeds.length > 0)) && (
+            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+              <div className="text-xs uppercase tracking-wider text-slate-500 font-mono mb-3">Site</div>
+              <div className="flex flex-wrap items-center gap-3 text-sm font-mono">
+                {result.favicon && (
+                  <span className="inline-flex items-center gap-2">
+                    <img
+                      src={result.favicon}
+                      alt="favicon"
+                      className="h-5 w-5 rounded"
+                      onError={(e) => {
+                        (e.currentTarget as HTMLImageElement).style.display = 'none';
+                      }}
+                    />
+                    <a
+                      href={result.favicon}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-brand-600 dark:text-brand-400 hover:underline"
+                    >
+                      favicon
+                    </a>
+                  </span>
+                )}
+                {result.lang && (
+                  <span className="px-2 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300">
+                    lang: {result.lang}
+                  </span>
+                )}
+                {result.charset && (
+                  <span className="px-2 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300">
+                    charset: {result.charset}
+                  </span>
+                )}
+              </div>
+              {result.feeds && result.feeds.length > 0 && (
+                <div className="mt-4">
+                  <div className="text-xs text-slate-500 mb-1 font-mono">Feeds</div>
+                  <ul className="space-y-1 text-sm font-mono">
+                    {result.feeds.map((f) => (
+                      <li key={f.url}>
+                        <a
+                          href={f.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-brand-600 dark:text-brand-400 hover:underline break-all"
+                        >
+                          {f.title || f.type} <ExternalLink size={10} className="inline" />
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </section>
+          )}
+
+          {/* urlscan.io — most recent existing public scan */}
+          {result.urlscan && (
+            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="font-display font-semibold text-lg">urlscan.io</h3>
+                <a
+                  href={result.urlscan.result}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+                >
+                  open scan <ExternalLink size={12} />
+                </a>
+              </div>
+              {result.urlscan.screenshot && (
+                <a href={result.urlscan.result} target="_blank" rel="noopener noreferrer">
+                  <img
+                    src={result.urlscan.screenshot}
+                    alt="urlscan screenshot"
+                    className="max-w-full max-h-72 rounded-lg border border-slate-200 dark:border-slate-700 object-contain"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).style.display = 'none';
+                    }}
+                  />
+                </a>
+              )}
+              <div className="mt-3 grid sm:grid-cols-2 gap-2 font-mono text-sm">
+                {result.urlscan.scanned_at && (
+                  <div>
+                    <span className="text-xs text-slate-500">scanned</span>{' '}
+                    <span className="text-slate-800 dark:text-slate-200">
+                      {new Date(result.urlscan.scanned_at).toLocaleString()}
+                    </span>
+                  </div>
+                )}
+                {result.urlscan.page?.ip && (
+                  <div>
+                    <span className="text-xs text-slate-500">IP</span>{' '}
+                    <span className="text-slate-800 dark:text-slate-200">{result.urlscan.page.ip}</span>
+                  </div>
+                )}
+                {result.urlscan.page?.server && (
+                  <div>
+                    <span className="text-xs text-slate-500">server</span>{' '}
+                    <span className="text-slate-800 dark:text-slate-200">{result.urlscan.page.server}</span>
+                  </div>
+                )}
+                {result.urlscan.page?.country && (
+                  <div>
+                    <span className="text-xs text-slate-500">country</span>{' '}
+                    <span className="text-slate-800 dark:text-slate-200">{result.urlscan.page.country}</span>
+                  </div>
+                )}
+              </div>
+            </section>
+          )}
+
+          {/* Other meta */}
+          {result.meta && Object.values(result.meta).some(Boolean) && (
+            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+              <div className="text-xs uppercase tracking-wider text-slate-500 font-mono mb-3">Other Meta</div>
+              <div className="grid sm:grid-cols-2 gap-3 font-mono text-sm">
+                {(
+                  [
+                    ['author', result.meta.author],
+                    ['generator', result.meta.generator],
+                    ['robots', result.meta.robots],
+                    ['keywords', result.meta.keywords],
+                    ['theme-color', result.meta.theme_color],
+                    ['viewport', result.meta.viewport],
+                  ] as const
+                )
+                  .filter(([, v]) => Boolean(v))
+                  .map(([k, v]) => (
+                    <div key={k}>
+                      <div className="text-xs text-slate-500 mb-1">{k}</div>
+                      <div className="text-slate-800 dark:text-slate-200 break-words">{v}</div>
+                    </div>
+                  ))}
+              </div>
             </section>
           )}
 
