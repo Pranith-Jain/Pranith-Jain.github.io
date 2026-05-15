@@ -826,19 +826,9 @@ export function RansomwareActivityPanel(): JSX.Element {
       <div className="flex flex-wrap items-baseline justify-between gap-3 mb-3">
         <h2 className="font-display font-semibold text-lg inline-flex items-center gap-2">
           Recent ransomware activity
-          <span
-            className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300"
-            title={data?.source ?? 'Multi-source ransomware tracker merge'}
-          >
-            4 trackers
-          </span>
         </h2>
         <span className="text-[11px] font-mono text-slate-500 dark:text-slate-500" title={data?.source ?? ''}>
-          {loading
-            ? 'loading…'
-            : data
-              ? `${data.count} leak-site posts · ransomlook + mythreatintel + ransomfeed.it + ransomwatch`
-              : ''}
+          {loading ? 'loading…' : data ? `${data.count} leak-site posts · multi-source merge` : ''}
         </span>
       </div>
 

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Activity, AlertTriangle, FileCode, MessageSquare, ShieldAlert } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Activity, AlertTriangle, ArrowLeft, FileCode, MessageSquare, ShieldAlert } from 'lucide-react';
 
 /**
  * ransomware.live PRO surface — consumes the server-side authenticated proxy
@@ -191,6 +192,12 @@ export default function RansomwareLive(): JSX.Element {
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
+      <Link
+        to="/threatintel"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+      >
+        <ArrowLeft size={14} /> /threatintel
+      </Link>
       <div className="mb-6">
         <h1 className="font-display font-bold text-2xl flex items-center gap-2">
           <ShieldAlert size={22} className="text-brand-600 dark:text-brand-400" />

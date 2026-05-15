@@ -5,10 +5,10 @@ import { RansomwareActivityPanel } from '../dfir/DarkWeb';
 /**
  * Live ransomware activity page. Thin wrapper around the
  * `RansomwareActivityPanel` widget that also lives on the unified
- * /threatintel/darkweb view. Backend merges victim claims across four
- * trackers (Ransomlook + mythreatintel + ransomfeed.it + ransomwatch);
- * the panel dedupes by (group + victim + day) and surfaces ~60 most
- * recent rows.
+ * /threatintel/darkweb view. Backend merges victim claims across
+ * multiple trackers (Ransomlook, mythreatintel, ransomfeed.it,
+ * ransomwatch, ransomware.live, Andrea Fortuna); the panel dedupes by
+ * (group + victim + day) and surfaces ~60 most recent rows.
  */
 export default function RansomwareActivity(): JSX.Element {
   return (
@@ -25,7 +25,7 @@ export default function RansomwareActivity(): JSX.Element {
           <Activity size={28} className="text-brand-600 dark:text-brand-400" /> Live ransomware activity
         </h1>
         <p className="text-slate-600 dark:text-slate-400 font-mono mb-2 max-w-3xl">
-          Recent ransomware leak-site claims merged across four trackers —{' '}
+          Recent ransomware leak-site claims merged across multiple trackers —{' '}
           <a
             href="https://www.ransomlook.io/"
             target="_blank"
@@ -52,7 +52,7 @@ export default function RansomwareActivity(): JSX.Element {
           >
             ransomfeed.it
           </a>
-          , and{' '}
+          ,{' '}
           <a
             href="https://github.com/joshhighet/ransomwatch"
             target="_blank"
@@ -60,6 +60,24 @@ export default function RansomwareActivity(): JSX.Element {
             className="text-brand-600 dark:text-brand-400 hover:underline"
           >
             ransomwatch
+          </a>
+          ,{' '}
+          <a
+            href="https://www.ransomware.live/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-brand-600 dark:text-brand-400 hover:underline"
+          >
+            ransomware.live
+          </a>
+          , and{' '}
+          <a
+            href="https://ctifeeds.andreafortuna.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-brand-600 dark:text-brand-400 hover:underline"
+          >
+            Andrea Fortuna
           </a>
           . Deduped by (group + victim + day), newest first. Per-victim screenshots when Ransomlook has captured one;
           the other trackers fill coverage gaps and keep the page populated when any single source is degraded.
