@@ -54,8 +54,8 @@
 	// fetches), never PII. Code path is wired in api/src/lib/analytics.ts and
 	// gracefully no-ops when the binding is missing.
 	//
-	// ONE-TIME ENABLE: click "Enable" once at
-	//   https://dash.cloudflare.com/6a7461d701e2e1c989e05137b0255405/workers/analytics-engine
+	// ONE-TIME ENABLE: in the Cloudflare dashboard for this account, open
+	//   Workers & Pages → Analytics Engine, click "Enable",
 	// then uncomment the block below and redeploy.
 	//
 	// "analytics_engine_datasets": [
