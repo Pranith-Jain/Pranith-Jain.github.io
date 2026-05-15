@@ -1,37 +1,7 @@
-import { useId } from 'react';
 import { Linkedin, Github, Mail, Terminal } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { personalInfo, stats } from '../../data/content';
-
-/** The "PJ" brand mark. Single source of truth — was duplicated inline
- *  twice in the hero. Unique gradient id per instance via useId so two
- *  marks on the same page stay valid SVG. */
-function PjMark({ className }: { className?: string }) {
-  const id = useId();
-  return (
-    <svg viewBox="0 0 36 36" className={className} xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id={id} x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#2c3ee5" />
-          <stop offset="100%" stopColor="#435ef1" />
-        </linearGradient>
-      </defs>
-      <rect width="36" height="36" rx="8" fill={`url(#${id})`} />
-      <text
-        x="50%"
-        y="50%"
-        dominantBaseline="central"
-        textAnchor="middle"
-        fill="white"
-        fontFamily="Poppins, sans-serif"
-        fontWeight="800"
-        fontSize="16"
-      >
-        PJ
-      </text>
-    </svg>
-  );
-}
+import { PjMark } from '../PjMark';
 
 export function Hero() {
   return (

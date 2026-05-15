@@ -1,6 +1,7 @@
 import { Eye } from 'lucide-react';
 import { personalInfo } from '../data/content';
 import { usePageViewCounter, formatViewCount } from '../hooks';
+import { PjMark } from './PjMark';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -16,27 +17,7 @@ export function Footer() {
           aria-label={`${personalInfo.name} - Back to top`}
         >
           <span className="h-10 w-10 rounded-xl shadow-glow flex items-center justify-center overflow-hidden transition group-hover:scale-110">
-            <svg viewBox="0 0 36 36" className="h-full w-full" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <defs>
-                <linearGradient id="pjGradientFooter" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#2c3ee5" />
-                  <stop offset="100%" stopColor="#435ef1" />
-                </linearGradient>
-              </defs>
-              <rect width="36" height="36" rx="8" fill="url(#pjGradientFooter)" />
-              <text
-                x="50%"
-                y="50%"
-                dominantBaseline="central"
-                textAnchor="middle"
-                fill="white"
-                fontFamily="Poppins, sans-serif"
-                fontWeight="800"
-                fontSize="16"
-              >
-                PJ
-              </text>
-            </svg>
+            <PjMark className="h-full w-full" />
           </span>
           <span className="text-base font-bold tracking-tight text-slate-900 dark:text-white">{personalInfo.name}</span>
         </a>
