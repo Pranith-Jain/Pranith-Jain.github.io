@@ -18,6 +18,7 @@ import {
   Globe,
   Globe2,
   Grid3x3,
+  KeyRound,
   Layers,
   MessageSquare,
   Newspaper,
@@ -91,6 +92,13 @@ const SECTIONS: Section[] = [
         label: 'ransomware.live PRO',
         desc: 'Authenticated, edge-cached view of the ransomware.live PRO API: stats, recent cyberattacks (HudsonRock infostealer-enriched), leaked negotiation logs, and per-group YARA rules.',
         icon: ShieldAlert,
+        badge: 'live',
+      },
+      {
+        to: '/threatintel/infostealer',
+        label: 'Infostealer live tracker',
+        desc: 'Three live infostealer surfaces in one: HudsonRock victim exposure (ransomware.live PRO), demonforums ULP / cloud-log market threads, and the active stealer-log Telegram channel directory.',
+        icon: KeyRound,
         badge: 'live',
       },
       {

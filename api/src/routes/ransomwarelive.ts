@@ -36,6 +36,9 @@ const RESOURCES: Record<string, ResourceSpec> = {
   cyberattacks: { path: () => '/press/recent', ttl: 1800 },
   // /victims/recent — 100 most recent victims, screenshot + infostealer enriched.
   'victims-recent': { path: () => '/victims/recent', ttl: 1800 },
+  // Semantic alias for the infostealer tracker — same upstream as
+  // victims-recent (HudsonRock infostealer-enriched), separate cache slot.
+  infostealer: { path: () => '/victims/recent', ttl: 1800 },
   groups: { path: () => '/groups', ttl: 21600 },
   negotiations: {
     path: (a) => (a ? `/negotiations/${encodeURIComponent(a)}` : '/negotiations'),
