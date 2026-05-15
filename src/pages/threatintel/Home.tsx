@@ -87,6 +87,13 @@ const SECTIONS: Section[] = [
         badge: 'live',
       },
       {
+        to: '/threatintel/ransomware-live',
+        label: 'ransomware.live PRO',
+        desc: 'Authenticated, edge-cached view of the ransomware.live PRO API: stats, recent cyberattacks (HudsonRock infostealer-enriched), leaked negotiation logs, and per-group YARA rules.',
+        icon: ShieldAlert,
+        badge: 'live',
+      },
+      {
         to: '/threatintel/pulse',
         label: 'Threat Pulse',
         desc: 'Real-time aggregator of fresh threat entities — actors, malware families, CVEs, IOCs — ranked by cross-source activity over the last 24h',

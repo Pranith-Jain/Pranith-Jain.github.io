@@ -44,6 +44,7 @@ export interface Env {
   URLSCAN_API_KEY?: string;
   HYBRID_ANALYSIS_API_KEY?: string;
   ABUSECH_AUTH_KEY?: string;
+  RANSOMWARELIVE_API_KEY?: string;
 }
 
 const SECURITY_HEADERS: Record<string, string> = {

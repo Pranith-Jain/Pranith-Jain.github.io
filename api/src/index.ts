@@ -43,6 +43,7 @@ import { actorTimelineHandler } from './routes/actor-timeline';
 import { victimReleaksHandler } from './routes/victim-releaks';
 import { liveIocsHandler } from './routes/live-iocs';
 import { deepDarkCtiHandler } from './routes/deepdarkcti';
+import { ransomwareLiveHandler } from './routes/ransomwarelive';
 import { writeupsHandler } from './routes/writeups';
 import { cybercrimeHandler } from './routes/cybercrime';
 import {
@@ -94,6 +95,8 @@ app.get('/api/v1/threat-map', threatMapHandler);
 app.get('/api/v1/feeds/aggregate', feedsAggregateHandler);
 app.get('/api/v1/rules', detectionRulesHandler);
 app.get('/api/v1/deepdarkcti', deepDarkCtiHandler);
+app.get('/api/v1/rl/:resource', ransomwareLiveHandler);
+app.get('/api/v1/rl/:resource/:arg', ransomwareLiveHandler);
 app.get('/api/v1/breach-disclosures', breachDisclosuresHandler);
 app.get('/api/v1/ransomware-recent', ransomwareRecentHandler);
 app.get('/api/v1/crypto-trace', cryptoTraceHandler);

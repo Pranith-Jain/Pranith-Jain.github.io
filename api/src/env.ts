@@ -18,4 +18,7 @@ export interface Env {
   DFIR_DEV_ERRORS?: string;
   DFIR_ANALYTICS?: AnalyticsEngineDataset;
   ADMIN_TOKEN: string;
+  /** ransomware.live PRO API key (set via `wrangler secret put`). Optional —
+   *  the /api/v1/rl/* proxy degrades to 503 when unset. */
+  RANSOMWARELIVE_API_KEY?: string;
 }

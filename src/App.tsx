@@ -118,6 +118,7 @@ const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const AdminApp = lazy(() => import('./pages/admin/AdminApp'));
 const DeepDarkCTI = lazy(() => import('./pages/threatintel/DeepDarkCTI'));
+const RansomwareLive = lazy(() => import('./pages/threatintel/RansomwareLive'));
 
 /**
  * Preserves the path slug (when `withSlug`), the query string, and the hash
@@ -742,6 +743,16 @@ export function AppContent() {
           <ErrorBoundary>
             <Suspense fallback={<SectionLoader />}>
               <DeepDarkCTI />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/threatintel/ransomware-live"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <RansomwareLive />
             </Suspense>
           </ErrorBoundary>
         }
