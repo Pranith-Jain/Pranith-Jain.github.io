@@ -96,6 +96,9 @@ const PlistProtobuf = lazy(() => import('./pages/dfir/PlistProtobuf'));
 const PcapTriage = lazy(() => import('./pages/dfir/PcapTriage'));
 const RegistryHive = lazy(() => import('./pages/dfir/RegistryHive'));
 const EvtxParser = lazy(() => import('./pages/dfir/EvtxParser'));
+const SqliteExplorer = lazy(() => import('./pages/dfir/SqliteExplorer'));
+const IosBackupExplorer = lazy(() => import('./pages/dfir/IosBackupExplorer'));
+const ScreenshotIntel = lazy(() => import('./pages/dfir/ScreenshotIntel'));
 const CveResourcesCatalog = lazy(() => import('./pages/dfir/CveResourcesCatalog'));
 const WebScan = lazy(() => import('./pages/dfir/WebScan'));
 const MalwareScan = lazy(() => import('./pages/dfir/MalwareScan'));
@@ -1039,6 +1042,9 @@ export function AppContent() {
           ['/dfir/pcap-triage', <PcapTriage key="pc" />],
           ['/dfir/registry-hive', <RegistryHive key="rh" />],
           ['/dfir/evtx', <EvtxParser key="ev" />],
+          ['/dfir/sqlite', <SqliteExplorer key="sq" />],
+          ['/dfir/ios-backup', <IosBackupExplorer key="ib" />],
+          ['/dfir/screenshot-intel', <ScreenshotIntel key="si" />],
         ] as Array<[string, JSX.Element]>
       ).map(([p, el]) => (
         <Route

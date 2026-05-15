@@ -42,6 +42,9 @@ import {
   AtSign,
   History,
   Coins,
+  Database,
+  Smartphone,
+  ScanLine,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -164,6 +167,18 @@ export const SECTIONS: Section[] = [
         desc: 'Windows .evtx → per-record timestamp + readable BinXML strings · triage view · client-side',
         icon: ScrollText,
       },
+      {
+        path: '/dfir/sqlite',
+        label: 'SQLite Artifact Explorer',
+        desc: 'Open browser/app SQLite DBs · schema + row browse + read queries · lazy WASM · client-side',
+        icon: Database,
+      },
+      {
+        path: '/dfir/ios-backup',
+        label: 'iOS Backup Explorer',
+        desc: 'iOS Manifest.db → backed-up file inventory by domain/path · lazy WASM · client-side',
+        icon: Smartphone,
+      },
     ],
   },
   {
@@ -278,6 +293,12 @@ export const SECTIONS: Section[] = [
         label: 'Image Fingerprint',
         desc: 'In-browser aHash + dHash · compare two images for near-duplicate / re-upload detection',
         icon: ImageIcon,
+      },
+      {
+        path: '/dfir/screenshot-intel',
+        label: 'Screenshot Intelligence',
+        desc: 'Decode embedded QR · read EXIF/GPS · extract URL/IP/email/crypto entities · client-side',
+        icon: ScanLine,
       },
     ],
   },

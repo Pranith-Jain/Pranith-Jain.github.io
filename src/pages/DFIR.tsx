@@ -65,7 +65,7 @@ export default function DFIRPage(): JSX.Element {
 
       <section className="animate-fade-in-up mb-16">
         <div className="flex items-baseline justify-between mb-6">
-          <h2 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100">Tools</h2>
+          <h2 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100">Pick a workbench</h2>
           <Link
             to="/dfir/dashboard"
             className="text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
@@ -73,42 +73,61 @@ export default function DFIRPage(): JSX.Element {
             recent lookups <ArrowRight size={12} />
           </Link>
         </div>
-        <div className="flex flex-wrap items-center gap-2 mb-6 text-[11px] font-mono">
-          <span className="text-slate-500">jump to:</span>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {(['dfir', 'osint', 'aisec', 'datasec', 'grc'] as ToolGroup[]).map((g) => (
             <Link
               key={g}
               to={`/dfir/tools/${g}`}
-              className="px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+              className="group rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 hover:border-brand-500/40 transition-colors"
             >
-              {GROUP_META[g].label}
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="font-display font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+                  {GROUP_META[g].label}
+                </span>
+                <ArrowRight
+                  size={14}
+                  className="text-slate-300 dark:text-slate-700 group-hover:text-brand-500 transition-colors"
+                />
+              </div>
+              <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed">
+                {GROUP_META[g].blurb}
+              </p>
             </Link>
           ))}
+          <details className="rounded-lg border border-dashed border-slate-300 dark:border-slate-700 p-5">
+            <summary className="font-mono text-[12px] text-slate-500 cursor-pointer">
+              Power-user: browse all {TOOL_COUNT} tools in one searchable grid
+            </summary>
+            <div className="mt-4">
+              <ToolGrid />
+            </div>
+          </details>
         </div>
-        <ToolGrid />
       </section>
 
       <section className="mt-20 pt-10 border-t border-slate-200 dark:border-slate-800">
-        <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-6">
-          Data Sources
-        </h3>
-        <div className="space-y-5">
-          {PROVIDER_GROUPS.map((group) => (
-            <div key={group.label}>
-              <div className="text-[11px] font-mono uppercase tracking-wider text-slate-500 mb-2">{group.label}</div>
-              <div className="flex flex-wrap gap-2">
-                {group.items.map((p) => (
-                  <span
-                    key={p}
-                    className="text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400"
-                  >
-                    {p}
-                  </span>
-                ))}
+        <details>
+          <summary className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-6 cursor-pointer">
+            Data Sources
+          </summary>
+          <div className="space-y-5 mt-4">
+            {PROVIDER_GROUPS.map((group) => (
+              <div key={group.label}>
+                <div className="text-[11px] font-mono uppercase tracking-wider text-slate-500 mb-2">{group.label}</div>
+                <div className="flex flex-wrap gap-2">
+                  {group.items.map((p) => (
+                    <span
+                      key={p}
+                      className="text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400"
+                    >
+                      {p}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </details>
       </section>
 
       <section className="mt-16 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8">
