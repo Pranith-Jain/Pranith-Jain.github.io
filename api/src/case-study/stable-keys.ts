@@ -31,6 +31,15 @@ export function ransomKey(group: string, when: Date): string {
   return `ransom-${slugify(nonEmpty(group, 'group'))}-${y}-${m}`;
 }
 
+/**
+ * Generic stable key for the RSS/JSON-derived topics (breach, scam, aisec,
+ * intel). `seed` is the breach name / article title / CVE id — slugified
+ * and truncated so keys stay bounded and dedupe-stable across runs.
+ */
+export function topicKey(prefix: string, seed: string): string {
+  return `${prefix}-${slugify(nonEmpty(seed, 'seed')).slice(0, 60)}`;
+}
+
 export function slotIdFor(slotAtIso: string): string {
   return `slot-${slotAtIso.toLowerCase().replace(/[:.]/g, '-')}`;
 }

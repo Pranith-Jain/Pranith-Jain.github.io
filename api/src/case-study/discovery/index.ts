@@ -1,12 +1,9 @@
 import type { Candidate } from '../types';
 
 export interface RunDiscoveryDeps {
-  runners: {
-    cve: () => Promise<Candidate[]>;
-    actor: () => Promise<Candidate[]>;
-    malware: () => Promise<Candidate[]>;
-    ransom: () => Promise<Candidate[]>;
-  };
+  /** Topic name → runner. Generic so new topics (breach, scam, aisec,
+   *  intel, …) slot in without changing the orchestrator. */
+  runners: Record<string, () => Promise<Candidate[]>>;
   putCandidate: (c: Candidate) => Promise<void>;
   touchDedup: (key: string, now: Date) => Promise<void>;
   now: Date;

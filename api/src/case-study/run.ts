@@ -10,6 +10,10 @@ import { discoverCves } from './discovery/cve';
 import { discoverActors } from './discovery/actor';
 import { discoverMalware } from './discovery/malware';
 import { discoverRansomware } from './discovery/ransomware';
+import { discoverBreaches } from './discovery/breach';
+import { discoverScams } from './discovery/scam';
+import { discoverAiSec } from './discovery/aisec';
+import { discoverIntel } from './discovery/intel';
 import { runPlanner } from './publishing/planner';
 import { runPublisher } from './publishing/publisher';
 import { putCandidate } from './storage/candidates';
@@ -56,6 +60,10 @@ export function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
           now,
           getDedup: (k) => getDedup(env.CASE_STUDIES, k),
         }),
+      breach: () => discoverBreaches({ fetch: globalThis.fetch, now, getDedup: (k) => getDedup(env.CASE_STUDIES, k) }),
+      scam: () => discoverScams({ fetch: globalThis.fetch, now, getDedup: (k) => getDedup(env.CASE_STUDIES, k) }),
+      aisec: () => discoverAiSec({ fetch: globalThis.fetch, now, getDedup: (k) => getDedup(env.CASE_STUDIES, k) }),
+      intel: () => discoverIntel({ fetch: globalThis.fetch, now, getDedup: (k) => getDedup(env.CASE_STUDIES, k) }),
     },
     putCandidate: (c) => putCandidate(env.CASE_STUDIES, c),
     touchDedup: (k, n) => touchDedup(env.CASE_STUDIES, k, n),

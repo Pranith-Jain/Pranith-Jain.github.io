@@ -45,6 +45,40 @@ const OUTLINES: Record<CaseStudyType, string[]> = {
     '## Defensive recommendations',
     '## References',
   ],
+  breach: [
+    '## Summary',
+    '## What was exposed',
+    '## How it happened',
+    '## Impact and affected parties',
+    '## Detection & response',
+    '## Lessons learned',
+    '## References',
+  ],
+  scam: [
+    '## Summary',
+    '## How the scam works',
+    '## Lures and channels',
+    '## Indicators and red flags',
+    '## Who is targeted',
+    '## Protective guidance',
+    '## References',
+  ],
+  aisec: [
+    '## Summary',
+    '## Affected AI/ML system',
+    '## Attack technique',
+    '## Real-world impact',
+    '## Mitigations',
+    '## References',
+  ],
+  intel: [
+    '## Summary',
+    '## Key findings',
+    '## Technical analysis',
+    '## TTPs and tradecraft',
+    '## Defensive takeaways',
+    '## References',
+  ],
 };
 
 export interface BuildPromptInput {

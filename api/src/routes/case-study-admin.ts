@@ -9,7 +9,7 @@ import { listPostIndex, removePost } from '../case-study/storage/posts';
 import { listFailures } from '../case-study/storage/failed';
 import { runDiscoveryNow, runPlannerNow, runPublisherNow, type CaseStudyEnv } from '../case-study/run';
 
-const TYPES: CaseStudyType[] = ['cve', 'actor', 'malware', 'ransom'];
+const TYPES: CaseStudyType[] = ['cve', 'actor', 'malware', 'ransom', 'breach', 'scam', 'aisec', 'intel'];
 
 export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
   // Sub-app pattern: middleware applies only to /api/v1/admin/*, not globally.

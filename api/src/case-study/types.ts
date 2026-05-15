@@ -1,6 +1,6 @@
 // api/src/case-study/types.ts
 
-export type CaseStudyType = 'cve' | 'actor' | 'malware' | 'ransom';
+export type CaseStudyType = 'cve' | 'actor' | 'malware' | 'ransom' | 'breach' | 'scam' | 'aisec' | 'intel';
 
 export type CandidateStatus = 'pending' | 'approved' | 'skipped' | 'published';
 
