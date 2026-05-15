@@ -128,9 +128,12 @@ export default function ToolsCategory(): JSX.Element {
                       {t.label}
                     </span>
                   </div>
-                  <p className="text-sm font-mono text-slate-600 dark:text-slate-400 leading-relaxed flex-1">
-                    {t.desc}
-                  </p>
+                  <p className="text-sm font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{t.desc}</p>
+                  {t.useCase && (
+                    <p className="mt-2 text-[12px] font-mono italic text-slate-500 dark:text-slate-500 flex-1">
+                      {t.useCase}
+                    </p>
+                  )}
                   <span className="mt-4 inline-flex items-center gap-1 text-[12px] font-mono text-brand-600 dark:text-brand-400">
                     Open tool <ArrowRight size={12} />
                   </span>
