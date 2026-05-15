@@ -1217,6 +1217,16 @@ export function AppContent() {
         }
       />
       <Route
+        path="/threatintel/c/:cat"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <ThreatIntelHome />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
         path="/threatintel"
         element={
           <ErrorBoundary>

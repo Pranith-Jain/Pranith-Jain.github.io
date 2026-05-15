@@ -4,9 +4,19 @@ import { SECTIONS } from '../../components/dfir/ToolGrid';
 import { GROUP_META, type ToolGroup } from '../../components/dfir/tool-sections';
 import { personalInfo } from '../../data/content';
 
-const VALID: ToolGroup[] = ['dfir', 'osint', 'aisec', 'datasec', 'grc'];
+const VALID: ToolGroup[] = ['dfir', 'ir', 'ti', 'osint', 'aisec', 'datasec', 'grc'];
 
 const HERO: Record<ToolGroup, { kicker: string; title: string; sub: string }> = {
+  ir: {
+    kicker: 'Privacy-first · No upload · No login · Local analysis only',
+    title: 'Incident-response tools that run entirely in your browser',
+    sub: 'Investigate domains, network/edge, email & phishing, vulns and identity — all client-side, no data shipped off-box.',
+  },
+  ti: {
+    kicker: 'Privacy-first · No upload · No login · Local analysis only',
+    title: 'Threat-intel tooling, fully client-side',
+    sub: 'Author and test detections — YARA/Sigma, LOLBins lookup, log-timeline, STIX — without uploading rules or data.',
+  },
   dfir: {
     kicker: 'Privacy-first · No upload · No login · Local analysis only',
     title: 'Privacy-first DFIR tools that run entirely in your browser',

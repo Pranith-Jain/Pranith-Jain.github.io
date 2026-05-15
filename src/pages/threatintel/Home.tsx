@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import {
   Activity,
   AlertOctagon,
@@ -366,6 +366,8 @@ export default function ThreatIntelHome(): JSX.Element {
     [allTools, query]
   );
   const isSearching = query.trim().length > 0;
+  const { cat } = useParams<{ cat?: string }>();
+  const activeSection = cat ? SECTIONS.find((s) => s.id === cat) : undefined;
 
   // Keyboard: '/' or 'Cmd/Ctrl+K' focuses the search; 'Esc' clears.
   useEffect(() => {
@@ -527,7 +529,7 @@ export default function ThreatIntelHome(): JSX.Element {
         )}
       </div>
 
-      {!isSearching && (
+      {!isSearching && !cat && (
         <section className="animate-fade-in-up">
           <LiveSnapshotPanel compact subtitle="live intel pulse across the platform" mbClass="mb-12" />
         </section>
@@ -592,73 +594,115 @@ export default function ThreatIntelHome(): JSX.Element {
             </div>
           )}
         </section>
+      ) : activeSection ? (
+        <section className="animate-fade-in-up mb-12">
+          <div className="flex flex-wrap items-center gap-2 mb-6 text-[11px] font-mono">
+            <span className="text-slate-500">categories:</span>
+            {SECTIONS.map((s) => (
+              <Link
+                key={s.id}
+                to={`/threatintel/c/${s.id}`}
+                className={`px-3 py-1.5 rounded border ${
+                  s.id === cat
+                    ? 'border-brand-500/50 bg-brand-500/10 text-brand-700 dark:text-brand-300'
+                    : 'border-slate-200 dark:border-slate-800 text-slate-500 hover:border-brand-500/40'
+                }`}
+              >
+                {s.label}
+              </Link>
+            ))}
+          </div>
+          <div className="mb-4">
+            <h2 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100">
+              {activeSection.label}
+            </h2>
+            <p className="text-sm text-slate-500 dark:text-slate-500 font-mono mt-1">
+              {activeSection.blurb} · {activeSection.tools.length}{' '}
+              {activeSection.tools.length === 1 ? 'source' : 'sources'}
+            </p>
+          </div>
+          <ul className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+            {activeSection.tools.map((t) => {
+              const Icon = t.icon;
+              const cardClass =
+                'block h-full rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 hover:border-brand-500/40 dark:hover:border-brand-400/40 transition-colors group';
+              const inner = (
+                <>
+                  <div className="flex items-start justify-between gap-2 mb-2">
+                    <Icon size={18} className="text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
+                    <ArrowRight
+                      size={14}
+                      className="text-slate-300 dark:text-slate-700 group-hover:text-brand-500 dark:group-hover:text-brand-400 transition-colors mt-0.5 shrink-0"
+                    />
+                  </div>
+                  <div className="flex items-baseline justify-between gap-2 mb-1">
+                    <h3 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors flex items-center gap-1">
+                      {t.label}
+                      {t.external && <ExternalLink size={11} className="opacity-60" aria-hidden="true" />}
+                    </h3>
+                    {t.badge && (
+                      <span
+                        className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border shrink-0 ${
+                          t.badge === 'live'
+                            ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
+                            : 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300'
+                        }`}
+                      >
+                        {t.badge}
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{t.desc}</p>
+                </>
+              );
+              return t.external ? (
+                <li key={t.to}>
+                  <a href={t.to} target="_blank" rel="noopener noreferrer" className={cardClass}>
+                    {inner}
+                  </a>
+                </li>
+              ) : (
+                <li key={t.to}>
+                  <Link to={t.to} className={cardClass}>
+                    {inner}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
       ) : (
-        SECTIONS.map((section, si) => (
-          <details
-            key={section.id}
-            open={si === 0}
-            className="animate-fade-in-up mb-6 border-b border-slate-200 dark:border-slate-800 pb-6"
-          >
-            <summary className="cursor-pointer list-none flex items-baseline gap-2 flex-wrap">
-              <h2 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100">{section.label}</h2>
-              <span className="text-sm text-slate-500 dark:text-slate-500 font-mono">
-                {section.blurb} · {section.tools.length} {section.tools.length === 1 ? 'source' : 'sources'}
-              </span>
-            </summary>
-            <ul className="grid gap-3 md:grid-cols-2 lg:grid-cols-3 mt-4">
-              {section.tools.map((t) => {
-                const Icon = t.icon;
-                const cardClass =
-                  'block h-full rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 hover:border-brand-500/40 dark:hover:border-brand-400/40 transition-colors group';
-                const inner = (
-                  <>
-                    <div className="flex items-start justify-between gap-2 mb-2">
-                      <Icon size={18} className="text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
-                      <ArrowRight
-                        size={14}
-                        className="text-slate-300 dark:text-slate-700 group-hover:text-brand-500 dark:group-hover:text-brand-400 transition-colors mt-0.5 shrink-0"
-                      />
-                    </div>
-                    <div className="flex items-baseline justify-between gap-2 mb-1">
-                      <h3 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors flex items-center gap-1">
-                        {t.label}
-                        {t.external && <ExternalLink size={11} className="opacity-60" aria-hidden="true" />}
-                      </h3>
-                      {t.badge && (
-                        <span
-                          className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border shrink-0 ${
-                            t.badge === 'live'
-                              ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
-                              : 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300'
-                          }`}
-                        >
-                          {t.badge}
-                        </span>
-                      )}
-                    </div>
-                    <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{t.desc}</p>
-                  </>
-                );
-                if (t.external) {
-                  return (
-                    <li key={t.to}>
-                      <a href={t.to} target="_blank" rel="noopener noreferrer" className={cardClass}>
-                        {inner}
-                      </a>
-                    </li>
-                  );
-                }
-                return (
-                  <li key={t.to}>
-                    <Link to={t.to} className={cardClass}>
-                      {inner}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </details>
-        ))
+        <section className="animate-fade-in-up mb-12">
+          <h2 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100 mb-1">
+            Browse by category
+          </h2>
+          <p className="text-sm font-mono text-slate-500 mb-6">
+            Pick a surface to dive in — or use the search above to jump straight to a tool.
+          </p>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {SECTIONS.map((s) => (
+              <Link
+                key={s.id}
+                to={`/threatintel/c/${s.id}`}
+                className="group rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 hover:border-brand-500/40 transition-colors"
+              >
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="font-display font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+                    {s.label}
+                  </span>
+                  <ArrowRight
+                    size={14}
+                    className="text-slate-300 dark:text-slate-700 group-hover:text-brand-500 transition-colors"
+                  />
+                </div>
+                <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{s.blurb}</p>
+                <p className="mt-2 text-[11px] font-mono text-slate-400">
+                  {s.tools.length} {s.tools.length === 1 ? 'source' : 'sources'}
+                </p>
+              </Link>
+            ))}
+          </div>
+        </section>
       )}
 
       <footer className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800">

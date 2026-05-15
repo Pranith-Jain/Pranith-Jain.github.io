@@ -66,12 +66,20 @@ export interface Tool {
  * (separate OSINT / AI-sec / Data-security / GRC surfaces) while the
  * full /dfir grid stays as the power-user index.
  */
-export type ToolGroup = 'dfir' | 'osint' | 'aisec' | 'datasec' | 'grc';
+export type ToolGroup = 'dfir' | 'ir' | 'ti' | 'osint' | 'aisec' | 'datasec' | 'grc';
 
 export const GROUP_META: Record<ToolGroup, { label: string; blurb: string }> = {
   dfir: {
-    label: 'DFIR & IR Tools',
-    blurb: 'Triage, decoders, domain/network, email, detection, vulns — the core IR kit.',
+    label: 'DFIR / Forensics',
+    blurb: 'Triage + artifact parsing — IOC/hash, decoders, EVTX/registry/PE/prefetch, SQLite, PCAP.',
+  },
+  ir: {
+    label: 'Incident Response',
+    blurb: 'Domain/network/edge investigation, email & phishing response, vuln + identity checks.',
+  },
+  ti: {
+    label: 'Threat-Intel Tools',
+    blurb: 'Detection engineering — YARA/Sigma, LOLBins, log timeline, STIX.',
   },
   osint: { label: 'OSINT Tools', blurb: 'Recon, attribution, public-record pivots. Username, image, archive, geo.' },
   aisec: {
@@ -234,7 +242,7 @@ export const SECTIONS: Section[] = [
   },
   {
     id: 'domain',
-    group: 'dfir',
+    group: 'ir',
     label: 'Domain, Network & Edge',
     blurb: 'Where does this thing live, what does it expose, who owns it.',
     tools: [
@@ -390,7 +398,7 @@ export const SECTIONS: Section[] = [
   },
   {
     id: 'email',
-    group: 'dfir',
+    group: 'ir',
     label: 'Email Security',
     blurb: 'Phishing analysis and BEC-defense for the domain you protect.',
     tools: [
@@ -448,7 +456,7 @@ export const SECTIONS: Section[] = [
   },
   {
     id: 'det-eng',
-    group: 'dfir',
+    group: 'ti',
     label: 'Detection Engineering',
     blurb: 'Build, test, and run detection content.',
     tools: [
@@ -577,7 +585,7 @@ export const SECTIONS: Section[] = [
   },
   {
     id: 'vulns-identity',
-    group: 'dfir',
+    group: 'ir',
     label: 'Vulnerabilities & Identity',
     blurb: 'CVE triage, breach exposure, and identity verification.',
     tools: [
