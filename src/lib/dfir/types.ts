@@ -67,7 +67,11 @@ export type ProviderId =
   | 'binarydefense'
   | 'ipsum'
   | 'phishingArmy'
-  | 'tweetfeed';
+  | 'tweetfeed'
+  | 'greynoise'
+  | 'c2tracker'
+  | 'sslbl'
+  | 'yaraify';
 
 export interface ProviderResultWire {
   source: ProviderId;

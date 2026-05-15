@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Smartphone } from 'lucide-react';
+import { ArrowLeft, Smartphone, Upload } from 'lucide-react';
 import { loadSql } from '../../lib/loadSql';
 
 interface FileRow {
@@ -67,17 +67,27 @@ export default function IosBackupExplorer(): JSX.Element {
         table). sql.js runs as a lazy WASM chunk; nothing is uploaded.
       </p>
 
-      <label className="inline-block px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 cursor-pointer font-mono text-[12px]">
-        {busy ? 'loading…' : 'Choose Manifest.db…'}
-        <input
-          type="file"
-          className="hidden"
-          onChange={(e) => {
-            const f = e.target.files?.[0];
-            if (f) void open(f);
-          }}
-        />
-      </label>
+      <button
+        type="button"
+        onClick={() => document.getElementById('iosbackup-input')?.click()}
+        className="w-full border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-lg p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
+        aria-label="Drop a Manifest.db file or click to choose"
+      >
+        <Upload size={24} className="mx-auto mb-2 text-slate-500" />
+        <p className="text-sm font-mono text-slate-700 dark:text-slate-300">
+          {busy ? 'Loading...' : 'Drop Manifest.db here, or click to choose'}
+        </p>
+        <p className="text-[11px] font-mono text-slate-500 mt-1">iOS backup SQLite database. 100% client-side.</p>
+      </button>
+      <input
+        id="iosbackup-input"
+        type="file"
+        className="hidden"
+        onChange={(e) => {
+          const f = e.target.files?.[0];
+          if (f) void open(f);
+        }}
+      />
       {err && <p className="mt-3 font-mono text-sm text-rose-600 dark:text-rose-400">{err}</p>}
 
       {files && (

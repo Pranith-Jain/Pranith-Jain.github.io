@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ScrollText } from 'lucide-react';
+import { ArrowLeft, ScrollText, Upload } from 'lucide-react';
 
 /**
  * EVTX Parser (Lite). A full Windows BinXML template engine is enormous;
@@ -98,25 +98,35 @@ export default function EvtxParser(): JSX.Element {
         not a full XML render. 100% client-side.
       </p>
 
-      <label className="inline-block px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 cursor-pointer font-mono text-[12px]">
-        Choose .evtx file…
-        <input
-          type="file"
-          accept=".evtx"
-          className="hidden"
-          onChange={async (e) => {
-            const f = e.target.files?.[0];
-            if (!f) return;
-            try {
-              setErr('');
-              setData(parse(await f.arrayBuffer()));
-            } catch (ex) {
-              setData(null);
-              setErr(ex instanceof Error ? ex.message : String(ex));
-            }
-          }}
-        />
-      </label>
+      <button
+        type="button"
+        onClick={() => document.getElementById('evtxparser-input')?.click()}
+        className="w-full border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-lg p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
+        aria-label="Drop a .evtx file file or click to choose"
+      >
+        <Upload size={24} className="mx-auto mb-2 text-slate-500" />
+        <p className="text-sm font-mono text-slate-700 dark:text-slate-300">
+          Drop a .evtx file file here, or click to choose
+        </p>
+        <p className="text-[11px] font-mono text-slate-500 mt-1">100% client-side. No upload.</p>
+      </button>
+      <input
+        id="evtxparser-input"
+        type="file"
+        accept=".evtx"
+        className="hidden"
+        onChange={async (e) => {
+          const f = e.target.files?.[0];
+          if (!f) return;
+          try {
+            setErr('');
+            setData(parse(await f.arrayBuffer()));
+          } catch (ex) {
+            setData(null);
+            setErr(ex instanceof Error ? ex.message : String(ex));
+          }
+        }}
+      />
 
       {err && <p className="mt-4 font-mono text-sm text-rose-600 dark:text-rose-400">{err}</p>}
 

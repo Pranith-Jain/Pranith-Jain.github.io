@@ -24,7 +24,10 @@ export type ProviderId =
   | 'ipsum'
   | 'phishingArmy'
   | 'tweetfeed'
-  | 'greynoise';
+  | 'greynoise'
+  | 'c2tracker'
+  | 'sslbl'
+  | 'yaraify';
 
 export type Verdict = 'clean' | 'suspicious' | 'malicious' | 'unknown';
 
@@ -91,4 +94,7 @@ export const PROVIDER_SUPPORT: Record<ProviderId, IndicatorType[]> = {
   phishingArmy: ['domain', 'url'],
   tweetfeed: ['ipv4', 'domain', 'url', 'hash'],
   greynoise: ['ipv4', 'ipv6'],
+  c2tracker: ['ipv4'],
+  sslbl: ['ipv4'],
+  yaraify: ['hash'],
 };

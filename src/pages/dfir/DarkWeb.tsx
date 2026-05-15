@@ -642,9 +642,9 @@ export function BreachDisclosuresPanel(): JSX.Element {
 
       {visible.length > 0 && (
         <ul className="grid gap-2 sm:grid-cols-2">
-          {visible.map((b) => (
+          {visible.map((b, i) => (
             <li
-              key={b.name}
+              key={`${b.name}-${b.added_date ?? i}`}
               className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-2.5"
             >
               <div className="flex flex-wrap items-baseline gap-2 mb-1">

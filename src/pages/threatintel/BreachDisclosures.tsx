@@ -13,7 +13,9 @@ import { fetchAggregatedFeed, formatRelativeTime, type AggregatedFeedItem } from
  */
 const BREACH_NEWS_FEED_IDS = [
   'databreaches',
-  'databreachtoday',
+  'threatpost',
+  'cybernews',
+  'grahamcluley',
   'bleepingcomputer-breaches',
   'hackread-breaches',
   'securityweek-breaches',
@@ -21,7 +23,6 @@ const BREACH_NEWS_FEED_IDS = [
   'vpnmentor-research',
   'grcsolutions-breaches',
   'comparitech-breaches',
-  'troyhunt-blog',
   'idtheftcenter',
 ];
 
@@ -120,31 +121,45 @@ export default function BreachDisclosures(): JSX.Element {
 
         {news && news.length > 0 && (
           <ul className="grid gap-2">
-            {news.map((item, i) => (
-              <li
-                key={`${item.link}-${i}`}
-                className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3 hover:border-brand-500/40 transition-colors"
-              >
-                <a
-                  href={item.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block group"
-                  title={item.title ?? item.link}
-                >
-                  <div className="flex items-baseline gap-2 mb-1 flex-wrap">
-                    <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors flex-1 min-w-0">
-                      {item.title ?? '(untitled)'}
-                    </span>
-                    <ExternalLink size={11} className="text-slate-400 shrink-0" aria-hidden="true" />
-                  </div>
-                  <div className="text-[11px] font-mono text-slate-500 flex items-center gap-2 flex-wrap">
-                    {item.source && <span className="text-brand-600 dark:text-brand-400">{item.source}</span>}
-                    {item.pubDate && <span className="text-slate-400">{formatRelativeTime(item.pubDate)}</span>}
-                  </div>
-                </a>
-              </li>
-            ))}
+            {(() => {
+              const seen = new Set<string>();
+              return news
+                .filter((item) => {
+                  const normalized = (item.title ?? '')
+                    .toLowerCase()
+                    .replace(/^(breach\s*|data\s+breach\s*|disclosed\s*)/i, '')
+                    .replace(/[^a-z0-9]/g, '')
+                    .trim();
+                  if (!normalized || seen.has(normalized)) return false;
+                  seen.add(normalized);
+                  return true;
+                })
+                .map((item, i) => (
+                  <li
+                    key={`${item.link}-${i}`}
+                    className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3 hover:border-brand-500/40 transition-colors"
+                  >
+                    <a
+                      href={item.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block group"
+                      title={item.title ?? item.link}
+                    >
+                      <div className="flex items-baseline gap-2 mb-1 flex-wrap">
+                        <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors flex-1 min-w-0">
+                          {item.title ?? '(untitled)'}
+                        </span>
+                        <ExternalLink size={11} className="text-slate-400 shrink-0" aria-hidden="true" />
+                      </div>
+                      <div className="text-[11px] font-mono text-slate-500 flex items-center gap-2 flex-wrap">
+                        {item.source && <span className="text-brand-600 dark:text-brand-400">{item.source}</span>}
+                        {item.pubDate && <span className="text-slate-400">{formatRelativeTime(item.pubDate)}</span>}
+                      </div>
+                    </a>
+                  </li>
+                ));
+            })()}
           </ul>
         )}
       </section>

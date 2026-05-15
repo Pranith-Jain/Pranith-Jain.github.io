@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ScanLine } from 'lucide-react';
+import { ArrowLeft, ScanLine, Upload } from 'lucide-react';
 
 const ENTITY: Array<[string, RegExp]> = [
   ['URLs', /\bhttps?:\/\/[^\s"'<>]+/gi],
@@ -107,18 +107,30 @@ export default function ScreenshotIntel(): JSX.Element {
         client-side; the language model is served same-origin.
       </p>
 
-      <label className="inline-block px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 cursor-pointer font-mono text-[12px]">
-        {busy ? 'analyzing…' : 'Choose image…'}
-        <input
-          type="file"
-          accept="image/*"
-          className="hidden"
-          onChange={(e) => {
-            const f = e.target.files?.[0];
-            if (f) void analyze(f);
-          }}
-        />
-      </label>
+      <button
+        type="button"
+        onClick={() => document.getElementById('screenshot-input')?.click()}
+        className="w-full border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-lg p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
+        aria-label="Drop an image file or click to choose"
+      >
+        <Upload size={24} className="mx-auto mb-2 text-slate-500" />
+        <p className="text-sm font-mono text-slate-700 dark:text-slate-300">
+          {busy ? 'Analyzing...' : 'Drop an image here, or click to choose'}
+        </p>
+        <p className="text-[11px] font-mono text-slate-500 mt-1">
+          OCR, QR decode, EXIF/GPS extraction. 100% client-side.
+        </p>
+      </button>
+      <input
+        id="screenshot-input"
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={(e) => {
+          const f = e.target.files?.[0];
+          if (f) void analyze(f);
+        }}
+      />
       {stage && <p className="mt-3 font-mono text-[12px] text-slate-500">{stage}</p>}
       {note && <p className="mt-3 font-mono text-[12px] text-amber-600 dark:text-amber-400">{note}</p>}
 

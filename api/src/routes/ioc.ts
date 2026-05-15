@@ -30,6 +30,9 @@ import { ipsum } from '../providers/ipsum';
 import { phishingArmy } from '../providers/phishingArmy';
 import { tweetfeed } from '../providers/tweetfeed';
 import { greynoise } from '../providers/greynoise';
+import { c2tracker } from '../providers/c2tracker';
+import { sslbl } from '../providers/sslbl';
+import { yaraify } from '../providers/yaraify';
 import {
   PROVIDER_SUPPORT,
   PROVIDER_TIMEOUT_MS,
@@ -63,6 +66,9 @@ const ADAPTERS: Record<ProviderId, ProviderAdapter> = {
   phishingArmy,
   tweetfeed,
   greynoise,
+  c2tracker,
+  sslbl,
+  yaraify,
 };
 
 export async function iocCheckHandler(c: Context<{ Bindings: Env }>) {

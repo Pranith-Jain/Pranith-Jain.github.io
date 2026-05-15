@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Activity } from 'lucide-react';
+import { ArrowLeft, Activity, Upload } from 'lucide-react';
 
 /* ── LZXPRESS Huffman decompression ([MS-XCA] 2.2) — for Win8+/Win10+ ──
    prefetch, which is wrapped in a MAM\x04 container. */
@@ -202,26 +202,36 @@ export default function PrefetchAnalyzer(): JSX.Element {
         client-side.
       </p>
 
-      <label className="inline-block px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 cursor-pointer font-mono text-[12px]">
-        Choose .pf file…
-        <input
-          type="file"
-          accept=".pf"
-          className="hidden"
-          onChange={async (e) => {
-            const f = e.target.files?.[0];
-            if (!f) return;
-            try {
-              setErr('');
-              setQ('');
-              setPf(parsePrefetch(await f.arrayBuffer()));
-            } catch (ex) {
-              setPf(null);
-              setErr(ex instanceof Error ? ex.message : String(ex));
-            }
-          }}
-        />
-      </label>
+      <button
+        type="button"
+        onClick={() => document.getElementById('prefetchanalyzer-input')?.click()}
+        className="w-full border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-lg p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
+        aria-label="Drop a .pf file file or click to choose"
+      >
+        <Upload size={24} className="mx-auto mb-2 text-slate-500" />
+        <p className="text-sm font-mono text-slate-700 dark:text-slate-300">
+          Drop a .pf file file here, or click to choose
+        </p>
+        <p className="text-[11px] font-mono text-slate-500 mt-1">100% client-side. No upload.</p>
+      </button>
+      <input
+        id="prefetchanalyzer-input"
+        type="file"
+        accept=".pf"
+        className="hidden"
+        onChange={async (e) => {
+          const f = e.target.files?.[0];
+          if (!f) return;
+          try {
+            setErr('');
+            setQ('');
+            setPf(parsePrefetch(await f.arrayBuffer()));
+          } catch (ex) {
+            setPf(null);
+            setErr(ex instanceof Error ? ex.message : String(ex));
+          }
+        }}
+      />
       {err && <p className="mt-4 font-mono text-sm text-rose-600 dark:text-rose-400">{err}</p>}
 
       {pf && (

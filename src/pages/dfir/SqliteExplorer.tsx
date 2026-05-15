@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Database } from 'lucide-react';
+import { ArrowLeft, Database, Upload } from 'lucide-react';
 import { loadSql } from '../../lib/loadSql';
 
 interface DB {
@@ -89,17 +89,29 @@ export default function SqliteExplorer(): JSX.Element {
         rows, run read queries. sql.js runs as a lazy WASM chunk; the file never leaves your browser.
       </p>
 
-      <label className="inline-block px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 cursor-pointer font-mono text-[12px]">
-        {busy ? 'loading…' : 'Choose SQLite file…'}
-        <input
-          type="file"
-          className="hidden"
-          onChange={(e) => {
-            const f = e.target.files?.[0];
-            if (f) void open(f);
-          }}
-        />
-      </label>
+      <button
+        type="button"
+        onClick={() => document.getElementById('sqlite-input')?.click()}
+        className="w-full border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-lg p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
+        aria-label="Drop a SQLite file or click to choose"
+      >
+        <Upload size={24} className="mx-auto mb-2 text-slate-500" />
+        <p className="text-sm font-mono text-slate-700 dark:text-slate-300">
+          {busy ? 'Loading...' : 'Drop a SQLite file here, or click to choose'}
+        </p>
+        <p className="text-[11px] font-mono text-slate-500 mt-1">
+          Browser history, app artifacts. 100% client-side via sql.js WASM.
+        </p>
+      </button>
+      <input
+        id="sqlite-input"
+        type="file"
+        className="hidden"
+        onChange={(e) => {
+          const f = e.target.files?.[0];
+          if (f) void open(f);
+        }}
+      />
       {err && <p className="mt-3 font-mono text-sm text-rose-600 dark:text-rose-400">{err}</p>}
 
       {db && (

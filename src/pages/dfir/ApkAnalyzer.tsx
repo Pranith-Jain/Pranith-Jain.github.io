@@ -5,7 +5,6 @@ import {
   Upload,
   ShieldAlert,
   Hash,
-  FileCode2,
   Loader2,
   Globe,
   ExternalLink,
@@ -13,6 +12,9 @@ import {
   AlertTriangle,
   ShieldCheck,
   Search,
+  Cpu,
+  Database,
+  Layers,
 } from 'lucide-react';
 import { CopyChip } from '../../components/dfir/CopyButton';
 import { analyzeApk, type ApkAnalysis } from '../../lib/dfir/apk-analysis';
@@ -22,6 +24,13 @@ function fmtBytes(n: number): string {
   if (n < 1024 * 1024) return `${(n / 1024).toFixed(1)} KB`;
   return `${(n / 1024 / 1024).toFixed(2)} MB`;
 }
+
+const SEV_STYLES: Record<string, string> = {
+  critical: 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/30',
+  high: 'bg-orange-500/15 text-orange-700 dark:text-orange-300 border-orange-500/30',
+  medium: 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30',
+  low: 'bg-sky-500/15 text-sky-700 dark:text-sky-300 border-sky-500/30',
+};
 
 export default function ApkAnalyzer(): JSX.Element {
   const [loading, setLoading] = useState(false);
@@ -40,6 +49,10 @@ export default function ApkAnalyzer(): JSX.Element {
   const onFile = async (file: File) => {
     if (!file.name.endsWith('.apk')) {
       setError('Only .apk files are supported.');
+      return;
+    }
+    if (file.size > 100 * 1024 * 1024) {
+      setError('File exceeds 100 MB limit.');
       return;
     }
     setLoading(true);
@@ -69,12 +82,12 @@ export default function ApkAnalyzer(): JSX.Element {
           <Smartphone size={28} className="text-brand-600 dark:text-brand-400" /> APK Analyzer
         </h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
-          Drop an Android APK for static analysis. Extracts package info, permissions, components, strings, and IOCs.
-          Computes SHA-256/SHA-1/MD5 hashes. Flags suspicious patterns and dangerous permissions. 100% client-side.
+          Static analysis for Android APKs. Parses binary AndroidManifest.xml, DEX headers, and ZIP structure. Detects
+          dangerous permissions, suspicious API usage, packed code, and potential malware behaviors. 100% client-side,
+          max 100 MB.
         </p>
       </div>
 
-      {/* File drop */}
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
         <button
           type="button"
@@ -90,7 +103,7 @@ export default function ApkAnalyzer(): JSX.Element {
         >
           <Upload size={32} className="mx-auto mb-2 text-slate-500" />
           <p className="text-sm font-mono text-slate-700 dark:text-slate-300">Drop an APK here, or click to choose</p>
-          <p className="text-[11px] font-mono text-slate-500 mt-1">100% client-side. No upload. Max 50 MB.</p>
+          <p className="text-[11px] font-mono text-slate-500 mt-1">100% client-side. Max 100 MB.</p>
         </button>
         <input
           ref={fileRef}
@@ -106,7 +119,7 @@ export default function ApkAnalyzer(): JSX.Element {
 
       {loading && (
         <p className="text-sm font-mono text-slate-500 mb-4 inline-flex items-center gap-2">
-          <Loader2 size={14} className="animate-spin" /> Analyzing APK...
+          <Loader2 size={14} className="animate-spin" /> Parsing APK, extracting DEX headers, scanning strings...
         </p>
       )}
       {error && (
@@ -123,11 +136,17 @@ export default function ApkAnalyzer(): JSX.Element {
               <h2 className="font-display font-bold text-lg">{result.fileName}</h2>
               <span className="text-xs font-mono text-slate-500">{fmtBytes(result.size)}</span>
             </div>
-            <dl className="grid sm:grid-cols-[140px_1fr] gap-x-4 gap-y-1 text-[12px] font-mono mb-3">
+            <dl className="grid sm:grid-cols-[140px_1fr] gap-x-4 gap-y-1 text-[12px] font-mono">
               <dt className="text-slate-500">Package</dt>
               <dd className="text-slate-900 dark:text-slate-100 break-all">
                 {result.analysis.packageName || 'unknown'}
               </dd>
+              {result.analysis.appName && (
+                <>
+                  <dt className="text-slate-500">App name</dt>
+                  <dd className="text-slate-900 dark:text-slate-100">{result.analysis.appName}</dd>
+                </>
+              )}
               {result.analysis.versionName && (
                 <>
                   <dt className="text-slate-500">Version</dt>
@@ -154,40 +173,46 @@ export default function ApkAnalyzer(): JSX.Element {
                 {result.entropy > 7.5 && <span className="text-rose-600 dark:text-rose-400">(likely packed)</span>}
               </dd>
               <dt className="text-slate-500">DEX files</dt>
-              <dd className="text-slate-900 dark:text-slate-100">{result.analysis.dexCount}</dd>
+              <dd className="text-slate-900 dark:text-slate-100">{result.analysis.dexFiles.length}</dd>
+              <dt className="text-slate-500">Native libs</dt>
+              <dd className="text-slate-900 dark:text-slate-100">{result.analysis.nativeLibs.length}</dd>
               <dt className="text-slate-500">Files</dt>
               <dd className="text-slate-900 dark:text-slate-100">{result.analysis.fileCount} entries</dd>
+              <dt className="text-slate-500">Suspicious</dt>
+              <dd
+                className={`font-semibold ${result.analysis.suspicious.length > 0 ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-emerald-400'}`}
+              >
+                {result.analysis.suspicious.length > 0 ? `${result.analysis.suspicious.length} flags` : 'none detected'}
+              </dd>
             </dl>
           </section>
 
-          {/* Hashes + IOC Check */}
+          {/* Hashes */}
           <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
             <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3 inline-flex items-center gap-2">
               <Hash size={12} /> File hashes
             </h3>
-            <div className="space-y-1.5 text-[12px] font-mono">
-              <div className="flex items-center gap-2">
-                <span className="text-slate-500 w-20 shrink-0">SHA-256</span>
-                <code className="text-slate-900 dark:text-slate-100 break-all flex-1">{result.sha256}</code>
-                <CopyChip value={result.sha256} label="copy" />
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-slate-500 w-20 shrink-0">SHA-1</span>
-                <code className="text-slate-900 dark:text-slate-100 break-all flex-1">{result.sha1}</code>
-                <CopyChip value={result.sha1} label="copy" />
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-slate-500 w-20 shrink-0">MD5</span>
-                <code className="text-slate-900 dark:text-slate-100 break-all flex-1">{result.md5}</code>
-                <CopyChip value={result.md5} label="copy" />
-              </div>
+            <div className="space-y-1.5 text-[12px] font-mono mb-3">
+              {(
+                [
+                  ['SHA-256', result.sha256],
+                  ['SHA-1', result.sha1],
+                  ['MD5', result.md5],
+                ] as const
+              ).map(([label, val]) => (
+                <div key={label} className="flex items-center gap-2">
+                  <span className="text-slate-500 w-20 shrink-0">{label}</span>
+                  <code className="text-slate-900 dark:text-slate-100 break-all flex-1">{val}</code>
+                  <CopyChip value={val} label="copy" />
+                </div>
+              ))}
             </div>
-            <div className="mt-3 flex gap-2">
+            <div className="flex gap-2 flex-wrap">
               <Link
                 to={`/dfir/ioc-check?indicator=${result.sha256}`}
                 className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:bg-brand-500/20"
               >
-                <Search size={11} /> Check hash in IOC Checker
+                <Search size={11} /> Check hash in IOC Checker (24 sources)
               </Link>
               <Link
                 to={`/dfir/malware-scan?hash=${result.sha256}`}
@@ -197,6 +222,30 @@ export default function ApkAnalyzer(): JSX.Element {
               </Link>
             </div>
           </section>
+
+          {/* Suspicious findings */}
+          {result.analysis.suspicious.length > 0 && (
+            <section className="rounded-lg border border-rose-500/30 bg-rose-500/5 p-4">
+              <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-rose-600 dark:text-rose-400 font-mono mb-3 inline-flex items-center gap-2">
+                <AlertTriangle size={12} /> Suspicious indicators ({result.analysis.suspicious.length})
+              </h3>
+              <div className="space-y-2">
+                {result.analysis.suspicious.map((s, i) => (
+                  <div key={i} className="rounded border border-rose-500/20 bg-rose-500/5 p-2.5">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span
+                        className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_STYLES[s.severity]}`}
+                      >
+                        {s.severity}
+                      </span>
+                      <span className="text-xs font-mono font-semibold text-rose-800 dark:text-rose-200">{s.rule}</span>
+                    </div>
+                    <p className="text-[11px] font-mono text-rose-700 dark:text-rose-300">{s.detail}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* Permissions */}
           {result.analysis.permissions.length > 0 && (
@@ -222,20 +271,33 @@ export default function ApkAnalyzer(): JSX.Element {
             </section>
           )}
 
-          {/* Suspicious */}
-          {result.analysis.suspicious.length > 0 && (
-            <section className="rounded-lg border border-rose-500/30 bg-rose-500/5 p-4">
-              <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-rose-600 dark:text-rose-400 font-mono mb-3 inline-flex items-center gap-2">
-                <AlertTriangle size={12} /> Suspicious indicators ({result.analysis.suspicious.length})
+          {/* DEX Files */}
+          {result.analysis.dexFiles.length > 0 && (
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+              <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3 inline-flex items-center gap-2">
+                <Cpu size={12} /> DEX Analysis ({result.analysis.dexFiles.length} files)
               </h3>
-              <ul className="space-y-1 text-[11px] font-mono text-rose-800 dark:text-rose-200">
-                {result.analysis.suspicious.map((s, i) => (
-                  <li key={i} className="flex gap-2">
-                    <span className="opacity-50 select-none">!</span>
-                    <span className="break-all">{s}</span>
-                  </li>
+              <div className="grid gap-2 sm:grid-cols-2">
+                {result.analysis.dexFiles.map((dex) => (
+                  <div
+                    key={dex.name}
+                    className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-2.5"
+                  >
+                    <div className="font-semibold text-sm text-slate-900 dark:text-slate-100 mb-1">{dex.name}</div>
+                    <div className="grid grid-cols-2 gap-x-3 gap-y-0.5 text-[10px] font-mono text-slate-600 dark:text-slate-400">
+                      <span>DEX v{dex.version}</span>
+                      <span>{fmtBytes(dex.size)}</span>
+                      <span>{dex.classCount} classes</span>
+                      <span>{dex.methodCount} methods</span>
+                      <span>{dex.fieldCount} fields</span>
+                      <span>
+                        entropy {dex.entropy.toFixed(2)}
+                        {dex.entropy > 7.5 ? ' (packed)' : ''}
+                      </span>
+                    </div>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </section>
           )}
 
@@ -248,50 +310,46 @@ export default function ApkAnalyzer(): JSX.Element {
               <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3 inline-flex items-center gap-2">
                 <Globe size={12} /> Extracted IOCs
               </h3>
-              <div className="space-y-3">
-                {result.analysis.urls.length > 0 && (
-                  <div>
-                    <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-1">
-                      URLs ({result.analysis.urls.length})
-                    </div>
-                    <div className="flex flex-wrap gap-1">
-                      {result.analysis.urls.map((u) => (
-                        <span
-                          key={u}
-                          className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-sky-500/10 text-sky-700 dark:text-sky-300 border border-sky-500/30 break-all"
-                        >
-                          {u}
-                        </span>
-                      ))}
-                    </div>
+              {result.analysis.urls.length > 0 && (
+                <div className="mb-2">
+                  <div className="text-[10px] font-mono text-slate-500 mb-1">URLs ({result.analysis.urls.length})</div>
+                  <div className="flex flex-wrap gap-1">
+                    {result.analysis.urls.map((u) => (
+                      <span
+                        key={u}
+                        className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-sky-500/10 text-sky-700 dark:text-sky-300 border border-sky-500/30 break-all max-w-[300px] truncate"
+                      >
+                        {u}
+                      </span>
+                    ))}
                   </div>
-                )}
-                {result.analysis.ips.length > 0 && (
-                  <div>
-                    <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-1">
-                      IPs ({result.analysis.ips.length})
-                    </div>
-                    <div className="flex flex-wrap gap-1">
-                      {result.analysis.ips.map((ip) => (
-                        <span
-                          key={ip}
-                          className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/30"
-                        >
-                          {ip}
-                        </span>
-                      ))}
-                    </div>
+                </div>
+              )}
+              {result.analysis.ips.length > 0 && (
+                <div className="mb-2">
+                  <div className="text-[10px] font-mono text-slate-500 mb-1">IPs ({result.analysis.ips.length})</div>
+                  <div className="flex flex-wrap gap-1">
+                    {result.analysis.ips.map((ip) => (
+                      <span
+                        key={ip}
+                        className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/30"
+                      >
+                        {ip}
+                      </span>
+                    ))}
                   </div>
-                )}
-              </div>
+                </div>
+              )}
             </section>
           )}
 
           {/* Components */}
-          {(result.analysis.activities.length > 0 || result.analysis.services.length > 0) && (
+          {(result.analysis.activities.length > 0 ||
+            result.analysis.services.length > 0 ||
+            result.analysis.receivers.length > 0) && (
             <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
               <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3 inline-flex items-center gap-2">
-                <FileCode2 size={12} /> Components
+                <Layers size={12} /> Components
               </h3>
               {result.analysis.activities.length > 0 && (
                 <div className="mb-2">
@@ -310,6 +368,59 @@ export default function ApkAnalyzer(): JSX.Element {
                   </div>
                 </div>
               )}
+              {result.analysis.services.length > 0 && (
+                <div className="mb-2">
+                  <div className="text-[10px] font-mono text-slate-500 mb-1">
+                    Services ({result.analysis.services.length})
+                  </div>
+                  <div className="flex flex-wrap gap-1">
+                    {result.analysis.services.map((s) => (
+                      <span
+                        key={s}
+                        className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
+                      >
+                        {s.split('.').pop()}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {result.analysis.receivers.length > 0 && (
+                <div className="mb-2">
+                  <div className="text-[10px] font-mono text-slate-500 mb-1">
+                    Receivers ({result.analysis.receivers.length})
+                  </div>
+                  <div className="flex flex-wrap gap-1">
+                    {result.analysis.receivers.map((r) => (
+                      <span
+                        key={r}
+                        className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
+                      >
+                        {r.split('.').pop()}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </section>
+          )}
+
+          {/* Native libs */}
+          {result.analysis.nativeLibs.length > 0 && (
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+              <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3 inline-flex items-center gap-2">
+                <Database size={12} /> Native Libraries ({result.analysis.nativeLibs.length})
+              </h3>
+              <div className="flex flex-wrap gap-1">
+                {result.analysis.nativeLibs.map((lib) => (
+                  <span
+                    key={lib}
+                    className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
+                  >
+                    {lib.split('/').pop()}
+                  </span>
+                ))}
+              </div>
             </section>
           )}
         </div>

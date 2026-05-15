@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, FileCheck } from 'lucide-react';
+import { ArrowLeft, FileCheck, Upload } from 'lucide-react';
 
 interface Row {
   n: number;
@@ -109,18 +109,26 @@ export default function WebLogAnalyzer(): JSX.Element {
         placeholder='127.0.0.1 - - [10/May/2026:13:55:36 +0000] "GET /?id=1%27%20OR%201=1 HTTP/1.1" 200 1234 "-" "sqlmap/1.7"'
         className="w-full rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 font-mono text-[12px] focus:border-brand-500 focus:outline-none"
       />
-      <label className="mt-2 inline-block px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 cursor-pointer font-mono text-[12px]">
-        …or load a log file
-        <input
-          type="file"
-          accept=".log,.txt,text/plain"
-          className="hidden"
-          onChange={async (e) => {
-            const f = e.target.files?.[0];
-            if (f) setText(await f.text());
-          }}
-        />
-      </label>
+      <button
+        type="button"
+        onClick={() => document.getElementById('weblog-input')?.click()}
+        className="w-full border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-lg p-8 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
+        aria-label="Drop a log file or click to choose"
+      >
+        <Upload size={24} className="mx-auto mb-2 text-slate-500" />
+        <p className="text-sm font-mono text-slate-700 dark:text-slate-300">Drop a log file here, or click to choose</p>
+        <p className="text-[11px] font-mono text-slate-500 mt-1">Apache/Nginx access logs. 100% client-side.</p>
+      </button>
+      <input
+        id="weblog-input"
+        type="file"
+        accept=".log,.txt,text/plain"
+        className="hidden"
+        onChange={async (e) => {
+          const f = e.target.files?.[0];
+          if (f) setText(await f.text());
+        }}
+      />
 
       {res && (
         <div className="mt-6 space-y-3">

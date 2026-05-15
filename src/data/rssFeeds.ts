@@ -111,24 +111,26 @@ export const rssFeeds: RSSFeed[] = [
     source: 'ransomware.live',
     language: 'en',
   },
+  // databreachtoday.com RSS endpoint 404s as of 2026-05. Replaced with Threatpost.
   {
-    id: 'databreachtoday',
-    name: 'DataBreachToday',
-    url: 'https://feeds.feedburner.com/databreachtoday/com',
+    id: 'threatpost',
+    name: 'Threatpost',
+    url: 'https://threatpost.com/feed/',
     description:
-      'ISMG breach-focused publication. Editorial coverage of incident disclosures, regulator filings, and post-breach analysis',
-    category: 'threat-intel',
-    source: 'databreachtoday.com',
-    language: 'en',
+      'Threatpost — enterprise vulnerability reporting, zero-day tracking, and breach coverage. Cybersecurity news for security pros.',
+    category: 'news',
+    source: 'threatpost.com',
+    language: 'en-US',
   },
   {
     id: 'bleepingcomputer-breaches',
     name: 'BleepingComputer · Data Breaches',
-    url: 'https://www.bleepingcomputer.com/feed/category/data-breaches/',
-    description: 'BleepingComputer breach-category feed — high-volume, fast-mover incident disclosures',
+    url: 'https://www.bleepingcomputer.com/feed/',
+    description:
+      'BleepingComputer breach coverage via main feed — renamed 2026-05; was a separate category feed that now 404s',
     category: 'threat-intel',
     source: 'bleepingcomputer.com',
-    language: 'en',
+    language: 'en-US',
   },
   {
     id: 'hackread-breaches',
@@ -216,14 +218,15 @@ export const rssFeeds: RSSFeed[] = [
     source: 'research.checkpoint.com',
     language: 'en',
   },
+  // sophos-xops RSS endpoint times out as of 2026-05. Replaced with Akamai Security Research.
   {
-    id: 'sophos-xops',
-    name: 'Sophos X-Ops',
-    url: 'https://news.sophos.com/en-us/category/threat-research/feed/',
-    description: 'Threat research from Sophos X-Ops, including ransomware tracking and incident reports',
+    id: 'akamai-security',
+    name: 'Akamai Security Research',
+    url: 'https://www.akamai.com/blog/rss/security-research.rss',
+    description: 'Akamai Security Research — botnet tracking, DDoS analysis, and web application threat research.',
     category: 'threat-intel',
-    source: 'news.sophos.com',
-    language: 'en',
+    source: 'akamai.com',
+    language: 'en-US',
   },
   {
     id: 'malwarebytes-labs',
@@ -422,22 +425,25 @@ export const rssFeeds: RSSFeed[] = [
     source: 'Hacker News',
     language: 'en-US',
   },
+  // hnrss.org rate-limits worker egress as of 2026-05. Replaced with Recorded Future blog.
   {
-    id: 'hn-ai',
-    name: 'HN — AI',
-    url: 'https://hnrss.org/newest?q=AI',
-    description: 'Newest Hacker News stories matching "AI"',
-    category: 'tech',
-    source: 'Hacker News',
+    id: 'recorded-future',
+    name: 'Recorded Future Blog',
+    url: 'https://www.recordedfuture.com/rss.xml',
+    description: 'Recorded Future threat research — threat intel, APT tracking, and strategic analysis',
+    category: 'threat-intel',
+    source: 'recordedfuture.com',
     language: 'en-US',
   },
+  // hnrss.org rate-limits worker egress as of 2026-05. Replaced HN-query feeds with
+  // a direct The Cyber Wire feed for cybersecurity news.
   {
-    id: 'hn-cybersecurity',
-    name: 'HN — Cybersecurity',
-    url: 'https://hnrss.org/newest?q=cybersecurity',
-    description: 'Newest Hacker News stories matching "cybersecurity"',
-    category: 'tech',
-    source: 'Hacker News',
+    id: 'thecyberwire',
+    name: 'The Cyber Wire',
+    url: 'https://thecyberwire.com/feed.xml',
+    description: 'Daily cybersecurity news briefing — curated stories across threat intel, policy, and industry',
+    category: 'news',
+    source: 'thecyberwire.com',
     language: 'en-US',
   },
   {
@@ -896,6 +902,24 @@ export const rssFeeds: RSSFeed[] = [
     language: 'en',
   },
   {
+    id: 'cybernews',
+    name: 'CyberNews',
+    url: 'https://cybernews.com/feed/',
+    description: 'CyberNews — data breach investigations, cybersecurity research, and exposure reports.',
+    category: 'threat-intel',
+    source: 'cybernews.com',
+    language: 'en',
+  },
+  {
+    id: 'grahamcluley',
+    name: 'Graham Cluley',
+    url: 'https://grahamcluley.com/feed/',
+    description: 'Graham Cluley — independent security blog covering data breaches, malware, and cybercrime.',
+    category: 'threat-intel',
+    source: 'grahamcluley.com',
+    language: 'en',
+  },
+  {
     id: 'idtheftcenter',
     name: 'Identity Theft Resource Center',
     url: 'https://www.idtheftcenter.org/feed/',
@@ -930,6 +954,7 @@ const EXCLUDE_FROM_LANDING = new Set<string>([
   'gnews-rug-pull',
   'gnews-nft-drainer',
   'gnews-defi-hack',
+  'sophos-xops',
   'reddit-scams',
   'reddit-cryptoscams',
   'reddit-phishing-scams',
@@ -960,6 +985,7 @@ export const landingAiFeeds = [
   'gnews-ai-security',
   'gnews-ai-funding',
   'gnews-genai-enterprise',
+  'recorded-future',
 ];
 
 export const landingIndustryFeeds = [
@@ -974,10 +1000,9 @@ export const landingGeneralTechFeeds = [
   'ars-tech',
   'mit-tech-review',
   'hn-frontpage',
-  'hn-ai',
   'hn-ask',
   'hn-show',
-  'hn-cybersecurity',
+  'thecyberwire',
   'yc-blog',
 ];
 
@@ -1008,6 +1033,7 @@ export const landingThreatVendor = [
   'red-canary',
   'malware-traffic-analysis',
   'doublepulsar',
+  'akamai-security',
   'dfir-lab',
   'dfir-radar',
   'sans-isc',
@@ -1037,6 +1063,7 @@ export const landingThreatNews = [
   'theregister-security',
   'helpnetsecurity',
   'csoconline',
+  'threatpost',
 ];
 
 // Feed categories for filtering
