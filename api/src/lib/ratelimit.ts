@@ -52,10 +52,12 @@ const BYPASS_EXACT = new Set<string>([
   '/api/v1/mitre/technique',
 ]);
 
-/** Prefix-match exempt paths. */
+/** Prefix-match exempt paths. Read-only endpoints only. */
 const BYPASS_PREFIX = [
   '/api/v1/feeds/', // proxy, abuse-rss, ioc-summary, aggregate — all read-only feed aggregators
-  '/api/v1/briefings/', // list/today/rss/<slug> — read-only; admin endpoints have their own token gate
+  '/api/v1/briefings/list', // read-only briefing listing
+  '/api/v1/briefings/today', // read-only today's briefing
+  '/api/v1/briefings/rss', // read-only RSS feed
 ];
 
 function isBypassed(pathname: string): boolean {

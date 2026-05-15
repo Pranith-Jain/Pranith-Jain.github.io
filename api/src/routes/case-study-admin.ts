@@ -68,7 +68,8 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
       }
       return c.json({ error: 'unknown_stage', allowed: ['discover', 'plan', 'publish'] }, 400);
     } catch (err) {
-      return c.json({ error: 'run_failed', stage, detail: err instanceof Error ? err.message : String(err) }, 500);
+      console.error('case-study run failed:', err);
+      return c.json({ error: 'run_failed', stage }, 500);
     }
   });
 

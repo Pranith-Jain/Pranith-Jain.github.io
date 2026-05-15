@@ -5,6 +5,8 @@ import { rdapLookup } from '../lib/rdap';
 import { ctLogs } from '../lib/crt-sh';
 import { parseSpf, parseDmarc, parseBimi, parseMtaSts, parseTlsRpt, evaluateEmailAuth } from '../lib/email-auth';
 import { phishingArmy } from '../providers/phishingArmy';
+import { pinnedFetch } from '../lib/ssrf-guard';
+import { safeErrorMessage } from '../lib/error';
 import { tweetfeed } from '../providers/tweetfeed';
 import { threatfox } from '../providers/threatfox';
 import { urlhaus } from '../providers/urlhaus';
@@ -61,7 +63,7 @@ export async function domainLookupHandler(c: Context<{ Bindings: Env }>) {
     resolveRecord(dmarcDomain, 'TXT'),
     resolveRecord(bimiDomain, 'TXT'),
     resolveRecord(tlsRptDomain, 'TXT'),
-    fetch(mtaStsUrl)
+    pinnedFetch(mtaStsUrl, { signal: AbortSignal.timeout(5000) })
       .then((r) => (r.ok ? r.text() : ''))
       .catch(() => ''),
   ]);
@@ -117,7 +119,7 @@ export async function domainLookupHandler(c: Context<{ Bindings: Env }>) {
           verdict: 'unknown',
           raw_summary: {},
           tags: [],
-          error: err instanceof Error ? err.message : String(err),
+          error: safeErrorMessage(c.env as unknown as Record<string, unknown>, err),
           fetched_at: new Date().toISOString(),
           cached: false,
         })

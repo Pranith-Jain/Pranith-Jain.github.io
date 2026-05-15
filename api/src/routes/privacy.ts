@@ -4,11 +4,7 @@ import type { Env } from '../env';
 export async function privacyInspectHandler(c: Context<{ Bindings: Env }>) {
   // Cloudflare populates request.cf in production
   const cf = (c.req.raw as Request & { cf?: Record<string, unknown> }).cf ?? {};
-  const ip =
-    c.req.header('cf-connecting-ip') ??
-    c.req.header('x-real-ip') ??
-    c.req.header('x-forwarded-for')?.split(',')[0]?.trim() ??
-    'unknown';
+  const ip = c.req.header('cf-connecting-ip') ?? 'unknown';
 
   return c.json(
     {
