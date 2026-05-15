@@ -128,6 +128,18 @@ export const SECTIONS: Section[] = [
         desc: 'EncodedCommand · char-arrays · format-strings · multi-pass with diff trace',
         icon: Terminal,
       },
+      {
+        path: '/dfir/timestamp',
+        label: 'Timestamp Converter',
+        desc: 'Unix s/ms/µs · Windows FILETIME · WebKit/Chrome · Apple Cocoa · ISO 8601 — all at once',
+        icon: Clock,
+      },
+      {
+        path: '/dfir/hash-calc',
+        label: 'Hash Calculator',
+        desc: 'MD5 · SHA-1/256/384/512 for text or a dropped file · client-side',
+        icon: Hash,
+      },
     ],
   },
   {
@@ -224,6 +236,24 @@ export const SECTIONS: Section[] = [
         label: 'Crypto Address Tracer',
         desc: 'BTC + 6 EVM chains + Solana · balance · explorer + NFT + DeFi + scam-flag pivots',
         icon: Coins,
+      },
+      {
+        path: '/dfir/dork-builder',
+        label: 'Google Dork Builder',
+        desc: 'Compose site:/filetype:/intitle: operators · presets · open in Google/Bing/DDG/Yandex',
+        icon: Search,
+      },
+      {
+        path: '/dfir/brand-impersonation',
+        label: 'Brand Impersonation Explorer',
+        desc: 'Typosquat · homoglyph · affix · TLD-swap variants of a brand domain · crt.sh pivots',
+        icon: ShieldAlert,
+      },
+      {
+        path: '/dfir/image-fingerprint',
+        label: 'Image Fingerprint',
+        desc: 'In-browser aHash + dHash · compare two images for near-duplicate / re-upload detection',
+        icon: ImageIcon,
       },
     ],
   },

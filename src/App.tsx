@@ -87,6 +87,11 @@ const Socmint = lazy(() => import('./pages/dfir/Socmint'));
 const OsintFramework = lazy(() => import('./pages/dfir/OsintFramework'));
 const SecopsCatalog = lazy(() => import('./pages/dfir/SecopsCatalog'));
 const ToolsCategory = lazy(() => import('./pages/dfir/ToolsCategory'));
+const TimestampConverter = lazy(() => import('./pages/dfir/TimestampConverter'));
+const HashCalculator = lazy(() => import('./pages/dfir/HashCalculator'));
+const DorkBuilder = lazy(() => import('./pages/dfir/DorkBuilder'));
+const BrandImpersonation = lazy(() => import('./pages/dfir/BrandImpersonation'));
+const ImageFingerprint = lazy(() => import('./pages/dfir/ImageFingerprint'));
 const CveResourcesCatalog = lazy(() => import('./pages/dfir/CveResourcesCatalog'));
 const WebScan = lazy(() => import('./pages/dfir/WebScan'));
 const MalwareScan = lazy(() => import('./pages/dfir/MalwareScan'));
@@ -1019,6 +1024,25 @@ export function AppContent() {
           </ErrorBoundary>
         }
       />
+      {(
+        [
+          ['/dfir/timestamp', <TimestampConverter key="ts" />],
+          ['/dfir/hash-calc', <HashCalculator key="hc" />],
+          ['/dfir/dork-builder', <DorkBuilder key="db" />],
+          ['/dfir/brand-impersonation', <BrandImpersonation key="bi" />],
+          ['/dfir/image-fingerprint', <ImageFingerprint key="if" />],
+        ] as Array<[string, JSX.Element]>
+      ).map(([p, el]) => (
+        <Route
+          key={p}
+          path={p}
+          element={
+            <ErrorBoundary>
+              <Suspense fallback={<SectionLoader />}>{el}</Suspense>
+            </ErrorBoundary>
+          }
+        />
+      ))}
       <Route
         path="/threatintel/cve-resources"
         element={
