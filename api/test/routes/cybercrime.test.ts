@@ -1,4 +1,4 @@
-import { SELF, env } from 'cloudflare:test';
+import { SELF } from 'cloudflare:test';
 import { describe, it, expect, vi } from 'vitest';
 
 // Stub the AF fetcher so the test is deterministic and offline.
