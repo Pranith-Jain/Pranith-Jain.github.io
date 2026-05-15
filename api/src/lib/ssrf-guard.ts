@@ -1,0 +1,122 @@
+import { resolveRecord } from './dns';
+
+/**
+ * Shared egress guard for handlers that fetch a user-supplied URL
+ * (url-preview, web-scan, …).
+ *
+ * Two problems it solves:
+ *
+ *  1. Incomplete reserved-range lists. The old per-handler regexes missed
+ *     100.64.0.0/10 (CGNAT — used by Tailscale and several cloud LB
+ *     fabrics), the TEST-NET / benchmarking ranges, and 6to4 relay
+ *     anycast. Those are reachable internal-ish targets.
+ *
+ *  2. DNS rebinding / TOCTOU. Checking resolved IPs then calling
+ *     `fetch(hostname)` lets `fetch` re-resolve independently — an
+ *     attacker flips the record (TTL 0) between check and fetch and the
+ *     Worker connects to an internal IP. `pinnedFetch` validates, then
+ *     forces the connection to the validated IP via Cloudflare's
+ *     `cf.resolveOverride` while leaving Host/SNI = the real hostname
+ *     (so TLS still validates). No second, attacker-controlled lookup.
+ */
+
+// IPv4 private / loopback / link-local / CGNAT / TEST-NET / multicast /
+// reserved. 224.0.0.0+ (224–255) is the trailing 22[4-9]|23\d|24\d|25[0-5].
+export const PRIVATE_IPV4 =
+  /^(?:0\.|10\.|100\.(?:6[4-9]|[7-9]\d|1[01]\d|12[0-7])\.|127\.|169\.254\.|172\.(?:1[6-9]|2\d|3[01])\.|192\.0\.0\.|192\.0\.2\.|192\.88\.99\.|192\.168\.|198\.1[89]\.|198\.51\.100\.|203\.0\.113\.|22[4-9]\.|23\d\.|24\d\.|25[0-5]\.)/;
+
+export function isPrivateIpv6(addr: string): boolean {
+  const a = addr.toLowerCase().trim();
+  if (a === '::1' || a === '::') return true;
+  // IPv4-mapped / -compatible (::ffff:a.b.c.d, ::a.b.c.d) — reapply v4 rules.
+  const v4embedded = /(?:^::ffff:|^::)((?:\d{1,3}\.){3}\d{1,3})$/i.exec(a);
+  if (v4embedded && v4embedded[1] && PRIVATE_IPV4.test(v4embedded[1])) return true;
+  // Normalise leading zeros per group so prefix tests are reliable whether
+  // the resolver returned compressed or fully-expanded form.
+  const groups = a.split(':').map((p) => p.replace(/^0+/, '') || '0');
+  const head = groups[0] ?? '';
+  if (/^fe[89ab]/.test(head)) return true; // fe80::/10 link-local
+  if (/^f[cd]/.test(head)) return true; // fc00::/7 unique-local
+  if (head.startsWith('ff')) return true; // ff00::/8 multicast
+  if (head === '2001' && groups[1] === 'db8') return true; // 2001:db8::/32 doc
+  if (head === '2002') return true; // 2002::/16 6to4
+  if (head === '64' && groups[1] === 'ff9b') return true; // 64:ff9b::/96 NAT64
+  return false;
+}
+
+export interface HostCheck {
+  ok: boolean;
+  /** First validated public IP (used for connection pinning). */
+  pinIp?: string;
+  /** All resolved IPs. */
+  ips: string[];
+  /** HTTP status + error body to return when ok === false. */
+  status?: number;
+  error?: string;
+  blockedIp?: string;
+}
+
+/**
+ * Resolve A + AAAA and refuse if ANY answer is private/reserved. Refusing on
+ * any (not just the first) answer stops a multi-record response that mixes a
+ * public and an internal IP.
+ */
+export async function assertPublicHost(hostname: string): Promise<HostCheck> {
+  const [a, aaaa] = await Promise.all([resolveRecord(hostname, 'A'), resolveRecord(hostname, 'AAAA')]);
+  if (a.error && aaaa.error) {
+    return { ok: false, ips: [], status: 502, error: `dns lookup failed: ${a.error}` };
+  }
+  const v4 = a.records.filter((r) => /^(?:\d{1,3}\.){3}\d{1,3}$/.test(r));
+  const v6 = aaaa.records.filter((r) => r.includes(':'));
+  const all = [...v4, ...v6];
+  if (all.length === 0) {
+    return { ok: false, ips: [], status: 400, error: 'host does not resolve' };
+  }
+  const blocked = v4.find((ip) => PRIVATE_IPV4.test(ip)) ?? v6.find((ip) => isPrivateIpv6(ip));
+  if (blocked) {
+    return {
+      ok: false,
+      ips: all,
+      status: 403,
+      error: 'host resolves to a private/reserved IP — refusing to fetch',
+      blockedIp: blocked,
+    };
+  }
+  // Prefer an IPv4 pin (resolveOverride is most reliable with v4).
+  return { ok: true, ips: all, pinIp: v4[0] ?? v6[0] };
+}
+
+/**
+ * Validate `rawUrl`, then fetch with the connection pinned to the validated
+ * IP. Throws `SsrfError` (carrying an HTTP status) on a blocked/invalid host
+ * so callers can map it to a response.
+ */
+export class SsrfError extends Error {
+  constructor(
+    public status: number,
+    public detail: string,
+    public blockedIp?: string
+  ) {
+    super(detail);
+    this.name = 'SsrfError';
+  }
+}
+
+export async function pinnedFetch(rawUrl: string, init?: RequestInit): Promise<Response> {
+  let parsed: URL;
+  try {
+    parsed = new URL(rawUrl);
+  } catch {
+    throw new SsrfError(400, 'invalid url');
+  }
+  if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
+    throw new SsrfError(400, 'unsupported protocol');
+  }
+  const check = await assertPublicHost(parsed.hostname);
+  if (!check.ok) throw new SsrfError(check.status ?? 403, check.error ?? 'blocked', check.blockedIp);
+
+  // Pin the connection to the validated IP (Host/SNI stay = hostname so TLS
+  // still validates). Defeats rebinding: no attacker-controlled re-resolve.
+  const cf = { resolveOverride: check.pinIp } as Record<string, unknown>;
+  return fetch(parsed.toString(), { ...init, cf } as RequestInit);
+}

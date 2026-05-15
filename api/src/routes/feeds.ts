@@ -156,18 +156,45 @@ export async function feedProxyHandler(c: Context<{ Bindings: Env }>) {
   }
 
   try {
-    const upstream = await fetch(parsed.toString(), {
-      redirect: 'follow',
-      headers: {
-        // Many feed origins (Akamai-fronted, Cloudflare-fronted, Reddit, etc.) block
-        // generic bot UAs with 403/429. Use a browser-like UA to maximise compatibility.
-        'user-agent':
-          'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) pranithjain-rss/1.0 Safari/537.36',
-        accept: 'application/rss+xml, application/atom+xml, application/xml;q=0.9, text/xml;q=0.9, */*;q=0.5',
-        'accept-language': 'en-US,en;q=0.9',
-      },
-      signal: AbortSignal.timeout(TIMEOUT_MS),
-    });
+    // Manual redirect handling: an allow-listed host with an open redirect
+    // (Google News, Reddit, raw.githubusercontent, …) could otherwise bounce
+    // `redirect: 'follow'` to an arbitrary internal/external target,
+    // defeating the allow-list. Re-validate every hop's host.
+    const reqHeaders = {
+      // Many feed origins (Akamai/Cloudflare-fronted, Reddit, etc.) block
+      // generic bot UAs. Use a browser-like UA to maximise compatibility.
+      'user-agent':
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) pranithjain-rss/1.0 Safari/537.36',
+      accept: 'application/rss+xml, application/atom+xml, application/xml;q=0.9, text/xml;q=0.9, */*;q=0.5',
+      'accept-language': 'en-US,en;q=0.9',
+    };
+    let current = parsed;
+    let upstream: Response | null = null;
+    for (let hop = 0; hop < 5; hop += 1) {
+      upstream = await fetch(current.toString(), {
+        redirect: 'manual',
+        headers: reqHeaders,
+        signal: AbortSignal.timeout(TIMEOUT_MS),
+      });
+      if (upstream.status < 300 || upstream.status >= 400) break;
+      const location = upstream.headers.get('location');
+      if (!location) break;
+      let next: URL;
+      try {
+        next = new URL(location, current);
+      } catch {
+        return c.json({ error: 'upstream redirect to malformed url' }, 502);
+      }
+      if (next.protocol !== 'http:' && next.protocol !== 'https:') {
+        return c.json({ error: `upstream redirect to unsupported protocol: ${next.protocol}` }, 403);
+      }
+      if (!ALLOWED_HOSTS.has(next.hostname.toLowerCase())) {
+        return c.json({ error: `upstream redirect to non-allow-listed host: ${next.hostname}` }, 403);
+      }
+      current = next;
+      if (hop === 4) return c.json({ error: 'too many redirects' }, 502);
+    }
+    if (!upstream) return c.json({ error: 'upstream fetch failed' }, 502);
     if (upstream.status === 429) {
       const retryAfter = upstream.headers.get('retry-after') ?? '60';
       return c.json({ error: 'upstream_rate_limited', upstream: parsed.hostname, upstream_status: 429 }, 429, {
@@ -179,10 +206,20 @@ export async function feedProxyHandler(c: Context<{ Bindings: Env }>) {
       return c.json({ error: `upstream ${upstream.status}` }, 502);
     }
     const body = await upstream.text();
+    // Never echo the upstream content-type verbatim: this endpoint is
+    // same-origin, and an allow-listed raw-content host (e.g.
+    // raw.githubusercontent.com) returning text/html would render as an
+    // attacker page on our origin. Only pass through XML/JSON feed types;
+    // anything else is served as inert text/plain.
+    const upstreamCt = (upstream.headers.get('content-type') ?? '').toLowerCase();
+    const safeCt = /(?:xml|rss|atom|json)/.test(upstreamCt)
+      ? upstreamCt.split(';')[0].trim()
+      : 'text/plain; charset=utf-8';
     return new Response(body, {
       status: 200,
       headers: {
-        'content-type': upstream.headers.get('content-type') ?? 'application/xml',
+        'content-type': safeCt,
+        'x-content-type-options': 'nosniff',
         'cache-control': 'public, max-age=300', // 5min cache hint
       },
     });

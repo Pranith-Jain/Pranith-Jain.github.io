@@ -1,6 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { resolveRecord } from '../lib/dns';
+import { assertPublicHost } from '../lib/ssrf-guard';
 
 /**
  * Web vulnerability + configuration scanner.
@@ -29,25 +29,13 @@ import { resolveRecord } from '../lib/dns';
 
 const FETCH_TIMEOUT_MS = 8000;
 const PROBE_TIMEOUT_MS = 4000;
-const PROBE_CONCURRENCY = 8;
+// Bounded low: each request already fans out to ~36 probes against the
+// target. Lower concurrency throttles the per-second outbound burst so this
+// endpoint is a weaker request-amplification relay (paired with the /api/v1
+// rate limit). SSRF range checks + connection pinning live in ssrf-guard.
+const PROBE_CONCURRENCY = 4;
 const CACHE_TTL = 1800;
 const MAX_BODY_BYTES = 32 * 1024;
-
-const PRIVATE_IPV4 =
-  /^(0\.|10\.|127\.|169\.254\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.|22[4-9]\.|23\d\.|24\d\.|25[0-5]\.)/;
-
-function isPrivateIpv6(addr: string): boolean {
-  const a = addr.toLowerCase();
-  if (a === '::1' || a === '::') return true;
-  const v4mapped = /^::ffff:([0-9.]+)$/i.exec(a);
-  if (v4mapped && v4mapped[1] && PRIVATE_IPV4.test(v4mapped[1])) return true;
-  const head = a.split(':')[0] ?? '';
-  if (/^fe[89ab]/.test(head)) return true; // fe80::/10
-  if (/^f[cd]/.test(head)) return true; // fc00::/7
-  if (head.startsWith('ff')) return true; // multicast
-  if (head === '2001' && a.split(':')[1]?.replace(/^0+/, '') === 'db8') return true;
-  return false;
-}
 
 /* ──────────────────────────────────────────────────────────────────
  * Common exposed paths to probe.
@@ -369,7 +357,7 @@ interface ProbeResult {
   redirectsTo?: string;
 }
 
-async function probeOne(baseUrl: string, def: ProbeDef): Promise<ProbeResult> {
+async function probeOne(baseUrl: string, def: ProbeDef, pinIp?: string): Promise<ProbeResult> {
   const url = new URL(def.path, baseUrl).toString();
   try {
     const ctrl = new AbortController();
@@ -379,7 +367,8 @@ async function probeOne(baseUrl: string, def: ProbeDef): Promise<ProbeResult> {
       redirect: 'manual',
       signal: ctrl.signal,
       headers: { 'user-agent': 'pranithjain-dfir/1.0 web-scan' },
-    });
+      cf: { resolveOverride: pinIp },
+    } as RequestInit);
     clearTimeout(timer);
     const status = res.status;
     if (status >= 200 && status < 300) {
@@ -423,14 +412,14 @@ async function probeOne(baseUrl: string, def: ProbeDef): Promise<ProbeResult> {
 }
 
 /** Run probes with bounded concurrency. */
-async function probeAll(baseUrl: string): Promise<ProbeResult[]> {
+async function probeAll(baseUrl: string, pinIp?: string): Promise<ProbeResult[]> {
   const results: ProbeResult[] = [];
   const queue = [...PROBES];
   async function worker() {
     while (queue.length > 0) {
       const def = queue.shift();
       if (!def) return;
-      results.push(await probeOne(baseUrl, def));
+      results.push(await probeOne(baseUrl, def, pinIp));
     }
   }
   await Promise.all(Array.from({ length: PROBE_CONCURRENCY }, worker));
@@ -473,22 +462,17 @@ export async function webScanHandler(c: Context<{ Bindings: Env }>): Promise<Res
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
-  // SSRF: resolve A + AAAA, reject if any is private/reserved.
-  const [a, aaaa] = await Promise.all([resolveRecord(parsed.hostname, 'A'), resolveRecord(parsed.hostname, 'AAAA')]);
-  if (a.error && aaaa.error) {
-    return c.json({ error: `dns lookup failed: ${a.error}` }, 502);
-  }
-  const blockedV4 = a.records.find((ip) => PRIVATE_IPV4.test(ip));
-  const blockedV6 = aaaa.records.find((ip) => isPrivateIpv6(ip));
-  if (blockedV4 || blockedV6) {
+  // SSRF: resolve A + AAAA, reject any private/reserved answer (complete
+  // range list). pinIp pins every fetch below to the validated IP so a
+  // rebind can't redirect the connection to an internal host.
+  const hostCheck = await assertPublicHost(parsed.hostname);
+  if (!hostCheck.ok) {
     return c.json(
-      { error: 'host resolves to a private/reserved IP — refusing to scan', blocked_ip: blockedV4 ?? blockedV6 },
-      403
+      { error: hostCheck.error ?? 'blocked', blocked_ip: hostCheck.blockedIp },
+      (hostCheck.status ?? 403) as 400 | 403 | 502
     );
   }
-  if ([...a.records, ...aaaa.records].length === 0) {
-    return c.json({ error: 'host does not resolve' }, 400);
-  }
+  const pinIp = hostCheck.pinIp;
 
   // Fetch the root URL once for header analysis.
   let mainRes: Response;
@@ -500,7 +484,8 @@ export async function webScanHandler(c: Context<{ Bindings: Env }>): Promise<Res
       redirect: 'manual',
       signal: ctrl.signal,
       headers: { 'user-agent': 'pranithjain-dfir/1.0 web-scan', accept: 'text/html,*/*' },
-    });
+      cf: { resolveOverride: pinIp },
+    } as RequestInit);
     clearTimeout(timer);
   } catch (e) {
     if (e instanceof Error) console.warn('web-scan fetch failed:', e.message);
@@ -525,7 +510,7 @@ export async function webScanHandler(c: Context<{ Bindings: Env }>): Promise<Res
   });
 
   const headerFindings = analyseHeaders(mainRes.headers);
-  const probes = await probeAll(parsed.origin);
+  const probes = await probeAll(parsed.origin, pinIp);
 
   const body: WebScanResponse = {
     url: parsed.toString(),
