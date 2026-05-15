@@ -12,6 +12,7 @@ import {
 import { fetchMalwareSamplesCached } from './malware-samples';
 import { fetchPhishingUrlsCached } from './phishing-urls';
 import { trackEvent, visitorCountry } from '../lib/analytics';
+import { fetchAFDefacements } from '../lib/andreafortuna-feeds';
 
 /**
  * Live IOC stream — unified, time-ordered, per-entry-attributed.
@@ -41,6 +42,8 @@ const CACHE_KEY = LIVE_IOCS_CACHE_KEY;
 const CACHE_TTL_SECONDS = 30 * 60;
 const FETCH_TIMEOUT_MS = 12_000;
 const PER_FEED_CAP = 300;
+const AF_DEFACEMENTS_LASTGOOD_KEY = 'live-iocs/af-defacements-lastgood/v1';
+const LASTGOOD_TTL_SECONDS = 24 * 60 * 60;
 // Ceiling = PER_FEED_CAP × source-count. Previously 400 — small enough that
 // the sort (timestamped-first, no-timestamp tail) silently dropped every
 // untimestamped source (c2-intel, emerging-threats, otx-reputation, openphish)
@@ -81,6 +84,8 @@ interface LiveSource {
    * OTX reputation). UI can color-code freshness off this.
    */
   newest_observation?: string;
+  /** True when the current data comes from the KV last-good fallback. */
+  stale?: boolean;
 }
 
 export interface LiveIocsResponse {
@@ -145,6 +150,7 @@ export async function fetchLiveIocs(
     otxReputationText,
     malwareBazaarResult,
     phishingResult,
+    afDefacementsRaw,
   ] = await Promise.all([
     fetchText('https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/today.csv'),
     fetchText('https://isc.sans.edu/api/sources/attacks/200/?json'),
@@ -155,6 +161,7 @@ export async function fetchLiveIocs(
     fetchText('https://reputation.alienvault.com/reputation.generic'),
     fetchMalwareSamplesCached(executionCtx).catch(() => null),
     fetchPhishingUrlsCached(executionCtx, kv).catch(() => null),
+    fetchAFDefacements().catch(() => [] as LiveIoc[]),
   ]);
 
   const items: LiveIoc[] = [];
@@ -359,6 +366,53 @@ export async function fetchLiveIocs(
     sources.push({ id: 'phishtank', ok: false, count: 0 });
     sources.push({ id: 'openphish', ok: false, count: 0 });
   }
+
+  // ─── Andrea Fortuna Defacements (defaced site URLs) ────────────────────
+  let afDefacements = afDefacementsRaw ?? [];
+  let afDefacementsOk = afDefacements.length > 0;
+  let afDefacementsStale = false;
+
+  if (afDefacementsOk && kv) {
+    executionCtx?.waitUntil(
+      kv.put(
+        AF_DEFACEMENTS_LASTGOOD_KEY,
+        JSON.stringify({ items: afDefacements, refreshed_at: new Date().toISOString() }),
+        { expirationTtl: LASTGOOD_TTL_SECONDS }
+      )
+    );
+  } else if (!afDefacementsOk && kv) {
+    try {
+      const raw = await kv.get(AF_DEFACEMENTS_LASTGOOD_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw) as { items: typeof afDefacements };
+        if (Array.isArray(parsed.items) && parsed.items.length > 0) {
+          afDefacements = parsed.items;
+          afDefacementsOk = true;
+          afDefacementsStale = true;
+        }
+      }
+    } catch {
+      /* leave ok = false */
+    }
+  }
+
+  for (const e of afDefacements) {
+    items.push(e);
+  }
+
+  const newestAf = afDefacements
+    .map((i) => i.observed_at)
+    .filter((t): t is string => Boolean(t))
+    .sort()
+    .pop();
+
+  sources.push({
+    id: 'andreafortuna-defacements',
+    ok: afDefacementsOk,
+    count: afDefacements.length,
+    ...(newestAf ? { newest_observation: newestAf } : {}),
+    ...(afDefacementsStale ? { stale: true } : {}),
+  });
 
   // Drop stale items — observed before the freshness cutoff. Items without
   // observed_at survive (they're bulk-snapshot feeds whose freshness is

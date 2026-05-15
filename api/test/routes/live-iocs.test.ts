@@ -1,0 +1,54 @@
+import { SELF } from 'cloudflare:test';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+
+vi.mock('../../src/lib/andreafortuna-feeds', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('../../src/lib/andreafortuna-feeds')>();
+  return {
+    ...actual,
+    fetchAFDefacements: async () => [
+      {
+        value: 'https://defaced-stub.example.com/',
+        kind: 'url' as const,
+        source: 'andreafortuna-defacements',
+        reporter: 'hax.or',
+        context: 'website defacement',
+        observed_at: '2026-05-15T02:07:54.767Z',
+      },
+    ],
+  };
+});
+
+// Stub all upstream fetches so the handler responds fast in the test env.
+beforeEach(() => {
+  vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('', { status: 502 }));
+});
+
+afterEach(() => {
+  vi.restoreAllMocks();
+});
+
+describe('GET /api/v1/live-iocs — Andrea Fortuna defacements', () => {
+  it('includes the AF defacements source row', async () => {
+    const res = await SELF.fetch('https://example.com/api/v1/live-iocs');
+    expect(res.status).toBe(200);
+    const body = (await res.json()) as {
+      sources: Array<{ id: string; ok: boolean; count: number; newest_observation?: string }>;
+      items: Array<{ value: string; source: string; kind: string }>;
+    };
+    const afSource = body.sources.find((s) => s.id === 'andreafortuna-defacements');
+    expect(afSource).toBeDefined();
+    expect(afSource!.ok).toBe(true);
+    expect(afSource!.count).toBeGreaterThanOrEqual(1);
+  });
+
+  it('includes the stubbed defacement URL in items[]', async () => {
+    const res = await SELF.fetch('https://example.com/api/v1/live-iocs?cb=' + Date.now());
+    const body = (await res.json()) as {
+      items: Array<{ value: string; source: string; kind: string }>;
+    };
+    const stub = body.items.find((i) => i.value === 'https://defaced-stub.example.com/');
+    expect(stub).toBeDefined();
+    expect(stub!.source).toBe('andreafortuna-defacements');
+    expect(stub!.kind).toBe('url');
+  });
+});
