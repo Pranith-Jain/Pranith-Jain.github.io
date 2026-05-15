@@ -62,8 +62,10 @@ function pick(o: Record<string, unknown>, keys: string[]): string | undefined {
 }
 
 function StatsView({ data }: { data: unknown }) {
-  if (!isRecord(data)) return <RawJson value={data} />;
-  const entries = Object.entries(data).filter(([, v]) => typeof v === 'number' || typeof v === 'string');
+  // PRO /stats nests the numbers under `.stats`; unwrap when present.
+  const root = isRecord(data) && isRecord(data.stats) ? data.stats : data;
+  if (!isRecord(root)) return <RawJson value={data} />;
+  const entries = Object.entries(root).filter(([, v]) => typeof v === 'number' || typeof v === 'string');
   if (entries.length === 0) return <RawJson value={data} />;
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
@@ -81,13 +83,21 @@ function StatsView({ data }: { data: unknown }) {
 }
 
 function ListView({ data }: { data: unknown }) {
+  // PRO list endpoints wrap the array under results / groups / stats / data.
+  const arrFrom = (o: Record<string, unknown>): unknown[] | undefined => {
+    for (const k of ['results', 'groups', 'stats', 'data', 'victims', 'items']) {
+      if (Array.isArray(o[k])) return o[k] as unknown[];
+    }
+    return undefined;
+  };
   const rows: unknown[] = Array.isArray(data)
     ? data
-    : isRecord(data) && Array.isArray(data.data)
-      ? (data.data as unknown[])
-      : isRecord(data)
-        ? Object.entries(data).map(([k, v]) => ({ name: k, count: v }))
-        : [];
+    : isRecord(data)
+      ? (arrFrom(data) ??
+        Object.entries(data)
+          .filter(([k]) => k !== 'client')
+          .map(([k, v]) => ({ name: k, count: typeof v === 'object' ? undefined : v })))
+      : [];
   if (rows.length === 0) return <RawJson value={data} />;
   return (
     <ul className="grid gap-2 md:grid-cols-2">
