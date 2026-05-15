@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Copy, KeyRound, Send, ShoppingCart } from 'lucide-react';
+import { ArrowLeft, Bug, Copy, KeyRound, Radio, Send, ShoppingCart } from 'lucide-react';
 
 /**
  * Infostealer live tracker. Three independent live sources composed on one
@@ -16,7 +16,15 @@ import { ArrowLeft, Copy, KeyRound, Send, ShoppingCart } from 'lucide-react';
  * defensively (known fields + raw JSON fallback).
  */
 
-type TabId = 'hudsonrock' | 'markets' | 'telegram';
+type TabId = 'hudsonrock' | 'markets' | 'telegram' | 'samples' | 'c2';
+
+/**
+ * High-precision infostealer family matcher. Covers the dominant
+ * 2024–2026 families seen in MalwareBazaar signatures + ThreatFox/URLhaus
+ * tags. Word-ish boundaries keep "mars" / "meta" from over-matching.
+ */
+const STEALER_RE =
+  /\b(redline|lumma(c2)?|stealc|vidar|raccoon|meta ?stealer|risepro|rhadamanthys|aurora ?stealer|mars ?stealer|azorult|agent ?tesla|snake ?keylogger|lokibot|amos|atomic ?stealer|banshee|cryptbot|vipersoftx|whitesnake|phemedrone|stealerium|mystic ?stealer|darkcloud|strela|erbium|taurus ?stealer|skuld|nexus ?stealer|kematian|acrstealer|fickerstealer)\b/i;
 
 const TABS: Array<{ id: TabId; label: string; icon: typeof KeyRound; blurb: string }> = [
   {
@@ -36,6 +44,18 @@ const TABS: Array<{ id: TabId; label: string; icon: typeof KeyRound; blurb: stri
     label: 'Telegram channels',
     icon: Send,
     blurb: 'deepdarkCTI directory of channels actively trading infostealer logs.',
+  },
+  {
+    id: 'samples',
+    label: 'Stealer samples',
+    icon: Bug,
+    blurb: 'Live MalwareBazaar uploads whose signature/tags match a known infostealer family.',
+  },
+  {
+    id: 'c2',
+    label: 'Stealer C2 / IOCs',
+    icon: Radio,
+    blurb: 'Live ThreatFox / URLhaus / TweetFeed indicators attributed to an infostealer family.',
   },
 ];
 
@@ -64,6 +84,21 @@ interface TelegramItem {
   status: string;
   notes?: string;
 }
+interface SampleItem {
+  family: string;
+  sha256: string;
+  reporter?: string;
+  first_seen?: string;
+  file_type?: string;
+  url: string;
+}
+interface C2Item {
+  value: string;
+  kind: string;
+  family: string;
+  source: string;
+  observed_at?: string;
+}
 
 function RawJson({ value }: { value: unknown }) {
   return (
@@ -79,6 +114,8 @@ export default function Infostealer(): JSX.Element {
   const [hrErr, setHrErr] = useState<string | null>(null);
   const [markets, setMarkets] = useState<MarketItem[] | null>(null);
   const [tg, setTg] = useState<TelegramItem[] | null>(null);
+  const [samples, setSamples] = useState<SampleItem[] | null>(null);
+  const [c2, setC2] = useState<C2Item[] | null>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -88,7 +125,9 @@ export default function Infostealer(): JSX.Element {
       fetch('/api/v1/rl/infostealer').then((r) => r.json().then((j) => ({ ok: r.ok, j }))),
       fetch('/api/v1/cyber-crime').then((r) => r.json()),
       fetch('/api/v1/deepdarkcti').then((r) => r.json()),
-    ]).then(([hrRes, ccRes, ddcRes]) => {
+      fetch('/api/v1/malware-samples').then((r) => r.json()),
+      fetch('/api/v1/live-iocs').then((r) => r.json()),
+    ]).then(([hrRes, ccRes, ddcRes, mbRes, liRes]) => {
       if (!alive) return;
       // HudsonRock / PRO
       if (hrRes.status === 'fulfilled') {
@@ -126,6 +165,41 @@ export default function Infostealer(): JSX.Element {
           }));
         setTg(ch);
       } else setTg([]);
+      // Stealer samples — MalwareBazaar uploads matching a known family
+      if (mbRes.status === 'fulfilled' && isRecord(mbRes.value) && Array.isArray(mbRes.value.samples)) {
+        const ss = (mbRes.value.samples as Record<string, unknown>[])
+          .map((s) => {
+            const sig = String(s.signature ?? '');
+            const tags = Array.isArray(s.tags) ? (s.tags as unknown[]).map(String) : [];
+            const hay = `${sig} ${tags.join(' ')}`;
+            const m = hay.match(STEALER_RE);
+            return m
+              ? {
+                  family: m[0],
+                  sha256: String(s.sha256 ?? ''),
+                  reporter: typeof s.reporter === 'string' ? s.reporter : undefined,
+                  first_seen: typeof s.first_seen === 'string' ? s.first_seen : undefined,
+                  file_type: typeof s.file_type === 'string' ? s.file_type : undefined,
+                  url: String(s.bazaar_url ?? ''),
+                }
+              : null;
+          })
+          .filter((x): x is SampleItem => x !== null);
+        setSamples(ss);
+      } else setSamples([]);
+      // Stealer C2 / IOCs — live-iocs items whose family/context matches
+      if (liRes.status === 'fulfilled' && isRecord(liRes.value) && Array.isArray(liRes.value.items)) {
+        const ci = (liRes.value.items as Record<string, unknown>[])
+          .filter((i) => STEALER_RE.test(String(i.context ?? '')))
+          .map((i) => ({
+            value: String(i.value ?? ''),
+            kind: String(i.kind ?? ''),
+            family: (String(i.context ?? '').match(STEALER_RE) ?? ['?'])[0],
+            source: String(i.source ?? ''),
+            observed_at: typeof i.observed_at === 'string' ? i.observed_at : undefined,
+          }));
+        setC2(ci);
+      } else setC2([]);
       setLoading(false);
     });
     return () => {
@@ -307,6 +381,87 @@ export default function Infostealer(): JSX.Element {
           {tg && tg.length === 0 && (
             <li className="font-mono text-[12px] text-slate-500">
               deepdarkCTI infostealer-Telegram category unavailable.
+            </li>
+          )}
+        </ul>
+      )}
+
+      {!loading && tab === 'samples' && (
+        <ul className="grid gap-2 md:grid-cols-2">
+          {(samples ?? []).map((s, i) => (
+            <li
+              key={i}
+              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
+            >
+              <div className="flex items-center justify-between gap-2">
+                <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 font-mono text-[10px] uppercase text-rose-700 dark:text-rose-300">
+                  {s.family}
+                </span>
+                {s.file_type && <span className="font-mono text-[10px] text-slate-400">{s.file_type}</span>}
+              </div>
+              <div className="flex items-center gap-2 mt-1">
+                <a
+                  href={s.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-mono text-[11px] text-brand-600 dark:text-brand-400 hover:underline break-all"
+                >
+                  {s.sha256.slice(0, 32)}…
+                </a>
+                <button
+                  type="button"
+                  onClick={() => copy(s.sha256)}
+                  className="shrink-0 rounded border border-slate-200 dark:border-slate-700 p-1 text-slate-500 hover:text-brand-600"
+                  aria-label="Copy SHA256"
+                >
+                  <Copy size={11} />
+                </button>
+              </div>
+              <p className="font-mono text-[10px] text-slate-400 mt-1">
+                {s.reporter ? `by ${s.reporter}` : ''} {s.first_seen ?? ''}
+              </p>
+            </li>
+          ))}
+          {samples && samples.length === 0 && (
+            <li className="font-mono text-[12px] text-slate-500">
+              No known-family stealer samples in the current MalwareBazaar window.
+            </li>
+          )}
+        </ul>
+      )}
+
+      {!loading && tab === 'c2' && (
+        <ul className="grid gap-2 md:grid-cols-2">
+          {(c2 ?? []).map((x, i) => (
+            <li
+              key={i}
+              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
+            >
+              <div className="flex items-center justify-between gap-2">
+                <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 font-mono text-[10px] uppercase text-rose-700 dark:text-rose-300">
+                  {x.family}
+                </span>
+                <span className="font-mono text-[10px] text-slate-400">
+                  {x.kind} · {x.source}
+                </span>
+              </div>
+              <div className="flex items-center gap-2 mt-1">
+                <code className="font-mono text-[11px] text-slate-600 dark:text-slate-400 break-all">{x.value}</code>
+                <button
+                  type="button"
+                  onClick={() => copy(x.value)}
+                  className="shrink-0 rounded border border-slate-200 dark:border-slate-700 p-1 text-slate-500 hover:text-brand-600"
+                  aria-label="Copy indicator"
+                >
+                  <Copy size={11} />
+                </button>
+              </div>
+              {x.observed_at && <p className="font-mono text-[10px] text-slate-400 mt-1">{x.observed_at}</p>}
+            </li>
+          ))}
+          {c2 && c2.length === 0 && (
+            <li className="font-mono text-[12px] text-slate-500">
+              No infostealer-attributed indicators in the current live-IOC window.
             </li>
           )}
         </ul>
