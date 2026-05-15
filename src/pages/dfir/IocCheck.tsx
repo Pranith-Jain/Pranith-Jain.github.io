@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useState, useRef, type FormEvent } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, Search, ShieldAlert, ShieldCheck, AlertCircle } from 'lucide-react';
 import { detectType, detectHashSubtype } from '../../lib/dfir/indicator-client';
@@ -68,6 +68,8 @@ export default function IocCheck(): JSX.Element {
   const [summary, setSummary] = useState<DoneEvent | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [eligible, setEligible] = useState<ProviderId[]>([]);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const summaryRef = useRef<HTMLHeadingElement>(null);
   const detectedType = input ? detectType(input) : 'unknown';
   const canSubmit = !!input.trim() && detectedType !== 'unknown' && !streaming;
 
@@ -86,10 +88,12 @@ export default function IocCheck(): JSX.Element {
         setSummary(s);
         setStreaming(false);
         recordHistory({ tool: 'ioc', indicator: input.trim(), verdict: s.verdict, score: s.score });
+        setTimeout(() => summaryRef.current?.focus(), 0);
       },
       onError: (e) => {
         setError(e);
         setStreaming(false);
+        setTimeout(() => inputRef.current?.focus(), 0);
       },
     });
   };
@@ -124,6 +128,7 @@ export default function IocCheck(): JSX.Element {
           <div className="flex-1 relative">
             <input
               id="ioc-input"
+              ref={inputRef}
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -177,7 +182,9 @@ export default function IocCheck(): JSX.Element {
             <>
               <section className="mb-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
                 <div className="flex items-baseline justify-between mb-2">
-                  <h2 className="font-display font-bold text-2xl">Composite verdict</h2>
+                  <h2 ref={summaryRef} tabIndex={-1} className="font-display font-bold text-2xl focus:outline-none">
+                    Composite verdict
+                  </h2>
                   <VerdictChip verdict={summary.verdict} />
                 </div>
                 <div className="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-sm text-slate-600 dark:text-slate-400">
@@ -212,7 +219,7 @@ export default function IocCheck(): JSX.Element {
         })()}
 
       {(streaming || results.length > 0) && (
-        <section aria-busy={streaming && eligible.length === 0}>
+        <section aria-busy={streaming && eligible.length === 0} aria-live="polite" aria-atomic="true">
           <h3 className="font-display font-semibold mb-4 text-lg">Per-source</h3>
           {streaming && eligible.length === 0 ? (
             <p className="text-xs font-mono text-slate-500 dark:text-slate-500 animate-pulse">

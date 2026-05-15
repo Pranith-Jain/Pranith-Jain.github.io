@@ -138,6 +138,10 @@ const AdminApp = lazy(() => import('./pages/admin/AdminApp'));
 const DeepDarkCTI = lazy(() => import('./pages/threatintel/DeepDarkCTI'));
 const RansomwareLive = lazy(() => import('./pages/threatintel/RansomwareLive'));
 const Infostealer = lazy(() => import('./pages/threatintel/Infostealer'));
+const UrlReputation = lazy(() => import('./pages/dfir/UrlReputation'));
+const DomainReputation = lazy(() => import('./pages/dfir/DomainReputation'));
+const EmailReputation = lazy(() => import('./pages/dfir/EmailReputation'));
+const DomainMonitor = lazy(() => import('./pages/threatintel/DomainMonitor'));
 
 /**
  * Preserves the path slug (when `withSlug`), the query string, and the hash
@@ -287,6 +291,16 @@ export function AppContent() {
           <ErrorBoundary>
             <Suspense fallback={<SectionLoader />}>
               <Domain />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/dfir/domain-rep"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <DomainReputation />
             </Suspense>
           </ErrorBoundary>
         }
@@ -1122,6 +1136,36 @@ export function AppContent() {
           <ErrorBoundary>
             <Suspense fallback={<SectionLoader />}>
               <EmlExtractor />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/dfir/url-rep"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <UrlReputation />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/dfir/email-rep"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <EmailReputation />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/threatintel/domain-monitor"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <DomainMonitor />
             </Suspense>
           </ErrorBoundary>
         }

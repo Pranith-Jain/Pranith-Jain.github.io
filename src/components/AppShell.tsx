@@ -2,6 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { ArrowLeft, Command, Menu, Moon, Sun, X, type LucideIcon } from 'lucide-react';
 import { preloadRoute } from '../lib/route-preloaders';
+import { useFocusTrap } from '../hooks/useFocusTrap';
 
 /**
  * App-shell chrome for the two stand-alone surfaces hosted next to the
@@ -47,6 +48,7 @@ const TI_NAV: NavItem[] = [
   { label: 'Writeups', to: '/threatintel/writeups' },
   { label: 'Metrics', to: '/threatintel/metrics' },
   { label: 'Status', to: '/threatintel/status' },
+  { label: 'Domain Monitor', to: '/threatintel/domain-monitor' },
 ];
 
 interface BrandSpec {
@@ -100,6 +102,7 @@ function AppHeader({
 }): JSX.Element {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
+  const drawerRef = useFocusTrap({ isActive: mobileOpen, onEscape: () => setMobileOpen(false) });
 
   // Auto-close the drawer when the route changes (link tap) — depending on
   // useLocation alone isn't enough because the same Link can be tapped while
@@ -194,7 +197,7 @@ function AppHeader({
 
       {/* Mobile nav drawer */}
       {mobileOpen && (
-        <div className="md:hidden fixed inset-0 z-50">
+        <div className="md:hidden fixed inset-0 z-50" ref={drawerRef as React.RefObject<HTMLDivElement>}>
           <button
             type="button"
             aria-label="Close navigation menu"
@@ -342,6 +345,7 @@ function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' }): JSX.Element {
             href="https://github.com/Pranith-Jain/Pranith-Jain.github.io"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="github (opens in new tab)"
             className="inline-flex items-center min-h-[44px] sm:min-h-0 px-2 sm:px-0 hover:text-slate-900 dark:hover:text-slate-100"
           >
             github

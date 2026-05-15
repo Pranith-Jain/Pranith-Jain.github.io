@@ -381,7 +381,11 @@ export default function ThreatMap(): JSX.Element {
           Aggregating IOCs and geolocating…
         </div>
       )}
-      {error && <p className="font-mono text-sm text-rose-600 dark:text-rose-400">error: {error}</p>}
+      {error && (
+        <p role="alert" className="font-mono text-sm text-rose-600 dark:text-rose-400">
+          error: {error}
+        </p>
+      )}
 
       {data && (
         <>
@@ -819,6 +823,7 @@ function SourcesBreakdown({ sourceCounts, iocTypes, totalIps }: SourcesBreakdown
                   href={r.meta.href}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={`${r.name} (opens in new tab)`}
                   className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 truncate"
                 >
                   {r.name}

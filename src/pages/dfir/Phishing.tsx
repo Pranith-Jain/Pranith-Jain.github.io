@@ -1,6 +1,6 @@
-import { useState, type FormEvent } from 'react';
+import { useState, useRef, type FormEvent } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { ArrowLeft, ScanText, Search } from 'lucide-react';
+import { ArrowLeft, ScanText, Search, Crosshair } from 'lucide-react';
 import type { PhishingAnalysisResponse } from '../../lib/dfir/types';
 import { VerdictChip } from '../../components/dfir/VerdictChip';
 import { HeaderTable } from '../../components/dfir/HeaderTable';
@@ -18,6 +18,7 @@ export default function Phishing(): JSX.Element {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<PhishingAnalysisResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const resultRef = useRef<HTMLHeadingElement>(null);
 
   const sendToExtractor = () => {
     if (!input.trim()) return;
@@ -49,6 +50,7 @@ export default function Phishing(): JSX.Element {
       setResult(r2);
       const indicator = String(r2.headers['subject'] ?? r2.headers['from'] ?? 'email');
       recordHistory({ tool: 'phishing', indicator, verdict: r2.verdict, score: r2.score });
+      setTimeout(() => resultRef.current?.focus(), 0);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'analysis failed');
     } finally {
@@ -97,14 +99,24 @@ export default function Phishing(): JSX.Element {
         </div>
       </form>
 
-      {loading && <p className="font-mono text-slate-600 dark:text-slate-400">Analyzing...</p>}
-      {error && <p className="font-mono text-rose-600 dark:text-rose-400">error: {error}</p>}
+      {loading && (
+        <p role="status" className="font-mono text-slate-600 dark:text-slate-400">
+          Analyzing...
+        </p>
+      )}
+      {error && (
+        <p role="alert" className="font-mono text-rose-600 dark:text-rose-400">
+          error: {error}
+        </p>
+      )}
 
       {result && (
         <div className="space-y-6">
           <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
             <div className="flex items-baseline justify-between mb-3 flex-wrap gap-2">
-              <h2 className="font-display font-bold text-2xl">Risk verdict</h2>
+              <h2 ref={resultRef} tabIndex={-1} className="font-display font-bold text-2xl focus:outline-none">
+                Risk verdict
+              </h2>
               <div className="flex items-center gap-2">
                 <button
                   type="button"
@@ -131,6 +143,16 @@ export default function Phishing(): JSX.Element {
           <AuthResultsChips auth={result.auth} />
           <HeaderTable headers={result.headers} />
           <UrlList urls={result.urls} />
+          {result.urls.length > 0 && (
+            <div className="flex gap-2">
+              <Link
+                to={`/dfir/url-rep?url=${encodeURIComponent(result.urls[0])}`}
+                className="inline-flex items-center gap-1.5 text-[11px] font-mono px-3 py-2 rounded-lg border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:bg-rose-500/20"
+              >
+                <Crosshair size={11} /> Check all URLs ({result.urls.length})
+              </Link>
+            </div>
+          )}
           <RelatedActors
             hints={{
               tags: ['phishing', 'spear-phishing'],

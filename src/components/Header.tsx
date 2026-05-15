@@ -99,6 +99,28 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
 
   const isActive = (href: string) => location.pathname === href;
 
+  // Arrow-key navigation within dropdown menus
+  const handleDropdownKeyDown = useCallback((e: React.KeyboardEvent, href: string) => {
+    const link = navLinks.find((l) => l.href === href);
+    if (!link || !('children' in link) || !link.children) return;
+    const items = link.children;
+    const currentEl = e.target as HTMLElement;
+    const menuLinks = Array.from(
+      document.querySelectorAll(`#dropdown-${href.replace('/', '')} a[role="menuitem"]`)
+    ) as HTMLElement[];
+    const currentIndex = menuLinks.indexOf(currentEl);
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      const next = currentIndex < items.length - 1 ? currentIndex + 1 : 0;
+      menuLinks[next]?.focus();
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      const prev = currentIndex > 0 ? currentIndex - 1 : items.length - 1;
+      menuLinks[prev]?.focus();
+    }
+  }, []);
+
   return (
     <>
       <header
@@ -107,7 +129,6 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
             ? 'border-b border-slate-200/60 bg-white/80 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/80'
             : 'border-b border-transparent bg-white/65 backdrop-blur-xl dark:bg-slate-950/60'
         }`}
-        role="banner"
       >
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
           {/* Logo */}
@@ -145,7 +166,7 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden items-center gap-1 md:flex" role="navigation" aria-label="Main navigation">
+          <nav className="hidden items-center gap-1 md:flex" aria-label="Main navigation">
             {navLinks
               .filter((link) => link.label !== 'Home')
               .map((link) => (
@@ -165,6 +186,16 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
                           if (e.key === 'Enter' || e.key === ' ') {
                             e.preventDefault();
                             toggleDropdown(link.href);
+                          } else if (e.key === 'ArrowDown') {
+                            e.preventDefault();
+                            setOpenDropdown(link.href);
+                            // Focus first menuitem after render
+                            setTimeout(() => {
+                              const first = document.querySelector<HTMLElement>(
+                                `#dropdown-${link.href.replace('/', '')} a[role="menuitem"]`
+                              );
+                              first?.focus();
+                            }, 0);
                           }
                         }}
                         className={`flex items-center gap-1 rounded-full px-3 py-2 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
@@ -185,8 +216,11 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
                       {openDropdown === link.href && (
                         <div
                           id={`dropdown-${link.href.replace('/', '')}`}
+                          role="menu"
+                          tabIndex={-1}
                           className="absolute left-0 top-full mt-1 min-w-[200px] rounded-xl border border-slate-200/60 bg-white/95 py-2 shadow-lg backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/95"
                           onMouseLeave={() => setOpenDropdown(null)}
+                          onKeyDown={(e) => handleDropdownKeyDown(e, link.href)}
                         >
                           {link.children.map((child) => (
                             <Link
@@ -262,7 +296,6 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
           {/* Menu */}
           <nav
             className="absolute top-[72px] left-0 right-0 border-t border-slate-200/60 bg-white/95 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/95 max-h-[calc(100vh-80px)] overflow-y-auto"
-            role="navigation"
             aria-label="Mobile navigation"
           >
             <div className="flex flex-col p-4 space-y-1">

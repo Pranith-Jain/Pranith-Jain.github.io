@@ -253,7 +253,10 @@ export default function CryptoTrace(): JSX.Element {
           ))}
         </div>
         {error && (
-          <p className="mt-2 text-xs font-mono text-rose-600 dark:text-rose-400 inline-flex items-center gap-1.5">
+          <p
+            role="alert"
+            className="mt-2 text-xs font-mono text-rose-600 dark:text-rose-400 inline-flex items-center gap-1.5"
+          >
             <AlertTriangle size={12} /> {error}
           </p>
         )}

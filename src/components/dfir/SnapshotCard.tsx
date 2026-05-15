@@ -71,7 +71,7 @@ function NewBadge({ count }: { count: number }): JSX.Element | null {
   return (
     <span
       className="text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded-full border border-amber-500/50 bg-amber-500/15 text-amber-700 dark:text-amber-300 shrink-0"
-      title={`${count} new since your last visit`}
+      aria-label={`${count} new since your last visit`}
     >
       {count} new
     </span>
@@ -87,7 +87,7 @@ function WatchPill({ count, terms }: { count: number; terms?: string[] }): JSX.E
   return (
     <span
       className="text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded-full border border-violet-500/50 bg-violet-500/15 text-violet-700 dark:text-violet-300 shrink-0"
-      title={tooltip}
+      aria-label={tooltip}
     >
       {count} watch
     </span>
@@ -100,7 +100,7 @@ function WatchPill({ count, terms }: { count: number; terms?: string[] }): JSX.E
  */
 function Skeleton(): JSX.Element {
   return (
-    <div className="mt-1 space-y-2 animate-pulse">
+    <div className="mt-1 space-y-2 animate-pulse" aria-hidden="true" role="presentation">
       <div className="h-3 bg-slate-200 dark:bg-slate-800 rounded w-3/4" />
       <div className="h-2.5 bg-slate-200 dark:bg-slate-800 rounded w-full mt-3" />
       <div className="h-2.5 bg-slate-200 dark:bg-slate-800 rounded w-5/6" />

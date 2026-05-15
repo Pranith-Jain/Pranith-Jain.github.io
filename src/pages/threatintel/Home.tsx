@@ -287,6 +287,12 @@ const SECTIONS: Section[] = [
         icon: Globe,
       },
       {
+        to: '/threatintel/domain-monitor',
+        label: 'Domain Monitor',
+        desc: 'Typosquatting and domain impersonation scanner. Generates lookalike variants — character swaps, TLD swaps, homoglyphs, prefix/suffix abuse. Inspired by haveibeensquatted.com.',
+        icon: Search,
+      },
+      {
         to: '/threatintel/osint-framework',
         label: 'OSINT Framework',
         desc: '70+ curated OSINT tools across 15 categories. Filter by pricing tier and category.',

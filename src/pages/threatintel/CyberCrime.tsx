@@ -179,7 +179,11 @@ export default function CyberCrime(): JSX.Element {
         </p>
       </div>
 
-      {error && <p className="font-mono text-sm text-rose-600 dark:text-rose-400 mb-4">error: {error}</p>}
+      {error && (
+        <p role="alert" className="font-mono text-sm text-rose-600 dark:text-rose-400 mb-4">
+          error: {error}
+        </p>
+      )}
 
       {/* Category filter pills */}
       {data && (

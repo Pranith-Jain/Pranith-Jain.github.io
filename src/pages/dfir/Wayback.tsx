@@ -317,6 +317,7 @@ export default function Wayback(): JSX.Element {
                   {(['timestamp', 'status', 'mime', 'length'] as const).map((k) => (
                     <th
                       key={k}
+                      scope="col"
                       className="pb-2 pr-3 cursor-pointer hover:text-brand-600 dark:hover:text-brand-400 select-none"
                       onClick={() => onHeaderClick(k)}
                       title="Click to sort"
@@ -325,7 +326,9 @@ export default function Wayback(): JSX.Element {
                       <span className="ml-1 opacity-60">{sortKey === k ? (sortDir === 'asc' ? '↑' : '↓') : '↕'}</span>
                     </th>
                   ))}
-                  <th className="pb-2 pr-3">Open</th>
+                  <th scope="col" className="pb-2 pr-3">
+                    Open
+                  </th>
                 </tr>
               </thead>
               <tbody>

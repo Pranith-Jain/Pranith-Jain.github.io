@@ -1,4 +1,4 @@
-import { Linkedin, Github, Mail, Terminal } from 'lucide-react';
+import { Linkedin, Github, Mail, Terminal, FileText } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { personalInfo, stats } from '../../data/content';
 import { PjMark } from '../PjMark';
@@ -23,6 +23,9 @@ export function Hero() {
             </span>
             <span className="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-4 py-1.5 text-xs font-semibold text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200">
               Email Defense
+            </span>
+            <span className="inline-flex items-center gap-2 rounded-full border border-sky-200/70 bg-sky-50/70 px-4 py-1.5 text-xs font-semibold text-sky-700 shadow-sm backdrop-blur-xl dark:border-sky-800/50 dark:bg-sky-900/30 dark:text-sky-300">
+              Blog
             </span>
             <span className="inline-flex items-center gap-2 rounded-full border border-emerald-200/70 bg-emerald-50/70 px-4 py-1.5 text-xs font-semibold text-emerald-700 shadow-sm backdrop-blur-xl dark:border-emerald-800/50 dark:bg-emerald-900/30 dark:text-emerald-300">
               AU Ambassador Program
@@ -80,6 +83,7 @@ export function Hero() {
               href={personalInfo.calendlyUrl}
               target="_blank"
               rel="noreferrer"
+              aria-label="Book Strategy Call (opens in new tab)"
               className="inline-flex items-center justify-center rounded-2xl bg-brand-600 px-8 py-4 text-base font-bold text-white shadow-glow transition hover:bg-brand-500 hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-900"
             >
               Book Strategy Call
@@ -101,6 +105,12 @@ export function Hero() {
               className="inline-flex items-center justify-center rounded-2xl border border-slate-200/60 bg-white/70 px-8 py-4 text-base font-bold text-slate-800 shadow-sm transition hover:shadow-md hover:scale-105 active:scale-95 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-900"
             >
               Explore Focus Areas
+            </Link>
+            <Link
+              to="/blog"
+              className="inline-flex items-center justify-center gap-2 rounded-2xl border border-sky-300/60 bg-sky-50/70 px-8 py-4 text-base font-bold text-sky-700 shadow-sm transition hover:shadow-md hover:scale-105 active:scale-95 dark:border-sky-700/60 dark:bg-sky-900/30 dark:text-sky-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-900"
+            >
+              <FileText className="h-4 w-4" aria-hidden="true" /> Read the Blog
             </Link>
           </div>
 

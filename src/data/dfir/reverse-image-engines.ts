@@ -82,7 +82,7 @@ export const ENGINES: ReverseImageEngine[] = [
     id: 'karma-decay',
     name: 'Karma Decay (Reddit)',
     blurb: 'Reddit-only reverse-image search. Useful when you suspect the image is from a Reddit post.',
-    build: (u) => `http://karmadecay.com/index/?kdtoolver=b1&q=${enc(u)}`,
+    build: (u) => `https://karmadecay.com/index/?kdtoolver=b1&q=${enc(u)}`,
     coverage: 'Narrow but useful for "did this circulate on Reddit first?" lookups.',
   },
 ];

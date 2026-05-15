@@ -51,8 +51,6 @@ export function CopyToClipboard({ text, label, className = '', successMessage = 
         ${className}
       `}
       aria-label={`Copy ${label || text} to clipboard`}
-      aria-live="polite"
-      aria-atomic="true"
     >
       {copied ? (
         <>
@@ -65,6 +63,9 @@ export function CopyToClipboard({ text, label, className = '', successMessage = 
           {label && <span>{label}</span>}
         </>
       )}
+      <span className="sr-only" role="status" aria-live="polite" aria-atomic="true">
+        {copied ? successMessage : ''}
+      </span>
     </button>
   );
 }

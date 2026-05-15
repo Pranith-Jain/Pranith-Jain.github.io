@@ -457,12 +457,16 @@ export default function DataClassification(): JSX.Element {
           <table className="w-full text-xs font-mono">
             <thead className="bg-slate-50 dark:bg-slate-950 text-left">
               <tr>
-                <th className="px-3 py-2 text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-500">
+                <th
+                  scope="col"
+                  className="px-3 py-2 text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-500"
+                >
                   Handling rule
                 </th>
                 {TIERS.map((t) => (
                   <th
                     key={t}
+                    scope="col"
                     className={`px-3 py-2 text-[10px] uppercase tracking-wider border-l border-slate-200 dark:border-slate-800 ${TIER_STYLES[t]}`}
                   >
                     {TIER_LABELS[t]}

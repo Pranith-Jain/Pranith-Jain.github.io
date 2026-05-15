@@ -48,11 +48,21 @@ export default function FailedTab() {
     <table className="w-full text-sm">
       <thead className="text-left text-xs uppercase tracking-wider text-zinc-500 border-b border-zinc-800">
         <tr>
-          <th className="py-2 pr-4">Slot ID</th>
-          <th className="py-2 pr-4">Candidate ID</th>
-          <th className="py-2 pr-4">Error</th>
-          <th className="py-2 pr-4">Failed at</th>
-          <th className="py-2">Retries</th>
+          <th scope="col" className="py-2 pr-4">
+            Slot ID
+          </th>
+          <th scope="col" className="py-2 pr-4">
+            Candidate ID
+          </th>
+          <th scope="col" className="py-2 pr-4">
+            Error
+          </th>
+          <th scope="col" className="py-2 pr-4">
+            Failed at
+          </th>
+          <th scope="col" className="py-2">
+            Retries
+          </th>
         </tr>
       </thead>
       <tbody>

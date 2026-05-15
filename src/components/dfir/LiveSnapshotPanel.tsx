@@ -379,7 +379,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                           className={`inline-block w-1.5 h-1.5 rounded-full shrink-0 ${
                             matched.length > 0 ? 'bg-violet-500' : isNew ? 'bg-amber-500' : 'bg-transparent'
                           }`}
-                          role={matched.length > 0 || isNew ? 'img' : undefined}
+                          role="img"
                           aria-label={
                             matched.length > 0
                               ? `watchlist match: ${matched.join(', ')}`

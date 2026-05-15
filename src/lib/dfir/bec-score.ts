@@ -13,9 +13,9 @@ export interface DomainApiResponse {
     spf: { present: boolean; policy?: string; record?: string };
     dmarc: { present: boolean; policy?: string; pct?: number; record?: string };
     dkim: { selectors_found: string[] };
-    bimi: { present: boolean };
+    bimi: { present: boolean; logo?: string };
     mta_sts: { present: boolean; mode?: string };
-    tls_rpt: { present: boolean };
+    tls_rpt: { present: boolean; rua?: string };
   };
   // Note: the /api/v1/domain response also includes a `dns: { MX, ... }`
   // block, but assess() doesn't read it — domain DNS records are surfaced
@@ -242,7 +242,47 @@ export function assess(d: DomainApiResponse): BecAssessment {
     positives.push('MTA-STS in enforce mode.');
   }
 
-  if (bimi.present) positives.push('BIMI record published — extra brand signal in supporting clients.');
+  // ── BIMI ────────────────────────────────────────────────────────────
+  if (!bimi.present) {
+    score += 3;
+    gaps.push({
+      id: 'bimi-missing',
+      title: 'BIMI record is missing',
+      severity: 'low',
+      scenario:
+        'Without BIMI, supporting mail clients cannot display your verified brand logo, reducing trust signals and making it harder for recipients to distinguish legitimate mail from lookalike phishing.',
+      remediation:
+        'Publish a BIMI record at default._bimi.<domain> pointing to your SVG logo and ensure DMARC is at p=quarantine or p=reject.',
+      record: {
+        name: 'default._bimi',
+        type: 'TXT',
+        value: `v=BIMI1; l=https://${d.domain}/logo.svg;`,
+      },
+    });
+  } else {
+    positives.push('BIMI record published — extra brand signal in supporting clients.');
+  }
+
+  // ── TLS-RPT ──────────────────────────────────────────────────────────
+  const tlsRpt = d.email_auth.tls_rpt;
+  if (!tlsRpt.present) {
+    score += 2;
+    gaps.push({
+      id: 'tls-rpt-missing',
+      title: 'TLS reporting (TLS-RPT) not configured',
+      severity: 'low',
+      scenario:
+        'Without TLS-RPT, you have no visibility into TLS connection failures from receiving MTAs. Downgrade or STARTTLS stripping attacks go undetected.',
+      remediation: 'Publish a TLS-RPT record at _smtp._tls.<domain> pointing to a reporting inbox.',
+      record: {
+        name: '_smtp._tls',
+        type: 'TXT',
+        value: `v=TLSRPTv1; rua=mailto:tls-reports@${d.domain};`,
+      },
+    });
+  } else {
+    positives.push(`TLS-RPT configured${tlsRpt.rua ? ` (reports to ${tlsRpt.rua})` : ''}.`);
+  }
 
   score = Math.max(0, Math.min(100, score));
   const g = grade(score);

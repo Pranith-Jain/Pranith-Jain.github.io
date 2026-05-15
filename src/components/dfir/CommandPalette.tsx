@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, X, Command, ArrowRight, Loader2 } from 'lucide-react';
+import { useFocusTrap } from '../../hooks/useFocusTrap';
 import { SECTIONS, type Tool } from './ToolGrid';
 import {
   loadCatalogIndex,
@@ -436,6 +437,8 @@ export function CommandPalette(): JSX.Element | null {
   const listRef = useRef<HTMLUListElement | null>(null);
   const catalogLoadedRef = useRef(false);
 
+  const dialogRef = useFocusTrap({ isActive: open, onEscape: () => setOpen(false) });
+
   // Open on Cmd+K / Ctrl+K. Close on Esc.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -537,6 +540,7 @@ export function CommandPalette(): JSX.Element | null {
       role="dialog"
       aria-modal="true"
       aria-label="Command palette"
+      ref={dialogRef as React.RefObject<HTMLDivElement>}
     >
       {/* Backdrop */}
       <button

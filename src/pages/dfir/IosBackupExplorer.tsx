@@ -110,7 +110,11 @@ export default function IosBackupExplorer(): JSX.Element {
               <thead className="bg-slate-50 dark:bg-slate-900 sticky top-0">
                 <tr>
                   {['domain', 'relativePath', 'fileID'].map((c) => (
-                    <th key={c} className="text-left px-2 py-1 border-b border-slate-200 dark:border-slate-800">
+                    <th
+                      key={c}
+                      scope="col"
+                      className="text-left px-2 py-1 border-b border-slate-200 dark:border-slate-800"
+                    >
                       {c}
                     </th>
                   ))}

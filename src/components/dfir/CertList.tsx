@@ -18,26 +18,28 @@ export function CertList({ certs }: { certs: DomainLookupResponse['certificates'
           Certificate Transparency{' '}
           <span className="text-sm font-mono text-slate-600 dark:text-slate-400">({certs.length} entries)</span>
         </h3>
-        <div className="flex gap-1" role="group" aria-label="View mode">
+        <div className="flex gap-1" role="tablist" aria-label="View mode">
           <button
             onClick={() => setViewMode('list')}
+            role="tab"
+            aria-selected={viewMode === 'list'}
             className={`px-3 py-1 text-xs font-mono rounded-full border transition-colors ${
               viewMode === 'list'
                 ? 'bg-brand-600 dark:bg-brand-500 text-white border-brand-600 dark:border-brand-500'
                 : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
             }`}
-            aria-pressed={viewMode === 'list'}
           >
             List
           </button>
           <button
             onClick={() => setViewMode('timeline')}
+            role="tab"
+            aria-selected={viewMode === 'timeline'}
             className={`px-3 py-1 text-xs font-mono rounded-full border transition-colors ${
               viewMode === 'timeline'
                 ? 'bg-brand-600 dark:bg-brand-500 text-white border-brand-600 dark:border-brand-500'
                 : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
             }`}
-            aria-pressed={viewMode === 'timeline'}
           >
             Timeline
           </button>

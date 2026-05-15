@@ -18,6 +18,9 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     '@typescript-eslint/no-explicit-any': 'warn',
     'jsx-a11y/anchor-is-valid': 'off',
+    'jsx-a11y/scope': 'warn',
+    'jsx-a11y/no-redundant-roles': 'warn',
+    'jsx-a11y/alt-text': 'warn',
   },
   overrides: [
     {

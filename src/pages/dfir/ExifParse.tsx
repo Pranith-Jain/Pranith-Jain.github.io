@@ -159,21 +159,20 @@ export default function ExifParse(): JSX.Element {
       </div>
 
       {/* Drop zone */}
-      <div
-        onDragOver={(e) => {
+      <button
+        type="button"
+        onDragOver={(e: React.DragEvent) => {
           e.preventDefault();
           setDragging(true);
         }}
         onDragLeave={() => setDragging(false)}
-        onDrop={onDrop}
+        onDrop={onDrop as (e: React.DragEvent) => void}
         onClick={() => inputRef.current?.click()}
-        role="button"
-        tabIndex={0}
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') inputRef.current?.click();
         }}
         aria-label="Upload image file"
-        className={`mb-8 rounded-2xl border-2 border-dashed p-12 text-center cursor-pointer transition-colors ${
+        className={`mb-8 rounded-2xl border-2 border-dashed p-12 text-center cursor-pointer transition-colors w-full ${
           dragging
             ? 'border-brand-500 bg-brand-50 dark:bg-brand-900/10'
             : 'border-slate-300 dark:border-slate-700 hover:border-brand-400 dark:hover:border-brand-600'
@@ -188,18 +187,15 @@ export default function ExifParse(): JSX.Element {
           <span className="text-brand-600 dark:text-brand-400 hover:underline">click to browse</span>
         </p>
         <p className="mt-1 text-xs font-mono text-slate-500">JPEG · PNG · HEIC · TIFF</p>
-        <input
-          ref={inputRef}
-          type="file"
-          accept="image/*"
-          className="hidden"
-          onChange={onFileChange}
-          aria-hidden="true"
-        />
-      </div>
+        <input ref={inputRef} type="file" accept="image/*" className="hidden" onChange={onFileChange} />
+      </button>
 
       {loading && <p className="font-mono text-slate-600 dark:text-slate-400">Parsing EXIF data…</p>}
-      {error && <p className="font-mono text-sm text-rose-600 dark:text-rose-400">error: {error}</p>}
+      {error && (
+        <p role="alert" className="font-mono text-sm text-rose-600 dark:text-rose-400">
+          error: {error}
+        </p>
+      )}
 
       {metadata && (
         <div className="animate-fade-in-up space-y-6">

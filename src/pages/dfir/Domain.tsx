@@ -82,7 +82,11 @@ export default function Domain(): JSX.Element {
       </form>
 
       {loading && <p className="font-mono text-slate-600 dark:text-slate-400">Looking up…</p>}
-      {error && <p className="font-mono text-rose-600 dark:text-rose-400">error: {error}</p>}
+      {error && (
+        <p role="alert" className="font-mono text-rose-600 dark:text-rose-400">
+          error: {error}
+        </p>
+      )}
 
       {result && (
         <div className="space-y-6">

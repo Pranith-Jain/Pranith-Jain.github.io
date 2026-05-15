@@ -54,6 +54,7 @@ export default function DFIRPage(): JSX.Element {
               href={personalInfo.githubUrl}
               target="_blank"
               rel="noreferrer"
+              aria-label={`${personalInfo.name} (opens in new tab)`}
               className="text-brand-600 dark:text-brand-400 hover:underline"
             >
               {personalInfo.name}

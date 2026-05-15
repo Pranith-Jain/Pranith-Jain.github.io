@@ -94,7 +94,11 @@ export default function Takeover(): JSX.Element {
         </div>
       </form>
 
-      {error && <p className="text-sm font-mono text-rose-600 dark:text-rose-400">error: {error}</p>}
+      {error && (
+        <p role="alert" className="text-sm font-mono text-rose-600 dark:text-rose-400">
+          error: {error}
+        </p>
+      )}
 
       {result && (
         <div className="space-y-6">

@@ -47,9 +47,15 @@ export default function ScheduleTab() {
     <table className="w-full text-sm">
       <thead className="text-left text-xs uppercase tracking-wider text-zinc-500 border-b border-zinc-800">
         <tr>
-          <th className="py-2 pr-4">Slot time</th>
-          <th className="py-2 pr-4">Candidate ID</th>
-          <th className="py-2">Status</th>
+          <th scope="col" className="py-2 pr-4">
+            Slot time
+          </th>
+          <th scope="col" className="py-2 pr-4">
+            Candidate ID
+          </th>
+          <th scope="col" className="py-2">
+            Status
+          </th>
         </tr>
       </thead>
       <tbody>

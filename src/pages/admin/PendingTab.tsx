@@ -68,12 +68,24 @@ export default function PendingTab() {
     <table className="w-full text-sm">
       <thead className="text-left text-xs uppercase tracking-wider text-zinc-500 border-b border-zinc-800">
         <tr>
-          <th className="py-2 pr-4">Type</th>
-          <th className="py-2 pr-4">Title</th>
-          <th className="py-2 pr-4">Score</th>
-          <th className="py-2 pr-4">Rationale</th>
-          <th className="py-2 pr-4">Discovered</th>
-          <th className="py-2">Actions</th>
+          <th scope="col" className="py-2 pr-4">
+            Type
+          </th>
+          <th scope="col" className="py-2 pr-4">
+            Title
+          </th>
+          <th scope="col" className="py-2 pr-4">
+            Score
+          </th>
+          <th scope="col" className="py-2 pr-4">
+            Rationale
+          </th>
+          <th scope="col" className="py-2 pr-4">
+            Discovered
+          </th>
+          <th scope="col" className="py-2">
+            Actions
+          </th>
         </tr>
       </thead>
       <tbody>

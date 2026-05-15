@@ -227,7 +227,11 @@ export default function PeAnalyzer(): JSX.Element {
               <thead className="bg-slate-50 dark:bg-slate-900">
                 <tr>
                   {['Section', 'VirtualSize', 'RawSize', 'Entropy', 'Flags'].map((h) => (
-                    <th key={h} className="text-left px-2 py-1 border-b border-slate-200 dark:border-slate-800">
+                    <th
+                      key={h}
+                      scope="col"
+                      className="text-left px-2 py-1 border-b border-slate-200 dark:border-slate-800"
+                    >
                       {h}
                     </th>
                   ))}

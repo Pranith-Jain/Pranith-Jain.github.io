@@ -56,7 +56,12 @@ export function HeaderTable({ headers }: HeaderTableProps): JSX.Element {
           <tbody>
             {displayEntries.map(([key, value]) => (
               <tr key={key} className="border-b border-slate-200 dark:border-slate-800 last:border-0">
-                <td className="py-2 pr-4 text-slate-600 dark:text-slate-400 align-top whitespace-nowrap w-40">{key}</td>
+                <th
+                  scope="row"
+                  className="py-2 pr-4 text-slate-600 dark:text-slate-400 align-top whitespace-nowrap w-40 font-normal text-left"
+                >
+                  {key}
+                </th>
                 <td className="py-2 text-slate-900 dark:text-slate-100 break-all whitespace-pre-wrap">
                   {String(value)}
                 </td>

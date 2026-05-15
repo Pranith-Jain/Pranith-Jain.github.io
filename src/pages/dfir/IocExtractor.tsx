@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { ArrowLeft, ClipboardCopy, Check, ShieldAlert, Terminal } from 'lucide-react';
+import { ArrowLeft, ClipboardCopy, Check, ShieldAlert, Terminal, Crosshair, Upload } from 'lucide-react';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
 
 type IocBucket = 'ipv4' | 'ipv6' | 'domain' | 'url' | 'md5' | 'sha1' | 'sha256' | 'email';
@@ -173,6 +173,12 @@ export default function IocExtractor(): JSX.Element {
   const [copied, setCopied] = useState<string | null>(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const [pipedFrom, setPipedFrom] = useState<string | null>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  const onFile = async (file: File) => {
+    const text = await file.text();
+    setInput(text);
+  };
 
   // Sister-tool pipe: PowerShell Deobfuscator (and others later) drops
   // its decoded output into sessionStorage and navigates here. Read
@@ -240,6 +246,37 @@ export default function IocExtractor(): JSX.Element {
         </p>
       </div>
 
+      {/* File drop */}
+      <div className="mb-4">
+        <button
+          type="button"
+          onDrop={(e) => {
+            e.preventDefault();
+            const f = e.dataTransfer.files?.[0];
+            if (f) void onFile(f);
+          }}
+          onDragOver={(e) => e.preventDefault()}
+          onClick={() => fileRef.current?.click()}
+          className="w-full border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-lg p-4 text-center cursor-pointer hover:border-brand-500/40 focus-visible:outline-none focus-visible:border-brand-500/60"
+          aria-label="Drop an .eml or text file here, or click to choose"
+        >
+          <Upload size={20} className="mx-auto mb-1 text-slate-500" />
+          <p className="text-sm font-mono text-slate-600 dark:text-slate-400">
+            Drop an .eml or .txt file, or paste below
+          </p>
+        </button>
+        <input
+          ref={fileRef}
+          type="file"
+          accept=".eml,.txt,message/rfc822"
+          className="hidden"
+          onChange={(e) => {
+            const f = e.target.files?.[0];
+            if (f) void onFile(f);
+          }}
+        />
+      </div>
+
       {pipedFrom && (
         <div className="mb-3 rounded border border-cyan-500/30 bg-cyan-500/5 p-2.5 text-[12px] font-mono text-cyan-700 dark:text-cyan-300 inline-flex items-center gap-2">
           <Terminal size={12} /> Pre-filled from {pipedFrom} output. Edit freely below or
@@ -303,6 +340,17 @@ export default function IocExtractor(): JSX.Element {
 
       {results.length === 0 && input.trim() && (
         <p className="text-sm font-mono text-slate-500">No indicators detected.</p>
+      )}
+
+      {totalCount > 0 && (
+        <div className="mb-4 flex gap-2">
+          <Link
+            to={`/dfir/ioc-check?indicator=${encodeURIComponent(results[0]?.values[0] ?? '')}`}
+            className="inline-flex items-center gap-1.5 text-[11px] font-mono px-3 py-2 rounded-lg border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:bg-brand-500/20"
+          >
+            <Crosshair size={11} /> Check first indicator in IOC Checker
+          </Link>
+        </div>
       )}
 
       <div className="space-y-6">

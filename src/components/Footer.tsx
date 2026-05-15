@@ -53,6 +53,7 @@ export function Footer() {
           href={personalInfo.linkedInUrl}
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="LinkedIn (opens in new tab)"
           className="hover:text-slate-600 dark:hover:text-slate-300 transition focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 rounded"
         >
           LinkedIn
@@ -61,6 +62,7 @@ export function Footer() {
           href={personalInfo.githubUrl}
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="GitHub (opens in new tab)"
           className="hover:text-slate-600 dark:hover:text-slate-300 transition focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 rounded"
         >
           GitHub

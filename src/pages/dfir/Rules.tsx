@@ -126,7 +126,11 @@ export default function Rules(): JSX.Element {
       <RulesSnapshotPanel />
 
       {loading && !data && <p className="font-mono text-sm text-slate-500">Loading rule sources…</p>}
-      {error && <p className="font-mono text-sm text-rose-600 dark:text-rose-400">error: {error}</p>}
+      {error && (
+        <p role="alert" className="font-mono text-sm text-rose-600 dark:text-rose-400">
+          error: {error}
+        </p>
+      )}
 
       {data && (
         <>

@@ -252,7 +252,11 @@ function PasswordTab(): JSX.Element {
           <span className="font-mono text-sm">Checking breach databases...</span>
         </div>
       )}
-      {error && <p className="font-mono text-rose-600 dark:text-rose-400">error: {error}</p>}
+      {error && (
+        <p role="alert" className="font-mono text-rose-600 dark:text-rose-400">
+          error: {error}
+        </p>
+      )}
 
       {result && (
         <div className="animate-fade-in-up">
@@ -422,7 +426,11 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
           <span className="font-mono text-sm">Querying breach databases...</span>
         </div>
       )}
-      {error && <p className="font-mono text-rose-600 dark:text-rose-400">error: {error}</p>}
+      {error && (
+        <p role="alert" className="font-mono text-rose-600 dark:text-rose-400">
+          error: {error}
+        </p>
+      )}
 
       {result && (
         <div className="animate-fade-in-up space-y-6">
@@ -609,7 +617,11 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
           <span className="font-mono text-sm">Querying breach databases...</span>
         </div>
       )}
-      {error && <p className="font-mono text-rose-600 dark:text-rose-400">error: {error}</p>}
+      {error && (
+        <p role="alert" className="font-mono text-rose-600 dark:text-rose-400">
+          error: {error}
+        </p>
+      )}
 
       {result && (
         <div className="animate-fade-in-up space-y-6">

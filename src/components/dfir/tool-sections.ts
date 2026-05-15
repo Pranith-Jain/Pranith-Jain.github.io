@@ -254,6 +254,13 @@ export const SECTIONS: Section[] = [
         icon: Globe,
       },
       {
+        path: '/dfir/domain-rep',
+        useCase: 'Check domain and IP against 11 DNSBL sources.',
+        label: 'Domain & IP Reputation',
+        desc: 'Spamhaus · Barracuda · SORBS · URIBL · Invaluement · DNS-over-HTTPS · no API key required',
+        icon: ShieldCheck,
+      },
+      {
         path: '/dfir/full-spectrum',
         useCase: 'Run every domain check from one query.',
         label: 'Full Spectrum Domain',
@@ -332,6 +339,13 @@ export const SECTIONS: Section[] = [
         icon: Users,
       },
       {
+        path: '/dfir/url-rep',
+        useCase: 'Check a URL across 20+ sources.',
+        label: 'URL Reputation',
+        desc: 'Streaming verdict · 20+ sources · VT · PhishTank · URLScan · OTX · ThreatFox · composite score',
+        icon: Eye,
+      },
+      {
         path: '/dfir/url-preview',
         useCase: 'Safely preview a suspicious link.',
         label: 'URL Preview',
@@ -372,6 +386,13 @@ export const SECTIONS: Section[] = [
         label: 'Google Dork Builder',
         desc: 'Compose site:/filetype:/intitle: operators · presets · open in Google/Bing/DDG/Yandex',
         icon: Search,
+      },
+      {
+        path: '/threatintel/domain-monitor',
+        useCase: 'Scan your domain for typosquat lookalikes.',
+        label: 'Domain Monitor',
+        desc: 'Typosquat · TLD-swap · homoglyph · affix abuse · inspired by haveibeensquatted.com · live DNS + screenshot lookups',
+        icon: ShieldAlert,
       },
       {
         path: '/dfir/brand-impersonation',
@@ -415,6 +436,13 @@ export const SECTIONS: Section[] = [
         label: 'EML Attachment Extractor',
         desc: 'Drop a raw .eml · decode multipart · SHA-256 / SHA-1 / MD5 each attachment · one-click pivot to file lookup',
         icon: Paperclip,
+      },
+      {
+        path: '/dfir/email-rep',
+        useCase: 'Check a domain email reputation.',
+        label: 'Email Reputation',
+        desc: 'MX · SPF · DKIM · DMARC · BIMI · MTA-STS · TLS-RPT · 13 IP blacklists · 6 domain blacklists · live DNSBL via DoH · composite score',
+        icon: Mail,
       },
       {
         path: '/dfir/email-defense',

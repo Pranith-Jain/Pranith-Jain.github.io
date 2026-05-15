@@ -187,7 +187,11 @@ export default function Privacy(): JSX.Element {
         </div>
       )}
 
-      {error && <p className="font-mono text-sm text-rose-600 dark:text-rose-400">error: {error}</p>}
+      {error && (
+        <p role="alert" className="font-mono text-sm text-rose-600 dark:text-rose-400">
+          error: {error}
+        </p>
+      )}
 
       {opsec && (
         <section

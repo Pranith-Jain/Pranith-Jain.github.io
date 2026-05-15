@@ -63,7 +63,7 @@ export default function ScreenshotIntel(): JSX.Element {
       // served same-origin; workerBlobURL:false keeps the CSP tight).
       let ocrText = '';
       try {
-        setStage('running OCR (first run downloads the ~11 MB language model)…');
+        setStage('loading OCR engine (~11 MB language model)…');
         const { createWorker } = await import('tesseract.js');
         const worker = await createWorker('eng', 1, {
           workerPath: '/tesseract/worker.min.js',
@@ -104,7 +104,7 @@ export default function ScreenshotIntel(): JSX.Element {
       <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mt-1 mb-6">
         Drop a screenshot/photo — runs OCR (self-hosted Tesseract), decodes embedded QR codes, reads EXIF/GPS metadata,
         and pulls OSINT entities (URLs, domains, IPs, emails, crypto addresses, hashes) from the recognised text. 100%
-        client-side; the language model is fetched same-origin on first OCR run.
+        client-side; the language model is served same-origin.
       </p>
 
       <label className="inline-block px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 cursor-pointer font-mono text-[12px]">

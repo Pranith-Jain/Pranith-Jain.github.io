@@ -5,7 +5,6 @@
  * (URL only, not inlined into JS), so no CDN / connect-src change is
  * needed; the worker CSP only adds 'wasm-unsafe-eval' for WASM compile.
  */
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error — Vite ?url asset import (string), no ambient type
 import wasmUrl from 'sql.js/dist/sql-wasm.wasm?url';
 import type { SqlJsStatic } from 'sql.js';

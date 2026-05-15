@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ExternalLink, RefreshCw, Plus, X, Eye, Bell, Search, Filter, Sparkles } from 'lucide-react';
-import { useLastVisit, isNewSince } from '../../hooks';
+import { useLastVisit, isNewSince, useFocusTrap } from '../../hooks';
 import { fetchAggregatedFeed, formatRelativeTime, type AggregatedFeedItem } from '../../services/rssService';
 import { rssFeeds } from '../../data/rssFeeds';
 
@@ -334,6 +334,7 @@ export default function DarkWeb(): JSX.Element {
                   key={f.id}
                   type="button"
                   onClick={() => toggleSource(f.id)}
+                  aria-pressed={on}
                   className={`px-2 py-0.5 rounded border transition-colors ${
                     on
                       ? 'border-brand-500/50 text-slate-900 dark:text-slate-100 bg-brand-50 dark:bg-brand-900/20'
@@ -353,6 +354,7 @@ export default function DarkWeb(): JSX.Element {
                 key={w}
                 type="button"
                 onClick={() => setDateWindow(w)}
+                aria-pressed={dateWindow === w}
                 className={`px-2 py-0.5 rounded border transition-colors ${
                   dateWindow === w
                     ? 'border-brand-500/50 text-slate-900 dark:text-slate-100 bg-brand-50 dark:bg-brand-900/20'
@@ -476,8 +478,12 @@ export default function DarkWeb(): JSX.Element {
           </p>
         )}
 
+        <div aria-live="polite" aria-atomic="true" className="sr-only">
+          {search ? `${matched.length} matching items` : ''}
+        </div>
+
         {matched.length > 0 && (
-          <ul className="space-y-3">
+          <ul className="space-y-3" aria-label="Feed items">
             {matched.map(({ item: it, watchMatches }) => {
               const hit = watchMatches.length > 0;
               return (
@@ -489,7 +495,13 @@ export default function DarkWeb(): JSX.Element {
                       : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900'
                   }`}
                 >
-                  <a href={it.link} target="_blank" rel="noopener noreferrer" className="group block">
+                  <a
+                    href={it.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${it.title} (opens in new tab)`}
+                    className="group block"
+                  >
                     <div className="flex items-baseline justify-between gap-3">
                       <h3 className="font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                         {highlightInText(it.title, search, watchlist)}
@@ -616,7 +628,9 @@ export function BreachDisclosuresPanel(): JSX.Element {
       </div>
 
       {error && (
-        <p className="text-sm font-mono text-rose-600 dark:text-rose-400">Could not load breach disclosures: {error}</p>
+        <p role="alert" className="text-sm font-mono text-rose-600 dark:text-rose-400">
+          Could not load breach disclosures: {error}
+        </p>
       )}
 
       {data && data.breaches.length === 0 && !error && (
@@ -696,9 +710,10 @@ export function BreachDisclosuresPanel(): JSX.Element {
             {expanded ? 'Show fewer' : `Show all ${data.breaches.length}`}
           </button>
           <a
-            href="https://haveibeenpwned.com/PwnedWebsites"
+            href="https://haveibeenpwned.com/SpamEmail"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="full HIBP list (opens in new tab)"
             className="hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
           >
             full HIBP list <ExternalLink size={10} />
@@ -769,6 +784,8 @@ export function RansomwareActivityPanel(): JSX.Element {
   const [lightbox, setLightbox] = useState<{ url: string; victim: string; group: string } | null>(null);
   const [newOnly, setNewOnly] = useState(false);
   const { previous: lastVisit, markVisited } = useLastVisit('ransomware-activity');
+  const triggerRef = useRef<HTMLButtonElement | null>(null);
+  const lightboxRef = useFocusTrap({ isActive: lightbox !== null, onEscape: () => setLightbox(null) });
 
   // Esc closes the lightbox.
   useEffect(() => {
@@ -833,13 +850,16 @@ export function RansomwareActivityPanel(): JSX.Element {
       </div>
 
       {error && (
-        <p className="text-sm font-mono text-rose-600 dark:text-rose-400">Could not load ransomware feed: {error}</p>
+        <p role="alert" className="text-sm font-mono text-rose-600 dark:text-rose-400">
+          Could not load ransomware feed: {error}
+        </p>
       )}
 
       {data && data.groups.length > 0 && (
         <div className="flex flex-wrap gap-1.5 mb-3">
           <button
             onClick={() => setGroupFilter('all')}
+            aria-pressed={groupFilter === 'all'}
             className={`text-[11px] font-mono px-2 py-1 rounded border transition-colors ${
               groupFilter === 'all'
                 ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
@@ -851,12 +871,13 @@ export function RansomwareActivityPanel(): JSX.Element {
           {newCount > 0 && (
             <button
               onClick={() => setNewOnly((v) => !v)}
+              aria-pressed={newOnly}
               className={`text-[11px] font-mono px-2 py-1 rounded border transition-colors inline-flex items-center gap-1 ${
                 newOnly
                   ? 'border-emerald-500/60 bg-emerald-500/15 text-emerald-700 dark:text-emerald-300'
                   : 'border-emerald-500/40 bg-emerald-500/5 text-emerald-700 dark:text-emerald-300 hover:border-emerald-500/60'
               }`}
-              title={`${newCount} claims since your last visit${lastVisit ? ` (${new Date(lastVisit).toLocaleString()})` : ''}`}
+              aria-label={`${newCount} new claims since your last visit`}
             >
               <Sparkles size={10} /> {newCount} new
             </button>
@@ -865,6 +886,7 @@ export function RansomwareActivityPanel(): JSX.Element {
             <button
               key={g.group}
               onClick={() => setGroupFilter(g.group)}
+              aria-pressed={groupFilter === g.group}
               className={`text-[11px] font-mono px-2 py-1 rounded border transition-colors ${
                 groupFilter === g.group
                   ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
@@ -888,7 +910,10 @@ export function RansomwareActivityPanel(): JSX.Element {
                 {v.screen_url && (
                   <button
                     type="button"
-                    onClick={() => setLightbox({ url: v.screen_url!, victim: v.victim, group: v.group })}
+                    onClick={() => {
+                      triggerRef.current = document.activeElement as HTMLButtonElement;
+                      setLightbox({ url: v.screen_url!, victim: v.victim, group: v.group });
+                    }}
                     className="shrink-0 group relative w-14 h-10 sm:w-20 sm:h-14 rounded overflow-hidden border border-slate-300 dark:border-slate-700 bg-slate-200 dark:bg-slate-800 hover:border-brand-500/60"
                     title="Click to view full leak-site screenshot"
                     aria-label={`View leak-site screenshot for ${v.victim}`}
@@ -915,6 +940,7 @@ export function RansomwareActivityPanel(): JSX.Element {
                       href={v.source_url}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label={`${v.victim} (opens in new tab)`}
                       className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 break-words"
                     >
                       {v.victim}
@@ -963,6 +989,7 @@ export function RansomwareActivityPanel(): JSX.Element {
             href="https://www.ransomlook.io/recent"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="full Ransomlook feed (opens in new tab)"
             className="hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
           >
             full Ransomlook feed <ExternalLink size={10} />
@@ -984,10 +1011,14 @@ export function RansomwareActivityPanel(): JSX.Element {
           role="dialog"
           aria-modal="true"
           aria-label={`Leak-site screenshot for ${lightbox.victim}`}
+          ref={lightboxRef as React.RefObject<HTMLDivElement>}
         >
           <button
             type="button"
-            onClick={() => setLightbox(null)}
+            onClick={() => {
+              setLightbox(null);
+              setTimeout(() => triggerRef.current?.focus(), 0);
+            }}
             className="absolute inset-0 cursor-zoom-out"
             aria-label="Close screenshot"
           />
@@ -1001,7 +1032,11 @@ export function RansomwareActivityPanel(): JSX.Element {
               </div>
               <button
                 type="button"
-                onClick={() => setLightbox(null)}
+                onClick={() => {
+                  setLightbox(null);
+                  setTimeout(() => triggerRef.current?.focus(), 0);
+                }}
+                id="lightbox-close"
                 className="text-slate-300 hover:text-slate-100 inline-flex items-center gap-1 text-sm font-mono"
                 aria-label="Close"
               >
@@ -1228,7 +1263,9 @@ export function TelegramFeedPanel(): JSX.Element {
       </p>
 
       {error && (
-        <p className="text-sm font-mono text-rose-600 dark:text-rose-400">Could not load Telegram feed: {error}</p>
+        <p role="alert" className="text-sm font-mono text-rose-600 dark:text-rose-400">
+          Could not load Telegram feed: {error}
+        </p>
       )}
 
       {data && data.channels.length > 0 && (

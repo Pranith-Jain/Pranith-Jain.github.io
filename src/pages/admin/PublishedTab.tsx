@@ -57,11 +57,21 @@ export default function PublishedTab() {
     <table className="w-full text-sm">
       <thead className="text-left text-xs uppercase tracking-wider text-zinc-500 border-b border-zinc-800">
         <tr>
-          <th className="py-2 pr-4">Type</th>
-          <th className="py-2 pr-4">Title</th>
-          <th className="py-2 pr-4">Published</th>
-          <th className="py-2 pr-4">Slug</th>
-          <th className="py-2">Actions</th>
+          <th scope="col" className="py-2 pr-4">
+            Type
+          </th>
+          <th scope="col" className="py-2 pr-4">
+            Title
+          </th>
+          <th scope="col" className="py-2 pr-4">
+            Published
+          </th>
+          <th scope="col" className="py-2 pr-4">
+            Slug
+          </th>
+          <th scope="col" className="py-2">
+            Actions
+          </th>
         </tr>
       </thead>
       <tbody>

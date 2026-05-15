@@ -219,7 +219,11 @@ export default function Decode(): JSX.Element {
         </div>
       </div>
 
-      {error && <p className="mb-4 text-sm font-mono text-amber-600 dark:text-amber-400">{error}</p>}
+      {error && (
+        <p role="alert" className="mb-4 text-sm font-mono text-amber-600 dark:text-amber-400">
+          {error}
+        </p>
+      )}
 
       {/* Multi-pass steps */}
       {steps.length > 1 && (

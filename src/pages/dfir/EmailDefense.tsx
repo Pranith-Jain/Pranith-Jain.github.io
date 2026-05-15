@@ -153,7 +153,7 @@ export default function EmailDefense(): JSX.Element {
           </section>
 
           {/* Quick facts */}
-          <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 mb-6">
+          <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 mb-6">
             <Fact
               label="SPF"
               value={
@@ -188,10 +188,27 @@ export default function EmailDefense(): JSX.Element {
               value={data.email_auth.mta_sts.present ? (data.email_auth.mta_sts.mode ?? 'present') : 'missing'}
               good={data.email_auth.mta_sts.mode === 'enforce'}
             />
+            <Fact
+              label="BIMI"
+              value={data.email_auth.bimi.present ? 'published' : 'missing'}
+              good={data.email_auth.bimi.present}
+            />
+            <Fact
+              label="TLS-RPT"
+              value={
+                data.email_auth.tls_rpt.present
+                  ? `reporting${data.email_auth.tls_rpt.rua ? ` (${data.email_auth.tls_rpt.rua})` : ''}`
+                  : 'missing'
+              }
+              good={data.email_auth.tls_rpt.present}
+            />
           </section>
 
           {/* Records observed */}
-          {(data.email_auth.spf.record || data.email_auth.dmarc.record) && (
+          {(data.email_auth.spf.record ||
+            data.email_auth.dmarc.record ||
+            data.email_auth.bimi.present ||
+            data.email_auth.tls_rpt.present) && (
             <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
               <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
                 Records observed
@@ -202,6 +219,18 @@ export default function EmailDefense(): JSX.Element {
                 )}
                 {data.email_auth.dmarc.record && (
                   <RecordRow name={`_dmarc.${data.domain} TXT`} value={data.email_auth.dmarc.record} />
+                )}
+                {data.email_auth.bimi.present && (
+                  <RecordRow
+                    name={`default._bimi.${data.domain} TXT`}
+                    value={`v=BIMI1${data.email_auth.bimi.logo ? `; l=${data.email_auth.bimi.logo}` : ''};`}
+                  />
+                )}
+                {data.email_auth.tls_rpt.present && (
+                  <RecordRow
+                    name={`_smtp._tls.${data.domain} TXT`}
+                    value={`v=TLSRPTv1; rua=${data.email_auth.tls_rpt.rua ?? `mailto:tls-reports@${data.domain}`};`}
+                  />
                 )}
               </div>
             </section>

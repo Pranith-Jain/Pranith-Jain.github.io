@@ -220,7 +220,11 @@ export default function TechAiNews(): JSX.Element {
         )}
       </section>
 
-      {error && <p className="text-sm font-mono text-rose-600 dark:text-rose-400 mb-4">Could not load: {error}</p>}
+      {error && (
+        <p role="alert" className="text-sm font-mono text-rose-600 dark:text-rose-400 mb-4">
+          Could not load: {error}
+        </p>
+      )}
 
       <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-3">
         Showing {annotated.length} of {items.length} · {feedsReturned} of {ALL_FEED_IDS.length} feeds returned data
