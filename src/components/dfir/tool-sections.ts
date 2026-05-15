@@ -152,6 +152,12 @@ export const SECTIONS: Section[] = [
         desc: '.pcap/.pcapng → protocol mix · top talkers · conversations · DNS + HTTP extraction · client-side',
         icon: Network,
       },
+      {
+        path: '/dfir/registry-hive',
+        label: 'Registry Hive Explorer',
+        desc: 'Raw regf hive (SYSTEM/SOFTWARE/NTUSER.DAT) → key/value tree · hand-rolled parser · client-side',
+        icon: FolderTree,
+      },
     ],
   },
   {
