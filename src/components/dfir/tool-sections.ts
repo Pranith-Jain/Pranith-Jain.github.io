@@ -45,6 +45,7 @@ import {
   Database,
   Smartphone,
   ScanLine,
+  Binary,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -178,6 +179,18 @@ export const SECTIONS: Section[] = [
         label: 'iOS Backup Explorer',
         desc: 'iOS Manifest.db → backed-up file inventory by domain/path · lazy WASM · client-side',
         icon: Smartphone,
+      },
+      {
+        path: '/dfir/mobile-sqlite',
+        label: 'Mobile SQLite Explorer',
+        desc: 'Open mobile-app SQLite DBs exported from backups · schema + rows + queries · client-side',
+        icon: Smartphone,
+      },
+      {
+        path: '/dfir/pe',
+        label: 'PE Static Analyzer Lite',
+        desc: 'EXE/DLL headers · mitigations · section entropy (packed?) · import table w/ suspicious-API flags',
+        icon: Binary,
       },
     ],
   },

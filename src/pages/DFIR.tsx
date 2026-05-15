@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Github, Mail } from 'lucide-react';
-import { ToolGrid, TOOL_COUNT } from '../components/dfir/ToolGrid';
+import { TOOL_COUNT } from '../components/dfir/ToolGrid';
 import { GROUP_META, type ToolGroup } from '../components/dfir/tool-sections';
 import { IocDispatchInput } from '../components/dfir/IocDispatchInput';
 import { personalInfo } from '../data/content';
@@ -94,14 +94,6 @@ export default function DFIRPage(): JSX.Element {
               </p>
             </Link>
           ))}
-          <details className="rounded-lg border border-dashed border-slate-300 dark:border-slate-700 p-5">
-            <summary className="font-mono text-[12px] text-slate-500 cursor-pointer">
-              Power-user: browse all {TOOL_COUNT} tools in one searchable grid
-            </summary>
-            <div className="mt-4">
-              <ToolGrid />
-            </div>
-          </details>
         </div>
       </section>
 
