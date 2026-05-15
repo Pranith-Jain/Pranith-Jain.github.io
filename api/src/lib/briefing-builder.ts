@@ -738,7 +738,7 @@ function buildExecutiveSummary(args: {
           : `${iocSources.slice(0, -1).join(', ')}, and ${iocSources[iocSources.length - 1]}`;
     const sampledTotal = iocs.urls.length + iocs.domains.length + iocs.ipv4s.length + iocs.hashes.length;
     parts.push(
-      `Active threat indicators ${iocPerSource ? 'per source' : 'across'} ${breakdown} — total ${iocsRawTotal.toLocaleString()} entries; this briefing samples the top ${sampledTotal} (${sampledBits.join(', ')}, capped at 30 per type).`
+      `Active threat indicators ${iocPerSource ? 'per source' : 'across'} ${breakdown} — ${iocsRawTotal.toLocaleString()} unique after cross-source dedup; this briefing samples the top ${sampledTotal} (${sampledBits.join(', ')}, capped at 30 per type).`
     );
   }
 
@@ -852,12 +852,24 @@ export async function buildBriefing(type: BriefingType, anchor: Date = new Date(
 
   // Windowed feeds only — every entry carries a per-IOC timestamp inside the
   // briefing window. Snapshot blocklists were removed in the live-only refactor.
-  const allIocs = [...urlhausMatched, ...malwarebazaarMatched, ...threatfoxMatched, ...tweetfeedMatched];
+  // Cross-source dedup: the same indicator (e.g. an IP in ThreatFox AND
+  // TweetFeed, or a URL in URLhaus AND ThreatFox) must count ONCE. The old
+  // code concatenated the four feeds raw, so the headline "IOCs" stat was
+  // inflated by the cross-source overlap. Keep first occurrence — feeds are
+  // concatenated in source-priority order (URLhaus → MB → ThreatFox →
+  // TweetFeed). Per-source counts above stay raw (accurate per feed).
+  const seenIoc = new Set<string>();
+  const allIocs = [...urlhausMatched, ...malwarebazaarMatched, ...threatfoxMatched, ...tweetfeedMatched].filter((e) => {
+    const k = `${e.type}|${e.value.trim().toLowerCase()}`;
+    if (seenIoc.has(k)) return false;
+    seenIoc.add(k);
+    return true;
+  });
 
-  // Pre-cap total — what's actually visible upstream in this window. The
-  // served `iocs` payload below is then capped per-bucket so the briefing
-  // JSON stays small, but the summary string reports the real volume so
-  // readers don't mistake the cap for the count.
+  // Unique indicators in this window after cross-source dedup. The served
+  // `iocs` payload below is then capped per-bucket so the briefing JSON
+  // stays small, but the summary reports this real unique volume so readers
+  // don't mistake the cap for the count.
   const iocsRawTotal = allIocs.length;
   const iocs = bucketIocs(allIocs);
 
