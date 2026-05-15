@@ -26,7 +26,10 @@ export function Contact() {
         />
 
         <div className="relative mx-auto max-w-4xl text-center">
-          <h2 id="contact-heading" className="text-4xl font-black tracking-tight text-white sm:text-5xl lg:text-6xl">
+          <h2
+            id="contact-heading"
+            className="animate-fade-in-up text-4xl font-extrabold tracking-tight text-white sm:text-5xl"
+          >
             Ready to secure your <br /> digital presence?
           </h2>
           <p className="mx-auto mt-8 max-w-2xl text-lg text-slate-300">

@@ -126,7 +126,7 @@ export function Certifications() {
         <div className="animate-fade-in-up mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-brand-700 dark:text-brand-300">
           Credentials
         </div>
-        <h2 className="animate-fade-in-up text-3xl font-extrabold tracking-tight sm:text-4xl text-slate-900 dark:text-white">
+        <h2 className="animate-fade-in-up text-4xl font-extrabold tracking-tight sm:text-5xl text-slate-900 dark:text-white">
           Certifications & Coursework
         </h2>
       </div>
