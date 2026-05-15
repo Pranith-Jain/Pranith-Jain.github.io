@@ -29,6 +29,13 @@ const UPSTREAM = 'https://www.ransomlook.io/api/recent';
 const RANSOMFEED_RSS = 'https://www.ransomfeed.it/rss.php';
 /** Tertiary tracker. JSON dump on GitHub, ~16k historical + current entries. */
 const RANSOMWATCH_JSON = 'https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json';
+/**
+ * ransomware.live public data dump (free, no key). Newest-first, ~28k
+ * entries, richer than ransomwatch: carries country + activity (sector) +
+ * description. The /v2 REST API 301s to HTML and the PRO API needs a paid
+ * X-API-KEY, so the static dump is the usable free surface.
+ */
+const RANSOMWARELIVE_JSON = 'https://data.ransomware.live/posts.json';
 const MAX_ITEMS = 60;
 
 interface RansomlookEntry {
@@ -46,7 +53,7 @@ interface RansomlookEntry {
  * fetcher; preserved by mergeVictims() so the frontend can render an
  * origin-pill per row.
  */
-export type RansomwareOrigin = 'ransomlook' | 'mti' | 'ransomfeed' | 'ransomwatch' | 'andreafortuna';
+export type RansomwareOrigin = 'ransomlook' | 'mti' | 'ransomfeed' | 'ransomwatch' | 'ransomwarelive' | 'andreafortuna';
 
 export interface RansomwareVictim {
   victim: string;
@@ -204,6 +211,60 @@ async function fetchRansomwatchVictims(): Promise<RansomwareVictim[]> {
   }
 }
 
+/**
+ * ransomware.live public dump. Newest-first array; walk forward and stop
+ * once entries fall outside the 7-day window. Carries country + activity
+ * (sector label) + description, so it produces high-quality rows.
+ */
+async function fetchRansomwareLiveVictims(): Promise<RansomwareVictim[]> {
+  try {
+    const res = await fetch(RANSOMWARELIVE_JSON, {
+      headers: {
+        Accept: 'application/json',
+        'User-Agent': 'pranithjain.qzz.io DFIR toolkit (free, read-only)',
+      },
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      cf: { cacheTtlByStatus: { '200-299': 3600, '400-599': 0 }, cacheEverything: true },
+    } as RequestInit);
+    if (!res.ok) return [];
+    const raw = (await res.json()) as Array<{
+      post_title?: string;
+      group_name?: string;
+      discovered?: string;
+      description?: string;
+      country?: string;
+      activity?: string;
+    }>;
+    if (!Array.isArray(raw)) return [];
+    const cutoffMs = Date.now() - 7 * 24 * 3600 * 1000;
+    const out: RansomwareVictim[] = [];
+    // Newest-first: walk forward, stop when older than the window.
+    for (let i = 0; i < raw.length && out.length < MAX_ITEMS; i++) {
+      const e = raw[i];
+      if (!e || !e.post_title || !e.group_name || !e.discovered) continue;
+      const discovered = toIsoDate(e.discovered);
+      const ts = Date.parse(discovered);
+      if (!Number.isFinite(ts)) continue;
+      if (ts < cutoffMs) break; // ordered — nothing newer beyond here
+      const victim = e.post_title.trim();
+      const description = e.description?.trim() || undefined;
+      out.push({
+        victim,
+        group: e.group_name.trim().toLowerCase(),
+        discovered,
+        description,
+        source_url: 'https://www.ransomware.live/',
+        sector: classifySector(victim, description ?? e.activity),
+        origin: 'ransomwarelive' as const,
+        country: e.country?.trim() || undefined,
+      });
+    }
+    return out;
+  } catch {
+    return [];
+  }
+}
+
 /** Merge N victim lists, dedupe by (group + victim + day), keep newest. */
 function mergeVictims(...lists: RansomwareVictim[][]): RansomwareVictim[] {
   const byKey = new Map<string, RansomwareVictim>();
@@ -242,7 +303,7 @@ export async function fetchRansomwareRecent(): Promise<{
   //   2. mythreatintel     — Spanish CTI channel, real-time, has descriptions
   //   3. ransomfeed.it     — RSS of victim claims, has descriptions
   //   4. ransomwatch       — id-only, fills coverage gaps from leak-site scrapes
-  const [primarySettled, mtiVictims, secondaryVictims, tertiaryVictims, afVictims] = await Promise.all([
+  const [primarySettled, mtiVictims, secondaryVictims, tertiaryVictims, rlVictims, afVictims] = await Promise.all([
     (async () => {
       try {
         const ctrl = new AbortController();
@@ -266,6 +327,7 @@ export async function fetchRansomwareRecent(): Promise<{
     fetchMythreatintelRansomwareVictims().catch(() => []),
     fetchRansomfeedVictims(),
     fetchRansomwatchVictims(),
+    fetchRansomwareLiveVictims(),
     fetchAFRansomwareVictims().catch(() => []),
   ]);
 
@@ -305,7 +367,11 @@ export async function fetchRansomwareRecent(): Promise<{
   // healthy.
   if (
     !upstreamOk &&
-    (mtiVictims.length > 0 || secondaryVictims.length > 0 || tertiaryVictims.length > 0 || afVictims.length > 0)
+    (mtiVictims.length > 0 ||
+      secondaryVictims.length > 0 ||
+      tertiaryVictims.length > 0 ||
+      rlVictims.length > 0 ||
+      afVictims.length > 0)
   ) {
     upstreamOk = true;
   }
@@ -317,6 +383,7 @@ export async function fetchRansomwareRecent(): Promise<{
     mtiVictims as RansomwareVictim[],
     secondaryVictims,
     tertiaryVictims,
+    rlVictims,
     afVictims
   ).slice(0, MAX_ITEMS);
 
