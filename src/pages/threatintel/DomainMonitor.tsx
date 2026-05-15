@@ -1,16 +1,38 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Search, Globe, Loader2, ShieldAlert, ShieldCheck, ExternalLink } from 'lucide-react';
-import { queryDoh } from '../../lib/dfir/reputation';
+import { ArrowLeft, Search, Globe, Loader2 } from 'lucide-react';
 
-interface SquatResult {
-  domain: string;
-  type: 'typo' | 'homoglyph' | 'affix' | 'tld-swap';
-  ips: string[];
-  hasMx: boolean;
-  hasNs: boolean;
-  classification: 'resolves' | 'no-dns' | 'parked' | 'phishing' | 'legit';
-  tech?: string[];
+const DOH_ENDPOINT = 'https://cloudflare-dns.com/dns-query';
+
+async function resolveWithLimit(domain: string): Promise<{ a: string[]; mx: boolean; ns: boolean }> {
+  try {
+    const url = `${DOH_ENDPOINT}?name=${encodeURIComponent(domain)}&type=A`;
+    const r = await fetch(url, { headers: { accept: 'application/dns-json' } });
+    if (!r.ok) return { a: [], mx: false, ns: false };
+    const j = (await r.json()) as { Answer?: Array<{ data: string }>; Status?: number };
+    if (j.Status === 3) return { a: [], mx: false, ns: false };
+    const ips = (j.Answer ?? []).map((a) => a.data).filter((ip) => /^\d+\.\d+\.\d+\.\d+$/.test(ip));
+    return { a: ips.slice(0, 3), mx: false, ns: false };
+  } catch {
+    return { a: [], mx: false, ns: false };
+  }
+}
+
+async function batchResolve(domains: string[], batchSize = 6): Promise<Array<{ domain: string; ips: string[] }>> {
+  const results: Array<{ domain: string; ips: string[] }> = [];
+  for (let i = 0; i < domains.length; i += batchSize) {
+    const batch = domains.slice(i, i + batchSize);
+    const batchResults = await Promise.all(
+      batch.map(async (d) => {
+        const { a } = await resolveWithLimit(d);
+        return { domain: d, ips: a };
+      })
+    );
+    results.push(...batchResults);
+    // Small delay between batches to avoid rate limiting
+    if (i + batchSize < domains.length) await new Promise((r) => setTimeout(r, 200));
+  }
+  return results;
 }
 
 const TLD_SWAPS = ['.com', '.net', '.org', '.co', '.io', '.ai', '.app', '.dev', '.xyz', '.top', '.club', '.online'];
@@ -31,17 +53,6 @@ const AFFIXES = [
   'support.',
   'verify.',
   'auth.',
-];
-const PARKING_INDICATORS = [
-  'sedoparking',
-  'parking',
-  'parked',
-  'bodis',
-  'dan.com',
-  'afternic',
-  'hugedomains',
-  'buy this domain',
-  'this domain is for sale',
 ];
 
 function typosquats(domain: string): string[] {
@@ -80,7 +91,9 @@ function typosquats(domain: string): string[] {
 export default function DomainMonitor(): JSX.Element {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const [results, setResults] = useState<SquatResult[]>([]);
+  const [results, setResults] = useState<
+    Array<{ domain: string; type: 'typo' | 'homoglyph' | 'affix' | 'tld-swap'; ips: string[] }>
+  >([]);
   const [error, setError] = useState<string | null>(null);
   const [progress, setProgress] = useState('');
   const abortRef = useRef<AbortController | null>(null);
@@ -115,23 +128,13 @@ export default function DomainMonitor(): JSX.Element {
       ];
       if (homoglyph !== cleanDomain) allDomains.push(homoglyph + ext(cleanDomain));
       allDomains = [...new Set(allDomains)].slice(0, 60);
-
-      setProgress(`Resolving DNS for ${allDomains.length} variants…`);
-
-      // Batch resolve A records via Promise.all
-      const resolved = await Promise.all(
-        allDomains.map(async (d) => {
-          const [aRecords, mxRecords, nsRecords] = await Promise.all([
-            queryDoh(d, 'A'),
-            queryDoh(d, 'MX'),
-            queryDoh(d, 'NS'),
-          ]);
-          return { domain: d, aRecords, mxRecords, nsRecords };
-        })
-      );
       if (signal.aborted) return;
 
-      const squatResults: SquatResult[] = resolved.map((r) => {
+      setProgress(`Resolving DNS for ${allDomains.length} variants (batches of 6)…`);
+      const resolved = await batchResolve(allDomains);
+      if (signal.aborted) return;
+
+      const squatResults = resolved.map((r) => {
         const type = TLD_SWAPS.some((t) => r.domain.endsWith(t) && t !== '.' + ext(cleanDomain))
           ? ('tld-swap' as const)
           : AFFIXES.some((a) => r.domain.startsWith(a) || r.domain.includes(a))
@@ -139,16 +142,7 @@ export default function DomainMonitor(): JSX.Element {
             : homoglyph !== cleanDomain && r.domain.includes(homoglyph)
               ? ('homoglyph' as const)
               : ('typo' as const);
-        const ips = r.aRecords.filter((ip) => /^\d+\.\d+\.\d+\.\d+$/.test(ip));
-        const classification = ips.length > 0 ? ('resolves' as const) : ('no-dns' as const);
-        return {
-          domain: r.domain,
-          type,
-          ips,
-          hasMx: r.mxRecords.length > 0,
-          hasNs: r.nsRecords.length > 0,
-          classification,
-        };
+        return { domain: r.domain, type, ips: r.ips };
       });
 
       setResults(squatResults);
@@ -166,18 +160,14 @@ export default function DomainMonitor(): JSX.Element {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const grouped = useMemo(() => {
-    const g: Record<string, SquatResult[]> = {};
+    const g: Record<string, typeof results> = {};
     for (const r of results) {
       (g[r.type] ??= []).push(r);
     }
     return g;
   }, [results]);
 
-  const classified = useMemo(() => {
-    const c = { resolves: 0, 'no-dns': 0, parked: 0, phishing: 0, legit: 0 };
-    for (const r of results) c[r.classification]++;
-    return c;
-  }, [results]);
+  const resolveCount = useMemo(() => results.filter((r) => r.ips.length > 0).length, [results]);
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
@@ -193,8 +183,8 @@ export default function DomainMonitor(): JSX.Element {
         </h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
           Typosquatting and domain impersonation scanner. Generates lookalike variants of your domain — character swaps,
-          TLD swaps, homoglyphs, common prefix/suffix abuses — then resolves DNS, identifies IPs, and classifies each
-          variant. Inspired by haveibeensquatted.com.
+          TLD swaps, homoglyphs, common prefix/suffix abuses — then resolves DNS in batches to identify registered
+          lookalikes. Inspired by haveibeensquatted.com.
         </p>
       </div>
 
@@ -241,7 +231,6 @@ export default function DomainMonitor(): JSX.Element {
 
       {!loading && results.length > 0 && (
         <div className="space-y-6">
-          {/* Summary */}
           <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
             <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
               <h2 className="font-display font-bold text-lg">{cleanDomain}</h2>
@@ -249,17 +238,24 @@ export default function DomainMonitor(): JSX.Element {
             </div>
             <div className="flex flex-wrap gap-2 text-xs font-mono">
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-sky-500/10 text-sky-700 dark:text-sky-300 border border-sky-500/30">
-                {classified.resolves} resolve
+                {resolveCount} resolve DNS
               </span>
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-500/10 text-slate-600 dark:text-slate-400 border border-slate-500/30">
-                {classified['no-dns']} no DNS
+                {results.length - resolveCount} no DNS
               </span>
+              {resolveCount === 0 && (
+                <span className="text-xs font-mono text-slate-500 ml-2">
+                  None of the generated lookalike domains appear to be registered. This is common for less common brand
+                  names.
+                </span>
+              )}
             </div>
           </section>
 
           {(['typo', 'tld-swap', 'affix', 'homoglyph'] as const).map((type) => {
             const items = grouped[type];
             if (!items?.length) return null;
+            const resolveInGroup = items.filter((r) => r.ips.length > 0);
             return (
               <section
                 key={type}
@@ -274,24 +270,29 @@ export default function DomainMonitor(): JSX.Element {
                         ? 'Prefix/suffix additions'
                         : 'Homoglyph'}
                   <span className="ml-2 text-slate-500">({items.length})</span>
+                  {resolveInGroup.length > 0 && (
+                    <span className="ml-2 text-[10px] font-mono text-sky-600 dark:text-sky-400">
+                      {resolveInGroup.length} resolve
+                    </span>
+                  )}
                 </h3>
                 <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
                   {items.map((r) => (
                     <div
                       key={r.domain}
-                      className={`rounded border p-3 transition-colors hover:border-brand-500/40 ${r.classification === 'resolves' ? 'border-sky-500/30 bg-sky-50/50 dark:bg-sky-950/20' : 'border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950'}`}
+                      className={`rounded border p-3 transition-colors hover:border-brand-500/40 ${r.ips.length > 0 ? 'border-sky-500/30 bg-sky-50/50 dark:bg-sky-950/20' : 'border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950'}`}
                     >
                       <div className="flex items-center justify-between gap-2 mb-1">
                         <code className="font-mono text-sm break-all text-slate-900 dark:text-slate-100 font-semibold">
                           {r.domain}
                         </code>
-                        {r.classification === 'resolves' ? (
+                        {r.ips.length > 0 ? (
                           <span className="shrink-0 text-[9px] font-mono px-1.5 py-0.5 rounded bg-sky-500/10 text-sky-700 dark:text-sky-300 border border-sky-500/30">
                             DNS
                           </span>
                         ) : (
                           <span className="shrink-0 text-[9px] font-mono px-1.5 py-0.5 rounded bg-slate-500/10 text-slate-500 border border-slate-500/30">
-                            no DNS
+                            unregistered
                           </span>
                         )}
                       </div>
@@ -310,10 +311,6 @@ export default function DomainMonitor(): JSX.Element {
                           )}
                         </div>
                       )}
-                      {r.hasMx && (
-                        <span className="text-[9px] font-mono text-emerald-600 dark:text-emerald-400 mr-2">MX</span>
-                      )}
-                      {r.hasNs && <span className="text-[9px] font-mono text-amber-600 dark:text-amber-400">NS</span>}
                       <div className="mt-1.5 flex gap-1.5 flex-wrap">
                         <Link
                           to={`/dfir/domain?domain=${encodeURIComponent(r.domain)}`}

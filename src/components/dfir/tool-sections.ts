@@ -388,17 +388,10 @@ export const SECTIONS: Section[] = [
         icon: Search,
       },
       {
-        path: '/threatintel/domain-monitor',
-        useCase: 'Scan your domain for typosquat lookalikes.',
-        label: 'Domain Monitor',
-        desc: 'Typosquat · TLD-swap · homoglyph · affix abuse · inspired by haveibeensquatted.com · live DNS + screenshot lookups',
-        icon: ShieldAlert,
-      },
-      {
         path: '/dfir/brand-impersonation',
         useCase: 'Generate lookalike domains to monitor.',
         label: 'Brand Impersonation Explorer',
-        desc: 'Typosquat · homoglyph · affix · TLD-swap variants of a brand domain · crt.sh pivots',
+        desc: 'Typosquat · homoglyph · affix · TLD-swap variants of a brand domain · crt.sh pivots · cross-link to /threatintel/domain-monitor',
         icon: ShieldAlert,
       },
       {

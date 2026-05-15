@@ -51,7 +51,7 @@ describe('detect', () => {
     const prefix = 'sk' + '_live_';
     const key = prefix + 'x'.repeat(30);
     expect(key.startsWith('sk_live_')).toBe(true);
-    expect(key.length).toBe(4 + 30); // prefix + 30 chars
+    expect(key.length).toBe(8 + 30); // prefix + 30 chars
   });
 
   it('detects AWS access keys', () => {

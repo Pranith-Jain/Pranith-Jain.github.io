@@ -105,6 +105,14 @@ export default function BrandImpersonation(): JSX.Element {
           <Group title="TLD swaps" items={v.tld} />
         </div>
       )}
+      <div className="mt-6">
+        <Link
+          to={`/threatintel/domain-monitor?domain=${encodeURIComponent(input.trim())}`}
+          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded-lg border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:bg-brand-500/20"
+        >
+          Check live DNS & blacklists for these variants →
+        </Link>
+      </div>
     </div>
   );
 }
