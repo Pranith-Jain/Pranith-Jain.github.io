@@ -219,7 +219,7 @@ export const certifications = {
     { title: 'Proofpoint AI Email Security Specialist', issuer: 'Proofpoint', year: '2025', featured: true },
     { title: 'Effective AI for Practical SecOps Workflows', issuer: 'ISC2', year: '2025', featured: true },
     { title: 'Mastering Cyber Threat Intelligence for SOC Analysts', issuer: 'MCSI', year: '2025', featured: true },
-    { title: 'DSPM Fundamentals', issuer: 'Fortra', year: '2025', featured: true },
+    { title: 'DSPM Fundamentals', issuer: 'Securiti AI', year: '2025', featured: true },
     { title: 'Antisyphon Training', issuer: 'Antisyphon', year: '2026', featured: true },
     { title: 'Data Loss Prevention (DLP) Survival Guide', issuer: 'Fortra', year: '2026', featured: true },
     { title: 'Social Media Intelligence (SOCMINT)', issuer: 'CyberSudo', year: 'Mar 2026', featured: true },
