@@ -422,6 +422,10 @@ export default function ThreatIntelHome(): JSX.Element {
           ·{' '}
           <Link to="/threatintel/about" className="text-brand-600 dark:text-brand-400 hover:underline">
             about
+          </Link>{' '}
+          · interactive tools:{' '}
+          <Link to="/dfir" className="text-brand-600 dark:text-brand-400 hover:underline">
+            /dfir
           </Link>
         </div>
       </section>
@@ -432,16 +436,6 @@ export default function ThreatIntelHome(): JSX.Element {
         <TiStat label="Live IOC sources" value="10" />
         <TiStat label="Refresh cadence" value="30m–1h" mono />
       </section>
-
-      <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-        Live ransomware leak claims, CVE merged with CISA KEV (active-exploitation flag inline), a malware-sample
-        stream, a phishing-URL feed with brand attribution, and firehoses from Bluesky, Mastodon, Reddit, and Telegram.
-        Daily briefings, ten-panel metrics, STIX 2.1 export. Need interactive tools instead?{' '}
-        <Link to="/dfir" className="text-brand-600 dark:text-brand-400 hover:underline">
-          /dfir
-        </Link>{' '}
-        (separate app).
-      </p>
 
       {/* Quick links to power-user surfaces */}
       <div className="flex flex-wrap items-center gap-2 mb-12 text-[11px] font-mono text-slate-500 dark:text-slate-500">
@@ -599,15 +593,19 @@ export default function ThreatIntelHome(): JSX.Element {
           )}
         </section>
       ) : (
-        SECTIONS.map((section) => (
-          <section key={section.id} className="animate-fade-in-up mb-12">
-            <div className="mb-4">
+        SECTIONS.map((section, si) => (
+          <details
+            key={section.id}
+            open={si === 0}
+            className="animate-fade-in-up mb-6 border-b border-slate-200 dark:border-slate-800 pb-6"
+          >
+            <summary className="cursor-pointer list-none flex items-baseline gap-2 flex-wrap">
               <h2 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100">{section.label}</h2>
-              <p className="text-sm text-slate-600 dark:text-slate-400 font-mono mt-1">
+              <span className="text-sm text-slate-500 dark:text-slate-500 font-mono">
                 {section.blurb} · {section.tools.length} {section.tools.length === 1 ? 'source' : 'sources'}
-              </p>
-            </div>
-            <ul className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+              </span>
+            </summary>
+            <ul className="grid gap-3 md:grid-cols-2 lg:grid-cols-3 mt-4">
               {section.tools.map((t) => {
                 const Icon = t.icon;
                 const cardClass =
@@ -659,7 +657,7 @@ export default function ThreatIntelHome(): JSX.Element {
                 );
               })}
             </ul>
-          </section>
+          </details>
         ))
       )}
 
