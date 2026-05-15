@@ -117,6 +117,7 @@ const TelegramWatch = lazy(() => import('./pages/dfir/TelegramWatch'));
 const AwesomeLists = lazy(() => import('./pages/dfir/AwesomeLists'));
 const ExternalResources = lazy(() => import('./pages/threatintel/ExternalResources'));
 const ThreatIntelHome = lazy(() => import('./pages/threatintel/Home'));
+const ThreatIntelAbout = lazy(() => import('./pages/threatintel/About'));
 const ThreatPulse = lazy(() => import('./pages/threatintel/ThreatPulse'));
 const CveList = lazy(() => import('./pages/threatintel/CveList'));
 const RansomwareActivityPage = lazy(() => import('./pages/threatintel/RansomwareActivity'));
@@ -1201,6 +1202,16 @@ export function AppContent() {
           <ErrorBoundary>
             <Suspense fallback={<SectionLoader />}>
               <ExternalResources />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/threatintel/about"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <ThreatIntelAbout />
             </Suspense>
           </ErrorBoundary>
         }

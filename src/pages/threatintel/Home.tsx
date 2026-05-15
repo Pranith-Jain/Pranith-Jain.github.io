@@ -31,9 +31,11 @@ import {
   X,
   type LucideIcon,
 } from 'lucide-react';
+import { Github, Linkedin, Lock, Mail, ShieldCheck } from 'lucide-react';
 import { LiveSnapshotPanel } from '../../components/dfir/LiveSnapshotPanel';
 import { WhatsNewBanner } from '../../components/threatintel/WhatsNewBanner';
 import { PlatformPulse } from '../../components/threatintel/PlatformPulse';
+import { personalInfo } from '../../data/content';
 
 /**
  * Threat-Intel landing page — the SOLE entry point for sources, feeds, RSS,
@@ -396,6 +398,33 @@ export default function ThreatIntelHome(): JSX.Element {
           ~30 days of history. Decorative only when fewer than 2 days
           are available. */}
       <PlatformPulse />
+      {/* Branded hero — mirrors the /dfir tools landing */}
+      <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 mb-6">
+        <div className="text-[11px] font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400 mb-3 inline-flex items-center gap-2">
+          <Lock size={12} /> Privacy-first · Live edge feeds · No login · No tracking
+        </div>
+        <h2 className="font-display font-bold text-3xl sm:text-4xl leading-tight">Threat-intel platform</h2>
+        <p className="text-slate-600 dark:text-slate-400 font-mono mt-3 max-w-3xl leading-relaxed">
+          Live ransomware leak claims, CVE × CISA-KEV, malware-sample and phishing-URL streams, dark-web and social
+          firehoses, daily briefings, ten-panel metrics and STIX 2.1 export — aggregated at the edge and refreshed every
+          visit.
+        </p>
+        <div className="mt-4 font-mono text-[12px] text-slate-500">
+          {totalTiles} intel surfaces · by{' '}
+          <a
+            href={personalInfo.githubUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="text-brand-600 dark:text-brand-400 hover:underline"
+          >
+            {personalInfo.name}
+          </a>{' '}
+          ·{' '}
+          <Link to="/threatintel/about" className="text-brand-600 dark:text-brand-400 hover:underline">
+            about
+          </Link>
+        </div>
+      </section>
       {/* App-style stat bar — replaces the portfolio-style 6xl hero on app routes */}
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
         <TiStat label="Intel surfaces" value={String(totalTiles)} />
@@ -633,6 +662,57 @@ export default function ThreatIntelHome(): JSX.Element {
           </section>
         ))
       )}
+
+      <footer className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="font-mono text-[12px] text-slate-500 max-w-xl inline-flex items-start gap-2">
+            <ShieldCheck size={14} className="mt-0.5 shrink-0 text-brand-600 dark:text-brand-400" />
+            <span>
+              Privacy-first threat intelligence by {personalInfo.name}. Live feeds aggregated at the edge — no tracking,
+              no accounts. Reference only; verify indicators in your own environment.
+            </span>
+          </div>
+          <div className="flex flex-wrap gap-4 text-[12px] font-mono">
+            <Link
+              to="/threatintel/about"
+              className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
+            >
+              About
+            </Link>
+            <Link
+              to="/dfir/privacy-hub"
+              className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
+            >
+              Privacy
+            </Link>
+            <a
+              href={`mailto:${personalInfo.email}`}
+              className="inline-flex items-center gap-1 text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
+            >
+              <Mail size={12} /> Contact
+            </a>
+            <a
+              href={personalInfo.githubUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1 text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
+            >
+              <Github size={12} /> GitHub
+            </a>
+            <a
+              href={personalInfo.linkedInUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1 text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
+            >
+              <Linkedin size={12} /> LinkedIn
+            </a>
+          </div>
+        </div>
+        <div className="font-mono text-[11px] text-slate-400 mt-4">
+          © {new Date().getFullYear()} {personalInfo.name} · Threat-Intel Platform.
+        </div>
+      </footer>
     </div>
   );
 }
