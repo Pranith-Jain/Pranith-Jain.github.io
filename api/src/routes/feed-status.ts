@@ -15,6 +15,7 @@ import { IOC_CORRELATION_CACHE_KEY } from './ioc-correlation';
 import { ACTOR_TIMELINE_CACHE_KEY } from './actor-timeline';
 import { VICTIM_RELEAKS_CACHE_KEY } from './victim-releaks';
 import { LIVE_IOCS_CACHE_KEY } from './live-iocs';
+import { DEEPDARKCTI_CACHE_KEY } from './deepdarkcti';
 
 /**
  * Feed-status dashboard. Reads every per-feed edge-cache entry directly
@@ -29,7 +30,7 @@ import { LIVE_IOCS_CACHE_KEY } from './live-iocs';
  */
 
 const CACHE_TTL = 5 * 60;
-const FEED_STATUS_CACHE_KEY = 'https://feed-status-cache.internal/v2-cachereads';
+const FEED_STATUS_CACHE_KEY = 'https://feed-status-cache.internal/v3-ddc';
 
 type Status = 'ok' | 'degraded' | 'down' | 'cold';
 
@@ -405,6 +406,35 @@ const PROBES: FeedProbeSpec[] = [
         metrics: { correlated, scanned, sources_ok: okSrc },
         ageS,
       };
+    },
+  },
+  {
+    id: 'deepdarkcti',
+    label: 'deepdarkCTI Index',
+    page_path: '/threatintel/deepdarkcti',
+    api_path: '/api/v1/deepdarkcti',
+    cache_key: DEEPDARKCTI_CACHE_KEY,
+    evaluate: (body) => {
+      const b = body as {
+        sources?: Array<{ ok?: boolean; stale?: boolean }>;
+        total?: number;
+      };
+      if (!b || !Array.isArray(b.sources)) {
+        return { status: 'cold' as const, reason: 'no cached payload (visit the page once to warm the cache)' };
+      }
+      const total = b.total ?? 0;
+      const files = b.sources.length;
+      if (total === 0) return { status: 'down' as const, reason: 'all sources empty' };
+      const anyStale = b.sources.some((s) => s.stale);
+      const anyHardFail = b.sources.some((s) => !s.ok && !s.stale);
+      if (anyHardFail || anyStale) {
+        return {
+          status: 'degraded' as const,
+          reason: anyStale ? 'serving stale slices (last-good)' : 'some sources failed',
+          metrics: { files, entries: total },
+        };
+      }
+      return { status: 'ok' as const, reason: `${total} entries`, metrics: { files, entries: total } };
     },
   },
 ];
