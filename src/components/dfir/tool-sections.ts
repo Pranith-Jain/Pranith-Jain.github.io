@@ -46,6 +46,7 @@ import {
   Smartphone,
   ScanLine,
   Binary,
+  Activity,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -197,6 +198,12 @@ export const SECTIONS: Section[] = [
         label: 'Web Server Log Analyzer',
         desc: 'Apache/Nginx access logs → SQLi/XSS/traversal/scanner heuristics · CSV export · client-side',
         icon: FileCheck,
+      },
+      {
+        path: '/dfir/prefetch',
+        label: 'Prefetch Analyzer Lite',
+        desc: 'Windows .pf incl. Win10+ MAM/LZXPRESS-Huffman · exe · run count · last runs · referenced files',
+        icon: Activity,
       },
     ],
   },
