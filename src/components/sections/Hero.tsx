@@ -1,6 +1,37 @@
+import { useId } from 'react';
 import { Linkedin, Github, Mail, Terminal } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { personalInfo, stats } from '../../data/content';
+
+/** The "PJ" brand mark. Single source of truth — was duplicated inline
+ *  twice in the hero. Unique gradient id per instance via useId so two
+ *  marks on the same page stay valid SVG. */
+function PjMark({ className }: { className?: string }) {
+  const id = useId();
+  return (
+    <svg viewBox="0 0 36 36" className={className} xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id={id} x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#2c3ee5" />
+          <stop offset="100%" stopColor="#435ef1" />
+        </linearGradient>
+      </defs>
+      <rect width="36" height="36" rx="8" fill={`url(#${id})`} />
+      <text
+        x="50%"
+        y="50%"
+        dominantBaseline="central"
+        textAnchor="middle"
+        fill="white"
+        fontFamily="Poppins, sans-serif"
+        fontWeight="800"
+        fontSize="16"
+      >
+        PJ
+      </text>
+    </svg>
+  );
+}
 
 export function Hero() {
   return (
@@ -142,54 +173,14 @@ export function Hero() {
               {/* PJ Logo */}
               <div className="mb-8 flex items-center justify-center">
                 <span className="h-32 w-32 sm:h-36 sm:w-36 rounded-3xl shadow-glow animate-pulse-slow flex items-center justify-center overflow-hidden">
-                  <svg viewBox="0 0 36 36" className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                      <linearGradient id="pjGradientHero" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#2c3ee5" />
-                        <stop offset="100%" stopColor="#435ef1" />
-                      </linearGradient>
-                    </defs>
-                    <rect width="36" height="36" rx="8" fill="url(#pjGradientHero)" />
-                    <text
-                      x="50%"
-                      y="50%"
-                      dominantBaseline="central"
-                      textAnchor="middle"
-                      fill="white"
-                      fontFamily="Poppins, sans-serif"
-                      fontWeight="800"
-                      fontSize="16"
-                    >
-                      PJ
-                    </text>
-                  </svg>
+                  <PjMark className="h-full w-full" />
                 </span>
               </div>
 
               <div className="flex items-center gap-5">
                 <div className="relative">
                   <span className="h-16 w-16 rounded-2xl shadow-lg flex items-center justify-center overflow-hidden">
-                    <svg viewBox="0 0 36 36" className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
-                      <defs>
-                        <linearGradient id="pjGradientAvatar" x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" stopColor="#2c3ee5" />
-                          <stop offset="100%" stopColor="#435ef1" />
-                        </linearGradient>
-                      </defs>
-                      <rect width="36" height="36" rx="8" fill="url(#pjGradientAvatar)" />
-                      <text
-                        x="50%"
-                        y="50%"
-                        dominantBaseline="central"
-                        textAnchor="middle"
-                        fill="white"
-                        fontFamily="Poppins, sans-serif"
-                        fontWeight="800"
-                        fontSize="16"
-                      >
-                        PJ
-                      </text>
-                    </svg>
+                    <PjMark className="h-full w-full" />
                   </span>
                   <div className="absolute -bottom-1 -right-1 h-5 w-5 rounded-full border-4 border-white bg-emerald-500 dark:border-slate-900"></div>
                 </div>
@@ -201,30 +192,12 @@ export function Hero() {
                 </div>
               </div>
 
-              <div className="mt-8 border-t border-slate-200/60 pt-6 dark:border-white/10">
-                <div className="text-xs font-bold uppercase tracking-wider text-slate-600 mb-3">Quick Links</div>
-                <div className="flex flex-wrap gap-2">
-                  <a
-                    href={`mailto:${personalInfo.email}`}
-                    className="inline-flex items-center gap-2 rounded-lg bg-slate-100 px-4 py-2.5 text-xs font-bold text-slate-700 transition hover:bg-slate-200 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10 min-h-[44px] sm:min-h-0 sm:py-1.5 sm:px-3"
-                  >
-                    Email
-                  </a>
-                  <a
-                    href="#contact"
-                    className="inline-flex items-center gap-2 rounded-lg bg-slate-100 px-4 py-2.5 text-xs font-bold text-slate-700 transition hover:bg-slate-200 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10 min-h-[44px] sm:min-h-0 sm:py-1.5 sm:px-3"
-                  >
-                    Contact
-                  </a>
-                  <a
-                    href={personalInfo.linkedInUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-lg bg-slate-100 px-4 py-2.5 text-xs font-bold text-slate-700 transition hover:bg-slate-200 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10 min-h-[44px] sm:min-h-0 sm:py-1.5 sm:px-3"
-                  >
-                    LinkedIn
-                  </a>
-                </div>
+              <div className="mt-8 border-t border-slate-200/60 pt-6 text-sm text-slate-600 dark:border-white/10 dark:text-slate-400">
+                Available for{' '}
+                <span className="font-semibold text-emerald-600 dark:text-emerald-400">
+                  {personalInfo.availability}
+                </span>{' '}
+                — reach me below.
               </div>
             </div>
           </div>
