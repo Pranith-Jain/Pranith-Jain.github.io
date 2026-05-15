@@ -114,6 +114,7 @@ const ActorTimelinePage = lazy(() => import('./pages/threatintel/ActorTimeline')
 const VictimReleaksPage = lazy(() => import('./pages/threatintel/VictimReleaks'));
 const LiveIocsPage = lazy(() => import('./pages/threatintel/LiveIocs'));
 const CyberCrimePage = lazy(() => import('./pages/threatintel/CyberCrime'));
+const DeepDarkCTI = lazy(() => import('./pages/threatintel/DeepDarkCTI'));
 
 /**
  * Preserves the path slug (when `withSlug`), the query string, and the hash
@@ -708,6 +709,16 @@ export function AppContent() {
           <ErrorBoundary>
             <Suspense fallback={<SectionLoader />}>
               <Rules />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/threatintel/deepdarkcti"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <DeepDarkCTI />
             </Suspense>
           </ErrorBoundary>
         }
