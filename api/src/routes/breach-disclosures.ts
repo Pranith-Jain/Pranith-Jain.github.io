@@ -15,7 +15,7 @@ import { fetchAFDataleaks } from '../lib/andreafortuna-feeds';
  * checker route, which uses the k-anonymity API.
  */
 
-const CACHE_KEY = 'https://breach-disclosures-cache.internal/v2-af-source';
+const CACHE_KEY = 'https://breach-disclosures-cache.internal/v3-final-dedup';
 const CACHE_TTL_SECONDS = 6 * 3600;
 const FETCH_TIMEOUT_MS = 15_000;
 const HIBP_URL = 'https://haveibeenpwned.com/api/v3/breaches';
@@ -136,16 +136,28 @@ export async function breachDisclosuresHandler(c: Context<{ Bindings: Env }>): P
   // name (HIBP entry wins, it carries richer fields); AF only fills in
   // disclosures HIBP's window dropped or hasn't surfaced yet.
   const afBreaches = await fetchAFDataleaks().catch(() => []);
-  if (afBreaches.length > 0) {
-    if (!upstreamOk && breaches.length === 0) upstreamOk = true;
-    const seen = new Set(breaches.map((b) => b.name.toLowerCase()));
+
+  // Dedup the AF feed itself: it often has 10+ entries for the same breach
+  // (Leak-Lookup appearing at different timestamps as the scraper re-checks).
+  // Keep only the most recent entry per breach name.
+  {
+    const afDeduped = new Map<string, BreachDisclosure>();
     for (const af of afBreaches) {
-      const k = af.name.toLowerCase();
-      if (seen.has(k)) continue;
-      seen.add(k);
-      breaches.push(af);
+      const key = af.name.toLowerCase();
+      const existing = afDeduped.get(key);
+      if (!existing || (af.added_date ?? '') > (existing.added_date ?? '')) {
+        afDeduped.set(key, af);
+      }
     }
-    breaches.sort((a, b) => (b.added_date ?? '').localeCompare(a.added_date ?? '')).splice(MAX_ITEMS);
+    if (afDeduped.size > 0) {
+      if (!upstreamOk && breaches.length === 0) upstreamOk = true;
+      for (const [, af] of afDeduped) {
+        const k = `${af.name.toLowerCase()}::${(af.title ?? '').toLowerCase()}`;
+        if (new Set(breaches.map((b) => `${b.name.toLowerCase()}::${(b.title ?? '').toLowerCase()}`)).has(k)) continue;
+        breaches.push(af);
+      }
+      breaches.sort((a, b) => (b.added_date ?? '').localeCompare(a.added_date ?? '')).splice(MAX_ITEMS);
+    }
   }
 
   const body: DisclosuresResponse = {
