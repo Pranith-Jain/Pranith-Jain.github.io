@@ -158,6 +158,12 @@ export const SECTIONS: Section[] = [
         desc: 'Raw regf hive (SYSTEM/SOFTWARE/NTUSER.DAT) → key/value tree · hand-rolled parser · client-side',
         icon: FolderTree,
       },
+      {
+        path: '/dfir/evtx',
+        label: 'EVTX Parser Lite',
+        desc: 'Windows .evtx → per-record timestamp + readable BinXML strings · triage view · client-side',
+        icon: ScrollText,
+      },
     ],
   },
   {
