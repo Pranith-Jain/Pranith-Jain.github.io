@@ -29,6 +29,10 @@ export interface Env {
   RANSOMWARELIVE_API_KEY?: string;
 }
 
+/** The one true public origin. Used for canonical/OG URLs so they can never
+ *  be poisoned by a request arriving on a non-canonical host. */
+const CANONICAL_ORIGIN = 'https://pranithjain.qzz.io';
+
 const SECURITY_HEADERS: Record<string, string> = {
   'content-security-policy': [
     "default-src 'self'",
@@ -213,7 +217,10 @@ async function injectOgMeta(response: Response, url: URL): Promise<Response> {
   if (!ct.toLowerCase().includes('text/html')) return response;
   const override = findOgOverride(url.pathname);
   if (!override) return response;
-  const fullUrl = `${url.origin}${url.pathname}`;
+  // Canonical origin is fixed, never derived from the request. Deriving it
+  // from url.origin let a non-canonical host (alias / smuggled Host) poison
+  // the cached canonical + og:url served to everyone on that path.
+  const fullUrl = `${CANONICAL_ORIGIN}${url.pathname}`;
   const html = await response.text();
   const rewritten = rewriteOgMeta(html, override, fullUrl);
   const headers = new Headers(response.headers);
@@ -253,7 +260,12 @@ async function getOrInjectOg(request: Request, env: Env, ctx: ExecutionContext, 
 
   const etag = assetRes.headers.get('etag') ?? assetRes.headers.get('last-modified') ?? 'unversioned';
   const cache = caches.default;
-  const cacheKey = new Request(`https://og-html.internal${url.pathname}@${encodeURIComponent(etag)}`);
+  // Key includes the request host: the rewritten HTML is host-independent
+  // now (canonical is constant), but keying by host as well as path@etag
+  // keeps a non-canonical host's responses from ever sharing an entry.
+  const cacheKey = new Request(
+    `https://og-html.internal/${encodeURIComponent(url.host)}${url.pathname}@${encodeURIComponent(etag)}`
+  );
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 

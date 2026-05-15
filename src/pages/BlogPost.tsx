@@ -20,19 +20,18 @@ export default function BlogPost() {
 
   useEffect(() => {
     let cancelled = false;
-    fetch(`/api/v1/blog/posts/${slug}`).then(async (r) => {
-      if (r.status === 404) {
+    fetch(`/api/v1/blog/posts/${encodeURIComponent(slug ?? '')}`).then(async (r) => {
+      if (r.status === 404 || r.status === 400) {
         if (!cancelled) setNotFound(true);
         return;
       }
-      const data = (await r.json()) as { post: Post };
+      const data = (await r.json()) as { post: Post; bodyHtml: string };
       if (cancelled) return;
       setPost(data.post);
-      // Dynamic import keeps marked off the initial bundle and matches the
-      // pattern already used by WikiArticle.
-      const { marked } = await import('marked');
-      const rendered = marked.parse(data.post.body, { async: false }) as string;
-      if (!cancelled) setHtml(rendered);
+      // bodyHtml is sanitized server-side (api/src/case-study/rendering/
+      // markdown.ts). The client must NOT re-parse post.body itself —
+      // marked does not sanitize and the body is attacker-influenceable.
+      setHtml(data.bodyHtml ?? '');
     });
     return () => {
       cancelled = true;
@@ -44,7 +43,9 @@ export default function BlogPost() {
 
   return (
     <article className="max-w-3xl mx-auto px-6 py-10">
-      <div className="mb-6" dangerouslySetInnerHTML={{ __html: post.hero }} />
+      {/* hero is server-generated SVG. Render it through an <img> data URI so
+          the markup is inert (never parsed as live DOM in this origin). */}
+      <img className="mb-6 w-full rounded-lg" alt="" src={`data:image/svg+xml;utf8,${encodeURIComponent(post.hero)}`} />
       <header className="mb-6">
         <span className="text-xs uppercase tracking-wider text-zinc-500">{post.type}</span>
         <h1 className="text-3xl font-bold">{post.title}</h1>

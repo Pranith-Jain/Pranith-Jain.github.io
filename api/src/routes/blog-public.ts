@@ -2,6 +2,16 @@ import type { Hono } from 'hono';
 import type { Env } from '../env';
 import type { Post, PostIndexEntry } from '../case-study/types';
 import { kv } from '../case-study/kv-keys';
+import { renderMarkdown } from '../case-study/rendering/markdown';
+
+// Post slugs are `${candidate.key}-${slugified-title}` — strictly
+// [a-z0-9-]. Validate before it reaches a KV key. `index` is rejected
+// explicitly: `posts:index` is the postsIndex key, so an unvalidated
+// slug of "index" would alias an internal record.
+const SLUG_RE = /^[a-z0-9-]+$/;
+function validSlug(slug: string | undefined): slug is string {
+  return !!slug && slug.length <= 200 && slug !== 'index' && SLUG_RE.test(slug);
+}
 
 export function registerBlogRoutes(app: Hono<{ Bindings: Env }>): void {
   app.get('/api/v1/blog/posts', async (c) => {
@@ -16,9 +26,14 @@ export function registerBlogRoutes(app: Hono<{ Bindings: Env }>): void {
 
   app.get('/api/v1/blog/posts/:slug', async (c) => {
     const slug = c.req.param('slug');
+    if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
     const post = (await c.env.CASE_STUDIES.get(kv.post(slug), 'json')) as Post | null;
     if (!post) return c.json({ error: 'not found' }, 404);
-    return c.json({ post });
+    // The post body is LLM output built from scraped, attacker-influenceable
+    // sources. Sanitize server-side and hand the client safe HTML so it never
+    // re-parses raw markup with an unsanitizing renderer.
+    const bodyHtml = renderMarkdown(post.body);
+    return c.json({ post, bodyHtml });
   });
 
   app.get('/blog/rss.xml', async (c) => {

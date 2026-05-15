@@ -27,11 +27,21 @@ function linkify(html: string): string {
 const DANGEROUS_TAGS =
   /<\/?(?:script|iframe|object|embed|style|link|meta|base|form|input|button|noscript|svg|math)\b[^>]*>/gi;
 const EVENT_HANDLER_ATTRS = /\s+on[a-z]+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi;
-const JS_URL_ATTRS =
-  /(\s(?:href|src|action|formaction|xlink:href)\s*=\s*)(?:"\s*javascript:[^"]*"|'\s*javascript:[^']*'|javascript:[^\s>]+)/gi;
+// Neutralise script-bearing URL schemes in any attribute that dereferences a
+// URL. Covers javascript:, vbscript:, and data:text/html (data:image/* is
+// intentionally still allowed so inline markdown images keep working).
+const DANGEROUS_URL_ATTRS =
+  /(\s(?:href|src|srcset|action|formaction|xlink:href)\s*=\s*)(?:"\s*(?:javascript|vbscript|data\s*:\s*text\/html)[^"]*"|'\s*(?:javascript|vbscript|data\s*:\s*text\/html)[^']*'|(?:javascript|vbscript|data:text\/html)[^\s>]+)/gi;
+// Inline style attributes enable CSS-based exfiltration / phishing overlays.
+// Generated post content never legitimately needs them.
+const STYLE_ATTRS = /\s+style\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi;
 
 function sanitizeHtml(html: string): string {
-  return html.replace(DANGEROUS_TAGS, '').replace(EVENT_HANDLER_ATTRS, '').replace(JS_URL_ATTRS, '$1"#"');
+  return html
+    .replace(DANGEROUS_TAGS, '')
+    .replace(EVENT_HANDLER_ATTRS, '')
+    .replace(STYLE_ATTRS, '')
+    .replace(DANGEROUS_URL_ATTRS, '$1"#"');
 }
 
 export function renderMarkdown(md: string): string {
