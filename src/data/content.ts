@@ -14,7 +14,7 @@ export const personalInfo = {
   calendlyUrl: 'https://calendly.com/pranithjain84/30min',
   linkedInUrl: 'https://www.linkedin.com/in/pranithjain',
   githubUrl: 'https://github.com/Pranith-Jain',
-  resumeUrl: 'https://app.rezi.ai/s/pranith',
+  resumeUrl: 'https://raw.githubusercontent.com/Pranith-Jain/Pranith-Jain.github.io/main/public/resume.docx',
   featuredUrl: 'https://featured.com/p/pranith-jain',
 };
 
@@ -454,5 +454,6 @@ export const navLinks: NavLink[] = [
   { label: 'Projects', href: '/projects' },
   { label: 'DFIR', href: '/dfir' },
   { label: 'Threat Intel', href: '/threatintel' },
+  { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '/#contact' },
 ];
