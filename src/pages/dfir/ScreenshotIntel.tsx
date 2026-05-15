@@ -25,7 +25,9 @@ export default function ScreenshotIntel(): JSX.Element {
   const [qr, setQr] = useState<string | null>(null);
   const [meta, setMeta] = useState<Record<string, unknown> | null>(null);
   const [ents, setEnts] = useState<Array<[string, string[]]>>([]);
+  const [ocr, setOcr] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [stage, setStage] = useState('');
   const [note, setNote] = useState('');
 
   async function analyze(file: File) {
@@ -33,6 +35,7 @@ export default function ScreenshotIntel(): JSX.Element {
     setQr(null);
     setMeta(null);
     setEnts([]);
+    setOcr(null);
     setNote('');
     try {
       // EXIF / metadata (exifr — already a dependency)
@@ -53,14 +56,32 @@ export default function ScreenshotIntel(): JSX.Element {
       const img = ctx.getImageData(0, 0, cv.width, cv.height);
       const jsQR = (await import('jsqr')).default;
       const code = jsQR(img.data, img.width, img.height);
-      if (code?.data) {
-        setQr(code.data);
-        setEnts(entities(`${code.data} ${file.name}`));
-      } else {
-        setQr('');
-        setEnts(entities(file.name));
-        setNote('No QR/barcode detected. OCR text extraction is a planned follow-up (needs a self-hosted OCR engine).');
+      const qrText = code?.data ?? '';
+      setQr(qrText || '');
+
+      // OCR — tesseract.js, fully self-hosted (worker + core + traineddata
+      // served same-origin; workerBlobURL:false keeps the CSP tight).
+      let ocrText = '';
+      try {
+        setStage('running OCR (first run downloads the ~11 MB language model)…');
+        const { createWorker } = await import('tesseract.js');
+        const worker = await createWorker('eng', 1, {
+          workerPath: '/tesseract/worker.min.js',
+          corePath: '/tesseract/',
+          langPath: '/tesseract/',
+          workerBlobURL: false,
+        });
+        const { data } = await worker.recognize(file);
+        await worker.terminate();
+        ocrText = (data.text || '').trim();
+        setOcr(ocrText);
+      } catch (oe) {
+        setNote(`OCR unavailable: ${oe instanceof Error ? oe.message : String(oe)}`);
+      } finally {
+        setStage('');
       }
+
+      setEnts(entities(`${qrText} ${ocrText} ${file.name}`));
     } catch (e) {
       setNote(e instanceof Error ? e.message : String(e));
     } finally {
@@ -81,8 +102,9 @@ export default function ScreenshotIntel(): JSX.Element {
         Screenshot Intelligence
       </h1>
       <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mt-1 mb-6">
-        Drop a screenshot/photo — decodes embedded QR codes, reads EXIF/GPS metadata, and pulls OSINT entities (URLs,
-        domains, IPs, emails, crypto addresses, hashes) from the decoded content. 100% client-side.
+        Drop a screenshot/photo — runs OCR (self-hosted Tesseract), decodes embedded QR codes, reads EXIF/GPS metadata,
+        and pulls OSINT entities (URLs, domains, IPs, emails, crypto addresses, hashes) from the recognised text. 100%
+        client-side; the language model is fetched same-origin on first OCR run.
       </p>
 
       <label className="inline-block px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 cursor-pointer font-mono text-[12px]">
@@ -97,6 +119,7 @@ export default function ScreenshotIntel(): JSX.Element {
           }}
         />
       </label>
+      {stage && <p className="mt-3 font-mono text-[12px] text-slate-500">{stage}</p>}
       {note && <p className="mt-3 font-mono text-[12px] text-amber-600 dark:text-amber-400">{note}</p>}
 
       {qr ? (
@@ -105,6 +128,15 @@ export default function ScreenshotIntel(): JSX.Element {
           <code className="font-mono text-[12px] break-all text-slate-900 dark:text-slate-100">{qr}</code>
         </div>
       ) : null}
+
+      {ocr !== null && ocr !== '' && (
+        <div className="mt-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3">
+          <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-1">OCR text</div>
+          <pre className="font-mono text-[11px] whitespace-pre-wrap break-words text-slate-700 dark:text-slate-300 max-h-[40vh] overflow-auto">
+            {ocr}
+          </pre>
+        </div>
+      )}
 
       {ents.length > 0 && (
         <div className="mt-4 grid gap-2 sm:grid-cols-2">

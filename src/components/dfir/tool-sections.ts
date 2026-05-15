@@ -381,9 +381,9 @@ export const SECTIONS: Section[] = [
       },
       {
         path: '/dfir/screenshot-intel',
-        useCase: 'Decode a QR and pull entities from a screenshot.',
+        useCase: 'OCR a screenshot and pull entities from the text.',
         label: 'Screenshot Intelligence',
-        desc: 'Decode embedded QR · read EXIF/GPS · extract URL/IP/email/crypto entities · client-side',
+        desc: 'OCR (self-hosted Tesseract) + QR decode + EXIF/GPS · extract URL/IP/email/crypto entities · client-side',
         icon: ScanLine,
       },
     ],
