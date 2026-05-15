@@ -5,25 +5,7 @@ import {
   writeBriefing,
   sweepOldBriefings,
 } from '../api/src/lib/briefing-builder';
-import { runDiscovery } from '../api/src/case-study/discovery';
-import { discoverCves } from '../api/src/case-study/discovery/cve';
-import { discoverActors } from '../api/src/case-study/discovery/actor';
-import { discoverMalware } from '../api/src/case-study/discovery/malware';
-import { discoverRansomware } from '../api/src/case-study/discovery/ransomware';
-import { runPlanner } from '../api/src/case-study/publishing/planner';
-import { runPublisher } from '../api/src/case-study/publishing/publisher';
-import { putCandidate } from '../api/src/case-study/storage/candidates';
-import { listApproved, getApproved, unapprove } from '../api/src/case-study/storage/approved';
-import { setSchedule, markSlotStatus, pickDueSlot } from '../api/src/case-study/storage/schedule';
-import { getDedup, touchDedup } from '../api/src/case-study/storage/dedup';
-import { putPost, listPostIndex } from '../api/src/case-study/storage/posts';
-import { recordFailure } from '../api/src/case-study/storage/failed';
-import { renderRss } from '../api/src/case-study/rendering/rss';
-import { generatePost } from '../api/src/case-study/generation';
-import { kv as csKvKeys } from '../api/src/case-study/kv-keys';
-import { ACTOR_RSS_FEEDS, SITE_URL } from '../api/src/case-study/config';
-import { fetchRecentVictims } from '../api/src/case-study/ransom-source';
-import type { Post } from '../api/src/case-study/types';
+import { runDiscoveryNow, runPlannerNow, runPublisherNow, type CaseStudyEnv } from '../api/src/case-study/run';
 import type { Ai } from '@cloudflare/workers-types';
 
 export interface Env {
@@ -397,83 +379,19 @@ export default {
     const csNow = new Date(event.scheduledTime);
     const csCron = event.cron;
 
-    // Hourly cache-warm cron — also run publisher every hour
+    // Hourly cache-warm cron — also run the publisher every hour.
     if (csCron === '0 * * * *') {
-      ctx.waitUntil(
-        runPublisher({
-          pickDueSlot: (n) => pickDueSlot(env.CASE_STUDIES, n),
-          markSlotStatus: (cid, status, extras) => markSlotStatus(env.CASE_STUDIES, cid, status, extras),
-          getApproved: (k) => getApproved(env.CASE_STUDIES, k),
-          unapprove: (k) => unapprove(env.CASE_STUDIES, k),
-          generatePost: (cand, n) => generatePost({ candidate: cand, ai: env.AI, now: n }),
-          putPost: (p) => putPost(env.CASE_STUDIES, p),
-          refreshRss: async () => {
-            const index = await listPostIndex(env.CASE_STUDIES);
-            const posts = await Promise.all(
-              index.map(async (e) => (await env.CASE_STUDIES.get(csKvKeys.post(e.slug), 'json')) as Post | null)
-            );
-            const rss = renderRss(
-              posts.filter((p): p is Post => p !== null),
-              { siteUrl: SITE_URL }
-            );
-            await env.CASE_STUDIES.put(csKvKeys.metaRss, rss);
-          },
-          touchDedup: (k, when, slug) => touchDedup(env.CASE_STUDIES, k, when, slug),
-          recordFailure: (rec) => recordFailure(env.CASE_STUDIES, rec),
-          now: csNow,
-        })
-      );
+      ctx.waitUntil(runPublisherNow(env as unknown as CaseStudyEnv, csNow));
     }
 
-    // Daily briefing cron — also run case-study discovery
+    // Daily briefing cron — also run case-study discovery.
     if (csCron === '5 0 * * *') {
-      ctx.waitUntil(
-        runDiscovery({
-          runners: {
-            cve: () =>
-              discoverCves({
-                fetch: globalThis.fetch,
-                now: csNow,
-                getDedup: (k) => getDedup(env.CASE_STUDIES, k),
-              }),
-            actor: () =>
-              discoverActors({
-                fetch: globalThis.fetch,
-                now: csNow,
-                getDedup: (k) => getDedup(env.CASE_STUDIES, k),
-                feeds: ACTOR_RSS_FEEDS,
-              }),
-            malware: () =>
-              discoverMalware({
-                fetch: globalThis.fetch,
-                now: csNow,
-                getDedup: (k) => getDedup(env.CASE_STUDIES, k),
-                abuseChKey: (env as unknown as { ABUSE_CH_KEY?: string }).ABUSE_CH_KEY ?? '',
-              }),
-            ransom: () =>
-              discoverRansomware({
-                fetchVictims: () => fetchRecentVictims(globalThis.fetch),
-                now: csNow,
-                getDedup: (k) => getDedup(env.CASE_STUDIES, k),
-              }),
-          },
-          putCandidate: (c) => putCandidate(env.CASE_STUDIES, c),
-          touchDedup: (k, n) => touchDedup(env.CASE_STUDIES, k, n),
-          now: csNow,
-        })
-      );
+      ctx.waitUntil(runDiscoveryNow(env as unknown as CaseStudyEnv, csNow));
     }
 
-    // Weekly Mon briefing cron — also run planner for the upcoming week
+    // Weekly Mon briefing cron — also run the planner for the upcoming week.
     if (csCron === '15 0 * * 1') {
-      ctx.waitUntil(
-        runPlanner({
-          listApproved: () => listApproved(env.CASE_STUDIES),
-          setSchedule: (slots) => setSchedule(env.CASE_STUDIES, slots),
-          now: csNow,
-          random: Math.random,
-        })
-      );
+      ctx.waitUntil(runPlannerNow(env as unknown as CaseStudyEnv, csNow));
     }
 
     if (cron === '0 * * * *') {

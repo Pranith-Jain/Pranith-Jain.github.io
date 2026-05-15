@@ -7,6 +7,7 @@ import { approve, unapprove, listApproved } from '../case-study/storage/approved
 import { getSchedule } from '../case-study/storage/schedule';
 import { listPostIndex, removePost } from '../case-study/storage/posts';
 import { listFailures } from '../case-study/storage/failed';
+import { runDiscoveryNow, runPlannerNow, runPublisherNow, type CaseStudyEnv } from '../case-study/run';
 
 const TYPES: CaseStudyType[] = ['cve', 'actor', 'malware', 'ransom'];
 
@@ -46,6 +47,29 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     if (!TYPES.includes(type)) return c.json({ error: 'type required' }, 400);
     await deleteCandidate(c.env.CASE_STUDIES, type, id);
     return c.json({ ok: true });
+  });
+
+  // Manual pipeline trigger — the cron-only stages (discover daily,
+  // plan weekly, publish hourly) gate the queue by up to a day each.
+  // This lets an admin drive any stage on demand.
+  admin.post('/run/:stage', async (c) => {
+    const stage = c.req.param('stage');
+    const env = c.env as unknown as CaseStudyEnv;
+    const now = new Date();
+    try {
+      if (stage === 'discover') {
+        return c.json({ ok: true, stage, result: await runDiscoveryNow(env, now) });
+      }
+      if (stage === 'plan') {
+        return c.json({ ok: true, stage, result: (await runPlannerNow(env, now)) ?? null });
+      }
+      if (stage === 'publish') {
+        return c.json({ ok: true, stage, result: (await runPublisherNow(env, now)) ?? null });
+      }
+      return c.json({ error: 'unknown_stage', allowed: ['discover', 'plan', 'publish'] }, 400);
+    } catch (err) {
+      return c.json({ error: 'run_failed', stage, detail: err instanceof Error ? err.message : String(err) }, 500);
+    }
   });
 
   admin.get('/approved', async (c) => {

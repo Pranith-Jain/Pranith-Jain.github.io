@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { postJson } from './adminApi';
 import AdminLogin from './AdminLogin';
 import PendingTab from './PendingTab';
 import ApprovedTab from './ApprovedTab';
@@ -17,6 +18,50 @@ const TABS: Array<{ key: TabKey; label: string }> = [
   { key: 'failed', label: 'Failed' },
   { key: 'health', label: 'Health' },
 ];
+
+const STAGES: Array<{ stage: 'discover' | 'plan' | 'publish'; label: string; hint: string }> = [
+  { stage: 'discover', label: 'Run discovery', hint: 'Populate the pending queue now (normally daily cron)' },
+  { stage: 'plan', label: 'Run planner', hint: 'Schedule approved candidates now (normally weekly cron)' },
+  { stage: 'publish', label: 'Publish now', hint: 'Generate + publish the next due slot (normally hourly cron)' },
+];
+
+function PipelineBar() {
+  const [busy, setBusy] = useState<string | null>(null);
+  const [msg, setMsg] = useState<string | null>(null);
+
+  async function run(stage: string) {
+    setBusy(stage);
+    setMsg(null);
+    try {
+      const r = await postJson<{ ok?: boolean; stage?: string; result?: unknown; error?: string }>(`/run/${stage}`);
+      setMsg(r.error ? `${stage}: ${r.error}` : `${stage}: done — ${JSON.stringify(r.result ?? 'ok')}`);
+    } catch (e) {
+      setMsg(`${stage}: ${e instanceof Error ? e.message : String(e)}`);
+    } finally {
+      setBusy(null);
+    }
+  }
+
+  return (
+    <div className="mb-6 rounded border border-zinc-800 p-3">
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="text-xs uppercase tracking-wider text-zinc-500 mr-1">Pipeline</span>
+        {STAGES.map((s) => (
+          <button
+            key={s.stage}
+            onClick={() => run(s.stage)}
+            disabled={busy !== null}
+            title={s.hint}
+            className="px-3 py-1 border border-zinc-700 rounded text-sm hover:bg-zinc-800 disabled:opacity-50"
+          >
+            {busy === s.stage ? `${s.label}…` : s.label}
+          </button>
+        ))}
+      </div>
+      {msg && <p className="mt-2 text-xs font-mono text-zinc-400 break-all">{msg}</p>}
+    </div>
+  );
+}
 
 export default function AdminApp() {
   const [authed, setAuthed] = useState(false);
@@ -46,6 +91,7 @@ export default function AdminApp() {
           Logout
         </button>
       </div>
+      <PipelineBar />
       <nav className="flex flex-wrap gap-1 border-b border-zinc-800 mb-6">
         {TABS.map((t) => (
           <button

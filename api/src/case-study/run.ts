@@ -1,0 +1,98 @@
+/**
+ * Shared case-study pipeline runners. One wiring of the discovery /
+ * planner / publisher orchestrators, used by BOTH the cron handler
+ * (worker/index.ts `scheduled`) and the manual admin trigger endpoints
+ * (`POST /api/v1/admin/run/:stage`). Keep the two callers DRY — the cron
+ * blocks must not re-implement dep wiring.
+ */
+import { runDiscovery } from './discovery';
+import { discoverCves } from './discovery/cve';
+import { discoverActors } from './discovery/actor';
+import { discoverMalware } from './discovery/malware';
+import { discoverRansomware } from './discovery/ransomware';
+import { runPlanner } from './publishing/planner';
+import { runPublisher } from './publishing/publisher';
+import { putCandidate } from './storage/candidates';
+import { listApproved, getApproved, unapprove } from './storage/approved';
+import { setSchedule, markSlotStatus, pickDueSlot } from './storage/schedule';
+import { getDedup, touchDedup } from './storage/dedup';
+import { putPost, listPostIndex } from './storage/posts';
+import { recordFailure } from './storage/failed';
+import { renderRss } from './rendering/rss';
+import { generatePost } from './generation';
+import { kv as csKvKeys } from './kv-keys';
+import { ACTOR_RSS_FEEDS, SITE_URL } from './config';
+import { fetchRecentVictims } from './ransom-source';
+import type { Post } from './types';
+
+/** The subset of bindings the case-study pipeline needs. */
+export interface CaseStudyEnv {
+  CASE_STUDIES: KVNamespace;
+  AI: unknown;
+  ABUSE_CH_KEY?: string;
+}
+
+export function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
+  return runDiscovery({
+    runners: {
+      cve: () => discoverCves({ fetch: globalThis.fetch, now, getDedup: (k) => getDedup(env.CASE_STUDIES, k) }),
+      actor: () =>
+        discoverActors({
+          fetch: globalThis.fetch,
+          now,
+          getDedup: (k) => getDedup(env.CASE_STUDIES, k),
+          feeds: ACTOR_RSS_FEEDS,
+        }),
+      malware: () =>
+        discoverMalware({
+          fetch: globalThis.fetch,
+          now,
+          getDedup: (k) => getDedup(env.CASE_STUDIES, k),
+          abuseChKey: env.ABUSE_CH_KEY ?? '',
+        }),
+      ransom: () =>
+        discoverRansomware({
+          fetchVictims: () => fetchRecentVictims(globalThis.fetch),
+          now,
+          getDedup: (k) => getDedup(env.CASE_STUDIES, k),
+        }),
+    },
+    putCandidate: (c) => putCandidate(env.CASE_STUDIES, c),
+    touchDedup: (k, n) => touchDedup(env.CASE_STUDIES, k, n),
+    now,
+  });
+}
+
+export function runPlannerNow(env: CaseStudyEnv, now: Date) {
+  return runPlanner({
+    listApproved: () => listApproved(env.CASE_STUDIES),
+    setSchedule: (slots) => setSchedule(env.CASE_STUDIES, slots),
+    now,
+    random: Math.random,
+  });
+}
+
+export function runPublisherNow(env: CaseStudyEnv, now: Date) {
+  return runPublisher({
+    pickDueSlot: (n) => pickDueSlot(env.CASE_STUDIES, n),
+    markSlotStatus: (cid, status, extras) => markSlotStatus(env.CASE_STUDIES, cid, status, extras),
+    getApproved: (k) => getApproved(env.CASE_STUDIES, k),
+    unapprove: (k) => unapprove(env.CASE_STUDIES, k),
+    generatePost: (cand, n) => generatePost({ candidate: cand, ai: env.AI as never, now: n }),
+    putPost: (p) => putPost(env.CASE_STUDIES, p),
+    refreshRss: async () => {
+      const index = await listPostIndex(env.CASE_STUDIES);
+      const posts = await Promise.all(
+        index.map(async (e) => (await env.CASE_STUDIES.get(csKvKeys.post(e.slug), 'json')) as Post | null)
+      );
+      const rss = renderRss(
+        posts.filter((p): p is Post => p !== null),
+        { siteUrl: SITE_URL }
+      );
+      await env.CASE_STUDIES.put(csKvKeys.metaRss, rss);
+    },
+    touchDedup: (k, when, slug) => touchDedup(env.CASE_STUDIES, k, when, slug),
+    recordFailure: (rec) => recordFailure(env.CASE_STUDIES, rec),
+    now,
+  });
+}
