@@ -192,6 +192,12 @@ export const SECTIONS: Section[] = [
         desc: 'EXE/DLL headers · mitigations · section entropy (packed?) · import table w/ suspicious-API flags',
         icon: Binary,
       },
+      {
+        path: '/dfir/web-log',
+        label: 'Web Server Log Analyzer',
+        desc: 'Apache/Nginx access logs → SQLi/XSS/traversal/scanner heuristics · CSV export · client-side',
+        icon: FileCheck,
+      },
     ],
   },
   {

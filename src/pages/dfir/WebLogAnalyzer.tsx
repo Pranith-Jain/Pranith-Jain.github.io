@@ -1,0 +1,183 @@
+import { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowLeft, FileCheck } from 'lucide-react';
+
+interface Row {
+  n: number;
+  ip: string;
+  ts: string;
+  method: string;
+  path: string;
+  status: number;
+  size: string;
+  ua: string;
+  tags: string[];
+}
+
+const LINE_RE =
+  /^(\S+)\s+\S+\s+\S+\s+\[([^\]]+)\]\s+"(\S+)\s+([^"\s]+)[^"]*"\s+(\d{3})\s+(\S+)(?:\s+"([^"]*)"\s+"([^"]*)")?/;
+
+const RULES: Array<[string, RegExp]> = [
+  ['SQLi', /(\bunion\b.+\bselect\b|\bor\b\s+1=1|sleep\(|benchmark\(|information_schema|\bxp_cmdshell\b|'\s*or\s*')/i],
+  ['XSS', /(<script|onerror\s*=|javascript:|<img[^>]+src|%3cscript|document\.cookie)/i],
+  ['Path traversal', /(\.\.\/|\.\.%2f|%2e%2e%2f|\/etc\/passwd|\\windows\\win\.ini|\.\.\\)/i],
+  ['LFI/RFI', /(php:\/\/|data:\/\/|file:\/\/|expect:\/\/|=https?:\/\/)/i],
+  ['Cmd injection', /(;\s*(id|whoami|cat|curl|wget)\b|\|\s*(id|nc)\b|\$\(.*\)|`.*`|%3b)/i],
+  ['Scanner UA', /(sqlmap|nikto|nmap|masscan|acunetix|nuclei|wpscan|dirbuster|gobuster|feroxbuster|zgrab|httpx)/i],
+  ['Sensitive path', /(\/\.git|\/\.env|\/wp-admin|\/phpmyadmin|\/\.aws|\/actuator|\/server-status|\/\.ssh)/i],
+];
+
+function analyze(text: string): { rows: Row[]; total: number; parsed: number } {
+  const lines = text.split(/\r?\n/);
+  const rows: Row[] = [];
+  let parsed = 0;
+  for (let i = 0; i < lines.length; i++) {
+    const m = LINE_RE.exec(lines[i]!);
+    if (!m) continue;
+    parsed++;
+    let decoded = m[4]!;
+    try {
+      decoded = decodeURIComponent(m[4]!);
+    } catch {
+      /* keep raw */
+    }
+    const ua = m[8] ?? '';
+    const hay = `${decoded} ${ua}`;
+    const tags = RULES.filter(([, re]) => re.test(hay)).map(([t]) => t);
+    if (tags.length === 0) continue;
+    rows.push({
+      n: i + 1,
+      ip: m[1]!,
+      ts: m[2]!,
+      method: m[3]!,
+      path: m[4]!.slice(0, 200),
+      status: Number(m[5]),
+      size: m[6]!,
+      ua: ua.slice(0, 120),
+      tags,
+    });
+  }
+  return { rows, total: lines.filter(Boolean).length, parsed };
+}
+
+function csv(rows: Row[]): string {
+  const head = 'line,ip,timestamp,method,path,status,size,tags,user_agent';
+  const esc = (s: string) => `"${String(s).replace(/"/g, '""')}"`;
+  return [
+    head,
+    ...rows.map((r) =>
+      [r.n, r.ip, r.ts, r.method, r.path, r.status, r.size, r.tags.join('|'), r.ua].map((c) => esc(String(c))).join(',')
+    ),
+  ].join('\n');
+}
+
+export default function WebLogAnalyzer(): JSX.Element {
+  const [text, setText] = useState('');
+  const res = useMemo(() => (text.trim() ? analyze(text) : null), [text]);
+
+  function download() {
+    if (!res) return;
+    const blob = new Blob([csv(res.rows)], { type: 'text/csv' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'suspicious-requests.csv';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }
+
+  return (
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
+      <Link
+        to="/dfir/tools/dfir"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+      >
+        <ArrowLeft size={14} /> DFIR tools
+      </Link>
+      <h1 className="font-display font-bold text-2xl flex items-center gap-2">
+        <FileCheck size={22} className="text-brand-600 dark:text-brand-400" />
+        Web Server Log Analyzer
+      </h1>
+      <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mt-1 mb-6">
+        Paste Apache/Nginx Common or Combined access logs. URL-decodes each request and flags SQLi, XSS, path traversal,
+        LFI/RFI, command injection, scanner UAs and sensitive-path probes. Export the hits as CSV. 100% client-side.
+      </p>
+
+      <textarea
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        rows={6}
+        placeholder='127.0.0.1 - - [10/May/2026:13:55:36 +0000] "GET /?id=1%27%20OR%201=1 HTTP/1.1" 200 1234 "-" "sqlmap/1.7"'
+        className="w-full rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 font-mono text-[12px] focus:border-brand-500 focus:outline-none"
+      />
+      <label className="mt-2 inline-block px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 cursor-pointer font-mono text-[12px]">
+        …or load a log file
+        <input
+          type="file"
+          accept=".log,.txt,text/plain"
+          className="hidden"
+          onChange={async (e) => {
+            const f = e.target.files?.[0];
+            if (f) setText(await f.text());
+          }}
+        />
+      </label>
+
+      {res && (
+        <div className="mt-6 space-y-3">
+          <div className="flex flex-wrap items-center gap-4 font-mono text-[12px] text-slate-500">
+            <span>
+              {res.total.toLocaleString()} lines · {res.parsed.toLocaleString()} parsed ·{' '}
+              <span className="text-rose-600 dark:text-rose-400">{res.rows.length} suspicious</span>
+            </span>
+            {res.rows.length > 0 && (
+              <button
+                type="button"
+                onClick={download}
+                className="px-2 py-1 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40"
+              >
+                export CSV
+              </button>
+            )}
+          </div>
+          <div className="rounded-lg border border-slate-200 dark:border-slate-800 overflow-auto max-h-[60vh]">
+            <table className="w-full text-[11px] font-mono">
+              <thead className="bg-slate-50 dark:bg-slate-900 sticky top-0">
+                <tr>
+                  {['#', 'IP', 'Method', 'Path', 'Status', 'Findings'].map((h) => (
+                    <th key={h} className="text-left px-2 py-1 border-b border-slate-200 dark:border-slate-800">
+                      {h}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {res.rows.slice(0, 2000).map((r) => (
+                  <tr key={r.n} className="even:bg-slate-50/50 dark:even:bg-slate-900/50">
+                    <td className="px-2 py-1 border-b border-slate-100 dark:border-slate-800 text-slate-500">{r.n}</td>
+                    <td className="px-2 py-1 border-b border-slate-100 dark:border-slate-800">{r.ip}</td>
+                    <td className="px-2 py-1 border-b border-slate-100 dark:border-slate-800">{r.method}</td>
+                    <td className="px-2 py-1 border-b border-slate-100 dark:border-slate-800 break-all">{r.path}</td>
+                    <td className="px-2 py-1 border-b border-slate-100 dark:border-slate-800">{r.status}</td>
+                    <td className="px-2 py-1 border-b border-slate-100 dark:border-slate-800">
+                      {r.tags.map((t) => (
+                        <span
+                          key={t}
+                          className="inline-block mr-1 mb-0.5 px-1 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {res.rows.length === 0 && (
+              <p className="p-3 font-mono text-[12px] text-slate-500">No suspicious requests matched the heuristics.</p>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

@@ -100,6 +100,7 @@ const SqliteExplorer = lazy(() => import('./pages/dfir/SqliteExplorer'));
 const IosBackupExplorer = lazy(() => import('./pages/dfir/IosBackupExplorer'));
 const ScreenshotIntel = lazy(() => import('./pages/dfir/ScreenshotIntel'));
 const PeAnalyzer = lazy(() => import('./pages/dfir/PeAnalyzer'));
+const WebLogAnalyzer = lazy(() => import('./pages/dfir/WebLogAnalyzer'));
 const CveResourcesCatalog = lazy(() => import('./pages/dfir/CveResourcesCatalog'));
 const WebScan = lazy(() => import('./pages/dfir/WebScan'));
 const MalwareScan = lazy(() => import('./pages/dfir/MalwareScan'));
@@ -1048,6 +1049,7 @@ export function AppContent() {
           ['/dfir/screenshot-intel', <ScreenshotIntel key="si" />],
           ['/dfir/mobile-sqlite', <SqliteExplorer key="ms" />],
           ['/dfir/pe', <PeAnalyzer key="pe" />],
+          ['/dfir/web-log', <WebLogAnalyzer key="wl" />],
         ] as Array<[string, JSX.Element]>
       ).map(([p, el]) => (
         <Route
