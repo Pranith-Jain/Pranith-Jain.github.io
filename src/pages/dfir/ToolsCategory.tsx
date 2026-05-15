@@ -190,7 +190,7 @@ export default function ToolsCategory(): JSX.Element {
           </div>
           <div className="flex flex-wrap gap-4 text-[12px] font-mono">
             <Link
-              to="/about"
+              to="/dfir/tools/about"
               className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
             >
               About

@@ -87,6 +87,7 @@ const Socmint = lazy(() => import('./pages/dfir/Socmint'));
 const OsintFramework = lazy(() => import('./pages/dfir/OsintFramework'));
 const SecopsCatalog = lazy(() => import('./pages/dfir/SecopsCatalog'));
 const ToolsCategory = lazy(() => import('./pages/dfir/ToolsCategory'));
+const ToolsAbout = lazy(() => import('./pages/dfir/ToolsAbout'));
 const TimestampConverter = lazy(() => import('./pages/dfir/TimestampConverter'));
 const HashCalculator = lazy(() => import('./pages/dfir/HashCalculator'));
 const DorkBuilder = lazy(() => import('./pages/dfir/DorkBuilder'));
@@ -1020,6 +1021,16 @@ export function AppContent() {
           <ErrorBoundary>
             <Suspense fallback={<SectionLoader />}>
               <SecopsCatalog />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/dfir/tools/about"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <ToolsAbout />
             </Suspense>
           </ErrorBoundary>
         }
