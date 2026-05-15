@@ -217,8 +217,6 @@ export const certifications = {
     { title: 'SOC Summit 2026', issuer: 'SOC Summit', year: '2026', featured: true },
     { title: 'Certified Cyber Criminologist', issuer: 'Virtual Cyber Labs', year: '2025', featured: true },
     { title: 'Proofpoint AI Email Security Specialist', issuer: 'Proofpoint', year: '2025', featured: true },
-    { title: 'Effective AI for Practical SecOps Workflows', issuer: 'ISC2', year: '2025', featured: true },
-    { title: 'Mastering Cyber Threat Intelligence for SOC Analysts', issuer: 'MCSI', year: '2025', featured: true },
     { title: 'DSPM Fundamentals', issuer: 'Securiti AI', year: '2025', featured: true },
     { title: 'Antisyphon Training', issuer: 'Antisyphon', year: '2026', featured: true },
     { title: 'Data Loss Prevention (DLP) Survival Guide', issuer: 'Fortra', year: '2026', featured: true },
