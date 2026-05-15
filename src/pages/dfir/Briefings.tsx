@@ -74,7 +74,7 @@ export default function Briefings(): JSX.Element {
         to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-10 font-mono transition-colors"
       >
-        <ArrowLeft size={14} /> /threatintel
+        <ArrowLeft size={14} /> back
       </Link>
 
       <header className="animate-fade-in-up mb-12">

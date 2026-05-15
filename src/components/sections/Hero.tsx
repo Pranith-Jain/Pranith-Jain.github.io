@@ -1,4 +1,4 @@
-import { Linkedin, Github, Mail, Terminal, FileText } from 'lucide-react';
+import { Linkedin, Github, Mail, Terminal } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { personalInfo, stats } from '../../data/content';
 import { PjMark } from '../PjMark';
@@ -13,19 +13,16 @@ export function Hero() {
           <div className="mb-6 flex flex-wrap items-center gap-3">
             <span className="inline-flex items-center gap-2 rounded-full border border-brand-200/50 bg-brand-50/50 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-brand-700 backdrop-blur-md dark:border-brand-800/50 dark:bg-brand-900/30 dark:text-brand-300">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                <span className="animate-ping motion-reduce:animate-none absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
               </span>
-              Certified AI Security Expert
+              Certified Cyber Criminologist
             </span>
             <span className="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-4 py-1.5 text-xs font-semibold text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200">
               Threat Intelligence
             </span>
             <span className="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-4 py-1.5 text-xs font-semibold text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200">
               Email Defense
-            </span>
-            <span className="inline-flex items-center gap-2 rounded-full border border-sky-200/70 bg-sky-50/70 px-4 py-1.5 text-xs font-semibold text-sky-700 shadow-sm backdrop-blur-xl dark:border-sky-800/50 dark:bg-sky-900/30 dark:text-sky-300">
-              Blog
             </span>
             <span className="inline-flex items-center gap-2 rounded-full border border-emerald-200/70 bg-emerald-50/70 px-4 py-1.5 text-xs font-semibold text-emerald-700 shadow-sm backdrop-blur-xl dark:border-emerald-800/50 dark:bg-emerald-900/30 dark:text-emerald-300">
               AU Ambassador Program
@@ -106,40 +103,34 @@ export function Hero() {
             >
               Explore Focus Areas
             </Link>
-            <Link
-              to="/blog"
-              className="inline-flex items-center justify-center gap-2 rounded-2xl border border-sky-300/60 bg-sky-50/70 px-8 py-4 text-base font-bold text-sky-700 shadow-sm transition hover:shadow-md hover:scale-105 active:scale-95 dark:border-sky-700/60 dark:bg-sky-900/30 dark:text-sky-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-900"
-            >
-              <FileText className="h-4 w-4" aria-hidden="true" /> Read the Blog
-            </Link>
           </div>
 
           {/* Social Links */}
-          <div className="mt-8 flex items-center gap-6">
+          <div className="mt-8 flex items-center gap-2">
             <a
               href={personalInfo.linkedInUrl}
               target="_blank"
               rel="noreferrer"
-              className="text-slate-500 transition hover:text-brand-600 dark:hover:text-brand-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded"
+              className="p-3 text-slate-500 transition hover:text-brand-600 dark:hover:text-brand-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded-lg"
               aria-label="LinkedIn"
             >
-              <Linkedin className="h-6 w-6" aria-hidden="true" />
+              <Linkedin className="h-6 w-6 sm:h-5 sm:w-5" aria-hidden="true" />
             </a>
             <a
               href={personalInfo.githubUrl}
               target="_blank"
               rel="noreferrer"
-              className="text-slate-500 transition hover:text-brand-600 dark:hover:text-brand-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded"
+              className="p-3 text-slate-500 transition hover:text-brand-600 dark:hover:text-brand-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded-lg"
               aria-label="GitHub"
             >
-              <Github className="h-6 w-6" aria-hidden="true" />
+              <Github className="h-6 w-6 sm:h-5 sm:w-5" aria-hidden="true" />
             </a>
             <a
               href={`mailto:${personalInfo.email}`}
-              className="text-slate-500 transition hover:text-brand-600 dark:hover:text-brand-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded"
+              className="p-3 text-slate-500 transition hover:text-brand-600 dark:hover:text-brand-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded-lg"
               aria-label="Email"
             >
-              <Mail className="h-6 w-6" aria-hidden="true" />
+              <Mail className="h-6 w-6 sm:h-5 sm:w-5" aria-hidden="true" />
             </a>
           </div>
         </div>

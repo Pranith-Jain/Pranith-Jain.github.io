@@ -75,7 +75,7 @@ export default function WikiArticle(): JSX.Element {
           to="/threatintel/wiki"
           className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
         >
-          <ArrowLeft size={14} /> /threatintel/wiki
+          <ArrowLeft size={14} /> back
         </Link>
         <h1 className="font-display font-bold text-3xl">Article not found</h1>
       </div>
@@ -88,7 +88,7 @@ export default function WikiArticle(): JSX.Element {
         to="/threatintel/wiki"
         className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> /threatintel/wiki
+        <ArrowLeft size={14} /> back
       </Link>
       <span className="block text-xs font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-2">
         {articleMeta.category}

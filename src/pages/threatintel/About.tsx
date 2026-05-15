@@ -42,7 +42,7 @@ export default function ThreatIntelAbout(): JSX.Element {
         to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> /threatintel
+        <ArrowLeft size={14} /> back
       </Link>
 
       <h1 className="font-display font-bold text-3xl mb-2">About the threat-intel platform</h1>

@@ -99,7 +99,7 @@ export default function AtlasMatrix(): JSX.Element {
           to="/threatintel"
           className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
         >
-          <ArrowLeft size={14} /> /threatintel
+          <ArrowLeft size={14} /> back
         </Link>
 
         <div>

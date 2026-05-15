@@ -46,7 +46,7 @@
 
 @layer components {
   .glass {
-    @apply border border-slate-200/60 bg-white/70 backdrop-blur-xl transition-all duration-300;
+    @apply border border-slate-200/60 bg-white/70 backdrop-blur-md lg:backdrop-blur-xl transition-all duration-300;
   }
 
   .dark .glass {

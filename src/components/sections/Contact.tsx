@@ -74,11 +74,11 @@ export function Contact() {
                 href={personalInfo.linkedInUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-3 text-sm font-bold text-slate-500 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-lg px-2 py-1"
+                className="group flex items-center gap-3 sm:text-sm text-xs font-bold text-slate-500 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-lg px-3 py-3 min-h-[44px]"
                 aria-label="Visit LinkedIn profile (opens in new tab)"
               >
-                <span className="rounded-lg bg-white/5 p-2 transition group-hover:bg-white/10">
-                  <Linkedin className="h-4 w-4" aria-hidden="true" />
+                <span className="rounded-lg bg-white/5 p-3 transition group-hover:bg-white/10">
+                  <Linkedin className="h-5 w-5 sm:h-4 sm:w-4" aria-hidden="true" />
                 </span>
                 LinkedIn
               </a>
@@ -88,11 +88,11 @@ export function Contact() {
                 href={personalInfo.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-3 text-sm font-bold text-slate-500 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-lg px-2 py-1"
+                className="group flex items-center gap-3 sm:text-sm text-xs font-bold text-slate-500 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-lg px-3 py-3 min-h-[44px]"
                 aria-label="Visit GitHub profile (opens in new tab)"
               >
-                <span className="rounded-lg bg-white/5 p-2 transition group-hover:bg-white/10">
-                  <Github className="h-4 w-4" aria-hidden="true" />
+                <span className="rounded-lg bg-white/5 p-3 transition group-hover:bg-white/10">
+                  <Github className="h-5 w-5 sm:h-4 sm:w-4" aria-hidden="true" />
                 </span>
                 GitHub
               </a>
@@ -102,11 +102,11 @@ export function Contact() {
                 href={personalInfo.resumeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-3 text-sm font-bold text-slate-500 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-lg px-2 py-1"
+                className="group flex items-center gap-3 sm:text-sm text-xs font-bold text-slate-500 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-lg px-3 py-3 min-h-[44px]"
                 aria-label="View resume (opens in new tab)"
               >
-                <span className="rounded-lg bg-white/5 p-2 transition group-hover:bg-white/10">
-                  <FileText className="h-4 w-4" aria-hidden="true" />
+                <span className="rounded-lg bg-white/5 p-3 transition group-hover:bg-white/10">
+                  <FileText className="h-5 w-5 sm:h-4 sm:w-4" aria-hidden="true" />
                 </span>
                 Resume
               </a>
@@ -116,11 +116,11 @@ export function Contact() {
                 href={personalInfo.featuredUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-3 text-sm font-bold text-slate-500 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-lg px-2 py-1"
+                className="group flex items-center gap-3 sm:text-sm text-xs font-bold text-slate-500 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-lg px-3 py-3 min-h-[44px]"
                 aria-label="View Featured Experts profile (opens in new tab)"
               >
-                <span className="rounded-lg bg-white/5 p-2 transition group-hover:bg-white/10">
-                  <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <span className="rounded-lg bg-white/5 p-3 transition group-hover:bg-white/10">
+                  <svg className="h-5 w-5 sm:h-4 sm:w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                     <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
                   </svg>
                 </span>

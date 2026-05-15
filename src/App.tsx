@@ -140,6 +140,7 @@ const RansomwareLive = lazy(() => import('./pages/threatintel/RansomwareLive'));
 const Infostealer = lazy(() => import('./pages/threatintel/Infostealer'));
 const UrlReputation = lazy(() => import('./pages/dfir/UrlReputation'));
 const DomainReputation = lazy(() => import('./pages/dfir/DomainReputation'));
+const ApkAnalyzer = lazy(() => import('./pages/dfir/ApkAnalyzer'));
 const EmailReputation = lazy(() => import('./pages/dfir/EmailReputation'));
 const DomainMonitor = lazy(() => import('./pages/threatintel/DomainMonitor'));
 
@@ -1075,6 +1076,7 @@ export function AppContent() {
           ['/dfir/ios-backup', <IosBackupExplorer key="ib" />],
           ['/dfir/screenshot-intel', <ScreenshotIntel key="si" />],
           ['/dfir/mobile-sqlite', <SqliteExplorer key="ms" />],
+          ['/dfir/apk-analyzer', <ApkAnalyzer key="apk" />],
           ['/dfir/pe', <PeAnalyzer key="pe" />],
           ['/dfir/web-log', <WebLogAnalyzer key="wl" />],
           ['/dfir/prefetch', <PrefetchAnalyzer key="pf" />],

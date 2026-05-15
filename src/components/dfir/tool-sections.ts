@@ -238,6 +238,13 @@ export const SECTIONS: Section[] = [
         desc: 'Windows .pf incl. Win10+ MAM/LZXPRESS-Huffman · exe · run count · last runs · referenced files',
         icon: Activity,
       },
+      {
+        path: '/dfir/apk-analyzer',
+        useCase: 'Analyze an Android APK for malware indicators.',
+        label: 'APK Analyzer',
+        desc: 'Drop .apk · permissions · package info · DEX count · strings · IOCs · suspicious patterns · hashes · client-side',
+        icon: Smartphone,
+      },
     ],
   },
   {

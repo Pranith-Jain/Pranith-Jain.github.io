@@ -180,6 +180,20 @@ const SECTIONS: Section[] = [
     ],
   },
   {
+    id: 'writeups',
+    label: 'Writeups Feed',
+    blurb: 'Analyst blogs and vendor research labs, aggregated live.',
+    tools: [
+      {
+        to: '/threatintel/writeups',
+        label: 'Writeups Feed',
+        desc: '18+ analyst blogs and vendor research labs aggregated live: The DFIR Report, BushidoToken, DoublePulsar, Krebs, SentinelLabs, Unit 42, Check Point Research, Google TI, Huntress, and more.',
+        icon: BookText,
+        badge: 'live',
+      },
+    ],
+  },
+  {
     id: 'briefings',
     label: 'Briefings & Reports',
     blurb: 'Synthesised intel. Daily, weekly, and per-group write-ups.',
@@ -189,13 +203,6 @@ const SECTIONS: Section[] = [
         label: 'Intel Briefings',
         desc: 'Daily and weekly digest, auto-generated from the upstream feeds. Ransomware claims, breach disclosures, and the IOCs of the day, with auto-tagged actors and CVEs per item.',
         icon: Briefcase,
-      },
-      {
-        to: '/threatintel/writeups',
-        label: 'Writeups Feed',
-        desc: '18+ analyst blogs and vendor research labs aggregated live: The DFIR Report, BushidoToken, DoublePulsar, Krebs, SentinelLabs, Unit 42, Check Point Research, Google TI, Huntress, and more.',
-        icon: BookText,
-        badge: 'live',
       },
     ],
   },

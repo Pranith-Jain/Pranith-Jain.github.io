@@ -152,7 +152,7 @@ export default function PromptInjection(): JSX.Element {
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 font-mono"
       >
-        <ArrowLeft size={14} /> /dfir
+        <ArrowLeft size={14} /> back
       </Link>
 
       <header className="flex items-start gap-3">

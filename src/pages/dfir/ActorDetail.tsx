@@ -13,7 +13,7 @@ export default function ActorDetail(): JSX.Element {
           to="/threatintel/actors"
           className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
         >
-          <ArrowLeft size={14} /> /threatintel/actors
+          <ArrowLeft size={14} /> back
         </Link>
         <h1 className="font-display font-bold text-3xl">Actor not found</h1>
       </div>
@@ -26,7 +26,7 @@ export default function ActorDetail(): JSX.Element {
         to="/threatintel/actors"
         className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
       >
-        <ArrowLeft size={14} /> /threatintel/actors
+        <ArrowLeft size={14} /> back
       </Link>
 
       <div className="animate-fade-in-up mb-8">
