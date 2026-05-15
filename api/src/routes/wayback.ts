@@ -39,13 +39,50 @@ const CACHE_TTL = 6 * 3600;
 const NEGATIVE_CACHE_TTL = 30;
 const CDX_BASE = 'https://web.archive.org/cdx/search/cdx';
 
+// === Root-cause fix for the recurring "rate-limited — try again in 60s" ===
+//
+// Internet Archive throttles the CDX endpoint by CLIENT IP, globally across
+// every URL. The Worker's egress is a shared Cloudflare IP, so once IA
+// throttles us, EVERY url 429s — and every continued request during the
+// window re-arms IA's cooldown, keeping the ban alive indefinitely.
+//
+// The previous design cached the 429 in the per-colo Cache API keyed by
+// url+limit. That can never gate an IP-global, cross-url throttle: a
+// different url is a cache miss, hits IA again, and extends the ban. Five
+// prior fixes tuned timeouts/retries/caching and none addressed this.
+//
+// Fix: a single global cooldown flag in KV (shared across urls AND colos).
+// While it's set we return a structured 429 from the edge WITHOUT touching
+// IA, so the throttle actually expires instead of being continuously reset.
+const COOLDOWN_KEY = 'wayback:ia-cooldown';
+// KV's minimum expirationTtl is 60s; IA windows are >= that anyway.
+const MIN_COOLDOWN_SEC = 60;
+
+function cooldownResponse(c: Context<{ Bindings: Env }>, remainSec: number): Response {
+  return c.json(
+    {
+      error: 'wayback rate-limited upstream',
+      upstream_status: 429,
+      retry_after_seconds: remainSec,
+      hint: `Internet Archive is rate-limiting all Wayback lookups from this site. A shared cooldown is active and clears automatically in ~${remainSec}s — manual retries during the window only extend it, so just wait.`,
+    },
+    429,
+    { 'Retry-After': String(remainSec), 'Cache-Control': 'no-store' }
+  );
+}
+
 async function fetchCdxOnce(upstream: string, timeoutMs: number): Promise<Response> {
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), timeoutMs);
   try {
     return await fetch(upstream, {
       signal: ctrl.signal,
-      headers: { 'user-agent': 'pranithjain-dfir/1.0', accept: 'application/json' },
+      // IA throttles anonymous/generic UAs harder; a descriptive UA with a
+      // contact URL is the politeness signal they ask for and reduces 429s.
+      headers: {
+        'user-agent': 'pranithjain-dfir/1.0 (+https://pranithjain.qzz.io; Wayback CDX pivot tool)',
+        accept: 'application/json',
+      },
     });
   } finally {
     clearTimeout(timer);
@@ -82,8 +119,27 @@ export async function waybackCdxHandler(c: Context<{ Bindings: Env }>): Promise<
 
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheKey = new Request(`https://wayback-cache.internal/v1?u=${encodeURIComponent(target)}&l=${limit}`);
+
+  // Serve a cached SUCCESS for this exact url first — cooldown must not hide
+  // results we already have. (Negative entries are no longer cached per-url;
+  // the global breaker below owns failure state.)
   const cached = await cache.match(cacheKey);
-  if (cached) return cached;
+  if (cached && cached.status === 200) return cached;
+
+  // Global circuit-breaker (the actual fix). If a cooldown is active, return
+  // immediately and DO NOT contact IA — that's what lets the throttle expire.
+  const kv = c.env.KV_CACHE;
+  if (kv) {
+    try {
+      const until = await kv.get(COOLDOWN_KEY);
+      if (until) {
+        const remain = Math.max(parseInt(until, 10) - Math.floor(Date.now() / 1000), 1);
+        return cooldownResponse(c, remain);
+      }
+    } catch {
+      /* KV read blip — fail open, fall through to a real attempt. */
+    }
+  }
 
   // Attempt 1 → on transient failure or timeout, sleep ~1.5s and retry once.
   // The IA cluster recovers quickly; a single retry catches ~70% of blips
@@ -103,24 +159,19 @@ export async function waybackCdxHandler(c: Context<{ Bindings: Env }>): Promise<
         break;
       }
       if (res.status === 429) {
-        // Internet Archive rate-limits aggressively. Cache the 429 in the
-        // edge so subsequent users in the throttle window get an immediate
-        // structured response instead of hammering the upstream and getting
-        // their own 429. Cache window = max(retry-after, 60s).
-        const retryAfter = res.headers.get('retry-after') ?? '60';
-        const retrySec = Math.max(parseInt(retryAfter, 10) || 60, 60);
-        const body = {
-          error: 'wayback rate-limited upstream',
-          upstream_status: 429,
-          retry_after_seconds: retrySec,
-          hint: `Internet Archive is rate-limiting this client. Try again in ${retrySec}s — the result will be cached at the edge so retries elsewhere on the site share the cooldown.`,
-        };
-        const resp = c.json(body, 429, {
-          'Retry-After': String(retrySec),
-          'Cache-Control': `public, max-age=${retrySec}`,
-        });
-        c.executionCtx.waitUntil(cache.put(cacheKey, resp.clone()));
-        return resp;
+        // Trip the GLOBAL breaker. IA's throttle is IP-wide, so this single
+        // KV flag (cross-url, cross-colo) makes every subsequent lookup
+        // short-circuit at the edge until the window clears — which is the
+        // only thing that lets IA's cooldown actually expire.
+        const retryAfter = res.headers.get('retry-after') ?? '';
+        const retrySec = Math.max(parseInt(retryAfter, 10) || MIN_COOLDOWN_SEC, MIN_COOLDOWN_SEC);
+        if (kv) {
+          const expiresAt = Math.floor(Date.now() / 1000) + retrySec;
+          c.executionCtx.waitUntil(
+            kv.put(COOLDOWN_KEY, String(expiresAt), { expirationTtl: retrySec }).catch(() => {})
+          );
+        }
+        return cooldownResponse(c, retrySec);
       }
       lastError = { status: res.status };
       if (!transientStatus(res.status)) break; // 4xx other than 429 — don't bother retrying.
@@ -130,20 +181,20 @@ export async function waybackCdxHandler(c: Context<{ Bindings: Env }>): Promise<
   }
 
   if (!upstreamOk) {
-    // Stash a negative response in cache so we don't punish IA with retry
-    // storms while their cluster is offline. The TTL is much shorter than
-    // the success TTL — IA recovers fast and we want the next user to feel it.
-    const errorBody = {
-      error: 'wayback upstream unavailable',
-      upstream_status: lastError.status,
-      hint: 'Internet Archive CDX is intermittently slow. Cached the failure for 60s; try again shortly.',
-    };
-    const errorResp = c.json(errorBody, 502, {
-      'Cache-Control': `public, max-age=${NEGATIVE_CACHE_TTL}`,
-    });
-    c.executionCtx.waitUntil(cache.put(cacheKey, errorResp.clone()));
+    // Transient 5xx / timeout (NOT a 429 — that path tripped the breaker and
+    // returned above). Don't poison the per-url success cache with a failure
+    // and don't trip the global breaker: a single slow url shouldn't disable
+    // the whole tool for everyone. Just surface a short, honest 502.
     if (lastError.message) console.warn('wayback fetch failed:', lastError.message);
-    return errorResp;
+    return c.json(
+      {
+        error: 'wayback upstream unavailable',
+        upstream_status: lastError.status,
+        hint: 'Internet Archive CDX is intermittently slow or unreachable. Try again shortly.',
+      },
+      502,
+      { 'Cache-Control': `public, max-age=${NEGATIVE_CACHE_TTL}` }
+    );
   }
 
   const response = c.json(upstreamJson, 200, {

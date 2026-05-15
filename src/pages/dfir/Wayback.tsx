@@ -43,11 +43,35 @@ export default function Wayback(): JSX.Element {
   const [snapshots, setSnapshots] = useState<Snapshot[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // Epoch ms when the shared IA cooldown clears. While set, Lookup is
+  // disabled and auto-fetch is suppressed — manual retries during the
+  // window are exactly what keep IA's IP-wide throttle alive.
+  const [cooldownUntil, setCooldownUntil] = useState<number | null>(null);
+  const [nowTick, setNowTick] = useState(Date.now());
   const initialDone = useRef(false);
+
+  const cooldownRemaining = cooldownUntil !== null ? Math.max(0, Math.ceil((cooldownUntil - nowTick) / 1000)) : 0;
+  const inCooldown = cooldownRemaining > 0;
+
+  useEffect(() => {
+    if (cooldownUntil === null) return;
+    const id = setInterval(() => setNowTick(Date.now()), 1000);
+    return () => clearInterval(id);
+  }, [cooldownUntil]);
+
+  useEffect(() => {
+    if (cooldownUntil !== null && nowTick >= cooldownUntil) {
+      setCooldownUntil(null);
+      setError(null);
+    }
+  }, [nowTick, cooldownUntil]);
 
   const lookup = async (override?: string) => {
     const t = (override ?? url).trim();
     if (!t) return;
+    // Hard block during the shared cooldown — firing here is the root cause
+    // of the recurring throttle (every request re-arms IA's IP-wide ban).
+    if (cooldownUntil !== null && Date.now() < cooldownUntil) return;
     if (override) setUrl(override);
     setLoading(true);
     setError(null);
@@ -67,7 +91,12 @@ export default function Wayback(): JSX.Element {
           /* upstream returned non-JSON */
         }
         if (res.status === 429 && detail.retry_after_seconds) {
-          throw new Error(`Wayback Machine rate-limited — try again in ${detail.retry_after_seconds}s`);
+          setCooldownUntil(Date.now() + detail.retry_after_seconds * 1000);
+          setNowTick(Date.now());
+          throw new Error(
+            detail.hint ??
+              `Internet Archive is rate-limiting all Wayback lookups from this site. Cooling down — Lookup re-enables automatically.`
+          );
         }
         if (detail.hint) throw new Error(detail.hint);
         if (detail.error) throw new Error(detail.error);
@@ -208,16 +237,27 @@ export default function Wayback(): JSX.Element {
           </div>
           <button
             type="submit"
-            disabled={loading || !url.trim()}
+            disabled={loading || !url.trim() || inCooldown}
             className="text-sm font-mono px-3 py-2 rounded border border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300 hover:border-brand-500 disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center gap-1.5"
           >
             {loading ? <Loader2 size={14} className="animate-spin" /> : <History size={14} />}
-            {loading ? 'Loading' : 'Lookup'}
+            {loading ? 'Loading' : inCooldown ? `Cooldown ${cooldownRemaining}s` : 'Lookup'}
           </button>
         </form>
         {error && (
-          <p className="mt-2 text-xs font-mono text-rose-600 dark:text-rose-400 inline-flex items-center gap-1.5">
-            <AlertTriangle size={12} /> {error}
+          <p className="mt-2 text-xs font-mono text-rose-600 dark:text-rose-400 inline-flex items-start gap-1.5">
+            <AlertTriangle size={12} className="mt-0.5 shrink-0" />
+            <span>
+              {error}
+              {inCooldown && (
+                <>
+                  {' '}
+                  <span className="text-slate-500 dark:text-slate-400">
+                    Auto-retry available in {cooldownRemaining}s — no need to refresh.
+                  </span>
+                </>
+              )}
+            </span>
           </p>
         )}
       </section>
