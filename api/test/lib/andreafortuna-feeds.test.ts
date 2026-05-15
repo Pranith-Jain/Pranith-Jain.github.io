@@ -1,10 +1,11 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { fetchAFDatamarkets, fetchAFDefacements } from '../../src/lib/andreafortuna-feeds';
 import {
   parseDatamarkets,
   parseDefacements,
   toIso,
   MAX_ITEMS_PER_FEED,
+  fetchAFDatamarkets,
+  fetchAFDefacements,
   type AFEntry,
 } from '../../src/lib/andreafortuna-feeds';
 
@@ -132,7 +133,8 @@ describe('parseDefacements', () => {
 });
 
 describe('fetchAFDatamarkets / fetchAFDefacements', () => {
-  let fetchSpy: ReturnType<typeof vi.spyOn>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let fetchSpy: ReturnType<typeof vi.spyOn<any, any>>;
 
   beforeEach(() => {
     fetchSpy = vi.spyOn(globalThis, 'fetch');

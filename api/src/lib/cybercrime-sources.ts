@@ -17,7 +17,7 @@ export interface CybercrimeSource {
   url: string;
   label: string;
   /** Optional broad category badge for UI grouping. */
-  category: 'law-enforcement' | 'crypto-crime' | 'news' | 'breaches' | 'fraud-research';
+  category: 'law-enforcement' | 'crypto-crime' | 'news' | 'breaches' | 'fraud-research' | 'underground-forums';
   /** When set, an item is only kept if title|description matches one. */
   filterKeywords?: string[];
 }

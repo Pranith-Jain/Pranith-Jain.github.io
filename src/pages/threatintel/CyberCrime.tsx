@@ -14,7 +14,7 @@ import { AlertOctagon, ArrowLeft, ExternalLink, Loader2, RefreshCw, Search } fro
  * surface is about INCIDENTS: indictments, takedowns, schemes, sanctions.
  */
 
-type Category = 'law-enforcement' | 'crypto-crime' | 'news' | 'breaches' | 'fraud-research';
+type Category = 'law-enforcement' | 'crypto-crime' | 'news' | 'breaches' | 'fraud-research' | 'underground-forums';
 
 interface CybercrimeItem {
   title: string;
@@ -46,6 +46,7 @@ const CATEGORY_PILL: Record<Category, string> = {
   news: 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400',
   breaches: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
   'fraud-research': 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
+  'underground-forums': 'border-purple-500/40 bg-purple-500/10 text-purple-700 dark:text-purple-300',
 };
 
 const CATEGORY_LABEL: Record<Category, string> = {
@@ -54,6 +55,7 @@ const CATEGORY_LABEL: Record<Category, string> = {
   news: 'News',
   breaches: 'Breaches',
   'fraud-research': 'Fraud research',
+  'underground-forums': 'Underground forums',
 };
 
 function shortRel(iso?: string): string {
@@ -150,6 +152,7 @@ export default function CyberCrime(): JSX.Element {
       news: 0,
       breaches: 0,
       'fraud-research': 0,
+      'underground-forums': 0,
     };
     if (data) for (const it of data.items) counts[it.category]++;
     return counts;
