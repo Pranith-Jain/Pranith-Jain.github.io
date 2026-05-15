@@ -140,6 +140,12 @@ export const SECTIONS: Section[] = [
         desc: 'MD5 · SHA-1/256/384/512 for text or a dropped file · client-side',
         icon: Hash,
       },
+      {
+        path: '/dfir/plist-protobuf',
+        label: 'Plist & Protobuf Decoder',
+        desc: 'Apple binary/XML plists + schema-less protobuf · hand-rolled parsers · client-side',
+        icon: Code2,
+      },
     ],
   },
   {

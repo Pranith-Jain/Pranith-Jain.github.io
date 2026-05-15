@@ -92,6 +92,7 @@ const HashCalculator = lazy(() => import('./pages/dfir/HashCalculator'));
 const DorkBuilder = lazy(() => import('./pages/dfir/DorkBuilder'));
 const BrandImpersonation = lazy(() => import('./pages/dfir/BrandImpersonation'));
 const ImageFingerprint = lazy(() => import('./pages/dfir/ImageFingerprint'));
+const PlistProtobuf = lazy(() => import('./pages/dfir/PlistProtobuf'));
 const CveResourcesCatalog = lazy(() => import('./pages/dfir/CveResourcesCatalog'));
 const WebScan = lazy(() => import('./pages/dfir/WebScan'));
 const MalwareScan = lazy(() => import('./pages/dfir/MalwareScan'));
@@ -1031,6 +1032,7 @@ export function AppContent() {
           ['/dfir/dork-builder', <DorkBuilder key="db" />],
           ['/dfir/brand-impersonation', <BrandImpersonation key="bi" />],
           ['/dfir/image-fingerprint', <ImageFingerprint key="if" />],
+          ['/dfir/plist-protobuf', <PlistProtobuf key="pp" />],
         ] as Array<[string, JSX.Element]>
       ).map(([p, el]) => (
         <Route
