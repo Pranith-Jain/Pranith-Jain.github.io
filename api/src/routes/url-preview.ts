@@ -32,6 +32,44 @@ interface UrlPreviewResponse {
   redirect_blocked?: { location: string };
 }
 
+// Raw HTML attribute/text values carry entities (&amp; &#39; &#x27;) and
+// arbitrary internal whitespace/newlines (the archived reddit <title> is
+// literally "reddit: what's new \nonline"). A metadata preview must show
+// the human string, not the source bytes. Decode the common entity set,
+// then collapse whitespace. Output is rendered as a React text node
+// (auto-escaped), so decoding here introduces no injection risk.
+const NAMED_ENTITIES: Record<string, string> = {
+  amp: '&',
+  lt: '<',
+  gt: '>',
+  quot: '"',
+  apos: "'",
+  nbsp: ' ',
+};
+
+function decodeEntities(s: string): string {
+  return s.replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (whole, code: string) => {
+    if (code[0] === '#') {
+      const cp = code[1] === 'x' || code[1] === 'X' ? parseInt(code.slice(2), 16) : parseInt(code.slice(1), 10);
+      if (Number.isFinite(cp) && cp > 0 && cp <= 0x10ffff) {
+        try {
+          return String.fromCodePoint(cp);
+        } catch {
+          return whole;
+        }
+      }
+      return whole;
+    }
+    return NAMED_ENTITIES[code.toLowerCase()] ?? whole;
+  });
+}
+
+function cleanText(s: string | undefined): string | undefined {
+  if (s == null) return undefined;
+  const out = decodeEntities(s).replace(/\s+/g, ' ').trim();
+  return out.length > 0 ? out : undefined;
+}
+
 function metaContent(html: string, name: string): string | undefined {
   // Match <meta name/property="X" content="Y"> or <meta content="Y" name/property="X">
   // Use [^>]* to handle any attribute order; capture content value (allows ' inside "" and vice versa)
@@ -48,19 +86,22 @@ function metaContent(html: string, name: string): string | undefined {
 
   for (const re of patterns) {
     const m = html.match(re);
-    if (m) return m[1] ?? m[2] ?? m[3] ?? m[4];
+    if (m) return cleanText(m[1] ?? m[2] ?? m[3] ?? m[4]);
   }
   return undefined;
 }
 
 function titleOf(html: string): string | undefined {
   const m = html.match(/<title[^>]*>([^<]*)<\/title>/i);
-  return m?.[1]?.trim();
+  return cleanText(m?.[1]);
 }
 
 function canonicalOf(html: string): string | undefined {
   const m = html.match(/<link\s+rel=["']canonical["']\s+href=["']([^"']*)["']/i);
-  return m?.[1];
+  // URLs shouldn't contain raw whitespace; decode entities (&amp; in query
+  // strings is common) and trim, but don't collapse internal spaces.
+  const v = m?.[1];
+  return v ? decodeEntities(v).trim() || undefined : undefined;
 }
 
 export async function urlPreviewHandler(c: Context<{ Bindings: Env }>) {
