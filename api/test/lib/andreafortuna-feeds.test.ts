@@ -1,4 +1,5 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { fetchAFDatamarkets, fetchAFDefacements } from '../../src/lib/andreafortuna-feeds';
 import {
   parseDatamarkets,
   parseDefacements,
@@ -127,5 +128,77 @@ describe('parseDefacements', () => {
       timestamp: '2026-05-15T02:07:54.767388',
     }));
     expect(parseDefacements(many)).toHaveLength(MAX_ITEMS_PER_FEED);
+  });
+});
+
+describe('fetchAFDatamarkets / fetchAFDefacements', () => {
+  let fetchSpy: ReturnType<typeof vi.spyOn>;
+
+  beforeEach(() => {
+    fetchSpy = vi.spyOn(globalThis, 'fetch');
+  });
+
+  afterEach(() => {
+    fetchSpy.mockRestore();
+  });
+
+  it('fetchAFDatamarkets returns parsed items on 200', async () => {
+    fetchSpy.mockResolvedValueOnce(
+      new Response(
+        JSON.stringify([
+          {
+            url: 'https://demonforums.net/Thread-1',
+            name: 'DemonForums - test',
+            source: 'demonforums',
+            timestamp: '2026-05-15T02:08:01.440399',
+          },
+        ]),
+        { status: 200, headers: { 'content-type': 'application/json' } }
+      )
+    );
+    const items = await fetchAFDatamarkets();
+    expect(items).toHaveLength(1);
+    expect(items[0]!.url).toBe('https://demonforums.net/Thread-1');
+    expect(items[0]!.category).toBe('underground-forums');
+  });
+
+  it('fetchAFDatamarkets returns [] on non-2xx', async () => {
+    fetchSpy.mockResolvedValueOnce(new Response('boom', { status: 502 }));
+    expect(await fetchAFDatamarkets()).toEqual([]);
+  });
+
+  it('fetchAFDatamarkets returns [] on network failure', async () => {
+    fetchSpy.mockRejectedValueOnce(new Error('network down'));
+    expect(await fetchAFDatamarkets()).toEqual([]);
+  });
+
+  it('fetchAFDatamarkets returns [] on malformed JSON', async () => {
+    fetchSpy.mockResolvedValueOnce(new Response('not json', { status: 200 }));
+    expect(await fetchAFDatamarkets()).toEqual([]);
+  });
+
+  it('fetchAFDefacements returns parsed items on 200', async () => {
+    fetchSpy.mockResolvedValueOnce(
+      new Response(
+        JSON.stringify([
+          {
+            url: 'https://victim.example.com/',
+            name: 'Recent defacement reported by Hax.or: https://victim.example.com/',
+            source: 'hax',
+            timestamp: '2026-05-15T02:07:54.767388',
+          },
+        ]),
+        { status: 200, headers: { 'content-type': 'application/json' } }
+      )
+    );
+    const items = await fetchAFDefacements();
+    expect(items).toHaveLength(1);
+    expect(items[0]!.source).toBe('andreafortuna-defacements');
+    expect(items[0]!.kind).toBe('url');
+  });
+
+  it('fetchAFDefacements returns [] when upstream gives non-array JSON', async () => {
+    fetchSpy.mockResolvedValueOnce(new Response('{"oops": true}', { status: 200 }));
+    expect(await fetchAFDefacements()).toEqual([]);
   });
 });
