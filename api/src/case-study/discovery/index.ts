@@ -10,24 +10,49 @@ export interface RunDiscoveryDeps {
   putCandidate: (c: Candidate) => Promise<void>;
   touchDedup: (key: string, now: Date) => Promise<void>;
   now: Date;
+  /**
+   * Max candidates kept *per topic* (default 3). Selection is per-topic, not
+   * a global top-N — a global slice let the highest-scoring topic (usually
+   * `actor`) crowd every other topic out of the queue. Per-topic selection
+   * guarantees every topic that produced candidates is represented.
+   */
+  perTopic?: number;
+  /**
+   * Optional overall cap applied AFTER per-topic selection. Unset = no extra
+   * cap (the per-topic limits already bound the total to perTopic × topics).
+   */
   limit?: number;
 }
 
-export async function runDiscovery(deps: RunDiscoveryDeps): Promise<{ total: number; kept: number; ids: string[] }> {
-  const limit = deps.limit ?? 5;
-  const all: Candidate[] = [];
+export interface RunDiscoveryResult {
+  total: number;
+  kept: number;
+  ids: string[];
+  /** Kept count per topic — surfaced so the admin sees the topic mix. */
+  byTopic: Record<string, number>;
+}
+
+export async function runDiscovery(deps: RunDiscoveryDeps): Promise<RunDiscoveryResult> {
+  const perTopic = deps.perTopic ?? 3;
+  const byTopic: Record<string, number> = {};
+  let total = 0;
+  const selected: Candidate[] = [];
 
   for (const [name, runner] of Object.entries(deps.runners)) {
     try {
       const results = await runner();
-      all.push(...results);
+      total += results.length;
+      const top = [...results].sort((a, b) => b.score - a.score).slice(0, perTopic);
+      byTopic[name] = top.length;
+      selected.push(...top);
     } catch (err) {
       console.warn(`runDiscovery: ${name} runner failed`, err);
+      byTopic[name] = 0;
     }
   }
 
-  all.sort((a, b) => b.score - a.score);
-  const kept = all.slice(0, limit);
+  selected.sort((a, b) => b.score - a.score);
+  const kept = typeof deps.limit === 'number' ? selected.slice(0, deps.limit) : selected;
 
   for (const c of kept) {
     await deps.putCandidate(c);
@@ -37,12 +62,13 @@ export async function runDiscovery(deps: RunDiscoveryDeps): Promise<{ total: num
   console.log(
     JSON.stringify({
       job: 'discovery',
-      total: all.length,
+      total,
       kept: kept.length,
+      byTopic,
       ids: kept.map((k) => k.key),
       ts: deps.now.toISOString(),
     })
   );
 
-  return { total: all.length, kept: kept.length, ids: kept.map((c) => c.key) };
+  return { total, kept: kept.length, ids: kept.map((c) => c.key), byTopic };
 }
