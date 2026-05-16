@@ -118,7 +118,7 @@ interface PF {
 }
 
 function parsePrefetch(buf: ArrayBuffer): PF {
-  let u8 = new Uint8Array(buf);
+  let u8: Uint8Array = new Uint8Array(buf);
   let note = '';
   // MAM\x04 → compressed (Win8+/Win10+).
   if (u8[0] === 0x4d && u8[1] === 0x41 && u8[2] === 0x4d) {

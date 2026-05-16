@@ -123,10 +123,22 @@ export default function Infostealer(): JSX.Element {
     setLoading(true);
     Promise.allSettled([
       fetch('/api/v1/rl/infostealer').then((r) => r.json().then((j) => ({ ok: r.ok, j }))),
-      fetch('/api/v1/cyber-crime').then((r) => r.json()),
-      fetch('/api/v1/deepdarkcti').then((r) => r.json()),
-      fetch('/api/v1/malware-samples').then((r) => r.json()),
-      fetch('/api/v1/live-iocs').then((r) => r.json()),
+      fetch('/api/v1/cyber-crime').then(async (r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+      }),
+      fetch('/api/v1/deepdarkcti').then(async (r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+      }),
+      fetch('/api/v1/malware-samples').then(async (r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+      }),
+      fetch('/api/v1/live-iocs').then(async (r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+      }),
     ]).then(([hrRes, ccRes, ddcRes, mbRes, liRes]) => {
       if (!alive) return;
       // HudsonRock / PRO

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 interface Post {
   slug: string;
@@ -16,28 +16,32 @@ export default function BlogPost() {
   const { slug } = useParams();
   const [post, setPost] = useState<Post | null>(null);
   const [notFound, setNotFound] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [html, setHtml] = useState<string>('');
 
   useEffect(() => {
     let cancelled = false;
-    fetch(`/api/v1/blog/posts/${encodeURIComponent(slug ?? '')}`).then(async (r) => {
-      if (r.status === 404 || r.status === 400) {
-        if (!cancelled) setNotFound(true);
-        return;
-      }
-      const data = (await r.json()) as { post: Post; bodyHtml: string };
-      if (cancelled) return;
-      setPost(data.post);
-      // bodyHtml is sanitized server-side (api/src/case-study/rendering/
-      // markdown.ts). The client must NOT re-parse post.body itself —
-      // marked does not sanitize and the body is attacker-influenceable.
-      setHtml(data.bodyHtml ?? '');
-    });
+    fetch(`/api/v1/blog/posts/${encodeURIComponent(slug ?? '')}`)
+      .then(async (r) => {
+        if (r.status === 404 || r.status === 400) {
+          if (!cancelled) setNotFound(true);
+          return;
+        }
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        const data = (await r.json()) as { post: Post; bodyHtml: string };
+        if (cancelled) return;
+        setPost(data.post);
+        setHtml(data.bodyHtml ?? '');
+      })
+      .catch((e: Error) => {
+        if (!cancelled) setError(e.message);
+      });
     return () => {
       cancelled = true;
     };
   }, [slug]);
 
+  if (error) return <p className="p-10 text-red-500">Error: {error}</p>;
   if (notFound) return <p className="p-10">Post not found.</p>;
   if (!post) return <p className="p-10">Loading…</p>;
 
@@ -61,9 +65,9 @@ export default function BlogPost() {
           <ul className="text-sm font-mono space-y-1">
             {post.iocs.map((i, k) => (
               <li key={k}>
-                <a href={`/dfir/ioc-check?q=${encodeURIComponent(i.value)}`} className="hover:underline">
+                <Link to={`/dfir/ioc-check?q=${encodeURIComponent(i.value)}`} className="hover:underline">
                   [{i.type}] {i.value}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

@@ -26,7 +26,7 @@ export default function IosBackupExplorer(): JSX.Element {
       // Manifest.db: Files(fileID, domain, relativePath, flags, file)
       const res = d.exec('SELECT domain, relativePath, fileID, flags FROM Files ORDER BY domain LIMIT 20000');
       if (res.length === 0) throw new Error('No Files table — is this an iOS Manifest.db?');
-      const rows: FileRow[] = res[0]!.values.map((r) => ({
+      const rows: FileRow[] = res[0]!.values.map((r: unknown[]) => ({
         domain: String(r[0] ?? ''),
         path: String(r[1] ?? ''),
         fileID: String(r[2] ?? ''),

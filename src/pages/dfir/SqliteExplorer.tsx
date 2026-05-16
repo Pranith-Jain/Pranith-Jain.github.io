@@ -31,7 +31,7 @@ export default function SqliteExplorer(): JSX.Element {
       const t = d.exec(
         "SELECT name, sql FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name"
       );
-      const tables = (t[0]?.values ?? []).map((r) => {
+      const tables = (t[0]?.values ?? []).map((r: unknown[]) => {
         const name = String(r[0]);
         let count = 0;
         try {

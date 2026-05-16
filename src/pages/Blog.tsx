@@ -13,22 +13,28 @@ interface PostEntry {
 export default function Blog() {
   const [posts, setPosts] = useState<PostEntry[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetch('/api/v1/blog/posts')
-      .then((r) => r.json())
-      .then((d: { posts: PostEntry[] }) => {
+      .then(async (r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        const d: { posts: PostEntry[] } = await r.json();
         setPosts(d.posts);
         setLoading(false);
       })
-      .catch(() => setLoading(false));
+      .catch((e: Error) => {
+        setError(e.message);
+        setLoading(false);
+      });
   }, []);
 
   return (
     <main className="max-w-3xl mx-auto px-6 py-10">
       <h1 className="text-3xl font-bold mb-6">Case Studies</h1>
       {loading && <p className="text-zinc-400">Loading…</p>}
-      {!loading && posts.length === 0 && <p className="text-zinc-400">No posts yet.</p>}
+      {error && <p className="text-red-500">Error: {error}</p>}
+      {!loading && !error && posts.length === 0 && <p className="text-zinc-400">No posts yet.</p>}
       <ul className="space-y-6">
         {posts.map((p) => (
           <li key={p.slug} className="border-b border-zinc-800 pb-4">

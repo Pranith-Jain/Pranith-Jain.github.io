@@ -193,7 +193,7 @@ export function AppContent() {
     } else {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  }, [location]);
+  }, [location.hash]);
 
   const routes = (
     <Routes>
@@ -476,16 +476,6 @@ export function AppContent() {
           <ErrorBoundary>
             <Suspense fallback={<SectionLoader />}>
               <AtlasMatrix />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/mitre"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <MitreMatrix />
             </Suspense>
           </ErrorBoundary>
         }
