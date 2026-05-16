@@ -10,6 +10,10 @@ interface PostEntry {
   tags: string[];
 }
 
+function formatDate(iso: string) {
+  return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
 export default function Blog() {
   const [posts, setPosts] = useState<PostEntry[]>([]);
   const [loading, setLoading] = useState(true);
@@ -31,24 +35,36 @@ export default function Blog() {
 
   return (
     <main className="max-w-3xl mx-auto px-6 py-10">
-      <h1 className="text-3xl font-bold mb-6">Case Studies</h1>
+      <h1 className="text-3xl font-bold mb-2">Case Studies</h1>
+      <p className="text-zinc-500 mb-8">Security research, threat analysis, and deep dives.</p>
       {loading && <p className="text-zinc-400">Loading…</p>}
       {error && <p className="text-red-500">Error: {error}</p>}
       {!loading && !error && posts.length === 0 && <p className="text-zinc-400">No posts yet.</p>}
-      <ul className="space-y-6">
+      <div className="space-y-8">
         {posts.map((p) => (
-          <li key={p.slug} className="border-b border-zinc-800 pb-4">
-            <span className="text-xs uppercase tracking-wider text-zinc-500">{p.type}</span>
-            <h2 className="text-xl font-semibold">
-              <Link to={`/blog/${p.slug}`} className="hover:underline">
-                {p.title}
-              </Link>
-            </h2>
-            <p className="text-zinc-400 mt-1">{p.excerpt}</p>
-            <time className="text-xs text-zinc-500">{new Date(p.publishedAt).toLocaleDateString()}</time>
-          </li>
+          <article key={p.slug}>
+            <Link to={`/blog/${p.slug}`} className="group block">
+              <span className="text-xs uppercase tracking-wider text-zinc-500">{p.type}</span>
+              <h2 className="text-xl font-semibold group-hover:text-brand-400 transition-colors mt-0.5">{p.title}</h2>
+              <p className="text-zinc-400 mt-1.5 leading-relaxed">{p.excerpt}</p>
+            </Link>
+            <div className="flex items-center gap-2 mt-2 text-xs text-zinc-500">
+              <span>Pranith Jain</span>
+              <span aria-hidden="true">·</span>
+              <time>{formatDate(p.publishedAt)}</time>
+            </div>
+            {p.tags.length > 0 && (
+              <div className="flex flex-wrap gap-1.5 mt-2">
+                {p.tags.map((t) => (
+                  <span key={t} className="rounded bg-zinc-800 px-2 py-0.5 text-[11px] font-mono text-zinc-400">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            )}
+          </article>
         ))}
-      </ul>
+      </div>
     </main>
   );
 }

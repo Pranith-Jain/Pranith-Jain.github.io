@@ -52,19 +52,23 @@ export default function BlogPost() {
       <Link to="/blog" className="inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-300 mb-8">
         ← Back to Blog
       </Link>
-      <img className="mb-6 w-full rounded-lg" alt="" src={`data:image/svg+xml;utf8,${encodeURIComponent(post.hero)}`} />
-      <header className="mb-6">
+      <img className="mb-8 w-full rounded-lg" alt="" src={`data:image/svg+xml;utf8,${encodeURIComponent(post.hero)}`} />
+      <header className="mb-8">
         <span className="text-xs uppercase tracking-wider text-zinc-500">{post.type}</span>
-        <h1 className="text-3xl font-bold">{post.title}</h1>
-        <div className="flex items-center gap-3 text-sm text-zinc-500 mt-1">
-          <time>{new Date(post.publishedAt).toLocaleDateString()}</time>
+        <h1 className="text-3xl font-bold mt-1">{post.title}</h1>
+        <div className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-sm text-zinc-500 mt-3">
+          <span>Pranith Jain</span>
+          <span aria-hidden="true">·</span>
+          <time>
+            {new Date(post.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+          </time>
           <span aria-hidden="true">·</span>
           <span>{readTime} min read</span>
         </div>
         {post.tags.length > 0 && (
-          <div className="flex flex-wrap gap-2 mt-3">
+          <div className="flex flex-wrap gap-1.5 mt-3">
             {post.tags.map((t) => (
-              <span key={t} className="rounded bg-zinc-800 px-2 py-0.5 text-xs font-mono text-zinc-400">
+              <span key={t} className="rounded bg-zinc-800 px-2 py-0.5 text-[11px] font-mono text-zinc-400">
                 {t}
               </span>
             ))}
