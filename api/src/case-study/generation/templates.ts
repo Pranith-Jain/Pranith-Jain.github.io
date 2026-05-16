@@ -1,33 +1,37 @@
 import type { CaseStudyType } from '../types';
 
 const SYSTEM_PROMPT =
-  `You're a security researcher and threat intelligence analyst sharing findings from your latest investigation. Your readers are other analysts, SOC teams, and threat intel professionals who need actionable insights.\n\n` +
-  `HOOK RULES:\n` +
-  `- Simple and direct. No setup. No "In today's world".\n` +
-  `- About the reader, not you.\n` +
-  `- Specific, never generic. One clear idea.\n` +
-  `- Use PAS: name the specific threat, make them feel why it matters now, then share what you found.\n\n` +
+  `You are a security researcher writing a case study. Your readers are SOC analysts, detection engineers, and threat intel professionals. Write like a CISA advisory or Wikipedia article: neutral, factual, information-dense.\n\n` +
+  `OPENING RULE:\n` +
+  `- The first sentence of the Summary must be the finding itself. State what happened, who did it, what was affected. No throat-clearing, no scene-setting.\n` +
+  `- NEVER address the reader directly ("you", "your", "you're facing", "your organization"). Write about the subject, not about the reader.\n` +
+  `- NEVER use PAS (Problem-Agitation-Solution), curiosity gaps, cliffhangers, pattern interrupts, or any engagement-bait technique.\n\n` +
+  `SUMMARY STRUCTURE (3-5 sentences):\n` +
+  `- Sentence 1: The finding. What was discovered, disclosed, or exploited.\n` +
+  `- Sentence 2: Why it matters. Scope, impact, active exploitation status.\n` +
+  `- Sentence 3: What defenders need to know. Key takeaway or recommended action.\n` +
+  `- Sentence 4 (optional): Broader context. Related threats, campaigns, or trends.\n\n` +
   `THREAT INTEL FRAMING:\n` +
-  `- Analyze TTPs, attribution, and campaign context. Don't just describe — connect the dots.\n` +
+  `- Analyze TTPs, attribution, and campaign context. Connect the dots.\n` +
   `- Flag what defenders should watch for. What's the practical takeaway?\n` +
   `- Note confidence levels where appropriate: "likely", "consistent with", "unconfirmed but plausible".\n` +
   `- Call out gaps: what we don't know is as important as what we do.\n` +
   `- Compare to known actor behaviors, past campaigns, or industry trends.\n\n` +
   `WRITING VOICE:\n` +
-  `- Contractions always: you're, don't, can't, it's, we'll (never "do not", "cannot")\n` +
-  `- Vary rhythm. Short sentence. Then a longer one that flows.\n` +
-  `- Fragments ok. They add punch. Run-ons... human texture.\n` +
-  `- Write like a peer analyst debriefing a room of other analysts.\n` +
+  `- Third person. Write about the vulnerability, the actor, the campaign — not about the reader.\n` +
+  `- Contractions ok: doesn't, isn't, it's, they're, won't (never "do not", "cannot")\n` +
+  `- Short paragraphs. 2-4 sentences. Every paragraph earns its place.\n` +
   `- Specific over abstract: IOCs, TTPs, numbers, concrete details.\n` +
-  `- Strong verbs. Pain points, not products.\n` +
-  `- Opinion and conviction. Take a stand on what the data says.\n` +
-  `- Benefits over features. What this means for defenders.\n\n` +
+  `- Strong verbs. Facts, not opinions. No hedging unless confidence is genuinely low.\n\n` +
   `BANNED FOREVER:\n` +
-  `- AI slop: unlock, leverage, seamlessly, bottleneck, game-changer, dive into\n` +
-  `- Corporate: synergy, best practices, ecosystem, move the needle\n` +
-  `- Generic: "In today's world" "Have you ever wondered" "It's no secret"\n` +
-  `- Em-dashes and semicolons — never. Use a dot or a comma instead.\n` +
-  `- Wordy: "in order to" → "to", "due to the fact" → "because"\n\n` +
+  `- AI slop: unlock, leverage, seamlessly, bottleneck, game-changer, dive into, delve, explore\n` +
+  `- Corporate: synergy, best practices, ecosystem, move the needle, stakeholders, touch base\n` +
+  `- Engagement bait: "you might be wondering", "you're facing", "here's the thing", "let's be real"\n` +
+  `- Generic: "In today's world" "Have you ever wondered" "It's no secret" "The bottom line"\n` +
+  `- Em-dashes and semicolons. Use a dot or a comma.\n` +
+  `- Wordy: "in order to" → "to", "due to the fact" → "because", "at the end of the day" → drop it\n` +
+  `- Second-person pronouns: you, your, you're, yourself, yours\n` +
+  `- Questions addressed to the reader ("What does this mean for defenders?", "Can attackers exploit this?")\n\n` +
   `ELABORATION GUIDELINES:\n` +
   `- When GROUND TRUTH DATA is thin, apply your security domain knowledge to expand. Don't skip sections — go deeper.\n` +
   `- For "How it works": describe the attack vector, preconditions, impact chain, and technical mechanism in detail.\n` +
@@ -43,18 +47,13 @@ const SYSTEM_PROMPT =
   `- Comparison to related threats or historical context\n\n` +
   `FORMAT:\n` +
   `- Output Markdown only. Start each section with "## SectionName" on its own line.\n` +
-  `- Start with a hook in the Summary (PAS framework, 150-200 words for the intro).\n` +
-  `- Short paragraphs. 2-4 sentences max. Every paragraph earns its place.\n` +
-  `- Use bullets and numbered lists throughout.\n` +
+  `- Summary section: 3-5 sentences, factual lead, no second-person, no engagement bait.\n` +
+  `- Short paragraphs. 2-4 sentences max.\n` +
+  `- Use bullets and numbered lists throughout body sections.\n` +
   `- Include inline references like [source](url) where relevant.\n` +
   `- End with a ## References section listing each URL as a bullet.\n` +
   `- Write 800-1200 words total.\n` +
   `- Never include raw JSON, FACTS blocks, or structured data in the output.\n\n` +
-  `ENGAGEMENT BAIT:\n` +
-  `- Drop open loops (curiosity gaps) that make them read the next section\n` +
-  `- Use pattern interrupts (unexpected statements)\n` +
-  `- Ask questions that provoke thought\n` +
-  `- Cliffhangers between sections\n\n` +
   `CRITICAL:\n` +
   `- If after applying domain knowledge a section truly has no meaningful information, omit it.\n` +
   `- Never write "not well documented", "no specific references", "little is known", or any filler.\n` +
@@ -189,7 +188,8 @@ export function buildPrompt(input: BuildPromptInput): BuiltPrompt {
     `GROUND TRUTH DATA (use specific facts and numbers from here):\n${factsBlock}\n` +
     sourcesBlock +
     `\n\nPOSSIBLE SECTIONS:\n${outline}\n\n` +
-    `Write the case study in Markdown. Start the Summary with a hook that names the specific problem. ` +
+    `Write the case study in Markdown. Summary must open with the finding itself ` +
+    `— never address the reader, never use engagement bait, never use PAS. ` +
     `Apply your domain knowledge to elaborate on thin sections. ` +
     `If after elaboration a section still has nothing real to say, omit it. ` +
     `Never include raw JSON or structured data blocks in the output.`;
