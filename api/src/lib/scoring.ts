@@ -18,6 +18,7 @@ const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>> = {
     blocklistde: 2,
     binarydefense: 3,
     ipsum: 4,
+    malwareworld: 3,
     tweetfeed: 2,
     // GreyNoise community: low score-weight because the classification is
     // best-effort and ratelimited. The real value is the RIOT signal
@@ -42,6 +43,7 @@ const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>> = {
     openphish: 3,
     doh: 1,
     phishingArmy: 4,
+    malwareworld: 3,
     tweetfeed: 2,
   },
   url: {

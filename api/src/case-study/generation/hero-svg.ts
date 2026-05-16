@@ -5,6 +5,13 @@ const TYPE_LABEL: Record<CaseStudyType, string> = {
   actor: 'THREAT ACTOR',
   malware: 'MALWARE',
   ransom: 'RANSOMWARE',
+  breach: 'BREACH',
+  scam: 'SCAM',
+  aisec: 'AI SECURITY',
+  intel: 'THREAT INTEL',
+  osint: 'OSINT',
+  methodology: 'METHODOLOGY',
+  trend: 'TREND',
 };
 
 const TYPE_HUE: Record<CaseStudyType, number> = {
@@ -12,6 +19,13 @@ const TYPE_HUE: Record<CaseStudyType, number> = {
   actor: 30,
   malware: 280,
   ransom: 200,
+  breach: 350,
+  scam: 45,
+  aisec: 180,
+  intel: 140,
+  osint: 90,
+  methodology: 260,
+  trend: 320,
 };
 
 function xmlEscape(s: string): string {

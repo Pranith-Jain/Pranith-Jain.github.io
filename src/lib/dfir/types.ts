@@ -71,7 +71,9 @@ export type ProviderId =
   | 'greynoise'
   | 'c2tracker'
   | 'sslbl'
-  | 'yaraify';
+  | 'yaraify'
+  | 'phishtank'
+  | 'malwareworld';
 
 export interface ProviderResultWire {
   source: ProviderId;

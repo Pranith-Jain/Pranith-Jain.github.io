@@ -184,7 +184,7 @@ export default function Infostealer(): JSX.Element {
                 }
               : null;
           })
-          .filter((x): x is SampleItem => x !== null);
+          .filter((x) => x !== null) as SampleItem[];
         setSamples(ss);
       } else setSamples([]);
       // Stealer C2 / IOCs — live-iocs items whose family/context matches

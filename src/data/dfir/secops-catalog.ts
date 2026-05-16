@@ -1370,4 +1370,195 @@ export const TOOLS: Tool[] = [
     description: 'Akamai/Guardicore continuous breach + attack simulation. Auto-spreads through your network safely.',
     source_url: 'https://github.com/guardicore/monkey',
   },
+  // ── New entries (2026-05-16) ─────────────────────────────────────────────
+  {
+    id: 'deepfind-me',
+    name: 'DeepFind.Me',
+    url: 'https://deepfind.me/tools',
+    categories: ['osint'],
+    pricing: 'freemium',
+    description:
+      'Comprehensive OSINT platform — username search (50+ platforms), geolocation, email/domain recon, metadata extraction, dark-web link checker, crypto wallet tracking, and steganography tools. REST API available.',
+  },
+  {
+    id: 'osinttools-io',
+    name: 'OSINT Tools',
+    url: 'https://osinttools.io/',
+    categories: ['osint'],
+    pricing: 'free',
+    description:
+      'Curated directory of OSINT tools with community collections, featured tools, and new-tool discovery. Covers the full spectrum of open-source intelligence gathering.',
+  },
+  {
+    id: 'ghostint-tools',
+    name: 'Ghostint Tools',
+    url: 'https://cyberz7.github.io/Ghostint-Tools/',
+    categories: ['osint'],
+    pricing: 'free',
+    description:
+      'Curated OSINT and cybersecurity tools directory — categorized tools for reconnaissance, social media investigation, and digital forensics investigations.',
+  },
+  {
+    id: 'web-check-xyz',
+    name: 'Web Check',
+    url: 'https://web-check.xyz/',
+    categories: ['appsec', 'network-security'],
+    pricing: 'free',
+    description:
+      'All-in-one website analysis — DNS, SSL/TLS, security headers, WHOIS, tech stack detection, performance audit, and security misconfiguration scanning from a single URL.',
+  },
+  {
+    id: 'hacktricks-tools',
+    name: 'HackTricks Tools',
+    url: 'https://tools.hacktricks.wiki/',
+    categories: ['pentest-redteam', 'appsec'],
+    pricing: 'freemium',
+    description:
+      'Interactive security tools suite — domain/DNS auditor, host checker, clickjacking PoC generator, GitHub leaks scanner, cloud IAM auditor (PEASS), and AI security chatbot.',
+  },
+  {
+    id: 'osv-dev',
+    name: 'OSV.dev',
+    url: 'https://osv.dev/list',
+    categories: ['vulnerability'],
+    pricing: 'free',
+    description:
+      'Google-backed open-source vulnerability database — ecosystem-agnostic schema covering PyPI, npm, Go, Maven, Rust, and more. REST API and deterministic query by commit hash.',
+  },
+  {
+    id: 'malwareworld',
+    name: 'MalwareWorld',
+    url: 'https://malwareworld.com/',
+    categories: ['threat-intel'],
+    pricing: 'free',
+    description:
+      'Aggregated threat intelligence from 500+ public blacklists. Searchable IP/domain database with categorized blocklist downloads (malware, spam, phishing, crypto, DGA, bad reputation).',
+  },
+  {
+    id: 'crowdthreat',
+    name: 'CrowdThreat',
+    url: 'https://www.crowdthreat.com/',
+    categories: ['threat-intel'],
+    pricing: 'free',
+    description:
+      'Threat intelligence platform — cross-reference IOCs, track threat actor campaigns, and browse curated OSINT tools. Community-driven threat data aggregation.',
+  },
+  {
+    id: 'sigma-nasbench',
+    name: 'Sigma Rule Explorer (nasbench)',
+    url: 'https://sigma.nasbench.dev/',
+    categories: ['detection-engineering'],
+    pricing: 'free',
+    description:
+      'Interactive Sigma rule browser — search and filter detection rules with live SIEM conversion previews for Splunk, Elasticsearch, QRadar, Microsoft Sentinel, and more.',
+  },
+  {
+    id: 'bitwire-blocklist',
+    name: 'BitWire IP Blocklist',
+    url: 'https://bitwire.it/blocklist-stats',
+    categories: ['threat-intel', 'network-security'],
+    pricing: 'open-source',
+    description:
+      'Open-source IP blocklist with live statistics and downloadable feeds. Covers malicious IPs across multiple threat categories. REST API for automated ingestion.',
+    source_url: 'https://github.com/bitwire-it/ipblocklist',
+  },
+  {
+    id: 'ti-mindmap-hub',
+    name: 'TI Mindmap Hub',
+    url: 'https://ti-mindmap-hub.com/',
+    categories: ['threat-intel'],
+    pricing: 'free',
+    description:
+      'Interactive threat intelligence mindmap — visual navigation of TTPs, threat actors, campaigns, and detection strategies aligned with the MITRE ATT&CK framework.',
+  },
+  {
+    id: 'insider-threat-matrix',
+    name: 'Insider Threat Matrix',
+    url: 'https://insiderthreatmatrix.org/',
+    categories: ['dfir', 'detection-engineering'],
+    pricing: 'free',
+    description:
+      'Comprehensive insider threat framework — indicators, detection methods, mitigation playbooks, and real-world case studies across insider personas and attack vectors.',
+  },
+  {
+    id: 'orca-osintcti',
+    name: 'Orca OSINT/CTI',
+    url: 'https://orca.osintcti.com/',
+    categories: ['osint', 'threat-intel'],
+    pricing: 'free',
+    description:
+      'OSINT and threat intelligence search platform — unified queries across multiple data sources for indicator lookups, threat actor profiling, and infrastructure discovery.',
+  },
+  {
+    id: 'cybersectools',
+    name: 'CyberSecTools',
+    url: 'https://cybersectools.com/',
+    categories: ['osint', 'pentest-redteam'],
+    pricing: 'free',
+    description:
+      'Curated catalog of cybersecurity tools — penetration testing, forensics, OSINT, red teaming, and blue team operations. Categorized with search and filtering.',
+  },
+  {
+    id: 'redhunt-research',
+    name: 'RedHunt Labs Research',
+    url: 'https://research.redhuntlabs.com/',
+    categories: ['threat-intel', 'vulnerability'],
+    pricing: 'free',
+    description:
+      'Security research publications — attack surface management insights, vulnerability disclosures, APT tracking, and adversary infrastructure analysis.',
+  },
+  {
+    id: 'aidefend',
+    name: 'AIDefend',
+    url: 'https://aidefend.net/',
+    categories: ['ai-security'],
+    pricing: 'freemium',
+    description:
+      'AI-powered cybersecurity defense — automated threat detection, AI-driven incident response orchestration, and continuous security posture management.',
+  },
+  {
+    id: 'appsec-master',
+    name: 'AppSec Master',
+    url: 'https://www.appsecmaster.net/en',
+    categories: ['appsec'],
+    pricing: 'free',
+    description:
+      'Interactive application security training — hands-on labs covering OWASP Top 10, API security testing, secure coding practices, and vulnerability remediation.',
+  },
+  {
+    id: 'arcanum-ai-sec',
+    name: 'Arcanum AI Security Resources',
+    url: 'https://arcanum-sec.github.io/ai-sec-resources/',
+    categories: ['ai-security'],
+    pricing: 'free',
+    description:
+      'Curated AI/ML security resource hub — academic papers, offensive/defensive tools, CTF challenges, and frameworks for adversarial ML and LLM red teaming.',
+  },
+  {
+    id: 'owasp-ai-visualizer',
+    name: 'OWASP AI Security Visualizer',
+    url: 'https://ricokomenda.github.io/owasp-ai-security-visualizer/',
+    categories: ['ai-security'],
+    pricing: 'free',
+    description:
+      'Interactive visual mapping of the OWASP AI security landscape — explore AI-specific threats, vulnerabilities, and controls across the ML development lifecycle.',
+  },
+  {
+    id: 'mjolnir-intel',
+    name: 'Mjolnir Intelligence',
+    url: 'https://intel.mjolnirsecurity.com/',
+    categories: ['threat-intel'],
+    pricing: 'free',
+    description:
+      'Threat intelligence dashboard — live IOC feeds, campaign tracking, and real-time security event monitoring from Mjolnir Security.',
+  },
+  {
+    id: 'geniebot',
+    name: 'GenieBot Pro',
+    url: 'https://geniebot.pro/',
+    categories: ['ai-security'],
+    pricing: 'freemium',
+    description:
+      'AI-powered security assistant — threat intelligence queries, security automation workflows, and chatbot-driven incident response guidance.',
+  },
 ];

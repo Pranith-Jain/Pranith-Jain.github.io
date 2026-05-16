@@ -37,6 +37,7 @@ export interface Entry {
   category: Category;
   pricing: Pricing;
   description: string;
+  featured?: true;
 }
 
 export const CATEGORY_LABELS: Record<Category, string> = {
@@ -607,5 +608,82 @@ export const ENTRIES: Entry[] = [
     category: 'public-records',
     pricing: 'free',
     description: 'Free US case-law / case-record search across many state systems.',
+  },
+  {
+    id: 'deepfind-me',
+    name: 'DeepFind.Me',
+    url: 'https://deepfind.me/tools',
+    category: 'search-engines',
+    pricing: 'freemium',
+    featured: true,
+    description:
+      'Comprehensive OSINT platform — username search (50+ platforms), geolocation, email/domain recon, metadata extraction, dark-web link checking, and crypto wallet tracking.',
+  },
+  {
+    id: 'osinttools-io',
+    name: 'OSINT Tools',
+    url: 'https://osinttools.io/',
+    category: 'search-engines',
+    pricing: 'free',
+    featured: true,
+    description:
+      'Curated OSINT tools directory with community collections, featured tools, and new-tool discovery feed.',
+  },
+  {
+    id: 'ghostint-tools',
+    name: 'Ghostint Tools',
+    url: 'https://cyberz7.github.io/Ghostint-Tools/',
+    category: 'search-engines',
+    pricing: 'free',
+    featured: true,
+    description:
+      'Curated OSINT and cybersecurity tools directory — categorized tools for reconnaissance, social media investigation, and digital forensics.',
+  },
+  {
+    id: 'orca-osintcti',
+    name: 'Orca OSINT/CTI',
+    url: 'https://orca.osintcti.com/',
+    category: 'dark-web-cti',
+    pricing: 'free',
+    featured: true,
+    description:
+      'OSINT and threat intelligence search platform — unified queries across data sources for indicator lookups and infrastructure discovery.',
+  },
+  {
+    id: 'web-check-xyz',
+    name: 'Web Check',
+    url: 'https://web-check.xyz/',
+    category: 'domain-ip',
+    pricing: 'free',
+    featured: true,
+    description:
+      'All-in-one website analysis — DNS, SSL/TLS, security headers, WHOIS, tech stack, and performance audit from a single URL.',
+  },
+  {
+    id: 'databreach-com',
+    name: 'DataBreach.com',
+    url: 'https://databreach.com/breach',
+    category: 'email-recon',
+    pricing: 'free',
+    description:
+      'Breach search platform — check if credentials or personal data have been exposed in known data breaches.',
+  },
+  {
+    id: 'digital-defense',
+    name: 'Digital Defense',
+    url: 'https://digital-defense.io/',
+    category: 'search-engines',
+    pricing: 'free',
+    description:
+      'OPSEC and privacy toolkit — operational security guides, digital footprint reduction checklists, and secure communications reference.',
+  },
+  {
+    id: 'awesome-privacy',
+    name: 'Awesome Privacy',
+    url: 'https://awesome-privacy.xyz/',
+    category: 'search-engines',
+    pricing: 'free',
+    description:
+      'Curated list of privacy-focused tools — VPNs, encrypted messaging, password managers, and privacy-first software alternatives.',
   },
 ];

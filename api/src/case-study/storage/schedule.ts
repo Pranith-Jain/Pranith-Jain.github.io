@@ -23,6 +23,14 @@ export async function markSlotStatus(
   await setSchedule(ns, updated);
 }
 
+export async function removeSlot(ns: KVNamespace, candidateId: string): Promise<void> {
+  const current = await getSchedule(ns);
+  await setSchedule(
+    ns,
+    current.filter((s) => s.candidateId !== candidateId)
+  );
+}
+
 export async function pickDueSlot(ns: KVNamespace, now: Date): Promise<Slot | null> {
   const slots = await getSchedule(ns);
   for (const s of slots) {

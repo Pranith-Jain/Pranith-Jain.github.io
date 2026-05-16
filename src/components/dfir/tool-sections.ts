@@ -451,6 +451,13 @@ export const SECTIONS: Section[] = [
         desc: 'SPF · DMARC · DKIM · MTA-STS · spoofability score · attack scenarios per gap',
         icon: Mail,
       },
+      {
+        path: '/dfir/dmarc-analyzer',
+        useCase: 'Parse DMARC RUA XML reports instantly.',
+        label: 'DMARC RUA Analyzer',
+        desc: 'Upload XML · in-browser parse · per-IP SPF/DKIM/DMARC · pass rate · CSV export · zero server storage',
+        icon: ShieldCheck,
+      },
     ],
   },
   {

@@ -1,5 +1,5 @@
 import type { Ai } from '@cloudflare/workers-types';
-import type { Candidate, Post } from '../types';
+import type { Candidate, Post, PostSource } from '../types';
 import { buildPrompt } from './templates';
 import { runCompletion } from './ai-client';
 import { postProcess } from './post-process';
@@ -33,6 +33,48 @@ function tagsFor(c: Candidate): string[] {
   return Array.from(new Set(t)).filter(Boolean);
 }
 
+/** Extract source URLs from candidate evidence. */
+function extractSources(evidence: Record<string, unknown>): PostSource[] {
+  const sources: PostSource[] = [];
+  const ev = evidence as any;
+
+  // Actor discovery stores urls+titles arrays
+  if (Array.isArray(ev.urls)) {
+    for (const url of ev.urls) {
+      if (typeof url === 'string' && url.startsWith('http')) {
+        sources.push({ url, title: '' });
+      }
+    }
+  }
+  if (Array.isArray(ev.titles) && sources.length > 0) {
+    for (let i = 0; i < Math.min(ev.titles.length, sources.length); i++) {
+      if (typeof ev.titles[i] === 'string') sources[i].title = ev.titles[i];
+    }
+  }
+
+  // Ransomware discovery stores victims with url fields
+  if (Array.isArray(ev.victims)) {
+    for (const v of ev.victims) {
+      if (v?.url && typeof v.url === 'string' && v.url.startsWith('http')) {
+        sources.push({ url: v.url, title: `${v.victim ?? ''} — ${ev.group ?? ''}` });
+      }
+    }
+  }
+
+  // CVE discovery — add CISA KEV link
+  if (ev.cveId) {
+    sources.push({ url: `https://nvd.nist.gov/vuln/detail/${ev.cveId}`, title: `NVD — ${ev.cveId}` });
+    sources.push({ url: 'https://www.cisa.gov/known-exploited-vulnerabilities-catalog', title: 'CISA KEV Catalog' });
+  }
+
+  // Breach/discovery might have a sourceUrl
+  if (ev.sourceUrl && typeof ev.sourceUrl === 'string') {
+    sources.push({ url: ev.sourceUrl, title: (ev.sourceTitle as string) ?? '' });
+  }
+
+  return sources;
+}
+
 export interface GeneratePostDeps {
   candidate: Candidate;
   ai: Ai;
@@ -42,10 +84,13 @@ export interface GeneratePostDeps {
 export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
   const { candidate, ai, now } = deps;
 
+  const sources = extractSources(candidate.evidence);
+
   const { system, user } = buildPrompt({
     type: candidate.type,
     title: candidate.title,
     facts: candidate.evidence,
+    sources,
   });
 
   const completion = await runCompletion(ai, { system, user });
@@ -70,6 +115,7 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
     hero,
     iocs: processed.iocs,
     tags: tagsFor(candidate),
-    sources: [],
+    sources,
+    quality: processed.quality,
   };
 }

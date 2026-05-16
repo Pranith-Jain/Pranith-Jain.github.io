@@ -1,6 +1,17 @@
 // api/src/case-study/types.ts
 
-export type CaseStudyType = 'cve' | 'actor' | 'malware' | 'ransom' | 'breach' | 'scam' | 'aisec' | 'intel';
+export type CaseStudyType =
+  | 'cve'
+  | 'actor'
+  | 'malware'
+  | 'ransom'
+  | 'breach'
+  | 'scam'
+  | 'aisec'
+  | 'intel'
+  | 'osint'
+  | 'methodology'
+  | 'trend';
 
 export type CandidateStatus = 'pending' | 'approved' | 'skipped' | 'published';
 
@@ -33,6 +44,18 @@ export interface PostSource {
   title: string;
 }
 
+export interface QualityScore {
+  total: number;
+  breakdown: {
+    length: number;
+    sections: number;
+    depth: number;
+    technical: number;
+    references: number;
+    fillerPenalty: number;
+  };
+}
+
 export interface Post {
   slug: string;
   type: CaseStudyType;
@@ -45,6 +68,7 @@ export interface Post {
   iocs: PostIOC[];
   tags: string[];
   sources: PostSource[];
+  quality?: QualityScore;
 }
 
 export interface PostIndexEntry {
@@ -68,4 +92,11 @@ export interface FailureRecord {
   rawOutput?: string;
   failedAt: string;
   retries: number;
+}
+
+export interface SocialContent {
+  slug: string;
+  twitter: string;
+  linkedin: string;
+  generatedAt: string;
 }

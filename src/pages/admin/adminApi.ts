@@ -41,3 +41,26 @@ export async function postJson<T>(path: string): Promise<T> {
   if (!r.ok) throw new Error(`${r.status} ${r.statusText}`);
   return r.json() as Promise<T>;
 }
+
+export async function postJsonWithBody<T>(path: string, body: unknown): Promise<T> {
+  const r = await fetch(BASE + path, {
+    method: 'POST',
+    headers: headers(),
+    body: JSON.stringify(body),
+  });
+  if (r.status === 401) {
+    handleUnauthorized();
+    throw new Error('unauthorized');
+  }
+  if (!r.ok) {
+    let detail = `${r.status} ${r.statusText}`;
+    try {
+      const err = (await r.json()) as { error?: string };
+      if (err.error) detail = err.error;
+    } catch {
+      /* ignore parse errors */
+    }
+    throw new Error(detail);
+  }
+  return r.json() as Promise<T>;
+}

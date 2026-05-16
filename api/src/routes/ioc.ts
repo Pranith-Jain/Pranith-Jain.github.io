@@ -33,6 +33,8 @@ import { greynoise } from '../providers/greynoise';
 import { c2tracker } from '../providers/c2tracker';
 import { sslbl } from '../providers/sslbl';
 import { yaraify } from '../providers/yaraify';
+import { phishtank } from '../providers/phishtank';
+import { malwareworld } from '../providers/malwareworld';
 import {
   PROVIDER_SUPPORT,
   PROVIDER_TIMEOUT_MS,
@@ -40,6 +42,18 @@ import {
   type ProviderId,
   type ProviderResult,
 } from '../providers/types';
+
+/** Cloudflare Workers limit subrequests to 50 per invocation. Each feed-based
+ *  provider makes at least 1 fetch(). Chunk execution so we never exceed the
+ *  budget even when 25+ providers are eligible for a given indicator type. */
+const PROVIDER_CHUNK_SIZE = 10;
+
+async function runChunked<T>(items: T[], fn: (item: T) => Promise<void>, chunkSize: number): Promise<void> {
+  for (let i = 0; i < items.length; i += chunkSize) {
+    const chunk = items.slice(i, i + chunkSize);
+    await Promise.all(chunk.map(fn));
+  }
+}
 
 const ADAPTERS: Record<ProviderId, ProviderAdapter> = {
   virustotal,
@@ -69,6 +83,8 @@ const ADAPTERS: Record<ProviderId, ProviderAdapter> = {
   c2tracker,
   sslbl,
   yaraify,
+  phishtank,
+  malwareworld,
 };
 
 export async function iocCheckHandler(c: Context<{ Bindings: Env }>) {
@@ -117,8 +133,9 @@ export async function iocCheckHandler(c: Context<{ Bindings: Env }>) {
     };
 
     const collected: ProviderResult[] = [];
-    await Promise.all(
-      eligible.map(async (p) => {
+    await runChunked(
+      eligible,
+      async (p) => {
         const cached = await cache.get(p, indicator);
         if (cached) {
           collected.push(cached);
@@ -146,7 +163,8 @@ export async function iocCheckHandler(c: Context<{ Bindings: Env }>) {
           collected.push(errResult);
           write('result', errResult);
         }
-      })
+      },
+      PROVIDER_CHUNK_SIZE
     );
 
     const composite = compositeScore(type, collected);

@@ -27,7 +27,9 @@ export type ProviderId =
   | 'greynoise'
   | 'c2tracker'
   | 'sslbl'
-  | 'yaraify';
+  | 'yaraify'
+  | 'phishtank'
+  | 'malwareworld';
 
 export type Verdict = 'clean' | 'suspicious' | 'malicious' | 'unknown';
 
@@ -97,4 +99,6 @@ export const PROVIDER_SUPPORT: Record<ProviderId, IndicatorType[]> = {
   c2tracker: ['ipv4'],
   sslbl: ['ipv4'],
   yaraify: ['hash'],
+  phishtank: ['url', 'domain'],
+  malwareworld: ['ipv4', 'domain'],
 };

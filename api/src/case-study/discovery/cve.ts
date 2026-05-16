@@ -3,6 +3,7 @@ import { cveKey } from '../stable-keys';
 import { recencyScore, severityScore, noveltyScore, finalScore } from '../scoring';
 
 const KEV_URL = 'https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json';
+const NVD_API = 'https://services.nvd.nist.gov/rest/json/cves/2.0';
 
 interface KevEntry {
   cveID: string;
@@ -14,10 +15,88 @@ interface KevEntry {
   knownRansomwareCampaignUse?: string;
 }
 
+interface NvdCveItem {
+  id: string;
+  metrics?: {
+    cvssMetricV31?: Array<{ cvssData: { baseScore: number; baseSeverity: string; vectorString: string } }>;
+    cvssMetricV30?: Array<{ cvssData: { baseScore: number; baseSeverity: string; vectorString: string } }>;
+    cvssMetricV2?: Array<{ cvssData: { baseScore: number; baseSeverity: string; vectorString: string } }>;
+  };
+  configurations?: Array<{
+    nodes: Array<{
+      cpeMatch: Array<{
+        criteria: string;
+        vulnerable: boolean;
+      }>;
+    }>;
+  }>;
+  weaknesses?: Array<{
+    description: Array<{ value: string }>;
+  }>;
+}
+
+interface NvdResponse {
+  vulnerabilities: Array<{ cve: NvdCveItem }>;
+}
+
 export interface DiscoverDeps {
   fetch: typeof globalThis.fetch;
   now: Date;
   getDedup: (stableKey: string) => Promise<DedupRecord | null>;
+}
+
+async function enrichFromNvd(
+  fetchFn: typeof globalThis.fetch,
+  cveId: string
+): Promise<Partial<Record<string, unknown>>> {
+  try {
+    const url = `${NVD_API}?cveId=${cveId}`;
+    const r = await fetchFn(url, { headers: { 'User-Agent': 'pranithjain.qzz.io case-study-discovery' } });
+    if (!r.ok) return {};
+    const data = (await r.json()) as NvdResponse;
+    const cve = data.vulnerabilities?.[0]?.cve;
+    if (!cve) return {};
+
+    const metrics = cve.metrics;
+    const cvssSource = metrics?.cvssMetricV31?.[0] ?? metrics?.cvssMetricV30?.[0] ?? metrics?.cvssMetricV2?.[0];
+    const cvss = cvssSource
+      ? {
+          score: cvssSource.cvssData.baseScore,
+          severity: cvssSource.cvssData.baseSeverity,
+          vector: cvssSource.cvssData.vectorString,
+        }
+      : undefined;
+
+    // Extract affected CPE versions
+    const affectedVersions: string[] = [];
+    for (const config of cve.configurations ?? []) {
+      for (const node of config.nodes ?? []) {
+        for (const match of node.cpeMatch ?? []) {
+          if (match.vulnerable) {
+            const parts = match.criteria.split(':');
+            // CPE format: cpe:2.3:a:vendor:product:version:...
+            if (parts.length >= 5 && parts[4] && parts[4] !== '*' && parts[4] !== '-') {
+              affectedVersions.push(parts[4].replace(/_/g, ' ').replace(/-/g, ' '));
+            }
+          }
+        }
+      }
+    }
+
+    // Extract CWE
+    const cwe = cve.weaknesses
+      ?.map((w) => w.description?.[0]?.value)
+      .filter(Boolean)
+      .join(', ');
+
+    return {
+      cvss,
+      affectedVersions: [...new Set(affectedVersions)].sort(),
+      cwe: cwe ?? '',
+    } as Record<string, unknown>;
+  } catch {
+    return {};
+  }
 }
 
 export async function discoverCves(deps: DiscoverDeps): Promise<Candidate[]> {
@@ -30,10 +109,19 @@ export async function discoverCves(deps: DiscoverDeps): Promise<Candidate[]> {
     const data = (await r.json()) as { vulnerabilities: KevEntry[] };
 
     const fourteenDaysAgo = new Date(now.getTime() - 14 * 24 * 3600 * 1000);
-    for (const k of data.vulnerabilities) {
+    const entries = data.vulnerabilities.filter((k) => {
       const dateAdded = new Date(k.dateAdded + 'T00:00:00Z');
-      if (dateAdded < fourteenDaysAgo) continue;
+      return dateAdded >= fourteenDaysAgo;
+    });
 
+    // Enrich with NVD data in parallel
+    const nvdResults = await Promise.allSettled(entries.map((k) => enrichFromNvd(fetch, k.cveID)));
+
+    for (let i = 0; i < entries.length; i++) {
+      const k = entries[i];
+      const nvdExtra = nvdResults[i].status === 'fulfilled' ? nvdResults[i].value : {};
+
+      const dateAdded = new Date(k.dateAdded + 'T00:00:00Z');
       const stable = cveKey(k.cveID);
       const dedup = await getDedup(stable);
 
@@ -46,19 +134,34 @@ export async function discoverCves(deps: DiscoverDeps): Promise<Candidate[]> {
         kev: true,
         kevAddedAt: dateAdded.toISOString(),
         ransomwareUse: k.knownRansomwareCampaignUse === 'Known',
+        ...nvdExtra,
       };
 
+      const severity = severityScore({ kev: true, cvss: (nvdExtra.cvss as { score: number })?.score });
       const score = finalScore({
         recency: recencyScore(dateAdded.toISOString(), now),
-        severity: severityScore({ kev: true }),
+        severity,
         novelty: noveltyScore(dedup, now),
         sourceWeight: 1.0,
       });
 
+      // vulnerabilityName is often the full NVD title which already includes vendor
+      // and product. Avoid triple/tandem repeats like "Microsoft Microsoft Exchange...".
+      const titleVendor = k.vendorProject.charAt(0).toUpperCase() + k.vendorProject.slice(1);
+      const nameIncludesVendor = k.vulnerabilityName.toLowerCase().startsWith(titleVendor.toLowerCase());
+      const nameIncludesProduct = k.vulnerabilityName.toLowerCase().includes(k.product.toLowerCase());
+      const productAlreadyHasVendor = k.product.toLowerCase().includes(k.vendorProject.toLowerCase());
+      const titleName =
+        nameIncludesVendor || nameIncludesProduct
+          ? k.vulnerabilityName
+          : productAlreadyHasVendor
+            ? `${k.product} ${k.vulnerabilityName}`
+            : `${titleVendor} ${k.product} ${k.vulnerabilityName}`;
+
       candidates.push({
         key: stable,
         type: 'cve',
-        title: `${k.cveID} — ${k.vendorProject} ${k.product} ${k.vulnerabilityName}`,
+        title: `${k.cveID} — ${titleName}`,
         rationale: `Added to CISA KEV ${k.dateAdded}` + (evidence.ransomwareUse ? '; known ransomware use' : ''),
         score,
         evidence,

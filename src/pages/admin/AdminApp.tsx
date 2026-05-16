@@ -7,14 +7,16 @@ import ScheduleTab from './ScheduleTab';
 import PublishedTab from './PublishedTab';
 import FailedTab from './FailedTab';
 import HealthTab from './HealthTab';
+import ManualTab from './ManualTab';
 
-type TabKey = 'pending' | 'approved' | 'schedule' | 'published' | 'failed' | 'health';
+type TabKey = 'pending' | 'approved' | 'schedule' | 'published' | 'failed' | 'health' | 'manual';
 
 const TABS: Array<{ key: TabKey; label: string }> = [
   { key: 'pending', label: 'Pending' },
   { key: 'approved', label: 'Queue' },
   { key: 'schedule', label: 'Schedule' },
   { key: 'published', label: 'Published' },
+  { key: 'manual', label: 'Manual' },
   { key: 'failed', label: 'Failed' },
   { key: 'health', label: 'Health' },
 ];
@@ -114,6 +116,7 @@ export default function AdminApp() {
         {active === 'published' && <PublishedTab />}
         {active === 'failed' && <FailedTab />}
         {active === 'health' && <HealthTab />}
+        {active === 'manual' && <ManualTab />}
       </section>
     </main>
   );

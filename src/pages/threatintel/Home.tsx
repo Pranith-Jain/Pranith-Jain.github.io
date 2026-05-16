@@ -23,6 +23,7 @@ import {
   MessageSquare,
   Newspaper,
   Radio,
+  Radar,
   Search,
   Send,
   ShieldAlert,
@@ -256,6 +257,13 @@ const SECTIONS: Section[] = [
         icon: ShieldAlert,
         badge: 'live',
       },
+      {
+        to: '/threatintel/c2-tracker',
+        label: 'C2 Infrastructure Tracker',
+        desc: 'Live C2 server IPs from MontySecurity C2-Tracker (Shodan-detected). Filter by framework: Cobalt Strike, Sliver, Metasploit, Havoc, Brute Ratel, and more.',
+        icon: Radar,
+        badge: 'new',
+      },
     ],
   },
   {
@@ -284,7 +292,7 @@ const SECTIONS: Section[] = [
       {
         to: '/threatintel/external-resources',
         label: 'External Resources',
-        desc: 'Off-site cross-references — dashboards, OSINT directories, training labs, malware samples, and research portfolios. Filter by kind.',
+        desc: 'Off-site cross-references — dashboards, OSINT directories, training labs, malware samples, and research portfolios. Filter by kind. Featured quality-content markers and research-discovery mode.',
         icon: ExternalLink,
       },
       {

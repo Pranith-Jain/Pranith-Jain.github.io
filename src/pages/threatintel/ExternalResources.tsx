@@ -25,9 +25,12 @@ interface DynamicEntry extends ExternalResource {
   dynamic?: true;
 }
 
+const RESEARCH_KINDS: ResourceKind[] = ['research', 'training', 'lab'];
+
 export default function ExternalResources(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState(searchParams.get('q') ?? '');
+  const [featuredOnly, setFeaturedOnly] = useState(searchParams.get('featured') === '1');
 
   const initialKinds = (searchParams.get('kind')?.split(',').filter(Boolean) ?? []) as ResourceKind[];
   const [activeKinds, setActiveKinds] = useState<Set<ResourceKind>>(
@@ -72,11 +75,13 @@ export default function ExternalResources(): JSX.Element {
         else out.delete('q');
         if (activeKinds.size > 0) out.set('kind', [...activeKinds].join(','));
         else out.delete('kind');
+        if (featuredOnly) out.set('featured', '1');
+        else out.delete('featured');
         return out;
       },
       { replace: true }
     );
-  }, [query, activeKinds, setSearchParams]);
+  }, [query, activeKinds, featuredOnly, setSearchParams]);
 
   // Merge static + dynamic, dedup by URL (dynamic wins if the same URL
   // somehow exists in both). Dynamic entries sort first so newly-added
@@ -93,6 +98,7 @@ export default function ExternalResources(): JSX.Element {
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return merged.filter((r) => {
+      if (featuredOnly && !('featured' in r)) return false;
       if (activeKinds.size > 0 && !activeKinds.has(r.kind)) return false;
       if (!q) return true;
       const hay = `${r.name} ${r.description} ${r.why ?? ''}`.toLowerCase();
@@ -101,7 +107,7 @@ export default function ExternalResources(): JSX.Element {
         .filter(Boolean)
         .every((tok) => hay.includes(tok));
     });
-  }, [query, activeKinds, merged]);
+  }, [query, activeKinds, featuredOnly, merged]);
 
   const kindCounts = useMemo(() => {
     const map = new Map<ResourceKind, number>();
@@ -120,7 +126,16 @@ export default function ExternalResources(): JSX.Element {
   const clearAll = () => {
     setQuery('');
     setActiveKinds(new Set());
+    setFeaturedOnly(false);
   };
+
+  const activateResearch = () => {
+    setActiveKinds(new Set(RESEARCH_KINDS));
+    setFeaturedOnly(false);
+    setQuery('');
+  };
+
+  const featuredCount = useMemo(() => merged.filter((r) => 'featured' in r).length, [merged]);
 
   const signIn = () => {
     const v = window.prompt('Paste RESOURCES_ADMIN_TOKEN:');
@@ -172,6 +187,48 @@ export default function ExternalResources(): JSX.Element {
         />
       )}
 
+      {/* Research discovery + featured toggle */}
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            onClick={activateResearch}
+            className={`text-[11px] font-mono px-3 py-1.5 rounded border transition-colors ${
+              !featuredOnly && RESEARCH_KINDS.every((k) => activeKinds.has(k))
+                ? 'border-violet-500/50 bg-violet-500/10 text-violet-700 dark:text-violet-300'
+                : 'border-slate-300 dark:border-slate-700 text-slate-500 hover:border-violet-500/40'
+            }`}
+            aria-label="Show research, training, and lab resources"
+          >
+            Research discovery
+          </button>
+          <button
+            type="button"
+            onClick={() => setFeaturedOnly((v) => !v)}
+            className={`text-[11px] font-mono px-3 py-1.5 rounded border transition-colors ${
+              featuredOnly
+                ? 'border-amber-500/50 bg-amber-500/10 text-amber-700 dark:text-amber-300'
+                : 'border-slate-300 dark:border-slate-700 text-slate-500 hover:border-amber-500/40'
+            }`}
+            aria-label="Show featured quality resources only"
+          >
+            Featured · {featuredCount}
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setQuery('');
+              setActiveKinds(new Set());
+              setFeaturedOnly(false);
+            }}
+            className="text-[11px] font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-slate-700 text-slate-500 hover:border-brand-500/40 transition-colors"
+            aria-label="Clear all filters"
+          >
+            Show all
+          </button>
+        </div>
+      </section>
+
       {/* Search */}
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
         <div className="relative">
@@ -185,17 +242,6 @@ export default function ExternalResources(): JSX.Element {
             aria-label="Search external resources"
           />
         </div>
-        {(query || activeKinds.size > 0) && (
-          <div className="mt-3 text-right">
-            <button
-              type="button"
-              onClick={clearAll}
-              className="text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline"
-            >
-              clear filters
-            </button>
-          </div>
-        )}
       </section>
 
       {/* Kind pills */}
@@ -227,6 +273,7 @@ export default function ExternalResources(): JSX.Element {
 
       <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-4">
         Showing {filtered.length} of {merged.length}
+        {featuredOnly && ' (featured quality resources)'}
       </p>
 
       <ul className="grid gap-3 md:grid-cols-2">
@@ -245,6 +292,14 @@ export default function ExternalResources(): JSX.Element {
                 {r.name} <ExternalLink size={12} className="opacity-60 shrink-0" />
               </a>
               <div className="flex items-center gap-1 shrink-0">
+                {'featured' in r && (
+                  <span
+                    className="text-[9px] font-mono uppercase tracking-wider px-1 py-0.5 rounded bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/30"
+                    title="Featured quality resource"
+                  >
+                    featured
+                  </span>
+                )}
                 {r.dynamic && (
                   <span
                     className="text-[9px] font-mono uppercase tracking-wider px-1 py-0.5 rounded bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30"

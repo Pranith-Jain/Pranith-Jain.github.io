@@ -132,6 +132,7 @@ const ActorTimelinePage = lazy(() => import('./pages/threatintel/ActorTimeline')
 const VictimReleaksPage = lazy(() => import('./pages/threatintel/VictimReleaks'));
 const LiveIocsPage = lazy(() => import('./pages/threatintel/LiveIocs'));
 const CyberCrimePage = lazy(() => import('./pages/threatintel/CyberCrime'));
+const C2TrackerPage = lazy(() => import('./pages/threatintel/C2Tracker'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const AdminApp = lazy(() => import('./pages/admin/AdminApp'));
@@ -143,6 +144,7 @@ const DomainReputation = lazy(() => import('./pages/dfir/DomainReputation'));
 const ApkAnalyzer = lazy(() => import('./pages/dfir/ApkAnalyzer'));
 const EmailReputation = lazy(() => import('./pages/dfir/EmailReputation'));
 const DomainMonitor = lazy(() => import('./pages/threatintel/DomainMonitor'));
+const DmarcAnalyzer = lazy(() => import('./pages/dfir/DmarcAnalyzer'));
 
 /**
  * Preserves the path slug (when `withSlug`), the query string, and the hash
@@ -719,6 +721,16 @@ export function AppContent() {
         }
       />
       <Route
+        path="/threatintel/c2-tracker"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <C2TrackerPage />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
         path="/threatintel/writeups"
         element={
           <ErrorBoundary>
@@ -887,6 +899,16 @@ export function AppContent() {
           <ErrorBoundary>
             <Suspense fallback={<SectionLoader />}>
               <EmailDefense />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/dfir/dmarc-analyzer"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <DmarcAnalyzer />
             </Suspense>
           </ErrorBoundary>
         }

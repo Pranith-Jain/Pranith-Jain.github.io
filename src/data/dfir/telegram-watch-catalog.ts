@@ -269,6 +269,18 @@ export const CATALOG: TelegramEntry[] = [
     audience: 'public-channel',
     description: 'Official CyberScoop mirror — strong on government / federal-cyber and policy coverage.',
   },
+  {
+    id: 'darkfeednews',
+    name: 'DarkfeedNews',
+    handle: 'DarkfeedNews',
+    attribution: 't.me/DarkfeedNews',
+    categories: ['security-news', 'threat-intel'],
+    language: 'en',
+    audience: 'public-channel',
+    description:
+      'Real-time cyber threat intelligence feed — fresh IOCs, breach announcements, ransomware claims, and dark-web activity aggregated from multiple sources. High-volume; best paired with keyword filtering.',
+    badge: 'essential',
+  },
 
   // ─────────────────────────────────────────────────────────────────────
   // OSINT research

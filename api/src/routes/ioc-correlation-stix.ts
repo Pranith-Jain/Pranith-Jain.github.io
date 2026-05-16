@@ -119,6 +119,7 @@ const SOURCE_PORTAL: Record<string, { name: string; url?: string }> = {
   ipsum: { name: 'Ipsum (stamparm)', url: 'https://github.com/stamparm/ipsum' },
   cinsarmy: { name: 'CINS Score', url: 'https://cinsscore.com/' },
   bitwire: { name: 'Bitwire IP Blocklist', url: 'https://github.com/bitwire-it/ipblocklist' },
+  malwareworld: { name: 'MalwareWorld', url: 'https://malwareworld.com/' },
   'blocklist-de': { name: 'Blocklist.de', url: 'https://lists.blocklist.de/' },
   'binary-defense': { name: 'Binary Defense Banlist', url: 'https://www.binarydefense.com/banlist.txt' },
   'phishing-army': { name: 'Phishing Army', url: 'https://phishing.army/' },

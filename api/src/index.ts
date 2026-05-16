@@ -64,6 +64,7 @@ import { snapshotHandler } from './routes/snapshot';
 import { iocSnapshotHandler } from './routes/ioc-snapshot';
 import { registerBlogRoutes } from './routes/blog-public';
 import { registerAdminRoutes } from './routes/case-study-admin';
+import { c2TrackerHandler } from './routes/c2-tracker';
 import { rateLimit } from './lib/ratelimit';
 
 const app = new Hono<{ Bindings: Env }>();
@@ -120,6 +121,7 @@ app.get('/api/v1/actor-timeline', actorTimelineHandler);
 app.get('/api/v1/victim-releaks', victimReleaksHandler);
 app.get('/api/v1/live-iocs', liveIocsHandler);
 app.get('/api/v1/writeups', writeupsHandler);
+app.get('/api/v1/c2-tracker', c2TrackerHandler);
 app.get('/api/v1/cyber-crime', cybercrimeHandler);
 app.get('/api/v1/snapshot', snapshotHandler);
 app.get('/api/v1/ioc-snapshot', iocSnapshotHandler);

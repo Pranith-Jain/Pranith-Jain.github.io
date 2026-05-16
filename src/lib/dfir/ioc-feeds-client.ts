@@ -14,7 +14,8 @@ export type SourceId =
   | 'ipsum'
   | 'phishing-army'
   | 'tweetfeed'
-  | 'bitwire';
+  | 'bitwire'
+  | 'malwareworld';
 
 export interface IocEntry {
   type: IocType;
@@ -51,6 +52,7 @@ export const FEED_SOURCES: FeedSourceMeta[] = [
   { id: 'phishing-army', label: 'Phishing Army', iocType: 'domain' },
   { id: 'tweetfeed', label: 'TweetFeed', iocType: 'mixed' },
   { id: 'bitwire', label: 'Bitwire Blocklist', iocType: 'ipv4' },
+  { id: 'malwareworld', label: 'MalwareWorld', iocType: 'ipv4' },
 ];
 
 export async function fetchIocFeed(source: SourceId): Promise<IocFeedSummary> {

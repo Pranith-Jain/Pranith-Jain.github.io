@@ -1,7 +1,7 @@
 import type { ProviderAdapter, ProviderResult } from './types';
 
 const supports = new Set(['ipv4']);
-const FEED = 'https://raw.githubusercontent.com/montysecurity/C2-Tracker/main/data/all.txt';
+const FEED = 'https://raw.githubusercontent.com/drb-ra/C2IntelFeeds/master/feeds/IPC2s.csv';
 const CACHE_TTL_SECONDS = 3600;
 
 export const c2tracker: ProviderAdapter = async (indicator, _env, signal) => {
@@ -28,16 +28,17 @@ export const c2tracker: ProviderAdapter = async (indicator, _env, signal) => {
     const ips = new Set(
       text
         .split(/\r?\n/)
-        .map((l) => l.trim().toLowerCase())
-        .filter((l) => l && !l.startsWith('#'))
+        .filter((l) => l && !l.startsWith('#') && !l.startsWith('ip,'))
+        .map((l) => l.split(',')[0]?.trim().toLowerCase())
+        .filter(Boolean)
     );
     const hit = ips.has(indicator.value.toLowerCase());
 
     return base('ok', {
       score: hit ? 95 : 0,
       verdict: hit ? 'malicious' : 'clean',
-      tags: hit ? ['c2', 'c2-tracker', 'command-and-control'] : [],
-      raw_summary: { listed: hit, list_size: ips.size, source: 'montysecurity/c2-tracker' },
+      tags: hit ? ['c2', 'c2-tracker', 'command-and-control', 'drb-c2intelfeeds'] : [],
+      raw_summary: { listed: hit, list_size: ips.size, source: 'drb-ra/C2IntelFeeds' },
     });
   } catch (err) {
     return base('error', { error: err instanceof Error ? err.message : String(err) });

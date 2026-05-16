@@ -43,6 +43,7 @@ const DFIR_NAV: NavItem[] = [
 const TI_NAV: NavItem[] = [
   { label: 'Overview', to: '/threatintel', exact: true },
   { label: 'Live Feeds', to: '/threatintel/live-iocs' },
+  { label: 'C2 Tracker', to: '/threatintel/c2-tracker' },
   { label: 'Correlation', to: '/threatintel/correlation' },
   { label: 'Actors', to: '/threatintel/actor-timeline' },
   { label: 'Writeups', to: '/threatintel/writeups' },
@@ -176,10 +177,10 @@ function AppHeader({
           </button>
           <Link
             to="/"
-            className="hidden sm:inline-flex items-center gap-1 text-[11px] font-mono px-2 py-1 rounded text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800"
+            className="inline-flex items-center gap-1 text-[11px] font-mono px-2 py-1 rounded text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800"
             title="Back to portfolio"
           >
-            <ArrowLeft size={11} /> portfolio
+            <ArrowLeft size={11} /> <span className="hidden xs:inline sm:inline">portfolio</span>
           </Link>
           {/* Mobile menu trigger */}
           <button
@@ -220,6 +221,15 @@ function AppHeader({
                 <X size={16} />
               </button>
             </div>
+            <div className="border-b border-slate-200 dark:border-slate-800 p-2">
+              <Link
+                to="/"
+                className="flex items-center gap-2 font-mono text-xs px-3 py-2 rounded text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800"
+                onClick={() => setMobileOpen(false)}
+              >
+                <ArrowLeft size={12} /> Back to portfolio
+              </Link>
+            </div>
             <ul className="flex-1 overflow-y-auto p-2">
               {nav.map((item) => {
                 const active = isActive(item);
@@ -239,14 +249,6 @@ function AppHeader({
                 );
               })}
             </ul>
-            <div className="border-t border-slate-200 dark:border-slate-800 p-2">
-              <Link
-                to="/"
-                className="flex items-center gap-2 font-mono text-xs px-3 py-2 rounded text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800"
-              >
-                <ArrowLeft size={12} /> Back to portfolio
-              </Link>
-            </div>
           </nav>
         </div>
       )}

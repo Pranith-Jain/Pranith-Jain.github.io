@@ -11,4 +11,7 @@ export const kv = {
   metaRss: 'meta:rss',
   dedup: (stableKey: string) => `meta:dedup:${stableKey}`,
   failed: (slotId: string) => `failed:${slotId}`,
+  socialTwitter: (slug: string) => `social:${slug}:twitter`,
+  socialLinkedin: (slug: string) => `social:${slug}:linkedin`,
+  social: (slug: string) => `social:${slug}`,
 };

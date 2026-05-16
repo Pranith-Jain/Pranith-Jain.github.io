@@ -456,8 +456,28 @@ export const rssFeeds: RSSFeed[] = [
     language: 'en-US',
   },
 
+  {
+    id: 'osv-vulnerabilities',
+    name: 'OSV.dev — Open Source Vulnerabilities',
+    url: 'https://osv.dev/feed/rss.xml',
+    description:
+      'Open-source vulnerability feed covering PyPI, npm, Go, Maven, Rust, and other ecosystems — maintained by Google',
+    category: 'vulnerability',
+    source: 'osv.dev',
+    language: 'en',
+  },
+  {
+    id: 'redhunt-research',
+    name: 'RedHunt Labs Research',
+    url: 'https://research.redhuntlabs.com/feed.xml',
+    description:
+      'Attack surface management research, vulnerability disclosures, and APT infrastructure tracking by RedHunt Labs',
+    category: 'threat-intel',
+    source: 'research.redhuntlabs.com',
+    language: 'en',
+  },
   // ============================================================================
-  // VULNERABILITY & RESEARCH
+  // VULNERABILITIES & EXPLOITS
   // ============================================================================
   // CVE Details (cvedetails.com) was removed in 2026-05: their /rss.xml endpoint
   // has been Cloudflare-bot-protected and returns 403 to non-browser User-Agents
