@@ -49,15 +49,27 @@ export default function BlogPost() {
 
   return (
     <article className="max-w-3xl mx-auto px-6 py-10">
+      <Link to="/blog" className="inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-300 mb-8">
+        ← Back to Blog
+      </Link>
       <img className="mb-6 w-full rounded-lg" alt="" src={`data:image/svg+xml;utf8,${encodeURIComponent(post.hero)}`} />
       <header className="mb-6">
         <span className="text-xs uppercase tracking-wider text-zinc-500">{post.type}</span>
         <h1 className="text-3xl font-bold">{post.title}</h1>
-        <div className="flex items-center gap-3 text-sm text-zinc-500">
+        <div className="flex items-center gap-3 text-sm text-zinc-500 mt-1">
           <time>{new Date(post.publishedAt).toLocaleDateString()}</time>
           <span aria-hidden="true">·</span>
           <span>{readTime} min read</span>
         </div>
+        {post.tags.length > 0 && (
+          <div className="flex flex-wrap gap-2 mt-3">
+            {post.tags.map((t) => (
+              <span key={t} className="rounded bg-zinc-800 px-2 py-0.5 text-xs font-mono text-zinc-400">
+                {t}
+              </span>
+            ))}
+          </div>
+        )}
       </header>
       <div
         className="[&_h2]:text-xl [&_h2]:font-bold [&_h2]:mt-10 [&_h2]:mb-3 [&_h2]:text-zinc-100 [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:mt-8 [&_h3]:mb-2 [&_h3]:text-zinc-200 [&_p]:text-zinc-300 [&_p]:leading-relaxed [&_p]:mb-4 [&_a]:text-brand-400 [&_a]:hover:underline [&_strong]:text-zinc-100 [&_code]:text-brand-400 [&_code]:bg-zinc-800 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-sm [&_code]:font-mono [&_pre]:bg-zinc-900 [&_pre]:border [&_pre]:border-zinc-800 [&_pre]:p-4 [&_pre]:rounded-lg [&_pre]:mb-4 [&_pre]:overflow-x-auto [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-4 [&_ul]:text-zinc-300 [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-4 [&_ol]:text-zinc-300 [&_li]:mb-1 [&_blockquote]:border-l-4 [&_blockquote]:border-brand-400 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-zinc-400 [&_blockquote]:mb-4 [&_hr]:border-zinc-800 [&_hr]:my-8 [&_table]:w-full [&_table]:border-collapse [&_table]:mb-4 [&_th]:border [&_th]:border-zinc-800 [&_th]:p-2 [&_th]:text-left [&_th]:text-zinc-200 [&_th]:bg-zinc-900 [&_td]:border [&_td]:border-zinc-800 [&_td]:p-2 [&_td]:text-zinc-300 [&_img]:rounded-lg [&_img]:mb-4 [&_img]:max-w-full"
