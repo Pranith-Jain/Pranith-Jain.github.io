@@ -202,7 +202,7 @@ export default function LiveIocs(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <Radio size={28} className="text-brand-600 dark:text-brand-400" /> Live IOC stream
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2 max-w-3xl">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
           A chronological firehose of individual indicators, each carrying a reporter handle, source feed, and
           first-observed timestamp. /correlation answers "what's in 2+ feeds"; this page answers "what's freshly
           observed and by whom."

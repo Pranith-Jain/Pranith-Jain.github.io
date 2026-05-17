@@ -137,7 +137,7 @@ export default function PowershellDeobf(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <Terminal size={28} className="text-brand-600 dark:text-brand-400" /> PowerShell Deobfuscator
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
           Multi-pass deobfuscator for the PowerShell loaders that show up in commodity-malware and ransomware staging:
           <code> -EncodedCommand</code>, <code>FromBase64String</code>, char-array literals, format-string composition,
           replace chains, backtick noise. Each pass shows what it changed.

@@ -157,7 +157,7 @@ export default function AgentMap(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <Network size={28} className="text-brand-600 dark:text-brand-400" /> AI Agent Attack-Surface Mapper
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
           Paste an MCP server config or a Claude Code <code>settings.json</code>. The mapper classifies each tool by
           capability (ingest, read-sensitive, write, execute, egress) and flags the canonical exfiltration and RCE
           chains that indirect prompt injection would need.

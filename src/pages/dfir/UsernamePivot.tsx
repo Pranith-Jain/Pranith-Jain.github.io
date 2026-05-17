@@ -138,7 +138,7 @@ export default function UsernamePivot(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <AtSign size={28} className="text-brand-600 dark:text-brand-400" /> Username Pivot
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
           Check whether a username is registered across {SERVICES.length} services. The{' '}
           {SERVICES.filter((s) => s.mode === 'active').length} services with public CORS-friendly endpoints (GitHub,
           GitLab, Codeberg, Reddit, HN, Lobsters, npm, Dev.to, Mastodon) are verified live; the rest are deep-link

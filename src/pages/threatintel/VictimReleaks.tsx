@@ -90,7 +90,7 @@ export default function VictimReleaks(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <Users size={28} className="text-brand-600 dark:text-brand-400" /> Victim re-leak detection
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2 max-w-3xl">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
           Victims claimed by 2+ ransomware groups within the last 12 months. Re-leaks usually mean a failed
           double-extortion (group A couldn't monetize, victim resurfaces under group B) or an affiliate dispute (a RaaS
           affiliate moved between programs and re-published the same haul).

@@ -119,7 +119,7 @@ export default function SecopsCatalog(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <Layers size={28} className="text-brand-600 dark:text-brand-400" /> SecOps Tools Catalog
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2 max-w-3xl">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
           {TOOLS.length} hand-picked tools across {ALL_CATEGORIES.length} SecOps categories. Quality &gt; quantity —
           every entry has a clear primary use-case and an honest pricing tag.
         </p>

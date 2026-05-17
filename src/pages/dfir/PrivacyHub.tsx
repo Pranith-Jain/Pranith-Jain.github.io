@@ -149,7 +149,7 @@ export default function PrivacyHub(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <Scale size={28} className="text-brand-600 dark:text-brand-400" /> Privacy &amp; Data-Protection Hub
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
           {REGIMES.length} privacy regimes side by side: <strong>GDPR</strong>, <strong>CCPA / CPRA</strong>,{' '}
           <strong>DPDP</strong> (India), <strong>HIPAA Privacy Rule</strong>, <strong>PCI DSS 4.0</strong>. Rights,
           controller / fiduciary obligations, breach-notification timelines, enforcement &amp; penalties — all

@@ -137,7 +137,7 @@ export default function Grc(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <FileCheck size={28} className="text-brand-600 dark:text-brand-400" /> GRC Compliance &amp; Maturity
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
           Six major frameworks side-by-side with cross-mapping and self-assessment. NIST CSF 2.0 is the spine; ISO
           27001:2022, ISO 42001:2023 (AI Management System), CIS Controls v8, and SOC 2 are mapped to NIST where
           official cross-references exist. SOC-CMM gives a maturity view across Business / People / Process / Technology

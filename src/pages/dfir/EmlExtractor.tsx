@@ -87,7 +87,7 @@ export default function EmlExtractor(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <Paperclip size={28} className="text-brand-600 dark:text-brand-400" /> EML Attachment Extractor
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2 max-w-3xl">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
           Drop or paste a raw <code>.eml</code> file. Each attachment is decoded (base64 / quoted-printable), hashed
           (SHA-256 + SHA-1 + MD5), and gets a one-click pivot to{' '}
           <Link to="/dfir/file" className="text-brand-600 dark:text-brand-400 hover:underline">

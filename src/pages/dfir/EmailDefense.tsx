@@ -66,7 +66,7 @@ export default function EmailDefense(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <Mail size={28} className="text-brand-600 dark:text-brand-400" /> Email Defense / BEC Score
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
           Look up a domain's SPF / DMARC / DKIM / MTA-STS posture and score how easy it is to spoof for a BEC pretext.
           Each gap is paired with the specific BEC scenario it enables and a copy-pastable corrected record.
         </p>

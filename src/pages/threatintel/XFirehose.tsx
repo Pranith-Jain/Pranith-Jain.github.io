@@ -139,7 +139,7 @@ export default function XFirehose(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <Cloud size={28} className="text-brand-600 dark:text-brand-400" /> Cybersec social firehose
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2 max-w-3xl">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
           Curated stream from cybersec researchers and vendor labs on <strong>Bluesky</strong> and{' '}
           <strong>Mastodon (infosec.exchange)</strong>. X killed its free read API in 2023 and the available Nitter
           mirrors are unreliable, so most of these accounts have a mirror on Bluesky or Mastodon. Both expose proper

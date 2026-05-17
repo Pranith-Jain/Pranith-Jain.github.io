@@ -192,7 +192,7 @@ export default function CryptoTrace(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <Coins size={28} className="text-brand-600 dark:text-brand-400" /> Crypto Address Tracer
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
           Multi-chain inspector. Paste a Bitcoin, EVM (ETH/Polygon/BSC/Arbitrum/Optimism/Base), or Solana address —
           balance, tx count, recent transactions, and pivot links to every block-explorer / NFT marketplace / DeFi
           dashboard / scam-check service.

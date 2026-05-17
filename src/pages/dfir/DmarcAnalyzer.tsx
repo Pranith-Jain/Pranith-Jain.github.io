@@ -293,7 +293,7 @@ export default function DmarcAnalyzer(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <Shield size={28} className="text-brand-600 dark:text-brand-400" /> DMARC RUA Analyzer
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
           Parse &amp; analyze your DMARC aggregate (RUA) XML reports — XML parsed in-browser, IPs enriched via real-time
           WHOIS/GeoIP.
         </p>

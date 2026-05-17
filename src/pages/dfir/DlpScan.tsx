@@ -133,7 +133,7 @@ export default function DlpScan(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <ShieldAlert size={28} className="text-brand-600 dark:text-brand-400" /> Sensitive Data Detector
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
           Scan any text for {PATTERNS.length} sensitive-data patterns. Credentials, financial identifiers, government
           IDs, health, network, personal contact. Credit cards are Luhn-checked, IBANs are mod-97 verified, AADHAAR is
           Verhoeff-checked, NHS is mod-11. Pure client-side; nothing leaves your browser.

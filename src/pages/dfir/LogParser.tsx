@@ -97,7 +97,7 @@ export default function LogParser(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <ScrollText size={28} className="text-brand-600 dark:text-brand-400" /> Log Parser
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2 max-w-3xl">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
           Paste raw log lines — Sysmon / Windows Security / syslog / JSON-line / key=value. Each line is auto-detected,
           parsed into a structured record, and tagged with MITRE ATT&amp;CK techniques where heuristics fire. Hunting
           queries are generated for Splunk SPL, Elastic KQL, and Microsoft Sentinel KQL.

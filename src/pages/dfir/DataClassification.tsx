@@ -102,7 +102,7 @@ export default function DataClassification(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <FolderTree size={28} className="text-brand-600 dark:text-brand-400" /> Data Classification &amp; Handling
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
           Define your tier policies (Public / Internal / Confidential / Restricted), inventory the datasets that exist
           in your environment, and assign each one to a tier. The matrix view renders the cross-product as a handling
           reference. localStorage; everything stays in your browser.

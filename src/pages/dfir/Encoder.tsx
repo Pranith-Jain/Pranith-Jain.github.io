@@ -83,7 +83,7 @@ export default function Encoder(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <Type size={28} className="text-brand-600 dark:text-brand-400" /> Encoder
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2 max-w-3xl">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
           Multi-pass encoder. Counterpart to{' '}
           <Link to="/dfir/decode" className="text-brand-600 dark:text-brand-400 hover:underline">
             Decoder

@@ -115,7 +115,7 @@ export default function Tabletop(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <ScrollText size={28} className="text-brand-600 dark:text-brand-400" /> Tabletop / IR Exercise Generator
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
           Generate a tabletop scenario from {ARCHETYPES.length} archetypes (ransomware, BEC, supply-chain, espionage,
           edge-exploit, insider) populated with a real threat-actor profile from{' '}
           <Link to="/threatintel/actors" className="text-brand-600 dark:text-brand-400 hover:underline">

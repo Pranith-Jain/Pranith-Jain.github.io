@@ -136,7 +136,7 @@ export default function RulePlayground(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <FlaskConical size={28} className="text-brand-600 dark:text-brand-400" /> YARA / Sigma Playground
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
           Paste a YARA rule or a Sigma YAML rule alongside a sample log / file. The playground extracts the rule's
           strings and keywords, highlights matches in the sample, and surfaces the parsed condition for review.
         </p>

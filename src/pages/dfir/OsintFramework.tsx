@@ -57,7 +57,7 @@ export default function OsintFramework(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <Compass size={28} className="text-brand-600 dark:text-brand-400" /> OSINT Framework
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
           {ENTRIES.length} curated OSINT tools and sources across {Object.keys(CATEGORY_LABELS).length} categories.
           Filter by category, by pricing tier (free / free-with-account / freemium / paid), or full-text search.
         </p>

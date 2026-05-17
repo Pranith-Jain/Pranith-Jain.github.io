@@ -101,7 +101,7 @@ export default function FeedStatus(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <Activity size={28} className="text-brand-600 dark:text-brand-400" /> Feed status
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2 max-w-3xl">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
           Live health of every upstream-backed feed on /threatintel. Each row probes its API endpoint and reports
           whether the upstream is contributing data. When a page looks empty, check here first. The answer is usually
           "upstream is down", not "your config is wrong".

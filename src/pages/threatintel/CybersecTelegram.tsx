@@ -23,7 +23,7 @@ export default function CybersecTelegram(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <Send size={28} className="text-brand-600 dark:text-brand-400" /> Cybersec Telegram firehose
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2 max-w-3xl">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
           Curated stream from active public cybersec Telegram channels. IOC drops, threat-intel commentary, leak
           announcements, and security-news mirrors. Channel set is liveness-probed; see the catalogue at{' '}
           <Link to="/threatintel/telegram-watch" className="text-brand-600 dark:text-brand-400 hover:underline">

@@ -111,7 +111,7 @@ export default function CveResourcesCatalog(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <BookText size={28} className="text-brand-600 dark:text-brand-400" /> CVE Resources Catalog
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2 max-w-3xl">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
           {RESOURCES.length} hand-picked CVE resources across {ALL_CATEGORIES.length} categories. Right tool for the
           right question — "what is this CVE?" / "is there an exploit?" / "what's the patch?" / "should I patch NOW?" /
           "who's writing about it?" / "tell me when something hits".

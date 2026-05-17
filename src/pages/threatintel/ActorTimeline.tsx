@@ -143,7 +143,7 @@ export default function ActorTimeline(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <Skull size={28} className="text-brand-600 dark:text-brand-400" /> Ransomware actor activity timeline
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2 max-w-3xl">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
           Per-actor leak-site cadence across the last {data?.window_days ?? 30} days. Rows are the most-active groups
           this week; cells are daily post counts (relative shading per row so a slow week is still visible). MITRE
           ATT&CK Group profile linked where known, so you can pivot from "who's posting" to "what TTPs to hunt for."

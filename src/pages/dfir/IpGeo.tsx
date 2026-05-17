@@ -130,7 +130,7 @@ export default function IpGeo(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <Globe2 size={28} className="text-brand-600 dark:text-brand-400" /> IP Geolocation
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
           Country, ASN, hosting provider, reverse DNS, proxy/mobile/hosting flags — composed from{' '}
           <a
             href="https://ip-api.com"

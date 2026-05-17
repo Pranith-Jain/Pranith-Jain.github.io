@@ -147,7 +147,7 @@ export default function WebScan(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <ShieldAlert size={28} className="text-brand-600 dark:text-brand-400" /> Web Vulnerability Scanner
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2 max-w-3xl">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
           Audit a public web URL. HTTP security headers, cookie attributes, version disclosure, and around 30 common
           exposed paths (<code>.git/</code>, <code>.env</code>, <code>/admin</code>, <code>phpinfo.php</code>,
           <code>robots.txt</code>, and similar).

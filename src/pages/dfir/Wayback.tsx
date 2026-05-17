@@ -196,7 +196,7 @@ export default function Wayback(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <History size={28} className="text-brand-600 dark:text-brand-400" /> Wayback Machine Pivot
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
           Paste a URL — get the Internet Archive snapshot timeline (first / last seen, status-code distribution, deduped
           via content digest). Useful for phishing-site evolution, infrastructure churn, and content provenance.
         </p>

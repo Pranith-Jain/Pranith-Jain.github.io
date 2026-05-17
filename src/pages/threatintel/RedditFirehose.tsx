@@ -135,7 +135,7 @@ export default function RedditFirehose(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <MessageSquare size={28} className="text-brand-600 dark:text-brand-400" /> Cybersec Reddit firehose
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2 max-w-3xl">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
           Curated stream from active public cybersec subreddits. Research, advisories, IR write-ups, malware analysis,
           OSINT, and CTI threads. Same shape as the Telegram firehose. Click a post title to open the Reddit thread.
         </p>

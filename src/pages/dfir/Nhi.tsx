@@ -183,7 +183,7 @@ export default function Nhi(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <KeyRound size={28} className="text-brand-600 dark:text-brand-400" /> NHI Inventory &amp; OWASP Top 10
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
           Non-Human Identity inventory templater. Add the NHIs in your environment (service accounts, OAuth apps,
           machine certs, MCP tokens, …), then assess each one against the OWASP NHI Top 10 (2025). Coverage stats and
           markdown export. All data stays in your browser.

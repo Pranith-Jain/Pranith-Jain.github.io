@@ -78,7 +78,7 @@ export default function AwesomeLists(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <Sparkles size={28} className="text-brand-600 dark:text-brand-400" /> Awesome Lists
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2 max-w-3xl">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
           {LISTS.length} curated GitHub awesome-lists I cross-reference when building DFIR / CTI tradecraft. Each card
           opens the canonical README; the <em>why</em> line under each entry explains the niche it fills better than its
           peers.

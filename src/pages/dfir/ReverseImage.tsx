@@ -76,7 +76,7 @@ export default function ReverseImage(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <ImageIcon size={28} className="text-brand-600 dark:text-brand-400" /> Reverse Image Search
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2 max-w-3xl">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
           Paste an image URL — get one-click links to Google Lens, Bing Visual, Yandex (best for faces), TinEye (best
           for first-seen), Baidu, Sogou, and Karma Decay (Reddit). Pure URL generation; the image stays on its original
           host.

@@ -177,7 +177,7 @@ export default function CveList(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <ShieldAlert size={28} className="text-brand-600 dark:text-brand-400" /> Live CVE updates
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2 max-w-3xl">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
           Up to <strong>150 CVEs newly published in the last 30 days</strong> (NVD), merged with recent additions to{' '}
           <strong>CISA's Known-Exploited-Vulnerabilities catalogue</strong> (last 30 days). NVD reports ~5,500 CVEs per
           30-day window. This is a triage sample, not the full corpus. For exhaustive search use{' '}

@@ -492,7 +492,7 @@ function Diamond(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <DiamondIcon size={28} className="text-brand-600 dark:text-brand-400" /> Diamond Model
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
           Caltagirone, Pendergast &amp; Betz, 2013. Every intrusion event is a connected diamond of Adversary,
           Capability, Infrastructure and Victim, plus meta-features describing the event itself.
         </p>

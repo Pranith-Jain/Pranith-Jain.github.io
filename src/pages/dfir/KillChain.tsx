@@ -144,7 +144,7 @@ export default function KillChain(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <Crosshair size={28} className="text-brand-600 dark:text-brand-400" /> Cyber Kill Chain
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">
           Lockheed Martin's 7-phase intrusion model. {KILL_CHAIN_TECHNIQUE_COUNT} representative techniques across the
           chain, each cross-linked to MITRE ATT&amp;CK where applicable.
         </p>

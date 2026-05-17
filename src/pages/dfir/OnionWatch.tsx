@@ -148,7 +148,7 @@ export default function OnionWatch(): JSX.Element {
         <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <Bell size={28} className="text-brand-600 dark:text-brand-400" /> Onion Watch
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 font-mono mb-2 max-w-3xl">
+        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
           Live inventory of <code>.onion</code> leak-site mirrors for the most-active ransomware groups, with
           reachability flags from Ransomlook.io&apos;s last scrape. Pivots open in your own Tor Browser. We do not fetch
           any .onion content from this site.
