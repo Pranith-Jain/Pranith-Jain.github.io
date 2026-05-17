@@ -55,13 +55,24 @@ const BYPASS_EXACT = new Set<string>([
 /** Prefix-match exempt paths. Read-only endpoints only. */
 const BYPASS_PREFIX = [
   '/api/v1/feeds/', // proxy, abuse-rss, ioc-summary, aggregate — all read-only feed aggregators
-  '/api/v1/briefings/list', // read-only briefing listing
-  '/api/v1/briefings/today', // read-only today's briefing
-  '/api/v1/briefings/rss', // read-only RSS feed
+  '/api/v1/blog/', // public blog list + post detail — read-only, slug-validated, edge-cached
 ];
+
+/**
+ * Briefings: every GET path (list / today / rss / :slug detail) is read-only
+ * and edge-cached, so none of them should pay a rate-limit KV read+write on
+ * the way to a cache hit. The three admin mutations stay rate-limited — that
+ * per-IP bucket is the brute-force protection on BRIEFINGS_ADMIN_TOKEN.
+ */
+const BRIEFINGS_ADMIN = new Set<string>([
+  '/api/v1/briefings/build',
+  '/api/v1/briefings/backfill',
+  '/api/v1/briefings/sweep',
+]);
 
 function isBypassed(pathname: string): boolean {
   if (BYPASS_EXACT.has(pathname)) return true;
+  if (pathname.startsWith('/api/v1/briefings/') && !BRIEFINGS_ADMIN.has(pathname)) return true;
   for (const prefix of BYPASS_PREFIX) {
     if (pathname.startsWith(prefix)) return true;
   }
