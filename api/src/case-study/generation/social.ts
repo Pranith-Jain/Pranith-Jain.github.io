@@ -21,17 +21,13 @@ const SOCIAL_SYSTEM =
 function buildTwitterPrompt(post: Post): string {
   const postUrl = `https://pranithjain.qzz.io/blog/${post.slug}`;
   return (
-    `**X/TWITTER THREADS (5-7 tweets):**\n` +
-    `- Tweet 1: Hook that stops the scroll (use PAS)\n` +
-    `- Tweets 2-5: One clear idea per tweet, examples/data/stories\n` +
-    `- Tweet 6: Insight or revelation\n` +
-    `- Tweet 7: CTA with engagement bait, link ${postUrl}\n` +
-    `- Each <280 characters, each standalone valuable\n` +
-    `- No AI slop words (unlock, leverage, seamlessly, game-changer)\n` +
-    `- Lowercase optional for personal tone\n` +
-    `- Fragments ok. Run-ons... human texture.\n` +
-    `- End with twist or perspective shift\n` +
-    `- Number the tweets "1/7", "2/7" etc.\n` +
+    `**X/TWITTER THREAD (format only — voice and hook come from the rules above):**\n` +
+    `- Length: 3-6 tweets. Use only as many as the facts justify. Don't pad to hit a number.\n` +
+    `- Tweet 1: a hook constructed from THIS case's specific facts (per the hook-construction rules). No canned opener, no PAS template.\n` +
+    `- Middle tweets: one concrete idea each — the pattern, the data point, the technical detail that matters. Each tweet standalone-valuable.\n` +
+    `- Final tweet: the sharpest takeaway, then the link on its own line: ${postUrl}\n` +
+    `- Each tweet <280 characters. Number them "1/N", "2/N" etc.\n` +
+    `- No hashtags. No raw URLs except the single link in the last tweet.\n` +
     `\n---\n\n` +
     `CASE STUDY TITLE: ${post.title}\n\n` +
     `CASE STUDY BODY:\n${post.body}`
@@ -41,14 +37,13 @@ function buildTwitterPrompt(post: Post): string {
 function buildLinkedinPrompt(post: Post): string {
   const postUrl = `https://pranithjain.qzz.io/blog/${post.slug}`;
   return (
-    `**LINKEDIN POST:**\n` +
-    `- Open with a scroll-stopping hook using PAS (Problem, Agitation, Solution). Name the pain, twist the knife, promise the fix.\n` +
-    `- Then deliver the goods: what it is, why it hurts, and the technical breakdown the pros want. Go deep on at least 2-3 of: CVSS vector, CWE, exploit chain, affected versions, detection logic, victimology.\n` +
-    `- Numbered action checklist (3-6 concrete steps) and 3-5 IOCs or hunting patterns.\n` +
-    `- Drop engagement bait throughout: open loops, a contrarian take, a thought-provoking question, social proof.\n` +
-    `- Close with a CTA and the link: ${postUrl}\n` +
-    `- 1400-1800 characters. Numbered lists and bullets throughout. Bold key phrases with **asterisks**.\n` +
-    `- No hashtags. No emojis.\n` +
+    `**LINKEDIN POST (format only — voice and hook come from the rules above):**\n` +
+    `- Open with a hook constructed from THIS case's specific facts, per the hook-construction rules. No PAS template, no canned opener.\n` +
+    `- Then the analysis: what makes this case notable, the pattern or contrast in the data, the technical detail that matters (use whatever of CVSS / CWE / exploit chain / affected versions / detection logic / victimology the facts actually support — don't pad).\n` +
+    `- A few concrete, fact-tied defensive takeaways. No generic advice.\n` +
+    `- Close with one substantive question that provokes thought (not "what do you think?"), then on its own final line the link: ${postUrl}\n` +
+    `- 1200-1800 characters. Short paragraphs. Bold a key phrase or two with **asterisks** only where it earns it.\n` +
+    `- No hashtags. No emojis. No raw URLs in the body — the link goes only on the final line.\n` +
     `\n---\n\n` +
     `CASE STUDY TITLE: ${post.title}\n\n` +
     `CASE STUDY BODY:\n${post.body}`

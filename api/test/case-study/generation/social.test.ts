@@ -4,7 +4,7 @@ import type { Post } from '../../../src/case-study/types';
 const mockPost: Post = {
   slug: 'cve-2026-20182-cisco-catalyst-sd-wan-con',
   type: 'cve',
-  title: 'CVE-2026-20182 — Cisco Catalyst SD-WAN Auth Bypass',
+  title: 'CVE-2026-20182 Cisco Catalyst SD-WAN Auth Bypass',
   excerpt: 'CVE-2026-20182 is an auth bypass...',
   publishedAt: '2026-05-16T00:00:00.000Z',
   candidateId: 'cve-2026-20182',
@@ -37,29 +37,18 @@ describe('LinkedIn prompt', () => {
     );
   });
 
-  it('uses a PAS hook and engagement bait, long-form', async () => {
+  it('requires a constructed hook, bans PAS template and raw URLs', async () => {
     const { generateLinkedinContent } = await import('../../../src/case-study/generation/social');
     await generateLinkedinContent(
       mockPost,
       mockAi((msgs) => {
         const user = msgs.find((m: any) => m.role === 'user')?.content ?? '';
-        expect(user).toContain('PAS');
-        expect(user).toContain('engagement bait');
-        expect(user).toContain('1400-1800 characters');
-        expect(user).toContain('CTA');
-      }),
-      new Date()
-    );
-  });
-
-  it('bans hashtags and emojis', async () => {
-    const { generateLinkedinContent } = await import('../../../src/case-study/generation/social');
-    await generateLinkedinContent(
-      mockPost,
-      mockAi((msgs) => {
-        const user = msgs.find((m: any) => m.role === 'user')?.content ?? '';
-        expect(user).toContain('No hashtags');
-        expect(user).toContain('No emojis');
+        expect(user).toContain('hook constructed from THIS case');
+        expect(user).toContain('No PAS template');
+        expect(user).toContain('No raw URLs in the body');
+        expect(user).toContain('1200-1800 characters');
+        expect(user).not.toContain('using PAS (Problem, Agitation, Solution)');
+        expect(user).not.toContain('engagement bait throughout');
       }),
       new Date()
     );
@@ -67,29 +56,31 @@ describe('LinkedIn prompt', () => {
 });
 
 describe('Twitter prompt', () => {
-  it('is a 5-7 tweet thread with PAS hook and CTA bait', async () => {
+  it('is a 3-6 tweet thread with a constructed hook, no PAS, no padding', async () => {
     const { generateTwitterContent } = await import('../../../src/case-study/generation/social');
     await generateTwitterContent(
       mockPost,
       mockAi((msgs) => {
         const user = msgs.find((m: any) => m.role === 'user')?.content ?? '';
-        expect(user).toContain('X/TWITTER THREADS (5-7 tweets)');
-        expect(user).toContain('Hook that stops the scroll (use PAS)');
-        expect(user).toContain('CTA with engagement bait');
-        expect(user).toContain('1/7');
+        expect(user).toContain('3-6 tweets');
+        expect(user).toContain('No canned opener, no PAS template');
+        expect(user).toContain("Don't pad to hit a number");
+        expect(user).toContain('<280 characters');
+        expect(user).not.toContain('5-7 tweets');
+        expect(user).not.toContain('CTA with engagement bait');
       }),
       new Date()
     );
   });
 
-  it('includes the post URL and the 280-char rule', async () => {
+  it('includes the post URL and bans hashtags', async () => {
     const { generateTwitterContent } = await import('../../../src/case-study/generation/social');
     await generateTwitterContent(
       mockPost,
       mockAi((msgs) => {
         const user = msgs.find((m: any) => m.role === 'user')?.content ?? '';
         expect(user).toContain('pranithjain.qzz.io/blog/cve-2026-20182-cisco-catalyst-sd-wan-con');
-        expect(user).toContain('<280 characters');
+        expect(user).toContain('No hashtags');
       }),
       new Date()
     );
@@ -97,17 +88,17 @@ describe('Twitter prompt', () => {
 });
 
 describe('system prompt', () => {
-  it('embeds the copywriting rules + engagement bait + quality checks', async () => {
+  it('embeds the shared analyze-then-construct ruleset', async () => {
     const { generateLinkedinContent } = await import('../../../src/case-study/generation/social');
     await generateLinkedinContent(
       mockPost,
       mockAi((msgs) => {
         const sys = msgs.find((m: any) => m.role === 'system')?.content ?? '';
         expect(sys).toContain('#COPYWRITING RULES');
-        expect(sys).toContain('#ENGAGEMENT BAIT STRATEGIES');
-        expect(sys).toContain('#QUALITY CHECKS');
-        // Pipeline guardrail: only the final piece, no Verbalized-Sampling meta
+        expect(sys).toContain('Analyze, then construct. Never template.');
+        expect(sys).toContain('Hook construction');
         expect(sys).toContain('#PIPELINE OUTPUT (STRICT)');
+        expect(sys).toContain("Here's the thing");
         expect(sys).toMatch(/game-changer/);
       }),
       new Date()

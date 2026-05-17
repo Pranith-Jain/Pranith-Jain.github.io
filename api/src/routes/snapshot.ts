@@ -38,7 +38,7 @@ import { listBriefings } from '../lib/briefing-builder';
 const CACHE_TTL = 60 * 60;
 
 /** Exported so /api/v1/feed-status can read the same cached payload directly. */
-export const SNAPSHOT_CACHE_KEY = 'https://snapshot-cache.internal/v9-cacheread';
+export const SNAPSHOT_CACHE_KEY = 'https://snapshot-cache.internal/v10-cacheread';
 
 /** Curated feed URLs — kept in sync with the constants the panel used to use. */
 const SCAM_FEED_URLS = ['https://consumer.ftc.gov/blog/rss', 'https://www.ic3.gov/CSA/RSS'];

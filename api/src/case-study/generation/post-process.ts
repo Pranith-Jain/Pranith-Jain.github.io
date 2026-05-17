@@ -238,11 +238,47 @@ export function postProcess(input: PostProcessInput): PostProcessOutput {
     seen.add(key);
     iocs.push({ type, value });
   };
-  for (const m of body.match(IPV4_RE) ?? []) add('ipv4', m);
-  for (const m of body.match(SHA256_RE) ?? []) add('sha256', m.toLowerCase());
-  for (const m of body.match(DOMAIN_RE) ?? []) {
-    if (/^(example\.|www\.example\.|cisa\.gov$|nvd\.nist\.gov$|github\.com$)/i.test(m)) continue;
-    add('domain', m.toLowerCase());
+  // Domains that are sources/references or victims are NOT indicators of
+  // compromise. Build an exclusion set:
+  //  - every hostname that appears inside a URL in the facts (source/ref sites
+  //    like ransomlook.io, and victim sites the source recorded), and
+  //  - every domain-shaped token in the facts JSON (victim domains like
+  //    defenseisready.com are stored verbatim in ransom evidence).
+  // Then strip markdown link targets + bare URLs from the body before the
+  // domain scan, so reference links never leak in as "IOCs".
+  const stripHost = (h: string) => h.replace(/^www\./i, '').toLowerCase();
+  const exclude = new Set<string>([
+    'ransomlook.io',
+    'ransomware.live',
+    'ransomwatch.io',
+    'ransom.wiki',
+    'cisa.gov',
+    'nvd.nist.gov',
+    'github.com',
+    'mitre.org',
+    'attack.mitre.org',
+    'example.com',
+  ]);
+  for (const u of input.factsText.match(/https?:\/\/([^/\s"'\\)]+)/gi) ?? []) {
+    const host = /https?:\/\/([^/\s"'\\)]+)/i.exec(u)?.[1];
+    if (host) exclude.add(stripHost(host));
+  }
+  for (const d of input.factsText.match(DOMAIN_RE) ?? []) exclude.add(stripHost(d));
+
+  const bodyNoLinks = body
+    .replace(/\[[^\]]*\]\(https?:\/\/[^)]+\)/g, ' ') // markdown links
+    .replace(/https?:\/\/\S+/g, ' '); // bare URLs
+
+  for (const m of bodyNoLinks.match(IPV4_RE) ?? []) add('ipv4', m);
+  for (const m of bodyNoLinks.match(SHA256_RE) ?? []) add('sha256', m.toLowerCase());
+  for (const m of bodyNoLinks.match(DOMAIN_RE) ?? []) {
+    const host = stripHost(m);
+    if (/^example\./i.test(host)) continue;
+    if (exclude.has(host)) continue;
+    // ransom posts: the body is victim names + the leak-site source. None of
+    // those are IOCs. Skip domain extraction entirely for this type.
+    if (input.type === 'ransom') continue;
+    add('domain', host);
   }
 
   // Downgrade missing-section errors to warnings — AI is told to skip empty

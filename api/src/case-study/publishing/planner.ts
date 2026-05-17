@@ -49,7 +49,25 @@ export async function runPlanner(deps: RunPlannerDeps): Promise<{ scheduled: num
     Date.UTC(deps.now.getUTCFullYear(), deps.now.getUTCMonth(), deps.now.getUTCDate(), 0, 0, 0, 0)
   );
 
-  const fifo = approved.slice(0, targetN);
+  // Topic diversity: never schedule the same case-study type twice in a week
+  // while a different type is available. Walk approved highest-score first,
+  // taking one of each unseen type. If we still need more, fill with the
+  // next-highest remaining regardless of type. This is what stops the queue
+  // publishing "ransom" every day when cve/actor/breach candidates exist.
+  const byScore = [...approved].sort((a, b) => b.score - a.score);
+  const seenTypes = new Set<string>();
+  const diverse: Candidate[] = [];
+  for (const cand of byScore) {
+    if (diverse.length >= targetN) break;
+    if (seenTypes.has(cand.type)) continue;
+    seenTypes.add(cand.type);
+    diverse.push(cand);
+  }
+  for (const cand of byScore) {
+    if (diverse.length >= targetN) break;
+    if (!diverse.includes(cand)) diverse.push(cand);
+  }
+  const fifo = diverse;
   const slots: Slot[] = dayOffsets.map((off, i) => {
     const hour = 9 + Math.floor(deps.random() * 9);
     const minute = Math.floor(deps.random() * 60);

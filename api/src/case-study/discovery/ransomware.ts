@@ -49,11 +49,15 @@ export async function discoverRansomware(deps: DiscoverRansomwareDeps): Promise<
       novelty: noveltyScore(dedup, deps.now),
       sourceWeight: 0.9,
     });
-    const display = info.victims[0].group;
+    const rawGroup = info.victims[0]?.group ?? key;
+    const display = rawGroup
+      .split(/\s+/)
+      .map((w) => (w.length <= 4 && w === w.toLowerCase() ? w.toUpperCase() : w.charAt(0).toUpperCase() + w.slice(1)))
+      .join(' ');
     out.push({
       key,
       type: 'ransom',
-      title: `${display} — ${info.victims.length} new victims this week`,
+      title: `${display}: ${info.victims.length} new victims this week`,
       rationale: `${info.victims.length} victim post(s) on leak site in last 7 days`,
       score,
       evidence: {

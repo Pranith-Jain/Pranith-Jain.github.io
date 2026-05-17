@@ -35,6 +35,7 @@ import {
 import { LiveSnapshotPanel } from '../../components/dfir/LiveSnapshotPanel';
 import { WhatsNewBanner } from '../../components/threatintel/WhatsNewBanner';
 import { PlatformPulse } from '../../components/threatintel/PlatformPulse';
+import { LatestBriefingCard } from '../../components/threatintel/LatestBriefingCard';
 import { personalInfo } from '../../data/content';
 import { AppHero } from '../../components/AppHero';
 import { AppFooter } from '../../components/AppFooter';
@@ -423,6 +424,7 @@ export default function ThreatIntelHome(): JSX.Element {
           ~30 days of history. Decorative only when fewer than 2 days
           are available. */}
       <PlatformPulse />
+      <LatestBriefingCard />
       <AppHero
         kicker="Privacy-first · Live edge feeds · No login · No tracking"
         title="Threat-intel platform"
