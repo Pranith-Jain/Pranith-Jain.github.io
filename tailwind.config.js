@@ -60,11 +60,11 @@ export default {
         'pulse-glow': {
           '0%, 100%': {
             opacity: '1',
-            boxShadow: '0 0 20px rgba(0, 255, 249, 0.5)',
+            boxShadow: '0 0 20px rgba(44, 62, 229, 0.4)',
           },
           '50%': {
             opacity: '0.7',
-            boxShadow: '0 0 40px rgba(0, 255, 249, 0.8), 0 0 60px rgba(255, 0, 110, 0.4)',
+            boxShadow: '0 0 36px rgba(44, 62, 229, 0.6), 0 0 60px rgba(67, 94, 241, 0.3)',
           },
         },
         'scroll-horizontal': {

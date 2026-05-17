@@ -138,7 +138,7 @@ function AppHeader({
         </Link>
 
         {/* In-app nav (md+) */}
-        <nav className="flex-1 hidden md:flex items-center gap-0.5 overflow-x-auto">
+        <nav className="flex-1 hidden md:flex items-center gap-0.5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [mask-image:linear-gradient(to_right,transparent,#000_16px,#000_calc(100%-16px),transparent)]">
           {nav.map((item) => {
             const active = isActive(item);
             return (

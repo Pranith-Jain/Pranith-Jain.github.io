@@ -18,7 +18,7 @@ const subRoutes: Array<{ path: string; heading: string; skipComingSoon?: boolean
   { path: '/dfir/domain', heading: 'Domain Lookup', skipComingSoon: true },
   { path: '/dfir/exposure', heading: 'Exposure Scanner', skipComingSoon: true },
   { path: '/threatintel/wiki', heading: 'DFIR Knowledge Base', skipComingSoon: true },
-  { path: '/dfir/dashboard', heading: 'Recent Lookups', skipComingSoon: true },
+  { path: '/dfir/dashboard', heading: 'Toolkit dashboard', skipComingSoon: true },
   { path: '/threatintel/briefings', heading: 'Threat Intel Briefings', skipComingSoon: true },
   { path: '/dfir/cve', heading: 'CVE Lookup', skipComingSoon: true },
   { path: '/dfir/decode', heading: 'Decoder', skipComingSoon: true },

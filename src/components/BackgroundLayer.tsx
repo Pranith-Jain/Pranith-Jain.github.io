@@ -14,14 +14,14 @@ interface BackgroundLayerProps {
   isDark: boolean;
 }
 
+// Cohesive, dominant-color atmosphere instead of the old 7-hue rainbow
+// (purple/pink/cyan/orange — the textbook AI-slop background). Two brand-blue
+// pools and one cool slate fade give depth without leaving the palette.
 const GRADIENT = `
-  radial-gradient(at 27% 37%, rgba(59, 130, 246, 0.18) 0px, transparent 50%),
-  radial-gradient(at 97% 21%, rgba(16, 185, 129, 0.12) 0px, transparent 50%),
-  radial-gradient(at 52% 99%, rgba(236, 72, 153, 0.12) 0px, transparent 50%),
-  radial-gradient(at 10% 29%, rgba(168, 85, 247, 0.18) 0px, transparent 50%),
-  radial-gradient(at 97% 96%, rgba(6, 182, 212, 0.12) 0px, transparent 50%),
-  radial-gradient(at 33% 50%, rgba(99, 102, 241, 0.14) 0px, transparent 50%),
-  radial-gradient(at 79% 53%, rgba(249, 115, 22, 0.10) 0px, transparent 50%)
+  radial-gradient(at 18% 22%, rgba(44, 62, 229, 0.16) 0px, transparent 55%),
+  radial-gradient(at 88% 18%, rgba(67, 94, 241, 0.10) 0px, transparent 50%),
+  radial-gradient(at 75% 88%, rgba(33, 41, 155, 0.12) 0px, transparent 55%),
+  radial-gradient(at 40% 60%, rgba(100, 116, 139, 0.06) 0px, transparent 60%)
 `;
 
 const NOISE_URL = `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E")`;

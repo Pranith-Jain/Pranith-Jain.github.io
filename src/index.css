@@ -15,6 +15,18 @@
   h5,
   h6 {
     font-family: theme('fontFamily.display');
+    /* Bricolage Grotesque has real character at display sizes — tighten the
+       tracking and let its optical-size axis kick in so headings read
+       authored, not default. */
+    letter-spacing: -0.018em;
+    font-optical-sizing: auto;
+  }
+
+  body {
+    /* Hanken Grotesk reads better with its contextual/ligature features on. */
+    font-feature-settings: 'cv11', 'ss01';
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
   }
 
   html.dark {
@@ -144,4 +156,44 @@
 
 .animate-fade-in-up {
   animation: dfir-fade-in-up 0.4s ease-out both;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   Orchestrated page-load: one well-staged reveal beats scattered
+   micro-interactions. Put `.stagger` on a container; its direct children
+   fade-rise in sequence. Capped at 12 so long grids don't lag the last
+   tile. Neutralised by the prefers-reduced-motion block above.
+   ───────────────────────────────────────────────────────────────────── */
+.stagger > * {
+  animation: dfir-fade-in-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.stagger > *:nth-child(1) {
+  animation-delay: 40ms;
+}
+.stagger > *:nth-child(2) {
+  animation-delay: 80ms;
+}
+.stagger > *:nth-child(3) {
+  animation-delay: 120ms;
+}
+.stagger > *:nth-child(4) {
+  animation-delay: 160ms;
+}
+.stagger > *:nth-child(5) {
+  animation-delay: 200ms;
+}
+.stagger > *:nth-child(6) {
+  animation-delay: 240ms;
+}
+.stagger > *:nth-child(7) {
+  animation-delay: 280ms;
+}
+.stagger > *:nth-child(8) {
+  animation-delay: 320ms;
+}
+.stagger > *:nth-child(9) {
+  animation-delay: 360ms;
+}
+.stagger > *:nth-child(n + 10) {
+  animation-delay: 400ms;
 }

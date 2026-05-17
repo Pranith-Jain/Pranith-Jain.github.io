@@ -558,11 +558,14 @@ export default function ThreatIntelHome(): JSX.Element {
 
       {isSearching ? (
         <section className="animate-fade-in-up mb-12">
-          <ul className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+          <ul className="stagger grid gap-3 md:grid-cols-2 lg:grid-cols-3">
             {searchResults.map(({ tool: t, section }) => {
               const Icon = t.icon;
               const cardClass =
-                'block h-full rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 hover:border-brand-500/40 dark:hover:border-brand-400/40 transition-colors group';
+                'group relative block h-full overflow-hidden rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 ' +
+                'transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-brand-500/50 ' +
+                'hover:shadow-[0_10px_30px_-12px_rgba(44,62,229,0.35)] focus-visible:outline-none focus-visible:-translate-y-0.5 ' +
+                'focus-visible:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500/40';
               const inner = (
                 <>
                   <div className="mb-2 flex items-start justify-between gap-2">
@@ -588,7 +591,7 @@ export default function ThreatIntelHome(): JSX.Element {
                       </span>
                     )}
                   </div>
-                  <p className="font-mono text-[12px] leading-relaxed text-slate-600 dark:text-slate-400">{t.desc}</p>
+                  <p className="text-[13px] leading-relaxed text-slate-600 dark:text-slate-400">{t.desc}</p>
                 </>
               );
               if (t.external) {
@@ -610,7 +613,7 @@ export default function ThreatIntelHome(): JSX.Element {
             })}
           </ul>
           {searchResults.length === 0 && (
-            <div className="rounded-lg border border-dashed border-slate-300 p-8 text-center font-mono text-[12px] text-slate-500 dark:border-slate-700">
+            <div className="rounded-lg border border-dashed border-slate-300 p-8 text-center text-[13px] text-slate-500 dark:border-slate-700">
               No matches. Searching across {allTools.length} intel surfaces, catalogs, and feeds.
             </div>
           )}
@@ -645,11 +648,14 @@ export default function ThreatIntelHome(): JSX.Element {
               Reference only — feeds refreshed at the edge each visit; verify indicators in your own environment.
             </p>
           </div>
-          <ul className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+          <ul className="stagger grid gap-3 md:grid-cols-2 lg:grid-cols-3">
             {activeSection.tools.map((t) => {
               const Icon = t.icon;
               const cardClass =
-                'block h-full rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 hover:border-brand-500/40 dark:hover:border-brand-400/40 transition-colors group';
+                'group relative block h-full overflow-hidden rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 ' +
+                'transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-brand-500/50 ' +
+                'hover:shadow-[0_10px_30px_-12px_rgba(44,62,229,0.35)] focus-visible:outline-none focus-visible:-translate-y-0.5 ' +
+                'focus-visible:border-brand-500 focus-visible:ring-2 focus-visible:ring-brand-500/40';
               const inner = (
                 <>
                   <div className="flex items-start justify-between gap-2 mb-2">

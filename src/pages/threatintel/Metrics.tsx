@@ -132,7 +132,7 @@ function HBar({
   formatValue?: (n: number) => string;
 }) {
   if (items.length === 0) {
-    return <p className="text-xs font-mono text-slate-500 italic">No data in window.</p>;
+    return <p className="text-xs text-slate-500 italic">No data in window.</p>;
   }
   const ceiling = max ?? Math.max(...items.map((i) => i.value), 1);
   const fmt = formatValue ?? ((n: number) => n.toLocaleString());
@@ -169,7 +169,7 @@ function StackedSeverityBar({ counts, total }: { counts: Record<RecentCve['sever
   const order: RecentCve['severity'][] = ['CRITICAL', 'HIGH', 'MEDIUM', 'LOW', 'NONE', 'UNKNOWN'];
   const segments = order.map((sev) => ({ sev, n: counts[sev] ?? 0 })).filter((s) => s.n > 0);
   if (total === 0) {
-    return <p className="text-xs font-mono text-slate-500 italic">No CVEs in window.</p>;
+    return <p className="text-xs text-slate-500 italic">No CVEs in window.</p>;
   }
   return (
     <div>
@@ -210,7 +210,7 @@ function StackedSeverityBar({ counts, total }: { counts: Record<RecentCve['sever
 
 function Sparkbars({ buckets, color }: { buckets: { label: string; value: number }[]; color: string }) {
   if (buckets.length === 0) {
-    return <p className="text-xs font-mono text-slate-500 italic">No data.</p>;
+    return <p className="text-xs text-slate-500 italic">No data.</p>;
   }
   const ceiling = Math.max(...buckets.map((b) => b.value), 1);
   const w = 360;
@@ -830,7 +830,7 @@ function ChartCard({
           </Link>
         )}
       </div>
-      <p className="text-[11px] font-mono italic text-slate-500 mb-3">{question}</p>
+      <p className="text-xs italic text-slate-500 mb-3 leading-relaxed">{question}</p>
       <div className="mb-3">{children}</div>
       <p className="text-[10px] font-mono text-slate-400">{footer}</p>
     </div>
