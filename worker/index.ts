@@ -16,6 +16,7 @@ export interface Env {
   CASE_STUDIES: KVNamespace;
   AI: Ai;
   R2_FILES?: R2Bucket;
+  NVD_API_KEY?: string;
   VT_API_KEY?: string;
   ABUSEIPDB_API_KEY?: string;
   SHODAN_API_KEY?: string;
@@ -440,7 +441,7 @@ export default {
               if (rich) return;
             }
             try {
-              const briefing = await buildBriefing('daily');
+              const briefing = await buildBriefing('daily', undefined, { nvdApiKey: env.NVD_API_KEY });
               const result = await writeBriefing(db, briefing);
               if (result.written) {
                 console.log(
@@ -517,7 +518,7 @@ export default {
       (async () => {
         const db = env.BRIEFINGS_DB as D1Database;
         try {
-          const briefing = await buildBriefing(type);
+          const briefing = await buildBriefing(type, undefined, { nvdApiKey: env.NVD_API_KEY });
           await writeBriefing(db, briefing);
           console.log(
             `scheduled: wrote ${briefing.slug} (findings=${briefing.stats.findings}, iocs=${briefing.stats.iocs})`

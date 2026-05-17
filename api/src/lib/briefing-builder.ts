@@ -14,6 +14,18 @@ import { FEED_SOURCES, UNCAPPED, buildSummary, type IocEntry, type SourceId } fr
 
 const NVD_UA = 'Mozilla/5.0 (compatible; pranithjain-dfir/1.0; +https://pranithjain.qzz.io)';
 const NVD_API = 'https://services.nvd.nist.gov/rest/json/cves/2.0';
+
+/**
+ * NVD request headers. An optional API key (NVD_API_KEY Worker secret) raises
+ * the anonymous rate limit ~10x (5→50 req/30s) — the durable fix for the
+ * shared-Worker-IP throttling that produced empty briefings. Sent via the
+ * `apiKey` header per NVD docs.
+ */
+function nvdHeaders(apiKey?: string): Record<string, string> {
+  const h: Record<string, string> = { 'user-agent': NVD_UA, accept: 'application/json' };
+  if (apiKey) h.apiKey = apiKey;
+  return h;
+}
 const KEV_FEED = 'https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json';
 
 // ---- types --------------------------------------------------------------
@@ -466,7 +478,7 @@ async function fetchKev(): Promise<KevEntry[]> {
  * caller distinguishes "NVD genuinely empty" (resolved []) from "NVD
  * unreachable" (rejected) and refuses to persist a false all-clear.
  */
-async function fetchNvdRecent(start: Date, end: Date): Promise<NvdCve[]> {
+async function fetchNvdRecent(start: Date, end: Date, apiKey?: string): Promise<NvdCve[]> {
   const fmt = (d: Date) => d.toISOString().replace(/Z$/, '+00:00');
   const out: NvdCve[] = [];
   const PAGE = 2000;
@@ -484,7 +496,7 @@ async function fetchNvdRecent(start: Date, end: Date): Promise<NvdCve[]> {
       if (attempt > 0) await new Promise((r) => setTimeout(r, 1500 * attempt + Math.random() * 800));
       try {
         const res = await fetch(url, {
-          headers: { 'user-agent': NVD_UA, accept: 'application/json' },
+          headers: nvdHeaders(apiKey),
           signal: AbortSignal.timeout(20_000),
           cf: { cacheTtlByStatus: { '200-299': 1800, '400-599': 0 }, cacheEverything: true },
         } as RequestInit);
@@ -514,16 +526,16 @@ async function fetchNvdRecent(start: Date, end: Date): Promise<NvdCve[]> {
   return out;
 }
 
-async function fetchNvdByIds(cveIds: string[]): Promise<Map<string, NvdCve>> {
+async function fetchNvdByIds(cveIds: string[], apiKey?: string): Promise<Map<string, NvdCve>> {
   // NVD doesn't support bulk by-ID; query one at a time but cache aggressively.
-  // Limit: 5 req per 30s anonymous. Cap at 30 lookups per briefing to stay under budget.
+  // Limit: 5 req per 30s anonymous (≈50 with an API key). Cap at 30 lookups.
   const out = new Map<string, NvdCve>();
   const ids = cveIds.slice(0, 30);
   for (const id of ids) {
     try {
       const url = `${NVD_API}?cveId=${encodeURIComponent(id)}`;
       const res = await fetch(url, {
-        headers: { 'user-agent': NVD_UA, accept: 'application/json' },
+        headers: nvdHeaders(apiKey),
         signal: AbortSignal.timeout(8000),
         cf: { cacheTtlByStatus: { '200-299': 86400, '400-599': 0 }, cacheEverything: true },
       } as RequestInit);
@@ -791,7 +803,11 @@ function buildStats(findings: BriefingFinding[], sections: BriefingSection[], io
 
 // ---- main entry points --------------------------------------------------
 
-export async function buildBriefing(type: BriefingType, anchor: Date = new Date()): Promise<Briefing> {
+export async function buildBriefing(
+  type: BriefingType,
+  anchor: Date = new Date(),
+  opts: { nvdApiKey?: string } = {}
+): Promise<Briefing> {
   // Compute window
   let rangeStart: Date;
   let rangeEnd: Date;
@@ -844,7 +860,7 @@ export async function buildBriefing(type: BriefingType, anchor: Date = new Date(
     fetchAbuseFeed('malwarebazaar').catch(() => [] as IocEntry[]),
     fetchAbuseFeed('threatfox').catch(() => [] as IocEntry[]),
     fetchAbuseFeed('tweetfeed').catch(() => [] as IocEntry[]),
-    wrap(fetchNvdRecent(rangeStart, rangeEnd), [] as NvdCve[]),
+    wrap(fetchNvdRecent(rangeStart, rangeEnd, opts.nvdApiKey), [] as NvdCve[]),
   ]);
   // If BOTH primary finding sources are unreachable, this isn't a quiet day —
   // it's an outage. Abort instead of persisting a briefing that falsely
@@ -863,7 +879,10 @@ export async function buildBriefing(type: BriefingType, anchor: Date = new Date(
   // on KEV-quiet days while still keeping the bar high — we don't surface
   // every newly-published CVE, only the ones that matter.
   const kevWindow = kev.filter((k) => withinRange(k.dateAdded, startMs, endMs));
-  const nvdMap = await fetchNvdByIds(kevWindow.map((k) => k.cveID));
+  const nvdMap = await fetchNvdByIds(
+    kevWindow.map((k) => k.cveID),
+    opts.nvdApiKey
+  );
   const kevFindings = kevWindow.map((k) => findingFromKev(k, nvdMap.get(k.cveID)));
   const kevIds = new Set(kevFindings.map((f) => f.id));
   const nvdFindings = nvdRecent

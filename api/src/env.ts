@@ -7,6 +7,8 @@ export interface Env {
   CASE_STUDIES: KVNamespace;
   R2_FILES?: R2Bucket;
   AI: Ai;
+  /** Optional NVD API key (Worker secret) — raises NVD rate limit ~10x. */
+  NVD_API_KEY?: string;
   VT_API_KEY: string;
   ABUSEIPDB_API_KEY: string;
   SHODAN_API_KEY: string;
