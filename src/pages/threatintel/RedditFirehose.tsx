@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { ArrowLeft, ExternalLink, Loader2, MessageSquare, RefreshCw, Search, Sparkles } from 'lucide-react';
+import { ArrowLeft, ExternalLink, MessageSquare, RefreshCw, Search, Sparkles } from 'lucide-react';
 import { useLastVisit, isNewSince } from '../../hooks';
+import { DataState } from '../../components/DataState';
 
 interface RedditFeedItem {
   sub: string;
@@ -224,53 +225,46 @@ export default function RedditFirehose(): JSX.Element {
         </p>
       )}
 
-      {loading && (
-        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 flex items-center gap-3 font-mono text-sm text-slate-500">
-          <Loader2 size={16} className="animate-spin" /> loading subreddit feeds…
-        </div>
-      )}
-
-      {error && (
-        <div className="rounded-lg border border-rose-500/40 bg-rose-500/5 p-4 font-mono text-sm text-rose-600 dark:text-rose-300">
-          Failed to load: {error}
-        </div>
-      )}
-
-      <ul className="space-y-2">
-        {filtered.map((it, i) => (
-          <li
-            key={`${it.link}-${i}`}
-            className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
-          >
-            <a href={it.link} target="_blank" rel="noopener noreferrer" className="group block">
-              <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
-                <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 flex-1 min-w-0">
-                  {it.title}
-                </span>
-                <ExternalLink size={11} className="text-slate-400 shrink-0" />
-              </div>
-              {it.text && (
-                <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-2 mb-1.5">
-                  {it.text}
-                </p>
-              )}
-              <div className="text-[11px] font-mono text-slate-500 flex items-center gap-2 flex-wrap">
-                <span className={`px-1.5 py-0.5 rounded border ${TOPIC_PILL[it.sub_topic]}`}>{it.sub_label}</span>
-                <span>by {it.author || '—'}</span>
-                <span className="ml-auto text-slate-400" title={it.pub_date}>
-                  {shortRel(it.pub_date)}
-                </span>
-              </div>
-            </a>
-          </li>
-        ))}
-      </ul>
-
-      {!loading && !error && filtered.length === 0 && (
-        <div className="rounded-lg border border-dashed border-slate-300 dark:border-slate-700 p-8 text-center text-sm font-mono text-slate-500">
-          {query || subFilter.size > 0 ? 'No posts match the current filter.' : 'No posts in the upstream snapshot.'}
-        </div>
-      )}
+      <DataState
+        loading={loading}
+        error={error}
+        empty={filtered.length === 0}
+        emptyLabel={
+          query || subFilter.size > 0 ? 'No posts match the current filter.' : 'No posts in the upstream snapshot.'
+        }
+        onRetry={() => setRefreshKey((k) => k + 1)}
+        rows={8}
+      >
+        <ul className="space-y-2">
+          {filtered.map((it, i) => (
+            <li
+              key={`${it.link}-${i}`}
+              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
+            >
+              <a href={it.link} target="_blank" rel="noopener noreferrer" className="group block">
+                <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
+                  <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 flex-1 min-w-0">
+                    {it.title}
+                  </span>
+                  <ExternalLink size={11} className="text-slate-400 shrink-0" />
+                </div>
+                {it.text && (
+                  <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-2 mb-1.5">
+                    {it.text}
+                  </p>
+                )}
+                <div className="text-[11px] font-mono text-slate-500 flex items-center gap-2 flex-wrap">
+                  <span className={`px-1.5 py-0.5 rounded border ${TOPIC_PILL[it.sub_topic]}`}>{it.sub_label}</span>
+                  <span>by {it.author || '—'}</span>
+                  <span className="ml-auto text-slate-400" title={it.pub_date}>
+                    {shortRel(it.pub_date)}
+                  </span>
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </DataState>
     </div>
   );
 }

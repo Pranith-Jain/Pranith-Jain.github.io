@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { ArrowLeft, Download, GitBranchPlus, Loader2, RefreshCw, Search, Sparkles, Copy, Check } from 'lucide-react';
+import { ArrowLeft, Download, GitBranchPlus, RefreshCw, Search, Sparkles, Copy, Check } from 'lucide-react';
 import { useLastVisit, isNewSince } from '../../hooks';
+import { DataState } from '../../components/DataState';
 
 type IocKind = 'ip' | 'url' | 'domain' | 'hash';
 
@@ -489,31 +490,24 @@ export default function IocCorrelation(): JSX.Element {
         )}
       </section>
 
-      {loading && (
-        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 flex items-center gap-3 font-mono text-sm text-slate-500">
-          <Loader2 size={16} className="animate-spin" /> correlating across IOC feeds…
-        </div>
-      )}
-
-      {error && (
-        <div className="rounded-lg border border-rose-500/40 bg-rose-500/5 p-4 font-mono text-sm text-rose-600 dark:text-rose-300">
-          Failed to load: {error}
-        </div>
-      )}
-
-      <ul className="space-y-2">
-        {filtered.map((it) => (
-          <IocRow key={`${it.kind}:${it.value}`} ioc={it} />
-        ))}
-      </ul>
-
-      {!loading && !error && filtered.length === 0 && (
-        <div className="rounded-lg border border-dashed border-slate-300 dark:border-slate-700 p-8 text-center text-sm font-mono text-slate-500">
-          {query || kindFilter.size > 0
+      <DataState
+        loading={loading}
+        error={error}
+        empty={filtered.length === 0}
+        emptyLabel={
+          query || kindFilter.size > 0
             ? 'No correlated indicators match the current filter.'
-            : 'No indicators currently appear in 2+ feeds. Either upstream feeds are degraded, or there is no current overlap.'}
-        </div>
-      )}
+            : 'No indicators currently appear in 2+ feeds. Either upstream feeds are degraded, or there is no current overlap.'
+        }
+        onRetry={() => setRefreshKey((k) => k + 1)}
+        rows={8}
+      >
+        <ul className="space-y-2">
+          {filtered.map((it) => (
+            <IocRow key={`${it.kind}:${it.value}`} ioc={it} />
+          ))}
+        </ul>
+      </DataState>
 
       {data && (
         <section className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-4">

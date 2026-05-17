@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ExternalLink, Loader2, RefreshCw, Skull } from 'lucide-react';
+import { ArrowLeft, ExternalLink, RefreshCw, Skull } from 'lucide-react';
 import { ActorTtpsPanel } from '../../components/threatintel/ActorTtpsPanel';
+import { DataState } from '../../components/DataState';
 
 interface MitreGroupRef {
   id: string;
@@ -173,177 +174,171 @@ export default function ActorTimeline(): JSX.Element {
         </button>
       </section>
 
-      {loading && (
-        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 flex items-center gap-3 font-mono text-sm text-slate-500">
-          <Loader2 size={16} className="animate-spin" /> fetching per-group histories from Ransomlook…
-        </div>
-      )}
-
-      {error && (
-        <div className="rounded-lg border border-rose-500/40 bg-rose-500/5 p-4 font-mono text-sm text-rose-600 dark:text-rose-300">
-          Failed to load: {error}
-        </div>
-      )}
-
-      {data && data.groups.length > 0 && (
-        <>
-          {/* overflow-x-auto wrapper: the heatmap has a fixed 200px label column + N day columns,
+      <DataState
+        loading={loading}
+        error={error}
+        empty={!!data && data.groups.length === 0}
+        emptyLabel="Ransomlook returned no data this snapshot. Try refresh."
+        onRetry={() => setRefreshKey((k) => k + 1)}
+        rows={8}
+      >
+        {data && (
+          <>
+            {/* overflow-x-auto wrapper: the heatmap has a fixed 200px label column + N day columns,
               which can't compress below ~640px without losing meaning. Let it scroll on mobile. */}
-          <div className="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
-            <div className="min-w-[640px]">
-              {/* Day axis legend */}
-              <div
-                className="font-mono text-[10px] text-slate-500 mb-1 grid"
-                style={{ gridTemplateColumns: `200px repeat(${data.days.length}, minmax(0,1fr))` }}
-              >
-                <div></div>
-                {data.days.map((_, i) => {
-                  const tick = xAxisLabels.find((l) => l.idx === i);
-                  return (
-                    <div key={i} className="text-center">
-                      {tick ? tick.label : ''}
-                    </div>
-                  );
-                })}
-              </div>
-
-              <ul className="space-y-2">
-                {data.groups.map((g) => {
-                  const max = rowMaxes.get(g.slug) ?? 0;
-                  return (
-                    <li
-                      key={g.slug}
-                      className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
-                    >
-                      <div
-                        className="grid items-center gap-1"
-                        style={{ gridTemplateColumns: `200px repeat(${g.buckets.length}, minmax(0,1fr))` }}
-                      >
-                        <div className="pr-3 min-w-0">
-                          <div className="flex items-center gap-1.5 flex-wrap">
-                            <div className="font-display font-semibold text-sm truncate min-w-0" title={g.display_name}>
-                              {g.display_name}
-                            </div>
-                            <AccelerationBadge buckets={g.buckets} />
-                          </div>
-                          <div className="text-[10px] font-mono text-slate-500 mt-0.5">
-                            {g.posts_in_window} in {data.window_days}d · {g.all_time_count} all-time
-                          </div>
-                        </div>
-                        {g.buckets.map((b) => (
-                          <div
-                            key={b.day}
-                            className={`h-5 rounded-sm ${cellColor(b.count, max)} hover:ring-2 hover:ring-brand-500/40 transition-shadow`}
-                            title={`${b.day} · ${b.count} post${b.count === 1 ? '' : 's'}`}
-                          />
-                        ))}
+            <div className="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
+              <div className="min-w-[640px]">
+                {/* Day axis legend */}
+                <div
+                  className="font-mono text-[10px] text-slate-500 mb-1 grid"
+                  style={{ gridTemplateColumns: `200px repeat(${data.days.length}, minmax(0,1fr))` }}
+                >
+                  <div></div>
+                  {data.days.map((_, i) => {
+                    const tick = xAxisLabels.find((l) => l.idx === i);
+                    return (
+                      <div key={i} className="text-center">
+                        {tick ? tick.label : ''}
                       </div>
+                    );
+                  })}
+                </div>
 
-                      {/* Per-group footer: MITRE link, raas tag, refs */}
-                      <div className="mt-2 ml-[200px] pl-0 flex items-center gap-2 flex-wrap text-[11px] font-mono text-slate-500">
-                        {g.mitre ? (
-                          <a
-                            href={g.mitre.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:underline"
-                          >
-                            MITRE {g.mitre.id} · {g.mitre.name} <ExternalLink size={9} />
-                          </a>
-                        ) : (
-                          <span className="px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-400">
-                            not in MITRE
-                          </span>
-                        )}
-                        {g.raas && (
-                          <span className="px-1.5 py-0.5 rounded border border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300">
-                            RaaS
-                          </span>
-                        )}
-                        <span
-                          className={`inline-flex items-center gap-1.5 px-1.5 py-0.5 rounded ${
-                            g.mirrors_total > 0 && g.mirrors_reachable === 0
-                              ? 'border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300'
-                              : 'bg-slate-100 dark:bg-slate-800'
-                          }`}
-                          title={`${g.mirrors_reachable} of ${g.mirrors_total} leak-site mirrors currently reachable${
-                            g.mirrors_total > 0 && g.mirrors_reachable === 0 ? ' (site possibly down or seized)' : ''
-                          }`}
+                <ul className="space-y-2">
+                  {data.groups.map((g) => {
+                    const max = rowMaxes.get(g.slug) ?? 0;
+                    return (
+                      <li
+                        key={g.slug}
+                        className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
+                      >
+                        <div
+                          className="grid items-center gap-1"
+                          style={{ gridTemplateColumns: `200px repeat(${g.buckets.length}, minmax(0,1fr))` }}
                         >
-                          mirrors:
-                          <MirrorDots reachable={g.mirrors_reachable} total={g.mirrors_total} />
-                          <span className="tabular-nums text-[10px]">
-                            {g.mirrors_reachable}/{g.mirrors_total}
-                          </span>
-                        </span>
-                        {g.references.slice(0, 3).map((ref, i) => {
-                          let host = ref;
-                          try {
-                            host = new URL(ref).hostname.replace(/^www\./, '');
-                          } catch {
-                            /* ignore */
-                          }
-                          return (
+                          <div className="pr-3 min-w-0">
+                            <div className="flex items-center gap-1.5 flex-wrap">
+                              <div
+                                className="font-display font-semibold text-sm truncate min-w-0"
+                                title={g.display_name}
+                              >
+                                {g.display_name}
+                              </div>
+                              <AccelerationBadge buckets={g.buckets} />
+                            </div>
+                            <div className="text-[10px] font-mono text-slate-500 mt-0.5">
+                              {g.posts_in_window} in {data.window_days}d · {g.all_time_count} all-time
+                            </div>
+                          </div>
+                          {g.buckets.map((b) => (
+                            <div
+                              key={b.day}
+                              className={`h-5 rounded-sm ${cellColor(b.count, max)} hover:ring-2 hover:ring-brand-500/40 transition-shadow`}
+                              title={`${b.day} · ${b.count} post${b.count === 1 ? '' : 's'}`}
+                            />
+                          ))}
+                        </div>
+
+                        {/* Per-group footer: MITRE link, raas tag, refs */}
+                        <div className="mt-2 ml-[200px] pl-0 flex items-center gap-2 flex-wrap text-[11px] font-mono text-slate-500">
+                          {g.mitre ? (
                             <a
-                              key={i}
-                              href={ref}
+                              href={g.mitre.url}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="hover:underline hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
-                              title={ref}
+                              className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:underline"
                             >
-                              {host} <ExternalLink size={9} />
+                              MITRE {g.mitre.id} · {g.mitre.name} <ExternalLink size={9} />
                             </a>
-                          );
-                        })}
-                      </div>
+                          ) : (
+                            <span className="px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-400">
+                              not in MITRE
+                            </span>
+                          )}
+                          {g.raas && (
+                            <span className="px-1.5 py-0.5 rounded border border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300">
+                              RaaS
+                            </span>
+                          )}
+                          <span
+                            className={`inline-flex items-center gap-1.5 px-1.5 py-0.5 rounded ${
+                              g.mirrors_total > 0 && g.mirrors_reachable === 0
+                                ? 'border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300'
+                                : 'bg-slate-100 dark:bg-slate-800'
+                            }`}
+                            title={`${g.mirrors_reachable} of ${g.mirrors_total} leak-site mirrors currently reachable${
+                              g.mirrors_total > 0 && g.mirrors_reachable === 0 ? ' (site possibly down or seized)' : ''
+                            }`}
+                          >
+                            mirrors:
+                            <MirrorDots reachable={g.mirrors_reachable} total={g.mirrors_total} />
+                            <span className="tabular-nums text-[10px]">
+                              {g.mirrors_reachable}/{g.mirrors_total}
+                            </span>
+                          </span>
+                          {g.references.slice(0, 3).map((ref, i) => {
+                            let host = ref;
+                            try {
+                              host = new URL(ref).hostname.replace(/^www\./, '');
+                            } catch {
+                              /* ignore */
+                            }
+                            return (
+                              <a
+                                key={i}
+                                href={ref}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="hover:underline hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                                title={ref}
+                              >
+                                {host} <ExternalLink size={9} />
+                              </a>
+                            );
+                          })}
+                        </div>
 
-                      {g.description && (
-                        <p className="mt-2 ml-[200px] text-[11px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed">
-                          {g.description}
-                          {g.description.length >= 400 ? '…' : ''}
-                        </p>
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
+                        {g.description && (
+                          <p className="mt-2 ml-[200px] text-[11px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed">
+                            {g.description}
+                            {g.description.length >= 400 ? '…' : ''}
+                          </p>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
             </div>
-          </div>
 
-          <div className="mt-6">
-            <ActorTtpsPanel />
-          </div>
+            <div className="mt-6">
+              <ActorTtpsPanel />
+            </div>
 
-          <section className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-4">
-            <h3 className="font-display font-semibold text-sm mb-2">How to read this</h3>
-            <ul className="text-[12px] font-mono text-slate-600 dark:text-slate-400 space-y-1 list-disc list-inside">
-              <li>
-                Cell shading is relative to <em>each row's</em> peak, so a slow week for one group can still highlight
-                its peak day.
-              </li>
-              <li>Empty cells = zero posts on that day. Hover any cell for exact count + date.</li>
-              <li>
-                "MITRE Gxxxx" pill links to ATT&CK Group profile (techniques, software, references). Newer groups may
-                not be tracked yet.
-              </li>
-              <li>
-                "RaaS" means the group operates as Ransomware-as-a-Service (recruits affiliates rather than executing
-                intrusions directly).
-              </li>
-              <li>
-                Aggregate TTPs panel: "X grp · Yp" means used by X active groups carrying Y total posts in the window.
-              </li>
-            </ul>
-          </section>
-        </>
-      )}
-
-      {!loading && !error && data && data.groups.length === 0 && (
-        <div className="rounded-lg border border-dashed border-slate-300 dark:border-slate-700 p-8 text-center text-sm font-mono text-slate-500">
-          Ransomlook returned no data this snapshot. Try refresh.
-        </div>
-      )}
+            <section className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-4">
+              <h3 className="font-display font-semibold text-sm mb-2">How to read this</h3>
+              <ul className="text-[12px] font-mono text-slate-600 dark:text-slate-400 space-y-1 list-disc list-inside">
+                <li>
+                  Cell shading is relative to <em>each row's</em> peak, so a slow week for one group can still highlight
+                  its peak day.
+                </li>
+                <li>Empty cells = zero posts on that day. Hover any cell for exact count + date.</li>
+                <li>
+                  "MITRE Gxxxx" pill links to ATT&CK Group profile (techniques, software, references). Newer groups may
+                  not be tracked yet.
+                </li>
+                <li>
+                  "RaaS" means the group operates as Ransomware-as-a-Service (recruits affiliates rather than executing
+                  intrusions directly).
+                </li>
+                <li>
+                  Aggregate TTPs panel: "X grp · Yp" means used by X active groups carrying Y total posts in the window.
+                </li>
+              </ul>
+            </section>
+          </>
+        )}
+      </DataState>
     </div>
   );
 }

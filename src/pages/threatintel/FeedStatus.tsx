@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { DataState } from '../../components/DataState';
 import {
   Activity,
   AlertTriangle,
@@ -7,7 +8,6 @@ import {
   CheckCircle2,
   CircleDashed,
   ExternalLink,
-  Loader2,
   RefreshCw,
   XCircle,
   type LucideIcon,
@@ -152,68 +152,65 @@ export default function FeedStatus(): JSX.Element {
         </button>
       </section>
 
-      {loading && (
-        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 inline-flex items-center gap-2 font-mono text-sm text-slate-500">
-          <Loader2 size={14} className="animate-spin" /> probing 11 feeds…
-        </div>
-      )}
-
-      {error && (
-        <div className="rounded-lg border border-rose-500/40 bg-rose-500/5 p-4 font-mono text-sm text-rose-600 dark:text-rose-300">
-          Failed to load: {error}
-        </div>
-      )}
-
-      {data && (
-        <ul className="grid gap-2">
-          {data.rows.map((r) => {
-            const Icon = PILL[r.status].icon;
-            return (
-              <li
-                key={r.id}
-                className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
-              >
-                <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
-                  <Link
-                    to={r.page_path}
-                    className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400"
-                  >
-                    {r.label}
-                  </Link>
-                  <span
-                    className={`inline-flex items-center gap-1 text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${PILL[r.status].cls}`}
-                  >
-                    <Icon size={10} /> {PILL[r.status].label}
-                  </span>
-                </div>
-                <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed mb-1.5">
-                  {r.reason}
-                </p>
-                <div className="flex flex-wrap items-center gap-2 text-[10px] font-mono text-slate-500">
-                  <Link to={r.page_path} className="hover:text-brand-600 dark:hover:text-brand-400">
-                    {r.page_path}
-                  </Link>
-                  <span>·</span>
-                  <a
-                    href={r.api_path}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 hover:text-brand-600 dark:hover:text-brand-400"
-                  >
-                    {r.api_path} <ExternalLink size={9} />
-                  </a>
-                  {r.upstream_age_s !== undefined && (
-                    <>
-                      <span>·</span>
-                      <span>upstream snapshot {ageString(r.upstream_age_s)}</span>
-                    </>
-                  )}
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-      )}
+      <DataState
+        loading={loading}
+        error={error}
+        empty={!!data && data.rows.length === 0}
+        emptyLabel="No feeds reported."
+        onRetry={() => setRefreshKey((k) => k + 1)}
+        rows={8}
+      >
+        {data && (
+          <ul className="grid gap-2">
+            {data.rows.map((r) => {
+              const Icon = PILL[r.status].icon;
+              return (
+                <li
+                  key={r.id}
+                  className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
+                >
+                  <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
+                    <Link
+                      to={r.page_path}
+                      className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400"
+                    >
+                      {r.label}
+                    </Link>
+                    <span
+                      className={`inline-flex items-center gap-1 text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${PILL[r.status].cls}`}
+                    >
+                      <Icon size={10} /> {PILL[r.status].label}
+                    </span>
+                  </div>
+                  <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed mb-1.5">
+                    {r.reason}
+                  </p>
+                  <div className="flex flex-wrap items-center gap-2 text-[10px] font-mono text-slate-500">
+                    <Link to={r.page_path} className="hover:text-brand-600 dark:hover:text-brand-400">
+                      {r.page_path}
+                    </Link>
+                    <span>·</span>
+                    <a
+                      href={r.api_path}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 hover:text-brand-600 dark:hover:text-brand-400"
+                    >
+                      {r.api_path} <ExternalLink size={9} />
+                    </a>
+                    {r.upstream_age_s !== undefined && (
+                      <>
+                        <span>·</span>
+                        <span>upstream snapshot {ageString(r.upstream_age_s)}</span>
+                      </>
+                    )}
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </DataState>
     </div>
   );
 }

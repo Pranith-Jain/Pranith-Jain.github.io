@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ExternalLink, Loader2, RefreshCw, Search, Users } from 'lucide-react';
+import { ArrowLeft, ExternalLink, RefreshCw, Search, Users } from 'lucide-react';
+import { DataState } from '../../components/DataState';
 
 interface VictimClaim {
   group: string;
@@ -144,77 +145,72 @@ export default function VictimReleaks(): JSX.Element {
         </div>
       </section>
 
-      {loading && (
-        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 flex items-center gap-3 font-mono text-sm text-slate-500">
-          <Loader2 size={16} className="animate-spin" /> scanning per-group histories for cross-group matches…
-        </div>
-      )}
-
-      {error && (
-        <div className="rounded-lg border border-rose-500/40 bg-rose-500/5 p-4 font-mono text-sm text-rose-600 dark:text-rose-300">
-          Failed to load: {error}
-        </div>
-      )}
-
-      <ul className="space-y-3">
-        {filtered.map((r) => (
-          <li
-            key={r.key}
-            className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4"
-          >
-            <div className="flex items-start justify-between gap-2 mb-2 flex-wrap">
-              <div className="min-w-0 flex-1">
-                <div className="font-display font-bold text-lg truncate" title={r.raw_names.join(' · ')}>
-                  {r.raw_names[0]}
-                </div>
-                {r.raw_names.length > 1 && (
-                  <div className="text-[11px] font-mono text-slate-500 mt-0.5">
-                    also seen as: {r.raw_names.slice(1).join(' · ')}
-                  </div>
-                )}
-              </div>
-              <div className="shrink-0 text-right">
-                <div className="font-display font-bold text-xl text-rose-600 dark:text-rose-400">×{r.group_count}</div>
-                <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500">groups</div>
-              </div>
-            </div>
-
-            <ul className="space-y-1">
-              {r.claims.map((c, i) => (
-                <li key={i} className="text-[12px] font-mono flex items-baseline gap-2 flex-wrap">
-                  <span className="px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300">
-                    {c.group}
-                  </span>
-                  <span className="text-slate-600 dark:text-slate-400 truncate flex-1 min-w-0" title={c.raw_victim}>
-                    “{c.raw_victim}”
-                  </span>
-                  <span className="text-slate-500 text-[11px]" title={c.discovered}>
-                    {shortRel(c.discovered)}
-                  </span>
-                  {c.source_url && (
-                    <a
-                      href={c.source_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
-                    >
-                      source <ExternalLink size={9} />
-                    </a>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </li>
-        ))}
-      </ul>
-
-      {!loading && !error && data && filtered.length === 0 && (
-        <div className="rounded-lg border border-dashed border-slate-300 dark:border-slate-700 p-8 text-center text-sm font-mono text-slate-500">
-          {query
+      <DataState
+        loading={loading}
+        error={error}
+        empty={!!data && filtered.length === 0}
+        emptyLabel={
+          query
             ? 'No re-leaks match the current filter.'
-            : 'No cross-group re-leaks detected this snapshot. Either upstream is degraded or the top groups’ victim sets genuinely don’t overlap right now.'}
-        </div>
-      )}
+            : 'No cross-group re-leaks detected this snapshot. Either upstream is degraded or the top groups’ victim sets genuinely don’t overlap right now.'
+        }
+        onRetry={() => setRefreshKey((k) => k + 1)}
+        rows={6}
+      >
+        <ul className="space-y-3">
+          {filtered.map((r) => (
+            <li
+              key={r.key}
+              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4"
+            >
+              <div className="flex items-start justify-between gap-2 mb-2 flex-wrap">
+                <div className="min-w-0 flex-1">
+                  <div className="font-display font-bold text-lg truncate" title={r.raw_names.join(' · ')}>
+                    {r.raw_names[0]}
+                  </div>
+                  {r.raw_names.length > 1 && (
+                    <div className="text-[11px] font-mono text-slate-500 mt-0.5">
+                      also seen as: {r.raw_names.slice(1).join(' · ')}
+                    </div>
+                  )}
+                </div>
+                <div className="shrink-0 text-right">
+                  <div className="font-display font-bold text-xl text-rose-600 dark:text-rose-400">
+                    ×{r.group_count}
+                  </div>
+                  <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500">groups</div>
+                </div>
+              </div>
+
+              <ul className="space-y-1">
+                {r.claims.map((c, i) => (
+                  <li key={i} className="text-[12px] font-mono flex items-baseline gap-2 flex-wrap">
+                    <span className="px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300">
+                      {c.group}
+                    </span>
+                    <span className="text-slate-600 dark:text-slate-400 truncate flex-1 min-w-0" title={c.raw_victim}>
+                      “{c.raw_victim}”
+                    </span>
+                    <span className="text-slate-500 text-[11px]" title={c.discovered}>
+                      {shortRel(c.discovered)}
+                    </span>
+                    {c.source_url && (
+                      <a
+                        href={c.source_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
+                      >
+                        source <ExternalLink size={9} />
+                      </a>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ul>
+      </DataState>
 
       {data && (
         <section className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-4">

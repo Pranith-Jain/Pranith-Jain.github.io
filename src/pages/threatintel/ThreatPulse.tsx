@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Activity, Crosshair, Shield, Bug, Hash, Copy, Check, Layers } from 'lucide-react';
+import { DataState } from '../../components/DataState';
 
 interface PulseEntity {
   label: string;
@@ -233,19 +234,6 @@ export default function ThreatPulse(): JSX.Element {
         </div>
       </div>
 
-      {loading && (
-        <div className="flex items-center gap-2 py-12 justify-center text-slate-600 dark:text-slate-400">
-          <div className="animate-spin w-5 h-5 border-2 border-brand-500 border-t-transparent rounded-full" />
-          <span className="font-mono text-sm">Pulsing threat surfaces…</span>
-        </div>
-      )}
-
-      {error && (
-        <div className="border border-rose-300 dark:border-rose-800 bg-rose-50 dark:bg-rose-950/20 p-6 text-center rounded-lg">
-          <p className="font-mono text-sm text-rose-600 dark:text-rose-400">error: {error}</p>
-        </div>
-      )}
-
       {data && filtered.length === 0 && (
         <div className="border border-dashed border-slate-300 dark:border-slate-700 p-10 text-center rounded-lg">
           <Activity size={32} className="mx-auto mb-3 text-slate-400 dark:text-slate-600" />
@@ -283,82 +271,84 @@ export default function ThreatPulse(): JSX.Element {
         </div>
       )}
 
-      {filtered.length > 0 && (
-        <div className="space-y-2">
-          {filtered.map((entity) => {
-            const Icon = KIND_ICONS[entity.kind];
-            const platformCount = new Set(entity.sources.map(platformType)).size;
-            const isCrossPlatform = platformCount >= 2;
-            return (
-              <div
-                key={`${entity.kind}:${entity.label}`}
-                className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 hover:border-brand-500/40 dark:hover:border-brand-400/40 transition-colors rounded-lg"
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <div className="flex items-center gap-3 min-w-0 flex-1">
-                    <Icon size={18} className="shrink-0 text-brand-600 dark:text-brand-400" />
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-baseline gap-2 flex-wrap">
-                        <span className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 break-all">
-                          {entity.label}
-                        </span>
-                        <span
-                          className={`text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${KIND_COLOR[entity.kind]}`}
-                        >
-                          {KIND_LABEL[entity.kind]}
-                        </span>
-                        {/* Platform-diversity badge — same source_count means
+      <DataState loading={loading} error={error} rows={8}>
+        {filtered.length > 0 && (
+          <div className="space-y-2">
+            {filtered.map((entity) => {
+              const Icon = KIND_ICONS[entity.kind];
+              const platformCount = new Set(entity.sources.map(platformType)).size;
+              const isCrossPlatform = platformCount >= 2;
+              return (
+                <div
+                  key={`${entity.kind}:${entity.label}`}
+                  className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 hover:border-brand-500/40 dark:hover:border-brand-400/40 transition-colors rounded-lg"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex items-center gap-3 min-w-0 flex-1">
+                      <Icon size={18} className="shrink-0 text-brand-600 dark:text-brand-400" />
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-baseline gap-2 flex-wrap">
+                          <span className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 break-all">
+                            {entity.label}
+                          </span>
+                          <span
+                            className={`text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${KIND_COLOR[entity.kind]}`}
+                          >
+                            {KIND_LABEL[entity.kind]}
+                          </span>
+                          {/* Platform-diversity badge — same source_count means
                             different things when all from one platform vs
                             spread across many. The badge separates the two
                             without needing more screen space than a pill. */}
-                        {isCrossPlatform ? (
-                          <span
-                            className="inline-flex items-center gap-1 text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
-                            title={`${platformCount} distinct platform types — cross-platform corroboration, stronger signal than same-platform mentions`}
-                          >
-                            <Layers size={9} aria-hidden="true" />
-                            {platformCount} platforms
-                          </span>
-                        ) : entity.source_count > 1 ? (
-                          <span
-                            className="inline-flex items-center gap-1 text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-500"
-                            title="All mentions on a single platform — same-platform corroboration, weaker signal than cross-platform"
-                          >
-                            same-platform
-                          </span>
-                        ) : null}
-                        <CopyEntityButton entity={entity} />
-                      </div>
-                      <div className="flex flex-wrap gap-1 mt-1">
-                        {entity.sources.map((s) => (
-                          <span
-                            key={s}
-                            className="text-[9px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-400"
-                          >
-                            {surfaceLabel(s)}
-                          </span>
-                        ))}
+                          {isCrossPlatform ? (
+                            <span
+                              className="inline-flex items-center gap-1 text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
+                              title={`${platformCount} distinct platform types — cross-platform corroboration, stronger signal than same-platform mentions`}
+                            >
+                              <Layers size={9} aria-hidden="true" />
+                              {platformCount} platforms
+                            </span>
+                          ) : entity.source_count > 1 ? (
+                            <span
+                              className="inline-flex items-center gap-1 text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-500"
+                              title="All mentions on a single platform — same-platform corroboration, weaker signal than cross-platform"
+                            >
+                              same-platform
+                            </span>
+                          ) : null}
+                          <CopyEntityButton entity={entity} />
+                        </div>
+                        <div className="flex flex-wrap gap-1 mt-1">
+                          {entity.sources.map((s) => (
+                            <span
+                              key={s}
+                              className="text-[9px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-400"
+                            >
+                              {surfaceLabel(s)}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div
-                    className={`shrink-0 px-3 py-1.5 text-center rounded ${
-                      entity.source_count >= 3
-                        ? 'bg-rose-500/15 text-rose-700 dark:text-rose-400'
-                        : entity.source_count === 2
-                          ? 'bg-amber-500/15 text-amber-700 dark:text-amber-400'
-                          : 'bg-brand-500/10 text-brand-700 dark:text-brand-400'
-                    }`}
-                  >
-                    <span className="text-lg font-bold">{entity.source_count}</span>
-                    <p className="text-[9px] uppercase tracking-wider font-mono">sources</p>
+                    <div
+                      className={`shrink-0 px-3 py-1.5 text-center rounded ${
+                        entity.source_count >= 3
+                          ? 'bg-rose-500/15 text-rose-700 dark:text-rose-400'
+                          : entity.source_count === 2
+                            ? 'bg-amber-500/15 text-amber-700 dark:text-amber-400'
+                            : 'bg-brand-500/10 text-brand-700 dark:text-brand-400'
+                      }`}
+                    >
+                      <span className="text-lg font-bold">{entity.source_count}</span>
+                      <p className="text-[9px] uppercase tracking-wider font-mono">sources</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
-      )}
+              );
+            })}
+          </div>
+        )}
+      </DataState>
 
       {data && (
         <p className="mt-6 text-[11px] font-mono text-slate-500 dark:text-slate-500 text-center">

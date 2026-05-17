@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { ArrowLeft, BookText, ExternalLink, Loader2, RefreshCw, Search } from 'lucide-react';
+import { ArrowLeft, BookText, ExternalLink, RefreshCw, Search } from 'lucide-react';
+import { DataState } from '../../components/DataState';
 
 /**
  * /threatintel/writeups — live aggregation of long-form CTI writeups from
@@ -272,67 +273,60 @@ export default function Writeups(): JSX.Element {
         )}
       </section>
 
-      {loading && (
-        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 flex items-center gap-3 font-mono text-sm text-slate-500">
-          <Loader2 size={16} className="animate-spin" /> aggregating writeup feeds…
-        </div>
-      )}
-
-      {error && (
-        <div className="rounded-lg border border-rose-500/40 bg-rose-500/5 p-4 font-mono text-sm text-rose-600 dark:text-rose-300">
-          Failed to load: {error}
-        </div>
-      )}
-
-      <ul className="space-y-3">
-        {filtered.map((it, i) => (
-          <li
-            key={`${it.url}-${i}`}
-            className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 hover:border-brand-500/40 transition-colors"
-          >
-            <a href={it.url} target="_blank" rel="noopener noreferrer" className="group block">
-              <div className="flex items-start justify-between gap-3 mb-1.5 flex-wrap">
-                <h3 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 flex-1 min-w-0">
-                  {it.title}
-                </h3>
-                <ExternalLink size={12} className="text-slate-400 shrink-0 mt-1" />
-              </div>
-              {it.description && (
-                <p className="text-[13px] text-slate-600 dark:text-slate-400 leading-relaxed mb-2 line-clamp-3">
-                  {it.description}
-                </p>
-              )}
-              <div className="flex items-center gap-2 text-[11px] font-mono text-slate-500 flex-wrap">
-                <span className={`px-1.5 py-0.5 rounded border ${KIND_PILL[it.kind]}`}>{it.source}</span>
-                {it.published && (
-                  <span title={formatDate(it.published)}>{shortRel(it.published) || formatDate(it.published)}</span>
-                )}
-                {it.author && <span>by {it.author}</span>}
-                {it.tags && it.tags.length > 0 && (
-                  <span className="flex flex-wrap gap-1 ml-1">
-                    {it.tags.slice(0, 4).map((t) => (
-                      <span
-                        key={t}
-                        className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </span>
-                )}
-              </div>
-            </a>
-          </li>
-        ))}
-      </ul>
-
-      {!loading && !error && filtered.length === 0 && (
-        <div className="rounded-lg border border-dashed border-slate-300 dark:border-slate-700 p-8 text-center text-sm font-mono text-slate-500">
-          {query || kindFilter.size > 0 || sourceFilter.size > 0
+      <DataState
+        loading={loading}
+        error={error}
+        empty={filtered.length === 0}
+        emptyLabel={
+          query || kindFilter.size > 0 || sourceFilter.size > 0
             ? 'No writeups match the current filter.'
-            : 'No writeups in the current snapshot.'}
-        </div>
-      )}
+            : 'No writeups in the current snapshot.'
+        }
+        onRetry={() => setRefreshKey((k) => k + 1)}
+        rows={8}
+      >
+        <ul className="space-y-3">
+          {filtered.map((it, i) => (
+            <li
+              key={`${it.url}-${i}`}
+              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 hover:border-brand-500/40 transition-colors"
+            >
+              <a href={it.url} target="_blank" rel="noopener noreferrer" className="group block">
+                <div className="flex items-start justify-between gap-3 mb-1.5 flex-wrap">
+                  <h3 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 flex-1 min-w-0">
+                    {it.title}
+                  </h3>
+                  <ExternalLink size={12} className="text-slate-400 shrink-0 mt-1" />
+                </div>
+                {it.description && (
+                  <p className="text-[13px] text-slate-600 dark:text-slate-400 leading-relaxed mb-2 line-clamp-3">
+                    {it.description}
+                  </p>
+                )}
+                <div className="flex items-center gap-2 text-[11px] font-mono text-slate-500 flex-wrap">
+                  <span className={`px-1.5 py-0.5 rounded border ${KIND_PILL[it.kind]}`}>{it.source}</span>
+                  {it.published && (
+                    <span title={formatDate(it.published)}>{shortRel(it.published) || formatDate(it.published)}</span>
+                  )}
+                  {it.author && <span>by {it.author}</span>}
+                  {it.tags && it.tags.length > 0 && (
+                    <span className="flex flex-wrap gap-1 ml-1">
+                      {it.tags.slice(0, 4).map((t) => (
+                        <span
+                          key={t}
+                          className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </span>
+                  )}
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </DataState>
     </div>
   );
 }

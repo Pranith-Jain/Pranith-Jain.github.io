@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { AlertOctagon, ArrowLeft, ExternalLink, Loader2, RefreshCw, Search } from 'lucide-react';
+import { AlertOctagon, ArrowLeft, ExternalLink, RefreshCw, Search } from 'lucide-react';
+import { DataState } from '../../components/DataState';
 
 /**
  * /threatintel/cyber-crime — live aggregation of cyber fraud + cyber crime
@@ -179,12 +180,6 @@ export default function CyberCrime(): JSX.Element {
         </p>
       </div>
 
-      {error && (
-        <p role="alert" className="font-mono text-sm text-rose-600 dark:text-rose-400 mb-4">
-          error: {error}
-        </p>
-      )}
-
       {/* Category filter pills */}
       {data && (
         <div className="flex flex-wrap gap-1.5 mb-4">
@@ -237,13 +232,14 @@ export default function CyberCrime(): JSX.Element {
         />
       </div>
 
-      {loading && !data && (
-        <p className="font-mono text-sm text-slate-500 inline-flex items-center gap-2">
-          <Loader2 size={14} className="animate-spin" /> loading feeds…
-        </p>
-      )}
-
-      {data && (
+      <DataState
+        loading={loading && !data}
+        error={error}
+        empty={!!data && !loading && filtered.length === 0}
+        emptyLabel="No items match the current filter."
+        onRetry={() => setRefreshKey((k) => k + 1)}
+        rows={8}
+      >
         <ul className="space-y-3">
           {filtered.map((it, i) => (
             <li
@@ -278,13 +274,7 @@ export default function CyberCrime(): JSX.Element {
             </li>
           ))}
         </ul>
-      )}
-
-      {!loading && !error && filtered.length === 0 && data && (
-        <div className="rounded-lg border border-dashed border-slate-300 dark:border-slate-700 p-8 text-center text-sm font-mono text-slate-500">
-          No items match the current filter.
-        </div>
-      )}
+      </DataState>
 
       {/* Source status footer */}
       {data && (

@@ -70,23 +70,50 @@ function tldOf(domain: string): string | undefined {
   return parts.length > 1 ? parts[parts.length - 1] : undefined;
 }
 
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
 async function tryRdap(
   url: string
 ): Promise<{ ok: true; json: RdapResponse } | { ok: false; status: number; statusText: string }> {
-  // Identity Digital (.ai, .capital, .io, .tech) rate-limits shared CF Worker IPs;
-  // edge-cache successful responses for 24h to absorb 429 storms after the first hit lands.
-  const res = await fetch(url, {
-    headers: { accept: 'application/rdap+json', 'user-agent': UA },
-    redirect: 'follow',
-    signal: AbortSignal.timeout(5000),
-    cf: {
-      cacheTtlByStatus: { '200-299': 86400, '400-499': 0, '500-599': 0 },
-      cacheEverything: true,
-    },
-  } as RequestInit);
-  if (!res.ok) return { ok: false, status: res.status, statusText: res.statusText };
-  const json = (await res.json()) as RdapResponse;
-  return { ok: true, json };
+  // Identity Digital (.ai, .capital, .io, .tech) and Verisign rate-limit the
+  // shared CF Worker IP pool. A single 429 used to fail the whole lookup —
+  // but these per-IP buckets clear in seconds, so a couple of short backed-off
+  // retries (honoring Retry-After, capped) recover most "rate-limited" cases
+  // before we fall through to the rdap.org mirror / port-43 WHOIS.
+  // Successful responses are edge-cached 24h to absorb repeat lookups.
+  const MAX_ATTEMPTS = 3;
+  let last: { status: number; statusText: string } = { status: 0, statusText: 'no response' };
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    try {
+      const res = await fetch(url, {
+        headers: { accept: 'application/rdap+json', 'user-agent': UA },
+        redirect: 'follow',
+        signal: AbortSignal.timeout(5000),
+        cf: {
+          cacheTtlByStatus: { '200-299': 86400, '400-499': 0, '500-599': 0 },
+          cacheEverything: true,
+        },
+      } as RequestInit);
+      if (res.ok) {
+        const json = (await res.json()) as RdapResponse;
+        return { ok: true, json };
+      }
+      last = { status: res.status, statusText: res.statusText };
+      // Only 429/503 are worth retrying; 404/400/etc. won't change.
+      if (res.status !== 429 && res.status !== 503) return { ok: false, ...last };
+      if (attempt < MAX_ATTEMPTS) {
+        const retryAfter = parseInt(res.headers.get('retry-after') ?? '', 10);
+        const wait = Number.isFinite(retryAfter)
+          ? Math.min(retryAfter * 1000, 3000)
+          : 900 * attempt + Math.random() * 400;
+        await sleep(wait);
+      }
+    } catch (err) {
+      last = { status: 0, statusText: err instanceof Error ? err.message : String(err) };
+      if (attempt < MAX_ATTEMPTS) await sleep(700 * attempt);
+    }
+  }
+  return { ok: false, ...last };
 }
 
 export async function rdapLookup(domain: string): Promise<RdapResult> {
