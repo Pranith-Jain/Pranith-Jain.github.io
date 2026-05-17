@@ -213,9 +213,9 @@ export default function CertSearch(): JSX.Element {
             </div>
             {data.issuers.length > 0 && (
               <div className="mt-4 flex flex-wrap gap-1.5">
-                {data.issuers.slice(0, 8).map((i) => (
+                {data.issuers.slice(0, 8).map((i, ii) => (
                   <span
-                    key={i.name}
+                    key={`${i.name}-${ii}`}
                     className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300"
                   >
                     {i.name} · {i.count}
@@ -249,9 +249,9 @@ export default function CertSearch(): JSX.Element {
               />
             </div>
             <ul className="font-mono text-[12px] text-slate-700 dark:text-slate-300 space-y-1 max-h-80 overflow-auto break-all">
-              {filteredNames.map((n) => (
+              {filteredNames.map((n, ni) => (
                 <li
-                  key={n}
+                  key={`${n}-${ni}`}
                   className="border-b border-slate-200 dark:border-slate-800 pb-1 last:border-0 flex items-baseline gap-2"
                 >
                   <span className="flex-1">{n}</span>
@@ -278,9 +278,9 @@ export default function CertSearch(): JSX.Element {
               <ScrollText size={12} /> Recent issuances ({data.recent.length})
             </h2>
             <ul className="space-y-2">
-              {data.recent.map((it) => (
+              {data.recent.map((it, ri) => (
                 <li
-                  key={it.id}
+                  key={`${it.id ?? 'cert'}-${ri}`}
                   className={`rounded border p-2 ${
                     it.revoked
                       ? 'border-rose-500/40 bg-rose-500/5'
@@ -299,8 +299,8 @@ export default function CertSearch(): JSX.Element {
                     </span>
                   </div>
                   <div className="text-[11px] font-mono text-slate-700 dark:text-slate-300 flex flex-wrap gap-x-3 gap-y-0.5 break-all">
-                    {it.dns_names.map((n) => (
-                      <span key={n}>{n}</span>
+                    {it.dns_names.map((n, di) => (
+                      <span key={`${n}-${di}`}>{n}</span>
                     ))}
                   </div>
                 </li>
