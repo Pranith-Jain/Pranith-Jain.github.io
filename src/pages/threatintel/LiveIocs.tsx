@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Copy, Check, ExternalLink, Loader2, Radio, RefreshCw, Search, Sparkles } from 'lucide-react';
+import { ArrowLeft, Copy, Check, ExternalLink, Radio, RefreshCw, Search, Sparkles } from 'lucide-react';
 import { useLastVisit, isNewSince } from '../../hooks';
+import { DataState } from '../../components/DataState';
 
 type IocKind = 'ip' | 'url' | 'domain' | 'hash';
 
@@ -335,78 +336,74 @@ export default function LiveIocs(): JSX.Element {
         )}
       </section>
 
-      {loading && (
-        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 flex items-center gap-3 font-mono text-sm text-slate-500">
-          <Loader2 size={16} className="animate-spin" /> aggregating live IOC sources…
-        </div>
-      )}
-
-      {error && (
-        <div className="rounded-lg border border-rose-500/40 bg-rose-500/5 p-4 font-mono text-sm text-rose-600 dark:text-rose-300">
-          Failed to load: {error}
-        </div>
-      )}
-
-      <ul className="space-y-2">
-        {filtered.map((it, i) => {
-          const sourcePill = SOURCE_PILL[it.source] ?? 'border-slate-300 dark:border-slate-700 text-slate-500';
-          return (
-            <li
-              key={`${it.source}:${it.value}:${i}`}
-              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2.5 flex items-center gap-3"
-            >
-              <span
-                className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${KIND_PILL[it.kind]} shrink-0`}
-              >
-                {it.kind}
-              </span>
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-2">
-                  <span className="font-mono text-[13px] text-slate-900 dark:text-slate-100 truncate" title={it.value}>
-                    {it.value}
-                  </span>
-                  <CopyBtn value={it.value} />
-                  {it.reference_url && (
-                    <a
-                      href={it.reference_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-slate-400 hover:text-brand-500 transition-colors shrink-0"
-                      aria-label="open source post"
-                      title="open source post"
-                    >
-                      <ExternalLink size={11} />
-                    </a>
-                  )}
-                </div>
-                <div className="text-[11px] font-mono text-slate-500 flex items-center gap-2 flex-wrap mt-0.5">
-                  <span className={`px-1.5 py-0.5 rounded border ${sourcePill}`}>{it.source}</span>
-                  {it.reporter && <span className="text-slate-600 dark:text-slate-400">{it.reporter}</span>}
-                  {it.context && (
-                    <span className="text-slate-400 italic truncate max-w-[40ch]" title={it.context}>
-                      · {it.context}
-                    </span>
-                  )}
-                </div>
-              </div>
-              <div
-                className="shrink-0 text-right text-[11px] font-mono text-slate-500"
-                title={it.observed_at ?? 'no timestamp'}
-              >
-                {shortRel(it.observed_at)}
-              </div>
-            </li>
-          );
-        })}
-      </ul>
-
-      {!loading && !error && filtered.length === 0 && (
-        <div className="rounded-lg border border-dashed border-slate-300 dark:border-slate-700 p-8 text-center text-sm font-mono text-slate-500">
-          {query || kindFilter.size > 0 || sourceFilter.size > 0
+      <DataState
+        loading={loading}
+        error={error}
+        empty={filtered.length === 0}
+        emptyLabel={
+          query || kindFilter.size > 0 || sourceFilter.size > 0
             ? 'No indicators match the current filter.'
-            : 'No indicators in the current snapshot.'}
-        </div>
-      )}
+            : 'No indicators in the current snapshot.'
+        }
+        onRetry={() => setRefreshKey((k) => k + 1)}
+        rows={8}
+      >
+        <ul className="space-y-2">
+          {filtered.map((it, i) => {
+            const sourcePill = SOURCE_PILL[it.source] ?? 'border-slate-300 dark:border-slate-700 text-slate-500';
+            return (
+              <li
+                key={`${it.source}:${it.value}:${i}`}
+                className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2.5 flex items-center gap-3"
+              >
+                <span
+                  className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${KIND_PILL[it.kind]} shrink-0`}
+                >
+                  {it.kind}
+                </span>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2">
+                    <span
+                      className="font-mono text-[13px] text-slate-900 dark:text-slate-100 truncate"
+                      title={it.value}
+                    >
+                      {it.value}
+                    </span>
+                    <CopyBtn value={it.value} />
+                    {it.reference_url && (
+                      <a
+                        href={it.reference_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-slate-400 hover:text-brand-500 transition-colors shrink-0"
+                        aria-label="open source post"
+                        title="open source post"
+                      >
+                        <ExternalLink size={11} />
+                      </a>
+                    )}
+                  </div>
+                  <div className="text-[11px] font-mono text-slate-500 flex items-center gap-2 flex-wrap mt-0.5">
+                    <span className={`px-1.5 py-0.5 rounded border ${sourcePill}`}>{it.source}</span>
+                    {it.reporter && <span className="text-slate-600 dark:text-slate-400">{it.reporter}</span>}
+                    {it.context && (
+                      <span className="text-slate-400 italic truncate max-w-[40ch]" title={it.context}>
+                        · {it.context}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <div
+                  className="shrink-0 text-right text-[11px] font-mono text-slate-500"
+                  title={it.observed_at ?? 'no timestamp'}
+                >
+                  {shortRel(it.observed_at)}
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      </DataState>
     </div>
   );
 }
