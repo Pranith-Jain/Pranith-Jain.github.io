@@ -950,6 +950,28 @@ export async function writeBriefing(
     const existing = await db.prepare('SELECT 1 FROM briefings WHERE slug = ?').bind(briefing.slug).first();
     if (existing) return { written: false, reason: 'already_exists' };
   }
+
+  // Don't clobber a good briefing with an empty one. The daily cron rebuilds
+  // a slug from live KEV/NVD/abuse.ch; if those feeds are quiet or time out
+  // at build time the result is 0 findings / 0 IOCs. INSERT OR REPLACE would
+  // overwrite the previously-rich briefing for that slug with the empty
+  // rebuild — which is exactly how daily-2026-05-16 lost its 29 findings.
+  // An empty briefing is only persisted when no row exists yet (a genuinely
+  // quiet day still gets a placeholder), never as a downgrade.
+  const isEmpty = briefing.stats.findings === 0 && briefing.stats.iocs === 0;
+  if (isEmpty) {
+    const prior = await db
+      .prepare('SELECT stats_json FROM briefings WHERE slug = ?')
+      .bind(briefing.slug)
+      .first<{ stats_json: string }>();
+    if (prior) {
+      const ps = safeJsonParse<Partial<BriefingStats>>(prior.stats_json, {});
+      if ((ps.findings ?? 0) > 0 || (ps.iocs ?? 0) > 0) {
+        return { written: false, reason: 'kept_richer_existing' };
+      }
+    }
+  }
+
   await db
     .prepare(
       `INSERT OR REPLACE INTO briefings (slug, type, title, date, date_range, range_start, range_end, stats_json, sources_json, body)
