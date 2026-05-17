@@ -84,26 +84,46 @@ export async function certSearchHandler(c: Context<{ Bindings: Env }>): Promise<
     includeSubdomains ? 'true' : 'false'
   }&expand=dns_names&expand=issuer`;
 
+  // Cert Spotter's free tier rate-limits the shared CF Worker IP pool; a
+  // single 429/5xx used to fail the whole lookup. Retry with backoff
+  // (honoring Retry-After, capped) — the per-IP bucket clears fast.
   let raw: CertSpotterIssuance[] = [];
-  try {
-    const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT);
-    const res = await fetch(upstream, {
-      signal: ctrl.signal,
-      headers: { accept: 'application/json', 'user-agent': 'pranithjain-dfir/1.0' },
-    });
-    clearTimeout(timer);
-    if (res.status === 429) {
-      return c.json({ error: 'cert-spotter rate-limited upstream', upstream_status: 429 }, 429);
+  let lastStatus = 0;
+  const MAX_ATTEMPTS = 3;
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    try {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT);
+      const res = await fetch(upstream, {
+        signal: ctrl.signal,
+        headers: { accept: 'application/json', 'user-agent': 'pranithjain-dfir/1.0' },
+      });
+      clearTimeout(timer);
+      if (res.ok) {
+        const parsed = (await res.json()) as CertSpotterIssuance[];
+        raw = Array.isArray(parsed) ? parsed : [];
+        break;
+      }
+      lastStatus = res.status;
+      // Only 429/5xx are worth retrying; 4xx (bad domain etc.) won't change.
+      if (res.status !== 429 && res.status < 500) break;
+      if (attempt < MAX_ATTEMPTS) {
+        const ra = parseInt(res.headers.get('retry-after') ?? '', 10);
+        await new Promise((r) =>
+          setTimeout(r, Number.isFinite(ra) ? Math.min(ra * 1000, 3000) : 800 * attempt + Math.random() * 400)
+        );
+      }
+    } catch (e) {
+      lastStatus = 0;
+      if (e instanceof Error) console.warn(`cert-spotter fetch failed (attempt ${attempt}):`, e.message);
+      if (attempt < MAX_ATTEMPTS) await new Promise((r) => setTimeout(r, 600 * attempt));
     }
-    if (!res.ok) {
-      return c.json({ error: 'cert-spotter upstream error', upstream_status: res.status }, 502);
+  }
+  if (raw.length === 0 && lastStatus !== 0 && lastStatus !== 200) {
+    if (lastStatus === 429) {
+      return c.json({ error: 'cert-spotter rate-limited upstream — try again shortly', upstream_status: 429 }, 429);
     }
-    raw = (await res.json()) as CertSpotterIssuance[];
-    if (!Array.isArray(raw)) raw = [];
-  } catch (e) {
-    if (e instanceof Error) console.warn('cert-spotter fetch failed:', e.message);
-    return c.json({ error: 'cert-spotter unreachable' }, 502);
+    return c.json({ error: 'cert-spotter upstream error', upstream_status: lastStatus }, 502);
   }
 
   // Aggregate
