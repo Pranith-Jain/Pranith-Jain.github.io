@@ -3,6 +3,7 @@ import type { CaseStudyType } from './types';
 export const kv = {
   candidate: (type: CaseStudyType, stableKey: string) => `candidates:${type}:${stableKey}`,
   candidatesPrefix: (type: CaseStudyType) => `candidates:${type}:`,
+  candidatesAllPrefix: 'candidates:',
   approved: (stableKey: string) => `approved:${stableKey}`,
   approvedPrefix: 'approved:',
   scheduleUpcoming: 'schedule:upcoming',

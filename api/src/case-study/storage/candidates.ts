@@ -21,6 +21,26 @@ export async function listCandidates(ns: KVNamespace, type: CaseStudyType): Prom
   return results.filter((x): x is Candidate => x !== null);
 }
 
+/**
+ * All pending candidates across every type in ONE `KV.list`.
+ *
+ * Candidate keys are `candidates:<type>:<key>`, so the shared `candidates:`
+ * prefix returns the whole set. Callers that previously looped the 12 types
+ * (12 list ops) now do 1 list + the same N body gets.
+ */
+export async function listAllCandidates(ns: KVNamespace): Promise<Candidate[]> {
+  const out: Candidate[] = [];
+  let cursor: string | undefined;
+  for (let page = 0; page < 5; page += 1) {
+    const res = await ns.list({ prefix: kv.candidatesAllPrefix, cursor });
+    const batch = await Promise.all(res.keys.map((k) => ns.get(k.name, 'json') as Promise<Candidate | null>));
+    for (const c of batch) if (c) out.push(c);
+    if (res.list_complete) break;
+    cursor = res.cursor;
+  }
+  return out;
+}
+
 export async function deleteCandidate(ns: KVNamespace, type: CaseStudyType, stableKey: string): Promise<void> {
   await ns.delete(kv.candidate(type, stableKey));
 }

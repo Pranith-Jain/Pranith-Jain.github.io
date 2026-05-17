@@ -3,8 +3,10 @@ import {
   putCandidate,
   getCandidate,
   listCandidates,
+  listAllCandidates,
   deleteCandidate,
 } from '../../../src/case-study/storage/candidates';
+import { countByPrefix } from '../../../src/case-study/storage/kv-util';
 import type { Candidate } from '../../../src/case-study/types';
 
 function mockKV() {
@@ -77,6 +79,32 @@ describe('candidates storage', () => {
     expect(cves).toHaveLength(2);
     const actors = await listCandidates(kv, 'actor');
     expect(actors).toHaveLength(1);
+  });
+
+  it('listAllCandidates returns every type in one pass', async () => {
+    const kv = mockKV() as any;
+    await putCandidate(kv, sampleCandidate);
+    await putCandidate(kv, { ...sampleCandidate, key: 'cve-2026-5678' });
+    await putCandidate(kv, { ...sampleCandidate, key: 'actor-fin7', type: 'actor' });
+    await putCandidate(kv, { ...sampleCandidate, key: 'ransom-akira', type: 'ransom' });
+    const all = await listAllCandidates(kv);
+    expect(all).toHaveLength(4);
+    expect(new Set(all.map((c) => c.type))).toEqual(new Set(['cve', 'actor', 'ransom']));
+  });
+
+  it('countByPrefix counts keys without fetching bodies', async () => {
+    const kv = mockKV() as any;
+    let gets = 0;
+    const origGet = kv.get.bind(kv);
+    kv.get = async (...a: unknown[]) => {
+      gets += 1;
+      return origGet(...a);
+    };
+    await putCandidate(kv, sampleCandidate);
+    await putCandidate(kv, { ...sampleCandidate, key: 'actor-fin7', type: 'actor' });
+    const n = await countByPrefix(kv, 'candidates:');
+    expect(n).toBe(2);
+    expect(gets).toBe(0);
   });
 
   it('deleteCandidate removes the entry', async () => {

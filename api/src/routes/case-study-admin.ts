@@ -2,7 +2,8 @@ import { Hono } from 'hono';
 import type { Env } from '../env';
 import type { Candidate, CaseStudyType, Post, PostIOC, PostSource, SocialContent } from '../case-study/types';
 import { requireAdminToken } from '../case-study/auth';
-import { listCandidates, getCandidate, deleteCandidate } from '../case-study/storage/candidates';
+import { listAllCandidates, getCandidate, deleteCandidate } from '../case-study/storage/candidates';
+import { countByPrefix } from '../case-study/storage/kv-util';
 import { approve, unapprove, listApproved, getApproved } from '../case-study/storage/approved';
 import { getSchedule, setSchedule, markSlotStatus, removeSlot } from '../case-study/storage/schedule';
 import { putPost, listPostIndex, removePost } from '../case-study/storage/posts';
@@ -39,8 +40,8 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
   admin.use('*', requireAdminToken);
 
   admin.get('/candidates', async (c) => {
-    const all: Candidate[] = [];
-    for (const t of TYPES) all.push(...(await listCandidates(c.env.CASE_STUDIES, t)));
+    // One KV.list across all types instead of 12 per-type list ops.
+    const all = await listAllCandidates(c.env.CASE_STUDIES);
     all.sort((a, b) => b.score - a.score);
     return c.json({ pending: all });
   });
@@ -353,14 +354,23 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
   });
 
   admin.get('/health', async (c) => {
-    const pending: Candidate[] = [];
-    for (const t of TYPES) pending.push(...(await listCandidates(c.env.CASE_STUDIES, t)));
+    // Counts only — list keys, never fetch bodies. Previously this read
+    // every candidate/approved/failure body (12 list ops + dozens of gets)
+    // just to call .length. Now: 3 prefix list-counts + 2 single gets.
+    const ns = c.env.CASE_STUDIES;
+    const [pendingCount, approvedCount, failureCount, schedule, postsIndex] = await Promise.all([
+      countByPrefix(ns, csKvKeys.candidatesAllPrefix),
+      countByPrefix(ns, csKvKeys.approvedPrefix),
+      countByPrefix(ns, 'failed:'),
+      getSchedule(ns),
+      listPostIndex(ns),
+    ]);
     return c.json({
-      pendingCount: pending.length,
-      approvedCount: (await listApproved(c.env.CASE_STUDIES)).length,
-      scheduleCount: (await getSchedule(c.env.CASE_STUDIES)).length,
-      failureCount: (await listFailures(c.env.CASE_STUDIES)).length,
-      postsCount: (await listPostIndex(c.env.CASE_STUDIES)).length,
+      pendingCount,
+      approvedCount,
+      scheduleCount: schedule.length,
+      failureCount,
+      postsCount: postsIndex.length,
     });
   });
 

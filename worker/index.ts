@@ -420,11 +420,28 @@ export default {
             const db = env.BRIEFINGS_DB as D1Database;
             const yesterday = new Date(Date.now() - 86400_000);
             const slug = `daily-${yesterday.toISOString().slice(0, 10)}`;
-            const existing = await db.prepare('SELECT 1 FROM briefings WHERE slug = ?').bind(slug).first();
-            if (existing) return;
+            // Rebuild when the row is missing OR empty. The old `SELECT 1`
+            // check treated an empty/clobbered briefing as "done" and never
+            // self-healed it (this is why daily-2026-05-16 stayed at 0
+            // findings). writeBriefing's own guard still prevents a transient
+            // empty rebuild from clobbering a row that's already rich.
+            const row = await db
+              .prepare('SELECT stats_json FROM briefings WHERE slug = ?')
+              .bind(slug)
+              .first<{ stats_json: string }>();
+            if (row) {
+              let rich = false;
+              try {
+                const s = JSON.parse(row.stats_json || '{}') as { findings?: number; iocs?: number };
+                rich = (s.findings ?? 0) > 0 || (s.iocs ?? 0) > 0;
+              } catch {
+                rich = false;
+              }
+              if (rich) return;
+            }
             try {
               const briefing = await buildBriefing('daily');
-              const result = await writeBriefing(db, briefing, { skipIfExists: true });
+              const result = await writeBriefing(db, briefing);
               if (result.written) {
                 console.log(
                   `scheduled(catch-up): wrote ${briefing.slug} (findings=${briefing.stats.findings}, iocs=${briefing.stats.iocs})`
