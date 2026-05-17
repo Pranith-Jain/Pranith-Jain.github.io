@@ -40,6 +40,17 @@ export default {
         display: ['"Bricolage Grotesque"', '"Hanken Grotesk"', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', 'monospace'],
       },
+      // Named type scale — the one source of truth replacing the ad-hoc
+      // text-[11px]/[12px]/[13px] + arbitrary tracking scattered across the
+      // app. Additive (no Tailwind defaults overridden): adopt incrementally.
+      //   eyebrow  → uppercase section labels (was text-[11px] tracking-[0.18em])
+      //   meta     → captions / counts / footnotes (was text-[12px])
+      //   tool     → tile + card descriptions (was text-[13px])
+      fontSize: {
+        eyebrow: ['0.6875rem', { lineHeight: '1rem', letterSpacing: '0.16em' }],
+        meta: ['0.75rem', { lineHeight: '1.1rem' }],
+        tool: ['0.8125rem', { lineHeight: '1.25rem' }],
+      },
       boxShadow: {
         glow: '0 0 0 1px rgba(37, 99, 235, 0.25), 0 18px 60px rgba(37, 99, 235, 0.15)',
         // Removed unused glow-cyan/pink/purple (0 references; neon-AI tell).

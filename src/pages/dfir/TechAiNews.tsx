@@ -50,6 +50,12 @@ const SECTIONS: Section[] = [
     blurb: 'Broader infrastructure, OS, networking, devices, and the security crossover.',
     feedIds: ['ars-tech', 'mit-tech-review'],
   },
+  {
+    id: 'yc',
+    label: 'YC & startups',
+    blurb: 'Y Combinator essays and announcements, plus the Hacker News front page.',
+    feedIds: ['yc-blog', 'hn-frontpage'],
+  },
 ];
 
 const ALL_FEED_IDS = SECTIONS.flatMap((s) => s.feedIds);

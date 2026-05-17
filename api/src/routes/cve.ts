@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { safeErrorMessage } from '../lib/error';
+import { fetchResilient } from '../lib/fetch-resilient';
 
 const CVE_RE = /^CVE-\d{4}-\d{4,7}$/i;
 
@@ -146,8 +147,8 @@ export async function cveSearchHandler(c: Context<{ Bindings: Env }>) {
   const epssUrl = `https://api.first.org/data/v1/epss?cve=${cveId}`;
 
   const [nvdRes, epssRes, kevVulns] = await Promise.all([
-    fetch(nvdUrl, { headers: { 'User-Agent': NVD_UA } }).catch(() => null),
-    fetch(epssUrl, { headers: { 'User-Agent': NVD_UA } }).catch(() => null),
+    fetchResilient(nvdUrl, { headers: { 'User-Agent': NVD_UA } }, { attempts: 3, timeoutMs: 8000 }).catch(() => null),
+    fetchResilient(epssUrl, { headers: { 'User-Agent': NVD_UA } }, { attempts: 2, timeoutMs: 6000 }).catch(() => null),
     fetchKev(),
   ]);
 

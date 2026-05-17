@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { fetchResilient } from '../lib/fetch-resilient';
 
 /**
  * Server-side feed aggregator. Cuts client-side network calls from N (one per
@@ -218,17 +219,23 @@ async function fetchOne(url: string, perSource: number): Promise<AggregatedItem[
   const parsed = new URL(url);
   if (!ALLOWED_HOSTS.has(parsed.hostname.toLowerCase())) return [];
   try {
-    const res = await fetch(url, {
-      redirect: 'follow',
-      headers: {
-        'user-agent':
-          'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) pranithjain-rss/1.0 Safari/537.36',
-        accept: 'application/rss+xml, application/atom+xml, application/xml;q=0.9, text/xml;q=0.9, */*;q=0.5',
-        'accept-language': 'en-US,en;q=0.9',
-      },
-      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-      cf: { cacheTtl: CACHE_TTL_SECONDS, cacheEverything: true },
-    });
+    // Retry transient 429/5xx — several upstreams (hnrss.org, ycombinator,
+    // some vendor blogs) rate-limit the shared Worker IP; one miss used to
+    // silently drop the whole feed for the visit.
+    const res = await fetchResilient(
+      url,
+      {
+        redirect: 'follow',
+        headers: {
+          'user-agent':
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) pranithjain-rss/1.0 Safari/537.36',
+          accept: 'application/rss+xml, application/atom+xml, application/xml;q=0.9, text/xml;q=0.9, */*;q=0.5',
+          'accept-language': 'en-US,en;q=0.9',
+        },
+        cf: { cacheTtl: CACHE_TTL_SECONDS, cacheEverything: true },
+      } as RequestInit,
+      { attempts: 3, timeoutMs: FETCH_TIMEOUT_MS }
+    );
     if (res.status === 429) {
       // Surface to wrangler tail so ops see which upstreams are pushing
       // back. Per-source degradation is acceptable here — the aggregator

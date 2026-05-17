@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { abuseipdb } from '../providers/abuseipdb';
+import { fetchResilient } from '../lib/fetch-resilient';
 
 /**
  * IP geolocation + reputation lookup.
@@ -89,15 +90,14 @@ export interface IpGeoResponse {
 
 async function fetchIpApi(ip: string): Promise<IpApiResponse | null> {
   try {
-    const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT);
     // Bitmask 66846719 = all useful fields except those we don't render.
-    // ip-api.com free tier is HTTP-only; we serve the result over HTTPS.
-    const res = await fetch(`http://ip-api.com/json/${encodeURIComponent(ip)}?fields=66846719`, {
-      signal: ctrl.signal,
-      headers: { 'user-agent': 'pranithjain-dfir/1.0' },
-    });
-    clearTimeout(timer);
+    // ip-api.com free tier is HTTP-only (45 req/min/IP — rate-limits the
+    // shared Worker IP), so retry on 429/5xx via fetchResilient.
+    const res = await fetchResilient(
+      `http://ip-api.com/json/${encodeURIComponent(ip)}?fields=66846719`,
+      { headers: { 'user-agent': 'pranithjain-dfir/1.0' } },
+      { attempts: 3, timeoutMs: FETCH_TIMEOUT }
+    );
     if (!res.ok) return null;
     return (await res.json()) as IpApiResponse;
   } catch {
