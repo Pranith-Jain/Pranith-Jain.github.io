@@ -43,8 +43,8 @@ interface CveResponse {
 
 const SEVERITY_PILL: Record<RecentCve['severity'], string> = {
   CRITICAL: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
-  HIGH: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
-  MEDIUM: 'border-yellow-500/40 bg-yellow-500/10 text-yellow-700 dark:text-yellow-300',
+  HIGH: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
+  MEDIUM: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   LOW: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
   NONE: 'border-slate-300 dark:border-slate-700 text-slate-500',
   UNKNOWN: 'border-slate-300 dark:border-slate-700 text-slate-500',
@@ -68,7 +68,7 @@ const ORIGIN_PILL: Record<RecentCve['origin'], { label: string; cls: string; too
   },
   cvefeed: {
     label: 'cvefeed.io',
-    cls: 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
+    cls: 'border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300',
     tooltip: 'Gap-filled from cvefeed.io high-severity feed — not yet in NVD',
   },
 };
@@ -361,7 +361,7 @@ export default function CveList(): JSX.Element {
                             href={a.mitre_url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="px-1.5 py-0.5 rounded border border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300 hover:underline lowercase tracking-normal"
+                            className="px-1.5 py-0.5 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:underline lowercase tracking-normal"
                             title={`MITRE ${a.mitre_id} · ${a.mitre_name}`}
                           >
                             {a.slug}
@@ -370,7 +370,7 @@ export default function CveList(): JSX.Element {
                         ) : (
                           <span
                             key={a.slug}
-                            className="px-1.5 py-0.5 rounded border border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300 lowercase tracking-normal"
+                            className="px-1.5 py-0.5 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 lowercase tracking-normal"
                             title="curated actor (not yet in MITRE)"
                           >
                             {a.slug}

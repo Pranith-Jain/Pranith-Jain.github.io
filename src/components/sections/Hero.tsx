@@ -9,34 +9,34 @@ export function Hero() {
       <div className="grid items-center gap-12 lg:grid-cols-[1.2fr_0.8fr]">
         {/* Left Content */}
         <div className="animate-fade-in-up">
-          {/* Badges */}
-          <div className="mb-6 flex flex-wrap items-center gap-3">
-            <span className="inline-flex items-center gap-2 rounded-full border border-brand-200/50 bg-brand-50/50 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-brand-700 backdrop-blur-md dark:border-brand-800/50 dark:bg-brand-900/30 dark:text-brand-300">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping motion-reduce:animate-none absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
-              </span>
-              Certified Cyber Criminologist
+          {/* One live status pill — the rest moved to an editorial meta line
+              below (chip-soup is the generic SaaS tell; this reads authored). */}
+          <div className="mb-7 flex items-center gap-2.5 text-[11px] font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping motion-reduce:animate-none absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
             </span>
-            <span className="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-4 py-1.5 text-xs font-semibold text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200">
-              Threat Intelligence
-            </span>
-            <span className="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-4 py-1.5 text-xs font-semibold text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200">
-              Email Defense
-            </span>
-            <span className="inline-flex items-center gap-2 rounded-full border border-emerald-200/70 bg-emerald-50/70 px-4 py-1.5 text-xs font-semibold text-emerald-700 shadow-sm backdrop-blur-xl dark:border-emerald-800/50 dark:bg-emerald-900/30 dark:text-emerald-300">
-              AU Ambassador Program
-            </span>
+            Certified Cyber Criminologist
           </div>
 
-          {/* Headline */}
-          <h1 className="text-3xl font-extrabold leading-[1.2] tracking-tight sm:text-4xl lg:text-5xl text-slate-900 dark:text-white">
-            &quot;Investigating attacks at human scale.{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-brand-400 dark:from-brand-400 dark:to-brand-200">
-              Building defenders at AI scale.
-            </span>
-            &quot;
+          {/* Headline — editorial. Solid display type carries the character;
+              the accent clause is a flat brand color, not a gradient-clip
+              (the single most overused AI-portfolio move). */}
+          <h1 className="font-display text-[2.1rem] font-extrabold leading-[1.08] tracking-[-0.02em] sm:text-5xl lg:text-[3.4rem] text-slate-900 dark:text-white">
+            Investigating attacks at human scale.{' '}
+            <span className="text-brand-600 dark:text-brand-400">Building defenders at AI scale.</span>
           </h1>
+
+          {/* Discipline line — replaces the secondary chips */}
+          <div className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-medium text-slate-500 dark:text-slate-400">
+            <span>Threat Intelligence</span>
+            <span className="text-slate-300 dark:text-slate-700">/</span>
+            <span>Email Defense</span>
+            <span className="text-slate-300 dark:text-slate-700">/</span>
+            <span>DFIR &amp; Detection</span>
+            <span className="text-slate-300 dark:text-slate-700">/</span>
+            <span className="text-emerald-600 dark:text-emerald-400">AU Ambassador</span>
+          </div>
 
           {/* Description */}
           <p className="mt-8 max-w-2xl text-xl leading-relaxed text-slate-700 dark:text-slate-300">

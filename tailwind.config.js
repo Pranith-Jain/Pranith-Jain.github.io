@@ -18,6 +18,17 @@ export default {
           900: '#1f267c',
           950: '#121649',
         },
+        // Canonical severity scale. The codebase expresses criticality with
+        // ad-hoc rose/amber/emerald (and stray yellow/violet); these named
+        // tokens are the one source of truth for new/aligned UI so a
+        // critical finding never looks like a footer note.
+        severity: {
+          critical: '#e11d48', // rose-600
+          high: '#f43f5e', // rose-500
+          medium: '#f59e0b', // amber-500
+          low: '#10b981', // emerald-500
+          info: '#0ea5e9', // sky-500
+        },
         // Removed the unused `neon` cyberpunk palette (cyan/pink/purple/green) —
         // 0 references, a generic-AI tell carried in config dead weight.
       },

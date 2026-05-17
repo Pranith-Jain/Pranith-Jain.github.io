@@ -110,9 +110,7 @@ export default function DFIRPage(): JSX.Element {
                   className="text-slate-300 dark:text-slate-700 group-hover:text-brand-500 transition-colors"
                 />
               </div>
-              <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed">
-                {GROUP_META[g].blurb}
-              </p>
+              <p className="text-[13px] text-slate-600 dark:text-slate-400 leading-relaxed">{GROUP_META[g].blurb}</p>
             </Link>
           ))}
         </div>
