@@ -31,7 +31,7 @@ export function registerBlogRoutes(app: Hono<{ Bindings: Env }>): void {
     if (type) filtered = filtered.filter((p) => p.type === type);
     if (tag) filtered = filtered.filter((p) => p.tags.includes(tag));
     const res = c.json({ posts: filtered }, 200, {
-      'cache-control': 'public, max-age=300, s-maxage=300, stale-while-revalidate=3600',
+      'cache-control': 'public, max-age=900, s-maxage=1800, stale-while-revalidate=86400',
     });
     c.executionCtx.waitUntil(cache.put(c.req.raw, res.clone()));
     return res;
@@ -52,7 +52,7 @@ export function registerBlogRoutes(app: Hono<{ Bindings: Env }>): void {
     // re-parses raw markup with an unsanitizing renderer.
     const bodyHtml = renderMarkdown(post.body);
     const res = c.json({ post, bodyHtml }, 200, {
-      'cache-control': 'public, max-age=600, s-maxage=1800, stale-while-revalidate=86400',
+      'cache-control': 'public, max-age=3600, s-maxage=7200, stale-while-revalidate=86400',
     });
     c.executionCtx.waitUntil(cache.put(c.req.raw, res.clone()));
     return res;

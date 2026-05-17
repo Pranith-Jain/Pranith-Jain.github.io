@@ -6,7 +6,7 @@ import { runPublisher } from '../../src/case-study/publishing/publisher';
 import { putCandidate, deleteCandidate, listCandidates } from '../../src/case-study/storage/candidates';
 import { approve, listApproved, getApproved, unapprove } from '../../src/case-study/storage/approved';
 import { getSchedule, setSchedule, markSlotStatus, pickDueSlot } from '../../src/case-study/storage/schedule';
-import { touchDedup, getDedup } from '../../src/case-study/storage/dedup';
+import { touchDedup, touchDedupMany, getDedup } from '../../src/case-study/storage/dedup';
 import { putPost, getPost, listPostIndex } from '../../src/case-study/storage/posts';
 import { recordFailure } from '../../src/case-study/storage/failed';
 import { generatePost } from '../../src/case-study/generation';
@@ -81,7 +81,7 @@ describe('e2e CVE golden path', () => {
         ransom: async () => [],
       },
       putCandidate: (c) => putCandidate(kv, c),
-      touchDedup: (k, n) => touchDedup(kv, k, n),
+      commitDedup: (keys, n) => touchDedupMany(kv, keys, n),
       now: tStart,
     });
     const cves = await listCandidates(kv, 'cve');

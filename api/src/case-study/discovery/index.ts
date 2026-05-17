@@ -5,7 +5,8 @@ export interface RunDiscoveryDeps {
    *  intel, …) slot in without changing the orchestrator. */
   runners: Record<string, () => Promise<Candidate[]>>;
   putCandidate: (c: Candidate) => Promise<void>;
-  touchDedup: (key: string, now: Date) => Promise<void>;
+  /** Mark all kept stable-keys "seen" in ONE batched read+write. */
+  commitDedup: (keys: string[], now: Date) => Promise<void>;
   now: Date;
   /**
    * Max candidates kept *per topic* (default 3). Selection is per-topic, not
@@ -53,8 +54,12 @@ export async function runDiscovery(deps: RunDiscoveryDeps): Promise<RunDiscovery
 
   for (const c of kept) {
     await deps.putCandidate(c);
-    await deps.touchDedup(c.key, deps.now);
   }
+  // One read+write for the whole dedup map instead of one per kept candidate.
+  await deps.commitDedup(
+    kept.map((c) => c.key),
+    deps.now
+  );
 
   console.log(
     JSON.stringify({

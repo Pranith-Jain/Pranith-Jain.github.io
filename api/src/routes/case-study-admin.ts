@@ -4,6 +4,7 @@ import type { Candidate, CaseStudyType, Post, PostIOC, PostSource, SocialContent
 import { requireAdminToken } from '../case-study/auth';
 import { listAllCandidates, getCandidate, deleteCandidate } from '../case-study/storage/candidates';
 import { countByPrefix } from '../case-study/storage/kv-util';
+import { getDedup, touchDedup } from '../case-study/storage/dedup';
 import { approve, unapprove, listApproved, getApproved } from '../case-study/storage/approved';
 import { getSchedule, setSchedule, markSlotStatus, removeSlot } from '../case-study/storage/schedule';
 import { putPost, listPostIndex, removePost } from '../case-study/storage/posts';
@@ -133,10 +134,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     const candidate = await getApproved(c.env.CASE_STUDIES, candidateId);
     if (!candidate) {
       // Already published via approved/publish-now; sync the slot
-      const dedup = await c.env.CASE_STUDIES.get<{ lastSeenAt: string; publishedSlug?: string }>(
-        csKvKeys.dedup(candidateId),
-        'json'
-      );
+      const dedup = await getDedup(c.env.CASE_STUDIES, candidateId);
       if (dedup?.publishedSlug) {
         await markSlotStatus(c.env.CASE_STUDIES, candidateId, 'published', { publishedSlug: dedup.publishedSlug });
         return c.json({ ok: true, slug: dedup.publishedSlug, title: dedup.publishedSlug });
@@ -156,10 +154,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
 
       await markSlotStatus(c.env.CASE_STUDIES, candidateId, 'published', { publishedSlug: post.slug });
       await unapprove(c.env.CASE_STUDIES, candidate.key);
-      await c.env.CASE_STUDIES.put(
-        csKvKeys.dedup(candidate.key),
-        JSON.stringify({ lastSeenAt: now.toISOString(), publishedSlug: post.slug })
-      );
+      await touchDedup(c.env.CASE_STUDIES, candidate.key, now, post.slug);
 
       return c.json({ ok: true, slug: post.slug, title: post.title });
     } catch (err) {
@@ -267,10 +262,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
       await c.env.CASE_STUDIES.put(csKvKeys.metaRss, rss);
 
       await unapprove(c.env.CASE_STUDIES, candidate.key);
-      await env.CASE_STUDIES.put(
-        csKvKeys.dedup(candidate.key),
-        JSON.stringify({ lastSeenAt: now.toISOString(), publishedSlug: post.slug })
-      );
+      await touchDedup(env.CASE_STUDIES, candidate.key, now, post.slug);
 
       return c.json({ ok: true, slug: post.slug, title: post.title });
     } catch (err) {

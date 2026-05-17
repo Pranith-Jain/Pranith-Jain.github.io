@@ -28,7 +28,7 @@ describe('runDiscovery', () => {
       putCandidate: async (c: Candidate) => {
         writes.push(c);
       },
-      touchDedup: async () => {},
+      commitDedup: async () => {},
       now: new Date('2026-05-14T06:00:00Z'),
     };
     const result = await runDiscovery(env as any);
@@ -55,7 +55,7 @@ describe('runDiscovery', () => {
       putCandidate: async (c: Candidate) => {
         writes.push(c);
       },
-      touchDedup: async () => {},
+      commitDedup: async () => {},
       now: new Date('2026-05-14T06:00:00Z'),
       perTopic: 2,
     };
@@ -73,7 +73,7 @@ describe('runDiscovery', () => {
         ransom: async () => [sampleC('ran-1', 'ransom', 0.6)],
       },
       putCandidate: async () => {},
-      touchDedup: async () => {},
+      commitDedup: async () => {},
       now: new Date('2026-05-14T06:00:00Z'),
       limit: 2,
     };
@@ -96,7 +96,7 @@ describe('runDiscovery', () => {
       putCandidate: async (c: Candidate) => {
         writes.push(c);
       },
-      touchDedup: async () => {},
+      commitDedup: async () => {},
       now: new Date('2026-05-14T06:00:00Z'),
     };
     const result = await runDiscovery(env as any);

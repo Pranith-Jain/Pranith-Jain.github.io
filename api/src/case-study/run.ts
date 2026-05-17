@@ -20,7 +20,7 @@ import { runPublisher } from './publishing/publisher';
 import { putCandidate } from './storage/candidates';
 import { listApproved, getApproved, unapprove } from './storage/approved';
 import { setSchedule, markSlotStatus, pickDueSlot } from './storage/schedule';
-import { getDedup, touchDedup } from './storage/dedup';
+import { loadDedupMap, touchDedup, touchDedupMany } from './storage/dedup';
 import { putPost, listPostIndex } from './storage/posts';
 import { recordFailure } from './storage/failed';
 import { renderRss } from './rendering/rss';
@@ -38,41 +38,46 @@ export interface CaseStudyEnv {
   BRIEFINGS_DB?: D1Database;
 }
 
-export function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
+export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
+  // Load the dedup map ONCE. Every runner scores novelty against this
+  // in-memory snapshot — 0 KV reads in the runners (was ~1 read per
+  // candidate, ~80-150 reads per daily run).
+  const dedupMap = await loadDedupMap(env.CASE_STUDIES);
+  const memGet = (k: string) => Promise.resolve(dedupMap[k] ?? null);
   return runDiscovery({
     runners: {
-      cve: () => discoverCves({ fetch: globalThis.fetch, now, getDedup: (k) => getDedup(env.CASE_STUDIES, k) }),
+      cve: () => discoverCves({ fetch: globalThis.fetch, now, getDedup: memGet }),
       actor: () =>
         discoverActors({
           fetch: globalThis.fetch,
           now,
-          getDedup: (k) => getDedup(env.CASE_STUDIES, k),
+          getDedup: memGet,
           feeds: ACTOR_RSS_FEEDS,
         }),
       malware: () =>
         discoverMalware({
           fetch: globalThis.fetch,
           now,
-          getDedup: (k) => getDedup(env.CASE_STUDIES, k),
+          getDedup: memGet,
           abuseChKey: env.ABUSECH_AUTH_KEY ?? '',
         }),
       ransom: () =>
         discoverRansomware({
           fetchVictims: () => fetchRecentVictims(globalThis.fetch),
           now,
-          getDedup: (k) => getDedup(env.CASE_STUDIES, k),
+          getDedup: memGet,
         }),
-      breach: () => discoverBreaches({ fetch: globalThis.fetch, now, getDedup: (k) => getDedup(env.CASE_STUDIES, k) }),
-      scam: () => discoverScams({ fetch: globalThis.fetch, now, getDedup: (k) => getDedup(env.CASE_STUDIES, k) }),
-      aisec: () => discoverAiSec({ fetch: globalThis.fetch, now, getDedup: (k) => getDedup(env.CASE_STUDIES, k) }),
-      intel: () => discoverIntel({ fetch: globalThis.fetch, now, getDedup: (k) => getDedup(env.CASE_STUDIES, k) }),
+      breach: () => discoverBreaches({ fetch: globalThis.fetch, now, getDedup: memGet }),
+      scam: () => discoverScams({ fetch: globalThis.fetch, now, getDedup: memGet }),
+      aisec: () => discoverAiSec({ fetch: globalThis.fetch, now, getDedup: memGet }),
+      intel: () => discoverIntel({ fetch: globalThis.fetch, now, getDedup: memGet }),
       briefing: () =>
         env.BRIEFINGS_DB
-          ? discoverBriefing({ briefingsDb: env.BRIEFINGS_DB, now, getDedup: (k) => getDedup(env.CASE_STUDIES, k) })
+          ? discoverBriefing({ briefingsDb: env.BRIEFINGS_DB, now, getDedup: memGet })
           : Promise.resolve([]),
     },
     putCandidate: (c) => putCandidate(env.CASE_STUDIES, c),
-    touchDedup: (k, n) => touchDedup(env.CASE_STUDIES, k, n),
+    commitDedup: (keys, n) => touchDedupMany(env.CASE_STUDIES, keys, n),
     now,
   });
 }
