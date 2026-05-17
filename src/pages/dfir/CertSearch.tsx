@@ -216,7 +216,7 @@ export default function CertSearch(): JSX.Element {
                 {data.issuers.slice(0, 8).map((i, ii) => (
                   <span
                     key={`${i.name}-${ii}`}
-                    className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300"
+                    className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300"
                   >
                     {i.name} · {i.count}
                   </span>
@@ -288,7 +288,7 @@ export default function CertSearch(): JSX.Element {
                   }`}
                 >
                   <div className="flex flex-wrap items-baseline justify-between gap-2 mb-1">
-                    <span className="text-[11px] font-mono text-violet-700 dark:text-violet-300">{it.issuer}</span>
+                    <span className="text-[11px] font-mono text-brand-700 dark:text-brand-300">{it.issuer}</span>
                     <span className="text-[10px] font-mono text-slate-500 dark:text-slate-500">
                       {it.not_before?.slice(0, 10)} → {it.not_after?.slice(0, 10)}
                       {it.revoked && (
