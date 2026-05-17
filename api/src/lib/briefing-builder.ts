@@ -458,31 +458,57 @@ async function fetchKev(): Promise<KevEntry[]> {
  * page. We page until exhausted, with a hard cap so a runaway pagination
  * loop can't blow the briefing budget.
  */
+/**
+ * NVD anonymous access is aggressively throttled (and the shared Cloudflare
+ * egress IP gets 403/503 bursts). A swallowed failure here used to surface as
+ * a briefing that falsely says "no high/critical CVEs published". So: retry
+ * each page with backoff, and if the FIRST page never succeeds, THROW — the
+ * caller distinguishes "NVD genuinely empty" (resolved []) from "NVD
+ * unreachable" (rejected) and refuses to persist a false all-clear.
+ */
 async function fetchNvdRecent(start: Date, end: Date): Promise<NvdCve[]> {
   const fmt = (d: Date) => d.toISOString().replace(/Z$/, '+00:00');
   const out: NvdCve[] = [];
   const PAGE = 2000;
   const HARD_CAP = 4000; // 2 pages — enough headroom for any 7-day window
   let startIndex = 0;
+  let anyPageOk = false;
   for (let i = 0; i < 4 && out.length < HARD_CAP; i++) {
     const url =
       `${NVD_API}?pubStartDate=${encodeURIComponent(fmt(start))}` +
       `&pubEndDate=${encodeURIComponent(fmt(end))}` +
       `&resultsPerPage=${PAGE}&startIndex=${startIndex}`;
-    try {
-      const res = await fetch(url, {
-        headers: { 'user-agent': NVD_UA, accept: 'application/json' },
-        signal: AbortSignal.timeout(20_000),
-        cf: { cacheTtlByStatus: { '200-299': 1800, '400-599': 0 }, cacheEverything: true },
-      } as RequestInit);
-      if (!res.ok) break;
-      const json = (await res.json()) as NvdResponse & { totalResults?: number };
-      const batch = json.vulnerabilities ?? [];
-      for (const v of batch) if (v.cve) out.push(v.cve);
-      if (batch.length < PAGE) break;
-      startIndex += PAGE;
-    } catch {
-      break;
+    let pageOk = false;
+    let lastErr: unknown;
+    for (let attempt = 0; attempt < 3; attempt++) {
+      if (attempt > 0) await new Promise((r) => setTimeout(r, 1500 * attempt + Math.random() * 800));
+      try {
+        const res = await fetch(url, {
+          headers: { 'user-agent': NVD_UA, accept: 'application/json' },
+          signal: AbortSignal.timeout(20_000),
+          cf: { cacheTtlByStatus: { '200-299': 1800, '400-599': 0 }, cacheEverything: true },
+        } as RequestInit);
+        if (!res.ok) {
+          lastErr = new Error(`NVD ${res.status}`);
+          // 4xx other than 429 won't fix on retry; 429/5xx might.
+          if (res.status !== 429 && res.status < 500) break;
+          continue;
+        }
+        const json = (await res.json()) as NvdResponse & { totalResults?: number };
+        const batch = json.vulnerabilities ?? [];
+        for (const v of batch) if (v.cve) out.push(v.cve);
+        pageOk = true;
+        anyPageOk = true;
+        if (batch.length < PAGE) return out;
+        startIndex += PAGE;
+        break;
+      } catch (e) {
+        lastErr = e;
+      }
+    }
+    if (!pageOk) {
+      if (!anyPageOk) throw lastErr instanceof Error ? lastErr : new Error('NVD unreachable');
+      break; // a later page failed but we have earlier data — return partial
     }
   }
   return out;
@@ -810,14 +836,25 @@ export async function buildBriefing(type: BriefingType, anchor: Date = new Date(
   // OpenPhish (2026-05-13) was removed because parseOpenPhish emits no per-entry
   // timestamps — every entry was silently dropped by matchTimestamp, so the fetch
   // was wasted latency that never contributed to a single briefing.
-  const [kev, urlhaus, malwarebazaar, threatfox, tweetfeed, nvdRecent] = await Promise.all([
-    fetchKev().catch(() => [] as KevEntry[]),
+  const wrap = <T>(p: Promise<T>, fallback: T) =>
+    p.then((v) => ({ ok: true, v })).catch(() => ({ ok: false, v: fallback }));
+  const [kevR, urlhaus, malwarebazaar, threatfox, tweetfeed, nvdR] = await Promise.all([
+    wrap(fetchKev(), [] as KevEntry[]),
     fetchAbuseFeed('urlhaus').catch(() => [] as IocEntry[]),
     fetchAbuseFeed('malwarebazaar').catch(() => [] as IocEntry[]),
     fetchAbuseFeed('threatfox').catch(() => [] as IocEntry[]),
     fetchAbuseFeed('tweetfeed').catch(() => [] as IocEntry[]),
-    fetchNvdRecent(rangeStart, rangeEnd).catch(() => [] as NvdCve[]),
+    wrap(fetchNvdRecent(rangeStart, rangeEnd), [] as NvdCve[]),
   ]);
+  // If BOTH primary finding sources are unreachable, this isn't a quiet day —
+  // it's an outage. Abort instead of persisting a briefing that falsely
+  // reports "no new high/critical CVEs / no KEV entries". The cron logs the
+  // throw and keeps any prior briefing; a later hourly run self-heals.
+  if (!kevR.ok && !nvdR.ok) {
+    throw new Error('briefing aborted: both CISA KEV and NVD upstreams failed');
+  }
+  const kev = kevR.v;
+  const nvdRecent = nvdR.v;
 
   // Findings: KEV-added-in-window first (these are the high-signal items —
   // CISA only adds a CVE to KEV when active exploitation is observed), then
