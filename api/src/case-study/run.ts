@@ -29,7 +29,6 @@ import { kv as csKvKeys } from './kv-keys';
 import { ACTOR_RSS_FEEDS, SITE_URL } from './config';
 import { fetchRecentVictims } from './ransom-source';
 import type { D1Database } from '@cloudflare/workers-types';
-import type { Post } from './types';
 
 /** The subset of bindings the case-study pipeline needs. */
 export interface CaseStudyEnv {
@@ -96,14 +95,9 @@ export function runPublisherNow(env: CaseStudyEnv, now: Date) {
     generatePost: (cand, n) => generatePost({ candidate: cand, ai: env.AI as never, now: n }),
     putPost: (p) => putPost(env.CASE_STUDIES, p),
     refreshRss: async () => {
-      const index = await listPostIndex(env.CASE_STUDIES);
-      const posts = await Promise.all(
-        index.map(async (e) => (await env.CASE_STUDIES.get(csKvKeys.post(e.slug), 'json')) as Post | null)
-      );
-      const rss = renderRss(
-        posts.filter((p): p is Post => p !== null),
-        { siteUrl: SITE_URL }
-      );
+      // RSS only needs index-level fields — render straight from the posts
+      // index (1 KV read) instead of fan-out-reading every full post.
+      const rss = renderRss(await listPostIndex(env.CASE_STUDIES), { siteUrl: SITE_URL });
       await env.CASE_STUDIES.put(csKvKeys.metaRss, rss);
     },
     touchDedup: (k, when, slug) => touchDedup(env.CASE_STUDIES, k, when, slug),

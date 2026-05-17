@@ -50,13 +50,17 @@ describe('GET /api/v1/feeds/proxy', () => {
     expect(r.status).toBe(502);
   });
 
-  it('returns 502 when upstream issues a redirect', async () => {
+  it('refuses an upstream redirect to a non-allow-listed host (403)', async () => {
     vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(
       new Response(null, { status: 302, headers: { location: 'https://evil.example/' } })
     );
     const r = await SELF.fetch(
       'https://x/api/v1/feeds/proxy?url=' + encodeURIComponent('https://www.cisa.gov/feed.xml')
     );
-    expect(r.status).toBe(502);
+    // SSRF guard: the proxy follows redirects only within the allow-list.
+    // evil.example is not allow-listed, so the redirect is refused, not followed.
+    expect(r.status).toBe(403);
+    const body = (await r.json()) as { error?: string };
+    expect(body.error).toMatch(/non-allow-listed host/i);
   });
 });

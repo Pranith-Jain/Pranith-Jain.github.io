@@ -8,7 +8,15 @@ export interface RenderRssInput {
   siteUrl: string;
 }
 
-export function renderRss(posts: Post[], { siteUrl }: RenderRssInput): string {
+/**
+ * RSS only needs slug/title/type/excerpt/publishedAt — every one of which is
+ * already in PostIndexEntry. Accepting this minimal shape lets callers render
+ * the feed straight from the posts index (a single KV read) instead of
+ * fan-out-reading every full Post on each rebuild.
+ */
+export type RssItem = Pick<Post, 'slug' | 'title' | 'type' | 'excerpt' | 'publishedAt'>;
+
+export function renderRss(posts: RssItem[], { siteUrl }: RenderRssInput): string {
   const items = posts
     .map((p) => {
       const url = `${siteUrl}/blog/${p.slug}`;

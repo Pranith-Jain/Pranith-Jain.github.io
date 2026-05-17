@@ -39,11 +39,12 @@ function buildLinkedinPrompt(post: Post): string {
   return (
     `**LINKEDIN POST (format only — voice and hook come from the rules above):**\n` +
     `- Open with a hook constructed from THIS case's specific facts, per the hook-construction rules. No PAS template, no canned opener.\n` +
-    `- Then the analysis: what makes this case notable, the pattern or contrast in the data, the technical detail that matters (use whatever of CVSS / CWE / exploit chain / affected versions / detection logic / victimology the facts actually support — don't pad).\n` +
-    `- A few concrete, fact-tied defensive takeaways. No generic advice.\n` +
+    `- Then the analysis: what makes this case notable, the pattern or contrast in the data, the technical detail that matters (use whatever of CVSS / CWE / exploit chain / affected versions / detection logic / victimology the facts actually support, don't pad).\n` +
+    `- Include ONE scannable list (use "- " bullets, 4-8 items) of the concrete specifics the facts contain: the named victims, or affected products/versions, or CVEs, or advisories, or IOCs. Pick whichever the data actually has. This is the reference value of the post, do not skip it.\n` +
+    `- Defensive takeaways must be specific to THIS threat model and non-obvious. Never the generic checklist ("keep software updated", "train employees", "robust firewall rules", "regular backups"). If the facts don't support concrete technical defense, say plainly what actually reduces exposure to this pattern (e.g. the detection gap, the access vector, the recovery posture) in one or two sharp sentences instead of padding a list.\n` +
     `- Close with one substantive question that provokes thought (not "what do you think?"), then on its own final line the link: ${postUrl}\n` +
-    `- 1200-1800 characters. Short paragraphs. Bold a key phrase or two with **asterisks** only where it earns it.\n` +
-    `- No hashtags. No emojis. No raw URLs in the body — the link goes only on the final line.\n` +
+    `- Length: 1400-1800 characters (this is a floor, not a target to barely clear, the analysis and the list should fill it honestly). Short paragraphs. Bold a key phrase or two with **asterisks** only where it earns it.\n` +
+    `- No hashtags. No emojis. No raw URLs in the body, the link goes only on the final line.\n` +
     `\n---\n\n` +
     `CASE STUDY TITLE: ${post.title}\n\n` +
     `CASE STUDY BODY:\n${post.body}`

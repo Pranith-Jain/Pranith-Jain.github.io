@@ -148,13 +148,9 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
       const post = await generatePost({ candidate, ai: c.env.AI as never, now });
       await putPost(c.env.CASE_STUDIES, post);
 
-      const index = await listPostIndex(c.env.CASE_STUDIES);
-      const allPosts = (
-        await Promise.all(
-          index.map(async (e) => (await c.env.CASE_STUDIES.get(csKvKeys.post(e.slug), 'json')) as Post | null)
-        )
-      ).filter((p): p is Post => p !== null);
-      const rss = renderRss(allPosts, { siteUrl: SITE_URL });
+      // RSS only needs index-level fields — render straight from the posts
+      // index (1 KV read) instead of fan-out-reading every full post.
+      const rss = renderRss(await listPostIndex(c.env.CASE_STUDIES), { siteUrl: SITE_URL });
       await c.env.CASE_STUDIES.put(csKvKeys.metaRss, rss);
 
       await markSlotStatus(c.env.CASE_STUDIES, candidateId, 'published', { publishedSlug: post.slug });
@@ -243,13 +239,9 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
 
     await putPost(c.env.CASE_STUDIES, post);
 
-    const index = await listPostIndex(c.env.CASE_STUDIES);
-    const allPosts = (
-      await Promise.all(
-        index.map(async (e) => (await c.env.CASE_STUDIES.get(csKvKeys.post(e.slug), 'json')) as Post | null)
-      )
-    ).filter((p): p is Post => p !== null);
-    const rss = renderRss(allPosts, { siteUrl: SITE_URL });
+    // RSS only needs index-level fields — render straight from the posts
+    // index (1 KV read) instead of fan-out-reading every full post.
+    const rss = renderRss(await listPostIndex(c.env.CASE_STUDIES), { siteUrl: SITE_URL });
     await c.env.CASE_STUDIES.put(csKvKeys.metaRss, rss);
 
     return c.json({ ok: true, slug });
@@ -268,13 +260,9 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
       const post = await generatePost({ candidate, ai: c.env.AI as never, now });
       await putPost(c.env.CASE_STUDIES, post);
 
-      const index = await listPostIndex(c.env.CASE_STUDIES);
-      const allPosts = (
-        await Promise.all(
-          index.map(async (e) => (await c.env.CASE_STUDIES.get(csKvKeys.post(e.slug), 'json')) as Post | null)
-        )
-      ).filter((p): p is Post => p !== null);
-      const rss = renderRss(allPosts, { siteUrl: SITE_URL });
+      // RSS only needs index-level fields — render straight from the posts
+      // index (1 KV read) instead of fan-out-reading every full post.
+      const rss = renderRss(await listPostIndex(c.env.CASE_STUDIES), { siteUrl: SITE_URL });
       await c.env.CASE_STUDIES.put(csKvKeys.metaRss, rss);
 
       await unapprove(c.env.CASE_STUDIES, candidate.key);

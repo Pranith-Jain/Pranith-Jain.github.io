@@ -46,7 +46,8 @@ describe('LinkedIn prompt', () => {
         expect(user).toContain('hook constructed from THIS case');
         expect(user).toContain('No PAS template');
         expect(user).toContain('No raw URLs in the body');
-        expect(user).toContain('1200-1800 characters');
+        expect(user).toContain('1400-1800 characters');
+        expect(user).toContain('ONE scannable list');
         expect(user).not.toContain('using PAS (Problem, Agitation, Solution)');
         expect(user).not.toContain('engagement bait throughout');
       }),

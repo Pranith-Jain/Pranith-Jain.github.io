@@ -1,5 +1,7 @@
 import { SELF } from 'cloudflare:test';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi, afterEach } from 'vitest';
+
+afterEach(() => vi.restoreAllMocks());
 
 const SAMPLE = `From: "Bank" <noreply@bank.com>
 To: victim@gmail.com
@@ -19,6 +21,12 @@ describe('POST /api/v1/phishing/analyze', () => {
   });
 
   it('analyzes malicious-looking email', async () => {
+    // The handler cross-checks extracted URLs against 5 live TI providers
+    // (AbortSignal.timeout 8s). With no network in the test env those fetches
+    // hang to the timeout and blow the 5s test budget. Make them fail fast —
+    // each provider call is already individually .catch()'d, so the verdict
+    // falls back to the header/auth heuristic (which flags this SAMPLE).
+    vi.spyOn(globalThis, 'fetch').mockRejectedValue(new Error('offline (test)'));
     const r = await SELF.fetch('https://x/api/v1/phishing/analyze', {
       method: 'POST',
       headers: { 'content-type': 'text/plain' },
