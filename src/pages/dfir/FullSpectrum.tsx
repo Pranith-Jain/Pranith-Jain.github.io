@@ -113,7 +113,7 @@ const TOOL_CONFIG: Array<{ key: ToolKey; label: string; icon: typeof Shield; bui
     key: 'cert_search',
     label: 'Cert Search',
     icon: FileSearch,
-    buildUrl: (d) => `/api/v1/cert-search?q=${encodeURIComponent(d)}`,
+    buildUrl: (d) => `/api/v1/cert-search?domain=${encodeURIComponent(d)}`,
   },
   {
     key: 'breach',

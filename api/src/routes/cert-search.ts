@@ -64,7 +64,9 @@ export interface CertSearchResponse {
 }
 
 export async function certSearchHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const domain = (c.req.query('domain') ?? '').trim().toLowerCase();
+  // Accept `q` as an alias for `domain` — the page's deep-links and
+  // FullSpectrum use ?q=, the form uses ?domain=. One handler, both.
+  const domain = (c.req.query('domain') ?? c.req.query('q') ?? '').trim().toLowerCase();
   if (!domain) return c.json({ error: 'missing domain' }, 400);
   if (!DOMAIN_RE.test(domain)) {
     return c.json({ error: 'invalid domain (expected fqdn like example.com)' }, 400);
