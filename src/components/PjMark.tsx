@@ -23,7 +23,7 @@ export function PjMark({ className }: { className?: string }): JSX.Element {
         dominantBaseline="central"
         textAnchor="middle"
         fill="white"
-        fontFamily="Poppins, sans-serif"
+        fontFamily="'Bricolage Grotesque', sans-serif"
         fontWeight="800"
         fontSize="16"
       >

@@ -152,7 +152,7 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
                   dominantBaseline="central"
                   textAnchor="middle"
                   fill="white"
-                  fontFamily="Poppins, sans-serif"
+                  fontFamily="'Bricolage Grotesque', sans-serif"
                   fontWeight="800"
                   fontSize="16"
                 >

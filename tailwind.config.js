@@ -18,23 +18,20 @@ export default {
           900: '#1f267c',
           950: '#121649',
         },
-        neon: {
-          cyan: '#00fff9',
-          pink: '#ff006e',
-          purple: '#8b5cf6',
-          green: '#00ff88',
-        },
+        // Removed the unused `neon` cyberpunk palette (cyan/pink/purple/green) —
+        // 0 references, a generic-AI tell carried in config dead weight.
       },
       fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        display: ['Poppins', 'sans-serif'],
-        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', 'Liberation Mono', 'monospace'],
+        // Distinctive, domain-fit type system (replaced generic Inter/Poppins/
+        // Space Grotesk). Bricolage Grotesque = characterful display, Hanken
+        // Grotesk = clean readable body, JetBrains Mono = forensic IOC/terminal.
+        sans: ['"Hanken Grotesk"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['"Bricolage Grotesque"', '"Hanken Grotesk"', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', 'monospace'],
       },
       boxShadow: {
         glow: '0 0 0 1px rgba(37, 99, 235, 0.25), 0 18px 60px rgba(37, 99, 235, 0.15)',
-        'glow-cyan': '0 0 30px rgba(0, 255, 249, 0.5)',
-        'glow-pink': '0 0 30px rgba(255, 0, 110, 0.5)',
-        'glow-purple': '0 0 30px rgba(139, 92, 246, 0.5)',
+        // Removed unused glow-cyan/pink/purple (0 references; neon-AI tell).
       },
       animation: {
         'float-enhanced': 'float-enhanced 6s ease-in-out infinite',
