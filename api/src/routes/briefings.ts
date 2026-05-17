@@ -35,12 +35,37 @@ function dbOrError(c: Context<{ Bindings: Env }>): D1Database | null {
   return db;
 }
 
+/**
+ * Edge-cache key for briefing reads.
+ *
+ * `caches.default` stores the whole Response (headers included). Keying on the
+ * raw request URL means a Response cached by older code sticks around for its
+ * original max-age no matter what — that's why a 26-row D1 still showed 1
+ * briefing for hours after the restore. Keying on a *versioned* synthetic URL
+ * makes every cached entry disposable: bump BRIEFINGS_CACHE_VERSION and every
+ * stale briefing entry is abandoned on the next request (cache miss -> fresh
+ * D1 read). Also lets the cron bust the list after writing a briefing.
+ */
+const BRIEFINGS_CACHE_VERSION = 'v2';
+
+function briefingsCacheKey(c: Context<{ Bindings: Env }>): Request {
+  const u = new URL(c.req.url);
+  return new Request(`https://briefings-cache.internal/${BRIEFINGS_CACHE_VERSION}${u.pathname}${u.search}`, {
+    method: 'GET',
+  });
+}
+
+// Short TTL: a restore or the daily cron should surface within minutes, not
+// hours. SWR keeps it cheap (one revalidation per window, stale served free).
+const BRIEFINGS_CC = 'public, max-age=300, s-maxage=300, stale-while-revalidate=600';
+
 export async function listBriefingsHandler(c: Context<{ Bindings: Env }>) {
   const db = dbOrError(c);
   if (!db) return c.json({ error: 'briefings database not bound' }, 503);
   try {
     const cache = caches.default;
-    const cached = await cache.match(c.req.raw);
+    const key = briefingsCacheKey(c);
+    const cached = await cache.match(key);
     if (cached) return cached;
 
     const typeRaw = c.req.query('type');
@@ -48,12 +73,11 @@ export async function listBriefingsHandler(c: Context<{ Bindings: Env }>) {
     const limitRaw = c.req.query('limit');
     const limit = limitRaw ? Math.min(Math.max(parseInt(limitRaw, 10) || 20, 1), 100) : 20;
     const items = await listBriefings(db, { type, limit });
-    const lastMod = new Date().toUTCString();
     const res = c.json({ items }, 200, {
-      'cache-control': 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400',
-      'last-modified': lastMod,
+      'cache-control': BRIEFINGS_CC,
+      'last-modified': new Date().toUTCString(),
     });
-    c.executionCtx.waitUntil(cache.put(c.req.raw, res.clone()));
+    c.executionCtx.waitUntil(cache.put(key, res.clone()));
     return res;
   } catch (err) {
     console.error('listBriefingsHandler error:', err);
@@ -69,15 +93,16 @@ export async function getBriefingHandler(c: Context<{ Bindings: Env }>) {
     return c.json({ error: 'invalid slug' }, 400);
   }
   const cache = caches.default;
-  const cached = await cache.match(c.req.raw);
+  const key = briefingsCacheKey(c);
+  const cached = await cache.match(key);
   if (cached) return cached;
   const briefing = await readBriefing(db, slug);
   if (!briefing) return c.json({ error: 'not found' }, 404);
   const res = c.json(enrichBriefingWithTags(briefing), 200, {
-    'cache-control': 'public, max-age=3600, s-maxage=7200, stale-while-revalidate=86400',
+    'cache-control': BRIEFINGS_CC,
     'last-modified': new Date().toUTCString(),
   });
-  c.executionCtx.waitUntil(cache.put(c.req.raw, res.clone()));
+  c.executionCtx.waitUntil(cache.put(key, res.clone()));
   return res;
 }
 
@@ -85,7 +110,8 @@ export async function todayBriefingHandler(c: Context<{ Bindings: Env }>) {
   const db = dbOrError(c);
   if (!db) return c.json({ error: 'briefings database not bound' }, 503);
   const cache = caches.default;
-  const cached = await cache.match(c.req.raw);
+  const key = briefingsCacheKey(c);
+  const cached = await cache.match(key);
   if (cached) return cached;
   // "today's" briefing covers the previous calendar day (latest fully-closed window)
   const now = new Date();
@@ -94,10 +120,10 @@ export async function todayBriefingHandler(c: Context<{ Bindings: Env }>) {
   const briefing = await readBriefing(db, slug);
   if (!briefing) return c.json({ error: 'not yet generated', slug }, 404);
   const res = c.json(enrichBriefingWithTags(briefing), 200, {
-    'cache-control': 'public, max-age=3600, s-maxage=3600',
+    'cache-control': BRIEFINGS_CC,
     'last-modified': new Date().toUTCString(),
   });
-  c.executionCtx.waitUntil(cache.put(c.req.raw, res.clone()));
+  c.executionCtx.waitUntil(cache.put(key, res.clone()));
   return res;
 }
 

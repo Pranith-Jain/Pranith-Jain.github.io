@@ -80,7 +80,9 @@ export async function briefingsRssHandler(c: Context<{ Bindings: Env }>): Promis
   }
 
   const cache = (caches as unknown as { default: Cache }).default;
-  const cacheKey = new Request('https://briefings-rss-cache.internal/v1');
+  // v2: bumped after the KV->D1 history restore so the RSS edge cache drops
+  // its stale pre-restore body (was showing a single briefing).
+  const cacheKey = new Request('https://briefings-rss-cache.internal/v2');
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
