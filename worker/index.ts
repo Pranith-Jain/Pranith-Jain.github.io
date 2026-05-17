@@ -6,13 +6,13 @@ import {
   sweepOldBriefings,
 } from '../api/src/lib/briefing-builder';
 import { runDiscoveryNow, runPlannerNow, runPublisherNow, type CaseStudyEnv } from '../api/src/case-study/run';
-import type { Ai } from '@cloudflare/workers-types';
+import type { Ai, D1Database } from '@cloudflare/workers-types';
 
 export interface Env {
   ASSETS: { fetch: (req: Request) => Promise<Response> };
   KV_CACHE?: KVNamespace;
   KV_SHARES?: KVNamespace;
-  BRIEFINGS?: KVNamespace;
+  BRIEFINGS_DB?: D1Database;
   CASE_STUDIES: KVNamespace;
   AI: Ai;
   R2_FILES?: R2Bucket;
@@ -414,17 +414,17 @@ export default {
       // not, build it. Skip at UTC hour 0 — the daily cron is 5 minutes away
       // and will produce a fresher version. Independent from the warm work
       // below so a slow build can't delay snapshot warming.
-      if (env.BRIEFINGS && new Date().getUTCHours() !== 0) {
+      if (env.BRIEFINGS_DB && new Date().getUTCHours() !== 0) {
         ctx.waitUntil(
           (async () => {
-            const kv = env.BRIEFINGS as KVNamespace;
+            const db = env.BRIEFINGS_DB as D1Database;
             const yesterday = new Date(Date.now() - 86400_000);
             const slug = `daily-${yesterday.toISOString().slice(0, 10)}`;
-            const existing = await kv.get(`briefing:${slug}`);
+            const existing = await db.prepare('SELECT 1 FROM briefings WHERE slug = ?').bind(slug).first();
             if (existing) return;
             try {
               const briefing = await buildBriefing('daily');
-              const result = await writeBriefing(kv, briefing, { skipIfExists: true });
+              const result = await writeBriefing(db, briefing, { skipIfExists: true });
               if (result.written) {
                 console.log(
                   `scheduled(catch-up): wrote ${briefing.slug} (findings=${briefing.stats.findings}, iocs=${briefing.stats.iocs})`
@@ -489,8 +489,8 @@ export default {
     }
 
     // Briefings cron path.
-    if (!env.BRIEFINGS) {
-      console.warn('scheduled: BRIEFINGS KV not bound, skipping');
+    if (!env.BRIEFINGS_DB) {
+      console.warn('scheduled: BRIEFINGS_DB not bound, skipping');
       return;
     }
     const isWeekly = cron === '15 0 * * 1';
@@ -498,19 +498,19 @@ export default {
 
     ctx.waitUntil(
       (async () => {
-        const kv = env.BRIEFINGS as KVNamespace;
+        const db = env.BRIEFINGS_DB as D1Database;
         try {
           const briefing = await buildBriefing(type);
-          await writeBriefing(kv, briefing);
+          await writeBriefing(db, briefing);
           console.log(
             `scheduled: wrote ${briefing.slug} (findings=${briefing.stats.findings}, iocs=${briefing.stats.iocs})`
           );
         } catch (err) {
           console.error('scheduled: briefing build failed', err);
         }
-        // Always run the sweep, even if the build failed — keeps KV tidy.
+        // Always run the sweep, even if the build failed — keeps DB tidy.
         try {
-          const result = await sweepOldBriefings(kv, BRIEFING_MAX_AGE_DAYS);
+          const result = await sweepOldBriefings(db, BRIEFING_MAX_AGE_DAYS);
           if (result.deleted.length > 0) {
             console.log(
               `scheduled: swept ${result.deleted.length} old briefings (${result.deleted.join(', ')}); kept ${result.kept}`

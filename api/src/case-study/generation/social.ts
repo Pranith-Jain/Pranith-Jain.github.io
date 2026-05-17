@@ -1,6 +1,7 @@
 import type { Ai } from '@cloudflare/workers-types';
 import type { Post } from '../types';
 import { runCompletion } from './ai-client';
+import { COPYWRITING_RULES, QUALITY_CHECKS, PIPELINE_OUTPUT_GUARDRAIL } from './copywriting';
 
 export interface SocialContent {
   slug: string;
@@ -10,44 +11,27 @@ export interface SocialContent {
 }
 
 const SOCIAL_SYSTEM =
-  `You are a security researcher sharing findings from a case study. ` +
-  `Your audience is other analysts and security professionals. ` +
-  `Write like a peer: factual, direct, no fluff, no hype.` +
+  `You are a security copywriter turning a case study into scroll-stopping, platform-native social posts for security professionals.\n\n` +
+  COPYWRITING_RULES +
   `\n\n` +
-  `THREAT INTEL FRAMING:` +
-  `\n- Connect findings to TTPs, campaigns, or actor behaviors.` +
-  `\n- Flag what's actionable. Specific, not generic.` +
-  `\n- Note confidence levels: "likely", "consistent with", "unconfirmed".` +
-  `\n- Call out gaps. What we don't know matters.` +
+  PIPELINE_OUTPUT_GUARDRAIL +
   `\n\n` +
-  `WRITING VOICE:` +
-  `\n- Contractions ok: doesn't, isn't, won't (not "do not", "cannot")` +
-  `\n- Evidence-driven. Specific numbers and concrete details.` +
-  `\n- No second-person ("you", "your"). Write about the finding, not the reader.` +
-  `\n\n` +
-  `BANNED FOREVER:` +
-  `\n- AI slop: unlock, leverage, seamlessly, bottleneck, game-changer, dive into` +
-  `\n- Corporate: synergy, best practices, ecosystem, move the needle` +
-  `\n- Engagement bait: "you need to know", "here's the thing", "let's talk about"` +
-  `\n- Generic: "In today's world" "Have you ever wondered" "It's no secret"` +
-  `\n- Em-dashes and semicolons. Use a dot or a comma.` +
-  `\n- Wordy: "in order to" -> "to", "due to the fact" -> "because"` +
-  `\n- Questions addressed to the reader or rhetorical questions` +
-  `\n- Second-person pronouns: you, your, you're, yourself, yours` +
-  `\n\n` +
-  `Output ONLY the final post content. No options. No reasoning. Just the publish-ready post.`;
+  QUALITY_CHECKS;
 
 function buildTwitterPrompt(post: Post): string {
+  const postUrl = `https://pranithjain.qzz.io/blog/${post.slug}`;
   return (
-    `Write a Twitter thread (3-4 tweets) sharing findings from this case study.\n\n` +
-    `Platform rules:\n` +
-    `- Tweet 1: State the finding. Not a hook, not a question — the finding itself.\n` +
-    `- Tweets 2-3: One data point, TTP, or detail per tweet. Technical and specific.\n` +
-    `- Last tweet: Takeaway or what defenders should know.\n` +
-    `- Each tweet under 280 characters. Each standalone valuable.\n` +
-    `- Use numbered format: "1/4", "2/4" etc.\n` +
-    `- No second-person ("you", "your"). Write about the subject.\n` +
-    `- No questions. No engagement bait. Just information.\n` +
+    `**X/TWITTER THREADS (5-7 tweets):**\n` +
+    `- Tweet 1: Hook that stops the scroll (use PAS)\n` +
+    `- Tweets 2-5: One clear idea per tweet, examples/data/stories\n` +
+    `- Tweet 6: Insight or revelation\n` +
+    `- Tweet 7: CTA with engagement bait, link ${postUrl}\n` +
+    `- Each <280 characters, each standalone valuable\n` +
+    `- No AI slop words (unlock, leverage, seamlessly, game-changer)\n` +
+    `- Lowercase optional for personal tone\n` +
+    `- Fragments ok. Run-ons... human texture.\n` +
+    `- End with twist or perspective shift\n` +
+    `- Number the tweets "1/7", "2/7" etc.\n` +
     `\n---\n\n` +
     `CASE STUDY TITLE: ${post.title}\n\n` +
     `CASE STUDY BODY:\n${post.body}`
@@ -55,16 +39,16 @@ function buildTwitterPrompt(post: Post): string {
 }
 
 function buildLinkedinPrompt(post: Post): string {
+  const postUrl = `https://pranithjain.qzz.io/blog/${post.slug}`;
   return (
-    `Write a LinkedIn post (200-400 characters) sharing findings from this case study.\n\n` +
-    `Platform rules:\n` +
-    `- Lead with the finding in the first sentence. What was discovered or disclosed.\n` +
-    `- Second sentence: context or impact. Why this matters.\n` +
-    `- Third sentence (optional): takeaway or CTA.\n` +
-    `- 200-400 characters total. Tight. Every word earns its place.\n` +
-    `- No hashtags. No emojis. No bullet points.\n` +
-    `- No second-person ("you", "your"). Write about the finding.\n` +
-    `- Factual and direct. Like a Bloomberg terminal alert, not a newsletter.\n` +
+    `**LINKEDIN POST:**\n` +
+    `- Open with a scroll-stopping hook using PAS (Problem, Agitation, Solution). Name the pain, twist the knife, promise the fix.\n` +
+    `- Then deliver the goods: what it is, why it hurts, and the technical breakdown the pros want. Go deep on at least 2-3 of: CVSS vector, CWE, exploit chain, affected versions, detection logic, victimology.\n` +
+    `- Numbered action checklist (3-6 concrete steps) and 3-5 IOCs or hunting patterns.\n` +
+    `- Drop engagement bait throughout: open loops, a contrarian take, a thought-provoking question, social proof.\n` +
+    `- Close with a CTA and the link: ${postUrl}\n` +
+    `- 1400-1800 characters. Numbered lists and bullets throughout. Bold key phrases with **asterisks**.\n` +
+    `- No hashtags. No emojis.\n` +
     `\n---\n\n` +
     `CASE STUDY TITLE: ${post.title}\n\n` +
     `CASE STUDY BODY:\n${post.body}`
@@ -91,7 +75,7 @@ export async function generateSocialContent(post: Post, ai: Ai, now: Date): Prom
       system: SOCIAL_SYSTEM,
       user: buildLinkedinPrompt(post),
       temperature: 0.7,
-      maxTokens: 1500,
+      maxTokens: 3000,
     }),
   ]);
 
@@ -126,7 +110,7 @@ export async function generateLinkedinContent(
     system: SOCIAL_SYSTEM,
     user: buildLinkedinPrompt(post),
     temperature: 0.7,
-    maxTokens: 1500,
+    maxTokens: 3000,
   });
   return { linkedin: res.text.trim(), generatedAt: now.toISOString() };
 }

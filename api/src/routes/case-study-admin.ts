@@ -30,6 +30,7 @@ const TYPES: CaseStudyType[] = [
   'osint',
   'methodology',
   'trend',
+  'briefing',
 ];
 
 export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {

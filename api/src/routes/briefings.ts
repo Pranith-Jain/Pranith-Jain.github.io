@@ -1,4 +1,5 @@
 import type { Context } from 'hono';
+import type { D1Database } from '@cloudflare/workers-types';
 import type { Env } from '../env';
 import {
   BRIEFING_MAX_AGE_DAYS,
@@ -15,7 +16,7 @@ import { extractBriefingTags } from '../lib/briefing-tags';
 /**
  * Walk every finding in the briefing and attach auto-extracted tags
  * (CVE IDs, known ransomware actors, heuristic sector). Lazy — applied on
- * read so existing KV-stored briefings get tags without a backfill.
+ * read so existing DB-stored briefings get tags without a backfill.
  */
 function enrichBriefingWithTags(b: Briefing): Briefing {
   const sections = b.sections.map((s) => ({
@@ -28,45 +29,76 @@ function enrichBriefingWithTags(b: Briefing): Briefing {
   return { ...b, sections } as Briefing;
 }
 
-function kvOrError(c: Context<{ Bindings: Env }>): KVNamespace | null {
-  const kv = c.env.BRIEFINGS;
-  if (!kv) return null;
-  return kv;
+function dbOrError(c: Context<{ Bindings: Env }>): D1Database | null {
+  const db = c.env.BRIEFINGS_DB;
+  if (!db) return null;
+  return db;
 }
 
 export async function listBriefingsHandler(c: Context<{ Bindings: Env }>) {
-  const kv = kvOrError(c);
-  if (!kv) return c.json({ error: 'briefings KV not bound' }, 503);
-  const typeRaw = c.req.query('type');
-  const type = typeRaw === 'daily' || typeRaw === 'weekly' ? (typeRaw as BriefingType) : undefined;
-  const limitRaw = c.req.query('limit');
-  const limit = limitRaw ? Math.min(Math.max(parseInt(limitRaw, 10) || 20, 1), 100) : 20;
-  const items = await listBriefings(kv, { type, limit });
-  return c.json({ items }, 200, { 'cache-control': 'public, max-age=300, s-maxage=600' });
+  const db = dbOrError(c);
+  if (!db) return c.json({ error: 'briefings database not bound' }, 503);
+  try {
+    const cache = caches.default;
+    const cached = await cache.match(c.req.raw);
+    if (cached) return cached;
+
+    const typeRaw = c.req.query('type');
+    const type = typeRaw === 'daily' || typeRaw === 'weekly' ? (typeRaw as BriefingType) : undefined;
+    const limitRaw = c.req.query('limit');
+    const limit = limitRaw ? Math.min(Math.max(parseInt(limitRaw, 10) || 20, 1), 100) : 20;
+    const items = await listBriefings(db, { type, limit });
+    const lastMod = new Date().toUTCString();
+    const res = c.json({ items }, 200, {
+      'cache-control': 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400',
+      'last-modified': lastMod,
+    });
+    c.executionCtx.waitUntil(cache.put(c.req.raw, res.clone()));
+    return res;
+  } catch (err) {
+    console.error('listBriefingsHandler error:', err);
+    return c.json({ error: String(err) }, 500);
+  }
 }
 
 export async function getBriefingHandler(c: Context<{ Bindings: Env }>) {
-  const kv = kvOrError(c);
-  if (!kv) return c.json({ error: 'briefings KV not bound' }, 503);
+  const db = dbOrError(c);
+  if (!db) return c.json({ error: 'briefings database not bound' }, 503);
   const slug = c.req.param('slug');
   if (!slug || !/^[a-z0-9-]+$/i.test(slug)) {
     return c.json({ error: 'invalid slug' }, 400);
   }
-  const briefing = await readBriefing(kv, slug);
+  const cache = caches.default;
+  const cached = await cache.match(c.req.raw);
+  if (cached) return cached;
+  const briefing = await readBriefing(db, slug);
   if (!briefing) return c.json({ error: 'not found' }, 404);
-  return c.json(enrichBriefingWithTags(briefing), 200, { 'cache-control': 'public, max-age=600, s-maxage=1800' });
+  const res = c.json(enrichBriefingWithTags(briefing), 200, {
+    'cache-control': 'public, max-age=3600, s-maxage=7200, stale-while-revalidate=86400',
+    'last-modified': new Date().toUTCString(),
+  });
+  c.executionCtx.waitUntil(cache.put(c.req.raw, res.clone()));
+  return res;
 }
 
 export async function todayBriefingHandler(c: Context<{ Bindings: Env }>) {
-  const kv = kvOrError(c);
-  if (!kv) return c.json({ error: 'briefings KV not bound' }, 503);
+  const db = dbOrError(c);
+  if (!db) return c.json({ error: 'briefings database not bound' }, 503);
+  const cache = caches.default;
+  const cached = await cache.match(c.req.raw);
+  if (cached) return cached;
   // "today's" briefing covers the previous calendar day (latest fully-closed window)
   const now = new Date();
   const yesterday = new Date(now.getTime() - 86400_000);
   const slug = `daily-${yesterday.toISOString().slice(0, 10)}`;
-  const briefing = await readBriefing(kv, slug);
+  const briefing = await readBriefing(db, slug);
   if (!briefing) return c.json({ error: 'not yet generated', slug }, 404);
-  return c.json(enrichBriefingWithTags(briefing), 200, { 'cache-control': 'public, max-age=300' });
+  const res = c.json(enrichBriefingWithTags(briefing), 200, {
+    'cache-control': 'public, max-age=3600, s-maxage=3600',
+    'last-modified': new Date().toUTCString(),
+  });
+  c.executionCtx.waitUntil(cache.put(c.req.raw, res.clone()));
+  return res;
 }
 
 /**
@@ -111,8 +143,8 @@ function requireAdmin(c: AdminCtx): { error: Response } | { ok: true } {
  * Set BRIEFINGS_ADMIN_TOKEN as a Worker secret. If unset, this handler is disabled.
  */
 export async function buildBriefingHandler(c: AdminCtx) {
-  const kv = kvOrError(c);
-  if (!kv) return c.json({ error: 'briefings KV not bound' }, 503);
+  const db = c.env.BRIEFINGS_DB;
+  if (!db) return c.json({ error: 'briefings database not bound' }, 503);
   const auth = requireAdmin(c);
   if ('error' in auth) return auth.error;
 
@@ -123,7 +155,7 @@ export async function buildBriefingHandler(c: AdminCtx) {
 
   try {
     const briefing = await buildBriefing(typeRaw as BriefingType);
-    await writeBriefing(kv, briefing);
+    await writeBriefing(db, briefing);
     return c.json({ ok: true, slug: briefing.slug, stats: briefing.stats }, 200);
   } catch (err) {
     console.error('briefing build failed:', err);
@@ -150,8 +182,8 @@ export async function buildBriefingHandler(c: AdminCtx) {
  *   500 if absolutely nothing succeeded.
  */
 export async function backfillBriefingsHandler(c: AdminCtx) {
-  const kv = kvOrError(c);
-  if (!kv) return c.json({ error: 'briefings KV not bound' }, 503);
+  const db = c.env.BRIEFINGS_DB;
+  if (!db) return c.json({ error: 'briefings database not bound' }, 503);
   const auth = requireAdmin(c);
   if ('error' in auth) return auth.error;
 
@@ -171,7 +203,7 @@ export async function backfillBriefingsHandler(c: AdminCtx) {
     const anchor = new Date(Date.now() - i * 86400_000);
     try {
       const briefing = await buildBriefing('daily', anchor);
-      const result = await writeBriefing(kv, briefing, { skipIfExists: !force });
+      const result = await writeBriefing(db, briefing, { skipIfExists: !force });
       (result.written ? writtenDaily : skippedDaily).push(briefing.slug);
     } catch (err) {
       console.error('backfill daily failed:', err);
@@ -183,7 +215,7 @@ export async function backfillBriefingsHandler(c: AdminCtx) {
     const anchor = new Date(Date.now() - i * 7 * 86400_000);
     try {
       const briefing = await buildBriefing('weekly', anchor);
-      const result = await writeBriefing(kv, briefing, { skipIfExists: !force });
+      const result = await writeBriefing(db, briefing, { skipIfExists: !force });
       (result.written ? writtenWeekly : skippedWeekly).push(briefing.slug);
     } catch (err) {
       console.error('backfill weekly failed:', err);
@@ -216,8 +248,8 @@ export async function backfillBriefingsHandler(c: AdminCtx) {
  * to the ceiling so the sweep can never extend retention beyond policy.
  */
 export async function sweepBriefingsHandler(c: AdminCtx) {
-  const kv = kvOrError(c);
-  if (!kv) return c.json({ error: 'briefings KV not bound' }, 503);
+  const db = c.env.BRIEFINGS_DB;
+  if (!db) return c.json({ error: 'briefings database not bound' }, 503);
   const auth = requireAdmin(c);
   if ('error' in auth) return auth.error;
 
@@ -226,7 +258,7 @@ export async function sweepBriefingsHandler(c: AdminCtx) {
   const maxAge = Math.min(requested, BRIEFING_MAX_AGE_DAYS);
 
   try {
-    const result = await sweepOldBriefings(kv, maxAge);
+    const result = await sweepOldBriefings(db, maxAge);
     return c.json({ ok: true, max_age_days: maxAge, ...result }, 200);
   } catch (err) {
     console.error('sweep failed:', err);

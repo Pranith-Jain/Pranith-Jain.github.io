@@ -1,4 +1,5 @@
 import type { Context } from 'hono';
+import type { D1Database } from '@cloudflare/workers-types';
 import type { Env } from '../env';
 import { listBriefings, readBriefing, type Briefing } from '../lib/briefing-builder';
 
@@ -73,9 +74,9 @@ function itemDescription(b: Briefing): string {
 }
 
 export async function briefingsRssHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const kv = c.env.BRIEFINGS;
-  if (!kv) {
-    return c.text('briefings KV not bound', 503, { 'cache-control': 'no-store' });
+  const db = c.env.BRIEFINGS_DB;
+  if (!db) {
+    return c.text('briefings database not bound', 503, { 'cache-control': 'no-store' });
   }
 
   const cache = (caches as unknown as { default: Cache }).default;
@@ -83,10 +84,10 @@ export async function briefingsRssHandler(c: Context<{ Bindings: Env }>): Promis
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
-  const list = await listBriefings(kv, { limit: MAX_ITEMS });
+  const list = await listBriefings(db, { limit: MAX_ITEMS });
 
   // Fetch full bodies in parallel; tolerate per-item failures.
-  const settled = await Promise.allSettled(list.map((it) => readBriefing(kv, it.slug)));
+  const settled = await Promise.allSettled(list.map((it) => readBriefing(db, it.slug)));
   type Enriched = { slug: string; meta: BriefingMeta; body: Briefing | null };
   const items: Enriched[] = list.map((it, i) => {
     const r = settled[i];

@@ -23,10 +23,6 @@
 	},
 	"kv_namespaces": [
 		{
-			"binding": "BRIEFINGS",
-			"id": "d7a0a96be0ef452087baef1172bbbe34"
-		},
-		{
 			"binding": "KV_CACHE",
 			"id": "5125e769e49f4a1586f81d1935f9856a"
 		},
@@ -34,6 +30,13 @@
 			"binding": "CASE_STUDIES",
 			"id": "e6876bf17dcb4845aac079f355978235",
 			"remote": true
+		}
+	],
+	"d1_databases": [
+		{
+			"binding": "BRIEFINGS_DB",
+			"database_name": "pranithjain-briefings",
+			"database_id": "1ef56666-b41c-4d20-9bd4-841b4d214be8"
 		}
 	],
 	"ai": {

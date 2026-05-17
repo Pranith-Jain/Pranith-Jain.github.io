@@ -104,7 +104,7 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
-  const kv = c.env.BRIEFINGS;
+  const briefingsDb = c.env.BRIEFINGS_DB;
 
   const [ransomware, telegram, onion, scam, threatIntel, techAi, rules, briefings, threatMap] = await Promise.all([
     safe(async () => {
@@ -147,8 +147,8 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
       };
     }),
     safe(async () => {
-      if (!kv) throw new Error('briefings KV not bound');
-      const items = await listBriefings(kv, { limit: 5 });
+      if (!briefingsDb) throw new Error('briefings database not bound');
+      const items = await listBriefings(briefingsDb, { limit: 5 });
       return { items };
     }),
     // Threat-map: read the handler's own cache first; only fall through to

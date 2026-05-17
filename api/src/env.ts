@@ -1,7 +1,9 @@
+import type { D1Database } from '@cloudflare/workers-types';
+
 export interface Env {
   KV_CACHE?: KVNamespace;
   KV_SHARES?: KVNamespace;
-  BRIEFINGS?: KVNamespace;
+  BRIEFINGS_DB?: D1Database;
   CASE_STUDIES: KVNamespace;
   R2_FILES?: R2Bucket;
   AI: Ai;

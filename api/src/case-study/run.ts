@@ -14,6 +14,7 @@ import { discoverBreaches } from './discovery/breach';
 import { discoverScams } from './discovery/scam';
 import { discoverAiSec } from './discovery/aisec';
 import { discoverIntel } from './discovery/intel';
+import { discoverBriefing } from './discovery/briefing';
 import { runPlanner } from './publishing/planner';
 import { runPublisher } from './publishing/publisher';
 import { putCandidate } from './storage/candidates';
@@ -27,13 +28,15 @@ import { generatePost } from './generation';
 import { kv as csKvKeys } from './kv-keys';
 import { ACTOR_RSS_FEEDS, SITE_URL } from './config';
 import { fetchRecentVictims } from './ransom-source';
+import type { D1Database } from '@cloudflare/workers-types';
 import type { Post } from './types';
 
 /** The subset of bindings the case-study pipeline needs. */
 export interface CaseStudyEnv {
   CASE_STUDIES: KVNamespace;
   AI: unknown;
-  ABUSE_CH_KEY?: string;
+  ABUSECH_AUTH_KEY?: string;
+  BRIEFINGS_DB?: D1Database;
 }
 
 export function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
@@ -52,7 +55,7 @@ export function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
           fetch: globalThis.fetch,
           now,
           getDedup: (k) => getDedup(env.CASE_STUDIES, k),
-          abuseChKey: env.ABUSE_CH_KEY ?? '',
+          abuseChKey: env.ABUSECH_AUTH_KEY ?? '',
         }),
       ransom: () =>
         discoverRansomware({
@@ -64,6 +67,10 @@ export function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
       scam: () => discoverScams({ fetch: globalThis.fetch, now, getDedup: (k) => getDedup(env.CASE_STUDIES, k) }),
       aisec: () => discoverAiSec({ fetch: globalThis.fetch, now, getDedup: (k) => getDedup(env.CASE_STUDIES, k) }),
       intel: () => discoverIntel({ fetch: globalThis.fetch, now, getDedup: (k) => getDedup(env.CASE_STUDIES, k) }),
+      briefing: () =>
+        env.BRIEFINGS_DB
+          ? discoverBriefing({ briefingsDb: env.BRIEFINGS_DB, now, getDedup: (k) => getDedup(env.CASE_STUDIES, k) })
+          : Promise.resolve([]),
     },
     putCandidate: (c) => putCandidate(env.CASE_STUDIES, c),
     touchDedup: (k, n) => touchDedup(env.CASE_STUDIES, k, n),

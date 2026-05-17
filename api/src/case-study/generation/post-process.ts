@@ -1,7 +1,8 @@
 import type { CaseStudyType, PostIOC, QualityScore } from '../types';
 import { requiredSections } from './templates';
 
-const PREAMBLE_RE = /^[\s\S]*?(?=##\s)/;
+// Preamble before the first ## heading is an intentional hook intro.
+// No longer stripped. The system prompt explicitly instructs a hook paragraph.
 const CVE_RE = /\bCVE-\d{4}-\d{4,7}\b/g;
 const IPV4_RE = /\b(?:(?:25[0-5]|2[0-4]\d|[01]?\d?\d)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d?\d)\b/g;
 const SHA256_RE = /\b[a-f0-9]{64}\b/gi;
@@ -62,8 +63,14 @@ function isFiller(text: string): boolean {
 /** Replace section names used without `##` prefix with proper markdown headers. */
 const ALL_HEADINGS = [
   'Summary',
+  'What is this vulnerability',
   'Affected products',
   'How it works',
+  'How the attack works',
+  'CVSS score breakdown',
+  'CVSS breakdown',
+  'Why this matters',
+  'Why it matters',
   'Exploitation in the wild',
   'Detection & mitigation',
   'Detection and mitigation',
@@ -71,6 +78,7 @@ const ALL_HEADINGS = [
   'Detection and response',
   'IOCs',
   'IOC',
+  'Indicators of compromise',
   'References',
   'Origin and attribution',
   'Known campaigns',
@@ -172,14 +180,20 @@ function stripPlaceholderRefs(body: string): string {
   return body.replace(/\[([^\]]*)]\(https?:\/\/example\.com[^)]*\)/g, '');
 }
 
+/** Ensure a blank line before the closing bold paragraph when it follows a list
+ *  (inside the References section). stripEmptySections removes blank lines, so
+ *  this must run after it. */
+function fixClosingBoldParagraph(body: string): string {
+  return body.replace(/^(\s*(?:[-+*]|\d+\.)\s.+\n)(\*\*[^*]+\*\*)/gm, '$1\n$2');
+}
+
 export function postProcess(input: PostProcessInput): PostProcessOutput {
   const errors: string[] = [];
 
   let body = input.raw;
   // Step 1: Ensure section names have ## prefix
   body = ensureMdHeaders(body);
-  // Step 2: Strip preamble before first ## heading
-  body = body.replace(PREAMBLE_RE, '').trim();
+  // Step 2: Preamble before first ## heading is an intentional hook intro. Keep it.
   // Step 3: Strip FACTS blocks
   body = body.replace(FACTS_BLOCK_RE, '').trim();
   // Step 3a: Remove example.com placeholders
@@ -191,10 +205,16 @@ export function postProcess(input: PostProcessInput): PostProcessOutput {
   // Step 5: Remove remaining old filler lines
   body = body.replace(OLD_FILLER_RE, '').trim();
   body = stripEmptySections(body);
+  // Step 6: Ensure closing bold paragraph has a blank line before it (after list)
+  body = fixClosingBoldParagraph(body);
 
-  if (!body.startsWith('##')) {
-    errors.push('output did not contain any section headers');
-    return { ok: false, body, iocs: [], errors };
+  if (!/^##\s/.test(body.trim())) {
+    // Body may start with a hook paragraph. Check that ## sections exist somewhere.
+    const sections = body.match(/^##\s+.+$/gm);
+    if (!sections || sections.length === 0) {
+      errors.push('output did not contain any section headers');
+      return { ok: false, body, iocs: [], errors };
+    }
   }
 
   for (const section of requiredSections(input.type)) {

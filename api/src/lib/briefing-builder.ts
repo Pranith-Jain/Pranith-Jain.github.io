@@ -2,14 +2,14 @@
  * Threat briefing builder.
  *
  * Aggregates CISA KEV + NVD + abuse.ch over a time window, categorises
- * findings, and produces a structured briefing object. Stored in KV under
- *   briefing:daily:YYYY-MM-DD
- *   briefing:weekly:YYYY-Www
+ * findings, and produces a structured briefing object. Stored in D1 under
+ * the `briefings` table.
  *
  * Narrative is templated — no LLM. Source data already contains the descriptions;
  * we format and group, we don't invent.
  */
 
+import type { D1Database } from '@cloudflare/workers-types';
 import { FEED_SOURCES, UNCAPPED, buildSummary, type IocEntry, type SourceId } from './ioc-feed-parsers';
 
 const NVD_UA = 'Mozilla/5.0 (compatible; pranithjain-dfir/1.0; +https://pranithjain.qzz.io)';
@@ -930,104 +930,104 @@ export async function buildBriefing(type: BriefingType, anchor: Date = new Date(
  * decision. Edge-cached upstream responses (Cache API) have their own
  * shorter TTLs and are unaffected by this constant.
  */
-export const BRIEFING_TTL_SECONDS = 30 * 86400;
 export const BRIEFING_MAX_AGE_DAYS = 30;
 
+function safeJsonParse<T>(raw: string | null | undefined, fallback: T): T {
+  if (!raw) return fallback;
+  try {
+    return JSON.parse(raw) as T;
+  } catch {
+    return fallback;
+  }
+}
+
 export async function writeBriefing(
-  kv: KVNamespace,
+  db: D1Database,
   briefing: Briefing,
   options?: { skipIfExists?: boolean }
 ): Promise<{ written: boolean; reason?: string }> {
   if (options?.skipIfExists) {
-    const existing = await kv.get(`briefing:${briefing.slug}`);
-    if (existing) {
-      return { written: false, reason: 'already_exists' };
-    }
+    const existing = await db.prepare('SELECT 1 FROM briefings WHERE slug = ?').bind(briefing.slug).first();
+    if (existing) return { written: false, reason: 'already_exists' };
   }
-  await kv.put(`briefing:${briefing.slug}`, JSON.stringify(briefing), {
-    expirationTtl: BRIEFING_TTL_SECONDS,
-    metadata: {
-      type: briefing.type,
-      title: briefing.title,
-      date: briefing.date,
-      // range_end is the last day the briefing covers (inclusive). For dailies
-      // it equals `date`; for weeklies it's the Sunday of the week. Sorting by
-      // range_end gives a coherent newest-first ordering across both types.
-      range_end: briefing.range_end,
-      date_range: briefing.date_range,
-      stats: briefing.stats,
-      sources: briefing.sources,
-    },
-  });
+  await db
+    .prepare(
+      `INSERT OR REPLACE INTO briefings (slug, type, title, date, date_range, range_start, range_end, stats_json, sources_json, body)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+    )
+    .bind(
+      briefing.slug,
+      briefing.type,
+      briefing.title,
+      briefing.date,
+      briefing.date_range,
+      briefing.range_start,
+      briefing.range_end,
+      JSON.stringify(briefing.stats),
+      JSON.stringify(briefing.sources),
+      JSON.stringify(briefing)
+    )
+    .run();
   return { written: true };
 }
 
-/**
- * Delete briefings whose `date` metadata is older than `maxAgeDays`.
- * Belt-and-braces alongside KV's expirationTtl: handles entries that pre-date
- * the TTL change (which lack expiration) and any other stragglers. Default
- * matches BRIEFING_MAX_AGE_DAYS (30); the admin handler can override but the
- * default and the TTL must stay aligned.
- */
 export async function sweepOldBriefings(
-  kv: KVNamespace,
+  db: D1Database,
   maxAgeDays = BRIEFING_MAX_AGE_DAYS,
   now: Date = new Date()
 ): Promise<{ deleted: string[]; kept: number }> {
-  const cutoffMs = now.getTime() - maxAgeDays * 86400_000;
-  const list = await kv.list({ prefix: 'briefing:', limit: 1000 });
-  const deleted: string[] = [];
-  let kept = 0;
-  for (const k of list.keys) {
-    const meta = k.metadata as { date?: string } | undefined;
-    const dateStr = meta?.date;
-    if (!dateStr) {
-      // No date metadata — be conservative, keep it.
-      kept += 1;
-      continue;
-    }
-    const t = Date.parse(`${dateStr}T00:00:00Z`);
-    if (Number.isNaN(t)) {
-      kept += 1;
-      continue;
-    }
-    if (t < cutoffMs) {
-      await kv.delete(k.name);
-      deleted.push(k.name.replace(/^briefing:/, ''));
-    } else {
-      kept += 1;
-    }
+  const cutoff = new Date(now.getTime() - maxAgeDays * 86400_000).toISOString().slice(0, 10);
+  const toDelete = await db.prepare('SELECT slug FROM briefings WHERE date < ?').bind(cutoff).all<{ slug: string }>();
+  const deleted = (toDelete.results ?? []).map((r) => r.slug);
+  if (deleted.length > 0) {
+    await db.prepare('DELETE FROM briefings WHERE date < ?').bind(cutoff).run();
   }
-  return { deleted, kept };
+  const remaining = await db.prepare('SELECT COUNT(*) as count FROM briefings').first<{ count: number }>();
+  return { deleted, kept: (remaining as { count: number } | null)?.count ?? 0 };
 }
 
 export async function listBriefings(
-  kv: KVNamespace,
+  db: D1Database,
   filter?: { type?: BriefingType; limit?: number }
-): Promise<Array<{ slug: string; metadata: unknown }>> {
+): Promise<Array<{ slug: string; metadata: Record<string, unknown> }>> {
   const limit = filter?.limit ?? 50;
-  const list = await kv.list({ prefix: 'briefing:', limit: 200 });
-  const items = list.keys
-    .map((k) => ({ slug: k.name.replace(/^briefing:/, ''), metadata: k.metadata }))
-    .filter((k) => {
-      if (!filter?.type) return true;
-      return k.slug.startsWith(filter.type);
-    })
-    .slice()
-    .sort((a, b) => {
-      // Sort by range_end (newest first) so weeklies and dailies interleave
-      // by the actual end-of-period rather than weekly's Monday-as-date.
-      const am = a.metadata as { range_end?: string; date?: string } | undefined;
-      const bm = b.metadata as { range_end?: string; date?: string } | undefined;
-      const aKey = am?.range_end ?? am?.date ?? '';
-      const bKey = bm?.range_end ?? bm?.date ?? '';
-      return bKey.localeCompare(aKey);
-    })
-    .slice(0, limit);
-  return items;
+  let query = 'SELECT slug, type, title, date, date_range, range_end, stats_json, sources_json FROM briefings';
+  const params: unknown[] = [];
+  if (filter?.type) {
+    query += ' WHERE type = ?';
+    params.push(filter.type);
+  }
+  query += ' ORDER BY range_end DESC LIMIT ?';
+  params.push(limit);
+  const result = await db
+    .prepare(query)
+    .bind(...params)
+    .all<{
+      slug: string;
+      type: string;
+      title: string;
+      date: string;
+      date_range: string;
+      range_end: string;
+      stats_json: string;
+      sources_json: string;
+    }>();
+  return (result.results ?? []).map((row) => ({
+    slug: row.slug,
+    metadata: {
+      type: row.type,
+      title: row.title,
+      date: row.date,
+      range_end: row.range_end,
+      date_range: row.date_range,
+      stats: safeJsonParse(row.stats_json, {}),
+      sources: safeJsonParse(row.sources_json, []),
+    },
+  }));
 }
 
-export async function readBriefing(kv: KVNamespace, slug: string): Promise<Briefing | null> {
-  const body = await kv.get(`briefing:${slug}`, 'json');
-  return (body as Briefing | null) ?? null;
+export async function readBriefing(db: D1Database, slug: string): Promise<Briefing | null> {
+  const row = await db.prepare('SELECT body FROM briefings WHERE slug = ?').bind(slug).first<{ body: string }>();
+  if (!row) return null;
+  return safeJsonParse((row as { body: string }).body, null);
 }

@@ -11,7 +11,8 @@ export type CaseStudyType =
   | 'intel'
   | 'osint'
   | 'methodology'
-  | 'trend';
+  | 'trend'
+  | 'briefing';
 
 export type CandidateStatus = 'pending' | 'approved' | 'skipped' | 'published';
 

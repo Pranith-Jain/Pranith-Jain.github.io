@@ -12,6 +12,7 @@ const TYPE_LABEL: Record<CaseStudyType, string> = {
   osint: 'OSINT',
   methodology: 'METHODOLOGY',
   trend: 'TREND',
+  briefing: 'BRIEFING',
 };
 
 const TYPE_HUE: Record<CaseStudyType, number> = {
@@ -26,6 +27,7 @@ const TYPE_HUE: Record<CaseStudyType, number> = {
   osint: 90,
   methodology: 260,
   trend: 320,
+  briefing: 160,
 };
 
 function xmlEscape(s: string): string {

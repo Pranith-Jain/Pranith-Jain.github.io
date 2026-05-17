@@ -30,6 +30,23 @@ function tagsFor(c: Candidate): string[] {
   if (ev?.product) t.push(slugify(String(ev.product)));
   if (ev?.family) t.push(slugify(String(ev.family)));
   if (ev?.group) t.push(slugify(String(ev.group)));
+  if (ev?.mitre_techniques) {
+    for (const tech of ev.mitre_techniques) {
+      if (typeof tech === 'string') t.push(slugify(tech));
+    }
+  }
+  if (ev?.sections) {
+    for (const section of ev.sections) {
+      for (const finding of section.findings ?? []) {
+        if (finding.vendor) t.push(slugify(String(finding.vendor)));
+        if (finding.cwes) {
+          for (const cwe of finding.cwes) {
+            if (typeof cwe === 'string') t.push(cwe.toLowerCase());
+          }
+        }
+      }
+    }
+  }
   return Array.from(new Set(t)).filter(Boolean);
 }
 
@@ -70,6 +87,27 @@ function extractSources(evidence: Record<string, unknown>): PostSource[] {
   // Breach/discovery might have a sourceUrl
   if (ev.sourceUrl && typeof ev.sourceUrl === 'string') {
     sources.push({ url: ev.sourceUrl, title: (ev.sourceTitle as string) ?? '' });
+  }
+
+  // Briefing evidence stores sources array and per-finding source_urls
+  if (Array.isArray(ev.sources)) {
+    for (const s of ev.sources) {
+      if (typeof s === 'string' && s.startsWith('http')) {
+        const title = s.includes('pranithjain.qzz.io/threatintel/briefings/')
+          ? 'Live briefing page'
+          : s.replace(/https?:\/\//, '').split('/')[0];
+        sources.push({ url: s, title });
+      }
+    }
+  }
+  if (ev.sections) {
+    for (const section of ev.sections) {
+      for (const finding of section.findings ?? []) {
+        if (finding.source_url && typeof finding.source_url === 'string') {
+          sources.push({ url: finding.source_url, title: finding.source });
+        }
+      }
+    }
   }
 
   return sources;

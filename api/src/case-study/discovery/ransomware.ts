@@ -2,6 +2,9 @@ import type { Candidate, DedupRecord } from '../types';
 import { ransomKey } from '../stable-keys';
 import { recencyScore, severityScore, noveltyScore, finalScore } from '../scoring';
 
+/** Group names that are too generic to produce meaningful content. */
+const GENERIC_GROUP_NAMES = new Set(['cmd organization', 'unknown', 'anonymous', 'generic', 'test', 'demo', 'default']);
+
 export interface Victim {
   group: string;
   victim: string;
@@ -27,6 +30,7 @@ export async function discoverRansomware(deps: DiscoverRansomwareDeps): Promise<
   const sevenDaysAgo = new Date(deps.now.getTime() - 7 * 24 * 3600 * 1000);
   const groups = new Map<string, { victims: Victim[]; latest: Date }>();
   for (const v of victims) {
+    if (v.group && GENERIC_GROUP_NAMES.has(v.group.toLowerCase())) continue;
     const posted = new Date(v.postedAt);
     if (posted < sevenDaysAgo) continue;
     const k = ransomKey(v.group, deps.now);

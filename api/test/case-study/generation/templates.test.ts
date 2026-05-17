@@ -8,11 +8,15 @@ describe('buildPrompt', () => {
       title: 'CVE-2026-1234',
       facts: { cveId: 'CVE-2026-1234', vendor: 'Fortinet' },
     });
-    expect(system).toMatch(/security analyst/i);
-    expect(user).toContain('## Summary');
+    expect(system).toContain('#COPYWRITING RULES');
+    expect(system).toContain('#ENGAGEMENT BAIT STRATEGIES');
+    expect(system).toContain('#PIPELINE OUTPUT (STRICT)');
+    expect(user).toContain('## What is this vulnerability');
     expect(user).toContain('## Affected products');
-    expect(user).toContain('## Exploitation in the wild');
-    expect(user).toContain('## IOCs');
+    expect(user).toContain('## CVSS score breakdown');
+    expect(user).toContain('## How the attack works');
+    expect(user).toContain('## Why this matters');
+    expect(user).toContain('## Indicators of compromise');
     expect(user).toContain('## References');
     expect(user).toContain('"cveId":"CVE-2026-1234"');
   });

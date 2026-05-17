@@ -4,7 +4,7 @@ import { recencyScore, severityScore, noveltyScore, finalScore } from '../scorin
 import { parseRssItems } from './rss-util';
 
 /** Public consumer-fraud / scam alert feeds (no key). */
-const FEEDS = ['https://consumer.ftc.gov/consumer-alerts/rss', 'https://www.ic3.gov/PSA/RSS'];
+const FEEDS = ['https://krebsonsecurity.com/feed/', 'https://www.ic3.gov/PSA/RSS'];
 const WINDOW_MS = 7 * 24 * 3600 * 1000;
 
 export interface DiscoverDeps {

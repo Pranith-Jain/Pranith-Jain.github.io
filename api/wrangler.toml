@@ -12,3 +12,8 @@ compatibility_flags = ["nodejs_compat"]
 [[kv_namespaces]]
 binding = "KV_CACHE"
 id = "test-only-not-deployed"
+
+[[d1_databases]]
+binding = "BRIEFINGS_DB"
+database_name = "pranithjain-briefings"
+database_id = "1ef56666-b41c-4d20-9bd4-841b4d214be8"
