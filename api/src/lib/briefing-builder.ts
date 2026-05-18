@@ -460,18 +460,19 @@ function startOfIsoWeek(d: Date): Date {
 // ---- fetchers -----------------------------------------------------------
 
 async function fetchKev(): Promise<KevEntry[]> {
-  // KEV is a reliable static CISA file, but a single transient timeout/5xx
-  // from the shared Worker IP used to drop it entirely — and if NVD also
-  // hiccupped the same run, the briefing degraded. Retry (no signal in init
-  // so fetchResilient owns the per-attempt 20s timeout; passing a caller
-  // signal would break retries once it aborts).
+  // KEV is a reliable static CISA file. Keep the retry budget TIGHT: this
+  // build runs inside a Worker invocation with a ~50-subrequest cap shared
+  // with the publisher + snapshot warm. 2×8s (was 3×20s) keeps the footprint
+  // small so KEV+NVD both actually complete instead of blowing the cap and
+  // degrading. fetchResilient owns the per-attempt timeout (no caller signal,
+  // which would break retries once it aborts).
   const res = await fetchResilient(
     KEV_FEED,
     {
       headers: { 'user-agent': NVD_UA, accept: 'application/json' },
       cf: { cacheTtlByStatus: { '200-299': 1800, '400-599': 0 }, cacheEverything: true },
     } as RequestInit,
-    { attempts: 3, timeoutMs: 20_000 }
+    { attempts: 2, timeoutMs: 8_000 }
   );
   if (!res.ok) throw new Error(`KEV fetch failed: ${res.status}`);
   const doc = (await res.json()) as KevDoc;
@@ -501,19 +502,21 @@ async function fetchNvdRecent(start: Date, end: Date, apiKey?: string): Promise<
   const HARD_CAP = 4000; // 2 pages — enough headroom for any 7-day window
   let startIndex = 0;
   let anyPageOk = false;
-  for (let i = 0; i < 4 && out.length < HARD_CAP; i++) {
+  // Tight subrequest budget (shared 50-cap with publisher + snapshot warm):
+  // 2 pages max × 2 attempts × 10s — was 4×3×20s. HARD_CAP is already 2 pages.
+  for (let i = 0; i < 2 && out.length < HARD_CAP; i++) {
     const url =
       `${NVD_API}?pubStartDate=${encodeURIComponent(fmt(start))}` +
       `&pubEndDate=${encodeURIComponent(fmt(end))}` +
       `&resultsPerPage=${PAGE}&startIndex=${startIndex}`;
     let pageOk = false;
     let lastErr: unknown;
-    for (let attempt = 0; attempt < 3; attempt++) {
-      if (attempt > 0) await new Promise((r) => setTimeout(r, 1500 * attempt + Math.random() * 800));
+    for (let attempt = 0; attempt < 2; attempt++) {
+      if (attempt > 0) await new Promise((r) => setTimeout(r, 1200 + Math.random() * 600));
       try {
         const res = await fetch(url, {
           headers: nvdHeaders(apiKey),
-          signal: AbortSignal.timeout(20_000),
+          signal: AbortSignal.timeout(10_000),
           cf: { cacheTtlByStatus: { '200-299': 1800, '400-599': 0 }, cacheEverything: true },
         } as RequestInit);
         if (!res.ok) {
@@ -543,16 +546,20 @@ async function fetchNvdRecent(start: Date, end: Date, apiKey?: string): Promise<
 }
 
 async function fetchNvdByIds(cveIds: string[], apiKey?: string): Promise<Map<string, NvdCve>> {
-  // NVD doesn't support bulk by-ID; query one at a time but cache aggressively.
-  // Limit: 5 req per 30s anonymous (≈50 with an API key). Cap at 30 lookups.
+  // NVD doesn't support bulk by-ID; query one at a time, cache aggressively.
+  // This is sequential — the single biggest subrequest sink in the build.
+  // Capped at 8 (was 30) so KEV cross-enrichment can't blow the shared
+  // ~50-subrequest invocation budget and degrade the whole briefing. The
+  // KEV findings still render fully; only the NVD-detail enrichment (CVSS
+  // vector etc.) is bounded to the 8 highest-priority entries.
   const out = new Map<string, NvdCve>();
-  const ids = cveIds.slice(0, 30);
+  const ids = cveIds.slice(0, 8);
   for (const id of ids) {
     try {
       const url = `${NVD_API}?cveId=${encodeURIComponent(id)}`;
       const res = await fetch(url, {
         headers: nvdHeaders(apiKey),
-        signal: AbortSignal.timeout(8000),
+        signal: AbortSignal.timeout(6000),
         cf: { cacheTtlByStatus: { '200-299': 86400, '400-599': 0 }, cacheEverything: true },
       } as RequestInit);
       if (!res.ok) continue;
