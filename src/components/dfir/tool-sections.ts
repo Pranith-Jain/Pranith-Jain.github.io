@@ -700,9 +700,16 @@ export const SECTIONS: Section[] = [
       {
         path: '/dfir/iam-analyzer',
         useCase: 'Catch wildcard-admin / public-access before it ships.',
-        label: 'IAM Policy Analyzer',
+        label: 'AWS IAM Policy Analyzer',
         desc: 'Paste an AWS IAM / S3 bucket / role-trust policy · flags wildcard admin, public principals, NotAction/NotResource, privilege-escalation actions, broad secret access & confused-deputy trust · 100% client-side',
         icon: Cloud,
+      },
+      {
+        path: '/dfir/gcp-iam',
+        useCase: 'Find the allUsers binding / owner role on a GCP project.',
+        label: 'GCP IAM Policy Analyzer',
+        desc: 'Paste a GCP allow policy or custom role · flags allUsers/allAuthenticatedUsers, primitive owner/editor, SA impersonation & key creation, setIamPolicy, wildcard custom-role permissions · 100% client-side',
+        icon: Shield,
       },
       {
         path: '/dfir/sg-analyzer',
