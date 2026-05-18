@@ -30,6 +30,10 @@ const SECTIONS: Section[] = [
       'gnews-ai-security',
       'gnews-ai-funding',
       'gnews-genai-enterprise',
+      'huggingface-blog',
+      'the-decoder',
+      'import-ai',
+      'deepmind-blog',
     ],
   },
   {

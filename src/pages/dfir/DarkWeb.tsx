@@ -30,6 +30,10 @@ const DARKWEB_FEEDS: { id: string; label: string }[] = [
   { id: 'malware-traffic-analysis', label: 'Malware Traffic Analysis' },
   { id: 'doublepulsar', label: 'DoublePulsar' },
   { id: 'sophos-xops', label: 'Sophos X-Ops' },
+  // Added 2026-05-18: dark-web / CTI research breadth, all HTTP-200+XML verified
+  { id: 'cyble-blog', label: 'Cyble Research' },
+  { id: 'socradar-blog', label: 'SOCRadar' },
+  { id: 'bushidotoken', label: 'BushidoToken' },
 ];
 
 const ALL_FEED_IDS = DARKWEB_FEEDS.map((f) => f.id);

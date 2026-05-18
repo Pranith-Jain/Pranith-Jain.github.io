@@ -989,6 +989,110 @@ export const rssFeeds: RSSFeed[] = [
     source: 'Google News (IN)',
     language: 'en-IN',
   },
+
+  // ============================================================================
+  // FEED EXPANSION 2026-05-18 — all URLs HTTP-200 + XML verified before adding.
+  // Dark Web / Threat Feeds → category 'threat-intel'; Tech & AI → 'tech'.
+  // ============================================================================
+  {
+    id: 'cyble-blog',
+    name: 'Cyble Research',
+    url: 'https://cyble.com/feed/',
+    description: 'Threat intelligence research — dark-web monitoring, ransomware, breach and campaign analysis',
+    category: 'threat-intel',
+    source: 'cyble.com',
+    language: 'en',
+  },
+  {
+    id: 'socradar-blog',
+    name: 'SOCRadar',
+    url: 'https://socradar.io/feed/',
+    description: 'Dark-web and external attack-surface threat research, leak and ransomware tracking',
+    category: 'threat-intel',
+    source: 'socradar.io',
+    language: 'en',
+  },
+  {
+    id: 'bushidotoken',
+    name: 'BushidoToken',
+    url: 'https://blog.bushidotoken.net/feeds/posts/default?alt=rss',
+    description: 'Independent CTI research — ransomware, dark-web actors, campaign deep-dives',
+    category: 'threat-intel',
+    source: 'blog.bushidotoken.net',
+    language: 'en',
+  },
+  {
+    id: 'rapid7-blog',
+    name: 'Rapid7 Blog',
+    url: 'https://www.rapid7.com/rss.xml',
+    description: 'Vulnerability research, emergent-threat advisories and detection guidance',
+    category: 'threat-intel',
+    source: 'rapid7.com',
+    language: 'en',
+  },
+  {
+    id: 'jpcert',
+    name: 'JPCERT/CC Eyes',
+    url: 'https://blogs.jpcert.or.jp/en/atom.xml',
+    description: 'Japan CERT incident & malware analysis — APT tooling, ICS, regional campaigns',
+    category: 'threat-intel',
+    source: 'jpcert.or.jp',
+    language: 'en',
+  },
+  {
+    id: 'ncsc-uk',
+    name: 'NCSC UK',
+    url: 'https://www.ncsc.gov.uk/api/1/services/v1/all-rss-feed.xml',
+    description: 'UK National Cyber Security Centre advisories, guidance and threat reports',
+    category: 'advisory',
+    source: 'ncsc.gov.uk',
+    language: 'en-GB',
+  },
+  {
+    id: 'ahnlab-asec',
+    name: 'AhnLab ASEC',
+    url: 'https://asec.ahnlab.com/en/feed/',
+    description: 'AhnLab Security Emergency-response Center — malware, phishing and APT analysis',
+    category: 'threat-intel',
+    source: 'asec.ahnlab.com',
+    language: 'en',
+  },
+  {
+    id: 'huggingface-blog',
+    name: 'Hugging Face Blog',
+    url: 'https://huggingface.co/blog/feed.xml',
+    description: 'Open-source AI / ML research, model releases and tooling',
+    category: 'tech',
+    source: 'huggingface.co',
+    language: 'en',
+  },
+  {
+    id: 'the-decoder',
+    name: 'The Decoder',
+    url: 'https://the-decoder.com/feed/',
+    description: 'AI industry news — model launches, research, policy and enterprise adoption',
+    category: 'tech',
+    source: 'the-decoder.com',
+    language: 'en',
+  },
+  {
+    id: 'import-ai',
+    name: 'Import AI (Jack Clark)',
+    url: 'https://importai.substack.com/feed',
+    description: 'Weekly AI research & policy analysis newsletter',
+    category: 'tech',
+    source: 'importai.substack.com',
+    language: 'en',
+  },
+  {
+    id: 'deepmind-blog',
+    name: 'Google DeepMind',
+    url: 'https://blog.google/technology/google-deepmind/rss/',
+    description: 'DeepMind research announcements and model releases',
+    category: 'tech',
+    source: 'blog.google',
+    language: 'en',
+  },
 ];
 
 /**
@@ -1046,6 +1150,10 @@ export const landingAiFeeds = [
   'gnews-ai-funding',
   'gnews-genai-enterprise',
   'recorded-future',
+  'huggingface-blog',
+  'the-decoder',
+  'import-ai',
+  'deepmind-blog',
 ];
 
 export const landingIndustryFeeds = [
@@ -1077,7 +1185,7 @@ export const defaultTechFeeds = landingGeneralTechFeeds;
  * see THREAT_INTEL_SNAPSHOT_FEED_IDS in that file). Six sections,
  * hand-picked so each tab has a coherent identity.
  */
-export const landingThreatGovernment = ['cisa-alerts', 'cisa-medical-advisories'];
+export const landingThreatGovernment = ['cisa-alerts', 'cisa-medical-advisories', 'ncsc-uk'];
 export const landingThreatIndia = ['gnews-india-cyberattack', 'gnews-cert-in'];
 
 export const landingThreatVendor = [
@@ -1098,6 +1206,9 @@ export const landingThreatVendor = [
   'dfir-lab',
   'dfir-radar',
   'sans-isc',
+  'rapid7-blog',
+  'jpcert',
+  'ahnlab-asec',
 ];
 
 export const landingThreatInvestigation = [
@@ -1108,6 +1219,9 @@ export const landingThreatInvestigation = [
   'ransomware-live',
   'databreaches',
   'mitre-attack-medium',
+  'cyble-blog',
+  'socradar-blog',
+  'bushidotoken',
 ];
 
 export const landingThreatReddit = ['reddit-netsec', 'reddit-malware', 'reddit-blueteamsec', 'reddit-threatintel'];

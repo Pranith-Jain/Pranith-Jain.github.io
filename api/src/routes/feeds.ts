@@ -135,6 +135,20 @@ const ALLOWED_HOSTS = new Set([
   'troyhunt.com',
   'www.idtheftcenter.org',
   'idtheftcenter.org',
+  // Feed expansion 2026-05-18 (kept in sync with feeds-aggregate.ts)
+  'cyble.com',
+  'www.cyble.com',
+  'socradar.io',
+  'www.socradar.io',
+  'blog.bushidotoken.net',
+  'www.rapid7.com',
+  'rapid7.com',
+  'blogs.jpcert.or.jp',
+  'www.ncsc.gov.uk',
+  'asec.ahnlab.com',
+  'huggingface.co',
+  'the-decoder.com',
+  'importai.substack.com',
 ]);
 
 export async function feedProxyHandler(c: Context<{ Bindings: Env }>) {
