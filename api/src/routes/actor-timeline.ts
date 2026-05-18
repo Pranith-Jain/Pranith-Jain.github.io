@@ -114,17 +114,25 @@ function titleCase(slug: string): string {
 }
 
 async function fetchJson<T>(url: string): Promise<T | null> {
-  try {
-    const res = await fetch(url, {
-      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-      headers: { Accept: 'application/json', 'User-Agent': 'pranithjain.qzz.io DFIR toolkit (free, read-only)' },
-      cf: { cacheTtl: 1800, cacheEverything: true },
-    });
-    if (!res.ok) return null;
-    return (await res.json()) as T;
-  } catch {
-    return null;
+  // ransomlook.io is flaky from the shared Worker egress IP — a single
+  // attempt produced a "per-group endpoint unreachable" warning for most
+  // groups on every build. Retry twice with a short backoff: most groups
+  // now resolve on attempt 2, eliminating the warning noise.
+  for (let attempt = 0; attempt < 3; attempt++) {
+    if (attempt > 0) await new Promise((r) => setTimeout(r, 500 * attempt));
+    try {
+      const res = await fetch(url, {
+        signal: AbortSignal.timeout(attempt === 0 ? 9_000 : FETCH_TIMEOUT_MS),
+        headers: { Accept: 'application/json', 'User-Agent': 'pranithjain.qzz.io DFIR toolkit (free, read-only)' },
+        cf: { cacheTtl: 1800, cacheEverything: true },
+      });
+      if (res.ok) return (await res.json()) as T;
+      if (res.status !== 429 && res.status < 500) return null; // 4xx (not 429) won't change
+    } catch {
+      /* timeout / network — retry */
+    }
   }
+  return null;
 }
 
 /** Build the timeline x-axis: oldest day at index 0, today at index WINDOW_DAYS-1. */
@@ -186,10 +194,11 @@ export async function fetchActorTimeline(): Promise<ActorTimelineResponse> {
 
   const warnings: ActorTimelineResponse['warnings'] = [];
   const rows: ActorRow[] = [];
+  const failedSlugs: string[] = [];
 
   for (const { slug, data } of perGroupResults) {
     if (!data || !Array.isArray(data) || data.length < 2) {
-      warnings.push({ slug, reason: 'per-group endpoint unreachable or malformed' });
+      failedSlugs.push(slug);
       continue;
     }
     const [meta, posts] = data;
@@ -226,6 +235,15 @@ export async function fetchActorTimeline(): Promise<ActorTimelineResponse> {
       mirrors_reachable,
       mirrors_total,
       mitre: mitre ?? undefined,
+    });
+  }
+
+  // Collapse the per-group failures into ONE warning instead of one-per-slug
+  // spam. The timeline is still built from the groups that did resolve.
+  if (failedSlugs.length > 0) {
+    warnings.push({
+      slug: '*',
+      reason: `${failedSlugs.length}/${topGroups.length} per-group lookups unavailable (ransomlook throttled): ${failedSlugs.slice(0, 6).join(', ')}${failedSlugs.length > 6 ? '…' : ''}`,
     });
   }
 
