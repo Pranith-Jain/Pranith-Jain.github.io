@@ -21,7 +21,7 @@ describe('discoverActors', () => {
       feeds: ['https://feeds.example.com/mandiant.rss'],
     });
     expect(cands.length).toBeGreaterThan(0);
-    expect(cands[0].key).toBe('actor-fin7');
-    expect(cands[0].evidence.mentions).toBeGreaterThan(0);
+    expect(cands[0]!.key).toBe('actor-fin7');
+    expect(cands[0]!.evidence.mentions).toBeGreaterThan(0);
   });
 });

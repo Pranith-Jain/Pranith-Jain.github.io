@@ -33,6 +33,8 @@ export interface BreachDisclosure {
   data_classes?: string[];
   verified: boolean;
   sensitive: boolean;
+  /** Provenance tag — e.g. 'andreafortuna' for AF-sourced entries; HIBP omits it. */
+  origin?: string;
 }
 
 function strip(html?: string): string | undefined {

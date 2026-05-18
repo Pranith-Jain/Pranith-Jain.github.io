@@ -142,13 +142,18 @@ function stripEmptySections(body: string): string {
   const result: string[] = [];
   let i = 0;
   while (i < lines.length) {
-    const line = lines[i];
+    // `noUncheckedIndexedAccess` types lines[i] as string | undefined even
+    // though the loop bound guarantees it; default to '' so the array ops
+    // below stay string-typed without changing behavior.
+    const line = lines[i] ?? '';
     const headingMatch = line.match(/^##\s+(.+)/);
     if (headingMatch) {
       const sectionBody: string[] = [];
       i++;
-      while (i < lines.length && !lines[i].startsWith('##')) {
-        sectionBody.push(lines[i]);
+      while (i < lines.length) {
+        const cur = lines[i] ?? '';
+        if (cur.startsWith('##')) break;
+        sectionBody.push(cur);
         i++;
       }
       const content = sectionBody.join('\n').trim();

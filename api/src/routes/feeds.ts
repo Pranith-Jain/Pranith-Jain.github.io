@@ -213,7 +213,7 @@ export async function feedProxyHandler(c: Context<{ Bindings: Env }>) {
     // anything else is served as inert text/plain.
     const upstreamCt = (upstream.headers.get('content-type') ?? '').toLowerCase();
     const safeCt = /(?:xml|rss|atom|json)/.test(upstreamCt)
-      ? upstreamCt.split(';')[0].trim()
+      ? (upstreamCt.split(';')[0]?.trim() ?? 'text/plain; charset=utf-8')
       : 'text/plain; charset=utf-8';
     return new Response(body, {
       status: 200,

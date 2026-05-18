@@ -9,9 +9,9 @@ describe('fetchRecentVictims', () => {
     const fetchMock = vi.fn(async () => new Response(JSON.stringify(fake)));
     const victims = await fetchRecentVictims(fetchMock as any);
     expect(victims).toHaveLength(1);
-    expect(victims[0].group).toBe('Akira');
-    expect(victims[0].victim).toBe('ACME');
-    expect(victims[0].url).toBe('https://www.ransomlook.io/company/akira/');
+    expect(victims[0]!.group).toBe('Akira');
+    expect(victims[0]!.victim).toBe('ACME');
+    expect(victims[0]!.url).toBe('https://www.ransomlook.io/company/akira/');
   });
 
   it('returns [] when API errors', async () => {

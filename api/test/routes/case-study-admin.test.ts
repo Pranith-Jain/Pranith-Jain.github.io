@@ -64,7 +64,7 @@ describe('admin routes', () => {
       env
     );
     expect(r.status).toBe(200);
-    const body = await r.json();
+    const body = (await r.json()) as any;
     expect(body.pending).toHaveLength(1);
   });
 

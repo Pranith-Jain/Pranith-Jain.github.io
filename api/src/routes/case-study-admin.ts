@@ -118,7 +118,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
         return s;
       })
     );
-    const changed = updated.some((s, i) => s.status !== schedule[i].status);
+    const changed = updated.some((s, i) => s.status !== schedule[i]?.status);
     if (changed) await setSchedule(c.env.CASE_STUDIES, updated);
     return c.json({ schedule: updated });
   });
@@ -180,7 +180,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     const updated = schedule.map((s) =>
       s.publishedSlug === slug ? { ...s, status: 'pending' as const, publishedSlug: undefined } : s
     );
-    if (updated.some((s, i) => s.status !== schedule[i].status)) {
+    if (updated.some((s, i) => s.status !== schedule[i]?.status)) {
       await setSchedule(c.env.CASE_STUDIES, updated);
     }
     return c.json({ ok: true });

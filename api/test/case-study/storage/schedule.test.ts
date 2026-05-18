@@ -38,7 +38,7 @@ describe('schedule storage', () => {
     await setSchedule(ns, slots);
     await markSlotStatus(ns, 'cve-2026-1234', 'publishing');
     const updated = await getSchedule(ns);
-    expect(updated[0].status).toBe('publishing');
+    expect(updated[0]!.status).toBe('publishing');
   });
 
   it('pickDueSlot returns earliest pending slot at or before now', async () => {

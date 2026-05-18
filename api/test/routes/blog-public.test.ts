@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { Hono } from 'hono';
 import { registerBlogRoutes } from '../../src/routes/blog-public';
+import type { Env } from '../../src/env';
 import type { Post, PostIndexEntry } from '../../src/case-study/types';
 
 function makeKV(records: Record<string, unknown>): any {
@@ -32,7 +33,7 @@ const index: PostIndexEntry[] = [
 ];
 
 function setup(records: Record<string, unknown>) {
-  const app = new Hono<{ Bindings: { CASE_STUDIES: any } }>();
+  const app = new Hono<{ Bindings: Env }>();
   registerBlogRoutes(app);
   return { app, env: { CASE_STUDIES: makeKV(records) } };
 }
@@ -42,7 +43,7 @@ describe('blog public routes', () => {
     const { app, env } = setup({ 'posts:index': index });
     const r = await app.request('/api/v1/blog/posts', {}, env as any);
     expect(r.status).toBe(200);
-    const body = await r.json();
+    const body = (await r.json()) as any;
     expect(body.posts).toHaveLength(1);
   });
 
@@ -50,7 +51,7 @@ describe('blog public routes', () => {
     const { app, env } = setup({ [`posts:${post.slug}`]: post });
     const r = await app.request(`/api/v1/blog/posts/${post.slug}`, {}, env as any);
     expect(r.status).toBe(200);
-    const body = await r.json();
+    const body = (await r.json()) as any;
     expect(body.post.slug).toBe(post.slug);
   });
 

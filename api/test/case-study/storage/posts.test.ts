@@ -41,8 +41,8 @@ describe('posts storage', () => {
     expect(await getPost(ns, samplePost.slug)).toEqual(samplePost);
     const index = await listPostIndex(ns);
     expect(index).toHaveLength(1);
-    expect(index[0].slug).toBe(samplePost.slug);
-    expect(index[0].excerpt).toBe('A summary.');
+    expect(index[0]!.slug).toBe(samplePost.slug);
+    expect(index[0]!.excerpt).toBe('A summary.');
   });
 
   it('index is sorted by publishedAt desc', async () => {
@@ -50,8 +50,8 @@ describe('posts storage', () => {
     await putPost(ns, samplePost);
     await putPost(ns, { ...samplePost, slug: 'newer', publishedAt: '2026-05-20T00:00:00Z' });
     const index = await listPostIndex(ns);
-    expect(index[0].slug).toBe('newer');
-    expect(index[1].slug).toBe(samplePost.slug);
+    expect(index[0]!.slug).toBe('newer');
+    expect(index[1]!.slug).toBe(samplePost.slug);
   });
 
   it('removePost removes from store + index', async () => {

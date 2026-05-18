@@ -24,7 +24,9 @@ function excerptFrom(body: string, max = 200): string {
 }
 
 function tagsFor(c: Candidate): string[] {
-  const t = [c.type];
+  // Explicitly string[]: seeding with c.type (a CaseStudyType) would
+  // otherwise infer CaseStudyType[] and reject the slugified pushes.
+  const t: string[] = [c.type];
   const ev = c.evidence as any;
   if (ev?.vendor) t.push(slugify(String(ev.vendor)));
   if (ev?.product) t.push(slugify(String(ev.product)));
@@ -65,7 +67,8 @@ function extractSources(evidence: Record<string, unknown>): PostSource[] {
   }
   if (Array.isArray(ev.titles) && sources.length > 0) {
     for (let i = 0; i < Math.min(ev.titles.length, sources.length); i++) {
-      if (typeof ev.titles[i] === 'string') sources[i].title = ev.titles[i];
+      const src = sources[i];
+      if (src && typeof ev.titles[i] === 'string') src.title = ev.titles[i];
     }
   }
 
@@ -95,7 +98,7 @@ function extractSources(evidence: Record<string, unknown>): PostSource[] {
       if (typeof s === 'string' && s.startsWith('http')) {
         const title = s.includes('pranithjain.qzz.io/threatintel/briefings/')
           ? 'Live briefing page'
-          : s.replace(/https?:\/\//, '').split('/')[0];
+          : (s.replace(/https?:\/\//, '').split('/')[0] ?? s);
         sources.push({ url: s, title });
       }
     }
