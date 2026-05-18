@@ -44,7 +44,12 @@ const BYPASS_EXACT = new Set<string>([
   '/api/v1/threat-map',
   '/api/v1/rules',
   '/api/v1/ioc-correlation',
-  '/api/v1/ioc-correlation/stix.json',
+  // NOTE: /api/v1/ioc-correlation/stix.json is intentionally NOT bypassed —
+  // it's a publicly-advertised CTI export feed (see /threatintel/cti-feeds)
+  // and is rate-limited like the TAXII/MISP feeds. Edge-cache still serves
+  // the vast majority of polls without invoking the worker, so the limiter
+  // only governs cache-miss/origin hits — abuse protection, not a throttle
+  // on well-behaved scheduled clients.
   '/api/v1/snapshot',
   '/api/v1/ioc-snapshot',
   '/api/v1/actor-timeline',
@@ -57,8 +62,12 @@ const BYPASS_EXACT = new Set<string>([
 const BYPASS_PREFIX = [
   '/api/v1/feeds/', // proxy, abuse-rss, ioc-summary, aggregate — all read-only feed aggregators
   '/api/v1/blog/', // public blog list + post detail — read-only, slug-validated, edge-cached
-  '/api/v1/taxii2/', // read-only TAXII 2.1 server — GET only, edge-cached
-  '/api/v1/cti/misp/', // read-only MISP feed (manifest + event json) — edge-cached
+  // /api/v1/taxii2/* and /api/v1/cti/misp/* are deliberately NOT bypassed:
+  // they are the public CTI export feeds (STIX/TAXII/MISP, surfaced at
+  // /threatintel/cti-feeds) and are now rate-limited (30 req/min/IP).
+  // They stay edge-cached, so legitimate scheduled polling almost always
+  // hits cache and never reaches the limiter; the limit only bites on
+  // cache-miss bursts from a single IP (scraping/abuse).
 ];
 
 /**
