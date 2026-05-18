@@ -6,7 +6,7 @@ import { personalInfo } from '../../data/content';
 import { AppHero } from '../../components/AppHero';
 import { AppFooter } from '../../components/AppFooter';
 
-const VALID: ToolGroup[] = ['dfir', 'ir', 'ti', 'osint', 'aisec', 'datasec', 'grc'];
+const VALID: ToolGroup[] = ['dfir', 'ir', 'ti', 'osint', 'aisec', 'cloudsec', 'apisec', 'datasec', 'grc'];
 
 const HERO: Record<ToolGroup, { kicker: string; title: string; sub: string }> = {
   ir: {
@@ -33,6 +33,16 @@ const HERO: Record<ToolGroup, { kicker: string; title: string; sub: string }> = 
     kicker: 'Privacy-first · No upload · No login · Local analysis only',
     title: 'AI-security tooling that never leaves your browser',
     sub: 'Probe prompts, audit MCP/agent surfaces and map model risk without shipping payloads to a third party.',
+  },
+  cloudsec: {
+    kicker: 'Privacy-first · No upload · No login · Local analysis only',
+    title: 'Cloud-security analyzers that run in your browser',
+    sub: 'Audit AWS/GCP/Azure IAM, security groups/NSG, K8s RBAC, CloudTrail and Terraform plans — paste config, nothing uploaded.',
+  },
+  apisec: {
+    kicker: 'Privacy-first · No upload · No login · Local analysis only',
+    title: 'API-security tooling, fully client-side',
+    sub: 'OpenAPI/Swagger audit, HTTP security headers, secret scanning, GraphQL and OSV dependency checks — analysed locally.',
   },
   datasec: {
     kicker: 'Privacy-first · No upload · No login · Local analysis only',

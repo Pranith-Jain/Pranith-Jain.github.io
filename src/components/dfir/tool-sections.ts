@@ -67,7 +67,7 @@ export interface Tool {
  * (separate OSINT / AI-sec / Data-security / GRC surfaces) while the
  * full /dfir grid stays as the power-user index.
  */
-export type ToolGroup = 'dfir' | 'ir' | 'ti' | 'osint' | 'aisec' | 'datasec' | 'grc';
+export type ToolGroup = 'dfir' | 'ir' | 'ti' | 'osint' | 'aisec' | 'cloudsec' | 'apisec' | 'datasec' | 'grc';
 
 export const GROUP_META: Record<ToolGroup, { label: string; blurb: string }> = {
   dfir: {
@@ -86,6 +86,14 @@ export const GROUP_META: Record<ToolGroup, { label: string; blurb: string }> = {
   aisec: {
     label: 'AI Security Tools',
     blurb: 'LLM red-teaming, prompt-injection, MCP audit, agent attack surface, ATLAS.',
+  },
+  cloudsec: {
+    label: 'Cloud Security Tools',
+    blurb: 'AWS/GCP/Azure IAM, security groups/NSG, K8s RBAC, CloudTrail, Terraform/IaC — pre-deploy → runtime.',
+  },
+  apisec: {
+    label: 'API Security Tools',
+    blurb: 'OpenAPI/Swagger audit, HTTP security headers, secret scanning, GraphQL & dependency (OSV) checks.',
   },
   datasec: { label: 'Data Security Tools', blurb: 'Sensitive-data detection, classification & handling, privacy hub.' },
   grc: { label: 'GRC & Posture Tools', blurb: 'Compliance & maturity, tabletop exercises, kill chain, OWASP, NHI.' },
@@ -511,13 +519,6 @@ export const SECTIONS: Section[] = [
     blurb: 'Build, test, and run detection content.',
     tools: [
       {
-        path: '/threatintel/actor-kb',
-        useCase: 'Profile an APT — aliases, TTPs by tactic, tooling.',
-        label: 'Threat-Actor Knowledge Base',
-        desc: '174 MITRE ATT&CK intrusion-sets · search by name/alias/Gxxxx/technique/malware → aliases, ATT&CK TTPs grouped by tactic, tooling · committed dataset, 100% client-side',
-        icon: Users,
-      },
-      {
         path: '/dfir/sigma-convert',
         useCase: 'Turn a Sigma rule into a Splunk / KQL / Lucene query.',
         label: 'Sigma Rule Converter',
@@ -707,7 +708,7 @@ export const SECTIONS: Section[] = [
   },
   {
     id: 'cloud',
-    group: 'grc',
+    group: 'cloudsec',
     label: 'Cloud Security',
     blurb: 'Cloud posture & least-privilege review — runs entirely in your browser.',
     tools: [
@@ -764,7 +765,7 @@ export const SECTIONS: Section[] = [
   },
   {
     id: 'api-sec',
-    group: 'grc',
+    group: 'apisec',
     label: 'API Security',
     blurb: 'Spec, header, secret & GraphQL review — OWASP API Top 10, runs entirely in your browser.',
     tools: [
