@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { fetchResilient } from '../lib/fetch-resilient';
+import { buildMtiRansomwareRss, MTI_RANSOMWARE_FEED_PATH } from './mti-ransomware-rss';
 
 /**
  * Server-side feed aggregator. Cuts client-side network calls from N (one per
@@ -233,6 +234,17 @@ function parseFeedBody(body: string, sourceUrl: string, host: string, perSource:
 
 async function fetchOne(url: string, perSource: number): Promise<AggregatedItem[]> {
   const parsed = new URL(url);
+  // Same-origin synthesised feeds: resolve IN-PROCESS. A Worker HTTP-fetching
+  // its own hostname is unreliable (the earlier symptom: feed returned 0 via
+  // the aggregator while the standalone endpoint served 10 items).
+  if (parsed.pathname === MTI_RANSOMWARE_FEED_PATH) {
+    try {
+      const { xml } = await buildMtiRansomwareRss();
+      return parseFeedBody(xml, url, parsed.hostname, perSource);
+    } catch {
+      return [];
+    }
+  }
   if (!ALLOWED_HOSTS.has(parsed.hostname.toLowerCase())) return [];
   try {
     // Retry transient 429/5xx — several upstreams (hnrss.org, ycombinator,

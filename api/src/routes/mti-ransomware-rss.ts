@@ -25,7 +25,15 @@ function escapeXml(s: string): string {
     .replace(/'/g, '&apos;');
 }
 
-export async function mtiRansomwareRssHandler(_c: Context<{ Bindings: Env }>): Promise<Response> {
+/** The synthesised feed's stable same-origin path (single source of truth). */
+export const MTI_RANSOMWARE_FEED_PATH = '/api/v1/feeds/mti-ransomware';
+
+/**
+ * Build the RSS 2.0 XML. Exported so the feed aggregator can resolve this
+ * synthesised feed IN-PROCESS rather than HTTP self-fetching the Worker's
+ * own hostname (which is unreliable). Returns `{ xml, count }`.
+ */
+export async function buildMtiRansomwareRss(): Promise<{ xml: string; count: number }> {
   let victims: Awaited<ReturnType<typeof fetchMythreatintelRansomwareVictims>> = [];
   try {
     victims = await fetchMythreatintelRansomwareVictims();
@@ -68,13 +76,17 @@ export async function mtiRansomwareRssHandler(_c: Context<{ Bindings: Env }>): P
 ${items}
   </channel>
 </rss>`;
+  return { xml, count: victims.length };
+}
 
+export async function mtiRansomwareRssHandler(_c: Context<{ Bindings: Env }>): Promise<Response> {
+  const { xml, count } = await buildMtiRansomwareRss();
   // No-store when empty so a transient parse miss isn't pinned by the edge.
   return new Response(xml, {
     status: 200,
     headers: {
       'content-type': 'application/rss+xml; charset=utf-8',
-      'cache-control': victims.length > 0 ? 'public, max-age=300' : 'no-store',
+      'cache-control': count > 0 ? 'public, max-age=300' : 'no-store',
     },
   });
 }
