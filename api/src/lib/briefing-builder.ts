@@ -594,6 +594,57 @@ async function fetchNvdRecent(start: Date, end: Date, apiKey?: string): Promise<
   return out;
 }
 
+/**
+ * NVD fallback via CIRCL cve-search. services.nvd.nist.gov throttles/blocks
+ * the shared Worker egress IP; cve.circl.lu does not, and its `api/last`
+ * items embed the full CVE 5.1 record (containers.cna.metrics) so this is a
+ * NON-lossy fallback — real CVSS, not just the OSV vector. Used only when
+ * the NVD paging path returns nothing.
+ */
+async function fetchCirclRecent(start: Date, end: Date): Promise<NvdCve[]> {
+  // Size the window: ~weekly windows need a deeper pull than daily ones.
+  const days = Math.ceil((end.getTime() - start.getTime()) / 86400_000);
+  const limit = Math.min(2000, Math.max(300, days * 220));
+  const res = await fetchResilient(
+    `https://cve.circl.lu/api/last/${limit}`,
+    { headers: { 'user-agent': NVD_UA, accept: 'application/json' } } as RequestInit,
+    { attempts: 2, timeoutMs: 15_000 }
+  );
+  if (!res.ok) throw new Error(`CIRCL last ${res.status}`);
+  const items = (await res.json()) as Record<string, unknown>[];
+  const out: NvdCve[] = [];
+  for (const it of Array.isArray(items) ? items : []) {
+    const aliases = Array.isArray(it.aliases) ? (it.aliases as string[]) : [];
+    const cveId =
+      aliases.find((a) => /^CVE-\d{4}-\d+$/.test(a)) ??
+      (typeof it.id === 'string' && /^CVE-/.test(it.id) ? it.id : null);
+    if (!cveId) continue;
+    const ds = (it.database_specific ?? {}) as { nvd_published_at?: string; cwe_ids?: string[] };
+    const pub = new Date(String(ds.nvd_published_at ?? it.published ?? ''));
+    if (Number.isNaN(pub.getTime()) || pub < start || pub >= end) continue;
+    // CVSS from the embedded CVE 5.1 cna metrics (real base score).
+    const cna = ((it.containers as Record<string, unknown>)?.cna ?? {}) as Record<string, unknown>;
+    let baseScore: number | undefined;
+    let baseSeverity: string | undefined;
+    for (const m of (cna.metrics as Record<string, unknown>[]) ?? []) {
+      const v = (m.cvssV3_1 ?? m.cvssV3_0) as { baseScore?: number; baseSeverity?: string } | undefined;
+      if (v?.baseScore != null) {
+        baseScore = v.baseScore;
+        baseSeverity = v.baseSeverity;
+        break;
+      }
+    }
+    if (baseScore == null) continue; // briefing only surfaces CVSS-scored CVEs
+    out.push({
+      id: cveId,
+      descriptions: [{ lang: 'en', value: String(it.details ?? '') }],
+      metrics: { cvssMetricV31: [{ cvssData: { baseScore, ...(baseSeverity ? { baseSeverity } : {}) } }] },
+      weaknesses: (ds.cwe_ids ?? []).map((c) => ({ description: [{ lang: 'en', value: c }] })),
+    });
+  }
+  return out;
+}
+
 async function fetchNvdByIds(cveIds: string[], apiKey?: string): Promise<Map<string, NvdCve>> {
   // NVD doesn't support bulk by-ID; query one at a time but cache aggressively.
   // Limit: 5 req per 30s anonymous (≈50 with an API key). Cap at 30 lookups.
@@ -933,7 +984,11 @@ export async function buildBriefing(
     fetchAbuseFeed('tweetfeed').catch(() => [] as IocEntry[]),
     wrap(
       withLastGood(`https://briefing-lastgood.internal/nvd?s=${startMs}&e=${endMs}`, () =>
+        // NVD first; on throw OR empty, fall back to CIRCL (not edge-blocked).
+        // withLastGood still backstops the case where BOTH fail.
         fetchNvdRecent(rangeStart, rangeEnd, opts.nvdApiKey)
+          .then((r) => (r.length > 0 ? r : fetchCirclRecent(rangeStart, rangeEnd)))
+          .catch(() => fetchCirclRecent(rangeStart, rangeEnd))
       ),
       [] as NvdCve[]
     ),

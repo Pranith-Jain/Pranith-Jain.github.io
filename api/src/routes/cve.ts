@@ -1,6 +1,5 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { safeErrorMessage } from '../lib/error';
 import { fetchResilient } from '../lib/fetch-resilient';
 
 const CVE_RE = /^CVE-\d{4}-\d{4,7}$/i;
@@ -77,6 +76,60 @@ export interface CveLookupResponse {
     known_ransomware?: boolean;
   };
   epss?: { score: number; percentile: number; date: string };
+  /** Public exploit / PoC repos (nomi-sec PoC-in-GitHub) — real-world weaponisation signal. */
+  poc?: { count: number; urls: string[] };
+  /** GitHub Advisory Database cross-reference (OSS impact). */
+  ghsa?: { id: string; severity?: string; url: string };
+  /** Which upstream supplied the core record — 'nvd' or 'circl' (NVD fallback). */
+  source?: 'nvd' | 'circl';
+}
+
+/** CIRCL cve-search returns a CVE 5.1 record — extract the fields we need so a
+ *  lookup still succeeds when NVD edge-blocks/throttles (the recurring pain). */
+function circlToFields(doc: Record<string, unknown>): {
+  cvss?: CveLookupResponse['cvss'];
+  description?: string;
+  cwe: string[];
+  published?: string;
+  references: Array<{ url: string }>;
+} {
+  const containers = (doc.containers ?? {}) as Record<string, unknown>;
+  const cna = (containers.cna ?? {}) as Record<string, unknown>;
+  const adp = Array.isArray(containers.adp) ? (containers.adp as Record<string, unknown>[]) : [];
+  const metricSources = [cna, ...adp];
+  let cvss: CveLookupResponse['cvss'] | undefined;
+  for (const src of metricSources) {
+    for (const m of (src.metrics as Record<string, unknown>[]) ?? []) {
+      const v = (m.cvssV3_1 ?? m.cvssV3_0) as
+        | { baseScore?: number; baseSeverity?: string; vectorString?: string }
+        | undefined;
+      if (v?.baseScore != null) {
+        cvss = {
+          version: m.cvssV3_1 ? '3.1' : '3.0',
+          base_score: v.baseScore,
+          severity: (String(v.baseSeverity ?? '').toUpperCase() || 'MEDIUM') as 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW',
+          vector: v.vectorString ?? '',
+        };
+        break;
+      }
+    }
+    if (cvss) break;
+  }
+  const descriptions = (cna.descriptions as { lang?: string; value?: string }[]) ?? [];
+  const description = descriptions.find((d) => (d.lang ?? '').startsWith('en'))?.value;
+  const cwe = [
+    ...new Set(
+      ((cna.problemTypes as { descriptions?: { cweId?: string }[] }[]) ?? [])
+        .flatMap((p) => p.descriptions ?? [])
+        .map((d) => d.cweId)
+        .filter((x): x is string => /^CWE-\d+$/.test(String(x)))
+    ),
+  ];
+  const meta = (doc.cveMetadata ?? {}) as { datePublished?: string };
+  const references = ((cna.references as { url?: string }[]) ?? [])
+    .map((r) => ({ url: String(r.url ?? '') }))
+    .filter((r) => r.url);
+  return { cvss, description, cwe, published: meta.datePublished, references };
 }
 
 async function fetchKev(): Promise<CisaKevVuln[]> {
@@ -146,65 +199,92 @@ export async function cveSearchHandler(c: Context<{ Bindings: Env }>) {
   const nvdUrl = `https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=${cveId}`;
   const epssUrl = `https://api.first.org/data/v1/epss?cve=${cveId}`;
 
-  const [nvdRes, epssRes, kevVulns] = await Promise.all([
-    fetchResilient(nvdUrl, { headers: { 'User-Agent': NVD_UA } }, { attempts: 3, timeoutMs: 8000 }).catch(() => null),
+  // Edge-cache the assembled answer (6h) keyed by CVE id. Cuts upstream
+  // load, speeds the CVE Prioritizer's bulk mode, and keeps the
+  // unauthenticated GitHub-advisories call well under 60/hr.
+  const cache = (caches as unknown as { default: Cache }).default;
+  const cacheKey = new Request(`https://cve-lookup-cache.internal/v2?id=${cveId}`);
+  const cached = await cache.match(cacheKey);
+  if (cached) return cached;
+
+  const pocUrl = `https://poc-in-github.motikan2010.net/api/v1/?cve_id=${cveId}`;
+  const ghsaUrl = `https://api.github.com/advisories?cve_id=${cveId}&per_page=1`;
+  const circlUrl = `https://cve.circl.lu/api/cve/${cveId}`;
+
+  const [nvdRes, epssRes, kevVulns, pocRes, ghsaRes, circlRes] = await Promise.all([
+    fetchResilient(nvdUrl, { headers: { 'User-Agent': NVD_UA } }, { attempts: 2, timeoutMs: 8000 }).catch(() => null),
     fetchResilient(epssUrl, { headers: { 'User-Agent': NVD_UA } }, { attempts: 2, timeoutMs: 6000 }).catch(() => null),
     fetchKev(),
+    fetch(pocUrl, { headers: { 'User-Agent': NVD_UA }, signal: AbortSignal.timeout(7000) }).catch(() => null),
+    fetch(ghsaUrl, {
+      headers: { 'User-Agent': NVD_UA, Accept: 'application/vnd.github+json' },
+      signal: AbortSignal.timeout(7000),
+    }).catch(() => null),
+    // CIRCL is the NVD fallback — NOT behind the Akamai/throttle wall that
+    // blocks services.nvd.nist.gov from the shared Worker egress IP.
+    fetch(circlUrl, { headers: { 'User-Agent': NVD_UA }, signal: AbortSignal.timeout(8000) }).catch(() => null),
   ]);
 
-  if (!nvdRes) {
-    return c.json({ error: 'upstream_error', message: 'Could not reach NVD API' }, 502);
+  // Core record: NVD first, CIRCL on any NVD failure/miss. Only error if BOTH
+  // are unavailable — a single source outage no longer breaks the lookup.
+  let description: string | undefined;
+  let cvss: CveLookupResponse['cvss'] | undefined;
+  let cwe: string[] = [];
+  let references: Array<{ url: string; tags?: string[] }> = [];
+  let affected_products: string[] = [];
+  let published: string | undefined;
+  let lastModified: string | undefined;
+  let source: 'nvd' | 'circl' = 'nvd';
+
+  let nvdCve: NvdCve | null = null;
+  if (nvdRes && nvdRes.ok) {
+    try {
+      const nvdBody = (await nvdRes.json()) as { totalResults: number; vulnerabilities: Array<{ cve: NvdCve }> };
+      nvdCve = nvdBody.totalResults && nvdBody.vulnerabilities?.[0] ? nvdBody.vulnerabilities[0].cve : null;
+    } catch {
+      nvdCve = null;
+    }
   }
 
-  if (nvdRes.status === 429) {
-    return c.json({ error: 'rate_limited', message: 'NVD API is rate-limiting. Retry in 30 seconds.' }, 502);
+  if (nvdCve) {
+    const cve = nvdCve;
+    description = cve.descriptions?.find((d) => d.lang === 'en')?.value;
+    cvss = parseCvss(cve);
+    cwe = [
+      ...new Set(
+        (cve.weaknesses ?? [])
+          .flatMap((w) => w.description.filter((d) => d.lang === 'en').map((d) => d.value))
+          .filter((v) => /^CWE-\d+$/.test(v))
+      ),
+    ];
+    references = (cve.references ?? []).map((r) => ({ url: r.url, ...(r.tags ? { tags: r.tags } : {}) }));
+    const allCpe = (cve.configurations ?? [])
+      .flatMap((cfg) => cfg.nodes ?? [])
+      .flatMap((node) => node.cpeMatch ?? [])
+      .map((m) => m.criteria)
+      .filter(Boolean);
+    affected_products = [...new Set(allCpe)].slice(0, 10);
+    published = cve.published;
+    lastModified = cve.lastModified;
+  } else if (circlRes && circlRes.ok) {
+    try {
+      const cf = circlToFields((await circlRes.json()) as Record<string, unknown>);
+      description = cf.description;
+      cvss = cf.cvss;
+      cwe = cf.cwe;
+      references = cf.references;
+      published = cf.published;
+      source = 'circl';
+    } catch {
+      /* fall through to the both-failed error below */
+    }
   }
 
-  if (!nvdRes.ok) {
-    return c.json({ error: 'nvd_error', message: `NVD returned ${nvdRes.status}` }, 502);
+  if (!description && !cvss && source === 'nvd' && !nvdCve) {
+    // Neither NVD nor CIRCL produced a record.
+    const reason = !nvdRes && !circlRes ? 'NVD and CIRCL both unreachable' : `${cveId} not found in NVD or CIRCL`;
+    return c.json({ error: 'unavailable', message: reason }, !nvdRes && !circlRes ? 502 : 404);
   }
-
-  let nvdBody: { totalResults: number; vulnerabilities: Array<{ cve: NvdCve }> };
-  try {
-    nvdBody = (await nvdRes.json()) as typeof nvdBody;
-  } catch (err) {
-    return c.json(
-      { error: 'parse_error', message: safeErrorMessage(c.env as unknown as Record<string, unknown>, err) },
-      502
-    );
-  }
-
-  if (!nvdBody.totalResults || !nvdBody.vulnerabilities?.length || !nvdBody.vulnerabilities[0]) {
-    return c.json({ error: 'not_found', message: `${cveId} not found in NVD` }, 404);
-  }
-
-  const cve = nvdBody.vulnerabilities[0].cve;
-
-  // Description (English)
-  const description = cve.descriptions?.find((d) => d.lang === 'en')?.value;
-
-  // CVSS
-  const cvss = parseCvss(cve);
-
-  // CWE IDs
-  const cwe = [
-    ...new Set(
-      (cve.weaknesses ?? [])
-        .flatMap((w) => w.description.filter((d) => d.lang === 'en').map((d) => d.value))
-        .filter((v) => /^CWE-\d+$/.test(v))
-    ),
-  ];
-
-  // References
-  const references = (cve.references ?? []).map((r) => ({ url: r.url, ...(r.tags ? { tags: r.tags } : {}) }));
-
-  // Affected products (CPE criteria, deduped, ≤ 10)
-  const allCpe = (cve.configurations ?? [])
-    .flatMap((cfg) => cfg.nodes ?? [])
-    .flatMap((node) => node.cpeMatch ?? [])
-    .map((m) => m.criteria)
-    .filter(Boolean);
-  const affected_products = [...new Set(allCpe)].slice(0, 10);
 
   // KEV cross-reference
   const kevMatch = kevVulns.find((v) => v.cveID === cveId);
@@ -235,10 +315,42 @@ export async function cveSearchHandler(c: Context<{ Bindings: Env }>) {
     }
   }
 
+  // Public PoC repos (nomi-sec) — real-world weaponisation signal.
+  let poc: CveLookupResponse['poc'] | undefined;
+  if (pocRes?.ok) {
+    try {
+      const pb = (await pocRes.json()) as { pocs?: Array<{ html_url?: string; full_name?: string }> };
+      const repos = pb.pocs ?? [];
+      if (repos.length > 0)
+        poc = {
+          count: repos.length,
+          urls: repos
+            .slice(0, 5)
+            .map((r) => r.html_url || (r.full_name ? `https://github.com/${r.full_name}` : ''))
+            .filter(Boolean),
+        };
+    } catch {
+      /* PoC feed optional */
+    }
+  }
+
+  // GitHub Advisory Database cross-reference (OSS impact).
+  let ghsa: CveLookupResponse['ghsa'] | undefined;
+  if (ghsaRes?.ok) {
+    try {
+      const gb = (await ghsaRes.json()) as Array<{ ghsa_id?: string; severity?: string; html_url?: string }>;
+      const g = Array.isArray(gb) ? gb[0] : undefined;
+      if (g?.ghsa_id)
+        ghsa = { id: g.ghsa_id, severity: g.severity, url: g.html_url ?? `https://github.com/advisories/${g.ghsa_id}` };
+    } catch {
+      /* GHSA optional */
+    }
+  }
+
   const body: CveLookupResponse = {
     cve_id: cveId,
-    ...(cve.published ? { published: cve.published } : {}),
-    ...(cve.lastModified ? { last_modified: cve.lastModified } : {}),
+    ...(published ? { published } : {}),
+    ...(lastModified ? { last_modified: lastModified } : {}),
     ...(description ? { description } : {}),
     ...(cvss ? { cvss } : {}),
     ...(cwe.length ? { cwe } : {}),
@@ -246,9 +358,12 @@ export async function cveSearchHandler(c: Context<{ Bindings: Env }>) {
     ...(affected_products.length ? { affected_products } : {}),
     kev,
     ...(epss ? { epss } : {}),
+    ...(poc ? { poc } : {}),
+    ...(ghsa ? { ghsa } : {}),
+    source,
   };
 
-  return c.json(body, 200, {
-    'Cache-Control': 'public, max-age=1800, s-maxage=3600',
-  });
+  const res = c.json(body, 200, { 'Cache-Control': 'public, max-age=1800, s-maxage=3600' });
+  c.executionCtx.waitUntil(cache.put(cacheKey, res.clone()));
+  return res;
 }

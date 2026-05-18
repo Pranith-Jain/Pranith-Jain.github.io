@@ -53,6 +53,9 @@ interface CveLookup {
   cvss?: { base_score: number; severity: string };
   kev: { in_kev: boolean; known_ransomware?: boolean; due_date?: string };
   epss?: { score: number; percentile: number };
+  poc?: { count: number; urls: string[] };
+  ghsa?: { id: string; severity?: string; url: string };
+  source?: 'nvd' | 'circl';
 }
 
 type Verdict = 'ACT NOW' | 'SCHEDULE' | 'MONITOR' | 'DEFER';
@@ -82,10 +85,23 @@ function decide(d: CveLookup): { verdict: Verdict; why: string } {
       verdict: 'ACT NOW',
       why: `In CISA KEV — confirmed active exploitation${d.kev.due_date ? ` (remediate by ${d.kev.due_date})` : ''}.`,
     };
+  const pocN = d.poc?.count ?? 0;
+  // Public exploit code + high likelihood/severity ≈ KEV-grade urgency even
+  // before CISA catalogs it (the gap KEV alone misses).
+  if (pocN > 0 && (epssPct >= 0.7 || cvss >= 7))
+    return {
+      verdict: 'ACT NOW',
+      why: `${pocN} public PoC repo(s) AND ${cvss >= 7 ? `CVSS ${cvss.toFixed(1)}` : `EPSS pct ${(epssPct * 100).toFixed(0)}`} — weaponised + likely/severe; treat as actively exploitable.`,
+    };
   if (epssPct >= 0.95 || epss >= 0.5)
     return {
       verdict: 'SCHEDULE',
       why: `Very high exploitation likelihood (EPSS ${(epss * 100).toFixed(1)}%, top ${((1 - epssPct) * 100).toFixed(1)}%).`,
+    };
+  if (pocN > 0)
+    return {
+      verdict: 'SCHEDULE',
+      why: `${pocN} public PoC repo(s) — working exploit code exists; patch this cycle even though it isn't in KEV yet.`,
     };
   if (cvss >= 9)
     return { verdict: 'SCHEDULE', why: `Critical CVSS ${cvss.toFixed(1)} — patch in the next cycle even without KEV.` };
@@ -292,6 +308,35 @@ export default function CvePrioritizer(): JSX.Element {
                               {r.data.kev.known_ransomware ? 'yes' : 'no'}
                             </span>
                           </span>
+                          <span>
+                            Public PoC{' '}
+                            <span
+                              className={(r.data.poc?.count ?? 0) > 0 ? st.text : 'text-slate-900 dark:text-slate-100'}
+                            >
+                              {r.data.poc?.count ? `${r.data.poc.count} repo(s)` : 'none'}
+                            </span>
+                          </span>
+                          {r.data.ghsa && (
+                            <span>
+                              GHSA{' '}
+                              <a
+                                href={r.data.ghsa.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-brand-600 dark:text-brand-400 hover:underline"
+                              >
+                                {r.data.ghsa.id}
+                              </a>
+                            </span>
+                          )}
+                          {r.data.source === 'circl' && (
+                            <span
+                              className="text-slate-500"
+                              title="NVD was unreachable; record served from CIRCL fallback"
+                            >
+                              src CIRCL
+                            </span>
+                          )}
                         </div>
                       )}
                       {r.why && (
