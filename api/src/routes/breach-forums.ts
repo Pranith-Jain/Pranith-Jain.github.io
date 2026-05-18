@@ -30,20 +30,79 @@ const DDC_FORUM_CATEGORIES = new Set(['Criminal Forums', 'Dark Markets']);
  * public OSINT-coverage search (DarkWebInformer) — we do not link to the
  * forums themselves or to any leaked data.
  */
-const CURATED: Array<{ name: string; status: string; note: string }> = [
+const CURATED: Array<{ name: string; status: string; note: string; kind: 'forum' | 'market' }> = [
+  // ── Breach / leak forums ───────────────────────────────────────────────
   {
     name: 'BreachForums',
     status: 'volatile',
     note: 'Successor to RaidForums; repeatedly seized/reborn under new operators.',
+    kind: 'forum',
   },
-  { name: 'Exposed', status: 'active', note: 'Post-BreachForums breach/leak community.' },
-  { name: 'Leakbase', status: 'active', note: 'Leak-trading forum / Telegram presence.' },
-  { name: 'Cracked', status: 'active', note: 'Account/cracking community adjacent to leak trading.' },
-  { name: 'Nulled', status: 'active', note: 'Long-running cracking/leak forum.' },
-  { name: 'DemonForums', status: 'intermittent', note: 'ULP / stealer-log and cloud-log trading threads.' },
-  { name: 'XSS', status: 'active', note: 'Russian-language elite cybercrime forum (ex-DamageLab).' },
-  { name: 'Exploit', status: 'active', note: 'Russian-language exploit/access-broker forum.' },
-  { name: 'RaidForums', status: 'seized', note: 'Seized 2022 (Operation TOURNIQUET) — historical reference.' },
+  { name: 'Exposed', status: 'active', note: 'Post-BreachForums breach/leak community.', kind: 'forum' },
+  { name: 'Leakbase', status: 'active', note: 'Leak-trading forum / Telegram presence.', kind: 'forum' },
+  { name: 'Cracked', status: 'active', note: 'Account/cracking community adjacent to leak trading.', kind: 'forum' },
+  { name: 'Nulled', status: 'active', note: 'Long-running cracking/leak forum.', kind: 'forum' },
+  {
+    name: 'DemonForums',
+    status: 'intermittent',
+    note: 'ULP / stealer-log and cloud-log trading threads.',
+    kind: 'forum',
+  },
+  { name: 'XSS', status: 'active', note: 'Russian-language elite cybercrime forum (ex-DamageLab).', kind: 'forum' },
+  { name: 'Exploit', status: 'active', note: 'Russian-language exploit/access-broker forum.', kind: 'forum' },
+  {
+    name: 'Sinisterly',
+    status: 'active',
+    note: 'Low-tier hacking/leak forum, frequent OSINT coverage.',
+    kind: 'forum',
+  },
+  {
+    name: 'LeakZone',
+    status: 'active',
+    note: 'Leak/crack community adjacent to BreachForums diaspora.',
+    kind: 'forum',
+  },
+  {
+    name: 'OGUsers',
+    status: 'volatile',
+    note: 'Account-takeover / SIM-swap community; itself repeatedly breached.',
+    kind: 'forum',
+  },
+  { name: 'Dread', status: 'active', note: 'Reddit-style darknet discussion forum (markets, opsec).', kind: 'forum' },
+  {
+    name: 'RaidForums',
+    status: 'seized',
+    note: 'Seized 2022 (Operation TOURNIQUET) — historical reference.',
+    kind: 'forum',
+  },
+  // ── Underground marketplaces (credential / log / access trade) ─────────
+  { name: 'Russian Market', status: 'active', note: 'Stealer-log & credential marketplace.', kind: 'market' },
+  { name: '2easy Shop', status: 'active', note: 'Stealer-log marketplace ("logs" by bot).', kind: 'market' },
+  {
+    name: 'Genesis Market',
+    status: 'seized',
+    note: 'Browser-fingerprint / session marketplace — seized 2023 (Operation Cookie Monster).',
+    kind: 'market',
+  },
+  { name: 'Slilpp', status: 'seized', note: 'Largest credential marketplace — seized 2021.', kind: 'market' },
+  {
+    name: "Brian's Club",
+    status: 'active',
+    note: 'Long-running carding shop; widely tracked in CTI reporting.',
+    kind: 'market',
+  },
+  {
+    name: 'Abacus Market',
+    status: 'volatile',
+    note: 'Large darknet market (post-Hydra/Incognito landscape).',
+    kind: 'market',
+  },
+  {
+    name: 'Joker' + "'s Stash",
+    status: 'defunct',
+    note: 'Dominant carding market until voluntary 2021 shutdown — historical reference.',
+    kind: 'market',
+  },
 ];
 
 function trackerUrl(name: string): string {
@@ -91,12 +150,12 @@ export async function buildBreachForums(env: Env, ctx: ExecutionContext): Promis
     /* deepdarkCTI cold/unavailable — curated list still renders */
   }
 
-  // 2. Curated well-known forums → link to OSINT coverage, never the forum.
+  // 2. Curated well-known forums/markets → OSINT-coverage link, never the venue.
   for (const c of CURATED) {
     rows.push({
       name: c.name,
       origin: 'curated',
-      category: 'Notable breach/leak forum',
+      category: c.kind === 'market' ? 'Notable underground marketplace' : 'Notable breach/leak forum',
       url: trackerUrl(c.name),
       onion: false,
       status: c.status,
