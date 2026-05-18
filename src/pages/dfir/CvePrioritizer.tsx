@@ -56,6 +56,7 @@ interface CveLookup {
   poc?: { count: number; urls: string[] };
   ghsa?: { id: string; severity?: string; url: string };
   source?: 'nvd' | 'circl';
+  actors?: string[];
 }
 
 type Verdict = 'ACT NOW' | 'SCHEDULE' | 'MONITOR' | 'DEFER';
@@ -84,6 +85,14 @@ function decide(d: CveLookup): { verdict: Verdict; why: string } {
     return {
       verdict: 'ACT NOW',
       why: `In CISA KEV — confirmed active exploitation${d.kev.due_date ? ` (remediate by ${d.kev.due_date})` : ''}.`,
+    };
+  const actors = d.actors ?? [];
+  // Named threat-actor / ransomware-group attribution = confirmed in-the-wild
+  // exploitation by a tracked adversary — KEV-grade even if not yet cataloged.
+  if (actors.length > 0)
+    return {
+      verdict: 'ACT NOW',
+      why: `Exploited in the wild by ${actors.slice(0, 4).join(', ')}${actors.length > 4 ? ` +${actors.length - 4}` : ''} — confirmed adversary use; patch now.`,
     };
   const pocN = d.poc?.count ?? 0;
   // Public exploit code + high likelihood/severity ≈ KEV-grade urgency even
@@ -338,6 +347,22 @@ export default function CvePrioritizer(): JSX.Element {
                             </span>
                           )}
                         </div>
+                      )}
+                      {r.data?.actors && r.data.actors.length > 0 && (
+                        <p className="text-[12px] font-mono mt-1.5">
+                          <span className="text-slate-500 uppercase tracking-wider text-[11px]">actors</span>{' '}
+                          {r.data.actors.map((ac) => (
+                            <a
+                              key={ac}
+                              href={`/threatintel/actor-kb?q=${encodeURIComponent(ac)}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-rose-600 dark:text-rose-400 hover:underline mr-2"
+                            >
+                              {ac}
+                            </a>
+                          ))}
+                        </p>
                       )}
                       {r.why && (
                         <p className="text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">{r.why}</p>

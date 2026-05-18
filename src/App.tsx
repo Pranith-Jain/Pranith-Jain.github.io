@@ -55,6 +55,7 @@ const MitreMatrix = lazy(() => import('./pages/dfir/MitreMatrix'));
 const AtlasMatrix = lazy(() => import('./pages/dfir/AtlasMatrix'));
 const UrlPreview = lazy(() => import('./pages/dfir/UrlPreview'));
 const IocExtractor = lazy(() => import('./pages/dfir/IocExtractor'));
+const IocPivot = lazy(() => import('./pages/dfir/IocPivot'));
 const JwtInspect = lazy(() => import('./pages/dfir/JwtInspect'));
 const IamPolicyAnalyzer = lazy(() => import('./pages/dfir/IamPolicyAnalyzer'));
 const SecurityGroupAnalyzer = lazy(() => import('./pages/dfir/SecurityGroupAnalyzer'));
@@ -562,6 +563,16 @@ export function AppContent() {
           <ErrorBoundary>
             <Suspense fallback={<SectionLoader />}>
               <IocExtractor />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/dfir/ioc-pivot"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <IocPivot />
             </Suspense>
           </ErrorBoundary>
         }

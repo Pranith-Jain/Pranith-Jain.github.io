@@ -121,6 +121,13 @@ export const SECTIONS: Section[] = [
         icon: Hash,
       },
       {
+        path: '/dfir/ioc-pivot',
+        useCase: 'Graph what an indicator touches and pivot through it.',
+        label: 'IOC Pivot Graph',
+        desc: 'Enrich an IOC across 26 sources → radial graph of verdict-coloured sources + derived IPs/domains/hashes/ASNs/CVEs · click any node to re-pivot',
+        icon: Share2,
+      },
+      {
         path: '/dfir/linux-triage',
         useCase: 'Triage a Linux box from its auth.log + bash_history.',
         label: 'Linux IR Triage',

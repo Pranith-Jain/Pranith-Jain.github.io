@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { fetchResilient } from '../lib/fetch-resilient';
+import { CVE_ACTORS } from '../lib/cve-actor-mapping';
 
 const CVE_RE = /^CVE-\d{4}-\d{4,7}$/i;
 
@@ -82,6 +83,9 @@ export interface CveLookupResponse {
   ghsa?: { id: string; severity?: string; url: string };
   /** Which upstream supplied the core record — 'nvd' or 'circl' (NVD fallback). */
   source?: 'nvd' | 'circl';
+  /** Named threat-actor / ransomware groups observed exploiting this CVE
+   *  (curated cve-actor-mapping) — attribution beyond CISA's binary KEV flag. */
+  actors?: string[];
 }
 
 /** CIRCL cve-search returns a CVE 5.1 record — extract the fields we need so a
@@ -360,6 +364,7 @@ export async function cveSearchHandler(c: Context<{ Bindings: Env }>) {
     ...(epss ? { epss } : {}),
     ...(poc ? { poc } : {}),
     ...(ghsa ? { ghsa } : {}),
+    ...(CVE_ACTORS[cveId]?.length ? { actors: CVE_ACTORS[cveId] } : {}),
     source,
   };
 
