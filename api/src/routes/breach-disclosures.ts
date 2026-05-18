@@ -55,6 +55,7 @@ export async function breachDisclosuresHandler(c: Context<{ Bindings: Env }>): P
   if (cached) return cached;
 
   let breaches: BreachDisclosure[] = [];
+  let upstreamOk = false;
 
   try {
     const res = await fetch(HIBP_URL, {
@@ -63,6 +64,7 @@ export async function breachDisclosuresHandler(c: Context<{ Bindings: Env }>): P
     });
 
     if (res.ok) {
+      upstreamOk = true;
       const raw = (await res.json()) as HibpBreach[];
       const seen = new Set<string>();
       for (const b of raw) {
@@ -96,6 +98,14 @@ export async function breachDisclosuresHandler(c: Context<{ Bindings: Env }>): P
     count: breaches.length,
     breaches,
   };
+
+  // Only persist a long-lived cache entry on a genuine upstream success.
+  // If HIBP timed out / 5xx'd, `breaches` is empty — caching that under a
+  // 200 for an hour would lock an empty list in even after HIBP recovers.
+  // Serve it with a short TTL and don't poison the shared edge cache.
+  if (!upstreamOk || breaches.length === 0) {
+    return c.json(body, 200, { 'Cache-Control': 'public, max-age=60' });
+  }
 
   const response = c.json(body, 200, { 'Cache-Control': `public, max-age=${CACHE_TTL}` });
   c.executionCtx.waitUntil(cache.put(new Request(CACHE_KEY), response.clone()));

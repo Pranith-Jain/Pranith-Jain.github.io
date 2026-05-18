@@ -166,7 +166,7 @@ export default function VictimReleaks(): JSX.Element {
               <div className="flex items-start justify-between gap-2 mb-2 flex-wrap">
                 <div className="min-w-0 flex-1">
                   <div className="font-display font-bold text-lg truncate" title={r.raw_names.join(' · ')}>
-                    {r.raw_names[0]}
+                    {r.raw_names[0] ?? r.key}
                   </div>
                   {r.raw_names.length > 1 && (
                     <div className="text-[11px] font-mono text-slate-500 mt-0.5">
@@ -184,7 +184,10 @@ export default function VictimReleaks(): JSX.Element {
 
               <ul className="space-y-1">
                 {r.claims.map((c, i) => (
-                  <li key={i} className="text-[12px] font-mono flex items-baseline gap-2 flex-wrap">
+                  <li
+                    key={`${c.group}:${c.raw_victim}:${i}`}
+                    className="text-[12px] font-mono flex items-baseline gap-2 flex-wrap"
+                  >
                     <span className="px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300">
                       {c.group}
                     </span>

@@ -119,7 +119,12 @@ export async function discoverCves(deps: DiscoverDeps): Promise<Candidate[]> {
 
     for (let i = 0; i < entries.length; i++) {
       const k = entries[i];
-      const nvdExtra = nvdResults[i].status === 'fulfilled' ? nvdResults[i].value : {};
+      if (!k) continue;
+      // Bind the settled result to a single local so TS narrows the
+      // discriminated union — `.value` only exists on the fulfilled arm,
+      // and re-indexing the array twice loses that narrowing.
+      const settled = nvdResults[i];
+      const nvdExtra = settled?.status === 'fulfilled' ? settled.value : {};
 
       const dateAdded = new Date(k.dateAdded + 'T00:00:00Z');
       const stable = cveKey(k.cveID);

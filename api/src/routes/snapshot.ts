@@ -119,6 +119,18 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
       const { body, upstreamOk, rateLimited } = await fetchRansomwareRecent();
       if (rateLimited) throw new Error(`upstream rate-limited (retry-after ${rateLimited.retryAfter})`);
       if (!upstreamOk) throw new Error('upstream unreachable');
+      // Write-through the shared ransomware cache (same key/shape the
+      // public /ransomware-recent handler uses, 1h TTL). Without this,
+      // every snapshot cache-miss re-fans-out to Ransomlook even though
+      // the public handler would have cached it — wasted subrequests.
+      c.executionCtx.waitUntil(
+        cache.put(
+          RANSOMWARE_RECENT_CACHE_KEY,
+          new Response(JSON.stringify(body), {
+            headers: { 'content-type': 'application/json', 'Cache-Control': 'public, max-age=3600' },
+          })
+        )
+      );
       return body;
     }),
     safe(async () => {

@@ -322,7 +322,11 @@ async function fetchTelegramPulse(out: Map<string, PulseEntity>): Promise<void> 
 export async function threatPulseHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const entityMap = new Map<string, PulseEntity>();
 
-  await Promise.all([
+  // allSettled, not all: each fetcher is best-effort and individually
+  // catches upstream failure, but an unexpected throw in any one of them
+  // (parser edge case, etc.) must not blank the entire pulse — surface
+  // whatever the other sources produced.
+  await Promise.allSettled([
     fetchRedditPulse(entityMap),
     fetchBlueskyPulse(entityMap),
     fetchMastodonPulse(entityMap),

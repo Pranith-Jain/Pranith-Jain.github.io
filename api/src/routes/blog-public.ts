@@ -1,4 +1,4 @@
-import type { Hono } from 'hono';
+import type { Context, Hono } from 'hono';
 import type { Env } from '../env';
 import type { Post, PostIndexEntry } from '../case-study/types';
 import { kv } from '../case-study/kv-keys';
@@ -11,6 +11,21 @@ import { renderMarkdown } from '../case-study/rendering/markdown';
 const SLUG_RE = /^[a-z0-9-]+$/;
 function validSlug(slug: string | undefined): slug is string {
   return !!slug && slug.length <= 200 && slug !== 'index' && SLUG_RE.test(slug);
+}
+
+/**
+ * Background cache write that survives the absence of an ExecutionContext.
+ * Hono's `c.executionCtx` getter THROWS when no execution context is
+ * present (test harness, or any non-standard invocation) — accessing it
+ * unconditionally turned a missing-ctx into a 500 on the whole response.
+ * The cache write is pure best-effort, so swallow it and still serve.
+ */
+function bgPut(c: Context<{ Bindings: Env }>, cache: Cache, res: Response): void {
+  try {
+    c.executionCtx.waitUntil(cache.put(c.req.raw, res.clone()));
+  } catch {
+    /* no execution context — skip the background cache write, still serve */
+  }
 }
 
 export function registerBlogRoutes(app: Hono<{ Bindings: Env }>): void {
@@ -33,7 +48,7 @@ export function registerBlogRoutes(app: Hono<{ Bindings: Env }>): void {
     const res = c.json({ posts: filtered }, 200, {
       'cache-control': 'public, max-age=900, s-maxage=1800, stale-while-revalidate=86400',
     });
-    c.executionCtx.waitUntil(cache.put(c.req.raw, res.clone()));
+    bgPut(c, cache, res);
     return res;
   });
 
@@ -54,7 +69,7 @@ export function registerBlogRoutes(app: Hono<{ Bindings: Env }>): void {
     const res = c.json({ post, bodyHtml }, 200, {
       'cache-control': 'public, max-age=3600, s-maxage=7200, stale-while-revalidate=86400',
     });
-    c.executionCtx.waitUntil(cache.put(c.req.raw, res.clone()));
+    bgPut(c, cache, res);
     return res;
   });
 

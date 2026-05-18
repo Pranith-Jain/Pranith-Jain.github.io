@@ -236,15 +236,24 @@ export async function fetchCybercrime(
   const [results, afItemsRaw] = await Promise.all([
     Promise.all(
       CYBERCRIME_SOURCES.map(async (src) => {
-        const body = await fetchText(src.url);
-        if (!body) return { src, ok: false, items: [] as CybercrimeItem[], dropped: 0, error: 'fetch failed' };
-        const parsed = parseFeed(body, src);
-        parsed.sort(cmpByPublished);
-        const { kept, dropped } = applyFilter(parsed, src.filterKeywords);
-        return { src, ok: kept.length > 0, items: kept.slice(0, MAX_PER_SOURCE), dropped };
+        try {
+          const body = await fetchText(src.url);
+          if (!body) return { src, ok: false, items: [] as CybercrimeItem[], dropped: 0, error: 'fetch failed' };
+          // parseFeed/applyFilter run regexes over untrusted upstream XML;
+          // a malformed feed must degrade this one source, not 500 the
+          // whole endpoint by rejecting the surrounding Promise.all.
+          const parsed = parseFeed(body, src);
+          parsed.sort(cmpByPublished);
+          const { kept, dropped } = applyFilter(parsed, src.filterKeywords);
+          return { src, ok: kept.length > 0, items: kept.slice(0, MAX_PER_SOURCE), dropped };
+        } catch {
+          return { src, ok: false, items: [] as CybercrimeItem[], dropped: 0, error: 'parse failed' };
+        }
       })
     ),
-    fetchAFDatamarkets(),
+    // parseDatamarkets can throw on malformed upstream — keep it from
+    // taking the whole aggregate down.
+    fetchAFDatamarkets().catch(() => [] as CybercrimeItem[]),
   ]);
 
   for (const r of results) {

@@ -262,7 +262,14 @@ export async function fetchWriteups(): Promise<WriteupsResponse> {
       if (!rssUrl) return { spec, label, kind, ok: false, items: [] as Writeup[], error: 'no rss url' };
       const body = await fetchText(rssUrl);
       if (!body) return { spec, label, kind, ok: false, items: [] as Writeup[], error: 'fetch failed' };
-      const parsed = parseFeedItems(body, kind, label);
+      let parsed: Writeup[];
+      try {
+        // Untrusted upstream XML — a parser throw must degrade this one
+        // source, not reject Promise.all and 502 every writeup feed.
+        parsed = parseFeedItems(body, kind, label);
+      } catch {
+        return { spec, label, kind, ok: false, items: [] as Writeup[], error: 'parse failed' };
+      }
       // Trim per-source. Items inside a single feed are typically already
       // newest-first; sort defensively before truncating in case a feed
       // returns oldest-first (rare but seen in the wild).
