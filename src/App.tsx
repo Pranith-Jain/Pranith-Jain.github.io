@@ -157,6 +157,7 @@ const AdminApp = lazy(() => import('./pages/admin/AdminApp'));
 const DeepDarkCTI = lazy(() => import('./pages/threatintel/DeepDarkCTI'));
 const RansomwareLive = lazy(() => import('./pages/threatintel/RansomwareLive'));
 const Infostealer = lazy(() => import('./pages/threatintel/Infostealer'));
+const Negotiations = lazy(() => import('./pages/threatintel/Negotiations'));
 const UrlReputation = lazy(() => import('./pages/dfir/UrlReputation'));
 const DomainReputation = lazy(() => import('./pages/dfir/DomainReputation'));
 const ApkAnalyzer = lazy(() => import('./pages/dfir/ApkAnalyzer'));
@@ -997,6 +998,16 @@ export function AppContent() {
           <ErrorBoundary>
             <Suspense fallback={<SectionLoader />}>
               <Infostealer />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/threatintel/negotiations"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <Negotiations />
             </Suspense>
           </ErrorBoundary>
         }

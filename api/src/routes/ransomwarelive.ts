@@ -51,7 +51,12 @@ const RESOURCES: Record<string, ResourceSpec> = {
   csirt: { path: (a) => `/csirt/${encodeURIComponent(a ?? '')}`, ttl: 86400, argRequired: true },
 };
 
-function cacheKeyFor(resource: string, arg?: string): string {
+/**
+ * Edge-cache key for a proxied RL resource. Exported so feed-status can
+ * probe the exact cached body a real request would see (same pattern as the
+ * other routes' exported CACHE_KEY constants).
+ */
+export function rlProxyCacheKey(resource: string, arg?: string): string {
   return `https://rl-proxy-cache.internal/v1/${resource}${arg ? `/${arg}` : ''}`;
 }
 
@@ -77,7 +82,7 @@ export async function ransomwareLiveHandler(c: Context<{ Bindings: Env }>): Prom
   }
 
   const cache = (caches as unknown as { default: Cache }).default;
-  const cacheReq = new Request(cacheKeyFor(resource, arg));
+  const cacheReq = new Request(rlProxyCacheKey(resource, arg));
   const cached = await cache.match(cacheReq);
   if (cached) return cached;
 

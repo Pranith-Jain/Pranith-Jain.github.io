@@ -83,7 +83,13 @@ export default function RansomwareActivity(): JSX.Element {
           the other trackers fill coverage gaps and keep the page populated when any single source is degraded.
           Reference only; verify before acting.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">Refreshed hourly from upstream.</p>
+        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
+          Refreshed hourly from upstream. See also{' '}
+          <Link to="/threatintel/negotiations" className="text-brand-600 dark:text-brand-400 hover:underline">
+            ransomware negotiations
+          </Link>{' '}
+          (demand vs. paid + transcripts).
+        </p>
       </div>
 
       <RansomwareActivityPanel />

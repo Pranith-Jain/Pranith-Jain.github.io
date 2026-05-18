@@ -18,6 +18,7 @@ import {
   Globe,
   Globe2,
   Grid3x3,
+  Handshake,
   KeyRound,
   Layers,
   MessageSquare,
@@ -105,6 +106,13 @@ const SECTIONS: Section[] = [
         label: 'Infostealer live tracker',
         desc: 'Three live infostealer surfaces in one: HudsonRock victim exposure (ransomware.live PRO), demonforums ULP / cloud-log market threads, and the active stealer-log Telegram channel directory.',
         icon: KeyRound,
+        badge: 'live',
+      },
+      {
+        to: '/threatintel/negotiations',
+        label: 'Ransomware negotiations',
+        desc: 'ransomware.live PRO negotiation chats — demand vs. paid, discount achieved, status, with full per-negotiation transcript drill-down. Sortable, filterable by group/status.',
+        icon: Handshake,
         badge: 'live',
       },
       {
