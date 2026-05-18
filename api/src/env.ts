@@ -9,15 +9,18 @@ export interface Env {
   AI: Ai;
   /** Optional NVD API key (Worker secret) — raises NVD rate limit ~10x. */
   NVD_API_KEY?: string;
-  VT_API_KEY: string;
-  ABUSEIPDB_API_KEY: string;
-  SHODAN_API_KEY: string;
-  CENSYS_PAT: string;
-  CENSYS_ORG_ID: string;
-  NETLAS_API_KEY: string;
-  OTX_API_KEY: string;
-  URLSCAN_API_KEY: string;
-  HYBRID_ANALYSIS_API_KEY: string;
+  // Optional Worker secrets — unset in dev/preview and consumed with a
+  // `?? ''` fallback. Declaring them required was a type lie that would
+  // hide a genuine `undefined` if any caller forgot the fallback.
+  VT_API_KEY?: string;
+  ABUSEIPDB_API_KEY?: string;
+  SHODAN_API_KEY?: string;
+  CENSYS_PAT?: string;
+  CENSYS_ORG_ID?: string;
+  NETLAS_API_KEY?: string;
+  OTX_API_KEY?: string;
+  URLSCAN_API_KEY?: string;
+  HYBRID_ANALYSIS_API_KEY?: string;
   ABUSECH_AUTH_KEY?: string;
   DFIR_DEV_ERRORS?: string;
   DFIR_ANALYTICS?: AnalyticsEngineDataset;

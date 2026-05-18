@@ -60,7 +60,12 @@ function buildTwitterPromptSeparate(post: Post): string {
 }
 
 export async function generateSocialContent(post: Post, ai: Ai, now: Date): Promise<SocialContent> {
-  const [twitterRes, linkedinRes] = await Promise.all([
+  // allSettled, not all: social copy is ancillary to the case study. A
+  // transient AI failure on ONE channel must not reject the whole step and
+  // make the publisher record the entire case-study publish as failed —
+  // ship the post with whatever social content succeeded (empty string for
+  // the channel that didn't; the publisher/UI already tolerate empties).
+  const [twitterRes, linkedinRes] = await Promise.allSettled([
     runCompletion(ai, {
       system: SOCIAL_SYSTEM,
       user: buildTwitterPrompt(post),
@@ -77,8 +82,8 @@ export async function generateSocialContent(post: Post, ai: Ai, now: Date): Prom
 
   return {
     slug: post.slug,
-    twitter: twitterRes.text.trim(),
-    linkedin: linkedinRes.text.trim(),
+    twitter: twitterRes.status === 'fulfilled' ? twitterRes.value.text.trim() : '',
+    linkedin: linkedinRes.status === 'fulfilled' ? linkedinRes.value.text.trim() : '',
     generatedAt: now.toISOString(),
   };
 }

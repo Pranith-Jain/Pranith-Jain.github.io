@@ -33,7 +33,12 @@ export async function discoverRansomware(deps: DiscoverRansomwareDeps): Promise<
     if (v.group && GENERIC_GROUP_NAMES.has(v.group.toLowerCase())) continue;
     const posted = new Date(v.postedAt);
     if (posted < sevenDaysAgo) continue;
-    const k = ransomKey(v.group, deps.now);
+    // Anchor the dedup key to the victim's POST month, not the discovery
+    // run time. With deps.now the same group's victims discovered either
+    // side of a month boundary got different keys (ransom-<g>-2026-01 vs
+    // -2026-02), so noveltyScore treated an already-seen group as new and
+    // a duplicate case study got published. `posted` is stable across runs.
+    const k = ransomKey(v.group, posted);
     const e = groups.get(k) ?? { victims: [], latest: new Date(0) };
     e.victims.push(v);
     if (posted > e.latest) e.latest = posted;

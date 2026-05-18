@@ -10,11 +10,11 @@ function linkify(html: string): string {
   return parts
     .map((part, i) => {
       if (i % 2 === 1) return part;
-      return part
-        .replace(SHA256, (m) => `<a class="ioc-link" href="/dfir/ioc-check?q=${m}">${m}</a>`)
-        .replace(SHA1, (m) => `<a class="ioc-link" href="/dfir/ioc-check?q=${m}">${m}</a>`)
-        .replace(MD5, (m) => `<a class="ioc-link" href="/dfir/ioc-check?q=${m}">${m}</a>`)
-        .replace(IPV4, (m) => `<a class="ioc-link" href="/dfir/ioc-check?q=${m}">${m}</a>`);
+      // encodeURIComponent the query value: the hex/IP regexes can't emit
+      // attribute-breaking chars today, but this keeps the scraped→HTML
+      // path correct if a looser IOC pattern is ever added here.
+      const link = (m: string) => `<a class="ioc-link" href="/dfir/ioc-check?q=${encodeURIComponent(m)}">${m}</a>`;
+      return part.replace(SHA256, link).replace(SHA1, link).replace(MD5, link).replace(IPV4, link);
     })
     .join('');
 }

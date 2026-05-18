@@ -11,7 +11,12 @@ export async function recordFailure(ns: KVNamespace, rec: FailureRecord): Promis
 }
 
 export async function listFailures(ns: KVNamespace): Promise<FailureRecord[]> {
-  const { keys } = await ns.list({ prefix: 'failed:' });
+  // Bounded list — unbounded .list() defaults to 1000 keys and the
+  // Promise.all below does one KV read per key, which would blow the
+  // ~1k/day free-tier read budget in a single admin/dashboard call. The
+  // failures view only needs the recent tail; 100 is plenty (records
+  // also carry a 30-day TTL).
+  const { keys } = await ns.list({ prefix: 'failed:', limit: 100 });
   const results = await Promise.all(keys.map((k) => ns.get(k.name, 'json') as Promise<FailureRecord | null>));
   return results.filter((x): x is FailureRecord => x !== null);
 }

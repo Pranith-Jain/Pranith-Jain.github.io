@@ -442,21 +442,28 @@ export default {
     const csNow = new Date(event.scheduledTime);
     const csCron = event.cron;
 
+    // .catch on every ctx.waitUntil below: an unhandled rejection in a
+    // cron job is otherwise silent (no structured log, and it can mask a
+    // persistently broken discovery/planner/publisher). The briefing
+    // builds further down already wrap in try/catch — match that here.
+    const logCronFail = (job: string) => (e: unknown) =>
+      console.error(JSON.stringify({ cron: csCron, job, error: e instanceof Error ? e.message : String(e) }));
+
     // Hourly cache-warm cron — also run the publisher every hour.
     if (csCron === '0 * * * *') {
-      ctx.waitUntil(runPublisherNow(env as unknown as CaseStudyEnv, csNow));
+      ctx.waitUntil(runPublisherNow(env as unknown as CaseStudyEnv, csNow).catch(logCronFail('publisher')));
     }
 
     // Case-study discovery — its OWN invocation (no longer shares the
     // subrequest budget with the briefing build, which used to degrade it).
     if (csCron === '5 0 * * *') {
-      ctx.waitUntil(runDiscoveryNow(env as unknown as CaseStudyEnv, csNow));
+      ctx.waitUntil(runDiscoveryNow(env as unknown as CaseStudyEnv, csNow).catch(logCronFail('discovery')));
       return;
     }
 
     // Case-study planner — its own invocation.
     if (csCron === '15 0 * * 1') {
-      ctx.waitUntil(runPlannerNow(env as unknown as CaseStudyEnv, csNow));
+      ctx.waitUntil(runPlannerNow(env as unknown as CaseStudyEnv, csNow).catch(logCronFail('planner')));
       return;
     }
 

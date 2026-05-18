@@ -122,9 +122,24 @@ export async function ipGeoHandler(c: Context<{ Bindings: Env }>): Promise<Respo
 
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT);
+  // Build an explicit ProviderEnv with `?? ''` fallbacks — Env's provider
+  // keys are optional secrets, so c.env can't be passed directly to a
+  // required-keyed ProviderEnv (same pattern as domain/file/phishing).
+  const provEnv = {
+    VT_API_KEY: c.env.VT_API_KEY ?? '',
+    ABUSEIPDB_API_KEY: c.env.ABUSEIPDB_API_KEY ?? '',
+    SHODAN_API_KEY: c.env.SHODAN_API_KEY ?? '',
+    CENSYS_PAT: c.env.CENSYS_PAT ?? '',
+    CENSYS_ORG_ID: c.env.CENSYS_ORG_ID ?? '',
+    NETLAS_API_KEY: c.env.NETLAS_API_KEY ?? '',
+    OTX_API_KEY: c.env.OTX_API_KEY ?? '',
+    URLSCAN_API_KEY: c.env.URLSCAN_API_KEY ?? '',
+    HYBRID_ANALYSIS_API_KEY: c.env.HYBRID_ANALYSIS_API_KEY ?? '',
+    ABUSECH_AUTH_KEY: c.env.ABUSECH_AUTH_KEY,
+  };
   const [geoRaw, repRaw] = await Promise.all([
     fetchIpApi(ip),
-    abuseipdb({ value: ip, type: kind }, c.env, ctrl.signal).catch(() => null),
+    abuseipdb({ value: ip, type: kind }, provEnv, ctrl.signal).catch(() => null),
   ]);
   clearTimeout(timer);
 
