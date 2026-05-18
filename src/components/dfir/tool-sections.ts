@@ -789,6 +789,13 @@ export const SECTIONS: Section[] = [
         desc: 'Paste introspection JSON or SDL · flags introspection exposure, sensitive/PII fields, auth-less mutations/subscriptions, recursive-type DoS surface · 100% client-side',
         icon: Share2,
       },
+      {
+        path: '/dfir/osv-scan',
+        useCase: 'Find known CVEs in a lockfile before you ship it.',
+        label: 'OSV Dependency Scanner',
+        desc: 'Paste package-lock.json / package.json / requirements.txt / go.mod / Cargo.lock / Gemfile.lock · checks each package against OSV.dev · parsing client-side, fixed-version aware',
+        icon: Database,
+      },
     ],
   },
 ];

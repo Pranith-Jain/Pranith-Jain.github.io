@@ -70,6 +70,7 @@ const OpenApiAuditor = lazy(() => import('./pages/dfir/OpenApiAuditor'));
 const SecHeadersAnalyzer = lazy(() => import('./pages/dfir/SecHeadersAnalyzer'));
 const SecretScanner = lazy(() => import('./pages/dfir/SecretScanner'));
 const GraphqlAuditor = lazy(() => import('./pages/dfir/GraphqlAuditor'));
+const OsvScanner = lazy(() => import('./pages/dfir/OsvScanner'));
 const Punycode = lazy(() => import('./pages/dfir/Punycode'));
 const Takeover = lazy(() => import('./pages/dfir/Takeover'));
 const NotFound = lazy(() => import('./pages/NotFound'));
@@ -711,6 +712,16 @@ export function AppContent() {
           <ErrorBoundary>
             <Suspense fallback={<SectionLoader />}>
               <GraphqlAuditor />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/dfir/osv-scan"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <OsvScanner />
             </Suspense>
           </ErrorBoundary>
         }

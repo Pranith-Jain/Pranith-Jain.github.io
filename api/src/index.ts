@@ -7,6 +7,7 @@ import { exposureScanHandler } from './routes/exposure';
 import { fileAnalyzeHandler } from './routes/file';
 import { feedProxyHandler } from './routes/feeds';
 import { ctiParseHandler } from './routes/cti';
+import { osvScanHandler } from './routes/osv';
 import {
   taxiiDiscoveryHandler,
   taxiiApiRootHandler,
@@ -100,6 +101,7 @@ app.get('/api/v1/taxii2/api/collections/:id/objects/', taxiiObjectsHandler);
 app.get('/api/v1/cti/misp/manifest.json', mispManifestHandler);
 app.get('/api/v1/cti/misp/:file', mispEventHandler);
 app.post('/api/v1/cti/parse', ctiParseHandler);
+app.post('/api/v1/osv/scan', osvScanHandler);
 app.get('/api/v1/privacy/inspect', privacyInspectHandler);
 app.get('/api/v1/cve/lookup', cveSearchHandler);
 app.get('/api/v1/cve/search', cveSearchHandler);
