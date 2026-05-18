@@ -64,6 +64,7 @@ const SigmaConverter = lazy(() => import('./pages/dfir/SigmaConverter'));
 const LinuxTriage = lazy(() => import('./pages/dfir/LinuxTriage'));
 const TerraformScanner = lazy(() => import('./pages/dfir/TerraformScanner'));
 const GcpIamAnalyzer = lazy(() => import('./pages/dfir/GcpIamAnalyzer'));
+const AzureRbacAnalyzer = lazy(() => import('./pages/dfir/AzureRbacAnalyzer'));
 const Punycode = lazy(() => import('./pages/dfir/Punycode'));
 const Takeover = lazy(() => import('./pages/dfir/Takeover'));
 const NotFound = lazy(() => import('./pages/NotFound'));
@@ -645,6 +646,16 @@ export function AppContent() {
           <ErrorBoundary>
             <Suspense fallback={<SectionLoader />}>
               <GcpIamAnalyzer />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/dfir/azure-rbac"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <AzureRbacAnalyzer />
             </Suspense>
           </ErrorBoundary>
         }

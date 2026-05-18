@@ -712,6 +712,13 @@ export const SECTIONS: Section[] = [
         icon: Shield,
       },
       {
+        path: '/dfir/azure-rbac',
+        useCase: 'Find the SP that is Owner on the whole subscription.',
+        label: 'Azure RBAC Analyzer',
+        desc: 'Paste az role assignment / definition list JSON · flags privileged roles at root/MG/subscription scope, SP & guest grants, legacy co-admins, custom-role escalation (roleAssignments/write, elevateAccess, VM run-command, listKeys) · 100% client-side',
+        icon: Lock,
+      },
+      {
         path: '/dfir/sg-analyzer',
         useCase: 'Find the database port someone left open to the world.',
         label: 'Security Group / NSG Analyzer',
