@@ -683,6 +683,13 @@ export const SECTIONS: Section[] = [
         desc: 'Paste an AWS IAM / S3 bucket / role-trust policy · flags wildcard admin, public principals, NotAction/NotResource, privilege-escalation actions, broad secret access & confused-deputy trust · 100% client-side',
         icon: Cloud,
       },
+      {
+        path: '/dfir/sg-analyzer',
+        useCase: 'Find the database port someone left open to the world.',
+        label: 'Security Group / NSG Analyzer',
+        desc: 'Paste AWS describe-security-groups JSON or an Azure NSG · flags inbound rules open to 0.0.0.0/0 · ::/0 · "Internet", severity-ranked by service (SSH/RDP/DB/admin planes) · 100% client-side',
+        icon: Network,
+      },
     ],
   },
 ];

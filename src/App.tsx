@@ -56,6 +56,7 @@ const UrlPreview = lazy(() => import('./pages/dfir/UrlPreview'));
 const IocExtractor = lazy(() => import('./pages/dfir/IocExtractor'));
 const JwtInspect = lazy(() => import('./pages/dfir/JwtInspect'));
 const IamPolicyAnalyzer = lazy(() => import('./pages/dfir/IamPolicyAnalyzer'));
+const SecurityGroupAnalyzer = lazy(() => import('./pages/dfir/SecurityGroupAnalyzer'));
 const Punycode = lazy(() => import('./pages/dfir/Punycode'));
 const Takeover = lazy(() => import('./pages/dfir/Takeover'));
 const NotFound = lazy(() => import('./pages/NotFound'));
@@ -557,6 +558,16 @@ export function AppContent() {
           <ErrorBoundary>
             <Suspense fallback={<SectionLoader />}>
               <IamPolicyAnalyzer />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/dfir/sg-analyzer"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <SecurityGroupAnalyzer />
             </Suspense>
           </ErrorBoundary>
         }
