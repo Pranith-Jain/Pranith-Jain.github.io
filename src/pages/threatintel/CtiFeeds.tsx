@@ -90,7 +90,7 @@ export default function CtiFeeds(): JSX.Element {
           </p>
           <Copyable value={STIX_URL} />
           <pre className="mt-2 text-[12px] font-mono text-slate-500 whitespace-pre-wrap break-all">
-            curl -s {STIX_URL} | jq '.objects | length'
+            {`curl -s ${STIX_URL} | jq '.objects | length'`}
           </pre>
         </section>
 
@@ -114,7 +114,7 @@ export default function CtiFeeds(): JSX.Element {
             <strong>OpenCTI:</strong> add a <em>TAXII 2.1</em> connector with the discovery URL above, no credentials.
             <br />
             <strong>TheHive/Cortex &amp; STIX clients:</strong> same discovery URL; media type{' '}
-            <code className="font-mono">application/taxii+json;version=2.1</code>.
+            <code className="font-mono break-all">application/taxii+json;version=2.1</code>.
           </p>
         </section>
 
