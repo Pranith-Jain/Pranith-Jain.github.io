@@ -11,6 +11,7 @@
 
 import type { D1Database } from '@cloudflare/workers-types';
 import { FEED_SOURCES, UNCAPPED, buildSummary, type IocEntry, type SourceId } from './ioc-feed-parsers';
+import { fetchResilient } from './fetch-resilient';
 
 const NVD_UA = 'Mozilla/5.0 (compatible; pranithjain-dfir/1.0; +https://pranithjain.qzz.io)';
 const NVD_API = 'https://services.nvd.nist.gov/rest/json/cves/2.0';
@@ -459,11 +460,19 @@ function startOfIsoWeek(d: Date): Date {
 // ---- fetchers -----------------------------------------------------------
 
 async function fetchKev(): Promise<KevEntry[]> {
-  const res = await fetch(KEV_FEED, {
-    headers: { 'user-agent': NVD_UA, accept: 'application/json' },
-    signal: AbortSignal.timeout(20_000),
-    cf: { cacheTtlByStatus: { '200-299': 1800, '400-599': 0 }, cacheEverything: true },
-  } as RequestInit);
+  // KEV is a reliable static CISA file, but a single transient timeout/5xx
+  // from the shared Worker IP used to drop it entirely — and if NVD also
+  // hiccupped the same run, the briefing degraded. Retry (no signal in init
+  // so fetchResilient owns the per-attempt 20s timeout; passing a caller
+  // signal would break retries once it aborts).
+  const res = await fetchResilient(
+    KEV_FEED,
+    {
+      headers: { 'user-agent': NVD_UA, accept: 'application/json' },
+      cf: { cacheTtlByStatus: { '200-299': 1800, '400-599': 0 }, cacheEverything: true },
+    } as RequestInit,
+    { attempts: 3, timeoutMs: 20_000 }
+  );
   if (!res.ok) throw new Error(`KEV fetch failed: ${res.status}`);
   const doc = (await res.json()) as KevDoc;
   return doc.vulnerabilities ?? [];
