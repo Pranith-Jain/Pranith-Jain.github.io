@@ -4,6 +4,7 @@ import { ArrowLeft, ExternalLink, RefreshCw, Radio, Loader2, Search } from 'luci
 import { fetchAggregatedFeed, formatRelativeTime, type AggregatedFeedItem } from '../../services/rssService';
 import {
   landingThreatGovernment,
+  landingThreatIndia,
   landingThreatVendor,
   landingThreatInvestigation,
   landingThreatReddit,
@@ -31,6 +32,12 @@ const SECTIONS: Section[] = [
     label: 'Government advisories',
     blurb: 'CISA alerts, medical-device advisories, ICS-CERT — authoritative US-government feeds.',
     feedIds: landingThreatGovernment,
+  },
+  {
+    id: 'india',
+    label: 'India',
+    blurb: 'India-scoped cyber-attacks, data breaches, ransomware, and CERT-In advisory coverage.',
+    feedIds: landingThreatIndia,
   },
   {
     id: 'vendor',

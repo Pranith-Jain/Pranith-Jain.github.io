@@ -53,6 +53,13 @@ const SECTIONS: { id: string; label: string; blurb: string; feedIds: string[] }[
     feedIds: ['gnews-job-scam', 'reddit-jobscams'],
   },
   {
+    id: 'india',
+    label: 'India',
+    blurb:
+      'India-specific fraud — digital-arrest, UPI / payment fraud, predatory loan apps, plus I4C / 1930-helpline enforcement.',
+    feedIds: ['gnews-india-scam', 'gnews-india-cybercrime'],
+  },
+  {
     id: 'impersonation',
     label: 'Impersonation & social engineering',
     blurb: 'Tech-support, IRS, Microsoft, SIM-swap, vishing — anyone-but-them on the phone.',

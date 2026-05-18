@@ -591,6 +591,26 @@ export const rssFeeds: RSSFeed[] = [
     language: 'en-US',
   },
   {
+    id: 'gnews-india-scam',
+    name: 'Google News — India scams & fraud',
+    url: 'https://news.google.com/rss/search?q=India+%22digital+arrest%22+OR+%22UPI+fraud%22+OR+%22cyber+fraud%22+OR+%22loan+app%22+scam&hl=en-IN&gl=IN&ceid=IN:en',
+    description:
+      'India-scoped Google News for active scam types — digital-arrest, UPI / payment fraud, predatory loan apps, courier & KYC scams.',
+    category: 'news',
+    source: 'Google News (IN)',
+    language: 'en-IN',
+  },
+  {
+    id: 'gnews-india-cybercrime',
+    name: 'Google News — India cybercrime & enforcement',
+    url: 'https://news.google.com/rss/search?q=India+cybercrime+OR+%22online+fraud%22+OR+I4C+OR+%221930+helpline%22+arrest&hl=en-IN&gl=IN&ceid=IN:en',
+    description:
+      'India cybercrime enforcement coverage — I4C / 1930 helpline actions, fraud-ring busts, mule-account crackdowns.',
+    category: 'news',
+    source: 'Google News (IN)',
+    language: 'en-IN',
+  },
+  {
     id: 'reddit-scams',
     name: 'Reddit r/Scams',
     url: 'https://www.reddit.com/r/Scams/.rss',
@@ -949,6 +969,26 @@ export const rssFeeds: RSSFeed[] = [
     source: 'idtheftcenter.org',
     language: 'en',
   },
+  {
+    id: 'gnews-india-cyberattack',
+    name: 'Google News — India cyber attacks & breaches',
+    url: 'https://news.google.com/rss/search?q=India+%22cyber+attack%22+OR+%22data+breach%22+OR+ransomware+OR+APT+OR+hacked&hl=en-IN&gl=IN&ceid=IN:en',
+    description:
+      'India-scoped Google News for cyber-attacks, data breaches, ransomware incidents and APT activity targeting Indian organisations.',
+    category: 'threat-intel',
+    source: 'Google News (IN)',
+    language: 'en-IN',
+  },
+  {
+    id: 'gnews-cert-in',
+    name: 'CERT-In advisories (via Google News)',
+    url: 'https://news.google.com/rss/search?q=%22CERT-In%22+advisory+OR+vulnerability+OR+alert&hl=en-IN&gl=IN&ceid=IN:en',
+    description:
+      'Coverage of CERT-In (Indian Computer Emergency Response Team) advisories, vulnerability notes and alerts — CERT-In has no stable public RSS, so this tracks it via news.',
+    category: 'threat-intel',
+    source: 'Google News (IN)',
+    language: 'en-IN',
+  },
 ];
 
 /**
@@ -1038,6 +1078,7 @@ export const defaultTechFeeds = landingGeneralTechFeeds;
  * hand-picked so each tab has a coherent identity.
  */
 export const landingThreatGovernment = ['cisa-alerts', 'cisa-medical-advisories'];
+export const landingThreatIndia = ['gnews-india-cyberattack', 'gnews-cert-in'];
 
 export const landingThreatVendor = [
   'talos',
