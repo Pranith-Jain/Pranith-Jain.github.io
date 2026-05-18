@@ -39,6 +39,7 @@ const Wiki = lazy(() => import('./pages/dfir/Wiki'));
 const WikiArticle = lazy(() => import('./pages/dfir/WikiArticle'));
 const Dashboard = lazy(() => import('./pages/dfir/Dashboard'));
 const Actors = lazy(() => import('./pages/dfir/Actors'));
+const ActorKb = lazy(() => import('./pages/threatintel/ActorKb'));
 const ActorDetail = lazy(() => import('./pages/dfir/ActorDetail'));
 const Privacy = lazy(() => import('./pages/dfir/Privacy'));
 const Briefings = lazy(() => import('./pages/dfir/Briefings'));
@@ -380,6 +381,16 @@ export function AppContent() {
           <ErrorBoundary>
             <Suspense fallback={<SectionLoader />}>
               <Dashboard />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/threatintel/actor-kb"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <ActorKb />
             </Suspense>
           </ErrorBoundary>
         }

@@ -504,6 +504,13 @@ export const SECTIONS: Section[] = [
     blurb: 'Build, test, and run detection content.',
     tools: [
       {
+        path: '/threatintel/actor-kb',
+        useCase: 'Profile an APT — aliases, TTPs by tactic, tooling.',
+        label: 'Threat-Actor Knowledge Base',
+        desc: '174 MITRE ATT&CK intrusion-sets · search by name/alias/Gxxxx/technique/malware → aliases, ATT&CK TTPs grouped by tactic, tooling · committed dataset, 100% client-side',
+        icon: Users,
+      },
+      {
         path: '/dfir/sigma-convert',
         useCase: 'Turn a Sigma rule into a Splunk / KQL / Lucene query.',
         label: 'Sigma Rule Converter',
