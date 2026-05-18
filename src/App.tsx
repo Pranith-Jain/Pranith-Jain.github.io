@@ -62,6 +62,7 @@ const K8sRbacAnalyzer = lazy(() => import('./pages/dfir/K8sRbacAnalyzer'));
 const CvePrioritizer = lazy(() => import('./pages/dfir/CvePrioritizer'));
 const SigmaConverter = lazy(() => import('./pages/dfir/SigmaConverter'));
 const LinuxTriage = lazy(() => import('./pages/dfir/LinuxTriage'));
+const TerraformScanner = lazy(() => import('./pages/dfir/TerraformScanner'));
 const Punycode = lazy(() => import('./pages/dfir/Punycode'));
 const Takeover = lazy(() => import('./pages/dfir/Takeover'));
 const NotFound = lazy(() => import('./pages/NotFound'));
@@ -623,6 +624,16 @@ export function AppContent() {
           <ErrorBoundary>
             <Suspense fallback={<SectionLoader />}>
               <LinuxTriage />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/dfir/terraform-scan"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <TerraformScanner />
             </Suspense>
           </ErrorBoundary>
         }

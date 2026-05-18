@@ -725,6 +725,13 @@ export const SECTIONS: Section[] = [
         desc: 'Paste kubectl RBAC -o json · flags wildcard verbs/resources, escalate/bind/impersonate, cluster-wide secret read, pod exec, cluster-admin & anonymous bindings · 100% client-side',
         icon: KeyRound,
       },
+      {
+        path: '/dfir/terraform-scan',
+        useCase: 'Block the public S3 bucket before terraform apply.',
+        label: 'Terraform / IaC Plan Scanner',
+        desc: 'Paste terraform show -json (plan/state) · flags public S3/RDS, world-open security groups, unencrypted storage, IMDSv1, wildcard IAM, public resource policies & hardcoded secrets · 100% client-side',
+        icon: FileCheck,
+      },
     ],
   },
 ];
