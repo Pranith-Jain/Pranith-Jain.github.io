@@ -399,14 +399,17 @@ export default {
       ctx.waitUntil(runPublisherNow(env as unknown as CaseStudyEnv, csNow));
     }
 
-    // Daily briefing cron — also run case-study discovery.
+    // Case-study discovery — its OWN invocation (no longer shares the
+    // subrequest budget with the briefing build, which used to degrade it).
     if (csCron === '5 0 * * *') {
       ctx.waitUntil(runDiscoveryNow(env as unknown as CaseStudyEnv, csNow));
+      return;
     }
 
-    // Weekly Mon briefing cron — also run the planner for the upcoming week.
+    // Case-study planner — its own invocation.
     if (csCron === '15 0 * * 1') {
       ctx.waitUntil(runPlannerNow(env as unknown as CaseStudyEnv, csNow));
+      return;
     }
 
     if (cron === '0 * * * *') {
@@ -546,12 +549,15 @@ export default {
       return;
     }
 
-    // Briefings cron path.
+    // Dedicated briefings cron path — ONLY the two briefing-only crons reach
+    // here (discovery/planner returned above; hourly returned in its block).
+    // Each runs alone with a full subrequest budget.
+    if (cron !== '30 0 * * *' && cron !== '45 0 * * 1') return;
     if (!env.BRIEFINGS_DB) {
       console.warn('scheduled: BRIEFINGS_DB not bound, skipping');
       return;
     }
-    const isWeekly = cron === '15 0 * * 1';
+    const isWeekly = cron === '45 0 * * 1';
     const type = isWeekly ? 'weekly' : 'daily';
 
     ctx.waitUntil(
