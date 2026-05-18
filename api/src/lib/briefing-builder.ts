@@ -457,6 +457,17 @@ function startOfIsoWeek(d: Date): Date {
   return dt;
 }
 
+/**
+ * The slug `buildBriefing('weekly', anchor)` will produce — i.e. the
+ * just-completed ISO week. Exported so the hourly catch-up can self-heal a
+ * missing/degraded weekly the same way it does the daily (the weekly cron
+ * only fires Mondays, so without this a failed weekly was stuck for 7 days).
+ */
+export function expectedWeeklySlug(anchor: Date = new Date()): string {
+  const start = new Date(startOfIsoWeek(anchor).getTime() - 7 * 86400_000);
+  return `weekly-${isoYearWeek(start)}`;
+}
+
 // ---- fetchers -----------------------------------------------------------
 
 async function fetchKev(): Promise<KevEntry[]> {

@@ -4,6 +4,7 @@ import {
   buildBriefing,
   writeBriefing,
   sweepOldBriefings,
+  expectedWeeklySlug,
 } from '../api/src/lib/briefing-builder';
 import { runDiscoveryNow, runPlannerNow, runPublisherNow, type CaseStudyEnv } from '../api/src/case-study/run';
 import type { Ai, D1Database } from '@cloudflare/workers-types';
@@ -450,6 +451,45 @@ export default {
               }
             } catch (err) {
               console.error('scheduled(catch-up): briefing build failed', err);
+            }
+          })()
+        );
+      }
+
+      // Weekly self-heal. The weekly cron only fires Mondays, so a failed
+      // weekly was stuck for a FULL WEEK with no recovery. Mirror the daily
+      // logic but gate to ONCE/day (UTC hour 2) so the heavier weekly build
+      // never stacks with the daily build + snapshot warm every hour and
+      // re-blows the ~50-subrequest invocation budget.
+      if (env.BRIEFINGS_DB && new Date().getUTCHours() === 2) {
+        ctx.waitUntil(
+          (async () => {
+            const db = env.BRIEFINGS_DB as D1Database;
+            const slug = expectedWeeklySlug();
+            const row = await db
+              .prepare('SELECT stats_json FROM briefings WHERE slug = ?')
+              .bind(slug)
+              .first<{ stats_json: string }>();
+            if (row) {
+              let rich = false;
+              try {
+                const s = JSON.parse(row.stats_json || '{}') as { findings?: number; iocs?: number };
+                rich = (s.findings ?? 0) > 0 || (s.iocs ?? 0) > 0;
+              } catch {
+                rich = false;
+              }
+              if (rich) return;
+            }
+            try {
+              const briefing = await buildBriefing('weekly', undefined, { nvdApiKey: env.NVD_API_KEY });
+              const result = await writeBriefing(db, briefing);
+              if (result.written) {
+                console.log(
+                  `scheduled(weekly-catch-up): wrote ${briefing.slug} (findings=${briefing.stats.findings}, iocs=${briefing.stats.iocs})`
+                );
+              }
+            } catch (err) {
+              console.error('scheduled(weekly-catch-up): build failed', err);
             }
           })()
         );
