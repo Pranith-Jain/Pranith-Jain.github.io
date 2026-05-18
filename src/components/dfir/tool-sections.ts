@@ -121,6 +121,13 @@ export const SECTIONS: Section[] = [
         icon: Hash,
       },
       {
+        path: '/dfir/linux-triage',
+        useCase: 'Triage a Linux box from its auth.log + bash_history.',
+        label: 'Linux IR Triage',
+        desc: 'Paste auth.log / secure / crontab / bash_history · flags SSH brute force, success-after-failure, root login, new sudoers, cron persistence, reverse-shell & download-cradle one-liners · 100% client-side',
+        icon: Terminal,
+      },
+      {
         path: '/dfir/malware-scan',
         useCase: 'Profile a suspicious file before deeper analysis.',
         label: 'Malware Scanner',
@@ -497,6 +504,20 @@ export const SECTIONS: Section[] = [
     blurb: 'Build, test, and run detection content.',
     tools: [
       {
+        path: '/dfir/sigma-convert',
+        useCase: 'Turn a Sigma rule into a Splunk / KQL / Lucene query.',
+        label: 'Sigma Rule Converter',
+        desc: 'Paste Sigma YAML → Splunk SPL · Microsoft KQL · Elastic Lucene · handles list/map selections, contains/startswith/endswith/all/re modifiers & and/or/not conditions · 100% client-side',
+        icon: Code2,
+      },
+      {
+        path: '/dfir/cve-prioritizer',
+        useCase: 'Decide which CVEs to actually patch this week.',
+        label: 'CVE Exploit Prioritizer',
+        desc: 'Paste CVE IDs → fuses NVD CVSS + FIRST EPSS + CISA KEV (incl. known-ransomware use) into one ACT-NOW / SCHEDULE / MONITOR / DEFER verdict · bulk mode',
+        icon: Crosshair,
+      },
+      {
         path: '/dfir/rule-playground',
         useCase: 'Test a YARA or Sigma rule locally.',
         label: 'YARA / Sigma Playground',
@@ -689,6 +710,20 @@ export const SECTIONS: Section[] = [
         label: 'Security Group / NSG Analyzer',
         desc: 'Paste AWS describe-security-groups JSON or an Azure NSG · flags inbound rules open to 0.0.0.0/0 · ::/0 · "Internet", severity-ranked by service (SSH/RDP/DB/admin planes) · 100% client-side',
         icon: Network,
+      },
+      {
+        path: '/dfir/cloudtrail-triage',
+        useCase: 'Spot the no-MFA login + log-tampering in a CloudTrail dump.',
+        label: 'CloudTrail Triage',
+        desc: 'Paste CloudTrail JSON (file / lookup-events / array) · scores no-MFA & root logins, log/guardrail tampering, IAM changes, public exposure, snapshot sharing, recon bursts · 100% client-side',
+        icon: ScrollText,
+      },
+      {
+        path: '/dfir/k8s-rbac',
+        useCase: 'Catch the service account that is secretly cluster-admin.',
+        label: 'Kubernetes RBAC Analyzer',
+        desc: 'Paste kubectl RBAC -o json · flags wildcard verbs/resources, escalate/bind/impersonate, cluster-wide secret read, pod exec, cluster-admin & anonymous bindings · 100% client-side',
+        icon: KeyRound,
       },
     ],
   },

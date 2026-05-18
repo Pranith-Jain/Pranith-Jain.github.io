@@ -57,6 +57,11 @@ const IocExtractor = lazy(() => import('./pages/dfir/IocExtractor'));
 const JwtInspect = lazy(() => import('./pages/dfir/JwtInspect'));
 const IamPolicyAnalyzer = lazy(() => import('./pages/dfir/IamPolicyAnalyzer'));
 const SecurityGroupAnalyzer = lazy(() => import('./pages/dfir/SecurityGroupAnalyzer'));
+const CloudTrailTriage = lazy(() => import('./pages/dfir/CloudTrailTriage'));
+const K8sRbacAnalyzer = lazy(() => import('./pages/dfir/K8sRbacAnalyzer'));
+const CvePrioritizer = lazy(() => import('./pages/dfir/CvePrioritizer'));
+const SigmaConverter = lazy(() => import('./pages/dfir/SigmaConverter'));
+const LinuxTriage = lazy(() => import('./pages/dfir/LinuxTriage'));
 const Punycode = lazy(() => import('./pages/dfir/Punycode'));
 const Takeover = lazy(() => import('./pages/dfir/Takeover'));
 const NotFound = lazy(() => import('./pages/NotFound'));
@@ -568,6 +573,56 @@ export function AppContent() {
           <ErrorBoundary>
             <Suspense fallback={<SectionLoader />}>
               <SecurityGroupAnalyzer />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/dfir/cloudtrail-triage"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <CloudTrailTriage />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/dfir/k8s-rbac"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <K8sRbacAnalyzer />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/dfir/cve-prioritizer"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <CvePrioritizer />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/dfir/sigma-convert"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <SigmaConverter />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/dfir/linux-triage"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <LinuxTriage />
             </Suspense>
           </ErrorBoundary>
         }
