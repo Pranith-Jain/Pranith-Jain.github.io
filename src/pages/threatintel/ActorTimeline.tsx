@@ -27,6 +27,8 @@ interface ActorRow {
   mirrors_reachable: number;
   mirrors_total: number;
   mitre?: MitreGroupRef;
+  /** Row rebuilt from the /api/recent feed because the per-group endpoint was down. */
+  partial?: boolean;
 }
 
 interface AggregateTechnique {
@@ -227,7 +229,8 @@ export default function ActorTimeline(): JSX.Element {
                               <AccelerationBadge buckets={g.buckets} />
                             </div>
                             <div className="text-[10px] font-mono text-slate-500 mt-0.5">
-                              {g.posts_in_window} in {data.window_days}d · {g.all_time_count} all-time
+                              {g.posts_in_window} in {data.window_days}d ·{' '}
+                              {g.partial ? 'recent-feed only' : `${g.all_time_count} all-time`}
                             </div>
                           </div>
                           {g.buckets.map((b) => (
@@ -260,22 +263,33 @@ export default function ActorTimeline(): JSX.Element {
                               RaaS
                             </span>
                           )}
-                          <span
-                            className={`inline-flex items-center gap-1.5 px-1.5 py-0.5 rounded ${
-                              g.mirrors_total > 0 && g.mirrors_reachable === 0
-                                ? 'border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300'
-                                : 'bg-slate-100 dark:bg-slate-800'
-                            }`}
-                            title={`${g.mirrors_reachable} of ${g.mirrors_total} leak-site mirrors currently reachable${
-                              g.mirrors_total > 0 && g.mirrors_reachable === 0 ? ' (site possibly down or seized)' : ''
-                            }`}
-                          >
-                            mirrors:
-                            <MirrorDots reachable={g.mirrors_reachable} total={g.mirrors_total} />
-                            <span className="tabular-nums text-[10px]">
-                              {g.mirrors_reachable}/{g.mirrors_total}
+                          {g.partial ? (
+                            <span
+                              className="px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-400"
+                              title="ransomlook per-group endpoint was unreachable; this row is rebuilt from the recent-claims feed. Heatmap is accurate for the window; all-time count, mirrors and references are unavailable."
+                            >
+                              recent-feed only
                             </span>
-                          </span>
+                          ) : (
+                            <span
+                              className={`inline-flex items-center gap-1.5 px-1.5 py-0.5 rounded ${
+                                g.mirrors_total > 0 && g.mirrors_reachable === 0
+                                  ? 'border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300'
+                                  : 'bg-slate-100 dark:bg-slate-800'
+                              }`}
+                              title={`${g.mirrors_reachable} of ${g.mirrors_total} leak-site mirrors currently reachable${
+                                g.mirrors_total > 0 && g.mirrors_reachable === 0
+                                  ? ' (site possibly down or seized)'
+                                  : ''
+                              }`}
+                            >
+                              mirrors:
+                              <MirrorDots reachable={g.mirrors_reachable} total={g.mirrors_total} />
+                              <span className="tabular-nums text-[10px]">
+                                {g.mirrors_reachable}/{g.mirrors_total}
+                              </span>
+                            </span>
+                          )}
                           {g.references.slice(0, 3).map((ref, i) => {
                             let host = ref;
                             try {

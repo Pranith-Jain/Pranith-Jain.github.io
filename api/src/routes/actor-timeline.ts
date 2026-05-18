@@ -66,6 +66,13 @@ interface ActorRow {
   mirrors_total: number;
   /** MITRE ATT&CK Group reference (null when this group isn't in MITRE). */
   mitre?: MitreGroupRef;
+  /**
+   * True when the per-group ransomlook endpoint was unreachable and this row
+   * was reconstructed from the already-fetched /api/recent feed. The heatmap
+   * is still accurate for the window, but all-time count, mirrors, RaaS tag,
+   * description and references are unavailable for this group.
+   */
+  partial?: boolean;
 }
 
 interface AggregateTechnique extends Technique {
@@ -170,12 +177,25 @@ export async function fetchActorTimeline(): Promise<ActorTimelineResponse> {
     };
   }
 
-  // Rank groups by recent claim count
+  // Rank groups by recent claim count, and — in the same pass — bucket each
+  // group's in-window post days straight from /api/recent. This second map is
+  // the fallback source: when ransomlook's flaky per-group endpoint fails for
+  // a group, we rebuild its heatmap row from data we already hold instead of
+  // emitting a "per-group fetch warning". Every group in topGroups is, by
+  // construction, present here with ≥1 post, so the fallback is always viable.
   const groupRecentCount = new Map<string, number>();
+  const recentDaysByGroup = new Map<string, string[]>();
   for (const e of recent) {
     const g = e.group_name?.trim().toLowerCase();
     if (!g) continue;
     groupRecentCount.set(g, (groupRecentCount.get(g) ?? 0) + 1);
+    const iso = toIsoDate(e.discovered);
+    if (!iso) continue;
+    const k = dayKey(iso);
+    if (k < windowStart || !dayIndex.has(k)) continue;
+    const arr = recentDaysByGroup.get(g);
+    if (arr) arr.push(k);
+    else recentDaysByGroup.set(g, [k]);
   }
   const topGroups = [...groupRecentCount.entries()]
     .sort((a, b) => b[1] - a[1])
@@ -194,11 +214,34 @@ export async function fetchActorTimeline(): Promise<ActorTimelineResponse> {
 
   const warnings: ActorTimelineResponse['warnings'] = [];
   const rows: ActorRow[] = [];
-  const failedSlugs: string[] = [];
 
   for (const { slug, data } of perGroupResults) {
     if (!data || !Array.isArray(data) || data.length < 2) {
-      failedSlugs.push(slug);
+      // Per-group endpoint unreachable — reconstruct a partial row from the
+      // /api/recent feed we already have. No warning: the heatmap (the point
+      // of this view) is still accurate for the window; only the secondary
+      // metadata (all-time count, mirrors, RaaS, refs) is unavailable.
+      const recentDays = recentDaysByGroup.get(slug) ?? [];
+      if (recentDays.length === 0) continue; // nothing to show; skip silently
+      const fbBuckets: ActorBucket[] = days.map((day) => ({ day, count: 0 }));
+      for (const k of recentDays) {
+        const idx = dayIndex.get(k);
+        if (idx !== undefined) fbBuckets[idx]!.count += 1;
+      }
+      const fbMitre = mitreGroupRef(slug);
+      rows.push({
+        slug,
+        display_name: titleCase(slug),
+        posts_in_window: recentDays.length,
+        all_time_count: recentDays.length, // window floor; full history unavailable
+        buckets: fbBuckets,
+        raas: false,
+        references: [],
+        mirrors_reachable: 0,
+        mirrors_total: 0,
+        mitre: fbMitre ?? undefined,
+        partial: true,
+      });
       continue;
     }
     const [meta, posts] = data;
@@ -238,14 +281,9 @@ export async function fetchActorTimeline(): Promise<ActorTimelineResponse> {
     });
   }
 
-  // Collapse the per-group failures into ONE warning instead of one-per-slug
-  // spam. The timeline is still built from the groups that did resolve.
-  if (failedSlugs.length > 0) {
-    warnings.push({
-      slug: '*',
-      reason: `${failedSlugs.length}/${topGroups.length} per-group lookups unavailable (ransomlook throttled): ${failedSlugs.slice(0, 6).join(', ')}${failedSlugs.length > 6 ? '…' : ''}`,
-    });
-  }
+  // No per-group warnings: failed lookups are transparently backfilled from
+  // /api/recent above. The only remaining warning case is the whole
+  // /api/recent feed being unreachable, handled in the early-return above.
 
   // Sort by activity in window desc, then all-time count
   rows.sort((a, b) => {

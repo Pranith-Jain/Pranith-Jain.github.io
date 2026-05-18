@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Activity,
@@ -6,9 +6,13 @@ import {
   BarChart3,
   Briefcase,
   Bug,
+  Database,
   Flame,
   Globe2,
   Loader2,
+  MessageSquare,
+  Network,
+  Radio,
   RefreshCw,
   Shield,
   Skull,
@@ -22,7 +26,7 @@ import {
  * four endpoints the other /threatintel pages use, so there's no new
  * worker code and no risk of stale aggregates: refresh → fresh chart.
  *
- * Ten panels answer the questions a CTI team actually asks:
+ * Fifteen panels answer the questions a CTI team actually asks:
  *   1. Who's most active in ransomware right now?              (HBar)
  *   2. What's the pace of ransomware claims this month?         (Area)
  *   3. How is CVE severity distributed in the current window?   (Stacked HBar)
@@ -33,6 +37,13 @@ import {
  *   8. Which vendors are most-exploited on the KEV catalogue?   (HBar)
  *   9. Which malware families are spreading right now?          (HBar)
  *   10. Re-leak hotspots — groups doing the most cross-claims    (HBar)
+ *   11. Where do malicious IPs originate?                        (HBar)
+ *   12. Which C2 frameworks have the most live infra?            (HBar)
+ *   13. Which fresh breach disclosures are largest?              (HBar)
+ *   14. What are researchers cross-referencing right now?        (HBar)
+ *   15. Where is dark-web CTI coverage concentrated?             (HBar)
+ *
+ * Headline counters carry a ▲/▼ delta vs the previous in-session refresh.
  *
  * Charts are hand-rolled SVG — no Recharts/D3 dependency. Each is small,
  * presentational, and accessible (title/aria on rects + percentage labels).
@@ -86,6 +97,34 @@ interface ReleakRow {
   group_count: number;
   raw_names: string[];
   claims: { group: string; raw_victim: string; discovered: string }[];
+}
+
+interface C2Response {
+  generated_at: string;
+  count: number;
+  sources: { id: string; name: string; count: number }[];
+  frameworks: Record<string, number>;
+}
+
+interface BreachDisclosure {
+  name: string;
+  title: string;
+  pwn_count?: number;
+  added_date?: string;
+  breach_date?: string;
+}
+
+interface PulseEntity {
+  label: string;
+  kind: 'cve' | 'actor' | 'technique' | 'malware';
+  source_count: number;
+  sources: string[];
+}
+
+interface DeepDarkCtiResponse {
+  generated_at: string;
+  categories: { id: string; label: string; count: number }[];
+  total: number;
 }
 
 const SEVERITY_COLORS: Record<RecentCve['severity'], string> = {
@@ -277,6 +316,10 @@ interface State {
   threatMap: ThreatMapResponse | null;
   malware: MalwareSample[] | null;
   releaks: ReleakRow[] | null;
+  c2: C2Response | null;
+  breaches: BreachDisclosure[] | null;
+  pulse: PulseEntity[] | null;
+  ddc: DeepDarkCtiResponse | null;
   refreshedAt: string | null;
   loading: boolean;
   error: string | null;
@@ -289,6 +332,10 @@ const INITIAL: State = {
   threatMap: null,
   malware: null,
   releaks: null,
+  c2: null,
+  breaches: null,
+  pulse: null,
+  ddc: null,
   refreshedAt: null,
   loading: true,
   error: null,
@@ -310,13 +357,17 @@ export default function Metrics(): JSX.Element {
 
     (async () => {
       try {
-        const [rRes, cRes, pRes, tmRes, mRes, rlRes] = await Promise.allSettled([
+        const [rRes, cRes, pRes, tmRes, mRes, rlRes, c2Res, brRes, plRes, ddcRes] = await Promise.allSettled([
           fetch('/api/v1/ransomware-recent').then((r) => (r.ok ? r.json() : Promise.reject(`ransomware ${r.status}`))),
           fetch('/api/v1/cve-recent').then((r) => (r.ok ? r.json() : Promise.reject(`cve ${r.status}`))),
           fetch('/api/v1/phishing-urls').then((r) => (r.ok ? r.json() : Promise.reject(`phishing ${r.status}`))),
           fetch('/api/v1/threat-map').then((r) => (r.ok ? r.json() : Promise.reject(`threat-map ${r.status}`))),
           fetch('/api/v1/malware-samples').then((r) => (r.ok ? r.json() : Promise.reject(`malware ${r.status}`))),
           fetch('/api/v1/victim-releaks').then((r) => (r.ok ? r.json() : Promise.reject(`releaks ${r.status}`))),
+          fetch('/api/v1/c2-tracker').then((r) => (r.ok ? r.json() : Promise.reject(`c2 ${r.status}`))),
+          fetch('/api/v1/breach-disclosures').then((r) => (r.ok ? r.json() : Promise.reject(`breach ${r.status}`))),
+          fetch('/api/v1/threat-pulse').then((r) => (r.ok ? r.json() : Promise.reject(`pulse ${r.status}`))),
+          fetch('/api/v1/deepdarkcti').then((r) => (r.ok ? r.json() : Promise.reject(`deepdarkcti ${r.status}`))),
         ]);
         if (cancelled) return;
         setState({
@@ -327,6 +378,11 @@ export default function Metrics(): JSX.Element {
           threatMap: tmRes.status === 'fulfilled' ? (tmRes.value as ThreatMapResponse) : null,
           malware: mRes.status === 'fulfilled' ? ((mRes.value as { samples: MalwareSample[] }).samples ?? []) : null,
           releaks: rlRes.status === 'fulfilled' ? ((rlRes.value as { releaks: ReleakRow[] }).releaks ?? []) : null,
+          c2: c2Res.status === 'fulfilled' ? (c2Res.value as C2Response) : null,
+          breaches:
+            brRes.status === 'fulfilled' ? ((brRes.value as { breaches: BreachDisclosure[] }).breaches ?? []) : null,
+          pulse: plRes.status === 'fulfilled' ? ((plRes.value as { entities: PulseEntity[] }).entities ?? []) : null,
+          ddc: ddcRes.status === 'fulfilled' ? (ddcRes.value as DeepDarkCtiResponse) : null,
           refreshedAt: new Date().toISOString(),
           loading: false,
           error: null,
@@ -511,6 +567,43 @@ export default function Metrics(): JSX.Element {
       .slice(0, 10);
   }, [state.releaks]);
 
+  /** Top active C2 frameworks (Cobalt Strike, Sliver, …) across upstream feeds. */
+  const topC2Frameworks = useMemo<HBarItem[]>(() => {
+    if (!state.c2?.frameworks) return [];
+    return Object.entries(state.c2.frameworks)
+      .map(([label, value]) => ({ label, value }))
+      .sort((a, b) => b.value - a.value)
+      .slice(0, 10);
+  }, [state.c2]);
+
+  /** Largest recent breach disclosures by account count (HIBP). */
+  const largestBreaches = useMemo<HBarItem[]>(() => {
+    if (!state.breaches) return [];
+    return state.breaches
+      .filter((b) => typeof b.pwn_count === 'number' && b.pwn_count > 0)
+      .map((b) => ({ label: b.title || b.name, value: b.pwn_count as number }))
+      .sort((a, b) => b.value - a.value)
+      .slice(0, 10);
+  }, [state.breaches]);
+
+  /** Most cross-referenced entities in OSINT researcher chatter (threat-pulse). */
+  const topPulseEntities = useMemo<HBarItem[]>(() => {
+    if (!state.pulse) return [];
+    return [...state.pulse]
+      .sort((a, b) => b.source_count - a.source_count)
+      .slice(0, 10)
+      .map((e) => ({ label: e.label, value: e.source_count, hint: e.kind }));
+  }, [state.pulse]);
+
+  /** Dark-web / underground CTI resources by category (deepdarkcti corpus). */
+  const ddcCategories = useMemo<HBarItem[]>(() => {
+    if (!state.ddc?.categories) return [];
+    return [...state.ddc.categories]
+      .map((c) => ({ label: c.label, value: c.count }))
+      .sort((a, b) => b.value - a.value)
+      .slice(0, 10);
+  }, [state.ddc]);
+
   /* ─── Summary header counts ─── */
   const summary = useMemo(() => {
     const r = state.ransomware?.filter((v) => withinDays(v.discovered, windowDays)).length ?? 0;
@@ -518,8 +611,41 @@ export default function Metrics(): JSX.Element {
     const kevCount = state.cves?.filter((x) => x.kev).length ?? 0;
     const p = state.phishing?.length ?? 0;
     const ips = state.threatMap?.total_ips ?? 0;
-    return { r, c, kevCount, p, ips };
+    const c2 = state.c2?.count ?? 0;
+    return { r, c, kevCount, p, ips, c2 };
   }, [state, windowDays]);
+
+  // Live deltas — change in each headline counter since the previous refresh.
+  // Only meaningful within a fixed window, so it resets when windowDays flips
+  // and stays null on first load (nothing to diff against yet).
+  type Summary = typeof summary;
+  const prevSummaryRef = useRef<Summary | null>(null);
+  const [deltas, setDeltas] = useState<Summary | null>(null);
+
+  useEffect(() => {
+    // windowDays changed → previous baseline is no longer comparable.
+    prevSummaryRef.current = null;
+    setDeltas(null);
+  }, [windowDays]);
+
+  useEffect(() => {
+    if (!state.refreshedAt) return; // not loaded yet
+    const prev = prevSummaryRef.current;
+    if (prev) {
+      setDeltas({
+        r: summary.r - prev.r,
+        c: summary.c - prev.c,
+        kevCount: summary.kevCount - prev.kevCount,
+        p: summary.p - prev.p,
+        ips: summary.ips - prev.ips,
+        c2: summary.c2 - prev.c2,
+      });
+    }
+    prevSummaryRef.current = summary;
+    // Diff strictly per completed refresh (refreshedAt is the fetch-completion
+    // stamp); summary is read fresh here but intentionally not a dep.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.refreshedAt]);
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
@@ -535,19 +661,32 @@ export default function Metrics(): JSX.Element {
           <BarChart3 size={28} className="text-brand-600 dark:text-brand-400" /> Threat Intel Metrics
         </h1>
         <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-3xl leading-relaxed">
-          Ten panels answering the questions a CTI team actually asks. Everything is computed live in the browser from
-          the same upstream feeds the rest of the platform reads. Refresh to recompute.
+          Fifteen panels answering the questions a CTI team actually asks, across ten upstream feeds. Everything is
+          computed live in the browser — refresh to recompute; headline counters show the ▲/▼ change since your last
+          refresh.
         </p>
       </div>
 
       {/* Headline totals + window toggle + refresh */}
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6 flex items-center justify-between gap-3 flex-wrap">
         <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-3 text-[13px] sm:text-[12px] font-mono w-full sm:w-auto">
-          <Stat label={`ransomware claims · ${windowDays}d`} value={summary.r} loading={state.loading} />
-          <Stat label="CVEs in window" value={summary.c} loading={state.loading} />
-          <Stat label="on CISA KEV" value={summary.kevCount} loading={state.loading} accent="rose" />
-          <Stat label="active phishing URLs" value={summary.p} loading={state.loading} />
-          <Stat label="malicious IPs · live" value={summary.ips} loading={state.loading} />
+          <Stat
+            label={`ransomware claims · ${windowDays}d`}
+            value={summary.r}
+            loading={state.loading}
+            delta={deltas?.r}
+          />
+          <Stat label="CVEs in window" value={summary.c} loading={state.loading} delta={deltas?.c} />
+          <Stat
+            label="on CISA KEV"
+            value={summary.kevCount}
+            loading={state.loading}
+            accent="rose"
+            delta={deltas?.kevCount}
+          />
+          <Stat label="active phishing URLs" value={summary.p} loading={state.loading} delta={deltas?.p} />
+          <Stat label="malicious IPs · live" value={summary.ips} loading={state.loading} delta={deltas?.ips} />
+          <Stat label="active C2 servers" value={summary.c2} loading={state.loading} delta={deltas?.c2} />
         </div>
         <div className="flex items-center gap-2 flex-wrap">
           {/* Window selector — gates ransomware-based panels (groups, cadence,
@@ -724,6 +863,60 @@ export default function Metrics(): JSX.Element {
           >
             <HBar items={topCountries} color="#3b82f6" />
           </ChartCard>
+
+          {/* 12. Active C2 frameworks (c2-tracker) */}
+          <ChartCard
+            icon={Radio}
+            title="Active C2 frameworks · live"
+            question="Which command-and-control frameworks have the most live infrastructure right now?"
+            footer={`From c2-tracker · ${state.c2?.count?.toLocaleString() ?? 0} live C2 IPs across ${
+              state.c2?.sources?.length ?? 0
+            } feeds (C2IntelFeeds, ThreatFox)`}
+            href="/threatintel/c2-tracker"
+          >
+            <HBar items={topC2Frameworks} color="#14b8a6" />
+          </ChartCard>
+
+          {/* 13. Largest breach disclosures (breach-disclosures / HIBP) */}
+          <ChartCard
+            icon={Database}
+            title="Largest recent breach disclosures"
+            question="Which freshly-disclosed breaches exposed the most accounts?"
+            footer={`From HaveIBeenPwned · ${state.breaches?.length ?? 0} recent disclosures indexed`}
+            href="/threatintel/breach"
+          >
+            <HBar
+              items={largestBreaches}
+              color="#f59e0b"
+              formatValue={(n) =>
+                n >= 1_000_000 ? `${(n / 1_000_000).toFixed(1)}M` : n >= 1_000 ? `${(n / 1_000).toFixed(0)}K` : `${n}`
+              }
+            />
+          </ChartCard>
+
+          {/* 14. OSINT researcher chatter pulse (threat-pulse) */}
+          <ChartCard
+            icon={MessageSquare}
+            title="OSINT chatter — most cross-referenced entities"
+            question="Which CVEs, actors, techniques and malware are researchers talking about across the most feeds?"
+            footer={`From threat-pulse · ${state.pulse?.length ?? 0} entities seen across Reddit / Mastodon / Telegram researcher feeds. Value = distinct feeds.`}
+            href="/threatintel/pulse"
+          >
+            <HBar items={topPulseEntities} color="#6366f1" />
+          </ChartCard>
+
+          {/* 15. Dark-web / underground CTI by category (deepdarkcti) */}
+          <ChartCard
+            icon={Network}
+            title="Dark-web CTI corpus by category"
+            question="Where is the underground/dark-web CTI resource coverage concentrated?"
+            footer={`From deepdarkcti · ${state.ddc?.total?.toLocaleString() ?? 0} resources across ${
+              state.ddc?.categories?.length ?? 0
+            } categories`}
+            href="/threatintel/deepdarkcti"
+          >
+            <HBar items={ddcCategories} color="#a3a3a3" />
+          </ChartCard>
         </div>
       )}
 
@@ -783,20 +976,37 @@ function Stat({
   value,
   loading,
   accent,
+  delta,
 }: {
   label: string;
   value: number | string;
   loading?: boolean;
   accent?: 'rose';
+  /** Change since the previous refresh; 0 / undefined hides the badge. */
+  delta?: number;
 }) {
   return (
     <div className="flex flex-col">
-      <span
-        className={`tabular-nums text-base font-display font-semibold ${
-          accent === 'rose' ? 'text-rose-600 dark:text-rose-400' : 'text-slate-900 dark:text-slate-100'
-        }`}
-      >
-        {loading ? '—' : typeof value === 'number' ? value.toLocaleString() : value}
+      <span className="inline-flex items-baseline gap-1.5">
+        <span
+          className={`tabular-nums text-base font-display font-semibold ${
+            accent === 'rose' ? 'text-rose-600 dark:text-rose-400' : 'text-slate-900 dark:text-slate-100'
+          }`}
+        >
+          {loading ? '—' : typeof value === 'number' ? value.toLocaleString() : value}
+        </span>
+        {!loading && typeof delta === 'number' && delta !== 0 && (
+          <span
+            className={`text-[10px] font-mono tabular-nums ${
+              delta > 0 ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-emerald-400'
+            }`}
+            title={`${delta > 0 ? '+' : ''}${delta} since last refresh`}
+          >
+            {delta > 0 ? '▲' : '▼'}
+            {delta > 0 ? '+' : ''}
+            {delta.toLocaleString()}
+          </span>
+        )}
       </span>
       <span className="text-[10px] uppercase tracking-wider text-slate-500">{label}</span>
     </div>

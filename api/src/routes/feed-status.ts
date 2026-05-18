@@ -351,7 +351,14 @@ const PROBES: FeedProbeSpec[] = [
     api_path: '/api/v1/actor-timeline',
     cache_key: ACTOR_TIMELINE_CACHE_KEY,
     evaluate: (body) => {
-      const groups = (arrField(body, 'groups') ?? []).length;
+      const groupRows = arrField(body, 'groups') ?? [];
+      const groups = groupRows.length;
+      // Per-group fetch failures are now backfilled from /api/recent rather
+      // than warned about; `partial` rows are the new "ransomlook was flaky"
+      // signal. Surface that count so observability isn't lost.
+      const partial = groupRows.filter(
+        (g) => typeof g === 'object' && g !== null && (g as { partial?: unknown }).partial === true
+      ).length;
       const warnings = (arrField(body, 'warnings') ?? []).length;
       const ageS = ageSeconds(strField(body, 'generated_at'));
       const status: Status = groups >= 5 ? 'ok' : groups > 0 ? 'degraded' : 'down';
@@ -359,9 +366,9 @@ const PROBES: FeedProbeSpec[] = [
         status,
         reason:
           groups > 0
-            ? `${groups} active groups · ${warnings} per-group fetch warnings`
+            ? `${groups} active groups${partial > 0 ? ` · ${partial} recent-feed backfilled` : ''}`
             : 'Ransomlook per-group endpoints unreachable',
-        metrics: { groups, warnings },
+        metrics: { groups, partial, warnings },
         ageS,
       };
     },
