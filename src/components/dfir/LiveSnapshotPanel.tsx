@@ -754,7 +754,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                         <span
                           className={`text-[9px] uppercase tracking-wider px-1 rounded border shrink-0 ${
                             m.type === 'weekly'
-                              ? 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300'
+                              ? 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300'
                               : 'border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300'
                           }`}
                         >
@@ -767,12 +767,21 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                         >
                           {label}
                         </Link>
-                        <span
-                          className="text-slate-500 shrink-0 tabular-nums"
-                          title={`${findings} findings · ${iocs} IOCs · ${critical} critical`}
-                        >
-                          {findings}f·{iocs}i{critical > 0 ? `·${critical}!` : ''}
-                        </span>
+                        {findings === 0 && iocs === 0 ? (
+                          <span
+                            className="shrink-0 text-[9px] uppercase tracking-wider px-1 rounded border border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300"
+                            title="Upstream feeds were unreachable at build time — this briefing rebuilds automatically every hour."
+                          >
+                            rebuilding
+                          </span>
+                        ) : (
+                          <span
+                            className="text-slate-500 shrink-0 tabular-nums"
+                            title={`${findings} findings · ${iocs} IOCs · ${critical} critical`}
+                          >
+                            {findings}f·{iocs}i{critical > 0 ? `·${critical}!` : ''}
+                          </span>
+                        )}
                       </li>
                     );
                   })}
