@@ -167,6 +167,11 @@ const OG_OVERRIDES: Record<string, OgOverride> = {
     description:
       'Security Analyst at Qubit Capital, Tech Associate at UnifyCX, and earlier engineering roles. Email security operations, infrastructure monitoring, phishing and BEC investigation, SOC automation, and domain-abuse monitoring.',
   },
+  '/blog': {
+    title: 'Blog · Pranith Jain',
+    description:
+      'Security case studies — CVE & CISA-KEV breakdowns, ransomware activity, threat-actor TTPs, malware and breach analysis. Auto-generated from live threat-intel feeds.',
+  },
 };
 
 function findOgOverride(pathname: string): OgOverride | null {
@@ -195,19 +200,62 @@ function escapeAttr(s: string): string {
   return s.replace(/[&<>"']/g, (c) => HTML_ATTR_ESCAPE[c] ?? c);
 }
 
-function rewriteOgMeta(html: string, override: OgOverride, fullUrl: string): string {
-  const t = escapeAttr(override.title);
-  const d = escapeAttr(override.description);
-  return html
-    .replace(/<title>[^<]*<\/title>/i, `<title>${t}</title>`)
-    .replace(/<link rel="canonical" href="[^"]*"/i, `<link rel="canonical" href="${escapeAttr(fullUrl)}"`)
-    .replace(/<meta name="description" content="[^"]*"/i, `<meta name="description" content="${d}"`)
-    .replace(/<meta property="og:url" content="[^"]*"/i, `<meta property="og:url" content="${escapeAttr(fullUrl)}"`)
-    .replace(/<meta property="og:title" content="[^"]*"/i, `<meta property="og:title" content="${t}"`)
-    .replace(/<meta property="og:description" content="[^"]*"/i, `<meta property="og:description" content="${d}"`)
-    .replace(/<meta name="twitter:title" content="[^"]*"/i, `<meta name="twitter:title" content="${t}"`)
-    .replace(/<meta name="twitter:description" content="[^"]*"/i, `<meta name="twitter:description" content="${d}"`)
-    .replace(/<meta name="twitter:url" content="[^"]*"/i, `<meta name="twitter:url" content="${escapeAttr(fullUrl)}"`);
+/**
+ * Always corrects the canonical URL + og:url + twitter:url to the actual
+ * requested page. Without this, EVERY non-overridden deep link (notably
+ * /blog/:slug) was served index.html's build-time og:url/canonical pointing
+ * at the site root — so LinkedIn/Twitter resolved a shared blog link to the
+ * HOME page and showed the home card. Title/description are additionally
+ * rewritten only when we have a route- or post-specific override.
+ */
+function rewriteOgMeta(html: string, override: OgOverride | null, fullUrl: string): string {
+  const u = escapeAttr(fullUrl);
+  let out = html
+    .replace(/<link rel="canonical" href="[^"]*"/i, `<link rel="canonical" href="${u}"`)
+    .replace(/<meta property="og:url" content="[^"]*"/i, `<meta property="og:url" content="${u}"`)
+    .replace(/<meta name="twitter:url" content="[^"]*"/i, `<meta name="twitter:url" content="${u}"`);
+  if (override) {
+    const t = escapeAttr(override.title);
+    const d = escapeAttr(override.description);
+    out = out
+      .replace(/<title>[^<]*<\/title>/i, `<title>${t}</title>`)
+      .replace(/<meta name="description" content="[^"]*"/i, `<meta name="description" content="${d}"`)
+      .replace(/<meta property="og:title" content="[^"]*"/i, `<meta property="og:title" content="${t}"`)
+      .replace(/<meta property="og:description" content="[^"]*"/i, `<meta property="og:description" content="${d}"`)
+      .replace(/<meta name="twitter:title" content="[^"]*"/i, `<meta name="twitter:title" content="${t}"`)
+      .replace(/<meta name="twitter:description" content="[^"]*"/i, `<meta name="twitter:description" content="${d}"`);
+  }
+  return out;
+}
+
+/**
+ * Resolve per-route OG title/description: static map first, then a live
+ * lookup for blog posts so a shared /blog/<slug> shows the POST's title and
+ * excerpt (not the generic blog card). Returns null when there's no
+ * meaningful override — the URL/canonical still get corrected regardless.
+ */
+async function resolveOg(url: URL, env: Env): Promise<OgOverride | null> {
+  const direct = findOgOverride(url.pathname);
+  if (direct && url.pathname !== '/blog') return direct;
+  const m = /^\/blog\/([a-z0-9-]{1,200})$/.exec(url.pathname);
+  if (m && env.CASE_STUDIES) {
+    try {
+      const post = (await env.CASE_STUDIES.get(`posts:${m[1]}`, 'json')) as {
+        title?: string;
+        excerpt?: string;
+      } | null;
+      if (post?.title) {
+        return {
+          title: `${post.title} · Pranith Jain`,
+          description: post.excerpt?.slice(0, 280) || OG_OVERRIDES['/blog']!.description,
+        };
+      }
+    } catch {
+      /* fall through to the generic blog card */
+    }
+    return OG_OVERRIDES['/blog'] ?? null;
+  }
+  return direct;
 }
 
 /**
@@ -215,14 +263,15 @@ function rewriteOgMeta(html: string, override: OgOverride, fullUrl: string): str
  * reflects the actual route. Only kicks in for HTML responses (asset router
  * returns text/html for SPA fallback paths). Anything else passes through.
  */
-async function injectOgMeta(response: Response, url: URL): Promise<Response> {
+async function injectOgMeta(response: Response, url: URL, env: Env): Promise<Response> {
   const ct = response.headers.get('content-type') ?? '';
   if (!ct.toLowerCase().includes('text/html')) return response;
-  const override = findOgOverride(url.pathname);
-  if (!override) return response;
+  const override = await resolveOg(url, env);
   // Canonical origin is fixed, never derived from the request. Deriving it
   // from url.origin let a non-canonical host (alias / smuggled Host) poison
-  // the cached canonical + og:url served to everyone on that path.
+  // the cached canonical + og:url served to everyone on that path. Note:
+  // rewrite ALWAYS runs (even with no title/desc override) so og:url +
+  // canonical point at THIS page — that's the blog-share-to-home fix.
   const fullUrl = `${CANONICAL_ORIGIN}${url.pathname}`;
   const html = await response.text();
   const rewritten = rewriteOgMeta(html, override, fullUrl);
@@ -248,10 +297,9 @@ async function injectOgMeta(response: Response, url: URL): Promise<Response> {
 const OG_CACHE_TTL_SECONDS = 86_400;
 
 async function getOrInjectOg(request: Request, env: Env, ctx: ExecutionContext, url: URL): Promise<Response> {
-  // Cache only matters for paths we actually rewrite. Skip the cache layer
-  // entirely for non-override paths — saves one cache.match round-trip.
-  const override = findOgOverride(url.pathname);
-  if (!override) return env.ASSETS.fetch(request);
+  // Runs for EVERY SPA HTML route now (not just OG_OVERRIDES ones): even
+  // with no title/desc override we must correct og:url + canonical so a
+  // shared deep link (blog post etc.) resolves to that page, not home.
 
   // Asset fetch is required up-front because the cache key depends on the
   // etag of the underlying asset. This is cheap — env.ASSETS.fetch is a
@@ -272,7 +320,7 @@ async function getOrInjectOg(request: Request, env: Env, ctx: ExecutionContext, 
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
-  const withOg = await injectOgMeta(assetRes, url);
+  const withOg = await injectOgMeta(assetRes, url, env);
   const toCache = new Response(withOg.clone().body, {
     status: withOg.status,
     statusText: withOg.statusText,
