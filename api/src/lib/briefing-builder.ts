@@ -29,6 +29,47 @@ function nvdHeaders(apiKey?: string): Record<string, string> {
 }
 const KEV_FEED = 'https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json';
 
+/**
+ * Last-good source cache. CISA KEV / NVD are reachable from the Cloudflare
+ * edge but flaky from the shared egress IP — a single slow/blocked cron fire
+ * (NVD+KEV both miss in the same run) produced an EMPTY briefing for the day
+ * with nothing to fall back to. This write-through cache keeps the most
+ * recent successful KEV/NVD payload for 14 days: any one success (cron,
+ * hourly catch-up, or manual build) keeps every subsequent briefing
+ * populated with real data through a two-week run of transient blocks,
+ * instead of degrading to a blank "both unreachable" briefing.
+ *
+ * Cache API (caches.default) is used deliberately — it needs no env binding
+ * threaded through buildBriefing, and Cloudflare keeps it warm as long as
+ * it's refreshed (which every cron run does on success).
+ */
+const LASTGOOD_TTL_SEC = 60 * 60 * 24 * 14;
+function lastGoodCache(): Cache {
+  return (caches as unknown as { default: Cache }).default;
+}
+/**
+ * Run `live()`. On success, persist the result as last-good and return it.
+ * On failure, return the cached last-good if present; otherwise re-throw so
+ * the caller's degrade path still fires when there has never been a success.
+ */
+async function withLastGood<T>(cacheKey: string, live: () => Promise<T>): Promise<T> {
+  const cache = lastGoodCache();
+  try {
+    const v = await live();
+    await cache.put(
+      cacheKey,
+      new Response(JSON.stringify(v), {
+        headers: { 'content-type': 'application/json', 'cache-control': `max-age=${LASTGOOD_TTL_SEC}` },
+      })
+    );
+    return v;
+  } catch (err) {
+    const hit = await cache.match(cacheKey);
+    if (hit) return (await hit.json()) as T;
+    throw err;
+  }
+}
+
 // ---- types --------------------------------------------------------------
 
 export type BriefingType = 'daily' | 'weekly';
@@ -882,12 +923,20 @@ export async function buildBriefing(
   const wrap = <T>(p: Promise<T>, fallback: T) =>
     p.then((v) => ({ ok: true, v })).catch(() => ({ ok: false, v: fallback }));
   const [kevR, urlhaus, malwarebazaar, threatfox, tweetfeed, nvdR] = await Promise.all([
-    wrap(fetchKev(), [] as KevEntry[]),
+    // KEV is the full catalog (window filtering happens below) — one key.
+    // NVD is window-specific, so the cache key carries the range; the hourly
+    // catch-up rebuilds the same slug/window and reuses any prior success.
+    wrap(withLastGood('https://briefing-lastgood.internal/kev', fetchKev), [] as KevEntry[]),
     fetchAbuseFeed('urlhaus').catch(() => [] as IocEntry[]),
     fetchAbuseFeed('malwarebazaar').catch(() => [] as IocEntry[]),
     fetchAbuseFeed('threatfox').catch(() => [] as IocEntry[]),
     fetchAbuseFeed('tweetfeed').catch(() => [] as IocEntry[]),
-    wrap(fetchNvdRecent(rangeStart, rangeEnd, opts.nvdApiKey), [] as NvdCve[]),
+    wrap(
+      withLastGood(`https://briefing-lastgood.internal/nvd?s=${startMs}&e=${endMs}`, () =>
+        fetchNvdRecent(rangeStart, rangeEnd, opts.nvdApiKey)
+      ),
+      [] as NvdCve[]
+    ),
   ]);
   // If BOTH primary finding sources are unreachable, this isn't a quiet day,
   // it's an outage. Earlier this threw and persisted NOTHING — but a
