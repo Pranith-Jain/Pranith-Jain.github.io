@@ -216,14 +216,14 @@ function pivotsFor(kind: IocKind, value: string): Array<{ to: string; label: str
       out.push({ to: `/dfir/url-preview?url=${enc}`, label: 'preview' });
       try {
         const host = new URL(value).hostname;
-        out.push({ to: `/dfir/domain?d=${encodeURIComponent(host)}`, label: 'domain' });
+        out.push({ to: `/dfir/domain?domain=${encodeURIComponent(host)}`, label: 'domain' });
       } catch {
         /* malformed URL — skip the host pivot */
       }
       break;
     }
     case 'domain': {
-      out.push({ to: `/dfir/domain?d=${enc}`, label: 'inspect' });
+      out.push({ to: `/dfir/domain?domain=${enc}`, label: 'inspect' });
       out.push({ to: `/dfir/cert-search?domain=${enc}`, label: 'certs' });
       out.push({ to: `/dfir/takeover?domain=${enc}`, label: 'takeover' });
       break;

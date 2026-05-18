@@ -98,41 +98,62 @@ export default function ScheduleTab() {
           {msg}
         </p>
       )}
-      <table className="w-full text-sm">
-        <thead className="text-left text-xs uppercase tracking-wider text-zinc-500 border-b border-zinc-800">
-          <tr>
-            <th scope="col" className="py-2 pr-4">
-              Slot time
-            </th>
-            <th scope="col" className="py-2 pr-4">
-              Candidate ID
-            </th>
-            <th scope="col" className="py-2 pr-4">
-              Status
-            </th>
-            <th scope="col" className="py-2">
-              Actions
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {schedule.map((s, i) => {
-            const stalePublished = s.status === 'published' && !s.postExists;
-            return (
-              <tr key={`${s.candidateId}-${i}`} className="border-b border-zinc-800/60">
-                <td className="py-2 pr-4 text-zinc-300 whitespace-nowrap">{new Date(s.slotAt).toLocaleString()}</td>
-                <td className="py-2 pr-4 font-mono text-xs text-zinc-400">{s.candidateId}</td>
-                <td className="py-2 pr-4 text-zinc-300">{stalePublished ? 'removed' : s.status}</td>
-                <td className="py-2 flex gap-2">
-                  {s.status === 'pending' && (
-                    <>
-                      <button
-                        onClick={() => publishNow(s.candidateId)}
-                        disabled={publishing === s.candidateId}
-                        className="px-2 py-1 border border-green-700 rounded text-xs hover:bg-green-900/30 disabled:opacity-50"
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm">
+          <thead className="text-left text-xs uppercase tracking-wider text-zinc-500 border-b border-zinc-800">
+            <tr>
+              <th scope="col" className="py-2 pr-4">
+                Slot time
+              </th>
+              <th scope="col" className="py-2 pr-4">
+                Candidate ID
+              </th>
+              <th scope="col" className="py-2 pr-4">
+                Status
+              </th>
+              <th scope="col" className="py-2">
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {schedule.map((s, i) => {
+              const stalePublished = s.status === 'published' && !s.postExists;
+              return (
+                <tr key={`${s.candidateId}-${i}`} className="border-b border-zinc-800/60">
+                  <td className="py-2 pr-4 text-zinc-300 whitespace-nowrap">{new Date(s.slotAt).toLocaleString()}</td>
+                  <td className="py-2 pr-4 font-mono text-xs text-zinc-400">{s.candidateId}</td>
+                  <td className="py-2 pr-4 text-zinc-300">{stalePublished ? 'removed' : s.status}</td>
+                  <td className="py-2 flex gap-2">
+                    {s.status === 'pending' && (
+                      <>
+                        <button
+                          onClick={() => publishNow(s.candidateId)}
+                          disabled={publishing === s.candidateId}
+                          className="px-2 py-1 border border-green-700 rounded text-xs hover:bg-green-900/30 disabled:opacity-50"
+                        >
+                          {publishing === s.candidateId ? 'Publishing…' : 'Publish now'}
+                        </button>
+                        <button
+                          onClick={() => removeSlot(s.candidateId)}
+                          disabled={publishing === s.candidateId}
+                          className="px-2 py-1 border border-zinc-700 rounded text-xs hover:bg-zinc-800 disabled:opacity-50"
+                        >
+                          Remove
+                        </button>
+                      </>
+                    )}
+                    {s.status === 'published' && s.publishedSlug && s.postExists && (
+                      <a
+                        href={`/blog/${s.publishedSlug}`}
+                        className="text-xs text-zinc-400 underline px-2 py-1"
+                        target="_blank"
+                        rel="noopener noreferrer"
                       >
-                        {publishing === s.candidateId ? 'Publishing…' : 'Publish now'}
-                      </button>
+                        View
+                      </a>
+                    )}
+                    {(stalePublished || s.status === 'failed') && (
                       <button
                         onClick={() => removeSlot(s.candidateId)}
                         disabled={publishing === s.candidateId}
@@ -140,33 +161,14 @@ export default function ScheduleTab() {
                       >
                         Remove
                       </button>
-                    </>
-                  )}
-                  {s.status === 'published' && s.publishedSlug && s.postExists && (
-                    <a
-                      href={`/blog/${s.publishedSlug}`}
-                      className="text-xs text-zinc-400 underline px-2 py-1"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      View
-                    </a>
-                  )}
-                  {(stalePublished || s.status === 'failed') && (
-                    <button
-                      onClick={() => removeSlot(s.candidateId)}
-                      disabled={publishing === s.candidateId}
-                      className="px-2 py-1 border border-zinc-700 rounded text-xs hover:bg-zinc-800 disabled:opacity-50"
-                    >
-                      Remove
-                    </button>
-                  )}
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

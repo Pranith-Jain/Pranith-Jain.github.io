@@ -250,7 +250,7 @@ export default function WebScan(): JSX.Element {
             </div>
             <div className="flex flex-wrap gap-2 mt-3 text-[11px] font-mono">
               <Link
-                to={`/dfir/domain?d=${encodeURIComponent(safeHost(data.url))}`}
+                to={`/dfir/domain?domain=${encodeURIComponent(safeHost(data.url))}`}
                 className="px-2 py-0.5 rounded border border-cyan-500/30 bg-cyan-500/5 text-cyan-700 dark:text-cyan-300 hover:bg-cyan-500/10"
               >
                 → domain

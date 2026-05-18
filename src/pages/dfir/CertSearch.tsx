@@ -256,7 +256,7 @@ export default function CertSearch(): JSX.Element {
                 >
                   <span className="flex-1">{n}</span>
                   <Link
-                    to={`/dfir/domain?d=${encodeURIComponent(n.replace(/^\*\./, ''))}`}
+                    to={`/dfir/domain?domain=${encodeURIComponent(n.replace(/^\*\./, ''))}`}
                     className="text-[10px] text-brand-600 dark:text-brand-400 hover:underline shrink-0"
                   >
                     inspect

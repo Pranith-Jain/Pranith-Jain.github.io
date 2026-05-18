@@ -166,92 +166,94 @@ export default function PublishedTab() {
   return (
     <div>
       <p className="text-xs text-zinc-500 mb-4">Click a row to expand/collapse social content.</p>
-      <table className="w-full text-sm">
-        <thead className="text-left text-xs uppercase tracking-wider text-zinc-500 border-b border-zinc-800">
-          <tr>
-            <th scope="col" className="py-2 pr-4">
-              Type
-            </th>
-            <th scope="col" className="py-2 pr-4">
-              Title
-            </th>
-            <th scope="col" className="py-2 pr-4">
-              Published
-            </th>
-            <th scope="col" className="py-2 pr-4">
-              Slug
-            </th>
-            <th scope="col" className="py-2 pr-4">
-              Social
-            </th>
-            <th scope="col" className="py-2">
-              Actions
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {posts.map((p) => {
-            const s = social[p.slug];
-            const hasTwitter = !!s?.data?.twitter;
-            const hasLinkedin = !!s?.data?.linkedin;
-            const hasAny = hasTwitter || hasLinkedin;
-            const isExpanded = expanded === p.slug;
-            return (
-              <tr key={p.slug} className="border-b border-zinc-800/60">
-                <td className="py-2 pr-4 text-zinc-400 uppercase text-xs">{p.type}</td>
-                <td className="py-2 pr-4 text-zinc-100">{p.title}</td>
-                <td className="py-2 pr-4 text-zinc-500 text-xs whitespace-nowrap">
-                  {new Date(p.publishedAt).toLocaleString()}
-                </td>
-                <td className="py-2 pr-4">
-                  <a
-                    href={`/blog/${p.slug}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-mono text-xs text-zinc-300 hover:underline"
-                  >
-                    {p.slug}
-                  </a>
-                </td>
-                <td className="py-2 pr-4">
-                  <div className="flex flex-wrap gap-1.5">
-                    <button
-                      onClick={() => generateTwitter(p.slug)}
-                      disabled={s?.loadingTwitter}
-                      className={`px-2 py-1 border rounded text-xs disabled:opacity-50 ${hasTwitter ? 'border-zinc-700 hover:bg-zinc-800' : 'border-green-800 hover:bg-green-900/30'}`}
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm">
+          <thead className="text-left text-xs uppercase tracking-wider text-zinc-500 border-b border-zinc-800">
+            <tr>
+              <th scope="col" className="py-2 pr-4">
+                Type
+              </th>
+              <th scope="col" className="py-2 pr-4">
+                Title
+              </th>
+              <th scope="col" className="py-2 pr-4">
+                Published
+              </th>
+              <th scope="col" className="py-2 pr-4">
+                Slug
+              </th>
+              <th scope="col" className="py-2 pr-4">
+                Social
+              </th>
+              <th scope="col" className="py-2">
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {posts.map((p) => {
+              const s = social[p.slug];
+              const hasTwitter = !!s?.data?.twitter;
+              const hasLinkedin = !!s?.data?.linkedin;
+              const hasAny = hasTwitter || hasLinkedin;
+              const isExpanded = expanded === p.slug;
+              return (
+                <tr key={p.slug} className="border-b border-zinc-800/60">
+                  <td className="py-2 pr-4 text-zinc-400 uppercase text-xs">{p.type}</td>
+                  <td className="py-2 pr-4 text-zinc-100">{p.title}</td>
+                  <td className="py-2 pr-4 text-zinc-500 text-xs whitespace-nowrap">
+                    {new Date(p.publishedAt).toLocaleString()}
+                  </td>
+                  <td className="py-2 pr-4">
+                    <a
+                      href={`/blog/${p.slug}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-mono text-xs text-zinc-300 hover:underline"
                     >
-                      {s?.loadingTwitter ? '…' : hasTwitter ? 'Re-Tweet' : 'Tweet'}
-                    </button>
-                    <button
-                      onClick={() => generateLinkedin(p.slug)}
-                      disabled={s?.loadingLinkedin}
-                      className={`px-2 py-1 border rounded text-xs disabled:opacity-50 ${hasLinkedin ? 'border-zinc-700 hover:bg-zinc-800' : 'border-blue-800 hover:bg-blue-900/30'}`}
-                    >
-                      {s?.loadingLinkedin ? '…' : hasLinkedin ? 'Re-LinkedIn' : 'LinkedIn'}
-                    </button>
-                    {hasAny && (
+                      {p.slug}
+                    </a>
+                  </td>
+                  <td className="py-2 pr-4">
+                    <div className="flex flex-wrap gap-1.5">
                       <button
-                        onClick={() => setExpanded(isExpanded ? null : p.slug)}
-                        className="px-2 py-1 border border-zinc-700 rounded text-xs hover:bg-zinc-800"
+                        onClick={() => generateTwitter(p.slug)}
+                        disabled={s?.loadingTwitter}
+                        className={`px-2 py-1 border rounded text-xs disabled:opacity-50 ${hasTwitter ? 'border-zinc-700 hover:bg-zinc-800' : 'border-green-800 hover:bg-green-900/30'}`}
                       >
-                        {isExpanded ? 'Hide' : 'View'}
+                        {s?.loadingTwitter ? '…' : hasTwitter ? 'Re-Tweet' : 'Tweet'}
                       </button>
-                    )}
-                  </div>
-                </td>
-                <td className="py-2 flex gap-2">
-                  <button
-                    onClick={() => unpublish(p.slug)}
-                    className="px-2 py-1 border border-zinc-700 rounded text-xs hover:bg-zinc-800"
-                  >
-                    Unpublish
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+                      <button
+                        onClick={() => generateLinkedin(p.slug)}
+                        disabled={s?.loadingLinkedin}
+                        className={`px-2 py-1 border rounded text-xs disabled:opacity-50 ${hasLinkedin ? 'border-zinc-700 hover:bg-zinc-800' : 'border-blue-800 hover:bg-blue-900/30'}`}
+                      >
+                        {s?.loadingLinkedin ? '…' : hasLinkedin ? 'Re-LinkedIn' : 'LinkedIn'}
+                      </button>
+                      {hasAny && (
+                        <button
+                          onClick={() => setExpanded(isExpanded ? null : p.slug)}
+                          className="px-2 py-1 border border-zinc-700 rounded text-xs hover:bg-zinc-800"
+                        >
+                          {isExpanded ? 'Hide' : 'View'}
+                        </button>
+                      )}
+                    </div>
+                  </td>
+                  <td className="py-2 flex gap-2">
+                    <button
+                      onClick={() => unpublish(p.slug)}
+                      className="px-2 py-1 border border-zinc-700 rounded text-xs hover:bg-zinc-800"
+                    >
+                      Unpublish
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
 
       {expanded && social[expanded]?.data && (
         <SocialContentPanel

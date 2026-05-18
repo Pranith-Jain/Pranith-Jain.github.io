@@ -234,7 +234,7 @@ export default function UrlPreview(): JSX.Element {
                       → IOC check
                     </Link>
                     <Link
-                      to={`/dfir/domain?d=${encodeURIComponent(host)}`}
+                      to={`/dfir/domain?domain=${encodeURIComponent(host)}`}
                       className="px-1.5 py-0.5 rounded border border-cyan-500/30 bg-cyan-500/5 text-cyan-700 dark:text-cyan-300 hover:bg-cyan-500/10"
                     >
                       → {host}

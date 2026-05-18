@@ -128,6 +128,9 @@ export async function ipGeoHandler(c: Context<{ Bindings: Env }>): Promise<Respo
   ]);
   clearTimeout(timer);
 
+  const geoOk = !!geoRaw && geoRaw.status === 'success';
+  const repOk = !!repRaw && repRaw.status === 'ok';
+
   const body: IpGeoResponse = {
     ip,
     detected_kind: kind,
@@ -179,6 +182,14 @@ export async function ipGeoHandler(c: Context<{ Bindings: Env }>): Promise<Respo
           },
     generated_at: new Date().toISOString(),
   };
+
+  // If BOTH providers failed this is an all-error body — caching it under a
+  // 200 for the full TTL would lock the IP to "unreachable" even after the
+  // upstreams recover (same degraded-cache class as breach-disclosures).
+  // Serve it with a short TTL and don't poison the shared edge cache.
+  if (!geoOk && !repOk) {
+    return c.json(body, 200, { 'Cache-Control': 'public, max-age=60' });
+  }
 
   const response = c.json(body, 200, {
     'Cache-Control': `public, max-age=${CACHE_TTL}`,

@@ -123,6 +123,8 @@ export default function EmlExtractor(): JSX.Element {
                 onChange={(e) => {
                   const f = e.target.files?.[0];
                   if (f) void onFile(f);
+                  // Reset so re-selecting the SAME file still fires onChange.
+                  e.target.value = '';
                 }}
                 className="hidden"
               />

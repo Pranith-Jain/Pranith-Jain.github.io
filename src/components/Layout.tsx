@@ -5,8 +5,13 @@ interface LayoutProps {
 }
 
 export function Layout({ children }: LayoutProps) {
+  // overflow-x-clip: the decorative blobs below are intentionally larger than
+  // the viewport and translate past its right edge. Without clipping they
+  // create document-level horizontal scroll on every page (most visible on
+  // mobile). `clip` (not `hidden`) avoids creating a scroll container, so it
+  // doesn't break the sticky header in AppShell.
   return (
-    <div className="min-h-screen relative" style={{ zIndex: 2 }}>
+    <div className="min-h-screen relative overflow-x-clip" style={{ zIndex: 2 }}>
       {/* Decorative Background Blobs */}
       <div className="pointer-events-none absolute left-0 top-0 -z-10 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-500/10 blur-[120px] dark:bg-brand-500/5"></div>
       <div className="pointer-events-none absolute right-0 top-1/4 -z-10 h-[400px] w-[400px] translate-x-1/2 rounded-full bg-brand-600/10 blur-[100px] dark:bg-brand-600/5"></div>

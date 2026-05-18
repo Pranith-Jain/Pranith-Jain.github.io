@@ -65,56 +65,58 @@ export default function PendingTab() {
   if (pending.length === 0) return <p className="text-zinc-400">No pending candidates.</p>;
 
   return (
-    <table className="w-full text-sm">
-      <thead className="text-left text-xs uppercase tracking-wider text-zinc-500 border-b border-zinc-800">
-        <tr>
-          <th scope="col" className="py-2 pr-4">
-            Type
-          </th>
-          <th scope="col" className="py-2 pr-4">
-            Title
-          </th>
-          <th scope="col" className="py-2 pr-4">
-            Score
-          </th>
-          <th scope="col" className="py-2 pr-4">
-            Rationale
-          </th>
-          <th scope="col" className="py-2 pr-4">
-            Discovered
-          </th>
-          <th scope="col" className="py-2">
-            Actions
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {pending.map((c) => (
-          <tr key={c.key} className="border-b border-zinc-800/60 align-top">
-            <td className="py-2 pr-4 text-zinc-400 uppercase text-xs">{c.type}</td>
-            <td className="py-2 pr-4 text-zinc-100">{c.title}</td>
-            <td className="py-2 pr-4 text-zinc-300 tabular-nums">{c.score.toFixed(2)}</td>
-            <td className="py-2 pr-4 text-zinc-400 max-w-md">{c.rationale}</td>
-            <td className="py-2 pr-4 text-zinc-500 text-xs whitespace-nowrap">
-              {new Date(c.discoveredAt).toLocaleString()}
-            </td>
-            <td className="py-2 whitespace-nowrap">
-              <button
-                onClick={() => approve(c.key)}
-                className="px-2 py-1 mr-2 bg-emerald-700/40 border border-emerald-600/60 rounded text-xs hover:bg-emerald-700/60"
-              >
-                Approve
-              </button>
-              <button
-                onClick={() => skip(c.key, c.type)}
-                className="px-2 py-1 border border-zinc-700 rounded text-xs hover:bg-zinc-800"
-              >
-                Skip
-              </button>
-            </td>
+    <div className="overflow-x-auto">
+      <table className="w-full text-sm">
+        <thead className="text-left text-xs uppercase tracking-wider text-zinc-500 border-b border-zinc-800">
+          <tr>
+            <th scope="col" className="py-2 pr-4">
+              Type
+            </th>
+            <th scope="col" className="py-2 pr-4">
+              Title
+            </th>
+            <th scope="col" className="py-2 pr-4">
+              Score
+            </th>
+            <th scope="col" className="py-2 pr-4">
+              Rationale
+            </th>
+            <th scope="col" className="py-2 pr-4">
+              Discovered
+            </th>
+            <th scope="col" className="py-2">
+              Actions
+            </th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {pending.map((c) => (
+            <tr key={c.key} className="border-b border-zinc-800/60 align-top">
+              <td className="py-2 pr-4 text-zinc-400 uppercase text-xs">{c.type}</td>
+              <td className="py-2 pr-4 text-zinc-100">{c.title}</td>
+              <td className="py-2 pr-4 text-zinc-300 tabular-nums">{c.score.toFixed(2)}</td>
+              <td className="py-2 pr-4 text-zinc-400 max-w-md">{c.rationale}</td>
+              <td className="py-2 pr-4 text-zinc-500 text-xs whitespace-nowrap">
+                {new Date(c.discoveredAt).toLocaleString()}
+              </td>
+              <td className="py-2 whitespace-nowrap">
+                <button
+                  onClick={() => approve(c.key)}
+                  className="px-2 py-1 mr-2 bg-emerald-700/40 border border-emerald-600/60 rounded text-xs hover:bg-emerald-700/60"
+                >
+                  Approve
+                </button>
+                <button
+                  onClick={() => skip(c.key, c.type)}
+                  className="px-2 py-1 border border-zinc-700 rounded text-xs hover:bg-zinc-800"
+                >
+                  Skip
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }

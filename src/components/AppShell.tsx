@@ -78,7 +78,7 @@ export function AppShell({ mode, isDark, onToggleTheme, children }: AppShellProp
     item.exact ? location.pathname === item.to : location.pathname.startsWith(item.to);
 
   return (
-    <div className="min-h-screen flex flex-col text-slate-900 dark:text-slate-50">
+    <div className="min-h-screen flex flex-col overflow-x-clip text-slate-900 dark:text-slate-50">
       <AppHeader brand={brand} nav={nav} isActive={isActive} isDark={isDark} onToggleTheme={onToggleTheme} />
       <main id="main-content" className="flex-1">
         {children}

@@ -88,7 +88,10 @@ const ADAPTERS: Record<ProviderId, ProviderAdapter> = {
 };
 
 export async function iocCheckHandler(c: Context<{ Bindings: Env }>) {
-  const raw = c.req.query('indicator');
+  // Accept `q` as an alias for `indicator`: several in-app pivots (blog post
+  // IOC links, the IOC snapshot panel) link with `?q=`. Same alias fix
+  // applied to cert-search — keep the lookup contract forgiving.
+  const raw = c.req.query('indicator') ?? c.req.query('q');
   if (!raw) return c.json({ error: 'missing indicator' }, 400);
 
   const type = detectType(raw);

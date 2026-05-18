@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { TAKEOVER_FINGERPRINTS, type TakeoverFingerprint } from '../lib/takeover-fingerprints';
+import { assertPublicHost } from '../lib/ssrf-guard';
 
 const DOMAIN_RE = /^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/;
 const MAX_CNAME_HOPS = 5;
@@ -55,6 +56,18 @@ export async function takeoverCheckHandler(c: Context<{ Bindings: Env }>) {
   result.recommendation = match.recommendation;
 
   if (match.fingerprint) {
+    // SSRF guard: DOMAIN_RE only checks syntax. A syntactically valid domain
+    // can still resolve to localhost / a private / link-local / metadata
+    // (169.254.169.254) address, and checkFingerprint() does a live
+    // fetch(`${scheme}://${domain}/`). Refuse the active probe for any host
+    // that resolves non-publicly — the CNAME-based verdict is still returned.
+    const hostCheck = await assertPublicHost(raw);
+    if (!hostCheck.ok) {
+      result.notes.push(
+        `Skipped active fingerprint probe — ${hostCheck.error ?? 'host resolves to a non-public address'}.`
+      );
+      return c.json(result, 200, { 'Cache-Control': 'public, max-age=3600' });
+    }
     const evidence = await checkFingerprint(raw, match);
     if (evidence) {
       result.vulnerable = true;
