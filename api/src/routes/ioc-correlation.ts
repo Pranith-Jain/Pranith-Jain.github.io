@@ -28,7 +28,7 @@ import { trackEvent, visitorCountry } from '../lib/analytics';
  * source_count desc.
  */
 
-export const IOC_CORRELATION_CACHE_KEY = 'https://ioc-correlation-cache.internal/v4-no-feodo';
+export const IOC_CORRELATION_CACHE_KEY = 'https://ioc-correlation-cache.internal/v5-sslbl-c2dom-botvrij';
 const CACHE_KEY = IOC_CORRELATION_CACHE_KEY;
 const CACHE_TTL_SECONDS = 3600;
 const FETCH_TIMEOUT_MS = 12_000;
@@ -182,6 +182,16 @@ export async function fetchIocCorrelation(): Promise<IocCorrelationResponse> {
     fetchText('https://reputation.alienvault.com/reputation.generic'),
     fetchText('https://blocklistproject.github.io/Lists/ransomware.txt'),
     fetchText('https://blocklistproject.github.io/Lists/scam.txt'),
+  ]);
+
+  // Third batch — active-C2 + curated-OSINT sources added 2026-05-18.
+  // SSLBL = abuse.ch botnet-C2 IPs (malicious-SSL pinned); drb-ra
+  // domainC2s = C2 domains (complements the existing IPC2s); Botvrij =
+  // curated OSINT domains.
+  const [sslblText, c2DomainText, botvrijDomainText] = await Promise.all([
+    fetchText('https://sslbl.abuse.ch/blacklist/sslipblacklist.csv'),
+    fetchText('https://raw.githubusercontent.com/drb-ra/C2IntelFeeds/master/feeds/domainC2s.csv'),
+    fetchText('https://www.botvrij.eu/data/ioclist.domain'),
   ]);
 
   const ipBucket: MutableBucket = { map: new Map() };
@@ -354,6 +364,36 @@ export async function fetchIocCorrelation(): Promise<IocCorrelationResponse> {
     for (const x of e) add(domainBucket, norm(x.value), 'blp-scam');
     trackSource('blp-scam', true, e.length);
   } else trackSource('blp-scam', false, 0);
+
+  // ─── abuse.ch SSL Blacklist: botnet-C2 IPs (malicious-SSL pinned) ─────────
+  if (sslblText) {
+    const e = parsePlainTextIps(sslblText, PER_FEED_CAP);
+    for (const x of e) add(ipBucket, x.value, 'sslbl');
+    trackSource('sslbl', true, e.length);
+  } else trackSource('sslbl', false, 0);
+
+  // ─── drb-ra C2IntelFeeds: C2 DOMAINS (CSV, first column = domain) ─────────
+  if (c2DomainText) {
+    let n = 0;
+    for (const line of c2DomainText.split('\n')) {
+      if (n >= PER_FEED_CAP) break;
+      const t = line.trim();
+      if (!t || t.startsWith('#') || /^domain[,\s]/i.test(t)) continue;
+      const d = norm((t.split(',')[0] ?? '').trim());
+      if (/^[a-z0-9.-]+\.[a-z]{2,}$/i.test(d)) {
+        add(domainBucket, d, 'c2-intel-domains');
+        n++;
+      }
+    }
+    trackSource('c2-intel-domains', true, n);
+  } else trackSource('c2-intel-domains', false, 0);
+
+  // ─── Botvrij.eu: curated OSINT malicious domains ─────────────────────────
+  if (botvrijDomainText) {
+    const e = parsePhishingArmy(botvrijDomainText, PER_FEED_CAP);
+    for (const x of e) add(domainBucket, norm(x.value), 'botvrij');
+    trackSource('botvrij', true, e.length);
+  } else trackSource('botvrij', false, 0);
 
   const ips = ranked(ipBucket, 'ip', TOP_PER_BUCKET);
   const urls = ranked(urlBucket, 'url', TOP_PER_BUCKET);
