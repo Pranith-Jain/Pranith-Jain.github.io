@@ -220,6 +220,12 @@ const SECTIONS: Section[] = [
         icon: Users,
       },
       {
+        to: '/threatintel/actor-kb',
+        label: 'Threat-Actor Knowledge Base',
+        desc: '174 MITRE ATT&CK intrusion-sets. Search by name / alias / Gxxxx / technique / malware → aliases, TTPs grouped by kill-chain tactic, and tooling. Committed dataset, 100% client-side.',
+        icon: BookText,
+      },
+      {
         to: '/threatintel/mitre',
         label: 'MITRE ATT&CK',
         desc: 'The matrix, plus per-technique deep-dives. Pivot both ways: actor to technique, technique to actor.',
@@ -263,6 +269,13 @@ const SECTIONS: Section[] = [
         label: 'C2 Infrastructure Tracker',
         desc: 'Live C2 server IPs from MontySecurity C2-Tracker (Shodan-detected). Filter by framework: Cobalt Strike, Sliver, Metasploit, Havoc, Brute Ratel, and more.',
         icon: Radar,
+        badge: 'new',
+      },
+      {
+        to: '/threatintel/cti-feeds',
+        label: 'CTI Feeds / Export',
+        desc: 'Consume this site’s aggregated IOCs as machine-readable CTI — STIX 2.1 bundle, read-only TAXII 2.1 server, and a MISP feed. Drop the URLs into OpenCTI / MISP / TheHive.',
+        icon: FileCode,
         badge: 'new',
       },
     ],
