@@ -748,6 +748,42 @@ export const SECTIONS: Section[] = [
       },
     ],
   },
+  {
+    id: 'api-sec',
+    group: 'grc',
+    label: 'API Security',
+    blurb: 'Spec, header, secret & GraphQL review — OWASP API Top 10, runs entirely in your browser.',
+    tools: [
+      {
+        path: '/dfir/openapi-audit',
+        useCase: 'Find the unauthenticated endpoint before it ships.',
+        label: 'OpenAPI / Swagger Auditor',
+        desc: 'Paste an OpenAPI 3 / Swagger 2 spec · OWASP API Top 10 — unauth & BOLA-prone endpoints, query-string API keys, Basic/no-scope auth, plaintext HTTP, mass assignment, debug paths · 100% client-side',
+        icon: Plug,
+      },
+      {
+        path: '/dfir/sec-headers',
+        useCase: 'Grade a site’s response headers in one paste.',
+        label: 'HTTP Security Headers Analyzer',
+        desc: 'Paste raw response headers · graded CSP / HSTS / framing / CORS / Set-Cookie flags + Server/X-Powered-By leakage, A–F score · 100% client-side',
+        icon: Globe,
+      },
+      {
+        path: '/dfir/secret-scan',
+        useCase: 'Catch the leaked key in a config / log paste.',
+        label: 'Secret / API-Key Scanner',
+        desc: 'Paste code/.env/logs · detects AWS/GCP/Azure keys, GitHub/Slack/Stripe/SendGrid tokens, private keys, DB URIs, JWTs + high-entropy assignments · redacted · 100% client-side',
+        icon: KeyRound,
+      },
+      {
+        path: '/dfir/graphql-audit',
+        useCase: 'Spot the passwordHash field in a GraphQL schema.',
+        label: 'GraphQL Security Analyzer',
+        desc: 'Paste introspection JSON or SDL · flags introspection exposure, sensitive/PII fields, auth-less mutations/subscriptions, recursive-type DoS surface · 100% client-side',
+        icon: Share2,
+      },
+    ],
+  },
 ];
 
 /**

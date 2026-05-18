@@ -65,6 +65,10 @@ const LinuxTriage = lazy(() => import('./pages/dfir/LinuxTriage'));
 const TerraformScanner = lazy(() => import('./pages/dfir/TerraformScanner'));
 const GcpIamAnalyzer = lazy(() => import('./pages/dfir/GcpIamAnalyzer'));
 const AzureRbacAnalyzer = lazy(() => import('./pages/dfir/AzureRbacAnalyzer'));
+const OpenApiAuditor = lazy(() => import('./pages/dfir/OpenApiAuditor'));
+const SecHeadersAnalyzer = lazy(() => import('./pages/dfir/SecHeadersAnalyzer'));
+const SecretScanner = lazy(() => import('./pages/dfir/SecretScanner'));
+const GraphqlAuditor = lazy(() => import('./pages/dfir/GraphqlAuditor'));
 const Punycode = lazy(() => import('./pages/dfir/Punycode'));
 const Takeover = lazy(() => import('./pages/dfir/Takeover'));
 const NotFound = lazy(() => import('./pages/NotFound'));
@@ -656,6 +660,46 @@ export function AppContent() {
           <ErrorBoundary>
             <Suspense fallback={<SectionLoader />}>
               <AzureRbacAnalyzer />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/dfir/openapi-audit"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <OpenApiAuditor />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/dfir/sec-headers"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <SecHeadersAnalyzer />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/dfir/secret-scan"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <SecretScanner />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/dfir/graphql-audit"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <GraphqlAuditor />
             </Suspense>
           </ErrorBoundary>
         }
