@@ -270,7 +270,10 @@ function analyze(text: string): Analysis | null {
     // Snapshot / AMI shared publicly
     if (SNAPSHOT_SHARE.has(name)) {
       const rp = JSON.stringify(e.requestParameters ?? {}).toLowerCase();
-      if (rp.includes('"all"') || rp.includes('groupall') || rp.includes('"group":"all"')) {
+      // CloudTrail emits group "all" specifically for a PUBLIC snapshot/AMI
+      // share. The old bare `"all"` substring false-positived on any value
+      // literally equal to "all" anywhere in requestParameters.
+      if (/"group"\s*:\s*"all"/.test(rp) || rp.includes('groupall') || rp.includes('"userid":"all"')) {
         findings.push({
           sev: 'critical',
           title: `Snapshot / AMI shared publicly (${name})`,

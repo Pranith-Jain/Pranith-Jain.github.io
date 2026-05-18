@@ -983,13 +983,19 @@ export async function buildBriefing(
     fetchAbuseFeed('threatfox').catch(() => [] as IocEntry[]),
     fetchAbuseFeed('tweetfeed').catch(() => [] as IocEntry[]),
     wrap(
-      withLastGood(`https://briefing-lastgood.internal/nvd?s=${startMs}&e=${endMs}`, () =>
-        // NVD first; on throw OR empty, fall back to CIRCL (not edge-blocked).
-        // withLastGood still backstops the case where BOTH fail.
-        fetchNvdRecent(rangeStart, rangeEnd, opts.nvdApiKey)
-          .then((r) => (r.length > 0 ? r : fetchCirclRecent(rangeStart, rangeEnd)))
-          .catch(() => fetchCirclRecent(rangeStart, rangeEnd))
-      ),
+      withLastGood(`https://briefing-lastgood.internal/nvd?s=${startMs}&e=${endMs}`, async () => {
+        // NVD first; on throw OR empty, fall back to CIRCL exactly ONCE
+        // (the old .then/.catch chain could call CIRCL twice). If CIRCL
+        // also throws it propagates to withLastGood, which backstops with
+        // the 14-day last-good cache (or rethrows → honest degrade).
+        try {
+          const r = await fetchNvdRecent(rangeStart, rangeEnd, opts.nvdApiKey);
+          if (r.length > 0) return r;
+        } catch {
+          /* NVD unreachable — fall through to CIRCL */
+        }
+        return fetchCirclRecent(rangeStart, rangeEnd);
+      }),
       [] as NvdCve[]
     ),
   ]);

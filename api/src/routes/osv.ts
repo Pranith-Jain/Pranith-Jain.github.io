@@ -57,7 +57,14 @@ export async function osvScanHandler(c: Context<{ Bindings: Env }>): Promise<Res
       idToPkgs.set(v.id, arr);
     }
   });
-  const ids = [...idToPkgs.keys()].slice(0, 400);
+  // Cap detail lookups: each is a subrequest and a Worker invocation has a
+  // hard ~50-subrequest budget (querybatch already used 1). 400 would blow
+  // it and silently truncate. 40 distinct advisories is plenty for a
+  // realistic lockfile; ids beyond the cap still appear (id only, no
+  // summary) and `detailed_capped` flags it for the client.
+  const allIds = [...idToPkgs.keys()];
+  const ids = allIds.slice(0, 40);
+  const detailedCapped = allIds.length > ids.length;
 
   const details = new Map<string, { summary?: string; severity?: string; aliases?: string[]; fixed?: string }>();
   const pool = async () => {
@@ -79,7 +86,7 @@ export async function osvScanHandler(c: Context<{ Bindings: Env }>): Promise<Res
           let fixed: string | undefined;
           for (const aff of (d.affected as Record<string, unknown>[]) ?? []) {
             for (const rng of (aff.ranges as Record<string, unknown>[]) ?? []) {
-              for (const ev of (rng.events as Record<string, string>[]) ?? []) if (ev.fixed) fixed = ev.fixed;
+              for (const ev of (rng.events as Record<string, string>[]) ?? []) if (ev.fixed && !fixed) fixed = ev.fixed; // first non-empty fixed wins
             }
           }
           details.set(id, {
@@ -107,7 +114,11 @@ export async function osvScanHandler(c: Context<{ Bindings: Env }>): Promise<Res
     };
   });
 
-  return c.json({ generated_at: new Date().toISOString(), total_packages: pkgs.length, results }, 200, {
-    'cache-control': 'public, max-age=300',
-  });
+  return c.json(
+    { generated_at: new Date().toISOString(), total_packages: pkgs.length, detailed_capped: detailedCapped, results },
+    200,
+    {
+      'cache-control': 'public, max-age=300',
+    }
+  );
 }

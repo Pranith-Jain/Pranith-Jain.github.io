@@ -6,6 +6,49 @@ const WINDOW_SEC = 60;
 const TTL = 120; // KV TTL > window so the bucket survives
 
 /**
+ * Public CTI export feeds. These ARE rate-limited (abuse protection on
+ * cache-miss bursts) but via the Cache API token bucket below — NOT KV —
+ * because the handlers do their own Cache-API lookup, so the Worker (and
+ * this middleware) runs on every request including cache hits. Using the
+ * KV bucket here would burn 1 read + 1 write per poll against the
+ * ~1k/day KV quota. Cache API has no such quota (it's the CDN cache),
+ * so this keeps the limit free. The trade-off: the counter is per-colo
+ * and eventually-consistent, i.e. the effective limit is ~LIMIT per
+ * edge location — perfectly adequate for abusing a cached public feed.
+ */
+const CACHE_RL_PREFIX = ['/api/v1/taxii2/', '/api/v1/cti/misp/'];
+const CACHE_RL_EXACT = new Set<string>(['/api/v1/ioc-correlation/stix.json']);
+
+async function cacheApiRateLimit(c: Context<{ Bindings: Env }>, next: Next): Promise<Response | void> {
+  const ip = c.req.header('cf-connecting-ip') ?? 'anon';
+  const bucket = Math.floor(Date.now() / 1000 / WINDOW_SEC);
+  const cache = (caches as unknown as { default: Cache }).default;
+  const key = new Request(`https://rl.internal/${bucket}/${encodeURIComponent(ip)}`);
+  let count = 0;
+  try {
+    const hit = await cache.match(key);
+    if (hit) count = parseInt(await hit.text(), 10) || 0;
+  } catch {
+    return next(); // cache error — fail open
+  }
+  if (count >= LIMIT) {
+    return c.json({ error: 'rate_limited', limit: LIMIT, window_seconds: WINDOW_SEC }, 429, {
+      'retry-after': String(WINDOW_SEC),
+      'x-ratelimit-limit': String(LIMIT),
+      'x-ratelimit-remaining': '0',
+      'x-ratelimit-reset': String((bucket + 1) * WINDOW_SEC),
+      'cache-control': 'no-store',
+    });
+  }
+  c.executionCtx.waitUntil(
+    cache
+      .put(key, new Response(String(count + 1), { headers: { 'cache-control': `max-age=${WINDOW_SEC}` } }))
+      .catch(() => {})
+  );
+  return next();
+}
+
+/**
  * KV write budget on the free Workers KV tier is 1,000 writes/day per
  * namespace. Every non-bypassed request to /api/v1/* costs one write
  * (read-modify-write of the per-IP token bucket). Without aggressive
@@ -95,6 +138,11 @@ export async function rateLimit(c: Context<{ Bindings: Env }>, next: Next): Prom
   const url = new URL(c.req.url);
   if (!url.pathname.startsWith('/api/v1/')) return next();
   if (isBypassed(url.pathname)) return next();
+
+  // Public CTI feeds: rate-limit via Cache API (no KV-quota cost).
+  if (CACHE_RL_EXACT.has(url.pathname) || CACHE_RL_PREFIX.some((p) => url.pathname.startsWith(p))) {
+    return cacheApiRateLimit(c, next);
+  }
 
   const ip = c.req.header('cf-connecting-ip') ?? 'anon';
   const bucket = Math.floor(Date.now() / 1000 / WINDOW_SEC);

@@ -108,10 +108,25 @@ function circlToFields(doc: Record<string, unknown>): {
         | { baseScore?: number; baseSeverity?: string; vectorString?: string }
         | undefined;
       if (v?.baseScore != null) {
+        // Normalize to the response contract's enum. CIRCL/CVSS can emit
+        // "NONE" (and odd casing); never cast an out-of-range string as the
+        // union — derive from baseScore when baseSeverity isn't one of the 4.
+        const sevRaw = String(v.baseSeverity ?? '').toUpperCase();
+        const sev: 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW' = (['CRITICAL', 'HIGH', 'MEDIUM', 'LOW'] as const).includes(
+          sevRaw as 'CRITICAL'
+        )
+          ? (sevRaw as 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW')
+          : v.baseScore >= 9
+            ? 'CRITICAL'
+            : v.baseScore >= 7
+              ? 'HIGH'
+              : v.baseScore >= 4
+                ? 'MEDIUM'
+                : 'LOW';
         cvss = {
           version: m.cvssV3_1 ? '3.1' : '3.0',
           base_score: v.baseScore,
-          severity: (String(v.baseSeverity ?? '').toUpperCase() || 'MEDIUM') as 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW',
+          severity: sev,
           vector: v.vectorString ?? '',
         };
         break;
