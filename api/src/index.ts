@@ -7,6 +7,15 @@ import { exposureScanHandler } from './routes/exposure';
 import { fileAnalyzeHandler } from './routes/file';
 import { feedProxyHandler } from './routes/feeds';
 import { ctiParseHandler } from './routes/cti';
+import {
+  taxiiDiscoveryHandler,
+  taxiiApiRootHandler,
+  taxiiCollectionsHandler,
+  taxiiCollectionHandler,
+  taxiiObjectsHandler,
+  mispManifestHandler,
+  mispEventHandler,
+} from './routes/cti-feeds';
 import { privacyInspectHandler } from './routes/privacy';
 import { iocFeedSummaryHandler } from './routes/ioc-feeds';
 import { cveSearchHandler } from './routes/cve';
@@ -81,6 +90,15 @@ app.post('/api/v1/file/analyze', fileAnalyzeHandler);
 app.get('/api/v1/feeds/proxy', feedProxyHandler);
 app.get('/api/v1/feeds/abuse-rss', abuseRssHandler);
 app.get('/api/v1/feeds/ioc-summary', iocFeedSummaryHandler);
+// CTI output: TAXII 2.1 (read-only) + MISP feed — point a TAXII/MISP client
+// at the discovery / manifest URL. All GET + edge-cached.
+app.get('/api/v1/taxii2/', taxiiDiscoveryHandler);
+app.get('/api/v1/taxii2/api/', taxiiApiRootHandler);
+app.get('/api/v1/taxii2/api/collections/', taxiiCollectionsHandler);
+app.get('/api/v1/taxii2/api/collections/:id/', taxiiCollectionHandler);
+app.get('/api/v1/taxii2/api/collections/:id/objects/', taxiiObjectsHandler);
+app.get('/api/v1/cti/misp/manifest.json', mispManifestHandler);
+app.get('/api/v1/cti/misp/:file', mispEventHandler);
 app.post('/api/v1/cti/parse', ctiParseHandler);
 app.get('/api/v1/privacy/inspect', privacyInspectHandler);
 app.get('/api/v1/cve/lookup', cveSearchHandler);

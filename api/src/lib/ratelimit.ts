@@ -57,6 +57,8 @@ const BYPASS_EXACT = new Set<string>([
 const BYPASS_PREFIX = [
   '/api/v1/feeds/', // proxy, abuse-rss, ioc-summary, aggregate — all read-only feed aggregators
   '/api/v1/blog/', // public blog list + post detail — read-only, slug-validated, edge-cached
+  '/api/v1/taxii2/', // read-only TAXII 2.1 server — GET only, edge-cached
+  '/api/v1/cti/misp/', // read-only MISP feed (manifest + event json) — edge-cached
 ];
 
 /**
