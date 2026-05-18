@@ -60,6 +60,26 @@ export function rlProxyCacheKey(resource: string, arg?: string): string {
   return `https://rl-proxy-cache.internal/v1/${resource}${arg ? `/${arg}` : ''}`;
 }
 
+/**
+ * Authenticated GET against the RL PRO API, returning parsed JSON (or null
+ * on missing key / non-2xx / timeout / parse failure). No edge caching —
+ * callers that fan out (e.g. the negotiations aggregator) do their own.
+ */
+export async function fetchRlUpstream(env: Env, path: string): Promise<unknown | null> {
+  const apiKey = env.RANSOMWARELIVE_API_KEY;
+  if (!apiKey) return null;
+  try {
+    const r = await fetch(`${API_BASE}${path}`, {
+      headers: { 'X-API-KEY': apiKey, Accept: 'application/json' },
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+    });
+    if (!r.ok) return null;
+    return (await r.json()) as unknown;
+  } catch {
+    return null;
+  }
+}
+
 export async function ransomwareLiveHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const resource = c.req.param('resource') ?? '';
   const arg = c.req.param('arg');

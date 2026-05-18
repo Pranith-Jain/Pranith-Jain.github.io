@@ -4,205 +4,109 @@ import { ArrowLeft, ChevronDown, ChevronRight, Handshake, RefreshCw } from 'luci
 import { DataState } from '../../components/DataState';
 
 /**
- * Ransomware negotiation viewer. Reads the authenticated ransomware.live PRO
- * proxy (`/api/v1/rl/negotiations`, edge-cached server-side) and renders a
- * scannable table with per-negotiation chat-transcript drill-down.
- *
- * The PRO negotiation schema is undocumented and has drifted historically,
- * so every field is extracted defensively across known key aliases, with a
- * raw-JSON fallback if a record can't be normalised.
+ * Ransomware negotiations. Backed by /api/v1/negotiations — a server-side
+ * fan-out across every ransomware.live PRO negotiation group (the bare RL
+ * endpoint is only a directory, which is why the old single-fetch page was
+ * empty). Per-chat transcripts are pulled on demand from the public
+ * Casualtek/Ransomchats research repo (RL's tier exposes only counts).
  */
 
-function isRecord(v: unknown): v is Record<string, unknown> {
-  return typeof v === 'object' && v !== null && !Array.isArray(v);
-}
-
-function pickStr(o: Record<string, unknown>, keys: string[]): string | undefined {
-  for (const k of keys) {
-    const v = o[k];
-    if (typeof v === 'string' && v.trim()) return v.trim();
-    if (typeof v === 'number' && Number.isFinite(v)) return String(v);
-  }
-  return undefined;
-}
-
-/** Parse a money-ish value: number, or string like "$1,250,000" / "1.5 BTC". */
-function pickNum(o: Record<string, unknown>, keys: string[]): number | undefined {
-  for (const k of keys) {
-    const v = o[k];
-    if (typeof v === 'number' && Number.isFinite(v)) return v;
-    if (typeof v === 'string') {
-      const cleaned = v.replace(/[^0-9.]/g, '');
-      if (cleaned && !Number.isNaN(Number(cleaned))) return Number(cleaned);
-    }
-  }
-  return undefined;
-}
-
-interface ChatMsg {
-  who: string;
-  /** 'victim' | 'actor' | 'unknown' — drives bubble alignment/colour. */
-  side: 'victim' | 'actor' | 'unknown';
-  ts?: string;
-  text: string;
-}
-
 interface Negotiation {
-  id: string;
   group: string;
-  victim: string;
-  status?: string;
-  demand?: number;
-  paid?: number;
-  currency?: string;
-  /** 0–100, only when both demand & paid are known and demand > 0. */
-  discountPct?: number;
-  firstDate?: string;
-  lastDate?: string;
-  messages: ChatMsg[];
-  /** Original record, surfaced when normalisation found almost nothing. */
-  raw: unknown;
+  chat_id: string;
+  date?: string;
+  message_count: number;
+  initial_ransom?: number;
+  negotiated_ransom?: number;
+  paid: boolean;
+  discount_pct?: number;
+}
+interface NegotiationsResponse {
+  generated_at: string;
+  source: string;
+  groups: { group: string; chats: number }[];
+  negotiations: Negotiation[];
+  totals: { groups: number; chats: number; settled: number; avg_discount: number | null };
+  warnings: string[];
+}
+interface TranscriptMsg {
+  party?: string;
+  content?: string;
+  timestamp?: string;
 }
 
-const ACTOR_HINTS = /(actor|attacker|operator|admin|support|gang|ransom|seller|lockbit|alphv|blackcat|op)/i;
-const VICTIM_HINTS = /(victim|company|client|user|buyer|guest|customer|target)/i;
-
-function classifySide(who: string): ChatMsg['side'] {
-  if (ACTOR_HINTS.test(who)) return 'actor';
-  if (VICTIM_HINTS.test(who)) return 'victim';
-  return 'unknown';
-}
-
-function normalizeMessages(rec: Record<string, unknown>): ChatMsg[] {
-  let arr: unknown;
-  for (const k of ['messages', 'chat', 'negotiation', 'conversation', 'thread', 'chats']) {
-    if (Array.isArray(rec[k])) {
-      arr = rec[k];
-      break;
-    }
-  }
-  if (!Array.isArray(arr)) return [];
-  return arr
-    .map((m): ChatMsg | null => {
-      if (typeof m === 'string') return { who: 'unknown', side: 'unknown', text: m };
-      if (!isRecord(m)) return null;
-      const who = pickStr(m, ['from', 'sender', 'author', 'side', 'role', 'party', 'name']) ?? 'unknown';
-      const text = pickStr(m, ['text', 'message', 'msg', 'body', 'content']) ?? '';
-      if (!text) return null;
-      return {
-        who,
-        side: classifySide(who),
-        ts: pickStr(m, ['date', 'timestamp', 'time', 'ts', 'datetime', 'created_at']),
-        text,
-      };
-    })
-    .filter((x): x is ChatMsg => x !== null);
-}
-
-function normalize(rec: unknown, idx: number): Negotiation {
-  if (!isRecord(rec)) {
-    return { id: String(idx), group: 'unknown', victim: `record #${idx + 1}`, messages: [], raw: rec };
-  }
-  const messages = normalizeMessages(rec);
-  const demand = pickNum(rec, ['demand', 'ransom_demand', 'initial_demand', 'amount_requested', 'requested', 'ask']);
-  const paid = pickNum(rec, ['paid', 'amount_paid', 'final', 'agreed', 'settled', 'final_amount']);
-  const discountPct =
-    demand && demand > 0 && paid !== undefined
-      ? Math.max(0, Math.min(100, Math.round((1 - paid / demand) * 100)))
-      : undefined;
-  const msgDates = messages.map((m) => m.ts).filter((t): t is string => !!t);
-  return {
-    id: pickStr(rec, ['id', 'chatid', 'chat_id', 'uuid', '_id']) ?? String(idx),
-    group: pickStr(rec, ['group', 'group_name', 'gang', 'actor']) ?? 'unknown',
-    victim: pickStr(rec, ['victim', 'company', 'name', 'title', 'domain']) ?? `record #${idx + 1}`,
-    status: pickStr(rec, ['status', 'state', 'outcome']),
-    demand,
-    paid,
-    currency: pickStr(rec, ['currency', 'unit']),
-    discountPct,
-    firstDate: pickStr(rec, ['first_message', 'start', 'started', 'opened', 'discovered']) ?? msgDates[0],
-    lastDate: pickStr(rec, ['last_message', 'end', 'ended', 'closed', 'updated']) ?? msgDates[msgDates.length - 1],
-    messages,
-    raw: rec,
-  };
-}
-
-function extractList(data: unknown): unknown[] {
-  if (Array.isArray(data)) return data;
-  if (isRecord(data)) {
-    for (const k of ['negotiations', 'results', 'data', 'items']) {
-      if (Array.isArray(data[k])) return data[k] as unknown[];
-    }
-  }
-  return [];
-}
-
-function fmtMoney(n?: number, currency?: string): string {
+function fmtMoney(n?: number): string {
   if (n === undefined) return '—';
-  const c = currency && currency.length <= 5 ? ` ${currency}` : '';
-  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(2)}M${c}`;
-  if (n >= 1_000) return `${(n / 1_000).toFixed(0)}K${c}`;
-  return `${n.toLocaleString()}${c}`;
+  if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(2)}M`;
+  if (n >= 1_000) return `$${(n / 1_000).toFixed(0)}K`;
+  return `$${n.toLocaleString()}`;
 }
 
-type SortKey = 'group' | 'victim' | 'demand' | 'paid' | 'discountPct' | 'lastDate';
+type SortKey = 'group' | 'date' | 'initial_ransom' | 'negotiated_ransom' | 'discount_pct' | 'message_count';
 
 export default function Negotiations(): JSX.Element {
-  const [rows, setRows] = useState<Negotiation[] | null>(null);
+  const [data, setData] = useState<NegotiationsResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [refreshKey, setRefreshKey] = useState(0);
   const [expanded, setExpanded] = useState<string | null>(null);
-  const [sortKey, setSortKey] = useState<SortKey>('lastDate');
+  const [transcripts, setTranscripts] = useState<Record<string, TranscriptMsg[] | 'loading' | 'error'>>({});
+  const [sortKey, setSortKey] = useState<SortKey>('date');
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc');
   const [groupFilter, setGroupFilter] = useState('all');
-  const [statusFilter, setStatusFilter] = useState('all');
+  const [paidFilter, setPaidFilter] = useState<'all' | 'paid' | 'unpaid'>('all');
 
   useEffect(() => {
     let alive = true;
     setLoading(true);
     setError(null);
-    fetch('/api/v1/rl/negotiations')
+    fetch('/api/v1/negotiations')
       .then((r) => r.json().then((j) => ({ ok: r.ok, j })))
       .then(({ ok, j }) => {
         if (!alive) return;
         if (!ok) {
-          const e = (j as { error?: string }).error;
-          setError(
-            e === 'not_configured'
-              ? 'ransomware.live PRO key not configured on the server.'
-              : `PRO request failed: ${e ?? 'unknown error'}`
-          );
-          setRows(null);
+          setError(`request failed: ${(j as { error?: string }).error ?? 'unknown'}`);
+          setData(null);
           return;
         }
-        const data = (j as { data?: unknown }).data ?? j;
-        setRows(extractList(data).map(normalize));
+        setData(j as NegotiationsResponse);
       })
-      .catch((e: Error) => {
-        if (alive) setError(e.message);
-      })
-      .finally(() => {
-        if (alive) setLoading(false);
-      });
+      .catch((e: Error) => alive && setError(e.message))
+      .finally(() => alive && setLoading(false));
     return () => {
       alive = false;
     };
   }, [refreshKey]);
 
+  const rowKey = (n: Negotiation) => `${n.group}/${n.chat_id}`;
+
+  function toggle(n: Negotiation) {
+    const k = rowKey(n);
+    if (expanded === k) {
+      setExpanded(null);
+      return;
+    }
+    setExpanded(k);
+    if (transcripts[k]) return;
+    setTranscripts((t) => ({ ...t, [k]: 'loading' }));
+    fetch(`/api/v1/negotiations/${encodeURIComponent(n.group)}/${encodeURIComponent(n.chat_id)}`)
+      .then((r) => r.json().then((j) => ({ ok: r.ok, j })))
+      .then(({ ok, j }) => {
+        const msgs = (j as { messages?: TranscriptMsg[] }).messages;
+        setTranscripts((t) => ({ ...t, [k]: ok && Array.isArray(msgs) ? msgs : 'error' }));
+      })
+      .catch(() => setTranscripts((t) => ({ ...t, [k]: 'error' })));
+  }
+
   const groups = useMemo(
-    () => [...new Set((rows ?? []).map((r) => r.group))].sort((a, b) => a.localeCompare(b)),
-    [rows]
-  );
-  const statuses = useMemo(
-    () => [...new Set((rows ?? []).map((r) => r.status).filter((s): s is string => !!s))].sort(),
-    [rows]
+    () => [...new Set((data?.negotiations ?? []).map((n) => n.group))].sort((a, b) => a.localeCompare(b)),
+    [data]
   );
 
   const view = useMemo(() => {
-    let v = rows ?? [];
-    if (groupFilter !== 'all') v = v.filter((r) => r.group === groupFilter);
-    if (statusFilter !== 'all') v = v.filter((r) => r.status === statusFilter);
+    let v = data?.negotiations ?? [];
+    if (groupFilter !== 'all') v = v.filter((n) => n.group === groupFilter);
+    if (paidFilter !== 'all') v = v.filter((n) => (paidFilter === 'paid' ? n.paid : !n.paid));
     const dir = sortDir === 'asc' ? 1 : -1;
     return [...v].sort((a, b) => {
       const av = a[sortKey];
@@ -213,32 +117,18 @@ export default function Negotiations(): JSX.Element {
       if (typeof av === 'number' && typeof bv === 'number') return (av - bv) * dir;
       return String(av).localeCompare(String(bv)) * dir;
     });
-  }, [rows, groupFilter, statusFilter, sortKey, sortDir]);
-
-  const summary = useMemo(() => {
-    const v = rows ?? [];
-    const withBoth = v.filter((r) => r.discountPct !== undefined);
-    const avgDiscount = withBoth.length
-      ? Math.round(withBoth.reduce((s, r) => s + (r.discountPct ?? 0), 0) / withBoth.length)
-      : null;
-    const paidCount = v.filter((r) => r.paid !== undefined && r.paid > 0).length;
-    return {
-      total: v.length,
-      avgDiscount,
-      paymentRate: v.length ? Math.round((paidCount / v.length) * 100) : 0,
-    };
-  }, [rows]);
+  }, [data, groupFilter, paidFilter, sortKey, sortDir]);
 
   const setSort = (k: SortKey) => {
     if (k === sortKey) setSortDir((d) => (d === 'asc' ? 'desc' : 'asc'));
     else {
       setSortKey(k);
-      setSortDir(k === 'group' || k === 'victim' ? 'asc' : 'desc');
+      setSortDir(k === 'group' ? 'asc' : 'desc');
     }
   };
 
-  const Th = ({ k, label, className = '' }: { k: SortKey; label: string; className?: string }) => (
-    <th className={`px-2 py-2 text-left font-mono text-[10px] uppercase tracking-wider ${className}`}>
+  const Th = ({ k, label, cls = '' }: { k: SortKey; label: string; cls?: string }) => (
+    <th className={`px-2 py-2 text-left font-mono text-[10px] uppercase tracking-wider ${cls}`}>
       <button
         type="button"
         onClick={() => setSort(k)}
@@ -266,12 +156,13 @@ export default function Negotiations(): JSX.Element {
           <Handshake size={28} className="text-brand-600 dark:text-brand-400" /> Ransomware negotiations
         </h1>
         <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
-          Negotiation chats indexed by ransomware.live (PRO). Scan demand vs. paid, discount achieved, and status; open
-          any row for the full transcript. Use it to study counter-party behaviour and discount norms by group — never
-          as payment advice.
+          Negotiation chats across every group ransomware.live PRO indexes — initial demand vs. negotiated figure,
+          discount achieved, settlement flag. Open a row for the full transcript. Study counter-party behaviour and
+          discount norms; never payment advice.
         </p>
         <p className="text-xs text-slate-500 font-mono mb-6">
-          Source: ransomware.live PRO <code>/negotiations</code> (server-side authenticated, edge-cached 1h).
+          Source: ransomware.live PRO <code>/negotiations</code> (per-group fan-out, edge-cached 1h) · transcripts from
+          the public <code>Casualtek/Ransomchats</code> research repo on demand.
         </p>
       </div>
 
@@ -279,17 +170,21 @@ export default function Negotiations(): JSX.Element {
         <div className="flex flex-wrap gap-4 text-[12px] font-mono">
           <span>
             <span className="text-slate-500">negotiations</span>{' '}
-            <span className="font-display font-semibold tabular-nums">{summary.total}</span>
+            <span className="font-display font-semibold tabular-nums">{data?.totals.chats ?? 0}</span>
+          </span>
+          <span>
+            <span className="text-slate-500">groups</span>{' '}
+            <span className="font-display font-semibold tabular-nums">{data?.totals.groups ?? 0}</span>
           </span>
           <span>
             <span className="text-slate-500">avg discount</span>{' '}
             <span className="font-display font-semibold tabular-nums">
-              {summary.avgDiscount === null ? '—' : `${summary.avgDiscount}%`}
+              {data?.totals.avg_discount == null ? '—' : `${data.totals.avg_discount}%`}
             </span>
           </span>
           <span>
-            <span className="text-slate-500">payment-rate</span>{' '}
-            <span className="font-display font-semibold tabular-nums">{summary.paymentRate}%</span>
+            <span className="text-slate-500">settled</span>{' '}
+            <span className="font-display font-semibold tabular-nums">{data?.totals.settled ?? 0}</span>
           </span>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
@@ -308,21 +203,16 @@ export default function Negotiations(): JSX.Element {
               ))}
             </select>
           )}
-          {statuses.length > 1 && (
-            <select
-              value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
-              className="text-[11px] font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent"
-              aria-label="Filter by status"
-            >
-              <option value="all">any status</option>
-              {statuses.map((s) => (
-                <option key={s} value={s}>
-                  {s}
-                </option>
-              ))}
-            </select>
-          )}
+          <select
+            value={paidFilter}
+            onChange={(e) => setPaidFilter(e.target.value as 'all' | 'paid' | 'unpaid')}
+            className="text-[11px] font-mono px-2 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-transparent"
+            aria-label="Filter by settlement"
+          >
+            <option value="all">paid + unpaid</option>
+            <option value="paid">settled only</option>
+            <option value="unpaid">unsettled only</option>
+          </select>
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}
@@ -336,107 +226,113 @@ export default function Negotiations(): JSX.Element {
       <DataState
         loading={loading}
         error={error}
-        empty={!!rows && rows.length === 0}
-        emptyLabel="ransomware.live returned no negotiation records."
+        empty={!!data && data.negotiations.length === 0}
+        emptyLabel="No negotiation records returned (RL PRO directory empty or key unauthorized)."
         onRetry={() => setRefreshKey((k) => k + 1)}
         rows={10}
       >
         <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-800">
-          <table className="w-full min-w-[760px] text-[12px]">
+          <table className="w-full min-w-[720px] text-[12px]">
             <thead className="bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
               <tr>
                 <th className="w-8" />
                 <Th k="group" label="group" />
-                <Th k="victim" label="victim" />
-                <Th k="demand" label="demand" className="text-right" />
-                <Th k="paid" label="paid" className="text-right" />
-                <Th k="discountPct" label="disc %" className="text-right" />
+                <Th k="date" label="chat date" />
+                <Th k="initial_ransom" label="demand" cls="text-right" />
+                <Th k="negotiated_ransom" label="negotiated" cls="text-right" />
+                <Th k="discount_pct" label="disc %" cls="text-right" />
                 <th className="px-2 py-2 text-left font-mono text-[10px] uppercase tracking-wider text-slate-500">
-                  status
+                  settled
                 </th>
-                <Th k="lastDate" label="last msg" />
-                <th className="px-2 py-2 text-left font-mono text-[10px] uppercase tracking-wider text-slate-500">
-                  msgs
-                </th>
+                <Th k="message_count" label="msgs" cls="text-right" />
               </tr>
             </thead>
             <tbody>
               {view.map((n) => {
-                const open = expanded === n.id;
+                const k = rowKey(n);
+                const open = expanded === k;
+                const t = transcripts[k];
                 return (
-                  <Fragment key={n.id}>
+                  <Fragment key={k}>
                     <tr
-                      onClick={() => setExpanded(open ? null : n.id)}
+                      onClick={() => toggle(n)}
                       className="border-b border-slate-100 dark:border-slate-800/60 hover:bg-slate-50 dark:hover:bg-slate-800/40 cursor-pointer"
                     >
                       <td className="pl-2 text-slate-400">
                         {open ? <ChevronDown size={13} /> : <ChevronRight size={13} />}
                       </td>
                       <td className="px-2 py-2 font-mono">{n.group}</td>
-                      <td className="px-2 py-2 font-display font-semibold max-w-[220px] truncate" title={n.victim}>
-                        {n.victim}
-                      </td>
-                      <td className="px-2 py-2 text-right tabular-nums">{fmtMoney(n.demand, n.currency)}</td>
-                      <td className="px-2 py-2 text-right tabular-nums">{fmtMoney(n.paid, n.currency)}</td>
+                      <td className="px-2 py-2 font-mono text-slate-500 whitespace-nowrap">{n.date ?? n.chat_id}</td>
+                      <td className="px-2 py-2 text-right tabular-nums">{fmtMoney(n.initial_ransom)}</td>
+                      <td className="px-2 py-2 text-right tabular-nums">{fmtMoney(n.negotiated_ransom)}</td>
                       <td className="px-2 py-2 text-right tabular-nums">
-                        {n.discountPct === undefined ? (
+                        {n.discount_pct === undefined ? (
                           '—'
                         ) : (
                           <span
                             className={
-                              n.discountPct >= 50
+                              n.discount_pct >= 50
                                 ? 'text-emerald-600 dark:text-emerald-400'
                                 : 'text-slate-600 dark:text-slate-300'
                             }
                           >
-                            {n.discountPct}%
+                            {n.discount_pct}%
                           </span>
                         )}
                       </td>
                       <td className="px-2 py-2 font-mono">
-                        {n.status ? (
-                          <span className="px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-[10px]">
-                            {n.status}
+                        {n.paid ? (
+                          <span className="px-1.5 py-0.5 rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 text-[10px]">
+                            paid
                           </span>
                         ) : (
-                          <span className="text-slate-400">—</span>
+                          <span className="text-slate-400 text-[11px]">no</span>
                         )}
                       </td>
-                      <td className="px-2 py-2 font-mono text-slate-500 whitespace-nowrap">{n.lastDate ?? '—'}</td>
-                      <td className="px-2 py-2 font-mono text-slate-500 tabular-nums">{n.messages.length}</td>
+                      <td className="px-2 py-2 text-right font-mono text-slate-500 tabular-nums">{n.message_count}</td>
                     </tr>
                     {open && (
                       <tr className="bg-slate-50 dark:bg-slate-950">
-                        <td colSpan={9} className="px-4 py-3">
-                          {n.messages.length > 0 ? (
+                        <td colSpan={8} className="px-4 py-3">
+                          {t === 'loading' && (
+                            <p className="font-mono text-[12px] text-slate-500">loading transcript…</p>
+                          )}
+                          {t === 'error' && (
+                            <p className="font-mono text-[12px] text-amber-600 dark:text-amber-400">
+                              Transcript not available in Casualtek/Ransomchats for {n.group}/{n.chat_id}.
+                            </p>
+                          )}
+                          {Array.isArray(t) && t.length > 0 && (
                             <ul className="space-y-2 max-h-[60vh] overflow-y-auto">
-                              {n.messages.map((m, i) => (
-                                <li
-                                  key={i}
-                                  className={`max-w-[80%] rounded-lg border p-2.5 ${
-                                    m.side === 'actor'
-                                      ? 'border-rose-500/40 bg-rose-500/10'
-                                      : m.side === 'victim'
+                              {t.map((m, i) => {
+                                const victim = (m.party ?? '').toLowerCase() === 'victim';
+                                return (
+                                  <li
+                                    key={i}
+                                    className={`max-w-[80%] rounded-lg border p-2.5 ${
+                                      victim
                                         ? 'border-sky-500/40 bg-sky-500/10 ml-auto'
-                                        : 'border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-900'
-                                  }`}
-                                >
-                                  <div className="flex items-center justify-between gap-3 mb-1">
-                                    <span className="font-mono text-[10px] uppercase tracking-wider text-slate-500">
-                                      {m.who} · {m.side}
-                                    </span>
-                                    {m.ts && <span className="font-mono text-[10px] text-slate-400">{m.ts}</span>}
-                                  </div>
-                                  <p className="font-mono text-[12px] whitespace-pre-wrap break-words leading-relaxed">
-                                    {m.text}
-                                  </p>
-                                </li>
-                              ))}
+                                        : 'border-rose-500/40 bg-rose-500/10'
+                                    }`}
+                                  >
+                                    <div className="flex items-center justify-between gap-3 mb-1">
+                                      <span className="font-mono text-[10px] uppercase tracking-wider text-slate-500">
+                                        {m.party ?? '?'}
+                                      </span>
+                                      {m.timestamp && (
+                                        <span className="font-mono text-[10px] text-slate-400">{m.timestamp}</span>
+                                      )}
+                                    </div>
+                                    <p className="font-mono text-[12px] whitespace-pre-wrap break-words leading-relaxed">
+                                      {m.content ?? ''}
+                                    </p>
+                                  </li>
+                                );
+                              })}
                             </ul>
-                          ) : (
-                            <pre className="rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3 overflow-auto font-mono text-[11px] max-h-[50vh]">
-                              {JSON.stringify(n.raw, null, 2)}
-                            </pre>
+                          )}
+                          {Array.isArray(t) && t.length === 0 && (
+                            <p className="font-mono text-[12px] text-slate-500">Transcript is empty.</p>
                           )}
                         </td>
                       </tr>

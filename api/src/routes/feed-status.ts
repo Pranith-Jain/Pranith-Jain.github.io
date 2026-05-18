@@ -18,6 +18,7 @@ import { LIVE_IOCS_CACHE_KEY } from './live-iocs';
 import { CYBERCRIME_CACHE_KEY } from './cybercrime';
 import { DEEPDARKCTI_CACHE_KEY } from './deepdarkcti';
 import { rlProxyCacheKey } from './ransomwarelive';
+import { NEGOTIATIONS_CACHE_KEY } from './negotiations';
 import { STEALER_FORUM_INTEL_CACHE_KEY } from './stealer-forum-intel';
 import { BREACH_FORUMS_CACHE_KEY } from './breach-forums';
 
@@ -495,30 +496,19 @@ const PROBES: FeedProbeSpec[] = [
   },
   {
     id: 'negotiations',
-    label: 'Ransomware negotiations (ransomware.live PRO)',
+    label: 'Ransomware negotiations (RL PRO fan-out + Casualtek)',
     page_path: '/threatintel/negotiations',
-    api_path: '/api/v1/rl/negotiations',
-    cache_key: rlProxyCacheKey('negotiations'),
+    api_path: '/api/v1/negotiations',
+    cache_key: NEGOTIATIONS_CACHE_KEY,
     evaluate: (body) => {
-      // RL proxy wraps upstream as { resource, arg, fetched_at, data }.
-      const ageS = ageSeconds(strField(body, 'fetched_at'));
-      const data = (body as { data?: unknown } | null)?.data;
-      let count = 0;
-      if (Array.isArray(data)) count = data.length;
-      else if (data && typeof data === 'object') {
-        for (const k of ['negotiations', 'results', 'data', 'items']) {
-          const v = (data as Record<string, unknown>)[k];
-          if (Array.isArray(v)) {
-            count = v.length;
-            break;
-          }
-        }
-      }
+      const ageS = ageSeconds(strField(body, 'generated_at'));
+      const count = (arrField(body, 'negotiations') ?? []).length;
+      const groups = (arrField(body, 'groups') ?? []).length;
       const status: Status = count > 0 ? 'ok' : 'down';
       return {
         status,
-        reason: count > 0 ? `${count} negotiations` : 'no negotiation records in cached payload',
-        metrics: { negotiations: count },
+        reason: count > 0 ? `${count} negotiations · ${groups} groups` : 'no negotiation records',
+        metrics: { negotiations: count, groups },
         ageS,
       };
     },

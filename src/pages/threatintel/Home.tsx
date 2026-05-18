@@ -111,7 +111,7 @@ const SECTIONS: Section[] = [
       {
         to: '/threatintel/negotiations',
         label: 'Ransomware negotiations',
-        desc: 'ransomware.live PRO negotiation chats — demand vs. paid, discount achieved, status, with full per-negotiation transcript drill-down. Sortable, filterable by group/status.',
+        desc: 'Negotiation chats across every ransomware.live PRO group — initial demand vs. negotiated figure, discount, settlement flag, with full transcript drill-down (Casualtek/Ransomchats). Sortable, filterable.',
         icon: Handshake,
         badge: 'live',
       },
