@@ -34,6 +34,7 @@ const DARKWEB_FEEDS: { id: string; label: string }[] = [
   { id: 'cyble-blog', label: 'Cyble Research' },
   { id: 'socradar-blog', label: 'SOCRadar' },
   { id: 'bushidotoken', label: 'BushidoToken' },
+  { id: 'mti-ransomware', label: 'MyThreatIntel (ransomware)' },
 ];
 
 const ALL_FEED_IDS = DARKWEB_FEEDS.map((f) => f.id);

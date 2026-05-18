@@ -33,6 +33,7 @@ import { breachDisclosuresHandler } from './routes/breach-disclosures';
 import { ransomwareRecentHandler } from './routes/ransomware-recent';
 import { cryptoTraceHandler } from './routes/crypto-trace';
 import { abuseRssHandler } from './routes/abuse-rss';
+import { mtiRansomwareRssHandler } from './routes/mti-ransomware-rss';
 import { waybackCdxHandler } from './routes/wayback';
 import { threatPulseHandler } from './routes/threat-pulse';
 import { ipGeoHandler } from './routes/ip-geo';
@@ -93,6 +94,7 @@ app.get('/api/v1/exposure/scan', exposureScanHandler);
 app.post('/api/v1/file/analyze', fileAnalyzeHandler);
 app.get('/api/v1/feeds/proxy', feedProxyHandler);
 app.get('/api/v1/feeds/abuse-rss', abuseRssHandler);
+app.get('/api/v1/feeds/mti-ransomware', mtiRansomwareRssHandler);
 app.get('/api/v1/feeds/ioc-summary', iocFeedSummaryHandler);
 // CTI output: TAXII 2.1 (read-only) + MISP feed — point a TAXII/MISP client
 // at the discovery / manifest URL. All GET + edge-cached.

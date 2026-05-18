@@ -1093,6 +1093,18 @@ export const rssFeeds: RSSFeed[] = [
     source: 'blog.google',
     language: 'en',
   },
+  {
+    // Synthesised RSS — re-publishes the MyThreatIntel ransomware alerts
+    // already parsed for /api/v1/ransomware-recent so MTI is selectable as
+    // its OWN labelled source (absolute same-origin URL → aggregator-eligible).
+    id: 'mti-ransomware',
+    name: 'MyThreatIntel — ransomware',
+    url: 'https://pranithjain.qzz.io/api/v1/feeds/mti-ransomware',
+    description: 'Ransomware victim claims parsed from the MyThreatIntel CTI Telegram channel',
+    category: 'threat-intel',
+    source: 't.me/mythreatintel',
+    language: 'es',
+  },
 ];
 
 /**
@@ -1222,6 +1234,7 @@ export const landingThreatInvestigation = [
   'cyble-blog',
   'socradar-blog',
   'bushidotoken',
+  'mti-ransomware',
 ];
 
 export const landingThreatReddit = ['reddit-netsec', 'reddit-malware', 'reddit-blueteamsec', 'reddit-threatintel'];
