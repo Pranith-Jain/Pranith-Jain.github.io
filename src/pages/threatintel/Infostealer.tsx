@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Bug, Copy, KeyRound, Radio, Send, ShoppingCart } from 'lucide-react';
+import { ArrowLeft, Bug, Copy, KeyRound, Network, Radio, Send, ShoppingCart } from 'lucide-react';
 
 /**
  * Infostealer live tracker. Three independent live sources composed on one
@@ -16,7 +16,7 @@ import { ArrowLeft, Bug, Copy, KeyRound, Radio, Send, ShoppingCart } from 'lucid
  * defensively (known fields + raw JSON fallback).
  */
 
-type TabId = 'hudsonrock' | 'markets' | 'telegram' | 'samples' | 'c2';
+type TabId = 'hudsonrock' | 'markets' | 'telegram' | 'samples' | 'c2' | 'combo';
 
 /**
  * High-precision infostealer family matcher. Covers the dominant
@@ -56,6 +56,13 @@ const TABS: Array<{ id: TabId; label: string; icon: typeof KeyRound; blurb: stri
     label: 'Stealer C2 / IOCs',
     icon: Radio,
     blurb: 'Live ThreatFox / URLhaus / TweetFeed indicators attributed to an infostealer family.',
+  },
+  {
+    id: 'combo',
+    label: 'Combo & forum intel',
+    icon: Network,
+    blurb:
+      'Intelligence ABOUT combolist / stealer-log forums & channels — directory metadata + tagged chatter pointers. No stolen data is fetched, parsed, or shown here.',
   },
 ];
 
@@ -100,6 +107,27 @@ interface C2Item {
   observed_at?: string;
 }
 
+interface SfiForumGroup {
+  category: string;
+  count: number;
+  entries: { name: string; url: string; onion: boolean; status: string }[];
+}
+interface SfiChatterSample {
+  source: string;
+  link: string;
+  when?: string;
+  keyword: string;
+}
+interface SfiResponse {
+  generated_at: string;
+  forums: SfiForumGroup[];
+  chatter: {
+    telegram: { matches: number; samples: SfiChatterSample[] };
+    reddit: { matches: number; samples: SfiChatterSample[] };
+  };
+  totals: { tracked_sources: number; categories: number };
+}
+
 function RawJson({ value }: { value: unknown }) {
   return (
     <pre className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-3 overflow-auto font-mono text-[11px] text-slate-700 dark:text-slate-300 max-h-[55vh]">
@@ -116,6 +144,7 @@ export default function Infostealer(): JSX.Element {
   const [tg, setTg] = useState<TelegramItem[] | null>(null);
   const [samples, setSamples] = useState<SampleItem[] | null>(null);
   const [c2, setC2] = useState<C2Item[] | null>(null);
+  const [sfi, setSfi] = useState<SfiResponse | null>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -139,7 +168,11 @@ export default function Infostealer(): JSX.Element {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         return r.json();
       }),
-    ]).then(([hrRes, ccRes, ddcRes, mbRes, liRes]) => {
+      fetch('/api/v1/stealer-forum-intel').then(async (r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+      }),
+    ]).then(([hrRes, ccRes, ddcRes, mbRes, liRes, sfiRes]) => {
       if (!alive) return;
       // HudsonRock / PRO
       if (hrRes.status === 'fulfilled') {
@@ -212,6 +245,10 @@ export default function Infostealer(): JSX.Element {
           }));
         setC2(ci);
       } else setC2([]);
+      // Combo & stealer-forum intel — metadata + chatter pointers only
+      if (sfiRes.status === 'fulfilled' && isRecord(sfiRes.value) && Array.isArray(sfiRes.value.forums)) {
+        setSfi(sfiRes.value as unknown as SfiResponse);
+      } else setSfi(null);
       setLoading(false);
     });
     return () => {
@@ -477,6 +514,119 @@ export default function Infostealer(): JSX.Element {
             </li>
           )}
         </ul>
+      )}
+
+      {!loading && tab === 'combo' && (
+        <div className="space-y-5">
+          <div className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-3 font-mono text-[11px] text-amber-700 dark:text-amber-300">
+            Defensive intelligence only. This tab tracks <strong>where</strong> combolist / stealer-log activity lives
+            and <strong>that</strong> it is being discussed — directory metadata and public permalinks. It never
+            fetches, parses, or displays stolen credentials or breach contents.
+          </div>
+
+          {!sfi && (
+            <p className="font-mono text-[12px] text-slate-500">
+              Forum-intel cache is cold — visit again shortly once it warms.
+            </p>
+          )}
+
+          {sfi && (
+            <>
+              <p className="font-mono text-[11px] text-slate-500">
+                {sfi.totals.tracked_sources} tracked sources across {sfi.totals.categories} categories · telegram
+                chatter hits: {sfi.chatter.telegram.matches} · reddit: {sfi.chatter.reddit.matches}
+              </p>
+
+              {sfi.forums.map((g) => (
+                <div key={g.category}>
+                  <h3 className="font-display font-semibold text-sm mb-2">
+                    {g.category} <span className="font-mono text-[11px] text-slate-500">· {g.count}</span>
+                  </h3>
+                  <ul className="grid gap-2 md:grid-cols-2">
+                    {g.entries.slice(0, 60).map((e, i) => (
+                      <li
+                        key={`${e.name}-${i}`}
+                        className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
+                      >
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="font-display font-semibold text-sm truncate" title={e.name}>
+                            {e.name}
+                          </span>
+                          <span className="flex items-center gap-1 shrink-0">
+                            {e.onion && (
+                              <span className="rounded border border-slate-400/40 bg-slate-400/10 px-1 py-0.5 font-mono text-[9px] uppercase text-slate-500">
+                                onion
+                              </span>
+                            )}
+                            <span
+                              className={`rounded border px-1.5 py-0.5 font-mono text-[9px] uppercase ${
+                                e.status === 'online' || e.status === 'valid'
+                                  ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
+                                  : 'border-slate-400/40 bg-slate-400/10 text-slate-500'
+                              }`}
+                            >
+                              {e.status}
+                            </span>
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-2 mt-1">
+                          <code className="font-mono text-[11px] text-slate-600 dark:text-slate-400 break-all">
+                            {e.url}
+                          </code>
+                          <button
+                            type="button"
+                            onClick={() => copy(e.url)}
+                            className="shrink-0 rounded border border-slate-200 dark:border-slate-700 p-1 text-slate-500 hover:text-brand-600"
+                            aria-label="Copy URL"
+                          >
+                            <Copy size={11} />
+                          </button>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+
+              {(['telegram', 'reddit'] as const).map((src) => {
+                const block = sfi.chatter[src];
+                if (block.samples.length === 0) return null;
+                return (
+                  <div key={src}>
+                    <h3 className="font-display font-semibold text-sm mb-2 capitalize">
+                      {src} combo/stealer chatter{' '}
+                      <span className="font-mono text-[11px] text-slate-500">· {block.matches} matches</span>
+                    </h3>
+                    <ul className="space-y-1.5">
+                      {block.samples.map((s, i) => (
+                        <li
+                          key={`${src}-${i}`}
+                          className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-2.5 font-mono text-[11px] flex items-center gap-2 flex-wrap"
+                        >
+                          <span className="rounded border border-rose-500/40 bg-rose-500/10 px-1.5 py-0.5 text-[9px] uppercase text-rose-700 dark:text-rose-300">
+                            {s.keyword}
+                          </span>
+                          <span className="text-slate-600 dark:text-slate-400 truncate">{s.source}</span>
+                          {s.when && <span className="text-slate-400 text-[10px]">{s.when.slice(0, 10)}</span>}
+                          {s.link && (
+                            <a
+                              href={s.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="ml-auto text-brand-600 dark:text-brand-400 hover:underline"
+                            >
+                              open ↗
+                            </a>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              })}
+            </>
+          )}
+        </div>
       )}
     </div>
   );

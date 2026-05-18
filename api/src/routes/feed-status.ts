@@ -18,6 +18,7 @@ import { LIVE_IOCS_CACHE_KEY } from './live-iocs';
 import { CYBERCRIME_CACHE_KEY } from './cybercrime';
 import { DEEPDARKCTI_CACHE_KEY } from './deepdarkcti';
 import { rlProxyCacheKey } from './ransomwarelive';
+import { STEALER_FORUM_INTEL_CACHE_KEY } from './stealer-forum-intel';
 
 /**
  * Feed-status dashboard. Reads every per-feed edge-cache entry directly
@@ -517,6 +518,25 @@ const PROBES: FeedProbeSpec[] = [
         status,
         reason: count > 0 ? `${count} negotiations` : 'no negotiation records in cached payload',
         metrics: { negotiations: count },
+        ageS,
+      };
+    },
+  },
+  {
+    id: 'stealer-forum-intel',
+    label: 'Combo & stealer-forum intel (deepdarkCTI + chatter)',
+    page_path: '/threatintel/infostealer',
+    api_path: '/api/v1/stealer-forum-intel',
+    cache_key: STEALER_FORUM_INTEL_CACHE_KEY,
+    evaluate: (body) => {
+      const ageS = ageSeconds(strField(body, 'generated_at'));
+      const forums = arrField(body, 'forums') ?? [];
+      const tracked = (body as { totals?: { tracked_sources?: number } } | null)?.totals?.tracked_sources ?? 0;
+      const status: Status = forums.length > 0 ? 'ok' : 'down';
+      return {
+        status,
+        reason: forums.length > 0 ? `${tracked} tracked sources · ${forums.length} categories` : 'no directory rows',
+        metrics: { tracked_sources: tracked, categories: forums.length },
         ageS,
       };
     },
