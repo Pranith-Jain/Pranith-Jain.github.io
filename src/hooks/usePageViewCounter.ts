@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 
-const VIEW_COUNT_KEY = 'pj_portfolio_views';
 const VIEWED_SESSION_KEY = 'pj_portfolio_viewed';
 const FIRST_VISIT_KEY = 'pj_portfolio_first_visit';
+const ENDPOINT = '/api/v1/pageviews';
 
 interface PageViewData {
   count: number;
@@ -11,11 +11,14 @@ interface PageViewData {
 }
 
 /**
- * Hook for tracking page views using localStorage with privacy-first approach
- * - Only counts unique sessions (not individual page reloads)
- * - No external tracking or analytics
- * - Respects private browsing mode
- * - First-time visitor detection
+ * GLOBAL site view counter (D1-backed `/api/v1/pageviews`).
+ *
+ * Previously this was a per-browser localStorage tally rendered as a global
+ * "N views" — so it differed on every device/session (62, 30, 44…). Now it
+ * reads/increments one shared server counter, so every visitor sees the
+ * same number. Still privacy-first: increments once per browser SESSION
+ * (sessionStorage guard), no per-user tracking. The GET is edge-cached so
+ * reads don't hammer D1; `firstVisit` stays local (inherently personal).
  */
 export function usePageViewCounter(): PageViewData & { increment: () => void } {
   const [count, setCount] = useState(0);
@@ -23,53 +26,49 @@ export function usePageViewCounter(): PageViewData & { increment: () => void } {
   const [isNewSession, setIsNewSession] = useState(false);
 
   useEffect(() => {
+    let alive = true;
+    let newSession = false;
     try {
-      // Check if this is a new session
-      const hasViewedThisSession = sessionStorage.getItem(VIEWED_SESSION_KEY);
-      const storedCount = localStorage.getItem(VIEW_COUNT_KEY);
-      const storedFirstVisit = localStorage.getItem(FIRST_VISIT_KEY);
-
-      if (!hasViewedThisSession) {
-        // New session - increment count
-        const newCount = storedCount ? parseInt(storedCount, 10) + 1 : 1;
-        setCount(newCount);
-        setIsNewSession(true);
-
-        // Store the new count
-        localStorage.setItem(VIEW_COUNT_KEY, newCount.toString());
-        sessionStorage.setItem(VIEWED_SESSION_KEY, 'true');
-
-        // Store first visit date if not already set
-        if (!storedFirstVisit) {
-          const now = new Date().toISOString();
-          localStorage.setItem(FIRST_VISIT_KEY, now);
-          setFirstVisit(now);
-        } else {
-          setFirstVisit(storedFirstVisit);
-        }
+      newSession = !sessionStorage.getItem(VIEWED_SESSION_KEY);
+      if (newSession) sessionStorage.setItem(VIEWED_SESSION_KEY, 'true');
+      const stored = localStorage.getItem(FIRST_VISIT_KEY);
+      if (!stored) {
+        const now = new Date().toISOString();
+        localStorage.setItem(FIRST_VISIT_KEY, now);
+        setFirstVisit(now);
       } else {
-        // Returning in same session
-        setCount(storedCount ? parseInt(storedCount, 10) : 1);
-        setIsNewSession(false);
-        setFirstVisit(storedFirstVisit);
+        setFirstVisit(stored);
       }
-    } catch (e) {
-      // Fail silently in private browsing or if storage is disabled
-      console.warn('Page view tracking disabled:', e);
-      setCount(1);
-      setIsNewSession(true);
+    } catch {
+      newSession = true; // private mode — treat as a fresh session
     }
+    setIsNewSession(newSession);
+
+    // New session → increment the global counter once; else just read the
+    // (edge-cached) global total. Fail silent: an offline/error leaves the
+    // count at 0 rather than showing a fake per-device number.
+    fetch(`${ENDPOINT}${newSession ? '?inc=1' : ''}`)
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
+      .then((d: { views?: number }) => {
+        if (alive && typeof d.views === 'number') setCount(d.views);
+      })
+      .catch(() => {
+        /* leave at 0 — better than a misleading device-local tally */
+      });
+    return () => {
+      alive = false;
+    };
   }, []);
 
   const increment = useCallback(() => {
-    try {
-      const storedCount = localStorage.getItem(VIEW_COUNT_KEY);
-      const newCount = storedCount ? parseInt(storedCount, 10) + 1 : 1;
-      localStorage.setItem(VIEW_COUNT_KEY, newCount.toString());
-      setCount(newCount);
-    } catch (e) {
-      console.warn('Failed to increment view count:', e);
-    }
+    fetch(`${ENDPOINT}?inc=1`)
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
+      .then((d: { views?: number }) => {
+        if (typeof d.views === 'number') setCount(d.views);
+      })
+      .catch(() => {
+        /* ignore */
+      });
   }, []);
 
   return { count, firstVisit, isNewSession, increment };

@@ -23,6 +23,7 @@ const TTL = 120; // KV TTL > window so the bucket survives
 /** Exact-match exempt paths. */
 const BYPASS_EXACT = new Set<string>([
   '/api/v1/health',
+  '/api/v1/pageviews',
   // Cached read-only aggregators — all served from edge cache; even cold-
   // cache hits do bounded upstream work and don't expose anything an
   // abuser couldn't get from RSS directly.

@@ -63,6 +63,7 @@ import {
 import { snapshotHandler } from './routes/snapshot';
 import { iocSnapshotHandler } from './routes/ioc-snapshot';
 import { registerBlogRoutes } from './routes/blog-public';
+import { pageViewsHandler } from './routes/pageviews';
 import { registerAdminRoutes } from './routes/case-study-admin';
 import { c2TrackerHandler } from './routes/c2-tracker';
 import { rateLimit } from './lib/ratelimit';
@@ -125,6 +126,7 @@ app.get('/api/v1/c2-tracker', c2TrackerHandler);
 app.get('/api/v1/cyber-crime', cybercrimeHandler);
 app.get('/api/v1/snapshot', snapshotHandler);
 app.get('/api/v1/ioc-snapshot', iocSnapshotHandler);
+app.get('/api/v1/pageviews', pageViewsHandler);
 app.get('/api/v1/briefings/list', listBriefingsHandler);
 app.get('/api/v1/briefings/rss', briefingsRssHandler);
 app.get('/api/v1/briefings/today', todayBriefingHandler);

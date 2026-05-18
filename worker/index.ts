@@ -235,8 +235,8 @@ function rewriteOgMeta(html: string, override: OgOverride | null, fullUrl: strin
  * meaningful override — the URL/canonical still get corrected regardless.
  */
 async function resolveOg(url: URL, env: Env): Promise<OgOverride | null> {
-  const direct = findOgOverride(url.pathname);
-  if (direct && url.pathname !== '/blog') return direct;
+  // Blog POST first — must run before findOgOverride, which prefix-matches
+  // `/blog` for `/blog/<slug>` and would otherwise shadow the per-post card.
   const m = /^\/blog\/([a-z0-9-]{1,200})$/.exec(url.pathname);
   if (m && env.CASE_STUDIES) {
     try {
@@ -255,7 +255,7 @@ async function resolveOg(url: URL, env: Env): Promise<OgOverride | null> {
     }
     return OG_OVERRIDES['/blog'] ?? null;
   }
-  return direct;
+  return findOgOverride(url.pathname);
 }
 
 /**
