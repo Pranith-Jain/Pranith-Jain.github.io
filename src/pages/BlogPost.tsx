@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { DataState } from '../components/DataState';
 
 interface Post {
   slug: string;
@@ -12,15 +13,39 @@ interface Post {
   tags: string[];
 }
 
+// Light/dark-paired prose. The previous class soup was zinc-only with no
+// light variants — in light mode the body was near-white text on white,
+// i.e. unreadable. Now every token has an explicit slate light + dark pair.
+const PROSE =
+  '[&_h2]:font-display [&_h2]:text-xl [&_h2]:font-bold [&_h2]:mt-10 [&_h2]:mb-3 [&_h2]:text-slate-900 dark:[&_h2]:text-slate-100 ' +
+  '[&_h3]:font-display [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:mt-8 [&_h3]:mb-2 [&_h3]:text-slate-800 dark:[&_h3]:text-slate-200 ' +
+  '[&_p]:text-slate-700 dark:[&_p]:text-slate-300 [&_p]:leading-relaxed [&_p]:mb-4 ' +
+  '[&_a]:text-brand-600 dark:[&_a]:text-brand-400 [&_a]:hover:underline ' +
+  '[&_strong]:text-slate-900 dark:[&_strong]:text-slate-100 ' +
+  '[&_code]:text-brand-700 dark:[&_code]:text-brand-300 [&_code]:bg-slate-100 dark:[&_code]:bg-slate-800 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-sm [&_code]:font-mono ' +
+  '[&_pre]:bg-slate-50 dark:[&_pre]:bg-slate-900 [&_pre]:border [&_pre]:border-slate-200 dark:[&_pre]:border-slate-800 [&_pre]:p-4 [&_pre]:rounded-lg [&_pre]:mb-4 [&_pre]:overflow-x-auto ' +
+  '[&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-4 [&_ul]:text-slate-700 dark:[&_ul]:text-slate-300 ' +
+  '[&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-4 [&_ol]:text-slate-700 dark:[&_ol]:text-slate-300 [&_li]:mb-1 ' +
+  '[&_blockquote]:border-l-4 [&_blockquote]:border-brand-500 dark:[&_blockquote]:border-brand-400 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-slate-600 dark:[&_blockquote]:text-slate-400 [&_blockquote]:mb-4 ' +
+  '[&_hr]:border-slate-200 dark:[&_hr]:border-slate-800 [&_hr]:my-8 ' +
+  '[&_table]:w-full [&_table]:border-collapse [&_table]:mb-4 ' +
+  '[&_th]:border [&_th]:border-slate-200 dark:[&_th]:border-slate-800 [&_th]:p-2 [&_th]:text-left [&_th]:text-slate-800 dark:[&_th]:text-slate-200 [&_th]:bg-slate-50 dark:[&_th]:bg-slate-900 ' +
+  '[&_td]:border [&_td]:border-slate-200 dark:[&_td]:border-slate-800 [&_td]:p-2 [&_td]:text-slate-700 dark:[&_td]:text-slate-300 ' +
+  '[&_img]:rounded-lg [&_img]:mb-4 [&_img]:max-w-full';
+
 export default function BlogPost() {
   const { slug } = useParams();
   const [post, setPost] = useState<Post | null>(null);
   const [notFound, setNotFound] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [html, setHtml] = useState<string>('');
+  const [reloadKey, setReloadKey] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
+    setError(null);
+    setNotFound(false);
+    setPost(null);
     fetch(`/api/v1/blog/posts/${encodeURIComponent(slug ?? '')}`)
       .then(async (r) => {
         if (r.status === 404 || r.status === 400) {
@@ -39,60 +64,85 @@ export default function BlogPost() {
     return () => {
       cancelled = true;
     };
-  }, [slug]);
+  }, [slug, reloadKey]);
 
-  if (error) return <p className="p-10 text-red-500">Error: {error}</p>;
-  if (notFound) return <p className="p-10">Post not found.</p>;
-  if (!post) return <p className="p-10">Loading…</p>;
-
-  const readTime = Math.max(1, Math.ceil(post.body.split(/\s+/).length / 200));
+  const readTime = post ? Math.max(1, Math.ceil(post.body.split(/\s+/).length / 200)) : 0;
 
   return (
-    <article className="max-w-3xl mx-auto px-6 py-10">
-      <Link to="/blog" className="inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-300 mb-8">
+    <article className="max-w-3xl mx-auto px-6 py-10 text-slate-900 dark:text-slate-100">
+      <Link
+        to="/blog"
+        className="inline-flex items-center gap-1 text-xs font-mono uppercase tracking-[0.16em] text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 mb-8"
+      >
         ← Back to Blog
       </Link>
-      <img className="mb-8 w-full rounded-lg" alt="" src={`data:image/svg+xml;utf8,${encodeURIComponent(post.hero)}`} />
-      <header className="mb-8">
-        <span className="text-xs uppercase tracking-wider text-zinc-500">{post.type}</span>
-        <h1 className="text-3xl font-bold mt-1">{post.title}</h1>
-        <div className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-sm text-zinc-500 mt-3">
-          <span>Pranith Jain</span>
-          <span aria-hidden="true">·</span>
-          <time>
-            {new Date(post.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-          </time>
-          <span aria-hidden="true">·</span>
-          <span>{readTime} min read</span>
-        </div>
-        {post.tags.length > 0 && (
-          <div className="flex flex-wrap gap-1.5 mt-3">
-            {post.tags.map((t) => (
-              <span key={t} className="rounded bg-zinc-800 px-2 py-0.5 text-[11px] font-mono text-zinc-400">
-                {t}
+      <DataState
+        loading={!post && !notFound && !error}
+        error={error}
+        empty={notFound}
+        emptyLabel="Post not found. It may have been unpublished."
+        onRetry={() => setReloadKey((k) => k + 1)}
+        rows={8}
+      >
+        {post && (
+          <>
+            <img
+              className="mb-8 w-full rounded-lg border border-slate-200 dark:border-slate-800"
+              alt=""
+              src={`data:image/svg+xml;utf8,${encodeURIComponent(post.hero)}`}
+            />
+            <header className="mb-8">
+              <span className="text-[11px] font-mono uppercase tracking-[0.16em] text-brand-600 dark:text-brand-400">
+                {post.type}
               </span>
-            ))}
-          </div>
+              <h1 className="font-display text-3xl font-bold tracking-tight mt-1">{post.title}</h1>
+              <div className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-sm text-slate-500 mt-3">
+                <span>Pranith Jain</span>
+                <span aria-hidden="true">·</span>
+                <time>
+                  {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </time>
+                <span aria-hidden="true">·</span>
+                <span>{readTime} min read</span>
+              </div>
+              {post.tags.length > 0 && (
+                <div className="flex flex-wrap gap-1.5 mt-3">
+                  {post.tags.map((t) => (
+                    <span
+                      key={t}
+                      className="rounded border border-slate-200 bg-slate-50 px-2 py-0.5 text-[11px] font-mono text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </header>
+            <div className={PROSE} dangerouslySetInnerHTML={{ __html: html }} />
+            {post.iocs.length > 0 && (
+              <aside className="mt-10 border-t border-slate-200 dark:border-slate-800 pt-6">
+                <h2 className="text-[11px] font-mono uppercase tracking-[0.16em] text-slate-500 mb-2">IOCs</h2>
+                <ul className="text-sm font-mono space-y-1">
+                  {post.iocs.map((i, k) => (
+                    <li key={`${i.type}-${i.value}-${k}`}>
+                      <Link
+                        to={`/dfir/ioc-check?q=${encodeURIComponent(i.value)}`}
+                        className="text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 hover:underline"
+                      >
+                        [{i.type}] {i.value}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </aside>
+            )}
+          </>
         )}
-      </header>
-      <div
-        className="[&_h2]:text-xl [&_h2]:font-bold [&_h2]:mt-10 [&_h2]:mb-3 [&_h2]:text-zinc-100 [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:mt-8 [&_h3]:mb-2 [&_h3]:text-zinc-200 [&_p]:text-zinc-300 [&_p]:leading-relaxed [&_p]:mb-4 [&_a]:text-brand-400 [&_a]:hover:underline [&_strong]:text-zinc-100 [&_code]:text-brand-400 [&_code]:bg-zinc-800 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-sm [&_code]:font-mono [&_pre]:bg-zinc-900 [&_pre]:border [&_pre]:border-zinc-800 [&_pre]:p-4 [&_pre]:rounded-lg [&_pre]:mb-4 [&_pre]:overflow-x-auto [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-4 [&_ul]:text-zinc-300 [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-4 [&_ol]:text-zinc-300 [&_li]:mb-1 [&_blockquote]:border-l-4 [&_blockquote]:border-brand-400 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-zinc-400 [&_blockquote]:mb-4 [&_hr]:border-zinc-800 [&_hr]:my-8 [&_table]:w-full [&_table]:border-collapse [&_table]:mb-4 [&_th]:border [&_th]:border-zinc-800 [&_th]:p-2 [&_th]:text-left [&_th]:text-zinc-200 [&_th]:bg-zinc-900 [&_td]:border [&_td]:border-zinc-800 [&_td]:p-2 [&_td]:text-zinc-300 [&_img]:rounded-lg [&_img]:mb-4 [&_img]:max-w-full"
-        dangerouslySetInnerHTML={{ __html: html }}
-      />
-      {post.iocs.length > 0 && (
-        <aside className="mt-10 border-t border-zinc-800 pt-6">
-          <h2 className="text-sm uppercase tracking-wider text-zinc-500 mb-2">IOCs</h2>
-          <ul className="text-sm font-mono space-y-1">
-            {post.iocs.map((i, k) => (
-              <li key={k}>
-                <Link to={`/dfir/ioc-check?q=${encodeURIComponent(i.value)}`} className="hover:underline">
-                  [{i.type}] {i.value}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </aside>
-      )}
+      </DataState>
     </article>
   );
 }
