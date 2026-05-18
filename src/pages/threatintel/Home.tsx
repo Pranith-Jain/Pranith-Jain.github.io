@@ -116,6 +116,13 @@ const SECTIONS: Section[] = [
         badge: 'live',
       },
       {
+        to: '/threatintel/breach-forums',
+        label: 'Breach / leak-forum tracker',
+        desc: 'Directory of criminal forums + dark markets (deepdarkCTI) plus a curated set of notable breach/leak forums. Intelligence about venues — names, status, OSINT-coverage links only; no forum contents.',
+        icon: ShieldAlert,
+        badge: 'live',
+      },
+      {
         to: '/threatintel/pulse',
         label: 'Threat Pulse',
         desc: 'Real-time aggregator of fresh threat entities — actors, malware families, CVEs, IOCs — ranked by cross-source activity over the last 24h',

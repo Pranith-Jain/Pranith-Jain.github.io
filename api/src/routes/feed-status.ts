@@ -19,6 +19,7 @@ import { CYBERCRIME_CACHE_KEY } from './cybercrime';
 import { DEEPDARKCTI_CACHE_KEY } from './deepdarkcti';
 import { rlProxyCacheKey } from './ransomwarelive';
 import { STEALER_FORUM_INTEL_CACHE_KEY } from './stealer-forum-intel';
+import { BREACH_FORUMS_CACHE_KEY } from './breach-forums';
 
 /**
  * Feed-status dashboard. Reads every per-feed edge-cache entry directly
@@ -566,6 +567,26 @@ const PROBES: FeedProbeSpec[] = [
         status,
         reason: forums.length > 0 ? `${tracked} tracked sources · ${forums.length} categories` : 'no directory rows',
         metrics: { tracked_sources: tracked, categories: forums.length },
+        ageS,
+      };
+    },
+  },
+  {
+    id: 'breach-forums',
+    label: 'Breach / leak-forum tracker (deepdarkCTI + curated)',
+    page_path: '/threatintel/breach-forums',
+    api_path: '/api/v1/breach-forums',
+    cache_key: BREACH_FORUMS_CACHE_KEY,
+    evaluate: (body) => {
+      const ageS = ageSeconds(strField(body, 'generated_at'));
+      const rows = (arrField(body, 'rows') ?? []).length;
+      // The curated list is always present; healthy = curated + directory.
+      const dir = (body as { totals?: { directory?: number } } | null)?.totals?.directory ?? 0;
+      const status: Status = rows > 0 ? (dir > 0 ? 'ok' : 'degraded') : 'down';
+      return {
+        status,
+        reason: rows > 0 ? `${rows} forums (${dir} from directory)` : 'no rows',
+        metrics: { rows, directory: dir },
         ageS,
       };
     },
