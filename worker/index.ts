@@ -474,106 +474,82 @@ export default {
       // not, build it. Skip at UTC hour 0 — the daily cron is 5 minutes away
       // and will produce a fresher version. Independent from the warm work
       // below so a slow build can't delay snapshot warming.
-      if (env.BRIEFINGS_DB && new Date().getUTCHours() !== 0) {
-        ctx.waitUntil(
-          (async () => {
-            const db = env.BRIEFINGS_DB as D1Database;
-            const yesterday = new Date(Date.now() - 86400_000);
-            const slug = `daily-${yesterday.toISOString().slice(0, 10)}`;
-            // Rebuild when the row is missing OR empty. The old `SELECT 1`
-            // check treated an empty/clobbered briefing as "done" and never
-            // self-healed it (this is why daily-2026-05-16 stayed at 0
-            // findings). writeBriefing's own guard still prevents a transient
-            // empty rebuild from clobbering a row that's already rich.
-            const row = await db
-              .prepare('SELECT stats_json FROM briefings WHERE slug = ?')
-              .bind(slug)
-              .first<{ stats_json: string }>();
-            if (row) {
-              let rich = false;
-              try {
-                const s = JSON.parse(row.stats_json || '{}') as { findings?: number; iocs?: number };
-                rich = (s.findings ?? 0) > 0 || (s.iocs ?? 0) > 0;
-              } catch {
-                rich = false;
-              }
-              if (rich) return;
-            }
-            try {
-              const briefing = await buildBriefing('daily', undefined, { nvdApiKey: env.NVD_API_KEY });
-              const result = await writeBriefing(db, briefing);
-              if (result.written) {
-                console.log(
-                  `scheduled(catch-up): wrote ${briefing.slug} (findings=${briefing.stats.findings}, iocs=${briefing.stats.iocs})`
-                );
-              }
-            } catch (err) {
-              console.error('scheduled(catch-up): briefing build failed', err);
-            }
-          })()
-        );
-      }
-
-      // Weekly self-heal. The weekly cron only fires Mondays, so a failed
-      // weekly was stuck for a FULL WEEK with no recovery. Mirror the daily
-      // logic but gate to ONCE/day (UTC hour 2) so the heavier weekly build
-      // never stacks with the daily build + snapshot warm every hour and
-      // re-blows the ~50-subrequest invocation budget.
-      if (env.BRIEFINGS_DB && new Date().getUTCHours() === 2) {
-        ctx.waitUntil(
-          (async () => {
-            const db = env.BRIEFINGS_DB as D1Database;
-            const slug = expectedWeeklySlug();
-            const row = await db
-              .prepare('SELECT stats_json FROM briefings WHERE slug = ?')
-              .bind(slug)
-              .first<{ stats_json: string }>();
-            if (row) {
-              let rich = false;
-              try {
-                const s = JSON.parse(row.stats_json || '{}') as { findings?: number; iocs?: number };
-                rich = (s.findings ?? 0) > 0 || (s.iocs ?? 0) > 0;
-              } catch {
-                rich = false;
-              }
-              if (rich) return;
-            }
-            try {
-              const briefing = await buildBriefing('weekly', undefined, { nvdApiKey: env.NVD_API_KEY });
-              const result = await writeBriefing(db, briefing);
-              if (result.written) {
-                console.log(
-                  `scheduled(weekly-catch-up): wrote ${briefing.slug} (findings=${briefing.stats.findings}, iocs=${briefing.stats.iocs})`
-                );
-              }
-            } catch (err) {
-              console.error('scheduled(weekly-catch-up): build failed', err);
-            }
-          })()
-        );
-      }
-
+      // ONE sequential task. The hourly invocation shares a ~50-subrequest
+      // budget across EVERY ctx.waitUntil in it. The briefing catch-up used
+      // to run CONCURRENTLY with the 12-handler snapshot warm (each handler
+      // fans out to many upstreams) — the warm's fan-out exhausted the
+      // budget and the catch-up's KEV/NVD fetches threw "Too many
+      // subrequests", producing the persistent "both unreachable" empty
+      // briefing. (A standalone /api/v1/cve-recent works precisely because
+      // it gets its own fresh budget.) Now: run the catch-up FIRST and
+      // alone; if a rebuild was needed this hour, SKIP the warm entirely —
+      // it self-corrects next hour once the briefing is healthy.
       ctx.waitUntil(
         (async () => {
+          const db = env.BRIEFINGS_DB as D1Database | undefined;
+          let rebuiltThisHour = false;
+
+          const isRich = (statsJson: string | undefined): boolean => {
+            try {
+              const s = JSON.parse(statsJson || '{}') as { findings?: number; iocs?: number };
+              return (s.findings ?? 0) > 0 || (s.iocs ?? 0) > 0;
+            } catch {
+              return false;
+            }
+          };
+          // Rebuild when the row is missing OR empty (an empty/clobbered
+          // briefing must self-heal). writeBriefing's own guard still
+          // prevents a transient empty rebuild from clobbering a rich row.
+          const healOne = async (type: 'daily' | 'weekly', slug: string) => {
+            if (!db) return;
+            const row = await db
+              .prepare('SELECT stats_json FROM briefings WHERE slug = ?')
+              .bind(slug)
+              .first<{ stats_json: string }>();
+            if (row && isRich(row.stats_json)) return;
+            // A rebuild is NEEDED — claim the invocation's subrequest budget
+            // for it (skip the warm) whether or not the build then succeeds.
+            rebuiltThisHour = true;
+            try {
+              const briefing = await buildBriefing(type, undefined, { nvdApiKey: env.NVD_API_KEY });
+              const result = await writeBriefing(db, briefing);
+              if (result.written) {
+                console.log(
+                  `scheduled(${type}-catch-up): wrote ${briefing.slug} (findings=${briefing.stats.findings}, iocs=${briefing.stats.iocs})`
+                );
+              }
+            } catch (err) {
+              console.error(`scheduled(${type}-catch-up): build failed`, err);
+            }
+          };
+
+          // Daily: skip UTC hour 0 — the 00:30 dedicated cron is imminent.
+          if (db && new Date().getUTCHours() !== 0) {
+            const yesterday = new Date(Date.now() - 86400_000);
+            await healOne('daily', `daily-${yesterday.toISOString().slice(0, 10)}`);
+          }
+          // Weekly self-heal once/day at UTC hour 2 (weekly cron only fires
+          // Mondays, so a failed weekly was otherwise stuck a full week).
+          if (db && new Date().getUTCHours() === 2) {
+            await healOne('weekly', expectedWeeklySlug());
+          }
+
+          if (rebuiltThisHour) {
+            console.log('scheduled: skipped snapshot warm this hour — briefing catch-up took the subrequest budget');
+            return;
+          }
+
+          // No rebuild needed → warm caches with the full budget. Warm the
+          // per-source handlers first (the snapshot composers read their
+          // caches), then the composers. Two parallel waves.
           const start = Date.now();
-          // Use the production hostname so the cached Response key matches what
-          // user requests look up. Cache API is keyed by the full Request URL.
           const baseUrl = 'https://pranithjain.qzz.io';
-          // Warm the underlying per-source handlers FIRST, then the snapshot
-          // composers. Snapshot endpoints (/snapshot, /ioc-snapshot) read from
-          // the per-source handlers' caches; if those aren't warm, the
-          // snapshot's first call does fresh upstream fetches that flake on
-          // ip-api throttling and similar transient failures. Ordering matters:
-          // by the time we call /snapshot, /threat-map etc are populated.
           const perSourceTargets = [
             '/api/v1/threat-map',
             '/api/v1/rules',
             '/api/v1/ransomware-recent',
             '/api/v1/telegram-feed',
             '/api/v1/onion-watch',
-            // 2026-05-11 additions — keep these warm so the per-type IOC
-            // pages and CVE list render instantly on the first visit
-            // each hour. Each is independent; failures don't cascade.
             '/api/v1/cve-recent',
             '/api/v1/phishing-urls',
             '/api/v1/malware-samples',
@@ -587,7 +563,6 @@ export default {
             await res.arrayBuffer();
             return { path, status: res.status };
           }
-          // Per-source first (parallel), then composers (parallel). Two waves.
           const perSource = await Promise.allSettled(perSourceTargets.map(warm));
           const composers = await Promise.allSettled(composerTargets.map(warm));
           const summary = [...perSource, ...composers]
