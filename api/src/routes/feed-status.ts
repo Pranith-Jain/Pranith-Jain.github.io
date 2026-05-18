@@ -523,6 +523,35 @@ const PROBES: FeedProbeSpec[] = [
     },
   },
   {
+    id: 'rl-cyberattacks',
+    label: 'Ransomware cyber-attacks (ransomware.live PRO)',
+    page_path: '/dfir/yara',
+    api_path: '/api/v1/rl/cyberattacks',
+    cache_key: rlProxyCacheKey('cyberattacks'),
+    evaluate: (body) => {
+      const ageS = ageSeconds(strField(body, 'fetched_at'));
+      const data = (body as { data?: unknown } | null)?.data;
+      let count = 0;
+      if (Array.isArray(data)) count = data.length;
+      else if (data && typeof data === 'object') {
+        for (const k of ['victims', 'attacks', 'results', 'data', 'items']) {
+          const v = (data as Record<string, unknown>)[k];
+          if (Array.isArray(v)) {
+            count = v.length;
+            break;
+          }
+        }
+      }
+      const status: Status = count > 0 ? 'ok' : 'down';
+      return {
+        status,
+        reason: count > 0 ? `${count} recent attacks` : 'no attack records in cached payload',
+        metrics: { attacks: count },
+        ageS,
+      };
+    },
+  },
+  {
     id: 'stealer-forum-intel',
     label: 'Combo & stealer-forum intel (deepdarkCTI + chatter)',
     page_path: '/threatintel/infostealer',

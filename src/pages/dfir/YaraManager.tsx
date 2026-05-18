@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Plus, Trash2, FileDown, Edit2, X } from 'lucide-react';
+import { ArrowLeft, Plus, Trash2, FileDown, Edit2, X, Copy, ExternalLink } from 'lucide-react';
 
 interface YaraRule {
   id: string;
@@ -142,6 +142,8 @@ export default function YaraManager(): JSX.Element {
         </div>
       </div>
 
+      <RansomwareIntelPanels />
+
       <div className="mb-6">
         <input
           type="text"
@@ -255,5 +257,226 @@ export default function YaraManager(): JSX.Element {
         ))}
       </div>
     </div>
+  );
+}
+
+/* ─── ransomware.live attack → detection pivot ─────────────────────────────
+ * Two read-only panels backed by the authenticated ransomware.live proxy:
+ * recent ransomware cyber-attacks, and per-group YARA. Picking an attack's
+ * group loads that group's YARA rules. The local rule manager above is
+ * untouched — this is additive context, not a replacement.
+ */
+
+interface RlAttack {
+  group: string;
+  victim: string;
+  date?: string;
+  url?: string;
+}
+
+function rec(v: unknown): v is Record<string, unknown> {
+  return typeof v === 'object' && v !== null && !Array.isArray(v);
+}
+function s(o: Record<string, unknown>, keys: string[]): string | undefined {
+  for (const k of keys) {
+    const v = o[k];
+    if (typeof v === 'string' && v.trim()) return v.trim();
+  }
+  return undefined;
+}
+function rlList(j: unknown): unknown[] {
+  const data = rec(j) ? ((j as { data?: unknown }).data ?? j) : j;
+  if (Array.isArray(data)) return data;
+  if (rec(data)) {
+    for (const k of ['victims', 'attacks', 'results', 'data', 'items']) {
+      if (Array.isArray(data[k])) return data[k] as unknown[];
+    }
+  }
+  return [];
+}
+
+/** Extract YARA text from the (undocumented) /rl/yara/:group payload. */
+function rlYaraText(j: unknown): string {
+  const data = rec(j) ? ((j as { data?: unknown }).data ?? j) : j;
+  if (typeof data === 'string') return data;
+  if (Array.isArray(data)) {
+    return data
+      .map((x) => (typeof x === 'string' ? x : rec(x) ? (s(x, ['rule', 'yara', 'content', 'raw']) ?? '') : ''))
+      .filter(Boolean)
+      .join('\n\n');
+  }
+  if (rec(data)) {
+    const t = s(data, ['rule', 'yara', 'content', 'raw']);
+    if (t) return t;
+  }
+  return JSON.stringify(data, null, 2);
+}
+
+function RansomwareIntelPanels(): JSX.Element {
+  const [attacks, setAttacks] = useState<RlAttack[] | null>(null);
+  const [attackErr, setAttackErr] = useState<string | null>(null);
+  const [group, setGroup] = useState('');
+  const [yara, setYara] = useState<string | null>(null);
+  const [yaraLoading, setYaraLoading] = useState(false);
+  const [yaraErr, setYaraErr] = useState<string | null>(null);
+
+  useEffect(() => {
+    let alive = true;
+    fetch('/api/v1/rl/cyberattacks')
+      .then((r) => r.json().then((j) => ({ ok: r.ok, j })))
+      .then(({ ok, j }) => {
+        if (!alive) return;
+        if (!ok) {
+          setAttackErr((j as { error?: string }).error ?? 'request failed');
+          return;
+        }
+        const rows = rlList(j)
+          .filter(rec)
+          .map((o) => ({
+            group: s(o, ['group', 'group_name', 'gang']) ?? 'unknown',
+            victim: s(o, ['victim', 'title', 'post_title', 'domain', 'company']) ?? '—',
+            date: s(o, ['discovered', 'published', 'date', 'added']),
+            url: s(o, ['url', 'link', 'source', 'press']),
+          }))
+          .slice(0, 40);
+        setAttacks(rows);
+      })
+      .catch((e: Error) => alive && setAttackErr(e.message));
+    return () => {
+      alive = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!group) return;
+    let alive = true;
+    setYaraLoading(true);
+    setYaraErr(null);
+    setYara(null);
+    fetch(`/api/v1/rl/yara/${encodeURIComponent(group)}`)
+      .then((r) => r.json().then((j) => ({ ok: r.ok, j })))
+      .then(({ ok, j }) => {
+        if (!alive) return;
+        if (!ok) {
+          setYaraErr((j as { error?: string }).error ?? 'request failed');
+          return;
+        }
+        const text = rlYaraText(j);
+        setYara(text.trim() || '(no YARA rules published for this group)');
+      })
+      .catch((e: Error) => alive && setYaraErr(e.message))
+      .finally(() => alive && setYaraLoading(false));
+    return () => {
+      alive = false;
+    };
+  }, [group]);
+
+  const groups = [...new Set((attacks ?? []).map((a) => a.group))].filter((g) => g && g !== 'unknown').sort();
+
+  return (
+    <section className="mb-8 border border-slate-200 dark:border-slate-800 rounded-lg overflow-hidden">
+      <div className="bg-slate-50 dark:bg-slate-950 px-4 py-2.5 border-b border-slate-200 dark:border-slate-800">
+        <h2 className="font-mono text-sm font-semibold text-slate-800 dark:text-slate-200">
+          ransomware.live · attack → detection
+        </h2>
+        <p className="font-mono text-[11px] text-slate-500 mt-0.5">
+          Recent ransomware cyber-attacks + that group's published YARA. Read-only context; your local rules below are
+          separate.
+        </p>
+      </div>
+      <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-200 dark:divide-slate-800">
+        {/* Recent attacks */}
+        <div className="p-4">
+          <h3 className="font-mono text-xs uppercase tracking-wider text-slate-500 mb-2">Recent cyber-attacks</h3>
+          {attackErr && (
+            <p className="font-mono text-[11px] text-amber-600 dark:text-amber-400">
+              {attackErr === 'not_configured' ? 'ransomware.live PRO key not configured.' : `unavailable: ${attackErr}`}
+            </p>
+          )}
+          {!attackErr && !attacks && <p className="font-mono text-[11px] text-slate-500">loading…</p>}
+          {attacks && attacks.length > 0 && (
+            <ul className="space-y-1.5 max-h-[420px] overflow-y-auto">
+              {attacks.map((a, i) => (
+                <li key={i} className="font-mono text-[11px] flex items-baseline gap-2 flex-wrap">
+                  <button
+                    type="button"
+                    onClick={() => setGroup(a.group)}
+                    className={`px-1.5 py-0.5 rounded border ${
+                      group === a.group
+                        ? 'border-brand-500 bg-brand-500/15 text-brand-700 dark:text-brand-300'
+                        : 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:border-brand-500'
+                    }`}
+                    title="Load this group's YARA →"
+                  >
+                    {a.group}
+                  </button>
+                  <span className="text-slate-600 dark:text-slate-400 truncate flex-1 min-w-0" title={a.victim}>
+                    {a.victim}
+                  </span>
+                  {a.date && <span className="text-slate-400 text-[10px]">{a.date.slice(0, 10)}</span>}
+                  {a.url && (
+                    <a
+                      href={a.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
+                    >
+                      <ExternalLink size={9} />
+                    </a>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
+          {attacks && attacks.length === 0 && !attackErr && (
+            <p className="font-mono text-[11px] text-slate-500">No recent attacks in the feed window.</p>
+          )}
+        </div>
+
+        {/* Per-group YARA */}
+        <div className="p-4">
+          <div className="flex items-center justify-between gap-2 mb-2">
+            <h3 className="font-mono text-xs uppercase tracking-wider text-slate-500">Group YARA</h3>
+            <div className="flex items-center gap-1.5">
+              <select
+                value={group}
+                onChange={(e) => setGroup(e.target.value)}
+                className="font-mono text-[11px] px-2 py-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800"
+                aria-label="Select ransomware group"
+              >
+                <option value="">select group…</option>
+                {groups.map((g) => (
+                  <option key={g} value={g}>
+                    {g}
+                  </option>
+                ))}
+              </select>
+              {yara && (
+                <button
+                  type="button"
+                  onClick={() => void navigator.clipboard?.writeText(yara)}
+                  className="shrink-0 border border-slate-200 dark:border-slate-700 p-1 text-slate-500 hover:text-brand-600"
+                  aria-label="Copy YARA"
+                >
+                  <Copy size={11} />
+                </button>
+              )}
+            </div>
+          </div>
+          {!group && <p className="font-mono text-[11px] text-slate-500">Pick a group (or click one on the left).</p>}
+          {group && yaraLoading && <p className="font-mono text-[11px] text-slate-500">loading {group} YARA…</p>}
+          {yaraErr && (
+            <p className="font-mono text-[11px] text-amber-600 dark:text-amber-400">
+              {yaraErr === 'not_configured' ? 'ransomware.live PRO key not configured.' : `unavailable: ${yaraErr}`}
+            </p>
+          )}
+          {yara && !yaraLoading && (
+            <pre className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-3 overflow-auto font-mono text-[11px] text-slate-700 dark:text-slate-300 max-h-[420px]">
+              {yara}
+            </pre>
+          )}
+        </div>
+      </div>
+    </section>
   );
 }
