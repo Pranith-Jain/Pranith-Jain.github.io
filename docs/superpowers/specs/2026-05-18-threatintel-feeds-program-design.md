@@ -1,7 +1,7 @@
 # Threat-Intel Feeds Program — Design Spec
 
 **Date:** 2026-05-18
-**Status:** Approved (design); pending spec review
+**Status:** Implemented — A,D,B,C,E,G shipped 2026-05-18 (F cross-cutting applied)
 **Author:** Claude (brainstormed with user)
 
 ## Summary
