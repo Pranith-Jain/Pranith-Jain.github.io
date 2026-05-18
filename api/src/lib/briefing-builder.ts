@@ -100,6 +100,13 @@ export interface Briefing {
   iocs: BriefingIocBuckets;
   mitre_techniques: string[];
   sources: string[];
+  /**
+   * True when BOTH primary finding sources (CISA KEV + NVD) were unreachable
+   * at build time. The briefing is persisted anyway (so the page is never
+   * blank) but honestly labelled as incomplete — and the hourly catch-up
+   * keeps rebuilding it until upstreams recover and a real one replaces it.
+   */
+  degraded?: boolean;
 }
 
 interface KevEntry {
@@ -862,13 +869,14 @@ export async function buildBriefing(
     fetchAbuseFeed('tweetfeed').catch(() => [] as IocEntry[]),
     wrap(fetchNvdRecent(rangeStart, rangeEnd, opts.nvdApiKey), [] as NvdCve[]),
   ]);
-  // If BOTH primary finding sources are unreachable, this isn't a quiet day —
-  // it's an outage. Abort instead of persisting a briefing that falsely
-  // reports "no new high/critical CVEs / no KEV entries". The cron logs the
-  // throw and keeps any prior briefing; a later hourly run self-heals.
-  if (!kevR.ok && !nvdR.ok) {
-    throw new Error('briefing aborted: both CISA KEV and NVD upstreams failed');
-  }
+  // If BOTH primary finding sources are unreachable, this isn't a quiet day,
+  // it's an outage. Earlier this threw and persisted NOTHING — but a
+  // sustained NVD/KEV block then meant "no briefing at all" for the day
+  // (worse UX, and the hourly catch-up could never make progress). Instead:
+  // persist a clearly-degraded briefing (truthful summary, never a false
+  // "all clear"), and let the hourly catch-up keep rebuilding it until
+  // upstreams recover and a real briefing overwrites it.
+  const degraded = !kevR.ok && !nvdR.ok;
   const kev = kevR.v;
   const nvdRecent = nvdR.v;
 
@@ -940,15 +948,17 @@ export async function buildBriefing(
 
   const sections = buildSections(findings);
   const stats = buildStats(findings, sections, iocsRawTotal);
-  const executive_summary = buildExecutiveSummary({
-    type,
-    range_label: rangeLabel,
-    findings,
-    iocs,
-    iocsRawTotal,
-    iocSources,
-    iocPerSource,
-  });
+  const executive_summary = degraded
+    ? `This ${type} briefing is incomplete: both CISA KEV and NVD were unreachable from the edge at build time (${rangeLabel}). This is an upstream-availability gap, NOT an all-clear — do not read the absence of findings as "no new vulnerabilities". The briefing rebuilds automatically every hour and will be replaced as soon as the feeds respond.`
+    : buildExecutiveSummary({
+        type,
+        range_label: rangeLabel,
+        findings,
+        iocs,
+        iocsRawTotal,
+        iocSources,
+        iocPerSource,
+      });
 
   const techniqueSet = new Set<string>();
   for (const f of findings) for (const t of f.mitre_techniques) techniqueSet.add(t);
@@ -973,6 +983,7 @@ export async function buildBriefing(
     iocs,
     mitre_techniques: Array.from(techniqueSet).sort(),
     sources,
+    ...(degraded ? { degraded: true } : {}),
   };
 }
 
