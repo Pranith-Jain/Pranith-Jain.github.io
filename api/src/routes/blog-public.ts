@@ -46,7 +46,11 @@ export function registerBlogRoutes(app: Hono<{ Bindings: Env }>): void {
     if (type) filtered = filtered.filter((p) => p.type === type);
     if (tag) filtered = filtered.filter((p) => p.tags.includes(tag));
     const res = c.json({ posts: filtered }, 200, {
-      'cache-control': 'public, max-age=900, s-maxage=1800, stale-while-revalidate=86400',
+      // Was max-age=900 / s-maxage=1800 / swr=86400 → a freshly published
+      // post stayed invisible for up to ~30min and the edge could serve a
+      // 24h-stale list. This endpoint is a single cheap KV read; keep it
+      // fresh so new posts appear within ~2min of publish.
+      'cache-control': 'public, max-age=60, s-maxage=120, stale-while-revalidate=300',
     });
     bgPut(c, cache, res);
     return res;

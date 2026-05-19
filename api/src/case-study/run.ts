@@ -45,17 +45,21 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
   // candidate, ~80-150 reads per daily run).
   const dedupMap = await loadDedupMap(env.CASE_STUDIES);
   const memGet = (k: string) => Promise.resolve(dedupMap[k] ?? null);
-  // Anti-repetition gate: a key surfaced/published within this window is
-  // hard-dropped from discovery so the queue can't re-emit the same story
-  // every run. 21d > the 7d recency window, so an item can't return while
-  // it's still recency-relevant. `noveltyScore` still applies as a soft
-  // signal on top of this.
-  const SUPPRESS_MS = 21 * 24 * 3600 * 1000;
+  // Anti-repetition gate. The earlier version hard-dropped ANY key seen in
+  // 21d — but `commitDedup` marks every *kept* candidate seen, so topics
+  // with stable keys (cve/actor/malware/briefing) got fully starved within
+  // days and discovery collapsed to one topic. Correct model:
+  //   - PUBLISHED key  → hard-suppress for 60d (never republish the same
+  //     story). `publishedSlug` is set only by the publisher's touchDedup.
+  //   - merely surfaced (kept, not published) → NO hard gate. noveltyScore
+  //     already soft-deweights it so it won't dominate, but the topic keeps
+  //     producing instead of going silent for weeks.
+  const REPUBLISH_BLOCK_MS = 60 * 24 * 3600 * 1000;
   const isSuppressed = (key: string): boolean => {
     const rec = dedupMap[key];
-    if (!rec) return false;
+    if (!rec || !rec.publishedSlug) return false;
     const t = Date.parse(rec.lastSeenAt);
-    return !Number.isNaN(t) && now.getTime() - t < SUPPRESS_MS;
+    return !Number.isNaN(t) && now.getTime() - t < REPUBLISH_BLOCK_MS;
   };
   return runDiscovery({
     isSuppressed,
