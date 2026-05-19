@@ -14,7 +14,7 @@ export const personalInfo = {
   calendlyUrl: 'https://calendly.com/pranithjain84/30min',
   linkedInUrl: 'https://www.linkedin.com/in/pranithjain',
   githubUrl: 'https://github.com/Pranith-Jain',
-  resumeUrl: 'https://raw.githubusercontent.com/Pranith-Jain/Pranith-Jain.github.io/main/public/resume.docx',
+  resumeUrl: 'https://pranithjain.qzz.io/resume.docx',
   featuredUrl: 'https://featured.com/p/pranith-jain',
 };
 
@@ -227,6 +227,7 @@ export const certifications = {
     { title: 'IntelVan 2025 Threat Intelligence & OSINT Masterclass', issuer: 'The OSINTion', year: '2025' },
     { title: 'CTRL. ALT. ACT. (Advanced OSINT Training)', issuer: 'Cyber Secured India', year: '2025' },
     { title: 'OpSec – Privacy for Security Professionals', issuer: 'Just Hacking', year: '2025' },
+    { title: 'Cyber Threat Intelligence 101', issuer: 'arcX', year: '2025' },
   ],
   bootcamps: [
     { title: 'MindStudio AI Agent Developer 3 Bootcamp', issuer: 'MindStudio', year: '2025' },
@@ -246,6 +247,13 @@ export const certifications = {
     { title: 'AIG - Shields Up: Cybersecurity', issuer: 'Forage', year: '2024' },
   ],
 };
+
+export const education = [
+  {
+    degree: 'Bachelor of Technology, Computer Science',
+    school: 'Visvesvaraya Technological University (VTU)',
+  },
+];
 
 interface Project {
   title: string;
