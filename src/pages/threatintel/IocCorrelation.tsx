@@ -405,14 +405,6 @@ export default function IocCorrelation(): JSX.Element {
           >
             <Download size={12} /> CSV
           </button>
-          <a
-            href="/api/v1/ioc-correlation/stix.json"
-            download
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 hover:border-emerald-500/60"
-            title="Download STIX 2.1 bundle. Drops straight into MISP, OpenCTI, or a SIEM."
-          >
-            <Download size={12} /> STIX 2.1
-          </a>
           <button
             type="button"
             onClick={() => setRefreshKey((k) => k + 1)}

@@ -38,9 +38,4 @@ export interface Env {
    *  consumers (live-iocs, ransomware-recent) fall back to the existing
    *  t.me/s/mythreatintel scraper so nothing that works today breaks. */
   MYTHREATINTEL_API_TOKEN?: string;
-  /** Bearer/Basic token gating the CTI export API (STIX bundle, TAXII 2.1,
-   *  MISP feed). Set via `wrangler secret put CTI_FEED_TOKEN`. When unset
-   *  those endpoints fail closed (503 not_configured) — the export is
-   *  authenticated by design. */
-  CTI_FEED_TOKEN?: string;
 }

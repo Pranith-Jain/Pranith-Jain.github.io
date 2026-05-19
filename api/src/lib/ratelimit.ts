@@ -16,8 +16,11 @@ const TTL = 120; // KV TTL > window so the bucket survives
  * and eventually-consistent, i.e. the effective limit is ~LIMIT per
  * edge location — perfectly adequate for abusing a cached public feed.
  */
-const CACHE_RL_PREFIX = ['/api/v1/taxii2/', '/api/v1/cti/misp/'];
-const CACHE_RL_EXACT = new Set<string>(['/api/v1/ioc-correlation/stix.json']);
+// CTI export feeds (STIX/TAXII/MISP) were removed — nothing needs the
+// Cache-API rate-limit path anymore. Kept as empty hooks so the limiter
+// shape is unchanged and re-adding a public feed later is one line.
+const CACHE_RL_PREFIX: string[] = [];
+const CACHE_RL_EXACT = new Set<string>();
 
 async function cacheApiRateLimit(c: Context<{ Bindings: Env }>, next: Next): Promise<Response | void> {
   const ip = c.req.header('cf-connecting-ip') ?? 'anon';
@@ -87,12 +90,6 @@ const BYPASS_EXACT = new Set<string>([
   '/api/v1/threat-map',
   '/api/v1/rules',
   '/api/v1/ioc-correlation',
-  // NOTE: /api/v1/ioc-correlation/stix.json is intentionally NOT bypassed —
-  // it's a publicly-advertised CTI export feed (see /threatintel/cti-feeds)
-  // and is rate-limited like the TAXII/MISP feeds. Edge-cache still serves
-  // the vast majority of polls without invoking the worker, so the limiter
-  // only governs cache-miss/origin hits — abuse protection, not a throttle
-  // on well-behaved scheduled clients.
   '/api/v1/snapshot',
   '/api/v1/ioc-snapshot',
   '/api/v1/actor-timeline',
@@ -105,12 +102,6 @@ const BYPASS_EXACT = new Set<string>([
 const BYPASS_PREFIX = [
   '/api/v1/feeds/', // proxy, abuse-rss, ioc-summary, aggregate — all read-only feed aggregators
   '/api/v1/blog/', // public blog list + post detail — read-only, slug-validated, edge-cached
-  // /api/v1/taxii2/* and /api/v1/cti/misp/* are deliberately NOT bypassed:
-  // they are the public CTI export feeds (STIX/TAXII/MISP, surfaced at
-  // /threatintel/cti-feeds) and are now rate-limited (30 req/min/IP).
-  // They stay edge-cached, so legitimate scheduled polling almost always
-  // hits cache and never reaches the limiter; the limit only bites on
-  // cache-miss bursts from a single IP (scraping/abuse).
 ];
 
 /**

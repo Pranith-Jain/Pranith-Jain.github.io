@@ -229,13 +229,6 @@ const SECTIONS: Section[] = [
     blurb: 'Cross-source synthesis, exports, maps, and pipeline health.',
     tools: [
       {
-        to: '/threatintel/cti-feeds',
-        label: 'CTI Feeds / Export',
-        desc: 'Consume this site’s aggregated IOCs as machine-readable CTI — STIX 2.1 bundle, read-only TAXII 2.1 server, and a MISP feed. Drop the URLs into OpenCTI / MISP / TheHive.',
-        icon: FileCode,
-        badge: 'new',
-      },
-      {
         to: '/threatintel/threat-map',
         label: 'Cyber Threat Map',
         desc: 'Live geolocation of malicious infrastructure. Choropleth map plus country leaderboard, with IP, URL, domain, and hash buckets.',

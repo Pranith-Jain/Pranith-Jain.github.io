@@ -8,16 +8,6 @@ import { fileAnalyzeHandler } from './routes/file';
 import { feedProxyHandler } from './routes/feeds';
 import { ctiParseHandler } from './routes/cti';
 import { osvScanHandler } from './routes/osv';
-import {
-  taxiiDiscoveryHandler,
-  taxiiApiRootHandler,
-  taxiiCollectionsHandler,
-  taxiiCollectionHandler,
-  taxiiObjectsHandler,
-  mispManifestHandler,
-  mispEventHandler,
-  requireCtiFeedToken,
-} from './routes/cti-feeds';
 import { privacyInspectHandler } from './routes/privacy';
 import { iocFeedSummaryHandler } from './routes/ioc-feeds';
 import { cveSearchHandler } from './routes/cve';
@@ -51,7 +41,6 @@ import { redditFeedHandler } from './routes/reddit-feed';
 import { xFeedHandler } from './routes/x-feed';
 import { feedStatusHandler } from './routes/feed-status';
 import { iocCorrelationHandler } from './routes/ioc-correlation';
-import { iocCorrelationStixHandler } from './routes/ioc-correlation-stix';
 import { actorTimelineHandler } from './routes/actor-timeline';
 import { victimReleaksHandler } from './routes/victim-releaks';
 import { liveIocsHandler } from './routes/live-iocs';
@@ -88,12 +77,6 @@ const app = new Hono<{ Bindings: Env }>();
 
 app.use('/api/v1/*', rateLimit);
 
-// CTI export API (STIX bundle + TAXII 2.1 + MISP feed) is token-gated.
-// Registered before the handlers so every matching path is authenticated.
-app.use('/api/v1/taxii2/*', requireCtiFeedToken);
-app.use('/api/v1/cti/misp/*', requireCtiFeedToken);
-app.use('/api/v1/ioc-correlation/stix.json', requireCtiFeedToken);
-
 app.get('/api/v1/health', (c) => c.json({ ok: true }, 200, { 'Cache-Control': 'public, max-age=60' }));
 app.get('/api/v1/ioc/check', iocCheckHandler);
 app.get('/api/v1/domain/lookup', domainLookupHandler);
@@ -104,15 +87,6 @@ app.get('/api/v1/feeds/proxy', feedProxyHandler);
 app.get('/api/v1/feeds/abuse-rss', abuseRssHandler);
 app.get('/api/v1/feeds/mti-ransomware', mtiRansomwareRssHandler);
 app.get('/api/v1/feeds/ioc-summary', iocFeedSummaryHandler);
-// CTI output: TAXII 2.1 (read-only) + MISP feed — point a TAXII/MISP client
-// at the discovery / manifest URL. All GET + edge-cached.
-app.get('/api/v1/taxii2/', taxiiDiscoveryHandler);
-app.get('/api/v1/taxii2/api/', taxiiApiRootHandler);
-app.get('/api/v1/taxii2/api/collections/', taxiiCollectionsHandler);
-app.get('/api/v1/taxii2/api/collections/:id/', taxiiCollectionHandler);
-app.get('/api/v1/taxii2/api/collections/:id/objects/', taxiiObjectsHandler);
-app.get('/api/v1/cti/misp/manifest.json', mispManifestHandler);
-app.get('/api/v1/cti/misp/:file', mispEventHandler);
 app.post('/api/v1/cti/parse', ctiParseHandler);
 app.post('/api/v1/osv/scan', osvScanHandler);
 app.get('/api/v1/privacy/inspect', privacyInspectHandler);
@@ -154,7 +128,6 @@ app.get('/api/v1/reddit-feed', redditFeedHandler);
 app.get('/api/v1/x-feed', xFeedHandler);
 app.get('/api/v1/feed-status', feedStatusHandler);
 app.get('/api/v1/ioc-correlation', iocCorrelationHandler);
-app.get('/api/v1/ioc-correlation/stix.json', iocCorrelationStixHandler);
 app.get('/api/v1/actor-timeline', actorTimelineHandler);
 app.get('/api/v1/victim-releaks', victimReleaksHandler);
 app.get('/api/v1/live-iocs', liveIocsHandler);
