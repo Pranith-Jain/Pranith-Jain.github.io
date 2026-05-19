@@ -1,8 +1,9 @@
 import type { CaseStudyType } from '../types';
-import { COPYWRITING_RULES, QUALITY_CHECKS, PIPELINE_OUTPUT_GUARDRAIL } from './copywriting';
+import { VOICE_IDENTITY, COPYWRITING_RULES, QUALITY_CHECKS, PIPELINE_OUTPUT_GUARDRAIL } from './copywriting';
 
 const SYSTEM_PROMPT =
-  `You are a security copywriter turning raw threat-intel facts into a scroll-stopping case study for security professionals.\n\n` +
+  VOICE_IDENTITY +
+  `You are turning raw threat-intel facts into a technical case study a detection engineer would actually finish reading.\n\n` +
   COPYWRITING_RULES +
   `\n\n` +
   `#STRUCTURE (format only — voice and hook come from the rules above)\n` +

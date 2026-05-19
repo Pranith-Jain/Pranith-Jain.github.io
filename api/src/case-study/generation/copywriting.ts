@@ -8,6 +8,75 @@
  * standalone reference (NOT loaded by code).
  */
 
+/**
+ * VOICE IDENTITY — the single, recognisable persona behind every piece.
+ * Prepended to every system prompt so blog + LinkedIn + X read like one
+ * specific human, not a generic "AI security copywriter". This is the brand.
+ */
+export const VOICE_IDENTITY =
+  `#WHO YOU ARE\n\n` +
+  `You write as a working detection & response practitioner — threat intel, ` +
+  `email security, and cloud-identity background. Not a journalist, not a ` +
+  `marketer, not a vendor. You triage this stuff for a living.\n` +
+  `- Point of view: skeptical, evidence-first, quietly opinionated. You call ` +
+  `weak reporting weak and say when something is overhyped or, conversely, ` +
+  `genuinely underrated.\n` +
+  `- Register: dry, precise, understated. Confidence without volume. You'd ` +
+  `rather land one exact technical detail than three adjectives.\n` +
+  `- You think in detections, blast radius, and attacker economics — what an ` +
+  `analyst actually does Monday morning, not abstract "best practices".\n` +
+  `- You never perform expertise or hype. No "in today's threat landscape", ` +
+  `no breathless stakes, no rhetorical "are you prepared?" theatre.\n` +
+  `- Consistent habits: lead with the specific finding; state confidence ` +
+  `("likely", "unconfirmed", "consistent with"); name the gap; end on a ` +
+  `concrete analytical take, not a motivational close.\n\n`;
+
+/**
+ * AI-tell phrases. `AI_SLOP_PATTERNS` is the broad set (prompt + soft
+ * quality penalty). `EGREGIOUS_SLOP` is the narrow, unambiguous subset the
+ * post-process guardrail treats as a hard rewrite trigger — kept tight so a
+ * normal piece is never falsely blocked.
+ */
+export const AI_SLOP_PATTERNS: RegExp[] = [
+  /in today'?s (digital |threat |cyber )?(world|landscape|age|era)/i,
+  /ever-?(evolving|changing|growing) (threat |digital )?landscape/i,
+  /in an era where/i,
+  /in the (?:world|realm|landscape) of/i,
+  /\bit'?s worth noting\b/i,
+  /\b(notably|moreover|furthermore|additionally|consequently|ultimately),/i,
+  /\bin conclusion\b/i,
+  /needless to say/i,
+  /rest assured/i,
+  /when it comes to/i,
+  /navigat\w* the (complexities|landscape|world)/i,
+  /plays? a (crucial|vital|pivotal|key|critical) role/i,
+  /a testament to/i,
+  /underscore\w* the (importance|need|significance)/i,
+  /serves? as a (stark )?reminder/i,
+  /\b(buckle up|let'?s dive|dive into|delve into|delv\w+)\b/i,
+  /\b(tapestry|treasure trove|symphony|beacon)\b/i,
+  /\bgame[- ]chang\w+\b/i,
+  /\b(unlock|leverage|seamless\w*|robust|cutting[- ]edge|state[- ]of[- ]the[- ]art)\b/i,
+  /isn'?t just [^.]{1,40}, it'?s/i,
+  /more than just\b/i,
+  /the question is,? are you/i,
+  /are you (prepared|ready) to (respond|defend|protect)/i,
+  /stay (one step )?ahead of (the )?(threats|attackers|curve)/i,
+  /this (serves|is) a (sobering|stark) reminder/i,
+];
+
+/** Unambiguous slop — any one of these forces a rewrite (defense in depth). */
+export const EGREGIOUS_SLOP: RegExp[] = [
+  /in today'?s (digital |threat |cyber )?(world|landscape|age|era)/i,
+  /ever-?(evolving|changing) (threat |digital )?landscape/i,
+  /\b(delve into|delv\w+|let'?s dive|buckle up)\b/i,
+  /\b(tapestry|treasure trove|symphony|beacon of)\b/i,
+  /the question is,? are you/i,
+  /are you (prepared|ready) to (respond|defend|protect)/i,
+  /serves? as a (stark )?reminder/i,
+  /a testament to/i,
+];
+
 export const COPYWRITING_RULES =
   `#COPYWRITING RULES (APPLY TO EVERYTHING)\n\n` +
   `**Analyze, then construct. Never template.**\n` +

@@ -37,19 +37,19 @@ describe('LinkedIn prompt', () => {
     );
   });
 
-  it('requires a constructed hook, bans PAS template and raw URLs', async () => {
+  it('encodes the LinkedIn fold + mobile-first whitespace + scannable list contract', async () => {
     const { generateLinkedinContent } = await import('../../../src/case-study/generation/social');
     await generateLinkedinContent(
       mockPost,
       mockAi((msgs) => {
         const user = msgs.find((m: any) => m.role === 'user')?.content ?? '';
-        expect(user).toContain('hook constructed from THIS case');
-        expect(user).toContain('No PAS template');
+        expect(user).toContain('THE FOLD');
+        expect(user).toContain('210 characters');
+        expect(user).toMatch(/mobile-first/i);
         expect(user).toContain('No raw URLs in the body');
-        expect(user).toContain('1400-1800 characters');
-        expect(user).toContain('ONE scannable list');
-        expect(user).not.toContain('using PAS (Problem, Agitation, Solution)');
-        expect(user).not.toContain('engagement bait throughout');
+        expect(user).toContain('1300-2000 characters');
+        expect(user).toMatch(/scannable .* bulleted list/);
+        expect(user).toMatch(/at most two lowercase hashtags/i);
       }),
       new Date()
     );
@@ -57,18 +57,18 @@ describe('LinkedIn prompt', () => {
 });
 
 describe('Twitter prompt', () => {
-  it('is a 3-6 tweet thread with a constructed hook, no PAS, no padding', async () => {
+  it('encodes the standalone-hook, no-pad, end-counter thread contract', async () => {
     const { generateTwitterContent } = await import('../../../src/case-study/generation/social');
     await generateTwitterContent(
       mockPost,
       mockAi((msgs) => {
         const user = msgs.find((m: any) => m.role === 'user')?.content ?? '';
-        expect(user).toContain('3-6 tweets');
-        expect(user).toContain('No canned opener, no PAS template');
-        expect(user).toContain("Don't pad to hit a number");
-        expect(user).toContain('<280 characters');
+        expect(user).toContain('2-5 posts');
+        expect(user).toContain('must stand alone');
+        expect(user).toMatch(/does NOT start with "1\/"/);
+        expect(user).toContain('< 270 chars');
+        expect(user).not.toContain('3-6 tweets');
         expect(user).not.toContain('5-7 tweets');
-        expect(user).not.toContain('CTA with engagement bait');
       }),
       new Date()
     );

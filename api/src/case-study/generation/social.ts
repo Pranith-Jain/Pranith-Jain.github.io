@@ -1,7 +1,7 @@
 import type { Ai } from '@cloudflare/workers-types';
 import type { Post } from '../types';
 import { runCompletion } from './ai-client';
-import { COPYWRITING_RULES, QUALITY_CHECKS, PIPELINE_OUTPUT_GUARDRAIL } from './copywriting';
+import { VOICE_IDENTITY, COPYWRITING_RULES, QUALITY_CHECKS, PIPELINE_OUTPUT_GUARDRAIL } from './copywriting';
 
 export interface SocialContent {
   slug: string;
@@ -11,73 +11,77 @@ export interface SocialContent {
 }
 
 const SOCIAL_SYSTEM =
-  `You are a security copywriter turning a case study into scroll-stopping, platform-native social posts for security professionals.\n\n` +
+  VOICE_IDENTITY +
+  `You are turning a published case study into platform-native posts for security practitioners. ` +
+  `Same person, same voice, shorter form. Never sound like a brand account.\n\n` +
   COPYWRITING_RULES +
   `\n\n` +
   PIPELINE_OUTPUT_GUARDRAIL +
   `\n\n` +
   QUALITY_CHECKS;
 
+/**
+ * Social prompts only need the substance, not the whole article. Capping
+ * the body keeps the prompt well under the model context window (the same
+ * class of overflow that broke case-study generation) and forces the model
+ * to work from the lede + structure rather than regurgitate.
+ */
+const BODY_CAP = 6000;
+function gist(body: string): string {
+  const b = body.trim();
+  return b.length <= BODY_CAP ? b : `${b.slice(0, BODY_CAP)}\n…[article continues — summarise from the above]`;
+}
+
 function buildTwitterPrompt(post: Post): string {
   const postUrl = `https://pranithjain.qzz.io/blog/${post.slug}`;
   return (
-    `**X/TWITTER THREAD (format only — voice and hook come from the rules above):**\n` +
-    `- Length: 3-6 tweets. Use only as many as the facts justify. Don't pad to hit a number.\n` +
-    `- Tweet 1: a hook constructed from THIS case's specific facts (per the hook-construction rules). No canned opener, no PAS template.\n` +
-    `- Middle tweets: one concrete idea each — the pattern, the data point, the technical detail that matters. Each tweet standalone-valuable.\n` +
-    `- Final tweet: the sharpest takeaway, then the link on its own line: ${postUrl}\n` +
-    `- Each tweet <280 characters. Number them "1/N", "2/N" etc.\n` +
-    `- No hashtags. No raw URLs except the single link in the last tweet.\n` +
+    `**X / TWITTER THREAD (format only — voice + hook come from the rules above):**\n` +
+    `- 2-5 posts. Use only what the facts justify. Fewer, denser posts beat a padded thread.\n` +
+    `- Post 1 must stand alone: the single sharpest specific (a number, a contrast, a named target). It does NOT start with "1/" and is not a teaser — it delivers a real point even if nobody reads on.\n` +
+    `- Middle posts: one concrete idea each — the detection angle, the attacker-economics read, the technical detail. Standalone-valuable.\n` +
+    `- Last post: the analytical takeaway, then the link on its own line: ${postUrl}\n` +
+    `- Append " (n/N)" at the END of each post (not the start). Each post < 270 chars incl. the counter.\n` +
+    `- No hashtags. No emojis. No raw URLs except the single final link.\n` +
     `\n---\n\n` +
     `CASE STUDY TITLE: ${post.title}\n\n` +
-    `CASE STUDY BODY:\n${post.body}`
+    `CASE STUDY (lede + structure):\n${gist(post.body)}`
   );
 }
 
 function buildLinkedinPrompt(post: Post): string {
   const postUrl = `https://pranithjain.qzz.io/blog/${post.slug}`;
   return (
-    `**LINKEDIN POST (format only — voice and hook come from the rules above):**\n` +
-    `- Open with a hook constructed from THIS case's specific facts, per the hook-construction rules. No PAS template, no canned opener.\n` +
-    `- Then the analysis: what makes this case notable, the pattern or contrast in the data, the technical detail that matters (use whatever of CVSS / CWE / exploit chain / affected versions / detection logic / victimology the facts actually support, don't pad).\n` +
-    `- Include ONE scannable list (use "- " bullets, 4-8 items) of the concrete specifics the facts contain: the named victims, or affected products/versions, or CVEs, or advisories, or IOCs. Pick whichever the data actually has. This is the reference value of the post, do not skip it.\n` +
-    `- Defensive takeaways must be specific to THIS threat model and non-obvious. Never the generic checklist ("keep software updated", "train employees", "robust firewall rules", "regular backups"). If the facts don't support concrete technical defense, say plainly what actually reduces exposure to this pattern (e.g. the detection gap, the access vector, the recovery posture) in one or two sharp sentences instead of padding a list.\n` +
-    `- Close with one substantive question that provokes thought (not "what do you think?"), then on its own final line the link: ${postUrl}\n` +
-    `- Length: 1400-1800 characters (this is a floor, not a target to barely clear, the analysis and the list should fill it honestly). Short paragraphs. Bold a key phrase or two with **asterisks** only where it earns it.\n` +
-    `- No hashtags. No emojis. No raw URLs in the body, the link goes only on the final line.\n` +
+    `**LINKEDIN POST (format only — voice + hook come from the rules above):**\n` +
+    `- THE FOLD: only the first ~210 characters show before "...more". The first 1-2 lines must carry the single most specific, surprising fact in the data and make the reader expand. No throat-clearing, no "I've been thinking about", no label like "New post:".\n` +
+    `- Then the analysis: the pattern or contrast, the technical detail that matters (CVSS / CWE / exploit chain / affected versions / detection logic / victimology — only what the facts support, no padding).\n` +
+    `- Formatting is mobile-first: very short paragraphs (1-3 lines), a blank line between almost every paragraph, generous white space. No walls of text. This matters as much as the words.\n` +
+    `- Include ONE scannable "- " bulleted list (4-8 items) of the concrete specifics (named victims / affected products+versions / CVEs / IOCs — whichever the data has). This is the post's reference value. Do not skip it.\n` +
+    `- Defensive takeaway must be specific to THIS threat model and non-obvious. Never the generic checklist. If the facts don't support concrete defense, say plainly what actually reduces exposure (the detection gap, the access vector, the recovery posture) in one or two sharp lines.\n` +
+    `- Close with one substantive question that provokes a practitioner reply (not "what do you think?"), then the link on its own final line: ${postUrl}\n` +
+    `- 1300-2000 characters. At most TWO lowercase hashtags, and only if genuinely relevant, placed on the final line after the link — never a stack, never mid-sentence. Prefer zero.\n` +
+    `- Bold at most one phrase with **asterisks**, only if it earns it. No emojis. No raw URLs in the body.\n` +
     `\n---\n\n` +
     `CASE STUDY TITLE: ${post.title}\n\n` +
-    `CASE STUDY BODY:\n${post.body}`
+    `CASE STUDY (lede + structure):\n${gist(post.body)}`
   );
 }
 
-function buildLinkedinPromptSeparate(post: Post): string {
-  return buildLinkedinPrompt(post);
-}
-
-function buildTwitterPromptSeparate(post: Post): string {
-  return buildTwitterPrompt(post);
-}
-
-export async function generateSocialContent(post: Post, ai: Ai, now: Date): Promise<SocialContent> {
-  // allSettled, not all: social copy is ancillary to the case study. A
-  // transient AI failure on ONE channel must not reject the whole step and
-  // make the publisher record the entire case-study publish as failed —
-  // ship the post with whatever social content succeeded (empty string for
-  // the channel that didn't; the publisher/UI already tolerate empties).
+export async function generateSocialContent(post: Post, ai: Ai, now: Date, groqKey?: string): Promise<SocialContent> {
+  // allSettled, not all: social copy is ancillary. A transient AI failure
+  // on ONE channel must not reject the whole step (which would make the
+  // publisher record the entire case-study publish as failed) — ship with
+  // whatever succeeded; the publisher/UI already tolerate empty strings.
   const [twitterRes, linkedinRes] = await Promise.allSettled([
-    runCompletion(ai, {
-      system: SOCIAL_SYSTEM,
-      user: buildTwitterPrompt(post),
-      temperature: 0.7,
-      maxTokens: 2000,
-    }),
-    runCompletion(ai, {
-      system: SOCIAL_SYSTEM,
-      user: buildLinkedinPrompt(post),
-      temperature: 0.7,
-      maxTokens: 3000,
-    }),
+    runCompletion(
+      ai,
+      { system: SOCIAL_SYSTEM, user: buildTwitterPrompt(post), temperature: 0.7, maxTokens: 1200 },
+      { groqKey }
+    ),
+    runCompletion(
+      ai,
+      { system: SOCIAL_SYSTEM, user: buildLinkedinPrompt(post), temperature: 0.7, maxTokens: 1400 },
+      { groqKey }
+    ),
   ]);
 
   return {
@@ -91,27 +95,27 @@ export async function generateSocialContent(post: Post, ai: Ai, now: Date): Prom
 export async function generateTwitterContent(
   post: Post,
   ai: Ai,
-  now: Date
+  now: Date,
+  groqKey?: string
 ): Promise<{ twitter: string; generatedAt: string }> {
-  const res = await runCompletion(ai, {
-    system: SOCIAL_SYSTEM,
-    user: buildTwitterPrompt(post),
-    temperature: 0.7,
-    maxTokens: 2000,
-  });
+  const res = await runCompletion(
+    ai,
+    { system: SOCIAL_SYSTEM, user: buildTwitterPrompt(post), temperature: 0.7, maxTokens: 1200 },
+    { groqKey }
+  );
   return { twitter: res.text.trim(), generatedAt: now.toISOString() };
 }
 
 export async function generateLinkedinContent(
   post: Post,
   ai: Ai,
-  now: Date
+  now: Date,
+  groqKey?: string
 ): Promise<{ linkedin: string; generatedAt: string }> {
-  const res = await runCompletion(ai, {
-    system: SOCIAL_SYSTEM,
-    user: buildLinkedinPrompt(post),
-    temperature: 0.7,
-    maxTokens: 3000,
-  });
+  const res = await runCompletion(
+    ai,
+    { system: SOCIAL_SYSTEM, user: buildLinkedinPrompt(post), temperature: 0.7, maxTokens: 1400 },
+    { groqKey }
+  );
   return { linkedin: res.text.trim(), generatedAt: now.toISOString() };
 }

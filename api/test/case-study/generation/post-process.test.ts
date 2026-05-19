@@ -96,4 +96,34 @@ describe('postProcess', () => {
     expect(domains).toContain('evil-c2.net');
     expect(domains).not.toContain('nvd.nist.gov');
   });
+
+  it('sanitises em/en dashes deterministically but keeps numeric ranges', () => {
+    const raw =
+      `## What is this vulnerability?\n\nThis is the finding — and it matters. CVSS range 9.0–10.0 stays.\n\n` +
+      `## References\n\n- https://x\n`;
+    const out = postProcess({ type: 'cve', raw, factsText: 'CVE-2026-1234' });
+    expect(out.body).toContain('finding, and it matters'); // prose dash → comma
+    expect(out.body).not.toContain('finding —'); // the prose em-dash is gone
+    expect(out.body).toContain('9.0–10.0'); // numeric range dash preserved
+  });
+
+  it('flags egregious AI-slop as critical so the repair pass rewrites it', () => {
+    const raw =
+      `In today's digital landscape, attackers delve into your network.\n\n` +
+      `## What is this vulnerability?\n\nIt serves as a stark reminder.\n\n` +
+      `## References\n\n- https://x\n`;
+    const out = postProcess({ type: 'cve', raw, factsText: 'CVE-2026-1234' });
+    expect(out.ok).toBe(false);
+    expect(out.errors.join('|')).toMatch(/ai-slop detected/i);
+  });
+
+  it('does not flag clean technical prose as slop', () => {
+    const raw =
+      `## What is this vulnerability?\n\nCVE-2026-1234 is an unauthenticated RCE in the admin API. ` +
+      `Confidence is high; the PoC is public.\n\n` +
+      `## Detection & mitigation\n\nHunt for POST /api/admin with no prior auth token.\n\n` +
+      `## References\n\n- https://x\n`;
+    const out = postProcess({ type: 'cve', raw, factsText: 'CVE-2026-1234' });
+    expect(out.errors.join('|')).not.toMatch(/ai-slop detected/i);
+  });
 });

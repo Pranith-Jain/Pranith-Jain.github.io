@@ -278,7 +278,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     if (!post) return c.json({ error: 'post not found' }, 404);
 
     try {
-      const social = await generateSocialContent(post, c.env.AI as never, new Date());
+      const social = await generateSocialContent(post, c.env.AI as never, new Date(), c.env.GROQ_API_KEY);
       await c.env.CASE_STUDIES.put(csKvKeys.social(slug), JSON.stringify(social));
       return c.json({ ok: true, social });
     } catch (err) {
@@ -321,7 +321,12 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     if (!post) return c.json({ error: 'post not found' }, 404);
 
     try {
-      const { twitter, generatedAt } = await generateTwitterContent(post, c.env.AI as never, new Date());
+      const { twitter, generatedAt } = await generateTwitterContent(
+        post,
+        c.env.AI as never,
+        new Date(),
+        c.env.GROQ_API_KEY
+      );
       await c.env.CASE_STUDIES.put(csKvKeys.socialTwitter(slug), twitter);
       return c.json({ ok: true, platform: 'twitter', content: twitter, generatedAt });
     } catch (err) {
@@ -336,7 +341,12 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     if (!post) return c.json({ error: 'post not found' }, 404);
 
     try {
-      const { linkedin, generatedAt } = await generateLinkedinContent(post, c.env.AI as never, new Date());
+      const { linkedin, generatedAt } = await generateLinkedinContent(
+        post,
+        c.env.AI as never,
+        new Date(),
+        c.env.GROQ_API_KEY
+      );
       await c.env.CASE_STUDIES.put(csKvKeys.socialLinkedin(slug), linkedin);
       return c.json({ ok: true, platform: 'linkedin', content: linkedin, generatedAt });
     } catch (err) {

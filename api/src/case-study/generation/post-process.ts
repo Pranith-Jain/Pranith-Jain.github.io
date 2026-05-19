@@ -1,5 +1,6 @@
 import type { CaseStudyType, PostIOC, QualityScore } from '../types';
 import { requiredSections } from './templates';
+import { EGREGIOUS_SLOP } from './copywriting';
 
 // Preamble before the first ## heading is an intentional hook intro.
 // No longer stripped. The system prompt explicitly instructs a hook paragraph.
@@ -212,6 +213,27 @@ export function postProcess(input: PostProcessInput): PostProcessOutput {
   body = stripEmptySections(body);
   // Step 6: Ensure closing bold paragraph has a blank line before it (after list)
   body = fixClosingBoldParagraph(body);
+
+  // Step 7: Deterministic AI-tell sanitisation. The model keeps emitting
+  // em/en dashes despite the prompt; auto-replace (not between digits, so
+  // numeric ranges survive) instead of failing the publish over it.
+  body = body
+    .replace(/(?<!\d)\s*[—–]\s*(?!\d)/g, ', ')
+    .replace(/[“”]/g, '"')
+    .replace(/[‘’]/g, "'")
+    .replace(/\s*…\s*/g, '... ')
+    .replace(/[ \t]{2,}/g, ' ')
+    .trim();
+
+  // Step 8: Egregious AI-slop guardrail. Prompt-level bans are routinely
+  // ignored by the model, so enforce deterministically: an unambiguous slop
+  // phrase makes the result non-ok, which triggers the one-shot repair pass
+  // in generatePost (it does NOT permanently block — repair gets one go,
+  // and the list is deliberately tight to avoid false positives).
+  const slopHits = EGREGIOUS_SLOP.filter((re) => re.test(body)).map((re) => re.source.slice(0, 32));
+  if (slopHits.length > 0) {
+    errors.push(`ai-slop detected (rewrite): ${slopHits.join(' | ')}`);
+  }
 
   if (!/^##\s/.test(body.trim())) {
     // Body may start with a hook paragraph. Check that ## sections exist somewhere.
