@@ -38,9 +38,11 @@ export interface Env {
    *  consumers (live-iocs, ransomware-recent) fall back to the existing
    *  t.me/s/mythreatintel scraper so nothing that works today breaks. */
   MYTHREATINTEL_API_TOKEN?: string;
-  /** Telegram CTI-archive bot token + channel id (set via
-   *  `wrangler secret put TELEGRAM_BOT_TOKEN` / `TELEGRAM_CHANNEL_ID`).
-   *  Optional — the hourly archive cron is a no-op when either is unset. */
+  /** Telegram CTI-archive bot token + target chat(s). TELEGRAM_CHANNEL_ID
+   *  may be a single @channel / -100… id OR a comma/space-separated list of
+   *  several channels/groups — every digest is broadcast to all of them.
+   *  Set via `wrangler secret put`. Optional — the hourly archive cron is a
+   *  no-op when either is unset. */
   TELEGRAM_BOT_TOKEN?: string;
   TELEGRAM_CHANNEL_ID?: string;
 }

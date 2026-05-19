@@ -160,13 +160,21 @@ function iocDigest(body: unknown, seen: Set<string>): { newIds: string[]; text: 
   return { newIds: fresh.map((f) => f.id), text: text.slice(0, MSG_CAP) };
 }
 
-async function tgSend(env: Env, text: string): Promise<boolean> {
+/** Targets = TELEGRAM_CHANNEL_ID split on comma / whitespace / newline. */
+function targets(env: Env): string[] {
+  return (env.TELEGRAM_CHANNEL_ID ?? '')
+    .split(/[\s,]+/)
+    .map((t) => t.trim())
+    .filter(Boolean);
+}
+
+async function sendTo(env: Env, chatId: string, text: string): Promise<boolean> {
   try {
     const r = await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({
-        chat_id: env.TELEGRAM_CHANNEL_ID,
+        chat_id: chatId,
         text,
         parse_mode: 'HTML',
         disable_web_page_preview: true,
@@ -174,10 +182,26 @@ async function tgSend(env: Env, text: string): Promise<boolean> {
       }),
       signal: AbortSignal.timeout(10_000),
     });
-    return r.ok; // 429 / 5xx → false; caller stops the run, next hour retries
+    return r.ok; // 429 / 5xx → false
   } catch {
     return false;
   }
+}
+
+/**
+ * Broadcast one message to every target chat (channel or group). Returns
+ * true if it reached at least one — a single throttled/removed chat must
+ * not block the others or lose the item. Small inter-send delay keeps us
+ * well under Telegram's per-chat (~20/min) and global (~30/s) limits.
+ */
+async function tgSend(env: Env, text: string): Promise<boolean> {
+  const chats = targets(env);
+  let anyOk = false;
+  for (let i = 0; i < chats.length; i += 1) {
+    if (await sendTo(env, chats[i]!, text)) anyOk = true;
+    if (i < chats.length - 1) await new Promise((r) => setTimeout(r, 250));
+  }
+  return anyOk; // false only if EVERY target failed → caller stops, retries next run
 }
 
 export async function runTelegramArchive(env: Env): Promise<{ posted: number; skipped?: string }> {

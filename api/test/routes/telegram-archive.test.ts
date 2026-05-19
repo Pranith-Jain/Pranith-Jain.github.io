@@ -62,6 +62,22 @@ describe('runTelegramArchive', () => {
     expect(r2.posted).toBe(0);
   });
 
+  it('broadcasts each digest to every chat in a comma-separated list', async () => {
+    stubCache({ [RANSOMWARE_RECENT_CACHE_KEY]: ransomBody });
+    const chats: string[] = [];
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async (_u: string, init: RequestInit) => {
+        chats.push(JSON.parse(String(init.body)).chat_id);
+        return new Response('{"ok":true}', { status: 200 });
+      })
+    );
+    const env = { TELEGRAM_BOT_TOKEN: 't', TELEGRAM_CHANNEL_ID: '@a, @b, -1009', CASE_STUDIES: kv() } as never;
+    const r = await runTelegramArchive(env);
+    expect(r.posted).toBe(1); // one digest, broadcast
+    expect(chats).toEqual(['@a', '@b', '-1009']); // delivered to all three
+  });
+
   it('bails without updating state when Telegram rate-limits', async () => {
     stubCache({ [RANSOMWARE_RECENT_CACHE_KEY]: ransomBody });
     vi.stubGlobal(
