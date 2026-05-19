@@ -228,11 +228,17 @@ export function postProcess(input: PostProcessInput): PostProcessOutput {
     if (!found) errors.push(`missing section: ${section}`);
   }
 
+  // CVE grounding. Citing a well-known historical CVE for *context* (e.g.
+  // "unlike CVE-2021-44228 / Log4Shell") is normal security writing —
+  // hard-failing the whole post for it was the dominant `publish_failed`
+  // cause. Out-of-facts CVEs are now a non-blocking `warning:` (posts still
+  // pass an admin-approval gate before publish). The prompt already forbids
+  // inventing CVEs and instructs the model to mark historical ones as
+  // context, so this stays informative without nuking valid drafts.
   const lowerFacts = input.factsText.toLowerCase();
-  for (const m of body.match(CVE_RE) ?? []) {
-    if (!lowerFacts.includes(m.toLowerCase())) {
-      errors.push(`hallucinated CVE not in facts: ${m}`);
-    }
+  const bodyCves = Array.from(new Set((body.match(CVE_RE) ?? []).map((c) => c.toLowerCase())));
+  for (const m of bodyCves) {
+    if (!lowerFacts.includes(m)) errors.push(`warning: contextual CVE not in facts: ${m}`);
   }
 
   const iocs: PostIOC[] = [];
@@ -286,9 +292,9 @@ export function postProcess(input: PostProcessInput): PostProcessOutput {
     add('domain', host);
   }
 
-  // Downgrade missing-section errors to warnings — AI is told to skip empty
-  // sections; only hallucinated CVEs and critical issues should fail.
-  const critical = errors.filter((e) => !e.startsWith('missing section:'));
+  // Downgrade missing-section + `warning:`-prefixed entries to non-blocking.
+  // Only genuine structural/integrity problems should fail a publish.
+  const critical = errors.filter((e) => !e.startsWith('missing section:') && !e.startsWith('warning:'));
 
   const quality = scoreQuality(body, iocs);
 

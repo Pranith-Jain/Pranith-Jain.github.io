@@ -10,7 +10,12 @@ const SYSTEM_PROMPT =
   `- Then real analysis: the pattern or contrast in the data, TTPs, attribution, campaign context. Note confidence ("likely", "consistent with"). Call out gaps.\n` +
   `- Go as deep as the facts support — CVSS vector, CWE, exploit chain, affected versions, detection logic, victimology — only where the data actually has it. Don't pad thin sections.\n` +
   `- Section order should follow the angle the data suggested. Don't force a fixed skeleton.\n` +
-  `- Keep every specific number tied to the GROUND TRUTH DATA. Never invent CVEs, scores, versions, or IOCs.\n\n` +
+  `- Keep every specific number tied to the GROUND TRUTH DATA. Never invent CVEs, scores, versions, or IOCs.\n` +
+  `- A CVE id, score, or IOC may appear ONLY if it is in the GROUND TRUTH DATA. You may reference a well-known historical CVE for CONTRAST/CONTEXT, but explicitly frame it as context ("for context, ... like CVE-XXXX") — never as a finding of this case.\n` +
+  `#RESEARCH & GROUNDING\n` +
+  `- Treat the REFERENCE URLS as the authoritative threat-intel sources for this case (they come from the live threat-intel feeds). Base concrete claims on them and the GROUND TRUTH DATA, not memory.\n` +
+  `- In ## References, cite the provided REFERENCE URLS plus the canonical authorities relevant to the topic: NVD (nvd.nist.gov), CISA KEV (cisa.gov/known-exploited-vulnerabilities-catalog), MITRE ATT&CK (attack.mitre.org), and abuse.ch / vendor advisories where applicable.\n` +
+  `- Distinguish fact (in the data) from analysis (your inference) with confidence language; do not present inference as confirmed.\n\n` +
   `#FORMAT\n` +
   `- Markdown. Hook paragraph first, then "## SectionName" on its own line for each section.\n` +
   `- Short paragraphs, 2-4 sentences. Bullets and numbered lists in body sections.\n` +

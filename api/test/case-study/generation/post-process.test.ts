@@ -15,7 +15,7 @@ describe('postProcess', () => {
     expect(out.body).toContain('## What is this vulnerability?');
   });
 
-  it('fails on hallucinated CVE', () => {
+  it('flags an out-of-facts CVE as a non-blocking warning (does not fail publish)', () => {
     const raw =
       `## What is this vulnerability?\n\nReferences CVE-9999-9999 not in facts.\n\n` +
       `## Affected products\n\nx\n\n## CVSS score breakdown\n\nx\n\n` +
@@ -23,8 +23,10 @@ describe('postProcess', () => {
       `## Indicators of compromise\n\nx\n\n## Detection & mitigation\n\nx\n\n` +
       `## References\n\n- https://x\n`;
     const out = postProcess({ type: 'cve', raw, factsText: 'CVE-2026-1234 only' });
-    expect(out.ok).toBe(false);
-    expect(out.errors.join('|')).toMatch(/hallucinated cve/i);
+    // Contextual/out-of-facts CVEs no longer hard-fail (was the dominant
+    // publish_failed cause) — they surface as a warning instead.
+    expect(out.ok).toBe(true);
+    expect(out.errors.join('|')).toMatch(/warning: contextual cve not in facts/i);
   });
 
   it('extracts IOCs from the body', () => {

@@ -137,7 +137,24 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
   const completion = await runCompletion(ai, { system, user });
 
   const factsText = JSON.stringify(candidate.evidence);
-  const processed = postProcess({ type: candidate.type, raw: completion.text, factsText });
+  let processed = postProcess({ type: candidate.type, raw: completion.text, factsText });
+
+  // Self-heal: one targeted repair pass feeding the critical validation
+  // errors back to the model, instead of failing the whole publish on a
+  // first-pass structural slip. Only critical (non-"missing section:",
+  // non-"warning:") errors are surfaced for repair.
+  if (!processed.ok) {
+    const critical = processed.errors.filter((e) => !e.startsWith('missing section:') && !e.startsWith('warning:'));
+    const repair = await runCompletion(ai, {
+      system,
+      user:
+        `${user}\n\nYOUR PREVIOUS DRAFT FAILED VALIDATION: ${critical.join('; ')}.\n` +
+        `Rewrite the FULL case study fixing these. Every section MUST start with "## " on its own line. ` +
+        `Only reference facts/CVEs present in the GROUND TRUTH DATA above; mark any historical CVE as context, not a finding.`,
+    });
+    processed = postProcess({ type: candidate.type, raw: repair.text, factsText });
+  }
+
   if (!processed.ok) {
     throw new Error(`validation failed: ${processed.errors.join('; ')}`);
   }

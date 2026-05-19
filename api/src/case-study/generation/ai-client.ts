@@ -1,7 +1,17 @@
 import type { Ai } from '@cloudflare/workers-types';
 
-const PRIMARY = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
-const FALLBACK = '@cf/meta/llama-3.1-8b-instruct';
+/**
+ * Free Workers-AI model chain, best-quality first. Llama 4 Scout is a
+ * sizeable instruction-following / long-form-prose step up from 3.3-70B at
+ * the same (free) Workers-AI tier; the 70B and 8B remain as graceful
+ * fallbacks if Scout is unavailable or throttled, so a model-id/availability
+ * change can never take the pipeline down.
+ */
+const MODELS = [
+  '@cf/meta/llama-4-scout-17b-16e-instruct',
+  '@cf/meta/llama-3.3-70b-instruct-fp8-fast',
+  '@cf/meta/llama-3.1-8b-instruct',
+] as const;
 const MAX_RETRIES = 3;
 const BASE_DELAY = 2000;
 
@@ -55,12 +65,18 @@ async function runModel(ai: Ai, model: string, input: CompletionInput, attempt =
 }
 
 export async function runCompletion(ai: Ai, input: CompletionInput): Promise<CompletionOutput> {
-  try {
-    const text = await runModel(ai, PRIMARY, input);
-    return { text, modelUsed: PRIMARY };
-  } catch (err) {
-    console.warn('runCompletion: primary failed, trying fallback', err);
-    const text = await runModel(ai, FALLBACK, input);
-    return { text, modelUsed: FALLBACK };
+  let lastErr: unknown;
+  for (let i = 0; i < MODELS.length; i += 1) {
+    const model = MODELS[i]!;
+    try {
+      const text = await runModel(ai, model, input);
+      return { text, modelUsed: model };
+    } catch (err) {
+      lastErr = err;
+      if (i < MODELS.length - 1) {
+        console.warn(`runCompletion: ${model} failed, trying ${MODELS[i + 1]}`, err);
+      }
+    }
   }
+  throw lastErr instanceof Error ? lastErr : new Error(String(lastErr));
 }
