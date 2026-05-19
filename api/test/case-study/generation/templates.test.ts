@@ -41,4 +41,24 @@ describe('buildPrompt', () => {
     expect(user).toContain('## Recent victims');
     expect(user).toContain('## Defensive recommendations');
   });
+
+  it('clamps an oversized evidence blob so the prompt fits the context window', () => {
+    // Simulates a briefing candidate whose evidence embeds full article
+    // bodies — the real cause of the 180K-token / error-5021 publish_failed.
+    const huge = {
+      summary: 'x'.repeat(50),
+      sections: Array.from({ length: 200 }, (_, i) => ({
+        title: `Section ${i}`,
+        body: 'lorem ipsum '.repeat(2000),
+      })),
+    };
+    const { user } = buildPrompt({ type: 'briefing', title: 'Weekly briefing', facts: huge });
+    // Raw JSON.stringify(huge) is ~5M chars. The prompt MUST be bounded
+    // well under even the smallest model window (24k tok ≈ ~96k chars).
+    expect(user.length).toBeLessThan(40_000);
+    expect(user).toMatch(/truncated/i);
+    // Still usable: title + outline survive the clamp.
+    expect(user).toContain('Weekly briefing');
+    expect(user).toContain('## ');
+  });
 });

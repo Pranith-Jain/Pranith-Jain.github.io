@@ -152,13 +152,50 @@ export interface BuiltPrompt {
   user: string;
 }
 
+/**
+ * Evidence-size guard. Some candidate types (briefing/intel) embed full
+ * article bodies in `evidence`; a raw JSON.stringify produced ~180K-token
+ * prompts that blew the model context window (error 5021) → publish_failed.
+ * Bound it well under even the smallest model window (Workers-AI ≈ 24K
+ * tokens): ~12K chars ≈ ~3-4K tokens, leaving ample room for output.
+ */
+const FACTS_BUDGET = 12_000;
+const STR_CAP = 600;
+const ARR_CAP = 12;
+
+function trimValue(v: unknown, depth = 0): unknown {
+  if (typeof v === 'string') return v.length > STR_CAP ? `${v.slice(0, STR_CAP)}…[truncated]` : v;
+  if (Array.isArray(v)) {
+    const out: unknown[] = v.slice(0, ARR_CAP).map((x) => trimValue(x, depth + 1));
+    if (v.length > ARR_CAP) out.push(`…+${v.length - ARR_CAP} more items (truncated)`);
+    return out;
+  }
+  if (v && typeof v === 'object' && depth < 4) {
+    const o: Record<string, unknown> = {};
+    for (const [k, val] of Object.entries(v as Record<string, unknown>)) o[k] = trimValue(val, depth + 1);
+    return o;
+  }
+  return v;
+}
+
+function clampFacts(facts: Record<string, unknown>, budget = FACTS_BUDGET): string {
+  let s = JSON.stringify(facts) ?? '{}';
+  if (s.length <= budget) return s;
+  // Structural trim first (keeps breadth: caps arrays + long strings).
+  s = JSON.stringify(trimValue(facts)) ?? '{}';
+  if (s.length <= budget) return s;
+  // Last resort: hard cut with an explicit marker.
+  return `${s.slice(0, budget)}…[truncated]`;
+}
+
 export function buildPrompt(input: BuildPromptInput): BuiltPrompt {
   const outline = OUTLINES[input.type].join('\n');
-  const factsBlock = JSON.stringify(input.facts);
+  const factsBlock = clampFacts(input.facts);
 
+  const sources = (input.sources ?? []).slice(0, 25);
   const sourcesBlock =
-    (input.sources ?? []).length > 0
-      ? `\n\nREFERENCE URLS (link to these as sources in the References section):\n${input.sources!.map((s) => `- ${s.url}${s.title ? ` (${s.title})` : ''}`).join('\n')}`
+    sources.length > 0
+      ? `\n\nREFERENCE URLS (link to these as sources in the References section):\n${sources.map((s) => `- ${s.url}${s.title ? ` (${s.title})` : ''}`).join('\n')}`
       : '';
 
   const user =

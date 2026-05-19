@@ -52,6 +52,14 @@ export class RateLimitError extends Error {
 
 export function isRateLimited(err: unknown): boolean {
   const msg = (err instanceof Error ? err.message : String(err)).toLowerCase();
+  // A context-window / token-budget overflow is DETERMINISTIC, not a
+  // transient rate-limit — deferring/retrying never helps (it's the prompt
+  // size). Classify it out so it isn't mis-handled as quota. (The prompt
+  // clamp in templates.ts is the actual prevention; this is defense-in-depth
+  // + accurate logs.)
+  if (msg.includes('context window') || msg.includes('5021') || (msg.includes('token') && msg.includes('exceeded'))) {
+    return false;
+  }
   return (
     msg.includes('rate') ||
     msg.includes('429') ||
