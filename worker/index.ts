@@ -7,6 +7,7 @@ import {
   expectedWeeklySlug,
 } from '../api/src/lib/briefing-builder';
 import { runDiscoveryNow, runPlannerNow, runPublisherNow, type CaseStudyEnv } from '../api/src/case-study/run';
+import { runTelegramArchive } from '../api/src/routes/telegram-archive';
 import type { Env as ApiEnv } from '../api/src/env';
 import type { Ai, D1Database } from '@cloudflare/workers-types';
 
@@ -450,9 +451,10 @@ export default {
     const logCronFail = (job: string) => (e: unknown) =>
       console.error(JSON.stringify({ cron: csCron, job, error: e instanceof Error ? e.message : String(e) }));
 
-    // Hourly cache-warm cron — also run the publisher every hour.
+    // Hourly cache-warm cron — also run the publisher + Telegram archive.
     if (csCron === '0 * * * *') {
       ctx.waitUntil(runPublisherNow(env as unknown as CaseStudyEnv, csNow).catch(logCronFail('publisher')));
+      ctx.waitUntil(runTelegramArchive(env).catch(logCronFail('telegram-archive')));
     }
 
     // Case-study discovery — its OWN invocation (no longer shares the
