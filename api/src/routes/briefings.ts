@@ -180,7 +180,10 @@ export async function buildBriefingHandler(c: AdminCtx) {
   }
 
   try {
-    const briefing = await buildBriefing(typeRaw as BriefingType, undefined, { nvdApiKey: c.env.NVD_API_KEY });
+    const briefing = await buildBriefing(typeRaw as BriefingType, undefined, {
+      nvdApiKey: c.env.NVD_API_KEY,
+      env: c.env,
+    });
     await writeBriefing(db, briefing);
     return c.json({ ok: true, slug: briefing.slug, stats: briefing.stats }, 200);
   } catch (err) {
@@ -228,7 +231,7 @@ export async function backfillBriefingsHandler(c: AdminCtx) {
   for (let i = 0; i < days; i += 1) {
     const anchor = new Date(Date.now() - i * 86400_000);
     try {
-      const briefing = await buildBriefing('daily', anchor, { nvdApiKey: c.env.NVD_API_KEY });
+      const briefing = await buildBriefing('daily', anchor, { nvdApiKey: c.env.NVD_API_KEY, env: c.env });
       const result = await writeBriefing(db, briefing, { skipIfExists: !force });
       (result.written ? writtenDaily : skippedDaily).push(briefing.slug);
     } catch (err) {
@@ -240,7 +243,7 @@ export async function backfillBriefingsHandler(c: AdminCtx) {
   for (let i = 0; i < weeks; i += 1) {
     const anchor = new Date(Date.now() - i * 7 * 86400_000);
     try {
-      const briefing = await buildBriefing('weekly', anchor, { nvdApiKey: c.env.NVD_API_KEY });
+      const briefing = await buildBriefing('weekly', anchor, { nvdApiKey: c.env.NVD_API_KEY, env: c.env });
       const result = await writeBriefing(db, briefing, { skipIfExists: !force });
       (result.written ? writtenWeekly : skippedWeekly).push(briefing.slug);
     } catch (err) {

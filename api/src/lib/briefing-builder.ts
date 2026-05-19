@@ -12,6 +12,8 @@
 import type { D1Database } from '@cloudflare/workers-types';
 import { FEED_SOURCES, UNCAPPED, buildSummary, type IocEntry, type SourceId } from './ioc-feed-parsers';
 import { fetchResilient } from './fetch-resilient';
+import type { Env } from '../env';
+import { fetchMtiSource, type MtiRansomwareClaim, type MtiCveRecord } from './mythreatintel-api';
 
 const NVD_UA = 'Mozilla/5.0 (compatible; pranithjain-dfir/1.0; +https://pranithjain.qzz.io)';
 const NVD_API = 'https://services.nvd.nist.gov/rest/json/cves/2.0';
@@ -925,7 +927,7 @@ function buildStats(findings: BriefingFinding[], sections: BriefingSection[], io
 export async function buildBriefing(
   type: BriefingType,
   anchor: Date = new Date(),
-  opts: { nvdApiKey?: string } = {}
+  opts: { nvdApiKey?: string; env?: Env } = {}
 ): Promise<Briefing> {
   // Compute window
   let rangeStart: Date;
@@ -973,32 +975,47 @@ export async function buildBriefing(
   // was wasted latency that never contributed to a single briefing.
   const wrap = <T>(p: Promise<T>, fallback: T) =>
     p.then((v) => ({ ok: true, v })).catch(() => ({ ok: false, v: fallback }));
-  const [kevR, urlhaus, malwarebazaar, threatfox, tweetfeed, nvdR] = await Promise.all([
-    // KEV is the full catalog (window filtering happens below) — one key.
-    // NVD is window-specific, so the cache key carries the range; the hourly
-    // catch-up rebuilds the same slug/window and reuses any prior success.
-    wrap(withLastGood('https://briefing-lastgood.internal/kev', fetchKev), [] as KevEntry[]),
-    fetchAbuseFeed('urlhaus').catch(() => [] as IocEntry[]),
-    fetchAbuseFeed('malwarebazaar').catch(() => [] as IocEntry[]),
-    fetchAbuseFeed('threatfox').catch(() => [] as IocEntry[]),
-    fetchAbuseFeed('tweetfeed').catch(() => [] as IocEntry[]),
-    wrap(
-      withLastGood(`https://briefing-lastgood.internal/nvd?s=${startMs}&e=${endMs}`, async () => {
-        // NVD first; on throw OR empty, fall back to CIRCL exactly ONCE
-        // (the old .then/.catch chain could call CIRCL twice). If CIRCL
-        // also throws it propagates to withLastGood, which backstops with
-        // the 14-day last-good cache (or rethrows → honest degrade).
-        try {
-          const r = await fetchNvdRecent(rangeStart, rangeEnd, opts.nvdApiKey);
-          if (r.length > 0) return r;
-        } catch {
-          /* NVD unreachable — fall through to CIRCL */
-        }
-        return fetchCirclRecent(rangeStart, rangeEnd);
-      }),
-      [] as NvdCve[]
-    ),
-  ]);
+  const mtiEnv = opts.env;
+  const [kevR, urlhaus, malwarebazaar, threatfox, tweetfeed, nvdR, mtiRansomwareItems, mtiCveItems] = await Promise.all(
+    [
+      // KEV is the full catalog (window filtering happens below) — one key.
+      // NVD is window-specific, so the cache key carries the range; the hourly
+      // catch-up rebuilds the same slug/window and reuses any prior success.
+      wrap(withLastGood('https://briefing-lastgood.internal/kev', fetchKev), [] as KevEntry[]),
+      fetchAbuseFeed('urlhaus').catch(() => [] as IocEntry[]),
+      fetchAbuseFeed('malwarebazaar').catch(() => [] as IocEntry[]),
+      fetchAbuseFeed('threatfox').catch(() => [] as IocEntry[]),
+      fetchAbuseFeed('tweetfeed').catch(() => [] as IocEntry[]),
+      wrap(
+        withLastGood(`https://briefing-lastgood.internal/nvd?s=${startMs}&e=${endMs}`, async () => {
+          // NVD first; on throw OR empty, fall back to CIRCL exactly ONCE
+          // (the old .then/.catch chain could call CIRCL twice). If CIRCL
+          // also throws it propagates to withLastGood, which backstops with
+          // the 14-day last-good cache (or rethrows → honest degrade).
+          try {
+            const r = await fetchNvdRecent(rangeStart, rangeEnd, opts.nvdApiKey);
+            if (r.length > 0) return r;
+          } catch {
+            /* NVD unreachable — fall through to CIRCL */
+          }
+          return fetchCirclRecent(rangeStart, rangeEnd);
+        }),
+        [] as NvdCve[]
+      ),
+      // MyThreatIntel — ransomware victim claims (own briefing section) and
+      // CVE alerts (merged into findings). Token-gated; absent → [].
+      mtiEnv
+        ? fetchMtiSource(mtiEnv, 'ransomware', { limit: 300 })
+            .then((r) => (r.ok ? (r.items as MtiRansomwareClaim[]) : []))
+            .catch(() => [] as MtiRansomwareClaim[])
+        : Promise.resolve([] as MtiRansomwareClaim[]),
+      mtiEnv
+        ? fetchMtiSource(mtiEnv, 'cve', { limit: 200 })
+            .then((r) => (r.ok ? (r.items as MtiCveRecord[]) : []))
+            .catch(() => [] as MtiCveRecord[])
+        : Promise.resolve([] as MtiCveRecord[]),
+    ]
+  );
   // If BOTH primary finding sources are unreachable, this isn't a quiet day,
   // it's an outage. Earlier this threw and persisted NOTHING — but a
   // sustained NVD/KEV block then meant "no briefing at all" for the day
@@ -1027,7 +1044,37 @@ export async function buildBriefing(
     .filter((c) => !kevIds.has(c.id))
     .map(findingFromNvd)
     .filter((f) => f.severity === 'critical' || f.severity === 'high');
-  const findings = [...kevFindings, ...nvdFindings];
+  // MyThreatIntel CVE alerts published in-window, not already covered by
+  // KEV/NVD, held to the same critical|high bar as the NVD additions.
+  const existingCveIds = new Set([...kevFindings, ...nvdFindings].map((f) => f.id.toUpperCase()));
+  const mtiCveFindings: BriefingFinding[] = [];
+  for (const m of mtiCveItems) {
+    const id = m.cve?.trim().toUpperCase();
+    if (!id || existingCveIds.has(id)) continue;
+    const pub = m.published?.trim();
+    if (!pub || !withinRange(pub.replace(' ', 'T'), startMs, endMs)) continue;
+    const score = m.score != null && m.score !== '' ? Number.parseFloat(String(m.score)) : NaN;
+    const sevText = String(m.severity ?? '').toLowerCase();
+    const severity: Severity = Number.isFinite(score)
+      ? severityFromCvss(score)
+      : sevText === 'critical' || sevText === 'high' || sevText === 'medium' || sevText === 'low'
+        ? (sevText as Severity)
+        : 'unknown';
+    if (severity !== 'critical' && severity !== 'high') continue;
+    existingCveIds.add(id);
+    const desc = m.description?.trim() || id;
+    mtiCveFindings.push({
+      id,
+      title: desc.length > 90 ? `${id}: ${desc.slice(0, 87)}…` : `${id}: ${desc}`,
+      description: desc,
+      severity,
+      ...(Number.isFinite(score) ? { cvss: score } : {}),
+      source: 'MyThreatIntel',
+      source_url: m.url || 'https://mythreatintel.com/',
+      mitre_techniques: [],
+    });
+  }
+  const findings = [...kevFindings, ...nvdFindings, ...mtiCveFindings];
 
   // Per-source counts for transparent reporting — match-in-window only.
   // Helps a future reader verify "URLhaus 4,712; ThreatFox 215; …" instead
@@ -1077,6 +1124,41 @@ export async function buildBriefing(
   if (tweetfeedMatched.length > 0) iocSources.push('TweetFeed');
 
   const sections = buildSections(findings);
+
+  // MyThreatIntel ransomware victim claims → a dedicated section (kept out
+  // of `findings` so the CVE-oriented stats stay clean). In-window only.
+  const mtiRansomwareFindings: BriefingFinding[] = [];
+  const seenMtiVictim = new Set<string>();
+  for (const r of mtiRansomwareItems) {
+    const victim = r.victim?.trim();
+    const gang = r.gang?.trim();
+    const date = r.date?.trim();
+    if (!victim || !gang || !date) continue;
+    if (!withinRange(date.replace(' ', 'T'), startMs, endMs)) continue;
+    const key = `${gang.toLowerCase()}|${victim.toLowerCase()}`;
+    if (seenMtiVictim.has(key)) continue;
+    seenMtiVictim.add(key);
+    const desc = r.description?.trim();
+    mtiRansomwareFindings.push({
+      id: `mti-rw-${key}`,
+      title: `${victim} — claimed by ${gang}`,
+      description: desc && desc.length > 280 ? `${desc.slice(0, 277)}…` : desc || `${victim} listed by ${gang}.`,
+      severity: 'high',
+      source: 'MyThreatIntel',
+      source_url: 'https://mythreatintel.com/',
+      mitre_techniques: [],
+    });
+  }
+  if (mtiRansomwareFindings.length > 0) {
+    sections.push({
+      id: 'mti-ransomware',
+      title: 'Ransomware victim claims (MyThreatIntel)',
+      count: mtiRansomwareFindings.length,
+      blurb: 'Victim claims observed on the MyThreatIntel CTI feed within this window.',
+      findings: mtiRansomwareFindings.slice(0, 60),
+    });
+  }
+
   const stats = buildStats(findings, sections, iocsRawTotal);
   const executive_summary = degraded
     ? `This ${type} briefing is incomplete: both CISA KEV and NVD were unreachable from the edge at build time (${rangeLabel}). This is an upstream-availability gap, NOT an all-clear — do not read the absence of findings as "no new vulnerabilities". The briefing rebuilds automatically every hour and will be replaced as soon as the feeds respond.`
@@ -1096,6 +1178,7 @@ export async function buildBriefing(
   const sources: string[] = [];
   if (findings.some((f) => f.source === 'CISA KEV')) sources.push('CISA KEV');
   if (findings.length > 0) sources.push('NVD');
+  if (mtiCveFindings.length > 0 || mtiRansomwareFindings.length > 0) sources.push('MyThreatIntel');
   sources.push(...iocSources);
 
   return {

@@ -2,6 +2,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { mitreGroupRef, type MitreGroupRef } from '../lib/ransomware-mitre-groups';
 import { techniquesForGroup, type Technique } from '../lib/ransomware-group-techniques';
+import { fetchMtiSource, type MtiRansomwareClaim } from '../lib/mythreatintel-api';
 
 /**
  * Actor activity timeline.
@@ -19,7 +20,7 @@ import { techniquesForGroup, type Technique } from '../lib/ransomware-group-tech
  * support, not real-time alerting.
  */
 
-export const ACTOR_TIMELINE_CACHE_KEY = 'https://actor-timeline-cache.internal/v2-ttps';
+export const ACTOR_TIMELINE_CACHE_KEY = 'https://actor-timeline-cache.internal/v3-mti';
 const CACHE_KEY = ACTOR_TIMELINE_CACHE_KEY;
 const CACHE_TTL_SECONDS = 4 * 60 * 60;
 const FETCH_TIMEOUT_MS = 20_000;
@@ -154,12 +155,22 @@ function buildDayAxis(): string[] {
   return out;
 }
 
-export async function fetchActorTimeline(): Promise<ActorTimelineResponse> {
+export async function fetchActorTimeline(env?: Env): Promise<ActorTimelineResponse> {
   // Step 1: get the "recent claims" payload (already cached) so we know
   // which groups are currently active — only fetch per-group data for those.
-  const recent = await fetchJson<Array<{ post_title?: string; group_name?: string; discovered?: string }>>(
-    'https://www.ransomlook.io/api/recent'
-  );
+  // In parallel, pull MyThreatIntel ransomware victim claims so MTI-observed
+  // activity also drives ranking and the per-actor heatmap (additive; an
+  // empty/absent token simply contributes nothing).
+  const [recent, mtiClaims] = await Promise.all([
+    fetchJson<Array<{ post_title?: string; group_name?: string; discovered?: string }>>(
+      'https://www.ransomlook.io/api/recent'
+    ),
+    env
+      ? fetchMtiSource(env, 'ransomware', { limit: 500 })
+          .then((r) => (r.ok ? (r.items as MtiRansomwareClaim[]) : []))
+          .catch(() => [] as MtiRansomwareClaim[])
+      : Promise.resolve([] as MtiRansomwareClaim[]),
+  ]);
 
   const days = buildDayAxis();
   const dayIndex = new Map(days.map((d, i) => [d, i] as const));
@@ -197,6 +208,22 @@ export async function fetchActorTimeline(): Promise<ActorTimelineResponse> {
     if (arr) arr.push(k);
     else recentDaysByGroup.set(g, [k]);
   }
+  // MyThreatIntel victim claims → per-gang in-window day buckets. Also feed
+  // groupRecentCount so an MTI-active group can enter topGroups even if
+  // Ransomlook's /api/recent under-counts it.
+  const mtiDaysByGroup = new Map<string, string[]>();
+  for (const e of mtiClaims) {
+    const g = e.gang?.trim().toLowerCase();
+    const iso = e.date ? toIsoDate(e.date) : undefined;
+    if (!g || !iso) continue;
+    const k = dayKey(iso);
+    if (k < windowStart || !dayIndex.has(k)) continue;
+    groupRecentCount.set(g, (groupRecentCount.get(g) ?? 0) + 1);
+    const arr = mtiDaysByGroup.get(g);
+    if (arr) arr.push(k);
+    else mtiDaysByGroup.set(g, [k]);
+  }
+
   const topGroups = [...groupRecentCount.entries()]
     .sort((a, b) => b[1] - a[1])
     .slice(0, TOP_GROUPS)
@@ -285,6 +312,24 @@ export async function fetchActorTimeline(): Promise<ActorTimelineResponse> {
   // /api/recent above. The only remaining warning case is the whole
   // /api/recent feed being unreachable, handled in the early-return above.
 
+  // Overlay MyThreatIntel victim days onto each actor's heatmap. Additive:
+  // Ransomlook + MTI may both claim the same victim/day; counting both
+  // reflects cross-source corroboration, consistent with how MTI is merged
+  // elsewhere (the dedup that matters happens in ransomware-recent).
+  for (const row of rows) {
+    const mtiDays = mtiDaysByGroup.get(row.slug);
+    if (!mtiDays || mtiDays.length === 0) continue;
+    let added = 0;
+    for (const k of mtiDays) {
+      const idx = dayIndex.get(k);
+      if (idx === undefined) continue;
+      row.buckets[idx]!.count += 1;
+      added += 1;
+    }
+    row.posts_in_window += added;
+    row.all_time_count += added;
+  }
+
   // Sort by activity in window desc, then all-time count
   rows.sort((a, b) => {
     if (b.posts_in_window !== a.posts_in_window) return b.posts_in_window - a.posts_in_window;
@@ -344,7 +389,7 @@ export async function actorTimelineHandler(c: Context<{ Bindings: Env }>): Promi
   const cached = await cache.match(cacheReq);
   if (cached) return cached;
 
-  const body = await fetchActorTimeline();
+  const body = await fetchActorTimeline(c.env);
 
   // If we got no rows AND no warnings, treat as transient — don't poison cache.
   const cacheable = body.groups.length > 0 || body.warnings.length > 0;

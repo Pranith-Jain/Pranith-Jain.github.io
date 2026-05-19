@@ -320,6 +320,8 @@ interface State {
   breaches: BreachDisclosure[] | null;
   pulse: PulseEntity[] | null;
   ddc: DeepDarkCtiResponse | null;
+  /** MyThreatIntel threat-group catalogue (group_id + profile). */
+  mtiGroups: { group_id: string; description?: string }[] | null;
   refreshedAt: string | null;
   loading: boolean;
   error: string | null;
@@ -336,10 +338,29 @@ const INITIAL: State = {
   breaches: null,
   pulse: null,
   ddc: null,
+  mtiGroups: null,
   refreshedAt: null,
   loading: true,
   error: null,
 };
+
+/** Normalise a free-text severity (MyThreatIntel uses Title Case / N/D). */
+function normSeverity(s: unknown): RecentCve['severity'] {
+  const u = String(s ?? '')
+    .trim()
+    .toUpperCase();
+  return u === 'CRITICAL' || u === 'HIGH' || u === 'MEDIUM' || u === 'LOW' || u === 'NONE'
+    ? (u as RecentCve['severity'])
+    : 'UNKNOWN';
+}
+
+interface MtiCveRow {
+  cve?: string;
+  published?: string;
+  severity?: string;
+  score?: string;
+  description?: string;
+}
 
 // Window options (in days) for the panel-wide time-range toggle. KEV cadence
 // has its own fixed 12-week scale and intentionally ignores this control.
@@ -357,23 +378,66 @@ export default function Metrics(): JSX.Element {
 
     (async () => {
       try {
-        const [rRes, cRes, pRes, tmRes, mRes, rlRes, c2Res, brRes, plRes, ddcRes] = await Promise.allSettled([
-          fetch('/api/v1/ransomware-recent').then((r) => (r.ok ? r.json() : Promise.reject(`ransomware ${r.status}`))),
-          fetch('/api/v1/cve-recent').then((r) => (r.ok ? r.json() : Promise.reject(`cve ${r.status}`))),
-          fetch('/api/v1/phishing-urls').then((r) => (r.ok ? r.json() : Promise.reject(`phishing ${r.status}`))),
-          fetch('/api/v1/threat-map').then((r) => (r.ok ? r.json() : Promise.reject(`threat-map ${r.status}`))),
-          fetch('/api/v1/malware-samples').then((r) => (r.ok ? r.json() : Promise.reject(`malware ${r.status}`))),
-          fetch('/api/v1/victim-releaks').then((r) => (r.ok ? r.json() : Promise.reject(`releaks ${r.status}`))),
-          fetch('/api/v1/c2-tracker').then((r) => (r.ok ? r.json() : Promise.reject(`c2 ${r.status}`))),
-          fetch('/api/v1/breach-disclosures').then((r) => (r.ok ? r.json() : Promise.reject(`breach ${r.status}`))),
-          fetch('/api/v1/threat-pulse').then((r) => (r.ok ? r.json() : Promise.reject(`pulse ${r.status}`))),
-          fetch('/api/v1/deepdarkcti').then((r) => (r.ok ? r.json() : Promise.reject(`deepdarkcti ${r.status}`))),
-        ]);
+        const [rRes, cRes, pRes, tmRes, mRes, rlRes, c2Res, brRes, plRes, ddcRes, mtiCveRes, mtiGrpRes] =
+          await Promise.allSettled([
+            fetch('/api/v1/ransomware-recent').then((r) =>
+              r.ok ? r.json() : Promise.reject(`ransomware ${r.status}`)
+            ),
+            fetch('/api/v1/cve-recent').then((r) => (r.ok ? r.json() : Promise.reject(`cve ${r.status}`))),
+            fetch('/api/v1/phishing-urls').then((r) => (r.ok ? r.json() : Promise.reject(`phishing ${r.status}`))),
+            fetch('/api/v1/threat-map').then((r) => (r.ok ? r.json() : Promise.reject(`threat-map ${r.status}`))),
+            fetch('/api/v1/malware-samples').then((r) => (r.ok ? r.json() : Promise.reject(`malware ${r.status}`))),
+            fetch('/api/v1/victim-releaks').then((r) => (r.ok ? r.json() : Promise.reject(`releaks ${r.status}`))),
+            fetch('/api/v1/c2-tracker').then((r) => (r.ok ? r.json() : Promise.reject(`c2 ${r.status}`))),
+            fetch('/api/v1/breach-disclosures').then((r) => (r.ok ? r.json() : Promise.reject(`breach ${r.status}`))),
+            fetch('/api/v1/threat-pulse').then((r) => (r.ok ? r.json() : Promise.reject(`pulse ${r.status}`))),
+            fetch('/api/v1/deepdarkcti').then((r) => (r.ok ? r.json() : Promise.reject(`deepdarkcti ${r.status}`))),
+            fetch('/api/v1/mti?source=cve&limit=200').then((r) =>
+              r.ok ? r.json() : Promise.reject(`mti-cve ${r.status}`)
+            ),
+            fetch('/api/v1/mti?source=groups&limit=300').then((r) =>
+              r.ok ? r.json() : Promise.reject(`mti-groups ${r.status}`)
+            ),
+          ]);
         if (cancelled) return;
+
+        // MyThreatIntel CVEs merged into the CVE pool (existing entries win
+        // ties — they carry the KEV flag); enriches every CVE panel.
+        const baseCves = cRes.status === 'fulfilled' ? ((cRes.value as { cves: RecentCve[] }).cves ?? []) : null;
+        const mtiCveItems =
+          mtiCveRes.status === 'fulfilled' ? ((mtiCveRes.value as { items?: MtiCveRow[] }).items ?? []) : [];
+        const mergedCves: RecentCve[] | null = baseCves
+          ? (() => {
+              const seen = new Set(baseCves.map((c) => c.id.toUpperCase()));
+              const extra: RecentCve[] = [];
+              for (const m of mtiCveItems) {
+                const id = m.cve?.trim().toUpperCase();
+                if (!id || seen.has(id)) continue;
+                seen.add(id);
+                const score = m.score != null && m.score !== '' ? Number.parseFloat(m.score) : NaN;
+                extra.push({
+                  id,
+                  published: m.published ?? '',
+                  modified: m.published ?? '',
+                  description: m.description,
+                  severity: normSeverity(m.severity),
+                  score: Number.isFinite(score) ? score : null,
+                  kev: false,
+                });
+              }
+              return [...baseCves, ...extra];
+            })()
+          : baseCves;
+        const mtiGroups =
+          mtiGrpRes.status === 'fulfilled'
+            ? ((mtiGrpRes.value as { items?: { group_id?: string; description?: string }[] }).items ?? [])
+                .filter((g): g is { group_id: string; description?: string } => Boolean(g.group_id))
+                .map((g) => ({ group_id: g.group_id, description: g.description }))
+            : null;
         setState({
           ransomware:
             rRes.status === 'fulfilled' ? ((rRes.value as { victims: RansomwareVictim[] }).victims ?? []) : null,
-          cves: cRes.status === 'fulfilled' ? ((cRes.value as { cves: RecentCve[] }).cves ?? []) : null,
+          cves: mergedCves,
           phishing: pRes.status === 'fulfilled' ? ((pRes.value as { urls: PhishingUrl[] }).urls ?? []) : null,
           threatMap: tmRes.status === 'fulfilled' ? (tmRes.value as ThreatMapResponse) : null,
           malware: mRes.status === 'fulfilled' ? ((mRes.value as { samples: MalwareSample[] }).samples ?? []) : null,
@@ -383,6 +447,7 @@ export default function Metrics(): JSX.Element {
             brRes.status === 'fulfilled' ? ((brRes.value as { breaches: BreachDisclosure[] }).breaches ?? []) : null,
           pulse: plRes.status === 'fulfilled' ? ((plRes.value as { entities: PulseEntity[] }).entities ?? []) : null,
           ddc: ddcRes.status === 'fulfilled' ? (ddcRes.value as DeepDarkCtiResponse) : null,
+          mtiGroups,
           refreshedAt: new Date().toISOString(),
           loading: false,
           error: null,
@@ -411,6 +476,25 @@ export default function Metrics(): JSX.Element {
       .sort((a, b) => b.value - a.value)
       .slice(0, 10);
   }, [state.ransomware, windowDays]);
+
+  // MyThreatIntel: which currently-active ransomware groups carry a
+  // MyThreatIntel actor profile, ranked by their recent victim volume.
+  // Joins the merged ransomware feed (already MTI-enriched) with the MTI
+  // group catalogue so the bar = "active AND profiled".
+  const mtiProfiledActiveGroups = useMemo<HBarItem[]>(() => {
+    if (!state.ransomware || !state.mtiGroups || state.mtiGroups.length === 0) return [];
+    const profiled = new Set(state.mtiGroups.map((g) => g.group_id.toLowerCase()));
+    const map = new Map<string, number>();
+    for (const v of state.ransomware) {
+      if (!withinDays(v.discovered, windowDays)) continue;
+      if (!profiled.has(v.group.toLowerCase())) continue;
+      map.set(v.group, (map.get(v.group) ?? 0) + 1);
+    }
+    return [...map.entries()]
+      .map(([label, value]) => ({ label, value }))
+      .sort((a, b) => b.value - a.value)
+      .slice(0, 12);
+  }, [state.ransomware, state.mtiGroups, windowDays]);
 
   // 11. NEW — country-origin of malicious IPs. data.threatMap.countries was
   // already being fetched but never visualised. Plain HBar; not gated by
@@ -916,6 +1000,19 @@ export default function Metrics(): JSX.Element {
             href="/threatintel/deepdarkcti"
           >
             <HBar items={ddcCategories} color="#a3a3a3" />
+          </ChartCard>
+
+          {/* 16. MyThreatIntel — active ransomware groups with an MTI actor profile */}
+          <ChartCard
+            icon={Network}
+            title="Profiled active groups · MyThreatIntel"
+            question="Which currently-active ransomware groups have a MyThreatIntel actor profile?"
+            footer={`Join of the merged ransomware feed with ${
+              state.mtiGroups?.length?.toLocaleString() ?? 0
+            } MyThreatIntel group profiles`}
+            href="/threatintel/mythreatintel"
+          >
+            <HBar items={mtiProfiledActiveGroups} color="#0ea5e9" />
           </ChartCard>
         </div>
       )}

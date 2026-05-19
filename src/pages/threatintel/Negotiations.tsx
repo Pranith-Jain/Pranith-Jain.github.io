@@ -24,7 +24,7 @@ interface Negotiation {
 interface NegotiationsResponse {
   generated_at: string;
   source: string;
-  groups: { group: string; chats: number }[];
+  groups: { group: string; chats: number; description?: string; recent_victims?: number }[];
   negotiations: Negotiation[];
   totals: { groups: number; chats: number; settled: number; avg_discount: number | null };
   warnings: string[];
@@ -222,6 +222,29 @@ export default function Negotiations(): JSX.Element {
           </button>
         </div>
       </section>
+
+      {(() => {
+        if (groupFilter === 'all') return null;
+        const g = data?.groups.find((x) => x.group === groupFilter);
+        if (!g || (!g.description && !g.recent_victims)) return null;
+        return (
+          <section className="rounded-lg border border-brand-500/30 bg-brand-500/5 p-4 mb-4">
+            <div className="flex items-center justify-between gap-3 mb-1">
+              <span className="font-mono text-xs uppercase tracking-wider text-brand-700 dark:text-brand-300">
+                {g.group} · MyThreatIntel
+              </span>
+              {g.recent_victims ? (
+                <span className="font-mono text-[11px] text-slate-600 dark:text-slate-400">
+                  {g.recent_victims} recent victim claim{g.recent_victims === 1 ? '' : 's'}
+                </span>
+              ) : null}
+            </div>
+            {g.description ? (
+              <p className="text-[13px] leading-relaxed text-slate-700 dark:text-slate-300">{g.description}</p>
+            ) : null}
+          </section>
+        );
+      })()}
 
       <DataState
         loading={loading}

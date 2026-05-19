@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { fetchRlUpstream } from './ransomwarelive';
+import { fetchMtiSource, type MtiGroup, type MtiRansomwareClaim } from '../lib/mythreatintel-api';
 
 /**
  * Ransomware negotiations aggregator.
@@ -21,7 +22,7 @@ import { fetchRlUpstream } from './ransomwarelive';
  * per-chat transcript endpoint below reads that second source on demand.
  */
 
-export const NEGOTIATIONS_CACHE_KEY = 'https://negotiations-agg-cache.internal/v1';
+export const NEGOTIATIONS_CACHE_KEY = 'https://negotiations-agg-cache.internal/v2-mti';
 const CACHE_TTL_SECONDS = 60 * 60;
 const TRANSCRIPT_CACHE_TTL = 24 * 60 * 60;
 const MAX_GROUPS = 40; // directory currently ~26; bound the fan-out regardless
@@ -44,7 +45,7 @@ interface NegotiationRow {
 export interface NegotiationsResponse {
   generated_at: string;
   source: string;
-  groups: { group: string; chats: number }[];
+  groups: { group: string; chats: number; description?: string; recent_victims?: number }[];
   negotiations: NegotiationRow[];
   totals: { groups: number; chats: number; settled: number; avg_discount: number | null };
   warnings: string[];
@@ -83,7 +84,7 @@ export async function buildNegotiations(env: Env): Promise<NegotiationsResponse>
 
   const groups = groupsRaw
     .filter(rec)
-    .map((g) => ({ group: String(g.group ?? ''), chats: Number(g.chats ?? 0) }))
+    .map((g): NegotiationsResponse['groups'][number] => ({ group: String(g.group ?? ''), chats: Number(g.chats ?? 0) }))
     .filter((g) => g.group)
     .sort((a, b) => b.chats - a.chats)
     .slice(0, MAX_GROUPS);
@@ -100,38 +101,45 @@ export async function buildNegotiations(env: Env): Promise<NegotiationsResponse>
     };
   }
 
-  const perGroup = await Promise.all(
-    groups.map(async (g) => {
-      const data = await fetchRlUpstream(env, `/negotiations/${encodeURIComponent(g.group)}`);
-      const chats =
-        rec(data) && Array.isArray((data as { chats?: unknown }).chats)
-          ? ((data as { chats: unknown[] }).chats as unknown[])
-          : null;
-      if (!chats) {
-        warnings.push(`per-group fetch failed: ${g.group}`);
-        return [] as NegotiationRow[];
-      }
-      return chats.filter(rec).map((c): NegotiationRow => {
-        const id = String(c.id ?? '');
-        const initial = parseMoney(c.initialransom);
-        const negotiated = parseMoney(c.negotiatedransom);
-        const discount =
-          initial && initial > 0 && negotiated !== undefined
-            ? Math.max(0, Math.min(100, Math.round((1 - negotiated / initial) * 100)))
-            : undefined;
-        return {
-          group: g.group,
-          chat_id: id,
-          date: idToDate(id),
-          message_count: Number(c.message_count ?? 0),
-          initial_ransom: initial,
-          negotiated_ransom: negotiated,
-          paid: c.paid === true,
-          discount_pct: discount,
-        };
-      });
-    })
-  );
+  const [perGroup, mtiGroupsRes, mtiVictimsRes] = await Promise.all([
+    Promise.all(
+      groups.map(async (g) => {
+        const data = await fetchRlUpstream(env, `/negotiations/${encodeURIComponent(g.group)}`);
+        const chats =
+          rec(data) && Array.isArray((data as { chats?: unknown }).chats)
+            ? ((data as { chats: unknown[] }).chats as unknown[])
+            : null;
+        if (!chats) {
+          warnings.push(`per-group fetch failed: ${g.group}`);
+          return [] as NegotiationRow[];
+        }
+        return chats.filter(rec).map((c): NegotiationRow => {
+          const id = String(c.id ?? '');
+          const initial = parseMoney(c.initialransom);
+          const negotiated = parseMoney(c.negotiatedransom);
+          const discount =
+            initial && initial > 0 && negotiated !== undefined
+              ? Math.max(0, Math.min(100, Math.round((1 - negotiated / initial) * 100)))
+              : undefined;
+          return {
+            group: g.group,
+            chat_id: id,
+            date: idToDate(id),
+            message_count: Number(c.message_count ?? 0),
+            initial_ransom: initial,
+            negotiated_ransom: negotiated,
+            paid: c.paid === true,
+            discount_pct: discount,
+          };
+        });
+      })
+    ),
+    // MyThreatIntel: actor profiles (descriptions) + victim claims for a
+    // per-group recent-victim count. Additive context only — never alters
+    // the RL negotiation-economics rows.
+    fetchMtiSource(env, 'groups', { limit: 500 }).catch(() => null),
+    fetchMtiSource(env, 'ransomware', { limit: 500 }).catch(() => null),
+  ]);
 
   const negotiations = perGroup.flat().sort((a, b) => (b.date ?? '').localeCompare(a.date ?? ''));
   const settled = negotiations.filter((n) => n.paid).length;
@@ -139,6 +147,31 @@ export async function buildNegotiations(env: Env): Promise<NegotiationsResponse>
   const avg_discount = withDisc.length
     ? Math.round(withDisc.reduce((s, n) => s + (n.discount_pct ?? 0), 0) / withDisc.length)
     : null;
+
+  // MyThreatIntel per-group augmentation: actor profile + recent victim
+  // count. Keyed by lowercased group name to match RL group slugs.
+  const mtiDesc = new Map<string, string>();
+  if (mtiGroupsRes?.ok) {
+    for (const raw of mtiGroupsRes.items) {
+      const e = raw as MtiGroup;
+      const id = e.group_id?.trim().toLowerCase();
+      if (id && e.description && !mtiDesc.has(id)) mtiDesc.set(id, e.description.trim());
+    }
+  }
+  const mtiVictimCount = new Map<string, number>();
+  if (mtiVictimsRes?.ok) {
+    for (const raw of mtiVictimsRes.items) {
+      const g = (raw as MtiRansomwareClaim).gang?.trim().toLowerCase();
+      if (g) mtiVictimCount.set(g, (mtiVictimCount.get(g) ?? 0) + 1);
+    }
+  }
+  for (const g of groups) {
+    const key = g.group.toLowerCase();
+    const desc = mtiDesc.get(key);
+    if (desc) g.description = desc.length > 400 ? desc.slice(0, 397) + '…' : desc;
+    const vc = mtiVictimCount.get(key);
+    if (vc) g.recent_victims = vc;
+  }
 
   return {
     generated_at: new Date().toISOString(),
