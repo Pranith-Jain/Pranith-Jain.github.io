@@ -107,21 +107,29 @@ export interface MtiLeak {
   _source?: string;
 }
 
+/** Live shape: the documented actor/origin/motivation fields don't exist. */
 export interface MtiGroup {
-  actor?: string;
-  origin?: string;
-  motivation?: string;
-  target_sectors?: string[];
+  group_id?: string;
+  description?: string;
   type?: string;
   _source?: string;
 }
 
-export interface MtiRansomwareOp {
-  group?: string;
-  onion?: string;
-  status?: string;
-  page_title?: string;
-  last_visit?: string;
+/**
+ * Live shape of the `ransomware` source — victim claims, NOT an operator
+ * directory (the documented onion/status/page_title fields don't exist).
+ * The upstream `events` source is empty; this carries the CTI victim data.
+ */
+export interface MtiRansomwareClaim {
+  victim?: string;
+  gang?: string;
+  date?: string;
+  country?: string;
+  website?: string;
+  description?: string;
+  message?: string;
+  type?: string;
+  ingested_at?: string;
   _source?: string;
 }
 
@@ -160,7 +168,7 @@ export type MtiRecord =
   | MtiCveRecord
   | MtiLeak
   | MtiGroup
-  | MtiRansomwareOp
+  | MtiRansomwareClaim
   | MtiMarket
   | MtiOnion
   | MtiEvent;

@@ -13,15 +13,17 @@ import { StatBar } from '../../components/StatBar';
  * StatBar, card/pill primitives) — no new chart deps.
  */
 
-const SOURCES = ['iocs', 'malware', 'cve', 'ransomware', 'events', 'leaks', 'groups', 'markets', 'onions'] as const;
+// NOTE: the upstream `events` source is permanently empty — MyThreatIntel
+// serves CTI victim/event data via `ransomware`, so that tab IS the CTI
+// events view. `events` is intentionally omitted to avoid a dead tab.
+const SOURCES = ['iocs', 'malware', 'cve', 'ransomware', 'leaks', 'groups', 'markets', 'onions'] as const;
 type Source = (typeof SOURCES)[number];
 
 const SOURCE_LABEL: Record<Source, string> = {
   iocs: 'Indicators (IOC)',
   malware: 'Malware samples',
   cve: 'Vulnerabilities',
-  ransomware: 'Ransomware ops',
-  events: 'CTI events',
+  ransomware: 'CTI events (victims)',
   leaks: 'Leaks',
   groups: 'Threat groups',
   markets: 'Darknet markets',
@@ -55,16 +57,11 @@ const COLUMNS: Record<Source, { key: string; label: string }[]> = {
     { key: 'description', label: 'Description' },
   ],
   ransomware: [
-    { key: 'group', label: 'Group' },
-    { key: 'status', label: 'Status' },
-    { key: 'page_title', label: 'Page title' },
-    { key: 'last_visit', label: 'Last visit' },
-    { key: 'onion', label: 'Onion' },
-  ],
-  events: [
     { key: 'date', label: 'Date' },
     { key: 'victim', label: 'Victim' },
     { key: 'gang', label: 'Gang' },
+    { key: 'country', label: 'Country' },
+    { key: 'website', label: 'Website' },
     { key: 'description', label: 'Description' },
   ],
   leaks: [
@@ -74,10 +71,8 @@ const COLUMNS: Record<Source, { key: string; label: string }[]> = {
     { key: 'url', label: 'URL' },
   ],
   groups: [
-    { key: 'actor', label: 'Actor' },
-    { key: 'origin', label: 'Origin' },
-    { key: 'motivation', label: 'Motivation' },
-    { key: 'target_sectors', label: 'Target sectors' },
+    { key: 'group_id', label: 'Group' },
+    { key: 'description', label: 'Profile' },
   ],
   markets: [
     { key: 'market', label: 'Market' },
@@ -94,15 +89,14 @@ const COLUMNS: Record<Source, { key: string; label: string }[]> = {
   ],
 };
 
-/** Field the distribution bar groups by, per source. */
-const DIST_KEY: Record<Source, string> = {
+/** Field the distribution bar groups by (null = no meaningful categorical). */
+const DIST_KEY: Record<Source, string | null> = {
   iocs: 'type',
   malware: 'type',
   cve: 'severity',
-  ransomware: 'status',
-  events: 'gang',
+  ransomware: 'gang',
   leaks: 'type',
-  groups: 'origin',
+  groups: null,
   markets: 'status',
   onions: 'status',
 };
@@ -157,8 +151,9 @@ function CopyBtn({ value }: { value: string }): JSX.Element {
   );
 }
 
-function DistBar({ rows, distKey }: { rows: MtiRow[]; distKey: string }): JSX.Element | null {
+function DistBar({ rows, distKey }: { rows: MtiRow[]; distKey: string | null }): JSX.Element | null {
   const buckets = useMemo(() => {
+    if (!distKey) return [] as [string, number][];
     const m = new Map<string, number>();
     for (const r of rows) {
       const raw = r[distKey];

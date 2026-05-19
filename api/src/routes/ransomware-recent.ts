@@ -3,7 +3,7 @@ import type { Env } from '../env';
 import { classifySector, type Sector } from '../lib/sector-classifier';
 import { fetchMythreatintelRansomwareVictims } from '../lib/mythreatintel-parser';
 import { fetchAFRansomwareVictims } from '../lib/andreafortuna-feeds';
-import { fetchMtiSource, type MtiEvent } from '../lib/mythreatintel-api';
+import { fetchMtiSource, type MtiRansomwareClaim } from '../lib/mythreatintel-api';
 
 /**
  * Recent ransomware leak-site posts via Ransomlook.io's free `/api/recent`
@@ -267,25 +267,28 @@ async function fetchRansomwareLiveVictims(): Promise<RansomwareVictim[]> {
 }
 
 /**
- * MyThreatIntel REST API `events` source — CTI victim claims
- * (`{ date, victim, gang, description }`). Higher-fidelity than the
- * t.me/s/mythreatintel scraper (same `origin: 'mti'`); when the token is
- * unset or the upstream is unhealthy this returns [] and the scraper list
- * remains the 'mti' fallback. The merge dedupes by (group|victim|day) so
- * the two never double-count.
+ * MyThreatIntel REST API `ransomware` source — ransomware victim claims
+ * (`{ victim, gang, date, country, website, description }`). NOTE: the
+ * upstream `events` source is empty; victim/CTI-event data is served by
+ * `ransomware`. Higher-fidelity than the t.me/s/mythreatintel scraper
+ * (same `origin: 'mti'`); when the token is unset or the upstream is
+ * unhealthy this returns [] and the scraper list remains the 'mti'
+ * fallback. The merge dedupes by (group|victim|day) so they never
+ * double-count.
  */
 async function fetchMtiApiVictims(env: Env): Promise<RansomwareVictim[]> {
-  const res = await fetchMtiSource(env, 'events', { limit: MAX_ITEMS }).catch(() => null);
+  const res = await fetchMtiSource(env, 'ransomware', { limit: MAX_ITEMS }).catch(() => null);
   if (!res || !res.ok) return [];
   const out: RansomwareVictim[] = [];
   for (const raw of res.items) {
-    const e = raw as MtiEvent;
+    const e = raw as MtiRansomwareClaim;
     const victim = e.victim?.trim();
     const gang = e.gang?.trim();
     if (!victim || !gang || !e.date) continue;
     const discovered = toIsoDate(e.date);
     if (Number.isNaN(Date.parse(discovered))) continue;
     const description = e.description?.trim() || undefined;
+    const country = e.country?.trim();
     out.push({
       victim,
       group: gang.toLowerCase(),
@@ -294,6 +297,7 @@ async function fetchMtiApiVictims(env: Env): Promise<RansomwareVictim[]> {
       source_url: 'https://mythreatintel.com/',
       sector: classifySector(victim, description),
       origin: 'mti' as const,
+      ...(country && country !== 'N/D' ? { country } : {}),
     });
     if (out.length >= MAX_ITEMS) break;
   }

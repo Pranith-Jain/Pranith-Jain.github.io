@@ -16,7 +16,7 @@ import { fetchIocCorrelation } from './ioc-correlation';
  * Reference: https://docs.oasis-open.org/cti/stix/v2.1/cs02/stix-v2.1-cs02.html
  */
 
-export const IOC_CORRELATION_STIX_CACHE_KEY = 'https://ioc-correlation-stix-cache.internal/v1';
+export const IOC_CORRELATION_STIX_CACHE_KEY = 'https://ioc-correlation-stix-cache.internal/v2-mti-hashes';
 const CACHE_TTL_SECONDS = 3600;
 
 const PLATFORM_IDENTITY_ID = 'identity--7f3d2a8a-1c8f-4e9b-a4c3-pranithjain';
@@ -145,8 +145,8 @@ function confidenceFromCount(n: number): number {
   return 25;
 }
 
-export async function fetchIocCorrelationStix(): Promise<StixBundle> {
-  const data = await fetchIocCorrelation();
+export async function fetchIocCorrelationStix(env?: Env): Promise<StixBundle> {
+  const data = await fetchIocCorrelation(env);
   const now = new Date().toISOString();
 
   const identity: StixIdentity = {
@@ -228,7 +228,7 @@ export async function iocCorrelationStixHandler(c: Context<{ Bindings: Env }>): 
   const cached = await cache.match(cacheReq);
   if (cached) return cached;
 
-  const bundle = await fetchIocCorrelationStix();
+  const bundle = await fetchIocCorrelationStix(c.env);
   const response = new Response(JSON.stringify(bundle, null, 2), {
     status: 200,
     headers: {
