@@ -48,8 +48,18 @@ function median(arr: number[]): number {
   return sorted.length % 2 ? (sorted[mid] ?? 0) : ((sorted[mid - 1] ?? 0) + (sorted[mid] ?? 0)) / 2;
 }
 
+/**
+ * Percentage change vs the prior window.
+ *
+ * Returns `NaN` to mean "no comparable baseline" — when the prior 7-day
+ * median is 0 (a quiet stretch, or a source like MyThreatIntel that only
+ * entered the briefing history part-way through the window). The old code
+ * reported a flat `+100%` here, which read as a real doubling when it was
+ * really just "new data, nothing to compare against" — misleading on the
+ * landing pulse. The badge renders this case as "new" instead.
+ */
 function pctChange(current: number, prior: number): number {
-  if (prior === 0) return current === 0 ? 0 : 100;
+  if (prior === 0) return current === 0 ? 0 : NaN;
   return ((current - prior) / prior) * 100;
 }
 
@@ -85,6 +95,18 @@ function Sparkline({ values, color }: { values: number[]; color: string }): JSX.
 }
 
 function TrendBadge({ change }: { change: number }): JSX.Element {
+  // No comparable prior baseline → "new", not a fake +100%.
+  if (!Number.isFinite(change)) {
+    return (
+      <span
+        className="inline-flex items-center gap-0.5 text-[11px] font-mono tabular-nums text-slate-500 dark:text-slate-500"
+        title="No comparable prior 7-day baseline"
+      >
+        <Minus size={11} aria-hidden="true" />
+        <span>new</span>
+      </span>
+    );
+  }
   const rounded = Math.round(change);
   const Icon = rounded > 3 ? TrendingUp : rounded < -3 ? TrendingDown : Minus;
   const cls =
@@ -94,12 +116,20 @@ function TrendBadge({ change }: { change: number }): JSX.Element {
         ? 'text-emerald-600 dark:text-emerald-400'
         : 'text-slate-500 dark:text-slate-500';
   const sign = rounded > 0 ? '+' : '';
+  // Clamp the *display* so a one-off source step-change (e.g. MyThreatIntel
+  // onboarding) reads as ">999%" instead of a meaningless five-digit number.
+  // Icon/colour still key off the true rounded value.
+  const capped = Math.abs(rounded) > 999;
+  const shown = capped ? 999 : Math.abs(rounded);
   return (
-    <span className={`inline-flex items-center gap-0.5 text-[11px] font-mono tabular-nums ${cls}`}>
+    <span
+      className={`inline-flex items-center gap-0.5 text-[11px] font-mono tabular-nums ${cls}`}
+      title={`${sign}${rounded}% vs prior 7-day median`}
+    >
       <Icon size={11} aria-hidden="true" />
       <span>
-        {sign}
-        {rounded}%
+        {capped ? (rounded < 0 ? '<-' : '>+') : sign}
+        {shown}%
       </span>
     </span>
   );
