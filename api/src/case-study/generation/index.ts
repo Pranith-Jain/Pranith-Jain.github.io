@@ -33,23 +33,24 @@ function tagsFor(c: Candidate): string[] {
   if (ev?.family) t.push(slugify(String(ev.family)));
   if (ev?.group) t.push(slugify(String(ev.group)));
   if (ev?.mitre_techniques) {
-    for (const tech of ev.mitre_techniques) {
+    for (const tech of ev.mitre_techniques.slice(0, 4)) {
       if (typeof tech === 'string') t.push(slugify(tech));
     }
   }
+  // Vendors from briefing findings make good tags; CWEs do NOT — a weekly
+  // briefing has hundreds, which dumped an unreadable `cwe-94cwe-20…` blob
+  // on the post. Take a few distinct vendors only.
   if (ev?.sections) {
+    const vendors = new Set<string>();
     for (const section of ev.sections) {
       for (const finding of section.findings ?? []) {
-        if (finding.vendor) t.push(slugify(String(finding.vendor)));
-        if (finding.cwes) {
-          for (const cwe of finding.cwes) {
-            if (typeof cwe === 'string') t.push(cwe.toLowerCase());
-          }
-        }
+        if (finding.vendor && vendors.size < 6) vendors.add(slugify(String(finding.vendor)));
       }
     }
+    t.push(...vendors);
   }
-  return Array.from(new Set(t)).filter(Boolean);
+  // Hard cap: tags are a compact label row, never a data dump.
+  return Array.from(new Set(t)).filter(Boolean).slice(0, 12);
 }
 
 /** Extract source URLs from candidate evidence. */

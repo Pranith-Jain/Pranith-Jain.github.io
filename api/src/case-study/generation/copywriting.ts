@@ -32,7 +32,10 @@ export const COPYWRITING_RULES =
   `- Em-dashes and semicolons. Use a period or a comma.\n` +
   `- Wordy: "in order to" -> "to", "due to the fact" -> "because".\n` +
   `- Raw URLs in prose. Never paste links into sentences. References go only where the platform format says (a References list, or omitted).\n` +
-  `- Filler advice with no specifics ("keep software updated", "train your employees"). If you give a recommendation it must be concrete and tied to the facts.\n\n` +
+  `- Filler advice with no specifics ("keep software updated", "train your employees"). If you give a recommendation it must be concrete and tied to the facts.\n` +
+  `- Generic restatement when the data has specifics: "many of them", "several others", "a number of vulnerabilities", or describing indicators as "suspicious network activity / unusual system behavior". If the facts list real CVEs, vendors, IOCs, or numbers, NAME them.\n` +
+  `- Reporting only counts ("30 malicious domains") when the actual values are supplied. Show a representative sample of the real indicators, THEN the total.\n` +
+  `- Repeating the same recommendation or sentence across sections (e.g. "patch immediately" three times). Every section must advance NEW information.\n\n` +
   `#ENGAGEMENT BAIT STRATEGIES\n\n` +
   `Engagement comes from the analysis being sharp, not from gimmicks. Use, grounded in the actual data:\n` +
   `- A pattern or contrast the reader hadn't connected (the real insight).\n` +
@@ -50,6 +53,8 @@ export const QUALITY_CHECKS =
   `- No AI slop, no em-dashes, no semicolons.\n` +
   `- No raw URLs anywhere in the prose body.\n` +
   `- Every recommendation is concrete and tied to the facts.\n` +
+  `- Specifics over generics: real CVE IDs / vendors / IOC values from the data are named, not summarized as "many" or described vaguely.\n` +
+  `- No section repeats another section's recommendation or sentence.\n` +
   `- Contractions used. Rhythm varied. A clear point of view.\n` +
   `- Content is COMPLETE and publish-ready, not an outline.\n\n` +
   `Systematically replace any em-dash with a period to start a new sentence, or a comma to continue the sentence.`;

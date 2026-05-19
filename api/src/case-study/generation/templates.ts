@@ -188,9 +188,114 @@ function clampFacts(facts: Record<string, unknown>, budget = FACTS_BUDGET): stri
   return `${s.slice(0, budget)}…[truncated]`;
 }
 
+/* ── Briefing digest ─────────────────────────────────────────────────────
+ * A weekly briefing's evidence is hundreds of findings + IOC arrays. Feeding
+ * truncated raw JSON made the model write vague filler ("many of them",
+ * "suspicious network activity", IOC counts instead of indicators). Instead
+ * we hand it a compact, high-signal digest: the strongest CVEs WITH
+ * vendor/product/CVSS/CWE, the KEV entries, and a REAL sample of each IOC
+ * type. Specific input → specific output.
+ */
+function asArr(v: unknown): unknown[] {
+  return Array.isArray(v) ? v : [];
+}
+function iocSample(arr: unknown, n = 10): { sample: string[]; total: number } {
+  const a = asArr(arr).map((x) =>
+    typeof x === 'string' ? x : x && typeof x === 'object' ? String((x as { value?: unknown }).value ?? '') : String(x)
+  );
+  const clean = a.filter(Boolean);
+  return { sample: clean.slice(0, n), total: clean.length };
+}
+
+function briefingDigest(facts: Record<string, unknown>): string {
+  const f = facts as {
+    date_range?: string;
+    executive_summary?: string;
+    stats?: Record<string, number>;
+    sections?: Array<{
+      id?: string;
+      title?: string;
+      findings?: Array<{
+        id?: string;
+        title?: string;
+        description?: string;
+        severity?: string;
+        cvss?: number;
+        cwes?: string[];
+        vendor?: string;
+        product?: string;
+      }>;
+    }>;
+    iocs?: Record<string, unknown>;
+    mitre_techniques?: string[];
+  };
+
+  const findings = asArr(f.sections).flatMap((s) => asArr((s as { findings?: unknown }).findings)) as Array<
+    Record<string, unknown>
+  >;
+  const fmtFinding = (x: Record<string, unknown>) => {
+    const id = String(x.id ?? '').trim();
+    const vp = [x.vendor, x.product].filter(Boolean).join(' ').trim();
+    const cvss = typeof x.cvss === 'number' ? `CVSS ${x.cvss}` : '';
+    const cwe = asArr(x.cwes).slice(0, 2).join('/');
+    const sev = String(x.severity ?? '').trim();
+    const desc = String(x.description ?? x.title ?? '')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .slice(0, 160);
+    return `- ${id} | ${vp || 'unspecified vendor'} | ${cvss} | ${cwe} | ${sev} — ${desc}`;
+  };
+
+  const ranked = [...findings].sort((a, b) => (Number(b.cvss) || 0) - (Number(a.cvss) || 0));
+  const topCves = ranked.slice(0, 18).map(fmtFinding).join('\n');
+
+  const kevFindings = asArr(f.sections)
+    .filter((s) => /kev|exploited/i.test(`${(s as { id?: string }).id ?? ''} ${(s as { title?: string }).title ?? ''}`))
+    .flatMap((s) => asArr((s as { findings?: unknown }).findings) as Array<Record<string, unknown>>)
+    .slice(0, 12)
+    .map(fmtFinding)
+    .join('\n');
+
+  const iocs = (f.iocs ?? {}) as Record<string, unknown>;
+  const iocLines = (['domains', 'ipv4s', 'urls', 'hashes'] as const)
+    .map((k) => {
+      const { sample, total } = iocSample(iocs[k]);
+      return total ? `${k} (${total} total) sample: ${sample.join(', ')}` : '';
+    })
+    .filter(Boolean)
+    .join('\n');
+
+  const stats = f.stats ?? {};
+  const statLine = Object.entries(stats)
+    .map(([k, v]) => `${k}=${v}`)
+    .join(' · ');
+  const mitre = asArr(f.mitre_techniques).slice(0, 14).join(', ');
+
+  return [
+    `WINDOW: ${f.date_range ?? 'n/a'}`,
+    `STATS: ${statLine}`,
+    f.executive_summary ? `EXECUTIVE SUMMARY: ${String(f.executive_summary).slice(0, 900)}` : '',
+    topCves ? `TOP CVEs (by CVSS — name these specifically):\n${topCves}` : '',
+    kevFindings ? `CISA KEV ENTRIES (actively exploited — call these out):\n${kevFindings}` : '',
+    iocLines ? `IOC SAMPLES (use these REAL indicators, never invent or just give counts):\n${iocLines}` : '',
+    mitre ? `MITRE ATT&CK techniques observed: ${mitre}` : '',
+  ]
+    .filter(Boolean)
+    .join('\n\n');
+}
+
+const BRIEFING_GUIDANCE =
+  `\n\nBRIEFING-SPECIFIC REQUIREMENTS (this is a weekly threat briefing):\n` +
+  `- Name specific CVEs with their vendor/product and CVSS — e.g. "CVE-2026-42607 in Grav (CVSS 9.1)". Never write "many of them" or "several others" when the data lists them.\n` +
+  `- The IOC section MUST list a representative sample of the ACTUAL indicators from IOC SAMPLES above (real domains/IPs/hashes), then give totals. Never describe IOCs generically ("suspicious network activity", "unusual system behavior") and never give only counts.\n` +
+  `- Call out the CISA KEV entries explicitly by ID and what they affect — those are the priority.\n` +
+  `- Each section must add NEW information. Do not repeat "patch immediately" / the same recommendation across sections. Detection & defensive guidance must be concrete (specific products, KEV due-date framing, what to hunt for).\n` +
+  `- Lead the hook with the single sharpest number or pattern in the data, not "You're facing a critical threat landscape".`;
+
 export function buildPrompt(input: BuildPromptInput): BuiltPrompt {
   const outline = OUTLINES[input.type].join('\n');
-  const factsBlock = clampFacts(input.facts);
+  const factsBlock = input.type === 'briefing' ? briefingDigest(input.facts) : clampFacts(input.facts);
+  const typeGuidance = input.type === 'briefing' ? BRIEFING_GUIDANCE : '';
 
   const sources = (input.sources ?? []).slice(0, 25);
   const sourcesBlock =
@@ -208,7 +313,8 @@ export function buildPrompt(input: BuildPromptInput): BuiltPrompt {
     `Apply your domain knowledge to elaborate on thin sections. ` +
     `If after elaboration a section still has nothing real to say, omit it. ` +
     `End with a bold closing paragraph after ## References. ` +
-    `Never include raw JSON or structured data blocks in the output.`;
+    `Never include raw JSON or structured data blocks in the output.` +
+    typeGuidance;
   return { system: SYSTEM_PROMPT, user };
 }
 

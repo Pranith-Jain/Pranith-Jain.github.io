@@ -42,9 +42,8 @@ describe('buildPrompt', () => {
     expect(user).toContain('## Defensive recommendations');
   });
 
-  it('clamps an oversized evidence blob so the prompt fits the context window', () => {
-    // Simulates a briefing candidate whose evidence embeds full article
-    // bodies — the real cause of the 180K-token / error-5021 publish_failed.
+  it('clamps an oversized non-briefing evidence blob to fit the context window', () => {
+    // The 180K-token / error-5021 publish_failed cause: unbounded evidence.
     const huge = {
       summary: 'x'.repeat(50),
       sections: Array.from({ length: 200 }, (_, i) => ({
@@ -52,13 +51,66 @@ describe('buildPrompt', () => {
         body: 'lorem ipsum '.repeat(2000),
       })),
     };
-    const { user } = buildPrompt({ type: 'briefing', title: 'Weekly briefing', facts: huge });
-    // Raw JSON.stringify(huge) is ~5M chars. The prompt MUST be bounded
-    // well under even the smallest model window (24k tok ≈ ~96k chars).
+    const { user } = buildPrompt({ type: 'intel', title: 'Big intel dump', facts: huge });
+    // Raw JSON.stringify(huge) is ~5M chars; must be bounded well under
+    // even the smallest model window (24k tok ≈ ~96k chars).
     expect(user.length).toBeLessThan(40_000);
     expect(user).toMatch(/truncated/i);
-    // Still usable: title + outline survive the clamp.
-    expect(user).toContain('Weekly briefing');
+    expect(user).toContain('Big intel dump');
     expect(user).toContain('## ');
+  });
+
+  it('briefing uses a compact high-signal digest with real specifics, not raw JSON', () => {
+    const facts = {
+      date_range: '2026-05-11 – 2026-05-17',
+      executive_summary: 'Heavy week.',
+      stats: { findings: 879, kevs: 2, critical: 145 },
+      sections: [
+        {
+          id: 'kev',
+          title: 'CISA KEV additions',
+          findings: [
+            {
+              id: 'CVE-2026-9999',
+              vendor: 'Cisco',
+              product: 'IOS XE',
+              severity: 'critical',
+              cvss: 9.8,
+              cwes: ['CWE-78'],
+              description: 'Command injection in the web UI.',
+            },
+          ],
+        },
+        {
+          id: 'critical',
+          title: 'Critical CVEs',
+          findings: [
+            {
+              id: 'CVE-2026-42607',
+              vendor: 'Grav',
+              product: 'CMS',
+              severity: 'critical',
+              cvss: 9.1,
+              cwes: ['CWE-94'],
+              description: 'Template injection RCE.',
+            },
+          ],
+        },
+      ],
+      iocs: { domains: ['evil-briefing-sample.test', 'b.test'], ipv4s: ['203.0.113.9'], hashes: [], urls: [] },
+      mitre_techniques: ['T1059', 'T1190'],
+    };
+    const { user } = buildPrompt({ type: 'briefing', title: 'Weekly Threat Briefing', facts });
+    expect(user.length).toBeLessThan(20_000);
+    // Digest, not raw JSON dump.
+    expect(user).not.toContain('"executive_summary":');
+    // Real specifics the model must use.
+    expect(user).toContain('CVE-2026-9999');
+    expect(user).toContain('CVE-2026-42607');
+    expect(user).toContain('Cisco');
+    expect(user).toContain('CVSS 9.8');
+    expect(user).toContain('evil-briefing-sample.test'); // real IOC, not a count
+    expect(user).toMatch(/KEV/i);
+    expect(user).toContain('BRIEFING-SPECIFIC REQUIREMENTS');
   });
 });
