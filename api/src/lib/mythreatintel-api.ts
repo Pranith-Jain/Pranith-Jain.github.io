@@ -61,6 +61,16 @@ export const MTI_TTL: Record<MtiSource, number> = {
   onions: 6 * 60 * 60,
 };
 
+/**
+ * Canonical upstream fetch depth. Every consumer fetches at this single
+ * depth and slices locally, so the per-source edge-cache entry is shared
+ * platform-wide — one upstream call per source per TTL instead of one per
+ * distinct caller `limit`. (Was: ransomware fetched 3× and iocs 2× per
+ * window because the cache key varied by limit.) 500 = the proxy's max, so
+ * external `?limit=` callers stay correct while reusing the same entry.
+ */
+export const MTI_CANONICAL_LIMIT = 500;
+
 // ─── Documented per-source record shapes (all fields optional) ─────────────
 
 export interface MtiIoc {
@@ -214,14 +224,20 @@ export async function fetchMtiSource(env: Env, source: MtiSource, query: MtiQuer
   if (!token) return EMPTY;
 
   const q = (query.q ?? '').trim();
-  const limit = Math.min(500, Math.max(1, Math.trunc(query.limit ?? 100)));
+  // What this caller wants back vs. what we actually fetch upstream. We
+  // always fetch (and cache) at the canonical depth and slice locally, so
+  // every caller — regardless of its requested limit — reuses one shared
+  // cache entry / one upstream call per source+q per TTL.
+  const want = Math.min(MTI_CANONICAL_LIMIT, Math.max(1, Math.trunc(query.limit ?? 100)));
+  const slice = (r: MtiResult): MtiResult =>
+    r.items.length <= want ? r : { ...r, items: r.items.slice(0, want), count: want };
 
   const cache = (caches as unknown as { default: Cache }).default;
-  const cacheReq = new Request(mtiCacheKey(source, q, limit));
+  const cacheReq = new Request(mtiCacheKey(source, q, MTI_CANONICAL_LIMIT));
   const cached = await cache.match(cacheReq);
   if (cached) {
     try {
-      return (await cached.json()) as MtiResult;
+      return slice((await cached.json()) as MtiResult);
     } catch {
       /* fall through to a fresh fetch */
     }
@@ -230,7 +246,7 @@ export async function fetchMtiSource(env: Env, source: MtiSource, query: MtiQuer
   const url = new URL(API_BASE);
   url.searchParams.set('source', source);
   if (q) url.searchParams.set('q', q);
-  url.searchParams.set('limit', String(limit));
+  url.searchParams.set('limit', String(MTI_CANONICAL_LIMIT));
 
   let env_envelope: MtiEnvelope;
   try {
@@ -268,5 +284,6 @@ export async function fetchMtiSource(env: Env, source: MtiSource, query: MtiQuer
     await cache.put(cacheReq, toCache);
   }
 
-  return result;
+  // Cache holds the full canonical payload; this caller gets its slice.
+  return slice(result);
 }
