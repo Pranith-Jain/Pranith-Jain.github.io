@@ -16,6 +16,7 @@ import {
   taxiiObjectsHandler,
   mispManifestHandler,
   mispEventHandler,
+  requireCtiFeedToken,
 } from './routes/cti-feeds';
 import { privacyInspectHandler } from './routes/privacy';
 import { iocFeedSummaryHandler } from './routes/ioc-feeds';
@@ -86,6 +87,12 @@ import { rateLimit } from './lib/ratelimit';
 const app = new Hono<{ Bindings: Env }>();
 
 app.use('/api/v1/*', rateLimit);
+
+// CTI export API (STIX bundle + TAXII 2.1 + MISP feed) is token-gated.
+// Registered before the handlers so every matching path is authenticated.
+app.use('/api/v1/taxii2/*', requireCtiFeedToken);
+app.use('/api/v1/cti/misp/*', requireCtiFeedToken);
+app.use('/api/v1/ioc-correlation/stix.json', requireCtiFeedToken);
 
 app.get('/api/v1/health', (c) => c.json({ ok: true }, 200, { 'Cache-Control': 'public, max-age=60' }));
 app.get('/api/v1/ioc/check', iocCheckHandler);

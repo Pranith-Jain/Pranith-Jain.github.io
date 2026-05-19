@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Copy, Check, ExternalLink, Rss } from 'lucide-react';
+import { ArrowLeft, Copy, Check, Lock, Rss } from 'lucide-react';
 
 /**
- * CTI Feeds / Export — surfaces the machine-readable threat-intel this
- * site *produces* (built in the CTI program): a STIX 2.1 bundle, a
- * read-only TAXII 2.1 server, and a MISP feed of the aggregated abuse.ch
- * + community IOCs. This page makes those endpoints discoverable and
- * documents how to wire them into OpenCTI / MISP / TheHive.
+ * CTI Feeds / Export — the machine-readable threat intel this site
+ * *produces*: a STIX 2.1 bundle, a read-only TAXII 2.1 server, and a MISP
+ * feed of the aggregated abuse.ch + community IOCs. All three are
+ * token-authenticated (CTI_FEED_TOKEN); this page documents the API and
+ * how to wire it into OpenCTI / MISP / TheHive.
  */
 
 const ORIGIN = 'https://pranithjain.qzz.io';
@@ -37,24 +37,15 @@ function Copyable({ value }: { value: string }) {
   );
 }
 
+function Pre({ children }: { children: string }) {
+  return (
+    <pre className="mt-2 text-[12px] font-mono text-slate-500 whitespace-pre-wrap break-all bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded px-3 py-2">
+      {children}
+    </pre>
+  );
+}
+
 export default function CtiFeeds(): JSX.Element {
-  const [count, setCount] = useState<number | null>(null);
-  const [countErr, setCountErr] = useState(false);
-
-  useEffect(() => {
-    let alive = true;
-    fetch(STIX_URL)
-      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
-      .then((b: { objects?: { type?: string }[] }) => {
-        if (!alive) return;
-        setCount((b.objects ?? []).filter((o) => o.type === 'indicator').length);
-      })
-      .catch(() => alive && setCountErr(true));
-    return () => {
-      alive = false;
-    };
-  }, []);
-
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <Link
@@ -65,40 +56,64 @@ export default function CtiFeeds(): JSX.Element {
       </Link>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-4xl font-display font-bold mb-2">CTI Feeds / Export</h1>
+        <h1 className="text-4xl font-display font-bold mb-2">CTI Feeds / Export API</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-4 max-w-2xl leading-relaxed">
           This site doesn’t just read threat intel — it <strong>publishes</strong> it. The aggregated abuse.ch +
           community indicators are available as a standards-compliant STIX&nbsp;2.1 bundle, a read-only TAXII&nbsp;2.1
-          server, and a MISP feed — drop the URLs straight into OpenCTI, MISP, or TheHive.
+          server, and a MISP feed — drop the URLs into OpenCTI, MISP, or TheHive.
         </p>
         <p className="text-[13px] font-mono text-slate-500 mb-8 inline-flex items-center gap-2">
           <Rss size={13} className="text-brand-600 dark:text-brand-400" />
-          {countErr
-            ? 'currently published: (count unavailable — endpoint still live)'
-            : count === null
-              ? 'loading current indicator count…'
-              : `currently publishing ${count} indicators · TLP:CLEAR · refreshed hourly`}
+          TLP:CLEAR · refreshed hourly · <Lock size={12} className="text-amber-500" /> token-authenticated
         </p>
       </div>
 
       <div className="space-y-8">
+        {/* ── Authentication ─────────────────────────────────────────── */}
+        <section className="rounded-lg border border-amber-500/40 bg-amber-500/5 p-4">
+          <h2 className="font-display font-semibold text-lg mb-1 inline-flex items-center gap-2">
+            <Lock size={16} className="text-amber-500" /> Authentication
+          </h2>
+          <p className="text-[13px] text-slate-600 dark:text-slate-400 mb-3">
+            Every export endpoint (STIX, TAXII, MISP) requires a token. Request one by{' '}
+            <Link to="/threatintel/about" className="text-brand-600 dark:text-brand-400 hover:underline">
+              contacting me
+            </Link>
+            . Present it either way — pick whatever your tooling supports:
+          </p>
+          <ul className="text-[13px] text-slate-600 dark:text-slate-400 space-y-2 list-disc pl-5 mb-3">
+            <li>
+              <strong>Bearer</strong> (curl, OpenCTI, taxii2-client):{' '}
+              <code className="font-mono text-[12px]">Authorization: Bearer &lt;token&gt;</code>
+            </li>
+            <li>
+              <strong>HTTP Basic</strong> (cabby, MISP “Add Feed”, OpenTAXII): any username, password =&nbsp;
+              <code className="font-mono text-[12px]">&lt;token&gt;</code>
+            </li>
+          </ul>
+          <p className="text-[12px] text-slate-500">
+            Responses: <code className="font-mono">401</code> with a <code className="font-mono">WWW-Authenticate</code>{' '}
+            header on a missing/invalid token, <code className="font-mono">503</code> if the server has no token
+            configured. Nothing is cached for unauthorized requests.
+          </p>
+        </section>
+
         <section>
           <h2 className="font-display font-semibold text-lg mb-1">STIX 2.1 bundle</h2>
           <p className="text-[13px] text-slate-600 dark:text-slate-400 mb-2">
-            A single GET returns a STIX 2.1 <code className="font-mono">bundle</code> (identity + indicator SDOs with
-            proper patterns &amp; external references). Ideal for a one-shot import or a scheduled pull.
+            A single authenticated GET returns a STIX 2.1 <code className="font-mono">bundle</code> (identity +
+            indicator SDOs with proper patterns &amp; external references). Ideal for a one-shot import or scheduled
+            pull.
           </p>
           <Copyable value={STIX_URL} />
-          <pre className="mt-2 text-[12px] font-mono text-slate-500 whitespace-pre-wrap break-all">
-            {`curl -s ${STIX_URL} | jq '.objects | length'`}
-          </pre>
+          <Pre>{`curl -s -H "Authorization: Bearer $CTI_TOKEN" \\\n  ${STIX_URL} | jq '.objects | length'`}</Pre>
         </section>
 
         <section>
           <h2 className="font-display font-semibold text-lg mb-1">TAXII 2.1 (read-only)</h2>
           <p className="text-[13px] text-slate-600 dark:text-slate-400 mb-2">
             Point any TAXII 2.1 client at the <strong>discovery URL</strong> — it advertises one API root and a single
-            collection of current malicious indicators. No auth.
+            collection of current malicious indicators. Supply the token via Bearer or Basic auth.
           </p>
           <div className="space-y-2">
             <div>
@@ -110,10 +125,12 @@ export default function CtiFeeds(): JSX.Element {
               <Copyable value={TAXII_COLLECTION} />
             </div>
           </div>
+          <Pre>{`curl -s -H "Authorization: Bearer $CTI_TOKEN" \\\n  -H "Accept: application/taxii+json;version=2.1" \\\n  ${TAXII_DISCOVERY}`}</Pre>
           <p className="text-[13px] text-slate-600 dark:text-slate-400 mt-3">
-            <strong>OpenCTI:</strong> add a <em>TAXII 2.1</em> connector with the discovery URL above, no credentials.
+            <strong>OpenCTI:</strong> add a <em>TAXII 2.1</em> connector with the discovery URL and a <em>Bearer</em>{' '}
+            authentication token.
             <br />
-            <strong>TheHive/Cortex &amp; STIX clients:</strong> same discovery URL; media type{' '}
+            <strong>cabby / OpenTAXII clients:</strong> use Basic auth (any user, password = token); media type{' '}
             <code className="font-mono break-all">application/taxii+json;version=2.1</code>.
           </p>
         </section>
@@ -126,9 +143,10 @@ export default function CtiFeeds(): JSX.Element {
           </p>
           <Copyable value={MISP_MANIFEST.replace(/manifest\.json$/, '')} />
           <p className="text-[12px] text-slate-500 mt-2">
-            (MISP appends <code className="font-mono">manifest.json</code> and the event UUID automatically.) Attributes
-            are tagged <code className="font-mono">tlp:clear</code> + <code className="font-mono">type:OSINT</code> with{' '}
-            <code className="font-mono">to_ids</code> set.
+            Set the feed’s <em>Headers</em> to <code className="font-mono">Authorization: Bearer &lt;token&gt;</code>{' '}
+            (or use Basic auth in the feed URL settings). MISP appends <code className="font-mono">manifest.json</code>{' '}
+            and the event UUID automatically. Attributes are tagged <code className="font-mono">tlp:clear</code> +{' '}
+            <code className="font-mono">type:OSINT</code> with <code className="font-mono">to_ids</code> set.
           </p>
         </section>
 
@@ -139,21 +157,13 @@ export default function CtiFeeds(): JSX.Element {
             <li>Edge-cached ~1h; treat freshness accordingly. Confidence is per-source weighted.</li>
             <li>TLP:CLEAR — usable, but verify before blocking in production; OSINT can carry false positives.</li>
             <li>
-              Browse the same data interactively at{' '}
+              Browse the same data interactively (no token needed) at{' '}
               <Link to="/threatintel/ioc-correlation" className="text-brand-600 dark:text-brand-400 hover:underline">
                 IOC Correlation
               </Link>
               .
             </li>
           </ul>
-          <a
-            href={STIX_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 mt-3 text-[12px] font-mono text-brand-600 dark:text-brand-400 hover:underline"
-          >
-            open the live STIX bundle <ExternalLink size={11} />
-          </a>
         </section>
       </div>
     </div>

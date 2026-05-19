@@ -12,9 +12,57 @@
  * lives under /api/v1/ so the API app serves it (clients just point their
  * discovery/feed URL at the full path — TAXII doesn't mandate a root).
  */
-import type { Context } from 'hono';
+import type { Context, MiddlewareHandler } from 'hono';
 import type { Env } from '../env';
 import { fetchIocCorrelationStix } from './ioc-correlation-stix';
+
+/** Constant-time compare (no early-exit timing oracle); length-checked first. */
+function safeEqual(a: string, b: string): boolean {
+  if (a.length !== b.length) return false;
+  let m = 0;
+  for (let i = 0; i < a.length; i += 1) m |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return m === 0;
+}
+
+/**
+ * Auth gate for the CTI export API (STIX bundle, TAXII 2.1, MISP feed).
+ *
+ * Accepts the token two ways so standard CTI tooling works unchanged:
+ *   - `Authorization: Bearer <token>`            (OpenCTI / taxii2-client / curl)
+ *   - `Authorization: Basic base64(user:<token>)` (cabby / MISP "Add feed" /
+ *     OpenTAXII — username is ignored, password is the token)
+ *
+ * Fails closed: if CTI_FEED_TOKEN is unset the export is 503 (not silently
+ * open) — authentication is by design, not opt-in. A 401 carries a
+ * `WWW-Authenticate` header so conformant TAXII clients prompt for creds.
+ */
+export const requireCtiFeedToken: MiddlewareHandler<{ Bindings: Env }> = async (c, next) => {
+  const required = c.env.CTI_FEED_TOKEN;
+  if (!required) {
+    return c.json({ error: 'cti_feed_not_configured', detail: 'CTI_FEED_TOKEN is not set on the server' }, 503, {
+      'cache-control': 'no-store',
+    });
+  }
+  const h = c.req.header('authorization') ?? '';
+  let presented = '';
+  if (/^Bearer\s+/i.test(h)) {
+    presented = h.replace(/^Bearer\s+/i, '').trim();
+  } else if (/^Basic\s+/i.test(h)) {
+    try {
+      const decoded = atob(h.replace(/^Basic\s+/i, '').trim());
+      presented = decoded.slice(decoded.indexOf(':') + 1); // password = token
+    } catch {
+      presented = '';
+    }
+  }
+  if (!presented || !safeEqual(presented, required)) {
+    return c.json({ error: 'unauthorized', detail: 'CTI export requires a valid token' }, 401, {
+      'cache-control': 'no-store',
+      'www-authenticate': 'Bearer realm="cti-feed", charset="UTF-8"',
+    });
+  }
+  await next();
+};
 
 const TAXII_CT = 'application/taxii+json;version=2.1';
 const STIX_CT = 'application/stix+json;version=2.1';
