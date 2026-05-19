@@ -105,6 +105,16 @@ const OG_OVERRIDES: Record<string, OgOverride> = {
     description:
       'Chronological firehose of individual indicators. Each entry carries a reporter handle, source feed, and first-observed timestamp. 10 sources including TweetFeed, SANS ISC, C2IntelFeeds, URLhaus, ThreatFox.',
   },
+  '/threatintel/detections': {
+    title: 'Detections · pranithjain.qzz.io',
+    description:
+      'A curated detection-rule pack evaluated hourly against the unified live-IOC stream. Cross-feed consensus, Cobalt Strike / C2, ransomware and infostealer tagging, and phishing-campaign clustering — each firing rule shown with the indicators that triggered it.',
+  },
+  '/dfir/detection-lab': {
+    title: 'Detection Lab · pranithjain.qzz.io',
+    description:
+      'Write a detection rule in a small JSON DSL and evaluate it in your browser against the live multi-feed IOC stream. Cross-feed consensus, value/context/source predicates, save and export — the same engine that powers /threatintel/detections.',
+  },
   '/threatintel/actor-timeline': {
     title: 'Ransomware actor activity timeline · pranithjain.qzz.io',
     description:
@@ -561,6 +571,7 @@ export default {
             '/api/v1/malware-samples',
             '/api/v1/reddit-feed',
             '/api/v1/x-feed',
+            '/api/v1/detections',
           ];
           const composerTargets = ['/api/v1/snapshot', '/api/v1/ioc-snapshot'];
           async function warm(path: string) {

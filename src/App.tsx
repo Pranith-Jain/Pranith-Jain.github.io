@@ -87,6 +87,7 @@ const Diamond = lazy(() => import('./pages/dfir/Diamond'));
 const Lolbins = lazy(() => import('./pages/dfir/Lolbins'));
 const RulePlayground = lazy(() => import('./pages/dfir/RulePlayground'));
 const YaraManager = lazy(() => import('./pages/dfir/YaraManager'));
+const DetectionLab = lazy(() => import('./pages/dfir/DetectionLab'));
 const EmailDefense = lazy(() => import('./pages/dfir/EmailDefense'));
 const Nhi = lazy(() => import('./pages/dfir/Nhi'));
 const PowershellDeobf = lazy(() => import('./pages/dfir/PowershellDeobf'));
@@ -148,6 +149,7 @@ const IocCorrelationPage = lazy(() => import('./pages/threatintel/IocCorrelation
 const ActorTimelinePage = lazy(() => import('./pages/threatintel/ActorTimeline'));
 const VictimReleaksPage = lazy(() => import('./pages/threatintel/VictimReleaks'));
 const LiveIocsPage = lazy(() => import('./pages/threatintel/LiveIocs'));
+const DetectionsPage = lazy(() => import('./pages/threatintel/Detections'));
 const MyThreatIntelPage = lazy(() => import('./pages/threatintel/MyThreatIntel'));
 const CyberCrimePage = lazy(() => import('./pages/threatintel/CyberCrime'));
 const C2TrackerPage = lazy(() => import('./pages/threatintel/C2Tracker'));
@@ -901,6 +903,16 @@ export function AppContent() {
         }
       />
       <Route
+        path="/threatintel/detections"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <DetectionsPage />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
         path="/threatintel/cyber-crime"
         element={
           <ErrorBoundary>
@@ -1099,6 +1111,16 @@ export function AppContent() {
           <ErrorBoundary>
             <Suspense fallback={<SectionLoader />}>
               <YaraManager />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/dfir/detection-lab"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <DetectionLab />
             </Suspense>
           </ErrorBoundary>
         }
