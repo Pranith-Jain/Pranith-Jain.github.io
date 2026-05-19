@@ -144,7 +144,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
 
     const now = new Date();
     try {
-      const post = await generatePost({ candidate, ai: c.env.AI as never, now });
+      const post = await generatePost({ candidate, ai: c.env.AI as never, now, groqKey: c.env.GROQ_API_KEY });
       await putPost(c.env.CASE_STUDIES, post);
 
       // RSS only needs index-level fields — render straight from the posts
@@ -253,7 +253,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     const now = new Date();
 
     try {
-      const post = await generatePost({ candidate, ai: c.env.AI as never, now });
+      const post = await generatePost({ candidate, ai: c.env.AI as never, now, groqKey: c.env.GROQ_API_KEY });
       await putPost(c.env.CASE_STUDIES, post);
 
       // RSS only needs index-level fields — render straight from the posts

@@ -28,4 +28,8 @@ export interface Env {
   /** ransomware.live PRO API key (set via `wrangler secret put`). Optional —
    *  the /api/v1/rl/* proxy degrades to 503 when unset. */
   RANSOMWARELIVE_API_KEY?: string;
+  /** Groq free-tier API key (set via `wrangler secret put GROQ_API_KEY`).
+   *  Optional — case-study generation uses Groq as the quality primary when
+   *  set, and falls back to Workers AI when unset/unavailable. */
+  GROQ_API_KEY?: string;
 }

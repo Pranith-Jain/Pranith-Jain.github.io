@@ -36,6 +36,7 @@ export interface CaseStudyEnv {
   AI: unknown;
   ABUSECH_AUTH_KEY?: string;
   BRIEFINGS_DB?: D1Database;
+  GROQ_API_KEY?: string;
 }
 
 export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
@@ -110,7 +111,8 @@ export function runPublisherNow(env: CaseStudyEnv, now: Date) {
     markSlotStatus: (cid, status, extras) => markSlotStatus(env.CASE_STUDIES, cid, status, extras),
     getApproved: (k) => getApproved(env.CASE_STUDIES, k),
     unapprove: (k) => unapprove(env.CASE_STUDIES, k),
-    generatePost: (cand, n) => generatePost({ candidate: cand, ai: env.AI as never, now: n }),
+    generatePost: (cand, n) =>
+      generatePost({ candidate: cand, ai: env.AI as never, now: n, groqKey: env.GROQ_API_KEY }),
     putPost: (p) => putPost(env.CASE_STUDIES, p),
     refreshRss: async () => {
       // RSS only needs index-level fields — render straight from the posts

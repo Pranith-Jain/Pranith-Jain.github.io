@@ -120,10 +120,13 @@ export interface GeneratePostDeps {
   candidate: Candidate;
   ai: Ai;
   now: Date;
+  /** Groq free-tier key. When set, used as the quality primary; Workers AI
+   *  is the fallback. Unset → Workers-AI-only (rate-limit-aware). */
+  groqKey?: string;
 }
 
 export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
-  const { candidate, ai, now } = deps;
+  const { candidate, ai, now, groqKey } = deps;
 
   const sources = extractSources(candidate.evidence);
 
@@ -134,7 +137,7 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
     sources,
   });
 
-  const completion = await runCompletion(ai, { system, user });
+  const completion = await runCompletion(ai, { system, user }, { groqKey });
 
   const factsText = JSON.stringify(candidate.evidence);
   let processed = postProcess({ type: candidate.type, raw: completion.text, factsText });
@@ -145,13 +148,17 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
   // non-"warning:") errors are surfaced for repair.
   if (!processed.ok) {
     const critical = processed.errors.filter((e) => !e.startsWith('missing section:') && !e.startsWith('warning:'));
-    const repair = await runCompletion(ai, {
-      system,
-      user:
-        `${user}\n\nYOUR PREVIOUS DRAFT FAILED VALIDATION: ${critical.join('; ')}.\n` +
-        `Rewrite the FULL case study fixing these. Every section MUST start with "## " on its own line. ` +
-        `Only reference facts/CVEs present in the GROUND TRUTH DATA above; mark any historical CVE as context, not a finding.`,
-    });
+    const repair = await runCompletion(
+      ai,
+      {
+        system,
+        user:
+          `${user}\n\nYOUR PREVIOUS DRAFT FAILED VALIDATION: ${critical.join('; ')}.\n` +
+          `Rewrite the FULL case study fixing these. Every section MUST start with "## " on its own line. ` +
+          `Only reference facts/CVEs present in the GROUND TRUTH DATA above; mark any historical CVE as context, not a finding.`,
+      },
+      { groqKey }
+    );
     processed = postProcess({ type: candidate.type, raw: repair.text, factsText });
   }
 
