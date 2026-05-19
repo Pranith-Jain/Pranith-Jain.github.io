@@ -95,6 +95,13 @@ const SECTIONS: Section[] = [
         badge: 'live',
       },
       {
+        to: '/threatintel/mythreatintel',
+        label: 'MyThreatIntel',
+        desc: 'Authenticated, edge-cached view of the MyThreatIntel CTI platform REST API: IOCs, malware, CVEs, ransomware ops, CTI events, leaks, threat groups, darknet markets, and onion services.',
+        icon: Radar,
+        badge: 'live',
+      },
+      {
         to: '/threatintel/ransomware-live',
         label: 'ransomware.live PRO',
         desc: 'Authenticated, edge-cached view of the ransomware.live PRO API: stats, recent cyberattacks (HudsonRock infostealer-enriched), leaked negotiation logs, and per-group YARA rules.',

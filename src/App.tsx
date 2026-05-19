@@ -149,6 +149,7 @@ const IocCorrelationPage = lazy(() => import('./pages/threatintel/IocCorrelation
 const ActorTimelinePage = lazy(() => import('./pages/threatintel/ActorTimeline'));
 const VictimReleaksPage = lazy(() => import('./pages/threatintel/VictimReleaks'));
 const LiveIocsPage = lazy(() => import('./pages/threatintel/LiveIocs'));
+const MyThreatIntelPage = lazy(() => import('./pages/threatintel/MyThreatIntel'));
 const CyberCrimePage = lazy(() => import('./pages/threatintel/CyberCrime'));
 const C2TrackerPage = lazy(() => import('./pages/threatintel/C2Tracker'));
 const Blog = lazy(() => import('./pages/Blog'));
@@ -796,6 +797,16 @@ export function AppContent() {
           <ErrorBoundary>
             <Suspense fallback={<SectionLoader />}>
               <RansomwareActivityPage />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/threatintel/mythreatintel"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <MyThreatIntelPage />
             </Suspense>
           </ErrorBoundary>
         }

@@ -32,4 +32,10 @@ export interface Env {
    *  Optional — case-study generation uses Groq as the quality primary when
    *  set, and falls back to Workers AI when unset/unavailable. */
   GROQ_API_KEY?: string;
+  /** MyThreatIntel REST API bearer token (set via
+   *  `wrangler secret put MYTHREATINTEL_API_TOKEN`). Optional — the
+   *  /api/v1/mti proxy degrades to 503 when unset, and the in-process
+   *  consumers (live-iocs, ransomware-recent) fall back to the existing
+   *  t.me/s/mythreatintel scraper so nothing that works today breaks. */
+  MYTHREATINTEL_API_TOKEN?: string;
 }

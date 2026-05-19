@@ -13,6 +13,7 @@ import { fetchMalwareSamplesCached } from './malware-samples';
 import { fetchPhishingUrlsCached } from './phishing-urls';
 import { trackEvent, visitorCountry } from '../lib/analytics';
 import { fetchAFDefacements } from '../lib/andreafortuna-feeds';
+import { fetchMtiSource, type MtiIoc } from '../lib/mythreatintel-api';
 
 /**
  * Live IOC stream — unified, time-ordered, per-entry-attributed.
@@ -138,7 +139,8 @@ function iocKind(t: string): IocKind | null {
 
 export async function fetchLiveIocs(
   executionCtx?: { waitUntil: (p: Promise<unknown>) => void },
-  kv?: KVNamespace
+  kv?: KVNamespace,
+  env?: Env
 ): Promise<LiveIocsResponse> {
   const [
     tweetfeedText,
@@ -151,6 +153,7 @@ export async function fetchLiveIocs(
     malwareBazaarResult,
     phishingResult,
     afDefacementsRaw,
+    mtiIocResult,
   ] = await Promise.all([
     fetchText('https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/today.csv'),
     fetchText('https://isc.sans.edu/api/sources/attacks/200/?json'),
@@ -162,6 +165,7 @@ export async function fetchLiveIocs(
     fetchMalwareSamplesCached(executionCtx).catch(() => null),
     fetchPhishingUrlsCached(executionCtx, kv).catch(() => null),
     fetchAFDefacements().catch(() => [] as LiveIoc[]),
+    env ? fetchMtiSource(env, 'iocs', { limit: PER_FEED_CAP }).catch(() => null) : Promise.resolve(null),
   ]);
 
   const items: LiveIoc[] = [];
@@ -414,6 +418,35 @@ export async function fetchLiveIocs(
     ...(afDefacementsStale ? { stale: true } : {}),
   });
 
+  // ─── MyThreatIntel REST API (sha256 IOCs + family/tags) ─────────────────
+  // Token-gated: when MYTHREATINTEL_API_TOKEN is unset (dev/preview) or the
+  // upstream is unhealthy, mtiIocResult is null / not-ok and this source is
+  // simply absent — the existing single-source-down tolerance covers it.
+  if (mtiIocResult && mtiIocResult.ok && mtiIocResult.items.length > 0) {
+    let count = 0;
+    for (const raw of mtiIocResult.items.slice(0, PER_FEED_CAP)) {
+      const r = raw as MtiIoc;
+      if (!r.sha256) continue;
+      const context =
+        [r.signature, r.file_name, r.tags, r.type]
+          .map((x) => x?.trim())
+          .filter((x): x is string => Boolean(x) && x !== 'N/D')
+          .join(' | ') || undefined;
+      items.push({
+        value: r.sha256,
+        kind: 'hash',
+        source: 'mythreatintel',
+        reporter: 'MyThreatIntel',
+        context,
+        observed_at: isoFromLoose(r.date),
+      });
+      count++;
+    }
+    sources.push({ id: 'mythreatintel', ok: count > 0, count });
+  } else {
+    sources.push({ id: 'mythreatintel', ok: false, count: 0 });
+  }
+
   // Drop stale items — observed before the freshness cutoff. Items without
   // observed_at survive (they're bulk-snapshot feeds whose freshness is
   // governed by the upstream publish cadence, not per-entry).
@@ -489,7 +522,7 @@ export async function liveIocsHandler(c: Context<{ Bindings: Env }>): Promise<Re
     });
   }
 
-  const body = await fetchLiveIocs(c.executionCtx, c.env.KV_CACHE);
+  const body = await fetchLiveIocs(c.executionCtx, c.env.KV_CACHE, c.env);
   // Adaptive TTL: if any source returned 0 items (upstream flake + KV-restore
   // miss), cache only briefly so the next request retries instead of locking
   // the bad snapshot in for 30 min.

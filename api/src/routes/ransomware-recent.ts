@@ -3,6 +3,7 @@ import type { Env } from '../env';
 import { classifySector, type Sector } from '../lib/sector-classifier';
 import { fetchMythreatintelRansomwareVictims } from '../lib/mythreatintel-parser';
 import { fetchAFRansomwareVictims } from '../lib/andreafortuna-feeds';
+import { fetchMtiSource, type MtiEvent } from '../lib/mythreatintel-api';
 
 /**
  * Recent ransomware leak-site posts via Ransomlook.io's free `/api/recent`
@@ -265,6 +266,40 @@ async function fetchRansomwareLiveVictims(): Promise<RansomwareVictim[]> {
   }
 }
 
+/**
+ * MyThreatIntel REST API `events` source — CTI victim claims
+ * (`{ date, victim, gang, description }`). Higher-fidelity than the
+ * t.me/s/mythreatintel scraper (same `origin: 'mti'`); when the token is
+ * unset or the upstream is unhealthy this returns [] and the scraper list
+ * remains the 'mti' fallback. The merge dedupes by (group|victim|day) so
+ * the two never double-count.
+ */
+async function fetchMtiApiVictims(env: Env): Promise<RansomwareVictim[]> {
+  const res = await fetchMtiSource(env, 'events', { limit: MAX_ITEMS }).catch(() => null);
+  if (!res || !res.ok) return [];
+  const out: RansomwareVictim[] = [];
+  for (const raw of res.items) {
+    const e = raw as MtiEvent;
+    const victim = e.victim?.trim();
+    const gang = e.gang?.trim();
+    if (!victim || !gang || !e.date) continue;
+    const discovered = toIsoDate(e.date);
+    if (Number.isNaN(Date.parse(discovered))) continue;
+    const description = e.description?.trim() || undefined;
+    out.push({
+      victim,
+      group: gang.toLowerCase(),
+      discovered,
+      description: description && description.length > 320 ? description.slice(0, 317) + '…' : description,
+      source_url: 'https://mythreatintel.com/',
+      sector: classifySector(victim, description),
+      origin: 'mti' as const,
+    });
+    if (out.length >= MAX_ITEMS) break;
+  }
+  return out;
+}
+
 /** Merge N victim lists, dedupe by (group + victim + day), keep newest. */
 function mergeVictims(...lists: RansomwareVictim[][]): RansomwareVictim[] {
   const byKey = new Map<string, RansomwareVictim>();
@@ -288,7 +323,7 @@ function mergeVictims(...lists: RansomwareVictim[][]): RansomwareVictim[] {
  * Cloudflare). Returns `{ body, upstreamOk, rateLimited }` so the calling
  * handler can decide on cache + status semantics.
  */
-export async function fetchRansomwareRecent(): Promise<{
+export async function fetchRansomwareRecent(env?: Env): Promise<{
   body: ResponseBody;
   upstreamOk: boolean;
   rateLimited?: { retryAfter: string };
@@ -303,33 +338,37 @@ export async function fetchRansomwareRecent(): Promise<{
   //   2. mythreatintel     — Spanish CTI channel, real-time, has descriptions
   //   3. ransomfeed.it     — RSS of victim claims, has descriptions
   //   4. ransomwatch       — id-only, fills coverage gaps from leak-site scrapes
-  const [primarySettled, mtiVictims, secondaryVictims, tertiaryVictims, rlVictims, afVictims] = await Promise.all([
-    (async () => {
-      try {
-        const ctrl = new AbortController();
-        const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
-        const res = await fetch(UPSTREAM, {
-          headers: {
-            Accept: 'application/json',
-            'User-Agent': 'pranithjain.qzz.io DFIR toolkit (free, read-only)',
-          },
-          signal: ctrl.signal,
-        });
-        clearTimeout(timer);
-        return res;
-      } catch {
-        return null;
-      }
-    })(),
-    // mythreatintel parser returns a structurally-compatible shape; the only
-    // extra field is `country`, which RansomwareVictim doesn't yet carry —
-    // safe to upcast.
-    fetchMythreatintelRansomwareVictims().catch(() => []),
-    fetchRansomfeedVictims(),
-    fetchRansomwatchVictims(),
-    fetchRansomwareLiveVictims(),
-    fetchAFRansomwareVictims().catch(() => []),
-  ]);
+  const [primarySettled, mtiApiVictims, mtiVictims, secondaryVictims, tertiaryVictims, rlVictims, afVictims] =
+    await Promise.all([
+      (async () => {
+        try {
+          const ctrl = new AbortController();
+          const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
+          const res = await fetch(UPSTREAM, {
+            headers: {
+              Accept: 'application/json',
+              'User-Agent': 'pranithjain.qzz.io DFIR toolkit (free, read-only)',
+            },
+            signal: ctrl.signal,
+          });
+          clearTimeout(timer);
+          return res;
+        } catch {
+          return null;
+        }
+      })(),
+      // MyThreatIntel REST API `events` — higher-fidelity 'mti' victims.
+      // Skipped (→ []) when no env/token; the scraper below stays the fallback.
+      env ? fetchMtiApiVictims(env).catch(() => []) : Promise.resolve([] as RansomwareVictim[]),
+      // mythreatintel parser returns a structurally-compatible shape; the only
+      // extra field is `country`, which RansomwareVictim doesn't yet carry —
+      // safe to upcast.
+      fetchMythreatintelRansomwareVictims().catch(() => []),
+      fetchRansomfeedVictims(),
+      fetchRansomwatchVictims(),
+      fetchRansomwareLiveVictims(),
+      fetchAFRansomwareVictims().catch(() => []),
+    ]);
 
   try {
     const res = primarySettled;
@@ -367,7 +406,8 @@ export async function fetchRansomwareRecent(): Promise<{
   // healthy.
   if (
     !upstreamOk &&
-    (mtiVictims.length > 0 ||
+    (mtiApiVictims.length > 0 ||
+      mtiVictims.length > 0 ||
       secondaryVictims.length > 0 ||
       tertiaryVictims.length > 0 ||
       rlVictims.length > 0 ||
@@ -380,6 +420,7 @@ export async function fetchRansomwareRecent(): Promise<{
   // originals win ties; AF only fills gaps the four primary trackers missed.
   const victims = mergeVictims(
     primary,
+    mtiApiVictims,
     mtiVictims as RansomwareVictim[],
     secondaryVictims,
     tertiaryVictims,
@@ -431,7 +472,7 @@ export async function ransomwareRecentHandler(c: Context<{ Bindings: Env }>): Pr
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
-  const { body, upstreamOk, rateLimited } = await fetchRansomwareRecent();
+  const { body, upstreamOk, rateLimited } = await fetchRansomwareRecent(c.env);
 
   if (rateLimited) {
     return c.json({ error: 'upstream_rate_limited', upstream: 'www.ransomlook.io', upstream_status: 429 }, 429, {
