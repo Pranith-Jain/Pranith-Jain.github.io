@@ -7,6 +7,7 @@ import {
   expectedWeeklySlug,
 } from '../api/src/lib/briefing-builder';
 import { runDiscoveryNow, runPlannerNow, runPublisherNow, type CaseStudyEnv } from '../api/src/case-study/run';
+import type { Env as ApiEnv } from '../api/src/env';
 import type { Ai, D1Database } from '@cloudflare/workers-types';
 
 export interface Env {
@@ -511,7 +512,10 @@ export default {
             // for it (skip the warm) whether or not the build then succeeds.
             rebuiltThisHour = true;
             try {
-              const briefing = await buildBriefing(type, undefined, { nvdApiKey: env.NVD_API_KEY });
+              const briefing = await buildBriefing(type, undefined, {
+                nvdApiKey: env.NVD_API_KEY,
+                env: env as unknown as ApiEnv,
+              });
               const result = await writeBriefing(db, briefing);
               if (result.written) {
                 console.log(
@@ -594,7 +598,10 @@ export default {
       (async () => {
         const db = env.BRIEFINGS_DB as D1Database;
         try {
-          const briefing = await buildBriefing(type, undefined, { nvdApiKey: env.NVD_API_KEY });
+          const briefing = await buildBriefing(type, undefined, {
+            nvdApiKey: env.NVD_API_KEY,
+            env: env as unknown as ApiEnv,
+          });
           await writeBriefing(db, briefing);
           console.log(
             `scheduled: wrote ${briefing.slug} (findings=${briefing.stats.findings}, iocs=${briefing.stats.iocs})`
