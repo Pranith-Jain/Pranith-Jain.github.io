@@ -5,6 +5,8 @@ import {
   parseThreatfox,
   parseOpenPhish,
   parseCisaKev,
+  parseSslblC2,
+  parseBotvrijDomains,
   buildSummary,
 } from '../../src/lib/ioc-feed-parsers';
 
@@ -267,6 +269,42 @@ describe('parseCisaKev', () => {
     expect(entries[4]!.value).toBe('CVE-2021-1111');
     // Timestamps should be in DESC order
     expect(entries[0]!.timestamp! > entries[1]!.timestamp!).toBe(true);
+  });
+});
+
+// ─── SSLBL botnet C2 ──────────────────────────────────────────────────────────
+describe('parseSslblC2', () => {
+  it('parses CSV rows, skips comments, carries port + timestamp', () => {
+    const fixture = `# SSL Blacklist
+# Firstseen,DstIP,DstPort
+2026-05-19 10:00:00,203.0.113.9,443
+2026-05-18 08:30:00,198.51.100.4,8443
+not,an,ip`;
+    const e = parseSslblC2(fixture);
+    expect(e).toHaveLength(2);
+    expect(e[0]!.type).toBe('ipv4');
+    expect(e[0]!.value).toBe('203.0.113.9');
+    expect(e[0]!.context).toContain('443');
+    expect(e[0]!.timestamp).toBe('2026-05-19 10:00:00');
+  });
+  it('honours the cap', () => {
+    const rows = Array.from({ length: 10 }, (_, i) => `2026-05-19,10.0.0.${i},443`).join('\n');
+    expect(parseSslblC2(rows, 3)).toHaveLength(3);
+  });
+});
+
+// ─── Botvrij curated domains ──────────────────────────────────────────────────
+describe('parseBotvrijDomains', () => {
+  it('parses one domain per line, skips comments and non-domains', () => {
+    const fixture = `# Botvrij.eu domain IOC list
+evil-example.com
+sub.bad-domain.net
+0.0.0.0
+   `;
+    const e = parseBotvrijDomains(fixture);
+    expect(e.map((x) => x.value)).toEqual(['evil-example.com', 'sub.bad-domain.net']);
+    expect(e[0]!.type).toBe('domain');
+    expect(e[0]!.context).toBe('botvrij curated');
   });
 });
 

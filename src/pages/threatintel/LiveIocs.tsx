@@ -69,6 +69,8 @@ const SOURCE_PILL: Record<string, string> = {
   malwarebazaar: 'border-yellow-500/40 bg-yellow-500/10 text-yellow-700 dark:text-yellow-300',
   phishtank: 'border-pink-500/40 bg-pink-500/10 text-pink-700 dark:text-pink-300',
   openphish: 'border-indigo-500/40 bg-indigo-500/10 text-indigo-700 dark:text-indigo-300',
+  'sslbl-c2': 'border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300',
+  botvrij: 'border-lime-500/40 bg-lime-500/10 text-lime-700 dark:text-lime-300',
 };
 
 function shortRel(iso?: string): string {
@@ -208,8 +210,8 @@ export default function LiveIocs(): JSX.Element {
           observed and by whom."
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-6">
-          10 sources: TweetFeed, SANS ISC, C2IntelFeeds, Emerging Threats compromised-ips, AlienVault OTX reputation,
-          URLhaus, ThreatFox, MalwareBazaar, PhishTank, OpenPhish.
+          Sources: TweetFeed, SANS ISC, C2IntelFeeds, Emerging Threats compromised-ips, AlienVault OTX reputation,
+          URLhaus, ThreatFox, MalwareBazaar, PhishTank, OpenPhish, abuse.ch SSLBL, Botvrij.eu.
         </p>
       </div>
 

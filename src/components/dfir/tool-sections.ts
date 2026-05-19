@@ -526,6 +526,20 @@ export const SECTIONS: Section[] = [
         icon: Code2,
       },
       {
+        path: '/dfir/rule-converter',
+        useCase: 'Translate a detection between Sigma, KQL, SPL, EQL, YARA.',
+        label: 'Rule Converter',
+        desc: 'Any-to-any detection translation · Sigma ⇄ KQL ⇄ Splunk SPL · → Elastic Lucene/EQL, YARA, DLP regex, supply-chain notes · heuristic, lossy edges flagged · 100% client-side',
+        icon: ScanLine,
+      },
+      {
+        path: '/dfir/detection-lab',
+        useCase: 'Write a rule and test it against the live IOC feed.',
+        label: 'Detection Lab',
+        desc: 'Author a JSON detection rule and evaluate it in-browser against the unified live-IOC stream · same engine as the server-side Detections pack · localStorage save/export',
+        icon: Activity,
+      },
+      {
         path: '/dfir/cve-prioritizer',
         useCase: 'Decide which CVEs to actually patch this week.',
         label: 'CVE Exploit Prioritizer',

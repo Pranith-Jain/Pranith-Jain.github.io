@@ -115,6 +115,11 @@ const OG_OVERRIDES: Record<string, OgOverride> = {
     description:
       'Write a detection rule in a small JSON DSL and evaluate it in your browser against the live multi-feed IOC stream. Cross-feed consensus, value/context/source predicates, save and export — the same engine that powers /threatintel/detections.',
   },
+  '/dfir/rule-converter': {
+    title: 'Rule Converter · pranithjain.qzz.io',
+    description:
+      'Heuristic any-to-any detection translation. Sigma / KQL / Splunk SPL in; Sigma, KQL, SPL, Elastic Lucene & EQL, YARA, DLP regex, and a supply-chain Semgrep scaffold out. One intermediate representation, every lossy step flagged. 100% client-side.',
+  },
   '/threatintel/actor-timeline': {
     title: 'Ransomware actor activity timeline · pranithjain.qzz.io',
     description:
@@ -396,6 +401,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/cyber-crime', '/__prerendered/threatintel__cyber-crime'],
   ['/threatintel/ransomware-activity', '/__prerendered/threatintel__ransomware-activity'],
   ['/threatintel/live-iocs', '/__prerendered/threatintel__live-iocs'],
+  ['/threatintel/detections', '/__prerendered/threatintel__detections'],
 ]);
 
 async function fetchPrerenderedOrShell(request: Request, env: Env, ctx: ExecutionContext, url: URL): Promise<Response> {

@@ -63,6 +63,7 @@ const CloudTrailTriage = lazy(() => import('./pages/dfir/CloudTrailTriage'));
 const K8sRbacAnalyzer = lazy(() => import('./pages/dfir/K8sRbacAnalyzer'));
 const CvePrioritizer = lazy(() => import('./pages/dfir/CvePrioritizer'));
 const SigmaConverter = lazy(() => import('./pages/dfir/SigmaConverter'));
+const RuleConverter = lazy(() => import('./pages/dfir/RuleConverter'));
 const LinuxTriage = lazy(() => import('./pages/dfir/LinuxTriage'));
 const TerraformScanner = lazy(() => import('./pages/dfir/TerraformScanner'));
 const GcpIamAnalyzer = lazy(() => import('./pages/dfir/GcpIamAnalyzer'));
@@ -648,6 +649,16 @@ export function AppContent() {
           <ErrorBoundary>
             <Suspense fallback={<SectionLoader />}>
               <SigmaConverter />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/dfir/rule-converter"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <RuleConverter />
             </Suspense>
           </ErrorBoundary>
         }
