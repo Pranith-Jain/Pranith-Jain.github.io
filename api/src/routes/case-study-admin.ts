@@ -10,6 +10,7 @@ import { getSchedule, setSchedule, markSlotStatus, removeSlot } from '../case-st
 import { putPost, listPostIndex, removePost } from '../case-study/storage/posts';
 import { listFailures } from '../case-study/storage/failed';
 import { runDiscoveryNow, runPlannerNow, runPublisherNow, type CaseStudyEnv } from '../case-study/run';
+import { runTelegramArchive } from './telegram-archive';
 import { renderRss } from '../case-study/rendering/rss';
 import { SITE_URL } from '../case-study/config';
 import { kv as csKvKeys } from '../case-study/kv-keys';
@@ -90,7 +91,10 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
       if (stage === 'publish') {
         return c.json({ ok: true, stage, result: (await runPublisherNow(env, now)) ?? null });
       }
-      return c.json({ error: 'unknown_stage', allowed: ['discover', 'plan', 'publish'] }, 400);
+      if (stage === 'telegram-archive') {
+        return c.json({ ok: true, stage, result: await runTelegramArchive(c.env) });
+      }
+      return c.json({ error: 'unknown_stage', allowed: ['discover', 'plan', 'publish', 'telegram-archive'] }, 400);
     } catch (err) {
       console.error('case-study run failed:', err);
       return c.json({ error: 'run_failed', stage }, 500);
