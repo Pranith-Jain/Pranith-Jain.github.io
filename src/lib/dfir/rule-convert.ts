@@ -19,8 +19,10 @@
 
 export type RuleFormat = 'sigma' | 'kql' | 'splunk' | 'lucene' | 'eql' | 'yara' | 'dlp' | 'supplychain';
 
-export const SOURCE_FORMATS: RuleFormat[] = ['sigma', 'kql', 'splunk'];
 export const TARGET_FORMATS: RuleFormat[] = ['sigma', 'kql', 'splunk', 'lucene', 'eql', 'yara', 'dlp', 'supplychain'];
+// Universal: every format is both a source and a target. Parsing the query /
+// rule languages back into the IR is heuristic (flagged at runtime).
+export const SOURCE_FORMATS: RuleFormat[] = TARGET_FORMATS;
 
 export const FORMAT_LABELS: Record<RuleFormat, string> = {
   sigma: 'Sigma (YAML)',
@@ -303,6 +305,180 @@ function parseSplunk(src: string): RuleIR | { error: string } {
   };
 }
 
+/* ════════════════════ Lucene / EQL heuristic parsers ════════════════════ */
+
+function wildcardToPred(field: string, raw: string): Predicate {
+  const lead = raw.startsWith('*');
+  const tail = raw.endsWith('*');
+  const core = raw.replace(/^\*+|\*+$/g, '');
+  if (lead && tail) return { field, op: 'contains', values: [core] };
+  if (tail) return { field, op: 'startswith', values: [core] };
+  if (lead) return { field, op: 'endswith', values: [core] };
+  return { field, op: 'eq', values: [raw] };
+}
+
+// field:"v" | field:v* | field:*v* | field:/re/ | bare "keyword"
+const LUCENE_PRED_RE = /([A-Za-z_][\w.]*)\s*:\s*(?:"([^"]*)"|\/([^/]+)\/|([^\s()]+))/g;
+
+function parseLucene(src: string): RuleIR | { error: string } {
+  const warnings = [
+    'Lucene parsing is heuristic: `field:value` (with * wildcards) and `field:/regex/` are recovered; ' +
+      'boosting, ranges, fuzzy/proximity and nested grouping are dropped.',
+  ];
+  const preds: Predicate[] = [];
+  const keywords: string[] = [];
+  let m: RegExpExecArray | null;
+  LUCENE_PRED_RE.lastIndex = 0;
+  while ((m = LUCENE_PRED_RE.exec(src)) !== null) {
+    const field = m[1]!;
+    if (m[3] !== undefined) preds.push({ field, op: 're', values: [m[3]] });
+    else {
+      const raw = m[2] ?? m[4] ?? '';
+      if (raw.includes('*')) preds.push(wildcardToPred(field, raw));
+      else preds.push({ field, op: 'eq', values: [raw] });
+    }
+  }
+  for (const km of src.matchAll(/(?<![\w:])"([^"]+)"/g)) {
+    const idx = km.index ?? 0;
+    if (src[idx - 1] === ':') continue;
+    keywords.push(km[1]!);
+  }
+  if (preds.length === 0 && keywords.length === 0)
+    return { error: 'no recognisable `field:value` predicates found in the Lucene query' };
+  const groups: SelectionGroup[] = [];
+  if (preds.length) groups.push({ name: 'selection', kind: 'fields', predicates: preds });
+  if (keywords.length) groups.push({ name: 'keywords', kind: 'keywords', keywords: uniq(keywords) });
+  return {
+    groups,
+    condition: groups.map((g) => g.name).join(' and '),
+    meta: {},
+    warnings,
+  };
+}
+
+const EQL_HEAD_RE = /^\s*(\w+)\s+where\b/i;
+const EQL_FN_RE =
+  /\b(stringContains|startsWith|endsWith|match|wildcard|cidrMatch)\s*\(\s*([\w.]+)\s*,\s*"([^"]*)"\s*\)/g;
+const EQL_EQ_RE = /([\w.]+)\s*(==|:|like|regex)\s*"([^"]*)"/g;
+
+function parseEql(src: string): RuleIR | { error: string } {
+  const warnings = [
+    'EQL parsing is heuristic: single-event `… where` comparisons and string functions are recovered; ' +
+      'sequence/sample/join pipelines and time windows are dropped.',
+  ];
+  const head = EQL_HEAD_RE.exec(src);
+  const category =
+    head && /^process$/i.test(head[1]!)
+      ? 'process_creation'
+      : head && /^network$/i.test(head[1]!)
+        ? 'network_connection'
+        : undefined;
+  const preds: Predicate[] = [];
+  let m: RegExpExecArray | null;
+  EQL_FN_RE.lastIndex = 0;
+  while ((m = EQL_FN_RE.exec(src)) !== null) {
+    const fn = m[1]!.toLowerCase();
+    const op: MatchOp =
+      fn === 'stringcontains' || fn === 'wildcard'
+        ? 'contains'
+        : fn === 'startswith'
+          ? 'startswith'
+          : fn === 'endswith'
+            ? 'endswith'
+            : 're';
+    preds.push({ field: m[2]!, op, values: [m[3]!] });
+  }
+  EQL_EQ_RE.lastIndex = 0;
+  while ((m = EQL_EQ_RE.exec(src)) !== null) {
+    const o = m[2]!.toLowerCase();
+    preds.push({ field: m[1]!, op: o === 'regex' ? 're' : o === 'like' ? 'contains' : 'eq', values: [m[3]!] });
+  }
+  if (preds.length === 0) return { error: 'no recognisable `field == "value"` comparisons found in the EQL' };
+  return {
+    logsource: category ? { category } : undefined,
+    groups: [{ name: 'selection', kind: 'fields', predicates: preds }],
+    condition: 'selection',
+    meta: {},
+    warnings,
+  };
+}
+
+/* ════════════════════ YARA / DLP / supply-chain parsers ════════════════════ */
+
+const YARA_TEXT_STR_RE = /\$[\w]*\s*=\s*"((?:[^"\\]|\\.)*)"/g;
+const YARA_REGEX_STR_RE = /\$[\w]*\s*=\s*\/((?:[^/\\]|\\.)+)\//g;
+
+function parseYara(src: string): RuleIR | { error: string } {
+  const warnings = [
+    'YARA parsing is heuristic: string literals become keywords and regex strings become regex predicates. ' +
+      'Hex strings, string modifiers, and the boolean `condition:` (counts, offsets, "N of") are NOT evaluated.',
+  ];
+  const nameM = /\brule\s+([A-Za-z_]\w*)/.exec(src);
+  const keywords: string[] = [];
+  const preds: Predicate[] = [];
+  let m: RegExpExecArray | null;
+  YARA_TEXT_STR_RE.lastIndex = 0;
+  while ((m = YARA_TEXT_STR_RE.exec(src)) !== null) keywords.push(m[1]!.replace(/\\(.)/g, '$1'));
+  YARA_REGEX_STR_RE.lastIndex = 0;
+  while ((m = YARA_REGEX_STR_RE.exec(src)) !== null) preds.push({ field: '*', op: 're', values: [m[1]!] });
+  if (keywords.length === 0 && preds.length === 0) return { error: 'no string definitions found in the YARA rule' };
+  const groups: SelectionGroup[] = [];
+  if (keywords.length) groups.push({ name: 'strings', kind: 'keywords', keywords: uniq(keywords) });
+  if (preds.length) groups.push({ name: 'patterns', kind: 'fields', predicates: preds });
+  const descM = /description\s*=\s*"([^"]*)"/i.exec(src);
+  return {
+    title: nameM ? nameM[1] : undefined,
+    groups,
+    // YARA default is "any of them"; mirror with OR across groups.
+    condition: groups.map((g) => g.name).join(/\ball of them\b/i.test(src) ? ' and ' : ' or '),
+    meta: descM ? { description: descM[1]! } : {},
+    warnings,
+  };
+}
+
+function parseDlp(src: string): RuleIR | { error: string } {
+  const warnings = ['DLP parsing reads the pattern list back as regex predicates; the `match` mode is informational.'];
+  let doc: unknown;
+  try {
+    doc = JSON.parse(src);
+  } catch {
+    return { error: 'DLP source must be the JSON pattern list emitted by this tool' };
+  }
+  const d = doc as { name?: string; patterns?: { field?: string; regex?: string }[] };
+  if (!Array.isArray(d.patterns) || d.patterns.length === 0) return { error: 'no `patterns[]` array in the DLP JSON' };
+  const preds: Predicate[] = d.patterns
+    .filter((p) => p.regex)
+    .map((p) => ({ field: p.field || '*', op: 're' as MatchOp, values: [p.regex!] }));
+  return {
+    title: d.name,
+    groups: [{ name: 'selection', kind: 'fields', predicates: preds }],
+    condition: 'selection',
+    meta: {},
+    warnings,
+  };
+}
+
+function parseSupplychain(src: string): RuleIR | { error: string } {
+  const warnings = [
+    'Supply-chain parsing only recovers the `pattern-regex:` lines from a Semgrep-style scaffold — ' +
+      'languages, metavariables, and pattern composition are not interpreted.',
+  ];
+  const preds: Predicate[] = [];
+  for (const m of src.matchAll(/pattern-regex:\s*"((?:[^"\\]|\\.)*)"/g)) {
+    preds.push({ field: '*', op: 're', values: [m[1]!.replace(/\\(.)/g, '$1')] });
+  }
+  if (preds.length === 0) return { error: 'no `pattern-regex:` entries found in the supply-chain scaffold' };
+  const idM = /\bid:\s*([^\n]+)/.exec(src);
+  const msgM = /\bmessage:\s*"?([^"\n]+)"?/.exec(src);
+  return {
+    title: idM ? idM[1]!.trim() : undefined,
+    groups: [{ name: 'selection', kind: 'fields', predicates: preds }],
+    condition: 'selection',
+    meta: msgM ? { description: msgM[1]!.trim() } : {},
+    warnings,
+  };
+}
+
 /* ════════════════════════ condition expansion ════════════════════════ */
 
 /** Expand "1 of x*" / "all of them" against group names → parenthesised expr. */
@@ -542,19 +718,26 @@ function emitSupplyChain(ir: RuleIR, warnings: string[]): string {
 
 /* ════════════════════════ public API ════════════════════════ */
 
+const PARSERS: Record<RuleFormat, (s: string) => RuleIR | { error: string }> = {
+  sigma: parseSigma,
+  kql: parseKql,
+  splunk: parseSplunk,
+  lucene: parseLucene,
+  eql: parseEql,
+  yara: parseYara,
+  dlp: parseDlp,
+  supplychain: parseSupplychain,
+};
+
 export function convertRule(src: string, from: RuleFormat, to: RuleFormat): ConvertResult {
   if (!src.trim()) return { ok: false, error: 'empty input' };
-  if (!SOURCE_FORMATS.includes(from))
-    return { ok: false, error: `${FORMAT_LABELS[from]} is output-only — pick Sigma, KQL, or Splunk as the source` };
 
-  let ir: RuleIR | { error: string };
-  if (from === 'sigma') ir = parseSigma(src);
-  else if (from === 'kql') ir = parseKql(src);
-  else ir = parseSplunk(src);
+  const ir = PARSERS[from](src);
   if ('error' in ir) return { ok: false, error: ir.error };
 
   const warnings = [...ir.warnings];
   if (from !== 'sigma') warnings.unshift(`${FORMAT_LABELS[from]} → IR is heuristic; verify the result.`);
+  if (from === to) warnings.push('Source and target are the same format — output is a normalised round-trip.');
 
   try {
     let output: string;

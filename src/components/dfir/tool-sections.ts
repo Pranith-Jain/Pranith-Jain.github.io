@@ -519,17 +519,10 @@ export const SECTIONS: Section[] = [
     blurb: 'Build, test, and run detection content.',
     tools: [
       {
-        path: '/dfir/sigma-convert',
-        useCase: 'Turn a Sigma rule into a Splunk / KQL / Lucene query.',
-        label: 'Sigma Rule Converter',
-        desc: 'Paste Sigma YAML → Splunk SPL · Microsoft KQL · Elastic Lucene · handles list/map selections, contains/startswith/endswith/all/re modifiers & and/or/not conditions · 100% client-side',
-        icon: Code2,
-      },
-      {
         path: '/dfir/rule-converter',
         useCase: 'Translate a detection between Sigma, KQL, SPL, EQL, YARA.',
         label: 'Rule Converter',
-        desc: 'Any-to-any detection translation · Sigma ⇄ KQL ⇄ Splunk SPL · → Elastic Lucene/EQL, YARA, DLP regex, supply-chain notes · heuristic, lossy edges flagged · 100% client-side',
+        desc: 'Universal any-to-any detection translation · Sigma · KQL · Splunk SPL · Elastic Lucene/EQL · YARA · DLP regex · supply-chain Semgrep — every format both source and target · heuristic, lossy edges flagged · 100% client-side',
         icon: ScanLine,
       },
       {

@@ -97,15 +97,60 @@ describe('convertRule — heuristic reverse parsers', () => {
     expect(r.output).toContain('CommandLine contains "javascript:"');
   });
 
-  it('rejects an output-only format as a source', () => {
-    const r = convertRule('x', 'yara', 'sigma');
-    expect(r.ok).toBe(false);
-    if (r.ok) return;
-    expect(r.error).toMatch(/output-only/);
-  });
-
   it('errors clearly on unparseable input', () => {
     const r = convertRule('just some prose with no structure', 'kql', 'sigma');
     expect(r.ok).toBe(false);
+  });
+});
+
+describe('convertRule — universal sources', () => {
+  it('Lucene → Sigma recovers wildcard predicates', () => {
+    const r = convertRule('Image:*\\\\powershell.exe AND CommandLine:*Base64*', 'lucene', 'sigma');
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    expect(r.output).toContain('Image|endswith');
+    expect(r.output).toContain('CommandLine|contains');
+  });
+
+  it('EQL → KQL recovers string functions and the category', () => {
+    const eql =
+      'process where stringContains(process.command_line, "Invoke-Expression") and endsWith(process.name, "powershell.exe")';
+    const r = convertRule(eql, 'eql', 'kql');
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    expect(r.output).toContain('process.command_line contains "Invoke-Expression"');
+    expect(r.output).toContain('process.name endswith "powershell.exe"');
+  });
+
+  it('YARA → Sigma turns string literals into keywords', () => {
+    const yara = 'rule R { strings: $a = "DownloadString" $re = /IEX\\(/ condition: any of them }';
+    const r = convertRule(yara, 'yara', 'sigma');
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    expect(r.output).toContain('DownloadString');
+    expect(r.warnings.some((w) => /YARA parsing is heuristic/.test(w))).toBe(true);
+  });
+
+  it('DLP JSON → KQL round-trips the regex patterns', () => {
+    const dlp = JSON.stringify({ name: 'x', match: 'any', patterns: [{ id: 'p1', field: 'body', regex: 'evilcorp' }] });
+    const r = convertRule(dlp, 'dlp', 'kql');
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    expect(r.output).toContain('body matches regex "evilcorp"');
+  });
+
+  it('supply-chain scaffold → YARA extracts pattern-regex literals', () => {
+    const sc = 'rules:\n  - id: r\n    message: "m"\n    patterns:\n      - pattern-regex: "malicious_pkg"';
+    const r = convertRule(sc, 'supplychain', 'yara');
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    expect(r.output).toContain('malicious_pkg');
+  });
+
+  it('every format is accepted as a source (no output-only rejection)', () => {
+    const sigma = convertRule('detection:\n  sel:\n    f: v\n  condition: sel', 'sigma', 'sigma');
+    expect(sigma.ok).toBe(true);
+    // a same-format conversion is allowed and flagged as a normalised round-trip
+    if (sigma.ok) expect(sigma.warnings.some((w) => /round-trip/.test(w))).toBe(true);
   });
 });

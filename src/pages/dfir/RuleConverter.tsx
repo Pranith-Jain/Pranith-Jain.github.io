@@ -9,7 +9,7 @@ import {
   type RuleFormat,
 } from '../../lib/dfir/rule-convert';
 
-const SAMPLES: Record<'sigma' | 'kql' | 'splunk', string> = {
+const SAMPLES: Record<RuleFormat, string> = {
   sigma: `title: Certutil URL cache download
 status: experimental
 description: certutil.exe used to fetch a remote file
@@ -32,6 +32,36 @@ level: high`,
   splunk: `index=windows EventCode=4688
 Image="*\\\\rundll32.exe" CommandLine="*javascript:*"
 | regex CommandLine="(?i)eval\\\\("`,
+  lucene: `Image:*\\\\powershell.exe AND CommandLine:*DownloadString* AND CommandLine:*FromBase64String*`,
+  eql: `process where stringContains(process.command_line, "Invoke-Expression")
+  and endsWith(process.name, "powershell.exe")`,
+  yara: `rule SuspiciousLoader
+{
+    meta:
+        description = "Demo loader strings"
+    strings:
+        $a = "DownloadString" nocase
+        $b = "FromBase64String"
+        $re = /IEX\\s*\\(/
+    condition:
+        any of them
+}`,
+  dlp: `{
+  "name": "Converted DLP ruleset",
+  "match": "any",
+  "patterns": [
+    { "id": "p1", "field": "body", "regex": "DownloadString" },
+    { "id": "p2", "field": "body", "regex": "FromBase64String" }
+  ]
+}`,
+  supplychain: `rules:
+  - id: suspicious-loader
+    message: "demo converted from a detection rule"
+    severity: WARNING
+    languages: [generic]
+    patterns:
+      - pattern-regex: "DownloadString"
+      - pattern-regex: "FromBase64String"`,
 };
 
 function CopyBtn({ text }: { text: string }) {
@@ -61,9 +91,7 @@ export default function RuleConverter(): JSX.Element {
     return convertRule(input, from, to);
   }, [input, from, to]);
 
-  const loadSample = () => {
-    if (from === 'sigma' || from === 'kql' || from === 'splunk') setInput(SAMPLES[from]);
-  };
+  const loadSample = () => setInput(SAMPLES[from]);
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
@@ -79,15 +107,15 @@ export default function RuleConverter(): JSX.Element {
           <Shuffle size={28} className="text-brand-600 dark:text-brand-400" /> Rule Converter
         </h1>
         <p className="text-slate-600 dark:text-slate-400 mb-3 max-w-3xl leading-relaxed">
-          Translate a detection rule between formats — entirely in your browser. Source is parsed into one intermediate
-          representation, then emitted to the target. Sigma, KQL, and Splunk SPL can be sources; everything (incl.
-          Elastic Lucene/EQL, YARA, DLP regex, and a supply-chain Semgrep scaffold) is an output.
+          Universal detection-rule translation — entirely in your browser. <strong>Any</strong> format converts to{' '}
+          <strong>any</strong> other: Sigma, Microsoft KQL, Splunk SPL, Elastic Lucene & EQL, YARA, DLP regex, and a
+          supply-chain Semgrep scaffold. Everything funnels through one intermediate representation.
         </p>
         <p className="text-[12px] text-amber-700 dark:text-amber-400 mb-5 max-w-3xl flex items-start gap-1.5">
           <AlertTriangle size={13} className="mt-0.5 flex-shrink-0" />
-          Heuristic, not pySigma. Field names are pass-through (repoint them at your schema). KQL/SPL parsing recovers
-          only flat <code>field op "value"</code> predicates; YARA/DLP/supply-chain lose field semantics. Every lossy
-          step is flagged below — validate before operational use.
+          Heuristic, not pySigma. Field names are pass-through (repoint them at your schema). Parsing query/rule
+          languages back to the IR recovers only flat <code>field op "value"</code> predicates; YARA/DLP/supply-chain
+          carry no field semantics. Every lossy step is flagged below — validate before operational use.
         </p>
       </div>
 
@@ -204,11 +232,6 @@ export default function RuleConverter(): JSX.Element {
           See also
         </h2>
         <ul className="space-y-1.5 text-sm font-mono text-slate-600 dark:text-slate-400">
-          <li>
-            <Link to="/dfir/sigma-convert" className="text-brand-600 dark:text-brand-400 hover:underline">
-              Sigma Converter — focused Sigma → SPL/KQL/Lucene
-            </Link>
-          </li>
           <li>
             <Link to="/dfir/rule-playground" className="text-brand-600 dark:text-brand-400 hover:underline">
               YARA / Sigma Playground — test a rule against a sample

@@ -118,7 +118,7 @@ const OG_OVERRIDES: Record<string, OgOverride> = {
   '/dfir/rule-converter': {
     title: 'Rule Converter · pranithjain.qzz.io',
     description:
-      'Heuristic any-to-any detection translation. Sigma / KQL / Splunk SPL in; Sigma, KQL, SPL, Elastic Lucene & EQL, YARA, DLP regex, and a supply-chain Semgrep scaffold out. One intermediate representation, every lossy step flagged. 100% client-side.',
+      'Universal heuristic detection-rule translation — any format to any other. Sigma, Microsoft KQL, Splunk SPL, Elastic Lucene & EQL, YARA, DLP regex, and a supply-chain Semgrep scaffold, each both source and target via one intermediate representation. Every lossy step flagged. 100% client-side.',
   },
   '/threatintel/actor-timeline': {
     title: 'Ransomware actor activity timeline · pranithjain.qzz.io',
