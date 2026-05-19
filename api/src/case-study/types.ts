@@ -57,6 +57,15 @@ export interface QualityScore {
   };
 }
 
+/** Deterministic content-QA verdict. `passed: false` gates a publish. */
+export interface QaVerdict {
+  passed: boolean;
+  /** 0-100 — mirrors QualityScore.total at QA time. */
+  score: number;
+  /** Human-readable QA failures (empty when passed). */
+  issues: string[];
+}
+
 export interface Post {
   slug: string;
   type: CaseStudyType;
@@ -70,6 +79,7 @@ export interface Post {
   tags: string[];
   sources: PostSource[];
   quality?: QualityScore;
+  qa?: QaVerdict;
 }
 
 export interface PostIndexEntry {

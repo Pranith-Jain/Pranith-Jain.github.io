@@ -143,19 +143,25 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
   const factsText = JSON.stringify(candidate.evidence);
   let processed = postProcess({ type: candidate.type, raw: completion.text, factsText });
 
-  // Self-heal: one targeted repair pass feeding the critical validation
-  // errors back to the model, instead of failing the whole publish on a
-  // first-pass structural slip. Only critical (non-"missing section:",
-  // non-"warning:") errors are surfaced for repair.
-  if (!processed.ok) {
+  // Self-heal: one targeted repair pass. Triggered by EITHER a structural
+  // failure OR a content-QA failure (thin / unsourced / repetitive / low
+  // score). The model gets one rewrite with the exact problems fed back,
+  // instead of publishing sub-standard output or hard-failing immediately.
+  const needsWork = (p: typeof processed) => !p.ok || (p.qa ? !p.qa.passed : false);
+  if (needsWork(processed)) {
     const critical = processed.errors.filter((e) => !e.startsWith('missing section:') && !e.startsWith('warning:'));
+    const problems = [
+      ...critical,
+      ...(processed.qa && !processed.qa.passed ? processed.qa.issues.map((i) => `QA: ${i}`) : []),
+    ];
     const repair = await runCompletion(
       ai,
       {
         system,
         user:
-          `${user}\n\nYOUR PREVIOUS DRAFT FAILED VALIDATION: ${critical.join('; ')}.\n` +
-          `Rewrite the FULL case study fixing these. Every section MUST start with "## " on its own line. ` +
+          `${user}\n\nYOUR PREVIOUS DRAFT FAILED REVIEW: ${problems.join('; ')}.\n` +
+          `Rewrite the FULL case study fixing every issue. Every section MUST start with "## " on its own line. ` +
+          `Be specific and substantive (no thin sections, no repeated sentences, cite real sources). ` +
           `Only reference facts/CVEs present in the GROUND TRUTH DATA above; mark any historical CVE as context, not a finding.`,
       },
       { groqKey }
@@ -165,6 +171,9 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
 
   if (!processed.ok) {
     throw new Error(`validation failed: ${processed.errors.join('; ')}`);
+  }
+  if (processed.qa && !processed.qa.passed) {
+    throw new Error(`qa failed: ${processed.qa.issues.join('; ')}`);
   }
 
   const slug = `${candidate.key}-${slugify(candidate.title).slice(0, 40)}`.replace(/-+/g, '-');
@@ -183,5 +192,6 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
     tags: tagsFor(candidate),
     sources,
     quality: processed.quality,
+    qa: processed.qa,
   };
 }

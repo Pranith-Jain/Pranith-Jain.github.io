@@ -1,4 +1,4 @@
-import type { CaseStudyType, PostIOC, QualityScore } from '../types';
+import type { CaseStudyType, PostIOC, QualityScore, QaVerdict } from '../types';
 import { requiredSections } from './templates';
 import { EGREGIOUS_SLOP } from './copywriting';
 
@@ -21,6 +21,7 @@ export interface PostProcessOutput {
   iocs: PostIOC[];
   errors: string[];
   quality?: QualityScore;
+  qa?: QaVerdict;
 }
 
 /** Strip raw FACTS blocks the AI sometimes includes despite instructions. */
@@ -314,13 +315,68 @@ export function postProcess(input: PostProcessInput): PostProcessOutput {
     add('domain', host);
   }
 
+  const quality = scoreQuality(body, iocs);
+
+  // Content-QA verdict. Computed here but ADVISORY at this layer — `ok`
+  // stays purely structural (so structural unit tests aren't coupled to
+  // quality heuristics). The QA gate is ENFORCED one layer up in
+  // generatePost, which gets a one-shot repair before a QA failure can
+  // stop a publish.
+  const qa = qaReview(body, iocs, input.type, quality);
+
   // Downgrade missing-section + `warning:`-prefixed entries to non-blocking.
   // Only genuine structural/integrity problems should fail a publish.
   const critical = errors.filter((e) => !e.startsWith('missing section:') && !e.startsWith('warning:'));
 
-  const quality = scoreQuality(body, iocs);
+  return { ok: critical.length === 0, body, iocs, errors, quality, qa };
+}
 
-  return { ok: critical.length === 0, body, iocs, errors, quality };
+/**
+ * Deterministic content-QA. Cheap, no extra AI call. Fails only genuinely
+ * sub-standard output so it doesn't reintroduce publish_failed on good
+ * drafts: a low composite score, a too-thin body, no real sections, zero
+ * citations, or a sentence hammered 3+ times (the "patch immediately"
+ * repetition this engine was prone to).
+ */
+const QA_MIN_SCORE = 45;
+// Only a truly-broken/truncated body floor — NOT a length mandate. A high
+// minimum would push the model to pad, which is the AI-slop behaviour the
+// voice identity explicitly fights. Real length nuance lives in
+// scoreQuality()/QA_MIN_SCORE; a terse, substantive post is good.
+const QA_MIN_WORDS = 160;
+
+export function qaReview(body: string, iocs: PostIOC[], _type: CaseStudyType, quality: QualityScore): QaVerdict {
+  const issues: string[] = [];
+
+  const words = body.split(/\s+/).filter(Boolean).length;
+  if (words < QA_MIN_WORDS) issues.push(`too thin (${words} words < ${QA_MIN_WORDS})`);
+
+  const sectionCount = (body.match(/^##\s+.+/gm) ?? []).length;
+  if (sectionCount < 2) issues.push(`only ${sectionCount} section heading(s)`);
+
+  const hasRefs = /^##\s+references/im.test(body);
+  const linkCount = (body.match(/\[[^\]]+\]\(https?:\/\/[^)]+\)/g) ?? []).length;
+  if (!hasRefs && linkCount === 0 && iocs.length === 0) {
+    issues.push('no References section, citations, or IOCs — uncorroborated');
+  }
+
+  // Repetition: a normalised sentence (>24 chars) repeated 3+ times.
+  const norm = body
+    .replace(/^##.*$/gm, ' ')
+    .replace(/[*_`>#-]/g, ' ')
+    .toLowerCase();
+  const counts = new Map<string, number>();
+  for (const raw of norm.split(/[.!?\n]+/)) {
+    const s = raw.replace(/\s+/g, ' ').trim();
+    if (s.length < 25) continue;
+    const n = (counts.get(s) ?? 0) + 1;
+    counts.set(s, n);
+    if (n === 3) issues.push(`repeated sentence ×3: "${s.slice(0, 60)}…"`);
+  }
+
+  if (quality.total < QA_MIN_SCORE) issues.push(`quality score ${quality.total} < ${QA_MIN_SCORE}`);
+
+  return { passed: issues.length === 0, score: quality.total, issues };
 }
 
 // ─── Quality scoring ──────────────────────────────────────────────────────

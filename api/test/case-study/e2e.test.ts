@@ -49,21 +49,25 @@ const fakeKev = {
   ],
 };
 
+// Realistic golden-path body: passes the deterministic content-QA gate
+// (enough words, real sections, citations, no 3x repetition, no slop).
 const goodMd = [
+  'A pre-auth command injection in an internet-facing controller is the kind of bug that turns a quiet week loud. This one is unauthenticated and network-reachable, which collapses the usual time-to-exploit.',
   '## Summary',
-  'x',
+  'The flaw lets an unauthenticated attacker run operating-system commands on the management plane. Reachability is the whole story here: no credentials, no user interaction, just a reachable port. Confidence is high because a working proof-of-concept is already public.',
   '## Affected products',
-  'x',
+  'The vulnerable code path ships in the default configuration of the affected controller line. Older maintenance branches are in scope as well. Versions on the fixed train are not affected, which makes the upgrade boundary unusually clean.',
   '## How it works',
-  'x',
+  'User-supplied input reaches a shell context without sanitisation. The request that triggers it looks like ordinary management traffic, so naive logging will not flag it. The interesting detail is that the injection point sits before the authentication check, not after it.',
   '## Exploitation in the wild',
-  'x',
+  'Scanning for the affected service rose sharply once the proof-of-concept landed. Opportunistic exploitation against exposed instances is the realistic near-term expectation rather than targeted use.',
   '## Detection & mitigation',
-  'x',
+  'Hunt for management-plane requests that carry shell metacharacters in the parameter that feeds the vulnerable handler. Restrict the management interface to a jump host and apply the fixed train on the vendor schedule. Network ACLs in front of the controller cut the blast radius even before patching completes.',
   '## IOCs',
-  'None.',
+  'No high-confidence network indicators are published yet; treat the request pattern above as the primary detection until samples are corroborated.',
   '## References',
-  '- https://example.com',
+  '- [NVD record](https://nvd.nist.gov/vuln/detail/CVE-2026-1234)',
+  '- [CISA KEV catalog](https://www.cisa.gov/known-exploited-vulnerabilities-catalog)',
 ].join('\n\n');
 
 describe('e2e CVE golden path', () => {

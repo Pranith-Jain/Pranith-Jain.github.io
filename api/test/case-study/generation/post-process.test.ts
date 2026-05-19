@@ -1,5 +1,11 @@
 import { describe, it, expect } from 'vitest';
-import { postProcess } from '../../../src/case-study/generation/post-process';
+import { postProcess, qaReview } from '../../../src/case-study/generation/post-process';
+import type { QualityScore } from '../../../src/case-study/types';
+
+const QS = (total: number): QualityScore => ({
+  total,
+  breakdown: { length: 0, sections: 0, depth: 0, technical: 0, references: 0, fillerPenalty: 0 },
+});
 
 describe('postProcess', () => {
   it('keeps hook preamble and validates required sections', () => {
@@ -115,6 +121,26 @@ describe('postProcess', () => {
     const out = postProcess({ type: 'cve', raw, factsText: 'CVE-2026-1234' });
     expect(out.ok).toBe(false);
     expect(out.errors.join('|')).toMatch(/ai-slop detected/i);
+  });
+
+  it('qaReview passes substantive, sourced, non-repetitive content', () => {
+    const body = `${'A precise, specific sentence about the finding number ' + Math.random()} ${Array.from(
+      { length: 60 },
+      (_, i) => `Detection insight ${i} about the access vector and blast radius.`
+    ).join(
+      ' '
+    )}\n\n## Summary\n\nReal analysis here.\n\n## Detection\n\nHunt for X.\n\n## References\n\n- [NVD](https://nvd.nist.gov/x)`;
+    const qa = qaReview(body, [{ type: 'domain', value: 'evil.test' }], 'cve', QS(70));
+    expect(qa.passed).toBe(true);
+    expect(qa.issues).toHaveLength(0);
+  });
+
+  it('qaReview fails thin / unsourced / repetitive / low-score content', () => {
+    expect(qaReview('## A\n\nshort.', [], 'cve', QS(70)).passed).toBe(false); // thin + 1 section + unsourced
+    const repeated = `${Array.from({ length: 80 }, () => 'x').join(' ')} ## A\n\nPatch immediately to stay safe now. Patch immediately to stay safe now. Patch immediately to stay safe now.\n\n## B\n\n[ref](https://x.test/a)`;
+    expect(qaReview(repeated, [], 'cve', QS(70)).issues.join('|')).toMatch(/repeated sentence/i);
+    const longBody = `${Array.from({ length: 400 }, (_, i) => `Sentence number ${i} about something.`).join(' ')}\n\n## A\n\nx\n\n## B\n\n[r](https://x.test/a)`;
+    expect(qaReview(longBody, [], 'cve', QS(40)).issues.join('|')).toMatch(/quality score 40/);
   });
 
   it('does not flag clean technical prose as slop', () => {
