@@ -44,7 +44,20 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
   // candidate, ~80-150 reads per daily run).
   const dedupMap = await loadDedupMap(env.CASE_STUDIES);
   const memGet = (k: string) => Promise.resolve(dedupMap[k] ?? null);
+  // Anti-repetition gate: a key surfaced/published within this window is
+  // hard-dropped from discovery so the queue can't re-emit the same story
+  // every run. 21d > the 7d recency window, so an item can't return while
+  // it's still recency-relevant. `noveltyScore` still applies as a soft
+  // signal on top of this.
+  const SUPPRESS_MS = 21 * 24 * 3600 * 1000;
+  const isSuppressed = (key: string): boolean => {
+    const rec = dedupMap[key];
+    if (!rec) return false;
+    const t = Date.parse(rec.lastSeenAt);
+    return !Number.isNaN(t) && now.getTime() - t < SUPPRESS_MS;
+  };
   return runDiscovery({
+    isSuppressed,
     runners: {
       cve: () => discoverCves({ fetch: globalThis.fetch, now, getDedup: memGet }),
       actor: () =>

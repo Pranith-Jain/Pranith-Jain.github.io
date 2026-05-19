@@ -9,11 +9,22 @@ import { parseRssItems } from './rss-util';
  * discrete-event fits than CVE/ransom, so sourced from established analyst
  * blogs and surfaced as lower-weight candidates.
  */
+// Broadened 2026-05-18: a 4-feed pool kept re-surfacing the same handful of
+// stories. These URLs are the ones already battle-tested by the site's RSS
+// aggregator (src/data/rssFeeds.ts), so they're known to resolve + parse.
 const FEEDS = [
   'https://thedfirreport.com/feed/',
   'https://www.bleepingcomputer.com/feed/',
   'https://krebsonsecurity.com/feed/',
   'https://www.sentinelone.com/labs/feed/',
+  'https://blog.talosintelligence.com/rss/',
+  'https://unit42.paloaltonetworks.com/feed/',
+  'https://securelist.com/feed/',
+  'https://www.welivesecurity.com/feed/',
+  'https://redcanary.com/feed/',
+  'https://www.huntress.com/blog/rss.xml',
+  'https://googleprojectzero.blogspot.com/feeds/posts/default',
+  'https://feeds.feedburner.com/TheHackersNews',
 ];
 const WINDOW_MS = 7 * 24 * 3600 * 1000;
 

@@ -3,8 +3,18 @@ import { topicKey } from '../stable-keys';
 import { recencyScore, severityScore, noveltyScore, finalScore } from '../scoring';
 import { parseRssItems } from './rss-util';
 
-/** Public consumer-fraud / scam alert feeds (no key). */
-const FEEDS = ['https://krebsonsecurity.com/feed/', 'https://www.ic3.gov/PSA/RSS'];
+/**
+ * Public consumer-fraud / scam alert feeds (no key). Broadened 2026-05-18
+ * from 2 → 5: a 2-feed pool surfaced the same items every run. Added feeds
+ * are aggregator-proven URLs from src/data/rssFeeds.ts.
+ */
+const FEEDS = [
+  'https://krebsonsecurity.com/feed/',
+  'https://www.ic3.gov/PSA/RSS',
+  'https://www.hackread.com/category/security/data-breach/feed/',
+  'https://www.bleepingcomputer.com/feed/',
+  'https://feeds.feedburner.com/TheHackersNews',
+];
 const WINDOW_MS = 7 * 24 * 3600 * 1000;
 
 export interface DiscoverDeps {

@@ -20,11 +20,23 @@ export interface RunDiscoveryDeps {
    * cap (the per-topic limits already bound the total to perTopic × topics).
    */
   limit?: number;
+  /**
+   * Hard novelty gate. Returns true if a candidate key was already
+   * surfaced/published recently and must NOT be re-suggested yet. This is
+   * the decisive anti-repetition control: `noveltyScore` only *down-weights*
+   * a seen item, so within the recency window a thin feed pool kept
+   * re-emitting the same top-N every run. Suppressed keys are dropped before
+   * per-topic selection so genuinely fresher (lower-scored) items get a
+   * slot. Optional — absent = legacy behaviour (no extra change for tests).
+   */
+  isSuppressed?: (key: string) => boolean;
 }
 
 export interface RunDiscoveryResult {
   total: number;
   kept: number;
+  /** Candidates dropped by the hard novelty gate (anti-repetition). */
+  suppressed: number;
   ids: string[];
   /** Kept count per topic — surfaced so the admin sees the topic mix. */
   byTopic: Record<string, number>;
@@ -32,15 +44,27 @@ export interface RunDiscoveryResult {
 
 export async function runDiscovery(deps: RunDiscoveryDeps): Promise<RunDiscoveryResult> {
   const perTopic = deps.perTopic ?? 3;
+  const isSuppressed = deps.isSuppressed ?? (() => false);
   const byTopic: Record<string, number> = {};
   let total = 0;
+  let suppressed = 0;
   const selected: Candidate[] = [];
 
   for (const [name, runner] of Object.entries(deps.runners)) {
     try {
       const results = await runner();
       total += results.length;
-      const top = [...results].sort((a, b) => b.score - a.score).slice(0, perTopic);
+      // Drop already-surfaced keys BEFORE selection so a fresher,
+      // lower-scored candidate can take the slot instead of the same
+      // recurring story.
+      const fresh = results.filter((c) => {
+        if (isSuppressed(c.key)) {
+          suppressed += 1;
+          return false;
+        }
+        return true;
+      });
+      const top = [...fresh].sort((a, b) => b.score - a.score).slice(0, perTopic);
       byTopic[name] = top.length;
       selected.push(...top);
     } catch (err) {
@@ -65,6 +89,7 @@ export async function runDiscovery(deps: RunDiscoveryDeps): Promise<RunDiscovery
     JSON.stringify({
       job: 'discovery',
       total,
+      suppressed,
       kept: kept.length,
       byTopic,
       ids: kept.map((k) => k.key),
@@ -72,5 +97,5 @@ export async function runDiscovery(deps: RunDiscoveryDeps): Promise<RunDiscovery
     })
   );
 
-  return { total, kept: kept.length, ids: kept.map((c) => c.key), byTopic };
+  return { total, kept: kept.length, suppressed, ids: kept.map((c) => c.key), byTopic };
 }
