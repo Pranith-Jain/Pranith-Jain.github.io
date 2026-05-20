@@ -82,7 +82,11 @@ const STATIC_SECURITY_HEADERS: Record<string, string> = {
 
 function withSecurityHeaders(response: Response, nonce?: string): Response {
   const headers = new Headers(response.headers);
-  if (!headers.has('content-security-policy')) headers.set('content-security-policy', cspHeader(nonce));
+  // CSP is ALWAYS set (not "set if missing") — the nonce changes per
+  // response, so a static value from `public/_headers` or an asset
+  // pipeline must be replaced, not preserved. If any earlier layer set
+  // a CSP, it's now overwritten by the per-response version here.
+  headers.set('content-security-policy', cspHeader(nonce));
   for (const [k, v] of Object.entries(STATIC_SECURITY_HEADERS)) {
     if (!headers.has(k)) headers.set(k, v);
   }

@@ -1,6 +1,9 @@
-# Security headers for all routes
+# Security headers for all routes.
+# Content-Security-Policy is INTENTIONALLY ABSENT here — the worker
+# (worker/index.ts `withSecurityHeaders`) builds it per-response with a
+# fresh nonce. Setting CSP here would race with the worker and freeze
+# the policy at this static (unsafe-inline) string, defeating the nonce.
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; connect-src 'self' https://api.cloudflare.com https://cloudflare-dns.com https://cloudflareinsights.com https://*.cloudflareinsights.com; font-src 'self' data: https://fonts.gstatic.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
