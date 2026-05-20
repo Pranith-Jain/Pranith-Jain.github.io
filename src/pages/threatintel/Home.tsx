@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
 import {
   Activity,
   AlertOctagon,
@@ -469,22 +468,17 @@ export default function ThreatIntelHome(): JSX.Element {
         meta={
           <>
             {totalTiles} intel surfaces · by{' '}
-            <a
-              href={personalInfo.githubUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline"
-            >
+            <Link to="/" className="text-brand-600 dark:text-brand-400 hover:underline">
               {personalInfo.name}
-            </a>{' '}
+            </Link>{' '}
             ·{' '}
             <Link to="/threatintel/about" className="text-brand-600 dark:text-brand-400 hover:underline">
               about
             </Link>{' '}
             · interactive tools:{' '}
-            <BackLink to="/dfir" className="text-brand-600 dark:text-brand-400 hover:underline">
+            <Link to="/dfir" className="text-brand-600 dark:text-brand-400 hover:underline">
               /dfir
-            </BackLink>
+            </Link>
           </>
         }
       />

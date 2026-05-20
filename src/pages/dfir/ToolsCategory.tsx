@@ -94,14 +94,9 @@ export default function ToolsCategory(): JSX.Element {
         meta={
           <>
             {total} tools · {meta.label} · by{' '}
-            <a
-              href={personalInfo.githubUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="text-brand-600 dark:text-brand-400 hover:underline"
-            >
+            <Link to="/" className="text-brand-600 dark:text-brand-400 hover:underline">
               {personalInfo.name}
-            </a>
+            </Link>
           </>
         }
       />
