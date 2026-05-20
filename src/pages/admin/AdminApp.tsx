@@ -4,17 +4,21 @@ import AdminLogin from './AdminLogin';
 import PendingTab from './PendingTab';
 import ApprovedTab from './ApprovedTab';
 import ScheduleTab from './ScheduleTab';
+import DraftsTab from './DraftsTab';
 import PublishedTab from './PublishedTab';
 import FailedTab from './FailedTab';
 import HealthTab from './HealthTab';
 import ManualTab from './ManualTab';
 
-type TabKey = 'pending' | 'approved' | 'schedule' | 'published' | 'failed' | 'health' | 'manual';
+type TabKey = 'pending' | 'approved' | 'schedule' | 'drafts' | 'published' | 'failed' | 'health' | 'manual';
 
 const TABS: Array<{ key: TabKey; label: string }> = [
   { key: 'pending', label: 'Pending' },
   { key: 'approved', label: 'Queue' },
   { key: 'schedule', label: 'Schedule' },
+  // Drafts sits between Schedule and Published — that's the order the
+  // pipeline transitions through when the approval gate is on.
+  { key: 'drafts', label: 'Drafts' },
   { key: 'published', label: 'Published' },
   { key: 'manual', label: 'Manual' },
   { key: 'failed', label: 'Failed' },
@@ -113,6 +117,7 @@ export default function AdminApp() {
         {active === 'pending' && <PendingTab />}
         {active === 'approved' && <ApprovedTab />}
         {active === 'schedule' && <ScheduleTab />}
+        {active === 'drafts' && <DraftsTab />}
         {active === 'published' && <PublishedTab />}
         {active === 'failed' && <FailedTab />}
         {active === 'health' && <HealthTab />}
