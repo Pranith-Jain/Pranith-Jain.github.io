@@ -9,6 +9,11 @@ export const kv = {
   scheduleUpcoming: 'schedule:upcoming',
   post: (slug: string) => `posts:${slug}`,
   postsIndex: 'posts:index',
+  /** Draft pipeline — populated when BLOG_APPROVAL_REQUIRED is on. The
+   *  post body is identical to the published one; promotion is a one-write
+   *  copy from `draft:<slug>` to `posts:<slug>` plus an index update. */
+  draft: (slug: string) => `drafts:${slug}`,
+  draftsIndex: 'drafts:index',
   metaRss: 'meta:rss',
   dedup: (stableKey: string) => `meta:dedup:${stableKey}`,
   failed: (slotId: string) => `failed:${slotId}`,

@@ -9,6 +9,8 @@ import { getDedup, touchDedup } from '../case-study/storage/dedup';
 import { approve, unapprove, listApproved, getApproved } from '../case-study/storage/approved';
 import { getSchedule, setSchedule, markSlotStatus, removeSlot } from '../case-study/storage/schedule';
 import { putPost, listPostIndex, removePost } from '../case-study/storage/posts';
+import { listDraftIndex, getDraft, approveDraft, rejectDraft } from '../case-study/storage/drafts';
+import { renderMarkdown } from '../case-study/rendering/markdown';
 import { listFailures } from '../case-study/storage/failed';
 import { runDiscoveryNow, runPlannerNow, runPublisherNow, type CaseStudyEnv } from '../case-study/run';
 import { runTelegramArchive } from './telegram-archive';
@@ -187,6 +189,51 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
 
   admin.get('/posts', async (c) => {
     return c.json({ posts: await listPostIndex(c.env.CASE_STUDIES) });
+  });
+
+  // ─── Draft pipeline (human approval gate) ──────────────────────────────
+  // Enabled when `BLOG_APPROVAL_REQUIRED=true` is set on the worker. The
+  // publisher writes new posts to `drafts:<slug>` and stops there; these
+  // endpoints surface the queue, render a preview, and either promote a
+  // draft to published or drop it. Public blog API is untouched — drafts
+  // never appear in `posts:index`.
+
+  admin.get('/drafts', async (c) => {
+    return c.json({
+      drafts: await listDraftIndex(c.env.CASE_STUDIES),
+      approvalRequired: c.env.BLOG_APPROVAL_REQUIRED === 'true',
+    });
+  });
+
+  admin.get('/drafts/:slug', async (c) => {
+    const slug = c.req.param('slug');
+    if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
+    const draft = await getDraft(c.env.CASE_STUDIES, slug);
+    if (!draft) return c.json({ error: 'not found' }, 404);
+    // Render markdown server-side so the admin preview matches exactly
+    // what visitors will see post-approval (same sanitiser + linkify pass).
+    const bodyHtml = renderMarkdown(draft.body);
+    return c.json({ post: draft, bodyHtml });
+  });
+
+  admin.post('/drafts/:slug/approve', async (c) => {
+    const slug = c.req.param('slug');
+    if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
+    const now = new Date();
+    const promoted = await approveDraft(c.env.CASE_STUDIES, slug, now);
+    if (!promoted) return c.json({ error: 'not found' }, 404);
+    // Refresh RSS so the new post shows up in the feed immediately, same
+    // as the auto-publish flow does.
+    const rss = renderRss(await listPostIndex(c.env.CASE_STUDIES), { siteUrl: SITE_URL });
+    await c.env.CASE_STUDIES.put(csKvKeys.metaRss, rss);
+    return c.json({ ok: true, slug: promoted.slug, approvedAt: promoted.approvedAt });
+  });
+
+  admin.post('/drafts/:slug/reject', async (c) => {
+    const slug = c.req.param('slug');
+    if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
+    await rejectDraft(c.env.CASE_STUDIES, slug);
+    return c.json({ ok: true });
   });
 
   admin.post('/posts/:slug/unpublish', async (c) => {

@@ -185,4 +185,76 @@ describe('postProcess', () => {
     expect(out.body).toContain('CISA KEV');
     expect(out.body).toContain('MITRE ATT&CK');
   });
+
+  it('strips reference bullets pointing at fabricated hosts', () => {
+    const raw =
+      `## Background\n\nCVE-2026-9999 is a KEV-listed RCE.\n\n` +
+      `## References\n\n` +
+      `- [NVD](https://nvd.nist.gov/vuln/detail/CVE-2026-9999) - CVE record.\n` +
+      `- [Krebs](https://krebsonsecurity.com/article) - news writeup.\n` +
+      `- [Fake research lab](https://imaginary-research-lab.notarealdomain.example) - hallucinated source.\n` +
+      `- [Another fake](https://blog.notacompany.invalid/post/123) - also fabricated.\n`;
+    const out = postProcess({ type: 'cve', raw, factsText: 'CVE-2026-9999' });
+    expect(out.body).toContain('NVD');
+    expect(out.body).toContain('krebsonsecurity.com');
+    expect(out.body).not.toContain('imaginary-research-lab');
+    expect(out.body).not.toContain('notacompany.invalid');
+  });
+
+  it('keeps refs whose host appears in the candidate factsText even if not in the static allowlist', () => {
+    const raw =
+      `## Background\n\nCVE-2026-9999 is a KEV-listed RCE.\n\n` +
+      `## References\n\n` +
+      `- [NVD](https://nvd.nist.gov/vuln/detail/CVE-2026-9999) - CVE record.\n` +
+      `- [Per-post source](https://niche-vendor-blog.example.co/advisory/123) - relevant for this case.\n`;
+    // The fact text mentions the per-post source host so the bullet should survive.
+    const factsText = 'CVE-2026-9999\nsources: https://niche-vendor-blog.example.co/advisory/123';
+    const out = postProcess({ type: 'cve', raw, factsText });
+    expect(out.body).toContain('niche-vendor-blog.example.co');
+  });
+
+  it('drops placeholder IPs / private addresses / TEST-NET / loopback from extracted IOCs', () => {
+    const raw =
+      `## What is this vulnerability?\n\n` +
+      `CVE-2026-9999 talks to 192.168.1.100 and 10.0.0.1 internally, then beacons to 203.0.113.55 ` +
+      `(the documentation example) and 127.0.0.1. A real C2 is 198.18.5.5 (benchmark range, not real). ` +
+      `Real-world traffic was observed to 91.215.155.42 from this campaign.\n\n` +
+      `## References\n\n- [NVD](https://nvd.nist.gov/vuln/detail/CVE-2026-9999) - CVE record.\n`;
+    const out = postProcess({ type: 'cve', raw, factsText: 'CVE-2026-9999' });
+    const ips = out.iocs.filter((i) => i.type === 'ipv4').map((i) => i.value);
+    expect(ips).toContain('91.215.155.42');
+    expect(ips).not.toContain('192.168.1.100');
+    expect(ips).not.toContain('10.0.0.1');
+    expect(ips).not.toContain('203.0.113.55');
+    expect(ips).not.toContain('127.0.0.1');
+    expect(ips).not.toContain('198.18.5.5');
+  });
+
+  it('drops obviously-fake hashes (all-same-char / cafebabe / etc.)', () => {
+    const raw =
+      `## Summary\n\nCVE-2026-9999 dropped these samples:\n` +
+      `- deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef (fake)\n` +
+      `- 0000000000000000000000000000000000000000000000000000000000000000 (placeholder)\n` +
+      `- cafebabecafebabecafebabecafebabecafebabecafebabecafebabecafebabe (fake)\n` +
+      `- 11ab22cd33ef44567890abcdef1234567890abcdef1234567890abcdef123456 (real-looking)\n\n` +
+      `## References\n\n- [NVD](https://nvd.nist.gov/vuln/detail/CVE-2026-9999) - CVE record.\n`;
+    const out = postProcess({ type: 'cve', raw, factsText: 'CVE-2026-9999' });
+    const hashes = out.iocs.filter((i) => i.type === 'sha256').map((i) => i.value);
+    expect(hashes).toContain('11ab22cd33ef44567890abcdef1234567890abcdef1234567890abcdef123456');
+    expect(hashes).not.toContain('deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef');
+    expect(hashes).not.toContain('0000000000000000000000000000000000000000000000000000000000000000');
+    expect(hashes).not.toContain('cafebabecafebabecafebabecafebabecafebabecafebabecafebabecafebabe');
+  });
+
+  it('drops placeholder domains (example.*, .local, .invalid)', () => {
+    const raw =
+      `## Summary\n\nCVE-2026-9999 was seen calling out to evil-real.example as a stand-in plus ` +
+      `bad-corp.test for testing. The real C2 host is bad-actor-domain.xyz which the campaign uses.\n\n` +
+      `## References\n\n- [NVD](https://nvd.nist.gov/vuln/detail/CVE-2026-9999) - CVE record.\n`;
+    const out = postProcess({ type: 'cve', raw, factsText: 'CVE-2026-9999' });
+    const domains = out.iocs.filter((i) => i.type === 'domain').map((i) => i.value);
+    expect(domains).toContain('bad-actor-domain.xyz');
+    expect(domains).not.toContain('evil-real.example');
+    expect(domains).not.toContain('bad-corp.test');
+  });
 });

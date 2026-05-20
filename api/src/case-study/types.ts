@@ -30,7 +30,13 @@ export interface Candidate {
 export interface Slot {
   slotAt: string; // ISO 8601
   candidateId: string; // stable key
-  status: 'pending' | 'publishing' | 'published' | 'failed';
+  /**
+   * `draft` is the new terminal state for the approval-gate flow: the
+   * publisher generated the post but it's awaiting an admin click before
+   * it goes public. Once approved it moves to `published`; once rejected
+   * the slot stays at `draft` until the admin explicitly clears it.
+   */
+  status: 'pending' | 'publishing' | 'published' | 'failed' | 'draft';
   publishedSlug?: string;
   error?: string;
 }
@@ -80,6 +86,14 @@ export interface Post {
   sources: PostSource[];
   quality?: QualityScore;
   qa?: QaVerdict;
+  /**
+   * Optional approval gate metadata. Absent for legacy auto-published
+   * posts (treated as `published`). New posts go through `draft` first
+   * when `BLOG_APPROVAL_REQUIRED=true` is set on the worker.
+   */
+  status?: 'draft' | 'published';
+  /** ISO 8601 timestamp set when an admin approves a draft. */
+  approvedAt?: string;
 }
 
 export interface PostIndexEntry {

@@ -188,6 +188,214 @@ function stripPlaceholderRefs(body: string): string {
 }
 
 /**
+ * Curated allowlist of hosts that may appear in a ## References bullet.
+ * Anything else gets stripped — this defends against the model inventing
+ * citation URLs (the most common hallucination class on security writing).
+ *
+ * The list is the union of: canonical authorities (NVD, KEV, MITRE, CVSS),
+ * widely-cited vendor labs / news outlets, and the upstream feeds the
+ * discovery runners themselves use. We do NOT auto-allow every hostname
+ * that appears in the candidate's source URLs (those are added separately
+ * per-post in postProcess), so a one-off source for THIS post stays valid
+ * even if it's not in this static list.
+ */
+const REFERENCE_HOST_ALLOWLIST = new Set<string>([
+  // Canonical authorities
+  'nvd.nist.gov',
+  'cisa.gov',
+  'www.cisa.gov',
+  'attack.mitre.org',
+  'cve.mitre.org',
+  'cve.org',
+  'www.cve.org',
+  'first.org',
+  'www.first.org',
+  // Ransomware tracking + dark-web intel
+  'ransomlook.io',
+  'www.ransomlook.io',
+  'ransomware.live',
+  'ransomwatch.io',
+  'ransom.wiki',
+  // abuse.ch family
+  'abuse.ch',
+  'threatfox.abuse.ch',
+  'urlhaus.abuse.ch',
+  'bazaar.abuse.ch',
+  'feodotracker.abuse.ch',
+  // Vendor / research labs
+  'unit42.paloaltonetworks.com',
+  'sentinelone.com',
+  'sentinelone.labs',
+  'sentinellabs.com',
+  'mandiant.com',
+  'cloud.google.com',
+  'research.checkpoint.com',
+  'huntress.com',
+  'crowdstrike.com',
+  'sygnia.co',
+  'sophos.com',
+  'news.sophos.com',
+  'microsoft.com',
+  'www.microsoft.com',
+  'cisco.com',
+  'blog.talosintelligence.com',
+  'talosintelligence.com',
+  'fortinet.com',
+  'kaspersky.com',
+  'securelist.com',
+  'eset.com',
+  'welivesecurity.com',
+  'tenable.com',
+  'rapid7.com',
+  'redcanary.com',
+  'snyk.io',
+  // Security news / write-ups
+  'krebsonsecurity.com',
+  'bleepingcomputer.com',
+  'www.bleepingcomputer.com',
+  'therecord.media',
+  'thehackernews.com',
+  'hackread.com',
+  'theregister.com',
+  'arstechnica.com',
+  'wired.com',
+  'reuters.com',
+  // Breach / OSINT references
+  'haveibeenpwned.com',
+  'hudsonrock.com',
+  'shodan.io',
+  'censys.io',
+  'virustotal.com',
+  'www.virustotal.com',
+  'otx.alienvault.com',
+  'urlscan.io',
+  // Standards bodies
+  'nist.gov',
+  'csrc.nist.gov',
+  'iana.org',
+  'ietf.org',
+  'datatracker.ietf.org',
+  // Public AI/ML security
+  'owasp.org',
+  'genai.owasp.org',
+  'atlas.mitre.org',
+  // Generic high-trust
+  'github.com',
+  'gist.github.com',
+]);
+
+function hostOf(url: string): string | null {
+  try {
+    return new URL(url).host.toLowerCase().replace(/^www\./, '');
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Strip ## References bullets whose host is neither in the static
+ * allowlist nor in the per-post source hostnames extracted from the
+ * factsText. Defends against the model fabricating citation URLs.
+ *
+ * One escape hatch: if removing references would empty the section we
+ * stop short (better an over-broad citation than no citations at all,
+ * which would cause QA to fail the post for being unsourced).
+ */
+function stripDisallowedRefs(body: string, factsText: string): string {
+  const refsIdx = body.search(/^##\s+References\b/im);
+  if (refsIdx < 0) return body;
+  const bodyText = body.slice(0, refsIdx);
+  const refsText = body.slice(refsIdx);
+
+  // Extract every hostname mentioned in the candidate's factsText so a
+  // legitimate per-post source survives even if it isn't in the static
+  // list. Includes bare URLs and markdown-wrapped URLs.
+  const factHosts = new Set<string>();
+  for (const m of factsText.match(/https?:\/\/[^\s)"']+/gi) ?? []) {
+    const h = hostOf(m);
+    if (h) factHosts.add(h);
+  }
+
+  let kept = 0;
+  let dropped = 0;
+  const refLine = /^(\s*[-*+]\s*)\[([^\]]+)\]\(([^)]+)\)([^\n]*)\n?/gm;
+  const filtered = refsText.replace(refLine, (match, _bullet, _label, url) => {
+    const host = hostOf(String(url));
+    if (!host) {
+      dropped += 1;
+      return '';
+    }
+    const bare = host.replace(/^www\./, '');
+    if (
+      REFERENCE_HOST_ALLOWLIST.has(host) ||
+      REFERENCE_HOST_ALLOWLIST.has(bare) ||
+      factHosts.has(host) ||
+      factHosts.has(bare)
+    ) {
+      kept += 1;
+      return match;
+    }
+    dropped += 1;
+    return '';
+  });
+
+  // Safety: if our filter would empty the References section entirely,
+  // back off — leave the original list. An over-eager filter could
+  // remove every reference on a topic whose canonical sources we haven't
+  // enumerated yet, and an empty References section trips QA.
+  if (kept === 0 && dropped > 0) return body;
+  return bodyText + filtered;
+}
+
+/**
+ * Sanity-filter for IOCs extracted from a generated post. Placeholder /
+ * reserved values that the LLM tends to invent ("192.168.1.1" as a C2
+ * IP, "0123…789abc" as a hash) get dropped before they reach KV. This
+ * is layer-1 truth defence — a future layer-2 would cross-check live
+ * threat-intel APIs (VT/Censys). Layer-1 alone catches the obvious cases.
+ */
+function isPlaceholderIp(ip: string): boolean {
+  const m = /^(\d+)\.(\d+)\.(\d+)\.(\d+)$/.exec(ip);
+  if (!m) return false;
+  const [a, b, c, d] = [Number(m[1]), Number(m[2]), Number(m[3]), Number(m[4])];
+  if ([a, b, c, d].some((n) => n < 0 || n > 255 || Number.isNaN(n))) return true;
+  if (a === 0) return true; // 0.0.0.0/8 "this network"
+  if (a === 10) return true; // RFC1918
+  if (a === 127) return true; // loopback
+  if (a === 169 && b === 254) return true; // link-local
+  if (a === 172 && b >= 16 && b <= 31) return true; // RFC1918
+  if (a === 192 && b === 168) return true; // RFC1918
+  if (a === 192 && b === 0 && c === 2) return true; // TEST-NET-1
+  if (a === 198 && b === 51 && c === 100) return true; // TEST-NET-2
+  if (a === 203 && b === 0 && c === 113) return true; // TEST-NET-3
+  if (a >= 224) return true; // multicast / reserved
+  // 192.0.0.0/24 special-use, 198.18.0.0/15 benchmark, 240/4 reserved
+  if (a === 192 && b === 0 && c === 0) return true;
+  if (a === 198 && b >= 18 && b <= 19) return true;
+  return false;
+}
+
+function isPlaceholderDomain(domain: string): boolean {
+  const d = domain.toLowerCase();
+  if (d === 'localhost') return true;
+  if (/^example\.(com|net|org|test|local|edu)$/.test(d)) return true;
+  if (/\.(test|local|invalid|example|localhost)$/.test(d)) return true;
+  if (/^(www\.)?(example|test|placeholder|sample|dummy|foobar|fake)\./.test(d)) return true;
+  return false;
+}
+
+function isPlaceholderHash(hash: string): boolean {
+  const h = hash.toLowerCase();
+  // SHA-256: 64 hex chars. Reject all-same-char strings (0000…, ffff…,
+  // dead-beef-style obviously fake patterns).
+  if (/^([0-9a-f])\1{63}$/.test(h)) return true;
+  if (/^(deadbeef|cafebabe|baadf00d|feedface|abad1dea)/i.test(h)) return true;
+  // Repeating short patterns ("123456789abcdef…" or "01234567…" lookalikes)
+  if (/^(0123456789abcdef){4}$/.test(h)) return true;
+  return false;
+}
+
+/**
  * Drop canonical-authority references (NVD, CISA KEV, MITRE ATT&CK) from
  * the References section when they are clearly being used as filler — a
  * bare home-page URL with no specific CVE / technique / entry behind it,
@@ -257,6 +465,11 @@ export function postProcess(input: PostProcessInput): PostProcessOutput {
   // Step 3a.1: Prune NVD / KEV / MITRE references that the body doesn't
   // actually use — defensive against the model dropping them in as filler.
   body = stripUnusedCanonicalRefs(body);
+  // Step 3a.2: Drop references whose host is neither in the static
+  // allowlist nor in the candidate's source URLs. Defends against the
+  // model fabricating citation domains (the most common hallucination
+  // mode on security writing). Backs off if it would empty the section.
+  body = stripDisallowedRefs(body, input.factsText);
   // Step 3b: Fix list blocks missing blank lines after them
   body = fixListBlocks(body);
   // Step 4: Strip sections that are empty or filler
@@ -355,11 +568,18 @@ export function postProcess(input: PostProcessInput): PostProcessOutput {
     .replace(/\[[^\]]*\]\(https?:\/\/[^)]+\)/g, ' ') // markdown links
     .replace(/https?:\/\/\S+/g, ' '); // bare URLs
 
-  for (const m of bodyNoLinks.match(IPV4_RE) ?? []) add('ipv4', m);
-  for (const m of bodyNoLinks.match(SHA256_RE) ?? []) add('sha256', m.toLowerCase());
+  for (const m of bodyNoLinks.match(IPV4_RE) ?? []) {
+    if (isPlaceholderIp(m)) continue;
+    add('ipv4', m);
+  }
+  for (const m of bodyNoLinks.match(SHA256_RE) ?? []) {
+    const h = m.toLowerCase();
+    if (isPlaceholderHash(h)) continue;
+    add('sha256', h);
+  }
   for (const m of bodyNoLinks.match(DOMAIN_RE) ?? []) {
     const host = stripHost(m);
-    if (/^example\./i.test(host)) continue;
+    if (isPlaceholderDomain(host)) continue;
     if (exclude.has(host)) continue;
     // ransom posts: the body is victim names + the leak-site source. None of
     // those are IOCs. Skip domain extraction entirely for this type.

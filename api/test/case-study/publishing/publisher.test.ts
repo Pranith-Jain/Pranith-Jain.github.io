@@ -84,4 +84,33 @@ describe('runPublisher', () => {
     expect(result.published).toBe(0);
     expect(d.markSlotStatus).toHaveBeenCalledWith(cand.key, 'failed', expect.any(Object));
   });
+
+  it('approval gate: writes to draft, leaves posts:index untouched', async () => {
+    const d = deps({
+      requireApproval: true,
+      putDraft: vi.fn(async () => {}),
+    });
+    const result = await runPublisher(d as any);
+    // No publish — `published` stays 0, slug bubbles up so the caller can log it
+    expect(result.published).toBe(0);
+    expect(result.slug).toBe(fakePost.slug);
+    // Draft sink fired, posts sink + RSS refresh did NOT
+    expect(d.putDraft).toHaveBeenCalledWith(fakePost);
+    expect(d.putPost).not.toHaveBeenCalled();
+    expect(d.refreshRss).not.toHaveBeenCalled();
+    // Slot transitions to 'draft' so the planner doesn't re-pick it
+    expect(d.markSlotStatus).toHaveBeenCalledWith(cand.key, 'draft', { publishedSlug: fakePost.slug });
+    // Dedup + unapprove still fire so the candidate isn't re-discovered
+    expect(d.unapprove).toHaveBeenCalledWith(cand.key);
+    expect(d.touchDedup).toHaveBeenCalledWith(cand.key, expect.any(Date), fakePost.slug);
+  });
+
+  it('approval gate: falls back to auto-publish when putDraft is not wired', async () => {
+    // requireApproval=true but no putDraft sink — the publisher should
+    // take the published path rather than silently lose the post.
+    const d = deps({ requireApproval: true });
+    const result = await runPublisher(d as any);
+    expect(result.published).toBe(1);
+    expect(d.putPost).toHaveBeenCalledWith(fakePost);
+  });
 });

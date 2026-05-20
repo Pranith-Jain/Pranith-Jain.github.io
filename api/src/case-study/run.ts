@@ -23,6 +23,7 @@ import { listApproved, getApproved, unapprove } from './storage/approved';
 import { setSchedule, markSlotStatus, pickDueSlot } from './storage/schedule';
 import { loadDedupMap, touchDedup, touchDedupMany } from './storage/dedup';
 import { putPost, listPostIndex } from './storage/posts';
+import { putDraft } from './storage/drafts';
 import { recordFailure } from './storage/failed';
 import { renderRss } from './rendering/rss';
 import { generatePost } from './generation';
@@ -38,6 +39,14 @@ export interface CaseStudyEnv {
   ABUSECH_AUTH_KEY?: string;
   BRIEFINGS_DB?: D1Database;
   GROQ_API_KEY?: string;
+  /**
+   * When set to the literal "true" (string from `wrangler secret` or
+   * `wrangler.jsonc#vars`), the publisher writes every new post to the
+   * `drafts:` namespace instead of publishing. An admin promotes drafts
+   * via /api/v1/admin/case-study/drafts/:slug/approve. Anything else
+   * (unset, "false", "0") leaves the existing auto-publish behaviour.
+   */
+  BLOG_APPROVAL_REQUIRED?: string;
 }
 
 export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
@@ -146,6 +155,7 @@ export function runPublisherNow(env: CaseStudyEnv, now: Date) {
     console.warn(JSON.stringify({ job: 'publisher', status: 'skipped_no_kv' }));
     return Promise.resolve({ published: null as unknown });
   }
+  const requireApproval = env.BLOG_APPROVAL_REQUIRED === 'true';
   return runPublisher({
     pickDueSlot: (n) => pickDueSlot(env.CASE_STUDIES, n),
     markSlotStatus: (cid, status, extras) => markSlotStatus(env.CASE_STUDIES, cid, status, extras),
@@ -154,6 +164,7 @@ export function runPublisherNow(env: CaseStudyEnv, now: Date) {
     generatePost: (cand, n) =>
       generatePost({ candidate: cand, ai: env.AI as never, now: n, groqKey: env.GROQ_API_KEY }),
     putPost: (p) => putPost(env.CASE_STUDIES, p),
+    putDraft: (p) => putDraft(env.CASE_STUDIES, p),
     refreshRss: async () => {
       // RSS only needs index-level fields — render straight from the posts
       // index (1 KV read) instead of fan-out-reading every full post.
@@ -163,5 +174,6 @@ export function runPublisherNow(env: CaseStudyEnv, now: Date) {
     touchDedup: (k, when, slug) => touchDedup(env.CASE_STUDIES, k, when, slug),
     recordFailure: (rec) => recordFailure(env.CASE_STUDIES, rec),
     now,
+    requireApproval,
   });
 }

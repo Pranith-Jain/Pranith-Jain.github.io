@@ -8,6 +8,13 @@ export interface RunPublisherDeps {
   unapprove: (stableKey: string) => Promise<void>;
   generatePost: (candidate: Candidate, now: Date) => Promise<Post>;
   putPost: (post: Post) => Promise<void>;
+  /**
+   * Optional draft sink. When `requireApproval` is true the generated
+   * post is written here instead of `putPost`; RSS / unapprove / dedup
+   * stay on the same path so the candidate isn't re-discovered while a
+   * draft is sitting in the queue.
+   */
+  putDraft?: (post: Post) => Promise<void>;
   refreshRss: () => Promise<void>;
   touchDedup: (stableKey: string, when: Date, publishedSlug: string) => Promise<void>;
   recordFailure: (rec: {
@@ -19,6 +26,14 @@ export interface RunPublisherDeps {
     retries: number;
   }) => Promise<void>;
   now: Date;
+  /**
+   * Human-approval gate. When true (BLOG_APPROVAL_REQUIRED=true on the
+   * worker), the publisher writes a draft and stops there; an admin
+   * approves via `/admin/case-study/drafts/:slug/approve`, which is the
+   * step that flips it to the public posts index + refreshes RSS.
+   * When false, behaviour is identical to the previous auto-publish flow.
+   */
+  requireApproval?: boolean;
 }
 
 export async function runPublisher(deps: RunPublisherDeps): Promise<{ published: number; slug?: string }> {
@@ -45,6 +60,29 @@ export async function runPublisher(deps: RunPublisherDeps): Promise<{ published:
 
   try {
     const post = await deps.generatePost(candidate, deps.now);
+
+    if (deps.requireApproval && deps.putDraft) {
+      // Approval gate: write to draft + stop. The candidate stays
+      // unapproved-deduped (no re-discovery) but RSS / public index are
+      // untouched until an admin approves. The slot transitions to
+      // 'draft' so the planner doesn't pick it again.
+      await deps.putDraft(post);
+      await deps.unapprove(candidate.key);
+      await deps.touchDedup(candidate.key, deps.now, post.slug);
+      await deps.markSlotStatus(slot.candidateId, 'draft', { publishedSlug: post.slug });
+      console.log(
+        JSON.stringify({
+          job: 'publisher',
+          drafted: 1,
+          slug: post.slug,
+          candidateId: candidate.key,
+          ts: deps.now.toISOString(),
+          note: 'awaiting admin approval',
+        })
+      );
+      return { published: 0, slug: post.slug };
+    }
+
     await deps.putPost(post);
     await deps.refreshRss();
     await deps.unapprove(candidate.key);

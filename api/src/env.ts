@@ -45,4 +45,11 @@ export interface Env {
    *  no-op when either is unset. */
   TELEGRAM_BOT_TOKEN?: string;
   TELEGRAM_CHANNEL_ID?: string;
+  /** When the literal string "true", the case-study publisher writes new
+   *  posts to the `drafts:` namespace instead of `posts:` — promoting a
+   *  draft requires an admin click via /api/v1/admin/case-study/drafts/
+   *  <slug>/approve. Unset (or any other value) keeps the existing
+   *  auto-publish flow. Set via `wrangler.jsonc#vars.BLOG_APPROVAL_REQUIRED`
+   *  or `wrangler secret put`. */
+  BLOG_APPROVAL_REQUIRED?: string;
 }
