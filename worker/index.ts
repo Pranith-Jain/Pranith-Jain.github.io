@@ -453,6 +453,32 @@ export default {
    */
   async scheduled(event: ScheduledEvent, env: Env, ctx: ExecutionContext): Promise<void> {
     const cron = event.cron;
+    const startMs = Date.now();
+
+    // === Per-cron-string single-flight lock ============================
+    // CF Workers cron is officially best-effort; in rare cases the same
+    // cron string can fire twice (slow predecessor, deploy event, retry).
+    // Without a lock, two concurrent hourly fires would:
+    //   - rebuild the same briefing twice (wasted KEV/NVD subrequests),
+    //   - post the same Telegram digest twice (visible duplicate),
+    //   - double-call the case-study LLM publisher.
+    // KV-backed best-effort lock with a 2-min TTL self-clears if a prior
+    // run crashed before reaching the release. KV-not-bound or transient
+    // KV errors → fail-open (we proceed; the prior failure modes resume,
+    // which is still better than dropping the cron on the floor).
+    if (env.KV_CACHE) {
+      try {
+        const lockKey = `cron:lock:${cron}`;
+        const held = await env.KV_CACHE.get(lockKey);
+        if (held) {
+          console.log(JSON.stringify({ job: 'cron-lock', cron, status: 'skipped_overlap', held_since: held }));
+          return;
+        }
+        await env.KV_CACHE.put(lockKey, new Date().toISOString(), { expirationTtl: 120 });
+      } catch {
+        /* KV transient — fail-open */
+      }
+    }
 
     // === Case-study generator — piggybacks on the existing 3 crons ===
     // Dispatched via ctx.waitUntil so existing briefing/warm logic below
@@ -464,8 +490,16 @@ export default {
     // cron job is otherwise silent (no structured log, and it can mask a
     // persistently broken discovery/planner/publisher). The briefing
     // builds further down already wrap in try/catch — match that here.
+    // Log .message only — full Error objects can stringify with stack
+    // frames that include upstream URLs or response snippets.
     const logCronFail = (job: string) => (e: unknown) =>
       console.error(JSON.stringify({ cron: csCron, job, error: e instanceof Error ? e.message : String(e) }));
+
+    // One terminal log line per cron firing so operators can grep for the
+    // job's lifecycle without correlating across many sub-logs.
+    const logCronDone = (extra: Record<string, unknown> = {}) => {
+      console.log(JSON.stringify({ job: 'cron-done', cron, duration_ms: Date.now() - startMs, ...extra }));
+    };
 
     // Hourly cache-warm cron — also run the publisher + Telegram archive.
     if (csCron === '0 * * * *') {
@@ -476,13 +510,21 @@ export default {
     // Case-study discovery — its OWN invocation (no longer shares the
     // subrequest budget with the briefing build, which used to degrade it).
     if (csCron === '5 0 * * *') {
-      ctx.waitUntil(runDiscoveryNow(env as unknown as CaseStudyEnv, csNow).catch(logCronFail('discovery')));
+      ctx.waitUntil(
+        runDiscoveryNow(env as unknown as CaseStudyEnv, csNow)
+          .catch(logCronFail('discovery'))
+          .finally(() => logCronDone({ path: 'discovery' }))
+      );
       return;
     }
 
     // Case-study planner — its own invocation.
     if (csCron === '15 0 * * 1') {
-      ctx.waitUntil(runPlannerNow(env as unknown as CaseStudyEnv, csNow).catch(logCronFail('planner')));
+      ctx.waitUntil(
+        runPlannerNow(env as unknown as CaseStudyEnv, csNow)
+          .catch(logCronFail('planner'))
+          .finally(() => logCronDone({ path: 'planner' }))
+      );
       return;
     }
 
@@ -541,7 +583,15 @@ export default {
                 );
               }
             } catch (err) {
-              console.error(`scheduled(${type}-catch-up): build failed`, err);
+              // .message only — Error objects can stringify upstream
+              // response context (rare, but cheap to defend against).
+              console.error(
+                JSON.stringify({
+                  job: `scheduled(${type}-catch-up)`,
+                  status: 'build_failed',
+                  error: err instanceof Error ? err.message : String(err),
+                })
+              );
             }
           };
 
@@ -597,8 +647,13 @@ export default {
             })
             .join(' ');
           console.log(`scheduled: warmed in ${Date.now() - start}ms — ${summary}`);
-        })()
+        })().catch(logCronFail('hourly-cron'))
+        // Without this .catch, an unhandled rejection inside the IIFE
+        // (briefing build, warm) silently aborts the entire ctx.waitUntil
+        // task — no log, no recovery. logCronFail emits a structured
+        // line so the operator at least sees that the hourly broke.
       );
+      ctx.waitUntil(Promise.resolve().then(() => logCronDone({ path: 'hourly' })));
       return;
     }
 
@@ -626,7 +681,14 @@ export default {
             `scheduled: wrote ${briefing.slug} (findings=${briefing.stats.findings}, iocs=${briefing.stats.iocs})`
           );
         } catch (err) {
-          console.error('scheduled: briefing build failed', err);
+          console.error(
+            JSON.stringify({
+              job: 'briefing-build',
+              type,
+              status: 'failed',
+              error: err instanceof Error ? err.message : String(err),
+            })
+          );
         }
         // Always run the sweep, even if the build failed — keeps DB tidy.
         try {
@@ -637,9 +699,16 @@ export default {
             );
           }
         } catch (err) {
-          console.error('scheduled: sweep failed', err);
+          console.error(
+            JSON.stringify({
+              job: 'briefing-sweep',
+              status: 'failed',
+              error: err instanceof Error ? err.message : String(err),
+            })
+          );
         }
-      })()
+        logCronDone({ path: 'briefing-dedicated', type });
+      })().catch(logCronFail('briefing-dedicated'))
     );
   },
 };
