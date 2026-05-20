@@ -75,8 +75,16 @@ export const DETECTION_RULES_PACK: DetectionRule[] = [
     id: 'malware-hash-classified',
     name: 'Classified malware sample',
     severity: 'medium',
-    description: 'A file hash carrying a non-trivial family signature from MalwareBazaar / ThreatFox / MyThreatIntel.',
-    match: { kind: 'hash', contextRegex: '[a-z]{3,}' },
+    description:
+      'File hash carrying a recognised malware family / class signature from MalwareBazaar / ThreatFox / MyThreatIntel — aggregates by signature so the rule fires when 3+ samples of the same family are observed in-window.',
+    match: {
+      kind: 'hash',
+      // Explicit allowlist of malware classes and high-prevalence family names.
+      // Narrower than the previous /[a-z]{3,}/ — that matched virtually any
+      // signed sample and made the rule noisy on Telegram digests.
+      contextRegex:
+        '\\b(trojan|backdoor|rat|downloader|loader|dropper|stealer|miner|keylogger|wiper|ransom|botnet|worm|rootkit|webshell|cobalt[ -]?strike|emotet|qakbot|trickbot|formbook|agenttesla|asyncrat|njrat|remcos|nanocore|gh0st|smokeloader|raccoon|redline|vidar|lumma|stealc|rhadamanthys)\\b',
+    },
     aggregate: { groupBy: 'context', minCount: 3 },
   },
   {

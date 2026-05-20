@@ -101,6 +101,24 @@ describe('convertRule — heuristic reverse parsers', () => {
     const r = convertRule('just some prose with no structure', 'kql', 'sigma');
     expect(r.ok).toBe(false);
   });
+
+  it('does not silently flip `!=` to equality and warns about negation (KQL)', () => {
+    const r = convertRule('Events | where Image == "a.exe" and User != "SYSTEM"', 'kql', 'sigma');
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    expect(r.output).toContain('Image: "a.exe"');
+    // `User != "SYSTEM"` must NOT round-trip as a `User: SYSTEM` equality.
+    expect(r.output).not.toMatch(/User\b\s*:\s*"?SYSTEM"?/);
+    expect(r.warnings.some((w) => /negation/.test(w))).toBe(true);
+  });
+
+  it('does not silently flip `!=` to equality and warns about negation (SPL)', () => {
+    const r = convertRule('index=win Image="a.exe" User!="SYSTEM"', 'splunk', 'sigma');
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    expect(r.output).not.toMatch(/User\b\s*:\s*"?SYSTEM"?/);
+    expect(r.warnings.some((w) => /negation/.test(w))).toBe(true);
+  });
 });
 
 describe('convertRule — universal sources', () => {

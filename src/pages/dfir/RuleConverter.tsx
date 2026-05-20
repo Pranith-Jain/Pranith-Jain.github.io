@@ -119,46 +119,51 @@ export default function RuleConverter(): JSX.Element {
         </p>
       </div>
 
-      <div className="flex flex-wrap items-end gap-4 mb-4">
-        <div>
-          <span className="block text-[11px] font-mono uppercase tracking-[0.2em] text-slate-500 mb-1">Source</span>
-          <div className="flex gap-1.5">
-            {SOURCE_FORMATS.map((f) => (
-              <button
-                key={f}
-                type="button"
-                onClick={() => setFrom(f)}
-                className={`text-xs font-mono px-2.5 py-1.5 rounded border ${
-                  from === f
-                    ? 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-300 dark:border-slate-700 text-slate-500 hover:border-brand-500/40'
-                }`}
-              >
-                {FORMAT_LABELS[f]}
-              </button>
-            ))}
-          </div>
-        </div>
-        <ArrowRight size={18} className="text-slate-400 mb-2" aria-hidden="true" />
-        <div>
-          <span className="block text-[11px] font-mono uppercase tracking-[0.2em] text-slate-500 mb-1">Target</span>
-          <div className="flex flex-wrap gap-1.5">
-            {TARGET_FORMATS.map((f) => (
-              <button
-                key={f}
-                type="button"
-                onClick={() => setTo(f)}
-                className={`text-xs font-mono px-2.5 py-1.5 rounded border ${
-                  to === f
-                    ? 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                    : 'border-slate-300 dark:border-slate-700 text-slate-500 hover:border-brand-500/40'
-                }`}
-              >
-                {FORMAT_LABELS[f]}
-              </button>
-            ))}
-          </div>
-        </div>
+      <div className="flex flex-wrap items-center gap-3 mb-4">
+        <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-slate-500">convert</span>
+        <label htmlFor="rc-from" className="sr-only">
+          Source format
+        </label>
+        <select
+          id="rc-from"
+          value={from}
+          onChange={(e) => setFrom(e.target.value as RuleFormat)}
+          className="text-xs font-mono px-2.5 py-1.5 rounded border border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300 focus:outline-none focus:border-brand-500"
+        >
+          {SOURCE_FORMATS.map((f) => (
+            <option key={f} value={f}>
+              {FORMAT_LABELS[f]}
+            </option>
+          ))}
+        </select>
+        <ArrowRight size={16} className="text-slate-400" aria-hidden="true" />
+        <label htmlFor="rc-to" className="sr-only">
+          Target format
+        </label>
+        <select
+          id="rc-to"
+          value={to}
+          onChange={(e) => setTo(e.target.value as RuleFormat)}
+          className="text-xs font-mono px-2.5 py-1.5 rounded border border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300 focus:outline-none focus:border-brand-500"
+        >
+          {TARGET_FORMATS.map((f) => (
+            <option key={f} value={f}>
+              {FORMAT_LABELS[f]}
+            </option>
+          ))}
+        </select>
+        <button
+          type="button"
+          onClick={() => {
+            setFrom(to);
+            setTo(from);
+          }}
+          aria-label="swap source and target formats"
+          title="swap source and target"
+          className="inline-flex items-center gap-1 text-[11px] font-mono px-2 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+        >
+          <Shuffle size={11} /> swap
+        </button>
       </div>
 
       <div className="flex flex-wrap gap-2 mb-3">
