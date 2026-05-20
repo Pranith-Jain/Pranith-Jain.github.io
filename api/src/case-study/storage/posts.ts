@@ -32,7 +32,17 @@ export async function putPost(ns: KVNamespace, p: Post): Promise<void> {
 }
 
 export async function removePost(ns: KVNamespace, slug: string): Promise<void> {
-  await ns.delete(kv.post(slug));
+  // Single source of truth for unpublish: the post record, the index entry,
+  // and every key that was keyed off the slug (combined social object plus
+  // per-platform Twitter / LinkedIn variants). Previously only the post
+  // record + index were cleaned, leaving social:* orphans behind that
+  // re-appeared if the slug was ever reused.
+  await Promise.all([
+    ns.delete(kv.post(slug)),
+    ns.delete(kv.social(slug)),
+    ns.delete(kv.socialTwitter(slug)),
+    ns.delete(kv.socialLinkedin(slug)),
+  ]);
   const index = await listPostIndex(ns);
   await ns.put(kv.postsIndex, JSON.stringify(index.filter((e) => e.slug !== slug)));
 }

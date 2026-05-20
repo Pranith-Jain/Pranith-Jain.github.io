@@ -44,11 +44,26 @@ function sanitizeHtml(html: string): string {
     .replace(DANGEROUS_URL_ATTRS, '$1"#"');
 }
 
+/**
+ * Outer ceiling on the markdown source size we'll attempt to parse. Manual
+ * admin posts are already body-bounded to 256 KB by `safeJsonBody`, and LLM
+ * output is capped by `max_tokens` (~12 KB). 512 KB gives both paths
+ * comfortable headroom while keeping `marked.parse` + the regex sanitiser
+ * out of pathological territory. An oversize input is truncated with a
+ * visible marker rather than rejected — a partial render is still useful
+ * for debugging if a future code path manages to slip a giant blob through.
+ */
+const MAX_MD_BYTES = 512 * 1024;
+
 export function renderMarkdown(md: string): string {
+  const safeMd =
+    new Blob([md]).size > MAX_MD_BYTES
+      ? `${md.slice(0, MAX_MD_BYTES)}\n\n_…[post body truncated at ${MAX_MD_BYTES} bytes]_`
+      : md;
   // Strip dangerous tags from the markdown source first: marked treats lines
   // beginning with raw HTML as a single block and won't render inline markdown
   // inside them, so post-render stripping alone would discard surrounding text.
-  const presanitized = sanitizeHtml(md);
+  const presanitized = sanitizeHtml(safeMd);
   const html = marked.parse(presanitized, { async: false }) as string;
   const linked = linkify(html);
   return sanitizeHtml(linked);
