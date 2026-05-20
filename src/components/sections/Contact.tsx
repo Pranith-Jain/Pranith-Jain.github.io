@@ -4,8 +4,8 @@ import { CopyToClipboard } from '../../components/CopyToClipboard';
 
 export function Contact() {
   return (
-    <section id="contact" className="mt-32 scroll-mt-24" aria-labelledby="contact-heading">
-      <div className="animate-fade-in-up relative overflow-hidden rounded-[3rem] bg-slate-900 px-6 py-20 dark:bg-brand-950 sm:px-12 lg:py-28">
+    <section id="contact" className="mt-20 scroll-mt-24" aria-labelledby="contact-heading">
+      <div className="animate-fade-in-up relative overflow-hidden rounded-[3rem] bg-slate-900 px-6 py-16 dark:bg-brand-950 sm:px-12 lg:py-20">
         {/* Background patterns */}
         <div
           className="absolute inset-0 opacity-20 [mask-image:radial-gradient(ellipse_at_center,white,transparent)]"

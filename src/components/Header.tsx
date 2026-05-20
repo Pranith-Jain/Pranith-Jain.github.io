@@ -165,10 +165,12 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation — Home is skipped (logo already routes home)
+              and CTA-tagged links (Contact) are pulled out so they render
+              as a button on the right, not as an inline pill. */}
           <nav className="hidden items-center gap-1 md:flex" aria-label="Main navigation">
             {navLinks
-              .filter((link) => link.label !== 'Home')
+              .filter((link) => link.label !== 'Home' && !link.cta)
               .map((link) => (
                 <div
                   key={link.href}
@@ -258,6 +260,23 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
 
           {/* Actions */}
           <div className="flex items-center gap-2">
+            {/* CTA pill — sits to the left of the theme toggle on desktop;
+                hidden on mobile (the drawer surfaces Contact as its own
+                row). The arrow nudges the user toward action without being
+                shouty. */}
+            {navLinks
+              .filter((link) => link.cta)
+              .map((link) => (
+                <Link
+                  key={link.href}
+                  to={link.href}
+                  className="hidden md:inline-flex items-center gap-1.5 rounded-full bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-500 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
+                >
+                  {link.label}
+                  <span aria-hidden="true">→</span>
+                </Link>
+              ))}
+
             <ThemeToggle isDark={isDark} onToggle={onToggleTheme} />
 
             <button
@@ -299,35 +318,54 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
             aria-label="Mobile navigation"
           >
             <div className="flex flex-col p-4 space-y-1">
-              {navLinks.map((link) => (
-                <div key={link.href}>
-                  <Link
-                    to={link.href}
-                    onClick={closeMobileMenu}
-                    className={`rounded-lg px-4 py-3 text-sm font-medium block focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
-                      isActive(link.href)
-                        ? 'text-brand-600 dark:text-brand-400 bg-brand-500/10'
-                        : 'text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10'
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                  {'children' in link && link.children && (
-                    <div className="ml-4 mt-1 space-y-1">
+              {navLinks.map((link) => {
+                // Group entries (Work / Build) render as section headers
+                // with their children indented. The parent label is NOT a
+                // link on mobile — clicking it does nothing visible; the
+                // children carry every destination. This avoids the
+                // "parent route is the same as the first child" duplicate
+                // that the old layout introduced.
+                if ('children' in link && link.children) {
+                  return (
+                    <div key={link.label} className="pt-2 first:pt-0">
+                      <div className="px-4 pb-1 text-[10px] font-mono uppercase tracking-[0.18em] text-slate-400 dark:text-slate-500">
+                        {link.label}
+                      </div>
                       {link.children.map((child) => (
                         <Link
                           key={child.href}
                           to={child.href}
                           onClick={closeMobileMenu}
-                          className="block rounded-lg px-4 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
+                          className={`block rounded-lg px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
+                            isActive(child.href)
+                              ? 'text-brand-600 dark:text-brand-400 bg-brand-500/10'
+                              : 'text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10'
+                          }`}
                         >
                           {child.label}
                         </Link>
                       ))}
                     </div>
-                  )}
-                </div>
-              ))}
+                  );
+                }
+                return (
+                  <Link
+                    key={link.href}
+                    to={link.href}
+                    onClick={closeMobileMenu}
+                    className={`rounded-lg px-4 py-3 text-sm font-medium block focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
+                      link.cta
+                        ? 'bg-brand-600 text-white hover:bg-brand-500 mt-2'
+                        : isActive(link.href)
+                          ? 'text-brand-600 dark:text-brand-400 bg-brand-500/10'
+                          : 'text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10'
+                    }`}
+                  >
+                    {link.label}
+                    {link.cta && <span aria-hidden="true"> →</span>}
+                  </Link>
+                );
+              })}
             </div>
           </nav>
         </div>

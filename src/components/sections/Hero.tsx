@@ -5,13 +5,13 @@ import { PjMark } from '../PjMark';
 
 export function Hero() {
   return (
-    <section className="relative pt-6 lg:pt-10">
-      <div className="grid items-center gap-12 lg:grid-cols-[1.2fr_0.8fr]">
+    <section className="relative pt-4 lg:pt-6">
+      <div className="grid items-center gap-8 lg:grid-cols-[1.2fr_0.8fr]">
         {/* Left Content */}
         <div className="animate-fade-in-up">
           {/* One live status pill — the rest moved to an editorial meta line
               below (chip-soup is the generic SaaS tell; this reads authored). */}
-          <div className="mb-7 flex items-center gap-2.5 text-[11px] font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400">
+          <div className="mb-5 flex items-center gap-2.5 text-[11px] font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping motion-reduce:animate-none absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
@@ -28,7 +28,7 @@ export function Hero() {
           </h1>
 
           {/* Discipline line — replaces the secondary chips */}
-          <div className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-medium text-slate-500 dark:text-slate-400">
+          <div className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-medium text-slate-500 dark:text-slate-400">
             <span>Threat Intelligence</span>
             <span className="text-slate-300 dark:text-slate-700">/</span>
             <span>Email Defense</span>
@@ -39,7 +39,7 @@ export function Hero() {
           </div>
 
           {/* Description */}
-          <p className="mt-8 max-w-2xl text-xl leading-relaxed text-slate-700 dark:text-slate-300">
+          <p className="mt-6 max-w-2xl text-xl leading-relaxed text-slate-700 dark:text-slate-300">
             I&apos;m{' '}
             <span className="font-bold text-slate-900 dark:text-white underline decoration-brand-500/30 underline-offset-4">
               Pranith Jain
@@ -47,35 +47,44 @@ export function Hero() {
             , {personalInfo.description}
           </p>
 
-          {/* Current Focus */}
-          <div className="mt-6 space-y-3">
-            <div className="flex items-center gap-3 text-sm font-medium text-slate-600 dark:text-slate-400">
-              <span className="flex h-2 w-2 rounded-full bg-brand-500"></span>
-              <span>
-                Current Focus:{' '}
-                <span className="text-slate-900 dark:text-white font-semibold italic">{personalInfo.currentFocus}</span>
-              </span>
+          {/* Status cards — 3-up dashboard read of focus / learning /
+              availability. Each card uses the same shape (icon dot + caps
+              label + value) so the eye scans across rather than top-down. */}
+          <div className="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+            <div className="rounded-xl border border-slate-200/70 bg-white/60 px-4 py-3 dark:border-white/10 dark:bg-slate-900/40">
+              <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-500">
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-brand-500" />
+                Focus
+              </div>
+              <p className="mt-1.5 text-sm font-semibold text-slate-900 dark:text-white leading-snug">
+                {personalInfo.currentFocus}
+              </p>
             </div>
-            <div className="flex items-center gap-3 text-sm font-medium text-slate-600 dark:text-slate-400">
-              <span className="flex h-2 w-2 rounded-full bg-cyan-500"></span>
-              <span>
-                Currently Learning:{' '}
-                <span className="text-slate-900 dark:text-white font-semibold italic">
-                  {personalInfo.currentlyLearning}
+            <div className="rounded-xl border border-slate-200/70 bg-white/60 px-4 py-3 dark:border-white/10 dark:bg-slate-900/40">
+              <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-500">
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-cyan-500" />
+                Learning
+              </div>
+              <p className="mt-1.5 text-sm font-semibold text-slate-900 dark:text-white leading-snug">
+                {personalInfo.currentlyLearning}
+              </p>
+            </div>
+            <div className="rounded-xl border border-emerald-300/50 bg-emerald-50/50 px-4 py-3 dark:border-emerald-700/40 dark:bg-emerald-900/15">
+              <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-400">
+                <span className="relative inline-flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping motion-reduce:animate-none" />
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
                 </span>
-              </span>
-            </div>
-            <div className="flex items-center gap-3 text-sm font-medium text-slate-600 dark:text-slate-400">
-              <span className="flex h-2 w-2 rounded-full bg-emerald-500"></span>
-              <span>
-                Availability:{' '}
-                <span className="text-emerald-600 dark:text-emerald-400 font-bold">{personalInfo.availability}</span>
-              </span>
+                Available
+              </div>
+              <p className="mt-1.5 text-sm font-semibold text-emerald-700 dark:text-emerald-300 leading-snug">
+                {personalInfo.availability}
+              </p>
             </div>
           </div>
 
           {/* CTA Buttons */}
-          <div className="mt-10 flex flex-wrap gap-4">
+          <div className="mt-7 flex flex-wrap gap-3">
             <a
               href={personalInfo.calendlyUrl}
               target="_blank"
@@ -106,7 +115,7 @@ export function Hero() {
           </div>
 
           {/* Social Links */}
-          <div className="mt-8 flex items-center gap-2">
+          <div className="mt-6 flex items-center gap-2">
             <a
               href={personalInfo.linkedInUrl}
               target="_blank"
@@ -180,7 +189,7 @@ export function Hero() {
       </div>
 
       {/* Stats Section */}
-      <div className="animate-fade-in-up mt-20 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="animate-fade-in-up mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat) => (
           <div
             key={stat.label}

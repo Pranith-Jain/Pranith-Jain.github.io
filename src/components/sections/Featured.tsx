@@ -2,9 +2,9 @@ import { featuredArticles } from '../../data/content';
 
 export function Featured() {
   return (
-    <section id="featured" className="mt-32 scroll-mt-24">
+    <section id="featured" className="mt-20 scroll-mt-24">
       {/* Header */}
-      <div className="animate-fade-in-up mb-16 max-w-3xl">
+      <div className="animate-fade-in-up mb-10 max-w-3xl">
         <div className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
           Recognition
         </div>

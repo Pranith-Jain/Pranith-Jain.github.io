@@ -1,84 +1,144 @@
 import { Link } from 'react-router-dom';
-import { Eye } from 'lucide-react';
+import { Eye, Linkedin, Github, Mail } from 'lucide-react';
 import { personalInfo } from '../data/content';
 import { usePageViewCounter, formatViewCount } from '../hooks';
 import { PjMark } from './PjMark';
+
+/**
+ * Three-column footer sitemap:
+ *   1. Brand — logo + name + one-line tagline + social icons
+ *   2. Site  — portfolio destinations (About / Skills / Experience / Projects)
+ *   3. Build — platform destinations (DFIR / Threat Intel / Blog / Briefings)
+ * with a slim bottom strip carrying © / view counter / stack credit.
+ *
+ * Three columns reads as a real sitemap, not a single-row outro, and keeps
+ * each surface one click away from any page in the SPA.
+ */
+
+const SITE_LINKS: Array<{ label: string; href: string }> = [
+  { label: 'About', href: '/about' },
+  { label: 'Skills', href: '/skills' },
+  { label: 'Experience', href: '/experience' },
+  { label: 'Projects', href: '/projects' },
+];
+
+const BUILD_LINKS: Array<{ label: string; href: string }> = [
+  { label: 'DFIR Toolkit', href: '/dfir' },
+  { label: 'Threat Intel', href: '/threatintel' },
+  { label: 'Briefings', href: '/threatintel/briefings' },
+  { label: 'Blog', href: '/blog' },
+];
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
   const { count, isNewSession } = usePageViewCounter();
 
   return (
-    <footer className="mt-32 pb-8" role="contentinfo">
+    <footer className="mt-24 pb-6" role="contentinfo">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="flex flex-col items-start justify-between gap-4 border-t border-slate-200/60 pt-8 dark:border-white/10 sm:flex-row sm:items-center">
-          {/* Logo and Name */}
-          <a
-            href="#top"
-            className="group inline-flex items-center gap-3 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 rounded-lg"
-            aria-label={`${personalInfo.name} - Back to top`}
-          >
-            <span className="h-9 w-9 rounded-xl shadow-glow flex items-center justify-center overflow-hidden transition group-hover:scale-110">
-              <PjMark className="h-full w-full" />
-            </span>
-            <span className="text-sm font-semibold tracking-tight text-slate-900 dark:text-white">
-              {personalInfo.name}
-            </span>
-          </a>
+        <div className="grid gap-10 border-t border-slate-200/60 pt-10 dark:border-white/10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr]">
+          {/* Brand column */}
+          <div>
+            <Link
+              to="/"
+              className="group inline-flex items-center gap-3 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 rounded-lg"
+              aria-label={`${personalInfo.name} - Back to home`}
+            >
+              <span className="h-9 w-9 rounded-xl shadow-glow flex items-center justify-center overflow-hidden transition group-hover:scale-110">
+                <PjMark className="h-full w-full" />
+              </span>
+              <span className="text-sm font-semibold tracking-tight text-slate-900 dark:text-white">
+                {personalInfo.name}
+              </span>
+            </Link>
+            <p className="mt-3 max-w-xs text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Threat intel, email defense, and edge-native security tooling. Reference only — verify indicators in your
+              own environment.
+            </p>
+            <div className="mt-4 flex items-center gap-2">
+              <a
+                href={personalInfo.linkedInUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn (opens in new tab)"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-brand-600 dark:hover:bg-white/10 dark:hover:text-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-500"
+              >
+                <Linkedin className="h-4 w-4" aria-hidden="true" />
+              </a>
+              <a
+                href={personalInfo.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub (opens in new tab)"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-brand-600 dark:hover:bg-white/10 dark:hover:text-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-500"
+              >
+                <Github className="h-4 w-4" aria-hidden="true" />
+              </a>
+              <a
+                href={`mailto:${personalInfo.email}`}
+                aria-label="Email"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-brand-600 dark:hover:bg-white/10 dark:hover:text-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-500"
+              >
+                <Mail className="h-4 w-4" aria-hidden="true" />
+              </a>
+            </div>
+          </div>
 
-          {/* Copyright and Tagline */}
-          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 order-last sm:order-none">
-            © {currentYear} {personalInfo.name}. Threat Intel, Email Security & Cloud Identity.
-          </p>
+          {/* Site column */}
+          <div>
+            <div className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-400 dark:text-slate-500">
+              Site
+            </div>
+            <ul className="mt-3 space-y-2">
+              {SITE_LINKS.map((l) => (
+                <li key={l.href}>
+                  <Link
+                    to={l.href}
+                    className="text-sm text-slate-600 hover:text-brand-600 dark:text-slate-400 dark:hover:text-brand-400 transition focus:outline-none focus:ring-2 focus:ring-brand-500 rounded"
+                  >
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-          {/* Page View Counter */}
-          <div
-            className="flex items-center gap-2 text-xs sm:text-sm text-slate-500 dark:text-slate-400"
-            aria-live="polite"
-            aria-atomic="true"
-          >
-            <Eye className="h-4 w-4" aria-hidden="true" />
-            <span>
-              <span className="font-semibold text-slate-700 dark:text-slate-300">{formatViewCount(count)}</span> views
-              {isNewSession && <span className="sr-only"> (new session)</span>}
-            </span>
+          {/* Build column */}
+          <div>
+            <div className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-400 dark:text-slate-500">
+              Build
+            </div>
+            <ul className="mt-3 space-y-2">
+              {BUILD_LINKS.map((l) => (
+                <li key={l.href}>
+                  <Link
+                    to={l.href}
+                    className="text-sm text-slate-600 hover:text-brand-600 dark:text-slate-400 dark:hover:text-brand-400 transition focus:outline-none focus:ring-2 focus:ring-brand-500 rounded"
+                  >
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
-        {/* Additional footer links */}
-        <div className="mt-6 flex flex-wrap justify-center gap-4 sm:gap-6 text-xs text-slate-500 dark:text-slate-400">
-          <a
-            href={`mailto:${personalInfo.email}`}
-            className="inline-flex items-center min-h-[44px] sm:min-h-0 px-1 hover:text-slate-600 dark:hover:text-slate-300 transition focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 rounded"
-          >
-            Contact
-          </a>
-          <a
-            href={personalInfo.linkedInUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn (opens in new tab)"
-            className="inline-flex items-center min-h-[44px] sm:min-h-0 px-1 hover:text-slate-600 dark:hover:text-slate-300 transition focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 rounded"
-          >
-            LinkedIn
-          </a>
-          <a
-            href={personalInfo.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub (opens in new tab)"
-            className="inline-flex items-center min-h-[44px] sm:min-h-0 px-1 hover:text-slate-600 dark:hover:text-slate-300 transition focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 rounded"
-          >
-            GitHub
-          </a>
-          <Link
-            to="/blog"
-            className="inline-flex items-center min-h-[44px] sm:min-h-0 px-1 hover:text-slate-600 dark:hover:text-slate-300 transition focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 rounded"
-          >
-            Blog
-          </Link>
-          <span className="text-slate-300 dark:text-slate-600 hidden sm:inline">|</span>
-          <span>React + Vite + Tailwind</span>
+        {/* Bottom strip — copyright, view counter, stack credit */}
+        <div className="mt-8 flex flex-col items-start justify-between gap-3 border-t border-slate-200/60 pt-5 text-[11px] text-slate-500 dark:border-white/10 dark:text-slate-500 sm:flex-row sm:items-center">
+          <span>
+            © {currentYear} {personalInfo.name}. All rights reserved.
+          </span>
+          <div className="flex items-center gap-4">
+            <span className="inline-flex items-center gap-1.5" aria-live="polite" aria-atomic="true">
+              <Eye className="h-3.5 w-3.5" aria-hidden="true" />
+              <span>
+                <span className="font-semibold text-slate-700 dark:text-slate-300">{formatViewCount(count)}</span> views
+                {isNewSession && <span className="sr-only"> (new session)</span>}
+              </span>
+            </span>
+            <span aria-hidden="true">·</span>
+            <span className="font-mono">React + Vite + Tailwind</span>
+          </div>
         </div>
       </div>
     </footer>

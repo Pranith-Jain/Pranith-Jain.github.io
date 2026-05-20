@@ -448,14 +448,44 @@ interface NavLink {
   children?: NavLinkChild[];
 }
 
-export const navLinks: NavLink[] = [
+/**
+ * Header navigation. Grouped to keep the desktop bar compact — 4 visible
+ * top-level items + the Contact CTA — while preserving every destination
+ * via dropdown children. The `Home` entry is kept first so the mobile
+ * drawer can still surface it; it is filtered out in the desktop bar
+ * (the logo already routes home).
+ *
+ * The Contact route renders as a CTA pill on the right of the header,
+ * not as a regular nav link — set `cta: true` so the Header component
+ * knows to pull it out of the inline list.
+ */
+interface NavLinkExt extends NavLink {
+  /** When true, the link is rendered as a CTA pill outside the inline nav. */
+  cta?: boolean;
+}
+
+export const navLinks: NavLinkExt[] = [
   { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
-  { label: 'Skills', href: '/skills' },
-  { label: 'Experience', href: '/experience' },
-  { label: 'Projects', href: '/projects' },
-  { label: 'DFIR', href: '/dfir' },
-  { label: 'Threat Intel', href: '/threatintel' },
+  {
+    label: 'Work',
+    // Parent link points at the first child so mobile + middle-click users
+    // get a sensible default destination if they click the group label.
+    href: '/about',
+    children: [
+      { label: 'About', href: '/about' },
+      { label: 'Skills', href: '/skills' },
+      { label: 'Experience', href: '/experience' },
+      { label: 'Projects', href: '/projects' },
+    ],
+  },
+  {
+    label: 'Build',
+    href: '/dfir',
+    children: [
+      { label: 'DFIR Toolkit', href: '/dfir' },
+      { label: 'Threat Intel', href: '/threatintel' },
+    ],
+  },
   { label: 'Blog', href: '/blog' },
-  { label: 'Contact', href: '/#contact' },
+  { label: 'Contact', href: '/#contact', cta: true },
 ];

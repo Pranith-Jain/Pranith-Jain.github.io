@@ -43,8 +43,8 @@ const PILLARS: SolutionPillar[] = [
 
 export function Solutions() {
   return (
-    <section id="solutions" className="mt-32 scroll-mt-24">
-      <div className="mb-12 max-w-3xl">
+    <section id="solutions" className="mt-20 scroll-mt-24">
+      <div className="mb-8 max-w-3xl">
         <div className="animate-fade-in-up mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
           Solutions
         </div>
