@@ -152,4 +152,37 @@ describe('postProcess', () => {
     const out = postProcess({ type: 'cve', raw, factsText: 'CVE-2026-1234' });
     expect(out.errors.join('|')).not.toMatch(/ai-slop detected/i);
   });
+
+  it('prunes NVD/KEV/MITRE references when the body does not cite them', () => {
+    // Ransomware leak-site style post — no CVE, no KEV, no MITRE T-code
+    // anywhere in the body. The model dropped the three canonical
+    // authorities into ## References as filler; the post-process step
+    // should strip them and keep the actually-relevant ransomlook bullet.
+    const raw =
+      `## NOVA campaign\n\nNOVA posted 17 new victims this week across construction and SaaS verticals.\n\n` +
+      `## What the data shows\n\nThe affiliate is rotating between leak sites; activity is consistent with a single operator.\n\n` +
+      `## References\n\n` +
+      `- [ransomlook.io](https://www.ransomlook.io/group/nova) - 17 victim posts for this campaign\n` +
+      `- [NVD](https://nvd.nist.gov) - for information on known vulnerabilities and exploits.\n` +
+      `- [CISA KEV](https://www.cisa.gov/known-exploited-vulnerabilities-catalog) - catalog of known exploited vulnerabilities.\n` +
+      `- [MITRE ATT&CK](https://attack.mitre.org) - for tactics, techniques, and procedures used by threat actors.\n`;
+    const out = postProcess({ type: 'ransom', raw, factsText: 'NOVA 17 victims' });
+    expect(out.body).toContain('ransomlook.io');
+    expect(out.body).not.toMatch(/\bNVD\b/);
+    expect(out.body).not.toMatch(/CISA KEV/);
+    expect(out.body).not.toMatch(/MITRE ATT&CK/);
+  });
+
+  it('keeps NVD/KEV/MITRE references when the body actually cites them', () => {
+    const raw =
+      `## What is this vulnerability?\n\nCVE-2026-9999 is a KEV-listed RCE; technique T1190 was observed.\n\n` +
+      `## References\n\n` +
+      `- [NVD](https://nvd.nist.gov/vuln/detail/CVE-2026-9999) - CVE record.\n` +
+      `- [CISA KEV](https://www.cisa.gov/known-exploited-vulnerabilities-catalog) - KEV entry.\n` +
+      `- [MITRE ATT&CK](https://attack.mitre.org/techniques/T1190/) - T1190 Exploit Public-Facing Application.\n`;
+    const out = postProcess({ type: 'cve', raw, factsText: 'CVE-2026-9999' });
+    expect(out.body).toContain('NVD');
+    expect(out.body).toContain('CISA KEV');
+    expect(out.body).toContain('MITRE ATT&CK');
+  });
 });

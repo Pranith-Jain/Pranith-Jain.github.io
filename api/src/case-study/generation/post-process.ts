@@ -187,6 +187,55 @@ function stripPlaceholderRefs(body: string): string {
   return body.replace(/\[([^\]]*)]\(https?:\/\/example\.com[^)]*\)/g, '');
 }
 
+/**
+ * Drop canonical-authority references (NVD, CISA KEV, MITRE ATT&CK) from
+ * the References section when they are clearly being used as filler — a
+ * bare home-page URL with no specific CVE / technique / entry behind it,
+ * AND the body never cites that source's content either.
+ *
+ * A reference is KEPT when EITHER of these holds:
+ *   - The URL itself is a specific deep-link (NVD CVE record, KEV CVE
+ *     entry, ATT&CK technique page). The URL alone proves a real citation.
+ *   - The body mentions material from that source (a CVE id, the word
+ *     "KEV"/"actively exploited", or an ATT&CK T-code).
+ *
+ * Only when BOTH the URL is bare AND the body is empty of evidence do we
+ * strip the bullet. This avoids regressing tests where the body cites
+ * the CVE only via the reference URL deep-link.
+ */
+function stripUnusedCanonicalRefs(body: string): string {
+  const refsIdx = body.search(/^##\s+References\b/im);
+  if (refsIdx < 0) return body;
+  const bodyText = body.slice(0, refsIdx);
+  const refsText = body.slice(refsIdx);
+
+  const hasCveInBody = /\bCVE-\d{4}-\d{4,7}\b/i.test(bodyText);
+  const hasKevInBody = /\b(KEV|known\s*exploited|actively\s*exploited)\b/i.test(bodyText);
+  const hasAttackInBody = /\bT\d{4}(?:\.\d{3})?\b/.test(bodyText);
+
+  const refLine = /^(\s*[-*+]\s*)\[([^\]]+)\]\(([^)]+)\)([^\n]*)\n?/gm;
+
+  const cleanedRefs = refsText.replace(refLine, (match, _bullet, label, url) => {
+    const labelLc = String(label).toLowerCase();
+    const urlLc = String(url).toLowerCase();
+
+    const isNvd = /\bnvd\b/.test(labelLc) || urlLc.includes('nvd.nist.gov');
+    const isKev = labelLc.includes('cisa kev') || labelLc.includes('kev') || urlLc.includes('known-exploited');
+    const isAttack = labelLc.includes('mitre att') || urlLc.includes('attack.mitre.org');
+
+    // Deep-link detection: the URL itself proves a real citation.
+    const urlHasCve = /\bcve-\d{4}-\d{4,7}\b/i.test(urlLc);
+    const urlHasAttackTech = /attack\.mitre\.org\/techniques\/t\d{4}/i.test(urlLc);
+
+    if (isNvd && !hasCveInBody && !urlHasCve) return '';
+    if (isKev && !hasKevInBody && !urlHasCve) return '';
+    if (isAttack && !hasAttackInBody && !urlHasAttackTech) return '';
+    return match;
+  });
+
+  return bodyText + cleanedRefs;
+}
+
 /** Ensure a blank line before the closing bold paragraph when it follows a list
  *  (inside the References section). stripEmptySections removes blank lines, so
  *  this must run after it. */
@@ -205,6 +254,9 @@ export function postProcess(input: PostProcessInput): PostProcessOutput {
   body = body.replace(FACTS_BLOCK_RE, '').trim();
   // Step 3a: Remove example.com placeholders
   body = stripPlaceholderRefs(body);
+  // Step 3a.1: Prune NVD / KEV / MITRE references that the body doesn't
+  // actually use — defensive against the model dropping them in as filler.
+  body = stripUnusedCanonicalRefs(body);
   // Step 3b: Fix list blocks missing blank lines after them
   body = fixListBlocks(body);
   // Step 4: Strip sections that are empty or filler
