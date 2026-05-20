@@ -5,11 +5,11 @@ export const personalInfo = {
   // Short form, used in tight UI like the profile card to avoid overflow.
   shortTitle: 'Security Analyst · Threat Intel · Security Automation',
   headline: '"Investigating attacks at human scale. Building defenders at AI scale."',
-  // Kept tight on purpose — the status block right below carries the
-  // current focus / learning state, and the CTA row below that carries
-  // the /dfir + /threatintel links. The description's job is just the
-  // 30-second pitch (role + scope + what I ship), not the full bio.
-  description: `a security analyst working phishing, BEC, and malware incidents across 150+ brands. Shipping the tools I wished I'd had on shift — at /dfir and /threatintel.`,
+  // Plain-text bio. Used as-is by StructuredData (SEO schema). The Hero
+  // renders a JSX version with inline links on "DFIR toolkit" and
+  // "threat-intel platform" — see Hero.tsx. Keep both copies in sync:
+  // any rewording here should be mirrored over there.
+  description: `a security analyst working phishing, BEC, and malware incidents across 150+ brands. The rest of the time I ship the tools I wished I'd had on shift — a 60+ tool DFIR toolkit and a live, self-updating threat-intel platform, both edge-hosted on Cloudflare and free to use. Currently digging into AI security, NHI governance, and detection engineering.`,
   currentFocus: 'Threat intel, email defense, and cloud identity security',
   currentlyLearning: 'NHI Security & Advanced Threat Hunting',
   availability: 'Open for Consultations & Strategy Calls',

@@ -38,13 +38,34 @@ export function Hero() {
             <span className="text-emerald-600 dark:text-emerald-400">AU Ambassador</span>
           </div>
 
-          {/* Description */}
+          {/* Description — kept aligned with `personalInfo.description` in
+              content.ts (StructuredData reads the plain-text version for
+              SEO). Inline links replace the bare "/dfir" / "/threatintel"
+              text the data file carries: hyperlinks on "DFIR toolkit" and
+              "threat-intel platform" so the bio reads as natural prose,
+              not a URL drop. */}
           <p className="mt-6 max-w-2xl text-xl leading-relaxed text-slate-700 dark:text-slate-300">
             I&apos;m{' '}
             <span className="font-bold text-slate-900 dark:text-white underline decoration-brand-500/30 underline-offset-4">
               Pranith Jain
             </span>
-            , {personalInfo.description}
+            , a security analyst working phishing, BEC, and malware incidents across 150+ brands. The rest of the time I
+            ship the tools I wished I&apos;d had on shift — a 60+ tool{' '}
+            <Link
+              to="/dfir"
+              className="font-semibold text-brand-700 dark:text-brand-400 underline-offset-4 hover:underline"
+            >
+              DFIR toolkit
+            </Link>{' '}
+            and a live, self-updating{' '}
+            <Link
+              to="/threatintel"
+              className="font-semibold text-brand-700 dark:text-brand-400 underline-offset-4 hover:underline"
+            >
+              threat-intel platform
+            </Link>
+            , both edge-hosted on Cloudflare and free to use. Currently digging into AI security, NHI governance, and
+            detection engineering.
           </p>
 
           {/* Status block — minimal editorial typography, no card chrome.
