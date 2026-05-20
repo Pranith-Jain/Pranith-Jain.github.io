@@ -2,6 +2,7 @@ import { Hono } from 'hono';
 import type { Env } from '../env';
 import type { Candidate, CaseStudyType, Post, PostIOC, PostSource, SocialContent } from '../case-study/types';
 import { requireAdminToken } from '../case-study/auth';
+import { safeJsonBody } from '../lib/safe-body';
 import { listAllCandidates, getCandidate, deleteCandidate } from '../case-study/storage/candidates';
 import { countByPrefix } from '../case-study/storage/kv-util';
 import { getDedup, touchDedup } from '../case-study/storage/dedup';
@@ -198,14 +199,19 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
   // Bypasses the entire discovery → approve → plan → publish pipeline.
   // Accepts user-written markdown and publishes it immediately.
   admin.post('/posts/manual', async (c) => {
-    const { type, title, body, tags, sources, iocs } = await c.req.json<{
+    // Body bounded to 256 KB — generous for a long-form markdown post with
+    // sources + IOCs, but well under the worker memory ceiling. Depth 6
+    // covers `iocs[i].…` (3) plus headroom.
+    const parsed = await safeJsonBody<{
       type: CaseStudyType;
       title: string;
       body: string;
       tags?: string[];
       sources?: PostSource[];
       iocs?: PostIOC[];
-    }>();
+    }>(c, { maxBytes: 256 * 1024, maxDepth: 6 });
+    if ('error' in parsed) return parsed.error;
+    const { type, title, body, tags, sources, iocs } = parsed.value;
 
     if (!TYPES.includes(type)) return c.json({ error: 'invalid type' }, 400);
     if (!title || !body) return c.json({ error: 'title and body required' }, 400);

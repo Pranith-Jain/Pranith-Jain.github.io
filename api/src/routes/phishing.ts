@@ -98,13 +98,10 @@ export async function phishingAnalyzeHandler(c: Context<{ Bindings: Env }>) {
   const score = Math.min(100, result.score + tiBoost);
   const verdict = score >= 70 ? 'malicious' : score >= 40 ? 'suspicious' : 'clean';
 
-  return c.json({
-    headers,
-    auth,
-    urls,
-    score,
-    verdict,
-    flags: tiFlags,
-    threat_intel,
+  // no-store: the request body carries a user-pasted email which may include
+  // PII / sensitive content. Belt-and-braces — POSTs aren't auto-cached, but
+  // explicit no-store keeps any well-meaning intermediary from changing that.
+  return c.json({ headers, auth, urls, score, verdict, flags: tiFlags, threat_intel }, 200, {
+    'Cache-Control': 'no-store',
   });
 }

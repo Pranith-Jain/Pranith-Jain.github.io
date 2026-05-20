@@ -80,8 +80,11 @@ export async function listBriefingsHandler(c: Context<{ Bindings: Env }>) {
     c.executionCtx.waitUntil(cache.put(key, res.clone()));
     return res;
   } catch (err) {
+    // Log full detail to the worker's logs but never echo raw exception
+    // text to the client — D1/KV errors can hint at schema, column names,
+    // or internal storage shape. Generic message stays user-facing.
     console.error('listBriefingsHandler error:', err);
-    return c.json({ error: String(err) }, 500);
+    return c.json({ error: 'briefings list failed' }, 500);
   }
 }
 

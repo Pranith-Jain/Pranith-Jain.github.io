@@ -49,7 +49,9 @@ export async function ctiParseHandler(c: Context<{ Bindings: Env }>) {
   }
   try {
     const parsed = parseStixBundle(bundle as never);
-    return c.json(parsed);
+    // no-store: the user pasted a STIX bundle that may contain IOCs / actor
+    // attributions they consider sensitive; don't let an intermediary cache it.
+    return c.json(parsed, 200, { 'Cache-Control': 'no-store' });
   } catch (err) {
     return c.json(
       {

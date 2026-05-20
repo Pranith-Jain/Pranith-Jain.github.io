@@ -8,6 +8,7 @@
  */
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { safeJsonBody } from '../lib/safe-body';
 
 interface PkgQuery {
   name: string;
@@ -19,12 +20,12 @@ const OSV_BATCH = 'https://api.osv.dev/v1/querybatch';
 const OSV_VULN = 'https://api.osv.dev/v1/vulns/';
 
 export async function osvScanHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  let body: { packages?: PkgQuery[] };
-  try {
-    body = (await c.req.json()) as { packages?: PkgQuery[] };
-  } catch {
-    return c.json({ error: 'invalid_json' }, 400);
-  }
+  // 250 packages × ~120 bytes each ≈ 30 KB. 128 KB is comfortable headroom
+  // for verbose package names / version strings, well under the worker
+  // memory ceiling. Depth 5 covers `{packages:[{...}]}` (3) plus headroom.
+  const parsed = await safeJsonBody<{ packages?: PkgQuery[] }>(c, { maxBytes: 128 * 1024, maxDepth: 5 });
+  if ('error' in parsed) return parsed.error;
+  const body = parsed.value;
   const pkgs = Array.isArray(body.packages) ? body.packages.slice(0, MAX_PKGS) : [];
   if (pkgs.length === 0) return c.json({ error: 'no_packages' }, 400);
 
@@ -118,7 +119,10 @@ export async function osvScanHandler(c: Context<{ Bindings: Env }>): Promise<Res
     { generated_at: new Date().toISOString(), total_packages: pkgs.length, detailed_capped: detailedCapped, results },
     200,
     {
-      'cache-control': 'public, max-age=300',
+      // private (not public): the request body lists a project's dependency
+      // graph, which reveals technology stack — let the user's browser cache
+      // for 5 minutes but keep intermediaries out of it.
+      'cache-control': 'private, max-age=300',
     }
   );
 }

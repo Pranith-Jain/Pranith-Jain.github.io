@@ -116,6 +116,19 @@ const BRIEFINGS_ADMIN = new Set<string>([
   '/api/v1/briefings/sweep',
 ]);
 
+/**
+ * Admin endpoints get an extra-strict bucket on TOP of the global LIMIT —
+ * because each request to /api/v1/admin/run/discover or /briefings/backfill
+ * can fan out to dozens of subrequests + KV/D1 writes. Per leaked-token, the
+ * global 30/min would let an attacker burn a day's KV write quota in 60s.
+ * 5/min per IP is plenty for an operator manually poking the panel.
+ */
+const ADMIN_STRICT_LIMIT = 5;
+const ADMIN_STRICT_PREFIX = '/api/v1/admin/';
+function isAdminStrict(pathname: string): boolean {
+  return pathname.startsWith(ADMIN_STRICT_PREFIX) || BRIEFINGS_ADMIN.has(pathname);
+}
+
 function isBypassed(pathname: string): boolean {
   if (BYPASS_EXACT.has(pathname)) return true;
   if (pathname.startsWith('/api/v1/briefings/') && !BRIEFINGS_ADMIN.has(pathname)) return true;
@@ -138,14 +151,23 @@ export async function rateLimit(c: Context<{ Bindings: Env }>, next: Next): Prom
   const ip = c.req.header('cf-connecting-ip') ?? 'anon';
   const bucket = Math.floor(Date.now() / 1000 / WINDOW_SEC);
   const key = `rl:${bucket}:${ip}`;
+  // Admin endpoints carry a parallel, stricter counter (per IP per minute).
+  // The two buckets are independent — a request consumes one slot from each.
+  const adminStrict = isAdminStrict(url.pathname);
+  const adminKey = adminStrict ? `rl:adm:${bucket}:${ip}` : null;
 
   // No-op if KV is not bound (lets local dev + un-provisioned production work)
   if (!c.env.KV_CACHE) return next();
 
   let count = 0;
+  let adminCount = 0;
   try {
     const raw = await c.env.KV_CACHE.get(key);
     count = raw ? parseInt(raw, 10) : 0;
+    if (adminKey) {
+      const rawAdmin = await c.env.KV_CACHE.get(adminKey);
+      adminCount = rawAdmin ? parseInt(rawAdmin, 10) : 0;
+    }
   } catch {
     return next(); // KV transient error — fail open (don't block legit traffic)
   }
@@ -160,9 +182,31 @@ export async function rateLimit(c: Context<{ Bindings: Env }>, next: Next): Prom
     });
   }
 
+  if (adminKey && adminCount >= ADMIN_STRICT_LIMIT) {
+    return c.json(
+      {
+        error: 'rate_limited',
+        limit: ADMIN_STRICT_LIMIT,
+        window_seconds: WINDOW_SEC,
+        scope: 'admin',
+      },
+      429,
+      {
+        'retry-after': String(WINDOW_SEC),
+        'x-ratelimit-limit': String(ADMIN_STRICT_LIMIT),
+        'x-ratelimit-remaining': '0',
+        'x-ratelimit-reset': String((bucket + 1) * WINDOW_SEC),
+        'cache-control': 'no-store',
+      }
+    );
+  }
+
   // Best-effort increment (don't await blocking)
   try {
     await c.env.KV_CACHE.put(key, String(count + 1), { expirationTtl: TTL });
+    if (adminKey) {
+      await c.env.KV_CACHE.put(adminKey, String(adminCount + 1), { expirationTtl: TTL });
+    }
   } catch {
     /* swallow */
   }

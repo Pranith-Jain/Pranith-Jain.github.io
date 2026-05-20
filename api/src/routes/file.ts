@@ -86,12 +86,19 @@ export async function fileAnalyzeHandler(c: Context<{ Bindings: Env }>) {
   ]);
 
   const composite = compositeScore('hash', providers);
-  return c.json({
-    hash,
-    hash_type: hashType,
-    providers,
-    score: composite.score,
-    verdict: composite.verdict,
-    confidence: composite.confidence,
-  });
+  // no-store: hash lookups are global facts but the request value (an attacker
+  // hash, or a sample under investigation) is sensitive context the user
+  // typically doesn't want intermediaries to retain.
+  return c.json(
+    {
+      hash,
+      hash_type: hashType,
+      providers,
+      score: composite.score,
+      verdict: composite.verdict,
+      confidence: composite.confidence,
+    },
+    200,
+    { 'Cache-Control': 'no-store' }
+  );
 }

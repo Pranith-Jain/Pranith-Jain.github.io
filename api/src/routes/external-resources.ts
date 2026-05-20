@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { safeJsonBody } from '../lib/safe-body';
 
 /**
  * Runtime-editable layer on top of the static External Resources catalog
@@ -132,12 +133,11 @@ export async function createExternalResourceHandler(c: AdminCtx) {
   const kv = c.env.KV_CACHE;
   if (!kv) return c.json({ error: 'KV_CACHE not bound' }, 503);
 
-  let body: Record<string, unknown> = {};
-  try {
-    body = (await c.req.json()) as Record<string, unknown>;
-  } catch {
-    return c.json({ error: 'invalid JSON body' }, 400);
-  }
+  // Size + depth-guarded JSON read. Each external-resource entry is a small
+  // bag of strings (name/url/kind/description/why); 8 KB is plenty.
+  const parsed = await safeJsonBody<Record<string, unknown>>(c, { maxBytes: 8 * 1024, maxDepth: 4 });
+  if ('error' in parsed) return parsed.error;
+  const body = parsed.value;
 
   const name = trim(body.name, 120);
   const url = trim(body.url, 600);

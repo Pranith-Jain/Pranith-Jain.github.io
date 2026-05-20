@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { safeErrorMessage } from '../lib/error';
 
 /**
  * Authenticated caching proxy for the ransomware.live PRO API
@@ -113,9 +114,14 @@ export async function ransomwareLiveHandler(c: Context<{ Bindings: Env }>): Prom
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
     });
   } catch (err) {
-    return c.json({ error: 'upstream_unreachable', detail: err instanceof Error ? err.message : String(err) }, 502, {
-      'cache-control': 'no-store',
-    });
+    // Scrubbed in production via safeErrorMessage; dev mode (DFIR_DEV_ERRORS=1)
+    // gets the full err.message for debugging. Stops fetch/TLS/DNS error
+    // text leaking internal probe behaviour to the client.
+    return c.json(
+      { error: 'upstream_unreachable', detail: safeErrorMessage(c.env as unknown as Record<string, unknown>, err) },
+      502,
+      { 'cache-control': 'no-store' }
+    );
   }
 
   if (!upstream.ok) {
