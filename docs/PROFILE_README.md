@@ -189,14 +189,11 @@ Engineered to fit the **Cloudflare Workers free tier**: provider results cache t
 <div align="center">
 
 <a href="https://github.com/Pranith-Jain">
-  <img height="170" src="https://github-readme-stats.vercel.app/api?username=Pranith-Jain&show_icons=true&theme=tokyonight&hide_border=true&include_all_commits=true&count_private=true&rank_icon=github" alt="Pranith's GitHub Stats" />
-</a>
-<a href="https://github.com/Pranith-Jain">
-  <img height="170" src="https://github-readme-stats.vercel.app/api/top-langs?username=Pranith-Jain&layout=compact&theme=tokyonight&hide_border=true&langs_count=8" alt="Top Languages" />
+  <img src="https://streak-stats.demolab.com?user=Pranith-Jain&theme=tokyonight&hide_border=true" alt="GitHub Streak" />
 </a>
 
 <a href="https://github.com/Pranith-Jain">
-  <img src="https://streak-stats.demolab.com?user=Pranith-Jain&theme=tokyonight&hide_border=true" alt="GitHub Streak" />
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=Pranith-Jain&theme=tokyo-night&hide_border=true&radius=8&height=220&area=true" alt="Activity Graph" />
 </a>
 
 <a href="https://github.com/Pranith-Jain">
@@ -204,6 +201,12 @@ Engineered to fit the **Cloudflare Workers free tier**: provider results cache t
 </a>
 
 </div>
+
+<!-- Note: github-readme-stats.vercel.app is intentionally not used here.
+     That deployment hot-cold caches on Vercel's free tier and regularly
+     fails to serve the SVG, leaving the alt text rendered as a broken
+     link. Streak (demolab.com), activity-graph and trophy
+     (vercel.app — different deployments) have been more stable. -->
 
 ---
 
