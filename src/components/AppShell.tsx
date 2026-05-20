@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { ArrowLeft, Command, Menu, Moon, Sun, X, type LucideIcon } from 'lucide-react';
+import { Command, Menu, Moon, Sun, X, type LucideIcon } from 'lucide-react';
 import { preloadRoute } from '../lib/route-preloaders';
 import { useFocusTrap } from '../hooks/useFocusTrap';
 
@@ -175,13 +175,6 @@ function AppHeader({
           >
             {isDark ? <Sun size={14} /> : <Moon size={14} />}
           </button>
-          <Link
-            to="/"
-            className="inline-flex items-center gap-1 text-[11px] font-mono px-2 py-1 rounded text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800"
-            title="Back to portfolio"
-          >
-            <ArrowLeft size={11} /> <span className="hidden xs:inline sm:inline">portfolio</span>
-          </Link>
           {/* Mobile menu trigger */}
           <button
             type="button"
