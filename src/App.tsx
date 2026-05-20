@@ -270,6 +270,19 @@ export function AppContent() {
           </ErrorBoundary>
         }
       />
+      {/* Category landing — /blog/c/:type. Same component as /blog; the
+          page picks up the type from useParams and renders in category
+          mode (different H1 + intro, type filter locked). */}
+      <Route
+        path="/blog/c/:type"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <Blog />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
       <Route
         path="/blog/:slug"
         element={

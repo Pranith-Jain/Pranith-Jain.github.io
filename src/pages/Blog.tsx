@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Search } from 'lucide-react';
+import { Link, useParams, Navigate } from 'react-router-dom';
+import { ArrowLeft, Search } from 'lucide-react';
 import { DataState } from '../components/DataState';
 
 interface PostEntry {
@@ -20,13 +20,70 @@ function formatDate(iso: string) {
 // list still works as a filter but appears at the end in discovery order.
 const TYPE_ORDER = ['cve', 'actor', 'malware', 'ransom', 'breach', 'scam', 'aisec', 'intel', 'briefing'] as const;
 
+/**
+ * Human-readable label + one-line description per case-study type. Used by
+ * the /blog/c/:type category landing route to give each category its own
+ * H1 + intro paragraph, and by the in-page chip strip via fall-through.
+ * Adding a new type? Append a row here — the index page picks it up via
+ * the actual post data and the landing page falls back to the type slug.
+ */
+const TYPE_META: Record<string, { label: string; blurb: string }> = {
+  cve: {
+    label: 'CVE deep-dives',
+    blurb: 'Vulnerability analyses — affected products, exploit chains, KEV status, patch priority.',
+  },
+  actor: {
+    label: 'Threat actors',
+    blurb: 'Group profiles — TTPs, named operations, MITRE ATT&CK mapping, recent activity.',
+  },
+  malware: {
+    label: 'Malware analysis',
+    blurb: 'Family deep-dives — capabilities, sandbox detonation, IOCs, attribution.',
+  },
+  ransom: {
+    label: 'Ransomware',
+    blurb: 'Leak-site claims, affiliate movement, negotiation economics, double-extortion.',
+  },
+  breach: {
+    label: 'Breach disclosures',
+    blurb: 'Public breach analyses — scope, sensitivity, data classes, response timeline.',
+  },
+  scam: {
+    label: 'Fraud & scams',
+    blurb: 'BEC, social-engineering, deepfake fraud, crypto-tracing, victim reports.',
+  },
+  aisec: {
+    label: 'AI security',
+    blurb: 'Prompt injection, MCP audits, agent attack surface, model risk.',
+  },
+  intel: {
+    label: 'Intelligence',
+    blurb: 'OSINT, dark-web monitoring, sector targeting, geopolitical CTI.',
+  },
+  briefing: {
+    label: 'Briefings',
+    blurb: 'Synthesised daily and weekly intel summaries across active threats.',
+  },
+};
+
+function metaFor(type: string): { label: string; blurb: string } {
+  return TYPE_META[type] ?? { label: type, blurb: 'Case studies in this category.' };
+}
+
 export default function Blog() {
+  // `/blog/c/:type` reaches the same component as `/blog`. When a type is
+  // present in the URL we render in "category mode": replace the H1 + intro
+  // with the category label + blurb, lock the type filter on, and add a
+  // breadcrumb back to /blog. The user can still search-and-narrow within
+  // the category, but the chip strip is hidden because the URL already
+  // expresses the choice.
+  const { type: routeType } = useParams<{ type?: string }>();
   const [posts, setPosts] = useState<PostEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [reloadKey, setReloadKey] = useState(0);
   const [query, setQuery] = useState('');
-  const [typeFilter, setTypeFilter] = useState<string | null>(null);
+  const [typeFilter, setTypeFilter] = useState<string | null>(routeType ?? null);
 
   useEffect(() => {
     let cancelled = false;
@@ -85,17 +142,62 @@ export default function Blog() {
     });
   }, [posts, query, typeFilter]);
 
-  const hasFilter = Boolean(query.trim() || typeFilter);
+  const hasFilter = Boolean(query.trim() || (typeFilter && !routeType));
+  const inCategoryMode = Boolean(routeType);
+  const categoryMeta = inCategoryMode ? metaFor(routeType!) : null;
+
+  // Guard against typo URLs like /blog/c/whoops — surface a 404-ish state
+  // (redirect to the index) so we don't render an empty category page
+  // with an unfamiliar slug as the H1. We only flag this once posts have
+  // loaded; before that we keep showing the loading skeleton.
+  const isUnknownType =
+    inCategoryMode && !loading && !error && posts.length > 0 && !posts.some((p) => p.type === routeType);
+  if (isUnknownType) return <Navigate to="/blog" replace />;
 
   return (
     <main className="max-w-3xl mx-auto px-6 py-10 text-slate-900 dark:text-slate-100">
-      <h1 className="font-display text-3xl font-bold tracking-tight mb-2">Case Studies</h1>
+      {inCategoryMode && (
+        <Link
+          to="/blog"
+          className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.16em] text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 mb-4"
+        >
+          <ArrowLeft size={12} /> all case studies
+        </Link>
+      )}
+      <h1 className="font-display text-3xl font-bold tracking-tight mb-2">
+        {inCategoryMode ? categoryMeta!.label : 'Case Studies'}
+      </h1>
       <p className="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-        Security research, threat analysis, and deep dives.
+        {inCategoryMode ? categoryMeta!.blurb : 'Security research, threat analysis, and deep dives.'}
       </p>
 
+      {/* Category strip — only on the /blog index (not on /blog/c/:type),
+          and only once posts have loaded. Each present category becomes a
+          chip that routes to its own landing page. Gives every category a
+          shareable URL while keeping the in-page chip filter as a quick
+          alternative below. */}
+      {!inCategoryMode && presentTypes.length > 1 && (
+        <nav aria-label="Browse by category" className="mb-6 flex flex-wrap items-center gap-1.5">
+          <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-400 mr-1">browse:</span>
+          {presentTypes.map((t) => (
+            <Link
+              key={t}
+              to={`/blog/c/${t}`}
+              className="text-[12px] font-mono px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+            >
+              {metaFor(t)
+                .label.toLowerCase()
+                .replace(/ deep-dives$| analysis$/, '')}
+              <span className="ml-1 opacity-60">· {typeCounts.get(t) ?? 0}</span>
+            </Link>
+          ))}
+        </nav>
+      )}
+
       {/* Filter bar — only renders once posts are loaded (avoids a flash of
-          empty chips while the data is in flight). */}
+          empty chips while the data is in flight). The chip strip is hidden
+          in category mode since the URL already expresses the type, but the
+          search input stays so the user can narrow within the category. */}
       {posts.length > 0 && (
         <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3 mb-6">
           <div className="relative">
@@ -109,7 +211,7 @@ export default function Blog() {
               className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
           </div>
-          {presentTypes.length > 1 && (
+          {!inCategoryMode && presentTypes.length > 1 && (
             <div className="flex flex-wrap items-center gap-1.5 mt-3">
               <span className="text-[11px] font-mono text-slate-500 mr-1">type:</span>
               {presentTypes.map((t) => {

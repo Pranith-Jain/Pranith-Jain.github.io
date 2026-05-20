@@ -47,70 +47,69 @@ export function Hero() {
             , {personalInfo.description}
           </p>
 
-          {/* Status cards — 3-up dashboard read of focus / learning /
-              availability. Each card uses the same shape (icon dot + caps
-              label + value) so the eye scans across rather than top-down. */}
-          <div className="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-            <div className="rounded-xl border border-slate-200/70 bg-white/60 px-4 py-3 dark:border-white/10 dark:bg-slate-900/40">
-              <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-500">
-                <span className="inline-block h-1.5 w-1.5 rounded-full bg-brand-500" />
+          {/* Status block — minimal editorial typography, no card chrome.
+              Three label/value pairs separated by a thin left rule (only
+              on sm+) so the columns read as a clean band, not three boxes.
+              The Available value carries a single emerald accent on the
+              word itself — that's the only color shift, no ping, no fill. */}
+          <dl className="mt-5 grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-3 sm:[&>div+div]:border-l sm:[&>div+div]:border-slate-200/80 sm:[&>div+div]:pl-5 sm:[&>div+div]:dark:border-slate-800">
+            <div>
+              <dt className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500">
                 Focus
-              </div>
-              <p className="mt-1.5 text-sm font-semibold text-slate-900 dark:text-white leading-snug">
+              </dt>
+              <dd className="mt-1 text-sm font-medium text-slate-900 dark:text-slate-100 leading-snug">
                 {personalInfo.currentFocus}
-              </p>
+              </dd>
             </div>
-            <div className="rounded-xl border border-slate-200/70 bg-white/60 px-4 py-3 dark:border-white/10 dark:bg-slate-900/40">
-              <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-500">
-                <span className="inline-block h-1.5 w-1.5 rounded-full bg-cyan-500" />
+            <div>
+              <dt className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500">
                 Learning
-              </div>
-              <p className="mt-1.5 text-sm font-semibold text-slate-900 dark:text-white leading-snug">
+              </dt>
+              <dd className="mt-1 text-sm font-medium text-slate-900 dark:text-slate-100 leading-snug">
                 {personalInfo.currentlyLearning}
-              </p>
+              </dd>
             </div>
-            <div className="rounded-xl border border-emerald-300/50 bg-emerald-50/50 px-4 py-3 dark:border-emerald-700/40 dark:bg-emerald-900/15">
-              <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-400">
-                <span className="relative inline-flex h-1.5 w-1.5">
-                  <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping motion-reduce:animate-none" />
-                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
-                </span>
+            <div>
+              <dt className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500">
                 Available
-              </div>
-              <p className="mt-1.5 text-sm font-semibold text-emerald-700 dark:text-emerald-300 leading-snug">
+              </dt>
+              <dd className="mt-1 text-sm font-medium text-emerald-700 dark:text-emerald-400 leading-snug">
                 {personalInfo.availability}
-              </p>
+              </dd>
             </div>
-          </div>
+          </dl>
 
-          {/* CTA Buttons */}
-          <div className="mt-7 flex flex-wrap gap-3">
+          {/* CTAs — one filled primary, the rest are bordered text-buttons.
+              rounded-md (not rounded-2xl pill), no scale-hover, no glow.
+              The visual weight comes from the typography + the single
+              filled action, not from animation. */}
+          <div className="mt-7 flex flex-wrap gap-2.5">
             <a
               href={personalInfo.calendlyUrl}
               target="_blank"
               rel="noreferrer"
               aria-label="Book Strategy Call (opens in new tab)"
-              className="inline-flex items-center justify-center rounded-2xl bg-brand-600 px-8 py-4 text-base font-bold text-white shadow-glow transition hover:bg-brand-500 hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-900"
+              className="inline-flex items-center justify-center rounded-md bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
             >
-              Book Strategy Call
+              Book strategy call
             </a>
             <Link
               to="/threatintel"
-              className="inline-flex items-center justify-center gap-2 rounded-2xl border border-rose-300/60 bg-rose-50/70 px-8 py-4 text-base font-bold text-rose-700 shadow-sm transition hover:shadow-md hover:scale-105 active:scale-95 dark:border-rose-700/60 dark:bg-rose-900/30 dark:text-rose-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-900"
+              className="inline-flex items-center justify-center gap-1.5 rounded-md border border-slate-300 dark:border-slate-700 px-5 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 transition hover:border-brand-500/60 hover:text-brand-600 dark:hover:text-brand-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
             >
-              <Terminal className="h-4 w-4" aria-hidden="true" /> Live Threat Intel
+              <Terminal className="h-3.5 w-3.5" aria-hidden="true" /> Threat intel
             </Link>
             <Link
               to="/dfir"
-              className="inline-flex items-center justify-center gap-2 rounded-2xl border border-brand-300/60 bg-brand-50/70 px-8 py-4 text-base font-bold text-brand-700 shadow-sm transition hover:shadow-md hover:scale-105 active:scale-95 dark:border-brand-700/60 dark:bg-brand-900/30 dark:text-brand-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-900"
+              className="inline-flex items-center justify-center gap-1.5 rounded-md border border-slate-300 dark:border-slate-700 px-5 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 transition hover:border-brand-500/60 hover:text-brand-600 dark:hover:text-brand-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
             >
-              <Terminal className="h-4 w-4" aria-hidden="true" /> DFIR Toolkit
+              <Terminal className="h-3.5 w-3.5" aria-hidden="true" /> DFIR toolkit
             </Link>
             <Link
               to="/skills"
-              className="inline-flex items-center justify-center rounded-2xl border border-slate-200/60 bg-white/70 px-8 py-4 text-base font-bold text-slate-800 shadow-sm transition hover:shadow-md hover:scale-105 active:scale-95 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-900"
+              className="inline-flex items-center justify-center rounded-md px-5 py-2.5 text-sm font-semibold text-slate-600 dark:text-slate-400 transition hover:text-brand-600 dark:hover:text-brand-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
             >
-              Explore Focus Areas
+              Explore focus areas →
             </Link>
           </div>
 
@@ -144,94 +143,61 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Right Content - Profile Card */}
-        <div className="animate-fade-in-up relative mt-12 lg:mt-0">
-          <div className="glass relative z-10 overflow-hidden rounded-[2.5rem] border-white/20 bg-white/40 shadow-2xl backdrop-blur-3xl dark:border-white/10 dark:bg-slate-900/40">
-            <div className="absolute inset-0 bg-gradient-to-br from-brand-500/10 via-transparent to-brand-500/10"></div>
+        {/* Right Content — minimal identity card. Thin border, no glass, no
+            blurred backdrop blobs, no glow. The brand mark sits centered
+            with the name + role + availability marker below it. Reads as a
+            calling card, not a marketing module. */}
+        <div className="mt-10 lg:mt-0">
+          <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-6 sm:p-8">
+            <div className="mb-6 flex items-center justify-center">
+              <span className="h-24 w-24 sm:h-28 sm:w-28 flex items-center justify-center overflow-hidden">
+                <PjMark className="h-full w-full" />
+              </span>
+            </div>
 
-            <div className="relative p-8 sm:p-10">
-              {/* PJ Logo */}
-              <div className="mb-8 flex items-center justify-center">
-                <span className="h-32 w-32 sm:h-36 sm:w-36 rounded-3xl shadow-glow animate-pulse-slow flex items-center justify-center overflow-hidden">
-                  <PjMark className="h-full w-full" />
-                </span>
-              </div>
+            <div className="text-center">
+              <div className="text-lg font-bold text-slate-900 dark:text-white">{personalInfo.name}</div>
+              <div className="mt-1 text-sm text-brand-600 dark:text-brand-400">{personalInfo.shortTitle}</div>
+            </div>
 
-              <div className="flex items-center gap-5">
-                <div className="relative">
-                  <span className="h-16 w-16 rounded-2xl shadow-lg flex items-center justify-center overflow-hidden">
-                    <PjMark className="h-full w-full" />
-                  </span>
-                  <div className="absolute -bottom-1 -right-1 h-5 w-5 rounded-full border-4 border-white bg-emerald-500 dark:border-slate-900"></div>
-                </div>
-                <div>
-                  <div className="text-xl font-bold text-slate-900 dark:text-white">{personalInfo.name}</div>
-                  <div className="text-sm font-medium text-brand-600 dark:text-brand-400">
-                    {personalInfo.shortTitle}
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-8 border-t border-slate-200/60 pt-6 text-sm text-slate-600 dark:border-white/10 dark:text-slate-400">
+            <div className="mt-6 border-t border-slate-200/70 dark:border-slate-800 pt-4 text-center text-sm text-slate-600 dark:text-slate-400">
+              <span className="inline-flex items-center gap-2">
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
                 Available for{' '}
-                <span className="font-semibold text-emerald-600 dark:text-emerald-400">
+                <span className="font-semibold text-emerald-700 dark:text-emerald-400">
                   {personalInfo.availability}
-                </span>{' '}
-                — reach me below.
-              </div>
+                </span>
+              </span>
             </div>
           </div>
-
-          {/* Decorative Background Elements */}
-          <div className="absolute -right-12 -top-12 -z-10 h-64 w-64 rounded-full bg-brand-500/20 blur-3xl"></div>
-          <div className="absolute -bottom-8 -left-8 -z-10 h-40 w-40 rounded-full bg-emerald-500/10 blur-2xl"></div>
         </div>
       </div>
 
-      {/* Stats Section */}
-      <div className="animate-fade-in-up mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {/* Stats strip — minimal definition list. No glass, no scale-on-hover,
+          no decorative circles. Each cell is divided from the next by a
+          thin left rule on sm+ so the four facts read as a single band. */}
+      <dl className="mt-12 grid grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-4 sm:[&>div+div]:border-l sm:[&>div+div]:border-slate-200/80 sm:[&>div+div]:pl-5 sm:[&>div+div]:dark:border-slate-800">
         {stats.map((stat) => (
-          <div
-            key={stat.label}
-            className="group glass relative overflow-hidden rounded-3xl p-8 transition-all hover:shadow-glow hover:-translate-y-1"
-          >
-            <div className="absolute right-0 top-0 -mr-4 -mt-4 h-24 w-24 rounded-full bg-brand-500/5 transition-transform group-hover:scale-150"></div>
-            <div className="relative">
-              <div className="text-sm font-bold uppercase tracking-[0.15em] text-slate-600 dark:text-slate-400">
-                {stat.label}
-              </div>
-              <div className="mt-2 flex items-baseline gap-2">
-                <span className="text-4xl font-black tracking-tight text-slate-900 dark:text-white">{stat.value}</span>
-                {stat.suffix && <span className="text-sm font-bold text-emerald-500">{stat.suffix}</span>}
-              </div>
-              <p className="mt-3 text-xs font-medium text-slate-600 dark:text-slate-400 leading-relaxed">
-                {stat.description}
-              </p>
-              {stat.badge && (
-                <div className="mt-3 flex items-center gap-2 text-xs text-emerald-600 dark:text-emerald-400">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                  <span>{stat.badge}</span>
-                </div>
+          <div key={stat.label}>
+            <dt className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500">
+              {stat.label}
+            </dt>
+            <dd className="mt-1.5 flex items-baseline gap-1.5">
+              <span className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">{stat.value}</span>
+              {stat.suffix && (
+                <span className="text-sm font-semibold text-emerald-600 dark:text-emerald-400">{stat.suffix}</span>
               )}
-              {stat.progress !== undefined && (
-                <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
-                  <div
-                    className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-emerald-400"
-                    style={{ width: `${stat.progress}%` }}
-                  ></div>
-                </div>
-              )}
-            </div>
+            </dd>
+            <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-500 leading-relaxed">{stat.description}</p>
+            {stat.badge && <div className="mt-2 text-xs text-emerald-700 dark:text-emerald-400">{stat.badge}</div>}
+            {stat.progress !== undefined && (
+              <div className="mt-2 h-0.5 w-full bg-slate-100 dark:bg-slate-800">
+                <div className="h-full bg-emerald-500" style={{ width: `${stat.progress}%` }}></div>
+              </div>
+            )}
           </div>
         ))}
-      </div>
+      </dl>
     </section>
   );
 }

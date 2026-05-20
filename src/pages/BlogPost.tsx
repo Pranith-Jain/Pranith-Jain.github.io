@@ -106,9 +106,13 @@ export default function BlogPost() {
               src={`data:image/svg+xml;utf8,${encodeURIComponent(post.hero)}`}
             />
             <header className="mb-8">
-              <span className="text-[11px] font-mono uppercase tracking-[0.16em] text-brand-600 dark:text-brand-400">
+              <Link
+                to={`/blog/c/${post.type}`}
+                className="text-[11px] font-mono uppercase tracking-[0.16em] text-brand-600 dark:text-brand-400 hover:underline"
+                aria-label={`Browse all ${post.type} case studies`}
+              >
                 {post.type}
-              </span>
+              </Link>
               <h1 className="font-display text-3xl font-bold tracking-tight mt-1">{post.title}</h1>
               <div className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-sm text-slate-500 mt-3">
                 <span>Pranith Jain</span>

@@ -28,31 +28,34 @@ export function Experience() {
 
   return (
     <section id="experience" className="mt-20 scroll-mt-24">
-      {/* Header */}
-      <div className="mb-12 max-w-2xl">
-        <div className="animate-fade-in-up mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
-          Experience
-        </div>
-        <h2 className="animate-fade-in-up text-4xl font-extrabold tracking-tight sm:text-5xl text-slate-900 dark:text-white">
+      {/* Header — consistent with the rest of the redesigned sections:
+          small caps-mono kicker, display heading, no chrome. */}
+      <div className="mb-10 max-w-2xl">
+        <div className="mb-3 text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500">Experience</div>
+        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
           Experience highlights
         </h2>
       </div>
 
-      {/* Experience Cards — collapsible */}
-      <div className="animate-fade-in-up grid gap-4">
+      {/* Collapsible list — thin-bordered cards, no glass, no shadow-glow.
+          The chevron alone marks expanded state. */}
+      <div className="grid gap-3">
         {experiences.map((exp, index) => {
           const isOpen = expanded.has(index);
           const headerId = `experience-header-${index}`;
           const bodyId = `experience-body-${index}`;
           return (
-            <div key={`${exp.title}-${index}`} className="glass rounded-2xl shadow-sm transition-all hover:shadow-md">
+            <div
+              key={`${exp.title}-${index}`}
+              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40"
+            >
               <button
                 type="button"
                 id={headerId}
                 aria-expanded={isOpen}
                 aria-controls={bodyId}
                 onClick={() => toggle(index)}
-                className="flex w-full items-start gap-4 px-6 py-5 text-left"
+                className="flex w-full items-start gap-4 px-5 py-4 text-left"
               >
                 <div className="flex-1 min-w-0">
                   <div className="text-base font-semibold text-slate-900 dark:text-white">{exp.title}</div>
@@ -71,7 +74,12 @@ export function Experience() {
               </button>
 
               {isOpen && (
-                <div id={bodyId} role="region" aria-labelledby={headerId} className="px-6 pb-6 pt-0">
+                <div
+                  id={bodyId}
+                  role="region"
+                  aria-labelledby={headerId}
+                  className="border-t border-slate-200/70 dark:border-slate-800/70 px-5 pb-5 pt-4"
+                >
                   {/* Sections (for main experience) */}
                   {exp.sections &&
                     exp.sections.map((section, sIndex) => {
