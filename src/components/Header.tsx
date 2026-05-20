@@ -161,7 +161,7 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
               </svg>
             </span>
             <span className="hidden text-sm font-semibold tracking-tight sm:inline text-slate-900 dark:text-white">
-              Pranith Jain<span className="text-slate-600 dark:text-slate-300"> • Portfolio</span>
+              Pranith Jain
             </span>
           </Link>
 
