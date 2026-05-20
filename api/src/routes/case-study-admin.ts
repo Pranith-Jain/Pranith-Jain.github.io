@@ -22,6 +22,18 @@ import {
   generateLinkedinContent,
 } from '../case-study/generation/social';
 
+/**
+ * Slug validator shared with blog-public.ts — same regex, same reasoning.
+ * Admin routes also use it to refuse path-segments like `../foo` or `index`
+ * before constructing a KV key like `social:${slug}`. The admin gate runs
+ * first so a non-admin can't probe it, but defence-in-depth catches the
+ * leaked-token + path-traversal case.
+ */
+const SLUG_RE = /^[a-z0-9-]+$/;
+function validSlug(slug: string | undefined): slug is string {
+  return !!slug && slug.length <= 200 && slug !== 'index' && SLUG_RE.test(slug);
+}
+
 const TYPES: CaseStudyType[] = [
   'cve',
   'actor',
@@ -179,6 +191,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
 
   admin.post('/posts/:slug/unpublish', async (c) => {
     const slug = c.req.param('slug');
+    if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
     await removePost(c.env.CASE_STUDIES, slug);
     // Clean up schedule slots referencing this slug
     const schedule = await getSchedule(c.env.CASE_STUDIES);
@@ -284,6 +297,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
   // ─── Social content generation (combined Twitter + LinkedIn) ──────────
   admin.post('/social/:slug', async (c) => {
     const slug = c.req.param('slug');
+    if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
     const post = await c.env.CASE_STUDIES.get<Post>(csKvKeys.post(slug), 'json');
     if (!post) return c.json({ error: 'post not found' }, 404);
 
@@ -299,6 +313,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
 
   admin.get('/social/:slug', async (c) => {
     const slug = c.req.param('slug');
+    if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
     const [combined, twitter, linkedin] = await Promise.all([
       c.env.CASE_STUDIES.get<SocialContent>(csKvKeys.social(slug), 'json'),
       c.env.CASE_STUDIES.get<string>(csKvKeys.socialTwitter(slug)),
@@ -316,10 +331,12 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
   });
 
   admin.delete('/social/:slug', async (c) => {
+    const slug = c.req.param('slug');
+    if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
     await Promise.all([
-      c.env.CASE_STUDIES.delete(csKvKeys.social(c.req.param('slug'))),
-      c.env.CASE_STUDIES.delete(csKvKeys.socialTwitter(c.req.param('slug'))),
-      c.env.CASE_STUDIES.delete(csKvKeys.socialLinkedin(c.req.param('slug'))),
+      c.env.CASE_STUDIES.delete(csKvKeys.social(slug)),
+      c.env.CASE_STUDIES.delete(csKvKeys.socialTwitter(slug)),
+      c.env.CASE_STUDIES.delete(csKvKeys.socialLinkedin(slug)),
     ]);
     return c.json({ ok: true });
   });
@@ -327,6 +344,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
   // ─── Individual social platform generation ────────────────────────────
   admin.post('/social/:slug/twitter', async (c) => {
     const slug = c.req.param('slug');
+    if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
     const post = await c.env.CASE_STUDIES.get<Post>(csKvKeys.post(slug), 'json');
     if (!post) return c.json({ error: 'post not found' }, 404);
 
@@ -347,6 +365,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
 
   admin.post('/social/:slug/linkedin', async (c) => {
     const slug = c.req.param('slug');
+    if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
     const post = await c.env.CASE_STUDIES.get<Post>(csKvKeys.post(slug), 'json');
     if (!post) return c.json({ error: 'post not found' }, 404);
 

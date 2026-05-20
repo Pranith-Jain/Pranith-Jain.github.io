@@ -40,6 +40,15 @@ export interface CaseStudyEnv {
 }
 
 export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
+  // Graceful skip when CASE_STUDIES is unbound (local dev, half-provisioned
+  // preview env). Previously a missing binding would surface as a KVNamespace
+  // method-on-undefined crash inside loadDedupMap; the cron `.catch` logger
+  // would catch it but the failure looks like a code bug rather than a
+  // configuration gap. Explicit skip + structured log makes the cause clear.
+  if (!env.CASE_STUDIES) {
+    console.warn(JSON.stringify({ job: 'discovery', status: 'skipped_no_kv' }));
+    return { total: 0, kept: 0, suppressed: 0, ids: [] as string[], byTopic: {} as Record<string, number> };
+  }
   // Load the dedup map ONCE. Every runner scores novelty against this
   // in-memory snapshot — 0 KV reads in the runners (was ~1 read per
   // candidate, ~80-150 reads per daily run).
@@ -101,6 +110,10 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
 }
 
 export function runPlannerNow(env: CaseStudyEnv, now: Date) {
+  if (!env.CASE_STUDIES) {
+    console.warn(JSON.stringify({ job: 'planner', status: 'skipped_no_kv' }));
+    return Promise.resolve({ scheduled: [] as { candidateId: string; slotAt: string }[] });
+  }
   return runPlanner({
     listApproved: () => listApproved(env.CASE_STUDIES),
     setSchedule: (slots) => setSchedule(env.CASE_STUDIES, slots),
@@ -110,6 +123,10 @@ export function runPlannerNow(env: CaseStudyEnv, now: Date) {
 }
 
 export function runPublisherNow(env: CaseStudyEnv, now: Date) {
+  if (!env.CASE_STUDIES) {
+    console.warn(JSON.stringify({ job: 'publisher', status: 'skipped_no_kv' }));
+    return Promise.resolve({ published: null as unknown });
+  }
   return runPublisher({
     pickDueSlot: (n) => pickDueSlot(env.CASE_STUDIES, n),
     markSlotStatus: (cid, status, extras) => markSlotStatus(env.CASE_STUDIES, cid, status, extras),
