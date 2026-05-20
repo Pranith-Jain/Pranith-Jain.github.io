@@ -25,7 +25,7 @@ function ProjectCard({ project }: ProjectCardProps): JSX.Element {
   return (
     <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
       <div className="flex items-start justify-between gap-3">
-        <h3 className="font-display font-semibold text-base text-slate-900 dark:text-white">{project.title}</h3>
+        <h3 className="font-display font-semibold text-lg text-slate-900 dark:text-white">{project.title}</h3>
         {project.badge && (
           <Badge tone="success" className="shrink-0">
             {project.badge}
@@ -121,7 +121,7 @@ export function Projects() {
     <section id="projects" className="mt-20 scroll-mt-24">
       <div className="mb-10 max-w-2xl">
         <div className="mb-3 text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500">Projects</div>
-        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h2 className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-slate-900 dark:text-white">
           Selected projects &amp; initiatives
         </h2>
       </div>

@@ -48,10 +48,10 @@ export function Solutions() {
         <div className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
           Solutions
         </div>
-        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h2 className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-slate-900 dark:text-white">
           Everything you need for threat intelligence &amp; DFIR
         </h2>
-        <p className="mt-3 text-base text-slate-600 dark:text-slate-400">
+        <p className="mt-4 text-lg text-slate-600 dark:text-slate-400">
           A complete ecosystem of tools, feeds, and frameworks — built by an analyst, for analysts.
         </p>
       </div>
@@ -69,7 +69,7 @@ export function Solutions() {
                 <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-500/10 text-brand-600 dark:text-brand-400 transition-colors group-hover:bg-brand-500/20">
                   <Icon size={20} aria-hidden="true" />
                 </span>
-                <h3 className="font-display text-lg font-bold text-slate-900 dark:text-white transition-colors group-hover:text-brand-600 dark:group-hover:text-brand-400">
+                <h3 className="font-display text-xl font-bold text-slate-900 dark:text-white transition-colors group-hover:text-brand-600 dark:group-hover:text-brand-400">
                   {pillar.title}
                 </h3>
                 <ArrowRight

@@ -13,11 +13,11 @@ export function About() {
     <section id="about" className="mt-20 scroll-mt-24">
       <div className="max-w-3xl">
         <div className="mb-3 text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500">About me</div>
-        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight leading-tight text-slate-900 dark:text-white">
+        <h2 className="font-display text-4xl sm:text-5xl font-bold tracking-tight leading-tight text-slate-900 dark:text-white">
           Alerts first, then everything else
         </h2>
 
-        <div className="mt-6 space-y-5 text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed">
+        <div className="mt-6 space-y-5 text-lg sm:text-xl text-slate-700 dark:text-slate-300 leading-relaxed">
           <p>
             The work that taught me anything useful was the alert work. Phishing, BEC, malware, lookalike domains. Two
             hundred and fifty incidents in, you start seeing the same attacker patterns, the same defensive blind spots,
@@ -69,7 +69,7 @@ export function About() {
               {stat.label}
             </dt>
             <dd className="mt-1 flex items-baseline gap-1.5">
-              <span className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">{stat.value}</span>
+              <span className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">{stat.value}</span>
               {stat.suffix && (
                 <span className="text-sm font-semibold text-emerald-600 dark:text-emerald-400">{stat.suffix}</span>
               )}

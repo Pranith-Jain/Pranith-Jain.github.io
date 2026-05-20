@@ -75,26 +75,26 @@ export function Hero() {
               word itself — that's the only color shift, no ping, no fill. */}
           <dl className="mt-5 grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-3 sm:[&>div+div]:border-l sm:[&>div+div]:border-slate-200/80 sm:[&>div+div]:pl-5 sm:[&>div+div]:dark:border-slate-800">
             <div>
-              <dt className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500">
+              <dt className="text-[11px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500">
                 Focus
               </dt>
-              <dd className="mt-1 text-sm font-medium text-slate-900 dark:text-slate-100 leading-snug">
+              <dd className="mt-1.5 text-base font-medium text-slate-900 dark:text-slate-100 leading-snug">
                 {personalInfo.currentFocus}
               </dd>
             </div>
             <div>
-              <dt className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500">
+              <dt className="text-[11px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500">
                 Learning
               </dt>
-              <dd className="mt-1 text-sm font-medium text-slate-900 dark:text-slate-100 leading-snug">
+              <dd className="mt-1.5 text-base font-medium text-slate-900 dark:text-slate-100 leading-snug">
                 {personalInfo.currentlyLearning}
               </dd>
             </div>
             <div>
-              <dt className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500">
+              <dt className="text-[11px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500">
                 Available
               </dt>
-              <dd className="mt-1 text-sm font-medium text-emerald-700 dark:text-emerald-400 leading-snug">
+              <dd className="mt-1.5 text-base font-medium text-emerald-700 dark:text-emerald-400 leading-snug">
                 {personalInfo.availability}
               </dd>
             </div>
@@ -110,25 +110,25 @@ export function Hero() {
               target="_blank"
               rel="noreferrer"
               aria-label="Book Strategy Call (opens in new tab)"
-              className="inline-flex items-center justify-center rounded-md bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+              className="inline-flex items-center justify-center rounded-md bg-brand-600 px-5 py-3 text-base font-semibold text-white transition hover:bg-brand-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
             >
               Book strategy call
             </a>
             <Link
               to="/threatintel"
-              className="inline-flex items-center justify-center gap-1.5 rounded-md border border-slate-300 dark:border-slate-700 px-5 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 transition hover:border-brand-500/60 hover:text-brand-600 dark:hover:text-brand-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+              className="inline-flex items-center justify-center gap-1.5 rounded-md border border-slate-300 dark:border-slate-700 px-5 py-3 text-base font-semibold text-slate-700 dark:text-slate-200 transition hover:border-brand-500/60 hover:text-brand-600 dark:hover:text-brand-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
             >
               <Terminal className="h-3.5 w-3.5" aria-hidden="true" /> Threat intel
             </Link>
             <Link
               to="/dfir"
-              className="inline-flex items-center justify-center gap-1.5 rounded-md border border-slate-300 dark:border-slate-700 px-5 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 transition hover:border-brand-500/60 hover:text-brand-600 dark:hover:text-brand-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+              className="inline-flex items-center justify-center gap-1.5 rounded-md border border-slate-300 dark:border-slate-700 px-5 py-3 text-base font-semibold text-slate-700 dark:text-slate-200 transition hover:border-brand-500/60 hover:text-brand-600 dark:hover:text-brand-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
             >
               <Terminal className="h-3.5 w-3.5" aria-hidden="true" /> DFIR toolkit
             </Link>
             <Link
               to="/skills"
-              className="inline-flex items-center justify-center rounded-md px-5 py-2.5 text-sm font-semibold text-slate-600 dark:text-slate-400 transition hover:text-brand-600 dark:hover:text-brand-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+              className="inline-flex items-center justify-center rounded-md px-5 py-3 text-base font-semibold text-slate-600 dark:text-slate-400 transition hover:text-brand-600 dark:hover:text-brand-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
             >
               Explore focus areas →
             </Link>
@@ -200,11 +200,11 @@ export function Hero() {
       <dl className="mt-12 grid grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-4 sm:[&>div+div]:border-l sm:[&>div+div]:border-slate-200/80 sm:[&>div+div]:pl-5 sm:[&>div+div]:dark:border-slate-800">
         {stats.map((stat) => (
           <div key={stat.label}>
-            <dt className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500">
+            <dt className="text-[11px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500">
               {stat.label}
             </dt>
             <dd className="mt-1.5 flex items-baseline gap-1.5">
-              <span className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">{stat.value}</span>
+              <span className="text-4xl font-bold text-slate-900 dark:text-white tracking-tight">{stat.value}</span>
               {stat.suffix && (
                 <span className="text-sm font-semibold text-emerald-600 dark:text-emerald-400">{stat.suffix}</span>
               )}

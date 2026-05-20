@@ -28,10 +28,10 @@ export function Contact() {
 
         <div className="relative mx-auto max-w-4xl text-center">
           <div className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-300">Get in touch</div>
-          <h2 id="contact-heading" className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-white">
+          <h2 id="contact-heading" className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-white">
             Ready to secure your digital presence?
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-base text-slate-300 leading-relaxed">
+          <p className="mx-auto mt-4 max-w-2xl text-lg text-slate-300 leading-relaxed">
             Whether you need threat intelligence, email security hardening, or cloud identity protection, I&apos;m here
             to help. My work bridges technical controls with business-critical trust signals across 150+ global brands.
           </p>

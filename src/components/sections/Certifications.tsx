@@ -22,7 +22,7 @@ function CertCard({ title, issuer, year, featured, type }: CertCardProps) {
       <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400 mb-1.5">
         {type}
       </div>
-      <div className="text-sm font-semibold text-slate-900 dark:text-white leading-snug">{title}</div>
+      <div className="text-base font-semibold text-slate-900 dark:text-white leading-snug">{title}</div>
       <div className="mt-1.5 text-xs text-slate-600 dark:text-slate-400">
         {issuer} · {year}
       </div>
@@ -127,7 +127,7 @@ export function Certifications() {
         <div className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
           Credentials
         </div>
-        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h2 className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-slate-900 dark:text-white">
           Education, certifications &amp; coursework
         </h2>
       </div>

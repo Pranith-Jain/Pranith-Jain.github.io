@@ -8,10 +8,10 @@ export function Featured() {
         <div className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
           Recognition
         </div>
-        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h2 className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-slate-900 dark:text-white">
           Where the work shows up
         </h2>
-        <p className="mt-3 text-base text-slate-600 dark:text-slate-400">
+        <p className="mt-4 text-lg text-slate-600 dark:text-slate-400">
           Interviews and writeups across security platforms.
         </p>
       </div>

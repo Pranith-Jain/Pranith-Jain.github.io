@@ -23,10 +23,10 @@ export function Skills() {
           plain display heading + a single-line lede. */}
       <div className="mb-10 max-w-3xl">
         <div className="mb-3 text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500">Expertise</div>
-        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h2 className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-slate-900 dark:text-white">
           Core competencies
         </h2>
-        <p className="mt-3 text-base text-slate-600 dark:text-slate-400 leading-relaxed">
+        <p className="mt-4 text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
           Focused on threat intelligence, cyber criminology, email security, and cloud-identity defense.
         </p>
       </div>
@@ -43,7 +43,7 @@ export function Skills() {
                 <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300">
                   {IconComponent && <IconComponent className="h-4 w-4" aria-hidden="true" />}
                 </span>
-                <h3 className="font-display font-semibold text-base text-slate-900 dark:text-white">{skill.title}</h3>
+                <h3 className="font-display font-semibold text-lg text-slate-900 dark:text-white">{skill.title}</h3>
               </div>
               <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
                 {skill.items.map((item) => (
