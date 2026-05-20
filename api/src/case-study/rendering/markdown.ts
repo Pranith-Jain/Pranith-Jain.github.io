@@ -5,16 +5,45 @@ const SHA256 = /\b[a-f0-9]{64}\b/gi;
 const SHA1 = /\b[a-f0-9]{40}\b/gi;
 const MD5 = /\b[a-f0-9]{32}\b/gi;
 
+function linkifyText(text: string): string {
+  // encodeURIComponent the query value: the hex/IP regexes can't emit
+  // attribute-breaking chars today, but this keeps the scraped→HTML
+  // path correct if a looser IOC pattern is ever added here.
+  const link = (m: string) => `<a class="ioc-link" href="/dfir/ioc-check?q=${encodeURIComponent(m)}">${m}</a>`;
+  return text.replace(SHA256, link).replace(SHA1, link).replace(MD5, link).replace(IPV4, link);
+}
+
+/**
+ * Walk the marked-rendered HTML and wrap bare IOC patterns (hashes, IPs)
+ * in <a class="ioc-link"> links to the IOC checker. Three nesting zones
+ * must be skipped or the rewriter corrupts the output:
+ *   1. Inside <code>/<pre> blocks — keep verbatim (analyst pasted on purpose).
+ *   2. Inside an existing <a>…</a> — would create invalid nested anchors;
+ *      browsers auto-close the outer one and the original link breaks.
+ *   3. Inside any tag's attribute value — e.g. `<a href="https://x/HASH">`.
+ *      The OLD implementation matched HASH inside the href and inserted
+ *      <a class="ioc-link"…> mid-attribute, which broke the outer quoting
+ *      and made the URL render as raw text after the link.
+ * The three-level split below makes each of those zones a no-touch region;
+ * linkifyText runs only on actual text nodes outside all of them.
+ */
 function linkify(html: string): string {
-  const parts = html.split(/(<code[^>]*>[\s\S]*?<\/code>)/g);
-  return parts
-    .map((part, i) => {
-      if (i % 2 === 1) return part;
-      // encodeURIComponent the query value: the hex/IP regexes can't emit
-      // attribute-breaking chars today, but this keeps the scraped→HTML
-      // path correct if a looser IOC pattern is ever added here.
-      const link = (m: string) => `<a class="ioc-link" href="/dfir/ioc-check?q=${encodeURIComponent(m)}">${m}</a>`;
-      return part.replace(SHA256, link).replace(SHA1, link).replace(MD5, link).replace(IPV4, link);
+  return html
+    .split(/(<code[^>]*>[\s\S]*?<\/code>|<pre[^>]*>[\s\S]*?<\/pre>)/g)
+    .map((seg, i) => {
+      if (i % 2 === 1) return seg; // <code>/<pre> — leave verbatim
+      return seg
+        .split(/(<a\b[^>]*>[\s\S]*?<\/a>)/gi)
+        .map((s, j) => {
+          if (j % 2 === 1) return s; // existing <a> — leave verbatim
+          // Outside anchors: split on tag boundaries so attribute values
+          // can't be matched. Only TEXT nodes (even indices) get rewritten.
+          return s
+            .split(/(<[^>]+>)/g)
+            .map((t, k) => (k % 2 === 1 ? t : linkifyText(t)))
+            .join('');
+        })
+        .join('');
     })
     .join('');
 }

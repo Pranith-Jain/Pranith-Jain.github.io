@@ -117,15 +117,20 @@ const BRIEFINGS_ADMIN = new Set<string>([
 ]);
 
 /**
- * Admin endpoints get an extra-strict bucket on TOP of the global LIMIT —
- * because each request to /api/v1/admin/run/discover or /briefings/backfill
- * can fan out to dozens of subrequests + KV/D1 writes. Per leaked-token, the
+ * Admin mutations get an extra-strict bucket on TOP of the global LIMIT —
+ * because each POST to /api/v1/admin/run/discover or /briefings/backfill can
+ * fan out to dozens of subrequests + KV/D1 writes. Per leaked token, the
  * global 30/min would let an attacker burn a day's KV write quota in 60s.
- * 5/min per IP is plenty for an operator manually poking the panel.
+ *
+ * GETs are intentionally NOT in this bucket: the admin UI loads several
+ * tabs in parallel (each firing a GET on mount) and a 5/min cap on reads
+ * tripped legitimate operator traffic within a few clicks. Read endpoints
+ * are cheap KV lookups and the global 30/min remains as cover.
  */
 const ADMIN_STRICT_LIMIT = 5;
 const ADMIN_STRICT_PREFIX = '/api/v1/admin/';
-function isAdminStrict(pathname: string): boolean {
+function isAdminStrict(pathname: string, method: string): boolean {
+  if (method === 'GET' || method === 'HEAD' || method === 'OPTIONS') return false;
   return pathname.startsWith(ADMIN_STRICT_PREFIX) || BRIEFINGS_ADMIN.has(pathname);
 }
 
@@ -153,7 +158,7 @@ export async function rateLimit(c: Context<{ Bindings: Env }>, next: Next): Prom
   const key = `rl:${bucket}:${ip}`;
   // Admin endpoints carry a parallel, stricter counter (per IP per minute).
   // The two buckets are independent — a request consumes one slot from each.
-  const adminStrict = isAdminStrict(url.pathname);
+  const adminStrict = isAdminStrict(url.pathname, c.req.method);
   const adminKey = adminStrict ? `rl:adm:${bucket}:${ip}` : null;
 
   // No-op if KV is not bound (lets local dev + un-provisioned production work)
