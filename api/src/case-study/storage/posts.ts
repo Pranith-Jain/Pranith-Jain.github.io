@@ -22,13 +22,25 @@ function toIndexEntry(p: Post): PostIndexEntry {
   };
 }
 
+/**
+ * Soft cap on the postsIndex blob — every blog page load reads the whole
+ * index from KV, and an unbounded list eventually slows that fetch + the
+ * client-side filter pass. 500 entries × ~250 bytes per index row is well
+ * under KV's 25 MB value ceiling but keeps page load snappy. When the cap
+ * is hit, the OLDEST entry by publishedAt is dropped (the per-slug post
+ * record stays in KV; only the index pointer goes, so a deep link to an
+ * older slug still works — it just stops appearing on the listing page).
+ */
+const POSTS_INDEX_CAP = 500;
+
 export async function putPost(ns: KVNamespace, p: Post): Promise<void> {
   await ns.put(kv.post(p.slug), JSON.stringify(p));
   const index = await listPostIndex(ns);
   const filtered = index.filter((e) => e.slug !== p.slug);
   filtered.push(toIndexEntry(p));
   filtered.sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
-  await ns.put(kv.postsIndex, JSON.stringify(filtered));
+  const capped = filtered.slice(0, POSTS_INDEX_CAP);
+  await ns.put(kv.postsIndex, JSON.stringify(capped));
 }
 
 export async function removePost(ns: KVNamespace, slug: string): Promise<void> {

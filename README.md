@@ -14,40 +14,40 @@ React + Vite + TypeScript with SSR prerendering. Hero, skills grid, timeline exp
 
 ### 2. DFIR Toolkit (`/dfir/*`)
 
-60+ interactive analyst tools — triage, OSINT, email security, detection engineering, AI-security, data security — running client-side or via thin edge-API calls. Zero signup, zero keys to start.
+60+ interactive analyst tools — triage, OSINT, email security, detection engineering, AI-security, data security — running client-side or via thin edge-API calls. Zero signup, zero keys to start. Includes a **purpose-built detection engine** (rule authoring + evaluator with shared severity model) and a **universal rule converter** that round-trips between Sigma / KQL / SPL / Lucene / EQL / YARA / DLP / supply-chain via one canonical RuleIR.
 
 ### 3. Threat Intel Platform (`/threatintel/*`)
 
-A live CTI surface that updates itself: ransomware leak-site + negotiation tracking, CVE/KEV feeds, a cross-source IOC firehose with consensus scoring, actor timelines, dark-web/forum intelligence, social/Telegram/Reddit firehoses, auto-generated briefings, and a fully autonomous case-study blog (discover → QA → publish) — all hourly-refreshed, all on the free tier.
+A live CTI surface that updates itself: ransomware leak-site + negotiation tracking, CVE/KEV feeds, a cross-source IOC firehose with consensus scoring, actor timelines, dark-web/forum intelligence, social/Telegram/Reddit firehoses, auto-generated briefings, and a fully autonomous case-study blog (discover → QA → publish) — all hourly-refreshed, all on the free tier. **Hourly CTI digests** are broadcast to a dedicated Telegram channel and configurable chat list.
 
 ---
 
 ## Threat Intel Platform — surfaces at a glance
 
-| Surface                                               | What it does                                                                                                                                                                                   |
-| ----------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Live Ransomware Activity                              | Recent leak-site claims merged across Ransomlook, ransomfeed.it, ransomwatch, ransomware.live, MyThreatIntel & Andrea Fortuna; per-victim screenshots, sector heuristics                       |
-| Ransomware Negotiations                               | ransomware.live PRO negotiation chats across every group — demand vs. settled, discount %, status, full transcript drill-down (Casualtek/Ransomchats)                                          |
-| Actor Activity Timeline                               | Per-actor leak-site cadence heatmap + MITRE ATT&CK group/TTP pivot; MyThreatIntel-enriched                                                                                                     |
-| Victim Re-leak Trends                                 | Sector + operation-type breakdowns, group↔group re-claim pairs, and a re-leak timeline (not just raw victim rows)                                                                              |
-| Infostealer Live Tracker                              | HudsonRock victim exposure, log-market threads, stealer-log Telegram directory, family-matched samples/IOCs, plus a **combo & forum intel** tab (metadata only — never the stolen data)        |
-| Breach / Leak-Forum Tracker                           | deepdarkCTI criminal-forum + dark-market directory plus a curated venue list — names/status/OSINT-coverage links only                                                                          |
-| CVE List                                              | NVD published-window + CISA KEV merge; MyThreatIntel **API-primary** (Telegram-scrape fallback) + cvefeed gap-fill, EPSS/KEV-aware                                                             |
-| IOC Correlation                                       | Cross-source consensus scoring across many feeds (interactive)                                                                                                                                 |
-| Live IOC Stream                                       | Chronological multi-source firehose                                                                                                                                                            |
-| Threat Pulse                                          | Entities ranked by cross-source mentions over 24h                                                                                                                                              |
-| Threat Intel Metrics                                  | 15 hand-rolled-SVG panels (ransomware/CVE/KEV/phishing/C2/breach/OSINT/dark-web) with live ▲/▼ deltas                                                                                          |
-| Dark Web Watch                                        | Aggregated leak-site/breach/research RSS, keyword watchlist, per-source filtering                                                                                                              |
-| Telegram / Reddit / Social firehoses                  | Curated public Telegram channels, infosec subreddits, Bluesky+Mastodon researchers                                                                                                             |
-| Live Breach Disclosures                               | Have I Been Pwned feed with verification flags                                                                                                                                                 |
-| Onion Watch                                           | .onion mirror inventory for ransomware leak sites                                                                                                                                              |
-| Cyber Crime & Fraud                                   | Indictments, crypto-crime tracing, breach reporting                                                                                                                                            |
-| Tech & AI News / Threat Feeds / Scam Watch            | Curated multi-section RSS aggregations                                                                                                                                                         |
-| Intel Briefings                                       | Daily/weekly auto-generated digests (cron-built, D1-backed)                                                                                                                                    |
-| Case-Study Blog (`/blog`)                             | Autonomous pipeline: discover (9 topics) → score/dedupe → AI generate (Groq primary, Workers-AI fallback) → anti-slop + deterministic content-QA gate → schedule → publish; admin-gated review |
-| Writeups / Threat Actors / MITRE ATT&CK / deepdarkCTI | Analyst-blog aggregation, APT catalogue, full matrix, parsed dark-web index                                                                                                                    |
-| Feed Status                                           | Health dashboard for every upstream + internal feed                                                                                                                                            |
-| Catalogs                                              | CVE Resources (~70), SecOps Tools (~140), OSINT Framework (70+), long-form Knowledge Base                                                                                                      |
+| Surface                                               | What it does                                                                                                                                                                                                                                                                   |
+| ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Live Ransomware Activity                              | Recent leak-site claims merged across Ransomlook, ransomfeed.it, ransomwatch, ransomware.live, MyThreatIntel & Andrea Fortuna; per-victim screenshots, sector heuristics                                                                                                       |
+| Ransomware Negotiations                               | ransomware.live PRO negotiation chats across every group — demand vs. settled, discount %, status, full transcript drill-down (Casualtek/Ransomchats)                                                                                                                          |
+| Actor Activity Timeline                               | Per-actor leak-site cadence heatmap + MITRE ATT&CK group/TTP pivot; MyThreatIntel-enriched                                                                                                                                                                                     |
+| Victim Re-leak Trends                                 | Sector + operation-type breakdowns, group↔group re-claim pairs, and a re-leak timeline (not just raw victim rows)                                                                                                                                                              |
+| Infostealer Live Tracker                              | HudsonRock victim exposure, log-market threads, stealer-log Telegram directory, family-matched samples/IOCs, plus a **combo & forum intel** tab (metadata only — never the stolen data)                                                                                        |
+| Breach / Leak-Forum Tracker                           | deepdarkCTI criminal-forum + dark-market directory plus a curated venue list — names/status/OSINT-coverage links only                                                                                                                                                          |
+| CVE List                                              | NVD published-window + CISA KEV merge; MyThreatIntel **API-primary** (Telegram-scrape fallback) + cvefeed gap-fill, EPSS/KEV-aware                                                                                                                                             |
+| IOC Correlation                                       | Cross-source consensus scoring across many feeds (interactive)                                                                                                                                                                                                                 |
+| Live IOC Stream                                       | Chronological multi-source firehose                                                                                                                                                                                                                                            |
+| Threat Pulse                                          | Entities ranked by cross-source mentions over 24h                                                                                                                                                                                                                              |
+| Threat Intel Metrics                                  | 15 hand-rolled-SVG panels (ransomware/CVE/KEV/phishing/C2/breach/OSINT/dark-web) with live ▲/▼ deltas                                                                                                                                                                          |
+| Dark Web Watch                                        | Aggregated leak-site/breach/research RSS, keyword watchlist, per-source filtering                                                                                                                                                                                              |
+| Telegram / Reddit / Social firehoses                  | Curated public Telegram channels, infosec subreddits, Bluesky+Mastodon researchers                                                                                                                                                                                             |
+| Live Breach Disclosures                               | Have I Been Pwned feed with verification flags                                                                                                                                                                                                                                 |
+| Onion Watch                                           | .onion mirror inventory for ransomware leak sites                                                                                                                                                                                                                              |
+| Cyber Crime & Fraud                                   | Indictments, crypto-crime tracing, breach reporting                                                                                                                                                                                                                            |
+| Tech & AI News / Threat Feeds / Scam Watch            | Curated multi-section RSS aggregations                                                                                                                                                                                                                                         |
+| Intel Briefings                                       | Daily/weekly auto-generated digests (cron-built, D1-backed)                                                                                                                                                                                                                    |
+| Case-Study Blog (`/blog`)                             | Autonomous pipeline: discover (10 topics — incl. cross-group ransomware **re-leaks**) → score/dedupe → AI generate (Groq primary, Workers-AI fallback) → anti-slop + deterministic content-QA gate → schedule → publish; admin-gated review; in-page search + type-chip filter |
+| Writeups / Threat Actors / MITRE ATT&CK / deepdarkCTI | Analyst-blog aggregation, APT catalogue, full matrix, parsed dark-web index                                                                                                                                                                                                    |
+| Feed Status                                           | Health dashboard for every upstream + internal feed                                                                                                                                                                                                                            |
+| Catalogs                                              | CVE Resources (~70), SecOps Tools (~140), OSINT Framework (70+), long-form Knowledge Base                                                                                                                                                                                      |
 
 > The MyThreatIntel REST API (token-gated) is wired in as a primary source for live CVE, actor-timeline, negotiations, and metrics, with the public `t.me/s/mythreatintel` scrape as automatic fallback so nothing degrades when the token is unset. A public TAXII/MISP/STIX export previously existed and was **removed** — an externally-pollable feed is a free-tier budget risk.
 
@@ -83,6 +83,7 @@ A live CTI surface that updates itself: ransomware leak-site + negotiation track
 | AI       | Groq free tier (primary) → Workers AI Llama chain (fallback) for the case-study engine             |
 | Tests    | Vitest — extensive client + worker suites (worker suite alone 100+ tests)                          |
 | Quality  | ESLint + Prettier + husky/lint-staged; `tsc --noEmit` gate                                         |
+| CI       | GitHub Actions: lint + typecheck (root + api) + vitest (root + api), per-ref concurrency cancel    |
 | Deploy   | `wrangler deploy`                                                                                  |
 
 ---
@@ -115,7 +116,15 @@ npx wrangler secret put ABUSECH_AUTH_KEY        # ThreatFox + URLhaus + MalwareB
 npx wrangler secret put RANSOMWARELIVE_API_KEY  # ransomware.live PRO (negotiations, yara, cyberattacks)
 npx wrangler secret put MYTHREATINTEL_API_TOKEN # MyThreatIntel REST API (CVE/actor/victim primary; TG-scrape fallback)
 npx wrangler secret put GROQ_API_KEY            # case-study generation primary model (Workers AI fallback)
-npx wrangler secret put ADMIN_TOKEN             # case-study + briefing admin endpoints (X-Admin-Token)
+
+# Scoped admin tokens (one per surface — no shared blast radius)
+npx wrangler secret put ADMIN_TOKEN             # case-study admin (X-Admin-Token header)
+npx wrangler secret put BRIEFINGS_ADMIN_TOKEN   # briefings build/backfill/sweep (Bearer)
+npx wrangler secret put RESOURCES_ADMIN_TOKEN   # external-resources curation (Bearer)
+
+# Telegram CTI digest (optional)
+npx wrangler secret put TELEGRAM_BOT_TOKEN      # bot for hourly digest broadcasts
+npx wrangler secret put TELEGRAM_CHAT_IDS       # comma-separated list of chats/channels/groups
 ```
 
 Every secret is optional and fails safe: the relevant feature degrades or falls back rather than breaking the deploy.
@@ -132,11 +141,15 @@ Engineered for the **Cloudflare Workers free tier**:
 
 ## Security & accessibility
 
-- CSP/HSTS/X-Frame-Options/Referrer-Policy/Permissions-Policy on all responses
-- SSRF guard via DNS-level public-IP validation (`assertPublicHost` + `pinnedFetch`)
-- Constant-time token comparison; no hardcoded secrets (all via `wrangler secret`)
-- Rate limiting on API endpoints; defensive-only handling of breach/stealer/forum data (metadata, never stolen content)
-- WCAG 2.2 AA: skip-to-content, focus traps, ARIA roles, `role="alert"` on errors, reduced-motion support, 44px touch targets
+- **Per-request nonce CSP** (worker-owned; no `'unsafe-inline'` on `script-src`), HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy on every response
+- **SSRF guard** via DNS-level public-IP validation + manual-redirect `pinnedFetch` (`assertPublicHost` blocks RFC1918, link-local, IPv6 ULA/site-local, Azure metadata, literal-IP shortcut bypasses)
+- **Prompt-injection scrub** on every LLM input (phrase-level pattern strip + control-byte filter), fenced FACTS/SOURCES templates, output sanitised through DOMPurify on the client and a server-side regex pass
+- **Single-flight cron lock** (`cron:lock:<cron>` with 2-minute TTL) so retried scheduler events don't double-fire discovery / planner / publisher
+- **Per-cron-string admin rate-limit bucket** (5/min on POST/DELETE; safe GETs skip the bucket so the admin UI loads cleanly)
+- `safeJsonBody` body-size + depth-checked JSON parsing on every admin POST, `safeErrorMessage` production scrubber on every handler
+- Constant-time Bearer / X-Admin-Token comparison; **three scoped admin tokens** (case-study, briefings, external-resources); no hardcoded secrets — all via `wrangler secret`
+- Defensive-only handling of breach / stealer / forum data: metadata only, never stolen content
+- WCAG 2.2 AA: skip-to-content, focus traps, ARIA roles, `role="alert"` on errors, reduced-motion support, 44px touch targets, iOS Safari zoom fix on `<input>` focus
 
 ## Repository layout
 
