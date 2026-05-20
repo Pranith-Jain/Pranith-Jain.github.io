@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Rss, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Rss, ChevronRight, Search } from 'lucide-react';
 
 type Filter = 'all' | 'daily' | 'weekly';
 
@@ -35,6 +35,7 @@ interface ListItem {
 
 export default function Briefings(): JSX.Element {
   const [filter, setFilter] = useState<Filter>('all');
+  const [query, setQuery] = useState('');
   const [items, setItems] = useState<ListItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -57,8 +58,17 @@ export default function Briefings(): JSX.Element {
   }, [reloadKey]);
 
   const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
     return items
       .filter((b) => filter === 'all' || b.metadata.type === filter)
+      .filter((b) => {
+        if (!q) return true;
+        return (
+          b.slug.toLowerCase().includes(q) ||
+          b.metadata.title.toLowerCase().includes(q) ||
+          b.metadata.date_range.toLowerCase().includes(q)
+        );
+      })
       .slice()
       .sort((a, b) => {
         // Sort by end-of-period so weeklies and dailies interleave correctly.
@@ -66,7 +76,7 @@ export default function Briefings(): JSX.Element {
         const bk = b.metadata.range_end ?? b.metadata.date ?? '';
         return bk.localeCompare(ak);
       });
-  }, [items, filter]);
+  }, [items, filter, query]);
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 sm:py-16 text-slate-900 dark:text-slate-100">
@@ -97,6 +107,21 @@ export default function Briefings(): JSX.Element {
       <section className="animate-fade-in-up">
         <div className="flex items-baseline justify-between mb-6">
           <h2 className="font-display font-bold text-xl">Briefings</h2>
+        </div>
+
+        {/* Search input — wires into the same filtered useMemo as the type
+            chips so "lockbit" + Daily narrows by both. Slug, title, and
+            date_range are searched so a date fragment ("2026-05") matches. */}
+        <div className="relative mb-4">
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <input
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Filter by title, slug, or date (e.g. 2026-05)…"
+            aria-label="Filter briefings"
+            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          />
         </div>
 
         <div className="flex flex-wrap gap-2 mb-8">

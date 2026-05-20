@@ -42,6 +42,13 @@ function buildTwitterPrompt(post: Post): string {
     `- Last post: the analytical takeaway, then the link on its own line: ${postUrl}\n` +
     `- Append " (n/N)" at the END of each post (not the start). Each post < 270 chars incl. the counter.\n` +
     `- No hashtags. No emojis. No raw URLs except the single final link.\n` +
+    `\n**OPENING-POST EXAMPLES (calibrate against these, do not reuse the wording):**\n` +
+    `GOOD: "Lockbit5 posted 15 victims in 7 days — 4 of them already appeared under other affiliates this quarter. Same haul, second auction. Affiliate movement, not new compromise. (1/4)"\n` +
+    `       ↑ specific count, contrast, named actor, analytical read, no teaser language.\n` +
+    `BAD:   "Big news in ransomware this week 🚨 — Lockbit5 is back and the implications are huge. Thread 🧵 (1/4)"\n` +
+    `       ↑ no specific, hype-noun ("big news", "implications"), emoji, teaser framing — exactly what the rules forbid.\n` +
+    `BAD:   "1/ Today I want to talk about the Lockbit5 leak site activity over the last week. Let's dive in."\n` +
+    `       ↑ "1/" prefix, "I want to talk about", "let's dive in" — preamble instead of payload.\n` +
     `\n---\n\n` +
     `CASE STUDY TITLE: ${post.title}\n\n` +
     `CASE STUDY (lede + structure):\n${gist(post.body)}`
@@ -60,6 +67,16 @@ function buildLinkedinPrompt(post: Post): string {
     `- Close with one substantive question that provokes a practitioner reply (not "what do you think?"), then the link on its own final line: ${postUrl}\n` +
     `- 1300-2000 characters. At most TWO lowercase hashtags, and only if genuinely relevant, placed on the final line after the link — never a stack, never mid-sentence. Prefer zero.\n` +
     `- Bold at most one phrase with **asterisks**, only if it earns it. No emojis. No raw URLs in the body.\n` +
+    `\n**HOOK EXAMPLES (THE FOLD — first ~210 chars; calibrate against these):**\n` +
+    `GOOD (fits the fold, lands the sharpest fact):\n` +
+    `  "Lockbit5 dropped 15 new victims this week — but 4 of those targets already appeared on a different affiliate's leak site this quarter. The same haul is being re-auctioned. Affiliate dispute, not new compromise."\n` +
+    `BAD (vague + emoji + label):\n` +
+    `  "🚨 New blog post: Lockbit5 ransomware is back, and the threat landscape continues to evolve. In this analysis I break down what we're seeing and what it means for defenders…"\n` +
+    `BAD (throat-clearing, no specific):\n` +
+    `  "I've been thinking about ransomware affiliate movement lately. Here are some observations from the latest Lockbit5 activity."\n` +
+    `\n**CLOSING-QUESTION EXAMPLES:**\n` +
+    `GOOD: "If your IR retainer doesn't cover the affiliate-handoff case (same encryptor, new negotiator), how are you triaging the second extortion attempt?"\n` +
+    `BAD:  "What do you think? Let me know in the comments!"   ← generic, no practitioner specificity.\n` +
     `\n---\n\n` +
     `CASE STUDY TITLE: ${post.title}\n\n` +
     `CASE STUDY (lede + structure):\n${gist(post.body)}`
