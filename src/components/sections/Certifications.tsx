@@ -15,14 +15,16 @@ interface CertCardProps {
 function CertCard({ title, issuer, year, featured, type }: CertCardProps) {
   return (
     <div
-      className={`surface rounded-2xl p-6 shadow-sm hover:-translate-y-1 h-full flex flex-col ${
-        featured ? 'border-l-4 border-brand-500' : ''
+      className={`rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 transition hover:border-brand-500/40 h-full flex flex-col ${
+        featured ? 'border-l-[3px] border-l-brand-500' : ''
       }`}
     >
-      <div className="text-xs font-bold text-brand-600 dark:text-brand-400 mb-1 uppercase tracking-wider">{type}</div>
-      <div className="text-sm font-semibold text-slate-900 dark:text-white">{title}</div>
-      <div className="mt-1 text-sm text-slate-700 dark:text-slate-300">
-        {issuer} • {year}
+      <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400 mb-1.5">
+        {type}
+      </div>
+      <div className="text-sm font-semibold text-slate-900 dark:text-white leading-snug">{title}</div>
+      <div className="mt-1.5 text-xs text-slate-600 dark:text-slate-400">
+        {issuer} · {year}
       </div>
     </div>
   );
@@ -72,7 +74,7 @@ function CertCategory({ id, title, certs }: CertCategoryProps) {
           <button
             type="button"
             onClick={() => setShowAll((v) => !v)}
-            className="inline-flex items-center gap-1.5 rounded-full border border-slate-200/70 bg-white/70 px-4 py-1.5 text-xs font-semibold text-slate-700 backdrop-blur-md transition-all hover:border-brand-500/50 hover:text-brand-600 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200 dark:hover:text-brand-400"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-brand-600 dark:text-slate-400 dark:hover:text-brand-400 transition"
             aria-expanded={showAll}
           >
             {showAll ? (
@@ -121,13 +123,12 @@ export function Certifications() {
 
   return (
     <section id="certifications" className="mt-20 scroll-mt-24">
-      {/* Header */}
-      <div className="mb-12 max-w-2xl">
-        <div className="animate-fade-in-up mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-brand-700 dark:text-brand-300">
+      <div className="mb-10 max-w-2xl">
+        <div className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
           Credentials
         </div>
-        <h2 className="animate-fade-in-up text-4xl font-extrabold tracking-tight sm:text-5xl text-slate-900 dark:text-white">
-          Education, Certifications & Coursework
+        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+          Education, certifications &amp; coursework
         </h2>
       </div>
 
@@ -140,7 +141,7 @@ export function Certifications() {
           {education.map((e) => (
             <li
               key={e.degree}
-              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 py-3"
+              className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 px-5 py-4"
             >
               <div className="font-semibold text-slate-900 dark:text-white">{e.degree}</div>
               <div className="text-sm text-slate-600 dark:text-slate-400">{e.school}</div>

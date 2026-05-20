@@ -148,7 +148,7 @@ export function Hero() {
             with the name + role + availability marker below it. Reads as a
             calling card, not a marketing module. */}
         <div className="mt-10 lg:mt-0">
-          <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-6 sm:p-8">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-6 sm:p-8">
             <div className="mb-6 flex items-center justify-center">
               <span className="h-24 w-24 sm:h-28 sm:w-28 flex items-center justify-center overflow-hidden">
                 <PjMark className="h-full w-full" />

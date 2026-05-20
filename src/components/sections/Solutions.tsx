@@ -45,41 +45,41 @@ export function Solutions() {
   return (
     <section id="solutions" className="mt-20 scroll-mt-24">
       <div className="mb-8 max-w-3xl">
-        <div className="animate-fade-in-up mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
+        <div className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
           Solutions
         </div>
-        <h2 className="animate-fade-in-up text-4xl font-extrabold tracking-tight sm:text-5xl text-slate-900 dark:text-white">
+        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
           Everything you need for threat intelligence &amp; DFIR
         </h2>
-        <p className="animate-fade-in-up mt-4 text-lg text-slate-700 dark:text-slate-400">
+        <p className="mt-3 text-base text-slate-600 dark:text-slate-400">
           A complete ecosystem of tools, feeds, and frameworks — built by an analyst, for analysts.
         </p>
       </div>
 
-      <div className="grid gap-6 sm:grid-cols-2">
+      <div className="grid gap-5 sm:grid-cols-2">
         {PILLARS.map((pillar) => {
           const Icon = pillar.icon;
           return (
             <Link
               key={pillar.href}
               to={pillar.href}
-              className="surface group block rounded-2xl p-6 hover:border-brand-500/50 hover:-translate-y-1 hover:shadow-glow"
+              className="group block rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-6 transition hover:border-brand-500/50"
             >
               <div className="mb-4 flex items-center gap-3">
-                <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-500/10 text-brand-600 dark:text-brand-400 group-hover:bg-brand-500/20 transition-colors">
+                <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-500/10 text-brand-600 dark:text-brand-400 transition-colors group-hover:bg-brand-500/20">
                   <Icon size={20} aria-hidden="true" />
                 </span>
-                <h3 className="font-display text-xl font-bold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+                <h3 className="font-display text-lg font-bold text-slate-900 dark:text-white transition-colors group-hover:text-brand-600 dark:group-hover:text-brand-400">
                   {pillar.title}
                 </h3>
                 <ArrowRight
                   size={18}
-                  className="ml-auto text-slate-400 group-hover:text-brand-500 group-hover:translate-x-1 transition-all"
+                  className="ml-auto text-slate-400 transition-transform group-hover:text-brand-500 group-hover:translate-x-0.5"
                   aria-hidden="true"
                 />
               </div>
               <p className="mb-4 text-sm leading-relaxed text-slate-600 dark:text-slate-400">{pillar.desc}</p>
-              <ul className="flex flex-wrap gap-2">
+              <ul className="flex flex-wrap gap-1.5">
                 {pillar.bullets.map((b) => (
                   <li key={b}>
                     <Badge size="xs">{b}</Badge>
@@ -91,18 +91,18 @@ export function Solutions() {
         })}
       </div>
 
-      <div className="mt-10 flex flex-wrap items-center justify-center gap-3 text-sm">
+      <div className="mt-10 flex flex-wrap items-center justify-center gap-2.5 text-sm">
         <Link
           to="/dfir"
-          className="inline-flex items-center gap-2 rounded-full bg-brand-600 px-5 py-2.5 font-semibold text-white shadow-glow transition-all hover:bg-brand-700 hover:-translate-y-0.5"
+          className="inline-flex items-center gap-1.5 rounded-md bg-brand-600 px-5 py-2.5 font-semibold text-white transition hover:bg-brand-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
         >
-          <Search size={16} aria-hidden="true" /> Open DFIR Toolkit
+          <Search size={14} aria-hidden="true" /> Open DFIR toolkit
         </Link>
         <Link
           to="/threatintel"
-          className="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/70 px-5 py-2.5 font-semibold text-slate-700 backdrop-blur-md transition-all hover:border-brand-500/50 hover:text-brand-600 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200 dark:hover:text-brand-400"
+          className="inline-flex items-center gap-1.5 rounded-md border border-slate-300 dark:border-slate-700 px-5 py-2.5 font-semibold text-slate-700 dark:text-slate-200 transition hover:border-brand-500/60 hover:text-brand-600 dark:hover:text-brand-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
         >
-          <Globe size={16} aria-hidden="true" /> Browse Threat Intel
+          <Globe size={14} aria-hidden="true" /> Browse threat intel
         </Link>
       </div>
     </section>

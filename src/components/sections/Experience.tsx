@@ -47,7 +47,7 @@ export function Experience() {
           return (
             <div
               key={`${exp.title}-${index}`}
-              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40"
+              className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40"
             >
               <button
                 type="button"

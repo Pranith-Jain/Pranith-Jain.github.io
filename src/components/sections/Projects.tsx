@@ -23,7 +23,7 @@ function ProjectCard({ project }: ProjectCardProps): JSX.Element {
   const needsToggle = project.description.length > TRUNCATE_THRESHOLD;
 
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
+    <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
       <div className="flex items-start justify-between gap-3">
         <h3 className="font-display font-semibold text-base text-slate-900 dark:text-white">{project.title}</h3>
         {project.badge && (
