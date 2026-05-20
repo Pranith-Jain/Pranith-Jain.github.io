@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { PRIVATE_IPV4, isPrivateIpv6 } from '../../src/lib/ssrf-guard';
+import { PRIVATE_IPV4, isPrivateIpv6, assertPublicHost } from '../../src/lib/ssrf-guard';
 
 describe('PRIVATE_IPV4', () => {
   const blocked = [
@@ -80,4 +80,48 @@ describe('isPrivateIpv6', () => {
       expect(isPrivateIpv6(addr)).toBe(false);
     });
   }
+});
+
+// Literal-IP shortcut in assertPublicHost — does NOT touch DoH, so these
+// tests run without mocking network. Confirms the regex/private-range check
+// fires before any DNS lookup when the hostname is already an IP.
+describe('assertPublicHost — IP literal shortcut', () => {
+  const blockedV4 = ['127.0.0.1', '169.254.169.254', '168.63.129.16', '10.0.0.1', '192.168.1.1'];
+  for (const ip of blockedV4) {
+    it(`blocks IPv4 literal ${ip}`, async () => {
+      const r = await assertPublicHost(ip);
+      expect(r.ok).toBe(false);
+      expect(r.status).toBe(403);
+      expect(r.blockedIp).toBe(ip);
+      expect(r.error).toMatch(/private\/reserved IP literal/);
+    });
+  }
+
+  it('allows a public IPv4 literal and pins to it', async () => {
+    const r = await assertPublicHost('8.8.8.8');
+    expect(r.ok).toBe(true);
+    expect(r.pinIp).toBe('8.8.8.8');
+  });
+
+  const blockedV6 = ['::1', 'fe80::1', 'fc00::1', 'fec0::1'];
+  for (const addr of blockedV6) {
+    it(`blocks IPv6 literal ${addr}`, async () => {
+      const r = await assertPublicHost(addr);
+      expect(r.ok).toBe(false);
+      expect(r.status).toBe(403);
+    });
+  }
+
+  it('handles bracketed IPv6 literal (WHATWG URL keeps the brackets)', async () => {
+    const r = await assertPublicHost('[::1]');
+    expect(r.ok).toBe(false);
+    expect(r.status).toBe(403);
+    expect(r.blockedIp).toBe('::1');
+  });
+
+  it('allows a public IPv6 literal (Cloudflare DNS)', async () => {
+    const r = await assertPublicHost('2606:4700:4700::1111');
+    expect(r.ok).toBe(true);
+    expect(r.pinIp).toBe('2606:4700:4700::1111');
+  });
 });
