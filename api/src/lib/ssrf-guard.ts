@@ -22,8 +22,14 @@ import { resolveRecord } from './dns';
 
 // IPv4 private / loopback / link-local / CGNAT / TEST-NET / multicast /
 // reserved. 224.0.0.0+ (224–255) is the trailing 22[4-9]|23\d|24\d|25[0-5].
+//
+// Cloud-metadata IPs:
+//   - 169.254.169.254 — AWS, GCP, IBM, DigitalOcean, Oracle (caught by 169.254/16).
+//   - 168.63.129.16 — Azure WireServer / DNS endpoint. Lives in public space,
+//     so it has to be listed explicitly. Required for defence-in-depth on any
+//     substrate where the worker might be reachable from Azure-allocated egress.
 export const PRIVATE_IPV4 =
-  /^(?:0\.|10\.|100\.(?:6[4-9]|[7-9]\d|1[01]\d|12[0-7])\.|127\.|169\.254\.|172\.(?:1[6-9]|2\d|3[01])\.|192\.0\.0\.|192\.0\.2\.|192\.88\.99\.|192\.168\.|198\.1[89]\.|198\.51\.100\.|203\.0\.113\.|22[4-9]\.|23\d\.|24\d\.|25[0-5]\.)/;
+  /^(?:0\.|10\.|100\.(?:6[4-9]|[7-9]\d|1[01]\d|12[0-7])\.|127\.|168\.63\.129\.16$|169\.254\.|172\.(?:1[6-9]|2\d|3[01])\.|192\.0\.0\.|192\.0\.2\.|192\.88\.99\.|192\.168\.|198\.1[89]\.|198\.51\.100\.|203\.0\.113\.|22[4-9]\.|23\d\.|24\d\.|25[0-5]\.)/;
 
 export function isPrivateIpv6(addr: string): boolean {
   const a = addr.toLowerCase().trim();
@@ -35,7 +41,10 @@ export function isPrivateIpv6(addr: string): boolean {
   // the resolver returned compressed or fully-expanded form.
   const groups = a.split(':').map((p) => p.replace(/^0+/, '') || '0');
   const head = groups[0] ?? '';
-  if (/^fe[89ab]/.test(head)) return true; // fe80::/10 link-local
+  // fe80::/10 link-local + fec0::/10 (deprecated site-local, RFC 3879) —
+  // covering both so a stale fec0:: address isn't reachable as an internal
+  // pivot target even though IANA discourages its allocation.
+  if (/^fe[89a-f]/.test(head)) return true;
   if (/^f[cd]/.test(head)) return true; // fc00::/7 unique-local
   if (head.startsWith('ff')) return true; // ff00::/8 multicast
   if (head === '2001' && groups[1] === 'db8') return true; // 2001:db8::/32 doc
