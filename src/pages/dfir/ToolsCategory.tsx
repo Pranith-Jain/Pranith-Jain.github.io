@@ -1,4 +1,5 @@
 import { Link, useParams, Navigate } from 'react-router-dom';
+import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ArrowRight, ShieldCheck, Cpu } from 'lucide-react';
 import { SECTIONS } from '../../components/dfir/ToolGrid';
 import { GROUP_META, type ToolGroup } from '../../components/dfir/tool-sections';
@@ -79,12 +80,12 @@ export default function ToolsCategory(): JSX.Element {
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
-      <Link
+      <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
       >
         <ArrowLeft size={14} /> all tools
-      </Link>
+      </BackLink>
 
       <AppHero
         kicker={hero.kicker}

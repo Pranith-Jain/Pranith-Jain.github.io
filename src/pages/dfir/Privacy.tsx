@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Shield, Eye, Check, X } from 'lucide-react';
 import {
   gatherFingerprint,
@@ -123,12 +123,12 @@ export default function Privacy(): JSX.Element {
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <Link
+      <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
-      </Link>
+      </BackLink>
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Privacy Check</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-2xl">

@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { BackLink } from '../../components/BackLink';
 import { Plug, AlertTriangle, CheckCircle2, ExternalLink, ArrowLeft, Terminal } from 'lucide-react';
 import { auditConfig, summarise, type Finding, type Severity } from '../../lib/dfir/mcp-audit';
 
@@ -108,12 +108,12 @@ export default function McpAudit(): JSX.Element {
 
   return (
     <div className="space-y-6">
-      <Link
+      <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 font-mono"
       >
         <ArrowLeft size={14} /> back
-      </Link>
+      </BackLink>
 
       <header className="flex items-start gap-3">
         <div className="rounded-lg bg-brand-500/10 p-2.5">

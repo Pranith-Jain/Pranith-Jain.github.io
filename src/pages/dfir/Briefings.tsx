@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Rss, ChevronRight, Search } from 'lucide-react';
 
 type Filter = 'all' | 'daily' | 'weekly';
@@ -80,12 +81,12 @@ export default function Briefings(): JSX.Element {
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 sm:py-16 text-slate-900 dark:text-slate-100">
-      <Link
+      <BackLink
         to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-10 font-mono transition-colors"
       >
         <ArrowLeft size={14} /> back
-      </Link>
+      </BackLink>
 
       <header className="animate-fade-in-up mb-12">
         <span className="inline-block text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 mb-3">
@@ -96,9 +97,9 @@ export default function Briefings(): JSX.Element {
           Auto-generated daily and weekly summaries of threat-intelligence activity, drawn from CISA KEV, NVD, and
           abuse.ch / OpenPhish feeds. Daily briefings publish at 00:05 UTC; weekly at 00:15 UTC Monday. Reference only —
           verify all indicators in your own environment. For real-time activity, see the live snapshot on{' '}
-          <Link to="/threatintel" className="text-brand-600 dark:text-brand-400 hover:underline">
+          <BackLink to="/threatintel" className="text-brand-600 dark:text-brand-400 hover:underline">
             /threatintel
-          </Link>
+          </BackLink>
           .
         </p>
       </header>

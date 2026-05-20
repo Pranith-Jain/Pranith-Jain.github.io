@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Plus, Trash2, FileDown, Edit2, X, Copy, ExternalLink } from 'lucide-react';
 
 interface YaraRule {
@@ -108,12 +108,12 @@ export default function YaraManager(): JSX.Element {
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6">
-      <Link
+      <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-6 font-mono"
       >
         <ArrowLeft size={14} /> back
-      </Link>
+      </BackLink>
 
       <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
         <div>

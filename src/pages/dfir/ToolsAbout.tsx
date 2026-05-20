@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ShieldCheck, Eye, Zap, GitBranch } from 'lucide-react';
 import { personalInfo } from '../../data/content';
 import { AppFooter } from '../../components/AppFooter';
@@ -30,12 +30,12 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 export default function ToolsAbout(): JSX.Element {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
-      <Link
+      <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> all tools
-      </Link>
+      </BackLink>
 
       <h1 className="font-display font-bold text-3xl mb-2">About these toolkits</h1>
       <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">

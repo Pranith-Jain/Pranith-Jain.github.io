@@ -1,5 +1,6 @@
 import { useState, useRef, type FormEvent } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ScanText, Search, Crosshair } from 'lucide-react';
 import type { PhishingAnalysisResponse } from '../../lib/dfir/types';
 import { VerdictChip } from '../../components/dfir/VerdictChip';
@@ -60,12 +61,12 @@ export default function Phishing(): JSX.Element {
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <Link
+      <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
-      </Link>
+      </BackLink>
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Phishing Email Analyzer</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">

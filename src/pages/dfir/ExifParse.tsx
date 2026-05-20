@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Upload, MapPin, Camera, Image, FileText, ShieldCheck } from 'lucide-react';
 
 // exifr is ~76KB. Lazy-load on first file drop so the route's initial chunk
@@ -133,12 +133,12 @@ export default function ExifParse(): JSX.Element {
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <Link
+      <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
-      </Link>
+      </BackLink>
 
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">EXIF Parser</h1>

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { BackLink } from '../../components/BackLink';
 import {
   Activity,
   AlertOctagon,
@@ -481,9 +482,9 @@ export default function ThreatIntelHome(): JSX.Element {
               about
             </Link>{' '}
             · interactive tools:{' '}
-            <Link to="/dfir" className="text-brand-600 dark:text-brand-400 hover:underline">
+            <BackLink to="/dfir" className="text-brand-600 dark:text-brand-400 hover:underline">
               /dfir
-            </Link>
+            </BackLink>
           </>
         }
       />

@@ -1,5 +1,6 @@
 import { useState, useRef, type FormEvent } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
+import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Search, ShieldAlert, ShieldCheck, AlertCircle } from 'lucide-react';
 import { detectType, detectHashSubtype } from '../../lib/dfir/indicator-client';
 import { streamIoc } from '../../lib/dfir/api';
@@ -105,12 +106,12 @@ export default function IocCheck(): JSX.Element {
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <Link
+      <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
-      </Link>
+      </BackLink>
 
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">IOC Checker</h1>

@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ExternalLink, Search, X } from 'lucide-react';
 import { atlasMatrix } from '../../data/dfir/atlas-matrix';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
@@ -95,12 +95,12 @@ export default function AtlasMatrix(): JSX.Element {
   return (
     <div className="max-w-full px-8 py-12 text-slate-900 dark:text-slate-100">
       <div className="max-w-7xl mx-auto">
-        <Link
+        <BackLink
           to="/threatintel"
           className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
         >
           <ArrowLeft size={14} /> back
-        </Link>
+        </BackLink>
 
         <div>
           <h1 className="text-4xl font-mono font-bold mb-2 text-slate-900 dark:text-slate-100 tracking-[-0.03em] uppercase">

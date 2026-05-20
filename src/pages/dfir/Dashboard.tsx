@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Trash2, Search, Globe, Mail, ShieldAlert } from 'lucide-react';
 import { readHistory, clearHistory, type HistoryEntry } from '../../lib/dfir/history';
 import { HistoryRow } from '../../components/dfir/HistoryRow';
@@ -47,12 +48,12 @@ export default function Dashboard(): JSX.Element {
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <Link
+      <BackLink
         to="/dfir"
         className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.16em] text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 mb-8"
       >
         <ArrowLeft size={14} /> back to toolkit
-      </Link>
+      </BackLink>
 
       <div className="flex items-end justify-between gap-4 mb-8">
         <div className="animate-fade-in-up">

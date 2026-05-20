@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
+import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ExternalLink, Search, X } from 'lucide-react';
 import { mitreMatrix } from '../../data/dfir/mitre-matrix';
 import { threatActors } from '../../data/dfir/threat-actors';
@@ -241,12 +242,12 @@ export default function MitreMatrix(): JSX.Element {
   return (
     <div className="max-w-full px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <div className="max-w-7xl mx-auto">
-        <Link
+        <BackLink
           to="/threatintel"
           className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
         >
           <ArrowLeft size={14} /> back
-        </Link>
+        </BackLink>
 
         <div className="animate-fade-in-up">
           <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">MITRE ATT&amp;CK</h1>
