@@ -84,6 +84,29 @@ function sanitizeHtml(html: string): string {
  */
 const MAX_MD_BYTES = 512 * 1024;
 
+/**
+ * Rewrite anchors whose visible text IS the URL into anchors whose visible
+ * text is just the host. Belt-and-braces backstop: even when the prompt
+ * tells the LLM to use a source name as link text, the model sometimes
+ * emits `[https://www.ransomlook.io/post/HASH](https://www.ransomlook.io/post/HASH)`
+ * and the rendered References list becomes a wall of duplicated long URLs.
+ * Catches `href` ≈ `text` (same URL, or text wraps href + extra query)
+ * — every other anchor (ioc-link wrappers, named sources like "ransomlook.io")
+ * has non-URL visible text and is left alone.
+ */
+function shortenUrlAnchorText(html: string): string {
+  return html.replace(/<a\b([^>]*)>([^<]+)<\/a>/g, (match, attrs: string, text: string) => {
+    const stripped = text.trim();
+    if (!/^https?:\/\//i.test(stripped)) return match;
+    try {
+      const host = new URL(stripped).hostname.replace(/^www\./, '');
+      return `<a${attrs}>${host}</a>`;
+    } catch {
+      return match;
+    }
+  });
+}
+
 export function renderMarkdown(md: string): string {
   const safeMd =
     new Blob([md]).size > MAX_MD_BYTES
@@ -95,5 +118,6 @@ export function renderMarkdown(md: string): string {
   const presanitized = sanitizeHtml(safeMd);
   const html = marked.parse(presanitized, { async: false }) as string;
   const linked = linkify(html);
-  return sanitizeHtml(linked);
+  const shortened = shortenUrlAnchorText(linked);
+  return sanitizeHtml(shortened);
 }

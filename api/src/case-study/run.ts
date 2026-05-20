@@ -10,6 +10,7 @@ import { discoverCves } from './discovery/cve';
 import { discoverActors } from './discovery/actor';
 import { discoverMalware } from './discovery/malware';
 import { discoverRansomware } from './discovery/ransomware';
+import { discoverReleaks, type ReleakRow } from './discovery/releak';
 import { discoverBreaches } from './discovery/breach';
 import { discoverScams } from './discovery/scam';
 import { discoverAiSec } from './discovery/aisec';
@@ -91,6 +92,24 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
       ransom: () =>
         discoverRansomware({
           fetchVictims: () => fetchRecentVictims(globalThis.fetch),
+          now,
+          getDedup: memGet,
+        }),
+      releak: () =>
+        discoverReleaks({
+          // Re-uses the existing /api/v1/victim-releaks surface — same data
+          // that powers /threatintel/re-leaks, already 6h edge-cached so
+          // the cron fan-out cost is one cheap GET per discovery run.
+          fetchReleaks: async () => {
+            try {
+              const r = await globalThis.fetch(`${SITE_URL}/api/v1/victim-releaks`);
+              if (!r.ok) return [];
+              const data = (await r.json()) as { releaks?: ReleakRow[] };
+              return data.releaks ?? [];
+            } catch {
+              return [];
+            }
+          },
           now,
           getDedup: memGet,
         }),

@@ -56,3 +56,35 @@ describe('renderMarkdown linkify — never touches existing anchors or attribute
     expect(html).toMatch(/<a class="ioc-link"[^>]*>203\.0\.113\.5<\/a>/);
   });
 });
+
+describe('renderMarkdown — URL-as-link-text shortener', () => {
+  it('shortens an anchor whose visible text is the full URL to just the host', () => {
+    const md = '[https://www.ransomlook.io/post/abc123](https://www.ransomlook.io/post/abc123)';
+    const html = renderMarkdown(md);
+    expect(html).toContain('>ransomlook.io</a>');
+    expect(html).not.toMatch(/>https:\/\/www\.ransomlook\.io\/post/);
+    // href is preserved (only visible text changes).
+    expect(html).toContain('href="https://www.ransomlook.io/post/abc123"');
+  });
+
+  it('leaves anchors with descriptive text alone', () => {
+    const md = '[NVD entry](https://nvd.nist.gov/vuln/detail/CVE-2026-1234)';
+    const html = renderMarkdown(md);
+    expect(html).toContain('>NVD entry</a>');
+  });
+
+  it('leaves ioc-link wrappers alone (visible text is an IOC, not a URL)', () => {
+    const md = 'Hash 1fe1499d9f2bccc88b7b865edf87ec51deadbeefcafebabefacefeed00000000 was observed.';
+    const html = renderMarkdown(md);
+    expect(html).toMatch(
+      /<a class="ioc-link"[^>]*>1fe1499d9f2bccc88b7b865edf87ec51deadbeefcafebabefacefeed00000000<\/a>/
+    );
+  });
+
+  it('strips www. from the displayed host', () => {
+    const md = '[https://www.example.com/page](https://www.example.com/page)';
+    const html = renderMarkdown(md);
+    expect(html).toContain('>example.com</a>');
+    expect(html).not.toContain('>www.example.com</a>');
+  });
+});

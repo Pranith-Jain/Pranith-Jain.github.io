@@ -17,6 +17,10 @@ const SYSTEM_PROMPT =
   `#RESEARCH & GROUNDING\n` +
   `- Treat the REFERENCE URLS as the authoritative threat-intel sources for this case (they come from the live threat-intel feeds). Base concrete claims on them and the GROUND TRUTH DATA, not memory.\n` +
   `- In ## References, cite the provided REFERENCE URLS plus the canonical authorities relevant to the topic: NVD (nvd.nist.gov), CISA KEV (cisa.gov/known-exploited-vulnerabilities-catalog), MITRE ATT&CK (attack.mitre.org), and abuse.ch / vendor advisories where applicable.\n` +
+  `- REFERENCE FORMAT (strict, applies to every link in the References list):\n` +
+  `    * The visible link TEXT must be the SOURCE NAME ("ransomlook.io", "NVD", "CISA KEV", "abuse.ch URLhaus", "BleepingComputer"), never the bare URL.\n` +
+  `    * For long-tail bulk references (e.g. 15+ ransomlook.io victim posts on the same campaign), GROUP them into ONE bullet with the source name as link text — link to the search/index page, not 15 individual posts. Example: \`- [ransomlook.io](https://www.ransomlook.io/group/lockbit) — 15 victim posts for this campaign\`. Do NOT enumerate every URL.\n` +
+  `    * Per-citation bullets read: \`- [Source name](url) — one-line description of what the source establishes\`. The description after the em-dash is mandatory, not optional.\n` +
   `- Distinguish fact (in the data) from analysis (your inference) with confidence language; do not present inference as confirmed.\n\n` +
   `#FORMAT\n` +
   `- Markdown. Hook paragraph first, then "## SectionName" on its own line for each section.\n` +
