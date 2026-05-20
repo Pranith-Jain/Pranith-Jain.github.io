@@ -5,7 +5,11 @@ export const personalInfo = {
   // Short form, used in tight UI like the profile card to avoid overflow.
   shortTitle: 'Security Analyst · Threat Intel · Security Automation',
   headline: '"Investigating attacks at human scale. Building defenders at AI scale."',
-  description: `a security analyst working phishing, BEC, and commodity-malware incidents across 150+ global brands. The rest of the time I ship the tools I wished I had during those investigations — interactive ones at /dfir, the live threat-intel surface at /threatintel. Free, edge-hosted on Cloudflare, no signup. Currently focused on AI security (prompt injection, MCP, agent attack-surface), Non-Human Identity governance, compliance, and DLP. If you're hiring or working in the open on these problems, let's talk.`,
+  // Kept tight on purpose — the status block right below carries the
+  // current focus / learning state, and the CTA row below that carries
+  // the /dfir + /threatintel links. The description's job is just the
+  // 30-second pitch (role + scope + what I ship), not the full bio.
+  description: `a security analyst working phishing, BEC, and malware incidents across 150+ brands. Shipping the tools I wished I'd had on shift — at /dfir and /threatintel.`,
   currentFocus: 'Threat intel, email defense, and cloud identity security',
   currentlyLearning: 'NHI Security & Advanced Threat Hunting',
   availability: 'Open for Consultations & Strategy Calls',
