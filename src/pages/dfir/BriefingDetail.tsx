@@ -84,8 +84,10 @@ const SEVERITY_STYLES: Record<Severity, { chip: string; ring: string; label: str
     label: 'MED',
   },
   low: {
-    chip: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border-emerald-500/40',
-    ring: 'ring-emerald-500/40',
+    // Slate, not emerald. A low-severity finding is still a finding; green
+    // reads as "safe / done" which conflicts with the severity meaning.
+    chip: 'bg-slate-400/10 text-slate-600 dark:text-slate-300 border-slate-400/50',
+    ring: 'ring-slate-400/40',
     label: 'LOW',
   },
   unknown: {
@@ -354,7 +356,7 @@ export default function BriefingDetail(): JSX.Element {
       </header>
 
       {/* Stats bar */}
-      <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 mb-8">
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-8">
         <div className="flex flex-wrap items-center justify-around gap-6">
           <StatPill label="findings" value={stats.findings} />
           <StatPill label="sections" value={stats.sections} />

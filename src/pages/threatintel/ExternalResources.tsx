@@ -161,7 +161,7 @@ export default function ExternalResources(): JSX.Element {
       </Link>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <Compass size={28} className="text-brand-600 dark:text-brand-400" /> External Resources
         </h1>
         <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">

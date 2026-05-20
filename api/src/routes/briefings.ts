@@ -147,9 +147,15 @@ function requireAdmin(c: AdminCtx): { error: Response } | { ok: true } {
     return { error: c.json({ error: 'admin endpoint disabled (BRIEFINGS_ADMIN_TOKEN not set)' }, 403) };
   }
 
+  // Extract the candidate token (empty string when the prefix is missing)
+  // and pass it unconditionally into safeEqual. The previous `headerToken &&
+  // safeEqual(...)` short-circuit returned 401 faster for malformed prefixes
+  // than for "right prefix, wrong token" — a hairline timing oracle. The
+  // length-mismatch fast-path inside safeEqual is acceptable since the token
+  // length isn't secret.
   const authz = c.req.header('authorization') ?? '';
-  const headerToken = /^Bearer\s+(.+)$/i.exec(authz)?.[1];
-  if (headerToken && safeEqual(headerToken, required)) {
+  const headerToken = /^Bearer\s+(.+)$/i.exec(authz)?.[1] ?? '';
+  if (safeEqual(headerToken, required)) {
     return { ok: true };
   }
 

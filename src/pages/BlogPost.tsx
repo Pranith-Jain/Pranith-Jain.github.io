@@ -56,7 +56,21 @@ export default function BlogPost() {
         const data = (await r.json()) as { post: Post; bodyHtml: string };
         if (cancelled) return;
         setPost(data.post);
-        setHtml(data.bodyHtml ?? '');
+        // Client-side DOM-based sanitisation. The server already strips
+        // dangerous tags / event handlers via regex, but regex sanitisers are
+        // fragile (HTML comment splitting, entity-encoded payloads, attribute
+        // edge cases) and `dangerouslySetInnerHTML` would amplify any escape.
+        // DOMPurify parses into a real DOM tree, so the upstream-feed → LLM →
+        // Markdown chain has a robust second line of defence here. Lazy-
+        // imported so the blog bundle stays small.
+        const { default: DOMPurify } = await import('isomorphic-dompurify');
+        if (cancelled) return;
+        setHtml(
+          DOMPurify.sanitize(data.bodyHtml ?? '', {
+            ALLOWED_URI_REGEXP: /^(?:(?:https?|mailto|#|\/):|[^a-z]|[a-z+.-]+(?:[^a-z+.\-:]|$))/i,
+            ADD_ATTR: ['title'],
+          })
+        );
       })
       .catch((e: Error) => {
         if (!cancelled) setError(e.message);

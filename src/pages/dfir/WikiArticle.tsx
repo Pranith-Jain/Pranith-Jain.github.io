@@ -93,7 +93,7 @@ export default function WikiArticle(): JSX.Element {
       <span className="block text-xs font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-2">
         {articleMeta.category}
       </span>
-      <h1 className="text-4xl font-display font-bold mb-4">{articleMeta.title}</h1>
+      <h1 className="text-3xl sm:text-4xl font-display font-bold mb-4">{articleMeta.title}</h1>
       <p className="text-lg text-slate-600 dark:text-slate-400 mb-8">{articleMeta.description}</p>
 
       <article

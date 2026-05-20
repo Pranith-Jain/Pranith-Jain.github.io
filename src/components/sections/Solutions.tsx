@@ -1,5 +1,6 @@
 import { ArrowRight, ShieldAlert, Search, Globe, Activity, BookOpen, Radio } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { Badge } from '../Badge';
 
 interface SolutionPillar {
   title: string;
@@ -62,7 +63,7 @@ export function Solutions() {
             <Link
               key={pillar.href}
               to={pillar.href}
-              className="glass animate-fade-in-up group block rounded-2xl p-6 transition-all hover:border-brand-500/50 hover:-translate-y-1 hover:shadow-glow"
+              className="surface group block rounded-2xl p-6 hover:border-brand-500/50 hover:-translate-y-1 hover:shadow-glow"
             >
               <div className="mb-4 flex items-center gap-3">
                 <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-500/10 text-brand-600 dark:text-brand-400 group-hover:bg-brand-500/20 transition-colors">
@@ -80,11 +81,8 @@ export function Solutions() {
               <p className="mb-4 text-sm leading-relaxed text-slate-600 dark:text-slate-400">{pillar.desc}</p>
               <ul className="flex flex-wrap gap-2">
                 {pillar.bullets.map((b) => (
-                  <li
-                    key={b}
-                    className="inline-flex items-center gap-1 rounded-full border border-slate-200/70 bg-white/50 px-2.5 py-0.5 text-[11px] font-medium text-slate-600 dark:border-white/10 dark:bg-slate-900/40 dark:text-slate-400"
-                  >
-                    {b}
+                  <li key={b}>
+                    <Badge size="xs">{b}</Badge>
                   </li>
                 ))}
               </ul>

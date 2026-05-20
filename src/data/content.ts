@@ -274,7 +274,6 @@ export const projects: Project[] = [
       "Live CTI surface at /threatintel. It correlates indicators across 18 free IOC feeds so I can tell whether a flagged IP is consensus-malicious or one source crying wolf. The live stream gives each indicator a reporter handle and a freshness badge, so I know which feeds are actually publishing today. There's a Gantt of which ransomware groups are posting right now, with MITRE Group profiles linked inline. Victim re-leak detection catches the cases where one company shows up under two different groups in the same year, which usually means a failed double-extortion or an affiliate moving shop. Everything that can be exported is exported as STIX 2.1 so it drops straight into MISP or a SIEM.",
     tags: ['Cloudflare Workers', 'STIX 2.1', 'MITRE ATT&CK', 'IOC Correlation', 'CTI', 'May 2026 - Present'],
     github: 'https://github.com/Pranith-Jain/Pranith-Jain.github.io',
-    badge: 'Live · /threatintel',
     href: '/threatintel',
   },
   {
@@ -283,7 +282,6 @@ export const projects: Project[] = [
       'The interactive side of the same site, at /dfir. The piece I use the most is the IOC checker. Paste anything (IP, domain, URL, hash, CVE), and it fans out to about two dozen providers over SSE so the verdicts stream back as they arrive. VirusTotal, AbuseIPDB, OTX, GreyNoise, the abuse.ch trio, and a long tail of free reputation lists. Around that sits a Diamond Model builder that auto-fills its corners from whatever indicator you hand it, a STIX 2.1 viewer with an interactive relationship graph, subdomain-takeover fingerprinting, JWT inspection, IDN homograph detection, the MITRE ATT&CK matrix, and a small knowledge base I write to whenever I learn something the hard way. Edge-hosted, free, no signup.',
     tags: ['Cloudflare Workers', 'Hono', 'SSE', 'TypeScript', 'May 2026 - Present'],
     github: 'https://github.com/Pranith-Jain/Pranith-Jain.github.io',
-    badge: 'Live · /dfir',
     href: '/dfir',
   },
   {
@@ -298,7 +296,6 @@ export const projects: Project[] = [
     description:
       'Built when onboarding a new client domain was taking the team most of an afternoon. End-to-end domain setup across 1,300+ domains, now down to under 10 minutes per domain. The Smartlead MCP server on top of it bundles 23 analytics tools so warmup health, deliverability, and campaign metrics for 2,700+ inboxes all live in one place instead of three tabs.',
     tags: ['n8n', 'MCP', 'Smartlead', 'Automation', 'Analytics', 'Jan 2026 - Present'],
-    github: 'https://github.com/Pranith-Jain/Email-Infrastructure-Automation-Platform',
   },
   {
     title: 'Portfolio (Personal)',
@@ -319,7 +316,6 @@ export const projects: Project[] = [
       'Final capstone. Zero Trust on GCP with HIPAA-aligned controls for a patient-data platform. Got a 93/100. Spent more time thinking about audit-log retention than I expected to.',
     tags: ['GCP', 'Zero Trust', 'HIPAA', 'Capstone', 'Jul 2025 - Aug 2025'],
     github: 'https://github.com/Pranith-Jain/Secure-Patient-Data-Platform-on-Google-Cloud-Capstone-',
-    badge: 'Grade A (93/100)',
   },
   {
     title: 'Cloud-Based Ransomware Detection and Recovery System (GCP)',

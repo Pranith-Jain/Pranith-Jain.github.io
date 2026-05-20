@@ -257,7 +257,7 @@ export default function StixViewer(): JSX.Element {
       </Link>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-4xl font-display font-bold mb-2">STIX Viewer</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">STIX Viewer</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-3xl">
           Paste a STIX 2.1 bundle and explore the relationship graph between threat actors, campaigns, malware, attack
           patterns, indicators, and more. Everything parses in your browser. Nothing is uploaded.

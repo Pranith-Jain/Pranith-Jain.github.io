@@ -22,7 +22,7 @@ export function Companies() {
         {companies.map((company) => (
           <div
             key={company}
-            className="animate-fade-in-up glass px-6 py-3 rounded-2xl text-sm font-bold text-slate-700 dark:text-slate-200 transition-all hover:border-brand-500/50 hover:bg-brand-500/5 hover:-translate-y-1 cursor-default"
+            className="surface px-6 py-3 rounded-2xl text-sm font-bold text-slate-700 dark:text-slate-200 hover:border-brand-500/50 hover:bg-brand-500/5 hover:-translate-y-1 cursor-default"
           >
             {company}
           </div>

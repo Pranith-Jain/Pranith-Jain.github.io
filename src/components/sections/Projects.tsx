@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Github, ExternalLink, ChevronDown, ChevronUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { projects } from '../../data/content';
+import { Badge } from '../Badge';
 
 const TRUNCATE_THRESHOLD = 240;
 
@@ -14,13 +15,13 @@ function ProjectCard({ project }: ProjectCardProps): JSX.Element {
   const needsToggle = project.description.length > TRUNCATE_THRESHOLD;
 
   return (
-    <div className="animate-fade-in-up glass rounded-2xl p-6 shadow-sm transition-all hover:shadow-glow hover:border-brand-500/40">
+    <div className="glass rounded-2xl p-6 shadow-sm transition-all hover:shadow-glow hover:border-brand-500/40">
       <div className="flex items-start justify-between gap-4">
         <div className="text-base font-semibold text-slate-900 dark:text-white">{project.title}</div>
         {project.badge && (
-          <span className="inline-flex shrink-0 items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300">
+          <Badge tone="success" className="shrink-0">
             {project.badge}
-          </span>
+          </Badge>
         )}
       </div>
       <p
@@ -47,12 +48,7 @@ function ProjectCard({ project }: ProjectCardProps): JSX.Element {
       )}
       <div className="mt-3 flex flex-wrap items-center gap-2">
         {project.tags.map((tag) => (
-          <span
-            key={tag}
-            className="inline-flex items-center rounded-full border border-slate-200/70 bg-white/70 px-3 py-1 text-xs font-medium text-slate-700 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200 transition-transform hover:scale-105"
-          >
-            {tag}
-          </span>
+          <Badge key={tag}>{tag}</Badge>
         ))}
         {project.github && (
           <a

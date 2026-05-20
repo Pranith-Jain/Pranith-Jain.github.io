@@ -22,8 +22,14 @@ import { resolveRecord } from './dns';
 
 // IPv4 private / loopback / link-local / CGNAT / TEST-NET / multicast /
 // reserved. 224.0.0.0+ (224–255) is the trailing 22[4-9]|23\d|24\d|25[0-5].
+//
+// Cloud-metadata IPs:
+//   - 169.254.169.254 — AWS, GCP, IBM, DigitalOcean, Oracle (caught by 169.254/16).
+//   - 168.63.129.16 — Azure WireServer / DNS endpoint. Lives in public space,
+//     so it has to be listed explicitly. Required for defence-in-depth on any
+//     substrate where the worker might be reachable from Azure-allocated egress.
 export const PRIVATE_IPV4 =
-  /^(?:0\.|10\.|100\.(?:6[4-9]|[7-9]\d|1[01]\d|12[0-7])\.|127\.|169\.254\.|172\.(?:1[6-9]|2\d|3[01])\.|192\.0\.0\.|192\.0\.2\.|192\.88\.99\.|192\.168\.|198\.1[89]\.|198\.51\.100\.|203\.0\.113\.|22[4-9]\.|23\d\.|24\d\.|25[0-5]\.)/;
+  /^(?:0\.|10\.|100\.(?:6[4-9]|[7-9]\d|1[01]\d|12[0-7])\.|127\.|168\.63\.129\.16$|169\.254\.|172\.(?:1[6-9]|2\d|3[01])\.|192\.0\.0\.|192\.0\.2\.|192\.88\.99\.|192\.168\.|198\.1[89]\.|198\.51\.100\.|203\.0\.113\.|22[4-9]\.|23\d\.|24\d\.|25[0-5]\.)/;
 
 export function isPrivateIpv6(addr: string): boolean {
   const a = addr.toLowerCase().trim();
@@ -35,7 +41,10 @@ export function isPrivateIpv6(addr: string): boolean {
   // the resolver returned compressed or fully-expanded form.
   const groups = a.split(':').map((p) => p.replace(/^0+/, '') || '0');
   const head = groups[0] ?? '';
-  if (/^fe[89ab]/.test(head)) return true; // fe80::/10 link-local
+  // fe80::/10 link-local + fec0::/10 (deprecated site-local, RFC 3879) —
+  // covering both so a stale fec0:: address isn't reachable as an internal
+  // pivot target even though IANA discourages its allocation.
+  if (/^fe[89a-f]/.test(head)) return true;
   if (/^f[cd]/.test(head)) return true; // fc00::/7 unique-local
   if (head.startsWith('ff')) return true; // ff00::/8 multicast
   if (head === '2001' && groups[1] === 'db8') return true; // 2001:db8::/32 doc
@@ -56,12 +65,47 @@ export interface HostCheck {
   blockedIp?: string;
 }
 
+/** Strict dotted-quad and bare/bracketed-hex literal detectors. */
+const IPV4_LITERAL = /^(?:\d{1,3}\.){3}\d{1,3}$/;
+const IPV6_LITERAL = /^\[?[0-9a-fA-F:]+\]?$/;
+
+/** Classify an IP literal in URL-hostname form, or `null` for real hostnames. */
+function asIpLiteral(hostname: string): { kind: 'v4' | 'v6'; ip: string } | null {
+  // WHATWG URL keeps the brackets around an IPv6 host: `new URL('http://[::1]/').hostname === '[::1]'`.
+  const bare = hostname.replace(/^\[|\]$/g, '');
+  if (IPV4_LITERAL.test(bare)) return { kind: 'v4', ip: bare };
+  if (bare.includes(':') && IPV6_LITERAL.test(bare)) return { kind: 'v6', ip: bare };
+  return null;
+}
+
 /**
  * Resolve A + AAAA and refuse if ANY answer is private/reserved. Refusing on
  * any (not just the first) answer stops a multi-record response that mixes a
  * public and an internal IP.
+ *
+ * If the hostname is *already* an IP literal (e.g. `http://168.63.129.16/`),
+ * we don't need DoH — validate it directly. Previously the DoH path returned
+ * "no records" on a literal and routed the request into the 400 "host does
+ * not resolve" branch. Result was still safe (refused) but the SSRF-block
+ * intent was masked, and a future DoH-provider change could fall through.
  */
 export async function assertPublicHost(hostname: string): Promise<HostCheck> {
+  const literal = asIpLiteral(hostname);
+  if (literal) {
+    const blocked = literal.kind === 'v4' ? PRIVATE_IPV4.test(literal.ip) : isPrivateIpv6(literal.ip);
+    if (blocked) {
+      return {
+        ok: false,
+        ips: [literal.ip],
+        status: 403,
+        error: `host is a private/reserved IP literal — refusing to fetch`,
+        blockedIp: literal.ip,
+      };
+    }
+    // resolveOverride accepts a literal IP (v4 or v6); pin to it.
+    return { ok: true, ips: [literal.ip], pinIp: literal.ip };
+  }
+
   const [a, aaaa] = await Promise.all([resolveRecord(hostname, 'A'), resolveRecord(hostname, 'AAAA')]);
   if (a.error && aaaa.error) {
     return { ok: false, ips: [], status: 502, error: `dns lookup failed: ${a.error}` };

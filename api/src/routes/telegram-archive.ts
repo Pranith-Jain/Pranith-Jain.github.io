@@ -4,6 +4,7 @@ import { CVE_RECENT_CACHE_KEY } from './cve-recent';
 import { MALWARE_SAMPLES_CACHE_KEY } from './malware-samples';
 import { LIVE_IOCS_CACHE_KEY } from './live-iocs';
 import { VICTIM_RELEAKS_CACHE_KEY } from './victim-releaks';
+import { DETECTIONS_CACHE_KEY } from './detections';
 
 /**
  * Telegram CTI archive.
@@ -48,7 +49,40 @@ function s(o: Record<string, unknown>, k: string): string {
   return typeof v === 'string' ? v : typeof v === 'number' ? String(v) : '';
 }
 
+const SEV_EMOJI: Record<string, string> = {
+  critical: '🟥',
+  high: '🟧',
+  medium: '🟨',
+  low: '⬜',
+};
+
 const CATEGORIES: Category[] = [
+  {
+    cat: 'detections',
+    cacheKey: DETECTIONS_CACHE_KEY,
+    emoji: '🚨',
+    label: 'Detections fired',
+    extract: (b) =>
+      arr(rec(b).detections)
+        .map(rec)
+        .map((d) => {
+          const rid = s(d, 'rule_id');
+          const name = s(d, 'rule_name') || rid;
+          const sev = s(d, 'severity') || 'medium';
+          const gk = s(d, 'group_key');
+          const cnt = s(d, 'match_count');
+          // id includes count so a strengthening detection (more sources)
+          // re-posts; bounded by SEEN_CAP like every other category.
+          return {
+            id: `${rid}|${gk}|${cnt}`.toLowerCase(),
+            line:
+              `${SEV_EMOJI[sev] ?? '🟨'} <b>${esc(name)}</b>` +
+              (gk ? ` — <code>${esc(gk.slice(0, 60))}</code>` : '') +
+              (cnt ? ` ×${esc(cnt)}` : ''),
+          };
+        })
+        .filter((x) => x.id && x.id !== '||'),
+  },
   {
     cat: 'ransomware',
     cacheKey: RANSOMWARE_RECENT_CACHE_KEY,

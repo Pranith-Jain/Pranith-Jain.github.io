@@ -49,7 +49,7 @@ export function Footer() {
         <div className="mt-6 flex flex-wrap justify-center gap-4 sm:gap-6 text-xs text-slate-500 dark:text-slate-400">
           <a
             href={`mailto:${personalInfo.email}`}
-            className="hover:text-slate-600 dark:hover:text-slate-300 transition focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 rounded"
+            className="inline-flex items-center min-h-[44px] sm:min-h-0 px-1 hover:text-slate-600 dark:hover:text-slate-300 transition focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 rounded"
           >
             Contact
           </a>
@@ -58,7 +58,7 @@ export function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn (opens in new tab)"
-            className="hover:text-slate-600 dark:hover:text-slate-300 transition focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 rounded"
+            className="inline-flex items-center min-h-[44px] sm:min-h-0 px-1 hover:text-slate-600 dark:hover:text-slate-300 transition focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 rounded"
           >
             LinkedIn
           </a>
@@ -67,13 +67,13 @@ export function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub (opens in new tab)"
-            className="hover:text-slate-600 dark:hover:text-slate-300 transition focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 rounded"
+            className="inline-flex items-center min-h-[44px] sm:min-h-0 px-1 hover:text-slate-600 dark:hover:text-slate-300 transition focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 rounded"
           >
             GitHub
           </a>
           <Link
             to="/blog"
-            className="hover:text-slate-600 dark:hover:text-slate-300 transition focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 rounded"
+            className="inline-flex items-center min-h-[44px] sm:min-h-0 px-1 hover:text-slate-600 dark:hover:text-slate-300 transition focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 rounded"
           >
             Blog
           </Link>

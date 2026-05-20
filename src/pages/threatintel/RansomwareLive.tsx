@@ -191,7 +191,7 @@ export default function RansomwareLive(): JSX.Element {
   const env = cache[active.resource];
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <Link
         to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
@@ -199,9 +199,8 @@ export default function RansomwareLive(): JSX.Element {
         <ArrowLeft size={14} /> back
       </Link>
       <div className="mb-6">
-        <h1 className="font-display font-bold text-2xl flex items-center gap-2">
-          <ShieldAlert size={22} className="text-brand-600 dark:text-brand-400" />
-          ransomware.live PRO
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
+          <ShieldAlert size={28} className="text-brand-600 dark:text-brand-400" /> ransomware.live PRO
         </h1>
         <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mt-1">
           Server-proxied, key-injected, edge-cached view of the{' '}

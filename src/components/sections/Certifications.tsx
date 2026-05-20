@@ -15,7 +15,7 @@ interface CertCardProps {
 function CertCard({ title, issuer, year, featured, type }: CertCardProps) {
   return (
     <div
-      className={`animate-fade-in-up glass rounded-2xl p-6 shadow-sm transition-all hover:-translate-y-1 h-full flex flex-col ${
+      className={`surface rounded-2xl p-6 shadow-sm hover:-translate-y-1 h-full flex flex-col ${
         featured ? 'border-l-4 border-brand-500' : ''
       }`}
     >
@@ -56,7 +56,7 @@ function CertCategory({ id, title, certs }: CertCategoryProps) {
       </div>
       <div className="animate-fade-in-up grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {visible.map((cert, index) => (
-          <div className="animate-fade-in-up" key={`${cert.title}-${index}`}>
+          <div key={`${cert.title}-${index}`}>
             <CertCard
               title={cert.title}
               issuer={cert.issuer}

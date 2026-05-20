@@ -163,7 +163,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
       return c.json({ ok: true, slug: post.slug, title: post.title });
     } catch (err) {
       console.error('schedule-publish-now failed:', err);
-      return c.json({ error: 'publish_failed', message: String(err) }, 500);
+      return c.json({ error: 'publish_failed' }, 500);
     }
   });
 
@@ -271,7 +271,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
       return c.json({ ok: true, slug: post.slug, title: post.title });
     } catch (err) {
       console.error('publish-now failed:', err);
-      return c.json({ error: 'publish_failed', message: String(err) }, 500);
+      return c.json({ error: 'publish_failed' }, 500);
     }
   });
 
@@ -287,7 +287,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
       return c.json({ ok: true, social });
     } catch (err) {
       console.error('social generation failed:', err);
-      return c.json({ error: 'social_generation_failed', message: String(err) }, 500);
+      return c.json({ error: 'social_generation_failed' }, 500);
     }
   });
 
@@ -335,7 +335,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
       return c.json({ ok: true, platform: 'twitter', content: twitter, generatedAt });
     } catch (err) {
       console.error('twitter generation failed:', err);
-      return c.json({ error: 'twitter_generation_failed', message: String(err) }, 500);
+      return c.json({ error: 'twitter_generation_failed' }, 500);
     }
   });
 
@@ -355,7 +355,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
       return c.json({ ok: true, platform: 'linkedin', content: linkedin, generatedAt });
     } catch (err) {
       console.error('linkedin generation failed:', err);
-      return c.json({ error: 'linkedin_generation_failed', message: String(err) }, 500);
+      return c.json({ error: 'linkedin_generation_failed' }, 500);
     }
   });
 

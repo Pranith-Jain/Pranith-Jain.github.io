@@ -1,11 +1,12 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { TAKEOVER_FINGERPRINTS, type TakeoverFingerprint } from '../lib/takeover-fingerprints';
-import { assertPublicHost } from '../lib/ssrf-guard';
+import { assertPublicHost, pinnedFetch, SsrfError } from '../lib/ssrf-guard';
 
 const DOMAIN_RE = /^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/;
 const MAX_CNAME_HOPS = 5;
 const FETCH_TIMEOUT_MS = 6000;
+const MAX_REDIRECTS = 3;
 
 interface TakeoverResult {
   domain: string;
@@ -118,16 +119,47 @@ async function dohCname(name: string): Promise<string | null> {
   }
 }
 
+/**
+ * Active fingerprint probe with full SSRF protection.
+ *
+ * `assertPublicHost(domain)` is run by the caller to short-circuit the obvious
+ * cases; this function additionally:
+ *   1. Uses `pinnedFetch` so the connection is pinned to the IP we validated,
+ *      defeating DNS rebinding between check and fetch.
+ *   2. Handles redirects manually (`redirect: 'manual'`) and re-runs the
+ *      SSRF check on every hop. A 302 to `http://169.254.169.254/...` or
+ *      `http://127.0.0.1/...` is rejected, not followed.
+ *   3. Caps the redirect chain at MAX_REDIRECTS so a redirect loop can't
+ *      stall the worker.
+ */
 async function checkFingerprint(domain: string, fp: TakeoverFingerprint): Promise<string | null> {
   for (const scheme of ['https', 'http']) {
     try {
-      const ctrl = new AbortController();
-      const t = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
-      const r = await fetch(`${scheme}://${domain}/`, { signal: ctrl.signal, redirect: 'follow' });
-      clearTimeout(t);
+      let currentUrl = `${scheme}://${domain}/`;
+      let response: Response | null = null;
+      for (let hop = 0; hop <= MAX_REDIRECTS; hop++) {
+        const ctrl = new AbortController();
+        const t = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
+        try {
+          response = await pinnedFetch(currentUrl, { signal: ctrl.signal, redirect: 'manual' });
+        } catch (e) {
+          if (e instanceof SsrfError) break; // redirect into a blocked host → stop, try next scheme
+          throw e;
+        } finally {
+          clearTimeout(t);
+        }
+        if (response.status < 300 || response.status >= 400) break;
+        const location = response.headers.get('location');
+        if (!location) break;
+        const next = new URL(location, currentUrl);
+        if (next.protocol !== 'http:' && next.protocol !== 'https:') break;
+        currentUrl = next.toString();
+        // pinnedFetch on the next iteration will re-run assertPublicHost.
+      }
+      if (!response) continue;
 
-      if (fp.status && r.status === fp.status) return `HTTP ${r.status} on ${scheme}`;
-      const body = (await r.text()).slice(0, 16384);
+      if (fp.status && response.status === fp.status) return `HTTP ${response.status} on ${scheme}`;
+      const body = (await response.text()).slice(0, 16384);
       if (fp.fingerprint && body.includes(fp.fingerprint)) {
         return `Body contains "${fp.fingerprint}" (${scheme})`;
       }

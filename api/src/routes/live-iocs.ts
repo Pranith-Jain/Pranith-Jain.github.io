@@ -8,6 +8,8 @@ import {
   parseThreatfox,
   parsePlainTextIps,
   parseAlienVaultReputation,
+  parseSslblC2,
+  parseBotvrijDomains,
 } from '../lib/ioc-feed-parsers';
 import { fetchMalwareSamplesCached } from './malware-samples';
 import { fetchPhishingUrlsCached } from './phishing-urls';
@@ -150,6 +152,8 @@ export async function fetchLiveIocs(
     threatfoxText,
     etCompromisedText,
     otxReputationText,
+    sslblText,
+    botvrijText,
     malwareBazaarResult,
     phishingResult,
     afDefacementsRaw,
@@ -162,6 +166,8 @@ export async function fetchLiveIocs(
     fetchText('https://threatfox.abuse.ch/export/csv/recent/'),
     fetchText('https://rules.emergingthreats.net/blockrules/compromised-ips.txt'),
     fetchText('https://reputation.alienvault.com/reputation.generic'),
+    fetchText('https://sslbl.abuse.ch/blacklist/sslipblacklist.csv'),
+    fetchText('https://www.botvrij.eu/data/ioclist.domain'),
     fetchMalwareSamplesCached(executionCtx).catch(() => null),
     fetchPhishingUrlsCached(executionCtx, kv).catch(() => null),
     fetchAFDefacements().catch(() => [] as LiveIoc[]),
@@ -300,6 +306,41 @@ export async function fetchLiveIocs(
     sources.push({ id: 'otx-reputation', ok: true, count: parsed.length });
   } else {
     sources.push({ id: 'otx-reputation', ok: false, count: 0 });
+  }
+
+  // ─── SSLBL (abuse.ch) — SSL/TLS-fingerprinted botnet C2 IPs ─────────────
+  if (sslblText) {
+    const parsed = parseSslblC2(sslblText, PER_FEED_CAP);
+    for (const e of parsed) {
+      items.push({
+        value: e.value,
+        kind: 'ip',
+        source: 'sslbl-c2',
+        reporter: 'abuse.ch SSLBL',
+        context: e.context,
+        observed_at: isoFromLoose(e.timestamp),
+      });
+    }
+    sources.push({ id: 'sslbl-c2', ok: true, count: parsed.length });
+  } else {
+    sources.push({ id: 'sslbl-c2', ok: false, count: 0 });
+  }
+
+  // ─── Botvrij.eu — curated malicious domains ─────────────────────────────
+  if (botvrijText) {
+    const parsed = parseBotvrijDomains(botvrijText, PER_FEED_CAP);
+    for (const e of parsed) {
+      items.push({
+        value: e.value,
+        kind: 'domain',
+        source: 'botvrij',
+        reporter: 'Botvrij.eu',
+        context: e.context,
+      });
+    }
+    sources.push({ id: 'botvrij', ok: true, count: parsed.length });
+  } else {
+    sources.push({ id: 'botvrij', ok: false, count: 0 });
   }
 
   // ─── ThreatFox (mixed: url/domain/ip/hash) ──────────────────────────────

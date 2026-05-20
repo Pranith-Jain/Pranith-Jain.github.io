@@ -127,12 +127,16 @@ interface DeepDarkCtiResponse {
   total: number;
 }
 
+// Canonical severity colour ramp. Mirrors src/components/Badge.tsx
+// SEVERITY_TONE — kept as raw hex here because these feed inline SVG fills.
+// `low` is slate (not emerald): a low-severity CVE is still a CVE and green
+// reads as "safe/done", inconsistent with the severity meaning.
 const SEVERITY_COLORS: Record<RecentCve['severity'], string> = {
   CRITICAL: '#e11d48', // rose-600
-  HIGH: '#f59e0b', // amber-500
-  MEDIUM: '#eab308', // yellow-500
-  LOW: '#10b981', // emerald-500
-  NONE: '#94a3b8', // slate-400
+  HIGH: '#f97316', // orange-500
+  MEDIUM: '#f59e0b', // amber-500
+  LOW: '#94a3b8', // slate-400
+  NONE: '#cbd5e1', // slate-300
   UNKNOWN: '#64748b', // slate-500
 };
 
@@ -741,7 +745,7 @@ export default function Metrics(): JSX.Element {
       </Link>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <BarChart3 size={28} className="text-brand-600 dark:text-brand-400" /> Threat Intel Metrics
         </h1>
         <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-3xl leading-relaxed">

@@ -108,7 +108,7 @@ function CopyBtn({ value }: { value: string }) {
       type="button"
       onClick={click}
       aria-label="copy indicator"
-      className="text-slate-400 hover:text-brand-500 transition-colors shrink-0"
+      className="inline-flex items-center justify-center min-h-[40px] min-w-[40px] sm:min-h-0 sm:min-w-0 text-slate-400 hover:text-brand-500 transition-colors shrink-0"
     >
       {done ? <Check size={12} /> : <Copy size={12} />}
     </button>
@@ -291,7 +291,7 @@ export default function IocCorrelation(): JSX.Element {
       </Link>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <GitBranchPlus size={28} className="text-brand-600 dark:text-brand-400" /> Cross-source IOC correlation
         </h1>
         <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">

@@ -52,7 +52,7 @@ export default function Domain(): JSX.Element {
         <ArrowLeft size={14} /> back
       </Link>
       <div className="animate-fade-in-up">
-        <h1 className="text-4xl font-display font-bold mb-2">Domain Lookup</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Domain Lookup</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
           WHOIS, DNS, SPF, DMARC, DKIM, BIMI, MTA-STS, and Certificate Transparency, all from one query.
         </p>

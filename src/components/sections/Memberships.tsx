@@ -44,7 +44,7 @@ export function Memberships() {
           return (
             <div
               key={membership.name}
-              className="animate-fade-in-up glass group flex flex-col gap-6 p-8 rounded-[2rem] transition-all hover:shadow-glow hover:-translate-y-2 border-white/20 bg-white/40 dark:bg-slate-900/40 h-full"
+              className="surface group flex flex-col gap-6 p-8 rounded-[2rem] hover:shadow-glow hover:-translate-y-2 h-full"
             >
               <div className="flex items-center justify-between">
                 <div

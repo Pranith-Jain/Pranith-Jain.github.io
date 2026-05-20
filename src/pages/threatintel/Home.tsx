@@ -286,6 +286,13 @@ const SECTIONS: Section[] = [
         icon: FileCode,
       },
       {
+        to: '/threatintel/detections',
+        label: 'Detections',
+        desc: 'A curated detection-rule pack evaluated hourly against the unified live-IOC stream. Cross-feed consensus, Cobalt Strike / C2, ransomware & infostealer tagging, phishing-campaign clustering — each firing rule with the indicators that triggered it. Write your own in the in-browser Detection Lab.',
+        icon: AlertOctagon,
+        badge: 'new',
+      },
+      {
         to: '/threatintel/cve-list',
         label: 'Live CVE updates',
         desc: 'NVD published-CVE feed (last 14 days) merged with the CISA KEV catalogue (last 30 days). Severity, KEV flag, ransomware-use flag, and a curated actor pill where attribution exists.',
@@ -442,7 +449,7 @@ export default function ThreatIntelHome(): JSX.Element {
   }, []);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <h1 className="sr-only">Threat Intel Platform</h1>
       {/* "What's new since your last visit" banner — silent on first
           visit / zero deltas. Reuses the localStorage marker key

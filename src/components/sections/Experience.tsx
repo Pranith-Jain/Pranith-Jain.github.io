@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Search, Zap, Shield, FileText, Monitor, Mail, ChevronDown } from 'lucide-react';
 import { experiences } from '../../data/content';
+import { Badge } from '../Badge';
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Search,
@@ -61,11 +62,7 @@ export function Experience() {
                   </div>
                 </div>
                 <div className="flex items-center gap-3 shrink-0">
-                  {exp.badge && (
-                    <span className="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300">
-                      {exp.badge}
-                    </span>
-                  )}
+                  {exp.badge && <Badge tone="success">{exp.badge}</Badge>}
                   <ChevronDown
                     className={`h-4 w-4 text-slate-500 transition-transform ${isOpen ? 'rotate-180' : ''}`}
                     aria-hidden="true"

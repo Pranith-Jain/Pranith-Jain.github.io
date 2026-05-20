@@ -45,7 +45,9 @@ export default function ThreatIntelAbout(): JSX.Element {
         <ArrowLeft size={14} /> back
       </Link>
 
-      <h1 className="font-display font-bold text-3xl mb-2">About the threat-intel platform</h1>
+      <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
+        <ShieldCheck size={28} className="text-brand-600 dark:text-brand-400" /> About the threat-intel platform
+      </h1>
       <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
         A live, edge-aggregated threat-intelligence surface by {personalInfo.name} — {personalInfo.title}. Built to
         answer the questions a CTI analyst actually asks, without an account or a vendor portal.

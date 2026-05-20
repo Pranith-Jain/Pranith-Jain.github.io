@@ -137,7 +137,7 @@ export default function JwtInspect(): JSX.Element {
       </Link>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-4xl font-display font-bold mb-2">JWT Inspector</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">JWT Inspector</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
           Paste a JSON Web Token. Header and payload are decoded locally; common security weaknesses are flagged.
           Nothing leaves your browser.

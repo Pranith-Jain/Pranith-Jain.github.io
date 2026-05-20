@@ -69,6 +69,8 @@ const SOURCE_PILL: Record<string, string> = {
   malwarebazaar: 'border-yellow-500/40 bg-yellow-500/10 text-yellow-700 dark:text-yellow-300',
   phishtank: 'border-pink-500/40 bg-pink-500/10 text-pink-700 dark:text-pink-300',
   openphish: 'border-indigo-500/40 bg-indigo-500/10 text-indigo-700 dark:text-indigo-300',
+  'sslbl-c2': 'border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300',
+  botvrij: 'border-lime-500/40 bg-lime-500/10 text-lime-700 dark:text-lime-300',
 };
 
 function shortRel(iso?: string): string {
@@ -98,7 +100,7 @@ function CopyBtn({ value }: { value: string }) {
       type="button"
       onClick={click}
       aria-label="copy indicator"
-      className="text-slate-400 hover:text-brand-500 transition-colors shrink-0"
+      className="inline-flex items-center justify-center min-h-[40px] min-w-[40px] sm:min-h-0 sm:min-w-0 text-slate-400 hover:text-brand-500 transition-colors shrink-0"
     >
       {done ? <Check size={11} /> : <Copy size={11} />}
     </button>
@@ -199,7 +201,7 @@ export default function LiveIocs(): JSX.Element {
       </Link>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <Radio size={28} className="text-brand-600 dark:text-brand-400" /> Live IOC stream
         </h1>
         <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
@@ -208,8 +210,8 @@ export default function LiveIocs(): JSX.Element {
           observed and by whom."
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-6">
-          10 sources: TweetFeed, SANS ISC, C2IntelFeeds, Emerging Threats compromised-ips, AlienVault OTX reputation,
-          URLhaus, ThreatFox, MalwareBazaar, PhishTank, OpenPhish.
+          Sources: TweetFeed, SANS ISC, C2IntelFeeds, Emerging Threats compromised-ips, AlienVault OTX reputation,
+          URLhaus, ThreatFox, MalwareBazaar, PhishTank, OpenPhish, abuse.ch SSLBL, Botvrij.eu.
         </p>
       </div>
 
@@ -375,7 +377,7 @@ export default function LiveIocs(): JSX.Element {
                         href={it.reference_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-slate-400 hover:text-brand-500 transition-colors shrink-0"
+                        className="inline-flex items-center justify-center min-h-[40px] min-w-[40px] sm:min-h-0 sm:min-w-0 text-slate-400 hover:text-brand-500 transition-colors shrink-0"
                         aria-label="open source post"
                         title="open source post"
                       >

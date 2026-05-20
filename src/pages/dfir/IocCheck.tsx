@@ -113,7 +113,7 @@ export default function IocCheck(): JSX.Element {
       </Link>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-4xl font-display font-bold mb-2">IOC Checker</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">IOC Checker</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
           Check IPs, domains, URLs, and file hashes against 26 threat intelligence sources in parallel. Streaming
           verdicts, weighted scoring, and tagged evidence for every IOC.

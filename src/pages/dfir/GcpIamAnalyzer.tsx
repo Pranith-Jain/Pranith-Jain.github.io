@@ -350,7 +350,7 @@ export default function GcpIamAnalyzer(): JSX.Element {
       </Link>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-4xl font-display font-bold mb-2">GCP IAM Policy Analyzer</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">GCP IAM Policy Analyzer</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-2xl">
           Paste a GCP IAM allow policy (<span className="font-mono text-[13px]">get-iam-policy --format=json</span>) or
           a custom role (<span className="font-mono text-[13px]">iam roles describe --format=json</span>). Bindings

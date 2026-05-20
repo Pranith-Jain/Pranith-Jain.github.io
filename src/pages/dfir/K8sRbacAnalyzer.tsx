@@ -350,7 +350,7 @@ export default function K8sRbacAnalyzer(): JSX.Element {
       </Link>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-4xl font-display font-bold mb-2">Kubernetes RBAC Analyzer</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Kubernetes RBAC Analyzer</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-2xl">
           Paste{' '}
           <span className="font-mono text-[13px]">
