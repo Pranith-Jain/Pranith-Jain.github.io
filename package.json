@@ -70,6 +70,9 @@
     "vitest": "^2.1.8",
     "wrangler": "^4.88.0"
   },
+  "overrides": {
+    "d3-color": "^3.1.0"
+  },
   "keywords": [
     "portfolio",
     "react",

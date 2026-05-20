@@ -37,10 +37,29 @@ export interface Env {
  *  be poisoned by a request arriving on a non-canonical host. */
 const CANONICAL_ORIGIN = 'https://pranithjain.qzz.io';
 
-const SECURITY_HEADERS: Record<string, string> = {
-  'content-security-policy': [
+/**
+ * Build the CSP value. When `nonce` is provided (HTML responses only),
+ * `script-src` switches from the legacy `'unsafe-inline'` to nonce-based
+ * — the one inline `<script>` in index.html (the theme-flash preventer)
+ * gets a matching `nonce` attribute injected, and every other inline
+ * script (i.e. anything an attacker manages to inject) is blocked.
+ *
+ * `style-src 'unsafe-inline'` is retained because React components ship
+ * inline `style={...}` attributes throughout the SPA — removing it would
+ * require a much bigger refactor (CSS-in-JS extraction, no inline style
+ * props) than the threat warrants given XSS is multi-layer-blocked
+ * (server regex sanitiser → client DOMPurify → blocked by script-src).
+ */
+function cspHeader(nonce?: string): string {
+  const scriptSrc = nonce
+    ? `script-src 'self' 'nonce-${nonce}' 'wasm-unsafe-eval' https://static.cloudflareinsights.com`
+    : // API responses don't carry scripts, so the static value stays safe.
+      // The 'unsafe-inline' remains here purely as a no-op fallback — there
+      // is no <script> in JSON responses for an attacker to attach to.
+      "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://static.cloudflareinsights.com";
+  return [
     "default-src 'self'",
-    "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://static.cloudflareinsights.com",
+    scriptSrc,
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
     "img-src 'self' data: https:",
     "connect-src 'self' https://api.cloudflare.com https://cloudflare-dns.com https://cloudflareinsights.com https://*.cloudflareinsights.com",
@@ -49,7 +68,10 @@ const SECURITY_HEADERS: Record<string, string> = {
     "base-uri 'self'",
     "form-action 'self'",
     "object-src 'none'",
-  ].join('; '),
+  ].join('; ');
+}
+
+const STATIC_SECURITY_HEADERS: Record<string, string> = {
   'x-content-type-options': 'nosniff',
   'x-frame-options': 'DENY',
   'referrer-policy': 'strict-origin-when-cross-origin',
@@ -58,9 +80,10 @@ const SECURITY_HEADERS: Record<string, string> = {
   server: 'PranithJain',
 };
 
-function withSecurityHeaders(response: Response): Response {
+function withSecurityHeaders(response: Response, nonce?: string): Response {
   const headers = new Headers(response.headers);
-  for (const [k, v] of Object.entries(SECURITY_HEADERS)) {
+  if (!headers.has('content-security-policy')) headers.set('content-security-policy', cspHeader(nonce));
+  for (const [k, v] of Object.entries(STATIC_SECURITY_HEADERS)) {
     if (!headers.has(k)) headers.set(k, v);
   }
   return new Response(response.body, {
@@ -68,6 +91,31 @@ function withSecurityHeaders(response: Response): Response {
     statusText: response.statusText,
     headers,
   });
+}
+
+/**
+ * Generate a CSP nonce. 128 random bits → base64url-encoded (≈22 chars).
+ * Workers exposes the Web Crypto API natively; no Node polyfills needed.
+ */
+function generateNonce(): string {
+  const bytes = new Uint8Array(16);
+  crypto.getRandomValues(bytes);
+  // Inline base64url so we don't depend on `Buffer` or polyfills.
+  let bin = '';
+  for (let i = 0; i < bytes.length; i += 1) bin += String.fromCharCode(bytes[i]!);
+  return btoa(bin).replace(/=+$/, '').replace(/\+/g, '-').replace(/\//g, '_');
+}
+
+/**
+ * Inject `nonce="…"` into the one inline `<script>` in our index.html
+ * (the theme-flash preventer). External scripts (`<script type="module"
+ * crossorigin src="…">`) don't need a nonce — they're covered by
+ * `script-src 'self'`. Matching `<script>` with no attributes scopes
+ * the rewrite to the inline tag only. Idempotent (the cache stores the
+ * nonce-less HTML; this runs per request).
+ */
+function injectScriptNonce(html: string, nonce: string): string {
+  return html.replace(/<script>/g, `<script nonce="${nonce}">`);
 }
 
 /**
@@ -404,27 +452,36 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/detections', '/__prerendered/threatintel__detections'],
 ]);
 
-async function fetchPrerenderedOrShell(request: Request, env: Env, ctx: ExecutionContext, url: URL): Promise<Response> {
+async function fetchPrerenderedOrShell(
+  request: Request,
+  env: Env,
+  ctx: ExecutionContext,
+  url: URL,
+  nonce: string
+): Promise<Response> {
   const prerenderedPath = PRERENDERED_ROUTES.get(url.pathname);
   if (!prerenderedPath) {
     const r = await getOrInjectOg(request, env, ctx, url);
+    const body = injectScriptNonce(await r.text(), nonce);
     const h = new Headers(r.headers);
     h.set('x-ssr-source', 'spa-shell');
-    return new Response(r.body, { status: r.status, statusText: r.statusText, headers: h });
+    return new Response(body, { status: r.status, statusText: r.statusText, headers: h });
   }
   const internal = new URL(request.url);
   internal.pathname = prerenderedPath;
   const prerenderRes = await env.ASSETS.fetch(new Request(internal.toString(), request));
   if (prerenderRes.status === 404) {
     const r = await getOrInjectOg(request, env, ctx, url);
+    const body = injectScriptNonce(await r.text(), nonce);
     const h = new Headers(r.headers);
     h.set('x-ssr-source', 'shell-fallback-404');
-    return new Response(r.body, { status: r.status, statusText: r.statusText, headers: h });
+    return new Response(body, { status: r.status, statusText: r.statusText, headers: h });
   }
   const headers = new Headers(prerenderRes.headers);
   headers.set('cache-control', `public, max-age=${OG_CACHE_TTL_SECONDS}`);
   headers.set('x-ssr-source', 'prerendered');
-  return new Response(prerenderRes.body, {
+  const body = injectScriptNonce(await prerenderRes.text(), nonce);
+  return new Response(body, {
     status: prerenderRes.status,
     statusText: prerenderRes.statusText,
     headers,
@@ -434,12 +491,21 @@ async function fetchPrerenderedOrShell(request: Request, env: Env, ctx: Executio
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
-    if (url.pathname.startsWith('/api/')) {
+    // Forward to the api app for the explicit /api/* prefix AND for the
+    // legacy /blog/rss.xml route — the RSS handler is registered there in
+    // api/src/routes/blog-public.ts but used to be unreachable because this
+    // dispatcher only matched /api/*, so requests fell through to the SPA
+    // shell and RSS readers saw text/html.
+    if (url.pathname.startsWith('/api/') || url.pathname === '/blog/rss.xml') {
       const apiRes = await apiApp.fetch(request, env as never, ctx);
       return withSecurityHeaders(apiRes);
     }
-    const html = await fetchPrerenderedOrShell(request, env, ctx, url);
-    return withSecurityHeaders(html);
+    // Generate a fresh nonce per HTML response. The inline theme-flash
+    // <script> in index.html gets `nonce="…"` injected; the CSP header
+    // is built with that same nonce instead of 'unsafe-inline'.
+    const nonce = generateNonce();
+    const html = await fetchPrerenderedOrShell(request, env, ctx, url, nonce);
+    return withSecurityHeaders(html, nonce);
   },
 
   /**
