@@ -20,14 +20,14 @@ export function AppFooter({ blurb, aboutTo }: { blurb: string; aboutTo?: string 
           {aboutTo && (
             <Link
               to={aboutTo}
-              className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
+              className="inline-flex items-center min-h-[44px] sm:min-h-0 text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
             >
               About
             </Link>
           )}
           <a
             href={`mailto:${personalInfo.email}`}
-            className="inline-flex items-center gap-1 text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
+            className="inline-flex items-center gap-1 min-h-[44px] sm:min-h-0 text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
           >
             <Mail size={12} /> Contact
           </a>
@@ -35,7 +35,7 @@ export function AppFooter({ blurb, aboutTo }: { blurb: string; aboutTo?: string 
             href={personalInfo.githubUrl}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-1 text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
+            className="inline-flex items-center gap-1 min-h-[44px] sm:min-h-0 text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
           >
             <Github size={12} /> GitHub
           </a>
@@ -43,7 +43,7 @@ export function AppFooter({ blurb, aboutTo }: { blurb: string; aboutTo?: string 
             href={personalInfo.linkedInUrl}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-1 text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
+            className="inline-flex items-center gap-1 min-h-[44px] sm:min-h-0 text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
           >
             <Linkedin size={12} /> LinkedIn
           </a>

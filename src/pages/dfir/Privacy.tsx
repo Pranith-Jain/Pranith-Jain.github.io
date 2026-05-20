@@ -130,7 +130,7 @@ export default function Privacy(): JSX.Element {
         <ArrowLeft size={14} /> back
       </Link>
       <div className="animate-fade-in-up">
-        <h1 className="text-4xl font-display font-bold mb-2">Privacy Check</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Privacy Check</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-2xl">
           Your browser reveals more than you think. This tool surfaces what trackers, advertisers, and threat actors can
           see about you — but the scan itself collects identifying signal, so it requires your explicit consent before

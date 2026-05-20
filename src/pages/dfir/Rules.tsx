@@ -113,7 +113,7 @@ export default function Rules(): JSX.Element {
       </Link>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <FileCode size={28} className="text-brand-600 dark:text-brand-400" /> Detection Rules
         </h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-3xl">

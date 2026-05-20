@@ -153,7 +153,7 @@ export default function OsvScanner(): JSX.Element {
         <ArrowLeft size={14} /> back
       </Link>
       <div className="animate-fade-in-up">
-        <h1 className="text-4xl font-display font-bold mb-2">OSV Dependency Scanner</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">OSV Dependency Scanner</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-2xl">
           Paste a lockfile/manifest — <span className="font-mono text-[13px]">package-lock.json</span> / package.json,
           requirements.txt, go.mod, Cargo.lock, Gemfile.lock. Parsed in your browser; only the name/version list is

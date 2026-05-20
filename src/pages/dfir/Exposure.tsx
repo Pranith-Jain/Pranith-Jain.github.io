@@ -48,7 +48,7 @@ export default function Exposure(): JSX.Element {
         <ArrowLeft size={14} /> back
       </Link>
       <div className="animate-fade-in-up">
-        <h1 className="text-4xl font-display font-bold mb-2">Exposure Scanner</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Exposure Scanner</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
           Subdomains seen in Certificate Transparency logs, resolved to IPs, with optional Shodan host info (when
           SHODAN_API_KEY is set).

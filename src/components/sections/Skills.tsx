@@ -15,7 +15,7 @@ export function Skills() {
     <section id="skills" className="mt-32 scroll-mt-24">
       {/* Header */}
       <div className="mb-16 max-w-3xl">
-        <div className="animate-fade-in-up mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
+        <div className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
           Expertise
         </div>
         <h2 className="animate-fade-in-up text-4xl font-extrabold tracking-tight sm:text-5xl text-slate-900 dark:text-white">
@@ -33,7 +33,7 @@ export function Skills() {
           return (
             <div
               key={skill.title}
-              className="animate-fade-in-up group glass rounded-3xl p-8 transition-all duration-300 hover:shadow-glow hover:-translate-y-1 hover:border-brand-500/40 h-full flex flex-col"
+              className="group surface rounded-3xl p-8 hover:shadow-glow hover:-translate-y-1 hover:border-brand-500/40 h-full flex flex-col"
             >
               <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-50 text-brand-600 transition-colors group-hover:bg-brand-600 group-hover:text-white dark:bg-brand-900/30 dark:text-brand-300">
                 {IconComponent && <IconComponent className="h-6 w-6" aria-hidden="true" />}

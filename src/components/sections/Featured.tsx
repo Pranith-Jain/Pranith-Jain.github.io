@@ -4,27 +4,27 @@ export function Featured() {
   return (
     <section id="featured" className="mt-32 scroll-mt-24">
       {/* Header */}
-      <div className="mb-16 max-w-3xl">
-        <div className="animate-fade-in-up mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
+      <div className="animate-fade-in-up mb-16 max-w-3xl">
+        <div className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
           Recognition
         </div>
-        <h2 className="animate-fade-in-up text-4xl font-extrabold tracking-tight sm:text-5xl text-slate-900 dark:text-white">
+        <h2 className="text-4xl font-extrabold tracking-tight sm:text-5xl text-slate-900 dark:text-white">
           Where the work shows up
         </h2>
-        <p className="animate-fade-in-up mt-4 text-lg text-slate-700 dark:text-slate-400">
+        <p className="mt-4 text-lg text-slate-700 dark:text-slate-400">
           Interviews and writeups across security platforms.
         </p>
       </div>
 
       {/* Articles Grid */}
-      <div className="animate-fade-in-up grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {featuredArticles.map((article) => (
           <a
             key={article.title}
             href={article.url}
             target="_blank"
             rel="noreferrer"
-            className="animate-fade-in-up glass group flex flex-col gap-6 p-8 rounded-[2rem] transition-all hover:shadow-glow hover:-translate-y-2 border-white/20 bg-white/40 dark:bg-slate-900/40 h-full"
+            className="glass group flex flex-col gap-6 p-8 rounded-[2rem] transition-all hover:shadow-glow hover:-translate-y-2 border-white/20 bg-white/40 dark:bg-slate-900/40 h-full"
           >
             <div className="flex items-center justify-between">
               <div

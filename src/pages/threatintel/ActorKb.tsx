@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { ArrowLeft, ExternalLink, Search } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Search, Users } from 'lucide-react';
 import { ACTOR_KB, type KbActor } from '../../data/dfir/actor-kb';
 
 /**
@@ -82,7 +82,9 @@ export default function ActorKb(): JSX.Element {
       </Link>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-4xl font-display font-bold mb-2">Threat-Actor Knowledge Base</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
+          <Users size={28} className="text-brand-600 dark:text-brand-400" /> Threat-Actor Knowledge Base
+        </h1>
         <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-2xl">
           {ACTOR_KB.length} MITRE ATT&amp;CK intrusion-sets — aliases, tradecraft (TTPs by tactic) and tooling. Built
           from the ATT&amp;CK enterprise bundle and shipped with the page; nothing leaves your browser.

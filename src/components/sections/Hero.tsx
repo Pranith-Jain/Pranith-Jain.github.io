@@ -184,7 +184,7 @@ export function Hero() {
         {stats.map((stat) => (
           <div
             key={stat.label}
-            className="animate-fade-in-up group glass relative overflow-hidden rounded-3xl p-8 transition-all hover:shadow-glow hover:-translate-y-1"
+            className="group glass relative overflow-hidden rounded-3xl p-8 transition-all hover:shadow-glow hover:-translate-y-1"
           >
             <div className="absolute right-0 top-0 -mr-4 -mt-4 h-24 w-24 rounded-full bg-brand-500/5 transition-transform group-hover:scale-150"></div>
             <div className="relative">

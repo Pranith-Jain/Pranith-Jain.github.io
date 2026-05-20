@@ -177,10 +177,9 @@ export default function Writeups(): JSX.Element {
         <ArrowLeft size={14} /> back
       </Link>
 
-      <div className="mb-6 inline-flex items-center gap-3">
-        <BookText size={24} className="text-brand-600 dark:text-brand-400" />
-        <h1 className="text-3xl font-display font-bold">Writeups feed</h1>
-      </div>
+      <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
+        <BookText size={28} className="text-brand-600 dark:text-brand-400" /> Writeups feed
+      </h1>
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-4">
         <div className="flex items-center gap-3">

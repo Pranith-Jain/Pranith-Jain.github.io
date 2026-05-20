@@ -449,7 +449,7 @@ export default function ThreatIntelHome(): JSX.Element {
   }, []);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <h1 className="sr-only">Threat Intel Platform</h1>
       {/* "What's new since your last visit" banner — silent on first
           visit / zero deltas. Reuses the localStorage marker key

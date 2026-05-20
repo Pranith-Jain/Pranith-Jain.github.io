@@ -144,7 +144,7 @@ export default function IocPivot(): JSX.Element {
         <ArrowLeft size={14} /> back
       </Link>
       <div className="animate-fade-in-up">
-        <h1 className="text-4xl font-display font-bold mb-2">IOC Pivot Graph</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">IOC Pivot Graph</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-2xl">
           Enrich an indicator across 26 sources and graph what it touches — verdict-coloured sources plus derived IPs /
           domains / hashes / ASNs / CVEs. Click any derived node to re-centre the graph on it. Nothing is stored.

@@ -42,6 +42,22 @@
     outline-offset: 3px;
   }
 
+  /* iOS Safari auto-zooms when a focused input/textarea has a computed
+   * font-size below 16px. Many of the data-heavy pages render search /
+   * filter inputs at `text-sm` (14px) for desktop density, which yanks the
+   * viewport on every focus on phones. Force 16px on phone widths; the
+   * design intent (compact text on desktop) is preserved on sm+. The `!`
+   * (= !important) is necessary because Tailwind utility classes on each
+   * input would otherwise win the cascade.
+   */
+  @media (max-width: 639px) {
+    input:not([type='checkbox']):not([type='radio']):not([type='range']),
+    select,
+    textarea {
+      font-size: 16px !important;
+    }
+  }
+
   /* Custom Scrollbar */
   ::-webkit-scrollbar {
     width: 8px;
@@ -63,6 +79,17 @@
 
   .dark .glass {
     @apply border-white/10 bg-slate-900/60;
+  }
+
+  /* Calm sibling to .glass for sections where every-card-translucent reads
+   * as visual noise (list-of-tiles surfaces: Skills, Solutions, Companies,
+   * Memberships, Certifications). Reuses the rest of the design tokens. */
+  .surface {
+    @apply border border-slate-200 bg-white transition-all duration-300;
+  }
+
+  .dark .surface {
+    @apply border-slate-800 bg-slate-900;
   }
 }
 

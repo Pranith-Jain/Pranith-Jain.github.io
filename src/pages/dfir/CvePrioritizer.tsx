@@ -190,7 +190,7 @@ export default function CvePrioritizer(): JSX.Element {
       </Link>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-4xl font-display font-bold mb-2">CVE Exploit Prioritizer</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">CVE Exploit Prioritizer</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-2xl">
           Paste CVE IDs (any format — IDs are extracted). Each is enriched with NVD CVSS + FIRST EPSS + CISA KEV (incl.
           known-ransomware use) and reduced to one patch-priority verdict. CVSS alone over-prioritises —

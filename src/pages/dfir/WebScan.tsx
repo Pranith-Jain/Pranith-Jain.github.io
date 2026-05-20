@@ -13,6 +13,7 @@ import {
   FileText,
 } from 'lucide-react';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
+import { SEVERITY_TONE } from '../../components/severity';
 
 type Severity = 'critical' | 'high' | 'medium' | 'low' | 'info' | 'good';
 
@@ -44,12 +45,16 @@ interface WebScanResponse {
   generated_at: string;
 }
 
+// Sourced from the canonical SEVERITY_TONE in src/components/Badge so the
+// four-step severity ramp matches every other page on the site. Previously
+// `low` and `info` were swapped (low=sky, info=slate) which contradicted the
+// canonical mapping (low=slate "still a finding", info=sky "FYI").
 const SEV_PILL: Record<Severity, string> = {
-  critical: 'border-rose-500/50 bg-rose-500/15 text-rose-700 dark:text-rose-300',
-  high: 'border-orange-500/50 bg-orange-500/15 text-orange-700 dark:text-orange-300',
-  medium: 'border-amber-500/40 bg-amber-500/15 text-amber-700 dark:text-amber-300',
-  low: 'border-sky-500/40 bg-sky-500/15 text-sky-700 dark:text-sky-300',
-  info: 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400',
+  critical: SEVERITY_TONE.critical,
+  high: SEVERITY_TONE.high,
+  medium: SEVERITY_TONE.medium,
+  low: SEVERITY_TONE.low,
+  info: SEVERITY_TONE.info,
   good: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
 };
 
@@ -144,7 +149,7 @@ export default function WebScan(): JSX.Element {
       </Link>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <ShieldAlert size={28} className="text-brand-600 dark:text-brand-400" /> Web Vulnerability Scanner
         </h1>
         <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">

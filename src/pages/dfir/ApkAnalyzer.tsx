@@ -78,7 +78,7 @@ export default function ApkAnalyzer(): JSX.Element {
       </Link>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <Smartphone size={28} className="text-brand-600 dark:text-brand-400" /> APK Analyzer
         </h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
@@ -284,7 +284,7 @@ export default function ApkAnalyzer(): JSX.Element {
                     className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-2.5"
                   >
                     <div className="font-semibold text-sm text-slate-900 dark:text-slate-100 mb-1">{dex.name}</div>
-                    <div className="grid grid-cols-2 gap-x-3 gap-y-0.5 text-[10px] font-mono text-slate-600 dark:text-slate-400">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-0.5 text-[10px] font-mono text-slate-600 dark:text-slate-400">
                       <span>DEX v{dex.version}</span>
                       <span>{fmtBytes(dex.size)}</span>
                       <span>{dex.classCount} classes</span>

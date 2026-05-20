@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { AlertOctagon, ArrowLeft, ExternalLink, Flame, RefreshCw, Search, ShieldAlert, Sparkles } from 'lucide-react';
 import { useLastVisit, isNewSince } from '../../hooks';
 import { DataState } from '../../components/DataState';
+import { SEVERITY_TONE } from '../../components/severity';
 
 interface RecentCve {
   id: string;
@@ -32,11 +33,14 @@ interface CveResponse {
   cves: RecentCve[];
 }
 
+// Source the four canonical severity tones from the shared Badge module so a
+// future tweak ripples here. LOW intentionally uses slate (not emerald) — a
+// low-severity CVE is still a CVE and green misreads as "safe".
 const SEVERITY_PILL: Record<RecentCve['severity'], string> = {
-  CRITICAL: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
-  HIGH: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
-  MEDIUM: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
-  LOW: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
+  CRITICAL: SEVERITY_TONE.critical,
+  HIGH: SEVERITY_TONE.high,
+  MEDIUM: SEVERITY_TONE.medium,
+  LOW: SEVERITY_TONE.low,
   NONE: 'border-slate-300 dark:border-slate-700 text-slate-500',
   UNKNOWN: 'border-slate-300 dark:border-slate-700 text-slate-500',
 };
@@ -174,7 +178,7 @@ export default function CveList(): JSX.Element {
       </Link>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
           <ShieldAlert size={28} className="text-brand-600 dark:text-brand-400" /> Live CVE updates
         </h1>
         <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">

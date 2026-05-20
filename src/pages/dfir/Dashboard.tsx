@@ -56,7 +56,7 @@ export default function Dashboard(): JSX.Element {
 
       <div className="flex items-end justify-between gap-4 mb-8">
         <div className="animate-fade-in-up">
-          <h1 className="text-4xl font-display font-bold tracking-tight mb-2">Toolkit dashboard</h1>
+          <h1 className="text-3xl sm:text-4xl font-display font-bold tracking-tight mb-2">Toolkit dashboard</h1>
           <p className="text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
             A glance at your recent activity — last 20 queries, kept anonymously in this browser. Nothing is sent
             anywhere.

@@ -190,7 +190,7 @@ export default function SecretScanner(): JSX.Element {
         <ArrowLeft size={14} /> back
       </Link>
       <div className="animate-fade-in-up">
-        <h1 className="text-4xl font-display font-bold mb-2">Secret / API-Key Scanner</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Secret / API-Key Scanner</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-2xl">
           Paste code, <span className="font-mono text-[13px]">.env</span>, config, or CI logs. Cloud keys, VCS/CI/SaaS
           tokens, private keys, DB URIs and JWTs are matched by signature; generic high-entropy

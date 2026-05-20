@@ -85,7 +85,7 @@ export default function AsnLookup(): JSX.Element {
       </Link>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-4xl font-display font-bold mb-2">ASN Lookup</h1>
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">ASN Lookup</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
           Query RIPEstat for Autonomous System details. Includes name, RIR, abuse contacts, and announced IP prefixes.
         </p>
