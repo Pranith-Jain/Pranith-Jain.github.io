@@ -7,7 +7,6 @@ import {
   expectedWeeklySlug,
 } from '../api/src/lib/briefing-builder';
 import { runDiscoveryNow, runPlannerNow, runPublisherNow, type CaseStudyEnv } from '../api/src/case-study/run';
-import { runPerfNow, type PerfRunnerEnv } from '../api/src/perf/runner';
 import { runTelegramArchive } from '../api/src/routes/telegram-archive';
 import type { Env as ApiEnv } from '../api/src/env';
 import type { Ai, D1Database } from '@cloudflare/workers-types';
@@ -597,16 +596,6 @@ export default {
           .finally(() => logCronDone({ path: 'planner' }))
       );
       return;
-    }
-
-    // Daily Lighthouse / PageSpeed Insights sweep. Cloudflare's free
-    // tier caps an account at 5 cron triggers and this Worker already
-    // uses all five, so the perf run piggybacks on the existing hourly
-    // cron at the 02:00 UTC firing. The PSI fetches are sequential
-    // (1 qps keyless) and HTTP-bound, so they share the hourly
-    // invocation's subrequest budget without burning CPU.
-    if (csCron === '0 * * * *' && csNow.getUTCHours() === 2) {
-      ctx.waitUntil(runPerfNow(env as unknown as PerfRunnerEnv, csNow).catch(logCronFail('perf')));
     }
 
     if (cron === '0 * * * *') {

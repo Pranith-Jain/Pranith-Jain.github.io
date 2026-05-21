@@ -30,7 +30,6 @@ const Projects = lazy(() => import('./pages/Projects'));
 const CaseStudy = lazy(() => import('./pages/CaseStudy'));
 const Writeups = lazy(() => import('./pages/threatintel/Writeups'));
 const ResearchSignal = lazy(() => import('./pages/threatintel/Signal'));
-const PerfDashboard = lazy(() => import('./pages/Perf'));
 const DFIR = lazy(() => import('./pages/DFIR'));
 
 const IocCheck = lazy(() => import('./pages/dfir/IocCheck'));
@@ -980,18 +979,6 @@ export function AppContent() {
           <ErrorBoundary>
             <Suspense fallback={<SectionLoader />}>
               <ResearchSignal />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      {/* Real-data Lighthouse / Core Web Vitals dashboard. Daily cron at
-          02:00 UTC writes the snapshot to KV via PSI; this page reads it. */}
-      <Route
-        path="/perf"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <PerfDashboard />
             </Suspense>
           </ErrorBoundary>
         }

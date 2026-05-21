@@ -38,7 +38,7 @@ const FEATURED_TOOLS: FeaturedTool[] = [
     icon: Mail,
     label: 'Email Defense / BEC Score',
     pitch: 'Full SPF / DKIM / DMARC / BIMI / MTA-STS / TLS-RPT audit in one scan with the failure mode called out.',
-    edge: 'Built from a 1,300-domain DMARC rollout — the rules check what actually breaks in practice.',
+    edge: 'Built from a 1,300-domain DMARC rollout. The rules check what actually breaks in practice.',
   },
   {
     path: '/dfir/rule-converter',
@@ -46,7 +46,7 @@ const FEATURED_TOOLS: FeaturedTool[] = [
     label: 'Universal Rule Converter',
     pitch:
       'Round-trip detection rules between Sigma, KQL, SPL, Lucene, EQL, YARA, DLP, and supply-chain via one canonical RuleIR.',
-    edge: 'Single source of truth across SIEM dialects — no more re-authoring the same rule six ways.',
+    edge: 'Single source of truth across SIEM dialects. No more re-authoring the same rule six ways.',
   },
   {
     path: '/dfir/detection-lab',
@@ -103,7 +103,7 @@ export default function DFIRPage(): JSX.Element {
       <AppHero
         kicker="Privacy-first · No upload · No login · Local analysis only"
         title="DFIR & security toolkit"
-        sub="Scanners, decoders, forensic parsers, lookups and frameworks that run entirely in your browser. Sub-200ms IOC checks across 22 sources — no signup, no key."
+        sub="Scanners, decoders, forensic parsers, lookups and frameworks that run entirely in your browser. Sub-200ms IOC checks across 22 sources, no signup, no key."
         meta={
           <>
             {TOOL_COUNT} tools · by{' '}
@@ -214,7 +214,7 @@ export default function DFIRPage(): JSX.Element {
         <section className="mb-12">
           <details>
             <summary className="cursor-pointer text-xs font-bold uppercase tracking-[0.2em] text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 font-mono">
-              Utilities &amp; converters ({UTILITY_TOOLS.length}) — encoders, hashes, timestamps
+              Utilities &amp; converters ({UTILITY_TOOLS.length}). Encoders, hashes, timestamps
             </summary>
             <p className="mt-3 text-[12px] font-mono text-slate-500 max-w-2xl">
               These are duplicative of well-known online tools (CyberChef, epochconverter, etc.) — kept here for offline

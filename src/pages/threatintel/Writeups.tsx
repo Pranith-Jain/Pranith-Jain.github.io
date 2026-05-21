@@ -182,7 +182,7 @@ export default function Writeups(): JSX.Element {
         <BookText size={28} className="text-brand-600 dark:text-brand-400" /> Writeups feed
       </h1>
       <p className="text-[12px] font-mono text-slate-500 dark:text-slate-500 mb-4 max-w-3xl">
-        The broad ecosystem cut — vendor blogs, news outlets, Medium tag feeds, the long tail. For the curated
+        The broad ecosystem cut: vendor blogs, news outlets, Medium tag feeds, the long tail. For the curated
         analyst-must-read set, see{' '}
         <Link to="/threatintel/signal" className="text-brand-600 dark:text-brand-400 hover:underline">
           /threatintel/signal

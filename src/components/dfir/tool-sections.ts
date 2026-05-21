@@ -90,7 +90,7 @@ export type ToolGroup = 'dfir' | 'ir' | 'ti' | 'osint' | 'aisec' | 'cloudsec' | 
 export const GROUP_META: Record<ToolGroup, { label: string; blurb: string }> = {
   dfir: {
     label: 'DFIR / Forensics',
-    blurb: 'Triage + artifact parsing — IOC/hash, decoders, EVTX/registry/PE/prefetch, SQLite, PCAP.',
+    blurb: 'Triage + artifact parsing. IOC/hash, decoders, EVTX/registry/PE/prefetch, SQLite, PCAP.',
   },
   ir: {
     label: 'Incident Response',
@@ -98,7 +98,7 @@ export const GROUP_META: Record<ToolGroup, { label: string; blurb: string }> = {
   },
   ti: {
     label: 'Threat-Intel Tools',
-    blurb: 'Detection engineering — YARA/Sigma, LOLBins, log timeline, STIX.',
+    blurb: 'Detection engineering. YARA/Sigma, LOLBins, log timeline, STIX.',
   },
   osint: { label: 'OSINT Tools', blurb: 'Recon, attribution, public-record pivots. Username, image, archive, geo.' },
   aisec: {
@@ -107,7 +107,7 @@ export const GROUP_META: Record<ToolGroup, { label: string; blurb: string }> = {
   },
   cloudsec: {
     label: 'Cloud Security Tools',
-    blurb: 'AWS/GCP/Azure IAM, security groups/NSG, K8s RBAC, CloudTrail, Terraform/IaC — pre-deploy → runtime.',
+    blurb: 'AWS/GCP/Azure IAM, security groups/NSG, K8s RBAC, CloudTrail, Terraform/IaC. pre-deploy → runtime.',
   },
   apisec: {
     label: 'API Security Tools',
@@ -190,7 +190,7 @@ export const SECTIONS: Section[] = [
         path: '/dfir/encoder',
         useCase: 'Build and round-trip an encoding chain.',
         label: 'Encoder',
-        desc: 'Reverse of Decoder — base64 / url / hex / binary / rot13 with chain builder + round-trip',
+        desc: 'Reverse of Decoder. base64 / url / hex / binary / rot13 with chain builder + round-trip',
         icon: Type,
         utility: true,
       },
@@ -205,7 +205,7 @@ export const SECTIONS: Section[] = [
         path: '/dfir/timestamp',
         useCase: 'Decode a FILETIME from a registry artifact.',
         label: 'Timestamp Converter',
-        desc: 'Unix s/ms/µs · Windows FILETIME · WebKit/Chrome · Apple Cocoa · ISO 8601 — all at once',
+        desc: 'Unix s/ms/µs · Windows FILETIME · WebKit/Chrome · Apple Cocoa · ISO 8601. all at once',
         icon: Clock,
         utility: true,
       },
@@ -321,7 +321,7 @@ export const SECTIONS: Section[] = [
         path: '/dfir/full-spectrum',
         useCase: 'Run every domain check from one query.',
         label: 'Full Spectrum Domain',
-        desc: 'One-shot orchestrator — runs WHOIS, DNS, ASN, breach check, exposure, certs, takeover, web scan, IP geo on a single domain and stitches the results',
+        desc: 'One-shot orchestrator. runs WHOIS, DNS, ASN, breach check, exposure, certs, takeover, web scan, IP geo on a single domain and stitches the results',
         icon: Radar,
       },
       {
@@ -356,7 +356,7 @@ export const SECTIONS: Section[] = [
         path: '/dfir/cert-search',
         useCase: 'Find subdomains via certificate transparency.',
         label: 'Certificate Search',
-        desc: 'CT log enumeration via SSLMate Cert Spotter — find subdomains by their issued certs',
+        desc: 'CT log enumeration via SSLMate Cert Spotter. find subdomains by their issued certs',
         icon: ShieldCheck,
       },
     ],
@@ -365,7 +365,7 @@ export const SECTIONS: Section[] = [
     id: 'osint',
     group: 'osint',
     label: 'OSINT Tools',
-    blurb: 'Open-source pivots — username, archive, code-host metadata.',
+    blurb: 'Open-source pivots. username, archive, code-host metadata.',
     tools: [
       {
         path: '/dfir/username',
@@ -558,7 +558,7 @@ export const SECTIONS: Section[] = [
         workflow:
           'Pick the source format (Sigma is the most-faithful) → pick a SIEM field-map preset (Defender / ECS / CIM) → paste a rule or load a starter → copy the emitted target.',
         label: 'Rule Converter',
-        desc: 'Universal any-to-any detection translation · Sigma · KQL · Splunk SPL · Elastic Lucene/EQL · YARA · DLP regex · supply-chain Semgrep — every format both source and target · heuristic, lossy edges flagged · 100% client-side',
+        desc: 'Universal any-to-any detection translation · Sigma · KQL · Splunk SPL · Elastic Lucene/EQL · YARA · DLP regex · supply-chain Semgrep. every format both source and target · heuristic, lossy edges flagged · 100% client-side',
         icon: ScanLine,
       },
       {
@@ -674,7 +674,7 @@ export const SECTIONS: Section[] = [
     id: 'ai-sec',
     group: 'aisec',
     label: 'AI Security',
-    blurb: 'AI-system threat surface — prompts, agents, MCP servers.',
+    blurb: 'AI-system threat surface. prompts, agents, MCP servers.',
     tools: [
       {
         path: '/dfir/prompt-injection',
@@ -701,7 +701,7 @@ export const SECTIONS: Section[] = [
         path: '/dfir/atlas',
         useCase: 'Reference MITRE ATLAS techniques.',
         label: 'MITRE ATLAS',
-        desc: 'Adversarial-ML technique matrix — tactics + techniques for AI/ML attack surface · live from mitre/atlas-data',
+        desc: 'Adversarial-ML technique matrix. tactics + techniques for AI/ML attack surface · live from mitre/atlas-data',
         icon: Crosshair,
       },
     ],
@@ -761,7 +761,7 @@ export const SECTIONS: Section[] = [
     id: 'cloud',
     group: 'cloudsec',
     label: 'Cloud Security',
-    blurb: 'Cloud posture & least-privilege review — runs entirely in your browser.',
+    blurb: 'Cloud posture & least-privilege review. runs entirely in your browser.',
     tools: [
       {
         path: '/dfir/iam-analyzer',
@@ -818,13 +818,13 @@ export const SECTIONS: Section[] = [
     id: 'api-sec',
     group: 'apisec',
     label: 'API Security',
-    blurb: 'Spec, header, secret & GraphQL review — OWASP API Top 10, runs entirely in your browser.',
+    blurb: 'Spec, header, secret & GraphQL review. OWASP API Top 10, runs entirely in your browser.',
     tools: [
       {
         path: '/dfir/openapi-audit',
         useCase: 'Find the unauthenticated endpoint before it ships.',
         label: 'OpenAPI / Swagger Auditor',
-        desc: 'Paste an OpenAPI 3 / Swagger 2 spec · OWASP API Top 10 — unauth & BOLA-prone endpoints, query-string API keys, Basic/no-scope auth, plaintext HTTP, mass assignment, debug paths · 100% client-side',
+        desc: 'Paste an OpenAPI 3 / Swagger 2 spec · OWASP API Top 10. unauth & BOLA-prone endpoints, query-string API keys, Basic/no-scope auth, plaintext HTTP, mass assignment, debug paths · 100% client-side',
         icon: Plug,
       },
       {

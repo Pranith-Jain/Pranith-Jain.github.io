@@ -52,11 +52,4 @@ export interface Env {
    *  auto-publish flow. Set via `wrangler.jsonc#vars.BLOG_APPROVAL_REQUIRED`
    *  or `wrangler secret put`. */
   BLOG_APPROVAL_REQUIRED?: string;
-  /**
-   * Google PageSpeed Insights API key (set via `wrangler secret put
-   * GOOGLE_PSI_API_KEY`). Optional — without it PSI rate-limits to 1
-   * qps, which is enough for the daily 12-request cron. The cron is a
-   * no-op when KV_CACHE is unbound regardless of this key.
-   */
-  GOOGLE_PSI_API_KEY?: string;
 }

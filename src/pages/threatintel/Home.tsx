@@ -97,7 +97,7 @@ const SECTIONS: Section[] = [
       {
         to: '/threatintel/negotiations',
         label: 'Ransomware negotiations',
-        desc: 'Negotiation chats across every ransomware.live PRO group — initial demand vs. negotiated figure, discount, settlement flag, with full transcript drill-down (Casualtek/Ransomchats). Sortable, filterable.',
+        desc: 'Negotiation chats across every ransomware.live PRO group. Initial demand vs. negotiated figure, discount, settlement flag, with full transcript drill-down (Casualtek/Ransomchats). Sortable, filterable.',
         icon: Handshake,
         badge: 'live',
       },
@@ -137,7 +137,7 @@ const SECTIONS: Section[] = [
       {
         to: '/threatintel/breach-forums',
         label: 'Breach / leak-forum tracker',
-        desc: 'Directory of criminal forums + dark markets (deepdarkCTI) plus a curated set of notable breach/leak forums. Intelligence about venues — names, status, OSINT-coverage links only; no forum contents.',
+        desc: 'Directory of criminal forums + dark markets (deepdarkCTI) plus a curated set of notable breach/leak forums. Intelligence about venues: names, status, OSINT-coverage links only; no forum contents.',
         icon: ShieldAlert,
         badge: 'live',
       },
@@ -158,7 +158,7 @@ const SECTIONS: Section[] = [
       {
         to: '/threatintel/deepdarkcti',
         label: 'deepdarkCTI Index',
-        desc: 'Parsed mirror of fastfire/deepdarkCTI — ransomware leak sites, dark markets, criminal forums, infostealer & threat-actor Telegram/Twitter channels, dark-web search engines. 18 source lists, filterable, onion-aware.',
+        desc: 'Parsed mirror of fastfire/deepdarkCTI: ransomware leak sites, dark markets, criminal forums, infostealer & threat-actor Telegram/Twitter channels, dark-web search engines. 18 source lists, filterable, onion-aware.',
         icon: Globe,
       },
       {
@@ -217,7 +217,7 @@ const SECTIONS: Section[] = [
       {
         to: '/threatintel/pulse',
         label: 'Threat Pulse',
-        desc: 'Real-time aggregator of fresh threat entities — actors, malware families, CVEs, IOCs — ranked by cross-source activity over the last 24h',
+        desc: 'Real-time aggregator of fresh threat entities (actors, malware families, CVEs, IOCs) ranked by cross-source activity over the last 24h',
         icon: Activity,
         badge: 'live',
       },
@@ -288,7 +288,7 @@ const SECTIONS: Section[] = [
       {
         to: '/threatintel/detections',
         label: 'Detections',
-        desc: 'A curated detection-rule pack evaluated hourly against the unified live-IOC stream. Cross-feed consensus, Cobalt Strike / C2, ransomware & infostealer tagging, phishing-campaign clustering — each firing rule with the indicators that triggered it. Write your own in the in-browser Detection Lab.',
+        desc: 'A curated detection-rule pack evaluated hourly against the unified live-IOC stream. Cross-feed consensus, Cobalt Strike / C2, ransomware & infostealer tagging, phishing-campaign clustering. Each firing rule with the indicators that triggered it. Write your own in the in-browser Detection Lab.',
         icon: AlertOctagon,
         badge: 'new',
       },
@@ -302,7 +302,7 @@ const SECTIONS: Section[] = [
       {
         to: '/threatintel/domain-monitor',
         label: 'Domain Monitor',
-        desc: 'Typosquatting and domain impersonation scanner. Generates lookalike variants — character swaps, TLD swaps, homoglyphs, prefix/suffix abuse. Inspired by haveibeensquatted.com.',
+        desc: 'Typosquatting and domain impersonation scanner. Generates lookalike variants (character swaps, TLD swaps, homoglyphs, prefix/suffix abuse). Inspired by haveibeensquatted.com.',
         icon: Search,
       },
     ],
@@ -310,7 +310,7 @@ const SECTIONS: Section[] = [
   {
     id: 'adversary',
     label: 'Adversary & Frameworks',
-    blurb: 'Who is attacking, with what — actors, intrusion sets, ATT&CK.',
+    blurb: 'Who is attacking, with what. Actors, intrusion sets, ATT&CK.',
     tools: [
       {
         to: '/threatintel/actors',
@@ -353,7 +353,7 @@ const SECTIONS: Section[] = [
       {
         to: '/threatintel/writeups',
         label: 'Writeups Feed',
-        desc: 'The broad ecosystem cut — Krebs, The Hacker News, BleepingComputer, CrowdStrike, ESET, Recorded Future, Intezer, and the technical Medium tag feeds (#threat-intel, #malware-analysis, #dfir, …). Signal-tier sources live on /signal — no overlap.',
+        desc: 'The broad ecosystem cut. Krebs, The Hacker News, BleepingComputer, CrowdStrike, ESET, Recorded Future, Intezer, and the technical Medium tag feeds (#threat-intel, #malware-analysis, #dfir, …). Signal-tier sources live on /signal (no overlap).',
         icon: BookText,
         badge: 'live',
       },
@@ -384,7 +384,7 @@ const SECTIONS: Section[] = [
       {
         to: '/threatintel/external-resources',
         label: 'External Resources',
-        desc: 'Off-site cross-references — dashboards, OSINT directories, training labs, malware samples, and research portfolios. Filter by kind. Featured quality-content markers and research-discovery mode.',
+        desc: 'Off-site cross-references: dashboards, OSINT directories, training labs, malware samples, and research portfolios. Filter by kind. Featured quality-content markers and research-discovery mode.',
         icon: ExternalLink,
       },
       {
@@ -471,7 +471,7 @@ export default function ThreatIntelHome(): JSX.Element {
       <AppHero
         kicker="Privacy-first · Live edge feeds · No login · No tracking"
         title="Threat-intel platform"
-        sub="Live ransomware leak claims, CVE × CISA-KEV, malware-sample and phishing-URL streams, dark-web and social firehoses, daily briefings, ten-panel metrics and STIX 2.1 export — aggregated at the edge and refreshed every visit."
+        sub="Live ransomware leak claims, CVE × CISA-KEV, malware-sample and phishing-URL streams, dark-web and social firehoses, daily briefings, ten-panel metrics and STIX 2.1 export. Aggregated at the edge and refreshed every visit."
         meta={
           <>
             {totalTiles} intel surfaces · by{' '}
@@ -683,7 +683,7 @@ export default function ThreatIntelHome(): JSX.Element {
               {activeSection.tools.length === 1 ? 'source' : 'sources'}
             </p>
             <p className="text-[11px] font-mono text-slate-400 mt-2">
-              Reference only — feeds refreshed at the edge each visit; verify indicators in your own environment.
+              Reference only. Feeds refreshed at the edge each visit; verify indicators in your own environment.
             </p>
           </div>
           <ul className="stagger grid gap-3 md:grid-cols-2 lg:grid-cols-3">
@@ -745,7 +745,7 @@ export default function ThreatIntelHome(): JSX.Element {
             Browse by category
           </h2>
           <p className="text-sm font-mono text-slate-500 mb-6">
-            Pick a surface to dive in — or use the search above to jump straight to a tool.
+            Pick a surface to dive in, or use the search above to jump straight to a tool.
           </p>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {SECTIONS.map((s) => (
@@ -775,7 +775,7 @@ export default function ThreatIntelHome(): JSX.Element {
 
       <AppFooter
         aboutTo="/threatintel/about"
-        blurb={`Privacy-first threat intelligence by ${personalInfo.name}. Live feeds aggregated at the edge — no tracking, no accounts. Reference only; verify indicators in your own environment.`}
+        blurb={`Privacy-first threat intelligence by ${personalInfo.name}. Live feeds aggregated at the edge. No tracking, no accounts. Reference only; verify indicators in your own environment.`}
       />
     </div>
   );
