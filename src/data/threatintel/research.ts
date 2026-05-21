@@ -185,7 +185,7 @@ const C2_FRAMEWORK_DOMINANCE: ResearchPost = {
   publishedAt: '2026-05-23',
   readingTime: '6 min',
   tags: ['C2 Frameworks', 'Cobalt Strike', 'Adversary Infrastructure', 'Detection Engineering'],
-  body: `The [/threatintel](/threatintel) platform indexes C2IntelFeeds, the public OSINT tracker that fingerprints live command-and-control infrastructure. Today's snapshot at [/api/v1/c2-tracker](https://pranithjain.qzz.io/api/v1/c2-tracker) shows 1,888 currently-active C2 servers detected. Of those, 1,815 are Cobalt Strike. 73 are Metasploit. The remaining everything else — Sliver, Mythic, Covenant, Brute Ratel, every other framework that gets discussed at conferences — does not appear in the snapshot at meaningful volume.
+  body: `The [/threatintel](/threatintel) platform indexes C2IntelFeeds, the public OSINT tracker that fingerprints live command-and-control infrastructure. Today's snapshot at [/threatintel/c2-tracker](/threatintel/c2-tracker) shows 1,888 currently-active C2 servers detected. Of those, 1,815 are Cobalt Strike. 73 are Metasploit. The remaining everything else — Sliver, Mythic, Covenant, Brute Ratel, every other framework that gets discussed at conferences — does not appear in the snapshot at meaningful volume.
 
 That 96.1% number is uncomfortable to write down because it cuts against several years of CTI industry messaging about "framework diversity." But it is the number, and the operational implications are real.
 
@@ -235,7 +235,7 @@ The "96%" number is going to be uncomfortable for the next round of vendor pitch
 
 ---
 
-*Source data: live snapshot of [/api/v1/c2-tracker](https://pranithjain.qzz.io/api/v1/c2-tracker) on May 23, 2026, indexing [C2IntelFeeds](https://github.com/drb-ra/C2IntelFeeds). Numbers refresh approximately hourly. The framework breakdown method is fingerprint-based and excludes infrastructure that the public tracker doesn't currently classify. Counter-evidence sourced to other trackers welcome.*`,
+*Source data: live snapshot of [/threatintel/c2-tracker](/threatintel/c2-tracker) on May 23, 2026, indexing [C2IntelFeeds](https://github.com/drb-ra/C2IntelFeeds). Numbers refresh approximately hourly. The framework breakdown method is fingerprint-based and excludes infrastructure that the public tracker doesn't currently classify. Counter-evidence sourced to other trackers welcome.*`,
   published: true,
 };
 
