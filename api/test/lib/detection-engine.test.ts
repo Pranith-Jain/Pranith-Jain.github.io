@@ -79,7 +79,7 @@ describe('evaluateRules', () => {
     const { detections, warnings } = evaluateRules([rule], items);
     expect(detections).toHaveLength(0);
     expect(warnings[0]!.rule_id).toBe('bad');
-    expect(warnings[0]!.message).toMatch(/invalid value regex/);
+    expect(warnings[0]!.message).toMatch(/invalid match\.value regex/);
   });
 
   it('honours enabled:false', () => {
@@ -106,5 +106,72 @@ describe('evaluateRules', () => {
     const { detections } = evaluateRules(rules, items);
     expect(detections[0]!.severity).toBe('critical');
     expect(detections[1]!.severity).toBe('low');
+  });
+
+  it('exclude clause suppresses an otherwise-matching indicator', () => {
+    const rule: DetectionRule = {
+      id: 'ssh-brute',
+      name: 'SSH brute-force scans',
+      severity: 'medium',
+      match: { kind: 'ip', contextRegex: 'ssh|sshd' },
+      exclude: { source: 'greynoise' }, // tune out known-benign internet scanners
+    };
+    const items = [
+      ioc({ value: '1.1.1.1', kind: 'ip', source: 'sans-isc', context: 'ssh bruteforce' }),
+      ioc({ value: '2.2.2.2', kind: 'ip', source: 'greynoise', context: 'ssh scanner' }),
+    ];
+    const { detections } = evaluateRules([rule], items);
+    expect(detections).toHaveLength(1);
+    expect(detections[0]!.indicators).toHaveLength(1);
+    expect(detections[0]!.indicators[0]!.value).toBe('1.1.1.1');
+  });
+
+  it('an empty exclude object is treated as absent (does not suppress every match)', () => {
+    const rule: DetectionRule = {
+      id: 'r',
+      name: 'r',
+      severity: 'low',
+      match: { kind: 'ip' },
+      exclude: {}, // empty — must not silently swallow every indicator
+    };
+    const items = [
+      ioc({ value: '1.1.1.1', kind: 'ip', source: 's' }),
+      ioc({ value: '2.2.2.2', kind: 'ip', source: 's' }),
+    ];
+    const { detections } = evaluateRules([rule], items);
+    expect(detections).toHaveLength(1);
+    expect(detections[0]!.match_count).toBe(2);
+  });
+
+  it('exclude with an invalid regex is reported as a warning, not a silent skip', () => {
+    const rule: DetectionRule = {
+      id: 'r',
+      name: 'r',
+      severity: 'low',
+      match: { kind: 'ip' },
+      exclude: { valueRegex: '[' }, // unclosed character class
+    };
+    const items = [ioc({ value: '1.1.1.1', kind: 'ip', source: 's' })];
+    const { detections, warnings } = evaluateRules([rule], items);
+    expect(detections).toHaveLength(0);
+    expect(warnings.find((w) => w.rule_id === 'r')?.message).toMatch(/exclude/);
+  });
+
+  it('propagates technique / tactic / references from the rule onto its detection', () => {
+    const rule: DetectionRule = {
+      id: 't',
+      name: 'Cobalt Strike beacon',
+      severity: 'high',
+      match: { contextRegex: 'cobalt' },
+      technique: 'T1071.001',
+      tactic: 'Command and Control',
+      references: ['https://attack.mitre.org/techniques/T1071/001/'],
+    };
+    const items = [ioc({ value: '1.1.1.1', kind: 'ip', source: 's', context: 'cobalt strike beacon' })];
+    const { detections } = evaluateRules([rule], items);
+    expect(detections).toHaveLength(1);
+    expect(detections[0]!.technique).toBe('T1071.001');
+    expect(detections[0]!.tactic).toBe('Command and Control');
+    expect(detections[0]!.references).toEqual(['https://attack.mitre.org/techniques/T1071/001/']);
   });
 });

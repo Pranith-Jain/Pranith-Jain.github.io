@@ -35,6 +35,22 @@ export interface EngineIndicator {
 
 export type DetectionSeverity = 'low' | 'medium' | 'high' | 'critical';
 
+/**
+ * Predicate body shared by `match` and `exclude`. Every present field has
+ * to hold AND-style for the indicator to match the predicate.
+ */
+export interface MatchPredicate {
+  kind?: EngineIocKind | EngineIocKind[];
+  /** Exact feed source id(s) — e.g. "c2-intel", "threatfox". */
+  source?: string | string[];
+  /** Case-insensitive regex tested against the indicator value. */
+  valueRegex?: string;
+  /** Case-insensitive regex tested against the context string. */
+  contextRegex?: string;
+  /** Case-insensitive regex tested against the reporter string. */
+  reporterRegex?: string;
+}
+
 export interface DetectionRule {
   id: string;
   name: string;
@@ -42,17 +58,14 @@ export interface DetectionRule {
   description?: string;
   enabled?: boolean;
   /** Every provided predicate must hold for an indicator to match. */
-  match: {
-    kind?: EngineIocKind | EngineIocKind[];
-    /** Exact feed source id(s) — e.g. "c2-intel", "threatfox". */
-    source?: string | string[];
-    /** Case-insensitive regex tested against the indicator value. */
-    valueRegex?: string;
-    /** Case-insensitive regex tested against the context string. */
-    contextRegex?: string;
-    /** Case-insensitive regex tested against the reporter string. */
-    reporterRegex?: string;
-  };
+  match: MatchPredicate;
+  /**
+   * Suppression clause. An indicator that matches BOTH `match` AND
+   * `exclude` is dropped from the rule's matched set — useful for tuning
+   * out a known-benign source / context pattern without weakening the
+   * primary predicate. Same shape as `match`; omit to skip suppression.
+   */
+  exclude?: MatchPredicate;
   /** Cross-indicator consensus. Omit for a flat per-indicator rule. */
   aggregate?: {
     groupBy: 'value' | 'source' | 'reporter' | 'kind' | 'context';
@@ -63,6 +76,16 @@ export interface DetectionRule {
   };
   /** Non-aggregate rules fire at this many total matches (default 1). */
   minMatches?: number;
+  /**
+   * Optional MITRE ATT&CK technique id, e.g. `T1190`, `T1071.001`. Surface
+   * metadata only — the engine doesn't read it; the UI shows it as a pill
+   * on detections so the analyst can pivot to the ATT&CK matrix.
+   */
+  technique?: string;
+  /** Optional ATT&CK tactic label, e.g. "Initial Access". UI-only. */
+  tactic?: string;
+  /** Citations for the rule's logic — vendor advisories, blog posts, CVEs. */
+  references?: string[];
 }
 
 export interface Detection {
@@ -78,6 +101,10 @@ export interface Detection {
   indicators: EngineIndicator[];
   first_observed?: string;
   last_observed?: string;
+  /** Copied from the rule for UI convenience — see DetectionRule.technique. */
+  technique?: string;
+  tactic?: string;
+  references?: string[];
 }
 
 export interface EvaluateResult {
@@ -121,6 +148,37 @@ function groupKey(it: EngineIndicator, by: NonNullable<DetectionRule['aggregate'
   return it.context ?? '';
 }
 
+interface CompiledPredicate {
+  kinds: EngineIocKind[];
+  sources: string[];
+  valueRe?: RegExp;
+  contextRe?: RegExp;
+  reporterRe?: RegExp;
+  /** True when no predicate fields are present — guard against an empty
+   *  exclude clause silently dropping every match. */
+  empty: boolean;
+}
+
+function compilePredicate(p: MatchPredicate, kind: 'match' | 'exclude'): CompiledPredicate {
+  return {
+    kinds: asArray(p.kind),
+    sources: asArray(p.source).map((s) => s.toLowerCase()),
+    valueRe: p.valueRegex ? compile(p.valueRegex, `${kind}.value`) : undefined,
+    contextRe: p.contextRegex ? compile(p.contextRegex, `${kind}.context`) : undefined,
+    reporterRe: p.reporterRegex ? compile(p.reporterRegex, `${kind}.reporter`) : undefined,
+    empty: !p.kind && !p.source && !p.valueRegex && !p.contextRegex && !p.reporterRegex,
+  };
+}
+
+function matchesPredicate(it: EngineIndicator, p: CompiledPredicate): boolean {
+  if (p.kinds.length > 0 && !p.kinds.includes(it.kind)) return false;
+  if (p.sources.length > 0 && !p.sources.includes(it.source.toLowerCase())) return false;
+  if (p.valueRe && !p.valueRe.test(it.value)) return false;
+  if (p.contextRe && !p.contextRe.test(it.context ?? '')) return false;
+  if (p.reporterRe && !p.reporterRe.test(it.reporter ?? '')) return false;
+  return true;
+}
+
 /** Evaluate one rule against the indicator set. */
 function evaluateRule(
   rule: DetectionRule,
@@ -128,26 +186,23 @@ function evaluateRule(
 ): { detections: Detection[]; warning?: string } {
   if (rule.enabled === false) return { detections: [] };
 
-  let valueRe: RegExp | undefined;
-  let contextRe: RegExp | undefined;
-  let reporterRe: RegExp | undefined;
+  let matchP: CompiledPredicate;
+  let excludeP: CompiledPredicate | undefined;
   try {
-    if (rule.match.valueRegex) valueRe = compile(rule.match.valueRegex, 'value');
-    if (rule.match.contextRegex) contextRe = compile(rule.match.contextRegex, 'context');
-    if (rule.match.reporterRegex) reporterRe = compile(rule.match.reporterRegex, 'reporter');
+    matchP = compilePredicate(rule.match, 'match');
+    if (rule.exclude) excludeP = compilePredicate(rule.exclude, 'exclude');
   } catch (e) {
     return { detections: [], warning: e instanceof Error ? e.message : String(e) };
   }
 
-  const kinds = asArray(rule.match.kind);
-  const sources = asArray(rule.match.source).map((s) => s.toLowerCase());
+  // Empty exclude clause = nothing to suppress; treat as absent. This
+  // prevents `"exclude": {}` from accidentally silencing every match
+  // (matchesPredicate returns true for an empty predicate).
+  if (excludeP?.empty) excludeP = undefined;
 
   const matched = indicators.filter((it) => {
-    if (kinds.length > 0 && !kinds.includes(it.kind)) return false;
-    if (sources.length > 0 && !sources.includes(it.source.toLowerCase())) return false;
-    if (valueRe && !valueRe.test(it.value)) return false;
-    if (contextRe && !contextRe.test(it.context ?? '')) return false;
-    if (reporterRe && !reporterRe.test(it.reporter ?? '')) return false;
+    if (!matchesPredicate(it, matchP)) return false;
+    if (excludeP && matchesPredicate(it, excludeP)) return false;
     return true;
   });
 
@@ -181,6 +236,9 @@ function evaluateRule(
         indicators: members.slice(0, SAMPLE_CAP),
         first_observed: first,
         last_observed: last,
+        technique: rule.technique,
+        tactic: rule.tactic,
+        references: rule.references,
       });
     }
     // Strongest consensus first.
@@ -202,6 +260,9 @@ function evaluateRule(
         indicators: matched.slice(0, SAMPLE_CAP),
         first_observed: first,
         last_observed: last,
+        technique: rule.technique,
+        tactic: rule.tactic,
+        references: rule.references,
       },
     ],
   };
