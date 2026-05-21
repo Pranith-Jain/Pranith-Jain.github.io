@@ -14,6 +14,7 @@ import {
   Compass,
   ExternalLink,
   FileCode,
+  FileText,
   GitBranchPlus,
   Globe,
   Globe2,
@@ -343,6 +344,13 @@ const SECTIONS: Section[] = [
     label: 'Knowledge & Reference',
     blurb: 'Long-form research and curated reference indexes. Start here for the broad questions.',
     tools: [
+      {
+        to: '/threatintel/research',
+        label: 'Research (authored)',
+        desc: "Original adversary-tracking and methodology pieces written by Pranith Jain. Every quantitative claim sourced to this platform's own data or to named third-party reporting.",
+        icon: FileText,
+        badge: 'authored',
+      },
       {
         to: '/threatintel/signal',
         label: 'Research Signal',

@@ -532,6 +532,95 @@ export default function Metrics(): JSX.Element {
     }));
   }, [state.ransomware]);
 
+  /**
+   * Headline read: an opinionated, automatically-computed interpretation
+   * of the ransomware market posture right now. Replaces the temptation to
+   * paste a static prose summary that goes stale the moment data refreshes.
+   *
+   * The values it computes are deliberately conservative: a 7-vs-7 day
+   * trend with a 10% deadband to avoid calling noise as motion, a single
+   * top-actor + share metric for concentration, and the count of distinct
+   * groups active this week. The prose template wraps those numbers in
+   * three sentences that always grammatically fit, regardless of which
+   * values land.
+   */
+  const headlineRead = useMemo(() => {
+    if (!state.ransomware || state.ransomware.length === 0) return null;
+    const now = Date.now();
+    const day = 86400_000;
+    const last7Cutoff = now - 7 * day;
+    const prior7Cutoff = now - 14 * day;
+    const last30Cutoff = now - 30 * day;
+
+    let last7 = 0;
+    let prior7 = 0;
+    let last30 = 0;
+    const last7Groups = new Set<string>();
+    const last30GroupCounts = new Map<string, number>();
+    for (const v of state.ransomware) {
+      const t = Date.parse(v.discovered);
+      if (Number.isNaN(t)) continue;
+      if (t >= last30Cutoff) {
+        last30 += 1;
+        last30GroupCounts.set(v.group, (last30GroupCounts.get(v.group) ?? 0) + 1);
+      }
+      if (t >= last7Cutoff) {
+        last7 += 1;
+        last7Groups.add(v.group);
+      } else if (t >= prior7Cutoff) {
+        prior7 += 1;
+      }
+    }
+
+    const ranked = [...last30GroupCounts.entries()].sort((a, b) => b[1] - a[1]);
+    const top = ranked[0];
+    const topShare = top && last30 > 0 ? (top[1] / last30) * 100 : 0;
+
+    let trendLabel: 'accelerating' | 'cooling' | 'steady' = 'steady';
+    let trendDelta = 0;
+    if (prior7 > 0) {
+      const change = ((last7 - prior7) / prior7) * 100;
+      trendDelta = Math.round(change);
+      if (change > 10) trendLabel = 'accelerating';
+      else if (change < -10) trendLabel = 'cooling';
+    } else if (last7 > 0) {
+      trendLabel = 'accelerating';
+      trendDelta = 100;
+    }
+
+    // Three sentences, each a separate piece of analysis. Concatenated
+    // in the render so each can be styled or moved independently.
+    const sentenceTrend =
+      trendLabel === 'accelerating'
+        ? `Ransomware leak-site posting is accelerating: ${last7} new claims in the last 7 days, up ${trendDelta}% from the prior 7 days (${prior7}).`
+        : trendLabel === 'cooling'
+          ? `Ransomware leak-site posting is cooling: ${last7} claims in the last 7 days, down ${Math.abs(trendDelta)}% from the prior 7 days (${prior7}).`
+          : `Ransomware leak-site posting is steady: ${last7} claims in the last 7 days, within 10% of the prior 7 days (${prior7}).`;
+
+    const sentenceConcentration = top
+      ? `One operator, ${top[0]}, accounts for ${topShare.toFixed(0)}% of the last 30 days' ${last30} claims; the rest split across ${ranked.length - 1} other groups.`
+      : '';
+
+    const sentenceReadout =
+      topShare > 25
+        ? `That level of concentration is unusual. When one group runs more than a quarter of all public claims, either an affiliate program is winning the moment or a single high-volume operator is in a "spray" phase. Either is worth a closer look at /threatintel/ransomware-activity.`
+        : topShare > 15
+          ? `That's near-typical concentration for a healthy multi-operator market: a leader carrying about a fifth, the long tail behind it. Worth watching the next 7-day window for whether the leader holds, gains, or gets displaced.`
+          : `That's an unusually flat distribution. No one operator is dominating the moment, which historically precedes either consolidation or a quiet stretch. Either way, single-group fixation is the wrong lens for this week.`;
+
+    return {
+      last7,
+      prior7,
+      last30,
+      trendLabel,
+      trendDelta,
+      topGroup: top?.[0] ?? null,
+      topShare,
+      distinctGroupsLast7: last7Groups.size,
+      sentences: [sentenceTrend, sentenceConcentration, sentenceReadout].filter(Boolean),
+    };
+  }, [state.ransomware]);
+
   const cveSeverityCounts = useMemo(() => {
     const counts: Record<RecentCve['severity'], number> = {
       CRITICAL: 0,
@@ -750,9 +839,8 @@ export default function Metrics(): JSX.Element {
           <BarChart3 size={28} className="text-brand-600 dark:text-brand-400" /> Threat Intel Metrics
         </h1>
         <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-3xl leading-relaxed">
-          Fifteen panels answering the questions a CTI team actually asks, across ten upstream feeds. Everything is
-          computed live in the browser — refresh to recompute; headline counters show the ▲/▼ change since your last
-          refresh.
+          One opinionated read up top, fifteen supporting panels behind it. Everything is computed live in the browser
+          from ten upstream feeds. Refresh to recompute; headline counters show the ▲/▼ change since your last refresh.
         </p>
       </div>
 
@@ -828,6 +916,86 @@ export default function Metrics(): JSX.Element {
         </div>
       )}
 
+      {/* Headline read — one chart, one written interpretation. Replaces the
+          temptation to lead with a wall of fifteen neutral panels. The prose
+          recomputes on refresh; the trend / concentration / takeaway lines
+          adapt grammatically to whatever values the feed produces right now. */}
+      {!state.loading && headlineRead && (
+        <section className="rounded-xl border border-brand-500/30 bg-gradient-to-br from-brand-50/40 to-transparent dark:from-brand-900/20 dark:to-transparent p-5 sm:p-6 mb-6">
+          <div className="flex items-baseline gap-3 mb-3">
+            <Flame size={18} className="text-rose-600 dark:text-rose-400" />
+            <h2 className="font-display font-bold text-lg text-slate-900 dark:text-slate-100">
+              This week's read: ransomware posture
+            </h2>
+            <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500">
+              auto-computed · updates on refresh
+            </span>
+          </div>
+          <div className="grid gap-5 lg:grid-cols-[1fr_1.4fr]">
+            <div>
+              <Sparkbars buckets={ransomwareCadence} color="#e11d48" />
+              <div className="grid grid-cols-3 gap-2 mt-3 text-[11px] font-mono">
+                <div className="rounded border border-slate-200 dark:border-slate-800 px-2 py-1.5">
+                  <div className="text-slate-500">last 7d</div>
+                  <div className="text-slate-900 dark:text-slate-100 font-semibold text-sm">{headlineRead.last7}</div>
+                </div>
+                <div className="rounded border border-slate-200 dark:border-slate-800 px-2 py-1.5">
+                  <div className="text-slate-500">prior 7d</div>
+                  <div className="text-slate-900 dark:text-slate-100 font-semibold text-sm">{headlineRead.prior7}</div>
+                </div>
+                <div
+                  className={`rounded border px-2 py-1.5 ${
+                    headlineRead.trendLabel === 'accelerating'
+                      ? 'border-rose-500/40 text-rose-600 dark:text-rose-300'
+                      : headlineRead.trendLabel === 'cooling'
+                        ? 'border-emerald-500/40 text-emerald-600 dark:text-emerald-300'
+                        : 'border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300'
+                  }`}
+                >
+                  <div className="opacity-70">trend</div>
+                  <div className="font-semibold text-sm capitalize">{headlineRead.trendLabel}</div>
+                </div>
+              </div>
+            </div>
+            <div className="space-y-3">
+              {headlineRead.sentences.map((s, i) => (
+                <p
+                  key={i}
+                  className={`text-[14px] leading-relaxed ${
+                    i === 0 ? 'text-slate-900 dark:text-slate-100 font-medium' : 'text-slate-700 dark:text-slate-300'
+                  }`}
+                >
+                  {s}
+                </p>
+              ))}
+              <p className="text-[11px] font-mono text-slate-500 pt-1">
+                Method: 7-vs-7-day delta with a 10% deadband; concentration is the top operator's share of the last 30
+                days' claims. Source: ransomlook.io aggregated leak-site index.{' '}
+                <Link
+                  to="/threatintel/ransomware-activity"
+                  className="text-brand-600 dark:text-brand-400 hover:underline"
+                >
+                  Drill into the underlying data →
+                </Link>
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {!state.loading && (
+        <details className="mb-2 group">
+          <summary className="cursor-pointer text-xs font-bold uppercase tracking-[0.2em] text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 font-mono py-2">
+            More metrics (15 panels). Cadence, severity, sectors, vendors, frameworks, geography
+            <span className="ml-2 text-slate-400 group-open:hidden">expand</span>
+            <span className="ml-2 text-slate-400 hidden group-open:inline">collapse</span>
+          </summary>
+          <p className="mt-2 text-[12px] font-mono text-slate-500 max-w-2xl mb-4">
+            The fifteen-panel cut. Every chart below is computed live from the same upstream feeds the headline read
+            above uses. Refresh the page to recompute.
+          </p>
+        </details>
+      )}
       {!state.loading && (
         <div className="grid gap-4 lg:grid-cols-2">
           {/* 1. Top ransomware groups */}

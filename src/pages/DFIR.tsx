@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Hash, Mail, FileCode, AlertOctagon, ShieldAlert } from 'lucide-react';
+import { ArrowRight, Hash, Mail, FileCode, AlertOctagon, ShieldAlert, Zap } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { TOOL_COUNT } from '../components/dfir/ToolGrid';
 import { GROUP_META, MAIN_TOOL_COUNT, UTILITY_TOOLS, type ToolGroup } from '../components/dfir/tool-sections';
@@ -8,6 +8,95 @@ import { personalInfo } from '../data/content';
 import { AppHero } from '../components/AppHero';
 import { AppFooter } from '../components/AppFooter';
 import { StatBar } from '../components/StatBar';
+
+/**
+ * "Start here." Three tools, one prescribed sequence. Solves the hub
+ * problem: a first-time visitor on the toolkit index doesn't know which
+ * of the 60 tiles is the right place to start. This isn't "our best
+ * three"; it's a 60-second onboarding path. Each pick has a concrete
+ * "do this if you..." trigger, not a generic feature pitch.
+ *
+ * Ordering matters: IOC check is the universal entry, the lab/converter
+ * pair is the detection-engineering loop, and CVE prioritizer is the
+ * "I have a CVE number on my plate today" lookup. Three different jobs,
+ * three different audiences. If a visitor only clicks one, they should
+ * still land on something useful for them.
+ */
+interface StartHerePick {
+  path: string;
+  trigger: string;
+  action: string;
+}
+const START_HERE: StartHerePick[] = [
+  {
+    path: '/dfir/ioc-check',
+    trigger: 'You have one suspicious indicator (IP, domain, URL, or hash).',
+    action: 'Paste it. 24 providers in parallel, cross-source consensus in under a second.',
+  },
+  {
+    path: '/dfir/detection-lab',
+    trigger: 'You write or evaluate detection rules.',
+    action:
+      'Author against a curated event corpus, see fires in seconds, then export through the Rule Converter to Sigma, KQL, SPL, EQL, Lucene, or YARA.',
+  },
+  {
+    path: '/dfir/cve-prioritizer',
+    trigger: 'You have a CVE ID and a stakeholder asking how worried to be.',
+    action:
+      'Get a verdict that combines CVSS, EPSS, CISA KEV, and ransomware-use signals into a single patch-priority call.',
+  },
+];
+
+/**
+ * Real cases that exercised the toolkit. The point of this panel: prove
+ * the 60 tools aren't an inventory, they're a workshop. Each row links a
+ * case study (already written, already publicly readable on this site)
+ * to the specific tools it used, with a one-line description of what the
+ * tool did inside the case. No telemetry; the anchor is the prose body
+ * of the case study, which is the durable artefact.
+ */
+interface ToolCase {
+  caseSlug: string;
+  caseTitle: string;
+  tools: { path: string; label: string }[];
+  contribution: string;
+}
+const TOOL_CASES: ToolCase[] = [
+  {
+    caseSlug: '/projects/phishing-program-at-scale',
+    caseTitle: 'Phishing program at scale (250+ incidents, −25% FPs)',
+    tools: [
+      { path: '/dfir/ioc-check', label: 'IOC & Hash Checker' },
+      { path: '/dfir/email-defense', label: 'Email Defense' },
+    ],
+    contribution:
+      'Cross-source consensus on the IOC checker is what re-classified ~12% of "suspicious, escalate" cases as single-feed false alarms. Email Defense pre-filtered the SPF/DKIM/DMARC posture of new vendor domains before any reply went out.',
+  },
+  {
+    caseSlug: '/projects/dmarc-enforcement-1300-domains',
+    caseTitle: 'DMARC enforcement across 1,300+ domains',
+    tools: [{ path: '/dfir/email-defense', label: 'Email Defense / BEC Score' }],
+    contribution:
+      'The audit rules in Email Defense came directly from the failure modes seen in this rollout. Same code paths now live as the public scanner.',
+  },
+  {
+    caseSlug: '/projects/dfir-toolkit-design',
+    caseTitle: 'Building the toolkit itself: lab → converter loop',
+    tools: [
+      { path: '/dfir/detection-lab', label: 'Detection Lab' },
+      { path: '/dfir/rule-converter', label: 'Rule Converter' },
+    ],
+    contribution:
+      'The lab and converter are not independent tools; they are one detection-engineering loop. Author in the lab, prove the rule fires, export to the SIEM dialect you actually run. This is the pairing that justified shipping both.',
+  },
+  {
+    caseSlug: '/projects/threat-intel-platform-build',
+    caseTitle: 'Autonomous CTI pipeline (layer-1 + layer-2 IOC defence)',
+    tools: [{ path: '/dfir/ioc-check', label: 'IOC & Hash Checker' }],
+    contribution:
+      'The same VT / AbuseIPDB / abuse.ch validators that power the public IOC checker also gate every IOC the autonomous case-study pipeline emits before it reaches a draft. The defence layer is shared, not duplicated.',
+  },
+];
 
 /**
  * The five tools that earn their place on the front door — the ones with
@@ -135,6 +224,46 @@ export default function DFIRPage(): JSX.Element {
           require opening Cmd+K or scrolling through 60 tiles. */}
       <IocDispatchInput />
 
+      {/* Start here — 3-tool prescribed sequence for a first-time visitor.
+          Solves the hub problem (60 tiles, no direction). Different from
+          "Featured" below: that's editorial best-of; this is "if you only
+          have 60 seconds, run one of these three." */}
+      <section className="mb-12">
+        <div className="flex items-baseline gap-3 mb-4">
+          <Zap size={16} className="text-brand-600 dark:text-brand-400" />
+          <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">Start here</h2>
+          <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500">60-second onboarding</span>
+        </div>
+        <p className="text-sm text-slate-600 dark:text-slate-400 mb-4 max-w-3xl leading-relaxed">
+          Three picks, one prescribed sequence. Skip the grid below if any of these match what's on your screen right
+          now.
+        </p>
+        <ol className="grid gap-3 sm:grid-cols-3">
+          {START_HERE.map((p, i) => (
+            <li key={p.path}>
+              <Link
+                to={p.path}
+                className="group block h-full rounded-xl border border-brand-500/20 bg-brand-50/30 dark:bg-brand-900/10 p-4 hover:border-brand-500/60 transition"
+              >
+                <div className="flex items-baseline gap-2 mb-2">
+                  <span className="font-mono text-[11px] text-brand-600 dark:text-brand-400">{`0${i + 1}`}</span>
+                  <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-slate-500">
+                    {p.path.replace('/dfir/', '')}
+                  </span>
+                </div>
+                <p className="text-sm font-medium text-slate-900 dark:text-slate-100 mb-1.5 leading-snug">
+                  {p.trigger}
+                </p>
+                <p className="text-[12px] text-slate-600 dark:text-slate-400 leading-relaxed">{p.action}</p>
+                <div className="mt-2.5 inline-flex items-center gap-1 text-[11px] font-mono text-brand-600 dark:text-brand-400 group-hover:underline">
+                  open <ArrowRight size={11} />
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ol>
+      </section>
+
       {/* Featured tools — the five tools that earn their place on the front
           door. Promotes the strong work above the category picker so a
           first-time visitor doesn't bounce off a 60-tile grid. The rest of
@@ -203,6 +332,47 @@ export default function DFIRPage(): JSX.Element {
             </Link>
           ))}
         </div>
+      </section>
+
+      {/* Used in real cases — proves the toolkit isn't an inventory. Each
+          row links a case study (already published on this site) to the
+          specific tools the case exercised, with a sentence of context.
+          Anchored to the prose body of the case study, not telemetry. */}
+      <section className="mb-12">
+        <div className="flex items-baseline justify-between mb-5">
+          <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">Used in real cases</h2>
+          <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500">tools ⇢ case studies</span>
+        </div>
+        <ul className="space-y-3">
+          {TOOL_CASES.map((tc) => (
+            <li
+              key={tc.caseSlug}
+              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-4"
+            >
+              <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1.5">
+                <Link
+                  to={tc.caseSlug}
+                  className="font-display font-semibold text-base text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400"
+                >
+                  {tc.caseTitle}
+                </Link>
+                <span className="text-[11px] font-mono text-slate-500">{tc.caseSlug}</span>
+              </div>
+              <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-2">{tc.contribution}</p>
+              <div className="flex flex-wrap gap-1.5">
+                {tc.tools.map((t) => (
+                  <Link
+                    key={t.path}
+                    to={t.path}
+                    className="text-[11px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/60 hover:text-brand-600 dark:hover:text-brand-400"
+                  >
+                    {t.label}
+                  </Link>
+                ))}
+              </div>
+            </li>
+          ))}
+        </ul>
       </section>
 
       {/* Utilities & converters — duplicative of well-known online tools

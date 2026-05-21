@@ -30,6 +30,8 @@ const Projects = lazy(() => import('./pages/Projects'));
 const CaseStudy = lazy(() => import('./pages/CaseStudy'));
 const Writeups = lazy(() => import('./pages/threatintel/Writeups'));
 const ResearchSignal = lazy(() => import('./pages/threatintel/Signal'));
+const ResearchIndex = lazy(() => import('./pages/threatintel/Research'));
+const ResearchPostPage = lazy(() => import('./pages/threatintel/ResearchPost'));
 const DFIR = lazy(() => import('./pages/DFIR'));
 
 const IocCheck = lazy(() => import('./pages/dfir/IocCheck'));
@@ -979,6 +981,30 @@ export function AppContent() {
           <ErrorBoundary>
             <Suspense fallback={<SectionLoader />}>
               <ResearchSignal />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      {/* Original Pranith-authored threat-intel research. /research is the
+          index, /research/<slug> is the read page. Lives separately from
+          /signal and /writeups (both aggregate third-party content) so
+          authored work has its own surface. */}
+      <Route
+        path="/threatintel/research"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <ResearchIndex />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/threatintel/research/:slug"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <ResearchPostPage />
             </Suspense>
           </ErrorBoundary>
         }

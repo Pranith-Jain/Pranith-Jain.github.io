@@ -192,6 +192,11 @@ const OG_OVERRIDES: Record<string, OgOverride> = {
     description:
       'Live aggregation of long-form CTI writeups from 18 analyst blogs and vendor research labs: The DFIR Report, BushidoToken, DoublePulsar, Krebs, SentinelLabs, Unit 42, Check Point Research, Huntress, and more.',
   },
+  '/threatintel/research': {
+    title: 'Threat-intel research · pranithjain.qzz.io',
+    description:
+      "Original adversary-tracking and methodology pieces written by Pranith Jain. Every quantitative claim sourced to this platform's own aggregated feeds or to named third-party reporting.",
+  },
   '/threatintel/cve-list': {
     title: 'Live CVE updates · pranithjain.qzz.io',
     description:

@@ -2,6 +2,7 @@ import { Linkedin, Github, Mail, Terminal } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { personalInfo, stats } from '../../data/content';
 import { PjMark } from '../PjMark';
+import { HeroLiveSparkline } from '../HeroLiveSparkline';
 
 export function Hero() {
   return (
@@ -26,6 +27,17 @@ export function Hero() {
             Investigating attacks at human scale.{' '}
             <span className="text-brand-600 dark:text-brand-400">Building defenders at AI scale.</span>
           </h1>
+
+          {/* Live sparkline — the headline above is a thesis statement; the
+              sparkline below is the evidence. Renders the last 30 days of
+              ransomware leak-site claims as thin SVG bars, peak day in red,
+              fetched client-side from the same /threatintel feed that
+              powers the rest of the site. This is the part of the hero
+              that says "this person specifically" — no other portfolio
+              has live threat data in its hero. SSR-safe: a flat
+              placeholder strip ships in the prerendered HTML, the live
+              data swaps in after hydration with no layout shift. */}
+          <HeroLiveSparkline />
 
           {/* Discipline line — replaces the secondary chips */}
           <div className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-medium text-slate-500 dark:text-slate-400">
