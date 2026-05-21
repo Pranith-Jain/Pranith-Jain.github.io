@@ -239,7 +239,146 @@ The "96%" number is going to be uncomfortable for the next round of vendor pitch
   published: true,
 };
 
-export const researchPosts: ResearchPost[] = [NOVA_LOCKBIT5_QILIN, IOC_CONSENSUS_NOISE_FLOOR, C2_FRAMEWORK_DOMINANCE];
+const KEV_VENDOR_CONCENTRATION: ResearchPost = {
+  slug: 'kev-vendor-concentration-may-2026',
+  title: 'Microsoft is 40% of the KEV backlog right now. The other top-five vendors carry another 23%.',
+  excerpt:
+    "22 CVEs were added to CISA's Known Exploited Vulnerabilities catalog in the last 30 days. 9 are Microsoft. That's 40% of the active-exploitation evidence the federal government has compiled, attributable to one vendor.",
+  kicker: 'Vendor analysis',
+  publishedAt: '2026-05-24',
+  readingTime: '6 min',
+  tags: ['CISA KEV', 'Patch Prioritization', 'Vendor Risk', 'Microsoft'],
+  body: `Open [/threatintel/cve-list](/threatintel/cve-list) right now, filter to KEV-added-in-window, and the breakdown reads like this: 22 entries in the last 30 days. The vendor split:
+
+\`\`\`
+9  Microsoft
+2  SimpleHelp
+1  Adobe
+1  Cisco
+1  BerriAI
+1  Ivanti
+1  Palo Alto Networks
+1  Linux
+1  WebPros (cPanel/Plesk)
+1  ConnectWise
+1  D-Link
+1  Samsung
+\`\`\`
+
+Microsoft alone is 40% of the federal government's active-exploitation evidence for the month. The top five vendors (Microsoft + SimpleHelp + the four single-CVE entries closest to the top of the alphabet) account for 14 of 22 — 64% concentration.
+
+This is the operational fact every security program has to plan around. Yet most enterprise patch-priority frameworks treat "vendor diversity" as a goal — buy from multiple vendors so a single-vendor incident doesn't take you down. KEV is telling you the opposite story: the active-exploitation distribution isn't diverse. It's anchored on a single vendor, and your patch-priority planning needs to reflect that asymmetry.
+
+## Why Microsoft dominates KEV (and will keep doing so)
+
+The cause is structural. Three factors compound:
+
+**1. Enterprise software footprint.** Most enterprises run more lines of Microsoft code (Windows, Office, Exchange, Edge, Defender, Azure agents, the developer tooling, the cloud-management plane) than any other vendor's combined. Attacker payoff scales with deployed surface area, so research effort and exploit-development effort go where the surface is largest.
+
+**2. Disclosure economics.** Microsoft's vulnerability-disclosure pipeline is one of the most mature in the industry. Patch Tuesday is a known scheduled event with a research community that publishes proof-of-concepts within days. That pipeline INCREASES the visible CVE count, which in turn increases the share that ends up actively exploited. It's not that Microsoft is uniquely broken; it's that Microsoft is uniquely watched.
+
+**3. KEV inclusion criteria.** CISA adds a CVE to KEV when active exploitation is observed AND the affected product has US-federal deployment. Microsoft hits both gates more often than any other vendor for the same reasons above. The 40% share is partly an artifact of CISA's mandate, not just attacker behaviour.
+
+None of these factors are going away. A defensive program planning for 2027 should expect Microsoft to remain 35-50% of the active-exploitation backlog as a structural constant, not a current-events anomaly.
+
+## What the SimpleHelp 2 tells you that the Microsoft 9 doesn't
+
+Two SimpleHelp CVEs on KEV in a 30-day window is the more interesting datapoint, because SimpleHelp isn't a giant enterprise vendor. It's remote-support software with a much smaller deployment surface than Windows. Two active-exploitation entries from a smaller vendor signals that adversaries have found a productive corner of the market and are working it.
+
+That's the pattern to watch for in the long tail. Microsoft 9 is structural; SimpleHelp 2 is a campaign signal. Every quarter, look for which smaller vendor moves from 0 KEV entries to 2-3. That's where targeted campaigns are concentrating attention.
+
+This quarter's other interesting tail entries:
+
+- **BerriAI (1)** — LLM router / API gateway, the kind of category that didn't exist on KEV three years ago. Active exploitation of AI-infrastructure software is now part of the steady KEV diet, not just a research-paper curiosity.
+- **WebPros / cPanel (1)** — control-panel software for shared hosting. The exploitation of these still hits small businesses and indie hosting providers harder than enterprises, but they show up on KEV because federal agencies use them too.
+- **ConnectWise (1)** — fits the same pattern as SimpleHelp. RMM and remote-support software is having a sustained moment in the active-exploitation data.
+
+## The operational reading
+
+Three concrete reads from this snapshot:
+
+1. **Plan patch capacity around the dominant vendor, not around "vendor diversity."** If 40% of the active-exploitation backlog is Microsoft, then 40% of your patch-priority capacity needs to be Microsoft-shaped. That's an uncomfortable fact for programs that pride themselves on multi-vendor hedging, but the data is what the data is.
+
+2. **Watch the RMM / remote-support category as a unit.** SimpleHelp + ConnectWise + (occasionally) AnyDesk / TeamViewer hit KEV together often enough that they function as a single category for prioritisation purposes. If you run any of them, your exposure window on the others' CVEs is shorter than the catalog implies.
+
+3. **Add LLM-infrastructure software to the patch inventory.** BerriAI's 1 entry this month, plus vLLM, Ollama, LiteLLM, and the rest are not going to stay at single-entry levels. Treat AI-infra software like a regular vendor category now, before there's an incident.
+
+Diversity is a defence-in-depth principle, not a patch-priority principle. KEV is reminding us of the distinction.
+
+---
+
+*Source: live snapshot of [/threatintel/cve-list](/threatintel/cve-list) at the time of writing (May 24, 2026), which merges NVD published-CVE-in-window with the full CISA KEV catalogue. The snapshot updates approximately hourly; refresh the linked page to see the current breakdown, which will shift as CISA adds and ages entries. Counts are computed by parsing the vendor name from the [KEV] prefix in each entry's description.*`,
+  published: true,
+};
+
+const LEAKS_VS_HIBP_METHODOLOGY: ResearchPost = {
+  slug: 'leak-listings-vs-hibp-may-2026',
+  title: 'Active leak listings vs the HIBP catalog: two different breach surfaces, two different questions',
+  excerpt:
+    "MyThreatIntel indexes 5,585 active leak listings right now. Have I Been Pwned ships 250 verified breaches covering 4.6 billion accounts. The two aren't competing; they answer different IR questions, and the difference is the methodology lesson.",
+  kicker: 'Methodology',
+  publishedAt: '2026-05-25',
+  readingTime: '6 min',
+  tags: ['Breach Disclosure', 'HIBP', 'MTI Leaks', 'IR Methodology'],
+  body: `The [/threatintel/breach-disclosures](/threatintel/breach-disclosures) surface on this platform now carries two side-by-side panels: an active leak listings panel sourced from MyThreatIntel and the canonical Have I Been Pwned corpus below it. Today's snapshot has 5,585 records on the upstream MTI side and 250 records on the HIBP side. Those numbers feel mismatched until you sit with what each list is *for*.
+
+This piece is about that mismatch. Treating breach-disclosure data as one undifferentiated stream is the most common mistake I see in CTI program design. The MTI firehose and the HIBP catalog answer different IR questions, and the value of running both is that the difference is the signal.
+
+## What HIBP is for
+
+HIBP is the canonical post-disclosure record. By the time a breach lands on Troy Hunt's catalogue, the data has been authenticated against the affected organisation, the data classes (email addresses, passwords, phone numbers, etc.) have been enumerated, verification status has been adjudicated, and the entry carries flags for sensitive-content and spam-list status. 246 of the 250 entries in today's HIBP feed are marked Verified.
+
+The total deduplicated account count across those 250 entries is **4.6 billion**. Not 4.6 million — 4.6 billion. HIBP carries the depth.
+
+The job HIBP is built for: "Is *this organisation's* breach publicly known, and what kind of data was exposed?" If you're investigating a customer-facing incident, scoping a security-awareness pivot after a third-party breach, or planning a credential-rotation campaign tied to a specific organisation's compromise, HIBP is the catalog you check.
+
+What HIBP is not built for: speed. The lag between a data dump appearing on a forum and the same data appearing on HIBP is typically weeks to months. Sometimes it never lands on HIBP at all (fake dumps, retired claims, dumps re-claimed under a different name, dumps too small to qualify for catalogisation).
+
+## What MTI leaks is for
+
+MTI leaks is the active firehose. The records are forum-posted dumps, scraped databases, sale listings on cybercrime marketplaces, and the raw category of "someone says they have data X." There's no verification step, no data-class enumeration, no sensitivity flag. The records are what was *actively shopping* this week.
+
+Today's MTI snapshot includes a 348MB betterment.com dump, a 51MB edmunds.com listing, multi-gigabyte cargurus.co.uk and totalvia.com.br files, and the kind of obscure long-tail (small Brazilian e-commerce, regional French nonprofits) that HIBP won't catch for months if at all.
+
+The job MTI leaks is built for: "What's being actively shopped or scraped this week?" If you're running brand-protection monitoring, helping a third party with breach response in real time, or trying to surface the leading edge of a campaign before HIBP catches up, MTI is the firehose to watch.
+
+What MTI is not built for: confidence. Many of those 5,585 records are fake, recycled, exaggerated, or already part of a larger known dump. The signal-to-noise ratio is much worse than HIBP's. Treating an MTI listing as authoritative without independent verification is the bear-trap.
+
+## The composite picture
+
+The right way to consume both is in sequence:
+
+1. **MTI is the first signal.** A new listing for a domain you care about is the early warning. Triage it quickly: is the dump unique, or is it recycled from a known prior breach? If unique, escalate to whatever your IR or comms workflow requires *before* HIBP catalogues it.
+
+2. **HIBP is the durable record.** Once a dump has been confirmed and catalogued, HIBP gives you the verified data-class breakdown that supports concrete actions (which credentials to rotate, what kind of awareness messaging is needed).
+
+3. **The delta between the two is itself an analytical product.** Listings on MTI that *never* appear on HIBP are an interesting class. Sometimes that's because the listing was fake. Sometimes it's because the targeted organisation suppressed disclosure. Sometimes it's because the dump was too small or too jurisdictionally-niche to make the canonical record. Tracking which is which over a quarter teaches you a lot about which organisations actually respond to breach signals and which try to wait them out.
+
+## What this means for IR program design
+
+Three concrete prescriptions:
+
+1. **Don't pick one.** Programs that run only HIBP miss the active firehose; programs that run only MTI leaks chase ghosts. The combination is what produces a complete picture.
+
+2. **Anchor your decision rule on what HIBP confirms, not on what MTI suggests.** If your IR escalation path is triggered by an MTI listing alone, you'll fire on fakes. If it's triggered only by HIBP confirmation, you'll lag the adversary by weeks. The right rule: monitor MTI for early signal, confirm via independent verification before acting, and use HIBP as the post-confirmation system of record.
+
+3. **Track the unique-to-MTI cohort separately.** The listings that never make it to HIBP carry their own analytical value. They're either the failure modes (fake, suppressed, niche) or the active-but-unconfirmed leading edge. Either category is worth measuring as its own quarterly metric.
+
+The same cross-source consensus principle that drives the IOC correlation surface drives this. Two independent surfaces telling the same story is the signal; either surface alone is noise pretending to be information.
+
+---
+
+*Source data: live snapshots of [/threatintel/breach-disclosures](/threatintel/breach-disclosures) on May 25, 2026. The MTI leaks panel proxies the MyThreatIntel \`source=leaks\` endpoint (200 of ~5,585 historical records returned per request, refreshed every 60 minutes). The HIBP panel proxies the canonical [haveibeenpwned.com/api/v3/breaches](https://haveibeenpwned.com/) catalog (250 most-recent entries by added date). Counts shift as MTI ingests new listings and HIBP catalogues new disclosures; refresh the page to see current numbers.*`,
+  published: true,
+};
+
+export const researchPosts: ResearchPost[] = [
+  NOVA_LOCKBIT5_QILIN,
+  IOC_CONSENSUS_NOISE_FLOOR,
+  C2_FRAMEWORK_DOMINANCE,
+  KEV_VENDOR_CONCENTRATION,
+  LEAKS_VS_HIBP_METHODOLOGY,
+];
 
 export const publishedResearch = (): ResearchPost[] =>
   researchPosts.filter((p) => p.published).sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
