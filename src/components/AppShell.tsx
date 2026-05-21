@@ -1,8 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { Command, Menu, Moon, Sun, X, type LucideIcon } from 'lucide-react';
+import { Command, Moon, Sun, type LucideIcon } from 'lucide-react';
 import { preloadRoute } from '../lib/route-preloaders';
-import { useFocusTrap } from '../hooks/useFocusTrap';
 
 /**
  * App-shell chrome for the two stand-alone surfaces hosted next to the
@@ -101,35 +100,28 @@ function AppHeader({
   isDark: boolean;
   onToggleTheme: () => void;
 }): JSX.Element {
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const location = useLocation();
-  const drawerRef = useFocusTrap({ isActive: mobileOpen, onEscape: () => setMobileOpen(false) });
-
-  // Auto-close the drawer when the route changes (link tap) — depending on
-  // useLocation alone isn't enough because the same Link can be tapped while
-  // already on that path.
-  useEffect(() => setMobileOpen(false), [location.pathname]);
-
-  // Lock body scroll while the drawer is open so the page underneath doesn't
-  // scroll under the user's finger. ESC to dismiss.
-  useEffect(() => {
-    if (!mobileOpen) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setMobileOpen(false);
-    };
-    window.addEventListener('keydown', onKey);
-    return () => {
-      document.body.style.overflow = prev;
-      window.removeEventListener('keydown', onKey);
-    };
-  }, [mobileOpen]);
+  /**
+   * Mobile UX redesign 2026-05-21: the hamburger + drawer pattern is gone.
+   * The previous version had a Menu trigger on mobile that opened a
+   * right-side drawer; user feedback flagged that as a "3-dot menu" that
+   * read as filler, with the section indicator + nav buried behind it.
+   *
+   * New shape on every viewport: brand on the left, the in-app nav
+   * scrolling horizontally inline (with a fade-mask at the edges so the
+   * scrollability is obvious), theme toggle on the right. One tap to
+   * any section, no interstitial drawer, no focus trap, no body-scroll
+   * lock, no auto-close-on-route effects. The desktop experience is
+   * unchanged because the nav was already inline at md+; mobile now
+   * uses the same nav with smaller padding and an active-pill that
+   * survives the horizontal scroll.
+   */
 
   return (
     <header className="sticky top-0 z-40 border-b border-slate-200/60 dark:border-white/10 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-12 flex items-center gap-4">
-        {/* Brand */}
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 h-12 flex items-center gap-2 sm:gap-4">
+        {/* Brand. The long form "/ dfir toolkit" is dropped below sm so the
+            nav has the most space. The short label keeps the surface
+            identity (DFIR / TI) visible in the very-left position. */}
         <Link to={nav[0]?.to ?? '/'} className="flex items-baseline gap-2 shrink-0">
           <span className={`font-mono font-bold text-sm ${brand.accent}`}>{brand.short}</span>
           <span className="hidden sm:inline text-[11px] font-mono text-slate-500 dark:text-slate-500">
@@ -137,8 +129,18 @@ function AppHeader({
           </span>
         </Link>
 
-        {/* In-app nav (md+) */}
-        <nav className="flex-1 hidden md:flex items-center gap-0.5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [mask-image:linear-gradient(to_right,transparent,#000_16px,#000_calc(100%-16px),transparent)]">
+        {/* In-app nav — now visible on every viewport. Horizontal scroll
+            with hidden scrollbar + edge fade-mask, so a phone user sees
+            three or four tabs at once and can flick to the rest. Padding
+            is slightly tighter on mobile so more items fit per visible
+            slice. Each link is at least 32px tall, which combined with
+            the 12-character labels keeps tap targets large enough on a
+            phone (Apple HIG recommends 44pt minimum; ours run ~38–44pt
+            depending on label length). */}
+        <nav
+          aria-label={`${brand.long} navigation`}
+          className="flex-1 flex items-center gap-0.5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [mask-image:linear-gradient(to_right,transparent,#000_16px,#000_calc(100%-16px),transparent)]"
+        >
           {nav.map((item) => {
             const active = isActive(item);
             return (
@@ -147,7 +149,7 @@ function AppHeader({
                 to={item.to}
                 onMouseEnter={() => preloadRoute(item.to)}
                 onFocus={() => preloadRoute(item.to)}
-                className={`text-[12px] font-mono px-2.5 py-1 rounded transition-colors whitespace-nowrap ${
+                className={`text-[12px] font-mono px-2 sm:px-2.5 py-1.5 sm:py-1 rounded transition-colors whitespace-nowrap ${
                   active
                     ? 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800'
@@ -159,90 +161,20 @@ function AppHeader({
           })}
         </nav>
 
-        {/* Mobile-friendly nav indicator. Renders the current nav item's
-            label when one matches; renders nothing otherwise. The previous
-            `'…'` fallback showed up as a three-dot string in the header for
-            any sub-route not in the top-level nav (most of them, since the
-            top nav only carries the surface roots), and read as an
-            unlabeled overflow menu to mobile users. The page heading
-            already tells the user where they are, so no replacement label
-            is needed when nav doesn't match. */}
-        <div className="flex-1 md:hidden font-mono text-[11px] text-slate-600 dark:text-slate-400 truncate">
-          {nav.find((n) => isActive(n))?.label ?? ''}
-        </div>
-
-        {/* Utility row */}
-        <div className="flex items-center gap-2 sm:gap-1 shrink-0">
+        {/* Utility row — theme toggle only on mobile; CmdkHint joins on
+            sm+ since the keyboard shortcut isn't usable on a phone. */}
+        <div className="flex items-center gap-1 shrink-0">
           <CmdkHint />
           <button
             type="button"
             onClick={onToggleTheme}
             aria-label="Toggle theme"
-            className="min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 p-2.5 sm:p-1.5 rounded inline-flex items-center justify-center text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800"
+            className="min-h-[36px] min-w-[36px] sm:min-h-0 sm:min-w-0 p-2 sm:p-1.5 rounded inline-flex items-center justify-center text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800"
           >
             {isDark ? <Sun size={14} /> : <Moon size={14} />}
           </button>
-          {/* Mobile menu trigger */}
-          <button
-            type="button"
-            onClick={() => setMobileOpen(true)}
-            aria-label="Open navigation menu"
-            aria-expanded={mobileOpen}
-            aria-controls="appshell-mobile-nav"
-            className="md:hidden min-h-[44px] min-w-[44px] p-2.5 rounded inline-flex items-center justify-center text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800"
-          >
-            <Menu size={16} />
-          </button>
         </div>
       </div>
-
-      {/* Mobile nav drawer */}
-      {mobileOpen && (
-        <div className="md:hidden fixed inset-0 z-50" ref={drawerRef as React.RefObject<HTMLDivElement>}>
-          <button
-            type="button"
-            aria-label="Close navigation menu"
-            onClick={() => setMobileOpen(false)}
-            className="absolute inset-0 bg-slate-900/50 dark:bg-black/60 backdrop-blur-sm"
-          />
-          <nav
-            id="appshell-mobile-nav"
-            aria-label={`${brand.long} navigation`}
-            className="absolute right-0 top-0 bottom-0 w-72 max-w-[85vw] bg-white dark:bg-slate-950 border-l border-slate-200 dark:border-slate-800 shadow-2xl flex flex-col"
-          >
-            <div className="flex items-center justify-between h-12 px-4 border-b border-slate-200 dark:border-slate-800">
-              <span className={`font-mono font-bold text-sm ${brand.accent}`}>{brand.short}</span>
-              <button
-                type="button"
-                onClick={() => setMobileOpen(false)}
-                aria-label="Close navigation menu"
-                className="p-2 rounded text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800"
-              >
-                <X size={16} />
-              </button>
-            </div>
-            <ul className="flex-1 overflow-y-auto p-2">
-              {nav.map((item) => {
-                const active = isActive(item);
-                return (
-                  <li key={item.to}>
-                    <Link
-                      to={item.to}
-                      className={`block font-mono text-sm px-3 py-3 rounded transition-colors ${
-                        active
-                          ? 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100'
-                          : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
-                      }`}
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </nav>
-        </div>
-      )}
     </header>
   );
 }

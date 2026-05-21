@@ -512,13 +512,22 @@ async function fetchPrerenderedOrShell(
     h.set('x-ssr-source', 'shell-fallback-404');
     return new Response(body, { status: r.status, statusText: r.statusText, headers: h });
   }
-  const headers = new Headers(prerenderRes.headers);
+  // Apply the OG rewrite to the prerendered HTML before the nonce pass.
+  // Without this, prerendered routes (everything in PRERENDERED_ROUTES,
+  // notably /, /threatintel, /dfir, /projects) shipped the build-time
+  // index.html metadata — meaning every share-preview, canonical URL,
+  // and title was the portfolio default regardless of which surface
+  // the visitor actually landed on. The fallback (SPA-shell) branch
+  // already ran getOrInjectOg(); this brings the prerendered branch
+  // into parity. Same per-route OG_OVERRIDES drive both branches now.
+  const ogRewritten = await injectOgMeta(prerenderRes, url, env);
+  const headers = new Headers(ogRewritten.headers);
   headers.set('cache-control', `public, max-age=${OG_CACHE_TTL_SECONDS}`);
   headers.set('x-ssr-source', 'prerendered');
-  const body = injectScriptNonce(await prerenderRes.text(), nonce);
+  const body = injectScriptNonce(await ogRewritten.text(), nonce);
   return new Response(body, {
-    status: prerenderRes.status,
-    statusText: prerenderRes.statusText,
+    status: ogRewritten.status,
+    statusText: ogRewritten.statusText,
     headers,
   });
 }
