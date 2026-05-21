@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
-import { findResearchPost } from '../../data/threatintel/research';
+import { ArrowLeft, ArrowRight, FileText } from 'lucide-react';
+import { findResearchPost, publishedResearch } from '../../data/threatintel/research';
 
 /**
  * /threatintel/research/<slug> — long-form read page for a Pranith-
@@ -69,8 +69,12 @@ export default function ResearchPost(): JSX.Element {
 
   if (!post) return <Navigate to="/threatintel/research" replace />;
 
+  // Sibling research pieces (excluding the current one), for the
+  // bottom-of-post navigation. Same source as the index page.
+  const others = publishedResearch().filter((r) => r.slug !== post.slug);
+
   return (
-    <main className="max-w-3xl mx-auto px-6 py-10 text-slate-900 dark:text-slate-100">
+    <main className="max-w-3xl mx-auto px-4 sm:px-6 py-10 text-slate-900 dark:text-slate-100">
       <Link
         to="/threatintel/research"
         className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.16em] text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 mb-6"
@@ -78,13 +82,18 @@ export default function ResearchPost(): JSX.Element {
         <ArrowLeft size={12} /> all research
       </Link>
 
-      <header className="mb-8">
+      <header className="mb-10 pb-6 border-b border-slate-200 dark:border-slate-800">
         <div className="text-[11px] font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400">
           {post.kicker}
         </div>
-        <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight mt-2 leading-tight">{post.title}</h1>
+        {/* text-balance: lets the browser pick a more natural line-break
+            point on the long title rather than ragged-right wrapping at
+            the column width. */}
+        <h1 className="font-display text-3xl sm:text-4xl font-bold tracking-tight mt-2 leading-tight text-balance">
+          {post.title}
+        </h1>
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-500 mt-4">
-          <span>Pranith Jain</span>
+          <span className="text-slate-700 dark:text-slate-300 font-medium">Pranith Jain</span>
           <span aria-hidden="true">·</span>
           <time dateTime={post.publishedAt}>
             {new Date(post.publishedAt).toLocaleDateString('en-US', {
@@ -130,7 +139,11 @@ export default function ResearchPost(): JSX.Element {
             '[&_li]:leading-relaxed ' +
             '[&_strong]:text-slate-900 [&_strong]:dark:text-white [&_strong]:font-semibold ' +
             '[&_code]:font-mono [&_code]:text-[0.9em] [&_code]:bg-slate-100 [&_code]:dark:bg-slate-800 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded ' +
-            '[&_pre]:bg-slate-900 [&_pre]:dark:bg-slate-950 [&_pre]:text-slate-100 [&_pre]:p-4 [&_pre]:rounded-lg [&_pre]:overflow-x-auto [&_pre]:my-4 [&_pre]:text-[13px] [&_pre_code]:bg-transparent [&_pre_code]:text-inherit [&_pre_code]:px-0 ' +
+            // pre gets explicit font-mono (defensive — preflight already
+            // sets it, but being explicit guards against future utility
+            // overrides). text-[12px] keeps long-ish console output
+            // readable inside the column width.
+            '[&_pre]:bg-slate-900 [&_pre]:dark:bg-slate-950 [&_pre]:text-slate-100 [&_pre]:p-4 [&_pre]:rounded-lg [&_pre]:overflow-x-auto [&_pre]:my-5 [&_pre]:text-[12px] [&_pre]:font-mono [&_pre]:leading-relaxed [&_pre_code]:bg-transparent [&_pre_code]:text-inherit [&_pre_code]:px-0 [&_pre_code]:whitespace-pre ' +
             '[&_blockquote]:border-l-2 [&_blockquote]:border-brand-500/40 [&_blockquote]:pl-4 [&_blockquote]:my-4 [&_blockquote]:italic [&_blockquote]:text-slate-600 [&_blockquote]:dark:text-slate-400 ' +
             '[&_hr]:my-8 [&_hr]:border-slate-200 [&_hr]:dark:border-slate-800 ' +
             '[&_em]:italic'
@@ -138,6 +151,60 @@ export default function ResearchPost(): JSX.Element {
           dangerouslySetInnerHTML={{ __html: html }}
         />
       )}
+
+      {/* End-of-post navigation. After 7+ minutes of reading the user is
+          left at the bottom of the page with no obvious next action;
+          this gives them an index link plus pointers to other research
+          pieces so they don't have to scroll back to the top to navigate. */}
+      <nav aria-labelledby="post-end-nav" className="mt-16 pt-8 border-t border-slate-200 dark:border-slate-800">
+        <h2 id="post-end-nav" className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500 mb-4">
+          Continue
+        </h2>
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+          <Link
+            to="/threatintel/research"
+            className="inline-flex items-center gap-2 text-sm font-mono text-brand-600 dark:text-brand-400 hover:underline"
+          >
+            <ArrowLeft size={14} /> all research
+          </Link>
+          <Link
+            to="/threatintel"
+            className="inline-flex items-center gap-2 text-sm font-mono text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
+          >
+            threat intel platform <ArrowRight size={14} />
+          </Link>
+        </div>
+
+        {others.length > 0 && (
+          <div>
+            <div className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500 mb-3">Other research</div>
+            <ul className="grid gap-2 sm:grid-cols-2">
+              {others.slice(0, 4).map((r) => (
+                <li key={r.slug}>
+                  <Link
+                    to={`/threatintel/research/${r.slug}`}
+                    className="group flex h-full items-start gap-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-3 transition hover:border-brand-500/40"
+                  >
+                    <FileText
+                      size={14}
+                      className="shrink-0 mt-0.5 text-brand-600 dark:text-brand-400"
+                      aria-hidden="true"
+                    />
+                    <div className="min-w-0 flex-1">
+                      <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-slate-500 mb-0.5">
+                        {r.kicker}
+                      </div>
+                      <div className="text-sm font-medium text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors leading-snug">
+                        {r.title}
+                      </div>
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </nav>
     </main>
   );
 }
