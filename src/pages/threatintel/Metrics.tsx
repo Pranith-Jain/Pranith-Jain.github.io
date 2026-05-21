@@ -474,18 +474,44 @@ export default function Metrics(): JSX.Element {
 
   /* ─── Derived metrics ─── */
 
+  /**
+   * Set of UTC calendar-day keys covering the user-selected window. Every
+   * ransomware-derived panel filters against this, so each panel's
+   * row counts can sum to the StatBar headline count and to the
+   * ransomware cadence chart bar sum. Was a rolling 168-hour
+   * `withinDays(v.discovered, windowDays)` per-call check which counted
+   * a partial day at the trailing edge — caused the "239 vs 231" surface
+   * inconsistency users hit. windowDays still drives N: 7d = 7 UTC dates,
+   * 30d = 30 UTC dates, 90d = 90 UTC dates.
+   */
+  const ransomwareWindowDayKeys = useMemo<Set<string>>(() => {
+    const days = new Set<string>();
+    const now = new Date();
+    for (let i = 0; i < windowDays; i += 1) {
+      days.add(new Date(now.getTime() - i * 86400_000).toISOString().slice(0, 10));
+    }
+    return days;
+  }, [windowDays]);
+
+  const inRansomwareWindow = (iso: string): boolean => {
+    const t = Date.parse(iso);
+    if (Number.isNaN(t)) return false;
+    return ransomwareWindowDayKeys.has(new Date(t).toISOString().slice(0, 10));
+  };
+
   const topRansomwareGroups = useMemo<HBarItem[]>(() => {
     if (!state.ransomware) return [];
     const map = new Map<string, number>();
     for (const v of state.ransomware) {
-      if (!withinDays(v.discovered, windowDays)) continue;
+      if (!inRansomwareWindow(v.discovered)) continue;
       map.set(v.group, (map.get(v.group) ?? 0) + 1);
     }
     return [...map.entries()]
       .map(([label, value]) => ({ label, value }))
       .sort((a, b) => b.value - a.value)
       .slice(0, 10);
-  }, [state.ransomware, windowDays]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.ransomware, ransomwareWindowDayKeys]);
 
   // MyThreatIntel: which currently-active ransomware groups carry a
   // MyThreatIntel actor profile, ranked by their recent victim volume.
@@ -496,7 +522,7 @@ export default function Metrics(): JSX.Element {
     const profiled = new Set(state.mtiGroups.map((g) => g.group_id.toLowerCase()));
     const map = new Map<string, number>();
     for (const v of state.ransomware) {
-      if (!withinDays(v.discovered, windowDays)) continue;
+      if (!inRansomwareWindow(v.discovered)) continue;
       if (!profiled.has(v.group.toLowerCase())) continue;
       map.set(v.group, (map.get(v.group) ?? 0) + 1);
     }
@@ -504,7 +530,8 @@ export default function Metrics(): JSX.Element {
       .map(([label, value]) => ({ label, value }))
       .sort((a, b) => b.value - a.value)
       .slice(0, 12);
-  }, [state.ransomware, state.mtiGroups, windowDays]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.ransomware, state.mtiGroups, ransomwareWindowDayKeys]);
 
   // 11. NEW — country-origin of malicious IPs. data.threatMap.countries was
   // already being fetched but never visualised. Plain HBar; not gated by
@@ -703,7 +730,7 @@ export default function Metrics(): JSX.Element {
     if (!state.ransomware) return [];
     const map = new Map<string, number>();
     for (const v of state.ransomware) {
-      if (!withinDays(v.discovered, windowDays)) continue;
+      if (!inRansomwareWindow(v.discovered)) continue;
       const s = v.sector || 'Unknown';
       if (s === 'Unknown') continue;
       map.set(s, (map.get(s) ?? 0) + 1);
@@ -712,15 +739,17 @@ export default function Metrics(): JSX.Element {
       .map(([label, value]) => ({ label, value }))
       .sort((a, b) => b.value - a.value)
       .slice(0, 10);
-  }, [state.ransomware, windowDays]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.ransomware, ransomwareWindowDayKeys]);
 
   const sectorClassifiedPct = useMemo(() => {
     if (!state.ransomware?.length) return 0;
-    const within = state.ransomware.filter((v) => withinDays(v.discovered, windowDays));
+    const within = state.ransomware.filter((v) => inRansomwareWindow(v.discovered));
     if (!within.length) return 0;
     const known = within.filter((v) => v.sector && v.sector !== 'Unknown').length;
     return Math.round((known / within.length) * 100);
-  }, [state.ransomware, windowDays]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.ransomware, ransomwareWindowDayKeys]);
 
   /** Top vendors on the KEV catalogue. Parsed from "[KEV] Vendor Product:" prefix in description. */
   const topKevVendors = useMemo<HBarItem[]>(() => {
@@ -899,7 +928,25 @@ export default function Metrics(): JSX.Element {
 
   /* ─── Summary header counts ─── */
   const summary = useMemo(() => {
-    const r = state.ransomware?.filter((v) => withinDays(v.discovered, windowDays)).length ?? 0;
+    // Ransomware count uses calendar-day buckets (windowDays UTC dates,
+    // today + N-1 prior) to match the ransomware cadence chart, the
+    // headline read panel, and the hero sparkline on /. The old
+    // `withinDays` filter used a rolling 168-hour window which counted
+    // a partial day at the trailing edge that the chart's calendar
+    // buckets excluded — that's the 239-vs-231 discrepancy users hit.
+    let r = 0;
+    if (state.ransomware) {
+      const now = new Date();
+      const windowDayKeys = new Set<string>();
+      for (let i = 0; i < windowDays; i += 1) {
+        windowDayKeys.add(new Date(now.getTime() - i * 86400_000).toISOString().slice(0, 10));
+      }
+      for (const v of state.ransomware) {
+        const t = Date.parse(v.discovered);
+        if (Number.isNaN(t)) continue;
+        if (windowDayKeys.has(new Date(t).toISOString().slice(0, 10))) r += 1;
+      }
+    }
     const c = state.cves?.length ?? 0;
     const kevCount = state.cves?.filter((x) => x.kev).length ?? 0;
     const p = state.phishing?.length ?? 0;
