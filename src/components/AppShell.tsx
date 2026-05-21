@@ -76,8 +76,16 @@ export function AppShell({ mode, isDark, onToggleTheme, children }: AppShellProp
   const isActive = (item: NavItem) =>
     item.exact ? location.pathname === item.to : location.pathname.startsWith(item.to);
 
+  // No `overflow-x-clip` on the outer wrapper. AppShell has no decorative
+  // blobs (those live in Layout's portfolio routes), so the clip rule
+  // was purely defensive against wide children. In practice it was
+  // silently clipping legitimately-wide content on mobile (tables,
+  // code blocks, the actor-timeline grid) so the user couldn't scroll
+  // to see it. Removing the clip lets the document's native horizontal
+  // scroll engage on the rare wide-child case. Sticky AppHeader keeps
+  // working because we didn't introduce any scroll-container parent.
   return (
-    <div className="min-h-screen flex flex-col overflow-x-clip text-slate-900 dark:text-slate-50">
+    <div className="min-h-screen flex flex-col text-slate-900 dark:text-slate-50">
       <AppHeader brand={brand} nav={nav} isActive={isActive} isDark={isDark} onToggleTheme={onToggleTheme} />
       <main id="main-content" className="flex-1">
         {children}
