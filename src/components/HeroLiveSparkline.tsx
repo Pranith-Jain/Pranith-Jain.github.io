@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { RefreshCw } from 'lucide-react';
 
 /**
  * Hero-section sparkline that renders the last 7 days of ransomware
@@ -36,6 +37,21 @@ function dayKey(iso: string): string {
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return '';
   return d.toISOString().slice(0, 10);
+}
+
+/**
+ * Compact "fresh N min ago" label for the freshness indicator. Stays
+ * short to fit beside the existing caption — "just now" for <60s,
+ * "Nm ago" for minutes, "Nh ago" for hours. Never renders seconds
+ * (jitter would draw the eye to a re-render every second; the polling
+ * interval makes the freshness change every 5 minutes anyway).
+ */
+function relativeAge(timestamp: number): string {
+  const diff = Math.max(0, Date.now() - timestamp) / 1000;
+  if (diff < 60) return 'just now';
+  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
+  return `${Math.floor(diff / 86400)}d ago`;
 }
 
 /**
@@ -85,27 +101,92 @@ function computeBars(victims: RansomwareVictim[]): ComputedBars {
   return { bars, peakIdx, max: Math.max(max, 1), total };
 }
 
+/**
+ * How often the sparkline re-polls the API while the page is visible.
+ * Backend cache TTL is 15 min, so 5 min is the right cadence — the user
+ * sees the latest cached payload at most ~5 min after it rotates, while
+ * the worker handles at most 3 client polls per cache cycle per visitor.
+ * The poll is paused when document.visibilityState !== 'visible' so
+ * backgrounded tabs don't burn API calls or warm the wrong cache region.
+ */
+const POLL_INTERVAL_MS = 5 * 60 * 1000;
+
 export function HeroLiveSparkline(): JSX.Element {
   const [data, setData] = useState<ComputedBars | null>(null);
   const [failed, setFailed] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const [fetchedAt, setFetchedAt] = useState<number | null>(null);
+  const cancelledRef = useRef(false);
 
-  useEffect(() => {
-    let cancelled = false;
-    void (async () => {
-      try {
-        const r = await fetch('/api/v1/ransomware-recent');
-        if (!r.ok) throw new Error(`upstream ${r.status}`);
-        const j = (await r.json()) as { victims?: RansomwareVictim[] };
-        if (cancelled) return;
-        setData(computeBars(j.victims ?? []));
-      } catch {
-        if (!cancelled) setFailed(true);
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
+  // The actual fetch + state-update. Reused by initial-mount, the
+  // visibility-aware polling loop, AND the manual refresh button. Sends
+  // a cache-busting query string so a user who hits "refresh" right
+  // after a backend-cache rotation gets the new payload immediately
+  // instead of the previously-cached one.
+  const reload = useCallback(async (manual = false): Promise<void> => {
+    if (manual) setRefreshing(true);
+    try {
+      const url = manual ? `/api/v1/ransomware-recent?cb=${Date.now()}` : '/api/v1/ransomware-recent';
+      const r = await fetch(url);
+      if (!r.ok) throw new Error(`upstream ${r.status}`);
+      const j = (await r.json()) as { victims?: RansomwareVictim[] };
+      if (cancelledRef.current) return;
+      setData(computeBars(j.victims ?? []));
+      setFetchedAt(Date.now());
+      setFailed(false);
+    } catch {
+      if (!cancelledRef.current) setFailed(true);
+    } finally {
+      if (!cancelledRef.current && manual) setRefreshing(false);
+    }
   }, []);
+
+  // Initial fetch + visibility-aware polling. The interval pauses while
+  // the tab is backgrounded; when it returns to foreground we fetch
+  // immediately (so a user switching back to the tab after an hour
+  // doesn't keep seeing the stale data for another five minutes).
+  useEffect(() => {
+    cancelledRef.current = false;
+    void reload();
+
+    let intervalId: number | undefined;
+
+    const startPolling = (): void => {
+      if (intervalId === undefined) {
+        intervalId = window.setInterval(() => void reload(), POLL_INTERVAL_MS);
+      }
+    };
+    const stopPolling = (): void => {
+      if (intervalId !== undefined) {
+        window.clearInterval(intervalId);
+        intervalId = undefined;
+      }
+    };
+
+    const onVisibility = (): void => {
+      if (document.visibilityState === 'visible') {
+        void reload(); // catch up immediately on return
+        startPolling();
+      } else {
+        stopPolling();
+      }
+    };
+
+    if (typeof document !== 'undefined' && document.visibilityState === 'visible') {
+      startPolling();
+    }
+    if (typeof document !== 'undefined') {
+      document.addEventListener('visibilitychange', onVisibility);
+    }
+
+    return () => {
+      cancelledRef.current = true;
+      stopPolling();
+      if (typeof document !== 'undefined') {
+        document.removeEventListener('visibilitychange', onVisibility);
+      }
+    };
+  }, [reload]);
 
   // Render contract: while loading or failed, show the same 30-bar strip
   // at a flat 30% height. Keeps the hero layout fixed regardless of
@@ -176,12 +257,15 @@ export function HeroLiveSparkline(): JSX.Element {
           );
         })}
       </svg>
-      <div className="mt-1.5 flex items-baseline justify-between text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-500">
-        <span>
+      <div className="mt-1.5 flex items-baseline justify-between gap-2 text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-500">
+        <span className="truncate">
           {isLive ? (
             <>
               ransomware claims · last 7d ·{' '}
               <span className="text-brand-600 dark:text-brand-400">{display.total} total</span>
+              {fetchedAt && (
+                <span className="ml-2 normal-case tracking-normal text-slate-400">· {relativeAge(fetchedAt)}</span>
+              )}
             </>
           ) : failed ? (
             'ransomware cadence · live data unavailable'
@@ -189,12 +273,24 @@ export function HeroLiveSparkline(): JSX.Element {
             'ransomware cadence · loading'
           )}
         </span>
-        <Link
-          to="/threatintel/ransomware-activity"
-          className="text-brand-600 dark:text-brand-400 hover:underline normal-case tracking-normal"
-        >
-          /threatintel ↗
-        </Link>
+        <span className="inline-flex items-center gap-2 shrink-0">
+          <button
+            type="button"
+            onClick={() => void reload(true)}
+            disabled={refreshing}
+            aria-label="Refresh ransomware claim cadence"
+            title="Refresh now"
+            className="inline-flex items-center text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition disabled:opacity-50"
+          >
+            <RefreshCw size={11} aria-hidden="true" className={refreshing ? 'animate-spin' : undefined} />
+          </button>
+          <Link
+            to="/threatintel/ransomware-activity"
+            className="text-brand-600 dark:text-brand-400 hover:underline normal-case tracking-normal"
+          >
+            /threatintel ↗
+          </Link>
+        </span>
       </div>
       <style>{`
         @keyframes hero-bar-rise {

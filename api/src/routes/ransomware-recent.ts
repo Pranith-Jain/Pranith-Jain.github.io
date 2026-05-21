@@ -23,7 +23,16 @@ import { fetchMtiSource, type MtiRansomwareClaim } from '../lib/mythreatintel-ap
 /** Exported so /api/v1/snapshot can read the same cached payload directly. */
 export const RANSOMWARE_RECENT_CACHE_KEY = 'https://ransomware-recent-cache.internal/v8-af-source';
 const CACHE_KEY = RANSOMWARE_RECENT_CACHE_KEY;
-const CACHE_TTL_SECONDS = 3600;
+/**
+ * Edge-cache TTL on the merged ransomware feed. Was 1 hour, which made
+ * the hero sparkline on / feel stale to repeat visitors — the same
+ * "231 claims · last 7d" number on multiple loads inside the same hour.
+ * Cut to 15 minutes so a manual refresh (or the client's own polling
+ * loop in HeroLiveSparkline) reflects new upstream data within a quarter
+ * hour while still keeping the upstream merge cheap (one origin
+ * recomputation per ~15 min per edge region).
+ */
+const CACHE_TTL_SECONDS = 900;
 const FETCH_TIMEOUT_MS = 15_000;
 const UPSTREAM = 'https://www.ransomlook.io/api/recent';
 /** Secondary tracker. RSS of victim claims. Independently aggregated. */
