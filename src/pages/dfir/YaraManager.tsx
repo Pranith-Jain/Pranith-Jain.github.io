@@ -16,15 +16,26 @@ interface YaraRule {
 
 const STORAGE_KEY = 'dfir-yara-rules:v1';
 
-const TEMPLATE_RULE = `rule NewRule
+/**
+ * Starter rule. Detects the PowerShell encoded-command flag pattern as a
+ * concrete, low-risk example — common in initial-access tradecraft and a
+ * good first hit a new analyst will recognise. Replace the rule body
+ * before saving; the meta block documents the intent so the rule
+ * remains readable in shared rule packs.
+ */
+const TEMPLATE_RULE = `rule PowerShellEncodedCommand
 {
     meta:
         author = "analyst"
-        description = "TODO"
+        description = "Detects PowerShell launched with -EncodedCommand or -enc — common in initial-access tradecraft. Pair with a parent-process filter in your hunting query."
+        date = "${new Date().toISOString().slice(0, 10)}"
+        reference = "MITRE T1059.001"
     strings:
-        $s1 = "malicious" nocase
+        $a1 = "powershell" nocase
+        $a2 = "-EncodedCommand" nocase
+        $a3 = " -enc " nocase
     condition:
-        $s1
+        $a1 and ($a2 or $a3)
 }`;
 
 const DEFAULT_CATEGORIES = ['malware', 'phishing', 'ransomware', 'c2', 'suspicious', 'custom'];

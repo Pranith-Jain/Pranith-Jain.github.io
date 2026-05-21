@@ -909,12 +909,29 @@ function buildExecutiveSummary(args: {
 }
 
 function buildStats(findings: BriefingFinding[], sections: BriefingSection[], iocsTotal: number): BriefingStats {
+  // `findings` is the CVE-derived findings array (KEV + NVD + MTI CVE).
+  // The rendered briefing has MORE findings than that: the MTI
+  // ransomware section is pushed in separately and never enters the
+  // `findings` array, so counting `findings.length` for the top-line
+  // total mislabeled the briefing. May-20-2026: stats reported 92
+  // findings while sections actually carried 106 (92 CVE + 14 ransomware
+  // claims). Sum from the actual sections instead so the top-line
+  // matches what the body renders.
+  const totalFindings = sections.reduce((n, s) => n + (s.findings?.length ?? 0), 0);
   return {
-    findings: findings.length,
+    // True total — every finding that appears in any rendered section.
+    findings: totalFindings,
     sections: sections.length,
+    // CVE-only count stays anchored to the CVE-derived array. The CVE
+    // sections that get bucketed in buildSections all draw from this
+    // same array, so the number is honest about the CVE subset.
     cves: findings.length,
     kevs: findings.filter((f) => f.source === 'CISA KEV').length,
     iocs: iocsTotal,
+    // Severity rollup covers the CVE findings only because the MTI
+    // ransomware findings are all assigned severity='high' boilerplate;
+    // including them would inflate the high count in a way that misleads
+    // a reader who expects severity to mean CVSS-derived severity.
     critical: findings.filter((f) => f.severity === 'critical').length,
     high: findings.filter((f) => f.severity === 'high').length,
     medium: findings.filter((f) => f.severity === 'medium').length,

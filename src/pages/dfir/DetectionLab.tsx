@@ -33,11 +33,21 @@ interface SavedRule {
   modified: string;
 }
 
+/**
+ * Starter rule. Fires on any IOC tagged "Cobalt Strike" / "c2" in its
+ * source context. Cobalt Strike is the dominant C2 framework in active
+ * tracker hits (~96% per the /threatintel/c2-tracker), so this is a
+ * realistic first-rule for a new analyst to author and watch fire.
+ *
+ * Tweak the regex or kind, save, then check the live feed strip to
+ * see whether your rule matches anything against the rolling IOC
+ * window.
+ */
 const TEMPLATE = `{
-  "id": "my-rule",
-  "name": "Untitled detection",
-  "severity": "medium",
-  "description": "TODO: what does this catch and why is it actionable?",
+  "id": "cobalt-strike-c2-ip",
+  "name": "Cobalt Strike / generic C2 IP",
+  "severity": "high",
+  "description": "Fires when an IP indicator carries a Cobalt Strike or generic C2 tag in its source context. Commodity post-exploitation framework — internet-reachable infra is post-compromise traffic, not opportunistic scanning.",
   "match": {
     "kind": "ip",
     "contextRegex": "cobalt[ -]?strike|\\\\bc2\\\\b"
