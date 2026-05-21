@@ -124,7 +124,7 @@ function TrendBadge({ change }: { change: number }): JSX.Element {
   return (
     <span
       className={`inline-flex items-center gap-0.5 text-[11px] font-mono tabular-nums ${cls}`}
-      title={`${sign}${rounded}% vs prior 7-day median`}
+      title={`${sign}${rounded}% vs the median of the prior 6 days in the chart`}
     >
       <Icon size={11} aria-hidden="true" />
       <span>
@@ -156,9 +156,15 @@ export function PlatformPulse(): JSX.Element | null {
 
   // Sort newest-first so slice(0,7) takes the most recent 7 days, then
   // reverse for chronological left-to-right display.
-  const { iocsSeries, findingsSeries, iocsChange, findingsChange } = useMemo(() => {
+  const { iocsSeries, findingsSeries, iocsChange, findingsChange, latestDate } = useMemo(() => {
     if (!briefings || briefings.length < 2) {
-      return { iocsSeries: [], findingsSeries: [], iocsChange: 0, findingsChange: 0 };
+      return {
+        iocsSeries: [] as number[],
+        findingsSeries: [] as number[],
+        iocsChange: 0,
+        findingsChange: 0,
+        latestDate: null as string | null,
+      };
     }
     const sorted = [...briefings].sort((a, b) => {
       const ad = a.metadata?.date ?? '';
@@ -166,18 +172,30 @@ export function PlatformPulse(): JSX.Element | null {
       return bd.localeCompare(ad);
     });
     const recent = sorted.slice(0, WINDOW_DAYS).reverse();
-    const prior = sorted.slice(WINDOW_DAYS, WINDOW_DAYS * 2);
     return {
       iocsSeries: recent.map((b) => b.metadata?.stats?.iocs ?? 0),
       findingsSeries: recent.map((b) => b.metadata?.stats?.findings ?? 0),
+      // New trend math (2026-05-22): the old logic compared the median of
+      // the recent 7 days against the median of the prior 7 days. That's a
+      // valid weekly signal but it disagrees with what the sparkline shows
+      // — today can be a clear spike while the trailing weekly median is
+      // still down. Visitors saw a green ▼ next to a chart line going
+      // sharply up and the contradiction undercut both readings.
+      //
+      // Switched to: today's value (newest briefing) vs the median of the
+      // prior 6 visible days in the chart. That matches what the eye sees
+      // — the sparkline's last point versus the rest of the chart. More
+      // volatile day-to-day, but volatility *is* the signal at this
+      // cadence, and it stops the chart-vs-badge contradiction.
       iocsChange: pctChange(
-        median(recent.map((b) => b.metadata?.stats?.iocs ?? 0)),
-        median(prior.map((b) => b.metadata?.stats?.iocs ?? 0))
+        sorted[0]?.metadata?.stats?.iocs ?? 0,
+        median(sorted.slice(1, WINDOW_DAYS).map((b) => b.metadata?.stats?.iocs ?? 0))
       ),
       findingsChange: pctChange(
-        median(recent.map((b) => b.metadata?.stats?.findings ?? 0)),
-        median(prior.map((b) => b.metadata?.stats?.findings ?? 0))
+        sorted[0]?.metadata?.stats?.findings ?? 0,
+        median(sorted.slice(1, WINDOW_DAYS).map((b) => b.metadata?.stats?.findings ?? 0))
       ),
+      latestDate: sorted[0]?.metadata?.date ?? null,
     };
   }, [briefings]);
 
@@ -185,6 +203,18 @@ export function PlatformPulse(): JSX.Element | null {
 
   const iocsLast = iocsSeries[iocsSeries.length - 1] ?? 0;
   const findingsLast = findingsSeries[findingsSeries.length - 1] ?? 0;
+
+  // Friendly date label for the "as-of" line. Daily briefings are
+  // retrospective (the 2026-05-20 briefing is generated on 2026-05-21),
+  // so labeling the value "today's count" is technically wrong and was
+  // masking real staleness on the findings number. Show the actual
+  // date the value came from instead.
+  const asOf = latestDate
+    ? new Date(`${latestDate}T00:00:00Z`).toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+      })
+    : null;
 
   return (
     <section
@@ -216,7 +246,9 @@ export function PlatformPulse(): JSX.Element | null {
             <div className="text-lg font-bold tabular-nums text-slate-900 dark:text-slate-100">
               {iocsLast.toLocaleString()}
             </div>
-            <div className="text-[10px] font-mono text-slate-500">today's count · {WINDOW_DAYS}-day series</div>
+            <div className="text-[10px] font-mono text-slate-500">
+              {asOf ? `latest daily · ${asOf}` : 'latest daily count'} · {WINDOW_DAYS}-day series
+            </div>
           </div>
         </Link>
         <Link
@@ -232,7 +264,9 @@ export function PlatformPulse(): JSX.Element | null {
             <div className="text-lg font-bold tabular-nums text-slate-900 dark:text-slate-100">
               {findingsLast.toLocaleString()}
             </div>
-            <div className="text-[10px] font-mono text-slate-500">today's count · {WINDOW_DAYS}-day series</div>
+            <div className="text-[10px] font-mono text-slate-500">
+              {asOf ? `latest daily · ${asOf}` : 'latest daily count'} · {WINDOW_DAYS}-day series
+            </div>
           </div>
         </Link>
       </div>
