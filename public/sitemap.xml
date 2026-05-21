@@ -27,9 +27,74 @@
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/projects</loc>
-    <lastmod>2026-05-11</lastmod>
+    <lastmod>2026-05-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+  </url>
+
+  <!-- Case studies — individual pages, each a long-form artifact worth
+       its own crawl. publishedAt dates in src/data/case-studies.ts. -->
+  <url>
+    <loc>https://pranithjain.qzz.io/projects/phishing-program-at-scale</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pranithjain.qzz.io/projects/dmarc-enforcement-1300-domains</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pranithjain.qzz.io/projects/phishing-triage-automation-n8n-mcp</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pranithjain.qzz.io/projects/email-infra-automation-platform</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pranithjain.qzz.io/projects/dfir-toolkit-design</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pranithjain.qzz.io/projects/threat-intel-platform-build</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Threat-intel research index + individual authored pieces. -->
+  <url>
+    <loc>https://pranithjain.qzz.io/threatintel/research</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://pranithjain.qzz.io/threatintel/research/nova-lockbit5-qilin-may-2026</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pranithjain.qzz.io/threatintel/research/ioc-consensus-noise-floor-may-2026</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pranithjain.qzz.io/threatintel/research/cobalt-strike-c2-dominance-may-2026</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
   </url>
 
   <!-- DFIR app -->
