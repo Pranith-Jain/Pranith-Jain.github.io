@@ -59,6 +59,24 @@ export interface Tool {
   /** One-line example use-case shown on the rich landing card. */
   useCase?: string;
   external?: boolean;
+  /**
+   * Mark a tool as a "utility" — duplicative of well-known online tools
+   * (timestamp converters, hex/base64 decoders, hash calculators,
+   * homoglyph viewers). The hub hides utilities behind a toggle so the
+   * count of "real" tools reads as the actual depth of the toolkit, not
+   * a padded list. The routes still resolve — nothing is deleted, only
+   * de-emphasised on the landing.
+   */
+  utility?: boolean;
+  /**
+   * What this tool CAN'T do — kept honest. Surfaced on the tool page so
+   * a visitor doesn't bounce when they realise the tool isn't a Splunk
+   * replacement. Optional; absent means no panel renders.
+   */
+  cantDo?: string;
+  /** Typical 1-line workflow hint (e.g. "Paste IOC → review consensus
+   *  → pivot to /threatintel/correlation"). Optional. */
+  workflow?: string;
 }
 
 /**
@@ -124,6 +142,10 @@ export const SECTIONS: Section[] = [
       {
         path: '/dfir/ioc-check',
         useCase: 'Check an indicator across 24 sources in seconds.',
+        cantDo:
+          "Won't replace a paid MSP — providers with strict rate limits still rate-limit you; some sources need your own API key for high-volume use.",
+        workflow:
+          'Paste IP / domain / URL / hash → results stream in across 24 sources → trust cross-source consensus, not single-feed flags.',
         label: 'IOC & Hash Checker',
         desc: '24 sources · streaming · IPs · domains · URLs · file hashes',
         icon: Hash,
@@ -162,6 +184,7 @@ export const SECTIONS: Section[] = [
         label: 'Decoder',
         desc: 'Base64 · URL · multi-pass',
         icon: Code2,
+        utility: true,
       },
       {
         path: '/dfir/encoder',
@@ -169,6 +192,7 @@ export const SECTIONS: Section[] = [
         label: 'Encoder',
         desc: 'Reverse of Decoder — base64 / url / hex / binary / rot13 with chain builder + round-trip',
         icon: Type,
+        utility: true,
       },
       {
         path: '/dfir/powershell-deobf',
@@ -183,6 +207,7 @@ export const SECTIONS: Section[] = [
         label: 'Timestamp Converter',
         desc: 'Unix s/ms/µs · Windows FILETIME · WebKit/Chrome · Apple Cocoa · ISO 8601 — all at once',
         icon: Clock,
+        utility: true,
       },
       {
         path: '/dfir/hash-calc',
@@ -190,6 +215,7 @@ export const SECTIONS: Section[] = [
         label: 'Hash Calculator',
         desc: 'MD5 · SHA-1/256/384/512 for text or a dropped file · client-side',
         icon: Hash,
+        utility: true,
       },
       {
         path: '/dfir/plist-protobuf',
@@ -197,6 +223,7 @@ export const SECTIONS: Section[] = [
         label: 'Plist & Protobuf Decoder',
         desc: 'Apple binary/XML plists + schema-less protobuf · hand-rolled parsers · client-side',
         icon: Code2,
+        utility: true,
       },
       {
         path: '/dfir/pcap-triage',
@@ -402,6 +429,7 @@ export const SECTIONS: Section[] = [
         label: 'Homograph Detector',
         desc: 'IDN · mixed scripts · brand lookalikes · paste a domain to inspect',
         icon: Type,
+        utility: true,
       },
       {
         path: '/dfir/crypto-trace',
@@ -470,6 +498,10 @@ export const SECTIONS: Section[] = [
       {
         path: '/dfir/email-defense',
         useCase: 'Score BEC risk for the domain you protect.',
+        cantDo:
+          "Reads DNS only — won't catch a domain that auths correctly but sends from a compromised mailbox. The score is the floor of attacker effort, not the ceiling of your safety.",
+        workflow:
+          'Enter your domain → review the rule failures with attack-scenario context → fix in DNS → recheck → set DMARC p=reject when alignment is clean.',
         label: 'Email Defense / BEC Score',
         desc: 'SPF · DMARC · DKIM · MTA-STS · spoofability score · attack scenarios per gap',
         icon: Mail,
@@ -521,6 +553,10 @@ export const SECTIONS: Section[] = [
       {
         path: '/dfir/rule-converter',
         useCase: 'Translate a detection between Sigma, KQL, SPL, EQL, YARA.',
+        cantDo:
+          'Heuristic, not pySigma — reverse-parsing query languages back into the IR recovers only flat `field op "value"` predicates. YARA / DLP / supply-chain carry no field semantics; every lossy step is flagged in the warnings panel.',
+        workflow:
+          'Pick the source format (Sigma is the most-faithful) → pick a SIEM field-map preset (Defender / ECS / CIM) → paste a rule or load a starter → copy the emitted target.',
         label: 'Rule Converter',
         desc: 'Universal any-to-any detection translation · Sigma · KQL · Splunk SPL · Elastic Lucene/EQL · YARA · DLP regex · supply-chain Semgrep — every format both source and target · heuristic, lossy edges flagged · 100% client-side',
         icon: ScanLine,
@@ -528,6 +564,10 @@ export const SECTIONS: Section[] = [
       {
         path: '/dfir/detection-lab',
         useCase: 'Write a rule and test it against the live IOC feed.',
+        cantDo:
+          'Not a SIEM. The DSL evaluates structured IOC indicators, not file/log content — YARA/Sigma file-event rules belong in the Rule Playground.',
+        workflow:
+          'Load a starter (Cobalt Strike C2 / cross-source consensus) → tweak match + exclude → declare 2-3 inline tests → watch them tick green → evaluate against the live feed or synthetic events.',
         label: 'Detection Lab',
         desc: 'Author a JSON detection rule and evaluate it in-browser against the unified live-IOC stream · same engine as the server-side Detections pack · localStorage save/export',
         icon: Activity,
@@ -535,6 +575,10 @@ export const SECTIONS: Section[] = [
       {
         path: '/dfir/cve-prioritizer',
         useCase: 'Decide which CVEs to actually patch this week.',
+        cantDo:
+          "Doesn't look at your environment — it doesn't know what's reachable or where the data lives. The asset-context toggle is your in-the-loop guess at exposure, not a CMDB lookup.",
+        workflow:
+          'Paste CVE IDs → set asset-context (internet-facing / internal-only) → review verdicts top-to-bottom → expand a row for score factors + CVSS vector + runbook → export CSV/JSON.',
         label: 'CVE Exploit Prioritizer',
         desc: 'Paste CVE IDs → fuses NVD CVSS + FIRST EPSS + CISA KEV (incl. known-ransomware use) into one ACT-NOW / SCHEDULE / MONITOR / DEFER verdict · bulk mode',
         icon: Crosshair,
@@ -823,6 +867,19 @@ export const SECTIONS: Section[] = [
  */
 const EXTERNAL: Tool[] = [];
 
+/**
+ * Total tool count includes everything (utilities + main tools). Kept as
+ * the headline number elsewhere but the hub landing also computes the
+ * "main" count (excluding utility-flagged tools) so the front door isn't
+ * padded by hash-calculators and timestamp converters.
+ */
 export const TOOL_COUNT = SECTIONS.reduce((n, s) => n + s.tools.length, 0);
+
+/** Tools that aren't flagged with `utility: true`. */
+export const MAIN_TOOL_COUNT = SECTIONS.reduce((n, s) => n + s.tools.filter((t) => !t.utility).length, 0);
+
+/** Just the utility tools, flat. The hub renders these under a separate
+ *  "Utilities & converters" collapsible at the bottom of the tool grid. */
+export const UTILITY_TOOLS: Tool[] = SECTIONS.flatMap((s) => s.tools.filter((t) => t.utility));
 
 export { EXTERNAL };

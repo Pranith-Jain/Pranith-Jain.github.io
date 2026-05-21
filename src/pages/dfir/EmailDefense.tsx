@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
+import { ToolDocs } from '../../components/dfir/ToolDocs';
 import { ArrowLeft, Mail, Search, Loader2, CheckCircle2, AlertTriangle, ExternalLink } from 'lucide-react';
 import { CopyChip } from '../../components/dfir/CopyButton';
 import { assess, type DomainApiResponse, type Severity } from '../../lib/dfir/bec-score';
@@ -79,6 +80,8 @@ export default function EmailDefense(): JSX.Element {
           — same data, defender-side framing focused on direct-domain spoofing.
         </p>
       </div>
+
+      <ToolDocs path="/dfir/email-defense" />
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
         <form

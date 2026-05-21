@@ -1,7 +1,8 @@
-import { useState, useRef, type FormEvent } from 'react';
+import { useState, useRef, useCallback, type FormEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Search, ShieldAlert, ShieldCheck, AlertCircle } from 'lucide-react';
+import { ToolDocs } from '../../components/dfir/ToolDocs';
+import { ArrowLeft, Search, ShieldAlert, ShieldCheck, AlertCircle, FileDown, Layers, Loader2 } from 'lucide-react';
 import { detectType, detectHashSubtype } from '../../lib/dfir/indicator-client';
 import { streamIoc } from '../../lib/dfir/api';
 import type { ProviderResultWire, DoneEvent, ProviderId } from '../../lib/dfir/types';
@@ -10,6 +11,132 @@ import { VerdictChip } from '../../components/dfir/VerdictChip';
 import { recordHistory } from '../../lib/dfir/history';
 import { RelatedActors } from '../../components/dfir/RelatedActors';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
+
+type BulkVerdict = 'clean' | 'suspicious' | 'malicious' | 'unknown';
+
+/** One row in the bulk table — assembled from each indicator's `done` event. */
+interface BulkRow {
+  indicator: string;
+  type: string;
+  status: 'pending' | 'running' | 'done' | 'error';
+  verdict?: BulkVerdict;
+  score?: number;
+  confidence?: string;
+  contributing?: number;
+  total?: number;
+  /** Provider ids that flagged this IOC as malicious or suspicious. */
+  flagged?: string[];
+  error?: string;
+}
+
+/** Bulk runner — streams each indicator, with a concurrency cap so a paste
+ *  of 30 IOCs doesn't open 30 EventSources at once. Uses the same per-IOC
+ *  `streamIoc` the single-mode path uses, just promisified. */
+async function runBulk(
+  indicators: string[],
+  onRowUpdate: (i: number, patch: Partial<BulkRow>) => void,
+  concurrency = 3
+): Promise<void> {
+  let next = 0;
+  async function worker() {
+    while (next < indicators.length) {
+      const idx = next++;
+      const ind = indicators[idx]!;
+      onRowUpdate(idx, { status: 'running' });
+      await new Promise<void>((resolve) => {
+        const collected: ProviderResultWire[] = [];
+        let metaEligible: ProviderId[] = [];
+        streamIoc(ind, {
+          onMeta: (m) => {
+            metaEligible = m.providers;
+          },
+          onResult: (r) => collected.push(r),
+          onDone: (s) => {
+            const flagged = collected
+              .filter((r) => r.verdict === 'malicious' || r.verdict === 'suspicious')
+              .map((r) => r.source);
+            onRowUpdate(idx, {
+              status: 'done',
+              verdict: s.verdict as 'clean' | 'suspicious' | 'malicious' | 'unknown',
+              score: s.score,
+              confidence: s.confidence,
+              contributing: s.contributing,
+              total: metaEligible.length,
+              flagged,
+            });
+            resolve();
+          },
+          onError: (e) => {
+            onRowUpdate(idx, { status: 'error', error: e });
+            resolve();
+          },
+        });
+      });
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(concurrency, indicators.length) }, worker));
+}
+
+/** Split a paste blob into clean unique IOC tokens. Whitespace, commas,
+ *  semicolons, and pipes all separate. */
+function parseBulkInput(raw: string, max: number): string[] {
+  const tokens = raw
+    .split(/[\s,;|]+/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  return Array.from(new Set(tokens)).slice(0, max);
+}
+
+const BULK_MAX = 30;
+
+function downloadFile(filename: string, content: string, mime: string) {
+  const blob = new Blob([content], { type: mime });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function rowsToCsv(rows: BulkRow[]): string {
+  const header = [
+    'indicator',
+    'type',
+    'status',
+    'verdict',
+    'score',
+    'confidence',
+    'contributing',
+    'total',
+    'flagged_sources',
+    'error',
+  ];
+  const escape = (v: unknown): string => {
+    if (v === undefined || v === null) return '';
+    const s = String(v);
+    return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+  };
+  return [
+    header.join(','),
+    ...rows.map((r) =>
+      [
+        r.indicator,
+        r.type,
+        r.status,
+        r.verdict ?? '',
+        r.score ?? '',
+        r.confidence ?? '',
+        r.contributing ?? '',
+        r.total ?? '',
+        (r.flagged ?? []).join('|'),
+        r.error ?? '',
+      ]
+        .map(escape)
+        .join(',')
+    ),
+  ].join('\n');
+}
 
 interface NextStep {
   tone: 'malicious' | 'suspicious' | 'clean';
@@ -74,6 +201,50 @@ export default function IocCheck(): JSX.Element {
   const detectedType = input ? detectType(input) : 'unknown';
   const canSubmit = !!input.trim() && detectedType !== 'unknown' && !streaming;
 
+  // ── Bulk mode ──────────────────────────────────────────────────────────
+  // Toggle to a multi-line textarea; pool 3 streamIoc() calls; collect
+  // each indicator's `done` event into a table row. Single-mode behaviour
+  // is untouched — the two modes live side-by-side on the same page.
+  const [mode, setMode] = useState<'single' | 'bulk'>('single');
+  const [bulkInput, setBulkInput] = useState('');
+  const [bulkRows, setBulkRows] = useState<BulkRow[]>([]);
+  const [bulkRunning, setBulkRunning] = useState(false);
+
+  const bulkIndicators = parseBulkInput(bulkInput, BULK_MAX);
+
+  const runBulkScan = useCallback(async () => {
+    if (bulkIndicators.length === 0 || bulkRunning) return;
+    setBulkRunning(true);
+    const initial: BulkRow[] = bulkIndicators.map((ind) => ({
+      indicator: ind,
+      type: detectType(ind),
+      status: 'pending',
+    }));
+    setBulkRows(initial);
+    await runBulk(bulkIndicators, (i, patch) =>
+      setBulkRows((prev) => prev.map((row, idx) => (idx === i ? { ...row, ...patch } : row)))
+    );
+    setBulkRunning(false);
+  }, [bulkIndicators, bulkRunning]);
+
+  const bulkVerdictCounts = bulkRows.reduce<Record<string, number>>((acc, r) => {
+    if (r.verdict) acc[r.verdict] = (acc[r.verdict] ?? 0) + 1;
+    return acc;
+  }, {});
+
+  const exportBulkCsv = () => {
+    if (bulkRows.length === 0) return;
+    downloadFile(`ioc-check-${new Date().toISOString().slice(0, 10)}.csv`, rowsToCsv(bulkRows), 'text/csv');
+  };
+  const exportBulkJson = () => {
+    if (bulkRows.length === 0) return;
+    downloadFile(
+      `ioc-check-${new Date().toISOString().slice(0, 10)}.json`,
+      JSON.stringify(bulkRows, null, 2),
+      'application/json'
+    );
+  };
+
   const runCheck = () => {
     if (!canSubmit) return;
     setStreaming(true);
@@ -121,55 +292,211 @@ export default function IocCheck(): JSX.Element {
         </p>
       </div>
 
-      <form onSubmit={onSubmit} className="mb-10">
-        <label htmlFor="ioc-input" className="sr-only">
-          Indicator of compromise (IP, domain, URL, or hash)
-        </label>
-        <div className="flex gap-2">
-          <div className="flex-1 relative">
-            <input
-              id="ioc-input"
-              ref={inputRef}
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="paste an IP, domain, URL, or hash"
-              aria-label="Indicator of compromise"
-              className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
-            />
-            {input && detectedType !== 'unknown' && (
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-mono text-brand-600 dark:text-brand-400 uppercase">
-                {detectedType === 'hash'
-                  ? (() => {
-                      const sub = detectHashSubtype(input);
-                      if (sub === 'md5') return 'MD5';
-                      if (sub === 'sha1') return 'SHA-1';
-                      if (sub === 'sha256') return 'SHA-256';
-                      return 'HASH';
-                    })()
-                  : detectedType}
+      <ToolDocs path="/dfir/ioc-check" />
+
+      {/* Mode toggle — single is the default, faithful to the existing
+          single-IOC streaming experience. Bulk swaps to a paste-many UI
+          with a table of per-IOC verdicts + CSV/JSON export. */}
+      <div className="mb-4 inline-flex rounded border border-slate-200 dark:border-slate-800 overflow-hidden">
+        <button
+          type="button"
+          onClick={() => setMode('single')}
+          className={
+            mode === 'single'
+              ? 'text-xs font-mono uppercase tracking-wider px-3 py-1.5 bg-brand-500/15 text-brand-700 dark:text-brand-300'
+              : 'text-xs font-mono uppercase tracking-wider px-3 py-1.5 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+          }
+        >
+          Single
+        </button>
+        <button
+          type="button"
+          onClick={() => setMode('bulk')}
+          className={
+            mode === 'bulk'
+              ? 'text-xs font-mono uppercase tracking-wider px-3 py-1.5 bg-brand-500/15 text-brand-700 dark:text-brand-300 inline-flex items-center gap-1'
+              : 'text-xs font-mono uppercase tracking-wider px-3 py-1.5 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 inline-flex items-center gap-1'
+          }
+        >
+          <Layers size={11} /> Bulk
+        </button>
+      </div>
+
+      {mode === 'bulk' ? (
+        <section className="mb-10">
+          <label htmlFor="ioc-bulk-input" className="sr-only">
+            Bulk IOCs
+          </label>
+          <textarea
+            id="ioc-bulk-input"
+            value={bulkInput}
+            onChange={(e) => setBulkInput(e.target.value)}
+            rows={5}
+            spellCheck={false}
+            placeholder={`Paste up to ${BULK_MAX} IPs / domains / URLs / hashes. Separators: newline / comma / space / pipe.`}
+            className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-[13px] text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          />
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            <button
+              type="button"
+              onClick={() => void runBulkScan()}
+              disabled={bulkRunning || bulkIndicators.length === 0}
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-lg disabled:opacity-40 hover:bg-brand-700 dark:hover:bg-brand-400"
+            >
+              {bulkRunning && <Loader2 size={14} className="animate-spin" />}
+              {bulkRunning
+                ? `scanning ${bulkRows.filter((r) => r.status === 'done').length}/${bulkRows.length}…`
+                : `check ${bulkIndicators.length} indicator${bulkIndicators.length === 1 ? '' : 's'}`}
+            </button>
+            {bulkRows.length > 0 && (
+              <>
+                <button
+                  type="button"
+                  onClick={exportBulkCsv}
+                  disabled={bulkRunning}
+                  className="text-[11px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 disabled:opacity-40 inline-flex items-center gap-1"
+                >
+                  <FileDown size={11} /> CSV
+                </button>
+                <button
+                  type="button"
+                  onClick={exportBulkJson}
+                  disabled={bulkRunning}
+                  className="text-[11px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 disabled:opacity-40 inline-flex items-center gap-1"
+                >
+                  <FileDown size={11} /> JSON
+                </button>
+              </>
+            )}
+            {bulkIndicators.length > 0 && (
+              <span className="text-[11px] font-mono text-slate-500">
+                detected {bulkIndicators.length} unique indicator{bulkIndicators.length === 1 ? '' : 's'}
+                {bulkInput.split(/[\s,;|]+/).filter(Boolean).length > BULK_MAX && ` (capped at ${BULK_MAX})`}
               </span>
             )}
           </div>
-          <button
-            type="submit"
-            disabled={!canSubmit}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
-          >
-            <Search size={16} className="inline mr-2" />
-            Check
-          </button>
-        </div>
-        {input && detectedType === 'unknown' && (
-          <p className="mt-2 text-xs font-mono text-amber-600 dark:text-amber-400">
-            Unrecognized format. Accepted: IPv4 (e.g. <code className="font-semibold">1.1.1.1</code>), IPv6, domain
-            (e.g. <code className="font-semibold">example.com</code>), URL (with scheme), or file hash (MD5 / SHA-1 /
-            SHA-256).
-          </p>
-        )}
-      </form>
 
-      {summary &&
+          {bulkRows.length > 0 && (
+            <>
+              {/* Verdict summary */}
+              <div className="mt-4 flex flex-wrap items-center gap-2 text-sm">
+                {Object.entries(bulkVerdictCounts).map(([v, count]) => (
+                  <span key={v} className="inline-flex items-center gap-1.5">
+                    <span className="text-[12px] font-mono text-slate-700 dark:text-slate-300 tabular-nums">
+                      {count}
+                    </span>
+                    <VerdictChip verdict={v as 'clean' | 'suspicious' | 'malicious' | 'unknown'} />
+                  </span>
+                ))}
+              </div>
+
+              {/* Results table */}
+              <div className="mt-4 overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-800">
+                <table className="w-full text-sm">
+                  <thead className="text-left text-[10px] font-mono uppercase tracking-wider text-slate-500 bg-slate-50 dark:bg-slate-900/60">
+                    <tr>
+                      <th className="px-3 py-2">Indicator</th>
+                      <th className="px-3 py-2">Type</th>
+                      <th className="px-3 py-2">Verdict</th>
+                      <th className="px-3 py-2 text-right">Score</th>
+                      <th className="px-3 py-2">Sources</th>
+                      <th className="px-3 py-2">Flagged by</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {bulkRows.map((r, i) => (
+                      <tr
+                        key={`${r.indicator}-${i}`}
+                        className="border-t border-slate-200/70 dark:border-slate-800/70 align-top"
+                      >
+                        <td className="px-3 py-2 font-mono text-[12px] break-all max-w-[18rem]">{r.indicator}</td>
+                        <td className="px-3 py-2 text-[11px] font-mono uppercase text-slate-500">
+                          {r.type === 'unknown' ? '?' : r.type}
+                        </td>
+                        <td className="px-3 py-2">
+                          {r.status === 'pending' && (
+                            <span className="text-[11px] font-mono text-slate-500">queued</span>
+                          )}
+                          {r.status === 'running' && (
+                            <span className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-500">
+                              <Loader2 size={11} className="animate-spin" /> running
+                            </span>
+                          )}
+                          {r.status === 'error' && (
+                            <span className="text-[11px] font-mono text-rose-600 dark:text-rose-400">error</span>
+                          )}
+                          {r.status === 'done' && r.verdict && <VerdictChip verdict={r.verdict} />}
+                        </td>
+                        <td className="px-3 py-2 text-right font-mono tabular-nums">
+                          {r.score !== undefined ? `${r.score}/100` : '—'}
+                        </td>
+                        <td className="px-3 py-2 text-[12px] font-mono text-slate-500">
+                          {r.contributing !== undefined && r.total !== undefined ? `${r.contributing}/${r.total}` : '—'}
+                        </td>
+                        <td className="px-3 py-2 text-[12px] font-mono text-slate-700 dark:text-slate-300">
+                          {r.flagged && r.flagged.length > 0 ? r.flagged.join(', ') : '—'}
+                          {r.error && <span className="text-rose-500"> ({r.error})</span>}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </>
+          )}
+        </section>
+      ) : (
+        <form onSubmit={onSubmit} className="mb-10">
+          <label htmlFor="ioc-input" className="sr-only">
+            Indicator of compromise (IP, domain, URL, or hash)
+          </label>
+          <div className="flex gap-2">
+            <div className="flex-1 relative">
+              <input
+                id="ioc-input"
+                ref={inputRef}
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="paste an IP, domain, URL, or hash"
+                aria-label="Indicator of compromise"
+                className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              />
+              {input && detectedType !== 'unknown' && (
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-mono text-brand-600 dark:text-brand-400 uppercase">
+                  {detectedType === 'hash'
+                    ? (() => {
+                        const sub = detectHashSubtype(input);
+                        if (sub === 'md5') return 'MD5';
+                        if (sub === 'sha1') return 'SHA-1';
+                        if (sub === 'sha256') return 'SHA-256';
+                        return 'HASH';
+                      })()
+                    : detectedType}
+                </span>
+              )}
+            </div>
+            <button
+              type="submit"
+              disabled={!canSubmit}
+              className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+            >
+              <Search size={16} className="inline mr-2" />
+              Check
+            </button>
+          </div>
+          {input && detectedType === 'unknown' && (
+            <p className="mt-2 text-xs font-mono text-amber-600 dark:text-amber-400">
+              Unrecognized format. Accepted: IPv4 (e.g. <code className="font-semibold">1.1.1.1</code>), IPv6, domain
+              (e.g. <code className="font-semibold">example.com</code>), URL (with scheme), or file hash (MD5 / SHA-1 /
+              SHA-256).
+            </p>
+          )}
+        </form>
+      )}
+
+      {mode === 'single' &&
+        summary &&
         (() => {
           const next = buildNextSteps(summary.verdict, detectedType);
           const toneStyles =
@@ -219,7 +546,7 @@ export default function IocCheck(): JSX.Element {
           );
         })()}
 
-      {(streaming || results.length > 0) && (
+      {mode === 'single' && (streaming || results.length > 0) && (
         <section aria-busy={streaming && eligible.length === 0} aria-live="polite" aria-atomic="true">
           <h3 className="font-display font-semibold mb-4 text-lg">Per-source</h3>
           {streaming && eligible.length === 0 ? (
@@ -246,7 +573,7 @@ export default function IocCheck(): JSX.Element {
         </section>
       )}
 
-      {error && (
+      {mode === 'single' && error && (
         <div
           role="alert"
           className="mt-6 rounded-lg border border-rose-300 dark:border-rose-800 bg-rose-50/50 dark:bg-rose-900/15 p-4 flex items-start justify-between gap-3"
@@ -264,7 +591,7 @@ export default function IocCheck(): JSX.Element {
         </div>
       )}
 
-      {summary && (
+      {mode === 'single' && summary && (
         <div className="mt-6">
           <RelatedActors
             hints={{

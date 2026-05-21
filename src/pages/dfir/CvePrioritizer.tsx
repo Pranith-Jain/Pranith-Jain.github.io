@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { BackLink } from '../../components/BackLink';
+import { ToolDocs } from '../../components/dfir/ToolDocs';
 import {
   ArrowLeft,
   AlertTriangle,
@@ -275,6 +276,8 @@ export default function CvePrioritizer(): JSX.Element {
           context is how you pick what to patch this week.
         </p>
       </div>
+
+      <ToolDocs path="/dfir/cve-prioritizer" />
 
       {/* Starter bundles + context toggle. Two rows so the controls don't
           wrap into one wall of pills on narrow screens. */}

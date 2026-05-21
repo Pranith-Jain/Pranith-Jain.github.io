@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Hash, Mail, FileCode, AlertOctagon, ShieldAlert } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { TOOL_COUNT } from '../components/dfir/ToolGrid';
-import { GROUP_META, type ToolGroup } from '../components/dfir/tool-sections';
+import { GROUP_META, MAIN_TOOL_COUNT, UTILITY_TOOLS, type ToolGroup } from '../components/dfir/tool-sections';
 import { IocDispatchInput } from '../components/dfir/IocDispatchInput';
 import { personalInfo } from '../data/content';
 import { AppHero } from '../components/AppHero';
@@ -123,7 +123,7 @@ export default function DFIRPage(): JSX.Element {
       />
       <StatBar
         items={[
-          { label: 'Tools', value: String(TOOL_COUNT) },
+          { label: 'Tools', value: String(MAIN_TOOL_COUNT) },
           { label: 'Data sources', value: '90+' },
           { label: 'Credits required', value: '0' },
           { label: 'Last build', value: __BUILD_DATE__, mono: true },
@@ -143,7 +143,7 @@ export default function DFIRPage(): JSX.Element {
         <div className="flex items-baseline justify-between mb-5">
           <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">Featured tools</h2>
           <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500">
-            {FEATURED_TOOLS.length} of {TOOL_COUNT}
+            {FEATURED_TOOLS.length} of {MAIN_TOOL_COUNT}
           </span>
         </div>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -204,6 +204,47 @@ export default function DFIRPage(): JSX.Element {
           ))}
         </div>
       </section>
+
+      {/* Utilities & converters — duplicative of well-known online tools
+          (timestamp converters, hex/base64 decoders, hash calculators).
+          Surfaced behind a collapsible so the headline tool count reads
+          as the real depth of the toolkit, not a padded list. Routes
+          still resolve — nothing is deleted, only de-emphasised. */}
+      {UTILITY_TOOLS.length > 0 && (
+        <section className="mb-12">
+          <details>
+            <summary className="cursor-pointer text-xs font-bold uppercase tracking-[0.2em] text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 font-mono">
+              Utilities &amp; converters ({UTILITY_TOOLS.length}) — encoders, hashes, timestamps
+            </summary>
+            <p className="mt-3 text-[12px] font-mono text-slate-500 max-w-2xl">
+              These are duplicative of well-known online tools (CyberChef, epochconverter, etc.) — kept here for offline
+              / client-side analysis when you can't send data outside your environment. Not where the toolkit's depth
+              is.
+            </p>
+            <ul className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+              {UTILITY_TOOLS.map((t) => {
+                const Icon = t.icon;
+                return (
+                  <li key={t.path}>
+                    <Link
+                      to={t.path}
+                      className="group flex items-start gap-2.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 hover:border-brand-500/40 transition-colors"
+                    >
+                      <Icon className="h-3.5 w-3.5 mt-0.5 text-slate-500 group-hover:text-brand-500 transition-colors shrink-0" />
+                      <div className="min-w-0">
+                        <div className="text-[13px] font-medium text-slate-900 dark:text-slate-100 truncate">
+                          {t.label}
+                        </div>
+                        <div className="text-[11px] font-mono text-slate-500 truncate">{t.desc}</div>
+                      </div>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </details>
+        </section>
+      )}
 
       <section className="mt-20 pt-10 border-t border-slate-200 dark:border-slate-800">
         <details>

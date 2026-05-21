@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
+import { ToolDocs } from '../../components/dfir/ToolDocs';
 import {
   ArrowLeft,
   ArrowRight,
@@ -163,6 +164,8 @@ export default function RuleConverter(): JSX.Element {
           operational use.
         </p>
       </div>
+
+      <ToolDocs path="/dfir/rule-converter" />
 
       {/* Format + field-map controls — first row picks source/target/swap;
           second row picks the field-mapping preset (only meaningful when

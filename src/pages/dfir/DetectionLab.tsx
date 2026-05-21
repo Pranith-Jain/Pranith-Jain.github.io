@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
+import { ToolDocs } from '../../components/dfir/ToolDocs';
 import {
   ArrowLeft,
   FlaskConical,
@@ -345,6 +346,8 @@ export default function DetectionLab(): JSX.Element {
           <code>references</code> are MITRE ATT&CK metadata. Regexes are case-insensitive.
         </p>
       </div>
+
+      <ToolDocs path="/dfir/detection-lab" />
 
       <div className="flex flex-wrap gap-1.5 mb-4">
         <button
