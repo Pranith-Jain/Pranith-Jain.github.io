@@ -159,9 +159,16 @@ function AppHeader({
           })}
         </nav>
 
-        {/* Mobile-friendly nav indicator (selected only) */}
+        {/* Mobile-friendly nav indicator. Renders the current nav item's
+            label when one matches; renders nothing otherwise. The previous
+            `'…'` fallback showed up as a three-dot string in the header for
+            any sub-route not in the top-level nav (most of them, since the
+            top nav only carries the surface roots), and read as an
+            unlabeled overflow menu to mobile users. The page heading
+            already tells the user where they are, so no replacement label
+            is needed when nav doesn't match. */}
         <div className="flex-1 md:hidden font-mono text-[11px] text-slate-600 dark:text-slate-400 truncate">
-          {nav.find((n) => isActive(n))?.label ?? '…'}
+          {nav.find((n) => isActive(n))?.label ?? ''}
         </div>
 
         {/* Utility row */}
