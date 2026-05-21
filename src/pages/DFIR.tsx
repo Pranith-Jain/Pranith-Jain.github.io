@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Hash, Mail, FileCode, AlertOctagon, ShieldAlert, Zap } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import { TOOL_COUNT } from '../components/dfir/ToolGrid';
 import { GROUP_META, MAIN_TOOL_COUNT, UTILITY_TOOLS, type ToolGroup } from '../components/dfir/tool-sections';
 import { IocDispatchInput } from '../components/dfir/IocDispatchInput';
 import { personalInfo } from '../data/content';
@@ -195,7 +194,7 @@ export default function DFIRPage(): JSX.Element {
         sub="Scanners, decoders, forensic parsers, lookups and frameworks that run entirely in your browser. Sub-200ms IOC checks across 22 sources, no signup, no key."
         meta={
           <>
-            {TOOL_COUNT} tools · by{' '}
+            {MAIN_TOOL_COUNT} tools · by{' '}
             <Link to="/" className="text-brand-600 dark:text-brand-400 hover:underline">
               {personalInfo.name}
             </Link>{' '}
