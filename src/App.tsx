@@ -27,6 +27,7 @@ const About = lazy(() => import('./pages/About'));
 const Skills = lazy(() => import('./pages/Skills'));
 const Experience = lazy(() => import('./pages/Experience'));
 const Projects = lazy(() => import('./pages/Projects'));
+const CaseStudy = lazy(() => import('./pages/CaseStudy'));
 const Writeups = lazy(() => import('./pages/threatintel/Writeups'));
 const DFIR = lazy(() => import('./pages/DFIR'));
 
@@ -256,6 +257,18 @@ export function AppContent() {
           <ErrorBoundary>
             <Suspense fallback={<SectionLoader />}>
               <Projects />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      {/* Long-form case studies. Same Projects layout flows the visitor
+          here via the index card; deep links resolve as well. */}
+      <Route
+        path="/projects/:slug"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <CaseStudy />
             </Suspense>
           </ErrorBoundary>
         }

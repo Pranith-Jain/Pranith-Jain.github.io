@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { Github, ExternalLink, ChevronDown, ChevronUp } from 'lucide-react';
+import { Github, ExternalLink, ChevronDown, ChevronUp, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { projects } from '../../data/content';
+import { publishedCaseStudies } from '../../data/case-studies';
 import { Badge } from '../Badge';
 
 /**
@@ -126,6 +127,42 @@ export function Projects() {
         </h2>
       </div>
 
+      {/* Long-form case studies — methodology + outcomes from real engagements.
+          Surfaced first because they're the credibility document; the smaller
+          project cards below complement them with the tools/initiatives. */}
+      {publishedCaseStudies.length > 0 && (
+        <div className="mb-10">
+          <div className="mb-3 text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500">Case studies</div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {publishedCaseStudies.map((cs) => (
+              <Link
+                key={cs.slug}
+                to={`/projects/${cs.slug}`}
+                className="group rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 transition hover:border-brand-500/40"
+              >
+                <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400 mb-1.5">
+                  {cs.kicker}
+                </div>
+                <h3 className="font-display font-semibold text-lg text-slate-900 dark:text-white leading-snug group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+                  {cs.title}
+                </h3>
+                <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-2">
+                  {cs.excerpt}
+                </p>
+                <p className="mt-3 text-xs font-mono text-slate-500 dark:text-slate-500">{cs.outcome}</p>
+                <div className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-brand-700 dark:text-brand-400">
+                  Read case study
+                  <ArrowRight size={12} className="transition-transform group-hover:translate-x-0.5" />
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div className="mb-3 text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500">
+        Tools &amp; initiatives
+      </div>
       <div className="grid gap-3">
         {visible.map((project) => (
           <ProjectCard key={project.title} project={project} />
