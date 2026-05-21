@@ -353,7 +353,7 @@ const SECTIONS: Section[] = [
       {
         to: '/threatintel/writeups',
         label: 'Writeups Feed',
-        desc: '18+ analyst blogs and vendor research labs aggregated live: The DFIR Report, BushidoToken, DoublePulsar, Krebs, SentinelLabs, Unit 42, Check Point Research, Google TI, Huntress, and more.',
+        desc: 'The broad ecosystem cut — Krebs, The Hacker News, BleepingComputer, CrowdStrike, ESET, Recorded Future, Intezer, and the technical Medium tag feeds (#threat-intel, #malware-analysis, #dfir, …). Signal-tier sources live on /signal — no overlap.',
         icon: BookText,
         badge: 'live',
       },

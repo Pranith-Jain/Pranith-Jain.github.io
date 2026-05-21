@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, BookText, ExternalLink, RefreshCw, Search } from 'lucide-react';
 import { DataState } from '../../components/DataState';
@@ -181,6 +181,14 @@ export default function Writeups(): JSX.Element {
       <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
         <BookText size={28} className="text-brand-600 dark:text-brand-400" /> Writeups feed
       </h1>
+      <p className="text-[12px] font-mono text-slate-500 dark:text-slate-500 mb-4 max-w-3xl">
+        The broad ecosystem cut — vendor blogs, news outlets, Medium tag feeds, the long tail. For the curated
+        analyst-must-read set, see{' '}
+        <Link to="/threatintel/signal" className="text-brand-600 dark:text-brand-400 hover:underline">
+          /threatintel/signal
+        </Link>{' '}
+        (no overlap between the two pages).
+      </p>
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-4">
         <div className="flex items-center gap-3">

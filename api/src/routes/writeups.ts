@@ -29,7 +29,11 @@ const SIGNAL_LABELS: Set<string> = new Set(
  * Cache 1h server-side. Adding a new platform = one line in WRITEUP_SOURCES.
  */
 
-export const WRITEUPS_CACHE_KEY = 'https://writeups-cache.internal/v9-cvefeed-newsroom';
+// v10 — 2026-05-21: tier split (signal sources separated from firehose),
+// added Red Canary / Rapid7 / Securelist / Datadog Security Labs / ThreatSignal.
+// Bumping the version busts the cache once on deploy so new sources show
+// up immediately rather than waiting for the 1h TTL.
+export const WRITEUPS_CACHE_KEY = 'https://writeups-cache.internal/v10-tier-split';
 const CACHE_KEY = WRITEUPS_CACHE_KEY;
 const CACHE_TTL_SECONDS = 3600;
 const FETCH_TIMEOUT_MS = 12_000;
@@ -385,51 +389,52 @@ export function roundRobinBySource<T extends { source: string; published?: strin
   return visible;
 }
 
-/** Filter a writeups response down to the requested tier. Reuses the
- *  full-response cache — one fetch upstream, multiple slices. */
-function filterByTier(body: WriteupsResponse, tier: SourceTier): WriteupsResponse {
-  if (tier === 'firehose') return body;
-  const items = body.items.filter((it) => SIGNAL_LABELS.has(it.source));
-  const sources = body.sources.filter((s) => SIGNAL_LABELS.has(s.label));
+type TierFilter = 'signal' | 'firehose' | 'all';
+
+/**
+ * Filter a writeups response by tier. `signal` and `firehose` are
+ * mutually exclusive cuts — a source appears in exactly one of the two
+ * surfaces — so an analyst doesn't see the same Unit 42 piece on both
+ * `/threatintel/signal` and `/threatintel/writeups`. `all` is the
+ * escape hatch (kept off the public routes; used internally if needed).
+ */
+function filterByTier(body: WriteupsResponse, tier: TierFilter): WriteupsResponse {
+  if (tier === 'all') return body;
+  const inSignal = (label: string) => SIGNAL_LABELS.has(label);
+  const want = tier === 'signal' ? inSignal : (label: string) => !inSignal(label);
+  const items = body.items.filter((it) => want(it.source));
+  const sources = body.sources.filter((s) => want(s.label));
   return { ...body, sources, total: items.length, items };
 }
 
 export async function writeupsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const tier = c.req.query('tier') === 'signal' ? 'signal' : 'firehose';
+  // Default tier is FIREHOSE — the broad ecosystem cut minus the signal
+  // tier. Signal-tier sources are surfaced on /threatintel/signal only,
+  // so there's no overlap between the two pages.
+  const q = c.req.query('tier');
+  const tier: TierFilter = q === 'signal' ? 'signal' : q === 'all' ? 'all' : 'firehose';
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheReq = new Request(CACHE_KEY);
-
-  // Inflate from the all-sources cache when present; filter post-cache so
-  // a tier flip doesn't require a re-fetch.
-  const cached = await cache.match(cacheReq);
-  if (cached) {
-    if (tier === 'firehose') return cached;
-    const body = (await cached.json()) as WriteupsResponse;
-    return new Response(JSON.stringify(filterByTier(body, tier)), {
+  const makeResp = (body: WriteupsResponse) =>
+    new Response(JSON.stringify(body), {
       status: 200,
       headers: {
         'content-type': 'application/json',
         'cache-control': `public, max-age=${CACHE_TTL_SECONDS}`,
       },
     });
+
+  // Inflate from the all-sources cache when present; filter post-cache so
+  // a tier flip doesn't require a re-fetch upstream.
+  const cached = await cache.match(cacheReq);
+  if (cached) {
+    const body = (await cached.json()) as WriteupsResponse;
+    return makeResp(filterByTier(body, tier));
   }
 
   const body = await fetchWriteups();
-  const fullResponse = new Response(JSON.stringify(body), {
-    status: 200,
-    headers: {
-      'content-type': 'application/json',
-      'cache-control': `public, max-age=${CACHE_TTL_SECONDS}`,
-    },
-  });
+  const fullResponse = makeResp(body);
   c.executionCtx.waitUntil(cache.put(cacheReq, fullResponse.clone()));
-
-  if (tier === 'firehose') return fullResponse;
-  return new Response(JSON.stringify(filterByTier(body, tier)), {
-    status: 200,
-    headers: {
-      'content-type': 'application/json',
-      'cache-control': `public, max-age=${CACHE_TTL_SECONDS}`,
-    },
-  });
+  if (tier === 'all') return fullResponse;
+  return makeResp(filterByTier(body, tier));
 }

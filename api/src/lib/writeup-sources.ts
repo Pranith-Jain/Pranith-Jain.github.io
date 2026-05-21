@@ -57,7 +57,7 @@ export const WRITEUP_SOURCES: WriteupSourceSpec[] = [
   { kind: 'rss', url: 'https://doublepulsar.com/feed', label: 'DoublePulsar (Kevin Beaumont)', tier: 'signal' },
   { kind: 'rss', url: 'https://krebsonsecurity.com/feed/', label: 'Krebs on Security' },
   { kind: 'rss', url: 'https://research.openanalysis.net/feed.xml', label: 'OpenAnalysis Lab', tier: 'signal' },
-  { kind: 'rss', url: 'https://opensourcemalware.com/rss.xml', label: 'OpenSourceMalware' },
+  { kind: 'rss', url: 'https://opensourcemalware.com/rss.xml', label: 'OpenSourceMalware', tier: 'signal' },
 
   // ─── Vendor research labs ─────────────────────────────────────────────
   { kind: 'rss', url: 'https://www.sentinelone.com/labs/feed/', label: 'SentinelLabs', tier: 'signal' },
@@ -71,6 +71,17 @@ export const WRITEUP_SOURCES: WriteupSourceSpec[] = [
   { kind: 'rss', url: 'https://research.eye.security/feed', label: 'Eye Security', tier: 'signal' },
   { kind: 'rss', url: 'https://www.recordedfuture.com/feed/', label: 'Recorded Future' },
   { kind: 'rss', url: 'https://blog.exodusintel.com/feed', label: 'Exodus Intelligence', tier: 'signal' },
+  // Added 2026-05-21 after live probing — all four return application/rss+xml
+  // with 10+ items and consistently publish technical security research.
+  { kind: 'rss', url: 'https://redcanary.com/feed/', label: 'Red Canary', tier: 'signal' },
+  { kind: 'rss', url: 'https://www.rapid7.com/blog/rss/', label: 'Rapid7', tier: 'signal' },
+  { kind: 'rss', url: 'https://securelist.com/feed/', label: 'Securelist (Kaspersky GReAT)', tier: 'signal' },
+  {
+    kind: 'rss',
+    url: 'https://securitylabs.datadoghq.com/rss/feed.xml',
+    label: 'Datadog Security Labs',
+    tier: 'signal',
+  },
   { kind: 'rss', url: 'https://intezer.com/feed/', label: 'Intezer' },
   { kind: 'rss', url: 'https://blog.aquasec.com/rss.xml', label: 'Aqua Security (cloud)' },
   { kind: 'rss', url: 'https://www.varonis.com/blog/rss.xml', label: 'Varonis (data security)' },
