@@ -521,8 +521,10 @@ export default function Metrics(): JSX.Element {
     if (!state.ransomware) return [] as { label: string; value: number }[];
     const map = new Map<string, number>();
     const now = new Date();
-    // Build 30 day buckets so empty days show as 0.
-    for (let i = 29; i >= 0; i--) {
+    // Build 7 day buckets so empty days show as 0. Was 30 days; the page
+    // now leads with a 7-day window and the headline read consumes the
+    // same series, so the cadence chart matches.
+    for (let i = 6; i >= 0; i--) {
       const d = new Date(now.getTime() - i * 86400_000);
       const key = d.toISOString().slice(0, 10);
       map.set(key, 0);
@@ -531,8 +533,9 @@ export default function Metrics(): JSX.Element {
       const key = dayKey(v.discovered);
       if (map.has(key)) map.set(key, (map.get(key) ?? 0) + 1);
     }
-    return [...map.entries()].map(([k, v], i) => ({
-      label: i % 5 === 0 ? k.slice(5) : '', // sparse axis labels (every 5 days)
+    // Per-day axis labels — at 7 bars the labels fit without sparseness.
+    return [...map.entries()].map(([k, v]) => ({
+      label: k.slice(5),
       value: v,
     }));
   }, [state.ransomware]);
@@ -555,31 +558,29 @@ export default function Metrics(): JSX.Element {
     const day = 86400_000;
     const last7Cutoff = now - 7 * day;
     const prior7Cutoff = now - 14 * day;
-    const last30Cutoff = now - 30 * day;
 
     let last7 = 0;
     let prior7 = 0;
-    let last30 = 0;
     const last7Groups = new Set<string>();
-    const last30GroupCounts = new Map<string, number>();
+    const last7GroupCounts = new Map<string, number>();
     for (const v of state.ransomware) {
       const t = Date.parse(v.discovered);
       if (Number.isNaN(t)) continue;
-      if (t >= last30Cutoff) {
-        last30 += 1;
-        last30GroupCounts.set(v.group, (last30GroupCounts.get(v.group) ?? 0) + 1);
-      }
       if (t >= last7Cutoff) {
         last7 += 1;
         last7Groups.add(v.group);
+        last7GroupCounts.set(v.group, (last7GroupCounts.get(v.group) ?? 0) + 1);
       } else if (t >= prior7Cutoff) {
         prior7 += 1;
       }
     }
 
-    const ranked = [...last30GroupCounts.entries()].sort((a, b) => b[1] - a[1]);
+    // Concentration is the top operator's share of the last 7 days (was
+    // 30 days; the page now leads with a weekly read, so the denominator
+    // matches the visible window).
+    const ranked = [...last7GroupCounts.entries()].sort((a, b) => b[1] - a[1]);
     const top = ranked[0];
-    const topShare = top && last30 > 0 ? (top[1] / last30) * 100 : 0;
+    const topShare = top && last7 > 0 ? (top[1] / last7) * 100 : 0;
 
     let trendLabel: 'accelerating' | 'cooling' | 'steady' = 'steady';
     let trendDelta = 0;
@@ -603,7 +604,7 @@ export default function Metrics(): JSX.Element {
           : `Ransomware leak-site posting is steady: ${last7} claims in the last 7 days, within 10% of the prior 7 days (${prior7}).`;
 
     const sentenceConcentration = top
-      ? `One operator, ${top[0]}, accounts for ${topShare.toFixed(0)}% of the last 30 days' ${last30} claims; the rest split across ${ranked.length - 1} other groups.`
+      ? `One operator, ${top[0]}, accounts for ${topShare.toFixed(0)}% of those ${last7} weekly claims; the rest split across ${ranked.length - 1} other groups.`
       : '';
 
     const sentenceReadout =
@@ -616,7 +617,6 @@ export default function Metrics(): JSX.Element {
     return {
       last7,
       prior7,
-      last30,
       trendLabel,
       trendDelta,
       topGroup: top?.[0] ?? null,
@@ -974,9 +974,9 @@ export default function Metrics(): JSX.Element {
                 </p>
               ))}
               <p className="text-[11px] font-mono text-slate-500 pt-1">
-                Method: 7-vs-7-day delta with a 10% deadband; concentration is the top operator's share of the last 30
-                days' claims. Sources: ransomlook.io aggregated leak-site index merged with MyThreatIntel CTI events
-                (deduped by victim).{' '}
+                Method: 7-vs-7-day delta with a 10% deadband; concentration is the top operator's share of the last 7
+                days. Sources: ransomlook.io aggregated leak-site index merged with MyThreatIntel CTI events (deduped by
+                victim).{' '}
                 <Link
                   to="/threatintel/ransomware-activity"
                   className="text-brand-600 dark:text-brand-400 hover:underline"
@@ -1018,9 +1018,9 @@ export default function Metrics(): JSX.Element {
           {/* 2. Ransomware cadence */}
           <ChartCard
             icon={TrendingUp}
-            title="Ransomware cadence · last 30 days"
-            question="Is leak-site posting accelerating or cooling?"
-            footer="Daily claim count; sparse x-axis labels every 5 days · fixed 30-day axis"
+            title="Ransomware cadence · last 7 days"
+            question="Is leak-site posting accelerating or cooling this week?"
+            footer="Daily claim count · fixed 7-day axis · per-day labels"
             href="/threatintel/ransomware-activity"
           >
             <Sparkbars buckets={ransomwareCadence} color="#e11d48" />

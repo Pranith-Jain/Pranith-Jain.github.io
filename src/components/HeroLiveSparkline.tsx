@@ -2,13 +2,17 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 /**
- * Hero-section sparkline that renders the last 30 days of ransomware
+ * Hero-section sparkline that renders the last 7 days of ransomware
  * leak-site claims as thin SVG bars directly below the main headline.
  * Decision rationale: the headline says "investigating attacks at human
  * scale, building defenders at AI scale" — without a piece of live data
  * underneath, the headline is just a line. With one, the headline is a
  * thesis statement backed by real numbers the visitor can verify by
  * clicking through to /threatintel/ransomware-activity.
+ *
+ * Was 30 days. Switched to 7 to match the /threatintel/metrics page's
+ * weekly-read framing; the two surfaces now show the same window, and
+ * the bars are wider individually so the daily cadence is more legible.
  *
  * Visual rules:
  *   - Bars only, no axis, no labels (sparkline, not chart).
@@ -34,24 +38,31 @@ function dayKey(iso: string): string {
   return d.toISOString().slice(0, 10);
 }
 
+/**
+ * Number of daily buckets shown in the sparkline. Was 30; cut to 7 to
+ * match the metrics page's weekly read. Each bar gets more pixels, so
+ * the per-day cadence is legible without zooming.
+ */
+const SPARK_DAYS = 7;
+
 interface ComputedBars {
   bars: number[];
   /** Index of the peak bar (highlighted), or -1 if all zero. */
   peakIdx: number;
   /** Display max — at least 1 so we never divide by zero. */
   max: number;
-  /** Total claims across the 30 days. Used in the caption. */
+  /** Total claims across the window. Used in the caption. */
   total: number;
 }
 
 function emptyBars(): ComputedBars {
-  return { bars: Array(30).fill(0), peakIdx: -1, max: 1, total: 0 };
+  return { bars: Array(SPARK_DAYS).fill(0), peakIdx: -1, max: 1, total: 0 };
 }
 
 function computeBars(victims: RansomwareVictim[]): ComputedBars {
   const map = new Map<string, number>();
   const now = new Date();
-  for (let i = 29; i >= 0; i -= 1) {
+  for (let i = SPARK_DAYS - 1; i >= 0; i -= 1) {
     const d = new Date(now.getTime() - i * 86400_000);
     map.set(d.toISOString().slice(0, 10), 0);
   }
@@ -102,13 +113,15 @@ export function HeroLiveSparkline(): JSX.Element {
   const display = data ?? emptyBars();
   const isLive = data !== null && !failed;
 
-  // SVG geometry: 30 bars across, 36px tall, 2px gutter.
-  const BARS = 30;
-  const GAP = 2;
+  // SVG geometry: 7 bars across, 36px tall. With one-seventh as many
+  // bars as the old 30-day strip, each bar gets a wider footprint so the
+  // peak read is unmistakable at hero scale.
+  const BARS = SPARK_DAYS;
+  const GAP = 4;
   const HEIGHT = 36;
-  // Width is responsive (viewBox scales), so we pick a unit width for
-  // each bar that produces a clean integer total in the viewBox.
-  const BAR_W = 8;
+  // Width is responsive (viewBox scales), so we pick a unit width that
+  // gives the 7-bar strip a similar overall aspect ratio to the old 30.
+  const BAR_W = 36;
   const TOTAL_W = BARS * BAR_W + (BARS - 1) * GAP;
 
   return (
@@ -122,13 +135,13 @@ export function HeroLiveSparkline(): JSX.Element {
       >
         <title id="hero-sparkline-title">
           {isLive
-            ? `Ransomware leak-site claims, last 30 days. ${display.total} total claims, peak day ${display.bars[display.peakIdx]} claims.`
+            ? `Ransomware leak-site claims, last 7 days. ${display.total} total claims, peak day ${display.bars[display.peakIdx]} claims.`
             : 'Ransomware claim cadence, awaiting live data.'}
         </title>
         {display.bars.map((v, i) => {
           // Placeholder strip uses a flat 30% height so the visual rhythm
           // is preserved even before data lands. Once data is in, bars
-          // scale to the 30-day max.
+          // scale to the weekly max.
           const norm = isLive ? v / display.max : 0.3;
           const h = Math.max(2, norm * HEIGHT);
           const y = HEIGHT - h;
@@ -167,7 +180,7 @@ export function HeroLiveSparkline(): JSX.Element {
         <span>
           {isLive ? (
             <>
-              ransomware claims · last 30d ·{' '}
+              ransomware claims · last 7d ·{' '}
               <span className="text-brand-600 dark:text-brand-400">{display.total} total</span>
             </>
           ) : failed ? (
