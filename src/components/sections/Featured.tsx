@@ -3,16 +3,21 @@ import { featuredArticles } from '../../data/content';
 export function Featured() {
   return (
     <section id="featured" className="mt-20 scroll-mt-24">
-      {/* Header */}
+      {/* Header — section contains external interviews and expert
+          profiles ABOUT me, not original writing BY me. The previous
+          heading ("Where the work shows up / Recognition") could be
+          misread as a link to case studies; renamed to make the
+          distinction explicit. Authored writing lives in the
+          "Recent writing" section above. */}
       <div className="mb-10 max-w-3xl">
         <div className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
-          Recognition
+          External coverage
         </div>
         <h2 className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-slate-900 dark:text-white">
-          Where the work shows up
+          Press &amp; interviews
         </h2>
         <p className="mt-4 text-lg text-slate-600 dark:text-slate-400">
-          Interviews and writeups across security platforms.
+          Where security publications have profiled the work, in their words rather than mine.
         </p>
       </div>
 

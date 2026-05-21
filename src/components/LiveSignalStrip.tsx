@@ -92,8 +92,12 @@ export function LiveSignalStrip(): JSX.Element {
       if (cancelled) return;
 
       // Tile 1: ransomware claims in the last 24h + the dominant operator
-      // for the same window. The operator-share line is what turns a count
-      // into a sentence; otherwise it's just a number on the page.
+      // for the same window. Intentionally a tighter window than the
+      // 7-day sparkline in the hero above: the sparkline shows cadence
+      // (the week's shape), this tile shows velocity (today's pulse).
+      // The two are complementary, not competing — context line below
+      // makes the relationship explicit so a quiet 24h doesn't read as
+      // contradicting the week's larger total.
       let t1: Tile = { ...empty, icon: Flame, label: 'Ransomware claims · last 24h', accent: 'rose' };
       if (rRes.status === 'fulfilled') {
         const victims = ((rRes.value as { victims?: RansomwareVictim[] }).victims ?? []).filter((v) =>
@@ -108,10 +112,10 @@ export function LiveSignalStrip(): JSX.Element {
           primary: String(victims.length),
           context:
             victims.length === 0
-              ? 'Quiet 24 hours. Aggregated across all tracked leak sites.'
+              ? 'Quiet 24 hours; the 7d sparkline above carries the wider weekly view.'
               : topGroup
-                ? `Leader: ${topGroup} (${topCount} ${topCount === 1 ? 'claim' : 'claims'}).`
-                : 'Aggregated across tracked leak sites.',
+                ? `Leader: ${topGroup} (${topCount} ${topCount === 1 ? 'claim' : 'claims'}). 24h slice of the 7d sparkline above.`
+                : '24h slice of the 7d sparkline above; aggregated across tracked leak sites.',
           href: '/threatintel/ransomware-activity',
           accent: 'rose',
         };

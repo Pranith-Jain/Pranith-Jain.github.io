@@ -22,20 +22,39 @@ export const personalInfo = {
   featuredUrl: 'https://featured.com/p/pranith-jain',
 };
 
-export const stats = [
+/**
+ * Hero stats strip. Three numbers, each anchored to a hardened past
+ * result rather than a target metric. The "Response Time <75min" entry
+ * used to live here too; dropped because (a) it's a moving target
+ * rather than a fixed achievement, and (b) the platform's live
+ * /threatintel surface now carries the up-to-the-minute response
+ * signal in the LiveSignalStrip below the hero, which does the same
+ * job with real numbers.
+ *
+ * Type is explicit (not inferred) so consumers that branch on the
+ * optional `suffix` / `progress` fields still typecheck — those fields
+ * were only used by the dropped Response Time stat, but the conditional
+ * rendering code stays in place for future stats that might want them.
+ */
+export interface StatItem {
+  label: string;
+  value: string;
+  /** Used by the old Response Time stat ("<75" + suffix "min"). Kept
+   *  optional so a future stat can re-use the pattern. */
+  suffix?: string;
+  target?: number;
+  description: string;
+  badge?: string;
+  /** Animated progress bar percentage; only used when `progress` is set. */
+  progress?: number;
+}
+export const stats: StatItem[] = [
   {
     label: 'Incidents Investigated',
     value: '250+',
     target: 250,
     description: 'Phishing, BEC, and malware incidents investigated and resolved.',
     badge: '90%+ Remediation Success',
-  },
-  {
-    label: 'Response Time',
-    value: '<75',
-    suffix: 'min',
-    description: 'Average incident response time via automated n8n pipelines.',
-    progress: 75,
   },
   {
     label: 'Domains Secured',

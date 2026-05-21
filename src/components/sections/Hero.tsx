@@ -209,7 +209,7 @@ export function Hero() {
       {/* Stats strip — minimal definition list. No glass, no scale-on-hover,
           no decorative circles. Each cell is divided from the next by a
           thin left rule on sm+ so the four facts read as a single band. */}
-      <dl className="mt-12 grid grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-4 sm:[&>div+div]:border-l sm:[&>div+div]:border-slate-200/80 sm:[&>div+div]:pl-5 sm:[&>div+div]:dark:border-slate-800">
+      <dl className="mt-12 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-3 sm:[&>div+div]:border-l sm:[&>div+div]:border-slate-200/80 sm:[&>div+div]:pl-5 sm:[&>div+div]:dark:border-slate-800">
         {stats.map((stat) => (
           <div key={stat.label}>
             <dt className="text-[11px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500">

@@ -1,6 +1,7 @@
 import { Hero, Solutions, Featured, Contact } from '../components/sections';
 import { DailyQuote } from '../components/DailyQuote';
 import { LiveSignalStrip } from '../components/LiveSignalStrip';
+import { RecentWriting } from '../components/RecentWriting';
 
 /**
  * Home page sections used to be React.lazy imports wrapped in Suspense.
@@ -10,19 +11,32 @@ import { LiveSignalStrip } from '../components/LiveSignalStrip';
  * imports here add a small overhead to the Home chunk but let the
  * prerender pipeline emit real markup.
  *
- * `LiveSignalStrip` sits between Hero and DailyQuote so a first-time
- * visitor sees the threat-intel platform actually working with current
- * data, not just claims about it, before they've had to drill anywhere.
- * Each tile fetches client-side; the strip never blocks SSR markup.
+ * Composition order — each line earns its slot:
+ *   Hero            : identity + the live sparkline thesis statement
+ *   LiveSignalStrip : three live tiles proving the platform works on /
+ *                     before the visitor has to drill anywhere
+ *   RecentWriting   : authored editorial — case studies + original
+ *                     research — so the "I write" claim has a click-
+ *                     through path from the root
+ *   Solutions       : capability framing (what work the site supports)
+ *   Featured        : press/external coverage
+ *   DailyQuote      : a thought to close on, deliberately last decorative
+ *                     content before the CTA
+ *   Contact         : the ask
+ *
+ * DailyQuote used to sit right after LiveSignalStrip; moved to the
+ * closing position so two data-rich sections don't get a quote-break in
+ * between them.
  */
 export default function Home() {
   return (
     <>
       <Hero />
       <LiveSignalStrip />
-      <DailyQuote />
+      <RecentWriting />
       <Solutions />
       <Featured />
+      <DailyQuote />
       <Contact />
     </>
   );
