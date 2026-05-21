@@ -24,24 +24,30 @@ export default function Research(): JSX.Element {
         <ArrowLeft size={14} /> back
       </BackLink>
 
-      <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
-        <FileText size={28} className="text-brand-600 dark:text-brand-400" /> Research
-      </h1>
-      <p className="text-slate-600 dark:text-slate-400 mb-3 max-w-3xl leading-relaxed">
-        Original adversary-tracking and methodology pieces. Every quantitative claim is sourced to the platform's own
-        aggregated feed (verifiable at the linked detail pages) or to named third-party reporting. No anonymous claims.
-      </p>
-      <p className="text-[12px] font-mono text-slate-500 mb-8">
-        For aggregated third-party research, see{' '}
-        <Link to="/threatintel/signal" className="text-brand-600 dark:text-brand-400 hover:underline">
-          /threatintel/signal
-        </Link>{' '}
-        (curated) or{' '}
-        <Link to="/threatintel/writeups" className="text-brand-600 dark:text-brand-400 hover:underline">
-          /threatintel/writeups
-        </Link>{' '}
-        (firehose).
-      </p>
+      {/* Block-wrap the H1 + intro so the inline-flex headline isn't
+          baselined next to the (also inline) BackLink above. Same pattern
+          Detections.tsx and the other /threatintel pages use. */}
+      <div className="animate-fade-in-up">
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
+          <FileText size={28} className="text-brand-600 dark:text-brand-400" /> Research
+        </h1>
+        <p className="text-slate-600 dark:text-slate-400 mb-3 max-w-3xl leading-relaxed">
+          Original adversary-tracking and methodology pieces. Every quantitative claim is sourced to the platform's own
+          aggregated feed (verifiable at the linked detail pages) or to named third-party reporting. No anonymous
+          claims.
+        </p>
+        <p className="text-[12px] font-mono text-slate-500 mb-8">
+          For aggregated third-party research, see{' '}
+          <Link to="/threatintel/signal" className="text-brand-600 dark:text-brand-400 hover:underline">
+            /threatintel/signal
+          </Link>{' '}
+          (curated) or{' '}
+          <Link to="/threatintel/writeups" className="text-brand-600 dark:text-brand-400 hover:underline">
+            /threatintel/writeups
+          </Link>{' '}
+          (firehose).
+        </p>
+      </div>
 
       {posts.length === 0 ? (
         <p className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 text-sm text-slate-500">
