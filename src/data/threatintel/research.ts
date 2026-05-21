@@ -172,7 +172,7 @@ That's the whole methodology. Cross-source consensus is a *triage* filter, not a
 
 ---
 
-*All counts referenced in this piece are from a live snapshot of [/api/v1/ioc-correlation](https://pranithjain.qzz.io/api/v1/ioc-correlation) at the time of writing (May 22, 2026). The snapshot updates approximately hourly; refresh the linked endpoint to see the current numbers, which will differ. Source feed list and per-source weights are visible on [/threatintel/correlation](/threatintel/correlation).*`,
+*All counts referenced in this piece are from a live snapshot of [/threatintel/correlation](/threatintel/correlation) at the time of writing (May 22, 2026). The snapshot updates approximately hourly; refresh the page to see the current numbers, which will differ. Source feed list and per-source weights are visible on the same page.*`,
   published: true,
 };
 
