@@ -1,129 +1,126 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, AlertTriangle, ShieldAlert, ShieldX, Info, Loader2 } from 'lucide-react';
+import {
+  ArrowLeft,
+  AlertTriangle,
+  ShieldAlert,
+  ShieldX,
+  Info,
+  Loader2,
+  FileDown,
+  ChevronDown,
+  ChevronRight,
+} from 'lucide-react';
+import {
+  scoreCve,
+  decideCve,
+  parseCvssVector,
+  daysUntilDue,
+  exportRowsToCsv,
+  CVSS_FIELD_LABELS,
+  ACTION_RUNBOOKS,
+  type BatchCveLookup,
+  type BatchVerdict,
+  type AssetContext,
+  type PriorityScore,
+  type VerdictResult,
+  type ExportRow,
+} from '../../lib/dfir/cve-priority';
 
 /**
  * CVE Exploit Prioritizer.
  *
- * Paste a list of CVE IDs. Each is enriched via the site's own
- * /api/v1/cve/lookup (NVD CVSS + FIRST EPSS + CISA KEV incl. known
- * ransomware use) and reduced to a single patch-priority verdict:
+ * Paste a list of CVE IDs. Each is enriched via /api/v1/cve/lookup
+ * (NVD CVSS + FIRST EPSS + CISA KEV incl. known-ransomware use, public
+ * PoCs, named threat actors) and reduced to a single patch-priority
+ * verdict + a 0–100 score + a CVSS-vector breakdown + an action runbook.
  *
- *   ACT NOW  — in CISA KEV (actively exploited) — ransomware-flagged first
- *   SCHEDULE — not KEV but very high exploitation likelihood / CVSS ≥ 9
- *   MONITOR  — elevated CVSS or EPSS
+ *   ACT NOW  — CISA KEV, named adversary, or weaponised + high signal
+ *   SCHEDULE — very-high EPSS, critical CVSS, or public PoC
+ *   MONITOR  — elevated signal but no in-the-wild evidence
  *   DEFER    — low signal across all three sources
  *
- * The point: CVSS alone over-prioritises. KEV + EPSS + ransomware-use is
- * how you decide what to patch this week.
+ * The asset-context toggle adjusts the verdict for exposure: internal-
+ * only assets drop network-only ACT NOW → SCHEDULE; internet-facing
+ * assets bump critical-CVSS MONITOR → SCHEDULE.
+ *
+ * The math + verdict rules + CVSS vector parsing all live in
+ * `src/lib/dfir/cve-priority.ts` as pure functions so they're
+ * unit-testable in isolation.
  */
 
 type Sev = 'critical' | 'high' | 'medium' | 'low' | 'info';
 
-const SEV_STYLE: Record<Sev, { text: string; chip: string; Icon: typeof ShieldAlert }> = {
+const SEV_STYLE: Record<Sev, { text: string; chip: string; bar: string; Icon: typeof ShieldAlert }> = {
   critical: {
     text: 'text-rose-700 dark:text-rose-300',
     chip: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
+    bar: 'bg-rose-500',
     Icon: ShieldX,
   },
   high: {
     text: 'text-rose-600 dark:text-rose-400',
     chip: 'border-rose-500/30 bg-rose-500/5 text-rose-600 dark:text-rose-400',
+    bar: 'bg-rose-500',
     Icon: ShieldAlert,
   },
   medium: {
     text: 'text-amber-700 dark:text-amber-400',
     chip: 'border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-400',
+    bar: 'bg-amber-500',
     Icon: AlertTriangle,
   },
   low: {
     text: 'text-sky-700 dark:text-sky-400',
     chip: 'border-sky-500/30 bg-sky-500/10 text-sky-700 dark:text-sky-400',
+    bar: 'bg-sky-500',
     Icon: Info,
   },
   info: {
     text: 'text-slate-600 dark:text-slate-400',
     chip: 'border-slate-400/30 bg-slate-400/10 text-slate-600 dark:text-slate-400',
+    bar: 'bg-slate-500',
     Icon: Info,
   },
 };
 
-interface CveLookup {
-  cve_id: string;
-  cvss?: { base_score: number; severity: string };
-  kev: { in_kev: boolean; known_ransomware?: boolean; due_date?: string };
-  epss?: { score: number; percentile: number };
-  poc?: { count: number; urls: string[] };
-  ghsa?: { id: string; severity?: string; url: string };
-  source?: 'nvd' | 'circl';
-  actors?: string[];
-}
-
-type Verdict = 'ACT NOW' | 'SCHEDULE' | 'MONITOR' | 'DEFER';
+const VERDICT_SEV: Record<BatchVerdict, Sev> = {
+  'ACT NOW': 'critical',
+  SCHEDULE: 'high',
+  MONITOR: 'medium',
+  DEFER: 'low',
+};
+const VERDICT_RANK: Record<BatchVerdict, number> = { 'ACT NOW': 0, SCHEDULE: 1, MONITOR: 2, DEFER: 3 };
 
 interface Row {
   id: string;
   loading: boolean;
   error?: string;
-  data?: CveLookup;
-  verdict?: Verdict;
+  data?: BatchCveLookup;
+  verdict?: VerdictResult;
+  score?: PriorityScore;
   sev?: Sev;
   rank?: number;
-  why?: string;
-}
-
-const VERDICT_SEV: Record<Verdict, Sev> = { 'ACT NOW': 'critical', SCHEDULE: 'high', MONITOR: 'medium', DEFER: 'low' };
-const VERDICT_RANK: Record<Verdict, number> = { 'ACT NOW': 0, SCHEDULE: 1, MONITOR: 2, DEFER: 3 };
-
-function decide(d: CveLookup): { verdict: Verdict; why: string } {
-  const cvss = d.cvss?.base_score ?? 0;
-  const epssPct = d.epss?.percentile ?? 0;
-  const epss = d.epss?.score ?? 0;
-  if (d.kev.in_kev && d.kev.known_ransomware)
-    return { verdict: 'ACT NOW', why: 'In CISA KEV and tied to known ransomware campaigns — actively exploited.' };
-  if (d.kev.in_kev)
-    return {
-      verdict: 'ACT NOW',
-      why: `In CISA KEV — confirmed active exploitation${d.kev.due_date ? ` (remediate by ${d.kev.due_date})` : ''}.`,
-    };
-  const actors = d.actors ?? [];
-  // Named threat-actor / ransomware-group attribution = confirmed in-the-wild
-  // exploitation by a tracked adversary — KEV-grade even if not yet cataloged.
-  if (actors.length > 0)
-    return {
-      verdict: 'ACT NOW',
-      why: `Exploited in the wild by ${actors.slice(0, 4).join(', ')}${actors.length > 4 ? ` +${actors.length - 4}` : ''} — confirmed adversary use; patch now.`,
-    };
-  const pocN = d.poc?.count ?? 0;
-  // Public exploit code + high likelihood/severity ≈ KEV-grade urgency even
-  // before CISA catalogs it (the gap KEV alone misses).
-  if (pocN > 0 && (epssPct >= 0.7 || cvss >= 7))
-    return {
-      verdict: 'ACT NOW',
-      why: `${pocN} public PoC repo(s) AND ${cvss >= 7 ? `CVSS ${cvss.toFixed(1)}` : `EPSS pct ${(epssPct * 100).toFixed(0)}`} — weaponised + likely/severe; treat as actively exploitable.`,
-    };
-  if (epssPct >= 0.95 || epss >= 0.5)
-    return {
-      verdict: 'SCHEDULE',
-      why: `Very high exploitation likelihood (EPSS ${(epss * 100).toFixed(1)}%, top ${((1 - epssPct) * 100).toFixed(1)}%).`,
-    };
-  if (pocN > 0)
-    return {
-      verdict: 'SCHEDULE',
-      why: `${pocN} public PoC repo(s) — working exploit code exists; patch this cycle even though it isn't in KEV yet.`,
-    };
-  if (cvss >= 9)
-    return { verdict: 'SCHEDULE', why: `Critical CVSS ${cvss.toFixed(1)} — patch in the next cycle even without KEV.` };
-  if (cvss >= 7 || epssPct >= 0.7)
-    return {
-      verdict: 'MONITOR',
-      why: `Elevated severity (CVSS ${cvss.toFixed(1)}, EPSS pct ${(epssPct * 100).toFixed(0)}%) but no active-exploitation signal.`,
-    };
-  return { verdict: 'DEFER', why: 'No KEV, low EPSS, sub-high CVSS — low real-world risk; patch on normal cadence.' };
 }
 
 const CVE_RE = /CVE-\d{4}-\d{4,7}/gi;
 const MAX = 60;
+
+/** Hand-picked starter set covering the breadth of the verdict space. */
+const STARTER_BUNDLES: Array<{ label: string; ids: string }> = [
+  {
+    label: 'Recent KEV (2024+)',
+    ids: 'CVE-2024-3094, CVE-2024-21412, CVE-2024-1709, CVE-2024-23897',
+  },
+  {
+    label: 'Era-defining KEV',
+    ids: 'CVE-2021-44228, CVE-2023-23397, CVE-2014-0160, CVE-2017-0144',
+  },
+  {
+    label: 'Mixed signal (test the verdicts)',
+    ids: 'CVE-2021-44228, CVE-2014-0160, CVE-2023-23397, CVE-2024-3094, CVE-2020-1472',
+  },
+];
 
 async function pool<T, R>(items: T[], size: number, fn: (t: T) => Promise<R>): Promise<R[]> {
   const out: R[] = new Array(items.length);
@@ -138,10 +135,50 @@ async function pool<T, R>(items: T[], size: number, fn: (t: T) => Promise<R>): P
   return out;
 }
 
+function downloadFile(filename: string, content: string, mime: string) {
+  const blob = new Blob([content], { type: mime });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
 export default function CvePrioritizer(): JSX.Element {
   const [input, setInput] = useState('');
   const [rows, setRows] = useState<Row[]>([]);
   const [running, setRunning] = useState(false);
+  const [context, setContext] = useState<AssetContext>('unknown');
+  const [filterVerdict, setFilterVerdict] = useState<BatchVerdict | null>(null);
+  const [expanded, setExpanded] = useState<Set<string>>(new Set());
+
+  /** Re-derive verdict + score whenever context changes — no re-fetch. */
+  const decoratedRows = useMemo<Row[]>(() => {
+    return rows.map((r) => {
+      if (!r.data) return r;
+      const verdict = decideCve(r.data, context);
+      const score = scoreCve(r.data, context);
+      return { ...r, verdict, score, sev: VERDICT_SEV[verdict.verdict], rank: VERDICT_RANK[verdict.verdict] };
+    });
+  }, [rows, context]);
+
+  const sortedRows = useMemo(() => {
+    return [...decoratedRows].sort(
+      (a, b) => (a.rank ?? 9) - (b.rank ?? 9) || (b.score?.score ?? 0) - (a.score?.score ?? 0)
+    );
+  }, [decoratedRows]);
+
+  const visibleRows = useMemo(() => {
+    if (!filterVerdict) return sortedRows;
+    return sortedRows.filter((r) => r.verdict?.verdict === filterVerdict);
+  }, [sortedRows, filterVerdict]);
+
+  const counts = useMemo(() => {
+    const c: Record<BatchVerdict, number> = { 'ACT NOW': 0, SCHEDULE: 0, MONITOR: 0, DEFER: 0 };
+    for (const r of sortedRows) if (r.verdict) c[r.verdict.verdict] += 1;
+    return c;
+  }, [sortedRows]);
 
   const run = async () => {
     const ids = Array.from(new Set((input.toUpperCase().match(CVE_RE) ?? []).map((s) => s.toUpperCase()))).slice(
@@ -154,31 +191,71 @@ export default function CvePrioritizer(): JSX.Element {
     }
     setRunning(true);
     setRows(ids.map((id) => ({ id, loading: true })));
+    setExpanded(new Set());
+    setFilterVerdict(null);
     const results = await pool(ids, 5, async (id): Promise<Row> => {
       try {
         const r = await fetch(`/api/v1/cve/lookup?id=${encodeURIComponent(id)}`);
         if (!r.ok) return { id, loading: false, error: `lookup HTTP ${r.status}` };
-        const data = (await r.json()) as CveLookup;
-        const { verdict, why } = decide(data);
-        return { id, loading: false, data, verdict, sev: VERDICT_SEV[verdict], rank: VERDICT_RANK[verdict], why };
+        const data = (await r.json()) as BatchCveLookup;
+        return { id, loading: false, data };
       } catch (e) {
         return { id, loading: false, error: (e as Error).message };
       }
     });
-    results.sort(
-      (a, b) => (a.rank ?? 9) - (b.rank ?? 9) || (b.data?.cvss?.base_score ?? 0) - (a.data?.cvss?.base_score ?? 0)
-    );
     setRows(results);
     setRunning(false);
   };
 
-  const counts = rows.reduce<Record<Verdict, number>>(
-    (acc, r) => {
-      if (r.verdict) acc[r.verdict] += 1;
-      return acc;
-    },
-    { 'ACT NOW': 0, SCHEDULE: 0, MONITOR: 0, DEFER: 0 }
-  );
+  const toggleExpand = (id: string) =>
+    setExpanded((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+
+  const exportCsv = () => {
+    const rowsToExport: ExportRow[] = sortedRows
+      .filter((r) => r.data && r.verdict && r.score)
+      .map((r) => ({
+        cve_id: r.id,
+        verdict: r.verdict!.verdict,
+        score: r.score!.score,
+        cvss: r.data!.cvss?.base_score,
+        cvss_severity: r.data!.cvss?.severity,
+        epss_percentile: r.data!.epss?.percentile,
+        in_kev: r.data!.kev.in_kev,
+        known_ransomware: r.data!.kev.known_ransomware === true,
+        poc_count: r.data!.poc?.count ?? 0,
+        actors: r.data!.actors ?? [],
+        context,
+        why: r.verdict!.why,
+      }));
+    if (rowsToExport.length === 0) return;
+    downloadFile(
+      `cve-prioritizer-${new Date().toISOString().slice(0, 10)}.csv`,
+      exportRowsToCsv(rowsToExport),
+      'text/csv'
+    );
+  };
+
+  const exportJson = () => {
+    const payload = sortedRows.map((r) => ({
+      cve_id: r.id,
+      verdict: r.verdict?.verdict,
+      score: r.score?.score,
+      factors: r.score?.factors,
+      context,
+      data: r.data,
+      error: r.error,
+    }));
+    downloadFile(
+      `cve-prioritizer-${new Date().toISOString().slice(0, 10)}.json`,
+      JSON.stringify(payload, null, 2),
+      'application/json'
+    );
+  };
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
@@ -191,31 +268,66 @@ export default function CvePrioritizer(): JSX.Element {
 
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">CVE Exploit Prioritizer</h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-2xl">
+        <p className="text-slate-600 dark:text-slate-400 mb-3 max-w-2xl">
           Paste CVE IDs (any format — IDs are extracted). Each is enriched with NVD CVSS + FIRST EPSS + CISA KEV (incl.
-          known-ransomware use) and reduced to one patch-priority verdict. CVSS alone over-prioritises —
-          KEV&nbsp;+&nbsp;EPSS is how you pick what to patch this week.
+          known-ransomware) + public PoC count + named-actor attribution and reduced to a single verdict, a 0-100 score,
+          and a CVSS vector breakdown. CVSS alone over-prioritises — KEV + EPSS + PoCs + actor attribution + asset
+          context is how you pick what to patch this week.
         </p>
-        <div className="flex flex-wrap gap-2 mb-4">
+      </div>
+
+      {/* Starter bundles + context toggle. Two rows so the controls don't
+          wrap into one wall of pills on narrow screens. */}
+      <div className="flex flex-wrap items-center gap-2 mb-3">
+        <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-slate-500">starters</span>
+        {STARTER_BUNDLES.map((b) => (
           <button
+            key={b.label}
             type="button"
-            onClick={() => setInput('CVE-2021-44228, CVE-2023-23397\nCVE-2014-0160 CVE-2024-3094')}
+            onClick={() => setInput(b.ids)}
             className="text-[12px] font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
           >
-            load example
+            {b.label}
           </button>
-          {input && (
+        ))}
+        {input && (
+          <button
+            type="button"
+            onClick={() => {
+              setInput('');
+              setRows([]);
+            }}
+            className="text-[12px] font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
+          >
+            clear
+          </button>
+        )}
+      </div>
+
+      <div className="flex flex-wrap items-center gap-2 mb-4">
+        <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-slate-500">asset context</span>
+        <div className="inline-flex rounded border border-slate-200 dark:border-slate-800 overflow-hidden">
+          {(['internet-facing', 'unknown', 'internal-only'] as const).map((c) => (
             <button
+              key={c}
               type="button"
-              onClick={() => {
-                setInput('');
-                setRows([]);
-              }}
-              className="text-[12px] font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400"
+              onClick={() => setContext(c)}
+              className={
+                context === c
+                  ? 'text-[11px] font-mono uppercase tracking-wider px-2.5 py-1 bg-brand-500/15 text-brand-700 dark:text-brand-300'
+                  : 'text-[11px] font-mono uppercase tracking-wider px-2.5 py-1 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+              }
+              title={
+                c === 'internet-facing'
+                  ? 'External-facing asset — full weight on every signal.'
+                  : c === 'internal-only'
+                    ? 'Internal-only asset — reduce urgency for network-exposure CVEs.'
+                    : 'Context unknown — apply a small reduction; rescore when exposure is known.'
+              }
             >
-              clear
+              {c.replace('-', ' ')}
             </button>
-          )}
+          ))}
         </div>
       </div>
 
@@ -242,33 +354,71 @@ export default function CvePrioritizer(): JSX.Element {
         {running ? 'enriching…' : 'prioritize'}
       </button>
 
-      {rows.length > 0 && (
-        <div className="mt-8 space-y-6">
-          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
-            <div className="flex flex-wrap gap-1.5 text-sm">
-              {(['ACT NOW', 'SCHEDULE', 'MONITOR', 'DEFER'] as Verdict[])
-                .filter((v) => counts[v] > 0)
-                .map((v) => (
-                  <span
-                    key={v}
-                    className={`text-[11px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SEV_STYLE[VERDICT_SEV[v]].chip}`}
+      {sortedRows.length > 0 && (
+        <div className="mt-8 space-y-4">
+          {/* Summary strip — verdict counts + export buttons. Click a
+              count to filter the list below to that verdict. */}
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div className="flex flex-wrap items-center gap-1.5">
+                {(['ACT NOW', 'SCHEDULE', 'MONITOR', 'DEFER'] as BatchVerdict[]).map((v) =>
+                  counts[v] > 0 ? (
+                    <button
+                      key={v}
+                      type="button"
+                      onClick={() => setFilterVerdict(filterVerdict === v ? null : v)}
+                      className={
+                        filterVerdict === v
+                          ? `text-[11px] font-mono uppercase tracking-wider px-2 py-1 rounded border-2 ${SEV_STYLE[VERDICT_SEV[v]].chip}`
+                          : `text-[11px] font-mono uppercase tracking-wider px-2 py-1 rounded border ${SEV_STYLE[VERDICT_SEV[v]].chip} opacity-90 hover:opacity-100`
+                      }
+                    >
+                      {counts[v]} {v}
+                    </button>
+                  ) : null
+                )}
+                <span className="text-[11px] font-mono text-slate-500 ml-2">{sortedRows.length} CVE(s)</span>
+                {filterVerdict && (
+                  <button
+                    type="button"
+                    onClick={() => setFilterVerdict(null)}
+                    className="text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline ml-1"
                   >
-                    {counts[v]} {v}
-                  </span>
-                ))}
-              <span className="text-[11px] font-mono text-slate-500 px-1.5 py-0.5">{rows.length} CVE(s)</span>
+                    clear filter
+                  </button>
+                )}
+              </div>
+              <div className="flex items-center gap-1.5">
+                <button
+                  type="button"
+                  onClick={exportCsv}
+                  className="text-[11px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                >
+                  <FileDown size={11} /> CSV
+                </button>
+                <button
+                  type="button"
+                  onClick={exportJson}
+                  className="text-[11px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                >
+                  <FileDown size={11} /> JSON
+                </button>
+              </div>
             </div>
           </section>
 
           <section className="space-y-3">
-            {rows.map((r) => {
+            {visibleRows.map((r) => {
               const st = SEV_STYLE[r.sev ?? 'info'];
+              const isOpen = expanded.has(r.id);
+              const vec = parseCvssVector(r.data?.cvss?.vector);
+              const days = daysUntilDue(r.data?.kev.due_date);
               return (
-                <div
+                <article
                   key={r.id}
                   className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4"
                 >
-                  <div className="flex items-start gap-2.5">
+                  <header className="flex items-start gap-2.5">
                     {r.loading ? (
                       <Loader2 size={16} className="mt-0.5 flex-shrink-0 animate-spin text-slate-400" />
                     ) : (
@@ -281,12 +431,36 @@ export default function CvePrioritizer(): JSX.Element {
                           <span
                             className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${st.chip}`}
                           >
-                            {r.verdict}
+                            {r.verdict.verdict}
+                          </span>
+                        )}
+                        {r.verdict?.baseVerdict && (
+                          <span
+                            className="text-[10px] font-mono text-slate-500"
+                            title={`Verdict adjusted for asset context (${context}). Without it: ${r.verdict.baseVerdict}.`}
+                          >
+                            (was {r.verdict.baseVerdict})
+                          </span>
+                        )}
+                        {r.score && (
+                          <span className="ml-auto inline-flex items-center gap-1.5">
+                            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500">score</span>
+                            <span className={`text-base font-bold tabular-nums ${st.text}`}>{r.score.score}</span>
+                            <span className="text-[10px] font-mono text-slate-400">/100</span>
                           </span>
                         )}
                         {r.loading && <span className="text-[11px] font-mono text-slate-500">enriching…</span>}
                         {r.error && <span className="text-[11px] font-mono text-rose-500">{r.error}</span>}
                       </div>
+
+                      {/* Score bar */}
+                      {r.score && (
+                        <div className="mt-2 h-1 w-full bg-slate-100 dark:bg-slate-800 rounded overflow-hidden">
+                          <div className={`h-full ${st.bar} transition-all`} style={{ width: `${r.score.score}%` }} />
+                        </div>
+                      )}
+
+                      {/* Top-line signal row */}
                       {r.data && (
                         <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-[12px] font-mono text-slate-600 dark:text-slate-400">
                           <span>
@@ -294,6 +468,14 @@ export default function CvePrioritizer(): JSX.Element {
                             <span className="text-slate-900 dark:text-slate-100">
                               {r.data.cvss ? `${r.data.cvss.base_score.toFixed(1)} ${r.data.cvss.severity}` : 'n/a'}
                             </span>
+                            {vec.wormable && (
+                              <span
+                                className="ml-1 text-[10px] font-mono uppercase tracking-wider px-1 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300"
+                                title="Network, low complexity, no auth, no UI — wormable shape."
+                              >
+                                wormable
+                              </span>
+                            )}
                           </span>
                           <span>
                             EPSS{' '}
@@ -308,6 +490,21 @@ export default function CvePrioritizer(): JSX.Element {
                             <span className={r.data.kev.in_kev ? st.text : 'text-slate-900 dark:text-slate-100'}>
                               {r.data.kev.in_kev ? 'yes' : 'no'}
                             </span>
+                            {r.data.kev.in_kev && days !== undefined && (
+                              <span
+                                className={
+                                  'ml-1 ' +
+                                  (days < 0
+                                    ? 'text-rose-600 dark:text-rose-400'
+                                    : days <= 7
+                                      ? 'text-amber-700 dark:text-amber-400'
+                                      : 'text-slate-500')
+                                }
+                                title={`CISA due date: ${r.data.kev.due_date}`}
+                              >
+                                {days < 0 ? `OVERDUE ${Math.abs(days)}d` : days === 0 ? 'due today' : `${days}d to due`}
+                              </span>
+                            )}
                           </span>
                           <span>
                             Ransomware{' '}
@@ -348,6 +545,7 @@ export default function CvePrioritizer(): JSX.Element {
                           )}
                         </div>
                       )}
+
                       {r.data?.actors && r.data.actors.length > 0 && (
                         <p className="text-[12px] font-mono mt-1.5">
                           <span className="text-slate-500 uppercase tracking-wider text-[11px]">actors</span>{' '}
@@ -364,14 +562,129 @@ export default function CvePrioritizer(): JSX.Element {
                           ))}
                         </p>
                       )}
-                      {r.why && (
-                        <p className="text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">{r.why}</p>
+
+                      {r.verdict?.why && (
+                        <p className="text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
+                          {r.verdict.why}
+                        </p>
+                      )}
+
+                      {r.data && (
+                        <button
+                          type="button"
+                          onClick={() => toggleExpand(r.id)}
+                          aria-expanded={isOpen}
+                          className="mt-2 inline-flex items-center gap-1 text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
+                        >
+                          {isOpen ? <ChevronDown size={11} /> : <ChevronRight size={11} />}
+                          {isOpen ? 'collapse' : 'score breakdown, vector, runbook'}
+                        </button>
+                      )}
+
+                      {isOpen && r.data && r.score && r.verdict && (
+                        <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                          {/* Score factor breakdown */}
+                          <div className="rounded border border-slate-200 dark:border-slate-800 p-3">
+                            <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 mb-2">
+                              Score factors
+                            </div>
+                            <ul className="space-y-1.5">
+                              {r.score.factors.map((f) => (
+                                <li key={f.label} className="text-[12px] font-mono">
+                                  <div className="flex items-baseline justify-between gap-2">
+                                    <span className="text-slate-700 dark:text-slate-300">{f.label}</span>
+                                    <span
+                                      className={
+                                        f.contribution >= 0
+                                          ? 'text-slate-900 dark:text-slate-100 tabular-nums'
+                                          : 'text-rose-600 dark:text-rose-400 tabular-nums'
+                                      }
+                                    >
+                                      {f.contribution >= 0 ? '+' : ''}
+                                      {f.contribution.toFixed(1)}
+                                    </span>
+                                  </div>
+                                  <div className="text-[10px] text-slate-500 leading-snug">{f.why}</div>
+                                </li>
+                              ))}
+                              {r.score.factors.length === 0 && (
+                                <li className="text-[12px] font-mono text-slate-500">No active factors.</li>
+                              )}
+                            </ul>
+                          </div>
+
+                          {/* CVSS vector breakdown */}
+                          <div className="rounded border border-slate-200 dark:border-slate-800 p-3">
+                            <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 mb-2">
+                              CVSS {vec.version ? `v${vec.version}` : ''} vector
+                            </div>
+                            {!r.data.cvss?.vector ? (
+                              <p className="text-[12px] font-mono text-slate-500">
+                                No vector string in the NVD record.
+                              </p>
+                            ) : (
+                              <dl className="grid grid-cols-2 gap-x-2 gap-y-1 text-[11px] font-mono">
+                                {(
+                                  [
+                                    ['attack_vector', 'AV'],
+                                    ['attack_complexity', 'AC'],
+                                    ['privileges_required', 'PR'],
+                                    ['user_interaction', 'UI'],
+                                    ['scope', 'S'],
+                                    ['confidentiality', 'C'],
+                                    ['integrity', 'I'],
+                                    ['availability', 'A'],
+                                  ] as const
+                                ).map(([key, code]) => {
+                                  const raw = vec[key];
+                                  const labelMap = CVSS_FIELD_LABELS[key] as Record<string, string>;
+                                  const label = raw ? labelMap[raw] : '—';
+                                  return (
+                                    <div key={key} className="contents">
+                                      <dt className="text-slate-500">{code}</dt>
+                                      <dd className="text-slate-800 dark:text-slate-200 truncate" title={label}>
+                                        {label}
+                                      </dd>
+                                    </div>
+                                  );
+                                })}
+                              </dl>
+                            )}
+                          </div>
+
+                          {/* Runbook + description */}
+                          <div className="rounded border border-slate-200 dark:border-slate-800 p-3 sm:col-span-2">
+                            <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 mb-2">
+                              Runbook · {ACTION_RUNBOOKS[r.verdict.verdict].title}
+                            </div>
+                            <ol className="list-decimal pl-5 space-y-1 text-[12px] text-slate-700 dark:text-slate-300 leading-relaxed">
+                              {ACTION_RUNBOOKS[r.verdict.verdict].steps.map((s) => (
+                                <li key={s}>{s}</li>
+                              ))}
+                            </ol>
+                            {r.data.description && (
+                              <details className="mt-3">
+                                <summary className="text-[11px] font-mono text-slate-500 cursor-pointer">
+                                  NVD description
+                                </summary>
+                                <p className="mt-1 text-[12px] text-slate-600 dark:text-slate-400 leading-relaxed">
+                                  {r.data.description}
+                                </p>
+                              </details>
+                            )}
+                          </div>
+                        </div>
                       )}
                     </div>
-                  </div>
-                </div>
+                  </header>
+                </article>
               );
             })}
+            {visibleRows.length === 0 && filterVerdict && (
+              <p className="text-[12px] font-mono text-slate-500 text-center py-4">
+                No CVEs match filter <span className="text-slate-700 dark:text-slate-300">{filterVerdict}</span>.
+              </p>
+            )}
           </section>
         </div>
       )}
