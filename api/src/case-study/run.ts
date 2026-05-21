@@ -47,6 +47,14 @@ export interface CaseStudyEnv {
    * (unset, "false", "0") leaves the existing auto-publish behaviour.
    */
   BLOG_APPROVAL_REQUIRED?: string;
+  /**
+   * Threat-intel provider keys for layer-2 IOC validation at QA time.
+   * Each is optional and degrades independently. When ALL are unset
+   * the validation step is a no-op (the post-process layer-1 placeholder
+   * filter stays the only IOC truth defence).
+   */
+  VT_API_KEY?: string;
+  ABUSEIPDB_API_KEY?: string;
 }
 
 export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
@@ -156,13 +164,19 @@ export function runPublisherNow(env: CaseStudyEnv, now: Date) {
     return Promise.resolve({ published: null as unknown });
   }
   const requireApproval = env.BLOG_APPROVAL_REQUIRED === 'true';
+  // Build the optional validation-env once; pass undefined when no
+  // provider keys are set so the validator's fast-path short-circuits.
+  const validationEnv =
+    env.VT_API_KEY || env.ABUSEIPDB_API_KEY || env.ABUSECH_AUTH_KEY
+      ? { VT_API_KEY: env.VT_API_KEY, ABUSEIPDB_API_KEY: env.ABUSEIPDB_API_KEY, ABUSECH_AUTH_KEY: env.ABUSECH_AUTH_KEY }
+      : undefined;
   return runPublisher({
     pickDueSlot: (n) => pickDueSlot(env.CASE_STUDIES, n),
     markSlotStatus: (cid, status, extras) => markSlotStatus(env.CASE_STUDIES, cid, status, extras),
     getApproved: (k) => getApproved(env.CASE_STUDIES, k),
     unapprove: (k) => unapprove(env.CASE_STUDIES, k),
     generatePost: (cand, n) =>
-      generatePost({ candidate: cand, ai: env.AI as never, now: n, groqKey: env.GROQ_API_KEY }),
+      generatePost({ candidate: cand, ai: env.AI as never, now: n, groqKey: env.GROQ_API_KEY, validationEnv }),
     putPost: (p) => putPost(env.CASE_STUDIES, p),
     putDraft: (p) => putDraft(env.CASE_STUDIES, p),
     refreshRss: async () => {

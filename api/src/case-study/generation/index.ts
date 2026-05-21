@@ -4,6 +4,7 @@ import { buildPrompt } from './templates';
 import { runCompletion } from './ai-client';
 import { postProcess } from './post-process';
 import { renderHeroSvg } from './hero-svg';
+import { validateIocsLive, type IocValidationEnv } from './ioc-live-validation';
 
 function slugify(title: string): string {
   return title
@@ -124,6 +125,14 @@ export interface GeneratePostDeps {
   /** Groq free-tier key. When set, used as the quality primary; Workers AI
    *  is the fallback. Unset → Workers-AI-only (rate-limit-aware). */
   groqKey?: string;
+  /**
+   * Optional threat-intel provider keys for layer-2 IOC validation
+   * (VT/AbuseIPDB/abuse.ch). When any are set, every extracted IOC is
+   * cross-checked at QA time and dropped if upstream returns "not
+   * found" everywhere. When unset, the post-process layer-1 placeholder
+   * filter is the only defence — still correct, just narrower coverage.
+   */
+  validationEnv?: IocValidationEnv;
 }
 
 export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
@@ -176,6 +185,31 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
     throw new Error(`qa failed: ${processed.qa.issues.join('; ')}`);
   }
 
+  // Layer-2 IOC validation — every IOC the post-process layer extracted
+  // is cross-checked against threat-intel providers (VT, AbuseIPDB,
+  // abuse.ch). IOCs that every provider explicitly says "not found"
+  // are dropped from the post; providers that error keep the IOC
+  // (we don't trust our own check). Pure no-op when no provider
+  // keys are configured.
+  let iocs = processed.iocs;
+  if (deps.validationEnv) {
+    const live = await validateIocsLive(processed.iocs, deps.validationEnv);
+    iocs = live.iocs;
+    if (live.droppedCount > 0) {
+      console.log(
+        JSON.stringify({
+          job: 'generate-post',
+          stage: 'ioc-live-validation',
+          candidate: candidate.key,
+          dropped: live.droppedCount,
+          validated: live.validatedCount,
+          skipped: live.skippedCount,
+          reasons: live.dropReasons.slice(0, 5),
+        })
+      );
+    }
+  }
+
   const slug = `${candidate.key}-${slugify(candidate.title).slice(0, 40)}`.replace(/-+/g, '-');
   const hero = renderHeroSvg({ title: candidate.title, type: candidate.type });
 
@@ -188,7 +222,7 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
     candidateId: candidate.key,
     body: processed.body,
     hero,
-    iocs: processed.iocs,
+    iocs,
     tags: tagsFor(candidate),
     sources,
     quality: processed.quality,
