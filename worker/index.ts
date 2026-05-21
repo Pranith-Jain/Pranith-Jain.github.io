@@ -442,8 +442,17 @@ async function getOrInjectOg(request: Request, env: Env, ctx: ExecutionContext, 
   // Key includes the request host: the rewritten HTML is host-independent
   // now (canonical is constant), but keying by host as well as path@etag
   // keeps a non-canonical host's responses from ever sharing an entry.
+  // Cache-key version. Bumped whenever the OG rewrite logic changes
+  // (rewriteOgMeta, findOgOverride, OG_OVERRIDES image inheritance,
+  // etc.) so a deploy busts cached entries even though the asset
+  // etag didn't change — the asset is the unchanged index.html shell,
+  // but the rewrite *of* that shell is what we're actually caching.
+  //   v1 (implicit): original title/description rewrite
+  //   v2: image swap added; sub-route image inheritance via merged
+  //       OG_OVERRIDES lookup
+  const REWRITE_VERSION = 'v2';
   const cacheKey = new Request(
-    `https://og-html.internal/${encodeURIComponent(url.host)}${url.pathname}@${encodeURIComponent(etag)}`
+    `https://og-html.internal/${REWRITE_VERSION}/${encodeURIComponent(url.host)}${url.pathname}@${encodeURIComponent(etag)}`
   );
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
