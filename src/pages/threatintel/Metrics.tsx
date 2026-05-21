@@ -554,23 +554,42 @@ export default function Metrics(): JSX.Element {
    */
   const headlineRead = useMemo(() => {
     if (!state.ransomware || state.ransomware.length === 0) return null;
-    const now = Date.now();
+    const now = new Date();
     const day = 86400_000;
-    const last7Cutoff = now - 7 * day;
-    const prior7Cutoff = now - 14 * day;
+
+    // Calendar-day bucketing matching the ransomwareCadence sparkbar
+    // computation above AND the hero sparkline on the portfolio root.
+    // Was a rolling 168-hour window (`now - 7 * day`), which counted
+    // a few extra claims at the trailing edge of the window that the
+    // chart's calendar-day buckets excluded — visible to users as
+    // "headline says 239 but the bars sum to 231". Now headline +
+    // chart + hero all share the same 7-UTC-calendar-day definition
+    // of "last 7 days", so the numbers line up across surfaces.
+    const last7Days = new Set<string>();
+    const prior7Days = new Set<string>();
+    for (let i = 0; i < 7; i += 1) {
+      last7Days.add(new Date(now.getTime() - i * day).toISOString().slice(0, 10));
+    }
+    for (let i = 7; i < 14; i += 1) {
+      prior7Days.add(new Date(now.getTime() - i * day).toISOString().slice(0, 10));
+    }
 
     let last7 = 0;
     let prior7 = 0;
     const last7Groups = new Set<string>();
     const last7GroupCounts = new Map<string, number>();
     for (const v of state.ransomware) {
+      // dayKey via Date.parse round-trip so non-ISO timestamps from MTI
+      // (which can arrive as "YYYY-MM-DD HH:MM:SS.fff") normalise to the
+      // same UTC-date string the bucket sets above use.
       const t = Date.parse(v.discovered);
       if (Number.isNaN(t)) continue;
-      if (t >= last7Cutoff) {
+      const key = new Date(t).toISOString().slice(0, 10);
+      if (last7Days.has(key)) {
         last7 += 1;
         last7Groups.add(v.group);
         last7GroupCounts.set(v.group, (last7GroupCounts.get(v.group) ?? 0) + 1);
-      } else if (t >= prior7Cutoff) {
+      } else if (prior7Days.has(key)) {
         prior7 += 1;
       }
     }
