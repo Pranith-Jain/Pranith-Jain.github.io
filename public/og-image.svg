@@ -1,4 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <!--
+    Portfolio root (/) OG image. Identity-first composition: the brand
+    mark + name at top-left, the actual hero phrase from the live site
+    as the headline, three hardened past-result stats below, and a
+    footer line pointing at the three substantive surfaces. Visual
+    language stays in the cool slate/brand-blue palette of the site
+    itself so the share preview reads as the same product, not a
+    separate brochure.
+  -->
   <defs>
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#0f172a"/>
@@ -18,7 +27,6 @@
     </radialGradient>
   </defs>
 
-  <!-- background -->
   <rect width="1200" height="630" fill="url(#bg)"/>
   <rect width="1200" height="630" fill="url(#glow)"/>
 
@@ -28,48 +36,42 @@
     <path d="M300 0 L300 630 M600 0 L600 630 M900 0 L900 630"/>
   </g>
 
-  <!-- PJ logo (top-left) -->
+  <!-- PJ mark -->
   <g transform="translate(80, 80)">
     <rect width="96" height="96" rx="20" fill="url(#brand)"/>
     <text x="48" y="62" font-family="Inter, system-ui, sans-serif" font-size="44" font-weight="800" fill="white" text-anchor="middle">PJ</text>
   </g>
 
-  <!-- "PRANITH JAIN" small label -->
   <text x="200" y="125" font-family="ui-monospace, monospace" font-size="20" font-weight="700" fill="#94a3b8" letter-spacing="0.2em">PRANITH JAIN</text>
-  <text x="200" y="155" font-family="ui-monospace, monospace" font-size="14" font-weight="500" fill="#64748b" letter-spacing="0.15em">SECURITY ANALYST &amp; DETECTION ENGINEER</text>
+  <text x="200" y="155" font-family="ui-monospace, monospace" font-size="14" font-weight="500" fill="#64748b" letter-spacing="0.15em">SECURITY ANALYST · DETECTION ENGINEER</text>
 
-  <!-- main headline -->
-  <text x="80" y="290" font-family="Inter, system-ui, sans-serif" font-size="72" font-weight="800" fill="#f1f5f9">A working DFIR</text>
-  <text x="80" y="365" font-family="Inter, system-ui, sans-serif" font-size="72" font-weight="800" fill="url(#brandText)">toolkit on the edge.</text>
+  <!-- Headline — matches the hero on the live site verbatim -->
+  <text x="80" y="295" font-family="Inter, system-ui, sans-serif" font-size="62" font-weight="800" fill="#f1f5f9">Investigating attacks at human scale.</text>
+  <text x="80" y="365" font-family="Inter, system-ui, sans-serif" font-size="62" font-weight="800" fill="url(#brandText)">Building defenders at AI scale.</text>
 
-  <!-- supporting line -->
-  <text x="80" y="430" font-family="Inter, system-ui, sans-serif" font-size="26" font-weight="400" fill="#cbd5e1">24 tools · 22 IOC sources · no signup · runs on Cloudflare Workers</text>
+  <!-- Discipline line -->
+  <text x="80" y="425" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="400" fill="#cbd5e1">Threat intel · DFIR · Detection engineering · Email security</text>
 
-  <!-- bottom row: stat chips -->
-  <g transform="translate(80, 490)" font-family="ui-monospace, monospace" font-weight="600">
+  <!-- Stat chips — three hardened past results -->
+  <g transform="translate(80, 485)" font-family="ui-monospace, monospace" font-weight="600">
     <g>
-      <rect width="220" height="56" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1"/>
-      <text x="20" y="25" font-size="11" fill="#64748b" letter-spacing="0.15em">DOMAINS SECURED</text>
-      <text x="20" y="48" font-size="22" fill="#f1f5f9">1,300+</text>
+      <rect width="320" height="60" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="20" y="26" font-size="11" fill="#64748b" letter-spacing="0.15em">INCIDENTS INVESTIGATED</text>
+      <text x="20" y="50" font-size="22" fill="#f1f5f9">250+</text>
     </g>
-    <g transform="translate(244, 0)">
-      <rect width="220" height="56" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1"/>
-      <text x="20" y="25" font-size="11" fill="#64748b" letter-spacing="0.15em">INCIDENTS</text>
-      <text x="20" y="48" font-size="22" fill="#f1f5f9">250+</text>
+    <g transform="translate(340, 0)">
+      <rect width="320" height="60" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="20" y="26" font-size="11" fill="#64748b" letter-spacing="0.15em">DOMAINS SECURED</text>
+      <text x="20" y="50" font-size="22" fill="#f1f5f9">1,300+</text>
     </g>
-    <g transform="translate(488, 0)">
-      <rect width="220" height="56" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1"/>
-      <text x="20" y="25" font-size="11" fill="#64748b" letter-spacing="0.15em">RESPONSE</text>
-      <text x="20" y="48" font-size="22" fill="#f1f5f9">&lt; 75 min</text>
-    </g>
-    <g transform="translate(732, 0)">
-      <rect width="220" height="56" rx="10" fill="url(#brand)"/>
-      <text x="20" y="25" font-size="11" fill="#dbeafe" letter-spacing="0.15em">LIVE AT</text>
-      <text x="20" y="48" font-size="22" fill="white">pranithjain.qzz.io</text>
+    <g transform="translate(680, 0)">
+      <rect width="360" height="60" rx="10" fill="url(#brand)"/>
+      <text x="20" y="26" font-size="11" fill="#dbeafe" letter-spacing="0.15em">LIVE AT</text>
+      <text x="20" y="50" font-size="22" fill="white">pranithjain.qzz.io</text>
     </g>
   </g>
 
-  <!-- footer line -->
+  <!-- Footer surface list -->
   <line x1="80" y1="595" x2="1120" y2="595" stroke="#1e293b" stroke-width="1"/>
-  <text x="80" y="615" font-family="ui-monospace, monospace" font-size="12" fill="#475569">/dfir · IOC Checker · Threat Map · STIX Viewer · Subdomain Takeover · Dark Web Watch</text>
+  <text x="80" y="615" font-family="ui-monospace, monospace" font-size="12" fill="#475569">/dfir toolkit · /threatintel platform · /projects case studies · /threatintel/research authored CTI</text>
 </svg>

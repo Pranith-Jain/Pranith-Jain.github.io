@@ -134,6 +134,15 @@ function injectScriptNonce(html: string, nonce: string): string {
 interface OgOverride {
   title: string;
   description: string;
+  /**
+   * Optional per-surface OG image. When set, the worker rewrites
+   * `og:image` + `twitter:image` to this URL so a share-preview of
+   * /threatintel renders the CTI card, /dfir renders the toolkit card,
+   * and everything else falls back to the portfolio default in
+   * index.html. Use a relative path; the worker joins it with the
+   * canonical origin.
+   */
+  image?: string;
 }
 
 const OG_OVERRIDES: Record<string, OgOverride> = {
@@ -141,6 +150,7 @@ const OG_OVERRIDES: Record<string, OgOverride> = {
     title: 'Threat Intel Platform · pranithjain.qzz.io',
     description:
       'A working CTI surface on the edge. Live ransomware leak claims, CVE merged with CISA KEV, cross-source IOC correlation across 18 feeds, an actor-activity Gantt joined with MITRE Group profiles, victim re-leak detection, ten-panel metrics, STIX 2.1 export, and a writeups aggregator across 18 analyst blogs.',
+    image: '/og-threatintel.png',
   },
   '/threatintel/external-resources': {
     title: 'External Resources Catalog · pranithjain.qzz.io',
@@ -210,6 +220,7 @@ const OG_OVERRIDES: Record<string, OgOverride> = {
     title: 'DFIR Toolkit · pranithjain.qzz.io',
     description:
       'Interactive DFIR tools on the edge. IOC checker streaming verdicts from 24 providers, Diamond Model builder with auto-fill, STIX 2.1 viewer, subdomain-takeover fingerprinting, MITRE ATT&CK matrix, and a long tail of analyst utilities. Free, no signup.',
+    image: '/og-dfir.png',
   },
   '/dfir/ioc-check': {
     title: 'IOC Checker · pranithjain.qzz.io',
@@ -298,6 +309,21 @@ function rewriteOgMeta(html: string, override: OgOverride | null, fullUrl: strin
       .replace(/<meta property="og:description" content="[^"]*"/i, `<meta property="og:description" content="${d}"`)
       .replace(/<meta name="twitter:title" content="[^"]*"/i, `<meta name="twitter:title" content="${t}"`)
       .replace(/<meta name="twitter:description" content="[^"]*"/i, `<meta name="twitter:description" content="${d}"`);
+
+    // Per-route OG image. Swap `og:image` and `twitter:image` to the
+    // override's image. Path is joined with the canonical origin so
+    // social-media bots receive an absolute URL (relative og:image
+    // values break on LinkedIn and Slack regardless of base/canonical).
+    if (override.image) {
+      const imgUrl = `${CANONICAL_ORIGIN}${override.image}`;
+      const imgAttr = escapeAttr(imgUrl);
+      out = out
+        .replace(/<meta property="og:image" content="[^"]*"/i, `<meta property="og:image" content="${imgAttr}"`)
+        .replace(
+          /<meta property="twitter:image" content="[^"]*"/i,
+          `<meta property="twitter:image" content="${imgAttr}"`
+        );
+    }
   }
   return out;
 }

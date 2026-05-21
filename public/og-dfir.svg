@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <!--
+    /dfir OG image. The toolkit is the surface; the headline keeps the
+    "working / on the edge" framing because that's what differentiates
+    it from every other security-tool index, but the numbers and the
+    footer surface list are now accurate to the current state (60+
+    tools, 24 providers, the five Start-here picks). Same visual
+    chassis as the portfolio OG so a share-preview thread that mixes
+    the two reads as the same site.
+  -->
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="brand" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2c3ee5"/>
+      <stop offset="100%" stop-color="#435ef1"/>
+    </linearGradient>
+    <linearGradient id="brandText" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#a5b4fc"/>
+      <stop offset="100%" stop-color="#7c8fff"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="80%" cy="20%" r="50%">
+      <stop offset="0%" stop-color="#435ef1" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#435ef1" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <g stroke="#1e293b" stroke-width="1" opacity="0.6">
+    <path d="M0 157 L1200 157 M0 315 L1200 315 M0 472 L1200 472"/>
+    <path d="M300 0 L300 630 M600 0 L600 630 M900 0 L900 630"/>
+  </g>
+
+  <g transform="translate(80, 80)">
+    <rect width="96" height="96" rx="20" fill="url(#brand)"/>
+    <text x="48" y="62" font-family="Inter, system-ui, sans-serif" font-size="44" font-weight="800" fill="white" text-anchor="middle">PJ</text>
+  </g>
+
+  <text x="200" y="125" font-family="ui-monospace, monospace" font-size="20" font-weight="700" fill="#94a3b8" letter-spacing="0.2em">PRANITH JAIN</text>
+  <text x="200" y="155" font-family="ui-monospace, monospace" font-size="14" font-weight="500" fill="#64748b" letter-spacing="0.15em">/DFIR · INTERACTIVE SECURITY TOOLKIT</text>
+
+  <text x="80" y="295" font-family="Inter, system-ui, sans-serif" font-size="68" font-weight="800" fill="#f1f5f9">A working DFIR</text>
+  <text x="80" y="370" font-family="Inter, system-ui, sans-serif" font-size="68" font-weight="800" fill="url(#brandText)">toolkit on the edge.</text>
+
+  <text x="80" y="430" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="400" fill="#cbd5e1">60+ tools · 24 IOC providers · runs in your browser · no signup, no key</text>
+
+  <g transform="translate(80, 490)" font-family="ui-monospace, monospace" font-weight="600">
+    <g>
+      <rect width="240" height="60" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="20" y="26" font-size="11" fill="#64748b" letter-spacing="0.15em">TOOLS</text>
+      <text x="20" y="50" font-size="22" fill="#f1f5f9">60+</text>
+    </g>
+    <g transform="translate(260, 0)">
+      <rect width="240" height="60" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="20" y="26" font-size="11" fill="#64748b" letter-spacing="0.15em">DATA SOURCES</text>
+      <text x="20" y="50" font-size="22" fill="#f1f5f9">90+</text>
+    </g>
+    <g transform="translate(520, 0)">
+      <rect width="240" height="60" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="20" y="26" font-size="11" fill="#64748b" letter-spacing="0.15em">CREDITS REQUIRED</text>
+      <text x="20" y="50" font-size="22" fill="#f1f5f9">0</text>
+    </g>
+    <g transform="translate(780, 0)">
+      <rect width="260" height="60" rx="10" fill="url(#brand)"/>
+      <text x="20" y="26" font-size="11" fill="#dbeafe" letter-spacing="0.15em">OPEN AT</text>
+      <text x="20" y="50" font-size="20" fill="white">/dfir</text>
+    </g>
+  </g>
+
+  <line x1="80" y1="595" x2="1120" y2="595" stroke="#1e293b" stroke-width="1"/>
+  <text x="80" y="615" font-family="ui-monospace, monospace" font-size="12" fill="#475569">IOC Checker · Detection Lab · Rule Converter · CVE Prioritizer · Email Defense (BEC Score)</text>
+</svg>
