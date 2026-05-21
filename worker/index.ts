@@ -599,16 +599,14 @@ export default {
       return;
     }
 
-    // Daily Lighthouse / PageSpeed Insights sweep — its own invocation
-    // so the ~4 minute wall (12 PSI calls × ~20s each at 1 qps without a
-    // key) doesn't contend with discovery or briefing builds.
-    if (csCron === '0 2 * * *') {
-      ctx.waitUntil(
-        runPerfNow(env as unknown as PerfRunnerEnv, csNow)
-          .catch(logCronFail('perf'))
-          .finally(() => logCronDone({ path: 'perf' }))
-      );
-      return;
+    // Daily Lighthouse / PageSpeed Insights sweep. Cloudflare's free
+    // tier caps an account at 5 cron triggers and this Worker already
+    // uses all five, so the perf run piggybacks on the existing hourly
+    // cron at the 02:00 UTC firing. The PSI fetches are sequential
+    // (1 qps keyless) and HTTP-bound, so they share the hourly
+    // invocation's subrequest budget without burning CPU.
+    if (csCron === '0 * * * *' && csNow.getUTCHours() === 2) {
+      ctx.waitUntil(runPerfNow(env as unknown as PerfRunnerEnv, csNow).catch(logCronFail('perf')));
     }
 
     if (cron === '0 * * * *') {
