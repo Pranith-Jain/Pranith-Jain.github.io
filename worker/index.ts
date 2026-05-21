@@ -259,18 +259,46 @@ const OG_OVERRIDES: Record<string, OgOverride> = {
   },
 };
 
+/**
+ * Resolve a path to an OgOverride by merging every matching entry in
+ * OG_OVERRIDES — exact match plus all prefix matches — with longer (more
+ * specific) keys winning per field, AND missing fields inheriting from
+ * shorter (less specific) parent keys.
+ *
+ * Why merge instead of pick-most-specific: image inheritance. The
+ * /threatintel/correlation override carries a route-specific title and
+ * description, but no image. The previous lookup returned just that
+ * override, which meant `image` was undefined and the worker fell back
+ * to the build-time portfolio default. Now /threatintel's image inherits
+ * down to /threatintel/correlation while correlation's title still wins.
+ *
+ * Returns null only when neither an exact match nor any prefix match
+ * exists for the path.
+ */
 function findOgOverride(pathname: string): OgOverride | null {
-  if (OG_OVERRIDES[pathname]) return OG_OVERRIDES[pathname];
-  // Longest-matching prefix.
-  let best: OgOverride | null = null;
-  let bestLen = 0;
+  const matches: Array<{ key: string; value: OgOverride }> = [];
   for (const [k, v] of Object.entries(OG_OVERRIDES)) {
-    if (pathname.startsWith(`${k}/`) && k.length > bestLen) {
-      best = v;
-      bestLen = k.length;
+    if (k === pathname || pathname.startsWith(`${k}/`)) {
+      matches.push({ key: k, value: v });
     }
   }
-  return best;
+  if (matches.length === 0) return null;
+
+  // Ascending by key length so the merge walks shortest-prefix first,
+  // letting longer (more specific) keys overwrite parent fields. Exact
+  // match (longest possible) ends up last and wins on every defined
+  // field while leaving its undefined fields untouched.
+  matches.sort((a, b) => a.key.length - b.key.length);
+
+  let merged: OgOverride = { title: '', description: '' };
+  for (const { value } of matches) {
+    merged = {
+      title: value.title || merged.title,
+      description: value.description || merged.description,
+      image: value.image ?? merged.image,
+    };
+  }
+  return merged;
 }
 
 const HTML_ATTR_ESCAPE: Record<string, string> = {
