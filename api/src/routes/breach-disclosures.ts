@@ -3,9 +3,18 @@ import type { Env } from '../env';
 
 const FETCH_TIMEOUT_MS = 20_000;
 const HIBP_URL = 'https://haveibeenpwned.com/api/v3/breaches';
-const MAX_ITEMS = 50;
+/**
+ * Cap on the breach list returned. Was 50, which surfaced only the most
+ * recent month of HIBP additions. 250 covers roughly the last year of
+ * disclosures at typical HIBP-add pace and matches the depth expected by
+ * the /threatintel/breach-disclosures page, which now also surfaces an
+ * MTI leaks panel beside this HIBP corpus.
+ */
+const MAX_ITEMS = 250;
 const CACHE_TTL = 3600;
-const CACHE_KEY = 'https://breach-cache.internal/v5-hibp-only';
+// Cache key bumped (v6) so the post-bump payload doesn't get masked by a
+// pre-bump 50-item entry that's still inside its 1-hour TTL.
+const CACHE_KEY = 'https://breach-cache.internal/v6-hibp-only';
 
 interface HibpBreach {
   Name: string;

@@ -3,6 +3,7 @@ import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ExternalLink, Loader2, Newspaper, ShieldAlert } from 'lucide-react';
 import { BreachDisclosuresPanel } from '../dfir/DarkWeb';
 import { BreachDatabasesPanel } from '../../components/dfir/BreachDatabasesPanel';
+import { MtiLeaksPanel } from '../../components/threatintel/MtiLeaksPanel';
 import { fetchAggregatedFeed, formatRelativeTime, type AggregatedFeedItem } from '../../services/rssService';
 
 /**
@@ -74,7 +75,16 @@ export default function BreachDisclosures(): JSX.Element {
           <ShieldAlert size={28} className="text-brand-600 dark:text-brand-400" /> Live breach disclosures
         </h1>
         <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
-          Disclosed breaches from the{' '}
+          Two complementary surfaces. Up top, active leak listings from{' '}
+          <a
+            href="https://mythreatintel.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-brand-600 dark:text-brand-400 hover:underline"
+          >
+            MyThreatIntel
+          </a>{' '}
+          (rawer firehose, what's currently being shopped or scraped). Below, the canonical{' '}
           <a
             href="https://haveibeenpwned.com/"
             target="_blank"
@@ -83,13 +93,17 @@ export default function BreachDisclosures(): JSX.Element {
           >
             Have I Been Pwned
           </a>{' '}
-          public corpus, with verification flags, sensitivity markers, and exposed data classes. Reference for
-          incident-response triage; verify in your environment before acting.
+          corpus with verification flags, sensitivity markers, and exposed data classes.
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
-          Public breach disclosure corpus via Have I Been Pwned.
+          MyThreatIntel leaks (active) + HIBP public corpus (canonical) + breach-news feeds (timely commentary).
         </p>
       </div>
+
+      {/* MTI leaks panel — the active firehose. Sits above HIBP because
+          this is the timeliness-first signal; HIBP carries the depth and
+          the data-class breakdown but lags weeks behind a fresh dump. */}
+      <MtiLeaksPanel />
 
       <BreachDisclosuresPanel />
 

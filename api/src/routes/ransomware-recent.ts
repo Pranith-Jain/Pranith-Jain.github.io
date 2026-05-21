@@ -37,7 +37,16 @@ const RANSOMWATCH_JSON = 'https://raw.githubusercontent.com/joshhighet/ransomwat
  * X-API-KEY, so the static dump is the usable free surface.
  */
 const RANSOMWARELIVE_JSON = 'https://data.ransomware.live/posts.json';
-const MAX_ITEMS = 60;
+/**
+ * Cap on the merged victim list returned to clients. Was 60 (~2 days of
+ * leak-site activity at typical pace) which made the Metrics page's
+ * 7/30/90-day window selectors mostly cosmetic past day-1. 500 covers
+ * roughly 14-16 days at typical volume and matches the MTI proxy's
+ * canonical limit, so the per-source fetches reuse the same edge-cache
+ * entry as the rest of the platform. ~250KB on the wire, served from
+ * cache.
+ */
+const MAX_ITEMS = 500;
 
 interface RansomlookEntry {
   post_title: string;

@@ -375,7 +375,12 @@ type WindowDays = (typeof WINDOW_OPTIONS)[number];
 export default function Metrics(): JSX.Element {
   const [state, setState] = useState<State>(INITIAL);
   const [refreshKey, setRefreshKey] = useState(0);
-  const [windowDays, setWindowDays] = useState<WindowDays>(30);
+  // Defaults to 7d so the page lands on a window that the backend pool
+  // can actually fill (was 30d, but with the 60-record cap that meant
+  // most days past day-2 showed as zero). Backend was raised to 500
+  // records (≈14-16 days of typical leak-site activity) and the 30/90
+  // toggles remain for deeper historical reads.
+  const [windowDays, setWindowDays] = useState<WindowDays>(7);
 
   useEffect(() => {
     let cancelled = false;
@@ -970,7 +975,8 @@ export default function Metrics(): JSX.Element {
               ))}
               <p className="text-[11px] font-mono text-slate-500 pt-1">
                 Method: 7-vs-7-day delta with a 10% deadband; concentration is the top operator's share of the last 30
-                days' claims. Source: ransomlook.io aggregated leak-site index.{' '}
+                days' claims. Sources: ransomlook.io aggregated leak-site index merged with MyThreatIntel CTI events
+                (deduped by victim).{' '}
                 <Link
                   to="/threatintel/ransomware-activity"
                   className="text-brand-600 dark:text-brand-400 hover:underline"
@@ -1003,7 +1009,7 @@ export default function Metrics(): JSX.Element {
             icon={Skull}
             title="Most active ransomware groups"
             question={`Who's claiming the most victims in the last ${windowDays} days?`}
-            footer={`From Ransomlook · ${state.ransomware?.length ?? 0} total claims indexed`}
+            footer={`Ransomlook + MyThreatIntel CTI events + ransomfeed.it + ransomwatch · ${(state.ransomware?.length ?? 0).toLocaleString()} merged claims (deduped by group + victim + day)`}
             href="/threatintel/ransomware-activity"
           >
             <HBar items={topRansomwareGroups} color="#e11d48" />
