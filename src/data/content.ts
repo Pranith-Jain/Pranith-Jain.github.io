@@ -386,12 +386,12 @@ export const projects: Project[] = [
 
 export const featuredArticles = [
   {
-    title: 'Mastering DMARC for Enterprise Security',
+    title: 'Cybersecurity Compliance Lessons: Insights From Industry Experts',
     description:
-      'What strict DMARC at scale actually requires. The compatibility traps, the staged-enforcement playbook, and the bits that get overlooked because they only break at p=reject.',
-    source: 'DevX.com',
+      'Quoted as an expert contributor. My piece argues compliance is a milestone, not the mission. Risk-based security controls aligned with the business context come first; the certification follows.',
+    source: 'BlockTelegraph',
     category: 'Security Engineering',
-    url: 'https://www.devx.com/cybersecurity/mastering-dmarc-for-enterprise-security/',
+    url: 'https://blocktelegraph.io/cybersecurity-compliance-lessons-insights-from-industry-experts/',
   },
   {
     title: 'How to Ensure Data Privacy in Cybersecurity',
