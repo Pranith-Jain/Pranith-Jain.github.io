@@ -7,6 +7,7 @@ import {
   expectedWeeklySlug,
 } from '../api/src/lib/briefing-builder';
 import { runDiscoveryNow, runPlannerNow, runPublisherNow, type CaseStudyEnv } from '../api/src/case-study/run';
+import { runPerfNow, type PerfRunnerEnv } from '../api/src/perf/runner';
 import { runTelegramArchive } from '../api/src/routes/telegram-archive';
 import type { Env as ApiEnv } from '../api/src/env';
 import type { Ai, D1Database } from '@cloudflare/workers-types';
@@ -594,6 +595,18 @@ export default {
         runPlannerNow(env as unknown as CaseStudyEnv, csNow)
           .catch(logCronFail('planner'))
           .finally(() => logCronDone({ path: 'planner' }))
+      );
+      return;
+    }
+
+    // Daily Lighthouse / PageSpeed Insights sweep — its own invocation
+    // so the ~4 minute wall (12 PSI calls × ~20s each at 1 qps without a
+    // key) doesn't contend with discovery or briefing builds.
+    if (csCron === '0 2 * * *') {
+      ctx.waitUntil(
+        runPerfNow(env as unknown as PerfRunnerEnv, csNow)
+          .catch(logCronFail('perf'))
+          .finally(() => logCronDone({ path: 'perf' }))
       );
       return;
     }

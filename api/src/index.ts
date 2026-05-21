@@ -71,6 +71,7 @@ import { iocSnapshotHandler } from './routes/ioc-snapshot';
 import { registerBlogRoutes } from './routes/blog-public';
 import { pageViewsHandler } from './routes/pageviews';
 import { registerAdminRoutes } from './routes/case-study-admin';
+import { registerPerfRoutes } from './routes/perf';
 import { c2TrackerHandler } from './routes/c2-tracker';
 import { rateLimit } from './lib/ratelimit';
 
@@ -152,6 +153,7 @@ app.post('/api/v1/external-resources', createExternalResourceHandler);
 app.delete('/api/v1/external-resources/:id', deleteExternalResourceHandler);
 registerBlogRoutes(app);
 registerAdminRoutes(app);
+registerPerfRoutes(app);
 app.notFound((c) => c.json({ error: 'not_found' }, 404));
 
 export default app;
