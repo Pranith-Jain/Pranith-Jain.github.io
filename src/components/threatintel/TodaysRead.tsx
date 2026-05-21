@@ -56,20 +56,32 @@ function weeklyRansomwareLine(victims: RansomwareVictim[]): { primary: string; s
   if (!victims || victims.length === 0) {
     return { primary: '—', secondary: 'no live ransomware data yet' };
   }
-  const now = Date.now();
+  // Calendar-day bucketing — same definition the hero sparkline on /
+  // and the /threatintel/metrics page (StatBar + chart + headline) use.
+  // The old rolling-168h cutoff produced a different number for the
+  // same "last 7 days" label, which surfaced as 241 here vs 233 there
+  // on the same load. One definition, four surfaces, no surprises.
+  const now = new Date();
   const day = 86400_000;
-  const last7Cutoff = now - 7 * day;
-  const prior7Cutoff = now - 14 * day;
+  const last7Days = new Set<string>();
+  const prior7Days = new Set<string>();
+  for (let i = 0; i < 7; i += 1) {
+    last7Days.add(new Date(now.getTime() - i * day).toISOString().slice(0, 10));
+  }
+  for (let i = 7; i < 14; i += 1) {
+    prior7Days.add(new Date(now.getTime() - i * day).toISOString().slice(0, 10));
+  }
   let last7 = 0;
   let prior7 = 0;
   const groupCounts = new Map<string, number>();
   for (const v of victims) {
     const t = Date.parse(v.discovered);
     if (Number.isNaN(t)) continue;
-    if (t >= last7Cutoff) {
+    const key = new Date(t).toISOString().slice(0, 10);
+    if (last7Days.has(key)) {
       last7 += 1;
       groupCounts.set(v.group, (groupCounts.get(v.group) ?? 0) + 1);
-    } else if (t >= prior7Cutoff) {
+    } else if (prior7Days.has(key)) {
       prior7 += 1;
     }
   }
