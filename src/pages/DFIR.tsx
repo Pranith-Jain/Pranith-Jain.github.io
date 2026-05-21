@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Hash, Mail, FileCode, AlertOctagon, ShieldAlert, Zap } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { GROUP_META, MAIN_TOOL_COUNT, UTILITY_TOOLS, type ToolGroup } from '../components/dfir/tool-sections';
-import { IocDispatchInput } from '../components/dfir/IocDispatchInput';
+import { ToolSearchBar } from '../components/dfir/ToolSearchBar';
 import { personalInfo } from '../data/content';
 import { AppHero } from '../components/AppHero';
 import { AppFooter } from '../components/AppFooter';
@@ -218,10 +218,14 @@ export default function DFIRPage(): JSX.Element {
         ]}
       />
 
-      {/* Paste-to-dispatch — sits above the tool grid so the most common
-          workflow (paste an indicator -> jump to the right tool) doesn't
-          require opening Cmd+K or scrolling through 60 tiles. */}
-      <IocDispatchInput />
+      {/* Tool search — inline equivalent of the Cmd+K palette. Replaces
+          the previous "Paste an indicator" IOC-dispatch input that lived
+          here; that flow is still one click away via the first "Start
+          here" entry below (IOC & Hash Checker). For a returning analyst
+          who knows which of the 60+ tools they want, this is the fastest
+          path; for a first-time visitor, the prescribed Start-here
+          sequence below carries the navigational weight. */}
+      <ToolSearchBar />
 
       {/* Start here — 3-tool prescribed sequence for a first-time visitor.
           Solves the hub problem (60 tiles, no direction). Different from
