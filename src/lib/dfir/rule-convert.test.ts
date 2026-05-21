@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { convertRule } from './rule-convert';
+import { convertRule, convertBatch, parseToIr, FIELD_MAPS, findFieldMap } from './rule-convert';
 
 const SIGMA = `title: Certutil URL cache download
 logsource:
@@ -170,5 +170,118 @@ describe('convertRule — universal sources', () => {
     expect(sigma.ok).toBe(true);
     // a same-format conversion is allowed and flagged as a normalised round-trip
     if (sigma.ok) expect(sigma.warnings.some((w) => /round-trip/.test(w))).toBe(true);
+  });
+});
+
+describe('field-map remapping', () => {
+  const SIGMA = `title: T
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\\\\powershell.exe'
+    CommandLine|contains: 'IEX'
+    UnknownField: 'x'
+  condition: selection`;
+
+  it('rewrites known Sigma field names per the selected preset', () => {
+    const m = findFieldMap('elastic-ecs')!;
+    const r = convertRule(SIGMA, 'sigma', 'kql', { fieldMap: m.mappings, fieldMapLabel: m.label });
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    expect(r.output).toContain('process.executable');
+    expect(r.output).toContain('process.command_line');
+    expect(r.output).not.toContain('Image endswith');
+    expect(r.warnings.some((w) => /rewrote 2 field/i.test(w))).toBe(true);
+  });
+
+  it('flags fields the preset has no mapping for', () => {
+    const m = findFieldMap('elastic-ecs')!;
+    const r = convertRule(SIGMA, 'sigma', 'kql', { fieldMap: m.mappings });
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    expect(r.warnings.some((w) => /no entry for 1 field/i.test(w) && /UnknownField/.test(w))).toBe(true);
+  });
+
+  it('pass-through preset emits Sigma field names verbatim', () => {
+    const m = findFieldMap('passthrough')!;
+    const r = convertRule(SIGMA, 'sigma', 'kql', { fieldMap: m.mappings });
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    expect(r.output).toContain('Image endswith');
+    expect(r.warnings.every((w) => !/rewrote/.test(w))).toBe(true);
+  });
+
+  it('FIELD_MAPS exposes the documented presets', () => {
+    expect(FIELD_MAPS.map((m) => m.id)).toEqual(
+      expect.arrayContaining(['passthrough', 'defender-m365', 'elastic-ecs', 'splunk-cim'])
+    );
+  });
+});
+
+describe('convertBatch', () => {
+  it('converts a multi-doc Sigma stream to one target each', () => {
+    const a = `title: A
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  s:
+    Image|endswith: '\\\\a.exe'
+  condition: s`;
+    const b = `title: B
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  s:
+    Image|endswith: '\\\\b.exe'
+  condition: s`;
+    const r = convertBatch(`${a}\n---\n${b}`, 'sigma', 'kql');
+    expect(r).toHaveLength(2);
+    expect(r[0]!.ok).toBe(true);
+    expect(r[1]!.ok).toBe(true);
+    expect(r[0]!.title).toBe('A');
+    expect(r[1]!.title).toBe('B');
+    expect(r[0]!.output).toContain('a.exe');
+    expect(r[1]!.output).toContain('b.exe');
+  });
+
+  it('refuses non-Sigma batch input with a single explanatory error', () => {
+    const r = convertBatch('whatever', 'kql', 'sigma');
+    expect(r).toHaveLength(1);
+    expect(r[0]!.ok).toBe(false);
+    expect(r[0]!.error).toMatch(/sigma/i);
+  });
+
+  it('drops empty / comment-only docs at the seams', () => {
+    const real = `title: Real
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  s:
+    Image: 'x'
+  condition: s`;
+    const stream = `\n---\n${real}\n---\n# comment\n---\n`;
+    const r = convertBatch(stream, 'sigma', 'kql');
+    expect(r).toHaveLength(1);
+    expect(r[0]!.title).toBe('Real');
+  });
+});
+
+describe('parseToIr', () => {
+  it('returns the IR without emitting on success', () => {
+    const r = parseToIr('title: T\ndetection:\n  s:\n    f: v\n  condition: s', 'sigma');
+    expect('error' in r).toBe(false);
+    if ('error' in r) return;
+    expect(r.title).toBe('T');
+    expect(r.groups[0]!.name).toBe('s');
+  });
+
+  it('surfaces the parser error verbatim on failure', () => {
+    const r = parseToIr('', 'sigma');
+    expect('error' in r).toBe(true);
   });
 });
