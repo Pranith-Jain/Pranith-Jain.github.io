@@ -38,6 +38,7 @@ import { LiveSnapshotPanel } from '../../components/dfir/LiveSnapshotPanel';
 import { WhatsNewBanner } from '../../components/threatintel/WhatsNewBanner';
 import { PlatformPulse } from '../../components/threatintel/PlatformPulse';
 import { LatestBriefingCard } from '../../components/threatintel/LatestBriefingCard';
+import { TodaysRead } from '../../components/threatintel/TodaysRead';
 import { personalInfo } from '../../data/content';
 import { AppHero } from '../../components/AppHero';
 import { AppFooter } from '../../components/AppFooter';
@@ -476,6 +477,13 @@ export default function ThreatIntelHome(): JSX.Element {
           are available. */}
       <PlatformPulse />
       <LatestBriefingCard />
+      {/* Today's read — opinionated 3-card "if you have 60 seconds" promo.
+          Surfaces the latest authored research, the most-fired detection
+          rule right now, and a one-line weekly ransomware read so a
+          first-time visitor lands on editorial direction rather than
+          a 20-tile picker. The category sections below remain the
+          comprehensive index for analysts who know what they want. */}
+      <TodaysRead />
       <AppHero
         kicker="Privacy-first · Live edge feeds · No login · No tracking"
         title="Threat-intel platform"

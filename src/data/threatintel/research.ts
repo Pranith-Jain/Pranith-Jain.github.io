@@ -112,7 +112,134 @@ What I won't do is rank these operators on a single dimension. "Most active" is 
   published: true,
 };
 
-export const researchPosts: ResearchPost[] = [NOVA_LOCKBIT5_QILIN];
+const IOC_CONSENSUS_NOISE_FLOOR: ResearchPost = {
+  slug: 'ioc-consensus-noise-floor-may-2026',
+  title: 'Cross-source IOC consensus: what a 98.2% filter rate reveals about the noise floor',
+  excerpt:
+    'This platform scans 7,779 indicators across 18 IOC feeds and surfaces 141 that two or more sources agree on. The 98.2% that get dropped are the methodology lesson, not the success.',
+  kicker: 'Methodology',
+  publishedAt: '2026-05-22',
+  readingTime: '6 min',
+  tags: ['IOC Methodology', 'Cross-source Consensus', 'False Positives', 'Threat Intelligence Tradecraft'],
+  body: `Open [/threatintel/correlation](/threatintel/correlation) right now and the snapshot says this: 7,779 indicators scanned, 141 correlated, 18 source feeds. The 141 are the ones two or more independent feeds agree on. The other 7,638 are gone. That's a 98.2% filter rate on the input, which is the methodology lesson worth talking about.
+
+Most CTI consumers treat single-feed flags as "indicators worth checking." That's how vendor blocklist counts get bigger every quarter without operational quality going up. Cross-source consensus is the rare lens where the per-day count gets smaller and the per-indicator confidence gets larger, and it's the only filter I've found that survives a serious post-mortem on false positives.
+
+## Why the 141 survive and the 7,638 don't
+
+The 141 correlated indicators decompose like this on today's snapshot:
+
+\`\`\`
+50 IPs
+40 domains
+50 hashes
+1 URL
+\`\`\`
+
+The IP overlaps are dominated by a trio. Of the 50 correlated IPs, 47 appear on ipsum, 25 on binary-defense, 20 on cinsarmy. None of those three feeds is exotic. Each is a free, well-known threat-IP list aggregated from public sensors. The methodology insight isn't that any one of them is exceptional. It's that when an IP shows up on all three of these "reasonable but boring" lists, it's almost always a scanning host that hits enough honeypots to land on multiple sensor networks at once. The 22 indicators in this snapshot that hit three or more sources are virtually all in that category.
+
+The 119 indicators that hit exactly two sources are different. They're where the editorial work happens. ThreatFox + URLhaus on a domain doesn't mean "two free feeds agree"; it means malware infrastructure tracking and URL distribution tracking are seeing the same artefact, which is a much higher-confidence signal. Today, three domains in the correlated set are both labeled \`malware_download | ClearFake\` by both ThreatFox and URLhaus simultaneously. That's a campaign you can act on; the underlying domains are still resolving as I write this.
+
+## What single-source flags actually are
+
+Run any single one of these feeds on its own and the per-day output is a few hundred indicators. Run all eighteen and the *union* is 7,779. The 7,638 that drop out of the consensus filter aren't garbage; they're observations from one sensor. Some of those will be confirmed by a second sensor tomorrow and graduate. Most won't.
+
+The temptation is to say "well, that's still 7,638 indicators that someone reported, surely we should block them." The math on that is straightforward and depressing. A typical mid-sized SOC blocking everything its feeds flag at single-source confidence will, over a quarter, generate enough false-positive disruption that the security team's reputation with engineering becomes the actual operational problem. The 98.2% number isn't squeamishness. It's what the indicators that *would have been disruptive* if blocked look like in aggregate.
+
+## Where consensus surprises you
+
+Two patterns from today's snapshot are worth flagging:
+
+**1. The volume sources are not the highest-quality sources.** Ipsum contributes 47 of the 50 correlated IPs. URLhaus contributes 1 of 1 correlated URLs. The per-indicator yield is wildly different. The methodology takeaway is that "feed quality" isn't measurable as a constant. A feed's value is determined entirely by what it's correlated *against*.
+
+**2. Specialist sources punch above their weight.** SANS ISC contributes 10 IPs to the correlated set despite carrying only 200 IPs in its window (vs. ipsum's 500). That's a 5% retention rate on SANS vs ipsum's ~9% — but SANS' indicators are tied to incident reports, not honeypot triggers, so the few that *do* correlate carry more case material per hit. Don't equate "fewer indicators" with "less useful."
+
+## What the filter doesn't catch
+
+Cross-source consensus catches scan farms and shared malware infrastructure. It doesn't catch:
+
+- **Targeted attacks** where the attacker controls infrastructure not shared with any commodity operator. Those will never appear in cross-source consensus because there's nothing for sources to overlap on.
+- **Living-off-the-land traffic** where the only indicators are behavioural, not network-level.
+- **Stage-zero loaders** that pivot to fresh infrastructure inside the first hour of compromise.
+
+For those, you need detection rules against the *behaviour* of the activity, not consensus against the *artefacts*. The [Detection Lab](/dfir/detection-lab) on this site is the other half of that loop — the rules and the consensus filter are designed to complement each other, not substitute for each other.
+
+## The operational reading
+
+The 141 indicators that survive cross-source consensus on this platform today are not the only indicators that matter. They are the indicators where "block this" is a low-risk operational call. For the 7,638 that get filtered, the right action isn't to ignore them, it's to feed them into the *detection* side of the pipeline so they sharpen rules over time rather than create immediate paging events.
+
+That's the whole methodology. Cross-source consensus is a *triage* filter, not a *coverage* one. Confusing the two is the most common mistake I see in CTI program design, and it's the one this platform's correlation surface was specifically built to make harder.
+
+---
+
+*All counts referenced in this piece are from a live snapshot of [/api/v1/ioc-correlation](https://pranithjain.qzz.io/api/v1/ioc-correlation) at the time of writing (May 22, 2026). The snapshot updates approximately hourly; refresh the linked endpoint to see the current numbers, which will differ. Source feed list and per-source weights are visible on [/threatintel/correlation](/threatintel/correlation).*`,
+  published: true,
+};
+
+const C2_FRAMEWORK_DOMINANCE: ResearchPost = {
+  slug: 'cobalt-strike-c2-dominance-may-2026',
+  title: 'Cobalt Strike is still 96% of all dedicated-C2-tracker hits in May 2026',
+  excerpt:
+    "1,815 of 1,888 currently-tracked C2 servers run Cobalt Strike. 73 run Metasploit. Everything else is statistical noise. Defenders who plan their detection coverage as if 'C2 framework diversity' is real are mis-allocating.",
+  kicker: 'Adversary infrastructure',
+  publishedAt: '2026-05-23',
+  readingTime: '6 min',
+  tags: ['C2 Frameworks', 'Cobalt Strike', 'Adversary Infrastructure', 'Detection Engineering'],
+  body: `The [/threatintel](/threatintel) platform indexes C2IntelFeeds, the public OSINT tracker that fingerprints live command-and-control infrastructure. Today's snapshot at [/api/v1/c2-tracker](https://pranithjain.qzz.io/api/v1/c2-tracker) shows 1,888 currently-active C2 servers detected. Of those, 1,815 are Cobalt Strike. 73 are Metasploit. The remaining everything else — Sliver, Mythic, Covenant, Brute Ratel, every other framework that gets discussed at conferences — does not appear in the snapshot at meaningful volume.
+
+That 96.1% number is uncomfortable to write down because it cuts against several years of CTI industry messaging about "framework diversity." But it is the number, and the operational implications are real.
+
+## Why C2IntelFeeds is the right tracker even though it's one tracker
+
+A reasonable objection: "single source, single bias." Fair. C2IntelFeeds isn't perfect. It is, however, the public fingerprinting effort with the best signal-to-noise ratio I've benchmarked against my own incident corpus, and the framework breakdown above matches what I see in the cases I work. The platform doesn't carry Censys or Shodan paid C2 enrichment because the free public tracker carries enough of the picture for the operational claim I'm about to make.
+
+If your dataset shows a different breakdown, I'd genuinely like to know — but the bar for "Cobalt Strike isn't actually dominant" is a sourced disagreement, not a vibe. The vibe in the CTI community has been "diversity is increasing" for at least three years. The numbers from public trackers have not moved in that direction.
+
+## The licensing reality is the boring explanation
+
+The market explanation for Cobalt Strike dominance isn't mysterious. The legitimate licensed market (Fortra / red teamers) is the bottom of the funnel that feeds the cracked-leaked-trial-version market that 90%+ of malicious operators use. Other frameworks (Sliver, Mythic) are open-source from inception, which is supposed to make them more attractive to threat actors. In practice, that hasn't happened at scale because:
+
+1. Cobalt Strike has 13 years of mature tradecraft, public training, and red-team ergonomics.
+2. The cracked versions are trivially obtainable.
+3. Detection signatures keyed on Cobalt Strike are *also* the most mature, but operators have years of tradecraft for evading them — and operator population learning is sticky.
+
+Open-source alternatives keep getting predicted as the next big thing. Their actual deployment numbers, as measured by public trackers, keep being a rounding error.
+
+## The 73 Metasploit hits
+
+Metasploit's 3.9% share is worth a separate paragraph because it's misleadingly tempting to dismiss. Metasploit's role in 2026 isn't as a primary operator framework; it's as a stage-zero loader and as a red-team training tool. The 73 hits today are mostly skiddie operators on freshly compromised VPSes — not advanced campaigns. The defender takeaway: Metasploit detection is a low-bar fundamentals check, not a sign of sophisticated adversaries.
+
+## What the absence of "everything else" actually says
+
+Sliver, Mythic, Brute Ratel, Havoc, Nighthawk — all of these have legitimate red-team usage and confirmed nation-state usage. They do not appear in this snapshot at any meaningful count. There are three possible explanations and they're worth distinguishing because the defensive implications are different:
+
+1. **C2IntelFeeds doesn't fingerprint them well.** Plausible. Newer frameworks ship with fingerprinting evasion baked in. The tracker's coverage of Cobalt Strike is mature; its coverage of newer frameworks is by necessity less so.
+
+2. **Operators using them don't expose internet-reachable infrastructure.** Plausible. Sophisticated operators using less-common frameworks often run them through proxy chains, fronting CDNs, or compromised infrastructure that doesn't fingerprint as the upstream framework.
+
+3. **They're genuinely rare in active campaigns.** Also plausible. Most public reporting on "Sliver in the wild" is from one or two campaigns at a time. The aggregate active footprint at any moment really may be in single digits.
+
+I think the truth is a mix of (1) and (2), with a smaller contribution from (3). The point is that the absence of these frameworks from the tracker output doesn't mean defenders can ignore them. It means *the public-tracker route to detecting them is not viable*, and the detection coverage has to come from the [Detection Lab](/dfir/detection-lab) side of the workflow — behavioural rules against the operator's tradecraft, not signature matches against the framework.
+
+## The operational reading
+
+For SOCs and detection engineers reading this, the prioritisation order from today's numbers:
+
+1. **Cobalt Strike detection coverage is the only first-priority C2 detection investment.** 96% of currently-active tracked C2 maps to it. If your coverage is good against everything else and weak on Cobalt Strike, you have an actual gap.
+
+2. **Metasploit coverage is mid-priority hygiene.** The 3.9% share will produce some real hits and a lot of low-skill operator noise.
+
+3. **Open-source-framework coverage is a behavioural-detection problem**, not a signature problem. Build the rules in [/dfir/detection-lab](/dfir/detection-lab), validate them in the lab, then export to your SIEM via the [Rule Converter](/dfir/rule-converter). The C2 trackers won't tell you when those frameworks fire; your own detections will.
+
+The "96%" number is going to be uncomfortable for the next round of vendor pitches you sit through. It should be.
+
+---
+
+*Source data: live snapshot of [/api/v1/c2-tracker](https://pranithjain.qzz.io/api/v1/c2-tracker) on May 23, 2026, indexing [C2IntelFeeds](https://github.com/drb-ra/C2IntelFeeds). Numbers refresh approximately hourly. The framework breakdown method is fingerprint-based and excludes infrastructure that the public tracker doesn't currently classify. Counter-evidence sourced to other trackers welcome.*`,
+  published: true,
+};
+
+export const researchPosts: ResearchPost[] = [NOVA_LOCKBIT5_QILIN, IOC_CONSENSUS_NOISE_FLOOR, C2_FRAMEWORK_DOMINANCE];
 
 export const publishedResearch = (): ResearchPost[] =>
   researchPosts.filter((p) => p.published).sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));

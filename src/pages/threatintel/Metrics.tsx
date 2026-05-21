@@ -759,6 +759,97 @@ export default function Metrics(): JSX.Element {
       .slice(0, 10);
   }, [state.c2]);
 
+  /* ─── Per-panel interpretations ──────────────────────────────────────
+   *
+   * Each of the six narrative panels gets a single computed sentence
+   * underneath the chart that turns the values into a "what this means
+   * right now" read. The text adapts on refresh as the underlying numbers
+   * shift. Memoised so React doesn't recompute on unrelated state
+   * changes. Returns '' to render no caption when the data is missing
+   * or unilluminating (avoids the "(0 of 0)" trap).
+   */
+
+  const ransomwareGroupsRead = useMemo((): string => {
+    if (topRansomwareGroups.length < 2) return '';
+    const total = topRansomwareGroups.reduce((s, i) => s + i.value, 0);
+    if (total === 0) return '';
+    const lead = topRansomwareGroups[0]!;
+    const second = topRansomwareGroups[1]!;
+    const share = (lead.value / total) * 100;
+    const gap = lead.value - second.value;
+    const concentration =
+      share > 25 ? 'high concentration' : share > 12 ? 'typical multi-operator spread' : 'unusually flat distribution';
+    const leadShape = gap > second.value * 0.5 ? 'pulling away from' : 'roughly even with';
+    return `${lead.label} runs ${share.toFixed(0)}% of tracked claims, ${leadShape} ${second.label}. That's ${concentration}.`;
+  }, [topRansomwareGroups]);
+
+  const ransomwareCadenceRead = useMemo((): string => {
+    if (ransomwareCadence.length === 0) return '';
+    const total = ransomwareCadence.reduce((s, b) => s + b.value, 0);
+    if (total === 0) return 'No leak-site posts in the window. Either a quiet week or a feed outage.';
+    const peak = Math.max(...ransomwareCadence.map((b) => b.value));
+    const peakDayIdx = ransomwareCadence.findIndex((b) => b.value === peak);
+    const peakDayLabel = ransomwareCadence[peakDayIdx]?.label || 'mid-window';
+    const avg = total / ransomwareCadence.length;
+    const peakRatio = peak / Math.max(avg, 1);
+    const shape =
+      peakRatio > 2.5
+        ? 'one outsized day carrying the window'
+        : peakRatio > 1.5
+          ? 'a busier-than-average peak'
+          : 'a roughly steady cadence';
+    return `${total} total claims across the window, peak day ${peakDayLabel} at ${peak}. That reads as ${shape}.`;
+  }, [ransomwareCadence]);
+
+  const cveSeverityRead = useMemo((): string => {
+    const t = cveSeverityCounts.total;
+    if (t === 0) return '';
+    const c = cveSeverityCounts.counts;
+    const critHigh = (c.CRITICAL ?? 0) + (c.HIGH ?? 0);
+    const critHighPct = (critHigh / t) * 100;
+    const profile =
+      critHighPct > 55 ? 'a top-heavy window' : critHighPct > 35 ? 'a typical mix' : 'a moderate-only window';
+    return `${critHigh.toLocaleString()} of ${t.toLocaleString()} CVEs (${critHighPct.toFixed(0)}%) are CRITICAL or HIGH. ${profile} — prioritise the top ${critHigh > 0 ? critHigh : 0} for patch triage first.`;
+  }, [cveSeverityCounts]);
+
+  const kevCadenceRead = useMemo((): string => {
+    if (kevCadence.length === 0) return '';
+    const total = kevCadence.reduce((s, b) => s + b.value, 0);
+    if (total === 0) return 'No KEV additions in the 12-week window. Unusual; verify the CISA feed is healthy.';
+    const recentFour = kevCadence.slice(-4).reduce((s, b) => s + b.value, 0);
+    const priorEight = kevCadence.slice(0, -4).reduce((s, b) => s + b.value, 0);
+    const priorPerFour = priorEight / 2;
+    const accel = priorPerFour > 0 ? ((recentFour - priorPerFour) / priorPerFour) * 100 : recentFour > 0 ? 100 : 0;
+    const direction = accel > 20 ? 'up' : accel < -20 ? 'down' : 'steady';
+    return `${total} new KEVs in 12 weeks, ${recentFour} in the most recent 4. Pace is ${direction}${
+      direction !== 'steady' ? ` (${Math.abs(Math.round(accel))}% vs the prior 8-week average)` : ''
+    }.`;
+  }, [kevCadence]);
+
+  const kevVendorsRead = useMemo((): string => {
+    if (topKevVendors.length < 2) return '';
+    const lead = topKevVendors[0]!;
+    const others = topKevVendors.slice(1, 4);
+    const otherLabels = others.map((o) => `${o.label} (${o.value})`).join(', ');
+    return `${lead.label} carries ${lead.value} active-exploitation entries on KEV in the current window, ahead of ${otherLabels}. If any of these vendors are on your asset list, their KEV pages are the right next click.`;
+  }, [topKevVendors]);
+
+  const c2FrameworksRead = useMemo((): string => {
+    if (topC2Frameworks.length === 0) return '';
+    const total = topC2Frameworks.reduce((s, i) => s + i.value, 0);
+    if (total === 0) return '';
+    const lead = topC2Frameworks[0]!;
+    const share = (lead.value / total) * 100;
+    const second = topC2Frameworks[1];
+    const tail = total - lead.value - (second?.value ?? 0);
+    if (share > 80) {
+      return `${lead.label} dominates at ${share.toFixed(0)}% of all dedicated-tracker hits${
+        second ? `, with ${second.label} at ${((second.value / total) * 100).toFixed(0)}%` : ''
+      }. Detection coverage on ${lead.label} is the only first-priority C2 investment by these numbers.`;
+    }
+    return `${lead.label} leads at ${share.toFixed(0)}%, ${second ? `${second.label} at ${((second.value / total) * 100).toFixed(0)}%` : 'with a long tail behind'}, others total ${tail}. Detection investment should follow the share, not the brand novelty.`;
+  }, [topC2Frameworks]);
+
   /** Largest recent breach disclosures by account count (HIBP). */
   const largestBreaches = useMemo<HBarItem[]>(() => {
     if (!state.breaches) return [];
@@ -844,8 +935,9 @@ export default function Metrics(): JSX.Element {
           <BarChart3 size={28} className="text-brand-600 dark:text-brand-400" /> Threat Intel Metrics
         </h1>
         <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-3xl leading-relaxed">
-          One opinionated read up top, fifteen supporting panels behind it. Everything is computed live in the browser
-          from ten upstream feeds. Refresh to recompute; headline counters show the ▲/▼ change since your last refresh.
+          One opinionated weekly read, six narrative panels each with a written interpretation, and ten more analyst
+          panels available on demand. Everything is computed live in the browser from ten upstream feeds. Refresh to
+          recompute; headline counters show the ▲/▼ change since your last refresh.
         </p>
       </div>
 
@@ -989,211 +1081,230 @@ export default function Metrics(): JSX.Element {
         </section>
       )}
 
+      {/* Six narrative panels, each with a one-sentence written
+          interpretation computed from the data. These are the panels
+          that earn the first scroll — the ones an analyst would actually
+          discuss in a meeting. The remaining ten panels (sectors, brands,
+          IOC volume, malware families, re-leaks, IP origins, breaches,
+          OSINT chatter, dark-web, MTI profiled) are equally accurate but
+          less narrative; they sit inside the disclosure below for the
+          analyst use case. */}
+      {!state.loading && (
+        <section className="mb-8">
+          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-4">
+            Narrative panels · the six worth reading first
+          </h2>
+          <div className="grid gap-4 lg:grid-cols-2">
+            {/* 1. Top ransomware groups */}
+            <ChartCard
+              icon={Skull}
+              title="Most active ransomware groups"
+              question={`Who's claiming the most victims in the last ${windowDays} days?`}
+              footer={`Ransomlook + MyThreatIntel CTI events + ransomfeed.it + ransomwatch · ${(state.ransomware?.length ?? 0).toLocaleString()} merged claims (deduped by group + victim + day)`}
+              href="/threatintel/ransomware-activity"
+              interpretation={ransomwareGroupsRead}
+            >
+              <HBar items={topRansomwareGroups} color="#e11d48" />
+            </ChartCard>
+
+            {/* 2. Ransomware cadence */}
+            <ChartCard
+              icon={TrendingUp}
+              title="Ransomware cadence · last 7 days"
+              question="Is leak-site posting accelerating or cooling this week?"
+              footer="Daily claim count · fixed 7-day axis · per-day labels"
+              href="/threatintel/ransomware-activity"
+              interpretation={ransomwareCadenceRead}
+            >
+              <Sparkbars buckets={ransomwareCadence} color="#e11d48" />
+            </ChartCard>
+
+            {/* 3. CVE severity distribution */}
+            <ChartCard
+              icon={BarChart3}
+              title="CVE severity distribution"
+              question="How serious are this window's CVEs?"
+              footer={`${cveSeverityCounts.total} CVEs (NVD pubStartDate last 30d + CISA KEV last 30d merge)`}
+              href="/threatintel/cve-list"
+              interpretation={cveSeverityRead}
+            >
+              <StackedSeverityBar counts={cveSeverityCounts.counts} total={cveSeverityCounts.total} />
+            </ChartCard>
+
+            {/* 4. KEV cadence */}
+            <ChartCard
+              icon={Flame}
+              title="CISA KEV cadence · last 12 weeks"
+              question="How quickly is CISA flagging actively-exploited CVEs?"
+              footer={`${summary.kevCount} entries on KEV in this window`}
+              href="/threatintel/cve-list"
+              interpretation={kevCadenceRead}
+            >
+              <Sparkbars buckets={kevCadence} color="#f59e0b" />
+            </ChartCard>
+
+            {/* 5. Top KEV vendors (promoted up from the analyst grid because
+                vendor-share is concrete actionable signal for patch triage) */}
+            <ChartCard
+              icon={Shield}
+              title="Most-exploited vendors on CISA KEV"
+              question="Whose products are taking the most active-exploitation hits?"
+              footer={`Parsed from KEV vulnerability descriptions in the current CVE window`}
+              href="/threatintel/cve-list"
+              interpretation={kevVendorsRead}
+            >
+              <HBar items={topKevVendors} color="#dc2626" />
+            </ChartCard>
+
+            {/* 6. Active C2 frameworks — promoted because the share split
+                here is the operational basis for detection-coverage
+                prioritisation (cf the c2-dominance research piece) */}
+            <ChartCard
+              icon={Radio}
+              title="Active C2 frameworks · live"
+              question="Which command-and-control frameworks have the most live infrastructure right now?"
+              footer={`From c2-tracker · ${state.c2?.count?.toLocaleString() ?? 0} live C2 IPs across ${
+                state.c2?.sources?.length ?? 0
+              } feeds (C2IntelFeeds, ThreatFox)`}
+              href="/threatintel/c2-tracker"
+              interpretation={c2FrameworksRead}
+            >
+              <HBar items={topC2Frameworks} color="#14b8a6" />
+            </ChartCard>
+          </div>
+        </section>
+      )}
+
+      {/* Analyst panels — the remaining 10. Accurate and well-sourced but
+          less narrative than the six above. Default-collapsed because
+          page load shouldn't pretend each of these matters equally to
+          a first-time visitor; an analyst who knows what they want can
+          expand to see the catalog. */}
       {!state.loading && (
         <details className="mb-2 group">
-          <summary className="cursor-pointer text-xs font-bold uppercase tracking-[0.2em] text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 font-mono py-2">
-            More metrics (15 panels). Cadence, severity, sectors, vendors, frameworks, geography
+          <summary className="cursor-pointer text-xs font-bold uppercase tracking-[0.2em] text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 font-mono py-3">
+            Analyst panels (10 more). Sectors, brands, IOC volume, malware families, re-leaks, IP origins, breaches,
+            chatter, dark-web, MTI profiled
             <span className="ml-2 text-slate-400 group-open:hidden">expand</span>
             <span className="ml-2 text-slate-400 hidden group-open:inline">collapse</span>
           </summary>
           <p className="mt-2 text-[12px] font-mono text-slate-500 max-w-2xl mb-4">
-            The fifteen-panel cut. Every chart below is computed live from the same upstream feeds the headline read
-            above uses. Refresh the page to recompute.
+            All ten are computed live from the same upstream feeds the narrative panels above use. No interpretation
+            captions; the chart speaks for itself once you know what you're looking at.
           </p>
+
+          <div className="grid gap-4 lg:grid-cols-2">
+            <ChartCard
+              icon={Activity}
+              title="Most-impersonated brands"
+              question="Whose customers are getting phished right now?"
+              footer={`From PhishTank. ${state.phishing?.filter((u) => u.target).length ?? 0} URLs have brand attribution.`}
+              href="/threatintel/live-iocs"
+            >
+              <HBar items={topPhishingBrands} color="#0ea5e9" />
+            </ChartCard>
+
+            <ChartCard
+              icon={Globe2}
+              title="IOC volume by upstream feed"
+              question="Which feed is publishing the most malicious IPs right now?"
+              footer={`Cross-feed view · ${summary.ips} total IPs across upstream sources`}
+              href="/threatintel/threat-map"
+            >
+              <HBar items={iocSourceVolume} color="#8b5cf6" />
+            </ChartCard>
+
+            <ChartCard
+              icon={Briefcase}
+              title={`Targeted sectors · ${windowDays}d (heuristic)`}
+              question="Which industries are ransomware groups hitting right now?"
+              footer={`Classified ${sectorClassifiedPct}% of recent victims by keyword match on victim name + description. Best-effort; verify before action.`}
+              href="/threatintel/ransomware-activity"
+            >
+              <HBar items={targetedSectors} color="#0891b2" />
+            </ChartCard>
+
+            <ChartCard
+              icon={Bug}
+              title="Most-active malware families · 24h"
+              question="Which malware families are dropping on MalwareBazaar right now?"
+              footer={`From MalwareBazaar recent samples · ${state.malware?.length ?? 0} samples in window`}
+              href="/threatintel/live-iocs"
+            >
+              <HBar items={topMalwareFamilies} color="#a855f7" />
+            </ChartCard>
+
+            <ChartCard
+              icon={Users}
+              title="Re-leak hotspots: groups doing the most cross-claims"
+              question="Which groups appear in cross-actor re-leaks the most? (affiliate-movement signal)"
+              footer={`${state.releaks?.length ?? 0} re-leaks across top-8 active groups`}
+              href="/threatintel/re-leaks"
+            >
+              <HBar items={releakGroups} color="#f43f5e" />
+            </ChartCard>
+
+            <ChartCard
+              icon={Globe2}
+              title="Malicious-IP origins · live"
+              question="Where in the world are the malicious IPs originating?"
+              footer={`Top 10 countries · ${state.threatMap?.countries?.length ?? 0} countries seen across upstream feeds`}
+              href="/threatintel/threat-map"
+            >
+              <HBar items={topCountries} color="#3b82f6" />
+            </ChartCard>
+
+            <ChartCard
+              icon={Database}
+              title="Largest recent breach disclosures"
+              question="Which freshly-disclosed breaches exposed the most accounts?"
+              footer={`From HaveIBeenPwned · ${state.breaches?.length ?? 0} recent disclosures indexed`}
+              href="/threatintel/breach"
+            >
+              <HBar
+                items={largestBreaches}
+                color="#f59e0b"
+                formatValue={(n) =>
+                  n >= 1_000_000 ? `${(n / 1_000_000).toFixed(1)}M` : n >= 1_000 ? `${(n / 1_000).toFixed(0)}K` : `${n}`
+                }
+              />
+            </ChartCard>
+
+            <ChartCard
+              icon={MessageSquare}
+              title="OSINT chatter — most cross-referenced entities"
+              question="Which CVEs, actors, techniques and malware are researchers talking about across the most feeds?"
+              footer={`From threat-pulse · ${state.pulse?.length ?? 0} entities seen across Reddit / Mastodon / Telegram researcher feeds. Value = distinct feeds.`}
+              href="/threatintel/pulse"
+            >
+              <HBar items={topPulseEntities} color="#6366f1" />
+            </ChartCard>
+
+            <ChartCard
+              icon={Network}
+              title="Dark-web CTI corpus by category"
+              question="Where is the underground/dark-web CTI resource coverage concentrated?"
+              footer={`From deepdarkcti · ${state.ddc?.total?.toLocaleString() ?? 0} resources across ${
+                state.ddc?.categories?.length ?? 0
+              } categories`}
+              href="/threatintel/deepdarkcti"
+            >
+              <HBar items={ddcCategories} color="#a3a3a3" />
+            </ChartCard>
+
+            <ChartCard
+              icon={Network}
+              title="Profiled active groups · MyThreatIntel"
+              question="Which currently-active ransomware groups have a MyThreatIntel actor profile?"
+              footer={`Join of the merged ransomware feed with ${
+                state.mtiGroups?.length?.toLocaleString() ?? 0
+              } MyThreatIntel group profiles`}
+              href="/threatintel/mythreatintel"
+            >
+              <HBar items={mtiProfiledActiveGroups} color="#0ea5e9" />
+            </ChartCard>
+          </div>
         </details>
-      )}
-      {!state.loading && (
-        <div className="grid gap-4 lg:grid-cols-2">
-          {/* 1. Top ransomware groups */}
-          <ChartCard
-            icon={Skull}
-            title="Most active ransomware groups"
-            question={`Who's claiming the most victims in the last ${windowDays} days?`}
-            footer={`Ransomlook + MyThreatIntel CTI events + ransomfeed.it + ransomwatch · ${(state.ransomware?.length ?? 0).toLocaleString()} merged claims (deduped by group + victim + day)`}
-            href="/threatintel/ransomware-activity"
-          >
-            <HBar items={topRansomwareGroups} color="#e11d48" />
-          </ChartCard>
-
-          {/* 2. Ransomware cadence */}
-          <ChartCard
-            icon={TrendingUp}
-            title="Ransomware cadence · last 7 days"
-            question="Is leak-site posting accelerating or cooling this week?"
-            footer="Daily claim count · fixed 7-day axis · per-day labels"
-            href="/threatintel/ransomware-activity"
-          >
-            <Sparkbars buckets={ransomwareCadence} color="#e11d48" />
-          </ChartCard>
-
-          {/* 3. CVE severity distribution */}
-          <ChartCard
-            icon={BarChart3}
-            title="CVE severity distribution"
-            question="How serious are this window's CVEs?"
-            footer={`${cveSeverityCounts.total} CVEs (NVD pubStartDate last 30d + CISA KEV last 30d merge)`}
-            href="/threatintel/cve-list"
-          >
-            <StackedSeverityBar counts={cveSeverityCounts.counts} total={cveSeverityCounts.total} />
-          </ChartCard>
-
-          {/* 4. KEV cadence */}
-          <ChartCard
-            icon={Flame}
-            title="CISA KEV cadence · last 12 weeks"
-            question="How quickly is CISA flagging actively-exploited CVEs?"
-            footer={`${summary.kevCount} entries on KEV in this window`}
-            href="/threatintel/cve-list"
-          >
-            <Sparkbars buckets={kevCadence} color="#f59e0b" />
-          </ChartCard>
-
-          {/* 5. Top phishing brands */}
-          <ChartCard
-            icon={Activity}
-            title="Most-impersonated brands"
-            question="Whose customers are getting phished right now?"
-            footer={`From PhishTank. ${state.phishing?.filter((u) => u.target).length ?? 0} URLs have brand attribution.`}
-            href="/threatintel/live-iocs"
-          >
-            <HBar items={topPhishingBrands} color="#0ea5e9" />
-          </ChartCard>
-
-          {/* 6. IOC source volume */}
-          <ChartCard
-            icon={Globe2}
-            title="IOC volume by upstream feed"
-            question="Which feed is publishing the most malicious IPs right now?"
-            footer={`Cross-feed view · ${summary.ips} total IPs across upstream sources`}
-            href="/threatintel/threat-map"
-          >
-            <HBar items={iocSourceVolume} color="#8b5cf6" />
-          </ChartCard>
-
-          {/* 7. Targeted sectors (heuristic) */}
-          <ChartCard
-            icon={Briefcase}
-            title={`Targeted sectors · ${windowDays}d (heuristic)`}
-            question="Which industries are ransomware groups hitting right now?"
-            footer={`Classified ${sectorClassifiedPct}% of recent victims by keyword match on victim name + description. Best-effort; verify before action.`}
-            href="/threatintel/ransomware-activity"
-          >
-            <HBar items={targetedSectors} color="#0891b2" />
-          </ChartCard>
-
-          {/* 8. Top KEV vendors */}
-          <ChartCard
-            icon={Shield}
-            title="Most-exploited vendors on CISA KEV"
-            question="Whose products are taking the most active-exploitation hits?"
-            footer={`Parsed from KEV vulnerability descriptions in the current CVE window`}
-            href="/threatintel/cve-list"
-          >
-            <HBar items={topKevVendors} color="#dc2626" />
-          </ChartCard>
-
-          {/* 9. Top malware families */}
-          <ChartCard
-            icon={Bug}
-            title="Most-active malware families · 24h"
-            question="Which malware families are dropping on MalwareBazaar right now?"
-            footer={`From MalwareBazaar recent samples · ${state.malware?.length ?? 0} samples in window`}
-            href="/threatintel/live-iocs"
-          >
-            <HBar items={topMalwareFamilies} color="#a855f7" />
-          </ChartCard>
-
-          {/* 10. Re-leak hotspot groups */}
-          <ChartCard
-            icon={Users}
-            title="Re-leak hotspots: groups doing the most cross-claims"
-            question="Which groups appear in cross-actor re-leaks the most? (affiliate-movement signal)"
-            footer={`${state.releaks?.length ?? 0} re-leaks across top-8 active groups`}
-            href="/threatintel/re-leaks"
-          >
-            <HBar items={releakGroups} color="#f43f5e" />
-          </ChartCard>
-
-          {/* 11. Country-origin of malicious IPs (data was already fetched
-              but never visualised before 2026-05-14). Not gated by windowDays
-              — threat-map is a live snapshot, not historical. */}
-          <ChartCard
-            icon={Globe2}
-            title="Malicious-IP origins · live"
-            question="Where in the world are the malicious IPs originating?"
-            footer={`Top 10 countries · ${state.threatMap?.countries?.length ?? 0} countries seen across upstream feeds`}
-            href="/threatintel/threat-map"
-          >
-            <HBar items={topCountries} color="#3b82f6" />
-          </ChartCard>
-
-          {/* 12. Active C2 frameworks (c2-tracker) */}
-          <ChartCard
-            icon={Radio}
-            title="Active C2 frameworks · live"
-            question="Which command-and-control frameworks have the most live infrastructure right now?"
-            footer={`From c2-tracker · ${state.c2?.count?.toLocaleString() ?? 0} live C2 IPs across ${
-              state.c2?.sources?.length ?? 0
-            } feeds (C2IntelFeeds, ThreatFox)`}
-            href="/threatintel/c2-tracker"
-          >
-            <HBar items={topC2Frameworks} color="#14b8a6" />
-          </ChartCard>
-
-          {/* 13. Largest breach disclosures (breach-disclosures / HIBP) */}
-          <ChartCard
-            icon={Database}
-            title="Largest recent breach disclosures"
-            question="Which freshly-disclosed breaches exposed the most accounts?"
-            footer={`From HaveIBeenPwned · ${state.breaches?.length ?? 0} recent disclosures indexed`}
-            href="/threatintel/breach"
-          >
-            <HBar
-              items={largestBreaches}
-              color="#f59e0b"
-              formatValue={(n) =>
-                n >= 1_000_000 ? `${(n / 1_000_000).toFixed(1)}M` : n >= 1_000 ? `${(n / 1_000).toFixed(0)}K` : `${n}`
-              }
-            />
-          </ChartCard>
-
-          {/* 14. OSINT researcher chatter pulse (threat-pulse) */}
-          <ChartCard
-            icon={MessageSquare}
-            title="OSINT chatter — most cross-referenced entities"
-            question="Which CVEs, actors, techniques and malware are researchers talking about across the most feeds?"
-            footer={`From threat-pulse · ${state.pulse?.length ?? 0} entities seen across Reddit / Mastodon / Telegram researcher feeds. Value = distinct feeds.`}
-            href="/threatintel/pulse"
-          >
-            <HBar items={topPulseEntities} color="#6366f1" />
-          </ChartCard>
-
-          {/* 15. Dark-web / underground CTI by category (deepdarkcti) */}
-          <ChartCard
-            icon={Network}
-            title="Dark-web CTI corpus by category"
-            question="Where is the underground/dark-web CTI resource coverage concentrated?"
-            footer={`From deepdarkcti · ${state.ddc?.total?.toLocaleString() ?? 0} resources across ${
-              state.ddc?.categories?.length ?? 0
-            } categories`}
-            href="/threatintel/deepdarkcti"
-          >
-            <HBar items={ddcCategories} color="#a3a3a3" />
-          </ChartCard>
-
-          {/* 16. MyThreatIntel — active ransomware groups with an MTI actor profile */}
-          <ChartCard
-            icon={Network}
-            title="Profiled active groups · MyThreatIntel"
-            question="Which currently-active ransomware groups have a MyThreatIntel actor profile?"
-            footer={`Join of the merged ransomware feed with ${
-              state.mtiGroups?.length?.toLocaleString() ?? 0
-            } MyThreatIntel group profiles`}
-            href="/threatintel/mythreatintel"
-          >
-            <HBar items={mtiProfiledActiveGroups} color="#0ea5e9" />
-          </ChartCard>
-        </div>
       )}
 
       {/* Related-surfaces footer (replaces the old "what's missing / shipped" changelog) */}
@@ -1296,6 +1407,7 @@ function ChartCard({
   footer,
   href,
   children,
+  interpretation,
 }: {
   icon: typeof BarChart3;
   title: string;
@@ -1303,6 +1415,10 @@ function ChartCard({
   footer: string;
   href?: string;
   children: React.ReactNode;
+  /** Optional one-sentence "what this means right now" prose under the
+   *  chart. Promoted panels in the narrative section pass this; analyst
+   *  panels in the collapsed grid leave it empty. */
+  interpretation?: string;
 }) {
   return (
     <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
@@ -1318,6 +1434,11 @@ function ChartCard({
       </div>
       <p className="text-xs italic text-slate-500 mb-3 leading-relaxed">{question}</p>
       <div className="mb-3">{children}</div>
+      {interpretation && (
+        <p className="text-[12px] text-slate-700 dark:text-slate-300 leading-relaxed mb-2 border-l-2 border-brand-500/40 pl-3">
+          {interpretation}
+        </p>
+      )}
       <p className="text-[10px] font-mono text-slate-400">{footer}</p>
     </div>
   );
