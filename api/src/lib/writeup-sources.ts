@@ -13,12 +13,24 @@
  * The aggregator dedupes by URL, sorts newest-first, and caps the response.
  */
 
+/**
+ * Source tier. `signal` marks a tight curated set of elite vendor labs /
+ * independent research outlets that publish low-volume, high-depth pieces
+ * — the kind of source an analyst always reads when it ships. The
+ * `/threatintel/signal` page filters to just these; the broader
+ * `/threatintel/writeups` page surfaces everything. Defaults to
+ * `firehose` (treated as the full ecosystem cut).
+ */
+export type SourceTier = 'signal' | 'firehose';
+
+type WriteupSourceFields = { tier?: SourceTier };
+
 export type WriteupSourceSpec =
-  | { kind: 'medium'; handle: string; label?: string }
-  | { kind: 'devto'; handle: string; label?: string }
-  | { kind: 'hashnode'; host: string; label?: string }
-  | { kind: 'rss'; url: string; label: string }
-  | {
+  | ({ kind: 'medium'; handle: string; label?: string } & WriteupSourceFields)
+  | ({ kind: 'devto'; handle: string; label?: string } & WriteupSourceFields)
+  | ({ kind: 'hashnode'; host: string; label?: string } & WriteupSourceFields)
+  | ({ kind: 'rss'; url: string; label: string } & WriteupSourceFields)
+  | ({
       kind: 'manual';
       title: string;
       url: string;
@@ -27,29 +39,38 @@ export type WriteupSourceSpec =
       published: string;
       description?: string;
       tags?: string[];
-    };
+    } & WriteupSourceFields);
 
 export const WRITEUP_SOURCES: WriteupSourceSpec[] = [
   // ─── IR + threat-research blogs (independent + Mandiant-style) ─────────
-  { kind: 'rss', url: 'https://thedfirreport.com/feed/', label: 'The DFIR Report' },
-  { kind: 'rss', url: 'https://blog.bushidotoken.net/feeds/posts/default?alt=rss', label: 'BushidoToken' },
-  { kind: 'rss', url: 'https://doublepulsar.com/feed', label: 'DoublePulsar (Kevin Beaumont)' },
+  // Signal tier — low-volume, high-depth. These are the sources an analyst
+  // reads every time they ship. `/threatintel/signal` filters down to just
+  // this set; the broader `/threatintel/writeups` includes the firehose.
+  { kind: 'rss', url: 'https://thedfirreport.com/feed/', label: 'The DFIR Report', tier: 'signal' },
+  { kind: 'rss', url: 'https://www.threatsignal.in/rss.xml', label: 'ThreatSignal Research', tier: 'signal' },
+  {
+    kind: 'rss',
+    url: 'https://blog.bushidotoken.net/feeds/posts/default?alt=rss',
+    label: 'BushidoToken',
+    tier: 'signal',
+  },
+  { kind: 'rss', url: 'https://doublepulsar.com/feed', label: 'DoublePulsar (Kevin Beaumont)', tier: 'signal' },
   { kind: 'rss', url: 'https://krebsonsecurity.com/feed/', label: 'Krebs on Security' },
-  { kind: 'rss', url: 'https://research.openanalysis.net/feed.xml', label: 'OpenAnalysis Lab' },
+  { kind: 'rss', url: 'https://research.openanalysis.net/feed.xml', label: 'OpenAnalysis Lab', tier: 'signal' },
   { kind: 'rss', url: 'https://opensourcemalware.com/rss.xml', label: 'OpenSourceMalware' },
 
   // ─── Vendor research labs ─────────────────────────────────────────────
-  { kind: 'rss', url: 'https://www.sentinelone.com/labs/feed/', label: 'SentinelLabs' },
+  { kind: 'rss', url: 'https://www.sentinelone.com/labs/feed/', label: 'SentinelLabs', tier: 'signal' },
   { kind: 'rss', url: 'https://www.crowdstrike.com/blog/feed/', label: 'CrowdStrike' },
-  { kind: 'rss', url: 'https://unit42.paloaltonetworks.com/feed/', label: 'Unit 42 (Palo Alto)' },
-  { kind: 'rss', url: 'https://research.checkpoint.com/feed/', label: 'Check Point Research' },
+  { kind: 'rss', url: 'https://unit42.paloaltonetworks.com/feed/', label: 'Unit 42 (Palo Alto)', tier: 'signal' },
+  { kind: 'rss', url: 'https://research.checkpoint.com/feed/', label: 'Check Point Research', tier: 'signal' },
   // Google TI (Mandiant) dropped 2026-05-11. cloud.google.com/blog/topics/threat-intelligence/rss
   // returns HTML rather than an RSS feed when called server-side. Re-add when a working URL surfaces.
   { kind: 'rss', url: 'https://www.welivesecurity.com/feed/', label: 'WeLiveSecurity (ESET)' },
-  { kind: 'rss', url: 'https://www.huntress.com/blog/rss.xml', label: 'Huntress' },
-  { kind: 'rss', url: 'https://research.eye.security/feed', label: 'Eye Security' },
+  { kind: 'rss', url: 'https://www.huntress.com/blog/rss.xml', label: 'Huntress', tier: 'signal' },
+  { kind: 'rss', url: 'https://research.eye.security/feed', label: 'Eye Security', tier: 'signal' },
   { kind: 'rss', url: 'https://www.recordedfuture.com/feed/', label: 'Recorded Future' },
-  { kind: 'rss', url: 'https://blog.exodusintel.com/feed', label: 'Exodus Intelligence' },
+  { kind: 'rss', url: 'https://blog.exodusintel.com/feed', label: 'Exodus Intelligence', tier: 'signal' },
   { kind: 'rss', url: 'https://intezer.com/feed/', label: 'Intezer' },
   { kind: 'rss', url: 'https://blog.aquasec.com/rss.xml', label: 'Aqua Security (cloud)' },
   { kind: 'rss', url: 'https://www.varonis.com/blog/rss.xml', label: 'Varonis (data security)' },

@@ -29,6 +29,7 @@ const Experience = lazy(() => import('./pages/Experience'));
 const Projects = lazy(() => import('./pages/Projects'));
 const CaseStudy = lazy(() => import('./pages/CaseStudy'));
 const Writeups = lazy(() => import('./pages/threatintel/Writeups'));
+const ResearchSignal = lazy(() => import('./pages/threatintel/Signal'));
 const DFIR = lazy(() => import('./pages/DFIR'));
 
 const IocCheck = lazy(() => import('./pages/dfir/IocCheck'));
@@ -965,6 +966,19 @@ export function AppContent() {
           <ErrorBoundary>
             <Suspense fallback={<SectionLoader />}>
               <Writeups />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      {/* High-signal subset of /writeups — elite vendor labs +
+          independent research only. Reuses the same /api/v1/writeups
+          endpoint with `?tier=signal`. */}
+      <Route
+        path="/threatintel/signal"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <ResearchSignal />
             </Suspense>
           </ErrorBoundary>
         }

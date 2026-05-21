@@ -344,6 +344,13 @@ const SECTIONS: Section[] = [
     blurb: 'Long-form research and curated reference indexes. Start here for the broad questions.',
     tools: [
       {
+        to: '/threatintel/signal',
+        label: 'Research Signal',
+        desc: 'Tight curated set of elite vendor labs + independent research only (ThreatSignal Research, DFIR Report, SentinelLabs, Unit 42, Check Point, Huntress, Eye Security, Exodus, OpenAnalysis, BushidoToken, DoublePulsar). Low-volume sources, high-depth pieces.',
+        icon: Radio,
+        badge: 'live',
+      },
+      {
         to: '/threatintel/writeups',
         label: 'Writeups Feed',
         desc: '18+ analyst blogs and vendor research labs aggregated live: The DFIR Report, BushidoToken, DoublePulsar, Krebs, SentinelLabs, Unit 42, Check Point Research, Google TI, Huntress, and more.',

@@ -1,6 +1,22 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { WRITEUP_SOURCES, type WriteupSourceSpec } from '../lib/writeup-sources';
+import { WRITEUP_SOURCES, type WriteupSourceSpec, type SourceTier } from '../lib/writeup-sources';
+
+/**
+ * Source labels marked as `tier: 'signal'`. Computed once at module load
+ * so the per-request filter is a Set lookup rather than a scan. The
+ * `signal` tier is a tight curated subset of elite vendor / independent
+ * research labs — the sources an analyst reads every time they ship.
+ */
+const SIGNAL_LABELS: Set<string> = new Set(
+  WRITEUP_SOURCES.filter((s) => s.tier === 'signal').map((s) => {
+    if (s.kind === 'manual') return s.source;
+    if (s.kind === 'medium') return s.label ?? 'Medium';
+    if (s.kind === 'devto') return s.label ?? 'dev.to';
+    if (s.kind === 'hashnode') return s.label ?? 'Hashnode';
+    return s.label;
+  })
+);
 
 /**
  * Unified writeups aggregator.
@@ -369,20 +385,51 @@ export function roundRobinBySource<T extends { source: string; published?: strin
   return visible;
 }
 
+/** Filter a writeups response down to the requested tier. Reuses the
+ *  full-response cache — one fetch upstream, multiple slices. */
+function filterByTier(body: WriteupsResponse, tier: SourceTier): WriteupsResponse {
+  if (tier === 'firehose') return body;
+  const items = body.items.filter((it) => SIGNAL_LABELS.has(it.source));
+  const sources = body.sources.filter((s) => SIGNAL_LABELS.has(s.label));
+  return { ...body, sources, total: items.length, items };
+}
+
 export async function writeupsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const tier = c.req.query('tier') === 'signal' ? 'signal' : 'firehose';
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheReq = new Request(CACHE_KEY);
+
+  // Inflate from the all-sources cache when present; filter post-cache so
+  // a tier flip doesn't require a re-fetch.
   const cached = await cache.match(cacheReq);
-  if (cached) return cached;
+  if (cached) {
+    if (tier === 'firehose') return cached;
+    const body = (await cached.json()) as WriteupsResponse;
+    return new Response(JSON.stringify(filterByTier(body, tier)), {
+      status: 200,
+      headers: {
+        'content-type': 'application/json',
+        'cache-control': `public, max-age=${CACHE_TTL_SECONDS}`,
+      },
+    });
+  }
 
   const body = await fetchWriteups();
-  const response = new Response(JSON.stringify(body), {
+  const fullResponse = new Response(JSON.stringify(body), {
     status: 200,
     headers: {
       'content-type': 'application/json',
       'cache-control': `public, max-age=${CACHE_TTL_SECONDS}`,
     },
   });
-  c.executionCtx.waitUntil(cache.put(cacheReq, response.clone()));
-  return response;
+  c.executionCtx.waitUntil(cache.put(cacheReq, fullResponse.clone()));
+
+  if (tier === 'firehose') return fullResponse;
+  return new Response(JSON.stringify(filterByTier(body, tier)), {
+    status: 200,
+    headers: {
+      'content-type': 'application/json',
+      'cache-control': `public, max-age=${CACHE_TTL_SECONDS}`,
+    },
+  });
 }
