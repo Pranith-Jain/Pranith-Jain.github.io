@@ -563,6 +563,24 @@ export async function buildStixBundle(
     object_refs: [...object_refs, ...relationships.map((r) => r.id)],
     object_marking_refs: [TLP_MARKING_IDS[report.tlp]],
     external_references: report.url ? [{ source_name: report.sourceId, url: report.url }] : undefined,
+    x_sectors: llmEntities.sectors.map((s) => s.name),
+    x_affected_products: llmEntities.affectedProducts.map((p) => ({
+      vendor: p.vendor,
+      product: p.product,
+    })),
+    x_llm_actor_candidates: llmEntities.actorCandidates.map((c) => ({
+      name: c.name,
+      rationale: c.rationale,
+    })),
+    x_llm_malware_candidates: llmEntities.malwareCandidates.map((c) => ({
+      name: c.name,
+      rationale: c.rationale,
+    })),
+    x_llm_enrichment: {
+      ran: llmEntities.ran,
+      partial: llmEntities.partial,
+      modelUsed: llmEntities.modelUsed,
+    },
     labels: entities.tags,
     created_by_ref: identityId,
   };

@@ -373,4 +373,46 @@ describe('buildStixBundle — LlmEntities support', () => {
     const { view } = await buildStixBundle(report, entities, emptyBulk, new Map(), llm);
     expect(view.attackPatterns).toEqual([{ name: 'OS Credential Dumping', mitreId: 'T1003' }]);
   });
+
+  it('attaches x_sectors / x_affected_products / x_llm_*_candidates / x_llm_enrichment to the report object', async () => {
+    const llm: LlmEntities = {
+      sectors: [{ name: 'healthcare' }, { name: 'finance' }],
+      affectedProducts: [{ vendor: 'Microsoft', product: 'Exchange' }],
+      attackPatterns: [],
+      actorCandidates: [{ name: 'LightSpy', rationale: 'novel name in source' }],
+      malwareCandidates: [],
+      ran: true,
+      partial: false,
+      modelUsed: 'groq:llama-3.3-70b-versatile',
+    };
+    const entities = extract(TITLE, APT28_BRIEF_BODY);
+    const { bundle } = await buildStixBundle(report, entities, emptyBulk, new Map(), llm);
+    const r = bundle.objects.find((o) => o.type === 'report') as Record<string, unknown>;
+    expect(r.x_sectors).toEqual(['healthcare', 'finance']);
+    expect(r.x_affected_products).toEqual([{ vendor: 'Microsoft', product: 'Exchange' }]);
+    expect(r.x_llm_actor_candidates).toEqual([{ name: 'LightSpy', rationale: 'novel name in source' }]);
+    expect(r.x_llm_malware_candidates).toEqual([]);
+    expect(r.x_llm_enrichment).toEqual({
+      ran: true,
+      partial: false,
+      modelUsed: 'groq:llama-3.3-70b-versatile',
+    });
+  });
+
+  it('does NOT promote LLM candidates into threat-actor / malware SDOs', async () => {
+    const llm: LlmEntities = {
+      ...EMPTY_LLM_ENTITIES,
+      ran: true,
+      actorCandidates: [{ name: 'LightSpy', rationale: '' }],
+      malwareCandidates: [{ name: 'PhantomLoader', rationale: '' }],
+    };
+    const entities = extract(TITLE, APT28_BRIEF_BODY);
+    const { bundle } = await buildStixBundle(report, entities, emptyBulk, new Map(), llm);
+    const actorNames = bundle.objects
+      .filter((o) => o.type === 'threat-actor')
+      .map((o) => (o as { name?: string }).name);
+    const malwareNames = bundle.objects.filter((o) => o.type === 'malware').map((o) => (o as { name?: string }).name);
+    expect(actorNames).not.toContain('LightSpy');
+    expect(malwareNames).not.toContain('PhantomLoader');
+  });
 });
