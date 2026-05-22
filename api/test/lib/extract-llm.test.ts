@@ -1,6 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { env as testEnv } from 'cloudflare:test';
 import { extractLlm, EMPTY_LLM_ENTITIES } from '../../src/lib/extract-llm';
+import { parseLlmJson } from '../../src/lib/extract-llm';
 import type { Env } from '../../src/env';
 import type { ExtractedEntities } from '../../src/lib/extract';
 
@@ -46,5 +47,40 @@ describe('extractLlm — skip rule', () => {
     expect(EMPTY_LLM_ENTITIES.attackPatterns).toEqual([]);
     expect(EMPTY_LLM_ENTITIES.actorCandidates).toEqual([]);
     expect(EMPTY_LLM_ENTITIES.malwareCandidates).toEqual([]);
+  });
+});
+
+describe('parseLlmJson — tolerant parser', () => {
+  it('parses a clean JSON object', () => {
+    const out = parseLlmJson('{"sectors": ["healthcare"]}');
+    expect(out).toEqual({ sectors: ['healthcare'] });
+  });
+
+  it('extracts JSON wrapped in markdown fences', () => {
+    const input = '```json\n{"sectors": ["finance"]}\n```';
+    const out = parseLlmJson(input);
+    expect(out).toEqual({ sectors: ['finance'] });
+  });
+
+  it('extracts JSON when the LLM adds a prose preamble', () => {
+    const input = 'Sure, here is the JSON:\n{"sectors": ["energy"]}\nLet me know if you need more.';
+    const out = parseLlmJson(input);
+    expect(out).toEqual({ sectors: ['energy'] });
+  });
+
+  it('handles nested braces correctly (balanced extraction)', () => {
+    const input = '{"affected_products": [{"vendor":"Fortinet","product":"FortiGate"}]}';
+    const out = parseLlmJson(input);
+    expect((out as { affected_products: unknown[] }).affected_products).toHaveLength(1);
+  });
+
+  it('returns null on malformed input', () => {
+    expect(parseLlmJson('not json at all')).toBeNull();
+    expect(parseLlmJson('{ bad json }')).toBeNull();
+    expect(parseLlmJson('')).toBeNull();
+  });
+
+  it('returns null when there is no { in the response', () => {
+    expect(parseLlmJson('the LLM forgot the JSON entirely')).toBeNull();
   });
 });

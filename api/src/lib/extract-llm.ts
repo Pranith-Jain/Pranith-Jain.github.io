@@ -73,6 +73,50 @@ function shouldRunLlm(body: string, findingsCount: number | undefined): boolean 
   return true;
 }
 
+/**
+ * Extract the first balanced `{...}` substring from `text` and JSON.parse it.
+ * Tolerates markdown fences, prose preambles, and trailing text. Returns
+ * `null` on any failure — the caller turns that into `partial: true`.
+ *
+ * Brace-counting (rather than regex) keeps nested objects/arrays balanced.
+ */
+export function parseLlmJson(text: string): unknown {
+  const start = text.indexOf('{');
+  if (start < 0) return null;
+  let depth = 0;
+  let inString = false;
+  let escape = false;
+  for (let i = start; i < text.length; i++) {
+    const c = text[i]!;
+    if (escape) {
+      escape = false;
+      continue;
+    }
+    if (c === '\\' && inString) {
+      escape = true;
+      continue;
+    }
+    if (c === '"') {
+      inString = !inString;
+      continue;
+    }
+    if (inString) continue;
+    if (c === '{') depth++;
+    else if (c === '}') {
+      depth--;
+      if (depth === 0) {
+        const slice = text.slice(start, i + 1);
+        try {
+          return JSON.parse(slice);
+        } catch {
+          return null;
+        }
+      }
+    }
+  }
+  return null;
+}
+
 export async function extractLlm(
   title: string,
   body: string,
