@@ -259,3 +259,68 @@ describe('extractLlm — happy path with DI stub', () => {
     expect(captured!.system).toContain('sectors');
   });
 });
+
+describe('extractLlm — error / partial paths', () => {
+  const body = 'A'.repeat(800);
+
+  it('returns ran:true partial:true with empty arrays when runCompletion throws', async () => {
+    const runCompletion = vi.fn(async () => {
+      throw new Error('rate-limited');
+    });
+    const out = await extractLlm('t', body, emptyEntities, env, {
+      runCompletion: runCompletion as never,
+      findingsCount: 1,
+    });
+    expect(out.ran).toBe(true);
+    expect(out.partial).toBe(true);
+    expect(out.sectors).toEqual([]);
+    expect(out.actorCandidates).toEqual([]);
+  });
+
+  it('returns partial:true when the LLM response has no JSON object', async () => {
+    const runCompletion = vi.fn(async () => ({
+      text: 'I am sorry, I cannot help with that.',
+      modelUsed: 'stub',
+    }));
+    const out = await extractLlm('t', body, emptyEntities, env, {
+      runCompletion: runCompletion as never,
+      findingsCount: 1,
+    });
+    expect(out.ran).toBe(true);
+    expect(out.partial).toBe(true);
+    expect(out.modelUsed).toBe('stub');
+  });
+
+  it('truncates the body at 8000 chars before sending to the LLM', async () => {
+    let captured = '';
+    const runCompletion = vi.fn(async (_ai: unknown, input: { user: string }) => {
+      captured = input.user;
+      return { text: '{}', modelUsed: 'stub' };
+    });
+    const huge = 'x'.repeat(20_000);
+    await extractLlm('t', huge, emptyEntities, env, {
+      runCompletion: runCompletion as never,
+      findingsCount: 1,
+    });
+    // user prompt = 't\n\n' + clamped body
+    expect(captured.length).toBeLessThan(9000);
+    expect(captured).toContain('[truncated]');
+  });
+
+  it('does NOT flip partial when validation drops entries (strict guardrail working)', async () => {
+    const runCompletion = vi.fn(async () => ({
+      text: JSON.stringify({
+        sectors: ['healthcare'],
+        actor_candidates: [{ name: 'APT28', rationale: 'in dict, will drop' }],
+      }),
+      modelUsed: 'stub',
+    }));
+    const out = await extractLlm('t', body, emptyEntities, env, {
+      runCompletion: runCompletion as never,
+      findingsCount: 1,
+    });
+    expect(out.partial).toBe(false);
+    expect(out.sectors).toEqual([{ name: 'healthcare' }]);
+    expect(out.actorCandidates).toEqual([]); // dropped by guardrail, no partial
+  });
+});
