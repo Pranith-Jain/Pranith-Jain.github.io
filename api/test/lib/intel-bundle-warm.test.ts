@@ -306,4 +306,31 @@ describe('warmIntelBundles', () => {
       expect(view.llmEnrichment.ran).toBe(false);
     }
   );
+
+  // Regression for the "bundle never blocked by LLM" invariant. If the
+  // extractor throws, the bundle MUST still land in D1 with regex-only
+  // signal. Previously, a non-string runCompletion response could escape
+  // extract-llm and reject the warmer's Promise.all, dropping the bundle
+  // into `failed[]` instead.
+  it('persists the bundle even when extractLlm throws', { timeout: 20_000 }, async () => {
+    await insertBriefing(env.BRIEFINGS_DB!, fakeBriefing());
+    const r = await warmIntelBundles(env, {
+      maxItems: 1,
+      extractLlm: async () => {
+        throw new Error('synthetic extractor failure');
+      },
+    });
+    expect(r.built).toHaveLength(1);
+    expect(r.failed).toHaveLength(0);
+    const row = await env
+      .BRIEFINGS_DB!.prepare(`SELECT view_json FROM intel_bundles WHERE source_id = 'briefings' AND item_ref = ?`)
+      .bind(r.built[0])
+      .first<{ view_json: string }>();
+    const view = JSON.parse(row!.view_json) as { llmEnrichment: { ran: boolean; partial: boolean } };
+    // Bundle landed with empty LLM signal — ran:false reflects "we got
+    // no usable result", and partial isn't asserted because the warmer
+    // surfaces the throw as ran:false rather than ran:true/partial:true
+    // (the throw bypassed extractLlm's internal partial logic entirely).
+    expect(view.llmEnrichment.ran).toBe(false);
+  });
 });

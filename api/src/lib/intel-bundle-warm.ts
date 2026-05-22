@@ -31,7 +31,7 @@ import { enrichBulk } from './enrich-bulk';
 import { enrichCves } from './cve-enrich';
 import { buildStixBundle, type ReportInput } from './stix-build';
 import type { Briefing, BriefingFinding, BriefingSection } from './briefing-builder';
-import { extractLlm as defaultExtractLlm } from './extract-llm';
+import { EMPTY_LLM_ENTITIES, extractLlm as defaultExtractLlm } from './extract-llm';
 
 export interface WarmOptions {
   /** Max briefings to process per invocation. Default 1 (subrequest-budget safe). */
@@ -49,6 +49,10 @@ export interface WarmResult {
   failed: { slug: string; error: string }[];
   /** True when more candidates exist beyond the cap — next firing will catch up. */
   hasMore: boolean;
+  /** Number of built bundles whose LLM extractor actually ran (not skipped). */
+  llmRan: number;
+  /** Number of built bundles where the LLM ran but degraded to partial. */
+  llmPartial: number;
 }
 
 interface BriefingRow {
@@ -109,7 +113,7 @@ async function selectCandidates(db: D1Database, lookbackDays: number, limit: num
 export async function warmIntelBundles(env: Env, options: WarmOptions = {}): Promise<WarmResult> {
   const maxItems = options.maxItems ?? 1;
   const lookbackDays = options.lookbackDays ?? 7;
-  const out: WarmResult = { built: [], failed: [], hasMore: false };
+  const out: WarmResult = { built: [], failed: [], hasMore: false, llmRan: 0, llmPartial: 0 };
 
   const db = env.BRIEFINGS_DB;
   if (!db) return out;
@@ -143,7 +147,20 @@ export async function warmIntelBundles(env: Env, options: WarmOptions = {}): Pro
           env
         ),
         enrichCves(entities.cves),
-        extractLlmFn(report.title, report.body, entities, env, { findingsCount }),
+        // `.catch()` enforces the "bundle never blocked by LLM" invariant at
+        // the warmer boundary regardless of what extractLlm does internally.
+        // Belt-and-suspenders against any future regression in extract-llm.
+        extractLlmFn(report.title, report.body, entities, env, { findingsCount }).catch((err) => {
+          console.warn(
+            JSON.stringify({
+              job: 'intel-bundle-warm',
+              stage: 'extractLlm',
+              slug: row.slug,
+              error: err instanceof Error ? err.message : String(err),
+            })
+          );
+          return { ...EMPTY_LLM_ENTITIES, ran: false, partial: false };
+        }),
       ]);
       const built = await buildStixBundle(report, entities, bulk, cveEnrichments, llmEntities);
 
@@ -179,6 +196,8 @@ export async function warmIntelBundles(env: Env, options: WarmOptions = {}): Pro
         )
         .run();
       out.built.push(row.slug);
+      if (llmEntities.ran) out.llmRan++;
+      if (llmEntities.partial) out.llmPartial++;
     } catch (err) {
       out.failed.push({ slug: row.slug, error: err instanceof Error ? err.message : String(err) });
     }

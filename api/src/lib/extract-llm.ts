@@ -47,15 +47,22 @@ export interface LlmEntities {
   modelUsed?: string;
 }
 
-export const EMPTY_LLM_ENTITIES: LlmEntities = {
-  sectors: [],
-  affectedProducts: [],
-  attackPatterns: [],
-  actorCandidates: [],
-  malwareCandidates: [],
+// Frozen so an accidental field-assignment (e.g. a future caller doing
+// `EMPTY_LLM_ENTITIES.sectors = ['x']` instead of spreading) becomes a
+// runtime error in test rather than silent cross-request state pollution.
+// Note: Object.freeze is shallow — inner-array `.push` would still mutate.
+// The real defence is that every caller either spreads this constant
+// (e.g. `{ ...EMPTY_LLM_ENTITIES, ran: true }`) or treats it as read-only
+// (`.map`/`.filter` over the arrays). All current callers do.
+export const EMPTY_LLM_ENTITIES: LlmEntities = Object.freeze({
+  sectors: [] as LlmEntities['sectors'],
+  affectedProducts: [] as LlmEntities['affectedProducts'],
+  attackPatterns: [] as LlmEntities['attackPatterns'],
+  actorCandidates: [] as LlmEntities['actorCandidates'],
+  malwareCandidates: [] as LlmEntities['malwareCandidates'],
   ran: false,
   partial: false,
-};
+}) as LlmEntities;
 
 export interface ExtractLlmOptions {
   /** DI seam for tests. Defaults to the real runCompletion (Groq → Workers AI). */
@@ -336,6 +343,16 @@ export async function extractLlm(
       })
     );
     return { ...EMPTY_LLM_ENTITIES, ran: true, partial: true };
+  }
+
+  // Defensive: if runCompletion ever returns a malformed shape (non-string
+  // `text`), parseLlmJson('...').indexOf would throw. That would escape this
+  // function, reject the warmer's Promise.all, and the bundle would NOT
+  // ship — violating the "bundle never blocked by LLM" invariant. Type-guard
+  // here so the failure stays inside `partial: true`.
+  if (typeof text !== 'string') {
+    console.warn(JSON.stringify({ job: 'extract-llm', stage: 'parse', error: 'non_string_response' }));
+    return { ...EMPTY_LLM_ENTITIES, ran: true, partial: true, modelUsed };
   }
 
   const parsed = parseLlmJson(text);

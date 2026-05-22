@@ -8,6 +8,7 @@ import {
 } from '../api/src/lib/briefing-builder';
 import { runDiscoveryNow, runPlannerNow, runPublisherNow, type CaseStudyEnv } from '../api/src/case-study/run';
 import { runTelegramArchive } from '../api/src/routes/telegram-archive';
+import { warmIntelBundles } from '../api/src/lib/intel-bundle-warm';
 import type { Env as ApiEnv } from '../api/src/env';
 import type { Ai, D1Database } from '@cloudflare/workers-types';
 
@@ -671,6 +672,36 @@ export default {
         runPlannerNow(env as unknown as CaseStudyEnv, csNow)
           .catch(logCronFail('planner'))
           .finally(() => logCronDone({ path: 'planner' }))
+      );
+      return;
+    }
+
+    // Intel-bundle warmer — its OWN invocation (own ~50-subrequest budget).
+    // Each pipeline run burns ~37 subrequests (35 fresh provider lookups +
+    // KEV + EPSS) so processing more than one briefing per firing would
+    // blow the budget. Hourly cadence × 1 item ≫ 1–2 briefings/day; the
+    // helper backfills oldest-first so a missed firing is recovered next
+    // hour. Skipping all other branches: a missed cron-warm is cheap and
+    // self-healing; sharing the budget with publisher/archive would
+    // sometimes starve one of them.
+    if (csCron === '7 * * * *') {
+      ctx.waitUntil(
+        warmIntelBundles(env as unknown as ApiEnv)
+          .then((r) =>
+            console.log(
+              JSON.stringify({
+                job: 'intel-bundle-warm',
+                built: r.built.length,
+                failed: r.failed.length,
+                has_more: r.hasMore,
+                slugs: r.built,
+                llm_ran: r.llmRan,
+                llm_partial: r.llmPartial,
+              })
+            )
+          )
+          .catch(logCronFail('intel-bundle-warm'))
+          .finally(() => logCronDone({ path: 'intel-bundle-warm' }))
       );
       return;
     }
