@@ -84,12 +84,43 @@ describe('normalizeVictimKey', () => {
     expect(normalizeVictimKey('ROTO Immobilien')).toBe(normalizeVictimKey('roto immobilien'));
   });
 
-  it('collapses punctuation noise', () => {
-    expect(normalizeVictimKey('Bni.co.id bank of indonesia free data.')).toBe('bnicoidbankofindonesiafreedata');
+  it('collapses punctuation noise (after descriptor stripping)', () => {
+    // "free data" descriptor is now stripped before the alphanumeric
+    // collapse — see the separate "strips trailing data-leak descriptors"
+    // case below for the standalone behaviour.
+    expect(normalizeVictimKey('Bni.co.id bank of indonesia free data.')).toBe('bnicoidbankofindonesia');
   });
 
   it('returns empty for whitespace-only input', () => {
     expect(normalizeVictimKey('   ')).toBe('');
+  });
+
+  it('strips common corporate suffixes so the bare name still dedupes', () => {
+    // "Apex Maritime" should match "Apex Maritime Co., Inc."
+    expect(normalizeVictimKey('Apex Maritime Co., Inc.')).toBe('apexmaritime');
+    expect(normalizeVictimKey('Apex Maritime')).toBe('apexmaritime');
+    // "Foo Bar LLC" matches "Foo Bar"
+    expect(normalizeVictimKey('Foo Bar LLC')).toBe('foobar');
+    expect(normalizeVictimKey('Foo Bar')).toBe('foobar');
+    // Multi-word suffixes
+    expect(normalizeVictimKey('Tang Seng & Pump Systems Pte. Ltd.')).toBe('tangsengpumpsystems');
+    // GmbH / SA / Srl / Corp
+    expect(normalizeVictimKey('Acme GmbH')).toBe('acme');
+    expect(normalizeVictimKey('Mezta Corporativo, S.A. de C.V.')).toBe('meztacorporativo');
+  });
+
+  it('strips trailing data-leak descriptors', () => {
+    // "Bni.co.id bank of indonesia free data." should NOT carry the
+    // "free data" tail into the dedup key; if a sibling claim of "BNI"
+    // arrives, the canonical-domain prefix would still differ but at
+    // least the descriptor noise is gone.
+    expect(normalizeVictimKey('Bni.co.id bank of indonesia free data.')).toBe('bnicoidbankofindonesia');
+    expect(normalizeVictimKey('Some Company leaked data')).toBe('somecompany');
+    expect(normalizeVictimKey('Acme Corp. data leak')).toBe('acme');
+  });
+
+  it('handles compounded suffixes (descriptor + corporate)', () => {
+    expect(normalizeVictimKey('Acme Corp. all data')).toBe('acme');
   });
 });
 

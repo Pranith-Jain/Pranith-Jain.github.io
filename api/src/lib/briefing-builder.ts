@@ -714,10 +714,82 @@ function withinRange(timestamp: string | undefined, startMs: number, endMs: numb
 }
 
 /**
+ * Common corporate suffixes that should NOT participate in dedupe. Anchored
+ * at the end of the (lowercased, single-spaced) string and stripped before
+ * the alphanumeric collapse. Sorted longest-first so e.g. "co., inc." gets
+ * stripped as a unit rather than just "inc.".
+ */
+const VICTIM_CORPORATE_SUFFIXES = [
+  's.a. de c.v.',
+  'pte. ltd.',
+  'pte ltd',
+  'co., inc.',
+  'co., ltd.',
+  'co. ltd.',
+  ', inc.',
+  ', llc.',
+  ', llc',
+  ', ltd.',
+  ', ltd',
+  ', s.a.',
+  ', s.r.l.',
+  ' inc.',
+  ' inc',
+  ' llc',
+  ' ltd.',
+  ' ltd',
+  ' gmbh',
+  ' corp.',
+  ' corp',
+  ' s.a.',
+  ' s.r.l.',
+  ' srl',
+  ' sas',
+  ' sa',
+];
+
+/** Trailing descriptors the upstream feed appends to some claims, e.g.
+ *  "Bni.co.id bank of indonesia free data." — these are not part of the
+ *  victim's identity and should not anchor the dedupe key. */
+const VICTIM_TRAILING_DESCRIPTORS = [
+  'free data',
+  'leaked data',
+  'data leak',
+  'data dump',
+  'all data',
+  'full database',
+  'database leak',
+];
+
+function stripVictimNoise(lower: string): string {
+  let s = lower.replace(/\s+/g, ' ').trim();
+  // Two passes so a descriptor + corporate suffix nested together
+  // (e.g. "acme corp. all data") gets fully unwrapped.
+  for (let pass = 0; pass < 2; pass += 1) {
+    for (const desc of VICTIM_TRAILING_DESCRIPTORS) {
+      // Whole-word at end, allowing trailing punctuation.
+      const escaped = desc.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const re = new RegExp(`(^|\\s)${escaped}[\\s.,;:!?]*$`);
+      s = s.replace(re, '').trim();
+    }
+    for (const suffix of VICTIM_CORPORATE_SUFFIXES) {
+      if (s.endsWith(suffix)) {
+        s = s.slice(0, -suffix.length).trim();
+      }
+    }
+    s = s.replace(/[.,;:!?\s]+$/, '');
+  }
+  return s;
+}
+
+/**
  * Normalize a victim name into a stable dedupe key. Handles:
- *   - HTML entities ("Vernon &amp; Ginsburg" → matches "Vernon & Ginsburg")
+ *   - HTML entities ("Vernon &amp; Ginsburg" matches "Vernon & Ginsburg";
+ *     "Sid Harvey&#39;s" matches "Sid Harvey's")
  *   - Casing + whitespace ("ROTO Immobilien" → "rotoimmobilien")
- *   - Punctuation noise ("Bni.co.id bank of indonesia free data." → "bnicoidbankofindonesiafreedata")
+ *   - Corporate suffixes ("Apex Maritime Co., Inc." matches "Apex Maritime")
+ *   - Trailing descriptors ("Bni.co.id … free data." → "bnicoidbankofindonesia")
+ *   - Residual punctuation collapsed last
  * Exported for test coverage.
  */
 export function normalizeVictimKey(raw: string): string {
@@ -727,7 +799,8 @@ export function normalizeVictimKey(raw: string): string {
     .replace(/&gt;/gi, '>')
     .replace(/&quot;/gi, '"')
     .replace(/&#39;/g, "'");
-  return decoded.toLowerCase().replace(/[^a-z0-9]/g, '');
+  const stripped = stripVictimNoise(decoded.toLowerCase());
+  return stripped.replace(/[^a-z0-9]/g, '');
 }
 
 /**
