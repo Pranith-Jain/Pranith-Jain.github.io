@@ -260,17 +260,80 @@ export function validateLlmEntities(
   return { sectors, affectedProducts, attackPatterns, actorCandidates, malwareCandidates };
 }
 
+const SYSTEM_PROMPT = `You are a defensive cyber-threat-intelligence analyst extracting entities from a security briefing. Respond with ONLY a JSON object matching this schema, no prose, no markdown fences:
+
+{
+  "sectors": ["string"],
+  "affected_products": [{"vendor": "string", "product": "string"}],
+  "attack_patterns": [{"id": "T#### or T####.###", "name": "string"}],
+  "actor_candidates": [{"name": "string", "rationale": "string"}],
+  "malware_candidates": [{"name": "string", "rationale": "string"}]
+}
+
+Rules:
+- Use ONLY entities explicitly named in the source text.
+- Sectors are industries / verticals affected by the threat (e.g. "european-government", "healthcare", "manufacturing").
+- Affected products are software/hardware named as vulnerable or targeted.
+- Attack patterns must be MITRE ATT&CK technique IDs (T#### or sub-T####.###).
+- actor_candidates and malware_candidates are NEW or unfamiliar names worth analyst review. The rationale must be one sentence quoting or paraphrasing the source.
+- Empty arrays are valid. Do not invent.`;
+
+const MAX_BODY_CHARS = 8000;
+
+function clampBody(body: string): string {
+  if (body.length <= MAX_BODY_CHARS) return body;
+  return body.slice(0, MAX_BODY_CHARS) + '\n…[truncated]';
+}
+
 export async function extractLlm(
   title: string,
   body: string,
   _entities: ExtractedEntities,
-  _env: Env,
+  env: Env,
   options: ExtractLlmOptions = {}
 ): Promise<LlmEntities> {
   if (!shouldRunLlm(body, options.findingsCount)) {
     return { ...EMPTY_LLM_ENTITIES };
   }
-  // Real LLM call wired in Task 4. Returning a stub for now so the skip-rule
-  // tests don't require a real model.
-  return { ...EMPTY_LLM_ENTITIES, ran: true };
+  const run = options.runCompletion ?? defaultRunCompletion;
+  const userPrompt = `${title}\n\n${clampBody(body)}`;
+
+  let text: string;
+  let modelUsed: string | undefined;
+  try {
+    const result = await run(
+      env.AI,
+      {
+        system: SYSTEM_PROMPT,
+        user: userPrompt,
+        maxTokens: 1500,
+        temperature: 0.2,
+      },
+      { groqKey: env.GROQ_API_KEY }
+    );
+    text = result.text;
+    modelUsed = result.modelUsed;
+  } catch (err) {
+    console.warn(
+      JSON.stringify({
+        job: 'extract-llm',
+        stage: 'runCompletion',
+        error: err instanceof Error ? err.message : String(err),
+      })
+    );
+    return { ...EMPTY_LLM_ENTITIES, ran: true, partial: true };
+  }
+
+  const parsed = parseLlmJson(text);
+  if (parsed === null) {
+    console.warn(JSON.stringify({ job: 'extract-llm', stage: 'parse', error: 'no_balanced_json' }));
+    return { ...EMPTY_LLM_ENTITIES, ran: true, partial: true, modelUsed };
+  }
+  const validated = validateLlmEntities(parsed, title, body);
+  return {
+    ...validated,
+    ran: true,
+    partial: false,
+    modelUsed,
+  };
 }

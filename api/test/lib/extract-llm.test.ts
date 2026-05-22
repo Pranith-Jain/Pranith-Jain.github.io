@@ -212,3 +212,50 @@ describe('validateLlmEntities — per-class validation', () => {
     expect(out.sectors.map((s) => s.name)).toEqual(['healthcare', 'finance']);
   });
 });
+
+describe('extractLlm — happy path with DI stub', () => {
+  const body = 'A'.repeat(800) + '\nMicrosoft Exchange and LightSpy v2 observed.';
+
+  it('returns validated entities when runCompletion succeeds', async () => {
+    const runCompletion = vi.fn(async () => ({
+      text: JSON.stringify({
+        sectors: ['Healthcare', 'Healthcare'],
+        affected_products: [{ vendor: 'Microsoft', product: 'Exchange' }],
+        attack_patterns: [{ id: 'T1566.001', name: 'Spear-phishing' }],
+        actor_candidates: [{ name: 'LightSpy', rationale: 'novel name in source' }],
+        malware_candidates: [],
+      }),
+      modelUsed: 'groq:llama-3.3-70b-versatile',
+    }));
+
+    const out = await extractLlm('Brief', body, emptyEntities, env, {
+      runCompletion: runCompletion as never,
+      findingsCount: 3,
+    });
+    expect(out.ran).toBe(true);
+    expect(out.partial).toBe(false);
+    expect(out.modelUsed).toBe('groq:llama-3.3-70b-versatile');
+    expect(out.sectors).toEqual([{ name: 'healthcare' }]);
+    expect(out.affectedProducts).toEqual([{ vendor: 'Microsoft', product: 'Exchange' }]);
+    expect(out.attackPatterns).toEqual([{ id: 'T1566.001', name: 'Spear-phishing' }]);
+    expect(out.actorCandidates).toEqual([{ name: 'LightSpy', rationale: 'novel name in source' }]);
+    expect(runCompletion).toHaveBeenCalledTimes(1);
+  });
+
+  it('passes title + body in the user prompt to runCompletion', async () => {
+    let captured: { system: string; user: string } | null = null;
+    const runCompletion = vi.fn(async (_ai: unknown, input: { system: string; user: string }) => {
+      captured = input;
+      return { text: '{}', modelUsed: 'stub' };
+    });
+    await extractLlm('Brief title', body, emptyEntities, env, {
+      runCompletion: runCompletion as never,
+      findingsCount: 1,
+    });
+    expect(captured!.user.startsWith('Brief title')).toBe(true);
+    expect(captured!.user).toContain('Microsoft Exchange');
+    // System prompt mentions the strict JSON schema.
+    expect(captured!.system).toContain('JSON');
+    expect(captured!.system).toContain('sectors');
+  });
+});
