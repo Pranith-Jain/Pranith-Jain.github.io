@@ -72,6 +72,14 @@ import { registerBlogRoutes } from './routes/blog-public';
 import { pageViewsHandler } from './routes/pageviews';
 import { registerAdminRoutes } from './routes/case-study-admin';
 import { c2TrackerHandler } from './routes/c2-tracker';
+import {
+  intelBundleHandler,
+  intelBundlePostHandler,
+  intelBundleBuildHandler,
+  intelBundleExportHandler,
+  intelBundleByIdHandler,
+  intelBundleAdminHandler,
+} from './routes/intel-bundle';
 import { rateLimit } from './lib/ratelimit';
 
 const app = new Hono<{ Bindings: Env }>();
@@ -136,6 +144,12 @@ app.get('/api/v1/detections', detectionsHandler);
 app.get('/api/v1/mti', mtiHandler);
 app.get('/api/v1/writeups', writeupsHandler);
 app.get('/api/v1/c2-tracker', c2TrackerHandler);
+app.get('/api/v1/intel-bundle', intelBundleHandler);
+app.post('/api/v1/intel-bundle', intelBundlePostHandler);
+app.post('/api/v1/intel-bundle/build', intelBundleBuildHandler);
+app.get('/api/v1/intel-bundle/by-id/:bundleId', intelBundleByIdHandler);
+app.get('/api/v1/intel-bundle/:id/export.stix.json', intelBundleExportHandler);
+app.get('/api/v1/admin/intel-bundle/:source/:ref', intelBundleAdminHandler);
 app.get('/api/v1/cyber-crime', cybercrimeHandler);
 app.get('/api/v1/snapshot', snapshotHandler);
 app.get('/api/v1/ioc-snapshot', iocSnapshotHandler);

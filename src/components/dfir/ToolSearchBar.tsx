@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, ArrowRight, X } from 'lucide-react';
-import { SECTIONS, GROUP_META, type Tool, type ToolGroup } from './tool-sections';
+import { SECTIONS, GROUP_META, MAIN_TOOL_COUNT, type Tool, type ToolGroup } from './tool-sections';
 
 /**
  * Inline tool-search bar at the top of /dfir.
@@ -153,7 +153,7 @@ export function ToolSearchBar(): JSX.Element {
         className="mt-2 text-[11px] font-mono text-slate-500 dark:text-slate-500 flex flex-wrap items-center gap-x-3"
       >
         <span>
-          Searches {INDEX.length} tools by name, path, description, and use-case. ↑↓ to navigate, Enter to open.
+          Searches {MAIN_TOOL_COUNT} tools by name, path, description, and use-case. ↑↓ to navigate, Enter to open.
         </span>
         <span className="hidden sm:inline">
           Power-user shortcut:{' '}
