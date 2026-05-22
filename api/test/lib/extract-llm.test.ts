@@ -1,7 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { env as testEnv } from 'cloudflare:test';
-import { extractLlm, EMPTY_LLM_ENTITIES } from '../../src/lib/extract-llm';
-import { parseLlmJson } from '../../src/lib/extract-llm';
+import { extractLlm, EMPTY_LLM_ENTITIES, parseLlmJson } from '../../src/lib/extract-llm';
 import type { Env } from '../../src/env';
 import type { ExtractedEntities } from '../../src/lib/extract';
 
