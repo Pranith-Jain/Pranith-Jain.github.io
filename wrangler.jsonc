@@ -51,7 +51,10 @@
 		//   15 0  * * 1  → case-study planner (alone, Mondays)
 		//   30 0  * * *  → DAILY briefing build (alone)            <-- dedicated
 		//   45 0  * * 1  → WEEKLY briefing build (alone, Mondays)  <-- dedicated
-		//   0  *  * * *  → publisher + hourly self-heal + snapshot warm
+		//   0  *  * * *  → publisher + hourly self-heal + snapshot warm + intel-bundle warm
+		//                  (warm piggybacks on the hourly cron because the free
+		//                  plan caps total cron triggers at 5 — it shares the
+		//                  ~50-subrequest budget with the rest of the hourly work)
 		"crons": [
 			"5 0 * * *",
 			"15 0 * * 1",

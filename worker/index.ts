@@ -649,10 +649,31 @@ export default {
       console.log(JSON.stringify({ job: 'cron-done', cron, duration_ms: Date.now() - startMs, ...extra }));
     };
 
-    // Hourly cache-warm cron — also run the publisher + Telegram archive.
+    // Hourly cache-warm cron — also run the publisher + Telegram archive +
+    // intel-bundle warmer. The warmer piggybacks here because the Cloudflare
+    // free plan caps cron triggers at 5; it shares the ~50-subrequest budget
+    // with the others. maxItems=1 keeps the warmer's slice (~37 subrequests)
+    // bounded so the publisher/archive still complete on a typical hour.
     if (csCron === '0 * * * *') {
       ctx.waitUntil(runPublisherNow(env as unknown as CaseStudyEnv, csNow).catch(logCronFail('publisher')));
       ctx.waitUntil(runTelegramArchive(env).catch(logCronFail('telegram-archive')));
+      ctx.waitUntil(
+        warmIntelBundles(env as unknown as ApiEnv)
+          .then((r) =>
+            console.log(
+              JSON.stringify({
+                job: 'intel-bundle-warm',
+                built: r.built.length,
+                failed: r.failed.length,
+                has_more: r.hasMore,
+                slugs: r.built,
+                llm_ran: r.llmRan,
+                llm_partial: r.llmPartial,
+              })
+            )
+          )
+          .catch(logCronFail('intel-bundle-warm'))
+      );
     }
 
     // Case-study discovery — its OWN invocation (no longer shares the
@@ -672,36 +693,6 @@ export default {
         runPlannerNow(env as unknown as CaseStudyEnv, csNow)
           .catch(logCronFail('planner'))
           .finally(() => logCronDone({ path: 'planner' }))
-      );
-      return;
-    }
-
-    // Intel-bundle warmer — its OWN invocation (own ~50-subrequest budget).
-    // Each pipeline run burns ~37 subrequests (35 fresh provider lookups +
-    // KEV + EPSS) so processing more than one briefing per firing would
-    // blow the budget. Hourly cadence × 1 item ≫ 1–2 briefings/day; the
-    // helper backfills oldest-first so a missed firing is recovered next
-    // hour. Skipping all other branches: a missed cron-warm is cheap and
-    // self-healing; sharing the budget with publisher/archive would
-    // sometimes starve one of them.
-    if (csCron === '7 * * * *') {
-      ctx.waitUntil(
-        warmIntelBundles(env as unknown as ApiEnv)
-          .then((r) =>
-            console.log(
-              JSON.stringify({
-                job: 'intel-bundle-warm',
-                built: r.built.length,
-                failed: r.failed.length,
-                has_more: r.hasMore,
-                slugs: r.built,
-                llm_ran: r.llmRan,
-                llm_partial: r.llmPartial,
-              })
-            )
-          )
-          .catch(logCronFail('intel-bundle-warm'))
-          .finally(() => logCronDone({ path: 'intel-bundle-warm' }))
       );
       return;
     }
