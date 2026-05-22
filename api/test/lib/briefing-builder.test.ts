@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { writeBriefing, type Briefing } from '../../src/lib/briefing-builder';
+import { writeBriefing, canonicalGangKeys, normalizeVictimKey, type Briefing } from '../../src/lib/briefing-builder';
 
 /** Minimal in-memory D1 stub: enough of prepare/bind/first/run for writeBriefing. */
 function fakeDb(rows: Record<string, { stats_json: string }>) {
@@ -71,5 +71,58 @@ describe('writeBriefing empty-clobber guard', () => {
     const r = await writeBriefing(db, briefing('daily-x', 12, 300));
     expect(r.written).toBe(true);
     expect(writes).toEqual(['daily-x']);
+  });
+});
+
+describe('normalizeVictimKey', () => {
+  it('decodes HTML entities and strips non-alphanumeric', () => {
+    expect(normalizeVictimKey('Vernon &amp; Ginsburg')).toBe('vernonginsburg');
+    expect(normalizeVictimKey('Vernon & Ginsburg')).toBe('vernonginsburg');
+  });
+
+  it('is case-insensitive and whitespace-insensitive', () => {
+    expect(normalizeVictimKey('ROTO Immobilien')).toBe(normalizeVictimKey('roto immobilien'));
+  });
+
+  it('collapses punctuation noise', () => {
+    expect(normalizeVictimKey('Bni.co.id bank of indonesia free data.')).toBe('bnicoidbankofindonesiafreedata');
+  });
+
+  it('returns empty for whitespace-only input', () => {
+    expect(normalizeVictimKey('   ')).toBe('');
+  });
+});
+
+describe('canonicalGangKeys — MyThreatIntel alias dedupe', () => {
+  it('returns the outer name AND the parenthetical alias as separate keys', () => {
+    // The real-world case: "eraleign (apt73)" and "Apt73" must dedupe.
+    expect(canonicalGangKeys('eraleign (apt73)').sort()).toEqual(['apt73', 'eraleign']);
+    expect(canonicalGangKeys('Apt73')).toEqual(['apt73']);
+  });
+
+  it('keys overlap → dedupe across alias forms', () => {
+    const keysA = canonicalGangKeys('eraleign (apt73)');
+    const keysB = canonicalGangKeys('Apt73');
+    const shared = keysA.filter((k) => keysB.includes(k));
+    expect(shared).toContain('apt73');
+  });
+
+  it('strips whitespace and punctuation: "the gentlemen" matches "Thegentlemen"', () => {
+    expect(canonicalGangKeys('the gentlemen')).toContain('thegentlemen');
+    expect(canonicalGangKeys('Thegentlemen')).toContain('thegentlemen');
+  });
+
+  it('"brain cipher" matches "Braincipher"', () => {
+    expect(canonicalGangKeys('brain cipher')).toContain('braincipher');
+    expect(canonicalGangKeys('Braincipher')).toContain('braincipher');
+  });
+
+  it('handles non-alphanumeric gang names: "shadowbyt3$"', () => {
+    expect(canonicalGangKeys('shadowbyt3$')).toEqual(['shadowbyt3']);
+  });
+
+  it('returns [] for empty / whitespace-only input', () => {
+    expect(canonicalGangKeys('')).toEqual([]);
+    expect(canonicalGangKeys('   ')).toEqual([]);
   });
 });

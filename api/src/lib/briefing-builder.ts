@@ -713,6 +713,53 @@ function withinRange(timestamp: string | undefined, startMs: number, endMs: numb
   return t >= startMs && t < endMs;
 }
 
+/**
+ * Normalize a victim name into a stable dedupe key. Handles:
+ *   - HTML entities ("Vernon &amp; Ginsburg" → matches "Vernon & Ginsburg")
+ *   - Casing + whitespace ("ROTO Immobilien" → "rotoimmobilien")
+ *   - Punctuation noise ("Bni.co.id bank of indonesia free data." → "bnicoidbankofindonesiafreedata")
+ * Exported for test coverage.
+ */
+export function normalizeVictimKey(raw: string): string {
+  const decoded = raw
+    .replace(/&amp;/gi, '&')
+    .replace(/&lt;/gi, '<')
+    .replace(/&gt;/gi, '>')
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;/g, "'");
+  return decoded.toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+/**
+ * Normalize a gang name into one or more canonical dedupe keys.
+ *
+ * Real-world MyThreatIntel data shows the same operator under multiple
+ * presentations: `"eraleign (apt73)"` and `"Apt73"` are the same gang;
+ * `"the gentlemen"` and `"Thegentlemen"` are the same; `"brain cipher"`
+ * and `"Braincipher"` are the same. To catch all of them, we extract
+ * BOTH the outer name AND any parenthetical alias as separate keys; the
+ * caller checks all (gang, victim) permutations against the seen set.
+ */
+export function canonicalGangKeys(raw: string): string[] {
+  const lower = raw.toLowerCase().trim();
+  if (!lower) return [];
+  const keys = new Set<string>();
+  // Outer name with parenthetical content removed.
+  const outer = lower
+    .replace(/\([^)]*\)/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  const outerKey = outer.replace(/[^a-z0-9]/g, '');
+  if (outerKey) keys.add(outerKey);
+  // Every parenthetical group as its own key — typically the "formerly known
+  // as" alias the feed annotates the new name with.
+  for (const m of lower.matchAll(/\(([^)]+)\)/g)) {
+    const inner = m[1]!.replace(/[^a-z0-9]/g, '');
+    if (inner) keys.add(inner);
+  }
+  return [...keys];
+}
+
 function findingFromNvd(nvd: NvdCve): BriefingFinding {
   const cvss =
     nvd.metrics?.cvssMetricV31?.[0]?.cvssData.baseScore ??
@@ -1144,6 +1191,15 @@ export async function buildBriefing(
 
   // MyThreatIntel ransomware victim claims → a dedicated section (kept out
   // of `findings` so the CVE-oriented stats stay clean). In-window only.
+  //
+  // Dedupe was naively `${gang.toLowerCase()}|${victim.toLowerCase()}`. That
+  // missed real-world variants the upstream feed surfaces side-by-side:
+  //   - aliased gang names: "eraleign (apt73)" vs "Apt73"
+  //   - spacing/casing: "the gentlemen" vs "Thegentlemen", "brain cipher" vs "Braincipher"
+  //   - HTML-entity victims: "Vernon &amp; Ginsburg" vs "Vernon & Ginsburg"
+  // The dedupe key is now the cross-product of normalized gang-aliases and
+  // the normalized victim. A claim is dropped when ANY (gang, victim)
+  // permutation has already been seen.
   const mtiRansomwareFindings: BriefingFinding[] = [];
   const seenMtiVictim = new Set<string>();
   for (const r of mtiRansomwareItems) {
@@ -1152,12 +1208,18 @@ export async function buildBriefing(
     const date = r.date?.trim();
     if (!victim || !gang || !date) continue;
     if (!withinRange(date.replace(' ', 'T'), startMs, endMs)) continue;
-    const key = `${gang.toLowerCase()}|${victim.toLowerCase()}`;
-    if (seenMtiVictim.has(key)) continue;
-    seenMtiVictim.add(key);
+    const victimKey = normalizeVictimKey(victim);
+    const gangKeys = canonicalGangKeys(gang);
+    if (!victimKey || gangKeys.length === 0) continue;
+    const candidateKeys = gangKeys.map((g) => `${g}|${victimKey}`);
+    if (candidateKeys.some((k) => seenMtiVictim.has(k))) continue;
+    for (const k of candidateKeys) seenMtiVictim.add(k);
+    // Stable id derived from the FIRST canonical permutation so the same
+    // dedup-equivalent claim always shares an id across rebuilds.
+    const idKey = candidateKeys[0]!;
     const desc = r.description?.trim();
     mtiRansomwareFindings.push({
-      id: `mti-rw-${key}`,
+      id: `mti-rw-${idKey}`,
       title: `${victim} — claimed by ${gang}`,
       description: desc && desc.length > 280 ? `${desc.slice(0, 277)}…` : desc || `${victim} listed by ${gang}.`,
       severity: 'high',
