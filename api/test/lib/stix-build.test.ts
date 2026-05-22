@@ -340,7 +340,7 @@ describe('buildStixBundle — LlmEntities support', () => {
     expect(refIds).toContain('T1003');
   });
 
-  it('emits report → uses → attack-pattern relationships', async () => {
+  it('emits report → uses → attack-pattern relationships (in addition to the refers-to baseline)', async () => {
     const llm: LlmEntities = {
       ...EMPTY_LLM_ENTITIES,
       ran: true,
@@ -350,13 +350,17 @@ describe('buildStixBundle — LlmEntities support', () => {
     const { bundle } = await buildStixBundle(report, entities, emptyBulk, new Map(), llm);
     const reportObj = bundle.objects.find((o) => o.type === 'report') as { id: string };
     const patternObj = bundle.objects.find((o) => o.type === 'attack-pattern') as { id: string };
-    const rel = bundle.objects.find(
+    // Both relationships are present — refers-to (from the baseline loop)
+    // and uses (the stronger semantic added for attack-patterns). Filter
+    // explicitly by relationship_type rather than relying on emission order.
+    const rels = bundle.objects.filter(
       (o) =>
         o.type === 'relationship' &&
         (o as { source_ref?: string }).source_ref === reportObj.id &&
         (o as { target_ref?: string }).target_ref === patternObj.id
-    ) as { relationship_type?: string } | undefined;
-    expect(rel?.relationship_type).toBe('uses');
+    ) as Array<{ relationship_type?: string }>;
+    const types = rels.map((r) => r.relationship_type).sort();
+    expect(types).toEqual(['refers-to', 'uses']);
   });
 
   it('view.attackPatterns mirrors the emitted SDOs', async () => {

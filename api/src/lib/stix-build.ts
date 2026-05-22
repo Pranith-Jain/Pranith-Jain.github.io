@@ -514,11 +514,9 @@ export async function buildStixBundle(
     });
   }
 
-  // report → refers-to → everything (attack-patterns get `uses` instead, below)
-  const attackPatternIdSet = new Set(attackPatternObjs.map((o) => o.id));
+  // report → refers-to → everything
   for (const ref of object_refs) {
     if (ref === identityId) continue; // identity is the author, not a referenced topic
-    if (attackPatternIdSet.has(ref)) continue; // attack-patterns get `uses`, not `refers-to`
     await rel(reportRefId, 'refers-to', ref);
   }
 
