@@ -117,6 +117,146 @@ export function parseLlmJson(text: string): unknown {
   return null;
 }
 
+const CAPS = {
+  sectors: 8,
+  affectedProducts: 12,
+  attackPatterns: 16,
+  actorCandidates: 4,
+  malwareCandidates: 4,
+} as const;
+
+const ATTACK_ID_RE = /^T\d{4}(\.\d{3})?$/;
+
+/** Build a case-insensitive lookup of every actor canonical + alias. */
+const ACTOR_DICT_LOWER: Set<string> = (() => {
+  const s = new Set<string>();
+  for (const a of ACTOR_ALIASES) {
+    s.add(a.canonical.toLowerCase());
+    for (const alias of a.aliases) s.add(alias.toLowerCase());
+  }
+  return s;
+})();
+
+const MALWARE_DICT_LOWER: Set<string> = (() => {
+  const s = new Set<string>();
+  for (const m of MALWARE_DICT) {
+    s.add(m.canonical.toLowerCase());
+    for (const alias of m.aliases) s.add(alias.toLowerCase());
+  }
+  return s;
+})();
+
+function canonicalSector(raw: string): string {
+  return raw.trim().toLowerCase().replace(/\s+/g, '-');
+}
+
+function isString(x: unknown): x is string {
+  return typeof x === 'string';
+}
+
+function asArray(x: unknown): unknown[] {
+  return Array.isArray(x) ? x : [];
+}
+
+function asObject(x: unknown): Record<string, unknown> | null {
+  return x && typeof x === 'object' && !Array.isArray(x) ? (x as Record<string, unknown>) : null;
+}
+
+/** Validate + reconcile the parsed LLM JSON into a typed `LlmEntities`-shaped slice. */
+export function validateLlmEntities(
+  raw: unknown,
+  title: string,
+  body: string
+): Omit<LlmEntities, 'ran' | 'partial' | 'modelUsed'> {
+  const empty = {
+    sectors: [] as LlmEntities['sectors'],
+    affectedProducts: [] as LlmEntities['affectedProducts'],
+    attackPatterns: [] as LlmEntities['attackPatterns'],
+    actorCandidates: [] as LlmEntities['actorCandidates'],
+    malwareCandidates: [] as LlmEntities['malwareCandidates'],
+  };
+  const obj = asObject(raw);
+  if (!obj) return empty;
+
+  // Sectors --------------------------------------------------------------
+  const seenSectors = new Set<string>();
+  const sectors: LlmEntities['sectors'] = [];
+  for (const item of asArray(obj.sectors)) {
+    if (!isString(item)) continue;
+    const slug = canonicalSector(item);
+    if (!slug || seenSectors.has(slug)) continue;
+    seenSectors.add(slug);
+    sectors.push({ name: slug });
+    if (sectors.length >= CAPS.sectors) break;
+  }
+
+  // Affected products ----------------------------------------------------
+  const seenProducts = new Set<string>();
+  const affectedProducts: LlmEntities['affectedProducts'] = [];
+  for (const item of asArray(obj.affected_products)) {
+    const o = asObject(item);
+    if (!o) continue;
+    const vendor = isString(o.vendor) ? o.vendor.trim() : '';
+    const product = isString(o.product) ? o.product.trim() : '';
+    if (!vendor || !product) continue;
+    const key = `${vendor.toLowerCase()}|${product.toLowerCase()}`;
+    if (seenProducts.has(key)) continue;
+    seenProducts.add(key);
+    affectedProducts.push({ vendor, product });
+    if (affectedProducts.length >= CAPS.affectedProducts) break;
+  }
+
+  // Attack patterns ------------------------------------------------------
+  const seenAttack = new Set<string>();
+  const attackPatterns: LlmEntities['attackPatterns'] = [];
+  for (const item of asArray(obj.attack_patterns)) {
+    const o = asObject(item);
+    if (!o) continue;
+    const id = isString(o.id) ? o.id.trim() : '';
+    const name = isString(o.name) ? o.name.trim() : '';
+    if (!ATTACK_ID_RE.test(id)) continue;
+    if (!(id in ATTACK_ID_INDEX)) continue;
+    if (seenAttack.has(id)) continue;
+    seenAttack.add(id);
+    attackPatterns.push({ id, name: name || id });
+    if (attackPatterns.length >= CAPS.attackPatterns) break;
+  }
+
+  // Actor / malware candidates ------------------------------------------
+  const haystack = `${title}\n${body}`.toLowerCase();
+  const validateCandidates = (
+    items: unknown[],
+    dictLower: Set<string>,
+    cap: number
+  ): LlmEntities['actorCandidates'] => {
+    const out: LlmEntities['actorCandidates'] = [];
+    const seen = new Set<string>();
+    for (const item of items) {
+      const o = asObject(item);
+      if (!o) continue;
+      const name = isString(o.name) ? o.name.trim() : '';
+      const rationale = isString(o.rationale) ? o.rationale.trim() : '';
+      if (!name) continue;
+      const lower = name.toLowerCase();
+      if (seen.has(lower)) continue;
+      if (dictLower.has(lower)) continue; // already canonicalized
+      if (!haystack.includes(lower)) continue; // verbatim-in-source guardrail
+      seen.add(lower);
+      out.push({ name, rationale });
+      if (out.length >= cap) break;
+    }
+    return out;
+  };
+  const actorCandidates = validateCandidates(asArray(obj.actor_candidates), ACTOR_DICT_LOWER, CAPS.actorCandidates);
+  const malwareCandidates = validateCandidates(
+    asArray(obj.malware_candidates),
+    MALWARE_DICT_LOWER,
+    CAPS.malwareCandidates
+  );
+
+  return { sectors, affectedProducts, attackPatterns, actorCandidates, malwareCandidates };
+}
+
 export async function extractLlm(
   title: string,
   body: string,
