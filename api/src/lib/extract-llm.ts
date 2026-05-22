@@ -279,6 +279,10 @@ Rules:
 - Empty arrays are valid. Do not invent.`;
 
 const MAX_BODY_CHARS = 8000;
+/** Per-call wall-clock cap (per spec). `runCompletion` has an internal Groq
+ *  timeout (30s) but no timeout on the Workers AI fallback — without this
+ *  race, a stalled Workers AI call would hang the entire cron warm. */
+const CALL_TIMEOUT_MS = 8000;
 
 function clampBody(body: string): string {
   if (body.length <= MAX_BODY_CHARS) return body;
@@ -301,16 +305,26 @@ export async function extractLlm(
   let text: string;
   let modelUsed: string | undefined;
   try {
-    const result = await run(
-      env.AI,
-      {
-        system: SYSTEM_PROMPT,
-        user: userPrompt,
-        maxTokens: 1500,
-        temperature: 0.2,
-      },
-      { groqKey: env.GROQ_API_KEY }
+    // Race the call against a wall-clock deadline. The underlying ai.run()
+    // path has no native signal support, so this is the only way to bound
+    // a stalled Workers AI fallback. A losing call becomes an orphaned
+    // promise — the platform tears it down when the cron request ends.
+    const timeoutPromise = new Promise<never>((_, reject) =>
+      setTimeout(() => reject(new Error('extract-llm timeout')), CALL_TIMEOUT_MS)
     );
+    const result = await Promise.race([
+      run(
+        env.AI,
+        {
+          system: SYSTEM_PROMPT,
+          user: userPrompt,
+          maxTokens: 1500,
+          temperature: 0.2,
+        },
+        { groqKey: env.GROQ_API_KEY }
+      ),
+      timeoutPromise,
+    ]);
     text = result.text;
     modelUsed = result.modelUsed;
   } catch (err) {
