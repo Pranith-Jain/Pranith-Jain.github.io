@@ -223,7 +223,10 @@ export function validateLlmEntities(
   }
 
   // Actor / malware candidates ------------------------------------------
-  const haystack = `${title}\n${body}`.toLowerCase();
+  // Space separator (per spec) so a name spanning the title/body boundary
+  // ("APT28" in title + "compromised X" in body → "APT28 compromised X")
+  // still matches as a contiguous substring.
+  const haystack = `${title} ${body}`.toLowerCase();
   const validateCandidates = (
     items: unknown[],
     dictLower: Set<string>,
