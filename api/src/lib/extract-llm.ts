@@ -87,9 +87,3 @@ export async function extractLlm(
   // tests don't require a real model.
   return { ...EMPTY_LLM_ENTITIES, ran: true };
 }
-
-// These imports are used in future tasks (Tasks 4+). Reference them to
-// prevent tree-shaking from removing them prematurely during development.
-void (ACTOR_ALIASES as unknown);
-void (MALWARE_DICT as unknown);
-void (ATTACK_ID_INDEX as unknown);
