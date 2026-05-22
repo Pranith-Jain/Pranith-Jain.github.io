@@ -26,7 +26,7 @@ import { ATTACK_ID_INDEX } from '../data/attack-id-index';
 import type { ExtractedActor, ExtractedCve, ExtractedEntities, ExtractedIoc, ExtractedMalware } from './extract';
 import type { IocEnrichment, ProviderScore } from './enrich-bulk';
 import type { CveEnrichment } from './cve-enrich';
-import type { LlmEntities } from './extract-llm';
+import { EMPTY_LLM_ENTITIES, type LlmEntities } from './extract-llm';
 
 export type Tlp = 'WHITE' | 'AMBER';
 
@@ -315,15 +315,7 @@ export async function buildStixBundle(
   entities: ExtractedEntities,
   bulk: { enrichments: IocEnrichment[]; partial: boolean; overflow: { type: IndicatorType; value: string }[] },
   cveEnrichments: Map<string, CveEnrichment> = new Map(),
-  llmEntities: LlmEntities = {
-    sectors: [],
-    affectedProducts: [],
-    attackPatterns: [],
-    actorCandidates: [],
-    malwareCandidates: [],
-    ran: false,
-    partial: false,
-  }
+  llmEntities: LlmEntities = EMPTY_LLM_ENTITIES
 ): Promise<BuildResult> {
   const t = nowIso();
 
@@ -429,6 +421,28 @@ export async function buildStixBundle(
   );
   const cveIdByName = new Map(entities.cves.map((c, i) => [c.id.toUpperCase(), cveObjs[i]!.id]));
 
+  // Attack patterns (LLM-extracted, allowlist-validated upstream by validateLlmEntities).
+  const attackPatternObjs: StixCommon[] = await Promise.all(
+    llmEntities.attackPatterns.map(async (ap) => {
+      const id = await stixId('attack-pattern', `attack-pattern|${ap.id}`);
+      return {
+        type: 'attack-pattern',
+        spec_version: '2.1',
+        id,
+        ...timeFields(t),
+        name: ap.name || ap.id,
+        external_references: [
+          {
+            source_name: 'mitre-attack',
+            external_id: ap.id,
+            url: `https://attack.mitre.org/techniques/${ap.id.replace('.', '/')}/`,
+          },
+        ],
+        created_by_ref: identityId,
+      } as StixCommon;
+    })
+  );
+
   // Indicators (IoCs + bulk enrichments).
   const indicatorObjs: StixCommon[] = await Promise.all(
     entities.iocs.map(async (ioc: ExtractedIoc) => {
@@ -476,6 +490,7 @@ export async function buildStixBundle(
     ...actorObjs.map((o) => o.id),
     ...malwareObjs.map((o) => o.id),
     ...cveObjs.map((o) => o.id),
+    ...attackPatternObjs.map((o) => o.id),
     ...indicatorObjs.map((o) => o.id),
   ];
 
@@ -499,9 +514,11 @@ export async function buildStixBundle(
     });
   }
 
-  // report → refers-to → everything
+  // report → refers-to → everything (attack-patterns get `uses` instead, below)
+  const attackPatternIdSet = new Set(attackPatternObjs.map((o) => o.id));
   for (const ref of object_refs) {
     if (ref === identityId) continue; // identity is the author, not a referenced topic
+    if (attackPatternIdSet.has(ref)) continue; // attack-patterns get `uses`, not `refers-to`
     await rel(reportRefId, 'refers-to', ref);
   }
 
@@ -512,6 +529,12 @@ export async function buildStixBundle(
       const tgt = malwareIdBySlug.get(m.slug);
       if (src && tgt) await rel(src, 'uses', tgt);
     }
+  }
+
+  // report → uses → attack-pattern (separate from refers-to so consumers can
+  // distinguish "this report talks about X" from "this report says X was used").
+  for (const ap of attackPatternObjs) {
+    await rel(reportRefId, 'uses', ap.id);
   }
 
   // indicator → indicates → malware (when the IoC's tags carry a known family)
@@ -551,7 +574,16 @@ export async function buildStixBundle(
   const bundle: StixBundle = {
     type: 'bundle',
     id: bundleId,
-    objects: [identity, reportObj, ...actorObjs, ...malwareObjs, ...cveObjs, ...indicatorObjs, ...relationships],
+    objects: [
+      identity,
+      reportObj,
+      ...actorObjs,
+      ...malwareObjs,
+      ...cveObjs,
+      ...attackPatternObjs,
+      ...indicatorObjs,
+      ...relationships,
+    ],
   };
 
   // View — flat, frontend-friendly, references the canonical IDs.

@@ -316,4 +316,57 @@ describe('buildStixBundle — LlmEntities support', () => {
     expect(r.view.sectors).toEqual([]);
     expect(r.view.llmEnrichment).toEqual({ ran: false, partial: false });
   });
+
+  it('emits attack-pattern SDOs with external_references for validated MITRE IDs', async () => {
+    const llm: LlmEntities = {
+      ...EMPTY_LLM_ENTITIES,
+      ran: true,
+      attackPatterns: [
+        { id: 'T1566.001', name: 'Spear-phishing Attachment' },
+        { id: 'T1003', name: 'OS Credential Dumping' },
+      ],
+    };
+    const entities = extract(TITLE, APT28_BRIEF_BODY);
+    const { bundle } = await buildStixBundle(report, entities, emptyBulk, new Map(), llm);
+    const patterns = bundle.objects.filter((o) => o.type === 'attack-pattern') as Array<{
+      id: string;
+      name?: string;
+      external_references?: Array<{ source_name?: string; external_id?: string; url?: string }>;
+    }>;
+    expect(patterns).toHaveLength(2);
+    expect(patterns.map((p) => p.name).sort()).toEqual(['OS Credential Dumping', 'Spear-phishing Attachment']);
+    const refIds = patterns.flatMap((p) => p.external_references ?? []).map((r) => r.external_id);
+    expect(refIds).toContain('T1566.001');
+    expect(refIds).toContain('T1003');
+  });
+
+  it('emits report → uses → attack-pattern relationships', async () => {
+    const llm: LlmEntities = {
+      ...EMPTY_LLM_ENTITIES,
+      ran: true,
+      attackPatterns: [{ id: 'T1566.001', name: 'Spear-phishing' }],
+    };
+    const entities = extract(TITLE, APT28_BRIEF_BODY);
+    const { bundle } = await buildStixBundle(report, entities, emptyBulk, new Map(), llm);
+    const reportObj = bundle.objects.find((o) => o.type === 'report') as { id: string };
+    const patternObj = bundle.objects.find((o) => o.type === 'attack-pattern') as { id: string };
+    const rel = bundle.objects.find(
+      (o) =>
+        o.type === 'relationship' &&
+        (o as { source_ref?: string }).source_ref === reportObj.id &&
+        (o as { target_ref?: string }).target_ref === patternObj.id
+    ) as { relationship_type?: string } | undefined;
+    expect(rel?.relationship_type).toBe('uses');
+  });
+
+  it('view.attackPatterns mirrors the emitted SDOs', async () => {
+    const llm: LlmEntities = {
+      ...EMPTY_LLM_ENTITIES,
+      ran: true,
+      attackPatterns: [{ id: 'T1003', name: 'OS Credential Dumping' }],
+    };
+    const entities = extract(TITLE, APT28_BRIEF_BODY);
+    const { view } = await buildStixBundle(report, entities, emptyBulk, new Map(), llm);
+    expect(view.attackPatterns).toEqual([{ name: 'OS Credential Dumping', mitreId: 'T1003' }]);
+  });
 });
