@@ -3,8 +3,12 @@ import type { ProviderAdapter, ProviderResult, Verdict } from './types';
 /**
  * EmailRep.io — reputation lookup for an email address.
  *
- * Free anonymous tier (~100 req/hr per IP) works without a key. Setting
- * `EMAILREP_API_KEY` as a Worker secret bumps the rate-limit ceiling.
+ * **Requires `EMAILREP_API_KEY` as a Worker secret.** The "free anonymous"
+ * tier in EmailRep's docs is rate-limited per source IP, and Cloudflare's
+ * egress IPs are shared across many tenants — so unauthenticated calls
+ * from a Worker hit 429 almost immediately. When the key is unset we
+ * return `unsupported` so the email composite isn't polluted with an
+ * `error: rate_limited` row that misleads the verdict.
  *
  * Maps the upstream verdict surface to our composite shape:
  *   - malicious (score ≥ 85) when `malicious_activity` OR `details.blacklisted`
@@ -69,14 +73,18 @@ export const emailrep: ProviderAdapter = async (indicator, env, signal) => {
 
   if (!supports.has(indicator.type)) return base('unsupported');
 
+  // Worker egress IPs are shared, so EmailRep's anonymous rate-limit
+  // bucket is essentially always exhausted before the user's own quota
+  // is touched. Treat "no key" as "provider not applicable" so the
+  // composite isn't dragged down by a guaranteed-429.
+  const key = (env as { EMAILREP_API_KEY?: string }).EMAILREP_API_KEY;
+  if (!key) return base('unsupported');
+
   const headers: Record<string, string> = {
     Accept: 'application/json',
     'User-Agent': 'pranithjain.qzz.io DFIR toolkit',
+    Key: key,
   };
-  // The free tier accepts unauthenticated calls; the key just lifts the
-  // rate ceiling. We tolerate either configuration silently.
-  const key = (env as { EMAILREP_API_KEY?: string }).EMAILREP_API_KEY;
-  if (key) headers.Key = key;
 
   try {
     const res = await fetch(`https://emailrep.io/${encodeURIComponent(indicator.value)}`, {
