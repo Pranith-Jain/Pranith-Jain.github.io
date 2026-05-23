@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, ExternalLink, Loader2, Newspaper, ShieldAlert } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Loader2, Newspaper, RefreshCw, ShieldAlert } from 'lucide-react';
 import { BreachDisclosuresPanel } from '../dfir/DarkWeb';
 import { BreachDatabasesPanel } from '../../components/dfir/BreachDatabasesPanel';
 import { MtiLeaksPanel } from '../../components/threatintel/MtiLeaksPanel';
@@ -38,9 +38,12 @@ export default function BreachDisclosures(): JSX.Element {
   const [news, setNews] = useState<AggregatedFeedItem[] | null>(null);
   const [newsLoading, setNewsLoading] = useState(true);
   const [newsError, setNewsError] = useState<string | null>(null);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
+    setNewsLoading(true);
+    setNewsError(null);
     fetchAggregatedFeed(BREACH_NEWS_FEED_IDS, { limit: 40, perSource: 8 })
       .then((res) => {
         if (cancelled) return;
@@ -59,7 +62,7 @@ export default function BreachDisclosures(): JSX.Element {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [refreshKey]);
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
@@ -71,9 +74,19 @@ export default function BreachDisclosures(): JSX.Element {
       </BackLink>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
-          <ShieldAlert size={28} className="text-brand-600 dark:text-brand-400" /> Live breach disclosures
-        </h1>
+        <div className="flex flex-wrap items-start justify-between gap-3 mb-2">
+          <h1 className="text-3xl sm:text-4xl font-display font-bold inline-flex items-center gap-3">
+            <ShieldAlert size={28} className="text-brand-600 dark:text-brand-400" /> Live breach disclosures
+          </h1>
+          <button
+            type="button"
+            onClick={() => setRefreshKey((k) => k + 1)}
+            className="text-[11px] font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1 mt-1"
+            aria-label="Refresh breach disclosures"
+          >
+            <RefreshCw size={11} /> refresh
+          </button>
+        </div>
         <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
           Two complementary surfaces. Up top, active leak listings from{' '}
           <a
@@ -105,7 +118,7 @@ export default function BreachDisclosures(): JSX.Element {
           the data-class breakdown but lags weeks behind a fresh dump. */}
       <MtiLeaksPanel />
 
-      <BreachDisclosuresPanel />
+      <BreachDisclosuresPanel key={refreshKey} />
 
       {/* Breach-news section — RSS aggregate from breach-reporting blogs +
           research labs. Complements the HIBP corpus above (which is exhaustive

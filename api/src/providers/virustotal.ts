@@ -38,9 +38,14 @@ export const virustotal: ProviderAdapter = async (indicator, env, signal) => {
 
   if (!supports.has(indicator.type)) return base('unsupported');
 
+  // No key → "provider not applicable" instead of firing the request and
+  // surfacing an opaque 401 in the composite.
+  const key = (env as { VT_API_KEY?: string }).VT_API_KEY;
+  if (!key) return base('unsupported');
+
   try {
     const res = await fetch(endpointFor(indicator.type, indicator.value), {
-      headers: { 'x-apikey': env.VT_API_KEY, accept: 'application/json' },
+      headers: { 'x-apikey': key, accept: 'application/json' },
       signal,
     });
     if (!res.ok) return base('error', { error: `${res.status} ${res.statusText}`.trim() });

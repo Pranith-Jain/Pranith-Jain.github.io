@@ -308,7 +308,7 @@ function HashRow({ label, value }: { label: string; value: string }): JSX.Elemen
       <span className="text-slate-900 dark:text-slate-100 break-all flex-1">{value}</span>
       <CopyChip value={value} label="copy" />
       <Link
-        to={`/dfir/file?h=${value}`}
+        to={`/dfir/ioc-check?indicator=${value}`}
         className="text-[10px] font-mono inline-flex items-center gap-1 px-1.5 py-0.5 rounded border border-rose-500/30 bg-rose-500/5 text-rose-700 dark:text-rose-300 hover:bg-rose-500/10"
         title="Multi-engine hash reputation lookup"
       >

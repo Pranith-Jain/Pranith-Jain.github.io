@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ArrowLeft, Copy, Download, FileCode, FileText, Link as LinkIcon, Loader2 } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
@@ -98,9 +98,22 @@ export default function StixBuilder(): JSX.Element {
     return () => clearTimeout(t);
   }, [copyStatus]);
 
+  // Track the most-recent in-flight build so mode switches / re-submits
+  // abort the previous request — otherwise a slow first response can
+  // overwrite a newer one when it eventually lands.
+  const buildCtrlRef = useRef<AbortController | null>(null);
+
+  // Abort any pending build on unmount.
+  useEffect(() => {
+    return () => buildCtrlRef.current?.abort();
+  }, []);
+
   async function runBuild(): Promise<void> {
     const trimmed = input.trim();
     if (!trimmed) return;
+    buildCtrlRef.current?.abort();
+    const ctrl = new AbortController();
+    buildCtrlRef.current = ctrl;
     setBuild({ status: 'building' });
     try {
       const res = await fetch('/api/v1/intel-bundle/build', {
@@ -112,15 +125,19 @@ export default function StixBuilder(): JSX.Element {
           sourceName: sourceName.trim() || undefined,
           tlp,
         }),
+        signal: ctrl.signal,
       });
       if (!res.ok) {
         const text = await res.text().catch(() => res.statusText);
         throw new Error(`build failed (${res.status}): ${text.slice(0, 200)}`);
       }
       const result = (await res.json()) as IntelBundleResponse;
-      setBuild({ status: 'ready', result });
+      if (buildCtrlRef.current === ctrl) setBuild({ status: 'ready', result });
     } catch (err) {
-      setBuild({ status: 'error', error: err instanceof Error ? err.message : String(err) });
+      if ((err as { name?: string }).name === 'AbortError') return;
+      if (buildCtrlRef.current === ctrl) {
+        setBuild({ status: 'error', error: err instanceof Error ? err.message : String(err) });
+      }
     }
   }
 

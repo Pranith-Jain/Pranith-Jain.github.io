@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Send } from 'lucide-react';
+import { ArrowLeft, RefreshCw, Send } from 'lucide-react';
 import { TelegramFeedPanel } from '../dfir/DarkWeb';
 import { FeedAggregateCard } from '../../components/intel/FeedAggregateCard';
 
@@ -24,9 +24,11 @@ export default function CybersecTelegram(): JSX.Element {
   // Lightweight side-fetch just for the aggregate card. TelegramFeedPanel
   // already owns its own fetch; the edge cache will dedupe.
   const [items, setItems] = useState<TelegramAggItem[]>([]);
+  const [refreshKey, setRefreshKey] = useState(0);
   useEffect(() => {
     let cancelled = false;
-    fetch('/api/v1/telegram-feed')
+    const ctrl = new AbortController();
+    fetch('/api/v1/telegram-feed', { signal: ctrl.signal })
       .then((r) => (r.ok ? (r.json() as Promise<TelegramAggResponse>) : null))
       .then((d) => {
         if (cancelled || !d?.items) return;
@@ -37,8 +39,9 @@ export default function CybersecTelegram(): JSX.Element {
       });
     return () => {
       cancelled = true;
+      ctrl.abort();
     };
-  }, []);
+  }, [refreshKey]);
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
@@ -50,9 +53,19 @@ export default function CybersecTelegram(): JSX.Element {
       </BackLink>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
-          <Send size={28} className="text-brand-600 dark:text-brand-400" /> Cybersec Telegram firehose
-        </h1>
+        <div className="flex flex-wrap items-start justify-between gap-3 mb-2">
+          <h1 className="text-3xl sm:text-4xl font-display font-bold inline-flex items-center gap-3">
+            <Send size={28} className="text-brand-600 dark:text-brand-400" /> Cybersec Telegram firehose
+          </h1>
+          <button
+            type="button"
+            onClick={() => setRefreshKey((k) => k + 1)}
+            className="text-[11px] font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1 mt-1"
+            aria-label="Refresh Telegram firehose"
+          >
+            <RefreshCw size={11} /> refresh
+          </button>
+        </div>
         <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
           Curated stream from active public cybersec Telegram channels. IOC drops, threat-intel commentary, leak
           announcements, and security-news mirrors. Channel set is liveness-probed; see the catalogue at{' '}
@@ -81,7 +94,7 @@ export default function CybersecTelegram(): JSX.Element {
         />
       )}
 
-      <TelegramFeedPanel />
+      <TelegramFeedPanel key={refreshKey} />
     </div>
   );
 }

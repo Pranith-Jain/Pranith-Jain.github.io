@@ -236,9 +236,8 @@ function pivotsFor(kind: IocKind, value: string): Array<{ to: string; label: str
       break;
     }
     case 'hash': {
-      // /dfir/file accepts hash as POST body, so a deep-link doesn't auto-run;
-      // the page does prefill from ?h= for convenience.
-      out.push({ to: `/dfir/file?h=${enc}`, label: 'file' });
+      // IOC Checker reads ?indicator= and auto-runs the multi-provider lookup.
+      out.push({ to: `/dfir/ioc-check?indicator=${enc}`, label: 'hash' });
       break;
     }
   }
@@ -294,11 +293,16 @@ export default function BriefingDetail(): JSX.Element {
   const [briefing, setBriefing] = useState<Briefing | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
     if (!slug) return;
+    let cancelled = false;
+    const ctrl = new AbortController();
     setLoading(true);
-    fetch(`/api/v1/briefings/${encodeURIComponent(slug)}`)
+    setError(null);
+    setBriefing(null);
+    fetch(`/api/v1/briefings/${encodeURIComponent(slug)}`, { signal: ctrl.signal })
       .then(async (r) => {
         if (!r.ok) {
           const body = (await r.json().catch(() => ({}))) as { error?: string };
@@ -306,10 +310,21 @@ export default function BriefingDetail(): JSX.Element {
         }
         return (await r.json()) as Briefing;
       })
-      .then(setBriefing)
-      .catch((err: Error) => setError(err.message))
-      .finally(() => setLoading(false));
-  }, [slug]);
+      .then((b) => {
+        if (!cancelled) setBriefing(b);
+      })
+      .catch((err: { name?: string; message?: string }) => {
+        if (cancelled || err.name === 'AbortError') return;
+        setError(err.message ?? 'failed to load');
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+      ctrl.abort();
+    };
+  }, [slug, refreshKey]);
 
   // Concatenate the briefing's narrative content into one body string the
   // intel extractor can scan — executive summary + every finding's title +
@@ -350,6 +365,13 @@ export default function BriefingDetail(): JSX.Element {
           {error ??
             'This briefing has not been generated yet. Daily briefings publish at 00:05 UTC; weekly at 00:15 UTC Monday.'}
         </p>
+        <button
+          type="button"
+          onClick={() => setRefreshKey((k) => k + 1)}
+          className="mt-4 inline-flex items-center gap-1 text-[12px] font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40"
+        >
+          retry
+        </button>
       </div>
     );
   }
@@ -385,7 +407,7 @@ export default function BriefingDetail(): JSX.Element {
           <StatPill label="critical" value={stats.critical} accent="text-rose-600 dark:text-rose-400" />
           <StatPill label="high" value={stats.high} accent="text-orange-600 dark:text-orange-400" />
           <StatPill label="medium" value={stats.medium} accent="text-amber-600 dark:text-amber-400" />
-          <StatPill label="low" value={stats.low} accent="text-emerald-600 dark:text-emerald-400" />
+          <StatPill label="low" value={stats.low} accent="text-slate-600 dark:text-slate-300" />
         </div>
       </section>
 

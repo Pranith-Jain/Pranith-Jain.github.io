@@ -18,10 +18,11 @@ import type { Env } from '../env';
 const FETCH_TIMEOUT_MS = 12_000;
 const CACHE_TTL = 30 * 60;
 const CONCURRENCY = 4;
-/** Per-sub cap. Reddit's RSS endpoint returns up to ~25 entries; pull
- *  the full window so the page surfaces a 7d sample across ~15 subs
- *  (capped via the MAX_POST_AGE_DAYS filter below). */
-const MAX_POSTS_PER_SUB = 25;
+/** Per-sub cap. 2026-05-23: was 25. Reddit's RSS endpoint accepts
+ *  limit=100 — bumping brings the firehose closer to the 500/7d ceiling
+ *  the rest of the feeds target (16 subs × 100 = up to 1600 raw items
+ *  before MAX_POST_AGE_DAYS + dedup/filter). */
+const MAX_POSTS_PER_SUB = 100;
 /** Drop posts older than this many days — keeps the firehose "current
  *  week" rather than the rolling all-time top of each RSS. */
 const MAX_POST_AGE_DAYS = 7;
@@ -257,7 +258,7 @@ export async function fetchRedditFeed(): Promise<RedditFeedResponse> {
 }
 
 // Bumped v2 → v3 alongside MAX_POSTS_PER_SUB 8→25 and the 7d cutoff filter.
-export const REDDIT_FEED_CACHE_KEY = 'https://reddit-feed-cache.internal/v3-7d-window';
+export const REDDIT_FEED_CACHE_KEY = 'https://reddit-feed-cache.internal/v4-7d-100pc';
 
 export async function redditFeedHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;

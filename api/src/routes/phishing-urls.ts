@@ -22,14 +22,16 @@ import type { Env } from '../env';
  */
 
 /** Exported so /api/v1/feed-status can read the same cached payload directly. */
-export const PHISHING_URLS_CACHE_KEY = 'https://phishing-urls-cache.internal/v10-adaptive-ttl';
+export const PHISHING_URLS_CACHE_KEY = 'https://phishing-urls-cache.internal/v11-500';
 const CACHE_KEY = PHISHING_URLS_CACHE_KEY;
 const CACHE_TTL_SECONDS = 3600;
 /** OpenPhish is small (<1 MB) — short timeout is fine. */
 const FETCH_TIMEOUT_MS_OPENPHISH = 15_000;
 /** PhishTank is the verified-online dump — 10–12 MB. Bigger budget. */
 const FETCH_TIMEOUT_MS_PHISHTANK = 25_000;
-const MAX_ITEMS = 100;
+// 2026-05-23: was 100. OpenPhish + PhishTank together return thousands of
+// fresh URLs; raise to 500 to align with the rest of the 500-item feeds.
+const MAX_ITEMS = 500;
 
 const OPENPHISH_URL = 'https://openphish.com/feed.txt';
 /**

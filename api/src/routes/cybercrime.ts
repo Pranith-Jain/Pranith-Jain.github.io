@@ -20,11 +20,13 @@ import { fetchAFDatamarkets } from '../lib/andreafortuna-feeds';
  * cybercrime stories; faster than writeups which run hourly).
  */
 
-export const CYBERCRIME_CACHE_KEY = 'https://cybercrime-cache.internal/v1-initial';
+export const CYBERCRIME_CACHE_KEY = 'https://cybercrime-cache.internal/v2-500';
 const CACHE_TTL_SECONDS = 1800;
 const FETCH_TIMEOUT_MS = 12_000;
-const MAX_ITEMS = 120;
-const MAX_PER_SOURCE = 15;
+// 2026-05-23: was 120 (15 per source). Bumped to 500 / 60 per source so
+// the page aligns with the rest of the live-feed surfaces.
+const MAX_ITEMS = 500;
+const MAX_PER_SOURCE = 60;
 const AF_DATAMARKETS_LASTGOOD_KEY = 'cybercrime/af-datamarkets-lastgood/v1';
 const LASTGOOD_TTL_SECONDS = 24 * 60 * 60;
 

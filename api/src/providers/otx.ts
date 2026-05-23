@@ -42,11 +42,16 @@ export const otx: ProviderAdapter = async (indicator, env, signal) => {
 
   if (!supports.has(indicator.type)) return base('unsupported');
 
+  // No key → "provider not applicable" instead of firing the request and
+  // surfacing an opaque 401 in the composite.
+  const key = (env as { OTX_API_KEY?: string }).OTX_API_KEY;
+  if (!key) return base('unsupported');
+
   try {
     const resource = resourceFor(indicator.type);
     const url = `https://otx.alienvault.com/api/v1/indicators/${resource}/${encodeURIComponent(indicator.value)}/general`;
     const res = await fetch(url, {
-      headers: { 'X-OTX-API-KEY': env.OTX_API_KEY },
+      headers: { 'X-OTX-API-KEY': key },
       signal,
     });
     if (!res.ok) return base('error', { error: `${res.status} ${res.statusText}`.trim() });

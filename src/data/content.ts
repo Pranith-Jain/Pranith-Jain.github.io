@@ -273,7 +273,7 @@ export const certifications = {
 
 export const education = [
   {
-    degree: 'Bachelor of Technology, Computer Science',
+    degree: 'Bachelor of Engineering, Computer Science Engineering',
     school: 'Visvesvaraya Technological University (VTU)',
   },
 ];

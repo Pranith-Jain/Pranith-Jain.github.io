@@ -208,9 +208,10 @@ export default function IocCorrelation(): JSX.Element {
 
   useEffect(() => {
     let cancelled = false;
+    const ctrl = new AbortController();
     setLoading(true);
     setError(null);
-    fetch('/api/v1/ioc-correlation')
+    fetch('/api/v1/ioc-correlation', { signal: ctrl.signal })
       .then((r) => {
         if (!r.ok) throw new Error(`upstream ${r.status}`);
         return r.json() as Promise<CorrelationResponse>;
@@ -218,14 +219,16 @@ export default function IocCorrelation(): JSX.Element {
       .then((d) => {
         if (!cancelled) setData(d);
       })
-      .catch((e: Error) => {
-        if (!cancelled) setError(e.message);
+      .catch((e: { name?: string; message?: string }) => {
+        if (cancelled || e.name === 'AbortError') return;
+        setError(e.message ?? 'failed');
       })
       .finally(() => {
         if (!cancelled) setLoading(false);
       });
     return () => {
       cancelled = true;
+      ctrl.abort();
     };
   }, [refreshKey]);
 

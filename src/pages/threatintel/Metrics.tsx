@@ -384,28 +384,40 @@ export default function Metrics(): JSX.Element {
 
   useEffect(() => {
     let cancelled = false;
+    const ctrl = new AbortController();
+    const opts = { signal: ctrl.signal } as const;
     setState((s) => ({ ...s, loading: true, error: null }));
 
     (async () => {
       try {
         const [rRes, cRes, pRes, tmRes, mRes, rlRes, c2Res, brRes, plRes, ddcRes, mtiCveRes, mtiGrpRes] =
           await Promise.allSettled([
-            fetch('/api/v1/ransomware-recent').then((r) =>
+            fetch('/api/v1/ransomware-recent', opts).then((r) =>
               r.ok ? r.json() : Promise.reject(`ransomware ${r.status}`)
             ),
-            fetch('/api/v1/cve-recent').then((r) => (r.ok ? r.json() : Promise.reject(`cve ${r.status}`))),
-            fetch('/api/v1/phishing-urls').then((r) => (r.ok ? r.json() : Promise.reject(`phishing ${r.status}`))),
-            fetch('/api/v1/threat-map').then((r) => (r.ok ? r.json() : Promise.reject(`threat-map ${r.status}`))),
-            fetch('/api/v1/malware-samples').then((r) => (r.ok ? r.json() : Promise.reject(`malware ${r.status}`))),
-            fetch('/api/v1/victim-releaks').then((r) => (r.ok ? r.json() : Promise.reject(`releaks ${r.status}`))),
-            fetch('/api/v1/c2-tracker').then((r) => (r.ok ? r.json() : Promise.reject(`c2 ${r.status}`))),
-            fetch('/api/v1/breach-disclosures').then((r) => (r.ok ? r.json() : Promise.reject(`breach ${r.status}`))),
-            fetch('/api/v1/threat-pulse').then((r) => (r.ok ? r.json() : Promise.reject(`pulse ${r.status}`))),
-            fetch('/api/v1/deepdarkcti').then((r) => (r.ok ? r.json() : Promise.reject(`deepdarkcti ${r.status}`))),
-            fetch('/api/v1/mti?source=cve&limit=200').then((r) =>
+            fetch('/api/v1/cve-recent', opts).then((r) => (r.ok ? r.json() : Promise.reject(`cve ${r.status}`))),
+            fetch('/api/v1/phishing-urls', opts).then((r) =>
+              r.ok ? r.json() : Promise.reject(`phishing ${r.status}`)
+            ),
+            fetch('/api/v1/threat-map', opts).then((r) => (r.ok ? r.json() : Promise.reject(`threat-map ${r.status}`))),
+            fetch('/api/v1/malware-samples', opts).then((r) =>
+              r.ok ? r.json() : Promise.reject(`malware ${r.status}`)
+            ),
+            fetch('/api/v1/victim-releaks', opts).then((r) =>
+              r.ok ? r.json() : Promise.reject(`releaks ${r.status}`)
+            ),
+            fetch('/api/v1/c2-tracker', opts).then((r) => (r.ok ? r.json() : Promise.reject(`c2 ${r.status}`))),
+            fetch('/api/v1/breach-disclosures', opts).then((r) =>
+              r.ok ? r.json() : Promise.reject(`breach ${r.status}`)
+            ),
+            fetch('/api/v1/threat-pulse', opts).then((r) => (r.ok ? r.json() : Promise.reject(`pulse ${r.status}`))),
+            fetch('/api/v1/deepdarkcti', opts).then((r) =>
+              r.ok ? r.json() : Promise.reject(`deepdarkcti ${r.status}`)
+            ),
+            fetch('/api/v1/mti?source=cve&limit=200', opts).then((r) =>
               r.ok ? r.json() : Promise.reject(`mti-cve ${r.status}`)
             ),
-            fetch('/api/v1/mti?source=groups&limit=300').then((r) =>
+            fetch('/api/v1/mti?source=groups&limit=300', opts).then((r) =>
               r.ok ? r.json() : Promise.reject(`mti-groups ${r.status}`)
             ),
           ]);
@@ -469,6 +481,7 @@ export default function Metrics(): JSX.Element {
     })();
     return () => {
       cancelled = true;
+      ctrl.abort();
     };
   }, [refreshKey]);
 

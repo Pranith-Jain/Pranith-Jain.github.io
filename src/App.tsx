@@ -1,5 +1,5 @@
 import { useEffect, Suspense, lazy } from 'react';
-import { BrowserRouter, Routes, Route, useLocation, useParams, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation, useParams, Navigate, useSearchParams } from 'react-router-dom';
 import { useTheme, useScrollProgress } from './hooks';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
@@ -184,6 +184,19 @@ function MovedRedirect({ to, withSlug }: { to: string; withSlug?: boolean }) {
   const location = useLocation();
   const tail = withSlug ? `/${params.slug ?? ''}` : '';
   return <Navigate to={`${to}${tail}${location.search}${location.hash}`} replace />;
+}
+
+/**
+ * /dfir/file?h=<hash> is the legacy entry point for the standalone hash
+ * analyser. The page was merged into the IOC checker; this redirect rewrites
+ * `?h=<hash>` to `?indicator=<hash>` so legacy bookmarks auto-populate the
+ * input rather than landing on a blank form.
+ */
+function DfirFileRedirect() {
+  const [params] = useSearchParams();
+  const hash = params.get('h');
+  const target = hash ? `/dfir/ioc-check?indicator=${encodeURIComponent(hash)}` : '/dfir/ioc-check';
+  return <Navigate to={target} replace />;
 }
 
 function SectionLoader() {
@@ -381,8 +394,10 @@ export function AppContent() {
           </ErrorBoundary>
         }
       />
-      {/* Hash Analyzer was merged into the IOC Checker, which already handles hashes. */}
-      <Route path="/dfir/file" element={<Navigate to="/dfir/ioc-check" replace />} />
+      {/* Hash Analyzer was merged into the IOC Checker, which already handles hashes.
+          Legacy ?h=<hash> deep links need to translate to ?indicator=<hash> so the
+          target page auto-populates instead of dropping the param on the floor. */}
+      <Route path="/dfir/file" element={<DfirFileRedirect />} />
       <Route
         path="/threatintel/pulse"
         element={
@@ -864,6 +879,7 @@ export function AppContent() {
           </ErrorBoundary>
         }
       />
+      <Route path="/threatintel/mti" element={<Navigate to="/threatintel/mythreatintel" replace />} />
       <Route
         path="/threatintel/cybersec"
         element={

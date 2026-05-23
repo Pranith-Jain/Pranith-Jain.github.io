@@ -110,9 +110,10 @@ export default function CyberCrime(): JSX.Element {
 
   useEffect(() => {
     let cancelled = false;
+    const ctrl = new AbortController();
     setLoading(true);
     setError(null);
-    fetch('/api/v1/cyber-crime')
+    fetch('/api/v1/cyber-crime', { signal: ctrl.signal })
       .then((r) => {
         if (!r.ok) throw new Error(`upstream ${r.status}`);
         return r.json() as Promise<CybercrimeResponse>;
@@ -121,13 +122,15 @@ export default function CyberCrime(): JSX.Element {
         if (!cancelled) setData(d);
       })
       .catch((e) => {
-        if (!cancelled) setError(e instanceof Error ? e.message : String(e));
+        if (cancelled || (e instanceof Error && e.name === 'AbortError')) return;
+        setError(e instanceof Error ? e.message : String(e));
       })
       .finally(() => {
         if (!cancelled) setLoading(false);
       });
     return () => {
       cancelled = true;
+      ctrl.abort();
     };
   }, [refreshKey]);
 

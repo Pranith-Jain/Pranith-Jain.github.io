@@ -41,18 +41,23 @@ export default function BreachForums(): JSX.Element {
 
   useEffect(() => {
     let alive = true;
+    const ctrl = new AbortController();
     setLoading(true);
     setError(null);
-    fetch('/api/v1/breach-forums')
+    fetch('/api/v1/breach-forums', { signal: ctrl.signal })
       .then((r) => {
         if (!r.ok) throw new Error(`upstream ${r.status}`);
         return r.json() as Promise<BreachForumsResponse>;
       })
       .then((d) => alive && setData(d))
-      .catch((e: Error) => alive && setError(e.message))
+      .catch((e: { name?: string; message?: string }) => {
+        if (!alive || e.name === 'AbortError') return;
+        setError(e.message ?? 'failed');
+      })
       .finally(() => alive && setLoading(false));
     return () => {
       alive = false;
+      ctrl.abort();
     };
   }, [refreshKey]);
 

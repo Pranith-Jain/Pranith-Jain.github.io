@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Search, ArrowRight, X } from 'lucide-react';
 import { SECTIONS, GROUP_META, MAIN_TOOL_COUNT, type Tool, type ToolGroup } from './tool-sections';
 
@@ -60,6 +60,7 @@ function score(entry: IndexEntry, q: string): number {
 }
 
 export function ToolSearchBar(): JSX.Element {
+  const navigate = useNavigate();
   const [query, setQuery] = useState('');
   const [active, setActive] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -98,7 +99,7 @@ export function ToolSearchBar(): JSX.Element {
     } else if (e.key === 'Enter') {
       e.preventDefault();
       const hit = hits[active];
-      if (hit) window.location.assign(hit.tool.path);
+      if (hit) navigate(hit.tool.path);
     } else if (e.key === 'Escape') {
       setQuery('');
       inputRef.current?.blur();

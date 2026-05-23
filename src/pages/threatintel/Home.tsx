@@ -338,6 +338,12 @@ const SECTIONS: Section[] = [
         desc: 'The matrix, plus per-technique deep-dives. Pivot both ways: actor to technique, technique to actor.',
         icon: Grid3x3,
       },
+      {
+        to: '/threatintel/atlas',
+        label: 'MITRE ATLAS (AI/ML)',
+        desc: 'Adversarial-ML taxonomy — tactics, techniques, and real-world case studies of attacks on AI and ML systems. The ATT&CK-adjacent matrix for GenAI risk.',
+        icon: Grid3x3,
+      },
     ],
   },
   {

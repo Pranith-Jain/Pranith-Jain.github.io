@@ -31,12 +31,17 @@ export const hybridanalysis: ProviderAdapter = async (indicator, env, signal) =>
 
   if (!supports.has(indicator.type)) return base('unsupported');
 
+  // No key → "provider not applicable" instead of firing the request and
+  // surfacing an opaque 401 in the composite.
+  const key = (env as { HYBRID_ANALYSIS_API_KEY?: string }).HYBRID_ANALYSIS_API_KEY;
+  if (!key) return base('unsupported');
+
   try {
     const body = `hash=${encodeURIComponent(indicator.value)}`;
     const res = await fetch('https://www.hybrid-analysis.com/api/v2/search/hash', {
       method: 'POST',
       headers: {
-        'api-key': env.HYBRID_ANALYSIS_API_KEY,
+        'api-key': key,
         'User-Agent': 'Falcon Sandbox',
         Accept: 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded',

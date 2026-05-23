@@ -18,11 +18,17 @@ export const abuseipdb: ProviderAdapter = async (indicator, env, signal) => {
 
   if (!supports.has(indicator.type)) return base('unsupported');
 
+  // No key → treat as "provider not applicable" rather than firing the
+  // request and surfacing an opaque 401 in the composite. Mirrors the
+  // pattern in emailrep.ts.
+  const key = (env as { ABUSEIPDB_API_KEY?: string }).ABUSEIPDB_API_KEY;
+  if (!key) return base('unsupported');
+
   try {
     const url = `https://api.abuseipdb.com/api/v2/check?ipAddress=${encodeURIComponent(indicator.value)}&maxAgeInDays=90`;
     const res = await fetch(url, {
       headers: {
-        Key: env.ABUSEIPDB_API_KEY,
+        Key: key,
         Accept: 'application/json',
       },
       signal,
