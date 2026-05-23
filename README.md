@@ -151,6 +151,24 @@ Engineered for the **Cloudflare Workers free tier**:
 - Defensive-only handling of breach / stealer / forum data: metadata only, never stolen content
 - WCAG 2.2 AA: skip-to-content, focus traps, ARIA roles, `role="alert"` on errors, reduced-motion support, 44px touch targets, iOS Safari zoom fix on `<input>` focus
 
+## Open-source releases
+
+Five reusable libraries have been extracted from this codebase as standalone, MIT-licensed npm-ready repos. Each ships with a working build, CI (typecheck + test + build on Node 20), and a focused README.
+
+| Repo                                                                               | What it does                                                                                                                                                                 |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [cti-text-extract](https://github.com/Pranith-Jain/cti-text-extract)               | Synchronous, dependency-free CTI entity extractor. Pulls IoCs, CVEs, threat actors, malware families, and topic tags from unstructured text. Ships bundled dictionaries.     |
+| [stix21-builder](https://github.com/Pranith-Jain/stix21-builder)                   | STIX 2.1 bundle builder. Deterministic UUIDv5 IDs, MITRE ATT&CK cross-references, official OASIS TLP markings. Importable into OpenCTI / MISP / any TAXII 2.1 client.        |
+| [cti-ioc-enrich](https://github.com/Pranith-Jain/cti-ioc-enrich)                   | Pluggable IOC enrichment framework. You bring the provider adapters; the package gives you bounded concurrency, per-provider timeouts, AbortSignal, and a composite verdict. |
+| [telegram-preview-parser](https://github.com/Pranith-Jain/telegram-preview-parser) | Parse Telegram channel previews (`t.me/s/<handle>`) to structured JSON. No Bot API key required.                                                                             |
+| [deepdarkcti-parser](https://github.com/Pranith-Jain/deepdarkcti-parser)           | Parses the [fastfire/deepdarkCTI](https://github.com/fastfire/deepdarkCTI) markdown index into typed JSON across 18 categories.                                              |
+
+Adjacent companion repos (separate codebases, not extracted from this one):
+
+- [cti-stix-connector](https://github.com/Pranith-Jain/cti-stix-connector) — Python container that ingests CSV / JSON / [MyThreatIntel](https://mythreatintel.com) data and emits valid STIX 2.1 bundles.
+- [cti-platform](https://github.com/Pranith-Jain/cti-platform) — design-archive snapshot of the threat-intel platform as a standalone project.
+- [DFIR-PLATFORM](https://github.com/Pranith-Jain/DFIR-PLATFORM) — design-archive of the original multi-language DFIR prototypes before consolidation into this monorepo.
+
 ## Repository layout
 
 ```
