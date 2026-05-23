@@ -16,6 +16,10 @@ interface Summary {
 }
 
 const MAX = 200_000;
+// File-size cap so a 500 MB capture doesn't OOM the browser tab before the
+// per-packet `MAX` limit kicks in. The packet cap only stops the parser
+// loop — the full `arrayBuffer()` has already been read into memory by then.
+const MAX_FILE_BYTES = 50 * 1024 * 1024;
 
 function ipv4(d: DataView, o: number): string {
   return `${d.getUint8(o)}.${d.getUint8(o + 1)}.${d.getUint8(o + 2)}.${d.getUint8(o + 3)}`;
@@ -231,6 +235,13 @@ export default function PcapTriage(): JSX.Element {
         onChange={async (e) => {
           const f = e.target.files?.[0];
           if (!f) return;
+          if (f.size > MAX_FILE_BYTES) {
+            setS(null);
+            setErr(
+              `File exceeds ${Math.round(MAX_FILE_BYTES / 1024 / 1024)} MB limit (${(f.size / 1024 / 1024).toFixed(1)} MB).`
+            );
+            return;
+          }
           try {
             setErr('');
             setS(parse(await f.arrayBuffer()));

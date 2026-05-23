@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, type FormEvent } from 'react';
+import { useEffect, useState, useRef, useCallback, type FormEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ToolDocs } from '../../components/dfir/ToolDocs';
@@ -274,6 +274,20 @@ export default function IocCheck(): JSX.Element {
     e.preventDefault();
     runCheck();
   };
+
+  // Auto-run on deep-link: /dfir/ioc-check?indicator=8.8.8.8 should kick
+  // off the check, not just pre-fill the input. The pivot links from the
+  // IOC Extractor and other tools rely on this. Single-shot via a ref
+  // guard so subsequent state changes don't retrigger.
+  const autoRanRef = useRef(false);
+  useEffect(() => {
+    if (autoRanRef.current) return;
+    if (initialInput && detectType(initialInput) !== 'unknown' && !streaming) {
+      autoRanRef.current = true;
+      runCheck();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialInput]);
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">

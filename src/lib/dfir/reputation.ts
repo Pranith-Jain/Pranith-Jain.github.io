@@ -27,14 +27,15 @@ export interface ReputationResult {
 
 export const DOH_ENDPOINT = 'https://cloudflare-dns.com/dns-query';
 
-export async function queryDoh(name: string, type = 'A'): Promise<string[]> {
+export async function queryDoh(name: string, type = 'A', signal?: AbortSignal): Promise<string[]> {
   try {
     const url = `${DOH_ENDPOINT}?name=${encodeURIComponent(name)}&type=${type}`;
-    const r = await fetch(url, { headers: { accept: 'application/dns-json' } });
+    const r = await fetch(url, { headers: { accept: 'application/dns-json' }, signal });
     if (!r.ok) return [];
     const j = (await r.json()) as { Answer?: Array<{ data: string }> };
     return (j.Answer ?? []).map((a) => a.data);
   } catch (e) {
+    if ((e as { name?: string }).name === 'AbortError') throw e;
     console.error('DoH query failed for', name, ':', e);
     return [];
   }
@@ -240,47 +241,37 @@ function classifyDnsbl(
   return { listed: true, blocked: false, detail: real.join(', ') };
 }
 
-export async function checkIpBlacklists(ip: string): Promise<BlacklistCheck[]> {
-  const reversed = reverseIp(ip);
-  const results: BlacklistCheck[] = [];
-  for (const bl of IP_DNSBLS) {
-    try {
-      const answers = await queryDoh(`${reversed}.${bl.zone}`);
-      const c = classifyDnsbl(answers, bl.blockedCodes);
-      results.push({
-        name: bl.name,
-        listed: c.listed,
-        blocked: c.blocked,
-        detail: c.detail,
-        source: `dnsbl:${bl.id}`,
-      });
-    } catch (e) {
-      console.error(`DNSBL lookup failed for ${bl.id}:`, e);
-      results.push({ name: bl.name, listed: false, source: `dnsbl:${bl.id}` });
-    }
+async function checkOne(bl: DnsblSource, query: string, signal?: AbortSignal): Promise<BlacklistCheck> {
+  try {
+    const answers = await queryDoh(query, 'A', signal);
+    const c = classifyDnsbl(answers, bl.blockedCodes);
+    return {
+      name: bl.name,
+      listed: c.listed,
+      blocked: c.blocked,
+      detail: c.detail,
+      source: `dnsbl:${bl.id}`,
+    };
+  } catch (e) {
+    if ((e as { name?: string }).name === 'AbortError') throw e;
+    console.error(`DNSBL lookup failed for ${bl.id}:`, e);
+    return { name: bl.name, listed: false, source: `dnsbl:${bl.id}` };
   }
-  return results;
 }
 
-export async function checkDomainBlacklists(domain: string): Promise<BlacklistCheck[]> {
-  const results: BlacklistCheck[] = [];
-  for (const bl of DOMAIN_DNSBLS) {
-    try {
-      const answers = await queryDoh(`${domain}.${bl.zone}`);
-      const c = classifyDnsbl(answers, bl.blockedCodes);
-      results.push({
-        name: bl.name,
-        listed: c.listed,
-        blocked: c.blocked,
-        detail: c.detail,
-        source: `dnsbl:${bl.id}`,
-      });
-    } catch (e) {
-      console.error(`DNSBL lookup failed for ${bl.id}:`, e);
-      results.push({ name: bl.name, listed: false, source: `dnsbl:${bl.id}` });
-    }
-  }
-  return results;
+/**
+ * Parallel DNSBL fan-out. Sequential `for...of` + `await` stalled at 13
+ * IP DNSBLs × ~250ms each = ~3s per IP; with two MX records that compounds
+ * into 10–30s wall-clock. `Promise.all` cuts the whole batch to one
+ * round-trip's worth of latency.
+ */
+export async function checkIpBlacklists(ip: string, signal?: AbortSignal): Promise<BlacklistCheck[]> {
+  const reversed = reverseIp(ip);
+  return Promise.all(IP_DNSBLS.map((bl) => checkOne(bl, `${reversed}.${bl.zone}`, signal)));
+}
+
+export async function checkDomainBlacklists(domain: string, signal?: AbortSignal): Promise<BlacklistCheck[]> {
+  return Promise.all(DOMAIN_DNSBLS.map((bl) => checkOne(bl, `${domain}.${bl.zone}`, signal)));
 }
 
 function scoreFromListings(listed: number, reachable: number): number {

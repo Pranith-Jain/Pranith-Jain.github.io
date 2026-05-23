@@ -60,10 +60,17 @@ export async function atlasTechniqueHandler(c: Context<{ Bindings: Env }>) {
     return c.json({ error: 'missing technique param (e.g. AML-T1234)' }, 400);
   }
 
+  // Accept BOTH our local dash format (`AML-T0000`, used by the static
+  // matrix in `src/data/dfir/atlas-matrix.ts`) AND MITRE's upstream dot
+  // format (`AML.T0000`). The upstream STIX bundle uses dots in its
+  // `external_references[].external_id`, so we must compare against the
+  // dot form when searching.
   const techniqueId = q.toUpperCase();
-  if (!techniqueId.match(/^AML-T\d{4}(\.\d{3})?$/i)) {
-    return c.json({ error: 'invalid ATLAS technique ID (expected AML-T0000 or AML-T0000.001)' }, 400);
+  if (!techniqueId.match(/^AML[-.]T\d{4}(\.\d{3})?$/i)) {
+    return c.json({ error: 'invalid ATLAS technique ID (expected AML-T0000 or AML.T0000)' }, 400);
   }
+  // Canonicalise both forms — `AML-T0000.001` → `AML.T0000.001` for the lookup.
+  const techniqueIdDot = techniqueId.replace(/^AML-/, 'AML.');
 
   let objects: AtlasStixObject[];
   try {
@@ -93,7 +100,8 @@ export async function atlasTechniqueHandler(c: Context<{ Bindings: Env }>) {
       o.type === 'attack-pattern' &&
       o.external_references?.some(
         (r) =>
-          r.external_id?.toUpperCase() === techniqueId || r.url?.toUpperCase().includes(`/TECHNIQUES/${techniqueId}`)
+          r.external_id?.toUpperCase() === techniqueIdDot ||
+          r.url?.toUpperCase().includes(`/TECHNIQUES/${techniqueIdDot}`)
       )
   );
 

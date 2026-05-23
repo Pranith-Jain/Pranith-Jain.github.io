@@ -115,6 +115,11 @@ export default function IocPivot(): JSX.Element {
     setActive(v);
   };
   const pivotTo = (v: string) => {
+    // Ignore pivot clicks while the previous stream is still open — two
+    // concurrent EventSources would race their results into the same state.
+    // The submit button is already disabled during `streaming`, but the
+    // graph node clicks aren't, so they need their own guard.
+    if (streaming) return;
     setInput(v);
     setParams({ q: v }, { replace: false });
     setActive(v);

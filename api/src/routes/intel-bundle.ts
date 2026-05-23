@@ -23,6 +23,7 @@ import { detectType, type IndicatorType } from '../lib/indicator';
 import { extract, type ExtractedEntities } from '../lib/extract';
 import { enrichBulk, type BulkEnrichResult } from '../lib/enrich-bulk';
 import { enrichCves, type CveEnrichment } from '../lib/cve-enrich';
+import { extractLlm, EMPTY_LLM_ENTITIES } from '../lib/extract-llm';
 import { buildStixBundle, type BuildResult, type ReportInput, type Tlp } from '../lib/stix-build';
 import { pinnedFetch, SsrfError } from '../lib/ssrf-guard';
 
@@ -180,18 +181,29 @@ async function pipeline(
   }
 > {
   const entities = extract(report.title, report.body);
-  // Bulk IoC enrichment and CVE enrichment are independent — fan them out.
-  // CVE enrichment is best-effort: any failure leaves cveEnrichments empty
-  // and the bundle still ships with vulnerability objects, just without
-  // KEV/EPSS context.
-  const [bulk, cveEnrichments] = await Promise.all([
+  // Bulk IoC enrichment, CVE enrichment, and LLM extraction are independent
+  // — fan them out. Each is best-effort: failures leave the corresponding
+  // arrays empty and the bundle still ships.
+  //
+  // The LLM call was previously omitted from the on-demand pipeline (only
+  // the cron warmer invoked it), so STIX-builder ad-hoc inputs got no
+  // sectors / affected products / candidate actors. Wiring it in here means
+  // /dfir/stix-builder, cache-miss renders, and the build route all get
+  // the same enrichment shape — the warmer's `.catch()` boundary inside
+  // extractLlm prevents a stalled LLM from blocking the bundle.
+  const [bulk, cveEnrichments, llmEntities] = await Promise.all([
     enrichBulk(
       entities.iocs.map((i) => ({ type: i.type, value: i.value })),
       env
     ),
     enrichCves(entities.cves),
+    extractLlm(report.title, report.body, entities, env).catch(() => ({
+      ...EMPTY_LLM_ENTITIES,
+      ran: false,
+      partial: false,
+    })),
   ]);
-  const built = await buildStixBundle(report, entities, bulk, cveEnrichments);
+  const built = await buildStixBundle(report, entities, bulk, cveEnrichments, llmEntities);
   return { ...built, bulk, entities, cveEnrichments };
 }
 
@@ -552,15 +564,23 @@ export async function intelBundleBuildHandler(c: Context<{ Bindings: Env }>): Pr
       }
     }
   }
-  const bulk = await enrichBulk(
-    entities.iocs.map((i) => ({ type: i.type, value: i.value })),
-    c.env
-  );
-  // CVE enrichment runs in parallel with the IoC bulk enrichment above for
-  // the GET/POST cache-miss paths, but in the build path the IoC bulk has
-  // already completed. Run CVE enrichment now (best-effort) before assembly.
-  const cveEnrichments = await enrichCves(entities.cves);
-  const built = await buildStixBundle(report, entities, bulk, cveEnrichments);
+  // Fan-out: bulk IoC + CVE + LLM extraction all run in parallel and all
+  // degrade to empty on failure. The LLM step matches what the cron warmer
+  // does so STIX builder ad-hoc inputs get the same sector / candidate
+  // signal as briefings persisted by the warmer.
+  const [bulk, cveEnrichments, llmEntities] = await Promise.all([
+    enrichBulk(
+      entities.iocs.map((i) => ({ type: i.type, value: i.value })),
+      c.env
+    ),
+    enrichCves(entities.cves),
+    extractLlm(report.title, report.body, entities, c.env).catch(() => ({
+      ...EMPTY_LLM_ENTITIES,
+      ran: false,
+      partial: false,
+    })),
+  ]);
+  const built = await buildStixBundle(report, entities, bulk, cveEnrichments, llmEntities);
 
   const db = c.env.BRIEFINGS_DB;
   if (db) {

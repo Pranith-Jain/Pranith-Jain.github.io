@@ -52,7 +52,12 @@ function reducer(state: State, action: Action): State {
       return { ...state, [action.tool]: { loading: true, data: null, error: null }, complete: false };
     case 'SET_RESULT': {
       const next = { ...state, [action.tool]: { loading: false, data: action.data, error: null } };
-      const allDone = (Object.keys(INITIAL) as ToolKey[]).every((k) => !next[k]?.loading);
+      // Only check tool keys — `Object.keys(INITIAL)` includes `domain` (a
+      // string) and `complete` (a boolean), both of which return `undefined`
+      // for `?.loading`, satisfying `every(!loading)` after the very first
+      // tool reports — flipping `complete: true` long before the others
+      // finish. Enumerate from TOOL_CONFIG instead.
+      const allDone = TOOL_CONFIG.every((t) => !next[t.key]?.loading);
       if (allDone) next.complete = true;
       return next;
     }
@@ -147,21 +152,34 @@ function ResultCard({
         return v && s !== undefined ? `${v} · ${s}/100` : 'done';
       }
       case 'exposure': {
-        const subs = data.subdomains as number | undefined;
-        return subs !== undefined ? `${subs} subdomains` : 'done';
+        // ExposureScanResponse.subdomains is an array, not a number.
+        const subs = data.subdomains as unknown[] | undefined;
+        const total = data.total_subdomains_seen as number | undefined;
+        if (subs === undefined) return 'done';
+        return total !== undefined && total > subs.length
+          ? `${subs.length} of ${total} subdomains`
+          : `${subs.length} subdomains`;
       }
       case 'web_scan': {
-        const issues = data.issues as Array<{ label: string; severity: string }> | undefined;
-        return issues ? `${issues.length} issues` : 'done';
+        // Real WebScanResponse fields: http_protocol_findings + exposed_paths.
+        // The legacy `issues` field was never populated.
+        const headerFindings = (data.http_protocol_findings as unknown[] | undefined) ?? [];
+        const exposed = (data.exposed_paths as unknown[] | undefined) ?? [];
+        const total = headerFindings.length + exposed.length;
+        return total > 0 ? `${total} finding${total === 1 ? '' : 's'}` : 'clean';
       }
       case 'takeover': {
+        // TakeoverResponse: `service` is singular optional string.
         const vuln = data.vulnerable as boolean | undefined;
-        const svcs = data.services as string[] | undefined;
-        return vuln ? `⚠ ${(svcs ?? []).join(', ')}` : 'safe';
+        const svc = data.service as string | undefined;
+        return vuln ? `⚠ ${svc ?? 'vulnerable'}` : 'safe';
       }
       case 'cert_search': {
-        const c = data.count as number | undefined;
-        return c !== undefined ? `${c} certs` : 'done';
+        // CertSearchResponse: `total` + `unique_names`.
+        const total = data.total as number | undefined;
+        const unique = data.unique_names as unknown[] | undefined;
+        if (total !== undefined) return `${total} certs`;
+        return unique !== undefined ? `${unique.length} certs` : 'done';
       }
       case 'breach': {
         const f = data.found as boolean | undefined;
@@ -180,37 +198,49 @@ function ResultCard({
     if (!data) return null;
     switch (tool.key) {
       case 'domain_lookup': {
-        const dmarc = (data.email_auth as { dmarc?: { policy: string } } | undefined)?.dmarc?.policy;
+        // SPF / DMARC nest under `email_auth` (singular `present`, not `spf_present`).
+        const auth = data.email_auth as
+          | { spf?: { present: boolean }; dmarc?: { present: boolean; policy?: string } }
+          | undefined;
+        const spfPresent = auth?.spf?.present === true;
+        const dmarcPolicy = auth?.dmarc?.policy;
+        const dmarcPresent = auth?.dmarc?.present === true;
         return (
           <div className="text-[11px] font-mono text-slate-600 dark:text-slate-400 space-y-0.5 mt-1">
             <span>
-              SPF:{' '}
-              <span className="text-slate-900 dark:text-slate-100">
-                {(data as Record<string, unknown>).spf_present ? '✅' : '❌'}
-              </span>
+              SPF: <span className="text-slate-900 dark:text-slate-100">{spfPresent ? '✅' : '❌'}</span>
             </span>
             <br />
             <span>
-              DMARC: <span className="text-slate-900 dark:text-slate-100">{dmarc ? dmarc.toUpperCase() : '❌'}</span>
+              DMARC:{' '}
+              <span className="text-slate-900 dark:text-slate-100">
+                {dmarcPolicy ? dmarcPolicy.toUpperCase() : dmarcPresent ? '✅' : '❌'}
+              </span>
             </span>
           </div>
         );
       }
       case 'exposure': {
-        const s = (data.subdomains as number) ?? 0;
+        const subs = (data.subdomains as unknown[] | undefined) ?? [];
+        const total = (data.total_subdomains_seen as number | undefined) ?? subs.length;
         return (
           <p className="text-[11px] font-mono text-slate-600 dark:text-slate-400 mt-1">
-            {s} subdomain{s !== 1 ? 's' : ''} discovered
+            {subs.length} of {total} subdomain{total !== 1 ? 's' : ''} discovered
           </p>
         );
       }
       case 'web_scan': {
-        const issues = data.issues as Array<{ label: string; severity: string }> | undefined;
-        if (!issues || issues.length === 0)
-          return <p className="text-[11px] font-mono text-emerald-600 mt-1">No issues</p>;
+        const headerFindings =
+          (data.http_protocol_findings as Array<{ label?: string; severity?: string }> | undefined) ?? [];
+        const exposed = (data.exposed_paths as Array<{ path?: string; severity?: string }> | undefined) ?? [];
+        const findings = [
+          ...headerFindings.map((h) => ({ label: h.label ?? 'finding', severity: h.severity ?? 'info' })),
+          ...exposed.map((p) => ({ label: p.path ?? 'exposed path', severity: p.severity ?? 'medium' })),
+        ];
+        if (findings.length === 0) return <p className="text-[11px] font-mono text-emerald-600 mt-1">No findings</p>;
         return (
           <ul className="text-[11px] font-mono mt-1 space-y-0.5">
-            {issues.slice(0, 3).map((i, idx) => (
+            {findings.slice(0, 3).map((i, idx) => (
               <li key={idx} className="truncate">
                 <span className={SEVERITY_COLORS[i.severity] ?? 'text-slate-600 dark:text-slate-400'}>●</span> {i.label}
               </li>
@@ -220,11 +250,11 @@ function ResultCard({
       }
       case 'takeover': {
         const vuln = data.vulnerable as boolean | undefined;
-        const svcs = data.services as string[] | undefined;
+        const svc = data.service as string | undefined;
         return (
           <p className="text-[11px] font-mono mt-1">
             {vuln ? (
-              <span className="text-rose-600">Vulnerable{(svcs?.length ?? 0) > 0 ? ` (${svcs?.join(', ')})` : ''}</span>
+              <span className="text-rose-600">Vulnerable{svc ? ` (${svc})` : ''}</span>
             ) : (
               <span className="text-emerald-600">No vulnerable services</span>
             )}
@@ -232,15 +262,16 @@ function ResultCard({
         );
       }
       case 'cert_search': {
-        const names = data.names as string[] | undefined;
-        const c = data.count as number | undefined;
+        const total = data.total as number | undefined;
+        const unique = data.unique_names as string[] | undefined;
+        const count = total ?? unique?.length ?? 0;
         return (
           <div className="text-[11px] font-mono text-slate-600 dark:text-slate-400 mt-1">
-            <span>{c ?? names?.length ?? 0} certificates</span>
-            {names && names.length > 0 && (
+            <span>{count} certificates</span>
+            {unique && unique.length > 0 && (
               <p className="truncate text-slate-500 dark:text-slate-500">
-                {names.slice(0, 3).join(', ')}
-                {names.length > 3 ? '…' : ''}
+                {unique.slice(0, 3).join(', ')}
+                {unique.length > 3 ? '…' : ''}
               </p>
             )}
           </div>

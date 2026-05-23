@@ -84,8 +84,13 @@ export default function WebScan(): JSX.Element {
   const autoFetched = useRef(false);
 
   const run = async (target: string) => {
-    const t = target.trim();
+    let t = target.trim();
     if (!t) return;
+    // Auto-prepend https:// when the user types a bare hostname — the
+    // backend rejects schemeless input and `type="url"` lets some browsers
+    // submit `example.com` through anyway. One small normalization here
+    // covers both: real URLs pass through untouched.
+    if (!/^https?:\/\//i.test(t)) t = `https://${t}`;
     setLoading(true);
     setError(null);
     setData(null);
