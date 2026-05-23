@@ -50,6 +50,14 @@ export interface DnsblSource {
   zone: string;
   type: 'ip' | 'domain';
   description: string;
+  /** Per-zone codes that signal "we refused your query" rather than a real
+   *  listing. The generic classifier already filters `127.255.x.x`; this
+   *  field is for zones that overload codes inside the normal `127.0.0.x`
+   *  namespace as a blocked-resolver indicator. URIBL is the canonical
+   *  case — `127.0.0.1` on URIBL means "public resolver / over quota",
+   *  but the same code on SURBL would be a real jp/job-spam listing, so
+   *  this must be per-zone, not global. */
+  blockedCodes?: string[];
 }
 
 export const IP_DNSBLS: DnsblSource[] = [
@@ -160,6 +168,7 @@ export const DOMAIN_DNSBLS: DnsblSource[] = [
     zone: 'multi.uribl.com',
     type: 'domain',
     description: 'Domains/URLs found in spam. Composite of several sub-lists.',
+    blockedCodes: ['127.0.0.1'],
   },
   {
     id: 'uribl-black',
@@ -167,6 +176,7 @@ export const DOMAIN_DNSBLS: DnsblSource[] = [
     zone: 'black.uribl.com',
     type: 'domain',
     description: 'Confirmed spam domains.',
+    blockedCodes: ['127.0.0.1'],
   },
   {
     id: 'uribl-grey',
@@ -174,6 +184,7 @@ export const DOMAIN_DNSBLS: DnsblSource[] = [
     zone: 'grey.uribl.com',
     type: 'domain',
     description: 'Suspicious — monitor if volume increases.',
+    blockedCodes: ['127.0.0.1'],
   },
   {
     id: 'surbl',
@@ -195,18 +206,28 @@ export const DOMAIN_DNSBLS: DnsblSource[] = [
  * Classify a raw DNSBL response into a real listing vs. a sentinel/blocked
  * answer. See `BlacklistCheck.blocked` for the rationale.
  *
+ * The generic sentinel namespace is `127.255.x.x` (Spamhaus, SURBL, several
+ * SORBS lists). Per-zone overrides via `extraBlockedCodes` capture lists
+ * that overload codes inside `127.0.0.x` for the same purpose — URIBL
+ * returns `127.0.0.1` to public resolvers, for example.
+ *
  * Examples handled:
  *   - `[]`                       → not listed
  *   - `["127.0.0.2"]`            → listed (real Spamhaus SBL)
  *   - `["127.255.255.254"]`      → blocked (Spamhaus refused public resolver)
+ *   - `["127.0.0.1"]` + URIBL    → blocked (URIBL refused; with extraBlockedCodes=['127.0.0.1'])
  *   - `["127.0.0.2", "127.255…"]` → listed (real result wins over sentinel)
  */
-function classifyDnsbl(answers: string[]): { listed: boolean; blocked: boolean; detail?: string } {
+function classifyDnsbl(
+  answers: string[],
+  extraBlockedCodes?: string[]
+): { listed: boolean; blocked: boolean; detail?: string } {
   if (answers.length === 0) return { listed: false, blocked: false };
+  const extra = new Set(extraBlockedCodes ?? []);
   const real: string[] = [];
   const sentinels: string[] = [];
   for (const a of answers) {
-    if (a.startsWith('127.255.')) sentinels.push(a);
+    if (a.startsWith('127.255.') || extra.has(a)) sentinels.push(a);
     else real.push(a);
   }
   if (real.length === 0) {
@@ -225,7 +246,7 @@ export async function checkIpBlacklists(ip: string): Promise<BlacklistCheck[]> {
   for (const bl of IP_DNSBLS) {
     try {
       const answers = await queryDoh(`${reversed}.${bl.zone}`);
-      const c = classifyDnsbl(answers);
+      const c = classifyDnsbl(answers, bl.blockedCodes);
       results.push({
         name: bl.name,
         listed: c.listed,
@@ -246,7 +267,7 @@ export async function checkDomainBlacklists(domain: string): Promise<BlacklistCh
   for (const bl of DOMAIN_DNSBLS) {
     try {
       const answers = await queryDoh(`${domain}.${bl.zone}`);
-      const c = classifyDnsbl(answers);
+      const c = classifyDnsbl(answers, bl.blockedCodes);
       results.push({
         name: bl.name,
         listed: c.listed,
