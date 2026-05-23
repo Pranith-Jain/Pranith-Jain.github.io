@@ -163,11 +163,14 @@ Five reusable libraries have been extracted from this codebase as standalone, MI
 | [telegram-preview-parser](https://github.com/Pranith-Jain/telegram-preview-parser) | Parse Telegram channel previews (`t.me/s/<handle>`) to structured JSON. No Bot API key required.                                                                             |
 | [deepdarkcti-parser](https://github.com/Pranith-Jain/deepdarkcti-parser)           | Parses the [fastfire/deepdarkCTI](https://github.com/fastfire/deepdarkCTI) markdown index into typed JSON across 18 categories.                                              |
 
-Adjacent companion repos (separate codebases, not extracted from this one):
+Standalone-app extractions (full React + Vite + Cloudflare Worker apps carved out of this monorepo):
 
-- [cti-stix-connector](https://github.com/Pranith-Jain/cti-stix-connector) — Python container that ingests CSV / JSON / [MyThreatIntel](https://mythreatintel.com) data and emits valid STIX 2.1 bundles.
-- [cti-platform](https://github.com/Pranith-Jain/cti-platform) — design-archive snapshot of the threat-intel platform as a standalone project.
-- [DFIR-PLATFORM](https://github.com/Pranith-Jain/DFIR-PLATFORM) — design-archive of the original multi-language DFIR prototypes before consolidation into this monorepo.
+- [cti-platform](https://github.com/Pranith-Jain/cti-platform) — the threat-intel platform on its own: 30+ live CTI surfaces (ransomware tracking, IOC correlation, briefings, actor timelines, social/Telegram firehoses, STIX export). MIT.
+- [DFIR-PLATFORM](https://github.com/Pranith-Jain/DFIR-PLATFORM) — the DFIR toolkit on its own: 60+ analyst tools (IOC checker, phishing analyzer, exposure scanner, CVE lookup, MITRE ATT&CK / ATLAS browsers, rule converter, detection lab). The original multi-language prototypes are preserved under `archive/`. MIT.
+
+Adjacent companion repo (separate codebase, not extracted from this one):
+
+- [cti-stix-connector](https://github.com/Pranith-Jain/cti-stix-connector) — Python container that ingests CSV / JSON / [MyThreatIntel](https://mythreatintel.com) data and emits valid STIX 2.1 bundles. MIT.
 
 ## Repository layout
 
