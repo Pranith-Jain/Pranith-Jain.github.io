@@ -7,17 +7,17 @@ import { fetchResilient } from '../lib/fetch-resilient';
  * IP geolocation + reputation lookup.
  *
  * Composite of two sources:
- *   - ip-api.com (free, no key, 45 req/min/IP) — country/region/city/isp/
- *     org/asn/timezone/proxy/hosting/mobile/reverse-dns
- *   - AbuseIPDB (existing provider, key already wired) — abuse confidence
- *     score, total reports, usage type
+ *   - ipwho.is (free, no key, HTTPS, no documented rate limit) —
+ *     country/region/city/isp/org/asn/timezone/lat/lon. Replaces
+ *     ip-api.com which was HTTP-only and rate-limited at 45 req/min
+ *     per source IP (the shared Worker egress IP hit that cap fast).
+ *   - AbuseIPDB (existing provider, key already wired) — abuse
+ *     confidence score, total reports, and `usage_type` (which
+ *     covers the proxy/hosting/VPN signal we used to read from
+ *     ip-api.com's `proxy`/`hosting`/`mobile` flags).
  *
  * Both run in parallel. Either failing degrades gracefully — the other
  * half still renders. Cached 1h at the edge.
- *
- * Single-IP only here. Batch mode (paste up to N IPs, get a table) is
- * a planned follow-up — ip-api.com has a JSON POST batch endpoint up to
- * 100 IPs/request.
  */
 
 const FETCH_TIMEOUT = 8_000;
@@ -25,28 +25,21 @@ const CACHE_TTL = 3600; // 1 hour
 const RE_IPV4 = /^(?:(?:25[0-5]|2[0-4]\d|1?\d?\d)\.){3}(?:25[0-5]|2[0-4]\d|1?\d?\d)$/;
 const RE_IPV6 = /^[0-9a-fA-F:]+$/;
 
-interface IpApiResponse {
-  status?: 'success' | 'fail';
+interface IpWhoIsResponse {
+  ip?: string;
+  success?: boolean;
   message?: string;
+  type?: 'IPv4' | 'IPv6';
   country?: string;
-  countryCode?: string;
+  country_code?: string;
   region?: string;
-  regionName?: string;
+  region_code?: string;
   city?: string;
-  zip?: string;
-  lat?: number;
-  lon?: number;
-  timezone?: string;
-  currency?: string;
-  isp?: string;
-  org?: string;
-  as?: string;
-  asname?: string;
-  reverse?: string;
-  mobile?: boolean;
-  proxy?: boolean;
-  hosting?: boolean;
-  query?: string;
+  postal?: string;
+  latitude?: number;
+  longitude?: number;
+  timezone?: { id?: string; utc?: string };
+  connection?: { asn?: number; org?: string; isp?: string; domain?: string };
 }
 
 export interface IpGeoResponse {
@@ -88,18 +81,17 @@ export interface IpGeoResponse {
   generated_at: string;
 }
 
-async function fetchIpApi(ip: string): Promise<IpApiResponse | null> {
+async function fetchIpWhoIs(ip: string): Promise<IpWhoIsResponse | null> {
   try {
-    // Bitmask 66846719 = all useful fields except those we don't render.
-    // ip-api.com free tier is HTTP-only (45 req/min/IP — rate-limits the
-    // shared Worker IP), so retry on 429/5xx via fetchResilient.
+    // ipwho.is: free, no key, HTTPS, no documented rate cap. The 1h edge
+    // cache below means analyst-burst doesn't translate to upstream burst.
     const res = await fetchResilient(
-      `http://ip-api.com/json/${encodeURIComponent(ip)}?fields=66846719`,
+      `https://ipwho.is/${encodeURIComponent(ip)}`,
       { headers: { 'user-agent': 'pranithjain-dfir/1.0' } },
       { attempts: 3, timeoutMs: FETCH_TIMEOUT }
     );
     if (!res.ok) return null;
-    return (await res.json()) as IpApiResponse;
+    return (await res.json()) as IpWhoIsResponse;
   } catch {
     return null;
   }
@@ -138,45 +130,65 @@ export async function ipGeoHandler(c: Context<{ Bindings: Env }>): Promise<Respo
     ABUSECH_AUTH_KEY: c.env.ABUSECH_AUTH_KEY,
   };
   const [geoRaw, repRaw] = await Promise.all([
-    fetchIpApi(ip),
+    fetchIpWhoIs(ip),
     abuseipdb({ value: ip, type: kind }, provEnv, ctrl.signal).catch(() => null),
   ]);
   clearTimeout(timer);
 
-  const geoOk = !!geoRaw && geoRaw.status === 'success';
+  const geoOk = !!geoRaw && geoRaw.success === true;
   const repOk = !!repRaw && repRaw.status === 'ok';
+
+  // Build a normalised AS string ("AS15169 Google LLC") to keep the
+  // frontend's `asn` slot stable across the source swap — ip-api.com
+  // returned `as: "AS15169 Google LLC"` whereas ipwho.is splits it
+  // into `connection.asn: 15169` + `connection.org: "Google LLC"`.
+  const asStr =
+    geoRaw?.connection?.asn !== undefined
+      ? `AS${geoRaw.connection.asn}${geoRaw.connection.org ? ` ${geoRaw.connection.org}` : ''}`
+      : undefined;
+
+  // AbuseIPDB's `usageType` covers the proxy/hosting/mobile signal we
+  // used to read from ip-api.com. Surface a normalised boolean so the
+  // frontend's existing `is_hosting`/`is_proxy` slots don't go dark.
+  const usageType = (repRaw?.raw_summary as { usageType?: string } | undefined)?.usageType ?? '';
+  const usageLower = usageType.toLowerCase();
+  const isHosting = /(hosting|data\s*center|cdn)/.test(usageLower);
+  const isProxy = /(vpn|proxy|anonymizer|tor)/.test(usageLower);
+  const isMobile = /(mobile|cellular)/.test(usageLower);
 
   const body: IpGeoResponse = {
     ip,
     detected_kind: kind,
     geo:
-      geoRaw && geoRaw.status === 'success'
+      geoRaw && geoRaw.success === true
         ? {
             ok: true,
             country: geoRaw.country,
-            country_code: geoRaw.countryCode,
-            region: geoRaw.regionName,
+            country_code: geoRaw.country_code,
+            region: geoRaw.region,
             city: geoRaw.city,
-            zip: geoRaw.zip || undefined,
-            lat: geoRaw.lat,
-            lon: geoRaw.lon,
-            timezone: geoRaw.timezone,
-            isp: geoRaw.isp,
-            org: geoRaw.org,
-            asn: geoRaw.as,
-            asname: geoRaw.asname,
-            reverse_dns: geoRaw.reverse || undefined,
-            is_proxy: geoRaw.proxy,
-            is_hosting: geoRaw.hosting,
-            is_mobile: geoRaw.mobile,
-            source: 'ip-api.com',
-            source_url: 'https://ip-api.com',
+            zip: geoRaw.postal || undefined,
+            lat: geoRaw.latitude,
+            lon: geoRaw.longitude,
+            timezone: geoRaw.timezone?.id,
+            isp: geoRaw.connection?.isp,
+            org: geoRaw.connection?.org,
+            asn: asStr,
+            asname: geoRaw.connection?.org,
+            // ipwho.is doesn't return reverse-DNS; the field stays
+            // optional so the UI just hides it.
+            reverse_dns: undefined,
+            is_proxy: repOk ? isProxy : undefined,
+            is_hosting: repOk ? isHosting : undefined,
+            is_mobile: repOk ? isMobile : undefined,
+            source: 'ipwho.is',
+            source_url: `https://ipwho.is/${encodeURIComponent(ip)}`,
           }
         : {
             ok: false,
-            error: geoRaw?.message ?? 'ip-api.com unreachable or no data',
-            source: 'ip-api.com',
-            source_url: 'https://ip-api.com',
+            error: geoRaw?.message ?? 'ipwho.is unreachable or no data',
+            source: 'ipwho.is',
+            source_url: 'https://ipwho.is',
           },
     reputation:
       repRaw && repRaw.status === 'ok'

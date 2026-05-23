@@ -81,6 +81,7 @@ import {
   intelBundleAdminHandler,
 } from './routes/intel-bundle';
 import { googleDorksHandler } from './routes/google-dorks';
+import { emailRepHandler } from './routes/email-rep';
 import { rateLimit } from './lib/ratelimit';
 
 const app = new Hono<{ Bindings: Env }>();
@@ -152,6 +153,7 @@ app.get('/api/v1/intel-bundle/by-id/:bundleId', intelBundleByIdHandler);
 app.get('/api/v1/intel-bundle/:id/export.stix.json', intelBundleExportHandler);
 app.get('/api/v1/admin/intel-bundle/:source/:ref', intelBundleAdminHandler);
 app.get('/api/v1/google-dorks', googleDorksHandler);
+app.get('/api/v1/email-rep', emailRepHandler);
 app.get('/api/v1/cyber-crime', cybercrimeHandler);
 app.get('/api/v1/snapshot', snapshotHandler);
 app.get('/api/v1/ioc-snapshot', iocSnapshotHandler);

@@ -30,17 +30,39 @@ export default function EmailReputation(): JSX.Element {
     domainBl: BlacklistCheck[];
     mxBl: Array<{ exchange: string; ip: string; checks: BlacklistCheck[] }>;
     truncated: boolean;
+    emailRep?: {
+      email: string;
+      ok: boolean;
+      verdict?: 'malicious' | 'suspicious' | 'clean' | 'unknown';
+      score?: number;
+      reputation?: 'high' | 'medium' | 'low' | 'unknown';
+      tags?: string[];
+      references?: number;
+      details?: {
+        domain_exists?: boolean;
+        free_provider?: boolean;
+        disposable?: boolean;
+        deliverable?: boolean;
+        first_seen?: string;
+        last_seen?: string;
+      };
+      error?: string;
+    };
   } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [progress, setProgress] = useState('');
   const abortRef = useRef<AbortController | null>(null);
 
-  const clean = input
+  // Preserve the original input form so we can run emailrep.io when the
+  // user gave us a full email address. `clean` keeps the domain-only form
+  // for the existing DNSBL/auth checks.
+  const trimmed = input
     .trim()
     .toLowerCase()
     .replace(/^https?:\/\//, '')
-    .replace(/\/.*$/, '')
-    .replace(/^.*@/, '');
+    .replace(/\/.*$/, '');
+  const emailAddress = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/.test(trimmed) ? trimmed : null;
+  const clean = trimmed.replace(/^.*@/, '');
 
   const lookup = async () => {
     if (!clean) return;
@@ -97,13 +119,65 @@ export default function EmailReputation(): JSX.Element {
       const allDnsbl = [...domainBl, ...mxResults.flatMap((r) => r.checks)];
       const listedCount = allDnsbl.filter((b) => b.listed).length;
       scoreValue += Math.min(25, listedCount * 5);
-      const verdict = scoreValue < 20 ? 'safe' : scoreValue < 50 ? 'suspicious' : 'poor';
+
+      // Fan out the emailrep.io call only when the input was a full email
+      // address. emailrep is per-address — it doesn't have a useful
+      // domain-level lookup, and calling it with a bare domain just wastes
+      // the rate limit on a guaranteed miss.
+      let emailRepResult: NonNullable<typeof result>['emailRep'] | undefined;
+      if (emailAddress) {
+        try {
+          setProgress('Looking up address reputation (emailrep.io)…');
+          const rr = await fetch(`/api/v1/email-rep?email=${encodeURIComponent(emailAddress)}`, { signal });
+          const rj = (await rr.json()) as {
+            ok: boolean;
+            verdict?: 'malicious' | 'suspicious' | 'clean' | 'unknown';
+            score?: number;
+            reputation?: 'high' | 'medium' | 'low' | 'unknown';
+            tags?: string[];
+            references?: number;
+            details?: Record<string, unknown>;
+            error?: string;
+          };
+          emailRepResult = {
+            email: emailAddress,
+            ok: rj.ok,
+            verdict: rj.verdict,
+            score: rj.score,
+            reputation: rj.reputation,
+            tags: rj.tags,
+            references: rj.references,
+            details: rj.details as NonNullable<typeof result>['emailRep'] extends infer T
+              ? T extends { details?: infer D }
+                ? D
+                : never
+              : never,
+            error: rj.error,
+          };
+          // Roll the email-level score into the page composite. The DNSBL
+          // score is domain-level; emailrep specifically flags the address.
+          if (rj.ok && rj.verdict === 'malicious') scoreValue = Math.max(scoreValue, 75);
+          else if (rj.ok && rj.verdict === 'suspicious') scoreValue = Math.max(scoreValue, 50);
+        } catch (e) {
+          if ((e as { name?: string }).name !== 'AbortError') {
+            emailRepResult = {
+              email: emailAddress,
+              ok: false,
+              error: e instanceof Error ? e.message : String(e),
+            };
+          }
+        }
+      }
+      if (signal.aborted) return;
+
+      // Recompute verdict if emailrep bumped the score.
+      const finalVerdict = scoreValue < 20 ? 'safe' : scoreValue < 50 ? 'suspicious' : 'poor';
 
       setResult({
         domain: clean,
         mx,
         score: scoreValue,
-        verdict,
+        verdict: finalVerdict,
         spf: spf.present ? (spf.policy === 'fail' ? '-all' : (spf.policy ?? 'present')) : 'missing',
         dmarc: dmarc.present ? (dmarc.policy ?? 'present') : 'missing',
         dkim: dkim.selectors_found.length > 0 ? dkim.selectors_found.join(', ') : 'none',
@@ -113,6 +187,7 @@ export default function EmailReputation(): JSX.Element {
         domainBl,
         mxBl: mxResults,
         truncated,
+        emailRep: emailRepResult,
       });
     } catch (e) {
       if (!signal.aborted) setError(e instanceof Error ? e.message : 'lookup failed');
@@ -220,6 +295,71 @@ export default function EmailReputation(): JSX.Element {
             <Fact label="MTA-STS" value={result.mta_sts} good={result.mta_sts === 'enforce'} />
             <Fact label="TLS-RPT" value={result.tls_rpt} good={result.tls_rpt === 'configured'} />
           </div>
+
+          {result.emailRep && (
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+              <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3 inline-flex items-center gap-2">
+                <Mail size={12} aria-hidden="true" /> Address reputation (emailrep.io){' '}
+                <span className="font-normal text-slate-500 normal-case">· {result.emailRep.email}</span>
+              </h3>
+              {result.emailRep.ok ? (
+                <>
+                  <div className="flex flex-wrap items-center gap-2 mb-3">
+                    {result.emailRep.verdict && (
+                      <span
+                        className={`text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded border ${
+                          result.emailRep.verdict === 'malicious'
+                            ? 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/30'
+                            : result.emailRep.verdict === 'suspicious'
+                              ? 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30'
+                              : result.emailRep.verdict === 'clean'
+                                ? 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-500/30'
+                                : 'bg-slate-500/15 text-slate-700 dark:text-slate-300 border-slate-500/30'
+                        }`}
+                      >
+                        {result.emailRep.verdict}
+                        {result.emailRep.score !== undefined ? ` · ${result.emailRep.score}/100` : ''}
+                      </span>
+                    )}
+                    {result.emailRep.reputation && (
+                      <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded border border-slate-300 dark:border-slate-700">
+                        rep: {result.emailRep.reputation}
+                      </span>
+                    )}
+                    {result.emailRep.references !== undefined && result.emailRep.references > 0 && (
+                      <span className="text-[10px] font-mono text-slate-500">
+                        {result.emailRep.references} references
+                      </span>
+                    )}
+                  </div>
+                  {result.emailRep.tags && result.emailRep.tags.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 mb-2">
+                      {result.emailRep.tags.map((t) => (
+                        <span
+                          key={t}
+                          className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-slate-700 dark:text-slate-300"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500">
+                    {result.emailRep.details?.first_seen && `first seen ${result.emailRep.details.first_seen} · `}
+                    {result.emailRep.details?.last_seen && `last seen ${result.emailRep.details.last_seen} · `}
+                    {result.emailRep.details?.deliverable !== undefined &&
+                      `deliverable: ${result.emailRep.details.deliverable ? 'yes' : 'no'}`}
+                  </p>
+                </>
+              ) : (
+                <p className="text-xs font-mono text-amber-700 dark:text-amber-300">
+                  {result.emailRep.error === 'emailrep_not_configured'
+                    ? 'emailrep.io needs an API key. Ask the admin to set EMAILREP_API_KEY.'
+                    : `emailrep lookup failed: ${result.emailRep.error ?? 'unknown error'}`}
+                </p>
+              )}
+            </section>
+          )}
 
           {result.domainBl.length > 0 && (
             <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
