@@ -174,7 +174,8 @@ export default function DomainReputation(): JSX.Element {
         <div className="space-y-6">
           {(() => {
             const allChecks = [...results.domain, ...results.ips.flatMap((r) => r.checks)];
-            const { score, clean, listed } = computeScore(allChecks);
+            const { score, clean, listed, blocked, reachable } = computeScore(allChecks);
+            const blockedRatio = allChecks.length > 0 ? blocked / allChecks.length : 0;
             return (
               <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
                 <div className="flex flex-wrap items-baseline justify-between gap-3 mb-3">
@@ -192,8 +193,43 @@ export default function DomainReputation(): JSX.Element {
                   />
                 </div>
                 <p className="text-sm font-mono text-slate-600 dark:text-slate-400">
-                  {listed} of {allChecks.length} sources flag this domain/IP
+                  {listed} of {reachable} reachable sources flag this domain/IP
+                  {blocked > 0 && (
+                    <>
+                      {' '}
+                      <span className="text-slate-500 dark:text-slate-500">
+                        · {blocked} blocked our public-resolver query
+                      </span>
+                    </>
+                  )}
                 </p>
+                {blockedRatio >= 0.25 && (
+                  <div className="mt-3 rounded border border-amber-300/40 bg-amber-500/10 p-3 text-xs text-amber-800 dark:border-amber-700/50 dark:bg-amber-900/30 dark:text-amber-200">
+                    <strong>
+                      {blocked} DNSBL{blocked === 1 ? '' : 's'} refused our query.
+                    </strong>{' '}
+                    Spamhaus, URIBL, SURBL, and several others block lookups from public DNS resolvers like Cloudflare
+                    DoH — we can&apos;t confirm listed/clean status for those sources. Cross-check with an authoritative
+                    multi-RBL service:{' '}
+                    <a
+                      href={`https://multirbl.valli.org/lookup/${encodeURIComponent(clean)}.html`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline hover:no-underline"
+                    >
+                      multirbl.valli.org
+                    </a>{' '}
+                    ·{' '}
+                    <a
+                      href={`https://hetrixtools.com/blacklist-check/${encodeURIComponent(clean)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline hover:no-underline"
+                    >
+                      hetrixtools.com
+                    </a>
+                  </div>
+                )}
               </section>
             );
           })()}
@@ -212,7 +248,7 @@ export default function DomainReputation(): JSX.Element {
           )}
 
           {results.ips.map(({ ip, checks }) => {
-            const { score, clean, listed } = computeScore(checks);
+            const { score, clean, listed, blocked, reachable } = computeScore(checks);
             return (
               <section
                 key={ip}
@@ -224,8 +260,10 @@ export default function DomainReputation(): JSX.Element {
                   </h3>
                   <span
                     className={`text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded border ${score === 0 ? 'bg-emerald-500/15 text-emerald-700 border-emerald-500/30' : 'bg-rose-500/15 text-rose-700 border-rose-500/30'}`}
+                    title={blocked > 0 ? `${blocked} source(s) blocked our public-resolver query` : undefined}
                   >
-                    {clean}/{clean + listed} clean
+                    {clean}/{reachable} clean{listed > 0 && ` · ${listed} listed`}
+                    {blocked > 0 && ` · ${blocked} blocked`}
                   </span>
                 </div>
                 <div className="flex flex-wrap gap-2">

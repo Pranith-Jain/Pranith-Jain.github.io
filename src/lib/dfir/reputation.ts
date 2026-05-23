@@ -1,6 +1,16 @@
 export interface BlacklistCheck {
   name: string;
   listed: boolean;
+  /** True when the DNSBL responded with a sentinel/blocked-resolver code
+   *  (`127.255.x.y`) instead of a real listing. Spamhaus, URIBL, SURBL and
+   *  most major DNSBLs block queries from public DNS resolvers (Cloudflare
+   *  DoH, Google DNS, Quad9). Those responses MUST NOT be counted as
+   *  "listed" — they mean "we refused to answer your query", not "your
+   *  IP/domain is on our list".
+   *  Real listings live in `127.0.0.x` (and a handful of vendor-specific
+   *  `127.x` sublists); the sentinel namespace `127.255.0.0/16` is
+   *  reserved by industry convention for resolver-level error codes. */
+  blocked?: boolean;
   detail?: string;
   source: string;
 }
@@ -181,16 +191,46 @@ export const DOMAIN_DNSBLS: DnsblSource[] = [
   },
 ];
 
+/**
+ * Classify a raw DNSBL response into a real listing vs. a sentinel/blocked
+ * answer. See `BlacklistCheck.blocked` for the rationale.
+ *
+ * Examples handled:
+ *   - `[]`                       → not listed
+ *   - `["127.0.0.2"]`            → listed (real Spamhaus SBL)
+ *   - `["127.255.255.254"]`      → blocked (Spamhaus refused public resolver)
+ *   - `["127.0.0.2", "127.255…"]` → listed (real result wins over sentinel)
+ */
+function classifyDnsbl(answers: string[]): { listed: boolean; blocked: boolean; detail?: string } {
+  if (answers.length === 0) return { listed: false, blocked: false };
+  const real: string[] = [];
+  const sentinels: string[] = [];
+  for (const a of answers) {
+    if (a.startsWith('127.255.')) sentinels.push(a);
+    else real.push(a);
+  }
+  if (real.length === 0) {
+    return {
+      listed: false,
+      blocked: true,
+      detail: `public-resolver blocked (${sentinels.join(', ')})`,
+    };
+  }
+  return { listed: true, blocked: false, detail: real.join(', ') };
+}
+
 export async function checkIpBlacklists(ip: string): Promise<BlacklistCheck[]> {
   const reversed = reverseIp(ip);
   const results: BlacklistCheck[] = [];
   for (const bl of IP_DNSBLS) {
     try {
       const answers = await queryDoh(`${reversed}.${bl.zone}`);
+      const c = classifyDnsbl(answers);
       results.push({
         name: bl.name,
-        listed: answers.length > 0,
-        detail: answers.length > 0 ? answers.join(', ') : undefined,
+        listed: c.listed,
+        blocked: c.blocked,
+        detail: c.detail,
         source: `dnsbl:${bl.id}`,
       });
     } catch (e) {
@@ -206,10 +246,12 @@ export async function checkDomainBlacklists(domain: string): Promise<BlacklistCh
   for (const bl of DOMAIN_DNSBLS) {
     try {
       const answers = await queryDoh(`${domain}.${bl.zone}`);
+      const c = classifyDnsbl(answers);
       results.push({
         name: bl.name,
-        listed: answers.length > 0,
-        detail: answers.length > 0 ? answers.join(', ') : undefined,
+        listed: c.listed,
+        blocked: c.blocked,
+        detail: c.detail,
         source: `dnsbl:${bl.id}`,
       });
     } catch (e) {
@@ -220,21 +262,33 @@ export async function checkDomainBlacklists(domain: string): Promise<BlacklistCh
   return results;
 }
 
-function scoreFromListings(listed: number, total: number): number {
-  if (total === 0) return 0;
-  return Math.round((listed / total) * 100);
+function scoreFromListings(listed: number, reachable: number): number {
+  if (reachable === 0) return 0;
+  return Math.round((listed / reachable) * 100);
 }
 
+/**
+ * Aggregate a list of DNSBL check results.
+ *
+ * `blocked` rows are sources that refused our public-resolver query — they
+ * must NOT count as either listed OR clean. The `score` ratio is therefore
+ * computed over `reachable = listed + clean` (excludes blocked) so a result
+ * dominated by blocked rows doesn't get misclassified as "0% listed = clean".
+ */
 export function computeScore(blacklists: BlacklistCheck[]): {
   score: number;
   clean: number;
   listed: number;
+  blocked: number;
+  reachable: number;
   total: number;
 } {
   const total = blacklists.length;
   const listed = blacklists.filter((b) => b.listed).length;
-  const clean = total - listed;
-  return { score: scoreFromListings(listed, total), clean, listed, total };
+  const blocked = blacklists.filter((b) => b.blocked).length;
+  const clean = total - listed - blocked;
+  const reachable = listed + clean;
+  return { score: scoreFromListings(listed, reachable), clean, listed, blocked, reachable, total };
 }
 
 export interface ExternalRepTool {
