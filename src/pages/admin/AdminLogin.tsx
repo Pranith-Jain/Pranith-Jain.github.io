@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from 'react';
+import { probeAuth } from './adminApi';
 
 interface Props {
   onLogin: (token: string) => void;
@@ -6,12 +7,28 @@ interface Props {
 
 export default function AdminLogin({ onLogin }: Props) {
   const [value, setValue] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     const trimmed = value.trim();
     if (!trimmed) return;
+    setError(null);
+    setBusy(true);
+    // Probe the token against /admin/health before committing. The previous
+    // flow stored any string in localStorage and dropped the user into the
+    // shell, where the first tab's fetch failed with 401 and triggered a
+    // reload loop.
     localStorage.setItem('adminToken', trimmed);
+    const ok = await probeAuth();
+    if (!ok) {
+      localStorage.removeItem('adminToken');
+      setError('Token rejected — check the value and try again.');
+      setBusy(false);
+      return;
+    }
+    setBusy(false);
     onLogin(trimmed);
   }
 
@@ -32,8 +49,17 @@ export default function AdminLogin({ onLogin }: Props) {
             className="w-full px-3 py-2 bg-zinc-900 border border-zinc-800 rounded text-zinc-100 focus:outline-none focus:border-zinc-600"
           />
         </div>
-        <button type="submit" className="w-full px-4 py-2 bg-zinc-100 text-zinc-900 rounded font-medium hover:bg-white">
-          Sign in
+        {error && (
+          <p role="alert" className="text-sm text-red-400">
+            {error}
+          </p>
+        )}
+        <button
+          type="submit"
+          disabled={busy || !value.trim()}
+          className="w-full px-4 py-2 bg-zinc-100 text-zinc-900 rounded font-medium hover:bg-white disabled:opacity-50"
+        >
+          {busy ? 'Checking…' : 'Sign in'}
         </button>
       </form>
     </main>

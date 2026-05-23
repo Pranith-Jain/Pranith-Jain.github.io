@@ -15,16 +15,17 @@ interface Candidate {
 export default function PendingTab() {
   const [pending, setPending] = useState<Candidate[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [actionMsg, setActionMsg] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
-    setError(false);
+    setError(null);
     try {
       const d = await getJson<{ pending: Candidate[] }>('/candidates');
       setPending(d.pending);
-    } catch {
-      setError(true);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'failed to load');
     } finally {
       setLoading(false);
     }
@@ -34,21 +35,27 @@ export default function PendingTab() {
     void load();
   }, [load]);
 
-  async function approve(id: string) {
+  async function approve(id: string, type: string) {
+    setActionMsg(null);
     try {
-      await postJson(`/candidates/${encodeURIComponent(id)}/approve`);
+      // Pass `type` so the backend doesn't first-match across all 12 type
+      // buckets — candidate `key`s aren't guaranteed unique across types.
+      await postJson(`/candidates/${encodeURIComponent(id)}/approve?type=${encodeURIComponent(type)}`);
+      setActionMsg(`Approved ${id}`);
       await load();
-    } catch {
-      setError(true);
+    } catch (e) {
+      setActionMsg(`approve failed: ${e instanceof Error ? e.message : String(e)}`);
     }
   }
 
   async function skip(id: string, type: string) {
+    setActionMsg(null);
     try {
-      await postJson(`/candidates/${encodeURIComponent(id)}/skip?type=${type}`);
+      await postJson(`/candidates/${encodeURIComponent(id)}/skip?type=${encodeURIComponent(type)}`);
+      setActionMsg(`Skipped ${id}`);
       await load();
-    } catch {
-      setError(true);
+    } catch (e) {
+      setActionMsg(`skip failed: ${e instanceof Error ? e.message : String(e)}`);
     }
   }
 
@@ -56,16 +63,23 @@ export default function PendingTab() {
   if (error)
     return (
       <div>
-        <p className="text-red-400 mb-2">Failed to load</p>
+        <p className="text-red-400 mb-2">Failed to load: {error}</p>
         <button onClick={load} className="px-3 py-1 border border-zinc-700 rounded text-sm">
           Retry
         </button>
       </div>
     );
-  if (pending.length === 0) return <p className="text-zinc-400">No pending candidates.</p>;
+  if (pending.length === 0)
+    return (
+      <div>
+        {actionMsg && <p className="text-xs font-mono text-zinc-400 mb-2">{actionMsg}</p>}
+        <p className="text-zinc-400">No pending candidates.</p>
+      </div>
+    );
 
   return (
     <div className="overflow-x-auto">
+      {actionMsg && <p className="text-xs font-mono text-zinc-400 mb-2">{actionMsg}</p>}
       <table className="w-full text-sm">
         <thead className="text-left text-xs uppercase tracking-wider text-zinc-500 border-b border-zinc-800">
           <tr>
@@ -101,7 +115,7 @@ export default function PendingTab() {
               </td>
               <td className="py-2 whitespace-nowrap">
                 <button
-                  onClick={() => approve(c.key)}
+                  onClick={() => approve(c.key, c.type)}
                   className="px-2 py-1 mr-2 bg-emerald-700/40 border border-emerald-600/60 rounded text-xs hover:bg-emerald-700/60"
                 >
                   Approve

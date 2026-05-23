@@ -7,38 +7,28 @@ interface Slot {
   status: 'pending' | 'publishing' | 'published' | 'failed';
   publishedSlug?: string;
   error?: string;
-  postExists?: boolean;
 }
 
 export default function ScheduleTab() {
   const [schedule, setSchedule] = useState<Slot[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [publishing, setPublishing] = useState<string | null>(null);
   const [msg, setMsg] = useState<string | null>(null);
 
+  // Backend's /admin/schedule handler already revalidates each published
+  // slot against /posts/<slug> and downgrades stale rows to 'pending', so
+  // the client just renders the response verbatim. The previous in-browser
+  // post-exists fan-out used an unauthenticated raw fetch — that would
+  // start mis-labelling rows the moment the blog endpoint got gated.
   const load = useCallback(async () => {
     setLoading(true);
-    setError(false);
+    setError(null);
     try {
       const d = await getJson<{ schedule: Slot[] }>('/schedule');
-      // Check which published slugs still have posts
-      const withPostCheck = await Promise.all(
-        d.schedule.map(async (s) => {
-          if (s.status === 'published' && s.publishedSlug) {
-            try {
-              const r = await fetch(`/api/v1/blog/posts/${encodeURIComponent(s.publishedSlug)}`);
-              return { ...s, postExists: r.ok };
-            } catch {
-              return { ...s, postExists: false };
-            }
-          }
-          return s;
-        })
-      );
-      setSchedule(withPostCheck);
-    } catch {
-      setError(true);
+      setSchedule(d.schedule);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'failed to load');
     } finally {
       setLoading(false);
     }
@@ -83,7 +73,7 @@ export default function ScheduleTab() {
   if (error)
     return (
       <div>
-        <p className="text-red-400 mb-2">Failed to load</p>
+        <p className="text-red-400 mb-2">Failed to load: {error}</p>
         <button onClick={load} className="px-3 py-1 border border-zinc-700 rounded text-sm">
           Retry
         </button>
@@ -117,43 +107,21 @@ export default function ScheduleTab() {
             </tr>
           </thead>
           <tbody>
-            {schedule.map((s, i) => {
-              const stalePublished = s.status === 'published' && !s.postExists;
-              return (
-                <tr key={`${s.candidateId}-${i}`} className="border-b border-zinc-800/60">
-                  <td className="py-2 pr-4 text-zinc-300 whitespace-nowrap">{new Date(s.slotAt).toLocaleString()}</td>
-                  <td className="py-2 pr-4 font-mono text-xs text-zinc-400">{s.candidateId}</td>
-                  <td className="py-2 pr-4 text-zinc-300">{stalePublished ? 'removed' : s.status}</td>
-                  <td className="py-2 flex gap-2">
-                    {s.status === 'pending' && (
-                      <>
-                        <button
-                          onClick={() => publishNow(s.candidateId)}
-                          disabled={publishing === s.candidateId}
-                          className="px-2 py-1 border border-green-700 rounded text-xs hover:bg-green-900/30 disabled:opacity-50"
-                        >
-                          {publishing === s.candidateId ? 'Publishing…' : 'Publish now'}
-                        </button>
-                        <button
-                          onClick={() => removeSlot(s.candidateId)}
-                          disabled={publishing === s.candidateId}
-                          className="px-2 py-1 border border-zinc-700 rounded text-xs hover:bg-zinc-800 disabled:opacity-50"
-                        >
-                          Remove
-                        </button>
-                      </>
-                    )}
-                    {s.status === 'published' && s.publishedSlug && s.postExists && (
-                      <a
-                        href={`/blog/${s.publishedSlug}`}
-                        className="text-xs text-zinc-400 underline px-2 py-1"
-                        target="_blank"
-                        rel="noopener noreferrer"
+            {schedule.map((s, i) => (
+              <tr key={`${s.candidateId}-${i}`} className="border-b border-zinc-800/60">
+                <td className="py-2 pr-4 text-zinc-300 whitespace-nowrap">{new Date(s.slotAt).toLocaleString()}</td>
+                <td className="py-2 pr-4 font-mono text-xs text-zinc-400">{s.candidateId}</td>
+                <td className="py-2 pr-4 text-zinc-300">{s.status}</td>
+                <td className="py-2 flex gap-2">
+                  {s.status === 'pending' && (
+                    <>
+                      <button
+                        onClick={() => publishNow(s.candidateId)}
+                        disabled={publishing === s.candidateId}
+                        className="px-2 py-1 border border-green-700 rounded text-xs hover:bg-green-900/30 disabled:opacity-50"
                       >
-                        View
-                      </a>
-                    )}
-                    {(stalePublished || s.status === 'failed') && (
+                        {publishing === s.candidateId ? 'Publishing…' : 'Publish now'}
+                      </button>
                       <button
                         onClick={() => removeSlot(s.candidateId)}
                         disabled={publishing === s.candidateId}
@@ -161,11 +129,30 @@ export default function ScheduleTab() {
                       >
                         Remove
                       </button>
-                    )}
-                  </td>
-                </tr>
-              );
-            })}
+                    </>
+                  )}
+                  {s.status === 'published' && s.publishedSlug && (
+                    <a
+                      href={`/blog/${s.publishedSlug}`}
+                      className="text-xs text-zinc-400 underline px-2 py-1"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      View
+                    </a>
+                  )}
+                  {s.status === 'failed' && (
+                    <button
+                      onClick={() => removeSlot(s.candidateId)}
+                      disabled={publishing === s.candidateId}
+                      className="px-2 py-1 border border-zinc-700 rounded text-xs hover:bg-zinc-800 disabled:opacity-50"
+                    >
+                      Remove
+                    </button>
+                  )}
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

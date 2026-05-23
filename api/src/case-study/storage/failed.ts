@@ -20,3 +20,13 @@ export async function listFailures(ns: KVNamespace): Promise<FailureRecord[]> {
   const results = await Promise.all(keys.map((k) => ns.get(k.name, 'json') as Promise<FailureRecord | null>));
   return results.filter((x): x is FailureRecord => x !== null);
 }
+
+export async function deleteFailure(ns: KVNamespace, slotId: string): Promise<void> {
+  await ns.delete(kv.failed(slotId));
+}
+
+export async function clearFailures(ns: KVNamespace): Promise<number> {
+  const { keys } = await ns.list({ prefix: 'failed:', limit: 1000 });
+  await Promise.all(keys.map((k) => ns.delete(k.name)));
+  return keys.length;
+}

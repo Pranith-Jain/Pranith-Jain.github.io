@@ -17,19 +17,24 @@ const CARDS: Array<{ key: keyof Health; label: string }> = [
   { key: 'postsCount', label: 'Published' },
 ];
 
+/** How often the health snapshot auto-refreshes while the tab is open. */
+const AUTO_REFRESH_MS = 30_000;
+
 export default function HealthTab() {
   const [health, setHealth] = useState<Health | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [fetchedAt, setFetchedAt] = useState<Date | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
-    setError(false);
+    setError(null);
     try {
       const d = await getJson<Health>('/health');
       setHealth(d);
-    } catch {
-      setError(true);
+      setFetchedAt(new Date());
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'failed to load');
     } finally {
       setLoading(false);
     }
@@ -37,27 +42,50 @@ export default function HealthTab() {
 
   useEffect(() => {
     void load();
+    // Cards look stale unless they're refreshed periodically. 30s is fine
+    // for KV-list counts — cheap on the worker side, and the admin tab
+    // is rarely the foreground for long.
+    const t = window.setInterval(() => void load(), AUTO_REFRESH_MS);
+    return () => window.clearInterval(t);
   }, [load]);
 
-  if (loading) return <p className="text-zinc-400">Loading…</p>;
-  if (error || !health)
+  if (loading && !health) return <p className="text-zinc-400">Loading…</p>;
+  if (error && !health)
     return (
       <div>
-        <p className="text-red-400 mb-2">Failed to load</p>
+        <p className="text-red-400 mb-2">Failed to load: {error}</p>
         <button onClick={load} className="px-3 py-1 border border-zinc-700 rounded text-sm">
           Retry
         </button>
       </div>
     );
 
+  if (!health) return null;
+
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
-      {CARDS.map((card) => (
-        <div key={card.key} className="border border-zinc-800 rounded p-4 bg-zinc-900/40">
-          <div className="text-xs uppercase tracking-wider text-zinc-500">{card.label}</div>
-          <div className="text-2xl font-semibold text-zinc-100 mt-1 tabular-nums">{health[card.key]}</div>
-        </div>
-      ))}
+    <div>
+      <div className="flex items-center justify-between mb-3">
+        <p className="text-xs font-mono text-zinc-500">
+          {fetchedAt ? `Updated ${fetchedAt.toLocaleTimeString()} · auto-refresh ${AUTO_REFRESH_MS / 1000}s` : ''}
+          {error && ` · last refresh failed: ${error}`}
+        </p>
+        <button
+          type="button"
+          onClick={load}
+          disabled={loading}
+          className="px-2.5 py-1 border border-zinc-700 rounded text-xs hover:bg-zinc-800 disabled:opacity-50"
+        >
+          {loading ? 'Refreshing…' : 'Refresh'}
+        </button>
+      </div>
+      <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+        {CARDS.map((card) => (
+          <div key={card.key} className="border border-zinc-800 rounded p-4 bg-zinc-900/40">
+            <div className="text-xs uppercase tracking-wider text-zinc-500">{card.label}</div>
+            <div className="text-2xl font-semibold text-zinc-100 mt-1 tabular-nums">{health[card.key]}</div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

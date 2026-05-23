@@ -30,13 +30,17 @@ type SocialState = Record<
 export default function PublishedTab() {
   const [posts, setPosts] = useState<PostEntry[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [social, setSocial] = useState<SocialState>({});
   const [expanded, setExpanded] = useState<string | null>(null);
+  const [actionMsg, setActionMsg] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
-    setError(false);
+    setError(null);
+    // Clear expanded so it can't reference a slug that no longer exists
+    // after an unpublish/refresh.
+    setExpanded(null);
     try {
       const d = await getJson<{ posts: PostEntry[] }>('/posts');
       setPosts(d.posts);
@@ -53,8 +57,8 @@ export default function PublishedTab() {
         })
       );
       setSocial(initial);
-    } catch {
-      setError(true);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'failed to load');
     } finally {
       setLoading(false);
     }
@@ -65,11 +69,15 @@ export default function PublishedTab() {
   }, [load]);
 
   async function unpublish(slug: string) {
+    // Destructive — match DraftsTab.reject's confirm UX.
+    if (!window.confirm(`Unpublish /blog/${slug}? This removes the post from the site.`)) return;
+    setActionMsg(null);
     try {
       await postJson(`/posts/${encodeURIComponent(slug)}/unpublish`);
+      setActionMsg(`Unpublished /blog/${slug}`);
       await load();
-    } catch {
-      setError(true);
+    } catch (e) {
+      setActionMsg(`unpublish failed: ${e instanceof Error ? e.message : String(e)}`);
     }
   }
 
@@ -155,16 +163,23 @@ export default function PublishedTab() {
   if (error)
     return (
       <div>
-        <p className="text-red-400 mb-2">Failed to load</p>
+        <p className="text-red-400 mb-2">Failed to load: {error}</p>
         <button onClick={load} className="px-3 py-1 border border-zinc-700 rounded text-sm">
           Retry
         </button>
       </div>
     );
-  if (posts.length === 0) return <p className="text-zinc-400">No published posts.</p>;
+  if (posts.length === 0)
+    return (
+      <div>
+        {actionMsg && <p className="text-xs font-mono text-zinc-400 mb-2">{actionMsg}</p>}
+        <p className="text-zinc-400">No published posts.</p>
+      </div>
+    );
 
   return (
     <div>
+      {actionMsg && <p className="text-xs font-mono text-zinc-400 mb-2">{actionMsg}</p>}
       <p className="text-xs text-zinc-500 mb-4">Click a row to expand/collapse social content.</p>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">

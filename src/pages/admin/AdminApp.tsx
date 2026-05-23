@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { postJson } from './adminApi';
+import { postJson, probeAuth } from './adminApi';
 import AdminLogin from './AdminLogin';
 import PendingTab from './PendingTab';
 import ApprovedTab from './ApprovedTab';
@@ -33,6 +33,17 @@ const STAGES: Array<{ stage: 'discover' | 'plan' | 'publish'; label: string; hin
   { stage: 'publish', label: 'Publish now', hint: 'Generate + publish the next due slot (normally hourly cron)' },
 ];
 
+function summariseRunResult(stage: string, result: unknown): string {
+  if (!result || typeof result !== 'object') return `${stage}: done`;
+  const r = result as Record<string, unknown>;
+  // Common shapes from the worker handlers.
+  if (typeof r.slug === 'string') return `${stage}: published /blog/${r.slug}`;
+  if (typeof r.scheduled === 'number') return `${stage}: scheduled ${r.scheduled} slot(s)`;
+  if (typeof r.discovered === 'number') return `${stage}: discovered ${r.discovered} candidate(s)`;
+  if (typeof r.count === 'number') return `${stage}: ${r.count}`;
+  return `${stage}: ${JSON.stringify(result).slice(0, 160)}`;
+}
+
 function PipelineBar() {
   const [busy, setBusy] = useState<string | null>(null);
   const [msg, setMsg] = useState<string | null>(null);
@@ -42,7 +53,7 @@ function PipelineBar() {
     setMsg(null);
     try {
       const r = await postJson<{ ok?: boolean; stage?: string; result?: unknown; error?: string }>(`/run/${stage}`);
-      setMsg(r.error ? `${stage}: ${r.error}` : `${stage}: done — ${JSON.stringify(r.result ?? 'ok')}`);
+      setMsg(r.error ? `${stage}: ${r.error}` : summariseRunResult(stage, r.result));
     } catch (e) {
       setMsg(`${stage}: ${e instanceof Error ? e.message : String(e)}`);
     } finally {
@@ -72,12 +83,30 @@ function PipelineBar() {
 }
 
 export default function AdminApp() {
-  const [authed, setAuthed] = useState(false);
+  // 'probing' = checking cached token against /admin/health on mount so we
+  // don't render the shell with a stale token (which used to cascade into
+  // an N-fetch 401 reload storm on tabs that fan out).
+  const [authStatus, setAuthStatus] = useState<'probing' | 'unauthed' | 'authed'>('probing');
   const [active, setActive] = useState<TabKey>('pending');
 
   useEffect(() => {
-    // Read on mount only; subsequent changes go through onLogin / logout.
-    if (localStorage.getItem('adminToken')) setAuthed(true);
+    let cancelled = false;
+    (async () => {
+      if (!localStorage.getItem('adminToken')) {
+        if (!cancelled) setAuthStatus('unauthed');
+        return;
+      }
+      const ok = await probeAuth();
+      if (cancelled) return;
+      if (ok) setAuthStatus('authed');
+      else {
+        localStorage.removeItem('adminToken');
+        setAuthStatus('unauthed');
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   function logout() {
@@ -87,8 +116,15 @@ export default function AdminApp() {
     window.location.reload();
   }
 
-  if (!authed) {
-    return <AdminLogin onLogin={() => setAuthed(true)} />;
+  if (authStatus === 'probing') {
+    return (
+      <main className="max-w-6xl mx-auto px-6 py-8">
+        <p className="text-sm font-mono text-zinc-400">Checking admin session…</p>
+      </main>
+    );
+  }
+  if (authStatus === 'unauthed') {
+    return <AdminLogin onLogin={() => setAuthStatus('authed')} />;
   }
 
   return (

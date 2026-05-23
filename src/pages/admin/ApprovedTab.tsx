@@ -11,19 +11,18 @@ interface Candidate {
 export default function ApprovedTab() {
   const [approved, setApproved] = useState<Candidate[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [publishing, setPublishing] = useState<string | null>(null);
   const [publishMsg, setPublishMsg] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
-    setError(false);
-    setPublishMsg(null);
+    setError(null);
     try {
       const d = await getJson<{ approved: Candidate[] }>('/approved');
       setApproved(d.approved);
-    } catch {
-      setError(true);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'failed to load');
     } finally {
       setLoading(false);
     }
@@ -34,11 +33,13 @@ export default function ApprovedTab() {
   }, [load]);
 
   async function unapprove(id: string) {
+    setPublishMsg(null);
     try {
       await postJson(`/approved/${encodeURIComponent(id)}/unapprove`);
+      setPublishMsg(`Unapproved ${id}`);
       await load();
-    } catch {
-      setError(true);
+    } catch (e) {
+      setPublishMsg(`unapprove failed: ${e instanceof Error ? e.message : String(e)}`);
     }
   }
 
@@ -63,13 +64,23 @@ export default function ApprovedTab() {
   if (error)
     return (
       <div>
-        <p className="text-red-400 mb-2">Failed to load</p>
+        <p className="text-red-400 mb-2">Failed to load: {error}</p>
         <button onClick={load} className="px-3 py-1 border border-zinc-700 rounded text-sm">
           Retry
         </button>
       </div>
     );
-  if (approved.length === 0) return <p className="text-zinc-400">No approved candidates.</p>;
+  if (approved.length === 0)
+    return (
+      <div>
+        {publishMsg && (
+          <p className="mb-4 p-3 rounded text-sm font-mono bg-green-900/30 text-green-300 border border-green-800">
+            {publishMsg}
+          </p>
+        )}
+        <p className="text-zinc-400">No approved candidates.</p>
+      </div>
+    );
 
   return (
     <div>

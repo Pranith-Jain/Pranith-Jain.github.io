@@ -11,7 +11,7 @@ import { getSchedule, setSchedule, markSlotStatus, removeSlot } from '../case-st
 import { putPost, listPostIndex, removePost } from '../case-study/storage/posts';
 import { listDraftIndex, getDraft, approveDraft, rejectDraft } from '../case-study/storage/drafts';
 import { renderMarkdown } from '../case-study/rendering/markdown';
-import { listFailures } from '../case-study/storage/failed';
+import { listFailures, deleteFailure, clearFailures } from '../case-study/storage/failed';
 import { runDiscoveryNow, runPlannerNow, runPublisherNow, type CaseStudyEnv } from '../case-study/run';
 import { runTelegramArchive } from './telegram-archive';
 import { renderRss } from '../case-study/rendering/rss';
@@ -65,14 +65,26 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
 
   admin.post('/candidates/:id/approve', async (c) => {
     const id = c.req.param('id');
+    // `type` is optional but recommended — without it we first-match across
+    // every type bucket, which can pick the wrong row when candidate IDs
+    // collide (rare but real for CVE-prefixed keys reused across buckets).
+    const typeHint = (c.req.query('type') ?? '') as CaseStudyType | '';
     let found: Candidate | null = null;
     let foundType: CaseStudyType | null = null;
-    for (const t of TYPES) {
-      const cand = await getCandidate(c.env.CASE_STUDIES, t, id);
+    if (typeHint && TYPES.includes(typeHint as CaseStudyType)) {
+      const cand = await getCandidate(c.env.CASE_STUDIES, typeHint as CaseStudyType, id);
       if (cand) {
         found = cand;
-        foundType = t;
-        break;
+        foundType = typeHint as CaseStudyType;
+      }
+    } else {
+      for (const t of TYPES) {
+        const cand = await getCandidate(c.env.CASE_STUDIES, t, id);
+        if (cand) {
+          found = cand;
+          foundType = t;
+          break;
+        }
       }
     }
     if (!found || !foundType) return c.json({ error: 'not found' }, 404);
@@ -121,7 +133,12 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
   });
 
   admin.post('/approved/:id/unapprove', async (c) => {
-    await unapprove(c.env.CASE_STUDIES, c.req.param('id'));
+    const id = c.req.param('id');
+    await unapprove(c.env.CASE_STUDIES, id);
+    // If a schedule slot still references this candidate, drop it too —
+    // otherwise the publisher cron will find a pending slot with no
+    // approved row and treat it as a failure.
+    await removeSlot(c.env.CASE_STUDIES, id);
     return c.json({ ok: true });
   });
 
@@ -255,6 +272,16 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     return c.json({ failures: await listFailures(c.env.CASE_STUDIES) });
   });
 
+  admin.post('/failures/:slotId/clear', async (c) => {
+    await deleteFailure(c.env.CASE_STUDIES, c.req.param('slotId'));
+    return c.json({ ok: true });
+  });
+
+  admin.post('/failures/clear-all', async (c) => {
+    const cleared = await clearFailures(c.env.CASE_STUDIES);
+    return c.json({ ok: true, cleared });
+  });
+
   // ─── Manual post creation ───────────────────────────────────────────────
   // Bypasses the entire discovery → approve → plan → publish pipeline.
   // Accepts user-written markdown and publishes it immediately.
@@ -276,12 +303,21 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     if (!TYPES.includes(type)) return c.json({ error: 'invalid type' }, 400);
     if (!title || !body) return c.json({ error: 'title and body required' }, 400);
 
-    const slug = title
+    const baseSlug = title
       .toLowerCase()
       .replace(/[^\w\s-]/g, '')
       .replace(/\s+/g, '-')
       .replace(/-+/g, '-')
       .slice(0, 80);
+    // Manual titles previously silently overwrote any existing post with the
+    // same slug. Append `-2`, `-3`, … until we find a free slug instead.
+    let slug = baseSlug;
+    let suffix = 2;
+    while ((await c.env.CASE_STUDIES.get(csKvKeys.post(slug))) !== null) {
+      slug = `${baseSlug}-${suffix}`.slice(0, 80);
+      suffix += 1;
+      if (suffix > 50) return c.json({ error: 'too many slug collisions' }, 409);
+    }
 
     const now = new Date().toISOString();
     const post: Post = {
