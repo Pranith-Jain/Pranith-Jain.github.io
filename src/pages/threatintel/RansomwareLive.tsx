@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { BackLink } from '../../components/BackLink';
-import { Activity, AlertTriangle, ArrowLeft, FileCode, MessageSquare, ShieldAlert } from 'lucide-react';
+import { Activity, AlertTriangle, ArrowLeft, FileCode, MessageSquare, RefreshCw, ShieldAlert } from 'lucide-react';
 
 /**
  * ransomware.live PRO surface — consumes the server-side authenticated proxy
@@ -154,15 +154,20 @@ export default function RansomwareLive(): JSX.Element {
   const [cache, setCache] = useState<Record<string, ProxyEnvelope>>({});
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  // Per-tab refresh counter — bumping this for the active resource forces
+  // a re-fetch even when we already have a cached envelope.
+  const [refreshTick, setRefreshTick] = useState<Record<string, number>>({});
 
   const active = useMemo(() => TABS.find((t) => t.id === tab)!, [tab]);
+  const tick = refreshTick[active.resource] ?? 0;
 
   useEffect(() => {
-    if (cache[active.resource]) return;
+    if (cache[active.resource] && tick === 0) return;
     let alive = true;
+    const ctrl = new AbortController();
     setLoading(true);
     setError(null);
-    fetch(`/api/v1/rl/${active.resource}`)
+    fetch(`/api/v1/rl/${active.resource}`, { signal: ctrl.signal })
       .then(async (r) => {
         const j = await r.json().catch(() => ({}));
         if (!r.ok) {
@@ -177,16 +182,26 @@ export default function RansomwareLive(): JSX.Element {
       .then((env) => {
         if (alive) setCache((c) => ({ ...c, [active.resource]: env }));
       })
-      .catch((e) => {
-        if (alive) setError(e instanceof Error ? e.message : String(e));
+      .catch((e: { name?: string; message?: string }) => {
+        if (alive && e.name !== 'AbortError') setError(e.message ?? String(e));
       })
       .finally(() => {
         if (alive) setLoading(false);
       });
     return () => {
       alive = false;
+      ctrl.abort();
     };
-  }, [active.resource, cache]);
+  }, [active.resource, cache, tick]);
+
+  const refreshActive = () => {
+    setCache((c) => {
+      const next = { ...c };
+      delete next[active.resource];
+      return next;
+    });
+    setRefreshTick((t) => ({ ...t, [active.resource]: (t[active.resource] ?? 0) + 1 }));
+  };
 
   const env = cache[active.resource];
 
@@ -237,7 +252,18 @@ export default function RansomwareLive(): JSX.Element {
         })}
       </div>
 
-      <p className="font-mono text-[11px] text-slate-500 mb-4">{active.blurb}</p>
+      <div className="flex items-center justify-between gap-3 mb-4">
+        <p className="font-mono text-[11px] text-slate-500">{active.blurb}</p>
+        <button
+          type="button"
+          onClick={refreshActive}
+          disabled={loading}
+          className="text-[11px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1 disabled:opacity-50"
+          aria-label={`Refresh ${active.label}`}
+        >
+          <RefreshCw size={11} className={loading ? 'animate-spin' : ''} /> refresh
+        </button>
+      </div>
 
       {loading && <div className="font-mono text-sm text-slate-500">loading {active.label}…</div>}
       {error && (

@@ -116,7 +116,7 @@ const SECTIONS: Section[] = [
         icon: Globe,
       },
       {
-        to: '/threatintel/mythreatintel',
+        to: '/threatintel/mti',
         label: 'MyThreatIntel',
         desc: 'Authenticated, edge-cached view of the MyThreatIntel CTI platform REST API: IOCs, malware, CVEs, ransomware victims, leaks, threat groups, darknet markets, and onion services.',
         icon: Radar,
@@ -277,7 +277,7 @@ const SECTIONS: Section[] = [
       {
         to: '/threatintel/c2-tracker',
         label: 'C2 Infrastructure Tracker',
-        desc: 'Live C2 server IPs from MontySecurity C2-Tracker (Shodan-detected). Filter by framework: Cobalt Strike, Sliver, Metasploit, Havoc, Brute Ratel, and more.',
+        desc: 'Live C2 server IPs from drb-ra/C2IntelFeeds (GitHub) and abuse.ch ThreatFox. Filter by framework: Cobalt Strike, Sliver, Metasploit, Havoc, Brute Ratel, and more.',
         icon: Radar,
         badge: 'new',
       },
@@ -509,7 +509,7 @@ export default function ThreatIntelHome(): JSX.Element {
         items={[
           { label: 'Intel surfaces', value: String(totalTiles) },
           { label: 'IOC feeds correlated', value: '18' },
-          { label: 'Live IOC sources', value: '10' },
+          { label: 'Live IOC sources', value: '12' },
           { label: 'Refresh cadence', value: '30m–1h', mono: true },
         ]}
       />

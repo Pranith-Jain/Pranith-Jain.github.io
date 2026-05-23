@@ -228,8 +228,11 @@ export async function fetchAggregatedFeed(
     .filter((u) => !u.startsWith('/')) // synthesised feeds aren't aggregator-eligible
     .join(',');
   if (!urls) return null;
-  const limit = options.limit ?? 30;
-  const perSource = options.perSource ?? 3;
+  // Defaults raised in step with the route's DEFAULT_LIMIT/MAX_LIMIT bump
+  // (100 / 500). The route enforces caps; callers can still pass smaller
+  // values when they want a tight preview.
+  const limit = options.limit ?? 100;
+  const perSource = options.perSource ?? 5;
   const url = `/api/v1/feeds/aggregate?urls=${encodeURIComponent(urls)}&limit=${limit}&perSource=${perSource}`;
   let res: Response;
   try {

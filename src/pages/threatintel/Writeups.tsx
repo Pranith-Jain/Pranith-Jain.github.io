@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, BookText, ExternalLink, RefreshCw, Search } from 'lucide-react';
 import { DataState } from '../../components/DataState';
+import { FeedAggregateCard } from '../../components/intel/FeedAggregateCard';
 
 /**
  * /threatintel/writeups — live aggregation of long-form CTI writeups from
@@ -280,6 +281,21 @@ export default function Writeups(): JSX.Element {
           </p>
         )}
       </section>
+
+      {/* Aggregate STIX 2.1 view of the firehose. Pools the top 40 visible
+          titles + descriptions into one bundle so the page surfaces today's
+          actors / malware / CVEs across the long tail without a per-item fan-out. */}
+      {filtered.length > 0 && (
+        <FeedAggregateCard
+          sourceId="rss:writeups"
+          sourceName="Writeups firehose"
+          title="Writeups firehose · today"
+          items={filtered.map((it) => ({
+            title: it.title,
+            body: `${it.source} · ${it.description ?? ''}`,
+          }))}
+        />
+      )}
 
       <DataState
         loading={loading}

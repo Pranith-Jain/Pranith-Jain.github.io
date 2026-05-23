@@ -164,8 +164,12 @@ export default function VictimReleaks(): JSX.Element {
     if (!data) return [] as ReleakRow[];
     const q = query.trim().toLowerCase();
     if (!q) return data.releaks;
+    // Both haystacks need .toLowerCase() — the gang side previously
+    // compared raw casing and missed real-world hits like searching
+    // "lockbit" against `c.group === "LockBit"`.
     return data.releaks.filter(
-      (r) => r.raw_names.some((n) => n.toLowerCase().includes(q)) || r.claims.some((c) => c.group.includes(q))
+      (r) =>
+        r.raw_names.some((n) => n.toLowerCase().includes(q)) || r.claims.some((c) => c.group.toLowerCase().includes(q))
     );
   }, [data, query]);
 

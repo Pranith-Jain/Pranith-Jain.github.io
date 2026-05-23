@@ -26,7 +26,11 @@ const CONCURRENCY = 4;
  *  full preview window. Combined with the 7d cutoff below, this lifts the
  *  page from ~176 messages → up to ~440 across 22 channels with newer
  *  ones bubbling to the top naturally. */
-const MAX_MESSAGES_PER_CHANNEL = 20;
+// Per-channel cap. Bumped 20 → 50 alongside the cross-platform "show
+// last 500 items OR 7 days" upgrade. Telegram's t.me/s/ preview view
+// surfaces ~30-50 most-recent messages — 50 captures the realistic
+// upstream ceiling without an extra paginated fetch.
+const MAX_MESSAGES_PER_CHANNEL = 50;
 /** Drop messages older than this many days. Telegram channels post at
  *  human cadence; anything older than a week is stale by the standards
  *  of a "today's intel" surface. */
@@ -471,7 +475,7 @@ export async function fetchTelegramFeed(): Promise<TelegramFeedResponse> {
 /** Exported so /api/v1/snapshot can read the same cached payload directly. */
 // Bumped v8 → v9 alongside MAX_MESSAGES_PER_CHANNEL 8→20 and the 7d filter
 // so the next request abandons any cached payload built under the old caps.
-export const TELEGRAM_FEED_CACHE_KEY = 'https://telegram-feed-cache.internal/v9-7d-window';
+export const TELEGRAM_FEED_CACHE_KEY = 'https://telegram-feed-cache.internal/v10-7d-50pc';
 
 export async function telegramFeedHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;

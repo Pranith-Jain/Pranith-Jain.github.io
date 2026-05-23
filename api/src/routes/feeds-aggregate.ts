@@ -20,10 +20,16 @@ import { buildMtiRansomwareRss, MTI_RANSOMWARE_FEED_PATH } from './mti-ransomwar
  */
 
 const MAX_FEEDS = 50;
-const DEFAULT_LIMIT = 30;
-const MAX_LIMIT = 100;
-const DEFAULT_PER_SOURCE = 3;
-const MAX_PER_SOURCE = 10;
+/** Default page-size when caller doesn't pass ?limit=. Bumped 30 → 100 so
+ *  the threat-pulse / threat-feeds pages surface a representative week
+ *  rather than just a day's churn. */
+const DEFAULT_LIMIT = 100;
+/** Hard ceiling for ?limit=. Raised 100 → 500 to support the 7-day window. */
+const MAX_LIMIT = 500;
+const DEFAULT_PER_SOURCE = 5;
+/** Per-source cap. Raised 10 → 25 in step with MAX_LIMIT so no single
+ *  high-volume RSS dominates the merged response. */
+const MAX_PER_SOURCE = 25;
 const FETCH_TIMEOUT_MS = 5000;
 const CACHE_TTL_SECONDS = 300; // 5 minutes — matches per-feed proxy cache
 
@@ -311,13 +317,20 @@ export async function aggregateFeeds(
     const db = new Date(b.pubDate).getTime() || 0;
     return db - da;
   });
+  // 7d cutoff. Items with no parseable pubDate are kept (some feeds strip
+  // dates — better to surface them than to silently drop them).
+  const cutoffMs = Date.now() - 7 * 86_400_000;
+  const recentItems = allItems.filter((it) => {
+    const t = new Date(it.pubDate).getTime();
+    return !Number.isFinite(t) || t === 0 || t >= cutoffMs;
+  });
 
   return {
     generated_at: new Date().toISOString(),
-    total_items: allItems.length,
+    total_items: recentItems.length,
     feeds_attempted: cleanUrls.length,
     feeds_returned: feedsReturned,
-    items: allItems.slice(0, cappedLimit),
+    items: recentItems.slice(0, cappedLimit),
   };
 }
 
@@ -372,13 +385,20 @@ export async function feedsAggregateHandler(c: Context<{ Bindings: Env }>) {
     const db = new Date(b.pubDate).getTime() || 0;
     return db - da;
   });
+  // 7d cutoff. Items with no parseable pubDate are kept (some feeds strip
+  // dates — better to surface them than to silently drop them).
+  const cutoffMs = Date.now() - 7 * 86_400_000;
+  const recentItems = allItems.filter((it) => {
+    const t = new Date(it.pubDate).getTime();
+    return !Number.isFinite(t) || t === 0 || t >= cutoffMs;
+  });
 
   const body: AggregateResponse = {
     generated_at: new Date().toISOString(),
-    total_items: allItems.length,
+    total_items: recentItems.length,
     feeds_attempted: urls.length,
     feeds_returned: feedsReturned,
-    items: allItems.slice(0, limit),
+    items: recentItems.slice(0, limit),
   };
   const json = JSON.stringify(body);
   const response = new Response(json, {

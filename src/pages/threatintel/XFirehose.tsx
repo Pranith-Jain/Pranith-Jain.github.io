@@ -240,7 +240,7 @@ export default function XFirehose(): JSX.Element {
 
       {loading && (
         <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 flex items-center gap-3 font-mono text-sm text-slate-500">
-          <Loader2 size={16} className="animate-spin" /> loading via Nitter mirrors…
+          <Loader2 size={16} className="animate-spin" /> loading Bluesky and Mastodon feeds…
         </div>
       )}
 

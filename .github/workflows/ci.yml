@@ -1,0 +1,83 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Run independently per PR so a slow run doesn't block a faster one.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Each job runs the same checkout + setup (cached npm install dominates the
+  # cold cost), but splitting them parallelises lint / typecheck / test and
+  # makes a failing step obvious in the PR status block. The cost is one
+  # extra setup per job (~10-15s with the cache hot).
+  lint:
+    name: ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      # Tolerant ceiling: matches the current pre-existing warning count plus
+      # small headroom so the build doesn't snap when a refactor surfaces an
+      # ambient warning, but a real regression that adds many new warnings
+      # still fails. Drop this ceiling whenever the warning count drops.
+      - name: Lint (warning ceiling = 100)
+        run: npx eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 100
+
+  typecheck:
+    name: TypeScript
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      # Two compilation units (root SPA + api/ worker). Run both — they catch
+      # different things (root checks JSX + DOM types; api checks Workers /
+      # Hono types under stricter `noUncheckedIndexedAccess`).
+      - name: tsc (root)
+        run: npx tsc --noEmit -p tsconfig.json
+      - name: tsc (api)
+        run: npx tsc --noEmit -p api/tsconfig.json
+
+  test-root:
+    name: Vitest (root)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run test:run
+
+  test-api:
+    name: Vitest (api lib + case-study)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      # The api suite runs under @cloudflare/vitest-pool-workers (miniflare).
+      # Route tests that need outbound DNS/TCP can flake under the pool's
+      # concurrency model (EADDRNOTAVAIL when many tests connect at once);
+      # we run the deterministic lib + case-study subset here. Route tests
+      # remain runnable locally via `cd api && npx vitest run test/routes`.
+      - name: api vitest (lib + case-study + health)
+        working-directory: api
+        run: npx vitest run test/lib test/case-study test/health.test.ts

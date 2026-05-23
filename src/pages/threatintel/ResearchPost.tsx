@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, FileText } from 'lucide-react';
 import { findResearchPost, publishedResearch } from '../../data/threatintel/research';
+import { IntelCard } from '../../components/intel/IntelCard';
 
 /**
  * /threatintel/research/<slug> — long-form read page for a Pranith-
@@ -118,6 +119,24 @@ export default function ResearchPost(): JSX.Element {
           </div>
         )}
       </header>
+
+      {/* Structured STIX 2.1 view of this research piece. Heuristic extractor
+          pulls every actor, malware family, CVE, and IoC the piece mentions
+          across its full body — alongside the human-authored prose below,
+          this gives a downloadable bundle for pivoting / sharing. */}
+      <section className="mb-8">
+        <IntelCard
+          sourceId="research"
+          itemRef={`research:${post.slug}`}
+          item={{
+            title: post.title,
+            body: `${post.excerpt}\n\n${post.body}`,
+            url: `/threatintel/research/${post.slug}`,
+            publishedAt: post.publishedAt,
+          }}
+          fallback={null}
+        />
+      </section>
 
       {html === null ? (
         <div className="space-y-3 text-slate-400" aria-busy="true" aria-label="Loading research post">

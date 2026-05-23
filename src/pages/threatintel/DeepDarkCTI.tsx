@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Copy, ExternalLink, Globe, Search } from 'lucide-react';
 import { DataState } from '../../components/DataState';
+import { FeedAggregateCard } from '../../components/intel/FeedAggregateCard';
 
 interface DDCEntry {
   name: string;
@@ -39,10 +40,13 @@ export default function DeepDarkCTI(): JSX.Element {
   const [hideDown, setHideDown] = useState(true);
   const [onionOnly, setOnionOnly] = useState<'all' | 'onion' | 'clearnet'>('all');
   const [copied, setCopied] = useState<string | null>(null);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
     let alive = true;
-    fetch('/api/v1/deepdarkcti')
+    const ctrl = new AbortController();
+    setError(null);
+    fetch('/api/v1/deepdarkcti', { signal: ctrl.signal })
       .then((r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         return r.json();
@@ -51,12 +55,15 @@ export default function DeepDarkCTI(): JSX.Element {
         if (alive) setData(d);
       })
       .catch((e) => {
-        if (alive) setError(e instanceof Error ? e.message : String(e));
+        if (alive && (e as { name?: string }).name !== 'AbortError') {
+          setError(e instanceof Error ? e.message : String(e));
+        }
       });
     return () => {
       alive = false;
+      ctrl.abort();
     };
-  }, []);
+  }, [refreshKey]);
 
   const filtered = useMemo(() => {
     if (!data) return [];
@@ -110,6 +117,7 @@ export default function DeepDarkCTI(): JSX.Element {
         empty={!!data && data.total === 0}
         emptyLabel="deepdarkCTI temporarily unavailable — upstream fetch failed and no cached copy exists yet."
         rows={8}
+        onRetry={() => setRefreshKey((k) => k + 1)}
       >
         {data && (
           <>
@@ -166,6 +174,22 @@ export default function DeepDarkCTI(): JSX.Element {
                 </span>
               )}
             </p>
+
+            {/* Aggregate STIX 2.1 view of the directory — extraction yield is
+                low (mostly forum/market metadata), but actor + attack_type
+                fields surface known threat actors and malware. Intelligence-
+                about, never content. */}
+            {filtered.length > 0 && (
+              <FeedAggregateCard
+                sourceId="darkweb:deepdarkcti"
+                sourceName="deepdarkCTI Index"
+                title="deepdarkCTI directory · today"
+                items={filtered.map((e) => ({
+                  title: e.name,
+                  body: `${e.category} · ${e.actor ?? ''} · ${e.attack_type ?? ''} · ${e.notes ?? ''}`,
+                }))}
+              />
+            )}
 
             <ul className="grid gap-2 md:grid-cols-2">
               {filtered.map((e, idx) => (

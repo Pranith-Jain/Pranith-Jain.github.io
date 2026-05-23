@@ -51,6 +51,17 @@ describe('ProviderCache', () => {
     expect(ProviderCache.ttlSeconds('url')).toBe(3600);
   });
 
+  it('per-provider override takes precedence over the type default', () => {
+    // urlhaus URLs churn fast → 30 min vs the 1h url default.
+    expect(ProviderCache.ttlSeconds('url', 'urlhaus')).toBe(1800);
+    // sslbl is curated daily → 4h vs the 1h ipv4 default.
+    expect(ProviderCache.ttlSeconds('ipv4', 'sslbl')).toBe(14400);
+    // hashlookup/NSRL is effectively static → 7d vs the 24h hash default.
+    expect(ProviderCache.ttlSeconds('hash', 'hashlookup')).toBe(604800);
+    // A provider with no override still uses the type default.
+    expect(ProviderCache.ttlSeconds('ipv4', 'abuseipdb')).toBe(3600);
+  });
+
   it('case-insensitive indicator value (uppercase / lowercase share cache)', async () => {
     await cache.set('virustotal', { type: 'domain', value: 'EXAMPLE.com' }, sample);
     const got = await cache.get('virustotal', { type: 'domain', value: 'example.COM' });

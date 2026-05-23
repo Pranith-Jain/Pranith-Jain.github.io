@@ -96,6 +96,10 @@ const BYPASS_EXACT = new Set<string>([
   '/api/v1/victim-releaks',
   '/api/v1/atlas/technique',
   '/api/v1/mitre/technique',
+  // GET /intel-bundle is the read path for every per-item IntelCard on
+  // /threatintel pages — D1-cached, never user-input-driven, must not
+  // burn KV-write quota on each page load.
+  '/api/v1/intel-bundle',
 ]);
 
 /** Prefix-match exempt paths. Read-only endpoints only. */

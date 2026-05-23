@@ -1,7 +1,17 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Send } from 'lucide-react';
 import { TelegramFeedPanel } from '../dfir/DarkWeb';
+import { FeedAggregateCard } from '../../components/intel/FeedAggregateCard';
+
+interface TelegramAggItem {
+  text: string;
+  channel_name?: string;
+}
+interface TelegramAggResponse {
+  items?: TelegramAggItem[];
+}
 
 /**
  * Cybersec Telegram firehose page. Thin wrapper around the
@@ -11,6 +21,25 @@ import { TelegramFeedPanel } from '../dfir/DarkWeb';
  * LiveSnapshotPanel "full feed" link lands somewhere focused.
  */
 export default function CybersecTelegram(): JSX.Element {
+  // Lightweight side-fetch just for the aggregate card. TelegramFeedPanel
+  // already owns its own fetch; the edge cache will dedupe.
+  const [items, setItems] = useState<TelegramAggItem[]>([]);
+  useEffect(() => {
+    let cancelled = false;
+    fetch('/api/v1/telegram-feed')
+      .then((r) => (r.ok ? (r.json() as Promise<TelegramAggResponse>) : null))
+      .then((d) => {
+        if (cancelled || !d?.items) return;
+        setItems(d.items);
+      })
+      .catch(() => {
+        /* aggregate card is non-essential — never block the page */
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
@@ -36,6 +65,21 @@ export default function CybersecTelegram(): JSX.Element {
           Server-side aggregation of public Telegram channel previews.
         </p>
       </div>
+
+      {/* Aggregate STIX 2.1 view across the visible Telegram messages.
+          Telegram messages individually are too short to extract from; pooling
+          the top ~40 captures the actors / malware / CVEs / IoCs of the day. */}
+      {items.length > 0 && (
+        <FeedAggregateCard
+          sourceId="telegram"
+          sourceName="Cybersec Telegram firehose"
+          title="Telegram firehose · today"
+          items={items.map((it) => ({
+            title: it.channel_name,
+            body: it.text,
+          }))}
+        />
+      )}
 
       <TelegramFeedPanel />
     </div>

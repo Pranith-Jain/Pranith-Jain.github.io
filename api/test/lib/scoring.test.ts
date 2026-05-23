@@ -55,6 +55,55 @@ describe('compositeScore', () => {
     expect(compositeScore('ipv4', [ok('abuseipdb', 80)]).verdict).toBe('malicious');
   });
 
+  describe('NSRL / strong-clean down-weighting', () => {
+    const clean = (source: ProviderId): ProviderResult => ({
+      source,
+      status: 'ok',
+      score: 0,
+      verdict: 'clean',
+      raw_summary: { known_good: true },
+      tags: ['known-good'],
+      fetched_at: new Date().toISOString(),
+      cached: false,
+    });
+
+    it('caps single-strong-malicious into suspicious when NSRL says known-good', () => {
+      // hashlookup (weight 3 for hash) reports known-good; threatfox (weight 4)
+      // reports malicious. Without clean-cap → floor 50 → suspicious. With
+      // clean-cap → also suspicious (49) but explicitly NOT malicious.
+      const r = compositeScore('hash', [clean('hashlookup'), ok('threatfox', 90)]);
+      expect(r.verdict).toBe('suspicious');
+      expect(r.score).toBeLessThan(70);
+    });
+
+    it('lets 2+ strong-malicious override even a NSRL known-good hit', () => {
+      // Genuine consensus conflict — surface the malicious side rather than
+      // hiding it behind the clean signal.
+      const r = compositeScore('hash', [clean('hashlookup'), ok('threatfox', 90), ok('virustotal', 80)]);
+      expect(r.verdict).toBe('malicious');
+      expect(r.score).toBeGreaterThanOrEqual(75);
+    });
+
+    it('caps to clean when NSRL is the only strong signal (no malicious flags)', () => {
+      // hashlookup known-good + a couple of zero-scoring blocklist 'ok'
+      // results. Without clean-cap the score is already 0; with clean-cap
+      // it stays clean. Regression guard: ensure we don't accidentally
+      // *raise* the score on a pure clean signal.
+      const r = compositeScore('hash', [clean('hashlookup'), ok('otx', 0), ok('malwarebazaar', 0)]);
+      expect(r.verdict).toBe('clean');
+      expect(r.score).toBeLessThan(40);
+    });
+
+    it('low-weight clean verdict does not trigger the cap', () => {
+      // tweetfeed has weight 2 for hash, below the strong-clean threshold (≥3).
+      // A tweetfeed-clean + threatfox-malicious should still trigger the
+      // single-strong-malicious floor of 50.
+      const r = compositeScore('hash', [clean('tweetfeed'), ok('threatfox', 90)]);
+      expect(r.verdict).toBe('suspicious');
+      expect(r.score).toBeGreaterThanOrEqual(50);
+    });
+  });
+
   it('contributing count reflects only ok-status results', () => {
     const errResult: ProviderResult = {
       source: 'shodan',

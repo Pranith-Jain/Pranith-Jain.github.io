@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Radio, ExternalLink, RefreshCw, Search } from 'lucide-react';
+import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
+import { FeedAggregateCard } from '../../components/intel/FeedAggregateCard';
 
 /**
  * /threatintel/signal — the high-signal subset of /threatintel/writeups.
@@ -119,12 +121,12 @@ export default function Signal(): JSX.Element {
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
-      <Link
+      <BackLink
         to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
       >
         <ArrowLeft size={14} /> back
-      </Link>
+      </BackLink>
 
       <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
         <Radio size={28} className="text-brand-600 dark:text-brand-400" /> Research Signal
@@ -141,6 +143,21 @@ export default function Signal(): JSX.Element {
         </Link>
         .
       </p>
+
+      {/* Aggregate STIX 2.1 intel card for the current curated cut. Pools
+          titles + descriptions from the filtered set into one bundle so the
+          page surfaces today's actors / malware / CVEs / IoCs at a glance. */}
+      {filtered.length > 0 && (
+        <FeedAggregateCard
+          sourceId="rss:signal"
+          sourceName="Research Signal"
+          title="Research Signal · today"
+          items={filtered.map((it) => ({
+            title: it.title,
+            body: `${it.source} · ${it.description ?? ''}`,
+          }))}
+        />
+      )}
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-4">
         <div className="flex items-center gap-3">

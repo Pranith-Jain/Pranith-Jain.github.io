@@ -18,7 +18,13 @@ import type { Env } from '../env';
 const FETCH_TIMEOUT_MS = 12_000;
 const CACHE_TTL = 30 * 60;
 const CONCURRENCY = 4;
-const MAX_POSTS_PER_SUB = 8;
+/** Per-sub cap. Reddit's RSS endpoint returns up to ~25 entries; pull
+ *  the full window so the page surfaces a 7d sample across ~15 subs
+ *  (capped via the MAX_POST_AGE_DAYS filter below). */
+const MAX_POSTS_PER_SUB = 25;
+/** Drop posts older than this many days — keeps the firehose "current
+ *  week" rather than the rolling all-time top of each RSS. */
+const MAX_POST_AGE_DAYS = 7;
 const MAX_TEXT_LEN = 400;
 
 interface SubSpec {
@@ -191,9 +197,16 @@ async function fetchSub(spec: SubSpec): Promise<{ ok: boolean; items: RedditFeed
     });
     if (!r.ok) return { ok: false, items: [] };
     const xml = await r.text();
+    const cutoff = Date.now() - MAX_POST_AGE_DAYS * 86_400_000;
     const entries = parseAtomEntries(xml).slice(0, MAX_POSTS_PER_SUB);
     const items: RedditFeedItem[] = entries
       .filter((e) => e.title && e.link && e.pub_date)
+      // Drop posts older than the 7d window. RSS feeds occasionally surface
+      // "top of all time" entries that drown out current activity.
+      .filter((e) => {
+        const t = Date.parse(e.pub_date);
+        return !Number.isFinite(t) || t >= cutoff;
+      })
       .map((e) => ({
         sub: spec.name,
         sub_label: spec.label,
@@ -243,7 +256,8 @@ export async function fetchRedditFeed(): Promise<RedditFeedResponse> {
   };
 }
 
-export const REDDIT_FEED_CACHE_KEY = 'https://reddit-feed-cache.internal/v2-scams';
+// Bumped v2 → v3 alongside MAX_POSTS_PER_SUB 8→25 and the 7d cutoff filter.
+export const REDDIT_FEED_CACHE_KEY = 'https://reddit-feed-cache.internal/v3-7d-window';
 
 export async function redditFeedHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;

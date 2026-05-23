@@ -22,7 +22,11 @@ import type { Env } from '../env';
 const FETCH_TIMEOUT_MS = 9_000;
 const CACHE_TTL = 60 * 60;
 const CONCURRENCY = 4;
-const MAX_POSTS_PER_HANDLE = 6;
+// Per-handle cap. Bumped 6 → 25 alongside the cross-platform "show last
+// 500 items OR 7 days" upgrade. Bluesky + Mastodon RSS feeds typically
+// return 20-50 posts per fetch — 25 is the realistic ceiling without
+// paginated chaining and keeps a single handle from dominating the page.
+const MAX_POSTS_PER_HANDLE = 25;
 const MAX_TEXT_LEN = 400;
 
 type Platform = 'bluesky' | 'mastodon';
@@ -332,7 +336,7 @@ export async function fetchXFeed(): Promise<XFeedResponse> {
   };
 }
 
-export const X_FEED_CACHE_KEY = 'https://x-feed-cache.internal/v6-instances';
+export const X_FEED_CACHE_KEY = 'https://x-feed-cache.internal/v7-25pc';
 
 export async function xFeedHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;

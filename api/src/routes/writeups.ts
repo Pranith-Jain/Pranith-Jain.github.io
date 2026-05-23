@@ -1,6 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { WRITEUP_SOURCES, type WriteupSourceSpec, type SourceTier } from '../lib/writeup-sources';
+import { WRITEUP_SOURCES, type WriteupSourceSpec } from '../lib/writeup-sources';
 
 /**
  * Source labels marked as `tier: 'signal'`. Computed once at module load
@@ -33,14 +33,23 @@ const SIGNAL_LABELS: Set<string> = new Set(
 // added Red Canary / Rapid7 / Securelist / Datadog Security Labs / ThreatSignal.
 // Bumping the version busts the cache once on deploy so new sources show
 // up immediately rather than waiting for the 1h TTL.
-export const WRITEUPS_CACHE_KEY = 'https://writeups-cache.internal/v10-tier-split';
+// Bumped v10 → v11 alongside MAX_ITEMS 150→500, MAX_PER_SOURCE 15→30, and
+// the 7d cutoff filter applied to the post-dedup merged list.
+export const WRITEUPS_CACHE_KEY = 'https://writeups-cache.internal/v11-7d-window';
 const CACHE_KEY = WRITEUPS_CACHE_KEY;
 const CACHE_TTL_SECONDS = 3600;
 const FETCH_TIMEOUT_MS = 12_000;
-/** Hard cap on total items in the response (post-merge, post-sort). */
-const MAX_ITEMS = 150;
-/** Per-source cap so a single chatty feed (e.g. Huntress at ~600 items) can't drown the rest. */
-const MAX_PER_SOURCE = 15;
+/** Hard cap on total items in the response (post-merge, post-sort).
+ *  Bumped from 150 → 500 so the firehose surfaces a meaningful 7-day
+ *  sample across ~30 sources without saturating a single chatty feed. */
+const MAX_ITEMS = 500;
+/** Per-source cap so a single chatty feed (e.g. Huntress at ~600 items)
+ *  can't drown the rest. Raised in step with MAX_ITEMS. */
+const MAX_PER_SOURCE = 30;
+/** Drop items older than this many days from the published-aware sort.
+ *  Older items are still kept in the per-source fetch (so we don't
+ *  re-pull them on the next miss) but won't be merged into the response. */
+const MAX_ITEM_AGE_DAYS = 7;
 
 export interface Writeup {
   title: string;
@@ -326,11 +335,20 @@ export async function fetchWriteups(): Promise<WriteupsResponse> {
     deduped.push(it);
   }
 
+  // Filter to the 7d window. Undated items are kept so the firehose
+  // doesn't go empty when an upstream feed strips dates.
+  const cutoff = Date.now() - MAX_ITEM_AGE_DAYS * 86_400_000;
+  const recent = deduped.filter((it) => {
+    if (!it.published) return true;
+    const t = Date.parse(it.published);
+    return !Number.isFinite(t) || t >= cutoff;
+  });
+
   return {
     generated_at: new Date().toISOString(),
     sources: sourceMeta,
-    total: deduped.length,
-    items: roundRobinBySource(deduped, MAX_ITEMS),
+    total: recent.length,
+    items: roundRobinBySource(recent, MAX_ITEMS),
   };
 }
 

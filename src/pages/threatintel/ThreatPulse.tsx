@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Activity, Crosshair, Shield, Bug, Hash, Copy, Check, Layers } from 'lucide-react';
+import { ArrowLeft, Activity, Crosshair, Shield, Bug, Hash, Copy, Check, Layers, RefreshCw } from 'lucide-react';
 import { DataState } from '../../components/DataState';
 
 interface PulseEntity {
@@ -77,25 +77,30 @@ export default function ThreatPulse(): JSX.Element {
   const [error, setError] = useState<string | null>(null);
   const [kindFilter, setKindFilter] = useState<string | null>(null);
   const [minSources, setMinSources] = useState(2);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
+    const ctrl = new AbortController();
+    setLoading(true);
+    setError(null);
     (async () => {
       try {
-        const r = await fetch('/api/v1/threat-pulse');
+        const r = await fetch('/api/v1/threat-pulse', { signal: ctrl.signal });
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         const j = (await r.json()) as PulseResponse;
         if (!cancelled) setData(j);
       } catch (e) {
-        if (!cancelled) setError((e as Error).message);
+        if (!cancelled && (e as { name?: string }).name !== 'AbortError') setError((e as Error).message);
       } finally {
         if (!cancelled) setLoading(false);
       }
     })();
     return () => {
       cancelled = true;
+      ctrl.abort();
     };
-  }, []);
+  }, [refreshKey]);
 
   const filtered = useMemo(() => {
     if (!data) return [];
@@ -138,9 +143,19 @@ export default function ThreatPulse(): JSX.Element {
       </BackLink>
 
       <header className="mb-6">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 inline-flex items-center gap-3 text-slate-900 dark:text-white">
-          <Activity size={28} className="text-brand-600 dark:text-brand-400" /> Cross-source threat pulse
-        </h1>
+        <div className="flex flex-wrap items-start justify-between gap-3 mb-2">
+          <h1 className="text-3xl sm:text-4xl font-display font-bold inline-flex items-center gap-3 text-slate-900 dark:text-white">
+            <Activity size={28} className="text-brand-600 dark:text-brand-400" /> Cross-source threat pulse
+          </h1>
+          <button
+            type="button"
+            onClick={() => setRefreshKey((k) => k + 1)}
+            className="text-[11px] font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1 mt-1"
+            aria-label="Refresh threat pulse"
+          >
+            <RefreshCw size={11} /> refresh
+          </button>
+        </div>
         <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed max-w-3xl">
           Entities mentioned across multiple independent intelligence surfaces simultaneously. Higher cross-source count
           = higher confidence that this is a real, active threat. Scans Reddit (16 subs), Bluesky (16 researchers),

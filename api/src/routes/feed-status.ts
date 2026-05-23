@@ -21,6 +21,7 @@ import { rlProxyCacheKey } from './ransomwarelive';
 import { NEGOTIATIONS_CACHE_KEY } from './negotiations';
 import { STEALER_FORUM_INTEL_CACHE_KEY } from './stealer-forum-intel';
 import { BREACH_FORUMS_CACHE_KEY } from './breach-forums';
+import { INTEL_BUNDLE_CACHE_KEY } from './intel-bundle';
 
 /**
  * Feed-status dashboard. Reads every per-feed edge-cache entry directly
@@ -577,6 +578,53 @@ const PROBES: FeedProbeSpec[] = [
         status,
         reason: rows > 0 ? `${rows} forums (${dir} from directory)` : 'no rows',
         metrics: { rows, directory: dir },
+        ageS,
+      };
+    },
+  },
+  {
+    id: 'intel-bundle',
+    label: 'STIX 2.1 intel-bundle pipeline',
+    page_path: '/threatintel',
+    api_path: '/api/v1/intel-bundle',
+    cache_key: INTEL_BUNDLE_CACHE_KEY,
+    evaluate: (body) => {
+      const ageS = ageSeconds(strField(body, 'generated_at'));
+      const bundles = intField(body, 'bundles') ?? 0;
+      const iocs = intField(body, 'ioc_total') ?? 0;
+      const actors = intField(body, 'actor_total') ?? 0;
+      const malware = intField(body, 'malware_total') ?? 0;
+      // Bulk-enrich budget telemetry from the most recent build. Sustained
+      // high `last_dropped` is the signal that MAX_FRESH_SUBREQUESTS=35 is
+      // biting and the cap (or the provider list) needs retuning.
+      const lastFresh = intField(body, 'last_fresh_subrequests') ?? 0;
+      const lastDropped = intField(body, 'last_dropped_subrequests') ?? 0;
+      const lastOverflow = intField(body, 'last_overflow') ?? 0;
+      let status: Status = bundles > 0 ? 'ok' : 'cold';
+      // Heavy drop ratio on the latest build → degraded. Bundles still
+      // ship, but a meaningful share of provider depth was sheared off.
+      if (status === 'ok' && lastFresh + lastDropped > 0) {
+        const dropRatio = lastDropped / (lastFresh + lastDropped);
+        if (dropRatio >= 0.5) status = 'degraded';
+      }
+      const reason =
+        bundles > 0
+          ? `${bundles} bundles · ${iocs} IoCs · ${actors} actors · ${malware} malware` +
+            (lastDropped > 0 ? ` · ${lastDropped} provider lookups dropped on last build` : '') +
+            (lastOverflow > 0 ? ` · ${lastOverflow} IoCs overflowed` : '')
+          : 'no bundles yet (open any /threatintel page to warm)';
+      return {
+        status,
+        reason,
+        metrics: {
+          bundles,
+          ioc_total: iocs,
+          actor_total: actors,
+          malware_total: malware,
+          last_fresh_subrequests: lastFresh,
+          last_dropped_subrequests: lastDropped,
+          last_overflow: lastOverflow,
+        },
         ageS,
       };
     },

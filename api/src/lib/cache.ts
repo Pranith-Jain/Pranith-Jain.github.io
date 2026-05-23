@@ -11,6 +11,32 @@ const TTL_BY_TYPE: Record<IndicatorType, number> = {
   unknown: 3600,
 };
 
+// Per-provider TTL overrides (seconds). When set, takes precedence over the
+// type-based default. Tuned by data velocity:
+//   - Live blocklists (urlhaus, threatfox, openphish) — short TTL: a phish
+//     URL or active C2 may be taken down within hours.
+//   - Aggregated daily lists (cinsarmy, ipsum, sslbl, c2tracker, tor, …) —
+//     long TTL: the upstream itself refreshes once a day, so caching past
+//     the type-default isn't lying about freshness.
+//   - Static / known-good (hashlookup/NSRL) — week+: file hashes are immutable.
+const TTL_OVERRIDES: Partial<Record<ProviderId, number>> = {
+  urlhaus: 1800,
+  threatfox: 1800,
+  openphish: 1800,
+  sslbl: 14400,
+  cinsarmy: 14400,
+  ipsum: 14400,
+  c2tracker: 14400,
+  blocklistde: 14400,
+  binarydefense: 14400,
+  bitwire: 14400,
+  phishingArmy: 14400,
+  tor: 14400,
+  malwareworld: 14400,
+  spamhaus: 14400,
+  hashlookup: 604800,
+};
+
 /**
  * Per-provider IOC result cache.
  *
@@ -27,7 +53,11 @@ export class ProviderCache {
   // sites compile without change. Not actually used.
   constructor(_kv?: KVNamespace) {}
 
-  static ttlSeconds(type: IndicatorType): number {
+  static ttlSeconds(type: IndicatorType, provider?: ProviderId): number {
+    if (provider) {
+      const override = TTL_OVERRIDES[provider];
+      if (override !== undefined) return override;
+    }
     return TTL_BY_TYPE[type];
   }
 
@@ -50,7 +80,7 @@ export class ProviderCache {
 
   async set(provider: ProviderId, indicator: Indicator, value: ProviderResult): Promise<void> {
     try {
-      const ttl = ProviderCache.ttlSeconds(indicator.type);
+      const ttl = ProviderCache.ttlSeconds(indicator.type, provider);
       const response = new Response(JSON.stringify(value), {
         headers: {
           'content-type': 'application/json',

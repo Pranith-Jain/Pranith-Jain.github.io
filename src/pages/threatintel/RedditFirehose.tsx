@@ -4,6 +4,7 @@ import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ExternalLink, MessageSquare, RefreshCw, Search, Sparkles } from 'lucide-react';
 import { useLastVisit, isNewSince } from '../../hooks';
 import { DataState } from '../../components/DataState';
+import { FeedAggregateCard } from '../../components/intel/FeedAggregateCard';
 
 interface RedditFeedItem {
   sub: string;
@@ -224,6 +225,21 @@ export default function RedditFirehose(): JSX.Element {
             <span className="text-amber-600 dark:text-amber-400 ml-2">· {data.warnings.length} feed warnings</span>
           )}
         </p>
+      )}
+
+      {/* Aggregate STIX 2.1 view across the visible Reddit posts. Each post
+          on its own is short; pooling captures the actors / malware / CVEs
+          discussed across the visible cybersec subs today. */}
+      {filtered.length > 0 && (
+        <FeedAggregateCard
+          sourceId="reddit"
+          sourceName="Reddit cybersec firehose"
+          title="Reddit firehose · today"
+          items={filtered.map((it) => ({
+            title: it.title,
+            body: `${it.sub_label} · ${it.text ?? ''}`,
+          }))}
+        />
       )}
 
       <DataState

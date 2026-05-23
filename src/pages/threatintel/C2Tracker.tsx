@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Radar } from 'lucide-react';
+import { ArrowLeft, Radar, RefreshCw } from 'lucide-react';
 import { DataState } from '../../components/DataState';
 
 interface C2Entry {
@@ -54,10 +54,14 @@ export default function C2Tracker(): JSX.Element {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [filter, setFilter] = useState<string>('all');
+  const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
-    fetch('/api/v1/c2-tracker')
+    const ctrl = new AbortController();
+    setLoading(true);
+    setError(null);
+    fetch('/api/v1/c2-tracker', { signal: ctrl.signal })
       .then((r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         return r.json() as Promise<C2Data>;
@@ -65,16 +69,17 @@ export default function C2Tracker(): JSX.Element {
       .then((d) => {
         if (!cancelled) setData(d);
       })
-      .catch((e: Error) => {
-        if (!cancelled) setError(e.message);
+      .catch((e: { name?: string; message?: string }) => {
+        if (!cancelled && e.name !== 'AbortError') setError(e.message ?? 'unknown');
       })
       .finally(() => {
         if (!cancelled) setLoading(false);
       });
     return () => {
       cancelled = true;
+      ctrl.abort();
     };
-  }, []);
+  }, [refreshKey]);
 
   const filtered = data ? (filter === 'all' ? data.entries : data.entries.filter((e) => e.framework === filter)) : [];
   const frameworks = data ? Object.keys(data.frameworks).sort() : [];
@@ -105,7 +110,17 @@ export default function C2Tracker(): JSX.Element {
             <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
               <div className="flex flex-wrap items-baseline justify-between gap-3 mb-4">
                 <h2 className="font-display font-bold text-xl">Active C2 infrastructure</h2>
-                <span className="text-xs font-mono text-slate-500">{data.count} IPs tracked</span>
+                <div className="flex items-center gap-3">
+                  <span className="text-xs font-mono text-slate-500">{data.count} IPs tracked</span>
+                  <button
+                    type="button"
+                    onClick={() => setRefreshKey((k) => k + 1)}
+                    className="text-[11px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1"
+                    aria-label="Refresh C2 tracker"
+                  >
+                    <RefreshCw size={11} /> refresh
+                  </button>
+                </div>
               </div>
               {/* Source bar */}
               <div className="flex flex-wrap items-center gap-3 mb-4 pb-4 border-b border-slate-200 dark:border-slate-800">

@@ -137,7 +137,9 @@ function RawJson({ value }: { value: unknown }) {
 }
 
 export default function Infostealer(): JSX.Element {
-  const [tab, setTab] = useState<TabId>('markets');
+  // Default tab is "hudsonrock" — the headline PRO source. The previous
+  // default ('markets') was a leftover from the demo build.
+  const [tab, setTab] = useState<TabId>('hudsonrock');
   const [hr, setHr] = useState<unknown>(null);
   const [hrErr, setHrErr] = useState<string | null>(null);
   const [markets, setMarkets] = useState<MarketItem[] | null>(null);
@@ -149,26 +151,28 @@ export default function Infostealer(): JSX.Element {
 
   useEffect(() => {
     let alive = true;
+    const ctrl = new AbortController();
     setLoading(true);
+    const opts = { signal: ctrl.signal } as const;
     Promise.allSettled([
-      fetch('/api/v1/rl/infostealer').then((r) => r.json().then((j) => ({ ok: r.ok, j }))),
-      fetch('/api/v1/cyber-crime').then(async (r) => {
+      fetch('/api/v1/rl/infostealer', opts).then((r) => r.json().then((j) => ({ ok: r.ok, j }))),
+      fetch('/api/v1/cyber-crime', opts).then(async (r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         return r.json();
       }),
-      fetch('/api/v1/deepdarkcti').then(async (r) => {
+      fetch('/api/v1/deepdarkcti', opts).then(async (r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         return r.json();
       }),
-      fetch('/api/v1/malware-samples').then(async (r) => {
+      fetch('/api/v1/malware-samples', opts).then(async (r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         return r.json();
       }),
-      fetch('/api/v1/live-iocs').then(async (r) => {
+      fetch('/api/v1/live-iocs', opts).then(async (r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         return r.json();
       }),
-      fetch('/api/v1/stealer-forum-intel').then(async (r) => {
+      fetch('/api/v1/stealer-forum-intel', opts).then(async (r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         return r.json();
       }),
@@ -253,6 +257,7 @@ export default function Infostealer(): JSX.Element {
     });
     return () => {
       alive = false;
+      ctrl.abort();
     };
   }, []);
 

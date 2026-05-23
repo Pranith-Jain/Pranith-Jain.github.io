@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Copy, ExternalLink, RefreshCw, ShieldAlert } from 'lucide-react';
 import { DataState } from '../../components/DataState';
+import { FeedAggregateCard } from '../../components/intel/FeedAggregateCard';
 
 /**
  * Breach / leak-forum tracker. Intelligence ABOUT forums only — directory
@@ -108,6 +109,21 @@ export default function BreachForums(): JSX.Element {
           <RefreshCw size={12} /> refresh
         </button>
       </section>
+
+      {/* Aggregate STIX 2.1 view of the tracker — actor names + notes
+          surface known threat actors and category context. Hard rule:
+          intelligence-about only; never forum content. */}
+      {data && data.rows.length > 0 && (
+        <FeedAggregateCard
+          sourceId="breach-forums"
+          sourceName="Breach / leak-forum tracker"
+          title="Breach-forum tracker · today"
+          items={data.rows.map((r) => ({
+            title: r.name,
+            body: `${r.category} · ${r.status} · ${r.note ?? ''}`,
+          }))}
+        />
+      )}
 
       <DataState
         loading={loading}

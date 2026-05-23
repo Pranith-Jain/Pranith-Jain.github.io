@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ChevronDown, ChevronRight, Handshake, RefreshCw } from 'lucide-react';
 import { DataState } from '../../components/DataState';
@@ -51,6 +51,8 @@ export default function Negotiations(): JSX.Element {
   const [refreshKey, setRefreshKey] = useState(0);
   const [expanded, setExpanded] = useState<string | null>(null);
   const [transcripts, setTranscripts] = useState<Record<string, TranscriptMsg[] | 'loading' | 'error'>>({});
+  // Track in-flight transcript fetches so we can abort them on unmount.
+  const transcriptCtrlRef = useRef<Map<string, AbortController>>(new Map());
   const [sortKey, setSortKey] = useState<SortKey>('date');
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc');
   const [groupFilter, setGroupFilter] = useState('all');
@@ -89,14 +91,30 @@ export default function Negotiations(): JSX.Element {
     setExpanded(k);
     if (transcripts[k]) return;
     setTranscripts((t) => ({ ...t, [k]: 'loading' }));
-    fetch(`/api/v1/negotiations/${encodeURIComponent(n.group)}/${encodeURIComponent(n.chat_id)}`)
+    const ctrl = new AbortController();
+    transcriptCtrlRef.current.set(k, ctrl);
+    fetch(`/api/v1/negotiations/${encodeURIComponent(n.group)}/${encodeURIComponent(n.chat_id)}`, {
+      signal: ctrl.signal,
+    })
       .then((r) => r.json().then((j) => ({ ok: r.ok, j })))
       .then(({ ok, j }) => {
         const msgs = (j as { messages?: TranscriptMsg[] }).messages;
         setTranscripts((t) => ({ ...t, [k]: ok && Array.isArray(msgs) ? msgs : 'error' }));
       })
-      .catch(() => setTranscripts((t) => ({ ...t, [k]: 'error' })));
+      .catch((e: { name?: string }) => {
+        if (e.name === 'AbortError') return;
+        setTranscripts((t) => ({ ...t, [k]: 'error' }));
+      })
+      .finally(() => transcriptCtrlRef.current.delete(k));
   }
+
+  // Abort any in-flight transcript fetches when the component unmounts.
+  useEffect(() => {
+    return () => {
+      for (const c of transcriptCtrlRef.current.values()) c.abort();
+      transcriptCtrlRef.current.clear();
+    };
+  }, []);
 
   const groups = useMemo(
     () => [...new Set((data?.negotiations ?? []).map((n) => n.group))].sort((a, b) => a.localeCompare(b)),

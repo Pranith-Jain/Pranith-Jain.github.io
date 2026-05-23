@@ -49,21 +49,31 @@ export default function ExternalResources(): JSX.Element {
   // refreshKey bump triggers the effect; we also optimistically update local
   // state on writes so the UI doesn't flicker waiting for the refetch.
   const [refreshKey, setRefreshKey] = useState(0);
+  // Surface the fetch error so the analyst knows when community-contributed
+  // entries are missing because of an upstream/KV problem (rather than
+  // silently rendering only the curated static list).
+  const [dynamicError, setDynamicError] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
-    fetch('/api/v1/external-resources')
-      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`${r.status}`))))
+    const ctrl = new AbortController();
+    setDynamicError(null);
+    fetch('/api/v1/external-resources', { signal: ctrl.signal })
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
       .then((j: { items?: DynamicEntry[] }) => {
         if (cancelled) return;
         setDynamicEntries((j.items ?? []).map((it) => ({ ...it, dynamic: true })));
       })
-      .catch(() => {
-        // Endpoint missing or KV unbound — treat as empty rather than blocking.
-        if (!cancelled) setDynamicEntries([]);
+      .catch((e: { name?: string; message?: string }) => {
+        if (cancelled || e.name === 'AbortError') return;
+        // Endpoint missing or KV unbound — keep the curated list usable but
+        // tell the user we couldn't load community entries.
+        setDynamicEntries([]);
+        setDynamicError(e.message ?? 'failed to load community entries');
       });
     return () => {
       cancelled = true;
+      ctrl.abort();
     };
   }, [refreshKey]);
 
@@ -276,6 +286,22 @@ export default function ExternalResources(): JSX.Element {
         Showing {filtered.length} of {merged.length}
         {featuredOnly && ' (featured quality resources)'}
       </p>
+
+      {dynamicError && (
+        <div
+          role="status"
+          className="mb-4 rounded-lg border border-amber-500/40 bg-amber-50 dark:bg-amber-950/30 px-3 py-2 font-mono text-[11px] text-amber-700 dark:text-amber-300"
+        >
+          Community-contributed entries couldn't be loaded ({dynamicError}). Showing curated list only.{' '}
+          <button
+            type="button"
+            onClick={() => setRefreshKey((k) => k + 1)}
+            className="underline hover:text-amber-900 dark:hover:text-amber-100"
+          >
+            retry
+          </button>
+        </div>
+      )}
 
       <ul className="grid gap-3 md:grid-cols-2">
         {filtered.map((r) => (

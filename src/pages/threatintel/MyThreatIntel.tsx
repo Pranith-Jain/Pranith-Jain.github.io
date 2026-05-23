@@ -203,6 +203,9 @@ export default function MyThreatIntel(): JSX.Element {
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
+    // Clear the previous source's data so the table doesn't show stale
+    // rows from tab N-1 while tab N is loading.
+    setData(null);
     setError(null);
     setNotConfigured(false);
     fetch(`/api/v1/mti?source=${source}&limit=300`)

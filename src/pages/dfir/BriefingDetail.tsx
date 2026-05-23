@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, ExternalLink, AlertTriangle, ShieldAlert } from 'lucide-react';
+import { IntelCard } from '../../components/intel/IntelCard';
 
 type Severity = 'critical' | 'high' | 'medium' | 'low' | 'unknown';
 
@@ -310,6 +311,24 @@ export default function BriefingDetail(): JSX.Element {
       .finally(() => setLoading(false));
   }, [slug]);
 
+  // Concatenate the briefing's narrative content into one body string the
+  // intel extractor can scan — executive summary + every finding's title +
+  // description. The flat-IoC tables further down stay as the human-friendly
+  // browsing surface; the card adds the structured STIX 2.1 view on top.
+  // Called before the conditional returns so it satisfies the rules-of-hooks
+  // ordering invariant across renders.
+  const intelBody = useMemo(() => {
+    if (!briefing) return '';
+    const parts: string[] = [briefing.executive_summary];
+    for (const s of briefing.sections) {
+      parts.push(`\n\n## ${s.title}\n${s.blurb}`);
+      for (const f of s.findings) {
+        parts.push(`\n### ${f.title}\n${f.description}`);
+      }
+    }
+    return parts.join('\n');
+  }, [briefing]);
+
   if (loading) {
     return (
       <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 sm:py-16 font-mono text-sm text-slate-500">
@@ -368,6 +387,24 @@ export default function BriefingDetail(): JSX.Element {
           <StatPill label="medium" value={stats.medium} accent="text-amber-600 dark:text-amber-400" />
           <StatPill label="low" value={stats.low} accent="text-emerald-600 dark:text-emerald-400" />
         </div>
+      </section>
+
+      {/* Structured STIX 2.1 intel view. Renders an enriched card backed by
+          /api/v1/intel-bundle — heuristic-extracted actors, malware, CVEs,
+          theme tags + bulk-enriched IoCs with risk scores. Falls back to
+          rendering nothing while loading so the Executive Summary still
+          carries the page on first paint. */}
+      <section className="mb-10">
+        <IntelCard
+          sourceId="briefings"
+          itemRef={briefing.slug}
+          item={{
+            title: briefing.title,
+            body: intelBody,
+            publishedAt: briefing.generated_at,
+          }}
+          fallback={null}
+        />
       </section>
 
       {/* Executive Summary */}

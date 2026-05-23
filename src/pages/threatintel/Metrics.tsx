@@ -688,21 +688,28 @@ export default function Metrics(): JSX.Element {
 
   const kevCadence = useMemo(() => {
     if (!state.cves) return [] as { label: string; value: number }[];
-    // Last 12 weeks of KEV adds, by ISO week.
-    const map = new Map<string, number>();
+    // Last 12 weeks of KEV adds, by ISO week. Key MUST include the year:
+    // late-December and early-January can both fall in ISO week 1 of
+    // their respective years and a bare `W${week}` key collapses them
+    // into one column. Use `YYYY-W##` for the map key but render the
+    // short `W##` form in the chart label.
+    const yearWeek = (d: Date) => `${d.getUTCFullYear()}-W${weekOfYear(d)}`;
+    const labelOf = (d: Date) => `W${weekOfYear(d)}`;
+    const map = new Map<string, { label: string; value: number }>();
     const now = new Date();
     for (let i = 11; i >= 0; i--) {
       const start = new Date(now.getTime() - i * 7 * 86400_000);
-      const key = `W${weekOfYear(start)}`;
-      map.set(key, 0);
+      map.set(yearWeek(start), { label: labelOf(start), value: 0 });
     }
     for (const c of state.cves) {
       if (!c.kev || !c.kev_added) continue;
       if (!withinDays(c.kev_added, 12 * 7)) continue;
-      const wk = `W${weekOfYear(new Date(c.kev_added))}`;
-      if (map.has(wk)) map.set(wk, (map.get(wk) ?? 0) + 1);
+      const d = new Date(c.kev_added);
+      const k = yearWeek(d);
+      const existing = map.get(k);
+      if (existing) existing.value += 1;
     }
-    return [...map.entries()].map(([label, value]) => ({ label, value }));
+    return [...map.values()];
   }, [state.cves]);
 
   const topPhishingBrands = useMemo<HBarItem[]>(() => {
@@ -1373,34 +1380,35 @@ export default function Metrics(): JSX.Element {
         </details>
       )}
 
-      {/* Related-surfaces footer (replaces the old "what's missing / shipped" changelog) */}
+      {/* Related-surfaces footer. Plain <a> caused full-page reloads —
+          use <Link> so router state survives the navigation. */}
       <section className="mt-10 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
         <h3 className="font-display font-semibold text-sm mb-3">Related surfaces</h3>
         <div className="grid sm:grid-cols-2 gap-2 text-[12px] font-mono">
-          <a
-            href="/threatintel/correlation"
+          <Link
+            to="/threatintel/correlation"
             className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 text-slate-700 dark:text-slate-300"
           >
             Cross-source IOC correlation →
-          </a>
-          <a
-            href="/threatintel/actor-timeline"
+          </Link>
+          <Link
+            to="/threatintel/actor-timeline"
             className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 text-slate-700 dark:text-slate-300"
           >
             Actor activity timeline + MITRE TTPs →
-          </a>
-          <a
-            href="/threatintel/re-leaks"
+          </Link>
+          <Link
+            to="/threatintel/re-leaks"
             className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 text-slate-700 dark:text-slate-300"
           >
             Victim re-leak detection →
-          </a>
-          <a
-            href="/threatintel/live-iocs"
+          </Link>
+          <Link
+            to="/threatintel/live-iocs"
             className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 text-slate-700 dark:text-slate-300"
           >
             Live IOC stream →
-          </a>
+          </Link>
         </div>
       </section>
 
