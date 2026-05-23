@@ -22,8 +22,15 @@ import type { Env } from '../env';
 const FETCH_TIMEOUT_MS = 12_000;
 const CACHE_TTL = 30 * 60; // 30 minutes
 const CONCURRENCY = 4;
-/** Per-channel cap. Channel HTML returns ~20 messages — keep latest 8. */
-const MAX_MESSAGES_PER_CHANNEL = 8;
+/** Per-channel cap. Channel HTML preview surfaces ~20 messages — keep the
+ *  full preview window. Combined with the 7d cutoff below, this lifts the
+ *  page from ~176 messages → up to ~440 across 22 channels with newer
+ *  ones bubbling to the top naturally. */
+const MAX_MESSAGES_PER_CHANNEL = 20;
+/** Drop messages older than this many days. Telegram channels post at
+ *  human cadence; anything older than a week is stale by the standards
+ *  of a "today's intel" surface. */
+const MAX_MESSAGE_AGE_DAYS = 7;
 /** Truncate per-message text. Long posts (full IR write-ups) are still followable via permalink. */
 const MAX_TEXT_LEN = 800;
 
@@ -144,12 +151,22 @@ const CHANNELS: ChannelSpec[] = [
     blurb: 'Spanish CTI firehose — CVE + ransomware-victim alerts',
     topic: 'osint',
   },
-  // Breach / leak feeds
-  { handle: 'dataleak', name: 'DataLeak', blurb: 'Data-breach repost channel', topic: 'leaks' },
+  // Breach / leak / ransomware feeds — both replacements verified live
+  // 2026-05-23 (20 posts each in t.me/s/ preview):
+  //   - `dataleak`   was a low-quality repost channel (mixed signal, drama).
+  //   - `leakradar_io` went dead (0 posts in the preview view).
+  // FalconFeeds and RansomLook are defensive-CTI publishers with stable
+  // posting cadence and structured fields (victim / group / dates).
   {
-    handle: 'leakradar_io',
-    name: 'LeakRadar',
-    blurb: 'Official LeakRadar drops — fresh stealer logs, breach files, combolist availability alerts',
+    handle: 'falconfeedsio',
+    name: 'FalconFeeds.io',
+    blurb: 'Official FalconFeeds — ransomware victim tracker + breach announcements',
+    topic: 'leaks',
+  },
+  {
+    handle: 'RansomLook',
+    name: 'RansomLook',
+    blurb: 'Ransomware operator tracker — group claims, victims, leak-site activity',
     topic: 'leaks',
   },
   // News mirrors
@@ -295,8 +312,18 @@ function parseChannelHtml(html: string): ParsedMessage[] {
     if (text.length > MAX_TEXT_LEN) text = text.slice(0, MAX_TEXT_LEN - 1) + '…';
     out.push({ permalink, datetime, views, text });
   }
-  // Telegram renders oldest-first; keep the newest tail.
-  return out.slice(-MAX_MESSAGES_PER_CHANNEL).reverse();
+  // Telegram renders oldest-first. Filter to the last MAX_MESSAGE_AGE_DAYS
+  // window, then keep the newest MAX_MESSAGES_PER_CHANNEL — newest first.
+  const cutoff = Date.now() - MAX_MESSAGE_AGE_DAYS * 86_400_000;
+  const fresh = out.filter((m) => {
+    const t = Date.parse(m.datetime);
+    return Number.isFinite(t) && t >= cutoff;
+  });
+  // If a channel went silent for >7d we still want SOMETHING surfaced;
+  // fall back to the latest few raw messages so the channel isn't dropped
+  // entirely from the panel.
+  const pool = fresh.length > 0 ? fresh : out;
+  return pool.slice(-MAX_MESSAGES_PER_CHANNEL).reverse();
 }
 
 /**
@@ -442,7 +469,9 @@ export async function fetchTelegramFeed(): Promise<TelegramFeedResponse> {
 }
 
 /** Exported so /api/v1/snapshot can read the same cached payload directly. */
-export const TELEGRAM_FEED_CACHE_KEY = 'https://telegram-feed-cache.internal/v8-mythreatintel';
+// Bumped v8 → v9 alongside MAX_MESSAGES_PER_CHANNEL 8→20 and the 7d filter
+// so the next request abandons any cached payload built under the old caps.
+export const TELEGRAM_FEED_CACHE_KEY = 'https://telegram-feed-cache.internal/v9-7d-window';
 
 export async function telegramFeedHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;
