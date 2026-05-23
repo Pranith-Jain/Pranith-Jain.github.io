@@ -375,6 +375,13 @@ export const SECTIONS: Section[] = [
         icon: AtSign,
       },
       {
+        path: '/dfir/google-dorks',
+        useCase: 'Run Google search with operator hints to surface OSINT leads.',
+        label: 'Google Dorks',
+        desc: 'SerpAPI-backed · `site:` `inurl:` `filetype:` `intitle:` · 6 quick-start presets (exposed .env, paste leaks, SQL dumps, S3, GitHub) · edge-cached 1h to stretch the free SerpAPI tier',
+        icon: Search,
+      },
+      {
         path: '/dfir/wayback',
         useCase: 'Build an archive timeline for a URL.',
         label: 'Wayback Machine Pivot',
@@ -617,6 +624,13 @@ export const SECTIONS: Section[] = [
         label: 'STIX Viewer',
         desc: 'Drop a STIX 2.1 bundle · interactive relationship graph · validate + browse SDOs/SROs',
         icon: Share2,
+      },
+      {
+        path: '/dfir/stix-builder',
+        useCase: 'Turn a threat-report blurb, IoC list, or URL into a STIX 2.1 bundle.',
+        label: 'STIX Builder',
+        desc: 'Paste a brief / IoC list / URL → heuristic extraction + bulk-cache provider enrichment → strict STIX 2.1 bundle (importable into OpenCTI/MISP) + a rendered intel card',
+        icon: FileCheck,
       },
     ],
   },

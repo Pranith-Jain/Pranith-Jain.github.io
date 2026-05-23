@@ -65,7 +65,10 @@ const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>> = {
     hashlookup: 3,
     tweetfeed: 2,
   },
-  email: { otx: 1, virustotal: 1 },
+  // EmailRep is the only provider with first-class email signal — it pulls
+  // from breach data, blocklists, and reputation feeds. Weight it as the
+  // anchor for the email composite (matches abuseipdb's role for ipv4).
+  email: { otx: 1, virustotal: 1, emailrep: 4 },
   unknown: {},
 };
 
@@ -117,6 +120,11 @@ export function compositeScore(type: IndicatorType, results: ProviderResult[]): 
   const strongMalicious = ok.filter((r) => (weights[r.source] ?? 1) >= 2 && r.score >= 70).length;
   // Softer signal: any non-trivial flag from a weighted provider.
   const anySuspicious = ok.some((r) => (weights[r.source] ?? 1) >= 2 && r.score >= 40);
+  // Strong-clean signal: a high-weight provider explicitly classified the
+  // indicator as known-good (hashlookup hitting NSRL, principally). This is
+  // a far stronger statement than "not on my blocklist" — the indicator is
+  // in a curated legitimacy database. Single hit is enough.
+  const strongClean = ok.some((r) => (weights[r.source] ?? 1) >= 3 && r.score === 0 && r.verdict === 'clean');
 
   let score: number;
   if (strongMalicious >= 2) {
@@ -127,6 +135,20 @@ export function compositeScore(type: IndicatorType, results: ProviderResult[]): 
     score = Math.max(40, Math.round(weightedAvg));
   } else {
     score = Math.round(weightedAvg);
+  }
+
+  // Strong-clean down-weighting. Without this, a NSRL-known-good signal
+  // gets quietly averaged into 0 alongside other zeros and the bias floors
+  // above can push the verdict to 'suspicious' or even 'malicious' on a
+  // single contradicting hit — swallowing the clean evidence the analyst
+  // most needs to see. With a strong-clean signal present:
+  //   - 2+ strong-malicious still wins (true consensus conflict — surface it).
+  //   - 1 strong-malicious or any-suspicious: cap at 49 → 'suspicious' but
+  //     never 'malicious'. The clean signal is enough to demand more proof.
+  //   - Otherwise: cap at 39 → 'clean'. No conflicting evidence — honor NSRL.
+  if (strongClean && strongMalicious < 2) {
+    const cap = strongMalicious >= 1 || anySuspicious ? 49 : 39;
+    score = Math.min(score, cap);
   }
 
   let verdict: Verdict;

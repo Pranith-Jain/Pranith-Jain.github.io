@@ -61,6 +61,7 @@ const UrlPreview = lazy(() => import('./pages/dfir/UrlPreview'));
 const IocExtractor = lazy(() => import('./pages/dfir/IocExtractor'));
 const IocPivot = lazy(() => import('./pages/dfir/IocPivot'));
 const JwtInspect = lazy(() => import('./pages/dfir/JwtInspect'));
+const GoogleDorks = lazy(() => import('./pages/dfir/GoogleDorks'));
 const IamPolicyAnalyzer = lazy(() => import('./pages/dfir/IamPolicyAnalyzer'));
 const SecurityGroupAnalyzer = lazy(() => import('./pages/dfir/SecurityGroupAnalyzer'));
 const CloudTrailTriage = lazy(() => import('./pages/dfir/CloudTrailTriage'));
@@ -80,6 +81,7 @@ const Punycode = lazy(() => import('./pages/dfir/Punycode'));
 const Takeover = lazy(() => import('./pages/dfir/Takeover'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 const StixViewer = lazy(() => import('./pages/dfir/StixViewer'));
+const StixBuilder = lazy(() => import('./pages/dfir/StixBuilder'));
 const DarkWeb = lazy(() => import('./pages/dfir/DarkWeb'));
 const ThreatMap = lazy(() => import('./pages/dfir/ThreatMap'));
 const Rules = lazy(() => import('./pages/dfir/Rules'));
@@ -622,6 +624,16 @@ export function AppContent() {
         }
       />
       <Route
+        path="/dfir/google-dorks"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <GoogleDorks />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
         path="/dfir/iam-analyzer"
         element={
           <ErrorBoundary>
@@ -798,6 +810,26 @@ export function AppContent() {
           <ErrorBoundary>
             <Suspense fallback={<SectionLoader />}>
               <StixViewer />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/dfir/stix-builder"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <StixBuilder />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/dfir/stix-builder/b/:bundleId"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <StixBuilder />
             </Suspense>
           </ErrorBoundary>
         }

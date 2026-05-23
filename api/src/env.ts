@@ -22,6 +22,12 @@ export interface Env {
   URLSCAN_API_KEY?: string;
   HYBRID_ANALYSIS_API_KEY?: string;
   ABUSECH_AUTH_KEY?: string;
+  /** EmailRep.io API key. Optional — the free anonymous tier (~100 req/hr per IP)
+   *  works without; setting a key lifts the rate ceiling. */
+  EMAILREP_API_KEY?: string;
+  /** SerpAPI key for the Google-Dorks tool (`/dfir/google-dorks`). Required —
+   *  the tool route returns 503 when unset. */
+  SERPAPI_API_KEY?: string;
   DFIR_DEV_ERRORS?: string;
   DFIR_ANALYTICS?: AnalyticsEngineDataset;
   ADMIN_TOKEN: string;

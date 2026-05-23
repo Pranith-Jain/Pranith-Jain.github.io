@@ -35,6 +35,7 @@ import { sslbl } from '../providers/sslbl';
 import { yaraify } from '../providers/yaraify';
 import { phishtank } from '../providers/phishtank';
 import { malwareworld } from '../providers/malwareworld';
+import { emailrep } from '../providers/emailrep';
 import {
   PROVIDER_SUPPORT,
   PROVIDER_TIMEOUT_MS,
@@ -85,6 +86,7 @@ const ADAPTERS: Record<ProviderId, ProviderAdapter> = {
   yaraify,
   phishtank,
   malwareworld,
+  emailrep,
 };
 
 export async function iocCheckHandler(c: Context<{ Bindings: Env }>) {
