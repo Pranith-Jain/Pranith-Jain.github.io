@@ -219,8 +219,8 @@ export default function LiveIocs(): JSX.Element {
       </div>
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-4">
-        <div className="flex items-center gap-3">
-          <div className="relative flex-1">
+        <div className="flex flex-wrap items-center gap-3">
+          <div className="relative flex-1 min-w-[200px]">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
               type="search"
@@ -348,7 +348,7 @@ export default function LiveIocs(): JSX.Element {
         emptyLabel={
           query || kindFilter.size > 0 || sourceFilter.size > 0
             ? 'No indicators match the current filter.'
-            : 'No indicators in the current snapshot.'
+            : 'No indicators in the current snapshot. The cron repopulates this every 15 minutes — click refresh to re-pull.'
         }
         onRetry={() => setRefreshKey((k) => k + 1)}
         rows={8}

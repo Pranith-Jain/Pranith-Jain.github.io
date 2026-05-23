@@ -132,9 +132,9 @@ export default function Signal(): JSX.Element {
         <Radio size={28} className="text-brand-600 dark:text-brand-400" /> Research Signal
       </h1>
       <p className="text-slate-600 dark:text-slate-400 mb-1 max-w-3xl leading-relaxed">
-        Tight curated set of elite vendor labs and independent research outlets. ThreatSignal Research, The DFIR Report,
+        Curated set of vendor labs and independent research outlets. ThreatSignal Research, The DFIR Report,
         SentinelLabs, Unit 42, Check Point Research, Huntress, Eye Security, Exodus, OpenAnalysis, BushidoToken,
-        DoublePulsar. Low-volume sources, high-depth pieces.
+        DoublePulsar. Low-volume sources, longer-form pieces.
       </p>
       <p className="text-[12px] text-slate-500 dark:text-slate-500 font-mono mb-6">
         For the full ecosystem cut (including Medium tag feeds and the long tail), see{' '}
@@ -232,7 +232,7 @@ export default function Signal(): JSX.Element {
         emptyLabel={
           query.trim() || sourceFilter.size > 0
             ? 'No items match the current filter.'
-            : 'No items in the signal feed yet. Try refreshing.'
+            : 'No items in the snapshot. Feed refreshes hourly — click refresh to re-pull.'
         }
         onRetry={() => setRefreshKey((k) => k + 1)}
         rows={6}

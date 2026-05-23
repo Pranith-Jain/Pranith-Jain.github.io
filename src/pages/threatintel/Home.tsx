@@ -39,10 +39,10 @@ import { WhatsNewBanner } from '../../components/threatintel/WhatsNewBanner';
 import { PlatformPulse } from '../../components/threatintel/PlatformPulse';
 import { LatestBriefingCard } from '../../components/threatintel/LatestBriefingCard';
 import { TodaysRead } from '../../components/threatintel/TodaysRead';
+import { FeedSnapshot } from '../../components/threatintel/FeedSnapshot';
 import { personalInfo } from '../../data/content';
 import { AppHero } from '../../components/AppHero';
 import { AppFooter } from '../../components/AppFooter';
-import { StatBar } from '../../components/StatBar';
 
 /**
  * Threat-Intel landing page — the SOLE entry point for sources, feeds, RSS,
@@ -493,7 +493,7 @@ export default function ThreatIntelHome(): JSX.Element {
       <AppHero
         kicker="Privacy-first · Live edge feeds · No login · No tracking"
         title="Threat-intel platform"
-        sub="Live ransomware leak claims, CVE × CISA-KEV, malware-sample and phishing-URL streams, dark-web and social firehoses, daily briefings, ten-panel metrics and STIX 2.1 export. Aggregated at the edge and refreshed every visit."
+        sub="CTI aggregator and DFIR analyst toolkit, both running on Cloudflare Workers. Pulls from ~30 public feeds — ransomware leak sites, CVE/KEV, malware samples, phishing URLs, social and Telegram, MyThreatIntel — plus multi-provider IOC enrichment and STIX 2.1 export. Coverage is a sample, not exhaustive."
         meta={
           <>
             {totalTiles} intel surfaces · by{' '}
@@ -511,14 +511,7 @@ export default function ThreatIntelHome(): JSX.Element {
           </>
         }
       />
-      <StatBar
-        items={[
-          { label: 'Intel surfaces', value: String(totalTiles) },
-          { label: 'IOC feeds correlated', value: '18' },
-          { label: 'Live IOC sources', value: '12' },
-          { label: 'Refresh cadence', value: '30m–1h', mono: true },
-        ]}
-      />
+      <FeedSnapshot />
 
       {/* Quick links to power-user surfaces */}
       <div className="flex flex-wrap items-center gap-2 mb-12 text-[11px] font-mono text-slate-500 dark:text-slate-500">

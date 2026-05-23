@@ -1021,9 +1021,9 @@ export default function Metrics(): JSX.Element {
           <BarChart3 size={28} className="text-brand-600 dark:text-brand-400" /> Threat Intel Metrics
         </h1>
         <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-3xl leading-relaxed">
-          One opinionated weekly read, six narrative panels each with a written interpretation, and ten more analyst
-          panels available on demand. Everything is computed live in the browser from ten upstream feeds. Refresh to
-          recompute; headline counters show the ▲/▼ change since your last refresh.
+          Quantitative snapshot computed live in the browser from ten upstream feeds. One headline read, six narrative
+          panels with written interpretations, and ten more panels in the disclosure below. Headline counters show the
+          ▲/▼ change since your last refresh.
         </p>
       </div>
 
@@ -1094,8 +1094,15 @@ export default function Metrics(): JSX.Element {
       )}
 
       {state.error && (
-        <div className="rounded-lg border border-rose-500/40 bg-rose-500/5 p-4 font-mono text-sm text-rose-600 dark:text-rose-300">
-          Failed to load: {state.error}
+        <div className="rounded-lg border border-rose-500/40 bg-rose-500/5 p-4 font-mono text-sm text-rose-600 dark:text-rose-300 flex items-start justify-between gap-3">
+          <span>Failed to load: {state.error}</span>
+          <button
+            type="button"
+            onClick={() => setRefreshKey((k) => k + 1)}
+            className="shrink-0 text-xs font-mono px-3 py-1 rounded border border-rose-400/60 hover:bg-rose-500/10"
+          >
+            retry
+          </button>
         </div>
       )}
 

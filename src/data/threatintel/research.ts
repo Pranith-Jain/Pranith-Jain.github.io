@@ -372,10 +372,85 @@ The same cross-source consensus principle that drives the IOC correlation surfac
   published: true,
 };
 
+const PLATFORM_BUILD_NOTES: ResearchPost = {
+  slug: 'building-this-platform-may-2026',
+  title: 'Building this platform: the engineering choices that made a single-Worker CTI/DFIR site feasible',
+  excerpt:
+    'A look at the architectural decisions behind the platform — why Cloudflare Workers, what the KV/D1 split actually does, how the 30 upstream feeds stay inside the subrequest budget, and what I would change in a v2. Engineering notes, not a sales pitch.',
+  kicker: 'Platform engineering',
+  publishedAt: '2026-05-23',
+  readingTime: '8 min',
+  tags: ['Cloudflare Workers', 'Edge Architecture', 'CTI Engineering', 'Build Notes'],
+  body: `This is the engineering companion to the analyst pieces on this site. Everything else in /research is "what the data says." This one is "how the platform is built so the data is there to say anything at all." If you're looking at this for analyst signal, skip it. If you're sizing up whether the engineering work behind a personal CTI/DFIR platform is interesting, this is the read.
+
+## The shape of the problem
+
+The platform ingests around 30 public sources — ransomware leak sites via ransomlook, CVE/KEV from NVD and CISA, malware samples from MalwareBazaar, phishing URLs from OpenPhish and PhishTank, threat-IP feeds (ipsum, cinsarmy, SANS ISC, binary-defense), Cobalt Strike C2 trackers, Reddit/Bluesky/Mastodon for social, Telegram channel previews, plus the My Threat Intel API, deepdarkCTI, Have I Been Pwned, and ransomware.live. Each one is a separate HTTP source on a separate refresh cadence. Most have no auth; a few require keys. Every one of them needs to land in front of a user inside the read time the user is willing to wait.
+
+The naive architecture for this is a backend with a database, a periodic ingest worker, and a frontend that queries the database. That works. It also costs $30–$50 a month minimum, requires a separate ops surface for the database, and turns every analyst-facing page into a roundtrip through application code that has to serialize from SQL into JSON.
+
+The architecture I ended up with is one Cloudflare Worker, two KV namespaces (cache + case-study storage), one D1 database (for daily briefings only), and the frontend assets served from the same Worker. Total monthly cost on the current traffic: $0 (free tier).
+
+## Why one Worker, not many
+
+Workers have a 50-subrequest limit per request and a 30-second wall-clock budget. Naively that sounds like a constraint — surely thirty upstream feeds across thirty different pages need thirty backend services.
+
+In practice the constraint is the design. Almost no analyst-facing page actually needs more than a handful of upstreams. The threat-pulse page needs four (Reddit + Bluesky + Mastodon + Telegram). The IOC checker fans out to 26 providers but per-IOC, not per-page. The metrics page is the worst at twelve, but Promise.allSettled tolerates partial failure so the page renders even when two upstreams are slow.
+
+The structural benefit of a single Worker is that the cache becomes the system of record. Every upstream response goes into KV with a versioned key (e.g. \`cve-recent-cache.internal/v9-500-paged\`). The cron-driven population is decoupled from the request-driven read. A request that misses cache and waits on upstream is rare and recoverable; the common case is "KV hit, hand the cached blob to the client."
+
+The versioned cache keys are doing more work than they look. When the schema of a cached payload changes — say, when the CVE pagination changed from 150 single-page to 3×200 — bumping the version string invalidates the old cache *atomically*. There's no migration step. The old key ages out of KV's billing within 24 hours.
+
+## Where the 30-second wall clock actually hurts
+
+The honest answer: NVD. A single request for 500 CVEs from NVD averages 11 seconds and occasionally spikes past 30, which kills the Worker. Three parallel requests for 200 each, with \`Promise.allSettled\` for tolerance, stay well under the budget *and* return more total data. This is the kind of constraint-driven design change that's invisible from the analyst side but the difference between a page that loads and a page that times out.
+
+The other place the budget hurts is Telegram preview scraping. \`t.me/s/<handle>\` returns a static HTML page with ~30-50 messages. The Worker has to fetch and parse for each watched channel; with 16 channels and an average response time of 800ms, sequential fan-out exceeds the budget. The fix is bounded concurrency (4 channels in flight at a time) + edge cache (30 minutes). The bounded concurrency is the architectural part; the cache is the performance part.
+
+## What the KV/D1 split actually does
+
+KV is the cache for ingest output (~1ms read latency at the edge, eventually consistent on writes). D1 is SQLite, used only for daily briefings where the analyst-facing query is "give me the latest briefing for this date" — a transactional read with predicates, which is what SQL is for. The briefing tables hold ~30 days of structured CTI summaries; the rest of the platform's data lives in KV blobs.
+
+The decision rule: if the data shape is "give me the entire current blob and let the client filter," it goes in KV. If the data shape is "give me records where date=X and type=Y," it goes in D1. KV is faster and cheaper for the first; D1 is the right tool for the second. Mixing them isn't a smell, it's the natural fit.
+
+## What I would change in a v2
+
+Three concrete things:
+
+1. **Durable Objects for the case-study admin pipeline.** Right now the discover → plan → publish pipeline runs through KV reads + a Hono admin worker. The auth is a long-lived bearer in localStorage. A Durable Object per admin session with short-lived tokens, periodic re-auth, and audit logging would be the upgrade. The current setup is fine for a personal site, not for anything multi-tenant.
+
+2. **Replace the LLM extraction's Groq fallback with a single provider.** The platform currently uses both Workers AI (via env.AI) and Groq (via env.GROQ_API_KEY) for the LLM extraction pass over CTI text. The dual-provider logic adds complexity for diminishing returns; the next iteration would pick one and stick with it.
+
+3. **Move the manual case-study slug-uniqueness check off the write path.** Right now it does up to 50 KV reads in a loop when there's a slug collision. In practice collisions are rare, but the cost of each is visible. A separate slug-reservation table in D1 would resolve this in one query.
+
+## What the platform is not
+
+This is the honest disclosure. The platform aggregates 30 public sources and adds analytical structure (cross-source consensus, ATT&CK linking, STIX 2.1 export, daily briefings). It does not:
+
+- **Catch novel campaigns before vendor reporting.** It surfaces public data, not original sensors.
+- **Replace SpiderFoot or Maltego.** It doesn't pivot infrastructure relationships interactively.
+- **Replace a paid CTI provider like Recorded Future or Mandiant.** Those bundle exclusive sources, primary research, and 24/7 analyst support that an aggregator can't.
+- **Handle classified or commercially-sensitive inputs.** Everything that goes in is public; everything that comes out is shareable.
+
+What it does well: it consolidates a workflow that otherwise requires switching across thirty browser tabs, with cross-source correlation that no single tab provides. Whether that's worth your time is for the reader to decide.
+
+## Where the code lives
+
+The platform is a single Git repository. The Worker source lives under \`api/src/\` (Hono routes for each public surface, plus the case-study admin sub-app). The frontend lives under \`src/\` (Vite + React 18, SSR via \`vite build --ssr\` for crawlable HTML). The deployment is one \`wrangler deploy\` from the repo root, which builds the frontend, uploads the static assets, and ships the Worker that serves them.
+
+Three of the more reusable libraries — \`api/src/lib/stix-build.ts\`, \`extract.ts\`, and \`enrich-bulk.ts\` — have standalone READMEs co-located with the source. They were written with eventual extraction to standalone npm packages in mind; the READMEs document what would be involved.
+
+---
+
+*This post is the engineering complement to the analyst pieces elsewhere in /research. The numerical claims (subrequest limits, wall-clock budget, per-request latencies) are sourced to the [Cloudflare Workers platform documentation](https://developers.cloudflare.com/workers/platform/limits/) and to my own performance measurements; they are correct as of May 2026 and may change.*`,
+  published: true,
+};
+
 export const researchPosts: ResearchPost[] = [
   NOVA_LOCKBIT5_QILIN,
   IOC_CONSENSUS_NOISE_FLOOR,
   C2_FRAMEWORK_DOMINANCE,
+  PLATFORM_BUILD_NOTES,
   KEV_VENDOR_CONCENTRATION,
   LEAKS_VS_HIBP_METHODOLOGY,
 ];

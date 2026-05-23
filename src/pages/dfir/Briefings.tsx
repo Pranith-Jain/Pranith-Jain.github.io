@@ -178,7 +178,9 @@ export default function Briefings(): JSX.Element {
         )}
         {!loading && !error && filtered.length === 0 && (
           <p className="text-sm font-mono text-slate-400 py-10 text-center">
-            No briefings yet. The first daily briefing publishes at 00:05 UTC tomorrow.
+            {items.length === 0
+              ? 'No briefings indexed. Dailies publish 00:05 UTC; weeklies 00:15 UTC Monday.'
+              : 'No briefings match the current filter.'}
           </p>
         )}
 

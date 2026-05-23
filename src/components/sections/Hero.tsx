@@ -61,22 +61,22 @@ export function Hero() {
             <span className="font-bold text-slate-900 dark:text-white underline decoration-brand-500/30 underline-offset-4">
               Pranith Jain
             </span>
-            , a security analyst working phishing, BEC, and malware incidents across 150+ brands. The rest of the time I
-            ship the tools I wished I&apos;d had on shift — a 60+ tool{' '}
+            . Security analyst by day — phishing, BEC, and malware response across 150+ brands. The rest of the time I
+            build CTI and DFIR tooling on the side: a{' '}
             <Link
               to="/dfir"
               className="font-semibold text-brand-700 dark:text-brand-400 underline-offset-4 hover:underline"
             >
               DFIR toolkit
             </Link>{' '}
-            and a live, self-updating{' '}
+            and a{' '}
             <Link
               to="/threatintel"
               className="font-semibold text-brand-700 dark:text-brand-400 underline-offset-4 hover:underline"
             >
-              threat-intel platform
-            </Link>
-            , both edge-hosted on Cloudflare and free to use. Currently digging into AI security, NHI governance, and
+              threat-intel aggregator
+            </Link>{' '}
+            on Cloudflare Workers, free to use, no login. Currently digging into AI security, NHI governance, and
             detection engineering.
           </p>
 

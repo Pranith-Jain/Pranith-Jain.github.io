@@ -267,14 +267,23 @@ export default function RansomwareLive(): JSX.Element {
 
       {loading && <div className="font-mono text-sm text-slate-500">loading {active.label}…</div>}
       {error && (
-        <div className="rounded-lg border border-rose-500/40 bg-rose-500/10 p-4 font-mono text-sm text-rose-700 dark:text-rose-300">
-          {error}
+        <div className="rounded-lg border border-rose-500/40 bg-rose-500/10 p-4 font-mono text-sm text-rose-700 dark:text-rose-300 flex items-start justify-between gap-3">
+          <span>{error}</span>
+          <button
+            type="button"
+            onClick={refreshActive}
+            className="shrink-0 text-xs font-mono px-3 py-1 rounded border border-rose-400/60 hover:bg-rose-500/10"
+          >
+            retry
+          </button>
         </div>
       )}
       {env && !error && (
         <>
           {tab === 'stats' ? <StatsView data={env.data} /> : <ListView data={env.data} />}
-          <p className="font-mono text-[10px] text-slate-400 mt-3">fetched {env.fetched_at}</p>
+          <p className="font-mono text-[10px] text-slate-400 mt-3">
+            fetched {new Date(env.fetched_at).toLocaleString()}
+          </p>
         </>
       )}
     </div>
