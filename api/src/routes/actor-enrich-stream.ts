@@ -50,7 +50,9 @@ const ROTATION_CACHE_KEY = new Request('https://actor-otx-rotation.internal/v1')
 const ROTATION_TTL = 90 * 24 * 3600; // 90 days
 const DEFAULT_LIMIT = 10;
 const MAX_LIMIT = 50;
-const PER_ACTOR_TIMEOUT_MS = 12_000;
+// OTX `/search/pulses` is slow from CF egress (commonly 15–20s).
+// 25s leaves headroom under the 30s Workers wall-clock per subrequest.
+const PER_ACTOR_TIMEOUT_MS = 25_000;
 const SLUG_RE = /^[a-z0-9][a-z0-9_-]{0,63}$/;
 
 async function readRotationState(): Promise<RotationState> {
