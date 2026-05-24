@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { shouldWriteLastGood } from '../lib/lastgood-debounce';
 
 /**
  * Recent phishing URLs (PhishTank + OpenPhish).
@@ -130,8 +131,15 @@ function writeLastGood(
   const payload: LastGoodSlice = { urls, refreshed_at: new Date().toISOString() };
   const body = JSON.stringify(payload);
   const opts = { expirationTtl: LASTGOOD_TTL_SECONDS };
-  if (executionCtx) executionCtx.waitUntil(kv.put(kvKey, body, opts));
-  else void kv.put(kvKey, body, opts);
+  // Debounce: write at most once per 6h per key. Marker lives in
+  // caches.default so the throttle costs no KV.
+  const guarded = async () => {
+    if (await shouldWriteLastGood(`phishing:${kvKey}`)) {
+      await kv.put(kvKey, body, opts);
+    }
+  };
+  if (executionCtx) executionCtx.waitUntil(guarded());
+  else void guarded();
 }
 
 async function fetchOpenphish(): Promise<string | null> {

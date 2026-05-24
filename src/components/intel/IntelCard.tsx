@@ -101,9 +101,36 @@ interface CardChromeProps {
 }
 
 function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
+  // Cards default to collapsed (header + summary only). Counts shown
+  // inline as compact pills so analysts can decide whether to expand
+  // before paying the cost of reading every section. Keeps long pages
+  // (research, briefings) scannable instead of a wall of accordion-
+  // less detail.
+  const [expanded, setExpanded] = useState(false);
   const iocsByType = groupBy(view.iocs, (i) => i.type);
   const llm = view.llmEnrichment;
   const llmModelTail = llm?.modelUsed ? llm.modelUsed.split(':').pop() : null;
+
+  // Counts for the collapsed-state badges. Cheap to compute; rendered
+  // only when > 0 so a card with nothing to expand stays clean.
+  const counts = {
+    sectors: view.sectors?.length ?? 0,
+    actors: view.threatActors.length,
+    malware: view.malware.length,
+    cves: view.cves.length,
+    products: view.affectedProducts?.length ?? 0,
+    iocs: view.iocs.length,
+    attackPatterns: view.attackPatterns?.length ?? 0,
+  };
+  const hasAnyDetail =
+    counts.sectors +
+      counts.actors +
+      counts.malware +
+      counts.cves +
+      counts.products +
+      counts.iocs +
+      counts.attackPatterns >
+    0;
 
   return (
     <article className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-colors dark:border-slate-800 dark:bg-slate-900">
@@ -143,7 +170,27 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
         <p className="mt-3 text-sm leading-relaxed text-slate-700 dark:text-slate-300">{view.summary}</p>
       )}
 
-      {view.sectors && view.sectors.length > 0 && (
+      {hasAnyDetail && !expanded && (
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          {counts.sectors > 0 && <CountPill label="sectors" n={counts.sectors} />}
+          {counts.actors > 0 && <CountPill label="actor" n={counts.actors} />}
+          {counts.malware > 0 && <CountPill label="malware" n={counts.malware} />}
+          {counts.cves > 0 && <CountPill label="CVE" n={counts.cves} />}
+          {counts.products > 0 && <CountPill label="product" n={counts.products} />}
+          {counts.iocs > 0 && <CountPill label="IOC" n={counts.iocs} />}
+          {counts.attackPatterns > 0 && <CountPill label="technique" n={counts.attackPatterns} />}
+          <button
+            type="button"
+            onClick={() => setExpanded(true)}
+            className="ml-auto inline-flex items-center gap-1 rounded-md border border-slate-300 bg-white px-2.5 py-1 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
+            aria-expanded={false}
+          >
+            Show details
+          </button>
+        </div>
+      )}
+
+      {expanded && view.sectors && view.sectors.length > 0 && (
         <Section title="Sectors">
           <div className="flex flex-wrap gap-1.5">
             {view.sectors.map((s) => (
@@ -158,7 +205,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
         </Section>
       )}
 
-      {view.keywords.length > 0 && (
+      {expanded && view.keywords.length > 0 && (
         <div className="mt-3 flex flex-wrap gap-1.5">
           {view.keywords.map((k) => (
             <Badge key={k} tone="neutral" size="xs">
@@ -168,7 +215,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
         </div>
       )}
 
-      {view.threatActors.length > 0 && (
+      {expanded && view.threatActors.length > 0 && (
         <Section title="Threat actors">
           <div className="flex flex-wrap gap-2">
             {view.threatActors.map((a) => (
@@ -181,7 +228,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
         </Section>
       )}
 
-      {view.malware.length > 0 && (
+      {expanded && view.malware.length > 0 && (
         <Section title="Malware">
           <div className="flex flex-wrap gap-2">
             {view.malware.map((m) => (
@@ -194,7 +241,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
         </Section>
       )}
 
-      {view.cves.length > 0 && (
+      {expanded && view.cves.length > 0 && (
         <Section title="CVEs">
           <div className="flex flex-wrap gap-2">
             {view.cves.map((c) => (
@@ -214,7 +261,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
         </Section>
       )}
 
-      {view.attackPatterns && view.attackPatterns.length > 0 && (
+      {expanded && view.attackPatterns && view.attackPatterns.length > 0 && (
         <Section title="Attack patterns">
           <div className="flex flex-wrap gap-1.5">
             {view.attackPatterns.map((a) => (
@@ -229,7 +276,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
         </Section>
       )}
 
-      {view.affectedProducts && view.affectedProducts.length > 0 && (
+      {expanded && view.affectedProducts && view.affectedProducts.length > 0 && (
         <Section title="Affected products">
           <ul className="space-y-1 text-xs">
             {view.affectedProducts.map((p) => (
@@ -241,7 +288,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
         </Section>
       )}
 
-      {view.iocs.length > 0 && (
+      {expanded && view.iocs.length > 0 && (
         <Section
           title={`Indicators (${view.iocs.length}${view.iocsOverflow.length ? ` + ${view.iocsOverflow.length} more` : ''})`}
         >
@@ -266,7 +313,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
         </Section>
       )}
 
-      {((view.actorCandidates?.length ?? 0) > 0 || (view.malwareCandidates?.length ?? 0) > 0) && (
+      {expanded && ((view.actorCandidates?.length ?? 0) > 0 || (view.malwareCandidates?.length ?? 0) > 0) && (
         <details className="mt-4 rounded border border-dashed border-slate-300 bg-slate-50/50 p-3 text-xs dark:border-slate-700 dark:bg-slate-900/50">
           <summary className="cursor-pointer font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
             Suggested (unverified, LLM)
@@ -306,29 +353,51 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
         </details>
       )}
 
-      <footer className="mt-4 flex flex-wrap items-center gap-2 border-t border-slate-200 pt-3 text-xs dark:border-slate-800">
-        <a
-          href={exportBundleUrl(view.bundleId)}
-          // `download` hints at the browser-side filename; the server
-          // already sets a matching content-disposition so this is just
-          // belt-and-suspenders.
-          download={`${view.bundleId}.stix.json`}
-          rel="noopener"
-          className="inline-flex items-center rounded-md border border-slate-300 bg-white px-2.5 py-1 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
-        >
-          Download STIX 2.1
-        </a>
-        <a
-          href={`/dfir/stix-builder/b/${encodeURIComponent(view.bundleId)}`}
-          className="inline-flex items-center rounded-md border border-slate-300 bg-white px-2.5 py-1 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
-        >
-          Open in STIX Builder
-        </a>
-        <span className="ml-auto font-mono text-[10px] text-slate-400 dark:text-slate-500">
-          {view.bundleId.slice(0, 18)}…
-        </span>
-      </footer>
+      {expanded && (
+        <footer className="mt-4 flex flex-wrap items-center gap-2 border-t border-slate-200 pt-3 text-xs dark:border-slate-800">
+          <a
+            href={exportBundleUrl(view.bundleId)}
+            // `download` hints at the browser-side filename; the server
+            // already sets a matching content-disposition so this is just
+            // belt-and-suspenders.
+            download={`${view.bundleId}.stix.json`}
+            rel="noopener"
+            className="inline-flex items-center rounded-md border border-slate-300 bg-white px-2.5 py-1 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
+          >
+            Download STIX 2.1
+          </a>
+          <a
+            href={`/dfir/stix-builder/b/${encodeURIComponent(view.bundleId)}`}
+            className="inline-flex items-center rounded-md border border-slate-300 bg-white px-2.5 py-1 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
+          >
+            Open in STIX Builder
+          </a>
+          <button
+            type="button"
+            onClick={() => setExpanded(false)}
+            className="inline-flex items-center rounded-md border border-slate-300 bg-white px-2.5 py-1 font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
+            aria-expanded={true}
+          >
+            Hide details
+          </button>
+          <span className="ml-auto font-mono text-[10px] text-slate-400 dark:text-slate-500">
+            {view.bundleId.slice(0, 18)}…
+          </span>
+        </footer>
+      )}
     </article>
+  );
+}
+
+function CountPill({ label, n }: { label: string; n: number }): JSX.Element {
+  return (
+    <span className="inline-flex items-center gap-1 rounded border border-slate-200 bg-slate-50 px-2 py-0.5 text-[11px] font-mono text-slate-600 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-300">
+      <span className="font-semibold text-slate-900 dark:text-slate-100">{n}</span>
+      <span>
+        {label}
+        {n === 1 ? '' : 's'}
+      </span>
+    </span>
   );
 }
 

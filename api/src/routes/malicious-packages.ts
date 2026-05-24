@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { shouldWriteLastGood } from '../lib/lastgood-debounce';
 
 /**
  * Malicious-package directory backed by ossf/malicious-packages — the OpenSSF
@@ -141,9 +142,17 @@ export async function maliciousPackagesHandler(c: Context<{ Bindings: Env }>): P
     'Cache-Control': `public, max-age=${CACHE_TTL_SECONDS}`,
   });
   c.executionCtx.waitUntil(cache.put(cacheKey, response.clone()));
-  // Refresh the KV last-good so future 403s can serve stale instead of erroring.
+  // Refresh the KV last-good so future 403s can serve stale instead of
+  // erroring. Debounced via caches.default so we don't write on every
+  // cache-miss-success — once every few hours per ecosystem is plenty.
   if (kv) {
-    c.executionCtx.waitUntil(kv.put(kvKey, JSON.stringify(body), { expirationTtl: KV_LAST_GOOD_TTL_SECONDS }));
+    c.executionCtx.waitUntil(
+      (async () => {
+        if (await shouldWriteLastGood(`malicious-packages:${ecosystem}`)) {
+          await kv.put(kvKey, JSON.stringify(body), { expirationTtl: KV_LAST_GOOD_TTL_SECONDS });
+        }
+      })()
+    );
   }
   return response;
 }

@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { DDC_FILES, parseDDCFile, type DDCEntry, type DDCFileConfig } from '../lib/deepdarkcti-parser';
+import { shouldWriteLastGood } from '../lib/lastgood-debounce';
 
 /** Exported so /api/v1/feed-status can read the same cached payload directly. */
 export const DEEPDARKCTI_CACHE_KEY = 'https://deepdarkcti-cache.internal/v1';
@@ -65,11 +66,15 @@ async function resolveFile(
   if (fetchOk) {
     if (kv) {
       const payload: LastGoodSlice = { entries, refreshed_at: new Date().toISOString() };
-      const put = kv.put(lastGoodKey(cfg.file), JSON.stringify(payload), {
-        expirationTtl: LASTGOOD_TTL_SECONDS,
-      });
-      if (executionCtx) executionCtx.waitUntil(put);
-      else void put;
+      const guarded = async () => {
+        if (await shouldWriteLastGood(`ddcti:${cfg.file}`)) {
+          await kv.put(lastGoodKey(cfg.file), JSON.stringify(payload), {
+            expirationTtl: LASTGOOD_TTL_SECONDS,
+          });
+        }
+      };
+      if (executionCtx) executionCtx.waitUntil(guarded());
+      else void guarded();
     }
     return {
       entries,

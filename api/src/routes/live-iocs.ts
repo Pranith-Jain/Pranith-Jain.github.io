@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { shouldWriteLastGood } from '../lib/lastgood-debounce';
 import {
   parseTweetFeed,
   parseSansIsc,
@@ -419,11 +420,15 @@ export async function fetchLiveIocs(
 
   if (afDefacementsOk && kv) {
     executionCtx?.waitUntil(
-      kv.put(
-        AF_DEFACEMENTS_LASTGOOD_KEY,
-        JSON.stringify({ items: afDefacements, refreshed_at: new Date().toISOString() }),
-        { expirationTtl: LASTGOOD_TTL_SECONDS }
-      )
+      (async () => {
+        if (await shouldWriteLastGood('live-iocs:af-defacements')) {
+          await kv.put(
+            AF_DEFACEMENTS_LASTGOOD_KEY,
+            JSON.stringify({ items: afDefacements, refreshed_at: new Date().toISOString() }),
+            { expirationTtl: LASTGOOD_TTL_SECONDS }
+          );
+        }
+      })()
     );
   } else if (!afDefacementsOk && kv) {
     try {

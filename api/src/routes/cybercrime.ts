@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { CYBERCRIME_SOURCES, type CybercrimeSource } from '../lib/cybercrime-sources';
+import { shouldWriteLastGood } from '../lib/lastgood-debounce';
 import { fetchAFDatamarkets } from '../lib/andreafortuna-feeds';
 
 /**
@@ -277,9 +278,17 @@ export async function fetchCybercrime(
 
   if (afOk && kv) {
     executionCtx?.waitUntil(
-      kv.put(AF_DATAMARKETS_LASTGOOD_KEY, JSON.stringify({ items: afItems, refreshed_at: new Date().toISOString() }), {
-        expirationTtl: LASTGOOD_TTL_SECONDS,
-      })
+      (async () => {
+        if (await shouldWriteLastGood('cybercrime:af-datamarkets')) {
+          await kv.put(
+            AF_DATAMARKETS_LASTGOOD_KEY,
+            JSON.stringify({ items: afItems, refreshed_at: new Date().toISOString() }),
+            {
+              expirationTtl: LASTGOOD_TTL_SECONDS,
+            }
+          );
+        }
+      })()
     );
   } else if (!afOk && kv) {
     try {
