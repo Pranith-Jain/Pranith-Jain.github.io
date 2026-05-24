@@ -100,7 +100,12 @@ const PROBES: FeedProbeSpec[] = [
     cache_key: SNAPSHOT_CACHE_KEY,
     evaluate: (body) => {
       const ageS = ageSeconds(strField(body, 'generated_at'));
-      const sources = ['ransomware', 'telegram', 'onion', 'threat_map', 'rules', 'briefings'];
+      // Keep in sync with routes/snapshot.ts — the composite snapshot
+      // emits one top-level key per composer source. This list was
+      // stale (onion/threat_map/rules were retired in favour of
+      // scam/threat_intel/tech_ai) which made the probe report 3/6
+      // "down" despite every source being healthy.
+      const sources = ['ransomware', 'telegram', 'scam', 'threat_intel', 'tech_ai', 'briefings'];
       const okCount = sources.filter((k) => {
         const v = (body as Record<string, unknown>)[k];
         return v && typeof v === 'object' && (v as { ok?: boolean }).ok === true;

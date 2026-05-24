@@ -380,12 +380,28 @@ async function fetchC2Tracker(): Promise<C2Response> {
     frameworkCounts[e.framework] = (frameworkCounts[e.framework] ?? 0) + 1;
   }
 
+  // Stratified slice: cap each framework at PER_FRAMEWORK_CAP so the
+  // dominant family (cobaltstrike, ~2500 entries) doesn't crowd out
+  // every other framework's representation. Without this the flat
+  // top-500 slice shipped only cobaltstrike + a handful of metasploit
+  // and the FE framework filters for asyncrat / mythic / havoc / etc
+  // rendered 0 results despite the counts pill saying otherwise.
+  const PER_FRAMEWORK_CAP = 400;
+  const seenPerFw: Record<string, number> = {};
+  const sliced: C2Entry[] = [];
+  for (const e of merged) {
+    const used = seenPerFw[e.framework] ?? 0;
+    if (used >= PER_FRAMEWORK_CAP) continue;
+    seenPerFw[e.framework] = used + 1;
+    sliced.push(e);
+  }
+
   return {
     generated_at: new Date().toISOString(),
     count: merged.length,
     sources: sourceSummary,
     frameworks: frameworkCounts,
-    entries: merged.slice(0, 500),
+    entries: sliced,
   };
 }
 
@@ -393,9 +409,9 @@ async function fetchC2Tracker(): Promise<C2Response> {
 
 export async function c2TrackerHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;
-  // v7: added CPS, CriminalIP, TweetFeed sources + fixed ThreatFox/Feodo
-  // CSV quote-strip ordering bug (2026-05-24).
-  const cacheKey = new Request('https://c2-cache.internal/v7');
+  // v8: stratified entries slice (per-framework cap 400) so framework
+  // filters show real entries instead of 0 for non-cobaltstrike families.
+  const cacheKey = new Request('https://c2-cache.internal/v8');
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 

@@ -168,6 +168,10 @@ export default function CampaignGenerator(): JSX.Element {
   const tooLong = totalLen > 8_000;
   const empty = totalLen === 0;
 
+  // LLM calls can take 20–30s on cold colos; a 60s timeout absorbs
+  // tail latency without hanging the page forever on a stuck upstream.
+  const GENERATE_TIMEOUT_MS = 60_000;
+
   const generate = async () => {
     if (empty || tooLong) return;
     setLoading(true);
@@ -186,15 +190,39 @@ export default function CampaignGenerator(): JSX.Element {
             iocs: iocList,
           },
         }),
+        signal: AbortSignal.timeout(GENERATE_TIMEOUT_MS),
       });
-      const data = (await r.json()) as CampaignResponse | CampaignError;
-      if (!r.ok || 'error' in data) {
-        setError('error' in data ? data.error + (data.detail ? ` — ${data.detail}` : '') : `HTTP ${r.status}`);
+      const data = (await r.json().catch(() => null)) as CampaignResponse | CampaignError | null;
+      if (!r.ok || !data || 'error' in data) {
+        // User-friendly translation for the common error modes. Raw
+        // upstream messages ("model returned no parseable JSON",
+        // "rate_limited", "AI rate limited — try again in a few
+        // minutes") are confusing in an analyst UI; surface a clean
+        // explanation + the technical detail as a one-liner.
+        let msg: string;
+        if (r.status === 429) {
+          msg = 'Rate-limited. Generation is capped per minute to keep the LLM bill bounded — wait ~30s and try again.';
+        } else if (r.status === 502) {
+          msg =
+            'The LLM returned an unparseable response. Re-running usually succeeds; the model can occasionally emit text outside the JSON schema.';
+        } else if (data && 'error' in data) {
+          msg = data.error + (data.detail ? ` — ${data.detail}` : '');
+        } else {
+          msg = `HTTP ${r.status}`;
+        }
+        setError(msg);
       } else {
         setResult(data);
       }
     } catch (e) {
-      setError((e as Error).message);
+      const err = e as Error;
+      if (err.name === 'AbortError' || err.name === 'TimeoutError') {
+        setError(
+          `The LLM took longer than ${GENERATE_TIMEOUT_MS / 1000}s to respond. Try again — the call usually succeeds on a warm colo.`
+        );
+      } else {
+        setError(err.message);
+      }
     } finally {
       setLoading(false);
     }

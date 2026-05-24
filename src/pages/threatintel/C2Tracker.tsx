@@ -99,9 +99,11 @@ export default function C2Tracker(): JSX.Element {
           <Radar size={28} className="text-brand-600 dark:text-brand-400" /> C2 Infrastructure Tracker
         </h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
-          Aggregated live C2 server infrastructure from C2IntelFeeds (drb-ra), ThreatFox (abuse.ch), and Feodo Tracker
-          (abuse.ch). Cross-check individual IPs via the IOC Checker. Feodo Tracker's dataset is upstream-limited —
-          abundance.ch reports their dataset as currently sparse.
+          Aggregated live C2 server infrastructure deduped across six independent feeds: C2IntelFeeds (drb-ra),
+          ThreatFox (abuse.ch), Feodo Tracker (abuse.ch), CriticalPathSecurity Public-Intelligence-Feeds, CriminalIP
+          C2-Daily-Feed, and TweetFeed (#C2-tagged tweets). Each framework family is fairly sampled so filters like
+          asyncrat or havoc show real entries even when cobaltstrike dominates the total. Cross-check individual IPs via
+          the IOC Checker.
         </p>
       </div>
 
@@ -155,7 +157,8 @@ export default function C2Tracker(): JSX.Element {
                 ))}
               </div>
               <p className="text-xs font-mono text-slate-500 mt-3">
-                Sources: C2IntelFeeds · ThreatFox · Feodo Tracker — cached 30 min
+                Sources: C2IntelFeeds · ThreatFox · Feodo · CriticalPathSecurity · CriminalIP · TweetFeed — cached 30
+                min
               </p>
             </section>
 
