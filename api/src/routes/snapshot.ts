@@ -40,11 +40,12 @@ const CACHE_TTL = 60 * 60;
 // stuck in them from the prior upstream outage; the user reported the
 // "Right now / Ransomware: load error: upstream error" card persisting
 // for the full snapshot TTL.
-// v14: 2026-05-25 — ransomware composer falls back to an internal fetch
-// of /api/v1/ransomware-recent when the edge-cache is cold, instead of
-// returning the empty placeholder that made "Right now / Ransomware"
-// render "0 claims · 0 total tracked" on cold colos.
-export const SNAPSHOT_CACHE_KEY = 'https://snapshot-cache.internal/v14-rw-internal-fetch';
+// v15: 2026-05-25 — ransomware composer now THROWS on empty (instead of
+// returning a placeholder that safe() treats as ok:true). That trips
+// the `criticalOk=false` branch and shortens the snapshot TTL to 5min
+// so an unlucky colo retries quickly instead of pinning "0 claims" for
+// the full 1h TTL.
+export const SNAPSHOT_CACHE_KEY = 'https://snapshot-cache.internal/v15-rw-throw-on-empty';
 
 /** Curated feed URLs — kept in sync with the constants the panel used to use. */
 const SCAM_FEED_URLS = ['https://consumer.ftc.gov/blog/rss', 'https://www.ic3.gov/CSA/RSS'];
@@ -147,18 +148,23 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
           signal: AbortSignal.timeout(15_000),
         });
         if (r.ok) {
-          return (await r.json()) as { generated_at: string; count: number; victims: unknown[] };
+          const data = (await r.json()) as { generated_at: string; count: number; victims: unknown[] };
+          // Treat empty as failure so `safe()` reports ok:false and the
+          // outer cache-policy logic shortens the snapshot TTL to 5min
+          // (instead of pinning an empty "0 claims" card for the full
+          // 1h CACHE_TTL across the colo).
+          if (data.count > 0 || (data.victims && data.victims.length > 0)) {
+            return data;
+          }
         }
       } catch {
-        /* fall through to empty placeholder */
+        /* fall through */
       }
-      // Internal fetch also failed → honest empty payload (FE renders
-      // "no recent claims" rather than "load error").
-      return {
-        generated_at: new Date().toISOString(),
-        count: 0,
-        victims: [] as unknown[],
-      };
+      // Internal fetch failed or returned empty. Throwing here flags the
+      // composer as failed in `safe()`, which trips the `criticalOk =
+      // false` branch below → 5min edge-cache TTL → next visitor in the
+      // same colo retries instead of being stuck for an hour.
+      throw new Error('ransomware-recent cold + internal fetch unavailable');
     }),
     safe(async () => {
       // Read /api/v1/telegram-feed's edge-cache first; only fan out to the
