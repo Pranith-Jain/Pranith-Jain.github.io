@@ -68,20 +68,23 @@ export async function malpediaSearchHandler(c: Context<{ Bindings: Env }>): Prom
   }
 
   const query = q.trim().toLowerCase();
+  // Each endpoint is fetched + parsed independently. Previously Promise.all
+  // would reject if the network threw on either fetch, killing both halves
+  // even though Malpedia's families/actors data are independent.
+  const fetchJson = async (path: string): Promise<unknown> => {
+    try {
+      const res = await fetch(`${MALPEDIA_BASE}${path}`, {
+        headers: { Accept: 'application/json' },
+        signal: AbortSignal.timeout(15_000),
+      });
+      if (!res.ok) return [];
+      return await res.json();
+    } catch {
+      return [];
+    }
+  };
   try {
-    const [familiesRes, actorsRes] = await Promise.all([
-      fetch(`${MALPEDIA_BASE}/api/get/families`, {
-        headers: { Accept: 'application/json' },
-      }),
-      fetch(`${MALPEDIA_BASE}/api/get/actors`, {
-        headers: { Accept: 'application/json' },
-      }),
-    ]);
-
-    const [families, actors] = (await Promise.all([
-      familiesRes.ok ? familiesRes.json() : Promise.resolve([]),
-      actorsRes.ok ? actorsRes.json() : Promise.resolve([]),
-    ])) as [unknown, unknown];
+    const [families, actors] = await Promise.all([fetchJson('/api/get/families'), fetchJson('/api/get/actors')]);
 
     const familyResults = (Array.isArray(families) ? families : [])
       .filter((f: unknown) => {

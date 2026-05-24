@@ -114,17 +114,23 @@ export async function actorEnrichHandler(c: Context<{ Bindings: Env }>): Promise
 
   try {
     // --- Malpedia: search families + actors ---
-    const [familiesRes, actorsRes] = await Promise.all([
-      fetch(`${MALPEDIA_BASE}/api/get/families`, {
-        headers: { Accept: 'application/json' },
-      }),
-      fetch(`${MALPEDIA_BASE}/api/get/actors`, {
-        headers: { Accept: 'application/json' },
-      }),
+    // Each branch fault-isolated so one slow/dead upstream doesn't poison
+    // the other. AbortSignal.timeout (15s) caps tail latency.
+    const safeJson = async (url: string): Promise<unknown> => {
+      try {
+        const r = await fetch(url, {
+          headers: { Accept: 'application/json' },
+          signal: AbortSignal.timeout(15_000),
+        });
+        return r.ok ? await r.json() : [];
+      } catch {
+        return [];
+      }
+    };
+    const [families, actors] = await Promise.all([
+      safeJson(`${MALPEDIA_BASE}/api/get/families`) as Promise<unknown[]>,
+      safeJson(`${MALPEDIA_BASE}/api/get/actors`) as Promise<unknown[]>,
     ]);
-
-    const families = familiesRes.ok ? ((await familiesRes.json()) as unknown[]) : [];
-    const actors = actorsRes.ok ? ((await actorsRes.json()) as unknown[]) : [];
 
     if (Array.isArray(families)) {
       for (const f of families) {
@@ -162,10 +168,11 @@ export async function actorEnrichHandler(c: Context<{ Bindings: Env }>): Promise
       `https://api.github.com/repos/stamparm/maltrail/contents/trails/static/malware`,
       {
         headers: { Accept: 'application/vnd.github.v3+json', 'User-Agent': 'pranithjain.qzz.io' },
+        signal: AbortSignal.timeout(15_000),
       }
-    );
+    ).catch(() => null);
 
-    if (maltrailListRes.ok) {
+    if (maltrailListRes?.ok) {
       const files = (await maltrailListRes.json()) as Array<{ name: string; path: string; size: number; type: string }>;
       const trailFiles = (Array.isArray(files) ? files : []).filter(
         (f) => f.type === 'file' && f.name.endsWith('.txt')
@@ -190,10 +197,11 @@ export async function actorEnrichHandler(c: Context<{ Bindings: Env }>): Promise
         `https://otx.alienvault.com/api/v1/search/pulses?q=${encodeURIComponent(name.trim())}`,
         {
           headers: { 'X-OTX-API-KEY': otxKey },
+          signal: AbortSignal.timeout(25_000),
         }
-      );
+      ).catch(() => null);
 
-      if (otxRes.ok) {
+      if (otxRes?.ok) {
         const otxJson = (await otxRes.json()) as {
           results?: Array<{
             id?: string;

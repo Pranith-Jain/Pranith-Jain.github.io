@@ -19,13 +19,23 @@ export const doh: ProviderAdapter = async (indicator, _env, signal) => {
   if (!supports.has(indicator.type)) return base('unsupported');
 
   try {
-    const [a, mx, ns, txt, dmarc] = await Promise.all([
+    // allSettled so one record-type timeout doesn't nuke the whole DNS
+    // report. `query()` returns null/undefined on its own internal failures
+    // already, but a hard reject (cf-egress network drop, AbortError on
+    // shared signal) used to take down all five lookups.
+    const settled = await Promise.allSettled([
       query(indicator.value, 'A', signal),
       query(indicator.value, 'MX', signal),
       query(indicator.value, 'NS', signal),
       query(indicator.value, 'TXT', signal),
       query(`_dmarc.${indicator.value}`, 'TXT', signal),
     ]);
+    const valueOf = <T>(s: PromiseSettledResult<T>): T | null => (s.status === 'fulfilled' ? s.value : null);
+    const a = valueOf(settled[0]);
+    const mx = valueOf(settled[1]);
+    const ns = valueOf(settled[2]);
+    const txt = valueOf(settled[3]);
+    const dmarc = valueOf(settled[4]);
 
     if (!a) return base('error', { error: 'doh_unavailable' });
 

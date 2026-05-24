@@ -56,6 +56,7 @@ export async function maltrailListHandler(c: Context<{ Bindings: Env }>): Promis
 
     const res = await fetch(MALTRAIL_API, {
       headers: { Accept: 'application/vnd.github.v3+json', 'User-Agent': 'pranithjain.qzz.io' },
+      signal: AbortSignal.timeout(15_000),
     });
     if (!res.ok) {
       // No stale entry to serve (the only way to get one is a prior
@@ -104,6 +105,7 @@ export async function maltrailFetchHandler(c: Context<{ Bindings: Env }>): Promi
   try {
     const res = await fetch(url, {
       headers: { 'User-Agent': 'pranithjain.qzz.io' },
+      signal: AbortSignal.timeout(20_000),
     });
     if (res.status === 404) {
       return c.json({ ok: false, error: 'trail file not found' }, 404, { 'cache-control': 'public, max-age=3600' });

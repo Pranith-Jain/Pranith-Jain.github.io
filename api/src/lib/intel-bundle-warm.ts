@@ -141,15 +141,21 @@ export async function warmIntelBundles(env: Env, options: WarmOptions = {}): Pro
       const entities = extract(report.title, report.body);
       const findingsCount = briefing.sections.reduce((n, s) => n + (s.findings?.length ?? 0), 0);
       const extractLlmFn = options.extractLlm ?? defaultExtractLlm;
-      const [bulk, cveEnrichments, llmEntities] = await Promise.all([
+      // Each branch is fault-isolated via Promise.allSettled: a single
+      // provider blip (bulk-enrich failure, NVD 503, LLM timeout) used
+      // to reject the whole Promise.all and stall the whole warm cycle.
+      // Now we fall back to an empty result for the failing branch and
+      // still ship a bundle with whatever the other two produced.
+      const settled = await Promise.allSettled([
         enrichBulk(
           entities.iocs.map((i) => ({ type: i.type, value: i.value })),
           env
         ),
         enrichCves(entities.cves),
-        // `.catch()` enforces the "bundle never blocked by LLM" invariant at
-        // the warmer boundary regardless of what extractLlm does internally.
-        // Belt-and-suspenders against any future regression in extract-llm.
+        // `.catch()` enforces the "bundle never blocked by LLM" invariant
+        // at the warmer boundary regardless of what extractLlm does
+        // internally. Kept as belt-and-suspenders against any future
+        // regression in extract-llm.
         extractLlmFn(report.title, report.body, entities, env, { findingsCount }).catch((err) => {
           console.warn(
             JSON.stringify({
@@ -162,6 +168,28 @@ export async function warmIntelBundles(env: Env, options: WarmOptions = {}): Pro
           return { ...EMPTY_LLM_ENTITIES, ran: false, partial: false };
         }),
       ]);
+      const logRejected = (idx: 0 | 1 | 2, stage: string) => {
+        const s = settled[idx];
+        if (s.status === 'rejected') {
+          console.warn(
+            JSON.stringify({
+              job: 'intel-bundle-warm',
+              stage,
+              slug: row.slug,
+              error: s.reason instanceof Error ? s.reason.message : String(s.reason),
+            })
+          );
+        }
+      };
+      logRejected(0, 'enrichBulk');
+      logRejected(1, 'enrichCves');
+      const bulk =
+        settled[0].status === 'fulfilled'
+          ? settled[0].value
+          : { enrichments: [], partial: true, overflow: [], freshSubrequests: 0, droppedSubrequests: 0 };
+      const cveEnrichments = settled[1].status === 'fulfilled' ? settled[1].value : [];
+      const llmEntities =
+        settled[2].status === 'fulfilled' ? settled[2].value : { ...EMPTY_LLM_ENTITIES, ran: false, partial: false };
       const built = await buildStixBundle(report, entities, bulk, cveEnrichments, llmEntities);
 
       await db
