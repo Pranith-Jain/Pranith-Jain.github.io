@@ -17,6 +17,29 @@ const BASE = process.env.BASE ?? 'https://pranithjain.qzz.io';
 const SLOW = process.argv.includes('--slow');
 const TIMEOUT_MS = 30_000;
 
+// Rate-limit-respecting throttle. The Worker enforces 30 req/min/colo on
+// non-bypassed routes; firing 75 sequential checks at full speed exhausts
+// the bucket and the tail of the run gets 429'd by the very middleware we
+// want to keep testing. Cap ourselves to ~25/min to stay safely under.
+const RATE_WINDOW_MS = 60_000;
+// Buffer of 10 below the 30/min/colo Worker limit. The rate-limit-burst
+// self-test fires 5 in a tight loop inside its custom handler — those
+// share the same per-IP bucket on the server side, so we leave headroom.
+const RATE_MAX = 20;
+const recentStarts = [];
+async function rateLimitGate() {
+  const now = Date.now();
+  while (recentStarts.length > 0 && now - recentStarts[0] > RATE_WINDOW_MS) {
+    recentStarts.shift();
+  }
+  if (recentStarts.length >= RATE_MAX) {
+    const wait = RATE_WINDOW_MS - (now - recentStarts[0]) + 100;
+    await new Promise((r) => setTimeout(r, wait));
+    return rateLimitGate();
+  }
+  recentStarts.push(Date.now());
+}
+
 const RESET = '\x1b[0m';
 const GREEN = '\x1b[32m';
 const RED = '\x1b[31m';
@@ -147,6 +170,30 @@ const CHECKS = [
   { name: 'x-tweets stale-soft', path: '/api/v1/x-tweets?handle=DailyDarkWeb&count=5', status: [200, 502, 429] },
   { name: 'x-live', path: '/api/v1/x-live', status: [200, 502, 503] },
 
+  // ─── /dfir-specific lookups + scanners ──────────────────────────────────
+  { name: 'breach/domain', path: '/api/v1/breach/domain?domain=example.com' },
+  { name: 'breach/email', path: '/api/v1/breach/email?email=test@example.com' },
+  { name: 'cert-search (slow)', path: '/api/v1/cert-search?domain=cloudflare.com', slow: true },
+  {
+    name: 'crypto-trace (BTC genesis)',
+    path: '/api/v1/crypto-trace?address=1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa',
+  },
+  { name: 'domain/lookup (slow)', path: '/api/v1/domain/lookup?domain=example.com', slow: true },
+  { name: 'exposure/scan', path: '/api/v1/exposure/scan?domain=example.com' },
+  { name: 'feeds/ioc-summary missing', path: '/api/v1/feeds/ioc-summary', status: 400 },
+  {
+    name: 'feeds/ioc-summary (urlhaus)',
+    path: '/api/v1/feeds/ioc-summary?source=urlhaus',
+  },
+  { name: 'google-dorks', path: '/api/v1/google-dorks?q=test' },
+  { name: 'privacy/inspect', path: '/api/v1/privacy/inspect' },
+  { name: 'rl/cyberattacks', path: '/api/v1/rl/cyberattacks' },
+  { name: 'stix/fetch (fail-soft)', path: '/api/v1/stix/fetch?id=intrusion-set--xxx', status: [200, 400, 404, 502] },
+  { name: 'takeover/check', path: '/api/v1/takeover/check?domain=example.com' },
+  { name: 'url-preview', path: '/api/v1/url-preview?url=https://example.com' },
+  { name: 'wayback/cdx', path: '/api/v1/wayback/cdx?url=https://example.com&limit=5' },
+  { name: 'intel-bundle (miss → 404)', path: '/api/v1/intel-bundle?source=__no__&ref=__no__', status: [200, 404] },
+
   // ─── Briefings ──────────────────────────────────────────────────────────
   { name: 'briefings/list', path: '/api/v1/briefings/list', shape: hasKey('items') },
   { name: 'briefings/rss', path: '/api/v1/briefings/rss' },
@@ -180,6 +227,11 @@ async function runOne(check) {
     process.stdout.write(`${DIM}skip${RESET}  ${check.name}\n`);
     return;
   }
+  // Stay under the Worker's 30/min/colo rate-limit so the tail of a long
+  // run isn't 429'd by the very middleware we want to keep testing.
+  // The rate-limit-burst self-test runs its 5 requests inside `custom`,
+  // which still counts in our recentStarts ledger.
+  await rateLimitGate();
   const start = Date.now();
   try {
     let result;
