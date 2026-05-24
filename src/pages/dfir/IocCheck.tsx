@@ -583,7 +583,7 @@ export default function IocCheck(): JSX.Element {
         <section aria-busy={streaming && eligible.length === 0} aria-live="polite" aria-atomic="true">
           <h3 className="font-display font-semibold mb-4 text-lg">Per-source</h3>
           {streaming && eligible.length === 0 ? (
-            <p className="text-xs font-mono text-slate-500 dark:text-slate-500 animate-pulse">
+            <p className="text-xs font-mono text-slate-500 dark:text-slate-400 animate-pulse">
               opening stream — waiting for eligible providers…
             </p>
           ) : (

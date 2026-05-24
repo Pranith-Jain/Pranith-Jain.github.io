@@ -77,7 +77,7 @@ function IocBadge({ ioc }: { ioc: IntelViewIoc }): JSX.Element {
       {ioc.listedIn.length > 0 && (
         <span className="text-[10px] text-slate-500 dark:text-slate-400">listed in {ioc.listedIn.length}</span>
       )}
-      <span className="ml-auto text-[10px] uppercase tracking-wider text-slate-400 dark:text-slate-500">
+      <span className="ml-auto text-[10px] uppercase tracking-wider text-slate-400 dark:text-slate-400">
         {VERDICT_LABEL[ioc.verdict]}
       </span>
     </div>
@@ -321,7 +321,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
           <div className="mt-3 space-y-3">
             {view.actorCandidates && view.actorCandidates.length > 0 && (
               <div>
-                <h5 className="mb-1 text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-500">
+                <h5 className="mb-1 text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400">
                   Candidate actors
                 </h5>
                 <ul className="space-y-1">
@@ -336,7 +336,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
             )}
             {view.malwareCandidates && view.malwareCandidates.length > 0 && (
               <div>
-                <h5 className="mb-1 text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-500">
+                <h5 className="mb-1 text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400">
                   Candidate malware
                 </h5>
                 <ul className="space-y-1">
@@ -380,7 +380,7 @@ function CardChrome({ view, partial }: CardChromeProps): JSX.Element {
           >
             Hide details
           </button>
-          <span className="ml-auto font-mono text-[10px] text-slate-400 dark:text-slate-500">
+          <span className="ml-auto font-mono text-[10px] text-slate-400 dark:text-slate-400">
             {view.bundleId.slice(0, 18)}…
           </span>
         </footer>

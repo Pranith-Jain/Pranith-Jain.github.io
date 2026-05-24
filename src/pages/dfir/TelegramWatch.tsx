@@ -231,7 +231,7 @@ export default function TelegramWatch(): JSX.Element {
         </div>
       </section>
 
-      <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-4">
+      <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-4">
         Showing {filtered.length} of {CATALOG.length}
       </p>
 
@@ -260,7 +260,7 @@ export default function TelegramWatch(): JSX.Element {
                 </span>
               </div>
 
-              <div className="text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-1.5 break-all">
+              <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-1.5 break-all">
                 {isPointer ? (
                   <>github · {e.handle}</>
                 ) : (
@@ -284,7 +284,7 @@ export default function TelegramWatch(): JSX.Element {
               </p>
 
               {e.attribution && (
-                <p className="text-[10px] font-mono text-slate-500 dark:text-slate-500 mb-2 italic">
+                <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mb-2 italic">
                   source: {e.attribution}
                 </p>
               )}
@@ -319,7 +319,7 @@ export default function TelegramWatch(): JSX.Element {
       </ul>
 
       {filtered.length === 0 && (
-        <p className="text-sm font-mono text-slate-500 dark:text-slate-500 mt-6">
+        <p className="text-sm font-mono text-slate-500 dark:text-slate-400 mt-6">
           Nothing matches the current filters.{' '}
           <button onClick={clearAll} className="underline text-brand-600 dark:text-brand-400">
             Clear all

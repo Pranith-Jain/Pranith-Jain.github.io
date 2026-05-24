@@ -146,7 +146,7 @@ export default function XFirehose(): JSX.Element {
           mirrors are unreliable, so most of these accounts have a mirror on Bluesky or Mastodon. Both expose proper
           keyless RSS. Click any post to open the original.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-6">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
           {data ? `${data.handles.length} accounts indexed.` : '~16 accounts indexed.'}
         </p>
       </div>

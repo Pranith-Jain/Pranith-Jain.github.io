@@ -198,7 +198,7 @@ export default function CryptoTrace(): JSX.Element {
           balance, tx count, recent transactions, and pivot links to every block-explorer / NFT marketplace / DeFi
           dashboard / scam-check service.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
           Free public APIs only — Blockstream Esplora for BTC, public JSON-RPC for EVM, public Solana RPC. No keys, no
           signup. Cached 60 s server-side. Pairs with{' '}
           <Link to="/threatintel/scam-watch" className="text-brand-600 dark:text-brand-400 hover:underline">
@@ -315,7 +315,7 @@ export default function CryptoTrace(): JSX.Element {
               {data.address}
             </code>
             {data.context?.found && (
-              <p className="text-[10px] font-mono text-slate-500 dark:text-slate-500 mt-2">
+              <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mt-2">
                 Enrichment via{' '}
                 <a href={data.context.source_url} target="_blank" rel="noopener noreferrer" className="hover:underline">
                   Blockscout
@@ -355,7 +355,7 @@ export default function CryptoTrace(): JSX.Element {
                   <span className="inline-flex items-center gap-1">
                     ✓ Not listed in the OFAC SDN sanctioned-address feed.
                   </span>
-                  <span className="text-slate-500 dark:text-slate-500 ml-auto">
+                  <span className="text-slate-500 dark:text-slate-400 ml-auto">
                     (per{' '}
                     <a
                       href={data.sanctions.source_url}
@@ -405,7 +405,7 @@ export default function CryptoTrace(): JSX.Element {
                   )}
                   .
                 </span>
-                <span className="text-slate-500 dark:text-slate-500 ml-auto">
+                <span className="text-slate-500 dark:text-slate-400 ml-auto">
                   (per{' '}
                   <a href={data.scam.source_url} target="_blank" rel="noopener noreferrer" className="hover:underline">
                     scamsniffer/scam-database
@@ -435,7 +435,7 @@ export default function CryptoTrace(): JSX.Element {
                     <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
                       {r.label}
                     </span>
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-500">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
                       {r.symbol}
                     </span>
                   </div>
@@ -447,7 +447,7 @@ export default function CryptoTrace(): JSX.Element {
                         {r.balance}
                       </div>
                       {typeof r.tx_count === 'number' && (
-                        <div className="text-[11px] font-mono text-slate-500 dark:text-slate-500">
+                        <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
                           {r.tx_count} tx{r.tx_count === 1 ? '' : 's'}
                         </div>
                       )}
@@ -490,7 +490,7 @@ export default function CryptoTrace(): JSX.Element {
                   >
                     <DirectionPill d={t.direction} />
                     {t.amount && <span className="text-slate-900 dark:text-slate-100 font-bold">{t.amount}</span>}
-                    <span className="text-slate-500 dark:text-slate-500">
+                    <span className="text-slate-500 dark:text-slate-400">
                       {t.direction === 'out' ? '→' : t.direction === 'in' ? '←' : '↔'}
                     </span>
                     <span
@@ -512,7 +512,7 @@ export default function CryptoTrace(): JSX.Element {
                         {t.method}
                       </span>
                     )}
-                    {t.timestamp && <span className="text-slate-500 dark:text-slate-500">{fmtRel(t.timestamp)}</span>}
+                    {t.timestamp && <span className="text-slate-500 dark:text-slate-400">{fmtRel(t.timestamp)}</span>}
                     <a
                       href={t.explorer_url}
                       target="_blank"
@@ -524,7 +524,7 @@ export default function CryptoTrace(): JSX.Element {
                   </li>
                 ))}
               </ul>
-              <p className="text-[10px] font-mono text-slate-500 dark:text-slate-500 mt-2">
+              <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mt-2">
                 Source:{' '}
                 <a
                   href={`https://eth.blockscout.com/address/${data.address}`}
@@ -549,7 +549,7 @@ export default function CryptoTrace(): JSX.Element {
                 .filter((r) => r.recent_txs.length > 0)
                 .map((r) => (
                   <div key={r.chain} className="mb-3 last:mb-0">
-                    <h3 className="text-[11px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500 mb-1.5">
+                    <h3 className="text-[11px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1.5">
                       {r.label}
                     </h3>
                     <ul className="space-y-1">
@@ -562,7 +562,7 @@ export default function CryptoTrace(): JSX.Element {
                           {tx.amount && (
                             <span className="text-slate-700 dark:text-slate-300 font-bold">{tx.amount}</span>
                           )}
-                          {tx.time && <span className="text-slate-500 dark:text-slate-500">{fmtRel(tx.time)}</span>}
+                          {tx.time && <span className="text-slate-500 dark:text-slate-400">{fmtRel(tx.time)}</span>}
                           <a
                             href={tx.link}
                             target="_blank"
@@ -576,7 +576,7 @@ export default function CryptoTrace(): JSX.Element {
                     </ul>
                   </div>
                 ))}
-              <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500 mt-2">
+              <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-2">
                 EVM chains aren't shown above — public JSON-RPC nodes don't expose tx history cheaply. Click any
                 explorer link below for the full picture.
               </p>
@@ -588,7 +588,7 @@ export default function CryptoTrace(): JSX.Element {
               <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
                 Pivot links
               </h2>
-              <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-3">
+              <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-3">
                 One-click handoff to every major explorer, NFT marketplace, DeFi dashboard, and scam-flag service for
                 this address.
               </p>
@@ -604,7 +604,7 @@ export default function CryptoTrace(): JSX.Element {
                     </h3>
                     {grouped.map((g) => (
                       <div key={g.cat} className="mb-2 last:mb-0">
-                        <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500 mr-2">
+                        <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mr-2">
                           {CATEGORY_LABELS[g.cat]}
                         </span>
                         <span className="inline-flex flex-wrap gap-1.5 align-middle">
@@ -631,7 +631,7 @@ export default function CryptoTrace(): JSX.Element {
       )}
 
       {!data && !loading && !error && (
-        <section className="rounded-lg border border-dashed border-slate-300 dark:border-slate-700 p-8 text-center text-sm font-mono text-slate-500 dark:text-slate-500">
+        <section className="rounded-lg border border-dashed border-slate-300 dark:border-slate-700 p-8 text-center text-sm font-mono text-slate-500 dark:text-slate-400">
           Paste an address above, or pick a sample to try.
         </section>
       )}

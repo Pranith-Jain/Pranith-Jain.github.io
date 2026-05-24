@@ -27,7 +27,7 @@ export function Contact() {
         </div>
 
         <div className="relative mx-auto max-w-4xl text-center">
-          <div className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-300">Get in touch</div>
+          <div className="mb-3 text-eyebrow font-bold uppercase text-brand-300">Get in touch</div>
           <h2 id="contact-heading" className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-white">
             Ready to secure your digital presence?
           </h2>

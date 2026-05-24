@@ -26,7 +26,7 @@ function PhaseHeader({
         <span className="block font-display font-semibold text-slate-900 dark:text-slate-100">{phase.name}</span>
         <span className="block text-xs font-mono text-slate-600 dark:text-slate-400 truncate">{phase.short}</span>
       </span>
-      <span className="flex-none text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-500">
+      <span className="flex-none text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
         {phase.techniques.length} techniques
       </span>
       {expanded ? (
@@ -149,7 +149,7 @@ export default function KillChain(): JSX.Element {
           Lockheed Martin's 7-phase intrusion model. {KILL_CHAIN_TECHNIQUE_COUNT} representative techniques across the
           chain, each cross-linked to MITRE ATT&amp;CK where applicable.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
           Pairs naturally with the{' '}
           <Link to="/dfir/diamond" className="text-brand-600 dark:text-brand-400 hover:underline">
             Diamond Model

@@ -151,7 +151,7 @@ export function ToolSearchBar(): JSX.Element {
       </div>
       <p
         id="dfir-tool-search-help"
-        className="mt-2 text-[11px] font-mono text-slate-500 dark:text-slate-500 flex flex-wrap items-center gap-x-3"
+        className="mt-2 text-[11px] font-mono text-slate-500 dark:text-slate-400 flex flex-wrap items-center gap-x-3"
       >
         <span>
           Searches {MAIN_TOOL_COUNT} tools by name, path, description, and use-case. ↑↓ to navigate, Enter to open.

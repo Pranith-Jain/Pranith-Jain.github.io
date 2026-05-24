@@ -137,7 +137,7 @@ export default function Signal(): JSX.Element {
         SentinelLabs, Unit 42, Check Point Research, Huntress, Eye Security, Exodus, OpenAnalysis, BushidoToken,
         DoublePulsar. Low-volume sources, longer-form pieces.
       </p>
-      <p className="text-[12px] text-slate-500 dark:text-slate-500 font-mono mb-6">
+      <p className="text-[12px] text-slate-500 dark:text-slate-400 font-mono mb-6">
         For the full ecosystem cut (including Medium tag feeds and the long tail), see{' '}
         <Link to="/threatintel/writeups" className="text-brand-600 dark:text-brand-400 hover:underline">
           /threatintel/writeups

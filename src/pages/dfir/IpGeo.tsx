@@ -143,7 +143,7 @@ export default function IpGeo(): JSX.Element {
           </a>{' '}
           (free, no key) plus AbuseIPDB confidence + report count for reputation.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
           Pairs with{' '}
           <Link to="/dfir/asn" className="text-brand-600 dark:text-brand-400 hover:underline">
             ASN Lookup
@@ -192,7 +192,7 @@ export default function IpGeo(): JSX.Element {
         </form>
 
         <div className="flex flex-wrap gap-1.5 mt-3">
-          <span className="text-[10px] font-mono text-slate-500 dark:text-slate-500 self-center mr-1">samples:</span>
+          <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 self-center mr-1">samples:</span>
           {SAMPLES.map((s) => (
             <button
               key={s.ip}
@@ -260,27 +260,27 @@ export default function IpGeo(): JSX.Element {
             {data.reputation.ok ? (
               <div className="grid sm:grid-cols-3 gap-3 mt-2">
                 <div>
-                  <div className="text-[11px] font-mono text-slate-500 dark:text-slate-500">AbuseIPDB confidence</div>
+                  <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">AbuseIPDB confidence</div>
                   <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">
                     {data.reputation.confidence ?? 0}
                     <span className="text-sm font-normal text-slate-500"> / 100</span>
                   </div>
                 </div>
                 <div>
-                  <div className="text-[11px] font-mono text-slate-500 dark:text-slate-500">Total reports (90d)</div>
+                  <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">Total reports (90d)</div>
                   <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">
                     {data.reputation.total_reports ?? 0}
                   </div>
                 </div>
                 <div>
-                  <div className="text-[11px] font-mono text-slate-500 dark:text-slate-500">Usage type</div>
+                  <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">Usage type</div>
                   <div className="text-base font-mono text-slate-900 dark:text-slate-100">
                     {data.reputation.usage_type ?? '—'}
                   </div>
                 </div>
               </div>
             ) : (
-              <p className="text-[12px] font-mono text-slate-500 dark:text-slate-500 inline-flex items-center gap-2">
+              <p className="text-[12px] font-mono text-slate-500 dark:text-slate-400 inline-flex items-center gap-2">
                 <CheckCircle2 size={12} /> {data.reputation.error}
               </p>
             )}
@@ -303,25 +303,25 @@ export default function IpGeo(): JSX.Element {
               <>
                 <div className="grid sm:grid-cols-2 gap-x-6 gap-y-2 text-sm font-mono">
                   <div className="flex justify-between border-b border-slate-200 dark:border-slate-800 py-1">
-                    <span className="text-slate-500 dark:text-slate-500">Country</span>
+                    <span className="text-slate-500 dark:text-slate-400">Country</span>
                     <span className="text-slate-900 dark:text-slate-100">
                       {data.geo.country ?? '—'} {data.geo.country_code && `(${data.geo.country_code})`}
                     </span>
                   </div>
                   <div className="flex justify-between border-b border-slate-200 dark:border-slate-800 py-1">
-                    <span className="text-slate-500 dark:text-slate-500">Region / city</span>
+                    <span className="text-slate-500 dark:text-slate-400">Region / city</span>
                     <span className="text-slate-900 dark:text-slate-100">
                       {[data.geo.region, data.geo.city].filter(Boolean).join(', ') || '—'}
                     </span>
                   </div>
                   <div className="flex justify-between border-b border-slate-200 dark:border-slate-800 py-1">
-                    <span className="text-slate-500 dark:text-slate-500 inline-flex items-center gap-1">
+                    <span className="text-slate-500 dark:text-slate-400 inline-flex items-center gap-1">
                       <Clock size={10} /> Timezone
                     </span>
                     <span className="text-slate-900 dark:text-slate-100">{data.geo.timezone ?? '—'}</span>
                   </div>
                   <div className="flex justify-between border-b border-slate-200 dark:border-slate-800 py-1">
-                    <span className="text-slate-500 dark:text-slate-500">Coordinates</span>
+                    <span className="text-slate-500 dark:text-slate-400">Coordinates</span>
                     <span className="text-slate-900 dark:text-slate-100">
                       {data.geo.lat !== undefined && data.geo.lon !== undefined ? (
                         <a
@@ -338,7 +338,7 @@ export default function IpGeo(): JSX.Element {
                     </span>
                   </div>
                   <div className="flex justify-between border-b border-slate-200 dark:border-slate-800 py-1">
-                    <span className="text-slate-500 dark:text-slate-500 inline-flex items-center gap-1">
+                    <span className="text-slate-500 dark:text-slate-400 inline-flex items-center gap-1">
                       <Building size={10} /> ISP
                     </span>
                     <span className="text-slate-900 dark:text-slate-100 text-right break-words">
@@ -346,13 +346,13 @@ export default function IpGeo(): JSX.Element {
                     </span>
                   </div>
                   <div className="flex justify-between border-b border-slate-200 dark:border-slate-800 py-1">
-                    <span className="text-slate-500 dark:text-slate-500">Org</span>
+                    <span className="text-slate-500 dark:text-slate-400">Org</span>
                     <span className="text-slate-900 dark:text-slate-100 text-right break-words">
                       {data.geo.org ?? '—'}
                     </span>
                   </div>
                   <div className="flex justify-between border-b border-slate-200 dark:border-slate-800 py-1 sm:col-span-2">
-                    <span className="text-slate-500 dark:text-slate-500 inline-flex items-center gap-1">
+                    <span className="text-slate-500 dark:text-slate-400 inline-flex items-center gap-1">
                       <Network size={10} /> ASN
                     </span>
                     <span className="text-slate-900 dark:text-slate-100">
@@ -391,11 +391,11 @@ export default function IpGeo(): JSX.Element {
                 </div>
               </>
             ) : (
-              <p className="text-sm font-mono text-slate-500 dark:text-slate-500 inline-flex items-center gap-2">
+              <p className="text-sm font-mono text-slate-500 dark:text-slate-400 inline-flex items-center gap-2">
                 <AlertTriangle size={12} /> {data.geo.error}
               </p>
             )}
-            <p className="text-[10px] font-mono text-slate-500 dark:text-slate-500 mt-3">
+            <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mt-3">
               Geo data via{' '}
               <a href={data.geo.source_url} target="_blank" rel="noopener noreferrer" className="hover:underline">
                 {data.geo.source}

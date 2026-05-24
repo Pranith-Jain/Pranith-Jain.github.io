@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { safeErrorMessage } from '../lib/error';
 
 /**
  * Google-Dorks proxy backed by SerpAPI.
@@ -115,14 +116,13 @@ export async function googleDorksHandler(c: Context<{ Bindings: Env }>): Promise
   url.searchParams.set('engine', 'google');
   url.searchParams.set('q', query);
   url.searchParams.set('num', String(num));
-  url.searchParams.set('api_key', key);
   // Force English-locale Google so result text is stable across runs.
   url.searchParams.set('hl', 'en');
 
   let upstream: SerpResponse;
   try {
     const res = await fetch(url.toString(), {
-      headers: { Accept: 'application/json', 'User-Agent': 'pranithjain.qzz.io DFIR' },
+      headers: { Accept: 'application/json', 'User-Agent': 'pranithjain.qzz.io DFIR', Authorization: `Bearer ${key}` },
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
     });
     if (res.status === 429) {
@@ -133,7 +133,11 @@ export async function googleDorksHandler(c: Context<{ Bindings: Env }>): Promise
     }
     upstream = (await res.json()) as SerpResponse;
   } catch (err) {
-    return jsonResponse(c, { error: 'fetch_failed', detail: err instanceof Error ? err.message : String(err) }, 502);
+    return jsonResponse(
+      c,
+      { error: 'fetch_failed', detail: safeErrorMessage(c.env as unknown as Record<string, unknown>, err) },
+      502
+    );
   }
 
   if (upstream.error) {

@@ -50,7 +50,15 @@ const BRIEFINGS_CACHE_VERSION = 'v2';
 
 function briefingsCacheKey(c: Context<{ Bindings: Env }>): Request {
   const u = new URL(c.req.url);
-  return new Request(`https://briefings-cache.internal/${BRIEFINGS_CACHE_VERSION}${u.pathname}${u.search}`, {
+  // Only include known-safe query parameters in cache key to prevent
+  // poisoning via arbitrary query strings.
+  const safeParams = new URLSearchParams();
+  const type = u.searchParams.get('type');
+  if (type === 'daily' || type === 'weekly') safeParams.set('type', type);
+  const limit = u.searchParams.get('limit');
+  if (limit) safeParams.set('limit', limit);
+  const sq = safeParams.toString();
+  return new Request(`https://briefings-cache.internal/${BRIEFINGS_CACHE_VERSION}${u.pathname}${sq ? '?' + sq : ''}`, {
     method: 'GET',
   });
 }
@@ -80,10 +88,7 @@ export async function listBriefingsHandler(c: Context<{ Bindings: Env }>) {
     c.executionCtx.waitUntil(cache.put(key, res.clone()));
     return res;
   } catch (err) {
-    // Log full detail to the worker's logs but never echo raw exception
-    // text to the client — D1/KV errors can hint at schema, column names,
-    // or internal storage shape. Generic message stays user-facing.
-    console.error('listBriefingsHandler error:', err);
+    console.error('listBriefingsHandler error:', err instanceof Error ? err.message : String(err));
     return c.json({ error: 'briefings list failed' }, 500);
   }
 }
@@ -144,33 +149,24 @@ function safeEqual(a: string, b: string): boolean {
 
 type AdminCtx = Context<{ Bindings: Env & { BRIEFINGS_ADMIN_TOKEN?: string } }>;
 
+function extractAdminToken(c: AdminCtx): string {
+  const authz = c.req.header('authorization') ?? '';
+  const bearer = /^Bearer\s+(.+)$/i.exec(authz)?.[1];
+  if (bearer) return bearer;
+  return c.req.header('x-admin-token') ?? '';
+}
+
 function requireAdmin(c: AdminCtx): { error: Response } | { ok: true } {
   const required = c.env.BRIEFINGS_ADMIN_TOKEN;
   if (!required) {
-    return { error: c.json({ error: 'admin endpoint disabled (BRIEFINGS_ADMIN_TOKEN not set)' }, 403) };
+    return { error: c.json({ error: 'admin endpoint disabled' }, 403) };
   }
 
-  // Extract the candidate token (empty string when the prefix is missing)
-  // and pass it unconditionally into safeEqual. The previous `headerToken &&
-  // safeEqual(...)` short-circuit returned 401 faster for malformed prefixes
-  // than for "right prefix, wrong token" — a hairline timing oracle. The
-  // length-mismatch fast-path inside safeEqual is acceptable since the token
-  // length isn't secret.
-  const authz = c.req.header('authorization') ?? '';
-  const headerToken = /^Bearer\s+(.+)$/i.exec(authz)?.[1] ?? '';
-  if (safeEqual(headerToken, required)) {
-    return { ok: true };
+  const token = extractAdminToken(c);
+  if (!token || !safeEqual(token, required)) {
+    return { error: c.json({ error: 'unauthorized' }, 401) };
   }
-
-  return {
-    error: c.json(
-      {
-        error: 'unauthorized',
-        hint: 'send `Authorization: Bearer <BRIEFINGS_ADMIN_TOKEN>`',
-      },
-      401
-    ),
-  };
+  return { ok: true };
 }
 
 /**

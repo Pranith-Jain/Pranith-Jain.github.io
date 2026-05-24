@@ -175,7 +175,7 @@ export default function ScamWatch(): JSX.Element {
           reports, and mainstream coverage. {ALL_FEED_IDS.length} sources fetched server-side, deduped, sorted by
           publication time.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
           Reddit feeds are real victim reports — context-rich but anecdotal. FTC + FBI IC3 are the authoritative source
           for U.S. fraud trends. Pairs with{' '}
           <Link to="/threatintel/darkweb" className="text-brand-600 dark:text-brand-400 hover:underline">
@@ -260,7 +260,7 @@ export default function ScamWatch(): JSX.Element {
         </div>
 
         {activeSection !== 'all' && (
-          <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500">
+          <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
             <span className="text-slate-700 dark:text-slate-300">
               {SECTIONS.find((s) => s.id === activeSection)?.label}:
             </span>{' '}
@@ -295,12 +295,12 @@ export default function ScamWatch(): JSX.Element {
       )}
 
       {!loading && !error && items.length === 0 && (
-        <div className="rounded-lg border border-dashed border-slate-300 dark:border-slate-700 p-8 text-center text-sm font-mono text-slate-500 dark:text-slate-500">
+        <div className="rounded-lg border border-dashed border-slate-300 dark:border-slate-700 p-8 text-center text-sm font-mono text-slate-500 dark:text-slate-400">
           No items returned from the aggregator. Try refresh; the upstream feeds may be temporarily slow.
         </div>
       )}
 
-      <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-3">
+      <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-3">
         Showing {annotated.length} of {items.length} · {feedsReturned} of {ALL_FEED_IDS.length} feeds returned data
       </p>
 
@@ -325,7 +325,7 @@ export default function ScamWatch(): JSX.Element {
                 {section}
               </span>
             </div>
-            <div className="text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-1">
+            <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-1">
               <span>{item.source || 'feed'}</span>
               {item.pubDate && <> · {formatRelativeTime(item.pubDate)}</>}
             </div>
@@ -339,7 +339,7 @@ export default function ScamWatch(): JSX.Element {
       </ul>
 
       {annotated.length > 200 && (
-        <p className="mt-4 text-[11px] font-mono text-slate-500 dark:text-slate-500">
+        <p className="mt-4 text-[11px] font-mono text-slate-500 dark:text-slate-400">
           Showing 200 most-recent items. Tighten the search or filter to narrow.
         </p>
       )}

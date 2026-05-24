@@ -26,6 +26,8 @@ import { enrichCves, type CveEnrichment } from '../lib/cve-enrich';
 import { extractLlm, EMPTY_LLM_ENTITIES } from '../lib/extract-llm';
 import { buildStixBundle, type BuildResult, type ReportInput, type Tlp } from '../lib/stix-build';
 import { pinnedFetch, SsrfError } from '../lib/ssrf-guard';
+import { requireAdmin } from '../lib/admin-auth';
+import { safeJsonBody } from '../lib/safe-body';
 
 export const INTEL_BUNDLE_CACHE_KEY = 'https://intel-bundle-status.internal/v1';
 
@@ -483,19 +485,11 @@ async function fromUrlFetch(url: string): Promise<{ title: string; body: string;
 }
 
 export async function intelBundleBuildHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  let parsed: unknown;
-  try {
-    parsed = await c.req.json();
-  } catch {
-    return jsonResponse(c, { error: 'invalid_json' }, 400);
-  }
+  const parsedResult = await safeJsonBody<unknown>(c, { maxBytes: 60 * 1024, maxDepth: 6 });
+  if ('error' in parsedResult) return parsedResult.error;
 
-  const body = parseBuildBody(parsed);
+  const body = parseBuildBody(parsedResult.value);
   if (!body) return jsonResponse(c, { error: 'invalid_body' }, 400);
-
-  if (body.input.length > MAX_BRIEF_BYTES) {
-    return jsonResponse(c, { error: 'input_too_large', limit_bytes: MAX_BRIEF_BYTES }, 413);
-  }
 
   let inputTitle = '';
   let inputBody = '';
@@ -518,9 +512,9 @@ export async function intelBundleBuildHandler(c: Context<{ Bindings: Env }>): Pr
     }
   } catch (err) {
     if (err instanceof SsrfError) {
-      return jsonResponse(c, { error: 'ssrf_blocked', detail: err.message }, 400);
+      return jsonResponse(c, { error: 'ssrf_blocked', detail: 'blocked' }, 400);
     }
-    return jsonResponse(c, { error: 'input_processing_failed', detail: String(err) }, 400);
+    return jsonResponse(c, { error: 'input_processing_failed', detail: 'processing error' }, 400);
   }
 
   // For IoC mode where the extractor wouldn't naturally classify a flat list
@@ -719,16 +713,8 @@ interface AdminInspectShape {
 }
 
 export async function intelBundleAdminHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const required = c.env.ADMIN_TOKEN;
-  if (!required) return jsonResponse(c, { error: 'admin endpoint disabled (ADMIN_TOKEN not set)' }, 403);
-  const token = c.req.header('x-admin-token') ?? '';
-  if (!token || token.length !== required.length) {
-    return jsonResponse(c, { error: 'unauthorized' }, 401);
-  }
-  // Constant-time compare to match the other admin gates in this codebase.
-  let mismatch = 0;
-  for (let i = 0; i < token.length; i += 1) mismatch |= token.charCodeAt(i) ^ required.charCodeAt(i);
-  if (mismatch !== 0) return jsonResponse(c, { error: 'unauthorized' }, 401);
+  const gate = requireAdmin(c);
+  if ('error' in gate) return gate.error;
 
   const source = (c.req.param('source') ?? '').trim();
   const ref = (c.req.param('ref') ?? '').trim();

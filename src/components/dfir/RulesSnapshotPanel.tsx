@@ -125,7 +125,7 @@ export function RulesSnapshotPanel(): JSX.Element {
             </span>
           )}
         </h2>
-        <span className="text-[11px] font-mono text-slate-500 dark:text-slate-500">
+        <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
           {data ? `${totalCommits} recent commits across upstream rule repos` : err ? `load error: ${err}` : 'loading…'}
         </span>
       </div>
@@ -143,7 +143,7 @@ export function RulesSnapshotPanel(): JSX.Element {
               showNewBadge={false}
               watchCount={watched}
               watchTerms={watchlist}
-              rightAction={<span className="text-slate-500 dark:text-slate-500">{bucketed[c.key].length} commits</span>}
+              rightAction={<span className="text-slate-500 dark:text-slate-400">{bucketed[c.key].length} commits</span>}
               loading={!data && !err}
               error={err ?? undefined}
             >

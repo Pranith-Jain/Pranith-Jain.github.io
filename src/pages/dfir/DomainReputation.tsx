@@ -197,7 +197,7 @@ export default function DomainReputation(): JSX.Element {
                   {blocked > 0 && (
                     <>
                       {' '}
-                      <span className="text-slate-500 dark:text-slate-500">
+                      <span className="text-slate-500 dark:text-slate-400">
                         · {blocked} blocked our public-resolver query
                       </span>
                     </>

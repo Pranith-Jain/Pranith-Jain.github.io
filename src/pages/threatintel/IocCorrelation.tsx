@@ -303,7 +303,7 @@ export default function IocCorrelation(): JSX.Element {
           independent sources is what analysts trust. Higher source-count = higher confidence the indicator is currently
           malicious.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-6">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
           Aggregated across 18 public IOC feeds: TweetFeed, SANS ISC, C2IntelFeeds, Emerging Threats, AlienVault OTX,
           BlocklistProject (ransomware + scam), the abuse.ch suite, Ipsum, CINS, and more.
         </p>

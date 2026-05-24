@@ -204,7 +204,7 @@ export default function CveList(): JSX.Element {
           </Link>{' '}
           (full NVD + EPSS + KEV record).
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-6">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
           Sources: <span className="text-slate-700 dark:text-slate-300">NVD published-CVE feed</span> merged with the{' '}
           <span className="text-slate-700 dark:text-slate-300">CISA KEV catalogue</span>.
         </p>

@@ -117,7 +117,7 @@ export default function CertSearch(): JSX.Element {
           </a>
           . Cached 6h at the edge.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
           Pairs with{' '}
           <Link to="/dfir/domain" className="text-brand-600 dark:text-brand-400 hover:underline">
             Domain Inspector
@@ -171,7 +171,7 @@ export default function CertSearch(): JSX.Element {
         </form>
 
         <div className="flex flex-wrap gap-2 mt-3 items-center">
-          <span className="text-[10px] font-mono text-slate-500 dark:text-slate-500 mr-1">samples:</span>
+          <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mr-1">samples:</span>
           {SAMPLES.map((s) => (
             <button
               key={s.domain}
@@ -201,15 +201,15 @@ export default function CertSearch(): JSX.Element {
             <div className="grid sm:grid-cols-3 gap-4">
               <div>
                 <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{data.total}</div>
-                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-500">total issuances</div>
+                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">total issuances</div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{data.unique_names.length}</div>
-                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-500">unique DNS names</div>
+                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">unique DNS names</div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{data.issuers.length}</div>
-                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-500">distinct issuers</div>
+                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">distinct issuers</div>
               </div>
             </div>
             {data.issuers.length > 0 && (
@@ -290,7 +290,7 @@ export default function CertSearch(): JSX.Element {
                 >
                   <div className="flex flex-wrap items-baseline justify-between gap-2 mb-1">
                     <span className="text-[11px] font-mono text-brand-700 dark:text-brand-300">{it.issuer}</span>
-                    <span className="text-[10px] font-mono text-slate-500 dark:text-slate-500">
+                    <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
                       {it.not_before?.slice(0, 10)} → {it.not_after?.slice(0, 10)}
                       {it.revoked && (
                         <span className="ml-2 px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-700 dark:text-rose-300 border border-rose-500/40">
@@ -309,7 +309,7 @@ export default function CertSearch(): JSX.Element {
             </ul>
           </section>
 
-          <p className="text-[10px] font-mono text-slate-500 dark:text-slate-500">
+          <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
             Source:{' '}
             <a
               href={data.source_url}

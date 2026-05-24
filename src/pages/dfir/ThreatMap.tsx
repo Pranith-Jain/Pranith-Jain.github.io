@@ -576,7 +576,7 @@ export default function ThreatMap(): JSX.Element {
                       Selected
                     </span>
                     {selectedAgg?.country ?? selected.name}
-                    <span className="text-slate-500 dark:text-slate-500 text-xs font-mono">({selected.alpha2})</span>
+                    <span className="text-slate-500 dark:text-slate-400 text-xs font-mono">({selected.alpha2})</span>
                   </h3>
                   {selectedAgg ? (
                     <p className="text-xs font-mono text-slate-600 dark:text-slate-400 mt-1">
@@ -602,7 +602,7 @@ export default function ThreatMap(): JSX.Element {
 
               {selectedIps.length > 0 && (
                 <>
-                  <p className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-500 mb-2">
+                  <p className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
                     IPs from {selectedAgg?.country ?? selected.name} ({selectedIps.length} shown
                     {selectedAgg && selectedIps.length < selectedAgg.count ? ` of ${selectedAgg.count}` : ''})
                   </p>

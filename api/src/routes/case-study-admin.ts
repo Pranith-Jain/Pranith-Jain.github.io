@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 import type { Env } from '../env';
 import type { Candidate, CaseStudyType, Post, PostIOC, PostSource, SocialContent } from '../case-study/types';
-import { requireAdminToken } from '../case-study/auth';
+import { requireAdminMiddleware } from '../lib/admin-auth';
 import { safeJsonBody } from '../lib/safe-body';
 import { listAllCandidates, getCandidate, deleteCandidate } from '../case-study/storage/candidates';
 import { countByPrefix } from '../case-study/storage/kv-util';
@@ -54,7 +54,7 @@ const TYPES: CaseStudyType[] = [
 export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
   // Sub-app pattern: middleware applies only to /api/v1/admin/*, not globally.
   const admin = new Hono<{ Bindings: Env }>();
-  admin.use('*', requireAdminToken);
+  admin.use('*', requireAdminMiddleware);
 
   admin.get('/candidates', async (c) => {
     // One KV.list across all types instead of 12 per-type list ops.

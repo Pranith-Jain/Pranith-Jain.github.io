@@ -159,12 +159,12 @@ export default function PublishedTab() {
     navigator.clipboard.writeText(text).catch(() => {});
   }
 
-  if (loading) return <p className="text-zinc-400">Loading…</p>;
+  if (loading) return <p className="text-slate-400">Loading…</p>;
   if (error)
     return (
       <div>
         <p className="text-red-400 mb-2">Failed to load: {error}</p>
-        <button onClick={load} className="px-3 py-1 border border-zinc-700 rounded text-sm">
+        <button onClick={load} className="px-3 py-1 border border-slate-700 rounded text-sm">
           Retry
         </button>
       </div>
@@ -172,18 +172,18 @@ export default function PublishedTab() {
   if (posts.length === 0)
     return (
       <div>
-        {actionMsg && <p className="text-xs font-mono text-zinc-400 mb-2">{actionMsg}</p>}
-        <p className="text-zinc-400">No published posts.</p>
+        {actionMsg && <p className="text-xs font-mono text-slate-400 mb-2">{actionMsg}</p>}
+        <p className="text-slate-400">No published posts.</p>
       </div>
     );
 
   return (
     <div>
-      {actionMsg && <p className="text-xs font-mono text-zinc-400 mb-2">{actionMsg}</p>}
-      <p className="text-xs text-zinc-500 mb-4">Click a row to expand/collapse social content.</p>
+      {actionMsg && <p className="text-xs font-mono text-slate-400 mb-2">{actionMsg}</p>}
+      <p className="text-xs text-slate-500 mb-4">Click a row to expand/collapse social content.</p>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
-          <thead className="text-left text-xs uppercase tracking-wider text-zinc-500 border-b border-zinc-800">
+          <thead className="text-left text-xs uppercase tracking-wider text-slate-500 border-b border-slate-800">
             <tr>
               <th scope="col" className="py-2 pr-4">
                 Type
@@ -214,9 +214,9 @@ export default function PublishedTab() {
               const isExpanded = expanded === p.slug;
               return (
                 <tr key={p.slug} className="border-b border-zinc-800/60">
-                  <td className="py-2 pr-4 text-zinc-400 uppercase text-xs">{p.type}</td>
-                  <td className="py-2 pr-4 text-zinc-100">{p.title}</td>
-                  <td className="py-2 pr-4 text-zinc-500 text-xs whitespace-nowrap">
+                  <td className="py-2 pr-4 text-slate-400 uppercase text-xs">{p.type}</td>
+                  <td className="py-2 pr-4 text-slate-100">{p.title}</td>
+                  <td className="py-2 pr-4 text-slate-500 text-xs whitespace-nowrap">
                     {new Date(p.publishedAt).toLocaleString()}
                   </td>
                   <td className="py-2 pr-4">
@@ -224,7 +224,7 @@ export default function PublishedTab() {
                       href={`/blog/${p.slug}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-mono text-xs text-zinc-300 hover:underline"
+                      className="font-mono text-xs text-slate-300 hover:underline"
                     >
                       {p.slug}
                     </a>
@@ -234,21 +234,21 @@ export default function PublishedTab() {
                       <button
                         onClick={() => generateTwitter(p.slug)}
                         disabled={s?.loadingTwitter}
-                        className={`px-2 py-1 border rounded text-xs disabled:opacity-50 ${hasTwitter ? 'border-zinc-700 hover:bg-zinc-800' : 'border-green-800 hover:bg-green-900/30'}`}
+                        className={`px-2 py-1 border rounded text-xs disabled:opacity-50 ${hasTwitter ? 'border-slate-700 hover:bg-slate-800' : 'border-green-800 hover:bg-green-900/30'}`}
                       >
                         {s?.loadingTwitter ? '…' : hasTwitter ? 'Re-Tweet' : 'Tweet'}
                       </button>
                       <button
                         onClick={() => generateLinkedin(p.slug)}
                         disabled={s?.loadingLinkedin}
-                        className={`px-2 py-1 border rounded text-xs disabled:opacity-50 ${hasLinkedin ? 'border-zinc-700 hover:bg-zinc-800' : 'border-blue-800 hover:bg-blue-900/30'}`}
+                        className={`px-2 py-1 border rounded text-xs disabled:opacity-50 ${hasLinkedin ? 'border-slate-700 hover:bg-slate-800' : 'border-blue-800 hover:bg-blue-900/30'}`}
                       >
                         {s?.loadingLinkedin ? '…' : hasLinkedin ? 'Re-LinkedIn' : 'LinkedIn'}
                       </button>
                       {hasAny && (
                         <button
                           onClick={() => setExpanded(isExpanded ? null : p.slug)}
-                          className="px-2 py-1 border border-zinc-700 rounded text-xs hover:bg-zinc-800"
+                          className="px-2 py-1 border border-slate-700 rounded text-xs hover:bg-slate-800"
                         >
                           {isExpanded ? 'Hide' : 'View'}
                         </button>
@@ -258,7 +258,7 @@ export default function PublishedTab() {
                   <td className="py-2 flex gap-2">
                     <button
                       onClick={() => unpublish(p.slug)}
-                      className="px-2 py-1 border border-zinc-700 rounded text-xs hover:bg-zinc-800"
+                      className="px-2 py-1 border border-slate-700 rounded text-xs hover:bg-slate-800"
                     >
                       Unpublish
                     </button>
@@ -317,14 +317,14 @@ function SocialContentPanel({
   }
 
   return (
-    <div className="mt-6 rounded border border-zinc-700 p-4">
+    <div className="mt-6 rounded border border-slate-700 p-4">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-sm font-semibold uppercase tracking-wider text-zinc-300">Social Content</h3>
-        <button onClick={onClose} className="text-xs text-zinc-500 hover:text-zinc-300">
+        <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-300">Social Content</h3>
+        <button onClick={onClose} className="text-xs text-slate-500 hover:text-slate-300">
           Close
         </button>
       </div>
-      <p className="text-xs text-zinc-500 mb-4">Generated {new Date(data.generatedAt).toLocaleString()}</p>
+      <p className="text-xs text-slate-500 mb-4">Generated {new Date(data.generatedAt).toLocaleString()}</p>
 
       <div className="mb-6">
         <div className="flex items-center justify-between mb-2">
@@ -333,20 +333,20 @@ function SocialContentPanel({
             <button
               onClick={onRegenTwitter}
               disabled={regenTwitterBusy}
-              className="text-[10px] uppercase tracking-wider text-zinc-500 hover:text-zinc-300 disabled:opacity-50"
+              className="text-[10px] uppercase tracking-wider text-slate-500 hover:text-slate-300 disabled:opacity-50"
               title="Regenerate"
             >
               {regenTwitterBusy ? '…' : 'Regenerate'}
             </button>
             <button
               onClick={() => copy('twitter')}
-              className="px-2 py-1 border border-zinc-700 rounded text-xs hover:bg-zinc-800"
+              className="px-2 py-1 border border-slate-700 rounded text-xs hover:bg-slate-800"
             >
               {copyMsg === 'twitter' ? 'Copied!' : 'Copy'}
             </button>
           </div>
         </div>
-        <pre className="bg-zinc-900 rounded p-3 text-xs text-zinc-300 whitespace-pre-wrap font-mono leading-relaxed max-h-80 overflow-y-auto">
+        <pre className="bg-slate-900 rounded p-3 text-xs text-slate-300 whitespace-pre-wrap font-mono leading-relaxed max-h-80 overflow-y-auto">
           {data.twitter}
         </pre>
       </div>
@@ -358,20 +358,20 @@ function SocialContentPanel({
             <button
               onClick={onRegenLinkedin}
               disabled={regenLinkedinBusy}
-              className="text-[10px] uppercase tracking-wider text-zinc-500 hover:text-zinc-300 disabled:opacity-50"
+              className="text-[10px] uppercase tracking-wider text-slate-500 hover:text-slate-300 disabled:opacity-50"
               title="Regenerate"
             >
               {regenLinkedinBusy ? '…' : 'Regenerate'}
             </button>
             <button
               onClick={() => copy('linkedin')}
-              className="px-2 py-1 border border-zinc-700 rounded text-xs hover:bg-zinc-800"
+              className="px-2 py-1 border border-slate-700 rounded text-xs hover:bg-slate-800"
             >
               {copyMsg === 'linkedin' ? 'Copied!' : 'Copy'}
             </button>
           </div>
         </div>
-        <pre className="bg-zinc-900 rounded p-3 text-xs text-zinc-300 whitespace-pre-wrap font-mono leading-relaxed max-h-80 overflow-y-auto">
+        <pre className="bg-slate-900 rounded p-3 text-xs text-slate-300 whitespace-pre-wrap font-mono leading-relaxed max-h-80 overflow-y-auto">
           {data.linkedin}
         </pre>
       </div>

@@ -143,7 +143,7 @@ export default function PowershellDeobf(): JSX.Element {
           <code> -EncodedCommand</code>, <code>FromBase64String</code>, char-array literals, format-string composition,
           replace chains, backtick noise. Each pass shows what it changed.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
           Heuristic — does not actually execute anything. Pure client-side; nothing leaves your browser. After decoding,
           dangerous primitives (<code>IEX</code>, <code>DownloadString</code>, <code>VirtualAlloc</code>, Defender
           tampering) are flagged.
@@ -193,7 +193,7 @@ export default function PowershellDeobf(): JSX.Element {
                 Decoded output
               </h2>
               <div className="flex items-center gap-2">
-                <span className="text-[11px] font-mono text-slate-500 dark:text-slate-500">
+                <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
                   {result.steps.length} transform{result.steps.length === 1 ? '' : 's'} · {result.iterations} iter ·{' '}
                   {result.fixedPoint ? 'fixed point' : 'max iter reached'}
                 </span>

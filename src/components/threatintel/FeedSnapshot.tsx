@@ -73,7 +73,7 @@ export function FeedSnapshot() {
       className="mb-12 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 sm:p-5"
     >
       <div className="flex items-baseline justify-between mb-3">
-        <h2 className="text-[11px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500">
+        <h2 className="text-[11px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
           In the feed right now · last 7 days
         </h2>
         <p className="text-[10px] font-mono text-slate-400">live · click through to verify</p>
@@ -92,7 +92,7 @@ function Cell({ label, value, href, suffix }: { label: string; value: number | n
   const display = value === null ? '—' : value.toLocaleString();
   return (
     <div>
-      <dt className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-500">{label}</dt>
+      <dt className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">{label}</dt>
       <dd className="mt-1 flex items-baseline gap-1.5">
         <a
           href={href}

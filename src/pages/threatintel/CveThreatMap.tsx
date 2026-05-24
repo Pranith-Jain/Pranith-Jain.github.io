@@ -480,7 +480,7 @@ export default function CveThreatMap(): JSX.Element {
                       Selected
                     </span>
                     {selectedCve.country}
-                    <span className="text-slate-500 dark:text-slate-500 text-xs font-mono">
+                    <span className="text-slate-500 dark:text-slate-400 text-xs font-mono">
                       ({selectedCve.countryCode})
                     </span>
                   </h3>
@@ -510,7 +510,7 @@ export default function CveThreatMap(): JSX.Element {
 
               {selectedCve.top_actors && selectedCve.top_actors.length > 0 && (
                 <div className="mb-4">
-                  <p className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-500 mb-2">
+                  <p className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
                     Attributed actors from {selectedCve.country}
                   </p>
                   <div className="flex flex-wrap gap-1.5">
@@ -534,7 +534,7 @@ export default function CveThreatMap(): JSX.Element {
               )}
               {selectedCve.top_cves.length > 0 && (
                 <>
-                  <p className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-500 mb-2">
+                  <p className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
                     Top CVEs attributed to actors from {selectedCve.country}
                   </p>
                   <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">

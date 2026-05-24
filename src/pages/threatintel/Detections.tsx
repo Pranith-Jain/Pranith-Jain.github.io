@@ -321,7 +321,7 @@ export default function Detections(): JSX.Element {
           fired — cross-feed consensus, C2 / ransomware / infostealer tagging, and campaign clustering — with the
           indicators that triggered it.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-6">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
           Want to write your own?{' '}
           <Link
             to="/dfir/detection-lab"

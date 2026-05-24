@@ -84,7 +84,7 @@ export default function AwesomeLists(): JSX.Element {
           opens the canonical README; the <em>why</em> line under each entry explains the niche it fills better than its
           peers.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
           Awesome-list READMEs decay; star count + the maintainer&apos;s commit cadence are freshness proxies, not
           guarantees. Verify a specific link before relying on it.
         </p>
@@ -140,7 +140,7 @@ export default function AwesomeLists(): JSX.Element {
         </div>
       </section>
 
-      <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-4">
+      <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-4">
         Showing {filtered.length} of {LISTS.length}
       </p>
 
@@ -183,7 +183,7 @@ export default function AwesomeLists(): JSX.Element {
             <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed mb-2">
               {r.description}
             </p>
-            <p className="text-[12px] font-mono italic text-slate-500 dark:text-slate-500 leading-relaxed mb-3">
+            <p className="text-[12px] font-mono italic text-slate-500 dark:text-slate-400 leading-relaxed mb-3">
               <span className="text-slate-400 dark:text-slate-600 not-italic">why:</span> {r.why}
             </p>
             <div className="flex flex-wrap items-center gap-1.5">
@@ -204,7 +204,7 @@ export default function AwesomeLists(): JSX.Element {
       </ul>
 
       {filtered.length === 0 && (
-        <p className="text-sm font-mono text-slate-500 dark:text-slate-500 mt-6">
+        <p className="text-sm font-mono text-slate-500 dark:text-slate-400 mt-6">
           Nothing matches the current filters.{' '}
           <button onClick={clearAll} className="underline text-brand-600 dark:text-brand-400">
             Clear all

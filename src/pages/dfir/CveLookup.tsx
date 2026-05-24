@@ -265,7 +265,7 @@ export default function CveLookup(): JSX.Element {
                       )}
                       <div className="bg-slate-300 dark:bg-slate-700" style={{ flex: 1 }} />
                     </div>
-                    <div className="flex flex-wrap gap-3 mt-1.5 text-[10px] font-mono text-slate-500 dark:text-slate-500">
+                    <div className="flex flex-wrap gap-3 mt-1.5 text-[10px] font-mono text-slate-500 dark:text-slate-400">
                       <span className="inline-flex items-center gap-1">
                         <span className="inline-block w-2 h-2 bg-amber-500 rounded-sm" /> CVSS · {p.contributions.cvss}
                       </span>
@@ -309,7 +309,7 @@ export default function CveLookup(): JSX.Element {
                   <CopyButton
                     value={`${result.cve_id} — ${TIER_LABELS[p.tier]} (${p.score}/100, ${p.sla}).\n${p.rationale.map((r) => '- ' + r.replace(/\*\*/g, '')).join('\n')}`}
                   />
-                  <span className="ml-2 self-center text-[11px] font-mono text-slate-500 dark:text-slate-500">
+                  <span className="ml-2 self-center text-[11px] font-mono text-slate-500 dark:text-slate-400">
                     Copy ticket-ready rationale
                   </span>
                 </div>

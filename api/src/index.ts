@@ -1,4 +1,5 @@
 import { Hono } from 'hono';
+import { cors } from 'hono/cors';
 import type { Env } from './env';
 import { iocCheckHandler } from './routes/ioc';
 import { domainLookupHandler } from './routes/domain';
@@ -110,6 +111,16 @@ import { xLiveHandler } from './routes/x-live';
 import { xFirehoseHandler } from './routes/x-firehose';
 
 const app = new Hono<{ Bindings: Env }>();
+
+app.use(
+  '/api/v1/*',
+  cors({
+    origin: ['https://pranithjain.qzz.io'],
+    allowHeaders: ['X-Admin-Token', 'Authorization', 'Content-Type'],
+    allowMethods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
+    maxAge: 86400,
+  })
+);
 
 app.use('/api/v1/*', rateLimit);
 

@@ -599,7 +599,7 @@ export default function ThreatIntelHome(): JSX.Element {
       <FeedSnapshot />
 
       {/* Quick links to power-user surfaces */}
-      <div className="flex flex-wrap items-center gap-2 mb-12 text-[11px] font-mono text-slate-500 dark:text-slate-500">
+      <div className="flex flex-wrap items-center gap-2 mb-12 text-[11px] font-mono text-slate-500 dark:text-slate-400">
         <span>quick:</span>
         <Link
           to="/threatintel/metrics"
@@ -778,7 +778,7 @@ export default function ThreatIntelHome(): JSX.Element {
             <h2 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100">
               {activeSection.label}
             </h2>
-            <p className="text-sm text-slate-500 dark:text-slate-500 font-mono mt-1">
+            <p className="text-sm text-slate-500 dark:text-slate-400 font-mono mt-1">
               {activeSection.blurb} · {activeSection.tools.length}{' '}
               {activeSection.tools.length === 1 ? 'source' : 'sources'}
             </p>

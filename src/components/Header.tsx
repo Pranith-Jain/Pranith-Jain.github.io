@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, Command } from 'lucide-react';
 import { ThemeToggle } from './ui/ThemeToggle';
 import { useFocusTrap } from '../hooks/useFocusTrap';
 import { navLinks } from '../data/content';
@@ -15,9 +15,15 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [isMac, setIsMac] = useState<boolean | null>(null);
   const dropdownRefs = useRef<Map<string, HTMLDivElement>>(new Map());
   const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
   const location = useLocation();
+
+  useEffect(() => {
+    if (typeof navigator === 'undefined') return;
+    setIsMac(/Mac|iPhone|iPad/.test(navigator.platform));
+  }, []);
 
   // Track scroll position for header styling
   useEffect(() => {
@@ -73,16 +79,21 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
     return () => document.removeEventListener('keydown', handleEscape);
   }, [isMobileMenuOpen, openDropdown, closeMobileMenu]);
 
-  // Prevent body scroll when mobile menu is open
+  // Prevent body scroll when mobile menu is open, compensating for
+  // scrollbar width to avoid content reflow.
   useEffect(() => {
     if (isMobileMenuOpen) {
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
       document.body.style.overflow = 'hidden';
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
     } else {
       document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
     }
 
     return () => {
       document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
     };
   }, [isMobileMenuOpen]);
 
@@ -215,30 +226,32 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
                           aria-hidden="true"
                         />
                       </button>
-                      {openDropdown === link.href && (
-                        <div
-                          id={`dropdown-${link.href.replace('/', '')}`}
-                          role="menu"
-                          tabIndex={-1}
-                          className="absolute left-0 top-full mt-1 min-w-[200px] rounded-xl border border-slate-200/60 bg-white/95 py-2 shadow-lg backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/95"
-                          onMouseLeave={() => setOpenDropdown(null)}
-                          onKeyDown={(e) => handleDropdownKeyDown(e, link.href)}
-                        >
-                          {link.children.map((child) => (
-                            <Link
-                              key={child.href}
-                              to={child.href}
-                              className="block px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10 focus:outline-none focus:bg-slate-100 dark:focus:bg-white/10"
-                              onClick={() => setOpenDropdown(null)}
-                              onMouseEnter={() => preloadRoute(child.href)}
-                              onFocus={() => preloadRoute(child.href)}
-                              role="menuitem"
-                            >
-                              {child.label}
-                            </Link>
-                          ))}
-                        </div>
-                      )}
+                      <div
+                        id={`dropdown-${link.href.replace('/', '')}`}
+                        role="menu"
+                        tabIndex={-1}
+                        className={`absolute left-0 top-full mt-1 min-w-[200px] rounded-xl border border-slate-200/60 bg-white/95 py-2 shadow-lg backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/95 transition-all duration-200 ${
+                          openDropdown === link.href
+                            ? 'visible opacity-100 translate-y-0'
+                            : 'invisible opacity-0 -translate-y-2'
+                        }`}
+                        onMouseLeave={() => setOpenDropdown(null)}
+                        onKeyDown={(e) => handleDropdownKeyDown(e, link.href)}
+                      >
+                        {link.children.map((child) => (
+                          <Link
+                            key={child.href}
+                            to={child.href}
+                            className="block px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10 focus:outline-none focus:bg-slate-100 dark:focus:bg-white/10"
+                            onClick={() => setOpenDropdown(null)}
+                            onMouseEnter={() => preloadRoute(child.href)}
+                            onFocus={() => preloadRoute(child.href)}
+                            role="menuitem"
+                          >
+                            {child.label}
+                          </Link>
+                        ))}
+                      </div>
                     </>
                   ) : (
                     <Link
@@ -277,6 +290,29 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
                 </Link>
               ))}
 
+            {isMac !== null && (
+              <button
+                type="button"
+                onClick={() => {
+                  const ev = new KeyboardEvent('keydown', {
+                    key: 'k',
+                    metaKey: isMac,
+                    ctrlKey: !isMac,
+                    bubbles: true,
+                  });
+                  window.dispatchEvent(ev);
+                }}
+                className="hidden md:inline-flex items-center gap-1 text-[11px] font-mono px-2 py-1 rounded border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 hover:border-brand-500/40 hover:bg-slate-50 dark:hover:bg-slate-900"
+                aria-label="Search across tools, wiki, actors, CVEs, and Telegram channels"
+                title="Command palette"
+              >
+                <Command size={11} />
+                <kbd className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-[9px] font-mono text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
+                  {isMac ? '⌘' : 'Ctrl'}K
+                </kbd>
+              </button>
+            )}
+
             <ThemeToggle isDark={isDark} onToggle={onToggleTheme} />
 
             <button
@@ -299,77 +335,76 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
       </header>
 
       {/* Mobile Menu Overlay */}
-      {isMobileMenuOpen && (
+      <div
+        className={`fixed inset-0 z-40 md:hidden transition-all duration-300 ${
+          isMobileMenuOpen ? 'visible opacity-100' : 'invisible opacity-0'
+        }`}
+        id="mobile-menu"
+        ref={mobileMenuRef as React.RefObject<HTMLDivElement>}
+        aria-hidden={!isMobileMenuOpen}
+      >
+        {/* Backdrop */}
         <div
-          className="fixed inset-0 z-40 md:hidden"
-          id="mobile-menu"
-          ref={mobileMenuRef as React.RefObject<HTMLDivElement>}
-        >
-          {/* Backdrop */}
-          <div
-            className="absolute inset-0 bg-slate-950/20 backdrop-blur-sm dark:bg-slate-950/40"
-            onClick={closeMobileMenu}
-            aria-hidden="true"
-          />
+          className={`absolute inset-0 bg-slate-950/20 backdrop-blur-sm dark:bg-slate-950/40 transition-opacity duration-300 ${
+            isMobileMenuOpen ? 'opacity-100' : 'opacity-0'
+          }`}
+          onClick={closeMobileMenu}
+          aria-hidden="true"
+        />
 
-          {/* Menu */}
-          <nav
-            className="absolute top-[72px] left-0 right-0 border-t border-slate-200/60 bg-white/95 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/95 max-h-[calc(100vh-80px)] overflow-y-auto"
-            aria-label="Mobile navigation"
-          >
-            <div className="flex flex-col p-4 space-y-1">
-              {navLinks.map((link) => {
-                // Group entries (Work / Build) render as section headers
-                // with their children indented. The parent label is NOT a
-                // link on mobile — clicking it does nothing visible; the
-                // children carry every destination. This avoids the
-                // "parent route is the same as the first child" duplicate
-                // that the old layout introduced.
-                if ('children' in link && link.children) {
-                  return (
-                    <div key={link.label} className="pt-2 first:pt-0">
-                      <div className="px-4 pb-1 text-[10px] font-mono uppercase tracking-[0.18em] text-slate-400 dark:text-slate-500">
-                        {link.label}
-                      </div>
-                      {link.children.map((child) => (
-                        <Link
-                          key={child.href}
-                          to={child.href}
-                          onClick={closeMobileMenu}
-                          className={`block rounded-lg px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
-                            isActive(child.href)
-                              ? 'text-brand-600 dark:text-brand-400 bg-brand-500/10'
-                              : 'text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10'
-                          }`}
-                        >
-                          {child.label}
-                        </Link>
-                      ))}
-                    </div>
-                  );
-                }
+        {/* Menu */}
+        <nav
+          className={`absolute top-[72px] left-0 right-0 border-t border-slate-200/60 bg-white/95 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/95 max-h-[calc(100vh-80px)] overflow-y-auto transition-all duration-300 ${
+            isMobileMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-3 opacity-0'
+          }`}
+          aria-label="Mobile navigation"
+        >
+          <div className="flex flex-col p-4 space-y-1">
+            {navLinks.map((link) => {
+              if ('children' in link && link.children) {
                 return (
-                  <Link
-                    key={link.href}
-                    to={link.href}
-                    onClick={closeMobileMenu}
-                    className={`rounded-lg px-4 py-3 text-sm font-medium block focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
-                      link.cta
-                        ? 'bg-brand-600 text-white hover:bg-brand-500 mt-2'
-                        : isActive(link.href)
-                          ? 'text-brand-600 dark:text-brand-400 bg-brand-500/10'
-                          : 'text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10'
-                    }`}
-                  >
-                    {link.label}
-                    {link.cta && <span aria-hidden="true"> →</span>}
-                  </Link>
+                  <div key={link.label} className="pt-2 first:pt-0">
+                    <div className="px-4 pb-1 text-eyebrow font-mono uppercase text-slate-400 dark:text-slate-400">
+                      {link.label}
+                    </div>
+                    {link.children.map((child) => (
+                      <Link
+                        key={child.href}
+                        to={child.href}
+                        onClick={closeMobileMenu}
+                        className={`block rounded-lg px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
+                          isActive(child.href)
+                            ? 'text-brand-600 dark:text-brand-400 bg-brand-500/10'
+                            : 'text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10'
+                        }`}
+                      >
+                        {child.label}
+                      </Link>
+                    ))}
+                  </div>
                 );
-              })}
-            </div>
-          </nav>
-        </div>
-      )}
+              }
+              return (
+                <Link
+                  key={link.href}
+                  to={link.href}
+                  onClick={closeMobileMenu}
+                  className={`rounded-lg px-4 py-3 text-sm font-medium block focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
+                    link.cta
+                      ? 'bg-brand-600 text-white hover:bg-brand-500 mt-2'
+                      : isActive(link.href)
+                        ? 'text-brand-600 dark:text-brand-400 bg-brand-500/10'
+                        : 'text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10'
+                  }`}
+                >
+                  {link.label}
+                  {link.cta && <span aria-hidden="true"> →</span>}
+                </Link>
+              );
+            })}
+          </div>
+        </nav>
+      </div>
     </>
   );
 }

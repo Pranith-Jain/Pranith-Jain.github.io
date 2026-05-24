@@ -259,7 +259,7 @@ export default function ThreatPulse(): JSX.Element {
         <div className="flex items-center gap-2 ml-auto">
           <label
             htmlFor="pulse-min-sources"
-            className="text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-500"
+            className="text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400"
           >
             Min. sources
           </label>
@@ -286,7 +286,7 @@ export default function ThreatPulse(): JSX.Element {
             {kindFilter ? ` in ${KIND_LABEL[kindFilter as keyof typeof KIND_LABEL]}` : ''}.
           </p>
           {data.entities.length > 0 && (
-            <p className="text-xs font-mono text-slate-500 dark:text-slate-500 mt-1.5">
+            <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mt-1.5">
               {data.entities.length} total entit{data.entities.length === 1 ? 'y' : 'ies'} across all surfaces.
             </p>
           )}
@@ -414,7 +414,7 @@ export default function ThreatPulse(): JSX.Element {
       </DataState>
 
       {data && (
-        <p className="mt-6 text-[11px] font-mono text-slate-500 dark:text-slate-500 text-center">
+        <p className="mt-6 text-[11px] font-mono text-slate-500 dark:text-slate-400 text-center">
           Generated {data.generated_at.slice(0, 16).replace('T', ' ')} UTC · {data.entities.length} total entities
         </p>
       )}

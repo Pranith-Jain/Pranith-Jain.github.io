@@ -136,7 +136,7 @@ export default function AtlasMatrix(): JSX.Element {
           <div className="relative flex-1 min-w-0 w-full sm:min-w-[260px] sm:max-w-md">
             <Search
               size={16}
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-500"
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
               aria-hidden="true"
             />
             <input
@@ -144,7 +144,7 @@ export default function AtlasMatrix(): JSX.Element {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search ID, name, or description…"
-              className="w-full pl-9 pr-4 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:text-slate-500 focus:outline-none"
+              className="w-full pl-9 pr-4 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:text-slate-400 focus:outline-none"
               aria-label="Search ATLAS techniques"
             />
           </div>
@@ -198,7 +198,7 @@ export default function AtlasMatrix(): JSX.Element {
                           {technique.name}
                         </div>
                         {technique.subtechniques && technique.subtechniques.length > 0 && (
-                          <div className="mt-1 text-[10px] font-mono text-slate-500 dark:text-slate-500">
+                          <div className="mt-1 text-[10px] font-mono text-slate-500 dark:text-slate-400">
                             +{technique.subtechniques.length} sub-techniques
                           </div>
                         )}
@@ -264,7 +264,7 @@ export default function AtlasMatrix(): JSX.Element {
                     <div className="text-xs font-mono text-slate-600 dark:text-slate-400">
                       Tactic: <span className="text-slate-900 dark:text-slate-100">{detail.technique.tactic}</span>
                       {detail.technique.tacticId && (
-                        <span className="text-slate-500 dark:text-slate-500"> · {detail.technique.tacticId}</span>
+                        <span className="text-slate-500 dark:text-slate-400"> · {detail.technique.tacticId}</span>
                       )}
                     </div>
                   )}

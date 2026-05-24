@@ -117,7 +117,7 @@ export default function WikiArticle(): JSX.Element {
                   <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
                     {t.term}
                   </span>
-                  <span className="block text-[11px] font-mono text-slate-500 dark:text-slate-500 mt-0.5">
+                  <span className="block text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-0.5">
                     {t.blurb}
                   </span>
                 </Link>

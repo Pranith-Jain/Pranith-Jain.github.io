@@ -189,7 +189,7 @@ export default function Nhi(): JSX.Element {
           machine certs, MCP tokens, …), then assess each one against the OWASP NHI Top 10 (2025). Coverage stats and
           markdown export. All data stays in your browser.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
           Pairs with the{' '}
           <Link to="/dfir/mcp-audit" className="text-brand-600 dark:text-brand-400 hover:underline">
             MCP &amp; Claude Code Auditor
@@ -285,7 +285,7 @@ export default function Nhi(): JSX.Element {
                       </div>
                       {item.attCK && item.attCK.length > 0 && (
                         <div className="flex flex-wrap items-center gap-1.5">
-                          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500">
+                          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
                             ATT&amp;CK:
                           </span>
                           {item.attCK.map((id) => (
@@ -363,7 +363,7 @@ export default function Nhi(): JSX.Element {
 
           {/* List */}
           {items.length === 0 ? (
-            <div className="rounded-lg border border-dashed border-slate-300 dark:border-slate-700 p-8 text-center text-sm font-mono text-slate-500 dark:text-slate-500">
+            <div className="rounded-lg border border-dashed border-slate-300 dark:border-slate-700 p-8 text-center text-sm font-mono text-slate-500 dark:text-slate-400">
               No NHIs yet. Click <strong>Add NHI</strong> to start an inventory. Everything stays in your browser.
             </div>
           ) : (
@@ -386,7 +386,7 @@ export default function Nhi(): JSX.Element {
                         <span className="block font-display font-semibold text-slate-900 dark:text-slate-100 truncate">
                           {e.name || '(unnamed)'}
                         </span>
-                        <span className="block text-xs font-mono text-slate-500 dark:text-slate-500 truncate">
+                        <span className="block text-xs font-mono text-slate-500 dark:text-slate-400 truncate">
                           {e.type} · {e.owner || 'no owner'}
                           {e.scope ? ` · ${e.scope}` : ''}
                         </span>
@@ -509,7 +509,7 @@ export default function Nhi(): JSX.Element {
                           <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2">
                             OWASP NHI Top 10 coverage
                           </h3>
-                          <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-2">
+                          <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-2">
                             Click each row to cycle: unset → covered → partial → gap → n/a → unset.
                           </p>
                           <div className="grid gap-1.5">
@@ -584,7 +584,7 @@ export default function Nhi(): JSX.Element {
 function Field({ label, children }: { label: string; children: React.ReactNode }): JSX.Element {
   return (
     <label className="block">
-      <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500 mb-1 block">
+      <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1 block">
         {label}
       </span>
       {children}

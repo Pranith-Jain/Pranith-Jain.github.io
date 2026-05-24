@@ -87,7 +87,7 @@ const SEVERITY_COLORS: Record<string, string> = {
   high: 'text-orange-600 dark:text-orange-400',
   medium: 'text-amber-600 dark:text-amber-400',
   low: 'text-sky-600 dark:text-sky-400',
-  info: 'text-slate-500 dark:text-slate-500',
+  info: 'text-slate-500 dark:text-slate-400',
 };
 
 const TOOL_CONFIG: Array<{ key: ToolKey; label: string; icon: typeof Shield; buildUrl: (d: string) => string }> = [
@@ -269,7 +269,7 @@ function ResultCard({
           <div className="text-[11px] font-mono text-slate-600 dark:text-slate-400 mt-1">
             <span>{count} certificates</span>
             {unique && unique.length > 0 && (
-              <p className="truncate text-slate-500 dark:text-slate-500">
+              <p className="truncate text-slate-500 dark:text-slate-400">
                 {unique.slice(0, 3).join(', ')}
                 {unique.length > 3 ? '…' : ''}
               </p>
@@ -312,7 +312,7 @@ function ResultCard({
             {tool.label}
           </h3>
         </div>
-        {state.loading && <Loader2 size={12} className="animate-spin text-slate-500 dark:text-slate-500 shrink-0" />}
+        {state.loading && <Loader2 size={12} className="animate-spin text-slate-500 dark:text-slate-400 shrink-0" />}
         {!state.loading && !!state.data && !state.error && (
           <Link
             to={`/dfir/${tool.key === 'domain_lookup' ? 'domain' : tool.key === 'web_scan' ? 'web-scan' : tool.key === 'cert_search' ? 'cert-search' : tool.key === 'breach' ? 'breach' : tool.key}?domain=${encodeURIComponent(domain)}`}
@@ -323,7 +323,7 @@ function ResultCard({
         )}
       </div>
       <p
-        className={`text-[13px] font-mono font-semibold ${state.error ? 'text-rose-600' : state.data ? 'text-slate-900 dark:text-slate-100' : 'text-slate-500 dark:text-slate-500'}`}
+        className={`text-[13px] font-mono font-semibold ${state.error ? 'text-rose-600' : state.data ? 'text-slate-900 dark:text-slate-100' : 'text-slate-500 dark:text-slate-400'}`}
       >
         {summary}
       </p>

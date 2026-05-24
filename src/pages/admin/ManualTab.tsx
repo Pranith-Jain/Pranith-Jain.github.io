@@ -48,20 +48,20 @@ export default function ManualTab() {
 
   return (
     <div>
-      <p className="text-sm text-zinc-400 mb-4">
+      <p className="text-sm text-slate-400 mb-4">
         Write and publish a case study directly, bypassing the automated pipeline.
       </p>
 
       <div className="space-y-4 max-w-3xl">
         <div>
-          <label htmlFor="manual-type" className="block text-xs uppercase tracking-wider text-zinc-500 mb-1">
+          <label htmlFor="manual-type" className="block text-xs uppercase tracking-wider text-slate-500 mb-1">
             Type
           </label>
           <select
             id="manual-type"
             value={type}
             onChange={(e) => setType(e.target.value)}
-            className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded text-sm text-zinc-100"
+            className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded text-sm text-slate-100"
           >
             {CASE_TYPES.map((t) => (
               <option key={t.value} value={t.value}>
@@ -72,7 +72,7 @@ export default function ManualTab() {
         </div>
 
         <div>
-          <label htmlFor="manual-title" className="block text-xs uppercase tracking-wider text-zinc-500 mb-1">
+          <label htmlFor="manual-title" className="block text-xs uppercase tracking-wider text-slate-500 mb-1">
             Title
           </label>
           <input
@@ -80,12 +80,12 @@ export default function ManualTab() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Case study title"
-            className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded text-sm text-zinc-100 placeholder-zinc-600"
+            className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded text-sm text-slate-100 placeholder-zinc-600"
           />
         </div>
 
         <div>
-          <label htmlFor="manual-body" className="block text-xs uppercase tracking-wider text-zinc-500 mb-1">
+          <label htmlFor="manual-body" className="block text-xs uppercase tracking-wider text-slate-500 mb-1">
             Body <span className="text-zinc-600 normal-case">(Markdown)</span>
           </label>
           <textarea
@@ -94,12 +94,12 @@ export default function ManualTab() {
             onChange={(e) => setBody(e.target.value)}
             placeholder="Write your case study in Markdown..."
             rows={20}
-            className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded text-sm text-zinc-100 placeholder-zinc-600 font-mono"
+            className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded text-sm text-slate-100 placeholder-zinc-600 font-mono"
           />
         </div>
 
         <div>
-          <label htmlFor="manual-tags" className="block text-xs uppercase tracking-wider text-zinc-500 mb-1">
+          <label htmlFor="manual-tags" className="block text-xs uppercase tracking-wider text-slate-500 mb-1">
             Tags <span className="text-zinc-600 normal-case">(comma-separated)</span>
           </label>
           <input
@@ -107,14 +107,14 @@ export default function ManualTab() {
             value={tags}
             onChange={(e) => setTags(e.target.value)}
             placeholder="osint, threat-intel, tools"
-            className="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded text-sm text-zinc-100 placeholder-zinc-600"
+            className="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded text-sm text-slate-100 placeholder-zinc-600"
           />
         </div>
 
         <button
           onClick={handlePublish}
           disabled={sending || !title.trim() || !body.trim()}
-          className="px-4 py-2 bg-zinc-100 text-zinc-900 rounded text-sm font-medium hover:bg-zinc-300 disabled:opacity-50"
+          className="px-4 py-2 bg-slate-100 text-zinc-900 rounded text-sm font-medium hover:bg-zinc-300 disabled:opacity-50"
         >
           {sending ? 'Publishing…' : 'Publish'}
         </button>

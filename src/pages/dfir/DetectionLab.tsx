@@ -349,7 +349,7 @@ export default function DetectionLab(): JSX.Element {
           pack. Rules saved to this browser only (localStorage). Inline <code>tests</code> array gives you a TDD loop
           for rule authoring.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-6">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
           <code>match</code> + optional <code>exclude</code> predicates (kind, source, valueRegex, contextRegex,
           reporterRegex) are AND-ed inside each clause. <code>aggregate</code> {'{ groupBy, minCount, distinctBy }'} for
           consensus, <code>minMatches</code> for a flat threshold. <code>technique</code>/<code>tactic</code>/
@@ -523,7 +523,7 @@ export default function DetectionLab(): JSX.Element {
             Saved rules ({saved.length})
           </h2>
           {saved.length === 0 ? (
-            <p className="text-[12px] text-slate-500 dark:text-slate-500 font-mono">
+            <p className="text-[12px] text-slate-500 dark:text-slate-400 font-mono">
               None yet. Edit a rule and hit Save — stored in this browser only.
             </p>
           ) : (

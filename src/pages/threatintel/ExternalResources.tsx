@@ -18,7 +18,7 @@ const ALL_KINDS = Object.keys(KIND_LABELS) as ResourceKind[];
  * in localStorage; once pasted, all subsequent fetches send it as a Bearer.
  * If the server rejects (401/403), we clear the token and prompt again.
  */
-const TOKEN_KEY = 'resources-admin-token';
+const TOKEN_KEY = 'adminToken';
 
 interface DynamicEntry extends ExternalResource {
   added_at?: string;
@@ -179,7 +179,7 @@ export default function ExternalResources(): JSX.Element {
           {merged.length} off-site sources I cross-reference: dashboards, OSINT directories, training labs, malware
           samples, and research portfolios. Filter by kind or search across name and description.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
           External sites change ownership and quality over time. Verify a specific link before relying on it.
         </p>
       </div>
@@ -282,7 +282,7 @@ export default function ExternalResources(): JSX.Element {
         </div>
       </section>
 
-      <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-4">
+      <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-4">
         Showing {filtered.length} of {merged.length}
         {featuredOnly && ' (featured quality resources)'}
       </p>
@@ -363,7 +363,7 @@ export default function ExternalResources(): JSX.Element {
               {r.description}
             </p>
             {r.why && (
-              <p className="text-[12px] font-mono italic text-slate-500 dark:text-slate-500 leading-relaxed">
+              <p className="text-[12px] font-mono italic text-slate-500 dark:text-slate-400 leading-relaxed">
                 <span className="text-slate-400 dark:text-slate-600 not-italic">why:</span> {r.why}
               </p>
             )}
@@ -372,7 +372,7 @@ export default function ExternalResources(): JSX.Element {
       </ul>
 
       {filtered.length === 0 && (
-        <p className="text-sm font-mono text-slate-500 dark:text-slate-500 mt-6">
+        <p className="text-sm font-mono text-slate-500 dark:text-slate-400 mt-6">
           Nothing matches the current filters.{' '}
           <button type="button" onClick={clearAll} className="underline text-brand-600 dark:text-brand-400">
             Clear all
@@ -494,7 +494,7 @@ function AddResourceCard({
       <form onSubmit={submit} className="space-y-3">
         <div className="grid sm:grid-cols-[1fr_140px] gap-3">
           <label className="block">
-            <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-500">
+            <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
               URL <span className="text-rose-600">*</span>
             </span>
             <input
@@ -507,7 +507,7 @@ function AddResourceCard({
             />
           </label>
           <label className="block">
-            <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-500">
+            <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
               Kind <span className="text-rose-600">*</span>
             </span>
             <select
@@ -524,7 +524,7 @@ function AddResourceCard({
           </label>
         </div>
         <label className="block">
-          <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-500">
+          <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
             Name <span className="text-rose-600">*</span>
           </span>
           <input
@@ -537,7 +537,7 @@ function AddResourceCard({
           />
         </label>
         <label className="block">
-          <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-500">
+          <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
             Why (optional)
           </span>
           <input

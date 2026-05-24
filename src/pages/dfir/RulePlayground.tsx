@@ -141,7 +141,7 @@ export default function RulePlayground(): JSX.Element {
           Paste a YARA rule or a Sigma YAML rule alongside a sample log / file. The playground extracts the rule's
           strings and keywords, highlights matches in the sample, and surfaces the parsed condition for review.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-6">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
           Heuristic only — this is a teaching aid, not a YARA/Sigma engine. Boolean conditions ("at least 2 of $a*",
           "selection and not filter") are shown but not evaluated. For real validation, run the rule through{' '}
           <code>yara</code> or a Sigma converter.
@@ -230,11 +230,11 @@ export default function RulePlayground(): JSX.Element {
               </span>
             </div>
             <p className="text-sm font-mono text-slate-700 dark:text-slate-300 mb-2">
-              <span className="text-slate-500 dark:text-slate-500">Name:</span> {result.parsed.name}
+              <span className="text-slate-500 dark:text-slate-400">Name:</span> {result.parsed.name}
             </p>
             {result.parsed.condition && (
               <div className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-2.5 mb-3">
-                <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500 block mb-1">
+                <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 block mb-1">
                   Condition (informational)
                 </span>
                 <pre className="text-[12px] font-mono text-slate-800 dark:text-slate-200 whitespace-pre-wrap">
@@ -246,13 +246,13 @@ export default function RulePlayground(): JSX.Element {
               <div className="grid gap-1.5 sm:grid-cols-2 mb-3">
                 {result.parsed.meta.map((m) => (
                   <div key={m.k} className="text-[11px] font-mono text-slate-600 dark:text-slate-400">
-                    <span className="text-slate-400 dark:text-slate-500">{m.k}:</span> {m.v}
+                    <span className="text-slate-400 dark:text-slate-400">{m.k}:</span> {m.v}
                   </div>
                 ))}
               </div>
             )}
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500 block mb-1">
+              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 block mb-1">
                 Strings / keywords ({result.parsed.needles.length})
               </span>
               <div className="flex flex-wrap gap-1.5">
@@ -286,7 +286,7 @@ export default function RulePlayground(): JSX.Element {
               <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
                 Highlighted sample
               </h2>
-              <span className="text-xs font-mono text-slate-500 dark:text-slate-500 inline-flex items-center gap-1.5">
+              <span className="text-xs font-mono text-slate-500 dark:text-slate-400 inline-flex items-center gap-1.5">
                 {result.matches.length === 0 ? (
                   <>
                     <CheckCircle2 size={12} className="text-emerald-500" /> 0 matches
@@ -320,7 +320,7 @@ export default function RulePlayground(): JSX.Element {
                     >
                       {m.name}
                     </span>
-                    <span className="text-slate-500 dark:text-slate-500">@ {m.index}</span>
+                    <span className="text-slate-500 dark:text-slate-400">@ {m.index}</span>
                     <code className="text-slate-800 dark:text-slate-200 break-all">{m.text}</code>
                   </li>
                 ))}

@@ -57,7 +57,7 @@ function SectionBlock({ section }: { section: Section }): JSX.Element {
         <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
           {section.label}
         </h3>
-        <span className="text-[11px] font-mono text-slate-500 dark:text-slate-500">
+        <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
           {section.blurb} · {section.tools.length} tool{section.tools.length === 1 ? '' : 's'}
         </span>
       </div>
@@ -132,7 +132,7 @@ export function ToolGrid({ group }: { group?: ToolGroup } = {}): JSX.Element {
         </div>
       </div>
 
-      <p className="text-[13px] text-slate-500 dark:text-slate-500 leading-relaxed">
+      <p className="text-[13px] text-slate-500 dark:text-slate-400 leading-relaxed">
         {q ? (
           <>
             {matchCount} match{matchCount === 1 ? '' : 'es'} for{' '}
@@ -148,7 +148,7 @@ export function ToolGrid({ group }: { group?: ToolGroup } = {}): JSX.Element {
       </p>
 
       {filteredSections.length === 0 && filteredExternal.length === 0 ? (
-        <div className="rounded-lg border border-dashed border-slate-300 dark:border-slate-700 p-8 text-center text-sm text-slate-500 dark:text-slate-500">
+        <div className="rounded-lg border border-dashed border-slate-300 dark:border-slate-700 p-8 text-center text-sm text-slate-500 dark:text-slate-400">
           No tools match "{q}". Try a different keyword or{' '}
           <button onClick={() => setQuery('')} className="text-brand-600 dark:text-brand-400 hover:underline">
             clear the search
@@ -167,7 +167,7 @@ export function ToolGrid({ group }: { group?: ToolGroup } = {}): JSX.Element {
                 <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
                   External resources
                 </h3>
-                <span className="text-[11px] font-mono text-slate-500 dark:text-slate-500">
+                <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
                   Curated tools and catalogs hosted elsewhere · {filteredExternal.length}
                   {q ? ` of ${EXTERNAL.length}` : ''} link{filteredExternal.length === 1 ? '' : 's'}
                 </span>

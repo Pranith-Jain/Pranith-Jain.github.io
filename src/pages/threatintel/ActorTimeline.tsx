@@ -153,7 +153,7 @@ export default function ActorTimeline(): JSX.Element {
           this week; cells are daily post counts (relative shading per row so a slow week is still visible). MITRE
           ATT&CK Group profile linked where known, so you can pivot from "who's posting" to "what TTPs to hunt for."
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-6">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
           Joins Ransomlook per-group history with a curated MITRE Group lookup.
         </p>
       </div>

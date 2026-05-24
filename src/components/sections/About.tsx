@@ -12,7 +12,7 @@ export function About() {
   return (
     <section id="about" className="mt-20 scroll-mt-24">
       <div className="max-w-3xl">
-        <div className="mb-3 text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500">About me</div>
+        <div className="mb-3 text-eyebrow font-mono uppercase text-slate-500">About me</div>
         <h2 className="font-display text-4xl sm:text-5xl font-bold tracking-tight leading-tight text-slate-900 dark:text-white">
           Alerts first, then everything else
         </h2>
@@ -65,16 +65,14 @@ export function About() {
       <dl className="mt-12 grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4 sm:[&>div+div]:border-l sm:[&>div+div]:border-slate-200/80 sm:[&>div+div]:pl-5 sm:[&>div+div]:dark:border-slate-800">
         {stats.map((stat) => (
           <div key={stat.label}>
-            <dt className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500">
-              {stat.label}
-            </dt>
+            <dt className="text-eyebrow font-mono uppercase text-slate-500 dark:text-slate-400">{stat.label}</dt>
             <dd className="mt-1 flex items-baseline gap-1.5">
               <span className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">{stat.value}</span>
               {stat.suffix && (
                 <span className="text-sm font-semibold text-emerald-600 dark:text-emerald-400">{stat.suffix}</span>
               )}
             </dd>
-            <p className="mt-1 text-xs text-slate-500 dark:text-slate-500 leading-relaxed">{stat.description}</p>
+            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{stat.description}</p>
           </div>
         ))}
       </dl>

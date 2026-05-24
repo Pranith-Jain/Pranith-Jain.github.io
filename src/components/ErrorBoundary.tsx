@@ -321,7 +321,7 @@ export function SectionErrorBoundary({ sectionName, children }: { sectionName: s
           <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
             This section encountered an error and couldn't load.
           </p>
-          <p className="text-xs text-slate-400 dark:text-slate-500">The rest of the page is still functional.</p>
+          <p className="text-xs text-slate-400 dark:text-slate-400">The rest of the page is still functional.</p>
         </div>
       }
     >

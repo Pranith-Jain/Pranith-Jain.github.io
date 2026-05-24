@@ -278,7 +278,7 @@ export default function PromptInjection(): JSX.Element {
                       >
                         {m.pattern.severity}
                       </span>
-                      <span className="text-[10px] font-mono text-slate-500 dark:text-slate-500">
+                      <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
                         {m.pattern.category}
                       </span>
                       {m.pattern.owasp.map((id) => (
@@ -293,7 +293,7 @@ export default function PromptInjection(): JSX.Element {
                     </div>
                     <p className="text-sm font-mono text-slate-600 dark:text-slate-400">{m.pattern.description}</p>
                     {m.pattern.reference && (
-                      <p className="mt-1 text-[11px] font-mono text-slate-500 dark:text-slate-500">
+                      <p className="mt-1 text-[11px] font-mono text-slate-500 dark:text-slate-400">
                         Ref: {m.pattern.reference}
                       </p>
                     )}
@@ -318,14 +318,14 @@ export default function PromptInjection(): JSX.Element {
             <Download size={11} /> Export filtered as JSON
           </button>
         </div>
-        <p className="text-xs font-mono text-slate-500 dark:text-slate-500 mb-3">
+        <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-3">
           Curated prompts to send into your own LLM endpoint or eval harness. Each entry lists the expected well-behaved
           response so you can score the model's actual reply. Nothing here is operational uplift — every pattern is
           publicly documented.
         </p>
 
         <div className="flex flex-wrap gap-1.5 mb-2">
-          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500 self-center mr-1">
+          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 self-center mr-1">
             Category
           </span>
           <button
@@ -358,7 +358,7 @@ export default function PromptInjection(): JSX.Element {
         </div>
 
         <div className="flex flex-wrap gap-1.5 mb-4">
-          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500 self-center mr-1">
+          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 self-center mr-1">
             OWASP LLM
           </span>
           <button
@@ -404,7 +404,7 @@ export default function PromptInjection(): JSX.Element {
                 >
                   {p.severity}
                 </span>
-                <span className="text-[10px] font-mono text-slate-500 dark:text-slate-500">{p.category}</span>
+                <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">{p.category}</span>
                 {p.owasp.map((id) => (
                   <span
                     key={id}
@@ -417,7 +417,7 @@ export default function PromptInjection(): JSX.Element {
               </div>
               {p.systemContext && (
                 <div className="rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-2 mb-2">
-                  <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500 mb-1">
+                  <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
                     Assumed system context
                   </div>
                   <p className="text-[12px] font-mono text-slate-700 dark:text-slate-300 leading-relaxed">
@@ -445,12 +445,12 @@ export default function PromptInjection(): JSX.Element {
                 </p>
               </div>
               {p.source && (
-                <p className="mt-1.5 text-[10px] font-mono text-slate-500 dark:text-slate-500">Source: {p.source}</p>
+                <p className="mt-1.5 text-[10px] font-mono text-slate-500 dark:text-slate-400">Source: {p.source}</p>
               )}
             </li>
           ))}
           {filteredRedTeam.length === 0 && (
-            <li className="text-center text-sm font-mono text-slate-500 dark:text-slate-500 py-6">
+            <li className="text-center text-sm font-mono text-slate-500 dark:text-slate-400 py-6">
               No prompts match those filters.
             </li>
           )}
@@ -494,7 +494,7 @@ export default function PromptInjection(): JSX.Element {
           })}
         </div>
         {owaspFilter !== 'all' && (
-          <p className="text-xs font-mono text-slate-500 dark:text-slate-500 mb-3">
+          <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-3">
             <span className="font-semibold text-slate-700 dark:text-slate-300">{LLM_TOP10[owaspFilter].title}</span>
             {' — '}
             {LLM_TOP10[owaspFilter].short}
@@ -522,7 +522,7 @@ export default function PromptInjection(): JSX.Element {
                   </span>
                 ))}
               </div>
-              <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500 leading-relaxed">
+              <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 leading-relaxed">
                 {p.description}
               </p>
             </div>

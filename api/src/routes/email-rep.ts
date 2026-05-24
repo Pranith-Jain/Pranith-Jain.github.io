@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { safeErrorMessage } from '../lib/error';
 import { emailrep } from '../providers/emailrep';
 
 /**
@@ -146,7 +147,7 @@ export async function emailRepHandler(c: Context<{ Bindings: Env }>): Promise<Re
       {
         ok: false,
         email: raw,
-        error: err instanceof Error ? err.message : String(err),
+        error: safeErrorMessage(c.env as unknown as Record<string, unknown>, err),
       },
       502
     );

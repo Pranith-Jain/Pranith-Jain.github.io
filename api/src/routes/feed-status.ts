@@ -669,7 +669,7 @@ async function probeOne(spec: FeedProbeSpec): Promise<FeedStatusRow> {
       page_path: spec.page_path,
       api_path: spec.api_path,
       status: 'down',
-      reason: `cache read error: ${(e as Error).message}`,
+      reason: `cache read error`,
     };
   }
 }

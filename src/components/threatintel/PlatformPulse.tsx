@@ -99,7 +99,7 @@ function TrendBadge({ change }: { change: number }): JSX.Element {
   if (!Number.isFinite(change)) {
     return (
       <span
-        className="inline-flex items-center gap-0.5 text-[11px] font-mono tabular-nums text-slate-500 dark:text-slate-500"
+        className="inline-flex items-center gap-0.5 text-[11px] font-mono tabular-nums text-slate-500 dark:text-slate-400"
         title="No comparable prior 7-day baseline"
       >
         <Minus size={11} aria-hidden="true" />
@@ -114,7 +114,7 @@ function TrendBadge({ change }: { change: number }): JSX.Element {
       ? 'text-rose-600 dark:text-rose-400'
       : rounded < -3
         ? 'text-emerald-600 dark:text-emerald-400'
-        : 'text-slate-500 dark:text-slate-500';
+        : 'text-slate-500 dark:text-slate-400';
   const sign = rounded > 0 ? '+' : '';
   // Clamp the *display* so a one-off source step-change (e.g. MyThreatIntel
   // onboarding) reads as ">999%" instead of a meaningless five-digit number.
@@ -227,7 +227,7 @@ export function PlatformPulse(): JSX.Element | null {
         </h2>
         <Link
           to="/threatintel/briefings"
-          className="text-[11px] font-mono text-slate-500 dark:text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
+          className="text-[11px] font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
         >
           see briefings →
         </Link>

@@ -259,7 +259,7 @@ export default function MyThreatIntel(): JSX.Element {
           Live view of the MyThreatIntel CTI platform via its authenticated REST API. The bearer token is held as a
           Worker secret and injected server-side — it never reaches the browser.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-6">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
           9 sources: IOCs, malware, CVEs, ransomware ops, CTI events, leaks, threat groups, darknet markets, onion
           services.
         </p>

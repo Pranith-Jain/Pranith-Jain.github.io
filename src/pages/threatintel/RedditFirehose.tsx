@@ -141,7 +141,7 @@ export default function RedditFirehose(): JSX.Element {
           Curated stream from active public cybersec subreddits. Research, advisories, IR write-ups, malware analysis,
           OSINT, and CTI threads. Same shape as the Telegram firehose. Click a post title to open the Reddit thread.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-6">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
           16 subreddits aggregated. Updated frequently.
         </p>
       </div>

@@ -103,7 +103,7 @@ export default function LogParser(): JSX.Element {
           parsed into a structured record, and tagged with MITRE ATT&amp;CK techniques where heuristics fire. Hunting
           queries are generated for Splunk SPL, Elastic KQL, and Microsoft Sentinel KQL.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
           Pure client-side. Nothing leaves your browser. MITRE tagging is conservative — only fires on confident matches
           (Sysmon EID + cmdline pattern, Security 4625, etc). Treat this as a triage starting point.
         </p>
@@ -152,19 +152,19 @@ export default function LogParser(): JSX.Element {
             <div className="grid sm:grid-cols-3 gap-4 mb-3">
               <div>
                 <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{summary.total}</div>
-                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-500">total lines</div>
+                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">total lines</div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">
                   {summary.unique_techniques.length}
                 </div>
-                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-500">unique MITRE techniques</div>
+                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">unique MITRE techniques</div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">
                   {summary.unique_event_ids.length}
                 </div>
-                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-500">unique event IDs</div>
+                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">unique event IDs</div>
               </div>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -240,10 +240,10 @@ export default function LogParser(): JSX.Element {
                     <span className="text-[11px] font-mono text-slate-700 dark:text-slate-300">EID {r.event_id}</span>
                   )}
                   {r.source && (
-                    <span className="text-[11px] font-mono text-slate-500 dark:text-slate-500">{r.source}</span>
+                    <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">{r.source}</span>
                   )}
                   {r.timestamp && (
-                    <span className="text-[11px] font-mono text-slate-500 dark:text-slate-500 ml-auto">
+                    <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 ml-auto">
                       {r.timestamp}
                     </span>
                   )}
@@ -275,7 +275,7 @@ export default function LogParser(): JSX.Element {
                 )}
 
                 <details>
-                  <summary className="text-[11px] font-mono text-slate-500 dark:text-slate-500 cursor-pointer">
+                  <summary className="text-[11px] font-mono text-slate-500 dark:text-slate-400 cursor-pointer">
                     {Object.keys(r.fields).length} parsed field{Object.keys(r.fields).length === 1 ? '' : 's'} — show
                     structured JSON
                   </summary>

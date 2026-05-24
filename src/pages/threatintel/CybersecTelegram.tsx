@@ -74,7 +74,7 @@ export default function CybersecTelegram(): JSX.Element {
           </Link>{' '}
           for descriptions of each channel.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
           Server-side aggregation of public Telegram channel previews.
         </p>
       </div>

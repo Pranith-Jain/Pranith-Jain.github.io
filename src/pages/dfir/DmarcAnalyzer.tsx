@@ -298,7 +298,7 @@ export default function DmarcAnalyzer(): JSX.Element {
           Parse &amp; analyze your DMARC aggregate (RUA) XML reports — XML parsed in-browser, IPs enriched via real-time
           WHOIS/GeoIP.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
           Inspired by{' '}
           <a
             href="https://www.dmarclabsds1.xyz/"
@@ -354,11 +354,11 @@ export default function DmarcAnalyzer(): JSX.Element {
           className="hidden"
           aria-label="Upload DMARC XML report"
         />
-        <Upload size={36} className="mx-auto mb-3 text-slate-400 dark:text-slate-500" />
+        <Upload size={36} className="mx-auto mb-3 text-slate-400 dark:text-slate-400" />
         <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mb-1">
           Drag &amp; drop your DMARC XML report here
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
           or click to browse — .xml, .gz, .zip up to 100 MB
         </p>
       </div>
@@ -413,7 +413,7 @@ export default function DmarcAnalyzer(): JSX.Element {
               </div>
             </div>
 
-            <div className="text-xs text-slate-500 dark:text-slate-500 font-mono space-y-1">
+            <div className="text-xs text-slate-500 dark:text-slate-400 font-mono space-y-1">
               <p>
                 Report from: <span className="text-slate-700 dark:text-slate-300">{report.orgName}</span>
               </p>

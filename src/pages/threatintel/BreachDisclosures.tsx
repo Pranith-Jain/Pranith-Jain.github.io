@@ -108,7 +108,7 @@ export default function BreachDisclosures(): JSX.Element {
           </a>{' '}
           corpus with verification flags, sensitivity markers, and exposed data classes.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
           MyThreatIntel leaks (active) + HIBP public corpus (canonical) + breach-news feeds (timely commentary).
         </p>
       </div>

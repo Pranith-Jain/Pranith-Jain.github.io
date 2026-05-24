@@ -189,7 +189,7 @@ export default function GoogleDorks(): JSX.Element {
           <div className="relative flex-1">
             <Search
               size={16}
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 pointer-events-none"
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-400 pointer-events-none"
             />
             <input
               id="dork-q"
@@ -285,7 +285,7 @@ export default function GoogleDorks(): JSX.Element {
                     )}
                     {r.snippet && (
                       <p className="text-sm text-slate-600 dark:text-slate-400 mt-1.5">
-                        {r.date && <span className="text-slate-500 dark:text-slate-500">{r.date} · </span>}
+                        {r.date && <span className="text-slate-500 dark:text-slate-400">{r.date} · </span>}
                         {r.snippet}
                       </p>
                     )}

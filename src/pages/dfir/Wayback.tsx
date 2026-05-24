@@ -201,7 +201,7 @@ export default function Wayback(): JSX.Element {
           Paste a URL — get the Internet Archive snapshot timeline (first / last seen, status-code distribution, deduped
           via content digest). Useful for phishing-site evolution, infrastructure churn, and content provenance.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
           Powered by the public Internet Archive CDX API. Capped at 200 snapshots per query for responsiveness; for
           deeper history use{' '}
           <a
@@ -276,7 +276,7 @@ export default function Wayback(): JSX.Element {
             <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
               Timeline summary
             </h2>
-            <span className="text-[11px] font-mono text-slate-500 dark:text-slate-500 inline-flex items-center gap-1.5">
+            <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 inline-flex items-center gap-1.5">
               <CheckCircle2 size={12} className="text-emerald-500" /> {snapshots?.length ?? 0} unique snapshots
             </span>
           </div>
@@ -313,7 +313,7 @@ export default function Wayback(): JSX.Element {
           </h2>
           <div className="overflow-x-auto">
             <table className="w-full text-[12px] font-mono">
-              <thead className="text-left text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-500">
+              <thead className="text-left text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 <tr>
                   {(['timestamp', 'status', 'mime', 'length'] as const).map((k) => (
                     <th
@@ -371,7 +371,7 @@ export default function Wayback(): JSX.Element {
               </tbody>
             </table>
             {displaySnapshots.length > 100 && (
-              <p className="mt-3 text-[11px] font-mono text-slate-500 dark:text-slate-500">
+              <p className="mt-3 text-[11px] font-mono text-slate-500 dark:text-slate-400">
                 Showing the 100 most recent of {displaySnapshots.length}. Re-run with a more specific URL or use{' '}
                 <a
                   href={`https://web.archive.org/web/*/${url}`}
@@ -420,7 +420,7 @@ export default function Wayback(): JSX.Element {
 function Stat({ label, value, url }: { label: string; value: string; url?: string }): JSX.Element {
   return (
     <div className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-2.5">
-      <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500 mb-1">
+      <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
         {label}
       </div>
       {url ? (

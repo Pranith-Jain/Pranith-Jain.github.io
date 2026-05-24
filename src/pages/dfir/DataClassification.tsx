@@ -108,7 +108,7 @@ export default function DataClassification(): JSX.Element {
           in your environment, and assign each one to a tier. The matrix view renders the cross-product as a handling
           reference. localStorage; everything stays in your browser.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
           Pairs with{' '}
           <Link to="/dfir/dlp-scan" className="text-brand-600 dark:text-brand-400 hover:underline">
             Sensitive Data Detector
@@ -304,7 +304,7 @@ export default function DataClassification(): JSX.Element {
       {tab === 'inventory' && (
         <div className="space-y-3">
           {state.datasets.length === 0 ? (
-            <div className="rounded-lg border border-dashed border-slate-300 dark:border-slate-700 p-8 text-center text-sm font-mono text-slate-500 dark:text-slate-500">
+            <div className="rounded-lg border border-dashed border-slate-300 dark:border-slate-700 p-8 text-center text-sm font-mono text-slate-500 dark:text-slate-400">
               No datasets yet. Click <strong>Add dataset</strong> to start an inventory.
             </div>
           ) : (
@@ -323,7 +323,7 @@ export default function DataClassification(): JSX.Element {
                       <span className="block font-display font-semibold text-slate-900 dark:text-slate-100 truncate">
                         {d.name || '(unnamed)'}
                       </span>
-                      <span className="block text-xs font-mono text-slate-500 dark:text-slate-500 truncate">
+                      <span className="block text-xs font-mono text-slate-500 dark:text-slate-400 truncate">
                         {d.type} · {d.owner || 'no owner'}
                         {d.storage ? ` · ${d.storage}` : ''}
                       </span>
@@ -460,7 +460,7 @@ export default function DataClassification(): JSX.Element {
               <tr>
                 <th
                   scope="col"
-                  className="px-3 py-2 text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-500"
+                  className="px-3 py-2 text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400"
                 >
                   Handling rule
                 </th>
@@ -580,7 +580,7 @@ function TabBtn({
 function Field({ label, children }: { label: string; children: React.ReactNode }): JSX.Element {
   return (
     <label className="block">
-      <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500 mb-1 block">
+      <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1 block">
         {label}
       </span>
       {children}

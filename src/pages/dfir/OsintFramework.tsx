@@ -62,7 +62,7 @@ export default function OsintFramework(): JSX.Element {
           {ENTRIES.length} curated OSINT tools and sources across {Object.keys(CATEGORY_LABELS).length} categories.
           Filter by category, by pricing tier (free / free-with-account / freemium / paid), or full-text search.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-6">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
           Hand-picked subset of osintframework.com — every entry was reachable when added. Pairs with{' '}
           <Link to="/dfir/username" className="text-brand-600 dark:text-brand-400 hover:underline">
             Username Pivot
@@ -93,7 +93,7 @@ export default function OsintFramework(): JSX.Element {
         </div>
 
         <div className="flex flex-wrap gap-1.5">
-          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500 self-center mr-1">
+          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 self-center mr-1">
             Pricing
           </span>
           <button
@@ -126,7 +126,7 @@ export default function OsintFramework(): JSX.Element {
         </div>
 
         <div className="flex flex-wrap gap-1.5">
-          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500 self-center mr-1">
+          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 self-center mr-1">
             Category
           </span>
           <button
@@ -158,7 +158,7 @@ export default function OsintFramework(): JSX.Element {
         </div>
       </section>
 
-      <p className="text-xs font-mono text-slate-500 dark:text-slate-500 mb-3">
+      <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-3">
         Showing {filtered.length} of {ENTRIES.length}
       </p>
 
@@ -183,14 +183,14 @@ export default function OsintFramework(): JSX.Element {
                 {PRICING_LABELS[e.pricing]}
               </span>
             </header>
-            <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500 mb-1">
+            <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
               {CATEGORY_LABELS[e.category]}
             </p>
             <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{e.description}</p>
           </article>
         ))}
         {filtered.length === 0 && (
-          <div className="col-span-full rounded-lg border border-dashed border-slate-300 dark:border-slate-700 p-8 text-center text-sm font-mono text-slate-500 dark:text-slate-500">
+          <div className="col-span-full rounded-lg border border-dashed border-slate-300 dark:border-slate-700 p-8 text-center text-sm font-mono text-slate-500 dark:text-slate-400">
             No entries match those filters. Try clearing the search or relaxing the category filter.
           </div>
         )}

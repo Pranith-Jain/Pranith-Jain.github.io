@@ -121,7 +121,7 @@ export function Projects() {
   return (
     <section id="projects" className="mt-20 scroll-mt-24">
       <div className="mb-10 max-w-2xl">
-        <div className="mb-3 text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500">Projects</div>
+        <div className="mb-3 text-eyebrow font-mono uppercase text-slate-500">Projects</div>
         <h2 className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-slate-900 dark:text-white">
           Selected projects &amp; initiatives
         </h2>
@@ -132,7 +132,7 @@ export function Projects() {
           project cards below complement them with the tools/initiatives. */}
       {publishedCaseStudies.length > 0 && (
         <div className="mb-10">
-          <div className="mb-3 text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500">Case studies</div>
+          <div className="mb-3 text-eyebrow font-mono uppercase text-slate-500">Case studies</div>
           <div className="grid gap-3 sm:grid-cols-2">
             {publishedCaseStudies.map((cs) => (
               <Link
@@ -149,7 +149,7 @@ export function Projects() {
                 <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-2">
                   {cs.excerpt}
                 </p>
-                <p className="mt-3 text-xs font-mono text-slate-500 dark:text-slate-500">{cs.outcome}</p>
+                <p className="mt-3 text-xs font-mono text-slate-500 dark:text-slate-400">{cs.outcome}</p>
                 <div className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-brand-700 dark:text-brand-400">
                   Read case study
                   <ArrowRight size={12} className="transition-transform group-hover:translate-x-0.5" />
@@ -160,9 +160,7 @@ export function Projects() {
         </div>
       )}
 
-      <div className="mb-3 text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500">
-        Tools &amp; initiatives
-      </div>
+      <div className="mb-3 text-eyebrow font-mono uppercase text-slate-500">Tools &amp; initiatives</div>
       <div className="grid gap-3">
         {visible.map((project) => (
           <ProjectCard key={project.title} project={project} />

@@ -176,10 +176,7 @@ export function LiveSignalStrip(): JSX.Element {
   return (
     <section className="mt-10 mb-2" aria-labelledby="live-signal-heading">
       <div className="flex items-baseline gap-3 mb-3">
-        <h2
-          id="live-signal-heading"
-          className="text-[11px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500"
-        >
+        <h2 id="live-signal-heading" className="text-eyebrow font-mono uppercase text-slate-500 dark:text-slate-400">
           Live from the platform · updated on load
         </h2>
         <Link to="/threatintel" className="text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline">
@@ -223,7 +220,7 @@ export function LiveSignalStrip(): JSX.Element {
               className={`group block rounded-xl border bg-white dark:bg-slate-900/40 p-4 transition ${ACCENT_BG[t.accent]}`}
             >
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500">{t.label}</span>
+                <span className="text-eyebrow font-mono uppercase text-slate-400">{t.label}</span>
                 <Icon className={`h-4 w-4 ${ACCENT_TEXT[t.accent]}`} aria-hidden="true" />
               </div>
               <div className="flex items-baseline gap-3">

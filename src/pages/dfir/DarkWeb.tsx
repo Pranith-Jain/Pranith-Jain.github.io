@@ -282,7 +282,7 @@ export default function DarkWeb(): JSX.Element {
           works), filter by source, narrow by date window, and add long-running keywords to your watchlist for
           highlighted matches across visits. Watchlist + source preferences are stored locally; nothing is uploaded.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
           Per-source widgets —{' '}
           <Link to="/threatintel/ransomware-activity" className="text-brand-600 dark:text-brand-400 hover:underline">
             ransomware activity
@@ -631,7 +631,7 @@ export function BreachDisclosuresPanel(): JSX.Element {
             HIBP corpus
           </span>
         </h2>
-        <span className="text-[11px] font-mono text-slate-500 dark:text-slate-500">
+        <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
           {loading ? 'loading…' : data ? `${data.count} disclosures` : ''}
         </span>
       </div>
@@ -643,7 +643,7 @@ export function BreachDisclosuresPanel(): JSX.Element {
       )}
 
       {data && data.breaches.length === 0 && !error && (
-        <p className="text-sm font-mono text-slate-500 dark:text-slate-500">
+        <p className="text-sm font-mono text-slate-500 dark:text-slate-400">
           No disclosures returned. The upstream HIBP API may be unavailable; the in-feed sources below still cover
           breach reporting.
         </p>
@@ -676,7 +676,7 @@ export function BreachDisclosuresPanel(): JSX.Element {
                   </span>
                 )}
               </div>
-              <div className="flex flex-wrap items-baseline gap-3 text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-1">
+              <div className="flex flex-wrap items-baseline gap-3 text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-1">
                 {b.domain && <span>{b.domain}</span>}
                 {b.breach_date && <span>breached {b.breach_date}</span>}
                 {b.added_date && <span>disclosed {b.added_date.slice(0, 10)}</span>}
@@ -697,7 +697,7 @@ export function BreachDisclosuresPanel(): JSX.Element {
                     </span>
                   ))}
                   {b.data_classes.length > 5 && (
-                    <span className="text-[9px] font-mono text-slate-500 dark:text-slate-500">
+                    <span className="text-[9px] font-mono text-slate-500 dark:text-slate-400">
                       +{b.data_classes.length - 5}
                     </span>
                   )}
@@ -714,7 +714,7 @@ export function BreachDisclosuresPanel(): JSX.Element {
       )}
 
       {data && data.breaches.length > 8 && (
-        <div className="mt-3 flex items-center justify-between text-[11px] font-mono text-slate-500 dark:text-slate-500">
+        <div className="mt-3 flex items-center justify-between text-[11px] font-mono text-slate-500 dark:text-slate-400">
           <button onClick={() => setExpanded((v) => !v)} className="text-brand-600 dark:text-brand-400 hover:underline">
             {expanded ? 'Show fewer' : `Show all ${data.breaches.length}`}
           </button>
@@ -853,7 +853,7 @@ export function RansomwareActivityPanel(): JSX.Element {
         <h2 className="font-display font-semibold text-lg inline-flex items-center gap-2">
           Recent ransomware activity
         </h2>
-        <span className="text-[11px] font-mono text-slate-500 dark:text-slate-500" title={data?.source ?? ''}>
+        <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400" title={data?.source ?? ''}>
           {loading ? 'loading…' : data ? `${data.count} leak-site posts · multi-source merge` : ''}
         </span>
       </div>
@@ -974,7 +974,7 @@ export function RansomwareActivityPanel(): JSX.Element {
                       </span>
                     )}
                   </div>
-                  <div className="text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-1">
+                  <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-1">
                     claimed {formatRelativeTime(v.discovered)}
                   </div>
                   {v.description && (
@@ -990,7 +990,7 @@ export function RansomwareActivityPanel(): JSX.Element {
       )}
 
       {filteredVictims.length > 12 && (
-        <div className="mt-3 flex items-center justify-between text-[11px] font-mono text-slate-500 dark:text-slate-500">
+        <div className="mt-3 flex items-center justify-between text-[11px] font-mono text-slate-500 dark:text-slate-400">
           <button onClick={() => setExpanded((v) => !v)} className="text-brand-600 dark:text-brand-400 hover:underline">
             {expanded ? 'Show fewer' : `Show all ${filteredVictims.length}`}
           </button>
@@ -1007,7 +1007,7 @@ export function RansomwareActivityPanel(): JSX.Element {
       )}
 
       {data && data.victims.some((v) => v.screen_url) && (
-        <p className="mt-3 text-[10px] font-mono text-slate-500 dark:text-slate-500 leading-relaxed">
+        <p className="mt-3 text-[10px] font-mono text-slate-500 dark:text-slate-400 leading-relaxed">
           Thumbnails are PNG screenshots of the .onion leak post, captured by Ransomlook&apos;s Tor-equipped backend and
           rehosted on clearnet. Click to zoom — we never fetch the .onion site from your browser. Treat the content as
           untrusted (leak-site screenshots can include malicious links + actor branding).
@@ -1238,7 +1238,7 @@ export function TelegramFeedPanel(): JSX.Element {
             t.me/s preview
           </span>
         </h2>
-        <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 text-[11px] font-mono text-slate-500 dark:text-slate-500">
+        <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 text-[11px] font-mono text-slate-500 dark:text-slate-400">
           {loading ? (
             <span>loading…</span>
           ) : data ? (
@@ -1263,7 +1263,7 @@ export function TelegramFeedPanel(): JSX.Element {
         </div>
       </div>
 
-      <p className="text-[12px] font-mono text-slate-500 dark:text-slate-500 mb-3 leading-relaxed">
+      <p className="text-[12px] font-mono text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">
         Latest messages from a curated set of public threat-intel and cybercrime-tracking Telegram channels —{' '}
         <Link to="/threatintel/telegram-watch" className="text-brand-600 dark:text-brand-400 hover:underline">
           full catalogue
@@ -1368,11 +1368,11 @@ export function TelegramFeedPanel(): JSX.Element {
                   >
                     {it.channel_topic}
                   </span>
-                  <span className="text-[10px] font-mono text-slate-500 dark:text-slate-500">
+                  <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
                     {formatRelativeTime(it.datetime)}
                   </span>
                   {it.views && (
-                    <span className="text-[10px] font-mono text-slate-500 dark:text-slate-500">{it.views} views</span>
+                    <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">{it.views} views</span>
                   )}
                   {hasMatch && (
                     <span className="text-[9px] font-mono uppercase tracking-wider px-1 py-0.5 rounded bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/40 sm:ml-auto">
@@ -1390,11 +1390,11 @@ export function TelegramFeedPanel(): JSX.Element {
       )}
 
       {data && filteredItems.length === 0 && !loading && !error && (
-        <p className="text-sm font-mono text-slate-500 dark:text-slate-500">No messages from the selected channel.</p>
+        <p className="text-sm font-mono text-slate-500 dark:text-slate-400">No messages from the selected channel.</p>
       )}
 
       {matchedItems.length > 10 && (
-        <div className="mt-3 flex items-center justify-between text-[11px] font-mono text-slate-500 dark:text-slate-500">
+        <div className="mt-3 flex items-center justify-between text-[11px] font-mono text-slate-500 dark:text-slate-400">
           <button onClick={() => setExpanded((v) => !v)} className="text-brand-600 dark:text-brand-400 hover:underline">
             {expanded ? 'Show fewer' : `Show all ${matchedItems.length}`}
           </button>

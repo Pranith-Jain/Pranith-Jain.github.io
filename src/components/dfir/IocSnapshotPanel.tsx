@@ -157,7 +157,7 @@ export function IocSnapshotPanel(): JSX.Element {
             </span>
           )}
         </h2>
-        <span className="text-[11px] font-mono text-slate-500 dark:text-slate-500">
+        <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
           {data
             ? `${totalEntries} fresh indicators across 4 abuse.ch + OpenPhish feeds`
             : err
@@ -195,7 +195,7 @@ export function IocSnapshotPanel(): JSX.Element {
             >
               {summary && (
                 <>
-                  <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-2">
+                  <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-2">
                     <span className="text-slate-900 dark:text-slate-100 font-bold text-base">{summary.count}</span>{' '}
                     fresh · {summary.source_name}
                   </p>

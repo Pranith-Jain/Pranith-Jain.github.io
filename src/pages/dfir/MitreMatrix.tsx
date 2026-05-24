@@ -361,7 +361,7 @@ export default function MitreMatrix(): JSX.Element {
         )}
 
         {/* Matrix — horizontally scrollable; explicit hint so touch users know to swipe */}
-        <p className="sm:hidden text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-2 italic">
+        <p className="sm:hidden text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-2 italic">
           Swipe horizontally to scan tactics →
         </p>
         <div className="overflow-x-auto pb-4 -mx-4 sm:mx-0 px-4 sm:px-0">
@@ -437,7 +437,7 @@ export default function MitreMatrix(): JSX.Element {
                           </div>
                         )}
                         {technique.subtechniques && technique.subtechniques.length > 0 && (
-                          <div className="mt-1 text-[10px] font-mono text-slate-400 dark:text-slate-500">
+                          <div className="mt-1 text-[10px] font-mono text-slate-400 dark:text-slate-400">
                             +{technique.subtechniques.length} sub-techniques
                           </div>
                         )}

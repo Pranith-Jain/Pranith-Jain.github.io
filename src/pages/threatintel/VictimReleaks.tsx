@@ -192,7 +192,7 @@ export default function VictimReleaks(): JSX.Element {
           <strong>which sectors, which operation types, and which group pairs</strong> drive re-leaks. Individual victim
           rows are secondary and collapsed below.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-6">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
           Scans the top-8 active groups' per-group histories. Sector is a name-only heuristic; operation-type is a
           curated lookup — both best-effort, verify before acting.
         </p>

@@ -71,7 +71,7 @@ export function LatestBriefingCard(): JSX.Element | null {
           {m.date_range ? ` · ${m.date_range}` : ''}
         </p>
       </div>
-      <ArrowRight className="h-4 w-4 shrink-0 text-slate-400 transition-transform group-hover:translate-x-0.5 dark:text-slate-500" />
+      <ArrowRight className="h-4 w-4 shrink-0 text-slate-400 transition-transform group-hover:translate-x-0.5 dark:text-slate-400" />
     </Link>
   );
 }

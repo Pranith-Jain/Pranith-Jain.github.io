@@ -114,12 +114,12 @@ export default function DraftsTab() {
     }
   }
 
-  if (loading) return <p className="text-zinc-400">Loading…</p>;
+  if (loading) return <p className="text-slate-400">Loading…</p>;
   if (error)
     return (
       <div>
         <p className="text-red-400 mb-2">Failed to load: {error}</p>
-        <button onClick={() => void load()} className="px-3 py-1 border border-zinc-700 rounded text-sm">
+        <button onClick={() => void load()} className="px-3 py-1 border border-slate-700 rounded text-sm">
           Retry
         </button>
       </div>
@@ -145,17 +145,17 @@ export default function DraftsTab() {
       )}
 
       {actionMsg && (
-        <div className="mb-4 rounded border border-zinc-700 bg-zinc-900 px-3 py-2 text-xs font-mono text-zinc-300">
+        <div className="mb-4 rounded border border-slate-700 bg-slate-900 px-3 py-2 text-xs font-mono text-slate-300">
           {actionMsg}
         </div>
       )}
 
       {drafts.length === 0 ? (
-        <p className="text-zinc-400">No drafts pending.</p>
+        <p className="text-slate-400">No drafts pending.</p>
       ) : (
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
-            <thead className="text-left text-xs uppercase tracking-wider text-zinc-500 border-b border-zinc-800">
+            <thead className="text-left text-xs uppercase tracking-wider text-slate-500 border-b border-slate-800">
               <tr>
                 <th scope="col" className="py-2 pr-4">
                   Type
@@ -182,18 +182,18 @@ export default function DraftsTab() {
                 const rejectBusy = actionBusy === `reject:${d.slug}`;
                 return (
                   <tr key={d.slug} className="border-b border-zinc-800/60 align-top">
-                    <td className="py-2 pr-4 text-zinc-400 uppercase text-xs">{d.type}</td>
-                    <td className="py-2 pr-4 text-zinc-100">{d.title}</td>
-                    <td className="py-2 pr-4 text-zinc-500 text-xs whitespace-nowrap">
+                    <td className="py-2 pr-4 text-slate-400 uppercase text-xs">{d.type}</td>
+                    <td className="py-2 pr-4 text-slate-100">{d.title}</td>
+                    <td className="py-2 pr-4 text-slate-500 text-xs whitespace-nowrap">
                       {new Date(d.publishedAt).toLocaleString()}
                     </td>
-                    <td className="py-2 pr-4 font-mono text-xs text-zinc-400 break-all">{d.slug}</td>
+                    <td className="py-2 pr-4 font-mono text-xs text-slate-400 break-all">{d.slug}</td>
                     <td className="py-2">
                       <div className="flex flex-wrap gap-1.5">
                         <button
                           onClick={() => (isPreviewing ? setPreview(null) : void loadPreview(d.slug))}
                           disabled={previewBusy}
-                          className="px-2 py-1 border border-zinc-700 rounded text-xs hover:bg-zinc-800 disabled:opacity-50"
+                          className="px-2 py-1 border border-slate-700 rounded text-xs hover:bg-slate-800 disabled:opacity-50"
                         >
                           {previewBusy ? '…' : isPreviewing ? 'Hide' : 'Preview'}
                         </button>
@@ -251,24 +251,24 @@ function DraftPreviewPanel({
   const approveBusy = actionBusy === `approve:${post.slug}`;
   const rejectBusy = actionBusy === `reject:${post.slug}`;
   return (
-    <div className="mt-6 rounded border border-zinc-700 p-4">
+    <div className="mt-6 rounded border border-slate-700 p-4">
       <div className="flex items-center justify-between mb-3">
         <div>
-          <h3 className="text-sm font-semibold uppercase tracking-wider text-zinc-300">Preview</h3>
-          <p className="text-xs text-zinc-500 mt-0.5">
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-300">Preview</h3>
+          <p className="text-xs text-slate-500 mt-0.5">
             <span className="font-mono">{post.slug}</span> · type <span className="uppercase">{post.type}</span>
             {post.quality?.total !== undefined && <> · quality {post.quality.total}</>}
             {post.iocs.length > 0 && <> · {post.iocs.length} IOCs</>}
             {post.sources.length > 0 && <> · {post.sources.length} sources</>}
           </p>
         </div>
-        <button onClick={onClose} className="text-xs text-zinc-500 hover:text-zinc-300">
+        <button onClick={onClose} className="text-xs text-slate-500 hover:text-slate-300">
           Close
         </button>
       </div>
 
-      <h1 className="text-xl font-bold text-zinc-100 mb-1">{post.title}</h1>
-      <p className="text-sm text-zinc-400 mb-4">{post.excerpt}</p>
+      <h1 className="text-xl font-bold text-slate-100 mb-1">{post.title}</h1>
+      <p className="text-sm text-slate-400 mb-4">{post.excerpt}</p>
 
       {/* Rendered preview — exactly what /blog/:slug would serve once
           approved. Inline styles cover the essentials (headings + links
@@ -277,19 +277,19 @@ function DraftPreviewPanel({
           dark background so visiting links / headings read cleanly. */}
       <div
         className={
-          'mb-4 bg-zinc-950 border border-zinc-800 rounded p-4 max-h-[60vh] overflow-y-auto text-sm leading-relaxed text-zinc-300 ' +
-          '[&_h1]:text-xl [&_h1]:font-bold [&_h1]:text-zinc-100 [&_h1]:mt-4 [&_h1]:mb-2 ' +
-          '[&_h2]:text-lg [&_h2]:font-bold [&_h2]:text-zinc-100 [&_h2]:mt-5 [&_h2]:mb-2 ' +
-          '[&_h3]:text-base [&_h3]:font-semibold [&_h3]:text-zinc-100 [&_h3]:mt-4 [&_h3]:mb-2 ' +
+          'mb-4 bg-zinc-950 border border-slate-800 rounded p-4 max-h-[60vh] overflow-y-auto text-sm leading-relaxed text-slate-300 ' +
+          '[&_h1]:text-xl [&_h1]:font-bold [&_h1]:text-slate-100 [&_h1]:mt-4 [&_h1]:mb-2 ' +
+          '[&_h2]:text-lg [&_h2]:font-bold [&_h2]:text-slate-100 [&_h2]:mt-5 [&_h2]:mb-2 ' +
+          '[&_h3]:text-base [&_h3]:font-semibold [&_h3]:text-slate-100 [&_h3]:mt-4 [&_h3]:mb-2 ' +
           '[&_p]:mb-3 ' +
           '[&_a]:text-blue-400 [&_a]:underline [&_a:hover]:text-blue-300 ' +
           '[&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-3 ' +
           '[&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:mb-3 ' +
           '[&_li]:mb-1 ' +
-          '[&_code]:font-mono [&_code]:text-[0.85em] [&_code]:bg-zinc-900 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded ' +
-          '[&_pre]:bg-zinc-900 [&_pre]:p-3 [&_pre]:rounded [&_pre]:overflow-x-auto [&_pre]:mb-3 ' +
-          '[&_strong]:text-zinc-100 [&_strong]:font-semibold ' +
-          '[&_blockquote]:border-l-2 [&_blockquote]:border-zinc-700 [&_blockquote]:pl-3 [&_blockquote]:text-zinc-400 [&_blockquote]:my-3'
+          '[&_code]:font-mono [&_code]:text-[0.85em] [&_code]:bg-slate-900 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded ' +
+          '[&_pre]:bg-slate-900 [&_pre]:p-3 [&_pre]:rounded [&_pre]:overflow-x-auto [&_pre]:mb-3 ' +
+          '[&_strong]:text-slate-100 [&_strong]:font-semibold ' +
+          '[&_blockquote]:border-l-2 [&_blockquote]:border-slate-700 [&_blockquote]:pl-3 [&_blockquote]:text-slate-400 [&_blockquote]:my-3'
         }
         // The body comes from the admin API which runs the same sanitizer
         // the public read endpoint uses (renderMarkdown → DOMPurify chain).

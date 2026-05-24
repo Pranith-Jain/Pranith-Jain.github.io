@@ -1,6 +1,8 @@
 import type { Context, Next } from 'hono';
 import type { Env } from '../env';
 
+type KvNamespace = import('@cloudflare/workers-types').KVNamespace;
+
 const LIMIT = 30; // requests per minute, applied to user-input endpoints
 const WINDOW_SEC = 60;
 
@@ -174,8 +176,15 @@ export async function rateLimit(c: Context<{ Bindings: Env }>, next: Next): Prom
     const hit = await cache.match(key);
     if (hit) count = parseInt(await hit.text(), 10) || 0;
     if (adminKey) {
-      const adminHit = await cache.match(adminKey);
-      if (adminHit) adminCount = parseInt(await adminHit.text(), 10) || 0;
+      // Admin uses KV for global consistency; fall back to Cache API.
+      const kv = (c.env as unknown as Record<string, unknown>).KV_CACHE as KvNamespace | undefined;
+      if (kv) {
+        const adminHit = await kv.get(`rl:admin:${ip}:${bucket}`);
+        if (adminHit) adminCount = parseInt(adminHit, 10) || 0;
+      } else {
+        const adminHit = await cache.match(adminKey);
+        if (adminHit) adminCount = parseInt(await adminHit.text(), 10) || 0;
+      }
     }
   } catch {
     return next(); // cache error — fail open
@@ -223,16 +232,29 @@ export async function rateLimit(c: Context<{ Bindings: Env }>, next: Next): Prom
       .catch(() => undefined)
   );
   if (adminKey) {
-    c.executionCtx.waitUntil(
-      cache
-        .put(
-          adminKey,
-          new Response(String(adminCount + 1), {
-            headers: { 'cache-control': `max-age=${WINDOW_SEC}` },
-          })
-        )
-        .catch(() => undefined)
-    );
+    // Admin strict bucket uses KV so the count is global (not per-colo).
+    // The KV write budget concern doesn't apply — admin endpoints see
+    // orders of magnitude less traffic than public ones.
+    const kv = (c.env as unknown as Record<string, unknown>).KV_CACHE as KvNamespace | undefined;
+    if (kv) {
+      c.executionCtx.waitUntil(
+        kv
+          .put(`rl:admin:${ip}:${bucket}`, String(adminCount + 1), { expirationTtl: WINDOW_SEC * 2 })
+          .catch(() => undefined)
+      );
+    } else {
+      // Fall back to per-colo Cache API when KV is not bound.
+      c.executionCtx.waitUntil(
+        cache
+          .put(
+            adminKey,
+            new Response(String(adminCount + 1), {
+              headers: { 'cache-control': `max-age=${WINDOW_SEC}` },
+            })
+          )
+          .catch(() => undefined)
+      );
+    }
   }
 
   return next();

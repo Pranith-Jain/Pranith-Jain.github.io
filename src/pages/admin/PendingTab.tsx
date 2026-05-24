@@ -59,12 +59,12 @@ export default function PendingTab() {
     }
   }
 
-  if (loading) return <p className="text-zinc-400">Loading…</p>;
+  if (loading) return <p className="text-slate-400">Loading…</p>;
   if (error)
     return (
       <div>
         <p className="text-red-400 mb-2">Failed to load: {error}</p>
-        <button onClick={load} className="px-3 py-1 border border-zinc-700 rounded text-sm">
+        <button onClick={load} className="px-3 py-1 border border-slate-700 rounded text-sm">
           Retry
         </button>
       </div>
@@ -72,16 +72,16 @@ export default function PendingTab() {
   if (pending.length === 0)
     return (
       <div>
-        {actionMsg && <p className="text-xs font-mono text-zinc-400 mb-2">{actionMsg}</p>}
-        <p className="text-zinc-400">No pending candidates.</p>
+        {actionMsg && <p className="text-xs font-mono text-slate-400 mb-2">{actionMsg}</p>}
+        <p className="text-slate-400">No pending candidates.</p>
       </div>
     );
 
   return (
     <div className="overflow-x-auto">
-      {actionMsg && <p className="text-xs font-mono text-zinc-400 mb-2">{actionMsg}</p>}
+      {actionMsg && <p className="text-xs font-mono text-slate-400 mb-2">{actionMsg}</p>}
       <table className="w-full text-sm">
-        <thead className="text-left text-xs uppercase tracking-wider text-zinc-500 border-b border-zinc-800">
+        <thead className="text-left text-xs uppercase tracking-wider text-slate-500 border-b border-slate-800">
           <tr>
             <th scope="col" className="py-2 pr-4">
               Type
@@ -106,11 +106,11 @@ export default function PendingTab() {
         <tbody>
           {pending.map((c) => (
             <tr key={c.key} className="border-b border-zinc-800/60 align-top">
-              <td className="py-2 pr-4 text-zinc-400 uppercase text-xs">{c.type}</td>
-              <td className="py-2 pr-4 text-zinc-100">{c.title}</td>
-              <td className="py-2 pr-4 text-zinc-300 tabular-nums">{c.score.toFixed(2)}</td>
-              <td className="py-2 pr-4 text-zinc-400 max-w-md">{c.rationale}</td>
-              <td className="py-2 pr-4 text-zinc-500 text-xs whitespace-nowrap">
+              <td className="py-2 pr-4 text-slate-400 uppercase text-xs">{c.type}</td>
+              <td className="py-2 pr-4 text-slate-100">{c.title}</td>
+              <td className="py-2 pr-4 text-slate-300 tabular-nums">{c.score.toFixed(2)}</td>
+              <td className="py-2 pr-4 text-slate-400 max-w-md">{c.rationale}</td>
+              <td className="py-2 pr-4 text-slate-500 text-xs whitespace-nowrap">
                 {new Date(c.discoveredAt).toLocaleString()}
               </td>
               <td className="py-2 whitespace-nowrap">
@@ -122,7 +122,7 @@ export default function PendingTab() {
                 </button>
                 <button
                   onClick={() => skip(c.key, c.type)}
-                  className="px-2 py-1 border border-zinc-700 rounded text-xs hover:bg-zinc-800"
+                  className="px-2 py-1 border border-slate-700 rounded text-xs hover:bg-slate-800"
                 >
                   Skip
                 </button>

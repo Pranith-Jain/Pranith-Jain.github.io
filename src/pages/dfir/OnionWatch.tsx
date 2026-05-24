@@ -154,7 +154,7 @@ export default function OnionWatch(): JSX.Element {
           reachability flags from Ransomlook.io&apos;s last scrape. Pivots open in your own Tor Browser. We do not fetch
           any .onion content from this site.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
           Companion ransomware victim feed:{' '}
           <Link to="/threatintel/darkweb" className="text-brand-600 dark:text-brand-400 hover:underline">
             Dark Web Watch
@@ -274,18 +274,18 @@ export default function OnionWatch(): JSX.Element {
       )}
 
       {loading && !data && (
-        <p className="text-sm font-mono text-slate-500 dark:text-slate-500">Loading from Ransomlook…</p>
+        <p className="text-sm font-mono text-slate-500 dark:text-slate-400">Loading from Ransomlook…</p>
       )}
 
       {data && (
         <>
-          <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-4">
+          <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-4">
             Showing {visibleGroups.length} of {data.groups.length} groups · {visibleMirrorCount} mirror
             {visibleMirrorCount === 1 ? '' : 's'} matched
           </p>
 
           {visibleGroups.length === 0 ? (
-            <p className="text-sm font-mono text-slate-500 dark:text-slate-500">Nothing matches the current filters.</p>
+            <p className="text-sm font-mono text-slate-500 dark:text-slate-400">Nothing matches the current filters.</p>
           ) : (
             <ul className="space-y-3">
               {visibleGroups.map((g) => (
@@ -302,11 +302,11 @@ export default function OnionWatch(): JSX.Element {
                       {g.group}
                     </h2>
                     <div className="flex items-center gap-2">
-                      <span className="text-[10px] font-mono text-slate-500 dark:text-slate-500">
+                      <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
                         {g.mirrors.length} mirror{g.mirrors.length === 1 ? '' : 's'}
                       </span>
                       {g.last_active && (
-                        <span className="text-[10px] font-mono text-slate-500 dark:text-slate-500">
+                        <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
                           last claim {formatRelativeTime(g.last_active)}
                         </span>
                       )}
@@ -370,7 +370,7 @@ export default function OnionWatch(): JSX.Element {
                         )}
                         {m.title && (
                           <span
-                            className="text-[10px] text-slate-500 dark:text-slate-500 italic sm:ml-auto truncate max-w-[40vw] sm:max-w-xs hidden sm:inline"
+                            className="text-[10px] text-slate-500 dark:text-slate-400 italic sm:ml-auto truncate max-w-[40vw] sm:max-w-xs hidden sm:inline"
                             title={m.title}
                           >
                             “{m.title.slice(0, 60)}
@@ -382,7 +382,7 @@ export default function OnionWatch(): JSX.Element {
                   </ul>
 
                   {g.mirrors.length > 1 && (
-                    <div className="mt-2 text-[10px] font-mono text-slate-500 dark:text-slate-500">
+                    <div className="mt-2 text-[10px] font-mono text-slate-500 dark:text-slate-400">
                       Multiple mirrors are normal — leak sites mirror across .onion v3 addresses to survive takedowns
                       and DDoS. Try the next mirror if one fails.
                     </div>
@@ -393,7 +393,7 @@ export default function OnionWatch(): JSX.Element {
           )}
 
           {data.warnings.length > 0 && (
-            <details className="mt-6 text-[11px] font-mono text-slate-500 dark:text-slate-500">
+            <details className="mt-6 text-[11px] font-mono text-slate-500 dark:text-slate-400">
               <summary className="cursor-pointer hover:text-slate-700 dark:hover:text-slate-300">
                 {data.warnings.length} warning{data.warnings.length === 1 ? '' : 's'} from upstream
               </summary>
@@ -405,7 +405,7 @@ export default function OnionWatch(): JSX.Element {
             </details>
           )}
 
-          <p className="mt-6 text-[10px] font-mono text-slate-500 dark:text-slate-500">
+          <p className="mt-6 text-[10px] font-mono text-slate-500 dark:text-slate-400">
             Source:{' '}
             <a
               href={data.source_url}
@@ -439,7 +439,7 @@ function Stat({
       <div className="text-2xl font-display font-bold text-slate-900 dark:text-slate-100 tabular-nums">
         {loading ? '…' : (valueText ?? value ?? 0)}
       </div>
-      <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-500">{label}</div>
+      <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">{label}</div>
     </div>
   );
 }

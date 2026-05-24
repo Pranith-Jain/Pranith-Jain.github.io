@@ -144,7 +144,7 @@ export default function Grc(): JSX.Element {
           official cross-references exist. SOC-CMM gives a maturity view across Business / People / Process / Technology
           / Services.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-6">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
           All data stays in your browser. Cross-mappings are illustrative — for audit work, validate against official
           OSCAL mapping documents. Pairs with the{' '}
           <Link to="/dfir/nhi" className="text-brand-600 dark:text-brand-400 hover:underline">
@@ -173,7 +173,7 @@ export default function Grc(): JSX.Element {
               }`}
             >
               <div className="flex items-baseline justify-between gap-2 mb-1">
-                <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500">
+                <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
                   {FRAMEWORK_META[fid].label}
                 </span>
                 <span className="text-xs font-mono font-bold text-slate-900 dark:text-slate-100">{c.score}%</span>
@@ -181,7 +181,7 @@ export default function Grc(): JSX.Element {
               <div className="h-1.5 rounded bg-slate-200 dark:bg-slate-800 overflow-hidden mb-1">
                 <div className={`h-full ${scoreColour(c.score)}`} style={{ width: `${Math.max(2, c.score)}%` }} />
               </div>
-              <div className="text-[10px] font-mono text-slate-500 dark:text-slate-500">
+              <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
                 {c.covered}/{c.total} controls
               </div>
             </button>
@@ -243,7 +243,7 @@ export default function Grc(): JSX.Element {
                     {fn.description}
                   </span>
                 </span>
-                <span className="flex-none text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-500">
+                <span className="flex-none text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
                   {fn.categories.reduce((n, c) => n + c.controls.length, 0)} subcat
                 </span>
                 {expanded.has(fn.id) ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
@@ -311,7 +311,7 @@ export default function Grc(): JSX.Element {
               <div className="flex flex-wrap items-baseline gap-2 mb-1">
                 <span className="font-mono text-xs font-bold text-brand-600 dark:text-brand-400">A.{theme.number}</span>
                 <h3 className="font-display font-semibold text-slate-900 dark:text-slate-100">{theme.title}</h3>
-                <span className="text-[10px] font-mono text-slate-500 dark:text-slate-500 ml-auto">
+                <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 ml-auto">
                   {theme.controls.length}/{theme.controlCount} sampled
                 </span>
               </div>
@@ -350,7 +350,7 @@ export default function Grc(): JSX.Element {
                   );
                 })}
                 {theme.controls.length === 0 && (
-                  <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500">
+                  <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
                     Detail-level controls not enumerated — use the official ISO 27001:2022 Annex A for the full set (
                     {theme.controlCount} controls in this theme).
                   </p>
@@ -364,7 +364,7 @@ export default function Grc(): JSX.Element {
       {/* ISO 42001 — AI Management System */}
       {tab === 'iso-42001' && (
         <div className="space-y-3">
-          <p className="text-xs font-mono text-slate-500 dark:text-slate-500 mb-2">
+          <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-2">
             ISO/IEC 42001:2023 — first international standard for AI management systems. Annex A defines 9 control
             domains (A.2-A.10). Pairs with{' '}
             <Link to="/dfir/owasp" className="text-brand-600 dark:text-brand-400 hover:underline">
@@ -384,7 +384,7 @@ export default function Grc(): JSX.Element {
               <div className="flex flex-wrap items-baseline gap-2 mb-1">
                 <span className="font-mono text-xs font-bold text-brand-600 dark:text-brand-400">{domain.shortId}</span>
                 <h3 className="font-display font-semibold text-slate-900 dark:text-slate-100">{domain.title}</h3>
-                <span className="text-[10px] font-mono text-slate-500 dark:text-slate-500 ml-auto">
+                <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 ml-auto">
                   {domain.controls.length} control{domain.controls.length === 1 ? '' : 's'}
                 </span>
               </div>
@@ -516,7 +516,7 @@ export default function Grc(): JSX.Element {
       {/* SOC-CMM */}
       {tab === 'soc-cmm' && (
         <div className="space-y-3">
-          <p className="text-xs font-mono text-slate-500 dark:text-slate-500 mb-2">
+          <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-2">
             Pick the maturity level that best describes each domain in your SOC today.
           </p>
           {SOC_CMM.map((d) => {
@@ -528,7 +528,7 @@ export default function Grc(): JSX.Element {
               >
                 <div className="flex flex-wrap items-baseline gap-3 mb-1">
                   <h3 className="font-display font-semibold text-slate-900 dark:text-slate-100">{d.title}</h3>
-                  <span className="text-[10px] font-mono text-slate-500 dark:text-slate-500">{d.description}</span>
+                  <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">{d.description}</span>
                 </div>
                 <div className="flex flex-wrap gap-1.5 mt-2 mb-2">
                   {([0, 1, 2, 3, 4, 5] as MaturityLevel[]).map((n) => (

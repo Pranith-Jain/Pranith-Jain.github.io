@@ -163,7 +163,7 @@ export default function WebScan(): JSX.Element {
           exposed paths (<code>.git/</code>, <code>.env</code>, <code>/admin</code>, <code>phpinfo.php</code>,
           <code>robots.txt</code>, and similar).
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
           Pairs with{' '}
           <Link to="/dfir/domain" className="text-brand-600 dark:text-brand-400 hover:underline">
             Domain Inspector
@@ -317,7 +317,7 @@ export default function WebScan(): JSX.Element {
                   </div>
                   {f.detail && <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400">{f.detail}</p>}
                   {f.value && (
-                    <code className="block text-[11px] font-mono text-slate-500 dark:text-slate-500 mt-1 break-all bg-white dark:bg-slate-900 px-2 py-1 rounded">
+                    <code className="block text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-1 break-all bg-white dark:bg-slate-900 px-2 py-1 rounded">
                       {f.value}
                     </code>
                   )}
@@ -397,7 +397,7 @@ export default function WebScan(): JSX.Element {
               <dl className="grid sm:grid-cols-[180px_1fr] gap-x-4 gap-y-1 text-[11px] font-mono mt-3 max-h-96 overflow-auto">
                 {Object.entries(data.raw_headers).map(([k, v]) => (
                   <div key={k} className="contents">
-                    <dt className="text-slate-500 dark:text-slate-500 break-words">{k}</dt>
+                    <dt className="text-slate-500 dark:text-slate-400 break-words">{k}</dt>
                     <dd className="text-slate-900 dark:text-slate-100 break-all border-b border-slate-100 dark:border-slate-800 pb-1">
                       {v}
                     </dd>

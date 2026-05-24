@@ -331,7 +331,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
               </span>
             )}
           </h2>
-          {subtitle && <span className="text-[11px] font-mono text-slate-500 dark:text-slate-500">{subtitle}</span>}
+          {subtitle && <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">{subtitle}</span>}
         </div>
       )}
 
@@ -359,7 +359,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
         >
           {ransomware && (
             <>
-              <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-2">
+              <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-2">
                 <span className="text-slate-900 dark:text-slate-100 font-bold text-base">{recentVictims.length}</span>{' '}
                 claims in last 24h · {ransomware.count} total tracked
               </p>
@@ -438,7 +438,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
         >
           {telegram && (
             <>
-              <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-2">
+              <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-2">
                 <span className="text-slate-900 dark:text-slate-100 font-bold text-base">{telegram.items.length}</span>{' '}
                 posts · {telegram.channels.filter((c) => c.ok).length} channels live
               </p>
@@ -476,7 +476,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                           <span className="text-slate-500 shrink-0">{shortRel(m.datetime)}</span>
                         </div>
                         {!compact && (
-                          <p className="text-slate-500 dark:text-slate-500 line-clamp-1 break-all pl-3.5">{m.text}</p>
+                          <p className="text-slate-500 dark:text-slate-400 line-clamp-1 break-all pl-3.5">{m.text}</p>
                         )}
                       </li>
                     );
@@ -515,7 +515,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
         >
           {scam && (
             <>
-              <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-2">
+              <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-2">
                 <span className="text-slate-900 dark:text-slate-100 font-bold text-base">{scam.total_items}</span>{' '}
                 official alerts · FTC + IC3
               </p>
@@ -553,7 +553,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                           </a>
                           <span className="text-slate-500 shrink-0">{shortRel(it.pubDate)}</span>
                         </div>
-                        {!compact && <p className="text-slate-500 dark:text-slate-500 truncate pl-3.5">{it.source}</p>}
+                        {!compact && <p className="text-slate-500 dark:text-slate-400 truncate pl-3.5">{it.source}</p>}
                       </li>
                     );
                   })}
@@ -586,7 +586,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
         >
           {threatIntel && (
             <>
-              <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-2">
+              <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-2">
                 <span className="text-slate-900 dark:text-slate-100 font-bold text-base">
                   {threatIntel.total_items}
                 </span>{' '}
@@ -626,7 +626,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                           </a>
                           <span className="text-slate-500 shrink-0">{shortRel(it.pubDate)}</span>
                         </div>
-                        {!compact && <p className="text-slate-500 dark:text-slate-500 truncate pl-3.5">{it.source}</p>}
+                        {!compact && <p className="text-slate-500 dark:text-slate-400 truncate pl-3.5">{it.source}</p>}
                       </li>
                     );
                   })}
@@ -659,7 +659,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
         >
           {techAi && (
             <>
-              <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-2">
+              <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-2">
                 <span className="text-slate-900 dark:text-slate-100 font-bold text-base">{techAi.total_items}</span>{' '}
                 posts · TechCrunch · VentureBeat · HN AI · YC blog · cyber funding
               </p>
@@ -698,7 +698,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                           <span className="text-slate-500 shrink-0">{shortRel(it.pubDate)}</span>
                         </div>
                         {/* Tech & AI shows source for non-compact only — analysts want to see when YC blog / HN surfaces. */}
-                        {!compact && <p className="text-slate-500 dark:text-slate-500 truncate pl-3.5">{it.source}</p>}
+                        {!compact && <p className="text-slate-500 dark:text-slate-400 truncate pl-3.5">{it.source}</p>}
                       </li>
                     );
                   })}
@@ -733,7 +733,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
         >
           {briefings && (
             <>
-              <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-2">
+              <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-2">
                 <span className="text-slate-900 dark:text-slate-100 font-bold text-base">{briefings.items.length}</span>{' '}
                 most-recent · daily 00:05 · weekly Mon 00:15 UTC
               </p>

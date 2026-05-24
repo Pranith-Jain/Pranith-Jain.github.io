@@ -139,7 +139,7 @@ export default function DlpScan(): JSX.Element {
           IDs, health, network, personal contact. Credit cards are Luhn-checked, IBANs are mod-97 verified, AADHAAR is
           Verhoeff-checked, NHS is mod-11. Pure client-side; nothing leaves your browser.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
           Pairs with{' '}
           <Link to="/dfir/data-classification" className="text-brand-600 dark:text-brand-400 hover:underline">
             Data Classification Templater
@@ -222,7 +222,7 @@ export default function DlpScan(): JSX.Element {
                       key={c}
                       className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-2 py-1"
                     >
-                      <span className="text-slate-500 dark:text-slate-500">{CATEGORY_LABELS[c]}:</span>{' '}
+                      <span className="text-slate-500 dark:text-slate-400">{CATEGORY_LABELS[c]}:</span>{' '}
                       <span className="text-slate-800 dark:text-slate-200 font-bold">{stats.byCategory[c]}</span>
                     </div>
                   ))}
@@ -266,7 +266,7 @@ export default function DlpScan(): JSX.Element {
                         >
                           {f.confidence}
                         </span>
-                        <span className="text-[10px] font-mono text-slate-500 dark:text-slate-500">
+                        <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
                           {CATEGORY_LABELS[f.pattern.category]}
                         </span>
                         <span className="text-[10px] font-mono text-slate-400 dark:text-slate-600 ml-auto">
@@ -291,7 +291,7 @@ export default function DlpScan(): JSX.Element {
                   </h2>
                   <CopyChip value={redacted} label="copy redacted" />
                 </div>
-                <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-2">
+                <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-2">
                   Every finding replaced with <code>[REDACTED:&lt;pattern-id&gt;]</code>. Safe to share in a ticket or
                   on Slack.
                 </p>
@@ -328,7 +328,7 @@ export default function DlpScan(): JSX.Element {
                 >
                   {p.severity}
                 </span>
-                <span className="text-[9px] font-mono text-slate-500 dark:text-slate-500">
+                <span className="text-[9px] font-mono text-slate-500 dark:text-slate-400">
                   {CATEGORY_LABELS[p.category]}
                 </span>
                 {p.validate && (
@@ -337,7 +337,7 @@ export default function DlpScan(): JSX.Element {
                   </span>
                 )}
               </div>
-              <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500 leading-relaxed">
+              <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 leading-relaxed">
                 {p.description}
               </p>
             </div>
@@ -384,7 +384,7 @@ export default function DlpScan(): JSX.Element {
             </a>
           </li>
           <li>
-            <p className="text-xs font-mono text-slate-500 dark:text-slate-500 inline-flex items-center gap-1">
+            <p className="text-xs font-mono text-slate-500 dark:text-slate-400 inline-flex items-center gap-1">
               <AlertTriangle size={11} /> Heuristic only. Does not replace a managed DLP product. Use as a triage tool,
               not as the sole control.
             </p>

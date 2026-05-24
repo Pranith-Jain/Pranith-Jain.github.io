@@ -14,7 +14,7 @@ export function StatBar({ items }: { items: StatItem[] }): JSX.Element {
     <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
       {items.map((s) => (
         <div key={s.label}>
-          <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-500">
+          <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
             {s.label}
           </div>
           <div

@@ -92,7 +92,7 @@ export default function Encoder(): JSX.Element {
           . Useful for crafting test payloads, replicating attacker obfuscation chains, and quickly producing
           base64/url/hex/binary/rot13 forms. Pure client-side; nothing leaves your browser.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
           Chains apply left-to-right: <code>url → base64</code> first URL-encodes the input, then base64-encodes the
           URL-encoded form. Use the round-trip button to verify the chain decodes cleanly.
         </p>
@@ -219,7 +219,7 @@ export default function Encoder(): JSX.Element {
                 className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3"
               >
                 <div className="flex items-baseline justify-between gap-2 mb-2">
-                  <span className="text-[11px] font-mono text-slate-500 dark:text-slate-500">
+                  <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
                     pass {i + 1} ·{' '}
                     <span className="text-slate-700 dark:text-slate-300">
                       {ENCODINGS.find((e) => e.id === step.encoding)?.label}

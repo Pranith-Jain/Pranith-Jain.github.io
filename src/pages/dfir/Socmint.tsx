@@ -182,7 +182,7 @@ export default function Socmint(): JSX.Element {
           breach, B2B contact databases (ZoomInfo, Apollo, Hunter, RocketReach…), social, dev, paste-site dorks,
           search-engine dorks, identity, and infra. URL-only; no scraping.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
           Pairs with{' '}
           <Link to="/dfir/breach" className="text-brand-600 dark:text-brand-400 hover:underline">
             Breach Checker
@@ -221,7 +221,7 @@ export default function Socmint(): JSX.Element {
         </div>
 
         <div className="flex flex-wrap gap-1.5 mt-3">
-          <span className="text-[10px] font-mono text-slate-500 dark:text-slate-500 self-center mr-1">samples:</span>
+          <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 self-center mr-1">samples:</span>
           {SAMPLES.map((s) => (
             <button
               key={s.label}
@@ -268,7 +268,7 @@ export default function Socmint(): JSX.Element {
               </button>
             );
           })}
-          <label className="text-[11px] font-mono text-slate-500 dark:text-slate-500 cursor-pointer inline-flex items-center gap-1.5 ml-auto">
+          <label className="text-[11px] font-mono text-slate-500 dark:text-slate-400 cursor-pointer inline-flex items-center gap-1.5 ml-auto">
             <input type="checkbox" checked={includePaid} onChange={(e) => setIncludePaid(e.target.checked)} />
             include paid services
           </label>
@@ -286,7 +286,7 @@ export default function Socmint(): JSX.Element {
       )}
 
       {value && matchingPivots.length === 0 && (
-        <p className="text-sm font-mono text-slate-500 dark:text-slate-500 mb-6">
+        <p className="text-sm font-mono text-slate-500 dark:text-slate-400 mb-6">
           No pivots match this input shape with the current filters.
         </p>
       )}
@@ -307,7 +307,7 @@ export default function Socmint(): JSX.Element {
                 >
                   <Icon size={10} /> {meta.label}
                 </span>
-                <span className="text-[11px] font-mono text-slate-500 dark:text-slate-500">{meta.blurb}</span>
+                <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">{meta.blurb}</span>
               </div>
               <ul className="grid sm:grid-cols-2 gap-2">
                 {list.map((p) => {
@@ -342,7 +342,7 @@ export default function Socmint(): JSX.Element {
       </div>
 
       {value && (
-        <p className="text-[10px] font-mono text-slate-500 dark:text-slate-500 mt-8">
+        <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mt-8">
           {matchingPivots.length} pivot{matchingPivots.length === 1 ? '' : 's'} for {KIND_LABEL[kind!]}. Input shape
           detected as <code>{kind}</code>. Pivots are URL templates; nothing about your input is sent anywhere except
           the destination service when you click a link.

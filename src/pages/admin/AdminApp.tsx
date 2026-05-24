@@ -62,22 +62,22 @@ function PipelineBar() {
   }
 
   return (
-    <div className="mb-6 rounded border border-zinc-800 p-3">
+    <div className="mb-6 rounded border border-slate-800 p-3">
       <div className="flex flex-wrap items-center gap-2">
-        <span className="text-xs uppercase tracking-wider text-zinc-500 mr-1">Pipeline</span>
+        <span className="text-xs uppercase tracking-wider text-slate-500 mr-1">Pipeline</span>
         {STAGES.map((s) => (
           <button
             key={s.stage}
             onClick={() => run(s.stage)}
             disabled={busy !== null}
             title={s.hint}
-            className="px-3 py-1 border border-zinc-700 rounded text-sm hover:bg-zinc-800 disabled:opacity-50"
+            className="px-3 py-1 border border-slate-700 rounded text-sm hover:bg-slate-800 disabled:opacity-50"
           >
             {busy === s.stage ? `${s.label}…` : s.label}
           </button>
         ))}
       </div>
-      {msg && <p className="mt-2 text-xs font-mono text-zinc-400 break-all">{msg}</p>}
+      {msg && <p className="mt-2 text-xs font-mono text-slate-400 break-all">{msg}</p>}
     </div>
   );
 }
@@ -119,7 +119,7 @@ export default function AdminApp() {
   if (authStatus === 'probing') {
     return (
       <main className="max-w-6xl mx-auto px-6 py-8">
-        <p className="text-sm font-mono text-zinc-400">Checking admin session…</p>
+        <p className="text-sm font-mono text-slate-400">Checking admin session…</p>
       </main>
     );
   }
@@ -130,21 +130,24 @@ export default function AdminApp() {
   return (
     <main className="max-w-6xl mx-auto px-6 py-8">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">Case Study Admin</h1>
-        <button onClick={logout} className="px-3 py-1 border border-zinc-700 rounded text-sm hover:bg-zinc-800">
+        <h1 className="text-2xl font-bold text-slate-100">Case Study Admin</h1>
+        <button
+          onClick={logout}
+          className="px-3 py-1 border border-slate-700 rounded text-sm text-slate-400 hover:bg-slate-800 hover:text-slate-200"
+        >
           Logout
         </button>
       </div>
       <PipelineBar />
-      <nav className="flex flex-wrap gap-1 border-b border-zinc-800 mb-6">
+      <nav className="flex flex-wrap gap-1 border-b border-slate-800 mb-6">
         {TABS.map((t) => (
           <button
             key={t.key}
             onClick={() => setActive(t.key)}
             className={
               active === t.key
-                ? 'px-4 py-2 text-sm font-medium border-b-2 border-zinc-100 -mb-px text-zinc-100'
-                : 'px-4 py-2 text-sm text-zinc-400 hover:text-zinc-200'
+                ? 'px-4 py-2 text-sm font-medium border-b-2 border-slate-100 -mb-px text-slate-100'
+                : 'px-4 py-2 text-sm text-slate-500 hover:text-slate-300'
             }
           >
             {t.label}

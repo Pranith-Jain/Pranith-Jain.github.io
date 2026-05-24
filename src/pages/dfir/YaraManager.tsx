@@ -161,7 +161,7 @@ export default function YaraManager(): JSX.Element {
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
           placeholder="Filter by name, description, or tag…"
-          className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:text-slate-500 focus:outline-none"
+          className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:text-slate-400 focus:outline-none"
         />
       </div>
 
@@ -192,7 +192,7 @@ export default function YaraManager(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => setEditingId(editingId === rule.id ? null : rule.id)}
-                  className="p-1.5 text-slate-500 dark:text-slate-500 hover:text-brand-600 dark:text-brand-400 transition-colors"
+                  className="p-1.5 text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 transition-colors"
                   aria-label="Edit"
                 >
                   {editingId === rule.id ? <X className="h-3.5 w-3.5" /> : <Edit2 className="h-3.5 w-3.5" />}
@@ -200,7 +200,7 @@ export default function YaraManager(): JSX.Element {
                 <button
                   type="button"
                   onClick={() => deleteRule(rule.id)}
-                  className="p-1.5 text-slate-500 dark:text-slate-500 hover:text-rose-700 dark:text-rose-400 transition-colors"
+                  className="p-1.5 text-slate-500 dark:text-slate-400 hover:text-rose-700 dark:text-rose-400 transition-colors"
                   aria-label="Delete"
                 >
                   <Trash2 className="h-3.5 w-3.5" />
@@ -257,7 +257,7 @@ export default function YaraManager(): JSX.Element {
             )}
 
             <details className="group">
-              <summary className="px-4 py-2 font-mono text-[10px] text-slate-500 dark:text-slate-500 cursor-pointer hover:text-slate-900 dark:text-slate-100 transition-colors select-none">
+              <summary className="px-4 py-2 font-mono text-[10px] text-slate-500 dark:text-slate-400 cursor-pointer hover:text-slate-900 dark:text-slate-100 transition-colors select-none">
                 rule source ({rule.rule.split('\n').length} lines)
               </summary>
               <pre className="px-4 pb-3 pt-1 overflow-x-auto text-[11px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed whitespace-pre">

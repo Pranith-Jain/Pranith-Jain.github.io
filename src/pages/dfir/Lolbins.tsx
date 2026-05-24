@@ -58,7 +58,7 @@ export default function Lolbins(): JSX.Element {
           {LOLBINS.length} curated entries from LOLBAS (Windows), GTFOBins (Unix), and LOOBins (macOS), each mapped to
           MITRE ATT&amp;CK with a one-line abuse example and a detection idea.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
           A subset of the full catalogues — pick the entries I reach for during phishing / BEC / commodity-malware IRs.
           Use the upstream sources (linked on each card) for the complete coverage.
         </p>
@@ -79,7 +79,7 @@ export default function Lolbins(): JSX.Element {
         </div>
 
         <div className="flex flex-wrap gap-1.5">
-          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500 self-center mr-1">
+          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 self-center mr-1">
             Platform
           </span>
           <button
@@ -111,7 +111,7 @@ export default function Lolbins(): JSX.Element {
         </div>
 
         <div className="flex flex-wrap gap-1.5">
-          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500 self-center mr-1">
+          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 self-center mr-1">
             Category
           </span>
           <button
@@ -144,7 +144,7 @@ export default function Lolbins(): JSX.Element {
         </div>
       </div>
 
-      <p className="text-xs font-mono text-slate-500 dark:text-slate-500 mb-3">
+      <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-3">
         Showing {filtered.length} of {LOLBINS.length}
       </p>
 
@@ -186,7 +186,7 @@ export default function Lolbins(): JSX.Element {
                 href={b.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ml-auto text-[10px] font-mono text-slate-500 dark:text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-0.5"
+                className="ml-auto text-[10px] font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-0.5"
               >
                 source <ExternalLink size={10} />
               </a>
@@ -208,7 +208,7 @@ export default function Lolbins(): JSX.Element {
 
             <div className="grid gap-2 md:grid-cols-2">
               <div className="rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-2.5">
-                <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500 block mb-1">
+                <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 block mb-1">
                   Legitimate use
                 </span>
                 <p className="text-[12px] font-mono text-slate-700 dark:text-slate-300 leading-relaxed">{b.legit}</p>
@@ -226,7 +226,7 @@ export default function Lolbins(): JSX.Element {
         ))}
 
         {filtered.length === 0 && (
-          <div className="text-center py-12 text-sm font-mono text-slate-500 dark:text-slate-500">
+          <div className="text-center py-12 text-sm font-mono text-slate-500 dark:text-slate-400">
             No entries match those filters.
           </div>
         )}

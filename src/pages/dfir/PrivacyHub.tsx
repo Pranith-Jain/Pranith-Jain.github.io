@@ -156,7 +156,7 @@ export default function PrivacyHub(): JSX.Element {
           controller / fiduciary obligations, breach-notification timelines, enforcement &amp; penalties — all
           cross-mapped to the framework controls in /dfir/grc.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
           Reference only — not legal advice. Pairs with the{' '}
           <Link to="/dfir/grc" className="text-brand-600 dark:text-brand-400 hover:underline">
             GRC hub
@@ -201,7 +201,7 @@ export default function PrivacyHub(): JSX.Element {
                 style={{ width: `${Math.max(2, c.score)}%` }}
               />
             </div>
-            <div className="text-[10px] font-mono text-slate-500 dark:text-slate-500">
+            <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
               {c.covered}/{c.total} items
             </div>
           </button>
@@ -236,11 +236,11 @@ export default function PrivacyHub(): JSX.Element {
         </div>
         <div className="grid gap-2 sm:grid-cols-2 mb-3 text-[12px] font-mono text-slate-600 dark:text-slate-400">
           <div>
-            <span className="text-slate-500 dark:text-slate-500">Jurisdiction: </span>
+            <span className="text-slate-500 dark:text-slate-400">Jurisdiction: </span>
             <span className="text-slate-700 dark:text-slate-300">{active.jurisdiction}</span>
           </div>
           <div>
-            <span className="text-slate-500 dark:text-slate-500">Effective: </span>
+            <span className="text-slate-500 dark:text-slate-400">Effective: </span>
             <span className="text-slate-700 dark:text-slate-300">{active.effectiveDate}</span>
           </div>
         </div>
@@ -365,7 +365,7 @@ function ArticleRow({
         </button>
         <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">{article.title}</span>
         {article.citation && (
-          <span className="text-[10px] font-mono text-slate-500 dark:text-slate-500">{article.citation}</span>
+          <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">{article.citation}</span>
         )}
       </div>
       <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{article.body}</p>

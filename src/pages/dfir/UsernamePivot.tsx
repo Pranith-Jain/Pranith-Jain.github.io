@@ -145,7 +145,7 @@ export default function UsernamePivot(): JSX.Element {
           GitLab, Codeberg, Reddit, HN, Lobsters, npm, Dev.to, Mastodon) are verified live; the rest are deep-link
           generated for manual review. All checks run from your browser.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
           Inspired by Sherlock. Designed for IR / threat-actor pivoting and brand-monitoring; "exists" doesn't always
           mean the same person — confirm via cross-correlation (display name, profile photo, post timing).
         </p>
@@ -197,7 +197,7 @@ export default function UsernamePivot(): JSX.Element {
               <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
                 Results for <span className="text-slate-900 dark:text-slate-100">{submitted}</span>
               </h2>
-              <span className="text-[11px] font-mono text-slate-500 dark:text-slate-500">
+              <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
                 {stats.exists} exists · {stats['not-found']} not found · {stats['rate-limited']} rate-limited ·{' '}
                 {stats.error} error · {stats.manual} manual
               </span>
@@ -248,7 +248,7 @@ export default function UsernamePivot(): JSX.Element {
                       <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
                         {row.service.name}
                       </span>
-                      <span className="text-[10px] font-mono text-slate-500 dark:text-slate-500">
+                      <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
                         {CATEGORY_LABELS[row.service.category]}
                       </span>
                       <span

@@ -214,7 +214,7 @@ export default function LiveIocs(): JSX.Element {
           first-observed timestamp. /correlation answers "what's in 2+ feeds"; this page answers "what's freshly
           observed and by whom."
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-6">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
           Sources: TweetFeed, SANS ISC, C2IntelFeeds, Emerging Threats compromised-ips, AlienVault OTX reputation,
           URLhaus, ThreatFox, MalwareBazaar, PhishTank, OpenPhish, abuse.ch SSLBL, Botvrij.eu.
         </p>

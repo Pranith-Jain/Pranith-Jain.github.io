@@ -25,10 +25,11 @@ export const shodan: ProviderAdapter = async (indicator, env, signal) => {
   try {
     const isIP = indicator.type === 'ipv4' || indicator.type === 'ipv6';
     const url = isIP
-      ? `https://api.shodan.io/shodan/host/${encodeURIComponent(indicator.value)}?key=${key}`
-      : `https://api.shodan.io/dns/domain/${encodeURIComponent(indicator.value)}?key=${key}`;
+      ? `https://api.shodan.io/shodan/host/${encodeURIComponent(indicator.value)}`
+      : `https://api.shodan.io/dns/domain/${encodeURIComponent(indicator.value)}`;
 
-    const res = await fetch(url, { signal });
+    const encoded = btoa(`${key}:`);
+    const res = await fetch(url, { signal, headers: { Authorization: `Basic ${encoded}` } });
     // 401 / 403 = key denied (Shodan host/dns endpoints require Membership tier).
     // Treat as a graceful "no data from this provider" so the overall verdict
     // isn't polluted by a permission issue rather than a real signal.

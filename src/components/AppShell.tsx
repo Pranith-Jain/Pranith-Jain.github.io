@@ -132,7 +132,7 @@ function AppHeader({
             identity (DFIR / TI) visible in the very-left position. */}
         <Link to={nav[0]?.to ?? '/'} className="flex items-baseline gap-2 shrink-0">
           <span className={`font-mono font-bold text-sm ${brand.accent}`}>{brand.short}</span>
-          <span className="hidden sm:inline text-[11px] font-mono text-slate-500 dark:text-slate-500">
+          <span className="hidden sm:inline text-meta font-mono text-slate-500 dark:text-slate-400">
             / {brand.long.toLowerCase()}
           </span>
         </Link>
@@ -157,7 +157,7 @@ function AppHeader({
                 to={item.to}
                 onMouseEnter={() => preloadRoute(item.to)}
                 onFocus={() => preloadRoute(item.to)}
-                className={`text-[12px] font-mono px-2 sm:px-2.5 py-1.5 sm:py-1 rounded transition-colors whitespace-nowrap ${
+                className={`text-[12px] font-mono px-2.5 sm:px-2.5 py-2.5 sm:py-1 rounded transition-colors whitespace-nowrap ${
                   active
                     ? 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800'
@@ -262,7 +262,7 @@ function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' }): JSX.Element {
 
   return (
     <footer className="border-t border-slate-200/60 dark:border-white/10 bg-white/60 dark:bg-slate-950/60 backdrop-blur-xl">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 min-h-[44px] sm:h-9 py-2 sm:py-0 flex items-center justify-between gap-3 text-[10px] font-mono text-slate-500 dark:text-slate-500">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 min-h-[44px] sm:h-9 py-2 sm:py-0 flex items-center justify-between gap-3 text-meta font-mono text-slate-500 dark:text-slate-400">
         <div className="flex items-center gap-3">
           {mode === 'dfir' ? (
             <>

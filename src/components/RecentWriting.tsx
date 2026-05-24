@@ -65,9 +65,7 @@ export function RecentWriting(): JSX.Element | null {
     <section id="recent-writing" className="mt-20 scroll-mt-24">
       <div className="mb-8 flex flex-wrap items-baseline justify-between gap-3 max-w-3xl">
         <div>
-          <div className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
-            Writing
-          </div>
+          <div className="mb-3 text-eyebrow font-bold uppercase text-brand-600 dark:text-brand-400">Writing</div>
           <h2 className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-slate-900 dark:text-white">
             Recent writing
           </h2>
@@ -116,13 +114,13 @@ export function RecentWriting(): JSX.Element | null {
                     <Icon size={10} aria-hidden="true" />
                     {e.kind === 'research' ? 'Research' : 'Case study'}
                   </span>
-                  <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-slate-500">{e.kicker}</span>
+                  <span className="text-eyebrow font-mono uppercase text-slate-400">{e.kicker}</span>
                 </div>
                 <h3 className="font-display text-xl font-bold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors leading-snug">
                   {e.title}
                 </h3>
                 <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">{e.excerpt}</p>
-                <div className="mt-auto flex items-center gap-2 text-[11px] font-mono text-slate-500">
+                <div className="mt-auto flex items-center gap-2 text-meta font-mono text-slate-400">
                   <time dateTime={e.publishedAt}>{dateLabel}</time>
                   <span aria-hidden="true">·</span>
                   <span>{e.readingTime} read</span>

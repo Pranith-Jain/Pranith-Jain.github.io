@@ -163,7 +163,7 @@ export default function AgentMap(): JSX.Element {
           capability (ingest, read-sensitive, write, execute, egress) and flags the canonical exfiltration and RCE
           chains that indirect prompt injection would need.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
           Pairs with the{' '}
           <Link to="/dfir/mcp-audit" className="text-brand-600 dark:text-brand-400 hover:underline">
             MCP &amp; Claude Code Auditor
@@ -226,7 +226,7 @@ export default function AgentMap(): JSX.Element {
                 Capability graph ({graph.tools.length} tool{graph.tools.length === 1 ? '' : 's'})
               </h2>
               {graph.tools.length === 0 ? (
-                <p className="text-sm font-mono text-slate-500 dark:text-slate-500 py-12 text-center">
+                <p className="text-sm font-mono text-slate-500 dark:text-slate-400 py-12 text-center">
                   No tools detected. Add MCP servers, Claude Code allow rules, or a top-level <code>tools</code> array.
                 </p>
               ) : (
@@ -279,11 +279,11 @@ export default function AgentMap(): JSX.Element {
                       style={{ backgroundColor: CAPABILITY_COLORS[c] }}
                     />
                     <span className="text-slate-700 dark:text-slate-300">{CAPABILITY_LABELS[c]}</span>
-                    <span className="ml-auto text-slate-500 dark:text-slate-500">{graph.capCounts[c]}</span>
+                    <span className="ml-auto text-slate-500 dark:text-slate-400">{graph.capCounts[c]}</span>
                   </li>
                 ))}
               </ul>
-              <p className="mt-3 text-[11px] font-mono text-slate-500 dark:text-slate-500 leading-relaxed">
+              <p className="mt-3 text-[11px] font-mono text-slate-500 dark:text-slate-400 leading-relaxed">
                 Classification is heuristic — based on tool name, description, and Claude Code permission shape. Hover a
                 node to see the source detail.
               </p>
@@ -309,7 +309,7 @@ export default function AgentMap(): JSX.Element {
                       >
                         {r.severity}
                       </span>
-                      <span className="text-[10px] font-mono text-slate-500 dark:text-slate-500">{r.kind}</span>
+                      <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">{r.kind}</span>
                     </div>
                     <p className="text-sm font-mono text-slate-700 dark:text-slate-300 mb-2">{r.detail}</p>
                     <div className="flex flex-wrap items-center gap-1.5 mb-2">
@@ -347,7 +347,7 @@ export default function AgentMap(): JSX.Element {
                   <li key={t.id} className="text-[12px] font-mono">
                     <div className="flex flex-wrap items-baseline gap-2">
                       <span className="font-semibold text-slate-900 dark:text-slate-100">{t.label}</span>
-                      <span className="text-slate-500 dark:text-slate-500">[{t.origin}]</span>
+                      <span className="text-slate-500 dark:text-slate-400">[{t.origin}]</span>
                       {t.capabilities.length === 0 ? (
                         <span className="text-[10px] text-slate-400 dark:text-slate-600">no capability classified</span>
                       ) : (
@@ -366,7 +366,7 @@ export default function AgentMap(): JSX.Element {
                         ))
                       )}
                     </div>
-                    {t.detail && <p className="text-[11px] text-slate-500 dark:text-slate-500 mt-0.5">{t.detail}</p>}
+                    {t.detail && <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{t.detail}</p>}
                   </li>
                 ))}
               </ul>

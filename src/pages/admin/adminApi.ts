@@ -12,6 +12,7 @@ function token(): string {
 function headers(): HeadersInit {
   return {
     'X-Admin-Token': token(),
+    Authorization: `Bearer ${token()}`,
     'content-type': 'application/json',
   };
 }

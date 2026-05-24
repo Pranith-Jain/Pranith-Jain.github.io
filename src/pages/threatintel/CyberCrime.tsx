@@ -301,7 +301,7 @@ export default function CyberCrime(): JSX.Element {
                   {shortRel(it.published) || formatDate(it.published)}
                 </span>
               </div>
-              <div className="text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-1">{it.source}</div>
+              <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-1">{it.source}</div>
               {it.description && (
                 <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">
                   {it.description}

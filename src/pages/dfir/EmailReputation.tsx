@@ -344,7 +344,7 @@ export default function EmailReputation(): JSX.Element {
                       ))}
                     </div>
                   )}
-                  <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500">
+                  <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
                     {result.emailRep.details?.first_seen && `first seen ${result.emailRep.details.first_seen} · `}
                     {result.emailRep.details?.last_seen && `last seen ${result.emailRep.details.last_seen} · `}
                     {result.emailRep.details?.deliverable !== undefined &&
@@ -448,7 +448,7 @@ function Fact({ label, value, good }: { label: string; value: string; good: bool
     <div
       className={`rounded-lg border p-3 ${good ? 'border-emerald-500/30 bg-emerald-500/5' : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900'}`}
     >
-      <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500 mb-1">
+      <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
         {label}
       </div>
       <div

@@ -45,9 +45,7 @@ export function Solutions() {
   return (
     <section id="solutions" className="mt-20 scroll-mt-24">
       <div className="mb-8 max-w-3xl">
-        <div className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">
-          Solutions
-        </div>
+        <div className="mb-3 text-eyebrow font-bold uppercase text-brand-600 dark:text-brand-400">Solutions</div>
         <h2 className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-slate-900 dark:text-white">
           Everything you need for threat intelligence &amp; DFIR
         </h2>

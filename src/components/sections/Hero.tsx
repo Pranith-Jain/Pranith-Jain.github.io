@@ -12,7 +12,7 @@ export function Hero() {
         <div className="animate-fade-in-up">
           {/* One live status pill — the rest moved to an editorial meta line
               below (chip-soup is the generic SaaS tell; this reads authored). */}
-          <div className="mb-5 flex items-center gap-2.5 text-[11px] font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400">
+          <div className="mb-5 flex items-center gap-2.5 text-eyebrow font-mono uppercase text-brand-600 dark:text-brand-400">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping motion-reduce:animate-none absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
@@ -87,25 +87,19 @@ export function Hero() {
               word itself — that's the only color shift, no ping, no fill. */}
           <dl className="mt-5 grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-3 sm:[&>div+div]:border-l sm:[&>div+div]:border-slate-200/80 sm:[&>div+div]:pl-5 sm:[&>div+div]:dark:border-slate-800">
             <div>
-              <dt className="text-[11px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500">
-                Focus
-              </dt>
+              <dt className="text-eyebrow font-mono uppercase text-slate-500 dark:text-slate-400">Focus</dt>
               <dd className="mt-1.5 text-base font-medium text-slate-900 dark:text-slate-100 leading-snug">
                 {personalInfo.currentFocus}
               </dd>
             </div>
             <div>
-              <dt className="text-[11px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500">
-                Learning
-              </dt>
+              <dt className="text-eyebrow font-mono uppercase text-slate-500 dark:text-slate-400">Learning</dt>
               <dd className="mt-1.5 text-base font-medium text-slate-900 dark:text-slate-100 leading-snug">
                 {personalInfo.currentlyLearning}
               </dd>
             </div>
             <div>
-              <dt className="text-[11px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500">
-                Available
-              </dt>
+              <dt className="text-eyebrow font-mono uppercase text-slate-500 dark:text-slate-400">Available</dt>
               <dd className="mt-1.5 text-base font-medium text-emerald-700 dark:text-emerald-400 leading-snug">
                 {personalInfo.availability}
               </dd>
@@ -212,16 +206,14 @@ export function Hero() {
       <dl className="mt-12 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-3 sm:[&>div+div]:border-l sm:[&>div+div]:border-slate-200/80 sm:[&>div+div]:pl-5 sm:[&>div+div]:dark:border-slate-800">
         {stats.map((stat) => (
           <div key={stat.label}>
-            <dt className="text-[11px] font-mono uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500">
-              {stat.label}
-            </dt>
+            <dt className="text-eyebrow font-mono uppercase text-slate-500 dark:text-slate-400">{stat.label}</dt>
             <dd className="mt-1.5 flex items-baseline gap-1.5">
               <span className="text-4xl font-bold text-slate-900 dark:text-white tracking-tight">{stat.value}</span>
               {stat.suffix && (
                 <span className="text-sm font-semibold text-emerald-600 dark:text-emerald-400">{stat.suffix}</span>
               )}
             </dd>
-            <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-500 leading-relaxed">{stat.description}</p>
+            <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{stat.description}</p>
             {stat.badge && <div className="mt-2 text-xs text-emerald-700 dark:text-emerald-400">{stat.badge}</div>}
             {stat.progress !== undefined && (
               <div className="mt-2 h-0.5 w-full bg-slate-100 dark:bg-slate-800">

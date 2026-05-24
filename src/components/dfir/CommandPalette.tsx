@@ -612,7 +612,7 @@ export function CommandPalette(): JSX.Element | null {
 
         <ul ref={listRef} className="max-h-[55vh] overflow-y-auto py-2">
           {matches.length === 0 && (
-            <li className="px-4 py-3 text-sm font-mono text-slate-500 dark:text-slate-500">
+            <li className="px-4 py-3 text-sm font-mono text-slate-500 dark:text-slate-400">
               No matches for "{query}".
             </li>
           )}
@@ -672,7 +672,7 @@ export function CommandPalette(): JSX.Element | null {
                         </span>
                       )}
                     </div>
-                    <div className="text-[11px] font-mono text-slate-500 dark:text-slate-500 truncate">
+                    <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 truncate">
                       {m.sectionLabel} · {m.desc}
                     </div>
                   </div>
@@ -683,7 +683,7 @@ export function CommandPalette(): JSX.Element | null {
           })}
         </ul>
 
-        <div className="border-t border-slate-200 dark:border-slate-800 px-4 py-2 text-[10px] font-mono text-slate-500 dark:text-slate-500 flex items-center gap-3">
+        <div className="border-t border-slate-200 dark:border-slate-800 px-4 py-2 text-[10px] font-mono text-slate-500 dark:text-slate-400 flex items-center gap-3">
           <Command size={10} aria-hidden="true" />
           <span>↑↓ navigate</span>
           <span>↵ open</span>

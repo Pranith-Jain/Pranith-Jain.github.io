@@ -86,9 +86,7 @@ export function Footer() {
 
           {/* Site column */}
           <div>
-            <div className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-400 dark:text-slate-500">
-              Site
-            </div>
+            <div className="text-eyebrow font-mono uppercase text-slate-400">Site</div>
             <ul className="mt-3 space-y-2">
               {SITE_LINKS.map((l) => (
                 <li key={l.href}>
@@ -105,9 +103,7 @@ export function Footer() {
 
           {/* Build column */}
           <div>
-            <div className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-400 dark:text-slate-500">
-              Build
-            </div>
+            <div className="text-eyebrow font-mono uppercase text-slate-400">Build</div>
             <ul className="mt-3 space-y-2">
               {BUILD_LINKS.map((l) => (
                 <li key={l.href}>
@@ -124,7 +120,7 @@ export function Footer() {
         </div>
 
         {/* Bottom strip — copyright, view counter, stack credit */}
-        <div className="mt-8 flex flex-col items-start justify-between gap-3 border-t border-slate-200/60 pt-5 text-[11px] text-slate-500 dark:border-white/10 dark:text-slate-500 sm:flex-row sm:items-center">
+        <div className="mt-8 flex flex-col items-start justify-between gap-3 border-t border-slate-200/60 pt-5 text-[11px] text-slate-500 dark:border-white/10 dark:text-slate-400 sm:flex-row sm:items-center">
           <span>
             © {currentYear} {personalInfo.name}. All rights reserved.
           </span>

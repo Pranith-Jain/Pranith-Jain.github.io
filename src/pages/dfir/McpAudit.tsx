@@ -254,7 +254,7 @@ export default function McpAudit(): JSX.Element {
                       >
                         {f.severity}
                       </span>
-                      <code className="text-[11px] font-mono text-slate-500 dark:text-slate-500">{f.scope}</code>
+                      <code className="text-[11px] font-mono text-slate-500 dark:text-slate-400">{f.scope}</code>
                     </div>
                     <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mb-1.5">{f.detail}</p>
                     <p className="text-xs font-mono text-emerald-700 dark:text-emerald-400">→ {f.remediation}</p>
@@ -366,7 +366,7 @@ export default function McpAudit(): JSX.Element {
             </a>
           </li>
         </ul>
-        <p className="mt-3 text-xs font-mono text-slate-500 dark:text-slate-500">
+        <p className="mt-3 text-xs font-mono text-slate-500 dark:text-slate-400">
           <AlertTriangle className="inline h-3 w-3 mb-0.5" aria-hidden="true" /> Heuristics only. A clean report is not
           a security guarantee — review upstream code, pin versions, and watch tool descriptions on every update.
         </p>

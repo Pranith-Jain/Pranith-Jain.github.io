@@ -43,10 +43,13 @@ export const phishtank: ProviderAdapter = async (indicator, env, signal) => {
   }
 
   try {
-    const url = `${FEED}?app_key=${encodeURIComponent(appKey)}`;
+    const url = FEED;
     const res = await fetch(url, {
       signal,
-      headers: { 'user-agent': `phishtank/${appKey}` },
+      headers: {
+        'user-agent': 'pranithjain.qzz.io DFIR',
+        Authorization: `Bearer ${appKey}`,
+      },
       cf: { cacheTtl: CACHE_TTL_SECONDS, cacheEverything: true },
     });
     if (res.status === 403 || res.status === 401) {

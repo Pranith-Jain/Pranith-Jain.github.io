@@ -497,7 +497,7 @@ function Diamond(): JSX.Element {
           Caltagirone, Pendergast &amp; Betz, 2013. Every intrusion event is a connected diamond of Adversary,
           Capability, Infrastructure and Victim, plus meta-features describing the event itself.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-8">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
           Pairs with the{' '}
           <Link to="/dfir/kill-chain" className="text-brand-600 dark:text-brand-400 hover:underline">
             Cyber Kill Chain
@@ -594,7 +594,7 @@ function Diamond(): JSX.Element {
             <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono">
               {active ? `${DIAMOND_VERTICES.find((v) => v.id === active)?.name}` : 'Vertices'}
             </h2>
-            <span className="text-xs font-mono text-slate-500 dark:text-slate-500">
+            <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
               {filledCore} / {DIAMOND_VERTICES.length} filled
             </span>
           </div>
@@ -605,7 +605,7 @@ function Diamond(): JSX.Element {
                 <div className="space-y-3 text-sm font-mono text-slate-700 dark:text-slate-300">
                   <p>{v.description}</p>
                   <div>
-                    <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500 mb-1">
+                    <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
                       Pivot points
                     </h3>
                     <ul className="space-y-1 text-[12px] list-disc pl-4">
@@ -615,7 +615,7 @@ function Diamond(): JSX.Element {
                     </ul>
                   </div>
                   <div>
-                    <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500 mb-1">
+                    <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-1">
                       Tools
                     </h3>
                     <p className="text-[12px]">{v.tools.join(' · ')}</p>
@@ -716,7 +716,7 @@ function Diamond(): JSX.Element {
             return (
               <label key={v.id} className="block">
                 <span className="text-xs font-mono text-slate-700 dark:text-slate-300 mb-1 block">
-                  {v.name} <span className="text-slate-400 dark:text-slate-500">— {v.short}</span>
+                  {v.name} <span className="text-slate-400 dark:text-slate-400">— {v.short}</span>
                 </span>
                 <textarea
                   value={event[k]}
@@ -775,7 +775,7 @@ function Diamond(): JSX.Element {
                     placeholder={a.description}
                   />
                 </label>
-                <ul className="mt-1.5 text-[11px] font-mono text-slate-500 dark:text-slate-500 space-y-0.5 list-disc pl-4">
+                <ul className="mt-1.5 text-[11px] font-mono text-slate-500 dark:text-slate-400 space-y-0.5 list-disc pl-4">
                   {a.questions.map((q) => (
                     <li key={q}>{q}</li>
                   ))}

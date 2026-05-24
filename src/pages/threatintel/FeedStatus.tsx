@@ -107,7 +107,7 @@ export default function FeedStatus(): JSX.Element {
           whether the upstream is contributing data. When a page looks empty, check here first. The answer is usually
           "upstream is down", not "your config is wrong".
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-500 font-mono mb-6">
+        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
           Probes every upstream-backed surface in parallel and reports a per-feed status row.
         </p>
       </div>
