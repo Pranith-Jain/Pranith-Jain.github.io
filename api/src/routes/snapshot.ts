@@ -40,12 +40,12 @@ const CACHE_TTL = 60 * 60;
 // stuck in them from the prior upstream outage; the user reported the
 // "Right now / Ransomware: load error: upstream error" card persisting
 // for the full snapshot TTL.
-// v15: 2026-05-25 — ransomware composer now THROWS on empty (instead of
-// returning a placeholder that safe() treats as ok:true). That trips
-// the `criticalOk=false` branch and shortens the snapshot TTL to 5min
-// so an unlucky colo retries quickly instead of pinning "0 claims" for
-// the full 1h TTL.
-export const SNAPSHOT_CACHE_KEY = 'https://snapshot-cache.internal/v15-rw-throw-on-empty';
+// v16: 2026-05-25 — Cache-Control now `private` so CF edge auto-cache
+// no longer double-caches the response with the old max-age=14400
+// header (which was pinning stale "0 ransomware claims" in users'
+// browsers for hours). Application-level caching is preserved via
+// our own caches.default layer keyed by SNAPSHOT_CACHE_KEY.
+export const SNAPSHOT_CACHE_KEY = 'https://snapshot-cache.internal/v16-private-cc';
 
 /** Curated feed URLs — kept in sync with the constants the panel used to use. */
 const SCAM_FEED_URLS = ['https://consumer.ftc.gov/blog/rss', 'https://www.ic3.gov/CSA/RSS'];
@@ -208,8 +208,20 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
   // origin load down; lower on failures so the next miss re-tries.
   const browserTtl = 60;
   const edgeTtl = criticalOk ? CACHE_TTL : 300;
+  // `private` keeps CF's automatic edge cache out of the loop — the
+  // route already has its own caches.default cache layer above (which
+  // we own and can invalidate via the SNAPSHOT_CACHE_KEY bump). The
+  // automatic edge cache was previously double-caching the response
+  // and serving stale headers (max-age=14400) for the full s-maxage,
+  // so the user's browser kept reusing an old "0 ransomware claims"
+  // payload even after the worker started returning fresh data.
   const response = c.json(body, 200, {
-    'Cache-Control': `public, max-age=${browserTtl}, s-maxage=${edgeTtl}`,
+    'Cache-Control': `private, max-age=${browserTtl}`,
+    // Explicit s-maxage on a separate header for our own application
+    // cache (caches.default uses the response cache-control to time
+    // its eviction, and `private` short-circuits that, so emit the
+    // operational TTL out-of-band).
+    'x-app-cache-ttl': String(edgeTtl),
   });
   c.executionCtx.waitUntil(cache.put(cacheKey, response.clone()));
   return response;
