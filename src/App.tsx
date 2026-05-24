@@ -144,7 +144,17 @@ const ThreatIntelHome = lazy(() => import('./pages/threatintel/Home'));
 const ThreatIntelAbout = lazy(() => import('./pages/threatintel/About'));
 const ThreatPulse = lazy(() => import('./pages/threatintel/ThreatPulse'));
 const CveList = lazy(() => import('./pages/threatintel/CveList'));
+const CveThreatMap = lazy(() => import('./pages/threatintel/CveThreatMap'));
+const RansomwareMap = lazy(() => import('./pages/threatintel/RansomwareMap'));
 const RansomwareActivityPage = lazy(() => import('./pages/threatintel/RansomwareActivity'));
+const RansomwareGeoMap = lazy(() => import('./pages/threatintel/RansomwareMap'));
+const CertStreamLive = lazy(() => import('./pages/threatintel/CertStreamLive'));
+const CampaignGenerator = lazy(() => import('./pages/threatintel/CampaignGenerator'));
+const Campaigns = lazy(() => import('./pages/threatintel/Campaigns'));
+const CampaignDetail = lazy(() => import('./pages/threatintel/CampaignDetail'));
+const MaliciousPackages = lazy(() => import('./pages/threatintel/MaliciousPackages'));
+const XWatch = lazy(() => import('./pages/threatintel/XWatch'));
+const XLive = lazy(() => import('./pages/threatintel/XLive'));
 const CybersecTelegramPage = lazy(() => import('./pages/threatintel/CybersecTelegram'));
 const BreachDisclosuresPage = lazy(() => import('./pages/threatintel/BreachDisclosures'));
 const RedditFirehosePage = lazy(() => import('./pages/threatintel/RedditFirehose'));
@@ -165,6 +175,7 @@ const AdminApp = lazy(() => import('./pages/admin/AdminApp'));
 const DeepDarkCTI = lazy(() => import('./pages/threatintel/DeepDarkCTI'));
 const RansomwareLive = lazy(() => import('./pages/threatintel/RansomwareLive'));
 const Infostealer = lazy(() => import('./pages/threatintel/Infostealer'));
+const TelegramSettings = lazy(() => import('./pages/threatintel/TelegramSettings'));
 const Negotiations = lazy(() => import('./pages/threatintel/Negotiations'));
 const BreachForums = lazy(() => import('./pages/threatintel/BreachForums'));
 const UrlReputation = lazy(() => import('./pages/dfir/UrlReputation'));
@@ -172,6 +183,11 @@ const DomainReputation = lazy(() => import('./pages/dfir/DomainReputation'));
 const ApkAnalyzer = lazy(() => import('./pages/dfir/ApkAnalyzer'));
 const EmailReputation = lazy(() => import('./pages/dfir/EmailReputation'));
 const DomainMonitor = lazy(() => import('./pages/threatintel/DomainMonitor'));
+const MaltrailTrails = lazy(() => import('./pages/threatintel/MaltrailTrails'));
+const MalpediaPage = lazy(() => import('./pages/threatintel/MalpediaPage'));
+const InfostealerDetail = lazy(() => import('./pages/threatintel/InfostealerDetail'));
+const FeedSources = lazy(() => import('./pages/threatintel/FeedSources'));
+const SettingsPage = lazy(() => import('./pages/threatintel/Settings'));
 const DmarcAnalyzer = lazy(() => import('./pages/dfir/DmarcAnalyzer'));
 
 /**
@@ -870,6 +886,86 @@ export function AppContent() {
         }
       />
       <Route
+        path="/threatintel/ransomware-map"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <RansomwareGeoMap />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/threatintel/certstream"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <CertStreamLive />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/threatintel/campaign-generator"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <CampaignGenerator />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/threatintel/campaigns"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <Campaigns />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/threatintel/campaigns/:id"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <CampaignDetail />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/threatintel/malicious-packages"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <MaliciousPackages />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/threatintel/x-watch"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <XWatch />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/threatintel/x-live"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <XLive />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
         path="/threatintel/mythreatintel"
         element={
           <ErrorBoundary>
@@ -1081,11 +1177,31 @@ export function AppContent() {
         }
       />
       <Route
+        path="/threatintel/cve-threat-map"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <CveThreatMap />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
         path="/threatintel/threat-map"
         element={
           <ErrorBoundary>
             <Suspense fallback={<SectionLoader />}>
               <ThreatMap />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/threatintel/ransomware-map"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <RansomwareMap />
             </Suspense>
           </ErrorBoundary>
         }
@@ -1131,11 +1247,61 @@ export function AppContent() {
         }
       />
       <Route
+        path="/threatintel/infostealer/:slug"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <InfostealerDetail />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/threatintel/feed-sources"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <FeedSources />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/threatintel/settings"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <SettingsPage />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
         path="/threatintel/negotiations"
         element={
           <ErrorBoundary>
             <Suspense fallback={<SectionLoader />}>
               <Negotiations />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/threatintel/maltrail"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <MaltrailTrails />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/threatintel/malpedia"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <MalpediaPage />
             </Suspense>
           </ErrorBoundary>
         }
@@ -1597,6 +1763,16 @@ export function AppContent() {
           <ErrorBoundary>
             <Suspense fallback={<SectionLoader />}>
               <TelegramWatch />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/threatintel/telegram-settings"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <TelegramSettings />
             </Suspense>
           </ErrorBoundary>
         }

@@ -80,6 +80,15 @@ Image="*\\\\rundll32.exe" CommandLine="*javascript:*"
     patterns:
       - pattern-regex: "DownloadString"
       - pattern-regex: "FromBase64String"`,
+  // Target-only formats — these samples are only shown when the user
+  // round-trips a rule INTO this format. The converter rejects them as
+  // source inputs because we don't have parsers yet.
+  snort: `alert tcp any any -> $HOME_NET any (msg:"PowerShell DownloadString"; content:"DownloadString"; nocase; content:"FromBase64String"; nocase; classtype:trojan-activity; sid:1000001; rev:1;)`,
+  powershell: `$pattern = '(DownloadString|FromBase64String)'
+Get-WinEvent -LogName 'Microsoft-Windows-Sysmon/Operational' -MaxEvents 5000 |
+  Where-Object { $_.Message -match $pattern } |
+  Select-Object TimeCreated, Id, MachineName |
+  Format-Table -AutoSize`,
 };
 
 function CopyBtn({ text }: { text: string }) {

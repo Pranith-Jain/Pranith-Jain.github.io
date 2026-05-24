@@ -22,6 +22,7 @@ import { feedsAggregateHandler } from './routes/feeds-aggregate';
 import { detectionRulesHandler } from './routes/detection-rules';
 import { breachDisclosuresHandler } from './routes/breach-disclosures';
 import { ransomwareRecentHandler } from './routes/ransomware-recent';
+import { ransomwareMapHandler } from './routes/ransomware-map';
 import { cryptoTraceHandler } from './routes/crypto-trace';
 import { abuseRssHandler } from './routes/abuse-rss';
 import { mtiRansomwareRssHandler } from './routes/mti-ransomware-rss';
@@ -33,8 +34,14 @@ import { stixFetchHandler } from './routes/stix-fetch';
 import { certSearchHandler } from './routes/cert-search';
 import { webScanHandler } from './routes/web-scan';
 import { onionWatchHandler } from './routes/onion-watch';
-import { telegramFeedHandler } from './routes/telegram-feed';
+import {
+  telegramFeedHandler,
+  telegramCustomChannelsGetHandler,
+  telegramCustomChannelsPostHandler,
+  telegramCustomChannelsDeleteHandler,
+} from './routes/telegram-feed';
 import { cveRecentHandler } from './routes/cve-recent';
+import { cveThreatMapHandler } from './routes/cve-threat-map';
 import { phishingUrlsHandler } from './routes/phishing-urls';
 import { malwareSamplesHandler } from './routes/malware-samples';
 import { redditFeedHandler } from './routes/reddit-feed';
@@ -83,6 +90,24 @@ import {
 import { googleDorksHandler } from './routes/google-dorks';
 import { emailRepHandler } from './routes/email-rep';
 import { rateLimit } from './lib/ratelimit';
+import { malpediaActorHandler, malpediaFamilyHandler, malpediaSearchHandler } from './routes/malpedia';
+import { maltrailListHandler, maltrailFetchHandler } from './routes/maltrail';
+import { actorEnrichHandler } from './routes/actor-enrich';
+import { actorEnrichOtxStreamHandler } from './routes/actor-enrich-stream';
+import { certStreamHandler } from './routes/certstream';
+import { campaignGeneratorHandler } from './routes/campaign-generator';
+import { actorCvesHandler } from './routes/actor-cves';
+import {
+  saveCampaignHandler,
+  listCampaignsHandler,
+  getCampaignHandler,
+  deleteCampaignHandler,
+} from './routes/campaigns';
+import { maltrailSyncHandler, listSkeletonActorsHandler, getSkeletonActorHandler } from './routes/maltrail-sync';
+import { maliciousPackagesHandler } from './routes/malicious-packages';
+import { xTweetsHandler } from './routes/x-tweets';
+import { xLiveHandler } from './routes/x-live';
+import { xFirehoseHandler } from './routes/x-firehose';
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -123,6 +148,7 @@ app.get('/api/v1/rl/:resource', ransomwareLiveHandler);
 app.get('/api/v1/rl/:resource/:arg', ransomwareLiveHandler);
 app.get('/api/v1/breach-disclosures', breachDisclosuresHandler);
 app.get('/api/v1/ransomware-recent', ransomwareRecentHandler);
+app.get('/api/v1/ransomware-map', ransomwareMapHandler);
 app.get('/api/v1/crypto-trace', cryptoTraceHandler);
 app.get('/api/v1/wayback/cdx', waybackCdxHandler);
 app.get('/api/v1/threat-pulse', threatPulseHandler);
@@ -132,7 +158,11 @@ app.get('/api/v1/cert-search', certSearchHandler);
 app.get('/api/v1/web-scan', webScanHandler);
 app.get('/api/v1/onion-watch', onionWatchHandler);
 app.get('/api/v1/telegram-feed', telegramFeedHandler);
+app.get('/api/v1/telegram-custom-channels', telegramCustomChannelsGetHandler);
+app.post('/api/v1/telegram-custom-channels', telegramCustomChannelsPostHandler);
+app.delete('/api/v1/telegram-custom-channels/:handle', telegramCustomChannelsDeleteHandler);
 app.get('/api/v1/cve-recent', cveRecentHandler);
+app.get('/api/v1/cve-threat-map', cveThreatMapHandler);
 app.get('/api/v1/phishing-urls', phishingUrlsHandler);
 app.get('/api/v1/malware-samples', malwareSamplesHandler);
 app.get('/api/v1/reddit-feed', redditFeedHandler);
@@ -170,6 +200,27 @@ app.post('/api/v1/external-resources', createExternalResourceHandler);
 app.delete('/api/v1/external-resources/:id', deleteExternalResourceHandler);
 registerBlogRoutes(app);
 registerAdminRoutes(app);
+app.get('/api/v1/malpedia/actor', malpediaActorHandler);
+app.get('/api/v1/malpedia/family', malpediaFamilyHandler);
+app.get('/api/v1/malpedia/search', malpediaSearchHandler);
+app.get('/api/v1/maltrail/list', maltrailListHandler);
+app.get('/api/v1/maltrail/fetch', maltrailFetchHandler);
+app.get('/api/v1/actor-enrich', actorEnrichHandler);
+app.post('/api/v1/actor-enrich/otx-stream', actorEnrichOtxStreamHandler);
+app.get('/api/v1/certstream', certStreamHandler);
+app.post('/api/v1/campaign-generator', campaignGeneratorHandler);
+app.get('/api/v1/actor-cves', actorCvesHandler);
+app.get('/api/v1/campaigns', listCampaignsHandler);
+app.post('/api/v1/campaigns', saveCampaignHandler);
+app.get('/api/v1/campaigns/:id', getCampaignHandler);
+app.delete('/api/v1/campaigns/:id', deleteCampaignHandler);
+app.post('/api/v1/maltrail-sync', maltrailSyncHandler);
+app.get('/api/v1/skeleton-actors', listSkeletonActorsHandler);
+app.get('/api/v1/skeleton-actors/:slug', getSkeletonActorHandler);
+app.get('/api/v1/malicious-packages', maliciousPackagesHandler);
+app.get('/api/v1/x-tweets', xTweetsHandler);
+app.get('/api/v1/x-live', xLiveHandler);
+app.get('/api/v1/x-firehose', xFirehoseHandler);
 app.notFound((c) => c.json({ error: 'not_found' }, 404));
 
 export default app;

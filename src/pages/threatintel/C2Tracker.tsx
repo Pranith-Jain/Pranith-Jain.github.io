@@ -8,7 +8,7 @@ interface C2Entry {
   ip: string;
   framework: string;
   first_seen: string;
-  source: string;
+  sources: string[];
   context?: string;
   port?: number;
 }
@@ -47,6 +47,7 @@ const FRAMEWORK_COLORS: Record<string, string> = {
 const SOURCE_COLORS: Record<string, string> = {
   c2intel: 'bg-blue-500/15 text-blue-700 dark:text-blue-300 border-blue-500/30',
   threatfox: 'bg-fuchsia-500/15 text-fuchsia-700 dark:text-fuchsia-300 border-fuchsia-500/30',
+  feodo: 'bg-orange-500/15 text-orange-700 dark:text-orange-300 border-orange-500/30',
 };
 
 export default function C2Tracker(): JSX.Element {
@@ -98,8 +99,9 @@ export default function C2Tracker(): JSX.Element {
           <Radar size={28} className="text-brand-600 dark:text-brand-400" /> C2 Infrastructure Tracker
         </h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
-          Aggregated live C2 server infrastructure from multiple free threat intelligence feeds. Sources: C2IntelFeeds
-          (drb-ra) and ThreatFox (abuse.ch). Cross-check individual IPs via the IOC Checker.
+          Aggregated live C2 server infrastructure from C2IntelFeeds (drb-ra), ThreatFox (abuse.ch), and Feodo Tracker
+          (abuse.ch). Cross-check individual IPs via the IOC Checker. Feodo Tracker's dataset is upstream-limited —
+          abundance.ch reports their dataset as currently sparse.
         </p>
       </div>
 
@@ -152,7 +154,9 @@ export default function C2Tracker(): JSX.Element {
                   </button>
                 ))}
               </div>
-              <p className="text-xs font-mono text-slate-500 mt-3">Sources: C2IntelFeeds · ThreatFox — cached 30 min</p>
+              <p className="text-xs font-mono text-slate-500 mt-3">
+                Sources: C2IntelFeeds · ThreatFox · Feodo Tracker — cached 30 min
+              </p>
             </section>
 
             {/* IP List */}
@@ -177,12 +181,15 @@ export default function C2Tracker(): JSX.Element {
                         {entry.framework}
                       </span>
                     </div>
-                    <div className="flex items-center gap-1.5 mt-1">
-                      <span
-                        className={`text-[9px] font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${SOURCE_COLORS[entry.source] ?? 'bg-slate-500/15 text-slate-500 border-slate-500/30'}`}
-                      >
-                        {entry.source}
-                      </span>
+                    <div className="flex flex-wrap items-center gap-1 mt-1">
+                      {entry.sources.map((s) => (
+                        <span
+                          key={s}
+                          className={`text-[9px] font-mono uppercase tracking-wider px-1 py-0.5 rounded border ${SOURCE_COLORS[s] ?? 'bg-slate-500/15 text-slate-500 border-slate-500/30'}`}
+                        >
+                          {s}
+                        </span>
+                      ))}
                       {entry.port && <span className="text-[9px] font-mono text-slate-500">:{entry.port}</span>}
                     </div>
                     {entry.context && (

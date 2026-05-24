@@ -1,10 +1,30 @@
+import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ArrowLeft, ExternalLink } from 'lucide-react';
+import { ArrowLeft, ExternalLink, ShieldAlert } from 'lucide-react';
 import { threatActors } from '../../data/dfir/threat-actors';
+import DiamondModelSection from './DiamondModelSection';
+
+interface ActorCvesResponse {
+  cves: string[];
+  count: number;
+}
 
 export default function ActorDetail(): JSX.Element {
   const { slug } = useParams<{ slug: string }>();
   const actor = threatActors.find((a) => a.slug === slug);
+  const [linkedCves, setLinkedCves] = useState<string[] | null>(null);
+  const [cvesLoading, setCvesLoading] = useState(false);
+
+  useEffect(() => {
+    if (!actor) return;
+    setCvesLoading(true);
+    const aliases = encodeURIComponent(actor.aliases.join(','));
+    fetch(`/api/v1/actor-cves?slug=${encodeURIComponent(actor.slug)}&aliases=${aliases}`)
+      .then((r) => (r.ok ? (r.json() as Promise<ActorCvesResponse>) : null))
+      .then((d) => setLinkedCves(d?.cves ?? []))
+      .catch(() => setLinkedCves([]))
+      .finally(() => setCvesLoading(false));
+  }, [actor]);
 
   if (!actor) {
     return (
@@ -100,6 +120,41 @@ export default function ActorDetail(): JSX.Element {
           </div>
         ) : (
           <p className="text-sm font-mono text-slate-500">No specific malware attributed.</p>
+        )}
+      </section>
+
+      <DiamondModelSection actor={actor} />
+
+      <section className="mb-8 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+        <h2 className="font-display font-bold text-lg mb-1 inline-flex items-center gap-2">
+          <ShieldAlert size={18} className="text-rose-500" /> Linked CVEs
+          {linkedCves && linkedCves.length > 0 && (
+            <span className="text-xs font-mono text-slate-500">· {linkedCves.length}</span>
+          )}
+        </h2>
+        <p className="text-[11px] font-mono text-slate-500 mb-3">
+          CVEs publicly attributed to {actor.name} via CISA advisories, vendor PSIRT bulletins, and IR write-ups.
+          Curated — narrow by design (does not include unattributed KEV entries).
+        </p>
+        {cvesLoading && <p className="text-xs font-mono text-slate-500">Loading attribution…</p>}
+        {!cvesLoading && linkedCves && linkedCves.length === 0 && (
+          <p className="text-xs font-mono text-slate-500">
+            No CVEs are publicly attributed to this actor in our curated mapping. KEV-flagged exploits without
+            named-actor attribution are not shown here.
+          </p>
+        )}
+        {!cvesLoading && linkedCves && linkedCves.length > 0 && (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
+            {linkedCves.map((cve) => (
+              <Link
+                key={cve}
+                to={`/dfir/cve?id=${encodeURIComponent(cve)}`}
+                className="block rounded border border-rose-400/30 hover:border-brand-500/40 bg-rose-50/40 dark:bg-rose-950/20 px-3 py-2 transition-colors font-mono text-sm text-slate-900 dark:text-slate-100"
+              >
+                {cve}
+              </Link>
+            ))}
+          </div>
         )}
       </section>
 

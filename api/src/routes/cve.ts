@@ -2,6 +2,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { fetchResilient } from '../lib/fetch-resilient';
 import { CVE_ACTORS } from '../lib/cve-actor-mapping';
+import { heuristicLinksFromNvd, heuristicLinksFromKev, mergeActorLinks } from '../lib/cve-heuristic-mapping';
 
 const CVE_RE = /^CVE-\d{4}-\d{4,7}$/i;
 
@@ -86,6 +87,12 @@ export interface CveLookupResponse {
   /** Named threat-actor / ransomware groups observed exploiting this CVE
    *  (curated cve-actor-mapping) — attribution beyond CISA's binary KEV flag. */
   actors?: string[];
+  /** Heuristic + curated actor links with confidence scores and evidence sources. */
+  actor_links?: Array<{
+    slug: string;
+    confidence: number;
+    sources: string[];
+  }>;
 }
 
 /** CIRCL cve-search returns a CVE 5.1 record — extract the fields we need so a
@@ -379,7 +386,18 @@ export async function cveSearchHandler(c: Context<{ Bindings: Env }>) {
     ...(epss ? { epss } : {}),
     ...(poc ? { poc } : {}),
     ...(ghsa ? { ghsa } : {}),
-    ...(CVE_ACTORS[cveId]?.length ? { actors: CVE_ACTORS[cveId] } : {}),
+    ...(CVE_ACTORS[cveId]?.length || description || kev.vulnerability_name
+      ? {
+          actors: mergeActorLinks(CVE_ACTORS[cveId] ?? [], [
+            ...heuristicLinksFromNvd(cveId, description),
+            ...heuristicLinksFromKev(cveId, kev.vulnerability_name, kev.required_action),
+          ]).map((r) => r.slug),
+          actor_links: mergeActorLinks(CVE_ACTORS[cveId] ?? [], [
+            ...heuristicLinksFromNvd(cveId, description),
+            ...heuristicLinksFromKev(cveId, kev.vulnerability_name, kev.required_action),
+          ]),
+        }
+      : {}),
     source,
   };
 

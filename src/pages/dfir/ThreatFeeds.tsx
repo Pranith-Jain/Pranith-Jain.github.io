@@ -1,8 +1,13 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, ExternalLink, RefreshCw, Radio, Loader2, Search } from 'lucide-react';
-import { fetchAggregatedFeed, formatRelativeTime, type AggregatedFeedItem } from '../../services/rssService';
+import { ArrowLeft, ExternalLink, RefreshCw, Radio, Loader2, Search, AlertTriangle, CheckCircle2 } from 'lucide-react';
+import {
+  fetchAggregatedFeed,
+  formatRelativeTime,
+  type AggregatedFeedItem,
+  type AggregatedFeedSourceStatus,
+} from '../../services/rssService';
 import {
   landingThreatGovernment,
   landingThreatIndia,
@@ -83,6 +88,17 @@ const SECTION_STYLES: Record<string, string> = {
   news: 'border-sky-500/30 bg-sky-500/10 text-sky-700 dark:text-sky-300',
 };
 
+const DISABLED_STORAGE_KEY = 'feed:sources:disabled';
+
+function loadDisabled(): Set<string> {
+  try {
+    const raw = localStorage.getItem(DISABLED_STORAGE_KEY);
+    return new Set(raw ? (JSON.parse(raw) as string[]) : []);
+  } catch {
+    return new Set();
+  }
+}
+
 export default function ThreatFeeds(): JSX.Element {
   const [items, setItems] = useState<AggregatedFeedItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -90,22 +106,38 @@ export default function ThreatFeeds(): JSX.Element {
   const [activeSection, setActiveSection] = useState<string>('all');
   const [search, setSearch] = useState('');
   const [feedsReturned, setFeedsReturned] = useState(0);
+  const [feedStatuses, setFeedStatuses] = useState<AggregatedFeedSourceStatus[]>([]);
+  const [disabled, setDisabled] = useState<Set<string>>(() => loadDisabled());
+  const [showSourcePanel, setShowSourcePanel] = useState(false);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(DISABLED_STORAGE_KEY, JSON.stringify([...disabled]));
+    } catch {
+      /* localStorage unavailable */
+    }
+  }, [disabled]);
+
+  // Only request the feeds the user has enabled. Re-runs when the toggle set
+  // changes so re-enabling a feed pulls it without a manual refresh click.
+  const enabledFeedIds = useMemo(() => ALL_FEED_IDS.filter((id) => !disabled.has(id)), [disabled]);
 
   const load = useCallback(async () => {
     setLoading(true);
     setError(null);
     setItems([]);
     try {
-      const data = await fetchAggregatedFeed(ALL_FEED_IDS, { limit: 300, perSource: 12 });
+      const data = await fetchAggregatedFeed(enabledFeedIds, { limit: 300, perSource: 12 });
       if (!data) throw new Error('no aggregator-eligible feeds configured');
       setItems(data.items);
       setFeedsReturned(data.feeds_returned);
+      setFeedStatuses(data.feeds ?? []);
     } catch (e) {
       setError((e as Error).message);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [enabledFeedIds]);
 
   useEffect(() => {
     void load();
@@ -146,6 +178,16 @@ export default function ThreatFeeds(): JSX.Element {
     }
     return counts;
   }, [items, urlToSection]);
+
+  // Per-feed status indexed by URL so the source panel can show ok/items or
+  // the failure reason next to each feed name.
+  const statusByUrl = useMemo(() => {
+    const m = new Map<string, AggregatedFeedSourceStatus>();
+    for (const s of feedStatuses) m.set(s.url, s);
+    return m;
+  }, [feedStatuses]);
+
+  const failedCount = feedStatuses.filter((s) => !s.ok).length;
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
@@ -228,14 +270,127 @@ export default function ThreatFeeds(): JSX.Element {
             </button>
           ))}
           <button
+            onClick={() => setShowSourcePanel((v) => !v)}
+            className={`ml-auto text-xs font-mono px-2 py-1 rounded border inline-flex items-center gap-1.5 ${
+              showSourcePanel
+                ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
+                : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+            }`}
+            title="Pick which feeds to query"
+            aria-pressed={showSourcePanel}
+          >
+            sources{' '}
+            <span className="opacity-60">
+              · {enabledFeedIds.length}/{ALL_FEED_IDS.length}
+            </span>
+          </button>
+          <button
             onClick={() => void load()}
             disabled={loading}
-            className="ml-auto text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1.5 disabled:opacity-50"
+            className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1.5 disabled:opacity-50"
           >
             {loading ? <Loader2 size={11} className="animate-spin" /> : <RefreshCw size={11} />}
             {loading ? 'fetching' : 'refresh'}
           </button>
         </div>
+
+        {showSourcePanel && (
+          <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3 space-y-3 max-h-[420px] overflow-y-auto">
+            <div className="flex items-center justify-between gap-2">
+              <p className="text-[11px] font-mono text-slate-500">
+                Toggle individual feeds. Disabling a feed both hides it AND skips the upstream fetch. Persisted in
+                localStorage.
+              </p>
+              <div className="flex gap-1 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => setDisabled(new Set())}
+                  className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40"
+                >
+                  enable all
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDisabled(new Set(ALL_FEED_IDS))}
+                  className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 hover:border-rose-500/40"
+                >
+                  disable all
+                </button>
+              </div>
+            </div>
+            {SECTIONS.map((sec) => (
+              <div key={sec.id}>
+                <h3 className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-1.5">
+                  {sec.label}
+                  <span className="ml-1.5 opacity-60">
+                    · {sec.feedIds.filter((id) => !disabled.has(id)).length}/{sec.feedIds.length} on
+                  </span>
+                </h3>
+                <div className="grid sm:grid-cols-2 gap-1">
+                  {sec.feedIds.map((fid) => {
+                    const meta = rssFeeds.find((r) => r.id === fid);
+                    const status = meta?.url ? statusByUrl.get(meta.url) : undefined;
+                    const isEnabled = !disabled.has(fid);
+                    return (
+                      <button
+                        key={fid}
+                        type="button"
+                        onClick={() =>
+                          setDisabled((prev) => {
+                            const next = new Set(prev);
+                            if (next.has(fid)) next.delete(fid);
+                            else next.add(fid);
+                            return next;
+                          })
+                        }
+                        className={`flex items-center gap-2 rounded px-2 py-1 text-left border transition-colors ${
+                          isEnabled
+                            ? 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-brand-500/40'
+                            : 'border-slate-200/40 dark:border-slate-800/40 bg-slate-100/40 dark:bg-slate-950/40 opacity-60'
+                        }`}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={isEnabled}
+                          onChange={() => {
+                            /* button handles it */
+                          }}
+                          className="rounded border-slate-400 shrink-0"
+                          tabIndex={-1}
+                        />
+                        <span className="flex-1 min-w-0">
+                          <span className="block font-mono text-[11px] text-slate-700 dark:text-slate-300 truncate">
+                            {meta?.name ?? fid}
+                          </span>
+                          {isEnabled && status && (
+                            <span
+                              className={`block text-[9px] font-mono truncate ${
+                                status.ok
+                                  ? 'text-emerald-600 dark:text-emerald-400'
+                                  : 'text-rose-600 dark:text-rose-400'
+                              }`}
+                              title={status.error}
+                            >
+                              {status.ok ? (
+                                <>
+                                  <CheckCircle2 size={8} className="inline" /> {status.items} items
+                                </>
+                              ) : (
+                                <>
+                                  <AlertTriangle size={8} className="inline" /> {status.error ?? 'failed'}
+                                </>
+                              )}
+                            </span>
+                          )}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
 
         {activeSection !== 'all' && (
           <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500">
@@ -254,7 +409,20 @@ export default function ThreatFeeds(): JSX.Element {
       )}
 
       <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-3">
-        Showing {annotated.length} of {items.length} · {feedsReturned} of {ALL_FEED_IDS.length} feeds returned data
+        Showing {annotated.length} of {items.length} · {feedsReturned} of {enabledFeedIds.length} enabled feeds returned
+        data
+        {failedCount > 0 && (
+          <>
+            {' · '}
+            <button
+              type="button"
+              onClick={() => setShowSourcePanel(true)}
+              className="text-rose-600 dark:text-rose-400 hover:underline inline-flex items-center gap-0.5"
+            >
+              <AlertTriangle size={10} /> {failedCount} failed (click for details)
+            </button>
+          </>
+        )}
       </p>
 
       <ul className="space-y-2">

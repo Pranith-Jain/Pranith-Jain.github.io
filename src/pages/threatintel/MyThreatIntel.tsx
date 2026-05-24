@@ -306,10 +306,9 @@ export default function MyThreatIntel(): JSX.Element {
 
       {notConfigured ? (
         <div className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-6 text-sm text-amber-800 dark:text-amber-200">
-          <strong className="font-semibold">MyThreatIntel API token not configured.</strong> Set the{' '}
-          <code className="font-mono">MYTHREATINTEL_API_TOKEN</code> Worker secret (
-          <code className="font-mono">wrangler secret put MYTHREATINTEL_API_TOKEN</code>) to activate this dashboard.
-          The rest of the threat-intel section keeps working off the existing free feeds in the meantime.
+          <strong className="font-semibold">Operator dashboard disabled.</strong> Ask the site operator to enable the
+          MyThreatIntel integration. The rest of the threat-intel section keeps working off the existing free feeds in
+          the meantime.
         </div>
       ) : (
         <>

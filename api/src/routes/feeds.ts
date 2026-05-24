@@ -12,6 +12,7 @@ const ALLOWED_HOSTS = new Set([
   'isc.sans.edu',
   'us-cert.cisa.gov',
   'cert.europa.eu',
+  'ccb.belgium.be',
   // Aggregators
   'feeds.feedburner.com',
   // News and journalism
@@ -151,6 +152,12 @@ const ALLOWED_HOSTS = new Set([
   'importai.substack.com',
   // Same-origin synthesised feeds (e.g. MyThreatIntel ransomware → RSS)
   'pranithjain.qzz.io',
+  // Sync with feeds-aggregate.ts ALLOWED_HOSTS (2026-05-24 additions)
+  'www.akamai.com',
+  'akamai.com',
+  'github.com',
+  'osv.dev',
+  'www.osv.dev',
 ]);
 
 export async function feedProxyHandler(c: Context<{ Bindings: Env }>) {

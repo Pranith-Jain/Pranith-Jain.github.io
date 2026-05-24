@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { AttackHeatmap } from '../../components/threatintel/AttackHeatmap';
 import { BackLink } from '../../components/BackLink';
 import {
   Activity,
@@ -1265,6 +1266,10 @@ export default function Metrics(): JSX.Element {
               <HBar items={topC2Frameworks} color="#14b8a6" />
             </ChartCard>
           </div>
+
+          {/* 7. ATT&CK technique heatmap — full-width below the narrative
+              grid because the horizontal column layout needs the space */}
+          <AttackHeatmap mbClass="mt-6" />
         </section>
       )}
 

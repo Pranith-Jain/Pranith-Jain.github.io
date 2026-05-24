@@ -190,12 +190,21 @@ export interface AggregatedFeedItem {
   guid?: string;
 }
 
+export interface AggregatedFeedSourceStatus {
+  url: string;
+  ok: boolean;
+  items: number;
+  error?: string;
+}
+
 export interface AggregatedFeedResponse {
   generated_at: string;
   total_items: number;
   feeds_attempted: number;
   feeds_returned: number;
   items: AggregatedFeedItem[];
+  /** Per-feed status. May be absent on older cached responses. */
+  feeds?: AggregatedFeedSourceStatus[];
 }
 
 /**
@@ -217,28 +226,23 @@ export interface AggregatedFeedResponse {
  *            of a generic "Aggregator returned no data". Previously all
  *            three failure modes collapsed to null + a useless string.
  */
-export async function fetchAggregatedFeed(
-  feedIds: string[],
-  options: { limit?: number; perSource?: number } = {}
-): Promise<AggregatedFeedResponse | null> {
-  const feeds = rssFeeds.filter((f) => feedIds.includes(f.id));
-  if (feeds.length === 0) return null;
-  const urls = feeds
-    .map((f) => f.url)
-    .filter((u) => !u.startsWith('/')) // synthesised feeds aren't aggregator-eligible
-    .join(',');
-  if (!urls) return null;
-  // Defaults raised in step with the route's DEFAULT_LIMIT/MAX_LIMIT bump
-  // (100 / 500). The route enforces caps; callers can still pass smaller
-  // values when they want a tight preview.
-  const limit = options.limit ?? 100;
-  const perSource = options.perSource ?? 5;
-  const url = `/api/v1/feeds/aggregate?urls=${encodeURIComponent(urls)}&limit=${limit}&perSource=${perSource}`;
+/** Max URLs per aggregator call. Cloudflare Workers cap each invocation
+ *  at 50 subrequests, but each `fetch(redirect:'follow')` can use 2 (the
+ *  redirect counts), and the per-URL cache layer adds overhead. With 30
+ *  URLs per batch + redirects + cache writes we routinely overran the
+ *  cap, producing "fetch_failed: Too many subrequests" for the tail of
+ *  feeds. 15 leaves safe headroom: even if every URL redirects (30
+ *  subrequests) we stay well under 50. The trade-off is more parallel
+ *  Worker calls — each its own 50-req budget — which is exactly what
+ *  we want for hard isolation. */
+const AGGREGATOR_CHUNK_SIZE = 15;
+
+async function fetchOneBatch(urls: string[], limit: number, perSource: number): Promise<AggregatedFeedResponse | null> {
+  if (urls.length === 0) return null;
+  const joined = urls.join(',');
+  const url = `/api/v1/feeds/aggregate?urls=${encodeURIComponent(joined)}&limit=${limit}&perSource=${perSource}`;
   let res: Response;
   try {
-    // 15s was too tight: the aggregator fans out to N feeds (10-30 in the
-    // common paths) and the slowest tail is regularly 8-12s on the worker
-    // edge. A single slow feed shouldn't paint the whole call as failed.
     res = await fetch(url, { signal: AbortSignal.timeout(25000) });
   } catch (err) {
     const reason = err instanceof Error ? err.message : 'network error';
@@ -247,14 +251,67 @@ export async function fetchAggregatedFeed(
     }
     throw new Error(`feed aggregator unreachable: ${reason}`);
   }
-  if (!res.ok) {
-    throw new Error(`feed aggregator returned ${res.status} ${res.statusText}`.trim());
-  }
+  if (!res.ok) throw new Error(`feed aggregator returned ${res.status} ${res.statusText}`.trim());
   try {
     return (await res.json()) as AggregatedFeedResponse;
   } catch {
     throw new Error('feed aggregator returned a malformed response');
   }
+}
+
+export async function fetchAggregatedFeed(
+  feedIds: string[],
+  options: { limit?: number; perSource?: number } = {}
+): Promise<AggregatedFeedResponse | null> {
+  const feeds = rssFeeds.filter((f) => feedIds.includes(f.id));
+  if (feeds.length === 0) return null;
+  const urlList = feeds.map((f) => f.url).filter((u) => !u.startsWith('/')); // synthesised feeds aren't aggregator-eligible
+  if (urlList.length === 0) return null;
+  const limit = options.limit ?? 100;
+  const perSource = options.perSource ?? 5;
+
+  // Single-batch path — keeps a request fast when the URL count is small.
+  if (urlList.length <= AGGREGATOR_CHUNK_SIZE) {
+    return fetchOneBatch(urlList, limit, perSource);
+  }
+
+  // Chunked path — split into N batches and run them in parallel. The
+  // root cause this fixes: a single aggregator call with 53 URLs
+  // exceeded the Cloudflare Worker 50-subrequest-per-invocation cap and
+  // produced "fetch_failed: Too many subrequests" for the tail of feeds.
+  // Splitting into 2-3 batches keeps each invocation well under the cap.
+  const batches: string[][] = [];
+  for (let i = 0; i < urlList.length; i += AGGREGATOR_CHUNK_SIZE) {
+    batches.push(urlList.slice(i, i + AGGREGATOR_CHUNK_SIZE));
+  }
+  const perBatchLimit = Math.max(limit, Math.ceil(limit / batches.length) + 10);
+  const results = await Promise.all(batches.map((b) => fetchOneBatch(b, perBatchLimit, perSource).catch(() => null)));
+
+  const merged: AggregatedFeedResponse = {
+    generated_at: new Date().toISOString(),
+    total_items: 0,
+    feeds_attempted: 0,
+    feeds_returned: 0,
+    items: [],
+    feeds: [],
+  };
+  for (const r of results) {
+    if (!r) continue;
+    merged.feeds_attempted += r.feeds_attempted;
+    merged.feeds_returned += r.feeds_returned;
+    if (r.feeds && merged.feeds) merged.feeds.push(...r.feeds);
+    merged.items.push(...r.items);
+  }
+  // Newest-first sort + cap to the requested limit. Items without
+  // parseable dates fall to the bottom (consistent with the route).
+  merged.items.sort((a, b) => {
+    const da = Date.parse(a.pubDate) || 0;
+    const db = Date.parse(b.pubDate) || 0;
+    return db - da;
+  });
+  merged.items = merged.items.slice(0, limit);
+  merged.total_items = merged.items.length;
+  return merged;
 }
 
 // Get all feeds

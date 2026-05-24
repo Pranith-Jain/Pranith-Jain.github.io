@@ -149,7 +149,7 @@ export default function ExternalResources(): JSX.Element {
   const featuredCount = useMemo(() => merged.filter((r) => 'featured' in r).length, [merged]);
 
   const signIn = () => {
-    const v = window.prompt('Paste RESOURCES_ADMIN_TOKEN:');
+    const v = window.prompt('Paste admin token:');
     if (!v) return;
     const trimmed = v.trim();
     if (!trimmed) return;

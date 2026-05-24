@@ -80,6 +80,17 @@ function formatDate(iso?: string): string {
 
 const ALL_CATEGORIES_FOR_URL = ['all'] as const;
 
+const SOURCES_STORAGE_KEY = 'cyber-crime:disabled-sources';
+
+function loadDisabledSources(): Set<string> {
+  try {
+    const raw = localStorage.getItem(SOURCES_STORAGE_KEY);
+    return new Set(raw ? (JSON.parse(raw) as string[]) : []);
+  } catch {
+    return new Set();
+  }
+}
+
 export default function CyberCrime(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
   const [data, setData] = useState<CybercrimeResponse | null>(null);
@@ -87,11 +98,29 @@ export default function CyberCrime(): JSX.Element {
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState(searchParams.get('q') ?? '');
   const [refreshKey, setRefreshKey] = useState(0);
+  const [disabledSources, setDisabledSources] = useState<Set<string>>(() => loadDisabledSources());
   const [activeCategory, setActiveCategory] = useState<Category | 'all'>(() => {
     const cat = searchParams.get('cat');
     if (cat && cat in CATEGORY_LABEL) return cat as Category;
     return ALL_CATEGORIES_FOR_URL[0];
   });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(SOURCES_STORAGE_KEY, JSON.stringify([...disabledSources]));
+    } catch {
+      /* localStorage unavailable */
+    }
+  }, [disabledSources]);
+
+  const toggleSource = (label: string) => {
+    setDisabledSources((prev) => {
+      const next = new Set(prev);
+      if (next.has(label)) next.delete(label);
+      else next.add(label);
+      return next;
+    });
+  };
 
   // Keep filter state in the URL so a curated view is shareable.
   useEffect(() => {
@@ -137,6 +166,9 @@ export default function CyberCrime(): JSX.Element {
   const filtered = useMemo(() => {
     if (!data) return [];
     let items = data.items;
+    if (disabledSources.size > 0) {
+      items = items.filter((it) => !disabledSources.has(it.source));
+    }
     if (activeCategory !== 'all') items = items.filter((it) => it.category === activeCategory);
     const q = query.trim().toLowerCase();
     if (q) {
@@ -148,7 +180,7 @@ export default function CyberCrime(): JSX.Element {
       );
     }
     return items;
-  }, [data, query, activeCategory]);
+  }, [data, query, activeCategory, disabledSources]);
 
   const categoryCounts = useMemo(() => {
     const counts: Record<Category, number> = {
@@ -280,25 +312,57 @@ export default function CyberCrime(): JSX.Element {
         </ul>
       </DataState>
 
-      {/* Source status footer */}
+      {/* Source picker + status. Click a row to toggle that source on/off
+          (persisted in localStorage). Disabling hides items locally but
+          still pulls from the server — the round-robin still fires. */}
       {data && (
         <details className="mt-8 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3">
-          <summary className="text-xs font-mono text-slate-500 cursor-pointer">
-            source status — {data.sources.filter((s) => s.ok).length}/{data.sources.length} ok
+          <summary className="text-xs font-mono text-slate-500 cursor-pointer flex items-center justify-between gap-2 flex-wrap">
+            <span>
+              sources — {data.sources.length - disabledSources.size}/{data.sources.length} enabled ·{' '}
+              {data.sources.filter((s) => s.ok).length}/{data.sources.length} ok
+            </span>
+            {disabledSources.size > 0 && (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setDisabledSources(new Set());
+                }}
+                className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40"
+              >
+                enable all
+              </button>
+            )}
           </summary>
-          <div className="mt-3 grid sm:grid-cols-2 gap-1.5 text-[11px] font-mono">
-            {data.sources.map((s) => (
-              <div key={s.label} className="flex items-baseline justify-between gap-2">
-                <span className={s.ok ? 'text-slate-700 dark:text-slate-300' : 'text-rose-600 dark:text-rose-400'}>
-                  {s.ok ? '✓' : '✗'} {s.label}
-                </span>
-                <span className="text-slate-500">
-                  {s.count}
-                  {s.filtered_out ? ` (-${s.filtered_out})` : ''}
-                  {s.error ? ` · ${s.error}` : ''}
-                </span>
-              </div>
-            ))}
+          <p className="mt-2 text-[10px] font-mono text-slate-500">
+            Click any source row to toggle it. Preference persists per browser.
+          </p>
+          <div className="mt-2 grid sm:grid-cols-2 gap-1.5 text-[11px] font-mono">
+            {data.sources.map((s) => {
+              const enabled = !disabledSources.has(s.label);
+              return (
+                <button
+                  key={s.label}
+                  type="button"
+                  onClick={() => toggleSource(s.label)}
+                  className={`flex items-baseline justify-between gap-2 rounded px-2 py-1 text-left transition-colors border ${
+                    enabled
+                      ? 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-brand-500/40'
+                      : 'border-slate-200/40 dark:border-slate-800/40 bg-slate-100/40 dark:bg-slate-950/40 opacity-60'
+                  }`}
+                >
+                  <span className={s.ok ? 'text-slate-700 dark:text-slate-300' : 'text-rose-600 dark:text-rose-400'}>
+                    {enabled ? (s.ok ? '✓' : '✗') : '○'} {s.label}
+                  </span>
+                  <span className="text-slate-500">
+                    {s.count}
+                    {s.filtered_out ? ` (-${s.filtered_out})` : ''}
+                    {s.error ? ` · ${s.error}` : ''}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </details>
       )}

@@ -38,6 +38,17 @@ export interface Env {
    *  Optional — case-study generation uses Groq as the quality primary when
    *  set, and falls back to Workers AI when unset/unavailable. */
   GROQ_API_KEY?: string;
+  /** X (Twitter) auth cookies for the cookie-authenticated firehose at
+   *  /api/v1/x-firehose. Set via `wrangler secret put X_AUTH_TOKEN` and
+   *  `wrangler secret put X_CT0` (values are the `auth_token` and `ct0`
+   *  cookies from a logged-in x.com session). Optional — when unset, the
+   *  firehose endpoint returns 503 with setup instructions and the x-live
+   *  / x-watch surfaces continue to work via the anonymous paths. */
+  X_AUTH_TOKEN?: string;
+  X_CT0?: string;
+  /** Override for the public web bearer that ships in every x.com bundle.
+   *  Rarely needed — only if Twitter rotates the default. */
+  X_BEARER?: string;
   /** MyThreatIntel REST API bearer token (set via
    *  `wrangler secret put MYTHREATINTEL_API_TOKEN`). Optional — the
    *  /api/v1/mti proxy degrades to 503 when unset, and the in-process

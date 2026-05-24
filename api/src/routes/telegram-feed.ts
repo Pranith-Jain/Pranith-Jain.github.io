@@ -1,5 +1,8 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { requireAdmin } from '../lib/admin-auth';
+
+const CUSTOM_CHANNELS_KV_KEY = 'tg:custom-channels:v1';
 
 /**
  * Aggregated cybersec Telegram firehose.
@@ -34,7 +37,11 @@ const MAX_MESSAGES_PER_CHANNEL = 50;
 /** Drop messages older than this many days. Telegram channels post at
  *  human cadence; anything older than a week is stale by the standards
  *  of a "today's intel" surface. */
-const MAX_MESSAGE_AGE_DAYS = 7;
+// Was 7 — too tight for channels like CyberSecurityPulse / phishingradar /
+// group_ib which post a few times a week. 7-day window produced "0"
+// counts that read as broken when the channel was actually fine, just
+// not chatty enough. 30 days surfaces a full month's signal.
+const MAX_MESSAGE_AGE_DAYS = 30;
 /** Truncate per-message text. Long posts (full IR write-ups) are still followable via permalink. */
 const MAX_TEXT_LEN = 800;
 
@@ -188,6 +195,13 @@ const CHANNELS: ChannelSpec[] = [
     handle: 'dailybountywriteup',
     name: 'Daily Bounty Writeup',
     blurb: 'Curated bug-bounty write-ups + disclosed vuln reports',
+    topic: 'osint',
+  },
+  // Intelligence digests
+  {
+    handle: 'IntCyberDigest',
+    name: 'IntCyberDigest',
+    blurb: 'Cyber intelligence digest — threat actor analysis, campaign tracking, and CTI round-ups',
     topic: 'osint',
   },
 ];
@@ -418,13 +432,33 @@ function scoreChannel(messages: ParsedMessage[]): ChannelQuality {
  * (no Response wrapping) so the snapshot handler can compose it directly
  * without a worker-internal HTTP call (which Cloudflare 522s on same-worker).
  */
-export async function fetchTelegramFeed(): Promise<TelegramFeedResponse> {
+export async function fetchTelegramFeed(kv?: KVNamespace): Promise<TelegramFeedResponse> {
   const warnings: string[] = [];
   const channelStatus: TelegramFeedResponse['channels'] = [];
   const allItems: TelegramFeedItem[] = [];
 
-  // Bounded fan-out so we don't overwhelm Telegram's edge.
-  const queue = [...CHANNELS];
+  // Merge hardcoded channels with user-added custom channels from KV
+  const customChannels: ChannelSpec[] = [];
+  if (kv) {
+    try {
+      const raw = await kv.get(CUSTOM_CHANNELS_KV_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw) as Array<{ handle: string; name: string }>;
+        for (const ch of parsed) {
+          customChannels.push({
+            handle: ch.handle,
+            name: ch.name,
+            blurb: `User-added channel: ${ch.handle}`,
+            topic: 'osint',
+          });
+        }
+      }
+    } catch {
+      /* KV unavailable, skip custom channels */
+    }
+  }
+
+  const queue = [...CHANNELS, ...customChannels];
   async function worker() {
     while (queue.length > 0) {
       const ch = queue.shift();
@@ -477,16 +511,135 @@ export async function fetchTelegramFeed(): Promise<TelegramFeedResponse> {
 // so the next request abandons any cached payload built under the old caps.
 export const TELEGRAM_FEED_CACHE_KEY = 'https://telegram-feed-cache.internal/v10-7d-50pc';
 
+// Bump value is read on every TG feed visit to invalidate the cache
+// when custom channels change. Shadow it in caches.default with a 60s
+// TTL so the KV read happens at most once/min/colo instead of per-visit.
+const BUMP_SHADOW_CACHE_KEY = new Request('https://tg-bump-shadow.internal/v1');
+const BUMP_SHADOW_TTL = 60;
+
+async function readBumpValue(env: Env): Promise<string | null> {
+  const cache = (caches as unknown as { default: Cache }).default;
+  try {
+    const shadow = await cache.match(BUMP_SHADOW_CACHE_KEY);
+    if (shadow) {
+      const v = await shadow.text();
+      return v || null;
+    }
+  } catch {
+    /* fall through to KV */
+  }
+  const fresh = env.KV_CACHE ? await env.KV_CACHE.get('tg:custom-channels:bump').catch(() => null) : null;
+  // Always write a shadow — even "no bump" cached as empty string saves
+  // the same read next time. Empty marker is treated as absent on read.
+  try {
+    await cache.put(
+      BUMP_SHADOW_CACHE_KEY,
+      new Response(fresh ?? '', { headers: { 'cache-control': `max-age=${BUMP_SHADOW_TTL}` } })
+    );
+  } catch {
+    /* swallow */
+  }
+  return fresh;
+}
+
 export async function telegramFeedHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;
-  // v4: 2026-05-11 follow-up — added defendor_eng + cyberscoop after handle
-  // verification.  Bump on response-shape changes or curated-channel-list changes.
-  const cacheKey = new Request(TELEGRAM_FEED_CACHE_KEY);
+  const bump = await readBumpValue(c.env);
+  const cacheKey = new Request(`${TELEGRAM_FEED_CACHE_KEY}${bump ? `-${bump}` : ''}`);
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
-  const body = await fetchTelegramFeed();
+  const body = await fetchTelegramFeed(c.env.KV_CACHE);
   const response = c.json(body, 200, { 'Cache-Control': `public, max-age=${CACHE_TTL}` });
   c.executionCtx.waitUntil(cache.put(cacheKey, response.clone()));
   return response;
+}
+
+// ─── Custom channels (user-added) ────────────────────────────────────────────
+
+interface CustomChannelEntry {
+  handle: string;
+  name: string;
+  added_at: string;
+}
+
+export async function telegramCustomChannelsGetHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const kv = c.env.KV_CACHE;
+  if (!kv) return c.json({ channels: [], error: 'KV not configured' });
+  try {
+    const raw = await kv.get(CUSTOM_CHANNELS_KV_KEY);
+    const channels: CustomChannelEntry[] = raw ? JSON.parse(raw) : [];
+    return c.json({ channels }, 200, { 'cache-control': 'no-store' });
+  } catch {
+    return c.json({ channels: [], error: 'failed to read custom channels' }, 500);
+  }
+}
+
+export async function telegramCustomChannelsPostHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const gate = requireAdmin(c);
+  if ('error' in gate) return gate.error;
+  const kv = c.env.KV_CACHE;
+  if (!kv) return c.json({ error: 'KV not configured' }, 500);
+
+  const body = (await c.req.json()) as { handle?: string; name?: string };
+  const handle = body.handle?.trim().replace(/^@/, '') ?? '';
+  const name = (body.name?.trim() || handle) ?? '';
+
+  if (!handle || !/^[a-zA-Z][a-zA-Z0-9_]{3,31}$/.test(handle)) {
+    return c.json({ error: 'invalid handle — must be 4-32 alphanumeric chars, starting with a letter' }, 400);
+  }
+
+  try {
+    const raw = await kv.get(CUSTOM_CHANNELS_KV_KEY);
+    const channels: CustomChannelEntry[] = raw ? JSON.parse(raw) : [];
+
+    if (channels.some((ch) => ch.handle.toLowerCase() === handle.toLowerCase())) {
+      return c.json({ error: 'channel already added' }, 409);
+    }
+
+    channels.push({ handle, name, added_at: new Date().toISOString() });
+    await kv.put(CUSTOM_CHANNELS_KV_KEY, JSON.stringify(channels));
+    // Bump the cache key so the next reader gets fresh data
+    await kv.put('tg:custom-channels:bump', Date.now().toString());
+    // Drop the bump-shadow so the next read picks up the new value
+    // immediately instead of waiting out the 60s shadow TTL.
+    try {
+      await (caches as unknown as { default: Cache }).default.delete(BUMP_SHADOW_CACHE_KEY);
+    } catch {
+      /* swallow */
+    }
+
+    return c.json({ ok: true, channel: { handle, name } }, 201);
+  } catch {
+    return c.json({ error: 'failed to save custom channel' }, 500);
+  }
+}
+
+export async function telegramCustomChannelsDeleteHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const gate = requireAdmin(c);
+  if ('error' in gate) return gate.error;
+  const kv = c.env.KV_CACHE;
+  if (!kv) return c.json({ error: 'KV not configured' }, 500);
+
+  const handle = c.req.param('handle')?.trim().replace(/^@/, '');
+  if (!handle) return c.json({ error: 'missing handle' }, 400);
+
+  try {
+    const raw = await kv.get(CUSTOM_CHANNELS_KV_KEY);
+    const channels: CustomChannelEntry[] = raw ? JSON.parse(raw) : [];
+    const filtered = channels.filter((ch) => ch.handle.toLowerCase() !== handle.toLowerCase());
+    if (filtered.length === channels.length) {
+      return c.json({ error: 'channel not found' }, 404);
+    }
+    await kv.put(CUSTOM_CHANNELS_KV_KEY, JSON.stringify(filtered));
+    await kv.put('tg:custom-channels:bump', Date.now().toString());
+    try {
+      await (caches as unknown as { default: Cache }).default.delete(BUMP_SHADOW_CACHE_KEY);
+    } catch {
+      /* swallow */
+    }
+    return c.json({ ok: true });
+  } catch {
+    return c.json({ error: 'failed to delete custom channel' }, 500);
+  }
 }

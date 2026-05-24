@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, BookText, ExternalLink, Gauge } from 'lucide-react';
 import { CopyButton } from '../../components/dfir/CopyButton';
@@ -31,6 +31,12 @@ interface EpssData {
   date: string;
 }
 
+interface ActorLink {
+  slug: string;
+  confidence: number;
+  sources: string[];
+}
+
 interface CveLookupResult {
   cve_id: string;
   published?: string;
@@ -42,7 +48,17 @@ interface CveLookupResult {
   affected_products?: string[];
   kev: KevData;
   epss?: EpssData;
+  actors?: string[];
+  actor_links?: ActorLink[];
 }
+
+const ACTOR_LINK_SOURCE_LABEL: Record<string, string> = {
+  curated: 'curated mapping',
+  cisa_kev: 'CISA KEV text',
+  nvd: 'NVD description',
+  otx: 'OTX pulse',
+  feed: 'feed mention',
+};
 
 const SEVERITY_STYLES: Record<string, string> = {
   CRITICAL: 'bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300 border-rose-300 dark:border-rose-700',
@@ -403,6 +419,93 @@ export default function CveLookup(): JSX.Element {
                   </div>
                 )}
               </div>
+            </section>
+          )}
+
+          {/* Actor attribution panel — surfaces evidence-scored CVE→actor links */}
+          {result.actor_links && result.actor_links.length > 0 && (
+            <section className="rounded-2xl border border-violet-200 dark:border-violet-900/40 bg-violet-50/40 dark:bg-violet-900/10 p-6">
+              <h3 className="font-display font-semibold text-lg mb-3 text-violet-900 dark:text-violet-300">
+                Threat-actor attribution
+              </h3>
+              <p className="text-[11px] font-mono text-violet-800/70 dark:text-violet-300/70 mb-3 leading-relaxed">
+                Multi-signal CVE → actor evidence chain. Curated mapping (confidence 100) is anchored to public CISA /
+                vendor PSIRT attribution; heuristic signals (NVD description, CISA KEV text, OTX pulse) add independent
+                corroboration with their own confidence weight. Sources are listed so analysts can pressure-test
+                attribution rather than trust it blindly.
+              </p>
+              <ul className="space-y-2">
+                {[...result.actor_links]
+                  .sort((a, b) => b.confidence - a.confidence)
+                  .map((link) => {
+                    const conf = link.confidence;
+                    const tier = conf >= 90 ? 'high' : conf >= 60 ? 'medium' : 'low';
+                    const tierColor =
+                      tier === 'high'
+                        ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
+                        : tier === 'medium'
+                          ? 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300'
+                          : 'border-slate-400/40 bg-slate-400/10 text-slate-600 dark:text-slate-400';
+                    return (
+                      <li
+                        key={link.slug}
+                        className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 p-3"
+                      >
+                        <div className="flex items-start justify-between gap-2 mb-1.5 flex-wrap">
+                          <Link
+                            to={`/dfir/actors/${encodeURIComponent(link.slug)}`}
+                            className="font-mono font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                          >
+                            {link.slug}
+                            <ExternalLink size={10} />
+                          </Link>
+                          <div className="flex items-center gap-1.5">
+                            <span
+                              className={`text-[10px] font-mono px-1.5 py-0.5 rounded border ${tierColor}`}
+                              title={`confidence score ${conf}/100`}
+                            >
+                              {tier} · {conf}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="flex flex-wrap items-center gap-1.5 text-[10px] font-mono">
+                          <span className="text-slate-500">evidence:</span>
+                          {link.sources.map((s) => (
+                            <span
+                              key={s}
+                              className="rounded border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-1.5 py-0.5 text-slate-700 dark:text-slate-300"
+                              title={`Attribution sourced from ${ACTOR_LINK_SOURCE_LABEL[s] ?? s}`}
+                            >
+                              {ACTOR_LINK_SOURCE_LABEL[s] ?? s}
+                            </span>
+                          ))}
+                        </div>
+                      </li>
+                    );
+                  })}
+              </ul>
+              <details className="mt-3">
+                <summary className="cursor-pointer text-[10px] font-mono text-violet-700/70 dark:text-violet-300/60 hover:text-violet-900 dark:hover:text-violet-200">
+                  Confidence scale
+                </summary>
+                <ul className="mt-2 text-[10px] font-mono text-violet-800/70 dark:text-violet-300/70 leading-relaxed space-y-0.5 list-disc list-inside">
+                  <li>
+                    <b>100 — curated:</b> human-vetted attribution from CISA advisory, vendor PSIRT, or IR report.
+                  </li>
+                  <li>
+                    <b>70 — OTX:</b> AlienVault pulse tagged both the actor and the CVE.
+                  </li>
+                  <li>
+                    <b>65 — NVD:</b> NVD description text names a known actor.
+                  </li>
+                  <li>
+                    <b>60 — CISA KEV:</b> KEV vulnerability name / required-action text mentions an actor.
+                  </li>
+                  <li>
+                    <b>35 — feed:</b> news/blog feed item mentioned both the actor and the CVE.
+                  </li>
+                </ul>
+              </details>
             </section>
           )}
 

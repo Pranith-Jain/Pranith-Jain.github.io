@@ -51,8 +51,8 @@ export default function Exposure(): JSX.Element {
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Exposure Scanner</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
-          Subdomains seen in Certificate Transparency logs, resolved to IPs, with optional Shodan host info (when
-          SHODAN_API_KEY is set).
+          Subdomains seen in Certificate Transparency logs, resolved to IPs, with optional Shodan host enrichment when
+          available.
         </p>
       </div>
 
@@ -104,7 +104,7 @@ export default function Exposure(): JSX.Element {
             </div>
             <p className="mt-2 font-mono text-sm text-slate-600 dark:text-slate-400">
               {result.subdomains.length} of {result.total_subdomains_seen} subdomains shown · Shodan:{' '}
-              {result.shodan_enabled ? 'enabled' : 'disabled (no SHODAN_API_KEY)'}
+              {result.shodan_enabled ? 'enabled' : 'unavailable'}
             </p>
           </section>
           <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">

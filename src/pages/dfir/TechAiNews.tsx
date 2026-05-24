@@ -2,7 +2,13 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ExternalLink, RefreshCw, Sparkles, Loader2, Search } from 'lucide-react';
-import { fetchAggregatedFeed, formatRelativeTime, type AggregatedFeedItem } from '../../services/rssService';
+import {
+  fetchAggregatedFeed,
+  formatRelativeTime,
+  type AggregatedFeedItem,
+  type AggregatedFeedSourceStatus,
+} from '../../services/rssService';
+import { SourceTogglePanel } from '../../components/threatintel/SourceTogglePanel';
 import { rssFeeds } from '../../data/rssFeeds';
 
 /**
@@ -23,14 +29,15 @@ const SECTIONS: Section[] = [
     id: 'ai',
     label: 'AI',
     blurb: 'Model releases, AI funding, agentic-AI products, AI-system security incidents.',
+    // gnews-* removed 2026-05-24: Google News rate-limits Worker IPs
+    // aggressively and returns 503 on most queries, producing persistent
+    // "timeout / http_503" failures with no recovery path. The remaining
+    // sources cover the same beat without the unreliable upstream.
     feedIds: [
       'techcrunch-ai',
       'verge-ai',
       'openai-news',
       'google-ai',
-      'gnews-ai-security',
-      'gnews-ai-funding',
-      'gnews-genai-enterprise',
       'huggingface-blog',
       'the-decoder',
       'import-ai',
@@ -41,13 +48,7 @@ const SECTIONS: Section[] = [
     id: 'funding',
     label: 'Cybersecurity funding & M&A',
     blurb: 'Series A-D rounds, acquisitions, IPOs, vendor consolidation in the security industry.',
-    feedIds: [
-      'techcrunch-security',
-      'venturebeat-security',
-      'gnews-cybersec-funding',
-      'gnews-cybersec-acquisition',
-      'gnews-infosec-startup',
-    ],
+    feedIds: ['techcrunch-security', 'venturebeat-security'],
   },
   {
     id: 'general',
@@ -71,6 +72,17 @@ const SECTION_STYLES: Record<string, string> = {
   general: 'border-sky-500/30 bg-sky-500/10 text-sky-700 dark:text-sky-300',
 };
 
+const DISABLED_STORAGE_KEY = 'tech-ai-news:disabled';
+
+function loadDisabled(): Set<string> {
+  try {
+    const raw = localStorage.getItem(DISABLED_STORAGE_KEY);
+    return new Set(raw ? (JSON.parse(raw) as string[]) : []);
+  } catch {
+    return new Set();
+  }
+}
+
 export default function TechAiNews(): JSX.Element {
   const [items, setItems] = useState<AggregatedFeedItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -78,22 +90,36 @@ export default function TechAiNews(): JSX.Element {
   const [activeSection, setActiveSection] = useState<string>('all');
   const [search, setSearch] = useState('');
   const [feedsReturned, setFeedsReturned] = useState(0);
+  const [feedStatuses, setFeedStatuses] = useState<AggregatedFeedSourceStatus[]>([]);
+  const [disabled, setDisabled] = useState<Set<string>>(() => loadDisabled());
+  const [showSourcePanel, setShowSourcePanel] = useState(false);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(DISABLED_STORAGE_KEY, JSON.stringify([...disabled]));
+    } catch {
+      /* localStorage unavailable */
+    }
+  }, [disabled]);
+
+  const enabledFeedIds = useMemo(() => ALL_FEED_IDS.filter((id) => !disabled.has(id)), [disabled]);
 
   const load = useCallback(async () => {
     setLoading(true);
     setError(null);
     setItems([]);
     try {
-      const data = await fetchAggregatedFeed(ALL_FEED_IDS, { limit: 250, perSource: 20 });
+      const data = await fetchAggregatedFeed(enabledFeedIds, { limit: 250, perSource: 20 });
       if (!data) throw new Error('no aggregator-eligible feeds configured');
       setItems(data.items);
       setFeedsReturned(data.feeds_returned);
+      setFeedStatuses(data.feeds ?? []);
     } catch (e) {
       setError((e as Error).message);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [enabledFeedIds]);
 
   useEffect(() => {
     void load();
@@ -212,9 +238,23 @@ export default function TechAiNews(): JSX.Element {
             </button>
           ))}
           <button
+            onClick={() => setShowSourcePanel((v) => !v)}
+            className={`ml-auto text-xs font-mono px-2 py-1 rounded border inline-flex items-center gap-1.5 ${
+              showSourcePanel
+                ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
+                : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+            }`}
+            aria-pressed={showSourcePanel}
+          >
+            sources{' '}
+            <span className="opacity-60">
+              · {enabledFeedIds.length}/{ALL_FEED_IDS.length}
+            </span>
+          </button>
+          <button
             onClick={() => void load()}
             disabled={loading}
-            className="ml-auto text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1.5 disabled:opacity-50"
+            className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1.5 disabled:opacity-50"
           >
             {loading ? <Loader2 size={11} className="animate-spin" /> : <RefreshCw size={11} />}
             {loading ? 'fetching' : 'refresh'}
@@ -229,6 +269,25 @@ export default function TechAiNews(): JSX.Element {
             {SECTIONS.find((s) => s.id === activeSection)?.blurb}
           </p>
         )}
+
+        {showSourcePanel && (
+          <SourceTogglePanel
+            sections={SECTIONS}
+            allFeedIds={ALL_FEED_IDS}
+            disabled={disabled}
+            feedStatuses={feedStatuses}
+            onToggle={(id) =>
+              setDisabled((prev) => {
+                const next = new Set(prev);
+                if (next.has(id)) next.delete(id);
+                else next.add(id);
+                return next;
+              })
+            }
+            onEnableAll={() => setDisabled(new Set())}
+            onDisableAll={() => setDisabled(new Set(ALL_FEED_IDS))}
+          />
+        )}
       </section>
 
       {error && (
@@ -238,7 +297,20 @@ export default function TechAiNews(): JSX.Element {
       )}
 
       <p className="text-[11px] font-mono text-slate-500 dark:text-slate-500 mb-3">
-        Showing {annotated.length} of {items.length} · {feedsReturned} of {ALL_FEED_IDS.length} feeds returned data
+        Showing {annotated.length} of {items.length} · {feedsReturned} of {enabledFeedIds.length} enabled feeds returned
+        data
+        {feedStatuses.filter((s) => !s.ok).length > 0 && (
+          <>
+            {' · '}
+            <button
+              type="button"
+              onClick={() => setShowSourcePanel(true)}
+              className="text-rose-600 dark:text-rose-400 hover:underline"
+            >
+              {feedStatuses.filter((s) => !s.ok).length} failed (details)
+            </button>
+          </>
+        )}
       </p>
 
       <ul className="space-y-2">

@@ -186,9 +186,10 @@ export default function CveList(): JSX.Element {
           <ShieldAlert size={28} className="text-brand-600 dark:text-brand-400" /> Live CVE updates
         </h1>
         <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
-          Up to <strong>150 CVEs newly published in the last 30 days</strong> (NVD), merged with recent additions to{' '}
-          <strong>CISA's Known-Exploited-Vulnerabilities catalogue</strong> (last 30 days). NVD reports ~5,500 CVEs per
-          30-day window. This is a triage sample, not the full corpus. For exhaustive search use{' '}
+          Up to <strong>1,500 CVEs newly published in the last 30 days</strong> (NVD) merged with{' '}
+          <strong>CISA KEV</strong> additions, <strong>MyThreatIntel</strong> alerts, and{' '}
+          <strong>cvefeed.io high-severity</strong> RSS as gap-fillers. NVD reports ~5,500 CVEs per 30-day window — this
+          is a triage view that prioritises high-signal records, not the full corpus. For exhaustive search use{' '}
           <a
             href="https://nvd.nist.gov/vuln/search"
             target="_blank"

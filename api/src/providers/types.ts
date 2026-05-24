@@ -30,7 +30,8 @@ export type ProviderId =
   | 'yaraify'
   | 'phishtank'
   | 'malwareworld'
-  | 'emailrep';
+  | 'emailrep'
+  | 'malpedia';
 
 export type Verdict = 'clean' | 'suspicious' | 'malicious' | 'unknown';
 
@@ -103,4 +104,5 @@ export const PROVIDER_SUPPORT: Record<ProviderId, IndicatorType[]> = {
   phishtank: ['url', 'domain'],
   malwareworld: ['ipv4', 'domain'],
   emailrep: ['email'],
+  malpedia: ['hash'],
 };

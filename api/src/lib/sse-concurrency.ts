@@ -36,41 +36,41 @@ export interface SseSlot {
  * over the cap (caller should respond 429), or a SseSlot whose
  * `release` MUST be called when the stream ends.
  *
- * No-ops cleanly when KV isn't bound (local dev, un-provisioned env).
+ * Migrated from KV to caches.default 2026-05-24 — the counter is
+ * already per-colo (KV is eventually consistent, so two CF colos
+ * served different views anyway), so dropping to a literal per-colo
+ * Cache-API entry has the same soft-cap semantics with zero KV quota
+ * cost. No-ops cleanly when the cache isn't available.
  */
-export async function claimSseSlot(c: Context<{ Bindings: Env }>, ip: string): Promise<SseSlot | null> {
-  if (!c.env.KV_CACHE) {
-    return { release: async () => {} };
-  }
-  const key = `sse:open:${ip}`;
+export async function claimSseSlot(_c: Context<{ Bindings: Env }>, ip: string): Promise<SseSlot | null> {
+  const cache = (caches as unknown as { default: Cache }).default;
+  const key = new Request(`https://sse-open.internal/v1/${encodeURIComponent(ip)}`);
   let count = 0;
   try {
-    const raw = await c.env.KV_CACHE.get(key);
-    count = raw ? parseInt(raw, 10) : 0;
+    const hit = await cache.match(key);
+    if (hit) count = parseInt(await hit.text(), 10) || 0;
   } catch {
-    // KV transient error — fail open. The per-window rateLimit middleware
-    // still applies, so we're not unprotected.
+    // Cache transient error — fail open. The per-window rateLimit
+    // middleware still applies, so we're not unprotected.
     return { release: async () => {} };
   }
   if (count >= MAX_CONCURRENT) return null;
 
-  // Best-effort increment. KV is eventually consistent so two concurrent
-  // requests at count=4 may both see 4 and both write 5 — acceptable
-  // soft cap for the defensive use case.
+  // Best-effort increment. max-age expires the entry at COUNTER_TTL so
+  // a Worker that crashes mid-stream doesn't leave a phantom slot.
   try {
-    await c.env.KV_CACHE.put(key, String(count + 1), { expirationTtl: COUNTER_TTL });
+    await cache.put(
+      key,
+      new Response(String(count + 1), {
+        headers: { 'cache-control': `max-age=${COUNTER_TTL}` },
+      })
+    );
   } catch {
     /* swallow — fail open */
   }
 
-  // Release is intentionally a no-op now to halve the KV-write cost of
-  // every SSE stream (was 2 writes per stream: acquire + decrement).
-  // The COUNTER_TTL (90s) handles cleanup automatically — long enough
-  // that legitimate concurrent streams still see each other, short
-  // enough that a user who finishes a stream isn't blocked for long.
-  // Trade-off: rolling 90s window instead of true live-stream count.
-  // Acceptable: this is a soft cap; the real protection for SSE-driven
-  // upstream burn lives in each stream's own provider-fan-out budget.
+  // Release is a no-op: the TTL handles cleanup. Trade-off documented
+  // before the migration — soft cap, not a hard DDoS mitigation.
   return { release: async () => {} };
 }
 

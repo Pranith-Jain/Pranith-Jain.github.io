@@ -554,4 +554,20 @@ export const RESOURCES: ExternalResource[] = [
     description:
       'Open Source Vulnerabilities REST API — query by package/version or commit hash to identify known vulnerabilities across open-source ecosystems.',
   },
+  {
+    id: 'hudsonrock-free-tools',
+    name: 'Hudson Rock Free Tools',
+    url: 'https://www.hudsonrock.com/free-tools',
+    kind: 'tool',
+    description:
+      'Free infostealer exposure check — search by email, domain, or username for compromised credentials from infostealer infections. By Hudson Rock.',
+  },
+  {
+    id: 'infostealers-victims',
+    name: 'InfoStealers.com Victims',
+    url: 'https://www.infostealers.com/infostealer-victims/',
+    kind: 'dashboard',
+    description:
+      'Infostealer victims dashboard by Hudson Rock — browse compromised machines, employees, and domains per infostealer family.',
+  },
 ];

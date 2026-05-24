@@ -43,7 +43,10 @@ const TYPE_COLOURS: Record<string, string> = {
   'Splunk SPL': 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-500/30',
   KQL: 'bg-purple-500/15 text-purple-700 dark:text-purple-300 border-purple-500/30',
   Suricata: 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/30',
+  Snort: 'bg-pink-500/15 text-pink-700 dark:text-pink-300 border-pink-500/30',
+  PowerShell: 'bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 border-indigo-500/30',
   DLP: 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30',
+  'Supply chain': 'bg-teal-500/15 text-teal-700 dark:text-teal-300 border-teal-500/30',
 };
 
 function formatRel(dateStr: string): string {

@@ -4,6 +4,7 @@ import { detectType } from '../lib/indicator';
 import { sseStream } from '../lib/sse';
 import { claimSseSlot, SSE_MAX_CONCURRENT } from '../lib/sse-concurrency';
 import { compositeScore } from '../lib/scoring';
+import { admiraltyGrade } from '../lib/admiralty';
 import { ProviderCache } from '../lib/cache';
 import { trackEvent, visitorCountry } from '../lib/analytics';
 import { virustotal } from '../providers/virustotal';
@@ -36,6 +37,7 @@ import { yaraify } from '../providers/yaraify';
 import { phishtank } from '../providers/phishtank';
 import { malwareworld } from '../providers/malwareworld';
 import { emailrep } from '../providers/emailrep';
+import { malpedia } from '../providers/malpedia';
 import {
   PROVIDER_SUPPORT,
   PROVIDER_TIMEOUT_MS,
@@ -87,6 +89,7 @@ const ADAPTERS: Record<ProviderId, ProviderAdapter> = {
   phishtank,
   malwareworld,
   emailrep,
+  malpedia,
 };
 
 export async function iocCheckHandler(c: Context<{ Bindings: Env }>) {
@@ -173,7 +176,11 @@ export async function iocCheckHandler(c: Context<{ Bindings: Env }>) {
     );
 
     const composite = compositeScore(type, collected);
-    write('done', composite);
+    const admiralty = admiraltyGrade(
+      type,
+      collected.filter((r) => r.status === 'ok').map((r) => r.source)
+    );
+    write('done', { ...composite, admiralty });
     // Fire-and-forget telemetry: indicator type + verdict + contributing count.
     // No PII; the indicator value itself is never written to AE.
     trackEvent(c.env, 'ioc_check', {

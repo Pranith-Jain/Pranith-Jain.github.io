@@ -20,7 +20,17 @@ interface SourceConfig {
   id: string;
   label: string;
   repo: string; // owner/name
-  type: 'Sigma' | 'YARA' | 'Elastic' | 'Splunk SPL' | 'KQL' | 'Suricata' | 'DLP' | 'Supply chain';
+  type:
+    | 'Sigma'
+    | 'YARA'
+    | 'Elastic'
+    | 'Splunk SPL'
+    | 'KQL'
+    | 'Suricata'
+    | 'Snort'
+    | 'PowerShell'
+    | 'DLP'
+    | 'Supply chain';
   description: string;
   rules_path: string; // path within the repo where rules live (for direct browse link)
   homepage?: string;
@@ -87,6 +97,73 @@ const SOURCES: SourceConfig[] = [
       'Suricata IDS engine. Pair with the open ET ruleset at rules.emergingthreats.net/open/ for live detection content.',
     rules_path: 'rules',
     homepage: 'https://rules.emergingthreats.net/open/',
+  },
+  // Snort sources — community + Talos VRT, the two reference Snort
+  // signature ecosystems. Snort and Suricata share rule grammar, so most
+  // rules here are also Suricata-compatible.
+  {
+    id: 'snort3-community',
+    label: 'snort3/snort3',
+    repo: 'snort3/snort3',
+    type: 'Snort',
+    description:
+      'Cisco Talos open-source Snort 3 engine. Reference for the rule grammar; community rules live in the etc/snort/ tree and at snort.org/downloads/#rule-downloads.',
+    rules_path: 'etc/snort',
+    homepage: 'https://www.snort.org/',
+  },
+  {
+    id: 'snort-rules-community',
+    label: 'shirkdog/snortrules-community',
+    repo: 'shirkdog/snortrules-community',
+    type: 'Snort',
+    description:
+      'Community mirror of the Snort 2/3 community ruleset. Refreshed in step with snort.org Community Rules releases — handy for analysts who want a tracked git history of rule churn.',
+    rules_path: 'rules',
+    homepage: 'https://www.snort.org/downloads',
+  },
+  {
+    id: 'ptresearch-attackdetection',
+    label: 'ptresearch/AttackDetection',
+    repo: 'ptresearch/AttackDetection',
+    type: 'Snort',
+    description:
+      'Positive Technologies open ruleset — Snort + Suricata signatures for active exploits, post-compromise traffic patterns, and red-team tooling.',
+    rules_path: '.',
+    homepage: 'https://github.com/ptresearch/AttackDetection',
+  },
+  // PowerShell detection / hardening — the two most-cited reference
+  // libraries. PowerShellMafia/PowerSploit is the offensive baseline
+  // detection engineers map AGAINST; Get-InjectedThread / Atomic Red Team
+  // PowerShell payloads are the test-firing substrates.
+  {
+    id: 'powersploit',
+    label: 'PowerShellMafia/PowerSploit',
+    repo: 'PowerShellMafia/PowerSploit',
+    type: 'PowerShell',
+    description:
+      'The reference offensive PowerShell module collection — Invoke-Mimikatz, PowerView, PowerUp. Map detections AGAINST this; defenders use it as the "what does this look like on the wire / in event logs" substrate.',
+    rules_path: '.',
+    homepage: 'https://github.com/PowerShellMafia/PowerSploit',
+  },
+  {
+    id: 'atomic-red-team-powershell',
+    label: 'redcanaryco/atomic-red-team (PowerShell)',
+    repo: 'redcanaryco/atomic-red-team',
+    type: 'PowerShell',
+    description:
+      'Atomic Red Team — small, test-firing payloads mapped to MITRE ATT&CK. The PowerShell-related YAMLs under atomics/T1059.001/ are the canonical "did your detection trip on this?" set.',
+    rules_path: 'atomics/T1059.001',
+    homepage: 'https://atomicredteam.io/',
+  },
+  {
+    id: 'powershell-detection-revoke-obfuscation',
+    label: 'danielbohannon/Revoke-Obfuscation',
+    repo: 'danielbohannon/Revoke-Obfuscation',
+    type: 'PowerShell',
+    description:
+      'Daniel Bohannon’s obfuscation-detection toolkit. Statistical features + ML-style classifier for PowerShell payloads; pair with Invoke-Obfuscation to generate your eval corpus.',
+    rules_path: '.',
+    homepage: 'https://github.com/danielbohannon/Revoke-Obfuscation',
   },
   {
     id: 'gitleaks',

@@ -1,18 +1,24 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 
-/**
- * Free C2 infrastructure feeds.
- *
- * Source priority for dedup: threatfox > c2intel (30d > 90d)
- */
-
-// C2IntelFeeds — IP + port + C2 framework context. 30d is more actionable.
 const C2INTEL_30D = 'https://raw.githubusercontent.com/drb-ra/C2IntelFeeds/master/feeds/IPPortC2s-30day.csv';
 const C2INTEL_90D = 'https://raw.githubusercontent.com/drb-ra/C2IntelFeeds/master/feeds/IPPortC2s-90day.csv';
-
-// ThreatFox — any ip:port entry is a live C2 indicator.
 const THREATFOX_CSV = 'https://threatfox.abuse.ch/export/csv/recent/';
+const FEODO_CSV = 'https://feodotracker.abuse.ch/downloads/ipblocklist.csv';
+// CriticalPathSecurity Public-Intelligence-Feeds — hourly-updated CS
+// beacon IPs aggregated from multiple operator sources, plaintext one
+// IP per line. Added 2026-05-24.
+const CPS_CS_IPS =
+  'https://raw.githubusercontent.com/CriticalPathSecurity/Public-Intelligence-Feeds/master/cobaltstrike_ips.txt';
+// CriminalIP C2-Daily-Feed — daily-updated CSV with named C2 framework
+// per entry (c2_meshagent, c2_havoc, c2_mythic, c2_metasploit, …).
+// Path includes today's date in UTC; if today hasn't been pushed yet we
+// fall back to yesterday. Added 2026-05-24.
+const CRIMINALIP_BASE = 'https://raw.githubusercontent.com/criminalip/C2-Daily-Feed/main/';
+// TweetFeed (0xDanielLopez) — crowdsourced #C2-tagged tweets, weekly
+// rolling CSV. Filtered to ip/domain rows tagged with #C2 for the
+// analyst-context layer (each row carries source tweet URL).
+const TWEETFEED_WEEK = 'https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/week.csv';
 
 const CACHE_TTL = 1800;
 const FETCH_TIMEOUT = 12_000;
@@ -21,9 +27,8 @@ export interface C2Entry {
   ip: string;
   framework: string;
   first_seen: string;
-  /** Source feed identifier: 'c2intel' | 'threatfox' */
-  source: string;
-  /** Malware family or C2 framework context string. */
+  /** All source feed identifiers that reported this IP. */
+  sources: string[];
   context?: string;
   port?: number;
 }
@@ -31,9 +36,7 @@ export interface C2Entry {
 export interface C2Response {
   generated_at: string;
   count: number;
-  /** Per-source counts. */
   sources: { id: string; name: string; count: number }[];
-  /** Per-framework (source-derived) counts. */
   frameworks: Record<string, number>;
   entries: C2Entry[];
 }
@@ -56,7 +59,6 @@ async function fetchText(url: string): Promise<string | null> {
 
 const IPV4_RE = /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/;
 
-/** Map C2IntelFeeds IOC strings to short framework labels. */
 function deriveFramework(ioc: string): string {
   const lower = ioc.toLowerCase();
   if (lower.includes('cobalt')) return 'cobaltstrike';
@@ -77,7 +79,6 @@ function deriveFramework(ioc: string): string {
   return 'unknown';
 }
 
-/** Map ThreatFox malware family (from fk_malware) to a short framework label. */
 function threatfoxFramework(malware: string): string {
   const lower = malware.toLowerCase().replace(/\s+/g, '');
   if (lower.includes('cobalt_strike') || lower.includes('cobaltstrike')) return 'cobaltstrike';
@@ -91,15 +92,13 @@ function threatfoxFramework(malware: string): string {
   if (lower.includes('dcrat')) return 'dcrat';
   if (lower.includes('quasar')) return 'quasar';
   if (lower.includes('adaptix')) return 'adaptix';
-  // Generic: use the malware family name as the framework label
   const cleaned = lower.replace(/^(win|apk|elf|js)\./, '');
   if (cleaned && cleaned !== 'unknown') return cleaned;
   return 'unknown';
 }
 
-// ─── C2IntelFeeds parsers ───────────────────────────────────────────────────
+// ─── C2IntelFeeds parser ───────────────────────────────────────────────────
 
-/** Parse C2IntelFeeds IPPortC2s CSV. Columns (no header row): ip,port,ioc */
 function parseC2Intels(body: string, sourceLabel: string): C2Entry[] {
   const entries: C2Entry[] = [];
   for (const line of body.split('\n')) {
@@ -116,7 +115,7 @@ function parseC2Intels(body: string, sourceLabel: string): C2Entry[] {
       ip,
       framework: fw,
       first_seen: '',
-      source: sourceLabel,
+      sources: [sourceLabel],
       context: ioc || undefined,
       port: isFinite(port) ? port : undefined,
     });
@@ -124,17 +123,17 @@ function parseC2Intels(body: string, sourceLabel: string): C2Entry[] {
   return entries;
 }
 
-// ─── ThreatFox parser — all ip:port entries are C2 indicators ──────────────
+// ─── ThreatFox parser ──────────────────────────────────────────────────────
 
 function parseThreatfoxC2(body: string): C2Entry[] {
   const entries: C2Entry[] = [];
   for (const line of body.split('\n')) {
     const trimmed = line.trim();
     if (!trimmed || trimmed.startsWith('#')) continue;
-    // Naive split by comma — ThreatFox CSV uses quoted fields but the first 8
-    // columns (our range of interest) don't contain embedded commas. The tags
-    // column (index 12+) can have commas but we don't read past index 7.
-    const cols = trimmed.split(',').map((c) => c.replace(/^"|"$/g, '').trim());
+    // ThreatFox/Feodo CSVs include a space AFTER each comma — trim
+    // first, THEN strip surrounding quotes, otherwise the leading
+    // quote survives and string compares like `=== 'ip:port'` fail.
+    const cols = trimmed.split(',').map((c) => c.trim().replace(/^"|"$/g, ''));
     if (cols.length < 6) continue;
     const iocType = cols[3] ?? '';
     if (iocType !== 'ip:port') continue;
@@ -151,7 +150,7 @@ function parseThreatfoxC2(body: string): C2Entry[] {
       ip,
       framework: malware ? threatfoxFramework(malware) : 'unknown',
       first_seen: firstSeen,
-      source: 'threatfox',
+      sources: ['threatfox'],
       context: context,
       port: port !== undefined && isFinite(port) ? port : undefined,
     });
@@ -159,52 +158,223 @@ function parseThreatfoxC2(body: string): C2Entry[] {
   return entries;
 }
 
+// ─── Feodo Tracker parser ──────────────────────────────────────────────────
+
+function parseFeodoC2(body: string): C2Entry[] {
+  const entries: C2Entry[] = [];
+  for (const line of body.split('\n')) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) continue;
+    // ThreatFox/Feodo CSVs include a space AFTER each comma — trim
+    // first, THEN strip surrounding quotes, otherwise the leading
+    // quote survives and string compares like `=== 'ip:port'` fail.
+    const cols = trimmed.split(',').map((c) => c.trim().replace(/^"|"$/g, ''));
+    // Format: first_seen_utc, dst_ip, dst_port, c2_status, last_online, malware
+    if (cols.length < 6) continue;
+    const ip = cols[1] ?? '';
+    if (!ip || !IPV4_RE.test(ip)) continue;
+    const port = parseInt(cols[2] ?? '', 10);
+    const malware = cols[5]?.trim() || '';
+    const firstSeen = cols[0]?.trim() || '';
+    const fw = feodoFramework(malware);
+    entries.push({
+      ip,
+      framework: fw,
+      first_seen: firstSeen,
+      sources: ['feodo'],
+      context: malware || 'banking trojan C2',
+      port: isFinite(port) ? port : undefined,
+    });
+  }
+  return entries;
+}
+
+// ─── CriticalPathSecurity Cobalt Strike IPs (plaintext) ────────────────────
+
+function parseCpsCobaltStrike(body: string): C2Entry[] {
+  const seen = new Set<string>();
+  const entries: C2Entry[] = [];
+  for (const line of body.split('\n')) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) continue;
+    if (!IPV4_RE.test(trimmed)) continue;
+    if (seen.has(trimmed)) continue; // file dedupes hourly but may carry repeats
+    seen.add(trimmed);
+    entries.push({
+      ip: trimmed,
+      framework: 'cobaltstrike',
+      first_seen: '',
+      sources: ['cps'],
+      context: 'CriticalPathSecurity CS feed',
+    });
+  }
+  return entries;
+}
+
+// ─── CriminalIP daily C2 feed (CSV with named framework column) ────────────
+
+function parseCriminalIp(body: string): C2Entry[] {
+  const entries: C2Entry[] = [];
+  const lines = body.split('\n');
+  for (let i = 0; i < lines.length; i += 1) {
+    const line = lines[i]?.trim();
+    if (!line) continue;
+    // Header row: IP,Target C2,OpenPorts,Score(Inbound/Outbound),Country,Scan Time
+    if (i === 0 && line.toLowerCase().startsWith('ip,')) continue;
+    const cols = line.split(',').map((c) => c.replace(/^"|"$/g, '').trim());
+    if (cols.length < 6) continue;
+    const ip = cols[0] ?? '';
+    if (!IPV4_RE.test(ip)) continue;
+    const targetC2 = cols[1] ?? '';
+    const port = parseInt(cols[2] ?? '', 10);
+    const country = cols[4] ?? '';
+    const scanTime = cols[5] ?? '';
+    // Normalise "c2_meshagent" → "meshagent", "c2_havoc" → "havoc".
+    const fw = targetC2.toLowerCase().replace(/^c2[_\s-]+/, '') || 'unknown';
+    entries.push({
+      ip,
+      framework: fw,
+      first_seen: scanTime,
+      sources: ['criminalip'],
+      context: country ? `criminalip · ${country.toUpperCase()}` : 'criminalip',
+      port: isFinite(port) ? port : undefined,
+    });
+  }
+  return entries;
+}
+
+// ─── TweetFeed (crowdsourced #C2-tagged IPs) ───────────────────────────────
+
+function parseTweetFeedC2(body: string): C2Entry[] {
+  const entries: C2Entry[] = [];
+  for (const line of body.split('\n')) {
+    const trimmed = line.trim();
+    if (!trimmed) continue;
+    const cols = trimmed.split(',');
+    if (cols.length < 5) continue;
+    // Format: Timestamp,Username,Type,Indicator,Tags,Twitter_URL
+    const type = (cols[2] ?? '').trim();
+    if (type !== 'ip') continue; // domain/url left to other feeds
+    const ip = (cols[3] ?? '').trim();
+    if (!IPV4_RE.test(ip)) continue;
+    const tags = (cols[4] ?? '').toLowerCase();
+    if (!tags.includes('#c2')) continue; // C2-only filter
+    const fw = deriveFramework(tags);
+    entries.push({
+      ip,
+      framework: fw,
+      first_seen: cols[0]?.trim() || '',
+      sources: ['tweetfeed'],
+      context: `tweetfeed · ${(cols[1] ?? '').trim() || 'anon'}`,
+    });
+  }
+  return entries;
+}
+
+function feodoFramework(malware: string): string {
+  const lower = malware.toLowerCase().replace(/\s+/g, '');
+  if (lower.includes('dridex')) return 'dridex';
+  if (lower.includes('heodo')) return 'heodo';
+  if (lower.includes('emotet')) return 'emotet';
+  if (lower.includes('qbot') || lower.includes('qakbot')) return 'qakbot';
+  if (lower.includes('iceid')) return 'iceid';
+  if (lower.includes('pikabot')) return 'pikabot';
+  if (lower.includes('darkgate')) return 'darkgate';
+  if (lower.includes('bumblebee')) return 'bumblebee';
+  if (lower.includes('cobalt')) return 'cobaltstrike';
+  if (lower.includes('silentbuilder')) return 'silentbuilder';
+  if (lower.includes('systembc')) return 'systembc';
+  return lower || 'unknown';
+}
+
+// ─── Merge sources for deduped IPs ─────────────────────────────────────────
+
+/**
+ * Merge all C2 feeds into a single list, deduped by IP.
+ *
+ * Unlike the old priority-based approach that dropped Feodo entries when
+ * ThreatFox already had the same IP, this version **merges sources**:
+ * every feed that reported an IP contributes its source tag to the entry,
+ * so no feed's signal is ever dropped.
+ */
+function mergeSources(entries: C2Entry[], seen: Map<string, C2Entry>): void {
+  for (const e of entries) {
+    const existing = seen.get(e.ip);
+    if (!existing) {
+      seen.set(e.ip, { ...e, sources: [...e.sources] });
+    } else {
+      const merged = new Set([...existing.sources, ...e.sources]);
+      existing.sources = [...merged];
+    }
+  }
+}
+
 // ─── Main fetch ─────────────────────────────────────────────────────────────
 
+/** Build today's CriminalIP CSV URL in UTC. Falls back to yesterday if
+ *  the daily push hasn't landed yet (the repo pushes ~09:01 UTC). */
+function criminalipUrls(): string[] {
+  const now = new Date();
+  const fmt = (d: Date) =>
+    `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}-${String(d.getUTCDate()).padStart(2, '0')}`;
+  const today = fmt(now);
+  const yesterday = fmt(new Date(now.getTime() - 86_400_000));
+  return [`${CRIMINALIP_BASE}${today}.csv`, `${CRIMINALIP_BASE}${yesterday}.csv`];
+}
+
+async function fetchCriminalIp(): Promise<string | null> {
+  for (const url of criminalipUrls()) {
+    const body = await fetchText(url);
+    if (body && body.length > 100) return body;
+  }
+  return null;
+}
+
 async function fetchC2Tracker(): Promise<C2Response> {
-  const rawTexts = await Promise.all([fetchText(C2INTEL_30D), fetchText(C2INTEL_90D), fetchText(THREATFOX_CSV)]);
+  const rawTexts = await Promise.all([
+    fetchText(C2INTEL_30D),
+    fetchText(C2INTEL_90D),
+    fetchText(THREATFOX_CSV),
+    fetchText(FEODO_CSV),
+    fetchText(CPS_CS_IPS),
+    fetchCriminalIp(),
+    fetchText(TWEETFEED_WEEK),
+  ]);
 
   const sourceEntries: { id: string; name: string; entries: C2Entry[] }[] = [
     { id: 'c2intel-30d', name: 'C2Intel (30d)', entries: rawTexts[0] ? parseC2Intels(rawTexts[0], 'c2intel') : [] },
     { id: 'c2intel-90d', name: 'C2Intel (90d)', entries: rawTexts[1] ? parseC2Intels(rawTexts[1], 'c2intel') : [] },
     { id: 'threatfox', name: 'ThreatFox', entries: rawTexts[2] ? parseThreatfoxC2(rawTexts[2]) : [] },
+    { id: 'feodo', name: 'Feodo Tracker', entries: rawTexts[3] ? parseFeodoC2(rawTexts[3]) : [] },
+    { id: 'cps', name: 'CriticalPathSecurity', entries: rawTexts[4] ? parseCpsCobaltStrike(rawTexts[4]) : [] },
+    { id: 'criminalip', name: 'CriminalIP Daily', entries: rawTexts[5] ? parseCriminalIp(rawTexts[5]) : [] },
+    { id: 'tweetfeed', name: 'TweetFeed (#C2)', entries: rawTexts[6] ? parseTweetFeedC2(rawTexts[6]) : [] },
   ];
 
-  // Dedup by IP with source priority: threatfox > c2intel
-  // For c2intel, more recent feeds override older ones (30d > 90d)
-  const sourcePriority: Record<string, number> = {
-    threatfox: 10,
-    c2intel: 5,
-  };
-
   const seen = new Map<string, C2Entry>();
-  for (const { id, entries } of sourceEntries) {
-    // Inherit base priority from feed id (strip -30d/-90d suffix)
-    const baseId = id.includes('c2intel') ? 'c2intel' : id;
-    for (const e of entries) {
-      const existing = seen.get(e.ip);
-      if (!existing) {
-        seen.set(e.ip, e);
-      } else {
-        const existingId = existing.source === 'c2intel' ? 'c2intel' : existing.source;
-        if ((sourcePriority[existingId] ?? 0) < (sourcePriority[baseId] ?? 0)) {
-          seen.set(e.ip, e);
-        }
-      }
-    }
+  for (const { entries } of sourceEntries) {
+    mergeSources(entries, seen);
   }
 
   const merged = [...seen.values()];
 
-  // Build per-source summary (group c2intel-30d/90d together)
-  const c2intelCount = merged.filter((e) => e.source === 'c2intel').length;
-  const threatfoxCount = merged.filter((e) => e.source === 'threatfox').length;
-  const sourceSummary = [
-    { id: 'c2intel', name: 'C2IntelFeeds', count: c2intelCount },
-    ...(threatfoxCount > 0 ? [{ id: 'threatfox', name: 'ThreatFox', count: threatfoxCount }] : []),
+  // Per-source counts — an entry with 2+ sources counts for each
+  const sourceTags: Array<{ tag: string; id: string; name: string }> = [
+    { tag: 'c2intel', id: 'c2intel', name: 'C2IntelFeeds' },
+    { tag: 'threatfox', id: 'threatfox', name: 'ThreatFox' },
+    { tag: 'feodo', id: 'feodo', name: 'Feodo Tracker' },
+    { tag: 'cps', id: 'cps', name: 'CriticalPathSecurity' },
+    { tag: 'criminalip', id: 'criminalip', name: 'CriminalIP Daily' },
+    { tag: 'tweetfeed', id: 'tweetfeed', name: 'TweetFeed (#C2)' },
   ];
+  const sourceSummary = sourceTags
+    .map(({ tag, id, name }) => ({
+      id,
+      name,
+      count: merged.filter((e) => e.sources.includes(tag)).length,
+    }))
+    .filter((s) => s.count > 0);
 
-  // Build framework counts from deduped entries
   const frameworkCounts: Record<string, number> = {};
   for (const e of merged) {
     frameworkCounts[e.framework] = (frameworkCounts[e.framework] ?? 0) + 1;
@@ -223,7 +393,9 @@ async function fetchC2Tracker(): Promise<C2Response> {
 
 export async function c2TrackerHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;
-  const cacheKey = new Request('https://c2-cache.internal/v4');
+  // v7: added CPS, CriminalIP, TweetFeed sources + fixed ThreatFox/Feodo
+  // CSV quote-strip ordering bug (2026-05-24).
+  const cacheKey = new Request('https://c2-cache.internal/v7');
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 

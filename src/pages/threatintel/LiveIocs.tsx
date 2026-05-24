@@ -3,6 +3,8 @@ import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Copy, Check, ExternalLink, Radio, RefreshCw, Search, Sparkles } from 'lucide-react';
 import { useLastVisit, isNewSince } from '../../hooks';
 import { DataState } from '../../components/DataState';
+import { AdmiraltyBadge } from '../../components/dfir/AdmiraltyBadge';
+import { gradeForLiveIoc } from '../../lib/dfir/admiralty-quick';
 
 type IocKind = 'ip' | 'url' | 'domain' | 'hash';
 
@@ -390,6 +392,7 @@ export default function LiveIocs(): JSX.Element {
                   </div>
                   <div className="text-[11px] font-mono text-slate-500 flex items-center gap-2 flex-wrap mt-0.5">
                     <span className={`px-1.5 py-0.5 rounded border ${sourcePill}`}>{it.source}</span>
+                    <AdmiraltyBadge admiralty={gradeForLiveIoc(it.source, it.kind)} compact />
                     {it.reporter && <span className="text-slate-600 dark:text-slate-400">{it.reporter}</span>}
                     {it.context && (
                       <span className="text-slate-400 italic truncate max-w-[40ch]" title={it.context}>

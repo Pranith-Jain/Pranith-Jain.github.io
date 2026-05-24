@@ -1,6 +1,19 @@
 import { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Bug, Copy, KeyRound, Network, Radio, Send, ShoppingCart } from 'lucide-react';
+import {
+  ArrowLeft,
+  BookText,
+  Bug,
+  Copy,
+  ExternalLink,
+  KeyRound,
+  Network,
+  Radio,
+  Send,
+  ShoppingCart,
+} from 'lucide-react';
+import { INFOSTEALER_FAMILIES } from '../../data/threatintel/infostealer-families';
 
 /**
  * Infostealer live tracker. Three independent live sources composed on one
@@ -16,7 +29,15 @@ import { ArrowLeft, Bug, Copy, KeyRound, Network, Radio, Send, ShoppingCart } fr
  * defensively (known fields + raw JSON fallback).
  */
 
-type TabId = 'hudsonrock' | 'markets' | 'telegram' | 'samples' | 'c2' | 'combo';
+type TabId = 'hudsonrock' | 'markets' | 'telegram' | 'samples' | 'c2' | 'combo' | 'encyclopedia' | 'articles';
+
+interface ArticleItem {
+  title: string;
+  link: string;
+  description: string;
+  pubDate: string;
+  source: 'blog' | 'report' | 'technique' | 'all';
+}
 
 /**
  * High-precision infostealer family matcher. Covers the dominant
@@ -63,6 +84,20 @@ const TABS: Array<{ id: TabId; label: string; icon: typeof KeyRound; blurb: stri
     icon: Network,
     blurb:
       'Intelligence ABOUT combolist / stealer-log forums & channels — directory metadata + tagged chatter pointers. No stolen data is fetched, parsed, or shown here.',
+  },
+  {
+    id: 'encyclopedia',
+    label: 'Family encyclopedia',
+    icon: BookText,
+    blurb:
+      'Curated profiles for 17 baseline infostealer families — description, capabilities, first-seen, Malpedia cross-refs, and known actor attribution.',
+  },
+  {
+    id: 'articles',
+    label: 'News articles',
+    icon: BookText,
+    blurb:
+      'Latest infostealer research, campaign tracking, and breach reports from Hudson Rock / InfoStealers.com — RedLine, Lumma, Vidar, StealC, and emerging stealer families.',
   },
 ];
 
@@ -147,6 +182,9 @@ export default function Infostealer(): JSX.Element {
   const [samples, setSamples] = useState<SampleItem[] | null>(null);
   const [c2, setC2] = useState<C2Item[] | null>(null);
   const [sfi, setSfi] = useState<SfiResponse | null>(null);
+  const [articles, setArticles] = useState<ArticleItem[] | null>(null);
+  const [articlesErr, setArticlesErr] = useState<string | null>(null);
+  const [articleSource, setArticleSource] = useState<'all' | 'blog' | 'report' | 'technique'>('all');
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -176,7 +214,22 @@ export default function Infostealer(): JSX.Element {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         return r.json();
       }),
-    ]).then(([hrRes, ccRes, ddcRes, mbRes, liRes, sfiRes]) => {
+      fetch(
+        '/api/v1/feeds/proxy?url=' + encodeURIComponent('https://www.infostealers.com/learn-info-stealers/feed/'),
+        opts
+      ).then(async (r) => (r.ok ? r.text() : null)),
+      fetch('/api/v1/feeds/proxy?url=' + encodeURIComponent('https://www.infostealers.com/feed/'), opts).then(
+        async (r) => (r.ok ? r.text() : null)
+      ),
+      fetch(
+        '/api/v1/feeds/proxy?url=' + encodeURIComponent('https://www.infostealers.com/info-stealers-reports/feed/'),
+        opts
+      ).then(async (r) => (r.ok ? r.text() : null)),
+      fetch(
+        '/api/v1/feeds/proxy?url=' + encodeURIComponent('https://www.infostealers.com/info-stealers-techniques/feed/'),
+        opts
+      ).then(async (r) => (r.ok ? r.text() : null)),
+    ]).then(([hrRes, ccRes, ddcRes, mbRes, liRes, sfiRes, blogRes, allRes, reportsRes, techRes]) => {
       if (!alive) return;
       // HudsonRock / PRO
       if (hrRes.status === 'fulfilled') {
@@ -253,6 +306,52 @@ export default function Infostealer(): JSX.Element {
       if (sfiRes.status === 'fulfilled' && isRecord(sfiRes.value) && Array.isArray(sfiRes.value.forums)) {
         setSfi(sfiRes.value as unknown as SfiResponse);
       } else setSfi(null);
+
+      // InfoStealers.com RSS feeds
+      try {
+        const parseFeed = (text: string | null, source: ArticleItem['source']): ArticleItem[] => {
+          if (!text) return [];
+          const doc = new DOMParser().parseFromString(text, 'text/xml');
+          const items = doc.querySelectorAll('item');
+          const out: ArticleItem[] = [];
+          items.forEach((item) => {
+            const title = item.querySelector('title')?.textContent?.trim() ?? '';
+            const link = item.querySelector('link')?.textContent?.trim() ?? '';
+            const desc =
+              item
+                .querySelector('description')
+                ?.textContent?.trim()
+                ?.replace(/<[^>]+>/g, '')
+                ?.slice(0, 300) ?? '';
+            const pubDate = item.querySelector('pubDate')?.textContent?.trim() ?? '';
+            if (title && link) out.push({ title, link, description: desc, pubDate, source });
+          });
+          return out;
+        };
+        const blog = parseFeed(blogRes.status === 'fulfilled' ? (blogRes.value as string | null) : null, 'blog');
+        const all = parseFeed(allRes.status === 'fulfilled' ? (allRes.value as string | null) : null, 'all');
+        const reports = parseFeed(
+          reportsRes.status === 'fulfilled' ? (reportsRes.value as string | null) : null,
+          'report'
+        );
+        const tech = parseFeed(techRes.status === 'fulfilled' ? (techRes.value as string | null) : null, 'technique');
+        const merged = [...all, ...blog, ...reports, ...tech]
+          .filter((a, i, arr) => arr.findIndex((x) => x.link === a.link) === i)
+          .sort((a, b) => {
+            const da = Date.parse(a.pubDate);
+            const db = Date.parse(b.pubDate);
+            if (!isNaN(da) && !isNaN(db)) return db - da;
+            if (!isNaN(da)) return -1;
+            if (!isNaN(db)) return 1;
+            return 0;
+          })
+          .slice(0, 50);
+        setArticles(merged);
+        setArticlesErr(null);
+      } catch {
+        setArticlesErr('failed to parse RSS feeds');
+      }
+
       setLoading(false);
     });
     return () => {
@@ -288,8 +387,8 @@ export default function Infostealer(): JSX.Element {
           <KeyRound size={28} className="text-brand-600 dark:text-brand-400" /> Infostealer Live Tracker
         </h1>
         <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mt-1">
-          Live infostealer signal across three independent surfaces: HudsonRock victim exposure (ransomware.live PRO),
-          ULP / cloud-log market threads, and the active stealer-log Telegram channel directory.
+          Live infostealer signal: HudsonRock victim exposure, log-market threads, stealer-log Telegram channels,
+          MalwareBazaar samples, live IOCs, combo-forum intel, family encyclopedia, and Hudson Rock research articles.
         </p>
       </div>
 
@@ -520,6 +619,84 @@ export default function Infostealer(): JSX.Element {
         </ul>
       )}
 
+      {!loading && tab === 'encyclopedia' && (
+        <div className="space-y-4">
+          {INFOSTEALER_FAMILIES.map((fam) => (
+            <details
+              key={fam.slug}
+              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 group open:border-brand-500/40"
+            >
+              <summary className="flex items-center justify-between gap-3 px-4 py-3 cursor-pointer select-none hover:bg-slate-50 dark:hover:bg-slate-950 rounded-lg list-none">
+                <div className="min-w-0">
+                  <Link
+                    to={`/threatintel/infostealer/${fam.slug}`}
+                    className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400"
+                  >
+                    {fam.name}
+                  </Link>
+                  {fam.aliases.length > 0 && (
+                    <span className="ml-2 text-[11px] font-mono text-slate-500">aka {fam.aliases.join(', ')}</span>
+                  )}
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <span className="text-[10px] font-mono text-slate-400 border border-slate-200 dark:border-slate-700 rounded px-1.5 py-0.5">
+                    {fam.firstSeen}
+                  </span>
+                  <span className="text-[10px] font-mono text-slate-400">{fam.platforms.join('/')}</span>
+                </div>
+              </summary>
+              <div className="px-4 pb-4 border-t border-slate-200 dark:border-slate-800 pt-3 space-y-3">
+                <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{fam.description}</p>
+
+                <div className="flex flex-wrap gap-1.5">
+                  {fam.capabilities.map((c) => (
+                    <span
+                      key={c}
+                      className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-600 dark:text-slate-400"
+                    >
+                      {c}
+                    </span>
+                  ))}
+                </div>
+
+                {fam.actors.length > 0 && (
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500">Actors:</span>
+                    {fam.actors.map((a) => (
+                      <Link
+                        key={a}
+                        to={`/threatintel/actors/${a.toLowerCase().replace(/\s+/g, '-')}`}
+                        className="text-[11px] font-mono px-1.5 py-0.5 rounded border border-rose-500/30 bg-rose-500/5 text-rose-700 dark:text-rose-300 hover:bg-rose-500/10"
+                      >
+                        {a}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+
+                <div className="flex flex-wrap items-center gap-3 text-[11px] font-mono">
+                  {fam.malpediaUrl && (
+                    <a
+                      href={fam.malpediaUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline"
+                    >
+                      Malpedia <ExternalLink size={11} />
+                    </a>
+                  )}
+                  {fam.threatfoxTag && (
+                    <span className="text-slate-500">
+                      ThreatFox tag: <code className="text-slate-700 dark:text-slate-300">{fam.threatfoxTag}</code>
+                    </span>
+                  )}
+                </div>
+              </div>
+            </details>
+          ))}
+        </div>
+      )}
+
       {!loading && tab === 'combo' && (
         <div className="space-y-5">
           <div className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-3 font-mono text-[11px] text-amber-700 dark:text-amber-300">
@@ -631,6 +808,95 @@ export default function Infostealer(): JSX.Element {
             </>
           )}
         </div>
+      )}
+
+      {!loading && tab === 'articles' && (
+        <>
+          {articlesErr && (
+            <div className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-4 font-mono text-sm text-amber-700 dark:text-amber-300">
+              {articlesErr}
+            </div>
+          )}
+          {articles && (
+            <>
+              <div className="flex flex-wrap gap-1.5 mb-4">
+                {(['all', 'blog', 'report', 'technique'] as const).map((src) => (
+                  <button
+                    key={src}
+                    type="button"
+                    onClick={() => setArticleSource(src)}
+                    className={`text-[11px] font-mono px-2 py-1 rounded border ${
+                      articleSource === src
+                        ? 'bg-brand-500/15 border-brand-500/40 text-brand-700 dark:text-brand-300'
+                        : 'border-slate-200 dark:border-slate-700 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+                    }`}
+                  >
+                    {src === 'all' ? 'All' : src === 'blog' ? 'Blog' : src === 'report' ? 'Reports' : 'Techniques'}
+                  </button>
+                ))}
+              </div>
+              {(() => {
+                const filtered =
+                  articleSource === 'all' ? articles : articles.filter((a) => a.source === articleSource);
+                if (filtered.length === 0) {
+                  return <p className="font-mono text-[12px] text-slate-500">No articles in this category.</p>;
+                }
+                return (
+                  <ul className="grid gap-3 md:grid-cols-2">
+                    {filtered.map((a) => (
+                      <li
+                        key={a.link}
+                        className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
+                      >
+                        <a
+                          href={a.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-display font-semibold text-sm text-brand-600 dark:text-brand-400 hover:underline block mb-1"
+                        >
+                          {a.title}
+                        </a>
+                        {a.description && (
+                          <p className="font-mono text-[11px] text-slate-600 dark:text-slate-400 line-clamp-2 mb-1">
+                            {a.description}
+                          </p>
+                        )}
+                        <div className="flex items-center gap-2 text-[10px] font-mono text-slate-400">
+                          <ExternalLink size={10} />
+                          <span
+                            className={`rounded border px-1 py-0.5 ${
+                              a.source === 'blog'
+                                ? 'border-brand-500/30 bg-brand-500/10 text-brand-600 dark:text-brand-400'
+                                : a.source === 'report'
+                                  ? 'border-violet-500/30 bg-violet-500/10 text-violet-600 dark:text-violet-400'
+                                  : a.source === 'technique'
+                                    ? 'border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400'
+                                    : 'border-slate-400/30 bg-slate-400/10 text-slate-500'
+                            }`}
+                          >
+                            {a.source === 'blog'
+                              ? 'Blog'
+                              : a.source === 'report'
+                                ? 'Report'
+                                : a.source === 'technique'
+                                  ? 'Technique'
+                                  : 'Article'}
+                          </span>
+                          {a.pubDate && (
+                            <>
+                              <span>·</span>
+                              <span>{a.pubDate}</span>
+                            </>
+                          )}
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                );
+              })()}
+            </>
+          )}
+        </>
       )}
     </div>
   );

@@ -4,6 +4,7 @@ import { ArrowLeft, Radio, ExternalLink, RefreshCw, Search } from 'lucide-react'
 import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
 import { FeedAggregateCard } from '../../components/intel/FeedAggregateCard';
+import { XLivePanel } from '../../components/threatintel/XLivePanel';
 
 /**
  * /threatintel/signal — the high-signal subset of /threatintel/writeups.
@@ -278,6 +279,10 @@ export default function Signal(): JSX.Element {
           ))}
         </ul>
       </DataState>
+
+      <div className="mt-8">
+        <XLivePanel sinceHours={24} limit={10} title="X firehose · cybersec (last 24h)" />
+      </div>
     </div>
   );
 }

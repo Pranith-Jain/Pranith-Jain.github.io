@@ -25,7 +25,18 @@ import {
   parseSupplychain,
   parseYara,
 } from './parsers';
-import { emitDlp, emitEql, emitKql, emitLucene, emitSigma, emitSplunk, emitSupplyChain, emitYara } from './emitters';
+import {
+  emitDlp,
+  emitEql,
+  emitKql,
+  emitLucene,
+  emitPowerShell,
+  emitSigma,
+  emitSnort,
+  emitSplunk,
+  emitSupplyChain,
+  emitYara,
+} from './emitters';
 
 export {
   FORMAT_LABELS,
@@ -87,6 +98,11 @@ const PARSERS: Record<RuleFormat, (s: string) => RuleIR | { error: string }> = {
   yara: parseYara,
   dlp: parseDlp,
   supplychain: parseSupplychain,
+  // No native parser for Snort/PowerShell yet — they're target-only. The
+  // FE prevents picking either as a source; if a caller bypasses that we
+  // return an explicit error rather than misclassify the input.
+  snort: () => ({ error: 'Snort/Suricata is target-only — pick a different source format.' }),
+  powershell: () => ({ error: 'PowerShell is target-only — pick a different source format.' }),
 };
 
 export function convertRule(
@@ -150,6 +166,12 @@ export function convertRule(
         break;
       case 'supplychain':
         output = emitSupplyChain(ir, warnings);
+        break;
+      case 'snort':
+        output = emitSnort(ir, warnings);
+        break;
+      case 'powershell':
+        output = emitPowerShell(ir, warnings);
         break;
       default:
         return { ok: false, error: `unknown target format` };

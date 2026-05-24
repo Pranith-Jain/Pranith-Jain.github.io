@@ -56,3 +56,4 @@ stats.html
 /[0-9]*.jpg
 /[0-9]*.jpeg
 /[0-9]*.png
+.claude/

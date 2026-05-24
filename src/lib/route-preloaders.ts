@@ -38,6 +38,8 @@ export const routePreloaders: Record<string, Preloader> = {
   '/threatintel/writeups': () => import('../pages/threatintel/Writeups'),
   '/threatintel/metrics': () => import('../pages/threatintel/Metrics'),
   '/threatintel/status': () => import('../pages/threatintel/FeedStatus'),
+  '/threatintel/c2-tracker': () => import('../pages/threatintel/C2Tracker'),
+  '/threatintel/domain-monitor': () => import('../pages/threatintel/DomainMonitor'),
   '/threatintel/threat-map': () => {
     // Threat-map's bottleneck is the 190KB world-110m.json topojson on top of
     // the react-simple-maps chunk. Warm both concurrently so the first render
@@ -45,6 +47,12 @@ export const routePreloaders: Record<string, Preloader> = {
     void fetch('/world-110m.json', { credentials: 'omit' }).catch(() => {});
     return import('../pages/dfir/ThreatMap');
   },
+  '/threatintel/ransomware-map': () => {
+    void fetch('/world-110m.json', { credentials: 'omit' }).catch(() => {});
+    return import('../pages/threatintel/RansomwareMap');
+  },
+  '/threatintel/certstream': () => import('../pages/threatintel/CertStreamLive'),
+  '/threatintel/campaign-generator': () => import('../pages/threatintel/CampaignGenerator'),
 };
 
 /**

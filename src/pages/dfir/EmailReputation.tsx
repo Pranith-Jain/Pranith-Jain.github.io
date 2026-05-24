@@ -354,7 +354,7 @@ export default function EmailReputation(): JSX.Element {
               ) : (
                 <p className="text-xs font-mono text-amber-700 dark:text-amber-300">
                   {result.emailRep.error === 'emailrep_not_configured'
-                    ? 'emailrep.io needs an API key. Ask the admin to set EMAILREP_API_KEY.'
+                    ? 'EmailRep enrichment is currently disabled.'
                     : `emailrep lookup failed: ${result.emailRep.error ?? 'unknown error'}`}
                 </p>
               )}

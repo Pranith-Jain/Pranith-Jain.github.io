@@ -428,16 +428,16 @@ export default function ThreatMap(): JSX.Element {
                   : 'border-slate-300 dark:border-slate-700 hover:border-brand-500/40'
               }`}
               aria-pressed={liveMode}
-              title={liveMode ? 'Pause auto-refresh' : `Auto-refresh every ${REFRESH_INTERVAL_MS / 1000}s`}
+              title={liveMode ? 'Pause auto-refresh' : `Auto-refresh the map every ${REFRESH_INTERVAL_MS / 1000}s`}
             >
               {liveMode ? <Pause size={12} /> : <Play size={12} />}
               {liveMode ? (
                 <>
-                  <span className="hidden sm:inline">live · next in</span>
+                  <span className="hidden sm:inline">auto-refresh · next in </span>
                   <span className="tabular-nums">{nextRefreshIn}s</span>
                 </>
               ) : (
-                'go live'
+                <>auto-refresh ({REFRESH_INTERVAL_MS / 1000 / 60}m)</>
               )}
             </button>
             <button

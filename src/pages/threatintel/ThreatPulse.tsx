@@ -1,7 +1,40 @@
 import { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Activity, Crosshair, Shield, Bug, Hash, Copy, Check, Layers, RefreshCw } from 'lucide-react';
+import {
+  ArrowLeft,
+  Activity,
+  Crosshair,
+  Shield,
+  Bug,
+  Hash,
+  Copy,
+  Check,
+  Layers,
+  RefreshCw,
+  ExternalLink,
+} from 'lucide-react';
 import { DataState } from '../../components/DataState';
+
+/** Build a deep link for an entity label so the analyst can pivot
+ *  straight into the platform / MITRE rather than re-typing the ID. */
+function entityHref(kind: PulseEntity['kind'], label: string): { href: string; external: boolean } | null {
+  switch (kind) {
+    case 'cve':
+      return { href: `/dfir/cve?id=${encodeURIComponent(label)}`, external: false };
+    case 'technique':
+      // MITRE uses T1234/001 not T1234.001 in URL paths.
+      return {
+        href: `https://attack.mitre.org/techniques/${label.replace('.', '/')}`,
+        external: true,
+      };
+    case 'actor':
+      // The slug already matches the ActorDetail route param.
+      return { href: `/dfir/actors/${encodeURIComponent(label)}`, external: false };
+    case 'malware':
+      return null;
+  }
+}
 
 interface PulseEntity {
   label: string;
@@ -53,6 +86,7 @@ function surfaceLabel(s: string): string {
   if (s.startsWith('bsky:')) return `Bluesky @${s.slice(5)}`;
   if (s.startsWith('mastodon:')) return `Mastodon @${s.slice(9)}`;
   if (s.startsWith('tg:')) return `Telegram @${s.slice(3)}`;
+  if (s.startsWith('x:')) return `X @${s.slice(2)}`;
   return SURFACE_LABEL[s] ?? s;
 }
 
@@ -68,6 +102,7 @@ function platformType(s: string): string {
   if (s.startsWith('bsky:')) return 'bluesky';
   if (s.startsWith('mastodon:')) return 'mastodon';
   if (s.startsWith('tg:')) return 'telegram';
+  if (s.startsWith('x:')) return 'x';
   return s; // 'writeups', 'cybercrime' etc are already platform-type level.
 }
 
@@ -159,8 +194,8 @@ export default function ThreatPulse(): JSX.Element {
         <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed max-w-3xl">
           Entities mentioned across multiple independent intelligence surfaces simultaneously. Higher cross-source count
           = higher confidence that this is a real, active threat. Scans Reddit (16 subs), Bluesky (16 researchers),
-          Mastodon (infosec.exchange — 8 accounts), Telegram (curated cybersec channels), CTI writeups (35+ blogs), and
-          cybercrime news in real time.
+          Mastodon (infosec.exchange — 8 accounts), Telegram (curated cybersec channels), X (cookie-auth firehose for 5
+          CTI handles + TweetFeed × fxtwitter), CTI writeups (35+ blogs), and cybercrime news in real time.
         </p>
       </header>
 
@@ -297,9 +332,28 @@ export default function ThreatPulse(): JSX.Element {
                       <Icon size={18} className="shrink-0 text-brand-600 dark:text-brand-400" />
                       <div className="min-w-0 flex-1">
                         <div className="flex items-baseline gap-2 flex-wrap">
-                          <span className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 break-all">
-                            {entity.label}
-                          </span>
+                          {(() => {
+                            const link = entityHref(entity.kind, entity.label);
+                            if (!link) {
+                              return (
+                                <span className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 break-all">
+                                  {entity.label}
+                                </span>
+                              );
+                            }
+                            const className =
+                              'font-display font-semibold text-base text-slate-900 dark:text-slate-100 break-all hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1';
+                            return link.external ? (
+                              <a href={link.href} target="_blank" rel="noopener noreferrer" className={className}>
+                                {entity.label}
+                                <ExternalLink size={11} className="shrink-0 opacity-70" />
+                              </a>
+                            ) : (
+                              <Link to={link.href} className={className}>
+                                {entity.label}
+                              </Link>
+                            );
+                          })()}
                           <span
                             className={`text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${KIND_COLOR[entity.kind]}`}
                           >

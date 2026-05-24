@@ -31,6 +31,25 @@ export const rssFeeds: RSSFeed[] = [
     source: 'CISA',
     language: 'en-US',
   },
+  {
+    id: 'ccb-news',
+    name: 'CCB Belgium — News',
+    url: 'https://ccb.belgium.be/news.xml',
+    description:
+      'Centre for Cybersecurity Belgium — official news, NIS2 updates, national cyber resilience announcements',
+    category: 'advisory',
+    source: 'ccb.belgium.be',
+    language: 'en',
+  },
+  {
+    id: 'ccb-advisories',
+    name: 'CCB Belgium — Advisories',
+    url: 'https://ccb.belgium.be/advisories.xml',
+    description: 'Centre for Cybersecurity Belgium — security advisories, vulnerability warnings, patch notifications',
+    category: 'advisory',
+    source: 'ccb.belgium.be',
+    language: 'en',
+  },
 
   // ============================================================================
   // THREAT INTELLIGENCE
@@ -89,6 +108,46 @@ export const rssFeeds: RSSFeed[] = [
     description: 'Malware reverse engineering and threat hunting',
     category: 'threat-intel',
     source: 'sentinelone.com',
+    language: 'en',
+  },
+
+  // Hudson Rock / InfoStealers.com
+  {
+    id: 'infostealers-com',
+    name: 'InfoStealers.com (Hudson Rock)',
+    url: 'https://www.infostealers.com/learn-info-stealers/feed/',
+    description:
+      'Infostealer research, campaign tracking, and weekly reports from the Hudson Rock cybercrime intelligence team — RedLine, Lumma, Vidar, StealC, and emerging stealer families.',
+    category: 'threat-intel',
+    source: 'infostealers.com',
+    language: 'en',
+  },
+  {
+    id: 'infostealers-com-all',
+    name: 'InfoStealers.com — All Content',
+    url: 'https://www.infostealers.com/feed/',
+    description: 'All infostealers.com content — blog, reports, and techniques combined feed.',
+    category: 'threat-intel',
+    source: 'infostealers.com',
+    language: 'en',
+  },
+  {
+    id: 'infostealers-reports',
+    name: 'InfoStealers.com — Weekly Reports',
+    url: 'https://www.infostealers.com/info-stealers-reports/feed/',
+    description:
+      'Infostealers weekly threat reports from Hudson Rock — compromised machine counts, top domains, trending families.',
+    category: 'threat-intel',
+    source: 'infostealers.com',
+    language: 'en',
+  },
+  {
+    id: 'infostealers-techniques',
+    name: 'InfoStealers.com — Techniques',
+    url: 'https://www.infostealers.com/info-stealers-techniques/feed/',
+    description: 'Infostealer technique profiles from Hudson Rock — Formbook, LummaC2, Aurora, and other stealer TTPs.',
+    category: 'threat-intel',
+    source: 'infostealers.com',
     language: 'en',
   },
 
@@ -218,16 +277,9 @@ export const rssFeeds: RSSFeed[] = [
     source: 'research.checkpoint.com',
     language: 'en',
   },
-  // sophos-xops RSS endpoint times out as of 2026-05. Replaced with Akamai Security Research.
-  {
-    id: 'akamai-security',
-    name: 'Akamai Security Research',
-    url: 'https://www.akamai.com/blog/rss/security-research.rss',
-    description: 'Akamai Security Research — botnet tracking, DDoS analysis, and web application threat research.',
-    category: 'threat-intel',
-    source: 'akamai.com',
-    language: 'en-US',
-  },
+  // sophos-xops RSS endpoint times out as of 2026-05.
+  // Akamai Security Research blog RSS (/blog/rss/security-research.rss)
+  // 404s as of 2026-05-24 — removed too.
   {
     id: 'malwarebytes-labs',
     name: 'Malwarebytes Labs',
@@ -456,16 +508,11 @@ export const rssFeeds: RSSFeed[] = [
     language: 'en-US',
   },
 
-  {
-    id: 'osv-vulnerabilities',
-    name: 'OSV.dev — Open Source Vulnerabilities',
-    url: 'https://osv.dev/feed/rss.xml',
-    description:
-      'Open-source vulnerability feed covering PyPI, npm, Go, Maven, Rust, and other ecosystems — maintained by Google',
-    category: 'vulnerability',
-    source: 'osv.dev',
-    language: 'en',
-  },
+  // OSV.dev RSS (osv.dev/feed/rss.xml) → 404 as of 2026-05-24; the
+  // ecosystem-specific GHSA atom feeds (github.com/advisories.atom) →
+  // 406 even with proper Accept headers. Both removed; npm/PyPI IOC
+  // surfaces will be wired through /api/v1/osv/scan + the live-iocs
+  // feed pipeline instead, not generic RSS aggregation.
   {
     id: 'redhunt-research',
     name: 'RedHunt Labs Research',
@@ -1130,7 +1177,6 @@ const EXCLUDE_FROM_LANDING = new Set<string>([
   'gnews-rug-pull',
   'gnews-nft-drainer',
   'gnews-defi-hack',
-  'sophos-xops',
   'reddit-scams',
   'reddit-cryptoscams',
   'reddit-phishing-scams',
@@ -1197,8 +1243,17 @@ export const defaultTechFeeds = landingGeneralTechFeeds;
  * see THREAT_INTEL_SNAPSHOT_FEED_IDS in that file). Six sections,
  * hand-picked so each tab has a coherent identity.
  */
-export const landingThreatGovernment = ['cisa-alerts', 'cisa-medical-advisories', 'ncsc-uk'];
-export const landingThreatIndia = ['gnews-india-cyberattack', 'gnews-cert-in'];
+export const landingThreatGovernment = [
+  'cisa-alerts',
+  'cisa-medical-advisories',
+  'ncsc-uk',
+  'ccb-news',
+  'ccb-advisories',
+];
+// gnews-* removed 2026-05-24: Google News rate-limits Worker IPs (503).
+// India coverage now relies on the global feeds — Krebs, BleepingComputer,
+// etc. that cover India-relevant incidents.
+export const landingThreatIndia: string[] = [];
 
 export const landingThreatVendor = [
   'talos',
@@ -1208,13 +1263,11 @@ export const landingThreatVendor = [
   'sentinelone-labs',
   'google-project-zero',
   'checkpoint-research',
-  'sophos-xops',
   'malwarebytes-labs',
   'huntress',
   'red-canary',
   'malware-traffic-analysis',
   'doublepulsar',
-  'akamai-security',
   'dfir-lab',
   'dfir-radar',
   'sans-isc',
@@ -1235,6 +1288,7 @@ export const landingThreatInvestigation = [
   'socradar-blog',
   'bushidotoken',
   'mti-ransomware',
+  'infostealers-com',
 ];
 
 export const landingThreatReddit = ['reddit-netsec', 'reddit-malware', 'reddit-blueteamsec', 'reddit-threatintel'];

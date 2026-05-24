@@ -14,6 +14,7 @@ import { FEED_SOURCES, UNCAPPED, buildSummary, type IocEntry, type SourceId } fr
 import { fetchResilient } from './fetch-resilient';
 import type { Env } from '../env';
 import { fetchMtiSource, type MtiRansomwareClaim, type MtiCveRecord } from './mythreatintel-api';
+import { fetchCveFeedHighSeverity, type CveFeedEntry } from '../routes/cve-recent';
 
 const NVD_UA = 'Mozilla/5.0 (compatible; pranithjain-dfir/1.0; +https://pranithjain.qzz.io)';
 const NVD_API = 'https://services.nvd.nist.gov/rest/json/cves/2.0';
@@ -977,7 +978,7 @@ function buildExecutiveSummary(args: {
           : '';
     if (kevCount > 0 && nvdOnlyCount > 0) {
       parts.push(
-        `${span} (${range_label}), CISA added ${kevCount} new KEV ${kevCount === 1 ? 'entry' : 'entries'} and NVD published ${nvdOnlyCount} additional high/critical ${nvdOnlyCount === 1 ? 'CVE' : 'CVEs'}${severityClause} ${vendorStr}.`
+        `${span} (${range_label}), CISA added ${kevCount} new KEV ${kevCount === 1 ? 'entry' : 'entries'} and ${nvdOnlyCount} additional high/critical ${nvdOnlyCount === 1 ? 'CVE was' : 'CVEs were'} published (NVD, cvefeed.io, MyThreatIntel)${severityClause} ${vendorStr}.`
       );
     } else if (kevCount > 0) {
       parts.push(
@@ -985,12 +986,12 @@ function buildExecutiveSummary(args: {
       );
     } else {
       parts.push(
-        `${span} (${range_label}), NVD published ${nvdOnlyCount} high/critical ${nvdOnlyCount === 1 ? 'CVE' : 'CVEs'}${severityClause}; none have been added to CISA KEV yet.`
+        `${span} (${range_label}), ${nvdOnlyCount} high/critical ${nvdOnlyCount === 1 ? 'CVE was' : 'CVEs were'} published across NVD, cvefeed.io and MyThreatIntel${severityClause}; none have been added to CISA KEV yet.`
       );
     }
   } else {
     parts.push(
-      `${span} (${range_label}), no new high/critical CVEs were published to NVD and no entries were added to CISA's Known Exploited Vulnerabilities catalog.`
+      `${span} (${range_label}), no new high/critical CVEs were observed across NVD, cvefeed.io, MyThreatIntel, and no entries were added to CISA's Known Exploited Vulnerabilities catalog.`
     );
   }
 
@@ -1113,8 +1114,8 @@ export async function buildBriefing(
   const wrap = <T>(p: Promise<T>, fallback: T) =>
     p.then((v) => ({ ok: true, v })).catch(() => ({ ok: false, v: fallback }));
   const mtiEnv = opts.env;
-  const [kevR, urlhaus, malwarebazaar, threatfox, tweetfeed, nvdR, mtiRansomwareItems, mtiCveItems] = await Promise.all(
-    [
+  const [kevR, urlhaus, malwarebazaar, threatfox, tweetfeed, nvdR, mtiRansomwareItems, mtiCveItems, cvefeedItems] =
+    await Promise.all([
       // KEV is the full catalog (window filtering happens below) — one key.
       // NVD is window-specific, so the cache key carries the range; the hourly
       // catch-up rebuilds the same slug/window and reuses any prior success.
@@ -1151,8 +1152,14 @@ export async function buildBriefing(
             .then((r) => (r.ok ? (r.items as MtiCveRecord[]) : []))
             .catch(() => [] as MtiCveRecord[])
         : Promise.resolve([] as MtiCveRecord[]),
-    ]
-  );
+      // cvefeed.io high-severity RSS — 4th gap-filler. NVD/CIRCL have a 12-24h
+      // indexer lag on very recent dates that used to silently produce a
+      // "no high/critical CVEs published" briefing on days when CVEs DID
+      // exist (e.g. 2026-05-23 where NVD returned totalResults=41 but an
+      // empty vulnerabilities array). cvefeed publishes faster and never
+      // had this issue.
+      fetchCveFeedHighSeverity().catch(() => [] as CveFeedEntry[]),
+    ]);
   // If BOTH primary finding sources are unreachable, this isn't a quiet day,
   // it's an outage. Earlier this threw and persisted NOTHING — but a
   // sustained NVD/KEV block then meant "no briefing at all" for the day
@@ -1211,7 +1218,28 @@ export async function buildBriefing(
       mitre_techniques: [],
     });
   }
-  const findings = [...kevFindings, ...nvdFindings, ...mtiCveFindings];
+  // cvefeed.io entries — RSS feed is severity/high.xml so all entries are
+  // implicitly high-severity. Filter to in-window and dedupe against existing
+  // CVE IDs from KEV / NVD / MTI. cvefeed lacks a CVSS score, so we set
+  // severity='high' to honour the bar without inventing a number.
+  const cvefeedFindings: BriefingFinding[] = [];
+  for (const e of cvefeedItems) {
+    const id = e.cve_id.toUpperCase();
+    if (existingCveIds.has(id)) continue;
+    if (!withinRange(e.published, startMs, endMs)) continue;
+    existingCveIds.add(id);
+    const titleText = e.title?.trim() || id;
+    cvefeedFindings.push({
+      id,
+      title: titleText.length > 90 ? `${id}: ${titleText.slice(0, 87)}…` : `${id}: ${titleText}`,
+      description: `[cvefeed.io] ${titleText}`,
+      severity: 'high',
+      source: 'cvefeed.io',
+      source_url: e.link,
+      mitre_techniques: deriveMitreTechniques(titleText),
+    });
+  }
+  const findings = [...kevFindings, ...nvdFindings, ...mtiCveFindings, ...cvefeedFindings];
 
   // Per-source counts for transparent reporting — match-in-window only.
   // Helps a future reader verify "URLhaus 4,712; ThreatFox 215; …" instead
@@ -1329,7 +1357,10 @@ export async function buildBriefing(
 
   const sources: string[] = [];
   if (findings.some((f) => f.source === 'CISA KEV')) sources.push('CISA KEV');
-  if (findings.length > 0) sources.push('NVD');
+  // "NVD" badge means we got CVE rows from NVD/CIRCL specifically — cvefeed
+  // alone shouldn't masquerade as NVD. Both can be listed independently.
+  if (nvdFindings.length > 0) sources.push('NVD');
+  if (cvefeedFindings.length > 0) sources.push('cvefeed.io');
   if (mtiCveFindings.length > 0 || mtiRansomwareFindings.length > 0) sources.push('MyThreatIntel');
   sources.push(...iocSources);
 

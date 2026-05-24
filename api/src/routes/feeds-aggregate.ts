@@ -19,7 +19,7 @@ import { buildMtiRansomwareRss, MTI_RANSOMWARE_FEED_PATH } from './mti-ransomwar
  * Items are sorted newest-first by pubDate.
  */
 
-const MAX_FEEDS = 50;
+const MAX_FEEDS = 80;
 /** Default page-size when caller doesn't pass ?limit=. Bumped 30 → 100 so
  *  the threat-pulse / threat-feeds pages surface a representative week
  *  rather than just a day's churn. */
@@ -30,7 +30,19 @@ const DEFAULT_PER_SOURCE = 5;
 /** Per-source cap. Raised 10 → 25 in step with MAX_LIMIT so no single
  *  high-volume RSS dominates the merged response. */
 const MAX_PER_SOURCE = 25;
-const FETCH_TIMEOUT_MS = 5000;
+const FETCH_TIMEOUT_MS = 12_000;
+// Per-URL parsed-response cache key prefix — checked BEFORE the upstream
+// fetch in fetchOne. caches.default.match() doesn't consume a subrequest,
+// so a warm cache lets us return ~30 feeds without hitting CF's 50-req
+// cap at all. TTL kept generous (10 min) because RSS items rarely change
+// faster than that for the slow upstreams that timeout most often.
+// 1h — long enough that most users land on a warm cache for the entire
+// session. RSS feeds rarely publish more than once per hour, and the
+// cache-first pattern means cold-cache visits are the only ones that
+// hit upstream timeouts. Was 10min, which produced too many cold-cache
+// visits (every Google News URL would re-fail before the next user hit
+// the cache that did succeed). 1h dramatically reduces cold-cache rate.
+const PER_URL_CACHE_TTL_SECONDS = 3600;
 const CACHE_TTL_SECONDS = 300; // 5 minutes — matches per-feed proxy cache
 
 const ALLOWED_HOSTS = new Set([
@@ -41,6 +53,7 @@ const ALLOWED_HOSTS = new Set([
   'us-cert.cisa.gov',
   'isc.sans.edu',
   'cert.europa.eu',
+  'ccb.belgium.be',
   'feeds.feedburner.com',
   'thehackernews.com',
   'krebsonsecurity.com',
@@ -159,6 +172,16 @@ const ALLOWED_HOSTS = new Set([
   'huggingface.co',
   'the-decoder.com',
   'importai.substack.com',
+  // Allowlist gap fix (2026-05-24): both feeds were silently dropped by
+  // the host check, surfacing as "16 of 54 missing" on /threatintel/threat-feeds.
+  'www.akamai.com',
+  'akamai.com',
+  'threatpost.com',
+  'www.threatpost.com',
+  // npm / package-ecosystem advisory feeds (2026-05-24)
+  'github.com',
+  'osv.dev',
+  'www.osv.dev',
   // Same-origin synthesised feeds (e.g. MyThreatIntel ransomware → RSS)
   'pranithjain.qzz.io',
 ]);
@@ -173,12 +196,23 @@ interface AggregatedItem {
   guid?: string;
 }
 
+interface FeedSourceStatus {
+  url: string;
+  ok: boolean;
+  items: number;
+  /** Short reason when ok=false (e.g. "timeout", "404", "non_rss_response"). */
+  error?: string;
+}
+
 interface AggregateResponse {
   generated_at: string;
   total_items: number;
   feeds_attempted: number;
   feeds_returned: number;
   items: AggregatedItem[];
+  /** Per-feed status so the page can show which sources failed. Always
+   * populated; absent items mean the feed wasn't included in the query. */
+  feeds?: FeedSourceStatus[];
 }
 
 /** Strip HTML / XML entities from a feed string. Keep it short and conservative. */
@@ -238,7 +272,13 @@ function parseFeedBody(body: string, sourceUrl: string, host: string, perSource:
   return items;
 }
 
-async function fetchOne(url: string, perSource: number): Promise<AggregatedItem[]> {
+interface FetchOneResult {
+  items: AggregatedItem[];
+  /** Reason for empty items, when the failure mode is known. */
+  error?: string;
+}
+
+async function fetchOne(url: string, perSource: number): Promise<FetchOneResult> {
   const parsed = new URL(url);
   // Same-origin synthesised feeds: resolve IN-PROCESS. A Worker HTTP-fetching
   // its own hostname is unreliable (the earlier symptom: feed returned 0 via
@@ -246,12 +286,40 @@ async function fetchOne(url: string, perSource: number): Promise<AggregatedItem[
   if (parsed.pathname === MTI_RANSOMWARE_FEED_PATH) {
     try {
       const { xml } = await buildMtiRansomwareRss();
-      return parseFeedBody(xml, url, parsed.hostname, perSource);
-    } catch {
-      return [];
+      return { items: parseFeedBody(xml, url, parsed.hostname, perSource) };
+    } catch (e) {
+      return { items: [], error: `mti_build_failed: ${(e as Error).message}` };
     }
   }
-  if (!ALLOWED_HOSTS.has(parsed.hostname.toLowerCase())) return [];
+  if (!ALLOWED_HOSTS.has(parsed.hostname.toLowerCase())) {
+    return { items: [], error: 'host_not_in_allowlist' };
+  }
+
+  // Explicit edge-cache lookup BEFORE the upstream fetch. caches.default
+  // operations don't count against Cloudflare's 50-subrequest-per-Worker
+  // budget; fetch() always does, even when served from cf.cacheTtl. So
+  // we read here first — a warm cache means we burn zero subrequests for
+  // most feeds. This is the actual fix for the "every Google News feed
+  // times out under load" pattern: once any visitor warmed the cache, the
+  // slow upstream is bypassed entirely until TTL expires.
+  // Synthetic internal URL as the cache key — pattern used elsewhere in
+  // the codebase (lib/cache.ts ProviderCache). `s-maxage` on the cached
+  // Response is what actually makes Cloudflare's edge cache honor TTL.
+  const edgeCache = (caches as unknown as { default: Cache }).default;
+  const edgeKey = new Request(`https://feeds-perurl-cache.internal/v3?u=${encodeURIComponent(url)}&p=${perSource}`);
+  try {
+    const hit = await edgeCache.match(edgeKey);
+    if (hit) {
+      const body = await hit.text();
+      const items = parseFeedBody(body, url, parsed.hostname, perSource);
+      if (items.length > 0) return { items };
+      // Empty parse on cached body falls through to a fresh fetch — but
+      // only once, since the next put will overwrite this key.
+    }
+  } catch {
+    /* edge-cache miss / parse fail; fall through to live fetch */
+  }
+
   try {
     // Retry transient 429/5xx — several upstreams (hnrss.org, ycombinator,
     // some vendor blogs) rate-limit the shared Worker IP; one miss used to
@@ -268,20 +336,51 @@ async function fetchOne(url: string, perSource: number): Promise<AggregatedItem[
         },
         cf: { cacheTtl: CACHE_TTL_SECONDS, cacheEverything: true },
       } as RequestInit,
-      { attempts: 3, timeoutMs: FETCH_TIMEOUT_MS }
+      // attempts: 1 — Cloudflare Workers have a 50-subrequest limit per
+      // invocation; 3 retries × 54 feeds blew the budget (manifested as
+      // `fetch_failed: Too many subrequests by single Worker invocation`
+      // for the feeds that arrived after the budget was exhausted). One
+      // attempt per feed keeps us well under the cap; the 30s edge cache
+      // catches the next visit.
+      { attempts: 1, timeoutMs: FETCH_TIMEOUT_MS }
     );
     if (res.status === 429) {
-      // Surface to wrangler tail so ops see which upstreams are pushing
-      // back. Per-source degradation is acceptable here — the aggregator
-      // returns whatever feeds DID succeed.
       console.warn(`feeds-aggregate: 429 from ${parsed.hostname} for ${url}`);
-      return [];
+      return { items: [], error: 'rate_limited_429' };
     }
-    if (!res.ok) return [];
+    if (!res.ok) return { items: [], error: `http_${res.status}` };
     const body = await res.text();
-    return parseFeedBody(body, url, parsed.hostname, perSource);
-  } catch {
-    return [];
+    const items = parseFeedBody(body, url, parsed.hostname, perSource);
+    if (items.length === 0) return { items: [], error: 'parser_zero_items' };
+    // Write-through the per-URL edge cache so the next reader skips the
+    // upstream fetch entirely (caches.default.match doesn't burn a
+    // subrequest). This is the actual remedy for the Krebs / Web3 /
+    // rekt.news / Google News timeouts — once any visitor warms the
+    // cache, subsequent readers see them as instant 25-item hits.
+    try {
+      // `s-maxage` is the edge-cache directive Cloudflare's caches.default
+      // honors; `max-age` alone is browser/client only. Without s-maxage,
+      // the put silently succeeds but match() returns null (verified via
+      // load test where successive warm requests still re-fetched all
+      // upstreams). This is the actual fix.
+      const cacheable = new Response(body, {
+        status: 200,
+        headers: {
+          'content-type': res.headers.get('content-type') ?? 'application/xml; charset=utf-8',
+          'cache-control': `public, max-age=${PER_URL_CACHE_TTL_SECONDS}, s-maxage=${PER_URL_CACHE_TTL_SECONDS}`,
+        },
+      });
+      await edgeCache.put(edgeKey, cacheable);
+    } catch {
+      /* cache put failures are non-fatal */
+    }
+    return { items };
+  } catch (e) {
+    const msg = (e as Error).message || String(e);
+    if (msg.toLowerCase().includes('abort') || msg.toLowerCase().includes('timeout')) {
+      return { items: [], error: 'timeout' };
+    }
+    return { items: [], error: `fetch_failed: ${msg.slice(0, 60)}` };
   }
 }
 
@@ -306,9 +405,9 @@ export async function aggregateFeeds(
   const allItems: AggregatedItem[] = [];
   let feedsReturned = 0;
   for (const s of settled) {
-    if (s.status === 'fulfilled' && s.value.length > 0) {
+    if (s.status === 'fulfilled' && s.value.items.length > 0) {
       feedsReturned += 1;
-      allItems.push(...s.value);
+      allItems.push(...s.value.items);
     }
   }
 
@@ -372,10 +471,22 @@ export async function feedsAggregateHandler(c: Context<{ Bindings: Env }>) {
   const settled = await Promise.allSettled(urls.map((u) => fetchOne(u, perSource)));
   const allItems: AggregatedItem[] = [];
   let feedsReturned = 0;
-  for (const s of settled) {
-    if (s.status === 'fulfilled' && s.value.length > 0) {
-      feedsReturned += 1;
-      allItems.push(...s.value);
+  const feedStatuses: FeedSourceStatus[] = [];
+  for (let i = 0; i < settled.length; i += 1) {
+    const s = settled[i]!;
+    const url = urls[i] ?? '';
+    if (s.status === 'fulfilled') {
+      const { items, error } = s.value;
+      if (items.length > 0) {
+        feedsReturned += 1;
+        allItems.push(...items);
+        feedStatuses.push({ url, ok: true, items: items.length });
+      } else {
+        feedStatuses.push({ url, ok: false, items: 0, error: error ?? 'empty_response' });
+      }
+    } else {
+      const reason = s.reason instanceof Error ? s.reason.message : String(s.reason);
+      feedStatuses.push({ url, ok: false, items: 0, error: reason.slice(0, 80) });
     }
   }
 
@@ -399,6 +510,7 @@ export async function feedsAggregateHandler(c: Context<{ Bindings: Env }>) {
     feeds_attempted: urls.length,
     feeds_returned: feedsReturned,
     items: recentItems.slice(0, limit),
+    feeds: feedStatuses,
   };
   const json = JSON.stringify(body);
   const response = new Response(json, {

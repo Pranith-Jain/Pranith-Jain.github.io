@@ -2,8 +2,14 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ExternalLink, RefreshCw, AlertTriangle, Loader2, Search } from 'lucide-react';
-import { fetchAggregatedFeed, formatRelativeTime, type AggregatedFeedItem } from '../../services/rssService';
+import {
+  fetchAggregatedFeed,
+  formatRelativeTime,
+  type AggregatedFeedItem,
+  type AggregatedFeedSourceStatus,
+} from '../../services/rssService';
 import { rssFeeds } from '../../data/rssFeeds';
+import { SourceTogglePanel } from '../../components/threatintel/SourceTogglePanel';
 
 /**
  * Scam Watch — live aggregator of digital-fraud reporting.
@@ -15,6 +21,11 @@ import { rssFeeds } from '../../data/rssFeeds';
  *   - Fact-checks + general scam news: Snopes + Google News "digital scam victim"
  */
 
+// gnews-* feeds were removed 2026-05-24: Google News rate-limits Worker
+// IPs aggressively (consistent 503s) with no recovery path. The Reddit
+// and direct-source feeds cover the same beat reliably. Sections that
+// previously depended ONLY on gnews are dropped; the remaining 9 categories
+// keep at least one reliable source each.
 const SECTIONS: { id: string; label: string; blurb: string; feedIds: string[] }[] = [
   {
     id: 'alerts',
@@ -23,48 +34,22 @@ const SECTIONS: { id: string; label: string; blurb: string; feedIds: string[] }[
     feedIds: ['ftc-consumer', 'ic3-psas'],
   },
   {
-    id: 'deepfake',
-    label: 'Deepfake & AI voice',
-    blurb: 'Synthetic-media-driven scams — voice clones, face-swaps, AI impersonation.',
-    feedIds: ['gnews-deepfake', 'gnews-voice-clone'],
-  },
-  {
-    id: 'pig-butchering',
-    label: 'Pig butchering & investment',
-    blurb: 'Long-con investment scams — sha zhu pan, fake brokers, romance-baiting into crypto / forex.',
-    feedIds: ['gnews-pig-butcher', 'gnews-investment-scam'],
-  },
-  {
     id: 'crypto-nft',
     label: 'Crypto & NFT scams',
     blurb: 'Rug pulls, wallet drainers, NFT phishing, DeFi exploits — first-person + post-mortems.',
-    feedIds: [
-      'gnews-rug-pull',
-      'gnews-nft-drainer',
-      'gnews-defi-hack',
-      'rekt-news',
-      'web3-grift',
-      'reddit-cryptoscams',
-    ],
+    feedIds: ['rekt-news', 'web3-grift', 'reddit-cryptoscams'],
   },
   {
     id: 'job',
     label: 'Job & recruitment',
     blurb: 'Fake recruiters, fake interviews, fake offer letters — fastest-growing scam category.',
-    feedIds: ['gnews-job-scam', 'reddit-jobscams'],
-  },
-  {
-    id: 'india',
-    label: 'India',
-    blurb:
-      'India-specific fraud — digital-arrest, UPI / payment fraud, predatory loan apps, plus I4C / 1930-helpline enforcement.',
-    feedIds: ['gnews-india-scam', 'gnews-india-cybercrime'],
+    feedIds: ['reddit-jobscams'],
   },
   {
     id: 'impersonation',
     label: 'Impersonation & social engineering',
     blurb: 'Tech-support, IRS, Microsoft, SIM-swap, vishing — anyone-but-them on the phone.',
-    feedIds: ['gnews-tech-support', 'gnews-sim-swap', 'reddit-scammer-payback'],
+    feedIds: ['reddit-scammer-payback'],
   },
   {
     id: 'victims',
@@ -76,11 +61,22 @@ const SECTIONS: { id: string; label: string; blurb: string; feedIds: string[] }[
     id: 'news',
     label: 'Fact-checks & news',
     blurb: 'Mainstream coverage and Snopes fact-checks of viral scam claims.',
-    feedIds: ['gnews-victim', 'snopes'],
+    feedIds: ['snopes'],
   },
 ];
 
 const ALL_FEED_IDS = SECTIONS.flatMap((s) => s.feedIds);
+
+const DISABLED_STORAGE_KEY = 'scam-watch:disabled';
+
+function loadDisabled(): Set<string> {
+  try {
+    const raw = localStorage.getItem(DISABLED_STORAGE_KEY);
+    return new Set(raw ? (JSON.parse(raw) as string[]) : []);
+  } catch {
+    return new Set();
+  }
+}
 
 export default function ScamWatch(): JSX.Element {
   const [items, setItems] = useState<AggregatedFeedItem[]>([]);
@@ -89,22 +85,36 @@ export default function ScamWatch(): JSX.Element {
   const [activeSection, setActiveSection] = useState<string>('all');
   const [search, setSearch] = useState('');
   const [feedsReturned, setFeedsReturned] = useState(0);
+  const [feedStatuses, setFeedStatuses] = useState<AggregatedFeedSourceStatus[]>([]);
+  const [disabled, setDisabled] = useState<Set<string>>(() => loadDisabled());
+  const [showSourcePanel, setShowSourcePanel] = useState(false);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(DISABLED_STORAGE_KEY, JSON.stringify([...disabled]));
+    } catch {
+      /* localStorage unavailable */
+    }
+  }, [disabled]);
+
+  const enabledFeedIds = useMemo(() => ALL_FEED_IDS.filter((id) => !disabled.has(id)), [disabled]);
 
   const load = useCallback(async () => {
     setLoading(true);
     setError(null);
     setItems([]);
     try {
-      const data = await fetchAggregatedFeed(ALL_FEED_IDS, { limit: 220, perSource: 25 });
+      const data = await fetchAggregatedFeed(enabledFeedIds, { limit: 220, perSource: 25 });
       if (!data) throw new Error('no aggregator-eligible feeds configured');
       setItems(data.items);
       setFeedsReturned(data.feeds_returned);
+      setFeedStatuses(data.feeds ?? []);
     } catch (e) {
       setError((e as Error).message);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [enabledFeedIds]);
 
   useEffect(() => {
     void load();
@@ -226,9 +236,23 @@ export default function ScamWatch(): JSX.Element {
             </button>
           ))}
           <button
+            onClick={() => setShowSourcePanel((v) => !v)}
+            className={`ml-auto text-xs font-mono px-2 py-1 rounded border inline-flex items-center gap-1.5 ${
+              showSourcePanel
+                ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
+                : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+            }`}
+            aria-pressed={showSourcePanel}
+          >
+            sources{' '}
+            <span className="opacity-60">
+              · {enabledFeedIds.length}/{ALL_FEED_IDS.length}
+            </span>
+          </button>
+          <button
             onClick={() => void load()}
             disabled={loading}
-            className="ml-auto text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1.5 disabled:opacity-50"
+            className="text-xs font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1.5 disabled:opacity-50"
           >
             {loading ? <Loader2 size={11} className="animate-spin" /> : <RefreshCw size={11} />}
             {loading ? 'fetching' : 'refresh'}
@@ -242,6 +266,25 @@ export default function ScamWatch(): JSX.Element {
             </span>{' '}
             {SECTIONS.find((s) => s.id === activeSection)?.blurb}
           </p>
+        )}
+
+        {showSourcePanel && (
+          <SourceTogglePanel
+            sections={SECTIONS}
+            allFeedIds={ALL_FEED_IDS}
+            disabled={disabled}
+            feedStatuses={feedStatuses}
+            onToggle={(id) =>
+              setDisabled((prev) => {
+                const next = new Set(prev);
+                if (next.has(id)) next.delete(id);
+                else next.add(id);
+                return next;
+              })
+            }
+            onEnableAll={() => setDisabled(new Set())}
+            onDisableAll={() => setDisabled(new Set(ALL_FEED_IDS))}
+          />
         )}
       </section>
 

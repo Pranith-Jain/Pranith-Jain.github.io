@@ -98,6 +98,11 @@ export interface DoneEvent {
   verdict: Verdict;
   confidence: 'low' | 'medium' | 'high';
   contributing: number;
+  admiralty?: {
+    reliability: string;
+    credibility: number;
+    label: string;
+  };
 }
 
 export interface FileAnalysisResponse {

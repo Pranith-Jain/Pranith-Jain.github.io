@@ -7,12 +7,34 @@
  * pulling in either side's logic.
  */
 
-export type RuleFormat = 'sigma' | 'kql' | 'splunk' | 'lucene' | 'eql' | 'yara' | 'dlp' | 'supplychain';
+export type RuleFormat =
+  | 'sigma'
+  | 'kql'
+  | 'splunk'
+  | 'lucene'
+  | 'eql'
+  | 'yara'
+  | 'dlp'
+  | 'supplychain'
+  | 'snort'
+  | 'powershell';
 
-export const TARGET_FORMATS: RuleFormat[] = ['sigma', 'kql', 'splunk', 'lucene', 'eql', 'yara', 'dlp', 'supplychain'];
-// Universal: every format is both a source and a target. Parsing the query /
-// rule languages back into the IR is heuristic (flagged at runtime).
-export const SOURCE_FORMATS: RuleFormat[] = TARGET_FORMATS;
+export const TARGET_FORMATS: RuleFormat[] = [
+  'sigma',
+  'kql',
+  'splunk',
+  'lucene',
+  'eql',
+  'yara',
+  'snort',
+  'powershell',
+  'dlp',
+  'supplychain',
+];
+// SOURCE_FORMATS is a subset of TARGET_FORMATS — snort + powershell are
+// target-only (we don't yet have parsers that round-trip Snort `content:`
+// rules or PowerShell `Select-String` patterns back into the IR).
+export const SOURCE_FORMATS: RuleFormat[] = TARGET_FORMATS.filter((f) => f !== 'snort' && f !== 'powershell');
 
 export const FORMAT_LABELS: Record<RuleFormat, string> = {
   sigma: 'Sigma (YAML)',
@@ -21,6 +43,8 @@ export const FORMAT_LABELS: Record<RuleFormat, string> = {
   lucene: 'Elastic Lucene',
   eql: 'Elastic EQL',
   yara: 'YARA',
+  snort: 'Snort / Suricata',
+  powershell: 'PowerShell (Select-String)',
   dlp: 'DLP regex patterns',
   supplychain: 'Supply-chain (Semgrep scaffold)',
 };

@@ -1,3 +1,4 @@
 dist
 node_modules
 public/tesseract
+worker-configuration.d.ts

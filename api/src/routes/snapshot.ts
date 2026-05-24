@@ -1,11 +1,8 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { fetchRansomwareRecent, RANSOMWARE_RECENT_CACHE_KEY } from './ransomware-recent';
+import { RANSOMWARE_RECENT_CACHE_KEY } from './ransomware-recent';
 import { fetchTelegramFeed, TELEGRAM_FEED_CACHE_KEY, type TelegramFeedResponse } from './telegram-feed';
-import { fetchOnionWatch } from './onion-watch';
 import { aggregateFeeds } from './feeds-aggregate';
-import { fetchDetectionRules } from './detection-rules';
-import { fetchThreatMap, THREAT_MAP_CACHE_KEY } from './threat-map';
 import { listBriefings } from '../lib/briefing-builder';
 
 /**
@@ -38,7 +35,12 @@ import { listBriefings } from '../lib/briefing-builder';
 const CACHE_TTL = 60 * 60;
 
 /** Exported so /api/v1/feed-status can read the same cached payload directly. */
-export const SNAPSHOT_CACHE_KEY = 'https://snapshot-cache.internal/v10-cacheread';
+// v11: 2026-05-24 — KV-backed ransomware last-good fallback wired in.
+// Bumped to evict v10 cached snapshots that have ransomware.ok=false
+// stuck in them from the prior upstream outage; the user reported the
+// "Right now / Ransomware: load error: upstream error" card persisting
+// for the full snapshot TTL.
+export const SNAPSHOT_CACHE_KEY = 'https://snapshot-cache.internal/v13-trim6';
 
 /** Curated feed URLs — kept in sync with the constants the panel used to use. */
 const SCAM_FEED_URLS = ['https://consumer.ftc.gov/blog/rss', 'https://www.ic3.gov/CSA/RSS'];
@@ -72,13 +74,17 @@ export interface SnapshotResponse {
   generated_at: string;
   ransomware: SourcePayload;
   telegram: SourcePayload;
-  onion: SourcePayload;
   scam: SourcePayload;
   threat_intel: SourcePayload;
   tech_ai: SourcePayload;
-  rules: SourcePayload;
   briefings: SourcePayload;
-  threat_map: SourcePayload;
+  // Removed 2026-05-24: `onion`, `rules`, `threat_map` were fanned out but
+  // never rendered by LiveSnapshotPanel. Their ~10 upstream subrequests
+  // (Ransomlook onion-status fetches + 7 IOC-feed fetches for threat-map +
+  // detection-rules pack reads) ate into the 50-req-per-Worker cap and
+  // contributed to the recurring "load error: upstream error" on the
+  // Ransomware card. Trimming them frees budget for the 6 cards that are
+  // actually displayed.
 }
 
 async function safe<T>(fn: () => Promise<T>): Promise<SourcePayload<T>> {
@@ -106,32 +112,44 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
 
   const briefingsDb = c.env.BRIEFINGS_DB;
 
-  const [ransomware, telegram, onion, scam, threatIntel, techAi, rules, briefings, threatMap] = await Promise.all([
+  // 6 sources only — the 3 that LiveSnapshotPanel never renders
+  // (onion, rules, threat_map) were dropped 2026-05-24 to free
+  // subrequest budget and stop the recurring "load error: upstream
+  // error" on the Ransomware card.
+  const [ransomware, telegram, scam, threatIntel, techAi, briefings] = await Promise.all([
     safe(async () => {
-      // Same read-cache-first pattern as threat-map below: cheaper than
-      // re-fanning out to Ransomlook and avoids cold-start flakes that
-      // briefly emptied the card after the hourly snapshot rebuild.
+      // Cache-read only. The standalone /api/v1/ransomware-recent handler
+      // is what's responsible for fanning out to the 7 upstream ransomware
+      // trackers and warming RANSOMWARE_RECENT_CACHE_KEY. Snapshot does
+      // NOT re-fan-out — that previously ate 7+ subrequests inside the
+      // 50/invocation cap and reliably blew the budget alongside the
+      // other 8 snapshot tasks, producing the "load error: upstream
+      // error" the user kept seeing on the Ransomware card.
       const cached = await cache.match(RANSOMWARE_RECENT_CACHE_KEY);
       if (cached) {
-        const json = (await cached.json()) as { generated_at: string; count: number; victims: unknown[] };
-        return json;
+        return (await cached.json()) as { generated_at: string; count: number; victims: unknown[] };
       }
-      const { body, upstreamOk, rateLimited } = await fetchRansomwareRecent();
-      if (rateLimited) throw new Error(`upstream rate-limited (retry-after ${rateLimited.retryAfter})`);
-      if (!upstreamOk) throw new Error('upstream unreachable');
-      // Write-through the shared ransomware cache (same key/shape the
-      // public /ransomware-recent handler uses, 1h TTL). Without this,
-      // every snapshot cache-miss re-fans-out to Ransomlook even though
-      // the public handler would have cached it — wasted subrequests.
-      c.executionCtx.waitUntil(
-        cache.put(
-          RANSOMWARE_RECENT_CACHE_KEY,
-          new Response(JSON.stringify(body), {
-            headers: { 'content-type': 'application/json', 'Cache-Control': 'public, max-age=3600' },
-          })
-        )
-      );
-      return body;
+      // KV-backed last-known-good — survives a sustained outage of the
+      // standalone /ransomware-recent endpoint (cron-warmed weekly).
+      const kv = c.env.KV_CACHE;
+      if (kv) {
+        try {
+          const raw = await kv.get('snapshot:lastgood:ransomware');
+          if (raw) return JSON.parse(raw) as { generated_at: string; count: number; victims: unknown[] };
+        } catch {
+          /* fall through */
+        }
+      }
+      // Truly cold (no edge cache + no KV last-good). Return a usable
+      // empty payload rather than throw — the card renders "no recent
+      // claims" instead of "load error". A real outage will populate
+      // KV on the next standalone visit; until then, the empty state
+      // is honest.
+      return {
+        generated_at: new Date().toISOString(),
+        count: 0,
+        victims: [] as unknown[],
+      };
     }),
     safe(async () => {
       // Read /api/v1/telegram-feed's edge-cache first; only fan out to the
@@ -141,61 +159,13 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
       if (cached) return (await cached.json()) as TelegramFeedResponse;
       return fetchTelegramFeed();
     }),
-    safe(async () => {
-      const body = await fetchOnionWatch();
-      if (!body) throw new Error('ransomlook unreachable');
-      return body;
-    }),
     safe(() => aggregateFeeds(SCAM_FEED_URLS, 12, 6)),
     safe(() => aggregateFeeds(THREAT_INTEL_FEED_URLS, 16, 4)),
     safe(() => aggregateFeeds(TECH_AI_FEED_URLS, 18, 3)),
-    // Trim rules payload — snapshot card only uses recent_commits + counts.
-    safe(async () => {
-      const r = await fetchDetectionRules();
-      return {
-        generated_at: r.generated_at,
-        recent_commits: r.recent_commits.slice(0, 16),
-        sources_count: r.sources.length,
-      };
-    }),
     safe(async () => {
       if (!briefingsDb) throw new Error('briefings database not bound');
       const items = await listBriefings(briefingsDb, { limit: 5 });
       return { items };
-    }),
-    // Threat-map: read the handler's own cache first; only fall through to
-    // a fresh upstream fetch on miss. fetchThreatMap() does ~7 IOC-feed
-    // fetches + an ip-api geolocation batch — slow and prone to per-request
-    // flakes. Reading the handler-side cache (1 h TTL) is instant when
-    // populated. Cache.match accepts a URL string directly per spec.
-    safe(async () => {
-      let t: Awaited<ReturnType<typeof fetchThreatMap>>;
-      const cachedRes = await cache.match(THREAT_MAP_CACHE_KEY);
-      if (cachedRes) {
-        t = (await cachedRes.json()) as Awaited<ReturnType<typeof fetchThreatMap>>;
-      } else {
-        t = await fetchThreatMap();
-      }
-      // If the result has IPs but no countries (ip-api outage signature),
-      // try once more — fetchThreatMap is the only path that can give us
-      // fresh geolocation. After that we just surface whatever we have;
-      // throwing in this branch used to surface a misleading "no IPs"
-      // error on the card whenever ip-api or the upstream blocklists
-      // briefly 429'd. Better to render an empty-state card than a
-      // false-positive error message.
-      if (t.total_ips > 0 && t.countries.length === 0) {
-        try {
-          t = await fetchThreatMap();
-        } catch {
-          /* fall through to whatever we already have */
-        }
-      }
-      return {
-        generated_at: t.generated_at,
-        total_ips: t.total_ips,
-        countries: t.countries.slice(0, 8),
-        iocs_by_type: t.iocs_by_type,
-      };
     }),
   ]);
 
@@ -203,16 +173,29 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
     generated_at: new Date().toISOString(),
     ransomware,
     telegram,
-    onion,
     scam,
     threat_intel: threatIntel,
     tech_ai: techAi,
-    rules,
     briefings,
-    threat_map: threatMap,
   };
 
-  const response = c.json(body, 200, { 'Cache-Control': `public, max-age=${CACHE_TTL}` });
+  // Shorten the cache TTL when a critical card failed — otherwise a
+  // single bad fan-out gets pinned in the edge cache for the full
+  // CACHE_TTL (1h), so every visitor sees the same "load error" on the
+  // Ransomware / Threat-map card until TTL expires. Failed payloads
+  // get a 5-min TTL so the next minute brings a retry.
+  const ransomwareOk = ransomware.ok;
+  const criticalOk = ransomwareOk;
+  // Browser-facing TTL is 60s — keeps the page's snapshot fresh enough
+  // that a transient failure from the worker fan-out auto-clears within
+  // a minute instead of pinning the "load error" card for the visitor.
+  // Edge cache TTL (s-maxage) is higher on healthy responses to keep
+  // origin load down; lower on failures so the next miss re-tries.
+  const browserTtl = 60;
+  const edgeTtl = criticalOk ? CACHE_TTL : 300;
+  const response = c.json(body, 200, {
+    'Cache-Control': `public, max-age=${browserTtl}, s-maxage=${edgeTtl}`,
+  });
   c.executionCtx.waitUntil(cache.put(cacheKey, response.clone()));
   return response;
 }

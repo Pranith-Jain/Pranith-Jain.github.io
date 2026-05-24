@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { safeJsonBody } from '../lib/safe-body';
+import { requireAdmin } from '../lib/admin-auth';
 
 /**
  * Runtime-editable layer on top of the static External Resources catalog
@@ -48,40 +49,11 @@ interface ExternalResource {
   added_at: string;
 }
 
-interface AdminEnv extends Env {
-  KV_CACHE?: KVNamespace;
-  RESOURCES_ADMIN_TOKEN?: string;
-}
-
-type AdminCtx = Context<{ Bindings: AdminEnv }>;
-
-function safeEqual(a: string, b: string): boolean {
-  if (a.length !== b.length) return false;
-  let mismatch = 0;
-  for (let i = 0; i < a.length; i += 1) mismatch |= a.charCodeAt(i) ^ b.charCodeAt(i);
-  return mismatch === 0;
-}
-
-function requireAdmin(c: AdminCtx): { error: Response } | { ok: true } {
-  const required = c.env.RESOURCES_ADMIN_TOKEN;
-  if (!required) {
-    return { error: c.json({ error: 'admin endpoint disabled (RESOURCES_ADMIN_TOKEN not set)' }, 403) };
-  }
-  const authz = c.req.header('authorization') ?? '';
-  const headerToken = /^Bearer\s+(.+)$/i.exec(authz)?.[1];
-  if (headerToken && safeEqual(headerToken, required)) {
-    return { ok: true };
-  }
-  return {
-    error: c.json(
-      {
-        error: 'unauthorized',
-        hint: 'send `Authorization: Bearer <RESOURCES_ADMIN_TOKEN>`',
-      },
-      401
-    ),
-  };
-}
+type AdminCtx = Context<{ Bindings: Env }>;
+// `requireAdmin` now lives in lib/admin-auth.ts — single helper shared by
+// campaigns, telegram custom channels, and this module. Its responses are
+// generic ("admin endpoint disabled" / "unauthorized") so the env var name
+// never appears on the wire.
 
 async function readDynamic(kv: KVNamespace): Promise<ExternalResource[]> {
   const raw = await kv.get(KV_KEY, 'json');

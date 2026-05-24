@@ -11,6 +11,9 @@ import { VerdictChip } from '../../components/dfir/VerdictChip';
 import { recordHistory } from '../../lib/dfir/history';
 import { RelatedActors } from '../../components/dfir/RelatedActors';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
+import { PivotMatrix } from '../../components/dfir/PivotMatrix';
+import { AdmiraltyBadge } from '../../components/dfir/AdmiraltyBadge';
+import { PivotsTab } from '../../components/dfir/PivotsTab';
 
 type BulkVerdict = 'clean' | 'suspicious' | 'malicious' | 'unknown';
 
@@ -527,7 +530,10 @@ export default function IocCheck(): JSX.Element {
                   <h2 ref={summaryRef} tabIndex={-1} className="font-display font-bold text-2xl focus:outline-none">
                     Composite verdict
                   </h2>
-                  <VerdictChip verdict={summary.verdict} />
+                  <div className="flex items-center gap-2">
+                    {summary.admiralty && <AdmiraltyBadge admiralty={summary.admiralty} />}
+                    <VerdictChip verdict={summary.verdict} />
+                  </div>
                 </div>
                 <div className="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-sm text-slate-600 dark:text-slate-400">
                   <span>
@@ -543,6 +549,19 @@ export default function IocCheck(): JSX.Element {
                   </span>
                 </div>
               </section>
+              {summary.admiralty && (
+                <section className="mb-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+                  <h3 className="font-display font-semibold text-sm mb-2">NATO Admiralty Code</h3>
+                  <p className="text-sm font-mono text-slate-600 dark:text-slate-400 leading-relaxed">
+                    <span className="font-bold">{summary.admiralty.label}</span>
+                    {' — '}
+                    Reliability <strong>{summary.admiralty.reliability}</strong> (source ceiling), Credibility{' '}
+                    <strong>{summary.admiralty.credibility}</strong> (IOC type baseline). IP-based IOCs cap at D because
+                    addresses rotate fast; hashes and CVEs score higher as persistent artifacts.
+                  </p>
+                </section>
+              )}
+              <PivotMatrix type={detectedType} value={input.trim()} verdict={summary.verdict} />
               <section className={`mb-8 rounded-2xl border p-5 ${toneStyles}`}>
                 <h3 className="font-display font-semibold text-base mb-3 inline-flex items-center gap-2">
                   <Icon size={16} aria-hidden="true" /> {next.title}
@@ -602,6 +621,12 @@ export default function IocCheck(): JSX.Element {
           >
             retry
           </button>
+        </div>
+      )}
+
+      {mode === 'single' && summary && results.length > 0 && (
+        <div className="mt-6">
+          <PivotsTab results={results} indicatorValue={input.trim()} />
         </div>
       )}
 

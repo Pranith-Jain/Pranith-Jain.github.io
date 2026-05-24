@@ -225,6 +225,62 @@ export function emitDlp(ir: RuleIR, warnings: string[]): string {
   );
 }
 
+/**
+ * Snort / Suricata emitter.
+ *
+ * Snort 2/3 and Suricata share the rule grammar (`alert <proto> <src> ->
+ * <dst> (msg:"…"; content:"…"; sid:N; rev:N;)`) so a single emitter
+ * serves both. We translate every literal value the IR matches on into a
+ * `content:` clause and AND them by default; if the IR uses `or` we drop
+ * to `pcre:` alternation for a single `content` line so the rule still
+ * fires on any match.
+ */
+export function emitSnort(ir: RuleIR, warnings: string[]): string {
+  warnings.push(
+    'Snort/Suricata output is a content/pcre scaffold — host-log field semantics do not exist in NIDS rules. ' +
+      'Validate the proto / direction / sid; tune classtype + reference before deploying.'
+  );
+  const values = allStringValues(ir).filter((v) => v.length >= 3);
+  if (values.length === 0) return '# no string values to derive Snort/Suricata content rules';
+  const title = (ir.meta.description ?? ir.title ?? 'converted-rule').replace(/"/g, '\\"');
+  // Stable-ish sid in the local-rule range (1_000_000–1_999_999).
+  const sid = 1_000_000 + (Math.abs([...title].reduce((h, c) => (h * 31 + c.charCodeAt(0)) | 0, 0)) % 999_999);
+  const useOr = /\bor\b/i.test(ir.condition) && values.length > 1;
+  const escape = (v: string) => v.replace(/[\\|]/g, '\\$&');
+  const body = useOr
+    ? `pcre:"/(?i)(${values.map(escape).join('|')})/";`
+    : values.map((v) => `content:"${v.replace(/"/g, '\\"')}"; nocase;`).join(' ');
+  return `# Converted from a detection rule via /dfir/rule-converter (heuristic).\n# Adjust proto/direction/classtype before operational use.\nalert tcp any any -> $HOME_NET any (msg:"${title}"; ${body} classtype:trojan-activity; sid:${sid}; rev:1;)`;
+}
+
+/**
+ * PowerShell emitter — produces a `Select-String -Pattern …` one-liner
+ * that scans the EventLog / file system for the IR's literal values.
+ * This is a triage helper, not a hardened detection — it's what an IR
+ * tier-1 would paste into a Windows host to confirm/deny the rule's
+ * substrate before promoting it to a SIEM detection.
+ */
+export function emitPowerShell(ir: RuleIR, warnings: string[]): string {
+  warnings.push(
+    'PowerShell output is a triage one-liner (Select-String over EventLogs / files). ' +
+      'Field semantics are not preserved — review what surface you are scanning before running.'
+  );
+  const values = allStringValues(ir).filter((v) => v.length >= 3);
+  if (values.length === 0) return '# no string values to derive a PowerShell scanner from';
+  const escape = (v: string) => v.replace(/[\\.+*?^$(){}|[\]]/g, '\\$&');
+  const pattern = values.map(escape).join('|');
+  const title = ir.title ?? 'converted detection';
+  return [
+    `# Converted from "${title}" via /dfir/rule-converter (triage helper).`,
+    `# Adjust -LogName / file scope before running on a production host.`,
+    `$pattern = '(${pattern})'`,
+    `Get-WinEvent -LogName 'Microsoft-Windows-Sysmon/Operational' -MaxEvents 5000 |`,
+    `  Where-Object { $_.Message -match $pattern } |`,
+    `  Select-Object TimeCreated, Id, MachineName, @{n='Match';e={ ($_.Message -split "\`n" | Where-Object { $_ -match $pattern }) -join '; ' }} |`,
+    `  Format-Table -AutoSize`,
+  ].join('\n');
+}
+
 export function emitSupplyChain(ir: RuleIR, warnings: string[]): string {
   warnings.push(
     'Supply-chain output is a Semgrep-style scaffold + guidance, NOT a faithful transpile. Detection-rule ' +

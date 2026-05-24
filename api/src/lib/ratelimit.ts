@@ -3,7 +3,6 @@ import type { Env } from '../env';
 
 const LIMIT = 30; // requests per minute, applied to user-input endpoints
 const WINDOW_SEC = 60;
-const TTL = 120; // KV TTL > window so the bucket survives
 
 /**
  * Public CTI export feeds. These ARE rate-limited (abuse protection on
@@ -152,33 +151,34 @@ export async function rateLimit(c: Context<{ Bindings: Env }>, next: Next): Prom
   if (!url.pathname.startsWith('/api/v1/')) return next();
   if (isBypassed(url.pathname)) return next();
 
-  // Public CTI feeds: rate-limit via Cache API (no KV-quota cost).
+  // Everything below uses caches.default — per-colo state, no KV quota.
+  // The trade-off (an attacker can re-do their burst per CF colo) is
+  // acceptable for a personal site; the limit is abuse-protection, not
+  // a payment gate. Migrated from KV 2026-05-24 to drop the 1 read +
+  // 1 write per request that was the biggest single KV consumer.
   if (CACHE_RL_EXACT.has(url.pathname) || CACHE_RL_PREFIX.some((p) => url.pathname.startsWith(p))) {
     return cacheApiRateLimit(c, next);
   }
 
   const ip = c.req.header('cf-connecting-ip') ?? 'anon';
   const bucket = Math.floor(Date.now() / 1000 / WINDOW_SEC);
-  const key = `rl:${bucket}:${ip}`;
-  // Admin endpoints carry a parallel, stricter counter (per IP per minute).
-  // The two buckets are independent — a request consumes one slot from each.
+  const cache = (caches as unknown as { default: Cache }).default;
+  const ipEnc = encodeURIComponent(ip);
+  const key = new Request(`https://rl.internal/u/${bucket}/${ipEnc}`);
   const adminStrict = isAdminStrict(url.pathname, c.req.method);
-  const adminKey = adminStrict ? `rl:adm:${bucket}:${ip}` : null;
-
-  // No-op if KV is not bound (lets local dev + un-provisioned production work)
-  if (!c.env.KV_CACHE) return next();
+  const adminKey = adminStrict ? new Request(`https://rl.internal/a/${bucket}/${ipEnc}`) : null;
 
   let count = 0;
   let adminCount = 0;
   try {
-    const raw = await c.env.KV_CACHE.get(key);
-    count = raw ? parseInt(raw, 10) : 0;
+    const hit = await cache.match(key);
+    if (hit) count = parseInt(await hit.text(), 10) || 0;
     if (adminKey) {
-      const rawAdmin = await c.env.KV_CACHE.get(adminKey);
-      adminCount = rawAdmin ? parseInt(rawAdmin, 10) : 0;
+      const adminHit = await cache.match(adminKey);
+      if (adminHit) adminCount = parseInt(await adminHit.text(), 10) || 0;
     }
   } catch {
-    return next(); // KV transient error — fail open (don't block legit traffic)
+    return next(); // cache error — fail open
   }
 
   if (count >= LIMIT) {
@@ -210,14 +210,29 @@ export async function rateLimit(c: Context<{ Bindings: Env }>, next: Next): Prom
     );
   }
 
-  // Best-effort increment (don't await blocking)
-  try {
-    await c.env.KV_CACHE.put(key, String(count + 1), { expirationTtl: TTL });
-    if (adminKey) {
-      await c.env.KV_CACHE.put(adminKey, String(adminCount + 1), { expirationTtl: TTL });
-    }
-  } catch {
-    /* swallow */
+  // Best-effort increment (don't block). max-age expires the entry at
+  // the end of the window so the bucket resets without a TTL sweep.
+  c.executionCtx.waitUntil(
+    cache
+      .put(
+        key,
+        new Response(String(count + 1), {
+          headers: { 'cache-control': `max-age=${WINDOW_SEC}` },
+        })
+      )
+      .catch(() => undefined)
+  );
+  if (adminKey) {
+    c.executionCtx.waitUntil(
+      cache
+        .put(
+          adminKey,
+          new Response(String(adminCount + 1), {
+            headers: { 'cache-control': `max-age=${WINDOW_SEC}` },
+          })
+        )
+        .catch(() => undefined)
+    );
   }
 
   return next();

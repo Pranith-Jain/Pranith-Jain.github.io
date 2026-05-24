@@ -3,6 +3,10 @@ import type { Env } from '../env';
 import { fetchTelegramFeed, TELEGRAM_FEED_CACHE_KEY } from './telegram-feed';
 import { fetchWriteups, WRITEUPS_CACHE_KEY } from './writeups';
 import { fetchCybercrime, CYBERCRIME_CACHE_KEY } from './cybercrime';
+import { fetchXLive } from './x-live';
+import { fetchAuthedTimeline, XAuthMissingError } from '../lib/twitter-auth-graphql';
+import { ACTOR_ALIASES } from '../data/threat-actor-aliases';
+import { ATTACK_ID_INDEX } from '../data/attack-id-index';
 
 /**
  * Read a same-origin feed by checking the edge cache first, then falling
@@ -52,61 +56,38 @@ interface PulseResponse {
 const CVE_RE = /CVE-\d{4}-\d{4,7}/gi;
 const MITRE_TECH_RE = /\bT\d{4}(?:\.\d{3})?\b/g;
 
-// Known ransomware/APT slugs — kept in sync with ransomware-mitre-groups.ts
-const KNOWN_ACTORS = new Set([
-  'lockbit',
-  'alphv',
-  'blackcat',
-  'cl0p',
-  'clop',
-  'akira',
-  'play',
-  'playcrypt',
-  'black basta',
-  'blackbasta',
-  'royal',
-  'medusa',
-  'bianlian',
-  'qilin',
-  'agenda',
-  'conti',
-  'revil',
-  'sodinokibi',
-  'darkside',
-  'blackbyte',
-  'hive',
-  'ryuk',
-  'ragnarlocker',
-  'rhysida',
-  'lazarus',
-  'lazarus-group',
-  'fancy-bear',
-  'apt28',
-  'apt29',
-  'cozy-bear',
-  'apt41',
-  'winnti',
-  'kimsuky',
-  'scarcruft',
-  'ta505',
-  'silk-tempest',
-  'volt-typhoon',
-  'storm-1175',
-  'shinyhunters',
-  'teampcp',
-  'handala',
-  'unc6692',
-]);
-
-/** Extract known actor slugs from text (case-insensitive, word-boundary). */
-function extractActors(text: string): Set<string> {
-  const lower = text.toLowerCase();
-  const found = new Set<string>();
-  for (const actor of KNOWN_ACTORS) {
-    const escaped = actor.replace(/ /g, '\\s');
-    if (new RegExp(`\\b${escaped}\\b`, 'i').test(lower)) {
-      found.add(actor);
+// Pre-built actor index: every name + alias (lowercased) → canonical slug.
+// Sourced from the same ACTOR_ALIASES used elsewhere on the platform, so
+// pulse coverage tracks the rest of the codebase instead of drifting from
+// a hard-coded subset (the previous list was 33 entries — ACTOR_ALIASES
+// has 150+ including all MITRE groups, ransomware brands, and country
+// nation-state aliases).
+const ACTOR_LOOKUP: Array<{ slug: string; name: string; pattern: RegExp }> = (() => {
+  const out: Array<{ slug: string; name: string; pattern: RegExp }> = [];
+  for (const a of ACTOR_ALIASES) {
+    const allNames = [a.canonical, ...a.aliases];
+    for (const n of allNames) {
+      const trimmed = n.trim();
+      if (trimmed.length < 3) continue; // 2-letter aliases are noise (e.g. "FB")
+      const escaped = trimmed.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\s+/g, '\\s+');
+      out.push({
+        slug: a.slug,
+        name: a.canonical,
+        pattern: new RegExp(`(?:^|[^a-z0-9])${escaped}(?:$|[^a-z0-9])`, 'i'),
+      });
     }
+  }
+  return out;
+})();
+
+/** Extract known actor slugs from text (case-insensitive). Returns slugs,
+ *  not display names — the FE renders the canonical name from the slug. */
+function extractActors(text: string): Set<string> {
+  if (text.length < 3) return new Set();
+  const found = new Set<string>();
+  for (const a of ACTOR_LOOKUP) {
+    if (found.has(a.slug)) continue; // skip dup work once we matched any alias
+    if (a.pattern.test(text)) found.add(a.slug);
   }
   return found;
 }
@@ -116,9 +97,16 @@ function extractCves(text: string): Set<string> {
   return new Set([...text.matchAll(CVE_RE)].map((m) => m[0].toUpperCase()));
 }
 
-/** Extract MITRE technique IDs from text. */
+/** Extract MITRE technique IDs from text — validated against the canonical
+ *  ATT&CK index so noise like "T1234" tax-form references doesn't slip in
+ *  alongside real techniques. */
 function extractTechniques(text: string): Set<string> {
-  return new Set([...text.matchAll(MITRE_TECH_RE)].map((m) => m[0].toUpperCase()));
+  const out = new Set<string>();
+  for (const m of text.matchAll(MITRE_TECH_RE)) {
+    const id = m[0].toUpperCase();
+    if (ATTACK_ID_INDEX[id]) out.add(id);
+  }
+  return out;
 }
 
 /** Extract likely malware names (alphanumeric + hyphen strings adjacent to keywords). */
@@ -317,6 +305,74 @@ async function fetchTelegramPulse(out: Map<string, PulseEntity>): Promise<void> 
   }
 }
 
+/**
+ * Pulls the cybersec X firehose (TweetFeed × fxtwitter hybrid) and
+ * extracts CVE / actor / technique / malware mentions per tweet. Each
+ * tweet's author handle becomes its own surface (`x:<handle>`), so the
+ * cross-source counter treats different X researchers as independent —
+ * the same way Reddit subreddits + Telegram channels are counted.
+ *
+ * Calls `fetchXLive()` in-process (not via HTTP) so the worker → same-
+ * worker round-trip is avoided. The TweetFeed CSV + fxtwitter responses
+ * are both edge-cached, so this typically uses one cold subrequest to
+ * TweetFeed plus zero-or-few fxtwitter calls after warm-up.
+ */
+/**
+ * High-CTI X handles for pulse. These are accounts whose tweets discuss
+ * named actors / CVEs / malware (the entities the pulse classifier
+ * looks for), as opposed to TweetFeed's IOC-drop accounts (URLs/hashes
+ * only, which the classifier can't match against actor/CVE/MITRE
+ * dictionaries). Capped at 5 handles to fit the per-Worker subrequest
+ * budget alongside Reddit/Bluesky/Mastodon/Telegram/writeups/cybercrime.
+ *
+ * Each handle's response is per-handle-cached at the firehose layer
+ * (30min), so warm pulse runs use zero X subrequests.
+ */
+const X_PULSE_HANDLES = [
+  'DailyDarkWeb', // breach + ransomware coverage by name
+  'ransomnews', // ransomware activity (group names, CVE IDs)
+  'MonThreat', // CTI summary feed
+  'VivekIntel', // CTI summaries with actor attribution
+  'vxunderground', // researcher commentary, often mentions APTs by name
+];
+
+async function fetchXPulse(env: Env, out: Map<string, PulseEntity>): Promise<void> {
+  // Try the cookie-authenticated firehose first — gives the chronological
+  // timeline with actor / CVE / malware discussion. Falls back silently
+  // when cookies aren't configured (Pulse degrades to other sources).
+  try {
+    const results = await Promise.allSettled(
+      X_PULSE_HANDLES.map((handle) => fetchAuthedTimeline(env, handle, { count: 10, sinceDays: 3 }))
+    );
+    for (const r of results) {
+      if (r.status !== 'fulfilled') continue;
+      for (const item of r.value.items) {
+        const sn = item.author.screen_name || 'unknown';
+        classifyEntities(item.text ?? '', `x:${sn}`, out);
+      }
+    }
+  } catch (err) {
+    // Either cookies not configured, or transient error. Either is fine
+    // — the IOC-feed-based fallback below still runs.
+    if (!(err instanceof XAuthMissingError)) {
+      console.warn('threat-pulse: authed X path failed', (err as Error).message);
+    }
+  }
+
+  // Also pull the TweetFeed IOC-tweets. These tweets often contain
+  // researcher commentary alongside the IOC, which CAN match the
+  // entity dictionary even though it's not the primary purpose.
+  try {
+    const data = await fetchXLive({ sinceHours: 24, limit: 8 });
+    for (const item of data.items ?? []) {
+      const handle = item.author.screen_name || 'unknown';
+      classifyEntities(item.text ?? '', `x:${handle}`, out);
+    }
+  } catch {
+    /* swallow — already have whatever the authed path yielded */
+  }
+}
+
 // ─── Handler ─────────────────────────────────────────────────────────────────
 
 export async function threatPulseHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
@@ -333,6 +389,7 @@ export async function threatPulseHandler(c: Context<{ Bindings: Env }>): Promise
     fetchWriteupsPulse(entityMap),
     fetchCybercrimePulse(entityMap),
     fetchTelegramPulse(entityMap),
+    fetchXPulse(c.env, entityMap),
   ]);
 
   const entities = [...entityMap.values()].sort(
