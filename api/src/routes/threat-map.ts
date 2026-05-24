@@ -23,10 +23,15 @@ import { trackEvent, visitorCountry } from '../lib/analytics';
  */
 
 /** Exported so /api/v1/snapshot can read the same cached payload directly. */
-export const THREAT_MAP_CACHE_KEY = 'https://threat-map-cache.internal/v4-no-feodo';
+// v5: bumped MAX_IPS 500→1000 + per-source slice caps so the map shows
+// real volume per feed instead of every source converging on ~80 entries
+// (which was a downstream effect of the conservative caps below).
+export const THREAT_MAP_CACHE_KEY = 'https://threat-map-cache.internal/v5-1k';
 const CACHE_KEY = THREAT_MAP_CACHE_KEY;
 const CACHE_TTL_SECONDS = 3600;
-const MAX_IPS = 500; // ip-api.com batch is 100; we'll do up to 5 batches
+// ip-api.com batch is 100; we do up to 10 batches (still well under the
+// 50-subrequest-per-invocation Workers cap).
+const MAX_IPS = 1000;
 const MAX_PER_TYPE = 60; // per non-IP IOC type (urls / domains / hashes)
 const FETCH_TIMEOUT_MS = 12_000;
 
@@ -146,7 +151,7 @@ export async function fetchThreatMap(): Promise<ThreatMapResponse> {
 
   if (urlhausText) {
     // URLhaus entries are URLs; extract host and only add if it parses as IPv4.
-    for (const e of parseUrlhaus(urlhausText, 200)) {
+    for (const e of parseUrlhaus(urlhausText, 600)) {
       if (e.type !== 'url') continue;
       try {
         const host = new URL(e.value).hostname;
@@ -157,19 +162,19 @@ export async function fetchThreatMap(): Promise<ThreatMapResponse> {
     }
   }
   if (threatfoxText) {
-    for (const e of parseThreatfox(threatfoxText, 200)) {
+    for (const e of parseThreatfox(threatfoxText, 600)) {
       if (e.type === 'ipv4') addIp(e.value, 'threatfox');
     }
   }
   // Ipsum is consensus-scored, so the IPs here have hits from 3+ source lists.
   if (ipsumText) {
-    for (const e of parseIpsum(ipsumText, 80)) addIp(e.value, 'ipsum');
+    for (const e of parseIpsum(ipsumText, 250)) addIp(e.value, 'ipsum');
   }
   if (cinsText) {
-    for (const e of parsePlainTextIps(cinsText, 80)) addIp(e.value, 'cinsarmy');
+    for (const e of parsePlainTextIps(cinsText, 250)) addIp(e.value, 'cinsarmy');
   }
   if (bitwireText) {
-    for (const e of parsePlainTextIps(bitwireText, 80)) addIp(e.value, 'bitwire');
+    for (const e of parsePlainTextIps(bitwireText, 250)) addIp(e.value, 'bitwire');
   }
 
   const ips = Array.from(ipSources.keys());

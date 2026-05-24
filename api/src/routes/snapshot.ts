@@ -40,7 +40,11 @@ const CACHE_TTL = 60 * 60;
 // stuck in them from the prior upstream outage; the user reported the
 // "Right now / Ransomware: load error: upstream error" card persisting
 // for the full snapshot TTL.
-export const SNAPSHOT_CACHE_KEY = 'https://snapshot-cache.internal/v13-trim6';
+// v14: 2026-05-25 — ransomware composer falls back to an internal fetch
+// of /api/v1/ransomware-recent when the edge-cache is cold, instead of
+// returning the empty placeholder that made "Right now / Ransomware"
+// render "0 claims · 0 total tracked" on cold colos.
+export const SNAPSHOT_CACHE_KEY = 'https://snapshot-cache.internal/v14-rw-internal-fetch';
 
 /** Curated feed URLs — kept in sync with the constants the panel used to use. */
 const SCAM_FEED_URLS = ['https://consumer.ftc.gov/blog/rss', 'https://www.ic3.gov/CSA/RSS'];
@@ -118,33 +122,38 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
   // error" on the Ransomware card.
   const [ransomware, telegram, scam, threatIntel, techAi, briefings] = await Promise.all([
     safe(async () => {
-      // Cache-read only. The standalone /api/v1/ransomware-recent handler
-      // is what's responsible for fanning out to the 7 upstream ransomware
-      // trackers and warming RANSOMWARE_RECENT_CACHE_KEY. Snapshot does
-      // NOT re-fan-out — that previously ate 7+ subrequests inside the
-      // 50/invocation cap and reliably blew the budget alongside the
-      // other 8 snapshot tasks, producing the "load error: upstream
-      // error" the user kept seeing on the Ransomware card.
+      // Cache-read first — the standalone /api/v1/ransomware-recent
+      // handler fans out to 7 upstream ransomware trackers and warms
+      // RANSOMWARE_RECENT_CACHE_KEY. Snapshot intentionally avoids
+      // re-doing that fan-out inline (eats 7+ subrequests inside the
+      // 50/invocation cap).
       const cached = await cache.match(RANSOMWARE_RECENT_CACHE_KEY);
       if (cached) {
         return (await cached.json()) as { generated_at: string; count: number; victims: unknown[] };
       }
-      // KV-backed last-known-good — survives a sustained outage of the
-      // standalone /ransomware-recent endpoint (cron-warmed weekly).
-      const kv = c.env.KV_CACHE;
-      if (kv) {
-        try {
-          const raw = await kv.get('snapshot:lastgood:ransomware');
-          if (raw) return JSON.parse(raw) as { generated_at: string; count: number; victims: unknown[] };
-        } catch {
-          /* fall through */
+      // Cold edge-cache in this colo — fall back to one internal fetch
+      // of /api/v1/ransomware-recent. That endpoint reads its own
+      // cache first (so most calls return instantly from KV/edge);
+      // only on a truly cold path does it run the full fan-out, but
+      // that subrequest budget belongs to the called invocation, not
+      // ours. Worst case we spend 1 subrequest here and ship real data
+      // instead of the empty placeholder that was making the "Right
+      // now" Ransomware card render "0 claims · 0 total tracked".
+      try {
+        const url = new URL(c.req.url);
+        url.pathname = '/api/v1/ransomware-recent';
+        url.search = '';
+        const r = await fetch(url.toString(), {
+          signal: AbortSignal.timeout(15_000),
+        });
+        if (r.ok) {
+          return (await r.json()) as { generated_at: string; count: number; victims: unknown[] };
         }
+      } catch {
+        /* fall through to empty placeholder */
       }
-      // Truly cold (no edge cache + no KV last-good). Return a usable
-      // empty payload rather than throw — the card renders "no recent
-      // claims" instead of "load error". A real outage will populate
-      // KV on the next standalone visit; until then, the empty state
-      // is honest.
+      // Internal fetch also failed → honest empty payload (FE renders
+      // "no recent claims" rather than "load error").
       return {
         generated_at: new Date().toISOString(),
         count: 0,
