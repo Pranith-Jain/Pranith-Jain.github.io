@@ -85,7 +85,7 @@ export default function Campaigns(): JSX.Element {
       </BackLink>
 
       <div className="mb-8 animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Sparkles size={28} className="text-brand-600 dark:text-brand-400" /> Campaigns
         </h1>
         <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mt-1 max-w-3xl">

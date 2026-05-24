@@ -300,7 +300,7 @@ export default function RansomwareMap(): JSX.Element {
       </BackLink>
 
       <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Skull size={28} className="text-rose-500" /> Ransomware Victim Map
         </h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-3xl">

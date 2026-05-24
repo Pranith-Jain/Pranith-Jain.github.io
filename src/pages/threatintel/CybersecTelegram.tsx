@@ -54,7 +54,7 @@ export default function CybersecTelegram(): JSX.Element {
 
       <div className="animate-fade-in-up">
         <div className="flex flex-wrap items-start justify-between gap-3 mb-2">
-          <h1 className="text-3xl sm:text-4xl font-display font-bold inline-flex items-center gap-3">
+          <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3">
             <Send size={28} className="text-brand-600 dark:text-brand-400" /> Cybersec Telegram firehose
           </h1>
           <button

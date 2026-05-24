@@ -83,7 +83,7 @@ export default function FeedSources(): JSX.Element {
       </BackLink>
 
       <div className="mb-6 animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Rss size={26} className="text-brand-600 dark:text-brand-400" /> Feed Sources
         </h1>
         <p className="font-mono text-sm text-slate-600 dark:text-slate-400">

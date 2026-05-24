@@ -299,7 +299,7 @@ export default function CampaignGenerator(): JSX.Element {
       </BackLink>
 
       <div className="mb-8 animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 inline-flex items-center gap-3">
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Sparkles size={28} className="text-brand-600 dark:text-brand-400" /> Campaign Generator
           <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-brand-500/10 text-brand-600 dark:text-brand-400 border border-brand-500/30">
             AI

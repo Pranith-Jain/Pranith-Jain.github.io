@@ -199,7 +199,7 @@ export default function CampaignDetail(): JSX.Element {
         <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 animate-fade-in-up">
           <div className="flex items-start justify-between gap-3 mb-4 flex-wrap">
             <div>
-              <h1 className="text-3xl font-display font-bold mb-1 inline-flex items-center gap-2">
+              <h1 className="text-3xl font-display font-bold mb-1 flex items-center gap-2">
                 <Sparkles size={22} className="text-brand-600 dark:text-brand-400" />
                 {data.campaign.campaign_name}
               </h1>
