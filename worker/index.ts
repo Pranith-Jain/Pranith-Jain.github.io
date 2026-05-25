@@ -78,6 +78,8 @@ const STATIC_SECURITY_HEADERS: Record<string, string> = {
   'referrer-policy': 'strict-origin-when-cross-origin',
   'permissions-policy': 'camera=(), microphone=(), geolocation=(), payment=(), usb=()',
   'strict-transport-security': 'max-age=63072000; includeSubDomains; preload',
+  'cross-origin-opener-policy': 'same-origin',
+  'cross-origin-embedder-policy': 'require-corp',
   server: 'PranithJain',
 };
 

@@ -375,7 +375,16 @@ async function fetchXPulse(env: Env, out: Map<string, PulseEntity>): Promise<voi
 
 // ─── Handler ─────────────────────────────────────────────────────────────────
 
+/** Exported so /api/v1/feed-status can read the same cached payload directly. */
+export const THREAT_PULSE_CACHE_KEY = 'https://threat-pulse.internal/v1';
+export const CACHE_TTL_SECONDS = CACHE_TTL;
+
 export async function threatPulseHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const cache = (caches as unknown as { default: Cache }).default;
+  const cacheReq = new Request(THREAT_PULSE_CACHE_KEY);
+  const cached = await cache.match(cacheReq);
+  if (cached) return cached;
+
   const entityMap = new Map<string, PulseEntity>();
 
   // allSettled, not all: each fetcher is best-effort and individually
@@ -401,7 +410,10 @@ export async function threatPulseHandler(c: Context<{ Bindings: Env }>): Promise
     entities,
   };
 
-  return c.json(body, 200, {
+  const response = c.json(body, 200, {
     'Cache-Control': `public, max-age=${CACHE_TTL}`,
+    'x-cache': 'MISS',
   });
+  c.executionCtx.waitUntil(cache.put(cacheReq, response.clone()).catch(() => {}));
+  return response;
 }

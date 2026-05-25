@@ -13,3 +13,4 @@ export {
 } from './useDFIRRoute';
 export { useDFIRSettings } from './useDFIRSettings';
 export { useLastVisit, isNewSince } from './useLastVisit';
+export { useDataFetch } from './useDataFetch';

@@ -108,32 +108,44 @@ function weeklyRansomwareLine(victims: RansomwareVictim[]): { primary: string; s
 
 export function TodaysRead(): JSX.Element {
   const [det, setDet] = useState<Detection | null>(null);
+  const [detFailed, setDetFailed] = useState(false);
   const [ransom, setRansom] = useState<{ primary: string; secondary: string }>({
     primary: '…',
     secondary: 'loading',
   });
+  const [ransomFailed, setRansomFailed] = useState(false);
 
   // Latest research is static (in-bundle). The other two cards fetch live.
   const latestResearch = publishedResearch()[0] ?? null;
 
   useEffect(() => {
+    const ctrl = new AbortController();
     let cancelled = false;
     void (async () => {
       const [dRes, rRes] = await Promise.allSettled([
-        fetch('/api/v1/detections').then((r) => (r.ok ? r.json() : Promise.reject(`det ${r.status}`))),
-        fetch('/api/v1/ransomware-recent').then((r) => (r.ok ? r.json() : Promise.reject(`ransom ${r.status}`))),
+        fetch('/api/v1/detections', { signal: ctrl.signal }).then((r) =>
+          r.ok ? r.json() : Promise.reject(`det ${r.status}`)
+        ),
+        fetch('/api/v1/ransomware-recent', { signal: ctrl.signal }).then((r) =>
+          r.ok ? r.json() : Promise.reject(`ransom ${r.status}`)
+        ),
       ]);
       if (cancelled) return;
       if (dRes.status === 'fulfilled') {
         const top = pickTopDetection((dRes.value as DetectionsResponse).detections ?? []);
         setDet(top);
+      } else {
+        setDetFailed(true);
       }
       if (rRes.status === 'fulfilled') {
         setRansom(weeklyRansomwareLine((rRes.value as RansomwareResponse).victims ?? []));
+      } else {
+        setRansomFailed(true);
       }
     })();
     return () => {
       cancelled = true;
+      ctrl.abort();
     };
   }, []);
 
@@ -197,6 +209,10 @@ export function TodaysRead(): JSX.Element {
                 {det.match_count.toLocaleString()} indicators matched · {det.severity} severity
               </p>
             </>
+          ) : detFailed ? (
+            <p className="text-sm text-slate-500 dark:text-slate-400 leading-snug mt-auto italic">
+              Detection feed unavailable
+            </p>
           ) : (
             <p className="text-sm text-slate-500 dark:text-slate-400 leading-snug mt-auto">
               Loading the rule pack's current state…
@@ -218,11 +234,19 @@ export function TodaysRead(): JSX.Element {
               Ransomware · last 7d
             </span>
           </div>
-          <p className="text-2xl font-display font-bold text-slate-900 dark:text-slate-100 leading-none mb-2 tabular-nums">
-            {ransom.primary}
-            <span className="text-sm font-mono text-slate-500 ml-2">claims</span>
-          </p>
-          <p className="text-[12px] text-slate-600 dark:text-slate-400 leading-relaxed mt-auto">{ransom.secondary}</p>
+          {ransomFailed ? (
+            <p className="text-sm text-slate-500 dark:text-slate-400 leading-snug mt-auto italic">
+              Ransomware data unavailable
+            </p>
+          ) : (
+            <>
+              <p className="text-2xl font-display font-bold text-slate-900 dark:text-slate-100 leading-none mb-2 tabular-nums">
+                {ransom.primary}
+                <span className="text-sm font-mono text-slate-500 ml-2">claims</span>
+              </p>
+              <p className="text-[12px] text-slate-600 dark:text-slate-400 leading-relaxed mt-auto">{ransom.secondary}</p>
+            </>
+          )}
           <div className="mt-2.5 inline-flex items-center gap-1 text-[11px] font-mono text-rose-700 dark:text-rose-400 group-hover:underline">
             full weekly read <ArrowRight size={11} />
           </div>

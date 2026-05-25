@@ -139,18 +139,19 @@ export function PlatformPulse(): JSX.Element | null {
   const [briefings, setBriefings] = useState<BriefingItem[] | null>(null);
 
   useEffect(() => {
+    const ctrl = new AbortController();
     let cancelled = false;
-    fetch('/api/v1/briefings/list?limit=14&type=daily')
+    fetch('/api/v1/briefings/list?limit=14&type=daily', { signal: ctrl.signal })
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`${r.status}`))))
       .then((j: BriefingsListResp) => {
         if (!cancelled) setBriefings(j.items ?? []);
       })
       .catch(() => {
-        // Silent — sparkline is decorative; don't break the landing if briefings are down.
         if (!cancelled) setBriefings([]);
       });
     return () => {
       cancelled = true;
+      ctrl.abort();
     };
   }, []);
 

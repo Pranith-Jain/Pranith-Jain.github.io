@@ -81,3 +81,18 @@ jobs:
       - name: api vitest (lib + case-study + health)
         working-directory: api
         run: npx vitest run test/lib test/case-study test/health.test.ts
+
+  build:
+    name: Build + budget check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - name: Build client
+        run: npm run build:client
+      - name: Budget check
+        run: node scripts/check-budgets.mjs

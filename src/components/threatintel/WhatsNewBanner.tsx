@@ -74,18 +74,20 @@ export function WhatsNewBanner(): JSX.Element | null {
   const [dismissed, setDismissed] = useState(false);
 
   useEffect(() => {
-    if (!previous) return; // first visit — skip the fetch entirely
+    if (!previous) return;
+    const ctrl = new AbortController();
     let cancelled = false;
-    fetch('/api/v1/snapshot')
+    fetch('/api/v1/snapshot', { signal: ctrl.signal })
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`${r.status}`))))
       .then((j: SnapshotMinimal) => {
         if (!cancelled) setSnapshot(j);
       })
       .catch(() => {
-        // Silent fail — banner just won't show. Don't intrude on the page.
+        /* silent */
       });
     return () => {
       cancelled = true;
+      ctrl.abort();
     };
   }, [previous]);
 

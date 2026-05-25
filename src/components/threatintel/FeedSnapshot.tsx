@@ -45,9 +45,9 @@ export function FeedSnapshot() {
     const opts = { signal: ctrl.signal } as const;
     const now = Date.now();
     Promise.allSettled([
-      fetch('/api/v1/ransomware-recent', opts).then((r) => r.json() as Promise<RansomwareResponse>),
-      fetch('/api/v1/cve-recent', opts).then((r) => r.json() as Promise<CveResponse>),
-      fetch('/api/v1/threat-pulse', opts).then((r) => r.json() as Promise<PulseResponse>),
+      fetch('/api/v1/ransomware-recent', opts).then((r) => (r.ok ? r.json() : Promise.reject(r.status)) as Promise<RansomwareResponse>),
+      fetch('/api/v1/cve-recent', opts).then((r) => (r.ok ? r.json() : Promise.reject(r.status)) as Promise<CveResponse>),
+      fetch('/api/v1/threat-pulse', opts).then((r) => (r.ok ? r.json() : Promise.reject(r.status)) as Promise<PulseResponse>),
     ]).then(([r, c, p]) => {
       if (!alive) return;
       const ransom7d =

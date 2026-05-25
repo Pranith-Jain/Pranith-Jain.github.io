@@ -29,3 +29,16 @@ if (rootElement.firstElementChild) {
 } else {
   ReactDOM.createRoot(rootElement).render(tree);
 }
+
+// Register service worker for offline resilience and asset caching.
+// Safe to call unconditionally — browsers ignore SW registration
+// when the feature is unsupported or the page is served in a context
+// that doesn't allow it.
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(() => {
+      // SW registration can fail (private browsing, storage quota, etc).
+      // The page still loads fine — SW is purely additive.
+    });
+  });
+}

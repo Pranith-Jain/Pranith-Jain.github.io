@@ -91,7 +91,7 @@ function trim(s: unknown, max: number): string {
   return s.trim().slice(0, max);
 }
 
-export async function listExternalResourcesHandler(c: Context<{ Bindings: AdminEnv }>) {
+export async function listExternalResourcesHandler(c: Context<{ Bindings: Env }>) {
   const kv = c.env.KV_CACHE;
   if (!kv) return c.json({ items: [] }, 200, { 'cache-control': 'no-store' });
   const items = await readDynamic(kv);

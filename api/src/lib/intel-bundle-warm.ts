@@ -28,7 +28,7 @@ import type { D1Database } from '@cloudflare/workers-types';
 import type { Env } from '../env';
 import { extract } from './extract';
 import { enrichBulk } from './enrich-bulk';
-import { enrichCves } from './cve-enrich';
+import { enrichCves, type CveEnrichment } from './cve-enrich';
 import { buildStixBundle, type ReportInput } from './stix-build';
 import type { Briefing, BriefingFinding, BriefingSection } from './briefing-builder';
 import { EMPTY_LLM_ENTITIES, extractLlm as defaultExtractLlm } from './extract-llm';
@@ -187,7 +187,7 @@ export async function warmIntelBundles(env: Env, options: WarmOptions = {}): Pro
         settled[0].status === 'fulfilled'
           ? settled[0].value
           : { enrichments: [], partial: true, overflow: [], freshSubrequests: 0, droppedSubrequests: 0 };
-      const cveEnrichments = settled[1].status === 'fulfilled' ? settled[1].value : [];
+      const cveEnrichments: Map<string, CveEnrichment> = settled[1].status === 'fulfilled' ? settled[1].value : new Map();
       const llmEntities =
         settled[2].status === 'fulfilled' ? settled[2].value : { ...EMPTY_LLM_ENTITIES, ran: false, partial: false };
       const built = await buildStixBundle(report, entities, bulk, cveEnrichments, llmEntities);

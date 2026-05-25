@@ -72,6 +72,7 @@ export function LiveSignalStrip(): JSX.Element {
   const [tiles, setTiles] = useState<Tile[] | null>(null);
 
   useEffect(() => {
+    const ctrl = new AbortController();
     let cancelled = false;
 
     const empty: Tile = {
@@ -84,10 +85,11 @@ export function LiveSignalStrip(): JSX.Element {
     };
 
     void (async () => {
+      const opts = { signal: ctrl.signal } as const;
       const [rRes, dRes, iRes] = await Promise.allSettled([
-        fetch('/api/v1/ransomware-recent').then((r) => (r.ok ? r.json() : Promise.reject(`ransomware ${r.status}`))),
-        fetch('/api/v1/detections').then((r) => (r.ok ? r.json() : Promise.reject(`detections ${r.status}`))),
-        fetch('/api/v1/ioc-correlation').then((r) => (r.ok ? r.json() : Promise.reject(`correlation ${r.status}`))),
+        fetch('/api/v1/ransomware-recent', opts).then((r) => (r.ok ? r.json() : Promise.reject(`ransomware ${r.status}`))),
+        fetch('/api/v1/detections', opts).then((r) => (r.ok ? r.json() : Promise.reject(`detections ${r.status}`))),
+        fetch('/api/v1/ioc-correlation', opts).then((r) => (r.ok ? r.json() : Promise.reject(`correlation ${r.status}`))),
       ]);
       if (cancelled) return;
 
@@ -170,6 +172,7 @@ export function LiveSignalStrip(): JSX.Element {
     })();
     return () => {
       cancelled = true;
+      ctrl.abort();
     };
   }, []);
 

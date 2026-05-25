@@ -7,6 +7,7 @@ import { compositeScore } from '../lib/scoring';
 import { admiraltyGrade } from '../lib/admiralty';
 import { ProviderCache } from '../lib/cache';
 import { trackEvent, visitorCountry } from '../lib/analytics';
+import { isCircuitOpen, recordProviderFailure, recordProviderSuccess } from '../lib/circuit-breaker';
 import { virustotal } from '../providers/virustotal';
 import { abuseipdb } from '../providers/abuseipdb';
 import { shodan } from '../providers/shodan';
@@ -144,10 +145,28 @@ export async function iocCheckHandler(c: Context<{ Bindings: Env }>) {
     await runChunked(
       eligible,
       async (p) => {
+        // Circuit breaker: skip providers that have failed repeatedly.
+        if (await isCircuitOpen(p)) {
+          const skipped: ProviderResult = {
+            source: p,
+            status: 'unsupported',
+            score: 0,
+            verdict: 'unknown',
+            raw_summary: {},
+            tags: ['circuit-open'],
+            fetched_at: new Date().toISOString(),
+            cached: false,
+          };
+          collected.push(skipped);
+          write('result', skipped);
+          return;
+        }
+
         const cached = await cache.get(p, indicator);
         if (cached) {
           collected.push(cached);
           write('result', cached);
+          await recordProviderSuccess(p);
           return;
         }
         const signal = AbortSignal.timeout(PROVIDER_TIMEOUT_MS);
@@ -155,8 +174,14 @@ export async function iocCheckHandler(c: Context<{ Bindings: Env }>) {
           const r = await ADAPTERS[p](indicator, env, signal);
           collected.push(r);
           write('result', r);
-          if (r.status === 'ok') await cache.set(p, indicator, r);
+          if (r.status === 'ok') {
+            await cache.set(p, indicator, r);
+            await recordProviderSuccess(p);
+          } else {
+            await recordProviderFailure(p);
+          }
         } catch (err) {
+          await recordProviderFailure(p);
           const errResult: ProviderResult = {
             source: p,
             status: 'error',

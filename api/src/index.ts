@@ -91,6 +91,18 @@ import {
 import { googleDorksHandler } from './routes/google-dorks';
 import { emailRepHandler } from './routes/email-rep';
 import { rateLimit } from './lib/ratelimit';
+import { requestLogger } from './lib/request-logger';
+import { csrfGuard } from './lib/csrf-guard';
+import { errorHandler } from './lib/error-handler';
+import { serverTiming } from './lib/server-timing';
+import { authenticate } from './lib/auth';
+import { validate } from './lib/validate';
+import {
+  createExternalResourceSchema,
+  telegramCustomChannelSchema,
+} from './lib/schemas';
+import { createApiKeyHandler, listApiKeysHandler, revokeApiKeyHandler } from './routes/admin-keys';
+import { purgeCacheHandler } from './routes/admin-purge';
 import { malpediaActorHandler, malpediaFamilyHandler, malpediaSearchHandler } from './routes/malpedia';
 import { maltrailListHandler, maltrailFetchHandler } from './routes/maltrail';
 import { actorEnrichHandler } from './routes/actor-enrich';
@@ -122,13 +134,16 @@ app.use(
   })
 );
 
+app.use('/api/v1/*', serverTiming);
+app.use('/api/v1/*', csrfGuard);
+app.use('/api/v1/*', authenticate(false));
+app.use('/api/v1/*', requestLogger);
 app.use('/api/v1/*', rateLimit);
 
 app.get('/api/v1/health', (c) => c.json({ ok: true }, 200, { 'Cache-Control': 'public, max-age=60' }));
 app.get('/api/v1/ioc/check', iocCheckHandler);
 app.get('/api/v1/domain/lookup', domainLookupHandler);
 app.post('/api/v1/phishing/analyze', phishingAnalyzeHandler);
-app.get('/api/v1/exposure/scan', exposureScanHandler);
 app.post('/api/v1/file/analyze', fileAnalyzeHandler);
 app.get('/api/v1/feeds/proxy', feedProxyHandler);
 app.get('/api/v1/feeds/abuse-rss', abuseRssHandler);
@@ -170,7 +185,7 @@ app.get('/api/v1/web-scan', webScanHandler);
 app.get('/api/v1/onion-watch', onionWatchHandler);
 app.get('/api/v1/telegram-feed', telegramFeedHandler);
 app.get('/api/v1/telegram-custom-channels', telegramCustomChannelsGetHandler);
-app.post('/api/v1/telegram-custom-channels', telegramCustomChannelsPostHandler);
+app.post('/api/v1/telegram-custom-channels', validate('json', telegramCustomChannelSchema), telegramCustomChannelsPostHandler);
 app.delete('/api/v1/telegram-custom-channels/:handle', telegramCustomChannelsDeleteHandler);
 app.get('/api/v1/cve-recent', cveRecentHandler);
 app.get('/api/v1/cve-threat-map', cveThreatMapHandler);
@@ -207,7 +222,7 @@ app.post('/api/v1/briefings/backfill', backfillBriefingsHandler);
 app.post('/api/v1/briefings/sweep', sweepBriefingsHandler);
 app.get('/api/v1/briefings/:slug', getBriefingHandler);
 app.get('/api/v1/external-resources', listExternalResourcesHandler);
-app.post('/api/v1/external-resources', createExternalResourceHandler);
+app.post('/api/v1/external-resources', validate('json', createExternalResourceSchema), createExternalResourceHandler);
 app.delete('/api/v1/external-resources/:id', deleteExternalResourceHandler);
 registerBlogRoutes(app);
 registerAdminRoutes(app);
@@ -232,6 +247,12 @@ app.get('/api/v1/malicious-packages', maliciousPackagesHandler);
 app.get('/api/v1/x-tweets', xTweetsHandler);
 app.get('/api/v1/x-live', xLiveHandler);
 app.get('/api/v1/x-firehose', xFirehoseHandler);
+app.post('/api/v1/admin/keys', createApiKeyHandler);
+app.get('/api/v1/admin/keys', listApiKeysHandler);
+app.delete('/api/v1/admin/keys/:id', revokeApiKeyHandler);
+app.post('/api/v1/admin/purge', purgeCacheHandler);
 app.notFound((c) => c.json({ error: 'not_found' }, 404));
+
+app.onError(errorHandler);
 
 export default app;

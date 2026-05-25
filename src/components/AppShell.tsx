@@ -2,6 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Command, Moon, Sun, type LucideIcon } from 'lucide-react';
 import { preloadRoute } from '../lib/route-preloaders';
+import { useDataFetch } from '../hooks/useDataFetch';
 
 /**
  * App-shell chrome for the two stand-alone surfaces hosted next to the
@@ -221,7 +222,7 @@ function CmdkHint(): JSX.Element | null {
   );
 }
 
-interface FeedStatusBrief {
+export interface FeedStatusBrief {
   generated_at: string;
   overall: 'ok' | 'degraded' | 'down' | 'cold';
   rows: Array<{ id: string; status: 'ok' | 'degraded' | 'down' | 'cold' }>;
@@ -229,36 +230,16 @@ interface FeedStatusBrief {
 
 /**
  * Slim status row at the bottom of the app. For /threatintel, polls
- * /api/v1/feed-status every 60s and surfaces the overall health pip.
- * For /dfir, shows the static "all tools client-side or edge-only" note.
+ * /api/v1/feed-status via useDataFetch (stale-while-revalidate) and
+ * surfaces the overall health pip. For /dfir, shows the static "all
+ * tools client-side or edge-only" note.
  */
 function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' }): JSX.Element {
-  const [status, setStatus] = useState<FeedStatusBrief | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (mode !== 'threatintel') return;
-    let cancelled = false;
-    const load = async () => {
-      try {
-        const r = await fetch('/api/v1/feed-status');
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        const j = (await r.json()) as FeedStatusBrief;
-        if (!cancelled) {
-          setStatus(j);
-          setError(null);
-        }
-      } catch (e) {
-        if (!cancelled) setError((e as Error).message);
-      }
-    };
-    void load();
-    const id = window.setInterval(load, 60_000);
-    return () => {
-      cancelled = true;
-      window.clearInterval(id);
-    };
-  }, [mode]);
+  const { data: status, error, loading } = useDataFetch<FeedStatusBrief>({
+    url: mode === 'threatintel' ? '/api/v1/feed-status' : null,
+    ttl: 30_000,
+    staleWhileRevalidate: true,
+  });
 
   return (
     <footer className="border-t border-slate-200/60 dark:border-white/10 bg-white/60 dark:bg-slate-950/60 backdrop-blur-xl">
@@ -270,7 +251,7 @@ function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' }): JSX.Element {
               <span className="hidden sm:inline">No signup, no key.</span>
             </>
           ) : (
-            <StatusPip status={status} error={error} />
+            <StatusPip status={status} error={error} loading={loading} />
           )}
         </div>
         <div className="flex items-center gap-2 sm:gap-3">
@@ -295,7 +276,7 @@ function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' }): JSX.Element {
   );
 }
 
-function StatusPip({ status, error }: { status: FeedStatusBrief | null; error: string | null }): JSX.Element {
+function StatusPip({ status, error, loading }: { status: FeedStatusBrief | null; error: string | null; loading: boolean }): JSX.Element {
   if (error) {
     return (
       <span className="inline-flex items-center gap-1.5">
@@ -307,8 +288,8 @@ function StatusPip({ status, error }: { status: FeedStatusBrief | null; error: s
   if (!status) {
     return (
       <span className="inline-flex items-center gap-1.5">
-        <span className="inline-block w-1.5 h-1.5 rounded-full bg-slate-400 animate-pulse" />
-        checking feeds…
+        <span className={`inline-block w-1.5 h-1.5 rounded-full ${loading ? 'bg-slate-400 animate-pulse' : 'bg-slate-500'}`} />
+        {loading ? 'checking feeds…' : 'no data'}
       </span>
     );
   }

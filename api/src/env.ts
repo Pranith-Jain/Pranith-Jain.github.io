@@ -69,4 +69,8 @@ export interface Env {
    *  auto-publish flow. Set via `wrangler.jsonc#vars.BLOG_APPROVAL_REQUIRED`
    *  or `wrangler secret put`. */
   BLOG_APPROVAL_REQUIRED?: string;
+  /** Cloudflare zone ID for cache purge operations. */
+  CF_ZONE_ID?: string;
+  /** Cloudflare API token with Cache Purge permission. */
+  CF_API_TOKEN?: string;
 }

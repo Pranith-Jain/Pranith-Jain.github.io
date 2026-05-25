@@ -29,22 +29,27 @@ function fmt(n: number | undefined): string {
 
 export function LatestBriefingCard(): JSX.Element | null {
   const [item, setItem] = useState<BriefingItem | null>(null);
+  const [failed, setFailed] = useState(false);
 
   useEffect(() => {
+    const ctrl = new AbortController();
     let alive = true;
-    fetch('/api/v1/briefings/list?limit=1')
+    fetch('/api/v1/briefings/list?limit=1', { signal: ctrl.signal })
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
       .then((d: { items?: BriefingItem[] }) => {
         if (alive && d.items && d.items.length > 0) setItem(d.items[0] ?? null);
+        else if (alive) setFailed(true);
       })
       .catch(() => {
-        /* silent — matches PlatformPulse */
+        if (alive) setFailed(true);
       });
     return () => {
       alive = false;
+      ctrl.abort();
     };
   }, []);
 
+  if (failed) return null;
   if (!item) return null;
   const m = item.metadata ?? {};
   const s = m.stats ?? {};

@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "hono": "^4.6.0",
-    "marked": "^14.1.4"
+    "marked": "^14.1.4",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "^0.5.0",
