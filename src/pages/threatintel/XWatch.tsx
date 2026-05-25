@@ -115,6 +115,7 @@ const SECTIONS: HandleSection[] = [
       'huntresslabs',
       'MsftSecIntel',
       'Netlas_io',
+      'fofabot',
       '_CPResearch_',
       'ThreatrayLabs',
       'ReliaQuestTR',
