@@ -15,6 +15,43 @@ import type { Env as ApiEnv } from '../api/src/env';
 import type { Ai, D1Database } from '@cloudflare/workers-types';
 import { LiveFeedDO } from './durable-objects/live-feed';
 import { DfirMcpServer } from './mcp-server';
+import { CANONICAL_ORIGIN, OG_CACHE_TTL_SECONDS, getOrInjectOg, injectOgMeta } from './og';
+import { ogImageResponse } from './og-image';
+
+/** Generate a cryptographic nonce for CSP. */
+function generateNonce(): string {
+  const bytes = new Uint8Array(16);
+  crypto.getRandomValues(bytes);
+  return btoa(String.fromCharCode(...bytes));
+}
+
+/** Inject nonce into inline script tags. */
+function injectScriptNonce(html: string, nonce: string): string {
+  return html.replace(/<script(?=[^>]*>)/, `<script nonce="${nonce}"`);
+}
+
+/** Add security headers to a response. */
+function withSecurityHeaders(response: Response, nonce?: string): Response {
+  const headers = new Headers(response.headers);
+
+  // CSP with nonce for inline scripts
+  const scriptSrc = nonce ? `'self' 'nonce-${nonce}' 'strict-dynamic'` : `'self'`;
+
+  headers.set(
+    'Content-Security-Policy',
+    `default-src 'self'; script-src ${scriptSrc}; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https: wss:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'`
+  );
+  headers.set('X-Content-Type-Options', 'nosniff');
+  headers.set('X-Frame-Options', 'DENY');
+  headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+  headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
+}
 
 export { LiveFeedDO, DfirMcpServer };
 
@@ -40,446 +77,9 @@ export interface Env {
   HYBRID_ANALYSIS_API_KEY?: string;
   ABUSECH_AUTH_KEY?: string;
   RANSOMWARELIVE_API_KEY?: string;
-}
-
-/** The one true public origin. Used for canonical/OG URLs so they can never
- *  be poisoned by a request arriving on a non-canonical host. */
-const CANONICAL_ORIGIN = 'https://pranithjain.qzz.io';
-
-/**
- * Build the CSP value. When `nonce` is provided (HTML responses only),
- * `script-src` switches from the legacy `'unsafe-inline'` to nonce-based
- * — the one inline `<script>` in index.html (the theme-flash preventer)
- * gets a matching `nonce` attribute injected, and every other inline
- * script (i.e. anything an attacker manages to inject) is blocked.
- *
- * `style-src 'unsafe-inline'` is retained because React components ship
- * inline `style={...}` attributes throughout the SPA — removing it would
- * require a much bigger refactor (CSS-in-JS extraction, no inline style
- * props) than the threat warrants given XSS is multi-layer-blocked
- * (server regex sanitiser → client DOMPurify → blocked by script-src).
- */
-function cspHeader(nonce?: string): string {
-  const scriptSrc = nonce
-    ? `script-src 'self' 'nonce-${nonce}' 'wasm-unsafe-eval' https://static.cloudflareinsights.com`
-    : // API responses don't carry scripts, so the static value stays safe.
-      // The 'unsafe-inline' remains here purely as a no-op fallback — there
-      // is no <script> in JSON responses for an attacker to attach to.
-      "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://static.cloudflareinsights.com";
-  return [
-    "default-src 'self'",
-    scriptSrc,
-    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-    "img-src 'self' data: https:",
-    "connect-src 'self' https://api.cloudflare.com https://cloudflare-dns.com https://cloudflareinsights.com https://*.cloudflareinsights.com",
-    "font-src 'self' data: https://fonts.gstatic.com",
-    "frame-ancestors 'none'",
-    "base-uri 'self'",
-    "form-action 'self'",
-    "object-src 'none'",
-  ].join('; ');
-}
-
-const STATIC_SECURITY_HEADERS: Record<string, string> = {
-  'x-content-type-options': 'nosniff',
-  'x-frame-options': 'DENY',
-  'referrer-policy': 'strict-origin-when-cross-origin',
-  'permissions-policy': 'camera=(), microphone=(), geolocation=(), payment=(), usb=()',
-  'strict-transport-security': 'max-age=63072000; includeSubDomains; preload',
-  'cross-origin-opener-policy': 'same-origin',
-  'cross-origin-embedder-policy': 'require-corp',
-  server: 'PranithJain',
-};
-
-function withSecurityHeaders(response: Response, nonce?: string): Response {
-  const headers = new Headers(response.headers);
-  // CSP is ALWAYS set (not "set if missing") — the nonce changes per
-  // response, so a static value from `public/_headers` or an asset
-  // pipeline must be replaced, not preserved. If any earlier layer set
-  // a CSP, it's now overwritten by the per-response version here.
-  headers.set('content-security-policy', cspHeader(nonce));
-  for (const [k, v] of Object.entries(STATIC_SECURITY_HEADERS)) {
-    if (!headers.has(k)) headers.set(k, v);
-  }
-  return new Response(response.body, {
-    status: response.status,
-    statusText: response.statusText,
-    headers,
-  });
-}
-
-/**
- * Generate a CSP nonce. 128 random bits → base64url-encoded (≈22 chars).
- * Workers exposes the Web Crypto API natively; no Node polyfills needed.
- */
-function generateNonce(): string {
-  const bytes = new Uint8Array(16);
-  crypto.getRandomValues(bytes);
-  // Inline base64url so we don't depend on `Buffer` or polyfills.
-  let bin = '';
-  for (let i = 0; i < bytes.length; i += 1) bin += String.fromCharCode(bytes[i]!);
-  return btoa(bin).replace(/=+$/, '').replace(/\+/g, '-').replace(/\//g, '_');
-}
-
-/**
- * Inject `nonce="…"` into the one inline `<script>` in our index.html
- * (the theme-flash preventer). External scripts (`<script type="module"
- * crossorigin src="…">`) don't need a nonce — they're covered by
- * `script-src 'self'`. Matching `<script>` with no attributes scopes
- * the rewrite to the inline tag only. Idempotent (the cache stores the
- * nonce-less HTML; this runs per request).
- */
-function injectScriptNonce(html: string, nonce: string): string {
-  return html.replace(/<script>/g, `<script nonce="${nonce}">`);
-}
-
-/**
- * Per-route social metadata overrides. The SPA serves the same index.html
- * for every path, so without rewriting the OG tags at the edge, any social-
- * media bot that fetches `/threatintel/correlation` sees the portfolio-root
- * meta and routes preview-clicks back to `/`.
- *
- * Lookup is exact-match first, then longest-matching prefix (so
- * `/threatintel/anything-else` still inherits the `/threatintel` card).
- */
-interface OgOverride {
-  title: string;
-  description: string;
-  /**
-   * Optional per-surface OG image. When set, the worker rewrites
-   * `og:image` + `twitter:image` to this URL so a share-preview of
-   * /threatintel renders the CTI card, /dfir renders the toolkit card,
-   * and everything else falls back to the portfolio default in
-   * index.html. Use a relative path; the worker joins it with the
-   * canonical origin.
-   */
-  image?: string;
-}
-
-const OG_OVERRIDES: Record<string, OgOverride> = {
-  '/threatintel': {
-    title: 'Threat Intel Platform · pranithjain.qzz.io',
-    description:
-      'A working CTI surface on the edge. Live ransomware leak claims, CVE merged with CISA KEV, cross-source IOC correlation across 18 feeds, an actor-activity Gantt joined with MITRE Group profiles, victim re-leak detection, ten-panel metrics, STIX 2.1 export, and a writeups aggregator across 18 analyst blogs.',
-    image: '/og-threatintel.png',
-  },
-  '/threatintel/external-resources': {
-    title: 'External Resources Catalog · pranithjain.qzz.io',
-    description:
-      'Off-site cross-references for threat-intel work — dashboards (My Threat Intel, World Monitor), OSINT directories, training labs (AI Goat, WebVerse, VulnOS), malware samples, and AI-security research. Filterable by kind, searchable by name/description.',
-  },
-  '/threatintel/correlation': {
-    title: 'Cross-source IOC correlation · pranithjain.qzz.io',
-    description:
-      'Indicators that appear in 2+ independent IOC feeds, ranked by source consensus. Single-feed flags can be false positives; cross-source overlap is the signal analysts trust. 18 feeds aggregated.',
-  },
-  '/threatintel/live-iocs': {
-    title: 'Live IOC stream · pranithjain.qzz.io',
-    description:
-      'Chronological firehose of individual indicators. Each entry carries a reporter handle, source feed, and first-observed timestamp. 10 sources including TweetFeed, SANS ISC, C2IntelFeeds, URLhaus, ThreatFox.',
-  },
-  '/threatintel/detections': {
-    title: 'Detections · pranithjain.qzz.io',
-    description:
-      'A curated detection-rule pack evaluated hourly against the unified live-IOC stream. Cross-feed consensus, Cobalt Strike / C2, ransomware and infostealer tagging, and phishing-campaign clustering — each firing rule shown with the indicators that triggered it.',
-  },
-  '/dfir/detection-lab': {
-    title: 'Detection Lab · pranithjain.qzz.io',
-    description:
-      'Write a detection rule in a small JSON DSL and evaluate it in your browser against the live multi-feed IOC stream. Cross-feed consensus, value/context/source predicates, save and export — the same engine that powers /threatintel/detections.',
-  },
-  '/dfir/rule-converter': {
-    title: 'Rule Converter · pranithjain.qzz.io',
-    description:
-      'Universal heuristic detection-rule translation — any format to any other. Sigma, Microsoft KQL, Splunk SPL, Elastic Lucene & EQL, YARA, DLP regex, and a supply-chain Semgrep scaffold, each both source and target via one intermediate representation. Every lossy step flagged. 100% client-side.',
-  },
-  '/threatintel/actor-timeline': {
-    title: 'Ransomware actor activity timeline · pranithjain.qzz.io',
-    description:
-      'Per-actor leak-site cadence across the last 30 days, joined with curated MITRE ATT&CK Group references. Pivot from "who is posting" to "what TTPs to hunt for."',
-  },
-  '/threatintel/re-leaks': {
-    title: 'Victim re-leak detection · pranithjain.qzz.io',
-    description:
-      'Victims claimed by 2+ ransomware groups in the last 12 months. Usually a failed double-extortion or an affiliate moving programs.',
-  },
-  '/threatintel/metrics': {
-    title: 'Threat Intel Metrics · pranithjain.qzz.io',
-    description:
-      'Ten panels answering the questions a CTI team actually asks. Most-active ransomware groups, CVE severity, KEV cadence, top-impersonated brands, IOC volume by source, sector targeting, malware families, re-leak hotspots.',
-  },
-  '/threatintel/writeups': {
-    title: 'CTI writeups feed · pranithjain.qzz.io',
-    description:
-      'Live aggregation of long-form CTI writeups from 18 analyst blogs and vendor research labs: The DFIR Report, BushidoToken, DoublePulsar, Krebs, SentinelLabs, Unit 42, Check Point Research, Huntress, and more.',
-  },
-  '/threatintel/research': {
-    title: 'Threat-intel research · pranithjain.qzz.io',
-    description:
-      "Original adversary-tracking and methodology pieces written by Pranith Jain. Every quantitative claim sourced to this platform's own aggregated feeds or to named third-party reporting.",
-  },
-  '/threatintel/cve-list': {
-    title: 'Live CVE updates · pranithjain.qzz.io',
-    description:
-      'NVD published-CVE feed merged with the CISA KEV catalogue. Severity, KEV flag, ransomware-use flag, and a curated actor pill where attribution exists.',
-  },
-  '/threatintel/status': {
-    title: 'Feed status · pranithjain.qzz.io',
-    description: 'Health of every upstream-backed feed on the threat-intel platform.',
-  },
-  '/dfir': {
-    title: 'DFIR Toolkit · pranithjain.qzz.io',
-    description:
-      'Interactive DFIR tools on the edge. IOC checker streaming verdicts from 24 providers, Diamond Model builder with auto-fill, STIX 2.1 viewer, subdomain-takeover fingerprinting, MITRE ATT&CK matrix, and a long tail of analyst utilities. Free, no signup.',
-    image: '/og-dfir.png',
-  },
-  '/dfir/ioc-check': {
-    title: 'IOC Checker · pranithjain.qzz.io',
-    description:
-      'Paste any IP, domain, URL, hash, or CVE. Get streaming verdicts from VirusTotal, AbuseIPDB, OTX, GreyNoise, the abuse.ch trio, and a long tail of free reputation lists.',
-  },
-  '/dfir/diamond': {
-    title: 'Diamond Model auto-fill · pranithjain.qzz.io',
-    description:
-      'Build an intrusion-event Diamond Model. Paste any IOC or actor name and the four corners auto-populate from IOC checker, ip-geo, cross-source correlation, KEV-actor mapping, MalwareBazaar, and ransomware-victim cross-match.',
-  },
-  '/about': {
-    title: 'About · Pranith Jain',
-    description:
-      'Security analyst and detection engineer. Phishing, BEC, and malware incidents at human scale; defenders built at AI scale. 250+ incidents, 1300+ domains secured, 75-minute mean response time.',
-  },
-  '/projects': {
-    title: 'Projects · Pranith Jain',
-    description:
-      'A working CTI platform, a DFIR toolkit, a CTI STIX connector, email-infrastructure automation across 1,300+ domains, and a handful of older capstones.',
-  },
-  '/skills': {
-    title: 'Skills · Pranith Jain',
-    description:
-      'Email security and deliverability, threat intelligence, cyber criminology and OSINT, email threat response, cloud identity security, and AI for security automation.',
-  },
-  '/experience': {
-    title: 'Experience · Pranith Jain',
-    description:
-      'Security Analyst at Qubit Capital, Tech Associate at UnifyCX, and earlier engineering roles. Email security operations, infrastructure monitoring, phishing and BEC investigation, SOC automation, and domain-abuse monitoring.',
-  },
-  '/blog': {
-    title: 'Blog · Pranith Jain',
-    description:
-      'Security case studies — CVE & CISA-KEV breakdowns, ransomware activity, threat-actor TTPs, malware and breach analysis. Auto-generated from live threat-intel feeds.',
-  },
-};
-
-/**
- * Resolve a path to an OgOverride by merging every matching entry in
- * OG_OVERRIDES — exact match plus all prefix matches — with longer (more
- * specific) keys winning per field, AND missing fields inheriting from
- * shorter (less specific) parent keys.
- *
- * Why merge instead of pick-most-specific: image inheritance. The
- * /threatintel/correlation override carries a route-specific title and
- * description, but no image. The previous lookup returned just that
- * override, which meant `image` was undefined and the worker fell back
- * to the build-time portfolio default. Now /threatintel's image inherits
- * down to /threatintel/correlation while correlation's title still wins.
- *
- * Returns null only when neither an exact match nor any prefix match
- * exists for the path.
- */
-function findOgOverride(pathname: string): OgOverride | null {
-  const matches: Array<{ key: string; value: OgOverride }> = [];
-  for (const [k, v] of Object.entries(OG_OVERRIDES)) {
-    if (k === pathname || pathname.startsWith(`${k}/`)) {
-      matches.push({ key: k, value: v });
-    }
-  }
-  if (matches.length === 0) return null;
-
-  // Ascending by key length so the merge walks shortest-prefix first,
-  // letting longer (more specific) keys overwrite parent fields. Exact
-  // match (longest possible) ends up last and wins on every defined
-  // field while leaving its undefined fields untouched.
-  matches.sort((a, b) => a.key.length - b.key.length);
-
-  let merged: OgOverride = { title: '', description: '' };
-  for (const { value } of matches) {
-    merged = {
-      title: value.title || merged.title,
-      description: value.description || merged.description,
-      image: value.image ?? merged.image,
-    };
-  }
-  return merged;
-}
-
-const HTML_ATTR_ESCAPE: Record<string, string> = {
-  '&': '&amp;',
-  '<': '&lt;',
-  '>': '&gt;',
-  '"': '&quot;',
-  "'": '&#39;',
-};
-
-function escapeAttr(s: string): string {
-  return s.replace(/[&<>"']/g, (c) => HTML_ATTR_ESCAPE[c] ?? c);
-}
-
-/**
- * Always corrects the canonical URL + og:url + twitter:url to the actual
- * requested page. Without this, EVERY non-overridden deep link (notably
- * /blog/:slug) was served index.html's build-time og:url/canonical pointing
- * at the site root — so LinkedIn/Twitter resolved a shared blog link to the
- * HOME page and showed the home card. Title/description are additionally
- * rewritten only when we have a route- or post-specific override.
- */
-function rewriteOgMeta(html: string, override: OgOverride | null, fullUrl: string): string {
-  const u = escapeAttr(fullUrl);
-  let out = html
-    .replace(/<link rel="canonical" href="[^"]*"/i, `<link rel="canonical" href="${u}"`)
-    .replace(/<meta property="og:url" content="[^"]*"/i, `<meta property="og:url" content="${u}"`)
-    .replace(/<meta name="twitter:url" content="[^"]*"/i, `<meta name="twitter:url" content="${u}"`);
-  if (override) {
-    const t = escapeAttr(override.title);
-    const d = escapeAttr(override.description);
-    out = out
-      .replace(/<title>[^<]*<\/title>/i, `<title>${t}</title>`)
-      .replace(/<meta name="description" content="[^"]*"/i, `<meta name="description" content="${d}"`)
-      .replace(/<meta property="og:title" content="[^"]*"/i, `<meta property="og:title" content="${t}"`)
-      .replace(/<meta property="og:description" content="[^"]*"/i, `<meta property="og:description" content="${d}"`)
-      .replace(/<meta name="twitter:title" content="[^"]*"/i, `<meta name="twitter:title" content="${t}"`)
-      .replace(/<meta name="twitter:description" content="[^"]*"/i, `<meta name="twitter:description" content="${d}"`);
-
-    // Per-route OG image. Swap `og:image` and `twitter:image` to the
-    // override's image. Path is joined with the canonical origin so
-    // social-media bots receive an absolute URL (relative og:image
-    // values break on LinkedIn and Slack regardless of base/canonical).
-    if (override.image) {
-      const imgUrl = `${CANONICAL_ORIGIN}${override.image}`;
-      const imgAttr = escapeAttr(imgUrl);
-      out = out
-        .replace(/<meta property="og:image" content="[^"]*"/i, `<meta property="og:image" content="${imgAttr}"`)
-        .replace(
-          /<meta property="twitter:image" content="[^"]*"/i,
-          `<meta property="twitter:image" content="${imgAttr}"`
-        );
-    }
-  }
-  return out;
-}
-
-/**
- * Resolve per-route OG title/description: static map first, then a live
- * lookup for blog posts so a shared /blog/<slug> shows the POST's title and
- * excerpt (not the generic blog card). Returns null when there's no
- * meaningful override — the URL/canonical still get corrected regardless.
- */
-async function resolveOg(url: URL, env: Env): Promise<OgOverride | null> {
-  // Blog POST first — must run before findOgOverride, which prefix-matches
-  // `/blog` for `/blog/<slug>` and would otherwise shadow the per-post card.
-  const m = /^\/blog\/([a-z0-9-]{1,200})$/.exec(url.pathname);
-  if (m && env.CASE_STUDIES) {
-    try {
-      const post = (await env.CASE_STUDIES.get(`posts:${m[1]}`, 'json')) as {
-        title?: string;
-        excerpt?: string;
-      } | null;
-      if (post?.title) {
-        return {
-          title: `${post.title} · Pranith Jain`,
-          description: post.excerpt?.slice(0, 280) || OG_OVERRIDES['/blog']!.description,
-        };
-      }
-    } catch {
-      /* fall through to the generic blog card */
-    }
-    return OG_OVERRIDES['/blog'] ?? null;
-  }
-  return findOgOverride(url.pathname);
-}
-
-/**
- * Mutate the static index.html so the OG / Twitter / canonical metadata
- * reflects the actual route. Only kicks in for HTML responses (asset router
- * returns text/html for SPA fallback paths). Anything else passes through.
- */
-async function injectOgMeta(response: Response, url: URL, env: Env): Promise<Response> {
-  const ct = response.headers.get('content-type') ?? '';
-  if (!ct.toLowerCase().includes('text/html')) return response;
-  const override = await resolveOg(url, env);
-  // Canonical origin is fixed, never derived from the request. Deriving it
-  // from url.origin let a non-canonical host (alias / smuggled Host) poison
-  // the cached canonical + og:url served to everyone on that path. Note:
-  // rewrite ALWAYS runs (even with no title/desc override) so og:url +
-  // canonical point at THIS page — that's the blog-share-to-home fix.
-  const fullUrl = `${CANONICAL_ORIGIN}${url.pathname}`;
-  const html = await response.text();
-  const rewritten = rewriteOgMeta(html, override, fullUrl);
-  const headers = new Headers(response.headers);
-  return new Response(rewritten, { status: response.status, statusText: response.statusText, headers });
-}
-
-/**
- * Cache the OG-rewritten HTML in the Cache API, keyed by `pathname @ etag`.
- *
- * Why the etag matters: a redeploy bumps Vite's chunk hashes inside index.html,
- * so the rewritten HTML now references new <script src> filenames. The OLD
- * filenames are deleted from the assets binding on deploy. If we cached only
- * by pathname, users would hit stale HTML referencing deleted bundles and
- * get 404s on the chunk fetch for up to TTL.
- *
- * The asset binding's etag is content-derived, so on every redeploy the
- * underlying index.html gets a new etag → new cache key → cold rewrite →
- * cached version always matches the assets currently on disk. That makes
- * it safe to use a much longer TTL than the 10 min we'd need without the
- * etag suffix; 1d gives us very high hit rate with zero staleness risk.
- */
-const OG_CACHE_TTL_SECONDS = 86_400;
-
-async function getOrInjectOg(request: Request, env: Env, ctx: ExecutionContext, url: URL): Promise<Response> {
-  // Runs for EVERY SPA HTML route now (not just OG_OVERRIDES ones): even
-  // with no title/desc override we must correct og:url + canonical so a
-  // shared deep link (blog post etc.) resolves to that page, not home.
-
-  // Asset fetch is required up-front because the cache key depends on the
-  // etag of the underlying asset. This is cheap — env.ASSETS.fetch is a
-  // local-edge lookup, and on cache hit we never read the body (no
-  // .text() call) so the bytes don't move.
-  const assetRes = await env.ASSETS.fetch(request);
-  const ct = assetRes.headers.get('content-type') ?? '';
-  if (!ct.toLowerCase().includes('text/html')) return assetRes;
-
-  const etag = assetRes.headers.get('etag') ?? assetRes.headers.get('last-modified') ?? 'unversioned';
-  const cache = caches.default;
-  // Key includes the request host: the rewritten HTML is host-independent
-  // now (canonical is constant), but keying by host as well as path@etag
-  // keeps a non-canonical host's responses from ever sharing an entry.
-  // Cache-key version. Bumped whenever the OG rewrite logic changes
-  // (rewriteOgMeta, findOgOverride, OG_OVERRIDES image inheritance,
-  // etc.) so a deploy busts cached entries even though the asset
-  // etag didn't change — the asset is the unchanged index.html shell,
-  // but the rewrite *of* that shell is what we're actually caching.
-  //   v1 (implicit): original title/description rewrite
-  //   v2: image swap added; sub-route image inheritance via merged
-  //       OG_OVERRIDES lookup
-  const REWRITE_VERSION = 'v2';
-  const cacheKey = new Request(
-    `https://og-html.internal/${REWRITE_VERSION}/${encodeURIComponent(url.host)}${url.pathname}@${encodeURIComponent(etag)}`
-  );
-  const cached = await cache.match(cacheKey);
-  if (cached) return cached;
-
-  const withOg = await injectOgMeta(assetRes, url, env);
-  const toCache = new Response(withOg.clone().body, {
-    status: withOg.status,
-    statusText: withOg.statusText,
-    headers: (() => {
-      const h = new Headers(withOg.headers);
-      h.set('cache-control', `public, max-age=${OG_CACHE_TTL_SECONDS}`);
-      return h;
-    })(),
-  });
-  ctx.waitUntil(cache.put(cacheKey, toCache));
-  return withOg;
+  CROWDSEC_API_KEY?: string;
+  IPINFO_TOKEN?: string;
+  CRIMINALIP_API_KEY?: string;
 }
 
 /**
@@ -559,6 +159,12 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/rule-converter', '/__prerendered/dfir__rule-converter'],
   ['/dfir/rule-playground', '/__prerendered/dfir__rule-playground'],
   ['/dfir/yara', '/__prerendered/dfir__yara'],
+  ['/dfir/report-parser', '/__prerendered/dfir__report-parser'],
+  ['/dfir/ioc-lifecycle', '/__prerendered/dfir__ioc-lifecycle'],
+  ['/dfir/ct-monitor', '/__prerendered/dfir__ct-monitor'],
+  ['/dfir/stealer-parser', '/__prerendered/dfir__stealer-parser'],
+  ['/dfir/taxii', '/__prerendered/dfir__taxii'],
+  ['/dfir/bloom', '/__prerendered/dfir__bloom'],
   ['/dfir/detection-lab', '/__prerendered/dfir__detection-lab'],
   ['/dfir/prompt-injection', '/__prerendered/dfir__prompt-injection'],
   ['/dfir/mcp-audit', '/__prerendered/dfir__mcp-audit'],
@@ -733,15 +339,52 @@ async function fetchPrerenderedOrShell(
   // the visitor actually landed on. The fallback (SPA-shell) branch
   // already ran getOrInjectOg(); this brings the prerendered branch
   // into parity. Same per-route OG_OVERRIDES drive both branches now.
+  //
+  // Cache the OG-rewritten + nonce-stripped HTML in the Cache API keyed
+  // by pathname@etag so redeployments bust stale entries (same pattern
+  // as getOrInjectOg). On cache hit we skip the OG rewrite entirely and
+  // only inject the per-request nonce.
+  const etag = prerenderRes.headers.get('etag') ?? prerenderRes.headers.get('last-modified') ?? 'unversioned';
+  const cache = caches.default;
+  const REWRITE_VERSION = 'v2';
+  const prerenderCacheKey = new Request(
+    `https://prerendered-og.internal/${REWRITE_VERSION}/${encodeURIComponent(url.host)}${url.pathname}@${encodeURIComponent(etag)}`
+  );
+  const prerenderCacheHit = await cache.match(prerenderCacheKey);
+  if (prerenderCacheHit) {
+    const body = injectScriptNonce(await prerenderCacheHit.text(), nonce);
+    const h = new Headers(prerenderCacheHit.headers);
+    h.set('x-ssr-source', 'prerendered-cache');
+    return new Response(body, {
+      status: prerenderCacheHit.status,
+      statusText: prerenderCacheHit.statusText,
+      headers: h,
+    });
+  }
+
   const ogRewritten = await injectOgMeta(prerenderRes, url, env);
-  const headers = new Headers(ogRewritten.headers);
-  headers.set('cache-control', `public, max-age=${OG_CACHE_TTL_SECONDS}`);
-  headers.set('x-ssr-source', 'prerendered');
+  const ogHeaders = new Headers(ogRewritten.headers);
+  ogHeaders.set('cache-control', `public, max-age=${OG_CACHE_TTL_SECONDS}`);
+  ogHeaders.set('x-ssr-source', 'prerendered');
+
+  // Store the OG-rewritten HTML (without nonce) so subsequent requests
+  // only pay the cost of nonce injection.
+  const toCache = new Response(ogRewritten.clone().body, {
+    status: ogRewritten.status,
+    statusText: ogRewritten.statusText,
+    headers: (() => {
+      const h = new Headers(ogHeaders);
+      h.set('cache-control', `public, max-age=${OG_CACHE_TTL_SECONDS}`);
+      return h;
+    })(),
+  });
+  ctx.waitUntil(cache.put(prerenderCacheKey, toCache));
+
   const body = injectScriptNonce(await ogRewritten.text(), nonce);
   return new Response(body, {
     status: ogRewritten.status,
     statusText: ogRewritten.statusText,
-    headers,
+    headers: ogHeaders,
   });
 }
 
@@ -1010,7 +653,13 @@ export default {
           try {
             const watchAlerts = await checkWatches(env.KV_CACHE as unknown as KVNamespace, new Date().toISOString());
             if (watchAlerts.length > 0) {
-              console.log(JSON.stringify({ job: 'watch-engine', triggered: watchAlerts.length, alerts: watchAlerts.map(a => ({ label: a.label, type: a.type, match: a.match })) }));
+              console.log(
+                JSON.stringify({
+                  job: 'watch-engine',
+                  triggered: watchAlerts.length,
+                  alerts: watchAlerts.map((a) => ({ label: a.label, type: a.type, match: a.match })),
+                })
+              );
             }
           } catch (e) {
             console.error(JSON.stringify({ job: 'watch-engine', error: e instanceof Error ? e.message : String(e) }));
@@ -1020,20 +669,24 @@ export default {
           if (new Date().getUTCHours() === 6) {
             try {
               const bl = await buildBlocklists(env.KV_CACHE);
-              console.log(JSON.stringify({
-                job: 'blocklist-build',
-                ip_count: bl.ip_count,
-                generated_at: bl.generated_at,
-                pfsense_bytes: bl.pfsense.length,
-                iptables_bytes: bl.iptables.length,
-                suricata_bytes: bl.suricata.length,
-              }));
+              console.log(
+                JSON.stringify({
+                  job: 'blocklist-build',
+                  ip_count: bl.ip_count,
+                  generated_at: bl.generated_at,
+                  pfsense_bytes: bl.pfsense.length,
+                  iptables_bytes: bl.iptables.length,
+                  suricata_bytes: bl.suricata.length,
+                })
+              );
             } catch (e) {
-              console.error(JSON.stringify({
-                job: 'blocklist-build',
-                status: 'failed',
-                error: e instanceof Error ? e.message : String(e),
-              }));
+              console.error(
+                JSON.stringify({
+                  job: 'blocklist-build',
+                  status: 'failed',
+                  error: e instanceof Error ? e.message : String(e),
+                })
+              );
             }
           }
         })().catch(logCronFail('hourly-cron'))
