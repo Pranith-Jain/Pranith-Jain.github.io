@@ -310,6 +310,44 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/detections', '/__prerendered/threatintel__detections'],
 ]);
 
+/**
+ * Dynamic route patterns that should fall back to their parent page's
+ * prerendered HTML. The client-side React Router handles the dynamic
+ * parameter, but we need to serve real HTML (not the empty SPA shell)
+ * so the page isn't blank before hydration.
+ *
+ * Pattern: [/prefix/:param, /parent-prerendered-path]
+ */
+const DYNAMIC_ROUTE_FALLBACKS: Array<[RegExp, string]> = [
+  // ThreatIntel category pages
+  [/^\/threatintel\/c\/[a-z0-9-]+$/, '/__prerendered/threatintel'],
+  // ThreatIntel sub-pages with dynamic slugs
+  [/^\/threatintel\/wiki\/[a-z0-9-]+$/, '/__prerendered/threatintel__wiki'],
+  [/^\/threatintel\/actors\/[a-z0-9-]+$/, '/__prerendered/threatintel__actors'],
+  [/^\/threatintel\/briefings\/[a-z0-9-]+$/, '/__prerendered/threatintel__briefings'],
+  [/^\/threatintel\/campaigns\/[a-z0-9-]+$/, '/__prerendered/threatintel__campaigns'],
+  [/^\/threatintel\/research\/[a-z0-9-]+$/, '/__prerendered/threatintel__research'],
+  [/^\/threatintel\/infostealer\/[a-z0-9-]+$/, '/__prerendered/threatintel__infostealer'],
+  // Blog pages
+  [/^\/blog\/[a-z0-9-]+$/, '/__prerendered/blog'],
+  [/^\/blog\/c\/[a-z0-9-]+$/, '/__prerendered/blog'],
+  // Projects
+  [/^\/projects\/[a-z0-9-]+$/, '/__prerendered/projects'],
+  // DFIR tools category
+  [/^\/dfir\/tools\/[a-z0-9-]+$/, '/__prerendered/dfir'],
+  // DFIR briefings
+  [/^\/dfir\/briefings\/[a-z0-9-]+$/, '/__prerendered/threatintel__briefings'],
+];
+
+function resolveDynamicRoute(pathname: string): string | null {
+  for (const [pattern, fallback] of DYNAMIC_ROUTE_FALLBACKS) {
+    if (pattern.test(pathname)) {
+      return fallback;
+    }
+  }
+  return null;
+}
+
 async function fetchPrerenderedOrShell(
   request: Request,
   env: Env,
@@ -317,7 +355,14 @@ async function fetchPrerenderedOrShell(
   url: URL,
   nonce: string
 ): Promise<Response> {
-  const prerenderedPath = PRERENDERED_ROUTES.get(url.pathname);
+  // Try exact match first
+  let prerenderedPath = PRERENDERED_ROUTES.get(url.pathname);
+
+  // If no exact match, try dynamic route fallbacks
+  if (!prerenderedPath) {
+    prerenderedPath = resolveDynamicRoute(url.pathname);
+  }
+
   if (!prerenderedPath) {
     const r = await getOrInjectOg(request, env, ctx, url);
     const body = injectScriptNonce(await r.text(), nonce);
