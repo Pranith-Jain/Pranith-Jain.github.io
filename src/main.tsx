@@ -18,17 +18,15 @@ const tree = (
   </React.StrictMode>
 );
 
-// Prerendered routes ship real HTML inside <div id="root">. Hydrate that
-// markup so React adopts the existing DOM instead of replacing it. Empty
-// SPA-shell routes (vite-built dist/index.html with no inner content)
-// still go through createRoot.
+// The SSR (React) and client (Preact) use different rendering engines,
+// so hydrateRoot frequently fails — Preact's hydration doesn't recognise
+// React's Suspense comment-marker output, causing the prerendered DOM
+// to be preserved alongside a fresh client-rendered copy ("double page").
 //
-// Detection: any prerendered output has at least one element child.
-if (rootElement.firstElementChild) {
-  ReactDOM.hydrateRoot(rootElement, tree);
-} else {
-  ReactDOM.createRoot(rootElement).render(tree);
-}
+// Fix: always use createRoot. Prerendered HTML still serves bots and
+// first paint; createRoot replaces it on client hydration, eliminating
+// the duplicate content.
+ReactDOM.createRoot(rootElement).render(tree);
 
 // Register service worker for offline resilience and asset caching.
 // Safe to call unconditionally — browsers ignore SW registration
