@@ -34,12 +34,17 @@ function injectScriptNonce(html: string, nonce: string): string {
 function withSecurityHeaders(response: Response, nonce?: string): Response {
   const headers = new Headers(response.headers);
 
-  // CSP with nonce for inline scripts
-  const scriptSrc = nonce ? `'self' 'nonce-${nonce}' 'strict-dynamic'` : `'self'`;
+  // CSP — the meta tag in index.html already has a policy for inline
+  // scripts ('unsafe-inline'). The HTTP header CSP adds the nonce for
+  // the theme-flash script but MUST NOT use 'strict-dynamic' because
+  // that blocks external <script src> tags that don't carry the nonce.
+  // Both policies are applied (most restrictive wins), so we keep this
+  // permissive enough that the bundled JS can load.
+  const scriptSrc = nonce ? `'self' 'nonce-${nonce}' 'unsafe-inline'` : `'self' 'unsafe-inline'`;
 
   headers.set(
     'Content-Security-Policy',
-    `default-src 'self'; script-src ${scriptSrc}; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https: wss:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'`
+    `default-src 'self'; script-src ${scriptSrc} https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https: wss:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'`
   );
   headers.set('X-Content-Type-Options', 'nosniff');
   headers.set('X-Frame-Options', 'DENY');
@@ -395,7 +400,7 @@ async function fetchPrerenderedOrShell(
   // only inject the per-request nonce.
   const etag = prerenderRes.headers.get('etag') ?? prerenderRes.headers.get('last-modified') ?? 'unversioned';
   const cache = caches.default;
-  const REWRITE_VERSION = 'v2';
+  const REWRITE_VERSION = 'v3';
   const prerenderCacheKey = new Request(
     `https://prerendered-og.internal/${REWRITE_VERSION}/${encodeURIComponent(url.host)}${url.pathname}@${encodeURIComponent(etag)}`
   );
