@@ -16,14 +16,14 @@ export async function triageSearchHandler(c: Context<{ Bindings: Env }>): Promis
   if (cached) return new Response(cached.body, cached);
 
   try {
-    const res = await fetch(`https://tria.ge/api/v1/search?query=${encodeURIComponent(q)}`, {
+    const res = await fetch(`https://api.tria.ge/v0/search?query=${encodeURIComponent(q)}`, {
       headers: { 'accept': 'application/json', 'authorization': `Bearer ${apiKey}` },
       signal: AbortSignal.timeout(15000),
     });
     if (!res.ok) return c.json({ error: `Triage upstream ${res.status}` }, 502);
 
     const data = await res.json() as any;
-    const results = data?.data ?? data?.results ?? [];
+    const results = data?.data ?? data?.results ?? data?.analyses ?? [];
     const body = JSON.stringify({ count: Array.isArray(results) ? results.length : 0, results, generated_at: new Date().toISOString() });
     const response = new Response(body, {
       status: 200,

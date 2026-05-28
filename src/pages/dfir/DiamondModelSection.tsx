@@ -124,7 +124,7 @@ export default function DiamondModelSection({ actor }: Props): JSX.Element {
 
           <hr className="border-slate-200 dark:border-slate-800" />
 
-          <div className="grid grid-cols-3 gap-3 text-center">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center">
             <div>
               <p className="text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-500">Motivation</p>
               <p className="text-xs font-mono text-slate-900 dark:text-slate-100 mt-0.5">{actor.motivation}</p>

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ExternalLink, RefreshCw, Plus, X, Eye, Bell, Search, Filter, Sparkles } from 'lucide-react';
 import { useLastVisit, isNewSince, useFocusTrap } from '../../hooks';
@@ -153,13 +153,14 @@ function highlightInText(text: string, query: string, watchTerms: string[]): JSX
  * RansomwareActivity.tsx, CybersecTelegram.tsx, BreachDisclosures.tsx.
  */
 export default function DarkWeb(): JSX.Element {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [items, setItems] = useState<FeedItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [sourceCount, setSourceCount] = useState(0);
   const [watchlist, setWatchlist] = useState<string[]>([]);
   const [newTerm, setNewTerm] = useState('');
-  // Search controls
-  const [search, setSearch] = useState('');
+  // Search controls — persisted in URL as ?q=
+  const [search, setSearch] = useState(searchParams.get('q') ?? '');
   const [activeSources, setActiveSources] = useState<Set<string>>(() => new Set(ALL_FEED_IDS));
   const [dateWindow, setDateWindow] = useState<DateWindow>('30d');
 
@@ -169,6 +170,12 @@ export default function DarkWeb(): JSX.Element {
     const savedSources = loadJson<string[]>(STORAGE_KEY_SOURCES, ALL_FEED_IDS);
     setActiveSources(new Set(savedSources.length > 0 ? savedSources : ALL_FEED_IDS));
   }, []);
+
+  // Sync search to URL as ?q=
+  useEffect(() => {
+    if (search) setSearchParams({ q: search }, { replace: true });
+    else setSearchParams({}, { replace: true });
+  }, [search, setSearchParams]);
 
   const fetchFeeds = useCallback(async () => {
     setLoading(true);

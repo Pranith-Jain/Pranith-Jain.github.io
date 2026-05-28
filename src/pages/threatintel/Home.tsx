@@ -24,7 +24,6 @@ import {
   KeyRound,
   Layers,
   MessageSquare,
-  Mic,
   Newspaper,
   Radio,
   Radar,
@@ -130,20 +129,6 @@ const SECTIONS: Section[] = [
         desc: 'Authenticated, edge-cached view of the MyThreatIntel CTI platform REST API: IOCs, malware, CVEs, ransomware victims, leaks, threat groups, darknet markets, and onion services.',
         icon: Radar,
         badge: 'live',
-      },
-    ],
-  },
-  {
-    id: 'interviews',
-    label: 'Interviews & Research',
-    blurb: 'First-person interviews with ransomware operators and cybercrime researchers.',
-    tools: [
-      {
-        to: 'https://ransomware-interviews.base44.app/',
-        label: 'Ransomware operator interviews',
-        desc: 'First-person conversations with ransomware operators. Negotiation tactics, affiliate economics, and the human side of the ransomware ecosystem.',
-        icon: Mic,
-        external: true,
       },
     ],
   },
@@ -344,6 +329,13 @@ const SECTIONS: Section[] = [
         label: 'AI Investigation Copilot',
         desc: 'AI-powered threat investigation. Paste a CVE, IP, domain, hash, or actor name — auto-detects query type, fans out to 6 cache sources, and returns analysis via Groq or Workers AI.',
         icon: Sparkles,
+        badge: 'new',
+      },
+      {
+        to: '/threatintel/relationship-graph',
+        label: 'Relationship Graph',
+        desc: 'Interactive graph of cross-source connections between CVEs, threat actors, ransomware groups, IPs, domains, and hashes. Depth-1/2 traversal with KV-cached resolution.',
+        icon: Globe2,
         badge: 'new',
       },
       {

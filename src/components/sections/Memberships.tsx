@@ -19,6 +19,12 @@ const colorMap: Record<string, { bg: string; text: string; darkBg: string; darkT
     darkBg: 'dark:bg-cyan-900/30',
     darkText: 'dark:text-cyan-300',
   },
+  violet: {
+    bg: 'bg-violet-50',
+    text: 'text-violet-600',
+    darkBg: 'dark:bg-violet-900/30',
+    darkText: 'dark:text-violet-300',
+  },
 };
 
 export function Memberships() {

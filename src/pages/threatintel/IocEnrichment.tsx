@@ -54,13 +54,6 @@ const SOURCES: Source[] = [
     hint: 'Needs TRIAGE_API_KEY — search hashes, IPs, domains',
     docsUrl: 'https://tria.ge',
   },
-  {
-    id: 'anyrun',
-    label: 'ANY.RUN (malware)',
-    url: '/api/v1/anyrun/search?q=',
-    hint: 'Needs ANYRUN_API_KEY — search hashes, IPs, domains',
-    docsUrl: 'https://any.run',
-  },
 ];
 
 export default function IocEnrichment(): JSX.Element {

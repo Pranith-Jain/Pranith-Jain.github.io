@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { runCompletion, RateLimitError } from '../case-study/generation/ai-client';
+import { safeJsonBody } from '../lib/safe-body';
 
 /**
  * AI-driven threat campaign generator.
@@ -186,12 +187,9 @@ function buildUserPrompt(input: CampaignInput): string {
 }
 
 export async function campaignGeneratorHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  let body: CampaignRequestBody;
-  try {
-    body = (await c.req.json()) as CampaignRequestBody;
-  } catch {
-    return c.json({ error: 'invalid JSON body' }, 400);
-  }
+  const parsed = await safeJsonBody<CampaignRequestBody>(c, { maxBytes: 16 * 1024, maxDepth: 6 });
+  if ('error' in parsed) return parsed.error;
+  const body = parsed.value;
   const input: CampaignInput = body.input ?? {};
 
   const actor = asStr(input.actor, 120);
@@ -234,15 +232,15 @@ export async function campaignGeneratorHandler(c: Context<{ Bindings: Env }>): P
       502
     );
   }
-  let parsed: unknown;
+  let modelParsed: unknown;
   try {
-    parsed = JSON.parse(json);
+    modelParsed = JSON.parse(json);
   } catch {
     return c.json({ error: 'model JSON malformed', raw: json.slice(0, 1000), model_used: modelUsed }, 502);
   }
-  const doc = validate(parsed);
+  const doc = validate(modelParsed);
   if (!doc) {
-    return c.json({ error: 'model output failed schema validation', raw: parsed, model_used: modelUsed }, 502);
+    return c.json({ error: 'model output failed schema validation', raw: modelParsed, model_used: modelUsed }, 502);
   }
 
   return c.json(

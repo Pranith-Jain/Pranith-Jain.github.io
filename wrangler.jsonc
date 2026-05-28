@@ -44,11 +44,22 @@
 	},
 	"durable_objects": {
 		"bindings": [
-			{ "name": "LIVE_FEED_DO", "class_name": "LiveFeedDO" }
+			{ "name": "LIVE_FEED_DO", "class_name": "LiveFeedDO" },
+			{ "name": "DFIR_MCP", "class_name": "DfirMcpServer" }
+		]
+	},
+	"triggers": {
+		"crons": [
+			"0 * * * *",
+			"5 0 * * *",
+			"15 0 * * 1",
+			"30 0 * * *",
+			"45 0 * * 1"
 		]
 	},
 	"migrations": [
-		{ "tag": "v1", "new_sqlite_classes": ["LiveFeedDO"] }
+		{ "tag": "v1", "new_sqlite_classes": ["LiveFeedDO"] },
+		{ "tag": "v2", "new_sqlite_classes": ["DfirMcpServer"] }
 	],
 	//
 	// ONE-TIME ENABLE: in the Cloudflare dashboard for this account, open

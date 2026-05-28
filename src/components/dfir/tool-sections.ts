@@ -48,6 +48,7 @@ import {
   ScanLine,
   Binary,
   Activity,
+  Fingerprint,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -295,6 +296,13 @@ export const SECTIONS: Section[] = [
         desc: 'Drop .apk · permissions · package info · DEX count · strings · IOCs · suspicious patterns · hashes · client-side',
         icon: Smartphone,
       },
+      {
+        path: '/dfir/blocklists',
+        useCase: 'Download daily-generated firewall blocklists from cross-source IOC consensus.',
+        label: 'Blocklist Export',
+        desc: 'pfSense · iptables · Suricata · IPs from 2+ independent feeds · daily cron generation · one-click download',
+        icon: Shield,
+      },
     ],
   },
   {
@@ -489,6 +497,13 @@ export const SECTIONS: Section[] = [
         icon: ShieldAlert,
       },
       {
+        path: '/dfir/phishing#fingerprint',
+        useCase: 'Identify phishing kits by structural page hash.',
+        label: 'Phishing Kit Fingerprint',
+        desc: 'Server-side fetch → browser-side SHA-256 → KV-backed kit lookup · 30-day retention',
+        icon: Fingerprint,
+      },
+      {
         path: '/dfir/eml',
         useCase: 'Pull attachments and IOCs from an .eml.',
         label: 'EML Attachment Extractor',
@@ -632,6 +647,7 @@ export const SECTIONS: Section[] = [
         desc: 'Paste a brief / IoC list / URL → heuristic extraction + bulk-cache provider enrichment → strict STIX 2.1 bundle (importable into OpenCTI/MISP) + a rendered intel card',
         icon: FileCheck,
       },
+
     ],
   },
   {

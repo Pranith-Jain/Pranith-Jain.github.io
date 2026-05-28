@@ -102,7 +102,7 @@ function CopyBtn({ value }: { value: string }) {
       type="button"
       onClick={click}
       aria-label="copy indicator"
-      className="inline-flex items-center justify-center min-h-[40px] min-w-[40px] sm:min-h-0 sm:min-w-0 text-slate-400 hover:text-brand-500 transition-colors shrink-0"
+      className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 text-slate-400 hover:text-brand-500 transition-colors shrink-0"
     >
       {done ? <Check size={11} /> : <Copy size={11} />}
     </button>
@@ -397,7 +397,7 @@ export default function LiveIocs(): JSX.Element {
                         href={it.reference_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center min-h-[40px] min-w-[40px] sm:min-h-0 sm:min-w-0 text-slate-400 hover:text-brand-500 transition-colors shrink-0"
+                        className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 text-slate-400 hover:text-brand-500 transition-colors shrink-0"
                         aria-label="open source post"
                         title="open source post"
                       >

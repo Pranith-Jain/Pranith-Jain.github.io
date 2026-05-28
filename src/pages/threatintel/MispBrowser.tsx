@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, RefreshCw, ExternalLink, Search, Tag, Calendar, ShieldAlert, Info } from 'lucide-react';
+import { ArrowLeft, RefreshCw, ExternalLink, Search, Calendar, ShieldAlert, Info } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
 interface MispEvent {

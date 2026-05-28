@@ -206,7 +206,7 @@ export function WhatsNewBanner(): JSX.Element | null {
             type="button"
             onClick={() => setDismissed(true)}
             aria-label="Dismiss"
-            className="inline-flex items-center justify-center min-h-[28px] min-w-[28px] rounded text-amber-700 dark:text-amber-300 hover:text-amber-900 dark:hover:text-amber-100 hover:bg-amber-200/40 dark:hover:bg-amber-500/15"
+            className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] sm:min-h-[28px] sm:min-w-[28px] rounded text-amber-700 dark:text-amber-300 hover:text-amber-900 dark:hover:text-amber-100 hover:bg-amber-200/40 dark:hover:bg-amber-500/15"
           >
             <X size={12} />
           </button>

@@ -16,6 +16,7 @@ export type ProviderId =
   | 'threatfox'
   | 'urlhaus'
   | 'malwarebazaar'
+  | 'malshare'
   | 'hashlookup'
   | 'cinsarmy'
   | 'bitwire'
@@ -63,6 +64,7 @@ export interface ProviderEnv {
   URLSCAN_API_KEY: string;
   HYBRID_ANALYSIS_API_KEY: string;
   ABUSECH_AUTH_KEY?: string;
+  MALSHARE_API_KEY?: string;
 }
 
 export type ProviderAdapter = (indicator: Indicator, env: ProviderEnv, signal: AbortSignal) => Promise<ProviderResult>;
@@ -89,6 +91,7 @@ export const PROVIDER_SUPPORT: Record<ProviderId, IndicatorType[]> = {
   threatfox: ['ipv4', 'ipv6', 'domain', 'url', 'hash'],
   urlhaus: ['url', 'domain', 'ipv4'],
   malwarebazaar: ['hash'],
+  malshare: ['hash'],
   hashlookup: ['hash'],
   cinsarmy: ['ipv4'],
   bitwire: ['ipv4'],

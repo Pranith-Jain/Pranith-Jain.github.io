@@ -1,24 +1,25 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { listWatches, saveWatch, deleteWatch, getAlertLog, type Watch } from '../lib/watch-engine';
+import { safeJsonBody } from '../lib/safe-body';
 
 export async function listWatchesHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const kv = c.env.KV_CACHE;
   if (!kv) return c.json({ error: 'KV not available' }, 503);
   const watches = await listWatches(kv);
-  return c.json({ watches });
+  return c.json({ watches }, 200, { 'Cache-Control': 'no-store' });
 }
 
 export async function createWatchHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const kv = c.env.KV_CACHE;
   if (!kv) return c.json({ error: 'KV not available' }, 503);
 
-  const body = await c.req.json<{
-    label: string;
-    type: Watch['type'];
-    value: string;
-    webhook: string;
-  }>();
+  const parsed = await safeJsonBody<{ label: string; type: Watch['type']; value: string; webhook: string }>(c, {
+    maxBytes: 4 * 1024,
+    maxDepth: 4,
+  });
+  if ('error' in parsed) return parsed.error;
+  const body = parsed.value;
 
   if (!body.label || !body.type || !body.value || !body.webhook) {
     return c.json({ error: 'label, type, value, and webhook are required' }, 400);
@@ -55,7 +56,9 @@ export async function updateWatchHandler(c: Context<{ Bindings: Env }>): Promise
   const id = c.req.param('id');
   if (!id) return c.json({ error: 'id required' }, 400);
 
-  const body = await c.req.json<Partial<Watch>>();
+  const parsed = await safeJsonBody<Partial<Watch>>(c, { maxBytes: 4 * 1024, maxDepth: 4 });
+  if ('error' in parsed) return parsed.error;
+  const body = parsed.value;
   let watches = await listWatches(kv);
   const idx = watches.findIndex((w) => w.id === id);
   if (idx < 0) return c.json({ error: 'watch not found' }, 404);
@@ -94,5 +97,5 @@ export async function alertLogHandler(c: Context<{ Bindings: Env }>): Promise<Re
   const kv = c.env.KV_CACHE;
   if (!kv) return c.json({ error: 'KV not available' }, 503);
   const log = await getAlertLog(kv);
-  return c.json({ alerts: log });
+  return c.json({ alerts: log }, 200, { 'Cache-Control': 'no-store' });
 }

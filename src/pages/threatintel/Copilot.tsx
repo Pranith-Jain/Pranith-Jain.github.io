@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { ArrowLeft, Send, Sparkles, FileText, ExternalLink, AlertTriangle, RefreshCw, Loader2, Lightbulb, Search } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
 import { AppFooter } from '../../components/AppFooter';
@@ -17,6 +18,7 @@ interface CopilotResponse {
   sources: Source[];
   model_used: string;
   processed_at: string;
+  _meta?: { total_sources: number; total_items: number };
 }
 
 const QUERY_EXAMPLES = [
@@ -45,12 +47,20 @@ function markdownToHtml(md: string): string {
     .replace(/\*([^*]+)\*/g, '<em>$1</em>')
     .replace(/`([^`]+)`/g, '<code class="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-xs font-mono">$1</code>')
     .replace(/^- (.+)$/gm, '<li class="ml-4 list-disc text-sm">$1</li>')
-    .replace(/(<li.*<\/li>\n?)+/g, '<ul class="space-y-0.5 my-1.5">$&</ul>');
+    .replace(/^\d+\.\s(.+)$/gm, '<li class="ml-4 list-decimal text-sm">$1</li>')
+    .replace(/(<li.*<\/li>\n?)+/g, function(match) {
+      if (match.includes('list-decimal')) {
+        return `<ol class="space-y-1 my-1.5">${match}</ol>`;
+      }
+      return `<ul class="space-y-0.5 my-1.5">${match}</ul>`;
+    });
+
   html = html
     .split(/\n\n+/)
     .map((block) => {
       const trimmed = block.trim();
-      if (!trimmed || trimmed.startsWith('<')) return trimmed;
+      if (!trimmed) return '';
+      if (trimmed.startsWith('<h') || trimmed.startsWith('<ul') || trimmed.startsWith('<ol') || trimmed.startsWith('<li')) return trimmed;
       return `<p class="text-sm leading-relaxed mb-2">${trimmed}</p>`;
     })
     .join('\n');
@@ -58,6 +68,8 @@ function markdownToHtml(md: string): string {
 }
 
 export default function Copilot(): JSX.Element {
+  const location = useLocation();
+  const isStandalone = location.pathname === '/copilot';
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -93,9 +105,11 @@ export default function Copilot(): JSX.Element {
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink to="/threatintel" className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono">
-        <ArrowLeft size={14} /> back
-      </BackLink>
+      {!isStandalone && (
+        <BackLink to="/threatintel" className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono">
+          <ArrowLeft size={14} /> back
+        </BackLink>
+      )}
 
       <div className="animate-fade-in-up mb-8">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
@@ -175,36 +189,61 @@ export default function Copilot(): JSX.Element {
       {result && !loading && (
         <div className="space-y-6">
           {/* Header */}
-          <div className="flex items-center gap-3 flex-wrap">
-            <h2 className="text-lg font-bold">{result.query}</h2>
-            {badge && (
-              <span className={`px-2 py-0.5 rounded text-[11px] font-semibold uppercase ${badge.color}`}>
-                {badge.label}
-              </span>
-            )}
-            <span className="text-[11px] text-slate-400 font-mono">{result.model_used}</span>
-          </div>
+          <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+            <div className="flex items-start justify-between gap-4 mb-3">
+              <div className="flex items-center gap-3 flex-wrap">
+                <h2 className="text-lg font-bold">{result.query}</h2>
+                {badge && (
+                  <span className={`px-2 py-0.5 rounded text-[11px] font-semibold uppercase ${badge.color}`}>
+                    {badge.label}
+                  </span>
+                )}
+              </div>
+            </div>
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] font-mono text-slate-400">
+              <span>model: {result.model_used}</span>
+              {result._meta && (
+                <span>{result._meta.total_sources} sources · {result._meta.total_items} data points</span>
+              )}
+              <span>{new Date(result.processed_at).toLocaleString()}</span>
+            </div>
 
-          {/* Sources summary */}
-          <div className="flex flex-wrap gap-2">
-            {result.sources.map((s) => (
-              <span key={s.name} className="px-2 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-[11px] text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
-                {s.name}: <strong className="text-slate-700 dark:text-slate-300">{s.items}</strong>
-              </span>
-            ))}
+            {/* Sources summary */}
+            {result.sources.length > 0 && (
+              <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800">
+                <div className="flex flex-wrap gap-1.5">
+                  {result.sources.map((s, i) => (
+                    <span key={s.name} className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-50 dark:bg-slate-800 text-[10px] font-mono text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
+                      <span className="text-[9px] text-slate-400 font-bold">{i + 1}.</span>
+                      {s.name}
+                      <span className="text-slate-400">({s.items})</span>
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
             {result.sources.length === 0 && (
-              <span className="text-xs text-amber-500 italic">No matching sources found — AI response based on general knowledge</span>
+              <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800 text-xs text-amber-600 dark:text-amber-400">
+                No structured sources — report based on general knowledge.
+              </div>
             )}
           </div>
 
           {/* Narrative */}
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
-            <div className="flex items-center gap-2 mb-4 text-sm font-semibold text-slate-500 dark:text-slate-400">
-              <FileText size={16} />
-              Investigation Report
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+            <div className="flex items-center gap-2 px-6 py-3 border-b border-slate-100 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-800/40">
+              <FileText size={15} className="text-brand-600 dark:text-brand-400" />
+              <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                Investigation Report
+              </span>
+              {result._meta && (
+                <span className="ml-auto text-[11px] text-slate-400 font-mono">
+                  {result._meta.total_items} data points across {result._meta.total_sources} sources
+                </span>
+              )}
             </div>
             <div
-              className="prose prose-sm dark:prose-invert max-w-none [&_li]:text-sm [&_code]:text-xs"
+              className="px-6 py-5 text-slate-800 dark:text-slate-200 [&_h2]:text-lg [&_h2]:font-bold [&_h2]:mt-6 [&_h2]:mb-2 [&_h2]:pb-1 [&_h2]:border-b [&_h2]:border-slate-100 [&_h2]:dark:border-slate-800 [&_h3]:text-base [&_h3]:font-semibold [&_h3]:mt-4 [&_h3]:mb-1.5 [&_p]:text-sm [&_p]:leading-relaxed [&_p]:mb-2 [&_p]:text-slate-700 [&_p]:dark:text-slate-300 [&_ul]:space-y-0.5 [&_ul]:my-1.5 [&_ol]:space-y-1 [&_ol]:my-1.5 [&_li]:ml-4 [&_li]:pl-1 [&_li]:text-sm [&_li]:text-slate-700 [&_li]:dark:text-slate-300 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:bg-slate-100 [&_code]:dark:bg-slate-800 [&_code]:text-xs [&_code]:font-mono [&_code]:text-brand-700 [&_code]:dark:text-brand-300"
               dangerouslySetInnerHTML={{ __html: markdownToHtml(result.narrative) }}
             />
           </div>
@@ -229,20 +268,38 @@ export default function Copilot(): JSX.Element {
             </div>
           </details>
 
-          {/* Re-investigate */}
-          <button
-            onClick={() => investigate(query)}
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 transition-colors"
-          >
-            <RefreshCw size={12} /> re-investigate
-          </button>
+          {/* Actions */}
+          <div className="flex gap-2">
+            <button
+              onClick={() => {
+                const blob = new Blob([result.narrative], { type: 'text/markdown' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${result.query.replace(/[^a-zA-Z0-9]/g, '_')}.md`;
+                a.click();
+                URL.revokeObjectURL(url);
+              }}
+              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 transition-colors"
+            >
+              <FileText size={12} /> download .md
+            </button>
+            <button
+              onClick={() => investigate(query)}
+              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 transition-colors"
+            >
+              <RefreshCw size={12} /> re-investigate
+            </button>
+          </div>
         </div>
       )}
 
-      <AppFooter
-        aboutTo="/threatintel/about"
-        blurb="Investigations use Groq (primary) with Workers AI fallback. Queries are not stored or used for training."
-      />
+      {!isStandalone && (
+        <AppFooter
+          aboutTo="/threatintel/about"
+          blurb="Investigations use Groq (primary) with Workers AI fallback. Queries are not stored or used for training."
+        />
+      )}
     </div>
   );
 }

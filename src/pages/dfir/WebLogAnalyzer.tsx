@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowLeft, FileCheck, Upload } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ArrowLeft, FileCheck, Upload, FileSearch } from 'lucide-react';
 
 interface Row {
   n: number;
@@ -72,6 +72,7 @@ function csv(rows: Row[]): string {
 }
 
 export default function WebLogAnalyzer(): JSX.Element {
+  const navigate = useNavigate();
   const [text, setText] = useState('');
   const res = useMemo(() => (text.trim() ? analyze(text) : null), [text]);
 
@@ -83,6 +84,11 @@ export default function WebLogAnalyzer(): JSX.Element {
     a.download = 'suspicious-requests.csv';
     a.click();
     URL.revokeObjectURL(a.href);
+  }
+
+  function pipeToExtractor() {
+    sessionStorage.setItem('ioc-extractor-pipe', text);
+    navigate('/dfir/extract?from=weblog');
   }
 
   return (
@@ -138,13 +144,22 @@ export default function WebLogAnalyzer(): JSX.Element {
               <span className="text-rose-600 dark:text-rose-400">{res.rows.length} suspicious</span>
             </span>
             {res.rows.length > 0 && (
-              <button
-                type="button"
-                onClick={download}
-                className="px-2 py-1 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40"
-              >
-                export CSV
-              </button>
+              <>
+                <button
+                  type="button"
+                  onClick={pipeToExtractor}
+                  className="px-2 py-1 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 inline-flex items-center gap-1"
+                >
+                  <FileSearch size={11} /> Extract IOCs →
+                </button>
+                <button
+                  type="button"
+                  onClick={download}
+                  className="px-2 py-1 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40"
+                >
+                  export CSV
+                </button>
+              </>
             )}
           </div>
           <div className="rounded-lg border border-slate-200 dark:border-slate-800 overflow-auto max-h-[60vh]">

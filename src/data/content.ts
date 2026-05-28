@@ -458,6 +458,24 @@ export const memberships = [
       'Email-deliverability and authentication community. Where I go to sanity-check a DMARC posture decision before rolling it across a fleet.',
     color: 'cyan',
   },
+  {
+    name: 'Valinor Intelligence',
+    abbreviation: 'VI',
+    period: 'Mar 2026 - Present · 2 mos',
+    description:
+      'Professional OSINT community and marketplace connecting analysts with intelligence buyers. Collaborative platform for tradecraft development, training, and client work.',
+    details: [
+      {
+        label: 'Community Hub',
+        text: 'Dedicated channels for OSINT tradecraft, tooling discussions, and collaborative investigations across SOCMINT, GEOINT, and IMINT domains.',
+      },
+      {
+        label: 'Marketplace',
+        text: 'Two-sided platform connecting OSINT analysts with buyers in industry and government. RFI-based engagement model with scoped deliverables.',
+      },
+    ],
+    color: 'violet',
+  },
 ];
 
 interface NavLinkChild {
@@ -502,13 +520,36 @@ export const navLinks: NavLinkExt[] = [
     ],
   },
   {
-    label: 'Build',
-    href: '/dfir',
+    label: 'Threat Intel',
+    href: '/threatintel',
     children: [
-      { label: 'DFIR Toolkit', href: '/dfir' },
-      { label: 'Threat Intel', href: '/threatintel' },
+      { label: 'Dashboard', href: '/threatintel' },
+      { label: 'Pulse', href: '/threatintel/pulse' },
+      { label: 'Briefings', href: '/threatintel/briefings' },
+      { label: 'Actor KB', href: '/threatintel/actor-kb' },
+      { label: 'MITRE Map', href: '/threatintel/mitre' },
+      { label: 'Ransomware', href: '/threatintel/ransomware-activity' },
+      { label: 'Graph', href: '/threatintel/relationship-graph' },
+      { label: 'Darkweb', href: '/threatintel/darkweb' },
     ],
   },
+  {
+    label: 'DFIR',
+    href: '/dfir',
+    children: [
+      { label: 'Dashboard', href: '/dfir' },
+      { label: 'CVE Lookup', href: '/dfir/cve' },
+      { label: 'IOC Check', href: '/dfir/ioc-check' },
+      { label: 'Domain Rep', href: '/dfir/domain-rep' },
+      { label: 'Full Spectrum', href: '/dfir/full-spectrum' },
+      { label: 'Decode', href: '/dfir/decode' },
+      { label: 'Encoder', href: '/dfir/encoder' },
+      { label: 'Rule Converter', href: '/dfir/rule-converter' },
+      { label: 'Blocklists', href: '/dfir/blocklists' },
+      { label: 'Graph', href: '/threatintel/relationship-graph' },
+    ],
+  },
+  { label: 'Copilot', href: '/copilot' },
   { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '/#contact', cta: true },
 ];

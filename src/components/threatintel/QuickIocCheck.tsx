@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Shield, ShieldAlert, ShieldCheck, AlertCircle, Search, Loader2, ExternalLink } from 'lucide-react';
+import { Shield, Search, Loader2, ExternalLink } from 'lucide-react';
 import { streamIoc } from '../../lib/dfir/api';
 import { detectType } from '../../lib/dfir/indicator-client';
 import { VerdictChip } from '../dfir/VerdictChip';
@@ -53,12 +53,12 @@ export default function QuickIocCheck() {
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && runCheck()}
           placeholder="IP, domain, URL, or hash…"
-          className="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded text-xs font-mono focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="flex-1 px-3 py-3 sm:py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded text-xs font-mono focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
         />
         <button
           onClick={runCheck}
           disabled={!canSubmit}
-          className="px-3 py-1.5 rounded bg-brand-600 dark:bg-brand-500 text-white text-xs font-mono disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+          className="px-3 py-3 sm:py-1.5 rounded bg-brand-600 dark:bg-brand-500 text-white text-xs font-mono disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
         >
           {streaming ? <Loader2 size={12} className="animate-spin" /> : <Search size={12} />}
         </button>

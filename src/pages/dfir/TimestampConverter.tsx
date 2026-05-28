@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useMemo, useState, useEffect } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, Clock } from 'lucide-react';
 
 /** Epoch bases. Windows FILETIME / WebKit count from 1601-01-01 UTC. */
@@ -40,9 +40,17 @@ function rowsFor(raw: string): Row[] {
 }
 
 export default function TimestampConverter(): JSX.Element {
-  const [val, setVal] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initial = searchParams.get('q') ?? '';
+  const [val, setVal] = useState(initial);
   const rows = useMemo(() => rowsFor(val), [val]);
   const now = Date.now();
+
+  // Sync input value to URL
+  useEffect(() => {
+    if (val) setSearchParams({ q: val }, { replace: true });
+    else setSearchParams({}, { replace: true });
+  }, [val, setSearchParams]);
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">

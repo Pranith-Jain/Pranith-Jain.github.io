@@ -62,6 +62,7 @@ const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>> = {
     otx: 1,
     threatfox: 4,
     malwarebazaar: 4,
+    malshare: 4,
     hashlookup: 3,
     tweetfeed: 2,
   },

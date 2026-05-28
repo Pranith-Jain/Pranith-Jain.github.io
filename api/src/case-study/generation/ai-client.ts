@@ -18,7 +18,7 @@ import type { Ai } from '@cloudflare/workers-types';
  */
 
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
-const GROQ_MODEL = 'llama-3.3-70b-versatile';
+const GROQ_MODEL = 'meta-llama/llama-4-scout-17b-16e-instruct';
 const GROQ_TIMEOUT_MS = 30_000;
 
 // Workers-AI fallback chain (no key). Kept to two models — under an
@@ -83,8 +83,8 @@ async function runGroq(key: string, input: CompletionInput): Promise<string> {
           { role: 'system', content: input.system },
           { role: 'user', content: input.user },
         ],
-        max_tokens: input.maxTokens ?? 3000,
-        temperature: input.temperature ?? 0.4,
+        max_tokens: input.maxTokens ?? 4000,
+        temperature: input.temperature ?? 0.5,
       }),
       signal: AbortSignal.timeout(GROQ_TIMEOUT_MS),
     });
@@ -108,8 +108,8 @@ async function runWorkersModel(ai: Ai, model: string, input: CompletionInput): P
         { role: 'system', content: input.system },
         { role: 'user', content: input.user },
       ],
-      max_tokens: input.maxTokens ?? 3000,
-      temperature: input.temperature ?? 0.4,
+      max_tokens: input.maxTokens ?? 4000,
+      temperature: input.temperature ?? 0.5,
     } as any
   )) as { response?: string };
   if (!res || typeof res.response !== 'string' || !res.response.trim()) {

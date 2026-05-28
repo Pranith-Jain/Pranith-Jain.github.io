@@ -108,6 +108,8 @@ const UsernamePivot = lazy(() => import('./pages/dfir/UsernamePivot'));
 const Wayback = lazy(() => import('./pages/dfir/Wayback'));
 const IpGeo = lazy(() => import('./pages/dfir/IpGeo'));
 const LogParser = lazy(() => import('./pages/dfir/LogParser'));
+const Blocklists = lazy(() => import('./pages/dfir/Blocklists'));
+
 
 const Socmint = lazy(() => import('./pages/dfir/Socmint'));
 const OsintFramework = lazy(() => import('./pages/dfir/OsintFramework'));
@@ -198,6 +200,7 @@ const DmarcAnalyzer = lazy(() => import('./pages/dfir/DmarcAnalyzer'));
 const MispBrowser = lazy(() => import('./pages/threatintel/MispBrowser'));
 const UnifiedSearch = lazy(() => import('./pages/threatintel/UnifiedSearch'));
 const IocEnrichment = lazy(() => import('./pages/threatintel/IocEnrichment'));
+const RelationshipGraph = lazy(() => import('./pages/threatintel/RelationshipGraph'));
 
 /**
  * Preserves the path slug (when `withSlug`), the query string, and the hash
@@ -312,6 +315,16 @@ export function AppContent() {
           <ErrorBoundary>
             <Suspense fallback={<SectionLoader />}>
               <CaseStudy />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/copilot"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <CopilotPage />
             </Suspense>
           </ErrorBoundary>
         }
@@ -1877,6 +1890,16 @@ export function AppContent() {
         }
       />
       <Route
+        path="/threatintel/relationship-graph"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <RelationshipGraph />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
         path="/dfir/pgp-tool"
         element={
           <ErrorBoundary>
@@ -1896,6 +1919,17 @@ export function AppContent() {
           </ErrorBoundary>
         }
       />
+      <Route
+        path="/dfir/blocklists"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <Blocklists />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+
       {/* Ransom Note Library was removed 2026-05-11; mythreatintel.com is now
                 an external-source link only on the /threatintel landing. Old bookmarks
                 land on the External Sources block via the threatintel landing. */}

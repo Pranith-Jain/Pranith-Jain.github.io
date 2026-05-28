@@ -36,6 +36,7 @@ const SOURCE_RELIABILITY: Partial<Record<ProviderId, Reliability>> = {
   threatfox: 'B',
   urlhaus: 'B',
   malwarebazaar: 'B',
+  malshare: 'B',
   hashlookup: 'B',
   greynoise: 'C',
   c2tracker: 'B',

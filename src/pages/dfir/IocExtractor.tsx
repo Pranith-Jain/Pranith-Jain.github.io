@@ -194,6 +194,10 @@ export default function IocExtractor(): JSX.Element {
       'ps-deob': { storage: 'ioc-extractor-pipe', label: 'PowerShell Deobfuscator' },
       phishing: { storage: 'ioc-extractor-pipe', label: 'Phishing Analyzer' },
       decoder: { storage: 'ioc-extractor-pipe', label: 'Decoder' },
+      eml: { storage: 'ioc-extractor-pipe', label: 'EML Extractor' },
+      weblog: { storage: 'ioc-extractor-pipe', label: 'Web Log Analyzer' },
+      linux: { storage: 'ioc-extractor-pipe', label: 'Linux Triage' },
+      pivot: { storage: 'ioc-extractor-pipe', label: 'IOC Pivot' },
     };
     const cfg = KEYS[from];
     if (!cfg) return;

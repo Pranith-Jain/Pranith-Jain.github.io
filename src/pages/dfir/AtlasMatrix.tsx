@@ -150,7 +150,7 @@ export default function AtlasMatrix(): JSX.Element {
           </div>
         </div>
 
-        <div className="overflow-x-auto pb-4">
+        <div className="overflow-x-auto pb-4 -mx-4 sm:mx-0 px-4 sm:px-0">
           <div className="flex gap-3 min-w-max">
             {atlasMatrix.map((tactic) => (
               <div key={tactic.id} className="w-52 flex-shrink-0">

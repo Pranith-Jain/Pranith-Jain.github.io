@@ -130,50 +130,58 @@ export default function PgpTool() {
         <div className="grid gap-4 sm:grid-cols-2">
           {mode !== 'sign' && mode !== 'encrypt' ? null : (
             <div>
-              <label className="text-xs font-mono text-slate-500 mb-1 block">Public Key (armored)</label>
-              <textarea
-                value={publicKey}
-                onChange={(e) => setPublicKey(e.target.value)}
-                rows={6}
-                className="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 p-2 text-xs font-mono text-slate-900 dark:text-slate-100"
-                placeholder="-----BEGIN PGP PUBLIC KEY BLOCK-----"
-              />
+              <label className="text-xs font-mono text-slate-500 mb-1 block">
+                Public Key (armored)
+                <textarea
+                  value={publicKey}
+                  onChange={(e) => setPublicKey(e.target.value)}
+                  rows={6}
+                  className="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 p-2 text-xs font-mono text-slate-900 dark:text-slate-100 mt-1"
+                  placeholder="-----BEGIN PGP PUBLIC KEY BLOCK-----"
+                />
+              </label>
             </div>
           )}
           {(mode !== 'verify' && mode !== 'encrypt') ? null : (
             <div>
-              <label className="text-xs font-mono text-slate-500 mb-1 block">Public Key (armored)</label>
-              <textarea
-                value={publicKey}
-                onChange={(e) => setPublicKey(e.target.value)}
-                rows={6}
-                className="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 p-2 text-xs font-mono text-slate-900 dark:text-slate-100"
-                placeholder="-----BEGIN PGP PUBLIC KEY BLOCK-----"
-              />
+              <label className="text-xs font-mono text-slate-500 mb-1 block">
+                Public Key (armored)
+                <textarea
+                  value={publicKey}
+                  onChange={(e) => setPublicKey(e.target.value)}
+                  rows={6}
+                  className="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 p-2 text-xs font-mono text-slate-900 dark:text-slate-100 mt-1"
+                  placeholder="-----BEGIN PGP PUBLIC KEY BLOCK-----"
+                />
+              </label>
             </div>
           )}
           {(mode !== 'decrypt' && mode !== 'sign') ? null : (
             <div>
-              <label className="text-xs font-mono text-slate-500 mb-1 block">Private Key (armored)</label>
-              <textarea
-                value={privateKey}
-                onChange={(e) => setPrivateKey(e.target.value)}
-                rows={6}
-                className="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 p-2 text-xs font-mono text-slate-900 dark:text-slate-100"
-                placeholder="-----BEGIN PGP PRIVATE KEY BLOCK-----"
-              />
+              <label className="text-xs font-mono text-slate-500 mb-1 block">
+                Private Key (armored)
+                <textarea
+                  value={privateKey}
+                  onChange={(e) => setPrivateKey(e.target.value)}
+                  rows={6}
+                  className="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 p-2 text-xs font-mono text-slate-900 dark:text-slate-100 mt-1"
+                  placeholder="-----BEGIN PGP PRIVATE KEY BLOCK-----"
+                />
+              </label>
             </div>
           )}
           {(mode !== 'decrypt' && mode !== 'sign') ? null : (
             <div>
-              <label className="text-xs font-mono text-slate-500 mb-1 block">Passphrase</label>
-              <input
-                type="password"
-                value={passphrase}
-                onChange={(e) => setPassphrase(e.target.value)}
-                className="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 p-2 text-xs font-mono text-slate-900 dark:text-slate-100"
-                placeholder="Private key passphrase"
-              />
+              <label className="text-xs font-mono text-slate-500 mb-1 block">
+                Passphrase
+                <input
+                  type="password"
+                  value={passphrase}
+                  onChange={(e) => setPassphrase(e.target.value)}
+                  className="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 p-2 text-xs font-mono text-slate-900 dark:text-slate-100 mt-1"
+                  placeholder="Private key passphrase"
+                />
+              </label>
             </div>
           )}
         </div>
@@ -182,14 +190,16 @@ export default function PgpTool() {
       {mode === 'generate' && (
         <div className="space-y-3">
           <div>
-            <label className="text-xs font-mono text-slate-500 mb-1 block">Passphrase (optional)</label>
-            <input
-              type="password"
-              value={passphrase}
-              onChange={(e) => setPassphrase(e.target.value)}
-              className="w-full max-w-md rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 p-2 text-xs font-mono text-slate-900 dark:text-slate-100"
-              placeholder="Protect private key with passphrase"
-            />
+            <label className="text-xs font-mono text-slate-500 mb-1 block">
+              Passphrase (optional)
+              <input
+                type="password"
+                value={passphrase}
+                onChange={(e) => setPassphrase(e.target.value)}
+                className="w-full max-w-md rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 p-2 text-xs font-mono text-slate-900 dark:text-slate-100 mt-1"
+                placeholder="Protect private key with passphrase"
+              />
+            </label>
           </div>
           <button
             onClick={generateKey}
@@ -247,13 +257,15 @@ export default function PgpTool() {
 
       {output && (
         <div>
-          <label className="text-xs font-mono text-slate-500 mb-1 block">Output</label>
-          <textarea
-            readOnly
-            value={output}
-            rows={8}
-            className="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 p-2 text-xs font-mono text-slate-900 dark:text-slate-100"
-          />
+          <label className="text-xs font-mono text-slate-500 mb-1 block">
+            Output
+            <textarea
+              readOnly
+              value={output}
+              rows={8}
+              className="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 p-2 text-xs font-mono text-slate-900 dark:text-slate-100 mt-1"
+            />
+          </label>
           <button
             onClick={() => navigator.clipboard.writeText(output)}
             className="mt-1 text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline"

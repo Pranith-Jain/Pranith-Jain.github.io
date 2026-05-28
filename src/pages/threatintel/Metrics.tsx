@@ -1125,7 +1125,7 @@ export default function Metrics(): JSX.Element {
           <div className="grid gap-5 lg:grid-cols-[1fr_1.4fr]">
             <div>
               <Sparkbars buckets={ransomwareCadence} color="#e11d48" />
-              <div className="grid grid-cols-3 gap-2 mt-3 text-[11px] font-mono">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-3 text-[11px] font-mono">
                 <div className="rounded border border-slate-200 dark:border-slate-800 px-2 py-1.5">
                   <div className="text-slate-500">last 7d</div>
                   <div className="text-slate-900 dark:text-slate-100 font-semibold text-sm">{headlineRead.last7}</div>

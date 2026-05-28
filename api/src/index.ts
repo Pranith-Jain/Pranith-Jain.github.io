@@ -92,19 +92,18 @@ import {
 } from './routes/intel-bundle';
 import { googleDorksHandler } from './routes/google-dorks';
 import { emailRepHandler } from './routes/email-rep';
-import { blocklistPfSenseHandler, blocklistIptablesHandler, blocklistSuricataHandler } from './routes/blocklists';
+import { blocklistPfSenseHandler, blocklistIptablesHandler, blocklistSuricataHandler, blocklistMetaHandler } from './routes/blocklists';
 import { fetchPageHandler, fingerprintHandler } from './routes/phishing-fingerprint';
 import { unifiedSearchHandler } from './routes/unified-search';
 import { copilotInvestigateHandler } from './routes/copilot';
 import { automationRunHandler } from './routes/automation';
 import { dashboardHandler, getWatchlistHandler, updateWatchlistHandler } from './routes/dashboard';
 import { maltiverseSearchHandler } from './routes/maltiverse';
-import { inquestSearchHandler } from './routes/inquest';
-import { hackertargetDnsHandler, hackertargetReverseIpHandler } from './routes/hackertarget';
+import { inquestSearchHandler } from './routes/inquest';import { hackertargetDnsHandler, hackertargetReverseIpHandler } from './routes/hackertarget';
 import { radarDomainHandler } from './routes/cloudflare-radar';
 import { certspotterSearchHandler } from './routes/certspotter';
 import { triageSearchHandler } from './routes/triage';
-import { anyrunSearchHandler } from './routes/anyrun';
+
 import { listWatchesHandler, createWatchHandler, updateWatchHandler, deleteWatchHandler, alertLogHandler } from './routes/watches';
 import { rateLimit } from './lib/ratelimit';
 import { requestLogger } from './lib/request-logger';
@@ -137,6 +136,8 @@ import { maliciousPackagesHandler } from './routes/malicious-packages';
 import { xTweetsHandler } from './routes/x-tweets';
 import { xLiveHandler } from './routes/x-live';
 import { xFirehoseHandler } from './routes/x-firehose';
+import { relationshipGraphHandler } from './routes/relationship-graph';
+
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -152,7 +153,7 @@ app.use(
 
 app.use('/api/v1/*', serverTiming);
 app.use('/api/v1/*', csrfGuard);
-app.use('/api/v1/*', authenticate(false));
+app.use('/api/v1/*', authenticate('external-only'));
 app.use('/api/v1/*', requestLogger);
 app.use('/api/v1/*', rateLimit);
 
@@ -272,9 +273,11 @@ app.post('/api/v1/admin/purge', purgeCacheHandler);
 app.get('/api/v1/blocklists/pfsense', blocklistPfSenseHandler);
 app.get('/api/v1/blocklists/iptables', blocklistIptablesHandler);
 app.get('/api/v1/blocklists/suricata', blocklistSuricataHandler);
+app.get('/api/v1/blocklists/meta', blocklistMetaHandler);
 app.post('/api/v1/phishing/fetch-page', fetchPageHandler);
 app.post('/api/v1/phishing/fingerprint', fingerprintHandler);
 app.get('/api/v1/unified-search', unifiedSearchHandler);
+app.get('/api/v1/relationship-graph', relationshipGraphHandler);
 app.post('/api/v1/copilot/investigate', copilotInvestigateHandler);
 app.post('/api/v1/automation/run', automationRunHandler);
 app.get('/api/v1/maltiverse/search', maltiverseSearchHandler);
@@ -284,7 +287,7 @@ app.get('/api/v1/hackertarget/reverse-ip', hackertargetReverseIpHandler);
 app.get('/api/v1/radar/domain', radarDomainHandler);
 app.get('/api/v1/certspotter/search', certspotterSearchHandler);
 app.get('/api/v1/triage/search', triageSearchHandler);
-app.get('/api/v1/anyrun/search', anyrunSearchHandler);
+
 app.get('/api/v1/dashboard', dashboardHandler);
 app.get('/api/v1/dashboard/watchlist', getWatchlistHandler);
 app.post('/api/v1/dashboard/watchlist', updateWatchlistHandler);

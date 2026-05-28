@@ -54,13 +54,13 @@ export function Hero() {
             href={personalInfo.calendlyUrl}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center justify-center rounded-md bg-brand-600 px-5 py-3 text-base font-semibold text-white transition hover:bg-brand-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+            className="inline-flex items-center justify-center rounded-md bg-brand-600 px-5 py-3.5 sm:py-3 text-base font-semibold text-white transition hover:bg-brand-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
           >
             Book strategy call
           </a>
           <Link
             to="/threatintel"
-            className="inline-flex items-center justify-center rounded-md border border-slate-300 dark:border-slate-700 px-5 py-3 text-base font-semibold text-slate-700 dark:text-slate-200 transition hover:border-brand-500/60 hover:text-brand-600 dark:hover:text-brand-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+            className="inline-flex items-center justify-center rounded-md border border-slate-300 dark:border-slate-700 px-5 py-3.5 sm:py-3 text-base font-semibold text-slate-700 dark:text-slate-200 transition hover:border-brand-500/60 hover:text-brand-600 dark:hover:text-brand-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
           >
             Threat intel
           </Link>

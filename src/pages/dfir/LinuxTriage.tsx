@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, AlertTriangle, ShieldAlert, ShieldX, ShieldCheck, Info } from 'lucide-react';
+import { ArrowLeft, AlertTriangle, ShieldAlert, ShieldX, ShieldCheck, Info, FileSearch } from 'lucide-react';
 
 /**
  * Linux IR Triage — 100% client-side.
@@ -263,6 +264,7 @@ const SAMPLE = [
 ].join('\n');
 
 export default function LinuxTriage(): JSX.Element {
+  const navigate = useNavigate();
   const [input, setInput] = useState('');
   const analysis = useMemo(() => analyze(input), [input]);
   const counts = useMemo(() => {
@@ -270,6 +272,11 @@ export default function LinuxTriage(): JSX.Element {
     analysis?.findings.forEach((f) => (c[f.sev] += 1));
     return c;
   }, [analysis]);
+
+  function pipeToExtractor() {
+    sessionStorage.setItem('ioc-extractor-pipe', input);
+    navigate('/dfir/extract?from=linux');
+  }
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
@@ -297,6 +304,15 @@ export default function LinuxTriage(): JSX.Element {
           >
             load example
           </button>
+          {input.trim() && (
+            <button
+              type="button"
+              onClick={pipeToExtractor}
+              className="text-[12px] font-mono px-2.5 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+            >
+              <FileSearch size={11} /> Extract IOCs →
+            </button>
+          )}
           {input && (
             <button
               type="button"

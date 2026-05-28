@@ -198,7 +198,7 @@ export default function Phishing(): JSX.Element {
           />
         </div>
       )}
-      <section className="mt-12 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+      <section id="fingerprint" className="mt-12 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
         <h2 className="text-lg font-display font-bold mb-2 flex items-center gap-2">
           <Fingerprint size={16} className="text-brand-600 dark:text-brand-400" />
           Phishing Kit Fingerprint

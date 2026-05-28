@@ -45,6 +45,7 @@ const BULK_PROVIDER_TIMEOUT_MS = 3000;
 import { urlhaus } from '../providers/urlhaus';
 import { threatfox } from '../providers/threatfox';
 import { malwarebazaar } from '../providers/malwarebazaar';
+import { malshare } from '../providers/malshare';
 import { yaraify } from '../providers/yaraify';
 import { tor } from '../providers/tor';
 import { spamhaus } from '../providers/spamhaus';
@@ -68,6 +69,7 @@ const BULK_ADAPTERS: Partial<Record<ProviderId, ProviderAdapter>> = {
   urlhaus,
   threatfox,
   malwarebazaar,
+  malshare,
   yaraify,
   tor,
   spamhaus,
@@ -175,6 +177,7 @@ function buildProviderEnv(env: Env) {
     URLSCAN_API_KEY: env.URLSCAN_API_KEY ?? '',
     HYBRID_ANALYSIS_API_KEY: env.HYBRID_ANALYSIS_API_KEY ?? '',
     ABUSECH_AUTH_KEY: env.ABUSECH_AUTH_KEY,
+    MALSHARE_API_KEY: env.MALSHARE_API_KEY,
   };
 }
 

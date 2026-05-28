@@ -327,7 +327,7 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
               ref={mobileMenuButtonRef}
               type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="grid h-10 w-10 place-items-center rounded-full border border-slate-200/60 bg-white/70 text-slate-700 shadow-sm transition hover:shadow-md dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200 md:hidden focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
+              className="grid h-11 w-11 sm:h-10 sm:w-10 place-items-center rounded-full border border-slate-200/60 bg-white/70 text-slate-700 shadow-sm transition hover:shadow-md dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200 md:hidden focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
               aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-menu"
@@ -380,11 +380,11 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
                         key={child.href}
                         to={child.href}
                         onClick={closeMobileMenu}
-                        className={`block rounded-lg px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
-                          isActive(child.href)
-                            ? 'text-brand-600 dark:text-brand-400 bg-brand-500/10'
-                            : 'text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10'
-                        }`}
+                        className={`block rounded-lg px-4 py-3.5 sm:py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
+                           isActive(child.href)
+                             ? 'text-brand-600 dark:text-brand-400 bg-brand-500/10'
+                             : 'text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10'
+                         }`}
                       >
                         {child.label}
                       </Link>
@@ -397,7 +397,7 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
                   key={link.href}
                   to={link.href}
                   onClick={closeMobileMenu}
-                  className={`rounded-lg px-4 py-3 text-sm font-medium block focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
+                  className={`rounded-lg px-4 py-3.5 sm:py-3 text-sm font-medium block focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
                     link.cta
                       ? 'bg-brand-600 text-white hover:bg-brand-500 mt-2'
                       : isActive(link.href)

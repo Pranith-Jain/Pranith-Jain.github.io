@@ -22,6 +22,9 @@ export interface Env {
   URLSCAN_API_KEY?: string;
   HYBRID_ANALYSIS_API_KEY?: string;
   ABUSECH_AUTH_KEY?: string;
+  /** MalShare API key (free registration at malshare.com). Optional —
+   *  hash lookups degrade gracefully when unset. */
+  MALSHARE_API_KEY?: string;
   /** EmailRep.io API key. Optional — the free anonymous tier (~100 req/hr per IP)
    *  works without; setting a key lifts the rate ceiling. */
   EMAILREP_API_KEY?: string;
@@ -75,6 +78,5 @@ export interface Env {
   CF_API_TOKEN?: string;
   /** Triage (tria.ge) API key. Set via `wrangler secret put TRIAGE_API_KEY`. */
   TRIAGE_API_KEY?: string;
-  /** ANY.RUN API key. Set via `wrangler secret put ANYRUN_API_KEY`. */
-  ANYRUN_API_KEY?: string;
+
 }

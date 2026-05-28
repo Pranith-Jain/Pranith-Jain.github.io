@@ -63,6 +63,9 @@ export const AI_SLOP_PATTERNS: RegExp[] = [
   /are you (prepared|ready) to (respond|defend|protect)/i,
   /stay (one step )?ahead of (the )?(threats|attackers|curve)/i,
   /this (serves|is) a (sobering|stark) reminder/i,
+  /you['’]re (likely|probably) (already aware|wondering|familiar|wondering how)/i,
+  /chances are you['’]?ve/i,
+  /you might be (wondering|thinking|asking)/i,
 ];
 
 /** Unambiguous slop — any one of these forces a rewrite (defense in depth). */
@@ -75,6 +78,8 @@ export const EGREGIOUS_SLOP: RegExp[] = [
   /are you (prepared|ready) to (respond|defend|protect)/i,
   /serves? as a (stark )?reminder/i,
   /a testament to/i,
+  /you['’]re (likely|probably) (already aware|wondering|familiar)/i,
+  /chances are you['’]?ve/i,
 ];
 
 export const COPYWRITING_RULES =
@@ -87,7 +92,7 @@ export const COPYWRITING_RULES =
   `- The hook is derived from the facts, not bolted on. Lead with the specific thing that makes THIS case notable.\n` +
   `- Concrete and specific beats clever. "A defense contractor, an animal shelter, an aerospace firm. One group. One week." beats "You won't believe what happened."\n` +
   `- Vary hook form across pieces: a sharp contrast, a single hard number, a short fact triplet, a timeline jolt, a pattern call-out. Rotate. Do not reuse a form you'd use elsewhere.\n` +
-  `- BANNED openers (formulaic, instantly recognizable as AI): "You're probably...", "Imagine...", "Have you ever...", "In a world where...", "Picture this", "Let that sink in".\n\n` +
+  `- BANNED openers (formulaic, instantly recognizable as AI): "You're probably...", "You're likely...", "You might be...", "You've probably...", "Chances are...", "Imagine...", "Have you ever...", "In a world where...", "Picture this", "Let that sink in".\n\n` +
   `**Write like a human analyst:**\n` +
   `- Contractions: you're, don't, we'll (never "do not").\n` +
   `- Vary rhythm deliberately: short punch, then a longer analytical sentence. Fragments are fine when they land.\n` +

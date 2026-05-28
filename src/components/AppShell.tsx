@@ -164,7 +164,7 @@ function AppHeader({
                 to={item.to}
                 onMouseEnter={() => preloadRoute(item.to)}
                 onFocus={() => preloadRoute(item.to)}
-                className={`text-[12px] font-mono px-2.5 sm:px-2.5 py-2.5 sm:py-1 rounded transition-colors whitespace-nowrap ${
+                className={`text-[12px] font-mono px-2.5 sm:px-2.5 py-3 sm:py-1 rounded transition-colors whitespace-nowrap ${
                   active
                     ? 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800'
@@ -184,7 +184,7 @@ function AppHeader({
             type="button"
             onClick={onToggleTheme}
             aria-label="Toggle theme"
-            className="min-h-[36px] min-w-[36px] sm:min-h-0 sm:min-w-0 p-2 sm:p-1.5 rounded inline-flex items-center justify-center text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800"
+            className="min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 p-2 sm:p-1.5 rounded inline-flex items-center justify-center text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800"
           >
             {isDark ? <Sun size={14} /> : <Moon size={14} />}
           </button>

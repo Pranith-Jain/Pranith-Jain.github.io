@@ -73,12 +73,6 @@ export default function LiveFeeds(): JSX.Element {
     return () => { ws.close(); };
   }, [addEvent]);
 
-  const [wsUrl] = useState(() =>
-    typeof location !== 'undefined'
-      ? `${location.protocol === 'https:' ? 'wss:' : 'ws:'}//${location.host}/api/v1/ws/live-feed`
-      : ''
-  );
-
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink to="/threatintel" className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono">

@@ -5,6 +5,7 @@ import {
   parseThreatfox,
   parseIpsum,
   parsePlainTextIps,
+  parseSslblC2,
   parseMalwarebazaar,
   parseOpenPhish,
   parsePhishingArmy,
@@ -389,7 +390,7 @@ export async function fetchIocCorrelation(env?: Env): Promise<IocCorrelationResp
 
   // ─── abuse.ch SSL Blacklist: botnet-C2 IPs (malicious-SSL pinned) ─────────
   if (sslblText) {
-    const e = parsePlainTextIps(sslblText, PER_FEED_CAP);
+    const e = parseSslblC2(sslblText, PER_FEED_CAP);
     for (const x of e) add(ipBucket, x.value, 'sslbl');
     trackSource('sslbl', true, e.length);
   } else trackSource('sslbl', false, 0);

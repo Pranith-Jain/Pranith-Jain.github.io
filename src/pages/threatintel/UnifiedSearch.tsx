@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Search, ExternalLink, AlertTriangle, Skull, Globe, Shield, Bug, FileText, Database, Fingerprint } from 'lucide-react';
-import { DataState } from '../../components/DataState';
 
 interface SearchItem {
   label: string;

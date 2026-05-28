@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import { lookupCve } from '../lib/cve-lookup';
+import { ACTOR_ALIASES } from '../data/threat-actor-aliases';
 
 // ── Cache keys (imported where available, hardcoded for internal-only keys) ──
 import {
@@ -486,6 +487,25 @@ async function searchMalpedia(needle: string): Promise<SearchSection> {
 
 const SEARCHER_TIMEOUT_MS = 12_000;
 
+async function searchActorKb(needle: string): Promise<SearchSection> {
+  const ql = needle.toLowerCase().trim();
+  if (ql.length < 2) return { label: 'Threat Actor KB', kind: 'actors', total: 0, items: [] };
+  const matches = ACTOR_ALIASES.filter(
+    (a) => a.canonical.toLowerCase().includes(ql) || a.aliases.some((al) => al.toLowerCase().includes(ql)),
+  );
+  if (matches.length === 0) return { label: 'Threat Actor KB', kind: 'actors', total: 0, items: [] };
+  const items: SearchItem[] = matches.slice(0, 15).map((a) =>
+    buildItem(
+      a.canonical,
+      [a.mitreId ? `MITRE ${a.mitreId}` : '', a.aliases.length > 0 ? `Aliases: ${a.aliases.join(', ')}` : ''].filter(Boolean).join(' · '),
+      a.mitreId ? `https://attack.mitre.org/groups/${a.mitreId}/` : undefined,
+      'actor-kb',
+      a.canonical.toLowerCase().includes(ql) ? 'high' : 'medium',
+    ),
+  );
+  return { label: 'Threat Actor KB', kind: 'actors', total: items.length, items };
+}
+
 export async function unifiedSearchHandler(ctx: Context<{ Bindings: import('../env').Env }>): Promise<Response> {
   const qParam = ctx.req.query('q')?.trim();
   if (!qParam) {
@@ -513,6 +533,7 @@ export async function unifiedSearchHandler(ctx: Context<{ Bindings: import('../e
     searchMalpedia(needle),
     searchCveLookup(needle),
     searchIocCheck(needle),
+    searchActorKb(needle),
   ]);
 
   const sections: SearchSection[] = [];

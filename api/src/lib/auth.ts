@@ -1,9 +1,11 @@
 /**
  * API key authentication middleware.
  *
- * Supports two tiers:
+ * Supports three tiers:
  *   - `optional` — attaches user identity if key present, continues otherwise
  *   - `required` — rejects with 401 if key missing or invalid
+ *   - `'external-only'` — allows same-origin (frontend) requests through without
+ *     a key; external callers must provide a valid API key via Authorization or X-API-Key
  *
  * Keys are stored in D1 (hashed with SHA-256).
  * The raw key is returned once on creation and never stored.
@@ -11,11 +13,19 @@
  * Usage:
  *   import { authenticate } from '../lib/auth';
  *   app.get('/api/v1/admin/*', authenticate('required'), adminHandler);
+ *   app.get('/api/v1/*', authenticate('external-only'), handler);
  */
 
 import type { Context, MiddlewareHandler, Next } from 'hono';
 import type { Env } from '../env';
 import { unauthorized } from './api-error';
+
+/** Allowed origins that bypass API key requirement. */
+const ALLOWED_ORIGINS = new Set([
+  'https://pranithjain.qzz.io',
+  'http://localhost:5173',
+  'http://localhost:8787',
+]);
 
 export interface AuthUser {
   keyId: string;
@@ -43,6 +53,20 @@ function extractKey(c: Context<{ Bindings: Env }>): string | null {
 }
 
 /**
+ * Check if request originates from the same site (frontend).
+ * Uses Origin header (preferred) or Referer as fallback.
+ */
+function isSameOrigin(c: Context<{ Bindings: Env }>): boolean {
+  const origin = c.req.header('origin') ?? '';
+  if (origin && ALLOWED_ORIGINS.has(origin)) return true;
+  const referer = c.req.header('referer') ?? '';
+  for (const allowed of ALLOWED_ORIGINS) {
+    if (referer.startsWith(allowed)) return true;
+  }
+  return false;
+}
+
+/**
  * Look up a hashed key in D1. Returns the key metadata or null.
  */
 async function lookupKey(db: D1Database, hashed: string): Promise<AuthUser | null> {
@@ -59,13 +83,21 @@ async function lookupKey(db: D1Database, hashed: string): Promise<AuthUser | nul
 /**
  * Authentication middleware.
  *
- * @param required When true, rejects unauthenticated requests with 401.
- *                 When false, attaches user if key present but allows anonymous.
+ * @param mode 'optional' | 'required' | 'external-only'
+ *   - `optional` — attaches user if key present, allows anonymous
+ *   - `required` — rejects unauthenticated with 401
+ *   - `'external-only'` — same-origin passthrough; external callers need a key
  */
 export function authenticate(
-  required: boolean
+  mode: boolean | 'external-only'
 ): MiddlewareHandler<{ Bindings: Env }> {
   return async (c: Context<{ Bindings: Env }>, next: Next) => {
+    // 'external-only': allow same-origin (frontend) without a key
+    if (mode === 'external-only' && isSameOrigin(c)) {
+      return next();
+    }
+
+    const required = mode === true || mode === 'external-only';
     const raw = extractKey(c);
     if (!raw) {
       if (required) return unauthorized(c, 'api key required — provide via Authorization: Bearer or X-API-Key');

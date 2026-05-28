@@ -85,9 +85,8 @@ export async function checkWatches(kv: KVNamespace, now: string): Promise<AlertE
       if (watch.type === 'ransomware-group') {
         const data = await readCachedJson<{ victims: Array<{ victim: string; group: string }> }>('https://ransomware-recent-cache.internal/v8-af-source');
         if (data) {
-          const victim = (data.victims ?? []).find(
-            (v) => v.group.toLowerCase().includes(watch.value.toLowerCase())
-          );
+          const re = new RegExp(`\\b${escapeRegex(watch.value)}\\b`, 'i');
+          const victim = (data.victims ?? []).find((v) => re.test(v.group));
           if (victim) {
             matched = true;
             matchText = `New victim: ${victim.victim}`;
@@ -97,10 +96,11 @@ export async function checkWatches(kv: KVNamespace, now: string): Promise<AlertE
       } else if (watch.type === 'cve-keyword') {
         const data = await readCachedJson<{ cves: Array<{ id: string; description?: string }> }>('https://cve-recent-cache.internal/v10-750-paged');
         if (data) {
+          const re = new RegExp(`\\b${escapeRegex(watch.value)}\\b`, 'i');
           const match = (data.cves ?? []).find(
             (c) =>
               c.id.toLowerCase().includes(watch.value.toLowerCase()) ||
-              (c.description ?? '').toLowerCase().includes(watch.value.toLowerCase())
+              re.test(c.description ?? '')
           );
           if (match) {
             matched = true;
@@ -123,8 +123,9 @@ export async function checkWatches(kv: KVNamespace, now: string): Promise<AlertE
       } else if (watch.type === 'actor') {
         const data = await readCachedJson<{ groups: Array<{ display_name: string; slug: string; posts_in_window: number }> }>('https://actor-timeline-cache.internal/v3-mti');
         if (data) {
+          const re = new RegExp(`\\b${escapeRegex(watch.value)}\\b`, 'i');
           const match = (data.groups ?? []).find(
-            (g) => g.display_name.toLowerCase().includes(watch.value.toLowerCase()) || g.slug.toLowerCase().includes(watch.value.toLowerCase())
+            (g) => re.test(g.display_name) || re.test(g.slug)
           );
           if (match && match.posts_in_window > 0) {
             matched = true;
@@ -146,8 +147,6 @@ export async function checkWatches(kv: KVNamespace, now: string): Promise<AlertE
         };
         alerts.push(event);
         watch.last_triggered = now;
-        await saveWatch(kv, watch);
-        await appendAlertLog(kv, event);
         try {
           await fetch(watch.webhook, {
             method: 'POST',
@@ -166,5 +165,27 @@ export async function checkWatches(kv: KVNamespace, now: string): Promise<AlertE
     }
   }
 
+  // Batch-persist: write watches and alert log once instead of per-watch.
+  // Previously each triggered watch did a read+write of watches:v1 and
+  // alert-log:v1 — with 10 triggers that was 20 KV reads + 20 KV writes.
+  // Now: 2 reads (already done above) + 2 writes total.
+  if (alerts.length > 0) {
+    try {
+      await kv.put(WATCHES_KV_KEY, JSON.stringify(watches));
+    } catch { /* non-fatal */ }
+
+    try {
+      const raw = await kv.get(ALERT_LOG_KV_KEY, 'json').catch(() => null);
+      const log = (raw as AlertEvent[]) ?? [];
+      for (const event of alerts) log.unshift(event);
+      if (log.length > 200) log.length = 200;
+      await kv.put(ALERT_LOG_KV_KEY, JSON.stringify(log));
+    } catch { /* non-fatal */ }
+  }
+
   return alerts;
+}
+
+function escapeRegex(s: string): string {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }

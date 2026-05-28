@@ -446,7 +446,7 @@ function CopyEntityButton({ entity }: { entity: PulseEntity }): JSX.Element {
       onClick={onClick}
       aria-label={`Copy ${entity.label} with sources`}
       title="Copy entity + sources for tickets / Slack"
-      className="inline-flex items-center justify-center min-h-[22px] min-w-[22px] rounded text-slate-400 hover:text-brand-500 transition-colors"
+      className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] sm:min-h-[22px] sm:min-w-[22px] rounded text-slate-400 hover:text-brand-500 transition-colors"
     >
       {done ? <Check size={12} /> : <Copy size={12} />}
     </button>

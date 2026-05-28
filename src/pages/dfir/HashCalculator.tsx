@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect, useRef } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, Hash as HashIcon } from 'lucide-react';
 
 /** Compact MD5 (RFC 1321). Web Crypto has no MD5; DFIR still needs it for
@@ -66,9 +66,26 @@ async function subtle(algo: string, bytes: Uint8Array): Promise<string> {
 }
 
 export default function HashCalculator(): JSX.Element {
-  const [text, setText] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initial = searchParams.get('q') ?? '';
+  const [text, setText] = useState(initial);
   const [out, setOut] = useState<Record<string, string>>({});
   const [src, setSrc] = useState('');
+  const autoFired = useRef(false);
+
+  // Auto-fire from URL param
+  useEffect(() => {
+    if (initial && !autoFired.current) {
+      autoFired.current = true;
+      void run(new TextEncoder().encode(initial), 'text');
+    }
+  }, [initial]);
+
+  // Sync text to URL
+  useEffect(() => {
+    if (text) setSearchParams({ q: text }, { replace: true });
+    else setSearchParams({}, { replace: true });
+  }, [text, setSearchParams]);
 
   async function run(bytes: Uint8Array, label: string) {
     setSrc(label);

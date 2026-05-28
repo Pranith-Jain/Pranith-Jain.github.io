@@ -192,6 +192,15 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
       await unapprove(c.env.CASE_STUDIES, candidate.key);
       await touchDedup(c.env.CASE_STUDIES, candidate.key, now, post.slug);
 
+      // Auto-generate social content in the background — don't block the
+      // publish response. Failures are logged and don't affect publish.
+      const ctx = c.executionCtx;
+      ctx.waitUntil(
+        generateSocialContent(post, c.env.AI as never, new Date(), c.env.GROQ_API_KEY)
+          .then((social) => c.env.CASE_STUDIES.put(csKvKeys.social(post.slug), JSON.stringify(social)))
+          .catch((err: unknown) => console.error('auto-social-generation failed:', err))
+      );
+
       return c.json({ ok: true, slug: post.slug, title: post.title });
     } catch (err) {
       console.error('schedule-publish-now failed:', err);

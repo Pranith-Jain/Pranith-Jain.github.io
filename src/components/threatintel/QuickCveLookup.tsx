@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { BookText, ExternalLink, Loader2, Gauge } from 'lucide-react';
-import { CopyButton } from '../dfir/CopyButton';
+import { BookText, ExternalLink, Loader2 } from 'lucide-react';
 
 const CVE_RE = /^CVE-\d{4}-\d{4,7}$/i;
 
@@ -80,12 +79,12 @@ export default function QuickCveLookup() {
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && runLookup()}
           placeholder="CVE-2024-12345"
-          className="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded text-xs font-mono focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          className="flex-1 px-3 py-3 sm:py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded text-xs font-mono focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
         />
         <button
           onClick={runLookup}
           disabled={!canSubmit}
-          className="px-3 py-1.5 rounded bg-brand-600 dark:bg-brand-500 text-white text-xs font-mono disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+          className="px-3 py-3 sm:py-1.5 rounded bg-brand-600 dark:bg-brand-500 text-white text-xs font-mono disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
         >
           {loading ? <Loader2 size={12} className="animate-spin" /> : <BookText size={12} />}
         </button>

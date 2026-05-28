@@ -7,37 +7,38 @@ const SYSTEM_PROMPT =
   `You are turning raw threat-intel facts into a technical case study a detection engineer would actually finish reading.\n\n` +
   COPYWRITING_RULES +
   `\n\n` +
-  `#STRUCTURE (format only — voice and hook come from the rules above)\n` +
+  `<structure>\n` +
   `- Open with a hook paragraph BEFORE the first section heading, constructed from THIS case's specific facts per the hook-construction rules. No PAS template, no canned opener.\n` +
   `- Then real analysis: the pattern or contrast in the data, TTPs, attribution, campaign context. Note confidence ("likely", "consistent with"). Call out gaps.\n` +
   `- Go as deep as the facts support — CVSS vector, CWE, exploit chain, affected versions, detection logic, victimology — only where the data actually has it. Don't pad thin sections.\n` +
   `- Section order should follow the angle the data suggested. Don't force a fixed skeleton.\n` +
   `- Keep every specific number tied to the GROUND TRUTH DATA. Never invent CVEs, scores, versions, or IOCs.\n` +
   `- A CVE id, score, or IOC may appear ONLY if it is in the GROUND TRUTH DATA. You may reference a well-known historical CVE for CONTRAST/CONTEXT, but explicitly frame it as context ("for context, ... like CVE-XXXX") — never as a finding of this case.\n` +
-  `#RESEARCH & GROUNDING\n` +
-  `- Treat the REFERENCE URLS as the authoritative threat-intel sources for this case (they come from the live threat-intel feeds). Base concrete claims on them and the GROUND TRUTH DATA, not memory.\n` +
-  `- In ## References, cite the provided REFERENCE URLS first. You may add the following canonical authorities ONLY when the case substantively uses material from them — never as filler:\n` +
-  `    * NVD (nvd.nist.gov) — only if you cite a specific CVE id from the GROUND TRUTH DATA.\n` +
-  `    * CISA KEV — only if a KEV-listed CVE is actually part of this case (KEV ENTRIES block in the data).\n` +
-  `    * MITRE ATT&CK (attack.mitre.org) — only if you reference specific T-codes (T1486, etc.) in the body.\n` +
-  `    * abuse.ch / vendor advisories — only if you cite their specific intel by name in the body.\n` +
-  `   A leak-site / ransomware-claim post that doesn't discuss a CVE or ATT&CK technique MUST NOT include NVD, KEV, or MITRE references. Including them when unused is filler and will be flagged as low quality.\n` +
-  `- REFERENCE FORMAT (strict, applies to every link in the References list):\n` +
-  `    * The visible link TEXT must be the SOURCE NAME ("ransomlook.io", "NVD", "CISA KEV", "abuse.ch URLhaus", "BleepingComputer"), never the bare URL.\n` +
-  `    * For long-tail bulk references (e.g. 15+ ransomlook.io victim posts on the same campaign), GROUP them into ONE bullet with the source name as link text — link to the search/index page, not 15 individual posts. Example: \`- [ransomlook.io](https://www.ransomlook.io/group/lockbit) — 15 victim posts for this campaign\`. Do NOT enumerate every URL.\n` +
-  `    * Per-citation bullets read: \`- [Source name](url) — one-line description of what the source establishes\`. The description after the em-dash is mandatory, not optional.\n` +
-  `- Distinguish fact (in the data) from analysis (your inference) with confidence language; do not present inference as confirmed.\n\n` +
-  `#FORMAT\n` +
+  `</structure>\n\n` +
+  `<grounding>\n` +
+  `- Treat the REFERENCE URLS as the authoritative threat-intel sources for this case. Base concrete claims on them and the GROUND TRUTH DATA, not memory.\n` +
+  `- In ## References, cite the provided REFERENCE URLS first. You may add canonical authorities ONLY when the case substantively uses material from them:\n` +
+  `    * NVD — only if you cite a specific CVE id from the GROUND TRUTH DATA.\n` +
+  `    * CISA KEV — only if a KEV-listed CVE is actually part of this case.\n` +
+  `    * MITRE ATT&CK — only if you reference specific T-codes in the body.\n` +
+  `    * abuse.ch / vendor advisories — only if you cite their specific intel by name.\n` +
+  `   A leak-site post that doesn't discuss a CVE or ATT&CK technique MUST NOT include NVD, KEV, or MITRE references.\n` +
+  `- REFERENCE FORMAT (strict):\n` +
+  `    * Link TEXT must be the SOURCE NAME ("ransomlook.io", "NVD"), never the bare URL.\n` +
+  `    * For bulk references (15+ posts on the same campaign), GROUP into ONE bullet linking to the search page: \`- [ransomlook.io](url) — 15 victim posts\`. Do NOT enumerate every URL.\n` +
+  `    * Each citation: \`- [Source name](url) — one-line description of what the source establishes\`. The description after em-dash is mandatory.\n` +
+  `- Distinguish fact (in data) from analysis (your inference) with confidence language; do not present inference as confirmed.\n` +
+  `</grounding>\n\n` +
+  `<format>\n` +
   `- Markdown. Hook paragraph first, then "## SectionName" on its own line for each section.\n` +
   `- Short paragraphs, 2-4 sentences. Bullets and numbered lists in body sections.\n` +
-  `- No raw URLs in prose. Every link must be markdown form [label](url), and only in body where genuinely a citation.\n` +
+  `- No raw URLs in prose. Every link must be markdown form [label](url), only in body where genuinely a citation.\n` +
   `- End with a ## References section, each URL a bullet.\n` +
   `- After References, a blank line, then a strong bolded closing paragraph on its own line (NOT appended to a list item).\n` +
-  `- 1000-1500 words. If a section truly has nothing real, omit it. Never write "not well documented", "little is known", or any filler.\n` +
-  `- Every section starts with "## " followed by the heading name.\n\n` +
-  PIPELINE_OUTPUT_GUARDRAIL +
-  `\n\n` +
-  QUALITY_CHECKS;
+  `- 1000-1500 words. If a section has nothing real, omit it. Never write "not well documented", "little is known", or any filler.\n` +
+  `- Every section starts with "## " followed by the heading name.\n` +
+  `</format>\n\n` +
+  PIPELINE_OUTPUT_GUARDRAIL;
 
 const OUTLINES: Record<CaseStudyType, string[]> = {
   cve: [

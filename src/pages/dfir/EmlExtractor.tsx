@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Paperclip, Loader2, AlertTriangle, FileText, ShieldAlert, ScanText } from 'lucide-react';
+import { ArrowLeft, Paperclip, Loader2, AlertTriangle, FileText, ShieldAlert, ScanText, FileSearch } from 'lucide-react';
 import { parseEml, type ParsedEml, type EmlAttachment } from '../../lib/dfir/eml-parser';
 import { CopyChip } from '../../components/dfir/CopyButton';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
@@ -45,10 +45,16 @@ function fmtBytes(n: number): string {
 }
 
 export default function EmlExtractor(): JSX.Element {
+  const navigate = useNavigate();
   const [input, setInput] = useState('');
   const [parsed, setParsed] = useState<ParsedEml | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  function pipeToExtractor() {
+    sessionStorage.setItem('ioc-extractor-pipe', input);
+    navigate('/dfir/extract?from=eml');
+  }
 
   const onFile = async (file: File) => {
     if (file.size > 10 * 1024 * 1024) {
@@ -164,6 +170,15 @@ export default function EmlExtractor(): JSX.Element {
           spellCheck={false}
         />
         <div className="flex items-center justify-end gap-2 mt-3">
+          <button
+            type="button"
+            onClick={pipeToExtractor}
+            disabled={!input.trim()}
+            className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 font-mono text-sm disabled:opacity-50 inline-flex items-center gap-2 text-slate-700 dark:text-slate-300"
+          >
+            <FileSearch size={14} />
+            Extract IOCs →
+          </button>
           <button
             type="button"
             onClick={() => void run(input)}

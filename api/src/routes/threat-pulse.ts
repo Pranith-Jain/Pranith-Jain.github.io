@@ -7,6 +7,10 @@ import { fetchXLive } from './x-live';
 import { fetchAuthedTimeline, XAuthMissingError } from '../lib/twitter-auth-graphql';
 import { ACTOR_ALIASES } from '../data/threat-actor-aliases';
 import { ATTACK_ID_INDEX } from '../data/attack-id-index';
+import { RANSOMWARE_RECENT_CACHE_KEY } from './ransomware-recent';
+import { LIVE_IOCS_CACHE_KEY, type LiveIocsResponse } from './live-iocs';
+import { MALWARE_SAMPLES_CACHE_KEY, type MalwareSamplesResponse } from './malware-samples';
+import { DETECTIONS_CACHE_KEY, type DetectionsResponse } from './detections';
 
 /**
  * Read a same-origin feed by checking the edge cache first, then falling
@@ -373,6 +377,82 @@ async function fetchXPulse(env: Env, out: Map<string, PulseEntity>): Promise<voi
   }
 }
 
+// ─── New sources: ransomware, live IOCs, malware samples, detections ────────
+
+async function fetchRansomwarePulse(out: Map<string, PulseEntity>): Promise<void> {
+  const data = await readCachedFeed<{
+    victims: Array<{ victim: string; group: string }>;
+  }>(RANSOMWARE_RECENT_CACHE_KEY, async () => {
+    const res = await fetch('https://pranithjain.qzz.io/api/v1/ransomware-recent', {
+      headers: { 'user-agent': UA },
+      signal: AbortSignal.timeout(8000),
+      cf: { cacheTtl: 300, cacheEverything: true },
+    } as RequestInit);
+    if (!res.ok) throw new Error(`${res.status}`);
+    return (await res.json()) as { victims: Array<{ victim: string; group: string }> };
+  });
+  if (!data?.victims) return;
+  for (const v of data.victims) {
+    // Each ransomware group name is an actor
+    if (v.group) mergeEntity(out, 'actor', v.group, 'ransomware');
+  }
+}
+
+async function fetchLiveIocsPulse(out: Map<string, PulseEntity>): Promise<void> {
+  const data = await readCachedFeed<LiveIocsResponse>(LIVE_IOCS_CACHE_KEY, async () => {
+    const res = await fetch('https://pranithjain.qzz.io/api/v1/live-iocs', {
+      headers: { 'user-agent': UA },
+      signal: AbortSignal.timeout(8000),
+      cf: { cacheTtl: 300, cacheEverything: true },
+    } as RequestInit);
+    if (!res.ok) throw new Error(`${res.status}`);
+    return (await res.json()) as LiveIocsResponse;
+  });
+  if (!data?.items) return;
+  // TweetFeed and ThreatFox context fields carry actor/malware/technique mentions
+  for (const item of data.items) {
+    if (item.context) classifyEntities(item.context, `ioc:${item.source}`, out);
+  }
+}
+
+async function fetchMalwareSamplesPulse(out: Map<string, PulseEntity>): Promise<void> {
+  const data = await readCachedFeed<MalwareSamplesResponse>(MALWARE_SAMPLES_CACHE_KEY, async () => {
+    const res = await fetch('https://pranithjain.qzz.io/api/v1/malware-samples', {
+      headers: { 'user-agent': UA },
+      signal: AbortSignal.timeout(8000),
+      cf: { cacheTtl: 300, cacheEverything: true },
+    } as RequestInit);
+    if (!res.ok) throw new Error(`${res.status}`);
+    return (await res.json()) as MalwareSamplesResponse;
+  });
+  if (!data?.samples) return;
+  for (const s of data.samples) {
+    // Signature and file_type carry malware family names
+    const text = [s.signature, s.file_type].filter(Boolean).join(' ');
+    if (text && text !== 'unknown' && text !== 'n/a') {
+      classifyEntities(text, 'malwarebazaar', out);
+    }
+  }
+}
+
+async function fetchDetectionsPulse(out: Map<string, PulseEntity>): Promise<void> {
+  const data = await readCachedFeed<DetectionsResponse>(DETECTIONS_CACHE_KEY, async () => {
+    const res = await fetch('https://pranithjain.qzz.io/api/v1/detections', {
+      headers: { 'user-agent': UA },
+      signal: AbortSignal.timeout(8000),
+      cf: { cacheTtl: 300, cacheEverything: true },
+    } as RequestInit);
+    if (!res.ok) throw new Error(`${res.status}`);
+    return (await res.json()) as DetectionsResponse;
+  });
+  if (!data?.detections) return;
+  for (const det of data.detections) {
+    // Rule descriptions, technique IDs, and rule names carry entity mentions
+    const text = [det.description, det.technique, det.tactic, det.rule_name].filter(Boolean).join(' ');
+    if (text) classifyEntities(text, 'detections', out);
+  }
+}
+
 // ─── Handler ─────────────────────────────────────────────────────────────────
 
 /** Exported so /api/v1/feed-status can read the same cached payload directly. */
@@ -399,6 +479,10 @@ export async function threatPulseHandler(c: Context<{ Bindings: Env }>): Promise
     fetchCybercrimePulse(entityMap),
     fetchTelegramPulse(entityMap),
     fetchXPulse(c.env, entityMap),
+    fetchRansomwarePulse(entityMap),
+    fetchLiveIocsPulse(entityMap),
+    fetchMalwareSamplesPulse(entityMap),
+    fetchDetectionsPulse(entityMap),
   ]);
 
   const entities = [...entityMap.values()].sort(

@@ -21,6 +21,20 @@ export type ResourceKind =
   | 'community'
   | 'research';
 
+export type ResourceTag =
+  | 'malware'
+  | 'threat-intel'
+  | 'c2'
+  | 'phishing'
+  | 'osint'
+  | 'dfir'
+  | 'darkweb'
+  | 'vulnerability'
+  | 'ai-security'
+  | 'blocklist'
+  | 'sandbox'
+  | 'telegram';
+
 export interface ExternalResource {
   id: string;
   name: string;
@@ -30,6 +44,8 @@ export interface ExternalResource {
   why?: string;
   /** Quality-content signal for research/discovery filtering. */
   featured?: true;
+  /** Searchable tags for cross-category filtering. */
+  tags?: ResourceTag[];
 }
 
 export const KIND_LABELS: Record<ResourceKind, string> = {
@@ -63,6 +79,36 @@ export const KIND_PILL: Record<ResourceKind, string> = {
   samples: 'border-fuchsia-500/40 bg-fuchsia-500/10 text-fuchsia-700 dark:text-fuchsia-300',
   community: 'border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300',
   research: 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
+};
+
+export const TAG_LABELS: Record<ResourceTag, string> = {
+  malware: 'Malware',
+  'threat-intel': 'Threat Intel',
+  c2: 'C2',
+  phishing: 'Phishing',
+  osint: 'OSINT',
+  dfir: 'DFIR',
+  darkweb: 'Dark Web',
+  vulnerability: 'Vuln',
+  'ai-security': 'AI Sec',
+  blocklist: 'Blocklist',
+  sandbox: 'Sandbox',
+  telegram: 'Telegram',
+};
+
+export const TAG_PILL: Record<ResourceTag, string> = {
+  malware: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
+  'threat-intel': 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
+  c2: 'border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300',
+  phishing: 'border-yellow-500/40 bg-yellow-500/10 text-yellow-700 dark:text-yellow-300',
+  osint: 'border-teal-500/40 bg-teal-500/10 text-teal-700 dark:text-teal-300',
+  dfir: 'border-blue-500/40 bg-blue-500/10 text-blue-700 dark:text-blue-300',
+  darkweb: 'border-purple-500/40 bg-purple-500/10 text-purple-700 dark:text-purple-300',
+  vulnerability: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
+  'ai-security': 'border-indigo-500/40 bg-indigo-500/10 text-indigo-700 dark:text-indigo-300',
+  blocklist: 'border-slate-500/40 bg-slate-500/10 text-slate-700 dark:text-slate-300',
+  sandbox: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
+  telegram: 'border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300',
 };
 
 export const RESOURCES: ExternalResource[] = [
@@ -634,5 +680,277 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'tool',
     description:
       'Open directory index and search engine — browse and search across publicly accessible directory listings worldwide.',
+  },
+  {
+    id: 'newsmap',
+    name: 'Newsmap',
+    url: 'https://newsmap.cc/',
+    kind: 'dashboard',
+    description:
+      'Geographic heatmap of global news by category — visualize breaking news trends, media bias, and coverage density across regions.',
+  },
+  {
+    id: 'ransomware-interviews',
+    name: 'Ransomware Operator Interviews',
+    url: 'https://ransomware-interviews.base44.app/',
+    kind: 'research',
+    description:
+      'First-person conversations with ransomware operators. Negotiation tactics, affiliate economics, and the human side of the ransomware ecosystem.',
+    featured: true,
+  },
+  // ── Telegram OSINT / Search Tools (2026-05-28) ────────────────────────────
+  {
+    id: 'telemetryapp',
+    name: 'TelemetryApp',
+    url: 'https://telemetryapp.com/',
+    kind: 'tool',
+    featured: true,
+    description:
+      'Telegram search and analytics platform — search channels, messages, groups, and media across Telegram\'s public surface. Built for OSINT analysts and threat hunters.',
+  },
+  {
+    id: 'lyzem',
+    name: 'LYZEM',
+    url: 'https://lyzem.com/',
+    kind: 'tool',
+    description:
+      'Telegram search engine — full-text search across public channels and messages. Indexes content beyond Telegram\'s native search for OSINT discovery.',
+  },
+  {
+    id: 'telegago',
+    name: 'Telegago',
+    url: 'https://cse.google.com/cse?cx=006368593537057042503:efxu7xprihg',
+    kind: 'tool',
+    description:
+      'Google Custom Search Engine scoped to Telegram public content — search indexed Telegram channels, groups, and messages via Google\'s crawler.',
+  },
+  {
+    id: 'xtea',
+    name: 'XTEA',
+    url: 'https://xtea.io/',
+    kind: 'tool',
+    featured: true,
+    description:
+      'Telegram intelligence and search platform — advanced search across channels, messages, and media. Designed for OSINT researchers, investigators, and threat analysts.',
+  },
+  {
+    id: 'tgstat',
+    name: 'TGStat',
+    url: 'https://tgstat.com/',
+    kind: 'dashboard',
+    featured: true,
+    description:
+      'Telegram analytics and statistics platform — channel rankings, subscriber growth, engagement metrics, and content search across millions of public Telegram channels.',
+  },
+  {
+    id: 'tgdb',
+    name: 'TGDB',
+    url: 'https://tgdb.io/',
+    kind: 'directory',
+    description:
+      'Telegram database and directory — browse and search public Telegram channels, groups, and bots. Categorized index for OSINT discovery and channel enumeration.',
+  },
+  // ── Malware Sample Repositories (2026-05-28) ────────────────────────────
+  {
+    id: 'vx-underground',
+    name: 'vx-underground',
+    url: 'https://vx-underground.org/',
+    kind: 'samples',
+    featured: true,
+    tags: ['malware', 'dfir'],
+    description:
+      'The largest collection of malware source code, samples, and papers on the internet. Curated corpus spanning decades of malware families, APT tools, and reverse-engineering research.',
+  },
+  {
+    id: 'malwarebazaar',
+    name: 'MalwareBazaar',
+    url: 'https://bazaar.abuse.ch/',
+    kind: 'samples',
+    featured: true,
+    tags: ['malware', 'threat-intel', 'dfir'],
+    description:
+      'abuse.ch project — crowdsourced malware sample repository. Upload and download samples, search by hash/tag/family, API access. Integrated into this platform\'s IOC checker.',
+  },
+  {
+    id: 'virushare',
+    name: 'VirusShare',
+    url: 'https://virusshare.com/',
+    kind: 'samples',
+    tags: ['malware', 'dfir'],
+    description:
+      'Malware sample repository maintained by VirusTotal contributor. 40M+ samples available for download. Free registration required. Password-protected ZIP archives.',
+  },
+  {
+    id: 'malshare',
+    name: 'MalShare',
+    url: 'https://malshare.com/',
+    kind: 'samples',
+    featured: true,
+    tags: ['malware', 'threat-intel'],
+    description:
+      'Free malware sample repository with REST API. 1000+ daily samples from 30+ sources. Search by hash, file type, or keyword. API key available with free registration. Integrated into this platform\'s IOC checker.',
+  },
+  {
+    id: 'thezoo',
+    name: 'theZoo',
+    url: 'https://github.com/ytisf/theZoo',
+    kind: 'samples',
+    tags: ['malware', 'dfir'],
+    description:
+      'Open-source live malware repository on GitHub. Curated samples organized by family with encrypted archives. CLI tool for downloading and analysing samples. Educational purpose.',
+  },
+  {
+    id: 'polyswarm',
+    name: 'PolySwarm',
+    url: 'https://polyswarm.io/',
+    kind: 'samples',
+    tags: ['malware', 'sandbox', 'threat-intel'],
+    description:
+      'Decentralized malware marketplace — submit samples for scanning by multiple competing engines. Free tier available. Real-time threat intelligence from 40+ anti-malware engines.',
+  },
+  {
+    id: 'inquest-labs',
+    name: 'InQuest Labs',
+    url: 'https://labs.inquest.net/',
+    kind: 'samples',
+    featured: true,
+    tags: ['malware', 'dfir', 'threat-intel'],
+    description:
+      'Malware research lab — IOC database, YARA rule repository, retrohunt, and sample analysis. Free tier with API access. Specialises in document-based malware (Office, PDF, LNK).',
+  },
+  // ── abuse.ch Projects (2026-05-28) ──────────────────────────────────────
+  {
+    id: 'threatfox',
+    name: 'ThreatFox',
+    url: 'https://threatfox.abuse.ch/',
+    kind: 'dashboard',
+    featured: true,
+    tags: ['threat-intel', 'c2', 'malware'],
+    description:
+      'abuse.ch IOC sharing platform — community-submitted IOCs (IPs, domains, URLs, hashes) mapped to malware families. Searchable database with API. Integrated into this platform\'s live IOCs feed.',
+  },
+  {
+    id: 'urlhaus',
+    name: 'URLhaus',
+    url: 'https://urlhaus.abuse.ch/',
+    kind: 'dashboard',
+    featured: true,
+    tags: ['threat-intel', 'malware', 'phishing'],
+    description:
+      'abuse.ch URL tracking — community-submitted malicious URLs serving malware payloads. Searchable database with API and downloadable blocklists. Integrated into this platform\'s live IOCs feed.',
+  },
+  {
+    id: 'feodo-tracker',
+    name: 'Feodo Tracker',
+    url: 'https://feodotracker.abuse.ch/',
+    kind: 'dashboard',
+    tags: ['threat-intel', 'c2', 'blocklist'],
+    description:
+      'abuse.ch botnet C2 tracker — tracks Feodo, Dridex, Emotet, TrickBot, QakBot, BazarLoader C2 infrastructure. Downloadable IP blocklists and JSON feed.',
+  },
+  {
+    id: 'sslbl',
+    name: 'SSL Blacklist',
+    url: 'https://sslbl.abuse.ch/',
+    kind: 'dashboard',
+    tags: ['threat-intel', 'c2', 'blocklist'],
+    description:
+      'abuse.ch SSL/TLS certificate blacklist — tracks malicious SSL certificates used by botnet C2 servers. Downloadable IP and certificate SHA1 blacklists.',
+  },
+  {
+    id: 'yaraify',
+    name: 'YARAify',
+    url: 'https://yaraify.abuse.ch/',
+    kind: 'tool',
+    tags: ['malware', 'dfir', 'threat-intel'],
+    description:
+      'abuse.ch YARA scanning platform — submit samples for YARA rule matching, search by YARA rule, upload custom rules. Community-driven detection rule testing.',
+  },
+  // ── Sandboxes & Analysis Platforms (2026-05-28) ─────────────────────────
+  {
+    id: 'anyrun',
+    name: 'ANY.RUN',
+    url: 'https://any.run/',
+    kind: 'lab',
+    featured: true,
+    tags: ['sandbox', 'malware', 'dfir'],
+    description:
+      'Interactive malware sandbox — real-time behavioural analysis with Windows VMs. Free tier with public submissions. Process tree, network captures, MITRE ATT&CK mapping.',
+  },
+  {
+    id: 'joe-sandbox',
+    name: 'Joe Sandbox',
+    url: 'https://www.joesecurity.org/',
+    kind: 'lab',
+    tags: ['sandbox', 'malware', 'dfir'],
+    description:
+      'Commercial malware analysis sandbox with free community tier. Deep behavioural analysis, YARA rules, sigma detection, and network IOCs extraction.',
+  },
+  {
+    id: 'hybrid-analysis',
+    name: 'Hybrid Analysis',
+    url: 'https://www.hybrid-analysis.com/',
+    kind: 'lab',
+    featured: true,
+    tags: ['sandbox', 'malware', 'threat-intel'],
+    description:
+      'Free malware analysis sandbox by CrowdStrike. Static + dynamic analysis, MITRE mapping, network IOCs, and community verdicts. API access available.',
+  },
+  // ── Threat Intel Feeds & Dashboards (2026-05-28) ────────────────────────
+  {
+    id: 'virustotal',
+    name: 'VirusTotal',
+    url: 'https://www.virustotal.com/',
+    kind: 'tool',
+    featured: true,
+    tags: ['malware', 'threat-intel', 'dfir', 'sandbox'],
+    description:
+      'The definitive malware and IOC analysis platform. 70+ AV engine scan, behavioural sandbox, YARA search, graph analysis, community comments. Free API with rate limits.',
+  },
+  {
+    id: 'otx-alienvault',
+    name: 'AlienVault OTX',
+    url: 'https://otx.alienvault.com/',
+    kind: 'dashboard',
+    featured: true,
+    tags: ['threat-intel', 'c2', 'blocklist'],
+    description:
+      'Open Threat Exchange — community-driven threat intelligence. IOC pulses, reputation data, endpoint telemetry. Free API. Integrated into this platform\'s IOC checker.',
+  },
+  {
+    id: 'botvrij',
+    name: 'Botvrij.eu',
+    url: 'https://www.botvrij.eu/',
+    kind: 'dashboard',
+    tags: ['threat-intel', 'c2', 'blocklist'],
+    description:
+      'Botnet C2 intelligence — curated IOCs from sinkhole analysis and honeypot data. Downloadable feeds for IPs, domains, and URLs. Integrated into this platform\'s live IOCs feed.',
+  },
+  {
+    id: 'c2-tracker-feeds',
+    name: 'C2IntelFeeds',
+    url: 'https://github.com/drb-ra/C2IntelFeeds',
+    kind: 'dashboard',
+    tags: ['c2', 'threat-intel', 'blocklist'],
+    description:
+      'Automated C2 infrastructure feeds — IP and domain lists for Cobalt Strike, Sliver, Brute Ratel, and other C2 frameworks. Updated daily via GitHub. Integrated into this platform\'s live IOCs feed.',
+  },
+  {
+    id: 'openphish',
+    name: 'OpenPhish',
+    url: 'https://openphish.com/',
+    kind: 'dashboard',
+    tags: ['phishing', 'threat-intel', 'blocklist'],
+    description:
+      'Automated phishing intelligence — real-time phishing URL feed. Community feed is free; premium adds targeted brand analysis. Integrated into this platform\'s live IOCs feed.',
+  },
+  {
+    id: 'phishtank',
+    name: 'PhishTank',
+    url: 'https://phishtank.org/',
+    kind: 'dashboard',
+    tags: ['phishing', 'threat-intel'],
+    description:
+      'Community phishing verification platform — submit and verify suspected phishing URLs. Free API and downloadable database. Operated by OpenDNS/Cisco.',
   },
 ];

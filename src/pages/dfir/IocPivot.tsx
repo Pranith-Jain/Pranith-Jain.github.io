@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Search, Loader2 } from 'lucide-react';
+import { ArrowLeft, Search, Loader2, FileSearch } from 'lucide-react';
 import { streamIoc } from '../../lib/dfir/api';
 import { detectType } from '../../lib/dfir/indicator-client';
 import type { ProviderResultWire, DoneEvent } from '../../lib/dfir/types';
@@ -80,6 +80,7 @@ const PIVOT_FILL: Record<Pivot['kind'], string> = {
 };
 
 export default function IocPivot(): JSX.Element {
+  const navigate = useNavigate();
   const [params, setParams] = useSearchParams();
   const [input, setInput] = useState(params.get('q') ?? '');
   const [active, setActive] = useState(params.get('q')?.trim() ?? '');
@@ -129,6 +130,12 @@ export default function IocPivot(): JSX.Element {
   // Sources that actually returned a signal (drop pure unknown/no-data noise).
   const sources = results.filter((r) => r.verdict !== 'unknown' || r.score > 0);
   const pivots = extractPivots(results, active);
+
+  function pipeToExtractor() {
+    const text = [active, ...pivots.map((p) => p.value)].join('\n');
+    sessionStorage.setItem('ioc-extractor-pipe', text);
+    navigate('/dfir/extract?from=pivot');
+  }
 
   // Radial layout.
   const W = 820;
@@ -295,9 +302,18 @@ export default function IocPivot(): JSX.Element {
 
           {pivots.length > 0 && (
             <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
-              <h3 className="text-[11px] font-mono uppercase tracking-wider text-slate-500 mb-2">
-                Pivot indicators ({pivots.length})
-              </h3>
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-[11px] font-mono uppercase tracking-wider text-slate-500">
+                  Pivot indicators ({pivots.length})
+                </h3>
+                <button
+                  type="button"
+                  onClick={pipeToExtractor}
+                  className="text-[11px] font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                >
+                  <FileSearch size={11} /> Extract IOCs →
+                </button>
+              </div>
               <div className="flex flex-wrap gap-1.5">
                 {pivots.map((pv) => (
                   <button

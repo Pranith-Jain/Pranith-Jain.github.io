@@ -23,6 +23,7 @@ import { openphish } from '../providers/openphish';
 import { threatfox } from '../providers/threatfox';
 import { urlhaus } from '../providers/urlhaus';
 import { malwarebazaar } from '../providers/malwarebazaar';
+import { malshare } from '../providers/malshare';
 import { hashlookup } from '../providers/hashlookup';
 import { cinsarmy } from '../providers/cinsarmy';
 import { bitwire } from '../providers/bitwire';
@@ -76,6 +77,7 @@ const ADAPTERS: Record<ProviderId, ProviderAdapter> = {
   threatfox,
   urlhaus,
   malwarebazaar,
+  malshare,
   hashlookup,
   cinsarmy,
   bitwire,
@@ -140,6 +142,7 @@ export async function iocCheckHandler(c: Context<{ Bindings: Env }>) {
       URLSCAN_API_KEY: c.env.URLSCAN_API_KEY ?? '',
       HYBRID_ANALYSIS_API_KEY: c.env.HYBRID_ANALYSIS_API_KEY ?? '',
       ABUSECH_AUTH_KEY: c.env.ABUSECH_AUTH_KEY,
+      MALSHARE_API_KEY: c.env.MALSHARE_API_KEY,
     };
 
     const collected: ProviderResult[] = [];

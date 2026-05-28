@@ -7,11 +7,15 @@ import {
   KIND_LABELS,
   KIND_BLURB,
   KIND_PILL,
+  TAG_LABELS,
+  TAG_PILL,
   type ExternalResource,
   type ResourceKind,
+  type ResourceTag,
 } from '../../data/threatintel/external-resources';
 
 const ALL_KINDS = Object.keys(KIND_LABELS) as ResourceKind[];
+const ALL_TAGS = Object.keys(TAG_LABELS) as ResourceTag[];
 
 /**
  * Runtime-editable layer on top of the static catalog. The auth token lives
@@ -36,6 +40,11 @@ export default function ExternalResources(): JSX.Element {
   const initialKinds = (searchParams.get('kind')?.split(',').filter(Boolean) ?? []) as ResourceKind[];
   const [activeKinds, setActiveKinds] = useState<Set<ResourceKind>>(
     new Set(initialKinds.filter((k) => (ALL_KINDS as string[]).includes(k)))
+  );
+
+  const initialTags = (searchParams.get('tag')?.split(',').filter(Boolean) ?? []) as ResourceTag[];
+  const [activeTags, setActiveTags] = useState<Set<ResourceTag>>(
+    new Set(initialTags.filter((t) => (ALL_TAGS as string[]).includes(t)))
   );
 
   // Dynamic entries fetched from /api/v1/external-resources.
@@ -86,13 +95,15 @@ export default function ExternalResources(): JSX.Element {
         else out.delete('q');
         if (activeKinds.size > 0) out.set('kind', [...activeKinds].join(','));
         else out.delete('kind');
+        if (activeTags.size > 0) out.set('tag', [...activeTags].join(','));
+        else out.delete('tag');
         if (featuredOnly) out.set('featured', '1');
         else out.delete('featured');
         return out;
       },
       { replace: true }
     );
-  }, [query, activeKinds, featuredOnly, setSearchParams]);
+  }, [query, activeKinds, activeTags, featuredOnly, setSearchParams]);
 
   // Merge static + dynamic, dedup by URL (dynamic wins if the same URL
   // somehow exists in both). Dynamic entries sort first so newly-added
@@ -111,18 +122,26 @@ export default function ExternalResources(): JSX.Element {
     return merged.filter((r) => {
       if (featuredOnly && !('featured' in r)) return false;
       if (activeKinds.size > 0 && !activeKinds.has(r.kind)) return false;
+      if (activeTags.size > 0 && !(r.tags ?? []).some((t) => activeTags.has(t))) return false;
       if (!q) return true;
-      const hay = `${r.name} ${r.description} ${r.why ?? ''}`.toLowerCase();
+      const tagStr = (r.tags ?? []).map((t) => TAG_LABELS[t]).join(' ');
+      const hay = `${r.name} ${r.description} ${r.why ?? ''} ${tagStr}`.toLowerCase();
       return q
         .split(/\s+/)
         .filter(Boolean)
         .every((tok) => hay.includes(tok));
     });
-  }, [query, activeKinds, featuredOnly, merged]);
+  }, [query, activeKinds, activeTags, featuredOnly, merged]);
 
   const kindCounts = useMemo(() => {
     const map = new Map<ResourceKind, number>();
     for (const r of filtered) map.set(r.kind, (map.get(r.kind) ?? 0) + 1);
+    return map;
+  }, [filtered]);
+
+  const tagCounts = useMemo(() => {
+    const map = new Map<ResourceTag, number>();
+    for (const r of filtered) for (const t of r.tags ?? []) map.set(t, (map.get(t) ?? 0) + 1);
     return map;
   }, [filtered]);
 
@@ -134,14 +153,38 @@ export default function ExternalResources(): JSX.Element {
       return next;
     });
 
+  const toggleTag = (t: ResourceTag) =>
+    setActiveTags((prev) => {
+      const next = new Set(prev);
+      if (next.has(t)) next.delete(t);
+      else next.add(t);
+      return next;
+    });
+
   const clearAll = () => {
     setQuery('');
     setActiveKinds(new Set());
+    setActiveTags(new Set());
     setFeaturedOnly(false);
   };
 
   const activateResearch = () => {
     setActiveKinds(new Set(RESEARCH_KINDS));
+    setActiveTags(new Set());
+    setFeaturedOnly(false);
+    setQuery('');
+  };
+
+  const activateMalware = () => {
+    setActiveKinds(new Set());
+    setActiveTags(new Set(['malware']));
+    setFeaturedOnly(false);
+    setQuery('');
+  };
+
+  const activateThreatIntel = () => {
+    setActiveKinds(new Set());
+    setActiveTags(new Set(['threat-intel']));
     setFeaturedOnly(false);
     setQuery('');
   };
@@ -215,6 +258,30 @@ export default function ExternalResources(): JSX.Element {
           </button>
           <button
             type="button"
+            onClick={activateMalware}
+            className={`text-[11px] font-mono px-3 py-1.5 rounded border transition-colors ${
+              activeTags.has('malware')
+                ? 'border-rose-500/50 bg-rose-500/10 text-rose-700 dark:text-rose-300'
+                : 'border-slate-300 dark:border-slate-700 text-slate-500 hover:border-rose-500/40'
+            }`}
+            aria-label="Show malware samples and repositories"
+          >
+            Malware repos
+          </button>
+          <button
+            type="button"
+            onClick={activateThreatIntel}
+            className={`text-[11px] font-mono px-3 py-1.5 rounded border transition-colors ${
+              activeTags.has('threat-intel')
+                ? 'border-orange-500/50 bg-orange-500/10 text-orange-700 dark:text-orange-300'
+                : 'border-slate-300 dark:border-slate-700 text-slate-500 hover:border-orange-500/40'
+            }`}
+            aria-label="Show threat intelligence feeds"
+          >
+            Threat intel feeds
+          </button>
+          <button
+            type="button"
             onClick={() => setFeaturedOnly((v) => !v)}
             className={`text-[11px] font-mono px-3 py-1.5 rounded border transition-colors ${
               featuredOnly
@@ -230,6 +297,7 @@ export default function ExternalResources(): JSX.Element {
             onClick={() => {
               setQuery('');
               setActiveKinds(new Set());
+              setActiveTags(new Set());
               setFeaturedOnly(false);
             }}
             className="text-[11px] font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-slate-700 text-slate-500 hover:border-brand-500/40 transition-colors"
@@ -276,6 +344,32 @@ export default function ExternalResources(): JSX.Element {
                 aria-label={`Filter by ${KIND_LABELS[k]} (${count} ${count === 1 ? 'entry' : 'entries'})`}
               >
                 {KIND_LABELS[k]} <span className="opacity-70">· {count}</span>
+              </button>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Tag pills */}
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+        <div className="flex flex-wrap items-center gap-1.5">
+          <span className="text-[11px] font-mono text-slate-500 mr-1">tag:</span>
+          {ALL_TAGS.map((t) => {
+            const count = tagCounts.get(t) ?? 0;
+            const active = activeTags.has(t);
+            const cls = active ? TAG_PILL[t] : 'border-slate-300 dark:border-slate-700 text-slate-500';
+            const isDisabled = count === 0 && !active;
+            return (
+              <button
+                key={t}
+                type="button"
+                onClick={() => toggleTag(t)}
+                className={`text-[11px] font-mono px-2 py-1 rounded border ${cls} ${count === 0 ? 'opacity-30' : ''}`}
+                disabled={isDisabled}
+                aria-pressed={active}
+                aria-label={`Filter by ${TAG_LABELS[t]} (${count} ${count === 1 ? 'entry' : 'entries'})`}
+              >
+                {TAG_LABELS[t]} <span className="opacity-70">· {count}</span>
               </button>
             );
           })}
@@ -362,6 +456,21 @@ export default function ExternalResources(): JSX.Element {
             <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed mb-2 break-words">
               {r.description}
             </p>
+            {(r.tags ?? []).length > 0 && (
+              <div className="flex flex-wrap gap-1 mb-1">
+                {(r.tags ?? []).map((t) => (
+                  <button
+                    key={t}
+                    type="button"
+                    onClick={() => toggleTag(t)}
+                    className={`text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${TAG_PILL[t]}`}
+                    title={`Filter by ${TAG_LABELS[t]}`}
+                  >
+                    {TAG_LABELS[t]}
+                  </button>
+                ))}
+              </div>
+            )}
             {r.why && (
               <p className="text-[12px] font-mono italic text-slate-500 dark:text-slate-400 leading-relaxed">
                 <span className="text-slate-400 dark:text-slate-600 not-italic">why:</span> {r.why}

@@ -2,6 +2,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { sseStream } from '../lib/sse';
 import { claimSseSlot } from '../lib/sse-concurrency';
+import { safeJsonBody } from '../lib/safe-body';
 
 /**
  * Bulk OTX enrichment with fair-queue rotation, streamed over SSE.
@@ -173,12 +174,9 @@ export async function actorEnrichOtxStreamHandler(c: Context<{ Bindings: Env }>)
     return c.json({ error: 'too many concurrent streams' }, 429, { 'cache-control': 'no-store' });
   }
 
-  let body: { actors?: unknown; limit?: unknown };
-  try {
-    body = (await c.req.json()) as { actors?: unknown; limit?: unknown };
-  } catch {
-    return c.json({ error: 'invalid JSON body' }, 400, { 'cache-control': 'no-store' });
-  }
+  const parsed = await safeJsonBody<{ actors?: unknown; limit?: unknown }>(c, { maxBytes: 32 * 1024, maxDepth: 6 });
+  if ('error' in parsed) return parsed.error;
+  const body = parsed.value;
 
   const rawActors = Array.isArray(body.actors) ? body.actors : [];
   const actors: ActorInput[] = [];

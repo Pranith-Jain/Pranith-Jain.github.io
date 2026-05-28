@@ -68,18 +68,20 @@ export async function dashboardHandler(c: Context<{ Bindings: Env }>): Promise<R
   const wl = await readWatchlist(kv);
   const results: DomainStatus[] = [];
 
+  // Hoist shared cache reads above the loop — previously these fired
+  // per-domain (N×2 cache reads for N domains). The data is identical
+  // across iterations; read once and filter in-memory.
+  const liveIocs = await readCache<{ items: Array<{ value: string; kind: string; source: string }> }>('https://live-iocs-cache.internal/v11-freshness-filter');
+  const breaches = await readCache<{ breaches: Array<{ name: string; title: string; domain?: string; pwn_count?: number; breach_date?: string; data_classes?: string[] }> }>('https://breach-cache.internal/v6-hibp-only');
+
   // Check domains against cached threat data
   for (const domain of wl.domains) {
     const domainLower = domain.toLowerCase();
 
-    // IOC sightings
-    const liveIocs = await readCache<{ items: Array<{ value: string; kind: string; source: string }> }>('https://live-iocs-cache.internal/v11-freshness-filter');
     const domainIocs = (liveIocs?.items ?? []).filter(
       (i) => i.value.toLowerCase() === domainLower || i.value.toLowerCase().includes(domainLower)
     );
 
-    // Breach disclosures
-    const breaches = await readCache<{ breaches: Array<{ name: string; title: string; domain?: string; pwn_count?: number; breach_date?: string; data_classes?: string[] }> }>('https://breach-cache.internal/v6-hibp-only');
     const domainBreaches = (breaches?.breaches ?? []).filter(
       (b) => b.domain?.toLowerCase() === domainLower
     );
