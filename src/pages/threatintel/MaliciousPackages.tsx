@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Package, ExternalLink, RefreshCw, Search, ShieldAlert } from 'lucide-react';
 
@@ -39,7 +39,14 @@ export default function MaliciousPackages(): JSX.Element {
   const [data, setData] = useState<MaliciousPackagesResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [query, setQuery] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initial = searchParams.get('q') ?? '';
+  const [query, setQuery] = useState(initial);
+
+  useEffect(() => {
+    if (query) setSearchParams({ q: query }, { replace: true });
+    else setSearchParams({}, { replace: true });
+  }, [query, setSearchParams]);
 
   useEffect(() => {
     try {

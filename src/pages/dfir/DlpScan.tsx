@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useMemo, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ShieldAlert, AlertTriangle, CheckCircle2, ExternalLink } from 'lucide-react';
 import { CopyChip } from '../../components/dfir/CopyButton';
@@ -115,7 +115,14 @@ function highlight(input: string, findings: Finding[]): JSX.Element[] {
 }
 
 export default function DlpScan(): JSX.Element {
-  const [input, setInput] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initial = searchParams.get('q') ?? '';
+  const [input, setInput] = useState(initial);
+
+  useEffect(() => {
+    if (input) setSearchParams({ q: input }, { replace: true });
+    else setSearchParams({}, { replace: true });
+  }, [input, setSearchParams]);
 
   const findings = useMemo(() => detect(input), [input]);
   const stats = useMemo(() => summary(findings), [findings]);

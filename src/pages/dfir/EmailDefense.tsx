@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ToolDocs } from '../../components/dfir/ToolDocs';
 import { ArrowLeft, Mail, Search, Loader2, CheckCircle2, AlertTriangle, ExternalLink } from 'lucide-react';
@@ -23,10 +23,21 @@ const GRADE_BARS: Record<string, string> = {
 };
 
 export default function EmailDefense(): JSX.Element {
-  const [domain, setDomain] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initial = searchParams.get('q') ?? '';
+  const [domain, setDomain] = useState(initial);
   const [data, setData] = useState<DomainApiResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (domain) setSearchParams({ q: domain }, { replace: true });
+    else setSearchParams({}, { replace: true });
+  }, [domain, setSearchParams]);
+
+  useEffect(() => {
+    if (initial) lookup();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const lookup = async () => {
     const trimmed = domain

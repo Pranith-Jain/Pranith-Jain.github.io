@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ToolDocs } from '../../components/dfir/ToolDocs';
 import {
@@ -147,12 +148,23 @@ function downloadFile(filename: string, content: string, mime: string) {
 }
 
 export default function CvePrioritizer(): JSX.Element {
-  const [input, setInput] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initial = searchParams.get('q') ?? '';
+  const [input, setInput] = useState(initial);
   const [rows, setRows] = useState<Row[]>([]);
   const [running, setRunning] = useState(false);
   const [context, setContext] = useState<AssetContext>('unknown');
   const [filterVerdict, setFilterVerdict] = useState<BatchVerdict | null>(null);
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    if (input) setSearchParams({ q: input }, { replace: true });
+    else setSearchParams({}, { replace: true });
+  }, [input, setSearchParams]);
+
+  useEffect(() => {
+    if (initial) void run();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   /** Re-derive verdict + score whenever context changes — no re-fetch. */
   const decoratedRows = useMemo<Row[]>(() => {

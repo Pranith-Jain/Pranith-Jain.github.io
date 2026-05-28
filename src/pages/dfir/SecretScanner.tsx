@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, AlertTriangle, ShieldAlert, ShieldX, ShieldCheck, Info } from 'lucide-react';
 
@@ -173,8 +174,16 @@ const SAMPLE = [
 ].join('\n');
 
 export default function SecretScanner(): JSX.Element {
-  const [input, setInput] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initial = searchParams.get('q') ?? '';
+  const [input, setInput] = useState(initial);
   const result = useMemo(() => analyze(input), [input]);
+
+  useEffect(() => {
+    if (input) setSearchParams({ q: input }, { replace: true });
+    else setSearchParams({}, { replace: true });
+  }, [input, setSearchParams]);
+
   const counts = useMemo(() => {
     const c: Record<Sev, number> = { critical: 0, high: 0, medium: 0, low: 0, info: 0 };
     result?.hits.forEach((x) => (c[x.sev] += 1));

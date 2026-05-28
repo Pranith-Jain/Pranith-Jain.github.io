@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ExternalLink, Search, Users, Bug } from 'lucide-react';
 
@@ -11,11 +12,22 @@ interface MalpediaResult {
 }
 
 export default function MalpediaPage(): JSX.Element {
-  const [query, setQuery] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initial = searchParams.get('q') ?? '';
+  const [query, setQuery] = useState(initial);
   const [mode, setMode] = useState<'actor' | 'family' | 'search'>('search');
   const [result, setResult] = useState<MalpediaResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (query) setSearchParams({ q: query }, { replace: true });
+    else setSearchParams({}, { replace: true });
+  }, [query, setSearchParams]);
+
+  useEffect(() => {
+    if (initial) search();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const search = async () => {
     if (!query.trim()) return;

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Search, Globe, Loader2 } from 'lucide-react';
 
@@ -90,7 +90,9 @@ function typosquats(domain: string): string[] {
 }
 
 export default function DomainMonitor(): JSX.Element {
-  const [input, setInput] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initial = searchParams.get('q') ?? '';
+  const [input, setInput] = useState(initial);
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<
     Array<{ domain: string; type: 'typo' | 'homoglyph' | 'affix' | 'tld-swap'; ips: string[] }>
@@ -154,6 +156,11 @@ export default function DomainMonitor(): JSX.Element {
       setProgress('');
     }
   }, [cleanDomain]);
+
+  useEffect(() => {
+    if (input) setSearchParams({ q: input }, { replace: true });
+    else setSearchParams({}, { replace: true });
+  }, [input, setSearchParams]);
 
   useEffect(() => {
     if (cleanDomain) void scan();

@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useMemo, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ToolDocs } from '../../components/dfir/ToolDocs';
 import {
@@ -109,9 +109,11 @@ function CopyBtn({ text }: { text: string }) {
 }
 
 export default function RuleConverter(): JSX.Element {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initial = searchParams.get('q') ?? '';
   const [from, setFrom] = useState<RuleFormat>('sigma');
   const [to, setTo] = useState<RuleFormat>('kql');
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState(initial);
   const [fieldMapId, setFieldMapId] = useState<string>('passthrough');
   const [batchMode, setBatchMode] = useState(false);
   const [showStarters, setShowStarters] = useState(false);
@@ -142,6 +144,11 @@ export default function RuleConverter(): JSX.Element {
     if (!input.trim()) return null;
     return parseToIr(input, from);
   }, [input, from]);
+
+  useEffect(() => {
+    if (input) setSearchParams({ q: input }, { replace: true });
+    else setSearchParams({}, { replace: true });
+  }, [input, setSearchParams]);
 
   const loadSample = () => setInput(SAMPLES[from]);
 
