@@ -112,13 +112,54 @@ async function safe<T>(fn: () => Promise<T>): Promise<SourcePayload<T>> {
 
 export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;
-  // v7: 2026-05-11 — telegram-feed channel set rotated again (added
-  // defendor_eng + cyberscoop). Bumped to force a clean rebuild so the
-  // LiveSnapshotPanel.tsx telegram card stops showing the previously-cached
-  // payload that pre-dated the channel change.
   const cacheKey = new Request(SNAPSHOT_CACHE_KEY);
   const cached = await cache.match(cacheKey);
-  if (cached) return new Response(cached.body, cached);
+  if (cached) {
+    // Stale-while-revalidate: serve stale snapshot and refresh in background
+    const cacheDate = cached.headers.get('date');
+    const age = cacheDate ? (Date.now() - new Date(cacheDate).getTime()) / 1000 : 0;
+    if (age > CACHE_TTL * 0.8) {
+      c.executionCtx.waitUntil(
+        (async () => {
+          try {
+            // Rebuild the snapshot in background
+            const briefingsDb = c.env.BRIEFINGS_DB;
+            const [ransomware, telegram, scam, threatIntel, techAi, briefings] = await Promise.all([
+              safe(async () => {
+                const result = await fetchRansomwareRecent(c.env);
+                if (result.upstreamOk) return result.body;
+                throw new Error('upstream error');
+              }),
+              safe(async () => {
+                const result = await fetchTelegramFeed();
+                return result;
+              }),
+              safe(() => aggregateFeeds(SCAM_FEED_URLS, 12, 6)),
+              safe(() => aggregateFeeds(THREAT_INTEL_FEED_URLS, 16, 4)),
+              safe(() => aggregateFeeds(TECH_AI_FEED_URLS, 18, 3)),
+              safe(async () => {
+                if (!briefingsDb) throw new Error('briefings database not bound');
+                const items = await listBriefings(briefingsDb, { limit: 5 });
+                return { items };
+              }),
+            ]);
+            if (ransomware.ok && ransomware.data) {
+              const r = ransomware.data as { victims: { discovered: string }[]; count: number };
+              const cutoff = Date.now() - 24 * 3600_000;
+              r.victims = r.victims.filter((v) => new Date(v.discovered).getTime() >= cutoff).slice(0, 20);
+            }
+            const body: SnapshotResponse = {
+              generated_at: new Date().toISOString(),
+              ransomware, telegram, scam, threat_intel: threatIntel, tech_ai: techAi, briefings,
+            };
+            const fresh = c.json(body, 200, { 'Cache-Control': `public, max-age=60, s-maxage=${CACHE_TTL}` });
+            await cache.put(cacheKey, fresh);
+          } catch { /* non-fatal */ }
+        })()
+      );
+    }
+    return new Response(cached.body, cached);
+  }
 
   const briefingsDb = c.env.BRIEFINGS_DB;
 

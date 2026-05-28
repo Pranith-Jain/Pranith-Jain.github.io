@@ -507,7 +507,25 @@ export async function ransomwareRecentHandler(c: Context<{ Bindings: Env }>): Pr
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheKey = new Request(CACHE_KEY);
   const cached = await cache.match(cacheKey);
-  if (cached) return new Response(cached.body, cached);
+  if (cached) {
+    // Stale-while-revalidate: serve stale data and refresh in background
+    const cacheDate = cached.headers.get('date');
+    const age = cacheDate ? (Date.now() - new Date(cacheDate).getTime()) / 1000 : 0;
+    if (age > CACHE_TTL_SECONDS * 0.8) {
+      c.executionCtx.waitUntil(
+        (async () => {
+          try {
+            const { body, upstreamOk } = await fetchRansomwareRecent(c.env);
+            if (upstreamOk) {
+              const fresh = c.json(body, 200, { 'Cache-Control': `public, max-age=${CACHE_TTL_SECONDS}`, 'x-cache': 'REVALIDATED' });
+              await cache.put(cacheKey, fresh);
+            }
+          } catch { /* non-fatal */ }
+        })()
+      );
+    }
+    return new Response(cached.body, cached);
+  }
 
   const { body, upstreamOk, rateLimited } = await fetchRansomwareRecent(c.env);
 

@@ -558,6 +558,33 @@ export async function liveIocsHandler(c: Context<{ Bindings: Env }>): Promise<Re
       blobs: ['hit'],
       indexes: [visitorCountry(c.req.raw)],
     });
+    // Stale-while-revalidate: if the cached response is older than 80% of
+    // its TTL, serve it immediately but kick off a background refresh so
+    // the next request gets fresh data. This eliminates the "cold cliff"
+    // where every user at TTL expiry waits for the full upstream fan-out.
+    const cacheDate = cached.headers.get('date');
+    const age = cacheDate ? (Date.now() - new Date(cacheDate).getTime()) / 1000 : 0;
+    const maxAge = CACHE_TTL_SECONDS;
+    if (age > maxAge * 0.8) {
+      c.executionCtx.waitUntil(
+        (async () => {
+          try {
+            const body = await fetchLiveIocs(c.executionCtx, c.env.KV_CACHE, c.env);
+            const anyZero = body.sources.some((s) => s.count === 0);
+            const ttl = anyZero ? 60 : CACHE_TTL_SECONDS;
+            const fresh = new Response(JSON.stringify(body), {
+              status: 200,
+              headers: {
+                'content-type': 'application/json',
+                'cache-control': `public, max-age=${ttl}`,
+                'x-cache': 'REVALIDATED',
+              },
+            });
+            await cache.put(cacheReq, fresh);
+          } catch { /* revalidation failure is non-fatal */ }
+        })()
+      );
+    }
     return new Response(cached.body, {
       status: 200,
       headers: {

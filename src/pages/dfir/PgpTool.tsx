@@ -1,7 +1,14 @@
 import { useState, useCallback } from 'react';
-import * as openpgp from 'openpgp';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft } from 'lucide-react';
+
+// openpgp is ~380KB. Lazy-load on first use so the PgpTool chunk stays small.
+type OpenPgpModule = typeof import('openpgp');
+let openpgpCache: OpenPgpModule | null = null;
+async function getOpenpgp(): Promise<OpenPgpModule> {
+  if (!openpgpCache) openpgpCache = await import('openpgp');
+  return openpgpCache;
+}
 
 type PgpMode = 'encrypt' | 'decrypt' | 'sign' | 'verify' | 'generate';
 
@@ -20,6 +27,7 @@ export default function PgpTool() {
     setStatus('working');
     setMessage('Generating key pair...');
     try {
+      const openpgp = await getOpenpgp();
       const { privateKey: priv, publicKey: pub } = await openpgp.generateKey({
         type: 'ecc',
         curve: 'curve25519',
@@ -42,6 +50,7 @@ export default function PgpTool() {
     setStatus('working');
     setMessage('');
     try {
+      const openpgp = await getOpenpgp();
       switch (mode) {
         case 'encrypt': {
           const pub = await openpgp.readKey({ armoredKey: publicKey });
