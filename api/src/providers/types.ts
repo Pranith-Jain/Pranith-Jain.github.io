@@ -32,7 +32,8 @@ export type ProviderId =
   | 'phishtank'
   | 'malwareworld'
   | 'emailrep'
-  | 'malpedia';
+  | 'malpedia'
+  | 'pulsedive';
 
 export type Verdict = 'clean' | 'suspicious' | 'malicious' | 'unknown';
 
@@ -108,4 +109,5 @@ export const PROVIDER_SUPPORT: Record<ProviderId, IndicatorType[]> = {
   malwareworld: ['ipv4', 'domain'],
   emailrep: ['email'],
   malpedia: ['hash'],
+  pulsedive: ['ipv4', 'ipv6', 'domain', 'url', 'hash'],
 };

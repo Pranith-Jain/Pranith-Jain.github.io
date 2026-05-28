@@ -21,11 +21,7 @@ import type { Env } from '../env';
 import { unauthorized } from './api-error';
 
 /** Allowed origins that bypass API key requirement. */
-const ALLOWED_ORIGINS = new Set([
-  'https://pranithjain.qzz.io',
-  'http://localhost:5173',
-  'http://localhost:8787',
-]);
+const ALLOWED_ORIGINS = new Set(['https://pranithjain.qzz.io', 'http://localhost:5173', 'http://localhost:8787']);
 
 export interface AuthUser {
   keyId: string;
@@ -88,12 +84,18 @@ async function lookupKey(db: D1Database, hashed: string): Promise<AuthUser | nul
  *   - `required` — rejects unauthenticated with 401
  *   - `'external-only'` — same-origin passthrough; external callers need a key
  */
-export function authenticate(
-  mode: boolean | 'external-only'
-): MiddlewareHandler<{ Bindings: Env }> {
+export function authenticate(mode: boolean | 'external-only'): MiddlewareHandler<{ Bindings: Env }> {
   return async (c: Context<{ Bindings: Env }>, next: Next) => {
     // 'external-only': allow same-origin (frontend) without a key
     if (mode === 'external-only' && isSameOrigin(c)) {
+      return next();
+    }
+
+    // Allow GET/HEAD/OPTIONS through without a key for 'external-only' mode.
+    // The data is public on the website; requiring keys for read-only CLI
+    // access adds friction without security benefit. Mutations (POST/DELETE)
+    // still require a key.
+    if (mode === 'external-only' && (c.req.method === 'GET' || c.req.method === 'HEAD' || c.req.method === 'OPTIONS')) {
       return next();
     }
 
@@ -133,7 +135,11 @@ export function authenticate(
  * Generates a new API key (random 40-char hex).
  * Returns the raw key (only time it's visible) and the metadata.
  */
-export async function generateApiKey(db: D1Database, label: string, role: 'admin' | 'readonly'): Promise<{
+export async function generateApiKey(
+  db: D1Database,
+  label: string,
+  role: 'admin' | 'readonly'
+): Promise<{
   rawKey: string;
   keyId: string;
   prefix: string;
@@ -145,9 +151,7 @@ export async function generateApiKey(db: D1Database, label: string, role: 'admin
   const keyId = crypto.randomUUID();
 
   await db
-    .prepare(
-      'INSERT INTO api_keys (id, key_hash, prefix, label, role, created_at) VALUES (?, ?, ?, ?, ?, ?)'
-    )
+    .prepare('INSERT INTO api_keys (id, key_hash, prefix, label, role, created_at) VALUES (?, ?, ?, ?, ?, ?)')
     .bind(keyId, hashed, prefix, label, role, new Date().toISOString())
     .run();
 
@@ -168,9 +172,22 @@ export async function revokeApiKey(db: D1Database, keyId: string): Promise<boole
 /**
  * List all non-revoked API keys (prefix + label only, never the full key).
  */
-export async function listApiKeys(db: D1Database): Promise<Array<{ id: string; prefix: string; label: string; role: string; created_at: string; last_used_at: string | null }>> {
+export async function listApiKeys(
+  db: D1Database
+): Promise<
+  Array<{ id: string; prefix: string; label: string; role: string; created_at: string; last_used_at: string | null }>
+> {
   const { results } = await db
-    .prepare('SELECT id, prefix, label, role, created_at, last_used_at FROM api_keys WHERE revoked_at IS NULL ORDER BY created_at DESC')
-    .all<{ id: string; prefix: string; label: string; role: string; created_at: string; last_used_at: string | null }>();
+    .prepare(
+      'SELECT id, prefix, label, role, created_at, last_used_at FROM api_keys WHERE revoked_at IS NULL ORDER BY created_at DESC'
+    )
+    .all<{
+      id: string;
+      prefix: string;
+      label: string;
+      role: string;
+      created_at: string;
+      last_used_at: string | null;
+    }>();
   return results ?? [];
 }

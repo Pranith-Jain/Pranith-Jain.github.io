@@ -40,6 +40,7 @@ import { phishtank } from '../providers/phishtank';
 import { malwareworld } from '../providers/malwareworld';
 import { emailrep } from '../providers/emailrep';
 import { malpedia } from '../providers/malpedia';
+import { pulsedive } from '../providers/pulsedive';
 import {
   PROVIDER_SUPPORT,
   PROVIDER_TIMEOUT_MS,
@@ -94,6 +95,7 @@ const ADAPTERS: Record<ProviderId, ProviderAdapter> = {
   malwareworld,
   emailrep,
   malpedia,
+  pulsedive,
 };
 
 export async function iocCheckHandler(c: Context<{ Bindings: Env }>) {

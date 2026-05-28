@@ -63,6 +63,7 @@ import { c2tracker } from '../providers/c2tracker';
 import { sslbl } from '../providers/sslbl';
 import { malwareworld } from '../providers/malwareworld';
 import { emailrep } from '../providers/emailrep';
+import { pulsedive } from '../providers/pulsedive';
 
 /** Adapters allowed in the bulk path. */
 const BULK_ADAPTERS: Partial<Record<ProviderId, ProviderAdapter>> = {
@@ -87,6 +88,7 @@ const BULK_ADAPTERS: Partial<Record<ProviderId, ProviderAdapter>> = {
   sslbl,
   malwareworld,
   emailrep,
+  pulsedive,
 };
 
 const BULK_PROVIDER_IDS = Object.keys(BULK_ADAPTERS) as ProviderId[];
