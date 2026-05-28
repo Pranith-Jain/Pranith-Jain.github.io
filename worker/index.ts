@@ -396,6 +396,16 @@ export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
 
+    // Normalize trailing slashes — /threatintel/ and /threatintel should
+    // serve the same prerendered HTML. Without this, a trailing-slash URL
+    // misses the PRERENDERED_ROUTES map and falls back to the empty SPA
+    // shell, which renders blank because React hasn't hydrated yet.
+    // Skip normalization for the root path '/' and API routes.
+    if (url.pathname.length > 1 && url.pathname.endsWith('/') && !url.pathname.startsWith('/api/')) {
+      url.pathname = url.pathname.slice(0, -1);
+      return Response.redirect(url.toString(), 301);
+    }
+
     // WebSocket upgrade — route to the LiveFeed Durable Object
     if (url.pathname.startsWith('/api/v1/ws/live-feed') && request.headers.get('upgrade') === 'websocket') {
       const doId = env.LIVE_FEED_DO.idFromName('global');
