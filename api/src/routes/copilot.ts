@@ -340,9 +340,11 @@ async function gatherLiveEnrichment(query: string, queryType: QueryType, env: En
     } catch { /* malpedia optional */ }
 
     // Wikipedia summary for well-known threat actors / ransomware
+    // Tries direct page first, falls back to search API for redirects
     try {
+      const wikiTitle = q.replace(/\s+/g, '_');
       const wikiRes = await fetch(
-        `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(q.replace(/\s+/g, '_'))}`,
+        `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(wikiTitle)}`,
         { headers: { 'User-Agent': 'pranithjain-copilot/1.0' }, signal: AbortSignal.timeout(4000) },
       ).catch(() => null);
       if (wikiRes?.ok) {
@@ -359,7 +361,29 @@ async function gatherLiveEnrichment(query: string, queryType: QueryType, env: En
           });
         }
       }
-    } catch { /* wikipedia optional */ }
+    } catch { /* wikipedia direct page miss */ }
+    // Fallback: search Wikipedia for related pages
+    if (liveSources.length === 0) {
+      try {
+        const searchUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(q + ' cyber')}&format=json&srlimit=3&origin=*`;
+        const srRes = await fetch(searchUrl, { headers: { 'User-Agent': 'pranithjain-copilot/1.0' }, signal: AbortSignal.timeout(4000) }).catch(() => null);
+        if (srRes?.ok) {
+          const srData = (await srRes.json()) as { query?: { search?: Array<{ title: string; snippet: string }> } };
+          const results = srData?.query?.search ?? [];
+          if (results.length > 0) {
+            liveSources.push({
+              name: 'Wikipedia',
+              items: results.length,
+              data: results.slice(0, 3).map((r) => ({
+                title: r.title,
+                snippet: r.snippet.replace(/<[^>]+>/g, ''),
+                url: `https://en.wikipedia.org/wiki/${encodeURIComponent(r.title.replace(/\s+/g, '_'))}`,
+              })),
+            });
+          }
+        }
+      } catch { /* wikipedia search failed */ }
+    }
 
     return liveSources;
   }
@@ -368,34 +392,29 @@ async function gatherLiveEnrichment(query: string, queryType: QueryType, env: En
 }
 
 function buildSystemPrompt(query: string, queryType: QueryType): string {
-  return `You are a senior cyber threat intelligence analyst. Given the provided data sources, write a concise investigation report about "${query}".
+  return `You are a senior CTI analyst. Write a concise report about "${query}".
 
-Rules:
-- Write in a professional, factual tone. No marketing language.
-- Structure the report with sections: Summary, Key Findings, Context, Recommendations.
-- Keep the report under 500 words.
-- Output in markdown.
-- CVE identifiers must include their full ID (e.g., CVE-2024-1234).
-- For every finding, include the confidence level (high/medium/low):
-  - **High**: 2+ independent sources agree, or named in authoritative sources (Wikipedia, Malpedia, official advisories).
-  - **Medium**: 1 source, plausible but unverified.
-  - **Low**: General knowledge without specific source citation.
-- CRITICAL: When the provided data sources are empty or insufficient, you MUST use your general cybersecurity knowledge to answer. Well-known threat actors (LockBit, APT groups, ransomware families), common CVEs, and major campaigns are part of your training data. Do NOT say "no intelligence found" — instead, write what you know from training, clearly labeled as general knowledge with appropriate confidence labels.
-- CRITICAL: Never refuse to answer or claim lack of data for well-known subjects. Your training data contains extensive knowledge about major threat actors, ransomware groups, CVEs, and attack campaigns. Use it.
-- When you are relying on general knowledge rather than provided sources, add: "Note: this analysis draws from general knowledge as curated intelligence feeds had no data on this query."
-- For IPs: include geolocation, ASN, ISP, and C2 framework attribution if the C2 Tracker source has data.
-- For domains: mention if the domain appears in breach data, IOC correlation, or detections.
-- For hashes: mention file type, malware family (from Malware Samples signature), and cross-source consensus (from IOC Correlation source_count).
-- For CVEs: include CVSS severity, CISA KEV status, EPSS if available, related detection rules, and actor attribution.
-- For actors/ransomware: describe known TTPs, sector targeting, recent activity, ransom amounts, and related CVEs.
-- The "Live Enrichment" source contains real-time provider lookups (VirusTotal, AbuseIPDB, OTX, GreyNoise). Each provider returns a verdict (clean/suspicious/malicious/unknown), a score (0-100), and tags. CRITICAL: Use this data to determine if the indicator is benign vs malicious. If all providers return clean/unknown with score 0, confidently state the indicator appears benign and explain what it is (e.g. "8.8.8.8 is Google Public DNS — all providers confirm no malicious activity"). If VirusTotal shows detections or AbuseIPDB shows abuse reports, include those specifics.
-- The "C2 Tracker" source identifies command-and-control frameworks (Cobalt Strike, Havoc, Mythic, etc.) associated with an IP. If present, cite the framework and context.
-- The "IOC Correlation" source shows cross-source consensus — indicators seen in 2+ independent feeds. A high source_count means high confidence the indicator is malicious.
-- The "Negotiations" source contains ransomware negotiation data (ransom amounts, discount percentages, settlement status). Use for ransomware financial impact assessment.
-- The "Detections" source contains Sigma/YARA/Suricata rules that match the indicator. Cite rule names, severity, and match counts.
-- The "Cybercrime" source contains cybercrime news and research. Use for context on law enforcement actions, campaign reporting, and threat landscape.
-- The "Malpedia (live)" source is a live query of the Malpedia API for the malaware family. Contains the full family profile including description, aliases, and associated malware.
-- The "Wikipedia" source contains a Wikipedia article summary. Use for historical context and general background.`;
+Sections: Summary, Key Findings, Context, Recommendations.
+Under 500 words. Markdown output.
+CVE IDs must be full (e.g. CVE-2024-1234).
+
+IMPORTANT — READ CAREFULLY:
+- The provided data sources below MAY be empty. This does NOT mean the subject is unknown.
+- You have extensive training knowledge about major threat actors (LockBit, APT groups, Scattered Spider, etc.), ransomware families, and notable CVEs.
+- When sources are empty or sparse: write what you know from training. Mark it as "(general knowledge)" with a confidence label.
+- NEVER say "no intelligence found" or "no data available" for a well-known subject. You know about it — use that knowledge.
+- If you genuinely don't recognize the query (an obscure term), say "This query does not match any known threat actor, malware, or CVE in available sources or general knowledge."
+
+Confidence:
+- **High**: multiple sources agree, or authoritative source (Wikipedia, Malpedia).
+- **Medium**: single source or plausible general knowledge.
+- **Low**: weak signal, general knowledge without specifics.
+
+When using general knowledge, add: "Note: this analysis is based on general cybersecurity knowledge as curated feeds returned no data for this query."
+
+Actor/ransomware reports must include: known TTPs, targeting, recent activity, ransom model, related CVEs if known.
+CVE reports must include: CVSS, KEV status, EPSS, PoC availability, actor links.
+IP/domain/hash reports must include: live enrichment verdicts, geolocation, C2 framework, breach context.`;
 }
 
 const SCHEMA_NOTES: Record<string, string> = {
@@ -426,7 +445,7 @@ function buildUserPrompt(query: string, queryType: QueryType, sources: Source[])
     body += JSON.stringify(src.data, null, 2);
     body += '\n\n';
   }
-  if (!body) body = 'No relevant data found in any source.\n';
+  if (!body) body = 'No sources returned data. Use general knowledge to answer.\n';
   return intro + body;
 }
 
