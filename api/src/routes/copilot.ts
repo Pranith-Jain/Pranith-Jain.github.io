@@ -319,8 +319,50 @@ async function gatherLiveEnrichment(query: string, queryType: QueryType, env: En
     }];
   }
 
-  // For CVE — no direct provider enrichment (cached data from CVE_RECENT + Writeups + Detections is comprehensive)
-  // For actor/ransomware — no direct provider enrichment (cached data from Actor Timeline + Ransomware + Negotiations is comprehensive)
+  // For actor/ransomware — check Malpedia live + Wikipedia for background context
+  if (queryType === 'actor' || queryType === 'ransomware' || queryType === 'generic') {
+    const liveSources: Source[] = [];
+    const q = query.trim();
+
+    // Malpedia live lookup
+    try {
+      const mpRes = await fetch(`https://malpedia.caad.fkie.fraunhofer.de/api/get/family/${encodeURIComponent(q)}`, {
+        signal: AbortSignal.timeout(5000),
+      }).catch(() => null);
+      if (mpRes?.ok) {
+        const mpData = (await mpRes.json()) as Record<string, unknown>;
+        liveSources.push({
+          name: 'Malpedia (live)',
+          items: 1,
+          data: mpData,
+        });
+      }
+    } catch { /* malpedia optional */ }
+
+    // Wikipedia summary for well-known threat actors / ransomware
+    try {
+      const wikiRes = await fetch(
+        `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(q.replace(/\s+/g, '_'))}`,
+        { headers: { 'User-Agent': 'pranithjain-copilot/1.0' }, signal: AbortSignal.timeout(4000) },
+      ).catch(() => null);
+      if (wikiRes?.ok) {
+        const wikiData = (await wikiRes.json()) as { extract?: string; pageid?: number; title?: string; content_urls?: { desktop?: { page?: string } } };
+        if (wikiData.extract) {
+          liveSources.push({
+            name: 'Wikipedia',
+            items: 1,
+            data: {
+              title: wikiData.title,
+              extract: wikiData.extract,
+              url: wikiData.content_urls?.desktop?.page ?? `https://en.wikipedia.org/wiki/${encodeURIComponent(q)}`,
+            },
+          });
+        }
+      }
+    } catch { /* wikipedia optional */ }
+
+    return liveSources;
+  }
 
   return [];
 }
@@ -331,28 +373,29 @@ function buildSystemPrompt(query: string, queryType: QueryType): string {
 Rules:
 - Write in a professional, factual tone. No marketing language.
 - Structure the report with sections: Summary, Key Findings, Context, Recommendations.
-- Only cite information present in the provided data. If data is insufficient, state that clearly.
-- Do not make up statistics or attribute attacks without evidence.
 - Keep the report under 500 words.
 - Output in markdown.
 - CVE identifiers must include their full ID (e.g., CVE-2024-1234).
-- For every finding, include the confidence level (high/medium/low) based on how many sources corroborate it and the data quality.
-  - **High**: 2+ independent sources agree, or 1 authoritative source with corroborating context.
+- For every finding, include the confidence level (high/medium/low):
+  - **High**: 2+ independent sources agree, or named in authoritative sources (Wikipedia, Malpedia, official advisories).
   - **Medium**: 1 source, plausible but unverified.
-  - **Low**: Weak textual match or single unverified mention.
-- When no data is found across ANY source, write: "No intelligence was found across any source for this indicator. The result may be benign or the indicator is too recent to appear in curated feeds."
-- When only 1 source returns results, add a caveat about limited corroboration.
+  - **Low**: General knowledge without specific source citation.
+- CRITICAL: When the provided data sources are empty or insufficient, you MUST use your general cybersecurity knowledge to answer. Well-known threat actors (LockBit, APT groups, ransomware families), common CVEs, and major campaigns are part of your training data. Do NOT say "no intelligence found" — instead, write what you know from training, clearly labeled as general knowledge with appropriate confidence labels.
+- CRITICAL: Never refuse to answer or claim lack of data for well-known subjects. Your training data contains extensive knowledge about major threat actors, ransomware groups, CVEs, and attack campaigns. Use it.
+- When you are relying on general knowledge rather than provided sources, add: "Note: this analysis draws from general knowledge as curated intelligence feeds had no data on this query."
 - For IPs: include geolocation, ASN, ISP, and C2 framework attribution if the C2 Tracker source has data.
 - For domains: mention if the domain appears in breach data, IOC correlation, or detections.
 - For hashes: mention file type, malware family (from Malware Samples signature), and cross-source consensus (from IOC Correlation source_count).
-- For CVEs: include CVSS severity, CISA KEV status, EPSS if available, related detection rules, and actor attribution from Actor Timeline.
-- For actors/ransomware: describe known TTPs (from Actor Timeline mitre field), sector targeting, recent activity (posts_in_window), ransom amounts (from Negotiations), and related CVEs.
-- The "Live Enrichment" source contains real-time provider lookups (VirusTotal, AbuseIPDB, OTX, GreyNoise). Each provider returns a verdict (clean/suspicious/malicious/unknown), a score (0-100), and tags. CRITICAL: Use this data to determine if the indicator is benign vs malicious. If all providers return clean/unknown with score 0, confidently state the indicator appears benign and explain what it is (e.g. "8.8.8.8 is Google Public DNS — all providers confirm no malicious activity"). If VirusTotal shows detections or AbuseIPDB shows abuse reports, include those specifics. DO NOT say "no intelligence was found" when live enrichment data is present.
+- For CVEs: include CVSS severity, CISA KEV status, EPSS if available, related detection rules, and actor attribution.
+- For actors/ransomware: describe known TTPs, sector targeting, recent activity, ransom amounts, and related CVEs.
+- The "Live Enrichment" source contains real-time provider lookups (VirusTotal, AbuseIPDB, OTX, GreyNoise). Each provider returns a verdict (clean/suspicious/malicious/unknown), a score (0-100), and tags. CRITICAL: Use this data to determine if the indicator is benign vs malicious. If all providers return clean/unknown with score 0, confidently state the indicator appears benign and explain what it is (e.g. "8.8.8.8 is Google Public DNS — all providers confirm no malicious activity"). If VirusTotal shows detections or AbuseIPDB shows abuse reports, include those specifics.
 - The "C2 Tracker" source identifies command-and-control frameworks (Cobalt Strike, Havoc, Mythic, etc.) associated with an IP. If present, cite the framework and context.
 - The "IOC Correlation" source shows cross-source consensus — indicators seen in 2+ independent feeds. A high source_count means high confidence the indicator is malicious.
 - The "Negotiations" source contains ransomware negotiation data (ransom amounts, discount percentages, settlement status). Use for ransomware financial impact assessment.
 - The "Detections" source contains Sigma/YARA/Suricata rules that match the indicator. Cite rule names, severity, and match counts.
-- The "Cybercrime" source contains cybercrime news and research. Use for context on law enforcement actions, campaign reporting, and threat landscape.`;
+- The "Cybercrime" source contains cybercrime news and research. Use for context on law enforcement actions, campaign reporting, and threat landscape.
+- The "Malpedia (live)" source is a live query of the Malpedia API for the malaware family. Contains the full family profile including description, aliases, and associated malware.
+- The "Wikipedia" source contains a Wikipedia article summary. Use for historical context and general background.`;
 }
 
 const SCHEMA_NOTES: Record<string, string> = {
