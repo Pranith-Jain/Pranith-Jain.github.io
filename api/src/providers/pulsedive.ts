@@ -35,23 +35,23 @@ export const pulsedive: ProviderAdapter = async (indicator, _env, signal) => {
 
     const json = (await res.json()) as {
       risk?: string;
-      riskrating?: number;
-      categories?: string[];
-      threats?: Array<{ threat: string; type?: string }>;
-      feeds?: Array<{ feed: string }>;
-      attributes?: Record<string, unknown>;
+      riskfactors?: Array<{ rfid: number; description: string; risk: string }>;
+      threats?: Array<{ tid: number; name: string; category?: string; risk?: string }>;
+      feeds?: Array<{ fid: number; name: string; category?: string; organization?: string }>;
     };
 
-    // Pulsedive risk: none=0, low=1, medium=2, high=3, critical=4
+    // Pulsedive risk: none=0, low=25, medium=50, high=75, critical=100
     const riskMap: Record<string, number> = { none: 0, low: 25, medium: 50, high: 75, critical: 100 };
     const riskStr = (json.risk ?? 'none').toLowerCase();
-    const score = json.riskrating ?? riskMap[riskStr] ?? 0;
+    const score = riskMap[riskStr] ?? 0;
     const verdict: Verdict = score >= 70 ? 'malicious' : score >= 40 ? 'suspicious' : score > 0 ? 'clean' : 'unknown';
 
     const tags: string[] = [];
-    for (const cat of json.categories ?? []) tags.push(cat);
+    for (const rf of json.riskfactors ?? []) {
+      if (rf.description && !tags.includes(rf.description)) tags.push(rf.description);
+    }
     for (const t of json.threats?.slice(0, 5) ?? []) {
-      if (t.threat && !tags.includes(t.threat)) tags.push(t.threat);
+      if (t.name && !tags.includes(t.name)) tags.push(t.name);
     }
 
     return base('ok', {
@@ -59,10 +59,9 @@ export const pulsedive: ProviderAdapter = async (indicator, _env, signal) => {
       verdict,
       raw_summary: {
         risk: json.risk,
-        riskrating: json.riskrating,
-        categories: json.categories ?? [],
-        threats: (json.threats ?? []).slice(0, 5).map((t) => t.threat),
-        feeds: (json.feeds ?? []).slice(0, 5).map((f) => f.feed),
+        riskfactors: (json.riskfactors ?? []).slice(0, 3).map((rf) => rf.description),
+        threats: (json.threats ?? []).slice(0, 5).map((t) => t.name),
+        feeds: (json.feeds ?? []).slice(0, 5).map((f) => f.name),
       },
       tags: tags.slice(0, 10),
     });
