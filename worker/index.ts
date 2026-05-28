@@ -165,6 +165,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/stealer-parser', '/__prerendered/dfir__stealer-parser'],
   ['/dfir/taxii', '/__prerendered/dfir__taxii'],
   ['/dfir/bloom', '/__prerendered/dfir__bloom'],
+  ['/dfir/ai-rule-generator', '/__prerendered/dfir__ai-rule-generator'],
   ['/dfir/detection-lab', '/__prerendered/dfir__detection-lab'],
   ['/dfir/prompt-injection', '/__prerendered/dfir__prompt-injection'],
   ['/dfir/mcp-audit', '/__prerendered/dfir__mcp-audit'],
@@ -251,6 +252,9 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   // ── ThreatIntel: pages ────────────────────────────────────────
   ['/threatintel/about', '/__prerendered/threatintel__about'],
   ['/threatintel/external-resources', '/__prerendered/threatintel__external-resources'],
+
+  // ── Standalone copilot route ──────────────────────────────────
+  ['/copilot', '/__prerendered/threatintel__copilot'],
 
   // ── ThreatIntel: live-feed surfaces ───────────────────────────
   ['/threatintel/pulse', '/__prerendered/threatintel__pulse'],
@@ -401,6 +405,65 @@ export default {
     // MCP server — DFIR & Threat Intel tools for AI agents
     if (url.pathname.startsWith('/api/mcp')) {
       return DfirMcpServer.serve('/api/mcp', { binding: 'DFIR_MCP' }).fetch(request, env, ctx);
+    }
+
+    // Dynamic OG image generation for blog posts and briefings.
+    // Returns SVG social-preview images at the edge in <5ms.
+    const ogImgMatch = /^\/api\/v1\/og-image\/(blog|briefing|research)\/(.+)$/.exec(url.pathname);
+    if (ogImgMatch) {
+      const type = ogImgMatch[1] as 'blog' | 'briefing' | 'research';
+      const slug = ogImgMatch[2]!;
+
+      // Try to load real data from KV/D1.
+      let title = '';
+      let subtitle = '';
+      let date = '';
+      let tags: string[] = [];
+
+      if (type === 'blog' && env.CASE_STUDIES) {
+        try {
+          const post = (await env.CASE_STUDIES.get(`posts:${slug}`, 'json')) as {
+            title?: string;
+            excerpt?: string;
+            publishedAt?: string;
+          } | null;
+          if (post?.title) {
+            title = post.title;
+            subtitle = post.excerpt?.slice(0, 160) ?? '';
+            date = post.publishedAt?.slice(0, 10) ?? '';
+            tags = ['Case Study', 'Blog'];
+          }
+        } catch {
+          /* fallback below */
+        }
+      } else if (type === 'briefing' && env.BRIEFINGS_DB) {
+        try {
+          const row = await env.BRIEFINGS_DB.prepare('SELECT title, generated_at FROM briefings WHERE slug = ? LIMIT 1')
+            .bind(slug)
+            .first<{ title: string; generated_at: string }>();
+          if (row?.title) {
+            title = row.title;
+            subtitle = 'CISA KEV · NVD · abuse.ch · MyThreatIntel — auto-generated threat intelligence briefing';
+            date = row.generated_at?.slice(0, 10) ?? '';
+            tags = ['Briefing', 'CVE', 'KEV'];
+          }
+        } catch {
+          /* fallback below */
+        }
+      } else if (type === 'research') {
+        // Research posts are static data — use the slug as a readable title fallback.
+        title = slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+        subtitle = 'Original adversary-tracking and methodology research by Pranith Jain';
+        tags = ['Research', 'CTI'];
+      }
+
+      // Fallback when no data found.
+      if (!title) {
+        title = slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+        subtitle = 'pranithjain.qzz.io — Threat Intelligence Platform';
+      }
+
+      return ogImageResponse({ title, subtitle, type, date: date || undefined, tags });
     }
 
     // Forward to the api app for the explicit /api/* prefix AND for the
