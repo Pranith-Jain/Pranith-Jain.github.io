@@ -42,31 +42,14 @@
 	"ai": {
 		"binding": "AI"
 	},
-	"triggers": {
-		// Each cron is a SEPARATE Worker invocation with its own ~50-subrequest
-		// budget. Briefing builds get their OWN dedicated invocations so they
-		// never contend with discovery / planner / snapshot-warm (that
-		// contention is what was degrading the daily briefing at the source):
-		//   05 0  * * *  → case-study discovery (alone)
-		//   15 0  * * 1  → case-study planner (alone, Mondays)
-		//   30 0  * * *  → DAILY briefing build (alone)            <-- dedicated
-		//   45 0  * * 1  → WEEKLY briefing build (alone, Mondays)  <-- dedicated
-		//   0  *  * * *  → publisher + hourly self-heal + snapshot warm + intel-bundle warm
-		//                  (warm piggybacks on the hourly cron because the free
-		//                  plan caps total cron triggers at 5 — it shares the
-		//                  ~50-subrequest budget with the rest of the hourly work)
-		"crons": [
-			"5 0 * * *",
-			"15 0 * * 1",
-			"30 0 * * *",
-			"45 0 * * 1",
-			"0 * * * *"
+	"durable_objects": {
+		"bindings": [
+			{ "name": "LIVE_FEED_DO", "class_name": "LiveFeedDO" }
 		]
 	},
-	// Cloudflare Analytics Engine — usage telemetry. Free tier: 100k writes/day,
-	// 10M reads/month. Only writes high-signal events (IOC checks, threat-map
-	// fetches), never PII. Code path is wired in api/src/lib/analytics.ts and
-	// gracefully no-ops when the binding is missing.
+	"migrations": [
+		{ "tag": "v1", "new_sqlite_classes": ["LiveFeedDO"] }
+	],
 	//
 	// ONE-TIME ENABLE: in the Cloudflare dashboard for this account, open
 	//   Workers & Pages → Analytics Engine, click "Enable",

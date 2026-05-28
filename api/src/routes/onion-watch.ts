@@ -224,7 +224,7 @@ export async function onionWatchHandler(c: Context<{ Bindings: Env }>): Promise<
   // response. Bump on any breaking response-shape change.
   const cacheKey = new Request(ONION_WATCH_CACHE_KEY);
   const cached = await cache.match(cacheKey);
-  if (cached) return cached;
+  if (cached) return new Response(cached.body, cached);
 
   const body = await fetchOnionWatch();
   if (!body) {

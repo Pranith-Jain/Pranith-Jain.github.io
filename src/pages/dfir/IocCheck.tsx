@@ -212,6 +212,8 @@ export default function IocCheck(): JSX.Element {
   const [bulkInput, setBulkInput] = useState('');
   const [bulkRows, setBulkRows] = useState<BulkRow[]>([]);
   const [bulkRunning, setBulkRunning] = useState(false);
+  const [stixLoading, setStixLoading] = useState(false);
+  const [stixBundleId, setStixBundleId] = useState<string | null>(null);
 
   const bulkIndicators = parseBulkInput(bulkInput, BULK_MAX);
 
@@ -246,6 +248,27 @@ export default function IocCheck(): JSX.Element {
       JSON.stringify(bulkRows, null, 2),
       'application/json'
     );
+  };
+
+  const buildStix = async () => {
+    const iocs = bulkRows.filter((r) => r.status === 'done').map((r) => r.indicator);
+    if (iocs.length === 0) return;
+    setStixLoading(true);
+    setStixBundleId(null);
+    try {
+      const r = await fetch('/api/v1/intel-bundle/build', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ mode: 'iocs', input: iocs.join('\n') }),
+      });
+      if (!r.ok) throw new Error(r.statusText);
+      const data = (await r.json()) as { bundle: { id: string } };
+      setStixBundleId(data.bundle.id);
+    } catch {
+      window.alert('STIX build failed. The intel-bundle endpoint may be down.');
+    } finally {
+      setStixLoading(false);
+    }
   };
 
   const runCheck = () => {
@@ -383,6 +406,24 @@ export default function IocCheck(): JSX.Element {
                 >
                   <FileDown size={11} /> JSON
                 </button>
+                {stixBundleId ? (
+                  <a
+                    href={`/api/v1/intel-bundle/${stixBundleId}/export.stix.json`}
+                    download={`${stixBundleId}.stix.json`}
+                    className="text-[11px] font-mono px-2 py-1 rounded border border-emerald-500/40 bg-emerald-500/5 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/10 inline-flex items-center gap-1"
+                  >
+                    <FileDown size={11} /> STIX
+                  </a>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => void buildStix()}
+                    disabled={stixLoading || bulkRunning}
+                    className="text-[11px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 disabled:opacity-40 inline-flex items-center gap-1"
+                  >
+                    <FileDown size={11} /> {stixLoading ? 'building…' : 'STIX'}
+                  </button>
+                )}
               </>
             )}
             {bulkIndicators.length > 0 && (
@@ -641,6 +682,25 @@ export default function IocCheck(): JSX.Element {
             }}
           />
         </div>
+      )}
+
+      {mode === 'single' && summary && (
+        <section className="mt-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+          <h3 className="font-display font-semibold text-sm mb-3 inline-flex items-center gap-2">
+            <Search size={14} /> External Enrichment
+          </h3>
+          <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-3">
+            Query additional free threat intel APIs for deeper context.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            <a
+              href={`/threatintel/ioc-enrichment?q=${encodeURIComponent(input.trim())}`}
+              className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+            >
+              <Search size={12} /> Open in IOC Enrichment
+            </a>
+          </div>
+        </section>
       )}
       <RelatedWikiArticles />
     </div>

@@ -1,7 +1,7 @@
 export const personalInfo = {
   name: 'Pranith Jain',
   // Long form, used in headlines, SEO, and structured-data schema.
-  title: 'Security Analyst — Threat Intel & Security Automation',
+  title: 'Security Analyst: Threat Intel & Security Automation',
   // Short form, used in tight UI like the profile card to avoid overflow.
   shortTitle: 'Security Analyst · Threat Intel · Security Automation',
   headline: '"Investigating attacks at human scale. Building defenders at AI scale."',
@@ -9,7 +9,7 @@ export const personalInfo = {
   // renders a JSX version with inline links on "DFIR toolkit" and
   // "threat-intel platform" — see Hero.tsx. Keep both copies in sync:
   // any rewording here should be mirrored over there.
-  description: `a security analyst working phishing, BEC, and malware incidents across 150+ brands. The rest of the time I ship the tools I wished I'd had on shift — a 60+ tool DFIR toolkit and a live, self-updating threat-intel platform, both edge-hosted on Cloudflare and free to use. Currently digging into AI security, NHI governance, and detection engineering.`,
+  description: `a security analyst working phishing, BEC, and malware incidents across 150+ brands. The rest of the time I ship the tools I wished I'd had on shift: a 60+ tool DFIR toolkit and a live, self-updating threat-intel platform, both edge-hosted on Cloudflare and free to use. Currently digging into AI security, NHI governance, and detection engineering.`,
   currentFocus: 'Threat intel, email defense, and cloud identity security',
   currentlyLearning: 'NHI Security & Advanced Threat Hunting',
   availability: 'Open for Consultations & Strategy Calls',

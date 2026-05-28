@@ -413,7 +413,7 @@ export async function c2TrackerHandler(c: Context<{ Bindings: Env }>): Promise<R
   // filters show real entries instead of 0 for non-cobaltstrike families.
   const cacheKey = new Request('https://c2-cache.internal/v8');
   const cached = await cache.match(cacheKey);
-  if (cached) return cached;
+  if (cached) return new Response(cached.body, cached);
 
   const data = await fetchC2Tracker();
   const body = JSON.stringify(data);

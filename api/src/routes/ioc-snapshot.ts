@@ -61,7 +61,7 @@ export async function iocSnapshotHandler(c: Context<{ Bindings: Env }>): Promise
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheKey = new Request('https://ioc-snapshot-cache.internal/v2-1h');
   const cached = await cache.match(cacheKey);
-  if (cached) return cached;
+  if (cached) return new Response(cached.body, cached);
 
   const settled = await Promise.all(SNAPSHOT_SOURCES.map(fetchOne));
   const sources: Record<string, SourcePayload> = {};

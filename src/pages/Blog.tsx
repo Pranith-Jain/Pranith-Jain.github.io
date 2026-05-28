@@ -155,7 +155,7 @@ export default function Blog() {
   if (isUnknownType) return <Navigate to="/blog" replace />;
 
   return (
-    <main className="max-w-3xl mx-auto px-6 py-10 text-slate-900 dark:text-slate-100">
+    <div className="max-w-3xl mx-auto px-6 py-10 text-slate-900 dark:text-slate-100">
       {inCategoryMode && (
         <Link
           to="/blog"
@@ -296,6 +296,6 @@ export default function Blog() {
           ))}
         </div>
       </DataState>
-    </main>
+    </div>
   );
 }

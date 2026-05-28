@@ -118,11 +118,12 @@ export async function googleDorksHandler(c: Context<{ Bindings: Env }>): Promise
   url.searchParams.set('num', String(num));
   // Force English-locale Google so result text is stable across runs.
   url.searchParams.set('hl', 'en');
+  url.searchParams.set('api_key', key);
 
   let upstream: SerpResponse;
   try {
     const res = await fetch(url.toString(), {
-      headers: { Accept: 'application/json', 'User-Agent': 'pranithjain.qzz.io DFIR', Authorization: `Bearer ${key}` },
+      headers: { Accept: 'application/json', 'User-Agent': 'pranithjain.qzz.io DFIR' },
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
     });
     if (res.status === 429) {

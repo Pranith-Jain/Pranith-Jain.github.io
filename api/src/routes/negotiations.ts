@@ -187,7 +187,7 @@ export async function negotiationsHandler(c: Context<{ Bindings: Env }>): Promis
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheReq = new Request(NEGOTIATIONS_CACHE_KEY);
   const cached = await cache.match(cacheReq);
-  if (cached) return cached;
+  if (cached) return new Response(cached.body, cached);
 
   const body = await buildNegotiations(c.env);
   const cacheable = body.negotiations.length > 0;
@@ -218,7 +218,7 @@ export async function negotiationTranscriptHandler(c: Context<{ Bindings: Env }>
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheReq = new Request(`https://negotiation-transcript.internal/v1/${encodeURIComponent(group)}/${id}`);
   const cached = await cache.match(cacheReq);
-  if (cached) return cached;
+  if (cached) return new Response(cached.body, cached);
 
   let upstream: Response;
   try {

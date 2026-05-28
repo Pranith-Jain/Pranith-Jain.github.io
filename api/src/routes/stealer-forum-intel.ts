@@ -146,7 +146,7 @@ export async function stealerForumIntelHandler(c: Context<{ Bindings: Env }>): P
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheReq = new Request(STEALER_FORUM_INTEL_CACHE_KEY);
   const cached = await cache.match(cacheReq);
-  if (cached) return cached;
+  if (cached) return new Response(cached.body, cached);
 
   const body = await buildStealerForumIntel(c.env, c.executionCtx);
   const cacheable = body.forums.length > 0 || body.chatter.telegram.matches > 0 || body.chatter.reddit.matches > 0;

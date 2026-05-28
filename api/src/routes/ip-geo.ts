@@ -110,7 +110,7 @@ export async function ipGeoHandler(c: Context<{ Bindings: Env }>): Promise<Respo
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheKey = new Request(`https://ip-geo-cache.internal/v1?ip=${encodeURIComponent(ip)}`);
   const cached = await cache.match(cacheKey);
-  if (cached) return cached;
+  if (cached) return new Response(cached.body, cached);
 
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT);

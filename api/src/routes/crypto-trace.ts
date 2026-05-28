@@ -393,7 +393,7 @@ export async function cryptoTraceHandler(c: Context<{ Bindings: Env }>): Promise
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheKey = new Request(`https://crypto-trace-cache.internal/v1?a=${address}`);
   const cached = await cache.match(cacheKey);
-  if (cached) return cached;
+  if (cached) return new Response(cached.body, cached);
 
   const detected = detectChain(address);
   let results: ChainResult[] = [];

@@ -383,7 +383,7 @@ export async function threatPulseHandler(c: Context<{ Bindings: Env }>): Promise
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheReq = new Request(THREAT_PULSE_CACHE_KEY);
   const cached = await cache.match(cacheReq);
-  if (cached) return cached;
+  if (cached) return new Response(cached.body, cached);
 
   const entityMap = new Map<string, PulseEntity>();
 

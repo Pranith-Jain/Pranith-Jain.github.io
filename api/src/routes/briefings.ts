@@ -74,7 +74,7 @@ export async function listBriefingsHandler(c: Context<{ Bindings: Env }>) {
     const cache = caches.default;
     const key = briefingsCacheKey(c);
     const cached = await cache.match(key);
-    if (cached) return cached;
+    if (cached) return new Response(cached.body, cached);
 
     const typeRaw = c.req.query('type');
     const type = typeRaw === 'daily' || typeRaw === 'weekly' ? (typeRaw as BriefingType) : undefined;
@@ -103,7 +103,7 @@ export async function getBriefingHandler(c: Context<{ Bindings: Env }>) {
   const cache = caches.default;
   const key = briefingsCacheKey(c);
   const cached = await cache.match(key);
-  if (cached) return cached;
+  if (cached) return new Response(cached.body, cached);
   const briefing = await readBriefing(db, slug);
   if (!briefing) return c.json({ error: 'not found' }, 404);
   const res = c.json(enrichBriefingWithTags(briefing), 200, {
@@ -120,7 +120,7 @@ export async function todayBriefingHandler(c: Context<{ Bindings: Env }>) {
   const cache = caches.default;
   const key = briefingsCacheKey(c);
   const cached = await cache.match(key);
-  if (cached) return cached;
+  if (cached) return new Response(cached.body, cached);
   // "today's" briefing covers the previous calendar day (latest fully-closed window)
   const now = new Date();
   const yesterday = new Date(now.getTime() - 86400_000);

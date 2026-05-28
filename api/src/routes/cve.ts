@@ -231,7 +231,7 @@ export async function cveSearchHandler(c: Context<{ Bindings: Env }>) {
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheKey = new Request(`https://cve-lookup-cache.internal/v2?id=${cveId}`);
   const cached = await cache.match(cacheKey);
-  if (cached) return cached;
+  if (cached) return new Response(cached.body, cached);
 
   const pocUrl = `https://poc-in-github.motikan2010.net/api/v1/?cve_id=${cveId}`;
   const ghsaUrl = `https://api.github.com/advisories?cve_id=${cveId}&per_page=1`;

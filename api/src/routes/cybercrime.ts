@@ -337,7 +337,7 @@ export async function cybercrimeHandler(c: Context<{ Bindings: Env }>): Promise<
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheReq = new Request(CYBERCRIME_CACHE_KEY);
   const cached = await cache.match(cacheReq);
-  if (cached) return cached;
+  if (cached) return new Response(cached.body, cached);
 
   const body = await fetchCybercrime(c.executionCtx, c.env.KV_CACHE);
   const response = new Response(JSON.stringify(body), {

@@ -73,4 +73,8 @@ export interface Env {
   CF_ZONE_ID?: string;
   /** Cloudflare API token with Cache Purge permission. */
   CF_API_TOKEN?: string;
+  /** Triage (tria.ge) API key. Set via `wrangler secret put TRIAGE_API_KEY`. */
+  TRIAGE_API_KEY?: string;
+  /** ANY.RUN API key. Set via `wrangler secret put ANYRUN_API_KEY`. */
+  ANYRUN_API_KEY?: string;
 }

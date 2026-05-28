@@ -24,11 +24,15 @@ import { assertPublicHost } from '../lib/ssrf-guard';
  * AbortController budget so we don't pin connections forever on a
  * malicious or slow target.
  *
+ * Redirects are followed safely — each hop is re-validated via
+ * assertPublicHost so a 302 to a private/cloud-metadata IP is blocked.
+ *
  * Cached at the edge for 30 minutes — analyst sweeps want fresh data.
  */
 
 const FETCH_TIMEOUT_MS = 8000;
 const PROBE_TIMEOUT_MS = 4000;
+const MAX_REDIRECTS = 5;
 // Bounded low: each request already fans out to ~36 probes against the
 // target. Lower concurrency throttles the per-second outbound burst so this
 // endpoint is a weaker request-amplification relay (paired with the /api/v1
@@ -434,7 +438,7 @@ export interface WebScanResponse {
   url: string;
   final_url: string;
   status: number;
-  /** Redirect chain not followed; show what would have happened. */
+  /** Set when a redirect target was blocked by SSRF guard. */
   redirect_blocked?: { location: string };
   http_protocol_findings: HeaderFinding[];
   exposed_paths: ProbeResult[];
@@ -460,7 +464,7 @@ export async function webScanHandler(c: Context<{ Bindings: Env }>): Promise<Res
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheKey = new Request(`https://web-scan-cache.internal/v1?u=${encodeURIComponent(parsed.toString())}`);
   const cached = await cache.match(cacheKey);
-  if (cached) return cached;
+  if (cached) return new Response(cached.body, cached);
 
   // SSRF: resolve A + AAAA, reject any private/reserved answer (complete
   // range list). pinIp pins every fetch below to the validated IP so a
@@ -474,22 +478,82 @@ export async function webScanHandler(c: Context<{ Bindings: Env }>): Promise<Res
   }
   const pinIp = hostCheck.pinIp;
 
-  // Fetch the root URL once for header analysis.
-  let mainRes: Response;
-  try {
-    const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
-    mainRes = await fetch(parsed.toString(), {
-      method: 'GET',
-      redirect: 'manual',
-      signal: ctrl.signal,
-      headers: { 'user-agent': 'pranithjain-dfir/1.0 web-scan', accept: 'text/html,*/*' },
-      cf: { resolveOverride: pinIp },
-    } as RequestInit);
-    clearTimeout(timer);
-  } catch (e) {
-    if (e instanceof Error) console.warn('web-scan fetch failed:', e.message);
-    return c.json({ error: 'fetch failed' }, 502);
+  // Follow redirects safely — each hop re-validates via assertPublicHost
+  // so a 302 to a private/cloud-metadata IP is blocked.
+  let finalUrl = parsed.toString();
+  let finalOrigin = parsed.origin;
+  let mainRes: Response | null = null;
+  let currentHostCheck = hostCheck;
+
+  for (let hop = 0; hop <= MAX_REDIRECTS; hop++) {
+    if (hop > 0) {
+      try {
+        const nextHost = new URL(finalUrl).hostname;
+        currentHostCheck = await assertPublicHost(nextHost);
+      } catch {
+        return c.json({ error: 'redirect_target_invalid', url: parsed.toString(), final_url: finalUrl }, 502, {
+          'Cache-Control': 'no-store',
+        });
+      }
+      if (!currentHostCheck.ok) {
+        const body: WebScanResponse = {
+          url: parsed.toString(),
+          final_url: finalUrl,
+          status: 0,
+          redirect_blocked: { location: finalUrl },
+          http_protocol_findings: [],
+          exposed_paths: [],
+          raw_headers: {},
+          generated_at: new Date().toISOString(),
+        };
+        return c.json(body, 200, { 'Cache-Control': 'public, max-age=300' });
+      }
+    }
+
+    try {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
+      mainRes = await fetch(finalUrl, {
+        method: 'GET',
+        redirect: 'manual',
+        signal: ctrl.signal,
+        headers: { 'user-agent': 'pranithjain-dfir/1.0 web-scan', accept: 'text/html,*/*' },
+        cf: { resolveOverride: currentHostCheck.pinIp },
+      } as RequestInit);
+      clearTimeout(timer);
+    } catch {
+      return c.json({ error: 'fetch failed' }, 502);
+    }
+
+    if (mainRes.status >= 300 && mainRes.status < 400) {
+      const location = mainRes.headers.get('location');
+      if (!location) break;
+      try {
+        const next = new URL(location, finalUrl);
+        if (next.protocol !== 'http:' && next.protocol !== 'https:') break;
+        finalUrl = next.toString();
+        finalOrigin = next.origin;
+      } catch {
+        break;
+      }
+      continue;
+    }
+
+    break;
+  }
+
+  if (!mainRes || (mainRes.status >= 300 && mainRes.status < 400)) {
+    const body: WebScanResponse = {
+      url: parsed.toString(),
+      final_url: finalUrl,
+      status: mainRes?.status ?? 0,
+      redirect_blocked: { location: finalUrl },
+      http_protocol_findings: [],
+      exposed_paths: [],
+      raw_headers: {},
+      generated_at: new Date().toISOString(),
+    };
+    return c.json(body, 200, { 'Cache-Control': 'public, max-age=300' });
   }
 
   // Drain a small body slice to avoid hanging connections.
@@ -510,14 +574,12 @@ export async function webScanHandler(c: Context<{ Bindings: Env }>): Promise<Res
   });
 
   const headerFindings = analyseHeaders(mainRes.headers);
-  const probes = await probeAll(parsed.origin, pinIp);
+  const probes = await probeAll(finalOrigin, currentHostCheck.pinIp);
 
   const body: WebScanResponse = {
     url: parsed.toString(),
-    final_url: parsed.toString(),
+    final_url: finalUrl,
     status: mainRes.status,
-    redirect_blocked:
-      mainRes.status >= 300 && mainRes.status < 400 ? { location: mainRes.headers.get('location') ?? '' } : undefined,
     http_protocol_findings: headerFindings,
     exposed_paths: probes,
     raw_headers: rawHeaders,

@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 @layer base {
   html {
     font-family: theme('fontFamily.sans');
@@ -56,6 +58,10 @@
     textarea {
       font-size: 16px !important;
     }
+  }
+
+  button, a, [role="button"] {
+    touch-action: manipulation;
   }
 
   /* Custom Scrollbar */

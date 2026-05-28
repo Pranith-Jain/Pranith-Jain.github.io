@@ -47,9 +47,10 @@ import {
   type ProviderResult,
 } from '../providers/types';
 
-/** Cloudflare Workers limit subrequests to 50 per invocation. Each feed-based
- *  provider makes at least 1 fetch(). Chunk execution so we never exceed the
- *  budget even when 25+ providers are eligible for a given indicator type. */
+/** Cloudflare Workers limit subrequests to 50 per invocation. Each provider
+ *  does exactly 1 subrequest (fetch). Circuit breaker is in-memory, provider
+ *  cache uses KV — neither counts toward the budget. Chunk of 10 keeps
+ *  concurrent fetches manageable while staying well under the limit. */
 const PROVIDER_CHUNK_SIZE = 10;
 
 async function runChunked<T>(items: T[], fn: (item: T) => Promise<void>, chunkSize: number): Promise<void> {
@@ -146,7 +147,7 @@ export async function iocCheckHandler(c: Context<{ Bindings: Env }>) {
       eligible,
       async (p) => {
         // Circuit breaker: skip providers that have failed repeatedly.
-        if (await isCircuitOpen(p)) {
+        if (isCircuitOpen(p)) {
           const skipped: ProviderResult = {
             source: p,
             status: 'unsupported',

@@ -1,6 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { RANSOMWARE_RECENT_CACHE_KEY } from './ransomware-recent';
+import { fetchRansomwareRecent, RANSOMWARE_RECENT_CACHE_KEY } from './ransomware-recent';
 import { fetchTelegramFeed, TELEGRAM_FEED_CACHE_KEY, type TelegramFeedResponse } from './telegram-feed';
 import { aggregateFeeds } from './feeds-aggregate';
 import { listBriefings } from '../lib/briefing-builder';
@@ -45,7 +45,12 @@ const CACHE_TTL = 60 * 60;
 // header (which was pinning stale "0 ransomware claims" in users'
 // browsers for hours). Application-level caching is preserved via
 // our own caches.default layer keyed by SNAPSHOT_CACHE_KEY.
-export const SNAPSHOT_CACHE_KEY = 'https://snapshot-cache.internal/v16-private-cc';
+// v17: 2026-05-26 — Call fetchRansomwareRecent() directly instead of
+// internal HTTP fetch, which timed out on cold edge-cache and caused
+// the recurring "load error: upstream error" on the Ransomware card.
+// v18: 2026-05-26 — Per-source 6s timeout on ransomware fan-out so
+// the other 5 cards never wait for a slow cold build.
+export const SNAPSHOT_CACHE_KEY = 'https://snapshot-cache.internal/v20-remove-6s-timeout';
 
 /** Curated feed URLs — kept in sync with the constants the panel used to use. */
 const SCAM_FEED_URLS = ['https://consumer.ftc.gov/blog/rss', 'https://www.ic3.gov/CSA/RSS'];
@@ -113,58 +118,23 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
   // payload that pre-dated the channel change.
   const cacheKey = new Request(SNAPSHOT_CACHE_KEY);
   const cached = await cache.match(cacheKey);
-  if (cached) return cached;
+  if (cached) return new Response(cached.body, cached);
 
   const briefingsDb = c.env.BRIEFINGS_DB;
 
-  // 6 sources only — the 3 that LiveSnapshotPanel never renders
-  // (onion, rules, threat_map) were dropped 2026-05-24 to free
-  // subrequest budget and stop the recurring "load error: upstream
-  // error" on the Ransomware card.
+  // 6 sources only. Ransomware fetches 7 upstreams in parallel with
+  // per-fetcher 15s timeouts. No wrapper timeout — the other 5 cards
+  // already run in the same Promise.all and are NOT blocked by this.
   const [ransomware, telegram, scam, threatIntel, techAi, briefings] = await Promise.all([
     safe(async () => {
-      // Cache-read first — the standalone /api/v1/ransomware-recent
-      // handler fans out to 7 upstream ransomware trackers and warms
-      // RANSOMWARE_RECENT_CACHE_KEY. Snapshot intentionally avoids
-      // re-doing that fan-out inline (eats 7+ subrequests inside the
-      // 50/invocation cap).
       const cached = await cache.match(RANSOMWARE_RECENT_CACHE_KEY);
       if (cached) {
         return (await cached.json()) as { generated_at: string; count: number; victims: unknown[] };
       }
-      // Cold edge-cache in this colo — fall back to one internal fetch
-      // of /api/v1/ransomware-recent. That endpoint reads its own
-      // cache first (so most calls return instantly from KV/edge);
-      // only on a truly cold path does it run the full fan-out, but
-      // that subrequest budget belongs to the called invocation, not
-      // ours. Worst case we spend 1 subrequest here and ship real data
-      // instead of the empty placeholder that was making the "Right
-      // now" Ransomware card render "0 claims · 0 total tracked".
-      try {
-        const url = new URL(c.req.url);
-        url.pathname = '/api/v1/ransomware-recent';
-        url.search = '';
-        const r = await fetch(url.toString(), {
-          signal: AbortSignal.timeout(15_000),
-        });
-        if (r.ok) {
-          const data = (await r.json()) as { generated_at: string; count: number; victims: unknown[] };
-          // Treat empty as failure so `safe()` reports ok:false and the
-          // outer cache-policy logic shortens the snapshot TTL to 5min
-          // (instead of pinning an empty "0 claims" card for the full
-          // 1h CACHE_TTL across the colo).
-          if (data.count > 0 || (data.victims && data.victims.length > 0)) {
-            return data;
-          }
-        }
-      } catch {
-        /* fall through */
-      }
-      // Internal fetch failed or returned empty. Throwing here flags the
-      // composer as failed in `safe()`, which trips the `criticalOk =
-      // false` branch below → 5min edge-cache TTL → next visitor in the
-      // same colo retries instead of being stuck for an hour.
-      throw new Error('ransomware-recent cold + internal fetch unavailable');
+      // Cold cache — call fetchRansomwareRecent() directly.
+      const result = await fetchRansomwareRecent(c.env);
+      if (result.upstreamOk) return result.body;
+      throw new Error('all ransomware upstreams unreachable');
     }),
     safe(async () => {
       // Read /api/v1/telegram-feed's edge-cache first; only fan out to the
@@ -184,6 +154,18 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
     }),
   ]);
 
+  // Truncate ransomware victims to last-24h only (pulse card shows 3, plus
+  // few extras for new-since-visit / watchlist counts). The full 500-victim
+  // payload stays on the dedicated ransomware-activity page.
+  if (ransomware.ok && ransomware.data) {
+    const r = ransomware.data as {
+      victims: { discovered: string }[];
+      count: number;
+    };
+    const cutoff = Date.now() - 24 * 3600_000;
+    r.victims = r.victims.filter((v) => new Date(v.discovered).getTime() >= cutoff).slice(0, 20);
+  }
+
   const body: SnapshotResponse = {
     generated_at: new Date().toISOString(),
     ransomware,
@@ -200,7 +182,9 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
   // Ransomware / Threat-map card until TTL expires. Failed payloads
   // get a 5-min TTL so the next minute brings a retry.
   const ransomwareOk = ransomware.ok;
-  const criticalOk = ransomwareOk;
+  const rData = ransomware.data as { count?: number } | null;
+  const hasRansomwareContent = ransomwareOk && rData != null && (rData.count ?? 0) > 0;
+  const criticalOk = hasRansomwareContent;
   // Browser-facing TTL is 60s — keeps the page's snapshot fresh enough
   // that a transient failure from the worker fan-out auto-clears within
   // a minute instead of pinning the "load error" card for the visitor.
@@ -208,20 +192,8 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
   // origin load down; lower on failures so the next miss re-tries.
   const browserTtl = 60;
   const edgeTtl = criticalOk ? CACHE_TTL : 300;
-  // `private` keeps CF's automatic edge cache out of the loop — the
-  // route already has its own caches.default cache layer above (which
-  // we own and can invalidate via the SNAPSHOT_CACHE_KEY bump). The
-  // automatic edge cache was previously double-caching the response
-  // and serving stale headers (max-age=14400) for the full s-maxage,
-  // so the user's browser kept reusing an old "0 ransomware claims"
-  // payload even after the worker started returning fresh data.
   const response = c.json(body, 200, {
-    'Cache-Control': `private, max-age=${browserTtl}`,
-    // Explicit s-maxage on a separate header for our own application
-    // cache (caches.default uses the response cache-control to time
-    // its eviction, and `private` short-circuits that, so emit the
-    // operational TTL out-of-band).
-    'x-app-cache-ttl': String(edgeTtl),
+    'Cache-Control': `public, max-age=${browserTtl}, s-maxage=${edgeTtl}`,
   });
   c.executionCtx.waitUntil(cache.put(cacheKey, response.clone()));
   return response;

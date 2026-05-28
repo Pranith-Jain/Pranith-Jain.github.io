@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, ShieldAlert, RefreshCw, Search, FlaskConical, ChevronRight, Flame } from 'lucide-react';
+import { ArrowLeft, ShieldAlert, RefreshCw, Search, FlaskConical, ChevronRight, Flame, FileDown, Loader2 } from 'lucide-react';
 import { DataState } from '../../components/DataState';
 
 /**
@@ -248,6 +248,8 @@ export default function Detections(): JSX.Element {
   const [query, setQuery] = useState('');
   const [sevFilter, setSevFilter] = useState<Set<Severity>>(new Set());
   const [refreshKey, setRefreshKey] = useState(0);
+  const [stixLoading, setStixLoading] = useState(false);
+  const [stixBundleId, setStixBundleId] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -274,6 +276,30 @@ export default function Detections(): JSX.Element {
       ctrl.abort();
     };
   }, [refreshKey]);
+
+  const buildStix = async () => {
+    if (!data) return;
+    const iocs = Array.from(
+      new Set(data.detections.flatMap((d) => d.indicators.map((i) => i.value)))
+    );
+    if (iocs.length === 0) return;
+    setStixLoading(true);
+    setStixBundleId(null);
+    try {
+      const r = await fetch('/api/v1/intel-bundle/build', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ mode: 'iocs', input: iocs.join('\n') }),
+      });
+      if (!r.ok) throw new Error(r.statusText);
+      const res = (await r.json()) as { bundle: { id: string } };
+      setStixBundleId(res.bundle.id);
+    } catch {
+      window.alert('STIX build failed.');
+    } finally {
+      setStixLoading(false);
+    }
+  };
 
   const filtered = useMemo(() => {
     if (!data) return [] as Detection[];
@@ -470,6 +496,25 @@ export default function Detections(): JSX.Element {
           >
             <RefreshCw size={12} /> refresh
           </button>
+          {stixBundleId ? (
+            <a
+              href={`/api/v1/intel-bundle/${stixBundleId}/export.stix.json`}
+              download={`${stixBundleId}.stix.json`}
+              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-emerald-500/40 bg-emerald-500/5 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/10"
+            >
+              <FileDown size={12} /> STIX
+            </a>
+          ) : (
+            <button
+              type="button"
+              onClick={() => void buildStix()}
+              disabled={stixLoading || !data}
+              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 disabled:opacity-40"
+            >
+              {stixLoading ? <Loader2 size={12} className="animate-spin" /> : <FileDown size={12} />}
+              {stixLoading ? 'building…' : 'STIX'}
+            </button>
+          )}
         </div>
         <div className="flex flex-wrap items-center gap-1.5 mt-3">
           <span className="text-[11px] font-mono text-slate-500 mr-1">severity:</span>

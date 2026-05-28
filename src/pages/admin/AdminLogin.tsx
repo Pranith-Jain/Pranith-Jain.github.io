@@ -33,7 +33,7 @@ export default function AdminLogin({ onLogin }: Props) {
   }
 
   return (
-    <main className="max-w-sm mx-auto px-6 py-16">
+    <div className="max-w-sm mx-auto px-6 py-16">
       <h1 className="text-2xl font-bold text-slate-100 mb-6">Case Study Admin</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -62,6 +62,6 @@ export default function AdminLogin({ onLogin }: Props) {
           {busy ? 'Checking…' : 'Sign in'}
         </button>
       </form>
-    </main>
+    </div>
   );
 }

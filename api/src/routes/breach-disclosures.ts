@@ -63,7 +63,7 @@ export async function breachDisclosuresHandler(c: Context<{ Bindings: Env }>): P
   // Try cache first
   const cache = (caches as unknown as { default: Cache }).default;
   const cached = await cache.match(new Request(CACHE_KEY));
-  if (cached) return cached;
+  if (cached) return new Response(cached.body, cached);
 
   let breaches: BreachDisclosure[] = [];
   let upstreamOk = false;

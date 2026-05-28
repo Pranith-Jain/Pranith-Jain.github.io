@@ -547,7 +547,7 @@ export async function telegramFeedHandler(c: Context<{ Bindings: Env }>): Promis
   const bump = await readBumpValue(c.env);
   const cacheKey = new Request(`${TELEGRAM_FEED_CACHE_KEY}${bump ? `-${bump}` : ''}`);
   const cached = await cache.match(cacheKey);
-  if (cached) return cached;
+  if (cached) return new Response(cached.body, cached);
 
   const body = await fetchTelegramFeed(c.env.KV_CACHE);
   const response = c.json(body, 200, { 'Cache-Control': `public, max-age=${CACHE_TTL}` });

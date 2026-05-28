@@ -1,0 +1,170 @@
+export interface Watch {
+  id: string;
+  label: string;
+  type: 'ransomware-group' | 'cve-keyword' | 'actor' | 'ioc';
+  value: string;
+  webhook: string;
+  created_at: string;
+  last_triggered: string | null;
+}
+
+export interface AlertEvent {
+  watch_id: string;
+  label: string;
+  type: Watch['type'];
+  value: string;
+  matched_at: string;
+  match: string;
+  detail?: string;
+}
+
+const WATCHES_KV_KEY = 'watches:v1';
+const ALERT_LOG_KV_KEY = 'alert-log:v1';
+
+export async function listWatches(kv: KVNamespace): Promise<Watch[]> {
+  const raw = await kv.get(WATCHES_KV_KEY, 'json').catch(() => null);
+  return (raw as Watch[]) ?? [];
+}
+
+export async function saveWatch(kv: KVNamespace, watch: Watch): Promise<void> {
+  const watches = await listWatches(kv);
+  const idx = watches.findIndex((w) => w.id === watch.id);
+  if (idx >= 0) watches[idx] = watch;
+  else watches.push(watch);
+  await kv.put(WATCHES_KV_KEY, JSON.stringify(watches));
+}
+
+export async function deleteWatch(kv: KVNamespace, id: string): Promise<void> {
+  const watches = await listWatches(kv);
+  await kv.put(WATCHES_KV_KEY, JSON.stringify(watches.filter((w) => w.id !== id)));
+}
+
+export async function appendAlertLog(kv: KVNamespace, event: AlertEvent): Promise<void> {
+  const raw = await kv.get(ALERT_LOG_KV_KEY, 'json').catch(() => null);
+  const log = (raw as AlertEvent[]) ?? [];
+  log.unshift(event);
+  if (log.length > 200) log.length = 200;
+  await kv.put(ALERT_LOG_KV_KEY, JSON.stringify(log));
+}
+
+export async function getAlertLog(kv: KVNamespace): Promise<AlertEvent[]> {
+  const raw = await kv.get(ALERT_LOG_KV_KEY, 'json').catch(() => null);
+  return (raw as AlertEvent[]) ?? [];
+}
+
+async function readCachedJson<T>(cacheKey: string): Promise<T | null> {
+  try {
+    const cache = caches.default;
+    const cached = await cache.match(new Request(cacheKey));
+    if (cached) return (await cached.json()) as T;
+  } catch { /* cold */ }
+  return null;
+}
+
+export async function checkWatches(kv: KVNamespace, now: string): Promise<AlertEvent[]> {
+  const watches = await listWatches(kv);
+  if (watches.length === 0) return [];
+
+  const alerts: AlertEvent[] = [];
+
+  const needsTrigger = (w: Watch): boolean => {
+    if (!w.last_triggered) return true;
+    const elapsed = Date.parse(now) - Date.parse(w.last_triggered);
+    return elapsed > 3600_000;
+  };
+
+  for (const watch of watches) {
+    if (!needsTrigger(watch)) continue;
+    if (!watch.webhook) continue;
+
+    try {
+      let matched = false;
+      let matchText = '';
+      let detail = '';
+
+      if (watch.type === 'ransomware-group') {
+        const data = await readCachedJson<{ victims: Array<{ victim: string; group: string }> }>('https://ransomware-recent-cache.internal/v8-af-source');
+        if (data) {
+          const victim = (data.victims ?? []).find(
+            (v) => v.group.toLowerCase().includes(watch.value.toLowerCase())
+          );
+          if (victim) {
+            matched = true;
+            matchText = `New victim: ${victim.victim}`;
+            detail = `Group ${watch.value} — ${victim.victim}`;
+          }
+        }
+      } else if (watch.type === 'cve-keyword') {
+        const data = await readCachedJson<{ cves: Array<{ id: string; description?: string }> }>('https://cve-recent-cache.internal/v10-750-paged');
+        if (data) {
+          const match = (data.cves ?? []).find(
+            (c) =>
+              c.id.toLowerCase().includes(watch.value.toLowerCase()) ||
+              (c.description ?? '').toLowerCase().includes(watch.value.toLowerCase())
+          );
+          if (match) {
+            matched = true;
+            matchText = match.id;
+            detail = match.description ? match.description.slice(0, 200) : '';
+          }
+        }
+      } else if (watch.type === 'ioc') {
+        const data = await readCachedJson<{ items: Array<{ value: string; kind: string; source: string }> }>('https://live-iocs-cache.internal/v11-freshness-filter');
+        if (data) {
+          const match = (data.items ?? []).find(
+            (i) => i.value.toLowerCase() === watch.value.toLowerCase()
+          );
+          if (match) {
+            matched = true;
+            matchText = match.value;
+            detail = `${match.kind} · ${match.source}`;
+          }
+        }
+      } else if (watch.type === 'actor') {
+        const data = await readCachedJson<{ groups: Array<{ display_name: string; slug: string; posts_in_window: number }> }>('https://actor-timeline-cache.internal/v3-mti');
+        if (data) {
+          const match = (data.groups ?? []).find(
+            (g) => g.display_name.toLowerCase().includes(watch.value.toLowerCase()) || g.slug.toLowerCase().includes(watch.value.toLowerCase())
+          );
+          if (match && match.posts_in_window > 0) {
+            matched = true;
+            matchText = match.display_name;
+            detail = `${match.posts_in_window} recent post${match.posts_in_window === 1 ? '' : 's'}`;
+          }
+        }
+      }
+
+      if (matched) {
+        const event: AlertEvent = {
+          watch_id: watch.id,
+          label: watch.label,
+          type: watch.type,
+          value: watch.value,
+          matched_at: now,
+          match: matchText,
+          detail,
+        };
+        alerts.push(event);
+        watch.last_triggered = now;
+        await saveWatch(kv, watch);
+        await appendAlertLog(kv, event);
+        try {
+          await fetch(watch.webhook, {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+              text: `[Watch Alert] ${watch.label}\nType: ${watch.type}\nMatch: ${matchText}\n${detail ? `Detail: ${detail}` : ''}\nTime: ${now}`,
+            }),
+            signal: AbortSignal.timeout(5000),
+          });
+        } catch {
+          /* webhook unreachable — alert still logged */
+        }
+      }
+    } catch {
+      /* per-watch error — continue */
+    }
+  }
+
+  return alerts;
+}

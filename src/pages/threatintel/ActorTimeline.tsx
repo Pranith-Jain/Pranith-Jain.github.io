@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ExternalLink, RefreshCw, Skull } from 'lucide-react';
+import { useDataFetch } from '../../hooks/useDataFetch';
 import { ActorTtpsPanel } from '../../components/threatintel/ActorTtpsPanel';
 import { DataState } from '../../components/DataState';
 
@@ -77,36 +78,16 @@ function shortDay(iso: string): string {
 }
 
 export default function ActorTimeline(): JSX.Element {
-  const [data, setData] = useState<ActorTimelineResponse | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [refreshKey, setRefreshKey] = useState(0);
-
-  useEffect(() => {
-    let cancelled = false;
-    const ctrl = new AbortController();
-    setLoading(true);
-    setError(null);
-    fetch('/api/v1/actor-timeline', { signal: ctrl.signal })
-      .then((r) => {
-        if (!r.ok) throw new Error(`upstream ${r.status}`);
-        return r.json() as Promise<ActorTimelineResponse>;
-      })
-      .then((d) => {
-        if (!cancelled) setData(d);
-      })
-      .catch((e: { name?: string; message?: string }) => {
-        if (cancelled || e.name === 'AbortError') return;
-        setError(e.message ?? 'failed');
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
-      });
-    return () => {
-      cancelled = true;
-      ctrl.abort();
-    };
-  }, [refreshKey]);
+  const {
+    data,
+    loading,
+    error,
+    refetch,
+  } = useDataFetch<ActorTimelineResponse>({
+    url: '/api/v1/actor-timeline',
+    ttl: 120_000,
+    staleWhileRevalidate: true,
+  });
 
   // Per-row max for relative shading (a group with 10 posts/day shouldn't drown
   // out a group whose top day is 3 — the visual question is "is this group's
@@ -172,10 +153,11 @@ export default function ActorTimeline(): JSX.Element {
         )}
         <button
           type="button"
-          onClick={() => setRefreshKey((k) => k + 1)}
-          className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40"
+          onClick={() => refetch()}
+          className="text-[11px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1 disabled:opacity-50"
+          aria-label="refresh"
         >
-          <RefreshCw size={12} /> refresh
+          <RefreshCw size={11} className={loading ? 'animate-spin' : ''} /> refresh
         </button>
       </section>
 

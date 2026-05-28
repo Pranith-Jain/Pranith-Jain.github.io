@@ -678,7 +678,7 @@ export async function feedStatusHandler(c: Context<{ Bindings: Env }>): Promise<
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheReq = new Request(FEED_STATUS_CACHE_KEY);
   const cached = await cache.match(cacheReq);
-  if (cached) return cached;
+  if (cached) return new Response(cached.body, cached);
 
   const rows = await Promise.all(PROBES.map(probeOne));
   const downs = rows.filter((r) => r.status === 'down').length;

@@ -9,8 +9,9 @@ import { ScrollProgress, BackToTop } from './components/ui';
 import { Layout } from './components/Layout';
 import { AppShell } from './components/AppShell';
 import { BackgroundLayer } from './components/BackgroundLayer';
-import { CommandPalette } from './components/dfir/CommandPalette';
 import { ErrorBoundary } from './components/ErrorBoundary';
+
+const CommandPalette = lazy(() => import('./components/dfir/CommandPalette').then(m => ({ default: m.CommandPalette })));
 
 // Note (2026-05-12): tried React.lazy on these four shell components to
 // trim the entry chunk. Lighthouse showed desktop wiki regressed 77→71
@@ -107,6 +108,7 @@ const UsernamePivot = lazy(() => import('./pages/dfir/UsernamePivot'));
 const Wayback = lazy(() => import('./pages/dfir/Wayback'));
 const IpGeo = lazy(() => import('./pages/dfir/IpGeo'));
 const LogParser = lazy(() => import('./pages/dfir/LogParser'));
+
 const Socmint = lazy(() => import('./pages/dfir/Socmint'));
 const OsintFramework = lazy(() => import('./pages/dfir/OsintFramework'));
 const SecopsCatalog = lazy(() => import('./pages/dfir/SecopsCatalog'));
@@ -145,7 +147,6 @@ const ThreatIntelAbout = lazy(() => import('./pages/threatintel/About'));
 const ThreatPulse = lazy(() => import('./pages/threatintel/ThreatPulse'));
 const CveList = lazy(() => import('./pages/threatintel/CveList'));
 const CveThreatMap = lazy(() => import('./pages/threatintel/CveThreatMap'));
-const RansomwareMap = lazy(() => import('./pages/threatintel/RansomwareMap'));
 const RansomwareActivityPage = lazy(() => import('./pages/threatintel/RansomwareActivity'));
 const RansomwareGeoMap = lazy(() => import('./pages/threatintel/RansomwareMap'));
 const CertStreamLive = lazy(() => import('./pages/threatintel/CertStreamLive'));
@@ -181,14 +182,22 @@ const BreachForums = lazy(() => import('./pages/threatintel/BreachForums'));
 const UrlReputation = lazy(() => import('./pages/dfir/UrlReputation'));
 const DomainReputation = lazy(() => import('./pages/dfir/DomainReputation'));
 const ApkAnalyzer = lazy(() => import('./pages/dfir/ApkAnalyzer'));
+const PgpTool = lazy(() => import('./pages/dfir/PgpTool'));
+const TorGateway = lazy(() => import('./pages/dfir/TorGateway'));
 const EmailReputation = lazy(() => import('./pages/dfir/EmailReputation'));
 const DomainMonitor = lazy(() => import('./pages/threatintel/DomainMonitor'));
+const WatchesPage = lazy(() => import('./pages/threatintel/Watches'));
+const CopilotPage = lazy(() => import('./pages/threatintel/Copilot'));
+// (removed LiveFeedsPage and MyDashboardPage)
 const MaltrailTrails = lazy(() => import('./pages/threatintel/MaltrailTrails'));
 const MalpediaPage = lazy(() => import('./pages/threatintel/MalpediaPage'));
 const InfostealerDetail = lazy(() => import('./pages/threatintel/InfostealerDetail'));
 const FeedSources = lazy(() => import('./pages/threatintel/FeedSources'));
 const SettingsPage = lazy(() => import('./pages/threatintel/Settings'));
 const DmarcAnalyzer = lazy(() => import('./pages/dfir/DmarcAnalyzer'));
+const MispBrowser = lazy(() => import('./pages/threatintel/MispBrowser'));
+const UnifiedSearch = lazy(() => import('./pages/threatintel/UnifiedSearch'));
+const IocEnrichment = lazy(() => import('./pages/threatintel/IocEnrichment'));
 
 /**
  * Preserves the path slug (when `withSlug`), the query string, and the hash
@@ -250,7 +259,7 @@ export function AppContent() {
     } else {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  }, [location.hash]);
+  }, [location.pathname, location.hash]);
 
   const routes = (
     <Routes>
@@ -1197,16 +1206,6 @@ export function AppContent() {
         }
       />
       <Route
-        path="/threatintel/ransomware-map"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <RansomwareMap />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
         path="/threatintel/rules"
         element={
           <ErrorBoundary>
@@ -1708,6 +1707,26 @@ export function AppContent() {
         }
       />
       <Route
+        path="/threatintel/watches"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <WatchesPage />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/threatintel/copilot"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <CopilotPage />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
         path="/threatintel/scam-watch"
         element={
           <ErrorBoundary>
@@ -1827,6 +1846,56 @@ export function AppContent() {
           </ErrorBoundary>
         }
       />
+      <Route
+        path="/threatintel/misp-browser"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <MispBrowser />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/threatintel/search"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <UnifiedSearch />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/threatintel/ioc-enrichment"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <IocEnrichment />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/dfir/pgp-tool"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <PgpTool />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
+      <Route
+        path="/dfir/tor-gateway"
+        element={
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <TorGateway />
+            </Suspense>
+          </ErrorBoundary>
+        }
+      />
       {/* Ransom Note Library was removed 2026-05-11; mythreatintel.com is now
                 an external-source link only on the /threatintel landing. Old bookmarks
                 land on the External Sources block via the threatintel landing. */}
@@ -1889,7 +1958,7 @@ export function AppContent() {
         <StructuredData />
         <SkipToContent />
         <BackgroundLayer isDark={isDark} />
-        <CommandPalette />
+        <Suspense fallback={null}><CommandPalette /></Suspense>
         <AppShell mode={appMode} isDark={isDark} onToggleTheme={toggleTheme}>
           {routes}
         </AppShell>
@@ -1907,7 +1976,7 @@ export function AppContent() {
 
       <ScrollProgress progress={progress} />
       <Header isDark={isDark} onToggleTheme={toggleTheme} />
-      <CommandPalette />
+      <Suspense fallback={null}><CommandPalette /></Suspense>
 
       <main id="main-content" tabIndex={-1}>
         <Layout>{routes}</Layout>

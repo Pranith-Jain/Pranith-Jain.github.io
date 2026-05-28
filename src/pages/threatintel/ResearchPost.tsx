@@ -75,7 +75,7 @@ export default function ResearchPost(): JSX.Element {
   const others = publishedResearch().filter((r) => r.slug !== post.slug);
 
   return (
-    <main className="max-w-3xl mx-auto px-4 sm:px-6 py-10 text-slate-900 dark:text-slate-100">
+    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10 text-slate-900 dark:text-slate-100">
       <Link
         to="/threatintel/research"
         className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.16em] text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 mb-6"
@@ -224,6 +224,6 @@ export default function ResearchPost(): JSX.Element {
           </div>
         )}
       </nav>
-    </main>
+    </div>
   );
 }

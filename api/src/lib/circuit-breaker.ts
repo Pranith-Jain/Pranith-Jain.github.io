@@ -6,57 +6,48 @@ import type { ProviderId } from '../providers/types';
  * 8s on a dead upstream for every user.
  *
  * The circuit opens when a provider accumulates N consecutive errors within
- * the cache window. Once open, the IOC route skips that provider entirely
+ * the time window. Once open, the IOC route skips that provider entirely
  * (returns an immediate `unsupported`) until the window expires.
  *
- * Backed by the Cloudflare Cache API (not KV) — zero KV quota cost, auto-
- * expiring entries, per-colo state that's good enough for abuse protection.
+ * Uses an in-memory Map (not the Cache API) to avoid burning the Workers
+ * 50-subrequest budget. Per-colo state is sufficient — the circuit only
+ * needs to protect against a burst of slow timeouts, not global coordination.
  */
 const CONSECUTIVE_FAIL_LIMIT = 3;
-const CIRCUIT_WINDOW_SEC = 300; // 5 min — unhealthy provider stays skipped
-const CACHE_PREFIX = 'https://cb.internal/v1/';
+const CIRCUIT_WINDOW_MS = 300_000; // 5 min
 
-function cacheKey(provider: ProviderId): Request {
-  return new Request(`${CACHE_PREFIX}${encodeURIComponent(provider)}`);
+interface CircuitState {
+  count: number;
+  resetAt: number;
 }
+
+const state = new Map<ProviderId, CircuitState>();
 
 /**
  * Check whether the circuit is open for a provider. Returns `true` when the
  * provider should be skipped (open circuit).
- *
- * Fail-open: if the cache is unreachable, allow the call through.
  */
-export async function isCircuitOpen(provider: ProviderId): Promise<boolean> {
-  try {
-    const cache = (caches as unknown as { default: Cache }).default;
-    const entry = await cache.match(cacheKey(provider));
-    if (!entry) return false;
-    const failCount = parseInt(await entry.text(), 10);
-    return failCount >= CONSECUTIVE_FAIL_LIMIT;
-  } catch {
-    return false; // cache error — fail open, let the request through
+export function isCircuitOpen(provider: ProviderId): boolean {
+  const entry = state.get(provider);
+  if (!entry) return false;
+  if (Date.now() >= entry.resetAt) {
+    state.delete(provider);
+    return false;
   }
+  return entry.count >= CONSECUTIVE_FAIL_LIMIT;
 }
 
 /**
  * Record a provider failure. Increments the consecutive-fail counter.
- * The Cache API entry auto-expires after CIRCUIT_WINDOW_SEC, which
- * gracefully re-allows the provider after the window.
+ * Auto-resets after CIRCUIT_WINDOW_MS.
  */
 export async function recordProviderFailure(provider: ProviderId): Promise<void> {
-  try {
-    const cache = (caches as unknown as { default: Cache }).default;
-    const key = cacheKey(provider);
-    const existing = await cache.match(key);
-    const count = existing ? (parseInt(await existing.text(), 10) || 0) + 1 : 1;
-    await cache.put(
-      key,
-      new Response(String(count), {
-        headers: { 'cache-control': `max-age=${CIRCUIT_WINDOW_SEC}` },
-      })
-    );
-  } catch {
-    // non-fatal — next request will try again
+  const now = Date.now();
+  const entry = state.get(provider);
+  if (!entry || now >= entry.resetAt) {
+    state.set(provider, { count: 1, resetAt: now + CIRCUIT_WINDOW_MS });
+  } else {
+    entry.count += 1;
   }
 }
 
@@ -65,15 +56,5 @@ export async function recordProviderFailure(provider: ProviderId): Promise<void>
  * failures reset on the first success.
  */
 export async function recordProviderSuccess(provider: ProviderId): Promise<void> {
-  try {
-    const cache = (caches as unknown as { default: Cache }).default;
-    await cache.put(
-      cacheKey(provider),
-      new Response('0', {
-        headers: { 'cache-control': `max-age=${CIRCUIT_WINDOW_SEC}` },
-      })
-    );
-  } catch {
-    // non-fatal
-  }
+  state.delete(provider);
 }

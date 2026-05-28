@@ -84,7 +84,7 @@ export async function briefingsRssHandler(c: Context<{ Bindings: Env }>): Promis
   // its stale pre-restore body (was showing a single briefing).
   const cacheKey = new Request('https://briefings-rss-cache.internal/v2');
   const cached = await cache.match(cacheKey);
-  if (cached) return cached;
+  if (cached) return new Response(cached.body, cached);
 
   const list = await listBriefings(db, { limit: MAX_ITEMS });
 

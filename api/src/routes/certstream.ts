@@ -95,7 +95,7 @@ export async function certStreamHandler(c: Context<{ Bindings: Env }>): Promise<
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheKey = new Request(`https://certstream-cache.internal/v1?k=${encodeURIComponent(keyword)}&s=${since}`);
   const cached = await cache.match(cacheKey);
-  if (cached) return cached;
+  if (cached) return new Response(cached.body, cached);
 
   // Per-keyword "last known good" cache — independent of `since` so it
   // survives a 502 even when the watermark has advanced. We fall back to

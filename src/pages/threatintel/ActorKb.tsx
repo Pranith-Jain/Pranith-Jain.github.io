@@ -2,7 +2,7 @@ import { useMemo, useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ExternalLink, Search, Users, Bug, Globe, BookOpen, RefreshCw, Sparkles } from 'lucide-react';
-import { ACTOR_KB, type KbActor } from '../../data/dfir/actor-kb';
+import { type KbActor } from '../../data/dfir/actor-kb';
 import { DataState } from '../../components/DataState';
 import ActorOtxSweep from '../../components/threatintel/ActorOtxSweep';
 
@@ -75,6 +75,8 @@ export default function ActorKb(): JSX.Element {
   const selectedId = params.get('g');
   const [skeletons, setSkeletons] = useState<SkeletonActor[]>([]);
   const [skeletonsLoading, setSkeletonsLoading] = useState(true);
+  const [actorKb, setActorKb] = useState<KbActor[]>([]);
+  const [kbLoading, setKbLoading] = useState(true);
   const [syncing, setSyncing] = useState(false);
   const [syncResult, setSyncResult] = useState<{ created: number; matched: number; updated: number } | null>(null);
 
@@ -95,6 +97,24 @@ export default function ActorKb(): JSX.Element {
 
   useEffect(() => {
     void loadSkeletons();
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch('/data/actor-kb.json')
+      .then((r) => (r.ok ? r.json() : Promise.reject(r.statusText)))
+      .then((data) => {
+        if (!cancelled) setActorKb(data as KbActor[]);
+      })
+      .catch(() => {
+        /* data stays empty */
+      })
+      .finally(() => {
+        if (!cancelled) setKbLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const runMaltrailSync = async () => {
@@ -137,8 +157,8 @@ export default function ActorKb(): JSX.Element {
 
   const filtered = useMemo<KbActor[]>(() => {
     const s = q.trim().toLowerCase();
-    if (!s) return ACTOR_KB;
-    return ACTOR_KB.filter(
+    if (!s) return actorKb;
+    return actorKb.filter(
       (a) =>
         a.name.toLowerCase().includes(s) ||
         a.attackId.toLowerCase().includes(s) ||
@@ -146,9 +166,9 @@ export default function ActorKb(): JSX.Element {
         a.software.some((sw) => sw.toLowerCase().includes(s)) ||
         a.techniques.some((t) => t.name.toLowerCase().includes(s) || t.id.toLowerCase().includes(s))
     );
-  }, [q]);
+  }, [actorKb, q]);
 
-  const selected = useMemo(() => ACTOR_KB.find((a) => a.attackId === selectedId) ?? null, [selectedId]);
+  const selected = useMemo(() => actorKb.find((a) => a.attackId === selectedId) ?? null, [actorKb, selectedId]);
 
   const techByTactic = useMemo(() => {
     if (!selected) return [];
@@ -220,23 +240,28 @@ export default function ActorKb(): JSX.Element {
           <Users size={28} className="text-brand-600 dark:text-brand-400" /> Threat-Actor Knowledge Base
         </h1>
         <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-2xl">
-          {ACTOR_KB.length} MITRE ATT&amp;CK intrusion-sets — aliases, tradecraft (TTPs by tactic) and tooling. Built
-          from the ATT&amp;CK enterprise bundle and shipped with the page; nothing leaves your browser.
+          {actorKb.length} MITRE ATT&amp;CK intrusion-sets — aliases, tradecraft (TTPs by tactic) and tooling.
         </p>
       </div>
 
-      <div className="relative mb-6 max-w-md">
-        <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-        <input
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-          placeholder="Search actor, alias, Gxxxx, technique, malware…"
-          aria-label="Search threat actors"
-          className="w-full pl-9 pr-3 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
-        />
-      </div>
-
-      {selected && (
+      {kbLoading && (
+        <div className="flex items-center gap-2 text-sm text-slate-500 font-mono py-8">
+          <RefreshCw size={12} className="animate-spin" /> Loading actor knowledge-base…
+        </div>
+      )}
+      {!kbLoading && (
+        <>
+          <div className="relative mb-6 max-w-md">
+            <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <input
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+              placeholder="Search actor, alias, Gxxxx, technique, malware…"
+              aria-label="Search threat actors"
+              className="w-full pl-9 pr-3 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            />
+          </div>
+          {selected && (
         <section className="mb-8 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
             <h2 className="text-2xl font-display font-bold">{selected.name}</h2>
@@ -397,7 +422,7 @@ export default function ActorKb(): JSX.Element {
       </div>
 
       <div className="text-[12px] font-mono text-slate-500 mb-2">
-        {filtered.length} of {ACTOR_KB.length} actors
+        {filtered.length} of {actorKb.length} actors
       </div>
       <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.slice(0, 240).map((a) => (
@@ -426,6 +451,9 @@ export default function ActorKb(): JSX.Element {
       </div>
       {filtered.length > 240 && (
         <p className="text-[12px] text-slate-500 mt-3">Showing first 240 — refine the search to narrow.</p>
+      )}
+
+      </>
       )}
 
       {/* Maltrail-discovered skeleton actors. apt_*.txt files with no

@@ -179,7 +179,7 @@ export async function ransomwareMapHandler(c: Context<{ Bindings: Env }>): Promi
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheKey = new Request(CACHE_KEY);
   const cached = await cache.match(cacheKey);
-  if (cached) return cached;
+  if (cached) return new Response(cached.body, cached);
 
   const { body, upstreamOk } = await fetchRansomwareRecent(c.env);
 

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 /**
  * Module-level in-memory cache. Persists across hook instances within
@@ -134,9 +134,9 @@ export function useDataFetch<T = unknown>({
     };
   }, [url, ttl]);
 
-  const refetch = useRef(() => {
+  const refetch = useCallback(() => {
     if (url) fetchFn.current(url);
-  });
+  }, [url]);
 
-  return { data, loading, stale, error, refetch: refetch.current };
+  return { data, loading, stale, error, refetch };
 }

@@ -50,6 +50,9 @@ const TI_NAV: NavItem[] = [
   { label: 'Metrics', to: '/threatintel/metrics' },
   { label: 'Status', to: '/threatintel/status' },
   { label: 'Domain Monitor', to: '/threatintel/domain-monitor' },
+  { label: 'Search', to: '/threatintel/search' },
+  { label: 'Copilot', to: '/threatintel/copilot' },
+  { label: 'Watches', to: '/threatintel/watches' },
 ];
 
 interface BrandSpec {
@@ -69,6 +72,9 @@ interface AppShellProps {
 export function AppShell({ mode, isDark, onToggleTheme, children }: AppShellProps): JSX.Element {
   const location = useLocation();
   const nav = mode === 'dfir' ? DFIR_NAV : TI_NAV;
+  // Key by location so the wrapper remounts on every route change,
+  // replaying the fade-in animation for a smooth page transition.
+  const pageKey = location.pathname;
   const brand: BrandSpec =
     mode === 'dfir'
       ? { short: 'DFIR', long: 'DFIR Toolkit', accent: 'text-brand-600 dark:text-brand-400' }
@@ -88,7 +94,7 @@ export function AppShell({ mode, isDark, onToggleTheme, children }: AppShellProp
   return (
     <div className="min-h-screen flex flex-col text-slate-900 dark:text-slate-50">
       <AppHeader brand={brand} nav={nav} isActive={isActive} isDark={isDark} onToggleTheme={onToggleTheme} />
-      <main id="main-content" className="flex-1">
+      <main id="main-content" key={pageKey} className="flex-1 animate-fade-in-up">
         {children}
       </main>
       <AppStatusBar mode={mode} />

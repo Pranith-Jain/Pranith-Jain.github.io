@@ -37,6 +37,8 @@ interface XLiveResponse {
   since_hours: number;
   total_status_ids_seen: number;
   enriched_count: number;
+  enrichment_failures?: number;
+  stale?: boolean;
   items: LiveTweet[];
 }
 
@@ -271,8 +273,11 @@ export default function XLive(): JSX.Element {
 
       {!loading && data && filtered.length === 0 && (
         <p className="text-xs font-mono text-slate-500 rounded border border-dashed border-slate-300 dark:border-slate-700 p-4 text-center">
+          {data.stale ? 'Showing cached data (upstream enrichment temporarily unavailable). ' : ''}
           {data.items.length === 0
-            ? `No status IDs in the last ${sinceHours}h — TweetFeed may be quiet or upstream rate-limited.`
+            ? data.total_status_ids_seen > 0
+              ? `TweetFeed has ${data.total_status_ids_seen} status IDs but enrichment (fxtwitter) couldn't resolve them — upstream may be rate-limited or temporary unavailable.`
+              : `No status IDs in the last ${sinceHours}h — TweetFeed may be quiet or upstream rate-limited.`
             : 'No tweets match the current filter.'}
         </p>
       )}
@@ -381,8 +386,12 @@ export default function XLive(): JSX.Element {
 
       {data && (
         <p className="mt-6 text-[10px] font-mono text-slate-400 text-center">
-          source: TweetFeed ({data.total_status_ids_seen} status IDs seen) × fxtwitter ({data.enriched_count} enriched)
-          · last {sinceHours}h · refreshed {formatTimeAgo(data.generated_at)}
+          {data.stale && <span className="text-amber-500 dark:text-amber-400">stale · </span>}
+          source: TweetFeed ({data.total_status_ids_seen} status IDs seen) × fxtwitter ({data.enriched_count} enriched
+          {data.enrichment_failures != null && data.enrichment_failures > 0
+            ? `, ${data.enrichment_failures} failed`
+            : ''}
+          ) · last {sinceHours}h · refreshed {formatTimeAgo(data.generated_at)}
         </p>
       )}
     </div>

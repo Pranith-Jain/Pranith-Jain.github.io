@@ -6,6 +6,7 @@ import { assertPublicHost } from '../lib/ssrf-guard';
 const UA = 'Mozilla/5.0 (compatible; pranithjain-dfir-preview/1.0; +https://pranithjain.qzz.io)';
 const MAX_BYTES = 128 * 1024;
 const TIMEOUT_MS = 8000;
+const MAX_REDIRECTS = 5;
 
 interface UrlPreviewResponse {
   url: string;
@@ -349,108 +350,158 @@ export async function urlPreviewHandler(c: Context<{ Bindings: Env }>) {
   // main page fetch + body read — it adds no latency to the critical path.
   const urlscanPromise = fetchUrlscan(parsed.toString(), c.env as Env);
 
-  try {
-    const res = await fetch(parsed.toString(), {
-      headers: { 'user-agent': UA, accept: 'text/html,*/*' },
-      redirect: 'manual',
-      signal: AbortSignal.timeout(TIMEOUT_MS),
-      cf: { resolveOverride: hostCheck.pinIp },
-    } as RequestInit);
+  // Follow redirects safely — each hop re-validates the target hostname via
+  // assertPublicHost so a 302 to a private/cloud-metadata IP is rejected.
+  let currentUrl = parsed.toString();
+  let finalRes: Response | null = null;
+  let finalHostCheck = hostCheck;
+
+  for (let hop = 0; hop <= MAX_REDIRECTS; hop++) {
+    if (hop > 0) {
+      try {
+        const nextHost = new URL(currentUrl).hostname;
+        finalHostCheck = await assertPublicHost(nextHost);
+      } catch {
+        return c.json(
+          { error: 'redirect_target_invalid', url: parsed.toString(), final_url: currentUrl },
+          502,
+          { 'Cache-Control': 'no-store' }
+        );
+      }
+      if (!finalHostCheck.ok) {
+        return c.json<UrlPreviewResponse>(
+          {
+            url: parsed.toString(),
+            final_url: currentUrl,
+            status: 0,
+            bytes_read: 0,
+            redirect_blocked: { location: currentUrl },
+          },
+          200,
+          { 'Cache-Control': 'public, max-age=300' }
+        );
+      }
+    }
+
+    try {
+      finalRes = await fetch(currentUrl, {
+        headers: { 'user-agent': UA, accept: 'text/html,*/*' },
+        redirect: 'manual',
+        signal: AbortSignal.timeout(TIMEOUT_MS),
+        cf: { resolveOverride: finalHostCheck.pinIp },
+      } as RequestInit);
+    } catch (err) {
+      return c.json({ error: safeErrorMessage(c.env as never, err) }, 502, { 'Cache-Control': 'no-store' });
+    }
 
     // Surface upstream rate-limit so the client can back off rather than
     // get a generic 502. Pass through the upstream Retry-After if given.
-    if (res.status === 429) {
-      const retryAfter = res.headers.get('retry-after') ?? '60';
+    if (finalRes.status === 429) {
+      const retryAfter = finalRes.headers.get('retry-after') ?? '60';
       return c.json({ error: 'upstream_rate_limited', upstream: parsed.hostname, upstream_status: 429 }, 429, {
         'retry-after': retryAfter,
         'cache-control': 'no-store',
       });
     }
 
-    if (res.status >= 300 && res.status < 400) {
-      const location = res.headers.get('location') ?? '';
-      return c.json<UrlPreviewResponse>(
-        {
-          url: parsed.toString(),
-          final_url: parsed.toString(),
-          status: res.status,
-          bytes_read: 0,
-          redirect_blocked: { location },
-        },
-        200,
-        { 'Cache-Control': 'public, max-age=300' }
-      );
-    }
-
-    const reader = res.body?.getReader();
-    let bytesRead = 0;
-    let chunks = '';
-    if (reader) {
-      const decoder = new TextDecoder('utf-8');
-      while (bytesRead < MAX_BYTES) {
-        const { value, done } = await reader.read();
-        if (done) break;
-        if (value) {
-          bytesRead += value.byteLength;
-          chunks += decoder.decode(value, { stream: true });
-        }
+    if (finalRes.status >= 300 && finalRes.status < 400) {
+      const location = finalRes.headers.get('location');
+      if (!location) break;
+      try {
+        const next = new URL(location, currentUrl);
+        if (next.protocol !== 'http:' && next.protocol !== 'https:') break;
+        currentUrl = next.toString();
+      } catch {
+        break; // invalid redirect target URL
       }
-      void reader.cancel();
+      continue;
     }
 
-    const ct = res.headers.get('content-type') ?? undefined;
-    const isHtml = !!ct && ct.toLowerCase().includes('html');
-
-    const body: UrlPreviewResponse = {
-      url: parsed.toString(),
-      final_url: parsed.toString(),
-      status: res.status,
-      content_type: ct,
-      bytes_read: bytesRead,
-    };
-
-    if (isHtml && chunks) {
-      body.title = titleOf(chunks);
-      body.description = metaContent(chunks, 'description');
-      body.og = {
-        title: metaContent(chunks, 'og:title'),
-        description: metaContent(chunks, 'og:description'),
-        image: metaContent(chunks, 'og:image'),
-        site_name: metaContent(chunks, 'og:site_name'),
-        type: metaContent(chunks, 'og:type'),
-      };
-      body.twitter = {
-        title: metaContent(chunks, 'twitter:title'),
-        description: metaContent(chunks, 'twitter:description'),
-        image: metaContent(chunks, 'twitter:image'),
-        card: metaContent(chunks, 'twitter:card'),
-      };
-      body.canonical = canonicalOf(chunks);
-
-      const base = parsed.toString();
-      const links = parseLinks(chunks);
-      body.lang = langOf(chunks);
-      body.charset = charsetOf(chunks);
-      body.favicon = faviconOf(links, base);
-      const feeds = feedsOf(links, base);
-      if (feeds.length > 0) body.feeds = feeds;
-
-      const meta = {
-        author: metaContent(chunks, 'author'),
-        generator: metaContent(chunks, 'generator'),
-        robots: metaContent(chunks, 'robots'),
-        keywords: metaContent(chunks, 'keywords'),
-        theme_color: metaContent(chunks, 'theme-color'),
-        viewport: metaContent(chunks, 'viewport'),
-      };
-      if (Object.values(meta).some(Boolean)) body.meta = meta;
-    }
-
-    const urlscan = await urlscanPromise;
-    if (urlscan) body.urlscan = urlscan;
-
-    return c.json(body, 200, { 'Cache-Control': 'public, max-age=600, s-maxage=1800' });
-  } catch (err) {
-    return c.json({ error: safeErrorMessage(c.env as never, err) }, 502, { 'Cache-Control': 'no-store' });
+    break; // non-redirect response — final
   }
+
+  // Exceeded redirect budget or loop ended on a redirect with no location
+  if (!finalRes || (finalRes.status >= 300 && finalRes.status < 400)) {
+    return c.json<UrlPreviewResponse>(
+      {
+        url: parsed.toString(),
+        final_url: currentUrl,
+        status: finalRes?.status ?? 0,
+        bytes_read: 0,
+        redirect_blocked: { location: currentUrl },
+      },
+      200,
+      { 'Cache-Control': 'public, max-age=300' }
+    );
+  }
+
+  // Read the final response body
+  const reader = finalRes.body?.getReader();
+  let bytesRead = 0;
+  let chunks = '';
+  if (reader) {
+    const decoder = new TextDecoder('utf-8');
+    while (bytesRead < MAX_BYTES) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      if (value) {
+        bytesRead += value.byteLength;
+        chunks += decoder.decode(value, { stream: true });
+      }
+    }
+    void reader.cancel();
+  }
+
+  const ct = finalRes.headers.get('content-type') ?? undefined;
+  const isHtml = !!ct && ct.toLowerCase().includes('html');
+
+  const body: UrlPreviewResponse = {
+    url: parsed.toString(),
+    final_url: currentUrl,
+    status: finalRes.status,
+    content_type: ct,
+    bytes_read: bytesRead,
+  };
+
+  if (isHtml && chunks) {
+    body.title = titleOf(chunks);
+    body.description = metaContent(chunks, 'description');
+    body.og = {
+      title: metaContent(chunks, 'og:title'),
+      description: metaContent(chunks, 'og:description'),
+      image: metaContent(chunks, 'og:image'),
+      site_name: metaContent(chunks, 'og:site_name'),
+      type: metaContent(chunks, 'og:type'),
+    };
+    body.twitter = {
+      title: metaContent(chunks, 'twitter:title'),
+      description: metaContent(chunks, 'twitter:description'),
+      image: metaContent(chunks, 'twitter:image'),
+      card: metaContent(chunks, 'twitter:card'),
+    };
+    body.canonical = canonicalOf(chunks);
+
+    const base = currentUrl;
+    const links = parseLinks(chunks);
+    body.lang = langOf(chunks);
+    body.charset = charsetOf(chunks);
+    body.favicon = faviconOf(links, base);
+    const feeds = feedsOf(links, base);
+    if (feeds.length > 0) body.feeds = feeds;
+
+    const meta = {
+      author: metaContent(chunks, 'author'),
+      generator: metaContent(chunks, 'generator'),
+      robots: metaContent(chunks, 'robots'),
+      keywords: metaContent(chunks, 'keywords'),
+      theme_color: metaContent(chunks, 'theme-color'),
+      viewport: metaContent(chunks, 'viewport'),
+    };
+    if (Object.values(meta).some(Boolean)) body.meta = meta;
+  }
+
+  const urlscan = await urlscanPromise;
+  if (urlscan) body.urlscan = urlscan;
+
+  return c.json(body, 200, { 'Cache-Control': 'public, max-age=600, s-maxage=1800' });
 }

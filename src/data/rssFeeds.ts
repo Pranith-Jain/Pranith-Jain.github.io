@@ -1141,16 +1141,17 @@ export const rssFeeds: RSSFeed[] = [
     language: 'en',
   },
   {
-    // Synthesised RSS — re-publishes the MyThreatIntel ransomware alerts
-    // already parsed for /api/v1/ransomware-recent so MTI is selectable as
-    // its OWN labelled source (absolute same-origin URL → aggregator-eligible).
-    id: 'mti-ransomware',
-    name: 'MyThreatIntel — ransomware',
-    url: 'https://pranithjain.qzz.io/api/v1/feeds/mti-ransomware',
-    description: 'Ransomware victim claims parsed from the MyThreatIntel CTI Telegram channel',
+    // Synthesised RSS — re-publishes the merged ransomware victim claims from
+    // all trackers (Ransomlook, ransomware.live, ransomfeed.it, ransomwatch,
+    // andreafortuna) sorted newest-first. Replaces the previous MyThreatIntel
+    // feed which returned empty responses. Same-origin → aggregator-eligible.
+    id: 'ransomware-merged',
+    name: 'Ransomware claims (merged)',
+    url: 'https://pranithjain.qzz.io/api/v1/feeds/ransomware-merged',
+    description: 'Merged ransomware victim claims from Ransomlook, ransomware.live, ransomfeed.it, ransomwatch, and andreafortuna',
     category: 'threat-intel',
-    source: 't.me/mythreatintel',
-    language: 'es',
+    source: 'ransomlook.io + ransomware.live',
+    language: 'en',
   },
 ];
 
@@ -1287,7 +1288,7 @@ export const landingThreatInvestigation = [
   'cyble-blog',
   'socradar-blog',
   'bushidotoken',
-  'mti-ransomware',
+  'ransomware-merged',
   'infostealers-com',
 ];
 

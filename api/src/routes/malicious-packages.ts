@@ -58,7 +58,7 @@ export async function maliciousPackagesHandler(c: Context<{ Bindings: Env }>): P
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheKey = new Request(`https://malicious-packages-cache.internal/v2?e=${ecosystem}`);
   const cached = await cache.match(cacheKey);
-  if (cached) return cached;
+  if (cached) return new Response(cached.body, cached);
 
   const kv = c.env.KV_CACHE;
   const kvKey = `${KV_LAST_GOOD_PREFIX}${ecosystem}`;

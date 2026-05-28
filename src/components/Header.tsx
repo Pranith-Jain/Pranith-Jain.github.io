@@ -18,6 +18,7 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
   const [isMac, setIsMac] = useState<boolean | null>(null);
   const dropdownRefs = useRef<Map<string, HTMLDivElement>>(new Map());
   const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
+  const scrollRafRef = useRef<number>(0);
   const location = useLocation();
 
   useEffect(() => {
@@ -25,14 +26,21 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
     setIsMac(/Mac|iPhone|iPad/.test(navigator.platform));
   }, []);
 
-  // Track scroll position for header styling
+  // Track scroll position for header styling — throttled via rAF
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+      if (scrollRafRef.current) return;
+      scrollRafRef.current = requestAnimationFrame(() => {
+        scrollRafRef.current = 0;
+        setIsScrolled(window.scrollY > 10);
+      });
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (scrollRafRef.current) cancelAnimationFrame(scrollRafRef.current);
+    };
   }, []);
 
   // Close mobile menu on route change

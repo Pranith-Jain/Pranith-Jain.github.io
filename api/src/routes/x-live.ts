@@ -41,6 +41,7 @@ const FETCH_TIMEOUT = 12_000;
 const FEED_CACHE_TTL = 600;
 const STATUS_CACHE_TTL = 6 * 3600;
 const MAX_STATUS_LOOKUPS = 35;
+const KV_FALLBACK_KEY = 'x-live:fallback:v1';
 
 const STATUS_ID_RE = /\/status\/(\d{15,25})/;
 const HANDLE_FROM_URL_RE = /^https?:\/\/[^/]+\/([^/]+)\/status\/\d+/;
@@ -92,6 +93,8 @@ export interface XLiveResponse {
   since_hours: number;
   total_status_ids_seen: number;
   enriched_count: number;
+  enrichment_failures?: number;
+  stale?: boolean;
   items: LiveTweet[];
 }
 
@@ -246,40 +249,48 @@ export async function fetchXLive(options: {
     }
   }
   const ordered = [...seen.entries()].sort((a, b) => b[1].ts_ms - a[1].ts_ms).slice(0, limit);
-  const enriched = await Promise.all(
-    ordered.map(async ([statusId, meta]) => {
-      const fx = await fetchFxTweet(statusId);
-      if (!fx) return null;
-      const createdMs = fx.created_timestamp ? fx.created_timestamp * 1000 : Date.parse(fx.created_at ?? '');
-      const item: LiveTweet = {
-        id: fx.id ?? statusId,
-        url: fx.url ?? `https://x.com/${meta.user}/status/${statusId}`,
-        text: fx.text ?? '',
-        author: {
-          screen_name: fx.author?.screen_name ?? meta.user,
-          name: fx.author?.name ?? meta.user,
-          avatar_url: fx.author?.avatar_url,
-        },
-        created_at: fx.created_at ?? meta.ts,
-        created_at_ms: Number.isFinite(createdMs) ? createdMs : meta.ts_ms,
-        replies: fx.replies ?? 0,
-        retweets: fx.retweets ?? 0,
-        likes: fx.likes ?? 0,
-        views: fx.views ?? 0,
-        media: normalizeMedia(fx),
-        tweetfeed_tags: [...meta.tags],
-        ioc_types: [...meta.types],
-      };
-      return item;
-    })
-  );
+  const BATCH_SIZE = 5;
+  const enriched: (LiveTweet | null)[] = [];
+  for (let i = 0; i < ordered.length; i += BATCH_SIZE) {
+    const batch = ordered.slice(i, i + BATCH_SIZE);
+    const results = await Promise.all(
+      batch.map(async ([statusId, meta]) => {
+        const fx = await fetchFxTweet(statusId);
+        if (!fx) return null;
+        const createdMs = fx.created_timestamp ? fx.created_timestamp * 1000 : Date.parse(fx.created_at ?? '');
+        const item: LiveTweet = {
+          id: fx.id ?? statusId,
+          url: fx.url ?? `https://x.com/${meta.user}/status/${statusId}`,
+          text: fx.text ?? '',
+          author: {
+            screen_name: fx.author?.screen_name ?? meta.user,
+            name: fx.author?.name ?? meta.user,
+            avatar_url: fx.author?.avatar_url,
+          },
+          created_at: fx.created_at ?? meta.ts,
+          created_at_ms: Number.isFinite(createdMs) ? createdMs : meta.ts_ms,
+          replies: fx.replies ?? 0,
+          retweets: fx.retweets ?? 0,
+          likes: fx.likes ?? 0,
+          views: fx.views ?? 0,
+          media: normalizeMedia(fx),
+          tweetfeed_tags: [...meta.tags],
+          ioc_types: [...meta.types],
+        };
+        return item;
+      })
+    );
+    enriched.push(...results);
+  }
   const items = enriched.filter((x): x is LiveTweet => x !== null).sort((a, b) => b.created_at_ms - a.created_at_ms);
+  const lookedUp = ordered.length;
   return {
     generated_at: new Date().toISOString(),
     source: 'tweetfeed→fxtwitter hybrid',
     since_hours: sinceHours,
     total_status_ids_seen: seen.size,
     enriched_count: items.length,
+    enrichment_failures: lookedUp > 0 ? lookedUp - items.length : undefined,
     items,
   };
 }
@@ -341,46 +352,95 @@ export async function xLiveHandler(c: Context<{ Bindings: Env }>): Promise<Respo
   // protect the Worker subrequest budget — each lookup is one fetch.
   const ordered = [...seen.entries()].sort((a, b) => b[1].ts_ms - a[1].ts_ms).slice(0, limit);
 
-  // Parallel enrich.
-  const enriched = await Promise.all(
-    ordered.map(async ([statusId, meta]) => {
-      const fx = await fetchFxTweet(statusId);
-      if (!fx) return null;
-      const createdMs = fx.created_timestamp ? fx.created_timestamp * 1000 : Date.parse(fx.created_at ?? '');
-      const item: LiveTweet = {
-        id: fx.id ?? statusId,
-        url: fx.url ?? `https://x.com/${meta.user}/status/${statusId}`,
-        text: fx.text ?? '',
-        author: {
-          screen_name: fx.author?.screen_name ?? meta.user,
-          name: fx.author?.name ?? meta.user,
-          avatar_url: fx.author?.avatar_url,
-        },
-        created_at: fx.created_at ?? meta.ts,
-        created_at_ms: Number.isFinite(createdMs) ? createdMs : meta.ts_ms,
-        replies: fx.replies ?? 0,
-        retweets: fx.retweets ?? 0,
-        likes: fx.likes ?? 0,
-        views: fx.views ?? 0,
-        media: normalizeMedia(fx),
-        tweetfeed_tags: [...meta.tags],
-        ioc_types: [...meta.types],
-      };
-      return item;
-    })
-  );
+  // Enrich in batches of 5 to avoid fxtwitter per-IP rate limits.
+  // fxtwitter is a free proxy — hammering 35 parallel requests from
+  // one IP triggers HTTP 429 or connection resets. Batching spreads
+  // the load across short intervals without slowing the user
+  // perceptibly (35 requests × ~500ms = ~3.5s batch vs ~7s serial).
+  const BATCH_SIZE = 5;
+  const enriched: (LiveTweet | null)[] = [];
+  for (let i = 0; i < ordered.length; i += BATCH_SIZE) {
+    const batch = ordered.slice(i, i + BATCH_SIZE);
+    const results = await Promise.all(
+      batch.map(async ([statusId, meta]) => {
+        const fx = await fetchFxTweet(statusId);
+        if (!fx) return null;
+        const createdMs = fx.created_timestamp ? fx.created_timestamp * 1000 : Date.parse(fx.created_at ?? '');
+        const item: LiveTweet = {
+          id: fx.id ?? statusId,
+          url: fx.url ?? `https://x.com/${meta.user}/status/${statusId}`,
+          text: fx.text ?? '',
+          author: {
+            screen_name: fx.author?.screen_name ?? meta.user,
+            name: fx.author?.name ?? meta.user,
+            avatar_url: fx.author?.avatar_url,
+          },
+          created_at: fx.created_at ?? meta.ts,
+          created_at_ms: Number.isFinite(createdMs) ? createdMs : meta.ts_ms,
+          replies: fx.replies ?? 0,
+          retweets: fx.retweets ?? 0,
+          likes: fx.likes ?? 0,
+          views: fx.views ?? 0,
+          media: normalizeMedia(fx),
+          tweetfeed_tags: [...meta.tags],
+          ioc_types: [...meta.types],
+        };
+        return item;
+      })
+    );
+    enriched.push(...results);
+  }
   const items = enriched.filter((x): x is LiveTweet => x !== null).sort((a, b) => b.created_at_ms - a.created_at_ms);
+  const lookedUp = ordered.length;
 
-  const body: XLiveResponse = {
+  let body: XLiveResponse = {
     generated_at: new Date().toISOString(),
     source: 'tweetfeed→fxtwitter hybrid',
     since_hours: sinceHours,
     total_status_ids_seen: seen.size,
     enriched_count: items.length,
+    enrichment_failures: lookedUp > 0 ? lookedUp - items.length : undefined,
     items,
   };
 
-  return c.json(body, 200, {
-    'cache-control': `public, max-age=300, s-maxage=${FEED_CACHE_TTL}`,
-  });
+  // Persist successful responses in KV so we have a fallback when the live
+  // pipeline produces empty results (fxtwitter down / rate-limited).
+  if (items.length > 0) {
+    const kv = (c.env as { KV_CACHE?: KVNamespace }).KV_CACHE;
+    if (kv) {
+      c.executionCtx.waitUntil(
+        kv
+          .put(KV_FALLBACK_KEY, JSON.stringify(body), { expirationTtl: 86_400 })
+          .catch(() => undefined)
+      );
+    }
+  }
+
+  // When the live pipeline returned nothing, try KV fallback before serving
+  // empty data. Avoids the 10-min cache poisoning window where a transient
+  // fxtwitter outage causes repeated empty responses.
+  if (items.length === 0 && lookedUp > 0) {
+    const kv = (c.env as { KV_CACHE?: KVNamespace }).KV_CACHE;
+    if (kv) {
+      try {
+        const raw = await kv.get(KV_FALLBACK_KEY);
+        if (raw) {
+          const fallback = JSON.parse(raw) as XLiveResponse;
+          fallback.stale = true;
+          fallback.generated_at = new Date().toISOString();
+          fallback.since_hours = sinceHours;
+          body = fallback;
+        }
+      } catch {
+        /* KV error — serve the empty response */
+      }
+    }
+  }
+
+  const cacheControl =
+    items.length === 0 && !body.stale
+      ? 'public, max-age=60, s-maxage=120' // short TTL so a transient issue clears quickly
+      : `public, max-age=300, s-maxage=${FEED_CACHE_TTL}`;
+
+  return c.json(body, 200, { 'cache-control': cacheControl });
 }

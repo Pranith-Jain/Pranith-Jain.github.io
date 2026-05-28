@@ -118,6 +118,8 @@ export default function LiveIocs(): JSX.Element {
   const [sourceFilter, setSourceFilter] = useState<Set<string>>(new Set());
   const [newOnly, setNewOnly] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [page, setPage] = useState(1);
+  const PAGE_SIZE = 50;
   const { previous: lastVisit, markVisited } = useLastVisit('live-iocs');
 
   useEffect(() => {
@@ -162,6 +164,11 @@ export default function LiveIocs(): JSX.Element {
     });
   }, [data, query, kindFilter, sourceFilter, newOnly, lastVisit]);
 
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setPage(1);
+  }, [query, kindFilter, sourceFilter, newOnly]);
+
   const newCount = useMemo(() => {
     if (!data || !lastVisit) return 0;
     return data.items.filter((it) => isNewSince(it.observed_at, lastVisit)).length;
@@ -179,6 +186,12 @@ export default function LiveIocs(): JSX.Element {
     for (const it of data.items) m[it.kind] += 1;
     return m;
   }, [data]);
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const pageItems = useMemo(
+    () => filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE),
+    [filtered, page]
+  );
 
   const toggleKind = (k: IocKind) =>
     setKindFilter((prev) => {
@@ -335,8 +348,10 @@ export default function LiveIocs(): JSX.Element {
               ))}
             </div>
             <p className="text-[11px] font-mono text-slate-500 mt-3">
-              Showing <span className="text-slate-700 dark:text-slate-300">{filtered.length}</span> of{' '}
-              <span className="text-slate-700 dark:text-slate-300">{data.total}</span> indicators · snapshot{' '}
+              Showing page <span className="text-slate-700 dark:text-slate-300">{page}/{totalPages}</span> ·{' '}
+              <span className="text-slate-700 dark:text-slate-300">{pageItems.length}</span> of{' '}
+              <span className="text-slate-700 dark:text-slate-300">{filtered.length}</span> filtered ·{' '}
+              {data.total} total · snapshot{' '}
               <span className="text-slate-700 dark:text-slate-300">{shortRel(data.generated_at)}</span>
             </p>
           </>
@@ -356,7 +371,7 @@ export default function LiveIocs(): JSX.Element {
         rows={8}
       >
         <ul className="space-y-2">
-          {filtered.map((it, i) => {
+          {pageItems.map((it, i) => {
             const sourcePill = SOURCE_PILL[it.source] ?? 'border-slate-300 dark:border-slate-700 text-slate-500';
             return (
               <li
@@ -412,6 +427,30 @@ export default function LiveIocs(): JSX.Element {
           })}
         </ul>
       </DataState>
+
+      {totalPages > 1 && (
+        <div className="mt-6 flex items-center justify-center gap-2">
+          <button
+            type="button"
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            disabled={page <= 1}
+            className="text-xs font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-slate-700 disabled:opacity-30 hover:border-brand-500/40"
+          >
+            ← prev
+          </button>
+          <span className="text-xs font-mono text-slate-500 px-2">
+            {page} / {totalPages}
+          </span>
+          <button
+            type="button"
+            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+            disabled={page >= totalPages}
+            className="text-xs font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-slate-700 disabled:opacity-30 hover:border-brand-500/40"
+          >
+            next →
+          </button>
+        </div>
+      )}
     </div>
   );
 }

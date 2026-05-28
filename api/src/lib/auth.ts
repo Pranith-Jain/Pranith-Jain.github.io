@@ -79,7 +79,13 @@ export function authenticate(
     }
 
     const hashed = await hashKey(raw);
-    const user = await lookupKey(db, hashed);
+    let user: AuthUser | null;
+    try {
+      user = await lookupKey(db, hashed);
+    } catch {
+      if (required) return unauthorized(c, 'auth backend unavailable');
+      return next();
+    }
     if (!user) {
       if (required) return unauthorized(c, 'invalid api key');
       return next();

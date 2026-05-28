@@ -78,7 +78,7 @@ export async function certSearchHandler(c: Context<{ Bindings: Env }>): Promise<
     `https://cert-search-cache.internal/v1?d=${encodeURIComponent(domain)}&sub=${includeSubdomains ? 1 : 0}`
   );
   const cached = await cache.match(cacheKey);
-  if (cached) return cached;
+  if (cached) return new Response(cached.body, cached);
 
   const upstream = `${SSLMATE_BASE}?domain=${encodeURIComponent(domain)}&include_subdomains=${
     includeSubdomains ? 'true' : 'false'

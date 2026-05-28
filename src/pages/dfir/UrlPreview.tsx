@@ -267,7 +267,7 @@ export default function UrlPreview(): JSX.Element {
                 Redirect Blocked
               </h3>
               <p className="text-sm font-mono text-amber-700 dark:text-amber-400">
-                The server returned a {result.status} redirect. Following redirects is disabled to prevent SSRF chains.
+                The redirect target was blocked by the SSRF guard — it resolves to a private or reserved IP.
               </p>
               {result.redirect_blocked.location && (
                 <div className="mt-2 text-sm font-mono text-slate-600 dark:text-slate-400">

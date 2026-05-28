@@ -105,7 +105,7 @@ export async function ransomwareLiveHandler(c: Context<{ Bindings: Env }>): Prom
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheReq = new Request(rlProxyCacheKey(resource, arg));
   const cached = await cache.match(cacheReq);
-  if (cached) return cached;
+  if (cached) return new Response(cached.body, cached);
 
   let upstream: Response;
   try {

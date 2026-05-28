@@ -127,6 +127,10 @@ export const WRITEUP_SOURCES: WriteupSourceSpec[] = [
   // closest machine-readable view of their research output.
   { kind: 'rss', url: 'https://www.aikido.dev/blog/rss.xml', label: 'Aikido Security' },
 
+  // Fox-IT (NCC Group) — Dutch CERT blog publishing threat intelligence,
+  // vulnerability disclosures, and operational security research.
+  { kind: 'rss', url: 'https://blog.fox-it.com/feed/', label: 'Fox-IT (NCC Group)' },
+
   // cvefeed.io newsroom — curated CTI-news aggregator pulling from
   // cybersecuritynews.com, thecyberexpress.com, securityonline.info, etc.
   // Same-day cadence, structured RSS. The /severity/high.xml feed from the

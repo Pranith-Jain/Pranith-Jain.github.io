@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { Activity, AlertTriangle, ArrowLeft, FileCode, MessageSquare, RefreshCw, ShieldAlert } from 'lucide-react';
 
@@ -154,6 +154,7 @@ export default function RansomwareLive(): JSX.Element {
   const [cache, setCache] = useState<Record<string, ProxyEnvelope>>({});
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const fetchedRef = useRef<Set<string>>(new Set());
   // Per-tab refresh counter — bumping this for the active resource forces
   // a re-fetch even when we already have a cached envelope.
   const [refreshTick, setRefreshTick] = useState<Record<string, number>>({});
@@ -162,7 +163,12 @@ export default function RansomwareLive(): JSX.Element {
   const tick = refreshTick[active.resource] ?? 0;
 
   useEffect(() => {
-    if (cache[active.resource] && tick === 0) return;
+    if (fetchedRef.current.has(active.resource) && tick === 0) {
+      // Error from a previous tab must not leak when we have cached data.
+      setError(null);
+      setLoading(false);
+      return;
+    }
     let alive = true;
     const ctrl = new AbortController();
     setLoading(true);
@@ -180,7 +186,10 @@ export default function RansomwareLive(): JSX.Element {
         return j as ProxyEnvelope;
       })
       .then((env) => {
-        if (alive) setCache((c) => ({ ...c, [active.resource]: env }));
+        if (alive) {
+          fetchedRef.current.add(active.resource);
+          setCache((c) => ({ ...c, [active.resource]: env }));
+        }
       })
       .catch((e: { name?: string; message?: string }) => {
         if (alive && e.name !== 'AbortError') setError(e.message ?? String(e));
@@ -192,9 +201,10 @@ export default function RansomwareLive(): JSX.Element {
       alive = false;
       ctrl.abort();
     };
-  }, [active.resource, cache, tick]);
+  }, [active.resource, tick]);
 
   const refreshActive = () => {
+    fetchedRef.current.delete(active.resource);
     setCache((c) => {
       const next = { ...c };
       delete next[active.resource];

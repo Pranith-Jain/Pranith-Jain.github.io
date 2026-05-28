@@ -37,32 +37,200 @@ const ROOT = resolve(__dirname, '..');
 // rather than waiting for JS parse + React mount, and hydration matches
 // the initial loading-state tree so there's no tearing.
 const ROUTES = [
-  // Portfolio (5)
+  // ── Portfolio (6) ──────────────────────────────────────────────
   '/',
   '/about',
   '/skills',
   '/experience',
   '/projects',
-  // Landings (2)
+  '/blog',
+
+  // ── Landings (2) ───────────────────────────────────────────────
   '/dfir',
   '/threatintel',
-  // Static catalogs / education (8)
-  '/threatintel/wiki',
-  '/threatintel/awesome-lists',
-  '/threatintel/secops-tools',
-  '/threatintel/cve-resources',
-  '/threatintel/osint-framework',
+
+  // ── DFIR: static catalogs & education (8) — 0 API calls ───────
   '/dfir/diamond',
   '/dfir/owasp',
   '/dfir/lolbins',
-  // Frameworks / training (5)
   '/dfir/kill-chain',
   '/dfir/tabletop',
   '/dfir/grc',
   '/dfir/data-classification',
   '/dfir/privacy-hub',
-  // Live-feed surfaces (5) — prerendered chrome + loading state, then
-  // client hydrates and fetches /api/v1/* on mount.
+
+  // ── DFIR: utilities & decoders (7) — 0 API calls ──────────────
+  '/dfir/timestamp',
+  '/dfir/hash-calc',
+  '/dfir/decode',
+  '/dfir/encoder',
+  '/dfir/punycode',
+  '/dfir/dork-builder',
+  '/dfir/brand-impersonation',
+
+  // ── DFIR: image / media (3) — 0 API calls ─────────────────────
+  '/dfir/image-fingerprint',
+  '/dfir/reverse-image',
+  '/dfir/exif',
+
+  // ── DFIR: file format analyzers (8) — 0 API calls ─────────────
+  '/dfir/plist-protobuf',
+  '/dfir/pcap-triage',
+  '/dfir/registry-hive',
+  '/dfir/evtx',
+  '/dfir/sqlite',
+  '/dfir/ios-backup',
+  '/dfir/mobile-sqlite',
+  '/dfir/apk-analyzer',
+
+  // ── DFIR: binary / log analyzers (5) — 0 API calls ────────────
+  '/dfir/pe',
+  '/dfir/web-log',
+  '/dfir/prefetch',
+  '/dfir/powershell-deobf',
+  '/dfir/screenshot-intel',
+
+  // ── DFIR: detection & analysis (8) — 0 API calls ──────────────
+  '/dfir/rule-converter',
+  '/dfir/rule-playground',
+  '/dfir/yara',
+  '/dfir/detection-lab',
+  '/dfir/prompt-injection',
+  '/dfir/mcp-audit',
+  '/dfir/agent-map',
+  '/dfir/cve-prioritizer',
+
+  // ── DFIR: cloud security (7) — 0 API calls ────────────────────
+  '/dfir/iam-analyzer',
+  '/dfir/gcp-iam',
+  '/dfir/azure-rbac',
+  '/dfir/sg-analyzer',
+  '/dfir/cloudtrail-triage',
+  '/dfir/k8s-rbac',
+  '/dfir/terraform-scan',
+
+  // ── DFIR: API security (5) — 0 API calls ──────────────────────
+  '/dfir/openapi-audit',
+  '/dfir/sec-headers',
+  '/dfir/secret-scan',
+  '/dfir/graphql-audit',
+  '/dfir/osv-scan',
+
+  // ── DFIR: STIX (2) — 0 API calls ──────────────────────────────
+  '/dfir/stix',
+  '/dfir/stix-builder',
+
+  // ── DFIR: security frameworks (3) — 0 API calls ───────────────
+  '/dfir/nhi',
+  '/dfir/jwt',
+  '/dfir/privacy',
+
+  // ── DFIR: dark web workbench (2) — 0 API calls ────────────────
+  '/dfir/pgp-tool',
+  '/dfir/tor-gateway',
+
+  // ── DFIR: tools that fetch /api/v1/* on mount (33) ────────────
+  // Prerendered chrome + loading state, then client hydrates.
+  '/dfir/ioc-check',
+  '/dfir/phishing',
+  '/dfir/domain',
+  '/dfir/domain-rep',
+  '/dfir/full-spectrum',
+  '/dfir/exposure',
+  '/dfir/dashboard',
+  '/dfir/cve',
+  '/dfir/cert-search',
+  '/dfir/atlas',
+  '/dfir/asn',
+  '/dfir/breach',
+  '/dfir/url-preview',
+  '/dfir/extract',
+  '/dfir/ioc-pivot',
+  '/dfir/google-dorks',
+  '/dfir/linux-triage',
+  '/dfir/takeover',
+  '/dfir/email-defense',
+  '/dfir/dmarc-analyzer',
+  '/dfir/dlp-scan',
+  '/dfir/username',
+  '/dfir/wayback',
+  '/dfir/ip-geo',
+  '/dfir/log-parser',
+  '/dfir/socmint',
+  '/dfir/tools/about',
+  '/dfir/web-scan',
+  '/dfir/malware-scan',
+  '/dfir/eml',
+  '/dfir/url-rep',
+  '/dfir/email-rep',
+  '/dfir/crypto-trace',
+
+  // ── Static threatintel catalogs (5) — 0 API calls ─────────────
+  '/threatintel/mitre',
+  '/threatintel/actor-kb',
+  '/threatintel/actors',
+  '/threatintel/rules',
+  '/threatintel/briefings',
+
+  // ── ThreatIntel pages (4) — 0 API calls ───────────────────────
+  '/threatintel/about',
+  '/threatintel/external-resources',
+
+  // ── ThreatIntel: static catalogs (5) — 0 API calls ────────────
+  '/threatintel/wiki',
+  '/threatintel/awesome-lists',
+  '/threatintel/secops-tools',
+  '/threatintel/cve-resources',
+  '/threatintel/osint-framework',
+
+  // ── ThreatIntel: live-feed surfaces (38) — prerendered chrome ─
+  // Client hydrates and fetches /api/v1/* on mount.
+  '/threatintel/pulse',
+  '/threatintel/darkweb',
+  '/threatintel/ransomware-map',
+  '/threatintel/certstream',
+  '/threatintel/campaign-generator',
+  '/threatintel/campaigns',
+  '/threatintel/malicious-packages',
+  '/threatintel/x-watch',
+  '/threatintel/x-live',
+  '/threatintel/mythreatintel',
+  '/threatintel/cybersec',
+  '/threatintel/breach',
+  '/threatintel/reddit',
+  '/threatintel/x',
+  '/threatintel/status',
+  '/threatintel/metrics',
+  '/threatintel/correlation',
+  '/threatintel/actor-timeline',
+  '/threatintel/re-leaks',
+  '/threatintel/c2-tracker',
+  '/threatintel/signal',
+  '/threatintel/research',
+  '/threatintel/cve-list',
+  '/threatintel/cve-threat-map',
+  '/threatintel/threat-map',
+  '/threatintel/deepdarkcti',
+  '/threatintel/ransomware-live',
+  '/threatintel/infostealer',
+  '/threatintel/feed-sources',
+  '/threatintel/settings',
+  '/threatintel/negotiations',
+  '/threatintel/maltrail',
+  '/threatintel/malpedia',
+  '/threatintel/breach-forums',
+  '/threatintel/domain-monitor',
+  '/threatintel/scam-watch',
+  '/threatintel/tech-ai-news',
+  '/threatintel/onion-watch',
+  '/threatintel/telegram-watch',
+  '/threatintel/telegram-settings',
+  '/threatintel/misp-browser',
+  '/threatintel/search',
+  '/threatintel/ioc-enrichment',
+  '/threatintel/copilot',
+  '/threatintel/watches',
+  // Live-feed surfaces that were already prerendered
   '/threatintel/threat-feeds',
   '/threatintel/writeups',
   '/threatintel/cyber-crime',

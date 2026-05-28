@@ -118,9 +118,9 @@ export default function AdminApp() {
 
   if (authStatus === 'probing') {
     return (
-      <main className="max-w-6xl mx-auto px-6 py-8">
+      <div className="max-w-6xl mx-auto px-6 py-8">
         <p className="text-sm font-mono text-slate-400">Checking admin session…</p>
-      </main>
+      </div>
     );
   }
   if (authStatus === 'unauthed') {
@@ -128,7 +128,7 @@ export default function AdminApp() {
   }
 
   return (
-    <main className="max-w-6xl mx-auto px-6 py-8">
+    <div className="max-w-6xl mx-auto px-6 py-8">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-slate-100">Case Study Admin</h1>
         <button
@@ -165,6 +165,6 @@ export default function AdminApp() {
         {active === 'manual' && <ManualTab />}
         {active === 'intel' && <IntelBundleTab />}
       </section>
-    </main>
+    </div>
   );
 }

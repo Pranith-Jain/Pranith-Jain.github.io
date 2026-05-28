@@ -175,7 +175,7 @@ export async function breachForumsHandler(c: Context<{ Bindings: Env }>): Promis
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheReq = new Request(BREACH_FORUMS_CACHE_KEY);
   const cached = await cache.match(cacheReq);
-  if (cached) return cached;
+  if (cached) return new Response(cached.body, cached);
 
   const body = await buildBreachForums(c.env, c.executionCtx);
   const response = new Response(JSON.stringify(body), {

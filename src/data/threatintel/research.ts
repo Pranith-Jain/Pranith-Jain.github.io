@@ -152,7 +152,7 @@ Two patterns from today's snapshot are worth flagging:
 
 **1. The volume sources are not the highest-quality sources.** Ipsum contributes 47 of the 50 correlated IPs. URLhaus contributes 1 of 1 correlated URLs. The per-indicator yield is wildly different. The methodology takeaway is that "feed quality" isn't measurable as a constant. A feed's value is determined entirely by what it's correlated *against*.
 
-**2. Specialist sources punch above their weight.** SANS ISC contributes 10 IPs to the correlated set despite carrying only 200 IPs in its window (vs. ipsum's 500). That's a 5% retention rate on SANS vs ipsum's ~9% — but SANS' indicators are tied to incident reports, not honeypot triggers, so the few that *do* correlate carry more case material per hit. Don't equate "fewer indicators" with "less useful."
+**2. Specialist sources punch above their weight.** SANS ISC contributes 10 IPs to the correlated set despite carrying only 200 IPs in its window (vs. ipsum's 500). That's a 5% retention rate on SANS vs ipsum's ~9%, but SANS' indicators are tied to incident reports, not honeypot triggers, so the few that *do* correlate carry more case material per hit. Don't equate "fewer indicators" with "less useful."
 
 ## What the filter doesn't catch
 
@@ -162,7 +162,7 @@ Cross-source consensus catches scan farms and shared malware infrastructure. It 
 - **Living-off-the-land traffic** where the only indicators are behavioural, not network-level.
 - **Stage-zero loaders** that pivot to fresh infrastructure inside the first hour of compromise.
 
-For those, you need detection rules against the *behaviour* of the activity, not consensus against the *artefacts*. The [Detection Lab](/dfir/detection-lab) on this site is the other half of that loop — the rules and the consensus filter are designed to complement each other, not substitute for each other.
+For those, you need detection rules against the *behaviour* of the activity, not consensus against the *artefacts*. The [Detection Lab](/dfir/detection-lab) on this site is the other half of that loop; the rules and the consensus filter are designed to complement each other, not substitute for each other.
 
 ## The operational reading
 
@@ -185,7 +185,7 @@ const C2_FRAMEWORK_DOMINANCE: ResearchPost = {
   publishedAt: '2026-05-23',
   readingTime: '6 min',
   tags: ['C2 Frameworks', 'Cobalt Strike', 'Adversary Infrastructure', 'Detection Engineering'],
-  body: `The [/threatintel](/threatintel) platform indexes C2IntelFeeds, the public OSINT tracker that fingerprints live command-and-control infrastructure. Today's snapshot at [/threatintel/c2-tracker](/threatintel/c2-tracker) shows 1,888 currently-active C2 servers detected. Of those, 1,815 are Cobalt Strike. 73 are Metasploit. The remaining everything else — Sliver, Mythic, Covenant, Brute Ratel, every other framework that gets discussed at conferences — does not appear in the snapshot at meaningful volume.
+  body: `The [/threatintel](/threatintel) platform indexes C2IntelFeeds, the public OSINT tracker that fingerprints live command-and-control infrastructure. Today's snapshot at [/threatintel/c2-tracker](/threatintel/c2-tracker) shows 1,888 currently-active C2 servers detected. Of those, 1,815 are Cobalt Strike. 73 are Metasploit. The remaining everything else (Sliver, Mythic, Covenant, Brute Ratel, every other framework that gets discussed at conferences) does not appear in the snapshot at meaningful volume.
 
 That 96.1% number is uncomfortable to write down because it cuts against several years of CTI industry messaging about "framework diversity." But it is the number, and the operational implications are real.
 
@@ -193,7 +193,7 @@ That 96.1% number is uncomfortable to write down because it cuts against several
 
 A reasonable objection: "single source, single bias." Fair. C2IntelFeeds isn't perfect. It is, however, the public fingerprinting effort with the best signal-to-noise ratio I've benchmarked against my own incident corpus, and the framework breakdown above matches what I see in the cases I work. The platform doesn't carry Censys or Shodan paid C2 enrichment because the free public tracker carries enough of the picture for the operational claim I'm about to make.
 
-If your dataset shows a different breakdown, I'd genuinely like to know — but the bar for "Cobalt Strike isn't actually dominant" is a sourced disagreement, not a vibe. The vibe in the CTI community has been "diversity is increasing" for at least three years. The numbers from public trackers have not moved in that direction.
+If your dataset shows a different breakdown, I'd genuinely like to know, but the bar for "Cobalt Strike isn't actually dominant" is a sourced disagreement, not a vibe. The vibe in the CTI community has been "diversity is increasing" for at least three years. The numbers from public trackers have not moved in that direction.
 
 ## The licensing reality is the boring explanation
 
@@ -201,17 +201,17 @@ The market explanation for Cobalt Strike dominance isn't mysterious. The legitim
 
 1. Cobalt Strike has 13 years of mature tradecraft, public training, and red-team ergonomics.
 2. The cracked versions are trivially obtainable.
-3. Detection signatures keyed on Cobalt Strike are *also* the most mature, but operators have years of tradecraft for evading them — and operator population learning is sticky.
+3. Detection signatures keyed on Cobalt Strike are *also* the most mature, but operators have years of tradecraft for evading them, and operator population learning is sticky.
 
 Open-source alternatives keep getting predicted as the next big thing. Their actual deployment numbers, as measured by public trackers, keep being a rounding error.
 
 ## The 73 Metasploit hits
 
-Metasploit's 3.9% share is worth a separate paragraph because it's misleadingly tempting to dismiss. Metasploit's role in 2026 isn't as a primary operator framework; it's as a stage-zero loader and as a red-team training tool. The 73 hits today are mostly skiddie operators on freshly compromised VPSes — not advanced campaigns. The defender takeaway: Metasploit detection is a low-bar fundamentals check, not a sign of sophisticated adversaries.
+Metasploit's 3.9% share is worth a separate paragraph because it's misleadingly tempting to dismiss. Metasploit's role in 2026 isn't as a primary operator framework; it's as a stage-zero loader and as a red-team training tool. The 73 hits today are mostly skiddie operators on freshly compromised VPSes, not advanced campaigns. The defender takeaway: Metasploit detection is a low-bar fundamentals check, not a sign of sophisticated adversaries.
 
 ## What the absence of "everything else" actually says
 
-Sliver, Mythic, Brute Ratel, Havoc, Nighthawk — all of these have legitimate red-team usage and confirmed nation-state usage. They do not appear in this snapshot at any meaningful count. There are three possible explanations and they're worth distinguishing because the defensive implications are different:
+Sliver, Mythic, Brute Ratel, Havoc, Nighthawk; all of these have legitimate red-team usage and confirmed nation-state usage. They do not appear in this snapshot at any meaningful count. There are three possible explanations and they're worth distinguishing because the defensive implications are different:
 
 1. **C2IntelFeeds doesn't fingerprint them well.** Plausible. Newer frameworks ship with fingerprinting evasion baked in. The tracker's coverage of Cobalt Strike is mature; its coverage of newer frameworks is by necessity less so.
 
@@ -219,7 +219,7 @@ Sliver, Mythic, Brute Ratel, Havoc, Nighthawk — all of these have legitimate r
 
 3. **They're genuinely rare in active campaigns.** Also plausible. Most public reporting on "Sliver in the wild" is from one or two campaigns at a time. The aggregate active footprint at any moment really may be in single digits.
 
-I think the truth is a mix of (1) and (2), with a smaller contribution from (3). The point is that the absence of these frameworks from the tracker output doesn't mean defenders can ignore them. It means *the public-tracker route to detecting them is not viable*, and the detection coverage has to come from the [Detection Lab](/dfir/detection-lab) side of the workflow — behavioural rules against the operator's tradecraft, not signature matches against the framework.
+I think the truth is a mix of (1) and (2), with a smaller contribution from (3). The point is that the absence of these frameworks from the tracker output doesn't mean defenders can ignore them. It means *the public-tracker route to detecting them is not viable*, and the detection coverage has to come from the [Detection Lab](/dfir/detection-lab) side of the workflow: behavioural rules against the operator's tradecraft, not signature matches against the framework.
 
 ## The operational reading
 
@@ -265,9 +265,9 @@ const KEV_VENDOR_CONCENTRATION: ResearchPost = {
 1  Samsung
 \`\`\`
 
-Microsoft alone is 40% of the federal government's active-exploitation evidence for the month. The top five vendors (Microsoft + SimpleHelp + the four single-CVE entries closest to the top of the alphabet) account for 14 of 22 — 64% concentration.
+Microsoft alone is 40% of the federal government's active-exploitation evidence for the month. The top five vendors (Microsoft + SimpleHelp + the four single-CVE entries closest to the top of the alphabet) account for 14 of 22 (64% concentration).
 
-This is the operational fact every security program has to plan around. Yet most enterprise patch-priority frameworks treat "vendor diversity" as a goal — buy from multiple vendors so a single-vendor incident doesn't take you down. KEV is telling you the opposite story: the active-exploitation distribution isn't diverse. It's anchored on a single vendor, and your patch-priority planning needs to reflect that asymmetry.
+This is the operational fact every security program has to plan around. Yet most enterprise patch-priority frameworks treat "vendor diversity" as a goal; buy from multiple vendors so a single-vendor incident doesn't take you down. KEV is telling you the opposite story: the active-exploitation distribution isn't diverse. It's anchored on a single vendor, and your patch-priority planning needs to reflect that asymmetry.
 
 ## Why Microsoft dominates KEV (and will keep doing so)
 
@@ -289,9 +289,9 @@ That's the pattern to watch for in the long tail. Microsoft 9 is structural; Sim
 
 This quarter's other interesting tail entries:
 
-- **BerriAI (1)** — LLM router / API gateway, the kind of category that didn't exist on KEV three years ago. Active exploitation of AI-infrastructure software is now part of the steady KEV diet, not just a research-paper curiosity.
-- **WebPros / cPanel (1)** — control-panel software for shared hosting. The exploitation of these still hits small businesses and indie hosting providers harder than enterprises, but they show up on KEV because federal agencies use them too.
-- **ConnectWise (1)** — fits the same pattern as SimpleHelp. RMM and remote-support software is having a sustained moment in the active-exploitation data.
+- **BerriAI (1)**: LLM router / API gateway, the kind of category that didn't exist on KEV three years ago. Active exploitation of AI-infrastructure software is now part of the steady KEV diet, not just a research-paper curiosity.
+- **WebPros / cPanel (1)**: control-panel software for shared hosting. The exploitation of these still hits small businesses and indie hosting providers harder than enterprises, but they show up on KEV because federal agencies use them too.
+- **ConnectWise (1)**: fits the same pattern as SimpleHelp. RMM and remote-support software is having a sustained moment in the active-exploitation data.
 
 ## The operational reading
 
@@ -315,12 +315,12 @@ const LEAKS_VS_HIBP_METHODOLOGY: ResearchPost = {
   slug: 'leak-listings-vs-hibp-may-2026',
   title: 'Active leak listings vs the HIBP catalog: two different breach surfaces, two different questions',
   excerpt:
-    "MyThreatIntel indexes 5,585 active leak listings right now. Have I Been Pwned ships 250 verified breaches covering 4.6 billion accounts. The two aren't competing; they answer different IR questions, and the difference is the methodology lesson.",
+    "MyThreatIntel indexes 5,592 active leak listings right now. Have I Been Pwned ships 250 verified breaches covering 4.6 billion accounts. The two aren't competing; they answer different IR questions, and the difference is the methodology lesson.",
   kicker: 'Methodology',
-  publishedAt: '2026-05-25',
+  publishedAt: '2026-05-26',
   readingTime: '6 min',
   tags: ['Breach Disclosure', 'HIBP', 'MTI Leaks', 'IR Methodology'],
-  body: `The [/threatintel/breach-disclosures](/threatintel/breach-disclosures) surface on this platform now carries two side-by-side panels: an active leak listings panel sourced from MyThreatIntel and the canonical Have I Been Pwned corpus below it. Today's snapshot has 5,585 records on the upstream MTI side and 250 records on the HIBP side. Those numbers feel mismatched until you sit with what each list is *for*.
+  body: `The [/threatintel/breach](/threatintel/breach) surface on this platform now carries two side-by-side panels: an active leak listings panel sourced from MyThreatIntel and the canonical Have I Been Pwned corpus below it. Today's snapshot has 5,592 records on the upstream MTI side and 250 records on the HIBP side. Those numbers feel mismatched until you sit with what each list is *for*.
 
 This piece is about that mismatch. Treating breach-disclosure data as one undifferentiated stream is the most common mistake I see in CTI program design. The MTI firehose and the HIBP catalog answer different IR questions, and the value of running both is that the difference is the signal.
 
@@ -328,7 +328,7 @@ This piece is about that mismatch. Treating breach-disclosure data as one undiff
 
 HIBP is the canonical post-disclosure record. By the time a breach lands on Troy Hunt's catalogue, the data has been authenticated against the affected organisation, the data classes (email addresses, passwords, phone numbers, etc.) have been enumerated, verification status has been adjudicated, and the entry carries flags for sensitive-content and spam-list status. 246 of the 250 entries in today's HIBP feed are marked Verified.
 
-The total deduplicated account count across those 250 entries is **4.6 billion**. Not 4.6 million — 4.6 billion. HIBP carries the depth.
+The total deduplicated account count across those 250 entries is **4.6 billion**. Not 4.6 million; it is 4.6 billion. HIBP carries the depth.
 
 The job HIBP is built for: "Is *this organisation's* breach publicly known, and what kind of data was exposed?" If you're investigating a customer-facing incident, scoping a security-awareness pivot after a third-party breach, or planning a credential-rotation campaign tied to a specific organisation's compromise, HIBP is the catalog you check.
 
@@ -342,7 +342,7 @@ Today's MTI snapshot includes a 348MB betterment.com dump, a 51MB edmunds.com li
 
 The job MTI leaks is built for: "What's being actively shopped or scraped this week?" If you're running brand-protection monitoring, helping a third party with breach response in real time, or trying to surface the leading edge of a campaign before HIBP catches up, MTI is the firehose to watch.
 
-What MTI is not built for: confidence. Many of those 5,585 records are fake, recycled, exaggerated, or already part of a larger known dump. The signal-to-noise ratio is much worse than HIBP's. Treating an MTI listing as authoritative without independent verification is the bear-trap.
+What MTI is not built for: confidence. Many of those 5,592 records are fake, recycled, exaggerated, or already part of a larger known dump. The signal-to-noise ratio is much worse than HIBP's. Treating an MTI listing as authoritative without independent verification is the bear-trap.
 
 ## The composite picture
 
@@ -368,7 +368,7 @@ The same cross-source consensus principle that drives the IOC correlation surfac
 
 ---
 
-*Source data: live snapshots of [/threatintel/breach-disclosures](/threatintel/breach-disclosures) on May 25, 2026. The MTI leaks panel proxies the MyThreatIntel \`source=leaks\` endpoint (200 of ~5,585 historical records returned per request, refreshed every 60 minutes). The HIBP panel proxies the canonical [haveibeenpwned.com/api/v3/breaches](https://haveibeenpwned.com/) catalog (250 most-recent entries by added date). Counts shift as MTI ingests new listings and HIBP catalogues new disclosures; refresh the page to see current numbers.*`,
+*Source data: live snapshots of [/threatintel/breach](/threatintel/breach) on May 26, 2026. The MTI leaks panel pulls from MyThreatIntel's active leak listings (200 most-recent records shown, refreshed every 60 minutes). The HIBP panel pulls from Have I Been Pwned's public breach catalog (250 most-recent entries by added date). Counts shift as MTI ingests new listings and HIBP catalogues new disclosures; refresh the page to see current numbers.*`,
   published: true,
 };
 
@@ -376,7 +376,7 @@ const PLATFORM_BUILD_NOTES: ResearchPost = {
   slug: 'building-this-platform-may-2026',
   title: 'Building this platform: the engineering choices that made a single-Worker CTI/DFIR site feasible',
   excerpt:
-    'A look at the architectural decisions behind the platform — why Cloudflare Workers, what the KV/D1 split actually does, how the 30 upstream feeds stay inside the subrequest budget, and what I would change in a v2. Engineering notes, not a sales pitch.',
+    'A look at the architectural decisions behind the platform: why Cloudflare Workers, what the KV/D1 split actually does, how the 30 upstream feeds stay inside the subrequest budget, and what I would change in a v2. Engineering notes, not a sales pitch.',
   kicker: 'Platform engineering',
   publishedAt: '2026-05-23',
   readingTime: '8 min',
@@ -385,7 +385,7 @@ const PLATFORM_BUILD_NOTES: ResearchPost = {
 
 ## The shape of the problem
 
-The platform ingests around 30 public sources — ransomware leak sites via ransomlook, CVE/KEV from NVD and CISA, malware samples from MalwareBazaar, phishing URLs from OpenPhish and PhishTank, threat-IP feeds (ipsum, cinsarmy, SANS ISC, binary-defense), Cobalt Strike C2 trackers, Reddit/Bluesky/Mastodon for social, Telegram channel previews, plus the My Threat Intel API, deepdarkCTI, Have I Been Pwned, and ransomware.live. Each one is a separate HTTP source on a separate refresh cadence. Most have no auth; a few require keys. Every one of them needs to land in front of a user inside the read time the user is willing to wait.
+The platform ingests around 30 public sources: ransomware leak sites via ransomlook, CVE/KEV from NVD and CISA, malware samples from MalwareBazaar, phishing URLs from OpenPhish and PhishTank, threat-IP feeds (ipsum, cinsarmy, SANS ISC, binary-defense), Cobalt Strike C2 trackers, Reddit/Bluesky/Mastodon for social, Telegram channel previews, plus the My Threat Intel API, deepdarkCTI, Have I Been Pwned, and ransomware.live. Each one is a separate HTTP source on a separate refresh cadence. Most have no auth; a few require keys. Every one of them needs to land in front of a user inside the read time the user is willing to wait.
 
 The naive architecture for this is a backend with a database, a periodic ingest worker, and a frontend that queries the database. That works. It also costs $30–$50 a month minimum, requires a separate ops surface for the database, and turns every analyst-facing page into a roundtrip through application code that has to serialize from SQL into JSON.
 
@@ -393,13 +393,13 @@ The architecture I ended up with is one Cloudflare Worker, two KV namespaces (ca
 
 ## Why one Worker, not many
 
-Workers have a 50-subrequest limit per request and a 30-second wall-clock budget. Naively that sounds like a constraint — surely thirty upstream feeds across thirty different pages need thirty backend services.
+Workers have a 50-subrequest limit per request and a 30-second wall-clock budget. Naively that sounds like a constraint; surely thirty upstream feeds across thirty different pages need thirty backend services.
 
 In practice the constraint is the design. Almost no analyst-facing page actually needs more than a handful of upstreams. The threat-pulse page needs four (Reddit + Bluesky + Mastodon + Telegram). The IOC checker fans out to 26 providers but per-IOC, not per-page. The metrics page is the worst at twelve, but Promise.allSettled tolerates partial failure so the page renders even when two upstreams are slow.
 
 The structural benefit of a single Worker is that the cache becomes the system of record. Every upstream response goes into KV with a versioned key (e.g. \`cve-recent-cache.internal/v9-500-paged\`). The cron-driven population is decoupled from the request-driven read. A request that misses cache and waits on upstream is rare and recoverable; the common case is "KV hit, hand the cached blob to the client."
 
-The versioned cache keys are doing more work than they look. When the schema of a cached payload changes — say, when the CVE pagination changed from 150 single-page to 3×200 — bumping the version string invalidates the old cache *atomically*. There's no migration step. The old key ages out of KV's billing within 24 hours.
+The versioned cache keys are doing more work than they look. When the schema of a cached payload changes (say, when the CVE pagination changed from 150 single-page to 3×200), bumping the version string invalidates the old cache *atomically*. There's no migration step. The old key ages out of KV's billing within 24 hours.
 
 ## Where the 30-second wall clock actually hurts
 
@@ -409,7 +409,7 @@ The other place the budget hurts is Telegram preview scraping. \`t.me/s/<handle>
 
 ## What the KV/D1 split actually does
 
-KV is the cache for ingest output (~1ms read latency at the edge, eventually consistent on writes). D1 is SQLite, used only for daily briefings where the analyst-facing query is "give me the latest briefing for this date" — a transactional read with predicates, which is what SQL is for. The briefing tables hold ~30 days of structured CTI summaries; the rest of the platform's data lives in KV blobs.
+KV is the cache for ingest output (~1ms read latency at the edge, eventually consistent on writes). D1 is SQLite, used only for daily briefings where the analyst-facing query is "give me the latest briefing for this date": a transactional read with predicates, which is what SQL is for. The briefing tables hold ~30 days of structured CTI summaries; the rest of the platform's data lives in KV blobs.
 
 The decision rule: if the data shape is "give me the entire current blob and let the client filter," it goes in KV. If the data shape is "give me records where date=X and type=Y," it goes in D1. KV is faster and cheaper for the first; D1 is the right tool for the second. Mixing them isn't a smell, it's the natural fit.
 
@@ -438,7 +438,7 @@ What it does well: it consolidates a workflow that otherwise requires switching 
 
 The platform is a single Git repository. The Worker source lives under \`api/src/\` (Hono routes for each public surface, plus the case-study admin sub-app). The frontend lives under \`src/\` (Vite + React 18, SSR via \`vite build --ssr\` for crawlable HTML). The deployment is one \`wrangler deploy\` from the repo root, which builds the frontend, uploads the static assets, and ships the Worker that serves them.
 
-Three of the more reusable libraries — \`api/src/lib/stix-build.ts\`, \`extract.ts\`, and \`enrich-bulk.ts\` — have standalone READMEs co-located with the source. They were written with eventual extraction to standalone npm packages in mind; the READMEs document what would be involved.
+Three of the more reusable libraries (\`api/src/lib/stix-build.ts\`, \`extract.ts\`, and \`enrich-bulk.ts\`) have standalone READMEs co-located with the source. They were written with eventual extraction to standalone npm packages in mind; the READMEs document what would be involved.
 
 ---
 

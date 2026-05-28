@@ -154,9 +154,17 @@ export async function waybackCdxHandler(c: Context<{ Bindings: Env }>): Promise<
       const timeout = attempt === 0 ? FETCH_TIMEOUT_FIRST : FETCH_TIMEOUT_RETRY;
       const res = await fetchCdxOnce(upstream, timeout);
       if (res.ok) {
-        upstreamJson = await res.json();
-        upstreamOk = true;
-        break;
+        try {
+          upstreamJson = await res.json();
+          upstreamOk = true;
+          break;
+        } catch {
+          // Non-JSON upstream body (IA sometimes returns HTML error pages
+          // under load). Treat as transient failure so the retry can catch
+          // a healthy response.
+          lastError = { message: 'non-json response from upstream' };
+          continue;
+        }
       }
       if (res.status === 429) {
         // Trip the GLOBAL breaker. IA's throttle is IP-wide, so this single

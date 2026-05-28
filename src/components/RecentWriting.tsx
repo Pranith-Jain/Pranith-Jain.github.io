@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, FileText, BookOpen } from 'lucide-react';
 import { publishedCaseStudies } from '../data/case-studies';
@@ -58,7 +59,7 @@ function loadEntries(): Entry[] {
 }
 
 export function RecentWriting(): JSX.Element | null {
-  const entries = loadEntries();
+  const entries = useMemo(() => loadEntries(), []);
   if (entries.length === 0) return null;
 
   return (

@@ -570,4 +570,69 @@ export const RESOURCES: ExternalResource[] = [
     description:
       'Infostealer victims dashboard by Hudson Rock — browse compromised machines, employees, and domains per infostealer family.',
   },
+  // ── Open Directory Search Tools (2026-05-27) ─────────────────────────────
+  {
+    id: 'opendirsearch-abifog',
+    name: 'OpenDirSearch (abifog)',
+    url: 'https://opendirsearch.abifog.com/',
+    kind: 'tool',
+    description:
+      'Open directory search engine — find publicly accessible directory listings for OSINT recon and file discovery.',
+  },
+  {
+    id: 'odcrawler-xyz',
+    name: 'ODCrawler',
+    url: 'http://odcrawler.xyz/',
+    kind: 'tool',
+    description:
+      'Open directory crawler and search engine — indexes publicly accessible directory listings for OSINT investigations.',
+  },
+  {
+    id: 'odfinder-github',
+    name: 'ODFinder',
+    url: 'https://odfinder.github.io/',
+    kind: 'tool',
+    description:
+      'Open directory finder tool — search engine for finding open directory listings across the web for OSINT data gathering.',
+  },
+  {
+    id: 'lendx-org',
+    name: 'LendX',
+    url: 'https://lendx.org/',
+    kind: 'tool',
+    description:
+      'Open directory search engine — discover exposed directory listings and publicly accessible files for intelligence gathering.',
+  },
+  {
+    id: 'palined-search',
+    name: 'Palined Search',
+    url: 'https://palined.com/search/',
+    kind: 'tool',
+    description:
+      'Open directory search tool — search across publicly accessible directory listings for OSINT and reconnaissance.',
+  },
+  {
+    id: 'ewasion-od-finder',
+    name: 'Ewasion Open Directory Finder',
+    url: 'https://ewasion.github.io/opendirectory-finder/',
+    kind: 'tool',
+    description:
+      'Open directory finder tool — browser-based tool for discovering and searching open directory listings.',
+  },
+  {
+    id: 'expde-od-finder',
+    name: 'Expde Open Directory Finder',
+    url: 'https://expde.github.io/OpenDirectoryFinder/',
+    kind: 'tool',
+    description:
+      'Open directory search tool — find exposed directory listings and publicly accessible file indexes for OSINT collection.',
+  },
+  {
+    id: 'eyedex-org',
+    name: 'EyeDex',
+    url: 'https://eyedex.org/',
+    kind: 'tool',
+    description:
+      'Open directory index and search engine — browse and search across publicly accessible directory listings worldwide.',
+  },
 ];

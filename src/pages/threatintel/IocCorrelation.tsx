@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Download, GitBranchPlus, RefreshCw, Search, Sparkles, Copy, Check } from 'lucide-react';
+import { ArrowLeft, Download, FileDown, GitBranchPlus, RefreshCw, Search, Sparkles, Copy, Check, Loader2 } from 'lucide-react';
+import { useDataFetch } from '../../hooks/useDataFetch';
 import { useLastVisit, isNewSince } from '../../hooks';
 import { DataState } from '../../components/DataState';
 
@@ -173,10 +174,13 @@ function IocRow({ ioc }: { ioc: CorrelatedIoc }) {
 
 export default function IocCorrelation(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [data, setData] = useState<CorrelationResponse | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState(searchParams.get('q') ?? '');
+
+  const { data, loading, error, refetch } = useDataFetch<CorrelationResponse>({
+    url: '/api/v1/ioc-correlation',
+    ttl: 120_000,
+    staleWhileRevalidate: true,
+  });
   const [kindFilter, setKindFilter] = useState<Set<IocKind>>(
     () => new Set((searchParams.get('kind')?.split(',').filter(Boolean) ?? []) as IocKind[])
   );
@@ -184,7 +188,8 @@ export default function IocCorrelation(): JSX.Element {
     () => new Set((searchParams.get('fresh')?.split(',').filter(Boolean) ?? []) as Freshness[])
   );
   const [newOnly, setNewOnly] = useState(searchParams.get('new') === '1');
-  const [refreshKey, setRefreshKey] = useState(0);
+  const [stixLoading, setStixLoading] = useState(false);
+  const [stixBundleId, setStixBundleId] = useState<string | null>(null);
 
   // Keep filter state in the URL so a curated view is shareable.
   useEffect(() => {
@@ -205,32 +210,6 @@ export default function IocCorrelation(): JSX.Element {
     );
   }, [query, kindFilter, freshFilter, newOnly, setSearchParams]);
   const { previous: lastVisit, markVisited } = useLastVisit('ioc-correlation');
-
-  useEffect(() => {
-    let cancelled = false;
-    const ctrl = new AbortController();
-    setLoading(true);
-    setError(null);
-    fetch('/api/v1/ioc-correlation', { signal: ctrl.signal })
-      .then((r) => {
-        if (!r.ok) throw new Error(`upstream ${r.status}`);
-        return r.json() as Promise<CorrelationResponse>;
-      })
-      .then((d) => {
-        if (!cancelled) setData(d);
-      })
-      .catch((e: { name?: string; message?: string }) => {
-        if (cancelled || e.name === 'AbortError') return;
-        setError(e.message ?? 'failed');
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
-      });
-    return () => {
-      cancelled = true;
-      ctrl.abort();
-    };
-  }, [refreshKey]);
 
   const flat = useMemo(() => {
     if (!data) return [] as CorrelatedIoc[];
@@ -409,9 +388,28 @@ export default function IocCorrelation(): JSX.Element {
           >
             <Download size={12} /> CSV
           </button>
+          {stixBundleId ? (
+            <a
+              href={`/api/v1/intel-bundle/${stixBundleId}/export.stix.json`}
+              download={`${stixBundleId}.stix.json`}
+              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-emerald-500/40 bg-emerald-500/5 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/10"
+            >
+              <FileDown size={12} /> STIX
+            </a>
+          ) : (
+            <button
+              type="button"
+              onClick={() => void buildStixBundle(filtered, setStixLoading, setStixBundleId)}
+              disabled={stixLoading || filtered.length === 0}
+              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-brand-500/40 disabled:opacity-40"
+            >
+              {stixLoading ? <Loader2 size={12} className="animate-spin" /> : <FileDown size={12} />}
+              {stixLoading ? 'building…' : 'STIX'}
+            </button>
+          )}
           <button
             type="button"
-            onClick={() => setRefreshKey((k) => k + 1)}
+            onClick={() => refetch()}
             className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40"
           >
             <RefreshCw size={12} /> refresh
@@ -572,4 +570,25 @@ function downloadFilteredCsv(rows: CorrelatedIoc[]): void {
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
+}
+
+async function buildStixBundle(rows: CorrelatedIoc[], setLoading: (v: boolean) => void, setId: (id: string | null) => void) {
+  const iocs = rows.map((r) => r.value);
+  if (iocs.length === 0) return;
+  setLoading(true);
+  setId(null);
+  try {
+    const r = await fetch('/api/v1/intel-bundle/build', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ mode: 'iocs', input: iocs.join('\n') }),
+    });
+    if (!r.ok) throw new Error(r.statusText);
+    const data = (await r.json()) as { bundle: { id: string } };
+    setId(data.bundle.id);
+  } catch {
+    window.alert('STIX build failed.');
+  } finally {
+    setLoading(false);
+  }
 }

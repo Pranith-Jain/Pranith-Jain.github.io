@@ -9,8 +9,12 @@ import {
 import { runDiscoveryNow, runPlannerNow, runPublisherNow, type CaseStudyEnv } from '../api/src/case-study/run';
 import { runTelegramArchive } from '../api/src/routes/telegram-archive';
 import { warmIntelBundles } from '../api/src/lib/intel-bundle-warm';
+import { checkWatches } from '../api/src/lib/watch-engine';
 import type { Env as ApiEnv } from '../api/src/env';
 import type { Ai, D1Database } from '@cloudflare/workers-types';
+import { LiveFeedDO } from './durable-objects/live-feed';
+
+export { LiveFeedDO };
 
 export interface Env {
   ASSETS: { fetch: (req: Request) => Promise<Response> };
@@ -19,6 +23,7 @@ export interface Env {
   BRIEFINGS_DB?: D1Database;
   CASE_STUDIES: KVNamespace;
   AI: Ai;
+  LIVE_FEED_DO: DurableObjectNamespace<LiveFeedDO>;
   R2_FILES?: R2Bucket;
   NVD_API_KEY?: string;
   VT_API_KEY?: string;
@@ -575,6 +580,13 @@ async function fetchPrerenderedOrShell(
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
+
+    // WebSocket upgrade — route to the LiveFeed Durable Object
+    if (url.pathname.startsWith('/api/v1/ws/live-feed') && request.headers.get('upgrade') === 'websocket') {
+      const doId = env.LIVE_FEED_DO.idFromName('global');
+      return env.LIVE_FEED_DO.get(doId).fetch(request);
+    }
+
     // Forward to the api app for the explicit /api/* prefix AND for the
     // legacy /blog/rss.xml route — the RSS handler is registered there in
     // api/src/routes/blog-public.ts but used to be unreachable because this
@@ -799,6 +811,8 @@ export default {
             '/api/v1/reddit-feed',
             '/api/v1/x-feed',
             '/api/v1/detections',
+            '/api/v1/maltiverse/search?q=ransomware',
+            '/api/v1/certspotter/search?domain=example.com',
           ];
           const composerTargets = ['/api/v1/snapshot', '/api/v1/ioc-snapshot'];
           async function warm(path: string) {
@@ -818,6 +832,16 @@ export default {
             })
             .join(' ');
           console.log(`scheduled: warmed in ${Date.now() - start}ms — ${summary}`);
+
+          // === Watch engine — check watched entities against fresh caches ===
+          try {
+            const watchAlerts = await checkWatches(env.KV_CACHE as unknown as KVNamespace, new Date().toISOString());
+            if (watchAlerts.length > 0) {
+              console.log(JSON.stringify({ job: 'watch-engine', triggered: watchAlerts.length, alerts: watchAlerts.map(a => ({ label: a.label, type: a.type, match: a.match })) }));
+            }
+          } catch (e) {
+            console.error(JSON.stringify({ job: 'watch-engine', error: e instanceof Error ? e.message : String(e) }));
+          }
         })().catch(logCronFail('hourly-cron'))
         // Without this .catch, an unhandled rejection inside the IIFE
         // (briefing build, warm) silently aborts the entire ctx.waitUntil

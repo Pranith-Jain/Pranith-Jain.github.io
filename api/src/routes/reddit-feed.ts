@@ -264,7 +264,7 @@ export async function redditFeedHandler(c: Context<{ Bindings: Env }>): Promise<
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheKey = new Request(REDDIT_FEED_CACHE_KEY);
   const cached = await cache.match(cacheKey);
-  if (cached) return cached;
+  if (cached) return new Response(cached.body, cached);
 
   const body = await fetchRedditFeed();
   const response = c.json(body, 200, { 'Cache-Control': `public, max-age=${CACHE_TTL}` });

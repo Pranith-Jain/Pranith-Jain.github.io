@@ -2,6 +2,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { fetchResilient } from '../lib/fetch-resilient';
 import { buildMtiRansomwareRss, MTI_RANSOMWARE_FEED_PATH } from './mti-ransomware-rss';
+import { buildRansomwareMergedRss, RANSOMWARE_MERGED_FEED_PATH } from './ransomware-merged-rss';
 
 /**
  * Server-side feed aggregator. Cuts client-side network calls from N (one per
@@ -30,7 +31,7 @@ const DEFAULT_PER_SOURCE = 5;
 /** Per-source cap. Raised 10 → 25 in step with MAX_LIMIT so no single
  *  high-volume RSS dominates the merged response. */
 const MAX_PER_SOURCE = 25;
-const FETCH_TIMEOUT_MS = 12_000;
+const FETCH_TIMEOUT_MS = 20_000;
 // Per-URL parsed-response cache key prefix — checked BEFORE the upstream
 // fetch in fetchOne. caches.default.match() doesn't consume a subrequest,
 // so a warm cache lets us return ~30 feeds without hitting CF's 50-req
@@ -172,6 +173,7 @@ const ALLOWED_HOSTS = new Set([
   'huggingface.co',
   'the-decoder.com',
   'importai.substack.com',
+  'blog.fox-it.com',
   // Allowlist gap fix (2026-05-24): both feeds were silently dropped by
   // the host check, surfacing as "16 of 54 missing" on /threatintel/threat-feeds.
   'www.akamai.com',
@@ -182,7 +184,7 @@ const ALLOWED_HOSTS = new Set([
   'github.com',
   'osv.dev',
   'www.osv.dev',
-  // Same-origin synthesised feeds (e.g. MyThreatIntel ransomware → RSS)
+  // Same-origin synthesised feeds (merged ransomware, MTI ransomware)
   'pranithjain.qzz.io',
 ]);
 
@@ -278,7 +280,7 @@ interface FetchOneResult {
   error?: string;
 }
 
-async function fetchOne(url: string, perSource: number): Promise<FetchOneResult> {
+async function fetchOne(url: string, perSource: number, env?: Env): Promise<FetchOneResult> {
   const parsed = new URL(url);
   // Same-origin synthesised feeds: resolve IN-PROCESS. A Worker HTTP-fetching
   // its own hostname is unreliable (the earlier symptom: feed returned 0 via
@@ -289,6 +291,14 @@ async function fetchOne(url: string, perSource: number): Promise<FetchOneResult>
       return { items: parseFeedBody(xml, url, parsed.hostname, perSource) };
     } catch (e) {
       return { items: [], error: `mti_build_failed: ${(e as Error).message}` };
+    }
+  }
+  if (parsed.pathname === RANSOMWARE_MERGED_FEED_PATH) {
+    try {
+      const { xml } = await buildRansomwareMergedRss(env);
+      return { items: parseFeedBody(xml, url, parsed.hostname, perSource) };
+    } catch (e) {
+      return { items: [], error: `ransomware_merged_build_failed: ${(e as Error).message}` };
     }
   }
   if (!ALLOWED_HOSTS.has(parsed.hostname.toLowerCase())) {
@@ -468,7 +478,7 @@ export async function feedsAggregateHandler(c: Context<{ Bindings: Env }>) {
     });
   }
 
-  const settled = await Promise.allSettled(urls.map((u) => fetchOne(u, perSource)));
+  const settled = await Promise.allSettled(urls.map((u) => fetchOne(u, perSource, c.env)));
   const allItems: AggregatedItem[] = [];
   let feedsReturned = 0;
   const feedStatuses: FeedSourceStatus[] = [];

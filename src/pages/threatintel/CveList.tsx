@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { AlertOctagon, ArrowLeft, ExternalLink, Flame, RefreshCw, Search, ShieldAlert, Sparkles } from 'lucide-react';
 import { useLastVisit, isNewSince } from '../../hooks';
+import { useDataFetch } from '../../hooks/useDataFetch';
 import { DataState } from '../../components/DataState';
 import { SEVERITY_TONE } from '../../components/severity';
 
@@ -81,16 +82,19 @@ function shortRel(iso: string): string {
 
 export default function CveList(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [data, setData] = useState<CveResponse | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState(searchParams.get('q') ?? '');
-  const [refreshKey, setRefreshKey] = useState(0);
   const [severityFilter, setSeverityFilter] = useState<Set<RecentCve['severity']>>(
     () => new Set((searchParams.get('sev')?.split(',').filter(Boolean) ?? []) as RecentCve['severity'][])
   );
   const [kevOnly, setKevOnly] = useState(searchParams.get('kev') === '1');
   const [newOnly, setNewOnly] = useState(searchParams.get('new') === '1');
+  const [page, setPage] = useState(1);
+  const PAGE_SIZE = 50;
+
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setPage(1);
+  }, [query, severityFilter, kevOnly, newOnly]);
 
   // Keep filter state in the URL so a curated view is shareable.
   useEffect(() => {
@@ -112,31 +116,16 @@ export default function CveList(): JSX.Element {
   }, [query, severityFilter, kevOnly, newOnly, setSearchParams]);
   const { previous: lastVisit, markVisited } = useLastVisit('cve-list');
 
-  useEffect(() => {
-    let cancelled = false;
-    const ctrl = new AbortController();
-    setLoading(true);
-    setError(null);
-    fetch('/api/v1/cve-recent', { signal: ctrl.signal })
-      .then((r) => {
-        if (!r.ok) throw new Error(`upstream ${r.status}`);
-        return r.json() as Promise<CveResponse>;
-      })
-      .then((d) => {
-        if (!cancelled) setData(d);
-      })
-      .catch((e: { name?: string; message?: string }) => {
-        if (cancelled || e.name === 'AbortError') return;
-        setError(e.message ?? 'failed');
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
-      });
-    return () => {
-      cancelled = true;
-      ctrl.abort();
-    };
-  }, [refreshKey]);
+  const {
+    data,
+    loading,
+    error,
+    refetch,
+  } = useDataFetch<CveResponse>({
+    url: '/api/v1/cve-recent?limit=500',
+    ttl: 120_000,
+    staleWhileRevalidate: true,
+  });
 
   // Mark the visit AFTER data lands so the "new since" diff uses the OLD
   // timestamp. Defer with setTimeout so the diff highlight has time to render.
@@ -162,6 +151,12 @@ export default function CveList(): JSX.Element {
       return c.id.toLowerCase().includes(q) || c.description.toLowerCase().includes(q);
     });
   }, [data, query, severityFilter, kevOnly, newOnly, lastVisit]);
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const pageItems = useMemo(
+    () => filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE),
+    [filtered, page]
+  );
 
   const toggleSeverity = (s: RecentCve['severity']) => {
     setSeverityFilter((prev) => {
@@ -251,7 +246,7 @@ export default function CveList(): JSX.Element {
           )}
           <button
             type="button"
-            onClick={() => setRefreshKey((k) => k + 1)}
+            onClick={() => refetch()}
             className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40"
           >
             <RefreshCw size={12} /> refresh
@@ -288,7 +283,7 @@ export default function CveList(): JSX.Element {
 
       {data && (
         <p className="text-[11px] font-mono text-slate-500 mb-4">
-          Showing {filtered.length} of {data.count} ({data.kev_count ?? 0} on KEV) · sources:{' '}
+          Showing page {page}/{totalPages} ({pageItems.length} of {filtered.length} filtered, {data.count} total) · sources:{' '}
           {(data.sources ?? []).map((s) => `${s.id} ${s.ok ? `(${s.count})` : 'OFFLINE'}`).join(' · ')} · snapshot{' '}
           <span className="text-slate-700 dark:text-slate-300">{shortRel(data.generated_at)}</span>
         </p>
@@ -303,7 +298,7 @@ export default function CveList(): JSX.Element {
         rows={8}
       >
         <ul className="space-y-2">
-          {filtered.map((c) => {
+          {pageItems.map((c) => {
             const isNew = isNewSince(c.published, lastVisit);
             return (
               <li
@@ -413,6 +408,30 @@ export default function CveList(): JSX.Element {
           })}
         </ul>
       </DataState>
+
+      {totalPages > 1 && (
+        <div className="mt-6 flex items-center justify-center gap-2">
+          <button
+            type="button"
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            disabled={page <= 1}
+            className="text-xs font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-slate-700 disabled:opacity-30 hover:border-brand-500/40"
+          >
+            ← prev
+          </button>
+          <span className="text-xs font-mono text-slate-500 px-2">
+            {page} / {totalPages}
+          </span>
+          <button
+            type="button"
+            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+            disabled={page >= totalPages}
+            className="text-xs font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-slate-700 disabled:opacity-30 hover:border-brand-500/40"
+          >
+            next →
+          </button>
+        </div>
+      )}
     </div>
   );
 }

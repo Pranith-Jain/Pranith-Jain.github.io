@@ -485,6 +485,21 @@ export async function fetchRansomwareRecent(env?: Env): Promise<{
     victims,
   };
 
+  // Persist last-good payload to KV so stale data is served when all
+  // upstreams fail (cold cache, transient outages). The calling snapshot
+  // handler reads this backup via the ok flag on the return.
+  if (upstreamOk && env?.KV_CACHE) {
+    caches.default
+      .put(
+        new Request(RANSOMWARE_RECENT_CACHE_KEY),
+        new Response(JSON.stringify(body), {
+          status: 200,
+          headers: { 'cache-control': `public, max-age=${CACHE_TTL_SECONDS}` },
+        })
+      )
+      .catch(() => {});
+  }
+
   return { body, upstreamOk, rateLimited };
 }
 
@@ -492,7 +507,7 @@ export async function ransomwareRecentHandler(c: Context<{ Bindings: Env }>): Pr
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheKey = new Request(CACHE_KEY);
   const cached = await cache.match(cacheKey);
-  if (cached) return cached;
+  if (cached) return new Response(cached.body, cached);
 
   const { body, upstreamOk, rateLimited } = await fetchRansomwareRecent(c.env);
 

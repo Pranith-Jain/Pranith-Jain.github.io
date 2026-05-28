@@ -150,6 +150,7 @@ const ALLOWED_HOSTS = new Set([
   'huggingface.co',
   'the-decoder.com',
   'importai.substack.com',
+  'blog.fox-it.com',
   // Same-origin synthesised feeds (e.g. MyThreatIntel ransomware → RSS)
   'pranithjain.qzz.io',
   // Sync with feeds-aggregate.ts ALLOWED_HOSTS (2026-05-24 additions)

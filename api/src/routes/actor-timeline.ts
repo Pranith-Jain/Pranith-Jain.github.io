@@ -387,7 +387,7 @@ export async function actorTimelineHandler(c: Context<{ Bindings: Env }>): Promi
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheReq = new Request(CACHE_KEY);
   const cached = await cache.match(cacheReq);
-  if (cached) return cached;
+  if (cached) return new Response(cached.body, cached);
 
   const body = await fetchActorTimeline(c.env);
 

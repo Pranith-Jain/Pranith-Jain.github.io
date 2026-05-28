@@ -186,19 +186,31 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         const env = (await r.json()) as SnapshotResp;
         if (cancelled) return;
-        if (env.ransomware.ok && env.ransomware.data) setRansomware(env.ransomware.data);
-        else if (!env.ransomware.ok) setErrors((cur) => ({ ...cur, ransomware: env.ransomware.error ?? 'unknown' }));
-        if (env.telegram.ok && env.telegram.data) setTelegram(env.telegram.data);
-        else if (!env.telegram.ok) setErrors((cur) => ({ ...cur, telegram: env.telegram.error ?? 'unknown' }));
-        if (env.scam.ok && env.scam.data) setScam(env.scam.data);
-        else if (!env.scam.ok) setErrors((cur) => ({ ...cur, scam: env.scam.error ?? 'unknown' }));
-        if (env.threat_intel.ok && env.threat_intel.data) setThreatIntel(env.threat_intel.data);
-        else if (!env.threat_intel.ok)
+        if (env.ransomware.ok && env.ransomware.data) {
+          setRansomware(env.ransomware.data);
+          setErrors((cur) => ({ ...cur, ransomware: undefined }));
+        } else if (!env.ransomware.ok) setErrors((cur) => ({ ...cur, ransomware: env.ransomware.error ?? 'unknown' }));
+        if (env.telegram.ok && env.telegram.data) {
+          setTelegram(env.telegram.data);
+          setErrors((cur) => ({ ...cur, telegram: undefined }));
+        } else if (!env.telegram.ok) setErrors((cur) => ({ ...cur, telegram: env.telegram.error ?? 'unknown' }));
+        if (env.scam.ok && env.scam.data) {
+          setScam(env.scam.data);
+          setErrors((cur) => ({ ...cur, scam: undefined }));
+        } else if (!env.scam.ok) setErrors((cur) => ({ ...cur, scam: env.scam.error ?? 'unknown' }));
+        if (env.threat_intel.ok && env.threat_intel.data) {
+          setThreatIntel(env.threat_intel.data);
+          setErrors((cur) => ({ ...cur, threatIntel: undefined }));
+        } else if (!env.threat_intel.ok)
           setErrors((cur) => ({ ...cur, threatIntel: env.threat_intel.error ?? 'unknown' }));
-        if (env.tech_ai.ok && env.tech_ai.data) setTechAi(env.tech_ai.data);
-        else if (!env.tech_ai.ok) setErrors((cur) => ({ ...cur, techAi: env.tech_ai.error ?? 'unknown' }));
-        if (env.briefings?.ok && env.briefings.data) setBriefings(env.briefings.data);
-        else if (env.briefings && !env.briefings.ok)
+        if (env.tech_ai.ok && env.tech_ai.data) {
+          setTechAi(env.tech_ai.data);
+          setErrors((cur) => ({ ...cur, techAi: undefined }));
+        } else if (!env.tech_ai.ok) setErrors((cur) => ({ ...cur, techAi: env.tech_ai.error ?? 'unknown' }));
+        if (env.briefings?.ok && env.briefings.data) {
+          setBriefings(env.briefings.data);
+          setErrors((cur) => ({ ...cur, briefings: undefined }));
+        } else if (env.briefings && !env.briefings.ok)
           setErrors((cur) => ({ ...cur, briefings: env.briefings.error ?? 'unknown' }));
         // env.onion / env.rules / env.threat_map come through the snapshot
         // payload but the corresponding cards were removed 2026-05-11 — we

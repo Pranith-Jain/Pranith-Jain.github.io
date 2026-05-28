@@ -134,7 +134,7 @@ export async function stixFetchHandler(c: Context<{ Bindings: Env }>): Promise<R
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheKey = new Request(`https://stix-fetch-cache.internal/v2?id=${encodeURIComponent(raw)}`);
   const cached = await cache.match(cacheKey);
-  if (cached) return cached;
+  if (cached) return new Response(cached.body, cached);
 
   // Fan out to the target collection(s) in parallel — first match wins.
   const settled = await Promise.all(

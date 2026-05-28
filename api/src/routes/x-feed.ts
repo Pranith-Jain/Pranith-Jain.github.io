@@ -342,7 +342,7 @@ export async function xFeedHandler(c: Context<{ Bindings: Env }>): Promise<Respo
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheKey = new Request(X_FEED_CACHE_KEY);
   const cached = await cache.match(cacheKey);
-  if (cached) return cached;
+  if (cached) return new Response(cached.body, cached);
 
   const body = await fetchXFeed();
   const response = c.json(body, 200, { 'Cache-Control': `public, max-age=${CACHE_TTL}` });
