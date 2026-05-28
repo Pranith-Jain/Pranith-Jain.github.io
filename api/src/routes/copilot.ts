@@ -12,6 +12,7 @@ import { IOC_CORRELATION_CACHE_KEY } from './ioc-correlation';
 import { NEGOTIATIONS_CACHE_KEY } from './negotiations';
 import { detectType as detectIndicatorType, type IndicatorType } from '../lib/indicator';
 import type { Indicator, ProviderEnv, ProviderResult, ProviderAdapter } from '../providers/types';
+import { lookupCve } from '../lib/cve-lookup';
 import { virustotal as vtProvider } from '../providers/virustotal';
 import { abuseipdb as abuseProvider } from '../providers/abuseipdb';
 import { otx as otxProvider } from '../providers/otx';
@@ -89,8 +90,17 @@ async function gatherSources(query: string, type: QueryType) {
   // Build all cache read promises per query type — fully parallel
   let promises: Promise<Source | null>[];
 
+  // Live CVE lookup — fetches NVD / EPSS / KEV / PoC in parallel
+  let cveLiveSource: Source | null = null;
   if (type === 'cve') {
-    promises = [
+    async function doCveLookup(): Promise<Source | null> {
+      const result = await lookupCve(q.toUpperCase());
+      if (!result.ok) return null;
+      return { name: 'CVE Search (live)', items: 1, data: { ...result.data } };
+    }
+    const cvePromise = doCveLookup();
+
+    const cachePromises = [
       add('Recent CVEs', CVE_RECENT_CACHE_KEY,
         (d: { cves: unknown[] }) => d.cves,
         (c: any) => matchCve(q, c.id)),
@@ -113,6 +123,8 @@ async function gatherSources(query: string, type: QueryType) {
         (d: { hashes: unknown[]; ips: unknown[]; domains: unknown[] }) => [...(d.hashes ?? []), ...(d.ips ?? []), ...(d.domains ?? [])],
         (e: any) => matchText(ql, e.value)),
     ];
+    promises = cachePromises;
+    cveLiveSource = await cvePromise;
   } else if (type === 'ip') {
     promises = [
       add('Live IOCs', LIVE_IOCS_CACHE_KEY,
@@ -218,6 +230,7 @@ async function gatherSources(query: string, type: QueryType) {
   for (const r of results) {
     if (r.status === 'fulfilled' && r.value) sources.push(r.value);
   }
+  if (cveLiveSource) sources.push(cveLiveSource);
   return sources;
 }
 
@@ -357,6 +370,7 @@ const SCHEMA_NOTES: Record<string, string> = {
   'Negotiations': 'Each item: { group, ransom_amount, discount_percent, settlement_status, victim, date }. Ransomware negotiation financial data.',
   'Malpedia': 'Each item: { name, common_name, description, aliases[] }. Malware family catalog from Malpedia.',
   'Live Enrichment': 'Live provider lookups. Each entry: { source, status (ok|error), score (0-100), verdict (clean|suspicious|malicious|unknown), tags[], summary }. Use for geolocation, abuse reports, AV detection, malware family tags.',
+  'CVE Search (live)': 'Live NVD + EPSS + CISA KEV + CIRCL lookup. Contains: cve_id, published, description, cvss (version, base_score, severity, vector), epss (score, percentile, date), kev (in_kev, date_added, vulnerability_name, known_ransomware), cwe[], references[], affected_products[], actors[], actor_links[]. Use this for the most up-to-date CVE details — severity, exploit probability, KEV status, and actor attribution.',
 };
 
 function buildUserPrompt(query: string, queryType: QueryType, sources: Source[]): string {

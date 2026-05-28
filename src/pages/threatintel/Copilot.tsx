@@ -1,9 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
-import { ArrowLeft, Send, Sparkles, FileText, ExternalLink, AlertTriangle, RefreshCw, Loader2, Lightbulb, Search, Wrench } from 'lucide-react';
+import { ArrowLeft, Send, Sparkles, FileText, ExternalLink, AlertTriangle, RefreshCw, Loader2, Lightbulb, Search } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
 import { AppFooter } from '../../components/AppFooter';
-import QuickIocCheck from '../../components/threatintel/QuickIocCheck';
-import QuickCveLookup from '../../components/threatintel/QuickCveLookup';
+
 
 interface Source {
   name: string;
@@ -239,18 +238,6 @@ export default function Copilot(): JSX.Element {
           </button>
         </div>
       )}
-
-      {/* Quick Tools */}
-      <details className="group mb-8">
-        <summary className="text-sm font-medium text-slate-500 dark:text-slate-400 cursor-pointer hover:text-slate-700 dark:hover:text-slate-300 flex items-center gap-2 mb-4">
-          <Wrench size={14} />
-          Quick tools — IOC check &amp; CVE lookup
-        </summary>
-        <div className="grid sm:grid-cols-2 gap-4">
-          <QuickIocCheck />
-          <QuickCveLookup />
-        </div>
-      </details>
 
       <AppFooter
         aboutTo="/threatintel/about"

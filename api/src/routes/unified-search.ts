@@ -1,4 +1,5 @@
-import { Context } from 'hono';
+import type { Context } from 'hono';
+import { lookupCve } from '../lib/cve-lookup';
 
 // ── Cache keys (imported where available, hardcoded for internal-only keys) ──
 import {
@@ -339,6 +340,124 @@ async function searchMalwareSamples(needle: string): Promise<SearchSection> {
   return { label: 'Malware Samples', kind: 'malware', total: items.length, items };
 }
 
+// ── Live CVE lookup ─────────────────────────────────────────────────────────
+async function searchCveLookup(needle: string): Promise<SearchSection> {
+  const isCve = /^CVE-\d{4}-\d{4,7}$/i.test(needle.trim());
+  if (!isCve) return { label: 'CVE Lookup (live)', kind: 'cves', total: 0, items: [] };
+
+  const result = await lookupCve(needle.trim().toUpperCase());
+  if (!result.ok) return { label: 'CVE Lookup (live)', kind: 'cves', total: 0, items: [] };
+
+  const { data } = result;
+  const items: SearchItem[] = [
+    buildItem(
+      data.cve_id,
+      [
+        data.cvss ? `${data.cvss.severity} ${data.cvss.base_score}` : '',
+        data.epss ? `EPSS ${(data.epss.score * 100).toFixed(2)}%` : '',
+        data.kev.in_kev ? 'CISA KEV' : '',
+        data.poc ? `${data.poc.count} PoCs` : '',
+      ].filter(Boolean).join(' · '),
+      `https://nvd.nist.gov/vuln/detail/${data.cve_id}`,
+      'cve-lookup',
+      data.cvss?.severity?.toLowerCase() ?? 'cve',
+    ),
+  ];
+
+  return { label: 'CVE Lookup (live)', kind: 'cves', total: items.length, items };
+}
+
+// ── Live IOC Check ───────────────────────────────────────────────────────────
+const IOC_RE_IP = /^(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)$/;
+const IOC_RE_DOMAIN = /^([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/;
+const IOC_RE_HASH = /^[a-fA-F0-9]{32,64}$/;
+
+async function searchIocCheck(needle: string): Promise<SearchSection> {
+  const q = needle.trim();
+  const iocType = IOC_RE_IP.test(q) ? 'ip' : IOC_RE_DOMAIN.test(q) ? 'domain' : IOC_RE_HASH.test(q) ? 'hash' : null;
+  if (!iocType) return { label: 'IOC Check (live)', kind: 'iocs', total: 0, items: [] };
+
+  // Quick reputation check via abuseipdb for IPs, otherwise signal from live IOC feeds
+  let items: SearchItem[] = [];
+
+  if (iocType === 'ip') {
+    try {
+      const res = await fetch(`https://api.abuseipdb.com/api/v2/check?ipAddress=${encodeURIComponent(q)}&maxAgeInDays=90`, {
+        headers: { Key: 'dummy', Accept: 'application/json' },
+        signal: AbortSignal.timeout(5000),
+      }).catch(() => null);
+      if (res?.ok) {
+        const data = (await res.json()) as { data?: { abuseConfidenceScore: number; totalReports: number; countryCode?: string; isp?: string; domain?: string; lastReportedAt?: string } };
+        if (data?.data && data.data.abuseConfidenceScore > 0) {
+          items.push(buildItem(
+            q,
+            `AbuseIPDB: ${data.data.abuseConfidenceScore}% · ${data.data.totalReports} reports${data.data.countryCode ? ` · ${data.data.countryCode}` : ''}`,
+            `https://www.abuseipdb.com/check/${q}`,
+            'ioc-check',
+            `score-${data.data.abuseConfidenceScore}`,
+          ));
+        }
+      }
+    } catch { /* skip */ }
+
+    // Check blocklist.de
+    try {
+      const bl = await fetch(`https://api.blocklist.de/api.php?ip=${encodeURIComponent(q)}`, { signal: AbortSignal.timeout(4000) }).catch(() => null);
+      if (bl?.ok) {
+        const text = await bl.text();
+        if (text.includes('found')) {
+          items.push(buildItem(q, 'Listed on blocklist.de', `https://www.blocklist.de/en/view.html?ip=${encodeURIComponent(q)}`, 'ioc-check', 'blocklist'));
+        }
+      }
+    } catch { /* skip */ }
+  }
+
+  if (iocType === 'domain') {
+    // Check URLhaus
+    try {
+      const uh = await fetch(`https://urlhaus-api.abuse.ch/v1/host/`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/x-www-form-urlencoded' },
+        body: `host=${encodeURIComponent(q)}`,
+        signal: AbortSignal.timeout(5000),
+      }).catch(() => null);
+      if (uh?.ok) {
+        const ud = (await uh.json()) as { query_status?: string; url_count?: number };
+        if (ud.query_status === 'ok' && (ud.url_count ?? 0) > 0) {
+          items.push(buildItem(q, `${ud.url_count} URLs on URLhaus`, `https://urlhaus.abuse.ch/host/${encodeURIComponent(q)}/`, 'ioc-check', 'malicious'));
+        }
+      }
+    } catch { /* skip */ }
+  }
+
+  if (iocType === 'hash') {
+    // Check MalwareBazaar
+    try {
+      const mb = await fetch('https://mb-api.abuse.ch/api/v1/', {
+        method: 'POST',
+        headers: { 'content-type': 'application/x-www-form-urlencoded' },
+        body: `query=get_info&hash=${q}`,
+        signal: AbortSignal.timeout(5000),
+      }).catch(() => null);
+      if (mb?.ok) {
+        const md = (await mb.json()) as { query_status?: string; data?: Array<{ signature?: string; file_type?: string; first_seen?: string }> };
+        if (md.query_status === 'ok' && md.data?.[0]) {
+          const entry = md.data[0];
+          items.push(buildItem(
+            q.slice(0, 16) + '…',
+            `MalwareBazaar: ${entry.signature ?? 'unknown'} · ${entry.file_type ?? ''}${entry.first_seen ? ` · ${entry.first_seen}` : ''}`,
+            `https://bazaar.abuse.ch/sample/${q}/`,
+            'ioc-check',
+            'malware',
+          ));
+        }
+      }
+    } catch { /* skip */ }
+  }
+
+  return { label: 'IOC Check (live)', kind: 'iocs', total: items.length, items };
+}
+
 async function searchMalpedia(needle: string): Promise<SearchSection> {
   const data = await readCachedJson<{
     families: Array<{ name: string; common_name?: string; description?: string; aliases?: string[] }>;
@@ -392,6 +511,8 @@ export async function unifiedSearchHandler(ctx: Context<{ Bindings: import('../e
     searchBreaches(needle),
     searchMalwareSamples(needle),
     searchMalpedia(needle),
+    searchCveLookup(needle),
+    searchIocCheck(needle),
   ]);
 
   const sections: SearchSection[] = [];

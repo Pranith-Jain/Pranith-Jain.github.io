@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Search, ExternalLink, AlertTriangle, Skull, Globe, Shield, Bug, FileText, Database, Fingerprint, Wrench } from 'lucide-react';
+import { ArrowLeft, Search, ExternalLink, AlertTriangle, Skull, Globe, Shield, Bug, FileText, Database, Fingerprint } from 'lucide-react';
 import { DataState } from '../../components/DataState';
-import QuickIocCheck from '../../components/threatintel/QuickIocCheck';
-import QuickCveLookup from '../../components/threatintel/QuickCveLookup';
 
 interface SearchItem {
   label: string;
@@ -124,7 +122,7 @@ export default function UnifiedSearch(): JSX.Element {
 
       {loading && (
         <p role="status" className="font-mono text-sm text-slate-500 py-8">
-          Searching 10 intelligence sources…
+          Searching intelligence sources + live IOC/CVE check…
         </p>
       )}
 
@@ -211,18 +209,6 @@ export default function UnifiedSearch(): JSX.Element {
           })}
         </div>
       )}
-
-      {/* Quick Tools */}
-      <details className="group mt-10">
-        <summary className="text-sm font-medium text-slate-500 dark:text-slate-400 cursor-pointer hover:text-slate-700 dark:hover:text-slate-300 flex items-center gap-2 mb-4">
-          <Wrench size={14} />
-          Quick tools — IOC check &amp; CVE lookup
-        </summary>
-        <div className="grid sm:grid-cols-2 gap-4">
-          <QuickIocCheck />
-          <QuickCveLookup />
-        </div>
-      </details>
 
     </div>
   );
