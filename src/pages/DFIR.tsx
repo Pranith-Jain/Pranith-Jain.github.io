@@ -7,7 +7,6 @@ import { personalInfo } from '../data/content';
 import { AppHero } from '../components/AppHero';
 import { AppFooter } from '../components/AppFooter';
 import { StatBar } from '../components/StatBar';
-import { BackToTop } from '../components/BackToTop';
 
 /**
  * "Start here." Three tools, one prescribed sequence. Solves the hub
@@ -189,7 +188,6 @@ const PROVIDER_GROUPS: { label: string; items: string[] }[] = [
 export default function DFIRPage(): JSX.Element {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
-      <BackToTop />
       <AppHero
         kicker="Privacy-first · No upload · No login · Local analysis only"
         title="DFIR & security toolkit"
@@ -280,7 +278,7 @@ export default function DFIRPage(): JSX.Element {
             {FEATURED_TOOLS.length} of {MAIN_TOOL_COUNT}
           </span>
         </div>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {FEATURED_TOOLS.map((t) => {
             const Icon = t.icon;
             return (
@@ -317,7 +315,7 @@ export default function DFIRPage(): JSX.Element {
             recent lookups <ArrowRight size={12} />
           </Link>
         </div>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {(['dfir', 'ir', 'ti', 'osint', 'aisec', 'cloudsec', 'apisec', 'datasec', 'grc'] as ToolGroup[]).map((g) => (
             <Link
               key={g}

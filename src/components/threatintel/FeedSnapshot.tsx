@@ -100,16 +100,12 @@ function Cell({ label, value, href, suffix }: { label: string; value: number | n
     <div>
       <dt className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">{label}</dt>
       <dd className="mt-1 flex items-baseline gap-1.5">
-        {value === null ? (
-          <div className="h-8 w-16 bg-slate-200 dark:bg-slate-800 rounded animate-pulse" aria-hidden="true" />
-        ) : (
-          <a
-            href={href}
-            className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight tabular-nums hover:text-brand-600 dark:hover:text-brand-400"
-          >
-            {display}
-          </a>
-        )}
+        <a
+          href={href}
+          className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight tabular-nums hover:text-brand-600 dark:hover:text-brand-400"
+        >
+          {display}
+        </a>
         {suffix && <span className="text-[11px] font-mono text-slate-500">{suffix}</span>}
       </dd>
     </div>

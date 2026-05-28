@@ -140,16 +140,6 @@
       opacity: 0.8;
     }
   }
-
-  /* Hide scrollbar but keep functionality */
-  .scrollbar-none {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-
-  .scrollbar-none::-webkit-scrollbar {
-    display: none;
-  }
 }
 
 /* Reduced motion preference */
