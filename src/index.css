@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 @layer base {
   html {
     font-family: theme('fontFamily.sans');
@@ -60,7 +58,9 @@
     }
   }
 
-  button, a, [role="button"] {
+  button,
+  a,
+  [role='button'] {
     touch-action: manipulation;
   }
 
@@ -139,6 +139,16 @@
     50% {
       opacity: 0.8;
     }
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
   }
 }
 

@@ -236,6 +236,12 @@ export function ToolSearchBar(): JSX.Element {
           &ldquo;cve&rdquo;.
         </p>
       )}
+
+      {q !== '' && hits.length > 0 && (
+        <p className="mt-2 text-[11px] font-mono text-slate-500 dark:text-slate-400">
+          {hits.length} {hits.length === 1 ? 'match' : 'matches'} for &ldquo;{query.trim()}&rdquo;
+        </p>
+      )}
     </section>
   );
 }

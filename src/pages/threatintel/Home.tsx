@@ -44,6 +44,7 @@ import { FeedSnapshot } from '../../components/threatintel/FeedSnapshot';
 import { personalInfo } from '../../data/content';
 import { AppHero } from '../../components/AppHero';
 import { AppFooter } from '../../components/AppFooter';
+import { BackToTop } from '../../components/BackToTop';
 
 /**
  * Threat-Intel landing page — the SOLE entry point for sources, feeds, RSS,
@@ -597,7 +598,8 @@ export default function ThreatIntelHome(): JSX.Element {
   }, []);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 py-12 text-slate-900 dark:text-slate-100">
+      <BackToTop />
       <h1 className="sr-only">Threat Intel Platform</h1>
       {/* "What's new since your last visit" banner — silent on first
           visit / zero deltas. Reuses the localStorage marker key
@@ -639,42 +641,42 @@ export default function ThreatIntelHome(): JSX.Element {
       />
       <FeedSnapshot />
 
-      {/* Quick links to power-user surfaces */}
-      <div className="flex flex-wrap items-center gap-2 mb-12 text-[11px] font-mono text-slate-500 dark:text-slate-400">
-        <span>quick:</span>
+      {/* Quick links to power-user surfaces — horizontal scroll on mobile */}
+      <div className="flex gap-2 overflow-x-auto snap-x snap-mandatory pb-2 mb-12 text-[11px] font-mono text-slate-500 dark:text-slate-400 scrollbar-none">
+        <span className="shrink-0 flex items-center">quick:</span>
         <Link
           to="/threatintel/metrics"
-          className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 min-h-[44px] sm:min-h-0 sm:py-1 flex items-center"
+          className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 min-h-[44px] flex items-center shrink-0 snap-start"
         >
           metrics
         </Link>
         <Link
           to="/threatintel/correlation"
-          className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 min-h-[44px] sm:min-h-0 sm:py-1 flex items-center"
+          className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 min-h-[44px] flex items-center shrink-0 snap-start"
         >
           correlation
         </Link>
         <Link
           to="/threatintel/actor-timeline"
-          className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 min-h-[44px] sm:min-h-0 sm:py-1 flex items-center"
+          className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 min-h-[44px] flex items-center shrink-0 snap-start"
         >
           actor timeline
         </Link>
         <Link
           to="/threatintel/re-leaks"
-          className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 min-h-[44px] sm:min-h-0 sm:py-1 flex items-center"
+          className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 min-h-[44px] flex items-center shrink-0 snap-start"
         >
           re-leaks
         </Link>
         <Link
           to="/threatintel/live-iocs"
-          className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 min-h-[44px] sm:min-h-0 sm:py-1 flex items-center"
+          className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 min-h-[44px] flex items-center shrink-0 snap-start"
         >
           live stream
         </Link>
         <Link
           to="/threatintel/status"
-          className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 min-h-[44px] sm:min-h-0 sm:py-1 flex items-center"
+          className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 min-h-[44px] flex items-center shrink-0 snap-start"
         >
           feed status
         </Link>

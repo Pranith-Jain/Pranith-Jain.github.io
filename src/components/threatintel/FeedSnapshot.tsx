@@ -45,9 +45,15 @@ export function FeedSnapshot() {
     const opts = { signal: ctrl.signal } as const;
     const now = Date.now();
     Promise.allSettled([
-      fetch('/api/v1/ransomware-recent', opts).then((r) => (r.ok ? r.json() : Promise.reject(r.status)) as Promise<RansomwareResponse>),
-      fetch('/api/v1/cve-recent', opts).then((r) => (r.ok ? r.json() : Promise.reject(r.status)) as Promise<CveResponse>),
-      fetch('/api/v1/threat-pulse', opts).then((r) => (r.ok ? r.json() : Promise.reject(r.status)) as Promise<PulseResponse>),
+      fetch('/api/v1/ransomware-recent', opts).then(
+        (r) => (r.ok ? r.json() : Promise.reject(r.status)) as Promise<RansomwareResponse>
+      ),
+      fetch('/api/v1/cve-recent', opts).then(
+        (r) => (r.ok ? r.json() : Promise.reject(r.status)) as Promise<CveResponse>
+      ),
+      fetch('/api/v1/threat-pulse', opts).then(
+        (r) => (r.ok ? r.json() : Promise.reject(r.status)) as Promise<PulseResponse>
+      ),
     ]).then(([r, c, p]) => {
       if (!alive) return;
       const ransom7d =
@@ -94,12 +100,16 @@ function Cell({ label, value, href, suffix }: { label: string; value: number | n
     <div>
       <dt className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">{label}</dt>
       <dd className="mt-1 flex items-baseline gap-1.5">
-        <a
-          href={href}
-          className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight tabular-nums hover:text-brand-600 dark:hover:text-brand-400"
-        >
-          {display}
-        </a>
+        {value === null ? (
+          <div className="h-8 w-16 bg-slate-200 dark:bg-slate-800 rounded animate-pulse" aria-hidden="true" />
+        ) : (
+          <a
+            href={href}
+            className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight tabular-nums hover:text-brand-600 dark:hover:text-brand-400"
+          >
+            {display}
+          </a>
+        )}
         {suffix && <span className="text-[11px] font-mono text-slate-500">{suffix}</span>}
       </dd>
     </div>

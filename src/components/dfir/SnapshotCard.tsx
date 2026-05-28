@@ -63,6 +63,8 @@ interface Props {
   error?: string;
   /** Card padding tier — `compact` for landing-page embeds. */
   compact?: boolean;
+  /** Additional CSS classes for the card container. */
+  className?: string;
   children?: ReactNode;
 }
 
@@ -122,12 +124,13 @@ export function SnapshotCard({
   loading,
   error,
   compact,
+  className = '',
   children,
 }: Props): JSX.Element {
   const padding = compact ? 'p-3' : 'p-4';
   return (
     <div
-      className={`rounded-2xl border ${ACCENT_BORDER[accent]} bg-white dark:bg-slate-900 ${padding} flex flex-col min-h-[200px]`}
+      className={`rounded-2xl border ${ACCENT_BORDER[accent]} bg-white dark:bg-slate-900 ${padding} flex flex-col min-h-[200px] shrink-0 snap-start w-[85vw] sm:w-auto ${className}`}
     >
       <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
         <h3 className="font-display font-semibold text-sm inline-flex items-center gap-1.5 flex-wrap">
