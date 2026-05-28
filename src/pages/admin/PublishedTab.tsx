@@ -17,15 +17,14 @@ interface SocialContent {
   generatedAt: string;
 }
 
-type SocialState = Record<
-  string,
-  {
-    loadingTwitter: boolean;
-    loadingLinkedin: boolean;
-    data: SocialContent | null;
-    error: string | null;
-  }
->;
+interface SocialEntry {
+  loadingTwitter: boolean;
+  loadingLinkedin: boolean;
+  data: SocialContent | null;
+  error: string | null;
+}
+
+type SocialState = Record<string, SocialEntry>;
 
 export default function PublishedTab() {
   const [posts, setPosts] = useState<PostEntry[]>([]);
@@ -81,6 +80,14 @@ export default function PublishedTab() {
     }
   }
 
+  function setSocialAndExpand(slug: string, update: Partial<SocialEntry>) {
+    setSocial((prev) => {
+      const next = { ...prev, [slug]: { ...prev[slug], ...update } as SocialEntry };
+      return next;
+    });
+    setExpanded(slug);
+  }
+
   async function generateTwitter(slug: string) {
     setSocial((prev) => ({ ...prev, [slug]: { ...prev[slug], loadingTwitter: true, error: null } }));
     try {
@@ -92,29 +99,25 @@ export default function PublishedTab() {
         error?: string;
       }>(`/social/${encodeURIComponent(slug)}/twitter`, {});
       if (r.ok) {
-        setSocial((prev) => {
-          const existing = prev[slug]?.data ?? { slug, twitter: '', linkedin: '', generatedAt: r.generatedAt };
-          return {
-            ...prev,
-            [slug]: {
-              loadingTwitter: false,
-              loadingLinkedin: false,
-              data: { ...existing, twitter: r.content },
-              error: null,
-            },
-          };
+        setSocialAndExpand(slug, {
+          loadingTwitter: false,
+          loadingLinkedin: false,
+          error: null,
         });
+        if (r.content) {
+          setSocial((prev) => {
+            const existing = prev[slug]?.data ?? { slug, twitter: '', linkedin: '', generatedAt: r.generatedAt };
+            return {
+              ...prev,
+              [slug]: { ...prev[slug], data: { ...existing, twitter: r.content }, error: null },
+            };
+          });
+        }
       } else {
-        setSocial((prev) => ({
-          ...prev,
-          [slug]: { ...prev[slug], loadingTwitter: false, error: r.error ?? 'failed' },
-        }));
+        setSocialAndExpand(slug, { loadingTwitter: false, error: r.error ?? 'failed' });
       }
     } catch (e) {
-      setSocial((prev) => ({
-        ...prev,
-        [slug]: { ...prev[slug], loadingTwitter: false, error: e instanceof Error ? e.message : String(e) },
-      }));
+      setSocialAndExpand(slug, { loadingTwitter: false, error: e instanceof Error ? e.message : String(e) });
     }
   }
 
@@ -129,29 +132,25 @@ export default function PublishedTab() {
         error?: string;
       }>(`/social/${encodeURIComponent(slug)}/linkedin`, {});
       if (r.ok) {
-        setSocial((prev) => {
-          const existing = prev[slug]?.data ?? { slug, twitter: '', linkedin: '', generatedAt: r.generatedAt };
-          return {
-            ...prev,
-            [slug]: {
-              loadingTwitter: false,
-              loadingLinkedin: false,
-              data: { ...existing, linkedin: r.content },
-              error: null,
-            },
-          };
+        setSocialAndExpand(slug, {
+          loadingLinkedin: false,
+          loadingTwitter: false,
+          error: null,
         });
+        if (r.content) {
+          setSocial((prev) => {
+            const existing = prev[slug]?.data ?? { slug, twitter: '', linkedin: '', generatedAt: r.generatedAt };
+            return {
+              ...prev,
+              [slug]: { ...prev[slug], data: { ...existing, linkedin: r.content }, error: null },
+            };
+          });
+        }
       } else {
-        setSocial((prev) => ({
-          ...prev,
-          [slug]: { ...prev[slug], loadingLinkedin: false, error: r.error ?? 'failed' },
-        }));
+        setSocialAndExpand(slug, { loadingLinkedin: false, error: r.error ?? 'failed' });
       }
     } catch (e) {
-      setSocial((prev) => ({
-        ...prev,
-        [slug]: { ...prev[slug], loadingLinkedin: false, error: e instanceof Error ? e.message : String(e) },
-      }));
+      setSocialAndExpand(slug, { loadingLinkedin: false, error: e instanceof Error ? e.message : String(e) });
     }
   }
 
