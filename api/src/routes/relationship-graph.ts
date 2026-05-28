@@ -26,8 +26,12 @@ export async function relationshipGraphHandler(c: Context<{ Bindings: Env }>): P
   const edgeHit = await edgeCache.match(edgeReq).catch(() => null);
   if (edgeHit) {
     return new Response(edgeHit.body, {
-      ...edgeHit,
-      headers: { ...Object.fromEntries(edgeHit.headers), 'X-Cache': 'HIT' },
+      status: 200,
+      headers: {
+        'content-type': 'application/json; charset=utf-8',
+        'cache-control': `public, max-age=${CACHE_TTL}`,
+        'X-Cache': 'HIT',
+      },
     });
   }
 
@@ -44,7 +48,9 @@ export async function relationshipGraphHandler(c: Context<{ Bindings: Env }>): P
         c.executionCtx.waitUntil(edgeCache.put(edgeReq, response.clone()));
         return response;
       }
-    } catch { /* ignore */ }
+    } catch {
+      /* ignore */
+    }
   }
 
   const result: GraphResponse = await buildGraph(query.trim(), depth);

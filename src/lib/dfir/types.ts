@@ -121,11 +121,17 @@ export interface DomainLookupResponse {
   dns: Record<'A' | 'AAAA' | 'NS' | 'CNAME' | 'SOA' | 'MX' | 'TXT' | 'CAA', { records: string[]; error?: string }>;
   rdap: {
     registrar?: string;
+    registrar_url?: string;
+    registrar_iana_id?: string;
+    registrar_abuse_email?: string;
+    registrar_abuse_phone?: string;
+    registry_domain_id?: string;
     created?: string;
     expires?: string;
     updated?: string;
     nameservers: string[];
     status: string[];
+    dnssec?: string;
     error?: string;
   };
   email_auth: {

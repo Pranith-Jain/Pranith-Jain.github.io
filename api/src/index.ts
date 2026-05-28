@@ -92,19 +92,31 @@ import {
 } from './routes/intel-bundle';
 import { googleDorksHandler } from './routes/google-dorks';
 import { emailRepHandler } from './routes/email-rep';
-import { blocklistPfSenseHandler, blocklistIptablesHandler, blocklistSuricataHandler, blocklistMetaHandler } from './routes/blocklists';
+import {
+  blocklistPfSenseHandler,
+  blocklistIptablesHandler,
+  blocklistSuricataHandler,
+  blocklistMetaHandler,
+} from './routes/blocklists';
 import { fetchPageHandler, fingerprintHandler } from './routes/phishing-fingerprint';
 import { unifiedSearchHandler } from './routes/unified-search';
 import { copilotInvestigateHandler } from './routes/copilot';
 import { automationRunHandler } from './routes/automation';
 import { dashboardHandler, getWatchlistHandler, updateWatchlistHandler } from './routes/dashboard';
 import { maltiverseSearchHandler } from './routes/maltiverse';
-import { inquestSearchHandler } from './routes/inquest';import { hackertargetDnsHandler, hackertargetReverseIpHandler } from './routes/hackertarget';
+import { inquestSearchHandler } from './routes/inquest';
+import { hackertargetDnsHandler, hackertargetReverseIpHandler } from './routes/hackertarget';
 import { radarDomainHandler } from './routes/cloudflare-radar';
 import { certspotterSearchHandler } from './routes/certspotter';
 import { triageSearchHandler } from './routes/triage';
 
-import { listWatchesHandler, createWatchHandler, updateWatchHandler, deleteWatchHandler, alertLogHandler } from './routes/watches';
+import {
+  listWatchesHandler,
+  createWatchHandler,
+  updateWatchHandler,
+  deleteWatchHandler,
+  alertLogHandler,
+} from './routes/watches';
 import { rateLimit } from './lib/ratelimit';
 import { requestLogger } from './lib/request-logger';
 import { csrfGuard } from './lib/csrf-guard';
@@ -112,10 +124,7 @@ import { errorHandler } from './lib/error-handler';
 import { serverTiming } from './lib/server-timing';
 import { authenticate } from './lib/auth';
 import { validate } from './lib/validate';
-import {
-  createExternalResourceSchema,
-  telegramCustomChannelSchema,
-} from './lib/schemas';
+import { createExternalResourceSchema, telegramCustomChannelSchema } from './lib/schemas';
 import { createApiKeyHandler, listApiKeysHandler, revokeApiKeyHandler } from './routes/admin-keys';
 import { purgeCacheHandler } from './routes/admin-purge';
 import { malpediaActorHandler, malpediaFamilyHandler, malpediaSearchHandler } from './routes/malpedia';
@@ -137,7 +146,6 @@ import { xTweetsHandler } from './routes/x-tweets';
 import { xLiveHandler } from './routes/x-live';
 import { xFirehoseHandler } from './routes/x-firehose';
 import { relationshipGraphHandler } from './routes/relationship-graph';
-
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -203,7 +211,11 @@ app.get('/api/v1/web-scan', webScanHandler);
 app.get('/api/v1/onion-watch', onionWatchHandler);
 app.get('/api/v1/telegram-feed', telegramFeedHandler);
 app.get('/api/v1/telegram-custom-channels', telegramCustomChannelsGetHandler);
-app.post('/api/v1/telegram-custom-channels', validate('json', telegramCustomChannelSchema), telegramCustomChannelsPostHandler);
+app.post(
+  '/api/v1/telegram-custom-channels',
+  validate('json', telegramCustomChannelSchema),
+  telegramCustomChannelsPostHandler
+);
 app.delete('/api/v1/telegram-custom-channels/:handle', telegramCustomChannelsDeleteHandler);
 app.get('/api/v1/cve-recent', cveRecentHandler);
 app.get('/api/v1/cve-threat-map', cveThreatMapHandler);
@@ -279,6 +291,7 @@ app.post('/api/v1/phishing/fingerprint', fingerprintHandler);
 app.get('/api/v1/unified-search', unifiedSearchHandler);
 app.get('/api/v1/relationship-graph', relationshipGraphHandler);
 app.post('/api/v1/copilot/investigate', copilotInvestigateHandler);
+app.get('/api/v1/copilot/investigate', copilotInvestigateHandler);
 app.post('/api/v1/automation/run', automationRunHandler);
 app.get('/api/v1/maltiverse/search', maltiverseSearchHandler);
 app.get('/api/v1/inquest/search', inquestSearchHandler);
@@ -294,8 +307,8 @@ app.post('/api/v1/dashboard/watchlist', updateWatchlistHandler);
 app.get('/api/v1/watches', listWatchesHandler);
 app.post('/api/v1/watches', createWatchHandler);
 app.put('/api/v1/watches/:id', updateWatchHandler);
-  app.delete('/api/v1/watches/:id', deleteWatchHandler);
-  app.get('/api/v1/watches/log', alertLogHandler);
+app.delete('/api/v1/watches/:id', deleteWatchHandler);
+app.get('/api/v1/watches/log', alertLogHandler);
 app.notFound((c) => c.json({ error: 'not_found' }, 404));
 
 app.onError(errorHandler);

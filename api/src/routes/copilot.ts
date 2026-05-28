@@ -51,8 +51,46 @@ function detectType(query: string): QueryType {
   if (DOMAIN_RE.test(query.trim())) return 'domain';
   if (HASH_RE.test(query.trim())) return 'hash';
   const lower = query.toLowerCase();
-  if (['lockbit', 'ransom', 'ransomware', 'hive', 'clop', 'blackcat', 'alphv', 'royal', 'play', 'akira', 'bashe', 'bianlian', 'cuba', 'dragonforce', '8base'].some((k) => lower.includes(k))) return 'ransomware';
-  if (['apt', 'group', 'actor', 'threat', 'scattered', 'lazarus', 'kimsu', 'fancy', 'cozy', 'knotweed', 'midnight', 'volt', 'typhoon', 'panda', 'dragon'].some((k) => lower.includes(k))) return 'actor';
+  if (
+    [
+      'lockbit',
+      'ransom',
+      'ransomware',
+      'hive',
+      'clop',
+      'blackcat',
+      'alphv',
+      'royal',
+      'play',
+      'akira',
+      'bashe',
+      'bianlian',
+      'cuba',
+      'dragonforce',
+      '8base',
+    ].some((k) => lower.includes(k))
+  )
+    return 'ransomware';
+  if (
+    [
+      'apt',
+      'group',
+      'actor',
+      'threat',
+      'scattered',
+      'lazarus',
+      'kimsu',
+      'fancy',
+      'cozy',
+      'knotweed',
+      'midnight',
+      'volt',
+      'typhoon',
+      'panda',
+      'dragon',
+    ].some((k) => lower.includes(k))
+  )
+    return 'actor';
   return 'generic';
 }
 
@@ -61,7 +99,9 @@ async function readCache<T>(key: string): Promise<T | null> {
     const cache = caches.default;
     const cached = await cache.match(new Request(key));
     if (cached) return (await cached.json()) as T;
-  } catch { /* miss */ }
+  } catch {
+    /* miss */
+  }
   return null;
 }
 
@@ -76,7 +116,12 @@ const matchText = (query: string, text: string | undefined): boolean =>
 const matchCve = (query: string, id: string) => id.toUpperCase() === query.trim().toUpperCase();
 
 function buildSourceAdder(query: string) {
-  return async <T>(name: string, key: string, extract: (data: T) => unknown[], filter?: (item: unknown) => boolean): Promise<Source | null> => {
+  return async <T>(
+    name: string,
+    key: string,
+    extract: (data: T) => unknown[],
+    filter?: (item: unknown) => boolean
+  ): Promise<Source | null> => {
     const data = await readCache<T>(key);
     if (!data) return null;
     const items = extract(data).filter(filter ?? (() => true));
@@ -96,134 +141,244 @@ async function gatherSources(query: string, type: QueryType) {
   // Live CVE lookup — fetches NVD / EPSS / KEV / PoC in parallel
   let cveLiveSource: Source | null = null;
   if (type === 'cve') {
-    async function doCveLookup(): Promise<Source | null> {
+    const doCveLookup = async (): Promise<Source | null> => {
       const result = await lookupCve(q.toUpperCase());
       if (!result.ok) return null;
       return { name: 'CVE Search (live)', items: 1, data: { ...result.data } };
-    }
+    };
     const cvePromise = doCveLookup();
 
     const cachePromises = [
-      add('Recent CVEs', CVE_RECENT_CACHE_KEY,
+      add(
+        'Recent CVEs',
+        CVE_RECENT_CACHE_KEY,
         (d: { cves: unknown[] }) => d.cves,
-        (c: any) => matchCve(q, c.id)),
-      add('Breach Disclosures', BREACH_CACHE_KEY,
+        (c: any) => matchCve(q, c.id)
+      ),
+      add(
+        'Breach Disclosures',
+        BREACH_CACHE_KEY,
         (d: { breaches: unknown[] }) => d.breaches,
-        (b: any) => b.description?.toLowerCase().includes(ql) ?? false),
-      add('Actor Timeline', ACTOR_TIMELINE_CACHE_KEY,
+        (b: any) => b.description?.toLowerCase().includes(ql) ?? false
+      ),
+      add(
+        'Actor Timeline',
+        ACTOR_TIMELINE_CACHE_KEY,
         (d: { groups: unknown[] }) => d.groups,
-        (g: any) => (g.description ?? '').toLowerCase().includes(ql)),
-      add('Writeups', WRITEUPS_CACHE_KEY,
+        (g: any) => (g.description ?? '').toLowerCase().includes(ql)
+      ),
+      add(
+        'Writeups',
+        WRITEUPS_CACHE_KEY,
         (d: { items: unknown[] }) => d.items,
-        (w: any) => matchText(ql, w.title) || matchText(ql, w.description) || w.tags?.some((t: string) => matchText(ql, t))),
-      add('Detections', DETECTIONS_CACHE_KEY,
+        (w: any) =>
+          matchText(ql, w.title) || matchText(ql, w.description) || w.tags?.some((t: string) => matchText(ql, t))
+      ),
+      add(
+        'Detections',
+        DETECTIONS_CACHE_KEY,
         (d: { detections: unknown[] }) => d.detections,
-        (d: any) => matchText(ql, d.rule_name) || matchText(ql, d.rule_id)),
-      add('Cybercrime', CYBERCRIME_CACHE_KEY,
+        (d: any) => matchText(ql, d.rule_name) || matchText(ql, d.rule_id)
+      ),
+      add(
+        'Cybercrime',
+        CYBERCRIME_CACHE_KEY,
         (d: { items: unknown[] }) => d.items,
-        (c: any) => matchText(ql, c.title) || matchText(ql, c.description)),
-      add('IOC Correlation', IOC_CORRELATION_CACHE_KEY,
-        (d: { hashes: unknown[]; ips: unknown[]; domains: unknown[] }) => [...(d.hashes ?? []), ...(d.ips ?? []), ...(d.domains ?? [])],
-        (e: any) => matchText(ql, e.value)),
+        (c: any) => matchText(ql, c.title) || matchText(ql, c.description)
+      ),
+      add(
+        'IOC Correlation',
+        IOC_CORRELATION_CACHE_KEY,
+        (d: { hashes: unknown[]; ips: unknown[]; domains: unknown[] }) => [
+          ...(d.hashes ?? []),
+          ...(d.ips ?? []),
+          ...(d.domains ?? []),
+        ],
+        (e: any) => matchText(ql, e.value)
+      ),
     ];
     promises = cachePromises;
     cveLiveSource = await cvePromise;
   } else if (type === 'ip') {
     promises = [
-      add('Live IOCs', LIVE_IOCS_CACHE_KEY,
+      add(
+        'Live IOCs',
+        LIVE_IOCS_CACHE_KEY,
         (d: { items: unknown[] }) => d.items,
-        (i: any) => i.value === q),
-      add('C2 Tracker', C2_CACHE_KEY,
+        (i: any) => i.value === q
+      ),
+      add(
+        'C2 Tracker',
+        C2_CACHE_KEY,
         (d: { entries: unknown[] }) => d.entries,
-        (e: any) => e.ip === q),
-      add('IOC Correlation', IOC_CORRELATION_CACHE_KEY,
+        (e: any) => e.ip === q
+      ),
+      add(
+        'IOC Correlation',
+        IOC_CORRELATION_CACHE_KEY,
         (d: { ips: unknown[] }) => d.ips,
-        (e: any) => e.value === q),
-      add('Ransomware Recent', RANSOMWARE_RECENT_CACHE_KEY,
+        (e: any) => e.value === q
+      ),
+      add(
+        'Ransomware Recent',
+        RANSOMWARE_RECENT_CACHE_KEY,
         (d: { victims: unknown[] }) => d.victims,
-        (v: any) => v.victim?.includes(q)),
-      add('Actor Timeline', ACTOR_TIMELINE_CACHE_KEY,
+        (v: any) => v.victim?.includes(q)
+      ),
+      add(
+        'Actor Timeline',
+        ACTOR_TIMELINE_CACHE_KEY,
         (d: { groups: unknown[] }) => d.groups,
-        (g: any) => matchText(ql, g.description)),
-      add('Writeups', WRITEUPS_CACHE_KEY,
+        (g: any) => matchText(ql, g.description)
+      ),
+      add(
+        'Writeups',
+        WRITEUPS_CACHE_KEY,
         (d: { items: unknown[] }) => d.items,
-        (w: any) => matchText(ql, w.title) || matchText(ql, w.description)),
-      add('Detections', DETECTIONS_CACHE_KEY,
+        (w: any) => matchText(ql, w.title) || matchText(ql, w.description)
+      ),
+      add(
+        'Detections',
+        DETECTIONS_CACHE_KEY,
         (d: { detections: unknown[] }) => d.detections,
-        (d: any) => (d.indicators ?? []).some((i: any) => i.value === q)),
+        (d: any) => (d.indicators ?? []).some((i: any) => i.value === q)
+      ),
     ];
   } else if (type === 'domain') {
     promises = [
-      add('Live IOCs', LIVE_IOCS_CACHE_KEY,
+      add(
+        'Live IOCs',
+        LIVE_IOCS_CACHE_KEY,
         (d: { items: unknown[] }) => d.items,
-        (i: any) => i.value === q),
-      add('IOC Correlation', IOC_CORRELATION_CACHE_KEY,
+        (i: any) => i.value === q
+      ),
+      add(
+        'IOC Correlation',
+        IOC_CORRELATION_CACHE_KEY,
         (d: { domains: unknown[] }) => d.domains,
-        (e: any) => e.value === q),
-      add('Breach Disclosures', BREACH_CACHE_KEY,
+        (e: any) => e.value === q
+      ),
+      add(
+        'Breach Disclosures',
+        BREACH_CACHE_KEY,
         (d: { breaches: unknown[] }) => d.breaches,
-        (b: any) => b.domain?.toLowerCase() === q.toLowerCase() || (b.description ?? '').toLowerCase().includes(ql)),
-      add('Writeups', WRITEUPS_CACHE_KEY,
+        (b: any) => b.domain?.toLowerCase() === q.toLowerCase() || (b.description ?? '').toLowerCase().includes(ql)
+      ),
+      add(
+        'Writeups',
+        WRITEUPS_CACHE_KEY,
         (d: { items: unknown[] }) => d.items,
-        (w: any) => matchText(ql, w.title) || matchText(ql, w.description)),
-      add('Actor Timeline', ACTOR_TIMELINE_CACHE_KEY,
+        (w: any) => matchText(ql, w.title) || matchText(ql, w.description)
+      ),
+      add(
+        'Actor Timeline',
+        ACTOR_TIMELINE_CACHE_KEY,
         (d: { groups: unknown[] }) => d.groups,
-        (g: any) => matchText(ql, g.description)),
-      add('Detections', DETECTIONS_CACHE_KEY,
+        (g: any) => matchText(ql, g.description)
+      ),
+      add(
+        'Detections',
+        DETECTIONS_CACHE_KEY,
         (d: { detections: unknown[] }) => d.detections,
-        (d: any) => (d.indicators ?? []).some((i: any) => i.value === q)),
+        (d: any) => (d.indicators ?? []).some((i: any) => i.value === q)
+      ),
     ];
   } else if (type === 'hash') {
     promises = [
-      add('Live IOCs', LIVE_IOCS_CACHE_KEY,
+      add(
+        'Live IOCs',
+        LIVE_IOCS_CACHE_KEY,
         (d: { items: unknown[] }) => d.items,
-        (i: any) => i.value === q),
-      add('Malware Samples', MALWARE_SAMPLES_CACHE_KEY,
+        (i: any) => i.value === q
+      ),
+      add(
+        'Malware Samples',
+        MALWARE_SAMPLES_CACHE_KEY,
         (d: { samples: Array<{ sha256: string; signature?: string }> }) => d.samples,
-        (s: any) => s.sha256 === q),
-      add('IOC Correlation', IOC_CORRELATION_CACHE_KEY,
+        (s: any) => s.sha256 === q
+      ),
+      add(
+        'IOC Correlation',
+        IOC_CORRELATION_CACHE_KEY,
         (d: { hashes: unknown[] }) => d.hashes,
-        (e: any) => e.value === q),
-      add('Writeups', WRITEUPS_CACHE_KEY,
+        (e: any) => e.value === q
+      ),
+      add(
+        'Writeups',
+        WRITEUPS_CACHE_KEY,
         (d: { items: unknown[] }) => d.items,
-        (w: any) => matchText(ql, w.title) || matchText(ql, w.description)),
-      add('Actor Timeline', ACTOR_TIMELINE_CACHE_KEY,
+        (w: any) => matchText(ql, w.title) || matchText(ql, w.description)
+      ),
+      add(
+        'Actor Timeline',
+        ACTOR_TIMELINE_CACHE_KEY,
         (d: { groups: unknown[] }) => d.groups,
-        (g: any) => matchText(ql, g.description)),
+        (g: any) => matchText(ql, g.description)
+      ),
     ];
   } else {
     // actor, ransomware, generic — gather everything
     promises = [
-      add('Ransomware Recent', RANSOMWARE_RECENT_CACHE_KEY,
+      add(
+        'Ransomware Recent',
+        RANSOMWARE_RECENT_CACHE_KEY,
         (d: { victims: unknown[] }) => d.victims,
-        (v: any) => matchText(ql, v.group)),
-      add('Actor Timeline', ACTOR_TIMELINE_CACHE_KEY,
+        (v: any) => matchText(ql, v.group)
+      ),
+      add(
+        'Actor Timeline',
+        ACTOR_TIMELINE_CACHE_KEY,
         (d: { groups: unknown[] }) => d.groups,
-        (g: any) => matchText(ql, g.display_name) || matchText(ql, g.slug)),
-      add('Recent CVEs', CVE_RECENT_CACHE_KEY,
-        (d: { cves: unknown[] }) => Array.isArray(d.cves) ? d.cves.slice(0, 50) : [],
-        (c: any) => matchText(ql, c.description) || matchText(ql, c.id)),
-      add('Live IOCs', LIVE_IOCS_CACHE_KEY,
+        (g: any) => matchText(ql, g.display_name) || matchText(ql, g.slug)
+      ),
+      add(
+        'Recent CVEs',
+        CVE_RECENT_CACHE_KEY,
+        (d: { cves: unknown[] }) => (Array.isArray(d.cves) ? d.cves.slice(0, 50) : []),
+        (c: any) => matchText(ql, c.description) || matchText(ql, c.id)
+      ),
+      add(
+        'Live IOCs',
+        LIVE_IOCS_CACHE_KEY,
         (d: { items: unknown[] }) => d.items,
-        (i: any) => matchText(ql, i.value) || matchText(ql, i.source)),
-      add('Writeups', WRITEUPS_CACHE_KEY,
+        (i: any) => matchText(ql, i.value) || matchText(ql, i.source)
+      ),
+      add(
+        'Writeups',
+        WRITEUPS_CACHE_KEY,
         (d: { items: unknown[] }) => d.items,
-        (w: any) => matchText(ql, w.title) || matchText(ql, w.description)),
-      add('Breach Disclosures', BREACH_CACHE_KEY,
+        (w: any) => matchText(ql, w.title) || matchText(ql, w.description)
+      ),
+      add(
+        'Breach Disclosures',
+        BREACH_CACHE_KEY,
         (d: { breaches: unknown[] }) => d.breaches,
-        (b: any) => (b.description ?? '').toLowerCase().includes(ql)),
-      add('Detections', DETECTIONS_CACHE_KEY,
+        (b: any) => (b.description ?? '').toLowerCase().includes(ql)
+      ),
+      add(
+        'Detections',
+        DETECTIONS_CACHE_KEY,
         (d: { detections: unknown[] }) => d.detections,
-        (d: any) => matchText(ql, d.rule_name) || matchText(ql, d.rule_id)),
-      add('Cybercrime', CYBERCRIME_CACHE_KEY,
+        (d: any) => matchText(ql, d.rule_name) || matchText(ql, d.rule_id)
+      ),
+      add(
+        'Cybercrime',
+        CYBERCRIME_CACHE_KEY,
         (d: { items: unknown[] }) => d.items,
-        (c: any) => matchText(ql, c.title) || matchText(ql, c.description)),
-      add('Negotiations', NEGOTIATIONS_CACHE_KEY,
+        (c: any) => matchText(ql, c.title) || matchText(ql, c.description)
+      ),
+      add(
+        'Negotiations',
+        NEGOTIATIONS_CACHE_KEY,
         (d: { groups: unknown[] }) => d.groups,
-        (g: any) => matchText(ql, g.group)),
-      add('Malpedia', MALPEDIA_CACHE_KEY,
+        (g: any) => matchText(ql, g.group)
+      ),
+      add(
+        'Malpedia',
+        MALPEDIA_CACHE_KEY,
         (d: { families: unknown[] }) => d.families,
-        (f: any) => matchText(ql, f.name) || matchText(ql, f.common_name)),
+        (f: any) => matchText(ql, f.name) || matchText(ql, f.common_name)
+      ),
     ];
   }
 
@@ -317,11 +472,13 @@ async function gatherLiveEnrichment(query: string, queryType: QueryType, env: En
       error: r.error,
     }));
     const categories = dataItems.map((d) => `${d.source}: ${d.verdict} (score=${d.score})`).join(', ');
-    return [{
-      name: 'Live Enrichment',
-      items: dataItems.length,
-      data: { providers: dataItems, summary: categories },
-    }];
+    return [
+      {
+        name: 'Live Enrichment',
+        items: dataItems.length,
+        data: { providers: dataItems, summary: categories },
+      },
+    ];
   }
 
   // For actor/ransomware — check Malpedia live + Wikipedia for background context
@@ -332,7 +489,7 @@ async function gatherLiveEnrichment(query: string, queryType: QueryType, env: En
     // Threat actor KB search (from curated ACTOR_ALIASES index)
     const ql = q.toLowerCase();
     const kbMatches = ACTOR_ALIASES.filter(
-      (a) => a.canonical.toLowerCase().includes(ql) || a.aliases.some((al) => al.toLowerCase().includes(ql)),
+      (a) => a.canonical.toLowerCase().includes(ql) || a.aliases.some((al) => al.toLowerCase().includes(ql))
     );
     if (kbMatches.length > 0) {
       liveSources.push({
@@ -353,7 +510,8 @@ async function gatherLiveEnrichment(query: string, queryType: QueryType, env: En
       const { mitreGroupRef } = await import('../lib/ransomware-mitre-groups');
       // Check if the query matches any known ransomware group
       const rgMatches = ACTOR_ALIASES.filter(
-        (a) => (a.mitreId && (a.canonical.toLowerCase().includes(ql) || a.aliases.some((al) => al.toLowerCase().includes(ql))))
+        (a) =>
+          a.mitreId && (a.canonical.toLowerCase().includes(ql) || a.aliases.some((al) => al.toLowerCase().includes(ql)))
       );
       for (const match of rgMatches) {
         if (match.mitreId) {
@@ -373,7 +531,9 @@ async function gatherLiveEnrichment(query: string, queryType: QueryType, env: En
           }
         }
       }
-    } catch { /* ransomware KB optional */ }
+    } catch {
+      /* ransomware KB optional */
+    }
 
     // Malpedia live lookup
     try {
@@ -388,7 +548,9 @@ async function gatherLiveEnrichment(query: string, queryType: QueryType, env: En
           data: mpData,
         });
       }
-    } catch { /* malpedia optional */ }
+    } catch {
+      /* malpedia optional */
+    }
 
     // Wikipedia summary for well-known threat actors / ransomware
     // Tries direct page first, falls back to search API for redirects
@@ -396,10 +558,15 @@ async function gatherLiveEnrichment(query: string, queryType: QueryType, env: En
       const wikiTitle = q.replace(/\s+/g, '_');
       const wikiRes = await fetch(
         `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(wikiTitle)}`,
-        { headers: { 'User-Agent': 'pranithjain-copilot/1.0' }, signal: AbortSignal.timeout(4000) },
+        { headers: { 'User-Agent': 'pranithjain-copilot/1.0' }, signal: AbortSignal.timeout(4000) }
       ).catch(() => null);
       if (wikiRes?.ok) {
-        const wikiData = (await wikiRes.json()) as { extract?: string; pageid?: number; title?: string; content_urls?: { desktop?: { page?: string } } };
+        const wikiData = (await wikiRes.json()) as {
+          extract?: string;
+          pageid?: number;
+          title?: string;
+          content_urls?: { desktop?: { page?: string } };
+        };
         if (wikiData.extract) {
           liveSources.push({
             name: 'Wikipedia',
@@ -412,12 +579,17 @@ async function gatherLiveEnrichment(query: string, queryType: QueryType, env: En
           });
         }
       }
-    } catch { /* wikipedia direct page miss */ }
+    } catch {
+      /* wikipedia direct page miss */
+    }
     // Fallback: search Wikipedia for related pages
     if (liveSources.length === 0) {
       try {
         const searchUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(q + ' cyber')}&format=json&srlimit=3&origin=*`;
-        const srRes = await fetch(searchUrl, { headers: { 'User-Agent': 'pranithjain-copilot/1.0' }, signal: AbortSignal.timeout(4000) }).catch(() => null);
+        const srRes = await fetch(searchUrl, {
+          headers: { 'User-Agent': 'pranithjain-copilot/1.0' },
+          signal: AbortSignal.timeout(4000),
+        }).catch(() => null);
         if (srRes?.ok) {
           const srData = (await srRes.json()) as { query?: { search?: Array<{ title: string; snippet: string }> } };
           const results = srData?.query?.search ?? [];
@@ -433,7 +605,9 @@ async function gatherLiveEnrichment(query: string, queryType: QueryType, env: En
             });
           }
         }
-      } catch { /* wikipedia search failed */ }
+      } catch {
+        /* wikipedia search failed */
+      }
     }
 
     return liveSources;
@@ -461,34 +635,52 @@ One-paragraph executive summary — what this is, why it matters, key takeaway, 
 
 ## Detailed Analysis
 2-5 paragraphs with technical depth. Extract specifics from source data — do NOT write generic prose. Include:
-${isActor ? `- Origins, aliases, motivation, geographic attribution
+${
+  isActor
+    ? `- Origins, aliases, motivation, geographic attribution
 - Affiliate or RaaS structure (who can join, revenue splits)
 - TTPs: initial access vectors, privilege escalation, lateral movement, exfiltration methods
 - Notable campaigns with dates, victims, sectors, and countries (extracted from Ransomware Recent / Actor Timeline sources)
-- Ransom model: average demand, negotiation patterns, discount rates (from Negotiations source if available)` : queryType === 'cve' ? `- Attack vector, complexity, privileges required, user interaction (from CVSS vector)
+- Ransom model: average demand, negotiation patterns, discount rates (from Negotiations source if available)`
+    : queryType === 'cve'
+      ? `- Attack vector, complexity, privileges required, user interaction (from CVSS vector)
 - Exploit status: is there a public PoC? Is it being exploited in the wild? (from KEV + EPSS)
 - EPSS probability score and percentile — how likely is exploitation in the next 30 days
 - Affected products and versions (from affected_products list)
-- Known ransomware / actor groups exploiting this CVE (from CVE_ACTORS mapping + actor_links)` : `- Live enrichment verdicts from provider sources: detection ratios, reputation scores, geolocation, ASN
+- Known ransomware / actor groups exploiting this CVE (from CVE_ACTORS mapping + actor_links)`
+      : `- Live enrichment verdicts from provider sources: detection ratios, reputation scores, geolocation, ASN
 - Associated malware families, C2 frameworks, and threat actor tags
-- Historical context: first seen, breach associations, correlation across feeds`}
+- Historical context: first seen, breach associations, correlation across feeds`
+}
 
 ## MITRE ATT&CK Context${isActor ? '' : ' (include if source data contains technique references, otherwise skip)'}
 List technique IDs with tactic mapping. Extract these from the data — do not hallucinate techniques.${isActor ? `\n\nIf source data contains technique references (e.g. from Ransomware KB / Malpedia / Actor Timeline MITRE fields), enumerate them as a table:\n\`\`\`\n| Tactic | Technique ID | Name |\n|--------|-------------|------|\n| TA0040 | T1486 | Data Encrypted for Impact |\n\`\`\`` : ''}
 
-${isActor ? `## Campaign Timeline
+${
+  isActor
+    ? `## Campaign Timeline
 Chronological list of recent victim disclosures or campaign activity extracted from source data. Include victim name, sector, country, and discovery date when available. If the Actor Timeline source shows month-by-month posting cadence, summarise the trend.
 
-` : ''}${isActor ? `## Financial Data (if Negotiations source available)
+`
+    : ''
+}${
+    isActor
+      ? `## Financial Data (if Negotiations source available)
 Ransom demands, negotiated settlements, discount percentages, and payment status extracted from the Negotiations source. Highlight any notable patterns in negotiation behaviour.
 
-` : ''}${queryType === 'hash' || queryType === 'ip' || queryType === 'domain' ? `## Indicators of Compromise
+`
+      : ''
+  }${
+    queryType === 'hash' || queryType === 'ip' || queryType === 'domain'
+      ? `## Indicators of Compromise
 Structured IOC table with values, types, source confidence, and associated malware families. Prefer a markdown table format.
 
-` : `## Related CVEs (for actor/ransomware queries)
+`
+      : `## Related CVEs (for actor/ransomware queries)
 CVEs attributed to this actor, with severity, KEV status, and EPSS score where available. Explain the relationship — which CVEs are being actively weaponised by this group.
 
-`}
+`
+  }
 ## Recommendations
 3-5 actionable, prioritised recommendations for defenders. Be specific:
 - **Detection**: specific log sources, Sigma/YARA rule IDs, or hunt queries (reference Detections source if available)
@@ -537,24 +729,42 @@ ${isActor ? `- Actor/ransomware: extract SPECIFIC victim names, sectors, countri
 }
 
 const SCHEMA_NOTES: Record<string, string> = {
-  'Live IOCs': 'Each item: { value (the IOC text), kind (ip|domain|hash|url), source (feed name), context (malware family / tags), reporter, reference_url, observed_at }. EXTRACT: specific IOCs with their associated malware family tags and feed sources.',
-  'Ransomware Recent': 'Each item: { victim (org name), group (ransomware gang), discovered, description, sector, country, screen_url }. EXTRACT: victim organisation names, sectors (healthcare/manufacturing/etc), countries, and discovery dates for the Campaign Timeline section.',
-  'Actor Timeline': 'Each item: { slug, display_name, posts_in_window (last 30d posts), description, raas (bool), mitre (MITRE ATT&CK ref), mirrors_reachable }. EXTRACT: RaaS status, posting frequency trend, MITRE reference ID if present.',
-  'Recent CVEs': 'Each item: { id, published, description, severity (CRITICAL/HIGH/MEDIUM/LOW), score (CVSS), kev (bool, CISA KEV), actors[] }. EXTRACT: severity, CVSS score, KEV flag, and actor names for the Related CVEs section.',
-  'Breach Disclosures': 'Each item: { name, title, domain, breach_date, pwn_count, description, data_classes[], verified }. EXTRACT: breach name, date, data classes exposed, and verification status.',
-  'Writeups': 'Each item: { title, url, source, published, description, tags[], author }. EXTRACT: article title, author, publication date — cite as reference in analysis.',
-  'Malware Samples': 'Each item: { sha256, sha1, md5, first_seen, file_type, file_size_bytes, signature (malware family), reporter, tags[], bazaar_url }. EXTRACT: malware family classification, first-seen date, file type.',
-  'C2 Tracker': 'Each item: { ip, framework (Cobalt Strike/Havoc/Mythic/etc), context, port }. EXTRACT: C2 framework type, IP addresses for IOC section.',
-  'IOC Correlation': 'Each item: { value, source_count (number of feeds seeing this IOC), sources[] }. Higher source_count = higher confidence. EXTRACT: high-confidence IOCs (source_count >= 2) with the feeds that corroborate them.',
-  'Detections': 'Each item: { rule_name, rule_id, severity, match_count, group_key, indicators[] }. Sigma/YARA/Suricata rules matching. EXTRACT: rule names and IDs for the Recommendations > Detection section.',
-  'Cybercrime': 'Each item: { title, url, description, published }. EXTRACT: relevant news items with dates for recent activity context.',
-  'Negotiations': 'Each item: { group, ransom_amount, discount_percent, settlement_status, victim, date }. EXTRACT: ransom demand amounts, negotiated discounts, settlement outcomes for the Financial Data section.',
-  'Malpedia': 'Each item: { name, common_name, description, aliases[] }. EXTRACT: malware aliases and description for context in Detailed Analysis.',
-  'Live Enrichment': 'Each entry: { source, status (ok|error), score (0-100), verdict (clean|suspicious|malicious|unknown), tags[], summary }. EXTRACT: provider-specific verdicts, detection ratios, geolocation, ASN, abuse reports, malware family tags.',
-  'CVE Search (live)': 'Live NVD + EPSS + CISA KEV + CIRCL lookup. Contains: cve_id, published, description, cvss (version, base_score, severity, vector), epss (score, percentile, date), kev (in_kev, date_added, vulnerability_name, known_ransomware), cwe[], references[], affected_products[], actors[], actor_links[]. EXTRACT: full CVSS vector, EPSS percentile, KEV status with date_added, affected products, actor links.',
-  'Ransomware KB': 'Contains: group name, MITRE reference (name + URL), and techniques array with { id, name, tactic } per technique. EXTRACT: use the techniques list to populate the MITRE ATT&CK Context section — each technique has an ID (e.g. T1486), name, and tactic mapping.',
-  'Threat Actor KB': 'Contains: canonical name, aliases array, mitreId (MITRE ATT&CK Group ID) if assigned. EXTRACT: aliases for the Detailed Analysis, mitreId for MITRE ATT&CK Context.',
-  'Wikipedia': 'Contains: title, extract (plain-text summary), url. EXTRACT: use the summary for historical background and general context in Detailed Analysis. Prefer structured data over Wikipedia for specific claims.',
+  'Live IOCs':
+    'Each item: { value (the IOC text), kind (ip|domain|hash|url), source (feed name), context (malware family / tags), reporter, reference_url, observed_at }. EXTRACT: specific IOCs with their associated malware family tags and feed sources.',
+  'Ransomware Recent':
+    'Each item: { victim (org name), group (ransomware gang), discovered, description, sector, country, screen_url }. EXTRACT: victim organisation names, sectors (healthcare/manufacturing/etc), countries, and discovery dates for the Campaign Timeline section.',
+  'Actor Timeline':
+    'Each item: { slug, display_name, posts_in_window (last 30d posts), description, raas (bool), mitre (MITRE ATT&CK ref), mirrors_reachable }. EXTRACT: RaaS status, posting frequency trend, MITRE reference ID if present.',
+  'Recent CVEs':
+    'Each item: { id, published, description, severity (CRITICAL/HIGH/MEDIUM/LOW), score (CVSS), kev (bool, CISA KEV), actors[] }. EXTRACT: severity, CVSS score, KEV flag, and actor names for the Related CVEs section.',
+  'Breach Disclosures':
+    'Each item: { name, title, domain, breach_date, pwn_count, description, data_classes[], verified }. EXTRACT: breach name, date, data classes exposed, and verification status.',
+  Writeups:
+    'Each item: { title, url, source, published, description, tags[], author }. EXTRACT: article title, author, publication date — cite as reference in analysis.',
+  'Malware Samples':
+    'Each item: { sha256, sha1, md5, first_seen, file_type, file_size_bytes, signature (malware family), reporter, tags[], bazaar_url }. EXTRACT: malware family classification, first-seen date, file type.',
+  'C2 Tracker':
+    'Each item: { ip, framework (Cobalt Strike/Havoc/Mythic/etc), context, port }. EXTRACT: C2 framework type, IP addresses for IOC section.',
+  'IOC Correlation':
+    'Each item: { value, source_count (number of feeds seeing this IOC), sources[] }. Higher source_count = higher confidence. EXTRACT: high-confidence IOCs (source_count >= 2) with the feeds that corroborate them.',
+  Detections:
+    'Each item: { rule_name, rule_id, severity, match_count, group_key, indicators[] }. Sigma/YARA/Suricata rules matching. EXTRACT: rule names and IDs for the Recommendations > Detection section.',
+  Cybercrime:
+    'Each item: { title, url, description, published }. EXTRACT: relevant news items with dates for recent activity context.',
+  Negotiations:
+    'Each item: { group, ransom_amount, discount_percent, settlement_status, victim, date }. EXTRACT: ransom demand amounts, negotiated discounts, settlement outcomes for the Financial Data section.',
+  Malpedia:
+    'Each item: { name, common_name, description, aliases[] }. EXTRACT: malware aliases and description for context in Detailed Analysis.',
+  'Live Enrichment':
+    'Each entry: { source, status (ok|error), score (0-100), verdict (clean|suspicious|malicious|unknown), tags[], summary }. EXTRACT: provider-specific verdicts, detection ratios, geolocation, ASN, abuse reports, malware family tags.',
+  'CVE Search (live)':
+    'Live NVD + EPSS + CISA KEV + CIRCL lookup. Contains: cve_id, published, description, cvss (version, base_score, severity, vector), epss (score, percentile, date), kev (in_kev, date_added, vulnerability_name, known_ransomware), cwe[], references[], affected_products[], actors[], actor_links[]. EXTRACT: full CVSS vector, EPSS percentile, KEV status with date_added, affected products, actor links.',
+  'Ransomware KB':
+    'Contains: group name, MITRE reference (name + URL), and techniques array with { id, name, tactic } per technique. EXTRACT: use the techniques list to populate the MITRE ATT&CK Context section — each technique has an ID (e.g. T1486), name, and tactic mapping.',
+  'Threat Actor KB':
+    'Contains: canonical name, aliases array, mitreId (MITRE ATT&CK Group ID) if assigned. EXTRACT: aliases for the Detailed Analysis, mitreId for MITRE ATT&CK Context.',
+  Wikipedia:
+    'Contains: title, extract (plain-text summary), url. EXTRACT: use the summary for historical background and general context in Detailed Analysis. Prefer structured data over Wikipedia for specific claims.',
 };
 
 function buildUserPrompt(query: string, queryType: QueryType, sources: Source[]): string {
@@ -576,22 +786,26 @@ Type: ${queryType}
   }
   if (!body) body = '<source name="none" results="0">No sources returned data. Use general knowledge.</source>\n';
 
-  const citationNote = sources.length > 0
-    ? `\n<instruction>You have ${sources.length} source(s) above. Reference them inline using [1], [2], etc. matching the ref="N" attributes, and list them in the ## Source References section at the end.</instruction>`
-    : '';
+  const citationNote =
+    sources.length > 0
+      ? `\n<instruction>You have ${sources.length} source(s) above. Reference them inline using [1], [2], etc. matching the ref="N" attributes, and list them in the ## Source References section at the end.</instruction>`
+      : '';
   return intro + body + citationNote;
 }
 
 async function callWorkersAi(env: Env, system: string, user: string): Promise<string> {
   const model = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
-  const res = (await env.AI.run(model as any, {
-    messages: [
-      { role: 'system', content: system },
-      { role: 'user', content: user },
-    ],
-    max_tokens: 4000,
-    temperature: 0.3,
-  } as any)) as { response?: string };
+  const res = (await env.AI.run(
+    model as any,
+    {
+      messages: [
+        { role: 'system', content: system },
+        { role: 'user', content: user },
+      ],
+      max_tokens: 4000,
+      temperature: 0.3,
+    } as any
+  )) as { response?: string };
   return res.response ?? 'No response from model.';
 }
 
@@ -625,9 +839,15 @@ async function callGroq(env: Env, system: string, user: string): Promise<string>
 
 export async function copilotInvestigateHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
-    const { query } = await c.req.json<{ query: string }>();
+    let query: string;
+    if (c.req.method === 'GET') {
+      query = c.req.query('q') ?? '';
+    } else {
+      const body = await c.req.json<{ query: string }>();
+      query = body.query ?? '';
+    }
     if (!query || query.trim().length === 0) {
-      return c.json({ error: 'query is required' }, 400);
+      return c.json({ error: 'query is required (POST body or ?q= param)' }, 400);
     }
     if (query.length > 500) {
       return c.json({ error: 'query too long (max 500 chars)' }, 400);

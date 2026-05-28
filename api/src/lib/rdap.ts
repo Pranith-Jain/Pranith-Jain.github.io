@@ -1,10 +1,16 @@
 export interface RdapResult {
   registrar?: string;
+  registrar_url?: string;
+  registrar_iana_id?: string;
+  registrar_abuse_email?: string;
+  registrar_abuse_phone?: string;
+  registry_domain_id?: string;
   created?: string;
   expires?: string;
   updated?: string;
   nameservers: string[];
   status: string[];
+  dnssec?: string;
   error?: string;
 }
 
@@ -14,16 +20,24 @@ interface RdapEvent {
 }
 interface RdapEntity {
   roles?: string[];
+  handle?: string;
   vcardArray?: [string, Array<[string, Record<string, unknown>, string, string]>];
+  publicIds?: Array<{ type: string; identifier: string }>;
 }
 interface RdapNameserver {
   ldhName: string;
+}
+interface RdapSecureDNS {
+  delegationSigned?: boolean;
 }
 interface RdapResponse {
   events?: RdapEvent[];
   entities?: RdapEntity[];
   nameservers?: RdapNameserver[];
   status?: string[];
+  handle?: string;
+  secureDNS?: RdapSecureDNS;
+  ldhName?: string;
 }
 
 // Authoritative RDAP base URLs by TLD. Covers the most common TLDs we'll see.
@@ -63,6 +77,22 @@ function vcardName(entity: RdapEntity): string | undefined {
   const arr = entity.vcardArray?.[1] ?? [];
   const fn = arr.find((p) => p[0] === 'fn');
   return fn ? fn[3] : undefined;
+}
+
+function vcardEmail(entity: RdapEntity): string | undefined {
+  const arr = entity.vcardArray?.[1] ?? [];
+  const email = arr.find((p) => p[0] === 'email');
+  return email ? email[3] : undefined;
+}
+
+function vcardPhone(entity: RdapEntity): string | undefined {
+  const arr = entity.vcardArray?.[1] ?? [];
+  const tel = arr.find((p) => p[0] === 'tel');
+  if (!tel) return undefined;
+  const value = tel[3];
+  // Handle tel URIs like "tel:+86.95187"
+  if (typeof value === 'string' && value.startsWith('tel:')) return value.slice(4);
+  return typeof value === 'string' ? value : undefined;
 }
 
 function tldOf(domain: string): string | undefined {
@@ -138,13 +168,34 @@ export async function rdapLookup(domain: string): Promise<RdapResult> {
         const j = result.json;
         const eventBy = (action: string) => j.events?.find((e) => e.eventAction === action)?.eventDate;
         const registrarEntity = j.entities?.find((e) => e.roles?.includes('registrar'));
+
+        // Extract registrar details
+        const registrarName = registrarEntity ? vcardName(registrarEntity) : undefined;
+        const registrarEmail = registrarEntity ? vcardEmail(registrarEntity) : undefined;
+        const registrarPhone = registrarEntity ? vcardPhone(registrarEntity) : undefined;
+        const registrarIanaId = registrarEntity?.publicIds?.find((p) => p.type === 'IANA Registrar ID')?.identifier;
+
+        // Extract registry domain ID from the domain handle or publicIds
+        const registryDomainId = j.handle;
+
+        // DNSSEC status
+        const dnssec = j.secureDNS?.delegationSigned ? 'signed' : 'unsigned';
+
         return {
-          registrar: registrarEntity ? vcardName(registrarEntity) : undefined,
+          registrar: registrarName,
+          registrar_url: registrarIanaId
+            ? `https://www.internic.net/registrars/registrar-${registrarIanaId}.html`
+            : undefined,
+          registrar_iana_id: registrarIanaId,
+          registrar_abuse_email: registrarEmail,
+          registrar_abuse_phone: registrarPhone,
+          registry_domain_id: registryDomainId,
           created: eventBy('registration'),
           expires: eventBy('expiration'),
           updated: eventBy('last changed'),
           nameservers: (j.nameservers ?? []).map((n) => n.ldhName),
           status: j.status ?? [],
+          dnssec,
         };
       }
       if (result.status === 429) rateLimited = true;
