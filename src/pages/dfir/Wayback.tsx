@@ -103,6 +103,8 @@ export default function Wayback(): JSX.Element {
         if (detail.error) throw new Error(detail.error);
         throw new Error(`Wayback Machine unreachable (HTTP ${res.status})`);
       }
+      const ct = res.headers.get('content-type') ?? '';
+      if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
       const data = (await res.json()) as string[][];
       if (!Array.isArray(data) || data.length === 0) {
         setSnapshots([]);

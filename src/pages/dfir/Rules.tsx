@@ -78,7 +78,12 @@ export default function Rules(): JSX.Element {
     setError(null);
     try {
       const r = await fetch('/api/v1/rules');
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      if (!r.ok) {
+        const body = await r.text().catch(() => '');
+        throw new Error(body ? `HTTP ${r.status}: ${body.slice(0, 100)}` : `HTTP ${r.status}`);
+      }
+      const ct = r.headers.get('content-type') ?? '';
+      if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
       setData((await r.json()) as RulesResponse);
     } catch (e) {
       setError((e as Error).message);

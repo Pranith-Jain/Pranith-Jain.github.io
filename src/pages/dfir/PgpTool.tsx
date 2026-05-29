@@ -30,7 +30,7 @@ export default function PgpTool() {
       const openpgp = await getOpenpgp();
       const { privateKey: priv, publicKey: pub } = await openpgp.generateKey({
         type: 'ecc',
-        curve: 'curve25519',
+        curve: 'curve25519Legacy',
         userIDs: [{ name: 'Anonymous', email: 'anon@localhost' }],
         passphrase: passphrase || undefined,
         format: 'armored',

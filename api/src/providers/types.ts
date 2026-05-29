@@ -33,7 +33,15 @@ export type ProviderId =
   | 'malwareworld'
   | 'emailrep'
   | 'malpedia'
-  | 'pulsedive';
+  | 'pulsedive'
+  | 'shodan-internetdb'
+  | 'spur'
+  | 'crowdsec'
+  | 'ipinfo'
+  | 'phishstats'
+  | 'feodo'
+  | 'digitalside'
+  | 'criminalip';
 
 export type Verdict = 'clean' | 'suspicious' | 'malicious' | 'unknown';
 
@@ -66,6 +74,9 @@ export interface ProviderEnv {
   HYBRID_ANALYSIS_API_KEY: string;
   ABUSECH_AUTH_KEY?: string;
   MALSHARE_API_KEY?: string;
+  CROWDSEC_API_KEY?: string;
+  IPINFO_TOKEN?: string;
+  CRIMINALIP_API_KEY?: string;
 }
 
 export type ProviderAdapter = (indicator: Indicator, env: ProviderEnv, signal: AbortSignal) => Promise<ProviderResult>;
@@ -110,4 +121,12 @@ export const PROVIDER_SUPPORT: Record<ProviderId, IndicatorType[]> = {
   emailrep: ['email'],
   malpedia: ['hash'],
   pulsedive: ['ipv4', 'ipv6', 'domain', 'url', 'hash'],
+  'shodan-internetdb': ['ipv4', 'ipv6'],
+  spur: ['ipv4', 'ipv6'],
+  crowdsec: ['ipv4', 'ipv6'],
+  ipinfo: ['ipv4', 'ipv6'],
+  phishstats: ['url', 'domain'],
+  feodo: ['ipv4', 'ipv6'],
+  digitalside: ['url', 'domain', 'hash', 'ipv4'],
+  criminalip: ['ipv4', 'ipv6'],
 };

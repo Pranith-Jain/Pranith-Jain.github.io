@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { fetchResilient } from '../lib/fetch-resilient';
 import { shouldWriteLastGood } from '../lib/lastgood-debounce';
 
 /**
@@ -74,14 +75,13 @@ export async function maliciousPackagesHandler(c: Context<{ Bindings: Env }>): P
   // without and fall through to the KV last-good when it 403s.
   const ghToken = (c.env as unknown as Record<string, string | undefined>).GITHUB_TOKEN;
   try {
-    const res = await fetch(`${GH_API_BASE}/${ecosystem}`, {
+    const res = await fetchResilient(`${GH_API_BASE}/${ecosystem}`, {
       headers: {
         Accept: 'application/vnd.github.v3+json',
         'User-Agent': 'pranithjain-dfir/1.0',
         ...(ghToken ? { Authorization: `Bearer ${ghToken}` } : {}),
       },
-      signal: AbortSignal.timeout(15_000),
-    });
+    }, { attempts: 3, timeoutMs: 15_000 });
     if (res.ok) {
       raw = (await res.json()) as Array<{ name: string; path: string; html_url: string; type: string }>;
     } else {

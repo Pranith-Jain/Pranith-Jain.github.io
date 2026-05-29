@@ -1,33 +1,37 @@
-import { memberships } from '../../data/content';
+import type { Membership } from '../../core/entities';
+
+interface MembershipsProps {
+  memberships: Membership[];
+}
 
 const colorMap: Record<string, { bg: string; text: string; darkBg: string; darkText: string }> = {
   brand: {
     bg: 'bg-brand-50',
-    text: 'text-brand-600',
+    text: 'text-brand-700',
     darkBg: 'dark:bg-brand-900/30',
     darkText: 'dark:text-brand-300',
   },
   emerald: {
     bg: 'bg-emerald-50',
-    text: 'text-emerald-600',
+    text: 'text-emerald-700',
     darkBg: 'dark:bg-emerald-900/30',
     darkText: 'dark:text-emerald-300',
   },
   cyan: {
     bg: 'bg-cyan-50',
-    text: 'text-cyan-600',
+    text: 'text-cyan-700',
     darkBg: 'dark:bg-cyan-900/30',
     darkText: 'dark:text-cyan-300',
   },
   violet: {
     bg: 'bg-violet-50',
-    text: 'text-violet-600',
+    text: 'text-violet-700',
     darkBg: 'dark:bg-violet-900/30',
     darkText: 'dark:text-violet-300',
   },
 };
 
-export function Memberships() {
+export function Memberships({ memberships }: MembershipsProps) {
   return (
     <section id="memberships" className="mt-20 scroll-mt-24">
       <div className="mb-10 max-w-3xl">

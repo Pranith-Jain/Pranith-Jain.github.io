@@ -61,12 +61,7 @@
 		{ "tag": "v1", "new_sqlite_classes": ["LiveFeedDO"] },
 		{ "tag": "v2", "new_sqlite_classes": ["DfirMcpServer"] }
 	],
-	//
-	// ONE-TIME ENABLE: in the Cloudflare dashboard for this account, open
-	//   Workers & Pages → Analytics Engine, click "Enable",
-	// then uncomment the block below and redeploy.
-	//
-	// "analytics_engine_datasets": [
-	//   { "binding": "DFIR_ANALYTICS", "dataset": "dfir_analytics" }
-	// ]
+	"analytics_engine_datasets": [
+		{ "binding": "AJ_analytics", "dataset": "PJ" }
+	]
 }

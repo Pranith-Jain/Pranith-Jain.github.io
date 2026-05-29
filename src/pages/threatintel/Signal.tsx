@@ -4,6 +4,7 @@ import { ArrowLeft, Radio, ExternalLink, RefreshCw, Search } from 'lucide-react'
 import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
 import { FeedAggregateCard } from '../../components/intel/FeedAggregateCard';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 import { XLivePanel } from '../../components/threatintel/XLivePanel';
 
 /**
@@ -149,15 +150,25 @@ export default function Signal(): JSX.Element {
           titles + descriptions from the filtered set into one bundle so the
           page surfaces today's actors / malware / CVEs / IoCs at a glance. */}
       {filtered.length > 0 && (
-        <FeedAggregateCard
-          sourceId="rss:signal"
-          sourceName="Research Signal"
-          title="Research Signal · today"
-          items={filtered.map((it) => ({
-            title: it.title,
-            body: `${it.source} · ${it.description ?? ''}`,
-          }))}
-        />
+        <>
+          <AiSummaryCard
+            surface="Research Signal"
+            items={filtered.slice(0, 30).map((it) => ({
+              title: it.title,
+              body: it.description ?? '',
+              source: it.source,
+            }))}
+          />
+          <FeedAggregateCard
+            sourceId="rss:signal"
+            sourceName="Research Signal"
+            title="Research Signal · today"
+            items={filtered.map((it) => ({
+              title: it.title,
+              body: `${it.source} · ${it.description ?? ''}`,
+            }))}
+          />
+        </>
       )}
 
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-4">

@@ -332,5 +332,272 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, {}> {
         return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
       }
     );
+
+    // ── IP Geolocation & Privacy ─────────────────────────────────────────
+    this.server.tool(
+      'lookup_ip_geo',
+      'Get IP geolocation, ASN, company, and privacy detection (VPN/proxy/tor/hosting). Uses IPinfo and Spur.us for anonymization detection.',
+      { ip: z.string().describe('IPv4 or IPv6 address') },
+      async ({ ip }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          `/api/v1/ip-geo?ip=${encodeURIComponent(ip)}`,
+          this.apiKey
+        );
+        return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
+      }
+    );
+
+    // ── Generate Blocklists ──────────────────────────────────────────────
+    this.server.tool(
+      'get_blocklists',
+      'Get pre-generated firewall blocklists in pfSense, iptables, and Suricata formats. Derived from aggregated threat intel feeds.',
+      { format: z.enum(['pfsense', 'iptables', 'suricata', 'meta']).optional().describe('Blocklist format (default: meta)') },
+      async ({ format }) => {
+        const fmt = format ?? 'meta';
+        const data = await apiFetch<Record<string, unknown>>(
+          `/api/v1/blocklists/${fmt}`,
+          this.apiKey
+        );
+        return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
+      }
+    );
+
+    // ── Search Malpedia ─────────────────────────────────────────────────
+    this.server.tool(
+      'search_malware',
+      'Search for malware families. Returns family info, YARA rules, samples, and references from Malpedia.',
+      { q: z.string().describe('Malware family name or keyword') },
+      async ({ q }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          `/api/v1/malpedia/search?q=${encodeURIComponent(q)}`,
+          this.apiKey
+        );
+        return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
+      }
+    );
+
+    // ── Wayback Machine ─────────────────────────────────────────────────
+    this.server.tool(
+      'wayback_lookup',
+      'Check the Wayback Machine (archive.org) for historical snapshots of a URL. Useful for tracking website changes or recovering deleted content.',
+      { url: z.string().describe('URL to look up in the Wayback Machine') },
+      async ({ url }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          `/api/v1/wayback/cdx?url=${encodeURIComponent(url)}`,
+          this.apiKey
+        );
+        return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
+      }
+    );
+
+    // ── Phishing Analysis ───────────────────────────────────────────────
+    this.server.tool(
+      'analyze_phishing_url',
+      'Analyze a URL for phishing indicators. Checks against PhishTank, OpenPhish, URLhaus, and performs visual similarity analysis.',
+      { url: z.string().describe('URL to analyze') },
+      async ({ url }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          `/api/v1/phishing/analyze`,
+          this.apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ url }),
+          }
+        );
+        return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
+      }
+    );
+
+    // ── Web Scan ────────────────────────────────────────────────────────
+    this.server.tool(
+      'scan_website',
+      'Scan a website for security issues — checks security headers, SSL certificate, technologies, and potential vulnerabilities.',
+      { url: z.string().describe('URL to scan') },
+      async ({ url }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          `/api/v1/web-scan?url=${encodeURIComponent(url)}`,
+          this.apiKey
+        );
+        return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
+      }
+    );
+
+    // ── Google Dorks ────────────────────────────────────────────────────
+    this.server.tool(
+      'google_dorks',
+      'Generate and execute Google dork queries for a domain. Useful for finding exposed files, login pages, and sensitive information.',
+      { domain: z.string().describe('Domain to dork'), dork_type: z.enum(['files', 'login', 'sensitive', 'all']).optional().describe('Type of dorks to run') },
+      async ({ domain, dork_type }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          `/api/v1/google-dorks?domain=${encodeURIComponent(domain)}&type=${dork_type ?? 'all'}`,
+          this.apiKey
+        );
+        return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
+      }
+    );
+
+    // ── Crypto Trace ────────────────────────────────────────────────────
+    this.server.tool(
+      'trace_crypto_address',
+      'Trace a cryptocurrency wallet address. Returns balance, transaction history, and associated entities from blockchain explorers.',
+      { address: z.string().describe('Crypto wallet address'), chain: z.enum(['bitcoin', 'ethereum', 'monero']).optional().describe('Blockchain (default: auto-detect)') },
+      async ({ address, chain }) => {
+        const qs = new URLSearchParams({ address });
+        if (chain) qs.set('chain', chain);
+        const data = await apiFetch<Record<string, unknown>>(
+          `/api/v1/crypto-trace?${qs}`,
+          this.apiKey
+        );
+        return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
+      }
+    );
+
+    // ── Report Parser ───────────────────────────────────────────────────
+    this.server.tool(
+      'parse_threat_report',
+      'Parse a threat intelligence report or article to extract structured data: IOCs (IPs, domains, URLs, hashes), threat actors, malware families, MITRE ATT&CK techniques, CVEs, targeted sectors, and an executive summary. Use this when analyzing threat reports, blog posts, or incident write-ups.',
+      {
+        text: z.string().optional().describe('The report text to analyze'),
+        url: z.string().optional().describe('URL of the report to fetch and analyze'),
+      },
+      async ({ text, url }) => {
+        if (!text && !url) {
+          throw new Error('Either text or url must be provided');
+        }
+        const data = await apiFetch<Record<string, unknown>>(
+          '/api/v1/report/parse',
+          this.apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ text, url }),
+          }
+        );
+        return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
+      }
+    );
+
+    // ── IOC Lifecycle ───────────────────────────────────────────────────
+    this.server.tool(
+      'get_ioc_lifecycle',
+      'Get the lifecycle data for an IOC — when it first appeared, last seen, activity trend, and decay rate. Use this to understand if an indicator is still active or dormant.',
+      { indicator: z.string().describe('The IOC to get lifecycle data for') },
+      async ({ indicator }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          `/api/v1/ioc-lifecycle?indicator=${encodeURIComponent(indicator)}`,
+          this.apiKey
+        );
+        return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
+      }
+    );
+
+    // ── Trending IOCs ───────────────────────────────────────────────────
+    this.server.tool(
+      'get_trending_iocs',
+      'Get the most active IOCs in the last 24 hours. Returns indicators with highest observation counts and scores, useful for identifying emerging threats.',
+      {
+        limit: z.number().optional().describe('Max results (default 50, max 200)'),
+        type: z.enum(['ipv4', 'domain', 'url', 'hash']).optional().describe('Filter by indicator type'),
+      },
+      async ({ limit, type }) => {
+        const params = new URLSearchParams();
+        if (limit) params.set('limit', String(limit));
+        if (type) params.set('type', type);
+        const data = await apiFetch<Record<string, unknown>>(
+          `/api/v1/ioc-lifecycle/trending?${params}`,
+          this.apiKey
+        );
+        return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
+      }
+    );
+
+    // ── YARA Rule Generator ─────────────────────────────────────────────
+    this.server.tool(
+      'generate_yara_rule',
+      'Generate a YARA detection rule using AI. Provide a description of what to detect, and optionally known strings, malware family name, and target file type. Returns a syntactically valid YARA rule with metadata.',
+      {
+        description: z.string().describe('What the rule should detect (e.g., "Cobalt Strike beacon DLL")'),
+        strings: z.array(z.string()).optional().describe('Known malicious strings to match'),
+        family: z.string().optional().describe('Malware family name'),
+        filetype: z.string().optional().describe('Target file type (PE, ELF, document, etc.)'),
+        complexity: z.enum(['basic', 'standard', 'advanced']).optional().describe('Rule complexity level'),
+      },
+      async ({ description, strings, family, filetype, complexity }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          '/api/v1/yara/generate',
+          this.apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ description, strings, family, filetype, complexity }),
+          }
+        );
+        return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
+      }
+    );
+
+    // ── YARA Rule Validator ─────────────────────────────────────────────
+    this.server.tool(
+      'validate_yara_rule',
+      'Validate a YARA rule syntax. Checks for balanced braces, required sections, and proper string definitions.',
+      {
+        rule: z.string().describe('The YARA rule text to validate'),
+      },
+      async ({ rule }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          '/api/v1/yara/validate',
+          this.apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ rule }),
+          }
+        );
+        return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
+      }
+    );
+
+    // ── CT Domain Monitor ───────────────────────────────────────────────
+    this.server.tool(
+      'watch_domain_ct',
+      'Add a domain to Certificate Transparency monitoring. Alerts on new subdomains, suspicious patterns, wildcard certs, and more. Uses crt.sh for unlimited free CT log queries.',
+      {
+        domain: z.string().describe('Domain to monitor (e.g., example.com)'),
+        alert_types: z.array(z.enum(['new_subdomain', 'suspicious_name', 'wildcard', 'ca_change', 'short_validity', 'ip_cert'])).optional().describe('Types of alerts to generate'),
+      },
+      async ({ domain, alert_types }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          '/api/v1/ct-monitor/watch',
+          this.apiKey,
+          {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ domain, alert_types }),
+          }
+        );
+        return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
+      }
+    );
+
+    this.server.tool(
+      'get_domain_certs',
+      'Get recent certificates for a domain from Certificate Transparency logs. Shows new subdomains, certificate details, and any alerts.',
+      {
+        domain: z.string().describe('Domain to query'),
+        days: z.number().optional().describe('Look back period in days (default 30)'),
+        limit: z.number().optional().describe('Max results (default 100)'),
+      },
+      async ({ domain, days, limit }) => {
+        const params = new URLSearchParams({ domain });
+        if (days) params.set('days', String(days));
+        if (limit) params.set('limit', String(limit));
+        const data = await apiFetch<Record<string, unknown>>(
+          `/api/v1/ct-monitor/certs?${params}`,
+          this.apiKey
+        );
+        return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
+      }
+    );
   }
 }

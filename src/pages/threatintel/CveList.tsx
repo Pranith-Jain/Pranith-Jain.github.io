@@ -294,7 +294,7 @@ export default function CveList(): JSX.Element {
         error={error}
         empty={filtered.length === 0}
         emptyLabel="No CVEs match the current filter."
-        onRetry={() => setRefreshKey((k) => k + 1)}
+        onRetry={refetch}
         rows={8}
       >
         <ul className="space-y-2">

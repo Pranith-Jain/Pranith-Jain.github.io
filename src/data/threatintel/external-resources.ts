@@ -953,4 +953,96 @@ export const RESOURCES: ExternalResource[] = [
     description:
       'Community phishing verification platform — submit and verify suspected phishing URLs. Free API and downloadable database. Operated by OpenDNS/Cisco.',
   },
+  // ── New entries (2026-05-28) ─────────────────────────────────────────────
+  {
+    id: 'opengraph-intel',
+    name: 'OpenGraph Intel',
+    url: 'https://ogi.khas.app/',
+    kind: 'tool',
+    featured: true,
+    tags: ['osint', 'threat-intel'],
+    description:
+      'Open-source visual intelligence platform for OSINT link analysis and graph-based investigation workflows. Investigate entities, map relationships, and run graph-native transforms. Features username search, domain-to-IP pivoting, email-to-domain extraction, and HTTP header analysis.',
+  },
+  {
+    id: 'crowdsec-cti',
+    name: 'CrowdSec CTI',
+    url: 'https://www.crowdsec.net/cti-api',
+    kind: 'tool',
+    tags: ['threat-intel', 'c2', 'blocklist'],
+    description:
+      'Crowd-sourced threat intelligence API. IP reputation, attack categories, behaviors, and community trust scores. Free tier: 1000 lookups/month. Integrated into this platform\'s IOC checker.',
+  },
+  {
+    id: 'spur-us',
+    name: 'Spur.us',
+    url: 'https://spur.us/',
+    kind: 'tool',
+    tags: ['osint', 'threat-intel'],
+    description:
+      'VPN, proxy, and residential IP detection service. Identifies anonymization services and their providers. Free community endpoint available. Integrated into this platform\'s IP enrichment.',
+  },
+  {
+    id: 'ipinfo-io',
+    name: 'IPinfo.io',
+    url: 'https://ipinfo.io/',
+    kind: 'tool',
+    tags: ['osint'],
+    description:
+      'IP geolocation, ASN, company, and privacy detection API. 50k requests/month on free tier. Integrated into this platform\'s IP enrichment.',
+  },
+  {
+    id: 'criminalip',
+    name: 'CriminalIP',
+    url: 'https://www.criminalip.io/',
+    kind: 'tool',
+    tags: ['threat-intel', 'vulnerability'],
+    description:
+      'IP reputation and vulnerability scanning platform. Detects malware, botnets, phishing, mining, and remote access. Free tier: 100 lookups/month.',
+  },
+  {
+    id: 'shodan-internetdb',
+    name: 'Shodan InternetDB',
+    url: 'https://internetdb.shodan.io/',
+    kind: 'tool',
+    tags: ['osint', 'vulnerability'],
+    description:
+      'Free, keyless IP intelligence API from Shodan. Returns open ports, CVEs, hostnames, and tags for any IP address. Unlimited lookups. Integrated into this platform\'s IOC checker.',
+  },
+  {
+    id: 'phishstats',
+    name: 'PhishStats.info',
+    url: 'https://phishstats.info/',
+    kind: 'dashboard',
+    tags: ['phishing', 'threat-intel'],
+    description:
+      'Phishing URL statistics and reputation data. Score, first/last seen, target brand, hosting country. Free API, no authentication required. Integrated into this platform\'s IOC checker.',
+  },
+  {
+    id: 'feodo-tracker',
+    name: 'Feodo Tracker',
+    url: 'https://feodotracker.abuse.ch/',
+    kind: 'dashboard',
+    tags: ['c2', 'threat-intel', 'blocklist'],
+    description:
+      'Botnet C2 tracker by abuse.ch — tracks Dridex, Emotet, TrickBot, QakBot, and BazarLoader C2 servers. Free IP blocklists updated every 5 minutes. Integrated into this platform\'s IOC checker.',
+  },
+  {
+    id: 'digitalside-intel',
+    name: 'Digital Side Threat Intel',
+    url: 'https://github.com/davidonzo/Threat-Intel',
+    kind: 'dashboard',
+    tags: ['threat-intel', 'phishing', 'blocklist'],
+    description:
+      'Free threat intelligence feeds on GitHub — malware URLs, phishing URLs, C2 domains, and file hashes. Updated regularly. Integrated into this platform\'s IOC checker.',
+  },
+  {
+    id: 'taxii-server',
+    name: 'TAXII 2.1 Server',
+    url: 'https://pranithjain.qzz.io/api/taxii2/',
+    kind: 'tool',
+    tags: ['threat-intel'],
+    description:
+      'This platform\'s TAXII 2.1 server for automated threat intelligence sharing. Compatible with MISP, OpenCTI, Splunk SOAR, and other TAXII clients. Collections: IOCs, actors, malware, vulnerabilities, briefings.',
+  },
 ];

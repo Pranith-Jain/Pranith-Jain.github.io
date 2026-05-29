@@ -81,8 +81,18 @@ export class ProviderCache {
       await this.kv.put(this.kvKey(provider, indicator), JSON.stringify(value), {
         expirationTtl: ttl,
       });
-    } catch {
-      // non-fatal
+    } catch (err) {
+      // Log at warn level — a persistent KV failure means every provider
+      // lookup misses cache and hammers upstreams on every request.
+      console.warn(
+        JSON.stringify({
+          level: 'warn',
+          component: 'ProviderCache.set',
+          provider,
+          indicatorType: indicator.type,
+          error: err instanceof Error ? err.message : String(err),
+        })
+      );
     }
   }
 }

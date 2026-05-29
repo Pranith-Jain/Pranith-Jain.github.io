@@ -495,9 +495,13 @@ export async function buildStixBundle(
   ];
 
   // Relationships:
-  //   report   -refers-to-> {actor | malware | cve | indicator}
-  //   actor    -uses-> malware  (when both present in same report)
-  //   indicator -indicates-> malware (when indicator's enrichment tagged it)
+  //   report     -refers-to-> {actor | malware | cve | indicator}
+  //   actor      -uses-> malware  (when both present in same report)
+  //   actor      -targets-> vulnerability (when both present)
+  //   malware    -targets-> vulnerability (when both present)
+  //   indicator  -indicates-> malware (when indicator's enrichment tagged it)
+  //   indicator  -targets-> vulnerability (when IoC co-occurs with a CVE)
+  //   report     -uses-> attack-pattern
   const relationships: StixCommon[] = [];
 
   async function rel(sourceRef: string, type: string, targetRef: string) {
@@ -548,6 +552,41 @@ export async function buildStixBundle(
       if (!slugMatches) continue;
       const malwareId = malwareIdBySlug.get(m.slug);
       if (malwareId) await rel(indicatorId, 'indicates', malwareId);
+    }
+  }
+
+  // actor → targets → vulnerability (APT exploiting CVEs)
+  for (const a of entities.actors) {
+    const src = actorIdBySlug.get(a.slug);
+    if (!src) continue;
+    for (const c of entities.cves) {
+      const tgt = cveIdByName.get(c.id.toUpperCase());
+      if (tgt) await rel(src, 'targets', tgt);
+    }
+  }
+
+  // malware → targets → vulnerability (malware exploiting CVEs)
+  for (const m of entities.malware) {
+    const src = malwareIdBySlug.get(m.slug);
+    if (!src) continue;
+    for (const c of entities.cves) {
+      const tgt = cveIdByName.get(c.id.toUpperCase());
+      if (tgt) await rel(src, 'targets', tgt);
+    }
+  }
+
+  // indicator → targets → vulnerability (IoC co-occurs with CVE in same report)
+  // Only when the indicator is malicious/suspicious and CVEs are present.
+  if (entities.cves.length > 0) {
+    for (const ioc of entities.iocs) {
+      const enrich = enrichmentFor(bulk.enrichments, ioc);
+      if (enrich.verdict !== 'malicious' && enrich.verdict !== 'suspicious') continue;
+      const indicatorId = indicatorIdByKey.get(`${ioc.type}|${ioc.value.toLowerCase()}`);
+      if (!indicatorId) continue;
+      for (const c of entities.cves) {
+        const tgt = cveIdByName.get(c.id.toUpperCase());
+        if (tgt) await rel(indicatorId, 'targets', tgt);
+      }
     }
   }
 
@@ -662,9 +701,7 @@ export async function buildStixBundle(
     generatedAt: t,
     extractedHash: await extractedHash(report, entities),
   };
-  // Suppress unused-variable lint for the helper map (kept for future
-  // attack-pattern wiring without re-deriving).
-  void cveIdByName;
+  // cveIdByName is now used by the targets relationship builders above.
 
   return { bundle, view };
 }

@@ -493,7 +493,7 @@ export default function IocCorrelation(): JSX.Element {
             ? 'No correlated indicators match the current filter.'
             : 'No indicators currently appear in 2+ feeds. Either upstream feeds are degraded, or there is no current overlap.'
         }
-        onRetry={() => setRefreshKey((k) => k + 1)}
+        onRetry={refetch}
         rows={8}
       >
         <ul className="space-y-2">

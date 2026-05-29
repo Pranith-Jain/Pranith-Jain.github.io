@@ -62,9 +62,16 @@ export default function CertSearch(): JSX.Element {
       const url = `/api/v1/cert-search?domain=${encodeURIComponent(q)}&include_subdomains=${includeSubs ? '1' : '0'}`;
       const res = await fetch(url);
       if (!res.ok) {
-        const body = (await res.json().catch(() => ({}))) as { error?: string };
-        throw new Error(body.error ?? `HTTP ${res.status}`);
+        const body = await res.text().catch(() => '');
+        let msg = `HTTP ${res.status}`;
+        try {
+          const parsed = JSON.parse(body) as { error?: string };
+          msg = parsed.error ?? msg;
+        } catch { /* use default */ }
+        throw new Error(msg);
       }
+      const ct = res.headers.get('content-type') ?? '';
+      if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
       setData((await res.json()) as CertSearchResponse);
     } catch (e) {
       setError((e as Error).message);

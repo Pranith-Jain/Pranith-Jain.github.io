@@ -54,8 +54,8 @@ export async function updateWatchlistHandler(c: Context<{ Bindings: Env }>): Pro
     return c.json({ error: 'emails must be an array' }, 400);
   }
   const wl: Watchlist = {
-    domains: (body.domains ?? []).slice(0, 20).map((d) => String(d).toLowerCase().trim()),
-    emails: (body.emails ?? []).slice(0, 20).map((e) => String(e).toLowerCase().trim()),
+    domains: (body.domains ?? []).slice(0, 20).map((d: unknown) => String(d).toLowerCase().trim()),
+    emails: (body.emails ?? []).slice(0, 20).map((e: unknown) => String(e).toLowerCase().trim()),
   };
   await kv.put(WATCHLIST_KV_KEY, JSON.stringify(wl));
   return c.json({ ok: true, watchlist: wl });

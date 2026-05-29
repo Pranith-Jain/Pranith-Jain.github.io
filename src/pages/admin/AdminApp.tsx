@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { postJson, probeAuth } from './adminApi';
+import { readAdminToken, clearAdminToken } from '../../lib/admin-token';
 import AdminLogin from './AdminLogin';
 import PendingTab from './PendingTab';
 import ApprovedTab from './ApprovedTab';
@@ -104,7 +105,7 @@ export default function AdminApp() {
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      if (!localStorage.getItem('adminToken')) {
+      if (!readAdminToken()) {
         if (!cancelled) setAuthStatus('unauthed');
         return;
       }
@@ -112,7 +113,7 @@ export default function AdminApp() {
       if (cancelled) return;
       if (ok) setAuthStatus('authed');
       else {
-        localStorage.removeItem('adminToken');
+        clearAdminToken();
         setAuthStatus('unauthed');
       }
     })();
@@ -122,7 +123,7 @@ export default function AdminApp() {
   }, []);
 
   function logout() {
-    localStorage.removeItem('adminToken');
+    clearAdminToken();
     // Full reload guarantees every tab's in-flight fetch is dropped and that
     // any cached state is cleared — simpler than trying to reset per-tab.
     window.location.reload();

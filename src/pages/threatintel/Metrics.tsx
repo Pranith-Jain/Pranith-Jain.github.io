@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AttackHeatmap } from '../../components/threatintel/AttackHeatmap';
 import { BackLink } from '../../components/BackLink';
+import { fetchJson } from '../../lib/fetch-json';
 import {
   Activity,
   ArrowLeft,
@@ -393,34 +394,18 @@ export default function Metrics(): JSX.Element {
       try {
         const [rRes, cRes, pRes, tmRes, mRes, rlRes, c2Res, brRes, plRes, ddcRes, mtiCveRes, mtiGrpRes] =
           await Promise.allSettled([
-            fetch('/api/v1/ransomware-recent', opts).then((r) =>
-              r.ok ? r.json() : Promise.reject(`ransomware ${r.status}`)
-            ),
-            fetch('/api/v1/cve-recent', opts).then((r) => (r.ok ? r.json() : Promise.reject(`cve ${r.status}`))),
-            fetch('/api/v1/phishing-urls', opts).then((r) =>
-              r.ok ? r.json() : Promise.reject(`phishing ${r.status}`)
-            ),
-            fetch('/api/v1/threat-map', opts).then((r) => (r.ok ? r.json() : Promise.reject(`threat-map ${r.status}`))),
-            fetch('/api/v1/malware-samples', opts).then((r) =>
-              r.ok ? r.json() : Promise.reject(`malware ${r.status}`)
-            ),
-            fetch('/api/v1/victim-releaks', opts).then((r) =>
-              r.ok ? r.json() : Promise.reject(`releaks ${r.status}`)
-            ),
-            fetch('/api/v1/c2-tracker', opts).then((r) => (r.ok ? r.json() : Promise.reject(`c2 ${r.status}`))),
-            fetch('/api/v1/breach-disclosures', opts).then((r) =>
-              r.ok ? r.json() : Promise.reject(`breach ${r.status}`)
-            ),
-            fetch('/api/v1/threat-pulse', opts).then((r) => (r.ok ? r.json() : Promise.reject(`pulse ${r.status}`))),
-            fetch('/api/v1/deepdarkcti', opts).then((r) =>
-              r.ok ? r.json() : Promise.reject(`deepdarkcti ${r.status}`)
-            ),
-            fetch('/api/v1/mti?source=cve&limit=200', opts).then((r) =>
-              r.ok ? r.json() : Promise.reject(`mti-cve ${r.status}`)
-            ),
-            fetch('/api/v1/mti?source=groups&limit=300', opts).then((r) =>
-              r.ok ? r.json() : Promise.reject(`mti-groups ${r.status}`)
-            ),
+            fetchJson('/api/v1/ransomware-recent', opts),
+            fetchJson('/api/v1/cve-recent', opts),
+            fetchJson('/api/v1/phishing-urls', opts),
+            fetchJson('/api/v1/threat-map', opts),
+            fetchJson('/api/v1/malware-samples', opts),
+            fetchJson('/api/v1/victim-releaks', opts),
+            fetchJson('/api/v1/c2-tracker', opts),
+            fetchJson('/api/v1/breach-disclosures', opts),
+            fetchJson('/api/v1/threat-pulse', opts),
+            fetchJson('/api/v1/deepdarkcti', opts),
+            fetchJson('/api/v1/mti?source=cve&limit=200', opts),
+            fetchJson('/api/v1/mti?source=groups&limit=300', opts),
           ]);
         if (cancelled) return;
 

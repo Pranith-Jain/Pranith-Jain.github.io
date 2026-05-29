@@ -1,5 +1,6 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { getJson, postJsonWithBody } from './adminApi';
+import { adminAuthHeaders } from '../../lib/admin-token';
 
 interface ApiKey {
   id: string;
@@ -75,10 +76,7 @@ export default function ApiKeysTab() {
     try {
       const r = await fetch(`/api/v1/admin/keys/${id}`, {
         method: 'DELETE',
-        headers: {
-          'X-Admin-Token': localStorage.getItem('adminToken') ?? '',
-          Authorization: `Bearer ${localStorage.getItem('adminToken') ?? ''}`,
-        },
+        headers: adminAuthHeaders(),
       });
       if (!r.ok) throw new Error(`${r.status}`);
       void loadKeys();

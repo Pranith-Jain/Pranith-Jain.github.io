@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { AlertOctagon, ArrowLeft, ExternalLink, RefreshCw, Search } from 'lucide-react';
 import { DataState } from '../../components/DataState';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 
 /**
  * /threatintel/cyber-crime — live aggregation of cyber fraud + cyber crime
@@ -267,6 +268,17 @@ export default function CyberCrime(): JSX.Element {
           className="w-full pl-9 pr-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
         />
       </div>
+
+      {filtered.length > 0 && (
+        <AiSummaryCard
+          surface="Cybercrime"
+          items={filtered.slice(0, 30).map((it) => ({
+            title: it.title,
+            body: it.description ?? '',
+            source: it.source,
+          }))}
+        />
+      )}
 
       <DataState
         loading={loading && !data}

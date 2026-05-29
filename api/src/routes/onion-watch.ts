@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { fetchResilient } from '../lib/fetch-resilient';
 
 /**
  * .onion leak-site mirror tracker.
@@ -101,19 +102,14 @@ export interface OnionWatchResponse {
 }
 
 async function fetchJson<T>(url: string): Promise<T | null> {
-  const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
   try {
-    const r = await fetch(url, {
-      signal: ctrl.signal,
+    const r = await fetchResilient(url, {
       headers: { accept: 'application/json', 'user-agent': 'pranithjain-dfir/1.0' },
-    });
+    }, { attempts: 3, timeoutMs: FETCH_TIMEOUT_MS });
     if (!r.ok) return null;
     return (await r.json()) as T;
   } catch {
     return null;
-  } finally {
-    clearTimeout(timer);
   }
 }
 

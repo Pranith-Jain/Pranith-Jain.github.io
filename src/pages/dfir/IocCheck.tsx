@@ -261,7 +261,12 @@ export default function IocCheck(): JSX.Element {
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ mode: 'iocs', input: iocs.join('\n') }),
       });
-      if (!r.ok) throw new Error(r.statusText);
+      if (!r.ok) {
+        const body = await r.text().catch(() => '');
+        throw new Error(body ? `${r.status}: ${body.slice(0, 100)}` : r.statusText);
+      }
+      const ct = r.headers.get('content-type') ?? '';
+      if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
       const data = (await r.json()) as { bundle: { id: string } };
       setStixBundleId(data.bundle.id);
     } catch {

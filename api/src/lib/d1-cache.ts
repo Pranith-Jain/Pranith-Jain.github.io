@@ -10,14 +10,25 @@
 
 const QUERY_CACHE_TTL = 30; // seconds
 
+/**
+ * Generate a cache key for a D1 query.
+ * Uses a simple hash for short keys, but includes a truncated digest
+ * to reduce collision risk.
+ */
 function queryKey(sql: string, ...params: unknown[]): string {
   const data = JSON.stringify({ sql, params });
-  let hash = 0;
-  for (let i = 0; i < data.length; i++) {
-    hash = ((hash << 5) - hash + data.charCodeAt(i)) | 0;
+  // Use a deterministic but collision-resistant key.
+  // For short queries, the full encoded string is fine.
+  // For long queries, hash with a simple FNV-1a variant.
+  if (data.length < 100) {
+    return `https://d1-cache.internal/q/${encodeURIComponent(data)}`;
   }
-  // Use a fixed scheme key so the cache URL is valid.
-  return `https://d1-cache.internal/q/${Math.abs(hash).toString(36)}`;
+  let hash = 2166136261; // FNV offset basis
+  for (let i = 0; i < data.length; i++) {
+    hash ^= data.charCodeAt(i);
+    hash = (hash * 16777619) >>> 0; // FNV prime
+  }
+  return `https://d1-cache.internal/q/${hash.toString(36)}`;
 }
 
 /**

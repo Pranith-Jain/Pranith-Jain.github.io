@@ -1,6 +1,10 @@
-import { featuredArticles } from '../../data/content';
+import type { FeaturedArticle } from '../../core/entities';
 
-export function Featured() {
+interface FeaturedProps {
+  featuredArticles: FeaturedArticle[];
+}
+
+export function Featured({ featuredArticles }: FeaturedProps) {
   return (
     <section id="featured" className="mt-20 scroll-mt-24">
       {/* Header — section contains external interviews and expert

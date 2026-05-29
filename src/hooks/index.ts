@@ -14,3 +14,4 @@ export {
 export { useDFIRSettings } from './useDFIRSettings';
 export { useLastVisit, isNewSince } from './useLastVisit';
 export { useDataFetch } from './useDataFetch';
+export { useApi } from './useApi';

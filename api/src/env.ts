@@ -32,7 +32,7 @@ export interface Env {
    *  the tool route returns 503 when unset. */
   SERPAPI_API_KEY?: string;
   DFIR_DEV_ERRORS?: string;
-  DFIR_ANALYTICS?: AnalyticsEngineDataset;
+  AJ_analytics?: AnalyticsEngineDataset;
   ADMIN_TOKEN: string;
   /** ransomware.live PRO API key (set via `wrangler secret put`). Optional —
    *  the /api/v1/rl/* proxy degrades to 503 when unset. */
@@ -78,5 +78,16 @@ export interface Env {
   CF_API_TOKEN?: string;
   /** Triage (tria.ge) API key. Set via `wrangler secret put TRIAGE_API_KEY`. */
   TRIAGE_API_KEY?: string;
+  /** CrowdSec CTI API key (free registration at crowdsec.net). Optional —
+   *  the /api/v1/ioc/check CrowdSec provider degrades to 'unsupported'
+   *  when unset. Free tier: 1000 lookups/month. */
+  CROWDSEC_API_KEY?: string;
+  /** IPinfo.io access token (free registration at ipinfo.io). Optional —
+   *  improves rate limits from ~50/day to 50k/month. */
+  IPINFO_TOKEN?: string;
+  /** CriminalIP API key (free registration at criminalip.io). Optional —
+   *  the /api/v1/ioc/check CriminalIP provider degrades to 'unsupported'
+   *  when unset. Free tier: 100 lookups/month. */
+  CRIMINALIP_API_KEY?: string;
 
 }

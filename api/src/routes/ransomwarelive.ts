@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { fetchResilient } from '../lib/fetch-resilient';
 import { safeErrorMessage } from '../lib/error';
 
 /**
@@ -70,10 +71,9 @@ export async function fetchRlUpstream(env: Env, path: string): Promise<unknown |
   const apiKey = env.RANSOMWARELIVE_API_KEY;
   if (!apiKey) return null;
   try {
-    const r = await fetch(`${API_BASE}${path}`, {
+    const r = await fetchResilient(`${API_BASE}${path}`, {
       headers: { 'X-API-KEY': apiKey, Accept: 'application/json' },
-      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-    });
+    }, { attempts: 3, timeoutMs: FETCH_TIMEOUT_MS });
     if (!r.ok) return null;
     return (await r.json()) as unknown;
   } catch {

@@ -1,14 +1,12 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import { stats } from '../../data/content';
+import type { StatItem } from '../../core/entities';
 
-/**
- * About — editorial prose. No glass terminal mock, no decorative blurred
- * blobs. The page reads as text first; the stat strip below uses the same
- * minimal `dl` rhythm as the home Hero status block so the two sections
- * feel like one design language.
- */
-export function About() {
+interface AboutProps {
+  stats: StatItem[];
+}
+
+export function About({ stats }: AboutProps) {
   return (
     <section id="about" className="mt-20 scroll-mt-24">
       <div className="max-w-3xl">

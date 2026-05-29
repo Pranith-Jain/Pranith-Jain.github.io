@@ -1,4 +1,4 @@
-import { Suspense, lazy, useCallback, useEffect, useMemo, useState, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   ReactFlow,
   Background,
@@ -13,7 +13,7 @@ import {
 import dagre from 'dagre';
 import '@xyflow/react/dist/style.css';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Search, Loader2, AlertTriangle, ExternalLink, Hash, Bug, TrendingUp, Network } from 'lucide-react';
+import { ArrowLeft, Search, Loader2, AlertTriangle, Bug, TrendingUp, Network } from 'lucide-react';
 
 type GraphNodeType =
   | 'cve' | 'actor' | 'ransomware' | 'malware' | 'campaign'

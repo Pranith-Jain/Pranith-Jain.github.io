@@ -142,6 +142,81 @@
   }
 }
 
+/* ─────────────────────────────────────────────────────────────────────
+   WCAG AA Contrast Fixes
+   
+   Problem: Tailwind's slate-400 (#94a3b8) has only 3.3:1 contrast on
+   white backgrounds. WCAG AA requires 4.5:1 for text under 18px.
+   
+   Fix: Override the light-mode contrast for metadata text, small labels,
+   and badge text to use slate-600 (#475569, 7.1:1) or slate-500
+   (#64748b, 4.6:1) instead.
+   ───────────────────────────────────────────────────────────────────── */
+
+/* Small metadata text (10-12px) needs higher contrast */
+text-\[10px\].text-slate-400 {
+  color: #475569; /* slate-600, 7.1:1 on white */
+}
+
+.dark text-\[10px\].text-slate-400 {
+  color: #94a3b8; /* slate-400 stays in dark mode */
+}
+
+text-\[11px\].text-slate-400 {
+  color: #475569;
+}
+
+.dark text-\[11px\].text-slate-400 {
+  color: #94a3b8;
+}
+
+text-xs.text-slate-400 {
+  color: #475569;
+}
+
+.dark text-xs.text-slate-400 {
+  color: #94a3b8;
+}
+
+/* Labels and captions */
+.text-\[10px\].font-mono.uppercase {
+  color: #475569;
+}
+
+.dark .text-\[10px\].font-mono.uppercase {
+  color: #94a3b8;
+}
+
+/* Ensure all small text in light mode has sufficient contrast */
+/* Note: site uses class-based dark mode, not prefers-color-scheme */
+.text-slate-400 {
+  /* In light mode, slate-400 has poor contrast. Override to slate-600. */
+  color: #475569; /* slate-600 */
+}
+
+/* Restore slate-400 in dark mode where it has good contrast on dark bg */
+.dark .text-slate-400 {
+  color: #94a3b8;
+}
+
+.text-slate-500 {
+  color: #334155; /* slate-700 for better light-mode contrast */
+}
+
+.dark .text-slate-500 {
+  color: #64748b;
+}
+
+/* Badge text contrast — ensure badge text is readable regardless of bg */
+.font-mono.text-\[10px\] {
+  /* Already small; ensure weight helps readability */
+  font-weight: 500;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   End WCAG AA Contrast Fixes
+   ───────────────────────────────────────────────────────────────────── */
+
 /* Reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   *,

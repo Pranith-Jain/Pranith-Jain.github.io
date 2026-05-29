@@ -1,8 +1,12 @@
 import { Link } from 'react-router-dom';
-import { personalInfo } from '../../data/content';
+import type { PersonalInfo } from '../../core/entities';
 import { HeroLiveSparkline } from '../HeroLiveSparkline';
 
-export function Hero() {
+interface HeroProps {
+  personalInfo: PersonalInfo;
+}
+
+export function Hero({ personalInfo }: HeroProps) {
   return (
     <section className="relative pt-4 lg:pt-6">
       <div className="animate-fade-in-up max-w-3xl">

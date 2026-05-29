@@ -144,8 +144,10 @@ export async function generateApiKey(
   keyId: string;
   prefix: string;
 }> {
-  const hex = 'abcdef0123456789';
-  const raw = Array.from({ length: 40 }, () => hex[Math.floor(Math.random() * 16)]).join('');
+  // Use cryptographically secure random — Math.random() is predictable.
+  const bytes = new Uint8Array(20);
+  crypto.getRandomValues(bytes);
+  const raw = Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('');
   const prefix = raw.slice(0, 8);
   const hashed = await hashKey(raw);
   const keyId = crypto.randomUUID();

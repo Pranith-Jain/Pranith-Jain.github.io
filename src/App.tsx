@@ -1,4 +1,4 @@
-import { useEffect, Suspense, lazy } from 'react';
+import { useEffect, Suspense, lazy, useMemo } from 'react';
 import { BrowserRouter, Routes, Route, useLocation, useParams, Navigate, useSearchParams } from 'react-router-dom';
 import { useTheme, useScrollProgress } from './hooks';
 import { Header } from './components/Header';
@@ -9,7 +9,7 @@ import { ScrollProgress, BackToTop } from './components/ui';
 import { Layout } from './components/Layout';
 import { AppShell } from './components/AppShell';
 import { BackgroundLayer } from './components/BackgroundLayer';
-import { ErrorBoundary } from './components/ErrorBoundary';
+import { LazyRoute } from './components/LazyRoute';
 
 const CommandPalette = lazy(() => import('./components/dfir/CommandPalette').then(m => ({ default: m.CommandPalette })));
 
@@ -94,7 +94,23 @@ const Diamond = lazy(() => import('./pages/dfir/Diamond'));
 const Lolbins = lazy(() => import('./pages/dfir/Lolbins'));
 const RulePlayground = lazy(() => import('./pages/dfir/RulePlayground'));
 const YaraManager = lazy(() => import('./pages/dfir/YaraManager'));
-const DetectionLab = lazy(() => import('./pages/dfir/DetectionLab'));
+const ReportParser = lazy(() => import('./pages/dfir/ReportParser'));
+const IocLifecycle = lazy(() => import('./pages/dfir/IocLifecycle'));
+const CtMonitor = lazy(() => import('./pages/dfir/CtMonitor'));
+const StealerParser = lazy(() => import('./pages/dfir/StealerParser'));
+const TaxiiServer = lazy(() => import('./pages/dfir/TaxiiServer'));
+const BloomFilter = lazy(() => import('./pages/dfir/BloomFilter'));
+const AiRuleGenerator = lazy(() => import('./pages/dfir/AiRuleGenerator'));
+const ThreatGraph = lazy(() => import('./pages/dfir/ThreatGraph'));
+const AttackChain = lazy(() => import('./pages/dfir/AttackChain'));
+const ActorDNA = lazy(() => import('./pages/threatintel/ActorDNA'));
+const PredictiveIntel = lazy(() => import('./pages/threatintel/PredictiveIntel'));
+const CampaignLifecycle = lazy(() => import('./pages/threatintel/CampaignLifecycle'));
+const AttributionFramework = lazy(() => import('./pages/threatintel/AttributionFramework'));
+const CrossCampaignCorrelation = lazy(() => import('./pages/threatintel/CrossCampaignCorrelation'));
+const HuntingQueryGenerator = lazy(() => import('./pages/dfir/HuntingQueryGenerator'));
+const SandboxIntegration = lazy(() => import('./pages/dfir/SandboxIntegration'));
+const IrPlaybooks = lazy(() => import('./pages/dfir/IrPlaybooks')); const DetectionLab = lazy(() => import('./pages/dfir/DetectionLab'));
 const EmailDefense = lazy(() => import('./pages/dfir/EmailDefense'));
 const Nhi = lazy(() => import('./pages/dfir/Nhi'));
 const PowershellDeobf = lazy(() => import('./pages/dfir/PowershellDeobf'));
@@ -227,13 +243,6 @@ function DfirFileRedirect() {
   return <Navigate to={target} replace />;
 }
 
-function SectionLoader() {
-  return (
-    <div className="min-h-[200px] flex items-center justify-center" aria-hidden="true">
-      <div className="w-8 h-8 border-2 border-brand-200 border-t-brand-600 rounded-full animate-spin" />
-    </div>
-  );
-}
 
 export function AppContent() {
   const { isDark, toggleTheme } = useTheme();
@@ -264,917 +273,117 @@ export function AppContent() {
     }
   }, [location.pathname, location.hash]);
 
-  const routes = (
+  const routes = useMemo(() => (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route
-        path="/about"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <About />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/skills"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <Skills />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/experience"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <Experience />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/projects"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <Projects />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      {/* Long-form case studies. Same Projects layout flows the visitor
-          here via the index card; deep links resolve as well. */}
-      <Route
-        path="/projects/:slug"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <CaseStudy />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/copilot"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <CopilotPage />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/blog"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <Blog />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      {/* Category landing — /blog/c/:type. Same component as /blog; the
-          page picks up the type from useParams and renders in category
-          mode (different H1 + intro, type filter locked). */}
-      <Route
-        path="/blog/c/:type"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <Blog />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/blog/:slug"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <BlogPost />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <DFIR />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/ioc-check"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <IocCheck />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/phishing"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <Phishing />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/domain"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <Domain />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/domain-rep"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <DomainReputation />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/full-spectrum"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <FullSpectrum />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/exposure"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <Exposure />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      {/* Hash Analyzer was merged into the IOC Checker, which already handles hashes.
-          Legacy ?h=<hash> deep links need to translate to ?indicator=<hash> so the
-          target page auto-populates instead of dropping the param on the floor. */}
+      <Route path="/about" element={<LazyRoute><About /></LazyRoute>} />
+      <Route path="/skills" element={<LazyRoute><Skills /></LazyRoute>} />
+      <Route path="/experience" element={<LazyRoute><Experience /></LazyRoute>} />
+      <Route path="/projects" element={<LazyRoute><Projects /></LazyRoute>} />
+      <Route path="/projects/:slug" element={<LazyRoute><CaseStudy /></LazyRoute>} />
+      <Route path="/copilot" element={<LazyRoute><CopilotPage /></LazyRoute>} />
+      <Route path="/blog" element={<LazyRoute><Blog /></LazyRoute>} />
+      <Route path="/blog/c/:type" element={<LazyRoute><Blog /></LazyRoute>} />
+      <Route path="/blog/:slug" element={<LazyRoute><BlogPost /></LazyRoute>} />
+      <Route path="/dfir" element={<LazyRoute><DFIR /></LazyRoute>} />
+      <Route path="/dfir/ioc-check" element={<LazyRoute><IocCheck /></LazyRoute>} />
+      <Route path="/dfir/phishing" element={<LazyRoute><Phishing /></LazyRoute>} />
+      <Route path="/dfir/domain" element={<LazyRoute><Domain /></LazyRoute>} />
+      <Route path="/dfir/domain-rep" element={<LazyRoute><DomainReputation /></LazyRoute>} />
+      <Route path="/dfir/full-spectrum" element={<LazyRoute><FullSpectrum /></LazyRoute>} />
+      <Route path="/dfir/exposure" element={<LazyRoute><Exposure /></LazyRoute>} />
       <Route path="/dfir/file" element={<DfirFileRedirect />} />
+      <Route path="/threatintel/pulse" element={<LazyRoute><ThreatPulse /></LazyRoute>} />
+      <Route path="/threatintel/wiki" element={<LazyRoute><Wiki /></LazyRoute>} />
+      <Route path="/threatintel/wiki/:slug" element={<LazyRoute><WikiArticle /></LazyRoute>} />
+      <Route path="/dfir/dashboard" element={<LazyRoute><Dashboard /></LazyRoute>} />
+      <Route path="/threatintel/actor-kb" element={<LazyRoute><ActorKb /></LazyRoute>} />
+      <Route path="/threatintel/actor-dna" element={<LazyRoute><ActorDNA /></LazyRoute>} />
+      <Route path="/threatintel/predictive" element={<LazyRoute><PredictiveIntel /></LazyRoute>} />
+      <Route path="/threatintel/campaign-lifecycle" element={<LazyRoute><CampaignLifecycle /></LazyRoute>} />
+      <Route path="/threatintel/attribution" element={<LazyRoute><AttributionFramework /></LazyRoute>} />
       <Route
-        path="/threatintel/pulse"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <ThreatPulse />
-            </Suspense>
-          </ErrorBoundary>
-        }
+        path="/threatintel/intelligence-gaps"
+        element={<Navigate to="/threatintel/status" replace />}
       />
-      <Route
-        path="/threatintel/wiki"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <Wiki />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/wiki/:slug"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <WikiArticle />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/dashboard"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <Dashboard />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/actor-kb"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <ActorKb />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/actors"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <Actors />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/actors/:slug"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <ActorDetail />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/privacy"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <Privacy />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/briefings"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <Briefings />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/briefings/:slug"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <BriefingDetail />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/cve"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <Cve />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/decode"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <Decode />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/encoder"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <Encoder />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/cert-search"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <CertSearch />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/atlas"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <AtlasMatrix />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/atlas"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <AtlasMatrix />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/asn"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <AsnLookup />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/breach"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <Breach />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/exif"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <ExifParse />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/mitre"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <MitreMatrix />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/url-preview"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <UrlPreview />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/extract"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <IocExtractor />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/ioc-pivot"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <IocPivot />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/jwt"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <JwtInspect />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/google-dorks"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <GoogleDorks />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/iam-analyzer"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <IamPolicyAnalyzer />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/sg-analyzer"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <SecurityGroupAnalyzer />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/cloudtrail-triage"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <CloudTrailTriage />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/k8s-rbac"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <K8sRbacAnalyzer />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/cve-prioritizer"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <CvePrioritizer />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
+      <Route path="/threatintel/cross-campaign" element={<LazyRoute><CrossCampaignCorrelation /></LazyRoute>} />
+      <Route path="/threatintel/actors" element={<LazyRoute><Actors /></LazyRoute>} />
+      <Route path="/threatintel/actors/:slug" element={<LazyRoute><ActorDetail /></LazyRoute>} />
+      <Route path="/dfir/privacy" element={<LazyRoute><Privacy /></LazyRoute>} />
+      <Route path="/threatintel/briefings" element={<LazyRoute><Briefings /></LazyRoute>} />
+      <Route path="/threatintel/briefings/:slug" element={<LazyRoute><BriefingDetail /></LazyRoute>} />
+      <Route path="/dfir/cve" element={<LazyRoute><Cve /></LazyRoute>} />
+      <Route path="/dfir/decode" element={<LazyRoute><Decode /></LazyRoute>} />
+      <Route path="/dfir/encoder" element={<LazyRoute><Encoder /></LazyRoute>} />
+      <Route path="/dfir/cert-search" element={<LazyRoute><CertSearch /></LazyRoute>} />
+      <Route path="/dfir/atlas" element={<LazyRoute><AtlasMatrix /></LazyRoute>} />
+      <Route path="/threatintel/atlas" element={<LazyRoute><AtlasMatrix /></LazyRoute>} />
+      <Route path="/dfir/asn" element={<LazyRoute><AsnLookup /></LazyRoute>} />
+      <Route path="/dfir/breach" element={<LazyRoute><Breach /></LazyRoute>} />
+      <Route path="/dfir/exif" element={<LazyRoute><ExifParse /></LazyRoute>} />
+      <Route path="/threatintel/mitre" element={<LazyRoute><MitreMatrix /></LazyRoute>} />
+      <Route path="/dfir/url-preview" element={<LazyRoute><UrlPreview /></LazyRoute>} />
+      <Route path="/dfir/extract" element={<LazyRoute><IocExtractor /></LazyRoute>} />
+      <Route path="/dfir/ioc-pivot" element={<LazyRoute><IocPivot /></LazyRoute>} />
+      <Route path="/dfir/jwt" element={<LazyRoute><JwtInspect /></LazyRoute>} />
+      <Route path="/dfir/google-dorks" element={<LazyRoute><GoogleDorks /></LazyRoute>} />
+      <Route path="/dfir/iam-analyzer" element={<LazyRoute><IamPolicyAnalyzer /></LazyRoute>} />
+      <Route path="/dfir/sg-analyzer" element={<LazyRoute><SecurityGroupAnalyzer /></LazyRoute>} />
+      <Route path="/dfir/cloudtrail-triage" element={<LazyRoute><CloudTrailTriage /></LazyRoute>} />
+      <Route path="/dfir/k8s-rbac" element={<LazyRoute><K8sRbacAnalyzer /></LazyRoute>} />
+      <Route path="/dfir/cve-prioritizer" element={<LazyRoute><CvePrioritizer /></LazyRoute>} />
       <Route path="/dfir/sigma-convert" element={<Navigate to="/dfir/rule-converter" replace />} />
-      <Route
-        path="/dfir/rule-converter"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <RuleConverter />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/linux-triage"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <LinuxTriage />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/terraform-scan"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <TerraformScanner />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/gcp-iam"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <GcpIamAnalyzer />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/azure-rbac"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <AzureRbacAnalyzer />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/openapi-audit"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <OpenApiAuditor />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/sec-headers"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <SecHeadersAnalyzer />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/secret-scan"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <SecretScanner />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/graphql-audit"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <GraphqlAuditor />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/osv-scan"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <OsvScanner />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/punycode"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <Punycode />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/takeover"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <Takeover />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/stix"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <StixViewer />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/stix-builder"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <StixBuilder />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/stix-builder/b/:bundleId"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <StixBuilder />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/darkweb"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <DarkWeb />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/ransomware-activity"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <RansomwareActivityPage />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/ransomware-map"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <RansomwareGeoMap />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/certstream"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <CertStreamLive />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/campaign-generator"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <CampaignGenerator />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/campaigns"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <Campaigns />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/campaigns/:id"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <CampaignDetail />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/malicious-packages"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <MaliciousPackages />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/x-watch"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <XWatch />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/x-live"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <XLive />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/mythreatintel"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <MyThreatIntelPage />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
+      <Route path="/dfir/rule-converter" element={<LazyRoute><RuleConverter /></LazyRoute>} />
+      <Route path="/dfir/linux-triage" element={<LazyRoute><LinuxTriage /></LazyRoute>} />
+      <Route path="/dfir/terraform-scan" element={<LazyRoute><TerraformScanner /></LazyRoute>} />
+      <Route path="/dfir/gcp-iam" element={<LazyRoute><GcpIamAnalyzer /></LazyRoute>} />
+      <Route path="/dfir/azure-rbac" element={<LazyRoute><AzureRbacAnalyzer /></LazyRoute>} />
+      <Route path="/dfir/openapi-audit" element={<LazyRoute><OpenApiAuditor /></LazyRoute>} />
+      <Route path="/dfir/sec-headers" element={<LazyRoute><SecHeadersAnalyzer /></LazyRoute>} />
+      <Route path="/dfir/secret-scan" element={<LazyRoute><SecretScanner /></LazyRoute>} />
+      <Route path="/dfir/graphql-audit" element={<LazyRoute><GraphqlAuditor /></LazyRoute>} />
+      <Route path="/dfir/osv-scan" element={<LazyRoute><OsvScanner /></LazyRoute>} />
+      <Route path="/dfir/punycode" element={<LazyRoute><Punycode /></LazyRoute>} />
+      <Route path="/dfir/takeover" element={<LazyRoute><Takeover /></LazyRoute>} />
+      <Route path="/dfir/stix" element={<LazyRoute><StixViewer /></LazyRoute>} />
+      <Route path="/dfir/stix-builder" element={<LazyRoute><StixBuilder /></LazyRoute>} />
+      <Route path="/dfir/stix-builder/b/:bundleId" element={<LazyRoute><StixBuilder /></LazyRoute>} />
+      <Route path="/threatintel/darkweb" element={<LazyRoute><DarkWeb /></LazyRoute>} />
+      <Route path="/threatintel/ransomware-activity" element={<LazyRoute><RansomwareActivityPage /></LazyRoute>} />
+      <Route path="/threatintel/ransomware-map" element={<LazyRoute><RansomwareGeoMap /></LazyRoute>} />
+      <Route path="/threatintel/certstream" element={<LazyRoute><CertStreamLive /></LazyRoute>} />
+      <Route path="/threatintel/campaign-generator" element={<LazyRoute><CampaignGenerator /></LazyRoute>} />
+      <Route path="/threatintel/campaigns" element={<LazyRoute><Campaigns /></LazyRoute>} />
+      <Route path="/threatintel/campaigns/:id" element={<LazyRoute><CampaignDetail /></LazyRoute>} />
+      <Route path="/threatintel/malicious-packages" element={<LazyRoute><MaliciousPackages /></LazyRoute>} />
+      <Route path="/threatintel/x-watch" element={<LazyRoute><XWatch /></LazyRoute>} />
+      <Route path="/threatintel/x-live" element={<LazyRoute><XLive /></LazyRoute>} />
+      <Route path="/threatintel/mythreatintel" element={<LazyRoute><MyThreatIntelPage /></LazyRoute>} />
       <Route path="/threatintel/mti" element={<Navigate to="/threatintel/mythreatintel" replace />} />
-      <Route
-        path="/threatintel/cybersec"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <CybersecTelegramPage />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/breach"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <BreachDisclosuresPage />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/reddit"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <RedditFirehosePage />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/x"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <XFirehosePage />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/status"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <FeedStatusPage />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/metrics"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <MetricsPage />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/correlation"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <IocCorrelationPage />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/actor-timeline"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <ActorTimelinePage />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/re-leaks"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <VictimReleaksPage />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/live-iocs"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <LiveIocsPage />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/detections"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <DetectionsPage />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/cyber-crime"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <CyberCrimePage />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/c2-tracker"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <C2TrackerPage />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/writeups"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <Writeups />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
+      <Route path="/threatintel/cybersec" element={<LazyRoute><CybersecTelegramPage /></LazyRoute>} />
+      <Route path="/threatintel/breach" element={<LazyRoute><BreachDisclosuresPage /></LazyRoute>} />
+      <Route path="/threatintel/reddit" element={<LazyRoute><RedditFirehosePage /></LazyRoute>} />
+      <Route path="/threatintel/x" element={<LazyRoute><XFirehosePage /></LazyRoute>} />
+      <Route path="/threatintel/status" element={<LazyRoute><FeedStatusPage /></LazyRoute>} />
+      <Route path="/threatintel/metrics" element={<LazyRoute><MetricsPage /></LazyRoute>} />
+      <Route path="/threatintel/correlation" element={<LazyRoute><IocCorrelationPage /></LazyRoute>} />
+      <Route path="/threatintel/actor-timeline" element={<LazyRoute><ActorTimelinePage /></LazyRoute>} />
+      <Route path="/threatintel/re-leaks" element={<LazyRoute><VictimReleaksPage /></LazyRoute>} />
+      <Route path="/threatintel/live-iocs" element={<LazyRoute><LiveIocsPage /></LazyRoute>} />
+      <Route path="/threatintel/detections" element={<LazyRoute><DetectionsPage /></LazyRoute>} />
+      <Route path="/threatintel/cyber-crime" element={<LazyRoute><CyberCrimePage /></LazyRoute>} />
+      <Route path="/threatintel/c2-tracker" element={<LazyRoute><C2TrackerPage /></LazyRoute>} />
+      <Route path="/threatintel/writeups" element={<LazyRoute><Writeups /></LazyRoute>} />
       {/* High-signal subset of /writeups — elite vendor labs +
           independent research only. Reuses the same /api/v1/writeups
           endpoint with `?tier=signal`. */}
-      <Route
-        path="/threatintel/signal"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <ResearchSignal />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
+      <Route path="/threatintel/signal" element={<LazyRoute><ResearchSignal /></LazyRoute>} />
       {/* Original Pranith-authored threat-intel research. /research is the
           index, /research/<slug> is the read page. Lives separately from
           /signal and /writeups (both aggregate third-party content) so
           authored work has its own surface. */}
-      <Route
-        path="/threatintel/research"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <ResearchIndex />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/research/:slug"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <ResearchPostPage />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
+      <Route path="/threatintel/research" element={<LazyRoute><ResearchIndex /></LazyRoute>} />
+      <Route path="/threatintel/research/:slug" element={<LazyRoute><ResearchPostPage /></LazyRoute>} />
       {/* 2026-05-11: per-type IOC pages (urls/domains/hashs) and the
                 standalone malware-samples / phishing-urls pages collapsed
                 into /threatintel/live-iocs (unified, time-ordered firehose).
@@ -1188,747 +397,106 @@ export function AppContent() {
       <Route path="/threatintel/iocs-by-type" element={<Navigate to="/threatintel/live-iocs" replace />} />
       <Route path="/threatintel/phishing-urls" element={<Navigate to="/threatintel/live-iocs" replace />} />
       <Route path="/threatintel/malware-samples" element={<Navigate to="/threatintel/live-iocs" replace />} />
-      <Route
-        path="/threatintel/cve-list"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <CveList />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/cve-threat-map"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <CveThreatMap />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/threat-map"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <ThreatMap />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/rules"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <Rules />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/deepdarkcti"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <DeepDarkCTI />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/ransomware-live"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <RansomwareLive />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/infostealer"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <Infostealer />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/infostealer/:slug"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <InfostealerDetail />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/feed-sources"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <FeedSources />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/settings"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <SettingsPage />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/negotiations"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <Negotiations />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/maltrail"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <MaltrailTrails />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/malpedia"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <MalpediaPage />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/breach-forums"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <BreachForums />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/owasp"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <Owasp />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/prompt-injection"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <PromptInjection />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/mcp-audit"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <McpAudit />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/kill-chain"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <KillChain />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/diamond"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <Diamond />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/lolbins"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <Lolbins />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/rule-playground"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <RulePlayground />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/yara"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <YaraManager />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/detection-lab"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <DetectionLab />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/email-defense"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <EmailDefense />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/dmarc-analyzer"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <DmarcAnalyzer />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/nhi"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <Nhi />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/powershell-deobf"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <PowershellDeobf />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/agent-map"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <AgentMap />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/tabletop"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <Tabletop />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/grc"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <Grc />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/dlp-scan"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <DlpScan />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/data-classification"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <DataClassification />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/privacy-hub"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <PrivacyHub />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/username"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <UsernamePivot />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/wayback"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <Wayback />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/ip-geo"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <IpGeo />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/log-parser"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <LogParser />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/socmint"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <Socmint />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/osint-framework"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <OsintFramework />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/secops-tools"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <SecopsCatalog />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/tools/about"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <ToolsAbout />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/tools/:group"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <ToolsCategory />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      {(
-        [
-          ['/dfir/timestamp', <TimestampConverter key="ts" />],
-          ['/dfir/hash-calc', <HashCalculator key="hc" />],
-          ['/dfir/dork-builder', <DorkBuilder key="db" />],
-          ['/dfir/brand-impersonation', <BrandImpersonation key="bi" />],
-          ['/dfir/image-fingerprint', <ImageFingerprint key="if" />],
-          ['/dfir/plist-protobuf', <PlistProtobuf key="pp" />],
-          ['/dfir/pcap-triage', <PcapTriage key="pc" />],
-          ['/dfir/registry-hive', <RegistryHive key="rh" />],
-          ['/dfir/evtx', <EvtxParser key="ev" />],
-          ['/dfir/sqlite', <SqliteExplorer key="sq" />],
-          ['/dfir/ios-backup', <IosBackupExplorer key="ib" />],
-          ['/dfir/screenshot-intel', <ScreenshotIntel key="si" />],
-          ['/dfir/mobile-sqlite', <SqliteExplorer key="ms" />],
-          ['/dfir/apk-analyzer', <ApkAnalyzer key="apk" />],
-          ['/dfir/pe', <PeAnalyzer key="pe" />],
-          ['/dfir/web-log', <WebLogAnalyzer key="wl" />],
-          ['/dfir/prefetch', <PrefetchAnalyzer key="pf" />],
-        ] as Array<[string, JSX.Element]>
-      ).map(([p, el]) => (
-        <Route
-          key={p}
-          path={p}
-          element={
-            <ErrorBoundary>
-              <Suspense fallback={<SectionLoader />}>{el}</Suspense>
-            </ErrorBoundary>
-          }
-        />
-      ))}
-      <Route
-        path="/threatintel/cve-resources"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <CveResourcesCatalog />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/web-scan"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <WebScan />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/malware-scan"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <MalwareScan />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/reverse-image"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <ReverseImage />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/eml"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <EmlExtractor />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/url-rep"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <UrlReputation />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/email-rep"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <EmailReputation />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/domain-monitor"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <DomainMonitor />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/watches"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <WatchesPage />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/copilot"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <CopilotPage />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/scam-watch"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <ScamWatch />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/crypto-trace"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <CryptoTrace />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/tech-ai-news"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <TechAiNews />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/threat-feeds"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <ThreatFeeds />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/onion-watch"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <OnionWatch />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/telegram-watch"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <TelegramWatch />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/telegram-settings"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <TelegramSettings />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/awesome-lists"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <AwesomeLists />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/external-resources"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <ExternalResources />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/about"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <ThreatIntelAbout />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/c/:cat"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <ThreatIntelHome />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <ThreatIntelHome />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/misp-browser"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <MispBrowser />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/search"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <UnifiedSearch />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/ioc-enrichment"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <IocEnrichment />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/threatintel/relationship-graph"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <RelationshipGraph />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/pgp-tool"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <PgpTool />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/tor-gateway"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <TorGateway />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="/dfir/blocklists"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <Blocklists />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
+      <Route path="/threatintel/cve-list" element={<LazyRoute><CveList /></LazyRoute>} />
+      <Route path="/threatintel/cve-threat-map" element={<LazyRoute><CveThreatMap /></LazyRoute>} />
+      <Route path="/threatintel/threat-map" element={<LazyRoute><ThreatMap /></LazyRoute>} />
+      <Route path="/threatintel/rules" element={<LazyRoute><Rules /></LazyRoute>} />
+      <Route path="/threatintel/deepdarkcti" element={<LazyRoute><DeepDarkCTI /></LazyRoute>} />
+      <Route path="/threatintel/ransomware-live" element={<LazyRoute><RansomwareLive /></LazyRoute>} />
+      <Route path="/threatintel/infostealer" element={<LazyRoute><Infostealer /></LazyRoute>} />
+      <Route path="/threatintel/infostealer/:slug" element={<LazyRoute><InfostealerDetail /></LazyRoute>} />
+      <Route path="/threatintel/feed-sources" element={<LazyRoute><FeedSources /></LazyRoute>} />
+      <Route path="/threatintel/settings" element={<LazyRoute><SettingsPage /></LazyRoute>} />
+      <Route path="/threatintel/negotiations" element={<LazyRoute><Negotiations /></LazyRoute>} />
+      <Route path="/threatintel/maltrail" element={<LazyRoute><MaltrailTrails /></LazyRoute>} />
+      <Route path="/threatintel/malpedia" element={<LazyRoute><MalpediaPage /></LazyRoute>} />
+      <Route path="/threatintel/breach-forums" element={<LazyRoute><BreachForums /></LazyRoute>} />
+      <Route path="/dfir/owasp" element={<LazyRoute><Owasp /></LazyRoute>} />
+      <Route path="/dfir/prompt-injection" element={<LazyRoute><PromptInjection /></LazyRoute>} />
+      <Route path="/dfir/mcp-audit" element={<LazyRoute><McpAudit /></LazyRoute>} />
+      <Route path="/dfir/kill-chain" element={<LazyRoute><KillChain /></LazyRoute>} />
+      <Route path="/dfir/diamond" element={<LazyRoute><Diamond /></LazyRoute>} />
+      <Route path="/dfir/lolbins" element={<LazyRoute><Lolbins /></LazyRoute>} />
+      <Route path="/dfir/rule-playground" element={<LazyRoute><RulePlayground /></LazyRoute>} />
+      <Route path="/dfir/yara" element={<LazyRoute><YaraManager /></LazyRoute>} />
+      <Route path="/dfir/report-parser" element={<LazyRoute><ReportParser /></LazyRoute>} />
+      <Route path="/dfir/ioc-lifecycle" element={<LazyRoute><IocLifecycle /></LazyRoute>} />
+      <Route path="/dfir/ct-monitor" element={<LazyRoute><CtMonitor /></LazyRoute>} />
+      <Route path="/dfir/stealer-parser" element={<LazyRoute><StealerParser /></LazyRoute>} />
+      <Route path="/dfir/taxii" element={<LazyRoute><TaxiiServer /></LazyRoute>} />
+      <Route path="/dfir/bloom" element={<LazyRoute><BloomFilter /></LazyRoute>} />
+      <Route path="/dfir/ai-rule-generator" element={<LazyRoute><AiRuleGenerator /></LazyRoute>} />
+      <Route path="/dfir/threat-graph" element={<LazyRoute><ThreatGraph /></LazyRoute>} />
+      <Route path="/dfir/attack-chain" element={<LazyRoute><AttackChain /></LazyRoute>} />
+      <Route path="/dfir/hunting-query-generator" element={<LazyRoute><HuntingQueryGenerator /></LazyRoute>} />
+      <Route path="/dfir/sandbox" element={<LazyRoute><SandboxIntegration /></LazyRoute>} />
+      <Route path="/dfir/ir-playbooks" element={<LazyRoute><IrPlaybooks /></LazyRoute>} />
+      <Route path="/dfir/detection-lab" element={<LazyRoute><DetectionLab /></LazyRoute>} />
+      <Route path="/dfir/email-defense" element={<LazyRoute><EmailDefense /></LazyRoute>} />
+      <Route path="/dfir/dmarc-analyzer" element={<LazyRoute><DmarcAnalyzer /></LazyRoute>} />
+      <Route path="/dfir/nhi" element={<LazyRoute><Nhi /></LazyRoute>} />
+      <Route path="/dfir/powershell-deobf" element={<LazyRoute><PowershellDeobf /></LazyRoute>} />
+      <Route path="/dfir/agent-map" element={<LazyRoute><AgentMap /></LazyRoute>} />
+      <Route path="/dfir/tabletop" element={<LazyRoute><Tabletop /></LazyRoute>} />
+      <Route path="/dfir/grc" element={<LazyRoute><Grc /></LazyRoute>} />
+      <Route path="/dfir/dlp-scan" element={<LazyRoute><DlpScan /></LazyRoute>} />
+      <Route path="/dfir/data-classification" element={<LazyRoute><DataClassification /></LazyRoute>} />
+      <Route path="/dfir/privacy-hub" element={<LazyRoute><PrivacyHub /></LazyRoute>} />
+      <Route path="/dfir/username" element={<LazyRoute><UsernamePivot /></LazyRoute>} />
+      <Route path="/dfir/wayback" element={<LazyRoute><Wayback /></LazyRoute>} />
+      <Route path="/dfir/ip-geo" element={<LazyRoute><IpGeo /></LazyRoute>} />
+      <Route path="/dfir/log-parser" element={<LazyRoute><LogParser /></LazyRoute>} />
+      <Route path="/dfir/socmint" element={<LazyRoute><Socmint /></LazyRoute>} />
+      <Route path="/threatintel/osint-framework" element={<LazyRoute><OsintFramework /></LazyRoute>} />
+      <Route path="/threatintel/secops-tools" element={<LazyRoute><SecopsCatalog /></LazyRoute>} />
+      <Route path="/dfir/tools/about" element={<LazyRoute><ToolsAbout /></LazyRoute>} />
+      <Route path="/dfir/tools/:group" element={<LazyRoute><ToolsCategory /></LazyRoute>} />
+      <Route path="/dfir/timestamp" element={<LazyRoute><TimestampConverter /></LazyRoute>} />
+      <Route path="/dfir/hash-calc" element={<LazyRoute><HashCalculator /></LazyRoute>} />
+      <Route path="/dfir/dork-builder" element={<LazyRoute><DorkBuilder /></LazyRoute>} />
+      <Route path="/dfir/brand-impersonation" element={<LazyRoute><BrandImpersonation /></LazyRoute>} />
+      <Route path="/dfir/image-fingerprint" element={<LazyRoute><ImageFingerprint /></LazyRoute>} />
+      <Route path="/dfir/plist-protobuf" element={<LazyRoute><PlistProtobuf /></LazyRoute>} />
+      <Route path="/dfir/pcap-triage" element={<LazyRoute><PcapTriage /></LazyRoute>} />
+      <Route path="/dfir/registry-hive" element={<LazyRoute><RegistryHive /></LazyRoute>} />
+      <Route path="/dfir/evtx" element={<LazyRoute><EvtxParser /></LazyRoute>} />
+      <Route path="/dfir/sqlite" element={<LazyRoute><SqliteExplorer /></LazyRoute>} />
+      <Route path="/dfir/ios-backup" element={<LazyRoute><IosBackupExplorer /></LazyRoute>} />
+      <Route path="/dfir/screenshot-intel" element={<LazyRoute><ScreenshotIntel /></LazyRoute>} />
+      <Route path="/dfir/mobile-sqlite" element={<LazyRoute><SqliteExplorer /></LazyRoute>} />
+      <Route path="/dfir/apk-analyzer" element={<LazyRoute><ApkAnalyzer /></LazyRoute>} />
+      <Route path="/dfir/pe" element={<LazyRoute><PeAnalyzer /></LazyRoute>} />
+      <Route path="/dfir/web-log" element={<LazyRoute><WebLogAnalyzer /></LazyRoute>} />
+      <Route path="/dfir/prefetch" element={<LazyRoute><PrefetchAnalyzer /></LazyRoute>} />
+      <Route path="/threatintel/cve-resources" element={<LazyRoute><CveResourcesCatalog /></LazyRoute>} />
+      <Route path="/dfir/web-scan" element={<LazyRoute><WebScan /></LazyRoute>} />
+      <Route path="/dfir/malware-scan" element={<LazyRoute><MalwareScan /></LazyRoute>} />
+      <Route path="/dfir/reverse-image" element={<LazyRoute><ReverseImage /></LazyRoute>} />
+      <Route path="/dfir/eml" element={<LazyRoute><EmlExtractor /></LazyRoute>} />
+      <Route path="/dfir/url-rep" element={<LazyRoute><UrlReputation /></LazyRoute>} />
+      <Route path="/dfir/email-rep" element={<LazyRoute><EmailReputation /></LazyRoute>} />
+      <Route path="/threatintel/domain-monitor" element={<LazyRoute><DomainMonitor /></LazyRoute>} />
+      <Route path="/threatintel/watches" element={<LazyRoute><WatchesPage /></LazyRoute>} />
+      <Route path="/threatintel/copilot" element={<LazyRoute><CopilotPage /></LazyRoute>} />
+      <Route path="/threatintel/scam-watch" element={<LazyRoute><ScamWatch /></LazyRoute>} />
+      <Route path="/dfir/crypto-trace" element={<LazyRoute><CryptoTrace /></LazyRoute>} />
+      <Route path="/threatintel/tech-ai-news" element={<LazyRoute><TechAiNews /></LazyRoute>} />
+      <Route path="/threatintel/threat-feeds" element={<LazyRoute><ThreatFeeds /></LazyRoute>} />
+      <Route path="/threatintel/onion-watch" element={<LazyRoute><OnionWatch /></LazyRoute>} />
+      <Route path="/threatintel/telegram-watch" element={<LazyRoute><TelegramWatch /></LazyRoute>} />
+      <Route path="/threatintel/telegram-settings" element={<LazyRoute><TelegramSettings /></LazyRoute>} />
+      <Route path="/threatintel/awesome-lists" element={<LazyRoute><AwesomeLists /></LazyRoute>} />
+      <Route path="/threatintel/external-resources" element={<LazyRoute><ExternalResources /></LazyRoute>} />
+      <Route path="/threatintel/about" element={<LazyRoute><ThreatIntelAbout /></LazyRoute>} />
+      <Route path="/threatintel/c/:cat" element={<LazyRoute><ThreatIntelHome /></LazyRoute>} />
+      <Route path="/threatintel" element={<LazyRoute><ThreatIntelHome /></LazyRoute>} />
+      <Route path="/threatintel/misp-browser" element={<LazyRoute><MispBrowser /></LazyRoute>} />
+      <Route path="/threatintel/search" element={<LazyRoute><UnifiedSearch /></LazyRoute>} />
+      <Route path="/threatintel/ioc-enrichment" element={<LazyRoute><IocEnrichment /></LazyRoute>} />
+      <Route path="/threatintel/relationship-graph" element={<LazyRoute><RelationshipGraph /></LazyRoute>} />
+      <Route path="/dfir/pgp-tool" element={<LazyRoute><PgpTool /></LazyRoute>} />
+      <Route path="/dfir/tor-gateway" element={<LazyRoute><TorGateway /></LazyRoute>} />
+      <Route path="/dfir/blocklists" element={<LazyRoute><Blocklists /></LazyRoute>} />
 
       {/* Ransom Note Library was removed 2026-05-11; mythreatintel.com is now
                 an external-source link only on the /threatintel landing. Old bookmarks
@@ -1960,28 +528,10 @@ export function AppContent() {
       <Route path="/dfir/secops-tools" element={<MovedRedirect to="/threatintel/secops-tools" />} />
       <Route path="/dfir/awesome-lists" element={<MovedRedirect to="/threatintel/awesome-lists" />} />
       <Route path="/dfir/osint-framework" element={<MovedRedirect to="/threatintel/osint-framework" />} />
-      <Route
-        path="/admin"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <AdminApp />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
-      <Route
-        path="*"
-        element={
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <NotFound />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
+      <Route path="/admin" element={<LazyRoute><AdminApp /></LazyRoute>} />
+      <Route path="*" element={<LazyRoute><NotFound /></LazyRoute>} />
     </Routes>
-  );
+  ), []);
 
   // ─── App-route render path (DFIR + ThreatIntel as stand-alone apps) ───
   // Keeps the same body bg + gradient overlay + noise texture as the

@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import { Github, ExternalLink, ChevronDown, ChevronUp, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { projects } from '../../data/content';
+import type { Project } from '../../core/entities';
 import { publishedCaseStudies } from '../../data/case-studies';
 import { Badge } from '../Badge';
+
+interface ProjectsProps {
+  projects: Project[];
+}
 
 /**
  * Projects list — minimal cards aligned with the rest of the redesigned
@@ -113,7 +117,7 @@ function ProjectCard({ project }: ProjectCardProps): JSX.Element {
 
 const INITIAL_PROJECTS = 6;
 
-export function Projects() {
+export function Projects({ projects }: ProjectsProps) {
   const [showAll, setShowAll] = useState(false);
   const visible = showAll ? projects : projects.slice(0, INITIAL_PROJECTS);
   const remaining = projects.length - INITIAL_PROJECTS;

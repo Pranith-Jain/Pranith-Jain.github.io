@@ -1,4 +1,8 @@
 import { About } from '../components/sections/About';
+import { portfolioRepository } from '../infrastructure/repositories';
+import { getProfileData } from '../core/use-cases';
+
+const { stats } = getProfileData(portfolioRepository);
 
 interface Chapter {
   period: string;
@@ -39,7 +43,7 @@ export default function AboutPage() {
     <>
       <h1 className="sr-only">About Pranith Jain</h1>
 
-      <About />
+      <About stats={stats} />
 
       <section id="story" className="mt-20 scroll-mt-24">
         <div className="mb-10 max-w-2xl">

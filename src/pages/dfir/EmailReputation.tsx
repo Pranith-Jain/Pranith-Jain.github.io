@@ -76,7 +76,12 @@ export default function EmailReputation(): JSX.Element {
     try {
       setProgress('Fetching email auth records…');
       const r = await fetch(`/api/v1/domain/lookup?domain=${encodeURIComponent(clean)}`, { signal });
-      if (!r.ok) throw new Error(`API ${r.status}`);
+      if (!r.ok) {
+        const body = await r.text().catch(() => '');
+        throw new Error(body ? `API ${r.status}: ${body.slice(0, 100)}` : `API ${r.status}`);
+      }
+      const ct = r.headers.get('content-type') ?? '';
+      if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
       const data = (await r.json()) as {
         email_auth: {
           spf: { present: boolean; policy?: string };

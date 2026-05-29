@@ -31,9 +31,16 @@ export default function Domain(): JSX.Element {
     try {
       const r = await fetch(`/api/v1/domain/lookup?domain=${encodeURIComponent(input.trim())}`);
       if (!r.ok) {
-        const body = (await r.json().catch(() => null)) as { error?: string } | null;
-        throw new Error(body?.error ?? `${r.status}`);
+        const body = await r.text().catch(() => '');
+        let msg = `${r.status}`;
+        try {
+          const parsed = JSON.parse(body) as { error?: string };
+          msg = parsed.error ?? msg;
+        } catch { /* use default */ }
+        throw new Error(msg);
       }
+      const ct = r.headers.get('content-type') ?? '';
+      if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
       const r2 = (await r.json()) as DomainLookupResponse;
       setResult(r2);
       recordHistory({ tool: 'domain', indicator: r2.domain, verdict: r2.verdict, score: r2.score });

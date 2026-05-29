@@ -11,7 +11,7 @@ interface MispEvent {
     date: string;
     threat_level_id: string;
     analysis: string;
-    orgc: string;
+    orgc: string | { name: string };
     tags: { Tag: { name: string; colour?: string } }[];
     published: boolean;
     timestamp: string;
@@ -63,7 +63,7 @@ interface RelatedEvent {
     uuid: string;
     info: string;
     date: string;
-    orgc: string;
+    orgc: string | { name: string };
   };
 }
 
@@ -393,7 +393,7 @@ export default function MispBrowser() {
                     <span className="text-slate-300 dark:text-slate-700 mx-1">·</span>
                     <span className="text-slate-700 dark:text-slate-300">{r.Event.info || '(no info)'}</span>
                     <span className="text-slate-300 dark:text-slate-700 mx-1">·</span>
-                    <span className="text-slate-500">{r.Event.orgc}</span>
+                    <span className="text-slate-500">{typeof r.Event.orgc === 'object' ? r.Event.orgc.name : r.Event.orgc}</span>
                   </button>
                 ))}
               </div>

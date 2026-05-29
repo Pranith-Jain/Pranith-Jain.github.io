@@ -1,5 +1,5 @@
 import { Mail, Search, Users, Shield, Cloud, Zap } from 'lucide-react';
-import { skills } from '../../data/content';
+import type { Skill } from '../../core/entities';
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Mail,
@@ -16,7 +16,11 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
  * and a plain bulleted list; the only colour is the brand accent on the
  * icon and the small list bullet.
  */
-export function Skills() {
+interface SkillsProps {
+  skills: Skill[];
+}
+
+export function Skills({ skills }: SkillsProps) {
   return (
     <section id="skills" className="mt-20 scroll-mt-24">
       {/* Header — matches the design-system rhythm: caps-mono kicker + a

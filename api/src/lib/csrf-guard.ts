@@ -69,6 +69,12 @@ export async function csrfGuard(c: Context<{ Bindings: Env }>, next: Next): Prom
   // of these headers on POST/DELETE/PATCH/PUT. Let it through — auth
   // (admin token, API key) provides the real protection for non-browser
   // callers; this guard is defence-in-depth against browser CSRF.
+  //
+  // NOTE: this is safe only because every mutation endpoint behind this
+  // guard also requires authentication (authenticate('required') or
+  // authenticate('external-only') which requires a key for POST/DELETE).
+  // If a mutation endpoint is added WITHOUT auth, this bypass would
+  // allow unauthenticated server-to-server mutations.
   if (!origin && !referer) {
     return next();
   }

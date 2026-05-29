@@ -1,6 +1,8 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { abuseipdb } from '../providers/abuseipdb';
+import { spur } from '../providers/spur';
+import { ipinfo } from '../providers/ipinfo';
 import { fetchResilient } from '../lib/fetch-resilient';
 
 /**
@@ -75,6 +77,20 @@ export interface IpGeoResponse {
     total_reports?: number;
     usage_type?: string;
     verdict?: 'malicious' | 'suspicious' | 'clean' | 'unknown';
+    source: string;
+    source_url: string;
+  };
+  /** Privacy/anonymization detection from Spur.us and IPinfo. */
+  privacy?: {
+    ok: boolean;
+    error?: string;
+    vpn?: boolean;
+    proxy?: boolean;
+    tor?: boolean;
+    relay?: boolean;
+    hosting?: boolean;
+    service?: string;
+    /** Source of the privacy detection data. */
     source: string;
     source_url: string;
   };
@@ -210,11 +226,81 @@ export async function ipGeoHandler(c: Context<{ Bindings: Env }>): Promise<Respo
     generated_at: new Date().toISOString(),
   };
 
-  // If BOTH providers failed this is an all-error body — caching it under a
+  // Privacy detection: try Spur.us first (better VPN/proxy detection),
+  // fall back to IPinfo's privacy field. Both run in parallel with the
+  // existing geo/reputation lookups.
+  const provEnvForPrivacy = {
+    ...provEnv,
+    CROWDSEC_API_KEY: c.env.CROWDSEC_API_KEY,
+    IPINFO_TOKEN: c.env.IPINFO_TOKEN,
+  };
+  const [spurRaw, ipinfoRaw] = await Promise.all([
+    spur({ value: ip, type: kind }, provEnvForPrivacy, ctrl.signal).catch(() => null),
+    ipinfo({ value: ip, type: kind }, provEnvForPrivacy, ctrl.signal).catch(() => null),
+  ]);
+
+  // Merge privacy signals — prefer Spur (dedicated VPN/proxy DB) over
+  // IPinfo's privacy field, but use IPinfo as fallback.
+  const spurOk = !!spurRaw && spurRaw.status === 'ok';
+  const ipinfoOk = !!ipinfoRaw && ipinfoRaw.status === 'ok';
+
+  let privacyData: IpGeoResponse['privacy'];
+  if (spurOk || ipinfoOk) {
+    const spurSummary = spurOk ? (spurRaw!.raw_summary as { vpn?: boolean; proxy?: boolean; tor?: boolean; relay?: boolean; hosting?: boolean; service?: string }) : {};
+    const ipinfoSummary = ipinfoOk ? (ipinfoRaw!.raw_summary as { privacy?: { vpn?: boolean; proxy?: boolean; tor?: boolean; relay?: boolean; hosting?: boolean; service?: string } }) : {};
+    const ipinfoPrivacy = ipinfoSummary.privacy ?? {};
+
+    privacyData = {
+      ok: true,
+      vpn: spurSummary.vpn ?? ipinfoPrivacy.vpn ?? false,
+      proxy: spurSummary.proxy ?? ipinfoPrivacy.proxy ?? false,
+      tor: spurSummary.tor ?? ipinfoPrivacy.tor ?? false,
+      relay: spurSummary.relay ?? ipinfoPrivacy.relay ?? false,
+      hosting: spurSummary.hosting ?? ipinfoPrivacy.hosting ?? false,
+      service: spurSummary.service ?? ipinfoPrivacy.service ?? undefined,
+      source: spurOk ? 'Spur.us' : 'IPinfo',
+      source_url: spurOk ? `https://spur.us/context/${encodeURIComponent(ip)}` : `https://ipinfo.io/${encodeURIComponent(ip)}`,
+    };
+  } else {
+    privacyData = {
+      ok: false,
+      error: 'Privacy detection unavailable (Spur.us and IPinfo both failed or are rate-limited)',
+      source: 'none',
+      source_url: '',
+    };
+  }
+
+  body.privacy = privacyData;
+
+  // Enrich the geo section with IPinfo data if ipwho.is failed
+  if (!geoOk && ipinfoOk) {
+    const ipinfoSummary = ipinfoRaw!.raw_summary as {
+      country?: string; city?: string; region?: string;
+      asn?: { asn?: string; name?: string };
+      company?: { name?: string };
+      hostname?: string;
+    };
+    body.geo = {
+      ok: true,
+      country: ipinfoSummary.country,
+      city: ipinfoSummary.city,
+      region: ipinfoSummary.region,
+      asn: ipinfoSummary.asn?.asn ? `${ipinfoSummary.asn.asn} ${ipinfoSummary.asn.name ?? ''}`.trim() : undefined,
+      asname: ipinfoSummary.asn?.name,
+      org: ipinfoSummary.company?.name ?? ipinfoSummary.asn?.name,
+      reverse_dns: ipinfoSummary.hostname,
+      is_proxy: privacyData.vpn || privacyData.proxy,
+      is_hosting: privacyData.hosting,
+      source: 'IPinfo',
+      source_url: `https://ipinfo.io/${encodeURIComponent(ip)}`,
+    };
+  }
+
+  // If ALL providers failed this is an all-error body — caching it under a
   // 200 for the full TTL would lock the IP to "unreachable" even after the
   // upstreams recover (same degraded-cache class as breach-disclosures).
   // Serve it with a short TTL and don't poison the shared edge cache.
-  if (!geoOk && !repOk) {
+  if (!geoOk && !repOk && !spurOk && !ipinfoOk) {
     return c.json(body, 200, { 'Cache-Control': 'public, max-age=60' });
   }
 

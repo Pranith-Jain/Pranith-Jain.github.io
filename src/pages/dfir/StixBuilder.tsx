@@ -78,6 +78,8 @@ export default function StixBuilder(): JSX.Element {
           const text = await res.text().catch(() => res.statusText);
           throw new Error(`fetch failed (${res.status}): ${text.slice(0, 200)}`);
         }
+        const ct = res.headers.get('content-type') ?? '';
+        if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
         const result = (await res.json()) as IntelBundleResponse;
         if (!cancelled) setBuild({ status: 'ready', result });
       } catch (err) {
@@ -131,6 +133,8 @@ export default function StixBuilder(): JSX.Element {
         const text = await res.text().catch(() => res.statusText);
         throw new Error(`build failed (${res.status}): ${text.slice(0, 200)}`);
       }
+      const ct = res.headers.get('content-type') ?? '';
+      if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
       const result = (await res.json()) as IntelBundleResponse;
       if (buildCtrlRef.current === ctrl) setBuild({ status: 'ready', result });
     } catch (err) {

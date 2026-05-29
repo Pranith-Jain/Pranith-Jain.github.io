@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react';
 import { probeAuth } from './adminApi';
+import { writeAdminToken, clearAdminToken } from '../../lib/admin-token';
 
 interface Props {
   onLogin: (token: string) => void;
@@ -20,10 +21,10 @@ export default function AdminLogin({ onLogin }: Props) {
     // flow stored any string in localStorage and dropped the user into the
     // shell, where the first tab's fetch failed with 401 and triggered a
     // reload loop.
-    localStorage.setItem('adminToken', trimmed);
+    writeAdminToken(trimmed);
     const ok = await probeAuth();
     if (!ok) {
-      localStorage.removeItem('adminToken');
+      clearAdminToken();
       setError('Token rejected — check the value and try again.');
       setBusy(false);
       return;

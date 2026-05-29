@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Search, Zap, Shield, FileText, Monitor, Mail, ChevronDown } from 'lucide-react';
-import { experiences } from '../../data/content';
+import type { Experience } from '../../core/entities';
 import { Badge } from '../Badge';
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -12,7 +12,11 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Mail,
 };
 
-export function Experience() {
+interface ExperienceProps {
+  experiences: Experience[];
+}
+
+export function Experience({ experiences }: ExperienceProps) {
   // The first (current) role expands by default — the rest collapse so the
   // list stays scannable. Each card flips on click.
   const [expanded, setExpanded] = useState<Set<number>>(() => new Set([0]));

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import { certifications, education } from '../../data/content';
+import type { CertificationGroup, Education } from '../../core/entities';
 
 const INITIAL_PER_CATEGORY = 6;
 
@@ -93,7 +93,12 @@ function CertCategory({ id, title, certs }: CertCategoryProps) {
   );
 }
 
-export function Certifications() {
+interface CertificationsProps {
+  certifications: CertificationGroup;
+  education: Education[];
+}
+
+export function Certifications({ certifications, education }: CertificationsProps) {
   const coreCerts: CertItem[] = certifications.core.map((c) => ({ ...c, type: 'Certification' }));
   const trainingCerts: CertItem[] = certifications.training.map((c) => ({
     ...c,

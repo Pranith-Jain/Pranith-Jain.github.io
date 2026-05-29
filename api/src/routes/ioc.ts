@@ -41,6 +41,14 @@ import { malwareworld } from '../providers/malwareworld';
 import { emailrep } from '../providers/emailrep';
 import { malpedia } from '../providers/malpedia';
 import { pulsedive } from '../providers/pulsedive';
+import { shodanInternetDB } from '../providers/shodan-internetdb';
+import { spur } from '../providers/spur';
+import { crowdsec } from '../providers/crowdsec';
+import { ipinfo } from '../providers/ipinfo';
+import { phishstats } from '../providers/phishstats';
+import { feodo } from '../providers/feodo';
+import { digitalside } from '../providers/digitalside';
+import { criminalip } from '../providers/criminalip';
 import {
   PROVIDER_SUPPORT,
   PROVIDER_TIMEOUT_MS,
@@ -96,6 +104,14 @@ const ADAPTERS: Record<ProviderId, ProviderAdapter> = {
   emailrep,
   malpedia,
   pulsedive,
+  'shodan-internetdb': shodanInternetDB,
+  spur,
+  crowdsec,
+  ipinfo,
+  phishstats,
+  feodo,
+  digitalside,
+  criminalip,
 };
 
 export async function iocCheckHandler(c: Context<{ Bindings: Env }>) {
@@ -109,7 +125,7 @@ export async function iocCheckHandler(c: Context<{ Bindings: Env }>) {
   if (type === 'unknown') return c.json({ error: 'unrecognized indicator type' }, 400);
 
   const indicator = { type, value: raw.trim() };
-  const cache = new ProviderCache(c.env.KV_CACHE);
+  const cache = new ProviderCache(c.env.KV_CACHE!);
 
   // Concurrency cap: one client can't pin N parallel SSE streams open
   // and burn provider quota. The per-window rate limiter doesn't catch
@@ -145,6 +161,9 @@ export async function iocCheckHandler(c: Context<{ Bindings: Env }>) {
       HYBRID_ANALYSIS_API_KEY: c.env.HYBRID_ANALYSIS_API_KEY ?? '',
       ABUSECH_AUTH_KEY: c.env.ABUSECH_AUTH_KEY,
       MALSHARE_API_KEY: c.env.MALSHARE_API_KEY,
+      CROWDSEC_API_KEY: c.env.CROWDSEC_API_KEY,
+      IPINFO_TOKEN: c.env.IPINFO_TOKEN,
+      CRIMINALIP_API_KEY: c.env.CRIMINALIP_API_KEY,
     };
 
     const collected: ProviderResult[] = [];

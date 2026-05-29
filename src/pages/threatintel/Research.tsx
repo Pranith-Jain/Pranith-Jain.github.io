@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, FileText, ExternalLink } from 'lucide-react';
 import { publishedResearch } from '../../data/threatintel/research';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 
 /**
  * /threatintel/research — original adversary-tracking and methodology
@@ -48,6 +49,18 @@ export default function Research(): JSX.Element {
           (firehose).
         </p>
       </div>
+
+      {posts.length > 0 && (
+        <AiSummaryCard
+          surface="Research Collection"
+          items={posts.map((p) => ({
+            title: p.title,
+            body: p.excerpt,
+            source: 'Pranith Jain',
+          }))}
+          className="mb-8"
+        />
+      )}
 
       {posts.length === 0 ? (
         <p className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 text-sm text-slate-500">

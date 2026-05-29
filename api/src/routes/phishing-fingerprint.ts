@@ -1,4 +1,4 @@
-import { Context } from 'hono';
+import type { Context } from 'hono';
 import type { Env } from '../env';
 import { shouldWriteLastGood } from '../lib/lastgood-debounce';
 import { safeJsonBody } from '../lib/safe-body';
@@ -22,9 +22,9 @@ export async function fetchPageHandler(ctx: Context<{ Bindings: Env }>): Promise
   const parsed = await safeJsonBody<{ url?: string }>(ctx, { maxBytes: 4 * 1024, maxDepth: 4 });
   if ('error' in parsed) return parsed.error;
   if (!parsed.value.url) return ctx.json({ error: 'missing url' }, 400);
-  const body = parsed.value;
+  const url = parsed.value.url;
   try {
-    const res = await fetch(body.url, {
+    const res = await fetch(url, {
       method: 'GET',
       headers: { 'user-agent': 'Mozilla/5.0 (compatible; PhishingFingerprinter/1.0)' },
       signal: AbortSignal.timeout(15000),
@@ -34,7 +34,7 @@ export async function fetchPageHandler(ctx: Context<{ Bindings: Env }>): Promise
     if (text.length > MAX_HTML_BYTES) {
       return ctx.json({ error: 'page too large' }, 413);
     }
-    return ctx.json({ html: text, url: body.url, contentType: res.headers.get('content-type') ?? '' });
+    return ctx.json({ html: text, url, contentType: res.headers.get('content-type') ?? '' });
   } catch (err) {
     return ctx.json({ error: err instanceof Error ? err.message : 'fetch failed' }, 502);
   }
@@ -44,9 +44,12 @@ export async function fingerprintHandler(ctx: Context<{ Bindings: Env }>): Promi
   const parsed = await safeJsonBody<{ hash?: string; url?: string }>(ctx, { maxBytes: 4 * 1024, maxDepth: 4 });
   if ('error' in parsed) return parsed.error;
   if (!parsed.value.hash) return ctx.json({ error: 'missing hash' }, 400);
-  const body = parsed.value;
+  const hash: string = parsed.value.hash;
+  const url: string | undefined = parsed.value.url;
 
-  const key = `${FP_KV_PREFIX}${body.hash}`;
+  if (!ctx.env.KV_CACHE) return ctx.json({ error: 'KV not available' }, 503);
+
+  const key = `${FP_KV_PREFIX}${hash}`;
   const existing = await ctx.env.KV_CACHE.get(key, 'json').catch(() => null) as FingerprintRecord | null;
 
   if (existing) {
@@ -54,15 +57,15 @@ export async function fingerprintHandler(ctx: Context<{ Bindings: Env }>): Promi
       ...existing,
       last_seen: new Date().toISOString(),
       count: existing.count + 1,
-      urls: body.url && !existing.urls.includes(body.url)
-        ? [...existing.urls, body.url].slice(-MAX_URLS_PER_FP)
+      urls: url && !existing.urls.includes(url)
+        ? [...existing.urls, url].slice(-MAX_URLS_PER_FP)
         : existing.urls,
     };
     // Debounce: skip KV write if we wrote this fingerprint recently (1h).
     // The in-memory `updated` still reflects the current request for the
     // response, but we avoid burning KV write quota on high-frequency
     // submissions of the same kit.
-    if (await shouldWriteLastGood(`phishing-fp:${body.hash}`, 3600)) {
+    if (await shouldWriteLastGood(`phishing-fp:${hash}`, 3600)) {
       await ctx.env.KV_CACHE.put(key, JSON.stringify(updated), { expirationTtl: FP_TTL_SECONDS });
     }
     return ctx.json({
@@ -74,11 +77,11 @@ export async function fingerprintHandler(ctx: Context<{ Bindings: Env }>): Promi
   }
 
   const record: FingerprintRecord = {
-    hash: body.hash,
+    hash,
     first_seen: new Date().toISOString(),
     last_seen: new Date().toISOString(),
     count: 1,
-    urls: body.url ? [body.url] : [],
+    urls: url ? [url] : [],
   };
   await ctx.env.KV_CACHE.put(key, JSON.stringify(record), { expirationTtl: FP_TTL_SECONDS });
   return ctx.json({ match: false, count: 1 });

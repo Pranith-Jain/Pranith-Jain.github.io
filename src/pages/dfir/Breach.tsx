@@ -352,9 +352,16 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
     try {
       const r = await fetch(`/api/v1/breach/email?email=${encodeURIComponent(q.trim())}`);
       if (!r.ok) {
-        const body = (await r.json().catch(() => null)) as { error?: string } | null;
-        throw new Error(body?.error ?? `HTTP ${r.status}`);
+        const body = await r.text().catch(() => '');
+        let msg = `HTTP ${r.status}`;
+        try {
+          const parsed = JSON.parse(body) as { error?: string };
+          msg = parsed.error ?? msg;
+        } catch { /* use default */ }
+        throw new Error(msg);
       }
+      const ct = r.headers.get('content-type') ?? '';
+      if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
       setResult((await r.json()) as BreachEmailResponse);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'lookup failed');
@@ -538,9 +545,16 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
     try {
       const r = await fetch(`/api/v1/breach/domain?domain=${encodeURIComponent(q.trim())}`);
       if (!r.ok) {
-        const body = (await r.json().catch(() => null)) as { error?: string } | null;
-        throw new Error(body?.error ?? `HTTP ${r.status}`);
+        const body = await r.text().catch(() => '');
+        let msg = `HTTP ${r.status}`;
+        try {
+          const parsed = JSON.parse(body) as { error?: string };
+          msg = parsed.error ?? msg;
+        } catch { /* use default */ }
+        throw new Error(msg);
       }
+      const ct = r.headers.get('content-type') ?? '';
+      if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
       setResult((await r.json()) as BreachDomainResponse);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'lookup failed');

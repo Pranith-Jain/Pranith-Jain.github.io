@@ -110,15 +110,13 @@ function withSecurityHeaders(response: Response, nonce?: string): Response {
 
 /**
  * Generate a CSP nonce. 128 random bits → base64url-encoded (≈22 chars).
- * Workers exposes the Web Crypto API natively; no Node polyfills needed.
+ * Single-pass: no intermediate strings from chained replace() calls.
  */
 function generateNonce(): string {
-  const bytes = new Uint8Array(16);
-  crypto.getRandomValues(bytes);
-  // Inline base64url so we don't depend on `Buffer` or polyfills.
-  let bin = '';
-  for (let i = 0; i < bytes.length; i += 1) bin += String.fromCharCode(bytes[i]!);
-  return btoa(bin).replace(/=+$/, '').replace(/\+/g, '-').replace(/\//g, '_');
+  const b = new Uint8Array(16);
+  crypto.getRandomValues(b);
+  return btoa(String.fromCharCode.apply(null, b as unknown as number[]))
+    .replace(/[=+/]/g, (c) => (c === '=' ? '' : c === '+' ? '-' : '_'));
 }
 
 /**
@@ -584,6 +582,15 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   // ── DFIR: STIX ────────────────────────────────────────────────
   ['/dfir/stix', '/__prerendered/dfir__stix'],
   ['/dfir/stix-builder', '/__prerendered/dfir__stix-builder'],
+  ['/dfir/ai-rule-generator', '/__prerendered/dfir__ai-rule-generator'],
+  ['/dfir/threat-graph', '/__prerendered/dfir__threat-graph'],
+  ['/dfir/attack-chain', '/__prerendered/dfir__attack-chain'],
+  ['/dfir/hunting-query-generator', '/__prerendered/dfir__hunting-query-generator'],
+  ['/dfir/sandbox', '/__prerendered/dfir__sandbox'],
+  ['/dfir/ir-playbooks', '/__prerendered/dfir__ir-playbooks'],
+  ['/dfir/stealer-parser', '/__prerendered/dfir__stealer-parser'],
+  ['/dfir/taxii', '/__prerendered/dfir__taxii'],
+  ['/dfir/bloom', '/__prerendered/dfir__bloom'],
 
   // ── DFIR: security frameworks ─────────────────────────────────
   ['/dfir/nhi', '/__prerendered/dfir__nhi'],
@@ -638,6 +645,12 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/osint-framework', '/__prerendered/threatintel__osint-framework'],
   ['/threatintel/mitre', '/__prerendered/threatintel__mitre'],
   ['/threatintel/actor-kb', '/__prerendered/threatintel__actor-kb'],
+  ['/threatintel/actor-dna', '/__prerendered/threatintel__actor-dna'],
+  ['/threatintel/predictive', '/__prerendered/threatintel__predictive'],
+  ['/threatintel/campaign-lifecycle', '/__prerendered/threatintel__campaign-lifecycle'],
+  ['/threatintel/attribution', '/__prerendered/threatintel__attribution'],
+  ['/threatintel/intelligence-gaps', '/__prerendered/threatintel__intelligence-gaps'],
+  ['/threatintel/cross-campaign', '/__prerendered/threatintel__cross-campaign'],
   ['/threatintel/actors', '/__prerendered/threatintel__actors'],
   ['/threatintel/rules', '/__prerendered/threatintel__rules'],
   ['/threatintel/briefings', '/__prerendered/threatintel__briefings'],

@@ -4,6 +4,7 @@ import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, BookText, ExternalLink, RefreshCw, Search } from 'lucide-react';
 import { DataState } from '../../components/DataState';
 import { FeedAggregateCard } from '../../components/intel/FeedAggregateCard';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 
 /**
  * /threatintel/writeups — live aggregation of long-form CTI writeups from
@@ -289,15 +290,25 @@ export default function Writeups(): JSX.Element {
           titles + descriptions into one bundle so the page surfaces today's
           actors / malware / CVEs across the long tail without a per-item fan-out. */}
       {filtered.length > 0 && (
-        <FeedAggregateCard
-          sourceId="rss:writeups"
-          sourceName="Writeups firehose"
-          title="Writeups firehose · today"
-          items={filtered.map((it) => ({
-            title: it.title,
-            body: `${it.source} · ${it.description ?? ''}`,
-          }))}
-        />
+        <>
+          <AiSummaryCard
+            surface="CTI Writeups"
+            items={filtered.slice(0, 40).map((it) => ({
+              title: it.title,
+              body: it.description ?? '',
+              source: it.source,
+            }))}
+          />
+          <FeedAggregateCard
+            sourceId="rss:writeups"
+            sourceName="Writeups firehose"
+            title="Writeups firehose · today"
+            items={filtered.map((it) => ({
+              title: it.title,
+              body: `${it.source} · ${it.description ?? ''}`,
+            }))}
+          />
+        </>
       )}
 
       <DataState

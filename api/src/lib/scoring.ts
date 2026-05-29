@@ -24,6 +24,15 @@ const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>> = {
     // best-effort and ratelimited. The real value is the RIOT signal
     // ('benign service') which the UI surfaces as a separate tag.
     greynoise: 2,
+    // Shodan InternetDB: keyless, unlimited. Good for port/vuln data.
+    'shodan-internetdb': 2,
+    // Spur.us: VPN/proxy/tor detection. Moderate weight — signals are
+    // valuable but not malicious on their own.
+    spur: 1,
+    // CrowdSec: crowd-sourced threat intel. Good community signals.
+    crowdsec: 3,
+    // IPinfo: privacy detection + ASN. Low weight — supplementary data.
+    ipinfo: 1,
   },
   ipv6: {
     abuseipdb: 4,
@@ -32,6 +41,10 @@ const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>> = {
     otx: 1,
     threatfox: 4,
     greynoise: 2,
+    'shodan-internetdb': 2,
+    spur: 1,
+    crowdsec: 3,
+    ipinfo: 1,
   },
   domain: {
     virustotal: 2,
@@ -45,6 +58,8 @@ const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>> = {
     phishingArmy: 4,
     malwareworld: 3,
     tweetfeed: 2,
+    phishstats: 3,
+    digitalside: 3,
   },
   url: {
     virustotal: 2,
@@ -55,6 +70,8 @@ const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>> = {
     openphish: 4,
     phishingArmy: 3,
     tweetfeed: 2,
+    phishstats: 3,
+    digitalside: 3,
   },
   hash: {
     virustotal: 4,

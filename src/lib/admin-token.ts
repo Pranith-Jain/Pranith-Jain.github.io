@@ -8,13 +8,53 @@
  * backend gate works regardless of which header it checks:
  *   - Authorization: Bearer <token>
  *   - X-Admin-Token: <token>
+ *
+ * Security note: localStorage is accessible to any JS on the page.
+ * This is acceptable because:
+ *   1. script-src is nonce-based CSP (no inline script injection).
+ *   2. The token is a shared operator secret, not per-user auth.
+ *   3. The backend enforces rate-limiting on admin mutations.
+ * For higher-security deployments, consider HttpOnly cookies.
  */
 
 const STORAGE_KEY = 'adminToken';
+/** Auto-expire stored tokens after 24 hours to limit stale-token exposure. */
+const TOKEN_EXPIRY_MS = 24 * 60 * 60 * 1000;
+const TOKEN_TIMESTAMP_KEY = 'adminToken_setAt';
 
 export function readAdminToken(): string | null {
   if (typeof window === 'undefined') return null;
-  return window.localStorage.getItem(STORAGE_KEY);
+  try {
+    const ts = window.localStorage.getItem(TOKEN_TIMESTAMP_KEY);
+    if (ts && Date.now() - Number(ts) > TOKEN_EXPIRY_MS) {
+      window.localStorage.removeItem(STORAGE_KEY);
+      window.localStorage.removeItem(TOKEN_TIMESTAMP_KEY);
+      return null;
+    }
+    return window.localStorage.getItem(STORAGE_KEY);
+  } catch {
+    return null;
+  }
+}
+
+export function writeAdminToken(token: string): void {
+  if (typeof window === 'undefined') return;
+  try {
+    window.localStorage.setItem(STORAGE_KEY, token);
+    window.localStorage.setItem(TOKEN_TIMESTAMP_KEY, String(Date.now()));
+  } catch {
+    // Storage quota or private browsing — non-fatal.
+  }
+}
+
+export function clearAdminToken(): void {
+  if (typeof window === 'undefined') return;
+  try {
+    window.localStorage.removeItem(STORAGE_KEY);
+    window.localStorage.removeItem(TOKEN_TIMESTAMP_KEY);
+  } catch {
+    // non-fatal
+  }
 }
 
 /**

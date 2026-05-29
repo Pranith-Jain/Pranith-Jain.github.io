@@ -109,6 +109,35 @@ import { hackertargetDnsHandler, hackertargetReverseIpHandler } from './routes/h
 import { radarDomainHandler } from './routes/cloudflare-radar';
 import { certspotterSearchHandler } from './routes/certspotter';
 import { triageSearchHandler } from './routes/triage';
+import { reportParserHandler } from './routes/report-parser';
+import {
+  iocLifecycleHandler,
+  iocLifecycleTrendingHandler,
+  iocLifecycleStatsHandler,
+} from './routes/ioc-lifecycle';
+import { ruleGeneratorHandler, ruleValidateHandler } from './routes/yara-generator';
+import {
+  ctWatchedListHandler,
+  ctWatchAddHandler,
+  ctWatchRemoveHandler,
+  ctCertsHandler,
+} from './routes/ct-monitor';
+import {
+  taxiiDiscoveryHandler,
+  taxiiCollectionsHandler,
+  taxiiCollectionHandler,
+  taxiiObjectsHandler,
+  taxiiAddObjectsHandler,
+} from './routes/taxii';
+import { stealerParserHandler } from './routes/stealer-parser';
+import { bloomFilterHandler, bloomCheckHandler, bloomStatsHandler } from './routes/bloom-filter';
+import { graphNodeHandler, graphPathHandler, graphCommunitiesHandler, graphStatsHandler } from './routes/threat-graph';
+import { temporalTimelineHandler, temporalCampaignsHandler, temporalVelocityHandler, temporalPredictHandler } from './routes/temporal-analysis';
+import { attackChainHandler, attackChainTechniquesHandler } from './routes/attack-chain';
+import { actorDnaMatchHandler, actorDnaGetHandler, actorDnaListHandler, actorDnaCompareHandler } from './routes/actor-dna';
+import { campaignAnalyzeHandler, campaignTechniquesHandler } from './routes/campaign-lifecycle';
+import { predictiveForecastsHandler, predictiveSectorRisksHandler, predictiveAttributionHandler, predictiveGapsHandler, predictiveReportHandler } from './routes/predictive-intel';
+import { crossCampaignCorrelationHandler } from './routes/cross-campaign';
 
 import {
   listWatchesHandler,
@@ -146,6 +175,10 @@ import { xTweetsHandler } from './routes/x-tweets';
 import { xLiveHandler } from './routes/x-live';
 import { xFirehoseHandler } from './routes/x-firehose';
 import { relationshipGraphHandler } from './routes/relationship-graph';
+import { huntingQueryHandler } from './routes/hunting-queries';
+import { sandboxLookupHandler } from './routes/sandbox';
+import { irPlaybookHandler } from './routes/ir-playbooks';
+import { aiSummaryHandler } from './routes/ai-summary';
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -290,6 +323,7 @@ app.post('/api/v1/phishing/fetch-page', fetchPageHandler);
 app.post('/api/v1/phishing/fingerprint', fingerprintHandler);
 app.get('/api/v1/unified-search', unifiedSearchHandler);
 app.get('/api/v1/relationship-graph', relationshipGraphHandler);
+app.post('/api/v1/ai-summary', aiSummaryHandler);
 app.post('/api/v1/copilot/investigate', copilotInvestigateHandler);
 app.get('/api/v1/copilot/investigate', copilotInvestigateHandler);
 app.post('/api/v1/automation/run', automationRunHandler);
@@ -300,6 +334,85 @@ app.get('/api/v1/hackertarget/reverse-ip', hackertargetReverseIpHandler);
 app.get('/api/v1/radar/domain', radarDomainHandler);
 app.get('/api/v1/certspotter/search', certspotterSearchHandler);
 app.get('/api/v1/triage/search', triageSearchHandler);
+
+// ── Report Parser ─────────────────────────────────────────────────
+app.post('/api/v1/report/parse', reportParserHandler);
+
+// ── IOC Lifecycle ─────────────────────────────────────────────────
+app.get('/api/v1/ioc-lifecycle', iocLifecycleHandler);
+app.get('/api/v1/ioc-lifecycle/trending', iocLifecycleTrendingHandler);
+app.get('/api/v1/ioc-lifecycle/stats', iocLifecycleStatsHandler);
+
+// ── AI Rule Generator ────────────────────────────────────────────
+app.post('/api/v1/rules/generate', ruleGeneratorHandler);
+app.post('/api/v1/rules/validate', ruleValidateHandler);
+// Legacy routes for backward compatibility
+app.post('/api/v1/yara/generate', ruleGeneratorHandler);
+app.post('/api/v1/yara/validate', ruleValidateHandler);
+
+// ── CT Domain Monitor ────────────────────────────────────────────
+app.get('/api/v1/ct-monitor/watched', ctWatchedListHandler);
+app.post('/api/v1/ct-monitor/watch', ctWatchAddHandler);
+app.delete('/api/v1/ct-monitor/watch/:domain', ctWatchRemoveHandler);
+app.get('/api/v1/ct-monitor/certs', ctCertsHandler);
+
+// ── TAXII 2.1 Server ────────────────────────────────────────────
+app.get('/api/taxii2/', taxiiDiscoveryHandler);
+app.get('/api/taxii2/collections/', taxiiCollectionsHandler);
+app.get('/api/taxii2/collections/:id/', taxiiCollectionHandler);
+app.get('/api/taxii2/collections/:id/objects/', taxiiObjectsHandler);
+app.post('/api/taxii2/collections/:id/objects/', taxiiAddObjectsHandler);
+
+// ── Stealer Log Parser ──────────────────────────────────────────
+app.post('/api/v1/stealer/parse', stealerParserHandler);
+
+// ── Bloom Filter ─────────────────────────────────────────────────
+app.get('/api/v1/bloom/stats', bloomStatsHandler);
+app.get('/api/v1/bloom/:type', bloomFilterHandler);
+app.post('/api/v1/bloom/check', bloomCheckHandler);
+
+// ── Threat Graph ─────────────────────────────────────────────────
+app.get('/api/v1/graph/node/:type/:value', graphNodeHandler);
+app.get('/api/v1/graph/path', graphPathHandler);
+app.get('/api/v1/graph/communities', graphCommunitiesHandler);
+app.get('/api/v1/graph/stats', graphStatsHandler);
+
+// ── Hunting & IR Tools ─────────────────────────────────────────────
+app.post('/api/v1/hunting-queries/generate', huntingQueryHandler);
+app.get('/api/v1/sandbox/lookup', sandboxLookupHandler);
+app.post('/api/v1/ir-playbooks/generate', irPlaybookHandler);
+
+// ── Temporal Analysis ────────────────────────────────────────────
+app.get('/api/v1/temporal/timeline', temporalTimelineHandler);
+app.get('/api/v1/temporal/campaigns', temporalCampaignsHandler);
+app.get('/api/v1/temporal/velocity', temporalVelocityHandler);
+app.get('/api/v1/temporal/predict', temporalPredictHandler);
+
+// ── Attack Chain ─────────────────────────────────────────────────
+app.post('/api/v1/attack-chain/reconstruct', attackChainHandler);
+app.get('/api/v1/attack-chain/techniques', attackChainTechniquesHandler);
+
+// ── Actor DNA ───────────────────────────────────────────────────
+app.post('/api/v1/threat-intel/actor-dna/match', actorDnaMatchHandler);
+app.get('/api/v1/threat-intel/actor-dna', actorDnaListHandler);
+app.get('/api/v1/threat-intel/actor-dna/:actorId', actorDnaGetHandler);
+app.get('/api/v1/threat-intel/actor-dna/compare/:actor1/:actor2', actorDnaCompareHandler);
+
+// ── Campaign Lifecycle ──────────────────────────────────────────
+app.post('/api/v1/threat-intel/campaign/analyze', campaignAnalyzeHandler);
+app.get('/api/v1/threat-intel/campaign/techniques', campaignTechniquesHandler);
+
+// ── Predictive Intelligence ─────────────────────────────────────
+app.get('/api/v1/threat-intel/predictive/forecasts', predictiveForecastsHandler);
+app.get('/api/v1/threat-intel/predictive/sector-risks', predictiveSectorRisksHandler);
+app.post('/api/v1/threat-intel/predictive/attribution', predictiveAttributionHandler);
+app.get('/api/v1/threat-intel/predictive/gaps', predictiveGapsHandler);
+app.get('/api/v1/threat-intel/predictive/report', predictiveReportHandler);
+
+// ── Dark Web Economics ──────────────────────────────────────────
+
+// ── Cross-Campaign Correlation ─────────────────────────────────
+app.get('/api/v1/threat-intel/cross-campaign/correlations', crossCampaignCorrelationHandler);
 
 app.get('/api/v1/dashboard', dashboardHandler);
 app.get('/api/v1/dashboard/watchlist', getWatchlistHandler);

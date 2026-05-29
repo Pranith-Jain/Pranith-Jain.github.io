@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { fetchResilient } from '../lib/fetch-resilient';
 import { DDC_FILES, parseDDCFile, type DDCEntry, type DDCFileConfig } from '../lib/deepdarkcti-parser';
 import { shouldWriteLastGood } from '../lib/lastgood-debounce';
 
@@ -39,11 +40,10 @@ function lastGoodKey(file: string): string {
 
 async function fetchFile(cfg: DDCFileConfig): Promise<string | null> {
   try {
-    const res = await fetch(`${RAW_BASE}/${cfg.file}`, {
-      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+    const res = await fetchResilient(`${RAW_BASE}/${cfg.file}`, {
       headers: { 'user-agent': 'pranithjain-dfir/1.0', accept: 'text/plain, */*' },
       cf: { cacheTtl: CACHE_TTL_SECONDS, cacheEverything: true },
-    } as RequestInit);
+    } as RequestInit, { attempts: 3, timeoutMs: FETCH_TIMEOUT_MS });
     if (!res.ok) return null;
     return await res.text();
   } catch {

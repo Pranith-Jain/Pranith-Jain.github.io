@@ -27,7 +27,12 @@ export default function BlocklistsPage(): JSX.Element {
     setError(null);
     try {
       const res = await fetch('/api/v1/blocklists/meta');
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      if (!res.ok) {
+        const body = await res.text().catch(() => '');
+        throw new Error(body ? `HTTP ${res.status}: ${body.slice(0, 100)}` : `HTTP ${res.status}`);
+      }
+      const ct = res.headers.get('content-type') ?? '';
+      if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
       const data = await res.json() as BlocklistMeta;
       setMeta(data);
     } catch (e) {

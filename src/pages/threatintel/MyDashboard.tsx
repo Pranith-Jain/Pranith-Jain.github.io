@@ -144,7 +144,7 @@ export default function MyDashboard(): JSX.Element {
         </div>
       </section>
 
-      {loading && !data && <DataState type="loading" rows={3} />}
+      {loading && !data && <DataState loading={true} rows={3} />}
 
       {data && (
         <div className="space-y-6">

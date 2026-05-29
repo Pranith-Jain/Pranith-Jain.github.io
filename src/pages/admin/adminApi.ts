@@ -3,16 +3,13 @@
 // back to the login screen — this also covers token-rotated / expired cases
 // without per-component error handling.
 
-const BASE = '/api/v1/admin';
+import { readAdminToken, clearAdminToken, adminAuthHeaders } from '../../lib/admin-token';
 
-function token(): string {
-  return localStorage.getItem('adminToken') ?? '';
-}
+const BASE = '/api/v1/admin';
 
 function headers(): HeadersInit {
   return {
-    'X-Admin-Token': token(),
-    Authorization: `Bearer ${token()}`,
+    ...adminAuthHeaders(),
     'content-type': 'application/json',
   };
 }
@@ -24,7 +21,7 @@ let reloadingForAuth = false;
 function handleUnauthorized(): void {
   if (reloadingForAuth) return;
   reloadingForAuth = true;
-  localStorage.removeItem('adminToken');
+  clearAdminToken();
   // window.location.reload bounces back to the login screen — simplest UX.
   window.location.reload();
 }
@@ -83,7 +80,7 @@ export async function postJsonWithBody<T>(path: string, body: unknown, init: Req
  * loop.
  */
 export async function probeAuth(): Promise<boolean> {
-  const t = token();
+  const t = readAdminToken();
   if (!t) return false;
   try {
     const r = await fetch(`${BASE}/health`, { headers: headers() });

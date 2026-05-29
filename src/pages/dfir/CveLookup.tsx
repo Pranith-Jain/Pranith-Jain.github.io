@@ -90,9 +90,16 @@ export default function CveLookup(): JSX.Element {
     try {
       const r = await fetch(`/api/v1/cve/search?id=${encodeURIComponent(id)}`);
       if (!r.ok) {
-        const body = (await r.json().catch(() => null)) as { message?: string } | null;
-        throw new Error(body?.message ?? `HTTP ${r.status}`);
+        const body = await r.text().catch(() => '');
+        let msg = `HTTP ${r.status}`;
+        try {
+          const parsed = JSON.parse(body) as { message?: string };
+          msg = parsed.message ?? msg;
+        } catch { /* use default */ }
+        throw new Error(msg);
       }
+      const ct = r.headers.get('content-type') ?? '';
+      if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
       setResult((await r.json()) as CveLookupResult);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'lookup failed');

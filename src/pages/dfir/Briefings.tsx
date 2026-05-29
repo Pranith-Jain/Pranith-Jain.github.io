@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Rss, ChevronRight, Search } from 'lucide-react';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 
 type Filter = 'all' | 'daily' | 'weekly';
 
@@ -103,6 +104,17 @@ export default function Briefings(): JSX.Element {
           .
         </p>
       </header>
+
+      {filtered.length > 0 && (
+        <AiSummaryCard
+          surface="Threat Intel Briefings"
+          items={filtered.slice(0, 14).map((b) => ({
+            title: b.metadata.title,
+            body: `${b.metadata.date_range} · ${b.metadata.stats.findings} findings · ${b.metadata.stats.cves} CVEs · ${b.metadata.stats.kevs} KEVs · ${b.metadata.stats.iocs} IoCs. Sources: ${b.metadata.sources.join(', ')}`,
+          }))}
+          className="mb-8"
+        />
+      )}
 
       {/* Briefings list */}
       <section className="animate-fade-in-up">

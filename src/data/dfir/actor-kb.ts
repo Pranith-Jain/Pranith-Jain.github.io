@@ -14,6 +14,7 @@ export interface KbActor {
 }
 
 /** Data served on demand from /data/actor-kb.json */
+export const actorKb: KbActor[] = [
   {
     attackId: 'G1030',
     name: 'Agrius',

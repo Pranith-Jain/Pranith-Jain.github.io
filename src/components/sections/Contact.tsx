@@ -1,8 +1,12 @@
 import { Mail, Calendar, Linkedin, Github, FileText } from 'lucide-react';
-import { personalInfo } from '../../data/content';
+import type { PersonalInfo } from '../../core/entities';
 import { CopyToClipboard } from '../../components/CopyToClipboard';
 
-export function Contact() {
+interface ContactProps {
+  personalInfo: PersonalInfo;
+}
+
+export function Contact({ personalInfo }: ContactProps) {
   return (
     <section id="contact" className="mt-20 scroll-mt-24" aria-labelledby="contact-heading">
       {/* Dark CTA panel — keeps its hero-y character (dark fill stands out

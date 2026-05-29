@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { fetchResilient } from '../lib/fetch-resilient';
 import { CYBERCRIME_SOURCES, type CybercrimeSource } from '../lib/cybercrime-sources';
 import { shouldWriteLastGood } from '../lib/lastgood-debounce';
 import { fetchAFDatamarkets } from '../lib/andreafortuna-feeds';
@@ -59,15 +60,14 @@ export interface CybercrimeResponse {
 
 async function fetchText(url: string): Promise<string | null> {
   try {
-    const res = await fetch(url, {
-      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+    const res = await fetchResilient(url, {
       headers: {
         'user-agent':
           'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) pranithjain-cybercrime/1.0 Safari/537.36',
         accept: 'application/rss+xml, application/atom+xml, application/xml, text/xml, */*',
       },
       cf: { cacheTtl: 1800, cacheEverything: true },
-    } as RequestInit);
+    } as RequestInit, { attempts: 3, timeoutMs: FETCH_TIMEOUT_MS });
     if (!res.ok) return null;
     return await res.text();
   } catch {

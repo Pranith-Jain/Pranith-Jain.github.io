@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown, Command } from 'lucide-react';
+import type { NavLink } from '../core/entities';
 import { ThemeToggle } from './ui/ThemeToggle';
 import { useFocusTrap } from '../hooks/useFocusTrap';
-import { navLinks } from '../data/content';
 import { preloadRoute } from '../lib/route-preloaders';
 
 interface HeaderProps {
@@ -20,6 +20,11 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
   const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
   const scrollRafRef = useRef<number>(0);
   const location = useLocation();
+
+  // Clean up stale dropdown ref entries on unmount.
+  useEffect(() => {
+    return () => { dropdownRefs.current.clear(); };
+  }, []);
 
   useEffect(() => {
     if (typeof navigator === 'undefined') return;

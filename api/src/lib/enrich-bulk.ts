@@ -227,7 +227,7 @@ export async function enrichBulk(
   const chosen = prioritized.slice(0, maxIocs);
   const overflow = prioritized.slice(maxIocs).map(({ type, value }) => ({ type, value }));
 
-  const cache = new ProviderCache(env.KV_CACHE);
+  const cache = new ProviderCache(env.KV_CACHE!);
   const providerEnv = buildProviderEnv(env);
 
   // Build the full (indicator, provider) work list up front so all uncached

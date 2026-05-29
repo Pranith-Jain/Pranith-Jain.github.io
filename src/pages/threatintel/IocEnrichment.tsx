@@ -199,7 +199,7 @@ export default function IocEnrichment(): JSX.Element {
         </div>
       )}
 
-      {data && !loading && (
+      {!!data && !loading && (
         <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
           <button
             type="button"

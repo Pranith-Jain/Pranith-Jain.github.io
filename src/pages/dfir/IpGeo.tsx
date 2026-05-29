@@ -97,9 +97,16 @@ export default function IpGeo(): JSX.Element {
     try {
       const res = await fetch(`/api/v1/ip-geo?ip=${encodeURIComponent(t)}`);
       if (!res.ok) {
-        const body = (await res.json().catch(() => ({}))) as { error?: string };
-        throw new Error(body.error ?? `HTTP ${res.status}`);
+        const body = await res.text().catch(() => '');
+        let msg = `HTTP ${res.status}`;
+        try {
+          const parsed = JSON.parse(body) as { error?: string };
+          msg = parsed.error ?? msg;
+        } catch { /* use default */ }
+        throw new Error(msg);
       }
+      const ct = res.headers.get('content-type') ?? '';
+      if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
       setData((await res.json()) as IpGeoResponse);
     } catch (e) {
       setError((e as Error).message);

@@ -34,7 +34,7 @@ export async function requestLogger(c: Context<{ Bindings: Env }>, next: Next): 
   if (Math.random() > sample) return;
 
   trackEvent(
-    c.env as Pick<Env, 'DFIR_ANALYTICS'>,
+    c.env as Pick<Env, 'AJ_analytics'>,
     'api_request',
     {
       blobs: [method, path],

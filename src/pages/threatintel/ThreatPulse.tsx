@@ -15,6 +15,7 @@ import {
   ExternalLink,
 } from 'lucide-react';
 import { DataState } from '../../components/DataState';
+import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 
 /** Build a deep link for an entity label so the analyst can pivot
  *  straight into the platform / MITRE rather than re-typing the ID. */
@@ -228,6 +229,16 @@ export default function ThreatPulse(): JSX.Element {
             );
           })}
         </div>
+      )}
+
+      {data && data.entities.length > 0 && (
+        <AiSummaryCard
+          surface="Threat Pulse"
+          items={data.entities.slice(0, 30).map((e) => ({
+            title: `${e.label} (${e.kind}) — seen in ${e.source_count} source${e.source_count > 1 ? 's' : ''}`,
+            body: `Sources: ${e.sources.join(', ')}`,
+          }))}
+        />
       )}
 
       {/* Controls */}

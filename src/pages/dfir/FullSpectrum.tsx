@@ -75,8 +75,18 @@ const DOMAIN_RE = /^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}
 function fetchTool(url: string): Promise<unknown> {
   return fetch(url).then(async (r) => {
     if (!r.ok) {
-      const body = (await r.json().catch(() => ({}))) as { error?: string };
-      throw new Error(body.error ?? `HTTP ${r.status}`);
+      const body = await r.text().catch(() => '');
+      let msg = `HTTP ${r.status}`;
+      try {
+        const parsed = JSON.parse(body) as { error?: string };
+        msg = parsed.error ?? msg;
+      } catch { /* use default msg */ }
+      throw new Error(msg);
+    }
+    const ct = r.headers.get('content-type') ?? '';
+    if (!ct.includes('json')) {
+      const text = await r.text().catch(() => '');
+      throw new Error(`Server returned non-JSON: ${text.slice(0, 100)}`);
     }
     return r.json();
   });

@@ -1,6 +1,10 @@
-import { companies } from '../../data/content';
+import type { Company } from '../../core/entities';
 
-export function Companies() {
+interface CompaniesProps {
+  companies: Company[];
+}
+
+export function Companies({ companies }: CompaniesProps) {
   return (
     <section id="companies" className="mt-20 scroll-mt-24">
       <div className="mb-10 max-w-3xl">

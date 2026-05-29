@@ -306,9 +306,16 @@ export default function BriefingDetail(): JSX.Element {
     fetch(`/api/v1/briefings/${encodeURIComponent(slug)}`, { signal: ctrl.signal })
       .then(async (r) => {
         if (!r.ok) {
-          const body = (await r.json().catch(() => ({}))) as { error?: string };
-          throw new Error(body.error ?? `${r.status}`);
+          const body = await r.text().catch(() => '');
+          let msg = `${r.status}`;
+          try {
+            const parsed = JSON.parse(body) as { error?: string };
+            msg = parsed.error ?? msg;
+          } catch { /* use default */ }
+          throw new Error(msg);
         }
+        const ct = r.headers.get('content-type') ?? '';
+        if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
         return (await r.json()) as Briefing;
       })
       .then((b) => {

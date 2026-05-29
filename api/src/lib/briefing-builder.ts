@@ -5,8 +5,8 @@
  * findings, and produces a structured briefing object. Stored in D1 under
  * the `briefings` table.
  *
- * Narrative is templated — no LLM. Source data already contains the descriptions;
- * we format and group, we don't invent.
+ * Executive summary uses LLM when available (Groq → Workers AI), falling
+ * back to a deterministic template when the LLM is unavailable.
  */
 
 import type { D1Database } from '@cloudflare/workers-types';
@@ -15,6 +15,7 @@ import { fetchResilient } from './fetch-resilient';
 import type { Env } from '../env';
 import { fetchMtiSource, type MtiRansomwareClaim, type MtiCveRecord } from './mythreatintel-api';
 import { fetchCveFeedHighSeverity, type CveFeedEntry } from '../routes/cve-recent';
+import { runCompletion } from '../case-study/generation/ai-client';
 
 const NVD_UA = 'Mozilla/5.0 (compatible; pranithjain-dfir/1.0; +https://pranithjain.qzz.io)';
 const NVD_API = 'https://services.nvd.nist.gov/rest/json/cves/2.0';
@@ -1029,6 +1030,76 @@ function buildExecutiveSummary(args: {
   return parts.join(' ');
 }
 
+/**
+ * LLM-powered executive summary. Attempts to generate a richer, more
+ * analyst-grade summary using the LLM (Groq → Workers AI). Falls back
+ * to the deterministic template on any failure.
+ *
+ * The LLM summary references specific CVE IDs, vendor names, and severity
+ * counts from the actual findings — it doesn't invent data.
+ */
+async function buildLlmExecutiveSummary(
+  args: Parameters<typeof buildExecutiveSummary>[0],
+  env?: Env
+): Promise<string> {
+  const templateSummary = buildExecutiveSummary(args);
+  if (!env) return templateSummary;
+
+  const { type, range_label, findings, iocs, iocsRawTotal, iocSources } = args;
+  const critCount = findings.filter((f) => f.severity === 'critical').length;
+  const highCount = findings.filter((f) => f.severity === 'high').length;
+  const kevCount = findings.filter((f) => f.source === 'CISA KEV').length;
+
+  // Build a concise context for the LLM.
+  const topFindings = findings.slice(0, 15).map((f) => {
+    const parts = [f.id];
+    if (f.cvss) parts.push(`CVSS ${f.cvss}`);
+    parts.push(f.severity);
+    if (f.vendor) parts.push(f.vendor);
+    parts.push(f.title.slice(0, 120));
+    return parts.join(' | ');
+  });
+
+  const iocSummary = iocSources.length > 0
+    ? `IoC feeds: ${iocSources.join(', ')} — ${iocsRawTotal} unique indicators.`
+    : 'No IoC data this window.';
+
+  const userPrompt = [
+    `Generate a 2-3 sentence executive summary for a ${type} threat intelligence briefing (${range_label}).`,
+    ``,
+    `Stats: ${findings.length} findings (${critCount} critical, ${highCount} high), ${kevCount} CISA KEV entries. ${iocSummary}`,
+    ``,
+    `Top findings:`,
+    ...topFindings.map((f) => `- ${f}`),
+    ``,
+    `Requirements: Be specific — cite CVE IDs and vendor names. Professional CTI tone. No speculation.`,
+  ].join('\n');
+
+  try {
+    const result = await Promise.race([
+      runCompletion(
+        env.AI,
+        {
+          system: 'You are a senior CTI analyst writing executive summaries for threat intelligence briefings. Be concise, specific, and actionable. Reference actual CVE IDs and vendor names from the data. 2-3 sentences maximum.',
+          user: userPrompt,
+          maxTokens: 400,
+          temperature: 0.3,
+        },
+        { groqKey: env.GROQ_API_KEY }
+      ),
+      new Promise<never>((_, reject) => setTimeout(() => reject(new Error('llm-summary-timeout')), 8000)),
+    ]);
+
+    const text = result.text?.trim();
+    if (text && text.length > 50 && text.length < 2000) {
+      return text;
+    }
+  } catch {
+    // Fall through to template.
+  }
+  return templateSummary;
+}
+
 function buildStats(findings: BriefingFinding[], sections: BriefingSection[], iocsTotal: number): BriefingStats {
   // `findings` is the CVE-derived findings array (KEV + NVD + MTI CVE).
   // The rendered briefing has MORE findings than that: the MTI
@@ -1340,17 +1411,18 @@ export async function buildBriefing(
   }
 
   const stats = buildStats(findings, sections, iocsRawTotal);
+  const summaryArgs = {
+    type,
+    range_label: rangeLabel,
+    findings,
+    iocs,
+    iocsRawTotal,
+    iocSources,
+    iocPerSource,
+  };
   const executive_summary = degraded
     ? `This ${type} briefing is incomplete: both CISA KEV and NVD were unreachable from the edge at build time (${rangeLabel}). This is an upstream-availability gap, NOT an all-clear — do not read the absence of findings as "no new vulnerabilities". The briefing rebuilds automatically every hour and will be replaced as soon as the feeds respond.`
-    : buildExecutiveSummary({
-        type,
-        range_label: rangeLabel,
-        findings,
-        iocs,
-        iocsRawTotal,
-        iocSources,
-        iocPerSource,
-      });
+    : await buildLlmExecutiveSummary(summaryArgs, opts.env);
 
   const techniqueSet = new Set<string>();
   for (const f of findings) for (const t of f.mitre_techniques) techniqueSet.add(t);

@@ -38,8 +38,13 @@ const TYPE_BADGES: Record<string, { label: string; color: string }> = {
   generic: { label: 'General', color: 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300' },
 };
 
+import DOMPurify from 'isomorphic-dompurify';
+
 function markdownToHtml(md: string): string {
-  let html = md
+  // Sanitize input first to prevent XSS
+  const safeMd = DOMPurify.sanitize(md, { ALLOWED_TAGS: [] });
+  
+  let html = safeMd
     .replace(/### (.+)/g, '<h3 class="text-base font-semibold mt-4 mb-1.5">$1</h3>')
     .replace(/## (.+)/g, '<h2 class="text-lg font-bold mt-5 mb-2">$1</h2>')
     .replace(/# (.+)/g, '<h1 class="text-xl font-bold mt-5 mb-2">$1</h1>')

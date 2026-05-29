@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { fetchResilient } from '../lib/fetch-resilient';
 import { shouldWriteLastGood } from '../lib/lastgood-debounce';
 
 /**
@@ -144,12 +145,11 @@ function writeLastGood(
 
 async function fetchOpenphish(): Promise<string | null> {
   try {
-    const res = await fetch(OPENPHISH_URL, {
-      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS_OPENPHISH),
+    const res = await fetchResilient(OPENPHISH_URL, {
       headers: { 'user-agent': 'pranithjain-dfir/1.0', accept: 'text/plain, text/csv' },
       cf: { cacheTtl: 1800, cacheEverything: true },
       redirect: 'follow',
-    });
+    }, { attempts: 3, timeoutMs: FETCH_TIMEOUT_MS_OPENPHISH });
     if (!res.ok) return null;
     return await res.text();
   } catch {
@@ -159,8 +159,7 @@ async function fetchOpenphish(): Promise<string | null> {
 
 async function fetchPhishtank(): Promise<string | null> {
   try {
-    const res = await fetch(PHISHTANK_URL, {
-      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS_PHISHTANK),
+    const res = await fetchResilient(PHISHTANK_URL, {
       headers: { 'user-agent': PHISHTANK_UA, accept: 'text/csv,*/*' },
       // Signed CloudFront URLs can't be CDN-cached cleanly across requests; our
       // own KV-style cache (CACHE_KEY at the response level) handles dedupe.

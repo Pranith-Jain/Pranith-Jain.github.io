@@ -188,7 +188,7 @@ export default function Watches(): JSX.Element {
           </div>
 
           {loading && watches.length === 0 ? (
-            <DataState type="loading" rows={4} />
+            <DataState loading={true} rows={4} />
           ) : watches.length === 0 ? (
             <div className="rounded-lg border border-dashed border-slate-300 dark:border-slate-600 px-4 py-10 text-center">
               <Bell size={32} className="mx-auto mb-2 text-slate-300 dark:text-slate-500" />

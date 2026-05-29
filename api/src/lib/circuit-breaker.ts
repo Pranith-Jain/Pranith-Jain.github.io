@@ -40,8 +40,13 @@ export function isCircuitOpen(provider: ProviderId): boolean {
 /**
  * Record a provider failure. Increments the consecutive-fail counter.
  * Auto-resets after CIRCUIT_WINDOW_MS.
+ *
+ * Note: While Workers can process requests concurrently, the JS event loop
+ * is single-threaded per request context, so the read-modify-write on the
+ * Map is safe within a single microtask. The async label is kept for API
+ * consistency with recordProviderSuccess.
  */
-export async function recordProviderFailure(provider: ProviderId): Promise<void> {
+export function recordProviderFailure(provider: ProviderId): void {
   const now = Date.now();
   const entry = state.get(provider);
   if (!entry || now >= entry.resetAt) {

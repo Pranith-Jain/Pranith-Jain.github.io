@@ -26,6 +26,14 @@ export async function listWatches(kv: KVNamespace): Promise<Watch[]> {
   return (raw as Watch[]) ?? [];
 }
 
+/**
+ * Save a watch to KV.
+ *
+ * Note: KV operations are eventually consistent. Concurrent saves to the
+ * same key may result in last-write-wins. For a personal portfolio site
+ * with single-user admin, this is acceptable. For multi-user scenarios,
+ * implement optimistic locking with version numbers.
+ */
 export async function saveWatch(kv: KVNamespace, watch: Watch): Promise<void> {
   const watches = await listWatches(kv);
   const idx = watches.findIndex((w) => w.id === watch.id);

@@ -14,7 +14,7 @@ import type { Env } from '../env';
  *   indexes[0]: country code (from cf-ipcountry header) — single shard key
  */
 export function trackEvent(
-  env: Pick<Env, 'DFIR_ANALYTICS'>,
+  env: Pick<Env, 'AJ_analytics'>,
   event: string,
   opts: {
     blobs?: string[];
@@ -22,7 +22,7 @@ export function trackEvent(
     indexes?: string[];
   } = {}
 ): void {
-  const ae = env.DFIR_ANALYTICS;
+  const ae = env.AJ_analytics;
   if (!ae) return; // local dev or binding missing — silently skip
   try {
     ae.writeDataPoint({
