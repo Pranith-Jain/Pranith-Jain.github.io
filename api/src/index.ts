@@ -110,6 +110,7 @@ import { radarDomainHandler } from './routes/cloudflare-radar';
 import { certspotterSearchHandler } from './routes/certspotter';
 import { triageSearchHandler } from './routes/triage';
 import { reportParserHandler } from './routes/report-parser';
+import { domainRepHandler, domainMonitorHandler } from './routes/domain-advanced';
 import { iocLifecycleHandler, iocLifecycleTrendingHandler, iocLifecycleStatsHandler } from './routes/ioc-lifecycle';
 import { ruleGeneratorHandler, ruleValidateHandler } from './routes/yara-generator';
 import { ctWatchedListHandler, ctWatchAddHandler, ctWatchRemoveHandler, ctCertsHandler } from './routes/ct-monitor';
@@ -421,6 +422,10 @@ app.get('/api/v1/threat-intel/predictive/report', predictiveReportHandler);
 
 // ── Cross-Campaign Correlation ─────────────────────────────────
 app.get('/api/v1/threat-intel/cross-campaign/correlations', crossCampaignCorrelationHandler);
+
+// ── Domain Intelligence ──────────────────────────────────────────
+app.get('/api/v1/domain-rep', domainRepHandler);
+app.get('/api/v1/domain-monitor', domainMonitorHandler);
 
 app.get('/api/v1/dashboard', dashboardHandler);
 app.get('/api/v1/dashboard/watchlist', getWatchlistHandler);

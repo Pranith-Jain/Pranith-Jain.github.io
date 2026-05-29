@@ -191,6 +191,13 @@ export interface MtiResult {
   /** Total matching records upstream (`metadata.total`). */
   total: number;
   items: MtiRecord[];
+  /**
+   * When `ok` is false: the upstream HTTP status that caused it (e.g. 401 =
+   * token rejected, 429 = rate-limited, 5xx = upstream error), or 0 for a
+   * network error / timeout. Surfaced so operators can tell a dead token from
+   * a transient outage instead of staring at an opaque 502.
+   */
+  upstreamStatus?: number;
 }
 
 const EMPTY: MtiResult = { ok: false, count: 0, total: 0, items: [] };
@@ -258,10 +265,10 @@ export async function fetchMtiSource(env: Env, source: MtiSource, query: MtiQuer
       },
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
     });
-    if (!res.ok) return EMPTY;
+    if (!res.ok) return { ...EMPTY, upstreamStatus: res.status };
     env_envelope = (await res.json()) as MtiEnvelope;
   } catch {
-    return EMPTY;
+    return { ...EMPTY, upstreamStatus: 0 };
   }
 
   const data = Array.isArray(env_envelope.data) ? (env_envelope.data as MtiRecord[]) : [];

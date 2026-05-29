@@ -38,9 +38,12 @@ export async function mtiHandler(c: Context<{ Bindings: Env }>): Promise<Respons
   const result = await fetchMtiSource(c.env, source, { q, limit });
 
   // Upstream flake / auth failure — surface without caching so a transient
-  // miss isn't pinned for the source's full TTL.
+  // miss isn't pinned for the source's full TTL. `upstream_status` tells a
+  // dead token (401) from a rate-limit (429) / outage (5xx) / network error (0).
   if (!result.ok) {
-    return c.json({ error: 'upstream_unavailable', source }, 502, { 'cache-control': 'no-store' });
+    return c.json({ error: 'upstream_unavailable', source, upstream_status: result.upstreamStatus ?? null }, 502, {
+      'cache-control': 'no-store',
+    });
   }
 
   return c.json(
