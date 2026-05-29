@@ -75,6 +75,13 @@ jobs:
           node-version: '20'
           cache: 'npm'
       - run: npm ci
+      # api/ has its own package.json + lockfile; @cloudflare/vitest-pool-workers
+      # (used by api/vitest.config.ts) lives there, not in root deps. Install it
+      # explicitly — root `npm ci` does not cover api/. --legacy-peer-deps because
+      # npm ci in api/ does not read the repo-root .npmrc.
+      - name: install api deps
+        working-directory: api
+        run: npm ci --legacy-peer-deps
       # The api suite runs under @cloudflare/vitest-pool-workers (miniflare).
       # Route tests that need outbound DNS/TCP can flake under the pool's
       # concurrency model (EADDRNOTAVAIL when many tests connect at once);

@@ -108,7 +108,7 @@ export default function AtlasMatrix(): JSX.Element {
       }
     }
     return set;
-  }, [query]);
+  }, [query, atlasMatrix]);
 
   const totalTactics = atlasMatrix.length;
   const totalTechniques = atlasMatrix.reduce((acc, t) => acc + t.techniques.length, 0);

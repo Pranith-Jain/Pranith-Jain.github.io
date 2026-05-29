@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
+import { CopyButton } from '../../components/dfir/CopyButton';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Crosshair, Loader2, Copy, Check, AlertTriangle, Shield } from 'lucide-react';
+import { ArrowLeft, Crosshair, Loader2, AlertTriangle, Shield } from 'lucide-react';
 
 interface HuntingQuery {
   siem: string;
@@ -37,20 +38,6 @@ const EXAMPLE_PROMPTS = [
   'Web shell deployment on compromised servers',
 ];
 
-function CopyButton({ text }: { text: string }) {
-  const [copied, setCopied] = useState(false);
-  return (
-    <button
-      type="button"
-      onClick={() => { navigator.clipboard.writeText(text); setCopied(true); setTimeout(() => setCopied(false), 1500); }}
-      className="p-1.5 rounded text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-      title="Copy to clipboard"
-    >
-      {copied ? <Check size={14} /> : <Copy size={14} />}
-    </button>
-  );
-}
-
 export default function HuntingQueryGenerator(): JSX.Element {
   const [threat, setThreat] = useState('');
   const [platforms, setPlatforms] = useState<Set<string>>(new Set(['Splunk', 'KQL', 'Sigma', 'Elastic']));
@@ -59,7 +46,7 @@ export default function HuntingQueryGenerator(): JSX.Element {
   const [error, setError] = useState<string | null>(null);
 
   const togglePlatform = (p: string) => {
-    setPlatforms(prev => {
+    setPlatforms((prev) => {
       const next = new Set(prev);
       if (next.has(p)) next.delete(p);
       else next.add(p);
@@ -81,7 +68,12 @@ export default function HuntingQueryGenerator(): JSX.Element {
       if (!res.ok) {
         const body = await res.text().catch(() => '');
         let msg = `HTTP ${res.status}`;
-        try { const p = JSON.parse(body) as { error?: string }; msg = p.error ?? msg; } catch { /* ok */ }
+        try {
+          const p = JSON.parse(body) as { error?: string };
+          msg = p.error ?? msg;
+        } catch {
+          /* ok */
+        }
         throw new Error(msg);
       }
       const ct = res.headers.get('content-type') ?? '';
@@ -98,7 +90,10 @@ export default function HuntingQueryGenerator(): JSX.Element {
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink to="/dfir" className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono">
+      <BackLink
+        to="/dfir"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+      >
         <ArrowLeft size={14} /> back
       </BackLink>
 
@@ -107,7 +102,8 @@ export default function HuntingQueryGenerator(): JSX.Element {
           <Crosshair size={28} className="text-brand-600 dark:text-brand-400" /> Hunting Query Generator
         </h1>
         <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
-          Describe a threat and generate detection queries for 7 SIEM platforms. Each query is tailored to the platform's syntax and data model.
+          Describe a threat and generate detection queries for 7 SIEM platforms. Each query is tailored to the
+          platform's syntax and data model.
         </p>
       </div>
 
@@ -115,13 +111,18 @@ export default function HuntingQueryGenerator(): JSX.Element {
       <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 mb-6">
         <h2 className="font-display font-bold text-sm mb-3">Threat Description</h2>
         <textarea
-          value={threat} onChange={(e) => setThreat(e.target.value)}
+          value={threat}
+          onChange={(e) => setThreat(e.target.value)}
           placeholder="Describe the threat or adversary behavior…"
           className="w-full h-24 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg p-3 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y font-mono"
         />
         <div className="mt-2 flex flex-wrap gap-1">
           {EXAMPLE_PROMPTS.slice(0, 4).map((ex, i) => (
-            <button key={i} onClick={() => setThreat(ex)} className="text-[11px] px-2 py-1 rounded border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-brand-500/30 transition-colors">
+            <button
+              key={i}
+              onClick={() => setThreat(ex)}
+              className="text-[11px] px-2 py-1 rounded border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-brand-500/30 transition-colors"
+            >
               {ex.slice(0, 45)}…
             </button>
           ))}
@@ -130,13 +131,21 @@ export default function HuntingQueryGenerator(): JSX.Element {
         <h3 className="font-display font-bold text-sm mt-4 mb-2">Target Platforms</h3>
         <div className="flex flex-wrap gap-1.5">
           {ALL_PLATFORMS.map((p) => (
-            <button key={p} onClick={() => togglePlatform(p)} className={`px-2.5 py-1.5 rounded-lg text-xs font-mono border transition-colors ${platforms.has(p) ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400' : 'border-slate-200 dark:border-slate-700 text-slate-400 hover:border-brand-500/30'}`}>
+            <button
+              key={p}
+              onClick={() => togglePlatform(p)}
+              className={`px-2.5 py-1.5 rounded-lg text-xs font-mono border transition-colors ${platforms.has(p) ? 'border-brand-500/60 bg-brand-500/10 text-brand-600 dark:text-brand-400' : 'border-slate-200 dark:border-slate-700 text-slate-400 hover:border-brand-500/30'}`}
+            >
               {p}
             </button>
           ))}
         </div>
 
-        <button onClick={handleGenerate} disabled={loading || !threat.trim() || platforms.size === 0} className="mt-4 w-full px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-lg text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2">
+        <button
+          onClick={handleGenerate}
+          disabled={loading || !threat.trim() || platforms.size === 0}
+          className="mt-4 w-full px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-lg text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2"
+        >
           {loading ? <Loader2 size={14} className="animate-spin" /> : <Crosshair size={14} />}
           {loading ? 'Generating…' : 'Generate Hunting Queries'}
         </button>
@@ -159,7 +168,13 @@ export default function HuntingQueryGenerator(): JSX.Element {
               </h2>
               <div className="flex flex-wrap gap-1.5">
                 {result.mitre_techniques.map((t, i) => (
-                  <a key={i} href={`https://attack.mitre.org/techniques/${t.replace('.', '/')}/`} target="_blank" rel="noopener noreferrer" className="text-[10px] font-mono px-2 py-0.5 rounded border border-amber-300/50 dark:border-amber-800/50 bg-amber-50 dark:bg-amber-950/20 text-amber-700 dark:text-amber-300 hover:border-amber-500/60 transition-colors">
+                  <a
+                    key={i}
+                    href={`https://attack.mitre.org/techniques/${t.replace('.', '/')}/`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[10px] font-mono px-2 py-0.5 rounded border border-amber-300/50 dark:border-amber-800/50 bg-amber-50 dark:bg-amber-950/20 text-amber-700 dark:text-amber-300 hover:border-amber-500/60 transition-colors"
+                  >
                     {t}
                   </a>
                 ))}
@@ -169,13 +184,20 @@ export default function HuntingQueryGenerator(): JSX.Element {
 
           {/* Queries by Platform */}
           {result.queries.map((q, i) => (
-            <div key={i} className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
+            <div
+              key={i}
+              className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5"
+            >
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
-                  <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${SIEM_COLORS[q.siem] ?? 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'}`}>{q.siem}</span>
+                  <span
+                    className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${SIEM_COLORS[q.siem] ?? 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'}`}
+                  >
+                    {q.siem}
+                  </span>
                   <span className="text-sm font-medium">{q.description}</span>
                 </div>
-                <CopyButton text={q.query} />
+                <CopyButton value={q.query} />
               </div>
               <pre className="bg-slate-50 dark:bg-slate-950 rounded-lg p-4 overflow-x-auto text-xs text-slate-700 dark:text-slate-300 font-mono border border-slate-200 dark:border-slate-800 whitespace-pre-wrap">
                 {q.query}
@@ -186,7 +208,9 @@ export default function HuntingQueryGenerator(): JSX.Element {
           {/* Recommended Actions */}
           {result.recommended_actions.length > 0 && (
             <div className="rounded-xl border border-emerald-300/50 dark:border-emerald-800/50 bg-emerald-50 dark:bg-emerald-950/20 p-5">
-              <h2 className="font-display font-bold text-sm mb-2 text-emerald-700 dark:text-emerald-300">Recommended Actions</h2>
+              <h2 className="font-display font-bold text-sm mb-2 text-emerald-700 dark:text-emerald-300">
+                Recommended Actions
+              </h2>
               <ul className="space-y-1">
                 {result.recommended_actions.map((a, i) => (
                   <li key={i} className="text-xs text-emerald-600 dark:text-emerald-400 flex items-start gap-2">

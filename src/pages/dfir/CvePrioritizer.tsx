@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import type { Severity as Sev } from '../../components/severity';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
@@ -51,8 +52,6 @@ import {
  * `src/lib/dfir/cve-priority.ts` as pure functions so they're
  * unit-testable in isolation.
  */
-
-type Sev = 'critical' | 'high' | 'medium' | 'low' | 'info';
 
 const SEV_STYLE: Record<Sev, { text: string; chip: string; bar: string; Icon: typeof ShieldAlert }> = {
   critical: {

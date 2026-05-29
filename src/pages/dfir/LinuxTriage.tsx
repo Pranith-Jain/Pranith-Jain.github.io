@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import type { Severity as Sev } from '../../components/severity';
 import { useNavigate } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, AlertTriangle, ShieldAlert, ShieldX, ShieldCheck, Info, FileSearch } from 'lucide-react';
@@ -13,8 +14,6 @@ import { ArrowLeft, AlertTriangle, ShieldAlert, ShieldX, ShieldCheck, Info, File
  * cradle one-liners. The forensic toolkit is Windows-heavy — this fills
  * the Linux gap. Nothing leaves your browser.
  */
-
-type Sev = 'critical' | 'high' | 'medium' | 'low' | 'info';
 
 interface Finding {
   sev: Sev;

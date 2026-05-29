@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { ArrowLeft, Hash as HashIcon } from 'lucide-react';
+import { ArrowLeft, Hash as HashIcon, Loader2 } from 'lucide-react';
+import { fileTooLarge, yieldToPaint } from '../../lib/dfir/file-guard';
 
 /** Compact MD5 (RFC 1321). Web Crypto has no MD5; DFIR still needs it for
  *  cross-referencing legacy hash sets. */
@@ -71,6 +72,8 @@ export default function HashCalculator(): JSX.Element {
   const [text, setText] = useState(initial);
   const [out, setOut] = useState<Record<string, string>>({});
   const [src, setSrc] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState('');
   const autoFired = useRef(false);
 
   // Auto-fire from URL param
@@ -89,13 +92,25 @@ export default function HashCalculator(): JSX.Element {
 
   async function run(bytes: Uint8Array, label: string) {
     setSrc(label);
-    const [s1, s256, s384, s512] = await Promise.all([
-      subtle('SHA-1', bytes),
-      subtle('SHA-256', bytes),
-      subtle('SHA-384', bytes),
-      subtle('SHA-512', bytes),
-    ]);
-    setOut({ MD5: md5(bytes), 'SHA-1': s1, 'SHA-256': s256, 'SHA-384': s384, 'SHA-512': s512 });
+    setErr('');
+    setBusy(true);
+    try {
+      // Yield a frame so the spinner paints before the synchronous MD5 (pure JS)
+      // blocks the main thread on large inputs.
+      await yieldToPaint();
+      const [s1, s256, s384, s512] = await Promise.all([
+        subtle('SHA-1', bytes),
+        subtle('SHA-256', bytes),
+        subtle('SHA-384', bytes),
+        subtle('SHA-512', bytes),
+      ]);
+      setOut({ MD5: md5(bytes), 'SHA-1': s1, 'SHA-256': s256, 'SHA-384': s384, 'SHA-512': s512 });
+    } catch (ex) {
+      setOut({});
+      setErr(ex instanceof Error ? ex.message : String(ex));
+    } finally {
+      setBusy(false);
+    }
   }
 
   return (
@@ -136,12 +151,25 @@ export default function HashCalculator(): JSX.Element {
             className="hidden"
             onChange={async (e) => {
               const f = e.target.files?.[0];
-              if (f) void run(new Uint8Array(await f.arrayBuffer()), `${f.name} (${f.size} B)`);
+              if (!f) return;
+              const tooBig = fileTooLarge(f.size);
+              if (tooBig) {
+                setOut({});
+                setErr(tooBig);
+                return;
+              }
+              void run(new Uint8Array(await f.arrayBuffer()), `${f.name} (${f.size} B)`);
             }}
           />
         </label>
         {src && <span className="self-center text-slate-500">source: {src}</span>}
       </div>
+      {busy && (
+        <p className="mt-3 inline-flex items-center gap-2 font-mono text-sm text-slate-500">
+          <Loader2 size={14} className="animate-spin" /> hashing…
+        </p>
+      )}
+      {err && <p className="mt-3 font-mono text-sm text-rose-600 dark:text-rose-400">{err}</p>}
 
       <ul className="mt-6 space-y-2">
         {Object.entries(out).map(([k, v]) => (

@@ -456,28 +456,52 @@ export default function DmarcAnalyzer(): JSX.Element {
               <table className="w-full text-sm font-mono">
                 <thead>
                   <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950">
-                    <th className="text-left px-4 py-3 text-xs text-slate-500 dark:text-slate-400 font-medium">
+                    <th
+                      scope="col"
+                      className="text-left px-4 py-3 text-xs text-slate-500 dark:text-slate-400 font-medium"
+                    >
                       Source IP
                     </th>
-                    <th className="text-left px-4 py-3 text-xs text-slate-500 dark:text-slate-400 font-medium">
+                    <th
+                      scope="col"
+                      className="text-left px-4 py-3 text-xs text-slate-500 dark:text-slate-400 font-medium"
+                    >
                       Organization
                     </th>
-                    <th className="text-left px-4 py-3 text-xs text-slate-500 dark:text-slate-400 font-medium">
+                    <th
+                      scope="col"
+                      className="text-left px-4 py-3 text-xs text-slate-500 dark:text-slate-400 font-medium"
+                    >
                       Country
                     </th>
-                    <th className="text-right px-4 py-3 text-xs text-slate-500 dark:text-slate-400 font-medium">
+                    <th
+                      scope="col"
+                      className="text-right px-4 py-3 text-xs text-slate-500 dark:text-slate-400 font-medium"
+                    >
                       Volume
                     </th>
-                    <th className="text-center px-4 py-3 text-xs text-slate-500 dark:text-slate-400 font-medium">
+                    <th
+                      scope="col"
+                      className="text-center px-4 py-3 text-xs text-slate-500 dark:text-slate-400 font-medium"
+                    >
                       SPF
                     </th>
-                    <th className="text-center px-4 py-3 text-xs text-slate-500 dark:text-slate-400 font-medium">
+                    <th
+                      scope="col"
+                      className="text-center px-4 py-3 text-xs text-slate-500 dark:text-slate-400 font-medium"
+                    >
                       DKIM
                     </th>
-                    <th className="text-center px-4 py-3 text-xs text-slate-500 dark:text-slate-400 font-medium">
+                    <th
+                      scope="col"
+                      className="text-center px-4 py-3 text-xs text-slate-500 dark:text-slate-400 font-medium"
+                    >
                       DMARC
                     </th>
-                    <th className="text-left px-4 py-3 text-xs text-slate-500 dark:text-slate-400 font-medium">
+                    <th
+                      scope="col"
+                      className="text-left px-4 py-3 text-xs text-slate-500 dark:text-slate-400 font-medium"
+                    >
                       Header From
                     </th>
                   </tr>

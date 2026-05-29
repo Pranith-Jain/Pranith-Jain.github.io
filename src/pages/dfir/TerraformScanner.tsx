@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import type { Severity as Sev } from '../../components/severity';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, AlertTriangle, ShieldAlert, ShieldX, ShieldCheck, Info } from 'lucide-react';
 
@@ -12,8 +13,6 @@ import { ArrowLeft, AlertTriangle, ShieldAlert, ShieldX, ShieldCheck, Info } fro
  * world, unencrypted storage, IMDSv1, wildcard IAM, public resource
  * policies, and hardcoded secrets. Nothing leaves your browser.
  */
-
-type Sev = 'critical' | 'high' | 'medium' | 'low' | 'info';
 
 interface Finding {
   sev: Sev;

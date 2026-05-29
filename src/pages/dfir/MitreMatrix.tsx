@@ -219,7 +219,7 @@ export default function MitreMatrix(): JSX.Element {
       }
     }
     return set;
-  }, [query]);
+  }, [query, mitreMatrix]);
 
   // Apply highlight+gap-mode to produce the visible matrix. Search
   // highlights rather than filters (keeps tactic columns intact) — the
@@ -235,7 +235,7 @@ export default function MitreMatrix(): JSX.Element {
         }),
       }))
       .filter((tactic) => tactic.techniques.length > 0);
-  }, [coverage, showGapsOnly]);
+  }, [coverage, showGapsOnly, mitreMatrix]);
 
   const totalTactics = mitreMatrix.length;
   const totalTechniques = mitreMatrix.reduce((acc, t) => acc + t.techniques.length, 0);

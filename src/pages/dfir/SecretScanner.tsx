@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import type { Severity as Sev } from '../../components/severity';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, AlertTriangle, ShieldAlert, ShieldX, ShieldCheck, Info } from 'lucide-react';
@@ -12,8 +13,6 @@ import { ArrowLeft, AlertTriangle, ShieldAlert, ShieldX, ShieldCheck, Info } fro
  * the value is high-entropy. Matches are shown redacted with a line
  * number. Nothing leaves the browser — paste freely.
  */
-
-type Sev = 'critical' | 'high' | 'medium' | 'low' | 'info';
 
 interface Hit {
   sev: Sev;

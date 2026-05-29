@@ -458,12 +458,24 @@ export default function IocCheck(): JSX.Element {
                 <table className="w-full text-sm">
                   <thead className="text-left text-[10px] font-mono uppercase tracking-wider text-slate-500 bg-slate-50 dark:bg-slate-900/60">
                     <tr>
-                      <th className="px-3 py-2">Indicator</th>
-                      <th className="px-3 py-2">Type</th>
-                      <th className="px-3 py-2">Verdict</th>
-                      <th className="px-3 py-2 text-right">Score</th>
-                      <th className="px-3 py-2">Sources</th>
-                      <th className="px-3 py-2">Flagged by</th>
+                      <th scope="col" className="px-3 py-2">
+                        Indicator
+                      </th>
+                      <th scope="col" className="px-3 py-2">
+                        Type
+                      </th>
+                      <th scope="col" className="px-3 py-2">
+                        Verdict
+                      </th>
+                      <th scope="col" className="px-3 py-2 text-right">
+                        Score
+                      </th>
+                      <th scope="col" className="px-3 py-2">
+                        Sources
+                      </th>
+                      <th scope="col" className="px-3 py-2">
+                        Flagged by
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
