@@ -17,3 +17,21 @@ export function shortRel(iso?: string): string {
   if (ageS < 86400) return `${Math.round(ageS / 3600)}h ago`;
   return `${Math.round(ageS / 86400)}d ago`;
 }
+
+/**
+ * "X ago" formatter used across the threat-intel feed/table rows. Differs from
+ * `shortRel` above: floored units and a "just now" label (the convention these
+ * pages already shipped), with a configurable label for missing/invalid input
+ * (most pages want '', a couple want 'no timestamp'). Accepts ISO-8601 or any
+ * `Date.parse`-able string (RFC-822 feed dates included).
+ */
+export function relativeAgo(iso?: string, emptyLabel = ''): string {
+  if (!iso) return emptyLabel;
+  const t = Date.parse(iso);
+  if (Number.isNaN(t)) return emptyLabel;
+  const diff = Math.max(0, Date.now() - t) / 1000;
+  if (diff < 60) return 'just now';
+  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
+  return `${Math.floor(diff / 86400)}d ago`;
+}

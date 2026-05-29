@@ -146,7 +146,7 @@ export default function Negotiations(): JSX.Element {
   };
 
   const Th = ({ k, label, cls = '' }: { k: SortKey; label: string; cls?: string }) => (
-    <th className={`px-2 py-2 text-left font-mono text-[10px] uppercase tracking-wider ${cls}`}>
+    <th scope="col" className={`px-2 py-2 text-left font-mono text-[10px] uppercase tracking-wider ${cls}`}>
       <button
         type="button"
         onClick={() => setSort(k)}

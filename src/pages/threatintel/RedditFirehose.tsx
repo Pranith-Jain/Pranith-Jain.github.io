@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
+import { sanitizeUrl } from '../../lib/sanitize-url';
+import { relativeAgo as shortRel } from '../../lib/relativeTime';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ExternalLink, MessageSquare, RefreshCw, Search, Sparkles } from 'lucide-react';
@@ -36,16 +38,6 @@ const TOPIC_PILL: Record<RedditFeedItem['sub_topic'], string> = {
   scams: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
 };
 
-function shortRel(iso: string): string {
-  const t = Date.parse(iso);
-  if (Number.isNaN(t)) return '';
-  const diff = Math.max(0, Date.now() - t) / 1000;
-  if (diff < 60) return 'just now';
-  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
-  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
-  return `${Math.floor(diff / 86400)}d ago`;
-}
-
 export default function RedditFirehose(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
   const [data, setData] = useState<RedditFeedResponse | null>(null);
@@ -55,6 +47,7 @@ export default function RedditFirehose(): JSX.Element {
   const [subFilter, setSubFilter] = useState<Set<string>>(new Set(searchParams.get('sub')?.split(',') ?? []));
   const [newOnly, setNewOnly] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [visible, setVisible] = useState(60);
   const { previous: lastVisit, markVisited } = useLastVisit('reddit-firehose');
 
   useEffect(() => {
@@ -104,6 +97,11 @@ export default function RedditFirehose(): JSX.Element {
       return it.title.toLowerCase().includes(q) || it.text.toLowerCase().includes(q) || it.author.includes(q);
     });
   }, [data, query, subFilter, newOnly, lastVisit]);
+
+  // Cap rendered rows; reset when the filter result set changes.
+  useEffect(() => {
+    setVisible(60);
+  }, [query, subFilter, newOnly, data]);
 
   const newCount = useMemo(() => {
     if (!data || !lastVisit) return 0;
@@ -253,12 +251,17 @@ export default function RedditFirehose(): JSX.Element {
         rows={8}
       >
         <ul className="space-y-2">
-          {filtered.map((it, i) => (
+          {filtered.slice(0, visible).map((it, i) => (
             <li
               key={`${it.link}-${i}`}
               className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
             >
-              <a href={it.link} target="_blank" rel="noopener noreferrer" className="group block">
+              <a
+                href={sanitizeUrl(it.link) || undefined}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block"
+              >
                 <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
                   <span className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 flex-1 min-w-0">
                     {it.title}
@@ -281,6 +284,15 @@ export default function RedditFirehose(): JSX.Element {
             </li>
           ))}
         </ul>
+        {filtered.length > visible && (
+          <button
+            type="button"
+            onClick={() => setVisible((v) => v + 60)}
+            className="mt-3 w-full rounded-lg border border-slate-200 dark:border-slate-800 py-2 font-mono text-[12px] text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+          >
+            Show more ({filtered.length - visible} remaining)
+          </button>
+        )}
       </DataState>
     </div>
   );

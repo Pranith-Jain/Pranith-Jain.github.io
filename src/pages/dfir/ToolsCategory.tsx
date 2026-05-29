@@ -5,7 +5,6 @@ import { SECTIONS } from '../../components/dfir/ToolGrid';
 import { GROUP_META, type ToolGroup } from '../../components/dfir/tool-sections';
 import { personalInfo } from '../../data/content';
 import { AppHero } from '../../components/AppHero';
-import { AppFooter } from '../../components/AppFooter';
 
 const VALID: ToolGroup[] = ['dfir', 'ir', 'ti', 'osint', 'aisec', 'cloudsec', 'apisec', 'datasec', 'grc'];
 
@@ -199,11 +198,6 @@ export default function ToolsCategory(): JSX.Element {
           ))}
         </div>
       </section>
-
-      <AppFooter
-        aboutTo="/dfir/tools/about"
-        blurb={`${meta.label} — privacy-first tooling by ${personalInfo.name}. All analysis runs locally in your browser; triage support only, validate findings with your standard workflow.`}
-      />
     </div>
   );
 }

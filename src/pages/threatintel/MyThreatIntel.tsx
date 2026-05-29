@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
+import { CopyButton } from '../../components/ui/CopyButton';
+import { relativeAgo as shortRel } from '../../lib/relativeTime';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Copy, Check, ExternalLink, Radar, RefreshCw, Search } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Radar, RefreshCw, Search } from 'lucide-react';
 import { DataState } from '../../components/DataState';
 import { StatBar } from '../../components/StatBar';
 
@@ -116,39 +118,6 @@ function cellText(v: unknown): string {
   if (Array.isArray(v)) return v.join(', ');
   const s = String(v).trim();
   return s && s !== 'N/D' ? s : '—';
-}
-
-function shortRel(iso?: string): string {
-  if (!iso) return '';
-  const t = Date.parse(iso);
-  if (Number.isNaN(t)) return '';
-  const diff = Math.max(0, Date.now() - t) / 1000;
-  if (diff < 60) return 'just now';
-  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
-  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
-  return `${Math.floor(diff / 86400)}d ago`;
-}
-
-function CopyBtn({ value }: { value: string }): JSX.Element {
-  const [done, setDone] = useState(false);
-  return (
-    <button
-      type="button"
-      onClick={async () => {
-        try {
-          await navigator.clipboard.writeText(value);
-          setDone(true);
-          setTimeout(() => setDone(false), 1200);
-        } catch {
-          /* ignore */
-        }
-      }}
-      aria-label="copy value"
-      className="inline-flex items-center justify-center min-h-[40px] min-w-[40px] sm:min-h-0 sm:min-w-0 text-slate-400 hover:text-brand-500 transition-colors shrink-0 ml-1 align-middle"
-    >
-      {done ? <Check size={11} /> : <Copy size={11} />}
-    </button>
-  );
 }
 
 function DistBar({ rows, distKey }: { rows: MtiRow[]; distKey: string | null }): JSX.Element | null {
@@ -340,6 +309,7 @@ export default function MyThreatIntel(): JSX.Element {
                     {cols.map((col) => (
                       <th
                         key={col.key}
+                        scope="col"
                         className="px-3 py-2 font-mono text-[11px] uppercase tracking-wider text-slate-500 whitespace-nowrap"
                       >
                         {col.label}
@@ -374,7 +344,7 @@ export default function MyThreatIntel(): JSX.Element {
                                 <span className="truncate inline-block max-w-[16rem] align-middle" title={text}>
                                   {text}
                                 </span>
-                                <CopyBtn value={text} />
+                                <CopyButton size={11} className="ml-1 align-middle" value={text} />
                               </span>
                             ) : isUrl ? (
                               <a

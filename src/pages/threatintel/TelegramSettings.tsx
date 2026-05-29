@@ -60,6 +60,7 @@ export default function TelegramSettings(): JSX.Element {
   };
 
   const deleteChannel = async (h: string) => {
+    if (!window.confirm(`Remove channel ${h}?`)) return;
     try {
       const res = await fetch(`/api/v1/telegram-custom-channels/${encodeURIComponent(h)}`, {
         method: 'DELETE',

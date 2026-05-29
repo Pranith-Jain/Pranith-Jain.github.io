@@ -31,8 +31,10 @@ export function cspHeader(nonce?: string): string {
 }
 
 export function withSecurityHeaders(response: Response, nonce?: string): Response {
-  response.headers.set('content-security-policy', cspHeader(nonce));
-  const h = response.headers;
+  // ASSETS binding returns responses with immutable headers. Clone into
+  // a mutable Headers object so we can add CSP and other security headers.
+  const h = new Headers(response.headers);
+  h.set('content-security-policy', cspHeader(nonce));
   if (!h.has('x-content-type-options')) h.set('x-content-type-options', 'nosniff');
   if (!h.has('x-frame-options')) h.set('x-frame-options', 'DENY');
   if (!h.has('referrer-policy')) h.set('referrer-policy', 'strict-origin-when-cross-origin');
@@ -43,7 +45,17 @@ export function withSecurityHeaders(response: Response, nonce?: string): Respons
   if (!h.has('cross-origin-opener-policy')) h.set('cross-origin-opener-policy', 'same-origin');
   if (!h.has('cross-origin-embedder-policy')) h.set('cross-origin-embedder-policy', 'require-corp');
   if (!h.has('server')) h.set('server', 'PranithJain');
-  return response;
+  // Bodyless statuses (101 switching-protocols, 204/205/304) are defined to
+  // carry a null body — passing response.body for one throws RangeError. The
+  // current call graph never emits these here, but guarding keeps
+  // withSecurityHeaders total in case a route later adds ETag/304 support.
+  const status = response.status;
+  const bodyless = status === 101 || status === 204 || status === 205 || status === 304;
+  return new Response(bodyless ? null : response.body, {
+    status,
+    statusText: response.statusText,
+    headers: h,
+  });
 }
 
 /**

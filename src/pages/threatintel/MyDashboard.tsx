@@ -1,8 +1,18 @@
 import { useEffect, useState, useCallback } from 'react';
-import { ArrowLeft, Shield, AlertTriangle, CheckCircle2, ExternalLink, RefreshCw, Plus, Trash2, Globe, Search } from 'lucide-react';
+import {
+  ArrowLeft,
+  Shield,
+  AlertTriangle,
+  CheckCircle2,
+  ExternalLink,
+  RefreshCw,
+  Plus,
+  Trash2,
+  Globe,
+  Search,
+} from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
-import { AppFooter } from '../../components/AppFooter';
 
 interface DomainStatus {
   domain: string;
@@ -38,7 +48,9 @@ export default function MyDashboard(): JSX.Element {
     }
   }, []);
 
-  useEffect(() => { fetchData(); }, [fetchData]);
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   const [actionError, setActionError] = useState<string | null>(null);
 
@@ -63,6 +75,7 @@ export default function MyDashboard(): JSX.Element {
 
   const removeDomain = async (domain: string) => {
     if (!data) return;
+    if (!window.confirm(`Stop monitoring ${domain}?`)) return;
     setActionError(null);
     const updated = data.watchlist.domains.filter((d) => d !== domain);
     const res = await fetch('/api/v1/dashboard/watchlist', {
@@ -80,7 +93,10 @@ export default function MyDashboard(): JSX.Element {
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink to="/threatintel" className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono">
+      <BackLink
+        to="/threatintel"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+      >
         <ArrowLeft size={14} /> back
       </BackLink>
 
@@ -104,16 +120,27 @@ export default function MyDashboard(): JSX.Element {
       </div>
 
       {error && (
-        <div role="alert" className="rounded-lg border border-rose-300 dark:border-rose-800 bg-rose-50/50 dark:bg-rose-950/30 p-4 flex items-start justify-between gap-3 mb-6">
+        <div
+          role="alert"
+          className="rounded-lg border border-rose-300 dark:border-rose-800 bg-rose-50/50 dark:bg-rose-950/30 p-4 flex items-start justify-between gap-3 mb-6"
+        >
           <div className="text-sm font-mono text-rose-700 dark:text-rose-300">
             <AlertTriangle size={14} className="inline mr-1" /> {error}
           </div>
-          <button onClick={fetchData} className="shrink-0 text-xs font-mono px-3 py-1.5 rounded border border-rose-400/60 text-rose-700 dark:text-rose-300 hover:bg-rose-500/10">retry</button>
+          <button
+            onClick={fetchData}
+            className="shrink-0 text-xs font-mono px-3 py-1.5 rounded border border-rose-400/60 text-rose-700 dark:text-rose-300 hover:bg-rose-500/10"
+          >
+            retry
+          </button>
         </div>
       )}
 
       {actionError && (
-        <div role="alert" className="rounded-lg border border-rose-300 dark:border-rose-800 bg-rose-50/50 dark:bg-rose-950/30 p-4 mb-6">
+        <div
+          role="alert"
+          className="rounded-lg border border-rose-300 dark:border-rose-800 bg-rose-50/50 dark:bg-rose-950/30 p-4 mb-6"
+        >
           <div className="text-sm font-mono text-rose-700 dark:text-rose-300">
             <AlertTriangle size={14} className="inline mr-1" /> {actionError}
           </div>
@@ -156,7 +183,10 @@ export default function MyDashboard(): JSX.Element {
             </div>
           ) : (
             data.domains.map((d) => (
-              <div key={d.domain} className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+              <div
+                key={d.domain}
+                className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6"
+              >
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
                     <Globe size={20} className="text-slate-400" />
@@ -164,6 +194,7 @@ export default function MyDashboard(): JSX.Element {
                   </div>
                   <button
                     onClick={() => removeDomain(d.domain)}
+                    aria-label={`Remove ${d.domain}`}
                     className="p-1.5 rounded hover:bg-red-50 dark:hover:bg-red-900/20 text-slate-400 hover:text-red-500 transition-colors"
                     title="Remove domain"
                   >
@@ -172,12 +203,20 @@ export default function MyDashboard(): JSX.Element {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-3">
-                  <div className={`p-4 rounded-lg border ${d.ioc_sightings > 0 ? 'bg-rose-50/50 dark:bg-rose-950/30 border-rose-300 dark:border-rose-800' : 'bg-emerald-50/50 dark:bg-emerald-950/30 border-emerald-300 dark:border-emerald-800'}`}>
+                  <div
+                    className={`p-4 rounded-lg border ${d.ioc_sightings > 0 ? 'bg-rose-50/50 dark:bg-rose-950/30 border-rose-300 dark:border-rose-800' : 'bg-emerald-50/50 dark:bg-emerald-950/30 border-emerald-300 dark:border-emerald-800'}`}
+                  >
                     <div className="flex items-center gap-2 text-xs font-mono font-semibold mb-1">
-                      {d.ioc_sightings > 0 ? <AlertTriangle size={12} className="text-rose-500" /> : <CheckCircle2 size={12} className="text-emerald-500" />}
+                      {d.ioc_sightings > 0 ? (
+                        <AlertTriangle size={12} className="text-rose-500" />
+                      ) : (
+                        <CheckCircle2 size={12} className="text-emerald-500" />
+                      )}
                       IOC Sightings
                     </div>
-                    <p className={`text-lg font-bold tabular-nums font-mono ${d.ioc_sightings > 0 ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-emerald-400'}`}>
+                    <p
+                      className={`text-lg font-bold tabular-nums font-mono ${d.ioc_sightings > 0 ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-emerald-400'}`}
+                    >
                       {d.ioc_sightings}
                     </p>
                     {d.ioc_sightings > 0 && (
@@ -193,12 +232,20 @@ export default function MyDashboard(): JSX.Element {
                     )}
                   </div>
 
-                  <div className={`p-4 rounded-lg border ${d.breach_count > 0 ? 'bg-amber-50/50 dark:bg-amber-950/30 border-amber-300 dark:border-amber-800' : 'bg-emerald-50/50 dark:bg-emerald-950/30 border-emerald-300 dark:border-emerald-800'}`}>
+                  <div
+                    className={`p-4 rounded-lg border ${d.breach_count > 0 ? 'bg-amber-50/50 dark:bg-amber-950/30 border-amber-300 dark:border-amber-800' : 'bg-emerald-50/50 dark:bg-emerald-950/30 border-emerald-300 dark:border-emerald-800'}`}
+                  >
                     <div className="flex items-center gap-2 text-xs font-mono font-semibold mb-1">
-                      {d.breach_count > 0 ? <AlertTriangle size={12} className="text-amber-500" /> : <CheckCircle2 size={12} className="text-emerald-500" />}
+                      {d.breach_count > 0 ? (
+                        <AlertTriangle size={12} className="text-amber-500" />
+                      ) : (
+                        <CheckCircle2 size={12} className="text-emerald-500" />
+                      )}
                       Breaches
                     </div>
-                    <p className={`text-lg font-bold tabular-nums font-mono ${d.breach_count > 0 ? 'text-amber-600 dark:text-amber-400' : 'text-emerald-600 dark:text-emerald-400'}`}>
+                    <p
+                      className={`text-lg font-bold tabular-nums font-mono ${d.breach_count > 0 ? 'text-amber-600 dark:text-amber-400' : 'text-emerald-600 dark:text-emerald-400'}`}
+                    >
                       {d.breach_count}
                     </p>
                     {d.breach_count > 0 && (
@@ -245,13 +292,9 @@ export default function MyDashboard(): JSX.Element {
       )}
 
       <p className="text-[11px] font-mono text-slate-500 mt-8 text-center">
-        Data checked against cached threat intelligence feeds. Last updated: {data?.generated_at ? new Date(data.generated_at).toLocaleString() : '—'}
+        Data checked against cached threat intelligence feeds. Last updated:{' '}
+        {data?.generated_at ? new Date(data.generated_at).toLocaleString() : '—'}
       </p>
-
-      <AppFooter
-        aboutTo="/threatintel/about"
-        blurb="Dashboard data is cached and updated periodically. Add domains to monitor for IOC sightings and breach disclosures."
-      />
     </div>
   );
 }

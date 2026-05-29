@@ -5,7 +5,6 @@ import { GROUP_META, MAIN_TOOL_COUNT, UTILITY_TOOLS, type ToolGroup } from '../c
 import { ToolSearchBar } from '../components/dfir/ToolSearchBar';
 import { personalInfo } from '../data/content';
 import { AppHero } from '../components/AppHero';
-import { AppFooter } from '../components/AppFooter';
 import { StatBar } from '../components/StatBar';
 
 /**
@@ -443,11 +442,6 @@ export default function DFIRPage(): JSX.Element {
           </div>
         </details>
       </section>
-
-      <AppFooter
-        aboutTo="/dfir/tools/about"
-        blurb={`DFIR & security toolkit by ${personalInfo.name}. Everything runs in your browser — no uploads, no keys, no tracking. Triage support only; validate findings with your standard workflow.`}
-      />
     </div>
   );
 }

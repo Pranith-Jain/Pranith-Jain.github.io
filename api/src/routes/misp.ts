@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { pinnedFetch, SsrfError } from '../lib/ssrf-guard';
 
 export async function mispProxyHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const { baseUrl, apiKey, endpoint, params } = await c.req.json<{
@@ -19,14 +20,36 @@ export async function mispProxyHandler(c: Context<{ Bindings: Env }>): Promise<R
     if (qs) url += `?${qs}`;
   }
 
-  const response = await fetch(url, {
-    headers: {
-      Authorization: apiKey,
-      Accept: 'application/json',
-      'User-Agent': 'pranithjain-portfolio/1.0',
-    },
-    signal: AbortSignal.timeout(15000),
-  });
+  // baseUrl is fully user-controlled and the response body is reflected back to
+  // the caller — a classic SSRF sink. Force https and route through pinnedFetch,
+  // which validates the host (rejecting private/reserved/metadata IPs) and pins
+  // the connection to the validated IP to defeat DNS rebinding.
+  let parsed: URL;
+  try {
+    parsed = new URL(url);
+  } catch {
+    return c.json({ error: 'invalid baseUrl/endpoint' }, 400);
+  }
+  if (parsed.protocol !== 'https:') {
+    return c.json({ error: 'baseUrl must use https' }, 400);
+  }
+
+  let response: Response;
+  try {
+    response = await pinnedFetch(parsed.toString(), {
+      headers: {
+        Authorization: apiKey,
+        Accept: 'application/json',
+        'User-Agent': 'pranithjain-portfolio/1.0',
+      },
+      signal: AbortSignal.timeout(15000),
+    });
+  } catch (err) {
+    if (err instanceof SsrfError) {
+      return c.json({ error: err.detail }, err.status as 400 | 403 | 502);
+    }
+    return c.json({ error: 'upstream fetch failed' }, 502);
+  }
 
   const body = await response.json();
   return c.json(body, response.ok ? 200 : 502, {

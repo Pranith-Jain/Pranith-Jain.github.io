@@ -1,4 +1,6 @@
 import { useMemo } from 'react';
+import { relativeAgo as shortRel } from '../../lib/relativeTime';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ExternalLink, RefreshCw, Skull } from 'lucide-react';
 import { useDataFetch } from '../../hooks/useDataFetch';
@@ -51,17 +53,6 @@ interface ActorTimelineResponse {
   warnings: Array<{ slug: string; reason: string }>;
 }
 
-function shortRel(iso?: string): string {
-  if (!iso) return '';
-  const t = Date.parse(iso);
-  if (Number.isNaN(t)) return '';
-  const diff = Math.max(0, Date.now() - t) / 1000;
-  if (diff < 60) return 'just now';
-  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
-  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
-  return `${Math.floor(diff / 86400)}d ago`;
-}
-
 function cellColor(count: number, max: number): string {
   if (count === 0) return 'bg-slate-100 dark:bg-slate-900';
   const intensity = Math.min(1, count / Math.max(1, max));
@@ -78,12 +69,7 @@ function shortDay(iso: string): string {
 }
 
 export default function ActorTimeline(): JSX.Element {
-  const {
-    data,
-    loading,
-    error,
-    refetch,
-  } = useDataFetch<ActorTimelineResponse>({
+  const { data, loading, error, refetch } = useDataFetch<ActorTimelineResponse>({
     url: '/api/v1/actor-timeline',
     ttl: 120_000,
     staleWhileRevalidate: true,
@@ -285,7 +271,7 @@ export default function ActorTimeline(): JSX.Element {
                             return (
                               <a
                                 key={i}
-                                href={ref}
+                                href={sanitizeUrl(ref) || undefined}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="hover:underline hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"

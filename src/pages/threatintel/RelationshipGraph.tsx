@@ -1,122 +1,11 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import {
-  ReactFlow,
-  Background,
-  Controls,
-  MiniMap,
-  Handle,
-  Position,
-  type Node,
-  type Edge,
-  type NodeTypes,
-} from '@xyflow/react';
-import dagre from 'dagre';
-import '@xyflow/react/dist/style.css';
+import { lazy, Suspense, useCallback, useEffect, useState } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Search, Loader2, AlertTriangle, Bug, TrendingUp, Network } from 'lucide-react';
+import { NODE_COLORS, type GraphNodeData, type GraphResponse } from './relationship-graph-shared';
 
-type GraphNodeType =
-  | 'cve' | 'actor' | 'ransomware' | 'malware' | 'campaign'
-  | 'ip' | 'domain' | 'hash' | 'technique' | 'victim'
-  | 'c2_framework' | 'product' | 'reference';
-
-interface GraphNodeData {
-  id: string;
-  type: GraphNodeType;
-  label: string;
-  subtitle?: string;
-  weight?: number;
-  data?: Record<string, unknown>;
-}
-
-interface GraphEdgeData {
-  id: string;
-  source: string;
-  target: string;
-  label: string;
-}
-
-interface GraphResponse {
-  nodes: GraphNodeData[];
-  edges: GraphEdgeData[];
-  seed: string;
-  seed_type: GraphNodeType | null;
-  generated_at: string;
-  depth: number;
-  truncated: boolean;
-  warning?: string;
-}
-
-const NODE_COLORS: Record<GraphNodeType, string> = {
-  cve: '#f59e0b',
-  actor: '#ef4444',
-  ransomware: '#f97316',
-  malware: '#a855f7',
-  campaign: '#ec4899',
-  ip: '#3b82f6',
-  domain: '#06b6d4',
-  hash: '#14b8a6',
-  technique: '#8b5cf6',
-  victim: '#6b7280',
-  c2_framework: '#84cc16',
-  product: '#6366f1',
-  reference: '#94a3b8',
-};
-
-function RelNodeBox({ data, selected }: { data: { label: string; subtitle?: string; nodeType: GraphNodeType }; selected?: boolean }): JSX.Element {
-  const color = NODE_COLORS[data.nodeType] ?? '#94a3b8';
-  return (
-    <div
-      className={`rounded-lg border-2 px-3 py-2 text-xs font-mono shadow-sm bg-white dark:bg-slate-900 ${
-        selected ? 'ring-2 ring-brand-500 ring-offset-2 ring-offset-white dark:ring-offset-slate-950' : ''
-      }`}
-      style={{ borderColor: color, minWidth: 130, maxWidth: 200 }}
-    >
-      <Handle type="target" position={Position.Top} style={{ background: color }} />
-      <div className="text-[10px] uppercase tracking-wider font-bold mb-0.5" style={{ color }}>
-        {data.nodeType}
-      </div>
-      <div className="text-slate-900 dark:text-slate-100 break-words leading-tight">{data.label}</div>
-      {data.subtitle && (
-        <div className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5 truncate">{data.subtitle}</div>
-      )}
-      <Handle type="source" position={Position.Bottom} style={{ background: color }} />
-    </div>
-  );
-}
-
-const NODE_TYPES: NodeTypes = { relNode: RelNodeBox };
-
-function RelGraph({ nodes, edges, onNodeClick }: {
-  nodes: Array<{ id: string; [k: string]: unknown }>;
-  edges: Array<{ id: string; [k: string]: unknown }>;
-  onNodeClick: (e: unknown, node: { id: string; [k: string]: unknown }) => void;
-}): JSX.Element {
-  return (
-    <ReactFlow
-      nodes={nodes as unknown as Node[]}
-      edges={edges as unknown as Edge[]}
-      nodeTypes={NODE_TYPES}
-      onNodeClick={onNodeClick as unknown as (e: unknown, node: Node) => void}
-      fitView
-      minZoom={0.2}
-      maxZoom={2}
-      proOptions={{ hideAttribution: true }}
-    >
-      <Background gap={24} size={1} />
-      <Controls position="bottom-right" showInteractive={false} />
-      <MiniMap
-        pannable
-        zoomable
-        maskColor="rgba(15, 23, 42, 0.6)"
-        nodeColor={(n) =>
-          NODE_COLORS[(n.data as { nodeType?: GraphNodeType })?.nodeType ?? 'reference'] ?? '#94a3b8'
-        }
-        style={{ height: 80 }}
-      />
-    </ReactFlow>
-  );
-}
+// The ReactFlow + dagre canvas (~250KB) loads only when a graph is rendered,
+// so the page shell paints immediately. See RelationshipGraphCanvas.tsx.
+const RelationshipGraphCanvas = lazy(() => import('./RelationshipGraphCanvas'));
 
 interface TrendingCve {
   id: string;
@@ -126,6 +15,14 @@ interface TrendingCve {
 const EXAMPLE_QUERIES = ['LockBit', 'APT28', 'Lazarus Group', 'CVE-2024-1709', 'CVE-2023-34362'];
 
 const DEFAULT_AUTO_SEED = 'CVE-2024-1709';
+
+function CanvasFallback(): JSX.Element {
+  return (
+    <div className="flex h-full items-center justify-center text-slate-500 font-mono text-xs gap-2">
+      <Loader2 size={14} className="animate-spin" /> loading graph engine…
+    </div>
+  );
+}
 
 export default function RelationshipGraphPage(): JSX.Element {
   const [query, setQuery] = useState('');
@@ -165,86 +62,34 @@ export default function RelationshipGraphPage(): JSX.Element {
       .finally(() => setInitialLoading(false));
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const fetchGraph = useCallback(async (q: string) => {
-    if (!q.trim()) return;
-    setLoading(true);
-    setError(null);
-    setSelectedNode(null);
-    try {
-      const res = await fetch(`/api/v1/relationship-graph?q=${encodeURIComponent(q.trim())}&depth=${depth}`);
-      if (!res.ok) {
-        const body = await res.json().catch(() => ({})) as { error?: string };
-        throw new Error(body.error ?? `HTTP ${res.status}`);
+  const fetchGraph = useCallback(
+    async (q: string) => {
+      if (!q.trim()) return;
+      setLoading(true);
+      setError(null);
+      setSelectedNode(null);
+      try {
+        const res = await fetch(`/api/v1/relationship-graph?q=${encodeURIComponent(q.trim())}&depth=${depth}`);
+        if (!res.ok) {
+          const body = (await res.json().catch(() => ({}))) as { error?: string };
+          throw new Error(body.error ?? `HTTP ${res.status}`);
+        }
+        const data = (await res.json()) as GraphResponse;
+        setGraphData(data);
+      } catch (e) {
+        setError((e as Error).message);
+        setGraphData(null);
+      } finally {
+        setLoading(false);
       }
-      const data = await res.json() as GraphResponse;
-      setGraphData(data);
-    } catch (e) {
-      setError((e as Error).message);
-      setGraphData(null);
-    } finally {
-      setLoading(false);
-    }
-  }, [depth]);
+    },
+    [depth]
+  );
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     void fetchGraph(query);
   };
-
-  const flowNodes = useMemo(() => {
-    if (!graphData) return [];
-    const g = new dagre.graphlib.Graph();
-    g.setDefaultEdgeLabel(() => ({}));
-    g.setGraph({ rankdir: 'LR', nodesep: 80, ranksep: 120, marginx: 40, marginy: 40 });
-
-    const nodes = graphData.nodes.map((n) => ({
-      id: n.id,
-      type: 'relNode',
-      position: { x: 0, y: 0 },
-      data: {
-        label: n.label,
-        subtitle: n.subtitle,
-        nodeType: n.type,
-        raw: n,
-      },
-    }));
-
-    const nodeWidth = 160;
-    const nodeHeight = 50;
-    for (const n of nodes) {
-      g.setNode(n.id, { width: nodeWidth, height: nodeHeight });
-    }
-    for (const e of graphData.edges) {
-      g.setEdge(e.source, e.target);
-    }
-    dagre.layout(g);
-
-    for (const n of nodes) {
-      const pos = g.node(n.id);
-      if (pos) {
-        n.position = { x: pos.x - nodeWidth / 2, y: pos.y - nodeHeight / 2 };
-      }
-    }
-    return nodes;
-  }, [graphData]);
-
-  const flowEdges = useMemo(() => {
-    if (!graphData) return [];
-    return graphData.edges.map((e) => ({
-      id: e.id,
-      source: e.source,
-      target: e.target,
-      label: e.label,
-      type: 'smoothstep',
-      style: { stroke: '#475569', strokeWidth: 1.5 },
-      labelStyle: { fontSize: 9, fontFamily: 'ui-monospace, monospace', fill: '#94a3b8' },
-      labelBgStyle: { fill: 'transparent' },
-    }));
-  }, [graphData]);
-
-  const onNodeClick = useCallback((_e: unknown, node: { id: string; data?: { raw?: GraphNodeData } }) => {
-    setSelectedNode(node.data?.raw ?? null);
-  }, []);
 
   const clearGraph = () => {
     setGraphData(null);
@@ -264,15 +109,18 @@ export default function RelationshipGraphPage(): JSX.Element {
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Relationship Graph</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-3xl">
-          Explore connections between CVEs, threat actors, ransomware groups, MITRE techniques, and more.
-          Search any entity to see its relationships across all intelligence sources.
+          Explore connections between CVEs, threat actors, ransomware groups, MITRE techniques, and more. Search any
+          entity to see its relationships across all intelligence sources.
         </p>
       </div>
 
       {/* Search */}
       <form onSubmit={handleSubmit} className="flex gap-3 items-end mb-6 flex-wrap">
         <div className="flex-1 min-w-[240px]">
-          <label htmlFor="rel-graph-query" className="block text-xs font-mono uppercase tracking-wider text-slate-500 mb-1.5">
+          <label
+            htmlFor="rel-graph-query"
+            className="block text-xs font-mono uppercase tracking-wider text-slate-500 mb-1.5"
+          >
             Search entity
           </label>
           <input
@@ -286,7 +134,10 @@ export default function RelationshipGraphPage(): JSX.Element {
           />
         </div>
         <div>
-          <label htmlFor="rel-graph-depth" className="block text-xs font-mono uppercase tracking-wider text-slate-500 mb-1.5">
+          <label
+            htmlFor="rel-graph-depth"
+            className="block text-xs font-mono uppercase tracking-wider text-slate-500 mb-1.5"
+          >
             Depth
           </label>
           <select
@@ -327,7 +178,10 @@ export default function RelationshipGraphPage(): JSX.Element {
           <button
             key={eq}
             type="button"
-            onClick={() => { setQuery(eq); void fetchGraph(eq); }}
+            onClick={() => {
+              setQuery(eq);
+              void fetchGraph(eq);
+            }}
             className="text-[11px] font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-brand-100 dark:hover:bg-brand-900/30 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
           >
             {eq}
@@ -358,8 +212,10 @@ export default function RelationshipGraphPage(): JSX.Element {
             <div className="flex h-full items-center justify-center text-slate-500 font-mono text-xs gap-2">
               <Loader2 size={14} className="animate-spin" /> building relationship graph…
             </div>
-          ) : graphData && flowNodes.length > 0 ? (
-            <RelGraph nodes={flowNodes} edges={flowEdges} onNodeClick={onNodeClick} />
+          ) : graphData && graphData.nodes.length > 0 ? (
+            <Suspense fallback={<CanvasFallback />}>
+              <RelationshipGraphCanvas graphData={graphData} onNodeClick={setSelectedNode} />
+            </Suspense>
           ) : (
             <div className="flex h-full flex-col items-center justify-center text-slate-500 font-mono text-sm gap-4 p-8 text-center">
               <Network size={40} className="text-slate-300 dark:text-slate-600" />
@@ -367,7 +223,8 @@ export default function RelationshipGraphPage(): JSX.Element {
                 Search any entity to see its relationships
               </div>
               <div className="text-xs text-slate-400 max-w-md">
-                Traverses CVE ↔ actor, actor ↔ ransomware, actor ↔ technique, and infrastructure links across all intelligence sources.
+                Traverses CVE ↔ actor, actor ↔ ransomware, actor ↔ technique, and infrastructure links across all
+                intelligence sources.
               </div>
               {/* Trending CVEs as clickable starting points */}
               {trendingCves.length > 0 && (
@@ -380,7 +237,10 @@ export default function RelationshipGraphPage(): JSX.Element {
                       <button
                         key={cve.id}
                         type="button"
-                        onClick={() => { setQuery(cve.id); void fetchGraph(cve.id); }}
+                        onClick={() => {
+                          setQuery(cve.id);
+                          void fetchGraph(cve.id);
+                        }}
                         className="text-[11px] font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-brand-100 dark:hover:bg-brand-900/30 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
                       >
                         {cve.id}
@@ -430,9 +290,15 @@ export default function RelationshipGraphPage(): JSX.Element {
             <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
               <div className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-3">Legend</div>
               <div className="grid grid-cols-2 gap-x-3 gap-y-1.5">
-                {(Object.entries(NODE_COLORS) as [GraphNodeType, string][]).map(([type, color]) => (
-                  <div key={type} className="flex items-center gap-2 text-[11px] font-mono text-slate-600 dark:text-slate-400">
-                    <span className="inline-block w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: color }} />
+                {(Object.entries(NODE_COLORS) as [GraphNodeData['type'], string][]).map(([type, color]) => (
+                  <div
+                    key={type}
+                    className="flex items-center gap-2 text-[11px] font-mono text-slate-600 dark:text-slate-400"
+                  >
+                    <span
+                      className="inline-block w-2.5 h-2.5 rounded-full flex-shrink-0"
+                      style={{ backgroundColor: color }}
+                    />
                     {type}
                   </div>
                 ))}

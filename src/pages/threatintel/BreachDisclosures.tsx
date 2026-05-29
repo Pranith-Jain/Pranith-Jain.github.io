@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ExternalLink, Loader2, Newspaper, RefreshCw, ShieldAlert } from 'lucide-react';
 import { BreachDisclosuresPanel } from '../dfir/DarkWeb';
@@ -167,7 +168,7 @@ export default function BreachDisclosures(): JSX.Element {
                     className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3 hover:border-brand-500/40 transition-colors"
                   >
                     <a
-                      href={item.link}
+                      href={sanitizeUrl(item.link) || undefined}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="block group"

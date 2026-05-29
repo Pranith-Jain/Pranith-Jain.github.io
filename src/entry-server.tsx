@@ -17,7 +17,7 @@ import './index.css';
  *
  * Phase 1/2 used `renderToString` which doesn't await Suspense boundaries.
  * Every route under <Suspense fallback={...}><LazyRoute /></Suspense> in
- * App.tsx came out as the SectionLoader spinner instead of real content.
+ * App.tsx came out as the loading spinner (in LazyRoute.tsx) instead of real content.
  * Only the Home route worked, because Home itself is eagerly imported.
  *
  * Switching to `renderToReadableStream` + `stream.allReady` makes React

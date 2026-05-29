@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
+import { relativeAgo as shortRel } from '../../lib/relativeTime';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ChevronDown, ChevronRight, ExternalLink, RefreshCw, Search, Users } from 'lucide-react';
 import { DataState } from '../../components/DataState';
@@ -47,17 +49,6 @@ interface VictimReleaksResponse {
   group_pairs: GroupPair[];
   timeline: TimelineBucket[];
   warnings: Array<{ slug: string; reason: string }>;
-}
-
-function shortRel(iso?: string): string {
-  if (!iso) return '';
-  const t = Date.parse(iso);
-  if (Number.isNaN(t)) return '';
-  const diff = Math.max(0, Date.now() - t) / 1000;
-  if (diff < 60) return 'just now';
-  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
-  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
-  return `${Math.floor(diff / 86400)}d ago`;
 }
 
 /** Minimal horizontal-bar list — no chart dependency, matches the Metrics primitive. */
@@ -136,6 +127,7 @@ export default function VictimReleaks(): JSX.Element {
   const [query, setQuery] = useState('');
   const [refreshKey, setRefreshKey] = useState(0);
   const [showRows, setShowRows] = useState(false);
+  const [visible, setVisible] = useState(60);
 
   useEffect(() => {
     let cancelled = false;
@@ -172,6 +164,12 @@ export default function VictimReleaks(): JSX.Element {
         r.raw_names.some((n) => n.toLowerCase().includes(q)) || r.claims.some((c) => c.group.toLowerCase().includes(q))
     );
   }, [data, query]);
+
+  // Cap rendered rows so a large snapshot doesn't mount thousands of DOM nodes;
+  // reset the cap when the filter result set changes.
+  useEffect(() => {
+    setVisible(60);
+  }, [query, data]);
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
@@ -328,7 +326,7 @@ export default function VictimReleaks(): JSX.Element {
                     <p className="font-mono text-[12px] text-slate-500">No re-leaks match the current filter.</p>
                   ) : (
                     <ul className="space-y-3">
-                      {filtered.map((r) => (
+                      {filtered.slice(0, visible).map((r) => (
                         <li
                           key={r.key}
                           className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-4"
@@ -371,7 +369,7 @@ export default function VictimReleaks(): JSX.Element {
                                 </span>
                                 {c.source_url && (
                                   <a
-                                    href={c.source_url}
+                                    href={sanitizeUrl(c.source_url) || undefined}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
@@ -385,6 +383,15 @@ export default function VictimReleaks(): JSX.Element {
                         </li>
                       ))}
                     </ul>
+                  )}
+                  {filtered.length > visible && (
+                    <button
+                      type="button"
+                      onClick={() => setVisible((v) => v + 60)}
+                      className="mt-3 w-full rounded-lg border border-slate-200 dark:border-slate-800 py-2 font-mono text-[12px] text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                    >
+                      Show more ({filtered.length - visible} remaining)
+                    </button>
                   )}
                 </div>
               )}

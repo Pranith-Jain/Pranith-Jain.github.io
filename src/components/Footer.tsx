@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 import { Eye, Linkedin, Github, Mail } from 'lucide-react';
+import { usePageViewCounter, formatViewCount } from '../hooks';
+import { PjMark } from './PjMark';
 import type { PersonalInfo } from '../core/entities';
 
 interface FooterProps {
   personalInfo: PersonalInfo;
 }
-import { usePageViewCounter, formatViewCount } from '../hooks';
-import { PjMark } from './PjMark';
 
 /**
  * Three-column footer sitemap:

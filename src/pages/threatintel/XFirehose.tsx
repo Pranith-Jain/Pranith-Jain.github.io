@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
+import { sanitizeUrl } from '../../lib/sanitize-url';
+import { relativeAgo as shortRel } from '../../lib/relativeTime';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, AtSign, Cloud, ExternalLink, Loader2, RefreshCw, Search, Sparkles } from 'lucide-react';
@@ -39,16 +41,6 @@ const TOPIC_PILL: Record<XFeedItem['handle_topic'], string> = {
   malware: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
 };
 
-function shortRel(rfc822: string): string {
-  const t = Date.parse(rfc822);
-  if (Number.isNaN(t)) return '';
-  const diff = Math.max(0, Date.now() - t) / 1000;
-  if (diff < 60) return 'just now';
-  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
-  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
-  return `${Math.floor(diff / 86400)}d ago`;
-}
-
 export default function XFirehose(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
   const [data, setData] = useState<XFeedResponse | null>(null);
@@ -58,6 +50,7 @@ export default function XFirehose(): JSX.Element {
   const [handleFilter, setHandleFilter] = useState<Set<string>>(new Set(searchParams.get('h')?.split(',') ?? []));
   const [newOnly, setNewOnly] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [visible, setVisible] = useState(60);
   const { previous: lastVisit, markVisited } = useLastVisit('x-firehose');
 
   useEffect(() => {
@@ -107,6 +100,11 @@ export default function XFirehose(): JSX.Element {
       return it.text.toLowerCase().includes(q) || it.handle.toLowerCase().includes(q);
     });
   }, [data, query, handleFilter, newOnly, lastVisit]);
+
+  // Cap rendered rows; reset when the filter result set changes.
+  useEffect(() => {
+    setVisible(60);
+  }, [query, handleFilter, newOnly, data]);
 
   const newCount = useMemo(() => {
     if (!data || !lastVisit) return 0;
@@ -251,12 +249,17 @@ export default function XFirehose(): JSX.Element {
       )}
 
       <ul className="space-y-2">
-        {filtered.map((it, i) => (
+        {filtered.slice(0, visible).map((it, i) => (
           <li
             key={`${it.link}-${i}`}
             className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
           >
-            <a href={it.link} target="_blank" rel="noopener noreferrer" className="group block">
+            <a
+              href={sanitizeUrl(it.link) || undefined}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group block"
+            >
               <div className="flex items-baseline justify-between gap-2 mb-1 flex-wrap">
                 <span className="font-mono text-[12px] text-brand-600 dark:text-brand-400 inline-flex items-center gap-1">
                   <span aria-hidden="true">{it.platform === 'bluesky' ? '🦋' : '🐘'}</span>
@@ -283,6 +286,16 @@ export default function XFirehose(): JSX.Element {
           </li>
         ))}
       </ul>
+
+      {filtered.length > visible && (
+        <button
+          type="button"
+          onClick={() => setVisible((v) => v + 60)}
+          className="mt-3 w-full rounded-lg border border-slate-200 dark:border-slate-800 py-2 font-mono text-[12px] text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+        >
+          Show more ({filtered.length - visible} remaining)
+        </button>
+      )}
 
       {!loading && !error && filtered.length === 0 && (
         <div className="rounded-lg border border-dashed border-slate-300 dark:border-slate-700 p-6 text-sm font-mono text-slate-500">

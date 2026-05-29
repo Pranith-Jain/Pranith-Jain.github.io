@@ -2,7 +2,6 @@ import { useEffect, useState, useCallback } from 'react';
 import { ArrowLeft, Plus, Trash2, Bell, RefreshCw, AlertTriangle, ExternalLink, Activity, Search } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
-import { AppFooter } from '../../components/AppFooter';
 
 interface Watch {
   id: string;
@@ -27,15 +26,15 @@ interface AlertEvent {
 const TYPE_LABELS: Record<Watch['type'], string> = {
   'ransomware-group': 'Ransomware Group',
   'cve-keyword': 'CVE Keyword',
-  'actor': 'Threat Actor',
-  'ioc': 'Indicator',
+  actor: 'Threat Actor',
+  ioc: 'Indicator',
 };
 
 const TYPE_COLORS: Record<Watch['type'], string> = {
   'ransomware-group': 'text-red-600 dark:text-red-400',
   'cve-keyword': 'text-amber-600 dark:text-amber-400',
-  'actor': 'text-violet-600 dark:text-violet-400',
-  'ioc': 'text-cyan-600 dark:text-cyan-400',
+  actor: 'text-violet-600 dark:text-violet-400',
+  ioc: 'text-cyan-600 dark:text-cyan-400',
 };
 
 export default function Watches(): JSX.Element {
@@ -55,10 +54,7 @@ export default function Watches(): JSX.Element {
     setLoading(true);
     setError(null);
     try {
-      const [wRes, aRes] = await Promise.all([
-        fetch('/api/v1/watches'),
-        fetch('/api/v1/watches/log'),
-      ]);
+      const [wRes, aRes] = await Promise.all([fetch('/api/v1/watches'), fetch('/api/v1/watches/log')]);
       if (!wRes.ok) throw new Error('Failed to load watches');
       const wData = await wRes.json();
       const aData = aRes.ok ? await aRes.json() : { alerts: [] };
@@ -71,7 +67,9 @@ export default function Watches(): JSX.Element {
     }
   }, []);
 
-  useEffect(() => { fetchData(); }, [fetchData]);
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   const handleCreate = async () => {
     if (!form.label || !form.value || !form.webhook) return;
@@ -124,6 +122,7 @@ export default function Watches(): JSX.Element {
   };
 
   const handleDelete = async (id: string) => {
+    if (!window.confirm('Delete this watch? This cannot be undone.')) return;
     try {
       const res = await fetch(`/api/v1/watches/${id}`, { method: 'DELETE' });
       if (!res.ok) throw new Error('Failed to delete');
@@ -135,7 +134,10 @@ export default function Watches(): JSX.Element {
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink to="/threatintel" className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono">
+      <BackLink
+        to="/threatintel"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+      >
         <ArrowLeft size={14} /> back
       </BackLink>
 
@@ -158,11 +160,19 @@ export default function Watches(): JSX.Element {
       </div>
 
       {error && (
-        <div role="alert" className="rounded-lg border border-rose-300 dark:border-rose-800 bg-rose-50/50 dark:bg-rose-950/30 p-4 flex items-start justify-between gap-3 mb-6">
+        <div
+          role="alert"
+          className="rounded-lg border border-rose-300 dark:border-rose-800 bg-rose-50/50 dark:bg-rose-950/30 p-4 flex items-start justify-between gap-3 mb-6"
+        >
           <div className="text-sm font-mono text-rose-700 dark:text-rose-300">
             <AlertTriangle size={14} className="inline mr-1" /> {error}
           </div>
-          <button onClick={fetchData} className="shrink-0 text-xs font-mono px-3 py-1.5 rounded border border-rose-400/60 text-rose-700 dark:text-rose-300 hover:bg-rose-500/10">retry</button>
+          <button
+            onClick={fetchData}
+            className="shrink-0 text-xs font-mono px-3 py-1.5 rounded border border-rose-400/60 text-rose-700 dark:text-rose-300 hover:bg-rose-500/10"
+          >
+            retry
+          </button>
         </div>
       )}
 
@@ -181,6 +191,7 @@ export default function Watches(): JSX.Element {
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
+                aria-label="Filter watches"
                 placeholder="Filter..."
                 className="w-full pl-7 pr-2 py-1.5 text-[11px] font-mono bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded focus:outline-none focus:border-brand-500"
               />
@@ -197,26 +208,69 @@ export default function Watches(): JSX.Element {
             </div>
           ) : (
             watches
-              .filter((w) => !search || w.label.toLowerCase().includes(search.toLowerCase()) || w.value.toLowerCase().includes(search.toLowerCase()) || w.type.includes(search.toLowerCase()))
+              .filter(
+                (w) =>
+                  !search ||
+                  w.label.toLowerCase().includes(search.toLowerCase()) ||
+                  w.value.toLowerCase().includes(search.toLowerCase()) ||
+                  w.type.includes(search.toLowerCase())
+              )
               .map((watch) => (
-                <div key={watch.id} className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 py-3">
+                <div
+                  key={watch.id}
+                  className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 py-3"
+                >
                   {editingId === watch.id ? (
                     <div className="space-y-3">
                       <div>
-                        <label className="block text-[11px] font-mono text-slate-500 mb-1">Label</label>
-                        <input type="text" value={editForm.label} onChange={(e) => setEditForm({ ...editForm, label: e.target.value })} className="w-full px-3 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500" />
+                        <label htmlFor="watch-edit-label" className="block text-[11px] font-mono text-slate-500 mb-1">
+                          Label
+                        </label>
+                        <input
+                          id="watch-edit-label"
+                          type="text"
+                          value={editForm.label}
+                          onChange={(e) => setEditForm({ ...editForm, label: e.target.value })}
+                          className="w-full px-3 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500"
+                        />
                       </div>
                       <div>
-                        <label className="block text-[11px] font-mono text-slate-500 mb-1">Value</label>
-                        <input type="text" value={editForm.value} onChange={(e) => setEditForm({ ...editForm, value: e.target.value })} className="w-full px-3 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500" />
+                        <label htmlFor="watch-edit-value" className="block text-[11px] font-mono text-slate-500 mb-1">
+                          Value
+                        </label>
+                        <input
+                          id="watch-edit-value"
+                          type="text"
+                          value={editForm.value}
+                          onChange={(e) => setEditForm({ ...editForm, value: e.target.value })}
+                          className="w-full px-3 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500"
+                        />
                       </div>
                       <div>
-                        <label className="block text-[11px] font-mono text-slate-500 mb-1">Webhook URL</label>
-                        <input type="url" value={editForm.webhook} onChange={(e) => setEditForm({ ...editForm, webhook: e.target.value })} className="w-full px-3 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500" />
+                        <label htmlFor="watch-edit-webhook" className="block text-[11px] font-mono text-slate-500 mb-1">
+                          Webhook URL
+                        </label>
+                        <input
+                          id="watch-edit-webhook"
+                          type="url"
+                          value={editForm.webhook}
+                          onChange={(e) => setEditForm({ ...editForm, webhook: e.target.value })}
+                          className="w-full px-3 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500"
+                        />
                       </div>
                       <div className="flex items-center gap-2">
-                        <button onClick={() => handleUpdate(watch.id)} className="px-3 py-1.5 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded text-xs hover:bg-brand-700 transition-colors">Save</button>
-                        <button onClick={cancelEdit} className="px-3 py-1.5 border border-slate-300 dark:border-slate-600 rounded text-xs font-mono text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Cancel</button>
+                        <button
+                          onClick={() => handleUpdate(watch.id)}
+                          className="px-3 py-1.5 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded text-xs hover:bg-brand-700 transition-colors"
+                        >
+                          Save
+                        </button>
+                        <button
+                          onClick={cancelEdit}
+                          className="px-3 py-1.5 border border-slate-300 dark:border-slate-600 rounded text-xs font-mono text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                        >
+                          Cancel
+                        </button>
                       </div>
                     </div>
                   ) : (
@@ -233,19 +287,49 @@ export default function Watches(): JSX.Element {
                           )}
                         </div>
                         <p className="font-medium text-sm truncate">{watch.label}</p>
-                        <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 truncate">{watch.value}</p>
+                        <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 truncate">
+                          {watch.value}
+                        </p>
                         <div className="flex items-center gap-3 mt-2 text-[11px] text-slate-400">
-                          <a href={watch.webhook} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-brand-600 dark:hover:text-brand-400">
+                          <a
+                            href={watch.webhook}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-1 hover:text-brand-600 dark:hover:text-brand-400"
+                          >
                             <ExternalLink size={10} /> webhook
                           </a>
                           <span>created {new Date(watch.created_at).toLocaleDateString()}</span>
                         </div>
                       </div>
                       <div className="flex items-center gap-1">
-                        <button onClick={() => startEdit(watch)} className="p-1.5 rounded hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-brand-500 transition-colors" title="Edit watch">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                        <button
+                          onClick={() => startEdit(watch)}
+                          aria-label="Edit watch"
+                          className="p-1.5 rounded hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-brand-500 transition-colors"
+                          title="Edit watch"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
+                            <path d="m15 5 4 4" />
+                          </svg>
                         </button>
-                        <button onClick={() => handleDelete(watch.id)} className="p-1.5 rounded hover:bg-red-50 dark:hover:bg-red-900/20 text-slate-400 hover:text-red-500 transition-colors" title="Delete watch">
+                        <button
+                          onClick={() => handleDelete(watch.id)}
+                          aria-label="Delete watch"
+                          className="p-1.5 rounded hover:bg-red-50 dark:hover:bg-red-900/20 text-slate-400 hover:text-red-500 transition-colors"
+                          title="Delete watch"
+                        >
                           <Trash2 size={14} />
                         </button>
                       </div>
@@ -263,8 +347,11 @@ export default function Watches(): JSX.Element {
               <h3 className="font-display font-semibold text-sm mb-4">Create Watch</h3>
               <div className="space-y-3">
                 <div>
-                  <label className="block text-[11px] font-mono text-slate-500 mb-1">Label</label>
+                  <label htmlFor="watch-create-label" className="block text-[11px] font-mono text-slate-500 mb-1">
+                    Label
+                  </label>
                   <input
+                    id="watch-create-label"
                     type="text"
                     value={form.label}
                     onChange={(e) => setForm({ ...form, label: e.target.value })}
@@ -273,8 +360,11 @@ export default function Watches(): JSX.Element {
                   />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-mono text-slate-500 mb-1">Type</label>
+                  <label htmlFor="watch-create-type" className="block text-[11px] font-mono text-slate-500 mb-1">
+                    Type
+                  </label>
                   <select
+                    id="watch-create-type"
                     value={form.type}
                     onChange={(e) => setForm({ ...form, type: e.target.value as Watch['type'] })}
                     className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
@@ -286,28 +376,38 @@ export default function Watches(): JSX.Element {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-[11px] font-mono text-slate-500 mb-1">
-                    {form.type === 'ransomware-group' ? 'Group name (partial)' :
-                     form.type === 'cve-keyword' ? 'CVE ID or keyword' :
-                     form.type === 'actor' ? 'Actor name or slug' :
-                     'Indicator value (exact)'}
+                  <label htmlFor="watch-create-value" className="block text-[11px] font-mono text-slate-500 mb-1">
+                    {form.type === 'ransomware-group'
+                      ? 'Group name (partial)'
+                      : form.type === 'cve-keyword'
+                        ? 'CVE ID or keyword'
+                        : form.type === 'actor'
+                          ? 'Actor name or slug'
+                          : 'Indicator value (exact)'}
                   </label>
                   <input
+                    id="watch-create-value"
                     type="text"
                     value={form.value}
                     onChange={(e) => setForm({ ...form, value: e.target.value })}
                     placeholder={
-                      form.type === 'ransomware-group' ? 'e.g. lockbit' :
-                      form.type === 'cve-keyword' ? 'e.g. CVE-2024- or log4j' :
-                      form.type === 'actor' ? 'e.g. Scattered Spider' :
-                      'e.g. 1.2.3.4 or evil.exe'
+                      form.type === 'ransomware-group'
+                        ? 'e.g. lockbit'
+                        : form.type === 'cve-keyword'
+                          ? 'e.g. CVE-2024- or log4j'
+                          : form.type === 'actor'
+                            ? 'e.g. Scattered Spider'
+                            : 'e.g. 1.2.3.4 or evil.exe'
                     }
                     className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
                   />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-mono text-slate-500 mb-1">Webhook URL</label>
+                  <label htmlFor="watch-create-webhook" className="block text-[11px] font-mono text-slate-500 mb-1">
+                    Webhook URL
+                  </label>
                   <input
+                    id="watch-create-webhook"
                     type="url"
                     value={form.webhook}
                     onChange={(e) => setForm({ ...form, webhook: e.target.value })}
@@ -332,7 +432,10 @@ export default function Watches(): JSX.Element {
             <h3 className="font-display font-semibold text-sm flex items-center gap-2 mb-3">
               <AlertTriangle size={14} className="text-amber-500" />
               Recent Alerts
-              <button onClick={fetchData} className="ml-auto text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
+              <button
+                onClick={fetchData}
+                className="ml-auto text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+              >
                 <RefreshCw size={12} />
               </button>
             </h3>
@@ -341,7 +444,10 @@ export default function Watches(): JSX.Element {
                 <p className="text-[11px] font-mono text-slate-400 italic">No alerts yet.</p>
               ) : (
                 alerts.map((alert, i) => (
-                  <div key={i} className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2.5">
+                  <div
+                    key={i}
+                    className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2.5"
+                  >
                     <div className="flex items-center gap-2 mb-0.5">
                       <span className={`text-[10px] font-mono uppercase tracking-wider ${TYPE_COLORS[alert.type]}`}>
                         {TYPE_LABELS[alert.type]}
@@ -349,10 +455,10 @@ export default function Watches(): JSX.Element {
                       <span className="text-[10px] text-slate-400">{new Date(alert.matched_at).toLocaleString()}</span>
                     </div>
                     <p className="text-sm font-medium truncate">{alert.label}</p>
-                    <p className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400 truncate">{alert.match}</p>
-                    {alert.detail && (
-                      <p className="text-[10px] text-slate-400 truncate mt-0.5">{alert.detail}</p>
-                    )}
+                    <p className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400 truncate">
+                      {alert.match}
+                    </p>
+                    {alert.detail && <p className="text-[10px] text-slate-400 truncate mt-0.5">{alert.detail}</p>}
                   </div>
                 ))
               )}
@@ -360,11 +466,6 @@ export default function Watches(): JSX.Element {
           </div>
         </div>
       </div>
-
-      <AppFooter
-        aboutTo="/threatintel/about"
-        blurb="Watches trigger webhook notifications when matched entities appear in fresh threat intelligence data."
-      />
     </div>
   );
 }

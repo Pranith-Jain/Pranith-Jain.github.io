@@ -1,6 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
+import { CopyButton } from '../../components/ui/CopyButton';
+import { relativeAgo } from '../../lib/relativeTime';
+const shortRel = (iso?: string) => relativeAgo(iso, 'no timestamp');
+import { sanitizeUrl } from '../../lib/sanitize-url';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Copy, Check, ExternalLink, Radio, RefreshCw, Search, Sparkles } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Radio, RefreshCw, Search, Sparkles } from 'lucide-react';
 import { useLastVisit, isNewSince } from '../../hooks';
 import { DataState } from '../../components/DataState';
 import { AdmiraltyBadge } from '../../components/dfir/AdmiraltyBadge';
@@ -74,40 +78,6 @@ const SOURCE_PILL: Record<string, string> = {
   'sslbl-c2': 'border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300',
   botvrij: 'border-lime-500/40 bg-lime-500/10 text-lime-700 dark:text-lime-300',
 };
-
-function shortRel(iso?: string): string {
-  if (!iso) return 'no timestamp';
-  const t = Date.parse(iso);
-  if (Number.isNaN(t)) return 'no timestamp';
-  const diff = Math.max(0, Date.now() - t) / 1000;
-  if (diff < 60) return 'just now';
-  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
-  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
-  return `${Math.floor(diff / 86400)}d ago`;
-}
-
-function CopyBtn({ value }: { value: string }) {
-  const [done, setDone] = useState(false);
-  const click = async () => {
-    try {
-      await navigator.clipboard.writeText(value);
-      setDone(true);
-      setTimeout(() => setDone(false), 1200);
-    } catch {
-      /* ignore */
-    }
-  };
-  return (
-    <button
-      type="button"
-      onClick={click}
-      aria-label="copy indicator"
-      className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 text-slate-400 hover:text-brand-500 transition-colors shrink-0"
-    >
-      {done ? <Check size={11} /> : <Copy size={11} />}
-    </button>
-  );
-}
 
 export default function LiveIocs(): JSX.Element {
   const [data, setData] = useState<LiveIocsResponse | null>(null);
@@ -188,10 +158,7 @@ export default function LiveIocs(): JSX.Element {
   }, [data]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
-  const pageItems = useMemo(
-    () => filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE),
-    [filtered, page]
-  );
+  const pageItems = useMemo(() => filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE), [filtered, page]);
 
   const toggleKind = (k: IocKind) =>
     setKindFilter((prev) => {
@@ -348,11 +315,13 @@ export default function LiveIocs(): JSX.Element {
               ))}
             </div>
             <p className="text-[11px] font-mono text-slate-500 mt-3">
-              Showing page <span className="text-slate-700 dark:text-slate-300">{page}/{totalPages}</span> ·{' '}
-              <span className="text-slate-700 dark:text-slate-300">{pageItems.length}</span> of{' '}
-              <span className="text-slate-700 dark:text-slate-300">{filtered.length}</span> filtered ·{' '}
-              {data.total} total · snapshot{' '}
-              <span className="text-slate-700 dark:text-slate-300">{shortRel(data.generated_at)}</span>
+              Showing page{' '}
+              <span className="text-slate-700 dark:text-slate-300">
+                {page}/{totalPages}
+              </span>{' '}
+              · <span className="text-slate-700 dark:text-slate-300">{pageItems.length}</span> of{' '}
+              <span className="text-slate-700 dark:text-slate-300">{filtered.length}</span> filtered · {data.total}{' '}
+              total · snapshot <span className="text-slate-700 dark:text-slate-300">{shortRel(data.generated_at)}</span>
             </p>
           </>
         )}
@@ -391,10 +360,10 @@ export default function LiveIocs(): JSX.Element {
                     >
                       {it.value}
                     </span>
-                    <CopyBtn value={it.value} />
+                    <CopyButton value={it.value} />
                     {it.reference_url && (
                       <a
-                        href={it.reference_url}
+                        href={sanitizeUrl(it.reference_url) || undefined}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 text-slate-400 hover:text-brand-500 transition-colors shrink-0"

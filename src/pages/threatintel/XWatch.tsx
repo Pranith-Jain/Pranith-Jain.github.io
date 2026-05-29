@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import {
@@ -744,7 +745,7 @@ export default function XWatch(): JSX.Element {
                         </span>
                       )}
                       <a
-                        href={t.url}
+                        href={sanitizeUrl(t.url) || undefined}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="ml-auto text-[10px] font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-0.5"
@@ -761,7 +762,7 @@ export default function XWatch(): JSX.Element {
                         {t.media.slice(0, 4).map((m, i) => (
                           <a
                             key={`${t.id}-m-${i}`}
-                            href={t.url}
+                            href={sanitizeUrl(t.url) || undefined}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="block rounded overflow-hidden border border-slate-200 dark:border-slate-800"

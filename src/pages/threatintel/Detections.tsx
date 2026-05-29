@@ -1,7 +1,19 @@
 import { useEffect, useMemo, useState } from 'react';
+import { relativeAgo } from '../../lib/relativeTime';
+const shortRel = (iso?: string) => relativeAgo(iso, 'no timestamp');
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, ShieldAlert, RefreshCw, Search, FlaskConical, ChevronRight, Flame, FileDown, Loader2 } from 'lucide-react';
+import {
+  ArrowLeft,
+  ShieldAlert,
+  RefreshCw,
+  Search,
+  FlaskConical,
+  ChevronRight,
+  Flame,
+  FileDown,
+  Loader2,
+} from 'lucide-react';
 import { DataState } from '../../components/DataState';
 
 /**
@@ -158,17 +170,6 @@ const KIND_PILL: Record<DetIndicator['kind'], string> = {
   hash: 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
 };
 
-function shortRel(iso?: string): string {
-  if (!iso) return 'no timestamp';
-  const t = Date.parse(iso);
-  if (Number.isNaN(t)) return 'no timestamp';
-  const diff = Math.max(0, Date.now() - t) / 1000;
-  if (diff < 60) return 'just now';
-  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
-  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
-  return `${Math.floor(diff / 86400)}d ago`;
-}
-
 function DetectionCard({ d }: { d: Detection }): JSX.Element {
   const [open, setOpen] = useState(false);
   return (
@@ -279,9 +280,7 @@ export default function Detections(): JSX.Element {
 
   const buildStix = async () => {
     if (!data) return;
-    const iocs = Array.from(
-      new Set(data.detections.flatMap((d) => d.indicators.map((i) => i.value)))
-    );
+    const iocs = Array.from(new Set(data.detections.flatMap((d) => d.indicators.map((i) => i.value))));
     if (iocs.length === 0) return;
     setStixLoading(true);
     setStixBundleId(null);

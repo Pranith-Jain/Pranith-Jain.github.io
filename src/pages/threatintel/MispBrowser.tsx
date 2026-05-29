@@ -69,8 +69,16 @@ interface RelatedEvent {
 
 const THREAT_LEVELS: Record<string, { label: string; color: string; icon: LucideIcon }> = {
   '1': { label: 'High', color: 'text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20', icon: ShieldAlert },
-  '2': { label: 'Medium', color: 'text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20', icon: ShieldAlert },
-  '3': { label: 'Low', color: 'text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20', icon: ShieldAlert },
+  '2': {
+    label: 'Medium',
+    color: 'text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20',
+    icon: ShieldAlert,
+  },
+  '3': {
+    label: 'Low',
+    color: 'text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20',
+    icon: ShieldAlert,
+  },
   '4': { label: 'Undefined', color: 'text-slate-500 bg-slate-50 dark:bg-slate-800', icon: ShieldAlert },
 };
 
@@ -82,8 +90,10 @@ const ANALYSIS_LABELS: Record<string, string> = {
 
 export default function MispBrowser() {
   const [baseUrl, setBaseUrl] = useState(() => sessionStorage.getItem('mispUrl') ?? '');
-  const [apiKey, setApiKey] = useState(() => sessionStorage.getItem('mispKey') ?? '');
-  const [connected, setConnected] = useState(() => !!sessionStorage.getItem('mispUrl'));
+  // API key is held in memory only — never persisted. Persisting a third-party
+  // credential in sessionStorage exposes it to any XSS or malicious extension.
+  const [apiKey, setApiKey] = useState('');
+  const [connected, setConnected] = useState(false);
 
   const [events, setEvents] = useState<MispEvent[]>([]);
   const [selected, setSelected] = useState<MispEvent | null>(null);
@@ -94,18 +104,21 @@ export default function MispBrowser() {
   const [total, setTotal] = useState(0);
   const [tagFilter, setTagFilter] = useState('');
 
-  const proxy = useCallback(async (endpoint: string, params?: Record<string, string>) => {
-    const res = await fetch('/api/v1/misp', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ baseUrl, apiKey, endpoint, params }),
-    });
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({ error: res.statusText }));
-      throw new Error(err.error || `HTTP ${res.status}`);
-    }
-    return res.json();
-  }, [baseUrl, apiKey]);
+  const proxy = useCallback(
+    async (endpoint: string, params?: Record<string, string>) => {
+      const res = await fetch('/api/v1/misp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ baseUrl, apiKey, endpoint, params }),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({ error: res.statusText }));
+        throw new Error(err.error || `HTTP ${res.status}`);
+      }
+      return res.json();
+    },
+    [baseUrl, apiKey]
+  );
 
   const connect = useCallback(async () => {
     if (!baseUrl || !apiKey) return;
@@ -115,7 +128,6 @@ export default function MispBrowser() {
       const data = await proxy('events/index/limit:1');
       if (Array.isArray(data)) {
         sessionStorage.setItem('mispUrl', baseUrl);
-        sessionStorage.setItem('mispKey', apiKey);
         setConnected(true);
         loadEvents(1);
       } else {
@@ -128,39 +140,45 @@ export default function MispBrowser() {
     }
   }, [baseUrl, apiKey, proxy]);
 
-  const loadEvents = useCallback(async (p: number) => {
-    setLoading(true);
-    setError('');
-    try {
-      const params: Record<string, string> = { page: String(p), limit: '20' };
-      if (search) params.searchall = search;
-      if (tagFilter) params.tags = tagFilter;
-      const data = await proxy('events/index', params);
-      if (Array.isArray(data)) {
-        setEvents(data);
-        setPage(p);
-        setTotal(data.length === 20 ? p * 20 : p * 20 - 20 + data.length);
+  const loadEvents = useCallback(
+    async (p: number) => {
+      setLoading(true);
+      setError('');
+      try {
+        const params: Record<string, string> = { page: String(p), limit: '20' };
+        if (search) params.searchall = search;
+        if (tagFilter) params.tags = tagFilter;
+        const data = await proxy('events/index', params);
+        if (Array.isArray(data)) {
+          setEvents(data);
+          setPage(p);
+          setTotal(data.length === 20 ? p * 20 : p * 20 - 20 + data.length);
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to load events');
+      } finally {
+        setLoading(false);
       }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to load events');
-    } finally {
-      setLoading(false);
-    }
-  }, [proxy, search, tagFilter]);
+    },
+    [proxy, search, tagFilter]
+  );
 
-  const loadEventDetail = useCallback(async (id: string) => {
-    setLoading(true);
-    try {
-      const data = await proxy(`events/${id}`);
-      if (data?.Event) {
-        setSelected(data);
+  const loadEventDetail = useCallback(
+    async (id: string) => {
+      setLoading(true);
+      try {
+        const data = await proxy(`events/${id}`);
+        if (data?.Event) {
+          setSelected(data);
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to load event');
+      } finally {
+        setLoading(false);
       }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to load event');
-    } finally {
-      setLoading(false);
-    }
-  }, [proxy]);
+    },
+    [proxy]
+  );
 
   const disconnect = () => {
     sessionStorage.removeItem('mispUrl');
@@ -179,17 +197,25 @@ export default function MispBrowser() {
   if (!connected) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-6 space-y-6">
-        <BackLink to="/threatintel" className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono">
+        <BackLink
+          to="/threatintel"
+          className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
+        >
           <ArrowLeft size={14} /> back
         </BackLink>
         <div className="flex items-baseline gap-2 mb-2">
           <h1 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100">MISP Browser</h1>
-          <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500">Connect to a MISP instance</span>
+          <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500">
+            Connect to a MISP instance
+          </span>
         </div>
         <div className="max-w-lg space-y-4">
           <div>
-            <label className="text-xs font-mono text-slate-500 mb-1 block">MISP URL</label>
+            <label htmlFor="misp-base-url" className="text-xs font-mono text-slate-500 mb-1 block">
+              MISP URL
+            </label>
             <input
+              id="misp-base-url"
               type="url"
               value={baseUrl}
               onChange={(e) => setBaseUrl(e.target.value)}
@@ -198,8 +224,11 @@ export default function MispBrowser() {
             />
           </div>
           <div>
-            <label className="text-xs font-mono text-slate-500 mb-1 block">API Key</label>
+            <label htmlFor="misp-api-key" className="text-xs font-mono text-slate-500 mb-1 block">
+              API Key
+            </label>
             <input
+              id="misp-api-key"
               type="password"
               value={apiKey}
               onChange={(e) => setApiKey(e.target.value)}
@@ -208,7 +237,8 @@ export default function MispBrowser() {
             />
           </div>
           <p className="text-[11px] font-mono text-slate-400 italic">
-            Your API key is sent to the MISP server via a Worker proxy and stored in session storage only.
+            Your API key is sent to the MISP server via a Worker proxy and kept in memory only — it is never stored. You
+            will need to re-enter it after a page reload.
           </p>
           <button
             onClick={connect}
@@ -243,7 +273,9 @@ export default function MispBrowser() {
         <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 space-y-4">
           <div className="flex items-start justify-between gap-4 flex-wrap">
             <div className="space-y-1">
-              <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">{e.info || '(no info)'}</h2>
+              <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">
+                {e.info || '(no info)'}
+              </h2>
               <div className="flex flex-wrap items-center gap-2 text-xs font-mono text-slate-500">
                 <Calendar size={12} /> {e.date}
                 <span className="text-slate-300 dark:text-slate-700">·</span>
@@ -267,7 +299,7 @@ export default function MispBrowser() {
             </div>
           </div>
 
-          {(e.Attribute && e.Attribute.length > 0) && (
+          {e.Attribute && e.Attribute.length > 0 && (
             <div>
               <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2">
                 Attributes ({e.Attribute.length})
@@ -276,11 +308,21 @@ export default function MispBrowser() {
                 <table className="w-full text-xs font-mono">
                   <thead>
                     <tr className="text-left text-slate-500 border-b border-slate-200 dark:border-slate-700">
-                      <th className="py-1 pr-3">Type</th>
-                      <th className="py-1 pr-3">Category</th>
-                      <th className="py-1 pr-3">Value</th>
-                      <th className="py-1 pr-3">IDS</th>
-                      <th className="py-1">Comment</th>
+                      <th scope="col" className="py-1 pr-3">
+                        Type
+                      </th>
+                      <th scope="col" className="py-1 pr-3">
+                        Category
+                      </th>
+                      <th scope="col" className="py-1 pr-3">
+                        Value
+                      </th>
+                      <th scope="col" className="py-1 pr-3">
+                        IDS
+                      </th>
+                      <th scope="col" className="py-1">
+                        Comment
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -305,7 +347,7 @@ export default function MispBrowser() {
             </div>
           )}
 
-          {(e.Object && e.Object.length > 0) && (
+          {e.Object && e.Object.length > 0 && (
             <div>
               <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2">
                 Objects ({e.Object.length})
@@ -317,9 +359,7 @@ export default function MispBrowser() {
                       <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">{o.name}</span>
                       <span className="text-[10px] font-mono text-slate-400">{o.meta_category}</span>
                     </div>
-                    {o.description && (
-                      <p className="text-[11px] font-mono text-slate-500">{o.description}</p>
-                    )}
+                    {o.description && <p className="text-[11px] font-mono text-slate-500">{o.description}</p>}
                     {o.Attribute && o.Attribute.length > 0 && (
                       <ul className="space-y-1">
                         {o.Attribute.slice(0, 5).map((a) => (
@@ -328,7 +368,9 @@ export default function MispBrowser() {
                           </li>
                         ))}
                         {o.Attribute.length > 5 && (
-                          <li className="text-[11px] font-mono text-slate-400 italic">+{o.Attribute.length - 5} more</li>
+                          <li className="text-[11px] font-mono text-slate-400 italic">
+                            +{o.Attribute.length - 5} more
+                          </li>
                         )}
                       </ul>
                     )}
@@ -338,19 +380,25 @@ export default function MispBrowser() {
             </div>
           )}
 
-          {(e.Galaxy && e.Galaxy.length > 0) && (
+          {e.Galaxy && e.Galaxy.length > 0 && (
             <div>
               <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2">
                 Galaxies ({e.Galaxy.length})
               </h3>
               <div className="flex flex-wrap gap-2">
                 {e.Galaxy.map((g) => (
-                  <div key={g.Galaxy.id} className="rounded-lg border border-slate-200 dark:border-slate-700 p-3 max-w-sm">
+                  <div
+                    key={g.Galaxy.id}
+                    className="rounded-lg border border-slate-200 dark:border-slate-700 p-3 max-w-sm"
+                  >
                     <div className="text-xs font-semibold text-slate-700 dark:text-slate-300">{g.Galaxy.name}</div>
                     {g.GalaxyCluster && g.GalaxyCluster.length > 0 && (
                       <div className="flex flex-wrap gap-1 mt-1">
                         {g.GalaxyCluster.map((c) => (
-                          <span key={c.id} className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-brand-50 dark:bg-brand-900/20 text-brand-700 dark:text-brand-300">
+                          <span
+                            key={c.id}
+                            className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-brand-50 dark:bg-brand-900/20 text-brand-700 dark:text-brand-300"
+                          >
                             {c.value}
                           </span>
                         ))}
@@ -362,14 +410,17 @@ export default function MispBrowser() {
             </div>
           )}
 
-          {(e.tags && e.tags.length > 0) && (
+          {e.tags && e.tags.length > 0 && (
             <div>
               <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2">
                 Tags ({e.tags.length})
               </h3>
               <div className="flex flex-wrap gap-1">
                 {e.tags.map((t, i) => (
-                  <span key={i} className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+                  <span
+                    key={i}
+                    className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
+                  >
                     {t.Tag.name}
                   </span>
                 ))}
@@ -377,7 +428,7 @@ export default function MispBrowser() {
             </div>
           )}
 
-          {(e.related_events && e.related_events.length > 0) && (
+          {e.related_events && e.related_events.length > 0 && (
             <div>
               <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2">
                 Related Events ({e.related_events.length})
@@ -393,7 +444,9 @@ export default function MispBrowser() {
                     <span className="text-slate-300 dark:text-slate-700 mx-1">·</span>
                     <span className="text-slate-700 dark:text-slate-300">{r.Event.info || '(no info)'}</span>
                     <span className="text-slate-300 dark:text-slate-700 mx-1">·</span>
-                    <span className="text-slate-500">{typeof r.Event.orgc === 'object' ? r.Event.orgc.name : r.Event.orgc}</span>
+                    <span className="text-slate-500">
+                      {typeof r.Event.orgc === 'object' ? r.Event.orgc.name : r.Event.orgc}
+                    </span>
                   </button>
                 ))}
               </div>
@@ -409,9 +462,7 @@ export default function MispBrowser() {
       <div className="flex items-baseline justify-between gap-3 flex-wrap">
         <div className="flex items-baseline gap-2">
           <h1 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100">MISP Browser</h1>
-          <span className="text-[11px] font-mono text-slate-500">
-            {total > 0 ? `${total} events` : ''}
-          </span>
+          <span className="text-[11px] font-mono text-slate-500">{total > 0 ? `${total} events` : ''}</span>
         </div>
         <div className="flex items-center gap-2">
           <button
@@ -432,10 +483,13 @@ export default function MispBrowser() {
 
       <div className="flex flex-wrap gap-2 items-end">
         <div className="flex-1 min-w-[200px]">
-          <label className="text-[10px] font-mono text-slate-400 mb-0.5 block">Search</label>
+          <label htmlFor="misp-search" className="text-[10px] font-mono text-slate-400 mb-0.5 block">
+            Search
+          </label>
           <div className="relative">
             <Search size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
+              id="misp-search"
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -446,8 +500,11 @@ export default function MispBrowser() {
           </div>
         </div>
         <div className="w-40">
-          <label className="text-[10px] font-mono text-slate-400 mb-0.5 block">Tag filter</label>
+          <label htmlFor="misp-tag-filter" className="text-[10px] font-mono text-slate-400 mb-0.5 block">
+            Tag filter
+          </label>
           <input
+            id="misp-tag-filter"
             type="text"
             value={tagFilter}
             onChange={(e) => setTagFilter(e.target.value)}
@@ -503,14 +560,19 @@ export default function MispBrowser() {
                     )}
                   </div>
                   <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] font-mono text-slate-500">
-                    <span className="flex items-center gap-1"><Calendar size={10} /> {e.date}</span>
+                    <span className="flex items-center gap-1">
+                      <Calendar size={10} /> {e.date}
+                    </span>
                     <span>Org: {typeof e.orgc === 'object' ? e.orgc.name : e.orgc}</span>
                     <span>ID: {e.uuid?.slice(0, 8)}…</span>
                   </div>
                   {e.tags && e.tags.length > 0 && (
                     <div className="flex flex-wrap gap-1 mt-2">
                       {e.tags.slice(0, 5).map((t, i) => (
-                        <span key={i} className="text-[10px] font-mono px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500">
+                        <span
+                          key={i}
+                          className="text-[10px] font-mono px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500"
+                        >
                           {t.Tag.name}
                         </span>
                       ))}
@@ -521,10 +583,15 @@ export default function MispBrowser() {
                   )}
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
-                  <span className={`inline-flex items-center gap-1 px-2 py-1 rounded text-[11px] font-mono ${tl.color}`}>
+                  <span
+                    className={`inline-flex items-center gap-1 px-2 py-1 rounded text-[11px] font-mono ${tl.color}`}
+                  >
                     <TlIcon size={12} /> {tl.label}
                   </span>
-                  <ExternalLink size={14} className="text-slate-300 dark:text-slate-600 group-hover:text-brand-500 transition-colors" />
+                  <ExternalLink
+                    size={14}
+                    className="text-slate-300 dark:text-slate-600 group-hover:text-brand-500 transition-colors"
+                  />
                 </div>
               </div>
             </button>

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Copy, ExternalLink, RefreshCw, ShieldAlert } from 'lucide-react';
 import { DataState } from '../../components/DataState';
@@ -171,7 +172,7 @@ export default function BreachForums(): JSX.Element {
                     <div className="flex items-center gap-2 mt-1.5">
                       {r.origin === 'curated' ? (
                         <a
-                          href={r.url}
+                          href={sanitizeUrl(r.url) || undefined}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="font-mono text-[11px] text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"

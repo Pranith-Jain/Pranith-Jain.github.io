@@ -1,7 +1,20 @@
 import { useEffect, useState } from 'react';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Search, ExternalLink, AlertTriangle, Skull, Globe, Shield, Bug, FileText, Database, Fingerprint } from 'lucide-react';
+import {
+  ArrowLeft,
+  Search,
+  ExternalLink,
+  AlertTriangle,
+  Skull,
+  Globe,
+  Shield,
+  Bug,
+  FileText,
+  Database,
+  Fingerprint,
+} from 'lucide-react';
 
 interface SearchItem {
   label: string;
@@ -61,7 +74,15 @@ export default function UnifiedSearch(): JSX.Element {
 
   const doSearch = async (q: string) => {
     setQuery(q);
-    setParams((p) => { const n = new URLSearchParams(p); if (q.trim()) n.set('q', q.trim()); else n.delete('q'); return n; }, { replace: true });
+    setParams(
+      (p) => {
+        const n = new URLSearchParams(p);
+        if (q.trim()) n.set('q', q.trim());
+        else n.delete('q');
+        return n;
+      },
+      { replace: true }
+    );
     if (!q.trim()) return;
     setLoading(true);
     setError(null);
@@ -99,13 +120,16 @@ export default function UnifiedSearch(): JSX.Element {
           <Search size={28} className="text-brand-600 dark:text-brand-400" /> Unified Search
         </h1>
         <p className="text-slate-600 dark:text-slate-400 max-w-2xl">
-          Cross-source search across ransomware victims, C2 IPs, live IOCs, detections, actor timelines, CVEs,
-          writeups, cybercrime forums, and breach disclosures — all from one endpoint.
+          Cross-source search across ransomware victims, C2 IPs, live IOCs, detections, actor timelines, CVEs, writeups,
+          cybercrime forums, and breach disclosures — all from one endpoint.
         </p>
       </div>
 
       <form
-        onSubmit={(e) => { e.preventDefault(); void doSearch(query); }}
+        onSubmit={(e) => {
+          e.preventDefault();
+          void doSearch(query);
+        }}
         className="relative mb-6 max-w-2xl"
       >
         <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -153,7 +177,9 @@ export default function UnifiedSearch(): JSX.Element {
                 key={section.kind}
                 className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden"
               >
-                <div className={`flex items-center gap-2 px-4 py-2.5 border-b border-slate-200 dark:border-slate-800 ${color.split(' ').slice(0, 1).join(' ')}`}>
+                <div
+                  className={`flex items-center gap-2 px-4 py-2.5 border-b border-slate-200 dark:border-slate-800 ${color.split(' ').slice(0, 1).join(' ')}`}
+                >
                   <Icon size={14} />
                   <span className="font-display font-semibold text-sm">{section.label}</span>
                   <span className="text-[11px] font-mono opacity-70">· {section.total}</span>
@@ -163,7 +189,7 @@ export default function UnifiedSearch(): JSX.Element {
                     <li key={`${item.label}:${i}`} className="px-4 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-950/50">
                       {item.url ? (
                         <a
-                          href={item.url}
+                          href={sanitizeUrl(item.url) || undefined}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-start justify-between gap-2 group"
@@ -193,7 +219,8 @@ export default function UnifiedSearch(): JSX.Element {
                         </div>
                       )}
                       <span className="text-[10px] font-mono text-slate-400 mt-1 block">
-                        {item.source}{item.subkind ? ` · ${item.subkind}` : ''}
+                        {item.source}
+                        {item.subkind ? ` · ${item.subkind}` : ''}
                       </span>
                     </li>
                   ))}
@@ -208,7 +235,6 @@ export default function UnifiedSearch(): JSX.Element {
           })}
         </div>
       )}
-
     </div>
   );
 }

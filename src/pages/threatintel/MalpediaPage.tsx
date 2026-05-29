@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ExternalLink, Search, Users, Bug } from 'lucide-react';
@@ -241,7 +242,7 @@ export default function MalpediaPage(): JSX.Element {
                 {(result.data.references as string[]).slice(0, 20).map((ref: string, i: number) => (
                   <li key={i}>
                     <a
-                      href={ref}
+                      href={sanitizeUrl(ref) || undefined}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-[12px] font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 break-all"

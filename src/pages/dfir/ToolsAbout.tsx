@@ -1,7 +1,6 @@
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ShieldCheck, Eye, Zap, GitBranch } from 'lucide-react';
 import { personalInfo } from '../../data/content';
-import { AppFooter } from '../../components/AppFooter';
 
 const PRINCIPLES = [
   {
@@ -103,8 +102,6 @@ export default function ToolsAbout(): JSX.Element {
           <li>Deployed on Cloudflare Workers (edge) with strict CSP — privacy-first, client-side processing</li>
         </ul>
       </Section>
-
-      <AppFooter blurb="DFIR & OSINT toolkit — privacy-first, runs entirely in your browser. Triage support only; validate findings with your standard forensic workflow." />
     </div>
   );
 }

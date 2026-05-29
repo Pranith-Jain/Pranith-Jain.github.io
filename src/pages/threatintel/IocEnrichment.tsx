@@ -1,6 +1,6 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { BackLink } from '../../components/BackLink';
-import { AppFooter } from '../../components/AppFooter';
+
 import { ArrowLeft, Search, Loader2, ExternalLink, ChevronDown, ChevronRight } from 'lucide-react';
 
 interface Source {
@@ -64,6 +64,35 @@ export default function IocEnrichment(): JSX.Element {
   const [error, setError] = useState<string | null>(null);
   const [expanded, setExpanded] = useState(true);
   const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close the source dropdown on click-outside or Escape (a native <select>
+  // would get this for free; this custom one has to wire it up).
+  useEffect(() => {
+    if (!showDropdown) return;
+    const onPointer = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setShowDropdown(false);
+      }
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setShowDropdown(false);
+    };
+    document.addEventListener('mousedown', onPointer);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('mousedown', onPointer);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [showDropdown]);
+
+  // A successful-but-empty response (e.g. `{}` or `[]`) should read as "no
+  // results", not a raw empty-object dump.
+  const isEmptyResult =
+    !!data &&
+    (Array.isArray(data)
+      ? data.length === 0
+      : typeof data === 'object' && Object.keys(data as Record<string, unknown>).length === 0);
 
   const handleSearch = useCallback(async () => {
     const q = query.trim();
@@ -131,21 +160,30 @@ export default function IocEnrichment(): JSX.Element {
             </div>
           </div>
 
-          <div className="relative">
+          <div className="relative" ref={dropdownRef}>
             <button
               type="button"
               onClick={() => setShowDropdown(!showDropdown)}
+              aria-haspopup="listbox"
+              aria-expanded={showDropdown}
+              aria-label={`Data source: ${source.label}`}
               className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2.5 font-mono text-[13px] text-slate-900 hover:border-brand-500/40 focus:outline-none focus:ring-2 focus:ring-brand-500/20 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 min-w-[180px] justify-between"
             >
               <span>{source.label}</span>
               <ChevronDown size={14} className="text-slate-400" />
             </button>
             {showDropdown && (
-              <div className="absolute right-0 top-full mt-1 z-10 w-full min-w-[220px] rounded-lg border border-slate-200 bg-white shadow-lg dark:border-slate-800 dark:bg-slate-900">
+              <div
+                role="listbox"
+                aria-label="Data source"
+                className="absolute right-0 top-full mt-1 z-10 w-full min-w-[220px] rounded-lg border border-slate-200 bg-white shadow-lg dark:border-slate-800 dark:bg-slate-900"
+              >
                 {SOURCES.map((s) => (
                   <button
                     key={s.id}
                     type="button"
+                    role="option"
+                    aria-selected={source.id === s.id}
                     onClick={() => {
                       setSource(s);
                       setShowDropdown(false);
@@ -199,7 +237,13 @@ export default function IocEnrichment(): JSX.Element {
         </div>
       )}
 
-      {!!data && !loading && (
+      {isEmptyResult && !loading && (
+        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 text-center">
+          <p className="text-[13px] font-mono text-slate-500">No results from {source.label} for this query.</p>
+        </div>
+      )}
+
+      {!!data && !loading && !isEmptyResult && (
         <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
           <button
             type="button"
@@ -221,11 +265,6 @@ export default function IocEnrichment(): JSX.Element {
           )}
         </div>
       )}
-
-      <AppFooter
-        aboutTo="/threatintel/about"
-        blurb="Privacy-first IOC enrichment. Queries go through the server-side proxy — your IP is never exposed to upstream APIs."
-      />
     </div>
   );
 }

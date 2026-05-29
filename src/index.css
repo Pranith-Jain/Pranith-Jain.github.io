@@ -187,26 +187,6 @@ text-xs.text-slate-400 {
   color: #94a3b8;
 }
 
-/* Ensure all small text in light mode has sufficient contrast */
-/* Note: site uses class-based dark mode, not prefers-color-scheme */
-.text-slate-400 {
-  /* In light mode, slate-400 has poor contrast. Override to slate-600. */
-  color: #475569; /* slate-600 */
-}
-
-/* Restore slate-400 in dark mode where it has good contrast on dark bg */
-.dark .text-slate-400 {
-  color: #94a3b8;
-}
-
-.text-slate-500 {
-  color: #334155; /* slate-700 for better light-mode contrast */
-}
-
-.dark .text-slate-500 {
-  color: #64748b;
-}
-
 /* Badge text contrast — ensure badge text is readable regardless of bg */
 .font-mono.text-\[10px\] {
   /* Already small; ensure weight helps readability */

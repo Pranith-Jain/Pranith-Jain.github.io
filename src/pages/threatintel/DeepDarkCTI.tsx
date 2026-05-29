@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Copy, ExternalLink, Globe, Search } from 'lucide-react';
 import { DataState } from '../../components/DataState';
@@ -219,7 +220,7 @@ export default function DeepDarkCTI(): JSX.Element {
                         </code>
                       ) : (
                         <a
-                          href={e.url}
+                          href={sanitizeUrl(e.url) || undefined}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="mt-1 inline-flex items-center gap-1 font-mono text-[11px] text-brand-600 dark:text-brand-400 hover:underline break-all"

@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
+import { relativeAgo as shortRel } from '../../lib/relativeTime';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { AlertOctagon, ArrowLeft, ExternalLink, Flame, RefreshCw, Search, ShieldAlert, Sparkles } from 'lucide-react';
@@ -70,16 +72,6 @@ const ORIGIN_PILL: Record<RecentCve['origin'], { label: string; cls: string; too
   },
 };
 
-function shortRel(iso: string): string {
-  const t = Date.parse(iso);
-  if (Number.isNaN(t)) return '';
-  const diff = Math.max(0, Date.now() - t) / 1000;
-  if (diff < 60) return 'just now';
-  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
-  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
-  return `${Math.floor(diff / 86400)}d ago`;
-}
-
 export default function CveList(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState(searchParams.get('q') ?? '');
@@ -116,12 +108,7 @@ export default function CveList(): JSX.Element {
   }, [query, severityFilter, kevOnly, newOnly, setSearchParams]);
   const { previous: lastVisit, markVisited } = useLastVisit('cve-list');
 
-  const {
-    data,
-    loading,
-    error,
-    refetch,
-  } = useDataFetch<CveResponse>({
+  const { data, loading, error, refetch } = useDataFetch<CveResponse>({
     url: '/api/v1/cve-recent?limit=500',
     ttl: 120_000,
     staleWhileRevalidate: true,
@@ -153,10 +140,7 @@ export default function CveList(): JSX.Element {
   }, [data, query, severityFilter, kevOnly, newOnly, lastVisit]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
-  const pageItems = useMemo(
-    () => filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE),
-    [filtered, page]
-  );
+  const pageItems = useMemo(() => filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE), [filtered, page]);
 
   const toggleSeverity = (s: RecentCve['severity']) => {
     setSeverityFilter((prev) => {
@@ -283,9 +267,9 @@ export default function CveList(): JSX.Element {
 
       {data && (
         <p className="text-[11px] font-mono text-slate-500 mb-4">
-          Showing page {page}/{totalPages} ({pageItems.length} of {filtered.length} filtered, {data.count} total) · sources:{' '}
-          {(data.sources ?? []).map((s) => `${s.id} ${s.ok ? `(${s.count})` : 'OFFLINE'}`).join(' · ')} · snapshot{' '}
-          <span className="text-slate-700 dark:text-slate-300">{shortRel(data.generated_at)}</span>
+          Showing page {page}/{totalPages} ({pageItems.length} of {filtered.length} filtered, {data.count} total) ·
+          sources: {(data.sources ?? []).map((s) => `${s.id} ${s.ok ? `(${s.count})` : 'OFFLINE'}`).join(' · ')} ·
+          snapshot <span className="text-slate-700 dark:text-slate-300">{shortRel(data.generated_at)}</span>
         </p>
       )}
 
@@ -395,7 +379,7 @@ export default function CveList(): JSX.Element {
                 </p>
                 {c.reference && (
                   <a
-                    href={c.reference}
+                    href={sanitizeUrl(c.reference) || undefined}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline mt-2"

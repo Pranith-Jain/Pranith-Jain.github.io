@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
+import { relativeAgo as shortRel } from '../../lib/relativeTime';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { AlertOctagon, ArrowLeft, ExternalLink, RefreshCw, Search } from 'lucide-react';
@@ -60,17 +62,6 @@ const CATEGORY_LABEL: Record<Category, string> = {
   'fraud-research': 'Fraud research',
   'underground-forums': 'Underground forums',
 };
-
-function shortRel(iso?: string): string {
-  if (!iso) return '';
-  const t = Date.parse(iso);
-  if (Number.isNaN(t)) return '';
-  const diff = Math.max(0, Date.now() - t) / 1000;
-  if (diff < 60) return 'just now';
-  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
-  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
-  return `${Math.floor(diff / 86400)}d ago`;
-}
 
 function formatDate(iso?: string): string {
   if (!iso) return '—';
@@ -296,7 +287,7 @@ export default function CyberCrime(): JSX.Element {
             >
               <div className="flex flex-wrap items-baseline gap-2 mb-2">
                 <a
-                  href={it.url}
+                  href={sanitizeUrl(it.url) || undefined}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 break-words"

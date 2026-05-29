@@ -1,7 +1,6 @@
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ShieldCheck, Radio, Layers, GitBranch } from 'lucide-react';
 import { personalInfo } from '../../data/content';
-import { AppFooter } from '../../components/AppFooter';
 
 const PRINCIPLES = [
   {
@@ -104,8 +103,6 @@ export default function ThreatIntelAbout(): JSX.Element {
           <li>Honest degradation — single-source-down tolerance and a public feed-status dashboard</li>
         </ul>
       </Section>
-
-      <AppFooter blurb="Live, edge-aggregated threat intelligence — privacy-first, no accounts. Reference only; verify all indicators in your own environment." />
     </div>
   );
 }

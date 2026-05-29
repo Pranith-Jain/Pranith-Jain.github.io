@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "cloudflare-docs": {
+      "type": "sse",
+      "url": "https://docs.mcp.cloudflare.com/sse"
+    },
+    "cloudflare-observability": {
+      "type": "sse",
+      "url": "https://observability.mcp.cloudflare.com/sse"
+    },
+    "cloudflare-bindings": {
+      "type": "sse",
+      "url": "https://bindings.mcp.cloudflare.com/sse"
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"]
+    }
+  }
+}

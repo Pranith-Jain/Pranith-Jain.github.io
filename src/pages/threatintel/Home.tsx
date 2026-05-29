@@ -48,7 +48,6 @@ import { TodaysRead } from '../../components/threatintel/TodaysRead';
 import { FeedSnapshot } from '../../components/threatintel/FeedSnapshot';
 import { personalInfo } from '../../data/content';
 import { AppHero } from '../../components/AppHero';
-import { AppFooter } from '../../components/AppFooter';
 
 /**
  * Threat-Intel landing page — the SOLE entry point for sources, feeds, RSS,
@@ -960,11 +959,6 @@ export default function ThreatIntelHome(): JSX.Element {
           </div>
         </section>
       )}
-
-      <AppFooter
-        aboutTo="/threatintel/about"
-        blurb={`Privacy-first threat intelligence by ${personalInfo.name}. Live feeds aggregated at the edge. No tracking, no accounts. Reference only; verify indicators in your own environment.`}
-      />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Copy, FileText, Search, Users } from 'lucide-react';
+import { ArrowLeft, FileText, Search, Users } from 'lucide-react';
+import { CopyButton } from '../../components/ui/CopyButton';
 
 interface TrailFile {
   name: string;
@@ -167,13 +168,17 @@ export default function MaltrailTrails(): JSX.Element {
                   </p>
                 )}
               </div>
-              <div className="max-h-[65vh] overflow-y-auto">
+              <div className="max-h-[65vh] overflow-auto">
                 <table className="w-full text-sm">
                   <thead className="bg-slate-50 dark:bg-slate-950 sticky top-0">
                     <tr className="text-left text-[10px] font-mono uppercase tracking-wider text-slate-500">
-                      <th className="px-4 py-2">Value</th>
-                      <th className="px-4 py-2 w-20">Type</th>
-                      <th className="px-4 py-2 w-12"></th>
+                      <th scope="col" className="px-4 py-2">
+                        Value
+                      </th>
+                      <th scope="col" className="px-4 py-2 w-20">
+                        Type
+                      </th>
+                      <th scope="col" className="px-4 py-2 w-12"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -189,14 +194,7 @@ export default function MaltrailTrails(): JSX.Element {
                           </span>
                         </td>
                         <td className="px-4 py-1.5">
-                          <button
-                            type="button"
-                            onClick={() => navigator.clipboard.writeText(ioc.value)}
-                            className="text-slate-400 hover:text-brand-600"
-                            aria-label="Copy IOC"
-                          >
-                            <Copy size={12} />
-                          </button>
+                          <CopyButton value={ioc.value} label="Copy IOC" />
                         </td>
                       </tr>
                     ))}

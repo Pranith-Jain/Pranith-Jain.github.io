@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
+import { CopyButton } from '../../components/ui/CopyButton';
+import { relativeAgo as shortRel } from '../../lib/relativeTime';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Download, FileDown, GitBranchPlus, RefreshCw, Search, Sparkles, Copy, Check, Loader2 } from 'lucide-react';
+import { ArrowLeft, Download, FileDown, GitBranchPlus, RefreshCw, Search, Sparkles, Loader2 } from 'lucide-react';
 import { useDataFetch } from '../../hooks/useDataFetch';
 import { useLastVisit, isNewSince } from '../../hooks';
 import { DataState } from '../../components/DataState';
@@ -45,17 +47,6 @@ const KIND_PILL: Record<IocKind, string> = {
   hash: 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
 };
 
-function shortRel(iso?: string): string {
-  if (!iso) return '';
-  const t = Date.parse(iso);
-  if (Number.isNaN(t)) return '';
-  const diff = Math.max(0, Date.now() - t) / 1000;
-  if (diff < 60) return 'just now';
-  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
-  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
-  return `${Math.floor(diff / 86400)}d ago`;
-}
-
 function confidenceLabel(n: number): { label: string; cls: string } {
   if (n >= 5) return { label: 'very high', cls: 'text-rose-700 dark:text-rose-300' };
   if (n >= 4) return { label: 'high', cls: 'text-amber-700 dark:text-amber-300' };
@@ -94,29 +85,6 @@ const FRESHNESS_PILL: Record<Freshness, { label: string; cls: string }> = {
   },
 };
 
-function CopyBtn({ value }: { value: string }) {
-  const [done, setDone] = useState(false);
-  const click = async () => {
-    try {
-      await navigator.clipboard.writeText(value);
-      setDone(true);
-      setTimeout(() => setDone(false), 1200);
-    } catch {
-      /* ignore */
-    }
-  };
-  return (
-    <button
-      type="button"
-      onClick={click}
-      aria-label="copy indicator"
-      className="inline-flex items-center justify-center min-h-[40px] min-w-[40px] sm:min-h-0 sm:min-w-0 text-slate-400 hover:text-brand-500 transition-colors shrink-0"
-    >
-      {done ? <Check size={12} /> : <Copy size={12} />}
-    </button>
-  );
-}
-
 function IocRow({ ioc }: { ioc: CorrelatedIoc }) {
   const conf = confidenceLabel(ioc.source_count);
   const fresh = freshness(ioc.last_seen);
@@ -133,7 +101,7 @@ function IocRow({ ioc }: { ioc: CorrelatedIoc }) {
           <span className="font-mono text-[13px] text-slate-900 dark:text-slate-100 truncate" title={ioc.value}>
             {ioc.value}
           </span>
-          <CopyBtn value={ioc.value} />
+          <CopyButton value={ioc.value} />
         </div>
         <div className="text-[11px] font-mono text-slate-500 flex items-center gap-2 flex-wrap mt-0.5">
           <span
@@ -572,7 +540,11 @@ function downloadFilteredCsv(rows: CorrelatedIoc[]): void {
   URL.revokeObjectURL(url);
 }
 
-async function buildStixBundle(rows: CorrelatedIoc[], setLoading: (v: boolean) => void, setId: (id: string | null) => void) {
+async function buildStixBundle(
+  rows: CorrelatedIoc[],
+  setLoading: (v: boolean) => void,
+  setId: (id: string | null) => void
+) {
   const iocs = rows.map((r) => r.value);
   if (iocs.length === 0) return;
   setLoading(true);

@@ -81,6 +81,9 @@ module.exports = {
       files: [
         'src/pages/dfir/StixGraph.tsx',
         'src/pages/dfir/ThreatMapChart.tsx',
+        // Loaded only via React.lazy in RelationshipGraph.tsx (its @xyflow/react
+        // import is legitimate — the whole module is a dynamic-import target).
+        'src/pages/threatintel/RelationshipGraphCanvas.tsx',
       ],
       rules: {
         '@typescript-eslint/no-restricted-imports': 'off',

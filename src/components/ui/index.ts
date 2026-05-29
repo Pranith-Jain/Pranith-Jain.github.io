@@ -44,3 +44,4 @@ export { RadioGroup } from './RadioGroup';
 export { AspectRatio } from './AspectRatio';
 export { Stack, HStack, VStack } from './Stack';
 export { Grid } from './Grid';
+export { CopyButton } from './CopyButton';
