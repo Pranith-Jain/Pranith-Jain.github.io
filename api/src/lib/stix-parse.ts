@@ -264,8 +264,11 @@ export interface ParsedStix {
 // ---- Constants ------------------------------------------------------------
 
 const PATTERN_RE = /^\[(?<obj>[a-z][a-z0-9-]*)(?::(?<prop>[^\s=]+))?\s*=\s*'(?<val>[^']+)'\s*\]$/i;
-const MAX_OBJECTS = 5000;
+const MAX_OBJECTS = 1000;
 const MAX_PATTERN_LENGTH = 2048;
+// No supported indicator value (ipv4/ipv6/domain/url/hash/email) is plausibly
+// this long; anything larger is treated as unknown rather than mis-typed.
+const MAX_VALUE_LENGTH = 512;
 
 // ---- Helpers --------------------------------------------------------------
 
@@ -336,6 +339,7 @@ export function parseStixPattern(pattern: string): { type: StixIndicator['type']
   if (!m || !m.groups) return { type: 'unknown', value: '' };
   const { obj, prop, val } = m.groups;
   const value = val ?? '';
+  if (value.length > MAX_VALUE_LENGTH) return { type: 'unknown', value };
   if (obj === 'ipv4-addr') return { type: 'ipv4', value };
   if (obj === 'ipv6-addr') return { type: 'ipv6', value };
   if (obj === 'domain-name') return { type: 'domain', value };
@@ -609,9 +613,7 @@ export function parseStixBundle(bundle: StixBundle): ParsedStix {
           id: o.id,
           definition_type: typeof o.definition_type === 'string' ? o.definition_type : undefined,
           definition:
-            typeof o.definition === 'object' && o.definition
-              ? (o.definition as Record<string, unknown>)
-              : undefined,
+            typeof o.definition === 'object' && o.definition ? (o.definition as Record<string, unknown>) : undefined,
           name: typeof o.name === 'string' ? o.name : undefined,
         });
         break;

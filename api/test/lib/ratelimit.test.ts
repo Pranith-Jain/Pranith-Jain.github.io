@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeAll } from 'vitest';
 import { env, SELF } from 'cloudflare:test';
+import { rateLimit } from '../../src/lib/ratelimit';
 
 /**
  * Seed the per-IP rate-limit counter in Cache API so the test doesn't
@@ -10,10 +11,31 @@ async function seedRateLimit(ip: string, count: number): Promise<void> {
   const bucket = Math.floor(Date.now() / 1000 / 60);
   const key = new Request(`https://rl.internal/u/${bucket}/${encodeURIComponent(ip)}`);
   // Miniflare exposes caches.default in the test environment.
-  await caches.default.put(
-    key,
-    new Response(String(count), { headers: { 'cache-control': 'max-age=60' } })
-  );
+  await caches.default.put(key, new Response(String(count), { headers: { 'cache-control': 'max-age=60' } }));
+}
+
+/**
+ * Minimal Hono-Context stub for exercising rateLimit directly in the test
+ * isolate. We can't drive the over-limit path through SELF.fetch:
+ * vitest-pool-workers gives the SELF worker a SEPARATE caches.default from the
+ * test scope, so a seeded counter is invisible across that boundary. Calling
+ * rateLimit() here runs it in the same isolate that seeded the cache.
+ */
+function makeCtx(url: string, method: string, ip: string) {
+  return {
+    req: {
+      url,
+      method,
+      header: (name: string) => (name.toLowerCase() === 'cf-connecting-ip' ? ip : undefined),
+    },
+    env: {},
+    executionCtx: { waitUntil: () => {} },
+    json: (body: unknown, status?: number, headers?: Record<string, string>) =>
+      new Response(JSON.stringify(body), {
+        status: status ?? 200,
+        headers: { 'content-type': 'application/json', ...(headers ?? {}) },
+      }),
+  } as unknown as Parameters<typeof rateLimit>[0];
 }
 
 describe('rate limiter', () => {
@@ -26,13 +48,13 @@ describe('rate limiter', () => {
     const ip = '198.51.100.99';
     await seedRateLimit(ip, 30);
 
-    const r = await SELF.fetch('https://x/api/v1/cti/parse', {
-      method: 'POST',
-      headers: { 'cf-connecting-ip': ip, 'content-type': 'application/json' },
-      body: JSON.stringify({ type: 'bundle', id: 'b', objects: [] }),
+    let nextCalled = false;
+    const res = await rateLimit(makeCtx('https://x/api/v1/cti/parse', 'POST', ip), async () => {
+      nextCalled = true;
     });
-    expect(r.status).toBe(429);
-    const body = (await r.json()) as Record<string, unknown>;
+    expect(nextCalled).toBe(false);
+    expect((res as Response | undefined)?.status).toBe(429);
+    const body = (await (res as Response).json()) as Record<string, unknown>;
     expect(body.error).toBe('rate_limited');
   });
 
@@ -50,13 +72,13 @@ describe('rate limiter', () => {
     const ip = '198.51.100.66';
     await seedRateLimit(ip, 30);
 
-    const r = await SELF.fetch('https://x/api/v1/briefings/build?type=daily', {
-      method: 'POST',
-      headers: { 'cf-connecting-ip': ip },
+    // 429 from the global limiter before the admin token check — the
+    // brute-force guard on BRIEFINGS_ADMIN_TOKEN.
+    let nextCalled = false;
+    const res = await rateLimit(makeCtx('https://x/api/v1/briefings/build?type=daily', 'POST', ip), async () => {
+      nextCalled = true;
     });
-    // 429 from rate limiter before the handler checks ADMIN_TOKEN.
-    // If the test returns 403 instead, the rate-limit seed is not
-    // being picked up (check Cache API compatibility in this env).
-    expect(r.status).toBe(429);
+    expect(nextCalled).toBe(false);
+    expect((res as Response | undefined)?.status).toBe(429);
   });
 });

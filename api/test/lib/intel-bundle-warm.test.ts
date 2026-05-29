@@ -177,7 +177,10 @@ describe('warmIntelBundles', () => {
     await insertBriefing(env.BRIEFINGS_DB!, fakeBriefing({ slug: 'daily-2026-05-20', range_end: '2026-05-20' }));
     await insertBriefing(env.BRIEFINGS_DB!, fakeBriefing({ slug: 'daily-2026-05-21', range_end: '2026-05-21' }));
     await insertBriefing(env.BRIEFINGS_DB!, fakeBriefing({ slug: 'daily-2026-05-22', range_end: '2026-05-22' }));
-    const r = await warmIntelBundles(env, { maxItems: 1 });
+    // Wide lookback so the fixed fixture dates stay in-window regardless of
+    // the current date — this test exercises the maxItems/hasMore cap, not the
+    // lookback filter.
+    const r = await warmIntelBundles(env, { maxItems: 1, lookbackDays: 365_000 });
     expect(r.built).toHaveLength(1);
     expect(r.hasMore).toBe(true);
     // FIFO by range_end ASC — oldest goes first.
@@ -206,7 +209,9 @@ describe('warmIntelBundles', () => {
         '2026-05-21T00:30:00Z'
       )
       .run();
-    const r = await warmIntelBundles(env, { maxItems: 5 });
+    // Wide lookback so both fixed-date fixtures stay in-window regardless of
+    // the current date — this test exercises per-row failure handling.
+    const r = await warmIntelBundles(env, { maxItems: 5, lookbackDays: 365_000 });
     expect(r.built).toContain('daily-2026-05-22');
     expect(r.failed.map((f) => f.slug)).toContain('daily-2026-05-21');
   });
