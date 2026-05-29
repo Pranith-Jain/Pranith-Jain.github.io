@@ -50,6 +50,11 @@ jobs:
       # Hono types under stricter `noUncheckedIndexedAccess`).
       - name: tsc (root)
         run: npx tsc --noEmit -p tsconfig.json
+      # tsc (api) needs api/ deps — api/tsconfig.json references the
+      # @cloudflare/vitest-pool-workers type defs, which root npm ci doesn't install.
+      - name: install api deps
+        working-directory: api
+        run: npm ci --legacy-peer-deps
       - name: tsc (api)
         run: npx tsc --noEmit -p api/tsconfig.json
 
