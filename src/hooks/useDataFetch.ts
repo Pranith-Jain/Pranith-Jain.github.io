@@ -1,51 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { api } from '../lib/api-client';
-
-interface CacheEntry {
-  data: unknown;
-  fetchedAt: number;
-  ttl: number;
-}
-
-const cache = new Map<string, CacheEntry>();
-const CACHE_MAX = 200;
-
-function cacheSet(key: string, data: unknown, ttl: number): void {
-  const now = Date.now();
-  if (cache.size >= CACHE_MAX) {
-    let oldest: string | undefined;
-    let oldestTime = now;
-    for (const [k, v] of cache) {
-      if (v.fetchedAt < oldestTime) {
-        oldest = k;
-        oldestTime = v.fetchedAt;
-      }
-    }
-    if (oldest) cache.delete(oldest);
-  }
-  cache.set(key, { data, fetchedAt: now, ttl });
-}
-
-function cacheGet(key: string, now: number): { entry: CacheEntry; fresh: boolean } | null {
-  const entry = cache.get(key);
-  if (!entry) return null;
-  if (now - entry.fetchedAt < entry.ttl) {
-    return { entry, fresh: true };
-  }
-  return { entry, fresh: false };
-}
-
-function cacheEvictExpired(): void {
-  const now = Date.now();
-  for (const [k, v] of cache) {
-    if (now - v.fetchedAt >= v.ttl) cache.delete(k);
-  }
-}
-
-setInterval(cacheEvictExpired, 60_000);
-if (typeof window !== 'undefined') {
-  window.addEventListener('pageshow', cacheEvictExpired);
-}
+import { memoryCache } from '../infrastructure/cache/memory-cache';
 
 export interface UseDataFetchOptions<T> {
   url: string | null;
@@ -65,7 +20,7 @@ export interface UseDataFetchResult<T> {
 
 async function fetchAndCache<T>(url: string, ttl: number, signal: AbortSignal): Promise<T> {
   const result = await api.get<T>(url, { signal });
-  cacheSet(url, result as unknown, ttl);
+  memoryCache.set(url, result, ttl);
   return result;
 }
 
@@ -108,18 +63,17 @@ export function useDataFetch<T = unknown>({
     mountedRef.current = true;
     if (!url) return;
 
-    const now = Date.now();
-    const hit = cacheGet(url, now);
+    const hit = memoryCache.get<T>(url);
 
     if (hit?.fresh) {
-      setData(hit.entry.data as T);
+      setData(hit.data);
       setLoading(false);
       setStale(false);
       return;
     }
 
     if (hit && staleWhileRevalidate) {
-      setData(hit.entry.data as T);
+      setData(hit.data);
       setStale(true);
       setLoading(false);
     } else {
@@ -141,7 +95,7 @@ export function useDataFetch<T = unknown>({
 
   const refetch = useCallback(() => {
     if (!url) return;
-    cache.delete(url);
+    memoryCache.delete(url);
     if (ctrlRef.current) ctrlRef.current.abort();
     const ctrl = new AbortController();
     ctrlRef.current = ctrl;

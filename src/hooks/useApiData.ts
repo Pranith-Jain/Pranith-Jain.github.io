@@ -19,14 +19,16 @@
  */
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { api } from '../lib/api-client';
-import { ApiError } from '../lib/api-client';
+import { api, ApiError } from '../lib/api-client';
+import { memoryCache } from '../infrastructure/cache/memory-cache';
 
 export interface UseApiDataOptions<T> {
   /** Initial data while loading. */
   initial?: T;
   /** Polling interval in ms. 0 = disabled. */
   pollInterval?: number;
+  /** Cache TTL in ms. Default 30s. */
+  ttl?: number;
   /** Skip the fetch (e.g., when URL depends on user input). */
   enabled?: boolean;
   /** Transform the response before setting data. */
@@ -44,11 +46,8 @@ export interface UseApiDataResult<T> {
   retry: () => void;
 }
 
-export function useApiData<T = unknown>(
-  url: string | null,
-  options: UseApiDataOptions<T> = {}
-): UseApiDataResult<T> {
-  const { initial, pollInterval = 0, enabled = true, transform, onError } = options;
+export function useApiData<T = unknown>(url: string | null, options: UseApiDataOptions<T> = {}): UseApiDataResult<T> {
+  const { initial, pollInterval = 0, ttl = 30_000, enabled = true, transform, onError } = options;
   const [data, setData] = useState<T | null>(initial ?? null);
   const [loading, setLoading] = useState(!initial && !!url && enabled);
   const [error, setError] = useState<string | null>(null);
@@ -56,57 +55,86 @@ export function useApiData<T = unknown>(
   const mountedRef = useRef(true);
   const onErrorRef = useRef(onError);
   onErrorRef.current = onError;
+  const cacheKey = url && enabled ? url : null;
 
-  const fetchData = useCallback(async (signal?: AbortSignal) => {
-    if (!url || !enabled) return;
+  const fetchData = useCallback(
+    async (url: string, ttl: number, signal: AbortSignal) => {
+      try {
+        const result = await api.get<T>(url, { signal });
+        if (!mountedRef.current || signal.aborted) return;
+        memoryCache.set(url, result, ttl);
+        const final = transform ? transform(result) : result;
+        setData(final);
+        setError(null);
+        setLoading(false);
+      } catch (err) {
+        if (!mountedRef.current || signal.aborted) return;
+        if (err instanceof DOMException && err.name === 'AbortError') return;
+        const msg = err instanceof ApiError ? err.message : err instanceof Error ? err.message : String(err);
+        setError(msg);
+        setLoading(false);
+        onErrorRef.current?.(err instanceof Error ? err : new Error(msg));
+      }
+    },
+    [transform]
+  );
 
-    setLoading(true);
-    setError(null);
-
-    try {
-      const result = await api.get<T>(url, { signal });
-      if (!mountedRef.current) return;
-      setData(transform ? transform(result) : result);
-      setError(null);
-    } catch (err) {
-      if (!mountedRef.current) return;
-      if (err instanceof DOMException && err.name === 'AbortError') return;
-      const msg = err instanceof ApiError ? err.message : err instanceof Error ? err.message : String(err);
-      setError(msg);
-      onErrorRef.current?.(err instanceof Error ? err : new Error(msg));
-    } finally {
-      if (mountedRef.current) setLoading(false);
-    }
-  }, [url, enabled, transform]);
-
-  // Fetch on mount and when URL changes.
+  // Fetch on mount, URL/enabled change, or refetch.
   useEffect(() => {
     mountedRef.current = true;
+    if (!cacheKey) return;
+
+    const hit = memoryCache.get<T>(cacheKey);
+    if (hit?.fresh) {
+      setData(hit.data);
+      setLoading(false);
+      setError(null);
+      return;
+    }
+    if (hit) {
+      // SWR: show stale data while revalidating
+      setData(hit.data);
+      setLoading(false);
+    } else {
+      setLoading(true);
+      setError(null);
+    }
+
     if (ctrlRef.current) ctrlRef.current.abort();
     const ctrl = new AbortController();
     ctrlRef.current = ctrl;
 
-    fetchData(ctrl.signal);
+    fetchData(cacheKey, ttl, ctrl.signal);
 
     return () => {
       mountedRef.current = false;
       ctrl.abort();
     };
-  }, [fetchData]);
+  }, [cacheKey, ttl, fetchData]);
 
   // Polling.
   useEffect(() => {
     if (!pollInterval || !url || !enabled) return;
-    const interval = setInterval(() => fetchData(), pollInterval);
+    const interval = setInterval(() => {
+      if (!url) return;
+      memoryCache.delete(url);
+      const ctrl = new AbortController();
+      ctrlRef.current?.abort();
+      ctrlRef.current = ctrl;
+      fetchData(url, ttl, ctrl.signal);
+    }, pollInterval);
     return () => clearInterval(interval);
-  }, [pollInterval, url, enabled, fetchData]);
+  }, [pollInterval, url, enabled, ttl, fetchData]);
 
   const refetch = useCallback(() => {
+    if (!cacheKey) return;
+    memoryCache.delete(cacheKey);
     if (ctrlRef.current) ctrlRef.current.abort();
     const ctrl = new AbortController();
     ctrlRef.current = ctrl;
-    fetchData(ctrl.signal);
-  }, [fetchData]);
+    setLoading(true);
+    fetchData(cacheKey, ttl, ctrl.signal);
+  }, [cacheKey, ttl, fetchData]);
 
   const retry = useCallback(() => {
     setError(null);
@@ -125,21 +153,24 @@ export function useApiMutation<TInput, TOutput = void>(url: string) {
   const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<TOutput | null>(null);
 
-  const mutate = useCallback(async (input: TInput): Promise<TOutput | null> => {
-    setLoading(true);
-    setError(null);
-    try {
-      const result = await api.post<TOutput>(url, input);
-      setData(result);
-      return result;
-    } catch (err) {
-      const msg = err instanceof ApiError ? err.message : err instanceof Error ? err.message : String(err);
-      setError(msg);
-      return null;
-    } finally {
-      setLoading(false);
-    }
-  }, [url]);
+  const mutate = useCallback(
+    async (input: TInput): Promise<TOutput | null> => {
+      setLoading(true);
+      setError(null);
+      try {
+        const result = await api.post<TOutput>(url, input);
+        setData(result);
+        return result;
+      } catch (err) {
+        const msg = err instanceof ApiError ? err.message : err instanceof Error ? err.message : String(err);
+        setError(msg);
+        return null;
+      } finally {
+        setLoading(false);
+      }
+    },
+    [url]
+  );
 
   const reset = useCallback(() => {
     setError(null);

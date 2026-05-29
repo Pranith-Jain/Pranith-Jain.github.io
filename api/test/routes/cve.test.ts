@@ -1,6 +1,6 @@
 import { SELF } from 'cloudflare:test';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { __resetKevCache } from '../../src/routes/cve';
+import { __resetKevCache } from '../../src/lib/cve-lookup';
 
 beforeEach(() => {
   vi.restoreAllMocks();

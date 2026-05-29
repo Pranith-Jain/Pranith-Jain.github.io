@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import { findCaseStudy } from '../data/case-studies';
+import { findCaseStudy } from '../infrastructure/data/case-studies';
 
 /**
  * /projects/<slug> — long-form case study read page. The data lives in

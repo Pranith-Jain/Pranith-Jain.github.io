@@ -95,9 +95,7 @@ export interface NavLink {
   cta?: boolean;
 }
 
-export interface Company {
-  name: string;
-}
+export type Company = string;
 
 export interface PersonalInfo {
   name: string;

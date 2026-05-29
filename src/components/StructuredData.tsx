@@ -1,6 +1,11 @@
-import { personalInfo, stats } from '../data/content';
+import type { PersonalInfo, StatItem } from '../core/entities';
 
-export function StructuredData() {
+interface StructuredDataProps {
+  personalInfo: PersonalInfo;
+  stats: StatItem[];
+}
+
+export function StructuredData({ personalInfo, stats }: StructuredDataProps) {
   // Extract numeric values from stats for schema
   const domainsSecured = stats.find((s) => s.label === 'Domains Secured')?.target || 1300;
   const inboxesMonitored = stats.find((s) => s.label === 'Inboxes Monitored')?.target || 2700;

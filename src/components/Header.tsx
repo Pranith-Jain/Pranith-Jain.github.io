@@ -9,9 +9,10 @@ import { preloadRoute } from '../lib/route-preloaders';
 interface HeaderProps {
   isDark: boolean;
   onToggleTheme: () => void;
+  navLinks: NavLink[];
 }
 
-export function Header({ isDark, onToggleTheme }: HeaderProps) {
+export function Header({ isDark, onToggleTheme, navLinks }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -23,7 +24,9 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
 
   // Clean up stale dropdown ref entries on unmount.
   useEffect(() => {
-    return () => { dropdownRefs.current.clear(); };
+    return () => {
+      dropdownRefs.current.clear();
+    };
   }, []);
 
   useEffect(() => {
@@ -386,10 +389,10 @@ export function Header({ isDark, onToggleTheme }: HeaderProps) {
                         to={child.href}
                         onClick={closeMobileMenu}
                         className={`block rounded-lg px-4 py-3.5 sm:py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
-                           isActive(child.href)
-                             ? 'text-brand-600 dark:text-brand-400 bg-brand-500/10'
-                             : 'text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10'
-                         }`}
+                          isActive(child.href)
+                            ? 'text-brand-600 dark:text-brand-400 bg-brand-500/10'
+                            : 'text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10'
+                        }`}
                       >
                         {child.label}
                       </Link>

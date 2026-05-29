@@ -2,12 +2,6 @@ import { Link } from 'react-router-dom';
 import { ShieldCheck, Mail, Github, Linkedin } from 'lucide-react';
 import { personalInfo } from '../data/content';
 
-/**
- * Shared product footer for the /dfir and /threatintel surfaces. One
- * source of truth so hero/footer stay consistent across landings,
- * category pages and About pages. (No "Privacy" link — removed by
- * request.)
- */
 export function AppFooter({ blurb, aboutTo }: { blurb: string; aboutTo?: string }): JSX.Element {
   return (
     <footer className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800">

@@ -24,7 +24,7 @@ import {
   memberships,
   navLinks,
   companies,
-} from '../../data/content';
+} from '../data/content';
 
 export class StaticPortfolioRepository implements IPortfolioRepository {
   getPersonalInfo(): PersonalInfo {

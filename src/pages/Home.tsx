@@ -4,7 +4,7 @@ import { RecentWriting } from '../components/RecentWriting';
 import { portfolioRepository } from '../infrastructure/repositories';
 import { getProfileData } from '../core/use-cases';
 
-const { personalInfo, stats } = getProfileData(portfolioRepository);
+const { personalInfo } = getProfileData(portfolioRepository);
 const featuredArticles = portfolioRepository.getFeaturedArticles();
 const memberships = portfolioRepository.getMemberships();
 

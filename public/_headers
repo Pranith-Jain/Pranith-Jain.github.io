@@ -17,3 +17,9 @@
 # Topojson is 190KB and stable; cache for a week
 /world-110m.json
   Cache-Control: public, max-age=604800
+
+# OG images: 100+ KB PNGs that rarely change (only on deploy)
+/og-*.png
+  Cache-Control: public, max-age=86400
+/og-*.svg
+  Cache-Control: public, max-age=86400

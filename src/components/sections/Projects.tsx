@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Github, ExternalLink, ChevronDown, ChevronUp, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import type { Project } from '../../core/entities';
-import { publishedCaseStudies } from '../../data/case-studies';
+import { publishedCaseStudies } from '../../infrastructure/data/case-studies';
 import { Badge } from '../Badge';
 
 interface ProjectsProps {
@@ -20,7 +20,7 @@ interface ProjectsProps {
 const TRUNCATE_THRESHOLD = 240;
 
 interface ProjectCardProps {
-  project: (typeof projects)[number];
+  project: Project;
 }
 
 function ProjectCard({ project }: ProjectCardProps): JSX.Element {

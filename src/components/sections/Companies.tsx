@@ -1,7 +1,5 @@
-import type { Company } from '../../core/entities';
-
 interface CompaniesProps {
-  companies: Company[];
+  companies: string[];
 }
 
 export function Companies({ companies }: CompaniesProps) {

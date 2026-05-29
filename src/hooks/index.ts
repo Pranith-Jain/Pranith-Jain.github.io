@@ -15,3 +15,7 @@ export { useDFIRSettings } from './useDFIRSettings';
 export { useLastVisit, isNewSince } from './useLastVisit';
 export { useDataFetch } from './useDataFetch';
 export { useApi } from './useApi';
+export { useCountUp } from './useCountUp';
+export { useMediaQuery, useIsMobile, useIsTablet, useIsDesktop, useReduceMotion } from './useMediaQuery';
+export { useDebounce } from './useDebounce';
+export { useClipboard } from './useClipboard';

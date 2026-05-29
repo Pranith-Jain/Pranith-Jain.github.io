@@ -23,11 +23,9 @@
          browser console warnings). X-XSS-Protection is deprecated everywhere
          and intentionally omitted; CSP covers the same surface better. -->
     
-    <!-- Content Security Policy - carefully tuned for Google Fonts, inline styles (Tailwind), and theme script -->
-    <meta 
-      http-equiv="Content-Security-Policy" 
-      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://cloudflare-dns.com https://cloudflareinsights.com https://*.cloudflareinsights.com; base-uri 'self'; form-action 'self';"
-    />
+    <!-- CSP is NOT served via <meta> — the worker (withSecurityHeaders) sets it per-response with a
+         fresh nonce so script-src switches from 'unsafe-inline' to nonce-based enforcement. Keeping
+         a <meta> tag here would create a second, less-restrictive policy that scanners flag. -->
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://pranithjain.qzz.io" />

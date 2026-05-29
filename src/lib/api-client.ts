@@ -26,7 +26,7 @@ async function request<T>(url: string, init: RequestInit & RequestOptions = {}):
   if (!res.ok) {
     const ct = res.headers.get('content-type') ?? '';
     if (ct.includes('json') || ct.includes('application/json')) {
-      const parsed = await res.json().catch(() => null) as Record<string, string> | null;
+      const parsed = (await res.json().catch(() => null)) as Record<string, string> | null;
       const msg = parsed?.message || parsed?.detail || parsed?.error || `HTTP ${res.status}`;
       throw new ApiError(res.status, msg);
     }
@@ -39,12 +39,13 @@ async function request<T>(url: string, init: RequestInit & RequestOptions = {}):
 }
 
 async function parseJson<T>(res: Response): Promise<T> {
+  const text = await res.text();
   try {
-    return (await res.json()) as T;
+    return JSON.parse(text) as T;
   } catch {
     const ct = res.headers.get('content-type') ?? '';
-    const snippet = ct ? `(${ct})` : '';
-    throw new ApiError(res.status, `Server returned ${res.status} with malformed JSON ${snippet}`);
+    const snippet = ct ? ` (${ct})` : '';
+    throw new ApiError(res.status, `Malformed JSON${snippet}: ${text.slice(0, 200)}`);
   }
 }
 
@@ -95,11 +96,7 @@ export const api = {
     }
   },
 
-  stream(
-    url: string,
-    onData: (event: string, data: string) => void,
-    onError?: (err: Event) => void
-  ): () => void {
+  stream(url: string, onData: (event: string, data: string) => void, onError?: (err: Event) => void): () => void {
     const es = new EventSource(url);
     es.onmessage = (e) => onData('message', e.data);
     es.onerror = (e) => {

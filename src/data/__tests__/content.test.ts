@@ -178,7 +178,7 @@ describe('Content Data Validation', () => {
     });
 
     it('should have valid color values', () => {
-      const validColors = ['brand', 'emerald', 'cyan'];
+      const validColors = ['brand', 'emerald', 'cyan', 'violet'];
       memberships.forEach((membership) => {
         expect(validColors).toContain(membership.color);
       });

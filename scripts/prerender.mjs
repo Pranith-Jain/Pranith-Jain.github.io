@@ -21,9 +21,14 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { dirname, resolve } from 'node:path';
+import { cpus } from 'node:os';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
+// Render up to N routes in parallel. CPU-bound (React SSR walks the full
+// tree + serializes), so concurrency = CPU count keeps cores saturated
+// without excessive memory from 100+ concurrent render streams.
+const CONCURRENCY = Math.max(1, cpus().length);
 
 // Phase 3 (2026-05-12): expanded from `/` only to a batch of 20 static-
 // content routes. Each was verified to make 0 /api/v1/ calls on mount,
@@ -165,9 +170,15 @@ const ROUTES = [
   '/dfir/email-rep',
   '/dfir/crypto-trace',
 
-  // ── Static threatintel catalogs (5) — 0 API calls ─────────────
+  // ── Static threatintel catalogs (11) — 0 API calls ────────────
   '/threatintel/mitre',
   '/threatintel/actor-kb',
+  '/threatintel/actor-dna',
+  '/threatintel/predictive',
+  '/threatintel/campaign-lifecycle',
+  '/threatintel/attribution',
+  '/threatintel/intelligence-gaps',
+  '/threatintel/cross-campaign',
   '/threatintel/actors',
   '/threatintel/rules',
   '/threatintel/briefings',
@@ -272,26 +283,33 @@ async function main() {
 
   const manifest = [];
   let okCount = 0;
-  for (const route of ROUTES) {
-    try {
-      // render() is async since Phase 3 — we use renderToReadableStream
-      // so React awaits every Suspense boundary (lazy routes, lazy data).
-      const { html: appHtml } = await render(route);
-      const finalHtml = shell.replace(/<div id="root"><\/div>/, `<div id="root">${appHtml}</div>`);
-      if (finalHtml === shell) {
-        throw new Error('prerender: shell did not contain <div id="root"></div> placeholder');
+
+  async function renderOne(route) {
+    const { html: appHtml } = await render(route);
+    const finalHtml = shell.replace(/<div id="root"><\/div>/, `<div id="root">${appHtml}</div>`);
+    if (finalHtml === shell) {
+      throw new Error('prerender: shell did not contain <div id="root"></div> placeholder');
+    }
+    const slug = route === '/' ? 'home' : route.slice(1).replace(/\//g, '__');
+    const outFile = resolve(prerenderDir, `${slug}.html`);
+    await writeFile(outFile, finalHtml, 'utf8');
+    const sizeKB = (finalHtml.length / 1024).toFixed(1);
+    console.log(`  ✓ ${route.padEnd(30)} → __prerendered/${slug}.html  (${sizeKB} KB)`);
+    return { route, file: `__prerendered/${slug}.html` };
+  }
+
+  // Process routes in concurrent batches to saturate CPU without
+  // overwhelming memory from N simultaneous render streams.
+  for (let i = 0; i < ROUTES.length; i += CONCURRENCY) {
+    const batch = ROUTES.slice(i, i + CONCURRENCY);
+    const results = await Promise.allSettled(batch.map(renderOne));
+    for (const result of results) {
+      if (result.status === 'fulfilled') {
+        manifest.push(result.value);
+        okCount++;
+      } else {
+        console.error(`  ✗ ${result.reason instanceof Error ? result.reason.message : String(result.reason)}`);
       }
-      // Route '/' becomes 'home'; other routes have slashes replaced with
-      // double-underscore so we don't accidentally create nested folders.
-      const slug = route === '/' ? 'home' : route.slice(1).replace(/\//g, '__');
-      const outFile = resolve(prerenderDir, `${slug}.html`);
-      await writeFile(outFile, finalHtml, 'utf8');
-      manifest.push({ route, file: `__prerendered/${slug}.html` });
-      const sizeKB = (finalHtml.length / 1024).toFixed(1);
-      console.log(`  ✓ ${route.padEnd(30)} → __prerendered/${slug}.html  (${sizeKB} KB)`);
-      okCount++;
-    } catch (err) {
-      console.error(`  ✗ ${route}: ${err instanceof Error ? err.message : err}`);
     }
   }
 

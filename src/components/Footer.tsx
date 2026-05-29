@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom';
 import { Eye, Linkedin, Github, Mail } from 'lucide-react';
-import { personalInfo } from '../data/content';
+import type { PersonalInfo } from '../core/entities';
+
+interface FooterProps {
+  personalInfo: PersonalInfo;
+}
 import { usePageViewCounter, formatViewCount } from '../hooks';
 import { PjMark } from './PjMark';
 
@@ -29,7 +33,7 @@ const BUILD_LINKS: Array<{ label: string; href: string }> = [
   { label: 'Blog', href: '/blog' },
 ];
 
-export function Footer() {
+export function Footer({ personalInfo }: FooterProps) {
   const currentYear = new Date().getFullYear();
   const { count, isNewSession } = usePageViewCounter();
 
