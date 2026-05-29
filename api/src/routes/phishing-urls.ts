@@ -145,11 +145,15 @@ function writeLastGood(
 
 async function fetchOpenphish(): Promise<string | null> {
   try {
-    const res = await fetchResilient(OPENPHISH_URL, {
-      headers: { 'user-agent': 'pranithjain-dfir/1.0', accept: 'text/plain, text/csv' },
-      cf: { cacheTtl: 1800, cacheEverything: true },
-      redirect: 'follow',
-    }, { attempts: 3, timeoutMs: FETCH_TIMEOUT_MS_OPENPHISH });
+    const res = await fetchResilient(
+      OPENPHISH_URL,
+      {
+        headers: { 'user-agent': 'pranithjain-dfir/1.0', accept: 'text/plain, text/csv' },
+        cf: { cacheTtl: 1800, cacheEverything: true },
+        redirect: 'follow',
+      },
+      { attempts: 3, timeoutMs: FETCH_TIMEOUT_MS_OPENPHISH }
+    );
     if (!res.ok) return null;
     return await res.text();
   } catch {
@@ -159,12 +163,18 @@ async function fetchOpenphish(): Promise<string | null> {
 
 async function fetchPhishtank(): Promise<string | null> {
   try {
-    const res = await fetchResilient(PHISHTANK_URL, {
-      headers: { 'user-agent': PHISHTANK_UA, accept: 'text/csv,*/*' },
-      // Signed CloudFront URLs can't be CDN-cached cleanly across requests; our
-      // own KV-style cache (CACHE_KEY at the response level) handles dedupe.
-      redirect: 'follow',
-    });
+    const res = await fetchResilient(
+      PHISHTANK_URL,
+      {
+        headers: { 'user-agent': PHISHTANK_UA, accept: 'text/csv,*/*' },
+        // Signed CloudFront URLs can't be CDN-cached cleanly across requests; our
+        // own KV-style cache (CACHE_KEY at the response level) handles dedupe.
+        redirect: 'follow',
+      },
+      // PhishTank is the larger (10–12 MB) dump, so it needs the bigger budget —
+      // without this it fell back to the default timeout and could abort early.
+      { attempts: 3, timeoutMs: FETCH_TIMEOUT_MS_PHISHTANK }
+    );
     if (!res.ok) return null;
     return await res.text();
   } catch {

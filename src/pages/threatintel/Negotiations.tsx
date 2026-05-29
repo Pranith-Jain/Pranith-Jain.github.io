@@ -110,9 +110,10 @@ export default function Negotiations(): JSX.Element {
 
   // Abort any in-flight transcript fetches when the component unmounts.
   useEffect(() => {
+    const ctrls = transcriptCtrlRef.current;
     return () => {
-      for (const c of transcriptCtrlRef.current.values()) c.abort();
-      transcriptCtrlRef.current.clear();
+      for (const c of ctrls.values()) c.abort();
+      ctrls.clear();
     };
   }, []);
 

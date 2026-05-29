@@ -110,18 +110,9 @@ import { radarDomainHandler } from './routes/cloudflare-radar';
 import { certspotterSearchHandler } from './routes/certspotter';
 import { triageSearchHandler } from './routes/triage';
 import { reportParserHandler } from './routes/report-parser';
-import {
-  iocLifecycleHandler,
-  iocLifecycleTrendingHandler,
-  iocLifecycleStatsHandler,
-} from './routes/ioc-lifecycle';
+import { iocLifecycleHandler, iocLifecycleTrendingHandler, iocLifecycleStatsHandler } from './routes/ioc-lifecycle';
 import { ruleGeneratorHandler, ruleValidateHandler } from './routes/yara-generator';
-import {
-  ctWatchedListHandler,
-  ctWatchAddHandler,
-  ctWatchRemoveHandler,
-  ctCertsHandler,
-} from './routes/ct-monitor';
+import { ctWatchedListHandler, ctWatchAddHandler, ctWatchRemoveHandler, ctCertsHandler } from './routes/ct-monitor';
 import {
   taxiiDiscoveryHandler,
   taxiiCollectionsHandler,
@@ -132,11 +123,27 @@ import {
 import { stealerParserHandler } from './routes/stealer-parser';
 import { bloomFilterHandler, bloomCheckHandler, bloomStatsHandler } from './routes/bloom-filter';
 import { graphNodeHandler, graphPathHandler, graphCommunitiesHandler, graphStatsHandler } from './routes/threat-graph';
-import { temporalTimelineHandler, temporalCampaignsHandler, temporalVelocityHandler, temporalPredictHandler } from './routes/temporal-analysis';
+import {
+  temporalTimelineHandler,
+  temporalCampaignsHandler,
+  temporalVelocityHandler,
+  temporalPredictHandler,
+} from './routes/temporal-analysis';
 import { attackChainHandler, attackChainTechniquesHandler } from './routes/attack-chain';
-import { actorDnaMatchHandler, actorDnaGetHandler, actorDnaListHandler, actorDnaCompareHandler } from './routes/actor-dna';
+import {
+  actorDnaMatchHandler,
+  actorDnaGetHandler,
+  actorDnaListHandler,
+  actorDnaCompareHandler,
+} from './routes/actor-dna';
 import { campaignAnalyzeHandler, campaignTechniquesHandler } from './routes/campaign-lifecycle';
-import { predictiveForecastsHandler, predictiveSectorRisksHandler, predictiveAttributionHandler, predictiveGapsHandler, predictiveReportHandler } from './routes/predictive-intel';
+import {
+  predictiveForecastsHandler,
+  predictiveSectorRisksHandler,
+  predictiveAttributionHandler,
+  predictiveGapsHandler,
+  predictiveReportHandler,
+} from './routes/predictive-intel';
 import { crossCampaignCorrelationHandler } from './routes/cross-campaign';
 
 import {
@@ -241,6 +248,7 @@ app.get('/api/v1/ip-geo', ipGeoHandler);
 app.get('/api/v1/stix/fetch', stixFetchHandler);
 app.get('/api/v1/cert-search', certSearchHandler);
 app.get('/api/v1/web-scan', webScanHandler);
+app.get('/api/v1/exposure/scan', exposureScanHandler);
 app.get('/api/v1/onion-watch', onionWatchHandler);
 app.get('/api/v1/telegram-feed', telegramFeedHandler);
 app.get('/api/v1/telegram-custom-channels', telegramCustomChannelsGetHandler);

@@ -1,5 +1,5 @@
-import { describe, it, expect, beforeAll } from 'vitest';
-import { env, SELF } from 'cloudflare:test';
+import { describe, it, expect } from 'vitest';
+import { SELF } from 'cloudflare:test';
 import { rateLimit } from '../../src/lib/ratelimit';
 
 /**

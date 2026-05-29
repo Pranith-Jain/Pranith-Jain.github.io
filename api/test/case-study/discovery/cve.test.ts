@@ -34,7 +34,7 @@ describe('discoverCves', () => {
   it('penalizes novelty if previously seen', async () => {
     const fetchMock = vi.fn(async () => new Response(JSON.stringify(fakeKev)));
     const now = new Date('2026-05-14T06:00:00Z');
-    const dedup = async (key: string) => ({ lastSeenAt: now.toISOString() });
+    const dedup = async (_key: string) => ({ lastSeenAt: now.toISOString() });
     const cands = await discoverCves({ fetch: fetchMock as any, now, getDedup: dedup });
     expect(cands[0]!.score).toBeLessThan(0.76);
   });

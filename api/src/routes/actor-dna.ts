@@ -1,6 +1,5 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import type { D1Database } from '@cloudflare/workers-types';
 
 /**
  * Threat Actor Behavioral DNA — fingerprint actors by behavior, not just tools.
@@ -22,7 +21,7 @@ export interface ActorDNA {
   actor_id: string;
   actor_name: string;
   aliases: string[];
-  
+
   // Behavioral patterns unique to this actor
   ttp_signature: {
     preferred_initial_access: string[];
@@ -33,7 +32,7 @@ export interface ActorDNA {
     tooling_preferences: string[];
     opsec_patterns: string[];
   };
-  
+
   // Infrastructure patterns
   infrastructure_dna: {
     hosting_preferences: string[];
@@ -42,7 +41,7 @@ export interface ActorDNA {
     dns_patterns: string[];
     ip_range_preferences: string[];
   };
-  
+
   // Temporal patterns
   operational_tempo: {
     active_hours_utc: [number, number];
@@ -52,7 +51,7 @@ export interface ActorDNA {
     seasonal_pattern: string;
     response_time_hours: number;
   };
-  
+
   // Victimology
   victimology: {
     preferred_sectors: string[];
@@ -61,7 +60,7 @@ export interface ActorDNA {
     data_types_targeted: string[];
     ransom_range: string;
   };
-  
+
   // Evolution tracking
   evolution: Array<{
     timestamp: string;
@@ -69,7 +68,7 @@ export interface ActorDNA {
     description: string;
     confidence: number;
   }>;
-  
+
   // Metadata
   first_seen: string;
   last_seen: string;
@@ -172,7 +171,12 @@ const ACTOR_DNA_DB: ActorDNA[] = [
       ransom_range: 'not_ransomware_focused',
     },
     evolution: [
-      { timestamp: '2023-12-01', change_type: 'ttp_shift', description: 'Shifted to supply chain attacks', confidence: 90 },
+      {
+        timestamp: '2023-12-01',
+        change_type: 'ttp_shift',
+        description: 'Shifted to supply chain attacks',
+        confidence: 90,
+      },
     ],
     first_seen: '2008-01-01',
     last_seen: '2026-05-28',
@@ -258,7 +262,12 @@ const ACTOR_DNA_DB: ActorDNA[] = [
       ransom_range: '$10K-$10M',
     },
     evolution: [
-      { timestamp: '2024-06-01', change_type: 'ttp_shift', description: 'Adopted new encryption methods', confidence: 85 },
+      {
+        timestamp: '2024-06-01',
+        change_type: 'ttp_shift',
+        description: 'Adopted new encryption methods',
+        confidence: 85,
+      },
     ],
     first_seen: '2019-09-01',
     last_seen: '2026-05-28',
@@ -294,8 +303,8 @@ export async function matchActorDNA(
       ...actor.ttp_signature.evasion_techniques,
       ...actor.ttp_signature.c2_channels,
     ];
-    const ttpMatches = observedTTPs.filter(t => 
-      allTTPs.some(at => at.toLowerCase().includes(t.toLowerCase()) || t.toLowerCase().includes(at.toLowerCase()))
+    const ttpMatches = observedTTPs.filter((t) =>
+      allTTPs.some((at) => at.toLowerCase().includes(t.toLowerCase()) || t.toLowerCase().includes(at.toLowerCase()))
     );
     if (ttpMatches.length > 0) {
       matchWeight += (ttpMatches.length / Math.max(observedTTPs.length, 1)) * ttpWeight;
@@ -315,8 +324,8 @@ export async function matchActorDNA(
         ...actor.infrastructure_dna.domain_patterns,
         ...actor.infrastructure_dna.ip_range_preferences,
       ];
-      const infraMatches = observedInfrastructure.filter(i =>
-        allInfra.some(ai => ai.toLowerCase().includes(i.toLowerCase()) || i.toLowerCase().includes(ai.toLowerCase()))
+      const infraMatches = observedInfrastructure.filter((i) =>
+        allInfra.some((ai) => ai.toLowerCase().includes(i.toLowerCase()) || i.toLowerCase().includes(ai.toLowerCase()))
       );
       if (infraMatches.length > 0) {
         matchWeight += (infraMatches.length / Math.max(observedInfrastructure.length, 1)) * infraWeight;
@@ -333,17 +342,19 @@ export async function matchActorDNA(
       const victimWeight = 30;
       totalWeight += victimWeight;
       let victimMatches = 0;
-      
+
       if (observedVictimology.sectors) {
-        const sectorMatches = observedVictimology.sectors.filter(s =>
-          actor.victimology.preferred_sectors.some(ps => ps.toLowerCase().includes(s.toLowerCase()))
+        const sectorMatches = observedVictimology.sectors.filter((s) =>
+          actor.victimology.preferred_sectors.some((ps) => ps.toLowerCase().includes(s.toLowerCase()))
         );
         victimMatches += sectorMatches.length;
       }
-      
+
       if (observedVictimology.regions) {
-        const regionMatches = observedVictimology.regions.filter(r =>
-          actor.victimology.preferred_regions.some(pr => pr.toLowerCase().includes(r.toLowerCase()) || pr === 'global')
+        const regionMatches = observedVictimology.regions.filter((r) =>
+          actor.victimology.preferred_regions.some(
+            (pr) => pr.toLowerCase().includes(r.toLowerCase()) || pr === 'global'
+          )
         );
         victimMatches += regionMatches.length;
       }
@@ -360,7 +371,8 @@ export async function matchActorDNA(
 
     const matchScore = totalWeight > 0 ? Math.round((matchWeight / totalWeight) * 100) : 0;
 
-    if (matchScore > 20) { // Minimum threshold
+    if (matchScore > 20) {
+      // Minimum threshold
       matches.push({
         actor_id: actor.actor_id,
         actor_name: actor.actor_name,
@@ -378,7 +390,7 @@ export async function matchActorDNA(
  * Get actor DNA by ID.
  */
 export function getActorDNA(actorId: string): ActorDNA | null {
-  return ACTOR_DNA_DB.find(a => a.actor_id === actorId) ?? null;
+  return ACTOR_DNA_DB.find((a) => a.actor_id === actorId) ?? null;
 }
 
 /**
@@ -391,7 +403,10 @@ export function getAllActorsDNA(): ActorDNA[] {
 /**
  * Calculate behavioral similarity between two actors.
  */
-export function calculateSimilarity(actor1Id: string, actor2Id: string): {
+export function calculateSimilarity(
+  actor1Id: string,
+  actor2Id: string
+): {
   similarity_score: number;
   shared_patterns: string[];
   differences: string[];
@@ -404,14 +419,8 @@ export function calculateSimilarity(actor1Id: string, actor2Id: string): {
   const differences: string[] = [];
 
   // Compare TTPs
-  const ttp1 = new Set([
-    ...a1.ttp_signature.preferred_initial_access,
-    ...a1.ttp_signature.tooling_preferences,
-  ]);
-  const ttp2 = new Set([
-    ...a2.ttp_signature.preferred_initial_access,
-    ...a2.ttp_signature.tooling_preferences,
-  ]);
+  const ttp1 = new Set([...a1.ttp_signature.preferred_initial_access, ...a1.ttp_signature.tooling_preferences]);
+  const ttp2 = new Set([...a2.ttp_signature.preferred_initial_access, ...a2.ttp_signature.tooling_preferences]);
 
   for (const t of ttp1) {
     if (ttp2.has(t)) shared.push(`Shared TTP: ${t}`);
@@ -428,9 +437,7 @@ export function calculateSimilarity(actor1Id: string, actor2Id: string): {
     if (sectors2.has(s)) shared.push(`Shared target sector: ${s}`);
   }
 
-  const similarityScore = Math.round(
-    (shared.length / Math.max(shared.length + differences.length, 1)) * 100
-  );
+  const similarityScore = Math.round((shared.length / Math.max(shared.length + differences.length, 1)) * 100);
 
   return {
     similarity_score: similarityScore,
@@ -454,11 +461,7 @@ export async function actorDnaMatchHandler(c: Context<{ Bindings: Env }>): Promi
     return c.json({ error: 'ttps array required' }, 400);
   }
 
-  const matches = await matchActorDNA(
-    body.ttps,
-    body.infrastructure,
-    { sectors: body.sectors, regions: body.regions }
-  );
+  const matches = await matchActorDNA(body.ttps, body.infrastructure, { sectors: body.sectors, regions: body.regions });
 
   return c.json({ matches, count: matches.length });
 }
@@ -482,7 +485,7 @@ export async function actorDnaGetHandler(c: Context<{ Bindings: Env }>): Promise
 export async function actorDnaListHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const actors = getAllActorsDNA();
   return c.json({
-    actors: actors.map(a => ({
+    actors: actors.map((a) => ({
       actor_id: a.actor_id,
       actor_name: a.actor_name,
       aliases: a.aliases,

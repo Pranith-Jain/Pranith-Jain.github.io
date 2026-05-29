@@ -29,6 +29,30 @@ export interface OgOverride {
 const CANONICAL_ORIGIN = 'https://pranithjain.qzz.io';
 
 const OG_OVERRIDES: Record<string, OgOverride> = {
+  '/about': {
+    title: 'About · Pranith Jain',
+    description:
+      'Security engineer working across DFIR, threat intelligence, detection engineering, and cloud security. Background, focus areas, and how to get in touch.',
+  },
+  '/skills': {
+    title: 'Skills · Pranith Jain',
+    description:
+      'Capabilities across digital forensics & incident response, threat intelligence, detection engineering, cloud & application security, and security automation.',
+  },
+  '/experience': {
+    title: 'Experience · Pranith Jain',
+    description: 'Professional experience and roles in security engineering, DFIR, and threat intelligence.',
+  },
+  '/projects': {
+    title: 'Projects · Pranith Jain',
+    description:
+      'Selected security projects and case studies — detection tooling, threat-intel platforms, and DFIR utilities built and shipped on the edge.',
+  },
+  '/blog': {
+    title: 'Blog · Pranith Jain',
+    description:
+      'Writing on threat intelligence, detection engineering, DFIR, and cloud security — field notes, deep dives, and analysis.',
+  },
   '/threatintel': {
     title: 'Threat Intel Platform · pranithjain.qzz.io',
     description:
@@ -146,11 +170,6 @@ function rewriteHtml(html: string, override: OgOverride | null, fullUrl: string,
     out = out.replace(/<script>/g, `<script nonce="${nonce}">`);
   }
   return out;
-}
-
-/** @deprecated Use rewriteHtml which combines OG rewrite + nonce injection. */
-function rewriteOgMeta(html: string, override: OgOverride | null, fullUrl: string): string {
-  return rewriteHtml(html, override, fullUrl);
 }
 
 /**

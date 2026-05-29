@@ -138,6 +138,9 @@ export default function MispBrowser() {
     } finally {
       setLoading(false);
     }
+    // loadEvents is declared below (a stable useCallback) and is only invoked
+    // inside connect — listing it here would be a use-before-declaration error.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [baseUrl, apiKey, proxy]);
 
   const loadEvents = useCallback(

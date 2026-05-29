@@ -1,12 +1,10 @@
 import { Experience, Companies } from '../components/sections';
-import { portfolioRepository } from '../infrastructure/repositories';
-import { getExperiencesData } from '../core/use-cases';
-
-const { experiences, companies } = getExperiencesData(portfolioRepository);
+import { experiences, companies } from '../data/content';
 
 export default function ExperiencePage() {
   return (
     <>
+      <h1 className="sr-only">Experience — Pranith Jain</h1>
       <Experience experiences={experiences} />
       <Companies companies={companies} />
     </>

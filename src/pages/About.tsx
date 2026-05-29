@@ -1,8 +1,5 @@
 import { About } from '../components/sections/About';
-import { portfolioRepository } from '../infrastructure/repositories';
-import { getProfileData } from '../core/use-cases';
-
-const { stats } = getProfileData(portfolioRepository);
+import { stats } from '../data/content';
 
 interface Chapter {
   period: string;
@@ -85,7 +82,6 @@ export default function AboutPage() {
           ))}
         </div>
       </section>
-
     </>
   );
 }

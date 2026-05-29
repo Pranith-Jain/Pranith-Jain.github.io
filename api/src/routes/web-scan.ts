@@ -476,7 +476,6 @@ export async function webScanHandler(c: Context<{ Bindings: Env }>): Promise<Res
       (hostCheck.status ?? 403) as 400 | 403 | 502
     );
   }
-  const pinIp = hostCheck.pinIp;
 
   // Follow redirects safely — each hop re-validates via assertPublicHost
   // so a 302 to a private/cloud-metadata IP is blocked.

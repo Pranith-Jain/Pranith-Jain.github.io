@@ -1038,14 +1038,11 @@ function buildExecutiveSummary(args: {
  * The LLM summary references specific CVE IDs, vendor names, and severity
  * counts from the actual findings — it doesn't invent data.
  */
-async function buildLlmExecutiveSummary(
-  args: Parameters<typeof buildExecutiveSummary>[0],
-  env?: Env
-): Promise<string> {
+async function buildLlmExecutiveSummary(args: Parameters<typeof buildExecutiveSummary>[0], env?: Env): Promise<string> {
   const templateSummary = buildExecutiveSummary(args);
   if (!env) return templateSummary;
 
-  const { type, range_label, findings, iocs, iocsRawTotal, iocSources } = args;
+  const { type, range_label, findings, iocsRawTotal, iocSources } = args;
   const critCount = findings.filter((f) => f.severity === 'critical').length;
   const highCount = findings.filter((f) => f.severity === 'high').length;
   const kevCount = findings.filter((f) => f.source === 'CISA KEV').length;
@@ -1060,9 +1057,10 @@ async function buildLlmExecutiveSummary(
     return parts.join(' | ');
   });
 
-  const iocSummary = iocSources.length > 0
-    ? `IoC feeds: ${iocSources.join(', ')} — ${iocsRawTotal} unique indicators.`
-    : 'No IoC data this window.';
+  const iocSummary =
+    iocSources.length > 0
+      ? `IoC feeds: ${iocSources.join(', ')} — ${iocsRawTotal} unique indicators.`
+      : 'No IoC data this window.';
 
   const userPrompt = [
     `Generate a 2-3 sentence executive summary for a ${type} threat intelligence briefing (${range_label}).`,
@@ -1080,7 +1078,8 @@ async function buildLlmExecutiveSummary(
       runCompletion(
         env.AI,
         {
-          system: 'You are a senior CTI analyst writing executive summaries for threat intelligence briefings. Be concise, specific, and actionable. Reference actual CVE IDs and vendor names from the data. 2-3 sentences maximum.',
+          system:
+            'You are a senior CTI analyst writing executive summaries for threat intelligence briefings. Be concise, specific, and actionable. Reference actual CVE IDs and vendor names from the data. 2-3 sentences maximum.',
           user: userPrompt,
           maxTokens: 400,
           temperature: 0.3,

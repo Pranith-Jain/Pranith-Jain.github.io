@@ -1,7 +1,7 @@
 import { useEffect, Suspense, lazy, useMemo } from 'react';
 import { BrowserRouter, Routes, Route, useLocation, useParams, Navigate, useSearchParams } from 'react-router-dom';
 import { useTheme, useScrollProgress } from './hooks';
-import { portfolioRepository } from './infrastructure/repositories';
+import { navLinks, personalInfo, stats } from './data/content';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { SkipToContent } from './components/SkipToContent';
@@ -245,10 +245,6 @@ function DfirFileRedirect() {
   const target = hash ? `/dfir/ioc-check?indicator=${encodeURIComponent(hash)}` : '/dfir/ioc-check';
   return <Navigate to={target} replace />;
 }
-
-const navLinks = portfolioRepository.getNavLinks();
-const personalInfo = portfolioRepository.getPersonalInfo();
-const stats = portfolioRepository.getStats();
 
 export function AppContent() {
   const { isDark, toggleTheme } = useTheme();

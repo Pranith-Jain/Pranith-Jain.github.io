@@ -75,6 +75,15 @@ module.exports = {
       },
     },
     {
+      // Test files lean on `any` for mocks/fixtures (mock DBs, partial env
+      // stubs, fetch shims). Enforcing full types there is busywork with no
+      // production payoff, so allow `any` in test files only.
+      files: ['**/*.test.{ts,tsx}', '**/test/**/*.{ts,tsx}'],
+      rules: {
+        '@typescript-eslint/no-explicit-any': 'off',
+      },
+    },
+    {
       // Allowlist: the four designated lazy entry points. These ARE the
       // dynamic-import targets, so static imports here are legitimate and
       // the rule must not fire.

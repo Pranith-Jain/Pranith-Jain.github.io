@@ -25,10 +25,6 @@ Guidelines:
 - Keep the report between 300-800 words.
 - Use proper Markdown headings (##), lists, and emphasis.`;
 
-function slugify(s: string): string {
-  return s.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-}
-
 async function callGroq(env: Env, user: string): Promise<string> {
   const key = env.GROQ_API_KEY;
   if (!key) throw new Error('GROQ_API_KEY not set');
@@ -56,14 +52,17 @@ async function callGroq(env: Env, user: string): Promise<string> {
 }
 
 async function callWorkersAi(env: Env, user: string): Promise<string> {
-  const res = (await env.AI.run('@cf/meta/llama-3.3-70b-instruct-fp8-fast' as never, {
-    messages: [
-      { role: 'system', content: REPORT_SYSTEM },
-      { role: 'user', content: user },
-    ],
-    max_tokens: 4096,
-    temperature: 0.3,
-  } as never)) as { response?: string };
+  const res = (await env.AI.run(
+    '@cf/meta/llama-3.3-70b-instruct-fp8-fast' as never,
+    {
+      messages: [
+        { role: 'system', content: REPORT_SYSTEM },
+        { role: 'user', content: user },
+      ],
+      max_tokens: 4096,
+      temperature: 0.3,
+    } as never
+  )) as { response?: string };
   return res.response ?? 'No response from model.';
 }
 
@@ -98,7 +97,7 @@ async function buildCveReport(cveId: string, env: Env): Promise<{ report: string
 async function buildActorReport(query: string, env: Env): Promise<{ report: string; title: string }> {
   const ql = query.toLowerCase().trim();
   const alias = ACTOR_ALIASES.find(
-    (a) => a.slug === ql || a.canonical.toLowerCase() === ql || a.aliases.some((al) => al.toLowerCase() === ql),
+    (a) => a.slug === ql || a.canonical.toLowerCase() === ql || a.aliases.some((al) => al.toLowerCase() === ql)
   );
 
   if (!alias) {
@@ -150,7 +149,7 @@ export async function reportGenerateHandler(c: Context<{ Bindings: Env }>): Prom
     const cveMatch = /^CVE-\d{4}-\d{4,}$/i.test(query);
     const ql = query.toLowerCase();
     const isActor = ACTOR_ALIASES.some(
-      (a) => a.slug === ql || a.canonical.toLowerCase() === ql || a.aliases.some((al) => al.toLowerCase() === ql),
+      (a) => a.slug === ql || a.canonical.toLowerCase() === ql || a.aliases.some((al) => al.toLowerCase() === ql)
     );
 
     let result: { report: string; title: string };
@@ -162,19 +161,26 @@ export async function reportGenerateHandler(c: Context<{ Bindings: Env }>): Prom
       result = await buildGenericReport(query, c.env);
     }
 
-    return c.json({
-      ok: true,
-      title: result.title,
-      markdown: result.report,
-      query,
-      generated_at: new Date().toISOString(),
-      elapsed_ms: Date.now() - start,
-    }, 200, { 'Cache-Control': 'no-store' });
+    return c.json(
+      {
+        ok: true,
+        title: result.title,
+        markdown: result.report,
+        query,
+        generated_at: new Date().toISOString(),
+        elapsed_ms: Date.now() - start,
+      },
+      200,
+      { 'Cache-Control': 'no-store' }
+    );
   } catch (e) {
-    return c.json({
-      ok: false,
-      error: e instanceof Error ? e.message : 'report generation failed',
-      query,
-    }, 500);
+    return c.json(
+      {
+        ok: false,
+        error: e instanceof Error ? e.message : 'report generation failed',
+        query,
+      },
+      500
+    );
   }
 }

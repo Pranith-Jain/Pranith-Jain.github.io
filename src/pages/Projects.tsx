@@ -1,9 +1,11 @@
 import { Projects } from '../components/sections';
-import { portfolioRepository } from '../infrastructure/repositories';
-import { getProjectsData } from '../core/use-cases';
-
-const { projects } = getProjectsData(portfolioRepository);
+import { projects } from '../data/content';
 
 export default function ProjectsPage() {
-  return <Projects projects={projects} />;
+  return (
+    <>
+      <h1 className="sr-only">Projects — Pranith Jain</h1>
+      <Projects projects={projects} />
+    </>
+  );
 }

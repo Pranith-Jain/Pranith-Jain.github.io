@@ -40,10 +40,7 @@ function queryKey(sql: string, ...params: unknown[]): string {
  *
  * Only caches SELECT queries. Writes always pass through.
  */
-export function cachedQuery(
-  stmt: D1PreparedStatement,
-  ttlSeconds = QUERY_CACHE_TTL
-): D1PreparedStatement {
+export function cachedQuery(stmt: D1PreparedStatement, _ttlSeconds = QUERY_CACHE_TTL): D1PreparedStatement {
   // We can't intercept D1PreparedStatement's `.all()` / `.first()` dynamically
   // without a Proxy, so this returns the original statement.
   // Callers use cachedRun() instead.
@@ -91,9 +88,7 @@ export async function cachedRun<T = Record<string, unknown>>(
       'cache-control': `public, max-age=${ttlSeconds}`,
       'x-cached-at': String(Date.now()),
     };
-    caches.default
-      .put(new Request(key), new Response(body, { headers }))
-      .catch(() => {});
+    caches.default.put(new Request(key), new Response(body, { headers })).catch(() => {});
   }
 
   return result;

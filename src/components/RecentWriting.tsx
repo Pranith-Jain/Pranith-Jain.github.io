@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, FileText, BookOpen } from 'lucide-react';
-import { publishedCaseStudies } from '../infrastructure/data/case-studies';
+import { publishedCaseStudies } from '../data/case-studies';
 import { publishedResearch } from '../data/threatintel/research';
 
 /**

@@ -154,27 +154,27 @@
    ───────────────────────────────────────────────────────────────────── */
 
 /* Small metadata text (10-12px) needs higher contrast */
-text-\[10px\].text-slate-400 {
+.text-\[10px\].text-slate-400 {
   color: #475569; /* slate-600, 7.1:1 on white */
 }
 
-.dark text-\[10px\].text-slate-400 {
+.dark .text-\[10px\].text-slate-400 {
   color: #94a3b8; /* slate-400 stays in dark mode */
 }
 
-text-\[11px\].text-slate-400 {
+.text-\[11px\].text-slate-400 {
   color: #475569;
 }
 
-.dark text-\[11px\].text-slate-400 {
+.dark .text-\[11px\].text-slate-400 {
   color: #94a3b8;
 }
 
-text-xs.text-slate-400 {
+.text-xs.text-slate-400 {
   color: #475569;
 }
 
-.dark text-xs.text-slate-400 {
+.dark .text-xs.text-slate-400 {
   color: #94a3b8;
 }
 

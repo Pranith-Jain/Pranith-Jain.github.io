@@ -107,8 +107,10 @@ function validateKqlSyntax(rule: string): { valid: boolean; errors: string[] } {
 
 function validateSplunkSyntax(rule: string): { valid: boolean; errors: string[] } {
   const errors: string[] = [];
-  if (!rule.includes('index=') && !rule.includes('sourcetype=')) errors.push('Missing index or sourcetype specification');
-  if (!rule.includes('|') && !rule.match(/^(search|tstats|eventstats)/i)) errors.push('Missing pipe operators or search command');
+  if (!rule.includes('index=') && !rule.includes('sourcetype='))
+    errors.push('Missing index or sourcetype specification');
+  if (!rule.includes('|') && !rule.match(/^(search|tstats|eventstats)/i))
+    errors.push('Missing pipe operators or search command');
   return { valid: errors.length === 0, errors };
 }
 
@@ -123,7 +125,8 @@ function validateLuceneSyntax(rule: string): { valid: boolean; errors: string[] 
 
 function validateEqlSyntax(rule: string): { valid: boolean; errors: string[] } {
   const errors: string[] = [];
-  if (!rule.match(/\b(process|file|network|registry|dns)\b/i)) errors.push('Missing entity type (process, file, network, etc.)');
+  if (!rule.match(/\b(process|file|network|registry|dns)\b/i))
+    errors.push('Missing entity type (process, file, network, etc.)');
   if (!rule.match(/\bwhere\b/i)) errors.push('Missing where clause');
   return { valid: errors.length === 0, errors };
 }
@@ -166,17 +169,28 @@ function validateSupplychainSyntax(rule: string): { valid: boolean; errors: stri
 
 function validateRule(type: RuleType, rule: string): { valid: boolean; errors: string[] } {
   switch (type) {
-    case 'yara': return validateYaraSyntax(rule);
-    case 'sigma': return validateSigmaSyntax(rule);
-    case 'kql': return validateKqlSyntax(rule);
-    case 'splunk': return validateSplunkSyntax(rule);
-    case 'lucene': return validateLuceneSyntax(rule);
-    case 'eql': return validateEqlSyntax(rule);
-    case 'snort': return validateSnortSyntax(rule);
-    case 'powershell': return validatePowershellSyntax(rule);
-    case 'dlp': return validateDlpSyntax(rule);
-    case 'supplychain': return validateSupplychainSyntax(rule);
-    default: return { valid: false, errors: ['Unknown rule type'] };
+    case 'yara':
+      return validateYaraSyntax(rule);
+    case 'sigma':
+      return validateSigmaSyntax(rule);
+    case 'kql':
+      return validateKqlSyntax(rule);
+    case 'splunk':
+      return validateSplunkSyntax(rule);
+    case 'lucene':
+      return validateLuceneSyntax(rule);
+    case 'eql':
+      return validateEqlSyntax(rule);
+    case 'snort':
+      return validateSnortSyntax(rule);
+    case 'powershell':
+      return validatePowershellSyntax(rule);
+    case 'dlp':
+      return validateDlpSyntax(rule);
+    case 'supplychain':
+      return validateSupplychainSyntax(rule);
+    default:
+      return { valid: false, errors: ['Unknown rule type'] };
   }
 }
 
@@ -203,11 +217,13 @@ function buildYaraPrompt(req: GenerateRequest, complexity: string): { system: st
   const complexityInstructions: Record<string, string> = {
     basic: 'Generate a simple rule with basic string matches and conditions.',
     standard: 'Generate a balanced rule with string matches, conditions, and basic metadata.',
-    advanced: 'Generate a comprehensive rule with multiple string types (text, hex, regex), detailed conditions, full metadata, and imports if needed.',
+    advanced:
+      'Generate a comprehensive rule with multiple string types (text, hex, regex), detailed conditions, full metadata, and imports if needed.',
   };
 
   return {
-    system: 'You are a YARA rule expert. Generate syntactically valid YARA rules. Return ONLY the rule text, no explanations, no markdown code blocks.',
+    system:
+      'You are a YARA rule expert. Generate syntactically valid YARA rules. Return ONLY the rule text, no explanations, no markdown code blocks.',
     user: `Generate a syntactically valid YARA rule for the following detection requirement.
 
 Description: ${req.description}
@@ -225,26 +241,28 @@ Requirements:
 5. Use modules (pe, elf, math) when relevant to the file type
 6. Rule name must be a valid identifier (alphanumeric + underscore, starting with letter)
 
-Return ONLY the YARA rule, no explanations or markdown.`
+Return ONLY the YARA rule, no explanations or markdown.`,
   };
 }
 
 function buildSigmaPrompt(req: GenerateRequest, complexity: string): { system: string; user: string } {
   const logsource = req.logsource || 'windows/sysmon';
-  
+
   const complexityInstructions: Record<string, string> = {
     basic: 'Generate a simple Sigma rule with basic selection and condition.',
     standard: 'Generate a balanced Sigma rule with multiple selections, conditions, and metadata.',
-    advanced: 'Generate a comprehensive Sigma rule with aggregations, time windows, multiple log sources, and detailed metadata.',
+    advanced:
+      'Generate a comprehensive Sigma rule with aggregations, time windows, multiple log sources, and detailed metadata.',
   };
 
   return {
-    system: 'You are a Sigma rule expert. Generate syntactically valid Sigma rules in YAML format. Return ONLY the rule YAML, no explanations, no markdown code blocks.',
+    system:
+      'You are a Sigma rule expert. Generate syntactically valid Sigma rules in YAML format. Return ONLY the rule YAML, no explanations, no markdown code blocks.',
     user: `Generate a syntactically valid Sigma rule for the following detection requirement.
 
 Description: ${req.description}
 ${req.family ? `Malware family: ${req.family}` : ''}
-${req.strings ? `Known indicators:\n${req.strings.map((s, i) => `- ${s}`).join('\n')}` : ''}
+${req.strings ? `Known indicators:\n${req.strings.map((s) => `- ${s}`).join('\n')}` : ''}
 
 Log Source: ${logsource}
 Instructions: ${complexityInstructions[complexity]}
@@ -258,26 +276,28 @@ Requirements:
 6. Map to MITRE ATT&CK techniques where applicable
 7. Set appropriate severity level (informational, low, medium, high, critical)
 
-Return ONLY the Sigma rule YAML, no explanations or markdown.`
+Return ONLY the Sigma rule YAML, no explanations or markdown.`,
   };
 }
 
 function buildKqlPrompt(req: GenerateRequest, complexity: string): { system: string; user: string } {
   const table = req.table || 'SecurityEvent';
-  
+
   const complexityInstructions: Record<string, string> = {
     basic: 'Generate a simple KQL query with basic filtering.',
     standard: 'Generate a balanced KQL query with joins, projections, and aggregations.',
-    advanced: 'Generate a comprehensive KQL query with subqueries, time windows, statistical analysis, and anomaly detection.',
+    advanced:
+      'Generate a comprehensive KQL query with subqueries, time windows, statistical analysis, and anomaly detection.',
   };
 
   return {
-    system: 'You are a KQL (Kusto Query Language) expert for Microsoft Sentinel, Defender, and Azure Data Explorer. Generate syntactically valid KQL queries. Return ONLY the query, no explanations, no markdown code blocks.',
+    system:
+      'You are a KQL (Kusto Query Language) expert for Microsoft Sentinel, Defender, and Azure Data Explorer. Generate syntactically valid KQL queries. Return ONLY the query, no explanations, no markdown code blocks.',
     user: `Generate a syntactically valid KQL query for the following detection requirement.
 
 Description: ${req.description}
 ${req.family ? `Malware family: ${req.family}` : ''}
-${req.strings ? `Known indicators:\n${req.strings.map((s, i) => `- ${s}`).join('\n')}` : ''}
+${req.strings ? `Known indicators:\n${req.strings.map((s) => `- ${s}`).join('\n')}` : ''}
 
 Primary Table: ${table}
 Instructions: ${complexityInstructions[complexity]}
@@ -293,7 +313,7 @@ Requirements:
 8. Use datetime functions for time-based filtering
 9. Consider using join for multi-table correlations
 
-Return ONLY the KQL query, no explanations or markdown.`
+Return ONLY the KQL query, no explanations or markdown.`,
   };
 }
 
@@ -305,12 +325,13 @@ function buildSplunkPrompt(req: GenerateRequest, complexity: string): { system: 
   };
 
   return {
-    system: 'You are a Splunk SPL expert. Generate syntactically valid Splunk queries. Return ONLY the query, no explanations, no markdown code blocks.',
+    system:
+      'You are a Splunk SPL expert. Generate syntactically valid Splunk queries. Return ONLY the query, no explanations, no markdown code blocks.',
     user: `Generate a syntactically valid Splunk query for the following detection requirement.
 
 Description: ${req.description}
 ${req.family ? `Malware family: ${req.family}` : ''}
-${req.strings ? `Known indicators:\n${req.strings.map((s, i) => `- ${s}`).join('\n')}` : ''}
+${req.strings ? `Known indicators:\n${req.strings.map((s) => `- ${s}`).join('\n')}` : ''}
 
 Instructions: ${complexityInstructions[complexity]}
 
@@ -323,7 +344,7 @@ Requirements:
 6. Use tstats for performance when possible
 7. Add comments with inline documentation
 
-Return ONLY the Splunk query, no explanations or markdown.`
+Return ONLY the Splunk query, no explanations or markdown.`,
   };
 }
 
@@ -335,12 +356,13 @@ function buildLucenePrompt(req: GenerateRequest, complexity: string): { system: 
   };
 
   return {
-    system: 'You are an Elasticsearch Lucene query expert. Generate syntactically valid Lucene queries for Kibana and Elasticsearch. Return ONLY the query, no explanations, no markdown code blocks.',
+    system:
+      'You are an Elasticsearch Lucene query expert. Generate syntactically valid Lucene queries for Kibana and Elasticsearch. Return ONLY the query, no explanations, no markdown code blocks.',
     user: `Generate a syntactically valid Lucene query for the following detection requirement.
 
 Description: ${req.description}
 ${req.family ? `Malware family: ${req.family}` : ''}
-${req.strings ? `Known indicators:\n${req.strings.map((s, i) => `- ${s}`).join('\n')}` : ''}
+${req.strings ? `Known indicators:\n${req.strings.map((s) => `- ${s}`).join('\n')}` : ''}
 
 Instructions: ${complexityInstructions[complexity]}
 
@@ -353,7 +375,7 @@ Requirements:
 6. Consider range queries for numeric/date fields
 7. Use quotes for exact phrase matches
 
-Return ONLY the Lucene query, no explanations or markdown.`
+Return ONLY the Lucene query, no explanations or markdown.`,
   };
 }
 
@@ -365,12 +387,13 @@ function buildEqlPrompt(req: GenerateRequest, complexity: string): { system: str
   };
 
   return {
-    system: 'You are an Elastic EQL (Event Query Language) expert. Generate syntactically valid EQL queries. Return ONLY the query, no explanations, no markdown code blocks.',
+    system:
+      'You are an Elastic EQL (Event Query Language) expert. Generate syntactically valid EQL queries. Return ONLY the query, no explanations, no markdown code blocks.',
     user: `Generate a syntactically valid EQL query for the following detection requirement.
 
 Description: ${req.description}
 ${req.family ? `Malware family: ${req.family}` : ''}
-${req.strings ? `Known indicators:\n${req.strings.map((s, i) => `- ${s}`).join('\n')}` : ''}
+${req.strings ? `Known indicators:\n${req.strings.map((s) => `- ${s}`).join('\n')}` : ''}
 
 Instructions: ${complexityInstructions[complexity]}
 
@@ -383,7 +406,7 @@ Requirements:
 6. Use by keyword for grouping
 7. Include time windows for sequences
 
-Return ONLY the EQL query, no explanations or markdown.`
+Return ONLY the EQL query, no explanations or markdown.`,
   };
 }
 
@@ -395,12 +418,13 @@ function buildSnortPrompt(req: GenerateRequest, complexity: string): { system: s
   };
 
   return {
-    system: 'You are a Snort/Suricata IDS rule expert. Generate syntactically valid Snort rules. Return ONLY the rule, no explanations, no markdown code blocks.',
+    system:
+      'You are a Snort/Suricata IDS rule expert. Generate syntactically valid Snort rules. Return ONLY the rule, no explanations, no markdown code blocks.',
     user: `Generate a syntactically valid Snort/Suricata rule for the following detection requirement.
 
 Description: ${req.description}
 ${req.family ? `Malware family: ${req.family}` : ''}
-${req.strings ? `Known patterns:\n${req.strings.map((s, i) => `- ${s}`).join('\n')}` : ''}
+${req.strings ? `Known patterns:\n${req.strings.map((s) => `- ${s}`).join('\n')}` : ''}
 
 Instructions: ${complexityInstructions[complexity]}
 
@@ -415,7 +439,7 @@ Requirements:
 8. Add sid (signature ID) in 1000000+ range
 9. Include rev (revision) number
 
-Return ONLY the Snort rule, no explanations or markdown.`
+Return ONLY the Snort rule, no explanations or markdown.`,
   };
 }
 
@@ -427,12 +451,13 @@ function buildPowershellPrompt(req: GenerateRequest, complexity: string): { syst
   };
 
   return {
-    system: 'You are a PowerShell security expert. Generate syntactically valid PowerShell scripts for threat hunting and detection. Return ONLY the script, no explanations, no markdown code blocks.',
+    system:
+      'You are a PowerShell security expert. Generate syntactically valid PowerShell scripts for threat hunting and detection. Return ONLY the script, no explanations, no markdown code blocks.',
     user: `Generate a syntactically valid PowerShell script for the following detection requirement.
 
 Description: ${req.description}
 ${req.family ? `Malware family: ${req.family}` : ''}
-${req.strings ? `Known patterns:\n${req.strings.map((s, i) => `- ${s}`).join('\n')}` : ''}
+${req.strings ? `Known patterns:\n${req.strings.map((s) => `- ${s}`).join('\n')}` : ''}
 
 Instructions: ${complexityInstructions[complexity]}
 
@@ -446,7 +471,7 @@ Requirements:
 7. Add error handling with try/catch
 8. Format output as table or list
 
-Return ONLY the PowerShell script, no explanations or markdown.`
+Return ONLY the PowerShell script, no explanations or markdown.`,
   };
 }
 
@@ -458,11 +483,12 @@ function buildDlpPrompt(req: GenerateRequest, complexity: string): { system: str
   };
 
   return {
-    system: 'You are a Data Loss Prevention (DLP) expert. Generate DLP detection rules in JSON format with regex patterns. Return ONLY the JSON, no explanations, no markdown code blocks.',
+    system:
+      'You are a Data Loss Prevention (DLP) expert. Generate DLP detection rules in JSON format with regex patterns. Return ONLY the JSON, no explanations, no markdown code blocks.',
     user: `Generate a DLP rule in JSON format for the following detection requirement.
 
 Description: ${req.description}
-${req.strings ? `Known patterns:\n${req.strings.map((s, i) => `- ${s}`).join('\n')}` : ''}
+${req.strings ? `Known patterns:\n${req.strings.map((s) => `- ${s}`).join('\n')}` : ''}
 
 Instructions: ${complexityInstructions[complexity]}
 
@@ -476,7 +502,7 @@ Requirements:
 7. Add "description" explaining what the rule detects
 8. Consider "exceptions" for false positive reduction
 
-Return ONLY the DLP JSON rule, no explanations or markdown.`
+Return ONLY the DLP JSON rule, no explanations or markdown.`,
   };
 }
 
@@ -488,12 +514,13 @@ function buildSupplychainPrompt(req: GenerateRequest, complexity: string): { sys
   };
 
   return {
-    system: 'You are a Semgrep/static analysis expert. Generate syntactically valid Semgrep rules for supply chain security. Return ONLY the YAML rule, no explanations, no markdown code blocks.',
+    system:
+      'You are a Semgrep/static analysis expert. Generate syntactically valid Semgrep rules for supply chain security. Return ONLY the YAML rule, no explanations, no markdown code blocks.',
     user: `Generate a Semgrep rule for the following supply chain detection requirement.
 
 Description: ${req.description}
 ${req.family ? `Package/library: ${req.family}` : ''}
-${req.strings ? `Known patterns:\n${req.strings.map((s, i) => `- ${s}`).join('\n')}` : ''}
+${req.strings ? `Known patterns:\n${req.strings.map((s) => `- ${s}`).join('\n')}` : ''}
 
 Instructions: ${complexityInstructions[complexity]}
 
@@ -505,7 +532,7 @@ Requirements:
 5. Add metadata with cwe, owasp references
 6. Include fix suggestions if applicable
 
-Return ONLY the Semgrep YAML rule, no explanations or markdown.`
+Return ONLY the Semgrep YAML rule, no explanations or markdown.`,
   };
 }
 
@@ -542,7 +569,7 @@ function extractMitreTechniques(description: string): string[] {
   ];
 
   for (const [keywords, technique] of mappings) {
-    if (keywords.some(kw => descLower.includes(kw))) {
+    if (keywords.some((kw) => descLower.includes(kw))) {
       techniques.push(technique);
     }
   }
@@ -552,7 +579,18 @@ function extractMitreTechniques(description: string): string[] {
 
 // ── Route Handlers ───────────────────────────────────────────────────────
 
-const VALID_TYPES: RuleType[] = ['yara', 'sigma', 'kql', 'splunk', 'lucene', 'eql', 'snort', 'powershell', 'dlp', 'supplychain'];
+const VALID_TYPES: RuleType[] = [
+  'yara',
+  'sigma',
+  'kql',
+  'splunk',
+  'lucene',
+  'eql',
+  'snort',
+  'powershell',
+  'dlp',
+  'supplychain',
+];
 
 export async function ruleGeneratorHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
@@ -580,7 +618,7 @@ export async function ruleGeneratorHandler(c: Context<{ Bindings: Env }>): Promi
     }
 
     const complexity = body.complexity ?? 'standard';
-    
+
     const promptBuilders: Record<RuleType, (req: GenerateRequest, c: string) => { system: string; user: string }> = {
       yara: buildYaraPrompt,
       sigma: buildSigmaPrompt,
@@ -593,7 +631,7 @@ export async function ruleGeneratorHandler(c: Context<{ Bindings: Env }>): Promi
       dlp: buildDlpPrompt,
       supplychain: buildSupplychainPrompt,
     };
-    
+
     const { system, user } = promptBuilders[body.type](body, complexity);
 
     const response = await ai.run('@cf/meta/llama-3.1-8b-instruct', {
@@ -605,9 +643,10 @@ export async function ruleGeneratorHandler(c: Context<{ Bindings: Env }>): Promi
       temperature: 0.2,
     });
 
-    const content = typeof response === 'object' && 'response' in response
-      ? (response as { response: string }).response
-      : String(response);
+    const content =
+      typeof response === 'object' && 'response' in response
+        ? (response as { response: string }).response
+        : String(response);
 
     // Clean up response - remove markdown code blocks if present
     let ruleContent = content.trim();
@@ -644,10 +683,7 @@ export async function ruleGeneratorHandler(c: Context<{ Bindings: Env }>): Promi
     return c.json(result, 200, { 'Cache-Control': 'no-store' });
   } catch (err) {
     console.error('Rule generator error:', err);
-    return c.json(
-      { error: 'Generation failed', details: err instanceof Error ? err.message : String(err) },
-      500
-    );
+    return c.json({ error: 'Generation failed', details: err instanceof Error ? err.message : String(err) }, 500);
   }
 }
 
@@ -690,10 +726,10 @@ export async function ruleValidateHandler(c: Context<{ Bindings: Env }>): Promis
       const operators = body.rule.match(/\b(where|extend|project|summarize|join|union|mv-expand|parse)\b/gi) ?? [];
       analysis = {
         operator_count: operators.length,
-        has_where: operators.some(o => o.toLowerCase() === 'where'),
-        has_summarize: operators.some(o => o.toLowerCase() === 'summarize'),
-        has_join: operators.some(o => o.toLowerCase() === 'join'),
-        has_extend: operators.some(o => o.toLowerCase() === 'extend'),
+        has_where: operators.some((o) => o.toLowerCase() === 'where'),
+        has_summarize: operators.some((o) => o.toLowerCase() === 'summarize'),
+        has_join: operators.some((o) => o.toLowerCase() === 'join'),
+        has_extend: operators.some((o) => o.toLowerCase() === 'extend'),
         complexity: operators.length > 5 ? 'advanced' : operators.length > 2 ? 'standard' : 'basic',
       };
     }
@@ -706,9 +742,6 @@ export async function ruleValidateHandler(c: Context<{ Bindings: Env }>): Promis
       analysis,
     });
   } catch (err) {
-    return c.json(
-      { error: 'Validation failed', details: err instanceof Error ? err.message : String(err) },
-      500
-    );
+    return c.json({ error: 'Validation failed', details: err instanceof Error ? err.message : String(err) }, 500);
   }
 }

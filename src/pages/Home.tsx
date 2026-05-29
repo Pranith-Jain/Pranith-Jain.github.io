@@ -1,19 +1,20 @@
+import { lazy, Suspense } from 'react';
 import { Hero, Featured, Memberships, Contact } from '../components/sections';
 import { LiveSignalStrip } from '../components/LiveSignalStrip';
-import { RecentWriting } from '../components/RecentWriting';
-import { portfolioRepository } from '../infrastructure/repositories';
-import { getProfileData } from '../core/use-cases';
+import { personalInfo, featuredArticles, memberships } from '../data/content';
 
-const { personalInfo } = getProfileData(portfolioRepository);
-const featuredArticles = portfolioRepository.getFeaturedArticles();
-const memberships = portfolioRepository.getMemberships();
+// Below the fold, and it statically pulls in the full case-study + research
+// datasets — lazy-load it so those leave the eager landing chunk.
+const RecentWriting = lazy(() => import('../components/RecentWriting').then((m) => ({ default: m.RecentWriting })));
 
 export default function Home() {
   return (
     <>
       <Hero personalInfo={personalInfo} />
       <LiveSignalStrip />
-      <RecentWriting />
+      <Suspense fallback={null}>
+        <RecentWriting />
+      </Suspense>
       <Featured featuredArticles={featuredArticles} />
       <Memberships memberships={memberships} />
       <Contact personalInfo={personalInfo} />

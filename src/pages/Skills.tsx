@@ -1,8 +1,5 @@
 import { Skills, Certifications } from '../components/sections';
-import { portfolioRepository } from '../infrastructure/repositories';
-import { getSkillsData } from '../core/use-cases';
-
-const { skills, certifications, education } = getSkillsData(portfolioRepository);
+import { skills, certifications, education } from '../data/content';
 
 export default function SkillsPage() {
   return (

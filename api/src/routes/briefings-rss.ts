@@ -1,5 +1,4 @@
 import type { Context } from 'hono';
-import type { D1Database } from '@cloudflare/workers-types';
 import type { Env } from '../env';
 import { listBriefings, readBriefing, type Briefing } from '../lib/briefing-builder';
 

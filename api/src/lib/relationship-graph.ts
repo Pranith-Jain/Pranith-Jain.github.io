@@ -132,10 +132,28 @@ export interface ResolvedEntity {
 }
 
 const RANSOMWARE_SLUGS = new Set([
-  'lockbit', 'blackcat-alphv', 'cl0p', 'royal', 'black-basta', 'play',
-  'rhysida', 'akira', 'medusa', 'bianlian', 'cactus', 'qilin',
-  'hunters-international', 'ransomhub', 'darkside', 'conti', 'hive',
-  'revil', 'inc-ransom', 'dragonforce', '8base', 'lynx',
+  'lockbit',
+  'blackcat-alphv',
+  'cl0p',
+  'royal',
+  'black-basta',
+  'play',
+  'rhysida',
+  'akira',
+  'medusa',
+  'bianlian',
+  'cactus',
+  'qilin',
+  'hunters-international',
+  'ransomhub',
+  'darkside',
+  'conti',
+  'hive',
+  'revil',
+  'inc-ransom',
+  'dragonforce',
+  '8base',
+  'lynx',
 ]);
 
 export function resolveSeed(query: string): ResolvedEntity | null {
@@ -160,11 +178,7 @@ export function resolveSeed(query: string): ResolvedEntity | null {
   // Try actor aliases — exact match on canonical, slug, or any alias
   const ql = q.toLowerCase();
   for (const a of ACTOR_ALIASES) {
-    if (
-      a.slug === ql ||
-      a.canonical.toLowerCase() === ql ||
-      a.aliases.some((al) => al.toLowerCase() === ql)
-    ) {
+    if (a.slug === ql || a.canonical.toLowerCase() === ql || a.aliases.some((al) => al.toLowerCase() === ql)) {
       const isRansomware = RANSOMWARE_SLUGS.has(a.slug);
       return {
         type: isRansomware ? 'ransomware' : 'actor',
@@ -177,10 +191,7 @@ export function resolveSeed(query: string): ResolvedEntity | null {
 
   // Fuzzy actor match — query is a substring of canonical or any alias
   for (const a of ACTOR_ALIASES) {
-    if (
-      a.canonical.toLowerCase().includes(ql) ||
-      a.aliases.some((al) => al.toLowerCase().includes(ql))
-    ) {
+    if (a.canonical.toLowerCase().includes(ql) || a.aliases.some((al) => al.toLowerCase().includes(ql))) {
       const isRansomware = RANSOMWARE_SLUGS.has(a.slug);
       return {
         type: isRansomware ? 'ransomware' : 'actor',
@@ -340,7 +351,7 @@ function expandActor(acc: GraphAccum, slug: string, label: string, isRansomware:
   }
 }
 
-function expandRansomware(acc: GraphAccum, mitreId: string, label: string): void {
+function expandRansomware(acc: GraphAccum, mitreId: string, _label: string): void {
   const nodeId = `ransomware:${mitreId}`;
   if (acc.visited.has(nodeId)) return;
   acc.visited.add(nodeId);
@@ -401,10 +412,7 @@ function expandIoc(acc: GraphAccum, nodeId: string, type: GraphNodeType, value: 
 
 // ── Main builder ─────────────────────────────────────────────────────────
 
-export async function buildGraph(
-  query: string,
-  depth: number = 1,
-): Promise<GraphResponse> {
+export async function buildGraph(query: string, depth: number = 1): Promise<GraphResponse> {
   const resolved = resolveSeed(query);
   if (!resolved) {
     return {
@@ -475,6 +483,8 @@ export async function buildGraph(
     generated_at: new Date().toISOString(),
     depth,
     truncated: isTruncated,
-    ...(isTruncated ? { warning: 'Result was truncated — too many connections. Try a more specific query or depth=1.' } : {}),
+    ...(isTruncated
+      ? { warning: 'Result was truncated — too many connections. Try a more specific query or depth=1.' }
+      : {}),
   };
 }

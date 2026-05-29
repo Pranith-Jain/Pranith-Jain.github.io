@@ -199,6 +199,31 @@ export default function BlogPost() {
       >
         {post && (
           <>
+            <script
+              type="application/ld+json"
+              // Article structured data for richer SERP/article cards. Fields are
+              // our own blog data; `<` is escaped so an author-supplied title
+              // can't break out of the JSON-LD <script> block.
+              dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                  '@context': 'https://schema.org',
+                  '@type': 'BlogPosting',
+                  headline: post.title,
+                  description: post.body
+                    .replace(/<[^>]+>/g, '')
+                    .replace(/[#*`>_[\]]/g, '')
+                    .trim()
+                    .slice(0, 200),
+                  datePublished: post.publishedAt,
+                  dateModified: post.publishedAt,
+                  url: `https://pranithjain.qzz.io/blog/${post.slug}`,
+                  mainEntityOfPage: `https://pranithjain.qzz.io/blog/${post.slug}`,
+                  author: { '@type': 'Person', name: 'Pranith Jain', url: 'https://pranithjain.qzz.io' },
+                  publisher: { '@type': 'Person', name: 'Pranith Jain' },
+                  keywords: post.tags.join(', '),
+                }).replace(/</g, '\\u003c'),
+              }}
+            />
             {post.tags.length > 0 && (
               <div className="flex flex-wrap gap-1.5 mb-4">
                 {post.tags.map((t) => (
@@ -214,8 +239,10 @@ export default function BlogPost() {
             )}
 
             <img
-              className="mb-6 w-full rounded-lg border border-slate-200 dark:border-slate-800"
+              className="mb-6 w-full h-auto rounded-lg border border-slate-200 dark:border-slate-800"
               alt=""
+              width={1200}
+              height={630}
               src={`data:image/svg+xml;utf8,${encodeURIComponent(post.hero)}`}
             />
 
@@ -370,8 +397,8 @@ export default function BlogPost() {
                     Try the DFIR Toolkit
                   </h3>
                   <p className="mt-1 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                    Free, edge-hosted tools for IOC enrichment, email analysis, and live threat intelligence.
-                    No signup, no rate limits on core tools.
+                    Free, edge-hosted tools for IOC enrichment, email analysis, and live threat intelligence. No signup,
+                    no rate limits on core tools.
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-2 shrink-0">

@@ -1,6 +1,5 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import type { D1Database } from '@cloudflare/workers-types';
 
 /**
  * Campaign Lifecycle Intelligence — track campaigns from birth to death.
@@ -21,11 +20,11 @@ export interface Campaign {
   campaign_id: string;
   name: string;
   status: 'active' | 'dormant' | 'concluded' | 'evolving';
-  
+
   // Lifecycle phases
   phases: CampaignPhase[];
   current_phase: string;
-  
+
   // Indicators
   indicators: {
     ips: string[];
@@ -34,14 +33,14 @@ export interface Campaign {
     urls: string[];
     emails: string[];
   };
-  
+
   // Attribution
   attribution: {
     actor: string | null;
     confidence: number;
     evidence: string[];
   };
-  
+
   // Predictions
   predictions: {
     next_target_sector: string | null;
@@ -50,14 +49,14 @@ export interface Campaign {
     escalation_probability: number;
     campaign_end_estimate: string | null;
   };
-  
+
   // Connections
   related_campaigns: Array<{
     campaign_id: string;
     relationship: 'same_actor' | 'shared_infrastructure' | 'similar_ttps' | 'copycat';
     confidence: number;
   }>;
-  
+
   // Metrics
   metrics: {
     total_indicators: number;
@@ -67,7 +66,7 @@ export interface Campaign {
     duration_days: number;
     dwell_time_avg_days: number;
   };
-  
+
   // Timeline
   timeline: Array<{
     timestamp: string;
@@ -75,7 +74,7 @@ export interface Campaign {
     phase: string;
     indicators: string[];
   }>;
-  
+
   // Metadata
   first_seen: string;
   last_seen: string;
@@ -126,28 +125,16 @@ export function detectCampaignPhases(
   indicators: Array<{ value: string; type: string; first_seen: string; score: number }>
 ): CampaignPhase[] {
   const phases: CampaignPhase[] = [];
-  
-  // Sort by time
-  const sorted = [...indicators].sort((a, b) => 
-    new Date(a.first_seen).getTime() - new Date(b.first_seen).getTime()
-  );
 
-  // Phase detection heuristics
-  const phaseIndicators: Record<string, string[]> = {
-    preparation: ['domain', 'url'], // Infrastructure setup
-    delivery: ['url', 'email', 'domain'], // Phishing, watering holes
-    exploitation: ['hash', 'url'], // Malware delivery
-    c2: ['ip', 'domain'], // Command and control
-    exfil: ['ip', 'domain'], // Data exfiltration
-    monetization: ['domain', 'hash'], // Ransomware, data sale
-  };
+  // Sort by time
+  const sorted = [...indicators].sort((a, b) => new Date(a.first_seen).getTime() - new Date(b.first_seen).getTime());
 
   // Simple phase detection based on indicator types and timing
   let currentPhase: CampaignPhase | null = null;
-  
+
   for (const indicator of sorted) {
     let detectedPhase: CampaignPhase['phase'] = 'preparation';
-    
+
     // High score + certain types suggest later phases
     if (indicator.score > 70) {
       if (indicator.type === 'ip') detectedPhase = 'c2';
@@ -187,8 +174,8 @@ export function detectCampaignPhases(
  * Predict next campaign moves based on patterns.
  */
 export function predictCampaignMoves(campaign: Campaign): Campaign['predictions'] {
-  const { attribution, indicators, phases, metrics } = campaign;
-  
+  const { attribution, phases, metrics } = campaign;
+
   // Sector targeting prediction based on history
   const sectorPredictions: Record<string, { sector: string; region: string }> = {
     apt28: { sector: 'government', region: 'europe' },
@@ -221,12 +208,9 @@ export function predictCampaignMoves(campaign: Campaign): Campaign['predictions'
 /**
  * Find related campaigns based on shared indicators.
  */
-export function findRelatedCampaigns(
-  campaign: Campaign,
-  allCampaigns: Campaign[]
-): Campaign['related_campaigns'] {
+export function findRelatedCampaigns(campaign: Campaign, allCampaigns: Campaign[]): Campaign['related_campaigns'] {
   const related: Campaign['related_campaigns'] = [];
-  
+
   const campaignIndicators = new Set([
     ...campaign.indicators.ips,
     ...campaign.indicators.domains,
@@ -235,23 +219,22 @@ export function findRelatedCampaigns(
 
   for (const other of allCampaigns) {
     if (other.campaign_id === campaign.campaign_id) continue;
-    
-    const otherIndicators = new Set([
-      ...other.indicators.ips,
-      ...other.indicators.domains,
-      ...other.indicators.hashes,
-    ]);
+
+    const otherIndicators = new Set([...other.indicators.ips, ...other.indicators.domains, ...other.indicators.hashes]);
 
     // Find shared indicators
-    const shared = [...campaignIndicators].filter(i => otherIndicators.has(i));
-    
+    const shared = [...campaignIndicators].filter((i) => otherIndicators.has(i));
+
     if (shared.length > 0) {
       let relationship: Campaign['related_campaigns'][0]['relationship'] = 'shared_infrastructure';
       let confidence = Math.min(95, shared.length * 20);
 
       // Check if same actor
-      if (campaign.attribution.actor && other.attribution.actor &&
-          campaign.attribution.actor === other.attribution.actor) {
+      if (
+        campaign.attribution.actor &&
+        other.attribution.actor &&
+        campaign.attribution.actor === other.attribution.actor
+      ) {
         relationship = 'same_actor';
         confidence = Math.min(95, confidence + 20);
       }
@@ -315,10 +298,10 @@ export async function campaignAnalyzeHandler(c: Context<{ Bindings: Env }>): Pro
     phases,
     current_phase: phases[phases.length - 1]?.phase ?? 'unknown',
     indicators: {
-      ips: body.indicators.filter(i => i.type === 'ip').map(i => i.value),
-      domains: body.indicators.filter(i => i.type === 'domain').map(i => i.value),
-      hashes: body.indicators.filter(i => i.type === 'hash').map(i => i.value),
-      urls: body.indicators.filter(i => i.type === 'url').map(i => i.value),
+      ips: body.indicators.filter((i) => i.type === 'ip').map((i) => i.value),
+      domains: body.indicators.filter((i) => i.type === 'domain').map((i) => i.value),
+      hashes: body.indicators.filter((i) => i.type === 'hash').map((i) => i.value),
+      urls: body.indicators.filter((i) => i.type === 'url').map((i) => i.value),
       emails: [],
     },
     attribution: {
@@ -342,7 +325,7 @@ export async function campaignAnalyzeHandler(c: Context<{ Bindings: Env }>): Pro
       duration_days: 0,
       dwell_time_avg_days: 0,
     },
-    timeline: phases.map(p => ({
+    timeline: phases.map((p) => ({
       timestamp: p.start_time,
       event: `Phase: ${p.phase}`,
       phase: p.phase,

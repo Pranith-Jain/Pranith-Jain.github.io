@@ -41,7 +41,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
    * Called when a new MCP client connects. Extracts the API key from the
    * Authorization header for downstream API calls.
    */
-  async onConnect(connection: unknown): Promise<void> {
+  async onConnect(_connection: unknown): Promise<void> {
     // McpAgent passes the request context through props or connection metadata.
     // For Streamable HTTP transport, the API key is in the initial request headers.
     // We store it on the instance for all subsequent tool calls.

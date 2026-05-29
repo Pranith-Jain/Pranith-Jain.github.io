@@ -8,7 +8,7 @@
  * Allows clients and devtools to monitor API performance.
  */
 
-import type { Context, MiddlewareHandler, Next } from 'hono';
+import type { MiddlewareHandler } from 'hono';
 import type { Env } from '../env';
 
 export const serverTiming: MiddlewareHandler<{ Bindings: Env }> = async (c, next) => {

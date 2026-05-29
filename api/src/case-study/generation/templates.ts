@@ -1,5 +1,5 @@
 import type { CaseStudyType } from '../types';
-import { VOICE_IDENTITY, COPYWRITING_RULES, QUALITY_CHECKS, PIPELINE_OUTPUT_GUARDRAIL } from './copywriting';
+import { VOICE_IDENTITY, COPYWRITING_RULES, PIPELINE_OUTPUT_GUARDRAIL } from './copywriting';
 import { scrubEvidence, scrubString } from './scrub-prompt';
 
 const SYSTEM_PROMPT =

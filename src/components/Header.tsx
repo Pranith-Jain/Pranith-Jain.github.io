@@ -24,8 +24,9 @@ export function Header({ isDark, onToggleTheme, navLinks }: HeaderProps) {
 
   // Clean up stale dropdown ref entries on unmount.
   useEffect(() => {
+    const refs = dropdownRefs.current;
     return () => {
-      dropdownRefs.current.clear();
+      refs.clear();
     };
   }, []);
 
@@ -127,26 +128,29 @@ export function Header({ isDark, onToggleTheme, navLinks }: HeaderProps) {
   const isActive = (href: string) => location.pathname === href;
 
   // Arrow-key navigation within dropdown menus
-  const handleDropdownKeyDown = useCallback((e: React.KeyboardEvent, href: string) => {
-    const link = navLinks.find((l) => l.href === href);
-    if (!link || !('children' in link) || !link.children) return;
-    const items = link.children;
-    const currentEl = e.target as HTMLElement;
-    const menuLinks = Array.from(
-      document.querySelectorAll(`#dropdown-${href.replace('/', '')} a[role="menuitem"]`)
-    ) as HTMLElement[];
-    const currentIndex = menuLinks.indexOf(currentEl);
+  const handleDropdownKeyDown = useCallback(
+    (e: React.KeyboardEvent, href: string) => {
+      const link = navLinks.find((l) => l.href === href);
+      if (!link || !('children' in link) || !link.children) return;
+      const items = link.children;
+      const currentEl = e.target as HTMLElement;
+      const menuLinks = Array.from(
+        document.querySelectorAll(`#dropdown-${href.replace('/', '')} a[role="menuitem"]`)
+      ) as HTMLElement[];
+      const currentIndex = menuLinks.indexOf(currentEl);
 
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      const next = currentIndex < items.length - 1 ? currentIndex + 1 : 0;
-      menuLinks[next]?.focus();
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      const prev = currentIndex > 0 ? currentIndex - 1 : items.length - 1;
-      menuLinks[prev]?.focus();
-    }
-  }, []);
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        const next = currentIndex < items.length - 1 ? currentIndex + 1 : 0;
+        menuLinks[next]?.focus();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        const prev = currentIndex > 0 ? currentIndex - 1 : items.length - 1;
+        menuLinks[prev]?.focus();
+      }
+    },
+    [navLinks]
+  );
 
   return (
     <>
@@ -258,6 +262,7 @@ export function Header({ isDark, onToggleTheme, navLinks }: HeaderProps) {
                           <Link
                             key={child.href}
                             to={child.href}
+                            aria-current={isActive(child.href) ? 'page' : undefined}
                             className="block px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10 focus:outline-none focus:bg-slate-100 dark:focus:bg-white/10"
                             onClick={() => setOpenDropdown(null)}
                             onMouseEnter={() => preloadRoute(child.href)}
@@ -272,6 +277,7 @@ export function Header({ isDark, onToggleTheme, navLinks }: HeaderProps) {
                   ) : (
                     <Link
                       to={link.href}
+                      aria-current={isActive(link.href) ? 'page' : undefined}
                       onMouseEnter={() => preloadRoute(link.href)}
                       onFocus={() => preloadRoute(link.href)}
                       className={`rounded-full px-3 py-2 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
@@ -387,6 +393,7 @@ export function Header({ isDark, onToggleTheme, navLinks }: HeaderProps) {
                       <Link
                         key={child.href}
                         to={child.href}
+                        aria-current={isActive(child.href) ? 'page' : undefined}
                         onClick={closeMobileMenu}
                         className={`block rounded-lg px-4 py-3.5 sm:py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
                           isActive(child.href)
@@ -404,6 +411,7 @@ export function Header({ isDark, onToggleTheme, navLinks }: HeaderProps) {
                 <Link
                   key={link.href}
                   to={link.href}
+                  aria-current={!link.cta && isActive(link.href) ? 'page' : undefined}
                   onClick={closeMobileMenu}
                   className={`rounded-lg px-4 py-3.5 sm:py-3 text-sm font-medium block focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 ${
                     link.cta

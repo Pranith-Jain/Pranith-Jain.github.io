@@ -653,8 +653,6 @@ export function parseStixBundle(bundle: StixBundle): ParsedStix {
 
   // Second pass: resolve relationship cross-references.
   const actorIds = new Set(out.actors.map((a) => a.id));
-  const malwareIds = new Set(out.malware.map((m) => m.id));
-  const campaignIds = new Set(out.campaigns.map((c) => c.id));
 
   for (const rel of relationships) {
     // campaign → attributed-to → actor

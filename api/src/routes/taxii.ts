@@ -97,11 +97,7 @@ export async function taxiiDiscoveryHandler(c: Context<{ Bindings: Env }>): Prom
 
 /** GET /api/taxii2/collections/ — List collections */
 export async function taxiiCollectionsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  return c.json(
-    { collections: COLLECTIONS },
-    200,
-    { 'Content-Type': TAXII_CONTENT_TYPE }
-  );
+  return c.json({ collections: COLLECTIONS }, 200, { 'Content-Type': TAXII_CONTENT_TYPE });
 }
 
 /** GET /api/taxii2/collections/{id}/ — Collection metadata */
@@ -110,11 +106,9 @@ export async function taxiiCollectionHandler(c: Context<{ Bindings: Env }>): Pro
   const collection = COLLECTIONS.find((col) => col.id === id);
 
   if (!collection) {
-    return c.json(
-      { title: 'Not Found', description: `Collection '${id}' does not exist` },
-      404,
-      { 'Content-Type': TAXII_CONTENT_TYPE }
-    );
+    return c.json({ title: 'Not Found', description: `Collection '${id}' does not exist` }, 404, {
+      'Content-Type': TAXII_CONTENT_TYPE,
+    });
   }
 
   return c.json(collection, 200, { 'Content-Type': TAXII_CONTENT_TYPE });
@@ -126,20 +120,16 @@ export async function taxiiObjectsHandler(c: Context<{ Bindings: Env }>): Promis
   const collection = COLLECTIONS.find((col) => col.id === id);
 
   if (!collection) {
-    return c.json(
-      { title: 'Not Found', description: `Collection '${id}' does not exist` },
-      404,
-      { 'Content-Type': TAXII_CONTENT_TYPE }
-    );
+    return c.json({ title: 'Not Found', description: `Collection '${id}' does not exist` }, 404, {
+      'Content-Type': TAXII_CONTENT_TYPE,
+    });
   }
 
   const db = c.env.BRIEFINGS_DB;
   if (!db) {
-    return c.json(
-      { title: 'Service Unavailable', description: 'Database not configured' },
-      503,
-      { 'Content-Type': TAXII_CONTENT_TYPE }
-    );
+    return c.json({ title: 'Service Unavailable', description: 'Database not configured' }, 503, {
+      'Content-Type': TAXII_CONTENT_TYPE,
+    });
   }
 
   // Parse pagination params
@@ -197,19 +187,15 @@ export async function taxiiAddObjectsHandler(c: Context<{ Bindings: Env }>): Pro
   const collection = COLLECTIONS.find((col) => col.id === id);
 
   if (!collection) {
-    return c.json(
-      { title: 'Not Found', description: `Collection '${id}' does not exist` },
-      404,
-      { 'Content-Type': TAXII_CONTENT_TYPE }
-    );
+    return c.json({ title: 'Not Found', description: `Collection '${id}' does not exist` }, 404, {
+      'Content-Type': TAXII_CONTENT_TYPE,
+    });
   }
 
   if (!collection.can_write) {
-    return c.json(
-      { title: 'Forbidden', description: 'This collection is read-only' },
-      403,
-      { 'Content-Type': TAXII_CONTENT_TYPE }
-    );
+    return c.json({ title: 'Forbidden', description: 'This collection is read-only' }, 403, {
+      'Content-Type': TAXII_CONTENT_TYPE,
+    });
   }
 
   // For now, accept but don't persist (future feature)
@@ -245,18 +231,20 @@ async function getIocObjects(db: D1Database, limit: number, addedAfter?: string)
   query += ' ORDER BY last_seen DESC LIMIT ?';
   params.push(limit);
 
-  const rows = await db.prepare(query).bind(...params).all<{
-    indicator: string;
-    indicator_type: string;
-    first_seen: string;
-    last_seen: string;
-    peak_score: number;
-    tags: string;
-  }>();
+  const rows = await db
+    .prepare(query)
+    .bind(...params)
+    .all<{
+      indicator: string;
+      indicator_type: string;
+      first_seen: string;
+      last_seen: string;
+      peak_score: number;
+      tags: string;
+    }>();
 
   return (rows.results ?? []).map((row) => {
     const tags: string[] = JSON.parse(row.tags ?? '[]');
-    const stixType = row.indicator_type === 'hash' ? 'file' : row.indicator_type === 'url' ? 'url' : 'ipv4-addr';
 
     return {
       type: 'indicator',
@@ -304,7 +292,11 @@ async function getActorObjects(limit: number): Promise<Record<string, unknown>[]
 
 async function getMalwareObjects(limit: number): Promise<Record<string, unknown>[]> {
   const MALWARE = [
-    { name: 'Cobalt Strike', type: 'backdoor', description: 'Commercial penetration testing tool abused by threat actors' },
+    {
+      name: 'Cobalt Strike',
+      type: 'backdoor',
+      description: 'Commercial penetration testing tool abused by threat actors',
+    },
     { name: 'Mimikatz', type: 'credential-theft', description: 'Windows credential dumping tool' },
     { name: 'Emotet', type: 'banking-trojan', description: 'Modular banking trojan and malware delivery service' },
     { name: 'LockBit', type: 'ransomware', description: 'Ransomware-as-a-service operation' },

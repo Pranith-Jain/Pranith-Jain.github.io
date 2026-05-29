@@ -250,6 +250,27 @@ function DraftPreviewPanel({
   const { post, bodyHtml } = preview;
   const approveBusy = actionBusy === `approve:${post.slug}`;
   const rejectBusy = actionBusy === `reject:${post.slug}`;
+
+  // Re-sanitize the server-rendered HTML in the browser before injecting it —
+  // defense-in-depth matching the public BlogPost path, rather than trusting
+  // the server regex sanitizer as the only layer. DOMPurify is loaded lazily
+  // (no static isomorphic-dompurify import per the project lint rule).
+  const [safeHtml, setSafeHtml] = useState('');
+  useEffect(() => {
+    let cancelled = false;
+    void import('isomorphic-dompurify').then(({ default: DOMPurify }) => {
+      if (!cancelled) {
+        setSafeHtml(
+          DOMPurify.sanitize(bodyHtml ?? '', {
+            ALLOWED_URI_REGEXP: /^(?:(?:https?|mailto|#|\/):|[^a-z]|[a-z+.-]+(?:[^a-z+.\-:]|$))/i,
+          })
+        );
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [bodyHtml]);
   return (
     <div className="mt-6 rounded border border-slate-700 p-4">
       <div className="flex items-center justify-between mb-3">
@@ -291,10 +312,9 @@ function DraftPreviewPanel({
           '[&_strong]:text-slate-100 [&_strong]:font-semibold ' +
           '[&_blockquote]:border-l-2 [&_blockquote]:border-slate-700 [&_blockquote]:pl-3 [&_blockquote]:text-slate-400 [&_blockquote]:my-3'
         }
-        // The body comes from the admin API which runs the same sanitizer
-        // the public read endpoint uses (renderMarkdown → DOMPurify chain).
-        // No additional client-side scrubbing is required.
-        dangerouslySetInnerHTML={{ __html: bodyHtml }}
+        // Server runs renderMarkdown → DOMPurify, and we re-sanitize here too
+        // (see safeHtml above) so the admin preview matches the public path.
+        dangerouslySetInnerHTML={{ __html: safeHtml }}
       />
 
       <div className="flex flex-wrap items-center gap-2">

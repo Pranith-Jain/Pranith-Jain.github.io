@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import { findCaseStudy } from '../infrastructure/data/case-studies';
+import { findCaseStudy } from '../data/case-studies';
 
 /**
  * /projects/<slug> — long-form case study read page. The data lives in
@@ -74,6 +74,26 @@ export default function CaseStudy(): JSX.Element {
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-10 text-slate-900 dark:text-slate-100">
+      <script
+        type="application/ld+json"
+        // Article structured data for richer SERP cards. All fields are our own
+        // case-study data; `<` escaped so a title can't break out of the block.
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Article',
+            headline: study.title,
+            description: study.excerpt,
+            datePublished: study.publishedAt,
+            dateModified: study.publishedAt,
+            url: `https://pranithjain.qzz.io/projects/${study.slug}`,
+            mainEntityOfPage: `https://pranithjain.qzz.io/projects/${study.slug}`,
+            author: { '@type': 'Person', name: 'Pranith Jain', url: 'https://pranithjain.qzz.io' },
+            publisher: { '@type': 'Person', name: 'Pranith Jain' },
+            keywords: study.tags.join(', '),
+          }).replace(/</g, '\\u003c'),
+        }}
+      />
       <Link
         to="/projects"
         className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.16em] text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 mb-6"

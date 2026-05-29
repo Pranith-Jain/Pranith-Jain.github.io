@@ -84,12 +84,16 @@ export function LiveSignalStrip(): JSX.Element {
       accent: 'brand',
     };
 
-    void (async () => {
+    const run = async () => {
       const opts = { signal: ctrl.signal } as const;
       const [rRes, dRes, iRes] = await Promise.allSettled([
-        fetch('/api/v1/ransomware-recent', opts).then((r) => (r.ok ? r.json() : Promise.reject(`ransomware ${r.status}`))),
+        fetch('/api/v1/ransomware-recent', opts).then((r) =>
+          r.ok ? r.json() : Promise.reject(`ransomware ${r.status}`)
+        ),
         fetch('/api/v1/detections', opts).then((r) => (r.ok ? r.json() : Promise.reject(`detections ${r.status}`))),
-        fetch('/api/v1/ioc-correlation', opts).then((r) => (r.ok ? r.json() : Promise.reject(`correlation ${r.status}`))),
+        fetch('/api/v1/ioc-correlation', opts).then((r) =>
+          r.ok ? r.json() : Promise.reject(`correlation ${r.status}`)
+        ),
       ]);
       if (cancelled) return;
 
@@ -169,10 +173,21 @@ export function LiveSignalStrip(): JSX.Element {
       }
 
       setTiles([t1, t2, t3]);
-    })();
+    };
+
+    // Defer the 3 fetches until the browser is idle so they don't compete with
+    // hydration / the LCP paint on the landing page. The strip already renders a
+    // stable skeleton, so there's no layout cost to waiting a beat.
+    const idle: number =
+      typeof requestIdleCallback !== 'undefined'
+        ? requestIdleCallback(() => void run(), { timeout: 2000 })
+        : (setTimeout(() => void run(), 200) as unknown as number);
+
     return () => {
       cancelled = true;
       ctrl.abort();
+      if (typeof cancelIdleCallback !== 'undefined') cancelIdleCallback(idle);
+      else clearTimeout(idle);
     };
   }, []);
 

@@ -98,10 +98,10 @@ export function Experience({ experiences }: ExperienceProps) {
                           id={sectionId}
                           className={`scroll-mt-28 ${sIndex < exp.sections!.length - 1 ? 'mb-5' : ''}`}
                         >
-                          <h4 className="text-xs font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-2 flex items-center gap-2">
+                          <h3 className="text-xs font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-2 flex items-center gap-2">
                             {IconComponent && <IconComponent className="w-4 h-4" />}
                             {section.title}
-                          </h4>
+                          </h3>
                           <ul className="space-y-2 text-sm text-slate-700 dark:text-slate-300 ml-6">
                             {section.items.map((item, iIndex) => (
                               <li key={iIndex} className="relative pl-4">

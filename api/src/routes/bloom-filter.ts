@@ -30,7 +30,6 @@ const FILTER_SIZES: Record<string, { bits: number; hashes: number }> = {
 };
 
 const KV_PREFIX = 'bloom:';
-const REFRESH_INTERVAL = 60 * 60 * 1000; // 1 hour
 
 /** Simple bloom filter implementation */
 class BloomFilter {
@@ -130,10 +129,13 @@ export async function bloomFilterHandler(c: Context<{ Bindings: Env }>): Promise
   const config = FILTER_SIZES[type as keyof typeof FILTER_SIZES];
 
   if (!config) {
-    return c.json({
-      error: 'Invalid type',
-      valid_types: Object.keys(FILTER_SIZES),
-    }, 400);
+    return c.json(
+      {
+        error: 'Invalid type',
+        valid_types: Object.keys(FILTER_SIZES),
+      },
+      400
+    );
   }
 
   const kv = c.env.KV_CACHE;
@@ -144,14 +146,18 @@ export async function bloomFilterHandler(c: Context<{ Bindings: Env }>): Promise
   // Try cached filter
   const cached = await kv.get(cacheKey, 'json');
   if (cached && typeof cached === 'object' && 'data' in cached) {
-    return c.json({
-      type,
-      ...cached,
-      cached: true,
-    }, 200, {
-      'Cache-Control': 'public, max-age=300',
-      'Content-Type': 'application/json',
-    });
+    return c.json(
+      {
+        type,
+        ...cached,
+        cached: true,
+      },
+      200,
+      {
+        'Cache-Control': 'public, max-age=300',
+        'Content-Type': 'application/json',
+      }
+    );
   }
 
   // Build fresh filter
@@ -170,13 +176,17 @@ export async function bloomFilterHandler(c: Context<{ Bindings: Env }>): Promise
   };
   await kv.put(cacheKey, JSON.stringify(entry), { expirationTtl: 3600 });
 
-  return c.json({
-    type,
-    ...entry,
-    cached: false,
-  }, 200, {
-    'Cache-Control': 'public, max-age=300',
-  });
+  return c.json(
+    {
+      type,
+      ...entry,
+      cached: false,
+    },
+    200,
+    {
+      'Cache-Control': 'public, max-age=300',
+    }
+  );
 }
 
 /** POST /api/v1/bloom/check — Check if IOC is in filter */
@@ -252,17 +262,21 @@ export async function bloomStatsHandler(c: Context<{ Bindings: Env }>): Promise<
         filter_size_bits: entry.config.bits,
         num_hashes: entry.config.hashes,
         built_at: entry.built_at,
-        false_positive_rate: (1 - Math.exp(-entry.config.hashes * entry.count / entry.config.bits)).toFixed(6),
+        false_positive_rate: (1 - Math.exp((-entry.config.hashes * entry.count) / entry.config.bits)).toFixed(6),
       };
     } else {
       stats[type] = { status: 'not_built' };
     }
   }
 
-  return c.json({
-    filters: stats,
-    generated_at: new Date().toISOString(),
-  }, 200, {
-    'Cache-Control': 'public, max-age=60',
-  });
+  return c.json(
+    {
+      filters: stats,
+      generated_at: new Date().toISOString(),
+    },
+    200,
+    {
+      'Cache-Control': 'public, max-age=60',
+    }
+  );
 }

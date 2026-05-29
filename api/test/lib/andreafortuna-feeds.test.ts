@@ -135,7 +135,6 @@ describe('parseDefacements', () => {
 });
 
 describe('fetchAFDatamarkets / fetchAFDefacements', () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let fetchSpy: ReturnType<typeof vi.spyOn<any, any>>;
 
   beforeEach(() => {

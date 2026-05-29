@@ -69,16 +69,6 @@ interface CertInfo {
   };
 }
 
-/** Alert type definitions */
-const ALERT_TYPES = {
-  new_subdomain: 'New subdomain detected',
-  wildcard: 'Wildcard certificate issued',
-  suspicious_name: 'Suspicious domain pattern',
-  ca_change: 'Certificate authority changed',
-  short_validity: 'Short validity period',
-  ip_cert: 'Certificate for IP address',
-} as const;
-
 /** Check if a domain name looks suspicious (typosquat, homograph, etc.) */
 function isSuspiciousDomain(name: string, baseDomain: string): boolean {
   const lower = name.toLowerCase();
@@ -105,8 +95,16 @@ function isSuspiciousDomain(name: string, baseDomain: string): boolean {
 
   // Check for suspicious patterns
   const suspiciousPatterns = [
-    /secure/i, /login/i, /verify/i, /account/i, /update/i,
-    /banking/i, /payment/i, /support/i, /help/i, /service/i,
+    /secure/i,
+    /login/i,
+    /verify/i,
+    /account/i,
+    /update/i,
+    /banking/i,
+    /payment/i,
+    /support/i,
+    /help/i,
+    /service/i,
   ];
 
   return suspiciousPatterns.some((p) => p.test(lower) && !p.test(base));
@@ -114,7 +112,9 @@ function isSuspiciousDomain(name: string, baseDomain: string): boolean {
 
 /** Ensure required tables exist. */
 async function ensureTables(db: D1Database): Promise<void> {
-  await db.prepare(`
+  await db
+    .prepare(
+      `
     CREATE TABLE IF NOT EXISTS ct_watch (
       domain TEXT PRIMARY KEY,
       alert_types TEXT DEFAULT '["new_subdomain","suspicious_name","wildcard"]',
@@ -122,8 +122,12 @@ async function ensureTables(db: D1Database): Promise<void> {
       last_checked TEXT,
       cert_count INTEGER DEFAULT 0
     )
-  `).run();
-  await db.prepare(`
+  `
+    )
+    .run();
+  await db
+    .prepare(
+      `
     CREATE TABLE IF NOT EXISTS ct_certs (
       id INTEGER,
       domain TEXT NOT NULL,
@@ -138,7 +142,9 @@ async function ensureTables(db: D1Database): Promise<void> {
       alert_message TEXT,
       PRIMARY KEY (domain, id)
     )
-  `).run();
+  `
+    )
+    .run();
   await db.prepare('CREATE INDEX IF NOT EXISTS idx_ct_certs_domain ON ct_certs(domain)').run();
   await db.prepare('CREATE INDEX IF NOT EXISTS idx_ct_certs_first_seen ON ct_certs(first_seen)').run();
 }
@@ -167,9 +173,7 @@ export async function ctWatchedListHandler(c: Context<{ Bindings: Env }>): Promi
 
   await ensureTables(db);
 
-  const rows = await db
-    .prepare('SELECT * FROM ct_watch ORDER BY last_checked DESC')
-    .all<WatchConfig>();
+  const rows = await db.prepare('SELECT * FROM ct_watch ORDER BY last_checked DESC').all<WatchConfig>();
 
   return c.json({
     watched: rows.results ?? [],
@@ -217,7 +221,7 @@ export async function ctWatchAddHandler(c: Context<{ Bindings: Env }>): Promise<
         await storeCerts(db, domain, certs, alertTypes);
       }
       await db
-        .prepare('UPDATE ct_watch SET last_checked = datetime(\'now\'), cert_count = ? WHERE domain = ?')
+        .prepare("UPDATE ct_watch SET last_checked = datetime('now'), cert_count = ? WHERE domain = ?")
         .bind(certs.length, domain)
         .run();
     })()
@@ -295,9 +299,7 @@ export async function ctCertsHandler(c: Context<{ Bindings: Env }>): Promise<Res
     not_after: row.not_after,
     serial: row.serial,
     first_seen: row.first_seen,
-    alert: row.alert_type
-      ? { type: row.alert_type, message: row.alert_message }
-      : undefined,
+    alert: row.alert_type ? { type: row.alert_type, message: row.alert_message } : undefined,
   }));
 
   const response = c.json(
@@ -316,17 +318,15 @@ export async function ctCertsHandler(c: Context<{ Bindings: Env }>): Promise<Res
 }
 
 /** Store certificates and check for alerts. */
-async function storeCerts(
-  db: D1Database,
-  domain: string,
-  certs: CrtShCert[],
-  alertTypes: string[]
-): Promise<number> {
+async function storeCerts(db: D1Database, domain: string, certs: CrtShCert[], alertTypes: string[]): Promise<number> {
   let alertCount = 0;
 
   for (const cert of certs) {
     const names = cert.name_value
-      ? cert.name_value.split('\n').map((n) => n.trim()).filter(Boolean)
+      ? cert.name_value
+          .split('\n')
+          .map((n) => n.trim())
+          .filter(Boolean)
       : [cert.common_name];
 
     // Check for alerts
