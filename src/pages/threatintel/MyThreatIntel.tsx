@@ -111,6 +111,8 @@ interface MtiResponse {
   total: number;
   count: number;
   items: MtiRow[];
+  /** True when served from the cached last-good fallback (upstream was down). */
+  stale?: boolean;
 }
 
 function cellText(v: unknown): string {
@@ -281,6 +283,12 @@ export default function MyThreatIntel(): JSX.Element {
         </div>
       ) : (
         <>
+          {data?.stale && (
+            <div className="mb-4 rounded-lg border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-sm font-mono text-amber-800 dark:text-amber-200">
+              ⚠ Live MyThreatIntel feed is temporarily unavailable — showing the last cached snapshot. Data may be out
+              of date.
+            </div>
+          )}
           {data && (
             <StatBar
               items={[
