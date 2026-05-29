@@ -21,7 +21,7 @@ import { fetchMtiSource, type MtiRansomwareClaim } from '../lib/mythreatintel-ap
  */
 
 /** Exported so /api/v1/snapshot can read the same cached payload directly. */
-export const RANSOMWARE_RECENT_CACHE_KEY = 'https://ransomware-recent-cache.internal/v8-af-source';
+export const RANSOMWARE_RECENT_CACHE_KEY = 'https://ransomware-recent-cache.internal/v9-af-source';
 const CACHE_KEY = RANSOMWARE_RECENT_CACHE_KEY;
 /**
  * Edge-cache TTL on the merged ransomware feed. Was 1 hour, which made
@@ -488,7 +488,11 @@ export async function fetchRansomwareRecent(env?: Env): Promise<{
   // Persist last-good payload to KV so stale data is served when all
   // upstreams fail (cold cache, transient outages). The calling snapshot
   // handler reads this backup via the ok flag on the return.
-  if (upstreamOk && env?.KV_CACHE) {
+  // Only persist a NON-EMPTY payload. A zero-victim result (all upstreams
+  // momentarily thin/down) must never become the cached "good" copy, or it
+  // pins an empty feed for the whole TTL and the page blanks for repeat
+  // visitors — the exact failure this guards against.
+  if (upstreamOk && body.victims.length > 0 && env?.KV_CACHE) {
     caches.default
       .put(
         new Request(RANSOMWARE_RECENT_CACHE_KEY),
@@ -516,11 +520,16 @@ export async function ransomwareRecentHandler(c: Context<{ Bindings: Env }>): Pr
         (async () => {
           try {
             const { body, upstreamOk } = await fetchRansomwareRecent(c.env);
-            if (upstreamOk) {
-              const fresh = c.json(body, 200, { 'Cache-Control': `public, max-age=${CACHE_TTL_SECONDS}`, 'x-cache': 'REVALIDATED' });
+            if (upstreamOk && body.victims.length > 0) {
+              const fresh = c.json(body, 200, {
+                'Cache-Control': `public, max-age=${CACHE_TTL_SECONDS}, stale-while-revalidate=${CACHE_TTL_SECONDS * 4}`,
+                'x-cache': 'REVALIDATED',
+              });
               await cache.put(cacheKey, fresh);
             }
-          } catch { /* non-fatal */ }
+          } catch {
+            /* non-fatal */
+          }
         })()
       );
     }
@@ -536,10 +545,17 @@ export async function ransomwareRecentHandler(c: Context<{ Bindings: Env }>): Pr
     });
   }
 
+  // An empty payload is never cacheable — serve it once with no-store so a
+  // transient zero-victim result can't get pinned at the edge or in the
+  // browser for the whole TTL. stale-while-revalidate lets a cached good copy
+  // refresh in the background instead of going hard-stale.
+  const cacheable = upstreamOk && body.victims.length > 0;
   const response = c.json(body, 200, {
-    'Cache-Control': upstreamOk ? `public, max-age=${CACHE_TTL_SECONDS}` : 'no-store',
+    'Cache-Control': cacheable
+      ? `public, max-age=${CACHE_TTL_SECONDS}, stale-while-revalidate=${CACHE_TTL_SECONDS * 4}`
+      : 'no-store',
   });
-  if (upstreamOk) {
+  if (cacheable) {
     c.executionCtx.waitUntil(cache.put(cacheKey, response.clone()));
   }
   return response;
