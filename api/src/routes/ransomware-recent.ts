@@ -507,6 +507,37 @@ export async function fetchRansomwareRecent(env?: Env): Promise<{
   return { body, upstreamOk, rateLimited };
 }
 
+/**
+ * Global (cross-colo) last-good store. caches.default is per-colo, so a colo
+ * whose upstream fetch transiently fails — or one with a cold cache after a
+ * deploy/key-bump — has no neighbour to borrow from and would serve "0
+ * claims". KV is global: any healthy colo's fetch refreshes it, and every
+ * other colo can fall back to it. 48h TTL covers a long upstream outage.
+ */
+const RANSOMWARE_LASTGOOD_KV_KEY = 'ransomware-recent:lastgood:v1';
+const LASTGOOD_TTL_SECONDS = 172800;
+
+async function writeRansomwareLastGood(env: Env, body: ResponseBody): Promise<void> {
+  if (!env.KV_CACHE || body.victims.length === 0) return;
+  try {
+    await env.KV_CACHE.put(RANSOMWARE_LASTGOOD_KV_KEY, JSON.stringify(body), {
+      expirationTtl: LASTGOOD_TTL_SECONDS,
+    });
+  } catch {
+    /* non-fatal */
+  }
+}
+
+async function readRansomwareLastGood(env: Env): Promise<ResponseBody | null> {
+  if (!env.KV_CACHE) return null;
+  try {
+    const lg = (await env.KV_CACHE.get(RANSOMWARE_LASTGOOD_KV_KEY, 'json')) as ResponseBody | null;
+    return lg && Array.isArray(lg.victims) && lg.victims.length > 0 ? lg : null;
+  } catch {
+    return null;
+  }
+}
+
 export async function ransomwareRecentHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheKey = new Request(CACHE_KEY);
@@ -526,6 +557,7 @@ export async function ransomwareRecentHandler(c: Context<{ Bindings: Env }>): Pr
                 'x-cache': 'REVALIDATED',
               });
               await cache.put(cacheKey, fresh);
+              await writeRansomwareLastGood(c.env, body);
             }
           } catch {
             /* non-fatal */
@@ -545,12 +577,27 @@ export async function ransomwareRecentHandler(c: Context<{ Bindings: Env }>): Pr
     });
   }
 
-  // An empty payload is never cacheable — serve it once with no-store so a
-  // transient zero-victim result can't get pinned at the edge or in the
-  // browser for the whole TTL. stale-while-revalidate lets a cached good copy
-  // refresh in the background instead of going hard-stale.
-  const cacheable = upstreamOk && body.victims.length > 0;
-  const response = c.json(body, 200, {
+  let finalBody = body;
+  let cacheable = upstreamOk && body.victims.length > 0;
+
+  if (cacheable) {
+    // Healthy fetch — refresh the global last-good for other colos.
+    c.executionCtx.waitUntil(writeRansomwareLastGood(c.env, body));
+  } else {
+    // This colo's upstreams came back empty. Rather than blank the page with
+    // "0 claims", serve the global last-good from KV if we have one.
+    const lastGood = await readRansomwareLastGood(c.env);
+    if (lastGood) {
+      finalBody = lastGood;
+      cacheable = true; // real data again — safe to cache locally
+    }
+  }
+
+  // An empty payload is never cacheable — serve it with no-store so a transient
+  // zero-victim result can't get pinned at the edge or in the browser for the
+  // whole TTL. stale-while-revalidate lets a cached good copy refresh in the
+  // background instead of going hard-stale.
+  const response = c.json(finalBody, 200, {
     'Cache-Control': cacheable
       ? `public, max-age=${CACHE_TTL_SECONDS}, stale-while-revalidate=${CACHE_TTL_SECONDS * 4}`
       : 'no-store',

@@ -387,7 +387,11 @@ export default function Metrics(): JSX.Element {
   useEffect(() => {
     let cancelled = false;
     const ctrl = new AbortController();
-    const opts = { signal: ctrl.signal } as const;
+    // 'no-store': this is a live metrics dashboard — always pull fresh from the
+    // edge rather than risk the browser serving a stale HTTP-cached copy (a
+    // past "0 ransomware claims" pinned-cache bug). The edge cache still makes
+    // these cheap server-side.
+    const opts = { signal: ctrl.signal, cache: 'no-store' } as const;
     setState((s) => ({ ...s, loading: true, error: null }));
 
     (async () => {
