@@ -52,6 +52,12 @@ curl "https://api.example.com/api/v1/domain-rep?ip=8.8.8.8"
 - Returns reputation score (0-100, where 0 is clean)
 - Caches results for 5 minutes
 
+**Frontend Integration:**
+
+- Updated `src/pages/dfir/DomainReputation.tsx` to use backend API
+- Faster response times with server-side caching
+- More reliable DNS resolution
+
 ---
 
 ### GET `/api/v1/domain-monitor`
@@ -96,126 +102,30 @@ curl "https://api.example.com/api/v1/domain-monitor?domain=example.com"
 - **affix** - Added prefixes/suffixes (login-, secure-, mail.)
 - **tld-swap** - Different TLD (.com → .net, .org, etc.)
 
----
+**Frontend Integration:**
 
-## Threat Intelligence
-
-### POST `/api/v1/report/generate`
-
-Generate AI-powered threat intelligence reports.
-
-**Request Body:**
-
-```json
-{
-  "query": "CVE-2024-1709"
-}
-```
-
-**Example:**
-
-```bash
-curl -X POST "https://api.example.com/api/v1/report/generate" \
-  -H "Content-Type: application/json" \
-  -d '{"query": "APT28"}'
-```
-
-**Response:**
-
-```json
-{
-  "ok": true,
-  "title": "Threat Actor Report: APT28",
-  "markdown": "## TL;DR\n\nAPT28 is a Russian state-sponsored...",
-  "query": "APT28",
-  "generated_at": "2026-05-29T12:00:00.000Z",
-  "elapsed_ms": 2450
-}
-```
-
-**Supported Query Types:**
-
-- **CVE IDs** - Detailed vulnerability analysis with CVSS, EPSS, KEV status
-- **Threat Actors** - Attribution, TTPs, campaigns, associated CVEs
-- **Generic Entities** - Any security-related topic
-
-**AI Models:**
-
-1. Groq (Llama 4 Scout) - Primary
-2. Workers AI (Llama 3.3 70B) - Fallback
+- New page: `src/pages/threatintel/DomainMonitor.tsx`
+- Integrated with Domain Reputation page for quick navigation
 
 ---
 
-## External Data Sources
+## Removed Endpoints
 
-### GET `/api/v1/leakix/search`
+The following endpoints were removed as they duplicate existing functionality:
 
-Search LeakIX for exposed services and leaks.
-
-**Parameters:**
-
-- `q` (required) - Search query (max 200 chars)
-
-**Example:**
-
-```bash
-curl "https://api.example.com/api/v1/leakix/search?q=example.com"
-```
-
-**Response:**
-
-```json
-{
-  "count": 5,
-  "results": [
-    {
-      "ip": "192.168.1.1",
-      "port": 443,
-      "protocol": "https",
-      "service": "nginx",
-      "leak": {
-        "id": "leak-123",
-        "leak_type": "service",
-        "leak_data": "example data",
-        "created_at": "2024-01-01T00:00:00Z"
-      }
-    }
-  ],
-  "generated_at": "2026-05-29T12:00:00.000Z"
-}
-```
-
-**Features:**
-
-- Searches for exposed services, ports, and protocols
-- Returns up to 50 results
-- Caches responses for 1 hour
+| Endpoint                       | Reason                   | Alternative                       |
+| ------------------------------ | ------------------------ | --------------------------------- |
+| `POST /api/v1/report/generate` | Duplicate of Copilot     | Use `/api/v1/copilot/investigate` |
+| `GET /api/v1/leakix/search`    | Similar to Breach checks | Use `/api/v1/breach/*` endpoints  |
 
 ---
 
-## Frontend Integration
+## Frontend Pages Updated
 
-The following frontend pages now have backend support:
-
-| Page              | Endpoint                  | Status   |
-| ----------------- | ------------------------- | -------- |
-| Domain Reputation | `/api/v1/domain-rep`      | ✅ Ready |
-| Domain Monitor    | `/api/v1/domain-monitor`  | ✅ Ready |
-| Report Generator  | `/api/v1/report/generate` | ✅ Ready |
-| LeakIX Search     | `/api/v1/leakix/search`   | ✅ Ready |
-
-### Optional: Update Frontend to Use Backend
-
-The Domain Reputation and Domain Monitor pages currently work client-side. To use the backend instead:
-
-1. Update `src/pages/dfir/DomainReputation.tsx` to fetch from `/api/v1/domain-rep`
-2. Update `src/pages/threatintel/DomainMonitor.tsx` to fetch from `/api/v1/domain-monitor`
-
-Benefits of backend integration:
-
-- Faster response times (server-side caching)
-- More reliable (dedicated DNS resolution)
-- Reduced client-side load
+| Page                   | Changes                                                |
+| ---------------------- | ------------------------------------------------------ |
+| `DomainReputation.tsx` | Now uses backend API instead of client-side DNS checks |
+| `DomainMonitor.tsx`    | New page with typosquat detection UI                   |
 
 ---
 
@@ -230,6 +140,4 @@ npm test
 
 Test files:
 
-- `test/routes/domain-advanced.test.ts` - Domain rep/monitor tests
-- `test/routes/report-generator.test.ts` - Report generation tests
-- `test/routes/leakix.test.ts` - LeakIX search tests
+- `test/routes/domain-advanced.test.ts` - Domain rep/monitor tests (6 tests)

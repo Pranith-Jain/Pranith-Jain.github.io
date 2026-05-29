@@ -1,205 +1,107 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Search, Globe, Loader2 } from 'lucide-react';
+import { ArrowLeft, Search, Loader2, Globe, Shield, AlertTriangle, ExternalLink } from 'lucide-react';
 
-const DOH_ENDPOINT = 'https://cloudflare-dns.com/dns-query';
+// ─── API Response Types ──────────────────────────────────────────────────────
 
-async function resolveWithLimit(domain: string): Promise<{ a: string[]; mx: boolean; ns: boolean }> {
-  try {
-    const url = `${DOH_ENDPOINT}?name=${encodeURIComponent(domain)}&type=A`;
-    const r = await fetch(url, { headers: { accept: 'application/dns-json' } });
-    if (!r.ok) return { a: [], mx: false, ns: false };
-    const j = (await r.json()) as { Answer?: Array<{ data: string }>; Status?: number };
-    if (j.Status === 3) return { a: [], mx: false, ns: false };
-    const ips = (j.Answer ?? []).map((a) => a.data).filter((ip) => /^\d+\.\d+\.\d+\.\d+$/.test(ip));
-    return { a: ips.slice(0, 3), mx: false, ns: false };
-  } catch {
-    return { a: [], mx: false, ns: false };
-  }
+interface TyposquatVariant {
+  domain: string;
+  type: 'typo' | 'homoglyph' | 'affix' | 'tld-swap';
+  ips?: string[];
 }
 
-async function batchResolve(domains: string[], batchSize = 6): Promise<Array<{ domain: string; ips: string[] }>> {
-  const results: Array<{ domain: string; ips: string[] }> = [];
-  for (let i = 0; i < domains.length; i += batchSize) {
-    const batch = domains.slice(i, i + batchSize);
-    const batchResults = await Promise.all(
-      batch.map(async (d) => {
-        const { a } = await resolveWithLimit(d);
-        return { domain: d, ips: a };
-      })
-    );
-    results.push(...batchResults);
-    // Small delay between batches to avoid rate limiting
-    if (i + batchSize < domains.length) await new Promise((r) => setTimeout(r, 200));
-  }
-  return results;
+interface DomainMonitorResponse {
+  domain: string;
+  total_variants: number;
+  checked: number;
+  active: number;
+  inactive: number;
+  results: {
+    active: TyposquatVariant[];
+    inactive: TyposquatVariant[];
+    unchecked: TyposquatVariant[];
+  };
+  generated_at: string;
 }
 
-const TLD_SWAPS = ['.com', '.net', '.org', '.co', '.io', '.ai', '.app', '.dev', '.xyz', '.top', '.club', '.online'];
-const AFFIXES = [
-  '-login',
-  '-secure',
-  '-verify',
-  '-auth',
-  '-support',
-  '-help',
-  '-account',
-  '-admin',
-  'mail.',
-  'vpn.',
-  'secure.',
-  'login.',
-  'account.',
-  'support.',
-  'verify.',
-  'auth.',
-];
+// ─── Type Labels ─────────────────────────────────────────────────────────────
 
-function typosquats(domain: string): string[] {
-  const out = new Set<string>();
-  const [name, tld] = domain.includes('.')
-    ? [domain.slice(0, domain.lastIndexOf('.')), domain.slice(domain.lastIndexOf('.'))]
-    : [domain, ''];
-  if (!name) return [];
-  const n = name.toLowerCase();
-  for (let i = 0; i < n.length; i++) out.add(n.slice(0, i) + n.slice(i + 1) + tld);
-  for (let i = 0; i < n.length; i++) out.add(n.slice(0, i) + n[i] + n[i] + n.slice(i + 1) + tld);
-  for (let i = 0; i < n.length - 1; i++) {
-    const arr = [...n];
-    [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
-    out.add(arr.join('') + tld);
-  }
-  for (const [from, to] of [
-    ['e', 'a'],
-    ['a', 'e'],
-    ['i', 'e'],
-    ['e', 'i'],
-    ['o', 'u'],
-    ['u', 'o'],
-    ['c', 'k'],
-    ['k', 'c'],
-    ['s', 'c'],
-    ['c', 's'],
-    ['ph', 'f'],
-    ['f', 'ph'],
-  ] as [string, string][]) {
-    if (n.includes(from)) out.add(n.replace(from, to) + tld);
-  }
-  return [...out].filter((s) => s !== domain).slice(0, 30);
-}
+const TYPE_LABELS: Record<string, { label: string; color: string }> = {
+  typo: { label: 'Typo', color: 'bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300' },
+  homoglyph: { label: 'Homoglyph', color: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300' },
+  affix: { label: 'Affix', color: 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300' },
+  'tld-swap': { label: 'TLD Swap', color: 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900/30 dark:text-cyan-300' },
+};
+
+// ─── Main Component ──────────────────────────────────────────────────────────
 
 export default function DomainMonitor(): JSX.Element {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const initial = searchParams.get('q') ?? '';
-  const [input, setInput] = useState(initial);
+  const [searchParams] = useSearchParams();
+  const [input, setInput] = useState(searchParams.get('domain') ?? '');
   const [loading, setLoading] = useState(false);
-  const [results, setResults] = useState<
-    Array<{ domain: string; type: 'typo' | 'homoglyph' | 'affix' | 'tld-swap'; ips: string[] }>
-  >([]);
+  const [results, setResults] = useState<DomainMonitorResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [progress, setProgress] = useState('');
   const abortRef = useRef<AbortController | null>(null);
 
-  const cleanDomain = input
+  const clean = input
     .trim()
     .toLowerCase()
     .replace(/^https?:\/\//, '')
     .replace(/\/.*$/, '');
 
-  const scan = useCallback(async () => {
-    if (!cleanDomain) return;
+  const run = useCallback(async () => {
+    if (!clean) return;
     abortRef.current?.abort();
     abortRef.current = new AbortController();
     const signal = abortRef.current.signal;
 
     setLoading(true);
     setError(null);
-    setResults([]);
+    setResults(null);
     try {
-      const candidates = typosquats(cleanDomain);
-      const homoglyph = cleanDomain
-        .replace(/[a]/g, 'а')
-        .replace(/[e]/g, 'е')
-        .replace(/[o]/g, 'о')
-        .replace(/[p]/g, 'р')
-        .replace(/[c]/g, 'с');
-      let allDomains = [
-        ...candidates,
-        ...TLD_SWAPS.filter((t) => t !== '.' + cleanDomain.split('.').pop()).map((t) => name(cleanDomain) + t),
-        ...AFFIXES.map((a) => (a.startsWith('-') ? name(cleanDomain) + a + ext(cleanDomain) : a + cleanDomain)),
-      ];
-      if (homoglyph !== cleanDomain) allDomains.push(homoglyph + ext(cleanDomain));
-      allDomains = [...new Set(allDomains)].slice(0, 60);
-      if (signal.aborted) return;
-
-      setProgress(`Resolving DNS for ${allDomains.length} variants (batches of 6)…`);
-      const resolved = await batchResolve(allDomains);
-      if (signal.aborted) return;
-
-      const squatResults = resolved.map((r) => {
-        const type = TLD_SWAPS.some((t) => r.domain.endsWith(t) && t !== '.' + ext(cleanDomain))
-          ? ('tld-swap' as const)
-          : AFFIXES.some((a) => r.domain.startsWith(a) || r.domain.includes(a))
-            ? ('affix' as const)
-            : homoglyph !== cleanDomain && r.domain.includes(homoglyph)
-              ? ('homoglyph' as const)
-              : ('typo' as const);
-        return { domain: r.domain, type, ips: r.ips };
-      });
-
-      setResults(squatResults);
+      const r = await fetch(`/api/v1/domain-monitor?domain=${encodeURIComponent(clean)}`, { signal });
+      if (!r.ok) {
+        const body = (await r.json().catch(() => ({}))) as { error?: string };
+        throw new Error(body.error ?? `HTTP ${r.status}`);
+      }
+      const data = (await r.json()) as DomainMonitorResponse;
+      setResults(data);
     } catch (e) {
-      if (!signal.aborted) setError(e instanceof Error ? e.message : 'scan failed');
+      if (!signal.aborted) setError(e instanceof Error ? e.message : 'check failed');
     } finally {
       if (!signal.aborted) setLoading(false);
-      setProgress('');
     }
-  }, [cleanDomain]);
+  }, [clean]);
 
   useEffect(() => {
-    if (input) setSearchParams({ q: input }, { replace: true });
-    else setSearchParams({}, { replace: true });
-  }, [input, setSearchParams]);
-
-  useEffect(() => {
-    if (cleanDomain) void scan();
+    if (searchParams.get('domain')) run();
     return () => abortRef.current?.abort();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const grouped = useMemo(() => {
-    const g: Record<string, typeof results> = {};
-    for (const r of results) {
-      (g[r.type] ??= []).push(r);
-    }
-    return g;
-  }, [results]);
-
-  const resolveCount = useMemo(() => results.filter((r) => r.ips.length > 0).length, [results]);
-
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       <BackLink
         to="/threatintel"
         className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
       >
         <ArrowLeft size={14} /> back
       </BackLink>
+
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
-          <Globe size={28} className="text-brand-600 dark:text-brand-400" /> Domain Monitor
+          <Shield size={28} className="text-brand-600 dark:text-brand-400" /> Domain Monitor
         </h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
-          Typosquatting and domain impersonation scanner. Generates lookalike variants of your domain — character swaps,
-          TLD swaps, homoglyphs, common prefix/suffix abuses — then resolves DNS in batches to identify registered
-          lookalikes. Inspired by haveibeensquatted.com.
+          Detect typosquat domains, homoglyph attacks, and phishing variants targeting your brand. Generates
+          permutations and checks which are actively registered.
         </p>
       </div>
 
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          void scan();
+          run();
         }}
         className="mb-6"
       >
@@ -210,18 +112,18 @@ export default function DomainMonitor(): JSX.Element {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="acmecorp.com"
+              placeholder="example.com"
               className="w-full pl-9 pr-3 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
-              aria-label="Domain to scan"
+              aria-label="Domain to monitor"
             />
           </div>
           <button
             type="submit"
-            disabled={loading || !cleanDomain}
+            disabled={loading || !clean}
             className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
           >
             {loading ? (
-              <Loader2 size={16} className="animate-spin inline" />
+              <Loader2 size={16} className="animate-spin inline mr-1" />
             ) : (
               <Search size={16} className="inline mr-1" />
             )}{' '}
@@ -230,136 +132,191 @@ export default function DomainMonitor(): JSX.Element {
         </div>
       </form>
 
-      {loading && <p className="text-xs font-mono text-slate-500 animate-pulse mb-4">{progress}</p>}
+      {loading && (
+        <div className="flex items-center gap-2 text-xs font-mono text-slate-500 animate-pulse mb-4">
+          <Loader2 size={12} className="animate-spin" />
+          Generating typosquat variants and checking DNS...
+        </div>
+      )}
       {error && (
         <p role="alert" className="text-xs font-mono text-rose-600 dark:text-rose-400 mb-4">
           {error}
         </p>
       )}
 
-      {!loading && results.length > 0 && (
+      {results && (
         <div className="space-y-6">
+          {/* Summary Stats */}
           <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
-            <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
-              <h2 className="font-display font-bold text-lg">{cleanDomain}</h2>
-              <span className="text-xs font-mono text-slate-500">{results.length} variants</span>
-            </div>
-            <div className="flex flex-wrap gap-2 text-xs font-mono">
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-sky-500/10 text-sky-700 dark:text-sky-300 border border-sky-500/30">
-                {resolveCount} resolve DNS
-              </span>
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-500/10 text-slate-600 dark:text-slate-400 border border-slate-500/30">
-                {results.length - resolveCount} no DNS
-              </span>
-              {resolveCount === 0 && (
-                <span className="text-xs font-mono text-slate-500 ml-2">
-                  None of the generated lookalike domains appear to be registered. This is common for less common brand
-                  names.
-                </span>
-              )}
+            <h2 className="font-display font-bold text-xl mb-4">{results.domain}</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{results.total_variants}</div>
+                <div className="text-xs font-mono text-slate-500">Total Variants</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-amber-500">{results.checked}</div>
+                <div className="text-xs font-mono text-slate-500">Checked</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-rose-500">{results.active}</div>
+                <div className="text-xs font-mono text-slate-500">Active</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-emerald-500">{results.inactive}</div>
+                <div className="text-xs font-mono text-slate-500">Inactive</div>
+              </div>
             </div>
           </section>
 
-          {(['typo', 'tld-swap', 'affix', 'homoglyph'] as const).map((type) => {
-            const items = grouped[type];
-            if (!items?.length) return null;
-            const resolveInGroup = items.filter((r) => r.ips.length > 0);
-            return (
-              <section
-                key={type}
-                className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4"
-              >
-                <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
-                  {type === 'typo'
-                    ? 'Typo variants'
-                    : type === 'tld-swap'
-                      ? 'TLD swaps'
-                      : type === 'affix'
-                        ? 'Prefix/suffix additions'
-                        : 'Homoglyph'}
-                  <span className="ml-2 text-slate-500">({items.length})</span>
-                  {resolveInGroup.length > 0 && (
-                    <span className="ml-2 text-[10px] font-mono text-sky-600 dark:text-sky-400">
-                      {resolveInGroup.length} resolve
-                    </span>
-                  )}
-                </h3>
-                <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-                  {items.map((r) => (
-                    <div
-                      key={r.domain}
-                      className={`rounded border p-3 transition-colors hover:border-brand-500/40 ${r.ips.length > 0 ? 'border-sky-500/30 bg-sky-50/50 dark:bg-sky-950/20' : 'border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950'}`}
-                    >
-                      <div className="flex items-center justify-between gap-2 mb-1">
-                        <code className="font-mono text-sm break-all text-slate-900 dark:text-slate-100 font-semibold">
-                          {r.domain}
-                        </code>
-                        {r.ips.length > 0 ? (
-                          <span className="shrink-0 text-[9px] font-mono px-1.5 py-0.5 rounded bg-sky-500/10 text-sky-700 dark:text-sky-300 border border-sky-500/30">
-                            DNS
-                          </span>
-                        ) : (
-                          <span className="shrink-0 text-[9px] font-mono px-1.5 py-0.5 rounded bg-slate-500/10 text-slate-500 border border-slate-500/30">
-                            unregistered
-                          </span>
-                        )}
-                      </div>
-                      {r.ips.length > 0 && (
-                        <div className="flex flex-wrap gap-1 mb-1">
-                          {r.ips.slice(0, 2).map((ip) => (
-                            <span
-                              key={ip}
-                              className="text-[10px] font-mono text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-1 rounded"
-                            >
-                              {ip}
-                            </span>
-                          ))}
-                          {r.ips.length > 2 && (
-                            <span className="text-[10px] font-mono text-slate-500">+{r.ips.length - 2}</span>
-                          )}
-                        </div>
-                      )}
-                      <div className="mt-1.5 flex gap-1.5 flex-wrap">
-                        <Link
-                          to={`/dfir/domain?domain=${encodeURIComponent(r.domain)}`}
-                          className="text-[10px] font-mono text-brand-600 dark:text-brand-400 hover:underline"
-                        >
-                          lookup
-                        </Link>
-                        <Link
-                          to={`/dfir/url-preview?url=${encodeURIComponent('https://' + r.domain)}`}
-                          className="text-[10px] font-mono text-brand-600 dark:text-brand-400 hover:underline"
-                        >
-                          preview
-                        </Link>
-                        <Link
-                          to={`/dfir/ioc-check?indicator=${encodeURIComponent(r.domain)}`}
-                          className="text-[10px] font-mono text-brand-600 dark:text-brand-400 hover:underline"
-                        >
-                          ioc
-                        </Link>
-                        <Link
-                          to={`/dfir/domain-rep?domain=${encodeURIComponent(r.domain)}`}
-                          className="text-[10px] font-mono text-brand-600 dark:text-brand-400 hover:underline"
-                        >
-                          bl
-                        </Link>
-                      </div>
-                    </div>
-                  ))}
+          {/* Risk Assessment */}
+          {results.active > 0 && (
+            <section className="rounded-lg border border-amber-300/40 bg-amber-500/10 p-4">
+              <div className="flex items-start gap-3">
+                <AlertTriangle size={20} className="text-amber-500 mt-0.5 flex-shrink-0" />
+                <div>
+                  <h3 className="font-display font-semibold text-amber-800 dark:text-amber-200">
+                    {results.active} Active Typosquat{results.active !== 1 ? 's' : ''} Detected
+                  </h3>
+                  <p className="text-sm text-amber-700 dark:text-amber-300 mt-1">
+                    These domains are registered and could be used for phishing attacks. Consider monitoring them or
+                    taking defensive action.
+                  </p>
                 </div>
-              </section>
-            );
-          })}
+              </div>
+            </section>
+          )}
+
+          {/* Active Domains (Potential Threats) */}
+          {results.results.active.length > 0 && (
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+              <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-rose-600 dark:text-rose-400 font-mono mb-3 flex items-center gap-2">
+                <AlertTriangle size={12} /> Active Typosquats ({results.results.active.length})
+              </h3>
+              <div className="space-y-2">
+                {results.results.active.map((v) => (
+                  <div
+                    key={v.domain}
+                    className="flex items-center justify-between p-3 rounded border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20"
+                  >
+                    <div className="flex items-center gap-3">
+                      <Globe size={14} className="text-rose-500" />
+                      <span className="font-mono text-sm">{v.domain}</span>
+                      <span
+                        className={`text-[10px] font-mono px-2 py-0.5 rounded ${TYPE_LABELS[v.type]?.color ?? 'bg-slate-100 text-slate-800'}`}
+                      >
+                        {TYPE_LABELS[v.type]?.label ?? v.type}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {v.ips && v.ips.length > 0 && (
+                        <span className="text-[10px] font-mono text-slate-500">{v.ips[0]}</span>
+                      )}
+                      <Link
+                        to={`/dfir/domain-rep?domain=${encodeURIComponent(v.domain)}`}
+                        className="text-xs font-mono text-brand-600 hover:text-brand-700 dark:text-brand-400"
+                      >
+                        Check Rep
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Inactive Domains (Safe) */}
+          {results.results.inactive.length > 0 && (
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+              <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 font-mono mb-3">
+                Inactive Variants ({results.results.inactive.length})
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {results.results.inactive.map((v) => (
+                  <span
+                    key={v.domain}
+                    className="text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-slate-700 text-slate-500"
+                    title={v.type}
+                  >
+                    {v.domain}
+                  </span>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Unchecked Variants */}
+          {results.results.unchecked.length > 0 && (
+            <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+              <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-slate-500 font-mono mb-3">
+                Additional Variants ({results.results.unchecked.length})
+              </h3>
+              <p className="text-xs font-mono text-slate-500 mb-3">
+                These variants were generated but not checked due to rate limiting. Run a deeper scan for comprehensive
+                coverage.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {results.results.unchecked.slice(0, 20).map((v) => (
+                  <span
+                    key={v.domain}
+                    className="text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-slate-700 text-slate-400"
+                    title={v.type}
+                  >
+                    {v.domain}
+                  </span>
+                ))}
+                {results.results.unchecked.length > 20 && (
+                  <span className="text-xs font-mono text-slate-400">
+                    +{results.results.unchecked.length - 20} more
+                  </span>
+                )}
+              </div>
+            </section>
+          )}
+
+          {/* Type Legend */}
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+              Detection Types
+            </h3>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              {Object.entries(TYPE_LABELS).map(([key, { label, color }]) => (
+                <div key={key} className="flex items-center gap-2">
+                  <span className={`text-[10px] font-mono px-2 py-0.5 rounded ${color}`}>{label}</span>
+                  <span className="text-xs text-slate-500">
+                    {key === 'typo' && 'Character errors'}
+                    {key === 'homoglyph' && 'Lookalike chars'}
+                    {key === 'affix' && 'Added prefixes'}
+                    {key === 'tld-swap' && 'Different TLD'}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Quick Links */}
+          <div className="flex gap-2 flex-wrap">
+            <Link
+              to={`/dfir/domain-rep?domain=${encodeURIComponent(clean)}`}
+              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-brand-500/40"
+            >
+              <ExternalLink size={10} /> Domain Reputation
+            </Link>
+            <Link
+              to={`/dfir/ioc-check?indicator=${encodeURIComponent(clean)}`}
+              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-brand-500/40"
+            >
+              <ExternalLink size={10} /> IOC Checker
+            </Link>
+            <Link
+              to={`/dfir/breach?domain=${encodeURIComponent(clean)}`}
+              className="inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-brand-500/40"
+            >
+              <ExternalLink size={10} /> Breach Check
+            </Link>
+          </div>
         </div>
       )}
     </div>
   );
-}
-
-function name(d: string): string {
-  return d.includes('.') ? d.slice(0, d.lastIndexOf('.')) : d;
-}
-function ext(d: string): string {
-  return d.includes('.') ? d.slice(d.lastIndexOf('.')) : '';
 }

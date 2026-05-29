@@ -198,6 +198,9 @@ export interface MtiResult {
    * a transient outage instead of staring at an opaque 502.
    */
   upstreamStatus?: number;
+  /** When `ok` is false: a short snippet of the upstream's error body, so the
+   *  exact reason (expired vs invalid vs rate-limited) is visible, not guessed. */
+  upstreamDetail?: string;
 }
 
 const EMPTY: MtiResult = { ok: false, count: 0, total: 0, items: [] };
@@ -265,10 +268,16 @@ export async function fetchMtiSource(env: Env, source: MtiSource, query: MtiQuer
       },
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
     });
-    if (!res.ok) return { ...EMPTY, upstreamStatus: res.status };
+    if (!res.ok) {
+      const detail = await res
+        .text()
+        .then((t) => t.slice(0, 200))
+        .catch(() => '');
+      return { ...EMPTY, upstreamStatus: res.status, upstreamDetail: detail };
+    }
     env_envelope = (await res.json()) as MtiEnvelope;
-  } catch {
-    return { ...EMPTY, upstreamStatus: 0 };
+  } catch (err) {
+    return { ...EMPTY, upstreamStatus: 0, upstreamDetail: err instanceof Error ? err.message : String(err) };
   }
 
   const data = Array.isArray(env_envelope.data) ? (env_envelope.data as MtiRecord[]) : [];
