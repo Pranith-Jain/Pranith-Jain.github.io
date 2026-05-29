@@ -102,7 +102,7 @@ async function runGroq(key: string, input: CompletionInput): Promise<string> {
 /** Single Workers-AI attempt — NO back-off retry (see file header). */
 async function runWorkersModel(ai: Ai, model: string, input: CompletionInput): Promise<string> {
   const res = (await ai.run(
-    model as any,
+    model as Parameters<typeof ai.run>[0],
     {
       messages: [
         { role: 'system', content: input.system },
@@ -110,7 +110,7 @@ async function runWorkersModel(ai: Ai, model: string, input: CompletionInput): P
       ],
       max_tokens: input.maxTokens ?? 4000,
       temperature: input.temperature ?? 0.5,
-    } as any
+    } as Parameters<typeof ai.run>[1]
   )) as { response?: string };
   if (!res || typeof res.response !== 'string' || !res.response.trim()) {
     throw new Error(`Empty response from ${model}`);

@@ -10,7 +10,7 @@ import { DETECTIONS_CACHE_KEY } from './detections';
 import { CYBERCRIME_CACHE_KEY } from './cybercrime';
 import { IOC_CORRELATION_CACHE_KEY } from './ioc-correlation';
 import { NEGOTIATIONS_CACHE_KEY } from './negotiations';
-import { detectType as detectIndicatorType, type IndicatorType } from '../lib/indicator';
+import { type IndicatorType } from '../lib/indicator';
 import type { Indicator, ProviderEnv, ProviderResult, ProviderAdapter } from '../providers/types';
 import { lookupCve } from '../lib/cve-lookup';
 import { ACTOR_ALIASES } from '../data/threat-actor-aliases';
@@ -113,14 +113,41 @@ const BREACH_CACHE_KEY = 'https://breach-cache.internal/v6-hibp-only';
 const matchText = (query: string, text: string | undefined): boolean =>
   text?.toLowerCase().includes(query.toLowerCase()) ?? false;
 
-const matchCve = (query: string, id: string) => id.toUpperCase() === query.trim().toUpperCase();
+const matchCve = (query: string, id: string | undefined) => (id ?? '').toUpperCase() === query.trim().toUpperCase();
 
-function buildSourceAdder(query: string) {
+/**
+ * Loose shape for the heterogeneous, cache-sourced records the search
+ * predicates filter over. Every field is optional; the index signature covers
+ * provider-specific fields not enumerated here. Replaces per-predicate `any`.
+ */
+interface SearchItem {
+  id?: string;
+  title?: string;
+  description?: string;
+  value?: string;
+  source?: string;
+  ip?: string;
+  domain?: string;
+  victim?: string;
+  group?: string;
+  slug?: string;
+  display_name?: string;
+  rule_name?: string;
+  rule_id?: string;
+  sha256?: string;
+  name?: string;
+  common_name?: string;
+  tags?: string[];
+  indicators?: Array<{ value?: string }>;
+  [key: string]: unknown;
+}
+
+function buildSourceAdder(_query: string) {
   return async <T>(
     name: string,
     key: string,
-    extract: (data: T) => unknown[],
-    filter?: (item: unknown) => boolean
+    extract: (data: T) => SearchItem[],
+    filter?: (item: SearchItem) => boolean
   ): Promise<Source | null> => {
     const data = await readCache<T>(key);
     if (!data) return null;
@@ -152,49 +179,51 @@ async function gatherSources(query: string, type: QueryType) {
       add(
         'Recent CVEs',
         CVE_RECENT_CACHE_KEY,
-        (d: { cves: unknown[] }) => d.cves,
-        (c: any) => matchCve(q, c.id)
+        (d: { cves: SearchItem[] }) => d.cves,
+        (c) => matchCve(q, c.id)
       ),
       add(
         'Breach Disclosures',
         BREACH_CACHE_KEY,
-        (d: { breaches: unknown[] }) => d.breaches,
-        (b: any) => b.description?.toLowerCase().includes(ql) ?? false
+        (d: { breaches: SearchItem[] }) => d.breaches,
+        (b) => b.description?.toLowerCase().includes(ql) ?? false
       ),
       add(
         'Actor Timeline',
         ACTOR_TIMELINE_CACHE_KEY,
-        (d: { groups: unknown[] }) => d.groups,
-        (g: any) => (g.description ?? '').toLowerCase().includes(ql)
+        (d: { groups: SearchItem[] }) => d.groups,
+        (g) => (g.description ?? '').toLowerCase().includes(ql)
       ),
       add(
         'Writeups',
         WRITEUPS_CACHE_KEY,
-        (d: { items: unknown[] }) => d.items,
-        (w: any) =>
-          matchText(ql, w.title) || matchText(ql, w.description) || w.tags?.some((t: string) => matchText(ql, t))
+        (d: { items: SearchItem[] }) => d.items,
+        (w) =>
+          matchText(ql, w.title) ||
+          matchText(ql, w.description) ||
+          (w.tags?.some((t: string) => matchText(ql, t)) ?? false)
       ),
       add(
         'Detections',
         DETECTIONS_CACHE_KEY,
-        (d: { detections: unknown[] }) => d.detections,
-        (d: any) => matchText(ql, d.rule_name) || matchText(ql, d.rule_id)
+        (d: { detections: SearchItem[] }) => d.detections,
+        (d) => matchText(ql, d.rule_name) || matchText(ql, d.rule_id)
       ),
       add(
         'Cybercrime',
         CYBERCRIME_CACHE_KEY,
-        (d: { items: unknown[] }) => d.items,
-        (c: any) => matchText(ql, c.title) || matchText(ql, c.description)
+        (d: { items: SearchItem[] }) => d.items,
+        (c) => matchText(ql, c.title) || matchText(ql, c.description)
       ),
       add(
         'IOC Correlation',
         IOC_CORRELATION_CACHE_KEY,
-        (d: { hashes: unknown[]; ips: unknown[]; domains: unknown[] }) => [
+        (d: { hashes: SearchItem[]; ips: SearchItem[]; domains: SearchItem[] }) => [
           ...(d.hashes ?? []),
           ...(d.ips ?? []),
           ...(d.domains ?? []),
         ],
-        (e: any) => matchText(ql, e.value)
+        (e) => matchText(ql, e.value)
       ),
     ];
     promises = cachePromises;
@@ -204,44 +233,44 @@ async function gatherSources(query: string, type: QueryType) {
       add(
         'Live IOCs',
         LIVE_IOCS_CACHE_KEY,
-        (d: { items: unknown[] }) => d.items,
-        (i: any) => i.value === q
+        (d: { items: SearchItem[] }) => d.items,
+        (i) => i.value === q
       ),
       add(
         'C2 Tracker',
         C2_CACHE_KEY,
-        (d: { entries: unknown[] }) => d.entries,
-        (e: any) => e.ip === q
+        (d: { entries: SearchItem[] }) => d.entries,
+        (e) => e.ip === q
       ),
       add(
         'IOC Correlation',
         IOC_CORRELATION_CACHE_KEY,
-        (d: { ips: unknown[] }) => d.ips,
-        (e: any) => e.value === q
+        (d: { ips: SearchItem[] }) => d.ips,
+        (e) => e.value === q
       ),
       add(
         'Ransomware Recent',
         RANSOMWARE_RECENT_CACHE_KEY,
-        (d: { victims: unknown[] }) => d.victims,
-        (v: any) => v.victim?.includes(q)
+        (d: { victims: SearchItem[] }) => d.victims,
+        (v) => v.victim?.includes(q) ?? false
       ),
       add(
         'Actor Timeline',
         ACTOR_TIMELINE_CACHE_KEY,
-        (d: { groups: unknown[] }) => d.groups,
-        (g: any) => matchText(ql, g.description)
+        (d: { groups: SearchItem[] }) => d.groups,
+        (g) => matchText(ql, g.description)
       ),
       add(
         'Writeups',
         WRITEUPS_CACHE_KEY,
-        (d: { items: unknown[] }) => d.items,
-        (w: any) => matchText(ql, w.title) || matchText(ql, w.description)
+        (d: { items: SearchItem[] }) => d.items,
+        (w) => matchText(ql, w.title) || matchText(ql, w.description)
       ),
       add(
         'Detections',
         DETECTIONS_CACHE_KEY,
-        (d: { detections: unknown[] }) => d.detections,
-        (d: any) => (d.indicators ?? []).some((i: any) => i.value === q)
+        (d: { detections: SearchItem[] }) => d.detections,
+        (d) => (d.indicators ?? []).some((i) => i.value === q)
       ),
     ];
   } else if (type === 'domain') {
@@ -249,38 +278,38 @@ async function gatherSources(query: string, type: QueryType) {
       add(
         'Live IOCs',
         LIVE_IOCS_CACHE_KEY,
-        (d: { items: unknown[] }) => d.items,
-        (i: any) => i.value === q
+        (d: { items: SearchItem[] }) => d.items,
+        (i) => i.value === q
       ),
       add(
         'IOC Correlation',
         IOC_CORRELATION_CACHE_KEY,
-        (d: { domains: unknown[] }) => d.domains,
-        (e: any) => e.value === q
+        (d: { domains: SearchItem[] }) => d.domains,
+        (e) => e.value === q
       ),
       add(
         'Breach Disclosures',
         BREACH_CACHE_KEY,
-        (d: { breaches: unknown[] }) => d.breaches,
-        (b: any) => b.domain?.toLowerCase() === q.toLowerCase() || (b.description ?? '').toLowerCase().includes(ql)
+        (d: { breaches: SearchItem[] }) => d.breaches,
+        (b) => b.domain?.toLowerCase() === q.toLowerCase() || (b.description ?? '').toLowerCase().includes(ql)
       ),
       add(
         'Writeups',
         WRITEUPS_CACHE_KEY,
-        (d: { items: unknown[] }) => d.items,
-        (w: any) => matchText(ql, w.title) || matchText(ql, w.description)
+        (d: { items: SearchItem[] }) => d.items,
+        (w) => matchText(ql, w.title) || matchText(ql, w.description)
       ),
       add(
         'Actor Timeline',
         ACTOR_TIMELINE_CACHE_KEY,
-        (d: { groups: unknown[] }) => d.groups,
-        (g: any) => matchText(ql, g.description)
+        (d: { groups: SearchItem[] }) => d.groups,
+        (g) => matchText(ql, g.description)
       ),
       add(
         'Detections',
         DETECTIONS_CACHE_KEY,
-        (d: { detections: unknown[] }) => d.detections,
-        (d: any) => (d.indicators ?? []).some((i: any) => i.value === q)
+        (d: { detections: SearchItem[] }) => d.detections,
+        (d) => (d.indicators ?? []).some((i) => i.value === q)
       ),
     ];
   } else if (type === 'hash') {
@@ -288,32 +317,32 @@ async function gatherSources(query: string, type: QueryType) {
       add(
         'Live IOCs',
         LIVE_IOCS_CACHE_KEY,
-        (d: { items: unknown[] }) => d.items,
-        (i: any) => i.value === q
+        (d: { items: SearchItem[] }) => d.items,
+        (i) => i.value === q
       ),
       add(
         'Malware Samples',
         MALWARE_SAMPLES_CACHE_KEY,
         (d: { samples: Array<{ sha256: string; signature?: string }> }) => d.samples,
-        (s: any) => s.sha256 === q
+        (s) => s.sha256 === q
       ),
       add(
         'IOC Correlation',
         IOC_CORRELATION_CACHE_KEY,
-        (d: { hashes: unknown[] }) => d.hashes,
-        (e: any) => e.value === q
+        (d: { hashes: SearchItem[] }) => d.hashes,
+        (e) => e.value === q
       ),
       add(
         'Writeups',
         WRITEUPS_CACHE_KEY,
-        (d: { items: unknown[] }) => d.items,
-        (w: any) => matchText(ql, w.title) || matchText(ql, w.description)
+        (d: { items: SearchItem[] }) => d.items,
+        (w) => matchText(ql, w.title) || matchText(ql, w.description)
       ),
       add(
         'Actor Timeline',
         ACTOR_TIMELINE_CACHE_KEY,
-        (d: { groups: unknown[] }) => d.groups,
-        (g: any) => matchText(ql, g.description)
+        (d: { groups: SearchItem[] }) => d.groups,
+        (g) => matchText(ql, g.description)
       ),
     ];
   } else {
@@ -322,62 +351,62 @@ async function gatherSources(query: string, type: QueryType) {
       add(
         'Ransomware Recent',
         RANSOMWARE_RECENT_CACHE_KEY,
-        (d: { victims: unknown[] }) => d.victims,
-        (v: any) => matchText(ql, v.group)
+        (d: { victims: SearchItem[] }) => d.victims,
+        (v) => matchText(ql, v.group)
       ),
       add(
         'Actor Timeline',
         ACTOR_TIMELINE_CACHE_KEY,
-        (d: { groups: unknown[] }) => d.groups,
-        (g: any) => matchText(ql, g.display_name) || matchText(ql, g.slug)
+        (d: { groups: SearchItem[] }) => d.groups,
+        (g) => matchText(ql, g.display_name) || matchText(ql, g.slug)
       ),
       add(
         'Recent CVEs',
         CVE_RECENT_CACHE_KEY,
-        (d: { cves: unknown[] }) => (Array.isArray(d.cves) ? d.cves.slice(0, 50) : []),
-        (c: any) => matchText(ql, c.description) || matchText(ql, c.id)
+        (d: { cves: SearchItem[] }) => (Array.isArray(d.cves) ? d.cves.slice(0, 50) : []),
+        (c) => matchText(ql, c.description) || matchText(ql, c.id)
       ),
       add(
         'Live IOCs',
         LIVE_IOCS_CACHE_KEY,
-        (d: { items: unknown[] }) => d.items,
-        (i: any) => matchText(ql, i.value) || matchText(ql, i.source)
+        (d: { items: SearchItem[] }) => d.items,
+        (i) => matchText(ql, i.value) || matchText(ql, i.source)
       ),
       add(
         'Writeups',
         WRITEUPS_CACHE_KEY,
-        (d: { items: unknown[] }) => d.items,
-        (w: any) => matchText(ql, w.title) || matchText(ql, w.description)
+        (d: { items: SearchItem[] }) => d.items,
+        (w) => matchText(ql, w.title) || matchText(ql, w.description)
       ),
       add(
         'Breach Disclosures',
         BREACH_CACHE_KEY,
-        (d: { breaches: unknown[] }) => d.breaches,
-        (b: any) => (b.description ?? '').toLowerCase().includes(ql)
+        (d: { breaches: SearchItem[] }) => d.breaches,
+        (b) => (b.description ?? '').toLowerCase().includes(ql)
       ),
       add(
         'Detections',
         DETECTIONS_CACHE_KEY,
-        (d: { detections: unknown[] }) => d.detections,
-        (d: any) => matchText(ql, d.rule_name) || matchText(ql, d.rule_id)
+        (d: { detections: SearchItem[] }) => d.detections,
+        (d) => matchText(ql, d.rule_name) || matchText(ql, d.rule_id)
       ),
       add(
         'Cybercrime',
         CYBERCRIME_CACHE_KEY,
-        (d: { items: unknown[] }) => d.items,
-        (c: any) => matchText(ql, c.title) || matchText(ql, c.description)
+        (d: { items: SearchItem[] }) => d.items,
+        (c) => matchText(ql, c.title) || matchText(ql, c.description)
       ),
       add(
         'Negotiations',
         NEGOTIATIONS_CACHE_KEY,
-        (d: { groups: unknown[] }) => d.groups,
-        (g: any) => matchText(ql, g.group)
+        (d: { groups: SearchItem[] }) => d.groups,
+        (g) => matchText(ql, g.group)
       ),
       add(
         'Malpedia',
         MALPEDIA_CACHE_KEY,
-        (d: { families: unknown[] }) => d.families,
-        (f: any) => matchText(ql, f.name) || matchText(ql, f.common_name)
+        (d: { families: SearchItem[] }) => d.families,
+        (f) => matchText(ql, f.name) || matchText(ql, f.common_name)
       ),
     ];
   }
@@ -796,7 +825,7 @@ Type: ${queryType}
 async function callWorkersAi(env: Env, system: string, user: string): Promise<string> {
   const model = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
   const res = (await env.AI.run(
-    model as any,
+    model as Parameters<typeof env.AI.run>[0],
     {
       messages: [
         { role: 'system', content: system },
@@ -804,7 +833,7 @@ async function callWorkersAi(env: Env, system: string, user: string): Promise<st
       ],
       max_tokens: 4000,
       temperature: 0.3,
-    } as any
+    } as Parameters<typeof env.AI.run>[1]
   )) as { response?: string };
   return res.response ?? 'No response from model.';
 }
@@ -833,7 +862,7 @@ async function callGroq(env: Env, system: string, user: string): Promise<string>
     const err = await res.json<{ error?: string }>().catch(() => ({ error: `HTTP ${res.status}` }));
     throw new Error(err.error ?? `Groq API error: ${res.status}`);
   }
-  const data = await res.json<any>();
+  const data = await res.json<{ choices?: Array<{ message?: { content?: string } }> }>();
   return data?.choices?.[0]?.message?.content ?? 'No response.';
 }
 

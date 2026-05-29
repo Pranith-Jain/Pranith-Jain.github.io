@@ -99,8 +99,8 @@ export async function runPublisher(deps: RunPublisherDeps): Promise<{ published:
       })
     );
     return { published: 1, slug: post.slug };
-  } catch (err: any) {
-    const msg = String(err?.message ?? err);
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
     await deps.markSlotStatus(slot.candidateId, 'failed', { error: msg });
     await deps.recordFailure({
       slotId: slotIdFor(slot.slotAt),

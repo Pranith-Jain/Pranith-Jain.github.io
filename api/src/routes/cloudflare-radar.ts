@@ -35,15 +35,15 @@ export async function radarDomainHandler(c: Context<{ Bindings: Env }>): Promise
     const result: RadarDomain = { domain, rank: 0 };
 
     if (rankRes.status === 'fulfilled' && rankRes.value.ok) {
-      const data = await rankRes.value.json() as any;
+      const data = (await rankRes.value.json()) as { result?: { top?: Array<{ rank?: number; trending?: string }> } };
       result.rank = data?.result?.top?.[0]?.rank ?? 0;
       result.trending = data?.result?.top?.[0]?.trending;
     }
 
     if (catsRes.status === 'fulfilled' && catsRes.value.ok) {
-      const data = await catsRes.value.json() as any;
+      const data = (await catsRes.value.json()) as { result?: { categories?: Array<{ name?: string }> } };
       const cats = data?.result?.categories ?? [];
-      if (cats.length > 0) result.category = cats[0].name;
+      if (cats.length > 0) result.category = cats[0]?.name;
     }
 
     const body = JSON.stringify({ result, generated_at: new Date().toISOString() });

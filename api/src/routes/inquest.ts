@@ -14,12 +14,12 @@ export async function inquestSearchHandler(c: Context<{ Bindings: Env }>): Promi
 
   try {
     const res = await fetch(`https://labs.inquest.net/api/iocdb/search?keyword=${encodeURIComponent(q)}`, {
-      headers: { 'accept': 'application/json', 'user-agent': 'pranithjain.qzz.io DFIR toolkit' },
+      headers: { accept: 'application/json', 'user-agent': 'pranithjain.qzz.io DFIR toolkit' },
       signal: AbortSignal.timeout(10000),
     });
     if (!res.ok) return c.json({ error: `InQuest upstream ${res.status}` }, 502);
 
-    const data = await res.json() as any;
+    const data = (await res.json()) as { data?: unknown };
     const rawResults = data?.data ?? [];
     const results = Array.isArray(rawResults) ? rawResults.slice(0, 100) : [];
     const body = JSON.stringify({ count: results.length, results, generated_at: new Date().toISOString() });

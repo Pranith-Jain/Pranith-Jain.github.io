@@ -15,11 +15,11 @@ export async function certspotterSearchHandler(c: Context<{ Bindings: Env }>): P
   try {
     const res = await fetch(
       `https://api.certspotter.com/v1/issuances?domain=${encodeURIComponent(domain)}&include_subdomains=true&expand=dns_names`,
-      { headers: { 'accept': 'application/json' }, signal: AbortSignal.timeout(10000) }
+      { headers: { accept: 'application/json' }, signal: AbortSignal.timeout(10000) }
     );
     if (!res.ok) return c.json({ error: `CertSpotter upstream ${res.status}` }, 502);
 
-    const data = await res.json() as any[];
+    const data = (await res.json()) as Array<{ dns_names?: string[] }>;
     const subdomains = new Set<string>();
     for (const cert of data.slice(0, 50)) {
       const names = cert?.dns_names as string[] | undefined;

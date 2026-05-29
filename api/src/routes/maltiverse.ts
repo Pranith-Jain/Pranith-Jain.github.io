@@ -14,12 +14,12 @@ export async function maltiverseSearchHandler(c: Context<{ Bindings: Env }>): Pr
 
   try {
     const res = await fetch(`https://api.maltiverse.com/search?query=${encodeURIComponent(q)}&limit=20`, {
-      headers: { 'accept': 'application/json', 'user-agent': 'pranithjain.qzz.io DFIR toolkit' },
+      headers: { accept: 'application/json', 'user-agent': 'pranithjain.qzz.io DFIR toolkit' },
       signal: AbortSignal.timeout(10000),
     });
     if (!res.ok) return c.json({ error: `Maltiverse upstream ${res.status}` }, 502);
 
-    const data = await res.json() as any;
+    const data = (await res.json()) as { hits?: { hits?: unknown }; result?: unknown; data?: unknown };
     const rawHits = data?.hits?.hits ?? data?.result ?? data?.data ?? [];
     const results = Array.isArray(rawHits) ? rawHits.slice(0, 50) : [];
     const body = JSON.stringify({ count: results.length, results, generated_at: new Date().toISOString() });

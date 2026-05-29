@@ -32,7 +32,9 @@ async function readCache<T>(key: string): Promise<T | null> {
     const cache = caches.default;
     const cached = await cache.match(new Request(key));
     if (cached) return (await cached.json()) as T;
-  } catch { /* miss */ }
+  } catch {
+    /* miss */
+  }
   return null;
 }
 
@@ -46,7 +48,7 @@ export async function getWatchlistHandler(c: Context<{ Bindings: Env }>): Promis
 export async function updateWatchlistHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const kv = c.env.KV_CACHE;
   if (!kv) return c.json({ error: 'KV not available' }, 503);
-  const body = await c.req.json<any>();
+  const body = await c.req.json<{ domains?: unknown[]; emails?: unknown[] }>();
   if (body.domains !== undefined && !Array.isArray(body.domains)) {
     return c.json({ error: 'domains must be an array' }, 400);
   }
@@ -71,8 +73,19 @@ export async function dashboardHandler(c: Context<{ Bindings: Env }>): Promise<R
   // Hoist shared cache reads above the loop — previously these fired
   // per-domain (N×2 cache reads for N domains). The data is identical
   // across iterations; read once and filter in-memory.
-  const liveIocs = await readCache<{ items: Array<{ value: string; kind: string; source: string }> }>('https://live-iocs-cache.internal/v11-freshness-filter');
-  const breaches = await readCache<{ breaches: Array<{ name: string; title: string; domain?: string; pwn_count?: number; breach_date?: string; data_classes?: string[] }> }>('https://breach-cache.internal/v6-hibp-only');
+  const liveIocs = await readCache<{ items: Array<{ value: string; kind: string; source: string }> }>(
+    'https://live-iocs-cache.internal/v11-freshness-filter'
+  );
+  const breaches = await readCache<{
+    breaches: Array<{
+      name: string;
+      title: string;
+      domain?: string;
+      pwn_count?: number;
+      breach_date?: string;
+      data_classes?: string[];
+    }>;
+  }>('https://breach-cache.internal/v6-hibp-only');
 
   // Check domains against cached threat data
   for (const domain of wl.domains) {
@@ -82,9 +95,7 @@ export async function dashboardHandler(c: Context<{ Bindings: Env }>): Promise<R
       (i) => i.value.toLowerCase() === domainLower || i.value.toLowerCase().includes(domainLower)
     );
 
-    const domainBreaches = (breaches?.breaches ?? []).filter(
-      (b) => b.domain?.toLowerCase() === domainLower
-    );
+    const domainBreaches = (breaches?.breaches ?? []).filter((b) => b.domain?.toLowerCase() === domainLower);
 
     results.push({
       domain: domainLower,

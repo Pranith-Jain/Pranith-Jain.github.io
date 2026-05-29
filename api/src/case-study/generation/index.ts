@@ -28,12 +28,12 @@ function tagsFor(c: Candidate): string[] {
   // Explicitly string[]: seeding with c.type (a CaseStudyType) would
   // otherwise infer CaseStudyType[] and reject the slugified pushes.
   const t: string[] = [c.type];
-  const ev = c.evidence as any;
+  const ev = c.evidence;
   if (ev?.vendor) t.push(slugify(String(ev.vendor)));
   if (ev?.product) t.push(slugify(String(ev.product)));
   if (ev?.family) t.push(slugify(String(ev.family)));
   if (ev?.group) t.push(slugify(String(ev.group)));
-  if (ev?.mitre_techniques) {
+  if (Array.isArray(ev.mitre_techniques)) {
     for (const tech of ev.mitre_techniques.slice(0, 4)) {
       if (typeof tech === 'string') t.push(slugify(tech));
     }
@@ -41,7 +41,7 @@ function tagsFor(c: Candidate): string[] {
   // Vendors from briefing findings make good tags; CWEs do NOT — a weekly
   // briefing has hundreds, which dumped an unreadable `cwe-94cwe-20…` blob
   // on the post. Take a few distinct vendors only.
-  if (ev?.sections) {
+  if (Array.isArray(ev.sections)) {
     const vendors = new Set<string>();
     for (const section of ev.sections) {
       for (const finding of section.findings ?? []) {
@@ -57,7 +57,7 @@ function tagsFor(c: Candidate): string[] {
 /** Extract source URLs from candidate evidence. */
 function extractSources(evidence: Record<string, unknown>): PostSource[] {
   const sources: PostSource[] = [];
-  const ev = evidence as any;
+  const ev = evidence;
 
   // Actor discovery stores urls+titles arrays
   if (Array.isArray(ev.urls)) {
@@ -105,7 +105,7 @@ function extractSources(evidence: Record<string, unknown>): PostSource[] {
       }
     }
   }
-  if (ev.sections) {
+  if (Array.isArray(ev.sections)) {
     for (const section of ev.sections) {
       for (const finding of section.findings ?? []) {
         if (finding.source_url && typeof finding.source_url === 'string') {
