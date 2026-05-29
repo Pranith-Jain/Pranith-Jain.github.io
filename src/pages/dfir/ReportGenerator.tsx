@@ -1,8 +1,6 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, FileText, Loader2, Download, AlertTriangle, Clock, Bug } from 'lucide-react';
-import { marked } from 'marked';
-import DOMPurify from 'isomorphic-dompurify';
 
 interface ReportResponse {
   ok: boolean;
@@ -48,10 +46,26 @@ export default function ReportGeneratorPage(): JSX.Element {
     void generate(query);
   };
 
-  const renderedHtml = useMemo(() => {
-    if (!report) return '';
-    const raw = marked.parse(report.markdown, { async: false }) as string;
-    return DOMPurify.sanitize(raw);
+  // marked + isomorphic-dompurify are heavy and must not be statically imported
+  // (no-restricted-imports). Load them lazily in an effect and render from state.
+  const [renderedHtml, setRenderedHtml] = useState('');
+  useEffect(() => {
+    if (!report) {
+      setRenderedHtml('');
+      return;
+    }
+    let cancelled = false;
+    void (async () => {
+      const [{ marked }, { default: DOMPurify }] = await Promise.all([
+        import('marked'),
+        import('isomorphic-dompurify'),
+      ]);
+      const raw = marked.parse(report.markdown, { async: false }) as string;
+      if (!cancelled) setRenderedHtml(DOMPurify.sanitize(raw));
+    })();
+    return () => {
+      cancelled = true;
+    };
   }, [report]);
 
   const downloadReport = () => {
@@ -77,14 +91,17 @@ export default function ReportGeneratorPage(): JSX.Element {
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Report Generator</h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-3xl">
-          Generate an on-demand threat intelligence report for any CVE, threat actor, or security entity.
-          AI-powered with live enrichment from NVD, CISA KEV, EPSS, and curated threat actor data.
+          Generate an on-demand threat intelligence report for any CVE, threat actor, or security entity. AI-powered
+          with live enrichment from NVD, CISA KEV, EPSS, and curated threat actor data.
         </p>
       </div>
 
       <form onSubmit={handleSubmit} className="flex gap-3 items-end mb-6 flex-wrap">
         <div className="flex-1 min-w-[240px]">
-          <label htmlFor="report-query" className="block text-xs font-mono uppercase tracking-wider text-slate-500 mb-1.5">
+          <label
+            htmlFor="report-query"
+            className="block text-xs font-mono uppercase tracking-wider text-slate-500 mb-1.5"
+          >
             Search entity
           </label>
           <input
@@ -113,7 +130,10 @@ export default function ReportGeneratorPage(): JSX.Element {
           <button
             key={ex}
             type="button"
-            onClick={() => { setQuery(ex); void generate(ex); }}
+            onClick={() => {
+              setQuery(ex);
+              void generate(ex);
+            }}
             className="text-[11px] font-mono px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-brand-100 dark:hover:bg-brand-900/30 hover:text-brand-700 dark:hover:text-brand-300 transition-colors"
           >
             {ex}
@@ -155,7 +175,9 @@ export default function ReportGeneratorPage(): JSX.Element {
         <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-12 text-center">
           <Bug size={32} className="mx-auto mb-3 text-slate-400" />
           <p className="text-sm font-mono text-slate-500">Enter a CVE ID, threat actor, or security entity above.</p>
-          <p className="text-xs font-mono text-slate-400 mt-1">Reports include live enrichment from NVD, CISA KEV, EPSS, and curated threat actor data.</p>
+          <p className="text-xs font-mono text-slate-400 mt-1">
+            Reports include live enrichment from NVD, CISA KEV, EPSS, and curated threat actor data.
+          </p>
         </div>
       )}
     </div>

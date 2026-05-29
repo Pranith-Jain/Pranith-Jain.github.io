@@ -53,15 +53,17 @@ export default function ThreatMapChart({
   selectedAlpha2,
   globeView,
 }: ThreatMapChartProps): JSX.Element {
-  // Slow globe rotation when in globe view — 1 deg / 80ms = full rotation
-  // in ~28s. Pause-on-hover would be nice but adds state churn; users can
-  // toggle off-globe to inspect a fixed continent.
+  // Slow globe rotation when in globe view — 2.5 deg / 200ms = full rotation
+  // in ~28s. Ticking at 200ms (not 80ms) cuts full-map re-renders from ~12.5/s
+  // to 5/s for the same visual speed; each setState re-renders ~177 country
+  // paths, so the slower cadence is a meaningful CPU saving while the globe is
+  // open. Pause-on-hover would be nice but adds state churn.
   const [rotation, setRotation] = useState<[number, number, number]>([0, 0, 0]);
   useEffect(() => {
     if (!globeView) return;
     const id = window.setInterval(() => {
-      setRotation((r) => [(r[0] + 1) % 360, r[1], r[2]]);
-    }, 80);
+      setRotation((r) => [(r[0] + 2.5) % 360, r[1], r[2]]);
+    }, 200);
     return () => window.clearInterval(id);
   }, [globeView]);
 

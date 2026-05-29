@@ -11,8 +11,8 @@ const API_BASE = 'https://pranithjain.qzz.io';
 
 async function apiFetch<T>(path: string, apiKey?: string, init?: RequestInit): Promise<T> {
   const headers: Record<string, string> = {
-    'accept': 'application/json',
-    ...(init?.headers as Record<string, string> ?? {}),
+    accept: 'application/json',
+    ...((init?.headers as Record<string, string>) ?? {}),
   };
   if (apiKey) {
     headers['authorization'] = `Bearer ${apiKey}`;
@@ -28,7 +28,7 @@ async function apiFetch<T>(path: string, apiKey?: string, init?: RequestInit): P
   return res.json() as Promise<T>;
 }
 
-export class DfirMcpServer extends McpAgent<Env, Record<string, never>, {}> {
+export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<string, never>> {
   server = new McpServer({
     name: 'DFIR-ThreatIntel-MCP',
     version: '1.0.0',
@@ -351,13 +351,15 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, {}> {
     this.server.tool(
       'get_blocklists',
       'Get pre-generated firewall blocklists in pfSense, iptables, and Suricata formats. Derived from aggregated threat intel feeds.',
-      { format: z.enum(['pfsense', 'iptables', 'suricata', 'meta']).optional().describe('Blocklist format (default: meta)') },
+      {
+        format: z
+          .enum(['pfsense', 'iptables', 'suricata', 'meta'])
+          .optional()
+          .describe('Blocklist format (default: meta)'),
+      },
       async ({ format }) => {
         const fmt = format ?? 'meta';
-        const data = await apiFetch<Record<string, unknown>>(
-          `/api/v1/blocklists/${fmt}`,
-          this.apiKey
-        );
+        const data = await apiFetch<Record<string, unknown>>(`/api/v1/blocklists/${fmt}`, this.apiKey);
         return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
       }
     );
@@ -396,15 +398,11 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, {}> {
       'Analyze a URL for phishing indicators. Checks against PhishTank, OpenPhish, URLhaus, and performs visual similarity analysis.',
       { url: z.string().describe('URL to analyze') },
       async ({ url }) => {
-        const data = await apiFetch<Record<string, unknown>>(
-          `/api/v1/phishing/analyze`,
-          this.apiKey,
-          {
-            method: 'POST',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ url }),
-          }
-        );
+        const data = await apiFetch<Record<string, unknown>>(`/api/v1/phishing/analyze`, this.apiKey, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ url }),
+        });
         return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
       }
     );
@@ -427,7 +425,10 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, {}> {
     this.server.tool(
       'google_dorks',
       'Generate and execute Google dork queries for a domain. Useful for finding exposed files, login pages, and sensitive information.',
-      { domain: z.string().describe('Domain to dork'), dork_type: z.enum(['files', 'login', 'sensitive', 'all']).optional().describe('Type of dorks to run') },
+      {
+        domain: z.string().describe('Domain to dork'),
+        dork_type: z.enum(['files', 'login', 'sensitive', 'all']).optional().describe('Type of dorks to run'),
+      },
       async ({ domain, dork_type }) => {
         const data = await apiFetch<Record<string, unknown>>(
           `/api/v1/google-dorks?domain=${encodeURIComponent(domain)}&type=${dork_type ?? 'all'}`,
@@ -441,14 +442,14 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, {}> {
     this.server.tool(
       'trace_crypto_address',
       'Trace a cryptocurrency wallet address. Returns balance, transaction history, and associated entities from blockchain explorers.',
-      { address: z.string().describe('Crypto wallet address'), chain: z.enum(['bitcoin', 'ethereum', 'monero']).optional().describe('Blockchain (default: auto-detect)') },
+      {
+        address: z.string().describe('Crypto wallet address'),
+        chain: z.enum(['bitcoin', 'ethereum', 'monero']).optional().describe('Blockchain (default: auto-detect)'),
+      },
       async ({ address, chain }) => {
         const qs = new URLSearchParams({ address });
         if (chain) qs.set('chain', chain);
-        const data = await apiFetch<Record<string, unknown>>(
-          `/api/v1/crypto-trace?${qs}`,
-          this.apiKey
-        );
+        const data = await apiFetch<Record<string, unknown>>(`/api/v1/crypto-trace?${qs}`, this.apiKey);
         return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
       }
     );
@@ -465,15 +466,11 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, {}> {
         if (!text && !url) {
           throw new Error('Either text or url must be provided');
         }
-        const data = await apiFetch<Record<string, unknown>>(
-          '/api/v1/report/parse',
-          this.apiKey,
-          {
-            method: 'POST',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ text, url }),
-          }
-        );
+        const data = await apiFetch<Record<string, unknown>>('/api/v1/report/parse', this.apiKey, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ text, url }),
+        });
         return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
       }
     );
@@ -504,10 +501,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, {}> {
         const params = new URLSearchParams();
         if (limit) params.set('limit', String(limit));
         if (type) params.set('type', type);
-        const data = await apiFetch<Record<string, unknown>>(
-          `/api/v1/ioc-lifecycle/trending?${params}`,
-          this.apiKey
-        );
+        const data = await apiFetch<Record<string, unknown>>(`/api/v1/ioc-lifecycle/trending?${params}`, this.apiKey);
         return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
       }
     );
@@ -524,15 +518,11 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, {}> {
         complexity: z.enum(['basic', 'standard', 'advanced']).optional().describe('Rule complexity level'),
       },
       async ({ description, strings, family, filetype, complexity }) => {
-        const data = await apiFetch<Record<string, unknown>>(
-          '/api/v1/yara/generate',
-          this.apiKey,
-          {
-            method: 'POST',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ description, strings, family, filetype, complexity }),
-          }
-        );
+        const data = await apiFetch<Record<string, unknown>>('/api/v1/yara/generate', this.apiKey, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ description, strings, family, filetype, complexity }),
+        });
         return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
       }
     );
@@ -545,15 +535,11 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, {}> {
         rule: z.string().describe('The YARA rule text to validate'),
       },
       async ({ rule }) => {
-        const data = await apiFetch<Record<string, unknown>>(
-          '/api/v1/yara/validate',
-          this.apiKey,
-          {
-            method: 'POST',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ rule }),
-          }
-        );
+        const data = await apiFetch<Record<string, unknown>>('/api/v1/yara/validate', this.apiKey, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ rule }),
+        });
         return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
       }
     );
@@ -564,18 +550,17 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, {}> {
       'Add a domain to Certificate Transparency monitoring. Alerts on new subdomains, suspicious patterns, wildcard certs, and more. Uses crt.sh for unlimited free CT log queries.',
       {
         domain: z.string().describe('Domain to monitor (e.g., example.com)'),
-        alert_types: z.array(z.enum(['new_subdomain', 'suspicious_name', 'wildcard', 'ca_change', 'short_validity', 'ip_cert'])).optional().describe('Types of alerts to generate'),
+        alert_types: z
+          .array(z.enum(['new_subdomain', 'suspicious_name', 'wildcard', 'ca_change', 'short_validity', 'ip_cert']))
+          .optional()
+          .describe('Types of alerts to generate'),
       },
       async ({ domain, alert_types }) => {
-        const data = await apiFetch<Record<string, unknown>>(
-          '/api/v1/ct-monitor/watch',
-          this.apiKey,
-          {
-            method: 'POST',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ domain, alert_types }),
-          }
-        );
+        const data = await apiFetch<Record<string, unknown>>('/api/v1/ct-monitor/watch', this.apiKey, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ domain, alert_types }),
+        });
         return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
       }
     );
@@ -592,10 +577,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, {}> {
         const params = new URLSearchParams({ domain });
         if (days) params.set('days', String(days));
         if (limit) params.set('limit', String(limit));
-        const data = await apiFetch<Record<string, unknown>>(
-          `/api/v1/ct-monitor/certs?${params}`,
-          this.apiKey
-        );
+        const data = await apiFetch<Record<string, unknown>>(`/api/v1/ct-monitor/certs?${params}`, this.apiKey);
         return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
       }
     );

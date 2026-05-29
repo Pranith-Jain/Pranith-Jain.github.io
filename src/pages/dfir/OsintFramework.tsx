@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Compass, ExternalLink, Search } from 'lucide-react';
@@ -170,7 +171,7 @@ export default function OsintFramework(): JSX.Element {
           >
             <header className="flex flex-wrap items-baseline gap-2 mb-1">
               <a
-                href={e.url}
+                href={sanitizeUrl(e.url) || undefined}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"

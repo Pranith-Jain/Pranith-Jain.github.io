@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ExternalLink, RefreshCw, Radio, Loader2, Search, AlertTriangle, CheckCircle2 } from 'lucide-react';
@@ -433,7 +434,7 @@ export default function ThreatFeeds(): JSX.Element {
           >
             <div className="flex flex-wrap items-baseline justify-between gap-2 mb-1">
               <a
-                href={item.link}
+                href={sanitizeUrl(item.link) || undefined}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"

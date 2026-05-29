@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, FolderTree, Upload } from 'lucide-react';
+import { ArrowLeft, FolderTree, Upload, Loader2 } from 'lucide-react';
+import { fileTooLarge, yieldToPaint } from '../../lib/dfir/file-guard';
 
 /* Windows registry hive (regf). Cells live in hbins starting at 0x1000;
    stored offsets are relative to that; each cell has a 4-byte size prefix. */

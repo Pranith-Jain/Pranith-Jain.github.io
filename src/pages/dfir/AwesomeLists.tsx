@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ExternalLink, Github, Search, Star, Sparkles } from 'lucide-react';
@@ -152,7 +153,7 @@ export default function AwesomeLists(): JSX.Element {
           >
             <div className="flex items-baseline justify-between gap-2 mb-1">
               <a
-                href={r.url}
+                href={sanitizeUrl(r.url) || undefined}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
@@ -164,7 +165,7 @@ export default function AwesomeLists(): JSX.Element {
               </span>
             </div>
             <a
-              href={r.url}
+              href={sanitizeUrl(r.url) || undefined}
               target="_blank"
               rel="noopener noreferrer"
               className="text-[11px] font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 mb-2"

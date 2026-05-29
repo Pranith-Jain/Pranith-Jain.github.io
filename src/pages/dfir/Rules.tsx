@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ExternalLink, RefreshCw, Star, GitFork, GitCommit, FileCode } from 'lucide-react';
 import { RulesSnapshotPanel } from '../../components/dfir/RulesSnapshotPanel';
@@ -282,7 +283,12 @@ export default function Rules(): JSX.Element {
                     key={`${c.source_id}-${i}`}
                     className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
                   >
-                    <a href={c.link} target="_blank" rel="noopener noreferrer" className="group block">
+                    <a
+                      href={sanitizeUrl(c.link) || undefined}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group block"
+                    >
                       <div className="flex items-baseline justify-between gap-3">
                         <div className="font-mono text-sm text-slate-900 dark:text-slate-100 truncate group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                           {c.title}

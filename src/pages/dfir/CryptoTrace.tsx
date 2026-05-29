@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import {
@@ -317,7 +318,12 @@ export default function CryptoTrace(): JSX.Element {
             {data.context?.found && (
               <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mt-2">
                 Enrichment via{' '}
-                <a href={data.context.source_url} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                <a
+                  href={sanitizeUrl(data.context.source_url) || undefined}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:underline"
+                >
                   Blockscout
                 </a>
                 {data.context.reputation && <> · reputation: {data.context.reputation}</>}
@@ -341,7 +347,7 @@ export default function CryptoTrace(): JSX.Element {
                   with sanctioned addresses can constitute a U.S. sanctions violation regardless of intent.
                 </p>
                 <a
-                  href={data.sanctions.source_url}
+                  href={sanitizeUrl(data.sanctions.source_url) || undefined}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-[11px] font-mono text-rose-700 dark:text-rose-300 hover:underline inline-flex items-center gap-1"
@@ -358,7 +364,7 @@ export default function CryptoTrace(): JSX.Element {
                   <span className="text-slate-500 dark:text-slate-400 ml-auto">
                     (per{' '}
                     <a
-                      href={data.sanctions.source_url}
+                      href={sanitizeUrl(data.sanctions.source_url) || undefined}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="hover:underline"
@@ -388,7 +394,7 @@ export default function CryptoTrace(): JSX.Element {
                   request involving this address as hostile.
                 </p>
                 <a
-                  href={data.scam.source_url}
+                  href={sanitizeUrl(data.scam.source_url) || undefined}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-[11px] font-mono text-amber-700 dark:text-amber-300 hover:underline inline-flex items-center gap-1"
@@ -407,7 +413,12 @@ export default function CryptoTrace(): JSX.Element {
                 </span>
                 <span className="text-slate-500 dark:text-slate-400 ml-auto">
                   (per{' '}
-                  <a href={data.scam.source_url} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                  <a
+                    href={sanitizeUrl(data.scam.source_url) || undefined}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                  >
                     scamsniffer/scam-database
                   </a>
                   )
@@ -564,7 +575,7 @@ export default function CryptoTrace(): JSX.Element {
                           )}
                           {tx.time && <span className="text-slate-500 dark:text-slate-400">{fmtRel(tx.time)}</span>}
                           <a
-                            href={tx.link}
+                            href={sanitizeUrl(tx.link) || undefined}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 break-all"

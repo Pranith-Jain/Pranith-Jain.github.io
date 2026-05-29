@@ -3,14 +3,8 @@ import { lookupCve } from '../lib/cve-lookup';
 import { ACTOR_ALIASES } from '../data/threat-actor-aliases';
 
 // ── Cache keys (imported where available, hardcoded for internal-only keys) ──
-import {
-  LIVE_IOCS_CACHE_KEY,
-  type LiveIocsResponse,
-} from './live-iocs';
-import {
-  RANSOMWARE_RECENT_CACHE_KEY,
-  type RansomwareVictim,
-} from './ransomware-recent';
+import { LIVE_IOCS_CACHE_KEY, type LiveIocsResponse } from './live-iocs';
+import { RANSOMWARE_RECENT_CACHE_KEY, type RansomwareVictim } from './ransomware-recent';
 import { DETECTIONS_CACHE_KEY, type DetectionsResponse } from './detections';
 import { CVE_RECENT_CACHE_KEY, type CveRecentResponse } from './cve-recent';
 import { WRITEUPS_CACHE_KEY, type WriteupsResponse } from './writeups';
@@ -62,11 +56,19 @@ async function readCachedJson<T>(cacheKey: string): Promise<T | null> {
     const cache = (caches as unknown as { default: Cache }).default;
     const cached = await cache.match(new Request(cacheKey));
     if (cached) return (await cached.json()) as T;
-  } catch { /* cold cache */ }
+  } catch {
+    /* cold cache */
+  }
   return null;
 }
 
-function buildItem(label: string, desc: string | undefined, url: string | undefined, source: string, subkind?: string): SearchItem {
+function buildItem(
+  label: string,
+  desc: string | undefined,
+  url: string | undefined,
+  source: string,
+  subkind?: string
+): SearchItem {
   return { label, description: desc, url, source, subkind };
 }
 
@@ -85,7 +87,15 @@ async function searchRansomware(needle: string): Promise<SearchSection> {
   for (const g of data.groups ?? []) {
     if (matches(needle, g.group) && !seen.has(g.group)) {
       seen.add(g.group);
-      items.push(buildItem(g.group, `${g.count} victim${g.count === 1 ? '' : 's'} this period`, undefined, 'ransomware-recent', 'group'));
+      items.push(
+        buildItem(
+          g.group,
+          `${g.count} victim${g.count === 1 ? '' : 's'} this period`,
+          undefined,
+          'ransomware-recent',
+          'group'
+        )
+      );
     }
   }
   for (const v of data.victims ?? []) {
@@ -99,7 +109,9 @@ async function searchRansomware(needle: string): Promise<SearchSection> {
 }
 
 async function searchC2(needle: string): Promise<SearchSection> {
-  const data = await readCachedJson<{ entries: Array<{ ip: string; framework: string; context?: string; port?: number }> }>(C2_CACHE_KEY);
+  const data = await readCachedJson<{
+    entries: Array<{ ip: string; framework: string; context?: string; port?: number }>;
+  }>(C2_CACHE_KEY);
   if (!data) return { label: 'C2 IPs', kind: 'c2', total: 0, items: [] };
 
   const items: SearchItem[] = [];
@@ -108,13 +120,15 @@ async function searchC2(needle: string): Promise<SearchSection> {
     if (matches(needle, e.ip) || matches(needle, e.framework) || (e.context && matches(needle, e.context))) {
       if (seen.has(e.ip)) continue;
       seen.add(e.ip);
-      items.push(buildItem(
-        `${e.ip}${e.port ? `:${e.port}` : ''}`,
-        `C2: ${e.framework}${e.context ? ` — ${e.context}` : ''}`,
-        undefined,
-        'c2-tracker',
-        e.framework,
-      ));
+      items.push(
+        buildItem(
+          `${e.ip}${e.port ? `:${e.port}` : ''}`,
+          `C2: ${e.framework}${e.context ? ` — ${e.context}` : ''}`,
+          undefined,
+          'c2-tracker',
+          e.framework
+        )
+      );
     }
   }
 
@@ -131,13 +145,15 @@ async function searchLiveIocs(needle: string): Promise<SearchSection> {
     if (matches(needle, ioc.value) || (ioc.context && matches(needle, ioc.context))) {
       if (seen.has(ioc.value)) continue;
       seen.add(ioc.value);
-      items.push(buildItem(
-        ioc.value,
-        `${ioc.kind} · ${ioc.source}${ioc.context ? ` — ${ioc.context}` : ''}`,
-        undefined,
-        'live-iocs',
-        ioc.kind,
-      ));
+      items.push(
+        buildItem(
+          ioc.value,
+          `${ioc.kind} · ${ioc.source}${ioc.context ? ` — ${ioc.context}` : ''}`,
+          undefined,
+          'live-iocs',
+          ioc.kind
+        )
+      );
       if (items.length >= 50) break;
     }
   }
@@ -152,38 +168,46 @@ async function searchDetections(needle: string): Promise<SearchSection> {
   const items: SearchItem[] = [];
   const seen = new Set<string>();
   for (const d of data.detections ?? []) {
-    const match = matches(needle, d.rule_name) || matches(needle, d.rule_id) ||
+    const match =
+      matches(needle, d.rule_name) ||
+      matches(needle, d.rule_id) ||
       (d.indicators ?? []).some((i: { value: string }) => matches(needle, i.value));
     if (!match) continue;
     const key = `${d.rule_id}:${d.group_key ?? ''}`;
     if (seen.has(key)) continue;
     seen.add(key);
-    items.push(buildItem(
-      d.rule_name,
-      `severity: ${d.severity} · ${d.match_count} indicator${d.match_count === 1 ? '' : 's'}${d.group_key ? ` · ${d.group_key}` : ''}`,
-      undefined,
-      'detections',
-      d.severity,
-    ));
+    items.push(
+      buildItem(
+        d.rule_name,
+        `severity: ${d.severity} · ${d.match_count} indicator${d.match_count === 1 ? '' : 's'}${d.group_key ? ` · ${d.group_key}` : ''}`,
+        undefined,
+        'detections',
+        d.severity
+      )
+    );
   }
 
   return { label: 'Detections', kind: 'detections', total: items.length, items };
 }
 
 async function searchActorTimeline(needle: string): Promise<SearchSection> {
-  const data = await readCachedJson<{ groups: Array<{ slug: string; name: string; victim_count: number; techniques_used: number }> }>(ACTOR_TIMELINE_CACHE_KEY);
+  const data = await readCachedJson<{
+    groups: Array<{ slug: string; name: string; victim_count: number; techniques_used: number }>;
+  }>(ACTOR_TIMELINE_CACHE_KEY);
   if (!data) return { label: 'Actor Timeline', kind: 'actors', total: 0, items: [] };
 
   const items: SearchItem[] = [];
   for (const g of data.groups ?? []) {
     if (matches(needle, g.name) || matches(needle, g.slug)) {
-      items.push(buildItem(
-        g.name,
-        `${g.victim_count} victim${g.victim_count === 1 ? '' : 's'} · ${g.techniques_used} TTPs`,
-        `/threatintel/actors/${g.slug}`,
-        'actor-timeline',
-        'actor',
-      ));
+      items.push(
+        buildItem(
+          g.name,
+          `${g.victim_count} victim${g.victim_count === 1 ? '' : 's'} · ${g.techniques_used} TTPs`,
+          `/threatintel/actors/${g.slug}`,
+          'actor-timeline',
+          'actor'
+        )
+      );
     }
   }
 
@@ -203,13 +227,29 @@ async function searchCves(needle: string): Promise<SearchSection> {
     const id = cve.id ?? '';
     if (isCveId) {
       if (q(id) === nl) {
-        items.push(buildItem(id, cve.description ? `${cve.description.slice(0, 200)}…` : '', `https://nvd.nist.gov/vuln/detail/${id}`, 'cve-recent', 'cve'));
+        items.push(
+          buildItem(
+            id,
+            cve.description ? `${cve.description.slice(0, 200)}…` : '',
+            `https://nvd.nist.gov/vuln/detail/${id}`,
+            'cve-recent',
+            'cve'
+          )
+        );
       }
     } else {
       if (matches(needle, id) || (cve.description && matches(needle, cve.description))) {
         if (seen.has(id)) continue;
         seen.add(id);
-        items.push(buildItem(id, cve.description ? `${cve.description.slice(0, 200)}…` : '', `https://nvd.nist.gov/vuln/detail/${id}`, 'cve-recent', 'cve'));
+        items.push(
+          buildItem(
+            id,
+            cve.description ? `${cve.description.slice(0, 200)}…` : '',
+            `https://nvd.nist.gov/vuln/detail/${id}`,
+            'cve-recent',
+            'cve'
+          )
+        );
       }
     }
     if (items.length >= 20) break;
@@ -228,12 +268,14 @@ async function searchWriteups(needle: string): Promise<SearchSection> {
     if (matches(needle, w.title ?? '') || matches(needle, w.description ?? '')) {
       if (seen.has(w.title)) continue;
       seen.add(w.title);
-      items.push(buildItem(
-        w.title ?? '(untitled)',
-        w.description ? `${w.description.slice(0, 200)}${w.description.length > 200 ? '…' : ''}` : '',
-        w.url,
-        w.source ?? 'writeups',
-      ));
+      items.push(
+        buildItem(
+          w.title ?? '(untitled)',
+          w.description ? `${w.description.slice(0, 200)}${w.description.length > 200 ? '…' : ''}` : '',
+          w.url,
+          w.source ?? 'writeups'
+        )
+      );
     }
     if (items.length >= 20) break;
   }
@@ -251,12 +293,14 @@ async function searchCybercrime(needle: string): Promise<SearchSection> {
     if (matches(needle, item.title ?? '') || matches(needle, item.description ?? '')) {
       if (seen.has(item.title)) continue;
       seen.add(item.title);
-      items.push(buildItem(
-        item.title ?? '(untitled)',
-        item.description ? `${item.description.slice(0, 200)}${item.description.length > 200 ? '…' : ''}` : '',
-        item.url,
-        'cybercrime',
-      ));
+      items.push(
+        buildItem(
+          item.title ?? '(untitled)',
+          item.description ? `${item.description.slice(0, 200)}${item.description.length > 200 ? '…' : ''}` : '',
+          item.url,
+          'cybercrime'
+        )
+      );
     }
     if (items.length >= 20) break;
   }
@@ -281,13 +325,15 @@ async function searchIocCorrelation(needle: string): Promise<SearchSection> {
       if (matches(needle, entry.value)) {
         if (seen.has(entry.value)) continue;
         seen.add(entry.value);
-        items.push(buildItem(
-          entry.value,
-          `${entry.source_count} source${entry.source_count === 1 ? '' : 's'}: ${(entry.sources ?? []).join(', ')}`,
-          undefined,
-          'ioc-correlation',
-          kind === 'ips' ? 'ip' : kind === 'urls' ? 'url' : kind === 'domains' ? 'domain' : 'hash',
-        ));
+        items.push(
+          buildItem(
+            entry.value,
+            `${entry.source_count} source${entry.source_count === 1 ? '' : 's'}: ${(entry.sources ?? []).join(', ')}`,
+            undefined,
+            'ioc-correlation',
+            kind === 'ips' ? 'ip' : kind === 'urls' ? 'url' : kind === 'domains' ? 'domain' : 'hash'
+          )
+        );
       }
     }
   }
@@ -304,12 +350,14 @@ async function searchBreaches(needle: string): Promise<SearchSection> {
   const items: SearchItem[] = [];
   for (const b of data.breaches ?? []) {
     if (matches(needle, b.Name) || matches(needle, b.Title ?? '') || matches(needle, b.Domain ?? '')) {
-      items.push(buildItem(
-        b.Title ?? b.Name,
-        `${b.Domain ?? ''} · ${b.BreachDate ?? ''}${b.PwnCount ? ` · ${b.PwnCount.toLocaleString()} records` : ''}`,
-        undefined,
-        'breach-disclosures',
-      ));
+      items.push(
+        buildItem(
+          b.Title ?? b.Name,
+          `${b.Domain ?? ''} · ${b.BreachDate ?? ''}${b.PwnCount ? ` · ${b.PwnCount.toLocaleString()} records` : ''}`,
+          undefined,
+          'breach-disclosures'
+        )
+      );
     }
   }
 
@@ -323,17 +371,24 @@ async function searchMalwareSamples(needle: string): Promise<SearchSection> {
   const items: SearchItem[] = [];
   const seen = new Set<string>();
   for (const s of data.samples ?? []) {
-    if (matches(needle, s.sha256) || matches(needle, s.sha1 ?? '') || matches(needle, s.md5 ?? '') ||
-        matches(needle, s.signature ?? '') || matches(needle, s.file_type ?? '')) {
+    if (
+      matches(needle, s.sha256) ||
+      matches(needle, s.sha1 ?? '') ||
+      matches(needle, s.md5 ?? '') ||
+      matches(needle, s.signature ?? '') ||
+      matches(needle, s.file_type ?? '')
+    ) {
       if (seen.has(s.sha256)) continue;
       seen.add(s.sha256);
-      items.push(buildItem(
-        s.sha256.slice(0, 16) + '…',
-        `${s.signature ?? 'unknown'} · ${s.file_type ?? ''}${s.first_seen ? ` · ${s.first_seen}` : ''}`,
-        s.bazaar_url,
-        'malware-samples',
-        s.signature ? 'malware' : 'sample',
-      ));
+      items.push(
+        buildItem(
+          s.sha256.slice(0, 16) + '…',
+          `${s.signature ?? 'unknown'} · ${s.file_type ?? ''}${s.first_seen ? ` · ${s.first_seen}` : ''}`,
+          s.bazaar_url,
+          'malware-samples',
+          s.signature ? 'malware' : 'sample'
+        )
+      );
       if (items.length >= 30) break;
     }
   }
@@ -358,10 +413,12 @@ async function searchCveLookup(needle: string): Promise<SearchSection> {
         data.epss ? `EPSS ${(data.epss.score * 100).toFixed(2)}%` : '',
         data.kev.in_kev ? 'CISA KEV' : '',
         data.poc ? `${data.poc.count} PoCs` : '',
-      ].filter(Boolean).join(' · '),
+      ]
+        .filter(Boolean)
+        .join(' · '),
       `https://nvd.nist.gov/vuln/detail/${data.cve_id}`,
       'cve-lookup',
-      data.cvss?.severity?.toLowerCase() ?? 'cve',
+      data.cvss?.severity?.toLowerCase() ?? 'cve'
     ),
   ];
 
@@ -379,38 +436,66 @@ async function searchIocCheck(needle: string): Promise<SearchSection> {
   if (!iocType) return { label: 'IOC Check (live)', kind: 'iocs', total: 0, items: [] };
 
   // Quick reputation check via abuseipdb for IPs, otherwise signal from live IOC feeds
-  let items: SearchItem[] = [];
+  const items: SearchItem[] = [];
 
   if (iocType === 'ip') {
     try {
-      const res = await fetch(`https://api.abuseipdb.com/api/v2/check?ipAddress=${encodeURIComponent(q)}&maxAgeInDays=90`, {
-        headers: { Key: 'dummy', Accept: 'application/json' },
-        signal: AbortSignal.timeout(5000),
-      }).catch(() => null);
+      const res = await fetch(
+        `https://api.abuseipdb.com/api/v2/check?ipAddress=${encodeURIComponent(q)}&maxAgeInDays=90`,
+        {
+          headers: { Key: 'dummy', Accept: 'application/json' },
+          signal: AbortSignal.timeout(5000),
+        }
+      ).catch(() => null);
       if (res?.ok) {
-        const data = (await res.json()) as { data?: { abuseConfidenceScore: number; totalReports: number; countryCode?: string; isp?: string; domain?: string; lastReportedAt?: string } };
+        const data = (await res.json()) as {
+          data?: {
+            abuseConfidenceScore: number;
+            totalReports: number;
+            countryCode?: string;
+            isp?: string;
+            domain?: string;
+            lastReportedAt?: string;
+          };
+        };
         if (data?.data && data.data.abuseConfidenceScore > 0) {
-          items.push(buildItem(
-            q,
-            `AbuseIPDB: ${data.data.abuseConfidenceScore}% · ${data.data.totalReports} reports${data.data.countryCode ? ` · ${data.data.countryCode}` : ''}`,
-            `https://www.abuseipdb.com/check/${q}`,
-            'ioc-check',
-            `score-${data.data.abuseConfidenceScore}`,
-          ));
+          items.push(
+            buildItem(
+              q,
+              `AbuseIPDB: ${data.data.abuseConfidenceScore}% · ${data.data.totalReports} reports${data.data.countryCode ? ` · ${data.data.countryCode}` : ''}`,
+              `https://www.abuseipdb.com/check/${q}`,
+              'ioc-check',
+              `score-${data.data.abuseConfidenceScore}`
+            )
+          );
         }
       }
-    } catch { /* skip */ }
+    } catch {
+      /* skip */
+    }
 
     // Check blocklist.de
     try {
-      const bl = await fetch(`https://api.blocklist.de/api.php?ip=${encodeURIComponent(q)}`, { signal: AbortSignal.timeout(4000) }).catch(() => null);
+      const bl = await fetch(`https://api.blocklist.de/api.php?ip=${encodeURIComponent(q)}`, {
+        signal: AbortSignal.timeout(4000),
+      }).catch(() => null);
       if (bl?.ok) {
         const text = await bl.text();
         if (text.includes('found')) {
-          items.push(buildItem(q, 'Listed on blocklist.de', `https://www.blocklist.de/en/view.html?ip=${encodeURIComponent(q)}`, 'ioc-check', 'blocklist'));
+          items.push(
+            buildItem(
+              q,
+              'Listed on blocklist.de',
+              `https://www.blocklist.de/en/view.html?ip=${encodeURIComponent(q)}`,
+              'ioc-check',
+              'blocklist'
+            )
+          );
         }
       }
-    } catch { /* skip */ }
+    } catch {
+      /* skip */
+    }
   }
 
   if (iocType === 'domain') {
@@ -425,10 +510,20 @@ async function searchIocCheck(needle: string): Promise<SearchSection> {
       if (uh?.ok) {
         const ud = (await uh.json()) as { query_status?: string; url_count?: number };
         if (ud.query_status === 'ok' && (ud.url_count ?? 0) > 0) {
-          items.push(buildItem(q, `${ud.url_count} URLs on URLhaus`, `https://urlhaus.abuse.ch/host/${encodeURIComponent(q)}/`, 'ioc-check', 'malicious'));
+          items.push(
+            buildItem(
+              q,
+              `${ud.url_count} URLs on URLhaus`,
+              `https://urlhaus.abuse.ch/host/${encodeURIComponent(q)}/`,
+              'ioc-check',
+              'malicious'
+            )
+          );
         }
       }
-    } catch { /* skip */ }
+    } catch {
+      /* skip */
+    }
   }
 
   if (iocType === 'hash') {
@@ -441,19 +536,26 @@ async function searchIocCheck(needle: string): Promise<SearchSection> {
         signal: AbortSignal.timeout(5000),
       }).catch(() => null);
       if (mb?.ok) {
-        const md = (await mb.json()) as { query_status?: string; data?: Array<{ signature?: string; file_type?: string; first_seen?: string }> };
+        const md = (await mb.json()) as {
+          query_status?: string;
+          data?: Array<{ signature?: string; file_type?: string; first_seen?: string }>;
+        };
         if (md.query_status === 'ok' && md.data?.[0]) {
           const entry = md.data[0];
-          items.push(buildItem(
-            q.slice(0, 16) + '…',
-            `MalwareBazaar: ${entry.signature ?? 'unknown'} · ${entry.file_type ?? ''}${entry.first_seen ? ` · ${entry.first_seen}` : ''}`,
-            `https://bazaar.abuse.ch/sample/${q}/`,
-            'ioc-check',
-            'malware',
-          ));
+          items.push(
+            buildItem(
+              q.slice(0, 16) + '…',
+              `MalwareBazaar: ${entry.signature ?? 'unknown'} · ${entry.file_type ?? ''}${entry.first_seen ? ` · ${entry.first_seen}` : ''}`,
+              `https://bazaar.abuse.ch/sample/${q}/`,
+              'ioc-check',
+              'malware'
+            )
+          );
         }
       }
-    } catch { /* skip */ }
+    } catch {
+      /* skip */
+    }
   }
 
   return { label: 'IOC Check (live)', kind: 'iocs', total: items.length, items };
@@ -467,15 +569,21 @@ async function searchMalpedia(needle: string): Promise<SearchSection> {
 
   const items: SearchItem[] = [];
   for (const f of data.families ?? []) {
-    if (matches(needle, f.name) || matches(needle, f.common_name ?? '') || matches(needle, f.description ?? '') ||
-        (f.aliases ?? []).some((a) => matches(needle, a))) {
-      items.push(buildItem(
-        f.common_name ?? f.name,
-        f.description ? f.description.slice(0, 200) : '',
-        undefined,
-        'malpedia',
-        'malware-family',
-      ));
+    if (
+      matches(needle, f.name) ||
+      matches(needle, f.common_name ?? '') ||
+      matches(needle, f.description ?? '') ||
+      (f.aliases ?? []).some((a) => matches(needle, a))
+    ) {
+      items.push(
+        buildItem(
+          f.common_name ?? f.name,
+          f.description ? f.description.slice(0, 200) : '',
+          undefined,
+          'malpedia',
+          'malware-family'
+        )
+      );
       if (items.length >= 20) break;
     }
   }
@@ -491,18 +599,22 @@ async function searchActorKb(needle: string): Promise<SearchSection> {
   const ql = needle.toLowerCase().trim();
   if (ql.length < 2) return { label: 'Threat Actor KB', kind: 'actors', total: 0, items: [] };
   const matches = ACTOR_ALIASES.filter(
-    (a) => a.canonical.toLowerCase().includes(ql) || a.aliases.some((al) => al.toLowerCase().includes(ql)),
+    (a) => a.canonical.toLowerCase().includes(ql) || a.aliases.some((al) => al.toLowerCase().includes(ql))
   );
   if (matches.length === 0) return { label: 'Threat Actor KB', kind: 'actors', total: 0, items: [] };
-  const items: SearchItem[] = matches.slice(0, 15).map((a) =>
-    buildItem(
-      a.canonical,
-      [a.mitreId ? `MITRE ${a.mitreId}` : '', a.aliases.length > 0 ? `Aliases: ${a.aliases.join(', ')}` : ''].filter(Boolean).join(' · '),
-      a.mitreId ? `https://attack.mitre.org/groups/${a.mitreId}/` : undefined,
-      'actor-kb',
-      a.canonical.toLowerCase().includes(ql) ? 'high' : 'medium',
-    ),
-  );
+  const items: SearchItem[] = matches
+    .slice(0, 15)
+    .map((a) =>
+      buildItem(
+        a.canonical,
+        [a.mitreId ? `MITRE ${a.mitreId}` : '', a.aliases.length > 0 ? `Aliases: ${a.aliases.join(', ')}` : '']
+          .filter(Boolean)
+          .join(' · '),
+        a.mitreId ? `https://attack.mitre.org/groups/${a.mitreId}/` : undefined,
+        'actor-kb',
+        a.canonical.toLowerCase().includes(ql) ? 'high' : 'medium'
+      )
+    );
   return { label: 'Threat Actor KB', kind: 'actors', total: items.length, items };
 }
 

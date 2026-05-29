@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ShieldCheck, ExternalLink, RotateCcw, Download } from 'lucide-react';
@@ -283,7 +284,7 @@ export default function Owasp(): JSX.Element {
           <span key={l.id}>
             {i > 0 && ' · '}
             <a
-              href={l.reference}
+              href={sanitizeUrl(l.reference) || undefined}
               target="_blank"
               rel="noopener noreferrer"
               className="text-brand-600 dark:text-brand-400 hover:underline"

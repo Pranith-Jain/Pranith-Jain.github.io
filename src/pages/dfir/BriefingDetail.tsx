@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, ExternalLink, AlertTriangle, ShieldAlert } from 'lucide-react';
 import { IntelCard } from '../../components/intel/IntelCard';
@@ -196,7 +197,7 @@ function FindingCard({ finding }: { finding: BriefingFinding }) {
         )}
         {finding.source_url && (
           <a
-            href={finding.source_url}
+            href={sanitizeUrl(finding.source_url) || undefined}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline ml-auto"
@@ -311,7 +312,9 @@ export default function BriefingDetail(): JSX.Element {
           try {
             const parsed = JSON.parse(body) as { error?: string };
             msg = parsed.error ?? msg;
-          } catch { /* use default */ }
+          } catch {
+            /* use default */
+          }
           throw new Error(msg);
         }
         const ct = r.headers.get('content-type') ?? '';

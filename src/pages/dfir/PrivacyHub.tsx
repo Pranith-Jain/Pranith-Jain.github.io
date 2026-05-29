@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Scale, ExternalLink, Download, RotateCcw } from 'lucide-react';
@@ -328,7 +329,7 @@ export default function PrivacyHub(): JSX.Element {
           {active.links.map((l) => (
             <li key={l.href}>
               <a
-                href={l.href}
+                href={sanitizeUrl(l.href) || undefined}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"

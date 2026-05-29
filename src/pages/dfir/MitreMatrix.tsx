@@ -2,7 +2,7 @@ import { useState, useMemo, useEffect, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ExternalLink, Search, X } from 'lucide-react';
-import { mitreMatrix } from '../../data/dfir/mitre-matrix';
+import type { MitreTactic } from '../../data/dfir/mitre-matrix';
 import { threatActors } from '../../data/dfir/threat-actors';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
 
@@ -88,6 +88,18 @@ export default function MitreMatrix(): JSX.Element {
   const [coverage, setCoverage] = useState<Record<string, Coverage>>(() => loadCoverage());
   const [coverageMode, setCoverageMode] = useState(false);
   const [showGapsOnly, setShowGapsOnly] = useState(false);
+  // The matrix dataset is ~89KB — load it as its own chunk so it doesn't bloat
+  // the route's initial JS. Empty until the dynamic import resolves.
+  const [mitreMatrix, setMitreMatrix] = useState<MitreTactic[]>([]);
+  useEffect(() => {
+    let cancelled = false;
+    void import('../../data/dfir/mitre-matrix').then((m) => {
+      if (!cancelled) setMitreMatrix(m.mitreMatrix);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const openTechnique = useCallback(
     (id: string) => {

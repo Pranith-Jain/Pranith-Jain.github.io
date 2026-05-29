@@ -50,17 +50,23 @@ export default function CtMonitor(): JSX.Element {
       setWatched(data.watched ?? []);
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
-    } finally { setLoading(false); }
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   const fetchCerts = useCallback(async (domain: string) => {
     setCertsLoading(true);
     try {
-      const data = await api.get<{ certs?: CertInfo[] }>(`/api/v1/ct-monitor/certs?domain=${encodeURIComponent(domain)}&days=30`);
+      const data = await api.get<{ certs?: CertInfo[] }>(
+        `/api/v1/ct-monitor/certs?domain=${encodeURIComponent(domain)}&days=30`
+      );
       setCerts(data.certs ?? []);
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
-    } finally { setCertsLoading(false); }
+    } finally {
+      setCertsLoading(false);
+    }
   }, []);
 
   const addDomain = useCallback(async () => {
@@ -76,27 +82,42 @@ export default function CtMonitor(): JSX.Element {
       await fetchWatched();
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
-    } finally { setLoading(false); }
+    } finally {
+      setLoading(false);
+    }
   }, [newDomain, fetchWatched]);
 
-  const removeDomain = useCallback(async (domain: string) => {
-    try {
-      await api.delete(`/api/v1/ct-monitor/watch/${encodeURIComponent(domain)}`);
-      await fetchWatched();
-      if (selectedDomain === domain) { setSelectedDomain(null); setCerts([]); }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : String(err));
-    }
-  }, [selectedDomain, fetchWatched]);
+  const removeDomain = useCallback(
+    async (domain: string) => {
+      try {
+        await api.delete(`/api/v1/ct-monitor/watch/${encodeURIComponent(domain)}`);
+        await fetchWatched();
+        if (selectedDomain === domain) {
+          setSelectedDomain(null);
+          setCerts([]);
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : String(err));
+      }
+    },
+    [selectedDomain, fetchWatched]
+  );
 
-  useEffect(() => { fetchWatched(); }, [fetchWatched]);
-  useEffect(() => { if (selectedDomain) fetchCerts(selectedDomain); }, [selectedDomain, fetchCerts]);
+  useEffect(() => {
+    fetchWatched();
+  }, [fetchWatched]);
+  useEffect(() => {
+    if (selectedDomain) fetchCerts(selectedDomain);
+  }, [selectedDomain, fetchCerts]);
 
   const alertCerts = certs.filter((c) => c.alert);
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink to="/dfir" className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono">
+      <BackLink
+        to="/dfir"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+      >
         <ArrowLeft size={14} /> back
       </BackLink>
 
@@ -111,44 +132,116 @@ export default function CtMonitor(): JSX.Element {
 
       <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 mb-6">
         <div className="flex gap-2">
-          <input type="text" value={newDomain} onChange={(e) => setNewDomain(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && addDomain()} placeholder="example.com" className="flex-1 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg px-4 py-2.5 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400" />
-          <button onClick={addDomain} disabled={loading || !newDomain.trim()} className="px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-lg text-sm font-semibold text-white transition-colors flex items-center gap-2">
+          <input
+            type="text"
+            value={newDomain}
+            onChange={(e) => setNewDomain(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && addDomain()}
+            placeholder="example.com"
+            className="flex-1 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg px-4 py-2.5 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          />
+          <button
+            onClick={addDomain}
+            disabled={loading || !newDomain.trim()}
+            className="px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-lg text-sm font-semibold text-white transition-colors flex items-center gap-2"
+          >
             <Plus size={14} /> Watch
           </button>
         </div>
       </div>
 
-      {error && <div className="rounded-xl border border-rose-300/70 dark:border-rose-800/60 bg-rose-50/60 dark:bg-rose-950/30 p-4 mb-6 flex items-center gap-3"><AlertTriangle size={16} className="text-rose-600 dark:text-rose-400 flex-shrink-0" /><p className="text-sm text-rose-700 dark:text-rose-300">{error}</p></div>}
+      {error && (
+        <div className="rounded-xl border border-rose-300/70 dark:border-rose-800/60 bg-rose-50/60 dark:bg-rose-950/30 p-4 mb-6 flex items-center gap-3">
+          <AlertTriangle size={16} className="text-rose-600 dark:text-rose-400 flex-shrink-0" />
+          <p className="text-sm text-rose-700 dark:text-rose-300">{error}</p>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
-          <h2 className="font-display font-bold text-sm mb-4 flex items-center gap-2"><Eye size={14} className="text-brand-600 dark:text-brand-400" /> Watched ({watched.length})</h2>
-          {loading && watched.length === 0 ? <div className="flex items-center justify-center py-8"><Loader2 size={20} className="animate-spin text-slate-400" /></div>
-           : watched.length === 0 ? <p className="text-sm text-slate-500 dark:text-slate-400 py-4">No domains watched yet.</p>
-           : <div className="space-y-1.5">{watched.map((w) => (
-              <button key={w.domain} onClick={() => setSelectedDomain(w.domain)} className={`w-full text-left p-3 rounded-lg border transition-colors ${selectedDomain === w.domain ? 'border-brand-500/60 bg-brand-500/5' : 'border-slate-200 dark:border-slate-800 hover:border-brand-500/30'}`}>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-mono">{w.domain}</span>
-                  <button onClick={(e) => { e.stopPropagation(); removeDomain(w.domain); }} className="p-1 rounded hover:bg-rose-100 dark:hover:bg-rose-900/20 text-slate-400 hover:text-rose-500"><Trash2 size={12} /></button>
-                </div>
-                <div className="text-[10px] font-mono text-slate-400 mt-0.5">{w.cert_count} certs · {w.last_checked ? new Date(w.last_checked).toLocaleDateString() : 'Never'}</div>
-              </button>
-            ))}</div>}
+          <h2 className="font-display font-bold text-sm mb-4 flex items-center gap-2">
+            <Eye size={14} className="text-brand-600 dark:text-brand-400" /> Watched ({watched.length})
+          </h2>
+          {loading && watched.length === 0 ? (
+            <div className="flex items-center justify-center py-8">
+              <Loader2 size={20} className="animate-spin text-slate-400" />
+            </div>
+          ) : watched.length === 0 ? (
+            <p className="text-sm text-slate-500 dark:text-slate-400 py-4">No domains watched yet.</p>
+          ) : (
+            <div className="space-y-1.5">
+              {watched.map((w) => (
+                <button
+                  key={w.domain}
+                  onClick={() => setSelectedDomain(w.domain)}
+                  className={`w-full text-left p-3 rounded-lg border transition-colors ${selectedDomain === w.domain ? 'border-brand-500/60 bg-brand-500/5' : 'border-slate-200 dark:border-slate-800 hover:border-brand-500/30'}`}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-mono">{w.domain}</span>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        removeDomain(w.domain);
+                      }}
+                      className="p-1 rounded hover:bg-rose-100 dark:hover:bg-rose-900/20 text-slate-400 hover:text-rose-500"
+                    >
+                      <Trash2 size={12} />
+                    </button>
+                  </div>
+                  <div className="text-[10px] font-mono text-slate-400 mt-0.5">
+                    {w.cert_count} certs · {w.last_checked ? new Date(w.last_checked).toLocaleDateString() : 'Never'}
+                  </div>
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="lg:col-span-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-display font-bold text-sm flex items-center gap-2"><Globe size={14} className="text-brand-600 dark:text-brand-400" /> Certs {selectedDomain && <span className="font-mono text-xs text-slate-400">· {selectedDomain}</span>}</h2>
-            {selectedDomain && <button onClick={() => fetchCerts(selectedDomain)} className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400"><RefreshCw size={14} /></button>}
+            <h2 className="font-display font-bold text-sm flex items-center gap-2">
+              <Globe size={14} className="text-brand-600 dark:text-brand-400" /> Certs{' '}
+              {selectedDomain && <span className="font-mono text-xs text-slate-400">· {selectedDomain}</span>}
+            </h2>
+            {selectedDomain && (
+              <button
+                onClick={() => fetchCerts(selectedDomain)}
+                className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400"
+              >
+                <RefreshCw size={14} />
+              </button>
+            )}
           </div>
-          {!selectedDomain ? <p className="text-sm text-slate-500 dark:text-slate-400 py-8 text-center">Select a domain to view certificates</p>
-           : certsLoading ? <div className="flex items-center justify-center py-8"><Loader2 size={20} className="animate-spin text-slate-400" /></div>
-           : certs.length === 0 ? <p className="text-sm text-slate-500 dark:text-slate-400 py-8 text-center">No certificates found in the last 30 days</p>
-           : <div className="space-y-2 max-h-[600px] overflow-y-auto">
-              {alertCerts.length > 0 && <div className="mb-3"><h3 className="text-xs font-mono text-rose-600 dark:text-rose-400 mb-2 flex items-center gap-1.5"><AlertTriangle size={12} /> Alerts ({alertCerts.length})</h3>{alertCerts.map((cert) => <CertCard key={cert.id} cert={cert} highlight />)}</div>}
+          {!selectedDomain ? (
+            <p className="text-sm text-slate-500 dark:text-slate-400 py-8 text-center">
+              Select a domain to view certificates
+            </p>
+          ) : certsLoading ? (
+            <div className="flex items-center justify-center py-8">
+              <Loader2 size={20} className="animate-spin text-slate-400" />
+            </div>
+          ) : certs.length === 0 ? (
+            <p className="text-sm text-slate-500 dark:text-slate-400 py-8 text-center">
+              No certificates found in the last 30 days
+            </p>
+          ) : (
+            <div className="space-y-2 max-h-[600px] overflow-y-auto">
+              {alertCerts.length > 0 && (
+                <div className="mb-3">
+                  <h3 className="text-xs font-mono text-rose-600 dark:text-rose-400 mb-2 flex items-center gap-1.5">
+                    <AlertTriangle size={12} /> Alerts ({alertCerts.length})
+                  </h3>
+                  {alertCerts.map((cert) => (
+                    <CertCard key={cert.id} cert={cert} highlight />
+                  ))}
+                </div>
+              )}
               <h3 className="text-xs font-mono text-slate-400">All ({certs.length})</h3>
-              {certs.map((cert) => <CertCard key={cert.id} cert={cert} />)}
-            </div>}
+              {certs.map((cert) => (
+                <CertCard key={cert.id} cert={cert} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -158,23 +251,61 @@ export default function CtMonitor(): JSX.Element {
 function CertCard({ cert, highlight }: { cert: CertInfo; highlight?: boolean }) {
   const [expanded, setExpanded] = useState(false);
   return (
-    <div className={`rounded-lg p-3 cursor-pointer transition-colors ${highlight ? 'border border-rose-300/70 dark:border-rose-800/60 bg-rose-50/60 dark:bg-rose-950/20' : 'border border-slate-200 dark:border-slate-800 hover:border-brand-500/30'}`} onClick={() => setExpanded(!expanded)}>
+    <div
+      role="button"
+      tabIndex={0}
+      aria-expanded={expanded}
+      className={`rounded-lg p-3 cursor-pointer transition-colors ${highlight ? 'border border-rose-300/70 dark:border-rose-800/60 bg-rose-50/60 dark:bg-rose-950/20' : 'border border-slate-200 dark:border-slate-800 hover:border-brand-500/30'}`}
+      onClick={() => setExpanded(!expanded)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          setExpanded(!expanded);
+        }
+      }}
+    >
       <div className="flex items-start justify-between">
         <div className="flex-1 min-w-0">
           <div className="font-mono text-sm truncate">{cert.common_name}</div>
           <div className="text-[10px] text-slate-500 mt-0.5 truncate">Issuer: {cert.issuer?.slice(0, 50)}…</div>
         </div>
-        {cert.alert && <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${ALERT_BADGE[cert.alert.type] ?? ''}`}>{cert.alert.type}</span>}
+        {cert.alert && (
+          <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${ALERT_BADGE[cert.alert.type] ?? ''}`}>
+            {cert.alert.type}
+          </span>
+        )}
       </div>
       {cert.alert && <div className="text-xs text-rose-600 dark:text-rose-400 mt-1.5">{cert.alert.message}</div>}
       {expanded && (
         <div className="mt-3 pt-3 border-t border-slate-200 dark:border-slate-800 text-xs space-y-2">
-          <div><span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Names</span><div className="mt-1 flex flex-wrap gap-1">{cert.names.map((n, i) => <span key={i} className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500">{n}</span>)}</div></div>
-          <div className="grid grid-cols-2 gap-2">
-            <div><span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Valid From</span><div>{new Date(cert.not_before).toLocaleDateString()}</div></div>
-            <div><span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Valid Until</span><div>{new Date(cert.not_after).toLocaleDateString()}</div></div>
+          <div>
+            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Names</span>
+            <div className="mt-1 flex flex-wrap gap-1">
+              {cert.names.map((n, i) => (
+                <span
+                  key={i}
+                  className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500"
+                >
+                  {n}
+                </span>
+              ))}
+            </div>
           </div>
-          <div className="flex items-center gap-2"><span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Serial</span><code className="text-[10px] font-mono text-slate-600 dark:text-slate-300 truncate">{cert.serial}</code><CopyButton value={cert.serial} /></div>
+          <div className="grid grid-cols-2 gap-2">
+            <div>
+              <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Valid From</span>
+              <div>{new Date(cert.not_before).toLocaleDateString()}</div>
+            </div>
+            <div>
+              <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Valid Until</span>
+              <div>{new Date(cert.not_after).toLocaleDateString()}</div>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Serial</span>
+            <code className="text-[10px] font-mono text-slate-600 dark:text-slate-300 truncate">{cert.serial}</code>
+            <CopyButton value={cert.serial} />
+          </div>
         </div>
       )}
     </div>

@@ -46,7 +46,9 @@ export default function TaxiiServer(): JSX.Element {
       if (!ct.includes('json')) throw new Error('Server returned non-JSON');
       const data = (await res.json()) as { collections?: TaxiiCollection[] };
       setCollections(data.collections ?? []);
-    } catch { /* silent */ } finally {
+    } catch {
+      /* silent */
+    } finally {
       setLoading(false);
     }
   }, []);
@@ -67,14 +69,21 @@ export default function TaxiiServer(): JSX.Element {
     }
   }, []);
 
-  useEffect(() => { fetchCollections(); }, [fetchCollections]);
-  useEffect(() => { if (selectedCollection) fetchObjects(selectedCollection); }, [selectedCollection, fetchObjects]);
+  useEffect(() => {
+    fetchCollections();
+  }, [fetchCollections]);
+  useEffect(() => {
+    if (selectedCollection) fetchObjects(selectedCollection);
+  }, [selectedCollection, fetchObjects]);
 
   const baseUrl = typeof window !== 'undefined' ? `${window.location.origin}/api/taxii2/` : '/api/taxii2/';
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink to="/dfir" className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono">
+      <BackLink
+        to="/dfir"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+      >
         <ArrowLeft size={14} /> back
       </BackLink>
 
@@ -83,7 +92,8 @@ export default function TaxiiServer(): JSX.Element {
           <Server size={28} className="text-brand-600 dark:text-brand-400" /> TAXII 2.1 Server
         </h1>
         <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
-          Browse and consume STIX 2.1 collections via the TAXII protocol. Compatible with MISP, OpenCTI, Splunk SOAR, and any TAXII 2.1 client.
+          Browse and consume STIX 2.1 collections via the TAXII protocol. Compatible with MISP, OpenCTI, Splunk SOAR,
+          and any TAXII 2.1 client.
         </p>
       </div>
 
@@ -100,7 +110,9 @@ export default function TaxiiServer(): JSX.Element {
           </div>
           <div className="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-3 py-2">
             <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 shrink-0">Content-Type</span>
-            <code className="text-xs text-slate-600 dark:text-slate-400 font-mono">application/vnd.oasis.taxii+json; version=2.1</code>
+            <code className="text-xs text-slate-600 dark:text-slate-400 font-mono">
+              application/vnd.oasis.taxii+json; version=2.1
+            </code>
           </div>
         </div>
       </div>
@@ -112,12 +124,17 @@ export default function TaxiiServer(): JSX.Element {
             <h2 className="font-display font-bold text-sm flex items-center gap-2">
               <Shield size={14} className="text-brand-600 dark:text-brand-400" /> Collections ({collections.length})
             </h2>
-            <button onClick={fetchCollections} className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 transition-colors">
+            <button
+              onClick={fetchCollections}
+              className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 transition-colors"
+            >
               <RefreshCw size={14} />
             </button>
           </div>
           {loading ? (
-            <div className="flex items-center justify-center py-8"><Loader2 size={20} className="animate-spin text-slate-400" /></div>
+            <div className="flex items-center justify-center py-8">
+              <Loader2 size={20} className="animate-spin text-slate-400" />
+            </div>
           ) : (
             <div className="space-y-1.5">
               {collections.map((col) => (
@@ -131,10 +148,20 @@ export default function TaxiiServer(): JSX.Element {
                   }`}
                 >
                   <div className="text-sm font-medium">{col.title}</div>
-                  <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-2">{col.description}</div>
+                  <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-2">
+                    {col.description}
+                  </div>
                   <div className="flex gap-1.5 mt-1.5">
-                    {col.can_read && <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300">read</span>}
-                    {col.can_write && <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300">write</span>}
+                    {col.can_read && (
+                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300">
+                        read
+                      </span>
+                    )}
+                    {col.can_write && (
+                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300">
+                        write
+                      </span>
+                    )}
                   </div>
                 </button>
               ))}
@@ -146,17 +173,24 @@ export default function TaxiiServer(): JSX.Element {
         <div className="lg:col-span-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
           <h2 className="font-display font-bold text-sm mb-4 flex items-center gap-2">
             <Database size={14} className="text-brand-600 dark:text-brand-400" />
-            STIX Objects {selectedCollection && <span className="font-mono text-xs text-slate-400">· {selectedCollection}</span>}
+            STIX Objects{' '}
+            {selectedCollection && <span className="font-mono text-xs text-slate-400">· {selectedCollection}</span>}
           </h2>
           {!selectedCollection ? (
-            <p className="text-sm text-slate-500 dark:text-slate-400 py-8 text-center">Select a collection to view objects</p>
+            <p className="text-sm text-slate-500 dark:text-slate-400 py-8 text-center">
+              Select a collection to view objects
+            </p>
           ) : objectsLoading ? (
-            <div className="flex items-center justify-center py-8"><Loader2 size={20} className="animate-spin text-slate-400" /></div>
+            <div className="flex items-center justify-center py-8">
+              <Loader2 size={20} className="animate-spin text-slate-400" />
+            </div>
           ) : objects.length === 0 ? (
             <p className="text-sm text-slate-500 dark:text-slate-400 py-8 text-center">No objects in this collection</p>
           ) : (
             <div className="space-y-2 max-h-[600px] overflow-y-auto">
-              {objects.map((obj, i) => <ObjectCard key={obj.id || i} obj={obj} />)}
+              {objects.map((obj, i) => (
+                <ObjectCard key={obj.id || i} obj={obj} />
+              ))}
             </div>
           )}
         </div>
@@ -166,8 +200,14 @@ export default function TaxiiServer(): JSX.Element {
       <div className="mt-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
         <h2 className="font-display font-bold text-sm mb-4">Quick Start</h2>
         <div className="space-y-3">
-          <CodeBlock title="curl — List collections" code={`curl -H "Accept: application/vnd.oasis.taxii+json; version=2.1" \\\n  ${baseUrl}collections/`} />
-          <CodeBlock title="curl — Get IOCs" code={`curl -H "Accept: application/stix+json; version=2.1" \\\n  "${baseUrl}collections/iocs/objects/?limit=100"`} />
+          <CodeBlock
+            title="curl — List collections"
+            code={`curl -H "Accept: application/vnd.oasis.taxii+json; version=2.1" \\\n  ${baseUrl}collections/`}
+          />
+          <CodeBlock
+            title="curl — Get IOCs"
+            code={`curl -H "Accept: application/stix+json; version=2.1" \\\n  "${baseUrl}collections/iocs/objects/?limit=100"`}
+          />
         </div>
       </div>
     </div>
@@ -178,19 +218,45 @@ function ObjectCard({ obj }: { obj: TaxiiObject }) {
   const [expanded, setExpanded] = useState(false);
   return (
     <div
+      role="button"
+      tabIndex={0}
+      aria-expanded={expanded}
       className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3 cursor-pointer hover:border-brand-500/30 transition-colors"
       onClick={() => setExpanded(!expanded)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          setExpanded(!expanded);
+        }
+      }}
     >
       <div className="flex items-center gap-2">
-        <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${TYPE_BADGE[obj.type] ?? 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'}`}>{obj.type}</span>
+        <span
+          className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${TYPE_BADGE[obj.type] ?? 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'}`}
+        >
+          {obj.type}
+        </span>
         <span className="text-sm font-medium truncate">{obj.name || obj.id}</span>
       </div>
-      {obj.description && <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">{obj.description}</p>}
+      {obj.description && (
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">{obj.description}</p>
+      )}
       {expanded && (
         <div className="mt-3 pt-3 border-t border-slate-200 dark:border-slate-800 text-xs space-y-1">
-          <div><span className="text-slate-400">ID:</span> <code className="font-mono text-slate-600 dark:text-slate-300">{obj.id}</code></div>
-          {obj.created && <div><span className="text-slate-400">Created:</span> {new Date(obj.created).toLocaleString()}</div>}
-          {obj.modified && <div><span className="text-slate-400">Modified:</span> {new Date(obj.modified).toLocaleString()}</div>}
+          <div>
+            <span className="text-slate-400">ID:</span>{' '}
+            <code className="font-mono text-slate-600 dark:text-slate-300">{obj.id}</code>
+          </div>
+          {obj.created && (
+            <div>
+              <span className="text-slate-400">Created:</span> {new Date(obj.created).toLocaleString()}
+            </div>
+          )}
+          {obj.modified && (
+            <div>
+              <span className="text-slate-400">Modified:</span> {new Date(obj.modified).toLocaleString()}
+            </div>
+          )}
           <pre className="bg-slate-100 dark:bg-slate-900 rounded p-2 overflow-x-auto text-[10px] text-slate-600 dark:text-slate-400 font-mono mt-2">
             {JSON.stringify(obj, null, 2)}
           </pre>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Binary, Upload } from 'lucide-react';
+import { ArrowLeft, Binary, Upload, Loader2 } from 'lucide-react';
+import { fileTooLarge, yieldToPaint } from '../../lib/dfir/file-guard';
 
 const MACHINE: Record<number, string> = {
   0x14c: 'x86 (i386)',
@@ -160,6 +161,7 @@ function parsePE(buf: ArrayBuffer): PE {
 export default function PeAnalyzer(): JSX.Element {
   const [pe, setPe] = useState<PE | null>(null);
   const [err, setErr] = useState('');
+  const [busy, setBusy] = useState(false);
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
@@ -198,15 +200,30 @@ export default function PeAnalyzer(): JSX.Element {
         onChange={async (e) => {
           const f = e.target.files?.[0];
           if (!f) return;
+          const tooBig = fileTooLarge(f.size);
+          if (tooBig) {
+            setPe(null);
+            setErr(tooBig);
+            return;
+          }
+          setErr('');
+          setBusy(true);
           try {
-            setErr('');
+            await yieldToPaint();
             setPe(parsePE(await f.arrayBuffer()));
           } catch (ex) {
             setPe(null);
             setErr(ex instanceof Error ? ex.message : String(ex));
+          } finally {
+            setBusy(false);
           }
         }}
       />
+      {busy && (
+        <p className="mt-4 inline-flex items-center gap-2 font-mono text-sm text-slate-500">
+          <Loader2 size={14} className="animate-spin" /> parsing…
+        </p>
+      )}
       {err && <p className="mt-4 font-mono text-sm text-rose-600 dark:text-rose-400">{err}</p>}
 
       {pe && (

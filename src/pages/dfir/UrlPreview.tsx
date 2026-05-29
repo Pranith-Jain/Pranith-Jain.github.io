@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Eye, ExternalLink, AlertTriangle } from 'lucide-react';
@@ -337,7 +338,7 @@ export default function UrlPreview(): JSX.Element {
                     {result.feeds.map((f) => (
                       <li key={f.url}>
                         <a
-                          href={f.url}
+                          href={sanitizeUrl(f.url) || undefined}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-brand-600 dark:text-brand-400 hover:underline break-all"

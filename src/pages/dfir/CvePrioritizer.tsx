@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ToolDocs } from '../../components/dfir/ToolDocs';
@@ -541,7 +542,7 @@ export default function CvePrioritizer(): JSX.Element {
                             <span>
                               GHSA{' '}
                               <a
-                                href={r.data.ghsa.url}
+                                href={sanitizeUrl(r.data.ghsa.url) || undefined}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-brand-600 dark:text-brand-400 hover:underline"

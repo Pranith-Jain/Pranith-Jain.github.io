@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Search, Loader2, ExternalLink, Globe, BookOpen } from 'lucide-react';
@@ -307,7 +308,7 @@ export default function DomainReputation(): JSX.Element {
               {EXTERNAL_REP_TOOLS.map((t) => (
                 <a
                   key={t.url}
-                  href={t.url}
+                  href={sanitizeUrl(t.url) || undefined}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`${t.name} (opens in new tab)`}

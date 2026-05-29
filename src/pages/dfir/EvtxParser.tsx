@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ScrollText, Upload } from 'lucide-react';
+import { ArrowLeft, ScrollText, Upload, Loader2 } from 'lucide-react';
+import { fileTooLarge, yieldToPaint } from '../../lib/dfir/file-guard';
 
 /**
  * EVTX Parser (Lite). A full Windows BinXML template engine is enormous;
@@ -70,6 +71,7 @@ export default function EvtxParser(): JSX.Element {
   const [data, setData] = useState<{ records: Rec[]; chunks: number } | null>(null);
   const [err, setErr] = useState('');
   const [q, setQ] = useState('');
+  const [busy, setBusy] = useState(false);
 
   const shown = useMemo(() => {
     if (!data) return [];
@@ -118,16 +120,31 @@ export default function EvtxParser(): JSX.Element {
         onChange={async (e) => {
           const f = e.target.files?.[0];
           if (!f) return;
+          const tooBig = fileTooLarge(f.size);
+          if (tooBig) {
+            setData(null);
+            setErr(tooBig);
+            return;
+          }
+          setErr('');
+          setBusy(true);
           try {
-            setErr('');
+            await yieldToPaint();
             setData(parse(await f.arrayBuffer()));
           } catch (ex) {
             setData(null);
             setErr(ex instanceof Error ? ex.message : String(ex));
+          } finally {
+            setBusy(false);
           }
         }}
       />
 
+      {busy && (
+        <p className="mt-4 inline-flex items-center gap-2 font-mono text-sm text-slate-500">
+          <Loader2 size={14} className="animate-spin" /> parsing…
+        </p>
+      )}
       {err && <p className="mt-4 font-mono text-sm text-rose-600 dark:text-rose-400">{err}</p>}
 
       {data && (

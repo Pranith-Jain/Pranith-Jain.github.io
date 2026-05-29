@@ -1,7 +1,8 @@
 import { useState, useMemo, useEffect, useCallback } from 'react';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ExternalLink, Search, X } from 'lucide-react';
-import { atlasMatrix } from '../../data/dfir/atlas-matrix';
+import type { MitreTactic } from '../../data/dfir/atlas-matrix';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
 
 interface ApiTechnique {
@@ -25,6 +26,17 @@ export default function AtlasMatrix(): JSX.Element {
   const [detail, setDetail] = useState<TechniqueResponse | null>(null);
   const [detailLoading, setDetailLoading] = useState(false);
   const [detailError, setDetailError] = useState<string | null>(null);
+  // ~64KB dataset — load as its own chunk instead of in the route bundle.
+  const [atlasMatrix, setAtlasMatrix] = useState<MitreTactic[]>([]);
+  useEffect(() => {
+    let cancelled = false;
+    void import('../../data/dfir/atlas-matrix').then((m) => {
+      if (!cancelled) setAtlasMatrix(m.atlasMatrix);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const openTechnique = (id: string) => setSelectedId(id);
   const closeDrawer = useCallback(() => {
@@ -47,7 +59,9 @@ export default function AtlasMatrix(): JSX.Element {
           try {
             const parsed = JSON.parse(body) as { error?: string };
             msg = parsed.error ?? msg;
-          } catch { /* use default */ }
+          } catch {
+            /* use default */
+          }
           throw new Error(msg);
         }
         const ct = r.headers.get('content-type') ?? '';
@@ -305,7 +319,7 @@ export default function AtlasMatrix(): JSX.Element {
                     </div>
                   )}
                   <a
-                    href={detail.technique.url}
+                    href={sanitizeUrl(detail.technique.url) || undefined}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100 hover:border-brand-500 hover:text-brand-600 dark:text-brand-400 transition-colors"

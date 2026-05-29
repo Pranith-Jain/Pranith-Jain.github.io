@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Terminal, ExternalLink, Search } from 'lucide-react';
@@ -183,7 +184,7 @@ export default function Lolbins(): JSX.Element {
                 </Link>
               ))}
               <a
-                href={b.url}
+                href={sanitizeUrl(b.url) || undefined}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="ml-auto text-[10px] font-mono text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-0.5"

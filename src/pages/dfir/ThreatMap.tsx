@@ -1,4 +1,5 @@
 import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, RefreshCw, Globe, Loader2, Pause, Play, X } from 'lucide-react';
@@ -821,7 +822,7 @@ function SourcesBreakdown({ sourceCounts, iocTypes, totalIps }: SourcesBreakdown
             <div className="flex items-baseline justify-between gap-2 mb-1">
               {r.meta.href ? (
                 <a
-                  href={r.meta.href}
+                  href={sanitizeUrl(r.meta.href) || undefined}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`${r.name} (opens in new tab)`}

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import {
@@ -67,7 +68,9 @@ export default function CertSearch(): JSX.Element {
         try {
           const parsed = JSON.parse(body) as { error?: string };
           msg = parsed.error ?? msg;
-        } catch { /* use default */ }
+        } catch {
+          /* use default */
+        }
         throw new Error(msg);
       }
       const ct = res.headers.get('content-type') ?? '';
@@ -319,7 +322,7 @@ export default function CertSearch(): JSX.Element {
           <p className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
             Source:{' '}
             <a
-              href={data.source_url}
+              href={sanitizeUrl(data.source_url) || undefined}
               target="_blank"
               rel="noopener noreferrer"
               className="hover:underline inline-flex items-center gap-1"

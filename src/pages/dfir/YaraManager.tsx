@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Plus, Trash2, FileDown, Edit2, X, Copy, ExternalLink } from 'lucide-react';
 
@@ -427,7 +428,7 @@ function RansomwareIntelPanels(): JSX.Element {
                   {a.date && <span className="text-slate-400 text-[10px]">{a.date.slice(0, 10)}</span>}
                   {a.url && (
                     <a
-                      href={a.url}
+                      href={sanitizeUrl(a.url) || undefined}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"

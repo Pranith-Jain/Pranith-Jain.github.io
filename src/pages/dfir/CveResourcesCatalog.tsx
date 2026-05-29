@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ExternalLink, Github, Search, BookText, Lock, Star, Plug } from 'lucide-react';
@@ -207,7 +208,7 @@ export default function CveResourcesCatalog(): JSX.Element {
           >
             <div className="flex items-baseline justify-between gap-2 mb-1.5">
               <a
-                href={r.url}
+                href={sanitizeUrl(r.url) || undefined}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
@@ -256,7 +257,7 @@ export default function CveResourcesCatalog(): JSX.Element {
               ))}
               {r.source_url && (
                 <a
-                  href={r.source_url}
+                  href={sanitizeUrl(r.source_url) || undefined}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="sm:ml-auto inline-flex items-center gap-1 text-[10px] font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"

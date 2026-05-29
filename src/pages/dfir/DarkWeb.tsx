@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ExternalLink, RefreshCw, Plus, X, Eye, Bell, Search, Filter, Sparkles } from 'lucide-react';
@@ -512,7 +513,7 @@ export default function DarkWeb(): JSX.Element {
                   }`}
                 >
                   <a
-                    href={it.link}
+                    href={sanitizeUrl(it.link) || undefined}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`${it.title} (opens in new tab)`}
@@ -953,7 +954,7 @@ export function RansomwareActivityPanel(): JSX.Element {
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-baseline gap-2 mb-1">
                     <a
-                      href={v.source_url}
+                      href={sanitizeUrl(v.source_url) || undefined}
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`${v.victim} (opens in new tab)`}
@@ -1361,7 +1362,7 @@ export function TelegramFeedPanel(): JSX.Element {
               >
                 <div className="flex flex-wrap items-baseline gap-2 mb-1">
                   <a
-                    href={it.permalink}
+                    href={sanitizeUrl(it.permalink) || undefined}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"

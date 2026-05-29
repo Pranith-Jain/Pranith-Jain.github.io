@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 import { useSearchParams } from 'react-router-dom';
 import { ArrowLeft, Search, ExternalLink, Loader2, Copy } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
@@ -270,7 +271,7 @@ export default function GoogleDorks(): JSX.Element {
                 <div className="flex items-start gap-2">
                   <div className="flex-1 min-w-0">
                     <a
-                      href={r.link}
+                      href={sanitizeUrl(r.link) || undefined}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1.5 font-medium text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 break-words"

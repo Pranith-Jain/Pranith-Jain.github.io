@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { pinnedFetch, SsrfError } from '../lib/ssrf-guard';
 
 /**
  * Threat Report Parser — extracts IOCs, actors, TTPs, and CVEs from
@@ -28,7 +29,7 @@ const FETCH_TIMEOUT = 15_000;
 // Regex patterns for IOC extraction (fallback if AI fails)
 const IPV4_RE = /\b(?:(?:25[0-5]|2[0-4]\d|1?\d?\d)\.){3}(?:25[0-5]|2[0-4]\d|1?\d?\d)\b/g;
 const DOMAIN_RE = /\b(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}\b/g;
-const URL_RE = /https?:\/\/[^\s<>"{}|\\^`\[\]]+/gi;
+const URL_RE = /https?:\/\/[^\s<>"{}|\\^`[\]]+/gi;
 const MD5_RE = /\b[a-fA-F0-9]{32}\b/g;
 const SHA1_RE = /\b[a-fA-F0-9]{40}\b/g;
 const SHA256_RE = /\b[a-fA-F0-9]{64}\b/g;
@@ -37,23 +38,81 @@ const MITRE_RE = /\bT\d{4}(?:\.\d{3})?\b/g;
 
 // Known threat actors (subset — the AI handles the full list)
 const KNOWN_ACTORS = [
-  'APT28', 'APT29', 'APT41', 'Lazarus', 'Fancy Bear', 'Cozy Bear',
-  'Sandworm', 'Turla', 'Equation Group', 'DarkSide', 'REvil', 'Conti',
-  'LockBit', 'BlackCat', 'ALPHV', 'Clop', 'Cuba', 'Hive', 'Royal',
-  'Play', 'Akira', 'BlackBasta', 'RansomHub', '8Base', 'BianLian',
-  'Scattered Spider', 'Lapsus$', 'Kimsuky', 'Konni', 'Andariel',
-  'Hafnium', 'Volt Typhoon', 'Salt Typhoon', 'Charming Kitten',
-  'MuddyWater', 'OilRig', 'APT33', 'APT34', 'APT35',
+  'APT28',
+  'APT29',
+  'APT41',
+  'Lazarus',
+  'Fancy Bear',
+  'Cozy Bear',
+  'Sandworm',
+  'Turla',
+  'Equation Group',
+  'DarkSide',
+  'REvil',
+  'Conti',
+  'LockBit',
+  'BlackCat',
+  'ALPHV',
+  'Clop',
+  'Cuba',
+  'Hive',
+  'Royal',
+  'Play',
+  'Akira',
+  'BlackBasta',
+  'RansomHub',
+  '8Base',
+  'BianLian',
+  'Scattered Spider',
+  'Lapsus$',
+  'Kimsuky',
+  'Konni',
+  'Andariel',
+  'Hafnium',
+  'Volt Typhoon',
+  'Salt Typhoon',
+  'Charming Kitten',
+  'MuddyWater',
+  'OilRig',
+  'APT33',
+  'APT34',
+  'APT35',
 ];
 
 // Known malware families
 const KNOWN_MALWARE = [
-  'Cobalt Strike', 'Mimikatz', 'BloodHound', 'Sliver', 'Brute Ratel',
-  'Metasploit', 'Empire', 'Covenant', 'IcedID', 'Emotet', 'QakBot',
-  'TrickBot', 'BazarLoader', 'Gootloader', 'SocGholish', 'BatLoader',
-  'AsyncRAT', 'NjRAT', 'RedLine', 'Raccoon', 'Vidar', 'Stealc',
-  'Lumma', 'Mystic', 'Rhadamanthys', 'Amadey', 'SmokeLoader',
-  'Agent Tesla', 'Formbook', 'Remcos', 'NanoCore', 'njRAT',
+  'Cobalt Strike',
+  'Mimikatz',
+  'BloodHound',
+  'Sliver',
+  'Brute Ratel',
+  'Metasploit',
+  'Empire',
+  'Covenant',
+  'IcedID',
+  'Emotet',
+  'QakBot',
+  'TrickBot',
+  'BazarLoader',
+  'Gootloader',
+  'SocGholish',
+  'BatLoader',
+  'AsyncRAT',
+  'NjRAT',
+  'RedLine',
+  'Raccoon',
+  'Vidar',
+  'Stealc',
+  'Lumma',
+  'Mystic',
+  'Rhadamanthys',
+  'Amadey',
+  'SmokeLoader',
+  'Agent Tesla',
+  'Formbook',
+  'Remcos',
+  'NanoCore',
+  'njRAT',
 ];
 
 interface ExtractedReport {
@@ -120,22 +179,32 @@ interface ExtractedReport {
 
 /** Extract IOCs using regex patterns. */
 function extractRegex(text: string): Partial<ExtractedReport['iocs']> & { cves: string[]; mitre: string[] } {
-  const ipv4 = [...new Set((text.match(IPV4_RE) ?? []).filter((ip) => {
-    // Filter out common false positives
-    const parts = ip.split('.');
-    return parts[0] !== '0' && parts[0] !== '255' && !ip.startsWith('127.');
-  }))];
+  const ipv4 = [
+    ...new Set(
+      (text.match(IPV4_RE) ?? []).filter((ip) => {
+        // Filter out common false positives
+        const parts = ip.split('.');
+        return parts[0] !== '0' && parts[0] !== '255' && !ip.startsWith('127.');
+      })
+    ),
+  ];
 
-  const domains = [...new Set((text.match(DOMAIN_RE) ?? []).filter((d) => {
-    // Filter out common false positives
-    const lower = d.toLowerCase();
-    return !lower.includes('example.com') &&
-           !lower.includes('localhost') &&
-           !lower.endsWith('.exe') &&
-           !lower.endsWith('.dll') &&
-           !lower.endsWith('.sys') &&
-           d.length > 4;
-  }))];
+  const domains = [
+    ...new Set(
+      (text.match(DOMAIN_RE) ?? []).filter((d) => {
+        // Filter out common false positives
+        const lower = d.toLowerCase();
+        return (
+          !lower.includes('example.com') &&
+          !lower.includes('localhost') &&
+          !lower.endsWith('.exe') &&
+          !lower.endsWith('.dll') &&
+          !lower.endsWith('.sys') &&
+          d.length > 4
+        );
+      })
+    ),
+  ];
 
   const urls = [...new Set((text.match(URL_RE) ?? []).map((u) => u.replace(/[.,;:!?)]+$/, '')))];
 
@@ -163,21 +232,18 @@ function extractEntities(text: string): {
 } {
   const lower = text.toLowerCase();
 
-  const actors = KNOWN_ACTORS
-    .filter((a) => lower.includes(a.toLowerCase()))
-    .map((name) => ({
-      name,
-      confidence: (lower.includes(`the ${name.toLowerCase()} group`) || lower.includes(`${name.toLowerCase()} actor`))
-        ? 'high' as const
-        : 'medium' as const,
-    }));
+  const actors = KNOWN_ACTORS.filter((a) => lower.includes(a.toLowerCase())).map((name) => ({
+    name,
+    confidence:
+      lower.includes(`the ${name.toLowerCase()} group`) || lower.includes(`${name.toLowerCase()} actor`)
+        ? ('high' as const)
+        : ('medium' as const),
+  }));
 
-  const malware = KNOWN_MALWARE
-    .filter((m) => lower.includes(m.toLowerCase()))
-    .map((name) => ({
-      name,
-      confidence: 'medium' as const,
-    }));
+  const malware = KNOWN_MALWARE.filter((m) => lower.includes(m.toLowerCase())).map((name) => ({
+    name,
+    confidence: 'medium' as const,
+  }));
 
   return { actors, malware };
 }
@@ -219,16 +285,21 @@ Rules:
 
     const response = await ai.run('@cf/meta/llama-3.1-8b-instruct', {
       messages: [
-        { role: 'system', content: 'You are a threat intelligence analyst. Extract structured data from reports. Return only valid JSON, no explanations.' },
+        {
+          role: 'system',
+          content:
+            'You are a threat intelligence analyst. Extract structured data from reports. Return only valid JSON, no explanations.',
+        },
         { role: 'user', content: prompt },
       ],
       max_tokens: 2000,
       temperature: 0.1, // Low temperature for consistent extraction
     });
 
-    const content = typeof response === 'object' && 'response' in response
-      ? (response as { response: string }).response
-      : String(response);
+    const content =
+      typeof response === 'object' && 'response' in response
+        ? (response as { response: string }).response
+        : String(response);
 
     // Try to parse the JSON from the response
     const jsonMatch = content.match(/\{[\s\S]*\}/);
@@ -269,10 +340,22 @@ export async function reportParserHandler(c: Context<{ Bindings: Env }>): Promis
       text = body.text;
       sourceUrl = body.url;
 
-      // If URL provided, fetch the content
+      // If URL provided, fetch the content. sourceUrl is fully user-controlled
+      // and the response body is returned to the caller — a classic SSRF sink.
+      // Force https and route through pinnedFetch, which rejects private/
+      // reserved/metadata hosts and pins the connection to defeat DNS rebinding.
       if (!text && sourceUrl) {
+        let parsed: URL;
         try {
-          const res = await fetch(sourceUrl, {
+          parsed = new URL(sourceUrl);
+        } catch {
+          return c.json({ error: 'Invalid URL' }, 400);
+        }
+        if (parsed.protocol !== 'https:' && parsed.protocol !== 'http:') {
+          return c.json({ error: 'URL must be http(s)' }, 400);
+        }
+        try {
+          const res = await pinnedFetch(parsed.toString(), {
             signal: AbortSignal.timeout(FETCH_TIMEOUT),
             headers: { 'User-Agent': 'Mozilla/5.0 (compatible; threat-intel-parser/1.0)' },
           });
@@ -280,7 +363,10 @@ export async function reportParserHandler(c: Context<{ Bindings: Env }>): Promis
             return c.json({ error: `Failed to fetch URL: ${res.status}` }, 400);
           }
           text = await res.text();
-        } catch {
+        } catch (err) {
+          if (err instanceof SsrfError) {
+            return c.json({ error: err.detail }, err.status as 400 | 403 | 502);
+          }
           return c.json({ error: 'Failed to fetch URL (timeout or network error)' }, 400);
         }
       }
@@ -332,9 +418,7 @@ export async function reportParserHandler(c: Context<{ Bindings: Env }>): Promis
 
     const mergedTechniques = [
       ...(aiResults?.techniques ?? []),
-      ...regexResults.mitre
-        .filter((id) => !aiTechniqueIds.has(id))
-        .map((id) => ({ id, name: undefined })),
+      ...regexResults.mitre.filter((id) => !aiTechniqueIds.has(id)).map((id) => ({ id, name: undefined })),
     ];
 
     const result: ExtractedReport = {
@@ -382,10 +466,7 @@ export async function reportParserHandler(c: Context<{ Bindings: Env }>): Promis
     });
   } catch (err) {
     console.error('Report parser error:', err);
-    return c.json(
-      { error: 'Extraction failed', details: err instanceof Error ? err.message : String(err) },
-      500
-    );
+    return c.json({ error: 'Extraction failed', details: err instanceof Error ? err.message : String(err) }, 500);
   }
 }
 
@@ -396,7 +477,8 @@ function generateRegexSummary(
 ): string {
   const parts: string[] = [];
 
-  const iocCount = (regex.ipv4?.length ?? 0) +
+  const iocCount =
+    (regex.ipv4?.length ?? 0) +
     (regex.domains?.length ?? 0) +
     (regex.urls?.length ?? 0) +
     (regex.hashes?.md5?.length ?? 0) +
@@ -423,7 +505,5 @@ function generateRegexSummary(
     parts.push(`Referenced ${regex.mitre.length} MITRE ATT&CK technique(s).`);
   }
 
-  return parts.length > 0
-    ? parts.join(' ')
-    : 'No structured threat intelligence extracted from the provided text.';
+  return parts.length > 0 ? parts.join(' ') : 'No structured threat intelligence extracted from the provided text.';
 }

@@ -1,6 +1,27 @@
 import { useState, useCallback } from 'react';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, BookOpen, Loader2, AlertTriangle, ChevronRight, ChevronDown, Clock, Shield, Link2, Bug, Mail, Database, User, LinkIcon, Crosshair, Wifi, KeyRound, Lock, ShieldAlert, type LucideIcon } from 'lucide-react';
+import {
+  ArrowLeft,
+  BookOpen,
+  Loader2,
+  AlertTriangle,
+  ChevronRight,
+  ChevronDown,
+  Clock,
+  Shield,
+  Link2,
+  Bug,
+  Mail,
+  Database,
+  User,
+  LinkIcon,
+  Crosshair,
+  Wifi,
+  KeyRound,
+  Lock,
+  ShieldAlert,
+  type LucideIcon,
+} from 'lucide-react';
 
 interface PlaybookStep {
   id: string;
@@ -57,7 +78,7 @@ export default function IrPlaybooks(): JSX.Element {
   const [expandedSteps, setExpandedSteps] = useState<Set<string>>(new Set());
 
   const toggleStep = (id: string) => {
-    setExpandedSteps(prev => {
+    setExpandedSteps((prev) => {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
       else next.add(id);
@@ -79,7 +100,12 @@ export default function IrPlaybooks(): JSX.Element {
       if (!res.ok) {
         const body = await res.text().catch(() => '');
         let msg = `HTTP ${res.status}`;
-        try { const p = JSON.parse(body) as { error?: string }; msg = p.error ?? msg; } catch { /* ok */ }
+        try {
+          const p = JSON.parse(body) as { error?: string };
+          msg = p.error ?? msg;
+        } catch {
+          /* ok */
+        }
         throw new Error(msg);
       }
       const ct = res.headers.get('content-type') ?? '';
@@ -94,7 +120,10 @@ export default function IrPlaybooks(): JSX.Element {
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink to="/dfir" className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono">
+      <BackLink
+        to="/dfir"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+      >
         <ArrowLeft size={14} /> back
       </BackLink>
 
@@ -103,7 +132,8 @@ export default function IrPlaybooks(): JSX.Element {
           <BookOpen size={28} className="text-brand-600 dark:text-brand-400" /> IR Playbooks
         </h1>
         <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
-          Step-by-step incident response workflows with integrated tool recommendations. Select an incident type to generate a tailored playbook.
+          Step-by-step incident response workflows with integrated tool recommendations. Select an incident type to
+          generate a tailored playbook.
         </p>
       </div>
 
@@ -114,28 +144,36 @@ export default function IrPlaybooks(): JSX.Element {
           {INCIDENT_TYPES.map((t) => {
             const Icon = t.icon;
             return (
-            <button
-              key={t.id}
-              onClick={() => setIncidentType(t.id)}
-              className={`p-3 rounded-lg border text-left transition-colors ${incidentType === t.id ? 'border-brand-500/60 bg-brand-500/5' : 'border-slate-200 dark:border-slate-800 hover:border-brand-500/30'}`}
-            >
-              <Icon size={20} className="text-brand-600 dark:text-brand-400 mb-1" />
-              <div className="text-xs font-medium">{t.label}</div>
-            </button>
+              <button
+                key={t.id}
+                onClick={() => setIncidentType(t.id)}
+                className={`p-3 rounded-lg border text-left transition-colors ${incidentType === t.id ? 'border-brand-500/60 bg-brand-500/5' : 'border-slate-200 dark:border-slate-800 hover:border-brand-500/30'}`}
+              >
+                <Icon size={20} className="text-brand-600 dark:text-brand-400 mb-1" />
+                <div className="text-xs font-medium">{t.label}</div>
+              </button>
             );
           })}
         </div>
 
         <div className="mt-4">
-          <label className="text-xs text-slate-500 dark:text-slate-400 mb-1 block">Additional Context (optional)</label>
+          <label htmlFor="irplaybooks-context" className="text-xs text-slate-500 dark:text-slate-400 mb-1 block">
+            Additional Context (optional)
+          </label>
           <textarea
-            value={context} onChange={(e) => setContext(e.target.value)}
+            id="irplaybooks-context"
+            value={context}
+            onChange={(e) => setContext(e.target.value)}
             placeholder="Describe specific details about the incident…"
             className="w-full h-20 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg p-3 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y"
           />
         </div>
 
-        <button onClick={handleGenerate} disabled={loading || !incidentType} className="mt-4 w-full px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-lg text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2">
+        <button
+          onClick={handleGenerate}
+          disabled={loading || !incidentType}
+          className="mt-4 w-full px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-lg text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2"
+        >
           {loading ? <Loader2 size={14} className="animate-spin" /> : <BookOpen size={14} />}
           {loading ? 'Generating playbook…' : 'Generate IR Playbook'}
         </button>
@@ -154,13 +192,23 @@ export default function IrPlaybooks(): JSX.Element {
           <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
             <div className="flex items-center justify-between mb-2">
               <h2 className="font-display font-bold text-lg">{result.playbook.title}</h2>
-              <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${SEVERITY_BADGE[result.playbook.severity]}`}>{result.playbook.severity}</span>
+              <span
+                className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${SEVERITY_BADGE[result.playbook.severity]}`}
+              >
+                {result.playbook.severity}
+              </span>
             </div>
             <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">{result.playbook.description}</p>
             <div className="flex flex-wrap gap-3 text-xs text-slate-500">
-              <span className="flex items-center gap-1"><Clock size={12} /> {result.playbook.estimated_total_time}</span>
-              <span className="flex items-center gap-1"><Shield size={12} /> {result.playbook.steps.length} steps</span>
-              <span className="flex items-center gap-1"><Link2 size={12} /> {result.playbook.tools_used.length} tools</span>
+              <span className="flex items-center gap-1">
+                <Clock size={12} /> {result.playbook.estimated_total_time}
+              </span>
+              <span className="flex items-center gap-1">
+                <Shield size={12} /> {result.playbook.steps.length} steps
+              </span>
+              <span className="flex items-center gap-1">
+                <Link2 size={12} /> {result.playbook.tools_used.length} tools
+              </span>
             </div>
           </div>
 
@@ -169,30 +217,50 @@ export default function IrPlaybooks(): JSX.Element {
             {result.playbook.steps.map((step, i) => {
               const isExpanded = expandedSteps.has(step.id);
               return (
-                <div key={step.id} className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 overflow-hidden">
+                <div
+                  key={step.id}
+                  className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 overflow-hidden"
+                >
                   <button
                     onClick={() => toggleStep(step.id)}
                     className="w-full flex items-center gap-3 p-4 text-left hover:bg-slate-50 dark:hover:bg-slate-900/20 transition-colors"
                   >
-                    <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white ${step.critical ? 'bg-rose-500' : 'bg-brand-600'}`}>
+                    <div
+                      className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white ${step.critical ? 'bg-rose-500' : 'bg-brand-600'}`}
+                    >
                       {i + 1}
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="text-sm font-medium">{step.title}</div>
                       <div className="text-[10px] font-mono text-slate-400">{step.estimated_time}</div>
                     </div>
-                    {step.critical && <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300">critical</span>}
-                    {isExpanded ? <ChevronDown size={14} className="text-slate-400" /> : <ChevronRight size={14} className="text-slate-400" />}
+                    {step.critical && (
+                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300">
+                        critical
+                      </span>
+                    )}
+                    {isExpanded ? (
+                      <ChevronDown size={14} className="text-slate-400" />
+                    ) : (
+                      <ChevronRight size={14} className="text-slate-400" />
+                    )}
                   </button>
                   {isExpanded && (
                     <div className="px-4 pb-4 pt-0 border-t border-slate-100 dark:border-slate-800">
                       <p className="text-sm text-slate-600 dark:text-slate-400 mt-3 mb-3">{step.description}</p>
                       {step.tools.length > 0 && (
                         <div>
-                          <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1.5">Recommended Tools</div>
+                          <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1.5">
+                            Recommended Tools
+                          </div>
                           <div className="flex flex-wrap gap-1.5">
                             {step.tools.map((tool, j) => (
-                              <span key={j} className="text-[10px] font-mono px-2 py-0.5 rounded bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300">{tool}</span>
+                              <span
+                                key={j}
+                                className="text-[10px] font-mono px-2 py-0.5 rounded bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300"
+                              >
+                                {tool}
+                              </span>
                             ))}
                           </div>
                         </div>
@@ -209,7 +277,12 @@ export default function IrPlaybooks(): JSX.Element {
             <h2 className="font-display font-bold text-sm mb-3">Tools Referenced</h2>
             <div className="flex flex-wrap gap-1.5">
               {result.playbook.tools_used.map((tool, i) => (
-                <span key={i} className="text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400">{tool}</span>
+                <span
+                  key={i}
+                  className="text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400"
+                >
+                  {tool}
+                </span>
               ))}
             </div>
           </div>
@@ -222,7 +295,10 @@ export default function IrPlaybooks(): JSX.Element {
                 {result.related_playbooks.map((rp, i) => (
                   <button
                     key={i}
-                    onClick={() => { setIncidentType(rp.id); setResult(null); }}
+                    onClick={() => {
+                      setIncidentType(rp.id);
+                      setResult(null);
+                    }}
                     className="w-full flex items-center justify-between p-3 rounded-lg border border-slate-200 dark:border-slate-800 hover:border-brand-500/30 transition-colors text-left"
                   >
                     <div>

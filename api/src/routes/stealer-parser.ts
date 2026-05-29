@@ -31,7 +31,7 @@ const MAX_TEXT_LENGTH = 500_000; // 500KB max
 // Regex patterns for extraction
 const CRED_PATTERNS = [
   // Common format: URL → username:password
-  /(?:https?:\/\/)?([^\s:\/]+(?:\.[^\s:\/]+)+)\s*(?:→|->|:|\|)\s*([^\s:]+):([^\s]+)/gm,
+  /(?:https?:\/\/)?([^\s:/]+(?:\.[^\s:/]+)+)\s*(?:→|->|:|\|)\s*([^\s:]+):([^\s]+)/gm,
   // Login format: login:password @ domain
   /([^\s:@]+):([^\s:@]+)\s*@\s*([^\s:@]+\.[^\s:@]+)/gm,
 ];
@@ -97,7 +97,7 @@ interface StealerParseResult {
 function detectStealer(text: string): string | null {
   const lower = text.toLowerCase();
 
-  if (lower.includes('redline') || lower.includes('system_info') && lower.includes('scantime')) return 'RedLine';
+  if (lower.includes('redline') || (lower.includes('system_info') && lower.includes('scantime'))) return 'RedLine';
   if (lower.includes('raccoon') || lower.includes('rec0n')) return 'Raccoon';
   if (lower.includes('vidar') || lower.includes('vidarclient')) return 'Vidar';
   if (lower.includes('lumma') || lower.includes('lummastealer')) return 'Lumma';
@@ -124,7 +124,11 @@ function parseRedLineFormat(text: string): Partial<StealerParseResult> {
     const passMatch = block.match(/Password\s*:\s*(.+)/i);
 
     if (urlMatch?.[1] && loginMatch?.[1]) {
-      const domain = urlMatch[1].trim().replace(/^https?:\/\//, '').split('/')[0] ?? 'unknown';
+      const domain =
+        urlMatch[1]
+          .trim()
+          .replace(/^https?:\/\//, '')
+          .split('/')[0] ?? 'unknown';
       credentials.push({
         domain,
         username: loginMatch[1].trim(),
@@ -214,25 +218,36 @@ export async function stealerParserHandler(c: Context<{ Bindings: Env }>): Promi
     // Merge credentials (dedup by domain+username)
     const allCreds = [...(parsed.credentials ?? []), ...genericCreds];
     const uniqueCreds = allCreds.filter(
-      (cred, i, arr) =>
-        arr.findIndex((c) => c.domain === cred.domain && c.username === cred.username) === i
+      (cred, i, arr) => arr.findIndex((c) => c.domain === cred.domain && c.username === cred.username) === i
     );
 
     // Extract emails
-    const emails = [...new Set((text.match(EMAIL_PATTERN) ?? []).filter((e) => {
-      const domain = e.split('@')[1];
-      return domain && !['example.com', 'test.com', 'localhost'].includes(domain);
-    }))];
+    const emails = [
+      ...new Set(
+        (text.match(EMAIL_PATTERN) ?? []).filter((e) => {
+          const domain = e.split('@')[1];
+          return domain && !['example.com', 'test.com', 'localhost'].includes(domain);
+        })
+      ),
+    ];
 
     // Extract domains
-    const domains = [...new Set((text.match(DOMAIN_PATTERN) ?? []).filter((d) => {
-      return d.length > 4 && !d.endsWith('.exe') && !d.endsWith('.dll') && !d.endsWith('.tmp');
-    }))].slice(0, 100);
+    const domains = [
+      ...new Set(
+        (text.match(DOMAIN_PATTERN) ?? []).filter((d) => {
+          return d.length > 4 && !d.endsWith('.exe') && !d.endsWith('.dll') && !d.endsWith('.tmp');
+        })
+      ),
+    ].slice(0, 100);
 
     // Extract IPs
-    const ips = [...new Set((text.match(IP_PATTERN) ?? []).filter((ip) => {
-      return !ip.startsWith('127.') && !ip.startsWith('0.') && !ip.startsWith('255.');
-    }))].slice(0, 50);
+    const ips = [
+      ...new Set(
+        (text.match(IP_PATTERN) ?? []).filter((ip) => {
+          return !ip.startsWith('127.') && !ip.startsWith('0.') && !ip.startsWith('255.');
+        })
+      ),
+    ].slice(0, 50);
 
     // Extract crypto wallets
     const crypto_wallets: StealerParseResult['crypto_wallets'] = [];
@@ -283,9 +298,6 @@ export async function stealerParserHandler(c: Context<{ Bindings: Env }>): Promi
 
     return c.json(result, 200, { 'Cache-Control': 'no-store' });
   } catch (err) {
-    return c.json(
-      { error: 'Parsing failed', details: err instanceof Error ? err.message : String(err) },
-      500
-    );
+    return c.json({ error: 'Parsing failed', details: err instanceof Error ? err.message : String(err) }, 500);
   }
 }
