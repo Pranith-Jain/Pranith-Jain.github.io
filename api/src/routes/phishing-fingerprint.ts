@@ -2,7 +2,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { shouldWriteLastGood } from '../lib/lastgood-debounce';
 import { safeJsonBody } from '../lib/safe-body';
-import { pinnedFetch } from '../lib/ssrf-guard';
+import { pinnedFetchFollow } from '../lib/ssrf-guard';
 
 const FP_KV_PREFIX = 'phishing-fp:';
 const MAX_HTML_BYTES = 512 * 1024;
@@ -25,12 +25,12 @@ export async function fetchPageHandler(ctx: Context<{ Bindings: Env }>): Promise
   if (!parsed.value.url) return ctx.json({ error: 'missing url' }, 400);
   const url = parsed.value.url;
   try {
-    // pinnedFetch: SSRF guard (rejects private/reserved/metadata IPs, pins the
+    // pinnedFetchFollow: SSRF guard (rejects private/reserved/metadata IPs, pins the
     // resolved IP against rebinding) — the URL is fully attacker-controlled.
     // Browser-like headers so real targets (phishing kits, CDN/Cloudflare-fronted
     // sites) don't 403/429 a bot UA — the previous PhishingFingerprinter/1.0 UA
     // was why most real pages failed to fetch.
-    const res = await pinnedFetch(url, {
+    const res = await pinnedFetchFollow(url, {
       method: 'GET',
       headers: {
         'user-agent':
@@ -38,7 +38,6 @@ export async function fetchPageHandler(ctx: Context<{ Bindings: Env }>): Promise
         accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
         'accept-language': 'en-US,en;q=0.9',
       },
-      redirect: 'follow',
       signal: AbortSignal.timeout(15000),
     });
     if (!res.ok) return ctx.json({ error: `upstream ${res.status}` }, 502);

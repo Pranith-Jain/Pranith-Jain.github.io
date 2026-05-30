@@ -164,3 +164,66 @@ export async function pinnedFetch(rawUrl: string, init?: RequestInit): Promise<R
   const cf = { resolveOverride: check.pinIp } as Record<string, unknown>;
   return fetch(parsed.toString(), { ...init, cf } as RequestInit);
 }
+
+/**
+ * SSRF-safe fetch that ALSO follows redirects safely.
+ *
+ * `pinnedFetch` only validates + pins the FIRST hostname. Passing it
+ * `redirect: 'follow'` is unsafe: the runtime follows a 3xx by re-resolving
+ * the redirect target's hostname normally — with no `resolveOverride` pin and
+ * no public-IP re-validation — so a public URL that 302s to
+ * `http://169.254.169.254/…`, a private IP, or an internal hostname is
+ * fetched anyway. That defeats the guard.
+ *
+ * This follows redirects MANUALLY: each hop is re-validated via
+ * `assertPublicHost` and pinned via `resolveOverride` before the request is
+ * made, exactly like url-preview/web-scan. Relative `Location` values are
+ * resolved against the current URL; the hop count is capped. The single
+ * `init.signal` (if any) bounds the whole chain.
+ */
+export async function pinnedFetchFollow(
+  rawUrl: string,
+  init?: RequestInit,
+  opts: { maxRedirects?: number } = {}
+): Promise<Response> {
+  const maxRedirects = opts.maxRedirects ?? 5;
+  let currentUrl = rawUrl;
+
+  for (let hop = 0; hop <= maxRedirects; hop++) {
+    let parsed: URL;
+    try {
+      parsed = new URL(currentUrl);
+    } catch {
+      throw new SsrfError(400, 'invalid url');
+    }
+    if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
+      throw new SsrfError(400, 'unsupported protocol');
+    }
+    const check = await assertPublicHost(parsed.hostname);
+    if (!check.ok) throw new SsrfError(check.status ?? 403, check.error ?? 'blocked', check.blockedIp);
+
+    const res = await fetch(parsed.toString(), {
+      ...init,
+      redirect: 'manual', // we follow manually so each hop is re-validated
+      cf: { resolveOverride: check.pinIp },
+    } as RequestInit);
+
+    // Non-redirect (or a 3xx with no Location) → this is the final response.
+    if (res.status < 300 || res.status >= 400) return res;
+    const location = res.headers.get('location');
+    if (!location) return res;
+
+    // Free the redirect response's connection before the next hop.
+    try {
+      await res.body?.cancel();
+    } catch {
+      /* best-effort */
+    }
+    try {
+      currentUrl = new URL(location, parsed).toString(); // resolves relative redirects
+    } catch {
+      throw new SsrfError(400, 'invalid redirect location');
+    }
+  }
+  throw new SsrfError(508, 'too many redirects');
+}

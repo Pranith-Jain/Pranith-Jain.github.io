@@ -1,6 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { pinnedFetch } from '../lib/ssrf-guard';
+import { pinnedFetchFollow } from '../lib/ssrf-guard';
 
 interface FormField {
   type: string;
@@ -79,7 +79,7 @@ export async function phishingAnalyzeAutoHandler(c: Context<{ Bindings: Env }>):
     // pinnedFetch: SSRF guard on the attacker-controlled URL. Browser UA so
     // real phishing kits / CDN-fronted targets don't 403/429 a bot UA (the old
     // PhishingAnalyzer/1.0 UA was why most real pages failed to analyze).
-    const pageRes = await pinnedFetch(url, {
+    const pageRes = await pinnedFetchFollow(url, {
       signal: AbortSignal.timeout(10000),
       headers: {
         'User-Agent':
@@ -87,7 +87,6 @@ export async function phishingAnalyzeAutoHandler(c: Context<{ Bindings: Env }>):
         accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
         'accept-language': 'en-US,en;q=0.9',
       },
-      redirect: 'follow',
     });
 
     const html = await pageRes.text();
