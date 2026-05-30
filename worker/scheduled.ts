@@ -131,6 +131,67 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
     ctx.waitUntil(
       (async () => {
         const db = env.BRIEFINGS_DB as D1Database | undefined;
+
+        // === Telegram leak scanning — FIRST, before anything else hits t.me ===
+        // Telegram throttles repeated scrape bursts from the same egress IP. The
+        // cache-warm below (it fetches /api/v1/telegram-feed) and the watched-
+        // channel scrape also hit t.me, so running the feed scan here guarantees
+        // it gets the first, un-throttled pass. Previously it ran LAST and found
+        // ~0 new leaks every hour (only manual triggers — a single clean burst —
+        // worked). Also placed ahead of the briefing-rebuild early-return below,
+        // so a rebuild hour can't skip leak scanning entirely.
+        try {
+          if (env.BRIEFINGS_DB) {
+            const feed = await fetchTelegramFeed(env.KV_CACHE);
+            if (feed?.items?.length) {
+              const result = await runTelegramLeakScanner(env.BRIEFINGS_DB, feed.items);
+              if (result.leaks_found > 0 || result.channels_discovered > 0) {
+                console.log(
+                  JSON.stringify({
+                    job: 'telegram-leak-scanner',
+                    leaks_found: result.leaks_found,
+                    channels_discovered: result.channels_discovered,
+                  })
+                );
+              }
+            }
+          }
+        } catch (e) {
+          console.error(
+            JSON.stringify({
+              job: 'telegram-leak-scanner',
+              status: 'failed',
+              error: e instanceof Error ? e.message : String(e),
+            })
+          );
+        }
+
+        // Watched-channel scrape runs right after, sharing one burst window
+        // before the cache-warm fans out more t.me requests.
+        try {
+          if (env.BRIEFINGS_DB) {
+            const w = await scrapeWatchedChannels(env.BRIEFINGS_DB);
+            if (w.channels_scraped > 0) {
+              console.log(
+                JSON.stringify({
+                  job: 'telegram-watched-scrape',
+                  channels_scraped: w.channels_scraped,
+                  leaks_found: w.leaks_found,
+                  channels_discovered: w.channels_discovered,
+                })
+              );
+            }
+          }
+        } catch (e) {
+          console.error(
+            JSON.stringify({
+              job: 'telegram-watched-scrape',
+              status: 'failed',
+              error: e instanceof Error ? e.message : String(e),
+            })
+          );
+        }
+
         let rebuiltThisHour = false;
 
         const isRich = (statsJson: string | undefined): boolean => {
@@ -193,7 +254,10 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           '/api/v1/threat-map',
           '/api/v1/rules',
           '/api/v1/ransomware-recent',
-          '/api/v1/telegram-feed',
+          // NOTE: /api/v1/telegram-feed intentionally NOT warmed here — the
+          // telegram leak scan above already scrapes t.me this run, and a second
+          // burst gets throttled by Telegram. The feed endpoint warms itself on
+          // the first real page visit.
           '/api/v1/onion-watch',
           '/api/v1/cve-recent',
           '/api/v1/phishing-urls',
@@ -237,61 +301,6 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           }
         } catch (e) {
           console.error(JSON.stringify({ job: 'watch-engine', error: e instanceof Error ? e.message : String(e) }));
-        }
-
-        // === Telegram leak scanner (every hour) ===
-        try {
-          if (env.BRIEFINGS_DB) {
-            const feed = await fetchTelegramFeed(env.KV_CACHE);
-            if (feed?.items?.length) {
-              const result = await runTelegramLeakScanner(env.BRIEFINGS_DB, feed.items);
-              if (result.leaks_found > 0 || result.channels_discovered > 0) {
-                console.log(
-                  JSON.stringify({
-                    job: 'telegram-leak-scanner',
-                    leaks_found: result.leaks_found,
-                    channels_discovered: result.channels_discovered,
-                  })
-                );
-              }
-            }
-          }
-        } catch (e) {
-          console.error(
-            JSON.stringify({
-              job: 'telegram-leak-scanner',
-              status: 'failed',
-              error: e instanceof Error ? e.message : String(e),
-            })
-          );
-        }
-
-        // === Telegram watched-channel scrape (every hour) ===
-        // Actively fetch the channels added to telegram_watched_channels —
-        // the feed scanner above only sees the curated news feed, so without
-        // this the operator-added leak channels are never scraped.
-        try {
-          if (env.BRIEFINGS_DB) {
-            const w = await scrapeWatchedChannels(env.BRIEFINGS_DB);
-            if (w.channels_scraped > 0) {
-              console.log(
-                JSON.stringify({
-                  job: 'telegram-watched-scrape',
-                  channels_scraped: w.channels_scraped,
-                  leaks_found: w.leaks_found,
-                  channels_discovered: w.channels_discovered,
-                })
-              );
-            }
-          }
-        } catch (e) {
-          console.error(
-            JSON.stringify({
-              job: 'telegram-watched-scrape',
-              status: 'failed',
-              error: e instanceof Error ? e.message : String(e),
-            })
-          );
         }
 
         // === Daily leak entry cleanup (6am UTC) ===
