@@ -352,6 +352,14 @@ export async function runTelegramLeakScanner(
     .all<{ handle: string }>();
   const watchedSet = new Set(watchedRows.results?.map((r) => r.handle.toLowerCase()) ?? []);
 
+  // Pre-fetch operator-dismissed handles (reviewed but NOT added to watch) so a
+  // rejected channel stays rejected — a new source message mentioning it must
+  // not resurface it in the review queue. See telegramRejectChannelHandler.
+  const dismissedRows = await db
+    .prepare('SELECT DISTINCT handle FROM telegram_discovered_channels WHERE reviewed = 1 AND added_to_watch = 0')
+    .all<{ handle: string }>();
+  const dismissedSet = new Set(dismissedRows.results?.map((r) => r.handle.toLowerCase()) ?? []);
+
   // Collect everything, then batch.
   const leakStmts: ReturnType<typeof db.prepare>[] = [];
   const updateStmts: ReturnType<typeof db.prepare>[] = [];
@@ -361,7 +369,7 @@ export async function runTelegramLeakScanner(
     const chLinks = extractChannelLinks(item.text);
     for (const handle of chLinks) {
       const h = handle.toLowerCase();
-      if (!watchedSet.has(h) && !discoveredHandles.has(h)) {
+      if (!watchedSet.has(h) && !dismissedSet.has(h) && !discoveredHandles.has(h)) {
         discoveredHandles.set(h, item.permalink);
       }
     }
@@ -371,7 +379,7 @@ export async function runTelegramLeakScanner(
       const hash = link.split('/+')[1] || link.split('joinchat/')[1] || link;
       if (hash) {
         const jh = 'join:' + hash;
-        if (!discoveredHandles.has(jh)) {
+        if (!dismissedSet.has(jh) && !discoveredHandles.has(jh)) {
           discoveredHandles.set(jh, item.permalink);
         }
       }
@@ -398,7 +406,7 @@ export async function runTelegramLeakScanner(
   // Batch discovered-channel inserts (skip watched).
   const discStmts: ReturnType<typeof db.prepare>[] = [];
   for (const [handle, source] of discoveredHandles) {
-    if (!watchedSet.has(handle)) {
+    if (!watchedSet.has(handle) && !dismissedSet.has(handle)) {
       discStmts.push(discoveredInsertStmt.bind(handle, source, now));
     }
   }
@@ -636,6 +644,60 @@ export async function telegramApproveChannelHandler(c: Context<{ Bindings: Env }
     }
 
     return c.json({ ok: true, handle, category }, 200);
+  } catch (e) {
+    return c.json({ error: e instanceof Error ? e.message : 'failed' }, 500);
+  }
+}
+
+/**
+ * Reject (dismiss) a discovered channel so it stops cluttering the review queue
+ * AND never gets re-surfaced. "Sticky": we mark every row for the handle
+ * reviewed=1, added_to_watch=0, and the scanner skips re-inserting handles in
+ * that state (see runTelegramLeakScanner's dismissedSet) — so a fresh source
+ * message mentioning the same handle won't make it reappear. Also deactivates +
+ * unsubscribes it if it had previously been approved (idempotent un-approve).
+ */
+export async function telegramRejectChannelHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const gate = requireAdmin(c);
+  if ('error' in gate) return gate.error;
+
+  const db = c.env.BRIEFINGS_DB;
+  if (!db) return c.json({ error: 'D1 not configured' }, 500);
+
+  const body = (await c.req.json()) as { handle?: string };
+  const handle = body.handle;
+  if (!handle) return c.json({ error: 'handle required' }, 400);
+
+  try {
+    const res = await db
+      .prepare('UPDATE telegram_discovered_channels SET reviewed = 1, added_to_watch = 0 WHERE handle = ?')
+      .bind(handle)
+      .run();
+
+    // If it was previously approved, un-watch it so the scraper stops fetching.
+    await db.prepare('UPDATE telegram_watched_channels SET active = 0 WHERE handle = ?').bind(handle).run();
+
+    // Drop it from the KV custom-channels list the feed scraper reads.
+    const kv = c.env.KV_CACHE;
+    if (kv) {
+      c.executionCtx.waitUntil(
+        (async () => {
+          try {
+            const raw = await kv.get('tg:custom-channels:v1');
+            if (!raw) return;
+            const existing: Array<{ handle: string; name: string }> = JSON.parse(raw);
+            const next = existing.filter((ch) => ch.handle.toLowerCase() !== handle.toLowerCase());
+            if (next.length !== existing.length) {
+              await kv.put('tg:custom-channels:v1', JSON.stringify(next));
+            }
+          } catch {
+            /* non-critical */
+          }
+        })()
+      );
+    }
+
+    return c.json({ ok: true, handle, rows: res.meta?.changes ?? 0 }, 200);
   } catch (e) {
     return c.json({ error: e instanceof Error ? e.message : 'failed' }, 500);
   }

@@ -200,6 +200,7 @@ import {
   telegramDiscoveredChannelsHandler,
   telegramWatchedChannelsHandler,
   telegramApproveChannelHandler,
+  telegramRejectChannelHandler,
   telegramLeakStatsHandler,
   telegramLeakScanTriggerHandler,
   telegramLeakGeoHandler,
@@ -295,6 +296,7 @@ app.get('/api/v1/telegram-leaks/watched-channels', telegramWatchedChannelsHandle
 app.get('/api/v1/telegram-leaks/stats', telegramLeakStatsHandler);
 app.get('/api/v1/telegram-leaks/geo', telegramLeakGeoHandler);
 app.post('/api/v1/telegram-leaks/approve-channel', telegramApproveChannelHandler);
+app.post('/api/v1/telegram-leaks/reject-channel', telegramRejectChannelHandler);
 // TEMP: manual scan trigger — remove after confirming cron works
 app.post('/api/v1/telegram-leaks/trigger-scan', telegramLeakScanTriggerHandler);
 
