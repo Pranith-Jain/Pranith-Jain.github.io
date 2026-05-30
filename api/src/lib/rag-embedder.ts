@@ -77,8 +77,12 @@ async function embedText(ai: Ai, text: string): Promise<number[]> {
   const input = { text: [text.slice(0, 2000)] }; // model context limit
   for (let attempt = 0; attempt < 3; attempt++) {
     try {
-      const res = (await ai.run(EMBEDDING_MODEL, input)) as { data?: Array<{ embedding?: number[] }> };
-      return res.data?.[0]?.embedding ?? [];
+      // Workers AI bge embedding shape is { shape, data: number[][] } — the
+      // embedding vector is data[0] itself, NOT data[0].embedding (that
+      // OpenAI-style access returned undefined → [] → every chunk silently
+      // skipped, so nothing ever indexed).
+      const res = (await ai.run(EMBEDDING_MODEL, input)) as { data?: number[][] };
+      return res.data?.[0] ?? [];
     } catch (err) {
       if (attempt === 2) {
         console.error('embedText failed after retries:', err);
