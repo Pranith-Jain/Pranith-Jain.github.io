@@ -68,10 +68,26 @@ export function chunkText(text: string, meta: Omit<ChunkMeta, 'chunk_index' | 't
  * Embed text with Workers AI and return the vector.
  */
 async function embedText(ai: Ai, text: string): Promise<number[]> {
-  const res = (await ai.run(EMBEDDING_MODEL, {
-    text: [text.slice(0, 2000)], // model context limit
-  })) as { data?: Array<{ embedding?: number[] }> };
-  return res.data?.[0]?.embedding ?? [];
+  // Retry with backoff and NEVER throw — Workers AI rate-limits a burst of
+  // embeds (initial corpus fill is ~hundreds at once), and an unguarded throw
+  // here would propagate out of indexDocument and fail the whole document.
+  // Returning [] instead makes the chunk a skip; since the doc isn't marked
+  // "seen" until something is inserted, it's simply retried on the next run —
+  // so indexing converges across runs instead of erroring out.
+  const input = { text: [text.slice(0, 2000)] }; // model context limit
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      const res = (await ai.run(EMBEDDING_MODEL, input)) as { data?: Array<{ embedding?: number[] }> };
+      return res.data?.[0]?.embedding ?? [];
+    } catch (err) {
+      if (attempt === 2) {
+        console.error('embedText failed after retries:', err);
+        return [];
+      }
+      await new Promise((r) => setTimeout(r, 250 * (attempt + 1)));
+    }
+  }
+  return [];
 }
 
 /**

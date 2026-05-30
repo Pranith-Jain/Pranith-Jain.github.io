@@ -301,17 +301,20 @@ export async function indexAllCorpora(env: Env): Promise<{
   ransomware: { indexed: number; errors: number };
   breach: { indexed: number; errors: number };
 }> {
-  const [cve, actor_kb, ransomware, breach] = await Promise.allSettled([
-    indexCveCorpus(env),
-    indexActorKb(env),
-    indexRansomwareClaims(env),
-    indexBreachCorpus(env),
-  ]);
-
-  return {
-    cve: cve.status === 'fulfilled' ? cve.value : { indexed: 0, errors: 1 },
-    actor_kb: actor_kb.status === 'fulfilled' ? actor_kb.value : { indexed: 0, errors: 1 },
-    ransomware: ransomware.status === 'fulfilled' ? ransomware.value : { indexed: 0, errors: 1 },
-    breach: breach.status === 'fulfilled' ? breach.value : { indexed: 0, errors: 1 },
+  // Run corpora SEQUENTIALLY (not in parallel) — each indexer embeds many docs,
+  // and 4 concurrent embed loops overwhelm the Workers AI rate limit. One at a
+  // time keeps concurrent AI load to a single in-flight embed.
+  const safe = async (fn: () => Promise<{ indexed: number; errors: number }>) => {
+    try {
+      return await fn();
+    } catch {
+      return { indexed: 0, errors: 1 };
+    }
   };
+  const cve = await safe(() => indexCveCorpus(env));
+  const actor_kb = await safe(() => indexActorKb(env));
+  const ransomware = await safe(() => indexRansomwareClaims(env));
+  const breach = await safe(() => indexBreachCorpus(env));
+
+  return { cve, actor_kb, ransomware, breach };
 }
