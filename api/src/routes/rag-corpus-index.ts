@@ -114,16 +114,15 @@ export async function indexActorKb(env: Env): Promise<{ indexed: number; errors:
     }>;
 
     for (const a of db) {
-      const ttpText = a.ttp_signature
-        ? Object.entries(a.ttp_signature)
-            .map(([k, v]) => `${k}: ${(v as string[]).join(', ')}`)
-            .join('\n')
-        : '';
-      const vicText = a.victimology
-        ? Object.entries(a.victimology)
-            .map(([k, v]) => `${k}: ${(v as string[]).join(', ')}`)
-            .join('\n')
-        : '';
+      // victimology mixes string[] (sectors, regions) with plain strings
+      // (organization_size, ransom_range) — guard so a non-array value doesn't
+      // throw `.join is not a function` and abort the whole actor loop.
+      const fmt = (obj: Record<string, unknown>): string =>
+        Object.entries(obj)
+          .map(([k, v]) => `${k}: ${Array.isArray(v) ? v.join(', ') : String(v)}`)
+          .join('\n');
+      const ttpText = a.ttp_signature ? fmt(a.ttp_signature as Record<string, unknown>) : '';
+      const vicText = a.victimology ? fmt(a.victimology as Record<string, unknown>) : '';
       const text = [
         `Actor: ${a.actor_name} (${a.actor_id})`,
         a.aliases?.length ? `Aliases: ${a.aliases.join(', ')}` : null,
@@ -163,62 +162,50 @@ export async function indexRansomwareClaims(env: Env): Promise<{ indexed: number
   let indexed = 0;
   let errors = 0;
 
-  const sources = [
-    'https://www.ransomlook.io/api/recent',
-    'https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json',
-  ];
+  // Pull from the internal /api/v1/ransomware-recent endpoint rather than
+  // hitting ransomlook directly — the direct fetch routinely exceeded the 15s
+  // timeout (ransomlook is slow) and the ransomwatch posts.json body is large
+  // enough to abort mid-read. The internal handler is resilient + edge-cached.
+  try {
+    const apiApp = (await import('../index')).default;
+    const res = await apiApp.fetch(new Request('https://internal/api/v1/ransomware-recent'), env);
+    if (!res.ok) return { indexed, errors: errors + 1 };
+    const body = (await res.json()) as {
+      victims?: Array<{ victim?: string; group?: string; discovered?: string; description?: string }>;
+    };
+    const entries = body.victims ?? [];
 
-  for (const url of sources) {
-    try {
-      const res = await fetch(url, {
-        signal: AbortSignal.timeout(FETCH_TIMEOUT),
-        headers: { 'User-Agent': 'pranithjain.qzz.io DFIR toolkit' },
-      });
-      if (!res.ok) continue;
+    for (const entry of entries.slice(0, 100)) {
+      const victim = entry.victim ?? '';
+      const group = entry.group ?? 'unknown';
+      const discovered = entry.discovered ?? new Date().toISOString();
+      const desc = entry.description ?? '';
+      if (!victim || victim.length < 2) continue;
+      const text = [
+        `Ransomware Group: ${group}`,
+        `Victim: ${victim}`,
+        desc ? `Details: ${desc}` : null,
+        `Discovered: ${discovered}`,
+      ]
+        .filter(Boolean)
+        .join('\n');
 
-      interface RansomlookEntry {
-        post_title?: string;
-        group_name?: string;
-        discovered?: string;
-        description?: string;
-        victim?: string;
-        group?: string;
+      try {
+        const n = await indexDocument(env, {
+          source_id: `ransomware-${group}-${victim.replace(/[^a-zA-Z0-9]/g, '_')}-${discovered.slice(0, 10)}`,
+          source_type: 'ransomware_claim',
+          title: `${group} claims attack on ${victim}`,
+          text,
+          timestamp: discovered,
+          tags: ['ransomware', group.toLowerCase()],
+        });
+        indexed += n;
+      } catch {
+        errors++;
       }
-      const data = (await res.json()) as RansomlookEntry[] | { victims?: RansomlookEntry[] };
-      const entries = Array.isArray(data) ? data : (data.victims ?? []);
-
-      for (const entry of entries.slice(0, 100)) {
-        const victim = entry.victim ?? entry.post_title ?? '';
-        const group = entry.group ?? entry.group_name ?? 'unknown';
-        const discovered = entry.discovered ?? new Date().toISOString();
-        const desc = entry.description ?? '';
-        if (!victim || victim.length < 2) continue;
-        const text = [
-          `Ransomware Group: ${group}`,
-          `Victim: ${victim}`,
-          desc ? `Details: ${desc}` : null,
-          `Discovered: ${discovered}`,
-        ]
-          .filter(Boolean)
-          .join('\n');
-
-        try {
-          const n = await indexDocument(env, {
-            source_id: `ransomware-${group}-${victim.replace(/[^a-zA-Z0-9]/g, '_')}-${discovered.slice(0, 10)}`,
-            source_type: 'ransomware_claim',
-            title: `${group} claims attack on ${victim}`,
-            text,
-            timestamp: discovered,
-            tags: ['ransomware', group.toLowerCase()],
-          });
-          indexed += n;
-        } catch {
-          errors++;
-        }
-      }
-    } catch {
-      errors++;
     }
+  } catch {
+    errors++;
   }
 
   return { indexed, errors };
@@ -234,7 +221,7 @@ export async function indexBreachCorpus(env: Env): Promise<{ indexed: number; er
   // internal handler which serves edge-cached data and works without an API key.
   try {
     const apiApp = (await import('../index')).default;
-    const internalReq = new Request('https://internal/breach-disclosures', { method: 'GET' });
+    const internalReq = new Request('https://internal/api/v1/breach-disclosures', { method: 'GET' });
     const res = await apiApp.fetch(internalReq, env);
     if (!res.ok) return { indexed, errors: errors + 1 };
     const body = (await res.json()) as {
