@@ -535,7 +535,7 @@ app.get('/api/v1/source-reliability', sourceReliabilityHandler);
 app.post('/api/v1/threat-intel/ach', achHandler);
 
 // ── Novelty Detection ──────────────────────────────────────────
-app.post('/api/v1/threat-intel/novelty', noveltyHandler);
+app.get('/api/v1/threat-intel/novelty', noveltyHandler);
 app.post('/api/v1/threat-intel/novelty/batch', noveltyBatchHandler);
 
 // ── Intelligence Assessments ────────────────────────────────────
