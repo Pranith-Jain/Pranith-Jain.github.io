@@ -370,7 +370,10 @@ async function probeOne(baseUrl: string, def: ProbeDef, pinIp?: string): Promise
       method: 'GET',
       redirect: 'manual',
       signal: ctrl.signal,
-      headers: { 'user-agent': 'pranithjain-dfir/1.0 web-scan' },
+      headers: {
+        'user-agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+      },
       cf: { resolveOverride: pinIp },
     } as RequestInit);
     clearTimeout(timer);
@@ -516,7 +519,11 @@ export async function webScanHandler(c: Context<{ Bindings: Env }>): Promise<Res
         method: 'GET',
         redirect: 'manual',
         signal: ctrl.signal,
-        headers: { 'user-agent': 'pranithjain-dfir/1.0 web-scan', accept: 'text/html,*/*' },
+        headers: {
+          'user-agent':
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+          accept: 'text/html,*/*',
+        },
         cf: { resolveOverride: currentHostCheck.pinIp },
       } as RequestInit);
       clearTimeout(timer);

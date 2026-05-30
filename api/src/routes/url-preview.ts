@@ -3,7 +3,10 @@ import type { Env } from '../env';
 import { safeErrorMessage } from '../lib/error';
 import { assertPublicHost } from '../lib/ssrf-guard';
 
-const UA = 'Mozilla/5.0 (compatible; pranithjain-dfir-preview/1.0; +https://pranithjain.qzz.io)';
+// Browser UA — a bot/identifying UA gets 403/429'd by CDN/Cloudflare-fronted
+// targets, which made previews fail on exactly the sites users paste most.
+const UA =
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36';
 const MAX_BYTES = 128 * 1024;
 const TIMEOUT_MS = 8000;
 const MAX_REDIRECTS = 5;
@@ -362,11 +365,9 @@ export async function urlPreviewHandler(c: Context<{ Bindings: Env }>) {
         const nextHost = new URL(currentUrl).hostname;
         finalHostCheck = await assertPublicHost(nextHost);
       } catch {
-        return c.json(
-          { error: 'redirect_target_invalid', url: parsed.toString(), final_url: currentUrl },
-          502,
-          { 'Cache-Control': 'no-store' }
-        );
+        return c.json({ error: 'redirect_target_invalid', url: parsed.toString(), final_url: currentUrl }, 502, {
+          'Cache-Control': 'no-store',
+        });
       }
       if (!finalHostCheck.ok) {
         return c.json<UrlPreviewResponse>(
