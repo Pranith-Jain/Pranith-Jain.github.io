@@ -10,6 +10,10 @@ const FEODO_CSV = 'https://feodotracker.abuse.ch/downloads/ipblocklist.csv';
 // IP per line. Added 2026-05-24.
 const CPS_CS_IPS =
   'https://raw.githubusercontent.com/CriticalPathSecurity/Public-Intelligence-Feeds/master/cobaltstrike_ips.txt';
+const CPS_AVANZATO_C2 =
+  'https://raw.githubusercontent.com/CriticalPathSecurity/Public-Intelligence-Feeds/master/avanzato_c2.txt';
+const CPS_COLLECTED =
+  'https://raw.githubusercontent.com/CriticalPathSecurity/Public-Intelligence-Feeds/master/cps-collected-iocs.txt';
 // CriminalIP C2-Daily-Feed — daily-updated CSV with named C2 framework
 // per entry (c2_meshagent, c2_havoc, c2_mythic, c2_metasploit, …).
 // Path includes today's date in UTC; if today hasn't been pushed yet we
@@ -211,6 +215,48 @@ function parseCpsCobaltStrike(body: string): C2Entry[] {
   return entries;
 }
 
+// ─── CPS Avanzato C2 IPs (plain-text, one per line) ────────────────────────
+
+function parseCpsAvanzatoC2(body: string): C2Entry[] {
+  const entries: C2Entry[] = [];
+  const seen = new Set<string>();
+  for (const line of body.split('\n')) {
+    const trimmed = line.trim();
+    if (!trimmed || !IPV4_RE.test(trimmed)) continue;
+    if (seen.has(trimmed)) continue;
+    seen.add(trimmed);
+    entries.push({
+      ip: trimmed,
+      framework: 'avanzato',
+      first_seen: '',
+      sources: ['cps-avanzato'],
+      context: 'Avanzato malware C2',
+    });
+  }
+  return entries;
+}
+
+// ─── CPS Collected IOCs (plain-text IPs, one per line) ─────────────────────
+
+function parseCpsCollected(body: string): C2Entry[] {
+  const entries: C2Entry[] = [];
+  const seen = new Set<string>();
+  for (const line of body.split('\n')) {
+    const trimmed = line.trim();
+    if (!trimmed || !IPV4_RE.test(trimmed)) continue;
+    if (seen.has(trimmed)) continue;
+    seen.add(trimmed);
+    entries.push({
+      ip: trimmed,
+      framework: 'unknown',
+      first_seen: '',
+      sources: ['cps-collected'],
+      context: 'CPS collected IOC',
+    });
+  }
+  return entries;
+}
+
 // ─── CriminalIP daily C2 feed (CSV with named framework column) ────────────
 
 function parseCriminalIp(body: string): C2Entry[] {
@@ -339,6 +385,8 @@ async function fetchC2Tracker(): Promise<C2Response> {
     fetchText(CPS_CS_IPS),
     fetchCriminalIp(),
     fetchText(TWEETFEED_WEEK),
+    fetchText(CPS_AVANZATO_C2),
+    fetchText(CPS_COLLECTED),
   ]);
 
   const sourceEntries: { id: string; name: string; entries: C2Entry[] }[] = [
@@ -349,6 +397,8 @@ async function fetchC2Tracker(): Promise<C2Response> {
     { id: 'cps', name: 'CriticalPathSecurity', entries: rawTexts[4] ? parseCpsCobaltStrike(rawTexts[4]) : [] },
     { id: 'criminalip', name: 'CriminalIP Daily', entries: rawTexts[5] ? parseCriminalIp(rawTexts[5]) : [] },
     { id: 'tweetfeed', name: 'TweetFeed (#C2)', entries: rawTexts[6] ? parseTweetFeedC2(rawTexts[6]) : [] },
+    { id: 'cps-avanzato', name: 'CPS Avanzato C2', entries: rawTexts[7] ? parseCpsAvanzatoC2(rawTexts[7]) : [] },
+    { id: 'cps-collected', name: 'CPS Collected IOCs', entries: rawTexts[8] ? parseCpsCollected(rawTexts[8]) : [] },
   ];
 
   const seen = new Map<string, C2Entry>();
@@ -366,6 +416,8 @@ async function fetchC2Tracker(): Promise<C2Response> {
     { tag: 'cps', id: 'cps', name: 'CriticalPathSecurity' },
     { tag: 'criminalip', id: 'criminalip', name: 'CriminalIP Daily' },
     { tag: 'tweetfeed', id: 'tweetfeed', name: 'TweetFeed (#C2)' },
+    { tag: 'cps-avanzato', id: 'cps-avanzato', name: 'CPS Avanzato C2' },
+    { tag: 'cps-collected', id: 'cps-collected', name: 'CPS Collected IOCs' },
   ];
   const sourceSummary = sourceTags
     .map(({ tag, id, name }) => ({

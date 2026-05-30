@@ -1,0 +1,331 @@
+import type { Context } from 'hono';
+import type { Env } from '../env';
+import { safeJsonBody } from '../lib/safe-body';
+
+interface FeedJob {
+  id: string;
+  name: string;
+  source_url: string;
+  interval_minutes: number;
+  parser: 'plaintext-ips' | 'plaintext-domains' | 'plaintext-urls' | 'plaintext-hashes' | 'csv' | 'json';
+  enabled: boolean;
+  created_at: string;
+  last_run_at: string | null;
+  last_status: 'pending' | 'running' | 'ok' | 'error' | null;
+  last_item_count: number;
+  last_error: string | null;
+  tags: string[];
+}
+
+interface FeedRunHistory {
+  job_id: string;
+  started_at: string;
+  finished_at: string;
+  status: 'ok' | 'error';
+  item_count: number;
+  error: string | null;
+}
+
+const JOBS_KV_KEY = 'feed-scheduler:jobs:v1';
+const MAX_HISTORY = 20;
+
+async function listJobs(kv: KVNamespace): Promise<FeedJob[]> {
+  const raw = await kv.get(JOBS_KV_KEY, 'json').catch(() => null);
+  return (raw as FeedJob[]) ?? [];
+}
+
+async function saveJobs(kv: KVNamespace, jobs: FeedJob[]): Promise<void> {
+  await kv.put(JOBS_KV_KEY, JSON.stringify(jobs));
+}
+
+function now(): string {
+  return new Date().toISOString();
+}
+
+const VALID_PARSERS: FeedJob['parser'][] = [
+  'plaintext-ips',
+  'plaintext-domains',
+  'plaintext-urls',
+  'plaintext-hashes',
+  'csv',
+  'json',
+];
+
+const PRESETS: { id: string; name: string; source_url: string; parser: FeedJob['parser']; tags: string[] }[] = [
+  {
+    id: 'cins-army',
+    name: 'CINS Army Bad IPs',
+    source_url: 'https://cinsscore.com/list/ci-badguys.txt',
+    parser: 'plaintext-ips',
+    tags: ['blocklist', 'ip'],
+  },
+  {
+    id: 'blocklist-de',
+    name: 'Blocklist.de All',
+    source_url: 'https://lists.blocklist.de/lists/all.txt',
+    parser: 'plaintext-ips',
+    tags: ['blocklist', 'ip', 'attacker'],
+  },
+  {
+    id: 'greensnow',
+    name: 'GreenSnow',
+    source_url: 'https://blocklist.greensnow.co/greensnow.txt',
+    parser: 'plaintext-ips',
+    tags: ['blocklist', 'ip'],
+  },
+  {
+    id: 'cert-pl',
+    name: 'CERT Polska Phishing Domains',
+    source_url: 'https://hole.cert.pl/domains/domains.txt',
+    parser: 'plaintext-domains',
+    tags: ['phishing', 'domain', 'cert-pl'],
+  },
+  {
+    id: 'tor-exit',
+    name: 'Tor Exit Nodes',
+    source_url: 'https://check.torproject.org/torbulkexitlist',
+    parser: 'plaintext-ips',
+    tags: ['tor', 'anonymizer', 'ip'],
+  },
+  {
+    id: 'x4bnet-vpn',
+    name: 'X4BNet VPN Endpoints',
+    source_url: 'https://raw.githubusercontent.com/X4BNet/lists_vpn/main/output/vpn/ipv4.txt',
+    parser: 'plaintext-ips',
+    tags: ['vpn', 'proxy', 'ip'],
+  },
+  {
+    id: 'binarydefense',
+    name: 'BinaryDefense Ban List',
+    source_url: 'https://www.binarydefense.com/banlist.txt',
+    parser: 'plaintext-ips',
+    tags: ['blocklist', 'ip'],
+  },
+  {
+    id: 'spamhaus-drop',
+    name: 'Spamhaus DROP List',
+    source_url: 'https://www.spamhaus.org/drop/drop.txt',
+    parser: 'plaintext-ips',
+    tags: ['blocklist', 'ip', 'spamhaus'],
+  },
+  {
+    id: 'phishing-army',
+    name: 'Phishing Army Blocklist',
+    source_url: 'https://phishing.army/download/phishing_army_blocklist.txt',
+    parser: 'plaintext-domains',
+    tags: ['phishing', 'domain'],
+  },
+];
+
+export async function listFeedJobsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const kv = c.env.KV_CACHE;
+  if (!kv) return c.json({ error: 'KV not available' }, 503);
+  const jobs = await listJobs(kv);
+  return c.json({ jobs, presets: PRESETS }, 200, { 'Cache-Control': 'no-store' });
+}
+
+export async function createFeedJobHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const kv = c.env.KV_CACHE;
+  if (!kv) return c.json({ error: 'KV not available' }, 503);
+
+  const parsed = await safeJsonBody<{
+    name: string;
+    source_url: string;
+    parser: FeedJob['parser'];
+    interval_minutes?: number;
+    tags?: string[];
+  }>(c, { maxBytes: 4 * 1024 });
+  if ('error' in parsed) return parsed.error;
+  const body = parsed.value;
+
+  if (!body.name?.trim() || !body.source_url?.trim() || !body.parser) {
+    return c.json({ error: 'name, source_url, and parser are required' }, 400);
+  }
+
+  if (!VALID_PARSERS.includes(body.parser)) {
+    return c.json({ error: `Invalid parser. Must be one of: ${VALID_PARSERS.join(', ')}` }, 400);
+  }
+
+  try {
+    new URL(body.source_url);
+  } catch {
+    return c.json({ error: 'Invalid source_url' }, 400);
+  }
+
+  const now_ = now();
+  const job: FeedJob = {
+    id: crypto.randomUUID(),
+    name: body.name.trim(),
+    source_url: body.source_url.trim(),
+    parser: body.parser,
+    interval_minutes: body.interval_minutes ?? 60,
+    enabled: true,
+    created_at: now_,
+    last_run_at: null,
+    last_status: null,
+    last_item_count: 0,
+    last_error: null,
+    tags: body.tags ?? [],
+  };
+
+  const jobs = await listJobs(kv);
+  jobs.push(job);
+  await saveJobs(kv, jobs);
+  return c.json({ job }, 201);
+}
+
+export async function updateFeedJobHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const kv = c.env.KV_CACHE;
+  if (!kv) return c.json({ error: 'KV not available' }, 503);
+
+  const id = c.req.param('id');
+  if (!id) return c.json({ error: 'id required' }, 400);
+
+  const parsed = await safeJsonBody<Partial<FeedJob>>(c, { maxBytes: 4 * 1024 });
+  if ('error' in parsed) return parsed.error;
+  const body = parsed.value;
+
+  const jobs = await listJobs(kv);
+  const idx = jobs.findIndex((j) => j.id === id);
+  if (idx < 0) return c.json({ error: 'job not found' }, 404);
+
+  const job = { ...jobs[idx]! } as FeedJob;
+  if (body.parser !== undefined && !VALID_PARSERS.includes(body.parser)) {
+    return c.json({ error: `Invalid parser. Must be one of: ${VALID_PARSERS.join(', ')}` }, 400);
+  }
+  if (body.name !== undefined) job.name = body.name;
+  if (body.source_url !== undefined) {
+    try {
+      new URL(body.source_url);
+    } catch {
+      return c.json({ error: 'Invalid source_url' }, 400);
+    }
+    job.source_url = body.source_url;
+  }
+  if (body.interval_minutes !== undefined) job.interval_minutes = body.interval_minutes;
+  if (body.enabled !== undefined) job.enabled = body.enabled;
+  if (body.tags !== undefined) job.tags = body.tags;
+
+  jobs[idx] = job;
+  await saveJobs(kv, jobs);
+  return c.json({ job });
+}
+
+export async function deleteFeedJobHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const kv = c.env.KV_CACHE;
+  if (!kv) return c.json({ error: 'KV not available' }, 503);
+
+  const id = c.req.param('id');
+  if (!id) return c.json({ error: 'id required' }, 400);
+
+  const jobs = await listJobs(kv);
+  const idx = jobs.findIndex((j) => j.id === id);
+  if (idx < 0) return c.json({ error: 'job not found' }, 404);
+
+  jobs.splice(idx, 1);
+  await saveJobs(kv, jobs);
+
+  const historyKey = `feed-scheduler:history:${id}`;
+  await kv.delete(historyKey).catch(() => {});
+
+  return c.json({ ok: true });
+}
+
+export async function runFeedJobHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const kv = c.env.KV_CACHE;
+  if (!kv) return c.json({ error: 'KV not available' }, 503);
+
+  const id = c.req.param('id');
+  if (!id) return c.json({ error: 'id required' }, 400);
+
+  const jobs = await listJobs(kv);
+  const idx = jobs.findIndex((j) => j.id === id);
+  if (idx < 0) return c.json({ error: 'job not found' }, 404);
+
+  const job = jobs[idx]!;
+  const startedAt = now();
+  job.last_status = 'running';
+  job.last_run_at = startedAt;
+  jobs[idx] = job;
+  await saveJobs(kv, jobs);
+
+  try {
+    const res = await fetch(job.source_url, { signal: AbortSignal.timeout(15000) });
+    if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`.trim());
+
+    const text = await res.text();
+    const lines = text.split(/\r?\n/).filter((l) => l.trim() && !l.trim().startsWith('#'));
+    const count = lines.length;
+
+    job.last_status = 'ok';
+    job.last_item_count = count;
+    job.last_error = null;
+    jobs[idx] = job;
+    await saveJobs(kv, jobs);
+
+    const finishedAt = now();
+    const history: FeedRunHistory = {
+      job_id: id,
+      started_at: startedAt,
+      finished_at: finishedAt,
+      status: 'ok',
+      item_count: count,
+      error: null,
+    };
+
+    const historyKey = `feed-scheduler:history:${id}`;
+    const existing = (await kv.get(historyKey, 'json').catch(() => null)) as FeedRunHistory[] | null;
+    const hist = [history, ...(existing ?? [])].slice(0, MAX_HISTORY);
+    await kv.put(historyKey, JSON.stringify(hist));
+
+    return c.json({ job, run: history });
+  } catch (err) {
+    const errMsg = err instanceof Error ? err.message : String(err);
+    job.last_status = 'error';
+    job.last_error = errMsg;
+    jobs[idx] = job;
+    await saveJobs(kv, jobs);
+
+    const finishedAt = now();
+    const history: FeedRunHistory = {
+      job_id: id,
+      started_at: startedAt,
+      finished_at: finishedAt,
+      status: 'error',
+      item_count: 0,
+      error: errMsg,
+    };
+
+    const historyKey = `feed-scheduler:history:${id}`;
+    const existing = (await kv.get(historyKey, 'json').catch(() => null)) as FeedRunHistory[] | null;
+    const hist = [history, ...(existing ?? [])].slice(0, MAX_HISTORY);
+    await kv.put(historyKey, JSON.stringify(hist));
+
+    return c.json({ job, run: history }, 200);
+  }
+}
+
+export async function getFeedJobHistoryHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const kv = c.env.KV_CACHE;
+  if (!kv) return c.json({ error: 'KV not available' }, 503);
+
+  const id = c.req.param('id');
+  if (!id) return c.json({ error: 'id required' }, 400);
+
+  const historyKey = `feed-scheduler:history:${id}`;
+  const history = (await kv.get(historyKey, 'json').catch(() => null)) as FeedRunHistory[] | null;
+  return c.json({ history: history ?? [] }, 200, { 'Cache-Control': 'no-store' });
+}
+
+export async function getFeedJobsHistoryAllHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const kv = c.env.KV_CACHE;
+  if (!kv) return c.json({ error: 'KV not available' }, 503);
+
+  const jobs = await listJobs(kv);
+  const allHistory: Record<string, FeedRunHistory[]> = {};
+  for (const job of jobs) {
+    const h = (await kv.get(`feed-scheduler:history:${job.id}`, 'json').catch(() => null)) as FeedRunHistory[] | null;
+    if (h && h.length > 0) allHistory[job.id] = h;
+  }
+  return c.json({ history: allHistory }, 200, { 'Cache-Control': 'no-store' });
+}

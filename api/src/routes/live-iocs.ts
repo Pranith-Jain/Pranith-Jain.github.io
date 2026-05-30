@@ -464,6 +464,145 @@ export async function fetchLiveIocs(
     ...(afDefacementsStale ? { stale: true } : {}),
   });
 
+  // ─── CriticalPathSecurity Public Intelligence Feeds (2026-05-30) ──────
+  const CPS_BASE = 'https://raw.githubusercontent.com/CriticalPathSecurity/Public-Intelligence-Feeds/master';
+  const [
+    binaryDefenseText,
+    torExitText,
+    avanzatoC2Text,
+    cpsCollectedText,
+    greenSnowText,
+    blocklistDeText,
+    cinsscoreText,
+  ] = await Promise.all([
+    fetchText(`${CPS_BASE}/binarydefense.txt`),
+    fetchText(`${CPS_BASE}/tor-exit.txt`),
+    fetchText(`${CPS_BASE}/avanzato_c2.txt`),
+    fetchText(`${CPS_BASE}/cps-collected-iocs.txt`),
+    fetchText('https://blocklist.greensnow.co/greensnow.txt'),
+    fetchText('https://lists.blocklist.de/lists/all.txt'),
+    fetchText('https://cinsscore.com/list/ci-badguys.txt'),
+  ]);
+
+  // ─── BinaryDefense IPs ──────────────────────────────────────────────────
+  if (binaryDefenseText) {
+    const parsed = parsePlainTextIps(binaryDefenseText, PER_FEED_CAP);
+    for (const e of parsed) {
+      items.push({
+        value: e.value,
+        kind: 'ip',
+        source: 'binarydefense',
+        reporter: 'BinaryDefense',
+        context: 'curated malicious IP blocklist',
+      });
+    }
+    sources.push({ id: 'binarydefense', ok: true, count: parsed.length });
+  } else {
+    sources.push({ id: 'binarydefense', ok: false, count: 0 });
+  }
+
+  // ─── Tor Exit Nodes ─────────────────────────────────────────────────────
+  if (torExitText) {
+    const parsed = parsePlainTextIps(torExitText, PER_FEED_CAP);
+    for (const e of parsed) {
+      items.push({
+        value: e.value,
+        kind: 'ip',
+        source: 'tor-exit',
+        reporter: 'Tor Project',
+        context: 'Tor exit node',
+      });
+    }
+    sources.push({ id: 'tor-exit', ok: true, count: parsed.length });
+  } else {
+    sources.push({ id: 'tor-exit', ok: false, count: 0 });
+  }
+
+  // ─── Avanzato C2 IPs ────────────────────────────────────────────────────
+  if (avanzatoC2Text) {
+    const parsed = parsePlainTextIps(avanzatoC2Text, PER_FEED_CAP);
+    for (const e of parsed) {
+      items.push({
+        value: e.value,
+        kind: 'ip',
+        source: 'avanzato-c2',
+        reporter: 'CriticalPathSecurity',
+        context: 'Avanzato malware C2 infrastructure',
+      });
+    }
+    sources.push({ id: 'avanzato-c2', ok: true, count: parsed.length });
+  } else {
+    sources.push({ id: 'avanzato-c2', ok: false, count: 0 });
+  }
+
+  // ─── CPS Collected IOCs ─────────────────────────────────────────────────
+  if (cpsCollectedText) {
+    const parsed = parsePlainTextIps(cpsCollectedText, PER_FEED_CAP);
+    for (const e of parsed) {
+      items.push({
+        value: e.value,
+        kind: 'ip',
+        source: 'cps-collected',
+        reporter: 'CriticalPathSecurity',
+        context: 'CPS internally collected malicious IPs',
+      });
+    }
+    sources.push({ id: 'cps-collected', ok: true, count: parsed.length });
+  } else {
+    sources.push({ id: 'cps-collected', ok: false, count: 0 });
+  }
+
+  // ─── GreenSnow IP Blocklist ────────────────────────────────────────────
+  if (greenSnowText) {
+    const parsed = parsePlainTextIps(greenSnowText, PER_FEED_CAP);
+    for (const e of parsed) {
+      items.push({
+        value: e.value,
+        kind: 'ip',
+        source: 'greensnow',
+        reporter: 'GreenSnow',
+        context: 'malicious IP blocklist',
+      });
+    }
+    sources.push({ id: 'greensnow', ok: true, count: parsed.length });
+  } else {
+    sources.push({ id: 'greensnow', ok: false, count: 0 });
+  }
+
+  // ─── Blocklist.de (all attack types) ────────────────────────────────────
+  if (blocklistDeText) {
+    const parsed = parsePlainTextIps(blocklistDeText, PER_FEED_CAP);
+    for (const e of parsed) {
+      items.push({
+        value: e.value,
+        kind: 'ip',
+        source: 'blocklist-de',
+        reporter: 'Blocklist.de',
+        context: 'reported attack source (48h)',
+      });
+    }
+    sources.push({ id: 'blocklist-de', ok: true, count: parsed.length });
+  } else {
+    sources.push({ id: 'blocklist-de', ok: false, count: 0 });
+  }
+
+  // ─── CINSscore Bad IP List ─────────────────────────────────────────────
+  if (cinsscoreText) {
+    const parsed = parsePlainTextIps(cinsscoreText, PER_FEED_CAP);
+    for (const e of parsed) {
+      items.push({
+        value: e.value,
+        kind: 'ip',
+        source: 'cinsscore',
+        reporter: 'CINSscore',
+        context: 'suspicious/malicious IP',
+      });
+    }
+    sources.push({ id: 'cinsscore', ok: true, count: parsed.length });
+  } else {
+    sources.push({ id: 'cinsscore', ok: false, count: 0 });
+  }
+
   // ─── MyThreatIntel REST API (sha256 IOCs + family/tags) ─────────────────
   // Token-gated: when MYTHREATINTEL_API_TOKEN is unset (dev/preview) or the
   // upstream is unhealthy, mtiIocResult is null / not-ok and this source is
@@ -581,7 +720,9 @@ export async function liveIocsHandler(c: Context<{ Bindings: Env }>): Promise<Re
               },
             });
             await cache.put(cacheReq, fresh);
-          } catch { /* revalidation failure is non-fatal */ }
+          } catch {
+            /* revalidation failure is non-fatal */
+          }
         })()
       );
     }

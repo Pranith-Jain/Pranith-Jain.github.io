@@ -52,6 +52,8 @@ import { phishstats } from '../providers/phishstats';
 import { feodo } from '../providers/feodo';
 import { digitalside } from '../providers/digitalside';
 import { criminalip } from '../providers/criminalip';
+import { certpl } from '../providers/certpl';
+import { x4bnet } from '../providers/x4bnet';
 
 const PROVIDER_CHUNK_SIZE = 10;
 
@@ -97,6 +99,8 @@ const ADAPTERS: Record<ProviderId, ProviderAdapter> = {
   feodo,
   digitalside,
   criminalip,
+  certpl,
+  x4bnet,
 };
 
 function runChunked<T>(items: T[], fn: (item: T) => Promise<void>, size: number): Promise<void> {

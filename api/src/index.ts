@@ -103,6 +103,51 @@ import {
 } from './routes/blocklists';
 import { fetchPageHandler, fingerprintHandler } from './routes/phishing-fingerprint';
 import { unifiedSearchHandler } from './routes/unified-search';
+import { aggregatedFeedsHandler } from './routes/aggregated-feeds';
+import { malwareFamilyListHandler, malwareFamilyDetailHandler } from './routes/malware-iocs';
+import { feedCatalogHandler } from './routes/feed-catalog';
+import { yaraHubListHandler, yaraHubRuleHandler } from './routes/yara-hub';
+import {
+  listInvestigationsHandler,
+  createInvestigationHandler,
+  getInvestigationHandler,
+  updateInvestigationHandler,
+  deleteInvestigationHandler,
+  addObservableHandler,
+  removeObservableHandler,
+  addTaskHandler,
+  updateTaskHandler,
+  addNoteHandler,
+} from './routes/investigations';
+import {
+  listFeedJobsHandler,
+  createFeedJobHandler,
+  updateFeedJobHandler,
+  deleteFeedJobHandler,
+  runFeedJobHandler,
+  getFeedJobHistoryHandler,
+  getFeedJobsHistoryAllHandler,
+} from './routes/feed-scheduler';
+import {
+  listObservablesHandler,
+  getObservableHandler,
+  saveObservableHandler,
+  updateObservableHandler,
+  deleteObservableHandler,
+  addObservableNoteHandler,
+  deleteObservableNoteHandler,
+  getObservableTagsHandler,
+} from './routes/observable-db';
+import {
+  listVaultSamplesHandler,
+  getVaultSampleHandler,
+  uploadVaultSampleHandler,
+  updateVaultSampleHandler,
+  deleteVaultSampleHandler,
+  downloadVaultSampleHandler,
+  getVaultFamiliesHandler,
+  getVaultTagsHandler,
+} from './routes/malware-vault';
 import { copilotInvestigateHandler } from './routes/copilot';
 import { automationRunHandler } from './routes/automation';
 import { dashboardHandler, getWatchlistHandler, updateWatchlistHandler } from './routes/dashboard';
@@ -353,6 +398,45 @@ app.get('/api/v1/detections', detectionsHandler);
 app.get('/api/v1/mti', mtiHandler);
 app.get('/api/v1/writeups', writeupsHandler);
 app.get('/api/v1/c2-tracker', c2TrackerHandler);
+app.get('/api/v1/aggregated-feeds', aggregatedFeedsHandler);
+app.get('/api/v1/malware-iocs', malwareFamilyListHandler);
+app.get('/api/v1/malware-iocs/:family', malwareFamilyDetailHandler);
+app.get('/api/v1/feed-catalog', feedCatalogHandler);
+app.get('/api/v1/yara-hub', yaraHubListHandler);
+app.get('/api/v1/yara-hub/rule/:name', yaraHubRuleHandler);
+app.get('/api/v1/investigations', listInvestigationsHandler);
+app.post('/api/v1/investigations', createInvestigationHandler);
+app.get('/api/v1/investigations/:id', getInvestigationHandler);
+app.patch('/api/v1/investigations/:id', updateInvestigationHandler);
+app.delete('/api/v1/investigations/:id', deleteInvestigationHandler);
+app.post('/api/v1/investigations/:id/observables', addObservableHandler);
+app.delete('/api/v1/investigations/:id/observables/:observableId', removeObservableHandler);
+app.post('/api/v1/investigations/:id/tasks', addTaskHandler);
+app.patch('/api/v1/investigations/:id/tasks/:taskId', updateTaskHandler);
+app.post('/api/v1/investigations/:id/notes', addNoteHandler);
+app.get('/api/v1/feed-scheduler', listFeedJobsHandler);
+app.post('/api/v1/feed-scheduler', createFeedJobHandler);
+app.patch('/api/v1/feed-scheduler/:id', updateFeedJobHandler);
+app.delete('/api/v1/feed-scheduler/:id', deleteFeedJobHandler);
+app.post('/api/v1/feed-scheduler/:id/run', runFeedJobHandler);
+app.get('/api/v1/feed-scheduler/:id/history', getFeedJobHistoryHandler);
+app.get('/api/v1/feed-scheduler-history', getFeedJobsHistoryAllHandler);
+app.get('/api/v1/observable-db', listObservablesHandler);
+app.get('/api/v1/observable-db/tags', getObservableTagsHandler);
+app.get('/api/v1/observable-db/:id', getObservableHandler);
+app.post('/api/v1/observable-db', saveObservableHandler);
+app.patch('/api/v1/observable-db/:id', updateObservableHandler);
+app.delete('/api/v1/observable-db/:id', deleteObservableHandler);
+app.post('/api/v1/observable-db/:id/notes', addObservableNoteHandler);
+app.delete('/api/v1/observable-db/:id/notes/:noteId', deleteObservableNoteHandler);
+app.get('/api/v1/malware-vault', listVaultSamplesHandler);
+app.get('/api/v1/malware-vault/families', getVaultFamiliesHandler);
+app.get('/api/v1/malware-vault/tags', getVaultTagsHandler);
+app.get('/api/v1/malware-vault/:id', getVaultSampleHandler);
+app.post('/api/v1/malware-vault', uploadVaultSampleHandler);
+app.patch('/api/v1/malware-vault/:id', updateVaultSampleHandler);
+app.delete('/api/v1/malware-vault/:id', deleteVaultSampleHandler);
+app.get('/api/v1/malware-vault/:id/download', downloadVaultSampleHandler);
 app.get('/api/v1/intel-bundle', intelBundleHandler);
 app.post('/api/v1/intel-bundle', intelBundlePostHandler);
 app.post('/api/v1/intel-bundle/build', intelBundleBuildHandler);

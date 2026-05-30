@@ -41,7 +41,9 @@ export type ProviderId =
   | 'phishstats'
   | 'feodo'
   | 'digitalside'
-  | 'criminalip';
+  | 'criminalip'
+  | 'certpl'
+  | 'x4bnet';
 
 export type Verdict = 'clean' | 'suspicious' | 'malicious' | 'unknown';
 
@@ -129,4 +131,6 @@ export const PROVIDER_SUPPORT: Record<ProviderId, IndicatorType[]> = {
   feodo: ['ipv4', 'ipv6'],
   digitalside: ['url', 'domain', 'hash', 'ipv4'],
   criminalip: ['ipv4', 'ipv6'],
+  certpl: ['domain'],
+  x4bnet: ['ipv4', 'ipv6'],
 };

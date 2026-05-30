@@ -234,6 +234,15 @@ const CrossCorrelate = lazy(() => import('./pages/threatintel/CrossCorrelate'));
 const Assessments = lazy(() => import('./pages/threatintel/Assessments'));
 const AssessmentDetail = lazy(() => import('./pages/threatintel/AssessmentDetail'));
 const EntityResolution = lazy(() => import('./pages/threatintel/EntityResolution'));
+const AggregatedFeeds = lazy(() => import('./pages/threatintel/AggregatedFeeds'));
+const MalwareIocs = lazy(() => import('./pages/threatintel/MalwareIocs'));
+const FeedCatalog = lazy(() => import('./pages/threatintel/FeedCatalog'));
+const Analyze = lazy(() => import('./pages/threatintel/Analyze'));
+const Yarahub = lazy(() => import('./pages/threatintel/Yarahub'));
+const Investigations = lazy(() => import('./pages/threatintel/Investigations'));
+const FeedScheduler = lazy(() => import('./pages/threatintel/FeedScheduler'));
+const ObservableDb = lazy(() => import('./pages/threatintel/ObservableDb'));
+const MalwareVault = lazy(() => import('./pages/threatintel/MalwareVault'));
 
 /**
  * Preserves the path slug (when `withSlug`), the query string, and the hash
@@ -1857,6 +1866,78 @@ export function AppContent() {
           element={
             <LazyRoute>
               <ExternalResources />
+            </LazyRoute>
+          }
+        />
+        <Route
+          path="/threatintel/aggregated-feeds"
+          element={
+            <LazyRoute>
+              <AggregatedFeeds />
+            </LazyRoute>
+          }
+        />
+        <Route
+          path="/threatintel/malware-iocs"
+          element={
+            <LazyRoute>
+              <MalwareIocs />
+            </LazyRoute>
+          }
+        />
+        <Route
+          path="/threatintel/feed-catalog"
+          element={
+            <LazyRoute>
+              <FeedCatalog />
+            </LazyRoute>
+          }
+        />
+        <Route
+          path="/threatintel/analyze"
+          element={
+            <LazyRoute>
+              <Analyze />
+            </LazyRoute>
+          }
+        />
+        <Route
+          path="/threatintel/yara"
+          element={
+            <LazyRoute>
+              <Yarahub />
+            </LazyRoute>
+          }
+        />
+        <Route
+          path="/threatintel/investigations"
+          element={
+            <LazyRoute>
+              <Investigations />
+            </LazyRoute>
+          }
+        />
+        <Route
+          path="/threatintel/feed-scheduler"
+          element={
+            <LazyRoute>
+              <FeedScheduler />
+            </LazyRoute>
+          }
+        />
+        <Route
+          path="/threatintel/observable-db"
+          element={
+            <LazyRoute>
+              <ObservableDb />
+            </LazyRoute>
+          }
+        />
+        <Route
+          path="/threatintel/malware-vault"
+          element={
+            <LazyRoute>
+              <MalwareVault />
             </LazyRoute>
           }
         />

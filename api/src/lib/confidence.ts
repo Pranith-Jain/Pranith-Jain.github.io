@@ -268,6 +268,99 @@ export const SOURCE_RELIABILITY_REGISTRY: Record<string, SourceReliabilityEntry>
     description: 'Forward-looking assessments based on historical patterns',
     known_bias: 'Extrapolation from past behaviour; novel TTPs not covered',
   },
+  // ── New sources from repo analysis (2026-05-30) ─────────────────────────
+  misp: {
+    id: 'misp',
+    name: 'MISP Feed System',
+    reliability: 'B',
+    category: 'secondary',
+    description: 'Malware Information Sharing Platform — 200+ community-contributed feeds with STIX/TAXII output',
+    known_bias: 'Quality varies by community feed; vetted by MISP instance admins',
+  },
+  'critical-path-feeds': {
+    id: 'critical-path-feeds',
+    name: 'CriticalPathSecurity Public Intelligence Feeds',
+    reliability: 'B',
+    category: 'secondary',
+    description:
+      'Curated, deduplicated aggregated feeds from Abuse.CH, AlienVault, Emerging Threats, SANS, ThreatFox, Tor, and others',
+    known_bias: 'Aggregated source — inherits upstream biases; occasional false positives from community submissions',
+  },
+  'bert-jan-feed-catalog': {
+    id: 'bert-jan-feed-catalog',
+    name: 'Open-Source Threat-Intel-Feeds Catalog',
+    reliability: 'C',
+    category: 'secondary',
+    description: 'CSV catalog of 145+ free threat intelligence feeds with vendor and type metadata',
+    known_bias: 'Meta-catalog — accuracy depends on upstream feed maintenance',
+  },
+  yara_rules: {
+    id: 'yara_rules',
+    name: 'Community YARA Rules',
+    reliability: 'C',
+    category: 'secondary',
+    description: 'Detection rules from YARAHub, InQuest/awesome-yara, and community YARA repositories',
+    known_bias: 'Variable quality; some rules may produce false positives across different malware variants',
+  },
+  'gendigital-ioc': {
+    id: 'gendigital-ioc',
+    name: 'gendigitalinc IOC Repository',
+    reliability: 'C',
+    category: 'secondary',
+    description:
+      'Per-malware-family IoC directories with YARA rules — organized by family name with IP, domain, and hash indicators',
+    known_bias: 'Limited to families tracked by the repository maintainer',
+  },
+  intelmq: {
+    id: 'intelmq',
+    name: 'INTELMQ Feed Processor',
+    reliability: 'C',
+    category: 'secondary',
+    description: 'CERT Austria feed processing framework — normalized output from 200+ upstream feed collectors',
+    known_bias:
+      'Processing-level transformations are neutral; downstream accuracy depends on original feed reliability',
+  },
+  'jstrosch-samples': {
+    id: 'jstrosch-samples',
+    name: 'jstrosch Malware Samples',
+    reliability: 'C',
+    category: 'secondary',
+    description: 'Curated malware sample collection organized by family with analysis notes and config extractors',
+    known_bias: 'Sample selection bias toward families of interest to the researcher',
+  },
+  'mthcht-rules': {
+    id: 'mthcht-rules',
+    name: 'Awesome Rules Detection Collection',
+    reliability: 'C',
+    category: 'secondary',
+    description: 'Multiformat detection rules (YARA, SIGMA, KQL, SPL, EQL) categorized by MITRE ATT&CK technique',
+    known_bias: 'Curated from diverse sources — quality and freshness vary by rule origin',
+  },
+  // ── New sources from feed catalog CSV (2026-05-30) ───────────────────────
+  greensnow: {
+    id: 'greensnow',
+    name: 'GreenSnow IP Blocklist',
+    reliability: 'B',
+    category: 'secondary',
+    description: 'GreenSnow IP reputation blocklist — actively updated malicious IPs from honeypot network',
+    known_bias: 'Automated honeypot detection; may include legitimate scanners',
+  },
+  'blocklist-de': {
+    id: 'blocklist-de',
+    name: 'Blocklist.de',
+    reliability: 'B',
+    category: 'secondary',
+    description: 'Blocklist.de IP reputation — attack sources reported by distributed server network',
+    known_bias: 'Attack-source aggregation; may include false positives from NAT/Shared IPs',
+  },
+  cinsscore: {
+    id: 'cinsscore',
+    name: 'CINSscore Bad IP List',
+    reliability: 'B',
+    category: 'secondary',
+    description: 'CINS Army malicious IP list — actively maintained blocklist from distributed honeypot sensors',
+    known_bias: 'Automated collection; some false positives from dynamic IP ranges',
+  },
 };
 
 /**

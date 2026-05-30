@@ -706,7 +706,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'tool',
     featured: true,
     description:
-      'Telegram search and analytics platform — search channels, messages, groups, and media across Telegram\'s public surface. Built for OSINT analysts and threat hunters.',
+      "Telegram search and analytics platform — search channels, messages, groups, and media across Telegram's public surface. Built for OSINT analysts and threat hunters.",
   },
   {
     id: 'lyzem',
@@ -714,7 +714,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://lyzem.com/',
     kind: 'tool',
     description:
-      'Telegram search engine — full-text search across public channels and messages. Indexes content beyond Telegram\'s native search for OSINT discovery.',
+      "Telegram search engine — full-text search across public channels and messages. Indexes content beyond Telegram's native search for OSINT discovery.",
   },
   {
     id: 'telegago',
@@ -722,7 +722,7 @@ export const RESOURCES: ExternalResource[] = [
     url: 'https://cse.google.com/cse?cx=006368593537057042503:efxu7xprihg',
     kind: 'tool',
     description:
-      'Google Custom Search Engine scoped to Telegram public content — search indexed Telegram channels, groups, and messages via Google\'s crawler.',
+      "Google Custom Search Engine scoped to Telegram public content — search indexed Telegram channels, groups, and messages via Google's crawler.",
   },
   {
     id: 'xtea',
@@ -769,7 +769,7 @@ export const RESOURCES: ExternalResource[] = [
     featured: true,
     tags: ['malware', 'threat-intel', 'dfir'],
     description:
-      'abuse.ch project — crowdsourced malware sample repository. Upload and download samples, search by hash/tag/family, API access. Integrated into this platform\'s IOC checker.',
+      "abuse.ch project — crowdsourced malware sample repository. Upload and download samples, search by hash/tag/family, API access. Integrated into this platform's IOC checker.",
   },
   {
     id: 'virushare',
@@ -788,7 +788,7 @@ export const RESOURCES: ExternalResource[] = [
     featured: true,
     tags: ['malware', 'threat-intel'],
     description:
-      'Free malware sample repository with REST API. 1000+ daily samples from 30+ sources. Search by hash, file type, or keyword. API key available with free registration. Integrated into this platform\'s IOC checker.',
+      "Free malware sample repository with REST API. 1000+ daily samples from 30+ sources. Search by hash, file type, or keyword. API key available with free registration. Integrated into this platform's IOC checker.",
   },
   {
     id: 'thezoo',
@@ -827,7 +827,7 @@ export const RESOURCES: ExternalResource[] = [
     featured: true,
     tags: ['threat-intel', 'c2', 'malware'],
     description:
-      'abuse.ch IOC sharing platform — community-submitted IOCs (IPs, domains, URLs, hashes) mapped to malware families. Searchable database with API. Integrated into this platform\'s live IOCs feed.',
+      "abuse.ch IOC sharing platform — community-submitted IOCs (IPs, domains, URLs, hashes) mapped to malware families. Searchable database with API. Integrated into this platform's live IOCs feed.",
   },
   {
     id: 'urlhaus',
@@ -837,7 +837,7 @@ export const RESOURCES: ExternalResource[] = [
     featured: true,
     tags: ['threat-intel', 'malware', 'phishing'],
     description:
-      'abuse.ch URL tracking — community-submitted malicious URLs serving malware payloads. Searchable database with API and downloadable blocklists. Integrated into this platform\'s live IOCs feed.',
+      "abuse.ch URL tracking — community-submitted malicious URLs serving malware payloads. Searchable database with API and downloadable blocklists. Integrated into this platform's live IOCs feed.",
   },
   {
     id: 'feodo-tracker',
@@ -915,7 +915,7 @@ export const RESOURCES: ExternalResource[] = [
     featured: true,
     tags: ['threat-intel', 'c2', 'blocklist'],
     description:
-      'Open Threat Exchange — community-driven threat intelligence. IOC pulses, reputation data, endpoint telemetry. Free API. Integrated into this platform\'s IOC checker.',
+      "Open Threat Exchange — community-driven threat intelligence. IOC pulses, reputation data, endpoint telemetry. Free API. Integrated into this platform's IOC checker.",
   },
   {
     id: 'botvrij',
@@ -924,7 +924,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'dashboard',
     tags: ['threat-intel', 'c2', 'blocklist'],
     description:
-      'Botnet C2 intelligence — curated IOCs from sinkhole analysis and honeypot data. Downloadable feeds for IPs, domains, and URLs. Integrated into this platform\'s live IOCs feed.',
+      "Botnet C2 intelligence — curated IOCs from sinkhole analysis and honeypot data. Downloadable feeds for IPs, domains, and URLs. Integrated into this platform's live IOCs feed.",
   },
   {
     id: 'c2-tracker-feeds',
@@ -933,7 +933,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'dashboard',
     tags: ['c2', 'threat-intel', 'blocklist'],
     description:
-      'Automated C2 infrastructure feeds — IP and domain lists for Cobalt Strike, Sliver, Brute Ratel, and other C2 frameworks. Updated daily via GitHub. Integrated into this platform\'s live IOCs feed.',
+      "Automated C2 infrastructure feeds — IP and domain lists for Cobalt Strike, Sliver, Brute Ratel, and other C2 frameworks. Updated daily via GitHub. Integrated into this platform's live IOCs feed.",
   },
   {
     id: 'openphish',
@@ -942,7 +942,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'dashboard',
     tags: ['phishing', 'threat-intel', 'blocklist'],
     description:
-      'Automated phishing intelligence — real-time phishing URL feed. Community feed is free; premium adds targeted brand analysis. Integrated into this platform\'s live IOCs feed.',
+      "Automated phishing intelligence — real-time phishing URL feed. Community feed is free; premium adds targeted brand analysis. Integrated into this platform's live IOCs feed.",
   },
   {
     id: 'phishtank',
@@ -971,7 +971,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'tool',
     tags: ['threat-intel', 'c2', 'blocklist'],
     description:
-      'Crowd-sourced threat intelligence API. IP reputation, attack categories, behaviors, and community trust scores. Free tier: 1000 lookups/month. Integrated into this platform\'s IOC checker.',
+      "Crowd-sourced threat intelligence API. IP reputation, attack categories, behaviors, and community trust scores. Free tier: 1000 lookups/month. Integrated into this platform's IOC checker.",
   },
   {
     id: 'spur-us',
@@ -980,7 +980,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'tool',
     tags: ['osint', 'threat-intel'],
     description:
-      'VPN, proxy, and residential IP detection service. Identifies anonymization services and their providers. Free community endpoint available. Integrated into this platform\'s IP enrichment.',
+      "VPN, proxy, and residential IP detection service. Identifies anonymization services and their providers. Free community endpoint available. Integrated into this platform's IP enrichment.",
   },
   {
     id: 'ipinfo-io',
@@ -989,7 +989,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'tool',
     tags: ['osint'],
     description:
-      'IP geolocation, ASN, company, and privacy detection API. 50k requests/month on free tier. Integrated into this platform\'s IP enrichment.',
+      "IP geolocation, ASN, company, and privacy detection API. 50k requests/month on free tier. Integrated into this platform's IP enrichment.",
   },
   {
     id: 'criminalip',
@@ -1007,7 +1007,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'tool',
     tags: ['osint', 'vulnerability'],
     description:
-      'Free, keyless IP intelligence API from Shodan. Returns open ports, CVEs, hostnames, and tags for any IP address. Unlimited lookups. Integrated into this platform\'s IOC checker.',
+      "Free, keyless IP intelligence API from Shodan. Returns open ports, CVEs, hostnames, and tags for any IP address. Unlimited lookups. Integrated into this platform's IOC checker.",
   },
   {
     id: 'phishstats',
@@ -1016,7 +1016,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'dashboard',
     tags: ['phishing', 'threat-intel'],
     description:
-      'Phishing URL statistics and reputation data. Score, first/last seen, target brand, hosting country. Free API, no authentication required. Integrated into this platform\'s IOC checker.',
+      "Phishing URL statistics and reputation data. Score, first/last seen, target brand, hosting country. Free API, no authentication required. Integrated into this platform's IOC checker.",
   },
   {
     id: 'feodo-tracker',
@@ -1025,7 +1025,7 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'dashboard',
     tags: ['c2', 'threat-intel', 'blocklist'],
     description:
-      'Botnet C2 tracker by abuse.ch — tracks Dridex, Emotet, TrickBot, QakBot, and BazarLoader C2 servers. Free IP blocklists updated every 5 minutes. Integrated into this platform\'s IOC checker.',
+      "Botnet C2 tracker by abuse.ch — tracks Dridex, Emotet, TrickBot, QakBot, and BazarLoader C2 servers. Free IP blocklists updated every 5 minutes. Integrated into this platform's IOC checker.",
   },
   {
     id: 'digitalside-intel',
@@ -1034,7 +1034,180 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'dashboard',
     tags: ['threat-intel', 'phishing', 'blocklist'],
     description:
-      'Free threat intelligence feeds on GitHub — malware URLs, phishing URLs, C2 domains, and file hashes. Updated regularly. Integrated into this platform\'s IOC checker.',
+      "Free threat intelligence feeds on GitHub — malware URLs, phishing URLs, C2 domains, and file hashes. Updated regularly. Integrated into this platform's IOC checker.",
+  },
+  // ── Threat Intel Platforms & Frameworks (2026-05-30) ───────────────────
+  {
+    id: 'misp-platform',
+    name: 'MISP · Malware Information Sharing Platform',
+    url: 'https://www.misp-project.org/',
+    kind: 'tool',
+    featured: true,
+    tags: ['threat-intel', 'dfir'],
+    description:
+      'Open-source threat intelligence platform for sharing, storing and correlating IOCs. 200+ default feeds from public sources. STIX/TAXII support, feed system, API, and MISP taxii server integration. De facto standard for CTI sharing.',
+  },
+  {
+    id: 'intelowl',
+    name: 'IntelOwl',
+    url: 'https://github.com/intelowlproject/IntelOwl',
+    kind: 'tool',
+    featured: true,
+    tags: ['threat-intel', 'malware', 'sandbox', 'dfir'],
+    description:
+      'Open-source threat intelligence analysis orchestration — submits files, URLs, hashes, IPs to 200+ analyzers (VirusTotal, AbuseIPDB, Shodan, YARA, etc.). REST API, web UI, Celery-based job queue.',
+  },
+  {
+    id: 'opencti-platform',
+    name: 'OpenCTI',
+    url: 'https://github.com/OpenCTI-Platform/opencti',
+    kind: 'tool',
+    featured: true,
+    tags: ['threat-intel', 'dfir'],
+    description:
+      'Open-source threat intelligence platform by Filigran. Knowledge graph for threat actors, TTPs, campaigns, IOCs. STIX/TAXII native, 20+ connectors, MITRE ATT&CK mapping. Self-hosted or cloud.',
+  },
+  {
+    id: 'intelmq-framework',
+    name: 'INTELMQ · Feed Processing Framework',
+    url: 'https://github.com/certtools/intelmq',
+    kind: 'tool',
+    tags: ['threat-intel', 'dfir'],
+    description:
+      'Python framework by CERT Austria for collecting, processing, and correlating threat intelligence feeds. Modular bots (collectors, parsers, experts, outputs). Handles 200+ feed formats at scale.',
+  },
+  // ── Aggregated Intel Feeds & Directories (2026-05-30) ──────────────────
+  {
+    id: 'critical-path-feeds',
+    name: 'CriticalPathSecurity · Public Intelligence Feeds',
+    url: 'https://github.com/CriticalPathSecurity/Public-Intelligence-Feeds',
+    kind: 'dashboard',
+    featured: true,
+    tags: ['threat-intel', 'blocklist', 'c2', 'malware'],
+    description:
+      'Curated, deduplicated threat intelligence feeds combining Abuse.CH, AlienVault, BinaryDefense, CobaltStrike, Emerging Threats, SANS, ThreatFox, Tor, and more. Standardized TXT format with versioned files.',
+  },
+  {
+    id: 'bert-jan-feed-catalog',
+    name: 'Bert-JanP · Open Source Threat Intel Feeds',
+    url: 'https://github.com/Bert-JanP/Open-Source-Threat-Intel-Feeds',
+    kind: 'directory',
+    tags: ['threat-intel', 'blocklist'],
+    description:
+      'CSV catalog of 145+ free threat intelligence feeds organized by type (IP, DNS, URL, MD5, SHA256, CVE, JA3) with vendor metadata. Reference directory for discovering new feed sources.',
+  },
+  {
+    id: 'hslatman-awesome-ti',
+    name: 'Awesome Threat Intelligence',
+    url: 'https://github.com/hslatman/awesome-threat-intelligence',
+    kind: 'directory',
+    featured: true,
+    tags: ['threat-intel', 'dfir', 'osint', 'malware'],
+    description:
+      'Curated list of 1,000+ threat intelligence resources — feeds, tools, frameworks, platforms, YARA rules, SIGMA rules, standards, books, and courses. 10,000+ GitHub stars.',
+  },
+  {
+    id: 'muchdogesec-awesome-ti',
+    name: 'Awesome Threat Intel',
+    url: 'https://github.com/muchdogesec/awesome-threat-intel',
+    kind: 'directory',
+    tags: ['threat-intel'],
+    description:
+      'Extended directory of threat intelligence projects, tools, and data sources. Covers STIX/TAXII, MISP, YARA, SIGMA, OpenCTI connectors, and CTI automation pipelines.',
+  },
+  {
+    id: '0x4d31-threat-detection',
+    name: 'Awesome Threat Detection',
+    url: 'https://github.com/0x4D31/awesome-threat-detection',
+    kind: 'directory',
+    tags: ['threat-intel', 'dfir', 'vulnerability'],
+    description:
+      'Curated list of open-source threat detection resources — detection engineering, SIGMA rules, YARA rules, queries (KQL, SPL, EQL), threat hunting, and adversary emulation.',
+  },
+  // ── YARA & Detection Rules (2026-05-30) ────────────────────────────────
+  {
+    id: 'yarahub-platform',
+    name: 'YARAHub',
+    url: 'https://yarahub.org/',
+    kind: 'community',
+    tags: ['malware', 'dfir', 'threat-intel'],
+    description:
+      'Open YARA rule sharing platform. Community-submitted detection rules with metadata, testing, and indexed search. Covers malware families, C2 frameworks, and file formats.',
+  },
+  {
+    id: 'awesome-yara',
+    name: 'InQuest · Awesome YARA',
+    url: 'https://github.com/InQuest/awesome-yara',
+    kind: 'directory',
+    tags: ['malware', 'dfir'],
+    description:
+      'Curated list of YARA rules, tools, and resources — rule repositories, testing frameworks, IDE plugins, and learning materials for YARA-based detection engineering.',
+  },
+  {
+    id: 'mthcht-awesome-rules',
+    name: 'Awesome Rules · Detection Rules Collection',
+    url: 'https://github.com/mthcht/awesome-rules',
+    kind: 'directory',
+    tags: ['threat-intel', 'dfir', 'malware'],
+    description:
+      'Massive collection of detection rules across YARA, SIGMA, KQL, SPL, and EQL formats. Categorised by MITRE ATT&CK technique. Curated from multiple open-source rule repositories.',
+  },
+  // ── Per-Family IoCs & Samples (2026-05-30) ─────────────────────────────
+  {
+    id: 'gendigital-ioc',
+    name: 'gendigitalinc · IOC Repository',
+    url: 'https://github.com/gendigitalinc/ioc',
+    kind: 'samples',
+    tags: ['malware', 'threat-intel', 'c2'],
+    description:
+      'Per-malware-family IoC directories with YARA rules and indicators. Organized by malware name with IPs, domains, hashes, and rule files for each family.',
+  },
+  {
+    id: 'jstrosch-malware-samples',
+    name: 'jstrosch · Malware Samples & Sources',
+    url: 'https://github.com/jstrosch/malware-samples',
+    kind: 'samples',
+    tags: ['malware', 'sandbox'],
+    description:
+      'Curated malware sample collection organized by family. Includes analysis notes, configuration extractors, and references to original sources. Regularly updated with new campaigns.',
+  },
+  // ── DFIR & OSINT Collections (2026-05-30) ──────────────────────────────
+  {
+    id: 'cpuu-awesome-forensic-extreme',
+    name: 'Awesome Forensics Extreme Collection',
+    url: 'https://github.com/cpuu/awesome-forensicextremecollection',
+    kind: 'directory',
+    tags: ['dfir', 'osint'],
+    description:
+      'Comprehensive DFIR and OSINT tool collection — disk forensics, memory analysis, network forensics, timeline analysis, triage, and reporting tools. Community-maintained resource list.',
+  },
+  {
+    id: 'leonov-av-awesome-forensics',
+    name: 'Awesome Forensics',
+    url: 'https://github.com/leonov-av/awesome-forensics',
+    kind: 'directory',
+    tags: ['dfir', 'osint'],
+    description:
+      'Curated list of digital forensics resources — forensic tools, analysis frameworks, artifact collections, CTF challenges, and educational materials for DFIR practitioners.',
+  },
+  {
+    id: 'shevacyber-osint-collectors',
+    name: 'OSINT Collectors',
+    url: 'https://github.com/shevacyber/OSINT-Collectors',
+    kind: 'directory',
+    tags: ['osint'],
+    description:
+      'Curated collection of OSINT data collectors — web scraping templates, API wrappers, and data extraction scripts for open-source intelligence gathering across platforms.',
+  },
+  // ── Incident Response & Cloud Security (2026-05-30) ────────────────────
+  {
+    id: 'aws-ir-samples',
+    name: 'AWS Incident Response Samples',
+    url: 'https://github.com/aws-samples/aws-incident-response-samples',
+    kind: 'tool',
+    tags: ['dfir', 'vulnerability'],
+    description:
+      'Official AWS incident response playbook samples — CloudFormation templates, Lambda functions, and runbooks for automating IR workflows in AWS. Pre-built response actions for common scenarios.',
   },
   {
     id: 'taxii-server',
@@ -1043,6 +1216,6 @@ export const RESOURCES: ExternalResource[] = [
     kind: 'tool',
     tags: ['threat-intel'],
     description:
-      'This platform\'s TAXII 2.1 server for automated threat intelligence sharing. Compatible with MISP, OpenCTI, Splunk SOAR, and other TAXII clients. Collections: IOCs, actors, malware, vulnerabilities, briefings.',
+      "This platform's TAXII 2.1 server for automated threat intelligence sharing. Compatible with MISP, OpenCTI, Splunk SOAR, and other TAXII clients. Collections: IOCs, actors, malware, vulnerabilities, briefings.",
   },
 ];
