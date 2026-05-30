@@ -515,13 +515,16 @@ app.get('/api/v1/threat-intel/pirs', pirListHandler);
 app.get('/api/v1/threat-intel/pirs/relevant', pirRelevantHandler);
 app.get('/api/v1/threat-intel/pirs/alert', pirAlertHandler);
 app.get('/api/v1/threat-intel/pirs/alerts', pirAlertListHandler);
+app.get('/api/v1/threat-intel/pirs/routing', pirRoutingHandler);
 app.patch('/api/v1/threat-intel/pirs/alerts/:id/acknowledge', pirAlertAckHandler);
 app.post('/api/v1/threat-intel/pirs/alerts/acknowledge-all', pirAlertAckAllHandler);
 app.post('/api/v1/threat-intel/pirs', pirCreateHandler);
+// NOTE: the static `/pirs/*` routes above MUST stay before these `:id` routes —
+// Hono matches in registration order, so `/pirs/routing` would otherwise be
+// captured by `/pirs/:id` (id="routing") and 404 as "PIR not found".
 app.get('/api/v1/threat-intel/pirs/:id', pirDetailHandler);
 app.put('/api/v1/threat-intel/pirs/:id', pirUpdateHandler);
 app.delete('/api/v1/threat-intel/pirs/:id', pirDeleteHandler);
-app.get('/api/v1/threat-intel/pirs/routing', pirRoutingHandler);
 app.post('/api/v1/threat-intel/feedback', feedbackCreateHandler);
 app.get('/api/v1/threat-intel/feedback', feedbackListHandler);
 app.get('/api/v1/threat-intel/feedback/aggregate', feedbackAggregateHandler);
