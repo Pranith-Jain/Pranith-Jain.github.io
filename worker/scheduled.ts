@@ -12,7 +12,6 @@ import {
   runTelegramLeakScanner,
   scrapeWatchedChannels,
   cleanupLeakEntries,
-  type TelegramFeedItem,
 } from '../api/src/routes/telegram-leak-monitor';
 import { fetchTelegramFeed } from '../api/src/routes/telegram-feed';
 import { warmIntelBundles } from '../api/src/lib/intel-bundle-warm';

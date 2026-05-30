@@ -4,6 +4,7 @@ import { normalizeVictim } from '../lib/victim-normalize';
 import { classifySector } from '../lib/sector-classifier';
 import { optypeForGroup, type OpType } from '../lib/ransomware-optype';
 import { fetchMtiSource, type MtiRansomwareClaim } from '../lib/mythreatintel-api';
+import { readLastGood, writeLastGood } from '../lib/lastgood';
 
 /**
  * Victim re-leak detection.
@@ -23,6 +24,11 @@ import { fetchMtiSource, type MtiRansomwareClaim } from '../lib/mythreatintel-ap
 export const VICTIM_RELEAKS_CACHE_KEY = 'https://victim-releaks-cache.internal/v1';
 const CACHE_KEY = VICTIM_RELEAKS_CACHE_KEY;
 const CACHE_TTL_SECONDS = 6 * 60 * 60;
+// Cross-colo last-good fallback: the per-group fan-out is heavy and occasionally
+// throws (CPU/time budget) or comes back empty; we serve the last good payload
+// any colo produced rather than 500 / a blank page. 7-day window.
+const LASTGOOD_KEY = 'victim-releaks';
+const LASTGOOD_TTL_SECONDS = 7 * 24 * 60 * 60;
 const FETCH_TIMEOUT_MS = 20_000;
 const TOP_GROUPS = 8;
 const WINDOW_DAYS = 365; // only consider posts within last 12 months — older matches are stale
@@ -90,6 +96,24 @@ export interface VictimReleaksResponse {
   timeline: TimelineBucket[];
   /** Groups in the "active" list whose per-group fetch failed. */
   warnings: Array<{ slug: string; reason: string }>;
+  /** Set when this payload is a cross-colo last-good fallback, not a live run. */
+  stale?: boolean;
+}
+
+/** Valid empty envelope used when a live run fails and there's no last-good. */
+function emptyReleaksResponse(reason: string): VictimReleaksResponse {
+  return {
+    generated_at: new Date().toISOString(),
+    window_days: WINDOW_DAYS,
+    groups_scanned: 0,
+    victims_scanned: 0,
+    releaks: [],
+    by_sector: [],
+    by_optype: [],
+    group_pairs: [],
+    timeline: [],
+    warnings: [{ slug: '*', reason }],
+  };
 }
 
 async function fetchJson<T>(url: string): Promise<T | null> {
@@ -323,17 +347,34 @@ export async function victimReleaksHandler(c: Context<{ Bindings: Env }>): Promi
   const cached = await cache.match(cacheReq);
   if (cached) return cached;
 
-  const body = await fetchVictimReleaks(c.env);
-  const cacheable = body.releaks.length > 0 || body.warnings.length > 0;
-  const response = new Response(JSON.stringify(body), {
-    status: 200,
-    headers: {
-      'content-type': 'application/json',
-      'cache-control': cacheable ? `public, max-age=${CACHE_TTL_SECONDS}` : 'no-store',
-    },
-  });
-  if (cacheable) {
-    c.executionCtx.waitUntil(cache.put(cacheReq, response.clone()));
+  const json = (body: unknown, cacheControl: string): Response =>
+    new Response(JSON.stringify(body), {
+      status: 200,
+      headers: { 'content-type': 'application/json', 'cache-control': cacheControl },
+    });
+
+  try {
+    const body = await fetchVictimReleaks(c.env);
+    // Only a live run with real re-leak rows is worth caching + promoting to the
+    // cross-colo last-good. An empty/warning-only body (e.g. ransomlook down)
+    // must not pin a blank page or overwrite a good fallback.
+    if (body.releaks.length > 0) {
+      c.executionCtx.waitUntil(writeLastGood(c.env, LASTGOOD_KEY, body, { ttlSeconds: LASTGOOD_TTL_SECONDS }));
+      const response = json(body, `public, max-age=${CACHE_TTL_SECONDS}`);
+      c.executionCtx.waitUntil(cache.put(cacheReq, response.clone()));
+      return response;
+    }
+    // Live run produced nothing usable — prefer a recent last-good over an empty
+    // page; cache neither.
+    const lg = await readLastGood<VictimReleaksResponse>(c.env, LASTGOOD_KEY);
+    if (lg && lg.releaks.length > 0) return json({ ...lg, stale: true }, 'no-store');
+    return json(body, 'no-store');
+  } catch (err) {
+    // The per-group fan-out (8 heavy fetches) intermittently exceeds the Worker
+    // CPU/time budget and throws; the global onError would otherwise turn that
+    // into a user-facing 500. Degrade to the last-good payload instead.
+    const lg = await readLastGood<VictimReleaksResponse>(c.env, LASTGOOD_KEY);
+    if (lg && lg.releaks.length > 0) return json({ ...lg, stale: true }, 'no-store');
+    return json(emptyReleaksResponse(err instanceof Error ? err.message : 'live run failed'), 'no-store');
   }
-  return response;
 }

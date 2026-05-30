@@ -1,6 +1,5 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { visitorCountry } from '../lib/analytics';
 import { requireAdmin } from '../lib/admin-auth';
 import type { TelegramFeedItem } from './telegram-feed';
 import { fetchHtml, fetchTelegramFeed, parseChannelHtml } from './telegram-feed';

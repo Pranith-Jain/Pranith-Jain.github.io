@@ -11,7 +11,7 @@ interface DashboardData {
     watched_channels: number;
     unreviewed_channels: number;
   };
-  breaches_7d: number;
+  leaks_7d: number;
   feed_health: string;
   feed_count: number;
 }
@@ -113,8 +113,8 @@ export default function IntelDashboard(): JSX.Element {
                 </p>
               </div>
               <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
-                <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-1">Breaches (7d)</p>
-                <p className="text-2xl font-bold font-display">{data.breaches_7d}</p>
+                <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-1">New leaks (7d)</p>
+                <p className="text-2xl font-bold font-display">{data.leaks_7d}</p>
               </div>
               <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
                 <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-1">Feed health</p>
