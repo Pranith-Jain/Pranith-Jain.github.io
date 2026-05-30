@@ -22,7 +22,6 @@ import { readLastGood, writeLastGood } from '../lib/lastgood';
  */
 
 export const VICTIM_RELEAKS_CACHE_KEY = 'https://victim-releaks-cache.internal/v1';
-const CACHE_KEY = VICTIM_RELEAKS_CACHE_KEY;
 const CACHE_TTL_SECONDS = 6 * 60 * 60;
 // Cross-colo last-good fallback: the per-group fan-out is heavy and occasionally
 // throws (CPU/time budget) or comes back empty; we serve the last good payload
@@ -364,40 +363,25 @@ export async function refreshVictimReleaksCache(env: Env): Promise<VictimReleaks
 }
 
 export async function victimReleaksHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const cache = (caches as unknown as { default: Cache }).default;
-  const cacheReq = new Request(CACHE_KEY);
-  const cached = await cache.match(cacheReq);
-  if (cached) return cached;
-
   const json = (body: unknown, cacheControl: string): Response =>
     new Response(JSON.stringify(body), {
       status: 200,
       headers: { 'content-type': 'application/json', 'cache-control': cacheControl },
     });
-  // Serve a good payload as an edge-cacheable 200 and warm the per-colo cache.
-  const serveCacheable = (body: VictimReleaksResponse): Response => {
-    const response = json(body, `public, max-age=${CACHE_TTL_SECONDS}`);
-    c.executionCtx.waitUntil(cache.put(cacheReq, response.clone()));
-    return response;
-  };
 
   // ── Normal path: serve the cron-warmed global copy ───────────────────────
-  // The heavy 8-group fan-out (~20s) is precomputed by the cron and parked in
-  // KV. Reading it here is ~10ms, so the request path never sits at Cloudflare's
-  // request-duration ceiling — which is what was intermittently aborting the
-  // live compute into a 500 (and that 500 was then edge-cached for 6h).
   const lg = await readLastGood<VictimReleaksResponse>(c.env, LASTGOOD_KEY);
-  if (lg && lg.releaks.length > 0) return serveCacheable(lg);
+  if (lg && lg.releaks.length > 0) {
+    return json(lg, `public, max-age=${CACHE_TTL_SECONDS}`);
+  }
 
   // ── Cold path: no warmed copy yet (fresh deploy, before the first cron) ──
-  // Do a *bounded* live compute so we can still return data, and seed KV so the
-  // next request takes the fast path. Bounded timeout keeps this safely under
-  // the abort threshold; any failure degrades to an empty 200, never a 500.
+  // Use a bounded live compute. Any failure → empty 200, never 500.
   try {
     const body = await fetchVictimReleaks(c.env, { timeoutMs: COLD_FETCH_TIMEOUT_MS });
     if (body.releaks.length > 0) {
       c.executionCtx.waitUntil(writeLastGood(c.env, LASTGOOD_KEY, body, { ttlSeconds: LASTGOOD_TTL_SECONDS }));
-      return serveCacheable(body);
+      return json(body, `public, max-age=${CACHE_TTL_SECONDS}`);
     }
     return json(body, 'no-store');
   } catch (err) {
