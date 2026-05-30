@@ -25,6 +25,7 @@ import {
   Handshake,
   KeyRound,
   Layers,
+  LayoutDashboard,
   MessageSquare,
   Newspaper,
   Radio,
@@ -202,6 +203,13 @@ const SECTIONS: Section[] = [
         icon: UserCheck,
         badge: 'new',
       },
+      {
+        to: '/threatintel/telegram-leaks/stats',
+        label: 'Telegram Leak Stats',
+        desc: 'KPIs, severity distribution, top channels and domains from the Telegram leak database.',
+        icon: BarChart3,
+        badge: 'new',
+      },
     ],
   },
   {
@@ -301,6 +309,12 @@ const SECTIONS: Section[] = [
         label: 'Feed status',
         desc: 'Health of every upstream-backed feed on /threatintel. When a page looks empty, check here first to see whether the gap is upstream or our worker.',
         icon: Activity,
+      },
+      {
+        to: '/threatintel/intel-dashboard',
+        label: 'Intel Dashboard',
+        desc: 'Consolidated view across all threat intelligence sources: leak KPIs, breach stats, feed health, source catalog, quick actions.',
+        icon: LayoutDashboard,
       },
       {
         to: '/threatintel/briefings',

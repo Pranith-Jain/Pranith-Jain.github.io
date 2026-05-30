@@ -548,15 +548,8 @@ export const SECTIONS: Section[] = [
         path: '/dfir/phishing',
         useCase: 'Triage a phishing email in seconds.',
         label: 'Phishing Analyzer',
-        desc: 'Email headers · auth · embedded URLs',
+        desc: 'Email headers · auth · embedded URLs · URL auto-analysis · kit fingerprint',
         icon: ShieldAlert,
-      },
-      {
-        path: '/dfir/phishing-auto-analyze',
-        useCase: 'Auto-analyze a URL for phishing indicators.',
-        label: 'Phishing Auto-Analysis',
-        desc: 'Fetch URL · extract forms + fields + scripts · suspicious keywords · DNS resolve hosting IP · auto risk score',
-        icon: Eye,
       },
       {
         path: '/dfir/phishing#fingerprint',

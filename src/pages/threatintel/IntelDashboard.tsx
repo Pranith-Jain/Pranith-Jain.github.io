@@ -175,7 +175,6 @@ export default function IntelDashboard(): JSX.Element {
                   { label: 'CVE List', href: '/threatintel/cve-list' },
                   { label: 'Malware Samples', href: '/dfir/malware-scan' },
                   { label: 'Phishing Monitor', href: '/dfir/phishing' },
-                  { label: 'Phishing Auto-Analysis', href: '/dfir/phishing-auto-analyze' },
                   { label: 'Threat Hunt', href: '/dfir/threat-hunt' },
                 ].map((link) => (
                   <a

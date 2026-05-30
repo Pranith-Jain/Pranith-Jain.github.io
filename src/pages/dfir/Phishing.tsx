@@ -1,7 +1,22 @@
 import { useState, useRef, type FormEvent } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, ScanText, Search, Crosshair, Fingerprint, Loader2, AlertTriangle, CheckCircle2 } from 'lucide-react';
+import {
+  ArrowLeft,
+  ScanText,
+  Search,
+  Crosshair,
+  Fingerprint,
+  Loader2,
+  AlertTriangle,
+  CheckCircle2,
+  Eye,
+  Globe,
+  FileText,
+  ExternalLink,
+  Lock,
+  Shield,
+} from 'lucide-react';
 import type { PhishingAnalysisResponse } from '../../lib/dfir/types';
 import { VerdictChip } from '../../components/dfir/VerdictChip';
 import { HeaderTable } from '../../components/dfir/HeaderTable';
@@ -26,6 +41,60 @@ export default function Phishing(): JSX.Element {
   const [fpHash, setFpHash] = useState<string | null>(null);
   const [fpError, setFpError] = useState<string | null>(null);
   const resultRef = useRef<HTMLHeadingElement>(null);
+
+  // ─── URL Auto-Analysis state ─────────────────────────────────────────────
+  interface FormField {
+    type: string;
+    name: string;
+    placeholder: string;
+  }
+  interface AutoAnalysisReport {
+    url: string;
+    fetched: boolean;
+    status?: number;
+    title?: string;
+    forms: FormField[];
+    external_links: number;
+    scripts: number;
+    iframes: number;
+    has_password_field: boolean;
+    has_submit_button: boolean;
+    suspicious_keywords: string[];
+    risk_score: number;
+    risk_level: 'low' | 'medium' | 'high' | 'critical';
+    ip?: string;
+    error?: string;
+  }
+  const [aaUrl, setAaUrl] = useState('');
+  const [aaLoading, setAaLoading] = useState(false);
+  const [aaResult, setAaResult] = useState<AutoAnalysisReport | null>(null);
+  const [aaError, setAaError] = useState<string | null>(null);
+
+  const RISK_COLORS: Record<string, string> = {
+    critical: 'text-rose-500 border-rose-300 dark:border-rose-900 bg-rose-50 dark:bg-rose-950/20',
+    high: 'text-orange-500 border-orange-300 dark:border-orange-900 bg-orange-50 dark:bg-orange-950/20',
+    medium: 'text-amber-500 border-amber-300 dark:border-amber-900 bg-amber-50 dark:bg-amber-950/20',
+    low: 'text-emerald-500 border-emerald-300 dark:border-emerald-900 bg-emerald-50 dark:bg-emerald-950/20',
+  };
+
+  const runAutoAnalyze = async () => {
+    const u = aaUrl.trim();
+    if (!u) return;
+    setAaLoading(true);
+    setAaResult(null);
+    setAaError(null);
+    try {
+      const r = await fetch(`/api/v1/phishing/auto-analyze?url=${encodeURIComponent(u)}`);
+      if (!r.ok) {
+        setAaError(`${r.status}`);
+        return;
+      }
+      setAaResult((await r.json()) as AutoAnalysisReport);
+    } catch (e) {
+      setAaError(e instanceof Error ? e.message : 'analysis failed');
+    }
+    setAaLoading(false);
+  };
 
   const runFingerprint = async () => {
     const url = fpUrl.trim();
@@ -198,7 +267,10 @@ export default function Phishing(): JSX.Element {
           />
         </div>
       )}
-      <section id="fingerprint" className="mt-12 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+      <section
+        id="fingerprint"
+        className="mt-12 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5"
+      >
         <h2 className="text-lg font-display font-bold mb-2 flex items-center gap-2">
           <Fingerprint size={16} className="text-brand-600 dark:text-brand-400" />
           Phishing Kit Fingerprint
@@ -273,6 +345,144 @@ export default function Phishing(): JSX.Element {
           </div>
         )}
       </section>
+
+      {/* ─── URL Auto-Analysis ─────────────────────────────────────────────── */}
+      <section
+        id="auto-analyze"
+        className="mt-12 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5"
+      >
+        <h2 className="text-lg font-display font-bold mb-2 flex items-center gap-2">
+          <Eye size={16} className="text-brand-600 dark:text-brand-400" />
+          URL Auto-Analysis
+        </h2>
+        <p className="text-xs text-slate-500 mb-4 max-w-xl">
+          Enter a URL to fetch and scan for phishing indicators — form extraction, password fields, suspicious keywords,
+          scripts/iframes, external links, DNS resolution, and auto risk score.
+        </p>
+        <div className="flex gap-2">
+          <input
+            type="url"
+            value={aaUrl}
+            onChange={(e) => setAaUrl(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && runAutoAnalyze()}
+            placeholder="https://example.com/login"
+            aria-label="URL to auto-analyze"
+            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          />
+          <button
+            type="button"
+            onClick={() => void runAutoAnalyze()}
+            disabled={aaLoading || !aaUrl.trim()}
+            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:bg-brand-500/20 disabled:opacity-40"
+          >
+            {aaLoading && <Loader2 size={12} className="animate-spin" />}
+            {aaLoading ? 'analyzing…' : 'analyze'}
+          </button>
+        </div>
+        {aaError && (
+          <p className="mt-3 text-xs font-mono text-rose-600 dark:text-rose-400 flex items-center gap-1.5">
+            <AlertTriangle size={12} /> {aaError}
+          </p>
+        )}
+        {aaResult && (
+          <div className="mt-4 space-y-4">
+            {/* Risk header */}
+            <div className={`rounded-xl border p-4 ${RISK_COLORS[aaResult.risk_level]}`}>
+              <div className="flex items-center justify-between mb-2">
+                <span className="font-display font-bold flex items-center gap-2 text-sm">
+                  <Shield size={14} />
+                  {aaResult.risk_level.toUpperCase()}
+                  <span className="text-xs font-mono opacity-70">({aaResult.risk_score}/100)</span>
+                </span>
+                <span
+                  className={`text-[10px] font-mono px-2 py-0.5 rounded ${aaResult.fetched ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300' : 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300'}`}
+                >
+                  {aaResult.fetched ? `HTTP ${aaResult.status}` : 'Unreachable'}
+                </span>
+              </div>
+              <code className="text-[11px] font-mono text-slate-600 dark:text-slate-400 break-all block">
+                {aaResult.url}
+              </code>
+              {aaResult.title && <p className="text-xs mt-1.5 font-semibold">{aaResult.title}</p>}
+              {aaResult.ip && (
+                <p className="text-[10px] font-mono text-slate-500 mt-1 flex items-center gap-1">
+                  <Globe size={10} /> {aaResult.ip}
+                </p>
+              )}
+            </div>
+
+            {/* Key indicators */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              <div className="rounded-lg border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 p-3">
+                <p className="text-[10px] font-mono text-slate-500 flex items-center gap-1">
+                  <Lock size={10} /> Password field
+                </p>
+                <p
+                  className={`text-sm font-bold ${aaResult.has_password_field ? 'text-rose-500' : 'text-emerald-500'}`}
+                >
+                  {aaResult.has_password_field ? 'YES' : 'NO'}
+                </p>
+              </div>
+              <div className="rounded-lg border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 p-3">
+                <p className="text-[10px] font-mono text-slate-500 flex items-center gap-1">
+                  <FileText size={10} /> Fields
+                </p>
+                <p className="text-sm font-bold">{aaResult.forms.length}</p>
+              </div>
+              <div className="rounded-lg border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 p-3">
+                <p className="text-[10px] font-mono text-slate-500 flex items-center gap-1">
+                  <ExternalLink size={10} /> Ext. links
+                </p>
+                <p className="text-sm font-bold">{aaResult.external_links}</p>
+              </div>
+              <div className="rounded-lg border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 p-3">
+                <p className="text-[10px] font-mono text-slate-500 flex items-center gap-1">
+                  <FileText size={10} /> Scripts
+                </p>
+                <p className="text-sm font-bold">{aaResult.scripts}</p>
+              </div>
+            </div>
+
+            {/* Suspicious keywords */}
+            {aaResult.suspicious_keywords.length > 0 && (
+              <div className="rounded-lg border border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-900/10 p-3">
+                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-amber-700 dark:text-amber-400 font-mono mb-1.5 flex items-center gap-1">
+                  <AlertTriangle size={10} /> Keywords ({aaResult.suspicious_keywords.length})
+                </p>
+                <div className="flex flex-wrap gap-1">
+                  {aaResult.suspicious_keywords.map((kw) => (
+                    <span
+                      key={kw}
+                      className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-200"
+                    >
+                      {kw}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Form fields */}
+            {aaResult.forms.length > 0 && (
+              <div className="space-y-1">
+                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-brand-600 dark:text-brand-400 font-mono">
+                  Form Fields
+                </p>
+                {aaResult.forms.slice(0, 8).map((f, i) => (
+                  <div key={i} className="flex gap-2 text-[11px] font-mono text-slate-600 dark:text-slate-400">
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 uppercase">
+                      {f.type}
+                    </span>
+                    <span className="text-brand-600 dark:text-brand-400">{f.name || '—'}</span>
+                    <span className="text-slate-400">{f.placeholder || ''}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+      </section>
+
       <RelatedWikiArticles />
     </div>
   );

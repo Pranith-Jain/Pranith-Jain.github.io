@@ -225,7 +225,6 @@ const UnifiedSearch = lazy(() => import('./pages/threatintel/UnifiedSearch'));
 const IocEnrichment = lazy(() => import('./pages/threatintel/IocEnrichment'));
 const RelationshipGraph = lazy(() => import('./pages/threatintel/RelationshipGraph'));
 const ThreatHunt = lazy(() => import('./pages/dfir/ThreatHunt'));
-const PhishingAutoAnalysis = lazy(() => import('./pages/dfir/PhishingAutoAnalysis'));
 
 /**
  * Preserves the path slug (when `withSlug`), the query string, and the hash
@@ -377,14 +376,6 @@ export function AppContent() {
           element={
             <LazyRoute>
               <Phishing />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/phishing-auto-analyze"
-          element={
-            <LazyRoute>
-              <PhishingAutoAnalysis />
             </LazyRoute>
           }
         />
