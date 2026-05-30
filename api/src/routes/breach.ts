@@ -400,10 +400,12 @@ export async function breachEmailHandler(c: Context<{ Bindings: Env }>): Promise
   const breaches: BreachEntry[] = [];
   const sourcesQueried: string[] = [];
   for (let i = 0; i < sources.length; i++) {
-    if (sources[i].status === 'fulfilled') {
-      const val = (sources[i] as PromiseFulfilledResult<BreachEntry[]>).value;
+    const s = sources[i];
+    const name = sourceNames[i];
+    if (s && s.status === 'fulfilled') {
+      const val = (s as PromiseFulfilledResult<BreachEntry[]>).value;
       if (val.length > 0) breaches.push(...val);
-      sourcesQueried.push(sourceNames[i]);
+      if (name) sourcesQueried.push(name);
     }
   }
 
@@ -443,10 +445,12 @@ export async function breachDomainHandler(c: Context<{ Bindings: Env }>): Promis
   const breaches: BreachDomainEntry[] = [];
   const sourcesQueried: string[] = [];
   for (let i = 0; i < sources.length; i++) {
-    if (sources[i].status === 'fulfilled') {
-      const val = (sources[i] as PromiseFulfilledResult<BreachDomainEntry[]>).value;
+    const s = sources[i];
+    const name = sourceNames[i];
+    if (s && s.status === 'fulfilled') {
+      const val = (s as PromiseFulfilledResult<BreachDomainEntry[]>).value;
       if (val.length > 0) breaches.push(...val);
-      sourcesQueried.push(sourceNames[i]);
+      if (name) sourcesQueried.push(name);
     }
   }
 
