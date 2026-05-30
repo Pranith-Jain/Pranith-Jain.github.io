@@ -431,6 +431,13 @@ export const SECTIONS: Section[] = [
     blurb: 'Open-source pivots. username, archive, code-host metadata.',
     tools: [
       {
+        path: '/dfir/identity-lookup',
+        useCase: 'Look up a username across 10+ platforms and see live profile data.',
+        label: 'Identity Lookup',
+        desc: 'KagamiID-style · GitHub/GitLab/Reddit/HN/Bluesky/Dev.to profile lookup · avatar, bio, followers, repos · client-side from public APIs',
+        icon: Search,
+      },
+      {
         path: '/dfir/username',
         useCase: 'Trace a username across 50+ platforms.',
         label: 'Username Pivot',

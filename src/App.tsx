@@ -129,6 +129,7 @@ const Wayback = lazy(() => import('./pages/dfir/Wayback'));
 const IpGeo = lazy(() => import('./pages/dfir/IpGeo'));
 const LogParser = lazy(() => import('./pages/dfir/LogParser'));
 const Blocklists = lazy(() => import('./pages/dfir/Blocklists'));
+const IdentityLookup = lazy(() => import('./pages/dfir/IdentityLookup'));
 
 const Socmint = lazy(() => import('./pages/dfir/Socmint'));
 const OsintFramework = lazy(() => import('./pages/dfir/OsintFramework'));
@@ -1496,6 +1497,14 @@ export function AppContent() {
           element={
             <LazyRoute>
               <UsernamePivot />
+            </LazyRoute>
+          }
+        />
+        <Route
+          path="/dfir/identity-lookup"
+          element={
+            <LazyRoute>
+              <IdentityLookup />
             </LazyRoute>
           }
         />
