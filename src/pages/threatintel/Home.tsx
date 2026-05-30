@@ -325,8 +325,8 @@ const SECTIONS: Section[] = [
       },
       {
         to: '/threatintel/source-reliability',
-        label: 'Source Reliability',
-        desc: 'NATO Admiralty Code (A–F) grading for all 25+ intelligence sources. Every finding traceable to a graded source.',
+        label: 'Data Sources & Reliability',
+        desc: 'Every data source graded by NATO Admiralty Code (A–F) with risk context, known biases, and the open-source tools powering the platform.',
         icon: Shield,
       },
       {
