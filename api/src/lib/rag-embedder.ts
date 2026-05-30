@@ -83,6 +83,19 @@ export async function indexDocument(env: Env, meta: Omit<ChunkMeta, 'chunk_index
   const vec = env.VECTORIZE;
   if (!ai || !vec || !meta.text) return 0;
 
+  // Incremental guard — skip documents already embedded. source_id is
+  // deterministic, so the hourly cron only spends Workers AI / Vectorize budget
+  // on NEW documents; re-runs over the same upstream window are near-free. The
+  // 45-day TTL lets embeddings refresh occasionally without a full re-index.
+  const seenKey = `rag:idx:${meta.source_id}`;
+  if (env.KV_CACHE) {
+    try {
+      if (await env.KV_CACHE.get(seenKey)) return 0;
+    } catch {
+      /* KV read failed — fall through and re-index (fail-open) */
+    }
+  }
+
   const chunks = chunkText(meta.text, meta);
   if (chunks.length === 0) return 0;
 
@@ -114,11 +127,22 @@ export async function indexDocument(env: Env, meta: Omit<ChunkMeta, 'chunk_index
 
     if (vectors.length > 0) {
       try {
-        await vec.insert(vectors);
+        // upsert (not insert) — idempotent on the deterministic chunk IDs, so a
+        // refresh after the guard TTL overwrites cleanly instead of erroring.
+        await vec.upsert(vectors);
         inserted += vectors.length;
       } catch (err) {
-        console.error('Vectorize insert error:', err);
+        console.error('Vectorize upsert error:', err);
       }
+    }
+  }
+
+  // Mark this source_id as indexed so subsequent cron runs skip it.
+  if (env.KV_CACHE && inserted > 0) {
+    try {
+      await env.KV_CACHE.put(seenKey, '1', { expirationTtl: 3_888_000 }); // 45 days
+    } catch {
+      /* non-fatal — worst case is a re-embed next run */
     }
   }
 
