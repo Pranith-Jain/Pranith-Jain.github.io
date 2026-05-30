@@ -148,6 +148,26 @@ import {
   predictiveGapsHandler,
   predictiveReportHandler,
 } from './routes/predictive-intel';
+import {
+  pirListHandler,
+  pirDetailHandler,
+  pirCreateHandler,
+  pirUpdateHandler,
+  pirDeleteHandler,
+  pirAlertHandler,
+  pirAlertListHandler,
+  pirAlertAckHandler,
+  pirAlertAckAllHandler,
+  pirRoutingHandler,
+  pirRelevantHandler,
+} from './routes/pir';
+import {
+  feedbackCreateHandler,
+  feedbackListHandler,
+  feedbackAggregateHandler,
+  feedbackDeleteHandler,
+} from './routes/feedback';
+import { sourceReliabilityHandler } from './lib/confidence';
 import { crossCampaignCorrelationHandler } from './routes/cross-campaign';
 
 import {
@@ -186,6 +206,19 @@ import { xTweetsHandler } from './routes/x-tweets';
 import { xLiveHandler } from './routes/x-live';
 import { xFirehoseHandler } from './routes/x-firehose';
 import { relationshipGraphHandler } from './routes/relationship-graph';
+import { ragIndexHandler, ragQueryHandler } from './routes/rag-index';
+import { indexAllCorpora } from './routes/rag-corpus-index';
+import { achHandler } from './routes/ach';
+import { entityResolveHandler, entityExtractHandler, entityProfileHandler } from './routes/entity-resolver';
+import { noveltyHandler, noveltyBatchHandler } from './routes/novelty';
+import {
+  assessmentCreateHandler,
+  assessmentListHandler,
+  assessmentDetailHandler,
+  assessmentUpdateHandler,
+  assessmentDeleteHandler,
+} from './routes/assessments';
+import { correlateHandler } from './routes/cross-correlate';
 import { huntingQueryHandler } from './routes/hunting-queries';
 import { sandboxLookupHandler } from './routes/sandbox';
 import { irPlaybookHandler } from './routes/ir-playbooks';
@@ -381,6 +414,12 @@ app.get('/api/v1/phishing/auto-analyze', phishingAnalyzeAutoHandler);
 app.post('/api/v1/phishing/fingerprint', fingerprintHandler);
 app.get('/api/v1/unified-search', unifiedSearchHandler);
 app.get('/api/v1/relationship-graph', relationshipGraphHandler);
+app.post('/api/v1/rag/index', ragIndexHandler);
+app.get('/api/v1/rag/query', ragQueryHandler);
+app.post('/api/v1/rag/index-all', async (c) => {
+  const result = await indexAllCorpora(c.env);
+  return c.json({ ok: true, ...result });
+});
 app.post('/api/v1/ai-summary', aiSummaryHandler);
 app.post('/api/v1/copilot/investigate', copilotInvestigateHandler);
 app.get('/api/v1/copilot/investigate', copilotInvestigateHandler);
@@ -456,6 +495,11 @@ app.get('/api/v1/threat-intel/actor-dna', actorDnaListHandler);
 app.get('/api/v1/threat-intel/actor-dna/:actorId', actorDnaGetHandler);
 app.get('/api/v1/threat-intel/actor-dna/compare/:actor1/:actor2', actorDnaCompareHandler);
 
+// ── Entity Resolution ──────────────────────────────────────────────
+app.get('/api/v1/threat-intel/entities/resolve', entityResolveHandler);
+app.post('/api/v1/threat-intel/entities/extract', entityExtractHandler);
+app.post('/api/v1/threat-intel/entities/profile', entityProfileHandler);
+
 // ── Campaign Lifecycle ──────────────────────────────────────────
 app.post('/api/v1/threat-intel/campaign/analyze', campaignAnalyzeHandler);
 app.get('/api/v1/threat-intel/campaign/techniques', campaignTechniquesHandler);
@@ -466,6 +510,40 @@ app.get('/api/v1/threat-intel/predictive/sector-risks', predictiveSectorRisksHan
 app.post('/api/v1/threat-intel/predictive/attribution', predictiveAttributionHandler);
 app.get('/api/v1/threat-intel/predictive/gaps', predictiveGapsHandler);
 app.get('/api/v1/threat-intel/predictive/report', predictiveReportHandler);
+app.get('/api/v1/threat-intel/collection-slo', feedStatusHandler);
+app.get('/api/v1/threat-intel/pirs', pirListHandler);
+app.get('/api/v1/threat-intel/pirs/relevant', pirRelevantHandler);
+app.get('/api/v1/threat-intel/pirs/alert', pirAlertHandler);
+app.get('/api/v1/threat-intel/pirs/alerts', pirAlertListHandler);
+app.patch('/api/v1/threat-intel/pirs/alerts/:id/acknowledge', pirAlertAckHandler);
+app.post('/api/v1/threat-intel/pirs/alerts/acknowledge-all', pirAlertAckAllHandler);
+app.post('/api/v1/threat-intel/pirs', pirCreateHandler);
+app.get('/api/v1/threat-intel/pirs/:id', pirDetailHandler);
+app.put('/api/v1/threat-intel/pirs/:id', pirUpdateHandler);
+app.delete('/api/v1/threat-intel/pirs/:id', pirDeleteHandler);
+app.get('/api/v1/threat-intel/pirs/routing', pirRoutingHandler);
+app.post('/api/v1/threat-intel/feedback', feedbackCreateHandler);
+app.get('/api/v1/threat-intel/feedback', feedbackListHandler);
+app.get('/api/v1/threat-intel/feedback/aggregate', feedbackAggregateHandler);
+app.delete('/api/v1/threat-intel/feedback/:id', feedbackDeleteHandler);
+app.get('/api/v1/source-reliability', sourceReliabilityHandler);
+
+// ── ACH Generator ───────────────────────────────────────────────
+app.post('/api/v1/threat-intel/ach', achHandler);
+
+// ── Novelty Detection ──────────────────────────────────────────
+app.post('/api/v1/threat-intel/novelty', noveltyHandler);
+app.post('/api/v1/threat-intel/novelty/batch', noveltyBatchHandler);
+
+// ── Intelligence Assessments ────────────────────────────────────
+app.get('/api/v1/threat-intel/assessments', assessmentListHandler);
+app.post('/api/v1/threat-intel/assessments', assessmentCreateHandler);
+app.get('/api/v1/threat-intel/assessments/:id', assessmentDetailHandler);
+app.put('/api/v1/threat-intel/assessments/:id', assessmentUpdateHandler);
+app.delete('/api/v1/threat-intel/assessments/:id', assessmentDeleteHandler);
+
+// ── Cross-Correlation Intelligence ──────────────────────────────
+app.post('/api/v1/threat-intel/correlate', correlateHandler);
 
 // ── Dark Web Economics ──────────────────────────────────────────
 

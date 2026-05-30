@@ -42,6 +42,12 @@
 	"ai": {
 		"binding": "AI"
 	},
+	"vectorize": [
+		{
+			"binding": "VECTORIZE",
+			"index_name": "intel-corpus"
+		}
+	],
 	"durable_objects": {
 		"bindings": [
 			{ "name": "LIVE_FEED_DO", "class_name": "LiveFeedDO" },

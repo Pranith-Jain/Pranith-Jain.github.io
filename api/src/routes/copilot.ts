@@ -21,6 +21,8 @@ import { greynoise as gnProvider } from '../providers/greynoise';
 import { urlscan as urlscanProvider } from '../providers/urlscan';
 import { malwarebazaar as mbProvider } from '../providers/malwarebazaar';
 import { malshare as msProvider } from '../providers/malshare';
+import { queryCorpus, formatRetrievedContext } from '../lib/rag-embedder';
+import { computeConfidence, type ConfidenceScore } from '../lib/confidence';
 
 interface Source {
   name: string;
@@ -36,6 +38,8 @@ interface CopilotResponse {
   model_used: string;
   processed_at: string;
   _meta?: { total_sources: number; total_items: number };
+  /** Computed analytic confidence based on source reliability grading */
+  confidence?: ConfidenceScore;
 }
 
 type QueryType = 'cve' | 'ip' | 'domain' | 'hash' | 'actor' | 'ransomware' | 'generic';
@@ -645,8 +649,32 @@ async function gatherLiveEnrichment(query: string, queryType: QueryType, env: En
   return [];
 }
 
-function buildSystemPrompt(query: string, queryType: QueryType): string {
+function buildSystemPrompt(query: string, queryType: QueryType, confidence?: ConfidenceScore): string {
   const isActor = queryType === 'actor' || queryType === 'ransomware';
+
+  const confidenceBlock = confidence
+    ? `
+<confidence>
+**Computed from source reliability grading:**
+
+| Metric | Value |
+|--------|-------|
+| Overall score | ${confidence.score}/100 |
+| Level | ${confidence.level} |
+| Sources contributing | ${confidence.sources_contributing} |
+| Contradictory sources | ${confidence.contradictory_sources} |
+| Admiralty grade | ${confidence.admiralty ? `${confidence.admiralty.reliability}-${confidence.admiralty.credibility}: ${confidence.admiralty.label}` : 'N/A'} |
+| Reasoning | ${confidence.reasoning} |
+
+Use this computed confidence to calibrate the [High]/[Medium]/[Low] tags in your Key Findings. Do NOT contradict this computed score — if the score is low, the findings should reflect that.
+</confidence>`
+    : `
+<confidence>
+- **High**: corroborated by ≥2 independent sources, or a single authoritative source (CISA KEV, NVD, Malpedia, Wikipedia for established subjects).
+- **Medium**: single structured source, or plausible general knowledge with concrete specifics.
+- **Low**: weak signal, general knowledge without corroboration, or stale data.
+When relying primarily on general knowledge, include: "Note: analysis is based on general cybersecurity knowledge, as curated threat feeds returned no matching data for this query."
+</confidence>`;
   return `<role>You are a senior CTI analyst at a global SOC/MDR writing a formal intelligence report for fellow analysts and incident responders. Your reports are evidence-driven, technically precise, and professionally structured.</role>
 
 <task>Produce a structured intelligence report about "${query}" in Markdown.
@@ -722,6 +750,7 @@ Numbered list of sources used in this report. Reference them inline in the text 
 
 <ground_rules>
 - SOURCES ARE YOUR EVIDENCE. Every claim in the report must cite the source that supports it. Use the ref="N" attribute from each <source> tag for inline citation: e.g. "CVE-2024-1709 is exploited in the wild by LockBit [1]".
+- If a <retrieved_corpus> block is present in the prompt, it contains pre-indexed knowledge from a corpus of past analyses, reports, and technical notes. Cite it as [R1], [R2], etc. matching the ref attributes. Do NOT conflate <retrieved_corpus> citations with <source> citations.
 - Sources below MAY be empty. This does NOT mean the subject is unknown — use your training knowledge for well-known actors, ransomware families, and CVEs. Mark general-knowledge claims with "(general knowledge)" and a confidence label.
 - NEVER say "no intelligence found" or "no data available" for a well-known subject. If you genuinely don't recognise the query, say: "This query does not match any known threat actor, malware, or CVE in available sources or general knowledge."
 - Do NOT invent CVE IDs, CVSS scores, EPSS values, or technical details not present in provided data or verified general knowledge.
@@ -742,12 +771,7 @@ Before writing, assess:
 Then write the report with evidence tracing back to sources.
 </reasoning>
 
-<confidence>
-- **High**: corroborated by ≥2 independent sources, or a single authoritative source (CISA KEV, NVD, Malpedia, Wikipedia for established subjects).
-- **Medium**: single structured source, or plausible general knowledge with concrete specifics.
-- **Low**: weak signal, general knowledge without corroboration, or stale data.
-When relying primarily on general knowledge, include: "Note: analysis is based on general cybersecurity knowledge, as curated threat feeds returned no matching data for this query."
-</confidence>
+${confidenceBlock}
 
 <coverage>
 ${isActor ? `- Actor/ransomware: extract SPECIFIC victim names, sectors, countries, and discovery dates from Ransomware Recent source. Mention aliases (from Threat Actor KB). Describe affiliate/RaaS model, known TTPs with technique IDs from MITRE data, and recent campaign patterns. Use Negotiations source for financial data if present.` : queryType === 'cve' ? `- CVE: extract full CVSS vector (not just score), EPSS probability as percentage, CISA KEV status with date_added, affected products list, and actor attribution. Mention specific PoC references from the source data.` : `- IP/domain/hash: extract specific provider verdicts (VT detection ratio, AbuseIPDB confidence score, GreyNoise classification). Mention associated malware families and C2 frameworks from tags. Include geolocation data (country, ASN).`}
@@ -796,13 +820,14 @@ const SCHEMA_NOTES: Record<string, string> = {
     'Contains: title, extract (plain-text summary), url. EXTRACT: use the summary for historical background and general context in Detailed Analysis. Prefer structured data over Wikipedia for specific claims.',
 };
 
-function buildUserPrompt(query: string, queryType: QueryType, sources: Source[]): string {
+function buildUserPrompt(query: string, queryType: QueryType, sources: Source[], ragContext?: string): string {
   const intro = `<investigation>
 Query: ${query}
 Type: ${queryType}
 </investigation>
 
 `;
+  const ragBlock = ragContext ? `${ragContext}\n\n` : '';
   let body = '';
   for (let i = 0; i < sources.length; i++) {
     const src = sources[i]!;
@@ -819,7 +844,7 @@ Type: ${queryType}
     sources.length > 0
       ? `\n<instruction>You have ${sources.length} source(s) above. Reference them inline using [1], [2], etc. matching the ref="N" attributes, and list them in the ## Source References section at the end.</instruction>`
       : '';
-  return intro + body + citationNote;
+  return intro + ragBlock + body + citationNote;
 }
 
 async function callWorkersAi(env: Env, system: string, user: string): Promise<string> {
@@ -890,8 +915,36 @@ export async function copilotInvestigateHandler(c: Context<{ Bindings: Env }>): 
     ]);
     const allSources = [...sources, ...liveSources];
 
-    const system = buildSystemPrompt(query.trim(), queryType);
-    const user = buildUserPrompt(query.trim(), queryType, allSources);
+    // ── RAG: retrieve relevant context from Vectorize corpus ──────────────
+    let ragContext: string | undefined;
+    try {
+      // Short queries (<5 chars) skip RAG — noise-to-signal is too low
+      if (query.trim().length >= 5 && c.env.VECTORIZE) {
+        const results = await queryCorpus(c.env, query.trim(), 8, undefined);
+        if (results.length > 0) ragContext = formatRetrievedContext(results);
+      }
+    } catch {
+      // RAG is additive — failure is non-fatal
+    }
+
+    // ── Compute analytic confidence from source reliability ──────────────
+    const confidence = computeConfidence({
+      sourceIds: allSources.map((s) =>
+        s.name
+          .toLowerCase()
+          .replace(/\s+/g, '-')
+          .replace(/[^a-z0-9-]/g, '')
+      ),
+      findingType:
+        queryType === 'cve'
+          ? 'vulnerability'
+          : queryType === 'actor' || queryType === 'ransomware'
+            ? 'attribution'
+            : 'general',
+    });
+
+    const system = buildSystemPrompt(query.trim(), queryType, confidence);
+    const user = buildUserPrompt(query.trim(), queryType, allSources, ragContext);
 
     let narrative: string;
     let modelUsed: string;
@@ -912,6 +965,7 @@ export async function copilotInvestigateHandler(c: Context<{ Bindings: Env }>): 
       sources: allSources.map((s) => ({ name: s.name, items: s.items, data: s.data })),
       model_used: modelUsed,
       processed_at: new Date().toISOString(),
+      confidence,
       _meta: { total_sources: allSources.length, total_items: totalSourceItems },
     };
 

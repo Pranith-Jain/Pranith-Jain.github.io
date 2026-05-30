@@ -18,6 +18,9 @@ import { refreshVictimReleaksCache } from '../api/src/routes/victim-releaks';
 import { warmIntelBundles } from '../api/src/lib/intel-bundle-warm';
 import { checkWatches } from '../api/src/lib/watch-engine';
 import { buildBlocklists } from '../api/src/lib/blocklist-builder';
+import { indexTelegramLeaks } from '../api/src/routes/rag-index';
+import { indexAllCorpora } from '../api/src/routes/rag-corpus-index';
+import { detectPirAlerts } from '../api/src/routes/pir';
 import type { D1Database } from '@cloudflare/workers-types';
 import type { Env as ApiEnv } from '../api/src/env';
 import type { Env } from './env';
@@ -339,6 +342,56 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
                 error: e instanceof Error ? e.message : String(e),
               })
             );
+          }
+        }
+
+        // === PIR-level collection health alerts (every hour) ===
+        try {
+          const pirResult = await detectPirAlerts(env as unknown as ApiEnv);
+          if (pirResult.alerts.length > 0) {
+            console.log(
+              JSON.stringify({
+                job: 'pir-alert-check',
+                pirs_checked: pirResult.total,
+                alerts: pirResult.alerts.length,
+                critical: pirResult.alerts.filter((a) => a.severity === 'critical').length,
+              })
+            );
+          }
+        } catch (e) {
+          console.error(JSON.stringify({ job: 'pir-alert-check', error: e instanceof Error ? e.message : String(e) }));
+        }
+
+        // === RAG corpus re-index (every 6h, at ~:20 past) ===
+        if (csNow.getUTCHours() % 6 === 2) {
+          try {
+            const telegram = await indexTelegramLeaks(env as unknown as ApiEnv);
+            const corpora = await indexAllCorpora(env as unknown as ApiEnv);
+            const totalIndexed =
+              telegram.indexed +
+              corpora.cve.indexed +
+              corpora.actor_kb.indexed +
+              corpora.ransomware.indexed +
+              corpora.breach.indexed;
+            console.log(
+              JSON.stringify({
+                job: 'rag-reindex',
+                telegram_leaks: telegram.indexed,
+                cve: corpora.cve.indexed,
+                actor_kb: corpora.actor_kb.indexed,
+                ransomware: corpora.ransomware.indexed,
+                breach: corpora.breach.indexed,
+                total_indexed: totalIndexed,
+                errors:
+                  telegram.errors +
+                  corpora.cve.errors +
+                  corpora.actor_kb.errors +
+                  corpora.ransomware.errors +
+                  corpora.breach.errors,
+              })
+            );
+          } catch (e) {
+            logCronFail('rag-reindex')(e);
           }
         }
       })().catch(logCronFail('hourly-cron'))

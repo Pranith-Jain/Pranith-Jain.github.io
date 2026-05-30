@@ -7,6 +7,7 @@ export interface Env {
   CASE_STUDIES: KVNamespace;
   R2_FILES?: R2Bucket;
   AI: Ai;
+  VECTORIZE?: VectorizeIndex;
   /** Optional NVD API key (Worker secret) — raises NVD rate limit ~10x. */
   NVD_API_KEY?: string;
   // Optional Worker secrets — unset in dev/preview and consumed with a

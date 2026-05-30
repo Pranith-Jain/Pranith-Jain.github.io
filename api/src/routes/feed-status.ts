@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { SOURCE_RELIABILITY_REGISTRY } from '../lib/confidence';
 import { SNAPSHOT_CACHE_KEY } from './snapshot';
 import { CVE_RECENT_CACHE_KEY } from './cve-recent';
 import { MALWARE_SAMPLES_CACHE_KEY } from './malware-samples';
@@ -36,7 +37,7 @@ import { INTEL_BUNDLE_CACHE_KEY } from './intel-bundle';
  */
 
 const CACHE_TTL = 5 * 60;
-const FEED_STATUS_CACHE_KEY = 'https://feed-status-cache.internal/v4-af-ddc';
+export const FEED_STATUS_CACHE_KEY = 'https://feed-status-cache.internal/v4-af-ddc';
 
 type Status = 'ok' | 'degraded' | 'down' | 'cold';
 
@@ -49,12 +50,24 @@ interface FeedStatusRow {
   reason: string;
   metrics?: Record<string, number>;
   upstream_age_s?: number;
+  /** Admiralty source reliability grade (A–F), mapped from SOURCE_RELIABILITY_REGISTRY */
+  reliability?: string;
+  /** Source category from registry */
+  category?: string;
+  /** Human-readable description */
+  description?: string;
 }
 
 export interface FeedStatusResponse {
   generated_at: string;
   rows: FeedStatusRow[];
   overall: Status;
+  /** Per-status aggregate counts */
+  total_sources: number;
+  healthy: number;
+  degraded: number;
+  down: number;
+  cold: number;
 }
 
 interface FeedProbeSpec {
@@ -63,6 +76,9 @@ interface FeedProbeSpec {
   page_path: string;
   api_path: string;
   cache_key: string;
+  reliability?: string; // Admiralty grade (A–F)
+  category?: string;
+  description?: string;
   evaluate: (body: unknown) => { status: Status; reason: string; metrics?: Record<string, number>; ageS?: number };
 }
 
@@ -636,8 +652,45 @@ const PROBES: FeedProbeSpec[] = [
   },
 ];
 
+// ── Passive probes from registry sources not covered by Cache API ─────────
+
+function buildPassiveProbes(): FeedProbeSpec[] {
+  const cacheProbeIds = new Set(PROBES.map((p) => p.id));
+  const idMap: Record<string, string[]> = {
+    'live-iocs': ['abusech-urlhaus', 'abusech-threatfox', 'abusech-malwarebazaar'],
+    'phishing-urls': ['phish-tank', 'openphish'],
+    'x-feed': ['x-twitter', 'bluesky'],
+    'stealer-forum-intel': ['hudson-rock'],
+    'cve-recent': ['nvd', 'cisa-kev'],
+  };
+  const covered = new Set<string>(cacheProbeIds);
+  for (const ids of Object.values(idMap)) ids.forEach((id) => covered.add(id));
+
+  const passive: FeedProbeSpec[] = [];
+  for (const [id, entry] of Object.entries(SOURCE_RELIABILITY_REGISTRY)) {
+    if (covered.has(id)) continue;
+    passive.push({
+      id,
+      label: entry.name,
+      page_path: '',
+      api_path: '',
+      cache_key: '',
+      reliability: entry.reliability,
+      category: entry.category,
+      description: entry.description,
+      evaluate: () => ({ status: 'cold' as Status, reason: 'Passive source — no direct Cache API probe' }),
+    });
+  }
+  return passive;
+}
+
+const ALL_PROBES: FeedProbeSpec[] = [...PROBES, ...buildPassiveProbes()];
+
 async function probeOne(spec: FeedProbeSpec): Promise<FeedStatusRow> {
   const cache = (caches as unknown as { default: Cache }).default;
+  const reg = spec.id
+    ? (SOURCE_RELIABILITY_REGISTRY[spec.id] ?? SOURCE_RELIABILITY_REGISTRY[`${spec.id}-feed`])
+    : undefined;
   try {
     const cached = await cache.match(spec.cache_key);
     if (!cached) {
@@ -648,6 +701,9 @@ async function probeOne(spec: FeedProbeSpec): Promise<FeedStatusRow> {
         api_path: spec.api_path,
         status: 'cold',
         reason: 'no cached payload (visit the page once to warm the cache)',
+        reliability: spec.reliability ?? reg?.reliability,
+        category: spec.category ?? reg?.category,
+        description: spec.description ?? reg?.description,
       };
     }
     const body = (await cached.json()) as unknown;
@@ -661,6 +717,9 @@ async function probeOne(spec: FeedProbeSpec): Promise<FeedStatusRow> {
       reason: evaluated.reason,
       metrics: evaluated.metrics,
       upstream_age_s: evaluated.ageS,
+      reliability: spec.reliability ?? reg?.reliability,
+      category: spec.category ?? reg?.category,
+      description: spec.description ?? reg?.description,
     };
   } catch (e) {
     return {
@@ -670,6 +729,9 @@ async function probeOne(spec: FeedProbeSpec): Promise<FeedStatusRow> {
       api_path: spec.api_path,
       status: 'down',
       reason: `cache read error`,
+      reliability: spec.reliability ?? reg?.reliability,
+      category: spec.category ?? reg?.category,
+      description: spec.description ?? reg?.description,
     };
   }
 }
@@ -680,17 +742,23 @@ export async function feedStatusHandler(c: Context<{ Bindings: Env }>): Promise<
   const cached = await cache.match(cacheReq);
   if (cached) return new Response(cached.body, cached);
 
-  const rows = await Promise.all(PROBES.map(probeOne));
-  const downs = rows.filter((r) => r.status === 'down').length;
+  const rows = await Promise.all(ALL_PROBES.map(probeOne));
+  const healthy = rows.filter((r) => r.status === 'ok').length;
   const degraded = rows.filter((r) => r.status === 'degraded').length;
+  const down = rows.filter((r) => r.status === 'down').length;
   const cold = rows.filter((r) => r.status === 'cold').length;
   const overall: Status =
-    downs >= 3 ? 'down' : downs >= 1 || degraded >= 3 ? 'degraded' : cold >= rows.length / 2 ? 'cold' : 'ok';
+    down >= 3 ? 'down' : down >= 1 || degraded >= 3 ? 'degraded' : cold >= rows.length / 2 ? 'cold' : 'ok';
 
   const body: FeedStatusResponse = {
     generated_at: new Date().toISOString(),
     rows,
     overall,
+    total_sources: rows.length,
+    healthy,
+    degraded,
+    down,
+    cold,
   };
 
   const response = new Response(JSON.stringify(body), {

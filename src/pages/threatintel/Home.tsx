@@ -33,6 +33,7 @@ import {
   Scale,
   Search,
   Send,
+  Shield,
   ShieldAlert,
   Sparkles,
   Target,
@@ -317,6 +318,25 @@ const SECTIONS: Section[] = [
         icon: LayoutDashboard,
       },
       {
+        to: '/threatintel/collection-slo',
+        label: 'Collection SLO',
+        desc: 'Live health of every intelligence collector — uptime %, staleness, reliability grades. Alerts on silent degradation.',
+        icon: Activity,
+      },
+      {
+        to: '/threatintel/source-reliability',
+        label: 'Source Reliability',
+        desc: 'NATO Admiralty Code (A–F) grading for all 25+ intelligence sources. Every finding traceable to a graded source.',
+        icon: Shield,
+      },
+      {
+        to: '/threatintel/pir-dashboard',
+        label: 'Intelligence Requirements',
+        desc: 'PIR-driven tasking: define what decisions to inform, score collection against requirements, track coverage gaps.',
+        icon: Target,
+        badge: 'new',
+      },
+      {
         to: '/threatintel/briefings',
         label: 'Intel Briefings',
         desc: 'Daily and weekly digest, auto-generated from the upstream feeds. Ransomware claims, breach disclosures, and the IOCs of the day, with auto-tagged actors and CVEs per item.',
@@ -369,6 +389,13 @@ const SECTIONS: Section[] = [
         label: 'Relationship Graph',
         desc: 'Interactive graph of cross-source connections between CVEs, threat actors, ransomware groups, IPs, domains, and hashes. Depth-1/2 traversal with KV-cached resolution.',
         icon: Globe2,
+        badge: 'new',
+      },
+      {
+        to: '/threatintel/entity-resolution',
+        label: 'Entity Resolution',
+        desc: 'Resolve threat actor names, ransomware groups, CVEs, IPs, domains, and hashes against a curated 500+ entry alias index with CVE-to-actor mapping.',
+        icon: Search,
         badge: 'new',
       },
       {

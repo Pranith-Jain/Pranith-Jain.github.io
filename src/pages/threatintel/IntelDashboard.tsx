@@ -176,6 +176,13 @@ export default function IntelDashboard(): JSX.Element {
                   { label: 'Malware Samples', href: '/dfir/malware-scan' },
                   { label: 'Phishing Monitor', href: '/dfir/phishing' },
                   { label: 'Threat Hunt', href: '/dfir/threat-hunt' },
+                  { label: 'Collection SLO', href: '/threatintel/collection-slo' },
+                  { label: 'Source Reliability', href: '/threatintel/source-reliability' },
+                  { label: 'Intel Requirements (PIRs)', href: '/threatintel/pir-dashboard' },
+                  { label: 'ACH Generator', href: '/threatintel/ach' },
+                  { label: 'Cross-Correlate', href: '/threatintel/cross-correlate' },
+                  { label: 'Assessments', href: '/threatintel/assessments' },
+                  { label: 'Entity Resolution', href: '/threatintel/relationship-graph' },
                 ].map((link) => (
                   <a
                     key={link.href}

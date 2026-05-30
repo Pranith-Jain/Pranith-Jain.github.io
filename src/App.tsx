@@ -225,6 +225,14 @@ const UnifiedSearch = lazy(() => import('./pages/threatintel/UnifiedSearch'));
 const IocEnrichment = lazy(() => import('./pages/threatintel/IocEnrichment'));
 const RelationshipGraph = lazy(() => import('./pages/threatintel/RelationshipGraph'));
 const ThreatHunt = lazy(() => import('./pages/dfir/ThreatHunt'));
+const SourceReliability = lazy(() => import('./pages/threatintel/SourceReliability'));
+const CollectionSlo = lazy(() => import('./pages/threatintel/CollectionSlo'));
+const PirDashboard = lazy(() => import('./pages/threatintel/PirDashboard'));
+const ACH = lazy(() => import('./pages/threatintel/ACH'));
+const CrossCorrelate = lazy(() => import('./pages/threatintel/CrossCorrelate'));
+const Assessments = lazy(() => import('./pages/threatintel/Assessments'));
+const AssessmentDetail = lazy(() => import('./pages/threatintel/AssessmentDetail'));
+const EntityResolution = lazy(() => import('./pages/threatintel/EntityResolution'));
 
 /**
  * Preserves the path slug (when `withSlug`), the query string, and the hash
@@ -940,6 +948,30 @@ export function AppContent() {
           element={
             <LazyRoute>
               <IntelDashboardPage />
+            </LazyRoute>
+          }
+        />
+        <Route
+          path="/threatintel/source-reliability"
+          element={
+            <LazyRoute>
+              <SourceReliability />
+            </LazyRoute>
+          }
+        />
+        <Route
+          path="/threatintel/collection-slo"
+          element={
+            <LazyRoute>
+              <CollectionSlo />
+            </LazyRoute>
+          }
+        />
+        <Route
+          path="/threatintel/pir-dashboard"
+          element={
+            <LazyRoute>
+              <PirDashboard />
             </LazyRoute>
           }
         />
@@ -1872,6 +1904,46 @@ export function AppContent() {
           element={
             <LazyRoute>
               <RelationshipGraph />
+            </LazyRoute>
+          }
+        />
+        <Route
+          path="/threatintel/ach"
+          element={
+            <LazyRoute>
+              <ACH />
+            </LazyRoute>
+          }
+        />
+        <Route
+          path="/threatintel/cross-correlate"
+          element={
+            <LazyRoute>
+              <CrossCorrelate />
+            </LazyRoute>
+          }
+        />
+        <Route
+          path="/threatintel/assessments"
+          element={
+            <LazyRoute>
+              <Assessments />
+            </LazyRoute>
+          }
+        />
+        <Route
+          path="/threatintel/assessments/:id"
+          element={
+            <LazyRoute>
+              <AssessmentDetail />
+            </LazyRoute>
+          }
+        />
+        <Route
+          path="/threatintel/entity-resolution"
+          element={
+            <LazyRoute>
+              <EntityResolution />
             </LazyRoute>
           }
         />

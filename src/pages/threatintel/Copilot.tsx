@@ -11,7 +11,9 @@ import {
   Loader2,
   Lightbulb,
   Search,
+  Save,
 } from 'lucide-react';
+import { FeedbackWidget } from '../../components/FeedbackWidget';
 import { BackLink } from '../../components/BackLink';
 
 interface Source {
@@ -28,6 +30,14 @@ interface CopilotResponse {
   model_used: string;
   processed_at: string;
   _meta?: { total_sources: number; total_items: number };
+  confidence?: {
+    level: string;
+    score: number;
+    admiralty?: { reliability: string; credibility: number; label: string };
+    sources_contributing: number;
+    contradictory_sources: number;
+    reasoning: string;
+  };
 }
 
 const QUERY_EXAMPLES = [
@@ -98,6 +108,8 @@ export default function Copilot(): JSX.Element {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<CopilotResponse | null>(null);
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -270,6 +282,20 @@ export default function Copilot(): JSX.Element {
                   {result._meta.total_sources} sources · {result._meta.total_items} data points
                 </span>
               )}
+              {result.confidence && (
+                <span
+                  className={`px-1.5 py-0.5 rounded text-[10px] ${
+                    result.confidence.score >= 70
+                      ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300'
+                      : result.confidence.score >= 40
+                        ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300'
+                        : 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300'
+                  }`}
+                  title={result.confidence.reasoning}
+                >
+                  confidence: {result.confidence.score}/100 ({result.confidence.level})
+                </span>
+              )}
               <span>{new Date(result.processed_at).toLocaleString()}</span>
             </div>
 
@@ -312,6 +338,10 @@ export default function Copilot(): JSX.Element {
               className="px-6 py-5 text-slate-800 dark:text-slate-200 [&_h2]:text-lg [&_h2]:font-bold [&_h2]:mt-6 [&_h2]:mb-2 [&_h2]:pb-1 [&_h2]:border-b [&_h2]:border-slate-100 [&_h2]:dark:border-slate-800 [&_h3]:text-base [&_h3]:font-semibold [&_h3]:mt-4 [&_h3]:mb-1.5 [&_p]:text-sm [&_p]:leading-relaxed [&_p]:mb-2 [&_p]:text-slate-700 [&_p]:dark:text-slate-300 [&_ul]:space-y-0.5 [&_ul]:my-1.5 [&_ol]:space-y-1 [&_ol]:my-1.5 [&_li]:ml-4 [&_li]:pl-1 [&_li]:text-sm [&_li]:text-slate-700 [&_li]:dark:text-slate-300 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:bg-slate-100 [&_code]:dark:bg-slate-800 [&_code]:text-xs [&_code]:font-mono [&_code]:text-brand-700 [&_code]:dark:text-brand-300"
               dangerouslySetInnerHTML={{ __html: narrativeHtml }}
             />
+            {/* Feedback */}
+            <div className="px-6 pb-4 pt-2 border-t border-slate-100 dark:border-slate-800">
+              <FeedbackWidget targetType="copilot" targetId={query} compact />
+            </div>
           </div>
 
           {/* Sources detail */}
@@ -339,6 +369,42 @@ export default function Copilot(): JSX.Element {
 
           {/* Actions */}
           <div className="flex gap-2">
+            <button
+              onClick={async () => {
+                if (!result) return;
+                setSaving(true);
+                try {
+                  const res = await fetch('/api/v1/threat-intel/assessments', {
+                    method: 'POST',
+                    headers: { 'content-type': 'application/json' },
+                    body: JSON.stringify({
+                      title: `Copilot: ${result.query}`,
+                      type:
+                        result.query_type === 'cve'
+                          ? 'cve'
+                          : result.query_type === 'actor' || result.query_type === 'ransomware'
+                            ? 'actor'
+                            : 'general',
+                      topic: result.query,
+                      body: result.narrative,
+                      sources: result.sources.map((s) => s.name),
+                      confidence_score: result.confidence?.score ?? 0,
+                      confidence_level: result.confidence?.level ?? 'unassessed',
+                    }),
+                  });
+                  if (!res.ok) throw new Error('Failed to save');
+                  setSaved(true);
+                } catch (e) {
+                  alert(e instanceof Error ? e.message : 'Failed to save assessment');
+                } finally {
+                  setSaving(false);
+                }
+              }}
+              disabled={saving || saved}
+              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 transition-colors disabled:opacity-50"
+            >
+              <Save size={12} /> {saved ? 'Saved' : saving ? 'Saving…' : 'Save as Assessment'}
+            </button>
             <button
               onClick={() => {
                 const blob = new Blob([result.narrative], { type: 'text/markdown' });
