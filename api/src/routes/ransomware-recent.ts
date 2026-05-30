@@ -4,6 +4,7 @@ import { classifySector, type Sector } from '../lib/sector-classifier';
 import { fetchMythreatintelRansomwareVictims } from '../lib/mythreatintel-parser';
 import { fetchAFRansomwareVictims } from '../lib/andreafortuna-feeds';
 import { fetchMtiSource, type MtiRansomwareClaim } from '../lib/mythreatintel-api';
+import { shouldWriteLastGood } from '../lib/lastgood-debounce';
 
 /**
  * Recent ransomware leak-site posts via Ransomlook.io's free `/api/recent`
@@ -519,6 +520,11 @@ const LASTGOOD_TTL_SECONDS = 172800;
 
 async function writeRansomwareLastGood(env: Env, body: ResponseBody): Promise<void> {
   if (!env.KV_CACHE || body.victims.length === 0) return;
+  // Debounce: the lastgood is only a stale-outage fallback. Without this, every
+  // cache-miss success + SWR background refresh rewrote a single shared KV key
+  // from every colo (KV 1-write/sec/key limit + write cost). Once every few
+  // hours per colo is plenty — KV is cross-colo durable.
+  if (!(await shouldWriteLastGood('ransomware-recent'))) return;
   try {
     await env.KV_CACHE.put(RANSOMWARE_LASTGOOD_KV_KEY, JSON.stringify(body), {
       expirationTtl: LASTGOOD_TTL_SECONDS,

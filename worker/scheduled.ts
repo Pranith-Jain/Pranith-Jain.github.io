@@ -8,6 +8,13 @@ import {
 } from '../api/src/lib/briefing-builder';
 import { runDiscoveryNow, runPlannerNow, runPublisherNow, type CaseStudyEnv } from '../api/src/case-study/run';
 import { runTelegramArchive } from '../api/src/routes/telegram-archive';
+import {
+  runTelegramLeakScanner,
+  scrapeWatchedChannels,
+  cleanupLeakEntries,
+  type TelegramFeedItem,
+} from '../api/src/routes/telegram-leak-monitor';
+import { fetchTelegramFeed } from '../api/src/routes/telegram-feed';
 import { warmIntelBundles } from '../api/src/lib/intel-bundle-warm';
 import { checkWatches } from '../api/src/lib/watch-engine';
 import { buildBlocklists } from '../api/src/lib/blocklist-builder';
@@ -208,6 +215,75 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           }
         } catch (e) {
           console.error(JSON.stringify({ job: 'watch-engine', error: e instanceof Error ? e.message : String(e) }));
+        }
+
+        // === Telegram leak scanner (every hour) ===
+        try {
+          if (env.BRIEFINGS_DB) {
+            const feed = await fetchTelegramFeed(env.KV_CACHE);
+            if (feed?.items?.length) {
+              const result = await runTelegramLeakScanner(env.BRIEFINGS_DB, feed.items);
+              if (result.leaks_found > 0 || result.channels_discovered > 0) {
+                console.log(
+                  JSON.stringify({
+                    job: 'telegram-leak-scanner',
+                    leaks_found: result.leaks_found,
+                    channels_discovered: result.channels_discovered,
+                  })
+                );
+              }
+            }
+          }
+        } catch (e) {
+          console.error(
+            JSON.stringify({
+              job: 'telegram-leak-scanner',
+              status: 'failed',
+              error: e instanceof Error ? e.message : String(e),
+            })
+          );
+        }
+
+        // === Telegram watched-channel scrape (every hour) ===
+        // Actively fetch the channels added to telegram_watched_channels —
+        // the feed scanner above only sees the curated news feed, so without
+        // this the operator-added leak channels are never scraped.
+        try {
+          if (env.BRIEFINGS_DB) {
+            const w = await scrapeWatchedChannels(env.BRIEFINGS_DB);
+            if (w.channels_scraped > 0) {
+              console.log(
+                JSON.stringify({
+                  job: 'telegram-watched-scrape',
+                  channels_scraped: w.channels_scraped,
+                  leaks_found: w.leaks_found,
+                  channels_discovered: w.channels_discovered,
+                })
+              );
+            }
+          }
+        } catch (e) {
+          console.error(
+            JSON.stringify({
+              job: 'telegram-watched-scrape',
+              status: 'failed',
+              error: e instanceof Error ? e.message : String(e),
+            })
+          );
+        }
+
+        // === Daily leak entry cleanup (6am UTC) ===
+        if (new Date().getUTCHours() === 6) {
+          try {
+            if (env.BRIEFINGS_DB) {
+              const deleted = await cleanupLeakEntries(env.BRIEFINGS_DB, 90);
+              if (deleted > 0) {
+                console.log(JSON.stringify({ job: 'leak-cleanup', deleted }));
+              }
+            }
+          } catch (e) {
+            console.error(JSON.stringify({ job: 'leak-cleanup', error: e instanceof Error ? e.message : String(e) }));
+          }
         }
 
         // === Daily blocklist build (6am UTC) ===

@@ -1,0 +1,47 @@
+[
+  {
+    "handle": "dailydarkweb",
+    "name": "Daily Dark Web",
+    "category": "leaks",
+    "description": "Dark Web Intelligence — daily breach/ransomware digests (9.3K subs)"
+  },
+  {
+    "handle": "hackmanac_cybernews",
+    "name": "Hackmanac Cyber News",
+    "category": "osint",
+    "description": "Strategic CTI by Hackmanac — verified breach alerts (2.6K subs)"
+  },
+  {
+    "handle": "ransomwarelive",
+    "name": "Ransomware Live",
+    "category": "leaks",
+    "description": "Real-time ransomware victim alerts"
+  },
+  {
+    "handle": "RansomFeedNews",
+    "name": "Ransomfeed News",
+    "category": "leaks",
+    "description": "As-it-happens ransomware attack reports"
+  },
+  {
+    "handle": "itsecalerts",
+    "name": "IT Security Alerts",
+    "category": "osint",
+    "description": "Structured vulnerability/breach alerts with severity tags"
+  },
+  {
+    "handle": "ransomwarenewsvx",
+    "name": "Ransomware News (VX)",
+    "category": "leaks",
+    "description": "Ransomware tracking by vx-underground ecosystem"
+  },
+  { "handle": "baseleeak", "name": "BaseLeak", "category": "leaks", "description": "Active data breach channel" },
+  { "handle": "databreach", "name": "DataBreach", "category": "leaks", "description": "General breach announcements" },
+  {
+    "handle": "DataLeakHome",
+    "name": "Data Leak Home",
+    "category": "leaks",
+    "description": "Breach/dump announcements"
+  },
+  { "handle": "ranstr", "name": "Ranstr", "category": "leaks", "description": "Ransomware victim tracking" }
+]

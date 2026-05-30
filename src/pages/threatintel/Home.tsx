@@ -37,6 +37,7 @@ import {
   Target,
   TrendingUp,
   Users,
+  UserCheck,
   X,
   type LucideIcon,
 } from 'lucide-react';
@@ -186,6 +187,20 @@ const SECTIONS: Section[] = [
         label: 'Scam Watch',
         desc: 'Live FTC and FBI IC3 alerts, deepfake-scam news, and Reddit victim reports. Search and filter built in.',
         icon: AlertTriangle,
+      },
+      {
+        to: '/threatintel/telegram-leaks',
+        label: 'Telegram Leak Monitor',
+        desc: 'Credential leaks, paste dumps, and file leaks detected across monitored Telegram channels. Search by keyword, channel, or severity.',
+        icon: AlertTriangle,
+        badge: 'new',
+      },
+      {
+        to: '/threatintel/telegram-leaks/channels',
+        label: 'Discovered TG Channels',
+        desc: 'Telegram channels auto-discovered from monitored feeds. Review, approve, and add to the leak-scanning watchlist.',
+        icon: UserCheck,
+        badge: 'new',
       },
     ],
   },

@@ -164,6 +164,13 @@ export const SECTIONS: Section[] = [
         icon: Share2,
       },
       {
+        path: '/dfir/threat-hunt',
+        useCase: 'Cross-reference an indicator across all intel sources in one shot.',
+        label: 'Threat Hunt',
+        desc: 'IP · domain · email · hash → auto-detect type → Telegram leak cross-ref + IOC providers + breach DB links',
+        icon: Crosshair,
+      },
+      {
         path: '/dfir/linux-triage',
         useCase: 'Triage a Linux box from its auth.log + bash_history.',
         label: 'Linux IR Triage',
@@ -545,6 +552,13 @@ export const SECTIONS: Section[] = [
         icon: ShieldAlert,
       },
       {
+        path: '/dfir/phishing-auto-analyze',
+        useCase: 'Auto-analyze a URL for phishing indicators.',
+        label: 'Phishing Auto-Analysis',
+        desc: 'Fetch URL · extract forms + fields + scripts · suspicious keywords · DNS resolve hosting IP · auto risk score',
+        icon: Eye,
+      },
+      {
         path: '/dfir/phishing#fingerprint',
         useCase: 'Identify phishing kits by structural page hash.',
         label: 'Phishing Kit Fingerprint',
@@ -744,7 +758,6 @@ export const SECTIONS: Section[] = [
         desc: '10 incident types (ransomware, phishing, data breach, BEC, APT, etc.) · step-by-step workflows · tool integration · estimated time · severity-rated',
         icon: BookOpen,
       },
-
     ],
   },
   {

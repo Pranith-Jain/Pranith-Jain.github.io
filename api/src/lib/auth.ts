@@ -23,6 +23,13 @@ import { unauthorized } from './api-error';
 /** Allowed origins that bypass API key requirement. */
 const ALLOWED_ORIGINS = new Set(['https://pranithjain.qzz.io', 'http://localhost:5173', 'http://localhost:8787']);
 
+/** Request paths that bypass API key auth — used for webhooks called by external services (Telegram, etc.). Handler-level auth (requireAdmin) still applies. */
+const EXEMPT_PATHS = new Set([
+  '/api/v1/telegram-leaks/bot-webhook',
+  '/api/v1/telegram-leaks/register-webhook',
+  '/api/v1/telegram-leaks/trigger-scan',
+]);
+
 export interface AuthUser {
   keyId: string;
   prefix: string;
@@ -86,6 +93,11 @@ async function lookupKey(db: D1Database, hashed: string): Promise<AuthUser | nul
  */
 export function authenticate(mode: boolean | 'external-only'): MiddlewareHandler<{ Bindings: Env }> {
   return async (c: Context<{ Bindings: Env }>, next: Next) => {
+    // Exempt specific paths from auth (webhooks called by external services).
+    if (EXEMPT_PATHS.has(c.req.path)) {
+      return next();
+    }
+
     // 'external-only': allow same-origin (frontend) without a key
     if (mode === 'external-only' && isSameOrigin(c)) {
       return next();

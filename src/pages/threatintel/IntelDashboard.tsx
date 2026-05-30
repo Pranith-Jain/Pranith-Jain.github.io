@@ -1,0 +1,196 @@
+import { useEffect, useState } from 'react';
+import { BackLink } from '../../components/BackLink';
+import { DataState } from '../../components/DataState';
+import { ArrowLeft, Shield, Bug, Globe2, Activity, AlertTriangle, Radio, Target, TrendingUp } from 'lucide-react';
+
+interface DashboardData {
+  generated_at: string;
+  telegram_monitor: {
+    total_leaks: number;
+    leaks_24h: number;
+    watched_channels: number;
+    unreviewed_channels: number;
+  };
+  breaches_7d: number;
+  feed_health: string;
+  feed_count: number;
+}
+
+const SOURCES = [
+  {
+    key: 'ransomware',
+    label: 'Ransomware',
+    icon: AlertTriangle,
+    desc: 'Victim claims, leak-site activity, extortion tracking',
+  },
+  { key: 'cve', label: 'CVE & Vulns', icon: Bug, desc: 'NVD, CISA KEV, MyThreatIntel, cvefeed.io' },
+  { key: 'phishing', label: 'Phishing URLs', icon: Target, desc: 'OpenPhish + PhishTank — 80+ targeted brands' },
+  { key: 'malware', label: 'Malware Samples', icon: Radio, desc: 'MalwareBazaar — hashes, signatures, tags' },
+  {
+    key: 'telegram',
+    label: 'Telegram Intel',
+    icon: Globe2,
+    desc: '22 channels + custom — IOC drops, leak announcements',
+  },
+  {
+    key: 'telegram_leaks',
+    label: 'Leak Monitor',
+    icon: Shield,
+    desc: 'Credential leaks, file drops, auto-scanned channels',
+  },
+  { key: 'breach', label: 'Breach Database', icon: Activity, desc: '7 breach sources — email + domain search' },
+  {
+    key: 'ioc',
+    label: 'IOC Correlation',
+    icon: TrendingUp,
+    desc: '21 sources cross-referenced — high-signal indicators',
+  },
+];
+
+export default function IntelDashboard(): JSX.Element {
+  const [data, setData] = useState<DashboardData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    Promise.all([
+      fetch('/api/v1/intel-dashboard').then((r) => r.json() as Promise<DashboardData>),
+      fetch('/api/v1/snapshot')
+        .then((r) => r.json() as Promise<Record<string, unknown>>)
+        .catch(() => null),
+      fetch('/api/v1/feed-status')
+        .then((r) => r.json() as Promise<{ overall?: string }>)
+        .catch(() => null),
+    ])
+      .then(([dash]) => {
+        if (!cancelled) setData(dash);
+      })
+      .catch((e) => {
+        if (!cancelled) setError(e.message);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  return (
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+      <BackLink
+        to="/threatintel"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+      >
+        <ArrowLeft size={14} /> back
+      </BackLink>
+
+      <div className="animate-fade-in-up mb-8">
+        <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3">
+          <Activity size={28} className="text-brand-600 dark:text-brand-400" /> Intelligence Dashboard
+        </h1>
+        <p className="text-slate-600 dark:text-slate-400 mt-2 max-w-3xl">
+          Consolidated view across all threat intelligence sources.
+        </p>
+      </div>
+
+      <DataState loading={loading} error={error} rows={16}>
+        {data && (
+          <div className="space-y-8">
+            {/* KPI row */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+                <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-1">Leaks indexed</p>
+                <p className="text-2xl font-bold font-display">{data.telegram_monitor.total_leaks}</p>
+                <p className="text-[11px] text-slate-400 mt-0.5">{data.telegram_monitor.leaks_24h} in 24h</p>
+              </div>
+              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+                <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-1">Watched channels</p>
+                <p className="text-2xl font-bold font-display">{data.telegram_monitor.watched_channels}</p>
+                <p className="text-[11px] text-slate-400 mt-0.5">
+                  {data.telegram_monitor.unreviewed_channels} unreviewed
+                </p>
+              </div>
+              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+                <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-1">Breaches (7d)</p>
+                <p className="text-2xl font-bold font-display">{data.breaches_7d}</p>
+              </div>
+              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+                <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-1">Feed health</p>
+                <p
+                  className={`text-2xl font-bold font-display ${data.feed_health === 'ok' ? 'text-emerald-500' : data.feed_health === 'degraded' ? 'text-amber-500' : 'text-rose-500'}`}
+                >
+                  {data.feed_health}
+                </p>
+                <p className="text-[11px] text-slate-400 mt-0.5">{data.feed_count} sources</p>
+              </div>
+            </div>
+
+            {/* Source cards */}
+            <section>
+              <h2 className="text-sm font-bold uppercase tracking-[0.15em] text-brand-600 dark:text-brand-400 font-mono mb-4">
+                Threat Intelligence Sources
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {SOURCES.map((s) => {
+                  const Icon = s.icon;
+                  return (
+                    <a
+                      key={s.key}
+                      href={`/threatintel${s.key === 'telegram_leaks' ? '/telegram-leaks' : s.key === 'telegram' ? '' : s.key === 'breach' ? '/breach' : ''}`}
+                      className="block rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 hover:border-brand-500/40 transition-colors group"
+                    >
+                      <div className="flex items-start gap-3">
+                        <Icon size={18} className="text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
+                        <div>
+                          <h3 className="font-display font-semibold text-sm group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+                            {s.label}
+                          </h3>
+                          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">{s.desc}</p>
+                        </div>
+                      </div>
+                    </a>
+                  );
+                })}
+              </div>
+            </section>
+
+            {/* Quick links */}
+            <section className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-3">
+                Quick Actions
+              </h2>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { label: 'Telegram Leaks', href: '/threatintel/telegram-leaks' },
+                  { label: 'Leak Stats', href: '/threatintel/telegram-leaks/stats' },
+                  { label: 'Discovered Channels', href: '/threatintel/telegram-leaks/channels' },
+                  { label: 'Breach Search', href: '/dfir/breach' },
+                  { label: 'IOC Correlation', href: '/threatintel/ioc-correlation' },
+                  { label: 'Threat Map', href: '/dfir/threat-map' },
+                  { label: 'Feed Status', href: '/threatintel/feed-status' },
+                  { label: 'Live IOCs', href: '/threatintel/live-iocs' },
+                  { label: 'Ransomware', href: '/threatintel/ransomware-activity' },
+                  { label: 'CVE List', href: '/threatintel/cve-list' },
+                  { label: 'Malware Samples', href: '/dfir/malware-scan' },
+                  { label: 'Phishing Monitor', href: '/dfir/phishing' },
+                  { label: 'Phishing Auto-Analysis', href: '/dfir/phishing-auto-analyze' },
+                  { label: 'Threat Hunt', href: '/dfir/threat-hunt' },
+                ].map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className="text-[11px] font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            </section>
+          </div>
+        )}
+      </DataState>
+    </div>
+  );
+}

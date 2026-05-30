@@ -11,6 +11,15 @@ const DOMAIN_RE = /^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}
 
 // ─── shared types ────────────────────────────────────────────────────────────
 
+type BreachSource =
+  | 'xposedornot'
+  | 'leakcheck'
+  | 'leakix'
+  | 'proxynova'
+  | 'hudsonrock'
+  | 'projectdiscovery'
+  | 'hackmyip';
+
 interface BreachEntry {
   name: string;
   domain?: string;
@@ -19,12 +28,13 @@ interface BreachEntry {
   pwn_count?: number;
   data_classes?: string[];
   logo?: string;
+  source: BreachSource;
 }
 
 interface BreachEmailResponse {
   email: string;
   found: boolean;
-  source: 'xposedornot' | 'leakcheck' | 'none';
+  sources_queried: string[];
   breach_count: number;
   breaches: BreachEntry[];
 }
@@ -36,17 +46,18 @@ interface BreachDomainEntry {
   description?: string;
   domain?: string;
   logo?: string;
+  source: BreachSource;
 }
 
 interface BreachDomainResponse {
   domain: string;
   found: boolean;
-  source: 'xposedornot' | 'leakcheck' | 'none';
+  sources_queried: string[];
   breach_count: number;
   breaches: BreachDomainEntry[];
 }
 
-// ─── XposedOrNot response shapes (actual, verified via live probe) ────────────
+// ─── XposedOrNot response shapes ────────────────────────────────────────────
 
 interface XonBreachDetail {
   breach: string;
@@ -58,9 +69,9 @@ interface XonBreachDetail {
   references: string;
   searchable: string;
   verified: string;
-  xposed_data: string; // semicolon-separated
-  xposed_date: string; // year as string e.g. "2012"
-  xposed_records: number; // already a number (not a string)
+  xposed_data: string;
+  xposed_date: string;
+  xposed_records: number;
   added?: string;
 }
 
@@ -108,6 +119,196 @@ interface LeakCheckResponse {
   fields?: string[];
   error?: string;
 }
+
+// ─── internal query helpers ──────────────────────────────────────────────────
+
+async function queryXonEmail(email: string): Promise<BreachEntry[]> {
+  const upstream = await fetch(`${XON_BASE}/breach-analytics?email=${encodeURIComponent(email)}`, {
+    headers: { 'user-agent': UA, accept: 'application/json' },
+    signal: AbortSignal.timeout(8000),
+  });
+  if (!upstream.ok) return [];
+  const data = (await upstream.json()) as XonBreachAnalyticsResponse;
+  const details = data?.ExposedBreaches?.breaches_details;
+  if (!details || details.length === 0) return [];
+  return details.map((d) => ({
+    name: d.breach,
+    domain: d.domain || undefined,
+    breach_date: d.xposed_date || undefined,
+    description: d.details || undefined,
+    pwn_count: typeof d.xposed_records === 'number' ? d.xposed_records : Number(d.xposed_records) || undefined,
+    data_classes: d.xposed_data ? d.xposed_data.split(';').filter(Boolean) : undefined,
+    logo: d.logo || undefined,
+    source: 'xposedornot' as const,
+  }));
+}
+
+async function queryLcEmail(email: string): Promise<BreachEntry[]> {
+  const upstream = await fetch(`${LEAKCHECK_BASE}?check=${encodeURIComponent(email)}`, {
+    headers: { 'user-agent': UA, accept: 'application/json' },
+    signal: AbortSignal.timeout(8000),
+  });
+  if (!upstream.ok) return [];
+  const data = (await upstream.json()) as LeakCheckResponse;
+  if (!data.success || data.error === 'Not found' || !data.sources) return [];
+  return data.sources.map((s) => ({
+    name: s.name,
+    breach_date: s.date || undefined,
+    data_classes: data.fields ? [...data.fields] : undefined,
+    source: 'leakcheck' as const,
+  }));
+}
+
+// ─── additional source query helpers ────────────────────────────────────────
+
+async function queryLeakIx(q: string): Promise<BreachEntry[]> {
+  try {
+    const res = await fetch(`https://leakix.net/search?q=${encodeURIComponent(q)}`, {
+      headers: { accept: 'application/json', 'user-agent': UA },
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!res.ok) return [];
+    const data = (await res.json()) as Array<{
+      ip?: string;
+      port?: number;
+      leak?: { id: string; leak_type: string; leak_data: string; created_at: string };
+    }>;
+    return data.slice(0, 20).map((r) => ({
+      name: r.leak?.leak_type || 'leakix_result',
+      domain: r.ip,
+      breach_date: r.leak?.created_at?.slice(0, 10),
+      description: `${r.ip}:${r.port} — ${r.leak?.leak_data || 'no details'}`,
+      source: 'leakix' as const,
+    }));
+  } catch {
+    return [];
+  }
+}
+
+async function queryProxyNova(q: string): Promise<BreachEntry[]> {
+  try {
+    const res = await fetch(`https://api.proxynova.com/comb?query=${encodeURIComponent(q)}&limit=50`, {
+      headers: { accept: 'application/json', 'user-agent': UA },
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!res.ok) return [];
+    const data = (await res.json()) as { count: number; lines: string[] };
+    return data.count > 0
+      ? [
+          {
+            name: 'ProxyNova COMB',
+            description: `${data.count} combolist entries found`,
+            pwn_count: data.count,
+            source: 'proxynova' as const,
+          },
+        ]
+      : [];
+  } catch {
+    return [];
+  }
+}
+
+async function queryHudsonRockEmail(email: string): Promise<BreachEntry[]> {
+  try {
+    const res = await fetch(
+      `https://cavalier.hudsonrock.com/api/json/v2/osint-tools/search-by-email?email=${encodeURIComponent(email)}`,
+      {
+        headers: { accept: 'application/json', 'user-agent': UA },
+        signal: AbortSignal.timeout(8000),
+      }
+    );
+    if (!res.ok) return [];
+    const data = (await res.json()) as {
+      data: Array<{
+        stealer_family: string;
+        date_compromised: string;
+        date_uploaded: string;
+        credentials: Array<{ domain: string; url: string }>;
+      }>;
+    };
+    if (!data.data?.length) return [];
+    const totalCreds = data.data.reduce((s, e) => s + e.credentials.length, 0);
+    return data.data.slice(0, 10).map((e) => ({
+      name: `HudsonRock: ${e.stealer_family}`,
+      breach_date: e.date_compromised?.slice(0, 10),
+      description: `${e.credentials.length} credentials from ${e.stealer_family} stealer`,
+      domain: e.credentials[0]?.domain,
+      pwn_count: totalCreds,
+      source: 'hudsonrock' as const,
+    }));
+  } catch {
+    return [];
+  }
+}
+
+async function queryProjectDiscovery(email: string): Promise<BreachEntry[]> {
+  try {
+    const res = await fetch(`https://api.projectdiscovery.io/v1/leaks/stats/email?email=${encodeURIComponent(email)}`, {
+      headers: { accept: 'application/json', 'user-agent': UA },
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!res.ok) return [];
+    return [
+      {
+        name: 'ProjectDiscovery Leaks',
+        description: `Leak stats from ProjectDiscovery`,
+        source: 'projectdiscovery' as const,
+      },
+    ];
+  } catch {
+    return [];
+  }
+}
+
+async function queryHackMyIp(email: string): Promise<BreachEntry[]> {
+  try {
+    const res = await fetch(`https://hackmyip.com/api/breach?email=${encodeURIComponent(email)}`, {
+      headers: { accept: 'application/json', 'user-agent': UA },
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!res.ok) return [];
+    return [{ name: 'HackMyIP', description: `Breach data from HackMyIP`, source: 'hackmyip' as const }];
+  } catch {
+    return [];
+  }
+}
+
+async function queryXonDomain(domain: string): Promise<BreachDomainEntry[]> {
+  const upstream = await fetch(`${XON_BASE}/breaches?domain=${encodeURIComponent(domain)}`, {
+    headers: { 'user-agent': UA, accept: 'application/json' },
+    signal: AbortSignal.timeout(8000),
+  });
+  if (!upstream.ok) return [];
+  const data = (await upstream.json()) as XonDomainResponse;
+  const raw = data?.exposedBreaches ?? [];
+  const filtered = raw.filter((b) => !b.domain || b.domain === domain);
+  return (filtered.length > 0 ? filtered : raw).map((b) => ({
+    name: b.breachID,
+    domain: b.domain || undefined,
+    breach_date: b.breachedDate ? b.breachedDate.slice(0, 10) : undefined,
+    pwn_count: b.exposedRecords ?? undefined,
+    description: b.exposureDescription || undefined,
+    logo: b.logo || undefined,
+    source: 'xposedornot' as const,
+  }));
+}
+
+async function queryLcDomain(domain: string): Promise<BreachDomainEntry[]> {
+  const upstream = await fetch(`${LEAKCHECK_BASE}?check=${encodeURIComponent(domain)}`, {
+    headers: { 'user-agent': UA, accept: 'application/json' },
+    signal: AbortSignal.timeout(8000),
+  });
+  if (!upstream.ok) return [];
+  const data = (await upstream.json()) as LeakCheckResponse;
+  if (!data.success || data.error === 'Not found' || !data.sources) return [];
+  return data.sources.map((s) => ({
+    name: s.name,
+    breach_date: s.date || undefined,
+    source: 'leakcheck' as const,
+  }));
+}
+
+// ─── handlers ─────────────────────────────────────────────────────────────────
 
 /**
  * Pwned Password k-anonymity proxy.
@@ -165,8 +366,8 @@ export async function breachRangeHandler(c: Context<{ Bindings: Env }>): Promise
 /**
  * Email breach lookup.
  *
- * Primary: XposedOrNot breach-analytics endpoint.
- * Fallback: LeakCheck public API (rate-limited per IP).
+ * Queries XposedOrNot and LeakCheck in parallel and combines results
+ * with per-breach source attribution.
  */
 export async function breachEmailHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const email = c.req.query('email');
@@ -177,107 +378,50 @@ export async function breachEmailHandler(c: Context<{ Bindings: Env }>): Promise
     return c.json({ error: 'invalid_email' }, 400, { 'Cache-Control': 'no-store' });
   }
 
-  // ── Try XposedOrNot first ──────────────────────────────────────────────────
-  try {
-    const upstream = await fetch(`${XON_BASE}/breach-analytics?email=${encodeURIComponent(email)}`, {
-      headers: { 'user-agent': UA, accept: 'application/json' },
-      signal: AbortSignal.timeout(8000),
-    });
+  const sources = await Promise.allSettled([
+    queryXonEmail(email),
+    queryLcEmail(email),
+    queryLeakIx(email),
+    queryProxyNova(email),
+    queryHudsonRockEmail(email),
+    queryProjectDiscovery(email),
+    queryHackMyIp(email),
+  ]);
+  const sourceNames: BreachSource[] = [
+    'xposedornot',
+    'leakcheck',
+    'leakix',
+    'proxynova',
+    'hudsonrock',
+    'projectdiscovery',
+    'hackmyip',
+  ];
 
-    if (upstream.ok) {
-      const data = (await upstream.json()) as XonBreachAnalyticsResponse;
-
-      // XposedOrNot returns ExposedBreaches: null when no breaches found.
-      // It may also return {Error: 'Not found'} for unknown emails.
-      const details = data?.ExposedBreaches?.breaches_details;
-      if (!details || details.length === 0) {
-        const resp: BreachEmailResponse = {
-          email,
-          found: false,
-          source: 'xposedornot',
-          breach_count: 0,
-          breaches: [],
-        };
-        return c.json(resp, 200, { 'Cache-Control': 'public, max-age=3600' });
-      }
-
-      const breaches: BreachEntry[] = details.map((d) => ({
-        name: d.breach,
-        domain: d.domain || undefined,
-        breach_date: d.xposed_date || undefined,
-        description: d.details || undefined,
-        pwn_count: typeof d.xposed_records === 'number' ? d.xposed_records : Number(d.xposed_records) || undefined,
-        data_classes: d.xposed_data ? d.xposed_data.split(';').filter(Boolean) : undefined,
-        logo: d.logo || undefined,
-      }));
-
-      const resp: BreachEmailResponse = {
-        email,
-        found: true,
-        source: 'xposedornot',
-        breach_count: breaches.length,
-        breaches,
-      };
-      return c.json(resp, 200, { 'Cache-Control': 'public, max-age=3600' });
+  const breaches: BreachEntry[] = [];
+  const sourcesQueried: string[] = [];
+  for (let i = 0; i < sources.length; i++) {
+    if (sources[i].status === 'fulfilled') {
+      const val = (sources[i] as PromiseFulfilledResult<BreachEntry[]>).value;
+      if (val.length > 0) breaches.push(...val);
+      sourcesQueried.push(sourceNames[i]);
     }
-
-    // XposedOrNot returned a non-2xx status — fall through to LeakCheck
-  } catch {
-    // network/timeout error — fall through to LeakCheck
   }
 
-  // ── Fallback: LeakCheck ───────────────────────────────────────────────────
-  try {
-    const upstream = await fetch(`${LEAKCHECK_BASE}?check=${encodeURIComponent(email)}`, {
-      headers: { 'user-agent': UA, accept: 'application/json' },
-      signal: AbortSignal.timeout(8000),
-    });
-
-    if (!upstream.ok) {
-      return c.json({ error: `upstream_${upstream.status}` }, 502, { 'Cache-Control': 'no-store' });
-    }
-
-    const data = (await upstream.json()) as LeakCheckResponse;
-    // LeakCheck returns {success: false, error: "Not found"} for clean emails — treat as found=false
-    if (!data.success) {
-      if (data.error === 'Not found') {
-        const resp: BreachEmailResponse = {
-          email,
-          found: false,
-          source: 'leakcheck',
-          breach_count: 0,
-          breaches: [],
-        };
-        return c.json(resp, 200, { 'Cache-Control': 'public, max-age=3600' });
-      }
-      return c.json({ error: 'upstream_error' }, 502, { 'Cache-Control': 'no-store' });
-    }
-
-    const sources = data.sources ?? [];
-    const breaches: BreachEntry[] = sources.map((s) => ({
-      name: s.name,
-      breach_date: s.date || undefined,
-      data_classes: data.fields ? [...data.fields] : undefined,
-    }));
-
-    const resp: BreachEmailResponse = {
-      email,
-      found: data.found > 0,
-      source: 'leakcheck',
-      breach_count: data.found,
-      breaches,
-    };
-    return c.json(resp, 200, { 'Cache-Control': 'public, max-age=3600' });
-  } catch {
-    return c.json({ error: 'upstream_error' }, 502, { 'Cache-Control': 'no-store' });
-  }
+  const resp: BreachEmailResponse = {
+    email,
+    found: breaches.length > 0,
+    sources_queried: sourcesQueried,
+    breach_count: breaches.length,
+    breaches,
+  };
+  return c.json(resp, 200, { 'Cache-Control': 'public, max-age=3600' });
 }
 
 /**
  * Domain breach lookup.
  *
- * Primary: XposedOrNot /v1/breaches?domain=<domain>
- * Fallback: LeakCheck public API.
+ * Queries XposedOrNot and LeakCheck in parallel and combines results
+ * with per-breach source attribution.
  */
 export async function breachDomainHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const domain = c.req.query('domain');
@@ -288,85 +432,30 @@ export async function breachDomainHandler(c: Context<{ Bindings: Env }>): Promis
     return c.json({ error: 'invalid_domain' }, 400, { 'Cache-Control': 'no-store' });
   }
 
-  // ── Try XposedOrNot first ──────────────────────────────────────────────────
-  try {
-    const upstream = await fetch(`${XON_BASE}/breaches?domain=${encodeURIComponent(domain)}`, {
-      headers: { 'user-agent': UA, accept: 'application/json' },
-      signal: AbortSignal.timeout(8000),
-    });
+  const sources = await Promise.allSettled([
+    queryXonDomain(domain),
+    queryLcDomain(domain),
+    queryLeakIx(domain),
+    queryHudsonRockEmail(domain),
+  ]);
+  const sourceNames: BreachSource[] = ['xposedornot', 'leakcheck', 'leakix', 'hudsonrock'];
 
-    if (upstream.ok) {
-      const data = (await upstream.json()) as XonDomainResponse;
-      // XposedOrNot filters by domain server-side, but do a client-side filter too as a safety net.
-      const raw = data?.exposedBreaches ?? [];
-      const filtered = raw.filter((b) => !b.domain || b.domain === domain);
-
-      const breaches: BreachDomainEntry[] = (filtered.length > 0 ? filtered : raw).map((b) => ({
-        name: b.breachID,
-        domain: b.domain || undefined,
-        breach_date: b.breachedDate ? b.breachedDate.slice(0, 10) : undefined,
-        pwn_count: b.exposedRecords ?? undefined,
-        description: b.exposureDescription || undefined,
-        logo: b.logo || undefined,
-      }));
-
-      const resp: BreachDomainResponse = {
-        domain,
-        found: breaches.length > 0,
-        source: 'xposedornot',
-        breach_count: breaches.length,
-        breaches,
-      };
-      return c.json(resp, 200, { 'Cache-Control': 'public, max-age=3600' });
+  const breaches: BreachDomainEntry[] = [];
+  const sourcesQueried: string[] = [];
+  for (let i = 0; i < sources.length; i++) {
+    if (sources[i].status === 'fulfilled') {
+      const val = (sources[i] as PromiseFulfilledResult<BreachDomainEntry[]>).value;
+      if (val.length > 0) breaches.push(...val);
+      sourcesQueried.push(sourceNames[i]);
     }
-
-    // XposedOrNot returned a non-2xx status — fall through to LeakCheck
-  } catch {
-    // network/timeout error — fall through to LeakCheck
   }
 
-  // ── Fallback: LeakCheck ───────────────────────────────────────────────────
-  try {
-    const upstream = await fetch(`${LEAKCHECK_BASE}?check=${encodeURIComponent(domain)}`, {
-      headers: { 'user-agent': UA, accept: 'application/json' },
-      signal: AbortSignal.timeout(8000),
-    });
-
-    if (!upstream.ok) {
-      return c.json({ error: `upstream_${upstream.status}` }, 502, { 'Cache-Control': 'no-store' });
-    }
-
-    const data = (await upstream.json()) as LeakCheckResponse;
-    // LeakCheck returns {success: false, error: "Not found"} for clean domains — treat as found=false
-    if (!data.success) {
-      if (data.error === 'Not found') {
-        const resp: BreachDomainResponse = {
-          domain,
-          found: false,
-          source: 'leakcheck',
-          breach_count: 0,
-          breaches: [],
-        };
-        return c.json(resp, 200, { 'Cache-Control': 'public, max-age=3600' });
-      }
-      return c.json({ error: 'upstream_error' }, 502, { 'Cache-Control': 'no-store' });
-    }
-
-    const sources = data.sources ?? [];
-    const breaches: BreachDomainEntry[] = sources.map((s) => ({
-      name: s.name,
-      breach_date: s.date || undefined,
-    }));
-
-    const resp: BreachDomainResponse = {
-      domain,
-      found: data.found > 0,
-      source: 'leakcheck',
-      breach_count: data.found,
-      breaches,
-    };
-    return c.json(resp, 200, { 'Cache-Control': 'public, max-age=3600' });
-  } catch {
-    return c.json({ error: 'upstream_error' }, 502, { 'Cache-Control': 'no-store' });
-  }
+  const resp: BreachDomainResponse = {
+    domain,
+    found: breaches.length > 0,
+    sources_queried: sourcesQueried,
+    breach_count: breaches.length,
+    breaches,
+  };
+  return c.json(resp, 200, { 'Cache-Control': 'public, max-age=3600' });
 }

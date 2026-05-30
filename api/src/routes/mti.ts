@@ -24,6 +24,7 @@ import {
   type MtiSource,
   type MtiRecord,
 } from '../lib/mythreatintel-api';
+import { shouldWriteLastGood } from '../lib/lastgood-debounce';
 
 /**
  * Global (cross-colo) last-good store for the default (no-query) view of each
@@ -68,10 +69,17 @@ export async function mtiHandler(c: Context<{ Bindings: Env }>): Promise<Respons
   if (result.ok && result.items.length > 0) {
     if (isDefaultQuery && c.env.KV_CACHE) {
       const payload: MtiLastGood = { total: result.total, count: result.count, items: result.items };
+      const kv = c.env.KV_CACHE;
       c.executionCtx.waitUntil(
-        c.env.KV_CACHE.put(lastGoodKey, JSON.stringify(payload), {
-          expirationTtl: MTI_LASTGOOD_TTL_SECONDS,
-        }).catch(() => {})
+        (async () => {
+          // Debounce per source: a single shared KV key was otherwise rewritten
+          // on every cache-miss success across colos (KV 1-write/sec/key limit +
+          // write cost). The fallback only needs refreshing every few hours.
+          if (!(await shouldWriteLastGood('mti:' + source))) return;
+          await kv
+            .put(lastGoodKey, JSON.stringify(payload), { expirationTtl: MTI_LASTGOOD_TTL_SECONDS })
+            .catch(() => {});
+        })()
       );
     }
     return c.json(

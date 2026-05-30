@@ -178,6 +178,10 @@ const MaliciousPackages = lazy(() => import('./pages/threatintel/MaliciousPackag
 const XWatch = lazy(() => import('./pages/threatintel/XWatch'));
 const XLive = lazy(() => import('./pages/threatintel/XLive'));
 const CybersecTelegramPage = lazy(() => import('./pages/threatintel/CybersecTelegram'));
+const TelegramLeaksPage = lazy(() => import('./pages/threatintel/TelegramLeaks'));
+const TelegramDiscoveredChannelsPage = lazy(() => import('./pages/threatintel/TelegramDiscoveredChannels'));
+const TelegramLeakStatsPage = lazy(() => import('./pages/threatintel/TelegramLeakStats'));
+const IntelDashboardPage = lazy(() => import('./pages/threatintel/IntelDashboard'));
 const BreachDisclosuresPage = lazy(() => import('./pages/threatintel/BreachDisclosures'));
 const RedditFirehosePage = lazy(() => import('./pages/threatintel/RedditFirehose'));
 const XFirehosePage = lazy(() => import('./pages/threatintel/XFirehose'));
@@ -220,6 +224,8 @@ const MispBrowser = lazy(() => import('./pages/threatintel/MispBrowser'));
 const UnifiedSearch = lazy(() => import('./pages/threatintel/UnifiedSearch'));
 const IocEnrichment = lazy(() => import('./pages/threatintel/IocEnrichment'));
 const RelationshipGraph = lazy(() => import('./pages/threatintel/RelationshipGraph'));
+const ThreatHunt = lazy(() => import('./pages/dfir/ThreatHunt'));
+const PhishingAutoAnalysis = lazy(() => import('./pages/dfir/PhishingAutoAnalysis'));
 
 /**
  * Preserves the path slug (when `withSlug`), the query string, and the hash
@@ -371,6 +377,22 @@ export function AppContent() {
           element={
             <LazyRoute>
               <Phishing />
+            </LazyRoute>
+          }
+        />
+        <Route
+          path="/dfir/phishing-auto-analyze"
+          element={
+            <LazyRoute>
+              <PhishingAutoAnalysis />
+            </LazyRoute>
+          }
+        />
+        <Route
+          path="/dfir/threat-hunt"
+          element={
+            <LazyRoute>
+              <ThreatHunt />
             </LazyRoute>
           }
         />
@@ -903,6 +925,38 @@ export function AppContent() {
           element={
             <LazyRoute>
               <CybersecTelegramPage />
+            </LazyRoute>
+          }
+        />
+        <Route
+          path="/threatintel/telegram-leaks"
+          element={
+            <LazyRoute>
+              <TelegramLeaksPage />
+            </LazyRoute>
+          }
+        />
+        <Route
+          path="/threatintel/telegram-leaks/stats"
+          element={
+            <LazyRoute>
+              <TelegramLeakStatsPage />
+            </LazyRoute>
+          }
+        />
+        <Route
+          path="/threatintel/intel-dashboard"
+          element={
+            <LazyRoute>
+              <IntelDashboardPage />
+            </LazyRoute>
+          }
+        />
+        <Route
+          path="/threatintel/telegram-leaks/channels"
+          element={
+            <LazyRoute>
+              <TelegramDiscoveredChannelsPage />
             </LazyRoute>
           }
         />

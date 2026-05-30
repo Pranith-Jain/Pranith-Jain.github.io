@@ -78,6 +78,9 @@ import {
 } from './routes/external-resources';
 import { snapshotHandler } from './routes/snapshot';
 import { iocSnapshotHandler } from './routes/ioc-snapshot';
+import { intelDashboardHandler } from './routes/intel-dashboard';
+import { threatHuntHandler } from './routes/threat-hunt';
+import { phishingAnalyzeAutoHandler } from './routes/phishing-auto-analyze';
 import { registerBlogRoutes } from './routes/blog-public';
 import { pageViewsHandler } from './routes/pageviews';
 import { registerAdminRoutes } from './routes/case-study-admin';
@@ -187,6 +190,25 @@ import { huntingQueryHandler } from './routes/hunting-queries';
 import { sandboxLookupHandler } from './routes/sandbox';
 import { irPlaybookHandler } from './routes/ir-playbooks';
 import { aiSummaryHandler } from './routes/ai-summary';
+import { leakIxSearchHandler } from './routes/leakix';
+import { proxyNovaSearchHandler } from './routes/proxynova';
+import { hudsonRockSearchHandler, hudsonRockDomainHandler } from './routes/hudsonrock';
+import { projectDiscoveryHandler } from './routes/projectdiscovery';
+import { hackMyIpBreachHandler } from './routes/hackmyip';
+import {
+  telegramLeakSearchHandler,
+  telegramDiscoveredChannelsHandler,
+  telegramWatchedChannelsHandler,
+  telegramApproveChannelHandler,
+  telegramLeakStatsHandler,
+  telegramLeakScanTriggerHandler,
+  telegramLeakGeoHandler,
+} from './routes/telegram-leak-monitor';
+import {
+  telegramLeakBotWebhookHandler,
+  telegramLeakBotRegisterHandler,
+  telegramLeakBotWebhookStatusHandler,
+} from './routes/telegram-leak-bot';
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -227,6 +249,12 @@ app.get('/api/v1/asn/lookup', asnLookupHandler);
 app.get('/api/v1/breach/range', breachRangeHandler);
 app.get('/api/v1/breach/email', breachEmailHandler);
 app.get('/api/v1/breach/domain', breachDomainHandler);
+app.get('/api/v1/breach/leakix', leakIxSearchHandler);
+app.get('/api/v1/breach/proxynova', proxyNovaSearchHandler);
+app.get('/api/v1/breach/hudsonrock', hudsonRockSearchHandler);
+app.get('/api/v1/breach/hudsonrock/domain', hudsonRockDomainHandler);
+app.get('/api/v1/breach/projectdiscovery', projectDiscoveryHandler);
+app.get('/api/v1/breach/hackmyip', hackMyIpBreachHandler);
 app.get('/api/v1/url-preview', urlPreviewHandler);
 app.get('/api/v1/takeover/check', takeoverCheckHandler);
 app.get('/api/v1/threat-map', threatMapHandler);
@@ -259,6 +287,22 @@ app.post(
   telegramCustomChannelsPostHandler
 );
 app.delete('/api/v1/telegram-custom-channels/:handle', telegramCustomChannelsDeleteHandler);
+
+// ── Telegram Leak Monitor (Tier 1: t.me scraping) ─────────────────────────
+app.get('/api/v1/telegram-leaks/search', telegramLeakSearchHandler);
+app.get('/api/v1/telegram-leaks/discovered-channels', telegramDiscoveredChannelsHandler);
+app.get('/api/v1/telegram-leaks/watched-channels', telegramWatchedChannelsHandler);
+app.get('/api/v1/telegram-leaks/stats', telegramLeakStatsHandler);
+app.get('/api/v1/telegram-leaks/geo', telegramLeakGeoHandler);
+app.post('/api/v1/telegram-leaks/approve-channel', telegramApproveChannelHandler);
+// TEMP: manual scan trigger — remove after confirming cron works
+app.post('/api/v1/telegram-leaks/trigger-scan', telegramLeakScanTriggerHandler);
+
+// ── Telegram Leak Monitor (Tier 2: Bot API) ──────────────────────────────
+app.get('/api/v1/telegram-leaks/bot-webhook-status', telegramLeakBotWebhookStatusHandler);
+app.post('/api/v1/telegram-leaks/bot-webhook', telegramLeakBotWebhookHandler);
+app.post('/api/v1/telegram-leaks/register-webhook', telegramLeakBotRegisterHandler);
+
 app.get('/api/v1/cve-recent', cveRecentHandler);
 app.get('/api/v1/cve-threat-map', cveThreatMapHandler);
 app.get('/api/v1/phishing-urls', phishingUrlsHandler);
@@ -286,6 +330,8 @@ app.get('/api/v1/email-rep', emailRepHandler);
 app.get('/api/v1/cyber-crime', cybercrimeHandler);
 app.get('/api/v1/snapshot', snapshotHandler);
 app.get('/api/v1/ioc-snapshot', iocSnapshotHandler);
+app.get('/api/v1/intel-dashboard', intelDashboardHandler);
+app.get('/api/v1/threat-hunt', threatHuntHandler);
 app.get('/api/v1/pageviews', pageViewsHandler);
 app.get('/api/v1/briefings/list', listBriefingsHandler);
 app.get('/api/v1/briefings/rss', briefingsRssHandler);
@@ -329,6 +375,7 @@ app.get('/api/v1/blocklists/iptables', blocklistIptablesHandler);
 app.get('/api/v1/blocklists/suricata', blocklistSuricataHandler);
 app.get('/api/v1/blocklists/meta', blocklistMetaHandler);
 app.post('/api/v1/phishing/fetch-page', fetchPageHandler);
+app.get('/api/v1/phishing/auto-analyze', phishingAnalyzeAutoHandler);
 app.post('/api/v1/phishing/fingerprint', fingerprintHandler);
 app.get('/api/v1/unified-search', unifiedSearchHandler);
 app.get('/api/v1/relationship-graph', relationshipGraphHandler);

@@ -21,6 +21,26 @@ import { BreachDatabasesPanel } from '../../components/dfir/BreachDatabasesPanel
 
 type Mode = 'password' | 'email' | 'domain';
 
+const SOURCE_LABELS: Record<string, string> = {
+  xposedornot: 'XposedOrNot',
+  leakcheck: 'LeakCheck',
+  leakix: 'LeakIX',
+  proxynova: 'ProxyNova',
+  hudsonrock: 'Hudson Rock',
+  projectdiscovery: 'ProjectDiscovery',
+  hackmyip: 'HackMyIP',
+};
+
+const SOURCE_COLORS: Record<string, string> = {
+  xposedornot: 'bg-violet-500/10 text-violet-700 dark:text-violet-300 border-violet-500/30',
+  leakcheck: 'bg-blue-500/10 text-blue-700 dark:text-blue-300 border-blue-500/30',
+  leakix: 'bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border-cyan-500/30',
+  proxynova: 'bg-orange-500/10 text-orange-700 dark:text-orange-300 border-orange-500/30',
+  hudsonrock: 'bg-rose-500/10 text-rose-700 dark:text-rose-300 border-rose-500/30',
+  projectdiscovery: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/30',
+  hackmyip: 'bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/30',
+};
+
 const MODES: Array<{ id: Mode; label: string; icon: typeof Key }> = [
   { id: 'password', label: 'Password', icon: Key },
   { id: 'email', label: 'Email', icon: Mail },
@@ -35,12 +55,13 @@ interface BreachEntry {
   pwn_count?: number;
   data_classes?: string[];
   logo?: string;
+  source?: string;
 }
 
 interface BreachEmailResponse {
   email: string;
   found: boolean;
-  source: 'xposedornot' | 'leakcheck' | 'none';
+  sources_queried: string[];
   breach_count: number;
   breaches: BreachEntry[];
 }
@@ -49,6 +70,7 @@ interface BreachDomainResponse {
   domain: string;
   found: boolean;
   source: 'xposedornot' | 'leakcheck' | 'none';
+  sources_queried: string[];
   breach_count: number;
   breaches: BreachEntry[];
 }
@@ -119,6 +141,11 @@ function BreachCards({ breaches }: { breaches: BreachEntry[] }): JSX.Element {
               </div>
             </div>
             <div className="flex flex-col items-end gap-1 shrink-0">
+              <span
+                className={`text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${SOURCE_COLORS[b.source ?? ''] || 'border-slate-300 dark:border-slate-700 text-slate-500'}`}
+              >
+                {SOURCE_LABELS[b.source ?? ''] ?? b.source ?? 'unknown'}
+              </span>
               {b.breach_date && <span className="text-xs font-mono text-slate-500">{b.breach_date}</span>}
               {b.pwn_count !== undefined && (
                 <span className="text-xs font-mono text-slate-500">{humanizeCount(b.pwn_count)} records</span>
@@ -357,7 +384,9 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
         try {
           const parsed = JSON.parse(body) as { error?: string };
           msg = parsed.error ?? msg;
-        } catch { /* use default */ }
+        } catch {
+          /* use default */
+        }
         throw new Error(msg);
       }
       const ct = r.headers.get('content-type') ?? '';
@@ -394,16 +423,36 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
           <div className="text-sm text-amber-900 dark:text-amber-200">
             <p className="font-semibold mb-1">Your email is forwarded to third-party breach databases</p>
             <p className="text-[13px]">
-              The lookup sends the address to{' '}
+              Queries are sent to{' '}
               <a href="https://xposedornot.com" target="_blank" rel="noopener noreferrer" className="underline">
                 XposedOrNot
-              </a>{' '}
-              and (on cache miss){' '}
+              </a>
+              ,{' '}
               <a href="https://leakcheck.io" target="_blank" rel="noopener noreferrer" className="underline">
                 LeakCheck
               </a>
-              . Transit logs may record the request as standard HTTP. The address is not stored in our app database.
-              <strong>Don't query addresses you don't own.</strong>
+              ,{' '}
+              <a href="https://leakix.net" target="_blank" rel="noopener noreferrer" className="underline">
+                LeakIX
+              </a>
+              ,{' '}
+              <a href="https://proxynova.com" target="_blank" rel="noopener noreferrer" className="underline">
+                ProxyNova
+              </a>
+              ,{' '}
+              <a href="https://cavalier.hudsonrock.com" target="_blank" rel="noopener noreferrer" className="underline">
+                Hudson Rock
+              </a>
+              ,{' '}
+              <a href="https://projectdiscovery.io" target="_blank" rel="noopener noreferrer" className="underline">
+                ProjectDiscovery
+              </a>
+              , and{' '}
+              <a href="https://hackmyip.com" target="_blank" rel="noopener noreferrer" className="underline">
+                HackMyIP
+              </a>{' '}
+              in parallel. Transit logs may record the request. The address is not stored in our app database.
+              <strong> Don't query addresses you don't own.</strong>
             </p>
           </div>
         </div>
@@ -453,7 +502,9 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
             <div className="flex items-center justify-between gap-4">
               <div>
                 <h2 className="font-display font-bold text-xl">{result.email}</h2>
-                <p className="text-xs text-slate-500 mt-1 font-mono">source: {result.source}</p>
+                <p className="text-xs text-slate-500 mt-1 font-mono">
+                  sources: {result.sources_queried?.map((s) => SOURCE_LABELS[s] ?? s).join(', ') || 'none'}
+                </p>
               </div>
               <div
                 className={`px-4 py-2 rounded-xl text-center shrink-0 ${
@@ -464,6 +515,23 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
                 <p className="text-xs">breach{result.breach_count !== 1 ? 'es' : ''}</p>
               </div>
             </div>
+
+            {/* Per-source summary */}
+            {result.sources_queried && result.sources_queried.length > 0 && (
+              <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+                {result.sources_queried.map((s) => {
+                  const count = result.breaches.filter((b) => b.source === s).length;
+                  return (
+                    <span
+                      key={s}
+                      className={`text-[11px] font-mono px-2 py-1 rounded border ${SOURCE_COLORS[s] ?? 'border-slate-300 dark:border-slate-700 text-slate-500'}`}
+                    >
+                      {SOURCE_LABELS[s] ?? s}: {count} hit{count !== 1 ? 's' : ''}
+                    </span>
+                  );
+                })}
+              </div>
+            )}
           </section>
 
           {/* Breach cards */}
@@ -550,7 +618,9 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
         try {
           const parsed = JSON.parse(body) as { error?: string };
           msg = parsed.error ?? msg;
-        } catch { /* use default */ }
+        } catch {
+          /* use default */
+        }
         throw new Error(msg);
       }
       const ct = r.headers.get('content-type') ?? '';
@@ -585,14 +655,25 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
         <div className="flex gap-3">
           <AlertTriangle size={18} className="text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
           <div className="text-sm text-amber-900 dark:text-amber-200">
-            <p className="font-semibold mb-1">Domain forwarded to XposedOrNot — and results are noisy</p>
+            <p className="font-semibold mb-1">Domain forwarded to breach databases — results are noisy</p>
             <p className="text-[13px]">
               The domain is sent to{' '}
               <a href="https://xposedornot.com" target="_blank" rel="noopener noreferrer" className="underline">
                 XposedOrNot
               </a>
-              . Transit logs may record the request as standard HTTP. Domain breach data aggregates many third-party
-              sites, so treat any single hit as a starting point, not a verdict.{' '}
+              ,{' '}
+              <a href="https://leakcheck.io" target="_blank" rel="noopener noreferrer" className="underline">
+                LeakCheck
+              </a>
+              ,{' '}
+              <a href="https://leakix.net" target="_blank" rel="noopener noreferrer" className="underline">
+                LeakIX
+              </a>
+              , and{' '}
+              <a href="https://cavalier.hudsonrock.com" target="_blank" rel="noopener noreferrer" className="underline">
+                Hudson Rock
+              </a>{' '}
+              in parallel. Treat any single hit as a starting point, not a verdict.{' '}
               <strong>Don't query domains you don't have authorization for.</strong>
             </p>
           </div>
@@ -651,7 +732,9 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
             <div className="flex items-center justify-between gap-4">
               <div>
                 <h2 className="font-display font-bold text-xl">{result.domain}</h2>
-                <p className="text-xs text-slate-500 mt-1 font-mono">source: {result.source}</p>
+                <p className="text-xs text-slate-500 mt-1 font-mono">
+                  sources: {result.sources_queried?.map((s) => SOURCE_LABELS[s] ?? s).join(', ') || 'none'}
+                </p>
               </div>
               <div
                 className={`px-4 py-2 rounded-xl text-center shrink-0 ${
@@ -662,6 +745,23 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
                 <p className="text-xs">breach{result.breach_count !== 1 ? 'es' : ''}</p>
               </div>
             </div>
+
+            {/* Per-source summary */}
+            {result.sources_queried && result.sources_queried.length > 0 && (
+              <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+                {result.sources_queried.map((s) => {
+                  const count = result.breaches.filter((b) => b.source === s).length;
+                  return (
+                    <span
+                      key={s}
+                      className={`text-[11px] font-mono px-2 py-1 rounded border ${SOURCE_COLORS[s] ?? 'border-slate-300 dark:border-slate-700 text-slate-500'}`}
+                    >
+                      {SOURCE_LABELS[s] ?? s}: {count} hit{count !== 1 ? 's' : ''}
+                    </span>
+                  );
+                })}
+              </div>
+            )}
           </section>
 
           {/* Breach cards */}

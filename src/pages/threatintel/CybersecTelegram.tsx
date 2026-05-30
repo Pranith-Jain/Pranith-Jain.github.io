@@ -74,9 +74,32 @@ export default function CybersecTelegram(): JSX.Element {
           </Link>{' '}
           for descriptions of each channel.
         </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
-          Server-side aggregation of public Telegram channel previews.
-        </p>
+        <div className="flex flex-wrap items-center gap-3 mb-8">
+          <Link
+            to="/threatintel/telegram-leaks"
+            className="text-[11px] font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1.5"
+          >
+            Leak monitor
+          </Link>
+          <Link
+            to="/threatintel/telegram-leaks/channels"
+            className="text-[11px] font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1.5"
+          >
+            Discovered channels
+          </Link>
+          <Link
+            to="/threatintel/telegram-leaks/stats"
+            className="text-[11px] font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1.5"
+          >
+            Stats
+          </Link>
+          <Link
+            to="/threatintel/telegram-settings"
+            className="text-[11px] font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 inline-flex items-center gap-1.5"
+          >
+            Settings
+          </Link>
+        </div>
       </div>
 
       {/* Aggregate STIX 2.1 view across the visible Telegram messages.

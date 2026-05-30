@@ -257,7 +257,7 @@ export interface TelegramFeedResponse {
   warnings: string[];
 }
 
-async function fetchHtml(url: string): Promise<string | null> {
+export async function fetchHtml(url: string): Promise<string | null> {
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
   try {
@@ -306,7 +306,7 @@ function stripHtml(s: string): string {
   return decodeEntities(withBreaks.replace(/<[^>]+>/g, '')).trim();
 }
 
-function parseChannelHtml(html: string): ParsedMessage[] {
+export function parseChannelHtml(html: string): ParsedMessage[] {
   // Split on the wrapper boundary — each block is one message.
   // Use a sentinel to mark boundaries, then split, since JS regex lacks lookbehind in older engines.
   const SENTINEL = 'TGMSG';
