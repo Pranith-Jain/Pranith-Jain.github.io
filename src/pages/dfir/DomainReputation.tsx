@@ -228,7 +228,7 @@ export default function DomainReputation(): JSX.Element {
               </h3>
               <div className="flex flex-wrap gap-2">
                 {results.domain.map((bl) => (
-                  <BlacklistBadge key={bl.source} bl={bl} />
+                  <BlacklistBadge key={bl.source} bl={{ ...bl, name: bl.source, detail: bl.details }} />
                 ))}
               </div>
             </section>
@@ -258,7 +258,7 @@ export default function DomainReputation(): JSX.Element {
                     </div>
                     <div className="flex flex-wrap gap-2">
                       {checks.map((bl) => (
-                        <BlacklistBadge key={bl.source} bl={bl} />
+                        <BlacklistBadge key={bl.source} bl={{ ...bl, name: bl.source, detail: bl.details }} />
                       ))}
                     </div>
                   </section>
