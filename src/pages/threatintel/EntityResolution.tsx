@@ -123,7 +123,6 @@ export default function EntityResolution(): JSX.Element {
   const [showFull, setShowFull] = useState(false);
   const [extracted, setExtracted] = useState<ResolvedEntity[]>([]);
   const [relevantPirs, setRelevantPirs] = useState<PirRef[]>([]);
-  const [pirsLoading, setPirsLoading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -132,7 +131,6 @@ export default function EntityResolution(): JSX.Element {
 
   // ── PIR relevance ───────────────────────────────────────────────────
   async function fetchRelevantPirs(q: string) {
-    setPirsLoading(true);
     try {
       const res = await fetch(`/api/v1/threat-intel/pirs/relevant?q=${encodeURIComponent(q.trim())}`);
       if (res.ok) {
@@ -141,8 +139,6 @@ export default function EntityResolution(): JSX.Element {
       }
     } catch {
       /* non-fatal */
-    } finally {
-      setPirsLoading(false);
     }
   }
 
@@ -360,6 +356,38 @@ export default function EntityResolution(): JSX.Element {
                     {showFull ? 'Hide full profile' : 'Show full profile'}
                   </button>
                 </div>
+
+                {/* PIR relevance */}
+                {relevantPirs.length > 0 && (
+                  <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800">
+                    <p className="text-[10px] font-mono font-semibold text-slate-500 uppercase tracking-wider mb-2">
+                      Relevant PIRs ({relevantPirs.length})
+                    </p>
+                    <div className="space-y-1.5">
+                      {relevantPirs.map((pir) => (
+                        <a
+                          key={pir.id}
+                          href={`/threatintel/pir-dashboard`}
+                          className="flex items-center gap-2 text-[11px] font-mono text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                        >
+                          <span
+                            className={`px-1 py-0.5 rounded text-[9px] uppercase ${
+                              pir.priority === 'critical'
+                                ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300'
+                                : pir.priority === 'high'
+                                  ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300'
+                                  : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'
+                            }`}
+                          >
+                            {pir.priority}
+                          </span>
+                          <span className="flex-1 truncate">{pir.title}</span>
+                          <span className="text-[9px] text-slate-400">{pir.matched_in.join(', ')}</span>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Full profile (conditionally shown) */}
