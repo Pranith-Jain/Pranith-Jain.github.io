@@ -1,6 +1,7 @@
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ShieldCheck, Radio, Layers, GitBranch } from 'lucide-react';
 import { personalInfo } from '../../data/content';
+import { DataDisclaimer } from '../../components/DataDisclaimer';
 
 const PRINCIPLES = [
   {
@@ -102,6 +103,10 @@ export default function ThreatIntelAbout(): JSX.Element {
           <li>~40 upstream sources normalized server-side; STIX 2.1 / RSS / JSON export</li>
           <li>Honest degradation — single-source-down tolerance and a public feed-status dashboard</li>
         </ul>
+      </Section>
+
+      <Section title="Data sources & disclaimer">
+        <DataDisclaimer />
       </Section>
     </div>
   );

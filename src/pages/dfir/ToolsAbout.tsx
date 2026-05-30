@@ -1,6 +1,7 @@
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ShieldCheck, Eye, Zap, GitBranch } from 'lucide-react';
 import { personalInfo } from '../../data/content';
+import { DataDisclaimer } from '../../components/DataDisclaimer';
 
 const PRINCIPLES = [
   {
@@ -101,6 +102,10 @@ export default function ToolsAbout(): JSX.Element {
           <li>CSV/JSON export via the File API</li>
           <li>Deployed on Cloudflare Workers (edge) with strict CSP — privacy-first, client-side processing</li>
         </ul>
+      </Section>
+
+      <Section title="Data sources & disclaimer">
+        <DataDisclaimer />
       </Section>
     </div>
   );
