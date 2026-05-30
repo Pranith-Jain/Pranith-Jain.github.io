@@ -42,6 +42,11 @@ export async function mispProxyHandler(c: Context<{ Bindings: Env }>): Promise<R
         Accept: 'application/json',
         'User-Agent': 'pranithjain-portfolio/1.0',
       },
+      // Do NOT follow redirects: this request carries the user's MISP API key,
+      // and a redirect (to any host) would both leak the key and reopen the
+      // redirect-SSRF path. A MISP REST endpoint returns JSON directly; a 3xx
+      // is anomalous and treated as a failure by the caller.
+      redirect: 'manual',
       signal: AbortSignal.timeout(15000),
     });
   } catch (err) {

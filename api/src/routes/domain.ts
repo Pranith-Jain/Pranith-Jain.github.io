@@ -63,7 +63,10 @@ export async function domainLookupHandler(c: Context<{ Bindings: Env }>) {
     resolveRecord(dmarcDomain, 'TXT'),
     resolveRecord(bimiDomain, 'TXT'),
     resolveRecord(tlsRptDomain, 'TXT'),
-    pinnedFetch(mtaStsUrl, { signal: AbortSignal.timeout(5000) })
+    // redirect:'manual' — RFC 8461 §3.3 forbids following redirects when
+    // fetching the MTA-STS policy, and it also avoids redirect-SSRF via a
+    // user-influenced mta-sts.<domain> host. A 3xx → r.ok false → '' (no policy).
+    pinnedFetch(mtaStsUrl, { signal: AbortSignal.timeout(5000), redirect: 'manual' })
       .then((r) => (r.ok ? r.text() : ''))
       .catch(() => ''),
   ]);

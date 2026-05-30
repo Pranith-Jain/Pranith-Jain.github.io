@@ -1,6 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { pinnedFetch, SsrfError } from '../lib/ssrf-guard';
+import { pinnedFetchFollow, SsrfError } from '../lib/ssrf-guard';
 
 /**
  * Threat Report Parser — extracts IOCs, actors, TTPs, and CVEs from
@@ -355,7 +355,7 @@ export async function reportParserHandler(c: Context<{ Bindings: Env }>): Promis
           return c.json({ error: 'URL must be http(s)' }, 400);
         }
         try {
-          const res = await pinnedFetch(parsed.toString(), {
+          const res = await pinnedFetchFollow(parsed.toString(), {
             signal: AbortSignal.timeout(FETCH_TIMEOUT),
             headers: { 'User-Agent': 'Mozilla/5.0 (compatible; threat-intel-parser/1.0)' },
           });

@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest';
-import { PRIVATE_IPV4, isPrivateIpv6, assertPublicHost } from '../../src/lib/ssrf-guard';
+import { describe, it, expect, vi, afterEach } from 'vitest';
+import { PRIVATE_IPV4, isPrivateIpv6, assertPublicHost, pinnedFetchFollow } from '../../src/lib/ssrf-guard';
 
 describe('PRIVATE_IPV4', () => {
   const blocked = [
@@ -123,5 +123,87 @@ describe('assertPublicHost — IP literal shortcut', () => {
     const r = await assertPublicHost('2606:4700:4700::1111');
     expect(r.ok).toBe(true);
     expect(r.pinIp).toBe('2606:4700:4700::1111');
+  });
+});
+
+// Redirect-SSRF regression. pinnedFetch validated only the first host; with
+// redirect:'follow' a 302 to an internal IP was fetched anyway. pinnedFetchFollow
+// re-validates every hop. We use IP-LITERAL hosts (public 8.8.8.8/1.1.1.1, private
+// 169.254.169.254) so assertPublicHost takes the no-DoH literal shortcut — the
+// only thing we mock is the page fetch, making these deterministic + offline.
+describe('pinnedFetchFollow — per-hop redirect re-validation', () => {
+  const urlOf = (input: RequestInfo | URL): string =>
+    typeof input === 'string' ? input : input instanceof URL ? input.toString() : (input as Request).url;
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it('REFUSES a public URL that 302s to a cloud-metadata IP (the bug)', async () => {
+    const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
+      const u = urlOf(input);
+      if (u.startsWith('http://8.8.8.8'))
+        return new Response(null, { status: 302, headers: { location: 'http://169.254.169.254/latest/meta-data/' } });
+      throw new Error(`SSRF: internal hop should never be fetched — got ${u}`);
+    });
+    vi.stubGlobal('fetch', fetchMock);
+
+    await expect(pinnedFetchFollow('http://8.8.8.8/start')).rejects.toMatchObject({ status: 403 });
+    // The private hop must never have been requested.
+    expect(fetchMock.mock.calls.every((c) => !urlOf(c[0]).includes('169.254.169.254'))).toBe(true);
+  });
+
+  it('follows a benign multi-hop redirect chain to the final 200', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async (input: RequestInfo | URL) => {
+        const u = urlOf(input);
+        if (u === 'http://8.8.8.8/a')
+          return new Response(null, { status: 302, headers: { location: 'http://1.1.1.1/b' } });
+        if (u === 'http://1.1.1.1/b') return new Response('FINAL', { status: 200 });
+        throw new Error(`unexpected ${u}`);
+      })
+    );
+    const res = await pinnedFetchFollow('http://8.8.8.8/a');
+    expect(res.status).toBe(200);
+    expect(await res.text()).toBe('FINAL');
+  });
+
+  it('resolves a RELATIVE Location against the current hop', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async (input: RequestInfo | URL) => {
+        const u = urlOf(input);
+        if (u === 'http://8.8.8.8/dir/a') return new Response(null, { status: 301, headers: { location: '/b' } });
+        if (u === 'http://8.8.8.8/b') return new Response('REL', { status: 200 });
+        throw new Error(`unexpected ${u}`);
+      })
+    );
+    expect(await (await pinnedFetchFollow('http://8.8.8.8/dir/a')).text()).toBe('REL');
+  });
+
+  it('rejects a redirect to an unsupported scheme (file://)', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => new Response(null, { status: 302, headers: { location: 'file:///etc/passwd' } }))
+    );
+    await expect(pinnedFetchFollow('http://8.8.8.8/x')).rejects.toMatchObject({ status: 400 });
+  });
+
+  it('caps the redirect chain (loop → 508 too many redirects)', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => new Response(null, { status: 302, headers: { location: 'http://8.8.8.8/loop' } }))
+    );
+    await expect(pinnedFetchFollow('http://8.8.8.8/loop', undefined, { maxRedirects: 2 })).rejects.toMatchObject({
+      status: 508,
+    });
+  });
+
+  it('refuses when the FIRST host is already private', async () => {
+    const fetchMock = vi.fn(async () => new Response('x', { status: 200 }));
+    vi.stubGlobal('fetch', fetchMock);
+    await expect(pinnedFetchFollow('http://169.254.169.254/latest/meta-data/')).rejects.toMatchObject({ status: 403 });
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 });

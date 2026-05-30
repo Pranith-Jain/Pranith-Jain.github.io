@@ -25,7 +25,7 @@ import { enrichBulk, type BulkEnrichResult } from '../lib/enrich-bulk';
 import { enrichCves, type CveEnrichment } from '../lib/cve-enrich';
 import { extractLlm, EMPTY_LLM_ENTITIES } from '../lib/extract-llm';
 import { buildStixBundle, type BuildResult, type ReportInput, type Tlp } from '../lib/stix-build';
-import { pinnedFetch, SsrfError } from '../lib/ssrf-guard';
+import { pinnedFetchFollow, SsrfError } from '../lib/ssrf-guard';
 import { requireAdmin } from '../lib/admin-auth';
 import { safeJsonBody } from '../lib/safe-body';
 
@@ -457,7 +457,7 @@ async function fromUrlFetch(url: string): Promise<{ title: string; body: string;
   if (!FETCH_ALLOWED_PREFIXES.some((p) => url.toLowerCase().startsWith(p))) {
     throw new Error('unsupported_scheme');
   }
-  const res = await pinnedFetch(url, {
+  const res = await pinnedFetchFollow(url, {
     headers: {
       'User-Agent': 'Mozilla/5.0 (compatible; pranithjain-stix-builder/1.0; +https://pranithjain.qzz.io)',
       Accept: 'text/html,application/xhtml+xml,text/plain;q=0.8,*/*;q=0.5',
