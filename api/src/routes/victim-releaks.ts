@@ -116,10 +116,10 @@ function emptyReleaksResponse(reason: string): VictimReleaksResponse {
   };
 }
 
-async function fetchJson<T>(url: string): Promise<T | null> {
+async function fetchJson<T>(url: string, timeoutMs: number = FETCH_TIMEOUT_MS): Promise<T | null> {
   try {
     const res = await fetch(url, {
-      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      signal: AbortSignal.timeout(timeoutMs),
       headers: { Accept: 'application/json', 'User-Agent': 'pranithjain.qzz.io DFIR toolkit (free, read-only)' },
       cf: { cacheTtl: 1800, cacheEverything: true },
     });
@@ -137,8 +137,9 @@ function toIsoDate(s: string | undefined): string | undefined {
   return Number.isFinite(d.getTime()) ? d.toISOString() : undefined;
 }
 
-export async function fetchVictimReleaks(env?: Env): Promise<VictimReleaksResponse> {
-  const recent = await fetchJson<Array<{ group_name?: string }>>('https://www.ransomlook.io/api/recent');
+export async function fetchVictimReleaks(env?: Env, opts: { timeoutMs?: number } = {}): Promise<VictimReleaksResponse> {
+  const timeoutMs = opts.timeoutMs ?? FETCH_TIMEOUT_MS;
+  const recent = await fetchJson<Array<{ group_name?: string }>>('https://www.ransomlook.io/api/recent', timeoutMs);
   if (!recent) {
     return {
       generated_at: new Date().toISOString(),
@@ -172,7 +173,8 @@ export async function fetchVictimReleaks(env?: Env): Promise<VictimReleaksRespon
     Promise.all(
       topGroups.map(async (slug) => {
         const data = await fetchJson<[unknown, RansomlookGroupPost[]]>(
-          `https://www.ransomlook.io/api/group/${encodeURIComponent(slug)}`
+          `https://www.ransomlook.io/api/group/${encodeURIComponent(slug)}`,
+          timeoutMs
         );
         return { slug, data };
       })
@@ -341,6 +343,26 @@ export async function fetchVictimReleaks(env?: Env): Promise<VictimReleaksRespon
   };
 }
 
+// The request-path cold compute is bounded well under Cloudflare's request
+// duration ceiling. The full-quality 20s fan-out runs only in the cron
+// (refreshVictimReleaksCache), which has a far larger budget; on the request
+// path we'd rather drop a slow group (→ warning) than risk a runtime abort.
+const COLD_FETCH_TIMEOUT_MS = 12_000;
+
+/**
+ * Cron entry point: run the full (slow) aggregation off the request path and
+ * force-refresh the global last-good. The hourly cron calls this so the handler
+ * never has to do the 8-group fan-out while a user is waiting. Returns the body
+ * for logging; throws are the caller's to catch.
+ */
+export async function refreshVictimReleaksCache(env: Env): Promise<VictimReleaksResponse> {
+  const body = await fetchVictimReleaks(env);
+  if (body.releaks.length > 0) {
+    await writeLastGood(env, LASTGOOD_KEY, body, { ttlSeconds: LASTGOOD_TTL_SECONDS, force: true });
+  }
+  return body;
+}
+
 export async function victimReleaksHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheReq = new Request(CACHE_KEY);
@@ -352,29 +374,33 @@ export async function victimReleaksHandler(c: Context<{ Bindings: Env }>): Promi
       status: 200,
       headers: { 'content-type': 'application/json', 'cache-control': cacheControl },
     });
+  // Serve a good payload as an edge-cacheable 200 and warm the per-colo cache.
+  const serveCacheable = (body: VictimReleaksResponse): Response => {
+    const response = json(body, `public, max-age=${CACHE_TTL_SECONDS}`);
+    c.executionCtx.waitUntil(cache.put(cacheReq, response.clone()));
+    return response;
+  };
 
+  // ── Normal path: serve the cron-warmed global copy ───────────────────────
+  // The heavy 8-group fan-out (~20s) is precomputed by the cron and parked in
+  // KV. Reading it here is ~10ms, so the request path never sits at Cloudflare's
+  // request-duration ceiling — which is what was intermittently aborting the
+  // live compute into a 500 (and that 500 was then edge-cached for 6h).
+  const lg = await readLastGood<VictimReleaksResponse>(c.env, LASTGOOD_KEY);
+  if (lg && lg.releaks.length > 0) return serveCacheable(lg);
+
+  // ── Cold path: no warmed copy yet (fresh deploy, before the first cron) ──
+  // Do a *bounded* live compute so we can still return data, and seed KV so the
+  // next request takes the fast path. Bounded timeout keeps this safely under
+  // the abort threshold; any failure degrades to an empty 200, never a 500.
   try {
-    const body = await fetchVictimReleaks(c.env);
-    // Only a live run with real re-leak rows is worth caching + promoting to the
-    // cross-colo last-good. An empty/warning-only body (e.g. ransomlook down)
-    // must not pin a blank page or overwrite a good fallback.
+    const body = await fetchVictimReleaks(c.env, { timeoutMs: COLD_FETCH_TIMEOUT_MS });
     if (body.releaks.length > 0) {
       c.executionCtx.waitUntil(writeLastGood(c.env, LASTGOOD_KEY, body, { ttlSeconds: LASTGOOD_TTL_SECONDS }));
-      const response = json(body, `public, max-age=${CACHE_TTL_SECONDS}`);
-      c.executionCtx.waitUntil(cache.put(cacheReq, response.clone()));
-      return response;
+      return serveCacheable(body);
     }
-    // Live run produced nothing usable — prefer a recent last-good over an empty
-    // page; cache neither.
-    const lg = await readLastGood<VictimReleaksResponse>(c.env, LASTGOOD_KEY);
-    if (lg && lg.releaks.length > 0) return json({ ...lg, stale: true }, 'no-store');
     return json(body, 'no-store');
   } catch (err) {
-    // The per-group fan-out (8 heavy fetches) intermittently exceeds the Worker
-    // CPU/time budget and throws; the global onError would otherwise turn that
-    // into a user-facing 500. Degrade to the last-good payload instead.
-    const lg = await readLastGood<VictimReleaksResponse>(c.env, LASTGOOD_KEY);
-    if (lg && lg.releaks.length > 0) return json({ ...lg, stale: true }, 'no-store');
     return json(emptyReleaksResponse(err instanceof Error ? err.message : 'live run failed'), 'no-store');
   }
 }

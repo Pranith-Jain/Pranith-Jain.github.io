@@ -43,6 +43,10 @@ export async function readLastGood<T>(env: Env, key: string): Promise<T | null> 
  * only rewritten once per `debounceTtlSeconds` (defaults to the debounce
  * helper's own 6h). Safe to call from `waitUntil`; never throws.
  *
+ * Pass `force: true` to skip the debounce entirely — for controlled callers
+ * like a cron precompute that runs on a fixed cadence and should always refresh
+ * the global copy (the debounce only exists to throttle request-path writes).
+ *
  * Returns true when a write was actually issued (debounce cold), false when it
  * was skipped or KV is unavailable — useful for logging/tests.
  */
@@ -50,11 +54,11 @@ export async function writeLastGood<T>(
   env: Env,
   key: string,
   value: T,
-  opts: { ttlSeconds?: number; debounceTtlSeconds?: number } = {}
+  opts: { ttlSeconds?: number; debounceTtlSeconds?: number; force?: boolean } = {}
 ): Promise<boolean> {
   if (!env.KV_CACHE) return false;
   try {
-    if (!(await shouldWriteLastGood(`lastgood:${key}`, opts.debounceTtlSeconds))) return false;
+    if (!opts.force && !(await shouldWriteLastGood(`lastgood:${key}`, opts.debounceTtlSeconds))) return false;
     await env.KV_CACHE.put(`${KEY_PREFIX}${key}`, JSON.stringify(value), {
       expirationTtl: opts.ttlSeconds ?? DEFAULT_TTL_SECONDS,
     });

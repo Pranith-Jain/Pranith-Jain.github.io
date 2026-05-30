@@ -14,6 +14,7 @@ import {
   cleanupLeakEntries,
 } from '../api/src/routes/telegram-leak-monitor';
 import { fetchTelegramFeed } from '../api/src/routes/telegram-feed';
+import { refreshVictimReleaksCache } from '../api/src/routes/victim-releaks';
 import { warmIntelBundles } from '../api/src/lib/intel-bundle-warm';
 import { checkWatches } from '../api/src/lib/watch-engine';
 import { buildBlocklists } from '../api/src/lib/blocklist-builder';
@@ -82,6 +83,28 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
         )
         .catch(logCronFail('intel-bundle-warm'))
     );
+
+    // Victim re-leaks: precompute the heavy ~20s ransomlook fan-out OFF the
+    // request path, every 6h (aligned to the 6h edge-cache TTL), and park it in
+    // KV. The handler then serves KV in ~10ms instead of doing the slow compute
+    // while a user waits — which was intermittently tripping Cloudflare's
+    // request-duration limit and 500ing (and that 500 got edge-cached for 6h).
+    if (csNow.getUTCHours() % 6 === 3) {
+      ctx.waitUntil(
+        refreshVictimReleaksCache(env as unknown as ApiEnv)
+          .then((b) =>
+            console.log(
+              JSON.stringify({
+                job: 'victim-releaks-refresh',
+                releaks: b.releaks.length,
+                groups: b.groups_scanned,
+                warnings: b.warnings.length,
+              })
+            )
+          )
+          .catch(logCronFail('victim-releaks-refresh'))
+      );
+    }
   }
 
   // Case-study discovery — its OWN invocation
