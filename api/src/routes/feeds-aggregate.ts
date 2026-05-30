@@ -344,7 +344,16 @@ async function fetchOne(url: string, perSource: number, env?: Env): Promise<Fetc
           accept: 'application/rss+xml, application/atom+xml, application/xml;q=0.9, text/xml;q=0.9, */*;q=0.5',
           'accept-language': 'en-US,en;q=0.9',
         },
-        cf: { cacheTtl: CACHE_TTL_SECONDS, cacheEverything: true },
+        // Only edge-cache SUCCESSFUL responses. With a blanket `cacheTtl`,
+        // `cacheEverything` also caches 4xx/5xx — so a transient 403 (several
+        // origins, e.g. ccb.belgium.be, are Cloudflare-fronted and intermittently
+        // challenge our datacenter egress IP) got pinned for the whole TTL,
+        // surfacing as a stuck `http_403` badge even though a fresh fetch
+        // succeeds. `cacheTtlByStatus` with 0 for error buckets re-fetches them.
+        cf: {
+          cacheTtlByStatus: { '200-299': CACHE_TTL_SECONDS, '300-399': 0, '400-599': 0 },
+          cacheEverything: true,
+        },
       } as RequestInit,
       // attempts: 1 — Cloudflare Workers have a 50-subrequest limit per
       // invocation; 3 retries × 54 feeds blew the budget (manifested as
