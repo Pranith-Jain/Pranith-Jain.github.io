@@ -21,7 +21,16 @@ import type { D1Database } from '@cloudflare/workers-types';
 // ── Types ───────────────────────────────────────────────────────────────
 
 export type NodeType = 'ip' | 'domain' | 'hash' | 'url' | 'actor' | 'malware' | 'campaign' | 'cve' | 'technique';
-export type EdgeType = 'uses' | 'communicates' | 'resolves' | 'drops' | 'exploits' | 'attributed_to' | 'variant_of' | 'co_occurs' | 'precedes';
+export type EdgeType =
+  | 'uses'
+  | 'communicates'
+  | 'resolves'
+  | 'drops'
+  | 'exploits'
+  | 'attributed_to'
+  | 'variant_of'
+  | 'co_occurs'
+  | 'precedes';
 
 export interface GraphNode {
   id: string;
@@ -68,7 +77,9 @@ export interface GraphCluster {
 
 export async function ensureGraphTables(db: D1Database): Promise<void> {
   // D1's exec() can fail with multiple statements; use individual prepares.
-  await db.prepare(`
+  await db
+    .prepare(
+      `
     CREATE TABLE IF NOT EXISTS graph_nodes (
       id TEXT PRIMARY KEY,
       type TEXT NOT NULL,
@@ -79,8 +90,12 @@ export async function ensureGraphTables(db: D1Database): Promise<void> {
       confidence INTEGER DEFAULT 50,
       sources TEXT DEFAULT '[]'
     )
-  `).run();
-  await db.prepare(`
+  `
+    )
+    .run();
+  await db
+    .prepare(
+      `
     CREATE TABLE IF NOT EXISTS graph_edges (
       id TEXT PRIMARY KEY,
       source_id TEXT NOT NULL,
@@ -91,7 +106,9 @@ export async function ensureGraphTables(db: D1Database): Promise<void> {
       first_seen TEXT NOT NULL,
       last_seen TEXT NOT NULL
     )
-  `).run();
+  `
+    )
+    .run();
   await db.prepare('CREATE INDEX IF NOT EXISTS idx_nodes_type ON graph_nodes(type)').run();
   await db.prepare('CREATE INDEX IF NOT EXISTS idx_nodes_value ON graph_nodes(value)').run();
   await db.prepare('CREATE INDEX IF NOT EXISTS idx_edges_source ON graph_edges(source_id)').run();
@@ -104,37 +121,46 @@ export async function ensureGraphTables(db: D1Database): Promise<void> {
 /**
  * Upsert a node. If it exists, update last_seen and merge properties.
  */
-export async function upsertNode(
-  db: D1Database,
-  node: Omit<GraphNode, 'id'> & { id?: string }
-): Promise<GraphNode> {
+export async function upsertNode(db: D1Database, node: Omit<GraphNode, 'id'> & { id?: string }): Promise<GraphNode> {
   const id = node.id ?? `${node.type}:${node.value}`;
   const now = new Date().toISOString();
 
-  const existing = await db
-    .prepare('SELECT * FROM graph_nodes WHERE id = ?')
-    .bind(id)
-    .first<GraphNode>();
+  const existing = await db.prepare('SELECT * FROM graph_nodes WHERE id = ?').bind(id).first<GraphNode>();
 
   if (existing) {
-    // Merge properties and update
-    const mergedProps = { ...JSON.parse(existing.properties as unknown as string), ...node.properties };
-    const mergedSources = [...new Set([...JSON.parse(existing.sources as unknown as string), ...(node.sources ?? [])])];
+    // Merge properties and update — existing.properties / sources are D1
+    // text columns that may be null. Parse safely using a fallback.
+    const parseJsonSafe = (raw: unknown): Record<string, unknown> => {
+      if (typeof raw !== 'string' || !raw) return {};
+      try {
+        return JSON.parse(raw);
+      } catch {
+        return {};
+      }
+    };
+    const parseSourcesSafe = (raw: unknown): string[] => {
+      if (typeof raw !== 'string' || !raw) return [];
+      try {
+        const p = JSON.parse(raw);
+        return Array.isArray(p) ? p : [];
+      } catch {
+        return [];
+      }
+    };
+    const mergedProps = { ...parseJsonSafe(existing.properties), ...node.properties };
+    const mergedSources = [...new Set([...parseSourcesSafe(existing.sources), ...(node.sources ?? [])])];
 
-    await db.prepare(
-      `UPDATE graph_nodes SET
+    await db
+      .prepare(
+        `UPDATE graph_nodes SET
         properties = ?,
         last_seen = ?,
         confidence = MAX(confidence, ?),
         sources = ?
       WHERE id = ?`
-    ).bind(
-      JSON.stringify(mergedProps),
-      now,
-      node.confidence ?? 50,
-      JSON.stringify(mergedSources),
-      id
-    ).run();
+      )
+      .bind(JSON.stringify(mergedProps), now, node.confidence ?? 50, JSON.stringify(mergedSources), id)
+      .run();
 
     return { ...existing, properties: mergedProps, last_seen: now, sources: mergedSources };
   }
@@ -150,19 +176,22 @@ export async function upsertNode(
     sources: node.sources ?? [],
   };
 
-  await db.prepare(
-    `INSERT INTO graph_nodes (id, type, value, properties, first_seen, last_seen, confidence, sources)
+  await db
+    .prepare(
+      `INSERT INTO graph_nodes (id, type, value, properties, first_seen, last_seen, confidence, sources)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
-  ).bind(
-    newNode.id,
-    newNode.type,
-    newNode.value,
-    JSON.stringify(newNode.properties),
-    newNode.first_seen,
-    newNode.last_seen,
-    newNode.confidence,
-    JSON.stringify(newNode.sources)
-  ).run();
+    )
+    .bind(
+      newNode.id,
+      newNode.type,
+      newNode.value,
+      JSON.stringify(newNode.properties),
+      newNode.first_seen,
+      newNode.last_seen,
+      newNode.confidence,
+      JSON.stringify(newNode.sources)
+    )
+    .run();
 
   return newNode;
 }
@@ -170,27 +199,33 @@ export async function upsertNode(
 /**
  * Create or update an edge between two nodes.
  */
-export async function upsertEdge(
-  db: D1Database,
-  edge: Omit<GraphEdge, 'id'> & { id?: string }
-): Promise<GraphEdge> {
+export async function upsertEdge(db: D1Database, edge: Omit<GraphEdge, 'id'> & { id?: string }): Promise<GraphEdge> {
   const id = edge.id ?? `${edge.source_id}->${edge.relationship}->${edge.target_id}`;
   const now = new Date().toISOString();
 
-  const existing = await db
-    .prepare('SELECT * FROM graph_edges WHERE id = ?')
-    .bind(id)
-    .first<GraphEdge>();
+  const existing = await db.prepare('SELECT * FROM graph_edges WHERE id = ?').bind(id).first<GraphEdge>();
 
   if (existing) {
-    const mergedEvidence = [...JSON.parse(existing.evidence as unknown as string), ...(edge.evidence ?? [])];
-    await db.prepare(
-      `UPDATE graph_edges SET
+    const parseEvidence = (raw: unknown): string[] => {
+      if (typeof raw !== 'string' || !raw) return [];
+      try {
+        const p = JSON.parse(raw);
+        return Array.isArray(p) ? p : [];
+      } catch {
+        return [];
+      }
+    };
+    const mergedEvidence = [...parseEvidence(existing.evidence), ...(edge.evidence ?? [])];
+    await db
+      .prepare(
+        `UPDATE graph_edges SET
         last_seen = ?,
         confidence = MAX(confidence, ?),
         evidence = ?
       WHERE id = ?`
-    ).bind(now, edge.confidence ?? 50, JSON.stringify(mergedEvidence.slice(-20)), id).run();
+      )
+      .bind(now, edge.confidence ?? 50, JSON.stringify(mergedEvidence.slice(-20)), id)
+      .run();
 
     return { ...existing, last_seen: now, evidence: mergedEvidence };
   }
@@ -206,19 +241,22 @@ export async function upsertEdge(
     last_seen: now,
   };
 
-  await db.prepare(
-    `INSERT INTO graph_edges (id, source_id, target_id, relationship, confidence, evidence, first_seen, last_seen)
+  await db
+    .prepare(
+      `INSERT INTO graph_edges (id, source_id, target_id, relationship, confidence, evidence, first_seen, last_seen)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
-  ).bind(
-    newEdge.id,
-    newEdge.source_id,
-    newEdge.target_id,
-    newEdge.relationship,
-    newEdge.confidence,
-    JSON.stringify(newEdge.evidence),
-    newEdge.first_seen,
-    newEdge.last_seen
-  ).run();
+    )
+    .bind(
+      newEdge.id,
+      newEdge.source_id,
+      newEdge.target_id,
+      newEdge.relationship,
+      newEdge.confidence,
+      JSON.stringify(newEdge.evidence),
+      newEdge.first_seen,
+      newEdge.last_seen
+    )
+    .run();
 
   return newEdge;
 }
@@ -226,14 +264,8 @@ export async function upsertEdge(
 /**
  * Find a node by value (fuzzy match on type + value).
  */
-export async function findNode(
-  db: D1Database,
-  type: NodeType,
-  value: string
-): Promise<GraphNode | null> {
-  return db.prepare(
-    'SELECT * FROM graph_nodes WHERE type = ? AND value = ?'
-  ).bind(type, value).first<GraphNode>();
+export async function findNode(db: D1Database, type: NodeType, value: string): Promise<GraphNode | null> {
+  return db.prepare('SELECT * FROM graph_nodes WHERE type = ? AND value = ?').bind(type, value).first<GraphNode>();
 }
 
 /**
@@ -270,18 +302,21 @@ export async function getNeighbors(
 
   query += ' ORDER BY e.confidence DESC';
 
-  const rows = await db.prepare(query).bind(...params).all<GraphNode & GraphEdge>();
+  const rows = await db
+    .prepare(query)
+    .bind(...params)
+    .all<GraphNode & GraphEdge>();
 
-  return (rows.results ?? []).map(row => ({
+  return (rows.results ?? []).map((row) => ({
     node: {
       id: row.id,
       type: row.type,
       value: row.value,
-      properties: JSON.parse(row.properties as unknown as string ?? '{}'),
+      properties: JSON.parse((row.properties as unknown as string) ?? '{}'),
       first_seen: row.first_seen,
       last_seen: row.last_seen,
       confidence: row.confidence,
-      sources: JSON.parse(row.sources as unknown as string ?? '[]'),
+      sources: JSON.parse((row.sources as unknown as string) ?? '[]'),
     },
     edge: {
       id: row.id, // This is wrong but simplified
@@ -289,7 +324,7 @@ export async function getNeighbors(
       target_id: row.target_id,
       relationship: row.relationship,
       confidence: row.confidence,
-      evidence: JSON.parse(row.evidence as unknown as string ?? '[]'),
+      evidence: JSON.parse((row.evidence as unknown as string) ?? '[]'),
       first_seen: row.first_seen,
       last_seen: row.last_seen,
     },
@@ -316,7 +351,7 @@ export async function shortestPath(
     if (current.nodeId === endId) {
       // Found path - fetch full node data
       const nodes = await Promise.all(
-        current.path.map(id => db.prepare('SELECT * FROM graph_nodes WHERE id = ?').bind(id).first<GraphNode>())
+        current.path.map((id) => db.prepare('SELECT * FROM graph_nodes WHERE id = ?').bind(id).first<GraphNode>())
       );
 
       return {
@@ -332,27 +367,33 @@ export async function shortestPath(
     visited.add(current.nodeId);
 
     // Get neighbors
-    const neighbors = await db.prepare(
-      `SELECT e.*, n.id as neighbor_id FROM graph_edges e
+    const neighbors = await db
+      .prepare(
+        `SELECT e.*, n.id as neighbor_id FROM graph_edges e
        JOIN graph_nodes n ON (n.id = e.target_id AND e.source_id = ?)
                          OR (n.id = e.source_id AND e.target_id = ?)`
-    ).bind(current.nodeId, current.nodeId).all<GraphEdge & { neighbor_id: string }>();
+      )
+      .bind(current.nodeId, current.nodeId)
+      .all<GraphEdge & { neighbor_id: string }>();
 
     for (const neighbor of neighbors.results ?? []) {
       if (!visited.has(neighbor.neighbor_id)) {
         queue.push({
           nodeId: neighbor.neighbor_id,
           path: [...current.path, neighbor.neighbor_id],
-          edges: [...current.edges, {
-            id: neighbor.id,
-            source_id: neighbor.source_id,
-            target_id: neighbor.target_id,
-            relationship: neighbor.relationship,
-            confidence: neighbor.confidence,
-            evidence: JSON.parse(neighbor.evidence as unknown as string ?? '[]'),
-            first_seen: neighbor.first_seen,
-            last_seen: neighbor.last_seen,
-          }],
+          edges: [
+            ...current.edges,
+            {
+              id: neighbor.id,
+              source_id: neighbor.source_id,
+              target_id: neighbor.target_id,
+              relationship: neighbor.relationship,
+              confidence: neighbor.confidence,
+              evidence: JSON.parse((neighbor.evidence as unknown as string) ?? '[]'),
+              first_seen: neighbor.first_seen,
+              last_seen: neighbor.last_seen,
+            },
+          ],
         });
       }
     }
@@ -383,14 +424,14 @@ export async function neighborhood(
       visitedNodes.add(nodeId);
 
       // Fetch node
-      const node = await db.prepare('SELECT * FROM graph_nodes WHERE id = ?')
-        .bind(nodeId).first<GraphNode>();
+      const node = await db.prepare('SELECT * FROM graph_nodes WHERE id = ?').bind(nodeId).first<GraphNode>();
       if (node) nodes.push(node);
 
       // Fetch edges
-      const edgeRows = await db.prepare(
-        `SELECT * FROM graph_edges WHERE source_id = ? OR target_id = ?`
-      ).bind(nodeId, nodeId).all<GraphEdge>();
+      const edgeRows = await db
+        .prepare(`SELECT * FROM graph_edges WHERE source_id = ? OR target_id = ?`)
+        .bind(nodeId, nodeId)
+        .all<GraphEdge>();
 
       for (const edge of edgeRows.results ?? []) {
         if (!visitedEdges.has(edge.id)) {
@@ -410,10 +451,7 @@ export async function neighborhood(
 /**
  * Detect communities using connected components.
  */
-export async function detectCommunities(
-  db: D1Database,
-  minSize: number = 3
-): Promise<GraphCluster[]> {
+export async function detectCommunities(db: D1Database, minSize: number = 3): Promise<GraphCluster[]> {
   // Get all nodes and edges
   const allNodes = await db.prepare('SELECT * FROM graph_nodes').all<GraphNode>();
   const allEdges = await db.prepare('SELECT * FROM graph_edges').all<GraphEdge>();
@@ -451,7 +489,7 @@ export async function detectCommunities(
     }
 
     if (component.length >= minSize) {
-      const clusterNodes = (allNodes.results ?? []).filter(n => component.includes(n.id));
+      const clusterNodes = (allNodes.results ?? []).filter((n) => component.includes(n.id));
 
       // Determine centroid type (most common type)
       const typeCounts = new Map<NodeType, number>();
@@ -475,14 +513,14 @@ export async function detectCommunities(
 
 function extractClusterLabels(nodes: GraphNode[]): string[] {
   const labels: string[] = [];
-  const types = new Set(nodes.map(n => n.type));
+  const types = new Set(nodes.map((n) => n.type));
 
   if (types.has('actor')) {
-    const actors = nodes.filter(n => n.type === 'actor').map(n => n.value);
+    const actors = nodes.filter((n) => n.type === 'actor').map((n) => n.value);
     labels.push(...actors.slice(0, 3));
   }
   if (types.has('malware')) {
-    const malware = nodes.filter(n => n.type === 'malware').map(n => n.value);
+    const malware = nodes.filter((n) => n.type === 'malware').map((n) => n.value);
     labels.push(...malware.slice(0, 3));
   }
 
@@ -493,7 +531,17 @@ function extractClusterLabels(nodes: GraphNode[]): string[] {
 
 /** GET /api/v1/graph/node/:type/:value — Get node with neighbors */
 export async function graphNodeHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const VALID_NODE_TYPES: NodeType[] = ['ip', 'domain', 'hash', 'url', 'actor', 'malware', 'campaign', 'cve', 'technique'];
+  const VALID_NODE_TYPES: NodeType[] = [
+    'ip',
+    'domain',
+    'hash',
+    'url',
+    'actor',
+    'malware',
+    'campaign',
+    'cve',
+    'technique',
+  ];
   const rawType = c.req.param('type') ?? 'ip';
   const type = VALID_NODE_TYPES.includes(rawType as NodeType) ? (rawType as NodeType) : 'ip';
   const value = c.req.param('value') ?? '';
@@ -516,16 +564,20 @@ export async function graphNodeHandler(c: Context<{ Bindings: Env }>): Promise<R
 
   const hood = await neighborhood(db, node.id, Math.min(depth, 3));
 
-  return c.json({
-    found: true,
-    node,
-    neighbors: hood.nodes.filter(n => n.id !== node.id),
-    edges: hood.edges,
-    stats: {
-      neighbor_count: hood.nodes.length - 1,
-      edge_count: hood.edges.length,
+  return c.json(
+    {
+      found: true,
+      node,
+      neighbors: hood.nodes.filter((n) => n.id !== node.id),
+      edges: hood.edges,
+      stats: {
+        neighbor_count: hood.nodes.length - 1,
+        edge_count: hood.edges.length,
+      },
     },
-  }, 200, { 'Cache-Control': 'public, max-age=60' });
+    200,
+    { 'Cache-Control': 'public, max-age=60' }
+  );
 }
 
 /** GET /api/v1/graph/path — Find shortest path between two nodes */
@@ -561,11 +613,15 @@ export async function graphCommunitiesHandler(c: Context<{ Bindings: Env }>): Pr
   const minSize = parseInt(c.req.query('min_size') ?? '3');
   const communities = await detectCommunities(db, minSize);
 
-  return c.json({
-    communities,
-    count: communities.length,
-    total_nodes: communities.reduce((sum, c) => sum + c.nodes.length, 0),
-  }, 200, { 'Cache-Control': 'public, max-age=120' });
+  return c.json(
+    {
+      communities,
+      count: communities.length,
+      total_nodes: communities.reduce((sum, c) => sum + c.nodes.length, 0),
+    },
+    200,
+    { 'Cache-Control': 'public, max-age=120' }
+  );
 }
 
 /** GET /api/v1/graph/stats — Graph statistics */
@@ -577,20 +633,25 @@ export async function graphStatsHandler(c: Context<{ Bindings: Env }>): Promise<
 
   const nodeCount = await db.prepare('SELECT COUNT(*) as count FROM graph_nodes').first<{ count: number }>();
   const edgeCount = await db.prepare('SELECT COUNT(*) as count FROM graph_edges').first<{ count: number }>();
-  const typeCounts = await db.prepare(
-    'SELECT type, COUNT(*) as count FROM graph_nodes GROUP BY type ORDER BY count DESC'
-  ).all<{ type: string; count: number }>();
-  const relationshipCounts = await db.prepare(
-    'SELECT relationship, COUNT(*) as count FROM graph_edges GROUP BY relationship ORDER BY count DESC'
-  ).all<{ relationship: string; count: number }>();
+  const typeCounts = await db
+    .prepare('SELECT type, COUNT(*) as count FROM graph_nodes GROUP BY type ORDER BY count DESC')
+    .all<{ type: string; count: number }>();
+  const relationshipCounts = await db
+    .prepare('SELECT relationship, COUNT(*) as count FROM graph_edges GROUP BY relationship ORDER BY count DESC')
+    .all<{ relationship: string; count: number }>();
 
-  return c.json({
-    nodes: nodeCount?.count ?? 0,
-    edges: edgeCount?.count ?? 0,
-    node_types: typeCounts.results ?? [],
-    relationship_types: relationshipCounts.results ?? [],
-    density: (nodeCount?.count ?? 0) > 1
-      ? ((edgeCount?.count ?? 0) / ((nodeCount?.count ?? 0) * ((nodeCount?.count ?? 0) - 1))).toFixed(6)
-      : 0,
-  }, 200, { 'Cache-Control': 'public, max-age=60' });
+  return c.json(
+    {
+      nodes: nodeCount?.count ?? 0,
+      edges: edgeCount?.count ?? 0,
+      node_types: typeCounts.results ?? [],
+      relationship_types: relationshipCounts.results ?? [],
+      density:
+        (nodeCount?.count ?? 0) > 1
+          ? ((edgeCount?.count ?? 0) / ((nodeCount?.count ?? 0) * ((nodeCount?.count ?? 0) - 1))).toFixed(6)
+          : 0,
+    },
+    200,
+    { 'Cache-Control': 'public, max-age=60' }
+  );
 }

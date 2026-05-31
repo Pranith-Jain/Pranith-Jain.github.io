@@ -160,8 +160,8 @@ export default function ThreatHunt(): JSX.Element {
             </div>
             {c.summary.length > 0 && (
               <div className="mt-3 space-y-1">
-                {c.summary.map((s, i) => (
-                  <p key={i} className="text-xs font-mono opacity-80 flex items-center gap-2">
+                {c.summary.map((s) => (
+                  <p key={s} className="text-xs font-mono opacity-80 flex items-center gap-2">
                     <Activity size={10} /> {s}
                   </p>
                 ))}
@@ -175,9 +175,9 @@ export default function ThreatHunt(): JSX.Element {
               <p className="text-xs font-mono text-slate-500 py-2">No IOC provider hits</p>
             ) : (
               <div className="space-y-1">
-                {result.ioc_providers.hits.map((h, i) => (
+                {result.ioc_providers.hits.map((h) => (
                   <div
-                    key={i}
+                    key={h.source}
                     className="flex items-center justify-between px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800/50"
                   >
                     <div className="flex items-center gap-2">
@@ -201,8 +201,8 @@ export default function ThreatHunt(): JSX.Element {
               <p className="text-xs font-mono text-slate-500 py-2">No Telegram leak mentions</p>
             ) : (
               <div className="space-y-2 max-h-48 overflow-y-auto">
-                {result.telegram_leaks.hits.map((h, i) => (
-                  <div key={i} className="px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800/50">
+                {result.telegram_leaks.hits.map((h) => (
+                  <div key={`${h.channel}-${h.date}`} className="px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800/50">
                     <p className="text-[11px] font-mono text-brand-600 dark:text-brand-400">{h.channel}</p>
                     <p className="text-xs font-mono text-slate-600 dark:text-slate-400 mt-0.5 line-clamp-2">
                       {h.message}
@@ -219,8 +219,8 @@ export default function ThreatHunt(): JSX.Element {
               <p className="text-xs font-mono text-slate-500 py-2">No breach records found</p>
             ) : (
               <div className="space-y-1">
-                {result.breach_data.hits.map((b, i) => (
-                  <div key={i} className="px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800/50">
+                {result.breach_data.hits.map((b) => (
+                  <div key={b.name} className="px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800/50">
                     <p className="text-xs font-mono font-medium">{b.name}</p>
                     {b.description && <p className="text-[11px] font-mono text-slate-500 mt-0.5">{b.description}</p>}
                   </div>
@@ -250,9 +250,9 @@ export default function ThreatHunt(): JSX.Element {
                 <p>{result.cert_logs.count} certificates found</p>
                 {result.cert_logs.recent.length > 0 && (
                   <div className="flex flex-wrap gap-1 mt-2">
-                    {result.cert_logs.recent.map((s, i) => (
+                    {result.cert_logs.recent.map((s) => (
                       <span
-                        key={i}
+                        key={s}
                         className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800"
                       >
                         {s}

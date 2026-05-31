@@ -73,15 +73,19 @@ export async function maliciousPackagesHandler(c: Context<{ Bindings: Env }>): P
   // Some env shapes (test fixtures) carry a GITHUB_TOKEN secret which
   // bumps the anonymous 60/hr cap to 5000/hr. Optional — we'll try
   // without and fall through to the KV last-good when it 403s.
-  const ghToken = (c.env as unknown as Record<string, string | undefined>).GITHUB_TOKEN;
+  const ghToken = c.env.GITHUB_TOKEN;
   try {
-    const res = await fetchResilient(`${GH_API_BASE}/${ecosystem}`, {
-      headers: {
-        Accept: 'application/vnd.github.v3+json',
-        'User-Agent': 'pranithjain-dfir/1.0',
-        ...(ghToken ? { Authorization: `Bearer ${ghToken}` } : {}),
+    const res = await fetchResilient(
+      `${GH_API_BASE}/${ecosystem}`,
+      {
+        headers: {
+          Accept: 'application/vnd.github.v3+json',
+          'User-Agent': 'pranithjain-dfir/1.0',
+          ...(ghToken ? { Authorization: `Bearer ${ghToken}` } : {}),
+        },
       },
-    }, { attempts: 3, timeoutMs: 15_000 });
+      { attempts: 3, timeoutMs: 15_000 }
+    );
     if (res.ok) {
       raw = (await res.json()) as Array<{ name: string; path: string; html_url: string; type: string }>;
     } else {

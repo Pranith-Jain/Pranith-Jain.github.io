@@ -90,4 +90,8 @@ export interface Env {
    *  the /api/v1/ioc/check CriminalIP provider degrades to 'unsupported'
    *  when unset. Free tier: 100 lookups/month. */
   CRIMINALIP_API_KEY?: string;
+  /** GitHub personal access token for the malicious-packages API.
+   *  Set via `wrangler secret put GITHUB_TOKEN`. Optional — the free
+   *  anonymous GitHub API tier (60 req/hr) is the default. */
+  GITHUB_TOKEN?: string;
 }
