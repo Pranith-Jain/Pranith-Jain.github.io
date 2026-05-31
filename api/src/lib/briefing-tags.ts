@@ -23,8 +23,9 @@ export interface BriefingTags {
 
 const CVE_RE = /\bCVE-\d{4}-\d{4,7}\b/gi;
 
-/** Known ransomware actor slugs to scan for. Maps slug → display name. */
+/** Known actor slugs to scan for. Maps slug → display aliases to match. */
 const ACTOR_SLUGS: Array<{ slug: string; aliases: string[] }> = [
+  // Ransomware groups
   { slug: 'lockbit', aliases: ['lockbit'] },
   { slug: 'alphv', aliases: ['alphv', 'blackcat'] },
   { slug: 'cl0p', aliases: ['cl0p', 'clop'] },
@@ -46,6 +47,35 @@ const ACTOR_SLUGS: Array<{ slug: string; aliases: string[] }> = [
   { slug: 'inc ransom', aliases: ['inc ransom', 'inc. ransom'] },
   { slug: 'lynx', aliases: ['lynx ransomware'] },
   { slug: 'the gentlemen', aliases: ['the gentlemen'] },
+  // Nation-state APT groups
+  { slug: 'apt28', aliases: ['apt28', 'fancy bear', 'sofacy'] },
+  { slug: 'apt29', aliases: ['apt29', 'cozy bear', 'the dukes'] },
+  { slug: 'apt41', aliases: ['apt41', 'double dragon', 'winnti'] },
+  { slug: 'sandworm', aliases: ['sandworm', 'voodoo bear', 'seashell blizzard'] },
+  { slug: 'lazarus', aliases: ['lazarus group', 'hidden cobra'] },
+  { slug: 'apt33', aliases: ['apt33', 'elfin'] },
+  { slug: 'apt34', aliases: ['apt34', 'oilrig'] },
+  { slug: 'apt35', aliases: ['apt35', 'charming kitten'] },
+  { slug: 'apt38', aliases: ['apt38', 'bluenoroff'] },
+  { slug: 'apt39', aliases: ['apt39', 'chafer'] },
+  { slug: 'apt40', aliases: ['apt40', 'leviathan'] },
+  { slug: 'apt10', aliases: ['apt10', 'stone panda', 'menupass', 'cloud hopper'] },
+  { slug: 'apt32', aliases: ['apt32', 'oceanlotus', 'sealotus'] },
+  { slug: 'apt37', aliases: ['apt37', 'reaper', 'scarcruft'] },
+  { slug: 'apt3', aliases: ['apt3', 'gothic panda'] },
+  { slug: 'apt1', aliases: ['apt1', 'comment crew', 'comment panda'] },
+  { slug: 'fin7', aliases: ['fin7', 'carbanak'] },
+  { slug: 'ta505', aliases: ['ta505'] },
+  { slug: 'muddywater', aliases: ['muddywater', 'mango sandstorm'] },
+  { slug: 'mustang panda', aliases: ['mustang panda'] },
+  { slug: 'kimsuky', aliases: ['kimsuky'] },
+  { slug: 'volt typhoon', aliases: ['volt typhoon'] },
+  { slug: 'tortoiseshell', aliases: ['tortoiseshell'] },
+  // Hacktivist / criminal groups
+  { slug: 'killnet', aliases: ['killnet'] },
+  { slug: 'anonymous sudan', aliases: ['anonymous sudan'] },
+  { slug: 'shinyhunters', aliases: ['shinyhunters'] },
+  { slug: 'lapsus', aliases: ['lapsus$', 'lapsus'] },
 ];
 
 /**

@@ -189,7 +189,7 @@ export default function Briefings(): JSX.Element {
           </div>
         )}
         {!loading && !error && filtered.length === 0 && (
-          <p className="text-sm font-mono text-slate-400 py-10 text-center">
+          <p className="text-sm font-mono text-slate-500 py-10 text-center">
             {items.length === 0
               ? 'No briefings indexed. Dailies publish 00:05 UTC; weeklies 00:15 UTC Monday.'
               : 'No briefings match the current filter.'}
@@ -253,7 +253,7 @@ export default function Briefings(): JSX.Element {
                     high
                   </span>
                   <span aria-hidden="true">·</span>
-                  <span className="text-slate-400 truncate w-full sm:w-auto sm:max-w-md">
+                  <span className="text-slate-500 truncate w-full sm:w-auto sm:max-w-md">
                     {(item.metadata.sources ?? []).join(', ')}
                   </span>
                 </div>

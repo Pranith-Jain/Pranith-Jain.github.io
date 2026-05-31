@@ -277,13 +277,16 @@ export default function Negotiations(): JSX.Element {
           <table className="w-full min-w-[720px] text-[12px]">
             <thead className="bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
               <tr>
-                <th className="w-8" />
+                <th scope="col" className="w-8" />
                 <Th k="group" label="group" />
                 <Th k="date" label="chat date" />
                 <Th k="initial_ransom" label="demand" cls="text-right" />
                 <Th k="negotiated_ransom" label="negotiated" cls="text-right" />
                 <Th k="discount_pct" label="disc %" cls="text-right" />
-                <th className="px-2 py-2 text-left font-mono text-[10px] uppercase tracking-wider text-slate-500">
+                <th
+                  scope="col"
+                  className="px-2 py-2 text-left font-mono text-[10px] uppercase tracking-wider text-slate-500"
+                >
                   settled
                 </th>
                 <Th k="message_count" label="msgs" cls="text-right" />

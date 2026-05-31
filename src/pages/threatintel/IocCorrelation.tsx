@@ -554,6 +554,7 @@ async function buildStixBundle(
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ mode: 'iocs', input: iocs.join('\n') }),
+      signal: AbortSignal.timeout(30_000),
     });
     if (!r.ok) throw new Error(r.statusText);
     const data = (await r.json()) as { bundle: { id: string } };

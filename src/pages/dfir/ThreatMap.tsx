@@ -503,7 +503,7 @@ export default function ThreatMap(): JSX.Element {
                   <div className="font-bold text-amber-300">{hoveredAgg.country}</div>
                   <div>{hoveredAgg.count} malicious IPs</div>
                   {Object.entries(hoveredAgg.sources).map(([s, n]) => (
-                    <div key={s} className="text-slate-400">
+                    <div key={s} className="text-slate-500">
                       {s}: {n}
                     </div>
                   ))}

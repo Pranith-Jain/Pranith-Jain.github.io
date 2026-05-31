@@ -57,3 +57,5 @@ stats.html
 /[0-9]*.jpeg
 /[0-9]*.png
 .claude/
+cti-ai-skills/
+dfir-ai-skills/

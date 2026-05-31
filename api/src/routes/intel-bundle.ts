@@ -23,7 +23,7 @@ import { detectType, type IndicatorType } from '../lib/indicator';
 import { extract, type ExtractedEntities } from '../lib/extract';
 import { enrichBulk, type BulkEnrichResult } from '../lib/enrich-bulk';
 import { enrichCves, type CveEnrichment } from '../lib/cve-enrich';
-import { extractLlm, EMPTY_LLM_ENTITIES } from '../lib/extract-llm';
+import { extractLlm, EMPTY_LLM_ENTITIES, type LlmEntities } from '../lib/extract-llm';
 import { buildStixBundle, type BuildResult, type ReportInput, type Tlp } from '../lib/stix-build';
 import { pinnedFetchFollow, SsrfError } from '../lib/ssrf-guard';
 import { requireAdmin } from '../lib/admin-auth';
@@ -562,19 +562,34 @@ export async function intelBundleBuildHandler(c: Context<{ Bindings: Env }>): Pr
   // degrade to empty on failure. The LLM step matches what the cron warmer
   // does so STIX builder ad-hoc inputs get the same sector / candidate
   // signal as briefings persisted by the warmer.
-  const [bulk, cveEnrichments, llmEntities] = await Promise.all([
-    enrichBulk(
-      entities.iocs.map((i) => ({ type: i.type, value: i.value })),
-      c.env
-    ),
-    enrichCves(entities.cves),
-    extractLlm(report.title, report.body, entities, c.env).catch(() => ({
-      ...EMPTY_LLM_ENTITIES,
-      ran: false,
-      partial: false,
-    })),
-  ]);
-  const built = await buildStixBundle(report, entities, bulk, cveEnrichments, llmEntities);
+  let bulk: Awaited<ReturnType<typeof enrichBulk>> = { enrichments: [], partial: false, overflow: [] };
+  let cveEnrichments = new Map<string, CveEnrichment>();
+  let llmEntities: LlmEntities = { ...EMPTY_LLM_ENTITIES };
+  try {
+    [bulk, cveEnrichments, llmEntities] = await Promise.all([
+      enrichBulk(
+        entities.iocs.map((i) => ({ type: i.type, value: i.value })),
+        c.env
+      ),
+      enrichCves(entities.cves),
+      extractLlm(report.title, report.body, entities, c.env).catch(() => ({
+        ...EMPTY_LLM_ENTITIES,
+        ran: false,
+        partial: false,
+      })),
+    ]);
+  } catch (err) {
+    console.error('STIX build enrichment phase failed:', err);
+    return jsonResponse(c, { error: 'enrichment_failed' }, 502);
+  }
+
+  let built: BuildResult;
+  try {
+    built = await buildStixBundle(report, entities, bulk, cveEnrichments, llmEntities);
+  } catch (err) {
+    console.error('STIX build bundle assembly failed:', err);
+    return jsonResponse(c, { error: 'build_failed' }, 502);
+  }
 
   const db = c.env.BRIEFINGS_DB;
   if (db) {

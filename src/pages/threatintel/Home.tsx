@@ -192,6 +192,12 @@ const SECTIONS: Section[] = [
         icon: AlertTriangle,
       },
       {
+        to: '/threatintel/darkweb-tools',
+        label: 'Dark Web OSINT Tools',
+        desc: 'Curated directory of dark-web investigation tools across 8 categories — search engines, onion link discovery, scanners, crawlers, intel platforms, and more.',
+        icon: Globe,
+      },
+      {
         to: '/threatintel/telegram-leaks',
         label: 'Telegram Leak Monitor',
         desc: 'Credential leaks, paste dumps, and file leaks detected across monitored Telegram channels. Search by keyword, channel, or severity.',
@@ -292,13 +298,6 @@ const SECTIONS: Section[] = [
         label: 'Aggregated Feeds',
         desc: 'Browse all 21 CriticalPathSecurity public feed files with search and category filter. See sample entries per feed.',
         icon: Layers,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/feed-catalog',
-        label: 'Feed Catalog',
-        desc: 'Searchable directory of 100+ open-source threat intel feeds from Bert-JanP. Filter by category, source, and format.',
-        icon: BookText,
         badge: 'new',
       },
     ],
@@ -530,13 +529,6 @@ const SECTIONS: Section[] = [
         badge: 'new',
       },
       {
-        to: '/threatintel/yara',
-        label: 'YARA Rule Hub',
-        desc: 'Browse 1,200+ YARA rules from YARAHub (abuse.ch). Search by name/author/family, view full rule content with syntax highlighting, and download.',
-        icon: FileCode,
-        badge: 'new',
-      },
-      {
         to: '/threatintel/malware-vault',
         label: 'Malware Vault',
         desc: 'Viper-inspired sample storage. Upload files, auto-hash (MD5/SHA1/SHA256), detect magic bytes, tag with family, search/download. 1MB limit per file via KV.',
@@ -585,6 +577,13 @@ const SECTIONS: Section[] = [
         label: 'Actor Behavioral DNA',
         desc: 'Fingerprint threat actors by behavior, not just tools. TTP signatures, infrastructure patterns, operational tempo, and victimology.',
         icon: Dna,
+        badge: 'new',
+      },
+      {
+        to: '/threatintel/insider-threat-matrix',
+        label: 'Insider Threat Matrix',
+        desc: 'Open framework for insider threat investigations. 140+ techniques across Motive, Means, Preparation, Infringement, and Anti-Forensics.',
+        icon: UserCheck,
         badge: 'new',
       },
       {

@@ -192,7 +192,7 @@ export default function Copilot(): JSX.Element {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && investigate(query)}
+            onKeyDown={(e) => e.key === 'Enter' && void investigate(query)}
             placeholder="Ask about any CVE, threat actor, ransomware group, IP, or domain..."
             className="w-full pl-9 pr-14 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             disabled={loading}
@@ -420,7 +420,7 @@ export default function Copilot(): JSX.Element {
               <FileText size={12} /> download .md
             </button>
             <button
-              onClick={() => investigate(query)}
+              onClick={() => void investigate(query)}
               className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 transition-colors"
             >
               <RefreshCw size={12} /> re-investigate

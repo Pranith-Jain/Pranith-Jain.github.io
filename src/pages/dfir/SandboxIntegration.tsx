@@ -133,7 +133,7 @@ export default function SandboxIntegration(): JSX.Element {
           type="text"
           value={hash}
           onChange={(e) => setHash(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && handleLookup()}
+          onKeyDown={(e) => e.key === 'Enter' && void handleLookup()}
           placeholder="MD5, SHA-1, or SHA-256…"
           className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg px-4 py-2.5 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
         />

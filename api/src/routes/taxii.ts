@@ -144,13 +144,13 @@ export async function taxiiObjectsHandler(c: Context<{ Bindings: Env }>): Promis
         objects = await getIocObjects(db, limit, addedAfter);
         break;
       case 'actors':
-        objects = await getActorObjects(limit);
+        objects = await getActorObjects(db, limit);
         break;
       case 'malware':
-        objects = await getMalwareObjects(limit);
+        objects = await getMalwareObjects(db, limit);
         break;
       case 'vulnerabilities':
-        objects = await getVulnerabilityObjects(limit);
+        objects = await getVulnerabilityObjects(db, limit);
         break;
       case 'briefings':
         objects = await getBriefingObjects(db, limit);
@@ -263,8 +263,37 @@ async function getIocObjects(db: D1Database, limit: number, addedAfter?: string)
   });
 }
 
-async function getActorObjects(limit: number): Promise<Record<string, unknown>[]> {
-  // Return static threat actor data (would be expanded with full actor KB)
+async function getActorObjects(db: D1Database, limit: number): Promise<Record<string, unknown>[]> {
+  // Query graph DB for actor nodes; fall back to hardcoded if empty
+  const rows = await db
+    .prepare(
+      'SELECT id, value, properties, confidence, sources, last_seen FROM graph_nodes WHERE type = ? ORDER BY confidence DESC LIMIT ?'
+    )
+    .bind('actor', limit)
+    .all<{ id: string; value: string; properties: string; confidence: number; sources: string; last_seen: string }>();
+  const fromDb = (rows.results ?? []).map((r) => {
+    const props = JSON.parse(r.properties || '{}') as Record<string, unknown>;
+    const sources = JSON.parse(r.sources || '[]') as string[];
+    return {
+      type: 'threat-actor',
+      spec_version: '2.1',
+      id: `threat-actor--${crypto.randomUUID()}`,
+      created: r.last_seen,
+      modified: r.last_seen,
+      name: props.label ?? r.value,
+      aliases: [r.value],
+      description: `Threat actor from ${sources.join(', ') || 'unknown source'}`,
+      threat_actor_types: ['unknown'],
+      sophistication: 'advanced',
+      resource_level: 'unknown',
+      primary_motivation: 'unknown',
+      confidence: r.confidence,
+    };
+  });
+
+  if (fromDb.length > 0) return fromDb;
+
+  // Fallback: hardcoded actors
   const ACTORS = [
     { name: 'APT28', aliases: ['Fancy Bear', 'Sofacy'], country: 'Russia' },
     { name: 'APT29', aliases: ['Cozy Bear', 'The Dukes'], country: 'Russia' },
@@ -272,7 +301,6 @@ async function getActorObjects(limit: number): Promise<Record<string, unknown>[]
     { name: 'APT41', aliases: ['Double Dragon', 'Winnti'], country: 'China' },
     { name: 'Sandworm', aliases: ['Voodoo Bear', 'Seashell Blizzard'], country: 'Russia' },
   ];
-
   return ACTORS.slice(0, limit).map((actor) => ({
     type: 'threat-actor',
     spec_version: '2.1',
@@ -290,7 +318,31 @@ async function getActorObjects(limit: number): Promise<Record<string, unknown>[]
   }));
 }
 
-async function getMalwareObjects(limit: number): Promise<Record<string, unknown>[]> {
+async function getMalwareObjects(db: D1Database, limit: number): Promise<Record<string, unknown>[]> {
+  const rows = await db
+    .prepare(
+      'SELECT id, value, properties, confidence, sources, last_seen FROM graph_nodes WHERE type = ? ORDER BY confidence DESC LIMIT ?'
+    )
+    .bind('malware', limit)
+    .all<{ id: string; value: string; properties: string; confidence: number; sources: string; last_seen: string }>();
+  const fromDb = (rows.results ?? []).map((r) => {
+    const props = JSON.parse(r.properties || '{}') as Record<string, unknown>;
+    return {
+      type: 'malware',
+      spec_version: '2.1',
+      id: `malware--${crypto.randomUUID()}`,
+      created: r.last_seen,
+      modified: r.last_seen,
+      name: props.label ?? r.value,
+      description: `Malware from graph database (confidence: ${r.confidence})`,
+      malware_types: ['unknown'],
+      is_family: true,
+      confidence: r.confidence,
+    };
+  });
+
+  if (fromDb.length > 0) return fromDb;
+
   const MALWARE = [
     {
       name: 'Cobalt Strike',
@@ -302,7 +354,6 @@ async function getMalwareObjects(limit: number): Promise<Record<string, unknown>
     { name: 'LockBit', type: 'ransomware', description: 'Ransomware-as-a-service operation' },
     { name: 'TrickBot', type: 'banking-trojan', description: 'Modular banking trojan with C2 capabilities' },
   ];
-
   return MALWARE.slice(0, limit).map((m) => ({
     type: 'malware',
     spec_version: '2.1',
@@ -316,8 +367,27 @@ async function getMalwareObjects(limit: number): Promise<Record<string, unknown>
   }));
 }
 
-async function getVulnerabilityObjects(limit: number): Promise<Record<string, unknown>[]> {
-  // Return recent high-severity CVEs (would be expanded with full CVE data)
+async function getVulnerabilityObjects(db: D1Database, limit: number): Promise<Record<string, unknown>[]> {
+  const rows = await db
+    .prepare(
+      'SELECT id, value, properties, confidence, sources, last_seen FROM graph_nodes WHERE type = ? ORDER BY last_seen DESC LIMIT ?'
+    )
+    .bind('cve', limit)
+    .all<{ id: string; value: string; properties: string; confidence: number; sources: string; last_seen: string }>();
+  const fromDb = (rows.results ?? []).map((r) => ({
+    type: 'vulnerability',
+    spec_version: '2.1',
+    id: `vulnerability--${r.value}`,
+    created: r.last_seen,
+    modified: r.last_seen,
+    name: r.value.toUpperCase(),
+    description: `CVE from graph database (confidence: ${r.confidence})`,
+    external_references: [{ source_name: 'CVE', external_id: r.value.toUpperCase() }],
+    confidence: r.confidence,
+  }));
+
+  if (fromDb.length > 0) return fromDb;
+
   return [
     {
       type: 'vulnerability',

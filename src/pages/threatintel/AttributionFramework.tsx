@@ -88,7 +88,7 @@ export default function AttributionFramework(): JSX.Element {
           />
         </div>
         <button
-          onClick={handleAssess}
+          onClick={() => void handleAssess()}
           disabled={loading || !indicators.trim()}
           className="mt-3 w-full px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-lg text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2"
         >

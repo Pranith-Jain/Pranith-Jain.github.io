@@ -364,7 +364,7 @@ export default function Phishing(): JSX.Element {
             type="url"
             value={aaUrl}
             onChange={(e) => setAaUrl(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && runAutoAnalyze()}
+            onKeyDown={(e) => e.key === 'Enter' && void runAutoAnalyze()}
             placeholder="https://example.com/login"
             aria-label="URL to auto-analyze"
             className="flex-1 px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
@@ -474,7 +474,7 @@ export default function Phishing(): JSX.Element {
                       {f.type}
                     </span>
                     <span className="text-brand-600 dark:text-brand-400">{f.name || '—'}</span>
-                    <span className="text-slate-400">{f.placeholder || ''}</span>
+                    <span className="text-slate-500">{f.placeholder || ''}</span>
                   </div>
                 ))}
               </div>

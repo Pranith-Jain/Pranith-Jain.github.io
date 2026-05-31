@@ -397,7 +397,7 @@ export default function StixViewer(): JSX.Element {
                 <div className="text-xs font-mono uppercase tracking-wider text-slate-500">Selected object</div>
                 <button
                   type="button"
-                  onClick={copySelected}
+                  onClick={() => void copySelected()}
                   className="inline-flex items-center gap-1 text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline"
                 >
                   {copied ? <Check size={12} /> : <Copy size={12} />}

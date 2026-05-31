@@ -65,7 +65,7 @@ export default function ApprovedTab() {
     return (
       <div>
         <p className="text-red-400 mb-2">Failed to load: {error}</p>
-        <button onClick={load} className="px-3 py-1 border border-slate-700 rounded text-sm">
+        <button onClick={() => void load()} className="px-3 py-1 border border-slate-700 rounded text-sm">
           Retry
         </button>
       </div>

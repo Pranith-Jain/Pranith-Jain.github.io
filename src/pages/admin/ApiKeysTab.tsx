@@ -176,12 +176,22 @@ export default function ApiKeysTab() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-slate-800 text-left text-xs text-slate-500 uppercase tracking-wider">
-                  <th className="pb-2 pr-4">Prefix</th>
-                  <th className="pb-2 pr-4">Label</th>
-                  <th className="pb-2 pr-4">Role</th>
-                  <th className="pb-2 pr-4">Created</th>
-                  <th className="pb-2 pr-4">Last Used</th>
-                  <th className="pb-2"></th>
+                  <th scope="col" className="pb-2 pr-4">
+                    Prefix
+                  </th>
+                  <th scope="col" className="pb-2 pr-4">
+                    Label
+                  </th>
+                  <th scope="col" className="pb-2 pr-4">
+                    Role
+                  </th>
+                  <th scope="col" className="pb-2 pr-4">
+                    Created
+                  </th>
+                  <th scope="col" className="pb-2 pr-4">
+                    Last Used
+                  </th>
+                  <th scope="col" className="pb-2"></th>
                 </tr>
               </thead>
               <tbody>

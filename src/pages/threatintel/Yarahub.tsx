@@ -15,7 +15,7 @@ interface YaraRuleEntry {
 
 interface YaraifyListResponse {
   query_status: string;
-  data?: YaraRuleEntry[];
+  data?: YaraRuleEntry[] | string;
 }
 
 export default function Yarahub(): JSX.Element {
@@ -39,9 +39,9 @@ export default function Yarahub(): JSX.Element {
       }
       const json = (await res.json()) as YaraifyListResponse;
       if (json.query_status !== 'ok') {
-        throw new Error(`YARAify returned: ${json.query_status}`);
+        throw new Error(`YARAify API: ${json.query_status}${typeof json.data === 'string' ? ` — ${json.data}` : ''}`);
       }
-      setRules(json.data ?? []);
+      setRules(Array.isArray(json.data) ? json.data : []);
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Failed to fetch YARA rules');
       setRules([]);
@@ -69,13 +69,13 @@ export default function Yarahub(): JSX.Element {
     e.preventDefault();
   };
 
-  const viewRule = async (name: string) => {
-    setContentName(name);
+  const viewRule = async (uuid: string, ruleName?: string) => {
+    setContentName(ruleName ?? uuid);
     setContentLoading(true);
     setRuleContent(null);
     setContentError(null);
     try {
-      const res = await fetch(`/api/v1/yara-hub/rule/${encodeURIComponent(name)}`);
+      const res = await fetch(`/api/v1/yara-hub/rule/${encodeURIComponent(uuid)}`);
       if (!res.ok) {
         const body = await res.json().catch(() => ({}));
         throw new Error(((body as Record<string, unknown>)?.error as string) ?? `HTTP ${res.status}`);
@@ -83,11 +83,14 @@ export default function Yarahub(): JSX.Element {
       const ct = res.headers.get('content-type') ?? '';
       if (ct.includes('json')) {
         const json = (await res.json()) as Record<string, unknown>;
-        const data = json as Record<string, unknown>;
-        if (data.rule_content) {
-          setRuleContent(data.rule_content as string);
-        } else if (data.data && typeof data.data === 'object' && (data.data as Record<string, unknown>).rule_content) {
-          setRuleContent((data.data as Record<string, unknown>).rule_content as string);
+        if (json.rule_content) {
+          setRuleContent(json.rule_content as string);
+        } else if (json.data && typeof json.data === 'object' && (json.data as Record<string, unknown>).rule_content) {
+          setRuleContent((json.data as Record<string, unknown>).rule_content as string);
+        } else if (typeof json.data === 'string') {
+          setContentError(json.data as string);
+        } else if (json.query_status === 'error') {
+          setContentError(typeof json.data === 'string' ? json.data : 'YARAify API returned an error');
         } else {
           setRuleContent(JSON.stringify(json, null, 2));
           setContentError('Unexpected response format — showing raw JSON');
@@ -203,7 +206,7 @@ export default function Yarahub(): JSX.Element {
                   <div className="flex-1 min-w-0">
                     <button
                       type="button"
-                      onClick={() => void viewRule(rule.rule_name)}
+                      onClick={() => void viewRule(rule.yarahub_uuid ?? rule.rule_name, rule.rule_name)}
                       className="text-left font-display font-semibold text-sm text-brand-600 dark:text-brand-400 hover:underline break-all"
                     >
                       {rule.rule_name}
@@ -231,7 +234,7 @@ export default function Yarahub(): JSX.Element {
                   </div>
                   <button
                     type="button"
-                    onClick={() => void viewRule(rule.rule_name)}
+                    onClick={() => void viewRule(rule.yarahub_uuid ?? rule.rule_name, rule.rule_name)}
                     className="shrink-0 ml-3 text-[11px] font-mono px-2.5 py-1 rounded border border-slate-200 dark:border-slate-700 hover:border-brand-500/40 text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
                   >
                     View rule

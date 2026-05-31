@@ -270,7 +270,7 @@ export default function StixBuilder(): JSX.Element {
           </div>
           <button
             type="button"
-            onClick={runBuild}
+            onClick={() => void runBuild()}
             disabled={build.status === 'building' || !input.trim()}
             className="inline-flex items-center gap-2 rounded-md border border-brand-500/40 bg-brand-500/15 px-3 py-1.5 text-xs font-mono uppercase tracking-wider text-brand-700 transition-colors hover:bg-brand-500/25 disabled:opacity-50 disabled:cursor-not-allowed dark:text-brand-300"
           >

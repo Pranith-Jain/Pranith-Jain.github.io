@@ -1,3 +1,5 @@
+import type { D1Database } from '@cloudflare/workers-types';
+
 export interface Watch {
   id: string;
   label: string;
@@ -21,20 +23,67 @@ export interface AlertEvent {
 const WATCHES_KV_KEY = 'watches:v1';
 const ALERT_LOG_KV_KEY = 'alert-log:v1';
 
-export async function listWatches(kv: KVNamespace): Promise<Watch[]> {
+async function ensureWatchTables(db: D1Database): Promise<void> {
+  await db
+    .prepare(
+      `CREATE TABLE IF NOT EXISTS watches (
+    id TEXT PRIMARY KEY,
+    label TEXT NOT NULL,
+    type TEXT NOT NULL,
+    value TEXT NOT NULL,
+    webhook TEXT NOT NULL,
+    created_at TEXT NOT NULL,
+    last_triggered TEXT
+  )`
+    )
+    .run();
+  await db
+    .prepare(
+      `CREATE TABLE IF NOT EXISTS alert_logs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    watch_id TEXT NOT NULL,
+    label TEXT NOT NULL,
+    type TEXT NOT NULL,
+    value TEXT NOT NULL,
+    matched_at TEXT NOT NULL,
+    match TEXT NOT NULL,
+    detail TEXT
+  )`
+    )
+    .run();
+  await db.prepare('CREATE INDEX IF NOT EXISTS idx_alert_logs_matched ON alert_logs(matched_at)').run();
+}
+
+export async function listWatches(kv: KVNamespace, db?: D1Database): Promise<Watch[]> {
+  if (db) {
+    try {
+      await ensureWatchTables(db);
+      const rows = await db.prepare('SELECT * FROM watches ORDER BY created_at DESC').all<Watch>();
+      if (rows.results && rows.results.length > 0) return rows.results;
+    } catch {
+      /* fall through to KV */
+    }
+  }
   const raw = await kv.get(WATCHES_KV_KEY, 'json').catch(() => null);
   return (raw as Watch[]) ?? [];
 }
 
-/**
- * Save a watch to KV.
- *
- * Note: KV operations are eventually consistent. Concurrent saves to the
- * same key may result in last-write-wins. For a personal portfolio site
- * with single-user admin, this is acceptable. For multi-user scenarios,
- * implement optimistic locking with version numbers.
- */
-export async function saveWatch(kv: KVNamespace, watch: Watch): Promise<void> {
+export async function saveWatch(kv: KVNamespace, watch: Watch, db?: D1Database): Promise<void> {
+  if (db) {
+    try {
+      await ensureWatchTables(db);
+      await db
+        .prepare(
+          `INSERT OR REPLACE INTO watches (id, label, type, value, webhook, created_at, last_triggered)
+        VALUES (?, ?, ?, ?, ?, ?, ?)`
+        )
+        .bind(watch.id, watch.label, watch.type, watch.value, watch.webhook, watch.created_at, watch.last_triggered)
+        .run();
+      return;
+    } catch {
+      /* fall through to KV */
+    }
+  }
   const watches = await listWatches(kv);
   const idx = watches.findIndex((w) => w.id === watch.id);
   if (idx >= 0) watches[idx] = watch;
@@ -42,12 +91,36 @@ export async function saveWatch(kv: KVNamespace, watch: Watch): Promise<void> {
   await kv.put(WATCHES_KV_KEY, JSON.stringify(watches));
 }
 
-export async function deleteWatch(kv: KVNamespace, id: string): Promise<void> {
+export async function deleteWatch(kv: KVNamespace, id: string, db?: D1Database): Promise<void> {
+  if (db) {
+    try {
+      await ensureWatchTables(db);
+      await db.prepare('DELETE FROM watches WHERE id = ?').bind(id).run();
+      return;
+    } catch {
+      /* fall through to KV */
+    }
+  }
   const watches = await listWatches(kv);
   await kv.put(WATCHES_KV_KEY, JSON.stringify(watches.filter((w) => w.id !== id)));
 }
 
-export async function appendAlertLog(kv: KVNamespace, event: AlertEvent): Promise<void> {
+export async function appendAlertLog(kv: KVNamespace, event: AlertEvent, db?: D1Database): Promise<void> {
+  if (db) {
+    try {
+      await ensureWatchTables(db);
+      await db
+        .prepare(
+          `INSERT INTO alert_logs (watch_id, label, type, value, matched_at, match, detail)
+        VALUES (?, ?, ?, ?, ?, ?, ?)`
+        )
+        .bind(event.watch_id, event.label, event.type, event.value, event.matched_at, event.match, event.detail ?? null)
+        .run();
+      return;
+    } catch {
+      /* fall through to KV */
+    }
+  }
   const raw = await kv.get(ALERT_LOG_KV_KEY, 'json').catch(() => null);
   const log = (raw as AlertEvent[]) ?? [];
   log.unshift(event);
@@ -55,7 +128,19 @@ export async function appendAlertLog(kv: KVNamespace, event: AlertEvent): Promis
   await kv.put(ALERT_LOG_KV_KEY, JSON.stringify(log));
 }
 
-export async function getAlertLog(kv: KVNamespace): Promise<AlertEvent[]> {
+export async function getAlertLog(kv: KVNamespace, db?: D1Database, limit: number = 100): Promise<AlertEvent[]> {
+  if (db) {
+    try {
+      await ensureWatchTables(db);
+      const rows = await db
+        .prepare('SELECT * FROM alert_logs ORDER BY matched_at DESC LIMIT ?')
+        .bind(limit)
+        .all<AlertEvent>();
+      if (rows.results && rows.results.length > 0) return rows.results;
+    } catch {
+      /* fall through to KV */
+    }
+  }
   const raw = await kv.get(ALERT_LOG_KV_KEY, 'json').catch(() => null);
   return (raw as AlertEvent[]) ?? [];
 }
@@ -65,12 +150,14 @@ async function readCachedJson<T>(cacheKey: string): Promise<T | null> {
     const cache = caches.default;
     const cached = await cache.match(new Request(cacheKey));
     if (cached) return (await cached.json()) as T;
-  } catch { /* cold */ }
+  } catch {
+    /* cold */
+  }
   return null;
 }
 
-export async function checkWatches(kv: KVNamespace, now: string): Promise<AlertEvent[]> {
-  const watches = await listWatches(kv);
+export async function checkWatches(kv: KVNamespace, now: string, db?: D1Database): Promise<AlertEvent[]> {
+  const watches = await listWatches(kv, db);
   if (watches.length === 0) return [];
 
   const alerts: AlertEvent[] = [];
@@ -91,7 +178,9 @@ export async function checkWatches(kv: KVNamespace, now: string): Promise<AlertE
       let detail = '';
 
       if (watch.type === 'ransomware-group') {
-        const data = await readCachedJson<{ victims: Array<{ victim: string; group: string }> }>('https://ransomware-recent-cache.internal/v8-af-source');
+        const data = await readCachedJson<{ victims: Array<{ victim: string; group: string }> }>(
+          'https://ransomware-recent-cache.internal/v8-af-source'
+        );
         if (data) {
           const re = new RegExp(`\\b${escapeRegex(watch.value)}\\b`, 'i');
           const victim = (data.victims ?? []).find((v) => re.test(v.group));
@@ -102,13 +191,13 @@ export async function checkWatches(kv: KVNamespace, now: string): Promise<AlertE
           }
         }
       } else if (watch.type === 'cve-keyword') {
-        const data = await readCachedJson<{ cves: Array<{ id: string; description?: string }> }>('https://cve-recent-cache.internal/v10-750-paged');
+        const data = await readCachedJson<{ cves: Array<{ id: string; description?: string }> }>(
+          'https://cve-recent-cache.internal/v10-750-paged'
+        );
         if (data) {
           const re = new RegExp(`\\b${escapeRegex(watch.value)}\\b`, 'i');
           const match = (data.cves ?? []).find(
-            (c) =>
-              c.id.toLowerCase().includes(watch.value.toLowerCase()) ||
-              re.test(c.description ?? '')
+            (c) => c.id.toLowerCase().includes(watch.value.toLowerCase()) || re.test(c.description ?? '')
           );
           if (match) {
             matched = true;
@@ -117,11 +206,11 @@ export async function checkWatches(kv: KVNamespace, now: string): Promise<AlertE
           }
         }
       } else if (watch.type === 'ioc') {
-        const data = await readCachedJson<{ items: Array<{ value: string; kind: string; source: string }> }>('https://live-iocs-cache.internal/v11-freshness-filter');
+        const data = await readCachedJson<{ items: Array<{ value: string; kind: string; source: string }> }>(
+          'https://live-iocs-cache.internal/v11-freshness-filter'
+        );
         if (data) {
-          const match = (data.items ?? []).find(
-            (i) => i.value.toLowerCase() === watch.value.toLowerCase()
-          );
+          const match = (data.items ?? []).find((i) => i.value.toLowerCase() === watch.value.toLowerCase());
           if (match) {
             matched = true;
             matchText = match.value;
@@ -129,12 +218,12 @@ export async function checkWatches(kv: KVNamespace, now: string): Promise<AlertE
           }
         }
       } else if (watch.type === 'actor') {
-        const data = await readCachedJson<{ groups: Array<{ display_name: string; slug: string; posts_in_window: number }> }>('https://actor-timeline-cache.internal/v3-mti');
+        const data = await readCachedJson<{
+          groups: Array<{ display_name: string; slug: string; posts_in_window: number }>;
+        }>('https://actor-timeline-cache.internal/v3-mti');
         if (data) {
           const re = new RegExp(`\\b${escapeRegex(watch.value)}\\b`, 'i');
-          const match = (data.groups ?? []).find(
-            (g) => re.test(g.display_name) || re.test(g.slug)
-          );
+          const match = (data.groups ?? []).find((g) => re.test(g.display_name) || re.test(g.slug));
           if (match && match.posts_in_window > 0) {
             matched = true;
             matchText = match.display_name;
@@ -173,14 +262,47 @@ export async function checkWatches(kv: KVNamespace, now: string): Promise<AlertE
     }
   }
 
-  // Batch-persist: write watches and alert log once instead of per-watch.
-  // Previously each triggered watch did a read+write of watches:v1 and
-  // alert-log:v1 — with 10 triggers that was 20 KV reads + 20 KV writes.
-  // Now: 2 reads (already done above) + 2 writes total.
+  // Batch-persist — D1 primary, KV fallback
   if (alerts.length > 0) {
     try {
+      if (db) {
+        await ensureWatchTables(db);
+        for (const w of watches) {
+          await db
+            .prepare(
+              `INSERT OR REPLACE INTO watches (id, label, type, value, webhook, created_at, last_triggered)
+            VALUES (?, ?, ?, ?, ?, ?, ?)`
+            )
+            .bind(w.id, w.label, w.type, w.value, w.webhook, w.created_at, w.last_triggered)
+            .run();
+        }
+        for (const event of alerts) {
+          await db
+            .prepare(
+              `INSERT INTO alert_logs (watch_id, label, type, value, matched_at, match, detail)
+            VALUES (?, ?, ?, ?, ?, ?, ?)`
+            )
+            .bind(
+              event.watch_id,
+              event.label,
+              event.type,
+              event.value,
+              event.matched_at,
+              event.match,
+              event.detail ?? null
+            )
+            .run();
+        }
+      }
+    } catch {
+      /* non-fatal */
+    }
+
+    try {
       await kv.put(WATCHES_KV_KEY, JSON.stringify(watches));
-    } catch { /* non-fatal */ }
+    } catch {
+      /* non-fatal */
+    }
 
     try {
       const raw = await kv.get(ALERT_LOG_KV_KEY, 'json').catch(() => null);
@@ -188,7 +310,9 @@ export async function checkWatches(kv: KVNamespace, now: string): Promise<AlertE
       for (const event of alerts) log.unshift(event);
       if (log.length > 200) log.length = 200;
       await kv.put(ALERT_LOG_KV_KEY, JSON.stringify(log));
-    } catch { /* non-fatal */ }
+    } catch {
+      /* non-fatal */
+    }
   }
 
   return alerts;

@@ -21,6 +21,8 @@ import { buildBlocklists } from '../api/src/lib/blocklist-builder';
 import { indexTelegramLeaks } from '../api/src/routes/rag-index';
 import { indexAllCorpora } from '../api/src/routes/rag-corpus-index';
 import { detectPirAlerts } from '../api/src/routes/pir';
+import { runGraphIngest } from '../api/src/routes/graph-ingest';
+import { autoRunFeedJobs } from '../api/src/routes/feed-scheduler';
 import type { D1Database } from '@cloudflare/workers-types';
 import type { Env as ApiEnv } from '../api/src/env';
 import type { Env } from './env';
@@ -292,7 +294,7 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
 
         // === Watch engine ===
         try {
-          const watchAlerts = await checkWatches(env.KV_CACHE as unknown as KVNamespace, new Date().toISOString());
+          const watchAlerts = await checkWatches(env.KV_CACHE as unknown as KVNamespace, new Date().toISOString(), db);
           if (watchAlerts.length > 0) {
             console.log(
               JSON.stringify({
@@ -360,6 +362,46 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           }
         } catch (e) {
           console.error(JSON.stringify({ job: 'pir-alert-check', error: e instanceof Error ? e.message : String(e) }));
+        }
+
+        // === Graph ingestion (daily at 2am UTC) ===
+        if (csNow.getUTCHours() === 2) {
+          try {
+            if (!db) {
+              console.warn('graph-ingest: no db');
+              return;
+            }
+            const gResult = await runGraphIngest(db, 'all', env as never);
+            console.log(
+              JSON.stringify({
+                job: 'graph-ingest',
+                nodes_upserted: gResult['threat-intel']?.nodes_upserted ?? 0,
+                edges_created: gResult['threat-intel']?.edges_created ?? 0,
+                per_source: Object.fromEntries(
+                  Object.entries(gResult).map(([k, v]) => [
+                    k,
+                    { n: v.nodes_upserted, e: v.edges_created, err: v.errors.length },
+                  ])
+                ),
+              })
+            );
+          } catch (e) {
+            logCronFail('graph-ingest')(e);
+          }
+        }
+
+        // === Auto-run due feed jobs (every hour, 1 job max) ===
+        try {
+          if (env.KV_CACHE && db) {
+            const fr = await autoRunFeedJobs(env.KV_CACHE, db);
+            if (fr.ran > 0) {
+              console.log(
+                JSON.stringify({ job: 'feed-scheduler-auto', ran: fr.ran, saved: fr.saved, skipped: fr.skipped })
+              );
+            }
+          }
+        } catch (e) {
+          logCronFail('feed-scheduler-auto')(e);
         }
 
         // === RAG corpus re-index (every 6h, at ~:20 past) ===

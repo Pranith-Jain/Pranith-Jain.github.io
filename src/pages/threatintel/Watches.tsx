@@ -416,7 +416,7 @@ export default function Watches(): JSX.Element {
                   />
                 </div>
                 <button
-                  onClick={handleCreate}
+                  onClick={() => void handleCreate()}
                   disabled={submitting || !form.label || !form.value || !form.webhook}
                   className="w-full py-2 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors flex items-center justify-center gap-2 text-sm"
                 >

@@ -163,7 +163,7 @@ export default function BlogPost() {
         const posts = (data.posts ?? []) as PostIndexEntry[];
         setRelatedPosts(posts.filter((p) => p.slug !== slug).slice(0, 3));
       })
-      .catch(() => {});
+      .catch((e) => console.error('Failed to load related posts', e));
     return () => {
       cancelled = true;
     };

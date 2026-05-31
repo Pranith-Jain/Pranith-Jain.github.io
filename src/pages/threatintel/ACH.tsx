@@ -115,14 +115,14 @@ export default function ACH(): JSX.Element {
           type="text"
           value={topic}
           onChange={(e) => setTopic(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && analyze()}
+          onKeyDown={(e) => e.key === 'Enter' && void analyze()}
           placeholder="e.g. Qilin ransomware, Scattered Spider, CVE-2024-1709 campaign attribution…"
           className="flex-1 text-sm px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 focus:outline-none focus:ring-2 focus:ring-brand-500/40 placeholder:text-slate-400"
           disabled={loading}
         />
         <button
           type="button"
-          onClick={analyze}
+          onClick={() => void analyze()}
           disabled={loading || !topic.trim()}
           className="inline-flex items-center gap-2 text-sm font-mono px-5 py-2.5 rounded-xl bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 transition-colors"
         >

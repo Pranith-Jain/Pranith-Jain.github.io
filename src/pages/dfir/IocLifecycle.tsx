@@ -165,7 +165,7 @@ export default function IocLifecycle(): JSX.Element {
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && lookupIoc()}
+              onKeyDown={(e) => e.key === 'Enter' && void lookupIoc()}
               placeholder="Enter IP, domain, URL, or hash…"
               className="flex-1 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg px-4 py-2.5 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
             />
@@ -342,7 +342,7 @@ function StatCard({
   color,
 }: {
   label: string;
-  value: number;
+  value: number | null;
   icon?: React.ReactNode;
   color?: string;
 }) {
@@ -353,7 +353,7 @@ function StatCard({
         <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">{label}</span>
       </div>
       <div className={`text-2xl font-display font-bold ${color ?? 'text-slate-900 dark:text-white'}`}>
-        {value.toLocaleString()}
+        {(value ?? 0).toLocaleString()}
       </div>
     </div>
   );

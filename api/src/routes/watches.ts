@@ -6,7 +6,7 @@ import { safeJsonBody } from '../lib/safe-body';
 export async function listWatchesHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const kv = c.env.KV_CACHE;
   if (!kv) return c.json({ error: 'KV not available' }, 503);
-  const watches = await listWatches(kv);
+  const watches = await listWatches(kv, c.env.BRIEFINGS_DB);
   return c.json({ watches }, 200, { 'Cache-Control': 'no-store' });
 }
 
@@ -45,7 +45,7 @@ export async function createWatchHandler(c: Context<{ Bindings: Env }>): Promise
     last_triggered: null,
   };
 
-  await saveWatch(kv, watch);
+  await saveWatch(kv, watch, c.env.BRIEFINGS_DB);
   return c.json({ watch }, 201);
 }
 
@@ -59,7 +59,7 @@ export async function updateWatchHandler(c: Context<{ Bindings: Env }>): Promise
   const parsed = await safeJsonBody<Partial<Watch>>(c, { maxBytes: 4 * 1024, maxDepth: 4 });
   if ('error' in parsed) return parsed.error;
   const body = parsed.value;
-  let watches = await listWatches(kv);
+  let watches = await listWatches(kv, c.env.BRIEFINGS_DB);
   const idx = watches.findIndex((w) => w.id === id);
   if (idx < 0) return c.json({ error: 'watch not found' }, 404);
 
@@ -67,7 +67,11 @@ export async function updateWatchHandler(c: Context<{ Bindings: Env }>): Promise
   if (body.label !== undefined) watch.label = body.label;
   if (body.value !== undefined) watch.value = body.value;
   if (body.webhook !== undefined) {
-    try { new URL(body.webhook); } catch { return c.json({ error: 'Invalid webhook URL' }, 400); }
+    try {
+      new URL(body.webhook);
+    } catch {
+      return c.json({ error: 'Invalid webhook URL' }, 400);
+    }
     watch.webhook = body.webhook;
   }
   if (body.type !== undefined) {
@@ -78,7 +82,7 @@ export async function updateWatchHandler(c: Context<{ Bindings: Env }>): Promise
   }
 
   watches = watches.map((w) => (w.id === id ? watch : w));
-  await kv.put('watches:v1', JSON.stringify(watches));
+  await saveWatch(kv, watch, c.env.BRIEFINGS_DB);
   return c.json({ watch });
 }
 
@@ -89,13 +93,13 @@ export async function deleteWatchHandler(c: Context<{ Bindings: Env }>): Promise
   const id = c.req.param('id');
   if (!id) return c.json({ error: 'id required' }, 400);
 
-  await deleteWatch(kv, id);
+  await deleteWatch(kv, id, c.env.BRIEFINGS_DB);
   return c.json({ ok: true });
 }
 
 export async function alertLogHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const kv = c.env.KV_CACHE;
   if (!kv) return c.json({ error: 'KV not available' }, 503);
-  const log = await getAlertLog(kv);
+  const log = await getAlertLog(kv, c.env.BRIEFINGS_DB);
   return c.json({ alerts: log }, 200, { 'Cache-Control': 'no-store' });
 }

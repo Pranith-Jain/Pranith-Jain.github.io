@@ -21,7 +21,7 @@ export async function yaraHubListHandler(c: Context<{ Bindings: Env }>) {
         'Auth-Key': authKey,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ query: 'get_recent_yara_rules', result_max: resultMax }),
+      body: JSON.stringify({ query: 'recent_yararules', result_max: resultMax }),
     });
 
     if (!res.ok) {
@@ -42,9 +42,9 @@ export async function yaraHubRuleHandler(c: Context<{ Bindings: Env }>) {
     return c.json({ error: 'ABUSECH_AUTH_KEY not configured on the server' }, 503);
   }
 
-  const ruleName = c.req.param('name');
-  if (!ruleName) {
-    return c.json({ error: 'Rule name is required' }, 400);
+  const uuid = c.req.param('uuid');
+  if (!uuid) {
+    return c.json({ error: 'Rule UUID is required' }, 400);
   }
 
   try {
@@ -56,7 +56,7 @@ export async function yaraHubRuleHandler(c: Context<{ Bindings: Env }>) {
       },
       body: JSON.stringify({
         query: 'get_yara_rule',
-        search_term: ruleName,
+        uuid,
       }),
     });
 

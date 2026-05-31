@@ -694,7 +694,7 @@ export default function DetectionLab(): JSX.Element {
                       <span className="text-[10px] uppercase tracking-wider text-slate-500">{it.kind}</span>
                       <code className="text-slate-800 dark:text-slate-200 break-all">{it.value}</code>
                       <span className="text-slate-500">{it.source}</span>
-                      {it.context && <span className="text-slate-400 italic">· {it.context}</span>}
+                      {it.context && <span className="text-slate-500 italic">· {it.context}</span>}
                     </li>
                   ))}
                 </ul>

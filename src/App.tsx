@@ -108,6 +108,7 @@ const ThreatGraph = lazy(() => import('./pages/dfir/ThreatGraph'));
 const AttackChain = lazy(() => import('./pages/dfir/AttackChain'));
 const ActorDNA = lazy(() => import('./pages/threatintel/ActorDNA'));
 const PredictiveIntel = lazy(() => import('./pages/threatintel/PredictiveIntel'));
+const InsiderThreatMatrix = lazy(() => import('./pages/threatintel/InsiderThreatMatrix'));
 const CampaignLifecycle = lazy(() => import('./pages/threatintel/CampaignLifecycle'));
 const AttributionFramework = lazy(() => import('./pages/threatintel/AttributionFramework'));
 const CrossCampaignCorrelation = lazy(() => import('./pages/threatintel/CrossCampaignCorrelation'));
@@ -164,6 +165,7 @@ const OnionWatch = lazy(() => import('./pages/dfir/OnionWatch'));
 const TelegramWatch = lazy(() => import('./pages/dfir/TelegramWatch'));
 const AwesomeLists = lazy(() => import('./pages/dfir/AwesomeLists'));
 const ExternalResources = lazy(() => import('./pages/threatintel/ExternalResources'));
+const DarkWebOsintTools = lazy(() => import('./pages/threatintel/DarkWebOsintTools'));
 const ThreatIntelHome = lazy(() => import('./pages/threatintel/Home'));
 const ThreatIntelAbout = lazy(() => import('./pages/threatintel/About'));
 const ThreatPulse = lazy(() => import('./pages/threatintel/ThreatPulse'));
@@ -491,6 +493,14 @@ export function AppContent() {
           element={
             <LazyRoute>
               <PredictiveIntel />
+            </LazyRoute>
+          }
+        />
+        <Route
+          path="/threatintel/insider-threat-matrix"
+          element={
+            <LazyRoute>
+              <InsiderThreatMatrix />
             </LazyRoute>
           }
         />
@@ -1866,6 +1876,14 @@ export function AppContent() {
           element={
             <LazyRoute>
               <ExternalResources />
+            </LazyRoute>
+          }
+        />
+        <Route
+          path="/threatintel/darkweb-tools"
+          element={
+            <LazyRoute>
+              <DarkWebOsintTools />
             </LazyRoute>
           }
         />

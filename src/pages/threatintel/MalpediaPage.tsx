@@ -103,7 +103,7 @@ export default function MalpediaPage(): JSX.Element {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && search()}
+            onKeyDown={(e) => e.key === 'Enter' && void search()}
             placeholder={
               mode === 'actor'
                 ? 'Actor name (e.g. lazarus, apt28)'
@@ -115,7 +115,7 @@ export default function MalpediaPage(): JSX.Element {
           />
           <button
             type="button"
-            onClick={search}
+            onClick={() => void search()}
             disabled={loading || !query.trim()}
             className="px-4 py-2 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
           >

@@ -175,12 +175,24 @@ export default function CollectionSlo(): JSX.Element {
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-slate-200 dark:border-slate-800 text-[11px] font-mono text-slate-500 uppercase tracking-wider">
-                      <th className="text-left px-4 py-3 font-medium">Source</th>
-                      <th className="text-left px-4 py-3 font-medium">Rel.</th>
-                      <th className="text-left px-4 py-3 font-medium">Category</th>
-                      <th className="text-left px-4 py-3 font-medium">Status</th>
-                      <th className="text-right px-4 py-3 font-medium">Age</th>
-                      <th className="text-right px-4 py-3 font-medium">Uptime</th>
+                      <th scope="col" className="text-left px-4 py-3 font-medium">
+                        Source
+                      </th>
+                      <th scope="col" className="text-left px-4 py-3 font-medium">
+                        Rel.
+                      </th>
+                      <th scope="col" className="text-left px-4 py-3 font-medium">
+                        Category
+                      </th>
+                      <th scope="col" className="text-left px-4 py-3 font-medium">
+                        Status
+                      </th>
+                      <th scope="col" className="text-right px-4 py-3 font-medium">
+                        Age
+                      </th>
+                      <th scope="col" className="text-right px-4 py-3 font-medium">
+                        Uptime
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100 dark:divide-slate-800">

@@ -77,6 +77,26 @@ const SOURCE_PILL: Record<string, string> = {
   openphish: 'border-indigo-500/40 bg-indigo-500/10 text-indigo-700 dark:text-indigo-300',
   'sslbl-c2': 'border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300',
   botvrij: 'border-lime-500/40 bg-lime-500/10 text-lime-700 dark:text-lime-300',
+  'andreafortuna-defacements': 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
+  binarydefense: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300',
+  'tor-exit': 'border-purple-500/40 bg-purple-500/10 text-purple-700 dark:text-purple-300',
+  'avanzato-c2': 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
+  'cps-collected': 'border-blue-500/40 bg-blue-500/10 text-blue-700 dark:text-blue-300',
+  greensnow: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
+  'blocklist-de': 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
+  cinsscore: 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
+  'feodo-tracker': 'border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300',
+  'bbcan177-ips': 'border-blue-500/40 bg-blue-500/10 text-blue-700 dark:text-blue-300',
+  'bbcan177-dnsbl': 'border-indigo-500/40 bg-indigo-500/10 text-indigo-700 dark:text-indigo-300',
+  'domains-blacklist': 'border-slate-500/40 bg-slate-500/10 text-slate-700 dark:text-slate-300',
+  nocoin: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
+  'monero-miner': 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
+  'botvrij-hostnames': 'border-lime-500/40 bg-lime-500/10 text-lime-700 dark:text-lime-300',
+  'botvrij-urls': 'border-lime-500/40 bg-lime-500/10 text-lime-700 dark:text-lime-300',
+  'botvrij-ips': 'border-lime-500/40 bg-lime-500/10 text-lime-700 dark:text-lime-300',
+  hancitor: 'border-pink-500/40 bg-pink-500/10 text-pink-700 dark:text-pink-300',
+  darklist: 'border-slate-500/40 bg-slate-500/10 text-slate-700 dark:text-slate-300',
+  'bruteforce-blocker': 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
 };
 
 export default function LiveIocs(): JSX.Element {
@@ -196,7 +216,9 @@ export default function LiveIocs(): JSX.Element {
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
           Sources: TweetFeed, SANS ISC, C2IntelFeeds, Emerging Threats compromised-ips, AlienVault OTX reputation,
-          URLhaus, ThreatFox, MalwareBazaar, PhishTank, OpenPhish, abuse.ch SSLBL, Botvrij.eu.
+          URLhaus, ThreatFox, MalwareBazaar, PhishTank, Binary Defense, Tor Exit Nodes, Avanzato C2, CPS Collected,
+          GreenSnow, Blocklist.de, CINSscore, AndreaFortuna Defacements, Feodo Tracker, BBcan177 IPs/DNSBL, Domains
+          Blacklist, NoCoin, Monero Miner, Botvrij hostnames/URLs/IPs, Hancitor, Darklist, Brute Force Blocker.
         </p>
       </div>
 

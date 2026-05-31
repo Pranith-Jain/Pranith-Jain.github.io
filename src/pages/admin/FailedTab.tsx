@@ -68,7 +68,7 @@ export default function FailedTab() {
     return (
       <div>
         <p className="text-red-400 mb-2">Failed to load: {error}</p>
-        <button onClick={load} className="px-3 py-1 border border-slate-700 rounded text-sm">
+        <button onClick={() => void load()} className="px-3 py-1 border border-slate-700 rounded text-sm">
           Retry
         </button>
       </div>
@@ -91,7 +91,7 @@ export default function FailedTab() {
         )}
         <button
           type="button"
-          onClick={clearAll}
+          onClick={() => void clearAll()}
           disabled={busy !== null}
           className="px-2.5 py-1 border border-slate-700 rounded text-xs hover:bg-slate-800 disabled:opacity-50"
         >

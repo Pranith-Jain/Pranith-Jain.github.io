@@ -1,16 +1,30 @@
 import { useState, useEffect, useCallback } from 'react';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Database, Search, Loader2, Shield, Zap, RefreshCw, AlertTriangle, CheckCircle, HelpCircle } from 'lucide-react';
+import {
+  ArrowLeft,
+  Database,
+  Search,
+  Loader2,
+  Shield,
+  Zap,
+  RefreshCw,
+  AlertTriangle,
+  CheckCircle,
+  HelpCircle,
+} from 'lucide-react';
 
 interface BloomStats {
-  filters: Record<string, {
-    ioc_count?: number;
-    filter_size_bits?: number;
-    num_hashes?: number;
-    built_at?: string;
-    false_positive_rate?: string;
-    status?: string;
-  }>;
+  filters: Record<
+    string,
+    {
+      ioc_count?: number;
+      filter_size_bits?: number;
+      num_hashes?: number;
+      built_at?: string;
+      false_positive_rate?: string;
+      status?: string;
+    }
+  >;
   generated_at: string;
 }
 
@@ -23,9 +37,24 @@ interface BloomCheckResult {
 }
 
 const VERDICT_STYLE: Record<string, { border: string; bg: string; icon: typeof Shield; text: string }> = {
-  found: { border: 'border-rose-300/70 dark:border-rose-800/60', bg: 'bg-rose-50/60 dark:bg-rose-950/30', icon: AlertTriangle, text: 'text-rose-700 dark:text-rose-300' },
-  'not-found': { border: 'border-emerald-300/70 dark:border-emerald-800/60', bg: 'bg-emerald-50/60 dark:bg-emerald-950/30', icon: CheckCircle, text: 'text-emerald-700 dark:text-emerald-300' },
-  unknown: { border: 'border-amber-300/70 dark:border-amber-800/60', bg: 'bg-amber-50/60 dark:bg-amber-950/30', icon: HelpCircle, text: 'text-amber-700 dark:text-amber-300' },
+  found: {
+    border: 'border-rose-300/70 dark:border-rose-800/60',
+    bg: 'bg-rose-50/60 dark:bg-rose-950/30',
+    icon: AlertTriangle,
+    text: 'text-rose-700 dark:text-rose-300',
+  },
+  'not-found': {
+    border: 'border-emerald-300/70 dark:border-emerald-800/60',
+    bg: 'bg-emerald-50/60 dark:bg-emerald-950/30',
+    icon: CheckCircle,
+    text: 'text-emerald-700 dark:text-emerald-300',
+  },
+  unknown: {
+    border: 'border-amber-300/70 dark:border-amber-800/60',
+    bg: 'bg-amber-50/60 dark:bg-amber-950/30',
+    icon: HelpCircle,
+    text: 'text-amber-700 dark:text-amber-300',
+  },
 };
 
 export default function BloomFilter(): JSX.Element {
@@ -43,17 +72,24 @@ export default function BloomFilter(): JSX.Element {
       const ct = res.headers.get('content-type') ?? '';
       if (!ct.includes('json')) throw new Error('Server returned non-JSON');
       setStats((await res.json()) as BloomStats);
-    } catch { /* silent */ } finally {
+    } catch {
+      /* silent */
+    } finally {
       setStatsLoading(false);
     }
   }, []);
 
-  const buildFilter = useCallback(async (type: string) => {
-    try {
-      await fetch(`/api/v1/bloom/${type}`);
-      await fetchStats();
-    } catch { /* silent */ }
-  }, [fetchStats]);
+  const buildFilter = useCallback(
+    async (type: string) => {
+      try {
+        await fetch(`/api/v1/bloom/${type}`);
+        await fetchStats();
+      } catch {
+        /* silent */
+      }
+    },
+    [fetchStats]
+  );
 
   const checkIndicator = useCallback(async () => {
     if (!query.trim()) return;
@@ -69,12 +105,16 @@ export default function BloomFilter(): JSX.Element {
       const ct = res.headers.get('content-type') ?? '';
       if (!ct.includes('json')) throw new Error('Server returned non-JSON');
       setCheckResult((await res.json()) as BloomCheckResult);
-    } catch { /* silent */ } finally {
+    } catch {
+      /* silent */
+    } finally {
       setLoading(false);
     }
   }, [query]);
 
-  useEffect(() => { fetchStats(); }, [fetchStats]);
+  useEffect(() => {
+    fetchStats();
+  }, [fetchStats]);
 
   const verdict = checkResult?.found === true ? 'found' : checkResult?.found === false ? 'not-found' : 'unknown';
   const verdictStyle = VERDICT_STYLE[verdict] ?? VERDICT_STYLE.unknown;
@@ -82,7 +122,10 @@ export default function BloomFilter(): JSX.Element {
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink to="/dfir" className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono">
+      <BackLink
+        to="/dfir"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:text-brand-400 mb-8 font-mono"
+      >
         <ArrowLeft size={14} /> back
       </BackLink>
 
@@ -91,7 +134,8 @@ export default function BloomFilter(): JSX.Element {
           <Zap size={28} className="text-brand-600 dark:text-brand-400" /> Bloom Filter Lookup
         </h1>
         <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
-          Ultra-fast probabilistic IOC membership testing. Zero false negatives — if the filter says "not found", the indicator is definitely not in the set.
+          Ultra-fast probabilistic IOC membership testing. Zero false negatives — if the filter says "not found", the
+          indicator is definitely not in the set.
         </p>
       </div>
 
@@ -103,7 +147,9 @@ export default function BloomFilter(): JSX.Element {
             <Shield size={16} className="text-emerald-600 dark:text-emerald-400 mt-0.5 shrink-0" />
             <div>
               <div className="text-xs font-medium text-emerald-700 dark:text-emerald-300">No False Negatives</div>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">"Not found" means definitely not in the set.</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                "Not found" means definitely not in the set.
+              </p>
             </div>
           </div>
           <div className="flex items-start gap-2.5">
@@ -129,26 +175,39 @@ export default function BloomFilter(): JSX.Element {
           <h2 className="font-display font-bold text-sm flex items-center gap-2">
             <Database size={14} className="text-brand-600 dark:text-brand-400" /> Filter Status
           </h2>
-          <button onClick={fetchStats} className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 transition-colors">
+          <button
+            onClick={fetchStats}
+            className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 transition-colors"
+          >
             <RefreshCw size={14} />
           </button>
         </div>
         {statsLoading ? (
-          <div className="flex items-center justify-center py-6"><Loader2 size={20} className="animate-spin text-slate-400" /></div>
+          <div className="flex items-center justify-center py-6">
+            <Loader2 size={20} className="animate-spin text-slate-400" />
+          </div>
         ) : stats ? (
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {Object.entries(stats.filters).map(([type, filter]) => (
-              <div key={type} className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3">
+              <div
+                key={type}
+                className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3"
+              >
                 <div className="text-xs font-mono font-medium capitalize mb-1.5">{type}</div>
                 {filter.status === 'not_built' ? (
-                  <button onClick={() => buildFilter(type)} className="text-xs px-3 py-1.5 bg-brand-600 hover:bg-brand-500 text-white rounded-lg transition-colors">
+                  <button
+                    onClick={() => buildFilter(type)}
+                    className="text-xs px-3 py-1.5 bg-brand-600 hover:bg-brand-500 text-white rounded-lg transition-colors"
+                  >
                     Build
                   </button>
                 ) : (
                   <div className="space-y-0.5 text-xs text-slate-500 dark:text-slate-400">
                     <div>{filter.ioc_count?.toLocaleString()} IOCs</div>
                     <div>FPR: {filter.false_positive_rate}</div>
-                    <div className="text-[10px] text-slate-400">{filter.built_at ? new Date(filter.built_at).toLocaleTimeString() : '—'}</div>
+                    <div className="text-[10px] text-slate-400">
+                      {filter.built_at ? new Date(filter.built_at).toLocaleTimeString() : '—'}
+                    </div>
                   </div>
                 )}
               </div>
@@ -169,11 +228,15 @@ export default function BloomFilter(): JSX.Element {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && checkIndicator()}
+            onKeyDown={(e) => e.key === 'Enter' && void checkIndicator()}
             placeholder="Enter IP, domain, URL, or hash…"
             className="flex-1 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg px-4 py-2.5 text-sm font-mono text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
-          <button onClick={checkIndicator} disabled={loading || !query.trim()} className="px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-lg text-sm font-semibold text-white transition-colors flex items-center gap-2">
+          <button
+            onClick={() => void checkIndicator()}
+            disabled={loading || !query.trim()}
+            className="px-5 py-2.5 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-lg text-sm font-semibold text-white transition-colors flex items-center gap-2"
+          >
             {loading ? <Loader2 size={14} className="animate-spin" /> : <Zap size={14} />}
             Check
           </button>
@@ -184,7 +247,11 @@ export default function BloomFilter(): JSX.Element {
             <VerdictIcon size={18} className={verdictStyle.text} />
             <div>
               <div className={`text-sm font-medium ${verdictStyle.text}`}>
-                {checkResult.found === true ? 'Might be in set' : checkResult.found === false ? 'Not in set' : 'Unknown'}
+                {checkResult.found === true
+                  ? 'Might be in set'
+                  : checkResult.found === false
+                    ? 'Not in set'
+                    : 'Unknown'}
               </div>
               <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{checkResult.message}</div>
             </div>

@@ -1,10 +1,26 @@
-import { lazy, Suspense, useCallback, useEffect, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from 'react';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Search, Loader2, AlertTriangle, Bug, TrendingUp, Network } from 'lucide-react';
-import { NODE_COLORS, type GraphNodeData, type GraphResponse } from './relationship-graph-shared';
+import {
+  ArrowLeft,
+  Search,
+  Loader2,
+  AlertTriangle,
+  Bug,
+  TrendingUp,
+  Network,
+  Layout,
+  GitBranch,
+  Crosshair,
+  Expand,
+} from 'lucide-react';
+import {
+  NODE_COLORS,
+  type GraphNodeData,
+  type GraphResponse,
+  type LayoutMode,
+  type PathFinderState,
+} from './relationship-graph-shared';
 
-// The ReactFlow + dagre canvas (~250KB) loads only when a graph is rendered,
-// so the page shell paints immediately. See RelationshipGraphCanvas.tsx.
 const RelationshipGraphCanvas = lazy(() => import('./RelationshipGraphCanvas'));
 
 interface TrendingCve {
@@ -13,7 +29,6 @@ interface TrendingCve {
 }
 
 const EXAMPLE_QUERIES = ['LockBit', 'APT28', 'Lazarus Group', 'CVE-2024-1709', 'CVE-2023-34362'];
-
 const DEFAULT_AUTO_SEED = 'CVE-2024-1709';
 
 function CanvasFallback(): JSX.Element {
@@ -22,6 +37,52 @@ function CanvasFallback(): JSX.Element {
       <Loader2 size={14} className="animate-spin" /> loading graph engine…
     </div>
   );
+}
+
+function mergeWithGraph(existing: GraphResponse, incoming: GraphResponse): GraphResponse {
+  const nodeMap = new Map(existing.nodes.map((n) => [n.id, n]));
+  for (const n of incoming.nodes) {
+    if (!nodeMap.has(n.id)) nodeMap.set(n.id, n);
+  }
+  const edgeMap = new Map(existing.edges.map((e) => [e.id, e]));
+  for (const e of incoming.edges) {
+    if (!edgeMap.has(e.id)) edgeMap.set(e.id, e);
+  }
+  return {
+    ...existing,
+    nodes: [...nodeMap.values()],
+    edges: [...edgeMap.values()],
+    depth: Math.max(existing.depth, incoming.depth),
+    truncated: existing.truncated || incoming.truncated,
+  };
+}
+
+function findShortestPath(
+  nodes: GraphNodeData[],
+  edges: GraphResponse['edges'],
+  from: string,
+  to: string
+): string[] | null {
+  if (from === to) return [from];
+  const adj = new Map<string, string[]>();
+  for (const n of nodes) adj.set(n.id, []);
+  for (const e of edges) {
+    adj.get(e.source)?.push(e.target);
+    adj.get(e.target)?.push(e.source);
+  }
+  const visited = new Set<string>([from]);
+  const queue: Array<{ id: string; path: string[] }> = [{ id: from, path: [from] }];
+  while (queue.length > 0) {
+    const { id, path } = queue.shift()!;
+    for (const neighbor of adj.get(id) ?? []) {
+      if (neighbor === to) return [...path, to];
+      if (!visited.has(neighbor)) {
+        visited.add(neighbor);
+        queue.push({ id: neighbor, path: [...path, neighbor] });
+      }
+    }
+  }
+  return null;
 }
 
 export default function RelationshipGraphPage(): JSX.Element {
@@ -34,15 +95,16 @@ export default function RelationshipGraphPage(): JSX.Element {
   const [trendingCves, setTrendingCves] = useState<TrendingCve[]>([]);
   const [autoLoaded, setAutoLoaded] = useState(false);
   const [initialLoading, setInitialLoading] = useState(true);
+  const [layoutMode, setLayoutMode] = useState<LayoutMode>('dagre');
+  const [pathFinder, setPathFinder] = useState<PathFinderState>({ phase: 'idle' });
+  const [expandedCount, setExpandedCount] = useState(0);
 
-  // Fetch trending CVEs on mount for suggestion chips
   useEffect(() => {
     fetch('/api/v1/cve-recent')
       .then((r) => r.json())
       .then((data: { cves?: TrendingCve[] }) => {
         const list = (data.cves ?? []).slice(0, 12);
         setTrendingCves(list);
-        // Auto-load with the first trending critical CVE or the default seed
         if (!autoLoaded && list.length > 0) {
           const critical = list.find((c) => c.severity === 'CRITICAL' || c.severity === 'HIGH');
           const seed = critical?.id ?? DEFAULT_AUTO_SEED;
@@ -52,7 +114,6 @@ export default function RelationshipGraphPage(): JSX.Element {
         }
       })
       .catch(() => {
-        // fallback: still auto-load with default seed
         if (!autoLoaded) {
           setQuery(DEFAULT_AUTO_SEED);
           void fetchGraph(DEFAULT_AUTO_SEED);
@@ -68,6 +129,8 @@ export default function RelationshipGraphPage(): JSX.Element {
       setLoading(true);
       setError(null);
       setSelectedNode(null);
+      setExpandedCount(0);
+      setPathFinder({ phase: 'idle' });
       try {
         const res = await fetch(`/api/v1/relationship-graph?q=${encodeURIComponent(q.trim())}&depth=${depth}`);
         if (!res.ok) {
@@ -86,6 +149,28 @@ export default function RelationshipGraphPage(): JSX.Element {
     [depth]
   );
 
+  const expandNode = useCallback(
+    async (node: GraphNodeData) => {
+      setLoading(true);
+      try {
+        const res = await fetch(`/api/v1/relationship-graph?q=${encodeURIComponent(node.label)}&depth=1`);
+        if (!res.ok) return;
+        const data = (await res.json()) as GraphResponse;
+        if (data.nodes.length <= 1) return;
+        setGraphData((prev) => {
+          if (!prev) return prev;
+          return mergeWithGraph(prev, data);
+        });
+        setExpandedCount((c) => c + 1);
+      } catch {
+        // silent — expansion is additive, no error state needed
+      } finally {
+        setLoading(false);
+      }
+    },
+    [] // no deps — uses functional updater to avoid stale closure
+  );
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     void fetchGraph(query);
@@ -95,7 +180,41 @@ export default function RelationshipGraphPage(): JSX.Element {
     setGraphData(null);
     setSelectedNode(null);
     setError(null);
+    setExpandedCount(0);
+    setPathFinder({ phase: 'idle' });
   };
+
+  const toggleLayout = () => {
+    setLayoutMode((m) => (m === 'dagre' ? 'force' : 'dagre'));
+  };
+
+  const totalNodes = graphData?.nodes.length ?? 0;
+  const totalEdges = graphData?.edges.length ?? 0;
+
+  const pathResult = useMemo(() => {
+    if (pathFinder.phase !== 'result' || !graphData) return null;
+    return findShortestPath(graphData.nodes, graphData.edges, pathFinder.first, pathFinder.second);
+  }, [pathFinder, graphData]);
+
+  const handleNodeClick = useCallback(
+    (node: GraphNodeData | null) => {
+      setSelectedNode(node);
+
+      if (pathFinder.phase === 'select-first' && node) {
+        setPathFinder({ phase: 'select-second', first: node.id });
+      } else if (pathFinder.phase === 'select-second' && node) {
+        if (node.id !== pathFinder.first) {
+          setPathFinder({
+            phase: 'result',
+            first: pathFinder.first,
+            second: node.id,
+            path: [],
+          });
+        }
+      }
+    },
+    [pathFinder]
+  );
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
@@ -114,43 +233,44 @@ export default function RelationshipGraphPage(): JSX.Element {
         </p>
       </div>
 
-      {/* Search */}
-      <form onSubmit={handleSubmit} className="flex gap-3 items-end mb-6 flex-wrap">
-        <div className="flex-1 min-w-[240px]">
-          <label
-            htmlFor="rel-graph-query"
-            className="block text-xs font-mono uppercase tracking-wider text-slate-500 mb-1.5"
-          >
-            Search entity
-          </label>
-          <input
-            id="rel-graph-query"
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="CVE ID, actor name, IP, domain, hash…"
-            className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
-            spellCheck={false}
-          />
-        </div>
-        <div>
-          <label
-            htmlFor="rel-graph-depth"
-            className="block text-xs font-mono uppercase tracking-wider text-slate-500 mb-1.5"
-          >
-            Depth
-          </label>
-          <select
-            id="rel-graph-depth"
-            value={depth}
-            onChange={(e) => setDepth(Number(e.target.value))}
-            className="px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
-          >
-            <option value={1}>1 hop</option>
-            <option value={2}>2 hops</option>
-          </select>
-        </div>
-        <div className="flex gap-2">
+      {/* Toolbar */}
+      <div className="flex flex-wrap gap-2 mb-4 items-center">
+        {/* Search */}
+        <form onSubmit={handleSubmit} className="flex gap-2 items-end flex-1 min-w-0">
+          <div className="flex-1 min-w-[180px]">
+            <label
+              htmlFor="rel-graph-query"
+              className="block text-xs font-mono uppercase tracking-wider text-slate-500 mb-1.5"
+            >
+              Search entity
+            </label>
+            <input
+              id="rel-graph-query"
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="CVE ID, actor name, IP, domain, hash…"
+              className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              spellCheck={false}
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="rel-graph-depth"
+              className="block text-xs font-mono uppercase tracking-wider text-slate-500 mb-1.5"
+            >
+              Depth
+            </label>
+            <select
+              id="rel-graph-depth"
+              value={depth}
+              onChange={(e) => setDepth(Number(e.target.value))}
+              className="px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            >
+              <option value={1}>1 hop</option>
+              <option value={2}>2 hops</option>
+            </select>
+          </div>
           <button
             type="submit"
             disabled={loading || !query.trim()}
@@ -168,10 +288,48 @@ export default function RelationshipGraphPage(): JSX.Element {
               Clear
             </button>
           )}
-        </div>
-      </form>
+        </form>
 
-      {/* Suggested examples */}
+        {/* Graph actions */}
+        {graphData && (
+          <div className="flex gap-1.5 items-center">
+            <div className="h-6 w-px bg-slate-200 dark:bg-slate-700 mx-1" />
+            <button
+              type="button"
+              onClick={toggleLayout}
+              className={`px-2.5 py-1.5 rounded-lg font-mono text-xs inline-flex items-center gap-1.5 border transition-colors ${
+                layoutMode === 'force'
+                  ? 'bg-brand-50 dark:bg-brand-900/20 border-brand-300 dark:border-brand-700 text-brand-700 dark:text-brand-300'
+                  : 'border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+              }`}
+              title="Toggle between hierarchical (dagre) and force-directed layout"
+            >
+              <Layout size={12} />
+              {layoutMode === 'force' ? 'force' : 'dagre'}
+            </button>
+            <button
+              type="button"
+              onClick={() => setPathFinder({ phase: 'select-first' })}
+              className={`px-2.5 py-1.5 rounded-lg font-mono text-xs inline-flex items-center gap-1.5 border transition-colors ${
+                pathFinder.phase !== 'idle'
+                  ? 'bg-amber-50 dark:bg-amber-900/20 border-amber-300 dark:border-amber-700 text-amber-700 dark:text-amber-300'
+                  : 'border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+              }`}
+              title="Find shortest path between two nodes"
+            >
+              <GitBranch size={12} />
+              path
+            </button>
+            {expandedCount > 0 && (
+              <span className="text-[11px] font-mono text-slate-500">
+                +{expandedCount} expansion{expandedCount > 1 ? 's' : ''}
+              </span>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Example queries */}
       <div className="flex flex-wrap gap-2 mb-6">
         <span className="text-[11px] font-mono text-slate-500 self-center">Try:</span>
         {EXAMPLE_QUERIES.map((eq) => (
@@ -189,6 +347,35 @@ export default function RelationshipGraphPage(): JSX.Element {
         ))}
       </div>
 
+      {/* Status bar */}
+      {pathFinder.phase === 'select-first' && (
+        <div className="mb-4 p-2 rounded bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/30 text-amber-700 dark:text-amber-300 text-xs font-mono inline-flex items-center gap-2">
+          <Crosshair size={12} /> Click the first node in the graph
+          <button type="button" onClick={() => setPathFinder({ phase: 'idle' })} className="ml-2 underline">
+            cancel
+          </button>
+        </div>
+      )}
+      {pathFinder.phase === 'select-second' && (
+        <div className="mb-4 p-2 rounded bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/30 text-amber-700 dark:text-amber-300 text-xs font-mono inline-flex items-center gap-2">
+          <Crosshair size={12} /> Click the second node to find the path
+          <button type="button" onClick={() => setPathFinder({ phase: 'idle' })} className="ml-2 underline">
+            cancel
+          </button>
+        </div>
+      )}
+      {pathFinder.phase === 'result' && (
+        <div className="mb-4 p-2 rounded bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-800/30 text-emerald-700 dark:text-emerald-300 text-xs font-mono inline-flex items-center gap-2">
+          <GitBranch size={12} />
+          {pathResult
+            ? `path: ${pathResult.length > 8 ? pathResult.slice(0, 8).join(' → ') + ' …' : pathResult.join(' → ')}`
+            : `no path found between ${pathFinder.first} and ${pathFinder.second}`}
+          <button type="button" onClick={() => setPathFinder({ phase: 'idle' })} className="ml-2 underline">
+            clear
+          </button>
+        </div>
+      )}
+
       {error && (
         <div className="mb-6 p-3 rounded-lg bg-rose-50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-800/50 text-rose-700 dark:text-rose-300 text-sm font-mono inline-flex items-center gap-2">
           <AlertTriangle size={14} /> {error}
@@ -201,11 +388,11 @@ export default function RelationshipGraphPage(): JSX.Element {
         </div>
       )}
 
-      {/* Main layout: graph + detail panel */}
+      {/* Main layout */}
       <div className="grid lg:grid-cols-[1fr_320px] gap-6">
         {/* Graph canvas */}
         <div
-          className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 overflow-hidden"
+          className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 overflow-hidden relative"
           style={{ height: '70vh', minHeight: 520 }}
         >
           {loading || initialLoading ? (
@@ -214,7 +401,13 @@ export default function RelationshipGraphPage(): JSX.Element {
             </div>
           ) : graphData && graphData.nodes.length > 0 ? (
             <Suspense fallback={<CanvasFallback />}>
-              <RelationshipGraphCanvas graphData={graphData} onNodeClick={setSelectedNode} />
+              <RelationshipGraphCanvas
+                graphData={graphData}
+                onNodeClick={handleNodeClick}
+                onExpandNode={expandNode}
+                layoutMode={layoutMode}
+                highlightedPath={pathResult ?? undefined}
+              />
             </Suspense>
           ) : (
             <div className="flex h-full flex-col items-center justify-center text-slate-500 font-mono text-sm gap-4 p-8 text-center">
@@ -226,7 +419,6 @@ export default function RelationshipGraphPage(): JSX.Element {
                 Traverses CVE ↔ actor, actor ↔ ransomware, actor ↔ technique, and infrastructure links across all
                 intelligence sources.
               </div>
-              {/* Trending CVEs as clickable starting points */}
               {trendingCves.length > 0 && (
                 <div className="mt-2">
                   <div className="text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-2 flex items-center justify-center gap-1.5">
@@ -277,11 +469,24 @@ export default function RelationshipGraphPage(): JSX.Element {
                   {JSON.stringify(selectedNode.data, null, 2)}
                 </pre>
               )}
+              {/* Expand button */}
+              <button
+                type="button"
+                onClick={() => expandNode(selectedNode)}
+                disabled={loading}
+                className="mt-3 w-full px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 font-mono text-xs inline-flex items-center justify-center gap-1.5 disabled:opacity-50"
+              >
+                <Expand size={12} />
+                Expand node
+              </button>
             </div>
           ) : graphData ? (
-            <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 text-center text-xs font-mono text-slate-500">
-              <Bug size={16} className="mx-auto mb-2 text-slate-400" />
-              Click any node to inspect its data.
+            <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 text-center text-xs font-mono text-slate-500 space-y-2">
+              <Bug size={16} className="mx-auto text-slate-400" />
+              <div>Click any node to inspect.</div>
+              <div className="text-[10px] text-slate-400">
+                Double-click a node or click "Expand" in its detail panel to load its neighbors.
+              </div>
             </div>
           ) : null}
 
@@ -307,8 +512,15 @@ export default function RelationshipGraphPage(): JSX.Element {
           )}
 
           {graphData && (
-            <div className="text-[10px] font-mono text-slate-500 text-center">
-              {graphData.nodes.length} nodes · {graphData.edges.length} edges · depth {graphData.depth}
+            <div className="text-[10px] font-mono text-slate-500 text-center space-y-0.5">
+              <div>
+                {totalNodes} nodes · {totalEdges} edges · depth {graphData.depth}
+              </div>
+              {expandedCount > 0 && (
+                <div className="text-brand-600 dark:text-brand-400">
+                  +{expandedCount} expansion{expandedCount > 1 ? 's' : ''}
+                </div>
+              )}
             </div>
           )}
         </aside>

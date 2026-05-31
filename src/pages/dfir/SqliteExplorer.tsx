@@ -171,7 +171,7 @@ export default function SqliteExplorer(): JSX.Element {
                       <tr key={i} className="even:bg-slate-50/50 dark:even:bg-slate-900/50">
                         {r.map((cell, j) => (
                           <td key={j} className="px-2 py-1 border-b border-slate-100 dark:border-slate-800 break-all">
-                            {cell === null ? <span className="text-slate-400">NULL</span> : String(cell).slice(0, 300)}
+                            {cell === null ? <span className="text-slate-500">NULL</span> : String(cell).slice(0, 300)}
                           </td>
                         ))}
                       </tr>

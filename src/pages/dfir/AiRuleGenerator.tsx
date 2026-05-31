@@ -308,7 +308,7 @@ export default function AiRuleGenerator(): JSX.Element {
           {/* Known Indicators */}
           <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
             <h2 className="font-display font-bold text-sm mb-3">
-              Known Indicators <span className="font-normal text-slate-400">(optional)</span>
+              Known Indicators <span className="font-normal text-slate-500">(optional)</span>
             </h2>
             <textarea
               value={strings}

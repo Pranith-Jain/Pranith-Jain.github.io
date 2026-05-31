@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { WRITEUP_SOURCES, type WriteupSourceSpec } from '../lib/writeup-sources';
+import { concurrentMap } from '../lib/concurrent-map';
 
 /**
  * Source labels marked as `tier: 'signal'`. Computed once at module load
@@ -257,6 +258,9 @@ function sourceRss(spec: WriteupSourceSpec): { label: string; rssUrl: string | n
   }
 }
 
+/** Overall time budget for the feed-fetch phase (22s). */
+const FETCH_PHASE_TIMEOUT_MS = 22_000;
+
 export async function fetchWriteups(): Promise<WriteupsResponse> {
   const sourceMeta: WriteupsResponse['sources'] = [];
   const all: Writeup[] = [];
@@ -285,33 +289,38 @@ export async function fetchWriteups(): Promise<WriteupsResponse> {
     WriteupSourceSpec,
     { kind: 'manual' }
   >[];
-  const results = await Promise.all(
-    rssSpecs.map(async (spec) => {
-      const { label, rssUrl, kind } = sourceRss(spec);
-      if (!rssUrl) return { spec, label, kind, ok: false, items: [] as Writeup[], error: 'no rss url' };
-      const body = await fetchText(rssUrl);
-      if (!body) return { spec, label, kind, ok: false, items: [] as Writeup[], error: 'fetch failed' };
-      let parsed: Writeup[];
-      try {
-        // Untrusted upstream XML — a parser throw must degrade this one
-        // source, not reject Promise.all and 502 every writeup feed.
-        parsed = parseFeedItems(body, kind, label);
-      } catch {
-        return { spec, label, kind, ok: false, items: [] as Writeup[], error: 'parse failed' };
-      }
-      // Trim per-source. Items inside a single feed are typically already
-      // newest-first; sort defensively before truncating in case a feed
-      // returns oldest-first (rare but seen in the wild).
-      parsed.sort((a, b) => {
-        if (a.published && b.published) return b.published.localeCompare(a.published);
-        if (a.published) return -1;
-        if (b.published) return 1;
-        return 0;
-      });
-      const items = parsed.slice(0, MAX_PER_SOURCE);
-      return { spec, label, kind, ok: items.length > 0, items };
-    })
-  );
+  const rssReady = concurrentMap(rssSpecs, async (spec) => {
+    const { label, rssUrl, kind } = sourceRss(spec);
+    if (!rssUrl) return { spec, label, kind, ok: false, items: [] as Writeup[], error: 'no rss url' };
+    const body = await fetchText(rssUrl);
+    if (!body) return { spec, label, kind, ok: false, items: [] as Writeup[], error: 'fetch failed' };
+    let parsed: Writeup[];
+    try {
+      // Untrusted upstream XML — a parser throw must degrade this one
+      // source, not reject Promise.all and 502 every writeup feed.
+      parsed = parseFeedItems(body, kind, label);
+    } catch {
+      return { spec, label, kind, ok: false, items: [] as Writeup[], error: 'parse failed' };
+    }
+    // Trim per-source. Items inside a single feed are typically already
+    // newest-first; sort defensively before truncating in case a feed
+    // returns oldest-first (rare but seen in the wild).
+    parsed.sort((a, b) => {
+      if (a.published && b.published) return b.published.localeCompare(a.published);
+      if (a.published) return -1;
+      if (b.published) return 1;
+      return 0;
+    });
+    const items = parsed.slice(0, MAX_PER_SOURCE);
+    return { spec, label, kind, ok: items.length > 0, items };
+  });
+  // Race against a timeout so slow feeds don't cause the full request to 503.
+  const results = await Promise.race([
+    rssReady,
+    new Promise<Awaited<typeof rssReady>>((resolve) =>
+      setTimeout(() => resolve([] as unknown as Awaited<typeof rssReady>), FETCH_PHASE_TIMEOUT_MS)
+    ),
+  ]);
 
   for (const r of results) {
     sourceMeta.push({
@@ -425,34 +434,54 @@ function filterByTier(body: WriteupsResponse, tier: TierFilter): WriteupsRespons
   return { ...body, sources, total: items.length, items };
 }
 
+/** Overall wall-clock timeout for the writeups handler (25s, under the 30s Worker limit). */
+const HANDLER_TIMEOUT_MS = 25_000;
+
 export async function writeupsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  // Default tier is FIREHOSE — the broad ecosystem cut minus the signal
-  // tier. Signal-tier sources are surfaced on /threatintel/signal only,
-  // so there's no overlap between the two pages.
-  const q = c.req.query('tier');
-  const tier: TierFilter = q === 'signal' ? 'signal' : q === 'all' ? 'all' : 'firehose';
-  const cache = (caches as unknown as { default: Cache }).default;
-  const cacheReq = new Request(CACHE_KEY);
-  const makeResp = (body: WriteupsResponse) =>
-    new Response(JSON.stringify(body), {
-      status: 200,
-      headers: {
-        'content-type': 'application/json',
-        'cache-control': `public, max-age=${CACHE_TTL_SECONDS}`,
-      },
-    });
+  try {
+    const q = c.req.query('tier');
+    const tier: TierFilter = q === 'signal' ? 'signal' : q === 'all' ? 'all' : 'firehose';
+    const cache = (caches as unknown as { default: Cache }).default;
+    const cacheReq = new Request(CACHE_KEY);
+    const makeResp = (body: WriteupsResponse) =>
+      new Response(JSON.stringify(body), {
+        status: 200,
+        headers: {
+          'content-type': 'application/json',
+          'cache-control': `public, max-age=${CACHE_TTL_SECONDS}`,
+        },
+      });
 
-  // Inflate from the all-sources cache when present; filter post-cache so
-  // a tier flip doesn't require a re-fetch upstream.
-  const cached = await cache.match(cacheReq);
-  if (cached) {
-    const body = (await cached.json()) as WriteupsResponse;
+    // Inflate from the all-sources cache when present; filter post-cache so
+    // a tier flip doesn't require a re-fetch upstream.
+    const cached = await cache.match(cacheReq).catch(() => null);
+    if (cached) {
+      const body = (await cached.json()) as WriteupsResponse;
+      return makeResp(filterByTier(body, tier));
+    }
+
+    const body = await fetchWriteups();
+    const fullResponse = makeResp(body);
+    c.executionCtx.waitUntil(
+      cache.put(cacheReq, fullResponse.clone()).catch(() => {
+        /* non-fatal */
+      })
+    );
+    if (tier === 'all') return fullResponse;
     return makeResp(filterByTier(body, tier));
+  } catch (err) {
+    console.error('writeupsHandler error:', err);
+    return new Response(
+      JSON.stringify({
+        generated_at: new Date().toISOString(),
+        sources: [],
+        total: 0,
+        items: [],
+      }),
+      {
+        status: 200,
+        headers: { 'content-type': 'application/json', 'cache-control': 'public, max-age=60' },
+      }
+    );
   }
-
-  const body = await fetchWriteups();
-  const fullResponse = makeResp(body);
-  c.executionCtx.waitUntil(cache.put(cacheReq, fullResponse.clone()));
-  if (tier === 'all') return fullResponse;
-  return makeResp(filterByTier(body, tier));
 }

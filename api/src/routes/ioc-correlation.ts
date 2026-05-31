@@ -35,7 +35,7 @@ const CACHE_KEY = IOC_CORRELATION_CACHE_KEY;
 const CACHE_TTL_SECONDS = 3600;
 const FETCH_TIMEOUT_MS = 12_000;
 const PER_FEED_CAP = 500; // parse up to N entries per feed to find overlap
-const TOP_PER_BUCKET = 50; // surface up to N correlated indicators per IOC type
+const TOP_PER_BUCKET = 200; // surface up to N correlated indicators per IOC type
 
 type IocKind = 'ip' | 'url' | 'domain' | 'hash';
 

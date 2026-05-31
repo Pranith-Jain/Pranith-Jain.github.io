@@ -23,6 +23,7 @@ import { NEGOTIATIONS_CACHE_KEY } from './negotiations';
 import { STEALER_FORUM_INTEL_CACHE_KEY } from './stealer-forum-intel';
 import { BREACH_FORUMS_CACHE_KEY } from './breach-forums';
 import { INTEL_BUNDLE_CACHE_KEY } from './intel-bundle';
+import { concurrentMap } from '../lib/concurrent-map';
 
 /**
  * Feed-status dashboard. Reads every per-feed edge-cache entry directly
@@ -687,10 +688,25 @@ function buildPassiveProbes(): FeedProbeSpec[] {
 const ALL_PROBES: FeedProbeSpec[] = [...PROBES, ...buildPassiveProbes()];
 
 async function probeOne(spec: FeedProbeSpec): Promise<FeedStatusRow> {
-  const cache = (caches as unknown as { default: Cache }).default;
   const reg = spec.id
     ? (SOURCE_RELIABILITY_REGISTRY[spec.id] ?? SOURCE_RELIABILITY_REGISTRY[`${spec.id}-feed`])
     : undefined;
+  // Passive sources have no cache key — skip the cache.match
+  // (which would throw on empty URL) and report 'cold'.
+  if (!spec.cache_key) {
+    return {
+      id: spec.id,
+      label: spec.label,
+      page_path: spec.page_path,
+      api_path: spec.api_path,
+      status: 'cold',
+      reason: 'no cache key (passive source)',
+      reliability: spec.reliability ?? reg?.reliability,
+      category: spec.category ?? reg?.category,
+      description: spec.description ?? reg?.description,
+    };
+  }
+  const cache = (caches as unknown as { default: Cache }).default;
   try {
     const cached = await cache.match(spec.cache_key);
     if (!cached) {
@@ -721,14 +737,14 @@ async function probeOne(spec: FeedProbeSpec): Promise<FeedStatusRow> {
       category: spec.category ?? reg?.category,
       description: spec.description ?? reg?.description,
     };
-  } catch (e) {
+  } catch {
     return {
       id: spec.id,
       label: spec.label,
       page_path: spec.page_path,
       api_path: spec.api_path,
       status: 'down',
-      reason: `cache read error`,
+      reason: 'cache read error',
       reliability: spec.reliability ?? reg?.reliability,
       category: spec.category ?? reg?.category,
       description: spec.description ?? reg?.description,
@@ -737,37 +753,77 @@ async function probeOne(spec: FeedProbeSpec): Promise<FeedStatusRow> {
 }
 
 export async function feedStatusHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const cache = (caches as unknown as { default: Cache }).default;
-  const cacheReq = new Request(FEED_STATUS_CACHE_KEY);
-  const cached = await cache.match(cacheReq);
-  if (cached) return new Response(cached.body, cached);
+  try {
+    const cache = (caches as unknown as { default: Cache }).default;
+    const cacheReq = new Request(FEED_STATUS_CACHE_KEY);
+    const cached = await cache.match(cacheReq).catch(() => null);
+    if (cached) return new Response(cached.body, cached);
 
-  const rows = await Promise.all(ALL_PROBES.map(probeOne));
-  const healthy = rows.filter((r) => r.status === 'ok').length;
-  const degraded = rows.filter((r) => r.status === 'degraded').length;
-  const down = rows.filter((r) => r.status === 'down').length;
-  const cold = rows.filter((r) => r.status === 'cold').length;
-  const overall: Status =
-    down >= 3 ? 'down' : down >= 1 || degraded >= 3 ? 'degraded' : cold >= rows.length / 2 ? 'cold' : 'ok';
+    // Split probes: those with cache keys get concurrency-limited probes;
+    // passive sources (no cache key) always return 'cold' — aggregate them
+    // into a single summary row to keep the response small and fast.
+    const activeProbes = ALL_PROBES.filter((p) => p.cache_key);
+    const passiveCount = ALL_PROBES.length - activeProbes.length;
+    const activeRows = await concurrentMap(activeProbes, probeOne, 6);
+    const rows: FeedStatusRow[] = activeRows;
+    if (passiveCount > 0) {
+      rows.push({
+        id: '_passive',
+        label: `${passiveCount} passive sources`,
+        page_path: '',
+        api_path: '',
+        status: 'cold',
+        reason: `${passiveCount} source-reliability entries not backed by a cache key. Create a dedicated feed-status probe to track them.`,
+      });
+    }
+    const healthy = rows.filter((r) => r.status === 'ok').length;
+    const degraded = rows.filter((r) => r.status === 'degraded').length;
+    const down = rows.filter((r) => r.status === 'down').length;
+    const cold = rows.filter((r) => r.status === 'cold').length;
+    const overall: Status =
+      down >= 3 ? 'down' : down >= 1 || degraded >= 3 ? 'degraded' : cold >= rows.length / 2 ? 'cold' : 'ok';
 
-  const body: FeedStatusResponse = {
-    generated_at: new Date().toISOString(),
-    rows,
-    overall,
-    total_sources: rows.length,
-    healthy,
-    degraded,
-    down,
-    cold,
-  };
+    const body: FeedStatusResponse = {
+      generated_at: new Date().toISOString(),
+      rows,
+      overall,
+      total_sources: rows.length,
+      healthy,
+      degraded,
+      down,
+      cold,
+    };
 
-  const response = new Response(JSON.stringify(body), {
-    status: 200,
-    headers: {
-      'content-type': 'application/json',
-      'cache-control': `public, max-age=${CACHE_TTL}`,
-    },
-  });
-  c.executionCtx.waitUntil(cache.put(cacheReq, response.clone()));
-  return response;
+    const response = new Response(JSON.stringify(body), {
+      status: 200,
+      headers: {
+        'content-type': 'application/json',
+        'cache-control': `public, max-age=${CACHE_TTL / 3}`,
+      },
+    });
+    c.executionCtx.waitUntil(
+      cache.put(cacheReq, response.clone()).catch(() => {
+        /* non-fatal */
+      })
+    );
+    return response;
+  } catch {
+    // Fallback: return a minimal response so the frontend never sees 503
+    return new Response(
+      JSON.stringify({
+        generated_at: new Date().toISOString(),
+        rows: [],
+        overall: 'cold',
+        total_sources: 0,
+        healthy: 0,
+        degraded: 0,
+        down: 0,
+        cold: 0,
+      }),
+      {
+        status: 200,
+        headers: { 'content-type': 'application/json', 'cache-control': 'public, max-age=30' },
+      }
+    );
+  }
 }

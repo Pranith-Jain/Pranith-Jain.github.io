@@ -244,17 +244,17 @@ function ObjectCard({ obj }: { obj: TaxiiObject }) {
       {expanded && (
         <div className="mt-3 pt-3 border-t border-slate-200 dark:border-slate-800 text-xs space-y-1">
           <div>
-            <span className="text-slate-400">ID:</span>{' '}
+            <span className="text-slate-500">ID:</span>{' '}
             <code className="font-mono text-slate-600 dark:text-slate-300">{obj.id}</code>
           </div>
           {obj.created && (
             <div>
-              <span className="text-slate-400">Created:</span> {new Date(obj.created).toLocaleString()}
+              <span className="text-slate-500">Created:</span> {new Date(obj.created).toLocaleString()}
             </div>
           )}
           {obj.modified && (
             <div>
-              <span className="text-slate-400">Modified:</span> {new Date(obj.modified).toLocaleString()}
+              <span className="text-slate-500">Modified:</span> {new Date(obj.modified).toLocaleString()}
             </div>
           )}
           <pre className="bg-slate-100 dark:bg-slate-900 rounded p-2 overflow-x-auto text-[10px] text-slate-600 dark:text-slate-400 font-mono mt-2">

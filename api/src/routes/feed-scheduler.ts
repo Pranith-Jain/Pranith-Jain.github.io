@@ -1,6 +1,9 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { safeJsonBody } from '../lib/safe-body';
+import { ensureGraphTables, upsertNode } from './threat-graph';
+import { recordIocObservation } from './ioc-lifecycle';
+import type { D1Database } from '@cloudflare/workers-types';
 
 interface FeedJob {
   id: string;
@@ -37,6 +40,9 @@ async function listJobs(kv: KVNamespace): Promise<FeedJob[]> {
 async function saveJobs(kv: KVNamespace, jobs: FeedJob[]): Promise<void> {
   await kv.put(JOBS_KV_KEY, JSON.stringify(jobs));
 }
+
+export type { FeedJob, FeedRunHistory };
+export { listJobs, saveJobs };
 
 function now(): string {
   return new Date().toISOString();
@@ -328,4 +334,127 @@ export async function getFeedJobsHistoryAllHandler(c: Context<{ Bindings: Env }>
     if (h && h.length > 0) allHistory[job.id] = h;
   }
   return c.json({ history: allHistory }, 200, { 'Cache-Control': 'no-store' });
+}
+
+/**
+ * Called by the hourly cron to auto-execute due feed jobs.
+ * Runs at most 1 job per tick to stay within the 50-subrequest limit.
+ * Saves fetched IOCs to graph_nodes D1 table.
+ */
+export async function autoRunFeedJobs(
+  kv: KVNamespace,
+  db: D1Database
+): Promise<{ ran: number; saved: number; skipped: number }> {
+  const jobs = await listJobs(kv);
+  const nowMs = Date.now();
+  const due = jobs.filter((j) => {
+    if (!j.enabled) return false;
+    if (!j.last_run_at) return true;
+    return nowMs - new Date(j.last_run_at).getTime() >= j.interval_minutes * 60_000;
+  });
+
+  if (due.length === 0) return { ran: 0, saved: 0, skipped: 0 };
+
+  const job = due.sort((a, b) => {
+    const aT = a.last_run_at ? new Date(a.last_run_at).getTime() : 0;
+    const bT = b.last_run_at ? new Date(b.last_run_at).getTime() : 0;
+    return aT - bT;
+  })[0]!;
+
+  await ensureGraphTables(db);
+
+  const startedAt = now();
+  job.last_status = 'running';
+  job.last_run_at = startedAt;
+  const jobsClone = [...jobs];
+  const idx = jobsClone.findIndex((j) => j.id === job.id);
+  if (idx >= 0) jobsClone[idx] = job;
+  await saveJobs(kv, jobsClone);
+
+  let savedCount = 0;
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 15000);
+    const res = await fetch(job.source_url, { signal: controller.signal });
+    clearTimeout(timeout);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+    const text = await res.text();
+    const lines = text.split(/\r?\n/).filter((l) => l.trim() && !l.trim().startsWith('#'));
+
+    for (const line of lines) {
+      const trimmed = line.trim().toLowerCase();
+      let nodeType: string | null = null;
+
+      if (job.parser === 'plaintext-ips') {
+        const parts = trimmed.split('.');
+        if (parts.length === 4 && parts.every((p) => /^\d{1,3}$/.test(p) && +p <= 255)) {
+          nodeType = 'ip';
+        }
+      } else if (job.parser === 'plaintext-domains') {
+        if (/^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*\.[a-z]{2,}$/.test(trimmed)) {
+          nodeType = 'domain';
+        }
+      } else if (job.parser === 'plaintext-urls') {
+        try {
+          new URL(trimmed);
+          nodeType = 'url';
+        } catch {
+          /* skip */
+        }
+      } else if (job.parser === 'plaintext-hashes') {
+        if (/^[a-f0-9]{32}$/.test(trimmed) || /^[a-f0-9]{40}$/.test(trimmed) || /^[a-f0-9]{64}$/.test(trimmed)) {
+          nodeType = 'hash';
+        }
+      }
+
+      if (nodeType) {
+        try {
+          await upsertNode(db, {
+            type: nodeType,
+            value: trimmed,
+            confidence: 50,
+            sources: [`feed:${job.name}`],
+            properties: { label: trimmed, feed: job.name, feed_id: job.id },
+          });
+          savedCount++;
+          // Track in IOC lifecycle table
+          const lt = nodeType === 'ip' ? 'ipv4' : nodeType;
+          recordIocObservation(db, trimmed, lt, 50, [`feed:${job.name}`]).catch(() => {});
+        } catch {
+          /* single node failure won't abort */
+        }
+      }
+    }
+
+    job.last_status = 'ok';
+    job.last_item_count = lines.length;
+    job.last_error = null;
+  } catch (err) {
+    job.last_status = 'error';
+    job.last_error = err instanceof Error ? err.message : String(err);
+    job.last_item_count = 0;
+  }
+
+  const finalJobs = await listJobs(kv);
+  const finalIdx = finalJobs.findIndex((j) => j.id === job.id);
+  if (finalIdx >= 0) {
+    finalJobs[finalIdx] = job;
+    await saveJobs(kv, finalJobs);
+  }
+
+  const historyKey = `feed-scheduler:history:${job.id}`;
+  const history: FeedRunHistory = {
+    job_id: job.id,
+    started_at: startedAt,
+    finished_at: now(),
+    status: job.last_status === 'ok' ? 'ok' : 'error',
+    item_count: job.last_item_count ?? 0,
+    error: job.last_error,
+  };
+  const existing = (await kv.get(historyKey, 'json').catch(() => null)) as FeedRunHistory[] | null;
+  const hist = [history, ...(existing ?? [])].slice(0, MAX_HISTORY);
+  await kv.put(historyKey, JSON.stringify(hist));
+
+  return { ran: 1, saved: savedCount, skipped: due.length - 1 };
 }

@@ -450,6 +450,31 @@ export function parseSslblC2(body: string, cap: number = CAP): IocEntry[] {
   return entries;
 }
 
+// ─── Feodo Tracker (abuse.ch) — botnet C2 IP blocklist ───────────────────────
+// CSV: "first_seen_utc","dst_ip","dst_port","c2_status","last_online","malware"
+// Comment lines start with '#'.
+
+export function parseFeodoTracker(body: string, cap: number = CAP): IocEntry[] {
+  const entries: IocEntry[] = [];
+  for (const line of body.split('\n')) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) continue;
+    const cols = trimmed.split(',').map((c) => c.replace(/^"|"$/g, '').trim());
+    const firstSeen = cols[0];
+    const ip = cols[1];
+    const malware = cols[5];
+    if (!ip || !IPV4_LINE_RE.test(ip)) continue;
+    entries.push({
+      type: 'ipv4',
+      value: ip,
+      context: malware ? `C2: ${malware}` : 'Feodo botnet C2',
+      timestamp: firstSeen && /^\d{4}-\d\d-\d\d/.test(firstSeen) ? firstSeen : undefined,
+    });
+    if (entries.length >= cap) break;
+  }
+  return entries;
+}
+
 // ─── Botvrij.eu — curated malicious domain list ─────────────────────────────
 // One domain per line; comment lines start with '#'.
 

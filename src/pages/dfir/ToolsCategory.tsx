@@ -1,6 +1,6 @@
 import { Link, useParams, Navigate } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, ArrowRight, ShieldCheck, Cpu } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ShieldCheck, Cpu, Search, ExternalLink } from 'lucide-react';
 import { SECTIONS } from '../../components/dfir/ToolGrid';
 import { GROUP_META, type ToolGroup } from '../../components/dfir/tool-sections';
 import { personalInfo } from '../../data/content';
@@ -170,6 +170,63 @@ export default function ToolsCategory(): JSX.Element {
       ))}
 
       {/* Why local */}
+      {g === 'dfir' && (
+        <section className="mt-12 mb-8 rounded-2xl border border-brand-500/30 dark:border-brand-500/20 bg-brand-500/5 p-8">
+          <h2 className="font-display font-bold text-xl flex items-center gap-2 mb-4">
+            <Search size={20} className="text-brand-600 dark:text-brand-400" /> Quick demo — Identity Lookup
+          </h2>
+          <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mb-4 leading-relaxed">
+            Look up a username across 11+ platforms. All checks run from your browser against public APIs — no server,
+            no sign-in. Try this live example:
+          </p>
+          <div className="grid gap-2 sm:grid-cols-2">
+            {[
+              { platform: 'GitHub', username: 'torvalds', profileUrl: 'https://github.com/torvalds' },
+              {
+                platform: 'Stack Overflow',
+                username: 'Jon Skeet',
+                profileUrl: 'https://stackoverflow.com/users/22656',
+              },
+              { platform: 'Keybase', username: 'torvalds', profileUrl: 'https://keybase.io/torvalds' },
+              { platform: 'Dev.to', username: 'ben', profileUrl: 'https://dev.to/ben' },
+              {
+                platform: 'Bluesky',
+                username: 'atpfm.bsky.social',
+                profileUrl: 'https://bsky.app/profile/atpfm.bsky.social',
+              },
+              { platform: 'PyPI', username: 'pranith', profileUrl: 'https://pypi.org/user/pranith/' },
+            ].map((ex) => (
+              <div
+                key={ex.platform}
+                className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-3 flex items-center gap-3"
+              >
+                <div className="w-8 h-8 rounded-full bg-brand-500/10 flex items-center justify-center text-xs font-mono text-brand-600 dark:text-brand-400">
+                  ✓
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-sm font-semibold font-display">{ex.platform}</div>
+                  <div className="text-[11px] font-mono text-slate-500 truncate">@{ex.username}</div>
+                </div>
+                <a
+                  href={ex.profileUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[10px] font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 shrink-0"
+                >
+                  View <ExternalLink size={9} />
+                </a>
+              </div>
+            ))}
+          </div>
+          <Link
+            to="/dfir/identity-lookup"
+            className="mt-4 inline-flex items-center gap-1.5 text-sm font-mono text-brand-600 dark:text-brand-400 hover:underline"
+          >
+            Try your own username <ArrowRight size={13} />
+          </Link>
+        </section>
+      )}
+
       <section className="mt-12 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8">
         <h2 className="font-display font-bold text-xl flex items-center gap-2">
           <ShieldCheck size={20} className="text-brand-600 dark:text-brand-400" /> Why local analysis matters

@@ -324,7 +324,7 @@ export default function IocPivot(): JSX.Element {
                     className="text-[11px] font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
                   >
                     <span style={{ color: PIVOT_FILL[pv.kind] }}>●</span> {pv.value}{' '}
-                    <span className="text-slate-400">{pv.kind}</span>
+                    <span className="text-slate-500">{pv.kind}</span>
                   </button>
                 ))}
               </div>

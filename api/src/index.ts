@@ -69,6 +69,8 @@ import {
   buildBriefingHandler,
   backfillBriefingsHandler,
   sweepBriefingsHandler,
+  briefingsForActorHandler,
+  briefingPrintHandler,
 } from './routes/briefings';
 import { briefingsRssHandler } from './routes/briefings-rss';
 import {
@@ -80,6 +82,7 @@ import { snapshotHandler } from './routes/snapshot';
 import { iocSnapshotHandler } from './routes/ioc-snapshot';
 import { intelDashboardHandler } from './routes/intel-dashboard';
 import { threatHuntHandler } from './routes/threat-hunt';
+import { huntV2Handler } from './routes/hunt-v2';
 import { phishingAnalyzeAutoHandler } from './routes/phishing-auto-analyze';
 import { registerBlogRoutes } from './routes/blog-public';
 import { pageViewsHandler } from './routes/pageviews';
@@ -172,6 +175,7 @@ import {
 import { stealerParserHandler } from './routes/stealer-parser';
 import { bloomFilterHandler, bloomCheckHandler, bloomStatsHandler } from './routes/bloom-filter';
 import { graphNodeHandler, graphPathHandler, graphCommunitiesHandler, graphStatsHandler } from './routes/threat-graph';
+import { graphIngestManualHandler } from './routes/graph-ingest';
 import {
   temporalTimelineHandler,
   temporalCampaignsHandler,
@@ -270,6 +274,7 @@ import { irPlaybookHandler } from './routes/ir-playbooks';
 import { aiSummaryHandler } from './routes/ai-summary';
 import { leakIxSearchHandler } from './routes/leakix';
 import { proxyNovaSearchHandler } from './routes/proxynova';
+import { identityProxyHandler } from './routes/identity-proxy';
 import { hudsonRockSearchHandler, hudsonRockDomainHandler } from './routes/hudsonrock';
 import { projectDiscoveryHandler } from './routes/projectdiscovery';
 import { hackMyIpBreachHandler } from './routes/hackmyip';
@@ -334,6 +339,7 @@ app.get('/api/v1/breach/hudsonrock', hudsonRockSearchHandler);
 app.get('/api/v1/breach/hudsonrock/domain', hudsonRockDomainHandler);
 app.get('/api/v1/breach/projectdiscovery', projectDiscoveryHandler);
 app.get('/api/v1/breach/hackmyip', hackMyIpBreachHandler);
+app.get('/api/v1/identity/lookup', identityProxyHandler);
 app.get('/api/v1/url-preview', urlPreviewHandler);
 app.get('/api/v1/takeover/check', takeoverCheckHandler);
 app.get('/api/v1/threat-map', threatMapHandler);
@@ -403,7 +409,7 @@ app.get('/api/v1/malware-iocs', malwareFamilyListHandler);
 app.get('/api/v1/malware-iocs/:family', malwareFamilyDetailHandler);
 app.get('/api/v1/feed-catalog', feedCatalogHandler);
 app.get('/api/v1/yara-hub', yaraHubListHandler);
-app.get('/api/v1/yara-hub/rule/:name', yaraHubRuleHandler);
+app.get('/api/v1/yara-hub/rule/:uuid', yaraHubRuleHandler);
 app.get('/api/v1/investigations', listInvestigationsHandler);
 app.post('/api/v1/investigations', createInvestigationHandler);
 app.get('/api/v1/investigations/:id', getInvestigationHandler);
@@ -451,6 +457,7 @@ app.get('/api/v1/snapshot', snapshotHandler);
 app.get('/api/v1/ioc-snapshot', iocSnapshotHandler);
 app.get('/api/v1/intel-dashboard', intelDashboardHandler);
 app.get('/api/v1/threat-hunt', threatHuntHandler);
+app.get('/api/v1/hunt/v2', huntV2Handler);
 app.get('/api/v1/pageviews', pageViewsHandler);
 app.get('/api/v1/briefings/list', listBriefingsHandler);
 app.get('/api/v1/briefings/rss', briefingsRssHandler);
@@ -458,6 +465,8 @@ app.get('/api/v1/briefings/today', todayBriefingHandler);
 app.post('/api/v1/briefings/build', buildBriefingHandler);
 app.post('/api/v1/briefings/backfill', backfillBriefingsHandler);
 app.post('/api/v1/briefings/sweep', sweepBriefingsHandler);
+app.get('/api/v1/briefings/for-actor/:slug', briefingsForActorHandler);
+app.get('/api/v1/briefings/:slug/print', briefingPrintHandler);
 app.get('/api/v1/briefings/:slug', getBriefingHandler);
 app.get('/api/v1/external-resources', listExternalResourcesHandler);
 app.post('/api/v1/external-resources', validate('json', createExternalResourceSchema), createExternalResourceHandler);
@@ -557,6 +566,7 @@ app.get('/api/v1/graph/node/:type/:value', graphNodeHandler);
 app.get('/api/v1/graph/path', graphPathHandler);
 app.get('/api/v1/graph/communities', graphCommunitiesHandler);
 app.get('/api/v1/graph/stats', graphStatsHandler);
+app.post('/api/v1/graph/ingest', graphIngestManualHandler);
 
 // ── Hunting & IR Tools ─────────────────────────────────────────────
 app.post('/api/v1/hunting-queries/generate', huntingQueryHandler);

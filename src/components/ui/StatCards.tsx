@@ -42,6 +42,7 @@ export function StatCards({ cards, cols = 'grid-cols-2 sm:grid-cols-4' }: StatCa
           <Tag
             key={i}
             onClick={card.onClick}
+            type={card.onClick ? 'button' : undefined}
             className={`rounded-xl border p-4 text-left transition-colors ${
               card.onClick
                 ? card.selected

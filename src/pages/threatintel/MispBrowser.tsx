@@ -244,7 +244,7 @@ export default function MispBrowser() {
             will need to re-enter it after a page reload.
           </p>
           <button
-            onClick={connect}
+            onClick={() => void connect()}
             disabled={loading || !baseUrl || !apiKey}
             className="px-4 py-2 text-xs font-mono rounded-lg bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50"
           >
@@ -496,7 +496,7 @@ export default function MispBrowser() {
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && loadEvents(1)}
+              onKeyDown={(e) => e.key === 'Enter' && void loadEvents(1)}
               className="w-full pl-7 pr-2 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs font-mono text-slate-900 dark:text-slate-100"
               placeholder="Search events..."
             />
@@ -511,7 +511,7 @@ export default function MispBrowser() {
             type="text"
             value={tagFilter}
             onChange={(e) => setTagFilter(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && loadEvents(1)}
+            onKeyDown={(e) => e.key === 'Enter' && void loadEvents(1)}
             className="w-full px-2 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs font-mono text-slate-900 dark:text-slate-100"
             placeholder="tag_name"
           />

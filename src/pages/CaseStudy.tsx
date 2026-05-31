@@ -141,7 +141,7 @@ export default function CaseStudy(): JSX.Element {
       </header>
 
       {html === null ? (
-        <div className="space-y-3 text-slate-400" aria-busy="true" aria-label="Loading case study">
+        <div className="space-y-3 text-slate-500" aria-busy="true" aria-label="Loading case study">
           <div className="h-4 w-3/4 rounded bg-slate-200 dark:bg-slate-800 animate-pulse" />
           <div className="h-4 w-2/3 rounded bg-slate-200 dark:bg-slate-800 animate-pulse" />
           <div className="h-4 w-5/6 rounded bg-slate-200 dark:bg-slate-800 animate-pulse" />

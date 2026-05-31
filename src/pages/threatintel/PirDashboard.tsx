@@ -175,11 +175,11 @@ export default function PirDashboard(): JSX.Element {
     fetch('/api/v1/threat-intel/pirs/alerts?include_acknowledged=true')
       .then((r) => r.json() as Promise<AlertResponse>)
       .then((r) => setAlerts(r.results))
-      .catch(() => {});
+      .catch((e) => console.error('Failed to load alerts', e));
     fetch('/api/v1/threat-intel/pirs/routing')
       .then((r) => r.json() as Promise<RoutingResponse>)
       .then((r) => setRouting(r.routes))
-      .catch(() => {});
+      .catch((e) => console.error('Failed to load routing', e));
   };
 
   useEffect(() => {
@@ -570,7 +570,7 @@ export default function PirDashboard(): JSX.Element {
             </div>
             <button
               type="button"
-              onClick={handleAcknowledgeAll}
+              onClick={() => void handleAcknowledgeAll()}
               disabled={ackAllLoading}
               className="inline-flex items-center gap-1 text-[10px] font-mono px-2 py-1 rounded border border-rose-300 dark:border-rose-700 hover:bg-rose-100 dark:hover:bg-rose-900/30 transition-colors disabled:opacity-50"
             >

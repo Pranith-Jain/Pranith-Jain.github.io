@@ -77,12 +77,12 @@ export default function QuickCveLookup() {
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && runLookup()}
+          onKeyDown={(e) => e.key === 'Enter' && void runLookup()}
           placeholder="CVE-2024-12345"
           className="flex-1 px-3 py-3 sm:py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded text-xs font-mono focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
         />
         <button
-          onClick={runLookup}
+          onClick={() => void runLookup()}
           disabled={!canSubmit}
           className="px-3 py-3 sm:py-1.5 rounded bg-brand-600 dark:bg-brand-500 text-white text-xs font-mono disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
         >
@@ -90,13 +90,9 @@ export default function QuickCveLookup() {
         </button>
       </div>
 
-      {loading && (
-        <p className="mt-2 text-[10px] font-mono text-slate-500">Querying NVD…</p>
-      )}
+      {loading && <p className="mt-2 text-[10px] font-mono text-slate-500">Querying NVD…</p>}
 
-      {error && (
-        <p className="mt-2 text-[10px] font-mono text-rose-500">error: {error}</p>
-      )}
+      {error && <p className="mt-2 text-[10px] font-mono text-rose-500">error: {error}</p>}
 
       {result && (
         <div className="mt-3 space-y-2">
@@ -113,7 +109,9 @@ export default function QuickCveLookup() {
               </span>
             )}
             {result.cvss && (
-              <span className={`text-[9px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wider border ${SEVERITY_STYLES[result.cvss.severity] ?? SEVERITY_STYLES.LOW}`}>
+              <span
+                className={`text-[9px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wider border ${SEVERITY_STYLES[result.cvss.severity] ?? SEVERITY_STYLES.LOW}`}
+              >
                 {result.cvss.severity} {result.cvss.base_score}
               </span>
             )}
@@ -126,10 +124,17 @@ export default function QuickCveLookup() {
           {(result.cvss || result.epss) && (
             <div className="flex gap-3 text-[10px] font-mono text-slate-500">
               {result.cvss && (
-                <span>CVSS: <strong className="text-slate-800 dark:text-slate-200">{result.cvss.base_score}</strong></span>
+                <span>
+                  CVSS: <strong className="text-slate-800 dark:text-slate-200">{result.cvss.base_score}</strong>
+                </span>
               )}
               {result.epss && (
-                <span>EPSS: <strong className="text-slate-800 dark:text-slate-200">{(result.epss.score * 100).toFixed(2)}%</strong></span>
+                <span>
+                  EPSS:{' '}
+                  <strong className="text-slate-800 dark:text-slate-200">
+                    {(result.epss.score * 100).toFixed(2)}%
+                  </strong>
+                </span>
               )}
             </div>
           )}

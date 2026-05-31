@@ -95,7 +95,9 @@ export default function CveLookup(): JSX.Element {
         try {
           const parsed = JSON.parse(body) as { message?: string };
           msg = parsed.message ?? msg;
-        } catch { /* use default */ }
+        } catch {
+          /* use default */
+        }
         throw new Error(msg);
       }
       const ct = r.headers.get('content-type') ?? '';
@@ -577,7 +579,7 @@ export default function CveLookup(): JSX.Element {
                   <div className="flex items-baseline justify-between gap-2 mb-3">
                     <h3 className="font-display font-semibold text-lg">
                       References{' '}
-                      <span className="text-slate-400 text-sm font-normal">
+                      <span className="text-slate-500 text-sm font-normal">
                         ({filtered.length} of {result.references.length})
                       </span>
                     </h3>

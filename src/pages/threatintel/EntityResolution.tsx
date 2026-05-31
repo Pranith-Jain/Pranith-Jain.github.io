@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { BackLink } from '../../components/BackLink';
 import {
+  ArrowLeft,
   Search,
   Loader2,
   ExternalLink,
@@ -219,7 +220,12 @@ export default function EntityResolution(): JSX.Element {
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink to="/threatintel" />
+      <BackLink
+        to="/threatintel"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+      >
+        <ArrowLeft size={14} /> back
+      </BackLink>
 
       <div className="mb-8">
         <div className="flex items-center gap-3 mb-2">
@@ -474,7 +480,7 @@ export default function EntityResolution(): JSX.Element {
             <div className="flex justify-end mt-2">
               <button
                 type="button"
-                onClick={extract}
+                onClick={() => void extract()}
                 disabled={loading || !text.trim()}
                 className="inline-flex items-center gap-1.5 rounded-md px-4 py-1.5 text-[11px] font-mono font-medium bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >

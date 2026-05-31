@@ -524,7 +524,7 @@ export default function DmarcAnalyzer(): JSX.Element {
                               {r.enrichment.org}
                             </span>
                           ) : (
-                            <span className="text-slate-400">—</span>
+                            <span className="text-slate-500">—</span>
                           )}
                         </td>
                         <td className="px-4 py-3 text-xs">
@@ -535,7 +535,7 @@ export default function DmarcAnalyzer(): JSX.Element {
                               {r.enrichment.country_code && ` (${r.enrichment.country_code})`}
                             </span>
                           ) : (
-                            <span className="text-slate-400">—</span>
+                            <span className="text-slate-500">—</span>
                           )}
                         </td>
                         <td className="px-4 py-3 text-right text-xs">{r.count.toLocaleString()}</td>

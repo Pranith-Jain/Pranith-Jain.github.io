@@ -1,6 +1,8 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import type { D1Database } from '@cloudflare/workers-types';
 import { shouldWriteLastGood } from '../lib/lastgood-debounce';
+import { concurrentMap } from '../lib/concurrent-map';
 import {
   parseTweetFeed,
   parseSansIsc,
@@ -11,6 +13,8 @@ import {
   parseAlienVaultReputation,
   parseSslblC2,
   parseBotvrijDomains,
+  parsePhishingArmy,
+  parseFeodoTracker,
 } from '../lib/ioc-feed-parsers';
 import { fetchMalwareSamplesCached } from './malware-samples';
 import { fetchPhishingUrlsCached } from './phishing-urls';
@@ -41,7 +45,7 @@ import { fetchMtiSource, type MtiIoc } from '../lib/mythreatintel-api';
  * Cached 30 min — these feeds churn faster than the correlation endpoint.
  */
 
-export const LIVE_IOCS_CACHE_KEY = 'https://live-iocs-cache.internal/v11-freshness-filter';
+export const LIVE_IOCS_CACHE_KEY = 'https://live-iocs-cache.internal/v13-freshness-filter';
 const CACHE_KEY = LIVE_IOCS_CACHE_KEY;
 const CACHE_TTL_SECONDS = 30 * 60;
 const FETCH_TIMEOUT_MS = 12_000;
@@ -52,7 +56,7 @@ const LASTGOOD_TTL_SECONDS = 24 * 60 * 60;
 // the sort (timestamped-first, no-timestamp tail) silently dropped every
 // untimestamped source (c2-intel, emerging-threats, otx-reputation, openphish)
 // because the 4 timestamped sources alone produced >400 items.
-const MAX_ITEMS = 3000;
+const MAX_ITEMS = 20000;
 // Freshness window for items WITH per-entry timestamps. Items observed
 // before this cutoff are dropped — the page is called "live IOCs"; an
 // indicator first seen weeks ago is rarely actionable. Bulk-snapshot
@@ -145,6 +149,17 @@ export async function fetchLiveIocs(
   kv?: KVNamespace,
   env?: Env
 ): Promise<LiveIocsResponse> {
+  const textFeedUrls = [
+    'https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/today.csv',
+    'https://isc.sans.edu/api/sources/attacks/200/?json',
+    'https://raw.githubusercontent.com/drb-ra/C2IntelFeeds/master/feeds/IPC2s.csv',
+    'https://urlhaus.abuse.ch/downloads/csv_recent/',
+    'https://threatfox.abuse.ch/export/csv/recent/',
+    'https://rules.emergingthreats.net/blockrules/compromised-ips.txt',
+    'https://reputation.alienvault.com/reputation.generic',
+    'https://sslbl.abuse.ch/blacklist/sslipblacklist.csv',
+    'https://www.botvrij.eu/data/ioclist.domain',
+  ];
   const [
     tweetfeedText,
     sansIscText,
@@ -155,20 +170,9 @@ export async function fetchLiveIocs(
     otxReputationText,
     sslblText,
     botvrijText,
-    malwareBazaarResult,
-    phishingResult,
-    afDefacementsRaw,
-    mtiIocResult,
-  ] = await Promise.all([
-    fetchText('https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/today.csv'),
-    fetchText('https://isc.sans.edu/api/sources/attacks/200/?json'),
-    fetchText('https://raw.githubusercontent.com/drb-ra/C2IntelFeeds/master/feeds/IPC2s.csv'),
-    fetchText('https://urlhaus.abuse.ch/downloads/csv_recent/'),
-    fetchText('https://threatfox.abuse.ch/export/csv/recent/'),
-    fetchText('https://rules.emergingthreats.net/blockrules/compromised-ips.txt'),
-    fetchText('https://reputation.alienvault.com/reputation.generic'),
-    fetchText('https://sslbl.abuse.ch/blacklist/sslipblacklist.csv'),
-    fetchText('https://www.botvrij.eu/data/ioclist.domain'),
+  ] = await concurrentMap(textFeedUrls, (url) => fetchText(url), 6);
+
+  const [malwareBazaarResult, phishingResult, afDefacementsRaw, mtiIocResult] = await Promise.all([
     fetchMalwareSamplesCached(executionCtx).catch(() => null),
     fetchPhishingUrlsCached(executionCtx, kv).catch(() => null),
     fetchAFDefacements().catch(() => [] as LiveIoc[]),
@@ -466,6 +470,15 @@ export async function fetchLiveIocs(
 
   // ─── CriticalPathSecurity Public Intelligence Feeds (2026-05-30) ──────
   const CPS_BASE = 'https://raw.githubusercontent.com/CriticalPathSecurity/Public-Intelligence-Feeds/master';
+  const cpsUrls = [
+    `${CPS_BASE}/binarydefense.txt`,
+    `${CPS_BASE}/tor-exit.txt`,
+    `${CPS_BASE}/avanzato_c2.txt`,
+    `${CPS_BASE}/cps-collected-iocs.txt`,
+    'https://blocklist.greensnow.co/greensnow.txt',
+    'https://lists.blocklist.de/lists/all.txt',
+    'https://cinsscore.com/list/ci-badguys.txt',
+  ];
   const [
     binaryDefenseText,
     torExitText,
@@ -474,15 +487,7 @@ export async function fetchLiveIocs(
     greenSnowText,
     blocklistDeText,
     cinsscoreText,
-  ] = await Promise.all([
-    fetchText(`${CPS_BASE}/binarydefense.txt`),
-    fetchText(`${CPS_BASE}/tor-exit.txt`),
-    fetchText(`${CPS_BASE}/avanzato_c2.txt`),
-    fetchText(`${CPS_BASE}/cps-collected-iocs.txt`),
-    fetchText('https://blocklist.greensnow.co/greensnow.txt'),
-    fetchText('https://lists.blocklist.de/lists/all.txt'),
-    fetchText('https://cinsscore.com/list/ci-badguys.txt'),
-  ]);
+  ] = await concurrentMap(cpsUrls, (url) => fetchText(url), 6);
 
   // ─── BinaryDefense IPs ──────────────────────────────────────────────────
   if (binaryDefenseText) {
@@ -632,6 +637,244 @@ export async function fetchLiveIocs(
     sources.push({ id: 'mythreatintel', ok: false, count: 0 });
   }
 
+  // ─── Additional threatfeeds.io sources ─────────────────────────────────
+  const additionalFeedUrls = [
+    'https://feodotracker.abuse.ch/downloads/ipblocklist.csv',
+    'https://gist.githubusercontent.com/BBcan177/bf29d47ea04391cb3eb0/raw/',
+    'https://gist.githubusercontent.com/BBcan177/4a8bf37c131be4803cb2/raw',
+    'https://www.joewein.net/dl/bl/dom-bl.txt',
+    'https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/hosts.txt',
+    'https://raw.githubusercontent.com/Hestat/minerchk/master/hostslist.txt',
+    'https://www.botvrij.eu/data/ioclist.hostname.raw',
+    'https://www.botvrij.eu/data/ioclist.url.raw',
+    'https://www.botvrij.eu/data/ioclist.ip-dst.raw',
+    'https://raw.githubusercontent.com/LinuxTracker/Blocklists/master/HancitorIPs.txt',
+    'https://www.darklist.de/raw.php',
+    'https://danger.rulez.sk/projects/bruteforceblocker/blist.php',
+  ];
+  const [
+    feodoTrackerText,
+    bbcan177IpsText,
+    bbcan177DnsblText,
+    domainsBlacklistText,
+    noCoinText,
+    moneroMinerText,
+    botvrijHostnamesText,
+    botvrijUrlsText,
+    botvrijIpsText,
+    hancitorIpsText,
+    darklistText,
+    bruteForceBlockerText,
+  ] = await concurrentMap(additionalFeedUrls, (url) => fetchText(url), 6);
+
+  // ─── Feodo Tracker (abuse.ch botnet C2 IPs) ────────────────────────────
+  if (feodoTrackerText) {
+    const parsed = parseFeodoTracker(feodoTrackerText, PER_FEED_CAP);
+    for (const e of parsed) {
+      items.push({
+        value: e.value,
+        kind: 'ip',
+        source: 'feodo-tracker',
+        reporter: 'abuse.ch Feodo Tracker',
+        context: e.context,
+      });
+    }
+    sources.push({ id: 'feodo-tracker', ok: true, count: parsed.length });
+  } else {
+    sources.push({ id: 'feodo-tracker', ok: false, count: 0 });
+  }
+
+  // ─── BBcan177 Malicious IPs ───────────────────────────────────────────
+  if (bbcan177IpsText) {
+    const parsed = parsePlainTextIps(bbcan177IpsText, PER_FEED_CAP);
+    for (const e of parsed) {
+      items.push({
+        value: e.value,
+        kind: 'ip',
+        source: 'bbcan177-ips',
+        reporter: 'BBcan177',
+        context: 'malicious IP blocklist',
+      });
+    }
+    sources.push({ id: 'bbcan177-ips', ok: true, count: parsed.length });
+  } else {
+    sources.push({ id: 'bbcan177-ips', ok: false, count: 0 });
+  }
+
+  // ─── BBcan177 DNSBL ───────────────────────────────────────────────────
+  if (bbcan177DnsblText) {
+    const parsed = parsePhishingArmy(bbcan177DnsblText, PER_FEED_CAP);
+    for (const e of parsed) {
+      items.push({
+        value: e.value,
+        kind: 'domain',
+        source: 'bbcan177-dnsbl',
+        reporter: 'BBcan177',
+        context: 'IRC botnet domains',
+      });
+    }
+    sources.push({ id: 'bbcan177-dnsbl', ok: true, count: parsed.length });
+  } else {
+    sources.push({ id: 'bbcan177-dnsbl', ok: false, count: 0 });
+  }
+
+  // ─── Domains Blacklist (joewein.net) ──────────────────────────────────
+  if (domainsBlacklistText) {
+    const parsed = parsePhishingArmy(domainsBlacklistText, PER_FEED_CAP);
+    for (const e of parsed) {
+      items.push({
+        value: e.value,
+        kind: 'domain',
+        source: 'domains-blacklist',
+        reporter: 'Joewein.net',
+        context: 'known malicious domain',
+      });
+    }
+    sources.push({ id: 'domains-blacklist', ok: true, count: parsed.length });
+  } else {
+    sources.push({ id: 'domains-blacklist', ok: false, count: 0 });
+  }
+
+  // ─── NoCoin (cryptomining domain blocklist) ───────────────────────────
+  if (noCoinText) {
+    const parsed = parsePhishingArmy(noCoinText, PER_FEED_CAP);
+    for (const e of parsed) {
+      items.push({
+        value: e.value,
+        kind: 'domain',
+        source: 'nocoin',
+        reporter: 'NoCoin',
+        context: 'cryptomining / browser miner',
+      });
+    }
+    sources.push({ id: 'nocoin', ok: true, count: parsed.length });
+  } else {
+    sources.push({ id: 'nocoin', ok: false, count: 0 });
+  }
+
+  // ─── Monero Miner domains ─────────────────────────────────────────────
+  if (moneroMinerText) {
+    const parsed = parsePhishingArmy(moneroMinerText, PER_FEED_CAP);
+    for (const e of parsed) {
+      items.push({
+        value: e.value,
+        kind: 'domain',
+        source: 'monero-miner',
+        reporter: 'MinerBlock',
+        context: 'Monero mining pool / miner domain',
+      });
+    }
+    sources.push({ id: 'monero-miner', ok: true, count: parsed.length });
+  } else {
+    sources.push({ id: 'monero-miner', ok: false, count: 0 });
+  }
+
+  // ─── Botvrij.eu hostnames ─────────────────────────────────────────────
+  if (botvrijHostnamesText) {
+    const parsed = parsePhishingArmy(botvrijHostnamesText, PER_FEED_CAP);
+    for (const e of parsed) {
+      items.push({
+        value: e.value,
+        kind: 'domain',
+        source: 'botvrij-hostnames',
+        reporter: 'Botvrij.eu',
+        context: 'curated malicious hostname',
+      });
+    }
+    sources.push({ id: 'botvrij-hostnames', ok: true, count: parsed.length });
+  } else {
+    sources.push({ id: 'botvrij-hostnames', ok: false, count: 0 });
+  }
+
+  // ─── Botvrij.eu URLs ──────────────────────────────────────────────────
+  if (botvrijUrlsText) {
+    const urls = botvrijUrlsText
+      .split('\n')
+      .map((l) => l.trim())
+      .filter((l) => l.startsWith('http'))
+      .slice(0, PER_FEED_CAP);
+    for (const url of urls) {
+      items.push({
+        value: url,
+        kind: 'url',
+        source: 'botvrij-urls',
+        reporter: 'Botvrij.eu',
+        context: 'curated malicious URL',
+      });
+    }
+    sources.push({ id: 'botvrij-urls', ok: urls.length > 0, count: urls.length });
+  } else {
+    sources.push({ id: 'botvrij-urls', ok: false, count: 0 });
+  }
+
+  // ─── Botvrij.eu IPs ───────────────────────────────────────────────────
+  if (botvrijIpsText) {
+    const parsed = parsePlainTextIps(botvrijIpsText, PER_FEED_CAP);
+    for (const e of parsed) {
+      items.push({
+        value: e.value,
+        kind: 'ip',
+        source: 'botvrij-ips',
+        reporter: 'Botvrij.eu',
+        context: 'curated malicious IP',
+      });
+    }
+    sources.push({ id: 'botvrij-ips', ok: true, count: parsed.length });
+  } else {
+    sources.push({ id: 'botvrij-ips', ok: false, count: 0 });
+  }
+
+  // ─── Hancitor malspam IPs ─────────────────────────────────────────────
+  if (hancitorIpsText) {
+    const parsed = parsePlainTextIps(hancitorIpsText, PER_FEED_CAP);
+    for (const e of parsed) {
+      items.push({
+        value: e.value,
+        kind: 'ip',
+        source: 'hancitor',
+        reporter: 'LinuxTracker',
+        context: 'Hancitor malspam source',
+      });
+    }
+    sources.push({ id: 'hancitor', ok: true, count: parsed.length });
+  } else {
+    sources.push({ id: 'hancitor', ok: false, count: 0 });
+  }
+
+  // ─── Darklist.de IP blocklist ─────────────────────────────────────────
+  if (darklistText) {
+    const parsed = parsePlainTextIps(darklistText, PER_FEED_CAP);
+    for (const e of parsed) {
+      items.push({
+        value: e.value,
+        kind: 'ip',
+        source: 'darklist',
+        reporter: 'Darklist.de',
+        context: 'reported malicious IP',
+      });
+    }
+    sources.push({ id: 'darklist', ok: true, count: parsed.length });
+  } else {
+    sources.push({ id: 'darklist', ok: false, count: 0 });
+  }
+
+  // ─── Brute Force Blocker ──────────────────────────────────────────────
+  if (bruteForceBlockerText) {
+    const parsed = parsePlainTextIps(bruteForceBlockerText, PER_FEED_CAP);
+    for (const e of parsed) {
+      items.push({
+        value: e.value,
+        kind: 'ip',
+        source: 'bruteforce-blocker',
+        reporter: 'BruteForce Blocker',
+        context: 'brute-force attack source',
+      });
+    }
+    sources.push({ id: 'bruteforce-blocker', ok: true, count: parsed.length });
+  } else {
+    sources.push({ id: 'bruteforce-blocker', ok: false, count: 0 });
+  }
+
   // Drop stale items — observed before the freshness cutoff. Items without
   // observed_at survive (they're bulk-snapshot feeds whose freshness is
   // governed by the upstream publish cadence, not per-entry).
@@ -646,6 +889,46 @@ export async function fetchLiveIocs(
     if (!a.observed_at && b.observed_at) return 1;
     return 0;
   });
+
+  // ─── Feed scheduler IOCs (from graph_nodes D1) ──────────────────────────
+  // These are IOCs fetched by the feed scheduler's auto-run cron and stored
+  // in graph_nodes. We pull the most recent entries here so they appear
+  // alongside the hardcoded live sources.
+  const db = (env as { BRIEFINGS_DB?: D1Database } | undefined)?.BRIEFINGS_DB;
+  if (db) {
+    try {
+      const feedIocs = await db
+        .prepare(
+          `SELECT value, type, sources, last_seen, properties
+           FROM graph_nodes
+           WHERE json_extract(sources, '$[0]') LIKE 'feed:%'
+           ORDER BY last_seen DESC
+           LIMIT ?`
+        )
+        .bind(PER_FEED_CAP)
+        .all<{ value: string; type: string; sources: string; last_seen: string; properties: string }>();
+      if (feedIocs.results && feedIocs.results.length > 0) {
+        let count = 0;
+        for (const row of feedIocs.results) {
+          const kind =
+            row.type === 'ip' ? ('ip' as const) : row.type === 'hash' ? ('hash' as const) : (row.type as IocKind);
+          const props = JSON.parse(row.properties || '{}') as Record<string, unknown>;
+          const feedName = (props.feed as string) ?? '';
+          freshItems.push({
+            value: row.value,
+            kind,
+            source: 'feed-scheduler',
+            context: feedName ? `Feed: ${feedName}` : 'Feed scheduler',
+            observed_at: row.last_seen,
+          });
+          count++;
+        }
+        sources.push({ id: 'feed-scheduler', ok: true, count, newest_observation: feedIocs.results[0].last_seen });
+      }
+    } catch {
+      /* non-fatal */
+    }
+  }
 
   // Recompute per-source counts after the freshness filter — the response
   // should not advertise contribution counts that include dropped stale items.

@@ -86,7 +86,7 @@ export default function TelegramLeaks(): JSX.Element {
       .then((d) => {
         if (!cancelled && d?.channels) setChannels(d.channels.map((c) => c.handle));
       })
-      .catch(() => {});
+      .catch((err) => console.error('Failed to load watched channels', err));
     return () => {
       cancelled = true;
     };
@@ -262,7 +262,7 @@ export default function TelegramLeaks(): JSX.Element {
           <button
             type="button"
             disabled={offset === 0}
-            onClick={() => setOffset(Math.max(0, offset - pageSize))}
+            onClick={() => setOffset((prev) => Math.max(0, prev - pageSize))}
             className="text-[11px] font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 disabled:opacity-30 disabled:cursor-not-allowed"
           >
             ← previous
@@ -273,7 +273,7 @@ export default function TelegramLeaks(): JSX.Element {
           <button
             type="button"
             disabled={entries.length < pageSize}
-            onClick={() => setOffset(offset + pageSize)}
+            onClick={() => setOffset((prev) => prev + pageSize)}
             className="text-[11px] font-mono px-3 py-1.5 rounded border border-slate-300 dark:border-slate-700 hover:border-brand-500/40 disabled:opacity-30 disabled:cursor-not-allowed"
           >
             next →

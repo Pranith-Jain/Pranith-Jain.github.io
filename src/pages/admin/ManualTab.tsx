@@ -112,7 +112,7 @@ export default function ManualTab() {
         </div>
 
         <button
-          onClick={handlePublish}
+          onClick={() => void handlePublish()}
           disabled={sending || !title.trim() || !body.trim()}
           className="px-4 py-2 bg-slate-100 text-zinc-900 rounded text-sm font-medium hover:bg-zinc-300 disabled:opacity-50"
         >

@@ -47,6 +47,14 @@ export interface GraphResponse {
   warning?: string;
 }
 
+export type LayoutMode = 'dagre' | 'force';
+
+export type PathFinderState =
+  | { phase: 'idle' }
+  | { phase: 'select-first' }
+  | { phase: 'select-second'; first: string }
+  | { phase: 'result'; first: string; second: string; path: string[] };
+
 export const NODE_COLORS: Record<GraphNodeType, string> = {
   cve: '#f59e0b',
   actor: '#ef4444',
