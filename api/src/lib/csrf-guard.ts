@@ -26,8 +26,8 @@ import type { Env } from '../env';
  */
 const ALLOWED_ORIGINS = [
   'https://pranithjain.qzz.io',
-  'http://localhost:5173',        // vite dev server
-  'http://localhost:8787',        // wrangler dev
+  'http://localhost:5173', // vite dev server
+  'http://localhost:8787', // wrangler dev
   'http://127.0.0.1:5173',
   'http://127.0.0.1:8787',
 ];
@@ -40,7 +40,7 @@ export async function csrfGuard(c: Context<{ Bindings: Env }>, next: Next): Prom
 
   const url = new URL(c.req.url);
   // Only apply to API routes
-  if (!url.pathname.startsWith('/api/v1/')) {
+  if (!url.pathname.startsWith('/api/v1/') && !url.pathname.startsWith('/api/taxii2/')) {
     return next();
   }
 

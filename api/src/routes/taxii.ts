@@ -183,6 +183,15 @@ export async function taxiiObjectsHandler(c: Context<{ Bindings: Env }>): Promis
 
 /** POST /api/taxii2/collections/{id}/objects/ — Add STIX objects */
 export async function taxiiAddObjectsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  // Require admin token — TAXII write operations are admin-only.
+  const auth = c.req.header('Authorization') ?? '';
+  const token = auth.startsWith('Bearer ') ? auth.slice(7) : '';
+  if (!token || token !== c.env.ADMIN_TOKEN) {
+    return c.json({ title: 'Unauthorized', description: 'Valid admin token required' }, 401, {
+      'Content-Type': TAXII_CONTENT_TYPE,
+    });
+  }
+
   const id = c.req.param('id');
   const collection = COLLECTIONS.find((col) => col.id === id);
 

@@ -135,11 +135,11 @@ function highlightInText(text: string, query: string, watchTerms: string[]): JSX
     <>
       {parts.map((part, i) =>
         re.test(part) ? (
-          <mark key={i} className="bg-amber-200 dark:bg-amber-700/40 text-inherit rounded px-0.5">
+          <mark key={`${part}-${i}`} className="bg-amber-200 dark:bg-amber-700/40 text-inherit rounded px-0.5">
             {part}
           </mark>
         ) : (
-          <span key={i}>{part}</span>
+          <span key={`${part}-${i}`}>{part}</span>
         )
       )}
     </>
@@ -1151,11 +1151,11 @@ function highlightTelegramText(text: string, watchTerms: string[]): JSX.Element 
     <>
       {parts.map((p, i) =>
         re.test(p) ? (
-          <mark key={i} className="bg-amber-300/40 dark:bg-amber-400/30 text-inherit rounded px-0.5">
+          <mark key={`${p}-${i}`} className="bg-amber-300/40 dark:bg-amber-400/30 text-inherit rounded px-0.5">
             {p}
           </mark>
         ) : (
-          <span key={i}>{p}</span>
+          <span key={`${p}-${i}`}>{p}</span>
         )
       )}
     </>

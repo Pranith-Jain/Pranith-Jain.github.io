@@ -430,7 +430,7 @@ export default function Infostealer(): JSX.Element {
                 if (!isRecord(row))
                   return (
                     <li
-                      key={i}
+                      key={`raw-${i}`}
                       className="rounded-lg border border-slate-200 dark:border-slate-800 p-3 font-mono text-[12px]"
                     >
                       {String(row)}
@@ -441,7 +441,7 @@ export default function Infostealer(): JSX.Element {
                 const date = str(row, ['discovered', 'published', 'date', 'added_date']);
                 return (
                   <li
-                    key={i}
+                    key={`${title}-${date}-${i}`}
                     className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
                   >
                     <div className="font-display font-semibold text-sm truncate">{title}</div>
@@ -462,9 +462,9 @@ export default function Infostealer(): JSX.Element {
 
       {!loading && tab === 'markets' && (
         <ul className="grid gap-2 md:grid-cols-2">
-          {(markets ?? []).map((m, i) => (
+          {(markets ?? []).map((m) => (
             <li
-              key={i}
+              key={m.title}
               className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
             >
               <div className="flex items-start justify-between gap-2">
@@ -499,9 +499,9 @@ export default function Infostealer(): JSX.Element {
 
       {!loading && tab === 'telegram' && (
         <ul className="grid gap-2 md:grid-cols-2">
-          {(tg ?? []).map((c, i) => (
+          {(tg ?? []).map((c) => (
             <li
-              key={i}
+              key={c.name}
               className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
             >
               <div className="flex items-center justify-between gap-2">
@@ -540,9 +540,9 @@ export default function Infostealer(): JSX.Element {
 
       {!loading && tab === 'samples' && (
         <ul className="grid gap-2 md:grid-cols-2">
-          {(samples ?? []).map((s, i) => (
+          {(samples ?? []).map((s) => (
             <li
-              key={i}
+              key={s.sha256}
               className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
             >
               <div className="flex items-center justify-between gap-2">
@@ -584,9 +584,9 @@ export default function Infostealer(): JSX.Element {
 
       {!loading && tab === 'c2' && (
         <ul className="grid gap-2 md:grid-cols-2">
-          {(c2 ?? []).map((x, i) => (
+          {(c2 ?? []).map((x) => (
             <li
-              key={i}
+              key={x.value}
               className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
             >
               <div className="flex items-center justify-between gap-2">
