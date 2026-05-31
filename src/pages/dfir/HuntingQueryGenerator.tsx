@@ -117,9 +117,9 @@ export default function HuntingQueryGenerator(): JSX.Element {
           className="w-full h-24 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg p-3 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 resize-y font-mono"
         />
         <div className="mt-2 flex flex-wrap gap-1">
-          {EXAMPLE_PROMPTS.slice(0, 4).map((ex, i) => (
+          {EXAMPLE_PROMPTS.slice(0, 4).map((ex) => (
             <button
-              key={i}
+              key={ex}
               onClick={() => setThreat(ex)}
               className="text-[11px] px-2 py-1 rounded border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-brand-500/30 transition-colors"
             >
@@ -167,9 +167,9 @@ export default function HuntingQueryGenerator(): JSX.Element {
                 <Shield size={14} className="text-brand-600 dark:text-brand-400" /> MITRE ATT&CK
               </h2>
               <div className="flex flex-wrap gap-1.5">
-                {result.mitre_techniques.map((t, i) => (
+                {result.mitre_techniques.map((t) => (
                   <a
-                    key={i}
+                    key={t}
                     href={`https://attack.mitre.org/techniques/${t.replace('.', '/')}/`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -183,9 +183,9 @@ export default function HuntingQueryGenerator(): JSX.Element {
           )}
 
           {/* Queries by Platform */}
-          {result.queries.map((q, i) => (
+          {result.queries.map((q) => (
             <div
-              key={i}
+              key={`${q.siem}-${q.description}`}
               className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5"
             >
               <div className="flex items-center justify-between mb-2">
@@ -212,8 +212,8 @@ export default function HuntingQueryGenerator(): JSX.Element {
                 Recommended Actions
               </h2>
               <ul className="space-y-1">
-                {result.recommended_actions.map((a, i) => (
-                  <li key={i} className="text-xs text-emerald-600 dark:text-emerald-400 flex items-start gap-2">
+                {result.recommended_actions.map((a) => (
+                  <li key={a} className="text-xs text-emerald-600 dark:text-emerald-400 flex items-start gap-2">
                     <span className="mt-1">•</span> {a}
                   </li>
                 ))}

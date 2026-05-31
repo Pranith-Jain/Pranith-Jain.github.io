@@ -203,8 +203,11 @@ export default function StealerParser(): JSX.Element {
                     </tr>
                   </thead>
                   <tbody>
-                    {result.credentials.slice(0, 50).map((cred, i) => (
-                      <tr key={i} className="border-b border-slate-100 dark:border-slate-800/50">
+                    {result.credentials.slice(0, 50).map((cred) => (
+                      <tr
+                        key={`${cred.domain}-${cred.username}-${cred.source}`}
+                        className="border-b border-slate-100 dark:border-slate-800/50"
+                      >
                         <td className="py-1.5 font-mono text-xs">{cred.domain}</td>
                         <td className="py-1.5 font-mono text-xs">{cred.username}</td>
                         <td className="py-1.5 text-xs text-slate-500">{cred.password_length}</td>
@@ -222,9 +225,9 @@ export default function StealerParser(): JSX.Element {
             <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
               <h3 className="font-display font-bold text-sm mb-3">Crypto Wallets ({result.crypto_wallets.length})</h3>
               <div className="space-y-1.5">
-                {result.crypto_wallets.map((w, i) => (
+                {result.crypto_wallets.map((w) => (
                   <div
-                    key={i}
+                    key={w.address}
                     className="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-3 py-2"
                   >
                     <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300">
@@ -243,9 +246,9 @@ export default function StealerParser(): JSX.Element {
             <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
               <h3 className="font-display font-bold text-sm mb-3">Emails ({result.emails.length})</h3>
               <div className="max-h-32 overflow-y-auto flex flex-wrap gap-1">
-                {result.emails.map((e, i) => (
+                {result.emails.map((e) => (
                   <span
-                    key={i}
+                    key={e}
                     className="px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-600 dark:text-slate-400"
                   >
                     {e}
@@ -260,9 +263,9 @@ export default function StealerParser(): JSX.Element {
             <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
               <h3 className="font-display font-bold text-sm mb-3">Installed Software</h3>
               <div className="flex flex-wrap gap-1.5">
-                {result.installed_software.map((s, i) => (
+                {result.installed_software.map((s) => (
                   <span
-                    key={i}
+                    key={s}
                     className="px-2 py-1 rounded border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-400"
                   >
                     {s}

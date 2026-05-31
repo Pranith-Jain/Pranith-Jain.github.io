@@ -518,9 +518,9 @@ export default function CampaignGenerator(): JSX.Element {
             <div className="mb-5">
               <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2">Kill chain</h3>
               <ol className="space-y-2">
-                {orderedKillChain.map((k, i) => (
+                {orderedKillChain.map((k) => (
                   <li
-                    key={`${k.phase}-${i}`}
+                    key={k.phase}
                     className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3"
                   >
                     <div className="text-[10px] font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-0.5">
@@ -562,8 +562,8 @@ export default function CampaignGenerator(): JSX.Element {
             <div className="mb-5">
               <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2">Hunting hypotheses</h3>
               <ul className="space-y-1.5 list-disc list-inside text-sm text-slate-700 dark:text-slate-300">
-                {result.campaign.hunting_hypotheses.map((h, i) => (
-                  <li key={i}>{h}</li>
+                {result.campaign.hunting_hypotheses.map((h) => (
+                  <li key={h}>{h}</li>
                 ))}
               </ul>
             </div>
@@ -575,9 +575,9 @@ export default function CampaignGenerator(): JSX.Element {
                 Detection opportunities
               </h3>
               <ul className="space-y-1.5">
-                {result.campaign.detection_opportunities.map((d, i) => (
+                {result.campaign.detection_opportunities.map((d) => (
                   <li
-                    key={i}
+                    key={d}
                     className="text-sm font-mono rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-2.5 text-slate-700 dark:text-slate-300"
                   >
                     {d}
@@ -591,16 +591,16 @@ export default function CampaignGenerator(): JSX.Element {
             <div className="mb-5">
               <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2">IOCs to pivot on</h3>
               <ul className="space-y-1">
-                {result.campaign.iocs_to_pivot.map((i, idx) => {
-                  const ioc = i.split(/[\s—:-]/)[0] ?? i;
+                {result.campaign.iocs_to_pivot.map((ioc) => {
+                  const fragment = ioc.split(/[\s—:-]/)[0] ?? ioc;
                   return (
                     <li
-                      key={idx}
+                      key={ioc}
                       className="text-sm flex items-start gap-2 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-2"
                     >
-                      <span className="flex-1 text-slate-700 dark:text-slate-300">{i}</span>
+                      <span className="flex-1 text-slate-700 dark:text-slate-300">{ioc}</span>
                       <Link
-                        to={`/dfir/ioc-check?indicator=${encodeURIComponent(ioc)}`}
+                        to={`/dfir/ioc-check?indicator=${encodeURIComponent(fragment)}`}
                         className="text-[10px] font-mono text-brand-600 dark:text-brand-400 hover:underline shrink-0"
                       >
                         pivot →
@@ -618,8 +618,8 @@ export default function CampaignGenerator(): JSX.Element {
                 <AlertTriangle size={11} /> Caveats
               </h3>
               <ul className="space-y-1 list-disc list-inside text-xs font-mono text-amber-900 dark:text-amber-200">
-                {result.campaign.caveats.map((c, i) => (
-                  <li key={i}>{c}</li>
+                {result.campaign.caveats.map((c) => (
+                  <li key={c}>{c}</li>
                 ))}
               </ul>
             </div>

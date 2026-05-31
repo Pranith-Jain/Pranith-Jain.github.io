@@ -196,8 +196,8 @@ export default function ActorDNA(): JSX.Element {
                     </span>
                   </div>
                   <div className="space-y-1">
-                    {match.matching_signals.map((signal, i) => (
-                      <div key={i} className="text-xs text-slate-400">
+                    {match.matching_signals.map((signal) => (
+                      <div key={signal.description} className="text-xs text-slate-400">
                         • {signal.description}
                       </div>
                     ))}
@@ -309,9 +309,9 @@ export default function ActorDNA(): JSX.Element {
                     <div>
                       <div className="text-xs text-slate-500 mb-2">Target Sectors</div>
                       <div className="flex flex-wrap gap-2">
-                        {selectedActor.victimology.preferred_sectors.map((s, i) => (
+                        {selectedActor.victimology.preferred_sectors.map((s) => (
                           <span
-                            key={i}
+                            key={s}
                             className="text-sm px-3 py-1 bg-red-500/10 text-red-700 dark:text-red-400 rounded-full"
                           >
                             {s}
@@ -322,9 +322,9 @@ export default function ActorDNA(): JSX.Element {
                     <div>
                       <div className="text-xs text-slate-500 mb-2">Target Regions</div>
                       <div className="flex flex-wrap gap-2">
-                        {selectedActor.victimology.preferred_regions.map((r, i) => (
+                        {selectedActor.victimology.preferred_regions.map((r) => (
                           <span
-                            key={i}
+                            key={r}
                             className="text-sm px-3 py-1 bg-blue-500/10 text-blue-700 dark:text-blue-400 rounded-full"
                           >
                             {r}
@@ -450,9 +450,9 @@ function DNACard({ title, items, color }: { title: string; items: string[]; colo
     <div className={`rounded-lg border p-3 ${colorMap[color] ?? colorMap.blue}`}>
       <div className="text-xs font-medium text-slate-400 mb-2">{title}</div>
       <div className="flex flex-wrap gap-1">
-        {items.map((item, i) => (
+        {items.map((item) => (
           <span
-            key={i}
+            key={item}
             className="text-xs px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 rounded"
           >
             {item.replace(/_/g, ' ')}

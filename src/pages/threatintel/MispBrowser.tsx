@@ -419,9 +419,9 @@ export default function MispBrowser() {
                 Tags ({e.tags.length})
               </h3>
               <div className="flex flex-wrap gap-1">
-                {e.tags.map((t, i) => (
+                {e.tags.map((t) => (
                   <span
-                    key={i}
+                    key={t.Tag.name}
                     className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
                   >
                     {t.Tag.name}
@@ -437,9 +437,9 @@ export default function MispBrowser() {
                 Related Events ({e.related_events.length})
               </h3>
               <div className="grid gap-2">
-                {e.related_events.map((r, i) => (
+                {e.related_events.map((r) => (
                   <button
-                    key={i}
+                    key={r.Event.id}
                     onClick={() => loadEventDetail(r.Event.id)}
                     className="text-left text-xs font-mono px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-brand-400 transition-colors"
                   >
@@ -571,9 +571,9 @@ export default function MispBrowser() {
                   </div>
                   {e.tags && e.tags.length > 0 && (
                     <div className="flex flex-wrap gap-1 mt-2">
-                      {e.tags.slice(0, 5).map((t, i) => (
+                      {e.tags.slice(0, 5).map((t) => (
                         <span
-                          key={i}
+                          key={t.Tag.name}
                           className="text-[10px] font-mono px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500"
                         >
                           {t.Tag.name}

@@ -140,11 +140,11 @@ export default function MalpediaPage(): JSX.Element {
                 <Users size={16} className="text-brand-600" /> Actors ({result.actors.length})
               </h2>
               <div className="grid gap-2 sm:grid-cols-2">
-                {result.actors.map((a, i) => {
+                {result.actors.map((a) => {
                   const desc = typeof a.description === 'string' ? a.description : '';
                   return (
                     <div
-                      key={i}
+                      key={String(a.actor_name ?? a.name ?? '')}
                       className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
                     >
                       <div className="font-display font-semibold text-sm">{String(a.actor_name ?? a.name ?? '?')}</div>
@@ -163,11 +163,11 @@ export default function MalpediaPage(): JSX.Element {
                 <Bug size={16} className="text-brand-600" /> Families ({result.families.length})
               </h2>
               <div className="grid gap-2 sm:grid-cols-2">
-                {result.families.map((f, i) => {
+                {result.families.map((f) => {
                   const desc = typeof f.description === 'string' ? f.description : '';
                   return (
                     <div
-                      key={i}
+                      key={String(f.family_name ?? f.common_name ?? '')}
                       className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
                     >
                       <div className="font-display font-semibold text-sm">
@@ -239,8 +239,8 @@ export default function MalpediaPage(): JSX.Element {
             <div className="mt-4">
               <h3 className="text-[11px] font-mono uppercase tracking-wider text-slate-500 mb-1.5">References</h3>
               <ul className="space-y-1">
-                {(result.data.references as string[]).slice(0, 20).map((ref: string, i: number) => (
-                  <li key={i}>
+                {(result.data.references as string[]).slice(0, 20).map((ref: string) => (
+                  <li key={ref}>
                     <a
                       href={sanitizeUrl(ref) || undefined}
                       target="_blank"

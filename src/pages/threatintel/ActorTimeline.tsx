@@ -167,10 +167,10 @@ export default function ActorTimeline(): JSX.Element {
                   style={{ gridTemplateColumns: `200px repeat(${data.days.length}, minmax(0,1fr))` }}
                 >
                   <div></div>
-                  {data.days.map((_, i) => {
+                  {data.days.map((day, i) => {
                     const tick = xAxisLabels.find((l) => l.idx === i);
                     return (
-                      <div key={i} className="text-center">
+                      <div key={day} className="text-center">
                         {tick ? tick.label : ''}
                       </div>
                     );
@@ -261,7 +261,7 @@ export default function ActorTimeline(): JSX.Element {
                               </span>
                             </span>
                           )}
-                          {g.references.slice(0, 3).map((ref, i) => {
+                          {g.references.slice(0, 3).map((ref) => {
                             let host = ref;
                             try {
                               host = new URL(ref).hostname.replace(/^www\./, '');
@@ -270,7 +270,7 @@ export default function ActorTimeline(): JSX.Element {
                             }
                             return (
                               <a
-                                key={i}
+                                key={ref}
                                 href={sanitizeUrl(ref) || undefined}
                                 target="_blank"
                                 rel="noopener noreferrer"
@@ -372,14 +372,14 @@ function AccelerationBadge({ buckets }: { buckets: ActorBucket[] }): JSX.Element
 function MirrorDots({ reachable, total }: { reachable: number; total: number }): JSX.Element {
   const cap = Math.min(total, 8);
   const reachableCapped = Math.min(reachable, cap);
-  const dots = Array.from({ length: cap }, (_, i) => i < reachableCapped);
+  const dots = Array.from({ length: cap }, (_, i) => ({ key: `dot-${i}`, on: i < reachableCapped }));
   return (
     <span className="inline-flex items-center gap-0.5" aria-hidden="true">
-      {dots.map((on, i) => (
+      {dots.map((d) => (
         <span
-          key={i}
+          key={d.key}
           className={`inline-block w-1.5 h-1.5 rounded-full ${
-            on ? 'bg-emerald-500 dark:bg-emerald-400' : 'bg-slate-300 dark:bg-slate-700'
+            d.on ? 'bg-emerald-500 dark:bg-emerald-400' : 'bg-slate-300 dark:bg-slate-700'
           }`}
         />
       ))}

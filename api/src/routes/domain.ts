@@ -125,7 +125,7 @@ export async function domainLookupHandler(c: Context<{ Bindings: Env }>) {
           verdict: 'unknown',
           raw_summary: {},
           tags: [],
-          error: safeErrorMessage(c.env as unknown as Record<string, unknown>, err),
+          error: safeErrorMessage(c.env, err),
           fetched_at: new Date().toISOString(),
           cached: false,
         })

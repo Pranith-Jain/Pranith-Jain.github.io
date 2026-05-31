@@ -315,9 +315,9 @@ export default function CampaignDetail(): JSX.Element {
                 Attached IOCs ({data.input.iocs.length})
               </h3>
               <ul className="space-y-1">
-                {data.input.iocs.map((ioc, i) => (
+                {data.input.iocs.map((ioc) => (
                   <li
-                    key={i}
+                    key={ioc}
                     className="flex items-center gap-2 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-2 text-sm font-mono"
                   >
                     <span className="flex-1 truncate text-slate-700 dark:text-slate-300" title={ioc}>
@@ -339,8 +339,8 @@ export default function CampaignDetail(): JSX.Element {
             <div className="mb-5">
               <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2">Hunting hypotheses</h3>
               <ul className="space-y-1.5 list-disc list-inside text-sm text-slate-700 dark:text-slate-300">
-                {data.campaign.hunting_hypotheses.map((h, i) => (
-                  <li key={i}>{h}</li>
+                {data.campaign.hunting_hypotheses.map((h) => (
+                  <li key={h}>{h}</li>
                 ))}
               </ul>
             </div>
@@ -352,9 +352,9 @@ export default function CampaignDetail(): JSX.Element {
                 Detection opportunities
               </h3>
               <ul className="space-y-1.5">
-                {data.campaign.detection_opportunities.map((d, i) => (
+                {data.campaign.detection_opportunities.map((d) => (
                   <li
-                    key={i}
+                    key={d}
                     className="text-sm font-mono rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-2.5 text-slate-700 dark:text-slate-300"
                   >
                     {d}
@@ -386,8 +386,8 @@ export default function CampaignDetail(): JSX.Element {
                 <AlertTriangle size={11} /> Caveats
               </h3>
               <ul className="space-y-1 list-disc list-inside text-xs font-mono text-amber-900 dark:text-amber-200">
-                {data.campaign.caveats.map((c, i) => (
-                  <li key={i}>{c}</li>
+                {data.campaign.caveats.map((c) => (
+                  <li key={c}>{c}</li>
                 ))}
               </ul>
             </div>

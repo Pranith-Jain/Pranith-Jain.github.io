@@ -192,20 +192,21 @@ async function loadAllInvestigations(db: D1Database): Promise<Investigation[]> {
   const ids = bases.map((b) => b.id);
 
   // Batch-fetch sub-items for all investigations (4 queries total)
+  // ids are string UUIDs from the database — safe for D1 parameterized binds.
   const placeholder = ids.map(() => '?').join(',');
-  const bindArgs = ids as unknown as import('@cloudflare/workers-types').D1Value[];
+  const toBind = ids;
   const [obsResult, tasksResult, tlResult] = await Promise.all([
     db
       .prepare(`SELECT * FROM investigation_observables WHERE investigation_id IN (${placeholder}) ORDER BY created_at`)
-      .bind(...bindArgs)
+      .bind(...toBind)
       .all(),
     db
       .prepare(`SELECT * FROM investigation_tasks WHERE investigation_id IN (${placeholder}) ORDER BY created_at`)
-      .bind(...bindArgs)
+      .bind(...toBind)
       .all(),
     db
       .prepare(`SELECT * FROM investigation_timeline WHERE investigation_id IN (${placeholder}) ORDER BY created_at`)
-      .bind(...bindArgs)
+      .bind(...toBind)
       .all(),
   ]);
 

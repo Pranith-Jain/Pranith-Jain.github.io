@@ -13,9 +13,8 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { safeErrorMessage } from './error';
 
-// safeErrorMessage expects Record<string, unknown>; bridge the type gap.
 function safeMsg(env: Env, err: unknown): string {
-  return safeErrorMessage(env as unknown as Record<string, unknown>, err);
+  return safeErrorMessage(env, err);
 }
 
 export interface ApiErrorBody {

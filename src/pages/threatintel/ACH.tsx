@@ -163,7 +163,7 @@ export default function ACH(): JSX.Element {
               const showFor = showEvFor.has(i);
               const showAgainst = showEvAgainst.has(i);
               return (
-                <div key={i} className={`rounded-xl border overflow-hidden ${confidenceBg(h.confidence)}`}>
+                <div key={h.label} className={`rounded-xl border overflow-hidden ${confidenceBg(h.confidence)}`}>
                   <button
                     type="button"
                     onClick={() =>
@@ -231,9 +231,9 @@ export default function ACH(): JSX.Element {
                             {showFor ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
                           </button>
                           {showFor &&
-                            h.evidence_for.map((ev, j) => (
+                            h.evidence_for.map((ev) => (
                               <div
-                                key={j}
+                                key={`${ev.claim}-${ev.source}`}
                                 className="mb-2 p-2 rounded bg-white/50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-800"
                               >
                                 <p className="text-[11px] text-slate-700 dark:text-slate-300">{ev.claim}</p>
@@ -274,9 +274,9 @@ export default function ACH(): JSX.Element {
                             {showAgainst ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
                           </button>
                           {showAgainst &&
-                            h.evidence_against.map((ev, j) => (
+                            h.evidence_against.map((ev) => (
                               <div
-                                key={j}
+                                key={`${ev.claim}-${ev.source}`}
                                 className="mb-2 p-2 rounded bg-white/50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-800"
                               >
                                 <p className="text-[11px] text-slate-700 dark:text-slate-300">{ev.claim}</p>
@@ -323,7 +323,7 @@ export default function ACH(): JSX.Element {
               </h3>
               <ul className="space-y-2">
                 {result.key_assumptions.map((a, i) => (
-                  <li key={i} className="flex items-start gap-2 text-xs text-slate-600 dark:text-slate-400">
+                  <li key={a} className="flex items-start gap-2 text-xs text-slate-600 dark:text-slate-400">
                     <span className="text-slate-300 mt-0.5">{i + 1}.</span>
                     {a}
                   </li>
@@ -339,8 +339,8 @@ export default function ACH(): JSX.Element {
                 <Search size={12} /> Recommended Collection
               </h3>
               <ul className="space-y-2">
-                {result.recommended_collection.map((r, i) => (
-                  <li key={i} className="flex items-start gap-2 text-xs text-slate-600 dark:text-slate-400">
+                {result.recommended_collection.map((r) => (
+                  <li key={r} className="flex items-start gap-2 text-xs text-slate-600 dark:text-slate-400">
                     <span className="text-brand-500 mt-0.5">→</span>
                     {r}
                   </li>

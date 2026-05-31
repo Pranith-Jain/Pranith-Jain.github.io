@@ -225,11 +225,11 @@ export default function IocLifecycle(): JSX.Element {
                 </tr>
               </thead>
               <tbody>
-                {trending.map((ioc, i) => {
+                {trending.map((ioc) => {
                   const T = TREND_ICON[ioc.trend] ?? Minus;
                   return (
                     <tr
-                      key={i}
+                      key={ioc.indicator}
                       className="border-b border-slate-100 dark:border-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-900/20"
                     >
                       <td className="px-4 py-2.5 font-mono text-xs truncate max-w-[200px]">{ioc.indicator}</td>
@@ -305,9 +305,9 @@ export default function IocLifecycle(): JSX.Element {
                 Sources ({lifecycle.sources_seen.length})
               </div>
               <div className="flex flex-wrap gap-1">
-                {lifecycle.sources_seen.map((s, i) => (
+                {lifecycle.sources_seen.map((s) => (
                   <span
-                    key={i}
+                    key={s}
                     className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500"
                   >
                     {s}
@@ -318,9 +318,9 @@ export default function IocLifecycle(): JSX.Element {
             <div>
               <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1.5">Tags</div>
               <div className="flex flex-wrap gap-1">
-                {lifecycle.tags.map((t, i) => (
+                {lifecycle.tags.map((t) => (
                   <span
-                    key={i}
+                    key={t}
                     className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300"
                   >
                     {t}

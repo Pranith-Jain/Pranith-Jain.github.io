@@ -253,9 +253,9 @@ export default function AttackChain(): JSX.Element {
               <p className="text-xs text-amber-700 dark:text-amber-300 mb-2">{result.predicted_next.rationale}</p>
               {result.predicted_next.techniques.length > 0 && (
                 <div className="flex flex-wrap gap-1">
-                  {result.predicted_next.techniques.map((t, i) => (
+                  {result.predicted_next.techniques.map((t) => (
                     <span
-                      key={i}
+                      key={t}
                       className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-amber-300/50 dark:border-amber-800/50 text-amber-700 dark:text-amber-300"
                     >
                       {t}
@@ -273,8 +273,8 @@ export default function AttackChain(): JSX.Element {
                 Intelligence Gaps
               </h3>
               <ul className="space-y-1">
-                {result.gaps.map((gap, i) => (
-                  <li key={i} className="text-xs text-orange-600 dark:text-orange-400 flex items-center gap-2">
+                {result.gaps.map((gap) => (
+                  <li key={gap} className="text-xs text-orange-600 dark:text-orange-400 flex items-center gap-2">
                     <AlertTriangle size={12} /> {gap}
                   </li>
                 ))}
@@ -289,9 +289,9 @@ export default function AttackChain(): JSX.Element {
                 <CheckCircle size={14} className="text-emerald-600 dark:text-emerald-400" /> Detection Recommendations
               </h2>
               <div className="space-y-2">
-                {result.recommendations.map((rec, i) => (
+                {result.recommendations.map((rec) => (
                   <div
-                    key={i}
+                    key={rec.action}
                     className="flex items-center justify-between rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3"
                   >
                     <div>
