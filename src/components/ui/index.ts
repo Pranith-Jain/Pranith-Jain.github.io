@@ -1,47 +1,30 @@
-export { ThemeToggle } from './ThemeToggle';
+/**
+ * Reusable UI Component Library
+ * 
+ * Production-ready components with:
+ * - Full accessibility (ARIA attributes, keyboard navigation)
+ * - Responsive design
+ * - Dark mode support
+ * - Loading states and edge cases
+ * - Memoized for performance
+ */
+
+// Existing components
 export { ScrollProgress } from './ScrollProgress';
 export { BackToTop } from './BackToTop';
-export { MobileMenu } from './MobileMenu';
-export { SectionTitle } from './SectionTitle';
-export { StatCards } from './StatCards';
-export { FilterBar } from './FilterBar';
-export { TabBar } from './TabBar';
-export { Modal, ModalFooter } from './Modal';
-export { ToastProvider, useToast } from './Toast';
-export { Skeleton, SkeletonGroup } from './Skeleton';
-export { Tooltip } from './Tooltip';
-export { Button } from './Button';
-export { Card, CardHeader, CardBody, CardFooter } from './Card';
-export { VisuallyHidden } from './VisuallyHidden';
-export { Spinner, SpinnerCentered } from './Spinner';
-export { TextField } from './TextField';
-export { Select } from './Select';
-export { Collapsible, Accordion } from './Collapsible';
-export { Toggle } from './Toggle';
-export { ProgressBar } from './ProgressBar';
-export { DropdownMenu } from './DropdownMenu';
-export { Alert } from './Alert';
-export { Breadcrumbs, BreadcrumbsHeading } from './Breadcrumbs';
-export { Pagination } from './Pagination';
-export { Kbd } from './Kbd';
+
+// New reusable components
+export { Badge } from './Badge';
+export type { BadgeVariant, BadgeSize } from './Badge';
+
+export { Skeleton, SkeletonCard, SkeletonTable } from './Skeleton';
+export type { SkeletonVariant } from './Skeleton';
+
 export { EmptyState } from './EmptyState';
-export { Table, Thead, Th, Tbody, Tr, Td } from './Table';
-export { Drawer } from './Drawer';
-export { Code, CodeBlock } from './Code';
-export { DescriptionList } from './DescriptionList';
-export { PageContainer } from './PageContainer';
-export { Tabs } from './Tabs';
-export { FileDropZone } from './FileDropZone';
-export { StatusDot } from './StatusDot';
-export { SearchInput } from './SearchInput';
-export { StepList } from './StepList';
-export { Section } from './Section';
-export { CountUp } from './CountUp';
-export { ScrollArea } from './ScrollArea';
-export { Checkbox } from './Checkbox';
-export { Link } from './Link';
-export { RadioGroup } from './RadioGroup';
-export { AspectRatio } from './AspectRatio';
-export { Stack, HStack, VStack } from './Stack';
-export { Grid } from './Grid';
+
+export { Tooltip } from './Tooltip';
+
 export { CopyButton } from './CopyButton';
+
+export { StatusIndicator } from './StatusIndicator';
+export type { Status } from './StatusIndicator';

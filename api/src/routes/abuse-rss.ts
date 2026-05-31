@@ -7,6 +7,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { getSiteUrl } from '../lib/site-config';
 import { FEED_SOURCES, buildSummary, type IocEntry, type SourceId } from '../lib/ioc-feed-parsers';
 
 const SUPPORTED: SourceId[] = ['urlhaus', 'threatfox', 'malwarebazaar'];
@@ -21,12 +22,12 @@ function escapeXml(s: string): string {
     .replace(/'/g, '&apos;');
 }
 
-function entryToItem(entry: IocEntry, sourceName: string): string {
+function entryToItem(entry: IocEntry, sourceName: string, siteUrl: string): string {
   const title = `${entry.type.toUpperCase()}: ${entry.value}`;
   const link =
     entry.type === 'url'
       ? entry.value
-      : `https://pranithjain.qzz.io/dfir/ioc-check?indicator=${encodeURIComponent(entry.value)}`;
+      : `${siteUrl}/dfir/ioc-check?indicator=${encodeURIComponent(entry.value)}`;
   const description = entry.context ?? `${sourceName} ${entry.type}`;
   const guid = `${sourceName}:${entry.value}`;
   const pubDate = entry.timestamp
@@ -73,7 +74,8 @@ export async function abuseRssHandler(c: Context<{ Bindings: Env }>) {
   }
 
   const limited = entries.slice(0, 50);
-  const items = limited.map((e) => entryToItem(e, meta.name)).join('\n');
+  const siteUrl = getSiteUrl(c.env);
+  const items = limited.map((e) => entryToItem(e, meta.name, siteUrl)).join('\n');
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>

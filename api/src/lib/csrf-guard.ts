@@ -1,5 +1,6 @@
 import type { Context, Next } from 'hono';
 import type { Env } from '../env';
+import { getAllowedOrigins } from './site-config';
 
 /**
  * CSRF protection via origin / referer header validation.
@@ -22,16 +23,10 @@ import type { Env } from '../env';
  * Same-origin policy: for same-origin requests (Origin matches the
  * canonical domain), the request passes. For cross-origin requests
  * (which should never happen for our API since the frontend is on the
- * same domain), the request is rejected.
+ * same domain), the request is rejected. For server-to-server callers
+ * (no Origin / Referer headers) the guard passes through — auth
+ * provides the real protection for those.
  */
-const ALLOWED_ORIGINS = [
-  'https://pranithjain.qzz.io',
-  'http://localhost:5173', // vite dev server
-  'http://localhost:8787', // wrangler dev
-  'http://127.0.0.1:5173',
-  'http://127.0.0.1:8787',
-];
-
 export async function csrfGuard(c: Context<{ Bindings: Env }>, next: Next): Promise<Response | void> {
   const method = c.req.method;
   if (method === 'GET' || method === 'HEAD' || method === 'OPTIONS') {
@@ -39,16 +34,16 @@ export async function csrfGuard(c: Context<{ Bindings: Env }>, next: Next): Prom
   }
 
   const url = new URL(c.req.url);
-  // Only apply to API routes
   if (!url.pathname.startsWith('/api/v1/') && !url.pathname.startsWith('/api/taxii2/')) {
     return next();
   }
 
+  const allowedOrigins = getAllowedOrigins(c.env as { SITE_URL?: string });
+
   const origin = c.req.header('Origin');
   const referer = c.req.header('Referer');
 
-  // Check origin first (more reliable), then fall back to referer.
-  if (origin && ALLOWED_ORIGINS.includes(origin)) {
+  if (origin && allowedOrigins.includes(origin)) {
     return next();
   }
 
@@ -56,7 +51,7 @@ export async function csrfGuard(c: Context<{ Bindings: Env }>, next: Next): Prom
   if (referer) {
     try {
       const refererOrigin = new URL(referer).origin;
-      if (ALLOWED_ORIGINS.includes(refererOrigin)) {
+      if (allowedOrigins.includes(refererOrigin)) {
         return next();
       }
     } catch {

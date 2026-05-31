@@ -83,6 +83,27 @@ function buildLinkedinPrompt(post: Post): string {
   );
 }
 
+/** Maximum character limits per platform. */
+const TWITTER_MAX_CHARS = 280;
+const LINKEDIN_MAX_CHARS = 2000;
+
+/**
+ * Enforce character limit on social content.
+ * Truncates at the last complete sentence within the limit.
+ */
+function enforceCharLimit(text: string, maxChars: number): string {
+  if (text.length <= maxChars) return text;
+  // Try to cut at last sentence boundary
+  const truncated = text.slice(0, maxChars - 1);
+  const lastPeriod = truncated.lastIndexOf('.');
+  const lastNewline = truncated.lastIndexOf('\n');
+  const cutPoint = Math.max(lastPeriod, lastNewline);
+  if (cutPoint > maxChars * 0.7) {
+    return truncated.slice(0, cutPoint + 1).trim();
+  }
+  return truncated.trim() + '…';
+}
+
 export async function generateSocialContent(post: Post, ai: Ai, now: Date, groqKey?: string): Promise<SocialContent> {
   // allSettled, not all: social copy is ancillary. A transient AI failure
   // on ONE channel must not reject the whole step (which would make the
@@ -101,10 +122,21 @@ export async function generateSocialContent(post: Post, ai: Ai, now: Date, groqK
     ),
   ]);
 
+  const twitter = twitterRes.status === 'fulfilled' ? enforceCharLimit(twitterRes.value.text.trim(), TWITTER_MAX_CHARS) : '';
+  const linkedin = linkedinRes.status === 'fulfilled' ? enforceCharLimit(linkedinRes.value.text.trim(), LINKEDIN_MAX_CHARS) : '';
+
+  // Log if content was truncated (for monitoring)
+  if (twitterRes.status === 'fulfilled' && twitterRes.value.text.length > TWITTER_MAX_CHARS) {
+    console.warn(`social: twitter content truncated from ${twitterRes.value.text.length} to ${twitter.length} chars`);
+  }
+  if (linkedinRes.status === 'fulfilled' && linkedinRes.value.text.length > LINKEDIN_MAX_CHARS) {
+    console.warn(`social: linkedin content truncated from ${linkedinRes.value.text.length} to ${linkedin.length} chars`);
+  }
+
   return {
     slug: post.slug,
-    twitter: twitterRes.status === 'fulfilled' ? twitterRes.value.text.trim() : '',
-    linkedin: linkedinRes.status === 'fulfilled' ? linkedinRes.value.text.trim() : '',
+    twitter,
+    linkedin,
     generatedAt: now.toISOString(),
   };
 }

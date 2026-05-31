@@ -74,6 +74,13 @@ import {
 } from './routes/briefings';
 import { briefingsRssHandler } from './routes/briefings-rss';
 import {
+  submitFeedbackHandler,
+  getFeedbackHandler,
+  submitAnnotationHandler,
+  getAnnotationsHandler,
+  feedbackSummaryHandler,
+} from './routes/briefing-feedback';
+import {
   listExternalResourcesHandler,
   createExternalResourceHandler,
   deleteExternalResourceHandler,
@@ -162,6 +169,16 @@ import { certspotterSearchHandler } from './routes/certspotter';
 import { triageSearchHandler } from './routes/triage';
 import { reportParserHandler } from './routes/report-parser';
 import { domainRepHandler, domainMonitorHandler } from './routes/domain-advanced';
+import {
+  domainHistoryHandler,
+  domainChangesHandler,
+  domainPivotHandler,
+  domainHistoryStatsHandler,
+  domainRegistrantSearchHandler,
+  domainSnapshotHandler,
+} from './routes/domain-history';
+import { openDirectoryScanHandler } from './routes/open-directory';
+import { exposedHostHandler } from './routes/exposed-host';
 import { iocLifecycleHandler, iocLifecycleTrendingHandler, iocLifecycleStatsHandler } from './routes/ioc-lifecycle';
 import { ruleGeneratorHandler, ruleValidateHandler } from './routes/yara-generator';
 import { ctWatchedListHandler, ctWatchAddHandler, ctWatchRemoveHandler, ctCertsHandler } from './routes/ct-monitor';
@@ -250,8 +267,9 @@ import {
   deleteCampaignHandler,
 } from './routes/campaigns';
 import { maltrailSyncHandler, listSkeletonActorsHandler, getSkeletonActorHandler } from './routes/maltrail-sync';
-import { maliciousPackagesHandler } from './routes/malicious-packages';
-import { xTweetsHandler } from './routes/x-tweets';
+ import { maliciousPackagesHandler } from './routes/malicious-packages';
+ import { getSiteUrl } from './lib/site-config';
+ import { xTweetsHandler } from './routes/x-tweets';
 import { xLiveHandler } from './routes/x-live';
 import { xFirehoseHandler } from './routes/x-firehose';
 import { relationshipGraphHandler } from './routes/relationship-graph';
@@ -273,6 +291,7 @@ import { sandboxLookupHandler } from './routes/sandbox';
 import { irPlaybookHandler } from './routes/ir-playbooks';
 import { aiSummaryHandler } from './routes/ai-summary';
 import { leakIxSearchHandler } from './routes/leakix';
+import { hostIntelHandler } from './routes/host';
 import { proxyNovaSearchHandler } from './routes/proxynova';
 import { identityProxyHandler } from './routes/identity-proxy';
 import { hudsonRockSearchHandler, hudsonRockDomainHandler } from './routes/hudsonrock';
@@ -298,9 +317,13 @@ const app = new Hono<{ Bindings: Env }>();
 app.use(
   '/api/v1/*',
   cors({
-    origin: ['https://pranithjain.qzz.io'],
-    allowHeaders: ['X-Admin-Token', 'Authorization', 'Content-Type'],
-    allowMethods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
+    origin: (_, c) => getSiteUrl(c.env as { SITE_URL?: string }),
+    // X-Admin-Token intentionally omitted: admin mutations are same-origin
+    // only. Exposing it in CORS would let a malicious page on the same
+    // domain make cross-origin admin requests if the user has the token
+    // in their browser.
+    allowHeaders: ['Authorization', 'Content-Type', 'X-API-Key'],
+    allowMethods: ['GET', 'POST', 'DELETE', 'PATCH', 'PUT', 'OPTIONS'],
     maxAge: 86400,
   })
 );
@@ -310,11 +333,99 @@ app.use('/api/v1/*', csrfGuard);
 app.use('/api/v1/*', authenticate('external-only'));
 app.use('/api/v1/*', requestLogger);
 app.use('/api/v1/*', rateLimit);
+app.use('/api/v1/*', apiVersion);
 app.use('/api/taxii2/*', rateLimit);
 
-app.get('/api/v1/health', (c) => c.json({ ok: true }, 200, { 'Cache-Control': 'public, max-age=60' }));
-app.get('/api/v1/ioc/check', iocCheckHandler);
-app.get('/api/v1/domain/lookup', domainLookupHandler);
+import {
+  iocCheckSchema,
+  domainLookupSchema,
+  ipGeoSchema,
+  asnLookupSchema,
+  cveLookupSchema,
+  mitreTechniqueSchema,
+  searchSchema,
+  breachEmailSchema,
+  breachDomainSchema,
+  urlAnalysisSchema,
+  waybackSchema,
+  googleDorksSchema,
+  cryptoTraceSchema,
+  ctCertsSchema,
+  iocLifecycleSchema,
+  iocTrendingSchema,
+  relationshipGraphSchema,
+  unifiedSearchSchema,
+  ragQuerySchema,
+} from './lib/validation-schemas';
+
+// ── Health Checks ──────────────────────────────────────────────────
+import { generateOpenApiSpec } from './lib/openapi';
+import { apiVersion } from './lib/api-version';
+import { auditAdminAction } from './lib/admin-audit';
+
+app.get('/api/v1/health', (c) => c.json({ ok: true, timestamp: new Date().toISOString() }, 200, { 'Cache-Control': 'public, max-age=60' }));
+
+// ── OpenAPI Specification ────────────────────────────────────────
+app.get('/api/v1/openapi.json', (c) => {
+  return c.json(generateOpenApiSpec(), 200, {
+    'Cache-Control': 'public, max-age=3600',
+    'Access-Control-Allow-Origin': '*',
+  });
+});
+
+app.get('/api/v1/health/d1', async (c) => {
+  const db = c.env.BRIEFINGS_DB;
+  if (!db) return c.json({ status: 'unavailable', binding: 'BRIEFINGS_DB' }, 503);
+  try {
+    const start = Date.now();
+    await db.prepare('SELECT 1').first();
+    return c.json({ status: 'ok', latency_ms: Date.now() - start }, 200, { 'Cache-Control': 'no-store' });
+  } catch (e) {
+    return c.json({ status: 'error', error: e instanceof Error ? e.message : 'unknown' }, 503);
+  }
+});
+
+app.get('/api/v1/health/kv', async (c) => {
+  const kv = c.env.KV_CACHE;
+  if (!kv) return c.json({ status: 'unavailable', binding: 'KV_CACHE' }, 503);
+  try {
+    const start = Date.now();
+    await kv.get('__health_check__');
+    return c.json({ status: 'ok', latency_ms: Date.now() - start }, 200, { 'Cache-Control': 'no-store' });
+  } catch (e) {
+    return c.json({ status: 'error', error: e instanceof Error ? e.message : 'unknown' }, 503);
+  }
+});
+
+app.get('/api/v1/health/ai', async (c) => {
+  const ai = c.env.AI;
+  if (!ai) return c.json({ status: 'unavailable', binding: 'AI' }, 503);
+  try {
+    const start = Date.now();
+    // Use a minimal prompt to test AI binding availability
+    const result = await ai.run('@cf/meta/llama-3.1-8b-instruct', {
+      messages: [{ role: 'user', content: 'ping' }],
+      max_tokens: 5,
+    });
+    return c.json({ status: 'ok', latency_ms: Date.now() - start, model: 'llama-3.1-8b' }, 200, { 'Cache-Control': 'no-store' });
+  } catch (e) {
+    return c.json({ status: 'error', error: e instanceof Error ? e.message : 'unknown' }, 503);
+  }
+});
+
+app.get('/api/v1/health/vectorize', async (c) => {
+  const vec = c.env.VECTORIZE;
+  if (!vec) return c.json({ status: 'unavailable', binding: 'VECTORIZE' }, 503);
+  try {
+    const start = Date.now();
+    await vec.query(new Array(768).fill(0), { topK: 1 });
+    return c.json({ status: 'ok', latency_ms: Date.now() - start }, 200, { 'Cache-Control': 'no-store' });
+  } catch (e) {
+    return c.json({ status: 'error', error: e instanceof Error ? e.message : 'unknown' }, 503);
+  }
+});
+app.get('/api/v1/ioc/check', validate('query', iocCheckSchema), iocCheckHandler);
+app.get('/api/v1/domain/lookup', validate('query', domainLookupSchema), domainLookupHandler);
 app.post('/api/v1/phishing/analyze', phishingAnalyzeHandler);
 app.post('/api/v1/file/analyze', fileAnalyzeHandler);
 app.get('/api/v1/feeds/proxy', feedProxyHandler);
@@ -325,14 +436,14 @@ app.get('/api/v1/feeds/ioc-summary', iocFeedSummaryHandler);
 app.post('/api/v1/cti/parse', ctiParseHandler);
 app.post('/api/v1/osv/scan', osvScanHandler);
 app.get('/api/v1/privacy/inspect', privacyInspectHandler);
-app.get('/api/v1/cve/lookup', cveSearchHandler);
-app.get('/api/v1/cve/search', cveSearchHandler);
-app.get('/api/v1/mitre/technique', mitreTechniqueHandler);
+app.get('/api/v1/cve/lookup', validate('query', cveLookupSchema), cveSearchHandler);
+app.get('/api/v1/cve/search', validate('query', searchSchema), cveSearchHandler);
+app.get('/api/v1/mitre/technique', validate('query', mitreTechniqueSchema), mitreTechniqueHandler);
 app.get('/api/v1/atlas/technique', atlasTechniqueHandler);
-app.get('/api/v1/asn/lookup', asnLookupHandler);
+app.get('/api/v1/asn/lookup', validate('query', asnLookupSchema), asnLookupHandler);
 app.get('/api/v1/breach/range', breachRangeHandler);
-app.get('/api/v1/breach/email', breachEmailHandler);
-app.get('/api/v1/breach/domain', breachDomainHandler);
+app.get('/api/v1/breach/email', validate('query', breachEmailSchema), breachEmailHandler);
+app.get('/api/v1/breach/domain', validate('query', breachDomainSchema), breachDomainHandler);
 app.get('/api/v1/breach/leakix', leakIxSearchHandler);
 app.get('/api/v1/breach/proxynova', proxyNovaSearchHandler);
 app.get('/api/v1/breach/hudsonrock', hudsonRockSearchHandler);
@@ -355,14 +466,15 @@ app.get('/api/v1/rl/:resource/:arg', ransomwareLiveHandler);
 app.get('/api/v1/breach-disclosures', breachDisclosuresHandler);
 app.get('/api/v1/ransomware-recent', ransomwareRecentHandler);
 app.get('/api/v1/ransomware-map', ransomwareMapHandler);
-app.get('/api/v1/crypto-trace', cryptoTraceHandler);
-app.get('/api/v1/wayback/cdx', waybackCdxHandler);
+app.get('/api/v1/crypto-trace', validate('query', cryptoTraceSchema), cryptoTraceHandler);
+app.get('/api/v1/wayback/cdx', validate('query', waybackSchema), waybackCdxHandler);
 app.get('/api/v1/threat-pulse', threatPulseHandler);
-app.get('/api/v1/ip-geo', ipGeoHandler);
+app.get('/api/v1/ip-geo', validate('query', ipGeoSchema), ipGeoHandler);
 app.get('/api/v1/stix/fetch', stixFetchHandler);
 app.get('/api/v1/cert-search', certSearchHandler);
 app.get('/api/v1/web-scan', webScanHandler);
 app.get('/api/v1/exposure/scan', exposureScanHandler);
+app.get('/api/v1/host', hostIntelHandler);
 app.get('/api/v1/onion-watch', onionWatchHandler);
 app.get('/api/v1/telegram-feed', telegramFeedHandler);
 app.get('/api/v1/telegram-custom-channels', telegramCustomChannelsGetHandler);
@@ -447,14 +559,14 @@ app.post('/api/v1/intel-bundle/build', intelBundleBuildHandler);
 app.get('/api/v1/intel-bundle/by-id/:bundleId', intelBundleByIdHandler);
 app.get('/api/v1/intel-bundle/:id/export.stix.json', intelBundleExportHandler);
 app.get('/api/v1/admin/intel-bundle/:source/:ref', intelBundleAdminHandler);
-app.get('/api/v1/google-dorks', googleDorksHandler);
+app.get('/api/v1/google-dorks', validate('query', googleDorksSchema), googleDorksHandler);
 app.post('/api/v1/misp', mispProxyHandler);
 app.get('/api/v1/email-rep', emailRepHandler);
 app.get('/api/v1/cyber-crime', cybercrimeHandler);
 app.get('/api/v1/snapshot', snapshotHandler);
 app.get('/api/v1/ioc-snapshot', iocSnapshotHandler);
 app.get('/api/v1/intel-dashboard', intelDashboardHandler);
-app.get('/api/v1/threat-hunt', threatHuntHandler);
+app.get('/api/v1/threat-hunt', validate('query', searchSchema), threatHuntHandler);
 app.get('/api/v1/hunt/v2', huntV2Handler);
 app.get('/api/v1/pageviews', pageViewsHandler);
 app.get('/api/v1/briefings/list', listBriefingsHandler);
@@ -466,6 +578,14 @@ app.post('/api/v1/briefings/sweep', sweepBriefingsHandler);
 app.get('/api/v1/briefings/for-actor/:slug', briefingsForActorHandler);
 app.get('/api/v1/briefings/:slug/print', briefingPrintHandler);
 app.get('/api/v1/briefings/:slug', getBriefingHandler);
+
+// ── Briefing Feedback & Annotations ─────────────────────────────
+app.get('/api/v1/briefings/feedback/summary', feedbackSummaryHandler);
+app.post('/api/v1/briefings/:slug/feedback', submitFeedbackHandler);
+app.get('/api/v1/briefings/:slug/feedback', getFeedbackHandler);
+app.post('/api/v1/briefings/:slug/annotations', submitAnnotationHandler);
+app.get('/api/v1/briefings/:slug/annotations', getAnnotationsHandler);
+
 app.get('/api/v1/external-resources', listExternalResourcesHandler);
 app.post('/api/v1/external-resources', validate('json', createExternalResourceSchema), createExternalResourceHandler);
 app.delete('/api/v1/external-resources/:id', deleteExternalResourceHandler);
@@ -503,10 +623,10 @@ app.get('/api/v1/blocklists/meta', blocklistMetaHandler);
 app.post('/api/v1/phishing/fetch-page', fetchPageHandler);
 app.get('/api/v1/phishing/auto-analyze', phishingAnalyzeAutoHandler);
 app.post('/api/v1/phishing/fingerprint', fingerprintHandler);
-app.get('/api/v1/unified-search', unifiedSearchHandler);
-app.get('/api/v1/relationship-graph', relationshipGraphHandler);
+app.get('/api/v1/unified-search', validate('query', unifiedSearchSchema), unifiedSearchHandler);
+app.get('/api/v1/relationship-graph', validate('query', relationshipGraphSchema), relationshipGraphHandler);
 app.post('/api/v1/rag/index', ragIndexHandler);
-app.get('/api/v1/rag/query', ragQueryHandler);
+app.get('/api/v1/rag/query', validate('query', ragQuerySchema), ragQueryHandler);
 app.post('/api/v1/rag/index-all', async (c) => {
   const result = await indexAllCorpora(c.env);
   return c.json({ ok: true, ...result });
@@ -527,8 +647,8 @@ app.get('/api/v1/triage/search', triageSearchHandler);
 app.post('/api/v1/report/parse', reportParserHandler);
 
 // ── IOC Lifecycle ─────────────────────────────────────────────────
-app.get('/api/v1/ioc-lifecycle', iocLifecycleHandler);
-app.get('/api/v1/ioc-lifecycle/trending', iocLifecycleTrendingHandler);
+app.get('/api/v1/ioc-lifecycle', validate('query', iocLifecycleSchema), iocLifecycleHandler);
+app.get('/api/v1/ioc-lifecycle/trending', validate('query', iocTrendingSchema), iocLifecycleTrendingHandler);
 app.get('/api/v1/ioc-lifecycle/stats', iocLifecycleStatsHandler);
 
 // ── AI Rule Generator ────────────────────────────────────────────
@@ -542,7 +662,7 @@ app.post('/api/v1/yara/validate', ruleValidateHandler);
 app.get('/api/v1/ct-monitor/watched', ctWatchedListHandler);
 app.post('/api/v1/ct-monitor/watch', ctWatchAddHandler);
 app.delete('/api/v1/ct-monitor/watch/:domain', ctWatchRemoveHandler);
-app.get('/api/v1/ct-monitor/certs', ctCertsHandler);
+app.get('/api/v1/ct-monitor/certs', validate('query', ctCertsSchema), ctCertsHandler);
 
 // ── TAXII 2.1 Server ────────────────────────────────────────────
 app.get('/api/taxii2/', taxiiDiscoveryHandler);
@@ -648,6 +768,20 @@ app.get('/api/v1/threat-intel/cross-campaign/correlations', crossCampaignCorrela
 // ── Domain Intelligence ──────────────────────────────────────────
 app.get('/api/v1/domain-rep', domainRepHandler);
 app.get('/api/v1/domain-monitor', domainMonitorHandler);
+
+// ── Domain WHOIS History & Pivot ──────────────────────────────────
+app.get('/api/v1/domain/history', domainHistoryHandler);
+app.get('/api/v1/domain/history/changes', domainChangesHandler);
+app.get('/api/v1/domain/history/pivot', domainPivotHandler);
+app.get('/api/v1/domain/history/stats', domainHistoryStatsHandler);
+app.get('/api/v1/domain/history/search', domainRegistrantSearchHandler);
+app.post('/api/v1/domain/history/snapshot', domainSnapshotHandler);
+
+// ── Open Directory Scanner ───────────────────────────────────────
+app.post('/api/v1/open-dir/scan', openDirectoryScanHandler);
+
+// ── Exposed Host Intelligence ────────────────────────────────────
+app.get('/api/v1/exposed-host', exposedHostHandler);
 
 app.get('/api/v1/dashboard', dashboardHandler);
 app.get('/api/v1/dashboard/watchlist', getWatchlistHandler);

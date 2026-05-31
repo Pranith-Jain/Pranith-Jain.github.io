@@ -2,6 +2,15 @@ import type { D1Database } from '@cloudflare/workers-types';
 import type { Briefing, BriefingType } from '../../core/entities';
 import type { IBriefingRepository } from '../../core/ports';
 
+function safeJsonParse<T>(raw: unknown, fallback: T): T {
+  if (typeof raw !== 'string') return fallback;
+  try {
+    return JSON.parse(raw) as T;
+  } catch {
+    return fallback;
+  }
+}
+
 function rowToBriefing(row: Record<string, unknown>): Briefing {
   return {
     slug: row.slug as string,
@@ -9,8 +18,8 @@ function rowToBriefing(row: Record<string, unknown>): Briefing {
     title: row.title as string,
     date: row.date as string,
     summary: row.summary as string,
-    sections: JSON.parse(row.sections as string),
-    tags: row.tags ? JSON.parse(row.tags as string) : undefined,
+    sections: safeJsonParse(row.sections, []),
+    tags: safeJsonParse(row.tags, undefined),
     published: Boolean(row.published),
     created_at: row.created_at as string,
   };

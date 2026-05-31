@@ -54,6 +54,7 @@ import { digitalside } from '../providers/digitalside';
 import { criminalip } from '../providers/criminalip';
 import { certpl } from '../providers/certpl';
 import { x4bnet } from '../providers/x4bnet';
+import { kaspersky } from '../providers/kaspersky';
 
 const PROVIDER_CHUNK_SIZE = 10;
 
@@ -101,15 +102,20 @@ const ADAPTERS: Record<ProviderId, ProviderAdapter> = {
   criminalip,
   certpl,
   x4bnet,
+  kaspersky,
 };
 
-function runChunked<T>(items: T[], fn: (item: T) => Promise<void>, size: number): Promise<void> {
-  const go = async (i: number) => {
-    if (i >= items.length) return;
-    await Promise.all(items.slice(i, i + size).map(fn));
-    return go(i + size);
-  };
-  return go(0);
+/**
+ * Process items in chunks of `size` with parallel execution within each chunk.
+ * Uses iterative loop instead of recursion to avoid stack overflow with
+ * large provider lists in Cloudflare Workers.
+ */
+async function runChunked<T>(items: T[], fn: (item: T) => Promise<void>, size: number): Promise<void> {
+  for (let i = 0; i < items.length; i += size) {
+    const chunk = items.slice(i, i + size);
+    // Use allSettled so one provider failure doesn't block the entire chunk
+    await Promise.allSettled(chunk.map(fn));
+  }
 }
 
 function buildProviderEnv(c: Context<{ Bindings: Env }>): ProviderEnv {
@@ -128,6 +134,8 @@ function buildProviderEnv(c: Context<{ Bindings: Env }>): ProviderEnv {
     CROWDSEC_API_KEY: c.env.CROWDSEC_API_KEY,
     IPINFO_TOKEN: c.env.IPINFO_TOKEN,
     CRIMINALIP_API_KEY: c.env.CRIMINALIP_API_KEY,
+    KASPERSKY_API_KEY: c.env.KASPERSKY_API_KEY,
+    SPUR_API_KEY: c.env.SPUR_API_KEY,
   };
 }
 
@@ -156,7 +164,7 @@ export function createIocController(): IocController {
 
       const eligible = (Object.keys(ADAPTERS) as ProviderId[]).filter((p) => PROVIDER_SUPPORT[p].includes(type));
       const providerEnv = buildProviderEnv(c);
-      const cache = new ProviderCache(c.env.KV_CACHE!);
+      const cache = new ProviderCache(c.env.KV_CACHE);
 
       return sseStream<unknown>(async (write) => {
         write('meta', { type, value: indicator.value, providers: eligible });
@@ -186,6 +194,7 @@ async function runProviderChecks(
   write: (event: string, data: unknown) => void
 ): Promise<ProviderResult[]> {
   const collected: ProviderResult[] = [];
+  const indicatorKey = indicator.value.toLowerCase();
   await runChunked(
     eligible,
     async (p) => {
@@ -195,10 +204,11 @@ async function runProviderChecks(
         write('result', skipped);
         return;
       }
-      const cached = await cache.get(p, indicator);
+      const cached = await cache.get(p, indicatorKey);
       if (cached) {
-        collected.push(cached);
-        write('result', cached);
+        const result = cached as unknown as ProviderResult;
+        collected.push(result);
+        write('result', result);
         await recordProviderSuccess(p);
         return;
       }
@@ -208,7 +218,7 @@ async function runProviderChecks(
         collected.push(r);
         write('result', r);
         if (r.status === 'ok') {
-          await cache.set(p, indicator, r);
+          await cache.set(p, indicatorKey, r as unknown as Record<string, unknown>);
           await recordProviderSuccess(p);
         } else {
           await recordProviderFailure(p);

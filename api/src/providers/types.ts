@@ -43,7 +43,8 @@ export type ProviderId =
   | 'digitalside'
   | 'criminalip'
   | 'certpl'
-  | 'x4bnet';
+  | 'x4bnet'
+  | 'kaspersky';
 
 export type Verdict = 'clean' | 'suspicious' | 'malicious' | 'unknown';
 
@@ -79,6 +80,8 @@ export interface ProviderEnv {
   CROWDSEC_API_KEY?: string;
   IPINFO_TOKEN?: string;
   CRIMINALIP_API_KEY?: string;
+  KASPERSKY_API_KEY?: string;
+  SPUR_API_KEY?: string;
 }
 
 export type ProviderAdapter = (indicator: Indicator, env: ProviderEnv, signal: AbortSignal) => Promise<ProviderResult>;
@@ -133,4 +136,5 @@ export const PROVIDER_SUPPORT: Record<ProviderId, IndicatorType[]> = {
   criminalip: ['ipv4', 'ipv6'],
   certpl: ['domain'],
   x4bnet: ['ipv4', 'ipv6'],
+  kaspersky: ['ipv4', 'domain', 'url', 'hash'],
 };

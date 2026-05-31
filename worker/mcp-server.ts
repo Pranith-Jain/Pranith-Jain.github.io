@@ -581,5 +581,57 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
       }
     );
+
+    // ── WHOIS History ────────────────────────────────────────────────
+    this.server.tool(
+      'get_domain_history',
+      'Get the WHOIS history for a domain. Returns all historical registration snapshots, ownership changes, registrar changes, and nameserver changes over time. Essential for tracking domain ownership transfers and identifying infrastructure reuse by threat actors.',
+      { domain: z.string().describe('Domain to get history for, e.g. evil-example.com') },
+      async ({ domain }) => {
+        const data = await apiFetch<Record<string, unknown>>(
+          `/api/v1/domain/history?domain=${encodeURIComponent(domain)}`,
+          this.apiKey
+        );
+        return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
+      }
+    );
+
+    this.server.tool(
+      'pivot_domain',
+      'Pivot across domains by shared registrant attributes. Find other domains owned by the same entity by matching registrant email, organization, nameservers, or registrar. Critical for mapping attacker infrastructure — if a malicious domain shares its registrant email with 50 other domains, those are likely all owned by the same threat actor.',
+      {
+        domain: z.string().describe('Domain to pivot from'),
+        type: z.enum(['email', 'org', 'nameserver', 'registrar', 'all']).optional()
+          .describe('Pivot type (default: all) — email pivots by registrant email, org by organization, nameserver by shared NS, registrar by same registrar'),
+      },
+      async ({ domain, type }) => {
+        const params = new URLSearchParams({ domain });
+        if (type) params.set('type', type);
+        const data = await apiFetch<Record<string, unknown>>(
+          `/api/v1/domain/history/pivot?${params}`,
+          this.apiKey
+        );
+        return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
+      }
+    );
+
+    this.server.tool(
+      'search_registrant',
+      'Search for all domains registered by a specific email address or organization name. Returns domains, registration dates, and snapshot counts. Useful for finding all infrastructure operated by a known threat actor.',
+      {
+        email: z.string().optional().describe('Registrant email to search for'),
+        org: z.string().optional().describe('Registrant organization name to search for (partial match)'),
+      },
+      async ({ email, org }) => {
+        const params = new URLSearchParams();
+        if (email) params.set('email', email);
+        if (org) params.set('org', org);
+        const data = await apiFetch<Record<string, unknown>>(
+          `/api/v1/domain/history/search?${params}`,
+          this.apiKey
+        );
+        return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
+      }
+    );
   }
 }

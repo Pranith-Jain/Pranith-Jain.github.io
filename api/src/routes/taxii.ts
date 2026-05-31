@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { getSiteUrl } from '../lib/site-config';
 import type { D1Database } from '@cloudflare/workers-types';
 
 /**
@@ -153,7 +154,7 @@ export async function taxiiObjectsHandler(c: Context<{ Bindings: Env }>): Promis
         objects = await getVulnerabilityObjects(db, limit);
         break;
       case 'briefings':
-        objects = await getBriefingObjects(db, limit);
+        objects = await getBriefingObjects(db, limit, c.env);
         break;
     }
 
@@ -411,37 +412,30 @@ async function getVulnerabilityObjects(db: D1Database, limit: number): Promise<R
   ].slice(0, limit);
 }
 
-async function getBriefingObjects(db: D1Database, limit: number): Promise<Record<string, unknown>[]> {
+async function getBriefingObjects(db: D1Database, limit: number, env?: Env): Promise<Record<string, unknown>[]> {
   const rows = await db
     .prepare(
-      `SELECT slug, type, title, published_at, stats_json
-       FROM briefings
-       ORDER BY published_at DESC
-       LIMIT ?`
+      'SELECT slug, title, type, published_at FROM briefings ORDER BY published_at DESC LIMIT ?'
     )
     .bind(limit)
-    .all<{
-      slug: string;
-      type: string;
-      title: string;
-      published_at: string;
-      stats_json: string;
-    }>();
-
-  return (rows.results ?? []).map((row) => ({
-    type: 'report',
-    spec_version: '2.1',
-    id: `report--${crypto.randomUUID()}`,
-    created: row.published_at,
-    modified: row.published_at,
-    name: row.title,
-    description: `${row.type} threat intelligence briefing`,
-    report_types: ['threat-report'],
-    published: row.published_at,
-    external_references: [
-      { source_name: 'briefing', url: `https://pranithjain.qzz.io/threatintel/briefings/${row.slug}` },
-    ],
-  }));
+    .all<{ slug: string; title: string; type: string; published_at: string }>();
+  return (rows.results ?? []).map((row) => {
+    const siteUrl = env ? getSiteUrl(env) : 'https://pranithjain.qzz.io';
+    return ({
+      type: 'report',
+      spec_version: '2.1',
+      id: `report--${row.slug}`,
+      created: row.published_at,
+      modified: row.published_at,
+      name: row.title,
+      description: `${row.type} threat intelligence briefing`,
+      report_types: ['threat-report'],
+      published: row.published_at,
+      external_references: [
+        { source_name: 'briefing', url: `${siteUrl}/threatintel/briefings/${row.slug}` },
+      ],
+    } satisfies Record<string, unknown>);
+  });
 }
 
 function buildStixPattern(value: string, type: string): string {

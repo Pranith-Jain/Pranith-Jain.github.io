@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { getSiteUrl } from '../lib/site-config';
 import { fetchTelegramFeed, TELEGRAM_FEED_CACHE_KEY } from './telegram-feed';
 import { fetchWriteups, WRITEUPS_CACHE_KEY } from './writeups';
 import { fetchCybercrime, CYBERCRIME_CACHE_KEY } from './cybercrime';
@@ -379,11 +380,12 @@ async function fetchXPulse(env: Env, out: Map<string, PulseEntity>): Promise<voi
 
 // ─── New sources: ransomware, live IOCs, malware samples, detections ────────
 
-async function fetchRansomwarePulse(out: Map<string, PulseEntity>): Promise<void> {
+async function fetchRansomwarePulse(env: Env, out: Map<string, PulseEntity>): Promise<void> {
+  const base = getSiteUrl(env);
   const data = await readCachedFeed<{
     victims: Array<{ victim: string; group: string }>;
   }>(RANSOMWARE_RECENT_CACHE_KEY, async () => {
-    const res = await fetch('https://pranithjain.qzz.io/api/v1/ransomware-recent', {
+    const res = await fetch(`${base}/api/v1/ransomware-recent`, {
       headers: { 'user-agent': UA },
       signal: AbortSignal.timeout(8000),
       cf: { cacheTtl: 300, cacheEverything: true },
@@ -398,9 +400,10 @@ async function fetchRansomwarePulse(out: Map<string, PulseEntity>): Promise<void
   }
 }
 
-async function fetchLiveIocsPulse(out: Map<string, PulseEntity>): Promise<void> {
+async function fetchLiveIocsPulse(env: Env, out: Map<string, PulseEntity>): Promise<void> {
+  const base = getSiteUrl(env);
   const data = await readCachedFeed<LiveIocsResponse>(LIVE_IOCS_CACHE_KEY, async () => {
-    const res = await fetch('https://pranithjain.qzz.io/api/v1/live-iocs', {
+    const res = await fetch(`${base}/api/v1/live-iocs`, {
       headers: { 'user-agent': UA },
       signal: AbortSignal.timeout(8000),
       cf: { cacheTtl: 300, cacheEverything: true },
@@ -415,9 +418,10 @@ async function fetchLiveIocsPulse(out: Map<string, PulseEntity>): Promise<void> 
   }
 }
 
-async function fetchMalwareSamplesPulse(out: Map<string, PulseEntity>): Promise<void> {
+async function fetchMalwareSamplesPulse(env: Env, out: Map<string, PulseEntity>): Promise<void> {
+  const base = getSiteUrl(env);
   const data = await readCachedFeed<MalwareSamplesResponse>(MALWARE_SAMPLES_CACHE_KEY, async () => {
-    const res = await fetch('https://pranithjain.qzz.io/api/v1/malware-samples', {
+    const res = await fetch(`${base}/api/v1/malware-samples`, {
       headers: { 'user-agent': UA },
       signal: AbortSignal.timeout(8000),
       cf: { cacheTtl: 300, cacheEverything: true },
@@ -435,9 +439,10 @@ async function fetchMalwareSamplesPulse(out: Map<string, PulseEntity>): Promise<
   }
 }
 
-async function fetchDetectionsPulse(out: Map<string, PulseEntity>): Promise<void> {
+async function fetchDetectionsPulse(env: Env, out: Map<string, PulseEntity>): Promise<void> {
+  const base = getSiteUrl(env);
   const data = await readCachedFeed<DetectionsResponse>(DETECTIONS_CACHE_KEY, async () => {
-    const res = await fetch('https://pranithjain.qzz.io/api/v1/detections', {
+    const res = await fetch(`${base}/api/v1/detections`, {
       headers: { 'user-agent': UA },
       signal: AbortSignal.timeout(8000),
       cf: { cacheTtl: 300, cacheEverything: true },
@@ -479,10 +484,10 @@ export async function threatPulseHandler(c: Context<{ Bindings: Env }>): Promise
     fetchCybercrimePulse(entityMap),
     fetchTelegramPulse(entityMap),
     fetchXPulse(c.env, entityMap),
-    fetchRansomwarePulse(entityMap),
-    fetchLiveIocsPulse(entityMap),
-    fetchMalwareSamplesPulse(entityMap),
-    fetchDetectionsPulse(entityMap),
+    fetchRansomwarePulse(c.env, entityMap),
+    fetchLiveIocsPulse(c.env, entityMap),
+    fetchMalwareSamplesPulse(c.env, entityMap),
+    fetchDetectionsPulse(c.env, entityMap),
   ]);
 
   const entities = [...entityMap.values()].sort(

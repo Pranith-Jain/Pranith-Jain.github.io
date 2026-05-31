@@ -56,13 +56,22 @@ describe('Tooltip', () => {
     expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
   });
 
-  it('associates tooltip with trigger via aria-describedby', () => {
+  it('associates tooltip with trigger via aria-describedby when visible', () => {
     render(
-      <Tooltip content="Helper text">
+      <Tooltip content="Helper text" delay={0}>
         <button>Hover me</button>
       </Tooltip>
     );
-    const trigger = screen.getByText('Hover me').parentElement!;
-    expect(trigger).toHaveAttribute('aria-describedby');
+    const button = screen.getByText('Hover me');
+    // Before hover, no aria-describedby
+    expect(button.parentElement).not.toHaveAttribute('aria-describedby');
+    // After focus, tooltip appears with aria-describedby
+    act(() => {
+      button.focus();
+    });
+    act(() => {
+      vi.advanceTimersByTime(0);
+    });
+    expect(button.parentElement).toHaveAttribute('aria-describedby');
   });
 });

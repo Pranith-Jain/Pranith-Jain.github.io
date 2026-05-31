@@ -436,6 +436,49 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
             logCronFail('rag-reindex')(e);
           }
         }
+
+        // === Infrastructure Scan (merged into hourly cron) ===
+        // Scans known open directories and C2 infrastructure every hour.
+        // Results are cached in KV for the Open Directory Scanner tool.
+        // Runs at :15 past the hour to avoid colliding with other jobs.
+        try {
+          const infraTargets = [
+            'http://malware-traffic-analysis.net/',
+            'http://cybercrime-tracker.net/',
+            'http://tracker.h3x.eu/',
+          ];
+          const infraResults: Array<{ url: string; status: number; files: number; risk: string }> = [];
+          for (const target of infraTargets) {
+            try {
+              const req = new Request(baseUrl + '/api/v1/open-dir/scan', {
+                method: 'POST',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify({ url: target }),
+              });
+              const res = await apiApp.fetch(req, env as never, ctx);
+              if (res.ok) {
+                const data = await res.json() as { totalFiles?: number; indicators?: string[] };
+                infraResults.push({
+                  url: target,
+                  status: res.status,
+                  files: data.totalFiles ?? 0,
+                  risk: (data.indicators?.length ?? 0) > 0 ? 'flagged' : 'clean',
+                });
+              }
+            } catch {
+              /* individual target failure — continue */
+            }
+          }
+          if (infraResults.length > 0) {
+            console.log(JSON.stringify({
+              job: 'infra-scan',
+              targets_scanned: infraResults.length,
+              results: infraResults,
+            }));
+          }
+        } catch (e) {
+          logCronFail('infra-scan')(e);
+        }
       })().catch(logCronFail('hourly-cron'))
     );
     ctx.waitUntil(Promise.resolve().then(() => logCronDone({ path: 'hourly' })));

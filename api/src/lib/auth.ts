@@ -61,10 +61,12 @@ function extractKey(c: Context<{ Bindings: Env }>): string | null {
  */
 function isSameOrigin(c: Context<{ Bindings: Env }>): boolean {
   const origin = c.req.header('origin') ?? '';
-  if (origin && ALLOWED_ORIGINS.has(origin)) return true;
+  const allowed = new Set(ALLOWED_ORIGINS);
+  if (c.env?.SITE_URL) allowed.add(c.env.SITE_URL.replace(/\/$/, ''));
+  if (origin && allowed.has(origin)) return true;
   const referer = c.req.header('referer') ?? '';
-  for (const allowed of ALLOWED_ORIGINS) {
-    if (referer.startsWith(allowed)) return true;
+  for (const allowedOrigin of allowed) {
+    if (referer.startsWith(allowedOrigin)) return true;
   }
   return false;
 }

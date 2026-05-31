@@ -150,6 +150,11 @@ const OUTLINES: Record<CaseStudyType, string[]> = {
     '## Defensive priorities',
     '## References',
   ],
+  analysis: [
+    // Thought leadership / framework pieces (alankrit.io style)
+    // No fixed outline — the hook and angle drive the structure.
+    // The prompt guides the model to build a framework, not fill sections.
+  ],
 };
 
 export interface BuildPromptInput {
@@ -304,6 +309,17 @@ const BRIEFING_GUIDANCE =
   `- Each section must add NEW information. Do not repeat "patch immediately" / the same recommendation across sections. Detection & defensive guidance must be concrete (specific products, KEV due-date framing, what to hunt for).\n` +
   `- Lead the hook with the single sharpest number or pattern in the data, not "You're facing a critical threat landscape".`;
 
+const ANALYSIS_GUIDANCE =
+  `\n\nANALYSIS-SPECIFIC REQUIREMENTS (this is a thought leadership piece, not a data report):\n` +
+  `- Build a FRAMEWORK or MENTAL MODEL. Don't just report facts — help the reader THINK DIFFERENTLY about the topic.\n` +
+  `- Challenge conventional wisdom. The best analysis pieces start with "The industry thinks X. Here's why that's wrong."\n` +
+  `- Use concrete examples and scenarios, not abstract concepts. Paint a picture the reader can recognize.\n` +
+  `- Structure: Hook (provocative claim) → Problem (why current thinking fails) → Framework (your model) → Evidence (data/examples) → Implications (what changes).\n` +
+  `- 1500-2000 words. Go deep. This is not a summary — it's an argument.\n` +
+  `- End with actionable questions that force the reader to reconsider their own assumptions.\n` +
+  `- NO section headings unless they serve the argument. Let the narrative flow.\n` +
+  `- Write like a practitioner sharing hard-won insight, not an analyst writing a report.`;
+
 export function buildPrompt(input: BuildPromptInput): BuiltPrompt {
   const outline = OUTLINES[input.type].join('\n');
 
@@ -316,7 +332,7 @@ export function buildPrompt(input: BuildPromptInput): BuiltPrompt {
   // everything between them is data, not instructions.
   const scrubbedFacts = scrubEvidence(input.facts) as Record<string, unknown>;
   const factsBlock = input.type === 'briefing' ? briefingDigest(scrubbedFacts) : clampFacts(scrubbedFacts);
-  const typeGuidance = input.type === 'briefing' ? BRIEFING_GUIDANCE : '';
+  const typeGuidance = input.type === 'briefing' ? BRIEFING_GUIDANCE : input.type === 'analysis' ? ANALYSIS_GUIDANCE : '';
 
   const sources = (input.sources ?? []).slice(0, 25);
   const sourcesBlock =

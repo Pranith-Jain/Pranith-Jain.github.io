@@ -36,11 +36,11 @@ export interface StatCardsProps {
 export function StatCards({ cards, cols = 'grid-cols-2 sm:grid-cols-4' }: StatCardsProps): JSX.Element {
   return (
     <div className={`grid ${cols} gap-3`}>
-      {cards.map((card, i) => {
+      {cards.map((card) => {
         const Tag = card.onClick ? 'button' : 'div';
         return (
           <Tag
-            key={i}
+            key={card.label}
             onClick={card.onClick}
             type={card.onClick ? 'button' : undefined}
             className={`rounded-xl border p-4 text-left transition-colors ${

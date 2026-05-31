@@ -1,98 +1,74 @@
-import type { ProviderId, ProviderResult, Indicator } from '../providers/types';
-import type { IndicatorType } from './indicator';
+// Cloudflare Workers runtime exposes caches.default but the TypeScript
+// lib types only define `caches.open()`. Cast is required for `caches.default`.
+const CACHE_PLATFORM = caches as unknown as { default: Cache };
 
-const TTL_BY_TYPE: Record<IndicatorType, number> = {
-  ipv4: 3600,
-  ipv6: 3600,
-  domain: 21600,
-  url: 3600,
-  hash: 86400,
-  email: 21600,
-  unknown: 3600,
-};
-
-// Per-provider TTL overrides (seconds). When set, takes precedence over the
-// type-based default. Tuned by data velocity:
-//   - Live blocklists (urlhaus, threatfox, openphish) — short TTL: a phish
-//     URL or active C2 may be taken down within hours.
-//   - Aggregated daily lists (cinsarmy, ipsum, sslbl, c2tracker, tor, …) —
-//     long TTL: the upstream itself refreshes once a day, so caching past
-//     the type-default isn't lying about freshness.
-//   - Static / known-good (hashlookup/NSRL) — week+: file hashes are immutable.
-const TTL_OVERRIDES: Partial<Record<ProviderId, number>> = {
-  urlhaus: 1800,
-  threatfox: 1800,
-  openphish: 1800,
-  sslbl: 14400,
-  cinsarmy: 14400,
-  ipsum: 14400,
-  c2tracker: 14400,
-  blocklistde: 14400,
-  binarydefense: 14400,
-  bitwire: 14400,
-  phishingArmy: 14400,
-  tor: 14400,
-  malwareworld: 14400,
-  spamhaus: 14400,
-  hashlookup: 604800,
-};
+export function getCache(): Cache {
+  return CACHE_PLATFORM.default;
+}
 
 /**
- * Per-provider IOC result cache.
+ * KV-backed provider result cache.
  *
- * Backed by KV rather than the Cache API. KV operations don't count toward
- * the Workers 50-subrequest-per-invocation limit, so 25+ parallel provider
- * lookups won't exhaust the budget on cache hits/misses.
+ * Caches upstream provider responses (VirusTotal, AbuseIPDB, etc.) to
+ * reduce API quota consumption and improve response times. Uses KV with
+ * configurable TTL.
+ *
+ * Gracefully degrades when KV is unavailable — all operations become
+ * no-ops so the IOC check still works (just without caching).
  */
 export class ProviderCache {
-  private kv: KVNamespace;
+  private kv: KVNamespace | null;
 
-  constructor(kv: KVNamespace) {
-    this.kv = kv;
+  constructor(kv: KVNamespace | undefined | null) {
+    this.kv = kv ?? null;
   }
 
-  static ttlSeconds(type: IndicatorType, provider?: ProviderId): number {
-    if (provider) {
-      const override = TTL_OVERRIDES[provider];
-      if (override !== undefined) return override;
-    }
-    return TTL_BY_TYPE[type];
-  }
-
-  private kvKey(provider: ProviderId, indicator: Indicator): string {
-    const safe = indicator.value.toLowerCase();
-    return `ioc:${provider}:${indicator.type}:${safe}`;
-  }
-
-  async get(provider: ProviderId, indicator: Indicator): Promise<ProviderResult | null> {
+  /**
+   * Get a cached provider result.
+   * Returns null if not found, expired, or KV unavailable.
+   */
+  async get(provider: string, indicator: string): Promise<Record<string, unknown> | null> {
+    if (!this.kv) return null;
+    const key = `provider:${provider}:${indicator.toLowerCase()}`;
     try {
-      const raw = await this.kv.get(this.kvKey(provider, indicator));
-      if (!raw) return null;
-      const parsed = JSON.parse(raw) as ProviderResult;
-      return { ...parsed, cached: true };
+      const cached = await this.kv.get(key, 'json');
+      return cached as Record<string, unknown> | null;
     } catch {
       return null;
     }
   }
 
-  async set(provider: ProviderId, indicator: Indicator, value: ProviderResult): Promise<void> {
+  /**
+   * Cache a provider result with TTL.
+   * Default TTL: 1 hour for successful results, 5 minutes for errors.
+   * No-op when KV is unavailable.
+   */
+  async set(
+    provider: string,
+    indicator: string,
+    data: Record<string, unknown>,
+    ttlSeconds: number = 3600
+  ): Promise<void> {
+    if (!this.kv) return;
+    const key = `provider:${provider}:${indicator.toLowerCase()}`;
     try {
-      const ttl = ProviderCache.ttlSeconds(indicator.type, provider);
-      await this.kv.put(this.kvKey(provider, indicator), JSON.stringify(value), {
-        expirationTtl: ttl,
-      });
-    } catch (err) {
-      // Log at warn level — a persistent KV failure means every provider
-      // lookup misses cache and hammers upstreams on every request.
-      console.warn(
-        JSON.stringify({
-          level: 'warn',
-          component: 'ProviderCache.set',
-          provider,
-          indicatorType: indicator.type,
-          error: err instanceof Error ? err.message : String(err),
-        })
-      );
+      await this.kv.put(key, JSON.stringify(data), { expirationTtl: ttlSeconds });
+    } catch {
+      /* best-effort — cache failure shouldn't break the request */
+    }
+  }
+
+  /**
+   * Delete a cached provider result.
+   * No-op when KV is unavailable.
+   */
+  async delete(provider: string, indicator: string): Promise<void> {
+    if (!this.kv) return;
+    const key = `provider:${provider}:${indicator.toLowerCase()}`;
+    try {
+      await this.kv.delete(key);
+    } catch {
+      /* best-effort */
     }
   }
 }

@@ -16,6 +16,7 @@ export async function malpediaActorHandler(c: Context<{ Bindings: Env }>): Promi
   try {
     const res = await fetch(`${MALPEDIA_BASE}/api/get/actor/${encodeURIComponent(actorSlug)}`, {
       headers: { Accept: 'application/json' },
+      signal: AbortSignal.timeout(10_000),
     });
     if (res.status === 404) {
       return c.json({ ok: false, error: 'actor not found' }, 404, { 'cache-control': 'public, max-age=3600' });
@@ -45,6 +46,7 @@ export async function malpediaFamilyHandler(c: Context<{ Bindings: Env }>): Prom
   try {
     const res = await fetch(`${MALPEDIA_BASE}/api/get/family/${encodeURIComponent(familySlug)}`, {
       headers: { Accept: 'application/json' },
+      signal: AbortSignal.timeout(10_000),
     });
     if (res.status === 404) {
       return c.json({ ok: false, error: 'family not found' }, 404, { 'cache-control': 'public, max-age=3600' });

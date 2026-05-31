@@ -13,11 +13,19 @@ const CACHE_KEYS = [
   { key: 'https://actor-timeline-cache.internal/v3-mti', label: 'actors' },
 ];
 
+// Maximum concurrent WebSocket connections per Durable Object instance.
+// Prevents resource exhaustion from an attacker opening thousands of
+// connections. At 50 connections, each polling 6 feeds every 30s, the
+// DO stays well within Cloudflare's CPU/subrequest limits.
+const MAX_CONNECTIONS = 50;
+
 export class LiveFeedDO {
   private ctx: DurableObjectState;
   private env: unknown;
   private sessions = new Map<string, WebSocket>();
   private lastSnapshots = new Map<string, FeedSnapshot>();
+  /** Per-IP connection tracking for abuse prevention. */
+  private ipConnections = new Map<string, number>();
 
   constructor(ctx: DurableObjectState, env: unknown) {
     this.ctx = ctx;
@@ -30,23 +38,39 @@ export class LiveFeedDO {
       return new Response('Expected WebSocket upgrade', { status: 426 });
     }
 
+    // Enforce max concurrent connections to prevent resource exhaustion.
+    if (this.sessions.size >= MAX_CONNECTIONS) {
+      return new Response('Too many connections', { status: 429 });
+    }
+
+    // Per-IP limit: max 5 connections per IP to prevent single-client abuse.
+    const clientIp = request.headers.get('cf-connecting-ip') ?? 'unknown';
+    const ipCount = this.ipConnections.get(clientIp) ?? 0;
+    if (ipCount >= 5) {
+      return new Response('Too many connections from this IP', { status: 429 });
+    }
+
     const pair = new WebSocketPair();
     const [client, server] = Object.values(pair);
     const sessionId = crypto.randomUUID();
 
     this.sessions.set(sessionId, server);
+    this.ipConnections.set(clientIp, ipCount + 1);
     server.accept();
 
-    server.addEventListener('close', () => {
+    const cleanup = () => {
       this.sessions.delete(sessionId);
+      const remaining = this.ipConnections.get(clientIp) ?? 1;
+      if (remaining <= 1) this.ipConnections.delete(clientIp);
+      else this.ipConnections.set(clientIp, remaining - 1);
       if (this.sessions.size === 0) {
         this.lastSnapshots.clear();
+        this.ipConnections.clear();
         this.ctx.storage?.setAlarm(undefined).catch(() => {});
       }
-    });
-    server.addEventListener('error', () => {
-      this.sessions.delete(sessionId);
-    });
+    };
+    server.addEventListener('close', cleanup);
+    server.addEventListener('error', cleanup);
 
     server.send(JSON.stringify({ type: 'connected', feeds: CACHE_KEYS.map((c) => c.label) }));
 

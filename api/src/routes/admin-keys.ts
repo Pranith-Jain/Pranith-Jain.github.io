@@ -8,6 +8,7 @@ import type { Env } from '../env';
 import { requireAdmin } from '../lib/admin-auth';
 import { generateApiKey, revokeApiKey, listApiKeys } from '../lib/auth';
 import { badRequest, internalError } from '../lib/api-error';
+import { auditAdminAction } from '../lib/admin-audit';
 import { z } from 'zod';
 
 const createKeySchema = z.object({
@@ -31,6 +32,7 @@ export async function createApiKeyHandler(c: Context<{ Bindings: Env }>): Promis
 
   try {
     const { rawKey, keyId, prefix } = await generateApiKey(db, parsed.data.label, parsed.data.role);
+    auditAdminAction(c, 'api_key_create', { keyId, label: parsed.data.label, role: parsed.data.role });
     return c.json({ key: rawKey, id: keyId, prefix, label: parsed.data.label, role: parsed.data.role }, 201, {
       'Cache-Control': 'no-store',
     });
@@ -73,6 +75,7 @@ export async function revokeApiKeyHandler(c: Context<{ Bindings: Env }>): Promis
   try {
     const revoked = await revokeApiKey(db, keyId);
     if (!revoked) return c.json({ error: 'not_found', message: 'key not found or already revoked' }, 404);
+    auditAdminAction(c, 'api_key_revoke', { keyId });
     return c.json({ ok: true }, 200, { 'Cache-Control': 'no-store' });
   } catch (e) {
     return internalError(c, e);

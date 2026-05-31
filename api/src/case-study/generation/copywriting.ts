@@ -110,6 +110,14 @@ export const COPYWRITING_RULES =
   `- Generic restatement when the data has specifics: "many of them", "several others", "a number of vulnerabilities", or describing indicators as "suspicious network activity / unusual system behavior". If the facts list real CVEs, vendors, IOCs, or numbers, NAME them.\n` +
   `- Reporting only counts ("30 malicious domains") when the actual values are supplied. Show a representative sample of the real indicators, THEN the total.\n` +
   `- Repeating the same recommendation or sentence across sections (e.g. "patch immediately" three times). Every section must advance NEW information.\n\n` +
+  `#ANALYSIS / THOUGHT LEADERSHIP RULES (for 'analysis' type content)\n\n` +
+  `Analysis pieces are NOT data reports. They are arguments, frameworks, and mental models.\n` +
+  `- Start with a provocative claim that challenges conventional wisdom.\n` +
+  `- Build a framework the reader can reuse. Don't just describe — teach.\n` +
+  `- Use concrete scenarios the reader can recognize from their own experience.\n` +
+  `- Go deep (1500-2000 words). This is a think piece, not a tweet thread.\n` +
+  `- End with questions that force the reader to reconsider their assumptions.\n` +
+  `- Write like you're sharing hard-won insight over coffee, not presenting at a conference.\n\n` +
   `#ENGAGEMENT BAIT STRATEGIES\n\n` +
   `Engagement comes from the analysis being sharp, not from gimmicks. Use, grounded in the actual data:\n` +
   `- A pattern or contrast the reader hadn't connected (the real insight).\n` +

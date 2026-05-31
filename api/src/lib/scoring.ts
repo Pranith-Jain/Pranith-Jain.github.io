@@ -33,18 +33,7 @@ const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>> = {
     crowdsec: 3,
     // IPinfo: privacy detection + ASN. Low weight — supplementary data.
     ipinfo: 1,
-  },
-  ipv6: {
-    abuseipdb: 4,
-    shodan: 2,
-    virustotal: 1,
-    otx: 1,
-    threatfox: 4,
-    greynoise: 2,
-    'shodan-internetdb': 2,
-    spur: 1,
-    crowdsec: 3,
-    ipinfo: 1,
+    kaspersky: 3,
   },
   domain: {
     virustotal: 2,
@@ -60,6 +49,7 @@ const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>> = {
     tweetfeed: 2,
     phishstats: 3,
     digitalside: 3,
+    kaspersky: 3,
   },
   url: {
     virustotal: 2,
@@ -72,6 +62,7 @@ const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>> = {
     tweetfeed: 2,
     phishstats: 3,
     digitalside: 3,
+    kaspersky: 3,
   },
   hash: {
     virustotal: 4,
@@ -82,6 +73,7 @@ const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>> = {
     malshare: 4,
     hashlookup: 3,
     tweetfeed: 2,
+    kaspersky: 4,
   },
   // EmailRep is the only provider with first-class email signal — it pulls
   // from breach data, blocklists, and reputation feeds. Weight it as the

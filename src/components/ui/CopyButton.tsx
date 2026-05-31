@@ -1,32 +1,118 @@
-import { Check, Copy } from 'lucide-react';
-import { useClipboard } from '../../hooks/useClipboard';
+import { useState, useCallback, type ReactNode } from 'react';
+import { Copy, Check } from 'lucide-react';
 
-export interface CopyButtonProps {
-  /** Text to copy to the clipboard. */
-  value: string;
-  /** Icon size in px (default 12). */
-  size?: number;
-  /** Accessible label for the idle state (default "Copy"). */
-  label?: string;
+interface CopyButtonProps {
+  /** Text to copy to clipboard */
+  text?: string;
+  /** @deprecated Use `text` instead */
+  value?: string;
+  /** Button content (optional, defaults to icon) */
+  children?: ReactNode;
+  /** Variant style */
+  variant?: 'icon' | 'button' | 'ghost';
+  /** Size */
+  size?: 'sm' | 'md' | number;
+  /** Success message duration (ms) */
+  successDuration?: number;
+  /** Callback on successful copy */
+  onCopy?: () => void;
+  /** Callback on copy error */
+  onError?: (error: Error) => void;
+  /** Additional CSS classes */
   className?: string;
+  /** Accessible label */
+  label?: string;
+  /** @deprecated Use `label` instead */
+  title?: string;
 }
 
+const SIZE_STYLES: Record<string, string> = {
+  sm: 'h-6 w-6',
+  md: 'h-8 w-8',
+};
+
+const VARIANT_STYLES = {
+  icon: 'p-1 rounded text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800',
+  button: 'px-3 py-1.5 rounded-md text-sm font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700',
+  ghost: 'p-1 rounded text-slate-400 hover:text-brand-600 dark:hover:text-brand-400',
+};
+
 /**
- * Icon button that copies `value` and briefly shows a check. Backed by
- * `useClipboard`, which falls back to `execCommand('copy')` on non-HTTPS / older
- * browsers (the hand-rolled `CopyBtn` copies this replaced did not). Consolidates
- * the per-page copies in LiveIocs / IocCorrelation / MyThreatIntel.
+ * Copy to clipboard button with visual feedback.
+ * Handles clipboard API errors gracefully and provides accessible feedback.
+ * 
+ * @example
+ * <CopyButton text="Hello World" />
+ * <CopyButton value={apiKey} label="Copy API Key" />
+ * <CopyButton text={data} variant="button">Copy</CopyButton>
  */
-export function CopyButton({ value, size = 12, label = 'Copy', className = '' }: CopyButtonProps) {
-  const { copied, copy } = useClipboard({ timeout: 1200 });
+export function CopyButton({
+  text,
+  value,
+  children,
+  variant = 'icon',
+  size = 'md',
+  successDuration = 2000,
+  onCopy,
+  onError,
+  className = '',
+  label = 'Copy to clipboard',
+  title,
+}: CopyButtonProps) {
+  const [copied, setCopied] = useState(false);
+  const textToCopy = text ?? value ?? '';
+  const ariaLabel = title ?? label;
+
+  const handleCopy = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(textToCopy);
+      setCopied(true);
+      onCopy?.();
+      setTimeout(() => setCopied(false), successDuration);
+    } catch (error) {
+      // Fallback for older browsers or non-HTTPS contexts
+      try {
+        const textArea = document.createElement('textarea');
+        textArea.value = textToCopy;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        setCopied(true);
+        onCopy?.();
+        setTimeout(() => setCopied(false), successDuration);
+      } catch (fallbackError) {
+        onError?.(fallbackError instanceof Error ? fallbackError : new Error('Copy failed'));
+      }
+    }
+  }, [textToCopy, successDuration, onCopy, onError]);
+
+  const iconSize = typeof size === 'number' ? size : size === 'sm' ? 12 : 14;
+  const icon = copied ? (
+    <Check size={iconSize} className="text-emerald-500" />
+  ) : (
+    <Copy size={iconSize} />
+  );
+
   return (
     <button
       type="button"
-      onClick={() => copy(value)}
-      aria-label={copied ? 'Copied' : label}
-      className={`inline-flex items-center justify-center min-h-[40px] min-w-[40px] sm:min-h-0 sm:min-w-0 text-slate-400 hover:text-brand-500 transition-colors shrink-0 ${className}`}
+      onClick={handleCopy}
+      className={`
+        inline-flex items-center justify-center transition-colors
+        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2
+        disabled:opacity-50 disabled:cursor-not-allowed
+        ${typeof size === 'string' ? SIZE_STYLES[size] : ''}
+        ${VARIANT_STYLES[variant]}
+        ${className}
+      `}
+      aria-label={copied ? 'Copied!' : ariaLabel}
     >
-      {copied ? <Check size={size} /> : <Copy size={size} />}
+      {children ?? icon}
     </button>
   );
 }

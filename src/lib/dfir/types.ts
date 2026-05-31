@@ -73,7 +73,8 @@ export type ProviderId =
   | 'sslbl'
   | 'yaraify'
   | 'phishtank'
-  | 'malwareworld';
+  | 'malwareworld'
+  | 'kaspersky';
 
 export interface ProviderResultWire {
   source: ProviderId;
@@ -98,6 +99,7 @@ export interface DoneEvent {
   verdict: Verdict;
   confidence: 'low' | 'medium' | 'high';
   contributing: number;
+  total?: number;
   admiralty?: {
     reliability: string;
     credibility: number;

@@ -1,0 +1,74 @@
+import { describe, it, expect } from 'vitest';
+import {
+  storeWhoisSnapshot,
+  getWhoisHistory,
+  pivotDomains,
+  getWhoisStats,
+} from '../../src/lib/whois-history';
+import type { RdapResult } from '../../src/lib/rdap';
+
+// Mock D1Database
+function createMockDb() {
+  const store = new Map<string, unknown>();
+  let autoId = 1;
+
+  return {
+    prepare: (sql: string) => ({
+      bind: (...params: unknown[]) => ({
+        first: async <T>() => {
+          if (sql.includes('SELECT') && sql.includes('whois_snapshots')) {
+            return store.get(`snapshot:${params[0]}`) as T ?? null;
+          }
+          return null;
+        },
+        all: async <T>() => {
+          const results: T[] = [];
+          for (const [key, value] of store.entries()) {
+            if (key.startsWith('snapshot:') || key.startsWith('change:')) {
+              results.push(value as T);
+            }
+          }
+          return { results };
+        },
+        run: async () => {
+          const id = autoId++;
+          if (sql.includes('INSERT')) {
+            store.set(`snapshot:${params[0]}:${id}`, { id, ...params });
+          }
+          return { meta: { last_row_id: id, changes: 1 } };
+        },
+      }),
+    }),
+  };
+}
+
+describe('WHOIS History Service', () => {
+  const mockRdap: RdapResult = {
+    registrar: 'Cloudflare, Inc.',
+    created: '2009-02-17T22:07:54Z',
+    expires: '2033-02-17T22:07:54Z',
+    updated: '2024-01-09T16:45:28Z',
+    nameservers: ['ns1.cloudflare.com', 'ns2.cloudflare.com'],
+    status: ['client delete prohibited'],
+  };
+
+  describe('getWhoisHistory', () => {
+    it('returns empty history for unknown domain', async () => {
+      const db = createMockDb() as any;
+      const result = await getWhoisHistory(db, 'unknown-domain.com');
+      expect(result.domain).toBe('unknown-domain.com');
+      expect(result.snapshots).toEqual([]);
+      expect(result.changes).toEqual([]);
+    });
+  });
+
+  describe('getWhoisStats', () => {
+    it('returns zero stats for unknown domain', async () => {
+      const db = createMockDb() as any;
+      const stats = await getWhoisStats(db, 'unknown-domain.com');
+      expect(stats.total_snapshots).toBe(0);
+      expect(stats.total_changes).toBe(0);
+      expect(stats.unique_registrars).toBe(0);
+    });
+  });
+});

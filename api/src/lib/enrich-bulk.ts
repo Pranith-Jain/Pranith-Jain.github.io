@@ -64,6 +64,7 @@ import { sslbl } from '../providers/sslbl';
 import { malwareworld } from '../providers/malwareworld';
 import { emailrep } from '../providers/emailrep';
 import { pulsedive } from '../providers/pulsedive';
+import { kaspersky } from '../providers/kaspersky';
 
 /** Adapters allowed in the bulk path. */
 const BULK_ADAPTERS: Partial<Record<ProviderId, ProviderAdapter>> = {
@@ -89,6 +90,7 @@ const BULK_ADAPTERS: Partial<Record<ProviderId, ProviderAdapter>> = {
   malwareworld,
   emailrep,
   pulsedive,
+  kaspersky,
 };
 
 const BULK_PROVIDER_IDS = Object.keys(BULK_ADAPTERS) as ProviderId[];
@@ -227,7 +229,7 @@ export async function enrichBulk(
   const chosen = prioritized.slice(0, maxIocs);
   const overflow = prioritized.slice(maxIocs).map(({ type, value }) => ({ type, value }));
 
-  const cache = new ProviderCache(env.KV_CACHE!);
+  const cache = new ProviderCache(env.KV_CACHE);
   const providerEnv = buildProviderEnv(env);
 
   // Build the full (indicator, provider) work list up front so all uncached

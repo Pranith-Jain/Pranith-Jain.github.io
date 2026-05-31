@@ -600,7 +600,12 @@ export default function IocCheck(): JSX.Element {
                   </h2>
                   <div className="flex items-center gap-2">
                     {summary.admiralty && <AdmiraltyBadge admiralty={summary.admiralty} />}
-                    <VerdictChip verdict={summary.verdict} />
+                    <VerdictChip
+                      verdict={summary.verdict}
+                      contributing={summary.contributing}
+                      total={summary.total}
+                      confidence={summary.confidence as 'high' | 'medium' | 'low' | undefined}
+                    />
                   </div>
                 </div>
                 <div className="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-sm text-slate-600 dark:text-slate-400">

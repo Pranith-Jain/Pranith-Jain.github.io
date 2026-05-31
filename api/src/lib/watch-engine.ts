@@ -1,4 +1,5 @@
 import type { D1Database } from '@cloudflare/workers-types';
+import type { Env } from '../env';
 
 export interface Watch {
   id: string;
@@ -320,4 +321,57 @@ export async function checkWatches(kv: KVNamespace, now: string, db?: D1Database
 
 function escapeRegex(s: string): string {
   return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+/**
+ * Send a Telegram notification for a watch alert.
+ * Uses the Telegram Bot API directly.
+ */
+export async function sendTelegramAlert(
+  botToken: string,
+  chatId: string,
+  alert: AlertEvent
+): Promise<boolean> {
+  try {
+    const message =
+      `🔔 <b>Watch Alert</b>\n\n` +
+      `<b>Label:</b> ${alert.label}\n` +
+      `<b>Type:</b> ${alert.type}\n` +
+      `<b>Match:</b> ${alert.match}\n` +
+      (alert.detail ? `<b>Detail:</b> ${alert.detail}\n` : '') +
+      `<b>Time:</b> ${alert.matched_at}`;
+
+    const res = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: message,
+        parse_mode: 'HTML',
+        disable_web_page_preview: true,
+      }),
+      signal: AbortSignal.timeout(5000),
+    });
+
+    return res.ok;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Format watch alert for Telegram notification.
+ */
+export function formatTelegramAlert(alert: AlertEvent): string {
+  const emoji =
+    alert.type === 'ransomware-group' ? '💀' :
+    alert.type === 'cve-keyword' ? '🔓' :
+    alert.type === 'actor' ? '👤' :
+    '🔍';
+
+  return `${emoji} <b>${alert.label}</b>\n` +
+    `Type: ${alert.type}\n` +
+    `Match: <code>${alert.match}</code>\n` +
+    (alert.detail ? `Detail: ${alert.detail}\n` : '') +
+    `Time: ${new Date(alert.matched_at).toLocaleString()}`;
 }

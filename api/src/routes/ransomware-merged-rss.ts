@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { getSiteUrl } from '../lib/site-config';
 import { RANSOMWARE_RECENT_CACHE_KEY, fetchRansomwareRecent } from './ransomware-recent';
 
 function escapeXml(s: string): string {
@@ -52,7 +53,7 @@ export async function buildRansomwareMergedRss(env?: Env): Promise<{ xml: string
     .slice(0, 100)
     .map((v) => {
       const title = `RANSOMWARE: ${v.victim} — ${v.group}`;
-      const link = v.source_url || 'https://pranithjain.qzz.io/threatintel/ransomware-activity';
+      const link = v.source_url || `${getSiteUrl(env)}/threatintel/ransomware-activity`;
       const descParts = [
         `Group: ${v.group}`,
         v.origin ? `Source: ${v.origin}` : '',
@@ -77,7 +78,7 @@ export async function buildRansomwareMergedRss(env?: Env): Promise<{ xml: string
 <rss version="2.0">
   <channel>
     <title>Ransomware claims (merged)</title>
-    <link>https://pranithjain.qzz.io/threatintel/ransomware-activity</link>
+    <link>${getSiteUrl(env)}/threatintel/ransomware-activity</link>
     <description>Merged ransomware victim claims from Ransomlook, ransomware.live, ransomfeed.it, ransomwatch, and andreafortuna — deduped and sorted newest-first.</description>
 ${items}
   </channel>

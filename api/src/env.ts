@@ -21,6 +21,9 @@ export interface Env {
   URLSCAN_API_KEY?: string;
   HYBRID_ANALYSIS_API_KEY?: string;
   ABUSECH_AUTH_KEY?: string;
+  /** Spur.us API token for VPN/proxy/tor detection. Optional — the
+   *  IOC check degrades to 'unsupported' when unset. */
+  SPUR_API_KEY?: string;
   /** MalShare API key (free registration at malshare.com). Optional —
    *  hash lookups degrade gracefully when unset. */
   MALSHARE_API_KEY?: string;
@@ -66,6 +69,10 @@ export interface Env {
    *  for the archive. Optional — both features skip gracefully when unset. */
   TELEGRAM_BOT_TOKEN?: string;
   TELEGRAM_CHANNEL_ID?: string;
+  /** Secret token validated on every Telegram webhook request. Set via
+   *  `wrangler secret put TELEGRAM_WEBHOOK_SECRET`. Must match the
+   *  `secret_token` passed to Telegram's `setWebhook` API. */
+  TELEGRAM_WEBHOOK_SECRET?: string;
   /** When the literal string "true", the case-study publisher writes new
    *  posts to the `drafts:` namespace instead of `posts:` — promoting a
    *  draft requires an admin click via /api/v1/admin/case-study/drafts/
@@ -90,8 +97,15 @@ export interface Env {
    *  the /api/v1/ioc/check CriminalIP provider degrades to 'unsupported'
    *  when unset. Free tier: 100 lookups/month. */
   CRIMINALIP_API_KEY?: string;
+  /** Kaspersky OpenTip API key. Set via `wrangler secret put KASPERSKY_API_KEY`.
+   *  Free tier: 1000 lookups/day. Used for hash, URL, IP, and domain reputation. */
+  KASPERSKY_API_KEY?: string;
   /** GitHub personal access token for the malicious-packages API.
    *  Set via `wrangler secret put GITHUB_TOKEN`. Optional — the free
    *  anonymous GitHub API tier (60 req/hr) is the default. */
   GITHUB_TOKEN?: string;
+  /** Canonical site URL. Set via
+   *  `wrangler.jsonc#vars.SITE_URL` — used for CORS, RSS links, and
+   *  canonical URLs. Falls back to the hardcoded default. */
+  SITE_URL?: string;
 }

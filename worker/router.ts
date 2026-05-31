@@ -125,6 +125,9 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/phishing', '/__prerendered/dfir__phishing'],
   ['/dfir/domain', '/__prerendered/dfir__domain'],
   ['/dfir/domain-rep', '/__prerendered/dfir__domain-rep'],
+  ['/dfir/whois-history', '/__prerendered/dfir__whois-history'],
+  ['/dfir/sql-workspace', '/__prerendered/dfir__sql-workspace'],
+  ['/dfir/open-directory', '/__prerendered/dfir__open-directory'],
   ['/dfir/full-spectrum', '/__prerendered/dfir__full-spectrum'],
   ['/dfir/exposure', '/__prerendered/dfir__exposure'],
   ['/dfir/dashboard', '/__prerendered/dfir__dashboard'],
@@ -201,7 +204,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/signal', '/__prerendered/threatintel__signal'],
   ['/threatintel/research', '/__prerendered/threatintel__research'],
   ['/threatintel/cve-list', '/__prerendered/threatintel__cve-list'],
-  ['/threatintel/cve-threat-map', '/__prerendered/threatintel__cve-threat-map'],
+
   ['/threatintel/threat-map', '/__prerendered/threatintel__threat-map'],
   ['/threatintel/deepdarkcti', '/__prerendered/threatintel__deepdarkcti'],
   ['/threatintel/ransomware-live', '/__prerendered/threatintel__ransomware-live'],

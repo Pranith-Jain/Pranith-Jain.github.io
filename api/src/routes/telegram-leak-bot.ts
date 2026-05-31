@@ -166,12 +166,25 @@ async function processLeakFile(
 
   // Store ONE entry per file — not per credential. The credential_count
   // field captures how many were found, avoiding flooding the DB.
+  //
+  // SECURITY: We NEVER store raw credentials (email:password) or the
+  // raw file content. Only metadata (domains, counts, file name) is
+  // persisted. This minimises PII liability while preserving the
+  // intelligence value (which domains are affected, how many creds,
+  // severity assessment).
   if (db) {
     const now = new Date()
       .toISOString()
       .replace('T', 'T')
       .replace(/\.\d+Z/, 'Z');
     const messageLink = `https://t.me/${chatName}/${msg.message_id}`;
+    // Strip any credential-like patterns from the caption/message text
+    // before storage. Keep only the first 500 chars of the caption (not
+    // the file content) for context.
+    const safeCaption = (msg.caption || '')
+      .replace(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+:[^\s]{1,100}/g, '[REDACTED]')
+      .replace(/[a-zA-Z0-9._%+-]+\t[^\s]{1,100}/g, '[REDACTED]')
+      .slice(0, 500);
     await db
       .prepare(
         `INSERT OR IGNORE INTO telegram_leak_entries
@@ -181,7 +194,7 @@ async function processLeakFile(
       .bind(
         chatName,
         messageLink,
-        msg.caption || content.slice(0, 1000),
+        safeCaption || `${entries.length} credentials from ${domains.length} domains`,
         entries.length,
         JSON.stringify(domains),
         doc.file_name || 'unknown',
@@ -197,6 +210,19 @@ async function processLeakFile(
 export async function telegramLeakBotWebhookHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const token = c.env.TELEGRAM_BOT_TOKEN;
   if (!token) return c.json({ error: 'bot not configured' }, 503);
+
+  // Validate Telegram webhook secret_token. When registering the webhook
+  // via `setWebhook`, we pass `secret_token=<TELEGRAM_WEBHOOK_SECRET>`.
+  // Telegram sends it back as `X-Telegram-Bot-Api-Secret-Token` on every
+  // update. This prevents anyone who discovers the webhook URL from
+  // injecting fake updates.
+  const webhookSecret = c.env.TELEGRAM_WEBHOOK_SECRET;
+  if (webhookSecret) {
+    const provided = c.req.header('x-telegram-bot-api-secret-token');
+    if (provided !== webhookSecret) {
+      return c.json({ error: 'forbidden' }, 403);
+    }
+  }
 
   const update = (await c.req.json()) as TelegramUpdate;
 
@@ -304,12 +330,16 @@ export async function telegramLeakBotRegisterHandler(c: Context<{ Bindings: Env 
   if ('error' in gate) return gate.error;
 
   try {
-    const setRes = await fetch(
-      `https://api.telegram.org/bot${token}/setWebhook?url=${encodeURIComponent(webhookUrl)}`,
-      {
-        signal: AbortSignal.timeout(8000),
-      }
-    );
+    const webhookSecret = c.env.TELEGRAM_WEBHOOK_SECRET;
+    const setWebhookUrl = new URL(`https://api.telegram.org/bot${token}/setWebhook`);
+    setWebhookUrl.searchParams.set('url', webhookUrl);
+    setWebhookUrl.searchParams.set('max_connections', '30');
+    if (webhookSecret) {
+      setWebhookUrl.searchParams.set('secret_token', webhookSecret);
+    }
+    const setRes = await fetch(setWebhookUrl.toString(), {
+      signal: AbortSignal.timeout(8000),
+    });
     const data = (await setRes.json()) as { ok: boolean; description?: string };
     if (data.ok) {
       await setBotCommands(token);

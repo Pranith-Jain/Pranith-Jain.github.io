@@ -102,6 +102,8 @@ const SECTIONS: HandleSection[] = [
       'ransomnews',
       'LeakRadario',
       'DarkWebIntelBot',
+      'volitant136',
+      'etugenio',
     ],
   },
   {

@@ -4,6 +4,20 @@ import { requireAdmin } from '../lib/admin-auth';
 import type { TelegramFeedItem } from './telegram-feed';
 import { fetchHtml, fetchTelegramFeed, parseChannelHtml } from './telegram-feed';
 
+/**
+ * Safely extract the number of affected rows from a D1 batch result entry.
+ * D1's typing is incomplete — the actual runtime object has meta.changes
+ * but the TS type doesn't expose it. This helper avoids unsafe `as never`
+ * casts throughout the file.
+ */
+function d1Changes(result: unknown): number {
+  if (typeof result !== 'object' || result === null) return 0;
+  const meta = (result as Record<string, unknown>).meta;
+  if (typeof meta !== 'object' || meta === null) return 0;
+  const changes = (meta as Record<string, unknown>).changes;
+  return typeof changes === 'number' ? changes : 0;
+}
+
 // ─── types ─────────────────────────────────────────────────────────────────────
 
 interface LeakScanResult {
@@ -423,10 +437,10 @@ export async function runTelegramLeakScanner(
   const batchResults = results.flat();
   const channelsDiscovered = batchResults
     .slice(0, discStmts.length)
-    .reduce((sum, r) => sum + ((r as never as { meta?: { changes?: number } })?.meta?.changes ?? 0), 0);
+    .reduce((sum, r) => sum + d1Changes(r), 0);
   const leaksFound = batchResults
     .slice(discStmts.length, discStmts.length + leakStmts.length)
-    .reduce((sum, r) => sum + ((r as never as { meta?: { changes?: number } })?.meta?.changes ?? 0), 0);
+    .reduce((sum, r) => sum + d1Changes(r), 0);
 
   return { leaks_found: leaksFound, channels_discovered: channelsDiscovered };
 }
@@ -780,7 +794,7 @@ export async function cleanupLeakEntries(db: D1Database, maxAgeDays = 30): Promi
     .prepare(`DELETE FROM telegram_leak_entries WHERE discovered_at < datetime('now', ? || ' days')`)
     .bind(String(-maxAgeDays))
     .run();
-  return (result as never as { meta?: { changes?: number } })?.meta?.changes ?? 0;
+  return d1Changes(result);
 }
 
 // ─── manual trigger (one-time diagnostic, will be removed) ──────────────────

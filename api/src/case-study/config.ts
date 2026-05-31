@@ -1,3 +1,5 @@
+import { getSiteUrl } from '../lib/site-config';
+
 // Vendor threat-intel RSS feeds scanned for actor mentions.
 // These are public feeds — no auth required.
 export const ACTOR_RSS_FEEDS: string[] = [
@@ -16,4 +18,5 @@ export const ACTOR_RSS_FEEDS: string[] = [
   'https://thedfirreport.com/feed/',
 ];
 
-export const SITE_URL = 'https://pranithjain.qzz.io';
+// SITE_URL is now dynamically resolved via getSiteUrl(env) from site-config.
+// Import site-config where env context is available and call getSiteUrl(env).

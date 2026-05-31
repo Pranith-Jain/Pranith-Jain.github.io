@@ -1,14 +1,15 @@
-import { useMemo, useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ExternalLink, Search as SearchIcon, X } from 'lucide-react';
 import { SECTIONS, EXTERNAL, TOOL_COUNT, type Tool, type Section, type ToolGroup } from './tool-sections';
+import { useDebounce } from '../../hooks/useDebounce';
 
 // Re-export so existing call sites (CommandPalette, DFIR.tsx) that previously
 // imported these from ToolGrid keep working without churn.
 export { SECTIONS, TOOL_COUNT };
 export type { Tool, Section, ToolGroup };
 
-function Card({ tool }: { tool: Tool }): JSX.Element {
+const Card = memo(function Card({ tool }: { tool: Tool }): JSX.Element {
   const { path, label, desc, icon: Icon, external } = tool;
   const className =
     'group relative block overflow-hidden rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 ' +
@@ -48,9 +49,9 @@ function Card({ tool }: { tool: Tool }): JSX.Element {
       {inner}
     </Link>
   );
-}
+});
 
-function SectionBlock({ section }: { section: Section }): JSX.Element {
+const SectionBlock = memo(function SectionBlock({ section }: { section: Section }): JSX.Element {
   return (
     <div>
       <div className="flex items-baseline justify-between gap-3 mb-3 mt-2 flex-wrap">
@@ -68,7 +69,7 @@ function SectionBlock({ section }: { section: Section }): JSX.Element {
       </div>
     </div>
   );
-}
+});
 
 function matches(tool: Tool, q: string): boolean {
   if (!q) return true;
@@ -83,7 +84,8 @@ function matches(tool: Tool, q: string): boolean {
 
 export function ToolGrid({ group }: { group?: ToolGroup } = {}): JSX.Element {
   const [query, setQuery] = useState('');
-  const q = query.trim();
+  const debouncedQuery = useDebounce(query, 100);
+  const q = debouncedQuery.trim();
 
   const baseSections = useMemo(() => (group ? SECTIONS.filter((s) => s.group === group) : SECTIONS), [group]);
 

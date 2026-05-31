@@ -15,7 +15,7 @@ import { listFailures, deleteFailure, clearFailures } from '../case-study/storag
 import { runDiscoveryNow, runPlannerNow, runPublisherNow, type CaseStudyEnv } from '../case-study/run';
 import { runTelegramArchive } from './telegram-archive';
 import { renderRss } from '../case-study/rendering/rss';
-import { SITE_URL } from '../case-study/config';
+import { getSiteUrl } from '../lib/site-config';
 import { kv as csKvKeys } from '../case-study/kv-keys';
 import { generatePost } from '../case-study/generation';
 import {
@@ -185,7 +185,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
 
       // RSS only needs index-level fields — render straight from the posts
       // index (1 KV read) instead of fan-out-reading every full post.
-      const rss = renderRss(await listPostIndex(c.env.CASE_STUDIES), { siteUrl: SITE_URL });
+      const rss = renderRss(await listPostIndex(c.env.CASE_STUDIES), { siteUrl: getSiteUrl(c.env) });
       await c.env.CASE_STUDIES.put(csKvKeys.metaRss, rss);
 
       await markSlotStatus(c.env.CASE_STUDIES, candidateId, 'published', { publishedSlug: post.slug });
@@ -250,7 +250,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     if (!promoted) return c.json({ error: 'not found' }, 404);
     // Refresh RSS so the new post shows up in the feed immediately, same
     // as the auto-publish flow does.
-    const rss = renderRss(await listPostIndex(c.env.CASE_STUDIES), { siteUrl: SITE_URL });
+    const rss = renderRss(await listPostIndex(c.env.CASE_STUDIES), { siteUrl: getSiteUrl(c.env) });
     await c.env.CASE_STUDIES.put(csKvKeys.metaRss, rss);
     return c.json({ ok: true, slug: promoted.slug, approvedAt: promoted.approvedAt });
   });
@@ -352,7 +352,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
 
     // RSS only needs index-level fields — render straight from the posts
     // index (1 KV read) instead of fan-out-reading every full post.
-    const rss = renderRss(await listPostIndex(c.env.CASE_STUDIES), { siteUrl: SITE_URL });
+    const rss = renderRss(await listPostIndex(c.env.CASE_STUDIES), { siteUrl: getSiteUrl(c.env) });
     await c.env.CASE_STUDIES.put(csKvKeys.metaRss, rss);
 
     return c.json({ ok: true, slug });
@@ -373,7 +373,7 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
 
       // RSS only needs index-level fields — render straight from the posts
       // index (1 KV read) instead of fan-out-reading every full post.
-      const rss = renderRss(await listPostIndex(c.env.CASE_STUDIES), { siteUrl: SITE_URL });
+      const rss = renderRss(await listPostIndex(c.env.CASE_STUDIES), { siteUrl: getSiteUrl(c.env) });
       await c.env.CASE_STUDIES.put(csKvKeys.metaRss, rss);
 
       await unapprove(c.env.CASE_STUDIES, candidate.key);

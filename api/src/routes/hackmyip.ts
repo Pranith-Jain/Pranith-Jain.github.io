@@ -30,7 +30,12 @@ export async function hackMyIpBreachHandler(c: Context<{ Bindings: Env }>): Prom
     });
     if (!res.ok) return c.json({ error: `HackMyIP upstream ${res.status}` }, 502);
 
-    const data = await res.json();
+    let data: unknown;
+    try {
+      data = await res.json();
+    } catch {
+      return c.json({ error: 'HackMyIP returned invalid JSON' }, 502);
+    }
     const body = JSON.stringify({
       email,
       data,

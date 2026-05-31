@@ -19,6 +19,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { requireAdmin } from '../lib/admin-auth';
 import { badRequest, internalError, serviceUnavailable } from '../lib/api-error';
+import { auditAdminAction } from '../lib/admin-audit';
 import { z } from 'zod';
 
 const purgeSchema = z.object({
@@ -83,6 +84,10 @@ export async function purgeCacheHandler(c: Context<{ Bindings: Env }>): Promise<
       return c.json({ error: 'purge_failed', message: JSON.stringify(cfResult.errors) }, 502);
     }
 
+    auditAdminAction(c, 'cache_purge', {
+      method: parsed.data.urls ? 'urls' : 'prefix',
+      target: parsed.data.prefix ?? parsed.data.urls?.join(',') ?? '',
+    });
     return c.json({ ok: true, method: 'cf-api-v4', payload });
   } catch (e) {
     return internalError(c, e);

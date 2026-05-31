@@ -1,8 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, FileText } from 'lucide-react';
 import { findResearchPost, publishedResearch } from '../../data/threatintel/research';
 import { IntelCard } from '../../components/intel/IntelCard';
+import { extractTableOfContents, addHeadingIds } from '../../lib/content-utils';
+
+type TocItem = { id: string; text: string; level: number };
 
 /**
  * /threatintel/research/<slug> — long-form read page for a Pranith-
@@ -19,6 +22,13 @@ export default function ResearchPost(): JSX.Element {
   const navigate = useNavigate();
   const bodyRef = useRef<HTMLDivElement>(null);
   const [html, setHtml] = useState<string | null>(null);
+  const [tocItems, setTocItems] = useState<TocItem[]>([]);
+  const [activeTocId, setActiveTocId] = useState<string>('');
+
+  const scrollToHeading = useCallback((id: string) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, []);
 
   useEffect(() => {
     if (!post) return;
@@ -31,14 +41,36 @@ export default function ResearchPost(): JSX.Element {
       const raw = (await marked.parse(post.body)) as string;
       const safe = DOMPurify.sanitize(raw, {
         ALLOWED_URI_REGEXP: /^(?:(?:https?|mailto|#|\/):|[^a-z]|[a-z+.-]+(?:[^a-z+.\-:]|$))/i,
-        ADD_ATTR: ['title'],
+        ADD_ATTR: ['title', 'id'],
       });
-      if (!cancelled) setHtml(safe);
+      const withIds = addHeadingIds(safe);
+      const toc = extractTableOfContents(post.body);
+      if (!cancelled) {
+        setHtml(withIds);
+        setTocItems(toc);
+      }
     })();
     return () => {
       cancelled = true;
     };
   }, [post]);
+
+  // Track which heading is in view for TOC highlighting
+  useEffect(() => {
+    if (!html || !bodyRef.current) return;
+    const headings = bodyRef.current.querySelectorAll('h2, h3');
+    if (headings.length === 0) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveTocId(entry.target.id);
+        });
+      },
+      { rootMargin: '-80px 0px -75% 0px' }
+    );
+    headings.forEach((h) => observer.observe(h));
+    return () => observer.disconnect();
+  }, [html]);
 
   // Intercept clicks on internal SPA links so they navigate via React
   // Router rather than a full reload, matching the case-study page.
@@ -145,30 +177,55 @@ export default function ResearchPost(): JSX.Element {
           <div className="h-4 w-5/6 rounded bg-slate-200 dark:bg-slate-800 animate-pulse" />
         </div>
       ) : (
-        <article
-          ref={bodyRef}
-          className={
-            'text-base sm:text-[17px] leading-relaxed text-slate-700 dark:text-slate-300 ' +
-            '[&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-slate-900 [&_h2]:dark:text-white [&_h2]:mt-10 [&_h2]:mb-3 [&_h2]:tracking-tight ' +
-            '[&_h3]:font-display [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-slate-900 [&_h3]:dark:text-white [&_h3]:mt-6 [&_h3]:mb-2 ' +
-            '[&_p]:mb-4 ' +
-            '[&_a]:text-brand-700 [&_a]:dark:text-brand-400 [&_a]:underline [&_a]:underline-offset-4 [&_a:hover]:no-underline ' +
-            '[&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-4 [&_ul]:space-y-1.5 ' +
-            '[&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-4 [&_ol]:space-y-1.5 ' +
-            '[&_li]:leading-relaxed ' +
-            '[&_strong]:text-slate-900 [&_strong]:dark:text-white [&_strong]:font-semibold ' +
-            '[&_code]:font-mono [&_code]:text-[0.9em] [&_code]:bg-slate-100 [&_code]:dark:bg-slate-800 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded ' +
-            // pre gets explicit font-mono (defensive — preflight already
-            // sets it, but being explicit guards against future utility
-            // overrides). text-[12px] keeps long-ish console output
-            // readable inside the column width.
-            '[&_pre]:bg-slate-900 [&_pre]:dark:bg-slate-950 [&_pre]:text-slate-100 [&_pre]:p-4 [&_pre]:rounded-lg [&_pre]:overflow-x-auto [&_pre]:my-5 [&_pre]:text-[12px] [&_pre]:font-mono [&_pre]:leading-relaxed [&_pre_code]:bg-transparent [&_pre_code]:text-inherit [&_pre_code]:px-0 [&_pre_code]:whitespace-pre ' +
-            '[&_blockquote]:border-l-2 [&_blockquote]:border-brand-500/40 [&_blockquote]:pl-4 [&_blockquote]:my-4 [&_blockquote]:italic [&_blockquote]:text-slate-600 [&_blockquote]:dark:text-slate-400 ' +
-            '[&_hr]:my-8 [&_hr]:border-slate-200 [&_hr]:dark:border-slate-800 ' +
-            '[&_em]:italic'
-          }
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
+        <div className="lg:grid lg:grid-cols-[1fr_200px] lg:gap-8">
+          <article
+            ref={bodyRef}
+            className={
+              'text-base sm:text-[17px] leading-relaxed text-slate-700 dark:text-slate-300 ' +
+              '[&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-slate-900 [&_h2]:dark:text-white [&_h2]:mt-10 [&_h2]:mb-3 [&_h2]:tracking-tight ' +
+              '[&_h3]:font-display [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-slate-900 [&_h3]:dark:text-white [&_h3]:mt-6 [&_h3]:mb-2 ' +
+              '[&_p]:mb-4 ' +
+              '[&_a]:text-brand-700 [&_a]:dark:text-brand-400 [&_a]:underline [&_a]:underline-offset-4 [&_a:hover]:no-underline ' +
+              '[&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-4 [&_ul]:space-y-1.5 ' +
+              '[&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-4 [&_ol]:space-y-1.5 ' +
+              '[&_li]:leading-relaxed ' +
+              '[&_strong]:text-slate-900 [&_strong]:dark:text-white [&_strong]:font-semibold ' +
+              '[&_code]:font-mono [&_code]:text-[0.9em] [&_code]:bg-slate-100 [&_code]:dark:bg-slate-800 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded ' +
+              '[&_pre]:bg-slate-900 [&_pre]:dark:bg-slate-950 [&_pre]:text-slate-100 [&_pre]:p-4 [&_pre]:rounded-lg [&_pre]:overflow-x-auto [&_pre]:my-5 [&_pre]:text-[12px] [&_pre]:font-mono [&_pre]:leading-relaxed [&_pre_code]:bg-transparent [&_pre_code]:text-inherit [&_pre_code]:px-0 [&_pre_code]:whitespace-pre ' +
+              '[&_blockquote]:border-l-2 [&_blockquote]:border-brand-500/40 [&_blockquote]:pl-4 [&_blockquote]:my-4 [&_blockquote]:italic [&_blockquote]:text-slate-600 [&_blockquote]:dark:text-slate-400 ' +
+              '[&_hr]:my-8 [&_hr]:border-slate-200 [&_hr]:dark:border-slate-800 ' +
+              '[&_em]:italic'
+            }
+            dangerouslySetInnerHTML={{ __html: html }}
+          />
+
+          {/* Table of Contents sidebar */}
+          {tocItems.length > 0 && (
+            <aside className="hidden lg:block">
+              <div className="sticky top-24">
+                <h4 className="text-xs font-mono uppercase tracking-[0.16em] text-slate-500 mb-3">Contents</h4>
+                <nav className="space-y-1">
+                  {tocItems.map((item) => (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => scrollToHeading(item.id)}
+                      className={`block w-full text-left transition-colors py-1 ${
+                        item.level === 3 ? 'pl-3 text-xs' : 'text-sm'
+                      } ${
+                        activeTocId === item.id
+                          ? 'text-brand-600 dark:text-brand-400 font-semibold'
+                          : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
+                      }`}
+                    >
+                      {item.text}
+                    </button>
+                  ))}
+                </nav>
+              </div>
+            </aside>
+          )}
+        </div>
       )}
 
       {/* End-of-post navigation. After 7+ minutes of reading the user is

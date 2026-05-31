@@ -13,6 +13,7 @@ const TYPE_LABEL: Record<CaseStudyType, string> = {
   methodology: 'METHODOLOGY',
   trend: 'TREND',
   briefing: 'BRIEFING',
+  analysis: 'ANALYSIS',
 };
 
 const TYPE_HUE: Record<CaseStudyType, number> = {
@@ -28,6 +29,7 @@ const TYPE_HUE: Record<CaseStudyType, number> = {
   methodology: 260,
   trend: 320,
   briefing: 160,
+  analysis: 200,
 };
 
 function xmlEscape(s: string): string {

@@ -43,6 +43,7 @@ const Phishing = lazy(() => import('./pages/dfir/Phishing'));
 const Domain = lazy(() => import('./pages/dfir/Domain'));
 const FullSpectrum = lazy(() => import('./pages/dfir/FullSpectrum'));
 const Exposure = lazy(() => import('./pages/dfir/Exposure'));
+const AssetIntel = lazy(() => import('./pages/dfir/AssetIntel'));
 const Wiki = lazy(() => import('./pages/dfir/Wiki'));
 const WikiArticle = lazy(() => import('./pages/dfir/WikiArticle'));
 const Dashboard = lazy(() => import('./pages/dfir/Dashboard'));
@@ -170,7 +171,6 @@ const ThreatIntelHome = lazy(() => import('./pages/threatintel/Home'));
 const ThreatIntelAbout = lazy(() => import('./pages/threatintel/About'));
 const ThreatPulse = lazy(() => import('./pages/threatintel/ThreatPulse'));
 const CveList = lazy(() => import('./pages/threatintel/CveList'));
-const CveThreatMap = lazy(() => import('./pages/threatintel/CveThreatMap'));
 const RansomwareActivityPage = lazy(() => import('./pages/threatintel/RansomwareActivity'));
 const RansomwareGeoMap = lazy(() => import('./pages/threatintel/RansomwareMap'));
 const CertStreamLive = lazy(() => import('./pages/threatintel/CertStreamLive'));
@@ -209,6 +209,8 @@ const Negotiations = lazy(() => import('./pages/threatintel/Negotiations'));
 const BreachForums = lazy(() => import('./pages/threatintel/BreachForums'));
 const UrlReputation = lazy(() => import('./pages/dfir/UrlReputation'));
 const DomainReputation = lazy(() => import('./pages/dfir/DomainReputation'));
+const WhoisHistory = lazy(() => import('./pages/dfir/WhoisHistory'));
+const OpenDirectory = lazy(() => import('./pages/dfir/OpenDirectory'));
 const ApkAnalyzer = lazy(() => import('./pages/dfir/ApkAnalyzer'));
 const PgpTool = lazy(() => import('./pages/dfir/PgpTool'));
 const TorGateway = lazy(() => import('./pages/dfir/TorGateway'));
@@ -424,6 +426,22 @@ export function AppContent() {
           }
         />
         <Route
+          path="/dfir/whois-history"
+          element={
+            <LazyRoute>
+              <WhoisHistory />
+            </LazyRoute>
+          }
+        />
+        <Route
+          path="/dfir/open-directory"
+          element={
+            <LazyRoute>
+              <OpenDirectory />
+            </LazyRoute>
+          }
+        />
+        <Route
           path="/dfir/full-spectrum"
           element={
             <LazyRoute>
@@ -436,6 +454,15 @@ export function AppContent() {
           element={
             <LazyRoute>
               <Exposure />
+            </LazyRoute>
+          }
+        />
+        <Route path="/dfir/host" element={<Navigate to="/dfir/asset-intel" replace />} />
+        <Route
+          path="/dfir/asset-intel"
+          element={
+            <LazyRoute>
+              <AssetIntel />
             </LazyRoute>
           }
         />
@@ -1156,14 +1183,6 @@ export function AppContent() {
           element={
             <LazyRoute>
               <CveList />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/cve-threat-map"
-          element={
-            <LazyRoute>
-              <CveThreatMap />
             </LazyRoute>
           }
         />

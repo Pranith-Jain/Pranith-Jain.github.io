@@ -509,7 +509,7 @@ export default function UrlPreview(): JSX.Element {
                   <div className="text-xs uppercase tracking-wider text-slate-500 font-mono mb-2">Image</div>
                   <img
                     src={result.twitter.image}
-                    alt="twitter:image"
+                    alt="Twitter card preview"
                     className="max-w-full max-h-48 rounded-lg border border-slate-200 dark:border-slate-700 object-contain"
                     onError={(e) => {
                       (e.currentTarget as HTMLImageElement).style.display = 'none';

@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { listBriefings, readBriefing, type Briefing } from '../lib/briefing-builder';
+import { getSiteUrl } from '../lib/site-config';
 
 /**
  * RSS 2.0 feed of the most-recent threat briefings.
@@ -18,7 +19,6 @@ import { listBriefings, readBriefing, type Briefing } from '../lib/briefing-buil
 
 const MAX_ITEMS = 10;
 const CACHE_TTL = 3600;
-const SITE_URL = 'https://pranithjain.qzz.io';
 
 interface BriefingMeta {
   type?: string;
@@ -104,8 +104,9 @@ export async function briefingsRssHandler(c: Context<{ Bindings: Env }>): Promis
   const channelTitle = 'Pranith Jain — DFIR Threat Briefings';
   const channelDescription =
     'Daily and weekly threat briefings. CISA KEV + NVD + abuse.ch + OpenPhish, categorised and stat-summed.';
-  const selfUrl = `${SITE_URL}/api/v1/briefings/rss`;
-  const htmlIndex = `${SITE_URL}/threatintel/briefings`;
+  const siteUrl = getSiteUrl(c.env);
+  const selfUrl = `${siteUrl}/api/v1/briefings/rss`;
+  const htmlIndex = `${siteUrl}/threatintel/briefings`;
 
   const xmlItems = items
     .map((it) => {
@@ -114,7 +115,7 @@ export async function briefingsRssHandler(c: Context<{ Bindings: Env }>): Promis
       const title = meta.title ?? body?.title ?? it.slug;
       const dateAnchor =
         meta.range_end ?? meta.date ?? body?.range_end ?? body?.date ?? new Date().toISOString().slice(0, 10);
-      const link = `${SITE_URL}/threatintel/briefings/${it.slug}`;
+      const link = `${siteUrl}/threatintel/briefings/${it.slug}`;
       const desc = body ? itemDescription(body) : (meta.date_range ?? '');
       const category = meta.type ?? body?.type ?? 'briefing';
       return `    <item>

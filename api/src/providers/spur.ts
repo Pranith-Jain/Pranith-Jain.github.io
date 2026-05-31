@@ -1,20 +1,14 @@
 import type { ProviderAdapter, ProviderResult, Verdict } from './types';
 
 /**
- * Spur.us — FREE TIER, NO KEY for basic lookups.
+ * Spur.us — requires API key for v2 endpoint.
  *
  * Spur.us provides intelligence on VPN, proxy, and residential IP
- * addresses. Their free API (community endpoint) returns:
- *   - Whether the IP is a VPN, proxy, or residential
- *   - The service name (if known)
- *   - Client type (datacenter vs residential)
+ * addresses. The v2 API requires authentication — the old community
+ * endpoint no longer works without a token.
  *
- * This is valuable for:
- *   - Detecting anonymization services used by threat actors
- *   - Identifying residential proxies (bulletproof hosting)
- *   - Flagging IPs that are likely hiding their true location
- *
- * Rate limits: generous for the community endpoint.
+ * Set SPUR_API_KEY environment variable with your Spur.us API token.
+ * Free tier available at https://spur.us/
  *
  * @see https://spur.us/
  */
@@ -42,7 +36,7 @@ interface SpurResponse {
   };
 }
 
-export const spur: ProviderAdapter = async (indicator, _env, signal) => {
+export const spur: ProviderAdapter = async (indicator, env, signal) => {
   const now = new Date().toISOString();
   const base = (status: ProviderResult['status'], extra: Partial<ProviderResult> = {}): ProviderResult => ({
     source: 'spur',
@@ -58,14 +52,17 @@ export const spur: ProviderAdapter = async (indicator, _env, signal) => {
 
   if (!supports.has(indicator.type)) return base('unsupported');
 
+  // Spur.us v2 API requires authentication
+  const apiKey = (env as { SPUR_API_KEY?: string }).SPUR_API_KEY;
+  if (!apiKey) return base('unsupported', { error: 'no_api_key' });
+
   try {
-    // Spur.us community endpoint - no auth required
     const url = `https://api.spur.us/v2/context/${encodeURIComponent(indicator.value)}`;
     const res = await fetch(url, {
       signal,
       headers: {
         Accept: 'application/json',
-        // Community endpoint works without token for basic lookups
+        Token: apiKey,
       },
       cf: { cacheTtl: 3600, cacheEverything: true },
     });

@@ -16,6 +16,7 @@ import { discoverScams } from './discovery/scam';
 import { discoverAiSec } from './discovery/aisec';
 import { discoverIntel } from './discovery/intel';
 import { discoverBriefing } from './discovery/briefing';
+import { discoverFromPlatformData } from './discovery/platform-data';
 import { runPlanner } from './publishing/planner';
 import { runPublisher } from './publishing/publisher';
 import { putCandidate } from './storage/candidates';
@@ -28,7 +29,8 @@ import { recordFailure } from './storage/failed';
 import { renderRss } from './rendering/rss';
 import { generatePost } from './generation';
 import { kv as csKvKeys } from './kv-keys';
-import { ACTOR_RSS_FEEDS, SITE_URL } from './config';
+import { ACTOR_RSS_FEEDS } from './config';
+import { getSiteUrl } from '../lib/site-config';
 import { fetchRecentVictims } from './ransom-source';
 import type { D1Database } from '@cloudflare/workers-types';
 
@@ -39,6 +41,7 @@ export interface CaseStudyEnv {
   ABUSECH_AUTH_KEY?: string;
   BRIEFINGS_DB?: D1Database;
   GROQ_API_KEY?: string;
+  SITE_URL?: string;
   /**
    * When set to the literal "true" (string from `wrangler secret` or
    * `wrangler.jsonc#vars`), the publisher writes every new post to the
@@ -119,7 +122,7 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
           // the cron fan-out cost is one cheap GET per discovery run.
           fetchReleaks: async () => {
             try {
-              const r = await globalThis.fetch(`${SITE_URL}/api/v1/victim-releaks`);
+              const r = await globalThis.fetch(`${getSiteUrl(env)}/api/v1/victim-releaks`);
               if (!r.ok) return [];
               const data = (await r.json()) as { releaks?: ReleakRow[] };
               return data.releaks ?? [];
@@ -138,6 +141,21 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
         env.BRIEFINGS_DB
           ? discoverBriefing({ briefingsDb: env.BRIEFINGS_DB, now, getDedup: memGet })
           : Promise.resolve([]),
+      // Platform data: uses the platform's own aggregated intelligence
+      // (ransomware.live, Telegram leaks, IOC trending, threat pulse)
+      // instead of external RSS feeds. Higher source weight because it's
+      // our own curated data.
+      platform: () =>
+        discoverFromPlatformData({
+          apiFetch: async (path) => {
+            const url = `${getSiteUrl(env)}${path}`;
+            const r = await globalThis.fetch(url);
+            if (!r.ok) return null;
+            return r.json();
+          },
+          now,
+          getDedup: memGet,
+        }),
     },
     putCandidate: (c) => putCandidate(env.CASE_STUDIES, c),
     commitDedup: (keys, n) => touchDedupMany(env.CASE_STUDIES, keys, n),
@@ -182,7 +200,7 @@ export function runPublisherNow(env: CaseStudyEnv, now: Date) {
     refreshRss: async () => {
       // RSS only needs index-level fields — render straight from the posts
       // index (1 KV read) instead of fan-out-reading every full post.
-      const rss = renderRss(await listPostIndex(env.CASE_STUDIES), { siteUrl: SITE_URL });
+      const rss = renderRss(await listPostIndex(env.CASE_STUDIES), { siteUrl: getSiteUrl(env) });
       await env.CASE_STUDIES.put(csKvKeys.metaRss, rss);
     },
     touchDedup: (k, when, slug) => touchDedup(env.CASE_STUDIES, k, when, slug),

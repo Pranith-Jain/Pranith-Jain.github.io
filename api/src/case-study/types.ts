@@ -12,7 +12,8 @@ export type CaseStudyType =
   | 'osint'
   | 'methodology'
   | 'trend'
-  | 'briefing';
+  | 'briefing'
+  | 'analysis';  // Thought leadership / framework pieces
 
 export type CandidateStatus = 'pending' | 'approved' | 'skipped' | 'published';
 

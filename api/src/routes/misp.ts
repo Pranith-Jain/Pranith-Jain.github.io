@@ -56,7 +56,13 @@ export async function mispProxyHandler(c: Context<{ Bindings: Env }>): Promise<R
     return c.json({ error: 'upstream fetch failed' }, 502);
   }
 
-  const body = await response.json();
+  let body: unknown;
+  try {
+    body = await response.json();
+  } catch {
+    await response.body?.cancel().catch(() => {});
+    return c.json({ error: 'MISP returned invalid JSON' }, 502, { 'cache-control': 'no-store' });
+  }
   return c.json(body, response.ok ? 200 : 502, {
     'cache-control': 'no-store',
   });
