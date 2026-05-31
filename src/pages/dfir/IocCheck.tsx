@@ -2,7 +2,17 @@ import { useEffect, useState, useRef, useCallback, type FormEvent } from 'react'
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ToolDocs } from '../../components/dfir/ToolDocs';
-import { ArrowLeft, Search, ShieldAlert, ShieldCheck, AlertCircle, FileDown, Layers, Loader2 } from 'lucide-react';
+import {
+  ArrowLeft,
+  Search,
+  ShieldAlert,
+  ShieldCheck,
+  AlertCircle,
+  ExternalLink,
+  FileDown,
+  Layers,
+  Loader2,
+} from 'lucide-react';
 import { detectType, detectHashSubtype } from '../../lib/dfir/indicator-client';
 import { streamIoc } from '../../lib/dfir/api';
 import type { ProviderResultWire, DoneEvent, ProviderId } from '../../lib/dfir/types';
@@ -715,6 +725,14 @@ export default function IocCheck(): JSX.Element {
               className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
             >
               <Search size={12} /> Open in IOC Enrichment
+            </a>
+            <a
+              href={`https://socradar.io/free-tools/ioc-radar`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+            >
+              <ExternalLink size={12} /> SOCRadar IOC Radar
             </a>
           </div>
         </section>

@@ -340,4 +340,10 @@ export const EXTERNAL_REP_TOOLS: ExternalRepTool[] = [
     url: 'https://www.ipchicken.com',
     description: 'Simple IP address and DNS lookup tool — shows your public IP, hostname, and ISP.',
   },
+  {
+    name: 'SOCRadar IOC Radar',
+    url: 'https://socradar.io/free-tools/ioc-radar',
+    description:
+      'Free threat intelligence lookup — risk scores, threat categories, and actor attribution for IPs, domains, and hashes.',
+  },
 ];

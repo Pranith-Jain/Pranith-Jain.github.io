@@ -80,8 +80,10 @@ export async function listBriefingsHandler(c: Context<{ Bindings: Env }>) {
     const type = typeRaw === 'daily' || typeRaw === 'weekly' ? (typeRaw as BriefingType) : undefined;
     const limitRaw = c.req.query('limit');
     const limit = limitRaw ? Math.min(Math.max(parseInt(limitRaw, 10) || 20, 1), 100) : 20;
-    const items = await listBriefings(db, { type, limit });
-    const res = c.json({ items }, 200, {
+    const offsetRaw = c.req.query('offset');
+    const offset = offsetRaw ? Math.max(parseInt(offsetRaw, 10) || 0, 0) : 0;
+    const { items, total } = await listBriefings(db, { type, limit, offset });
+    const res = c.json({ items, total }, 200, {
       'cache-control': BRIEFINGS_CC,
       'last-modified': new Date().toUTCString(),
     });
@@ -147,7 +149,7 @@ function safeEqual(a: string, b: string): boolean {
   return mismatch === 0;
 }
 
-type AdminCtx = Context<{ Bindings: Env & { BRIEFINGS_ADMIN_TOKEN?: string } }>;
+type AdminCtx = Context<{ Bindings: Env }>;
 
 function extractAdminToken(c: AdminCtx): string {
   const authz = c.req.header('authorization') ?? '';
@@ -384,7 +386,7 @@ export async function briefingsForActorHandler(c: Context<{ Bindings: Env }>) {
   const cached = await cache.match(cacheKey);
   if (cached) return new Response(cached.body, cached);
 
-  const items = await listBriefings(db, { limit: 14 });
+  const { items } = await listBriefings(db, { limit: 14 });
   const results: Array<{
     slug: string;
     title: string;

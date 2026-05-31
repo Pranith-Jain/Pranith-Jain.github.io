@@ -2,10 +2,8 @@ import type { D1Database } from '@cloudflare/workers-types';
 
 export interface Env {
   KV_CACHE?: KVNamespace;
-  KV_SHARES?: KVNamespace;
   BRIEFINGS_DB?: D1Database;
   CASE_STUDIES: KVNamespace;
-  R2_FILES?: R2Bucket;
   AI: Ai;
   VECTORIZE?: VectorizeIndex;
   /** Optional NVD API key (Worker secret) — raises NVD rate limit ~10x. */
@@ -35,6 +33,10 @@ export interface Env {
   DFIR_DEV_ERRORS?: string;
   AJ_analytics?: AnalyticsEngineDataset;
   ADMIN_TOKEN: string;
+  /** Bearer token for briefings admin endpoints (build, backfill, sweep).
+   *  Set via `wrangler secret put BRIEFINGS_ADMIN_TOKEN`. Optional — when
+   *  unset, the briefings admin handlers return 404. */
+  BRIEFINGS_ADMIN_TOKEN?: string;
   /** ransomware.live PRO API key (set via `wrangler secret put`). Optional —
    *  the /api/v1/rl/* proxy degrades to 503 when unset. */
   RANSOMWARELIVE_API_KEY?: string;

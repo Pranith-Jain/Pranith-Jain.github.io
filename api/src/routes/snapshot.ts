@@ -139,7 +139,7 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
               safe(() => aggregateFeeds(TECH_AI_FEED_URLS, 18, 3)),
               safe(async () => {
                 if (!briefingsDb) throw new Error('briefings database not bound');
-                const items = await listBriefings(briefingsDb, { limit: 5 });
+                const { items } = await listBriefings(briefingsDb, { limit: 5 });
                 return { items };
               }),
             ]);
@@ -150,11 +150,18 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
             }
             const body: SnapshotResponse = {
               generated_at: new Date().toISOString(),
-              ransomware, telegram, scam, threat_intel: threatIntel, tech_ai: techAi, briefings,
+              ransomware,
+              telegram,
+              scam,
+              threat_intel: threatIntel,
+              tech_ai: techAi,
+              briefings,
             };
             const fresh = c.json(body, 200, { 'Cache-Control': `public, max-age=60, s-maxage=${CACHE_TTL}` });
             await cache.put(cacheKey, fresh);
-          } catch { /* non-fatal */ }
+          } catch {
+            /* non-fatal */
+          }
         })()
       );
     }
@@ -190,7 +197,7 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
     safe(() => aggregateFeeds(TECH_AI_FEED_URLS, 18, 3)),
     safe(async () => {
       if (!briefingsDb) throw new Error('briefings database not bound');
-      const items = await listBriefings(briefingsDb, { limit: 5 });
+      const { items } = await listBriefings(briefingsDb, { limit: 5 });
       return { items };
     }),
   ]);

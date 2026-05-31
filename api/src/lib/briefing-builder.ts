@@ -1544,17 +1544,31 @@ export async function sweepOldBriefings(
 
 export async function listBriefings(
   db: D1Database,
-  filter?: { type?: BriefingType; limit?: number }
-): Promise<Array<{ slug: string; metadata: Record<string, unknown> }>> {
+  filter?: { type?: BriefingType; limit?: number; offset?: number }
+): Promise<{ items: Array<{ slug: string; metadata: Record<string, unknown> }>; total: number }> {
   const limit = filter?.limit ?? 50;
+  const offset = filter?.offset ?? 0;
+
+  let countQuery = 'SELECT COUNT(*) as cnt FROM briefings';
+  const countParams: unknown[] = [];
+  if (filter?.type) {
+    countQuery += ' WHERE type = ?';
+    countParams.push(filter.type);
+  }
+  const countRow = await db
+    .prepare(countQuery)
+    .bind(...countParams)
+    .first<{ cnt: number }>();
+  const total = countRow?.cnt ?? 0;
+
   let query = 'SELECT slug, type, title, date, date_range, range_end, stats_json, sources_json FROM briefings';
   const params: unknown[] = [];
   if (filter?.type) {
     query += ' WHERE type = ?';
     params.push(filter.type);
   }
-  query += ' ORDER BY range_end DESC LIMIT ?';
-  params.push(limit);
+  query += ' ORDER BY range_end DESC LIMIT ? OFFSET ?';
+  params.push(limit, offset);
   const result = await db
     .prepare(query)
     .bind(...params)
@@ -1568,18 +1582,21 @@ export async function listBriefings(
       stats_json: string;
       sources_json: string;
     }>();
-  return (result.results ?? []).map((row) => ({
-    slug: row.slug,
-    metadata: {
-      type: row.type,
-      title: row.title,
-      date: row.date,
-      range_end: row.range_end,
-      date_range: row.date_range,
-      stats: safeJsonParse(row.stats_json, {}),
-      sources: safeJsonParse(row.sources_json, []),
-    },
-  }));
+  return {
+    items: (result.results ?? []).map((row) => ({
+      slug: row.slug,
+      metadata: {
+        type: row.type,
+        title: row.title,
+        date: row.date,
+        range_end: row.range_end,
+        date_range: row.date_range,
+        stats: safeJsonParse(row.stats_json, {}),
+        sources: safeJsonParse(row.sources_json, []),
+      },
+    })),
+    total,
+  };
 }
 
 export async function readBriefing(db: D1Database, slug: string): Promise<Briefing | null> {

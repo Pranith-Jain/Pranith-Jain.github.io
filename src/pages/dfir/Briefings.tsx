@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Rss, ChevronRight, Search } from 'lucide-react';
+import { ArrowLeft, Rss, ChevronRight, ChevronLeft, Search } from 'lucide-react';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 
 type Filter = 'all' | 'daily' | 'weekly';
@@ -35,29 +35,38 @@ interface ListItem {
   metadata: BriefingMeta;
 }
 
+const PAGE_SIZE = 30;
+
 export default function Briefings(): JSX.Element {
   const [filter, setFilter] = useState<Filter>('all');
   const [query, setQuery] = useState('');
   const [items, setItems] = useState<ListItem[]>([]);
+  const [total, setTotal] = useState(0);
+  const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [reloadKey, setReloadKey] = useState(0);
 
+  const activeLimit = Math.min(PAGE_SIZE, 100);
+
   useEffect(() => {
     setLoading(true);
     setError(null);
-    fetch('/api/v1/briefings/list?limit=60')
+    fetch(`/api/v1/briefings/list?limit=${activeLimit}&offset=${offset}`)
       .then(async (r) => {
         if (!r.ok) {
           const body = (await r.json().catch(() => ({}))) as { error?: string };
           throw new Error(body.error ?? `${r.status}`);
         }
-        return (await r.json()) as { items: ListItem[] };
+        return (await r.json()) as { items: ListItem[]; total: number };
       })
-      .then((d) => setItems(d.items))
+      .then((d) => {
+        setItems(d.items);
+        setTotal(d.total);
+      })
       .catch((err: Error) => setError(err.message))
       .finally(() => setLoading(false));
-  }, [reloadKey]);
+  }, [reloadKey, offset]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -195,6 +204,28 @@ export default function Briefings(): JSX.Element {
               : 'No briefings match the current filter.'}
           </p>
         )}
+
+        <div className="flex items-center justify-between py-3 text-xs font-mono text-slate-500">
+          <span>{total > 0 ? `${offset + 1}–${Math.min(offset + activeLimit, total)} of ${total}` : '—'}</span>
+          <div className="flex gap-2">
+            <button
+              type="button"
+              disabled={offset === 0}
+              onClick={() => setOffset(Math.max(0, offset - activeLimit))}
+              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 disabled:opacity-30 hover:border-brand-500/40 transition-colors"
+            >
+              <ChevronLeft size={12} /> Prev
+            </button>
+            <button
+              type="button"
+              disabled={offset + activeLimit >= total}
+              onClick={() => setOffset(offset + activeLimit)}
+              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 disabled:opacity-30 hover:border-brand-500/40 transition-colors"
+            >
+              Next <ChevronRight size={12} />
+            </button>
+          </div>
+        </div>
 
         <div className="space-y-4">
           {filtered.map((item) => (

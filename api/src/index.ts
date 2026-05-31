@@ -285,7 +285,6 @@ import {
   telegramApproveChannelHandler,
   telegramRejectChannelHandler,
   telegramLeakStatsHandler,
-  telegramLeakScanTriggerHandler,
   telegramLeakGeoHandler,
 } from './routes/telegram-leak-monitor';
 import {
@@ -381,8 +380,6 @@ app.get('/api/v1/telegram-leaks/stats', telegramLeakStatsHandler);
 app.get('/api/v1/telegram-leaks/geo', telegramLeakGeoHandler);
 app.post('/api/v1/telegram-leaks/approve-channel', telegramApproveChannelHandler);
 app.post('/api/v1/telegram-leaks/reject-channel', telegramRejectChannelHandler);
-// TEMP: manual scan trigger — remove after confirming cron works
-app.post('/api/v1/telegram-leaks/trigger-scan', telegramLeakScanTriggerHandler);
 
 // ── Telegram Leak Monitor (Tier 2: Bot API) ──────────────────────────────
 app.get('/api/v1/telegram-leaks/bot-webhook-status', telegramLeakBotWebhookStatusHandler);

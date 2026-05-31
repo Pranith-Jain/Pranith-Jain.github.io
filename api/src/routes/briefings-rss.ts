@@ -85,7 +85,7 @@ export async function briefingsRssHandler(c: Context<{ Bindings: Env }>): Promis
   const cached = await cache.match(cacheKey);
   if (cached) return new Response(cached.body, cached);
 
-  const list = await listBriefings(db, { limit: MAX_ITEMS });
+  const { items: list } = await listBriefings(db, { limit: MAX_ITEMS });
 
   // Fetch full bodies in parallel; tolerate per-item failures.
   const settled = await Promise.allSettled(list.map((it) => readBriefing(db, it.slug)));

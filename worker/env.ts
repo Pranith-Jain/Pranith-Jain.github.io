@@ -5,13 +5,11 @@ import type { DfirMcpServer } from './mcp-server';
 export interface Env {
   ASSETS: { fetch: (req: Request) => Promise<Response> };
   KV_CACHE?: KVNamespace;
-  KV_SHARES?: KVNamespace;
   BRIEFINGS_DB?: D1Database;
   CASE_STUDIES: KVNamespace;
   AI: Ai;
   LIVE_FEED_DO: DurableObjectNamespace<LiveFeedDO>;
   DFIR_MCP: DurableObjectNamespace<DfirMcpServer>;
-  R2_FILES?: R2Bucket;
   NVD_API_KEY?: string;
   VT_API_KEY?: string;
   ABUSEIPDB_API_KEY?: string;
