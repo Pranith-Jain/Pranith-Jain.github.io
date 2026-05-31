@@ -310,6 +310,7 @@ app.use('/api/v1/*', csrfGuard);
 app.use('/api/v1/*', authenticate('external-only'));
 app.use('/api/v1/*', requestLogger);
 app.use('/api/v1/*', rateLimit);
+app.use('/api/taxii2/*', rateLimit);
 
 app.get('/api/v1/health', (c) => c.json({ ok: true }, 200, { 'Cache-Control': 'public, max-age=60' }));
 app.get('/api/v1/ioc/check', iocCheckHandler);
