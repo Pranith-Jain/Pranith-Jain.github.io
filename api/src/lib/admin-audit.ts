@@ -43,7 +43,8 @@ export type AdminAction =
   | 'investigation_delete'
   | 'intel_bundle_build'
   | 'rag_index'
-  | 'automation_run';
+  | 'automation_run'
+  | 'retention_sweep';
 
 /**
  * Log an admin action to Analytics Engine.

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Activity, BarChart3, Gauge, Loader2 } from 'lucide-react';
 import { DataState } from '../../components/DataState';
-import { IntelCard } from '../../components/intel/IntelCard';
 
 type DomainId = 'program' | 'situation' | 'analytical' | 'operational' | 'feedback';
 
@@ -23,14 +22,8 @@ interface MaturityReport {
   domains: DomainScore[];
 }
 
-interface ReliabilityDistribution {
-  A?: number;
-  B?: number;
-  C?: number;
-  D?: number;
-  E?: number;
-  F?: number;
-}
+type ReliabilityGrade = 'A' | 'B' | 'C' | 'D' | 'E' | 'F';
+type ReliabilityDistribution = Partial<Record<ReliabilityGrade, number>>;
 
 interface FeedStatusResponse {
   reliability_distribution?: ReliabilityDistribution;
@@ -150,11 +143,11 @@ function ReliabilityHistogram({ data }: { data: FeedStatusResponse }): JSX.Eleme
   const dist: ReliabilityDistribution =
     data.reliability_distribution ??
     (data.sources ?? []).reduce<ReliabilityDistribution>((acc, s) => {
-      const k = s.reliability;
+      const k = s.reliability as ReliabilityGrade;
       acc[k] = (acc[k] ?? 0) + 1;
       return acc;
     }, {});
-  const grades: Array<keyof ReliabilityDistribution> = ['A', 'B', 'C', 'D', 'E', 'F'];
+  const grades: ReliabilityGrade[] = ['A', 'B', 'C', 'D', 'E', 'F'];
   const total = grades.reduce((sum, g) => sum + (dist[g] ?? 0), 0);
   const max = Math.max(1, ...grades.map((g) => dist[g] ?? 0));
   return (
@@ -239,12 +232,12 @@ export function MaturityPanel(): JSX.Element {
   }
   return (
     <DataState rows={1}>
-      <IntelCard>
+      <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <MaturityScorecard report={maturity} />
           <ReliabilityHistogram data={feed} />
         </div>
-      </IntelCard>
+      </div>
     </DataState>
   );
 }

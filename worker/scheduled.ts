@@ -514,6 +514,29 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
         } catch (e) {
           logCronFail('infra-scan')(e);
         }
+
+        // === 30-day data retention sweep ===
+        // Runs on the hourly cron so we don't burn a 6th trigger slot.
+        // The sweep is a no-op most hours (no rows past 30d yet) but
+        // guarantees the data-minimization policy is enforced.
+        try {
+          const { runRetentionSweep } = await import('../api/src/lib/retention');
+          const db = env.BRIEFINGS_DB as D1Database;
+          const result = await runRetentionSweep(db);
+          if (result.total_deleted > 0) {
+            console.log(
+              JSON.stringify({
+                job: 'retention-sweep',
+                deleted: result.total_deleted,
+                tables_swept: result.tables_swept,
+                duration_ms: result.duration_ms,
+                days: result.days,
+              })
+            );
+          }
+        } catch (e) {
+          logCronFail('retention-sweep')(e);
+        }
       })().catch(logCronFail('hourly-cron'))
     );
     ctx.waitUntil(Promise.resolve().then(() => logCronDone({ path: 'hourly' })));
@@ -528,6 +551,12 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
   }
 
   // Monthly threat landscape report — fires 1st of the month at 02:30 UTC.
+  // NOTE: cron is intentionally NOT registered in wrangler.jsonc because the
+  // Cloudflare free plan caps triggers at 5 and we have 5 other scheduled
+  // jobs that are more frequent. Landscape reports are built on-demand via
+  // POST /api/v1/briefings/build?type=landscape (admin token). The handler
+  // below is preserved so the cron can be re-enabled in one line if the
+  // plan limit changes.
   // Reuses the briefings table with type='landscape'. Idempotent: a row
   // for the current month (if already written) is left in place.
   if (cron === '30 2 1 * *') {

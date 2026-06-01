@@ -2,7 +2,7 @@ import type { Context } from 'hono';
 import { SOURCE_RELIABILITY_REGISTRY } from './confidence';
 
 interface Env {
-  DB: D1Database;
+  BRIEFINGS_DB: D1Database;
 }
 
 /**
@@ -257,7 +257,7 @@ function rollUp(domains: DomainScore[]): { overall: number; band: DomainScore['b
 }
 
 export async function maturityHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  const db = c.env.DB;
+  const db = c.env.BRIEFINGS_DB;
   const domains: DomainScore[] = [
     scoreProgram(),
     await scoreSituation(db),
