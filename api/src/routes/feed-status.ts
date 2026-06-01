@@ -101,7 +101,40 @@ interface FeedProbeSpec {
   reliability?: string; // Admiralty grade (A–F)
   category?: string;
   description?: string;
+  /**
+   * Registry source IDs this probe aggregates. When set and `reliability`
+   * isn't, the probe's reliability is derived as the highest Admiralty
+   * grade among the sources ("best evidence wins" for a composite signal).
+   * Probes that don't map to a single fixed source set should set
+   * `reliability` explicitly instead.
+   */
+  sourceIds?: string[];
   evaluate: (body: unknown) => { status: Status; reason: string; metrics?: Record<string, number>; ageS?: number };
+}
+
+// NATO Admiralty ranks in descending order of authority. Used to pick the
+// "best evidence" letter from a set of aggregated source reliabilities.
+const RELIABILITY_RANK: Record<string, number> = { A: 6, B: 5, C: 4, D: 3, E: 2, F: 1 };
+
+/**
+ * Pick the highest Admiralty reliability letter from a set of source IDs.
+ * Returns undefined when no source is registered. Lower rank = weaker
+ * signal, so the probe reports its strongest backing. Exported for tests.
+ */
+export function aggregateReliability(sourceIds: string[] | undefined): string | undefined {
+  if (!sourceIds || sourceIds.length === 0) return undefined;
+  let best: string | undefined;
+  let bestRank = 0;
+  for (const id of sourceIds) {
+    const entry = SOURCE_RELIABILITY_REGISTRY[id];
+    if (!entry) continue;
+    const rank = RELIABILITY_RANK[entry.reliability] ?? 0;
+    if (rank > bestRank) {
+      bestRank = rank;
+      best = entry.reliability;
+    }
+  }
+  return best;
 }
 
 function ageSeconds(iso: string | undefined): number | undefined {
@@ -157,13 +190,52 @@ function arrField(obj: unknown, key: string): unknown[] | undefined {
   return Array.isArray(v) ? v : undefined;
 }
 
-const PROBES: FeedProbeSpec[] = [
+/**
+ * Authoritative probe → registry source mapping. Each entry lists the
+ * source IDs (keys in SOURCE_RELIABILITY_REGISTRY) that back a probe.
+ * Used two ways:
+ *   1. probeOne derives the probe's Admiralty reliability as the highest
+ *      letter across its source set ("best evidence wins" for a composite
+ *      signal).
+ *   2. buildPassiveProbes skips any source already covered by a probe, so
+ *      a single real row per upstream (no duplicate probe + passive pair
+ *      for, say, 'cisa-kev' when 'cve-recent' is the user-facing probe).
+ *
+ * Keep this in sync with the `sourceIds` field on every PROBES entry.
+ * Declared before PROBES so each probe can pull its source list at
+ * module-initialization time without a forward-reference error.
+ */
+export const PROBE_SOURCES: Record<string, string[]> = {
+  'live-iocs': ['abusech-urlhaus', 'abusech-threatfox', 'abusech-malwarebazaar'],
+  'phishing-urls': ['phish-tank', 'openphish'],
+  'x-feed': ['x-twitter', 'bluesky'],
+  'stealer-forum-intel': ['hudson-rock'],
+  'cve-recent': ['nvd', 'cisa-kev'],
+  'malware-samples': ['abusech-malwarebazaar'],
+  'ransomware-recent': ['ransomlook'],
+  'onion-watch': ['ransomlook'],
+  'victim-releaks': ['ransomlook'],
+  'actor-timeline': ['ransomlook', 'ransomwarelive'],
+  negotiations: ['ransomlook', 'ransomwarelive'],
+  'rl-cyberattacks': ['ransomwarelive'],
+  'telegram-feed': ['telegram-feed'],
+  'reddit-feed': ['reddit'],
+  'breach-forums': ['deepdarkcti'],
+};
+
+export const PROBES: FeedProbeSpec[] = [
   {
     id: 'snapshot',
     label: 'Snapshot (composite)',
     page_path: '/threatintel',
     api_path: '/api/v1/snapshot',
     cache_key: SNAPSHOT_CACHE_KEY,
+    // Composite of 6 underlying composer sources (ransomware/telegram/scam/
+    // threat_intel/tech_ai/briefings). Most are B–C primary/secondary. The
+    // composite is at most as authoritative as its strongest leg, which is
+    // B (ransomware lookups, telegram leaks). Marked as B.
+    reliability: 'B',
+    category: 'primary',
     evaluate: (body) => {
       const ageS = ageSeconds(strField(body, 'generated_at'));
       // Keep in sync with routes/snapshot.ts — the composite snapshot
@@ -191,6 +263,7 @@ const PROBES: FeedProbeSpec[] = [
     page_path: '/threatintel/cve-list',
     api_path: '/api/v1/cve-recent',
     cache_key: CVE_RECENT_CACHE_KEY,
+    sourceIds: PROBE_SOURCES['cve-recent'],
     evaluate: (body) => {
       const count = intField(body, 'count') ?? 0;
       const ageS = ageSeconds(strField(body, 'generated_at'));
@@ -219,6 +292,7 @@ const PROBES: FeedProbeSpec[] = [
     page_path: '/threatintel/live-iocs',
     api_path: '/api/v1/malware-samples',
     cache_key: MALWARE_SAMPLES_CACHE_KEY,
+    sourceIds: PROBE_SOURCES['malware-samples'],
     evaluate: (body) => {
       const count = intField(body, 'count') ?? 0;
       const ageS = ageSeconds(strField(body, 'generated_at'));
@@ -237,6 +311,7 @@ const PROBES: FeedProbeSpec[] = [
     page_path: '/threatintel/live-iocs',
     api_path: '/api/v1/phishing-urls',
     cache_key: PHISHING_URLS_CACHE_KEY,
+    sourceIds: PROBE_SOURCES['phishing-urls'],
     evaluate: (body) => {
       const total = intField(body, 'total') ?? 0;
       const ageS = ageSeconds(strField(body, 'generated_at'));
@@ -257,6 +332,7 @@ const PROBES: FeedProbeSpec[] = [
     page_path: '/threatintel/reddit',
     api_path: '/api/v1/reddit-feed',
     cache_key: REDDIT_FEED_CACHE_KEY,
+    sourceIds: PROBE_SOURCES['reddit-feed'],
     evaluate: (body) => {
       const items = (arrField(body, 'items') ?? []).length;
       const subs = arrField(body, 'subs') ?? [];
@@ -277,6 +353,7 @@ const PROBES: FeedProbeSpec[] = [
     page_path: '/threatintel/x',
     api_path: '/api/v1/x-feed',
     cache_key: X_FEED_CACHE_KEY,
+    sourceIds: PROBE_SOURCES['x-feed'],
     evaluate: (body) => {
       const items = (arrField(body, 'items') ?? []).length;
       const handles = arrField(body, 'handles') ?? [];
@@ -297,6 +374,7 @@ const PROBES: FeedProbeSpec[] = [
     page_path: '/threatintel/cybersec',
     api_path: '/api/v1/telegram-feed',
     cache_key: TELEGRAM_FEED_CACHE_KEY,
+    sourceIds: PROBE_SOURCES['telegram-feed'],
     evaluate: (body) => {
       const items = (arrField(body, 'items') ?? []).length;
       const channels = arrField(body, 'channels') ?? [];
@@ -317,6 +395,7 @@ const PROBES: FeedProbeSpec[] = [
     page_path: '/threatintel/ransomware-activity',
     api_path: '/api/v1/ransomware-recent',
     cache_key: RANSOMWARE_RECENT_CACHE_KEY,
+    sourceIds: PROBE_SOURCES['ransomware-recent'],
     evaluate: (body) => {
       const count = intField(body, 'count') ?? 0;
       const ageS = ageSeconds(strField(body, 'generated_at'));
@@ -335,6 +414,7 @@ const PROBES: FeedProbeSpec[] = [
     page_path: '/threatintel/onion-watch',
     api_path: '/api/v1/onion-watch',
     cache_key: ONION_WATCH_CACHE_KEY,
+    sourceIds: PROBE_SOURCES['onion-watch'],
     evaluate: (body) => {
       const groups = (arrField(body, 'groups') ?? []).length;
       const reachable = intField(body, 'reachable_count') ?? 0;
@@ -365,6 +445,12 @@ const PROBES: FeedProbeSpec[] = [
     page_path: '/threatintel/threat-map',
     api_path: '/api/v1/threat-map',
     cache_key: THREAT_MAP_CACHE_KEY,
+    // Inferred from multiple IP blocklists (ipsum/cinsarmy/bitwire/etc.)
+    // rolled up at query time. No single underlying source — grade as C
+    // (secondary, consensus-based) per admiralty guidance for derived
+    // signals.
+    reliability: 'C',
+    category: 'secondary',
     evaluate: (body) => {
       const totalIps = intField(body, 'total_ips') ?? 0;
       const countries = (arrField(body, 'countries') ?? []).length;
@@ -384,6 +470,11 @@ const PROBES: FeedProbeSpec[] = [
     page_path: '/threatintel/rules',
     api_path: '/api/v1/rules',
     cache_key: DETECTION_RULES_CACHE_KEY,
+    // Author-curated multi-repo fan-out (Sigma/Elastic/Splunk/etc.). B:
+    // primary enough that the rules are authoritative for what they detect,
+    // but coverage gaps are common so not A.
+    reliability: 'B',
+    category: 'primary',
     evaluate: (body) => {
       const sources = (arrField(body, 'sources') ?? []).length;
       const commits = arrField(body, 'recent_commits') ?? [];
@@ -403,6 +494,7 @@ const PROBES: FeedProbeSpec[] = [
     page_path: '/threatintel/re-leaks',
     api_path: '/api/v1/victim-releaks',
     cache_key: VICTIM_RELEAKS_CACHE_KEY,
+    sourceIds: PROBE_SOURCES['victim-releaks'],
     evaluate: (body) => {
       const releaks = (arrField(body, 'releaks') ?? []).length;
       const scanned = intField(body, 'victims_scanned') ?? 0;
@@ -426,6 +518,7 @@ const PROBES: FeedProbeSpec[] = [
     page_path: '/threatintel/actor-timeline',
     api_path: '/api/v1/actor-timeline',
     cache_key: ACTOR_TIMELINE_CACHE_KEY,
+    sourceIds: PROBE_SOURCES['actor-timeline'],
     evaluate: (body) => {
       const groupRows = arrField(body, 'groups') ?? [];
       const groups = groupRows.length;
@@ -455,6 +548,7 @@ const PROBES: FeedProbeSpec[] = [
     page_path: '/threatintel/live-iocs',
     api_path: '/api/v1/live-iocs',
     cache_key: LIVE_IOCS_CACHE_KEY,
+    sourceIds: PROBE_SOURCES['live-iocs'],
     evaluate: (body) => {
       const total = intField(body, 'total') ?? 0;
       const sources = arrField(body, 'sources') ?? [];
@@ -475,6 +569,11 @@ const PROBES: FeedProbeSpec[] = [
     page_path: '/threatintel/correlation',
     api_path: '/api/v1/ioc-correlation',
     cache_key: IOC_CORRELATION_CACHE_KEY,
+    // Inferred signal — score is derived from "X of N feeds saw this IOC".
+    // B because the underlying feeds are A/B primary; the inference itself
+    // adds noise so the composite is at most B.
+    reliability: 'B',
+    category: 'primary',
     evaluate: (body) => {
       const totals = (body as { totals?: { correlated_indicators?: number; indicators_scanned?: number } }).totals;
       const correlated = totals?.correlated_indicators ?? 0;
@@ -498,6 +597,11 @@ const PROBES: FeedProbeSpec[] = [
     page_path: '/threatintel/cyber-crime',
     api_path: '/api/v1/cyber-crime',
     cache_key: CYBERCRIME_CACHE_KEY,
+    // AndreaFortuna scrapes, single human-curated source. Not in the
+    // registry; treat as C (secondary) — useful, but the editorial pipeline
+    // is opaque.
+    reliability: 'C',
+    category: 'secondary',
     evaluate: (body) => {
       const sources = (body as { sources?: Array<{ label?: string; ok?: boolean; count?: number; stale?: boolean }> })
         ?.sources;
@@ -515,6 +619,9 @@ const PROBES: FeedProbeSpec[] = [
     page_path: '/threatintel/live-iocs',
     api_path: '/api/v1/live-iocs',
     cache_key: LIVE_IOCS_CACHE_KEY,
+    // Same AndreaFortuna scrape as datamarkets; same C (secondary) grade.
+    reliability: 'C',
+    category: 'secondary',
     evaluate: (body) => {
       const sources = (
         body as {
@@ -543,6 +650,11 @@ const PROBES: FeedProbeSpec[] = [
     page_path: '/threatintel/deepdarkcti',
     api_path: '/api/v1/deepdarkcti',
     cache_key: DEEPDARKCTI_CACHE_KEY,
+    // deepdarkCTI's GitHub-indexed CSVs (forums/marketplaces/leaks). Not in
+    // the registry as a single entry; treat as C — primary content, but the
+    // ingest is best-effort and missing a chunk of files at any time.
+    reliability: 'C',
+    category: 'secondary',
     evaluate: (body) => {
       const b = body as {
         sources?: Array<{ ok?: boolean; stale?: boolean }>;
@@ -572,6 +684,7 @@ const PROBES: FeedProbeSpec[] = [
     page_path: '/threatintel/negotiations',
     api_path: '/api/v1/negotiations',
     cache_key: NEGOTIATIONS_CACHE_KEY,
+    sourceIds: PROBE_SOURCES['negotiations'],
     evaluate: (body) => {
       const ageS = ageSeconds(strField(body, 'generated_at'));
       const count = (arrField(body, 'negotiations') ?? []).length;
@@ -591,6 +704,7 @@ const PROBES: FeedProbeSpec[] = [
     page_path: '/dfir/yara',
     api_path: '/api/v1/rl/cyberattacks',
     cache_key: rlProxyCacheKey('cyberattacks'),
+    sourceIds: PROBE_SOURCES['rl-cyberattacks'],
     evaluate: (body) => {
       const ageS = ageSeconds(strField(body, 'fetched_at'));
       const data = (body as { data?: unknown } | null)?.data;
@@ -620,6 +734,7 @@ const PROBES: FeedProbeSpec[] = [
     page_path: '/threatintel/infostealer',
     api_path: '/api/v1/stealer-forum-intel',
     cache_key: STEALER_FORUM_INTEL_CACHE_KEY,
+    sourceIds: PROBE_SOURCES['stealer-forum-intel'],
     evaluate: (body) => {
       const ageS = ageSeconds(strField(body, 'generated_at'));
       const forums = arrField(body, 'forums') ?? [];
@@ -639,6 +754,11 @@ const PROBES: FeedProbeSpec[] = [
     page_path: '/threatintel/breach-forums',
     api_path: '/api/v1/breach-forums',
     cache_key: BREACH_FORUMS_CACHE_KEY,
+    // deepdarkCTI isn't in the registry as a single entry (no admiralty
+    // letter has been assigned), so we can't aggregate. Marked C: same
+    // rationale as the deepdarkcti probe above.
+    reliability: 'C',
+    category: 'secondary',
     evaluate: (body) => {
       const ageS = ageSeconds(strField(body, 'generated_at'));
       const rows = (arrField(body, 'rows') ?? []).length;
@@ -659,6 +779,11 @@ const PROBES: FeedProbeSpec[] = [
     page_path: '/threatintel',
     api_path: '/api/v1/intel-bundle',
     cache_key: INTEL_BUNDLE_CACHE_KEY,
+    // Derived: a STIX bundle synthesizes from all upstream sources. The
+    // source-mix is A/B so the composite inherits B; the pipeline adds
+    // shape-validity risk so not higher.
+    reliability: 'B',
+    category: 'primary',
     evaluate: (body) => {
       const ageS = ageSeconds(strField(body, 'generated_at'));
       const bundles = intField(body, 'bundles') ?? 0;
@@ -706,15 +831,8 @@ const PROBES: FeedProbeSpec[] = [
 
 function buildPassiveProbes(): FeedProbeSpec[] {
   const cacheProbeIds = new Set(PROBES.map((p) => p.id));
-  const idMap: Record<string, string[]> = {
-    'live-iocs': ['abusech-urlhaus', 'abusech-threatfox', 'abusech-malwarebazaar'],
-    'phishing-urls': ['phish-tank', 'openphish'],
-    'x-feed': ['x-twitter', 'bluesky'],
-    'stealer-forum-intel': ['hudson-rock'],
-    'cve-recent': ['nvd', 'cisa-kev'],
-  };
   const covered = new Set<string>(cacheProbeIds);
-  for (const ids of Object.values(idMap)) ids.forEach((id) => covered.add(id));
+  for (const ids of Object.values(PROBE_SOURCES)) ids.forEach((id) => covered.add(id));
 
   const passive: FeedProbeSpec[] = [];
   for (const [id, entry] of Object.entries(SOURCE_RELIABILITY_REGISTRY)) {
@@ -734,13 +852,17 @@ function buildPassiveProbes(): FeedProbeSpec[] {
   return passive;
 }
 
-const ALL_PROBES: FeedProbeSpec[] = [...PROBES, ...buildPassiveProbes()];
+export const ALL_PROBES: FeedProbeSpec[] = [...PROBES, ...buildPassiveProbes()];
 
 async function probeOne(spec: FeedProbeSpec): Promise<FeedStatusRow> {
   const reg = spec.id
     ? (SOURCE_RELIABILITY_REGISTRY[spec.id] ?? SOURCE_RELIABILITY_REGISTRY[`${spec.id}-feed`])
     : undefined;
-  const reliability = spec.reliability ?? reg?.reliability;
+  // Three-step reliability resolution:
+  //   1) Explicit on the probe (composite / inferred / un-registered sources)
+  //   2) Direct registry hit on the probe's own ID
+  //   3) Aggregated: highest Admiralty letter from the probe's sourceIds
+  const reliability = spec.reliability ?? reg?.reliability ?? aggregateReliability(spec.sourceIds);
   const toRow = (status: Status, reason: string, ageS?: number): FeedStatusRow => {
     const info_credibility = infoCredibilityFor(status, ageS);
     return {

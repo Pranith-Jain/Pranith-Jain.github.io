@@ -23,19 +23,13 @@ const POSITION_STYLES = {
 /**
  * Accessible tooltip component.
  * Shows additional information on hover/focus with proper ARIA attributes.
- * 
+ *
  * @example
  * <Tooltip content="This is a tooltip">
  *   <button>Hover me</button>
  * </Tooltip>
  */
-export function Tooltip({
-  content,
-  children,
-  position = 'top',
-  delay = 200,
-  className = '',
-}: TooltipProps) {
+export function Tooltip({ content, children, position = 'top', delay = 200, className = '' }: TooltipProps) {
   const [isVisible, setIsVisible] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
   const tooltipId = useRef(`tooltip-${Math.random().toString(36).slice(2, 9)}`);
@@ -69,11 +63,7 @@ export function Tooltip({
       onFocus={showTooltip}
       onBlur={hideTooltip}
     >
-      <div
-        aria-describedby={isVisible ? tooltipId.current : undefined}
-      >
-        {children}
-      </div>
+      <div aria-describedby={isVisible ? tooltipId.current : undefined}>{children}</div>
       {isVisible && (
         <div
           id={tooltipId.current}

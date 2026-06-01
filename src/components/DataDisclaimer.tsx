@@ -17,6 +17,22 @@ const SOURCES = [
     desc: 'Authenticated API — ransom notes, negotiation logs, victim claims',
   },
   {
+    id: 'ctifyi',
+    name: 'cti.fyi',
+    grade: 'B',
+    risk: 'low',
+    desc: 'Leak-site post tracker — victim claims with .onion screenshots',
+    bias: 'Only claims posted to leak sites',
+  },
+  {
+    id: 'x-claims',
+    name: 'X / FalconFeeds + DailyDarkWeb',
+    grade: 'C',
+    risk: 'medium',
+    desc: 'Ransomware + breach claims parsed from threat-intel X posts (free text)',
+    bias: 'Heuristic extraction from prose — lower precision; unverified actor claims',
+  },
+  {
     id: 'cisa-kev',
     name: 'CISA KEV',
     grade: 'A',

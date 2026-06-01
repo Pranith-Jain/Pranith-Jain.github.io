@@ -4,15 +4,15 @@ import { memo, type ReactNode } from 'react';
  * Badge variants for different semantic meanings.
  * Each variant has appropriate colors for both light and dark modes.
  */
-export type BadgeVariant = 
-  | 'default'     // Neutral gray
-  | 'primary'     // Brand blue
-  | 'success'     // Green - for positive states
-  | 'warning'     // Amber - for caution states
-  | 'danger'      // Red - for error/critical states
-  | 'info'        // Cyan - for informational
-  | 'live'        // Pulsing green - for live data
-  | 'new';        // Purple - for new features
+export type BadgeVariant =
+  | 'default' // Neutral gray
+  | 'primary' // Brand blue
+  | 'success' // Green - for positive states
+  | 'warning' // Amber - for caution states
+  | 'danger' // Red - for error/critical states
+  | 'info' // Cyan - for informational
+  | 'live' // Pulsing green - for live data
+  | 'new'; // Purple - for new features
 
 export type BadgeSize = 'sm' | 'md' | 'lg';
 
@@ -63,7 +63,7 @@ const DOT_COLORS: Record<BadgeVariant, string> = {
 
 /**
  * Badge component for status indicators, tags, and labels.
- * 
+ *
  * @example
  * <Badge variant="success">Active</Badge>
  * <Badge variant="live" dot pulse>Live</Badge>
@@ -96,13 +96,14 @@ export const Badge = memo(function Badge({
               aria-hidden="true"
             />
           )}
-          <span
-            className={`relative inline-flex rounded-full h-2 w-2 ${DOT_COLORS[variant]}`}
-            aria-hidden="true"
-          />
+          <span className={`relative inline-flex rounded-full h-2 w-2 ${DOT_COLORS[variant]}`} aria-hidden="true" />
         </span>
       )}
-      {icon && <span className="flex-shrink-0" aria-hidden="true">{icon}</span>}
+      {icon && (
+        <span className="flex-shrink-0" aria-hidden="true">
+          {icon}
+        </span>
+      )}
       {children}
     </span>
   );

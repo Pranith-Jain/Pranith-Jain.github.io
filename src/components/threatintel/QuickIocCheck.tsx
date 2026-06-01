@@ -85,7 +85,10 @@ export default function QuickIocCheck() {
           </summary>
           <div className="mt-2 space-y-1">
             {results.map((r) => (
-              <div key={r.source} className="flex items-center justify-between px-2 py-1 rounded bg-slate-50 dark:bg-slate-950 text-[10px]">
+              <div
+                key={r.source}
+                className="flex items-center justify-between px-2 py-1 rounded bg-slate-50 dark:bg-slate-950 text-[10px]"
+              >
                 <span className="font-mono text-slate-700 dark:text-slate-300 capitalize">{r.source}</span>
                 <div className="flex items-center gap-2">
                   <span className="font-mono text-slate-500">{r.score}</span>
@@ -97,9 +100,7 @@ export default function QuickIocCheck() {
         </details>
       )}
 
-      {error && (
-        <p className="mt-2 text-[10px] font-mono text-rose-500">{error}</p>
-      )}
+      {error && <p className="mt-2 text-[10px] font-mono text-rose-500">{error}</p>}
 
       {summary && (
         <a

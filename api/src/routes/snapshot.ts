@@ -34,6 +34,27 @@ import { listBriefings } from '../lib/briefing-builder';
 // 5-min bursts were hammering Workers KV writes for negligible UX gain.
 const CACHE_TTL = 60 * 60;
 
+// 8s per-source budget. The snapshot fans out to 6 sources in parallel
+// (ransomware + telegram + 3 RSS aggregates + briefings), each with their
+// own internal fan-out (ransomware hits 7 upstreams, the RSS aggregators
+// hit 12-18 each). Without a budget, one slow upstream pins the whole
+// snapshot — the LiveSnapshotPanel would then show "loading…" for 15s+ on
+// the first visit after a per-route cache miss. 8s is a hard cap that
+// trades completeness for responsiveness: a source that times out gets
+// served as a `safe()`-shaped "upstream timeout" so the rest of the
+// snapshot still renders. The card displays the timeout reason in the UI.
+const SOURCE_BUDGET_MS = 8_000;
+
+// Per-feed soft deadline for the RSS aggregators, kept BELOW SOURCE_BUDGET_MS.
+// aggregateFeeds fans out to 6-18 feeds and used to wait for ALL of them
+// (Promise.allSettled) — so one slow cold-cache upstream (Google News RSS,
+// hnrss, the YC blog) pushed the whole fan-out past the 8s source budget and
+// the budgeted() wrapper reported the entire card as "upstream timeout",
+// discarding the feeds that DID respond. With this deadline the aggregator
+// returns the fast feeds within ~6.5s; the slow feed keeps fetching in the
+// background and warms the per-URL edge cache for the next reader.
+const FEED_DEADLINE_MS = 6_500;
+
 /** Exported so /api/v1/feed-status can read the same cached payload directly. */
 // v11: 2026-05-24 — KV-backed ransomware last-good fallback wired in.
 // Bumped to evict v10 cached snapshots that have ransomware.ok=false
@@ -110,6 +131,31 @@ async function safe<T>(fn: () => Promise<T>): Promise<SourcePayload<T>> {
   }
 }
 
+/**
+ * Wrap a `safe()` call in a per-source time budget. The snapshot fans out
+ * to 6 sources in parallel, each with internal fan-out. A single slow
+ * upstream used to pin the whole snapshot to its slowest leg (16s on
+ * cold cache, dominated by the ransomware chain). The budget returns an
+ * `upstream timeout` SourcePayload when exceeded, which the rest of the
+ * pipeline renders as a degraded-but-useful card instead of holding the
+ * whole response hostage.
+ *
+ * `unbudgeted: true` skips the timer (used for `listBriefings` which is
+ * a single D1 query and should be near-instant — adding a timer would
+ * be overhead noise).
+ */
+function budgeted<T>(fn: () => Promise<T>, ms: number = SOURCE_BUDGET_MS): Promise<SourcePayload<T>> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  return Promise.race<SourcePayload<T>>([
+    safe(fn),
+    new Promise<SourcePayload<T>>((resolve) => {
+      timer = setTimeout(() => resolve({ ok: false, data: null, error: 'upstream timeout' }), ms);
+    }),
+  ]).finally(() => {
+    if (timer) clearTimeout(timer);
+  });
+}
+
 export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheKey = new Request(SNAPSHOT_CACHE_KEY);
@@ -134,9 +180,9 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
                 const result = await fetchTelegramFeed();
                 return result;
               }),
-              safe(() => aggregateFeeds(SCAM_FEED_URLS, 12, 6)),
-              safe(() => aggregateFeeds(THREAT_INTEL_FEED_URLS, 16, 4)),
-              safe(() => aggregateFeeds(TECH_AI_FEED_URLS, 18, 3)),
+              safe(() => aggregateFeeds(SCAM_FEED_URLS, 12, 6, { deadlineMs: FEED_DEADLINE_MS })),
+              safe(() => aggregateFeeds(THREAT_INTEL_FEED_URLS, 16, 4, { deadlineMs: FEED_DEADLINE_MS })),
+              safe(() => aggregateFeeds(TECH_AI_FEED_URLS, 18, 3, { deadlineMs: FEED_DEADLINE_MS })),
               safe(async () => {
                 if (!briefingsDb) throw new Error('briefings database not bound');
                 const { items } = await listBriefings(briefingsDb, { limit: 5 });
@@ -171,10 +217,13 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
   const briefingsDb = c.env.BRIEFINGS_DB;
 
   // 6 sources only. Ransomware fetches 7 upstreams in parallel with
-  // per-fetcher 15s timeouts. No wrapper timeout — the other 5 cards
-  // already run in the same Promise.all and are NOT blocked by this.
+  // per-fetcher 15s timeouts. The outer budgeted() wrapper caps the
+  // total time each source can hold the response at 8s — without it,
+  // a single slow upstream used to pin the whole snapshot to 15-16s on
+  // cold cache. The other 5 cards run in the same Promise.all and are
+  // not blocked by the slowest one.
   const [ransomware, telegram, scam, threatIntel, techAi, briefings] = await Promise.all([
-    safe(async () => {
+    budgeted(async () => {
       const cached = await cache.match(RANSOMWARE_RECENT_CACHE_KEY);
       if (cached) {
         return (await cached.json()) as { generated_at: string; count: number; victims: unknown[] };
@@ -184,7 +233,7 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
       if (result.upstreamOk) return result.body;
       throw new Error('all ransomware upstreams unreachable');
     }),
-    safe(async () => {
+    budgeted(async () => {
       // Read /api/v1/telegram-feed's edge-cache first; only fan out to the
       // 11 Telegram channels if the per-route cache is cold. This is the
       // single biggest win on snapshot rebuild time + KV pressure.
@@ -192,14 +241,17 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
       if (cached) return (await cached.json()) as TelegramFeedResponse;
       return fetchTelegramFeed();
     }),
-    safe(() => aggregateFeeds(SCAM_FEED_URLS, 12, 6)),
-    safe(() => aggregateFeeds(THREAT_INTEL_FEED_URLS, 16, 4)),
-    safe(() => aggregateFeeds(TECH_AI_FEED_URLS, 18, 3)),
-    safe(async () => {
-      if (!briefingsDb) throw new Error('briefings database not bound');
-      const { items } = await listBriefings(briefingsDb, { limit: 5 });
-      return { items };
-    }),
+    budgeted(() => aggregateFeeds(SCAM_FEED_URLS, 12, 6, { deadlineMs: FEED_DEADLINE_MS })),
+    budgeted(() => aggregateFeeds(THREAT_INTEL_FEED_URLS, 16, 4, { deadlineMs: FEED_DEADLINE_MS })),
+    budgeted(() => aggregateFeeds(TECH_AI_FEED_URLS, 18, 3, { deadlineMs: FEED_DEADLINE_MS })),
+    budgeted(
+      async () => {
+        if (!briefingsDb) throw new Error('briefings database not bound');
+        const { items } = await listBriefings(briefingsDb, { limit: 5 });
+        return { items };
+      },
+      3000 // D1 listBriefings is a single query — 3s is plenty, no need to wait 8s on a DB hiccup
+    ),
   ]);
 
   // Truncate ransomware victims to last-24h only (pulse card shows 3, plus

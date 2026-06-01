@@ -521,7 +521,7 @@ export default function CveThreatMap(): JSX.Element {
                       return (
                         <Link
                           key={label}
-                          to={`/dfir/actors?q=${encodeURIComponent(name)}`}
+                          to={`/threatintel/actors?q=${encodeURIComponent(name)}`}
                           className="inline-flex items-center gap-1 rounded border border-amber-400/30 bg-white dark:bg-slate-900 hover:border-brand-500/40 px-2 py-1 text-xs font-mono text-slate-800 dark:text-slate-200"
                         >
                           {name}

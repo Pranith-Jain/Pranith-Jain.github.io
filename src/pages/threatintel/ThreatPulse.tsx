@@ -31,7 +31,7 @@ function entityHref(kind: PulseEntity['kind'], label: string): { href: string; e
       };
     case 'actor':
       // The slug already matches the ActorDetail route param.
-      return { href: `/dfir/actors/${encodeURIComponent(label)}`, external: false };
+      return { href: `/threatintel/actors/${encodeURIComponent(label)}`, external: false };
     case 'malware':
       return null;
   }

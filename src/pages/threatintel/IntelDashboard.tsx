@@ -129,7 +129,7 @@ export default function IntelDashboard(): JSX.Element {
             </div>
 
             {/* Program health: CTI-CMM maturity + source-reliability histogram */}
-            <section>
+            <section id="maturity">
               <h2 className="text-sm font-bold uppercase tracking-[0.15em] text-brand-600 dark:text-brand-400 font-mono mb-4">
                 Program Health
               </h2>
@@ -175,14 +175,14 @@ export default function IntelDashboard(): JSX.Element {
                   { label: 'Telegram Leaks', href: '/threatintel/telegram-leaks' },
                   { label: 'Leak Stats', href: '/threatintel/telegram-leaks/stats' },
                   { label: 'Discovered Channels', href: '/threatintel/telegram-leaks/channels' },
-                  { label: 'Breach Search', href: '/dfir/breach' },
+                  { label: 'Breach Search', href: '/threatintel/breach' },
                   { label: 'IOC Correlation', href: '/threatintel/ioc-correlation' },
-                  { label: 'Threat Map', href: '/dfir/threat-map' },
+                  { label: 'Threat Map', href: '/threatintel/threat-map' },
                   { label: 'Feed Status', href: '/threatintel/feed-status' },
                   { label: 'Live IOCs', href: '/threatintel/live-iocs' },
                   { label: 'Ransomware', href: '/threatintel/ransomware-activity' },
                   { label: 'CVE List', href: '/threatintel/cve-list' },
-                  { label: 'Malware Samples', href: '/dfir/malware-scan' },
+                  { label: 'Malware Samples', href: '/threatintel/malware-vault' },
                   { label: 'Phishing Monitor', href: '/dfir/phishing' },
                   { label: 'Threat Hunt', href: '/dfir/threat-hunt' },
                   { label: 'Collection SLO', href: '/threatintel/collection-slo' },

@@ -71,7 +71,11 @@ export function AsyncState({
 
   if (empty) {
     return (
-      <div role="status" aria-live="polite" className="rounded-lg border border-dashed border-slate-300 px-4 py-10 text-center text-sm text-slate-500 dark:border-slate-700 dark:text-slate-400">
+      <div
+        role="status"
+        aria-live="polite"
+        className="rounded-lg border border-dashed border-slate-300 px-4 py-10 text-center text-sm text-slate-500 dark:border-slate-700 dark:text-slate-400"
+      >
         {emptyLabel}
       </div>
     );

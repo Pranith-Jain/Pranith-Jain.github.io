@@ -107,13 +107,14 @@ export default function PgpTool() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-6 space-y-6">
-      <BackLink to="/dfir" className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono">
+      <BackLink
+        to="/dfir"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
+      >
         <ArrowLeft size={14} /> back
       </BackLink>
       <div className="flex items-baseline gap-2 mb-2">
-        <h1 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100">
-          PGP Tool
-        </h1>
+        <h1 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100">PGP Tool</h1>
         <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500">
           Encrypt · Decrypt · Sign · Verify
         </span>
@@ -123,7 +124,12 @@ export default function PgpTool() {
         {modes.map((m) => (
           <button
             key={m.key}
-            onClick={() => { setMode(m.key); setOutput(''); setMessage(''); setStatus('idle'); }}
+            onClick={() => {
+              setMode(m.key);
+              setOutput('');
+              setMessage('');
+              setStatus('idle');
+            }}
             className={`px-3 py-1.5 text-xs font-mono rounded-lg border transition-colors ${
               mode === m.key
                 ? 'bg-brand-600 text-white border-brand-600'
@@ -151,7 +157,7 @@ export default function PgpTool() {
               </label>
             </div>
           )}
-          {(mode !== 'verify' && mode !== 'encrypt') ? null : (
+          {mode !== 'verify' && mode !== 'encrypt' ? null : (
             <div>
               <label className="text-xs font-mono text-slate-500 mb-1 block">
                 Public Key (armored)
@@ -165,7 +171,7 @@ export default function PgpTool() {
               </label>
             </div>
           )}
-          {(mode !== 'decrypt' && mode !== 'sign') ? null : (
+          {mode !== 'decrypt' && mode !== 'sign' ? null : (
             <div>
               <label className="text-xs font-mono text-slate-500 mb-1 block">
                 Private Key (armored)
@@ -179,7 +185,7 @@ export default function PgpTool() {
               </label>
             </div>
           )}
-          {(mode !== 'decrypt' && mode !== 'sign') ? null : (
+          {mode !== 'decrypt' && mode !== 'sign' ? null : (
             <div>
               <label className="text-xs font-mono text-slate-500 mb-1 block">
                 Passphrase
@@ -224,7 +230,13 @@ export default function PgpTool() {
         <>
           <div>
             <label className="text-xs font-mono text-slate-500 mb-1 block">
-              {mode === 'encrypt' ? 'Plaintext' : mode === 'decrypt' ? 'Ciphertext (armored)' : mode === 'sign' ? 'Message to sign' : 'Signed message'}
+              {mode === 'encrypt'
+                ? 'Plaintext'
+                : mode === 'decrypt'
+                  ? 'Ciphertext (armored)'
+                  : mode === 'sign'
+                    ? 'Message to sign'
+                    : 'Signed message'}
             </label>
             <textarea
               value={input}
@@ -253,13 +265,15 @@ export default function PgpTool() {
       )}
 
       {message && (
-        <div className={`text-xs font-mono p-2 rounded-lg ${
-          status === 'error' || message.includes('INVALID')
-            ? 'bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400'
-            : status === 'done'
-              ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400'
-              : 'bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400'
-        }`}>
+        <div
+          className={`text-xs font-mono p-2 rounded-lg ${
+            status === 'error' || message.includes('INVALID')
+              ? 'bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400'
+              : status === 'done'
+                ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400'
+                : 'bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400'
+          }`}
+        >
           {message}
         </div>
       )}

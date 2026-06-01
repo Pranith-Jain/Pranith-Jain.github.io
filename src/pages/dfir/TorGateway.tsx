@@ -28,22 +28,22 @@ export default function TorGateway() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-6 space-y-6">
-      <BackLink to="/dfir" className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono">
+      <BackLink
+        to="/dfir"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-6 font-mono"
+      >
         <ArrowLeft size={14} /> back
       </BackLink>
       <div className="flex items-baseline gap-2 mb-2">
-        <h1 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100">
-          Tor Gateway
-        </h1>
+        <h1 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100">Tor Gateway</h1>
         <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500">
           .onion → Clearnet Gateway Links
         </span>
       </div>
 
       <p className="text-xs font-mono text-slate-500 max-w-xl">
-        Generate clearnet gateway URLs for .onion services. These gateways allow
-        access to Tor hidden services without the Tor Browser. Note that gateway
-        traffic is not anonymous and some .onion sites block known gateways.
+        Generate clearnet gateway URLs for .onion services. These gateways allow access to Tor hidden services without
+        the Tor Browser. Note that gateway traffic is not anonymous and some .onion sites block known gateways.
       </p>
 
       <form onSubmit={handleSubmit} className="flex gap-2 max-w-xl">
@@ -64,7 +64,9 @@ export default function TorGateway() {
 
       {cleaned && (
         <div className="space-y-3">
-          <div className="text-xs font-mono text-slate-500">Gateway links for <span className="text-slate-700 dark:text-slate-300">{cleaned}</span></div>
+          <div className="text-xs font-mono text-slate-500">
+            Gateway links for <span className="text-slate-700 dark:text-slate-300">{cleaned}</span>
+          </div>
           <div className="grid gap-2 sm:grid-cols-2">
             {GATEWAYS.map((gw) => {
               const href = gw.url.replace('{onion}', cleaned);
@@ -77,14 +79,16 @@ export default function TorGateway() {
                   className="flex items-center justify-between px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-brand-400 dark:hover:border-brand-600 transition-colors group"
                 >
                   <span className="text-xs font-mono text-slate-700 dark:text-slate-300">{gw.label}</span>
-                  <span className="text-[11px] font-mono text-brand-600 dark:text-brand-400 group-hover:underline truncate ml-2 max-w-[200px]">{href}</span>
+                  <span className="text-[11px] font-mono text-brand-600 dark:text-brand-400 group-hover:underline truncate ml-2 max-w-[200px]">
+                    {href}
+                  </span>
                 </a>
               );
             })}
           </div>
           <p className="text-[11px] font-mono text-slate-400 italic">
-            ⚠ Gateways are operated by third parties. Do not trust them with sensitive data.
-            Always verify you are accessing the correct .onion address.
+            ⚠ Gateways are operated by third parties. Do not trust them with sensitive data. Always verify you are
+            accessing the correct .onion address.
           </p>
         </div>
       )}

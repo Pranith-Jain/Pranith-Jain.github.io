@@ -213,10 +213,10 @@ export default function BlogPost() {
         // Use relevance-based related posts algorithm
         const related = findRelatedPosts(
           { slug: post.slug, title: post.title, tags: post.tags, type: post.type },
-          posts.map(p => ({ slug: p.slug, title: p.title, tags: p.tags, type: p.type })),
+          posts.map((p) => ({ slug: p.slug, title: p.title, tags: p.tags, type: p.type })),
           3
         );
-        setRelatedPosts(posts.filter(p => related.some(r => r.slug === p.slug)));
+        setRelatedPosts(posts.filter((p) => related.some((r) => r.slug === p.slug)));
       })
       .catch((e) => console.error('Failed to load related posts', e));
     return () => {
@@ -234,7 +234,10 @@ export default function BlogPost() {
   const readTime = post ? estimateReadingTime(post.body) : 0;
   const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
   const shareText = post?.title || '';
-  const hashtags = useMemo(() => post ? generateHashtags(post.title, post.body, post.tags, { platform: 'twitter', max: 3 }) : [], [post]);
+  const hashtags = useMemo(
+    () => (post ? generateHashtags(post.title, post.body, post.tags, { platform: 'twitter', max: 3 }) : []),
+    [post]
+  );
 
   return (
     <article ref={articleRef} className="mx-auto max-w-5xl px-6 py-10 text-slate-900 dark:text-slate-100">
@@ -428,7 +431,7 @@ export default function BlogPost() {
               </a>
               {hashtags.length > 0 && (
                 <span className="text-[11px] font-mono text-slate-400 dark:text-slate-500">
-                  {hashtags.map(h => `#${h}`).join(' ')}
+                  {hashtags.map((h) => `#${h}`).join(' ')}
                 </span>
               )}
             </div>
@@ -462,13 +465,29 @@ export default function BlogPost() {
                 <div>
                   <h3 className="font-display text-lg font-bold text-slate-900 dark:text-white">Pranith Jain</h3>
                   <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
-                    Detection & response practitioner specializing in threat intelligence, email security, and cloud identity.
-                    Building tools that make CTI accessible to everyone.
+                    Detection & response practitioner specializing in threat intelligence, email security, and cloud
+                    identity. Building tools that make CTI accessible to everyone.
                   </p>
                   <div className="flex gap-3 mt-3">
-                    <Link to="/about" className="text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline">About</Link>
-                    <a href="https://x.com/pranithjain" target="_blank" rel="noopener noreferrer" className="text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline">X/Twitter</a>
-                    <a href="https://linkedin.com/in/pranithjain" target="_blank" rel="noopener noreferrer" className="text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline">LinkedIn</a>
+                    <Link to="/about" className="text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline">
+                      About
+                    </Link>
+                    <a
+                      href="https://x.com/pranithjain"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                    >
+                      X/Twitter
+                    </a>
+                    <a
+                      href="https://linkedin.com/in/pranithjain"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                    >
+                      LinkedIn
+                    </a>
                   </div>
                 </div>
               </div>

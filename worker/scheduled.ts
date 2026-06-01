@@ -5,6 +5,7 @@ import {
   writeBriefing,
   sweepOldBriefings,
   expectedWeeklySlug,
+  briefingNeedsHeal,
 } from '../api/src/lib/briefing-builder';
 import { buildLandscapeReport, writeLandscapeReport, expectedLandscapeSlug } from '../api/src/lib/landscape-builder';
 import { runDiscoveryNow, runPlannerNow, runPublisherNow, type CaseStudyEnv } from '../api/src/case-study/run';
@@ -200,46 +201,20 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
 
         let rebuiltThisHour = false;
 
-        const isRich = (statsJson: string | undefined): boolean => {
-          try {
-            const s = JSON.parse(statsJson || '{}') as { findings?: number; iocs?: number };
-            return (s.findings ?? 0) > 0 || (s.iocs ?? 0) > 0;
-          } catch {
-            return false;
-          }
-        };
-        // Cooldown guard — if the last build attempt was within `minAgeMs`,
-        // skip. Stops hourly cron from hammering the build (which can take
-        // 10-30s with KEV + NVD) on back-to-back hours when KEV/NVD stay
-        // blocked. Cheap to read; only matters on the degraded-rebuild path.
-        const recentBuild = async (slug: string, minAgeMs: number): Promise<boolean> => {
-          const row = await db
-            .prepare('SELECT generated_at, body FROM briefings WHERE slug = ?')
-            .bind(slug)
-            .first<{ generated_at?: string; body?: string }>();
-          if (!row) return false;
-          // Only suppress when the existing row is itself a degraded rebuild —
-          // we don't want to suppress hourly catches of a *rich* briefing that
-          // hasn't been touched in 7 days.
-          let degraded = false;
-          try {
-            degraded = (JSON.parse(row.body || '{}') as { degraded?: boolean }).degraded === true;
-          } catch {
-            /* non-JSON row — treat as not degraded */
-          }
-          if (!degraded) return false;
-          const last = Date.parse(row.generated_at ?? '');
-          if (!Number.isFinite(last)) return false;
-          return Date.now() - last < minAgeMs;
-        };
         const healOne = async (type: 'daily' | 'weekly', slug: string, opts?: { minAgeMs?: number }) => {
           if (!db) return;
+          // Read stats AND body in one query: stats decide richness, body
+          // carries the `degraded` flag + `generated_at` the cooldown needs.
+          // A degraded briefing keeps its abuse.ch IOCs, so a richness-only
+          // check (the old isRich short-circuit) saw iocs>0 and skipped it
+          // forever — weekly-2026-W22 stayed degraded indefinitely after
+          // upstreams recovered. `briefingNeedsHeal` keeps degraded rows
+          // eligible for rebuild, subject only to the cooldown.
           const row = await db
-            .prepare('SELECT stats_json FROM briefings WHERE slug = ?')
+            .prepare('SELECT stats_json, body FROM briefings WHERE slug = ?')
             .bind(slug)
-            .first<{ stats_json: string }>();
-          if (row && isRich(row.stats_json)) return;
-          if (opts?.minAgeMs && (await recentBuild(slug, opts.minAgeMs))) return;
+            .first<{ stats_json?: string; body?: string }>();
+          if (!briefingNeedsHeal(row, { now: Date.now(), cooldownMs: opts?.minAgeMs })) return;
           rebuiltThisHour = true;
           try {
             const briefing = await buildBriefing(type, undefined, {
@@ -291,6 +266,9 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
         const perSourceTargets = [
           '/api/v1/threat-map',
           '/api/v1/rules',
+          // Warm x-claims BEFORE ransomware-recent so the latter's cache-only
+          // read of X (FalconFeeds / @DailyDarkWeb) ransomware claims is fresh.
+          '/api/v1/x-claims',
           '/api/v1/ransomware-recent',
           // NOTE: /api/v1/telegram-feed intentionally NOT warmed here — the
           // telegram leak scan above already scrapes t.me this run, and a second

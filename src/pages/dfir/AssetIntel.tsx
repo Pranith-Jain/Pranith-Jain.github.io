@@ -1,9 +1,21 @@
 import { useState, useEffect, useCallback, type FormEvent } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import {
-  Search, Globe, Server, AlertTriangle, Network, RefreshCw,
-  ExternalLink, ChevronDown, ChevronUp, Users, Building2,
-  Clock, Mail, ArrowLeft, ScanLine,
+  Search,
+  Globe,
+  Server,
+  AlertTriangle,
+  Network,
+  RefreshCw,
+  ExternalLink,
+  ChevronDown,
+  ChevronUp,
+  Users,
+  Building2,
+  Clock,
+  Mail,
+  ArrowLeft,
+  ScanLine,
 } from 'lucide-react';
 import { ArtifactTable, type HostArtifact } from '../../components/dfir/ArtifactTable';
 
@@ -94,8 +106,10 @@ interface PivotResult {
 const CHANGE_COLORS: Record<string, string> = {
   registrant: 'text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/20 border-rose-200 dark:border-rose-800/50',
   registrar: 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/20 border-blue-200 dark:border-blue-800/50',
-  nameservers: 'text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-800/50',
-  status: 'text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/20 border-purple-200 dark:border-purple-800/50',
+  nameservers:
+    'text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-800/50',
+  status:
+    'text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/20 border-purple-200 dark:border-purple-800/50',
 };
 
 const PIVOT_ICONS: Record<string, typeof Mail> = {
@@ -107,14 +121,26 @@ const PIVOT_ICONS: Record<string, typeof Mail> = {
 
 function formatDate(d?: string) {
   if (!d) return '—';
-  try { return new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }); }
-  catch { return d; }
+  try {
+    return new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+  } catch {
+    return d;
+  }
 }
 
 function formatDateTime(d?: string) {
   if (!d) return '—';
-  try { return new Date(d).toLocaleString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }); }
-  catch { return d; }
+  try {
+    return new Date(d).toLocaleString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  } catch {
+    return d;
+  }
 }
 
 function typeFromQuery(q: string): 'ip' | 'domain' | null {
@@ -145,7 +171,8 @@ function Loading({ text = 'Loading…' }: { text?: string }) {
 function ErrorBanner({ error }: { error: string }) {
   return (
     <div className="p-3 rounded-lg bg-rose-50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-800/50 text-rose-700 dark:text-rose-300 text-sm font-mono mb-6">
-      <AlertTriangle size={14} className="inline mr-2" />{error}
+      <AlertTriangle size={14} className="inline mr-2" />
+      {error}
     </div>
   );
 }
@@ -173,10 +200,15 @@ function HostIntelPanel({ data }: { data: HostIntel }) {
 
       {data.open_ports.length > 0 && (
         <div className="mt-4">
-          <div className="font-mono text-[10px] uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1.5">Ports</div>
+          <div className="font-mono text-[10px] uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-1.5">
+            Ports
+          </div>
           <div className="flex flex-wrap gap-1.5">
             {data.open_ports.map((p) => (
-              <span key={p} className="font-mono text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+              <span
+                key={p}
+                className="font-mono text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300"
+              >
                 {p}
               </span>
             ))}
@@ -227,9 +259,11 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
     try {
       const res = await fetch(`${API}/domain/history/pivot?domain=${encodeURIComponent(domain)}&type=${type}`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const result = await res.json() as PivotResult;
+      const result = (await res.json()) as PivotResult;
       setPivots(result);
-    } catch { /* swallow */ } finally {
+    } catch {
+      /* swallow */
+    } finally {
       setPivotLoading(false);
     }
   }, []);
@@ -252,7 +286,10 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
             { label: 'Registrar Changes', value: data.summary.registrar_changes, icon: Building2 },
             { label: 'NS Changes', value: data.summary.nameserver_changes, icon: Server },
           ].map(({ label, value, icon: Icon }) => (
-            <div key={label} className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
+            <div
+              key={label}
+              className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900"
+            >
               <div className="flex items-center gap-2 mb-1">
                 <Icon size={14} className="text-slate-400" />
                 <span className="text-[11px] font-mono uppercase text-slate-500">{label}</span>
@@ -268,15 +305,33 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
               <Globe size={14} className="text-brand-600" /> Current Registration
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
-              <div><span className="text-slate-500">Registrar:</span> <span className="font-mono">{data.current.registrar ?? '—'}</span></div>
-              <div><span className="text-slate-500">Created:</span> <span className="font-mono">{formatDate(data.current.created_date)}</span></div>
-              <div><span className="text-slate-500">Expires:</span> <span className="font-mono">{formatDate(data.current.expires_date)}</span></div>
-              <div><span className="text-slate-500">Updated:</span> <span className="font-mono">{formatDate(data.current.updated_date)}</span></div>
+              <div>
+                <span className="text-slate-500">Registrar:</span>{' '}
+                <span className="font-mono">{data.current.registrar ?? '—'}</span>
+              </div>
+              <div>
+                <span className="text-slate-500">Created:</span>{' '}
+                <span className="font-mono">{formatDate(data.current.created_date)}</span>
+              </div>
+              <div>
+                <span className="text-slate-500">Expires:</span>{' '}
+                <span className="font-mono">{formatDate(data.current.expires_date)}</span>
+              </div>
+              <div>
+                <span className="text-slate-500">Updated:</span>{' '}
+                <span className="font-mono">{formatDate(data.current.updated_date)}</span>
+              </div>
               {data.current.registrant_email && (
-                <div className="sm:col-span-2"><span className="text-slate-500">Registrant:</span> <span className="font-mono">{data.current.registrant_email}</span></div>
+                <div className="sm:col-span-2">
+                  <span className="text-slate-500">Registrant:</span>{' '}
+                  <span className="font-mono">{data.current.registrant_email}</span>
+                </div>
               )}
               {data.current.nameservers.length > 0 && (
-                <div className="sm:col-span-2"><span className="text-slate-500">Nameservers:</span> <span className="font-mono text-xs">{data.current.nameservers.join(', ')}</span></div>
+                <div className="sm:col-span-2">
+                  <span className="text-slate-500">Nameservers:</span>{' '}
+                  <span className="font-mono text-xs">{data.current.nameservers.join(', ')}</span>
+                </div>
               )}
             </div>
           </div>
@@ -289,26 +344,57 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
               <p className="text-sm text-slate-500 text-center py-4">No WHOIS history recorded yet.</p>
             ) : (
               data.snapshots.map((snap, i) => (
-                <div key={snap.id} className="border border-slate-200 dark:border-slate-800 rounded-lg bg-white dark:bg-slate-900 overflow-hidden">
+                <div
+                  key={snap.id}
+                  className="border border-slate-200 dark:border-slate-800 rounded-lg bg-white dark:bg-slate-900 overflow-hidden"
+                >
                   <button
                     onClick={() => setExpandedSnapshot(expandedSnapshot === snap.id ? null : snap.id)}
                     className="w-full flex items-center justify-between p-3 text-left hover:bg-slate-50 dark:hover:bg-slate-800/50"
                   >
                     <div className="flex items-center gap-3">
-                      <div className={`w-2 h-2 rounded-full ${i === 0 ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-slate-600'}`} />
+                      <div
+                        className={`w-2 h-2 rounded-full ${i === 0 ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-slate-600'}`}
+                      />
                       <span className="text-sm font-mono">{formatDateTime(snap.snapshot_at)}</span>
-                      <span className="text-xs px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500">{snap.source}</span>
+                      <span className="text-xs px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500">
+                        {snap.source}
+                      </span>
                     </div>
                     {expandedSnapshot === snap.id ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
                   </button>
                   {expandedSnapshot === snap.id && (
                     <div className="px-3 pb-3 pt-1 border-t border-slate-100 dark:border-slate-800 text-sm space-y-1">
-                      <div><span className="text-slate-500">Registrar:</span> <span className="font-mono">{snap.registrar ?? '—'}</span></div>
-                      <div><span className="text-slate-500">Created:</span> <span className="font-mono">{formatDate(snap.created_date)}</span></div>
-                      <div><span className="text-slate-500">Expires:</span> <span className="font-mono">{formatDate(snap.expires_date)}</span></div>
-                      {snap.registrant_email && <div><span className="text-slate-500">Registrant Email:</span> <span className="font-mono">{snap.registrant_email}</span></div>}
-                      {snap.registrant_org && <div><span className="text-slate-500">Registrant Org:</span> <span className="font-mono">{snap.registrant_org}</span></div>}
-                      {snap.nameservers.length > 0 && <div><span className="text-slate-500">Nameservers:</span> <span className="font-mono text-xs">{snap.nameservers.join(', ')}</span></div>}
+                      <div>
+                        <span className="text-slate-500">Registrar:</span>{' '}
+                        <span className="font-mono">{snap.registrar ?? '—'}</span>
+                      </div>
+                      <div>
+                        <span className="text-slate-500">Created:</span>{' '}
+                        <span className="font-mono">{formatDate(snap.created_date)}</span>
+                      </div>
+                      <div>
+                        <span className="text-slate-500">Expires:</span>{' '}
+                        <span className="font-mono">{formatDate(snap.expires_date)}</span>
+                      </div>
+                      {snap.registrant_email && (
+                        <div>
+                          <span className="text-slate-500">Registrant Email:</span>{' '}
+                          <span className="font-mono">{snap.registrant_email}</span>
+                        </div>
+                      )}
+                      {snap.registrant_org && (
+                        <div>
+                          <span className="text-slate-500">Registrant Org:</span>{' '}
+                          <span className="font-mono">{snap.registrant_org}</span>
+                        </div>
+                      )}
+                      {snap.nameservers.length > 0 && (
+                        <div>
+                          <span className="text-slate-500">Nameservers:</span>{' '}
+                          <span className="font-mono text-xs">{snap.nameservers.join(', ')}</span>
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
@@ -330,15 +416,26 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
             {pivots.related_domains.map((d) => {
               const PivotIcon = PIVOT_ICONS[d.match_reason] ?? Network;
               return (
-                <div key={`${d.domain}-${d.match_reason}`} className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
+                <div
+                  key={`${d.domain}-${d.match_reason}`}
+                  className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900"
+                >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <PivotIcon size={14} className="text-brand-600" />
-                      <Link to={`/dfir/asset-intel?q=${d.domain}`} className="font-mono text-sm font-medium hover:text-brand-600">
+                      <Link
+                        to={`/dfir/asset-intel?q=${d.domain}`}
+                        className="font-mono text-sm font-medium hover:text-brand-600"
+                      >
                         {d.domain}
                       </Link>
                     </div>
-                    <a href={`https://${d.domain}`} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-brand-600">
+                    <a
+                      href={`https://${d.domain}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-slate-400 hover:text-brand-600"
+                    >
                       <ExternalLink size={12} />
                     </a>
                   </div>
@@ -367,7 +464,9 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
           </h3>
           <div className="space-y-2">
             {data.changes.map((change) => {
-              const colorClass = CHANGE_COLORS[change.change_type] ?? 'text-slate-600 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700';
+              const colorClass =
+                CHANGE_COLORS[change.change_type] ??
+                'text-slate-600 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700';
               return (
                 <div key={change.id} className={`p-3 rounded-lg border ${colorClass}`}>
                   <div className="flex items-center gap-2 mb-1">
@@ -375,7 +474,9 @@ function WhoisPanel({ data }: { data: HistoryResult }) {
                     <span className="text-xs text-slate-400 ml-auto">{formatDateTime(change.detected_at)}</span>
                   </div>
                   <div className="text-sm grid grid-cols-1 sm:grid-cols-2 gap-1">
-                    <div className="line-through text-slate-400 font-mono text-xs break-all">{change.old_value ?? '—'}</div>
+                    <div className="line-through text-slate-400 font-mono text-xs break-all">
+                      {change.old_value ?? '—'}
+                    </div>
                     <div className="font-mono text-xs break-all">{change.new_value ?? '—'}</div>
                   </div>
                 </div>
@@ -414,17 +515,17 @@ export default function AssetIntel(): JSX.Element {
       if (t === 'ip') {
         const r = await fetch(`${API}/host?ip=${encodeURIComponent(q.trim())}`);
         if (!r.ok) {
-          const body = await r.json().catch(() => null) as { error?: string } | null;
+          const body = (await r.json().catch(() => null)) as { error?: string } | null;
           throw new Error(body?.error ?? `${r.status}`);
         }
-        setHostIntel(await r.json() as HostIntel);
+        setHostIntel((await r.json()) as HostIntel);
       } else {
         const r = await fetch(`${API}/domain/history?domain=${encodeURIComponent(q.trim())}`);
         if (!r.ok) {
-          const body = await r.json().catch(() => ({})) as { message?: string };
+          const body = (await r.json().catch(() => ({}))) as { message?: string };
           throw new Error(body.message ?? `HTTP ${r.status}`);
         }
-        setWhoisData(await r.json() as HistoryResult);
+        setWhoisData((await r.json()) as HistoryResult);
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'lookup failed');
@@ -453,8 +554,8 @@ export default function AssetIntel(): JSX.Element {
 
       <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Asset Intelligence</h1>
       <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-3xl">
-        Unified IP and domain asset intelligence — exposed host view, WHOIS history, domain pivoting, and artifact analysis.
-        Inspired by etugen.io's asset reconnaissance capabilities.
+        Unified IP and domain asset intelligence — exposed host view, WHOIS history, domain pivoting, and artifact
+        analysis. Inspired by etugen.io's asset reconnaissance capabilities.
       </p>
 
       <form onSubmit={onSubmit} className="mb-8">
@@ -505,7 +606,8 @@ export default function AssetIntel(): JSX.Element {
           <ScanLine size={48} className="mx-auto mb-4 text-slate-300 dark:text-slate-600" />
           <p className="text-slate-500">Enter an IP address or domain to begin asset intelligence</p>
           <p className="text-xs text-slate-400 mt-1">
-            IP → exposed host, open ports, CVEs, artifacts · Domain → WHOIS history, registration changes, related domains
+            IP → exposed host, open ports, CVEs, artifacts · Domain → WHOIS history, registration changes, related
+            domains
           </p>
         </div>
       )}

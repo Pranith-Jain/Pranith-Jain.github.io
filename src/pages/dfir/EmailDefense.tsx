@@ -57,7 +57,9 @@ export default function EmailDefense(): JSX.Element {
         try {
           const parsed = JSON.parse(body) as { error?: string };
           msg = parsed.error ?? msg;
-        } catch { msg = `${msg}: ${body.slice(0, 200)}` }
+        } catch {
+          msg = `${msg}: ${body.slice(0, 200)}`;
+        }
         throw new Error(msg);
       }
       const ct = res.headers.get('content-type') ?? '';

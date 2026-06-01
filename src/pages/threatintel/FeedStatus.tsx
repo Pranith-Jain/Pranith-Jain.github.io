@@ -25,6 +25,12 @@ interface Row {
   reason: string;
   metrics?: Record<string, number>;
   upstream_age_s?: number;
+  /** NATO Admiralty source reliability letter (A–F) for this source. */
+  reliability?: string;
+  /** NATO Admiralty information credibility 1–6, computed for the *current* data point. */
+  info_credibility?: number;
+  /** Combined Admiralty grade in standard "B-2" notation. */
+  admiralty_grade?: string;
 }
 
 interface FeedStatusResponse {
@@ -59,6 +65,32 @@ function ageString(s?: number): string {
   if (s < 86400) return `${Math.floor(s / 3600)}h ago`;
   return `${Math.floor(s / 86400)}d ago`;
 }
+
+/**
+ * NATO Admiralty information-credibility label and tone.
+ * See api/src/routes/feed-status.ts `infoCredibilityFor` for the source-of-truth mapping.
+ */
+const CREDIBILITY: Record<number, { label: string; tone: string }> = {
+  1: { label: '1 · Confirmed', tone: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300' },
+  2: { label: '2 · Probably true', tone: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300' },
+  3: { label: '3 · Possibly true', tone: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300' },
+  4: { label: '4 · Doubtful', tone: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300' },
+  5: { label: '5 · Improbable', tone: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300' },
+  6: { label: '6 · Cannot judge', tone: 'border-slate-400/40 bg-slate-400/10 text-slate-600 dark:text-slate-400' },
+};
+
+/**
+ * Reliability (A–F) tone — fixed property of the source, distinct from
+ * the per-data-point credibility. A=reliable, F=unreliable.
+ */
+const RELIABILITY_TONE: Record<string, string> = {
+  A: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
+  B: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300',
+  C: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
+  D: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
+  E: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
+  F: 'border-slate-400/40 bg-slate-400/10 text-slate-600 dark:text-slate-400',
+};
 
 export default function FeedStatus(): JSX.Element {
   const [data, setData] = useState<FeedStatusResponse | null>(null);
@@ -165,6 +197,8 @@ export default function FeedStatus(): JSX.Element {
           <ul className="grid gap-2">
             {data.rows.map((r) => {
               const Icon = PILL[r.status].icon;
+              const cred = r.info_credibility !== undefined ? CREDIBILITY[r.info_credibility] : undefined;
+              const rel = r.reliability ? RELIABILITY_TONE[r.reliability] : undefined;
               return (
                 <li
                   key={r.id}
@@ -177,11 +211,29 @@ export default function FeedStatus(): JSX.Element {
                     >
                       {r.label}
                     </Link>
-                    <span
-                      className={`inline-flex items-center gap-1 text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${PILL[r.status].cls}`}
-                    >
-                      <Icon size={10} /> {PILL[r.status].label}
-                    </span>
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      {rel && (
+                        <span
+                          className={`inline-flex items-center gap-1 text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${rel}`}
+                          title={`NATO Admiralty source reliability: ${r.reliability}`}
+                        >
+                          rel {r.reliability}
+                        </span>
+                      )}
+                      {cred && (
+                        <span
+                          className={`inline-flex items-center gap-1 text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${cred.tone}`}
+                          title={`NATO Admiralty information credibility for current data point`}
+                        >
+                          {cred.label}
+                        </span>
+                      )}
+                      <span
+                        className={`inline-flex items-center gap-1 text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border ${PILL[r.status].cls}`}
+                      >
+                        <Icon size={10} /> {PILL[r.status].label}
+                      </span>
+                    </div>
                   </div>
                   <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed mb-1.5">
                     {r.reason}
@@ -203,6 +255,12 @@ export default function FeedStatus(): JSX.Element {
                       <>
                         <span>·</span>
                         <span>upstream snapshot {ageString(r.upstream_age_s)}</span>
+                      </>
+                    )}
+                    {r.admiralty_grade && (
+                      <>
+                        <span>·</span>
+                        <span className="text-slate-500">admiralty {r.admiralty_grade}</span>
                       </>
                     )}
                   </div>

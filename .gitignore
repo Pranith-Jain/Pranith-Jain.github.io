@@ -51,6 +51,7 @@ stats.html
 .cache
 .temp
 .wrangler/
+.wrangler-dryrun/
 
 # Reference images dropped into repo root for design conversations
 /[0-9]*.jpg

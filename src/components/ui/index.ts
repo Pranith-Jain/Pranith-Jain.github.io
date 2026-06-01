@@ -1,6 +1,6 @@
 /**
  * Reusable UI Component Library
- * 
+ *
  * Production-ready components with:
  * - Full accessibility (ARIA attributes, keyboard navigation)
  * - Responsive design

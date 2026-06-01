@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
+import { XClaimsPanel } from '../../components/threatintel/XClaimsPanel';
 import {
   ArrowLeft,
   RefreshCw,
@@ -425,6 +426,8 @@ export default function XWatch(): JSX.Element {
           section to surface them.
         </p>
       </div>
+
+      {authStatus?.configured && <XClaimsPanel />}
 
       {authStatus && !authStatus.configured && (
         <section className="rounded-2xl border border-amber-300 dark:border-amber-800 bg-amber-50/60 dark:bg-amber-950/40 p-5 mb-6">

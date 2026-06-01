@@ -1148,7 +1148,8 @@ export const rssFeeds: RSSFeed[] = [
     id: 'ransomware-merged',
     name: 'Ransomware claims (merged)',
     url: 'https://pranithjain.qzz.io/api/v1/feeds/ransomware-merged',
-    description: 'Merged ransomware victim claims from Ransomlook, ransomware.live, ransomfeed.it, ransomwatch, and andreafortuna',
+    description:
+      'Merged ransomware victim claims from Ransomlook, ransomware.live, ransomfeed.it, ransomwatch, and andreafortuna',
     category: 'threat-intel',
     source: 'ransomlook.io + ransomware.live',
     language: 'en',

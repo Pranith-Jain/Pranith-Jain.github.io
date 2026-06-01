@@ -462,7 +462,7 @@ export default function CveLookup(): JSX.Element {
                       >
                         <div className="flex items-start justify-between gap-2 mb-1.5 flex-wrap">
                           <Link
-                            to={`/dfir/actors/${encodeURIComponent(link.slug)}`}
+                            to={`/threatintel/actors/${encodeURIComponent(link.slug)}`}
                             className="font-mono font-semibold text-sm text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
                           >
                             {link.slug}

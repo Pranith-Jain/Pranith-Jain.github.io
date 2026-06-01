@@ -404,14 +404,61 @@ async function fetchOne(url: string, perSource: number, env?: Env): Promise<Fetc
 }
 
 /**
+ * Run `tasks` concurrently and return the results that resolved within
+ * `deadlineMs`. Slots still pending at the deadline come back as `undefined`
+ * — the caller treats those as "didn't return this pass". A non-positive or
+ * absent deadline waits for every task (legacy all-or-nothing behaviour).
+ *
+ * This is what lets a fan-out caller (the /api/v1/snapshot tech/AI card)
+ * render the feeds that DID respond instead of failing the whole card when
+ * one cold-cache upstream is slow: the snapshot's 8s per-source budget no
+ * longer has to choose between waiting ~20s for the slowest feed or
+ * discarding the five fast ones. The slow feed's own fetch (and its
+ * write-through edge-cache warm) keeps running to completion in the
+ * background of the same invocation, so the next reader gets it warm.
+ */
+export async function collectWithinDeadline<T>(
+  tasks: Array<Promise<T>>,
+  deadlineMs?: number
+): Promise<Array<T | undefined>> {
+  const results: Array<T | undefined> = new Array(tasks.length).fill(undefined);
+  const tracked = tasks.map((p, i) =>
+    p
+      .then((v) => {
+        results[i] = v;
+      })
+      .catch(() => {
+        /* leave slot undefined */
+      })
+  );
+  if (!deadlineMs || deadlineMs <= 0) {
+    await Promise.allSettled(tracked);
+    return results;
+  }
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const deadline = new Promise<void>((resolve) => {
+    timer = setTimeout(resolve, deadlineMs);
+  });
+  await Promise.race([Promise.allSettled(tracked), deadline]);
+  if (timer) clearTimeout(timer);
+  return results;
+}
+
+/**
  * Pure-data aggregator exposed for /api/v1/snapshot. Same logic as the HTTP
  * handler but returns the body directly so the snapshot endpoint can
  * compose without a worker-internal HTTP call.
+ *
+ * `opts.deadlineMs` caps how long to wait for the per-feed fan-out before
+ * returning whatever completed — set it BELOW the snapshot's per-source
+ * budget so a single slow feed degrades to "missing from this pass" rather
+ * than timing out the entire card. Omit it to wait for every feed.
  */
 export async function aggregateFeeds(
   urls: string[],
   limit: number = DEFAULT_LIMIT,
-  perSource: number = DEFAULT_PER_SOURCE
+  perSource: number = DEFAULT_PER_SOURCE,
+  opts?: { deadlineMs?: number }
 ): Promise<AggregateResponse> {
   const cleanUrls = urls
     .map((u) => u.trim())
@@ -420,13 +467,16 @@ export async function aggregateFeeds(
   const cappedLimit = Math.min(limit || DEFAULT_LIMIT, MAX_LIMIT);
   const cappedPerSource = Math.min(perSource || DEFAULT_PER_SOURCE, MAX_PER_SOURCE);
 
-  const settled = await Promise.allSettled(cleanUrls.map((u) => fetchOne(u, cappedPerSource)));
+  const settled = await collectWithinDeadline(
+    cleanUrls.map((u) => fetchOne(u, cappedPerSource)),
+    opts?.deadlineMs
+  );
   const allItems: AggregatedItem[] = [];
   let feedsReturned = 0;
-  for (const s of settled) {
-    if (s.status === 'fulfilled' && s.value.items.length > 0) {
+  for (const r of settled) {
+    if (r && r.items.length > 0) {
       feedsReturned += 1;
-      allItems.push(...s.value.items);
+      allItems.push(...r.items);
     }
   }
 

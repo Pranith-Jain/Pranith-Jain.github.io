@@ -12,6 +12,7 @@ import HealthTab from './HealthTab';
 import ManualTab from './ManualTab';
 import IntelBundleTab from './IntelBundleTab';
 import ApiKeysTab from './ApiKeysTab';
+import RetentionTab from './RetentionTab';
 
 type TabKey =
   | 'pending'
@@ -23,7 +24,8 @@ type TabKey =
   | 'health'
   | 'manual'
   | 'intel'
-  | 'apikeys';
+  | 'apikeys'
+  | 'retention';
 
 const TABS: Array<{ key: TabKey; label: string }> = [
   { key: 'pending', label: 'Pending' },
@@ -38,6 +40,7 @@ const TABS: Array<{ key: TabKey; label: string }> = [
   { key: 'health', label: 'Health' },
   { key: 'intel', label: 'Intel bundle' },
   { key: 'apikeys', label: 'API Keys' },
+  { key: 'retention', label: 'Retention' },
 ];
 
 const STAGES: Array<{ stage: 'discover' | 'plan' | 'publish'; label: string; hint: string }> = [
@@ -178,6 +181,7 @@ export default function AdminApp() {
         {active === 'manual' && <ManualTab />}
         {active === 'intel' && <IntelBundleTab />}
         {active === 'apikeys' && <ApiKeysTab />}
+        {active === 'retention' && <RetentionTab />}
       </section>
     </div>
   );

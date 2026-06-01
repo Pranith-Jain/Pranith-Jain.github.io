@@ -48,9 +48,7 @@ export function DataPageLayout({
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <span className="text-brand-600 dark:text-brand-400">{icon}</span> {title}
         </h1>
-        {description && (
-          <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">{description}</p>
-        )}
+        {description && <p className="text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">{description}</p>}
         {headerExtra && <div className="mt-4">{headerExtra}</div>}
       </div>
 

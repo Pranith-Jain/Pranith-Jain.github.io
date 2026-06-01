@@ -546,7 +546,7 @@ export const navLinks: NavLinkExt[] = [
       { label: 'Encoder', href: '/dfir/encoder' },
       { label: 'Rule Converter', href: '/dfir/rule-converter' },
       { label: 'Blocklists', href: '/dfir/blocklists' },
-      { label: 'Graph', href: '/threatintel/relationship-graph' },
+      { label: 'Graph', href: '/dfir/threat-graph' },
     ],
   },
   { label: 'Copilot', href: '/copilot' },

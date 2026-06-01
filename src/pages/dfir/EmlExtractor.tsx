@@ -1,7 +1,16 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Paperclip, Loader2, AlertTriangle, FileText, ShieldAlert, ScanText, FileSearch } from 'lucide-react';
+import {
+  ArrowLeft,
+  Paperclip,
+  Loader2,
+  AlertTriangle,
+  FileText,
+  ShieldAlert,
+  ScanText,
+  FileSearch,
+} from 'lucide-react';
 import { parseEml, type ParsedEml, type EmlAttachment } from '../../lib/dfir/eml-parser';
 import { CopyChip } from '../../components/dfir/CopyButton';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';

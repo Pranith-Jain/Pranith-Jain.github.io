@@ -42,11 +42,17 @@ export function Hero({ personalInfo }: HeroProps) {
           </span>
           . Security analyst by day — phishing, BEC, and malware response across 150+ brands. The rest of the time I
           build CTI and DFIR tooling on the side: a{' '}
-          <Link to="/dfir" className="font-semibold text-brand-700 dark:text-brand-400 underline-offset-4 hover:underline">
+          <Link
+            to="/dfir"
+            className="font-semibold text-brand-700 dark:text-brand-400 underline-offset-4 hover:underline"
+          >
             DFIR toolkit
           </Link>{' '}
           and a{' '}
-          <Link to="/threatintel" className="font-semibold text-brand-700 dark:text-brand-400 underline-offset-4 hover:underline">
+          <Link
+            to="/threatintel"
+            className="font-semibold text-brand-700 dark:text-brand-400 underline-offset-4 hover:underline"
+          >
             threat-intel aggregator
           </Link>{' '}
           on Cloudflare Workers, free to use, no login. Currently digging into AI security, NHI governance, and

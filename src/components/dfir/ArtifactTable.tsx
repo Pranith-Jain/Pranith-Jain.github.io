@@ -73,10 +73,7 @@ function ArtifactRow({ artifact }: { artifact: HostArtifact }): JSX.Element {
       >
         <td className="py-2.5 pl-2 pr-3">
           <div className="flex items-center gap-2">
-            <ChevronRight
-              size={12}
-              className={`text-slate-400 transition-transform ${open ? 'rotate-90' : ''}`}
-            />
+            <ChevronRight size={12} className={`text-slate-400 transition-transform ${open ? 'rotate-90' : ''}`} />
             {isDir ? (
               <Folder size={14} className="text-amber-500 dark:text-amber-400 shrink-0" />
             ) : (
@@ -156,8 +153,12 @@ export function ArtifactTable({ artifacts }: { artifacts: HostArtifact[] }): JSX
           <tr className="text-left">
             <th className="py-2 pl-2 pr-3 font-mono text-xs uppercase text-slate-400 dark:text-slate-500">Name</th>
             <th className="py-2 px-3 font-mono text-xs uppercase text-slate-400 dark:text-slate-500">Type</th>
-            <th className="py-2 px-3 font-mono text-xs uppercase text-slate-400 dark:text-slate-500 text-right">Size</th>
-            <th className="py-2 px-3 font-mono text-xs uppercase text-slate-400 dark:text-slate-500 text-right">Status</th>
+            <th className="py-2 px-3 font-mono text-xs uppercase text-slate-400 dark:text-slate-500 text-right">
+              Size
+            </th>
+            <th className="py-2 px-3 font-mono text-xs uppercase text-slate-400 dark:text-slate-500 text-right">
+              Status
+            </th>
           </tr>
         </thead>
         <tbody>

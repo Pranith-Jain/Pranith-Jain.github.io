@@ -328,8 +328,9 @@ const SECTIONS: Section[] = [
       {
         to: '/threatintel/intel-dashboard',
         label: 'Intel Dashboard',
-        desc: 'Consolidated view across all threat intelligence sources: leak KPIs, breach stats, feed health, source catalog.',
+        desc: 'Consolidated view across all threat intelligence sources: leak KPIs, breach stats, feed health, source catalog, and a CTI-CMM Program Health scorecard (5 domains, 0–5 bands).',
         icon: LayoutDashboard,
+        badge: 'new',
       },
       {
         to: '/threatintel/collection-slo',
@@ -518,8 +519,9 @@ const SECTIONS: Section[] = [
       {
         to: '/threatintel/briefings',
         label: 'Intel Briefings',
-        desc: 'Daily and weekly digest, auto-generated from upstream feeds. Ransomware claims, breach disclosures, IOCs of the day.',
+        desc: 'Daily/weekly tactical digest plus monthly Threat Landscape Reports (top threats, trending actors, key incidents, recommended actions, outlook). Filter by Daily · Weekly · Landscape.',
         icon: Briefcase,
+        badge: 'new',
       },
       {
         to: '/threatintel/cross-correlate',

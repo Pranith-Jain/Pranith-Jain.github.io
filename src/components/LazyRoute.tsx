@@ -12,9 +12,7 @@ function SectionLoader() {
 export function LazyRoute({ children }: { children: ReactNode }): JSX.Element {
   return (
     <ErrorBoundary>
-      <Suspense fallback={<SectionLoader />}>
-        {children}
-      </Suspense>
+      <Suspense fallback={<SectionLoader />}>{children}</Suspense>
     </ErrorBoundary>
   );
 }

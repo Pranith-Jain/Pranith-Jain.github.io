@@ -12,6 +12,7 @@
 import type { D1Database } from '@cloudflare/workers-types';
 import { FEED_SOURCES, UNCAPPED, buildSummary, type IocEntry, type SourceId } from './ioc-feed-parsers';
 import { fetchResilient } from './fetch-resilient';
+import { readLastGood, writeLastGood } from './lastgood';
 import type { Env } from '../env';
 import { fetchMtiSource, type MtiRansomwareClaim, type MtiCveRecord } from './mythreatintel-api';
 import { fetchCveFeedHighSeverity, type CveFeedEntry } from '../routes/cve-recent';
@@ -43,33 +44,44 @@ const KEV_FEED = 'https://www.cisa.gov/sites/default/files/feeds/known_exploited
  * populated with real data through a two-week run of transient blocks,
  * instead of degrading to a blank "both unreachable" briefing.
  *
- * Cache API (caches.default) is used deliberately — it needs no env binding
- * threaded through buildBriefing, and Cloudflare keeps it warm as long as
- * it's refreshed (which every cron run does on success).
+ * Implementation: persisted to KV via `readLastGood`/`writeLastGood` (see
+ * `api/src/lib/lastgood.ts`). KV is durable and cross-colo, so a single
+ * success in ANY colo benefits every other colo. The previous
+ * `caches.default` implementation was per-colo and could be evicted under
+ * pressure — which left the self-heal running the same cold-cache retry
+ * hour after hour whenever the upstream had a multi-hour outage (the
+ * 2026-05-25→05-31 weekly briefing was degraded for >8h even after the
+ * feeds came back because every colo's `caches.default` had been cold
+ * through the outage).
+ *
+ * Writes are debounced inside `writeLastGood` (1 KV write / 6h / key) so
+ * the cost of durable last-good is the same as the old in-memory version.
  */
 const LASTGOOD_TTL_SEC = 60 * 60 * 24 * 14;
-function lastGoodCache(): Cache {
-  return (caches as unknown as { default: Cache }).default;
-}
 /**
- * Run `live()`. On success, persist the result as last-good and return it.
- * On failure, return the cached last-good if present; otherwise re-throw so
- * the caller's degrade path still fires when there has never been a success.
+ * Run `live()`. On success, persist the result as last-good (debounced)
+ * and return it. On failure, return the cached last-good if present;
+ * otherwise re-throw so the caller's degrade path still fires when there
+ * has never been a success.
+ *
+ * Exported so the briefing-builder test can verify the live↔last-good
+ * round-trip without standing up the full build pipeline.
  */
-async function withLastGood<T>(cacheKey: string, live: () => Promise<T>): Promise<T> {
-  const cache = lastGoodCache();
+export async function withLastGood<T>(env: Env | undefined, cacheKey: string, live: () => Promise<T>): Promise<T> {
   try {
     const v = await live();
-    await cache.put(
-      cacheKey,
-      new Response(JSON.stringify(v), {
-        headers: { 'content-type': 'application/json', 'cache-control': `max-age=${LASTGOOD_TTL_SEC}` },
-      })
-    );
+    // Awaited (not fire-and-forget) so a subsequent call in the same request
+    // — or the very next request landing in a different colo — can rely on
+    // the last-good being present. The debounce inside `writeLastGood` keeps
+    // the KV-write cost to 1 put / 6h / key, so awaiting is cheap.
+    if (env) await writeLastGood(env, cacheKey, v, { ttlSeconds: LASTGOOD_TTL_SEC });
     return v;
   } catch (err) {
-    const hit = await cache.match(cacheKey);
-    if (hit) return (await hit.json()) as T;
+    // env-less callers (unit tests with no bindings) get the live result or
+    // the live error — no last-good to read or write.
+    if (!env) throw err;
+    const hit = await readLastGood<T>(env, cacheKey);
+    if (hit !== null) return hit;
     throw err;
   }
 }
@@ -1189,13 +1201,13 @@ export async function buildBriefing(
       // KEV is the full catalog (window filtering happens below) — one key.
       // NVD is window-specific, so the cache key carries the range; the hourly
       // catch-up rebuilds the same slug/window and reuses any prior success.
-      wrap(withLastGood('https://briefing-lastgood.internal/kev', fetchKev), [] as KevEntry[]),
+      wrap(withLastGood(mtiEnv, 'briefing-kev', fetchKev), [] as KevEntry[]),
       fetchAbuseFeed('urlhaus').catch(() => [] as IocEntry[]),
       fetchAbuseFeed('malwarebazaar').catch(() => [] as IocEntry[]),
       fetchAbuseFeed('threatfox').catch(() => [] as IocEntry[]),
       fetchAbuseFeed('tweetfeed').catch(() => [] as IocEntry[]),
       wrap(
-        withLastGood(`https://briefing-lastgood.internal/nvd?s=${startMs}&e=${endMs}`, async () => {
+        withLastGood(mtiEnv, `briefing-nvd?s=${startMs}&e=${endMs}`, async () => {
           // NVD first; on throw OR empty, fall back to CIRCL exactly ONCE
           // (the old .then/.catch chain could call CIRCL twice). If CIRCL
           // also throws it propagates to withLastGood, which backstops with
@@ -1473,6 +1485,51 @@ function safeJsonParse<T>(raw: string | null | undefined, fallback: T): T {
   } catch {
     return fallback;
   }
+}
+
+/** A briefing is "rich" if it carries any finding or any IOC. */
+export function isBriefingRich(statsJson: string | null | undefined): boolean {
+  const s = safeJsonParse<{ findings?: number; iocs?: number }>(statsJson, {});
+  return (s.findings ?? 0) > 0 || (s.iocs ?? 0) > 0;
+}
+
+/** True when the stored briefing body is flagged `degraded` (KEV+NVD unreachable at build). */
+export function isBriefingDegraded(body: string | null | undefined): boolean {
+  return safeJsonParse<{ degraded?: boolean }>(body, {}).degraded === true;
+}
+
+/**
+ * Decide whether the hourly self-heal should (re)build a briefing slug given
+ * the row currently stored for it.
+ *
+ * The non-obvious case this exists for: a DEGRADED briefing (CISA KEV + NVD
+ * both unreachable at build time) still carries IOCs from the abuse.ch feeds,
+ * which are fetched independently of the CVE sources. A naive "has findings or
+ * IOCs" richness check therefore reports a degraded briefing as complete and
+ * the self-heal skips it — so once a weekly degraded (e.g. weekly-2026-W22) it
+ * stayed degraded indefinitely even after upstreams recovered, because the
+ * hourly catch-up saw iocs>0 and short-circuited. A degraded row must keep
+ * being eligible for rebuild, subject only to a cooldown so back-to-back hours
+ * don't hammer the build while upstreams are still down.
+ */
+export function briefingNeedsHeal(
+  row: { stats_json?: string | null; body?: string | null } | null | undefined,
+  opts: { now: number; cooldownMs?: number }
+): boolean {
+  if (!row) return true; // nothing stored yet — build it
+  if (!isBriefingDegraded(row.body)) {
+    // Healthy row: only rebuild if it's empty (no findings and no IOCs).
+    return !isBriefingRich(row.stats_json);
+  }
+  // Degraded row: rebuild unless we tried within the cooldown window. The
+  // build timestamp lives INSIDE the body JSON (the briefings table has no
+  // generated_at column — reading a non-existent column made the old cooldown
+  // a silent no-op).
+  const cooldownMs = opts.cooldownMs ?? 0;
+  if (cooldownMs <= 0) return true;
+  const last = Date.parse(safeJsonParse<{ generated_at?: string }>(row.body, {}).generated_at ?? '');
+  if (!Number.isFinite(last)) return true;
+  return opts.now - last >= cooldownMs;
 }
 
 export async function writeBriefing(

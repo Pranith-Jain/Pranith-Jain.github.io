@@ -30,7 +30,7 @@ const VARIANT_STYLES: Record<SkeletonVariant, string> = {
 /**
  * Skeleton loading placeholder component.
  * Shows a pulsing placeholder while content is loading.
- * 
+ *
  * @example
  * <Skeleton variant="text" lines={3} />
  * <Skeleton variant="circular" width="40px" height="40px" />
@@ -52,12 +52,7 @@ export const Skeleton = memo(function Skeleton({
 
   if (variant === 'text' && lines > 1) {
     return (
-      <div
-        className="space-y-2"
-        role="status"
-        aria-label={label}
-        aria-live="polite"
-      >
+      <div className="space-y-2" role="status" aria-label={label} aria-live="polite">
         {Array.from({ length: lines }).map((_, i) => (
           <div
             key={i}
@@ -75,13 +70,7 @@ export const Skeleton = memo(function Skeleton({
   }
 
   return (
-    <div
-      className={baseStyle}
-      style={{ width, height }}
-      role="status"
-      aria-label={label}
-      aria-live="polite"
-    >
+    <div className={baseStyle} style={{ width, height }} role="status" aria-label={label} aria-live="polite">
       <span className="sr-only">{label}</span>
     </div>
   );
@@ -126,27 +115,14 @@ export const SkeletonTable = memo(function SkeletonTable({
       {/* Header */}
       <div className="bg-slate-50 dark:bg-slate-800/60 px-4 py-3 flex gap-4">
         {Array.from({ length: columns }).map((_, i) => (
-          <Skeleton
-            key={i}
-            variant="text"
-            width={`${100 / columns}%`}
-            height="0.75rem"
-          />
+          <Skeleton key={i} variant="text" width={`${100 / columns}%`} height="0.75rem" />
         ))}
       </div>
       {/* Rows */}
       {Array.from({ length: rows }).map((_, rowIndex) => (
-        <div
-          key={rowIndex}
-          className="px-4 py-3 flex gap-4 border-t border-slate-100 dark:border-slate-800"
-        >
+        <div key={rowIndex} className="px-4 py-3 flex gap-4 border-t border-slate-100 dark:border-slate-800">
           {Array.from({ length: columns }).map((_, colIndex) => (
-            <Skeleton
-              key={colIndex}
-              variant="text"
-              width={`${100 / columns}%`}
-              height="0.75rem"
-            />
+            <Skeleton key={colIndex} variant="text" width={`${100 / columns}%`} height="0.75rem" />
           ))}
         </div>
       ))}

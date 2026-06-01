@@ -36,7 +36,7 @@ const CONFIDENCE_LABELS: Record<string, string> = {
  * Verdict chip with confidence indicators.
  * Shows the verdict (clean/suspicious/malicious/unknown) along with
  * provider consensus and confidence level for analyst decision support.
- * 
+ *
  * @example
  * <VerdictChip verdict="malicious" contributing={8} total={10} confidence="high" />
  * <VerdictChip verdict="clean" compact />
@@ -68,10 +68,7 @@ export const VerdictChip = memo(function VerdictChip({
         {verdict}
       </span>
       {confidence && (
-        <span
-          className={`text-[10px] font-mono ${CONFIDENCE_STYLES[confidence]}`}
-          title={`Confidence: ${confidence}`}
-        >
+        <span className={`text-[10px] font-mono ${CONFIDENCE_STYLES[confidence]}`} title={`Confidence: ${confidence}`}>
           {CONFIDENCE_LABELS[confidence]}
         </span>
       )}

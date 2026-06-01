@@ -1,5 +1,5 @@
 import { useEffect, Suspense, lazy, useMemo } from 'react';
-import { BrowserRouter, Routes, Route, useLocation, useParams, Navigate, useSearchParams } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation, Navigate, useSearchParams } from 'react-router-dom';
 import { useTheme, useScrollProgress } from './hooks';
 import { navLinks, personalInfo, stats } from './data/content';
 import { Header } from './components/Header';
@@ -247,18 +247,6 @@ const Investigations = lazy(() => import('./pages/threatintel/Investigations'));
 const FeedScheduler = lazy(() => import('./pages/threatintel/FeedScheduler'));
 const ObservableDb = lazy(() => import('./pages/threatintel/ObservableDb'));
 const MalwareVault = lazy(() => import('./pages/threatintel/MalwareVault'));
-
-/**
- * Preserves the path slug (when `withSlug`), the query string, and the hash
- * fragment when redirecting an old /dfir/<slug> URL to its new
- * /threatintel/<slug> home. Keeps every existing bookmark working.
- */
-function MovedRedirect({ to, withSlug }: { to: string; withSlug?: boolean }) {
-  const params = useParams();
-  const location = useLocation();
-  const tail = withSlug ? `/${params.slug ?? ''}` : '';
-  return <Navigate to={`${to}${tail}${location.search}${location.hash}`} replace />;
-}
 
 /**
  * /dfir/file?h=<hash> is the legacy entry point for the standalone hash
@@ -2108,27 +2096,6 @@ export function AppContent() {
         {/* Old path renamed; preserve any in-flight links. */}
         <Route path="/dfir/industry-news" element={<Navigate to="/threatintel/tech-ai-news" replace />} />
         <Route path="/difr" element={<Navigate to="/dfir" replace />} />
-        {/* 2026-05-11 — intel pages moved from /dfir/<slug> to /threatintel/<slug>.
-                Old URLs redirect (preserving query + hash) so bookmarks keep working. */}
-        <Route path="/dfir/briefings" element={<MovedRedirect to="/threatintel/briefings" />} />
-        <Route path="/dfir/briefings/:slug" element={<MovedRedirect to="/threatintel/briefings" withSlug />} />
-        <Route path="/dfir/darkweb" element={<MovedRedirect to="/threatintel/darkweb" />} />
-        <Route path="/dfir/onion-watch" element={<MovedRedirect to="/threatintel/onion-watch" />} />
-        <Route path="/dfir/telegram-watch" element={<MovedRedirect to="/threatintel/telegram-watch" />} />
-        <Route path="/dfir/scam-watch" element={<MovedRedirect to="/threatintel/scam-watch" />} />
-        <Route path="/dfir/tech-ai-news" element={<MovedRedirect to="/threatintel/tech-ai-news" />} />
-        <Route path="/dfir/threat-feeds" element={<MovedRedirect to="/threatintel/threat-feeds" />} />
-        <Route path="/dfir/threat-map" element={<MovedRedirect to="/threatintel/threat-map" />} />
-        <Route path="/dfir/actors" element={<MovedRedirect to="/threatintel/actors" />} />
-        <Route path="/dfir/actors/:slug" element={<MovedRedirect to="/threatintel/actors" withSlug />} />
-        <Route path="/dfir/mitre" element={<MovedRedirect to="/threatintel/mitre" />} />
-        <Route path="/dfir/rules" element={<MovedRedirect to="/threatintel/rules" />} />
-        <Route path="/dfir/cve-resources" element={<MovedRedirect to="/threatintel/cve-resources" />} />
-        <Route path="/dfir/wiki" element={<MovedRedirect to="/threatintel/wiki" />} />
-        <Route path="/dfir/wiki/:slug" element={<MovedRedirect to="/threatintel/wiki" withSlug />} />
-        <Route path="/dfir/secops-tools" element={<MovedRedirect to="/threatintel/secops-tools" />} />
-        <Route path="/dfir/awesome-lists" element={<MovedRedirect to="/threatintel/awesome-lists" />} />
-        <Route path="/dfir/osint-framework" element={<MovedRedirect to="/threatintel/osint-framework" />} />
         <Route
           path="/admin"
           element={

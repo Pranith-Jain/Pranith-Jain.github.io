@@ -21,27 +21,27 @@
  */
 export function estimateReadingTime(content: string): number {
   if (!content) return 1;
-  
+
   // Remove code blocks and count them separately
   const codeBlocks = content.match(/```[\s\S]*?```/g) ?? [];
   const codeTime = codeBlocks.length * 0.5; // 30 seconds per code block
-  
+
   // Remove code, HTML, markdown syntax for word count
   const plainText = content
     .replace(/```[\s\S]*?```/g, '')
     .replace(/<[^>]+>/g, '')
-    .replace(/[#*_~`\[\]()]/g, "") // eslint-disable-line no-useless-escape
+    .replace(/[#*_~`\[\]()]/g, '') // eslint-disable-line no-useless-escape
     .replace(/\s+/g, ' ')
     .trim();
-  
+
   const wordCount = plainText.split(/\s+/).filter(Boolean).length;
   const wordsPerMinute = 220; // Technical content reading speed
   const readingMinutes = wordCount / wordsPerMinute;
-  
+
   // Add time for images (average 5 seconds each)
   const imageCount = (content.match(/!\[.*?\]\(.*?\)/g) ?? []).length;
   const imageTime = imageCount * (5 / 60);
-  
+
   return Math.max(1, Math.ceil(readingMinutes + codeTime + imageTime));
 }
 
@@ -63,7 +63,7 @@ interface TocEntry {
 export function extractTableOfContents(content: string): TocEntry[] {
   const headings: TocEntry[] = [];
   const lines = content.split('\n');
-  
+
   for (const line of lines) {
     const match = /^(#{2,3})\s+(.+)$/.exec(line);
     if (match) {
@@ -76,11 +76,11 @@ export function extractTableOfContents(content: string): TocEntry[] {
         .replace(/\s+/g, '-')
         .replace(/-+/g, '-')
         .slice(0, 80);
-      
+
       headings.push({ id, text, level });
     }
   }
-  
+
   return headings;
 }
 
@@ -91,19 +91,16 @@ export function extractTableOfContents(content: string): TocEntry[] {
  * @returns HTML with IDs added to headings
  */
 export function addHeadingIds(html: string): string {
-  return html.replace(
-    /<h([23])(.*?)>(.*?)<\/h\1>/gi,
-    (_match, level, attrs, text) => {
-      const id = text
-        .toLowerCase()
-        .replace(/<[^>]+>/g, '')
-        .replace(/[^\w\s-]/g, '')
-        .replace(/\s+/g, '-')
-        .replace(/-+/g, '-')
-        .slice(0, 80);
-      return `<h${level}${attrs} id="${id}">${text}</h${level}>`;
-    }
-  );
+  return html.replace(/<h([23])(.*?)>(.*?)<\/h\1>/gi, (_match, level, attrs, text) => {
+    const id = text
+      .toLowerCase()
+      .replace(/<[^>]+>/g, '')
+      .replace(/[^\w\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .slice(0, 80);
+    return `<h${level}${attrs} id="${id}">${text}</h${level}>`;
+  });
 }
 
 // ── Hashtag Generation ───────────────────────────────────────────
@@ -135,9 +132,9 @@ export function generateHashtags(
 ): string[] {
   const { max = 5, platform = 'twitter' } = options;
   const content = `${title} ${body}`.toLowerCase();
-  
+
   const hashtags = new Set<string>();
-  
+
   // Always include platform-specific defaults
   if (platform === 'twitter') {
     hashtags.add('cybersecurity');
@@ -145,48 +142,48 @@ export function generateHashtags(
     hashtags.add('cybersecurity');
     hashtags.add('infosec');
   }
-  
+
   // Map keywords to hashtags
   const keywordMap: Record<string, string> = {
-    'ransomware': 'ransomware',
-    'apt': 'apt',
-    'malware': 'malware',
-    'phishing': 'phishing',
-    'vulnerability': 'vulnerability',
-    'cve': 'cve',
+    ransomware: 'ransomware',
+    apt: 'apt',
+    malware: 'malware',
+    phishing: 'phishing',
+    vulnerability: 'vulnerability',
+    cve: 'cve',
     'zero-day': 'zeroday',
     'zero day': 'zeroday',
     'threat actor': 'threatactor',
     'threat intelligence': 'threatintel',
-    'dfir': 'dfir',
+    dfir: 'dfir',
     'incident response': 'incidentresponse',
-    'forensics': 'forensics',
-    'osint': 'osint',
+    forensics: 'forensics',
+    osint: 'osint',
     'dark web': 'darkweb',
-    'breach': 'databreach',
+    breach: 'databreach',
     'data breach': 'databreach',
     'cloud security': 'cloudsecurity',
     'api security': 'apisecurity',
     'supply chain': 'supplychain',
-    'iot': 'iot',
+    iot: 'iot',
     'ai security': 'aisecurity',
     'machine learning': 'machinelearning',
-    'detection': 'detection',
-    'hunting': 'threathunting',
-    'mitre': 'mitre',
+    detection: 'detection',
+    hunting: 'threathunting',
+    mitre: 'mitre',
     'att&ck': 'mitreattack',
-    'sigma': 'sigma',
-    'yara': 'yara',
-    'suricata': 'suricata',
+    sigma: 'sigma',
+    yara: 'yara',
+    suricata: 'suricata',
   };
-  
+
   // Check content for keyword matches
   for (const [keyword, hashtag] of Object.entries(keywordMap)) {
     if (content.includes(keyword)) {
       hashtags.add(hashtag);
     }
   }
-  
+
   // Add from existing tags
   for (const tag of tags) {
     const normalized = tag.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -194,10 +191,10 @@ export function generateHashtags(
       hashtags.add(normalized);
     }
   }
-  
+
   // Platform-specific limits
   const limit = platform === 'twitter' ? Math.min(max, 3) : Math.min(max, 5);
-  
+
   return Array.from(hashtags).slice(0, limit);
 }
 
@@ -219,15 +216,11 @@ interface ShareUrls {
  * @param hashtags - Optional hashtags for Twitter
  * @returns Object with sharing URLs for each platform
  */
-export function generateShareUrls(
-  title: string,
-  url: string,
-  hashtags: string[] = []
-): ShareUrls {
+export function generateShareUrls(title: string, url: string, hashtags: string[] = []): ShareUrls {
   const encodedTitle = encodeURIComponent(title);
   const encodedUrl = encodeURIComponent(url);
   const twitterHashtags = hashtags.length > 0 ? `&hashtags=${hashtags.join(',')}` : '';
-  
+
   return {
     twitter: `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}${twitterHashtags}`,
     linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
@@ -243,9 +236,9 @@ interface QualityScore {
   overall: number; // 0-100
   breakdown: {
     specificity: number; // Concrete facts, numbers, names
-    structure: number;   // Sections, headings, flow
+    structure: number; // Sections, headings, flow
     readability: number; // Sentence length, paragraph size
-    engagement: number;  // Hooks, questions, CTAs
+    engagement: number; // Hooks, questions, CTAs
     originality: number; // Unique insights, not generic
   };
   suggestions: string[];
@@ -266,11 +259,11 @@ export function scoreContentQuality(content: string, _title: string): QualitySco
   let readability = 70;
   let engagement = 70;
   let originality = 70;
-  
+
   // Specificity checks
   const cveCount = (content.match(/CVE-\d{4}-\d+/gi) ?? []).length;
   const numberCount = (content.match(/\b\d+\b/g) ?? []).length;
-  
+
   if (cveCount === 0 && content.includes('vulnerability')) {
     specificity -= 15;
     suggestions.push('Add specific CVE identifiers to support vulnerability claims');
@@ -279,11 +272,11 @@ export function scoreContentQuality(content: string, _title: string): QualitySco
     specificity -= 10;
     suggestions.push('Include more specific numbers (counts, percentages, dates)');
   }
-  
+
   // Structure checks
   const headings = (content.match(/^##\s+.+$/gm) ?? []).length;
   const paragraphs = content.split(/\n\n+/).length;
-  
+
   if (headings < 3) {
     structure -= 15;
     suggestions.push('Add more section headings (##) to improve structure');
@@ -292,21 +285,21 @@ export function scoreContentQuality(content: string, _title: string): QualitySco
     structure -= 10;
     suggestions.push('Break content into more paragraphs for readability');
   }
-  
+
   // Readability checks
   const sentences = content.split(/[.!?]+/).filter(Boolean);
   const avgSentenceLength = sentences.reduce((sum, s) => sum + s.split(/\s+/).length, 0) / sentences.length;
-  
+
   if (avgSentenceLength > 25) {
     readability -= 15;
     suggestions.push('Shorten sentences (average >25 words). Aim for 15-20 words.');
   }
-  
+
   // Engagement checks
   const hasHook = content.slice(0, 200).includes('?') || content.slice(0, 200).includes('!');
   const hasQuestion = content.includes('?');
   const hasCallToAction = /learn more|read more|check out|see also/i.test(content);
-  
+
   if (!hasHook) {
     engagement -= 15;
     suggestions.push('Start with a hook (question, surprising fact, or bold statement)');
@@ -318,28 +311,26 @@ export function scoreContentQuality(content: string, _title: string): QualitySco
   if (hasCallToAction) {
     engagement += 5;
   }
-  
+
   // Originality checks (detect generic phrases)
   const genericPhrases = [
-    'in today\'s world',
-    'it\'s no secret',
+    "in today's world",
+    "it's no secret",
     'as we all know',
     'the bottom line',
     'at the end of the day',
   ];
-  
+
   for (const phrase of genericPhrases) {
     if (content.toLowerCase().includes(phrase)) {
       originality -= 10;
       suggestions.push(`Remove generic phrase: "${phrase}"`);
     }
   }
-  
+
   // Calculate overall
-  const overall = Math.round(
-    (specificity + structure + readability + engagement + originality) / 5
-  );
-  
+  const overall = Math.round((specificity + structure + readability + engagement + originality) / 5);
+
   return {
     overall: Math.max(0, Math.min(100, overall)),
     breakdown: {
@@ -370,35 +361,31 @@ interface PostMeta {
  * @param limit - Maximum related posts to return
  * @returns Array of related posts sorted by relevance
  */
-export function findRelatedPosts(
-  current: PostMeta,
-  allPosts: PostMeta[],
-  limit: number = 3
-): PostMeta[] {
+export function findRelatedPosts(current: PostMeta, allPosts: PostMeta[], limit: number = 3): PostMeta[] {
   const scored = allPosts
     .filter((p) => p.slug !== current.slug)
     .map((post) => {
       let score = 0;
-      
+
       // Tag overlap (highest weight)
       const tagOverlap = current.tags.filter((t) => post.tags.includes(t)).length;
       score += tagOverlap * 3;
-      
+
       // Same type bonus
       if (post.type === current.type) score += 2;
-      
+
       // Title word overlap
       const currentWords = new Set(current.title.toLowerCase().split(/\s+/));
       const postWords = post.title.toLowerCase().split(/\s+/);
       const wordOverlap = postWords.filter((w) => currentWords.has(w) && w.length > 3).length;
       score += wordOverlap;
-      
+
       return { post, score };
     })
     .filter((item) => item.score > 0)
     .sort((a, b) => b.score - a.score)
     .slice(0, limit);
-  
+
   return scored.map((item) => item.post);
 }
 
@@ -465,7 +452,7 @@ export function suggestPostingTime(
       },
     },
   };
-  
+
   const platformSuggestions = suggestions[platform] ?? suggestions.twitter;
   return platformSuggestions[contentType] ?? platformSuggestions.general!;
 }

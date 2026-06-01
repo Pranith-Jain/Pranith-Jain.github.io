@@ -1,8 +1,17 @@
 import { useState, useCallback, useRef, useEffect, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  Play, Database, Table, Clock, Download, AlertTriangle,
-  ChevronDown, ChevronRight, Terminal, RotateCcw, Info,
+  Play,
+  Database,
+  Table,
+  Clock,
+  Download,
+  AlertTriangle,
+  ChevronDown,
+  ChevronRight,
+  Terminal,
+  RotateCcw,
+  Info,
 } from 'lucide-react';
 import { CopyButton } from '../../components/dfir/CopyButton';
 
@@ -24,12 +33,30 @@ import { CopyButton } from '../../components/dfir/CopyButton';
  */
 
 const EXAMPLE_QUERIES = [
-  { label: 'Recent critical CVEs', sql: "SELECT cve_id, severity, cvss_score, description FROM cve_recent WHERE severity = 'CRITICAL' ORDER BY published DESC LIMIT 20" },
-  { label: 'Active ransomware groups', sql: "SELECT group_name, COUNT(*) as victims FROM ransomware_victims GROUP BY group_name ORDER BY victims DESC LIMIT 15" },
-  { label: 'Threat actors by country', sql: "SELECT country, COUNT(*) as actors, GROUP_CONCAT(name, ', ') as names FROM threat_actors WHERE country IS NOT NULL GROUP BY country ORDER BY actors DESC" },
-  { label: 'Malware families by type', sql: "SELECT malware_type, COUNT(*) as count, GROUP_CONCAT(name, ', ') as families FROM malware_families GROUP BY malware_type ORDER BY count DESC" },
-  { label: 'Recent breach disclosures', sql: "SELECT entity, breach_date, records_exposed, data_types FROM breach_disclosures ORDER BY breach_date DESC LIMIT 20" },
-  { label: 'IOC feed summary by type', sql: "SELECT indicator_type, COUNT(*) as count, MIN(first_seen) as oldest, MAX(last_seen) as newest FROM ioc_feed GROUP BY indicator_type ORDER BY count DESC" },
+  {
+    label: 'Recent critical CVEs',
+    sql: "SELECT cve_id, severity, cvss_score, description FROM cve_recent WHERE severity = 'CRITICAL' ORDER BY published DESC LIMIT 20",
+  },
+  {
+    label: 'Active ransomware groups',
+    sql: 'SELECT group_name, COUNT(*) as victims FROM ransomware_victims GROUP BY group_name ORDER BY victims DESC LIMIT 15',
+  },
+  {
+    label: 'Threat actors by country',
+    sql: "SELECT country, COUNT(*) as actors, GROUP_CONCAT(name, ', ') as names FROM threat_actors WHERE country IS NOT NULL GROUP BY country ORDER BY actors DESC",
+  },
+  {
+    label: 'Malware families by type',
+    sql: "SELECT malware_type, COUNT(*) as count, GROUP_CONCAT(name, ', ') as families FROM malware_families GROUP BY malware_type ORDER BY count DESC",
+  },
+  {
+    label: 'Recent breach disclosures',
+    sql: 'SELECT entity, breach_date, records_exposed, data_types FROM breach_disclosures ORDER BY breach_date DESC LIMIT 20',
+  },
+  {
+    label: 'IOC feed summary by type',
+    sql: 'SELECT indicator_type, COUNT(*) as count, MIN(first_seen) as oldest, MAX(last_seen) as newest FROM ioc_feed GROUP BY indicator_type ORDER BY count DESC',
+  },
 ];
 
 interface QueryResult {
@@ -189,7 +216,9 @@ export default function SqlWorkspace(): JSX.Element {
         if (!cancelled) setDbLoading(false);
       }
     })();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const executeQuery = useCallback((querySql: string) => {
@@ -233,7 +262,10 @@ export default function SqlWorkspace(): JSX.Element {
 
   const exportCsv = () => {
     if (!result) return;
-    const csv = [result.columns.join(','), ...result.rows.map((r) => r.map((v) => `"${String(v ?? '').replace(/"/g, '""')}"`).join(','))].join('\n');
+    const csv = [
+      result.columns.join(','),
+      ...result.rows.map((r) => r.map((v) => `"${String(v ?? '').replace(/"/g, '""')}"`).join(',')),
+    ].join('\n');
     const blob = new Blob([csv], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -245,7 +277,10 @@ export default function SqlWorkspace(): JSX.Element {
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 text-slate-900 dark:text-slate-100">
-      <Link to="/dfir" className="inline-flex items-center gap-1.5 text-xs font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 mb-6">
+      <Link
+        to="/dfir"
+        className="inline-flex items-center gap-1.5 text-xs font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 mb-6"
+      >
         ← back to DFIR tools
       </Link>
 
@@ -278,7 +313,9 @@ export default function SqlWorkspace(): JSX.Element {
                     {expandedTable === t && tableSchemas[t] && (
                       <div className="ml-4 mt-0.5 space-y-0.5">
                         {tableSchemas[t].map((col) => (
-                          <div key={col} className="text-[10px] font-mono text-slate-400">{col}</div>
+                          <div key={col} className="text-[10px] font-mono text-slate-400">
+                            {col}
+                          </div>
                         ))}
                         <button
                           onClick={() => setSql(`SELECT * FROM ${t} LIMIT 50`)}
@@ -302,7 +339,10 @@ export default function SqlWorkspace(): JSX.Element {
               {EXAMPLE_QUERIES.map((ex) => (
                 <button
                   key={ex.label}
-                  onClick={() => { setSql(ex.sql); void executeQuery(ex.sql); }}
+                  onClick={() => {
+                    setSql(ex.sql);
+                    void executeQuery(ex.sql);
+                  }}
                   className="block w-full text-left text-[11px] text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 py-0.5 truncate"
                 >
                   {ex.label}
@@ -320,7 +360,10 @@ export default function SqlWorkspace(): JSX.Element {
                 {queryHistory.map((h, i) => (
                   <button
                     key={i}
-                    onClick={() => { setSql(h.sql); void executeQuery(h.sql); }}
+                    onClick={() => {
+                      setSql(h.sql);
+                      void executeQuery(h.sql);
+                    }}
                     className="block w-full text-left text-[10px] font-mono text-slate-500 hover:text-brand-600 truncate"
                   >
                     {h.time} · {h.rows} rows
@@ -348,7 +391,11 @@ export default function SqlWorkspace(): JSX.Element {
               <div className="absolute right-2 bottom-2 flex gap-1">
                 <button
                   type="button"
-                  onClick={() => { setSql(''); setResult(null); setError(''); }}
+                  onClick={() => {
+                    setSql('');
+                    setResult(null);
+                    setError('');
+                  }}
                   className="p-1.5 rounded text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
                   title="Clear"
                 >
@@ -368,7 +415,8 @@ export default function SqlWorkspace(): JSX.Element {
 
           {error && (
             <div className="p-3 rounded-lg bg-rose-50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-800/50 text-rose-700 dark:text-rose-300 text-sm font-mono">
-              <AlertTriangle size={14} className="inline mr-2" />{error}
+              <AlertTriangle size={14} className="inline mr-2" />
+              {error}
             </div>
           )}
 
@@ -377,11 +425,17 @@ export default function SqlWorkspace(): JSX.Element {
             <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
               <div className="flex items-center justify-between px-3 py-2 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/40">
                 <div className="flex items-center gap-3 text-xs font-mono text-slate-500">
-                  <span>{result.rowCount} row{result.rowCount !== 1 ? 's' : ''}</span>
+                  <span>
+                    {result.rowCount} row{result.rowCount !== 1 ? 's' : ''}
+                  </span>
                   <span>{result.executionMs}ms</span>
                 </div>
                 <div className="flex gap-1">
-                  <button onClick={exportCsv} className="p-1.5 rounded text-slate-400 hover:text-brand-600" title="Export CSV">
+                  <button
+                    onClick={exportCsv}
+                    className="p-1.5 rounded text-slate-400 hover:text-brand-600"
+                    title="Export CSV"
+                  >
                     <Download size={14} />
                   </button>
                   <CopyButton value={JSON.stringify(result.rows, null, 2)} />
@@ -392,7 +446,10 @@ export default function SqlWorkspace(): JSX.Element {
                   <thead className="sticky top-0 bg-slate-100 dark:bg-slate-800">
                     <tr>
                       {result.columns.map((col) => (
-                        <th key={col} className="px-3 py-2 text-left font-semibold text-slate-700 dark:text-slate-300 border-b border-slate-200 dark:border-slate-700 whitespace-nowrap">
+                        <th
+                          key={col}
+                          className="px-3 py-2 text-left font-semibold text-slate-700 dark:text-slate-300 border-b border-slate-200 dark:border-slate-700 whitespace-nowrap"
+                        >
                           {col}
                         </th>
                       ))}
@@ -400,10 +457,20 @@ export default function SqlWorkspace(): JSX.Element {
                   </thead>
                   <tbody>
                     {result.rows.map((row, ri) => (
-                      <tr key={ri} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 border-b border-slate-100 dark:border-slate-800">
+                      <tr
+                        key={ri}
+                        className="hover:bg-slate-50 dark:hover:bg-slate-800/50 border-b border-slate-100 dark:border-slate-800"
+                      >
                         {row.map((cell, ci) => (
-                          <td key={ci} className="px-3 py-1.5 text-slate-700 dark:text-slate-300 whitespace-nowrap max-w-xs truncate">
-                            {cell === null ? <span className="text-slate-300 dark:text-slate-600">NULL</span> : String(cell)}
+                          <td
+                            key={ci}
+                            className="px-3 py-1.5 text-slate-700 dark:text-slate-300 whitespace-nowrap max-w-xs truncate"
+                          >
+                            {cell === null ? (
+                              <span className="text-slate-300 dark:text-slate-600">NULL</span>
+                            ) : (
+                              String(cell)
+                            )}
                           </td>
                         ))}
                       </tr>
@@ -417,8 +484,12 @@ export default function SqlWorkspace(): JSX.Element {
           {!result && !loading && !error && (
             <div className="text-center py-12">
               <Terminal size={32} className="mx-auto mb-3 text-slate-300 dark:text-slate-600" />
-              <p className="text-sm text-slate-500">Write a SQL query and click Run, or try an example from the sidebar.</p>
-              <p className="text-xs text-slate-400 mt-1 flex items-center justify-center gap-1"><Info size={10} /> All data is synthetic — this is a demonstration workspace.</p>
+              <p className="text-sm text-slate-500">
+                Write a SQL query and click Run, or try an example from the sidebar.
+              </p>
+              <p className="text-xs text-slate-400 mt-1 flex items-center justify-center gap-1">
+                <Info size={10} /> All data is synthetic — this is a demonstration workspace.
+              </p>
             </div>
           )}
         </div>

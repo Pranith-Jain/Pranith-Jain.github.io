@@ -107,7 +107,10 @@ export const GROUP_META: Record<ToolGroup, { label: string; blurb: string }> = {
     label: 'Threat-Intel Tools',
     blurb: 'Detection engineering. YARA/Sigma, LOLBins, log timeline, STIX.',
   },
-  osint: { label: 'OSINT & Recon', blurb: 'Recon, attribution, dark web, privacy checks. Username, image, archive, geo, PGP, Tor.' },
+  osint: {
+    label: 'OSINT & Recon',
+    blurb: 'Recon, attribution, dark web, privacy checks. Username, image, archive, geo, PGP, Tor.',
+  },
   aisec: {
     label: 'AI Security Tools',
     blurb: 'LLM red-teaming, prompt-injection, MCP audit, agent attack surface, ATLAS.',

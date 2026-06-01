@@ -7,7 +7,7 @@ const THEME_VALUES: Theme[] = ['light', 'dark'];
 
 function getInitialTheme(): Theme {
   if (typeof window === 'undefined') return 'light';
-  
+
   try {
     const stored = localStorage.getItem(STORAGE_KEY) as Theme | null;
     if (stored && THEME_VALUES.includes(stored)) {
@@ -16,7 +16,7 @@ function getInitialTheme(): Theme {
   } catch (e) {
     console.warn('Failed to read theme from localStorage:', e);
   }
-  
+
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 
@@ -30,7 +30,7 @@ export function useTheme() {
     } else {
       html.classList.remove('dark');
     }
-    
+
     try {
       localStorage.setItem(STORAGE_KEY, theme);
     } catch (e) {

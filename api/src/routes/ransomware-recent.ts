@@ -5,6 +5,7 @@ import { fetchMythreatintelRansomwareVictims } from '../lib/mythreatintel-parser
 import { fetchAFRansomwareVictims } from '../lib/andreafortuna-feeds';
 import { fetchMtiSource, type MtiRansomwareClaim } from '../lib/mythreatintel-api';
 import { shouldWriteLastGood } from '../lib/lastgood-debounce';
+import { readXClaimsCache } from './x-claims';
 
 /**
  * Recent ransomware leak-site posts via Ransomlook.io's free `/api/recent`
@@ -73,7 +74,15 @@ interface RansomlookEntry {
  * fetcher; preserved by mergeVictims() so the frontend can render an
  * origin-pill per row.
  */
-export type RansomwareOrigin = 'ransomlook' | 'mti' | 'ransomfeed' | 'ransomwatch' | 'ransomwarelive' | 'andreafortuna';
+export type RansomwareOrigin =
+  | 'ransomlook'
+  | 'mti'
+  | 'ransomfeed'
+  | 'ransomwatch'
+  | 'ransomwarelive'
+  | 'andreafortuna'
+  | 'ctifyi'
+  | 'x';
 
 export interface RansomwareVictim {
   victim: string;
@@ -286,6 +295,77 @@ async function fetchRansomwareLiveVictims(): Promise<RansomwareVictim[]> {
 }
 
 /**
+ * cti.fyi leak-site post tracker. Free public JSON API (`/api/v1/posts/recent`)
+ * returning `{ post_title, group_name, discovered, post_url, screenshot_path }`.
+ * Like Ransomlook it captures a clearnet-rehosted `.webp` screenshot of each
+ * .onion post, so it both fills coverage gaps AND carries screenshots for the
+ * UI to inline. Independently aggregated; the merge dedupes by (group|victim|day).
+ */
+const CTIFYI_RECENT = 'https://cti.fyi/api/v1/posts/recent?limit=500';
+
+interface CtiFyiPost {
+  post_title?: string;
+  group_name?: string;
+  discovered?: string;
+  post_url?: string;
+  screenshot_path?: string;
+}
+
+/**
+ * Map a cti.fyi recent-post entry to our normalized victim shape, or null when
+ * the entry is unusable (missing victim/group/date). `post_url` is the raw
+ * .onion claim; we link the clearnet group page instead so the row is
+ * followable from a normal browser, and surface the clearnet `.webp`
+ * screenshot (CSP `img-src https:` already permits it). Exported for unit
+ * coverage of the field/date/screenshot mapping.
+ */
+export function ctiFyiPostToVictim(e: CtiFyiPost): RansomwareVictim | null {
+  const victim = e.post_title?.trim();
+  const group = e.group_name?.trim();
+  if (!victim || !group || !e.discovered) return null;
+  const discovered = toIsoDate(e.discovered);
+  if (Number.isNaN(Date.parse(discovered))) return null;
+  const slug = group.toLowerCase();
+  const screen = e.screenshot_path?.trim();
+  return {
+    victim,
+    group: slug,
+    discovered,
+    source_url: `https://cti.fyi/groups/${encodeURIComponent(slug)}.html`,
+    screen_url: screen ? `https://cti.fyi/${screen.replace(/^\//, '')}` : undefined,
+    sector: classifySector(victim, undefined),
+    origin: 'ctifyi' as const,
+  };
+}
+
+async function fetchCtiFyiVictims(): Promise<RansomwareVictim[]> {
+  try {
+    const res = await fetch(CTIFYI_RECENT, {
+      headers: {
+        Accept: 'application/json',
+        'User-Agent': 'pranithjain.qzz.io DFIR toolkit (free, read-only)',
+      },
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      cf: { cacheTtlByStatus: { '200-299': CACHE_TTL_SECONDS, '400-599': 0 }, cacheEverything: true },
+    } as RequestInit);
+    if (!res.ok) return [];
+    const json = (await res.json()) as { results?: CtiFyiPost[] };
+    const results = Array.isArray(json?.results) ? json.results : [];
+    const cutoffMs = Date.now() - 7 * 24 * 3600 * 1000;
+    const out: RansomwareVictim[] = [];
+    for (const e of results) {
+      const v = ctiFyiPostToVictim(e);
+      if (!v || Date.parse(v.discovered) < cutoffMs) continue;
+      out.push(v);
+      if (out.length >= MAX_ITEMS) break;
+    }
+    return out;
+  } catch {
+    return [];
+  }
+}
+
+/**
  * MyThreatIntel REST API `ransomware` source — ransomware victim claims
  * (`{ victim, gang, date, country, website, description }`). NOTE: the
  * upstream `events` source is empty; victim/CTI-event data is served by
@@ -321,6 +401,19 @@ async function fetchMtiApiVictims(env: Env): Promise<RansomwareVictim[]> {
     if (out.length >= MAX_ITEMS) break;
   }
   return out;
+}
+
+/**
+ * Ransomware victim claims parsed from threat-intel X channels (FalconFeeds,
+ * @DailyDarkWeb, …) by the /api/v1/x-claims route. We read ONLY its cache here
+ * — never re-fetching X — so the core ransomware feed carries no X auth /
+ * rate-limit risk. Cold cache → []; the x-claims endpoint (page view + hourly
+ * cron warm) keeps it populated. Lowest dedupe priority: these are free-text
+ * extractions, so a structured tracker always wins a (group|victim|day) tie.
+ */
+async function fetchXVictims(): Promise<RansomwareVictim[]> {
+  const cached = await readXClaimsCache();
+  return cached?.ransomware ?? [];
 }
 
 /** Merge N victim lists, dedupe by (group + victim + day), keep newest. */
@@ -361,37 +454,50 @@ export async function fetchRansomwareRecent(env?: Env): Promise<{
   //   2. mythreatintel     — Spanish CTI channel, real-time, has descriptions
   //   3. ransomfeed.it     — RSS of victim claims, has descriptions
   //   4. ransomwatch       — id-only, fills coverage gaps from leak-site scrapes
-  const [primarySettled, mtiApiVictims, mtiVictims, secondaryVictims, tertiaryVictims, rlVictims, afVictims] =
-    await Promise.all([
-      (async () => {
-        try {
-          const ctrl = new AbortController();
-          const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
-          const res = await fetch(UPSTREAM, {
-            headers: {
-              Accept: 'application/json',
-              'User-Agent': 'pranithjain.qzz.io DFIR toolkit (free, read-only)',
-            },
-            signal: ctrl.signal,
-          });
-          clearTimeout(timer);
-          return res;
-        } catch {
-          return null;
-        }
-      })(),
-      // MyThreatIntel REST API `events` — higher-fidelity 'mti' victims.
-      // Skipped (→ []) when no env/token; the scraper below stays the fallback.
-      env ? fetchMtiApiVictims(env).catch(() => []) : Promise.resolve([] as RansomwareVictim[]),
-      // mythreatintel parser returns a structurally-compatible shape; the only
-      // extra field is `country`, which RansomwareVictim doesn't yet carry —
-      // safe to upcast.
-      fetchMythreatintelRansomwareVictims().catch(() => []),
-      fetchRansomfeedVictims(),
-      fetchRansomwatchVictims(),
-      fetchRansomwareLiveVictims(),
-      fetchAFRansomwareVictims().catch(() => []),
-    ]);
+  const [
+    primarySettled,
+    mtiApiVictims,
+    mtiVictims,
+    secondaryVictims,
+    tertiaryVictims,
+    rlVictims,
+    afVictims,
+    ctiFyiVictims,
+    xVictims,
+  ] = await Promise.all([
+    (async () => {
+      try {
+        const ctrl = new AbortController();
+        const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
+        const res = await fetch(UPSTREAM, {
+          headers: {
+            Accept: 'application/json',
+            'User-Agent': 'pranithjain.qzz.io DFIR toolkit (free, read-only)',
+          },
+          signal: ctrl.signal,
+        });
+        clearTimeout(timer);
+        return res;
+      } catch {
+        return null;
+      }
+    })(),
+    // MyThreatIntel REST API `events` — higher-fidelity 'mti' victims.
+    // Skipped (→ []) when no env/token; the scraper below stays the fallback.
+    env ? fetchMtiApiVictims(env).catch(() => []) : Promise.resolve([] as RansomwareVictim[]),
+    // mythreatintel parser returns a structurally-compatible shape; the only
+    // extra field is `country`, which RansomwareVictim doesn't yet carry —
+    // safe to upcast.
+    fetchMythreatintelRansomwareVictims().catch(() => []),
+    fetchRansomfeedVictims(),
+    fetchRansomwatchVictims(),
+    fetchRansomwareLiveVictims(),
+    fetchAFRansomwareVictims().catch(() => []),
+    // cti.fyi — independent leak-site tracker; carries .webp screenshots.
+    fetchCtiFyiVictims().catch(() => []),
+    // X channels (FalconFeeds, @DailyDarkWeb) — cache-only, best-effort.
+    fetchXVictims().catch(() => []),
+  ]);
 
   try {
     const res = primarySettled;
@@ -434,21 +540,29 @@ export async function fetchRansomwareRecent(env?: Env): Promise<{
       secondaryVictims.length > 0 ||
       tertiaryVictims.length > 0 ||
       rlVictims.length > 0 ||
-      afVictims.length > 0)
+      afVictims.length > 0 ||
+      ctiFyiVictims.length > 0 ||
+      xVictims.length > 0)
   ) {
     upstreamOk = true;
   }
 
   // AF passed last → lowest dedupe priority. It re-aggregates Ransomlook, so
   // originals win ties; AF only fills gaps the four primary trackers missed.
+  // Priority at tie-break: Ransomlook (screenshots) → MTI (country+desc) →
+  // cti.fyi (screenshots) → ransomfeed → ransomwatch → ransomware.live → AF.
+  // cti.fyi sits ahead of the screenshot-less trackers so its .webp wins ties.
   const victims = mergeVictims(
     primary,
     mtiApiVictims,
     mtiVictims as RansomwareVictim[],
+    ctiFyiVictims,
     secondaryVictims,
     tertiaryVictims,
     rlVictims,
-    afVictims
+    afVictims,
+    // X channels last — free-text parsed, so any structured tracker wins ties.
+    xVictims
   ).slice(0, MAX_ITEMS);
 
   const groupCounts = new Map<string, number>();
@@ -479,7 +593,8 @@ export async function fetchRansomwareRecent(env?: Env): Promise<{
 
   const body: ResponseBody = {
     generated_at: new Date().toISOString(),
-    source: 'ransomlook.io + mythreatintel + ransomfeed.it + ransomwatch (merged + deduped)',
+    source:
+      'ransomlook.io + mythreatintel + cti.fyi + ransomfeed.it + ransomwatch + ransomware.live + X/FalconFeeds (merged + deduped)',
     count: victims.length,
     groups,
     sectors,

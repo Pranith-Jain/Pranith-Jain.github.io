@@ -241,7 +241,11 @@ export interface FeedStatusBrief {
  * tools client-side or edge-only" note.
  */
 function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' }): JSX.Element {
-  const { data: status, error, loading } = useDataFetch<FeedStatusBrief>({
+  const {
+    data: status,
+    error,
+    loading,
+  } = useDataFetch<FeedStatusBrief>({
     url: mode === 'threatintel' ? '/api/v1/feed-status' : null,
     ttl: 30_000,
     staleWhileRevalidate: true,
@@ -282,7 +286,15 @@ function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' }): JSX.Element {
   );
 }
 
-function StatusPip({ status, error, loading }: { status: FeedStatusBrief | null; error: string | null; loading: boolean }): JSX.Element {
+function StatusPip({
+  status,
+  error,
+  loading,
+}: {
+  status: FeedStatusBrief | null;
+  error: string | null;
+  loading: boolean;
+}): JSX.Element {
   if (error) {
     return (
       <span className="inline-flex items-center gap-1.5">
@@ -294,7 +306,9 @@ function StatusPip({ status, error, loading }: { status: FeedStatusBrief | null;
   if (!status) {
     return (
       <span className="inline-flex items-center gap-1.5">
-        <span className={`inline-block w-1.5 h-1.5 rounded-full ${loading ? 'bg-slate-400 animate-pulse' : 'bg-slate-500'}`} />
+        <span
+          className={`inline-block w-1.5 h-1.5 rounded-full ${loading ? 'bg-slate-400 animate-pulse' : 'bg-slate-500'}`}
+        />
         {loading ? 'checking feeds…' : 'no data'}
       </span>
     );

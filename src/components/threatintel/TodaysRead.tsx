@@ -244,7 +244,9 @@ export function TodaysRead(): JSX.Element {
                 {ransom.primary}
                 <span className="text-sm font-mono text-slate-500 ml-2">claims</span>
               </p>
-              <p className="text-[12px] text-slate-600 dark:text-slate-400 leading-relaxed mt-auto">{ransom.secondary}</p>
+              <p className="text-[12px] text-slate-600 dark:text-slate-400 leading-relaxed mt-auto">
+                {ransom.secondary}
+              </p>
             </>
           )}
           <div className="mt-2.5 inline-flex items-center gap-1 text-[11px] font-mono text-rose-700 dark:text-rose-400 group-hover:underline">

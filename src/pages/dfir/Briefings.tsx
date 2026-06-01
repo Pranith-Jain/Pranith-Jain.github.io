@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Rss, ChevronRight, ChevronLeft, Search } from 'lucide-react';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
@@ -12,6 +12,8 @@ const FILTERS: Array<{ id: Filter; label: string }> = [
   { id: 'weekly', label: 'Weekly' },
   { id: 'landscape', label: 'Landscape' },
 ];
+
+const VALID_FILTERS: ReadonlySet<Filter> = new Set(FILTERS.map((f) => f.id));
 
 interface BriefingMeta {
   type: 'daily' | 'weekly' | 'landscape';
@@ -39,7 +41,12 @@ interface ListItem {
 const PAGE_SIZE = 30;
 
 export default function Briefings(): JSX.Element {
-  const [filter, setFilter] = useState<Filter>('all');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialFilter = (() => {
+    const t = searchParams.get('type');
+    return t && VALID_FILTERS.has(t as Filter) ? (t as Filter) : 'all';
+  })();
+  const [filter, setFilter] = useState<Filter>(initialFilter);
   const [query, setQuery] = useState('');
   const [items, setItems] = useState<ListItem[]>([]);
   const [total, setTotal] = useState(0);
@@ -154,7 +161,10 @@ export default function Briefings(): JSX.Element {
               <button
                 key={id}
                 type="button"
-                onClick={() => setFilter(id)}
+                onClick={() => {
+                  setFilter(id);
+                  setSearchParams(id === 'all' ? {} : { type: id }, { replace: true });
+                }}
                 className={`px-3 py-2 sm:py-1 min-h-[44px] sm:min-h-0 rounded-full text-xs font-mono uppercase tracking-wider border transition-colors inline-flex items-center ${
                   isActive
                     ? 'bg-brand-500/15 dark:bg-brand-400/15 text-brand-600 dark:text-brand-400 border-brand-500/40'

@@ -42,7 +42,7 @@ const SIZE_STYLES = {
 /**
  * Status indicator dot with optional label.
  * Shows a colored dot representing the current status with accessible labeling.
- * 
+ *
  * @example
  * <StatusIndicator status="online" label="API" />
  * <StatusIndicator status="error" pulse />
@@ -75,11 +75,7 @@ export const StatusIndicator = memo(function StatusIndicator({
           aria-hidden="true"
         />
       </span>
-      {label && (
-        <span className="text-xs font-medium text-slate-600 dark:text-slate-400">
-          {label}
-        </span>
-      )}
+      {label && <span className="text-xs font-medium text-slate-600 dark:text-slate-400">{label}</span>}
     </span>
   );
 });

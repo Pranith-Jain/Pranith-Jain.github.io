@@ -36,9 +36,7 @@ export async function safeParseJson<T>(res: Response): Promise<T> {
     const snippet = text.slice(0, 200).trim();
     throw new FetchError(
       res.status,
-      snippet
-        ? `Server returned ${res.status} non-JSON: ${snippet}`
-        : `Server returned ${res.status} with no body`,
+      snippet ? `Server returned ${res.status} non-JSON: ${snippet}` : `Server returned ${res.status} with no body`,
       snippet
     );
   }
@@ -58,10 +56,7 @@ export async function safeParseJson<T>(res: Response): Promise<T> {
  *   `/api/v1/domain/lookup?domain=${encodeURIComponent(domain)}`
  * );
  */
-export async function fetchJson<T>(
-  url: string,
-  init?: RequestInit & { timeoutMs?: number }
-): Promise<T> {
+export async function fetchJson<T>(url: string, init?: RequestInit & { timeoutMs?: number }): Promise<T> {
   const { timeoutMs, ...fetchInit } = init ?? {};
   const signal = fetchInit.signal ?? (timeoutMs ? AbortSignal.timeout(timeoutMs) : undefined);
 

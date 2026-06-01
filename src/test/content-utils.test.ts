@@ -142,7 +142,12 @@ describe('Content Utilities', () => {
     const posts = [
       { slug: 'a', title: 'Ransomware Attack Analysis', tags: ['ransomware', 'lockbit'], type: 'ransom' },
       { slug: 'b', title: 'Phishing Campaign Detection', tags: ['phishing', 'email'], type: 'intel' },
-      { slug: 'c', title: 'LockBit Ransomware Update', tags: ['ransomware', 'lockbit', 'threat-intel'], type: 'ransom' },
+      {
+        slug: 'c',
+        title: 'LockBit Ransomware Update',
+        tags: ['ransomware', 'lockbit', 'threat-intel'],
+        type: 'ransom',
+      },
       { slug: 'd', title: 'Cloud Security Best Practices', tags: ['cloud', 'aws'], type: 'methodology' },
     ];
 

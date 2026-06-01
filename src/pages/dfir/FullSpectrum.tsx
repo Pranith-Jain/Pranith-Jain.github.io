@@ -80,7 +80,9 @@ function fetchTool(url: string): Promise<unknown> {
       try {
         const parsed = JSON.parse(body) as { error?: string };
         msg = parsed.error ?? msg;
-      } catch { /* use default msg */ }
+      } catch {
+        /* use default msg */
+      }
       throw new Error(msg);
     }
     const ct = r.headers.get('content-type') ?? '';

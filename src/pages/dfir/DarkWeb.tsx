@@ -745,7 +745,7 @@ export function BreachDisclosuresPanel(): JSX.Element {
 // Recent Ransomware Activity panel — pulls Ransomlook.io's leak-site posts
 // ─────────────────────────────────────────────────────────────────────────
 
-type RansomwareOrigin = 'ransomlook' | 'mti' | 'ransomfeed' | 'ransomwatch';
+type RansomwareOrigin = 'ransomlook' | 'mti' | 'ransomfeed' | 'ransomwatch' | 'ctifyi' | 'x';
 
 interface RansomwareVictim {
   victim: string;
@@ -781,6 +781,16 @@ const ORIGIN_PILL: Record<RansomwareOrigin, { label: string; cls: string; toolti
     label: 'RW',
     cls: 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
     tooltip: 'ransomwatch — joshhighet/ransomwatch GitHub posts.json',
+  },
+  ctifyi: {
+    label: 'CTI',
+    cls: 'border-teal-500/40 bg-teal-500/10 text-teal-700 dark:text-teal-300',
+    tooltip: 'cti.fyi — leak-site post tracker with .onion screenshots',
+  },
+  x: {
+    label: 'X',
+    cls: 'border-zinc-500/40 bg-zinc-500/10 text-zinc-700 dark:text-zinc-300',
+    tooltip: 'X / FalconFeeds + @DailyDarkWeb — leak-site claims parsed from posts',
   },
 };
 

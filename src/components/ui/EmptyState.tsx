@@ -39,7 +39,7 @@ const SIZE_STYLES = {
 /**
  * Empty state component for when there's no data to display.
  * Provides a consistent empty state experience across the application.
- * 
+ *
  * @example
  * <EmptyState
  *   icon={<Search size={48} />}
@@ -59,29 +59,11 @@ export const EmptyState = memo(function EmptyState({
   const styles = SIZE_STYLES[size];
 
   return (
-    <div
-      className={`text-center ${styles.container} ${className}`}
-      role="status"
-      aria-live="polite"
-    >
-      {icon && (
-        <div className={`mx-auto ${styles.icon} text-slate-300 dark:text-slate-600`}>
-          {icon}
-        </div>
-      )}
-      <h3 className={`font-medium text-slate-600 dark:text-slate-400 ${styles.title}`}>
-        {title}
-      </h3>
-      {description && (
-        <p className={`mt-1 text-slate-500 dark:text-slate-500 ${styles.description}`}>
-          {description}
-        </p>
-      )}
-      {action && (
-        <div className="mt-4">
-          {action}
-        </div>
-      )}
+    <div className={`text-center ${styles.container} ${className}`} role="status" aria-live="polite">
+      {icon && <div className={`mx-auto ${styles.icon} text-slate-300 dark:text-slate-600`}>{icon}</div>}
+      <h3 className={`font-medium text-slate-600 dark:text-slate-400 ${styles.title}`}>{title}</h3>
+      {description && <p className={`mt-1 text-slate-500 dark:text-slate-500 ${styles.description}`}>{description}</p>}
+      {action && <div className="mt-4">{action}</div>}
     </div>
   );
 });

@@ -14,14 +14,24 @@
  */
 
 export type QueryPlatform = 'splunk' | 'kql' | 'elastic' | 'sigma' | 'yara';
-export type ThreatCategory = 'ransomware' | 'lateral-movement' | 'credential-access' | 'exfiltration' | 'persistence' | 'initial-access' | 'defense-evasion' | 'discovery' | 'c2' | 'data-theft';
+export type ThreatCategory =
+  | 'ransomware'
+  | 'lateral-movement'
+  | 'credential-access'
+  | 'exfiltration'
+  | 'persistence'
+  | 'initial-access'
+  | 'defense-evasion'
+  | 'discovery'
+  | 'c2'
+  | 'data-theft';
 
 export interface HuntingQuery {
   id: string;
   name: string;
   description: string;
   category: ThreatCategory;
-  mitreTechniques: string[];  // ATT&CK technique IDs
+  mitreTechniques: string[]; // ATT&CK technique IDs
   severity: 'critical' | 'high' | 'medium' | 'low';
   platforms: Record<QueryPlatform, string>;
   falsePositives: string[];
@@ -34,7 +44,8 @@ export const HUNTING_QUERIES: HuntingQuery[] = [
   {
     id: 'ransom-001',
     name: 'Mass File Renaming Activity',
-    description: 'Detects rapid file renaming with common ransomware extensions (.encrypted, .locked, .crypto). Indicates active ransomware encryption.',
+    description:
+      'Detects rapid file renaming with common ransomware extensions (.encrypted, .locked, .crypto). Indicates active ransomware encryption.',
     category: 'ransomware',
     mitreTechniques: ['T1486'],
     severity: 'critical',
@@ -78,15 +89,14 @@ detection:
       'Encryption tools (VeraCrypt, BitLocker)',
       'Development environments with .encrypted test files',
     ],
-    references: [
-      'https://attack.mitre.org/techniques/T1486/',
-    ],
+    references: ['https://attack.mitre.org/techniques/T1486/'],
     tags: ['ransomware', 'encryption', 'file-system'],
   },
   {
     id: 'ransom-002',
     name: 'Shadow Copy Deletion',
-    description: 'Detects deletion of Windows shadow copies, a common ransomware pre-encryption step to prevent recovery.',
+    description:
+      'Detects deletion of Windows shadow copies, a common ransomware pre-encryption step to prevent recovery.',
     category: 'ransomware',
     mitreTechniques: ['T1490'],
     severity: 'critical',
@@ -126,13 +136,8 @@ detection:
     any of them
 }`,
     },
-    falsePositives: [
-      'Legitimate backup software cleanup',
-      'System administrators managing disk space',
-    ],
-    references: [
-      'https://attack.mitre.org/techniques/T1490/',
-    ],
+    falsePositives: ['Legitimate backup software cleanup', 'System administrators managing disk space'],
+    references: ['https://attack.mitre.org/techniques/T1490/'],
     tags: ['ransomware', 'recovery-inhibition', 'windows'],
   },
 
@@ -176,10 +181,7 @@ detection:
       'IT administrators using PsExec for legitimate remote management',
       'System Center Configuration Manager (SCCM)',
     ],
-    references: [
-      'https://attack.mitre.org/techniques/T1021.002/',
-      'https://attack.mitre.org/techniques/T1569.002/',
-    ],
+    references: ['https://attack.mitre.org/techniques/T1021.002/', 'https://attack.mitre.org/techniques/T1569.002/'],
     tags: ['lateral-movement', 'remote-execution', 'windows'],
   },
 
@@ -235,9 +237,7 @@ detection:
       'Windows Defender real-time protection',
       'Legitimate security tools (CrowdStrike, SentinelOne)',
     ],
-    references: [
-      'https://attack.mitre.org/techniques/T1003.001/',
-    ],
+    references: ['https://attack.mitre.org/techniques/T1003.001/'],
     tags: ['credential-access', 'memory-dumping', 'windows'],
   },
 
@@ -291,9 +291,7 @@ detection:
       'IoT devices with aggressive DNS polling',
       'Load balancer health checks',
     ],
-    references: [
-      'https://attack.mitre.org/techniques/T1071.004/',
-    ],
+    references: ['https://attack.mitre.org/techniques/T1071.004/'],
     tags: ['c2', 'dns', 'beaconing', 'network'],
   },
 
@@ -352,10 +350,7 @@ detection:
       'PowerShell scripts used by IT automation',
       'Office macros in controlled environments',
     ],
-    references: [
-      'https://attack.mitre.org/techniques/T1566.001/',
-      'https://attack.mitre.org/techniques/T1204.002/',
-    ],
+    references: ['https://attack.mitre.org/techniques/T1566.001/', 'https://attack.mitre.org/techniques/T1204.002/'],
     tags: ['initial-access', 'phishing', 'macros', 'office'],
   },
 
@@ -404,15 +399,8 @@ detection:
     2 of them
 }`,
     },
-    falsePositives: [
-      'SCCM/Intune deployment scripts',
-      'Automated build pipelines',
-      'Legitimate PowerShell automation',
-    ],
-    references: [
-      'https://attack.mitre.org/techniques/T1027/',
-      'https://attack.mitre.org/techniques/T1059.001/',
-    ],
+    falsePositives: ['SCCM/Intune deployment scripts', 'Automated build pipelines', 'Legitimate PowerShell automation'],
+    references: ['https://attack.mitre.org/techniques/T1027/', 'https://attack.mitre.org/techniques/T1059.001/'],
     tags: ['defense-evasion', 'obfuscation', 'powershell'],
   },
 
@@ -470,10 +458,7 @@ detection:
       'System health monitoring scripts',
       'Helpdesk troubleshooting',
     ],
-    references: [
-      'https://attack.mitre.org/techniques/T1018/',
-      'https://attack.mitre.org/techniques/T1046/',
-    ],
+    references: ['https://attack.mitre.org/techniques/T1018/', 'https://attack.mitre.org/techniques/T1046/'],
     tags: ['discovery', 'reconnaissance', 'windows'],
   },
 
@@ -525,10 +510,7 @@ detection:
       'Video conferencing uploads',
       'Large file transfers to legitimate services',
     ],
-    references: [
-      'https://attack.mitre.org/techniques/T1041/',
-      'https://attack.mitre.org/techniques/T1048/',
-    ],
+    references: ['https://attack.mitre.org/techniques/T1041/', 'https://attack.mitre.org/techniques/T1048/'],
     tags: ['exfiltration', 'data-theft', 'network'],
   },
 ];
