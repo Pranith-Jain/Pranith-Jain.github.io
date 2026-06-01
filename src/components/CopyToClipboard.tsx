@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { Copy, Check } from 'lucide-react';
 
 interface CopyToClipboardProps {
@@ -10,12 +10,18 @@ interface CopyToClipboardProps {
 
 export function CopyToClipboard({ text, label, className = '', successMessage = 'Copied!' }: CopyToClipboardProps) {
   const [copied, setCopied] = useState(false);
+  const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
+    };
+  }, []);
 
   const handleCopy = useCallback(async () => {
     try {
       await navigator.clipboard.writeText(text);
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
     } catch (err) {
       console.error('Failed to copy:', err);
       // Fallback for browsers that don't support clipboard API
@@ -28,12 +34,13 @@ export function CopyToClipboard({ text, label, className = '', successMessage = 
       try {
         document.execCommand('copy');
         setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
       } catch (fallbackErr) {
         console.error('Fallback copy failed:', fallbackErr);
       }
       document.body.removeChild(textArea);
     }
+    if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
+    resetTimerRef.current = setTimeout(() => setCopied(false), 2000);
   }, [text]);
 
   return (

@@ -251,6 +251,7 @@ export default function Detections(): JSX.Element {
   const [refreshKey, setRefreshKey] = useState(0);
   const [stixLoading, setStixLoading] = useState(false);
   const [stixBundleId, setStixBundleId] = useState<string | null>(null);
+  const [stixError, setStixError] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -284,6 +285,7 @@ export default function Detections(): JSX.Element {
     if (iocs.length === 0) return;
     setStixLoading(true);
     setStixBundleId(null);
+    setStixError(null);
     try {
       const r = await fetch('/api/v1/intel-bundle/build', {
         method: 'POST',
@@ -293,8 +295,8 @@ export default function Detections(): JSX.Element {
       if (!r.ok) throw new Error(r.statusText);
       const res = (await r.json()) as { bundle: { id: string } };
       setStixBundleId(res.bundle.id);
-    } catch {
-      window.alert('STIX build failed.');
+    } catch (e) {
+      setStixError(`STIX build failed: ${(e as Error).message}`);
     } finally {
       setStixLoading(false);
     }
@@ -513,6 +515,11 @@ export default function Detections(): JSX.Element {
               {stixLoading ? <Loader2 size={12} className="animate-spin" /> : <FileDown size={12} />}
               {stixLoading ? 'building…' : 'STIX'}
             </button>
+          )}
+          {stixError && (
+            <span role="alert" className="text-[11px] font-mono text-rose-700 dark:text-rose-300">
+              {stixError}
+            </span>
           )}
         </div>
         <div className="flex flex-wrap items-center gap-1.5 mt-3">

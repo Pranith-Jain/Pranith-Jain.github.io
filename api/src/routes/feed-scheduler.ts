@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { safeJsonBody } from '../lib/safe-body';
-import { ensureGraphTables, upsertNode } from './threat-graph';
+import { ensureGraphTables, upsertNode, type NodeType } from './threat-graph';
 import { recordIocObservation } from './ioc-lifecycle';
 import type { D1Database } from '@cloudflare/workers-types';
 
@@ -384,7 +384,7 @@ export async function autoRunFeedJobs(
 
     for (const line of lines) {
       const trimmed = line.trim().toLowerCase();
-      let nodeType: string | null = null;
+      let nodeType: NodeType | null = null;
 
       if (job.parser === 'plaintext-ips') {
         const parts = trimmed.split('.');

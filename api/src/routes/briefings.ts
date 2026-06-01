@@ -304,12 +304,11 @@ export async function briefingPrintHandler(c: Context<{ Bindings: Env }>) {
   const briefing = await readBriefing(db, slug);
   if (!briefing) return c.json({ error: 'not found' }, 404);
 
-  const b = briefing as Record<string, unknown>;
+  const b = briefing as unknown as Record<string, unknown>;
   const sections = (b.sections as Array<Record<string, unknown>>) ?? [];
   const stats = (b.stats as Record<string, unknown>) ?? {};
 
   // Build findings per severity for HTML table
-  const severityOrder = ['critical', 'high', 'medium', 'low', 'none'];
   const severityLabels: Record<string, string> = {
     critical: 'Critical',
     high: 'High',
@@ -402,7 +401,7 @@ export async function briefingsForActorHandler(c: Context<{ Bindings: Env }>) {
       const matched: Array<{ section: string; finding: Record<string, unknown> }> = [];
       for (const section of enriched.sections) {
         for (const finding of section.findings) {
-          const f = finding as Record<string, unknown>;
+          const f = finding as unknown as Record<string, unknown>;
           const tags = f.tags as { actors?: Array<{ slug: string }> } | undefined;
           if (tags?.actors?.some((a) => a.slug === actorSlug)) {
             matched.push({ section: section.title, finding: f });
@@ -412,8 +411,8 @@ export async function briefingsForActorHandler(c: Context<{ Bindings: Env }>) {
       if (matched.length > 0) {
         results.push({
           slug: b.slug,
-          title: ((full as Record<string, unknown>).title as string) ?? '',
-          date_range: ((full as Record<string, unknown>).date_range as string) ?? '',
+          title: ((full as unknown as Record<string, unknown>).title as string) ?? '',
+          date_range: ((full as unknown as Record<string, unknown>).date_range as string) ?? '',
           findings: matched,
         });
       }

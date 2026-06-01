@@ -840,15 +840,6 @@ export const RESOURCES: ExternalResource[] = [
       "abuse.ch URL tracking — community-submitted malicious URLs serving malware payloads. Searchable database with API and downloadable blocklists. Integrated into this platform's live IOCs feed.",
   },
   {
-    id: 'feodo-tracker',
-    name: 'Feodo Tracker',
-    url: 'https://feodotracker.abuse.ch/',
-    kind: 'dashboard',
-    tags: ['threat-intel', 'c2', 'blocklist'],
-    description:
-      'abuse.ch botnet C2 tracker — tracks Feodo, Dridex, Emotet, TrickBot, QakBot, BazarLoader C2 infrastructure. Downloadable IP blocklists and JSON feed.',
-  },
-  {
     id: 'sslbl',
     name: 'SSL Blacklist',
     url: 'https://sslbl.abuse.ch/',

@@ -1,5 +1,3 @@
-import { getSiteUrl } from '../lib/site-config';
-
 // Vendor threat-intel RSS feeds scanned for actor mentions.
 // These are public feeds — no auth required.
 export const ACTOR_RSS_FEEDS: string[] = [

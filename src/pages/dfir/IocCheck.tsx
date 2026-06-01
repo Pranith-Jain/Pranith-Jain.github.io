@@ -224,6 +224,7 @@ export default function IocCheck(): JSX.Element {
   const [bulkRunning, setBulkRunning] = useState(false);
   const [stixLoading, setStixLoading] = useState(false);
   const [stixBundleId, setStixBundleId] = useState<string | null>(null);
+  const [stixError, setStixError] = useState<string | null>(null);
 
   const bulkIndicators = parseBulkInput(bulkInput, BULK_MAX);
 
@@ -265,6 +266,7 @@ export default function IocCheck(): JSX.Element {
     if (iocs.length === 0) return;
     setStixLoading(true);
     setStixBundleId(null);
+    setStixError(null);
     try {
       const r = await fetch('/api/v1/intel-bundle/build', {
         method: 'POST',
@@ -279,8 +281,8 @@ export default function IocCheck(): JSX.Element {
       if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
       const data = (await r.json()) as { bundle: { id: string } };
       setStixBundleId(data.bundle.id);
-    } catch {
-      window.alert('STIX build failed. The intel-bundle endpoint may be down.');
+    } catch (e) {
+      setStixError(`STIX build failed: ${(e as Error).message}. The intel-bundle endpoint may be down.`);
     } finally {
       setStixLoading(false);
     }
@@ -438,6 +440,11 @@ export default function IocCheck(): JSX.Element {
                   >
                     <FileDown size={11} /> {stixLoading ? 'building…' : 'STIX'}
                   </button>
+                )}
+                {stixError && (
+                  <span role="alert" className="text-[11px] font-mono text-rose-700 dark:text-rose-300">
+                    {stixError}
+                  </span>
                 )}
               </>
             )}

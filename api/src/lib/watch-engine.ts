@@ -1,5 +1,4 @@
 import type { D1Database } from '@cloudflare/workers-types';
-import type { Env } from '../env';
 
 export interface Watch {
   id: string;
@@ -327,11 +326,7 @@ function escapeRegex(s: string): string {
  * Send a Telegram notification for a watch alert.
  * Uses the Telegram Bot API directly.
  */
-export async function sendTelegramAlert(
-  botToken: string,
-  chatId: string,
-  alert: AlertEvent
-): Promise<boolean> {
+export async function sendTelegramAlert(botToken: string, chatId: string, alert: AlertEvent): Promise<boolean> {
   try {
     const message =
       `🔔 <b>Watch Alert</b>\n\n` +
@@ -364,14 +359,19 @@ export async function sendTelegramAlert(
  */
 export function formatTelegramAlert(alert: AlertEvent): string {
   const emoji =
-    alert.type === 'ransomware-group' ? '💀' :
-    alert.type === 'cve-keyword' ? '🔓' :
-    alert.type === 'actor' ? '👤' :
-    '🔍';
+    alert.type === 'ransomware-group'
+      ? '💀'
+      : alert.type === 'cve-keyword'
+        ? '🔓'
+        : alert.type === 'actor'
+          ? '👤'
+          : '🔍';
 
-  return `${emoji} <b>${alert.label}</b>\n` +
+  return (
+    `${emoji} <b>${alert.label}</b>\n` +
     `Type: ${alert.type}\n` +
     `Match: <code>${alert.match}</code>\n` +
     (alert.detail ? `Detail: ${alert.detail}\n` : '') +
-    `Time: ${new Date(alert.matched_at).toLocaleString()}`;
+    `Time: ${new Date(alert.matched_at).toLocaleString()}`
+  );
 }

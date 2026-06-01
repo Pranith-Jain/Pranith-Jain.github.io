@@ -4,7 +4,6 @@ import {
   upsertEdge,
   ensureGraphTables,
   type GraphNode,
-  type GraphEdge,
   type NodeType,
   type EdgeType,
 } from '../routes/threat-graph';
@@ -179,12 +178,16 @@ export async function ingestEntitiesNoEnsure(
   }
 
   for (let i = 0; i < upserted.length; i++) {
+    const a = upserted[i];
+    if (!a) continue;
     for (let j = i + 1; j < upserted.length; j++) {
+      const b = upserted[j];
+      if (!b) continue;
       try {
-        const edgeConfidence = Math.min(upserted[i].confidence, upserted[j].confidence);
+        const edgeConfidence = Math.min(a.confidence, b.confidence);
         await upsertEdge(db, {
-          source_id: upserted[i].id,
-          target_id: upserted[j].id,
+          source_id: a.id,
+          target_id: b.id,
           relationship,
           confidence: edgeConfidence,
           evidence: [
@@ -198,7 +201,7 @@ export async function ingestEntitiesNoEnsure(
         });
         result.edges_created++;
       } catch (e) {
-        result.errors.push(`edge(${upserted[i].id}->${upserted[j].id}): ${e instanceof Error ? e.message : String(e)}`);
+        result.errors.push(`edge(${a.id}->${b.id}): ${e instanceof Error ? e.message : String(e)}`);
       }
     }
   }

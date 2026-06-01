@@ -158,7 +158,7 @@ const SUSPICIOUS_NAMES: Array<{ pattern: RegExp; risk: DirEntry['risk']; reason:
  * Supports Apache autoindex, nginx autoindex, Python SimpleHTTPServer,
  * and generic <a href="..."> link extraction.
  */
-function parseDirectoryListing(html: string, baseUrl: string): DirEntry[] {
+function parseDirectoryListing(html: string, _baseUrl: string): DirEntry[] {
   const entries: DirEntry[] = [];
   const seenNames = new Set<string>();
 
@@ -169,11 +169,24 @@ function parseDirectoryListing(html: string, baseUrl: string): DirEntry[] {
 
   while ((match = linkPattern.exec(html)) !== null) {
     const href = match[1];
-    if (!href || href === '../' || href === '/' || href.startsWith('?') || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('javascript:')) continue;
+    if (
+      !href ||
+      href === '../' ||
+      href === '/' ||
+      href.startsWith('?') ||
+      href.startsWith('#') ||
+      href.startsWith('mailto:') ||
+      href.startsWith('javascript:')
+    )
+      continue;
 
     // Decode URL-encoded names
     let name: string;
-    try { name = decodeURIComponent(href); } catch { name = href; }
+    try {
+      name = decodeURIComponent(href);
+    } catch {
+      name = href;
+    }
 
     // Skip duplicates
     const normalizedName = name.replace(/\/$/, '');
@@ -185,7 +198,10 @@ function parseDirectoryListing(html: string, baseUrl: string): DirEntry[] {
 
     // Try to extract size from nearby text
     let size: number | null = null;
-    const sizeMatch = new RegExp(`${normalizedName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}[^]*?(\\d+(?:\\.\\d+)?)\\s*(bytes?|KB|MB|GB|TB)`, 'i').exec(html);
+    const sizeMatch = new RegExp(
+      `${normalizedName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}[^]*?(\\d+(?:\\.\\d+)?)\\s*(bytes?|KB|MB|GB|TB)`,
+      'i'
+    ).exec(html);
     if (sizeMatch) {
       const num = parseFloat(sizeMatch[1]!);
       const unit = sizeMatch[2]?.toLowerCase();
@@ -237,12 +253,18 @@ function parseDirectoryListing(html: string, baseUrl: string): DirEntry[] {
 
 function riskPriority(risk: DirEntry['risk']): number {
   switch (risk) {
-    case 'critical': return 5;
-    case 'high': return 4;
-    case 'medium': return 3;
-    case 'low': return 2;
-    case 'info': return 1;
-    default: return 0;
+    case 'critical':
+      return 5;
+    case 'high':
+      return 4;
+    case 'medium':
+      return 3;
+    case 'low':
+      return 2;
+    case 'info':
+      return 1;
+    default:
+      return 0;
   }
 }
 
@@ -263,7 +285,11 @@ function isDirectoryListingPage(html: string): boolean {
 // ── Scan Handler ─────────────────────────────────────────────────
 
 const scanSchema = z.object({
-  url: z.string().url().max(2048).refine((s) => /^https?:\/\//i.test(s), 'URL must start with http:// or https://'),
+  url: z
+    .string()
+    .url()
+    .max(2048)
+    .refine((s) => /^https?:\/\//i.test(s), 'URL must start with http:// or https://'),
   /** Max files to return (default 200). */
   limit: z.number().int().min(1).max(1000).optional().default(200),
 });
@@ -280,7 +306,7 @@ export async function openDirectoryScanHandler(c: Context<{ Bindings: Env }>): P
     const res = await pinnedFetch(url, {
       headers: {
         'User-Agent': 'Mozilla/5.0 (compatible; DFIR-OpenDir/1.0; +https://pranithjain.qzz.io)',
-        'Accept': 'text/html,application/xhtml+xml,*/*',
+        Accept: 'text/html,application/xhtml+xml,*/*',
       },
       redirect: 'follow',
       signal: AbortSignal.timeout(15000),
@@ -363,7 +389,7 @@ export async function openDirectoryScanHandler(c: Context<{ Bindings: Env }>): P
     return c.json(result, 200, { 'Cache-Control': 'public, max-age=300' });
   } catch (e) {
     if (e instanceof SsrfError) {
-      return c.json({ error: 'blocked', message: e.detail, blockedIp: e.blockedIp }, e.status);
+      return c.json({ error: 'blocked', message: e.detail, blockedIp: e.blockedIp }, e.status as 400 | 403 | 502 | 503);
     }
     return internalError(c, e);
   }

@@ -41,7 +41,7 @@ interface RansomwareVictim {
 
 async function discoverFromRansomware(deps: PlatformDataDeps): Promise<Candidate[]> {
   try {
-    const data = await deps.apiFetch('/api/v1/ransomware-recent') as {
+    const data = (await deps.apiFetch('/api/v1/ransomware-recent')) as {
       victims?: RansomwareVictim[];
       count?: number;
     };
@@ -49,7 +49,10 @@ async function discoverFromRansomware(deps: PlatformDataDeps): Promise<Candidate
     if (!data?.victims?.length) return [];
 
     const sevenDaysAgo = new Date(deps.now.getTime() - 7 * 24 * 3600 * 1000);
-    const groups = new Map<string, { victims: RansomwareVictim[]; latest: Date; sectors: Set<string>; countries: Set<string> }>();
+    const groups = new Map<
+      string,
+      { victims: RansomwareVictim[]; latest: Date; sectors: Set<string>; countries: Set<string> }
+    >();
 
     for (const v of data.victims) {
       if (!v.group || !v.victim) continue;
@@ -57,7 +60,12 @@ async function discoverFromRansomware(deps: PlatformDataDeps): Promise<Candidate
       if (posted < sevenDaysAgo) continue;
 
       const key = `ransom-${v.group.toLowerCase().replace(/\s+/g, '-')}-${posted.toISOString().slice(0, 7)}`;
-      const existing = groups.get(key) ?? { victims: [], latest: new Date(0), sectors: new Set(), countries: new Set() };
+      const existing = groups.get(key) ?? {
+        victims: [],
+        latest: new Date(0),
+        sectors: new Set(),
+        countries: new Set(),
+      };
       existing.victims.push(v);
       if (posted > existing.latest) existing.latest = posted;
       if (v.sector) existing.sectors.add(v.sector);
@@ -93,7 +101,7 @@ async function discoverFromRansomware(deps: PlatformDataDeps): Promise<Candidate
           latest: info.latest.toISOString(),
           sectors: sectorList,
           countries: countryList,
-          victims: info.victims.slice(0, 30).map(v => ({
+          victims: info.victims.slice(0, 30).map((v) => ({
             name: v.victim,
             country: v.country,
             sector: v.sector,
@@ -126,7 +134,7 @@ interface TelegramLeak {
 
 async function discoverFromTelegramLeaks(deps: PlatformDataDeps): Promise<Candidate[]> {
   try {
-    const data = await deps.apiFetch('/api/v1/telegram-leaks/stats') as {
+    const data = (await deps.apiFetch('/api/v1/telegram-leaks/stats')) as {
       total_leaks?: number;
       recent_leaks?: TelegramLeak[];
       top_domains?: Array<{ domain: string; count: number }>;
@@ -174,7 +182,7 @@ async function discoverFromTelegramLeaks(deps: PlatformDataDeps): Promise<Candid
           leakCount: info.leaks.length,
           totalCredentials: info.totalCreds,
           domains: [...info.domains].slice(0, 10),
-          leakTypes: [...new Set(info.leaks.map(l => l.leak_type))],
+          leakTypes: [...new Set(info.leaks.map((l) => l.leak_type))],
           source: 'platform/telegram-leaks',
         },
         discoveredAt: deps.now.toISOString(),
@@ -201,7 +209,7 @@ interface TrendingIoc {
 
 async function discoverFromTrendingIocs(deps: PlatformDataDeps): Promise<Candidate[]> {
   try {
-    const data = await deps.apiFetch('/api/v1/ioc-lifecycle/trending?limit=20') as {
+    const data = (await deps.apiFetch('/api/v1/ioc-lifecycle/trending?limit=20')) as {
       trending?: TrendingIoc[];
     };
 
@@ -209,8 +217,6 @@ async function discoverFromTrendingIocs(deps: PlatformDataDeps): Promise<Candida
 
     const candidates: Candidate[] = [];
 
-    // Group trending IOCs by source cluster
-    const sourceClusters = new Map<string, { iocs: TrendingIoc[]; totalScore: number }>();
     for (const ioc of data.trending) {
       if (ioc.count < 5) continue; // Need significant activity
 
@@ -265,7 +271,7 @@ interface ThreatPulseItem {
 
 async function discoverFromThreatPulse(deps: PlatformDataDeps): Promise<Candidate[]> {
   try {
-    const data = await deps.apiFetch('/api/v1/threat-pulse') as {
+    const data = (await deps.apiFetch('/api/v1/threat-pulse')) as {
       actors?: ThreatPulseItem[];
       malware?: ThreatPulseItem[];
       cves?: ThreatPulseItem[];
@@ -372,14 +378,16 @@ export async function discoverFromPlatformData(deps: PlatformDataDeps): Promise<
   if (trendingIocs.status === 'fulfilled') candidates.push(...trendingIocs.value);
   if (threatPulse.status === 'fulfilled') candidates.push(...threatPulse.value);
 
-  console.log(JSON.stringify({
-    runner: 'platform-data',
-    ransomware: ransomware.status === 'fulfilled' ? ransomware.value.length : 'failed',
-    telegramLeaks: telegramLeaks.status === 'fulfilled' ? telegramLeaks.value.length : 'failed',
-    trendingIocs: trendingIocs.status === 'fulfilled' ? trendingIocs.value.length : 'failed',
-    threatPulse: threatPulse.status === 'fulfilled' ? threatPulse.value.length : 'failed',
-    total: candidates.length,
-  }));
+  console.log(
+    JSON.stringify({
+      runner: 'platform-data',
+      ransomware: ransomware.status === 'fulfilled' ? ransomware.value.length : 'failed',
+      telegramLeaks: telegramLeaks.status === 'fulfilled' ? telegramLeaks.value.length : 'failed',
+      trendingIocs: trendingIocs.status === 'fulfilled' ? trendingIocs.value.length : 'failed',
+      threatPulse: threatPulse.status === 'fulfilled' ? threatPulse.value.length : 'failed',
+      total: candidates.length,
+    })
+  );
 
   return candidates;
 }

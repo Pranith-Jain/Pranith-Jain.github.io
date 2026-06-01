@@ -112,7 +112,9 @@ export default function ExternalResources(): JSX.Element {
     const out: DynamicEntry[] = [...dynamicEntries];
     const seen = new Set(out.map((it) => it.url));
     for (const it of RESOURCES) {
-      if (!seen.has(it.url)) out.push(it as DynamicEntry);
+      if (seen.has(it.url)) continue;
+      out.push(it as DynamicEntry);
+      seen.add(it.url);
     }
     return out;
   }, [dynamicEntries]);

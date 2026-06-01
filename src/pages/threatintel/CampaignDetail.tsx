@@ -139,7 +139,7 @@ export default function CampaignDetail(): JSX.Element {
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       setDeleted(true);
     } catch (e) {
-      window.alert(`Delete failed: ${(e as Error).message}`);
+      setError(`Delete failed: ${(e as Error).message}`);
     }
   };
 
@@ -190,8 +190,11 @@ export default function CampaignDetail(): JSX.Element {
       )}
 
       {error && (
-        <div className="rounded border border-rose-300 dark:border-rose-700 bg-rose-50 dark:bg-rose-950 p-3 text-xs font-mono text-rose-700 dark:text-rose-300 inline-flex items-start gap-2">
-          <AlertTriangle size={14} className="shrink-0 mt-0.5" /> {error}
+        <div
+          role="alert"
+          className="rounded border border-rose-300 dark:border-rose-700 bg-rose-50 dark:bg-rose-950 p-3 text-xs font-mono text-rose-700 dark:text-rose-300 inline-flex items-start gap-2"
+        >
+          <AlertTriangle size={14} className="shrink-0 mt-0.5" aria-hidden="true" /> {error}
         </div>
       )}
 

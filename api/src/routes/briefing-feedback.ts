@@ -17,7 +17,6 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import type { D1Database } from '@cloudflare/workers-types';
 import { badRequest, internalError } from '../lib/api-error';
 import { z } from 'zod';
 
@@ -122,16 +121,22 @@ export async function getFeedbackHandler(c: Context<{ Bindings: Env }>): Promise
 
     for (const row of results.results ?? []) {
       const r = row as { action?: string };
-      if (r.action && r.action in summary) {
-        (summary as Record<string, number>)[r.action]++;
+      const action = r.action;
+      if (action && action in summary) {
+        const bucket = summary as unknown as Record<string, number>;
+        bucket[action] = (bucket[action] ?? 0) + 1;
       }
     }
 
-    return c.json({
-      slug,
-      feedback: results.results ?? [],
-      summary,
-    }, 200, { 'Cache-Control': 'public, max-age=60' });
+    return c.json(
+      {
+        slug,
+        feedback: results.results ?? [],
+        summary,
+      },
+      200,
+      { 'Cache-Control': 'public, max-age=60' }
+    );
   } catch (e) {
     return internalError(c, e);
   }
@@ -164,12 +169,16 @@ export async function submitAnnotationHandler(c: Context<{ Bindings: Env }>): Pr
       .bind(slug, annotation_type, content.slice(0, 5000), priority ?? 'normal', analystId)
       .run();
 
-    return c.json({
-      ok: true,
-      id: result.meta.last_row_id,
-      annotation_type,
-      priority,
-    }, 201, { 'Cache-Control': 'no-store' });
+    return c.json(
+      {
+        ok: true,
+        id: result.meta.last_row_id,
+        annotation_type,
+        priority,
+      },
+      201,
+      { 'Cache-Control': 'no-store' }
+    );
   } catch (e) {
     return internalError(c, e);
   }
@@ -197,10 +206,14 @@ export async function getAnnotationsHandler(c: Context<{ Bindings: Env }>): Prom
       .bind(slug)
       .all();
 
-    return c.json({
-      slug,
-      annotations: results.results ?? [],
-    }, 200, { 'Cache-Control': 'public, max-age=60' });
+    return c.json(
+      {
+        slug,
+        annotations: results.results ?? [],
+      },
+      200,
+      { 'Cache-Control': 'public, max-age=60' }
+    );
   } catch (e) {
     return internalError(c, e);
   }
@@ -251,12 +264,16 @@ export async function feedbackSummaryHandler(c: Context<{ Bindings: Env }>): Pro
       .prepare('SELECT COUNT(*) as count FROM briefing_annotations')
       .first<{ count: number }>();
 
-    return c.json({
-      action_counts: actionCounts.results ?? [],
-      high_priority: highPriority.results ?? [],
-      false_positives: falsePositives.results ?? [],
-      total_annotations: annotationCount?.count ?? 0,
-    }, 200, { 'Cache-Control': 'public, max-age=300' });
+    return c.json(
+      {
+        action_counts: actionCounts.results ?? [],
+        high_priority: highPriority.results ?? [],
+        false_positives: falsePositives.results ?? [],
+        total_annotations: annotationCount?.count ?? 0,
+      },
+      200,
+      { 'Cache-Control': 'public, max-age=300' }
+    );
   } catch (e) {
     return internalError(c, e);
   }

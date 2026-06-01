@@ -1,11 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import {
-  storeWhoisSnapshot,
-  getWhoisHistory,
-  pivotDomains,
-  getWhoisStats,
-} from '../../src/lib/whois-history';
-import type { RdapResult } from '../../src/lib/rdap';
+import { getWhoisHistory, getWhoisStats } from '../../src/lib/whois-history';
 
 // Mock D1Database
 function createMockDb() {
@@ -17,7 +11,7 @@ function createMockDb() {
       bind: (...params: unknown[]) => ({
         first: async <T>() => {
           if (sql.includes('SELECT') && sql.includes('whois_snapshots')) {
-            return store.get(`snapshot:${params[0]}`) as T ?? null;
+            return (store.get(`snapshot:${params[0]}`) as T) ?? null;
           }
           return null;
         },
@@ -43,15 +37,6 @@ function createMockDb() {
 }
 
 describe('WHOIS History Service', () => {
-  const mockRdap: RdapResult = {
-    registrar: 'Cloudflare, Inc.',
-    created: '2009-02-17T22:07:54Z',
-    expires: '2033-02-17T22:07:54Z',
-    updated: '2024-01-09T16:45:28Z',
-    nameservers: ['ns1.cloudflare.com', 'ns2.cloudflare.com'],
-    status: ['client delete prohibited'],
-  };
-
   describe('getWhoisHistory', () => {
     it('returns empty history for unknown domain', async () => {
       const db = createMockDb() as any;

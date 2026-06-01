@@ -434,9 +434,6 @@ function filterByTier(body: WriteupsResponse, tier: TierFilter): WriteupsRespons
   return { ...body, sources, total: items.length, items };
 }
 
-/** Overall wall-clock timeout for the writeups handler (25s, under the 30s Worker limit). */
-const HANDLER_TIMEOUT_MS = 25_000;
-
 export async function writeupsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
     const q = c.req.query('tier');

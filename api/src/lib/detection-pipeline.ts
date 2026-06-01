@@ -172,7 +172,7 @@ export function validateRule(format: RuleFormat, content: string): { valid: bool
     case 'sigma':
       return validateSigmaRule(content);
     case 'snort':
-    case 'suricata':
+    case 'suricata': {
       // Basic Snort/Suricata validation
       const errors: string[] = [];
       if (!/^(alert|drop|reject|pass)\s+/im.test(content)) {
@@ -182,6 +182,7 @@ export function validateRule(format: RuleFormat, content: string): { valid: bool
         errors.push('Missing rule direction and options');
       }
       return { valid: errors.length === 0, errors };
+    }
     default:
       return { valid: false, errors: [`Unknown rule format: ${format}`] };
   }
@@ -224,11 +225,11 @@ export function calculateCoverage(rules: DetectionRule[]): CoverageReport {
     'T1059.004', // Command and Scripting Interpreter: Unix Shell
     'T1053.005', // Scheduled Task/Job: Scheduled Task
     'T1003.001', // OS Credential Dumping: LSASS Memory
-    'T1055',     // Process Injection
+    'T1055', // Process Injection
     'T1071.001', // Application Layer Protocol: Web Protocols
     'T1071.004', // Application Layer Protocol: DNS
-    'T1486',     // Data Encrypted for Impact
-    'T1490',     // Inhibit System Recovery
+    'T1486', // Data Encrypted for Impact
+    'T1490', // Inhibit System Recovery
     'T1218.011', // System Binary Proxy Execution: Rundll32
     'T1218.005', // System Binary Proxy Execution: Mshta
   ];

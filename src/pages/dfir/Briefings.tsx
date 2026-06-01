@@ -66,7 +66,7 @@ export default function Briefings(): JSX.Element {
       })
       .catch((err: Error) => setError(err.message))
       .finally(() => setLoading(false));
-  }, [reloadKey, offset]);
+  }, [reloadKey, offset, activeLimit]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();

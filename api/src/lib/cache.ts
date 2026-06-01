@@ -6,6 +6,8 @@ export function getCache(): Cache {
   return CACHE_PLATFORM.default;
 }
 
+import type { Indicator, ProviderResult } from '../providers/types';
+
 /**
  * KV-backed provider result cache.
  *
@@ -23,36 +25,64 @@ export class ProviderCache {
     this.kv = kv ?? null;
   }
 
+  private buildKey(provider: string, indicator: Indicator): string {
+    return `provider:${provider}:${indicator.value.toLowerCase()}`;
+  }
+
+  /**
+   * Cache TTL (seconds) per indicator type, with per-provider overrides.
+   * Hashes are the most stable (24h), IPv4 the most volatile (1h), URLs and
+   * domains fall in between. Specific providers override when their
+   * upstream feed churns at a different cadence than the type default.
+   */
+  static ttlSeconds(type: Indicator['type'], provider?: string): number {
+    const typeDefault: Record<Indicator['type'], number> = {
+      hash: 86400,
+      ipv4: 3600,
+      ipv6: 3600,
+      domain: 21600,
+      url: 3600,
+      email: 3600,
+      unknown: 3600,
+    };
+    const overrides: Record<string, number> = {
+      'urlhaus:url': 1800,
+      'sslbl:ipv4': 14400,
+      'hashlookup:hash': 604800,
+    };
+    if (provider) {
+      const key = `${provider}:${type}`;
+      const override = overrides[key];
+      if (override !== undefined) return override;
+    }
+    return typeDefault[type];
+  }
+
   /**
    * Get a cached provider result.
    * Returns null if not found, expired, or KV unavailable.
    */
-  async get(provider: string, indicator: string): Promise<Record<string, unknown> | null> {
+  async get(provider: string, indicator: Indicator): Promise<ProviderResult | null> {
     if (!this.kv) return null;
-    const key = `provider:${provider}:${indicator.toLowerCase()}`;
+    const key = this.buildKey(provider, indicator);
     try {
-      const cached = await this.kv.get(key, 'json');
-      return cached as Record<string, unknown> | null;
+      const cached = (await this.kv.get(key, 'json')) as ProviderResult | null;
+      return cached;
     } catch {
       return null;
     }
   }
 
   /**
-   * Cache a provider result with TTL.
-   * Default TTL: 1 hour for successful results, 5 minutes for errors.
+   * Cache a provider result with TTL derived from the indicator type.
    * No-op when KV is unavailable.
    */
-  async set(
-    provider: string,
-    indicator: string,
-    data: Record<string, unknown>,
-    ttlSeconds: number = 3600
-  ): Promise<void> {
+  async set(provider: string, indicator: Indicator, data: ProviderResult, ttlSeconds?: number): Promise<void> {
+    const ttl = ttlSeconds ?? ProviderCache.ttlSeconds(indicator.type, provider);
     if (!this.kv) return;
-    const key = `provider:${provider}:${indicator.toLowerCase()}`;
+    const key = this.buildKey(provider, indicator);
     try {
-      await this.kv.put(key, JSON.stringify(data), { expirationTtl: ttlSeconds });
+      await this.kv.put(key, JSON.stringify(data), { expirationTtl: ttl });
     } catch {
       /* best-effort — cache failure shouldn't break the request */
     }
@@ -62,9 +92,9 @@ export class ProviderCache {
    * Delete a cached provider result.
    * No-op when KV is unavailable.
    */
-  async delete(provider: string, indicator: string): Promise<void> {
+  async delete(provider: string, indicator: Indicator): Promise<void> {
     if (!this.kv) return;
-    const key = `provider:${provider}:${indicator.toLowerCase()}`;
+    const key = this.buildKey(provider, indicator);
     try {
       await this.kv.delete(key);
     } catch {

@@ -314,7 +314,6 @@ export async function huntV2Handler(c: Context<{ Bindings: Env }>): Promise<Resp
   if (!q || q.length < 3) return c.json({ error: 'query too short' }, 400);
 
   const type = detectType(q);
-  const start = Date.now();
 
   try {
     const [providers, telegram, breaches, whois, certs] = await Promise.all([

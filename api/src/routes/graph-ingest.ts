@@ -7,7 +7,6 @@ import { fetchRansomwareRecent } from './ransomware-recent';
 import {
   ingestMultipleFeedItems,
   ingestEntitiesNoEnsure,
-  ingestEntities,
   extractIOCs,
   sourceConfidence,
   type FeedIngestItem,
@@ -171,16 +170,14 @@ async function ingestTelegram(db: D1Database, maxItems: number = 30): Promise<In
     if (!feed?.items?.length) {
       return { nodes_upserted: 0, edges_created: 0, errors: [] };
     }
-    const items: FeedIngestItem[] = feed.items
-      .slice(0, maxItems)
-      .map((it: { title?: string; message?: string; link?: string; date?: string; source?: string }) => ({
-        title: it.title ?? it.message ?? '',
-        description: it.message ?? it.title ?? '',
-        link: it.link ?? '',
-        pubDate: it.date ?? new Date().toISOString(),
-        source: 'telegram',
-        source_url: it.link ?? '',
-      }));
+    const items: FeedIngestItem[] = feed.items.slice(0, maxItems).map((it) => ({
+      title: it.text.slice(0, 80),
+      description: it.text,
+      link: it.permalink,
+      pubDate: it.datetime,
+      source: it.channel_name,
+      source_url: it.permalink,
+    }));
     return ingestMultipleFeedItems(db, items, 'Telegram', maxItems);
   } catch (e) {
     return { nodes_upserted: 0, edges_created: 0, errors: [`telegram: ${e instanceof Error ? e.message : String(e)}`] };
@@ -195,11 +192,11 @@ async function ingestRansomware(db: D1Database, env?: Env): Promise<IngestResult
     }
     const aggregated: IngestResult = { nodes_upserted: 0, edges_created: 0, errors: [] };
     for (const victim of body.victims.slice(0, 5)) {
-      const text = [victim.name, victim.notes, victim.group].filter(Boolean).join(' ');
+      const text = [victim.victim, victim.description, victim.group].filter(Boolean).join(' ');
       const entities = extractIOCs(text);
       if (!entities.length) continue;
       const r = await ingestEntitiesNoEnsure(db, entities, 'ransomware', {
-        description: `Ransomware victim: ${victim.name}`,
+        description: `Ransomware victim: ${victim.victim}`,
         timestamp: victim.discovered || new Date().toISOString(),
       });
       aggregated.nodes_upserted += r.nodes_upserted;
@@ -236,7 +233,7 @@ export async function runGraphIngest(
     results['telegram'] = await ingestTelegram(db, 5);
   }
   if (source === 'all' || source === 'ransomware') {
-    results['ransomware'] = await ingestRansomware(env);
+    results['ransomware'] = await ingestRansomware(db, env);
   }
 
   return results;

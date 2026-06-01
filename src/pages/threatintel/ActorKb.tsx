@@ -79,6 +79,7 @@ export default function ActorKb(): JSX.Element {
   const [kbLoading, setKbLoading] = useState(true);
   const [syncing, setSyncing] = useState(false);
   const [syncResult, setSyncResult] = useState<{ created: number; matched: number; updated: number } | null>(null);
+  const [syncError, setSyncError] = useState<string | null>(null);
 
   const loadSkeletons = async () => {
     setSkeletonsLoading(true);
@@ -120,6 +121,7 @@ export default function ActorKb(): JSX.Element {
   const runMaltrailSync = async () => {
     setSyncing(true);
     setSyncResult(null);
+    setSyncError(null);
     try {
       const r = await fetch('/api/v1/maltrail-sync', { method: 'POST' });
       const data = (await r.json()) as {
@@ -137,10 +139,10 @@ export default function ActorKb(): JSX.Element {
         });
         await loadSkeletons();
       } else {
-        window.alert(`Sync failed: ${data.error ?? 'unknown'}`);
+        setSyncError(`Sync failed: ${data.error ?? 'unknown'}`);
       }
     } catch (e) {
-      window.alert(`Sync failed: ${(e as Error).message}`);
+      setSyncError(`Sync failed: ${(e as Error).message}`);
     } finally {
       setSyncing(false);
     }
@@ -262,198 +264,199 @@ export default function ActorKb(): JSX.Element {
             />
           </div>
           {selected && (
-        <section className="mb-8 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-            <h2 className="text-2xl font-display font-bold">{selected.name}</h2>
-            <a
-              href={selected.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-[12px] font-mono px-1.5 py-0.5 rounded border border-brand-500/30 bg-brand-500/5 text-brand-700 dark:text-brand-300 hover:bg-brand-500/10"
-            >
-              {selected.attackId} <ExternalLink size={11} />
-            </a>
-          </div>
-          {selected.aliases.length > 0 && (
-            <p className="text-[12px] font-mono text-slate-500 mt-1">aka {selected.aliases.join(' · ')}</p>
-          )}
-          <p className="text-sm text-slate-700 dark:text-slate-300 mt-3 leading-relaxed">{selected.description}</p>
-
-          {selected.software.length > 0 && (
-            <div className="mt-4">
-              <h3 className="text-[11px] font-mono uppercase tracking-wider text-slate-500 mb-1.5">
-                Tooling / malware ({selected.software.length})
-              </h3>
-              <div className="flex flex-wrap gap-1.5">
-                {selected.software.map((s) => (
-                  <span
-                    key={s}
-                    className="text-[11px] font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400"
-                  >
-                    {s}
-                  </span>
-                ))}
+            <section className="mb-8 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                <h2 className="text-2xl font-display font-bold">{selected.name}</h2>
+                <a
+                  href={selected.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-[12px] font-mono px-1.5 py-0.5 rounded border border-brand-500/30 bg-brand-500/5 text-brand-700 dark:text-brand-300 hover:bg-brand-500/10"
+                >
+                  {selected.attackId} <ExternalLink size={11} />
+                </a>
               </div>
-            </div>
-          )}
+              {selected.aliases.length > 0 && (
+                <p className="text-[12px] font-mono text-slate-500 mt-1">aka {selected.aliases.join(' · ')}</p>
+              )}
+              <p className="text-sm text-slate-700 dark:text-slate-300 mt-3 leading-relaxed">{selected.description}</p>
 
-          {techByTactic.length > 0 && (
-            <div className="mt-4">
-              <h3 className="text-[11px] font-mono uppercase tracking-wider text-slate-500 mb-2">
-                Techniques ({selected.techniques.length}) by tactic
-              </h3>
-              <div className="space-y-3">
-                {techByTactic.map(([t, list]) => (
-                  <div key={t}>
-                    <div className="text-[12px] font-semibold text-brand-700 dark:text-brand-300 mb-1">
-                      {tacticLabel(t)}
-                    </div>
-                    <div className="flex flex-wrap gap-1.5">
-                      {list.map((tech) => (
-                        <a
-                          key={tech.id}
-                          href={`https://attack.mitre.org/techniques/${tech.id.replace('.', '/')}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          title={tech.name}
-                          className="text-[11px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-600 dark:text-slate-400 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
-                        >
-                          {tech.id} {tech.name}
-                        </a>
-                      ))}
-                    </div>
+              {selected.software.length > 0 && (
+                <div className="mt-4">
+                  <h3 className="text-[11px] font-mono uppercase tracking-wider text-slate-500 mb-1.5">
+                    Tooling / malware ({selected.software.length})
+                  </h3>
+                  <div className="flex flex-wrap gap-1.5">
+                    {selected.software.map((s) => (
+                      <span
+                        key={s}
+                        className="text-[11px] font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400"
+                      >
+                        {s}
+                      </span>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Enrichment */}
-          <div className="mt-5 pt-4 border-t border-slate-200 dark:border-slate-800">
-            <h3 className="text-[11px] font-mono uppercase tracking-wider text-slate-500 mb-3">
-              Enrichment · Malpedia / Maltrail / OTX
-            </h3>
-            <DataState loading={enrichLoading} error={enrichError} rows={3}>
-              {enrich && (
-                <div className="space-y-4">
-                  {enrich.malpedia.length > 0 && (
-                    <div>
-                      <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-1.5 flex items-center gap-1.5">
-                        <BookOpen size={11} /> Malpedia ({enrich.malpedia.length})
-                      </h4>
-                      <div className="flex flex-wrap gap-1.5">
-                        {enrich.malpedia.map((m) => (
-                          <a
-                            key={m.name}
-                            href={`https://malpedia.caad.fkie.fraunhofer.de/details/${m.type === 'actor' ? 'actor' : 'win'}.${m.name.toLowerCase().replace(/[^a-z0-9]/g, '_')}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-[11px] font-mono px-1.5 py-0.5 rounded border border-brand-500/30 text-brand-700 dark:text-brand-300 hover:bg-brand-500/10 inline-flex items-center gap-1"
-                          >
-                            {m.name} <ExternalLink size={10} />
-                          </a>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                  {enrich.maltrail.length > 0 && (
-                    <div>
-                      <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-1.5 flex items-center gap-1.5">
-                        <Bug size={11} /> Maltrail ({enrich.maltrail.length})
-                      </h4>
-                      <div className="flex flex-wrap gap-1.5">
-                        {enrich.maltrail.map((t) => (
-                          <a
-                            key={t.filename}
-                            href={`/api/v1/maltrail/fetch?trail=${encodeURIComponent(t.filename)}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-[11px] font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40 inline-flex items-center gap-1"
-                          >
-                            {t.displayName} <ExternalLink size={10} />
-                          </a>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                  {enrich.otx.length > 0 && (
-                    <div>
-                      <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-1.5 flex items-center gap-1.5">
-                        <Globe size={11} /> OTX Pulses ({enrich.otx.length})
-                      </h4>
-                      <div className="space-y-1">
-                        {enrich.otx.map((p) => (
-                          <a
-                            key={p.id}
-                            href={`https://otx.alienvault.com/pulse/${p.id}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="block text-[11px] font-mono px-1.5 py-1 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
-                          >
-                            <span className="text-slate-900 dark:text-slate-100">{p.name}</span>
-                            {p.author && <span className="ml-2 text-slate-500">by {p.author}</span>}
-                            {p.tags && p.tags.length > 0 && (
-                              <span className="ml-2 text-[10px] text-slate-500">{p.tags.slice(0, 4).join(' · ')}</span>
-                            )}
-                          </a>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                  {enrich.malpedia.length === 0 && enrich.maltrail.length === 0 && enrich.otx.length === 0 && (
-                    <p className="text-[11px] font-mono text-slate-500">No enrichment found.</p>
-                  )}
                 </div>
               )}
-            </DataState>
+
+              {techByTactic.length > 0 && (
+                <div className="mt-4">
+                  <h3 className="text-[11px] font-mono uppercase tracking-wider text-slate-500 mb-2">
+                    Techniques ({selected.techniques.length}) by tactic
+                  </h3>
+                  <div className="space-y-3">
+                    {techByTactic.map(([t, list]) => (
+                      <div key={t}>
+                        <div className="text-[12px] font-semibold text-brand-700 dark:text-brand-300 mb-1">
+                          {tacticLabel(t)}
+                        </div>
+                        <div className="flex flex-wrap gap-1.5">
+                          {list.map((tech) => (
+                            <a
+                              key={tech.id}
+                              href={`https://attack.mitre.org/techniques/${tech.id.replace('.', '/')}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              title={tech.name}
+                              className="text-[11px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-600 dark:text-slate-400 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+                            >
+                              {tech.id} {tech.name}
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Enrichment */}
+              <div className="mt-5 pt-4 border-t border-slate-200 dark:border-slate-800">
+                <h3 className="text-[11px] font-mono uppercase tracking-wider text-slate-500 mb-3">
+                  Enrichment · Malpedia / Maltrail / OTX
+                </h3>
+                <DataState loading={enrichLoading} error={enrichError} rows={3}>
+                  {enrich && (
+                    <div className="space-y-4">
+                      {enrich.malpedia.length > 0 && (
+                        <div>
+                          <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-1.5 flex items-center gap-1.5">
+                            <BookOpen size={11} /> Malpedia ({enrich.malpedia.length})
+                          </h4>
+                          <div className="flex flex-wrap gap-1.5">
+                            {enrich.malpedia.map((m) => (
+                              <a
+                                key={m.name}
+                                href={`https://malpedia.caad.fkie.fraunhofer.de/details/${m.type === 'actor' ? 'actor' : 'win'}.${m.name.toLowerCase().replace(/[^a-z0-9]/g, '_')}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-[11px] font-mono px-1.5 py-0.5 rounded border border-brand-500/30 text-brand-700 dark:text-brand-300 hover:bg-brand-500/10 inline-flex items-center gap-1"
+                              >
+                                {m.name} <ExternalLink size={10} />
+                              </a>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                      {enrich.maltrail.length > 0 && (
+                        <div>
+                          <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-1.5 flex items-center gap-1.5">
+                            <Bug size={11} /> Maltrail ({enrich.maltrail.length})
+                          </h4>
+                          <div className="flex flex-wrap gap-1.5">
+                            {enrich.maltrail.map((t) => (
+                              <a
+                                key={t.filename}
+                                href={`/api/v1/maltrail/fetch?trail=${encodeURIComponent(t.filename)}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-[11px] font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/40 inline-flex items-center gap-1"
+                              >
+                                {t.displayName} <ExternalLink size={10} />
+                              </a>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                      {enrich.otx.length > 0 && (
+                        <div>
+                          <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-1.5 flex items-center gap-1.5">
+                            <Globe size={11} /> OTX Pulses ({enrich.otx.length})
+                          </h4>
+                          <div className="space-y-1">
+                            {enrich.otx.map((p) => (
+                              <a
+                                key={p.id}
+                                href={`https://otx.alienvault.com/pulse/${p.id}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="block text-[11px] font-mono px-1.5 py-1 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
+                              >
+                                <span className="text-slate-900 dark:text-slate-100">{p.name}</span>
+                                {p.author && <span className="ml-2 text-slate-500">by {p.author}</span>}
+                                {p.tags && p.tags.length > 0 && (
+                                  <span className="ml-2 text-[10px] text-slate-500">
+                                    {p.tags.slice(0, 4).join(' · ')}
+                                  </span>
+                                )}
+                              </a>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                      {enrich.malpedia.length === 0 && enrich.maltrail.length === 0 && enrich.otx.length === 0 && (
+                        <p className="text-[11px] font-mono text-slate-500">No enrichment found.</p>
+                      )}
+                    </div>
+                  )}
+                </DataState>
+              </div>
+            </section>
+          )}
+
+          <div className="mb-6">
+            <ActorOtxSweep
+              actors={filtered.slice(0, 200).map((a) => ({
+                slug: a.attackId.toLowerCase(),
+                name: a.name,
+                aliases: a.aliases?.slice(0, 3),
+              }))}
+              limit={10}
+            />
           </div>
-        </section>
-      )}
 
-      <div className="mb-6">
-        <ActorOtxSweep
-          actors={filtered.slice(0, 200).map((a) => ({
-            slug: a.attackId.toLowerCase(),
-            name: a.name,
-            aliases: a.aliases?.slice(0, 3),
-          }))}
-          limit={10}
-        />
-      </div>
-
-      <div className="text-[12px] font-mono text-slate-500 mb-2">
-        {filtered.length} of {actorKb.length} actors
-      </div>
-      <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-        {filtered.slice(0, 240).map((a) => (
-          <button
-            key={a.attackId}
-            type="button"
-            onClick={() => open(a.attackId)}
-            className={`text-left rounded-lg border p-3 transition-colors ${
-              a.attackId === selectedId
-                ? 'border-brand-500/50 bg-brand-500/5'
-                : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-brand-500/40'
-            }`}
-          >
-            <div className="flex items-baseline justify-between gap-2">
-              <span className="font-display font-semibold truncate">{a.name}</span>
-              <span className="text-[10px] font-mono text-slate-500 shrink-0">{a.attackId}</span>
-            </div>
-            {a.aliases.length > 0 && (
-              <p className="text-[11px] font-mono text-slate-500 mt-0.5 truncate">{a.aliases.join(' · ')}</p>
-            )}
-            <p className="text-[11px] text-slate-500 mt-1">
-              {a.techniques.length} TTPs · {a.software.length} tools
-            </p>
-          </button>
-        ))}
-      </div>
-      {filtered.length > 240 && (
-        <p className="text-[12px] text-slate-500 mt-3">Showing first 240 — refine the search to narrow.</p>
-      )}
-
-      </>
+          <div className="text-[12px] font-mono text-slate-500 mb-2">
+            {filtered.length} of {actorKb.length} actors
+          </div>
+          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {filtered.slice(0, 240).map((a) => (
+              <button
+                key={a.attackId}
+                type="button"
+                onClick={() => open(a.attackId)}
+                className={`text-left rounded-lg border p-3 transition-colors ${
+                  a.attackId === selectedId
+                    ? 'border-brand-500/50 bg-brand-500/5'
+                    : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-brand-500/40'
+                }`}
+              >
+                <div className="flex items-baseline justify-between gap-2">
+                  <span className="font-display font-semibold truncate">{a.name}</span>
+                  <span className="text-[10px] font-mono text-slate-500 shrink-0">{a.attackId}</span>
+                </div>
+                {a.aliases.length > 0 && (
+                  <p className="text-[11px] font-mono text-slate-500 mt-0.5 truncate">{a.aliases.join(' · ')}</p>
+                )}
+                <p className="text-[11px] text-slate-500 mt-1">
+                  {a.techniques.length} TTPs · {a.software.length} tools
+                </p>
+              </button>
+            ))}
+          </div>
+          {filtered.length > 240 && (
+            <p className="text-[12px] text-slate-500 mt-3">Showing first 240 — refine the search to narrow.</p>
+          )}
+        </>
       )}
 
       {/* Maltrail-discovered skeleton actors. apt_*.txt files with no
@@ -489,6 +492,14 @@ export default function ActorKb(): JSX.Element {
           <div className="rounded border border-emerald-300 dark:border-emerald-800 bg-emerald-50/60 dark:bg-emerald-950/40 p-2 mb-3 text-[11px] font-mono text-emerald-800 dark:text-emerald-300">
             sync complete — {syncResult.created} new skeleton{syncResult.created !== 1 ? 's' : ''}, {syncResult.matched}{' '}
             matched existing, {syncResult.updated} refreshed
+          </div>
+        )}
+        {syncError && (
+          <div
+            role="alert"
+            className="rounded border border-rose-300 dark:border-rose-800 bg-rose-50/60 dark:bg-rose-950/40 p-2 mb-3 text-[11px] font-mono text-rose-700 dark:text-rose-300"
+          >
+            {syncError}
           </div>
         )}
         {skeletonsLoading && <p className="text-xs font-mono text-slate-500">Loading skeleton actors…</p>}

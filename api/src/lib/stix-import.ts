@@ -66,7 +66,7 @@ export interface StixObject {
 
 export interface StixBundle {
   type: 'bundle';
-  id: string;
+  id?: string;
   objects: StixObject[];
 }
 
@@ -418,7 +418,10 @@ export function stixActorToPlatformActor(actor: ParsedActor): {
   description?: string;
   source: string;
 } {
-  const slug = actor.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const slug = actor.name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
   return {
     slug,
     canonical: actor.name,

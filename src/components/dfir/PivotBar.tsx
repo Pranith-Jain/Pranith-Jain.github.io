@@ -1,29 +1,14 @@
 import { useState, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search } from 'lucide-react';
+import { detectKind, ROUTE_FOR } from './pivot-kind';
 
 /**
  * Shared pivot bar — type an IP or domain and jump to the right tool.
- * Mirrors the etugen.io "Search / pivot" entry. Entity detection is a thin
- * client-side regex.
+ * Mirrors the etugen.io "Search / pivot" entry. Entity detection lives in
+ * pivot-kind.ts (separate file) so React Fast Refresh and the
+ * `react-refresh/only-export-components` lint rule stay happy.
  */
-
-const IPV4_RE = /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/;
-const DOMAIN_RE = /^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/;
-
-export type PivotKind = 'ip' | 'domain' | 'unknown';
-
-export function detectKind(value: string): PivotKind {
-  const v = value.trim();
-  if (IPV4_RE.test(v)) return 'ip';
-  if (DOMAIN_RE.test(v)) return 'domain';
-  return 'unknown';
-}
-
-const ROUTE_FOR: Record<Exclude<PivotKind, 'unknown'>, (v: string) => string> = {
-  ip: (v) => `/dfir/host?ip=${encodeURIComponent(v)}`,
-  domain: (v) => `/dfir/domain?domain=${encodeURIComponent(v)}`,
-};
 
 interface PivotBarProps {
   initial?: string;
@@ -45,10 +30,7 @@ export function PivotBar({ initial = '', placeholder = 'IP or domain…' }: Pivo
     <form onSubmit={onSubmit} className="mb-2">
       <div className="flex gap-2 items-stretch">
         <div className="relative flex-1">
-          <Search
-            size={16}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500"
-          />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500" />
           <input
             type="text"
             value={value}

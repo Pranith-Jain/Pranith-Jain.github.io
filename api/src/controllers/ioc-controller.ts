@@ -194,7 +194,6 @@ async function runProviderChecks(
   write: (event: string, data: unknown) => void
 ): Promise<ProviderResult[]> {
   const collected: ProviderResult[] = [];
-  const indicatorKey = indicator.value.toLowerCase();
   await runChunked(
     eligible,
     async (p) => {
@@ -204,11 +203,10 @@ async function runProviderChecks(
         write('result', skipped);
         return;
       }
-      const cached = await cache.get(p, indicatorKey);
+      const cached = await cache.get(p, indicator);
       if (cached) {
-        const result = cached as unknown as ProviderResult;
-        collected.push(result);
-        write('result', result);
+        collected.push(cached);
+        write('result', cached);
         await recordProviderSuccess(p);
         return;
       }
@@ -218,7 +216,7 @@ async function runProviderChecks(
         collected.push(r);
         write('result', r);
         if (r.status === 'ok') {
-          await cache.set(p, indicatorKey, r as unknown as Record<string, unknown>);
+          await cache.set(p, indicator, r);
           await recordProviderSuccess(p);
         } else {
           await recordProviderFailure(p);

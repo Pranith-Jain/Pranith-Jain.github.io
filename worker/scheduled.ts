@@ -207,13 +207,38 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
             return false;
           }
         };
-        const healOne = async (type: 'daily' | 'weekly', slug: string) => {
+        // Cooldown guard — if the last build attempt was within `minAgeMs`,
+        // skip. Stops hourly cron from hammering the build (which can take
+        // 10-30s with KEV + NVD) on back-to-back hours when KEV/NVD stay
+        // blocked. Cheap to read; only matters on the degraded-rebuild path.
+        const recentBuild = async (slug: string, minAgeMs: number): Promise<boolean> => {
+          const row = await db
+            .prepare('SELECT generated_at, body FROM briefings WHERE slug = ?')
+            .bind(slug)
+            .first<{ generated_at?: string; body?: string }>();
+          if (!row) return false;
+          // Only suppress when the existing row is itself a degraded rebuild —
+          // we don't want to suppress hourly catches of a *rich* briefing that
+          // hasn't been touched in 7 days.
+          let degraded = false;
+          try {
+            degraded = (JSON.parse(row.body || '{}') as { degraded?: boolean }).degraded === true;
+          } catch {
+            /* non-JSON row — treat as not degraded */
+          }
+          if (!degraded) return false;
+          const last = Date.parse(row.generated_at ?? '');
+          if (!Number.isFinite(last)) return false;
+          return Date.now() - last < minAgeMs;
+        };
+        const healOne = async (type: 'daily' | 'weekly', slug: string, opts?: { minAgeMs?: number }) => {
           if (!db) return;
           const row = await db
             .prepare('SELECT stats_json FROM briefings WHERE slug = ?')
             .bind(slug)
             .first<{ stats_json: string }>();
           if (row && isRich(row.stats_json)) return;
+          if (opts?.minAgeMs && (await recentBuild(slug, opts.minAgeMs))) return;
           rebuiltThisHour = true;
           try {
             const briefing = await buildBriefing(type, undefined, {
@@ -238,13 +263,20 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
         };
 
         // Daily: skip UTC hour 0 — the 00:30 dedicated cron is imminent.
+        // Cooldown 30min — the daily catches up on quiet days; doesn't need
+        // to retry every hour, but once an hour is fine and short enough
+        // that the next attempt lands inside most rate-limit cool-offs.
         if (db && new Date().getUTCHours() !== 0) {
           const yesterday = new Date(Date.now() - 86400_000);
-          await healOne('daily', `daily-${yesterday.toISOString().slice(0, 10)}`);
+          await healOne('daily', `daily-${yesterday.toISOString().slice(0, 10)}`, { minAgeMs: 30 * 60_000 });
         }
-        // Weekly self-heal once/day at UTC hour 2
-        if (db && new Date().getUTCHours() === 2) {
-          await healOne('weekly', expectedWeeklySlug());
+        // Weekly self-heal — every hour (was: once/day at UTC hour 2). The
+        // weekly cron only fires Mondays, so a degraded weekly was previously
+        // stuck for 7 days. Hourly retry with a 30min cooldown recovers
+        // within an hour of KEV/NVD coming back, while not burning a full
+        // rebuild on back-to-back hours while upstreams stay blocked.
+        if (db) {
+          await healOne('weekly', expectedWeeklySlug(), { minAgeMs: 30 * 60_000 });
         }
 
         if (rebuiltThisHour) {
@@ -457,7 +489,7 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
               });
               const res = await apiApp.fetch(req, env as never, ctx);
               if (res.ok) {
-                const data = await res.json() as { totalFiles?: number; indicators?: string[] };
+                const data = (await res.json()) as { totalFiles?: number; indicators?: string[] };
                 infraResults.push({
                   url: target,
                   status: res.status,
@@ -470,11 +502,13 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
             }
           }
           if (infraResults.length > 0) {
-            console.log(JSON.stringify({
-              job: 'infra-scan',
-              targets_scanned: infraResults.length,
-              results: infraResults,
-            }));
+            console.log(
+              JSON.stringify({
+                job: 'infra-scan',
+                targets_scanned: infraResults.length,
+                results: infraResults,
+              })
+            );
           }
         } catch (e) {
           logCronFail('infra-scan')(e);

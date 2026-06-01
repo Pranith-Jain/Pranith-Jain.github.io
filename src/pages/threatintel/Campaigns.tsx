@@ -71,7 +71,7 @@ export default function Campaigns(): JSX.Element {
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       setItems((prev) => prev.filter((i) => i.id !== id));
     } catch (e) {
-      window.alert(`Delete failed: ${(e as Error).message}`);
+      setError(`Delete failed: ${(e as Error).message}`);
     }
   };
 
@@ -116,7 +116,10 @@ export default function Campaigns(): JSX.Element {
       </div>
 
       {error && (
-        <div className="rounded border border-rose-300 dark:border-rose-700 bg-rose-50 dark:bg-rose-950 p-3 text-xs font-mono text-rose-700 dark:text-rose-300 mb-4">
+        <div
+          role="alert"
+          className="rounded border border-rose-300 dark:border-rose-700 bg-rose-50 dark:bg-rose-950 p-3 text-xs font-mono text-rose-700 dark:text-rose-300 mb-4"
+        >
           {error}
         </div>
       )}

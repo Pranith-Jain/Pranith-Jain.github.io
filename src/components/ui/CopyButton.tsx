@@ -1,4 +1,4 @@
-import { useState, useCallback, type ReactNode } from 'react';
+import { useState, useCallback, useEffect, useRef, type ReactNode } from 'react';
 import { Copy, Check } from 'lucide-react';
 
 interface CopyButtonProps {
@@ -33,14 +33,15 @@ const SIZE_STYLES: Record<string, string> = {
 
 const VARIANT_STYLES = {
   icon: 'p-1 rounded text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800',
-  button: 'px-3 py-1.5 rounded-md text-sm font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700',
+  button:
+    'px-3 py-1.5 rounded-md text-sm font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700',
   ghost: 'p-1 rounded text-slate-400 hover:text-brand-600 dark:hover:text-brand-400',
 };
 
 /**
  * Copy to clipboard button with visual feedback.
  * Handles clipboard API errors gracefully and provides accessible feedback.
- * 
+ *
  * @example
  * <CopyButton text="Hello World" />
  * <CopyButton value={apiKey} label="Copy API Key" />
@@ -60,16 +61,22 @@ export function CopyButton({
   title,
 }: CopyButtonProps) {
   const [copied, setCopied] = useState(false);
+  const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const textToCopy = text ?? value ?? '';
   const ariaLabel = title ?? label;
+
+  useEffect(() => {
+    return () => {
+      if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
+    };
+  }, []);
 
   const handleCopy = useCallback(async () => {
     try {
       await navigator.clipboard.writeText(textToCopy);
       setCopied(true);
       onCopy?.();
-      setTimeout(() => setCopied(false), successDuration);
-    } catch (error) {
+    } catch {
       // Fallback for older browsers or non-HTTPS contexts
       try {
         const textArea = document.createElement('textarea');
@@ -84,19 +91,17 @@ export function CopyButton({
         document.body.removeChild(textArea);
         setCopied(true);
         onCopy?.();
-        setTimeout(() => setCopied(false), successDuration);
       } catch (fallbackError) {
         onError?.(fallbackError instanceof Error ? fallbackError : new Error('Copy failed'));
+        return;
       }
     }
+    if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
+    resetTimerRef.current = setTimeout(() => setCopied(false), successDuration);
   }, [textToCopy, successDuration, onCopy, onError]);
 
   const iconSize = typeof size === 'number' ? size : size === 'sm' ? 12 : 14;
-  const icon = copied ? (
-    <Check size={iconSize} className="text-emerald-500" />
-  ) : (
-    <Copy size={iconSize} />
-  );
+  const icon = copied ? <Check size={iconSize} className="text-emerald-500" /> : <Copy size={iconSize} />;
 
   return (
     <button

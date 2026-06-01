@@ -171,7 +171,7 @@ export async function indexRansomwareClaims(env: Env): Promise<{ indexed: number
     // Pass a stub executionCtx — the target handlers call c.executionCtx.waitUntil
     // for cache writes, which throws (→ 500) if ctx is absent. waitUntil becomes a
     // no-op here; we only need the response body.
-    const stubCtx = { waitUntil: () => {}, passThroughOnException: () => {} } as ExecutionContext;
+    const stubCtx = { waitUntil: () => {}, passThroughOnException: () => {} } as unknown as ExecutionContext;
     const res = await apiApp.fetch(new Request('https://internal/api/v1/ransomware-recent'), env, stubCtx);
     if (!res.ok) return { indexed, errors: errors + 1 };
     const body = (await res.json()) as {
@@ -228,7 +228,7 @@ export async function indexBreachCorpus(env: Env): Promise<{ indexed: number; er
     const internalReq = new Request('https://internal/api/v1/breach-disclosures', { method: 'GET' });
     // Stub executionCtx — see indexRansomwareClaims; the handler's waitUntil cache
     // write throws without it (→ 500 → errors:1).
-    const stubCtx = { waitUntil: () => {}, passThroughOnException: () => {} } as ExecutionContext;
+    const stubCtx = { waitUntil: () => {}, passThroughOnException: () => {} } as unknown as ExecutionContext;
     const res = await apiApp.fetch(internalReq, env, stubCtx);
     if (!res.ok) return { indexed, errors: errors + 1 };
     const body = (await res.json()) as {

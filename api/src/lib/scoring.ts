@@ -35,6 +35,32 @@ const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>> = {
     ipinfo: 1,
     kaspersky: 3,
   },
+  // IPv6 shares the provider pool with IPv4 (same data sources, same
+  // quality). Mirror the IPv4 weights exactly; per-provider special-cases
+  // (spamhaus, etc.) inherit their ipv4 tuning.
+  ipv6: {
+    abuseipdb: 4,
+    shodan: 2,
+    virustotal: 1,
+    otx: 1,
+    spamhaus: 4,
+    threatfox: 4,
+    urlhaus: 3,
+    tor: 1,
+    cinsarmy: 3,
+    bitwire: 3,
+    blocklistde: 2,
+    binarydefense: 3,
+    ipsum: 4,
+    malwareworld: 3,
+    tweetfeed: 2,
+    greynoise: 2,
+    'shodan-internetdb': 2,
+    spur: 1,
+    crowdsec: 3,
+    ipinfo: 1,
+    kaspersky: 3,
+  },
   domain: {
     virustotal: 2,
     urlscan: 2,

@@ -121,7 +121,14 @@ export async function ensureGraphTables(db: D1Database): Promise<void> {
 /**
  * Upsert a node. If it exists, update last_seen and merge properties.
  */
-export async function upsertNode(db: D1Database, node: Omit<GraphNode, 'id'> & { id?: string }): Promise<GraphNode> {
+export async function upsertNode(
+  db: D1Database,
+  node: Omit<GraphNode, 'id' | 'last_seen' | 'first_seen'> & {
+    id?: string;
+    last_seen?: string;
+    first_seen?: string;
+  }
+): Promise<GraphNode> {
   const id = node.id ?? `${node.type}:${node.value}`;
   const now = new Date().toISOString();
 
@@ -199,18 +206,29 @@ export async function upsertNode(db: D1Database, node: Omit<GraphNode, 'id'> & {
 /**
  * Create or update an edge between two nodes.
  */
-export async function upsertEdge(db: D1Database, edge: Omit<GraphEdge, 'id'> & { id?: string }): Promise<GraphEdge> {
+export async function upsertEdge(
+  db: D1Database,
+  edge: Omit<GraphEdge, 'id' | 'last_seen' | 'first_seen'> & {
+    id?: string;
+    last_seen?: string;
+    first_seen?: string;
+  }
+): Promise<GraphEdge> {
   const id = edge.id ?? `${edge.source_id}->${edge.relationship}->${edge.target_id}`;
   const now = new Date().toISOString();
 
   const existing = await db.prepare('SELECT * FROM graph_edges WHERE id = ?').bind(id).first<GraphEdge>();
 
   if (existing) {
-    const parseEvidence = (raw: unknown): string[] => {
+    const parseEvidence = (raw: unknown): GraphEdge['evidence'] => {
       if (typeof raw !== 'string' || !raw) return [];
       try {
-        const p = JSON.parse(raw);
-        return Array.isArray(p) ? p : [];
+        const p: unknown = JSON.parse(raw);
+        if (!Array.isArray(p)) return [];
+        return p.filter(
+          (x): x is GraphEdge['evidence'][number] =>
+            typeof x === 'object' && x !== null && 'source' in x && 'description' in x && 'timestamp' in x
+        );
       } catch {
         return [];
       }

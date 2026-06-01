@@ -84,7 +84,6 @@ export const kaspersky: ProviderAdapter = async (indicator, env, signal) => {
     const json = (await res.json()) as KasperskyResponse;
 
     let zone: KasperskyZone | undefined;
-    let threatName: string | undefined;
     switch (indicator.type) {
       case 'ipv4':
         zone = json.ip;
@@ -105,7 +104,7 @@ export const kaspersky: ProviderAdapter = async (indicator, env, signal) => {
         break;
     }
 
-    threatName = zone?.threat_name ?? json.FileGeneralInfo?.DetectionName;
+    const threatName: string | undefined = zone?.threat_name ?? json.FileGeneralInfo?.DetectionName;
 
     const { score, verdict, tags } = zoneToScore(zone?.zone);
     if (threatName) tags.push(threatName);

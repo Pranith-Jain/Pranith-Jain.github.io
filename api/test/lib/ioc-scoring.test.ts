@@ -2,8 +2,6 @@ import { describe, it, expect } from 'vitest';
 import { scoreIoc, scoreToGrade, calculateLifecycle, type IocObservation } from '../../src/lib/ioc-scoring';
 
 describe('IOC Scoring Engine', () => {
-  const _now = new Date('2026-05-31T12:00:00Z');
-
   describe('scoreIoc', () => {
     it('returns zero score for empty observations', () => {
       const result = scoreIoc([]);
@@ -28,9 +26,7 @@ describe('IOC Scoring Engine', () => {
     });
 
     it('increases score with multiple sources', () => {
-      const single: IocObservation[] = [
-        { source: 'virustotal', observedAt: '2026-05-31T10:00:00Z', sourceScore: 80 },
-      ];
+      const single: IocObservation[] = [{ source: 'virustotal', observedAt: '2026-05-31T10:00:00Z', sourceScore: 80 }];
       const multi: IocObservation[] = [
         { source: 'virustotal', observedAt: '2026-05-31T10:00:00Z', sourceScore: 80 },
         { source: 'abuseipdb', observedAt: '2026-05-31T10:00:00Z', sourceScore: 70 },
@@ -46,12 +42,8 @@ describe('IOC Scoring Engine', () => {
     });
 
     it('applies time decay to old observations', () => {
-      const recent: IocObservation[] = [
-        { source: 'virustotal', observedAt: '2026-05-31T10:00:00Z', sourceScore: 80 },
-      ];
-      const old: IocObservation[] = [
-        { source: 'virustotal', observedAt: '2026-05-01T10:00:00Z', sourceScore: 80 },
-      ];
+      const recent: IocObservation[] = [{ source: 'virustotal', observedAt: '2026-05-31T10:00:00Z', sourceScore: 80 }];
+      const old: IocObservation[] = [{ source: 'virustotal', observedAt: '2026-05-01T10:00:00Z', sourceScore: 80 }];
 
       const recentResult = scoreIoc(recent, 30);
       const oldResult = scoreIoc(old, 30);
@@ -72,9 +64,7 @@ describe('IOC Scoring Engine', () => {
     });
 
     it('marks dormant IOCs correctly', () => {
-      const old: IocObservation[] = [
-        { source: 'virustotal', observedAt: '2026-01-01T10:00:00Z', sourceScore: 80 },
-      ];
+      const old: IocObservation[] = [{ source: 'virustotal', observedAt: '2026-01-01T10:00:00Z', sourceScore: 80 }];
       const result = scoreIoc(old, 30);
       expect(result.isDormant).toBe(true);
     });

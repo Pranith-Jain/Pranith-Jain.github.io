@@ -267,9 +267,9 @@ import {
   deleteCampaignHandler,
 } from './routes/campaigns';
 import { maltrailSyncHandler, listSkeletonActorsHandler, getSkeletonActorHandler } from './routes/maltrail-sync';
- import { maliciousPackagesHandler } from './routes/malicious-packages';
- import { getSiteUrl } from './lib/site-config';
- import { xTweetsHandler } from './routes/x-tweets';
+import { maliciousPackagesHandler } from './routes/malicious-packages';
+import { getSiteUrl } from './lib/site-config';
+import { xTweetsHandler } from './routes/x-tweets';
 import { xLiveHandler } from './routes/x-live';
 import { xFirehoseHandler } from './routes/x-firehose';
 import { relationshipGraphHandler } from './routes/relationship-graph';
@@ -346,7 +346,6 @@ import {
   searchSchema,
   breachEmailSchema,
   breachDomainSchema,
-  urlAnalysisSchema,
   waybackSchema,
   googleDorksSchema,
   cryptoTraceSchema,
@@ -361,9 +360,10 @@ import {
 // ── Health Checks ──────────────────────────────────────────────────
 import { generateOpenApiSpec } from './lib/openapi';
 import { apiVersion } from './lib/api-version';
-import { auditAdminAction } from './lib/admin-audit';
 
-app.get('/api/v1/health', (c) => c.json({ ok: true, timestamp: new Date().toISOString() }, 200, { 'Cache-Control': 'public, max-age=60' }));
+app.get('/api/v1/health', (c) =>
+  c.json({ ok: true, timestamp: new Date().toISOString() }, 200, { 'Cache-Control': 'public, max-age=60' })
+);
 
 // ── OpenAPI Specification ────────────────────────────────────────
 app.get('/api/v1/openapi.json', (c) => {
@@ -403,11 +403,13 @@ app.get('/api/v1/health/ai', async (c) => {
   try {
     const start = Date.now();
     // Use a minimal prompt to test AI binding availability
-    const result = await ai.run('@cf/meta/llama-3.1-8b-instruct', {
+    await ai.run('@cf/meta/llama-3.1-8b-instruct', {
       messages: [{ role: 'user', content: 'ping' }],
       max_tokens: 5,
     });
-    return c.json({ status: 'ok', latency_ms: Date.now() - start, model: 'llama-3.1-8b' }, 200, { 'Cache-Control': 'no-store' });
+    return c.json({ status: 'ok', latency_ms: Date.now() - start, model: 'llama-3.1-8b' }, 200, {
+      'Cache-Control': 'no-store',
+    });
   } catch (e) {
     return c.json({ status: 'error', error: e instanceof Error ? e.message : 'unknown' }, 503);
   }

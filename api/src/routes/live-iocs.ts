@@ -909,6 +909,7 @@ export async function fetchLiveIocs(
         .all<{ value: string; type: string; sources: string; last_seen: string; properties: string }>();
       if (feedIocs.results && feedIocs.results.length > 0) {
         let count = 0;
+        let newest = '';
         for (const row of feedIocs.results) {
           const kind =
             row.type === 'ip' ? ('ip' as const) : row.type === 'hash' ? ('hash' as const) : (row.type as IocKind);
@@ -922,8 +923,9 @@ export async function fetchLiveIocs(
             observed_at: row.last_seen,
           });
           count++;
+          if (!newest) newest = row.last_seen;
         }
-        sources.push({ id: 'feed-scheduler', ok: true, count, newest_observation: feedIocs.results[0].last_seen });
+        sources.push({ id: 'feed-scheduler', ok: true, count, newest_observation: newest });
       }
     } catch {
       /* non-fatal */

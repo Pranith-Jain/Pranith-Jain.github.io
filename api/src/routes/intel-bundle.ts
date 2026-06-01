@@ -562,7 +562,13 @@ export async function intelBundleBuildHandler(c: Context<{ Bindings: Env }>): Pr
   // degrade to empty on failure. The LLM step matches what the cron warmer
   // does so STIX builder ad-hoc inputs get the same sector / candidate
   // signal as briefings persisted by the warmer.
-  let bulk: Awaited<ReturnType<typeof enrichBulk>> = { enrichments: [], partial: false, overflow: [] };
+  let bulk: Awaited<ReturnType<typeof enrichBulk>> = {
+    enrichments: [],
+    partial: false,
+    overflow: [],
+    freshSubrequests: 0,
+    droppedSubrequests: 0,
+  };
   let cveEnrichments = new Map<string, CveEnrichment>();
   let llmEntities: LlmEntities = { ...EMPTY_LLM_ENTITIES };
   try {

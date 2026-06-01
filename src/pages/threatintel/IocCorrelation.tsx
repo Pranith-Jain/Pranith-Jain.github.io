@@ -158,6 +158,7 @@ export default function IocCorrelation(): JSX.Element {
   const [newOnly, setNewOnly] = useState(searchParams.get('new') === '1');
   const [stixLoading, setStixLoading] = useState(false);
   const [stixBundleId, setStixBundleId] = useState<string | null>(null);
+  const [stixError, setStixError] = useState<string | null>(null);
 
   // Keep filter state in the URL so a curated view is shareable.
   useEffect(() => {
@@ -367,13 +368,18 @@ export default function IocCorrelation(): JSX.Element {
           ) : (
             <button
               type="button"
-              onClick={() => void buildStixBundle(filtered, setStixLoading, setStixBundleId)}
+              onClick={() => void buildStixBundle(filtered, setStixLoading, setStixBundleId, setStixError)}
               disabled={stixLoading || filtered.length === 0}
               className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-brand-500/40 disabled:opacity-40"
             >
               {stixLoading ? <Loader2 size={12} className="animate-spin" /> : <FileDown size={12} />}
               {stixLoading ? 'building…' : 'STIX'}
             </button>
+          )}
+          {stixError && (
+            <span role="alert" className="text-[11px] font-mono text-rose-700 dark:text-rose-300">
+              {stixError}
+            </span>
           )}
           <button
             type="button"
@@ -543,12 +549,14 @@ function downloadFilteredCsv(rows: CorrelatedIoc[]): void {
 async function buildStixBundle(
   rows: CorrelatedIoc[],
   setLoading: (v: boolean) => void,
-  setId: (id: string | null) => void
+  setId: (id: string | null) => void,
+  setError: (msg: string | null) => void
 ) {
   const iocs = rows.map((r) => r.value);
   if (iocs.length === 0) return;
   setLoading(true);
   setId(null);
+  setError(null);
   try {
     const r = await fetch('/api/v1/intel-bundle/build', {
       method: 'POST',
@@ -559,8 +567,8 @@ async function buildStixBundle(
     if (!r.ok) throw new Error(r.statusText);
     const data = (await r.json()) as { bundle: { id: string } };
     setId(data.bundle.id);
-  } catch {
-    window.alert('STIX build failed.');
+  } catch (e) {
+    setError(`STIX build failed: ${(e as Error).message}`);
   } finally {
     setLoading(false);
   }
