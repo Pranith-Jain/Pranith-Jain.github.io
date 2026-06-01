@@ -6,6 +6,7 @@ import {
   sweepOldBriefings,
   expectedWeeklySlug,
 } from '../api/src/lib/briefing-builder';
+import { buildLandscapeReport, writeLandscapeReport, expectedLandscapeSlug } from '../api/src/lib/landscape-builder';
 import { runDiscoveryNow, runPlannerNow, runPublisherNow, type CaseStudyEnv } from '../api/src/case-study/run';
 import { runTelegramArchive } from '../api/src/routes/telegram-archive';
 import {
@@ -520,11 +521,41 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
   }
 
   // === Dedicated briefings cron path ===
-  if (cron !== '30 0 * * *' && cron !== '45 0 * * 1') return;
+  if (cron !== '30 0 * * *' && cron !== '45 0 * * 1' && cron !== '30 2 1 * *') return;
   if (!env.BRIEFINGS_DB) {
     console.warn('scheduled: BRIEFINGS_DB not bound, skipping');
     return;
   }
+
+  // Monthly threat landscape report — fires 1st of the month at 02:30 UTC.
+  // Reuses the briefings table with type='landscape'. Idempotent: a row
+  // for the current month (if already written) is left in place.
+  if (cron === '30 2 1 * *') {
+    const db = env.BRIEFINGS_DB as D1Database;
+    ctx.waitUntil(
+      (async () => {
+        const slug = expectedLandscapeSlug();
+        try {
+          const report = await buildLandscapeReport(new Date(), { env: env as unknown as ApiEnv });
+          const result = await writeLandscapeReport(db, report);
+          console.log(
+            `scheduled(landscape): ${result.written ? 'wrote' : 'skipped'} ${slug} (reason=${result.reason ?? 'n/a'}, victims=${report.stats.ransomware_victims}, groups=${report.stats.top_groups})`
+          );
+        } catch (err) {
+          console.error(
+            JSON.stringify({
+              job: 'landscape-build',
+              status: 'failed',
+              error: err instanceof Error ? err.message : String(err),
+            })
+          );
+        }
+        logCronDone({ path: 'briefing-dedicated', type: 'landscape' });
+      })().catch(logCronFail('landscape-dedicated'))
+    );
+    return;
+  }
+
   const isWeekly = cron === '45 0 * * 1';
   const type = isWeekly ? 'weekly' : 'daily';
 

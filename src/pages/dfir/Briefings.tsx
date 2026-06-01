@@ -4,16 +4,17 @@ import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Rss, ChevronRight, ChevronLeft, Search } from 'lucide-react';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 
-type Filter = 'all' | 'daily' | 'weekly';
+type Filter = 'all' | 'daily' | 'weekly' | 'landscape';
 
 const FILTERS: Array<{ id: Filter; label: string }> = [
   { id: 'all', label: 'All' },
   { id: 'daily', label: 'Daily' },
   { id: 'weekly', label: 'Weekly' },
+  { id: 'landscape', label: 'Landscape' },
 ];
 
 interface BriefingMeta {
-  type: 'daily' | 'weekly';
+  type: 'daily' | 'weekly' | 'landscape';
   title: string;
   date: string;
   range_end?: string;
@@ -243,7 +244,9 @@ export default function Briefings(): JSX.Element {
                   className={`text-xs font-mono px-2 py-0.5 rounded border shrink-0 ${
                     item.metadata.type === 'daily'
                       ? 'bg-brand-500/15 dark:bg-brand-400/15 text-brand-600 dark:text-brand-400 border-brand-500/40'
-                      : 'bg-violet-500/15 dark:bg-violet-400/15 text-violet-600 dark:text-violet-400 border-violet-500/40'
+                      : item.metadata.type === 'weekly'
+                        ? 'bg-violet-500/15 dark:bg-violet-400/15 text-violet-600 dark:text-violet-400 border-violet-500/40'
+                        : 'bg-amber-500/15 dark:bg-amber-400/15 text-amber-700 dark:text-amber-300 border-amber-500/40'
                   }`}
                 >
                   {item.metadata.type}

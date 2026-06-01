@@ -57,6 +57,20 @@ interface FeedStatusRow {
   category?: string;
   /** Human-readable description */
   description?: string;
+  /**
+   * NATO Admiralty information credibility (1–6), computed from live feed
+   * health + freshness. Distinct from `reliability` (a fixed property of the
+   * source): credibility grades the *current data point*.
+   *   1 Confirmed     — ok & fresh (<30min)
+   *   2 Probably true — ok but older
+   *   3 Possibly true — degraded
+   *   4 Doubtful      — down w/ last-good fallback
+   *   5 Improbable    — down w/o fallback
+   *   6 Cannot judge  — cold (no data ever)
+   */
+  info_credibility?: number;
+  /** Combined Admiralty grade in standard "B-2" notation. */
+  admiralty_grade?: string;
 }
 
 export interface FeedStatusResponse {
@@ -69,6 +83,13 @@ export interface FeedStatusResponse {
   degraded: number;
   down: number;
   cold: number;
+  /**
+   * Per-NATO-Admiralty-reliability (A–F) distribution across rows. Sources
+   * without a registered reliability letter are bucketed as 'ungraded' so
+   * they still show in the histogram. Used by the dashboard widget to show
+   * a quick "how authoritative is the source mix" read.
+   */
+  reliability_distribution: Record<string, number>;
 }
 
 interface FeedProbeSpec {
@@ -88,6 +109,34 @@ function ageSeconds(iso: string | undefined): number | undefined {
   const t = Date.parse(iso);
   if (Number.isNaN(t)) return undefined;
   return Math.max(0, Math.round((Date.now() - t) / 1000));
+}
+
+/**
+ * Map (status, age-seconds) → NATO Admiralty information credibility (1–6).
+ * Lives next to the probe helpers so the mapping is kept in sync with the
+ * rest of the status vocabulary.
+ *
+ *   1 Confirmed     — ok & fresh
+ *   2 Probably true — ok & older
+ *   3 Possibly true — degraded
+ *   4 Doubtful      — down w/ last-good (served stale data)
+ *   5 Improbable    — down w/o fallback
+ *   6 Cannot judge  — cold (no cached payload ever)
+ */
+function infoCredibilityFor(status: Status, ageS: number | undefined): number {
+  if (status === 'ok') {
+    if (ageS !== undefined && ageS < 1800) return 1;
+    return 2;
+  }
+  if (status === 'degraded') return 3;
+  if (status === 'down') {
+    // Down is graded by whether a last-good fallback is serving. feed-status
+    // doesn't see the cache body, so we use age as the proxy: very fresh
+    // age means we're still serving last-good; missing age means no fallback.
+    if (ageS !== undefined) return 4;
+    return 5;
+  }
+  return 6; // cold
 }
 
 function intField(obj: unknown, key: string): number | undefined {
@@ -691,64 +740,40 @@ async function probeOne(spec: FeedProbeSpec): Promise<FeedStatusRow> {
   const reg = spec.id
     ? (SOURCE_RELIABILITY_REGISTRY[spec.id] ?? SOURCE_RELIABILITY_REGISTRY[`${spec.id}-feed`])
     : undefined;
-  // Passive sources have no cache key — skip the cache.match
-  // (which would throw on empty URL) and report 'cold'.
-  if (!spec.cache_key) {
+  const reliability = spec.reliability ?? reg?.reliability;
+  const toRow = (status: Status, reason: string, ageS?: number): FeedStatusRow => {
+    const info_credibility = infoCredibilityFor(status, ageS);
     return {
       id: spec.id,
       label: spec.label,
       page_path: spec.page_path,
       api_path: spec.api_path,
-      status: 'cold',
-      reason: 'no cache key (passive source)',
-      reliability: spec.reliability ?? reg?.reliability,
+      status,
+      reason,
+      ...(ageS !== undefined ? { upstream_age_s: ageS } : {}),
+      reliability,
       category: spec.category ?? reg?.category,
       description: spec.description ?? reg?.description,
+      info_credibility,
+      admiralty_grade: reliability ? `${reliability}-${info_credibility}` : undefined,
     };
+  };
+  // Passive sources have no cache key — skip the cache.match
+  // (which would throw on empty URL) and report 'cold'.
+  if (!spec.cache_key) {
+    return toRow('cold', 'no cache key (passive source)');
   }
   const cache = (caches as unknown as { default: Cache }).default;
   try {
     const cached = await cache.match(spec.cache_key);
     if (!cached) {
-      return {
-        id: spec.id,
-        label: spec.label,
-        page_path: spec.page_path,
-        api_path: spec.api_path,
-        status: 'cold',
-        reason: 'no cached payload (visit the page once to warm the cache)',
-        reliability: spec.reliability ?? reg?.reliability,
-        category: spec.category ?? reg?.category,
-        description: spec.description ?? reg?.description,
-      };
+      return toRow('cold', 'no cached payload (visit the page once to warm the cache)');
     }
     const body = (await cached.json()) as unknown;
     const evaluated = spec.evaluate(body);
-    return {
-      id: spec.id,
-      label: spec.label,
-      page_path: spec.page_path,
-      api_path: spec.api_path,
-      status: evaluated.status,
-      reason: evaluated.reason,
-      metrics: evaluated.metrics,
-      upstream_age_s: evaluated.ageS,
-      reliability: spec.reliability ?? reg?.reliability,
-      category: spec.category ?? reg?.category,
-      description: spec.description ?? reg?.description,
-    };
+    return toRow(evaluated.status, evaluated.reason, evaluated.ageS);
   } catch {
-    return {
-      id: spec.id,
-      label: spec.label,
-      page_path: spec.page_path,
-      api_path: spec.api_path,
-      status: 'down',
-      reason: 'cache read error',
-      reliability: spec.reliability ?? reg?.reliability,
-      category: spec.category ?? reg?.category,
-      description: spec.description ?? reg?.description,
-    };
+    return toRow('down', 'cache read error');
   }
 }
 
@@ -783,6 +808,23 @@ export async function feedStatusHandler(c: Context<{ Bindings: Env }>): Promise<
     const overall: Status =
       down >= 3 ? 'down' : down >= 1 || degraded >= 3 ? 'degraded' : cold >= rows.length / 2 ? 'cold' : 'ok';
 
+    // Aggregate A–F distribution across the active rows. Rows without a
+    // registered reliability letter (e.g. the synthetic _passive row, or
+    // a probe whose registry key was removed) land in 'ungraded'.
+    const reliability_distribution: Record<string, number> = {
+      A: 0,
+      B: 0,
+      C: 0,
+      D: 0,
+      E: 0,
+      F: 0,
+      ungraded: 0,
+    };
+    for (const r of rows) {
+      const key = r.reliability && /^[A-F]$/.test(r.reliability) ? r.reliability : 'ungraded';
+      reliability_distribution[key] = (reliability_distribution[key] ?? 0) + 1;
+    }
+
     const body: FeedStatusResponse = {
       generated_at: new Date().toISOString(),
       rows,
@@ -792,6 +834,7 @@ export async function feedStatusHandler(c: Context<{ Bindings: Env }>): Promise<
       degraded,
       down,
       cold,
+      reliability_distribution,
     };
 
     const response = new Response(JSON.stringify(body), {
@@ -819,6 +862,7 @@ export async function feedStatusHandler(c: Context<{ Bindings: Env }>): Promise<
         degraded: 0,
         down: 0,
         cold: 0,
+        reliability_distribution: { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0, ungraded: 0 },
       }),
       {
         status: 200,

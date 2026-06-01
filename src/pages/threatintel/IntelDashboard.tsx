@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
+import { MaturityPanel } from '../../components/threatintel/MaturityPanel';
 import { ArrowLeft, Shield, Bug, Globe2, Activity, AlertTriangle, Radio, Target, TrendingUp } from 'lucide-react';
 
 interface DashboardData {
@@ -126,6 +127,14 @@ export default function IntelDashboard(): JSX.Element {
                 <p className="text-[11px] text-slate-400 mt-0.5">{data.feed_count} sources</p>
               </div>
             </div>
+
+            {/* Program health: CTI-CMM maturity + source-reliability histogram */}
+            <section>
+              <h2 className="text-sm font-bold uppercase tracking-[0.15em] text-brand-600 dark:text-brand-400 font-mono mb-4">
+                Program Health
+              </h2>
+              <MaturityPanel />
+            </section>
 
             {/* Source cards */}
             <section>

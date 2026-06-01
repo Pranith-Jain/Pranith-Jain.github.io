@@ -182,11 +182,25 @@ export async function buildBriefingHandler(c: AdminCtx) {
   if ('error' in auth) return auth.error;
 
   const typeRaw = c.req.query('type');
-  if (typeRaw !== 'daily' && typeRaw !== 'weekly') {
-    return c.json({ error: 'type must be daily or weekly' }, 400);
+  if (typeRaw !== 'daily' && typeRaw !== 'weekly' && typeRaw !== 'landscape') {
+    return c.json({ error: 'type must be daily, weekly, or landscape' }, 400);
   }
 
   try {
+    if (typeRaw === 'landscape') {
+      const { buildLandscapeReport, writeLandscapeReport } = await import('../lib/landscape-builder');
+      const report = await buildLandscapeReport(new Date(), { env: c.env });
+      const result = await writeLandscapeReport(db, report);
+      return c.json(
+        {
+          ok: result.written,
+          slug: report.slug,
+          reason: result.reason,
+          stats: report.stats,
+        },
+        200
+      );
+    }
     const briefing = await buildBriefing(typeRaw as BriefingType, undefined, {
       nvdApiKey: c.env.NVD_API_KEY,
       env: c.env,

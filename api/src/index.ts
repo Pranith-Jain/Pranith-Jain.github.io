@@ -234,6 +234,7 @@ import {
   feedbackDeleteHandler,
 } from './routes/feedback';
 import { sourceReliabilityHandler } from './lib/confidence';
+import { maturityHandler } from './lib/maturity';
 import { crossCampaignCorrelationHandler } from './routes/cross-campaign';
 
 import {
@@ -744,6 +745,7 @@ app.get('/api/v1/threat-intel/feedback', feedbackListHandler);
 app.get('/api/v1/threat-intel/feedback/aggregate', feedbackAggregateHandler);
 app.delete('/api/v1/threat-intel/feedback/:id', feedbackDeleteHandler);
 app.get('/api/v1/source-reliability', sourceReliabilityHandler);
+app.get('/api/v1/maturity', maturityHandler);
 
 // ── ACH Generator ───────────────────────────────────────────────
 app.post('/api/v1/threat-intel/ach', achHandler);
