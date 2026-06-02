@@ -54,6 +54,21 @@ const ROUTES = [
   '/dfir',
   '/threatintel',
 
+  // ── DFIR: tools that were mapped in worker/router.ts PRERENDERED_ROUTES
+  //    but missing here, so they were served as the bare SPA shell and
+  //    cached 24h as "prerendered". Now generated like their siblings. ──
+  '/dfir/ai-rule-generator',
+  '/dfir/threat-graph',
+  '/dfir/attack-chain',
+  '/dfir/hunting-query-generator',
+  '/dfir/sandbox',
+  '/dfir/ir-playbooks',
+  '/dfir/stealer-parser',
+  '/dfir/taxii',
+  '/dfir/bloom',
+  '/dfir/whois-history',
+  '/dfir/open-directory',
+
   // ── DFIR: static catalogs & education (8) — 0 API calls ───────
   '/dfir/diamond',
   '/dfir/owasp',
@@ -260,9 +275,7 @@ async function main() {
     process.exit(1);
   }
   if (!existsSync(SERVER_BUNDLE)) {
-    console.error(
-      `prerender: missing ${SERVER_BUNDLE} — run \`vite build --ssr src/entry-server.tsx\` first.`,
-    );
+    console.error(`prerender: missing ${SERVER_BUNDLE} — run \`vite build --ssr src/entry-server.tsx\` first.`);
     process.exit(1);
   }
 
@@ -318,11 +331,33 @@ async function main() {
   await writeFile(
     resolve(prerenderDir, 'manifest.json'),
     JSON.stringify({ generated_at: new Date().toISOString(), routes: manifest }, null, 2),
-    'utf8',
+    'utf8'
   );
 
   console.log(`\nprerender: ${okCount}/${ROUTES.length} routes rendered → dist/__prerendered/`);
   if (okCount === 0) process.exit(1);
+
+  // ── Drift guard ─────────────────────────────────────────────────────────
+  // worker/router.ts (PRERENDERED_ROUTES) maps each route to /__prerendered/
+  // <slug>. With not_found_handling:"single-page-application", a MISSING
+  // prerendered asset is served as the SPA shell at status 200 — so a route
+  // listed there without a generated file is silently served (and cached 24h)
+  // as the bare shell labelled "prerendered". Fail the build on that drift,
+  // including a route here that failed to render (absent from the manifest).
+  const generated = new Set(manifest.map((m) => m.file.replace(/^__prerendered\//, '').replace(/\.html$/, '')));
+  const routerSrc = await readFile(resolve(ROOT, 'worker/router.ts'), 'utf8');
+  const expected = [...new Set([...routerSrc.matchAll(/\/__prerendered\/([a-zA-Z0-9_-]+)/g)].map((m) => m[1]))];
+  const missing = expected.filter((slug) => !generated.has(slug));
+  if (missing.length > 0) {
+    console.error(
+      `\nprerender: ✗ ${missing.length} PRERENDERED_ROUTES entr${missing.length === 1 ? 'y has' : 'ies have'} no generated HTML`
+    );
+    console.error('  (each is served as the bare SPA shell, cached 24h as "prerendered"):');
+    for (const slug of missing) console.error(`    /__prerendered/${slug}`);
+    console.error('\n  Fix: add the route to ROUTES above, or remove it from worker/router.ts PRERENDERED_ROUTES.\n');
+    process.exit(1);
+  }
+  console.log(`prerender: ✓ all ${expected.length} PRERENDERED_ROUTES entries have generated HTML.`);
 }
 
 void main();
