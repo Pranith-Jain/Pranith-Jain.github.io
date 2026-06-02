@@ -1,9 +1,10 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Rss, ChevronRight, ChevronLeft, Search } from 'lucide-react';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 import { LiveFreshnessPill } from '../../components/LiveFreshnessPill';
+import { useDebounce } from '../../hooks/useDebounce';
 
 type Filter = 'all' | 'daily' | 'weekly' | 'landscape';
 
@@ -57,11 +58,20 @@ export default function Briefings(): JSX.Element {
   const [reloadKey, setReloadKey] = useState(0);
 
   const activeLimit = Math.min(PAGE_SIZE, 100);
+  // Debounce the search so we hit the server on a pause, not per keystroke.
+  const debouncedQuery = useDebounce(query, 300);
 
   useEffect(() => {
     setLoading(true);
     setError(null);
-    fetch(`/api/v1/briefings/list?limit=${activeLimit}&offset=${offset}`)
+    // Filter + search server-side so `total` and the page are the same
+    // (filtered) universe — the old client-side filter over one 30-row page
+    // made the "N of total" pager lie and search miss later pages.
+    const params = new URLSearchParams({ limit: String(activeLimit), offset: String(offset) });
+    if (filter !== 'all') params.set('type', filter);
+    const q = debouncedQuery.trim();
+    if (q) params.set('q', q);
+    fetch(`/api/v1/briefings/list?${params.toString()}`)
       .then(async (r) => {
         if (!r.ok) {
           const body = (await r.json().catch(() => ({}))) as { error?: string };
@@ -75,28 +85,11 @@ export default function Briefings(): JSX.Element {
       })
       .catch((err: Error) => setError(err.message))
       .finally(() => setLoading(false));
-  }, [reloadKey, offset, activeLimit]);
+  }, [reloadKey, offset, activeLimit, filter, debouncedQuery]);
 
-  const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    return items
-      .filter((b) => filter === 'all' || b.metadata.type === filter)
-      .filter((b) => {
-        if (!q) return true;
-        return (
-          b.slug.toLowerCase().includes(q) ||
-          b.metadata.title.toLowerCase().includes(q) ||
-          b.metadata.date_range.toLowerCase().includes(q)
-        );
-      })
-      .slice()
-      .sort((a, b) => {
-        // Sort by end-of-period so weeklies and dailies interleave correctly.
-        const ak = a.metadata.range_end ?? a.metadata.date ?? '';
-        const bk = b.metadata.range_end ?? b.metadata.date ?? '';
-        return bk.localeCompare(ak);
-      });
-  }, [items, filter, query]);
+  // The server now filters, searches, and sorts (range_end DESC); render the
+  // page as-is so the rows and the "N of total" pager agree.
+  const filtered = items;
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 sm:py-16 text-slate-900 dark:text-slate-100">
@@ -117,7 +110,7 @@ export default function Briefings(): JSX.Element {
         </h1>
         <p className="text-base text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
           Auto-generated daily and weekly summaries of threat-intelligence activity, drawn from CISA KEV, NVD, and
-          abuse.ch / OpenPhish feeds. Daily briefings publish at 00:05 UTC; weekly at 00:15 UTC Monday. Reference only —
+          abuse.ch / OpenPhish feeds. Daily briefings publish at 00:30 UTC; weekly at 00:45 UTC Monday. Reference only —
           verify all indicators in your own environment. For real-time activity, see the live snapshot on{' '}
           <BackLink to="/threatintel" className="text-brand-600 dark:text-brand-400 hover:underline">
             /threatintel
@@ -151,7 +144,10 @@ export default function Briefings(): JSX.Element {
           <input
             type="search"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              setOffset(0); // new search → back to page 1 so offset stays valid
+            }}
             placeholder="Filter by title, slug, or date (e.g. 2026-05)…"
             aria-label="Filter briefings"
             className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
@@ -167,6 +163,7 @@ export default function Briefings(): JSX.Element {
                 type="button"
                 onClick={() => {
                   setFilter(id);
+                  setOffset(0); // new filter → back to page 1
                   setSearchParams(id === 'all' ? {} : { type: id }, { replace: true });
                 }}
                 className={`px-3 py-2 sm:py-1 min-h-[44px] sm:min-h-0 rounded-full text-xs font-mono uppercase tracking-wider border transition-colors inline-flex items-center ${
@@ -214,8 +211,8 @@ export default function Briefings(): JSX.Element {
         )}
         {!loading && !error && filtered.length === 0 && (
           <p className="text-sm font-mono text-slate-500 py-10 text-center">
-            {items.length === 0
-              ? 'No briefings indexed. Dailies publish 00:05 UTC; weeklies 00:15 UTC Monday.'
+            {filter === 'all' && !debouncedQuery.trim()
+              ? 'No briefings indexed. Dailies publish 00:30 UTC; weeklies 00:45 UTC Monday.'
               : 'No briefings match the current filter.'}
           </p>
         )}

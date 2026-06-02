@@ -1679,9 +1679,16 @@ export async function buildBriefing(
     });
     if (ransomwareFindings.length >= 60) break;
   }
-  // Newest-first (the merged feed is already sorted this way, but rebuilds
-  // can re-enter items in a different order if any fetcher rotated).
-  ransomwareFindings.sort((a, b) => (b.title < a.title ? 0 : 1));
+  // Newest-first by claim date. The day is encoded as the id's trailing
+  // `-YYYY-MM-DD`. The old `(b.title < a.title ? 0 : 1)` was not a valid
+  // comparator — it never returned a negative, so TimSort left the array
+  // effectively unsorted — and it keyed on victim name, not date.
+  ransomwareFindings.sort((a, b) => {
+    const dayA = a.id.slice(-10);
+    const dayB = b.id.slice(-10);
+    if (dayA === dayB) return a.title.localeCompare(b.title);
+    return dayA < dayB ? 1 : -1; // newest day first
+  });
 
   // Weekly briefings fold in the already-persisted daily briefings for the
   // window (see the "weekly rollup" block above). The live weekly feeds are
@@ -1980,34 +1987,40 @@ export async function sweepOldBriefings(
 
 export async function listBriefings(
   db: D1Database,
-  filter?: { type?: BriefingType; limit?: number; offset?: number }
+  filter?: { type?: 'daily' | 'weekly' | 'landscape'; q?: string; limit?: number; offset?: number }
 ): Promise<{ items: Array<{ slug: string; metadata: Record<string, unknown> }>; total: number }> {
   const limit = filter?.limit ?? 50;
   const offset = filter?.offset ?? 0;
 
-  let countQuery = 'SELECT COUNT(*) as cnt FROM briefings';
-  const countParams: unknown[] = [];
+  // One WHERE clause shared by the COUNT and the page query, so `total` always
+  // reflects the same (filtered) universe as the rows — otherwise the client
+  // paginates/searches against a count that doesn't match what it can see.
+  const where: string[] = [];
+  const whereParams: unknown[] = [];
   if (filter?.type) {
-    countQuery += ' WHERE type = ?';
-    countParams.push(filter.type);
+    where.push('type = ?');
+    whereParams.push(filter.type);
   }
+  const q = filter?.q?.trim();
+  if (q) {
+    // Escape LIKE wildcards in user input, then match title / date_range / slug.
+    const like = `%${q.replace(/[\\%_]/g, '\\$&')}%`;
+    where.push("(title LIKE ? ESCAPE '\\' OR date_range LIKE ? ESCAPE '\\' OR slug LIKE ? ESCAPE '\\')");
+    whereParams.push(like, like, like);
+  }
+  const whereSql = where.length ? ` WHERE ${where.join(' AND ')}` : '';
+
   const countRow = await db
-    .prepare(countQuery)
-    .bind(...countParams)
+    .prepare(`SELECT COUNT(*) as cnt FROM briefings${whereSql}`)
+    .bind(...whereParams)
     .first<{ cnt: number }>();
   const total = countRow?.cnt ?? 0;
 
-  let query = 'SELECT slug, type, title, date, date_range, range_end, stats_json, sources_json FROM briefings';
-  const params: unknown[] = [];
-  if (filter?.type) {
-    query += ' WHERE type = ?';
-    params.push(filter.type);
-  }
-  query += ' ORDER BY range_end DESC LIMIT ? OFFSET ?';
-  params.push(limit, offset);
   const result = await db
-    .prepare(query)
-    .bind(...params)
+    .prepare(
+      `SELECT slug, type, title, date, date_range, range_end, stats_json, sources_json FROM briefings${whereSql} ORDER BY range_end DESC LIMIT ? OFFSET ?`
+    )
+    .bind(...whereParams, limit, offset)
     .all<{
       slug: string;
       type: string;

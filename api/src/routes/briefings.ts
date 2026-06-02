@@ -54,9 +54,13 @@ function briefingsCacheKey(c: Context<{ Bindings: Env }>): Request {
   // poisoning via arbitrary query strings.
   const safeParams = new URLSearchParams();
   const type = u.searchParams.get('type');
-  if (type === 'daily' || type === 'weekly') safeParams.set('type', type);
+  if (type === 'daily' || type === 'weekly' || type === 'landscape') safeParams.set('type', type);
   const limit = u.searchParams.get('limit');
   if (limit) safeParams.set('limit', limit);
+  // `offset` MUST be in the key — otherwise every page collapsed onto one
+  // cached entry and page 2 served page 1.
+  const offset = u.searchParams.get('offset');
+  if (offset) safeParams.set('offset', offset);
   const sq = safeParams.toString();
   return new Request(`https://briefings-cache.internal/${BRIEFINGS_CACHE_VERSION}${u.pathname}${sq ? '?' + sq : ''}`, {
     method: 'GET',
@@ -71,23 +75,28 @@ export async function listBriefingsHandler(c: Context<{ Bindings: Env }>) {
   const db = dbOrError(c);
   if (!db) return c.json({ error: 'briefings database not bound' }, 503);
   try {
-    const cache = caches.default;
-    const key = briefingsCacheKey(c);
-    const cached = await cache.match(key);
-    if (cached) return new Response(cached.body, cached);
-
     const typeRaw = c.req.query('type');
-    const type = typeRaw === 'daily' || typeRaw === 'weekly' ? (typeRaw as BriefingType) : undefined;
+    const type = typeRaw === 'daily' || typeRaw === 'weekly' || typeRaw === 'landscape' ? typeRaw : undefined;
     const limitRaw = c.req.query('limit');
     const limit = limitRaw ? Math.min(Math.max(parseInt(limitRaw, 10) || 20, 1), 100) : 20;
     const offsetRaw = c.req.query('offset');
     const offset = offsetRaw ? Math.max(parseInt(offsetRaw, 10) || 0, 0) : 0;
-    const { items, total } = await listBriefings(db, { type, limit, offset });
+    const qRaw = c.req.query('q');
+    const q = qRaw ? qRaw.trim().slice(0, 100) : undefined;
+
+    const cache = caches.default;
+    const key = briefingsCacheKey(c);
+    // Search bypasses the per-PoP cache (unbounded query cardinality); the
+    // paginated non-search list is cached per (type, limit, offset).
+    const cached = q ? null : await cache.match(key);
+    if (cached) return new Response(cached.body, cached);
+
+    const { items, total } = await listBriefings(db, { type, q, limit, offset });
     const res = c.json({ items, total }, 200, {
-      'cache-control': BRIEFINGS_CC,
+      'cache-control': q ? 'no-store' : BRIEFINGS_CC,
       'last-modified': new Date().toUTCString(),
     });
-    c.executionCtx.waitUntil(cache.put(key, res.clone()));
+    if (!q) c.executionCtx.waitUntil(cache.put(key, res.clone()));
     return res;
   } catch (err) {
     console.error('listBriefingsHandler error:', err instanceof Error ? err.message : String(err));
@@ -395,11 +404,31 @@ export async function briefingsForActorHandler(c: Context<{ Bindings: Env }>) {
   }
 
   const cache = caches.default;
-  const cacheKey = new Request(`https://briefings-cache.internal/for-actor/${actorSlug}`);
+  // Version the key so a new briefing for this actor isn't pinned for an hour
+  // (the list/slug keys are versioned via BRIEFINGS_CACHE_VERSION; this one
+  // wasn't).
+  const cacheKey = new Request(`https://briefings-cache.internal/${BRIEFINGS_CACHE_VERSION}/for-actor/${actorSlug}`);
   const cached = await cache.match(cacheKey);
   if (cached) return new Response(cached.body, cached);
 
   const { items } = await listBriefings(db, { limit: 14 });
+
+  // Parallelize the 14 reads (was a serial await-in-loop on the hot path) and
+  // track read failures so a corrupt/blipped row never silently shrinks the
+  // page AND gets pinned in cache as an under-count for an hour.
+  let degraded = false;
+  const settled = await Promise.all(
+    items.map(async (b) => {
+      try {
+        const full = await readBriefing(db, b.slug);
+        return full ? { b, full } : null;
+      } catch {
+        degraded = true;
+        return null;
+      }
+    })
+  );
+
   const results: Array<{
     slug: string;
     title: string;
@@ -407,39 +436,36 @@ export async function briefingsForActorHandler(c: Context<{ Bindings: Env }>) {
     findings: Array<{ section: string; finding: Record<string, unknown> }>;
   }> = [];
 
-  for (const b of items) {
-    try {
-      const full = await readBriefing(db, b.slug);
-      if (!full) continue;
-      const enriched = enrichBriefingWithTags(full);
-      const matched: Array<{ section: string; finding: Record<string, unknown> }> = [];
-      for (const section of enriched.sections) {
-        for (const finding of section.findings) {
-          const f = finding as unknown as Record<string, unknown>;
-          const tags = f.tags as { actors?: Array<{ slug: string }> } | undefined;
-          if (tags?.actors?.some((a) => a.slug === actorSlug)) {
-            matched.push({ section: section.title, finding: f });
-          }
+  for (const row of settled) {
+    if (!row) continue;
+    const { b, full } = row;
+    const enriched = enrichBriefingWithTags(full);
+    const matched: Array<{ section: string; finding: Record<string, unknown> }> = [];
+    for (const section of enriched.sections) {
+      for (const finding of section.findings) {
+        const f = finding as unknown as Record<string, unknown>;
+        const tags = f.tags as { actors?: Array<{ slug: string }> } | undefined;
+        if (tags?.actors?.some((a) => a.slug === actorSlug)) {
+          matched.push({ section: section.title, finding: f });
         }
       }
-      if (matched.length > 0) {
-        results.push({
-          slug: b.slug,
-          title: ((full as unknown as Record<string, unknown>).title as string) ?? '',
-          date_range: ((full as unknown as Record<string, unknown>).date_range as string) ?? '',
-          findings: matched,
-        });
-      }
-    } catch {
-      /* skip failed briefings */
+    }
+    if (matched.length > 0) {
+      results.push({
+        slug: b.slug,
+        title: ((full as unknown as Record<string, unknown>).title as string) ?? '',
+        date_range: ((full as unknown as Record<string, unknown>).date_range as string) ?? '',
+        findings: matched,
+      });
     }
   }
 
   const total_findings = results.reduce((s, r) => s + r.findings.length, 0);
   const res = c.json({ actor: actorSlug, briefings: results, total_findings }, 200, {
-    'cache-control': 'public, max-age=3600',
+    // Don't pin a partial result for an hour when a read failed.
+    'cache-control': degraded ? 'no-store' : 'public, max-age=3600',
   });
-  c.executionCtx.waitUntil(cache.put(cacheKey, res.clone()));
+  if (!degraded) c.executionCtx.waitUntil(cache.put(cacheKey, res.clone()));
   return res;
 }
 
