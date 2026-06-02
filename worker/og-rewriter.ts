@@ -217,11 +217,14 @@ export async function injectOgMeta(
   const etag = nonce ? (response.headers.get('etag') ?? response.headers.get('last-modified') ?? '') : '';
   if (etag) {
     const cacheKey = new Request(
-      `https://og-html.internal/v2/${encodeURIComponent(url.host)}${url.pathname}@${encodeURIComponent(etag)}`
+      `https://og-html.internal/v3/${encodeURIComponent(url.host)}${url.pathname}@${encodeURIComponent(etag)}`
     );
     const cached = await caches.default.match(cacheKey);
-    if (cached) {
-      const body = injectScriptNonce(await cached.text(), nonce);
+    const cachedText = cached ? await cached.text() : '';
+    // Ignore a cached EMPTY body — a poisoned entry (see the write guard
+    // below) must self-heal on the next request, not be served for the TTL.
+    if (cached && cachedText.length > 0) {
+      const body = injectScriptNonce(cachedText, nonce);
       return new Response(body, {
         headers: {
           'content-type': cached.headers.get('content-type') ?? 'text/html;charset=UTF-8',
@@ -231,6 +234,18 @@ export async function injectOgMeta(
   }
 
   const html = await response.text();
+  // Never rewrite or cache a non-OK / empty upstream. A 304 or an empty read
+  // during an asset-propagation race at deploy time would otherwise be cached
+  // under `pathname@etag` and served blank for the full TTL — this is exactly
+  // what blanked `/` and `/blog` on 2026-06-02. Returning the body uncached
+  // lets the very next request re-read the (normally non-empty) asset.
+  if (!response.ok || html.length === 0) {
+    return new Response(html, {
+      status: response.status,
+      statusText: response.statusText,
+      headers: { 'content-type': response.headers.get('content-type') ?? 'text/html;charset=UTF-8' },
+    });
+  }
   const ogOverride = await resolveOg(url, env);
   const ogRewritten = rewriteHtml(html, ogOverride, `${CANONICAL_ORIGIN}${url.pathname}${url.search}`);
   const final = nonce ? injectScriptNonce(ogRewritten, nonce) : ogRewritten;
@@ -241,7 +256,7 @@ export async function injectOgMeta(
     },
   });
 
-  if (etag) {
+  if (etag && ogRewritten.length > 0) {
     const toCache = new Response(ogRewritten, {
       headers: {
         'content-type': response.headers.get('content-type') ?? 'text/html;charset=UTF-8',
@@ -249,7 +264,7 @@ export async function injectOgMeta(
       },
     });
     const ck = new Request(
-      `https://og-html.internal/v2/${encodeURIComponent(url.host)}${url.pathname}@${encodeURIComponent(etag)}`
+      `https://og-html.internal/v3/${encodeURIComponent(url.host)}${url.pathname}@${encodeURIComponent(etag)}`
     );
     ctx.waitUntil(caches.default.put(ck, toCache).catch(() => {}));
   }
