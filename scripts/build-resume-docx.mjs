@@ -110,8 +110,8 @@ function build(md) {
     if (t.startsWith('## ')) {
       body.push(
         para(run(stripLinks(t.slice(3)), { bold: true, sz: 23, color: C.navy, spacing: 16 }), {
-          before: 150,
-          after: 56,
+          before: 72,
+          after: 40,
           border: true,
         }),
       );
@@ -142,7 +142,7 @@ function build(md) {
       const content = inline(t.slice(2), { sz: 20, color: C.body, boldColor: C.accent });
       body.push(
         para(run('▪', { sz: 18, color: C.accent, bold: true }) + run('   ', { sz: 20 }) + content, {
-          after: 40,
+          after: 34,
           bullet: true,
         }),
       );
@@ -152,7 +152,7 @@ function build(md) {
     // Role/degree line (**bold**)
     if (t.startsWith('**')) {
       body.push(
-        para(inline(t, { sz: 21, color: C.body, boldColor: C.navy }), { before: 44, after: 20 }),
+        para(inline(t, { sz: 21, color: C.body, boldColor: C.navy }), { before: 30, after: 18 }),
       );
       expectMeta = true;
       continue;
@@ -167,15 +167,15 @@ function build(md) {
           run(parts.join(' | '), { sz: 18, italic: true, color: C.muted }) +
           tab() +
           run(date, { sz: 18, italic: true, color: C.muted });
-        body.push(para(inner, { after: 60, rightTab: true }));
+        body.push(para(inner, { after: 44, rightTab: true }));
       } else {
-        body.push(para(run(t, { sz: 18, italic: true, color: C.muted }), { after: 60 }));
+        body.push(para(run(t, { sz: 18, italic: true, color: C.muted }), { after: 44 }));
       }
       expectMeta = false;
       continue;
     }
     // Body copy (e.g. professional summary)
-    body.push(para(run(stripLinks(t), { sz: 20, color: C.body }), { after: 60 }));
+    body.push(para(run(stripLinks(t), { sz: 20, color: C.body }), { after: 44 }));
     expectMeta = false;
   }
 
