@@ -43,7 +43,7 @@ const C = {
 };
 
 // Page geometry (twips). 0.5" sides, 0.42" top/bottom.
-const PAGE = { w: 12240, h: 15840, mTop: 620, mBottom: 600, mSide: 760 };
+const PAGE = { w: 12240, h: 15840, mTop: 540, mBottom: 500, mSide: 720 };
 const RIGHT_TAB = PAGE.w - PAGE.mSide * 2; // right-tab stop at the text margin
 
 const stripLinks = (s) => s.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
@@ -79,7 +79,7 @@ const para = (
   if (border) ppr += `<w:pBdr><w:bottom w:val="single" w:sz="6" w:space="3" w:color="${C.rule}"/></w:pBdr>`;
   if (center) ppr += '<w:jc w:val="center"/>';
   if (rightTab) ppr += `<w:tabs><w:tab w:val="right" w:pos="${RIGHT_TAB}"/></w:tabs>`;
-  ppr += `<w:spacing w:before="${before}" w:after="${after}" w:line="276" w:lineRule="auto"/>`;
+  ppr += `<w:spacing w:before="${before}" w:after="${after}" w:line="240" w:lineRule="auto"/>`;
   if (bullet) ppr += '<w:ind w:left="216" w:hanging="216"/>';
   ppr += '</w:pPr>';
   return `<w:p>${ppr}${inner}</w:p>`;
@@ -110,8 +110,8 @@ function build(md) {
     if (t.startsWith('## ')) {
       body.push(
         para(run(stripLinks(t.slice(3)), { bold: true, sz: 23, color: C.navy, spacing: 16 }), {
-          before: 200,
-          after: 70,
+          before: 150,
+          after: 56,
           border: true,
         }),
       );
@@ -142,7 +142,7 @@ function build(md) {
       const content = inline(t.slice(2), { sz: 20, color: C.body, boldColor: C.accent });
       body.push(
         para(run('▪', { sz: 18, color: C.accent, bold: true }) + run('   ', { sz: 20 }) + content, {
-          after: 64,
+          after: 40,
           bullet: true,
         }),
       );
@@ -152,7 +152,7 @@ function build(md) {
     // Role/degree line (**bold**)
     if (t.startsWith('**')) {
       body.push(
-        para(inline(t, { sz: 21, color: C.body, boldColor: C.navy }), { before: 60, after: 24 }),
+        para(inline(t, { sz: 21, color: C.body, boldColor: C.navy }), { before: 44, after: 20 }),
       );
       expectMeta = true;
       continue;
@@ -175,7 +175,7 @@ function build(md) {
       continue;
     }
     // Body copy (e.g. professional summary)
-    body.push(para(run(stripLinks(t), { sz: 20, color: C.body }), { after: 80 }));
+    body.push(para(run(stripLinks(t), { sz: 20, color: C.body }), { after: 60 }));
     expectMeta = false;
   }
 
