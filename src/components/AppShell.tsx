@@ -2,7 +2,6 @@ import { Link, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Sidebar } from './Sidebar';
 import { TopBar } from './TopBar';
-import { AppBreadcrumbAuto } from './AppBreadcrumb';
 import { MobileSidebarDrawer } from './MobileSidebarDrawer';
 import { getSidebarForSection } from '../data/sidebar-nav';
 import { useDataFetch } from '../hooks/useDataFetch';
@@ -217,13 +216,6 @@ export function AppShell({ mode, isDark, onToggleTheme, children }: AppShellProp
           <MobileSidebarDrawer open={mobileNavOpen} onClose={() => setMobileNavOpen(false)} config={sidebarConfig} />
         )}
         <main id="main-content" key={pageKey} className="flex-1 min-w-0">
-          <div className="px-3 sm:px-4 pt-3 pb-1 animate-fade-in-up">
-            <AppBreadcrumbAuto
-              pathname={location.pathname}
-              labels={ROUTE_LABELS}
-              home={{ label: section.label, href: section.href }}
-            />
-          </div>
           <div className="animate-fade-in-up">{children}</div>
         </main>
       </div>

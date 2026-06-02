@@ -1191,13 +1191,10 @@ export default function ThreatIntelHome(): JSX.Element {
         </section>
       ) : (
         <section className="animate-fade-in-up mb-12">
-          <div className="mb-5 flex flex-wrap items-baseline gap-x-3 gap-y-1 border-t border-slate-200/70 pt-6 dark:border-slate-800">
+          <div className="mb-5 border-t border-slate-200/70 pt-6 dark:border-slate-800">
             <h2 className="font-display text-base font-semibold text-slate-700 dark:text-slate-300">
               Browse by category
             </h2>
-            <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-slate-400">
-              {SECTIONS.length} surfaces · full index
-            </span>
           </div>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {SECTIONS.map((s) => (
