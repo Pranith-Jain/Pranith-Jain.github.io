@@ -1,5 +1,8 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+// Canonical producer key — the watchlist `ioc_sightings` read previously
+// hardcoded stale v11 and so was always 0 for every watched domain.
+import { LIVE_IOCS_CACHE_KEY } from './live-iocs';
 
 interface Watchlist {
   domains: string[];
@@ -74,7 +77,7 @@ export async function dashboardHandler(c: Context<{ Bindings: Env }>): Promise<R
   // per-domain (N×2 cache reads for N domains). The data is identical
   // across iterations; read once and filter in-memory.
   const liveIocs = await readCache<{ items: Array<{ value: string; kind: string; source: string }> }>(
-    'https://live-iocs-cache.internal/v11-freshness-filter'
+    LIVE_IOCS_CACHE_KEY
   );
   const breaches = await readCache<{
     breaches: Array<{
