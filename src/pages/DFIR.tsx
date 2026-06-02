@@ -8,7 +8,7 @@ import { AppHero } from '../components/AppHero';
 
 import { QuickActions, type QuickAction } from '../components/QuickActions';
 import { RecentToolsRow } from '../components/RecentToolsRow';
-import { StatBar } from '../components/StatBar';
+import { CapabilityBand } from '../components/dfir/CapabilityBand';
 
 /**
  * "Start here." Three tools, one prescribed sequence. Solves the hub
@@ -251,14 +251,16 @@ export default function DFIRPage(): JSX.Element {
           </>
         }
       />
-      <StatBar
-        items={[
-          { label: 'Tools', value: String(MAIN_TOOL_COUNT) },
-          { label: 'Data sources', value: '90+' },
-          { label: 'Credits required', value: '0' },
-          { label: 'Last build', value: __BUILD_DATE__, mono: true },
-        ]}
-      />
+      {/* Capability band — elevates the old static StatBar figures into the
+          same operations-console cluster used on /threatintel, under a static
+          TOOLKIT mark (no live feeds here to fake). Build date moves to the
+          thin caption below. */}
+      <div>
+        <CapabilityBand />
+        <p className="mt-2 px-1 font-mono text-[11px] text-slate-400">
+          {MAIN_TOOL_COUNT} tools · client-side · build {__BUILD_DATE__}
+        </p>
+      </div>
 
       {/* Quick actions — the dock a returning analyst uses 90% of the
           time. Placed BEFORE the prose-y "Start here" sequence because
@@ -329,7 +331,7 @@ export default function DFIRPage(): JSX.Element {
           door. Promotes the strong work above the category picker so a
           first-time visitor doesn't bounce off a 60-tile grid. The rest of
           the toolkit stays one click away via "Pick a workbench" below. */}
-      <section>
+      <section className="rounded-2xl border border-slate-200/70 bg-gradient-to-b from-slate-50/80 to-white p-4 dark:border-slate-800 dark:from-slate-900/50 dark:to-slate-950/20 sm:p-6">
         <div className="flex items-baseline justify-between mb-5">
           <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">Featured tools</h2>
           <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500">
@@ -364,8 +366,15 @@ export default function DFIRPage(): JSX.Element {
       </section>
 
       <section className="animate-fade-in-up">
-        <div className="flex items-baseline justify-between mb-6">
-          <h2 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100">Pick a workbench</h2>
+        <div className="mb-6 flex items-baseline justify-between gap-3 border-t border-slate-200/70 pt-6 dark:border-slate-800">
+          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <h2 className="font-display text-base font-semibold text-slate-700 dark:text-slate-300">
+              Pick a workbench
+            </h2>
+            <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-slate-400">
+              9 categories · full index
+            </span>
+          </div>
           <Link
             to="/dfir/dashboard"
             className="text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"

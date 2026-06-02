@@ -52,7 +52,7 @@ import { TodaysRead } from '../../components/threatintel/TodaysRead';
 import { personalInfo } from '../../data/content';
 import { AppHero } from '../../components/AppHero';
 import { QuickActions, type QuickAction } from '../../components/QuickActions';
-import { StatBar } from '../../components/StatBar';
+import { LivePulse } from '../../components/threatintel/LivePulse';
 import { RecentToolsRow } from '../../components/RecentToolsRow';
 
 /**
@@ -962,6 +962,17 @@ export default function ThreatIntelHome(): JSX.Element {
         }
       />
 
+      {/* Live telemetry band — the page's one genuinely live asset (real
+          threat counts) as the hero moment, directly under the headline.
+          Replaces the old static StatBar; the surface/section/build meta it
+          used to carry moves to the thin caption below. */}
+      <div>
+        <LivePulse />
+        <p className="mt-2 px-1 font-mono text-[11px] text-slate-400">
+          {totalTiles} intel surfaces · {SECTIONS.length} sections · build {__BUILD_DATE__}
+        </p>
+      </div>
+
       {/* Quick actions — the dock a returning analyst uses 90% of the
           time. Replaces the old "quick:" pill row (which had 6
           link-buttons in a flat row, hard to scan). Each tile now
@@ -974,20 +985,6 @@ export default function ThreatIntelHome(): JSX.Element {
           route change). Renders only after 2+ visits, so first-time
           visitors don't see an empty row. */}
       <RecentToolsRow section="threatintel" accentClass="text-rose-600 dark:text-rose-400" tone="rose" />
-      <StatBar
-        items={[
-          { label: 'Intel surfaces', value: String(totalTiles) },
-          { label: 'Live feeds', value: '12+' },
-          { label: 'Sections', value: String(SECTIONS.length) },
-          { label: 'Last build', value: __BUILD_DATE__, mono: true },
-        ]}
-      />
-
-      {/* FeedSnapshot removed in favour of the AppStatusBar at the
-          bottom of the shell, which already surfaces the same
-          per-feed health info (with auto-refresh every 30s). The
-          StatBar above shows the static feed count. */}
-
       {/* Search bar — '/' or Cmd/Ctrl+K to focus, Esc to clear */}
       <div className="relative mb-10">
         <div className="relative">
@@ -1038,8 +1035,11 @@ export default function ThreatIntelHome(): JSX.Element {
       </div>
 
       {!isSearching && !cat && (
-        <section className="animate-fade-in-up">
-          <LiveSnapshotPanel compact subtitle="live intel pulse across the platform" mbClass="mb-12" />
+        <section
+          aria-label="Live across the platform"
+          className="animate-fade-in-up rounded-2xl border border-slate-200/70 bg-gradient-to-b from-slate-50/80 to-white p-4 dark:border-slate-800 dark:from-slate-900/50 dark:to-slate-950/20 sm:p-5"
+        >
+          <LiveSnapshotPanel compact subtitle="live intel pulse across the platform" mbClass="mb-0" />
         </section>
       )}
 
@@ -1191,12 +1191,14 @@ export default function ThreatIntelHome(): JSX.Element {
         </section>
       ) : (
         <section className="animate-fade-in-up mb-12">
-          <h2 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100 mb-1">
-            Browse by category
-          </h2>
-          <p className="text-sm font-mono text-slate-500 mb-6">
-            Pick a surface to dive in, or use the search above to jump straight to a tool.
-          </p>
+          <div className="mb-5 flex flex-wrap items-baseline gap-x-3 gap-y-1 border-t border-slate-200/70 pt-6 dark:border-slate-800">
+            <h2 className="font-display text-base font-semibold text-slate-700 dark:text-slate-300">
+              Browse by category
+            </h2>
+            <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-slate-400">
+              {SECTIONS.length} surfaces · full index
+            </span>
+          </div>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {SECTIONS.map((s) => (
               <Link
