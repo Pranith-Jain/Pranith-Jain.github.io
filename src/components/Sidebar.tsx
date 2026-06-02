@@ -29,14 +29,15 @@ export function Sidebar({ config }: SidebarProps) {
 
   const width = collapsed ? 'w-14' : 'w-60';
   const showLabels = !collapsed;
+  const totalItems = config.groups.reduce((n, g) => n + g.items.length, 0);
 
   return (
     <aside
       className={`hidden md:flex flex-col ${width} flex-shrink-0 transition-[width] duration-200 ease-out`}
       aria-label={`${config.sectionLabel} navigation`}
     >
-      <div className="sticky top-14 max-h-[calc(100vh-3.5rem)] flex flex-col rounded-2xl border border-slate-200/60 bg-white/70 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/60">
-        <div className="flex items-center justify-between gap-2 border-b border-slate-200/60 px-3 py-2.5 dark:border-white/10">
+      <div className="sticky top-16 max-h-[calc(100vh-4rem)] flex flex-col border-r border-slate-200/60 bg-white/80 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/80">
+        <div className="flex items-center justify-between gap-2 border-b border-slate-200/60 px-3 py-3 dark:border-white/10">
           {showLabels ? (
             <span className="text-xs font-bold uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400 truncate">
               {config.sectionLabel}
@@ -102,13 +103,13 @@ export function Sidebar({ config }: SidebarProps) {
           ))}
         </nav>
 
-        {showLabels && (
-          <div className="border-t border-slate-200/60 px-3 py-2 dark:border-white/10">
-            <p className="text-[10px] font-mono text-slate-400 dark:text-slate-500 leading-relaxed">
-              {config.groups.reduce((n, g) => n + g.items.length, 0)} tools
-            </p>
-          </div>
-        )}
+        <div className="border-t border-slate-200/60 px-3 py-2 dark:border-white/10">
+          {showLabels ? (
+            <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500">{totalItems} tools</span>
+          ) : (
+            <span className="sr-only">{totalItems} tools</span>
+          )}
+        </div>
       </div>
     </aside>
   );

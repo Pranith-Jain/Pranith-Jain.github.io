@@ -1942,6 +1942,24 @@ export async function writeBriefing(
       JSON.stringify(briefing)
     )
     .run();
+
+  // Invalidate the per-briefing intel-bundle (the IntelCard on the detail
+  // page). It's cached in `intel_bundles` by (source_id, item_ref), and
+  // NOTHING refreshes it when the briefing is rebuilt: the warmer skips slugs
+  // that already have a bundle, and the POST handler returns the cached row
+  // without comparing body hashes. So a rebuilt briefing (W22 degraded→rich, a
+  // daily NVD-lag re-enrich, any heal) keeps serving the OLD bundle summary —
+  // e.g. the stale "this briefing is incomplete" card over a 728-finding week.
+  // Drop the row so the card recomputes fresh on the next view / warm pass.
+  // Best-effort: a failure here must never fail the briefing write.
+  try {
+    await db
+      .prepare(`DELETE FROM intel_bundles WHERE source_id = 'briefings' AND item_ref = ?`)
+      .bind(briefing.slug)
+      .run();
+  } catch {
+    /* intel_bundles table may not exist in some envs (e.g. tests) — non-fatal */
+  }
   return { written: true };
 }
 

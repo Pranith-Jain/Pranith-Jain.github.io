@@ -23,6 +23,7 @@ const testEnv = env as unknown as Env;
 /** Minimal in-memory D1 stub: enough of prepare/bind/first/run for writeBriefing. */
 function fakeDb(rows: Record<string, { stats_json: string }>) {
   const writes: string[] = [];
+  const deletes: Array<{ table: string; ref: string }> = [];
   const db = {
     prepare(sql: string) {
       return {
@@ -39,6 +40,10 @@ function fakeDb(rows: Record<string, { stats_json: string }>) {
           return null;
         },
         async run() {
+          if (this._sql.includes('DELETE FROM intel_bundles')) {
+            deletes.push({ table: 'intel_bundles', ref: this._args[0] as string });
+            return { success: true };
+          }
           const slug = this._args[0] as string;
           writes.push(slug);
           rows[slug] = { stats_json: String(this._args[7]) };
@@ -47,7 +52,7 @@ function fakeDb(rows: Record<string, { stats_json: string }>) {
       };
     },
   };
-  return { db: db as never, writes, rows };
+  return { db: db as never, writes, deletes, rows };
 }
 
 function briefing(slug: string, findings: number, iocs: number): Briefing {
@@ -90,6 +95,25 @@ describe('writeBriefing empty-clobber guard', () => {
     const r = await writeBriefing(db, briefing('daily-x', 12, 300));
     expect(r.written).toBe(true);
     expect(writes).toEqual(['daily-x']);
+  });
+});
+
+describe('writeBriefing invalidates the stale per-briefing intel-bundle', () => {
+  it('drops the intel-bundle for the slug when it (re)writes the briefing', async () => {
+    const { db, writes, deletes } = fakeDb({});
+    const r = await writeBriefing(db, briefing('weekly-2026-W22', 728, 8726));
+    expect(r.written).toBe(true);
+    expect(writes).toContain('weekly-2026-W22');
+    // The IntelCard bundle is cached by (source_id, item_ref) and isn't
+    // refreshed on rebuild — drop it so the rebuilt briefing's card recomputes.
+    expect(deletes).toContainEqual({ table: 'intel_bundles', ref: 'weekly-2026-W22' });
+  });
+
+  it('does NOT drop the bundle when the write is skipped (kept richer existing)', async () => {
+    const { db, deletes } = fakeDb({ 'daily-x': { stats_json: JSON.stringify({ findings: 29, iocs: 1482 }) } });
+    const r = await writeBriefing(db, briefing('daily-x', 0, 0));
+    expect(r.written).toBe(false);
+    expect(deletes).toHaveLength(0);
   });
 });
 
