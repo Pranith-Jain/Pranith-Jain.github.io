@@ -1509,7 +1509,11 @@ export async function buildBriefing(
   // persist a clearly-degraded briefing (truthful summary, never a false
   // "all clear"), and let the hourly catch-up keep rebuilding it until
   // upstreams recover and a real briefing overwrites it.
-  const degraded = !kevR.ok && !nvdR.ok;
+  // `let` because the weekly daily-rollup below can clear it: if live KEV+NVD
+  // were both unreachable but the rollup supplies the full week from the
+  // persisted dailies, the briefing is NOT incomplete and must not carry the
+  // "both sources unreachable" summary.
+  let degraded = !kevR.ok && !nvdR.ok;
   const kev = kevR.v;
   const nvdRecent = nvdR.v;
 
@@ -1705,6 +1709,11 @@ export async function buildBriefing(
       for (const s of rollup.sources) {
         if (IOC_FEED_SOURCES.has(s) && !iocSources.includes(s)) iocSources.push(s);
       }
+      // The rollup supplied the full week from the dailies, so the briefing is
+      // complete even if live KEV+NVD were unreachable at this rebuild. Clear
+      // the degraded flag so it doesn't render the "both sources unreachable /
+      // incomplete" summary over a briefing that actually has 700+ findings.
+      if (findings.length > 0) degraded = false;
     }
   }
 
