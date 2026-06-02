@@ -48,6 +48,10 @@ import { fetchMtiSource, type MtiIoc } from '../lib/mythreatintel-api';
 export const LIVE_IOCS_CACHE_KEY = 'https://live-iocs-cache.internal/v13-freshness-filter';
 const CACHE_KEY = LIVE_IOCS_CACHE_KEY;
 const CACHE_TTL_SECONDS = 30 * 60;
+// When a build is degraded (an upstream fetch failed), cache for a shorter
+// window so it recovers sooner — but NOT 60s: a persistently-down feed at 60s
+// would re-run the full ~33-source fan-out every minute.
+const DEGRADED_TTL_SECONDS = 5 * 60;
 const FETCH_TIMEOUT_MS = 12_000;
 const PER_FEED_CAP = 300;
 const AF_DEFACEMENTS_LASTGOOD_KEY = 'live-iocs/af-defacements-lastgood/v1';
@@ -102,6 +106,13 @@ export interface LiveIocsResponse {
   total: number;
   /** All items, sorted newest-first (entries without timestamp last). */
   items: LiveIoc[];
+  /**
+   * True when at least one upstream source's FETCH failed this build — as
+   * opposed to a source that fetched fine but had no fresh items. Drives a
+   * shorter cache TTL so a transient flake recovers sooner than the full
+   * window, without re-fanning on a source that is simply (legitimately) empty.
+   */
+  degraded?: boolean;
 }
 
 async function fetchText(url: string): Promise<string | null> {
@@ -940,7 +951,10 @@ export async function fetchLiveIocs(
   }
   for (const s of sources) {
     s.count = freshCountBySource.get(s.id) ?? 0;
-    if (s.count === 0) s.ok = false;
+    // NB: do NOT downgrade `s.ok` on count===0 — `ok` means "the fetch
+    // succeeded"; a source can legitimately fetch fine and have no fresh
+    // items. The failure branches above already set ok:false on a real fetch
+    // failure, which is what `degraded` (below) keys on.
   }
 
   // Drop silent-failure sources from the response — sources that returned
@@ -948,6 +962,10 @@ export async function fetchLiveIocs(
   // when they're often a one-off upstream hiccup. They'll be re-tried on the
   // next cache miss.
   const activeSources = sources.filter((s) => s.count > 0);
+  // Computed from the FULL `sources` (failed sources are filtered out of
+  // activeSources, so this signal would be invisible after the filter — which
+  // is exactly why the old `body.sources.some(count===0)` TTL check was dead).
+  const degraded = sources.some((s) => s.ok === false);
 
   // Per-source freshness: newest per-entry observation timestamp.
   // Sources without per-entry timestamps (C2IntelFeeds, ET compromised-ips,
@@ -970,6 +988,7 @@ export async function fetchLiveIocs(
     sources: activeSources,
     total: freshItems.length,
     items: freshItems.slice(0, MAX_ITEMS),
+    degraded,
   };
 }
 
@@ -994,8 +1013,7 @@ export async function liveIocsHandler(c: Context<{ Bindings: Env }>): Promise<Re
         (async () => {
           try {
             const body = await fetchLiveIocs(c.executionCtx, c.env.KV_CACHE, c.env);
-            const anyZero = body.sources.some((s) => s.count === 0);
-            const ttl = anyZero ? 60 : CACHE_TTL_SECONDS;
+            const ttl = body.degraded ? DEGRADED_TTL_SECONDS : CACHE_TTL_SECONDS;
             const fresh = new Response(JSON.stringify(body), {
               status: 200,
               headers: {
@@ -1022,11 +1040,12 @@ export async function liveIocsHandler(c: Context<{ Bindings: Env }>): Promise<Re
   }
 
   const body = await fetchLiveIocs(c.executionCtx, c.env.KV_CACHE, c.env);
-  // Adaptive TTL: if any source returned 0 items (upstream flake + KV-restore
-  // miss), cache only briefly so the next request retries instead of locking
-  // the bad snapshot in for 30 min.
-  const anyZero = body.sources.some((s) => s.count === 0);
-  const ttl = anyZero ? 60 : CACHE_TTL_SECONDS;
+  // Adaptive TTL: when a build is degraded (an upstream FETCH failed — not a
+  // source that was simply, legitimately empty), cache briefly so the next
+  // request retries instead of locking a partial snapshot in for the full
+  // window. The old check read `body.sources` (already filtered to count>0), so
+  // it was dead — `degraded` is computed from the full source list upstream.
+  const ttl = body.degraded ? DEGRADED_TTL_SECONDS : CACHE_TTL_SECONDS;
   const response = new Response(JSON.stringify(body), {
     status: 200,
     headers: {
