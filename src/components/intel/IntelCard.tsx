@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Badge } from '../Badge';
+import { IocChip } from '../dfir/IocChip';
 import { useIntelBundle, type IntelView, type IntelViewIoc, type IocVerdict } from '../../hooks/useIntelBundle';
 
 /**
@@ -68,7 +69,7 @@ function IocBadge({ ioc }: { ioc: IntelViewIoc }): JSX.Element {
   const tone = VERDICT_TONE[ioc.verdict];
   return (
     <div className="flex items-center gap-2 rounded border border-slate-200 bg-slate-50 px-2 py-1 text-xs dark:border-slate-700 dark:bg-slate-950">
-      <code className="break-all font-mono text-slate-900 dark:text-slate-100">{ioc.value}</code>
+      <IocChip value={ioc.value} size="sm" bare className="min-w-0" />
       {ioc.riskScore > 0 && (
         <Badge tone={tone} size="xs">
           risk {ioc.riskScore}

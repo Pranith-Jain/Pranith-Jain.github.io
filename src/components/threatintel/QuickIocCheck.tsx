@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
-import { Shield, Search, Loader2, ExternalLink } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Shield, Search, Loader2, ArrowRight } from 'lucide-react';
 import { streamIoc } from '../../lib/dfir/api';
 import { detectType } from '../../lib/dfir/indicator-client';
 import { VerdictChip } from '../dfir/VerdictChip';
@@ -41,7 +42,7 @@ export default function QuickIocCheck() {
   return (
     <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
       <h4 className="font-semibold text-sm mb-3 flex items-center gap-2">
-        <Shield size={14} className="text-brand-600 dark:text-brand-400" />
+        <Shield size={14} className="text-brand-600 dark:text-brand-400" aria-hidden="true" />
         IOC Check
       </h4>
 
@@ -103,12 +104,12 @@ export default function QuickIocCheck() {
       {error && <p className="mt-2 text-[10px] font-mono text-rose-500">{error}</p>}
 
       {summary && (
-        <a
-          href={`/dfir/ioc-check?indicator=${encodeURIComponent(input.trim())}`}
+        <Link
+          to={`/dfir/ioc-check?indicator=${encodeURIComponent(input.trim())}`}
           className="mt-2 inline-flex items-center gap-1 text-[10px] font-mono text-brand-600 dark:text-brand-400 hover:underline"
         >
-          Open in IOC Checker <ExternalLink size={10} />
-        </a>
+          Open in IOC Checker <ArrowRight size={10} aria-hidden="true" />
+        </Link>
       )}
     </div>
   );

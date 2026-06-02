@@ -473,7 +473,7 @@ export default function BlogPost() {
                       About
                     </Link>
                     <a
-                      href="https://x.com/pranithjain"
+                      href="https://x.com/Npj8448"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline"

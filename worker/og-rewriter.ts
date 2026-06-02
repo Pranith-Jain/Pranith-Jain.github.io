@@ -299,18 +299,31 @@ export async function getOrInjectOg(request: Request, env: Env, ctx: ExecutionCo
     `https://og-html.internal/${REWRITE_VERSION}/${encodeURIComponent(url.host)}${url.pathname}@${encodeURIComponent(etag)}`
   );
   const cached = await cache.match(cacheKey);
-  if (cached) return cached;
+  // Poisoned-cache guard. An empty cached body was being served to SPA
+  // shell + 404-fallback responses on 2026-06-02 — the asset-propagation
+  // race (see injectOgMeta's sibling guard) can write a zero-length body
+  // here too, so check the length before serving. A clone is read so the
+  // returned `cached` Response still has its body intact.
+  if (cached) {
+    const peeked = await cached.clone().text();
+    if (peeked.length > 0) return cached;
+  }
 
   const withOg = await injectOgMeta(assetRes, url, env, ctx);
-  const toCache = new Response(withOg.clone().body, {
-    status: withOg.status,
-    statusText: withOg.statusText,
-    headers: (() => {
-      const h = new Headers(withOg.headers);
-      h.set('cache-control', `public, max-age=${OG_CACHE_TTL_SECONDS}`);
-      return h;
-    })(),
-  });
-  ctx.waitUntil(cache.put(cacheKey, toCache));
+  // Don't cache an empty body — the asset-propagation race at deploy
+  // time can produce a 0-length read; serving that from cache for the
+  // full TTL is the bug that hit `/`, `/blog`, and the 404 routes today.
+  if (withOg.body) {
+    const toCache = new Response(withOg.clone().body, {
+      status: withOg.status,
+      statusText: withOg.statusText,
+      headers: (() => {
+        const h = new Headers(withOg.headers);
+        h.set('cache-control', `public, max-age=${OG_CACHE_TTL_SECONDS}`);
+        return h;
+      })(),
+    });
+    ctx.waitUntil(cache.put(cacheKey, toCache));
+  }
   return withOg;
 }

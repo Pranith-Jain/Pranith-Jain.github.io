@@ -38,7 +38,11 @@ describe('DFIR sub-routes', () => {
       </MemoryRouter>
     );
 
-    expect(await screen.findByRole('heading', { level: 1, name: heading })).toBeInTheDocument();
+    // Use a regex match so headings that decorate the title with a status
+    // pill (e.g. <h1>Threat Intel Briefings<LiveFreshnessPill/></h1>) still
+    // match — the accessible name is the concatenation of all the text
+    // nodes, and exact string match would break for any future decoration.
+    expect(await screen.findByRole('heading', { level: 1, name: new RegExp(heading) })).toBeInTheDocument();
     if (!skipComingSoon) {
       expect(screen.getByText(/coming soon/i)).toBeInTheDocument();
     }

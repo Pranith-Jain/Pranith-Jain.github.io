@@ -1,5 +1,6 @@
 import { useState, useCallback, useRef, useEffect, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
+import { loadSql } from '../../lib/loadSql';
 import {
   Play,
   Database,
@@ -85,10 +86,12 @@ export default function SqlWorkspace(): JSX.Element {
     let cancelled = false;
     void (async () => {
       try {
-        const initSqlJs = (await import('sql.js')).default;
-        const SQL = await initSqlJs({
-          locateFile: (file: string) => `https://sql.js.org/dist/${file}`,
-        });
+        // Load sql.js via the shared same-origin loader. Fetching the wasm
+        // from the sql.js.org CDN is blocked by the worker CSP connect-src
+        // (csp.ts only allows 'self' + Cloudflare hosts), so locateFile must
+        // resolve to the Vite-emitted same-origin asset — which is exactly
+        // what loadSql() does, matching SqliteExplorer / IosBackupExplorer.
+        const SQL = await loadSql();
         if (cancelled) return;
 
         const db = new SQL.Database(new Uint8Array(0));
@@ -218,6 +221,13 @@ export default function SqlWorkspace(): JSX.Element {
     })();
     return () => {
       cancelled = true;
+      // Free the WASM-backed database handle. sql.js allocates the DB inside
+      // the Emscripten heap; without an explicit close() it leaks for the
+      // page's lifetime (and accumulates across hot reloads). Safe because
+      // the effect runs once and the handle is only used while mounted.
+      const db = dbRef.current as { close?: () => void } | null;
+      db?.close?.();
+      dbRef.current = null;
     };
   }, []);
 

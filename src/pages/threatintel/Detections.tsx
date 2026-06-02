@@ -3,6 +3,7 @@ import { relativeAgo } from '../../lib/relativeTime';
 const shortRel = (iso?: string) => relativeAgo(iso, 'no timestamp');
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
+import { IocChip } from '../../components/dfir/IocChip';
 import {
   ArrowLeft,
   ShieldAlert,
@@ -219,9 +220,7 @@ function DetectionCard({ d }: { d: Detection }): JSX.Element {
                 {it.kind}
               </span>
               <div className="min-w-0 flex-1">
-                <div className="font-mono text-[12px] text-slate-900 dark:text-slate-100 truncate" title={it.value}>
-                  {it.value}
-                </div>
+                <IocChip value={it.value} size="sm" bare truncate={56} className="min-w-0" />
                 <div className="text-[11px] font-mono text-slate-500 flex flex-wrap gap-x-2">
                   <span>{it.source}</span>
                   {it.context && (
@@ -426,12 +425,7 @@ export default function Detections(): JSX.Element {
                           </span>
                           <span className="text-[10px] font-mono text-slate-500">{it.source}</span>
                         </div>
-                        <code
-                          className="font-mono text-[11px] text-slate-900 dark:text-slate-100 break-all"
-                          title={it.value}
-                        >
-                          {it.value}
-                        </code>
+                        <IocChip value={it.value} size="sm" bare truncate={64} className="min-w-0 max-w-full" />
                       </li>
                     ))}
                   </ul>

@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useDebounce } from '../../hooks/useDebounce';
 import type { Severity as Sev } from '../../components/severity';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, AlertTriangle, ShieldAlert, ShieldX, ShieldCheck, Info } from 'lucide-react';
@@ -464,7 +465,10 @@ const SAMPLE = JSON.stringify(
 
 export default function TerraformScanner(): JSX.Element {
   const [input, setInput] = useState('');
-  const analysis = useMemo(() => analyze(input), [input]);
+  // Parse + walk the whole plan JSON only after typing/pasting settles
+  // (~220ms); the textarea stays bound to `input` so editing feels instant.
+  const debouncedInput = useDebounce(input, 220);
+  const analysis = useMemo(() => analyze(debouncedInput), [debouncedInput]);
   const counts = useMemo(() => {
     const c: Record<Sev, number> = { critical: 0, high: 0, medium: 0, low: 0, info: 0 };
     analysis?.findings.forEach((f) => (c[f.sev] += 1));

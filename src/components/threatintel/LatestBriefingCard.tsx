@@ -4,11 +4,12 @@ import { FileText, ArrowRight } from 'lucide-react';
 
 /**
  * Compact "latest briefing" card shown at the top of /threatintel, directly
- * under the PlatformPulse sparklines. Surfaces the single most-recent briefing
- * (daily or weekly) with its headline stats and a link to the full report.
+ * above the "Today's read" 3-card row. Surfaces the single most-recent
+ * briefing (daily or weekly) with its headline stats and a link to the
+ * full report.
  *
- * Silent if the briefings endpoint is empty or fails — same policy as
- * PlatformPulse, so a cold/un-backfilled DB never renders a broken card.
+ * Silent if the briefings endpoint is empty or fails so a cold /
+ * un-backfilled DB never renders a broken card.
  */
 
 interface BriefingItem {

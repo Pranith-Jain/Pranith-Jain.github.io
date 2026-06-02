@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Terminal, ArrowRight } from 'lucide-react';
-import { useEffect } from 'react';
+import { Home, Terminal, ArrowRight, Search, Sparkles } from 'lucide-react';
+import { useEffect, useMemo } from 'react';
+import { getSidebarForSection } from '../data/sidebar-nav';
 
 /**
  * Slugs that used to live at /dfir/<slug> and moved to /threatintel/<slug>
@@ -37,9 +38,68 @@ function detectMovedUrl(pathname: string): { from: string; to: string } | null {
   return { from: pathname, to: target };
 }
 
+/**
+ * Tiny Levenshtein-ish distance — for "did you mean" suggestions on
+ * mistyped slugs. Two-row implementation: only the previous row is kept
+ * in memory. Cost: O(len(a) * len(b)) with constant extra space, which
+ * is fine for the <100 paths we ever compare against.
+ */
+function editDistance(a: string, b: string): number {
+  if (a === b) return 0;
+  if (!a.length) return b.length;
+  if (!b.length) return a.length;
+  let prev = new Array<number>(b.length + 1);
+  let curr = new Array<number>(b.length + 1);
+  for (let j = 0; j <= b.length; j++) prev[j] = j;
+  for (let i = 1; i <= a.length; i++) {
+    curr[0] = i;
+    for (let j = 1; j <= b.length; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      const del = (prev[j] ?? 0) + 1;
+      const ins = (curr[j - 1] ?? 0) + 1;
+      const sub = (prev[j - 1] ?? 0) + cost;
+      curr[j] = Math.min(del, ins, sub);
+    }
+    [prev, curr] = [curr, prev];
+  }
+  return prev[b.length] ?? 0;
+}
+
+interface Suggestion {
+  href: string;
+  label: string;
+  distance: number;
+}
+
+function suggestSimilar(pathname: string, max = 2): Suggestion[] {
+  const sidebar = getSidebarForSection(pathname);
+  if (!sidebar) return [];
+  const candidates: { href: string; label: string; slug: string }[] = [];
+  for (const group of sidebar.groups) {
+    for (const item of group.items) {
+      candidates.push({
+        href: item.href,
+        label: item.label,
+        slug: item.href.split('/').pop() ?? '',
+      });
+    }
+  }
+  const lastSeg = pathname.split('/').filter(Boolean).pop() ?? '';
+  if (!lastSeg) return [];
+  return candidates
+    .map((c) => ({ href: c.href, label: c.label, distance: editDistance(lastSeg.toLowerCase(), c.slug.toLowerCase()) }))
+    .filter((s) => s.distance > 0 && s.distance <= Math.max(3, Math.floor(lastSeg.length / 2)))
+    .sort((a, b) => a.distance - b.distance)
+    .slice(0, max);
+}
+
 export default function NotFound(): JSX.Element {
   const location = useLocation();
   const moved = detectMovedUrl(location.pathname);
+  const sidebar = useMemo(() => getSidebarForSection(location.pathname), [location.pathname]);
+  const suggestions = useMemo(() => suggestSimilar(location.pathname), [location.pathname]);
+  const sectionHref = sidebar ? (sidebar.groups[0]?.items[0]?.href.split('/').slice(0, 2).join('/') ?? '/') : '/';
+  const sectionName = sidebar?.sectionLabel ?? '';
 
   // Tell crawlers this is a dead end so they de-index the URL on their
   // next sweep. Without this Google keeps the URL in the index until
@@ -56,12 +116,12 @@ export default function NotFound(): JSX.Element {
   }, []);
 
   return (
-    <div className="max-w-2xl mx-auto px-8 py-24 text-center text-slate-900 dark:text-slate-100">
-      <div className="animate-fade-in-up">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-16 text-slate-900 dark:text-slate-100">
+      <div className="animate-fade-in-up text-center">
         <div className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 mb-3">
           {moved ? '301 · Moved' : '404 · Not Found'}
         </div>
-        <h1 className="text-5xl font-display font-bold mb-4">
+        <h1 className="text-4xl sm:text-5xl font-display font-bold mb-4">
           {moved ? 'This page moved.' : 'That page is off-grid.'}
         </h1>
         {moved ? (
@@ -75,36 +135,112 @@ export default function NotFound(): JSX.Element {
               className="inline-flex items-center gap-2 rounded-xl bg-brand-600 dark:bg-brand-500 text-white px-5 py-3 text-sm font-mono font-semibold hover:bg-brand-700 dark:hover:bg-brand-400 transition-colors"
             >
               <code className="text-white">{moved.to}</code>
-              <ArrowRight size={14} />
+              <ArrowRight size={14} aria-hidden="true" />
             </Link>
           </div>
         ) : (
-          <p className="text-slate-600 dark:text-slate-400 mb-10">
-            The URL you followed doesn't match anything on this site. The link may be old, mistyped, or the page has
-            moved.
+          <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-xl mx-auto">
+            The URL <code className="font-mono text-slate-900 dark:text-slate-100">{location.pathname}</code> doesn't
+            match anything on this site. The link may be old, mistyped, or the page has moved.
           </p>
         )}
-        <div className="flex flex-wrap justify-center gap-3">
+
+        {/* Fuzzy "did you mean" — only show if we have sidebar data for
+            the section AND the typo is short enough that a near-match
+            is more likely than a random URL. */}
+        {!moved && suggestions.length > 0 && (
+          <div className="mb-8 max-w-xl mx-auto">
+            <div className="inline-flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-[0.15em] text-slate-500 dark:text-slate-400 mb-2">
+              <Search className="h-3 w-3" aria-hidden="true" />
+              Did you mean
+            </div>
+            <div className="flex flex-wrap justify-center gap-2">
+              {suggestions.map((s) => (
+                <Link
+                  key={s.href}
+                  to={s.href}
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm font-mono text-slate-700 hover:border-brand-500/40 hover:text-brand-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-brand-500/40 dark:hover:text-brand-300 transition-colors"
+                >
+                  {s.label}
+                  <ArrowRight size={12} aria-hidden="true" />
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div className="flex flex-wrap justify-center gap-3 mb-12">
           <Link
             to="/"
             className="inline-flex items-center gap-2 rounded-xl border border-slate-200 dark:border-slate-800 px-5 py-3 text-sm font-mono text-slate-700 dark:text-slate-300 hover:border-brand-500/40 transition-colors"
           >
-            <Home size={14} /> Home
+            <Home size={14} aria-hidden="true" /> Home
           </Link>
           <Link
             to="/threatintel"
             className="inline-flex items-center gap-2 rounded-xl border border-slate-200 dark:border-slate-800 px-5 py-3 text-sm font-mono text-slate-700 dark:text-slate-300 hover:border-brand-500/40 transition-colors"
           >
-            Threat Intel
+            <Terminal size={14} aria-hidden="true" /> Threat Intel
           </Link>
           <Link
             to="/dfir"
             className="inline-flex items-center gap-2 rounded-xl border border-slate-200 dark:border-slate-800 px-5 py-3 text-sm font-mono text-slate-700 dark:text-slate-300 hover:border-brand-500/40 transition-colors"
           >
-            <Terminal size={14} /> DFIR Toolkit
+            <Terminal size={14} aria-hidden="true" /> DFIR Toolkit
           </Link>
         </div>
       </div>
+
+      {/* Section tool grid — surfaces all 30+ tools in the relevant
+          section as a card grid so a 404 still gets the user to a tool
+          they want. Renders only when the URL's section matches a
+          known sidebar (e.g. /threatintel/* or /dfir/*). For a random
+          typo like /foo we skip this and just show the buttons. */}
+      {sidebar && (
+        <div className="mt-4 sm:mt-8">
+          <div className="flex items-center gap-2 mb-3 sm:mb-4 text-xs font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
+            <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
+            All {sectionName} tools
+          </div>
+          <div className="space-y-6 sm:space-y-8">
+            {sidebar.groups.map((group) => (
+              <div key={group.title}>
+                <h2 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 sm:mb-3">{group.title}</h2>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-2.5">
+                  {group.items.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <Link
+                        key={item.href}
+                        to={item.href}
+                        className="group flex items-start gap-2 sm:gap-2.5 rounded-xl border border-slate-200/80 bg-white/70 px-2.5 sm:px-3 py-2 sm:py-2.5 min-h-[44px] hover:border-brand-500/40 hover:bg-white dark:border-slate-800 dark:bg-slate-900/60 dark:hover:bg-slate-900 dark:hover:border-brand-500/40 transition-colors"
+                      >
+                        <span className="grid h-7 w-7 shrink-0 place-items-center rounded-md bg-slate-100 text-slate-600 group-hover:bg-brand-500/10 group-hover:text-brand-600 dark:bg-slate-800 dark:text-slate-400 dark:group-hover:bg-brand-500/15 dark:group-hover:text-brand-300 transition-colors">
+                          <Icon className="h-3.5 w-3.5" aria-hidden="true" />
+                        </span>
+                        <span className="flex flex-col min-w-0 leading-tight">
+                          <span className="text-[13px] sm:text-sm font-medium text-slate-900 dark:text-slate-100 truncate">
+                            {item.label}
+                          </span>
+                          {item.description && (
+                            <span className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-2 hidden sm:block">
+                              {item.description}
+                            </span>
+                          )}
+                        </span>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* sectionHref kept here in case we want a 'back to section home'
+          button below the grid in a future iteration. */}
+      {sectionHref && <div className="hidden">{sectionHref}</div>}
     </div>
   );
 }

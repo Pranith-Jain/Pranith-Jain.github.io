@@ -1,12 +1,155 @@
 import { Link, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { Sidebar } from './Sidebar';
 import { TopBar } from './TopBar';
+import { AppBreadcrumbAuto } from './AppBreadcrumb';
+import { MobileSidebarDrawer } from './MobileSidebarDrawer';
 import { getSidebarForSection } from '../data/sidebar-nav';
 import { useDataFetch } from '../hooks/useDataFetch';
+import { recordVisit } from '../lib/recentTools';
 
 const SECTION_META: Record<'dfir' | 'threatintel', { label: string; href: string; accent: string }> = {
   dfir: { label: 'DFIR', href: '/dfir', accent: 'text-brand-600 dark:text-brand-400' },
   threatintel: { label: 'Threat Intel', href: '/threatintel', accent: 'text-rose-600 dark:text-rose-400' },
+};
+
+/**
+ * Pretty labels for routes used in the auto-breadcrumb. Unmapped paths
+ * fall back to a humanised version of the segment (e.g. "actor-kb" →
+ * "Actor Kb") — so even a path we haven't audited reads sensibly.
+ *
+ * Add a label here when a route's slug doesn't match its display name
+ * (slugs use kebab-case, display uses Title Case or brand names).
+ */
+const ROUTE_LABELS: Record<string, string> = {
+  // ── DFIR ─────────────────────────────────────────────────────
+  '/dfir/ioc-check': 'IOC & Hash Checker',
+  '/dfir/phishing': 'Phishing',
+  '/dfir/domain-rep': 'Domain Reputation',
+  '/dfir/threat-hunt': 'Threat Hunt',
+  '/dfir/full-spectrum': 'Full Spectrum',
+  '/dfir/asset-intel': 'Asset Intel',
+  '/dfir/cve-prioritizer': 'CVE Prioritizer',
+  '/dfir/cve': 'CVE Lookup',
+  '/dfir/cloudtrail-triage': 'CloudTrail Triage',
+  '/dfir/k8s-rbac': 'K8s RBAC',
+  '/dfir/gcp-iam': 'GCP IAM',
+  '/dfir/azure-rbac': 'Azure RBAC',
+  '/dfir/iam-analyzer': 'IAM Analyzer',
+  '/dfir/rule-converter': 'Rule Converter',
+  '/dfir/detection-lab': 'Detection Lab',
+  '/dfir/atlas': 'MITRE ATLAS',
+  '/dfir/mitre': 'MITRE ATT&CK',
+  '/dfir/stix-builder': 'STIX Builder',
+  '/dfir/stix-viewer': 'STIX Viewer',
+  '/dfir/decode': 'Decode',
+  '/dfir/encoder': 'Encoder',
+  '/dfir/sec-headers': 'Security Headers',
+  '/dfir/kill-chain': 'Kill Chain',
+  '/dfir/diamond': 'Diamond Model',
+  '/dfir/dashboard': 'Recent Lookups',
+  '/dfir/wiki': 'Knowledge Base',
+  '/dfir/briefings': 'Briefings',
+  '/dfir/breach': 'Breach Lookup',
+  '/dfir/rules': 'Detection Rules',
+  '/dfir/owasp': 'OWASP Top 10',
+  '/dfir/tools': 'All Tools',
+  '/dfir/tools/about': 'About the Toolkit',
+  // ── Threat Intel ────────────────────────────────────────────
+  '/threatintel/pulse': 'Threat Pulse',
+  '/threatintel/live-iocs': 'Live IOCs',
+  '/threatintel/certstream': 'Cert Stream',
+  '/threatintel/breach': 'Live Breach Disclosures',
+  '/threatintel/actor-kb': 'Actor KB',
+  '/threatintel/actor-dna': 'Actor DNA',
+  '/threatintel/actors': 'All Actors',
+  '/threatintel/campaigns': 'Campaigns',
+  '/threatintel/attribution': 'Attribution Framework',
+  '/threatintel/briefings': 'Briefings',
+  '/threatintel/ransomware-activity': 'Ransomware Activity',
+  '/threatintel/ransomware-live': 'ransomware.live PRO',
+  '/threatintel/ransomware-map': 'Ransomware Geo-heatmap',
+  '/threatintel/negotiations': 'Negotiations',
+  '/threatintel/re-leaks': 'Victim Re-leaks',
+  '/threatintel/onion-watch': 'Onion Watch',
+  '/threatintel/darkweb': 'Dark Web Watch',
+  '/threatintel/breach-forums': 'Breach Forums',
+  '/threatintel/deepdarkcti': 'deepdarkCTI',
+  '/threatintel/darkweb-tools': 'Dark Web Tools',
+  '/threatintel/infostealer': 'Infostealer Tracker',
+  '/threatintel/scam-watch': 'Scam Watch',
+  '/threatintel/telegram-leaks': 'Telegram Leaks',
+  '/threatintel/telegram-leaks/channels': 'Telegram Channels',
+  '/threatintel/telegram-leaks/stats': 'Telegram Stats',
+  '/threatintel/cybersec': 'Cybersec Telegram',
+  '/threatintel/reddit': 'Cybersec Reddit',
+  '/threatintel/x': 'Cybersec Social',
+  '/threatintel/x-live': 'X Live',
+  '/threatintel/x-watch': 'X Firehose',
+  '/threatintel/cyber-crime': 'Cyber Crime',
+  '/threatintel/tech-ai-news': 'Tech & AI News',
+  '/threatintel/threat-feeds': 'Threat Feeds',
+  '/threatintel/aggregated-feeds': 'Aggregated Feeds',
+  '/threatintel/threat-map': 'Threat Map',
+  '/threatintel/metrics': 'Metrics',
+  '/threatintel/status': 'Feed Status',
+  '/threatintel/intel-dashboard': 'Intel Dashboard',
+  '/threatintel/collection-slo': 'Collection SLO',
+  '/threatintel/source-reliability': 'Source Reliability',
+  '/threatintel/pir-dashboard': 'Intelligence Requirements',
+  '/threatintel/copilot': 'AI Copilot',
+  '/threatintel/analyze': 'Analysis Orchestration',
+  '/threatintel/campaign-generator': 'Campaign Generator',
+  '/threatintel/observable-db': 'Observable DB',
+  '/threatintel/search': 'Unified Search',
+  '/threatintel/entity-resolution': 'Entity Resolution',
+  '/threatintel/relationship-graph': 'Relationship Graph',
+  '/threatintel/investigations': 'Investigations',
+  '/threatintel/ioc-enrichment': 'IOC Enrichment',
+  '/threatintel/mythreatintel': 'MyThreatIntel',
+  '/threatintel/misp-browser': 'MISP Browser',
+  '/threatintel/settings': 'Settings',
+  '/threatintel/telegram-settings': 'Telegram Settings',
+  '/threatintel/feed-sources': 'Feed Sources',
+  '/threatintel/feed-scheduler': 'Feed Scheduler',
+  '/threatintel/watches': 'Alert Engine',
+  '/threatintel/detections': 'Detections',
+  '/threatintel/writeups': 'Writeups',
+  '/threatintel/signal': 'Research Signal',
+  '/threatintel/research': 'Research',
+  '/threatintel/wiki': 'Knowledge Base',
+  '/threatintel/cve-resources': 'CVE Resources',
+  '/threatintel/cve-list': 'CVE List',
+  '/threatintel/cve-threat-map': 'CVE Threat Map',
+  '/threatintel/external-resources': 'External Resources',
+  '/threatintel/feed-catalog': 'Feed Catalog',
+  '/threatintel/feed-status': 'Feed Status',
+  '/threatintel/about': 'About',
+  '/threatintel/cybercrime': 'Cyber Crime',
+  '/threatintel/malware-iocs': 'Malware IOCs',
+  '/threatintel/malpedia': 'Malpedia',
+  '/threatintel/maltrail-trails': 'Maltrail Trails',
+  '/threatintel/malicious-packages': 'Malicious Packages',
+  '/threatintel/malware-vault': 'Malware Vault',
+  '/threatintel/negotiations2': 'Negotiations',
+  '/threatintel/pir': 'Intelligence Requirements',
+  '/threatintel/predictive': 'Predictive Intel',
+  '/threatintel/reddit-firehose': 'Reddit Firehose',
+  '/threatintel/research-post': 'Research Post',
+  '/threatintel/telegram-discovered': 'Telegram Discovered',
+  '/threatintel/telegram-leak-stats': 'Telegram Leak Stats',
+  '/threatintel/victim-releaks': 'Victim Re-leaks',
+  '/threatintel/yarahub': 'YARA Hub',
+  '/threatintel/cross-campaign': 'Cross-Campaign Correlation',
+  '/threatintel/cross-correlate': 'Cross-Correlate',
+  '/threatintel/correlation': 'Correlation',
+  '/threatintel/actor-timeline': 'Actor Timeline',
+  '/threatintel/campaign-detail': 'Campaign Detail',
+  '/threatintel/campaign-lifecycle': 'Campaign Lifecycle',
+  '/threatintel/insider-threat-matrix': 'Insider Threat Matrix',
+  '/threatintel/ach': 'ACH',
+  '/threatintel/assessment-detail': 'Assessment',
+  '/threatintel/assessments': 'Assessments',
 };
 
 /**
@@ -42,6 +185,20 @@ export function AppShell({ mode, isDark, onToggleTheme, children }: AppShellProp
   const sidebarConfig = getSidebarForSection(location.pathname);
   const section = SECTION_META[mode];
 
+  // Mobile drawer state. Closed by default; opens when the user taps
+  // the hamburger in the TopBar. Closes automatically on every route
+  // change so navigating via the drawer never leaves the panel
+  // dangling in front of a different page.
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  useEffect(() => {
+    setMobileNavOpen(false);
+    // Record the visit for the "Recently used" row on the home pages.
+    // Section-prefixed so a DFIR visitor doesn't see Threat Intel
+    // visits in their DFIR "Recently used" row.
+    const label = ROUTE_LABELS[location.pathname] ?? humaniseLastSegment(location.pathname);
+    recordVisit(mode, location.pathname, label);
+  }, [location.pathname, mode]);
+
   return (
     <div className="min-h-screen flex flex-col text-slate-900 dark:text-slate-50">
       <TopBar
@@ -50,11 +207,24 @@ export function AppShell({ mode, isDark, onToggleTheme, children }: AppShellProp
         accentClass={section.accent}
         isDark={isDark}
         onToggleTheme={onToggleTheme}
+        mark={mode}
+        onOpenMobileNav={() => setMobileNavOpen(true)}
+        mobileNavOpen={mobileNavOpen}
       />
       <div className="flex-1 flex min-h-0 max-w-[1500px] w-full mx-auto px-3 sm:px-6">
         {sidebarConfig && <Sidebar config={sidebarConfig} />}
-        <main id="main-content" key={pageKey} className="flex-1 min-w-0 animate-fade-in-up">
-          {children}
+        {sidebarConfig && (
+          <MobileSidebarDrawer open={mobileNavOpen} onClose={() => setMobileNavOpen(false)} config={sidebarConfig} />
+        )}
+        <main id="main-content" key={pageKey} className="flex-1 min-w-0">
+          <div className="px-3 sm:px-4 pt-3 pb-1 animate-fade-in-up">
+            <AppBreadcrumbAuto
+              pathname={location.pathname}
+              labels={ROUTE_LABELS}
+              home={{ label: section.label, href: section.href }}
+            />
+          </div>
+          <div className="animate-fade-in-up">{children}</div>
         </main>
       </div>
       <AppStatusBar mode={mode} />
@@ -87,18 +257,25 @@ function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' }): JSX.Element {
 
   return (
     <footer className="border-t border-slate-200/60 dark:border-white/10 bg-white/60 dark:bg-slate-950/60 backdrop-blur-xl">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 min-h-[44px] sm:h-9 py-2 sm:py-0 flex items-center justify-between gap-3 text-meta font-mono text-slate-500 dark:text-slate-400">
-        <div className="flex items-center gap-3">
+      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 min-h-[44px] sm:h-9 py-2 sm:py-0 flex items-center justify-between gap-3 text-[11px] font-mono text-slate-500 dark:text-slate-400">
+        <div className="flex items-center gap-3 min-w-0">
           {mode === 'dfir' ? (
             <>
-              <span>Edge-hosted on Cloudflare Workers.</span>
-              <span className="hidden sm:inline">No signup, no key.</span>
+              <span className="inline-flex items-center gap-1.5">
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                edge
+              </span>
+              <span className="text-slate-300 dark:text-slate-700">·</span>
+              <span className="hidden sm:inline">No signup, no key, runs in your browser.</span>
             </>
           ) : (
             <StatusPip status={status} error={error} loading={loading} />
           )}
         </div>
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          <span className="hidden md:inline text-slate-500 dark:text-slate-400 tabular-nums">
+            build {__BUILD_DATE__}
+          </span>
           <a
             href="https://github.com/Pranith-Jain/Pranith-Jain.github.io"
             target="_blank"
@@ -108,6 +285,7 @@ function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' }): JSX.Element {
           >
             github
           </a>
+          <span className="text-slate-300 dark:text-slate-700">·</span>
           <Link
             to="/"
             className="inline-flex items-center min-h-[44px] sm:min-h-0 px-2 sm:px-0 hover:text-slate-900 dark:hover:text-slate-100"
@@ -174,4 +352,14 @@ function StatusPip({
       {okCount}/{total} feeds · {label}
     </Link>
   );
+}
+
+/**
+ * Humanise the last URL segment when a route isn't in the `ROUTE_LABELS`
+ * map. Used by the "Recently used" tracker so a deep page we haven't
+ * audited still produces a sensible display label.
+ */
+function humaniseLastSegment(pathname: string): string {
+  const seg = pathname.split('/').filter(Boolean).pop() ?? pathname;
+  return seg.replace(/[-_]+/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 }

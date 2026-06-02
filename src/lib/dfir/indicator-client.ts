@@ -23,12 +23,24 @@ const DOMAIN_RE = /^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}
 const URL_RE = /^https?:\/\/[^\s]+$/i;
 const EMAIL_RE = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
+/**
+ * Refang a defanged indicator into its canonical form. Threat reports
+ * neuter IOCs so they can't be clicked/auto-linked; analysts paste those
+ * straight in. We undo the most common neutering: `hxxp://`, bracket/
+ * paren/brace-wrapped dots and ats (`[.]`, `(.)`, `{.}`, `(dot)`, `[at]`),
+ * `[://]`, `[:]`, and the spelled-out ` dot ` separator. Conservative on
+ * purpose (no bare ` at `, which collides with English) and idempotent on
+ * already-clean input.
+ */
 export function refang(input: string): string {
   return input
     .replace(/hxxps?:\/\//gi, (m) => m.replace(/hxxp/i, 'http'))
-    .replace(/\[\.\]/g, '.')
+    .replace(/\[:\/\/\]/g, '://')
+    .replace(/[[({]\s*\.\s*[\])}]/g, '.') // [.] (.) {.}
+    .replace(/[[({]\s*dot\s*[\])}]/gi, '.') // [dot] (dot) {dot}
+    .replace(/([a-z0-9])\s+dot\s+([a-z0-9])/gi, '$1.$2') // evil dot com
     .replace(/\[:\]/g, ':')
-    .replace(/\[at\]/gi, '@');
+    .replace(/[[({]\s*at\s*[\])}]/gi, '@'); // [at] (at) {at}
 }
 
 export function defang(input: string): string {

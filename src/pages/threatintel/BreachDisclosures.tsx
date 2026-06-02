@@ -6,6 +6,7 @@ import { BreachDisclosuresPanel } from '../dfir/DarkWeb';
 import { BreachDatabasesPanel } from '../../components/dfir/BreachDatabasesPanel';
 import { MtiLeaksPanel } from '../../components/threatintel/MtiLeaksPanel';
 import { fetchAggregatedFeed, formatRelativeTime, type AggregatedFeedItem } from '../../services/rssService';
+import { LiveFreshnessPill } from '../../components/LiveFreshnessPill';
 
 /**
  * Feed IDs — strictly breach-focused. Krebs / BleepingComputer cover
@@ -78,6 +79,7 @@ export default function BreachDisclosures(): JSX.Element {
         <div className="flex flex-wrap items-start justify-between gap-3 mb-2">
           <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3">
             <ShieldAlert size={28} className="text-brand-600 dark:text-brand-400" /> Live breach disclosures
+            <LiveFreshnessPill tone="live" className="ml-1" />
           </h1>
           <button
             type="button"

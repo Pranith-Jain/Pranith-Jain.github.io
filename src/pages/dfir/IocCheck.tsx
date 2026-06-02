@@ -2,6 +2,7 @@ import { useEffect, useState, useRef, useCallback, type FormEvent } from 'react'
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ToolDocs } from '../../components/dfir/ToolDocs';
+import { IocChip } from '../../components/dfir/IocChip';
 import {
   ArrowLeft,
   Search,
@@ -501,7 +502,16 @@ export default function IocCheck(): JSX.Element {
                         key={`${r.indicator}-${i}`}
                         className="border-t border-slate-200/70 dark:border-slate-800/70 align-top"
                       >
-                        <td className="px-3 py-2 font-mono text-[12px] break-all max-w-[18rem]">{r.indicator}</td>
+                        <td className="px-3 py-2 max-w-[18rem]">
+                          <IocChip
+                            value={r.indicator}
+                            bare
+                            size="sm"
+                            pivots={false}
+                            truncate={48}
+                            className="min-w-0"
+                          />
+                        </td>
                         <td className="px-3 py-2 text-[11px] font-mono uppercase text-slate-500">
                           {r.type === 'unknown' ? '?' : r.type}
                         </td>

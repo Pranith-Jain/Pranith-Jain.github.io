@@ -16,6 +16,8 @@ import {
 } from 'lucide-react';
 import { DataState } from '../../components/DataState';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { LiveFreshnessPill } from '../../components/LiveFreshnessPill';
+import { relativeAgo } from '../../lib/relativeTime';
 
 /** Build a deep link for an entity label so the analyst can pivot
  *  straight into the platform / MITRE rather than re-typing the ID. */
@@ -182,6 +184,7 @@ export default function ThreatPulse(): JSX.Element {
         <div className="flex flex-wrap items-start justify-between gap-3 mb-2">
           <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3 text-slate-900 dark:text-white">
             <Activity size={28} className="text-brand-600 dark:text-brand-400" /> Cross-source threat pulse
+            <LiveFreshnessPill tone="live" ago={data ? relativeAgo(data.generated_at) : undefined} className="ml-1" />
           </h1>
           <button
             type="button"

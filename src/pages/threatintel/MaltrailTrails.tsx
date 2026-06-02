@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, FileText, Search, Users } from 'lucide-react';
-import { CopyButton } from '../../components/ui/CopyButton';
+import { IocChip } from '../../components/dfir/IocChip';
 
 interface TrailFile {
   name: string;
@@ -178,7 +178,6 @@ export default function MaltrailTrails(): JSX.Element {
                       <th scope="col" className="px-4 py-2 w-20">
                         Type
                       </th>
-                      <th scope="col" className="px-4 py-2 w-12"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -187,14 +186,13 @@ export default function MaltrailTrails(): JSX.Element {
                         key={i}
                         className="border-t border-slate-100 dark:border-slate-800 font-mono text-[12px] hover:bg-slate-50 dark:hover:bg-slate-950"
                       >
-                        <td className="px-4 py-1.5 break-all text-slate-800 dark:text-slate-200">{ioc.value}</td>
+                        <td className="px-4 py-1.5">
+                          <IocChip value={ioc.value} bare size="sm" pivots={false} className="min-w-0" />
+                        </td>
                         <td className="px-4 py-1.5">
                           <span className="text-[10px] uppercase bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded px-1 py-0.5">
                             {ioc.type}
                           </span>
-                        </td>
-                        <td className="px-4 py-1.5">
-                          <CopyButton value={ioc.value} label="Copy IOC" />
                         </td>
                       </tr>
                     ))}

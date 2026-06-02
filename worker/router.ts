@@ -310,6 +310,15 @@ export async function fetchPrerenderedOrShell(
     const body = injectScriptNonce(await r.text(), nonce);
     const h = new Headers(r.headers);
     h.set('x-ssr-source', 'spa-shell');
+    // SPA shell references content-hashed JS/CSS chunks that are safe
+    // to cache immutably, but the shell HTML itself must refresh on
+    // every deploy so users pick up new lazy chunks (e.g. a new
+    // NotFound page, the React Router table). `no-cache` makes the
+    // browser always revalidate with the CDN; Cloudflare returns 304
+    // for unchanged shells (cheap) and 200 for new ones. 5-minute
+    // `max-age` lets the CDN coalesce repeat requests within a
+    // session before falling back to revalidation.
+    h.set('cache-control', 'public, max-age=0, must-revalidate');
     return new Response(body, { status: r.status, statusText: r.statusText, headers: h });
   }
   const internal = new URL(request.url);
@@ -322,6 +331,12 @@ export async function fetchPrerenderedOrShell(
     const body = injectScriptNonce(await r.text(), nonce);
     const h = new Headers(r.headers);
     h.set('x-ssr-source', 'shell-fallback-404');
+    // Same aggressive no-cache as the SPA shell — these are unknown
+    // routes that render the wildcard NotFound component, which
+    // itself changes on every deploy (e.g. "Did you mean"
+    // suggestions, section grid). Users opening an old bookmark must
+    // see the latest not-found experience, not a 24h-old version.
+    h.set('cache-control', 'public, max-age=0, must-revalidate');
     return new Response(body, { status: r.status, statusText: r.statusText, headers: h });
   }
   const ogRewritten = await injectOgMeta(prerenderRes, url, env, ctx, nonce);

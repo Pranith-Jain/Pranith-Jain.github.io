@@ -27,6 +27,7 @@ import {
   KeyRound,
   Layers,
   LayoutDashboard,
+  Link2,
   MessageSquare,
   Newspaper,
   Radio,
@@ -46,12 +47,13 @@ import {
 } from 'lucide-react';
 import { LiveSnapshotPanel } from '../../components/dfir/LiveSnapshotPanel';
 import { WhatsNewBanner } from '../../components/threatintel/WhatsNewBanner';
-import { PlatformPulse } from '../../components/threatintel/PlatformPulse';
 import { LatestBriefingCard } from '../../components/threatintel/LatestBriefingCard';
 import { TodaysRead } from '../../components/threatintel/TodaysRead';
-import { FeedSnapshot } from '../../components/threatintel/FeedSnapshot';
 import { personalInfo } from '../../data/content';
 import { AppHero } from '../../components/AppHero';
+import { QuickActions, type QuickAction } from '../../components/QuickActions';
+import { StatBar } from '../../components/StatBar';
+import { RecentToolsRow } from '../../components/RecentToolsRow';
 
 /**
  * Threat-Intel landing page — the SOLE entry point for sources, feeds, RSS,
@@ -844,6 +846,41 @@ function flattenTools(sections: Section[]): ToolMatch[] {
   return sections.flatMap((s) => s.tools.map((t) => ({ tool: t, section: s })));
 }
 
+/**
+ * The 4 most-clicked surfaces on /threatintel, surfaced as Quick
+ * actions directly below the AppHero. Solves the "I'm back, just
+ * get me to the live intel" problem. The full 90-tool catalog
+ * stays accessible via the search input + the section picker
+ * below.
+ */
+const QUICK_ACTIONS: QuickAction[] = [
+  {
+    to: '/threatintel/live-iocs',
+    label: 'Live IOCs',
+    description: 'Streaming indicator feed from 12 providers.',
+    icon: Activity,
+    badge: 'live',
+  },
+  {
+    to: '/threatintel/actor-kb',
+    label: 'Actor KB',
+    description: 'Threat-actor knowledge base with cross-references.',
+    icon: Users,
+  },
+  {
+    to: '/threatintel/cross-campaign',
+    label: 'Cross-Campaign',
+    description: 'Find connections across campaigns + actors + IOCs.',
+    icon: Link2,
+  },
+  {
+    to: '/threatintel/wiki',
+    label: 'Knowledge Base',
+    description: 'Long-form articles on tradecraft, frameworks, and methodology.',
+    icon: BookOpen,
+  },
+];
+
 function matchesQuery(t: ToolMatch, q: string): boolean {
   if (!q) return true;
   const hay = `${t.tool.label} ${t.tool.desc} ${t.section.label}`.toLowerCase();
@@ -887,17 +924,14 @@ export default function ThreatIntelHome(): JSX.Element {
   }, []);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <h1 className="sr-only">Threat Intel Platform</h1>
+    <div className="w-full py-4 sm:py-8 text-slate-900 dark:text-slate-100 space-y-6 sm:space-y-8">
+      {/* The page <h1> is provided by AppHero below ("Threat-intel
+          platform") — no separate sr-only h1, which would create a
+          second, near-duplicate top-level heading. */}
       {/* "What's new since your last visit" banner — silent on first
           visit / zero deltas. Reuses the localStorage marker key
           'threatintel-home'. */}
       <WhatsNewBanner />
-      {/* 7-day platform-pulse sparklines (IOCs + findings per day). Real
-          data from /api/v1/briefings/list — the daily-briefing cron has
-          ~30 days of history. Decorative only when fewer than 2 days
-          are available. */}
-      <PlatformPulse />
       <LatestBriefingCard />
       {/* Today's read — opinionated 3-card "if you have 60 seconds" promo.
           Surfaces the latest authored research, the most-fired detection
@@ -927,48 +961,32 @@ export default function ThreatIntelHome(): JSX.Element {
           </>
         }
       />
-      <FeedSnapshot />
 
-      {/* Quick links to power-user surfaces */}
-      <div className="flex flex-wrap items-center gap-2 mb-12 text-[11px] font-mono text-slate-500 dark:text-slate-400">
-        <span>quick:</span>
-        <Link
-          to="/threatintel/metrics"
-          className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 min-h-[44px] sm:min-h-0 sm:py-1 flex items-center"
-        >
-          metrics
-        </Link>
-        <Link
-          to="/threatintel/correlation"
-          className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 min-h-[44px] sm:min-h-0 sm:py-1 flex items-center"
-        >
-          correlation
-        </Link>
-        <Link
-          to="/threatintel/actor-timeline"
-          className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 min-h-[44px] sm:min-h-0 sm:py-1 flex items-center"
-        >
-          actor timeline
-        </Link>
-        <Link
-          to="/threatintel/re-leaks"
-          className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 min-h-[44px] sm:min-h-0 sm:py-1 flex items-center"
-        >
-          re-leaks
-        </Link>
-        <Link
-          to="/threatintel/live-iocs"
-          className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 min-h-[44px] sm:min-h-0 sm:py-1 flex items-center"
-        >
-          live stream
-        </Link>
-        <Link
-          to="/threatintel/status"
-          className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 min-h-[44px] sm:min-h-0 sm:py-1 flex items-center"
-        >
-          feed status
-        </Link>
-      </div>
+      {/* Quick actions — the dock a returning analyst uses 90% of the
+          time. Replaces the old "quick:" pill row (which had 6
+          link-buttons in a flat row, hard to scan). Each tile now
+          carries an icon, badge ("live"), and a one-line description
+          so a returning user can self-orient at a glance. */}
+      <QuickActions actions={QUICK_ACTIONS} accentClass="text-rose-600 dark:text-rose-400" tone="rose" />
+
+      {/* Recently used — surfaces the last few tools the user actually
+          opened (tracked in localStorage by the AppShell on every
+          route change). Renders only after 2+ visits, so first-time
+          visitors don't see an empty row. */}
+      <RecentToolsRow section="threatintel" accentClass="text-rose-600 dark:text-rose-400" tone="rose" />
+      <StatBar
+        items={[
+          { label: 'Intel surfaces', value: String(totalTiles) },
+          { label: 'Live feeds', value: '12+' },
+          { label: 'Sections', value: String(SECTIONS.length) },
+          { label: 'Last build', value: __BUILD_DATE__, mono: true },
+        ]}
+      />
+
+      {/* FeedSnapshot removed in favour of the AppStatusBar at the
+          bottom of the shell, which already surfaces the same
+          per-feed health info (with auto-refresh every 30s). The
+          StatBar above shows the static feed count. */}
 
       {/* Search bar — '/' or Cmd/Ctrl+K to focus, Esc to clear */}
       <div className="relative mb-10">
@@ -1038,7 +1056,7 @@ export default function ThreatIntelHome(): JSX.Element {
               const inner = (
                 <>
                   <div className="mb-2 flex items-start justify-between gap-2">
-                    <Icon size={18} className="mt-0.5 shrink-0 text-brand-600 dark:text-brand-400" />
+                    <Icon size={18} className="mt-0.5 shrink-0 text-brand-600 dark:text-brand-400" aria-hidden="true" />
                     <span className="mt-0.5 inline-flex items-center rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-slate-500 dark:border-slate-700 dark:bg-slate-800/50">
                       {section.label}
                     </span>
@@ -1128,10 +1146,11 @@ export default function ThreatIntelHome(): JSX.Element {
               const inner = (
                 <>
                   <div className="flex items-start justify-between gap-2 mb-2">
-                    <Icon size={18} className="text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
+                    <Icon size={18} className="text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" aria-hidden="true" />
                     <ArrowRight
                       size={14}
                       className="text-slate-300 dark:text-slate-700 group-hover:text-brand-500 dark:group-hover:text-brand-400 transition-colors mt-0.5 shrink-0"
+                      aria-hidden="true"
                     />
                   </div>
                   <div className="flex items-baseline justify-between gap-2 mb-1">
@@ -1192,6 +1211,7 @@ export default function ThreatIntelHome(): JSX.Element {
                   <ArrowRight
                     size={14}
                     className="text-slate-300 dark:text-slate-700 group-hover:text-brand-500 transition-colors"
+                    aria-hidden="true"
                   />
                 </div>
                 <p className="text-[12px] font-mono text-slate-600 dark:text-slate-400 leading-relaxed">{s.blurb}</p>

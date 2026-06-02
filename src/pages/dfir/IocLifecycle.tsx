@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { BackLink } from '../../components/BackLink';
+import { IocChip } from '../../components/dfir/IocChip';
 import { api } from '../../lib/api-client';
 import {
   ArrowLeft,
@@ -232,7 +233,16 @@ export default function IocLifecycle(): JSX.Element {
                       key={ioc.indicator}
                       className="border-b border-slate-100 dark:border-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-900/20"
                     >
-                      <td className="px-4 py-2.5 font-mono text-xs truncate max-w-[200px]">{ioc.indicator}</td>
+                      <td className="px-4 py-2.5 max-w-[200px]">
+                        <IocChip
+                          value={ioc.indicator}
+                          bare
+                          size="sm"
+                          pivots={false}
+                          truncate={40}
+                          className="min-w-0"
+                        />
+                      </td>
                       <td className="px-4 py-2.5">
                         <span className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-500">
                           {ioc.indicator_type}

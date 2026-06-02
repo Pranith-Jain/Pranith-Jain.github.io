@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import type { HistoryEntry } from '../../lib/dfir/history';
 import { VerdictChip } from './VerdictChip';
+import { IocChip } from './IocChip';
 
 const ROUTE_BY_TOOL: Record<HistoryEntry['tool'], string> = {
   ioc: '/dfir/ioc-check',
@@ -43,7 +44,7 @@ export function HistoryRow({ e }: { e: HistoryEntry }): JSX.Element {
           <span className="text-xs font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 w-20 shrink-0">
             {e.tool}
           </span>
-          <span className="font-mono text-sm text-slate-900 dark:text-slate-100 truncate">{e.indicator}</span>
+          <IocChip value={e.indicator} size="sm" bare verdict={verdictType} className="min-w-0" />
         </div>
         <span className="text-xs font-mono text-slate-500 mt-1 block">{timeAgo(e.timestamp)}</span>
       </div>

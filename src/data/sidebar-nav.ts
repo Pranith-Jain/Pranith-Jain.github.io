@@ -18,6 +18,7 @@ import {
   KeyRound,
   LayoutDashboard,
   Link2,
+  Mail,
   Map,
   Newspaper,
   Radar,
@@ -102,6 +103,7 @@ const dfir: SidebarConfig = {
       items: [
         { label: 'Dashboard', href: '/dfir', icon: LayoutDashboard },
         { label: 'IOC Check', href: '/dfir/ioc-check', icon: Search },
+        { label: 'Email Defense', href: '/dfir/email-defense', icon: Mail },
         { label: 'Phishing', href: '/dfir/phishing', icon: AlertTriangle },
         { label: 'Domain Rep', href: '/dfir/domain-rep', icon: Globe },
         { label: 'Threat Hunt', href: '/dfir/threat-hunt', icon: Radar },

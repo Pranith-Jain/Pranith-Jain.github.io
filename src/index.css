@@ -203,6 +203,11 @@
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    /* Zero the delay too: staggered entrances set an inline
+       `animation-delay` (e.g. 120ms) and use fill-mode `both`, so without
+       this a tile would hold its opacity-0 `from` state for the delay
+       before snapping in — a flicker for users who opted out of motion. */
+    animation-delay: 0ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
@@ -284,4 +289,16 @@
 }
 .stagger > *:nth-child(n + 10) {
   animation-delay: 400ms;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   Per-tile entrance for QuickActions + RecentToolsRow. Each tile gets
+   a 40ms-per-index stagger via the inline `style={{ animationDelay }}`
+   on the link (so the same primitive can be used in two contexts with
+   different cadence). 0.4s ease-out, 6px rise. The prefers-reduced-motion
+   block above already zeroes these out for users who opt out.
+   ───────────────────────────────────────────────────────────────────── */
+.qa-tile,
+.recent-tile {
+  animation: dfir-fade-in-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }

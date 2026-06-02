@@ -247,15 +247,25 @@ export default function RansomwareMap(): JSX.Element {
     if (!liveMode) return;
     setNextRefreshIn(REFRESH_INTERVAL_MS / 1000);
     const fetchTimer = window.setInterval(() => {
+      if (document.visibilityState !== 'visible') return; // don't poll a hidden/background tab
       void load();
       setNextRefreshIn(REFRESH_INTERVAL_MS / 1000);
     }, REFRESH_INTERVAL_MS);
     const countdownTimer = window.setInterval(() => {
       setNextRefreshIn((n) => Math.max(0, n - 1));
     }, 1000);
+    // Catch up immediately when the tab returns to the foreground.
+    const onVisible = () => {
+      if (document.visibilityState === 'visible') {
+        void load();
+        setNextRefreshIn(REFRESH_INTERVAL_MS / 1000);
+      }
+    };
+    document.addEventListener('visibilitychange', onVisible);
     return () => {
       window.clearInterval(fetchTimer);
       window.clearInterval(countdownTimer);
+      document.removeEventListener('visibilitychange', onVisible);
     };
   }, [liveMode]);
 

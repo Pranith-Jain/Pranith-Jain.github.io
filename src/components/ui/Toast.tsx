@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback, useRef, type ReactNode } from 'react';
+import { createContext, useContext, useState, useCallback, useMemo, useRef, type ReactNode } from 'react';
 import { X, CheckCircle, AlertCircle, AlertTriangle, Info } from 'lucide-react';
 
 export type ToastVariant = 'success' | 'error' | 'warning' | 'info';
@@ -79,8 +79,16 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   );
   const info = useCallback((message: string, duration?: number) => addToast(message, 'info', duration), [addToast]);
 
+  // Memoize the context value so it changes identity only when `toasts` does
+  // (all the dispatch fns are useCallback-stable). Without this, every render
+  // of the provider handed consumers a fresh object, re-rendering all of them.
+  const value = useMemo(
+    () => ({ toasts, toast, success, error, warning, info, dismiss }),
+    [toasts, toast, success, error, warning, info, dismiss]
+  );
+
   return (
-    <ToastContext.Provider value={{ toasts, toast, success, error, warning, info, dismiss }}>
+    <ToastContext.Provider value={value}>
       {children}
       <div
         className="fixed bottom-4 right-4 z-[70] flex w-full max-w-sm flex-col gap-2 pointer-events-none"

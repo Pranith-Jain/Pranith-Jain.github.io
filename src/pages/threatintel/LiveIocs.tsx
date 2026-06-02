@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { CopyButton } from '../../components/ui/CopyButton';
+import { IocChip } from '../../components/dfir/IocChip';
 import { relativeAgo } from '../../lib/relativeTime';
 const shortRel = (iso?: string) => relativeAgo(iso, 'no timestamp');
 import { sanitizeUrl } from '../../lib/sanitize-url';
@@ -9,6 +9,7 @@ import { useLastVisit, isNewSince } from '../../hooks';
 import { DataState } from '../../components/DataState';
 import { AdmiraltyBadge } from '../../components/dfir/AdmiraltyBadge';
 import { gradeForLiveIoc } from '../../lib/dfir/admiralty-quick';
+import { LiveFreshnessPill } from '../../components/LiveFreshnessPill';
 
 type IocKind = 'ip' | 'url' | 'domain' | 'hash';
 
@@ -208,6 +209,7 @@ export default function LiveIocs(): JSX.Element {
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Radio size={28} className="text-brand-600 dark:text-brand-400" /> Live IOC stream
+          <LiveFreshnessPill tone="live" ago={data ? shortRel(data.generated_at) : undefined} className="ml-1" />
         </h1>
         <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
           A chronological firehose of individual indicators, each carrying a reporter handle, source feed, and
@@ -376,13 +378,7 @@ export default function LiveIocs(): JSX.Element {
                 </span>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
-                    <span
-                      className="font-mono text-[13px] text-slate-900 dark:text-slate-100 truncate"
-                      title={it.value}
-                    >
-                      {it.value}
-                    </span>
-                    <CopyButton value={it.value} />
+                    <IocChip value={it.value} size="sm" bare truncate={56} className="min-w-0" />
                     {it.reference_url && (
                       <a
                         href={sanitizeUrl(it.reference_url) || undefined}

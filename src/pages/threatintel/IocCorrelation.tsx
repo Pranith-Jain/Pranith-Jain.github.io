@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { CopyButton } from '../../components/ui/CopyButton';
+import { IocChip } from '../../components/dfir/IocChip';
 import { relativeAgo as shortRel } from '../../lib/relativeTime';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
@@ -98,10 +98,7 @@ function IocRow({ ioc }: { ioc: CorrelatedIoc }) {
       </span>
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2">
-          <span className="font-mono text-[13px] text-slate-900 dark:text-slate-100 truncate" title={ioc.value}>
-            {ioc.value}
-          </span>
-          <CopyButton value={ioc.value} />
+          <IocChip value={ioc.value} size="sm" bare truncate={56} className="min-w-0" />
         </div>
         <div className="text-[11px] font-mono text-slate-500 flex items-center gap-2 flex-wrap mt-0.5">
           <span

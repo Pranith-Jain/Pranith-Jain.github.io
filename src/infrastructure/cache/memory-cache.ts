@@ -43,16 +43,15 @@ export const memoryCache = {
 
   set<T>(key: string, data: T, ttl: number): void {
     const now = Date.now();
+    // Refresh recency: a plain Map.set() on an existing key keeps its original
+    // insertion position, so deleting first re-inserts it at the newest slot.
+    // That makes Map iteration order == recency order, letting us evict the
+    // oldest entry in O(1) (store.keys().next()) instead of an O(n) scan for
+    // the minimum fetchedAt on every set past the cap.
+    store.delete(key);
     if (store.size >= CACHE_MAX) {
-      let oldest: string | undefined;
-      let oldestTime = now;
-      for (const [k, v] of store) {
-        if (v.fetchedAt < oldestTime) {
-          oldest = k;
-          oldestTime = v.fetchedAt;
-        }
-      }
-      if (oldest) store.delete(oldest);
+      const oldest = store.keys().next().value;
+      if (oldest !== undefined) store.delete(oldest);
     }
     store.set(key, { data, fetchedAt: now, ttl });
     startEvictTimer();

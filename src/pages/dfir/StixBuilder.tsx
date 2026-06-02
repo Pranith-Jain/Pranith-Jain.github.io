@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { ArrowLeft, Copy, Download, FileCode, FileText, Link as LinkIcon, Loader2 } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
 import { Badge } from '../../components/Badge';
+import { IocChip } from '../../components/dfir/IocChip';
 import { IntelCard } from '../../components/intel/IntelCard';
 import type { IntelBundleResponse, IntelView } from '../../hooks/useIntelBundle';
 
@@ -498,7 +499,7 @@ function BuilderIntelCard({ view, bundle }: { view: IntelView; bundle: IntelBund
                 className="flex items-center gap-2 rounded border border-slate-200 bg-slate-50 px-2 py-1 text-xs dark:border-slate-700 dark:bg-slate-950"
               >
                 <span className="font-mono text-[10px] uppercase text-slate-500">{ioc.type}</span>
-                <code className="break-all font-mono text-slate-900 dark:text-slate-100">{ioc.value}</code>
+                <IocChip value={ioc.value} bare size="sm" className="min-w-0" />
                 {ioc.riskScore > 0 && (
                   <Badge
                     tone={

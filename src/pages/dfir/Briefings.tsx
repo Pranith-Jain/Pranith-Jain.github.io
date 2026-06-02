@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Rss, ChevronRight, ChevronLeft, Search } from 'lucide-react';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { LiveFreshnessPill } from '../../components/LiveFreshnessPill';
 
 type Filter = 'all' | 'daily' | 'weekly' | 'landscape';
 
@@ -110,7 +111,10 @@ export default function Briefings(): JSX.Element {
         <span className="inline-block text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 mb-3">
           Intel Briefings
         </span>
-        <h1 className="text-4xl sm:text-5xl font-display font-bold mb-4 leading-tight">Threat Intel Briefings</h1>
+        <h1 className="text-4xl sm:text-5xl font-display font-bold mb-4 leading-tight flex items-center gap-3 flex-wrap">
+          Threat Intel Briefings
+          <LiveFreshnessPill tone="live" />
+        </h1>
         <p className="text-base text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
           Auto-generated daily and weekly summaries of threat-intelligence activity, drawn from CISA KEV, NVD, and
           abuse.ch / OpenPhish feeds. Daily briefings publish at 00:05 UTC; weekly at 00:15 UTC Monday. Reference only —

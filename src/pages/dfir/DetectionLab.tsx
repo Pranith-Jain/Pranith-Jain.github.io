@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ToolDocs } from '../../components/dfir/ToolDocs';
+import { IocChip } from '../../components/dfir/IocChip';
 import {
   ArrowLeft,
   FlaskConical,
@@ -692,7 +693,7 @@ export default function DetectionLab(): JSX.Element {
                       className="text-[12px] font-mono flex flex-wrap items-baseline gap-2 border-b border-slate-100 dark:border-slate-800/60 pb-1 last:border-0"
                     >
                       <span className="text-[10px] uppercase tracking-wider text-slate-500">{it.kind}</span>
-                      <code className="text-slate-800 dark:text-slate-200 break-all">{it.value}</code>
+                      <IocChip value={it.value} bare size="sm" className="min-w-0" />
                       <span className="text-slate-500">{it.source}</span>
                       {it.context && <span className="text-slate-500 italic">· {it.context}</span>}
                     </li>

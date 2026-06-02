@@ -118,23 +118,18 @@ function withinWindow(item: FeedItem, win: DateWindow): boolean {
   }
 }
 
-function highlightInText(text: string, query: string, watchTerms: string[]): JSX.Element {
-  // Highlight all occurrences of each query token + each watchlist term
-  const tokens = [...query.toLowerCase().split(/\s+/).filter(Boolean), ...watchTerms.map((t) => t.toLowerCase())];
-  if (tokens.length === 0) return <>{text}</>;
-  // Build a regex that matches any token, case-insensitive
-  const escaped = tokens.map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
-  let re: RegExp;
-  try {
-    re = new RegExp(`(${escaped})`, 'gi');
-  } catch {
-    return <>{text}</>;
-  }
+function highlightInText(text: string, re: RegExp | null): JSX.Element {
+  if (!re) return <>{text}</>;
+  // String.split with a single capturing group puts the matched delimiters at
+  // the ODD indices of the result — use that parity instead of re.test(part).
+  // `re` carries the /g flag and .test() mutates its lastIndex, so calling it
+  // once per fragment in this loop previously mis-tagged parts. (split itself
+  // ignores lastIndex, so reusing one precompiled `re` across rows is safe.)
   const parts = text.split(re);
   return (
     <>
       {parts.map((part, i) =>
-        re.test(part) ? (
+        i % 2 === 1 ? (
           <mark key={`${part}-${i}`} className="bg-amber-200 dark:bg-amber-700/40 text-inherit rounded px-0.5">
             {part}
           </mark>
@@ -263,6 +258,21 @@ export default function DarkWeb(): JSX.Element {
     }
     return out;
   }, [items, activeSources, allSourcesOn, dateWindow, searchFn, watchlist, urlToFeedId]);
+
+  // Compile the highlight regex ONCE per [search, watchlist] change instead of
+  // rebuilding it inside highlightInText for every one of up to MAX_ITEMS rows
+  // on every keystroke. Tokens come only from the query + watchlist, never the
+  // per-row text, so the regex is row-independent.
+  const highlightRe = useMemo<RegExp | null>(() => {
+    const tokens = [...search.toLowerCase().split(/\s+/).filter(Boolean), ...watchlist.map((t) => t.toLowerCase())];
+    if (tokens.length === 0) return null;
+    const escaped = tokens.map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
+    try {
+      return new RegExp(`(${escaped})`, 'gi');
+    } catch {
+      return null;
+    }
+  }, [search, watchlist]);
 
   const matchCount = useMemo(() => matched.filter((m) => m.watchMatches.length > 0).length, [matched]);
   const perTermCount = useMemo(() => {
@@ -521,7 +531,7 @@ export default function DarkWeb(): JSX.Element {
                   >
                     <div className="flex items-baseline justify-between gap-3">
                       <h3 className="font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
-                        {highlightInText(it.title, search, watchlist)}
+                        {highlightInText(it.title, highlightRe)}
                       </h3>
                       <ExternalLink size={12} className="text-slate-500 shrink-0 mt-1" />
                     </div>

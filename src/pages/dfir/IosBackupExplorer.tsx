@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Smartphone, Upload } from 'lucide-react';
 import { loadSql } from '../../lib/loadSql';
+import { useDebounce } from '../../hooks/useDebounce';
 
 interface FileRow {
   domain: string;
@@ -14,15 +15,20 @@ export default function IosBackupExplorer(): JSX.Element {
   const [files, setFiles] = useState<FileRow[] | null>(null);
   const [domains, setDomains] = useState<Array<[string, number]>>([]);
   const [q, setQ] = useState('');
+  // The input stays bound to `q` for instant feedback; the 20k-row filter
+  // below only runs ~120ms after typing settles, off the debounced value.
+  const debouncedQ = useDebounce(q, 120);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState('');
 
   async function open(file: File) {
     setBusy(true);
     setErr('');
+    let db: { close?: () => void } | null = null;
     try {
       const SQL = await loadSql();
       const d = new SQL.Database(new Uint8Array(await file.arrayBuffer()));
+      db = d;
       // Manifest.db: Files(fileID, domain, relativePath, flags, file)
       const res = d.exec('SELECT domain, relativePath, fileID, flags FROM Files ORDER BY domain LIMIT 20000');
       if (res.length === 0) throw new Error('No Files table — is this an iOS Manifest.db?');
@@ -40,15 +46,18 @@ export default function IosBackupExplorer(): JSX.Element {
       setErr(e instanceof Error ? e.message : String(e));
       setFiles(null);
     } finally {
+      // Free the WASM-backed handle — rows/domains are already materialized
+      // into plain JS, so the sql.js Database is no longer needed.
+      db?.close?.();
       setBusy(false);
     }
   }
 
   const shown = useMemo(() => {
     if (!files) return [];
-    const t = q.trim().toLowerCase();
+    const t = debouncedQ.trim().toLowerCase();
     return (t ? files.filter((f) => `${f.domain} ${f.path}`.toLowerCase().includes(t)) : files).slice(0, 1000);
-  }, [files, q]);
+  }, [files, debouncedQ]);
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">

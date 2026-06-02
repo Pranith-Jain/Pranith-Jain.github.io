@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ComposableMap, Geographies, Geography, Marker } from 'react-simple-maps';
 
 /**
@@ -67,6 +67,20 @@ export default function ThreatMapChart({
     return () => window.clearInterval(id);
   }, [globeView]);
 
+  // Resolve the top-12 marker layer only when the data or selection changes —
+  // NOT on every 200ms rotation tick. While the globe spins this component
+  // re-renders 5×/s, but the sort/slice is rotation-independent, so without
+  // this memo it re-materialized + re-sorted the country map every frame.
+  const topMarkers = useMemo(() => {
+    if (selectedAlpha2) return [] as { code: string; coords: [number, number] }[];
+    const out: { code: string; coords: [number, number] }[] = [];
+    for (const c of [...countryByAlpha2.values()].sort((a, b) => b.count - a.count).slice(0, 12)) {
+      const coords = COUNTRY_COORDS[c.countryCode];
+      if (coords) out.push({ code: c.countryCode, coords });
+    }
+    return out;
+  }, [countryByAlpha2, selectedAlpha2]);
+
   const projectionConfig = globeView ? { scale: 200, rotate: rotation } : { scale: 140 };
 
   return (
@@ -120,25 +134,17 @@ export default function ThreatMapChart({
       {/* Pulse markers on the top-12 active countries. Decorative, not
           attack arcs — our data has no real source→target pairing.
           Hidden when a country is selected so the drill-down stays clean. */}
-      {!selectedAlpha2 &&
-        [...countryByAlpha2.values()]
-          .sort((a, b) => b.count - a.count)
-          .slice(0, 12)
-          .map((c) => {
-            const coords = COUNTRY_COORDS[c.countryCode];
-            if (!coords) return null;
-            return (
-              <Marker key={c.countryCode} coordinates={coords}>
-                <g style={{ pointerEvents: 'none' }}>
-                  <circle r={3} fill="#fbbf24" opacity={0.85}>
-                    <animate attributeName="r" values="3;9;3" dur="2.4s" repeatCount="indefinite" />
-                    <animate attributeName="opacity" values="0.85;0;0.85" dur="2.4s" repeatCount="indefinite" />
-                  </circle>
-                  <circle r={2} fill="#fbbf24" />
-                </g>
-              </Marker>
-            );
-          })}
+      {topMarkers.map(({ code, coords }) => (
+        <Marker key={code} coordinates={coords}>
+          <g style={{ pointerEvents: 'none' }}>
+            <circle r={3} fill="#fbbf24" opacity={0.85}>
+              <animate attributeName="r" values="3;9;3" dur="2.4s" repeatCount="indefinite" />
+              <animate attributeName="opacity" values="0.85;0;0.85" dur="2.4s" repeatCount="indefinite" />
+            </circle>
+            <circle r={2} fill="#fbbf24" />
+          </g>
+        </Marker>
+      ))}
     </ComposableMap>
   );
 }

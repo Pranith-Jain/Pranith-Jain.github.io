@@ -129,8 +129,19 @@ export default function CertStreamLive(): JSX.Element {
   useEffect(() => {
     if (!streaming) return;
     void poll(keyword);
-    const t = window.setInterval(() => void poll(keyword), POLL_MS);
-    return () => window.clearInterval(t);
+    const t = window.setInterval(() => {
+      if (document.visibilityState !== 'visible') return; // don't poll a hidden/background tab
+      void poll(keyword);
+    }, POLL_MS);
+    // Catch up immediately when the tab returns to the foreground.
+    const onVisible = () => {
+      if (document.visibilityState === 'visible') void poll(keyword);
+    };
+    document.addEventListener('visibilitychange', onVisible);
+    return () => {
+      window.clearInterval(t);
+      document.removeEventListener('visibilitychange', onVisible);
+    };
   }, [streaming, keyword, poll]);
 
   const start = () => {

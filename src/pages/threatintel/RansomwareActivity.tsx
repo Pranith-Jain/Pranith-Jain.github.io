@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Activity } from 'lucide-react';
 import { RansomwareActivityPanel } from '../dfir/DarkWeb';
+import { LiveFreshnessPill } from '../../components/LiveFreshnessPill';
 
 /**
  * Live ransomware activity page. Thin wrapper around the
@@ -24,6 +25,7 @@ export default function RansomwareActivity(): JSX.Element {
       <div className="animate-fade-in-up">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
           <Activity size={28} className="text-brand-600 dark:text-brand-400" /> Live ransomware activity
+          <LiveFreshnessPill tone="live" className="ml-1" />
         </h1>
         <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
           Recent ransomware leak-site claims merged across multiple trackers —{' '}

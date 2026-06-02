@@ -1,10 +1,13 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Hash, Mail, FileCode, AlertOctagon, ShieldAlert, Zap } from 'lucide-react';
+import { ArrowRight, Hash, Mail, FileCode, AlertOctagon, ShieldAlert, Zap, GitBranch } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { GROUP_META, MAIN_TOOL_COUNT, UTILITY_TOOLS, type ToolGroup } from '../components/dfir/tool-sections';
 import { ToolSearchBar } from '../components/dfir/ToolSearchBar';
 import { personalInfo } from '../data/content';
 import { AppHero } from '../components/AppHero';
+
+import { QuickActions, type QuickAction } from '../components/QuickActions';
+import { RecentToolsRow } from '../components/RecentToolsRow';
 import { StatBar } from '../components/StatBar';
 
 /**
@@ -184,9 +187,49 @@ const PROVIDER_GROUPS: { label: string; items: string[] }[] = [
   },
 ];
 
+/**
+ * The 4 most-clicked surfaces in the DFIR toolkit, surfaced as
+ * "Quick actions" directly below the AppHero. Solves the "I'm back,
+ * just get me to the thing" problem: a returning analyst doesn't
+ * need the prescribed Start-here sequence, the Featured grid, or the
+ * category picker — they need IOC check / search / rule converter /
+ * CVE prioritizer in one row of large tiles.
+ *
+ * The `hint` field on the search action renders the ⌘K shortcut so
+ * keyboard-first users see the affordance inline (TopBar also has
+ * the same hint, but reinforcing it on the landing increases
+ * discoverability for first-time visitors).
+ */
+const QUICK_ACTIONS: QuickAction[] = [
+  {
+    to: '/dfir/ioc-check',
+    label: 'IOC Check',
+    description: 'Streaming verdicts across 24 providers in parallel.',
+    icon: Hash,
+  },
+  {
+    to: '/dfir/email-defense',
+    label: 'Email Defense',
+    description: 'SPF / DKIM / DMARC / BIMI audit with failure modes called out.',
+    icon: Mail,
+  },
+  {
+    to: '/dfir/rule-converter',
+    label: 'Rule Converter',
+    description: 'Sigma ↔ KQL ↔ SPL ↔ YARA via one canonical IR.',
+    icon: GitBranch,
+  },
+  {
+    to: '/dfir/cve-prioritizer',
+    label: 'CVE Prioritizer',
+    description: 'CVSS + EPSS + KEV + ransomware-use in one call.',
+    icon: ShieldAlert,
+  },
+];
+
 export default function DFIRPage(): JSX.Element {
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 text-slate-900 dark:text-slate-100">
+    <div className="w-full py-4 sm:py-8 text-slate-900 dark:text-slate-100 space-y-6 sm:space-y-8">
       <AppHero
         kicker="Privacy-first · No upload · No login · Local analysis only"
         title="DFIR & security toolkit"
@@ -217,6 +260,22 @@ export default function DFIRPage(): JSX.Element {
         ]}
       />
 
+      {/* Quick actions — the dock a returning analyst uses 90% of the
+          time. Placed BEFORE the prose-y "Start here" sequence because
+          it answers the "I'm back, get me in" question first; the
+          prescribed onboarding below carries the first-time-visitor
+          flow. Each tile has a one-line description so a returning
+          user who's forgotten which tool is which can self-orient. */}
+      <QuickActions actions={QUICK_ACTIONS} />
+
+      {/* Recently used — surfaces the last few tools the user actually
+          opened (tracked in localStorage by the AppShell on every
+          route change). Renders only after the user has visited at
+          least 2 distinct paths, so first-time visitors don't see an
+          empty/half-empty row. Sits ABOVE the curated QuickActions so
+          a power user gets to their last tool in one tap. */}
+      <RecentToolsRow section="dfir" />
+
       {/* Tool search — inline equivalent of the Cmd+K palette. Replaces
           the previous "Paste an indicator" IOC-dispatch input that lived
           here; that flow is still one click away via the first "Start
@@ -230,9 +289,9 @@ export default function DFIRPage(): JSX.Element {
           Solves the hub problem (60 tiles, no direction). Different from
           "Featured" below: that's editorial best-of; this is "if you only
           have 60 seconds, run one of these three." */}
-      <section className="mb-12">
+      <section>
         <div className="flex items-baseline gap-3 mb-4">
-          <Zap size={16} className="text-brand-600 dark:text-brand-400" />
+          <Zap size={16} className="text-brand-600 dark:text-brand-400" aria-hidden="true" />
           <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">Start here</h2>
           <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500">60-second onboarding</span>
         </div>
@@ -258,7 +317,7 @@ export default function DFIRPage(): JSX.Element {
                 </p>
                 <p className="text-[12px] text-slate-600 dark:text-slate-400 leading-relaxed">{p.action}</p>
                 <div className="mt-2.5 inline-flex items-center gap-1 text-[11px] font-mono text-brand-600 dark:text-brand-400 group-hover:underline">
-                  open <ArrowRight size={11} />
+                  open <ArrowRight size={11} aria-hidden="true" />
                 </div>
               </Link>
             </li>
@@ -270,7 +329,7 @@ export default function DFIRPage(): JSX.Element {
           door. Promotes the strong work above the category picker so a
           first-time visitor doesn't bounce off a 60-tile grid. The rest of
           the toolkit stays one click away via "Pick a workbench" below. */}
-      <section className="mb-12">
+      <section>
         <div className="flex items-baseline justify-between mb-5">
           <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">Featured tools</h2>
           <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500">
@@ -304,14 +363,14 @@ export default function DFIRPage(): JSX.Element {
         </div>
       </section>
 
-      <section className="animate-fade-in-up mb-16">
+      <section className="animate-fade-in-up">
         <div className="flex items-baseline justify-between mb-6">
           <h2 className="font-display font-bold text-2xl text-slate-900 dark:text-slate-100">Pick a workbench</h2>
           <Link
             to="/dfir/dashboard"
             className="text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
           >
-            recent lookups <ArrowRight size={12} />
+            recent lookups <ArrowRight size={12} aria-hidden="true" />
           </Link>
         </div>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -328,6 +387,7 @@ export default function DFIRPage(): JSX.Element {
                 <ArrowRight
                   size={14}
                   className="text-slate-300 dark:text-slate-700 group-hover:text-brand-500 transition-colors"
+                  aria-hidden="true"
                 />
               </div>
               <p className="text-[13px] text-slate-600 dark:text-slate-400 leading-relaxed">{GROUP_META[g].blurb}</p>
@@ -340,7 +400,7 @@ export default function DFIRPage(): JSX.Element {
           row links a case study (already published on this site) to the
           specific tools the case exercised, with a sentence of context.
           Anchored to the prose body of the case study, not telemetry. */}
-      <section className="mb-12">
+      <section>
         <div className="flex items-baseline justify-between mb-5">
           <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">Used in real cases</h2>
           <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500">tools ⇢ case studies</span>
@@ -383,9 +443,9 @@ export default function DFIRPage(): JSX.Element {
           as the real depth of the toolkit, not a padded list. Routes
           still resolve — nothing is deleted, only de-emphasised. */}
       {UTILITY_TOOLS.length > 0 && (
-        <section className="mb-12">
+        <section>
           <details>
-            <summary className="cursor-pointer text-xs font-bold uppercase tracking-[0.2em] text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 font-mono">
+            <summary className="cursor-pointer rounded text-xs font-bold uppercase tracking-[0.2em] text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 font-mono focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
               Utilities &amp; converters ({UTILITY_TOOLS.length}). Encoders, hashes, timestamps
             </summary>
             <p className="mt-3 text-[12px] font-mono text-slate-500 max-w-2xl">
@@ -418,9 +478,9 @@ export default function DFIRPage(): JSX.Element {
         </section>
       )}
 
-      <section className="mt-20 pt-10 border-t border-slate-200 dark:border-slate-800">
+      <section className="pt-8 border-t border-slate-200/80 dark:border-slate-800/80">
         <details>
-          <summary className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-6 cursor-pointer">
+          <summary className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-6 cursor-pointer rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
             Data Sources
           </summary>
           <div className="space-y-5 mt-4">
