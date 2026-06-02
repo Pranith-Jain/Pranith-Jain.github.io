@@ -14,7 +14,7 @@ Threat intelligence analyst with over two years tracking threat actors and runni
 
 ## EXPERIENCE
 
-**Threat Intelligence & Security Analyst | Qubit Capital**
+**Security Analyst | Qubit Capital (Sujata Outsourcing)**
 Remote | Jul 2024 - Present
 
 - Triaged 250+ phishing, BEC, and malware incidents across 150+ portfolio companies, pivoting on indicators of compromise (sender IPs, domains, hashes) and mapping techniques to MITRE ATT&CK.
@@ -23,7 +23,7 @@ Remote | Jul 2024 - Present
 - Cut mean response time from 4 hours to under 75 minutes with automated phishing-triage and enrichment pipelines built in n8n.
 - Refined detection rules to cut false positives 25% and per-incident analysis time 35%, and brought SPF/DKIM/DMARC alignment to 98%+ across 1,300+ domains, reducing spoofing-based phishing by roughly 60%.
 
-**Infrastructure & Email Security Analyst | UnifyCX**
+**Tech Associate | UnifyCX (GlowTouch Technologies PVT Ltd)**
 Mysore, India | Sep 2023 - Jul 2024
 
 - Investigated and cleaned up 60+ compromised web assets (malware removal, WAF tuning, XSS fixes) with a 98% first-pass closure, and fixed SPF/DKIM/DMARC and IP-blacklist issues for 200+ enterprise domains, lifting inbox placement from 60% to 95%.
