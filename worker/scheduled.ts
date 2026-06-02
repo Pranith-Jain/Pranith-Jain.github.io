@@ -6,6 +6,7 @@ import {
   sweepOldBriefings,
   expectedWeeklySlug,
   briefingNeedsHeal,
+  weeklyUndercountsDailies,
 } from '../api/src/lib/briefing-builder';
 import { buildLandscapeReport, writeLandscapeReport, expectedLandscapeSlug } from '../api/src/lib/landscape-builder';
 import { runDiscoveryNow, runPlannerNow, runPublisherNow, type CaseStudyEnv } from '../api/src/case-study/run';
@@ -201,7 +202,20 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
 
         let rebuiltThisHour = false;
 
-        const healOne = async (type: 'daily' | 'weekly', slug: string, opts?: { minAgeMs?: number }) => {
+        const healOne = async (
+          type: 'daily' | 'weekly',
+          slug: string,
+          opts?: {
+            minAgeMs?: number;
+            /**
+             * Extra "this row is stale" predicate consulted when the standard
+             * richness/degraded check says the row is fine. Lets the weekly
+             * heal catch a briefing that `isBriefingRich` wrongly passes (e.g.
+             * W22's 5 findings) by comparing it against its dailies.
+             */
+            extraHealCheck?: (row: { stats_json?: string; body?: string } | null) => Promise<boolean>;
+          }
+        ) => {
           if (!db) return;
           // Read stats AND body in one query: stats decide richness, body
           // carries the `degraded` flag + `generated_at` the cooldown needs.
@@ -214,7 +228,9 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
             .prepare('SELECT stats_json, body FROM briefings WHERE slug = ?')
             .bind(slug)
             .first<{ stats_json?: string; body?: string }>();
-          if (!briefingNeedsHeal(row, { now: Date.now(), cooldownMs: opts?.minAgeMs })) return;
+          const needsHeal = briefingNeedsHeal(row, { now: Date.now(), cooldownMs: opts?.minAgeMs });
+          const extraHeal = !needsHeal && opts?.extraHealCheck ? await opts.extraHealCheck(row) : false;
+          if (!needsHeal && !extraHeal) return;
           rebuiltThisHour = true;
           try {
             const briefing = await buildBriefing(type, undefined, {
@@ -252,7 +268,25 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
         // within an hour of KEV/NVD coming back, while not burning a full
         // rebuild on back-to-back hours while upstreams stay blocked.
         if (db) {
-          await healOne('weekly', expectedWeeklySlug(), { minAgeMs: 30 * 60_000 });
+          await healOne('weekly', expectedWeeklySlug(), {
+            minAgeMs: 30 * 60_000,
+            // The weekly feeds are recent-only, so a weekly built late re-queries
+            // a window they no longer cover and collapses to KEV-only even though
+            // its dailies are rich (the W22 bug). `isBriefingRich` then sees a few
+            // findings and skips the heal forever. Catch that by comparing the
+            // stored weekly against its constituent dailies; the rebuild now rolls
+            // them in, so once repaired it's no longer sparse and stops rebuilding.
+            extraHealCheck: async (row) => {
+              let range: { range_start?: string; range_end?: string } = {};
+              try {
+                range = row?.body ? JSON.parse(row.body) : {};
+              } catch {
+                return false;
+              }
+              if (!range.range_start || !range.range_end) return false;
+              return weeklyUndercountsDailies(db, expectedWeeklySlug(), range.range_start, range.range_end);
+            },
+          });
         }
 
         if (rebuiltThisHour) {

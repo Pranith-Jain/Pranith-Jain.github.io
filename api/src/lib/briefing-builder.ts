@@ -1179,6 +1179,203 @@ function buildStats(findings: BriefingFinding[], sections: BriefingSection[], io
   };
 }
 
+// ---- weekly rollup ------------------------------------------------------
+//
+// Weekly briefings cover a 7-day historical window, but the abuse.ch / cvefeed
+// / NVD-recent feeds are recent-only — a weekly rebuilt even a day late (e.g.
+// the W22 cron that fired 2026-06-02 for the 2026-05-25→31 week) re-queries
+// those feeds for a window they no longer cover and collapses to KEV-only with
+// unknown severities. The faithful record of that week already lives in the 7
+// daily briefings, so the weekly folds them in. See
+// docs/superpowers/specs/2026-06-02-weekly-briefing-rollup-design.md.
+
+export interface WeeklyDailyRollup {
+  /** CVE-derived findings across the week, deduped by uppercased CVE id. */
+  findings: BriefingFinding[];
+  /** Ransomware-activity findings across the week, deduped by id. */
+  ransomwareFindings: BriefingFinding[];
+  /** Sum of each daily's unique IOC count (indicators observed across the week). */
+  iocsTotal: number;
+  /** Merged + capped IOC display buckets from the dailies. */
+  iocBuckets: BriefingIocBuckets;
+  /** Union of every daily's source labels. */
+  sources: string[];
+  /** How many daily rows contributed (0 ⇒ nothing to roll up). */
+  dailyCount: number;
+}
+
+export interface WeeklyMergeInput {
+  findings: BriefingFinding[];
+  ransomwareFindings: BriefingFinding[];
+  iocsRawTotal: number;
+  iocBuckets: BriefingIocBuckets;
+  sources: string[];
+}
+
+/** Source labels that denote IOC feeds (vs CVE/finding sources). */
+const IOC_FEED_SOURCES = new Set(['URLhaus', 'MalwareBazaar', 'ThreatFox', 'TweetFeed']);
+
+function isRansomwareFinding(sectionId: string, f: BriefingFinding): boolean {
+  return sectionId === 'ransomware-activity' || f.id.startsWith('rw-') || f.source === 'ransomware.live';
+}
+
+/** Dedupe CVE findings by uppercased id, keeping the copy that carries a real CVSS. */
+function dedupeCveFindings(findings: BriefingFinding[]): BriefingFinding[] {
+  const byId = new Map<string, BriefingFinding>();
+  for (const f of findings) {
+    const key = f.id.toUpperCase();
+    const existing = byId.get(key);
+    if (!existing) {
+      byId.set(key, f);
+      continue;
+    }
+    // A KEV row whose NVD CVSS lookup failed has severity 'unknown' and no
+    // cvss; the daily copy of the same CVE usually has a real score. Prefer it.
+    if (!Number.isFinite(existing.cvss) && Number.isFinite(f.cvss)) byId.set(key, f);
+  }
+  return [...byId.values()];
+}
+
+function dedupeFindingsById(findings: BriefingFinding[]): BriefingFinding[] {
+  const seen = new Set<string>();
+  const out: BriefingFinding[] = [];
+  for (const f of findings) {
+    if (seen.has(f.id)) continue;
+    seen.add(f.id);
+    out.push(f);
+  }
+  return out;
+}
+
+/** Union two bucket sets per type, dedupe by type|value, re-cap at 30. */
+function mergeIocBuckets(a: BriefingIocBuckets, b: BriefingIocBuckets): BriefingIocBuckets {
+  const merge = (xs: IocEntry[], ys: IocEntry[]): IocEntry[] => {
+    const seen = new Set<string>();
+    const out: IocEntry[] = [];
+    for (const e of [...xs, ...ys]) {
+      const k = `${e.type}|${e.value.trim().toLowerCase()}`;
+      if (seen.has(k)) continue;
+      seen.add(k);
+      out.push(e);
+      if (out.length >= 30) break;
+    }
+    return out;
+  };
+  return {
+    urls: merge(a.urls, b.urls),
+    domains: merge(a.domains, b.domains),
+    ipv4s: merge(a.ipv4s, b.ipv4s),
+    hashes: merge(a.hashes, b.hashes),
+  };
+}
+
+/**
+ * Fold the rolled-up dailies into the live weekly build. The result is always
+ * a superset of the live build: an on-time weekly (live ≈ dailies) is barely
+ * changed, a late/stale one inherits the dailies' richness. A rollup with no
+ * dailies returns the live input untouched.
+ */
+export function mergeWeeklyWithDailies(live: WeeklyMergeInput, rollup: WeeklyDailyRollup): WeeklyMergeInput {
+  if (rollup.dailyCount === 0) return live;
+  return {
+    findings: dedupeCveFindings([...live.findings, ...rollup.findings]),
+    ransomwareFindings: dedupeFindingsById([...live.ransomwareFindings, ...rollup.ransomwareFindings]).slice(0, 60),
+    // Raw indicators aren't recoverable from stored daily bodies (capped at 30
+    // /type), so the honest weekly volume is the sum of daily unique counts.
+    // max() keeps an on-time weekly's live dedup count when it happens to win.
+    iocsRawTotal: Math.max(live.iocsRawTotal, rollup.iocsTotal),
+    iocBuckets: mergeIocBuckets(live.iocBuckets, rollup.iocBuckets),
+    sources: [...new Set([...live.sources, ...rollup.sources])],
+  };
+}
+
+/** Read the 7 daily briefings inside [rangeStartIso, rangeEndIso] and roll them up. */
+export async function aggregateWeeklyFromDailies(
+  db: D1Database,
+  rangeStartIso: string,
+  rangeEndIso: string
+): Promise<WeeklyDailyRollup> {
+  const res = await db
+    .prepare(
+      'SELECT slug, stats_json, body FROM briefings WHERE type = ? AND date >= ? AND date <= ? ORDER BY date ASC'
+    )
+    .bind('daily', rangeStartIso, rangeEndIso)
+    .all<{ slug: string; stats_json: string; body: string }>();
+  const rows = res.results ?? [];
+
+  const cveFindings: BriefingFinding[] = [];
+  const ransomwareFindings: BriefingFinding[] = [];
+  const sources = new Set<string>();
+  let iocsTotal = 0;
+  let iocBuckets: BriefingIocBuckets = { urls: [], domains: [], ipv4s: [], hashes: [] };
+
+  for (const row of rows) {
+    const b = safeJsonParse<Briefing | null>(row.body, null);
+    if (!b) continue;
+    for (const section of b.sections ?? []) {
+      for (const f of section.findings ?? []) {
+        if (isRansomwareFinding(section.id, f)) ransomwareFindings.push(f);
+        else cveFindings.push(f);
+      }
+    }
+    iocsTotal += b.stats?.iocs ?? 0;
+    if (b.iocs) iocBuckets = mergeIocBuckets(iocBuckets, b.iocs);
+    for (const s of b.sources ?? []) sources.add(s);
+  }
+
+  return {
+    findings: dedupeCveFindings(cveFindings),
+    ransomwareFindings: dedupeFindingsById(ransomwareFindings),
+    iocsTotal,
+    iocBuckets,
+    sources: [...sources],
+    dailyCount: rows.length,
+  };
+}
+
+/**
+ * True when a stored weekly is materially sparser than its constituent dailies
+ * — the stale-rebuild signature. Lets the hourly self-heal re-build a weekly
+ * the richness check (`isBriefingRich`) wrongly considers complete (e.g. W22's
+ * 5 findings). Returns false when there's no weekly row (the build path handles
+ * that) or no dailies to compare against.
+ */
+export async function weeklyUndercountsDailies(
+  db: D1Database,
+  weeklySlug: string,
+  rangeStartIso: string,
+  rangeEndIso: string
+): Promise<boolean> {
+  const weeklyRow = await db
+    .prepare('SELECT stats_json FROM briefings WHERE slug = ?')
+    .bind(weeklySlug)
+    .first<{ stats_json?: string }>();
+  if (!weeklyRow) return false;
+  const weekly = safeJsonParse<{ findings?: number; iocs?: number }>(weeklyRow.stats_json, {});
+
+  const res = await db
+    .prepare('SELECT stats_json FROM briefings WHERE type = ? AND date >= ? AND date <= ?')
+    .bind('daily', rangeStartIso, rangeEndIso)
+    .all<{ stats_json: string }>();
+  const rows = res.results ?? [];
+  if (rows.length === 0) return false;
+
+  let sumFindings = 0;
+  let sumIocs = 0;
+  for (const r of rows) {
+    const s = safeJsonParse<{ findings?: number; iocs?: number }>(r.stats_json, {});
+    sumFindings += s.findings ?? 0;
+    sumIocs += s.iocs ?? 0;
+  }
+
+  const wFindings = weekly.findings ?? 0;
+  const wIocs = weekly.iocs ?? 0;
+  // A weekly is a near-superset of its dailies (cross-day dedup only shrinks it
+  // modestly). Carrying <25% of the daily finding volume — or zero IOCs while
+  // the week clearly had thousands — is the stale-rebuild bug, not a quiet week.
+  return wFindings * 4 < sumFindings || (wIocs === 0 && sumIocs > 0);
+}
+
 // ---- main entry points --------------------------------------------------
 
 export async function buildBriefing(
@@ -1384,7 +1581,7 @@ export async function buildBriefing(
       mitre_techniques: deriveMitreTechniques(titleText),
     });
   }
-  const findings = [...kevFindings, ...nvdFindings, ...mtiCveFindings, ...cvefeedFindings];
+  let findings = [...kevFindings, ...nvdFindings, ...mtiCveFindings, ...cvefeedFindings];
 
   // Per-source counts for transparent reporting — match-in-window only.
   // Helps a future reader verify "URLhaus 4,712; ThreatFox 215; …" instead
@@ -1421,8 +1618,8 @@ export async function buildBriefing(
   // `iocs` payload below is then capped per-bucket so the briefing JSON
   // stays small, but the summary reports this real unique volume so readers
   // don't mistake the cap for the count.
-  const iocsRawTotal = allIocs.length;
-  const iocs = bucketIocs(allIocs);
+  let iocsRawTotal = allIocs.length;
+  let iocs = bucketIocs(allIocs);
 
   // IOC source attribution — only feeds that actually returned data this run.
   // KEV/NVD belong to the findings half of the briefing, not the IOC half.
@@ -1432,8 +1629,6 @@ export async function buildBriefing(
   if (malwarebazaarMatched.length > 0) iocSources.push('MalwareBazaar');
   if (threatfoxMatched.length > 0) iocSources.push('ThreatFox');
   if (tweetfeedMatched.length > 0) iocSources.push('TweetFeed');
-
-  const sections = buildSections(findings);
 
   // Ransomware victim claims → a dedicated section (kept out of `findings`
   // so the CVE-oriented stats stay clean). In-window only, sorted
@@ -1451,7 +1646,7 @@ export async function buildBriefing(
   const ransomwareVictims = ransomwareBundle.victims;
   const ransomwareGroups = ransomwareBundle.groups;
   const ransomwareSectors = ransomwareBundle.sectors;
-  const ransomwareFindings: BriefingFinding[] = [];
+  let ransomwareFindings: BriefingFinding[] = [];
   const seenRwVictim = new Set<string>();
   for (const v of ransomwareVictims) {
     const discovered = v.discovered;
@@ -1483,6 +1678,37 @@ export async function buildBriefing(
   // Newest-first (the merged feed is already sorted this way, but rebuilds
   // can re-enter items in a different order if any fetcher rotated).
   ransomwareFindings.sort((a, b) => (b.title < a.title ? 0 : 1));
+
+  // Weekly briefings fold in the already-persisted daily briefings for the
+  // window (see the "weekly rollup" block above). The live weekly feeds are
+  // recent-only, so a weekly built even a day late re-queries a window they no
+  // longer cover and collapses (the W22 bug). The dailies are the faithful
+  // record, so merge them in: the result is always a superset of the live
+  // build. On-time weeklies are unaffected; stale ones inherit the richness.
+  if (type === 'weekly' && opts.env?.BRIEFINGS_DB) {
+    const rollup = await aggregateWeeklyFromDailies(
+      opts.env.BRIEFINGS_DB,
+      isoDate(rangeStart),
+      isoDate(new Date(rangeEnd.getTime() - 86400_000))
+    );
+    if (rollup.dailyCount > 0) {
+      const merged = mergeWeeklyWithDailies(
+        { findings, ransomwareFindings, iocsRawTotal, iocBuckets: iocs, sources: iocSources },
+        rollup
+      );
+      findings = merged.findings;
+      ransomwareFindings = merged.ransomwareFindings;
+      iocsRawTotal = merged.iocsRawTotal;
+      iocs = merged.iocBuckets;
+      // Surface the daily IOC feeds in the source badges — the live weekly
+      // window found none, but the dailies did.
+      for (const s of rollup.sources) {
+        if (IOC_FEED_SOURCES.has(s) && !iocSources.includes(s)) iocSources.push(s);
+      }
+    }
+  }
+
+  const sections = buildSections(findings);
   if (ransomwareFindings.length > 0) {
     // Slice top groups/sectors (already top-N in the bundle) for the blurb.
     const topGroups = ransomwareGroups
@@ -1533,12 +1759,15 @@ export async function buildBriefing(
   for (const f of findings) for (const t of f.mitre_techniques) techniqueSet.add(t);
 
   const sources: string[] = [];
+  // Derive source badges from the final `findings` (which, for weeklies, has
+  // the dailies merged in) rather than the live-only arrays — otherwise a
+  // stale weekly that inherited NVD/cvefeed/MTI findings from its dailies would
+  // drop those badges. "NVD" means CVE rows from NVD/CIRCL specifically;
+  // cvefeed alone shouldn't masquerade as NVD. Each is listed independently.
   if (findings.some((f) => f.source === 'CISA KEV')) sources.push('CISA KEV');
-  // "NVD" badge means we got CVE rows from NVD/CIRCL specifically — cvefeed
-  // alone shouldn't masquerade as NVD. Both can be listed independently.
-  if (nvdFindings.length > 0) sources.push('NVD');
-  if (cvefeedFindings.length > 0) sources.push('cvefeed.io');
-  if (mtiCveFindings.length > 0) sources.push('MyThreatIntel');
+  if (findings.some((f) => f.source === 'NVD')) sources.push('NVD');
+  if (findings.some((f) => f.source === 'cvefeed.io')) sources.push('cvefeed.io');
+  if (findings.some((f) => f.source === 'MyThreatIntel')) sources.push('MyThreatIntel');
   if (ransomwareFindings.length > 0) sources.push('ransomware.live');
   sources.push(...iocSources);
 
