@@ -1,4 +1,9 @@
 import type { D1Database } from '@cloudflare/workers-types';
+// Track the producers' canonical keys so a version bump can't silently strand
+// these reads (previously hardcoded v8/v11 while producers wrote v9/v13 → IOC
+// and ransomware-group watch alerts never fired on live indicators).
+import { LIVE_IOCS_CACHE_KEY } from '../routes/live-iocs';
+import { RANSOMWARE_RECENT_CACHE_KEY } from '../routes/ransomware-recent';
 
 export interface Watch {
   id: string;
@@ -179,7 +184,7 @@ export async function checkWatches(kv: KVNamespace, now: string, db?: D1Database
 
       if (watch.type === 'ransomware-group') {
         const data = await readCachedJson<{ victims: Array<{ victim: string; group: string }> }>(
-          'https://ransomware-recent-cache.internal/v8-af-source'
+          RANSOMWARE_RECENT_CACHE_KEY
         );
         if (data) {
           const re = new RegExp(`\\b${escapeRegex(watch.value)}\\b`, 'i');
@@ -207,7 +212,7 @@ export async function checkWatches(kv: KVNamespace, now: string, db?: D1Database
         }
       } else if (watch.type === 'ioc') {
         const data = await readCachedJson<{ items: Array<{ value: string; kind: string; source: string }> }>(
-          'https://live-iocs-cache.internal/v11-freshness-filter'
+          LIVE_IOCS_CACHE_KEY
         );
         if (data) {
           const match = (data.items ?? []).find((i) => i.value.toLowerCase() === watch.value.toLowerCase());

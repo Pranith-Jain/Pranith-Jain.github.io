@@ -1,5 +1,9 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+// Canonical producer keys — readers previously hardcoded stale v11/v8 and
+// returned a confident `no_data` for live indicators (see watch-engine).
+import { LIVE_IOCS_CACHE_KEY } from './live-iocs';
+import { RANSOMWARE_RECENT_CACHE_KEY } from './ransomware-recent';
 
 type AutoTask =
   | { type: 'ip-lookup'; value: string }
@@ -24,12 +28,16 @@ async function readCache<T>(key: string): Promise<T | null> {
     const cache = caches.default;
     const cached = await cache.match(new Request(key));
     if (cached) return (await cached.json()) as T;
-  } catch { /* miss */ }
+  } catch {
+    /* miss */
+  }
   return null;
 }
 
 async function lookupIp(ip: string): Promise<{ name: string; status: 'ok' | 'no_data'; data: unknown }> {
-  const liveIocs = await readCache<{ items: Array<{ value: string; kind: string; source: string; first_seen: string }> }>('https://live-iocs-cache.internal/v11-freshness-filter');
+  const liveIocs = await readCache<{
+    items: Array<{ value: string; kind: string; source: string; first_seen: string }>;
+  }>(LIVE_IOCS_CACHE_KEY);
   const matches = (liveIocs?.items ?? []).filter((i) => i.value === ip);
   return {
     name: 'Live IOC check',
@@ -39,7 +47,9 @@ async function lookupIp(ip: string): Promise<{ name: string; status: 'ok' | 'no_
 }
 
 async function lookupDomain(domain: string): Promise<{ name: string; status: 'ok' | 'no_data'; data: unknown }> {
-  const liveIocs = await readCache<{ items: Array<{ value: string; kind: string; source: string; first_seen: string }> }>('https://live-iocs-cache.internal/v11-freshness-filter');
+  const liveIocs = await readCache<{
+    items: Array<{ value: string; kind: string; source: string; first_seen: string }>;
+  }>(LIVE_IOCS_CACHE_KEY);
   const matches = (liveIocs?.items ?? []).filter((i) => i.value === domain);
   return {
     name: 'Live IOC check',
@@ -48,11 +58,22 @@ async function lookupDomain(domain: string): Promise<{ name: string; status: 'ok
   };
 }
 
-async function lookupCve(cveId: string): Promise<Array<{ name: string; status: 'ok' | 'error' | 'no_data'; data: unknown }>> {
+async function lookupCve(
+  cveId: string
+): Promise<Array<{ name: string; status: 'ok' | 'error' | 'no_data'; data: unknown }>> {
   const results: Array<{ name: string; status: 'ok' | 'error' | 'no_data'; data: unknown }> = [];
 
   // Check CVEs
-  const cveData = await readCache<{ cves: Array<{ id: string; description?: string; severity: string; score: number | null; kev?: boolean; published: string }> }>('https://cve-recent-cache.internal/v10-750-paged');
+  const cveData = await readCache<{
+    cves: Array<{
+      id: string;
+      description?: string;
+      severity: string;
+      score: number | null;
+      kev?: boolean;
+      published: string;
+    }>;
+  }>('https://cve-recent-cache.internal/v10-750-paged');
   const match = (cveData?.cves ?? []).find((c) => c.id.toUpperCase() === cveId.toUpperCase());
   results.push({
     name: 'CVE Data',
@@ -61,7 +82,9 @@ async function lookupCve(cveId: string): Promise<Array<{ name: string; status: '
   });
 
   // Check writeups
-  const writeups = await readCache<{ items: Array<{ title: string; url: string; source: string; published?: string; description?: string }> }>('https://writeups-cache.internal/v11-7d-window');
+  const writeups = await readCache<{
+    items: Array<{ title: string; url: string; source: string; published?: string; description?: string }>;
+  }>('https://writeups-cache.internal/v11-7d-window');
   const relatedWriteups = (writeups?.items ?? []).filter(
     (w) => w.title?.includes(cveId.toUpperCase()) || w.description?.includes(cveId.toUpperCase())
   );
@@ -76,14 +99,20 @@ async function lookupCve(cveId: string): Promise<Array<{ name: string; status: '
   return results;
 }
 
-async function lookupHash(hash: string): Promise<Array<{ name: string; status: 'ok' | 'error' | 'no_data'; data: unknown }>> {
+async function lookupHash(
+  hash: string
+): Promise<Array<{ name: string; status: 'ok' | 'error' | 'no_data'; data: unknown }>> {
   const results: Array<{ name: string; status: 'ok' | 'error' | 'no_data'; data: unknown }> = [];
 
-  const liveIocs = await readCache<{ items: Array<{ value: string; kind: string; source: string }> }>('https://live-iocs-cache.internal/v11-freshness-filter');
+  const liveIocs = await readCache<{ items: Array<{ value: string; kind: string; source: string }> }>(
+    LIVE_IOCS_CACHE_KEY
+  );
   const iocMatch = (liveIocs?.items ?? []).filter((i) => i.value === hash);
   if (iocMatch.length > 0) results.push({ name: 'Live IOCs', status: 'ok', data: iocMatch });
 
-  const malSamples = await readCache<{ samples: Array<{ sha256: string; signature: string; first_seen: string; file_type: string }> }>('https://malware-samples-cache.internal/v3-500');
+  const malSamples = await readCache<{
+    samples: Array<{ sha256: string; signature: string; first_seen: string; file_type: string }>;
+  }>('https://malware-samples-cache.internal/v3-500');
   const sampleMatch = (malSamples?.samples ?? []).filter((s) => s.sha256 === hash);
   if (sampleMatch.length > 0) results.push({ name: 'MalwareBazaar', status: 'ok', data: sampleMatch });
 
@@ -91,31 +120,49 @@ async function lookupHash(hash: string): Promise<Array<{ name: string; status: '
   return results;
 }
 
-async function lookupActor(actor: string): Promise<Array<{ name: string; status: 'ok' | 'error' | 'no_data'; data: unknown }>> {
+async function lookupActor(
+  actor: string
+): Promise<Array<{ name: string; status: 'ok' | 'error' | 'no_data'; data: unknown }>> {
   const results: Array<{ name: string; status: 'ok' | 'error' | 'no_data'; data: unknown }> = [];
   const query = actor.toLowerCase();
 
-  const actTimeline = await readCache<{ groups: Array<{ display_name: string; slug: string; posts_in_window: number; all_time_count: number; description?: string; raas?: boolean }> }>('https://actor-timeline-cache.internal/v3-mti');
+  const actTimeline = await readCache<{
+    groups: Array<{
+      display_name: string;
+      slug: string;
+      posts_in_window: number;
+      all_time_count: number;
+      description?: string;
+      raas?: boolean;
+    }>;
+  }>('https://actor-timeline-cache.internal/v3-mti');
   const gMatch = (actTimeline?.groups ?? []).filter(
     (g) => g.display_name.toLowerCase().includes(query) || g.slug.toLowerCase().includes(query)
   );
   if (gMatch.length > 0) results.push({ name: 'Actor Timeline', status: 'ok', data: gMatch });
 
-  const ransData = await readCache<{ victims: Array<{ victim: string; group: string; date: string }> }>('https://ransomware-recent-cache.internal/v8-af-source');
+  const ransData = await readCache<{ victims: Array<{ victim: string; group: string; date: string }> }>(
+    RANSOMWARE_RECENT_CACHE_KEY
+  );
   const vMatch = (ransData?.victims ?? []).filter((v) => v.group.toLowerCase().includes(query));
   if (vMatch.length > 0) results.push({ name: 'Ransomware Victims', status: 'ok', data: vMatch });
 
-  const writeups = await readCache<{ items: Array<{ title: string; url: string; source: string; description?: string }> }>('https://writeups-cache.internal/v11-7d-window');
+  const writeups = await readCache<{
+    items: Array<{ title: string; url: string; source: string; description?: string }>;
+  }>('https://writeups-cache.internal/v11-7d-window');
   const wMatch = (writeups?.items ?? []).filter(
     (w) => w.title?.toLowerCase().includes(query) || w.description?.toLowerCase().includes(query)
   );
   if (wMatch.length > 0) results.push({ name: 'Analyst Writeups', status: 'ok', data: wMatch });
 
-  const cveData = await readCache<{ cves: Array<{ id: string; description?: string }> }>('https://cve-recent-cache.internal/v10-750-paged');
+  const cveData = await readCache<{ cves: Array<{ id: string; description?: string }> }>(
+    'https://cve-recent-cache.internal/v10-750-paged'
+  );
   const cMatch = (cveData?.cves ?? []).filter((c) => c.description?.toLowerCase().includes(query));
   if (cMatch.length > 0) results.push({ name: 'Related CVEs', status: 'ok', data: cMatch });
 
-  if (results.length === 0) results.push({ name: 'Actor Lookup', status: 'no_data', data: 'No activity found in any source' });
+  if (results.length === 0)
+    results.push({ name: 'Actor Lookup', status: 'no_data', data: 'No activity found in any source' });
   return results;
 }
 

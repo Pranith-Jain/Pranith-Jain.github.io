@@ -1,10 +1,11 @@
 import { useEffect, useState, useRef, useCallback, type FormEvent } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ToolDocs } from '../../components/dfir/ToolDocs';
 import { IocChip } from '../../components/dfir/IocChip';
 import {
   ArrowLeft,
+  ArrowRight,
   Search,
   ShieldAlert,
   ShieldCheck,
@@ -14,7 +15,8 @@ import {
   Layers,
   Loader2,
 } from 'lucide-react';
-import { detectType, detectHashSubtype } from '../../lib/dfir/indicator-client';
+import { detectType, detectHashSubtype, refang } from '../../lib/dfir/indicator-client';
+import { detectIoc, getIocPivots, IOC_TYPE_LABEL } from '../../lib/dfir/ioc-detect';
 import { streamIoc } from '../../lib/dfir/api';
 import type { ProviderResultWire, DoneEvent, ProviderId } from '../../lib/dfir/types';
 import { IocResultRow } from '../../components/dfir/IocResultRow';
@@ -214,6 +216,12 @@ export default function IocCheck(): JSX.Element {
   const summaryRef = useRef<HTMLHeadingElement>(null);
   const detectedType = input ? detectType(input) : 'unknown';
   const canSubmit = !!input.trim() && detectedType !== 'unknown' && !streaming;
+  // The Checker only enriches network indicators + hashes (detectType's domain).
+  // When the input is a recognized IOC of another kind (CVE / MITRE / ASN / BTC),
+  // don't dead-end with "unrecognized" — `detectIoc` is the richer detector and
+  // `getIocPivots` gives the canonical tool to route to instead.
+  const richIoc = input.trim() && detectedType === 'unknown' ? detectIoc(refang(input.trim())) : null;
+  const redirectPivot = richIoc ? (getIocPivots(richIoc)[0] ?? null) : null;
 
   // ── Bulk mode ──────────────────────────────────────────────────────────
   // Toggle to a multi-line textarea; pool 3 streamIoc() calls; collect
@@ -587,13 +595,37 @@ export default function IocCheck(): JSX.Element {
               Check
             </button>
           </div>
-          {input && detectedType === 'unknown' && (
+          {input && redirectPivot && richIoc ? (
+            <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 rounded-lg border border-brand-500/30 bg-brand-500/5 px-3 py-2 text-xs font-mono">
+              <span className="text-slate-600 dark:text-slate-300">
+                <code className="font-semibold text-slate-900 dark:text-slate-100">{richIoc.value}</code> is a{' '}
+                {IOC_TYPE_LABEL[richIoc.type]} — the IOC Checker enriches network indicators &amp; hashes. Open it in:
+              </span>
+              {redirectPivot.external ? (
+                <a
+                  href={redirectPivot.path}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 font-semibold text-brand-600 dark:text-brand-400 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded-sm"
+                >
+                  {redirectPivot.label} <ExternalLink size={12} aria-hidden="true" />
+                </a>
+              ) : (
+                <Link
+                  to={redirectPivot.path}
+                  className="inline-flex items-center gap-1 font-semibold text-brand-600 dark:text-brand-400 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded-sm"
+                >
+                  {redirectPivot.label} <ArrowRight size={12} aria-hidden="true" />
+                </Link>
+              )}
+            </div>
+          ) : input && detectedType === 'unknown' ? (
             <p className="mt-2 text-xs font-mono text-amber-600 dark:text-amber-400">
               Unrecognized format. Accepted: IPv4 (e.g. <code className="font-semibold">1.1.1.1</code>), IPv6, domain
               (e.g. <code className="font-semibold">example.com</code>), URL (with scheme), or file hash (MD5 / SHA-1 /
               SHA-256).
             </p>
-          )}
+          ) : null}
         </form>
       )}
 
