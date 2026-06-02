@@ -248,6 +248,7 @@ const ROUTES = [
   '/threatintel/ransomware-activity',
   '/threatintel/live-iocs',
   '/threatintel/detections',
+  '/threatintel/assessments',
 ];
 
 const SHELL_PATH = resolve(ROOT, 'dist/index.html');

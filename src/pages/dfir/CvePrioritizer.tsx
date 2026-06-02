@@ -483,6 +483,14 @@ export default function CvePrioritizer(): JSX.Element {
                             <span className="text-slate-900 dark:text-slate-100">
                               {r.data.cvss ? `${r.data.cvss.base_score.toFixed(1)} ${r.data.cvss.severity}` : 'n/a'}
                             </span>
+                            {vec.version && (
+                              <span
+                                className="ml-1 text-[10px] font-mono uppercase tracking-wider px-1 rounded border border-slate-300/60 dark:border-slate-700/60 text-slate-500"
+                                title={`CVSS v${vec.version} vector — scoring scales and field set differ from other versions.`}
+                              >
+                                v{vec.version}
+                              </span>
+                            )}
                             {vec.wormable && (
                               <span
                                 className="ml-1 text-[10px] font-mono uppercase tracking-wider px-1 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300"

@@ -29,6 +29,8 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,css,json,md}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css,json,md}\"",
     "analyze": "vite build --mode analyze",
+    "codegen": "node scripts/codegen.mjs",
+    "codegen:check": "node scripts/codegen.mjs --check",
     "prepare": "husky install || true"
   },
   "dependencies": {
@@ -75,6 +77,7 @@
     "js-yaml": "^4.1.1",
     "jsdom": "^25.0.1",
     "lint-staged": "^15.2.2",
+    "openapi-typescript": "^7.13.0",
     "postcss": "^8.4.49",
     "prettier": "^3.2.5",
     "rollup-plugin-visualizer": "^5.12.0",

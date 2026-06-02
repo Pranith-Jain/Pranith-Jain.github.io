@@ -4,6 +4,7 @@ import { DfirMcpServer } from './mcp-server';
 import { generateNonce, withSecurityHeaders } from './csp';
 import { fetchPrerenderedOrShell } from './router';
 import { handleScheduled } from './scheduled';
+import { logStartupValidation } from './bindings';
 import type { Env } from './env';
 
 export { LiveFeedDO, DfirMcpServer };
@@ -24,7 +25,21 @@ function generateRequestId(): string {
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
-    const requestId = generateRequestId();
+
+    // Cold-start binding validation. Logs a structured warning if any
+    // critical binding (D1, KV, ASSETS) is missing in the deployed env —
+    // the operator sees "deploy failed silently" symptoms as 503s on
+    // the routes that depend on the missing binding, and this log
+    // names the binding explicitly. Memoized internally so warm
+    // requests are a no-op.
+    logStartupValidation(env);
+
+    // Honour an inbound x-request-id (operator curl) so a hand-driven
+    // reproduction stays greppable through the entire request chain.
+    // Falls back to a fresh 128-bit hex string per request. The api
+    // app's own request-id middleware respects the same value.
+    const inboundRid = request.headers.get('x-request-id');
+    const requestId = inboundRid && /^[a-zA-Z0-9_-]{8,128}$/.test(inboundRid) ? inboundRid : generateRequestId();
 
     // WebSocket upgrade — route to the LiveFeed Durable Object
     if (url.pathname.startsWith('/api/v1/ws/live-feed') && request.headers.get('upgrade') === 'websocket') {
@@ -43,11 +58,13 @@ export default {
       const apiRes = await apiApp.fetch(request, env as never, ctx);
       const h = new Headers(apiRes.headers);
       h.set('x-request-id', requestId);
-      return withSecurityHeaders(new Response(apiRes.body, {
-        status: apiRes.status,
-        statusText: apiRes.statusText,
-        headers: h,
-      }));
+      return withSecurityHeaders(
+        new Response(apiRes.body, {
+          status: apiRes.status,
+          statusText: apiRes.statusText,
+          headers: h,
+        })
+      );
     }
 
     // Generate a fresh nonce per HTML response
@@ -55,11 +72,14 @@ export default {
     const html = await fetchPrerenderedOrShell(request, env, ctx, url, nonce);
     const h = new Headers(html.headers);
     h.set('x-request-id', requestId);
-    return withSecurityHeaders(new Response(html.body, {
-      status: html.status,
-      statusText: html.statusText,
-      headers: h,
-    }), nonce);
+    return withSecurityHeaders(
+      new Response(html.body, {
+        status: html.status,
+        statusText: html.statusText,
+        headers: h,
+      }),
+      nonce
+    );
   },
 
   scheduled: handleScheduled,

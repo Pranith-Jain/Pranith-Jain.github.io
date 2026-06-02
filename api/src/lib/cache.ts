@@ -61,12 +61,15 @@ export class ProviderCache {
   /**
    * Get a cached provider result.
    * Returns null if not found, expired, or KV unavailable.
+   * The returned result's `cached` flag is set to true so callers can
+   * distinguish a hit from a fresh upstream response.
    */
   async get(provider: string, indicator: Indicator): Promise<ProviderResult | null> {
     if (!this.kv) return null;
     const key = this.buildKey(provider, indicator);
     try {
       const cached = (await this.kv.get(key, 'json')) as ProviderResult | null;
+      if (cached) return { ...cached, cached: true };
       return cached;
     } catch {
       return null;

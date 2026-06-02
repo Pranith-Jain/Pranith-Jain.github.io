@@ -70,6 +70,7 @@ async function cacheApiRateLimit(c: Context<{ Bindings: Env }>, next: Next): Pro
 /** Exact-match exempt paths. */
 const BYPASS_EXACT = new Set<string>([
   '/api/v1/health',
+  '/api/v1/health/detailed',
   '/api/v1/pageviews',
   // Cached read-only aggregators — all served from edge cache; even cold-
   // cache hits do bounded upstream work and don't expose anything an

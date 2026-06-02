@@ -8,7 +8,7 @@ describe('IOC Scoring Engine', () => {
       expect(result.score).toBe(0);
       expect(result.sourceCount).toBe(0);
       expect(result.isDormant).toBe(true);
-      expect(result.confidence).toBe('low');
+      expect(result.confidence).toBe('LOW');
     });
 
     it('calculates score for single source', () => {
@@ -22,7 +22,7 @@ describe('IOC Scoring Engine', () => {
       const result = scoreIoc(observations);
       expect(result.score).toBeGreaterThan(0);
       expect(result.sourceCount).toBe(1);
-      expect(result.confidence).toBe('low');
+      expect(result.confidence).toBe('LOW');
     });
 
     it('increases score with multiple sources', () => {
@@ -38,7 +38,9 @@ describe('IOC Scoring Engine', () => {
 
       expect(multiResult.score).toBeGreaterThan(singleResult.score);
       expect(multiResult.correlationBoost).toBeGreaterThan(1.0);
-      expect(multiResult.confidence).toBe('medium');
+      // 3 sources × score >= 70 → HIGH per the IocScore type contract
+      // (finalScore >= 70 && sourceCount >= 3).
+      expect(multiResult.confidence).toBe('HIGH');
     });
 
     it('applies time decay to old observations', () => {

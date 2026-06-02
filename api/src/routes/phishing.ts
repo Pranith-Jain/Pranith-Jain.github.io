@@ -19,7 +19,12 @@ interface UrlVerdict {
 }
 
 export async function phishingAnalyzeHandler(c: Context<{ Bindings: Env }>) {
-  const text = await c.req.text();
+  // Body has already been size-checked and Zod-validated by
+  // `validateText(phishingEmailTextSchema, { maxBytes: MAX_BODY_BYTES })`
+  // upstream. Read from `c.parsed`; the fallback covers direct unit-
+  // test invocation.
+  const parsed = (c as Context & { parsed?: string }).parsed;
+  const text = parsed !== undefined ? parsed : await c.req.text();
   if (!text || text.trim().length === 0) {
     return c.json({ error: 'empty body' }, 400);
   }

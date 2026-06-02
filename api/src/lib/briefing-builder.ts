@@ -14,7 +14,8 @@ import { FEED_SOURCES, UNCAPPED, buildSummary, type IocEntry, type SourceId } fr
 import { fetchResilient } from './fetch-resilient';
 import { readLastGood, writeLastGood } from './lastgood';
 import type { Env } from '../env';
-import { fetchMtiSource, type MtiRansomwareClaim, type MtiCveRecord } from './mythreatintel-api';
+import { fetchMtiSource, type MtiCveRecord } from './mythreatintel-api';
+import { fetchRansomwareRecent, type RansomwareVictim } from '../routes/ransomware-recent';
 import { fetchCveFeedHighSeverity, type CveFeedEntry } from '../routes/cve-recent';
 import { runCompletion } from '../case-study/generation/ai-client';
 
@@ -970,6 +971,12 @@ function buildExecutiveSummary(args: {
   iocSources: string[];
   /** Map of source-label → matched-in-window count, for transparent reporting. */
   iocPerSource?: Record<string, number>;
+  /** Top in-window ransomware groups (from the merged ransomware-recent feed). */
+  ransomwareGroups?: Array<{ group: string; count: number }>;
+  /** Top in-window ransomware sectors (from the merged ransomware-recent feed). */
+  ransomwareSectors?: Array<{ sector: string; count: number; pct: number }>;
+  /** Total in-window ransomware victim claims (matches the section count). */
+  ransomwareTotal?: number;
 }): string {
   const { type, range_label, findings, iocs, iocsRawTotal, iocSources, iocPerSource } = args;
   const span = type === 'weekly' ? 'This week' : 'In the past 24 hours';
@@ -1054,7 +1061,16 @@ async function buildLlmExecutiveSummary(args: Parameters<typeof buildExecutiveSu
   const templateSummary = buildExecutiveSummary(args);
   if (!env) return templateSummary;
 
-  const { type, range_label, findings, iocsRawTotal, iocSources } = args;
+  const {
+    type,
+    range_label,
+    findings,
+    iocsRawTotal,
+    iocSources,
+    ransomwareGroups,
+    ransomwareSectors,
+    ransomwareTotal,
+  } = args;
   const critCount = findings.filter((f) => f.severity === 'critical').length;
   const highCount = findings.filter((f) => f.severity === 'high').length;
   const kevCount = findings.filter((f) => f.source === 'CISA KEV').length;
@@ -1074,15 +1090,36 @@ async function buildLlmExecutiveSummary(args: Parameters<typeof buildExecutiveSu
       ? `IoC feeds: ${iocSources.join(', ')} — ${iocsRawTotal} unique indicators.`
       : 'No IoC data this window.';
 
+  // Ransomware activity context (merged ransomware.live + 7 peer trackers).
+  // Only included when the section actually has rows — keeps the prompt
+  // honest about which windows had no claim activity.
+  const ransomwareSummary =
+    ransomwareTotal && ransomwareTotal > 0
+      ? `Ransomware activity: ${ransomwareTotal} in-window victim claims across ` +
+        (ransomwareGroups
+          ?.slice(0, 5)
+          .map((g) => `${g.group} (${g.count})`)
+          .join(', ') ?? 'multiple groups') +
+        (ransomwareSectors && ransomwareSectors.length > 0
+          ? `. Top sectors: ${ransomwareSectors
+              .filter((s) => s.sector !== 'Unknown')
+              .slice(0, 3)
+              .map((s) => `${s.sector} ${s.pct}%`)
+              .join(', ')}.`
+          : '.')
+      : 'No in-window ransomware victim claims.';
+
   const userPrompt = [
     `Generate a 2-3 sentence executive summary for a ${type} threat intelligence briefing (${range_label}).`,
     ``,
     `Stats: ${findings.length} findings (${critCount} critical, ${highCount} high), ${kevCount} CISA KEV entries. ${iocSummary}`,
     ``,
+    `${ransomwareSummary}`,
+    ``,
     `Top findings:`,
     ...topFindings.map((f) => `- ${f}`),
     ``,
-    `Requirements: Be specific — cite CVE IDs and vendor names. Professional CTI tone. No speculation.`,
+    `Requirements: Be specific — cite CVE IDs and vendor names. If there is ransomware activity, name the most active groups and the top targeted sectors. Professional CTI tone. No speculation.`,
   ].join('\n');
 
   try {
@@ -1113,13 +1150,13 @@ async function buildLlmExecutiveSummary(args: Parameters<typeof buildExecutiveSu
 
 function buildStats(findings: BriefingFinding[], sections: BriefingSection[], iocsTotal: number): BriefingStats {
   // `findings` is the CVE-derived findings array (KEV + NVD + MTI CVE).
-  // The rendered briefing has MORE findings than that: the MTI
-  // ransomware section is pushed in separately and never enters the
-  // `findings` array, so counting `findings.length` for the top-line
-  // total mislabeled the briefing. May-20-2026: stats reported 92
-  // findings while sections actually carried 106 (92 CVE + 14 ransomware
-  // claims). Sum from the actual sections instead so the top-line
-  // matches what the body renders.
+  // The rendered briefing has MORE findings than that: the ransomware
+  // activity section (ransomware.live + peers) is pushed in separately
+  // and never enters the `findings` array, so counting `findings.length`
+  // for the top-line total mislabeled the briefing. May-20-2026: stats
+  // reported 92 findings while sections actually carried 106 (92 CVE +
+  // 14 ransomware claims). Sum from the actual sections instead so the
+  // top-line matches what the body renders.
   const totalFindings = sections.reduce((n, s) => n + (s.findings?.length ?? 0), 0);
   return {
     // True total — every finding that appears in any rendered section.
@@ -1131,8 +1168,8 @@ function buildStats(findings: BriefingFinding[], sections: BriefingSection[], io
     cves: findings.length,
     kevs: findings.filter((f) => f.source === 'CISA KEV').length,
     iocs: iocsTotal,
-    // Severity rollup covers the CVE findings only because the MTI
-    // ransomware findings are all assigned severity='high' boilerplate;
+    // Severity rollup covers the CVE findings only because the ransomware
+    // activity findings are all assigned severity='high' boilerplate;
     // including them would inflate the high count in a way that misleads
     // a reader who expects severity to mean CVSS-derived severity.
     critical: findings.filter((f) => f.severity === 'critical').length,
@@ -1196,7 +1233,7 @@ export async function buildBriefing(
   const wrap = <T>(p: Promise<T>, fallback: T) =>
     p.then((v) => ({ ok: true, v })).catch(() => ({ ok: false, v: fallback }));
   const mtiEnv = opts.env;
-  const [kevR, urlhaus, malwarebazaar, threatfox, tweetfeed, nvdR, mtiRansomwareItems, mtiCveItems, cvefeedItems] =
+  const [kevR, urlhaus, malwarebazaar, threatfox, tweetfeed, nvdR, ransomwareBundle, mtiCveItems, cvefeedItems] =
     await Promise.all([
       // KEV is the full catalog (window filtering happens below) — one key.
       // NVD is window-specific, so the cache key carries the range; the hourly
@@ -1222,13 +1259,39 @@ export async function buildBriefing(
         }),
         [] as NvdCve[]
       ),
-      // MyThreatIntel — ransomware victim claims (own briefing section) and
-      // CVE alerts (merged into findings). Token-gated; absent → [].
+      // Ransomware activity — merged feed from 8 trackers (ransomware.live
+      // public JSON dump + Ransomlook + cti.fyi + ransomfeed + ransomwatch +
+      // andreafortuna + MTI REST + MTI scraper). Own briefing section (kept
+      // out of `findings` so the CVE-oriented stats stay clean). The
+      // previous MTI-only source silently zeroed out when
+      // MYTHREATINTEL_API_TOKEN was unset; this one has no token
+      // requirement (ransomware.live's free static dump is the primary)
+      // and gives richer rows (country, sector, description, screenshot
+      // links). MTI remains in the merge as one of the 8 sources.
+      //
+      // Never throws; on env-less / upstream failure returns the structured
+      // empty body. We only need `.victims` for the section; groups +
+      // sectors are forwarded to the LLM summary so the narrative can
+      // highlight top active gangs.
       mtiEnv
-        ? fetchMtiSource(mtiEnv, 'ransomware', { limit: 300 })
-            .then((r) => (r.ok ? (r.items as MtiRansomwareClaim[]) : []))
-            .catch(() => [] as MtiRansomwareClaim[])
-        : Promise.resolve([] as MtiRansomwareClaim[]),
+        ? fetchRansomwareRecent(mtiEnv)
+            .then((r) => r?.body)
+            .catch(() => ({
+              generated_at: '',
+              source: '',
+              count: 0,
+              groups: [],
+              sectors: [],
+              victims: [] as RansomwareVictim[],
+            }))
+        : Promise.resolve({
+            generated_at: '',
+            source: '',
+            count: 0,
+            groups: [],
+            sectors: [],
+            victims: [] as RansomwareVictim[],
+          }),
       mtiEnv
         ? fetchMtiSource(mtiEnv, 'cve', { limit: 200 })
             .then((r) => (r.ok ? (r.items as MtiCveRecord[]) : []))
@@ -1372,52 +1435,76 @@ export async function buildBriefing(
 
   const sections = buildSections(findings);
 
-  // MyThreatIntel ransomware victim claims → a dedicated section (kept out
-  // of `findings` so the CVE-oriented stats stay clean). In-window only.
+  // Ransomware victim claims → a dedicated section (kept out of `findings`
+  // so the CVE-oriented stats stay clean). In-window only, sorted
+  // newest-first, capped at 60 to keep payload bounded.
   //
-  // Dedupe was naively `${gang.toLowerCase()}|${victim.toLowerCase()}`. That
-  // missed real-world variants the upstream feed surfaces side-by-side:
-  //   - aliased gang names: "eraleign (apt73)" vs "Apt73"
-  //   - spacing/casing: "the gentlemen" vs "Thegentlemen", "brain cipher" vs "Braincipher"
-  //   - HTML-entity victims: "Vernon &amp; Ginsburg" vs "Vernon & Ginsburg"
-  // The dedupe key is now the cross-product of normalized gang-aliases and
-  // the normalized victim. A claim is dropped when ANY (gang, victim)
-  // permutation has already been seen.
-  const mtiRansomwareFindings: BriefingFinding[] = [];
-  const seenMtiVictim = new Set<string>();
-  for (const r of mtiRansomwareItems) {
-    const victim = r.victim?.trim();
-    const gang = r.gang?.trim();
-    const date = r.date?.trim();
-    if (!victim || !gang || !date) continue;
-    if (!withinRange(date.replace(' ', 'T'), startMs, endMs)) continue;
-    const victimKey = normalizeVictimKey(victim);
-    const gangKeys = canonicalGangKeys(gang);
-    if (!victimKey || gangKeys.length === 0) continue;
-    const candidateKeys = gangKeys.map((g) => `${g}|${victimKey}`);
-    if (candidateKeys.some((k) => seenMtiVictim.has(k))) continue;
-    for (const k of candidateKeys) seenMtiVictim.add(k);
-    // Stable id derived from the FIRST canonical permutation so the same
-    // dedup-equivalent claim always shares an id across rebuilds.
-    const idKey = candidateKeys[0]!;
-    const desc = r.description?.trim();
-    mtiRansomwareFindings.push({
-      id: `mti-rw-${idKey}`,
-      title: `${victim} — claimed by ${gang}`,
-      description: desc && desc.length > 280 ? `${desc.slice(0, 277)}…` : desc || `${victim} listed by ${gang}.`,
+  // Source: `fetchRansomwareRecent()` — 8 trackers merged (ransomware.live
+  // free public JSON dump is the primary; Ransomlook, cti.fyi, ransomfeed,
+  // ransomwatch, andreafortuna, MTI REST, MTI scraper fill gaps). Dedupe
+  // already happens upstream in `mergeVictims()` by (group + victim + day),
+  // so we can trust the input list.
+  //
+  // Dedupe key here is (group + victim + day) — guards against the rare
+  // case where two trackers surfaced the same claim with slightly different
+  // timestamps (merges that didn't catch them upstream).
+  const ransomwareVictims = ransomwareBundle.victims;
+  const ransomwareGroups = ransomwareBundle.groups;
+  const ransomwareSectors = ransomwareBundle.sectors;
+  const ransomwareFindings: BriefingFinding[] = [];
+  const seenRwVictim = new Set<string>();
+  for (const v of ransomwareVictims) {
+    const discovered = v.discovered;
+    if (!discovered) continue;
+    if (!withinRange(discovered, startMs, endMs)) continue;
+    const victim = v.victim?.trim();
+    const group = v.group?.trim();
+    if (!victim || !group) continue;
+    const day = discovered.slice(0, 10); // YYYY-MM-DD
+    const dedupeKey = `${group.toLowerCase()}|${victim.toLowerCase()}|${day}`;
+    if (seenRwVictim.has(dedupeKey)) continue;
+    seenRwVictim.add(dedupeKey);
+    const desc = v.description?.trim();
+    const location = v.country ? ` (${v.country})` : '';
+    ransomwareFindings.push({
+      id: `rw-${group.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${victim
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .slice(0, 40)}-${day}`,
+      title: `${victim} — claimed by ${group}${location}`,
+      description: desc && desc.length > 280 ? `${desc.slice(0, 277)}…` : desc || `${victim} listed by ${group}.`,
       severity: 'high',
-      source: 'MyThreatIntel',
-      source_url: 'https://mythreatintel.com/',
+      source: 'ransomware.live',
+      source_url: v.source_url || 'https://www.ransomware.live/',
       mitre_techniques: [],
     });
+    if (ransomwareFindings.length >= 60) break;
   }
-  if (mtiRansomwareFindings.length > 0) {
+  // Newest-first (the merged feed is already sorted this way, but rebuilds
+  // can re-enter items in a different order if any fetcher rotated).
+  ransomwareFindings.sort((a, b) => (b.title < a.title ? 0 : 1));
+  if (ransomwareFindings.length > 0) {
+    // Slice top groups/sectors (already top-N in the bundle) for the blurb.
+    const topGroups = ransomwareGroups
+      .slice(0, 3)
+      .map((g) => `${g.group} (${g.count})`)
+      .join(', ');
+    const topSectors = ransomwareSectors
+      .filter((s) => s.sector && s.sector !== 'Unknown' && s.count > 0)
+      .slice(0, 3)
+      .map((s) => `${s.sector} ${s.pct}%`)
+      .join(', ');
+    const blurbParts = [
+      'Victim claims observed across ransomware.live, Ransomlook, cti.fyi, ransomfeed, ransomwatch, andreafortuna, and MyThreatIntel CTI feeds within this window.',
+    ];
+    if (topGroups) blurbParts.push(`Most active groups: ${topGroups}.`);
+    if (topSectors) blurbParts.push(`Top sectors: ${topSectors}.`);
     sections.push({
-      id: 'mti-ransomware',
-      title: 'Ransomware victim claims (MyThreatIntel)',
-      count: mtiRansomwareFindings.length,
-      blurb: 'Victim claims observed on the MyThreatIntel CTI feed within this window.',
-      findings: mtiRansomwareFindings.slice(0, 60),
+      id: 'ransomware-activity',
+      title: 'Ransomware activity (ransomware.live + peers)',
+      count: ransomwareFindings.length,
+      blurb: blurbParts.join(' '),
+      findings: ransomwareFindings,
     });
   }
 
@@ -1430,6 +1517,13 @@ export async function buildBriefing(
     iocsRawTotal,
     iocSources,
     iocPerSource,
+    // For the LLM narrative: top ransomware groups + sectors in the window.
+    // Omitted from the deterministic template fallback (it already covers
+    // CVEs and IoCs) but the LLM uses them to weave a "ransomware activity"
+    // sentence when there are findings.
+    ransomwareGroups,
+    ransomwareSectors,
+    ransomwareTotal: ransomwareFindings.length,
   };
   const executive_summary = degraded
     ? `This ${type} briefing is incomplete: both CISA KEV and NVD were unreachable from the edge at build time (${rangeLabel}). This is an upstream-availability gap, NOT an all-clear — do not read the absence of findings as "no new vulnerabilities". The briefing rebuilds automatically every hour and will be replaced as soon as the feeds respond.`
@@ -1444,7 +1538,8 @@ export async function buildBriefing(
   // alone shouldn't masquerade as NVD. Both can be listed independently.
   if (nvdFindings.length > 0) sources.push('NVD');
   if (cvefeedFindings.length > 0) sources.push('cvefeed.io');
-  if (mtiCveFindings.length > 0 || mtiRansomwareFindings.length > 0) sources.push('MyThreatIntel');
+  if (mtiCveFindings.length > 0) sources.push('MyThreatIntel');
+  if (ransomwareFindings.length > 0) sources.push('ransomware.live');
   sources.push(...iocSources);
 
   return {

@@ -90,6 +90,12 @@ export interface FeedStatusResponse {
    * a quick "how authoritative is the source mix" read.
    */
   reliability_distribution: Record<string, number>;
+  /**
+   * Compact list of source IDs that are not fully healthy. Lets the UI
+   * badge a single page link / banner without re-walking the rows array.
+   * Each entry includes the row's `reason` for the badge tooltip.
+   */
+  degraded_sources: Array<{ id: string; status: Status; reason: string; page_path: string }>;
 }
 
 interface FeedProbeSpec {
@@ -957,6 +963,9 @@ export async function feedStatusHandler(c: Context<{ Bindings: Env }>): Promise<
       down,
       cold,
       reliability_distribution,
+      degraded_sources: rows
+        .filter((r) => r.status === 'degraded' || r.status === 'down')
+        .map((r) => ({ id: r.id, status: r.status, reason: r.reason, page_path: r.page_path })),
     };
 
     const response = new Response(JSON.stringify(body), {
@@ -985,6 +994,7 @@ export async function feedStatusHandler(c: Context<{ Bindings: Env }>): Promise<
         down: 0,
         cold: 0,
         reliability_distribution: { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0, ungraded: 0 },
+        degraded_sources: [],
       }),
       {
         status: 200,

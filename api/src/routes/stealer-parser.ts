@@ -1,5 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { stealerParserJsonSchema, rawLogTextSchema } from '../lib/validation-schemas';
+import { validationError } from '../lib/api-error';
 
 /**
  * Infostealer Log Parser — extract credentials and IOCs from stealer logs.
@@ -161,12 +163,26 @@ export async function stealerParserHandler(c: Context<{ Bindings: Env }>): Promi
     const contentType = c.req.header('content-type') ?? '';
 
     if (contentType.includes('application/json')) {
-      const body = await c.req.json<{ text?: string; url?: string }>();
-      text = body.text;
+      let body: unknown;
+      try {
+        body = await c.req.json();
+      } catch {
+        return c.json({ error: 'invalid JSON' }, 400);
+      }
+      const parsed = stealerParserJsonSchema.safeParse(body);
+      if (!parsed.success) {
+        const fields: Record<string, string> = {};
+        for (const issue of parsed.error.issues) {
+          const path = issue.path.join('.') || 'body';
+          if (!fields[path]) fields[path] = issue.message;
+        }
+        return validationError(c, fields);
+      }
+      text = parsed.data.text;
 
-      if (!text && body.url) {
+      if (!text && parsed.data.url) {
         try {
-          const res = await fetch(body.url, {
+          const res = await fetch(parsed.data.url, {
             signal: AbortSignal.timeout(15000),
             headers: { 'User-Agent': 'threat-intel-parser/1.0' },
           });
@@ -176,7 +192,17 @@ export async function stealerParserHandler(c: Context<{ Bindings: Env }>): Promi
         }
       }
     } else if (contentType.includes('text/plain')) {
-      text = await c.req.text();
+      const raw = await c.req.text();
+      const parsed = rawLogTextSchema.safeParse(raw);
+      if (!parsed.success) {
+        const fields: Record<string, string> = {};
+        for (const issue of parsed.error.issues) {
+          const path = issue.path.join('.') || 'body';
+          if (!fields[path]) fields[path] = issue.message;
+        }
+        return validationError(c, fields);
+      }
+      text = parsed.data;
     }
 
     if (!text) {

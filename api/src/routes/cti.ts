@@ -6,14 +6,22 @@ import { safeErrorMessage } from '../lib/error';
 const MAX_BODY_BYTES = 1024 * 1024; // 1MB
 
 /**
- * Accepts a raw STIX 2.1 bundle as the request body (Content-Type: application/json
- * or text/plain). Returns extracted indicators, threat actors, and relationships.
+ * Accepts a raw STIX 2.1 bundle as the request body (Content-Type:
+ * application/json or text/plain). Returns extracted indicators, threat
+ * actors, and relationships.
  *
  * Example body:
  *   { "type": "bundle", "id": "bundle--<uuid>", "objects": [ { "type": "indicator", ... }, ... ] }
+ *
+ * The body has been byte-capped and Zod-validated for top-level STIX
+ * shape by `validateText(stixBundleTextSchema, { maxBytes: MAX_BODY_BYTES })`
+ * upstream, so the handler just needs to JSON.parse the already-valid
+ * string and hand it to the parser. The fallback path below covers
+ * direct unit-test invocation.
  */
 export async function ctiParseHandler(c: Context<{ Bindings: Env }>) {
-  const text = await c.req.text();
+  const parsed = (c as Context & { parsed?: string }).parsed;
+  const text = parsed !== undefined ? parsed : await c.req.text();
   if (!text || text.trim().length === 0) {
     return c.json(
       {
@@ -48,10 +56,10 @@ export async function ctiParseHandler(c: Context<{ Bindings: Env }>) {
     );
   }
   try {
-    const parsed = parseStixBundle(bundle as never);
+    const parsedBundle = parseStixBundle(bundle as never);
     // no-store: the user pasted a STIX bundle that may contain IOCs / actor
     // attributions they consider sensitive; don't let an intermediary cache it.
-    return c.json(parsed, 200, { 'Cache-Control': 'no-store' });
+    return c.json(parsedBundle, 200, { 'Cache-Control': 'no-store' });
   } catch (err) {
     return c.json(
       {

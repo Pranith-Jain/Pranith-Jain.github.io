@@ -94,6 +94,7 @@ import { phishingAnalyzeAutoHandler } from './routes/phishing-auto-analyze';
 import { registerBlogRoutes } from './routes/blog-public';
 import { pageViewsHandler } from './routes/pageviews';
 import { registerAdminRoutes } from './routes/case-study-admin';
+import { healthDetailedHandler } from './routes/health-detailed';
 import { c2TrackerHandler } from './routes/c2-tracker';
 import {
   intelBundleHandler,
@@ -249,8 +250,10 @@ import { requestLogger } from './lib/request-logger';
 import { csrfGuard } from './lib/csrf-guard';
 import { errorHandler } from './lib/error-handler';
 import { serverTiming } from './lib/server-timing';
+import { requestId } from './lib/request-id';
 import { authenticate } from './lib/auth';
-import { validate } from './lib/validate';
+import { validate, validateText } from './lib/validate';
+import { looseValidation } from './lib/loose-validate';
 import { createExternalResourceSchema, telegramCustomChannelSchema } from './lib/schemas';
 import { createApiKeyHandler, listApiKeysHandler, revokeApiKeyHandler } from './routes/admin-keys';
 import { purgeCacheHandler } from './routes/admin-purge';
@@ -331,9 +334,16 @@ app.use(
   })
 );
 
+app.use('/api/v1/*', requestId);
 app.use('/api/v1/*', serverTiming);
 app.use('/api/v1/*', csrfGuard);
 app.use('/api/v1/*', authenticate('external-only'));
+// Cheap, route-agnostic input guards (URL/query/body size + JSON shape).
+// Runs after auth so we don't pay the parsing cost on rejected requests,
+// but before rateLimit/requestLogger so the request logger still sees the
+// same request-id and timing. Per-route `validate(...)` middleware still
+// runs for typed Zod parsing of the ~15 high-impact POST endpoints.
+app.use('/api/v1/*', looseValidation());
 app.use('/api/v1/*', requestLogger);
 app.use('/api/v1/*', rateLimit);
 app.use('/api/v1/*', apiVersion);
@@ -343,12 +353,9 @@ import {
   iocCheckSchema,
   domainLookupSchema,
   ipGeoSchema,
-  asnLookupSchema,
   cveLookupSchema,
   mitreTechniqueSchema,
   searchSchema,
-  breachEmailSchema,
-  breachDomainSchema,
   waybackSchema,
   googleDorksSchema,
   cryptoTraceSchema,
@@ -358,6 +365,60 @@ import {
   relationshipGraphSchema,
   unifiedSearchSchema,
   ragQuerySchema,
+  hashAnalyzeSchema,
+  osvScanSchema,
+  telegramChannelActionSchema,
+  telegramBotRegisterSchema,
+  aiSummarySchema,
+  copilotInvestigateSchema,
+  huntingQuerySchema,
+  irPlaybookSchema,
+  ruleGenerateSchema,
+  ruleValidateSchema,
+  threatIntelFeedbackSchema,
+  assessmentSchema,
+  assessmentUpdateSchema,
+  pirCreateSchema,
+  pirUpdateSchema,
+  pirAlertAckSchema,
+  investigationCreateSchema,
+  investigationUpdateSchema,
+  investigationObservableSchema,
+  investigationTaskSchema,
+  investigationTaskUpdateSchema,
+  investigationNoteSchema,
+  feedJobCreateSchema,
+  feedJobUpdateSchema,
+  observableCreateSchema,
+  observableUpdateSchema,
+  observableNoteSchema,
+  watchCreateSchema,
+  watchUpdateSchema,
+  campaignCreateSchema,
+  watchlistUpdateSchema,
+  intelBundleBuildSchema,
+  predictiveAttributionSchema,
+  attackChainReconstructSchema,
+  actorDnaMatchSchema,
+  correlationSchema,
+  noveltyBatchSchema,
+  campaignAnalyzeSchema,
+  threatIntelEntityExtractSchema,
+  threatIntelEntityProfileSchema,
+  achGenerateSchema,
+  domainSnapshotSchema,
+  openDirScanSchema,
+  graphIngestSchema,
+  mispProxySchema,
+  actorEnrichStreamSchema,
+  campaignGeneratorSchema,
+  automationRunSchema,
+  ragIndexSchema,
+  adminPurgeSchema,
+  adminRetentionSchema,
+  adminApiKeyCreateSchema,
+  phishingEmailTextSchema,
+  stixBundleTextSchema,
 } from './lib/validation-schemas';
 
 // ── Health Checks ──────────────────────────────────────────────────
@@ -367,6 +428,7 @@ import { apiVersion } from './lib/api-version';
 app.get('/api/v1/health', (c) =>
   c.json({ ok: true, timestamp: new Date().toISOString() }, 200, { 'Cache-Control': 'public, max-age=60' })
 );
+app.get('/api/v1/health/detailed', healthDetailedHandler);
 
 // ── OpenAPI Specification ────────────────────────────────────────
 app.get('/api/v1/openapi.json', (c) => {
@@ -431,24 +493,28 @@ app.get('/api/v1/health/vectorize', async (c) => {
 });
 app.get('/api/v1/ioc/check', validate('query', iocCheckSchema), iocCheckHandler);
 app.get('/api/v1/domain/lookup', validate('query', domainLookupSchema), domainLookupHandler);
-app.post('/api/v1/phishing/analyze', phishingAnalyzeHandler);
-app.post('/api/v1/file/analyze', fileAnalyzeHandler);
+app.post(
+  '/api/v1/phishing/analyze',
+  validateText(phishingEmailTextSchema, { maxBytes: 64 * 1024 }),
+  phishingAnalyzeHandler
+);
+app.post('/api/v1/file/analyze', validate('json', hashAnalyzeSchema), fileAnalyzeHandler);
 app.get('/api/v1/feeds/proxy', feedProxyHandler);
 app.get('/api/v1/feeds/abuse-rss', abuseRssHandler);
 app.get('/api/v1/feeds/mti-ransomware', mtiRansomwareRssHandler);
 app.get('/api/v1/feeds/ransomware-merged', ransomwareMergedRssHandler);
 app.get('/api/v1/feeds/ioc-summary', iocFeedSummaryHandler);
-app.post('/api/v1/cti/parse', ctiParseHandler);
-app.post('/api/v1/osv/scan', osvScanHandler);
+app.post('/api/v1/cti/parse', validateText(stixBundleTextSchema, { maxBytes: 1024 * 1024 }), ctiParseHandler);
+app.post('/api/v1/osv/scan', validate('json', osvScanSchema), osvScanHandler);
 app.get('/api/v1/privacy/inspect', privacyInspectHandler);
 app.get('/api/v1/cve/lookup', validate('query', cveLookupSchema), cveSearchHandler);
-app.get('/api/v1/cve/search', validate('query', searchSchema), cveSearchHandler);
+app.get('/api/v1/cve/search', validate('query', cveLookupSchema), cveSearchHandler);
 app.get('/api/v1/mitre/technique', validate('query', mitreTechniqueSchema), mitreTechniqueHandler);
 app.get('/api/v1/atlas/technique', atlasTechniqueHandler);
-app.get('/api/v1/asn/lookup', validate('query', asnLookupSchema), asnLookupHandler);
+app.get('/api/v1/asn/lookup', asnLookupHandler);
 app.get('/api/v1/breach/range', breachRangeHandler);
-app.get('/api/v1/breach/email', validate('query', breachEmailSchema), breachEmailHandler);
-app.get('/api/v1/breach/domain', validate('query', breachDomainSchema), breachDomainHandler);
+app.get('/api/v1/breach/email', breachEmailHandler);
+app.get('/api/v1/breach/domain', breachDomainHandler);
 app.get('/api/v1/breach/leakix', leakIxSearchHandler);
 app.get('/api/v1/breach/proxynova', proxyNovaSearchHandler);
 app.get('/api/v1/breach/hudsonrock', hudsonRockSearchHandler);
@@ -496,13 +562,25 @@ app.get('/api/v1/telegram-leaks/discovered-channels', telegramDiscoveredChannels
 app.get('/api/v1/telegram-leaks/watched-channels', telegramWatchedChannelsHandler);
 app.get('/api/v1/telegram-leaks/stats', telegramLeakStatsHandler);
 app.get('/api/v1/telegram-leaks/geo', telegramLeakGeoHandler);
-app.post('/api/v1/telegram-leaks/approve-channel', telegramApproveChannelHandler);
-app.post('/api/v1/telegram-leaks/reject-channel', telegramRejectChannelHandler);
+app.post(
+  '/api/v1/telegram-leaks/approve-channel',
+  validate('json', telegramChannelActionSchema),
+  telegramApproveChannelHandler
+);
+app.post(
+  '/api/v1/telegram-leaks/reject-channel',
+  validate('json', telegramChannelActionSchema),
+  telegramRejectChannelHandler
+);
 
 // ── Telegram Leak Monitor (Tier 2: Bot API) ──────────────────────────────
 app.get('/api/v1/telegram-leaks/bot-webhook-status', telegramLeakBotWebhookStatusHandler);
 app.post('/api/v1/telegram-leaks/bot-webhook', telegramLeakBotWebhookHandler);
-app.post('/api/v1/telegram-leaks/register-webhook', telegramLeakBotRegisterHandler);
+app.post(
+  '/api/v1/telegram-leaks/register-webhook',
+  validate('json', telegramBotRegisterSchema),
+  telegramLeakBotRegisterHandler
+);
 
 app.get('/api/v1/cve-recent', cveRecentHandler);
 app.get('/api/v1/cve-threat-map', cveThreatMapHandler);
@@ -526,18 +604,26 @@ app.get('/api/v1/feed-catalog', feedCatalogHandler);
 app.get('/api/v1/yara-hub', yaraHubListHandler);
 app.get('/api/v1/yara-hub/rule/:uuid', yaraHubRuleHandler);
 app.get('/api/v1/investigations', listInvestigationsHandler);
-app.post('/api/v1/investigations', createInvestigationHandler);
+app.post('/api/v1/investigations', validate('json', investigationCreateSchema), createInvestigationHandler);
 app.get('/api/v1/investigations/:id', getInvestigationHandler);
-app.patch('/api/v1/investigations/:id', updateInvestigationHandler);
+app.patch('/api/v1/investigations/:id', validate('json', investigationUpdateSchema), updateInvestigationHandler);
 app.delete('/api/v1/investigations/:id', deleteInvestigationHandler);
-app.post('/api/v1/investigations/:id/observables', addObservableHandler);
+app.post(
+  '/api/v1/investigations/:id/observables',
+  validate('json', investigationObservableSchema),
+  addObservableHandler
+);
 app.delete('/api/v1/investigations/:id/observables/:observableId', removeObservableHandler);
-app.post('/api/v1/investigations/:id/tasks', addTaskHandler);
-app.patch('/api/v1/investigations/:id/tasks/:taskId', updateTaskHandler);
-app.post('/api/v1/investigations/:id/notes', addNoteHandler);
+app.post('/api/v1/investigations/:id/tasks', validate('json', investigationTaskSchema), addTaskHandler);
+app.patch(
+  '/api/v1/investigations/:id/tasks/:taskId',
+  validate('json', investigationTaskUpdateSchema),
+  updateTaskHandler
+);
+app.post('/api/v1/investigations/:id/notes', validate('json', investigationNoteSchema), addNoteHandler);
 app.get('/api/v1/feed-scheduler', listFeedJobsHandler);
-app.post('/api/v1/feed-scheduler', createFeedJobHandler);
-app.patch('/api/v1/feed-scheduler/:id', updateFeedJobHandler);
+app.post('/api/v1/feed-scheduler', validate('json', feedJobCreateSchema), createFeedJobHandler);
+app.patch('/api/v1/feed-scheduler/:id', validate('json', feedJobUpdateSchema), updateFeedJobHandler);
 app.delete('/api/v1/feed-scheduler/:id', deleteFeedJobHandler);
 app.post('/api/v1/feed-scheduler/:id/run', runFeedJobHandler);
 app.get('/api/v1/feed-scheduler/:id/history', getFeedJobHistoryHandler);
@@ -545,10 +631,10 @@ app.get('/api/v1/feed-scheduler-history', getFeedJobsHistoryAllHandler);
 app.get('/api/v1/observable-db', listObservablesHandler);
 app.get('/api/v1/observable-db/tags', getObservableTagsHandler);
 app.get('/api/v1/observable-db/:id', getObservableHandler);
-app.post('/api/v1/observable-db', saveObservableHandler);
-app.patch('/api/v1/observable-db/:id', updateObservableHandler);
+app.post('/api/v1/observable-db', validate('json', observableCreateSchema), saveObservableHandler);
+app.patch('/api/v1/observable-db/:id', validate('json', observableUpdateSchema), updateObservableHandler);
 app.delete('/api/v1/observable-db/:id', deleteObservableHandler);
-app.post('/api/v1/observable-db/:id/notes', addObservableNoteHandler);
+app.post('/api/v1/observable-db/:id/notes', validate('json', observableNoteSchema), addObservableNoteHandler);
 app.delete('/api/v1/observable-db/:id/notes/:noteId', deleteObservableNoteHandler);
 app.get('/api/v1/malware-vault', listVaultSamplesHandler);
 app.get('/api/v1/malware-vault/families', getVaultFamiliesHandler);
@@ -560,12 +646,12 @@ app.delete('/api/v1/malware-vault/:id', deleteVaultSampleHandler);
 app.get('/api/v1/malware-vault/:id/download', downloadVaultSampleHandler);
 app.get('/api/v1/intel-bundle', intelBundleHandler);
 app.post('/api/v1/intel-bundle', intelBundlePostHandler);
-app.post('/api/v1/intel-bundle/build', intelBundleBuildHandler);
+app.post('/api/v1/intel-bundle/build', validate('json', intelBundleBuildSchema), intelBundleBuildHandler);
 app.get('/api/v1/intel-bundle/by-id/:bundleId', intelBundleByIdHandler);
 app.get('/api/v1/intel-bundle/:id/export.stix.json', intelBundleExportHandler);
 app.get('/api/v1/admin/intel-bundle/:source/:ref', intelBundleAdminHandler);
 app.get('/api/v1/google-dorks', validate('query', googleDorksSchema), googleDorksHandler);
-app.post('/api/v1/misp', mispProxyHandler);
+app.post('/api/v1/misp', validate('json', mispProxySchema), mispProxyHandler);
 app.get('/api/v1/email-rep', emailRepHandler);
 app.get('/api/v1/cyber-crime', cybercrimeHandler);
 app.get('/api/v1/snapshot', snapshotHandler);
@@ -602,12 +688,12 @@ app.get('/api/v1/malpedia/search', malpediaSearchHandler);
 app.get('/api/v1/maltrail/list', maltrailListHandler);
 app.get('/api/v1/maltrail/fetch', maltrailFetchHandler);
 app.get('/api/v1/actor-enrich', actorEnrichHandler);
-app.post('/api/v1/actor-enrich/otx-stream', actorEnrichOtxStreamHandler);
+app.post('/api/v1/actor-enrich/otx-stream', validate('json', actorEnrichStreamSchema), actorEnrichOtxStreamHandler);
 app.get('/api/v1/certstream', certStreamHandler);
-app.post('/api/v1/campaign-generator', campaignGeneratorHandler);
+app.post('/api/v1/campaign-generator', validate('json', campaignGeneratorSchema), campaignGeneratorHandler);
 app.get('/api/v1/actor-cves', actorCvesHandler);
 app.get('/api/v1/campaigns', listCampaignsHandler);
-app.post('/api/v1/campaigns', saveCampaignHandler);
+app.post('/api/v1/campaigns', validate('json', campaignCreateSchema), saveCampaignHandler);
 app.get('/api/v1/campaigns/:id', getCampaignHandler);
 app.delete('/api/v1/campaigns/:id', deleteCampaignHandler);
 app.post('/api/v1/maltrail-sync', maltrailSyncHandler);
@@ -618,11 +704,11 @@ app.get('/api/v1/x-tweets', xTweetsHandler);
 app.get('/api/v1/x-live', xLiveHandler);
 app.get('/api/v1/x-firehose', xFirehoseHandler);
 app.get('/api/v1/x-claims', xClaimsHandler);
-app.post('/api/v1/admin/keys', createApiKeyHandler);
+app.post('/api/v1/admin/keys', validate('json', adminApiKeyCreateSchema), createApiKeyHandler);
 app.get('/api/v1/admin/keys', listApiKeysHandler);
 app.delete('/api/v1/admin/keys/:id', revokeApiKeyHandler);
-app.post('/api/v1/admin/purge', purgeCacheHandler);
-app.post('/api/v1/admin/retention/run', runRetentionHandler);
+app.post('/api/v1/admin/purge', validate('json', adminPurgeSchema), purgeCacheHandler);
+app.post('/api/v1/admin/retention/run', validate('json', adminRetentionSchema), runRetentionHandler);
 app.get('/api/v1/blocklists/pfsense', blocklistPfSenseHandler);
 app.get('/api/v1/blocklists/iptables', blocklistIptablesHandler);
 app.get('/api/v1/blocklists/suricata', blocklistSuricataHandler);
@@ -632,16 +718,16 @@ app.get('/api/v1/phishing/auto-analyze', phishingAnalyzeAutoHandler);
 app.post('/api/v1/phishing/fingerprint', fingerprintHandler);
 app.get('/api/v1/unified-search', validate('query', unifiedSearchSchema), unifiedSearchHandler);
 app.get('/api/v1/relationship-graph', validate('query', relationshipGraphSchema), relationshipGraphHandler);
-app.post('/api/v1/rag/index', ragIndexHandler);
+app.post('/api/v1/rag/index', validate('json', ragIndexSchema), ragIndexHandler);
 app.get('/api/v1/rag/query', validate('query', ragQuerySchema), ragQueryHandler);
 app.post('/api/v1/rag/index-all', async (c) => {
   const result = await indexAllCorpora(c.env);
   return c.json({ ok: true, ...result });
 });
-app.post('/api/v1/ai-summary', aiSummaryHandler);
-app.post('/api/v1/copilot/investigate', copilotInvestigateHandler);
+app.post('/api/v1/ai-summary', validate('json', aiSummarySchema), aiSummaryHandler);
+app.post('/api/v1/copilot/investigate', validate('json', copilotInvestigateSchema), copilotInvestigateHandler);
 app.get('/api/v1/copilot/investigate', copilotInvestigateHandler);
-app.post('/api/v1/automation/run', automationRunHandler);
+app.post('/api/v1/automation/run', validate('json', automationRunSchema), automationRunHandler);
 app.get('/api/v1/maltiverse/search', maltiverseSearchHandler);
 app.get('/api/v1/inquest/search', inquestSearchHandler);
 app.get('/api/v1/hackertarget/dns', hackertargetDnsHandler);
@@ -659,11 +745,11 @@ app.get('/api/v1/ioc-lifecycle/trending', validate('query', iocTrendingSchema), 
 app.get('/api/v1/ioc-lifecycle/stats', iocLifecycleStatsHandler);
 
 // ── AI Rule Generator ────────────────────────────────────────────
-app.post('/api/v1/rules/generate', ruleGeneratorHandler);
-app.post('/api/v1/rules/validate', ruleValidateHandler);
+app.post('/api/v1/rules/generate', validate('json', ruleGenerateSchema), ruleGeneratorHandler);
+app.post('/api/v1/rules/validate', validate('json', ruleValidateSchema), ruleValidateHandler);
 // Legacy routes for backward compatibility
-app.post('/api/v1/yara/generate', ruleGeneratorHandler);
-app.post('/api/v1/yara/validate', ruleValidateHandler);
+app.post('/api/v1/yara/generate', validate('json', ruleGenerateSchema), ruleGeneratorHandler);
+app.post('/api/v1/yara/validate', validate('json', ruleValidateSchema), ruleValidateHandler);
 
 // ── CT Domain Monitor ────────────────────────────────────────────
 app.get('/api/v1/ct-monitor/watched', ctWatchedListHandler);
@@ -684,19 +770,19 @@ app.post('/api/v1/stealer/parse', stealerParserHandler);
 // ── Bloom Filter ─────────────────────────────────────────────────
 app.get('/api/v1/bloom/stats', bloomStatsHandler);
 app.get('/api/v1/bloom/:type', bloomFilterHandler);
-app.post('/api/v1/bloom/check', bloomCheckHandler);
+app.post('/api/v1/bloom/check', validate('json', hashAnalyzeSchema), bloomCheckHandler);
 
 // ── Threat Graph ─────────────────────────────────────────────────
 app.get('/api/v1/graph/node/:type/:value', graphNodeHandler);
 app.get('/api/v1/graph/path', graphPathHandler);
 app.get('/api/v1/graph/communities', graphCommunitiesHandler);
 app.get('/api/v1/graph/stats', graphStatsHandler);
-app.post('/api/v1/graph/ingest', graphIngestManualHandler);
+app.post('/api/v1/graph/ingest', validate('json', graphIngestSchema), graphIngestManualHandler);
 
 // ── Hunting & IR Tools ─────────────────────────────────────────────
-app.post('/api/v1/hunting-queries/generate', huntingQueryHandler);
+app.post('/api/v1/hunting-queries/generate', validate('json', huntingQuerySchema), huntingQueryHandler);
 app.get('/api/v1/sandbox/lookup', sandboxLookupHandler);
-app.post('/api/v1/ir-playbooks/generate', irPlaybookHandler);
+app.post('/api/v1/ir-playbooks/generate', validate('json', irPlaybookSchema), irPlaybookHandler);
 
 // ── Temporal Analysis ────────────────────────────────────────────
 app.get('/api/v1/temporal/timeline', temporalTimelineHandler);
@@ -705,28 +791,40 @@ app.get('/api/v1/temporal/velocity', temporalVelocityHandler);
 app.get('/api/v1/temporal/predict', temporalPredictHandler);
 
 // ── Attack Chain ─────────────────────────────────────────────────
-app.post('/api/v1/attack-chain/reconstruct', attackChainHandler);
+app.post('/api/v1/attack-chain/reconstruct', validate('json', attackChainReconstructSchema), attackChainHandler);
 app.get('/api/v1/attack-chain/techniques', attackChainTechniquesHandler);
 
 // ── Actor DNA ───────────────────────────────────────────────────
-app.post('/api/v1/threat-intel/actor-dna/match', actorDnaMatchHandler);
+app.post('/api/v1/threat-intel/actor-dna/match', validate('json', actorDnaMatchSchema), actorDnaMatchHandler);
 app.get('/api/v1/threat-intel/actor-dna', actorDnaListHandler);
 app.get('/api/v1/threat-intel/actor-dna/:actorId', actorDnaGetHandler);
 app.get('/api/v1/threat-intel/actor-dna/compare/:actor1/:actor2', actorDnaCompareHandler);
 
 // ── Entity Resolution ──────────────────────────────────────────────
 app.get('/api/v1/threat-intel/entities/resolve', entityResolveHandler);
-app.post('/api/v1/threat-intel/entities/extract', entityExtractHandler);
-app.post('/api/v1/threat-intel/entities/profile', entityProfileHandler);
+app.post(
+  '/api/v1/threat-intel/entities/extract',
+  validate('json', threatIntelEntityExtractSchema),
+  entityExtractHandler
+);
+app.post(
+  '/api/v1/threat-intel/entities/profile',
+  validate('json', threatIntelEntityProfileSchema),
+  entityProfileHandler
+);
 
 // ── Campaign Lifecycle ──────────────────────────────────────────
-app.post('/api/v1/threat-intel/campaign/analyze', campaignAnalyzeHandler);
+app.post('/api/v1/threat-intel/campaign/analyze', validate('json', campaignAnalyzeSchema), campaignAnalyzeHandler);
 app.get('/api/v1/threat-intel/campaign/techniques', campaignTechniquesHandler);
 
 // ── Predictive Intelligence ─────────────────────────────────────
 app.get('/api/v1/threat-intel/predictive/forecasts', predictiveForecastsHandler);
 app.get('/api/v1/threat-intel/predictive/sector-risks', predictiveSectorRisksHandler);
-app.post('/api/v1/threat-intel/predictive/attribution', predictiveAttributionHandler);
+app.post(
+  '/api/v1/threat-intel/predictive/attribution',
+  validate('json', predictiveAttributionSchema),
+  predictiveAttributionHandler
+);
 app.get('/api/v1/threat-intel/predictive/gaps', predictiveGapsHandler);
 app.get('/api/v1/threat-intel/predictive/report', predictiveReportHandler);
 app.get('/api/v1/threat-intel/collection-slo', feedStatusHandler);
@@ -735,16 +833,16 @@ app.get('/api/v1/threat-intel/pirs/relevant', pirRelevantHandler);
 app.get('/api/v1/threat-intel/pirs/alert', pirAlertHandler);
 app.get('/api/v1/threat-intel/pirs/alerts', pirAlertListHandler);
 app.get('/api/v1/threat-intel/pirs/routing', pirRoutingHandler);
-app.patch('/api/v1/threat-intel/pirs/alerts/:id/acknowledge', pirAlertAckHandler);
+app.patch('/api/v1/threat-intel/pirs/alerts/:id/acknowledge', validate('json', pirAlertAckSchema), pirAlertAckHandler);
 app.post('/api/v1/threat-intel/pirs/alerts/acknowledge-all', pirAlertAckAllHandler);
-app.post('/api/v1/threat-intel/pirs', pirCreateHandler);
+app.post('/api/v1/threat-intel/pirs', validate('json', pirCreateSchema), pirCreateHandler);
 // NOTE: the static `/pirs/*` routes above MUST stay before these `:id` routes —
 // Hono matches in registration order, so `/pirs/routing` would otherwise be
 // captured by `/pirs/:id` (id="routing") and 404 as "PIR not found".
 app.get('/api/v1/threat-intel/pirs/:id', pirDetailHandler);
-app.put('/api/v1/threat-intel/pirs/:id', pirUpdateHandler);
+app.put('/api/v1/threat-intel/pirs/:id', validate('json', pirUpdateSchema), pirUpdateHandler);
 app.delete('/api/v1/threat-intel/pirs/:id', pirDeleteHandler);
-app.post('/api/v1/threat-intel/feedback', feedbackCreateHandler);
+app.post('/api/v1/threat-intel/feedback', validate('json', threatIntelFeedbackSchema), feedbackCreateHandler);
 app.get('/api/v1/threat-intel/feedback', feedbackListHandler);
 app.get('/api/v1/threat-intel/feedback/aggregate', feedbackAggregateHandler);
 app.delete('/api/v1/threat-intel/feedback/:id', feedbackDeleteHandler);
@@ -752,21 +850,21 @@ app.get('/api/v1/source-reliability', sourceReliabilityHandler);
 app.get('/api/v1/maturity', maturityHandler);
 
 // ── ACH Generator ───────────────────────────────────────────────
-app.post('/api/v1/threat-intel/ach', achHandler);
+app.post('/api/v1/threat-intel/ach', validate('json', achGenerateSchema), achHandler);
 
 // ── Novelty Detection ──────────────────────────────────────────
 app.get('/api/v1/threat-intel/novelty', noveltyHandler);
-app.post('/api/v1/threat-intel/novelty/batch', noveltyBatchHandler);
+app.post('/api/v1/threat-intel/novelty/batch', validate('json', noveltyBatchSchema), noveltyBatchHandler);
 
 // ── Intelligence Assessments ────────────────────────────────────
 app.get('/api/v1/threat-intel/assessments', assessmentListHandler);
-app.post('/api/v1/threat-intel/assessments', assessmentCreateHandler);
+app.post('/api/v1/threat-intel/assessments', validate('json', assessmentSchema), assessmentCreateHandler);
 app.get('/api/v1/threat-intel/assessments/:id', assessmentDetailHandler);
-app.put('/api/v1/threat-intel/assessments/:id', assessmentUpdateHandler);
+app.put('/api/v1/threat-intel/assessments/:id', validate('json', assessmentUpdateSchema), assessmentUpdateHandler);
 app.delete('/api/v1/threat-intel/assessments/:id', assessmentDeleteHandler);
 
 // ── Cross-Correlation Intelligence ──────────────────────────────
-app.post('/api/v1/threat-intel/correlate', correlateHandler);
+app.post('/api/v1/threat-intel/correlate', validate('json', correlationSchema), correlateHandler);
 
 // ── Dark Web Economics ──────────────────────────────────────────
 
@@ -783,20 +881,20 @@ app.get('/api/v1/domain/history/changes', domainChangesHandler);
 app.get('/api/v1/domain/history/pivot', domainPivotHandler);
 app.get('/api/v1/domain/history/stats', domainHistoryStatsHandler);
 app.get('/api/v1/domain/history/search', domainRegistrantSearchHandler);
-app.post('/api/v1/domain/history/snapshot', domainSnapshotHandler);
+app.post('/api/v1/domain/history/snapshot', validate('json', domainSnapshotSchema), domainSnapshotHandler);
 
 // ── Open Directory Scanner ───────────────────────────────────────
-app.post('/api/v1/open-dir/scan', openDirectoryScanHandler);
+app.post('/api/v1/open-dir/scan', validate('json', openDirScanSchema), openDirectoryScanHandler);
 
 // ── Exposed Host Intelligence ────────────────────────────────────
 app.get('/api/v1/exposed-host', exposedHostHandler);
 
 app.get('/api/v1/dashboard', dashboardHandler);
 app.get('/api/v1/dashboard/watchlist', getWatchlistHandler);
-app.post('/api/v1/dashboard/watchlist', updateWatchlistHandler);
+app.post('/api/v1/dashboard/watchlist', validate('json', watchlistUpdateSchema), updateWatchlistHandler);
 app.get('/api/v1/watches', listWatchesHandler);
-app.post('/api/v1/watches', createWatchHandler);
-app.put('/api/v1/watches/:id', updateWatchHandler);
+app.post('/api/v1/watches', validate('json', watchCreateSchema), createWatchHandler);
+app.put('/api/v1/watches/:id', validate('json', watchUpdateSchema), updateWatchHandler);
 app.delete('/api/v1/watches/:id', deleteWatchHandler);
 app.get('/api/v1/watches/log', alertLogHandler);
 app.notFound((c) => c.json({ error: 'not_found' }, 404));

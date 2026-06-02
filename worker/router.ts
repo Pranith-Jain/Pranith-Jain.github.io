@@ -232,7 +232,62 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/ransomware-activity', '/__prerendered/threatintel__ransomware-activity'],
   ['/threatintel/live-iocs', '/__prerendered/threatintel__live-iocs'],
   ['/threatintel/detections', '/__prerendered/threatintel__detections'],
+  ['/threatintel/assessments', '/__prerendered/threatintel__assessments'],
 ]);
+
+/**
+ * Dynamic route patterns that should fall back to a parent page's
+ * prerendered HTML. The client-side React Router handles the dynamic
+ * parameter (e.g. :slug), but the Worker still has to serve real HTML
+ * (not the empty SPA shell) so the page chrome paints before hydration
+ * and the URL the user sees matches the actual content.
+ *
+ * Each entry: [regex matching the dynamic path, prerendered parent to
+ * serve]. Patterns are case-insensitive because some slugs contain
+ * uppercase letters — notably the ISO-week label in weekly briefings
+ * (`weekly-2026-W22` from isoYearWeek() in api/src/lib/briefing-builder.ts),
+ * but also actor handles and other identifiers that may mix case.
+ *
+ * Regression note: this table was originally added to worker/index.ts
+ * in commit 743be0a ("fix: handle dynamic routes with fallback to
+ * parent prerendered pages") and was lost when commit f921102 split
+ * the worker into modules. The original patterns used `[a-z0-9-]+`
+ * which never matched the uppercase `W` in weekly slugs, so even with
+ * the table restored, `weekly-2026-W22` would still have shell-served.
+ * Patterns below use `/i` to cover that case.
+ *
+ * The slug here is intentionally permissive (any non-empty path
+ * segment) so future dynamic routes added to App.tsx don't need a
+ * worker change to render — just an entry in PRERENDERED_ROUTES for
+ * the parent and a slug-aware React Router <Route>.
+ */
+const DYNAMIC_ROUTE_FALLBACKS: ReadonlyArray<[RegExp, string]> = [
+  // ── ThreatIntel category / sub-pages ───────────────────────────
+  [/^\/threatintel\/c\/[^/]+$/i, '/__prerendered/threatintel'],
+  [/^\/threatintel\/wiki\/[^/]+$/i, '/__prerendered/threatintel__wiki'],
+  [/^\/threatintel\/actors\/[^/]+$/i, '/__prerendered/threatintel__actors'],
+  [/^\/threatintel\/briefings\/[^/]+$/i, '/__prerendered/threatintel__briefings'],
+  [/^\/threatintel\/campaigns\/[^/]+$/i, '/__prerendered/threatintel__campaigns'],
+  [/^\/threatintel\/research\/[^/]+$/i, '/__prerendered/threatintel__research'],
+  [/^\/threatintel\/infostealer\/[^/]+$/i, '/__prerendered/threatintel__infostealer'],
+  [/^\/threatintel\/assessments\/[^/]+$/i, '/__prerendered/threatintel__assessments'],
+  // ── Blog ───────────────────────────────────────────────────────
+  [/^\/blog\/c\/[^/]+$/i, '/__prerendered/blog'],
+  [/^\/blog\/[^/]+$/i, '/__prerendered/blog'],
+  // ── Projects ───────────────────────────────────────────────────
+  [/^\/projects\/[^/]+$/i, '/__prerendered/projects'],
+  // ── DFIR tools category ────────────────────────────────────────
+  [/^\/dfir\/tools\/[^/]+$/i, '/__prerendered/dfir'],
+];
+
+function resolveDynamicRoute(pathname: string): string | null {
+  for (const [pattern, fallback] of DYNAMIC_ROUTE_FALLBACKS) {
+    if (pattern.test(pathname)) {
+      return fallback;
+    }
+  }
+  return null;
+}
 
 export async function fetchPrerenderedOrShell(
   request: Request,
@@ -241,7 +296,9 @@ export async function fetchPrerenderedOrShell(
   url: URL,
   nonce: string
 ): Promise<Response> {
-  const prerenderedPath = PRERENDERED_ROUTES.get(url.pathname);
+  // Try exact match first; fall back to a dynamic-route parent if the
+  // exact path isn't a prerendered page.
+  const prerenderedPath = PRERENDERED_ROUTES.get(url.pathname) ?? resolveDynamicRoute(url.pathname);
   if (!prerenderedPath) {
     const r = await getOrInjectOg(request, env, ctx, url);
     // Pass through non-HTML assets (images, fonts, WASM, JSON) as-is.

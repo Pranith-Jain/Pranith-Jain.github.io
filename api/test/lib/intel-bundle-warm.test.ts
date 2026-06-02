@@ -143,7 +143,10 @@ describe('warmIntelBundles', () => {
 
   it('builds a bundle for a briefing that lacks an intel_bundles row', { timeout: 20_000 }, async () => {
     await insertBriefing(env.BRIEFINGS_DB!, fakeBriefing());
-    const r = await warmIntelBundles(env, { maxItems: 5 });
+    // Wide lookback so the fixed-date fixture stays in-window regardless of
+    // the current date — this test exercises bundle construction, not the
+    // lookback filter.
+    const r = await warmIntelBundles(env, { maxItems: 5, lookbackDays: 365_000 });
     expect(r.built).toEqual(['daily-2026-05-22']);
     expect(r.failed).toEqual([]);
     const row = await env
@@ -163,11 +166,12 @@ describe('warmIntelBundles', () => {
 
   it('skips briefings already present in intel_bundles', { timeout: 20_000 }, async () => {
     await insertBriefing(env.BRIEFINGS_DB!, fakeBriefing());
+    // Wide lookback so the fixed-date fixture stays in-window.
     // First run: builds the bundle.
-    const first = await warmIntelBundles(env, { maxItems: 5 });
+    const first = await warmIntelBundles(env, { maxItems: 5, lookbackDays: 365_000 });
     expect(first.built).toHaveLength(1);
     // Second run: row is already present → must skip.
-    const second = await warmIntelBundles(env, { maxItems: 5 });
+    const second = await warmIntelBundles(env, { maxItems: 5, lookbackDays: 365_000 });
     expect(second.built).toEqual([]);
     expect(second.failed).toEqual([]);
     expect(second.hasMore).toBe(false);
@@ -262,7 +266,7 @@ describe('warmIntelBundles', () => {
       modelUsed: 'stub:test',
     });
 
-    const r = await warmIntelBundles(env, { maxItems: 1, extractLlm: llmStub });
+    const r = await warmIntelBundles(env, { maxItems: 1, extractLlm: llmStub, lookbackDays: 365_000 });
     expect(r.built).toEqual(['daily-2026-05-22']);
 
     const row = await env
@@ -292,6 +296,7 @@ describe('warmIntelBundles', () => {
       await insertBriefing(env.BRIEFINGS_DB!, fakeBriefing());
       const r = await warmIntelBundles(env, {
         maxItems: 1,
+        lookbackDays: 365_000,
         extractLlm: async () => ({
           sectors: [],
           affectedProducts: [],
@@ -321,6 +326,7 @@ describe('warmIntelBundles', () => {
     await insertBriefing(env.BRIEFINGS_DB!, fakeBriefing());
     const r = await warmIntelBundles(env, {
       maxItems: 1,
+      lookbackDays: 365_000,
       extractLlm: async () => {
         throw new Error('synthetic extractor failure');
       },

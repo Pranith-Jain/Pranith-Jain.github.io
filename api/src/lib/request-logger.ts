@@ -1,6 +1,7 @@
 import type { Context, Next } from 'hono';
 import type { Env } from '../env';
 import { trackEvent, visitorCountry } from './analytics';
+import { getRequestId } from './request-id';
 
 /**
  * Structured request-logging middleware.
@@ -10,6 +11,8 @@ import { trackEvent, visitorCountry } from './analytics';
  *   - status code (double)
  *   - response time in ms (double)
  *   - country code (index)
+ *   - request id (blob) — joined to the x-request-id response header so
+ *     AE rows and Workers Logs are greppable by the same identifier.
  *
  * Free-tier AE: 100k writes/day. At ~1k req/min peak this burns ~9k/hr,
  * well within the daily budget at current portfolio traffic. If traffic
@@ -22,24 +25,16 @@ export async function requestLogger(c: Context<{ Bindings: Env }>, next: Next): 
   const status = c.res.status;
   const path = new URL(c.req.url).pathname;
   const method = c.req.method;
+  const requestId = getRequestId(c);
 
   // Sample 100% of 5xx, 10% of 4xx, 1% of 2xx/3xx
-  const sample =
-    status >= 500
-      ? 1.0
-      : status >= 400
-        ? 0.1
-        : 0.01;
+  const sample = status >= 500 ? 1.0 : status >= 400 ? 0.1 : 0.01;
 
   if (Math.random() > sample) return;
 
-  trackEvent(
-    c.env as Pick<Env, 'AJ_analytics'>,
-    'api_request',
-    {
-      blobs: [method, path],
-      doubles: [status, Math.round(elapsed)],
-      indexes: [visitorCountry(c.req.raw)],
-    }
-  );
+  trackEvent(c.env as Pick<Env, 'AJ_analytics'>, 'api_request', {
+    blobs: [method, path, requestId],
+    doubles: [status, Math.round(elapsed)],
+    indexes: [visitorCountry(c.req.raw)],
+  });
 }

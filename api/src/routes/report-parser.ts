@@ -1,6 +1,8 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { pinnedFetchFollow, SsrfError } from '../lib/ssrf-guard';
+import { reportParserJsonSchema, rawLogTextSchema } from '../lib/validation-schemas';
+import { validationError } from '../lib/api-error';
 
 /**
  * Threat Report Parser — extracts IOCs, actors, TTPs, and CVEs from
@@ -336,26 +338,40 @@ export async function reportParserHandler(c: Context<{ Bindings: Env }>): Promis
     const contentType = c.req.header('content-type') ?? '';
 
     if (contentType.includes('application/json')) {
-      const body = await c.req.json<{ text?: string; url?: string }>();
-      text = body.text;
-      sourceUrl = body.url;
+      let body: unknown;
+      try {
+        body = await c.req.json();
+      } catch {
+        return c.json({ error: 'invalid JSON' }, 400);
+      }
+      const parsed = reportParserJsonSchema.safeParse(body);
+      if (!parsed.success) {
+        const fields: Record<string, string> = {};
+        for (const issue of parsed.error.issues) {
+          const path = issue.path.join('.') || 'body';
+          if (!fields[path]) fields[path] = issue.message;
+        }
+        return validationError(c, fields);
+      }
+      text = parsed.data.text;
+      sourceUrl = parsed.data.url;
 
       // If URL provided, fetch the content. sourceUrl is fully user-controlled
       // and the response body is returned to the caller — a classic SSRF sink.
       // Force https and route through pinnedFetch, which rejects private/
       // reserved/metadata hosts and pins the connection to defeat DNS rebinding.
       if (!text && sourceUrl) {
-        let parsed: URL;
+        let parsedUrl: URL;
         try {
-          parsed = new URL(sourceUrl);
+          parsedUrl = new URL(sourceUrl);
         } catch {
           return c.json({ error: 'Invalid URL' }, 400);
         }
-        if (parsed.protocol !== 'https:' && parsed.protocol !== 'http:') {
+        if (parsedUrl.protocol !== 'https:' && parsedUrl.protocol !== 'http:') {
           return c.json({ error: 'URL must be http(s)' }, 400);
         }
         try {
-          const res = await pinnedFetchFollow(parsed.toString(), {
+          const res = await pinnedFetchFollow(parsedUrl.toString(), {
             signal: AbortSignal.timeout(FETCH_TIMEOUT),
             headers: { 'User-Agent': 'Mozilla/5.0 (compatible; threat-intel-parser/1.0)' },
           });
@@ -371,7 +387,17 @@ export async function reportParserHandler(c: Context<{ Bindings: Env }>): Promis
         }
       }
     } else if (contentType.includes('text/plain')) {
-      text = await c.req.text();
+      const raw = await c.req.text();
+      const parsed = rawLogTextSchema.safeParse(raw);
+      if (!parsed.success) {
+        const fields: Record<string, string> = {};
+        for (const issue of parsed.error.issues) {
+          const path = issue.path.join('.') || 'body';
+          if (!fields[path]) fields[path] = issue.message;
+        }
+        return validationError(c, fields);
+      }
+      text = parsed.data;
     }
 
     if (!text) {

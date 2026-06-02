@@ -28,6 +28,7 @@ import { buildStixBundle, type BuildResult, type ReportInput, type Tlp } from '.
 import { pinnedFetchFollow, SsrfError } from '../lib/ssrf-guard';
 import { requireAdmin } from '../lib/admin-auth';
 import { safeJsonBody } from '../lib/safe-body';
+import { payloadTooLarge } from '../lib/api-error';
 
 export const INTEL_BUNDLE_CACHE_KEY = 'https://intel-bundle-status.internal/v1';
 
@@ -653,11 +654,23 @@ export async function intelBundleByIdHandler(c: Context<{ Bindings: Env }>): Pro
 //   `:id` is the bundle's deterministic UUIDv5 (`bundle--<uuid>`), so the
 //   URL is stable across re-renders and the same input always yields the
 //   same download URL. Public — the bundle content is already visible via
-//   the card; this just re-renders it as a strict, standards-compliant
+//   the card; this just re-serves it as a strict, standards-compliant
 //   STIX 2.1 download for MISP/OpenCTI/TAXII consumers.
 // ============================================================
 
 const BUNDLE_ID_RE = /^bundle--[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+
+/**
+ * Hard cap on the export payload. STIX 2.1 bundles are JSON and D1
+ * stores them as TEXT — a single bundle could be tens of MB if the
+ * extractor ever fed a multi-MB document into the pipeline. Returning
+ * a 5 MB+ body from a single Worker response pins the isolate memory
+ * budget (128 MB) and the streaming response path that downstream
+ * TAXII clients rely on. 5 MB is well above the realistic 99th
+ * percentile (≤200 KB) and still below the Worker free-tier per-
+ * response memory cap.
+ */
+const EXPORT_MAX_BYTES = 5 * 1024 * 1024;
 
 export async function intelBundleExportHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const id = c.req.param('id') ?? '';
@@ -668,10 +681,22 @@ export async function intelBundleExportHandler(c: Context<{ Bindings: Env }>): P
   if (!db) return jsonResponse(c, { error: 'persistence_unavailable' }, 503);
 
   const row = await db
-    .prepare('SELECT bundle_json FROM intel_bundles WHERE id = ? LIMIT 1')
+    .prepare('SELECT bundle_json, LENGTH(bundle_json) as size_bytes FROM intel_bundles WHERE id = ? LIMIT 1')
     .bind(id)
-    .first<{ bundle_json: string }>();
+    .first<{ bundle_json: string; size_bytes: number }>();
   if (!row) return jsonResponse(c, { error: 'not_found' }, 404);
+
+  // Size cap before materialising the body. A bundle that grew past
+  // EXPORT_MAX_BYTES almost certainly means a runaway extractor loop,
+  // not a legitimate analyst export — short-circuit with 413 and a
+  // pointer to the underlying source so the operator can inspect it
+  // directly via the card.
+  if (row.size_bytes > EXPORT_MAX_BYTES) {
+    return payloadTooLarge(c, 'bundle exceeds export size cap; inspect the source record via the intel-bundle card', {
+      size_bytes: row.size_bytes,
+      max_bytes: EXPORT_MAX_BYTES,
+    });
+  }
 
   // `application/stix+json` is the IANA-registered media type for STIX 2.1.
   // Strict consumers (MISP/OpenCTI/TAXII clients) sniff on it. Adding the
@@ -684,6 +709,7 @@ export async function intelBundleExportHandler(c: Context<{ Bindings: Env }>): P
     headers: {
       'content-type': 'application/stix+json; version=2.1',
       'content-disposition': `attachment; filename="${filename}"`,
+      'content-length': String(row.size_bytes),
       // Bundle JSON for a given id is immutable in practice (extracted_hash
       // re-writes the row but the id stays the same; the json may change
       // when the row is updated). 1h cache is the same TTL the card uses.
