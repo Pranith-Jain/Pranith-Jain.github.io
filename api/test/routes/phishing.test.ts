@@ -1,5 +1,5 @@
-import { SELF } from 'cloudflare:test';
 import { describe, it, expect, vi, afterEach } from 'vitest';
+import { withTestApiKey } from '../test-helpers';
 
 afterEach(() => vi.restoreAllMocks());
 
@@ -16,7 +16,8 @@ Click here: https://verify-bank-now.evil.ru/login
 
 describe('POST /api/v1/phishing/analyze', () => {
   it('rejects empty body', async () => {
-    const r = await SELF.fetch('https://x/api/v1/phishing/analyze', { method: 'POST', body: '' });
+    const f = await withTestApiKey();
+    const r = await f('https://x/api/v1/phishing/analyze', { method: 'POST', body: '' });
     expect(r.status).toBe(400);
   });
 
@@ -27,7 +28,8 @@ describe('POST /api/v1/phishing/analyze', () => {
     // each provider call is already individually .catch()'d, so the verdict
     // falls back to the header/auth heuristic (which flags this SAMPLE).
     vi.spyOn(globalThis, 'fetch').mockRejectedValue(new Error('offline (test)'));
-    const r = await SELF.fetch('https://x/api/v1/phishing/analyze', {
+    const f = await withTestApiKey();
+    const r = await f('https://x/api/v1/phishing/analyze', {
       method: 'POST',
       headers: { 'content-type': 'text/plain' },
       body: SAMPLE,
@@ -43,7 +45,8 @@ describe('POST /api/v1/phishing/analyze', () => {
 
   it('rejects oversize body (>64 KB)', async () => {
     const huge = 'x'.repeat(70000);
-    const r = await SELF.fetch('https://x/api/v1/phishing/analyze', {
+    const f = await withTestApiKey();
+    const r = await f('https://x/api/v1/phishing/analyze', {
       method: 'POST',
       body: huge,
     });

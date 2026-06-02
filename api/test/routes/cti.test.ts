@@ -1,5 +1,5 @@
-import { SELF } from 'cloudflare:test';
 import { describe, it, expect } from 'vitest';
+import { withTestApiKey } from '../test-helpers';
 
 const BUNDLE = {
   type: 'bundle',
@@ -12,11 +12,13 @@ const BUNDLE = {
 
 describe('POST /api/v1/cti/parse', () => {
   it('rejects empty body', async () => {
-    const r = await SELF.fetch('https://x/api/v1/cti/parse', { method: 'POST', body: '' });
+    const f = await withTestApiKey();
+    const r = await f('https://x/api/v1/cti/parse', { method: 'POST', body: '' });
     expect(r.status).toBe(400);
   });
   it('rejects non-bundle JSON', async () => {
-    const r = await SELF.fetch('https://x/api/v1/cti/parse', {
+    const f = await withTestApiKey();
+    const r = await f('https://x/api/v1/cti/parse', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ type: 'not-a-bundle' }),
@@ -24,7 +26,8 @@ describe('POST /api/v1/cti/parse', () => {
     expect(r.status).toBe(400);
   });
   it('parses valid bundle', async () => {
-    const r = await SELF.fetch('https://x/api/v1/cti/parse', {
+    const f = await withTestApiKey();
+    const r = await f('https://x/api/v1/cti/parse', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(BUNDLE),

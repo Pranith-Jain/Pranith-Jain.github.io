@@ -1,16 +1,18 @@
-import { SELF } from 'cloudflare:test';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { withTestApiKey } from '../test-helpers';
 
 beforeEach(() => vi.restoreAllMocks());
 
 describe('POST /api/v1/file/analyze', () => {
   it('rejects empty body', async () => {
-    const r = await SELF.fetch('https://x/api/v1/file/analyze', { method: 'POST', body: '' });
+    const f = await withTestApiKey();
+    const r = await f('https://x/api/v1/file/analyze', { method: 'POST', body: '' });
     expect(r.status).toBe(400);
   });
 
   it('rejects non-hash input', async () => {
-    const r = await SELF.fetch('https://x/api/v1/file/analyze', {
+    const f = await withTestApiKey();
+    const r = await f('https://x/api/v1/file/analyze', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ hash: 'not-a-hash' }),
@@ -32,7 +34,8 @@ describe('POST /api/v1/file/analyze', () => {
         { status: 200 }
       )
     );
-    const r = await SELF.fetch('https://x/api/v1/file/analyze', {
+    const f = await withTestApiKey();
+    const r = await f('https://x/api/v1/file/analyze', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ hash: 'a'.repeat(64) }),

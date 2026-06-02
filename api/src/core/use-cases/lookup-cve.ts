@@ -6,7 +6,7 @@ export interface LookupCveInput {
   repository: ICveRepository;
 }
 
-export type LookupCveOutput = { ok: true; data: CveRecord } | { ok: false; error: string; status: 400 | 404 };
+export type LookupCveOutput = { ok: true; data: CveRecord } | { ok: false; error: string; status: 400 | 404 | 502 };
 
 const CVE_RE = /^CVE-\d{4}-\d{4,7}$/i;
 
@@ -17,7 +17,7 @@ export async function lookupCve(input: LookupCveInput): Promise<LookupCveOutput>
   }
   const result = await input.repository.lookup(id);
   if (!result.ok) {
-    return { ok: false, error: result.error, status: 404 };
+    return { ok: false, error: result.error, status: result.status ?? 404 };
   }
   return { ok: true, data: result.data };
 }

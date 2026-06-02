@@ -34,6 +34,8 @@ interface BreachEntry {
 interface BreachEmailResponse {
   email: string;
   found: boolean;
+  /** First source that contributed a real breach entry, or empty string. */
+  source: string;
   sources_queried: string[];
   breach_count: number;
   breaches: BreachEntry[];
@@ -52,6 +54,8 @@ interface BreachDomainEntry {
 interface BreachDomainResponse {
   domain: string;
   found: boolean;
+  /** First source that contributed a real breach entry, or empty string. */
+  source: string;
   sources_queried: string[];
   breach_count: number;
   breaches: BreachDomainEntry[];
@@ -242,32 +246,36 @@ async function queryHudsonRockEmail(email: string): Promise<BreachEntry[]> {
 }
 
 async function queryProjectDiscovery(email: string): Promise<BreachEntry[]> {
+  // ProjectDiscovery's email-leak stats endpoint doesn't return a per-breach
+  // payload — it just confirms the service is reachable. We surface the
+  // reachability in `sources_queried` (the handler decides that) but do NOT
+  // synthesize a "breach" entry. Otherwise the aggregate `found: true` would
+  // fire for every email that hits a 200 — even when no actual breach was
+  // reported — which made the email/domain lookups unusable for triage.
   try {
     const res = await fetch(`https://api.projectdiscovery.io/v1/leaks/stats/email?email=${encodeURIComponent(email)}`, {
       headers: { accept: 'application/json', 'user-agent': UA },
       signal: AbortSignal.timeout(8000),
     });
     if (!res.ok) return [];
-    return [
-      {
-        name: 'ProjectDiscovery Leaks',
-        description: `Leak stats from ProjectDiscovery`,
-        source: 'projectdiscovery' as const,
-      },
-    ];
+    return [];
   } catch {
     return [];
   }
 }
 
 async function queryHackMyIp(email: string): Promise<BreachEntry[]> {
+  // Same as ProjectDiscovery above — the endpoint confirms reachability but
+  // doesn't return a per-record payload. Synthetic entries used to inflate
+  // the breach count for every reachable email; returning [] here keeps the
+  // `found` flag honest.
   try {
     const res = await fetch(`https://hackmyip.com/api/breach?email=${encodeURIComponent(email)}`, {
       headers: { accept: 'application/json', 'user-agent': UA },
       signal: AbortSignal.timeout(8000),
     });
     if (!res.ok) return [];
-    return [{ name: 'HackMyIP', description: `Breach data from HackMyIP`, source: 'hackmyip' as const }];
+    return [];
   } catch {
     return [];
   }
@@ -397,6 +405,18 @@ export async function breachEmailHandler(c: Context<{ Bindings: Env }>): Promise
     'hackmyip',
   ];
 
+  // Primary upstreams (XposedOrNot, LeakCheck) carry the actual breach
+  // payloads; the rest are metadata-only / fallback. If BOTH primaries
+  // rejected, treat it as an upstream outage and 502 — otherwise clients
+  // would see a confusing "found: false" with no indication that the
+  // breach DBs were unreachable.
+  const primaryRejected = sources[0]?.status === 'rejected' && sources[1]?.status === 'rejected';
+  if (primaryRejected) {
+    return c.json({ error: 'upstream_error', message: 'breach upstreams unavailable' }, 502, {
+      'Cache-Control': 'no-store',
+    });
+  }
+
   const breaches: BreachEntry[] = [];
   const sourcesQueried: string[] = [];
   for (let i = 0; i < sources.length; i++) {
@@ -412,6 +432,7 @@ export async function breachEmailHandler(c: Context<{ Bindings: Env }>): Promise
   const resp: BreachEmailResponse = {
     email,
     found: breaches.length > 0,
+    source: breaches[0]?.source ?? sourceNames[0] ?? '',
     sources_queried: sourcesQueried,
     breach_count: breaches.length,
     breaches,
@@ -442,6 +463,14 @@ export async function breachDomainHandler(c: Context<{ Bindings: Env }>): Promis
   ]);
   const sourceNames: BreachSource[] = ['xposedornot', 'leakcheck', 'leakix', 'hudsonrock'];
 
+  // See breachEmailHandler — 502 when both primary upstreams reject.
+  const primaryRejected = sources[0]?.status === 'rejected' && sources[1]?.status === 'rejected';
+  if (primaryRejected) {
+    return c.json({ error: 'upstream_error', message: 'breach upstreams unavailable' }, 502, {
+      'Cache-Control': 'no-store',
+    });
+  }
+
   const breaches: BreachDomainEntry[] = [];
   const sourcesQueried: string[] = [];
   for (let i = 0; i < sources.length; i++) {
@@ -457,6 +486,7 @@ export async function breachDomainHandler(c: Context<{ Bindings: Env }>): Promis
   const resp: BreachDomainResponse = {
     domain,
     found: breaches.length > 0,
+    source: breaches[0]?.source ?? sourceNames[0] ?? '',
     sources_queried: sourcesQueried,
     breach_count: breaches.length,
     breaches,

@@ -1,5 +1,5 @@
 import { SELF } from 'cloudflare:test';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 // Stub the AF fetcher so the test is deterministic and offline.
 vi.mock('../../src/lib/andreafortuna-feeds', async (importOriginal) => {
@@ -12,12 +12,30 @@ vi.mock('../../src/lib/andreafortuna-feeds', async (importOriginal) => {
         url: 'https://demonforums.net/Thread-stub',
         source: 'andreafortuna-demonforums',
         category: 'underground-forums' as const,
-        published: '2026-05-15T02:08:01.440Z',
+        published: new Date(Date.now() - 60 * 60 * 1000).toISOString(),
         description: 'Underground forum thread',
         tags: ['demonforums', 'credentials', 'forum'],
       },
     ],
   };
+});
+
+// The handler also pulls from a curated list of external RSS feeds in
+// CYBERCRIME_SOURCES. Returning a non-retryable 404 to every non-AF URL
+// keeps the test offline and avoids the 3-attempt × 12s fetchResilient
+// timeout that would otherwise exceed the 5s test timeout.
+beforeEach(() => {
+  vi.spyOn(globalThis, 'fetch').mockImplementation(async (input) => {
+    const url = String(input);
+    if (url.includes('andreafortuna.org')) {
+      // AF datamarkets/defacements/etc. — not used by this handler, but
+      // route everything AF-related to the AF mock above. The AF fetcher
+      // never calls globalThis.fetch in this test, so this branch is
+      // mostly defensive.
+      return new Response('[]', { status: 200 });
+    }
+    return new Response('not found', { status: 404 });
+  });
 });
 
 describe('GET /api/v1/cyber-crime — Andrea Fortuna datamarkets', () => {

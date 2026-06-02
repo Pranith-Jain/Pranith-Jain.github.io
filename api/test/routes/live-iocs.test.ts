@@ -12,7 +12,10 @@ vi.mock('../../src/lib/andreafortuna-feeds', async (importOriginal) => {
         source: 'andreafortuna-defacements',
         reporter: 'hax.or',
         context: 'website defacement',
-        observed_at: '2026-05-15T02:07:54.767Z',
+        // The handler applies a 7-day freshness filter to timestamped items.
+        // Use a date 1 hour before now so the fixture stays in-window no
+        // matter when the test runs.
+        observed_at: new Date(Date.now() - 60 * 60 * 1000).toISOString(),
       },
     ],
   };
