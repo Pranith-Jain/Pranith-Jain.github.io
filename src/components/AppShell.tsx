@@ -1,6 +1,8 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Command, Moon, Sun, type LucideIcon } from 'lucide-react';
+import { Sidebar } from './Sidebar';
+import { getSidebarForSection } from '../data/sidebar-nav';
 import { preloadRoute } from '../lib/route-preloaders';
 import { useDataFetch } from '../hooks/useDataFetch';
 
@@ -83,6 +85,8 @@ export function AppShell({ mode, isDark, onToggleTheme, children }: AppShellProp
   const isActive = (item: NavItem) =>
     item.exact ? location.pathname === item.to : location.pathname.startsWith(item.to);
 
+  const sidebarConfig = getSidebarForSection(location.pathname);
+
   // No `overflow-x-clip` on the outer wrapper. AppShell has no decorative
   // blobs (those live in Layout's portfolio routes), so the clip rule
   // was purely defensive against wide children. In practice it was
@@ -94,9 +98,12 @@ export function AppShell({ mode, isDark, onToggleTheme, children }: AppShellProp
   return (
     <div className="min-h-screen flex flex-col text-slate-900 dark:text-slate-50">
       <AppHeader brand={brand} nav={nav} isActive={isActive} isDark={isDark} onToggleTheme={onToggleTheme} />
-      <main id="main-content" key={pageKey} className="flex-1 animate-fade-in-up">
-        {children}
-      </main>
+      <div className="flex-1 flex min-h-0 max-w-[1500px] w-full mx-auto px-3 sm:px-6">
+        {sidebarConfig && <Sidebar config={sidebarConfig} />}
+        <main id="main-content" key={pageKey} className="flex-1 min-w-0 animate-fade-in-up">
+          {children}
+        </main>
+      </div>
       <AppStatusBar mode={mode} />
     </div>
   );
@@ -133,7 +140,7 @@ function AppHeader({
 
   return (
     <header className="sticky top-0 z-40 border-b border-slate-200/60 dark:border-white/10 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl">
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 h-12 flex items-center gap-2 sm:gap-4">
+      <div className="max-w-[1500px] mx-auto px-3 sm:px-6 h-12 flex items-center gap-2 sm:gap-4">
         {/* Brand. The long form "/ dfir toolkit" is dropped below sm so the
             nav has the most space. The short label keeps the surface
             identity (DFIR / TI) visible in the very-left position. */}

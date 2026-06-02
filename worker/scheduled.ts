@@ -7,6 +7,7 @@ import {
   expectedWeeklySlug,
   briefingNeedsHeal,
   weeklyUndercountsDailies,
+  dailyNeedsCveReenrich,
 } from '../api/src/lib/briefing-builder';
 import { buildLandscapeReport, writeLandscapeReport, expectedLandscapeSlug } from '../api/src/lib/landscape-builder';
 import { runDiscoveryNow, runPlannerNow, runPublisherNow, type CaseStudyEnv } from '../api/src/case-study/run';
@@ -260,7 +261,17 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
         // that the next attempt lands inside most rate-limit cool-offs.
         if (db && new Date().getUTCHours() !== 0) {
           const yesterday = new Date(Date.now() - 86400_000);
-          await healOne('daily', `daily-${yesterday.toISOString().slice(0, 10)}`, { minAgeMs: 30 * 60_000 });
+          await healOne('daily', `daily-${yesterday.toISOString().slice(0, 10)}`, {
+            minAgeMs: 30 * 60_000,
+            // NVD (and sometimes cvefeed) lags 12-24h, so the 00:30 build can
+            // miss yesterday's high/critical CVEs and land findings=0 while the
+            // abuse.ch IOC feeds still populate. isBriefingRich counts iocs>0 as
+            // complete, so without this the daily would freeze CVE-less for good
+            // (the early-May dailies). Re-enrich while live feeds still cover
+            // yesterday; 3h cooldown keeps a genuinely CVE-quiet day from
+            // rebuilding hourly.
+            extraHealCheck: async (row) => dailyNeedsCveReenrich(row, { now: Date.now(), cooldownMs: 3 * 60 * 60_000 }),
+          });
         }
         // Weekly self-heal — every hour (was: once/day at UTC hour 2). The
         // weekly cron only fires Mondays, so a degraded weekly was previously

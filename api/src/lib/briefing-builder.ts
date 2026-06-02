@@ -1865,6 +1865,34 @@ export function briefingNeedsHeal(
   return opts.now - last >= cooldownMs;
 }
 
+/**
+ * True when a daily carries IOCs but ZERO findings — the NVD-indexer-lag
+ * signature. NVD (and occasionally cvefeed.io) hadn't indexed the day's CVEs
+ * when the daily was first built at 00:30; by a later hourly catch-up they
+ * usually have, and since live IOC/CVE feeds still cover *yesterday*, a rebuild
+ * recovers the missing high/critical findings. `isBriefingRich` counts iocs>0
+ * as complete and `briefingNeedsHeal` would therefore skip these forever
+ * (that's why early-May dailies froze at 0 findings), so the daily self-heal
+ * needs this extra signal. Cooldown-gated so a genuinely CVE-quiet day (IOCs
+ * but no high/critical CVEs) doesn't trigger an hourly rebuild storm. Only
+ * meaningful for *recent* dailies — re-running it on an old window can't help
+ * because the live feeds have rolled past it (the caller scopes it to
+ * yesterday).
+ */
+export function dailyNeedsCveReenrich(
+  row: { stats_json?: string | null; body?: string | null } | null | undefined,
+  opts: { now: number; cooldownMs?: number }
+): boolean {
+  if (!row) return false; // no row → briefingNeedsHeal builds it from scratch
+  const s = safeJsonParse<{ findings?: number; iocs?: number }>(row.stats_json, {});
+  if ((s.findings ?? 0) > 0 || (s.iocs ?? 0) <= 0) return false;
+  const cooldownMs = opts.cooldownMs ?? 0;
+  if (cooldownMs <= 0) return true;
+  const last = Date.parse(safeJsonParse<{ generated_at?: string }>(row.body, {}).generated_at ?? '');
+  if (!Number.isFinite(last)) return true;
+  return opts.now - last >= cooldownMs;
+}
+
 export async function writeBriefing(
   db: D1Database,
   briefing: Briefing,

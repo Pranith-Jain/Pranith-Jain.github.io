@@ -6,6 +6,7 @@ import {
   canonicalGangKeys,
   normalizeVictimKey,
   briefingNeedsHeal,
+  dailyNeedsCveReenrich,
   isBriefingRich,
   isBriefingDegraded,
   type Briefing,
@@ -326,5 +327,37 @@ describe('briefingNeedsHeal', () => {
   it('rebuilds a degraded briefing with an unparseable generated_at', () => {
     const row = { stats_json: stats(0, 1482), body: JSON.stringify({ degraded: true }) };
     expect(briefingNeedsHeal(row, { now: NOW, cooldownMs: 30 * 60_000 })).toBe(true);
+  });
+});
+
+describe('dailyNeedsCveReenrich', () => {
+  const NOW = Date.parse('2026-06-02T14:00:00Z');
+  const body = (generatedAt: string) => JSON.stringify({ generated_at: generatedAt });
+  const stats = (findings: number, iocs: number) => JSON.stringify({ findings, iocs });
+
+  it('fires when a daily has IOCs but zero findings (NVD-lag signature)', () => {
+    const row = { stats_json: stats(0, 1200), body: body('2026-06-02T00:30:00Z') };
+    expect(dailyNeedsCveReenrich(row, { now: NOW, cooldownMs: 0 })).toBe(true);
+  });
+
+  it('does not fire once findings are present', () => {
+    const row = { stats_json: stats(5, 1200), body: body('2026-06-02T00:30:00Z') };
+    expect(dailyNeedsCveReenrich(row, { now: NOW, cooldownMs: 0 })).toBe(false);
+  });
+
+  it('does not fire on an empty day (no IOCs either — briefingNeedsHeal owns that)', () => {
+    const row = { stats_json: stats(0, 0), body: body('2026-06-02T00:30:00Z') };
+    expect(dailyNeedsCveReenrich(row, { now: NOW, cooldownMs: 0 })).toBe(false);
+  });
+
+  it('honours the cooldown, then fires once it has elapsed', () => {
+    const thirtyMinAgo = { stats_json: stats(0, 1200), body: body(new Date(NOW - 30 * 60_000).toISOString()) };
+    expect(dailyNeedsCveReenrich(thirtyMinAgo, { now: NOW, cooldownMs: 3 * 60 * 60_000 })).toBe(false);
+    const fiveHoursAgo = { stats_json: stats(0, 1200), body: body(new Date(NOW - 5 * 60 * 60_000).toISOString()) };
+    expect(dailyNeedsCveReenrich(fiveHoursAgo, { now: NOW, cooldownMs: 3 * 60 * 60_000 })).toBe(true);
+  });
+
+  it('returns false for a missing row', () => {
+    expect(dailyNeedsCveReenrich(null, { now: NOW, cooldownMs: 0 })).toBe(false);
   });
 });
