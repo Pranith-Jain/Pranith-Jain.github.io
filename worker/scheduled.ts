@@ -300,12 +300,11 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           });
         }
 
-        if (rebuiltThisHour) {
-          console.log('scheduled: skipped snapshot warm this hour — briefing catch-up took the subrequest budget');
-          return;
-        }
-
-        // No rebuild needed → warm caches with the full budget.
+        // When a briefing catch-up already spent this hour's subrequest budget,
+        // skip ONLY the heavy cache-warm fan-out below — but still fall through
+        // to the cheap KV/D1 maintenance jobs (watch engine, blocklist, PIR
+        // alerts, retention, feed scheduler). This previously `return`ed, which
+        // paused alerting + retention for the entire hour on upstream-lag days.
         const start = Date.now();
         const baseUrl = 'https://pranithjain.qzz.io';
         const perSourceTargets = [
@@ -336,17 +335,21 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           await res.arrayBuffer();
           return { path, status: res.status };
         }
-        const perSource = await Promise.allSettled(perSourceTargets.map(warm));
-        const composers = await Promise.allSettled(composerTargets.map(warm));
-        const summary = [...perSource, ...composers]
-          .map((r, i) => {
-            const path = [...perSourceTargets, ...composerTargets][i];
-            return r.status === 'fulfilled'
-              ? `${r.value.path}=${r.value.status}`
-              : `${path}=err(${(r.reason as Error).message})`;
-          })
-          .join(' ');
-        console.log(`scheduled: warmed in ${Date.now() - start}ms — ${summary}`);
+        if (rebuiltThisHour) {
+          console.log('scheduled: skipped snapshot warm this hour — briefing catch-up took the subrequest budget');
+        } else {
+          const perSource = await Promise.allSettled(perSourceTargets.map(warm));
+          const composers = await Promise.allSettled(composerTargets.map(warm));
+          const summary = [...perSource, ...composers]
+            .map((r, i) => {
+              const path = [...perSourceTargets, ...composerTargets][i];
+              return r.status === 'fulfilled'
+                ? `${r.value.path}=${r.value.status}`
+                : `${path}=err(${(r.reason as Error).message})`;
+            })
+            .join(' ');
+          console.log(`scheduled: warmed in ${Date.now() - start}ms — ${summary}`);
+        }
 
         // === Watch engine ===
         try {
@@ -463,8 +466,12 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
         // === RAG corpus re-index (every 6h, at ~:20 past) ===
         if (csNow.getUTCHours() % 6 === 2) {
           try {
-            const telegram = await indexTelegramLeaks(env as unknown as ApiEnv);
-            const corpora = await indexAllCorpora(env as unknown as ApiEnv);
+            // Independent indexers — run concurrently instead of chaining the
+            // two awaits (the catch below still fails the whole job on either).
+            const [telegram, corpora] = await Promise.all([
+              indexTelegramLeaks(env as unknown as ApiEnv),
+              indexAllCorpora(env as unknown as ApiEnv),
+            ]);
             const totalIndexed =
               telegram.indexed +
               corpora.cve.indexed +
@@ -503,28 +510,30 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
             'http://cybercrime-tracker.net/',
             'http://tracker.h3x.eu/',
           ];
-          const infraResults: Array<{ url: string; status: number; files: number; risk: string }> = [];
-          for (const target of infraTargets) {
-            try {
+          type InfraResult = { url: string; status: number; files: number; risk: string };
+          // Scan the 3 targets concurrently — each is an independent subrequest
+          // and per-target failures were already swallowed, so allSettled fits.
+          const settled = await Promise.allSettled(
+            infraTargets.map(async (target): Promise<InfraResult | null> => {
               const req = new Request(baseUrl + '/api/v1/open-dir/scan', {
                 method: 'POST',
                 headers: { 'content-type': 'application/json' },
                 body: JSON.stringify({ url: target }),
               });
               const res = await apiApp.fetch(req, env as never, ctx);
-              if (res.ok) {
-                const data = (await res.json()) as { totalFiles?: number; indicators?: string[] };
-                infraResults.push({
-                  url: target,
-                  status: res.status,
-                  files: data.totalFiles ?? 0,
-                  risk: (data.indicators?.length ?? 0) > 0 ? 'flagged' : 'clean',
-                });
-              }
-            } catch {
-              /* individual target failure — continue */
-            }
-          }
+              if (!res.ok) return null;
+              const data = (await res.json()) as { totalFiles?: number; indicators?: string[] };
+              return {
+                url: target,
+                status: res.status,
+                files: data.totalFiles ?? 0,
+                risk: (data.indicators?.length ?? 0) > 0 ? 'flagged' : 'clean',
+              };
+            })
+          );
+          const infraResults: InfraResult[] = settled.flatMap((r) =>
+            r.status === 'fulfilled' && r.value ? [r.value] : []
+          );
           if (infraResults.length > 0) {
             console.log(
               JSON.stringify({

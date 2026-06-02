@@ -58,6 +58,15 @@ function read(section: 'dfir' | 'threatintel'): RecentEntry[] {
   }
 }
 
+/**
+ * Read up to `limit` most-recent entries for a section — the single canonical
+ * reader. `useRecentTools` calls this instead of re-implementing the parse,
+ * type-guard, and key derivation.
+ */
+export function readVisits(section: 'dfir' | 'threatintel', limit = MAX_ENTRIES): RecentEntry[] {
+  return read(section).slice(0, limit);
+}
+
 function write(section: 'dfir' | 'threatintel', entries: RecentEntry[]): void {
   if (typeof window === 'undefined') return;
   try {

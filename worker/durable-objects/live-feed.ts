@@ -99,38 +99,45 @@ export class LiveFeedDO {
   }
 
   private async pollFeeds(): Promise<void> {
-    for (const { key, label } of CACHE_KEYS) {
-      try {
-        const cache = caches.default;
-        const cached = await cache.match(new Request(key));
-        if (!cached) continue;
+    const cache = caches.default;
+    // Read the 6 feed snapshots concurrently. Each label's snapshot/broadcast
+    // is independent and order-free, so the previous sequential await-chain
+    // (which blocked the first WebSocket handshake on a cold instance) only
+    // added latency. JS is single-threaded, so the per-label lastSnapshots.set
+    // calls can't race.
+    await Promise.all(
+      CACHE_KEYS.map(async ({ key, label }) => {
+        try {
+          const cached = await cache.match(new Request(key));
+          if (!cached) return;
 
-        const body = (await cached.json()) as Record<string, unknown>;
-        const total = (body.total ?? body.count ?? 0) as number;
-        const generated_at = (body.generated_at ?? '') as string;
-        const prev = this.lastSnapshots.get(label);
-        const prevTotal = prev?.total ?? 0;
+          const body = (await cached.json()) as Record<string, unknown>;
+          const total = (body.total ?? body.count ?? 0) as number;
+          const generated_at = (body.generated_at ?? '') as string;
+          const prev = this.lastSnapshots.get(label);
+          const prevTotal = prev?.total ?? 0;
 
-        if (prev && total !== prevTotal) {
-          const delta = total - prevTotal;
-          if (delta > 0) {
-            this.broadcast({
-              type: 'update',
-              feed: label,
-              total,
-              delta,
-              generated_at,
-              previous_total: prevTotal,
-              new_total: total,
-            });
+          if (prev && total !== prevTotal) {
+            const delta = total - prevTotal;
+            if (delta > 0) {
+              this.broadcast({
+                type: 'update',
+                feed: label,
+                total,
+                delta,
+                generated_at,
+                previous_total: prevTotal,
+                new_total: total,
+              });
+            }
           }
-        }
 
-        this.lastSnapshots.set(label, { type: label, total, generated_at });
-      } catch {
-        /* cache miss */
-      }
-    }
+          this.lastSnapshots.set(label, { type: label, total, generated_at });
+        } catch {
+          /* cache miss */
+        }
+      })
+    );
   }
 
   private broadcast(msg: unknown): void {

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { clearVisits, recordVisit, type RecentEntry } from '../lib/recentTools';
+import { clearVisits, readVisits, recordVisit, type RecentEntry } from '../lib/recentTools';
 
 /**
  * React hook around the localStorage-backed "recently visited" list.
@@ -21,7 +21,7 @@ export function useRecentTools(
   const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
-    setEntries(readSlice(section, limit));
+    setEntries(readVisits(section, limit));
     setIsHydrated(true);
   }, [section, limit, pathname]);
 
@@ -34,25 +34,3 @@ export function useRecentTools(
 }
 
 export { recordVisit };
-
-function readSlice(section: 'dfir' | 'threatintel', limit: number): RecentEntry[] {
-  if (typeof window === 'undefined') return [];
-  try {
-    const raw = window.localStorage.getItem(`pj.recent.${section}`);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw);
-    if (!Array.isArray(parsed)) return [];
-    return parsed
-      .filter(
-        (e): e is RecentEntry =>
-          e &&
-          typeof e === 'object' &&
-          typeof e.path === 'string' &&
-          typeof e.label === 'string' &&
-          typeof e.at === 'number'
-      )
-      .slice(0, limit);
-  } catch {
-    return [];
-  }
-}

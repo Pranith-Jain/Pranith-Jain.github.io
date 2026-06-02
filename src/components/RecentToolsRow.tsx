@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Clock, ArrowRight } from 'lucide-react';
 import { useRecentTools } from '../hooks/useRecentTools';
@@ -52,11 +52,6 @@ export function RecentToolsRow({
 }: Props): JSX.Element | null {
   const location = useLocation();
   const { entries, isHydrated, clear } = useRecentTools(section, location.pathname, 4);
-  const [hasInteracted, setHasInteracted] = useState(false);
-
-  useEffect(() => {
-    setHasInteracted(true);
-  }, []);
 
   // Build a slug → sidebar item lookup so each entry can pull its icon
   // and label from the canonical sidebar data. Keyed by section (stable),
@@ -74,9 +69,10 @@ export function RecentToolsRow({
     return map;
   }, [section]);
 
-  // No need to render until the user has had a chance to navigate and
-  // we've read localStorage. Pre-hydration show nothing.
-  if (!isHydrated || !hasInteracted || entries.length < 2) return null;
+  // Don't render until the hook has read localStorage (post-hydration).
+  // `isHydrated` from useRecentTools is the single hydration signal — it flips
+  // true in the same mount effect that loads `entries`.
+  if (!isHydrated || entries.length < 2) return null;
 
   const accent = TILE_ACCENT[tone];
   const tile = (e: { path: string; label: string }, i: number, extra: string) => {

@@ -1,4 +1,4 @@
-import { useEffect, Suspense, lazy, useMemo } from 'react';
+import { useEffect, Suspense, lazy, useMemo, type ComponentType } from 'react';
 import { BrowserRouter, Routes, Route, useLocation, Navigate, useSearchParams } from 'react-router-dom';
 import { useTheme, useScrollProgress } from './hooks';
 import { navLinks, personalInfo, stats } from './data/content';
@@ -261,6 +261,267 @@ function DfirFileRedirect() {
   return <Navigate to={target} replace />;
 }
 
+interface RouteDef {
+  path: string;
+  Component: ComponentType;
+  /** Eager routes render directly; the rest wrap in <LazyRoute> for Suspense. */
+  eager?: boolean;
+}
+
+/**
+ * Data-driven route table — replaces ~1820 lines of repetitive <Route> JSX.
+ * Route ORDER does not affect matching (React Router v6 ranks by path
+ * specificity, not declaration order); entries are kept in the original source
+ * order for diff sanity. Every lazy()/eager/redirect mapping is byte-identical
+ * to the previous JSX, so chunk-splitting and the documented eager-Home
+ * decision (Home stays eager) are preserved.
+ */
+const ROUTES: ReadonlyArray<RouteDef> = [
+  { path: '/', Component: Home, eager: true },
+  { path: '/about', Component: About },
+  { path: '/skills', Component: Skills },
+  { path: '/experience', Component: Experience },
+  { path: '/projects', Component: Projects },
+  { path: '/projects/:slug', Component: CaseStudy },
+  { path: '/copilot', Component: CopilotPage },
+  { path: '/blog', Component: Blog },
+  { path: '/blog/c/:type', Component: Blog },
+  { path: '/blog/:slug', Component: BlogPost },
+  { path: '/dfir', Component: DFIR },
+  { path: '/dfir/ioc-check', Component: IocCheck },
+  { path: '/dfir/phishing', Component: Phishing },
+  { path: '/dfir/threat-hunt', Component: ThreatHunt },
+  { path: '/dfir/domain', Component: Domain },
+  { path: '/dfir/domain-rep', Component: DomainReputation },
+  { path: '/dfir/whois-history', Component: WhoisHistory },
+  { path: '/dfir/open-directory', Component: OpenDirectory },
+  { path: '/dfir/full-spectrum', Component: FullSpectrum },
+  { path: '/dfir/exposure', Component: Exposure },
+  { path: '/dfir/asset-intel', Component: AssetIntel },
+  { path: '/dfir/file', Component: DfirFileRedirect, eager: true },
+  { path: '/threatintel/pulse', Component: ThreatPulse },
+  { path: '/threatintel/wiki', Component: Wiki },
+  { path: '/threatintel/wiki/:slug', Component: WikiArticle },
+  { path: '/dfir/dashboard', Component: Dashboard },
+  { path: '/threatintel/actor-kb', Component: ActorKb },
+  { path: '/threatintel/actor-dna', Component: ActorDNA },
+  { path: '/threatintel/predictive', Component: PredictiveIntel },
+  { path: '/threatintel/insider-threat-matrix', Component: InsiderThreatMatrix },
+  { path: '/threatintel/campaign-lifecycle', Component: CampaignLifecycle },
+  { path: '/threatintel/attribution', Component: AttributionFramework },
+  { path: '/threatintel/cross-campaign', Component: CrossCampaignCorrelation },
+  { path: '/threatintel/actors', Component: Actors },
+  { path: '/threatintel/actors/:slug', Component: ActorDetail },
+  { path: '/dfir/privacy', Component: Privacy },
+  { path: '/threatintel/briefings', Component: Briefings },
+  { path: '/threatintel/briefings/:slug', Component: BriefingDetail },
+  { path: '/dfir/cve', Component: Cve },
+  { path: '/dfir/decode', Component: Decode },
+  { path: '/dfir/encoder', Component: Encoder },
+  { path: '/dfir/cert-search', Component: CertSearch },
+  { path: '/dfir/atlas', Component: AtlasMatrix },
+  { path: '/threatintel/atlas', Component: AtlasMatrix },
+  { path: '/dfir/asn', Component: AsnLookup },
+  { path: '/dfir/breach', Component: Breach },
+  { path: '/dfir/exif', Component: ExifParse },
+  { path: '/threatintel/mitre', Component: MitreMatrix },
+  { path: '/dfir/url-preview', Component: UrlPreview },
+  { path: '/dfir/extract', Component: IocExtractor },
+  { path: '/dfir/ioc-pivot', Component: IocPivot },
+  { path: '/dfir/jwt', Component: JwtInspect },
+  { path: '/dfir/google-dorks', Component: GoogleDorks },
+  { path: '/dfir/iam-analyzer', Component: IamPolicyAnalyzer },
+  { path: '/dfir/sg-analyzer', Component: SecurityGroupAnalyzer },
+  { path: '/dfir/cloudtrail-triage', Component: CloudTrailTriage },
+  { path: '/dfir/k8s-rbac', Component: K8sRbacAnalyzer },
+  { path: '/dfir/cve-prioritizer', Component: CvePrioritizer },
+  { path: '/dfir/rule-converter', Component: RuleConverter },
+  { path: '/dfir/linux-triage', Component: LinuxTriage },
+  { path: '/dfir/terraform-scan', Component: TerraformScanner },
+  { path: '/dfir/gcp-iam', Component: GcpIamAnalyzer },
+  { path: '/dfir/azure-rbac', Component: AzureRbacAnalyzer },
+  { path: '/dfir/openapi-audit', Component: OpenApiAuditor },
+  { path: '/dfir/sec-headers', Component: SecHeadersAnalyzer },
+  { path: '/dfir/secret-scan', Component: SecretScanner },
+  { path: '/dfir/graphql-audit', Component: GraphqlAuditor },
+  { path: '/dfir/osv-scan', Component: OsvScanner },
+  { path: '/dfir/punycode', Component: Punycode },
+  { path: '/dfir/takeover', Component: Takeover },
+  { path: '/dfir/stix', Component: StixViewer },
+  { path: '/dfir/stix-builder', Component: StixBuilder },
+  { path: '/dfir/stix-builder/b/:bundleId', Component: StixBuilder },
+  { path: '/threatintel/darkweb', Component: DarkWeb },
+  { path: '/threatintel/ransomware-activity', Component: RansomwareActivityPage },
+  { path: '/threatintel/ransomware-map', Component: RansomwareGeoMap },
+  { path: '/threatintel/certstream', Component: CertStreamLive },
+  { path: '/threatintel/campaign-generator', Component: CampaignGenerator },
+  { path: '/threatintel/campaigns', Component: Campaigns },
+  { path: '/threatintel/campaigns/:id', Component: CampaignDetail },
+  { path: '/threatintel/malicious-packages', Component: MaliciousPackages },
+  { path: '/threatintel/x-watch', Component: XWatch },
+  { path: '/threatintel/x-live', Component: XLive },
+  { path: '/threatintel/mythreatintel', Component: MyThreatIntelPage },
+  { path: '/threatintel/cybersec', Component: CybersecTelegramPage },
+  { path: '/threatintel/telegram-leaks', Component: TelegramLeaksPage },
+  { path: '/threatintel/telegram-leaks/stats', Component: TelegramLeakStatsPage },
+  { path: '/threatintel/intel-dashboard', Component: IntelDashboardPage },
+  { path: '/threatintel/source-reliability', Component: SourceReliability },
+  { path: '/threatintel/collection-slo', Component: CollectionSlo },
+  { path: '/threatintel/pir-dashboard', Component: PirDashboard },
+  { path: '/threatintel/telegram-leaks/channels', Component: TelegramDiscoveredChannelsPage },
+  { path: '/threatintel/breach', Component: BreachDisclosuresPage },
+  { path: '/threatintel/reddit', Component: RedditFirehosePage },
+  { path: '/threatintel/x', Component: XFirehosePage },
+  { path: '/threatintel/status', Component: FeedStatusPage },
+  { path: '/threatintel/metrics', Component: MetricsPage },
+  { path: '/threatintel/correlation', Component: IocCorrelationPage },
+  { path: '/threatintel/actor-timeline', Component: ActorTimelinePage },
+  { path: '/threatintel/re-leaks', Component: VictimReleaksPage },
+  { path: '/threatintel/live-iocs', Component: LiveIocsPage },
+  { path: '/threatintel/detections', Component: DetectionsPage },
+  { path: '/threatintel/cyber-crime', Component: CyberCrimePage },
+  { path: '/threatintel/c2-tracker', Component: C2TrackerPage },
+  { path: '/threatintel/writeups', Component: Writeups },
+  { path: '/threatintel/signal', Component: ResearchSignal },
+  { path: '/threatintel/research', Component: ResearchIndex },
+  { path: '/threatintel/research/:slug', Component: ResearchPostPage },
+  { path: '/threatintel/cve-list', Component: CveList },
+  { path: '/threatintel/threat-map', Component: ThreatMap },
+  { path: '/threatintel/rules', Component: Rules },
+  { path: '/threatintel/deepdarkcti', Component: DeepDarkCTI },
+  { path: '/threatintel/ransomware-live', Component: RansomwareLive },
+  { path: '/threatintel/infostealer', Component: Infostealer },
+  { path: '/threatintel/infostealer/:slug', Component: InfostealerDetail },
+  { path: '/threatintel/feed-sources', Component: FeedSources },
+  { path: '/threatintel/settings', Component: SettingsPage },
+  { path: '/threatintel/negotiations', Component: Negotiations },
+  { path: '/threatintel/maltrail', Component: MaltrailTrails },
+  { path: '/threatintel/malpedia', Component: MalpediaPage },
+  { path: '/threatintel/breach-forums', Component: BreachForums },
+  { path: '/dfir/owasp', Component: Owasp },
+  { path: '/dfir/prompt-injection', Component: PromptInjection },
+  { path: '/dfir/mcp-audit', Component: McpAudit },
+  { path: '/dfir/kill-chain', Component: KillChain },
+  { path: '/dfir/diamond', Component: Diamond },
+  { path: '/dfir/lolbins', Component: Lolbins },
+  { path: '/dfir/rule-playground', Component: RulePlayground },
+  { path: '/dfir/yara', Component: YaraManager },
+  { path: '/dfir/report-parser', Component: ReportParser },
+  { path: '/dfir/ioc-lifecycle', Component: IocLifecycle },
+  { path: '/dfir/ct-monitor', Component: CtMonitor },
+  { path: '/dfir/stealer-parser', Component: StealerParser },
+  { path: '/dfir/taxii', Component: TaxiiServer },
+  { path: '/dfir/bloom', Component: BloomFilter },
+  { path: '/dfir/ai-rule-generator', Component: AiRuleGenerator },
+  { path: '/dfir/threat-graph', Component: ThreatGraph },
+  { path: '/dfir/attack-chain', Component: AttackChain },
+  { path: '/dfir/hunting-query-generator', Component: HuntingQueryGenerator },
+  { path: '/dfir/sandbox', Component: SandboxIntegration },
+  { path: '/dfir/ir-playbooks', Component: IrPlaybooks },
+  { path: '/dfir/detection-lab', Component: DetectionLab },
+  { path: '/dfir/email-defense', Component: EmailDefense },
+  { path: '/dfir/dmarc-analyzer', Component: DmarcAnalyzer },
+  { path: '/dfir/nhi', Component: Nhi },
+  { path: '/dfir/powershell-deobf', Component: PowershellDeobf },
+  { path: '/dfir/agent-map', Component: AgentMap },
+  { path: '/dfir/tabletop', Component: Tabletop },
+  { path: '/dfir/grc', Component: Grc },
+  { path: '/dfir/dlp-scan', Component: DlpScan },
+  { path: '/dfir/data-classification', Component: DataClassification },
+  { path: '/dfir/privacy-hub', Component: PrivacyHub },
+  { path: '/dfir/username', Component: UsernamePivot },
+  { path: '/dfir/identity-lookup', Component: IdentityLookup },
+  { path: '/dfir/wayback', Component: Wayback },
+  { path: '/dfir/ip-geo', Component: IpGeo },
+  { path: '/dfir/log-parser', Component: LogParser },
+  { path: '/dfir/socmint', Component: Socmint },
+  { path: '/threatintel/osint-framework', Component: OsintFramework },
+  { path: '/threatintel/secops-tools', Component: SecopsCatalog },
+  { path: '/dfir/tools/about', Component: ToolsAbout },
+  { path: '/dfir/tools/:group', Component: ToolsCategory },
+  { path: '/dfir/timestamp', Component: TimestampConverter },
+  { path: '/dfir/hash-calc', Component: HashCalculator },
+  { path: '/dfir/dork-builder', Component: DorkBuilder },
+  { path: '/dfir/brand-impersonation', Component: BrandImpersonation },
+  { path: '/dfir/image-fingerprint', Component: ImageFingerprint },
+  { path: '/dfir/plist-protobuf', Component: PlistProtobuf },
+  { path: '/dfir/pcap-triage', Component: PcapTriage },
+  { path: '/dfir/registry-hive', Component: RegistryHive },
+  { path: '/dfir/evtx', Component: EvtxParser },
+  { path: '/dfir/sqlite', Component: SqliteExplorer },
+  { path: '/dfir/ios-backup', Component: IosBackupExplorer },
+  { path: '/dfir/screenshot-intel', Component: ScreenshotIntel },
+  { path: '/dfir/mobile-sqlite', Component: SqliteExplorer },
+  { path: '/dfir/apk-analyzer', Component: ApkAnalyzer },
+  { path: '/dfir/pe', Component: PeAnalyzer },
+  { path: '/dfir/web-log', Component: WebLogAnalyzer },
+  { path: '/dfir/prefetch', Component: PrefetchAnalyzer },
+  { path: '/threatintel/cve-resources', Component: CveResourcesCatalog },
+  { path: '/dfir/web-scan', Component: WebScan },
+  { path: '/dfir/malware-scan', Component: MalwareScan },
+  { path: '/dfir/reverse-image', Component: ReverseImage },
+  { path: '/dfir/eml', Component: EmlExtractor },
+  { path: '/dfir/url-rep', Component: UrlReputation },
+  { path: '/dfir/email-rep', Component: EmailReputation },
+  { path: '/threatintel/domain-monitor', Component: DomainMonitor },
+  { path: '/threatintel/watches', Component: WatchesPage },
+  { path: '/threatintel/copilot', Component: CopilotPage },
+  { path: '/threatintel/scam-watch', Component: ScamWatch },
+  { path: '/dfir/crypto-trace', Component: CryptoTrace },
+  { path: '/threatintel/tech-ai-news', Component: TechAiNews },
+  { path: '/threatintel/threat-feeds', Component: ThreatFeeds },
+  { path: '/threatintel/onion-watch', Component: OnionWatch },
+  { path: '/threatintel/telegram-watch', Component: TelegramWatch },
+  { path: '/threatintel/telegram-settings', Component: TelegramSettings },
+  { path: '/threatintel/awesome-lists', Component: AwesomeLists },
+  { path: '/threatintel/external-resources', Component: ExternalResources },
+  { path: '/threatintel/darkweb-tools', Component: DarkWebOsintTools },
+  { path: '/threatintel/aggregated-feeds', Component: AggregatedFeeds },
+  { path: '/threatintel/malware-iocs', Component: MalwareIocs },
+  { path: '/threatintel/feed-catalog', Component: FeedCatalog },
+  { path: '/threatintel/analyze', Component: Analyze },
+  { path: '/threatintel/yara', Component: Yarahub },
+  { path: '/threatintel/investigations', Component: Investigations },
+  { path: '/threatintel/feed-scheduler', Component: FeedScheduler },
+  { path: '/threatintel/observable-db', Component: ObservableDb },
+  { path: '/threatintel/malware-vault', Component: MalwareVault },
+  { path: '/threatintel/about', Component: ThreatIntelAbout },
+  { path: '/threatintel/c/:cat', Component: ThreatIntelHome },
+  { path: '/threatintel', Component: ThreatIntelHome },
+  { path: '/threatintel/misp-browser', Component: MispBrowser },
+  { path: '/threatintel/search', Component: UnifiedSearch },
+  { path: '/threatintel/ioc-enrichment', Component: IocEnrichment },
+  { path: '/threatintel/relationship-graph', Component: RelationshipGraph },
+  { path: '/threatintel/ach', Component: ACH },
+  { path: '/threatintel/cross-correlate', Component: CrossCorrelate },
+  { path: '/threatintel/assessments', Component: Assessments },
+  { path: '/threatintel/assessments/:id', Component: AssessmentDetail },
+  { path: '/threatintel/entity-resolution', Component: EntityResolution },
+  { path: '/dfir/pgp-tool', Component: PgpTool },
+  { path: '/dfir/tor-gateway', Component: TorGateway },
+  { path: '/dfir/blocklists', Component: Blocklists },
+  { path: '/admin', Component: AdminApp },
+];
+
+/** Legacy / renamed paths preserved as redirects so in-flight links don't 404. */
+const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
+  { path: '/dfir/host', to: '/dfir/asset-intel' },
+  { path: '/threatintel/intelligence-gaps', to: '/threatintel/status' },
+  { path: '/dfir/sigma-convert', to: '/dfir/rule-converter' },
+  { path: '/threatintel/mti', to: '/threatintel/mythreatintel' },
+  { path: '/threatintel/urls', to: '/threatintel/live-iocs' },
+  { path: '/threatintel/domains', to: '/threatintel/live-iocs' },
+  { path: '/threatintel/hashs', to: '/threatintel/live-iocs' },
+  { path: '/threatintel/malicious-urls', to: '/threatintel/live-iocs' },
+  { path: '/threatintel/iocs-by-type', to: '/threatintel/live-iocs' },
+  { path: '/threatintel/phishing-urls', to: '/threatintel/live-iocs' },
+  { path: '/threatintel/malware-samples', to: '/threatintel/live-iocs' },
+  { path: '/threatintel/ransom-library', to: '/threatintel' },
+  { path: '/dfir/discord-watch', to: '/threatintel/awesome-lists' },
+  { path: '/dfir/industry-news', to: '/threatintel/tech-ai-news' },
+  { path: '/difr', to: '/dfir' },
+];
+
 export function AppContent() {
   const { isDark, toggleTheme } = useTheme();
   const location = useLocation();
@@ -292,1818 +553,24 @@ export function AppContent() {
   const routes = useMemo(
     () => (
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route
-          path="/about"
-          element={
-            <LazyRoute>
-              <About />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/skills"
-          element={
-            <LazyRoute>
-              <Skills />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/experience"
-          element={
-            <LazyRoute>
-              <Experience />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/projects"
-          element={
-            <LazyRoute>
-              <Projects />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/projects/:slug"
-          element={
-            <LazyRoute>
-              <CaseStudy />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/copilot"
-          element={
-            <LazyRoute>
-              <CopilotPage />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/blog"
-          element={
-            <LazyRoute>
-              <Blog />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/blog/c/:type"
-          element={
-            <LazyRoute>
-              <Blog />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/blog/:slug"
-          element={
-            <LazyRoute>
-              <BlogPost />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir"
-          element={
-            <LazyRoute>
-              <DFIR />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/ioc-check"
-          element={
-            <LazyRoute>
-              <IocCheck />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/phishing"
-          element={
-            <LazyRoute>
-              <Phishing />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/threat-hunt"
-          element={
-            <LazyRoute>
-              <ThreatHunt />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/domain"
-          element={
-            <LazyRoute>
-              <Domain />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/domain-rep"
-          element={
-            <LazyRoute>
-              <DomainReputation />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/whois-history"
-          element={
-            <LazyRoute>
-              <WhoisHistory />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/open-directory"
-          element={
-            <LazyRoute>
-              <OpenDirectory />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/full-spectrum"
-          element={
-            <LazyRoute>
-              <FullSpectrum />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/exposure"
-          element={
-            <LazyRoute>
-              <Exposure />
-            </LazyRoute>
-          }
-        />
-        <Route path="/dfir/host" element={<Navigate to="/dfir/asset-intel" replace />} />
-        <Route
-          path="/dfir/asset-intel"
-          element={
-            <LazyRoute>
-              <AssetIntel />
-            </LazyRoute>
-          }
-        />
-        <Route path="/dfir/file" element={<DfirFileRedirect />} />
-        <Route
-          path="/threatintel/pulse"
-          element={
-            <LazyRoute>
-              <ThreatPulse />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/wiki"
-          element={
-            <LazyRoute>
-              <Wiki />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/wiki/:slug"
-          element={
-            <LazyRoute>
-              <WikiArticle />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/dashboard"
-          element={
-            <LazyRoute>
-              <Dashboard />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/actor-kb"
-          element={
-            <LazyRoute>
-              <ActorKb />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/actor-dna"
-          element={
-            <LazyRoute>
-              <ActorDNA />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/predictive"
-          element={
-            <LazyRoute>
-              <PredictiveIntel />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/insider-threat-matrix"
-          element={
-            <LazyRoute>
-              <InsiderThreatMatrix />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/campaign-lifecycle"
-          element={
-            <LazyRoute>
-              <CampaignLifecycle />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/attribution"
-          element={
-            <LazyRoute>
-              <AttributionFramework />
-            </LazyRoute>
-          }
-        />
-        <Route path="/threatintel/intelligence-gaps" element={<Navigate to="/threatintel/status" replace />} />
-        <Route
-          path="/threatintel/cross-campaign"
-          element={
-            <LazyRoute>
-              <CrossCampaignCorrelation />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/actors"
-          element={
-            <LazyRoute>
-              <Actors />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/actors/:slug"
-          element={
-            <LazyRoute>
-              <ActorDetail />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/privacy"
-          element={
-            <LazyRoute>
-              <Privacy />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/briefings"
-          element={
-            <LazyRoute>
-              <Briefings />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/briefings/:slug"
-          element={
-            <LazyRoute>
-              <BriefingDetail />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/cve"
-          element={
-            <LazyRoute>
-              <Cve />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/decode"
-          element={
-            <LazyRoute>
-              <Decode />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/encoder"
-          element={
-            <LazyRoute>
-              <Encoder />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/cert-search"
-          element={
-            <LazyRoute>
-              <CertSearch />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/atlas"
-          element={
-            <LazyRoute>
-              <AtlasMatrix />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/atlas"
-          element={
-            <LazyRoute>
-              <AtlasMatrix />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/asn"
-          element={
-            <LazyRoute>
-              <AsnLookup />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/breach"
-          element={
-            <LazyRoute>
-              <Breach />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/exif"
-          element={
-            <LazyRoute>
-              <ExifParse />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/mitre"
-          element={
-            <LazyRoute>
-              <MitreMatrix />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/url-preview"
-          element={
-            <LazyRoute>
-              <UrlPreview />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/extract"
-          element={
-            <LazyRoute>
-              <IocExtractor />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/ioc-pivot"
-          element={
-            <LazyRoute>
-              <IocPivot />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/jwt"
-          element={
-            <LazyRoute>
-              <JwtInspect />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/google-dorks"
-          element={
-            <LazyRoute>
-              <GoogleDorks />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/iam-analyzer"
-          element={
-            <LazyRoute>
-              <IamPolicyAnalyzer />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/sg-analyzer"
-          element={
-            <LazyRoute>
-              <SecurityGroupAnalyzer />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/cloudtrail-triage"
-          element={
-            <LazyRoute>
-              <CloudTrailTriage />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/k8s-rbac"
-          element={
-            <LazyRoute>
-              <K8sRbacAnalyzer />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/cve-prioritizer"
-          element={
-            <LazyRoute>
-              <CvePrioritizer />
-            </LazyRoute>
-          }
-        />
-        <Route path="/dfir/sigma-convert" element={<Navigate to="/dfir/rule-converter" replace />} />
-        <Route
-          path="/dfir/rule-converter"
-          element={
-            <LazyRoute>
-              <RuleConverter />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/linux-triage"
-          element={
-            <LazyRoute>
-              <LinuxTriage />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/terraform-scan"
-          element={
-            <LazyRoute>
-              <TerraformScanner />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/gcp-iam"
-          element={
-            <LazyRoute>
-              <GcpIamAnalyzer />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/azure-rbac"
-          element={
-            <LazyRoute>
-              <AzureRbacAnalyzer />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/openapi-audit"
-          element={
-            <LazyRoute>
-              <OpenApiAuditor />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/sec-headers"
-          element={
-            <LazyRoute>
-              <SecHeadersAnalyzer />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/secret-scan"
-          element={
-            <LazyRoute>
-              <SecretScanner />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/graphql-audit"
-          element={
-            <LazyRoute>
-              <GraphqlAuditor />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/osv-scan"
-          element={
-            <LazyRoute>
-              <OsvScanner />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/punycode"
-          element={
-            <LazyRoute>
-              <Punycode />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/takeover"
-          element={
-            <LazyRoute>
-              <Takeover />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/stix"
-          element={
-            <LazyRoute>
-              <StixViewer />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/stix-builder"
-          element={
-            <LazyRoute>
-              <StixBuilder />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/stix-builder/b/:bundleId"
-          element={
-            <LazyRoute>
-              <StixBuilder />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/darkweb"
-          element={
-            <LazyRoute>
-              <DarkWeb />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/ransomware-activity"
-          element={
-            <LazyRoute>
-              <RansomwareActivityPage />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/ransomware-map"
-          element={
-            <LazyRoute>
-              <RansomwareGeoMap />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/certstream"
-          element={
-            <LazyRoute>
-              <CertStreamLive />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/campaign-generator"
-          element={
-            <LazyRoute>
-              <CampaignGenerator />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/campaigns"
-          element={
-            <LazyRoute>
-              <Campaigns />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/campaigns/:id"
-          element={
-            <LazyRoute>
-              <CampaignDetail />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/malicious-packages"
-          element={
-            <LazyRoute>
-              <MaliciousPackages />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/x-watch"
-          element={
-            <LazyRoute>
-              <XWatch />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/x-live"
-          element={
-            <LazyRoute>
-              <XLive />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/mythreatintel"
-          element={
-            <LazyRoute>
-              <MyThreatIntelPage />
-            </LazyRoute>
-          }
-        />
-        <Route path="/threatintel/mti" element={<Navigate to="/threatintel/mythreatintel" replace />} />
-        <Route
-          path="/threatintel/cybersec"
-          element={
-            <LazyRoute>
-              <CybersecTelegramPage />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/telegram-leaks"
-          element={
-            <LazyRoute>
-              <TelegramLeaksPage />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/telegram-leaks/stats"
-          element={
-            <LazyRoute>
-              <TelegramLeakStatsPage />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/intel-dashboard"
-          element={
-            <LazyRoute>
-              <IntelDashboardPage />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/source-reliability"
-          element={
-            <LazyRoute>
-              <SourceReliability />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/collection-slo"
-          element={
-            <LazyRoute>
-              <CollectionSlo />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/pir-dashboard"
-          element={
-            <LazyRoute>
-              <PirDashboard />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/telegram-leaks/channels"
-          element={
-            <LazyRoute>
-              <TelegramDiscoveredChannelsPage />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/breach"
-          element={
-            <LazyRoute>
-              <BreachDisclosuresPage />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/reddit"
-          element={
-            <LazyRoute>
-              <RedditFirehosePage />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/x"
-          element={
-            <LazyRoute>
-              <XFirehosePage />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/status"
-          element={
-            <LazyRoute>
-              <FeedStatusPage />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/metrics"
-          element={
-            <LazyRoute>
-              <MetricsPage />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/correlation"
-          element={
-            <LazyRoute>
-              <IocCorrelationPage />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/actor-timeline"
-          element={
-            <LazyRoute>
-              <ActorTimelinePage />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/re-leaks"
-          element={
-            <LazyRoute>
-              <VictimReleaksPage />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/live-iocs"
-          element={
-            <LazyRoute>
-              <LiveIocsPage />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/detections"
-          element={
-            <LazyRoute>
-              <DetectionsPage />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/cyber-crime"
-          element={
-            <LazyRoute>
-              <CyberCrimePage />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/c2-tracker"
-          element={
-            <LazyRoute>
-              <C2TrackerPage />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/writeups"
-          element={
-            <LazyRoute>
-              <Writeups />
-            </LazyRoute>
-          }
-        />
-        {/* High-signal subset of /writeups — elite vendor labs +
-          independent research only. Reuses the same /api/v1/writeups
-          endpoint with `?tier=signal`. */}
-        <Route
-          path="/threatintel/signal"
-          element={
-            <LazyRoute>
-              <ResearchSignal />
-            </LazyRoute>
-          }
-        />
-        {/* Original Pranith-authored threat-intel research. /research is the
-          index, /research/<slug> is the read page. Lives separately from
-          /signal and /writeups (both aggregate third-party content) so
-          authored work has its own surface. */}
-        <Route
-          path="/threatintel/research"
-          element={
-            <LazyRoute>
-              <ResearchIndex />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/research/:slug"
-          element={
-            <LazyRoute>
-              <ResearchPostPage />
-            </LazyRoute>
-          }
-        />
-        {/* 2026-05-11: per-type IOC pages (urls/domains/hashs) and the
-                standalone malware-samples / phishing-urls pages collapsed
-                into /threatintel/live-iocs (unified, time-ordered firehose).
-                The /api/v1/{phishing-urls,malware-samples} backends remain
-                for the Metrics page; the old page URLs redirect so bookmarks
-                still land somewhere useful. */}
-        <Route path="/threatintel/urls" element={<Navigate to="/threatintel/live-iocs" replace />} />
-        <Route path="/threatintel/domains" element={<Navigate to="/threatintel/live-iocs" replace />} />
-        <Route path="/threatintel/hashs" element={<Navigate to="/threatintel/live-iocs" replace />} />
-        <Route path="/threatintel/malicious-urls" element={<Navigate to="/threatintel/live-iocs" replace />} />
-        <Route path="/threatintel/iocs-by-type" element={<Navigate to="/threatintel/live-iocs" replace />} />
-        <Route path="/threatintel/phishing-urls" element={<Navigate to="/threatintel/live-iocs" replace />} />
-        <Route path="/threatintel/malware-samples" element={<Navigate to="/threatintel/live-iocs" replace />} />
-        <Route
-          path="/threatintel/cve-list"
-          element={
-            <LazyRoute>
-              <CveList />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/threat-map"
-          element={
-            <LazyRoute>
-              <ThreatMap />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/rules"
-          element={
-            <LazyRoute>
-              <Rules />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/deepdarkcti"
-          element={
-            <LazyRoute>
-              <DeepDarkCTI />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/ransomware-live"
-          element={
-            <LazyRoute>
-              <RansomwareLive />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/infostealer"
-          element={
-            <LazyRoute>
-              <Infostealer />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/infostealer/:slug"
-          element={
-            <LazyRoute>
-              <InfostealerDetail />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/feed-sources"
-          element={
-            <LazyRoute>
-              <FeedSources />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/settings"
-          element={
-            <LazyRoute>
-              <SettingsPage />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/negotiations"
-          element={
-            <LazyRoute>
-              <Negotiations />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/maltrail"
-          element={
-            <LazyRoute>
-              <MaltrailTrails />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/malpedia"
-          element={
-            <LazyRoute>
-              <MalpediaPage />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/breach-forums"
-          element={
-            <LazyRoute>
-              <BreachForums />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/owasp"
-          element={
-            <LazyRoute>
-              <Owasp />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/prompt-injection"
-          element={
-            <LazyRoute>
-              <PromptInjection />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/mcp-audit"
-          element={
-            <LazyRoute>
-              <McpAudit />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/kill-chain"
-          element={
-            <LazyRoute>
-              <KillChain />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/diamond"
-          element={
-            <LazyRoute>
-              <Diamond />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/lolbins"
-          element={
-            <LazyRoute>
-              <Lolbins />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/rule-playground"
-          element={
-            <LazyRoute>
-              <RulePlayground />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/yara"
-          element={
-            <LazyRoute>
-              <YaraManager />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/report-parser"
-          element={
-            <LazyRoute>
-              <ReportParser />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/ioc-lifecycle"
-          element={
-            <LazyRoute>
-              <IocLifecycle />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/ct-monitor"
-          element={
-            <LazyRoute>
-              <CtMonitor />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/stealer-parser"
-          element={
-            <LazyRoute>
-              <StealerParser />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/taxii"
-          element={
-            <LazyRoute>
-              <TaxiiServer />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/bloom"
-          element={
-            <LazyRoute>
-              <BloomFilter />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/ai-rule-generator"
-          element={
-            <LazyRoute>
-              <AiRuleGenerator />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/threat-graph"
-          element={
-            <LazyRoute>
-              <ThreatGraph />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/attack-chain"
-          element={
-            <LazyRoute>
-              <AttackChain />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/hunting-query-generator"
-          element={
-            <LazyRoute>
-              <HuntingQueryGenerator />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/sandbox"
-          element={
-            <LazyRoute>
-              <SandboxIntegration />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/ir-playbooks"
-          element={
-            <LazyRoute>
-              <IrPlaybooks />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/detection-lab"
-          element={
-            <LazyRoute>
-              <DetectionLab />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/email-defense"
-          element={
-            <LazyRoute>
-              <EmailDefense />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/dmarc-analyzer"
-          element={
-            <LazyRoute>
-              <DmarcAnalyzer />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/nhi"
-          element={
-            <LazyRoute>
-              <Nhi />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/powershell-deobf"
-          element={
-            <LazyRoute>
-              <PowershellDeobf />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/agent-map"
-          element={
-            <LazyRoute>
-              <AgentMap />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/tabletop"
-          element={
-            <LazyRoute>
-              <Tabletop />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/grc"
-          element={
-            <LazyRoute>
-              <Grc />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/dlp-scan"
-          element={
-            <LazyRoute>
-              <DlpScan />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/data-classification"
-          element={
-            <LazyRoute>
-              <DataClassification />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/privacy-hub"
-          element={
-            <LazyRoute>
-              <PrivacyHub />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/username"
-          element={
-            <LazyRoute>
-              <UsernamePivot />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/identity-lookup"
-          element={
-            <LazyRoute>
-              <IdentityLookup />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/wayback"
-          element={
-            <LazyRoute>
-              <Wayback />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/ip-geo"
-          element={
-            <LazyRoute>
-              <IpGeo />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/log-parser"
-          element={
-            <LazyRoute>
-              <LogParser />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/socmint"
-          element={
-            <LazyRoute>
-              <Socmint />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/osint-framework"
-          element={
-            <LazyRoute>
-              <OsintFramework />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/secops-tools"
-          element={
-            <LazyRoute>
-              <SecopsCatalog />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/tools/about"
-          element={
-            <LazyRoute>
-              <ToolsAbout />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/tools/:group"
-          element={
-            <LazyRoute>
-              <ToolsCategory />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/timestamp"
-          element={
-            <LazyRoute>
-              <TimestampConverter />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/hash-calc"
-          element={
-            <LazyRoute>
-              <HashCalculator />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/dork-builder"
-          element={
-            <LazyRoute>
-              <DorkBuilder />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/brand-impersonation"
-          element={
-            <LazyRoute>
-              <BrandImpersonation />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/image-fingerprint"
-          element={
-            <LazyRoute>
-              <ImageFingerprint />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/plist-protobuf"
-          element={
-            <LazyRoute>
-              <PlistProtobuf />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/pcap-triage"
-          element={
-            <LazyRoute>
-              <PcapTriage />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/registry-hive"
-          element={
-            <LazyRoute>
-              <RegistryHive />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/evtx"
-          element={
-            <LazyRoute>
-              <EvtxParser />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/sqlite"
-          element={
-            <LazyRoute>
-              <SqliteExplorer />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/ios-backup"
-          element={
-            <LazyRoute>
-              <IosBackupExplorer />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/screenshot-intel"
-          element={
-            <LazyRoute>
-              <ScreenshotIntel />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/mobile-sqlite"
-          element={
-            <LazyRoute>
-              <SqliteExplorer />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/apk-analyzer"
-          element={
-            <LazyRoute>
-              <ApkAnalyzer />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/pe"
-          element={
-            <LazyRoute>
-              <PeAnalyzer />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/web-log"
-          element={
-            <LazyRoute>
-              <WebLogAnalyzer />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/prefetch"
-          element={
-            <LazyRoute>
-              <PrefetchAnalyzer />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/cve-resources"
-          element={
-            <LazyRoute>
-              <CveResourcesCatalog />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/web-scan"
-          element={
-            <LazyRoute>
-              <WebScan />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/malware-scan"
-          element={
-            <LazyRoute>
-              <MalwareScan />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/reverse-image"
-          element={
-            <LazyRoute>
-              <ReverseImage />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/eml"
-          element={
-            <LazyRoute>
-              <EmlExtractor />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/url-rep"
-          element={
-            <LazyRoute>
-              <UrlReputation />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/email-rep"
-          element={
-            <LazyRoute>
-              <EmailReputation />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/domain-monitor"
-          element={
-            <LazyRoute>
-              <DomainMonitor />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/watches"
-          element={
-            <LazyRoute>
-              <WatchesPage />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/copilot"
-          element={
-            <LazyRoute>
-              <CopilotPage />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/scam-watch"
-          element={
-            <LazyRoute>
-              <ScamWatch />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/crypto-trace"
-          element={
-            <LazyRoute>
-              <CryptoTrace />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/tech-ai-news"
-          element={
-            <LazyRoute>
-              <TechAiNews />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/threat-feeds"
-          element={
-            <LazyRoute>
-              <ThreatFeeds />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/onion-watch"
-          element={
-            <LazyRoute>
-              <OnionWatch />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/telegram-watch"
-          element={
-            <LazyRoute>
-              <TelegramWatch />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/telegram-settings"
-          element={
-            <LazyRoute>
-              <TelegramSettings />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/awesome-lists"
-          element={
-            <LazyRoute>
-              <AwesomeLists />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/external-resources"
-          element={
-            <LazyRoute>
-              <ExternalResources />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/darkweb-tools"
-          element={
-            <LazyRoute>
-              <DarkWebOsintTools />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/aggregated-feeds"
-          element={
-            <LazyRoute>
-              <AggregatedFeeds />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/malware-iocs"
-          element={
-            <LazyRoute>
-              <MalwareIocs />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/feed-catalog"
-          element={
-            <LazyRoute>
-              <FeedCatalog />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/analyze"
-          element={
-            <LazyRoute>
-              <Analyze />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/yara"
-          element={
-            <LazyRoute>
-              <Yarahub />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/investigations"
-          element={
-            <LazyRoute>
-              <Investigations />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/feed-scheduler"
-          element={
-            <LazyRoute>
-              <FeedScheduler />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/observable-db"
-          element={
-            <LazyRoute>
-              <ObservableDb />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/malware-vault"
-          element={
-            <LazyRoute>
-              <MalwareVault />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/about"
-          element={
-            <LazyRoute>
-              <ThreatIntelAbout />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/c/:cat"
-          element={
-            <LazyRoute>
-              <ThreatIntelHome />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel"
-          element={
-            <LazyRoute>
-              <ThreatIntelHome />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/misp-browser"
-          element={
-            <LazyRoute>
-              <MispBrowser />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/search"
-          element={
-            <LazyRoute>
-              <UnifiedSearch />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/ioc-enrichment"
-          element={
-            <LazyRoute>
-              <IocEnrichment />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/relationship-graph"
-          element={
-            <LazyRoute>
-              <RelationshipGraph />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/ach"
-          element={
-            <LazyRoute>
-              <ACH />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/cross-correlate"
-          element={
-            <LazyRoute>
-              <CrossCorrelate />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/assessments"
-          element={
-            <LazyRoute>
-              <Assessments />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/assessments/:id"
-          element={
-            <LazyRoute>
-              <AssessmentDetail />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/threatintel/entity-resolution"
-          element={
-            <LazyRoute>
-              <EntityResolution />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/pgp-tool"
-          element={
-            <LazyRoute>
-              <PgpTool />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/tor-gateway"
-          element={
-            <LazyRoute>
-              <TorGateway />
-            </LazyRoute>
-          }
-        />
-        <Route
-          path="/dfir/blocklists"
-          element={
-            <LazyRoute>
-              <Blocklists />
-            </LazyRoute>
-          }
-        />
-
-        {/* Ransom Note Library was removed 2026-05-11; mythreatintel.com is now
-                an external-source link only on the /threatintel landing. Old bookmarks
-                land on the External Sources block via the threatintel landing. */}
-        <Route path="/threatintel/ransom-library" element={<Navigate to="/threatintel" replace />} />
-        {/* Discord Watch was removed 2026-05-11; redirect bookmarks to Awesome Lists. */}
-        <Route path="/dfir/discord-watch" element={<Navigate to="/threatintel/awesome-lists" replace />} />
-        {/* Old path renamed; preserve any in-flight links. */}
-        <Route path="/dfir/industry-news" element={<Navigate to="/threatintel/tech-ai-news" replace />} />
-        <Route path="/difr" element={<Navigate to="/dfir" replace />} />
-        <Route
-          path="/admin"
-          element={
-            <LazyRoute>
-              <AdminApp />
-            </LazyRoute>
-          }
-        />
+        {ROUTES.map(({ path, Component, eager }) => (
+          <Route
+            key={path}
+            path={path}
+            element={
+              eager ? (
+                <Component />
+              ) : (
+                <LazyRoute>
+                  <Component />
+                </LazyRoute>
+              )
+            }
+          />
+        ))}
+        {REDIRECTS.map(({ path, to }) => (
+          <Route key={path} path={path} element={<Navigate to={to} replace />} />
+        ))}
         <Route
           path="*"
           element={
