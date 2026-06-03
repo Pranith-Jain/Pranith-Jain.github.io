@@ -280,7 +280,7 @@ export function HeroLiveSparkline(): JSX.Element {
             disabled={refreshing}
             aria-label="Refresh ransomware claim cadence"
             title="Refresh now"
-            className="inline-flex items-center text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition disabled:opacity-50"
+            className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] -my-2 sm:my-0 sm:min-h-0 sm:min-w-0 text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition disabled:opacity-50"
           >
             <RefreshCw size={11} aria-hidden="true" className={refreshing ? 'animate-spin' : undefined} />
           </button>

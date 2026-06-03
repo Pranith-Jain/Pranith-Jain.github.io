@@ -93,7 +93,7 @@ export function TopBar({
         )}
         <Link
           to={sectionHref}
-          className="flex items-center gap-2 sm:gap-2.5 shrink-0 group rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
+          className="flex items-center gap-2 sm:gap-2.5 shrink-0 group rounded-md min-h-[44px] sm:min-h-0 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
           aria-label={`${sectionLabel} home`}
         >
           <span
@@ -114,7 +114,7 @@ export function TopBar({
         <button
           type="button"
           onClick={openPalette}
-          className="group flex-1 flex items-center gap-2 sm:gap-2.5 min-w-0 rounded-lg border border-slate-200/70 bg-slate-100/60 px-2.5 sm:px-3 py-1.5 text-left text-sm text-slate-500 transition hover:border-slate-300 hover:bg-white dark:border-white/10 dark:bg-slate-900/50 dark:text-slate-400 dark:hover:border-white/20 dark:hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-500"
+          className="group flex-1 flex items-center gap-2 sm:gap-2.5 min-w-0 rounded-lg border border-slate-200/70 bg-slate-100/60 px-2.5 sm:px-3 py-1.5 min-h-[44px] sm:min-h-0 text-left text-sm text-slate-500 transition hover:border-slate-300 hover:bg-white dark:border-white/10 dark:bg-slate-900/50 dark:text-slate-400 dark:hover:border-white/20 dark:hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-500"
           aria-label="Open search (press Cmd+K or Ctrl+K)"
         >
           <Search

@@ -368,9 +368,10 @@ export default function IocCheck(): JSX.Element {
           type="button"
           onClick={() => setMode('single')}
           className={
-            mode === 'single'
-              ? 'text-xs font-mono uppercase tracking-wider px-3 py-1.5 bg-brand-500/15 text-brand-700 dark:text-brand-300'
-              : 'text-xs font-mono uppercase tracking-wider px-3 py-1.5 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+            'text-xs font-mono uppercase tracking-wider px-3 py-1.5 min-h-[44px] sm:min-h-0 inline-flex items-center justify-center ' +
+            (mode === 'single'
+              ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300'
+              : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300')
           }
         >
           Single
@@ -379,9 +380,10 @@ export default function IocCheck(): JSX.Element {
           type="button"
           onClick={() => setMode('bulk')}
           className={
-            mode === 'bulk'
-              ? 'text-xs font-mono uppercase tracking-wider px-3 py-1.5 bg-brand-500/15 text-brand-700 dark:text-brand-300 inline-flex items-center gap-1'
-              : 'text-xs font-mono uppercase tracking-wider px-3 py-1.5 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 inline-flex items-center gap-1'
+            'text-xs font-mono uppercase tracking-wider px-3 py-1.5 min-h-[44px] sm:min-h-0 inline-flex items-center justify-center gap-1 ' +
+            (mode === 'bulk'
+              ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300'
+              : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300')
           }
         >
           <Layers size={11} /> Bulk

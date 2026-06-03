@@ -302,3 +302,26 @@
 .recent-tile {
   animation: dfir-fade-in-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
+
+/* ─────────────────────────────────────────────────────────────────────
+   Mobile readability floor.
+
+   The UI leans on dense 10–11px utility text (`text-[10px]`/`text-[11px]`)
+   for labels, pills, and metadata — deliberate on a wide desktop layout,
+   but cramped on a phone. Rather than rewrite ~1,800 utility occurrences
+   across 230 files, floor those two sizes to 12px on small screens only.
+
+   Placed after `@tailwind utilities` so it wins the cascade against the
+   generated `.text-\[10px\]` / `.text-\[11px\]` rules (equal specificity,
+   later wins). Scoped to `max-width: 639px` (Tailwind's `sm` breakpoint),
+   so desktop density is untouched and any `sm:`-prefixed override — which
+   compiles to `min-width: 640px` — also stays unaffected. Single block,
+   trivially reversible.
+   ───────────────────────────────────────────────────────────────────── */
+@media (max-width: 639px) {
+  .text-\[10px\],
+  .text-\[11px\] {
+    font-size: 12px;
+    line-height: 1.25;
+  }
+}
