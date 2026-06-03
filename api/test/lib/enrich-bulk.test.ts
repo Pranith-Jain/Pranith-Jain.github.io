@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi, afterEach } from 'vitest';
 import { env as testEnv } from 'cloudflare:test';
 import { enrichBulk, MAX_IOCS_TO_ENRICH } from '../../src/lib/enrich-bulk';
 import type { Indicator } from '../../src/providers/types';
@@ -79,5 +79,40 @@ describe('enrichBulk (budget + prioritization)', () => {
     expect(r.overflow).toEqual([]);
     expect(r.partial).toBe(false);
     expect(r.freshSubrequests).toBe(0);
+  });
+
+  describe('subrequest budget honesty', () => {
+    afterEach(() => vi.restoreAllMocks());
+
+    it('emits every chosen IoC even beyond the cache-read cap', async () => {
+      // maxPrimeReads below the IoC count: the un-primed tail is still emitted
+      // (shallow) so the STIX bundle carries every indicator.
+      const r = await enrichBulk(fixtureIocs(30), env, { maxPrimeReads: 5, maxFresh: 0 });
+      expect(r.enrichments).toHaveLength(30);
+    });
+
+    it('keeps reads + 2·fetches within the cap (writes ≤ fetches)', async () => {
+      vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}', { status: 200 }));
+      const cap = 30;
+      const primeReads = 12;
+      const r = await enrichBulk(fixtureIocs(40), env, {
+        maxSubrequests: cap,
+        maxPrimeReads: primeReads,
+        maxFresh: 99, // let the budget, not this, be the binding constraint
+      });
+      const primed = Math.min(40, primeReads, cap);
+      // Each accepted fetch slot costs weight+1 (write reserve), so even the
+      // weighted fetch total stays under the remaining budget.
+      expect(r.freshSubrequests).toBeLessThanOrEqual(cap - primed);
+      // Every chosen IoC is still represented.
+      expect(r.enrichments).toHaveLength(40);
+    });
+
+    it('a zero cap makes zero fresh subrequests but still emits IoCs', async () => {
+      vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('{}', { status: 200 }));
+      const r = await enrichBulk(fixtureIocs(4), env, { maxSubrequests: 0, maxFresh: 99 });
+      expect(r.freshSubrequests).toBe(0);
+      expect(r.enrichments).toHaveLength(4);
+    });
   });
 });

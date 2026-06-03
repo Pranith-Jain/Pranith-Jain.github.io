@@ -95,14 +95,34 @@ const BULK_ADAPTERS: Partial<Record<ProviderId, ProviderAdapter>> = {
 
 const BULK_PROVIDER_IDS = Object.keys(BULK_ADAPTERS) as ProviderId[];
 
+/** Some adapters issue more than one fetch per call, so a single fetch slot
+ *  can cost several subrequests. Weight them so the budget below counts real
+ *  subrequests, not slots. Unlisted providers default to 1. */
+const SUBREQUEST_WEIGHT: Partial<Record<ProviderId, number>> = {
+  doh: 5, // A / MX / NS / TXT / DMARC TXT
+  spamhaus: 2, // DROP + EDROP
+};
+const weightOf = (p: ProviderId): number => SUBREQUEST_WEIGHT[p] ?? 1;
+
 /** Cap how many IoCs we enrich per item — protects the subrequest budget.
  *  Raised 20 → 60: the badge was firing on every briefing because the
  *  body extraction usually surfaces ≥20 IoCs across all the findings. */
 export const MAX_IOCS_TO_ENRICH = 60;
-/** Cap fresh upstream subrequests across the whole call. Cached lookups
- *  are free. Workers hard-limit subrequests at 50/invocation, so we leave
- *  headroom for D1 reads / writes / cache I/O. */
+/** Cap fresh upstream subrequests across the whole call. Workers hard-limit
+ *  subrequests at 50/invocation (Free plan), and — unlike the old assumption
+ *  baked into this file — KV/Cache-API reads AND writes count too. So the
+ *  honest budget is reads + fetches + writes, bounded by HARD_SUBREQUEST_CAP
+ *  below; this value just caps the fetch slice. */
 export const MAX_FRESH_SUBREQUESTS = 35;
+/** Total subrequests (cache reads + fresh fetches + cache writes) allowed
+ *  across the whole call. Free plan is 50/invocation; leave headroom for the
+ *  caller's D1 / analytics I/O. The fan-out keeps reads + 2·fetches ≤ this
+ *  (writes ≤ fetches), so the true total can never exceed the cap. */
+const HARD_SUBREQUEST_CAP = 45;
+/** Cap cache reads (one batched KV read per indicator). Only the highest-
+ *  priority slice gets a cache touch; the rest are still emitted (shallow) so
+ *  the bundle carries every IoC. Bounding reads leaves room for fetches. */
+const MAX_PRIME_READS = 18;
 /** "Partial" only when IoCs were dropped entirely. Subrequest-budget
  *  noise (a real briefing has 30+ IoCs × 4-5 providers = far more than 35
  *  fresh calls) is the *normal* state and badging it just trains users
@@ -213,70 +233,117 @@ function eligibleProvidersFor(type: IndicatorType): ProviderId[] {
 
 /**
  * Enrich a set of indicators using only the free bulk-provider subset.
- * Reads the edge cache first for every (provider, indicator) pair — only
- * misses count toward the fresh-subrequest budget.
+ *
+ * Subrequest accounting (Free plan = 50/invocation): batched cache reads,
+ * fresh fetches, AND cache writes all count. We prime each indicator's
+ * combined cache entry with ONE KV read (not one per provider), fetch a
+ * bounded number of misses, and write each touched indicator back once.
+ * Keeping reads + 2·fetches ≤ HARD_SUBREQUEST_CAP (writes ≤ fetches)
+ * guarantees the true total stays under the cap.
  */
 export async function enrichBulk(
   rawIocs: Indicator[],
   env: Env,
-  options: { maxIocs?: number; maxFresh?: number; perProviderTimeoutMs?: number } = {}
+  options: {
+    maxIocs?: number;
+    maxFresh?: number;
+    perProviderTimeoutMs?: number;
+    maxPrimeReads?: number;
+    maxSubrequests?: number;
+  } = {}
 ): Promise<BulkEnrichResult> {
   const maxIocs = options.maxIocs ?? MAX_IOCS_TO_ENRICH;
   const maxFresh = options.maxFresh ?? MAX_FRESH_SUBREQUESTS;
   const perTimeout = options.perProviderTimeoutMs ?? BULK_PROVIDER_TIMEOUT_MS;
+  const cap = options.maxSubrequests ?? HARD_SUBREQUEST_CAP;
 
   const prioritized = prioritizeIocs(rawIocs);
   const chosen = prioritized.slice(0, maxIocs);
   const overflow = prioritized.slice(maxIocs).map(({ type, value }) => ({ type, value }));
 
-  const cache = new ProviderCache(env.KV_CACHE);
   const providerEnv = buildProviderEnv(env);
+  const ikey = (i: Indicator) => `${i.type}|${i.value.toLowerCase()}`;
 
-  // Build the full (indicator, provider) work list up front so all uncached
-  // fetches run in a single parallel batch — bounding wall-clock time by
-  // ~perTimeout rather than (perTimeout × IoCs).
-  type Slot = { indicator: Indicator; provider: ProviderId; cached?: ProviderResult };
-  const slots: Slot[] = [];
-  for (const indicator of chosen) {
-    for (const provider of eligibleProvidersFor(indicator.type)) {
-      slots.push({ indicator, provider });
-    }
-  }
+  // Only the highest-priority slice gets a cache touch; the cap bounds reads
+  // (which count as subrequests). Un-primed IoCs are still emitted (shallow).
+  const primeCount = Math.min(chosen.length, options.maxPrimeReads ?? MAX_PRIME_READS, cap);
+  const primed = chosen.slice(0, primeCount);
 
-  // Phase 1: cache reads (cheap, parallel).
+  // Phase 1: one batched KV read per primed indicator (parallel). Each
+  // ProviderCache instance holds the combined entry for a single indicator.
+  const caches = new Map<string, ProviderCache>();
   await Promise.all(
-    slots.map(async (s) => {
-      const hit = await cache.get(s.provider, s.indicator);
-      if (hit) s.cached = hit;
+    primed.map(async (indicator) => {
+      const pc = new ProviderCache(env.KV_CACHE);
+      try {
+        await pc.primeBatch(indicator);
+      } catch {
+        /* transient cache error — treat as cold */
+      }
+      caches.set(ikey(indicator), pc);
     })
   );
 
-  // Phase 2: schedule fresh upstream calls — respect the global budget.
-  const freshSlots = slots.filter((s) => !s.cached);
-  const toFetch = freshSlots.slice(0, maxFresh);
+  // Resolve cache hits in memory (free) and collect the misses. Pre-seed a
+  // results bucket for every chosen IoC so parallel writers never race on
+  // map creation, and un-primed IoCs still aggregate (to an empty list).
+  type Slot = { indicator: Indicator; provider: ProviderId };
+  const resultsByIndicator = new Map<string, ProviderResult[]>();
+  const missSlots: Slot[] = [];
+  let totalMissPairs = 0;
+  for (const indicator of chosen) {
+    resultsByIndicator.set(ikey(indicator), []);
+    const pc = caches.get(ikey(indicator));
+    for (const provider of eligibleProvidersFor(indicator.type)) {
+      const hit = pc?.getBatched(provider) ?? null;
+      if (hit) {
+        resultsByIndicator.get(ikey(indicator))!.push(hit);
+        continue;
+      }
+      totalMissPairs++;
+      // Only primed indicators are fetch-eligible — fetching an un-primed
+      // miss would orphan a cache write we can't afford.
+      if (pc) missSlots.push({ indicator, provider });
+    }
+  }
+
+  // Phase 2: greedily select misses to fetch within the budget. `spent`
+  // tracks reads already made; each accepted slot costs weight(provider) for
+  // the fetch(es) plus 1 reserved for its eventual cache write. Because the
+  // reserve is per-slot and writes are per-indicator (≤ slots), the real
+  // total (reads + Σweight + writes) can never exceed `cap`.
+  let spent = primed.length;
+  let freshSubrequests = 0;
+  const toFetch: Slot[] = [];
+  for (const s of missSlots) {
+    if (toFetch.length >= maxFresh) break;
+    const cost = weightOf(s.provider) + 1;
+    if (spent + cost > cap) break;
+    spent += cost;
+    freshSubrequests += weightOf(s.provider);
+    toFetch.push(s);
+  }
   // We intentionally do NOT flip `partial` on a subrequest-budget shortfall.
   // Every IoC is still emitted into the bundle; the provider-coverage depth
-  // is shallower but the bundle isn't materially incomplete. Tracked here
-  // for observability only.
-  const droppedSubrequests = freshSlots.length - toFetch.length;
+  // is shallower but the bundle isn't materially incomplete. Observability only.
+  const droppedSubrequests = totalMissPairs - toFetch.length;
 
-  const freshResults = new Map<string, ProviderResult>();
+  const touched = new Set<string>();
   await Promise.all(
     toFetch.map(async (s) => {
       const adapter = BULK_ADAPTERS[s.provider];
       if (!adapter) return;
       const signal = AbortSignal.timeout(perTimeout);
-      const key = `${s.indicator.type}|${s.indicator.value.toLowerCase()}|${s.provider}`;
+      const pc = caches.get(ikey(s.indicator));
       try {
         const r = await adapter(s.indicator, providerEnv, signal);
-        freshResults.set(key, r);
-        if (r.status === 'ok') {
-          await cache.set(s.provider, s.indicator, r).catch(() => {
-            /* cache writes are non-fatal */
-          });
+        resultsByIndicator.get(ikey(s.indicator))!.push(r);
+        if (r.status === 'ok' && pc) {
+          pc.stageBatched(s.provider, s.indicator, r);
+          touched.add(ikey(s.indicator));
         }
       } catch (err) {
-        freshResults.set(key, {
+        resultsByIndicator.get(ikey(s.indicator))!.push({
           source: s.provider,
           status: 'error',
           score: 0,
@@ -291,21 +358,23 @@ export async function enrichBulk(
     })
   );
 
+  // Phase 2b: write each touched indicator back in ONE batched KV put. Skip
+  // untouched indicators so we never pay a write for a read-only hit.
+  await Promise.all(
+    primed
+      .filter((indicator) => touched.has(ikey(indicator)))
+      .map((indicator) =>
+        caches
+          .get(ikey(indicator))!
+          .flushBatch(indicator)
+          .catch(() => {})
+      )
+  );
+
   // Phase 3: aggregate per indicator.
   const enrichments: IocEnrichment[] = [];
   for (const indicator of chosen) {
-    const indicatorKey = `${indicator.type}|${indicator.value.toLowerCase()}`;
-    const results: ProviderResult[] = [];
-    for (const provider of eligibleProvidersFor(indicator.type)) {
-      const slot = slots.find((s) => s.indicator === indicator && s.provider === provider);
-      if (!slot) continue;
-      if (slot.cached) {
-        results.push(slot.cached);
-      } else {
-        const r = freshResults.get(`${indicatorKey}|${provider}`);
-        if (r) results.push(r);
-      }
-    }
+    const results = resultsByIndicator.get(ikey(indicator)) ?? [];
 
     const composite = compositeScore(indicator.type, results);
     const okResults = results.filter((r) => r.status === 'ok');
@@ -341,7 +410,7 @@ export async function enrichBulk(
     // shortfalls don't trigger the badge anymore; see comments above.
     partial: overflow.length >= PARTIAL_BADGE_MIN_OVERFLOW,
     overflow,
-    freshSubrequests: toFetch.length,
+    freshSubrequests,
     droppedSubrequests,
   };
 }
