@@ -28,6 +28,12 @@ import { detectPirAlerts } from '../api/src/routes/pir';
 import { runGraphIngest } from '../api/src/routes/graph-ingest';
 import { autoRunFeedJobs } from '../api/src/routes/feed-scheduler';
 import type { D1Database } from '@cloudflare/workers-types';
+import { acquireCronLease } from './durable-objects/cron-lock';
+
+// Lease TTL for the cron single-flight gate. Generous so it covers the
+// worst-case job window (the briefing build runs well past the old 120s) —
+// the lease auto-expires if a run crashes, and the next fire can acquire.
+const CRON_LEASE_TTL_MS = 15 * 60_000;
 import type { Env as ApiEnv } from '../api/src/env';
 import type { Env } from './env';
 
@@ -44,19 +50,21 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
   const cron = event.cron;
   const startMs = Date.now();
 
-  // === Per-cron-string single-flight lock ============================
-  if (env.KV_CACHE) {
-    try {
-      const lockKey = `cron:lock:${cron}`;
-      const held = await env.KV_CACHE.get(lockKey);
-      if (held) {
-        console.log(JSON.stringify({ job: 'cron-lock', cron, status: 'skipped_overlap', held_since: held }));
-        return;
-      }
-      await env.KV_CACHE.put(lockKey, new Date().toISOString(), { expirationTtl: 120 });
-    } catch {
-      /* KV transient — fail-open */
-    }
+  // === Per-cron-string single-flight lease (Durable Object) ===========
+  // A DO is single-threaded + globally unique, so acquire is atomic and
+  // globally consistent — unlike the old KV get-then-put, which was
+  // non-atomic (two PoPs could each read "free" then each write) and per-PoP
+  // (eventually consistent), so a Cloudflare retry or cross-PoP duplicate
+  // could both pass the gate and double-run the fan-out / briefing build.
+  // The TTL covers the job window; we fail-open on a DO error so a blip
+  // never halts every cron.
+  const lease = await acquireCronLease(env, cron, CRON_LEASE_TTL_MS);
+  if (!lease.acquired) {
+    console.log(JSON.stringify({ job: 'cron-lock', cron, status: 'skipped_overlap' }));
+    return;
+  }
+  if (lease.failOpen) {
+    console.log(JSON.stringify({ job: 'cron-lock', cron, status: 'do_error_fail_open' }));
   }
 
   // === Case-study generator — piggybacks on the existing 3 crons ===

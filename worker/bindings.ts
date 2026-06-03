@@ -35,6 +35,7 @@ export const BINDING_SPECS: ReadonlyArray<BindingSpec> = [
   { key: 'VECTORIZE', tier: 'optional', powers: '/api/v1/rag/query, semantic search' },
   { key: 'LIVE_FEED_DO', tier: 'optional', powers: '/api/v1/ws/live-feed WebSocket' },
   { key: 'DFIR_MCP', tier: 'optional', powers: '/api/mcp (DFIR MCP server)' },
+  { key: 'CRON_LOCK_DO', tier: 'optional', powers: 'cron single-flight lease (overlap guard)' },
   { key: 'ASSETS', tier: 'critical', powers: 'static SPA assets, prerendered HTML' },
 ];
 
