@@ -5,6 +5,7 @@ import { DfirMcpServer } from './mcp-server';
 import { generateNonce, withSecurityHeaders } from './csp';
 import { fetchPrerenderedOrShell } from './router';
 import { handleScheduled } from './scheduled';
+import { handleQueue } from './queue-consumer';
 import { logStartupValidation } from './bindings';
 import type { Env } from './env';
 
@@ -84,4 +85,6 @@ export default {
   },
 
   scheduled: handleScheduled,
+
+  queue: handleQueue,
 };
