@@ -17,6 +17,12 @@ const BASE = process.env.BASE ?? 'https://pranithjain.qzz.io';
 const SLOW = process.argv.includes('--slow');
 const TIMEOUT_MS = 30_000;
 
+// External /api/v1 reads are gated behind an API key (auth.ts). Mint one at
+// /admin and run smoke with SMOKE_API_KEY=<key> so the keyless 401 gate doesn't
+// fail every check. (The website itself is exempt via the same-origin check.)
+const API_KEY = process.env.SMOKE_API_KEY ?? '';
+const authHeaders = () => (API_KEY ? { authorization: `Bearer ${API_KEY}` } : {});
+
 // Rate-limit-respecting throttle. The Worker enforces 30 req/min/colo on
 // non-bypassed routes; firing 75 sequential checks at full speed exhausts
 // the bucket and the tail of the run gets 429'd by the very middleware we
@@ -208,7 +214,7 @@ const CHECKS = [
     custom: async () => {
       const url = `${BASE}/api/v1/x-firehose?status&cb=${Date.now()}`;
       for (let i = 0; i < 5; i += 1) {
-        const r = await fetch(`${url}-${i}`);
+        const r = await fetch(`${url}-${i}`, { headers: authHeaders() });
         if (r.status === 429) return { ok: false, error: `429 on request ${i + 1}` };
       }
       return { ok: true };
@@ -243,7 +249,7 @@ async function runOne(check) {
       const t = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
       const res = await fetch(url, {
         method: check.method ?? 'GET',
-        headers: { 'content-type': 'application/json' },
+        headers: { 'content-type': 'application/json', ...authHeaders() },
         body: check.body ? JSON.stringify(check.body) : undefined,
         signal: ctrl.signal,
       });
