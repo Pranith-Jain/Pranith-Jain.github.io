@@ -14,9 +14,6 @@
 
 import { z } from 'zod';
 
-/** Common URL pattern — http or https, optionally with trailing path. */
-const urlPattern = z.string().url().max(2048);
-
 // ─── External Resources ──────────────────────────────────────────
 // Handler uses safeJsonBody and reads: name, url, kind, description, why
 // See routes/external-resources.ts:createExternalResourceHandler
