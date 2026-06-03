@@ -24,12 +24,16 @@ export const shodan: ProviderAdapter = async (indicator, env, signal) => {
 
   try {
     const isIP = indicator.type === 'ipv4' || indicator.type === 'ipv6';
-    const url = isIP
-      ? `https://api.shodan.io/shodan/host/${encodeURIComponent(indicator.value)}`
-      : `https://api.shodan.io/dns/domain/${encodeURIComponent(indicator.value)}`;
+    // Shodan's REST API authenticates via the `key` query param ONLY — it does
+    // NOT support HTTP Basic auth on api.shodan.io. A May-2026 sweep switched to
+    // `Authorization: Basic`, which Shodan ignored → every call 401'd and every
+    // indicator came back "shodan-no-access". Send the key as the query param.
+    const path = isIP
+      ? `shodan/host/${encodeURIComponent(indicator.value)}`
+      : `dns/domain/${encodeURIComponent(indicator.value)}`;
+    const url = `https://api.shodan.io/${path}?key=${encodeURIComponent(key)}`;
 
-    const encoded = btoa(`${key}:`);
-    const res = await fetch(url, { signal, headers: { Authorization: `Basic ${encoded}` } });
+    const res = await fetch(url, { signal });
     // 401 / 403 = key denied (Shodan host/dns endpoints require Membership tier).
     // Treat as a graceful "no data from this provider" so the overall verdict
     // isn't polluted by a permission issue rather than a real signal.
