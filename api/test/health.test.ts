@@ -6,8 +6,13 @@ describe('GET /api/v1/health', () => {
     const response = await SELF.fetch('https://example.com/api/v1/health');
 
     expect(response.status).toBe(200);
-    const body = await response.json();
-    expect(body).toEqual({ ok: true });
+    // The handler returns { ok: true, timestamp } — the timestamp + Cache-Control
+    // are intentional (a cacheable liveness probe), so assert ok:true plus a
+    // well-formed ISO timestamp rather than exact object equality.
+    const body = (await response.json()) as { ok: boolean; timestamp: string };
+    expect(body).toMatchObject({ ok: true });
+    expect(typeof body.timestamp).toBe('string');
+    expect(Number.isNaN(Date.parse(body.timestamp))).toBe(false);
   });
 
   it('returns 404 for unknown routes', async () => {
