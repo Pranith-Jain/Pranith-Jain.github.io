@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Search, X, Command, ArrowRight, Loader2 } from 'lucide-react';
 import { useFocusTrap } from '../../hooks/useFocusTrap';
 import { SECTIONS, type Tool } from './ToolGrid';
+import { detectIoc as detectIocBase, type IocType as BaseIocType } from '../../lib/dfir/ioc-detect';
 import {
   loadCatalogIndex,
   KIND_LABEL,
@@ -94,21 +95,7 @@ interface MatchedEntry extends SearchEntry {
  *   - Identity indicators: ASN, email address, BTC address
  *   - Free-form: ransomware actor name (matched against curated lookup)
  */
-type IocType =
-  | 'ip'
-  | 'ipv6'
-  | 'domain'
-  | 'url'
-  | 'hash-md5'
-  | 'hash-sha1'
-  | 'hash-sha256'
-  | 'cve'
-  | 'mitre-technique'
-  | 'mitre-group'
-  | 'asn'
-  | 'email'
-  | 'btc'
-  | 'actor-slug';
+type IocType = BaseIocType | 'actor-slug';
 
 /** Known ransomware/APT actor slugs — kept in sync with api/src/lib/ransomware-mitre-groups.ts. */
 const KNOWN_ACTOR_SLUGS = new Set([
@@ -143,33 +130,12 @@ const KNOWN_ACTOR_SLUGS = new Set([
 ]);
 
 function detectIoc(raw: string): { type: IocType; value: string } | null {
-  const v = raw.trim();
-  if (!v) return null;
-  if (/^CVE-\d{4}-\d{4,7}$/i.test(v)) return { type: 'cve', value: v.toUpperCase() };
-  if (/^T\d{4}(?:\.\d{3})?$/i.test(v)) return { type: 'mitre-technique', value: v.toUpperCase() };
-  if (/^G\d{4}$/i.test(v)) return { type: 'mitre-group', value: v.toUpperCase() };
-  if (/^AS\d{1,7}$/i.test(v)) return { type: 'asn', value: v.toUpperCase() };
-  if (/^https?:\/\/\S+$/i.test(v)) return { type: 'url', value: v };
-  if (/^[a-fA-F0-9]{32}$/.test(v)) return { type: 'hash-md5', value: v.toLowerCase() };
-  if (/^[a-fA-F0-9]{40}$/.test(v)) return { type: 'hash-sha1', value: v.toLowerCase() };
-  if (/^[a-fA-F0-9]{64}$/.test(v)) return { type: 'hash-sha256', value: v.toLowerCase() };
-  if (/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) return { type: 'email', value: v.toLowerCase() };
-  // Bitcoin (legacy 1*, P2SH 3*, bech32 bc1*)
-  if (/^(?:1|3)[a-zA-HJ-NP-Z0-9]{25,34}$|^bc1[a-z0-9]{25,87}$/.test(v)) return { type: 'btc', value: v };
-  // IPv4 octet-form
-  if (/^(?:\d{1,3}\.){3}\d{1,3}$/.test(v)) {
-    const octets = v.split('.').map(Number);
-    if (octets.every((n) => n >= 0 && n <= 255)) return { type: 'ip', value: v };
-  }
-  // IPv6 colon-form (loose — must have ≥2 colons and only hex/colons)
-  if (/^[0-9a-fA-F:]+$/.test(v) && (v.match(/:/g)?.length ?? 0) >= 2) return { type: 'ipv6', value: v.toLowerCase() };
-  // Domain — lowercase alnum-hyphen-dot, must contain a dot, no spaces
-  if (/^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}$/i.test(v)) {
-    return { type: 'domain', value: v.toLowerCase() };
-  }
-  // Actor slug — last-resort match (loose: alnum + hyphen + space, length 3-30,
-  // must be in our curated lookup).
-  const lower = v.toLowerCase();
+  // Shared single-indicator detector (lib/dfir/ioc-detect), with the
+  // palette-only actor-slug match layered on top. Detection logic is no
+  // longer duplicated here — it lives in one place.
+  const base = detectIocBase(raw);
+  if (base) return base;
+  const lower = raw.trim().toLowerCase();
   if (lower.length >= 3 && lower.length <= 30 && KNOWN_ACTOR_SLUGS.has(lower)) {
     return { type: 'actor-slug', value: lower };
   }

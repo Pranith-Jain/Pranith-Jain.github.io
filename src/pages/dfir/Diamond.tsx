@@ -10,6 +10,7 @@ import {
   type EventForm,
   type VertexId,
 } from '../../data/diamond';
+import { detectIoc as detectIocBase } from '../../lib/dfir/ioc-detect';
 
 const STORAGE_KEY = 'dfir.diamond.event';
 const EMPTY_EVENT: EventForm = {
@@ -114,16 +115,27 @@ const KNOWN_ACTORS_DIAMOND = new Set([
 function detectIoc(raw: string): { type: DiamondIocType; value: string } {
   const v = raw.trim();
   if (!v) return { type: null, value: '' };
-  if (/^CVE-\d{4}-\d{4,7}$/i.test(v)) return { type: 'cve', value: v.toUpperCase() };
-  if (/^https?:\/\/\S+$/i.test(v)) return { type: 'url', value: v };
-  if (/^[a-fA-F0-9]{32}$|^[a-fA-F0-9]{40}$|^[a-fA-F0-9]{64}$/.test(v)) return { type: 'hash', value: v.toLowerCase() };
-  if (/^(?:\d{1,3}\.){3}\d{1,3}$/.test(v)) {
-    const octets = v.split('.').map(Number);
-    if (octets.every((n) => n >= 0 && n <= 255)) return { type: 'ip', value: v };
+  // Shared single-indicator detector (lib/dfir/ioc-detect), mapped onto the
+  // coarser set the auto-fill acts on. Types it doesn't handle (email / btc /
+  // asn / mitre) collapse to null — the same "unrecognized" result as before,
+  // since the old local detector didn't test for them either.
+  const base = detectIocBase(v);
+  if (base) {
+    switch (base.type) {
+      case 'cve':
+      case 'url':
+      case 'ip':
+      case 'ipv6':
+      case 'domain':
+        return { type: base.type, value: base.value };
+      case 'hash-md5':
+      case 'hash-sha1':
+      case 'hash-sha256':
+        return { type: 'hash', value: base.value };
+      default:
+        return { type: null, value: v };
+    }
   }
-  if (/^[0-9a-fA-F:]+$/.test(v) && (v.match(/:/g)?.length ?? 0) >= 2) return { type: 'ipv6', value: v.toLowerCase() };
-  if (/^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}$/i.test(v))
-    return { type: 'domain', value: v.toLowerCase() };
   // Actor-slug fallback — lower-cased value must be in our curated lookup.
   const lower = v.toLowerCase();
   if (KNOWN_ACTORS_DIAMOND.has(lower)) return { type: 'actor', value: lower };
