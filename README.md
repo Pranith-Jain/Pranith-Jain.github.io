@@ -6,6 +6,19 @@ Portfolio of **Pranith Jain** — security analyst working threat intel, email d
 
 ---
 
+## Preview
+
+<p align="center">
+  <img src="docs/screenshots/home-desktop.png" alt="pranithjain.qzz.io homepage — desktop" width="680" />
+  &nbsp;
+  <img src="docs/screenshots/home-mobile.png" alt="pranithjain.qzz.io homepage — mobile" width="190" />
+</p>
+<p align="center">
+  <sub>Dark-mode · SSR-prerendered · edge-cached · zero-signup · <a href="docs/screenshots/home-full.png">full homepage&nbsp;→</a></sub>
+</p>
+
+---
+
 ## Three surfaces, one deploy
 
 ### 1. Portfolio (`/`, `/about`, `/skills`, `/experience`, `/projects`)
@@ -149,10 +162,10 @@ Engineered for the **Cloudflare Workers free tier**:
 - **Per-request nonce CSP** (worker-owned; no `'unsafe-inline'` on `script-src`), HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy on every response
 - **SSRF guard** via DNS-level public-IP validation + manual-redirect `pinnedFetch` (`assertPublicHost` blocks RFC1918, link-local, IPv6 ULA/site-local, Azure metadata, literal-IP shortcut bypasses)
 - **Prompt-injection scrub** on every LLM input (phrase-level pattern strip + control-byte filter), fenced FACTS/SOURCES templates, output sanitised through DOMPurify on the client and a server-side regex pass
-- **Single-flight cron lock** (`cron:lock:<cron>` with 2-minute TTL) so retried scheduler events don't double-fire discovery / planner / publisher
-- **Per-cron-string admin rate-limit bucket** (5/min on POST/DELETE; safe GETs skip the bucket so the admin UI loads cleanly)
+- **Single-flight cron lock** — a Durable Object lease (acquire / heartbeat / release) so retried or cross-PoP scheduler events can't double-fire discovery / planner / publisher
+- **Admin rate-limit bucket** backed by an atomic, globally-consistent Durable Object counter (5/min on admin mutations) so a parallel burst can't bypass the brute-force cap; safe GETs skip the bucket so the admin UI loads cleanly
 - `safeJsonBody` body-size + depth-checked JSON parsing on every admin POST, `safeErrorMessage` production scrubber on every handler
-- Constant-time Bearer / X-Admin-Token comparison; **three scoped admin tokens** (case-study, briefings, external-resources); no hardcoded secrets — all via `wrangler secret`
+- Constant-time Bearer / X-Admin-Token comparison; a single shared **`ADMIN_TOKEN`** gates every admin surface — and **all sensitive DFIR data + AI endpoints are operator-only behind it** — with a separate **`BRIEFINGS_ADMIN_TOKEN`** for briefings; no hardcoded secrets, all via `wrangler secret`
 - Defensive-only handling of breach / stealer / forum data: metadata only, never stolen content
 - WCAG 2.2 AA: skip-to-content, focus traps, ARIA roles, `role="alert"` on errors, reduced-motion support, 44px touch targets, iOS Safari zoom fix on `<input>` focus
 
@@ -185,7 +198,7 @@ api/src/                Cloudflare Worker (Hono) — routes/, providers/ (24 IOC
 api/src/case-study/     Autonomous blog: discovery/ · generation/ (ai-client, prompts, post-process QA) · publishing/
 worker/index.ts         Worker entry: API dispatch, SPA serve, cron (discover/plan/publish/briefings)
 public/ · scripts/      Static assets · prerender / wiki-extract / OG-image
-docs/                   Design specs, onboarding, PROFILE_README draft
+docs/                   Design specs, onboarding, screenshots/
 ```
 
 ---

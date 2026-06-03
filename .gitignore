@@ -53,10 +53,18 @@ stats.html
 .wrangler/
 .wrangler-dryrun/
 
-# Reference images dropped into repo root for design conversations
+# Browser-automation artifacts (Playwright MCP)
+.playwright-mcp/
+page-*.png
+page-*.jpeg
+
+# Reference images dropped into repo root for design conversations.
+# Committed screenshots live in docs/screenshots/ — keep the repo root clean.
 /[0-9]*.jpg
 /[0-9]*.jpeg
 /[0-9]*.png
+/portfolio-*.png
+/*-hero.png
 .claude/
 cti-ai-skills/
 dfir-ai-skills/
