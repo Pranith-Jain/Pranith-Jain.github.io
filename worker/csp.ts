@@ -12,17 +12,17 @@
  * (server regex sanitiser → client DOMPurify → blocked by script-src).
  */
 const CSP_API =
-  "default-src 'self';script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://static.cloudflareinsights.com;style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;img-src 'self' data: https:;connect-src 'self' https://api.cloudflare.com https://cloudflare-dns.com https://cloudflareinsights.com https://*.cloudflareinsights.com;font-src 'self' data: https://fonts.gstatic.com;frame-ancestors 'none';base-uri 'self';form-action 'self';object-src 'none'";
+  "default-src 'self';script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://static.cloudflareinsights.com;style-src 'self' 'unsafe-inline';img-src 'self' data: https:;connect-src 'self' https://api.cloudflare.com https://cloudflare-dns.com https://cloudflareinsights.com https://*.cloudflareinsights.com;font-src 'self' data:;frame-ancestors 'none';base-uri 'self';form-action 'self';object-src 'none'";
 
 export function cspHeader(nonce?: string): string {
   if (!nonce) return CSP_API;
   return [
     "default-src 'self'",
     `script-src 'self' 'nonce-${nonce}' 'wasm-unsafe-eval' https://static.cloudflareinsights.com`,
-    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+    "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data: https:",
     "connect-src 'self' https://api.cloudflare.com https://cloudflare-dns.com https://cloudflareinsights.com https://*.cloudflareinsights.com",
-    "font-src 'self' data: https://fonts.gstatic.com",
+    "font-src 'self' data:",
     "frame-ancestors 'none'",
     "base-uri 'self'",
     "form-action 'self'",
