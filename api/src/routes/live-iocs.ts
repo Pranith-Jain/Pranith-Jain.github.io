@@ -155,55 +155,136 @@ function iocKind(t: string): IocKind | null {
   return null;
 }
 
-export async function fetchLiveIocs(
-  executionCtx?: { waitUntil: (p: Promise<unknown>) => void },
-  kv?: KVNamespace,
-  env?: Env
-): Promise<LiveIocsResponse> {
-  const textFeedUrls = [
-    'https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/today.csv',
-    'https://isc.sans.edu/api/sources/attacks/200/?json',
-    'https://raw.githubusercontent.com/drb-ra/C2IntelFeeds/master/feeds/IPC2s.csv',
-    'https://urlhaus.abuse.ch/downloads/csv_recent/',
-    'https://threatfox.abuse.ch/export/csv/recent/',
-    'https://rules.emergingthreats.net/blockrules/compromised-ips.txt',
-    'https://reputation.alienvault.com/reputation.generic',
-    'https://sslbl.abuse.ch/blacklist/sslipblacklist.csv',
-    'https://www.botvrij.eu/data/ioclist.domain',
-  ];
-  const [
-    tweetfeedText,
-    sansIscText,
-    c2IntelText,
-    urlhausText,
-    threatfoxText,
-    etCompromisedText,
-    otxReputationText,
-    sslblText,
-    botvrijText,
-  ] = await concurrentMap(textFeedUrls, (url) => fetchText(url), 6);
+// ─────────────────────────────────────────────────────────────────────────
+// Feed source registry
+//
+// Each source is an independent { id, run(deps) } unit: run() fetches and
+// parses ONE upstream and returns its contributed items plus a source-health
+// entry. fetchLiveIocs fans out over FEED_SOURCES with a bounded concurrency
+// and flattens the results in registry order — so adding/removing a feed is a
+// one-line edit, the latency-inducing sequential fetch batches collapse into a
+// single barrier-free fan-out (audit P7), and a later change can dispatch each
+// source to a queue independently.
+//
+// NB: a source's `count` here is advisory — fetchLiveIocs recomputes every
+// source's count from the freshness-filtered item set below, so only `ok`
+// (and, for andreafortuna, `stale`/`newest_observation`) is load-bearing on
+// the entry returned here.
+// ─────────────────────────────────────────────────────────────────────────
 
-  const [malwareBazaarResult, phishingResult, afDefacementsRaw, mtiIocResult] = await Promise.all([
-    fetchMalwareSamplesCached(executionCtx).catch(() => null),
-    fetchPhishingUrlsCached(executionCtx, kv).catch(() => null),
-    fetchAFDefacements().catch(() => [] as LiveIoc[]),
-    env ? fetchMtiSource(env, 'iocs', { limit: PER_FEED_CAP }).catch(() => null) : Promise.resolve(null),
-  ]);
+type FeedDeps = {
+  executionCtx?: { waitUntil: (p: Promise<unknown>) => void };
+  kv?: KVNamespace;
+  env?: Env;
+};
+type FeedResult = { items: LiveIoc[]; sources: LiveSource[] };
+interface FeedSource {
+  id: string;
+  run: (deps: FeedDeps) => Promise<FeedResult>;
+}
 
-  const items: LiveIoc[] = [];
-  const sources: LiveSource[] = [];
+// Bounded in-flight count for the source fan-out. The Workers runtime caps
+// concurrent subrequests at ~6; a slightly higher cap lets the cache-backed
+// special sources (malwarebazaar/phishing/mti) overlap the plain-fetch feeds
+// without the fetches themselves exceeding the runtime limit.
+const FEED_FANOUT_CONCURRENCY = 8;
 
-  // ─── TweetFeed (richest source: per-entry reporter + permalink) ─────────
-  if (tweetfeedText) {
+const CPS_BASE = 'https://raw.githubusercontent.com/CriticalPathSecurity/Public-Intelligence-Feeds/master';
+
+// Common shape across the feed parsers — every parser yields at least a
+// `value`; per-entry `type`/`context`/`timestamp` are present on the richer
+// feeds and absent on the bare blocklists.
+type ParsedEntry = { value: string; type?: string; context?: string; timestamp?: string };
+
+interface TextFeedConfig {
+  id: string;
+  url: string;
+  parse: (text: string, cap: number) => ParsedEntry[];
+  /** Fixed kind, or 'per-entry' to derive it from each entry's `type`
+   *  (entries whose type isn't a known IOC kind are dropped). */
+  kind: IocKind | 'per-entry';
+  reporter: string;
+  /** Fixed context string, or a fn deriving it from the parsed entry. */
+  context: string | ((e: ParsedEntry) => string | undefined);
+  /** Attach observed_at from the entry timestamp (per-entry-dated feeds). */
+  withTimestamp?: boolean;
+  /** Keep only entries whose `type` equals this (e.g. URLhaus → 'url'). */
+  filterType?: string;
+  /** Mark the source unhealthy when it yielded zero items (vs the default:
+   *  healthy whenever the fetch succeeded, even with zero parsed items). */
+  okRequiresItems?: boolean;
+}
+
+/** Use the parser's per-entry context verbatim. */
+const entryContext = (e: ParsedEntry): string | undefined => e.context;
+
+/**
+ * Build a standard text-feed source: fetch → parse → map to LiveIoc with a
+ * fixed source/reporter/context. Covers the plain blocklist + CSV feeds; the
+ * richer sources (tweetfeed, malwarebazaar, phishing, andreafortuna, mti) have
+ * bespoke runs below.
+ */
+function textFeedSource(cfg: TextFeedConfig): FeedSource {
+  return {
+    id: cfg.id,
+    run: async () => {
+      const text = await fetchText(cfg.url);
+      if (!text) return { items: [], sources: [{ id: cfg.id, ok: false, count: 0 }] };
+      const parsed = cfg.parse(text, PER_FEED_CAP);
+      const items: LiveIoc[] = [];
+      for (const e of parsed) {
+        if (cfg.filterType && e.type !== cfg.filterType) continue;
+        let kind: IocKind;
+        if (cfg.kind === 'per-entry') {
+          const k = iocKind(e.type ?? '');
+          if (!k) continue;
+          kind = k;
+        } else {
+          kind = cfg.kind;
+        }
+        const item: LiveIoc = {
+          value: e.value,
+          kind,
+          source: cfg.id,
+          reporter: cfg.reporter,
+          context: typeof cfg.context === 'function' ? cfg.context(e) : cfg.context,
+        };
+        if (cfg.withTimestamp) item.observed_at = isoFromLoose(e.timestamp);
+        items.push(item);
+      }
+      const ok = cfg.okRequiresItems ? items.length > 0 : true;
+      return { items, sources: [{ id: cfg.id, ok, count: items.length }] };
+    },
+  };
+}
+
+/** Botvrij.eu URL list: bare `http…` lines, no per-entry type/timestamp. */
+const parseBotvrijUrls = (text: string, cap: number): ParsedEntry[] =>
+  text
+    .split('\n')
+    .map((l) => l.trim())
+    .filter((l) => l.startsWith('http'))
+    .slice(0, cap)
+    .map((value) => ({ value }));
+
+// ─── Bespoke sources ───────────────────────────────────────────────────────
+
+/** TweetFeed: richest source — per-entry reporter + permalink + mixed kinds. */
+const tweetfeedSource: FeedSource = {
+  id: 'tweetfeed',
+  run: async () => {
+    const tweetfeedText = await fetchText(
+      'https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/today.csv'
+    );
+    const items: LiveIoc[] = [];
+    if (!tweetfeedText) return { items, sources: [{ id: 'tweetfeed', ok: false, count: 0 }] };
     const parsed = parseTweetFeed(tweetfeedText, PER_FEED_CAP);
-    // To pull the reporter + permalink we re-walk the raw CSV alongside
-    // the parsed entries. parseTweetFeed iterates newest-first so we
-    // match by value within the same pass.
+    // To pull the reporter + permalink we re-walk the raw CSV alongside the
+    // parsed entries, indexing rows by IOC value (newest-first).
     const rawRows = tweetfeedText
       .split('\n')
       .map((l) => l.trim())
       .filter(Boolean);
-    // Index rows by IOC value so we can look up reporter + URL per entry.
     const rowByValue = new Map<string, string>();
     for (let i = rawRows.length - 1; i >= 0; i--) {
       const row = rawRows[i]!;
@@ -218,7 +299,7 @@ export async function fetchLiveIocs(
       const row = rowByValue.get(p.value);
       const reporter = row?.split(',')[1] || undefined;
       const reference_url = tweetfeedPermalink(row);
-      // Context tags come from parseTweetFeed (reporter | tags string); slice off the reporter half.
+      // Context tags come from parseTweetFeed (reporter | tags); slice off the reporter half.
       const tagsPart = p.context?.includes(' | ') ? p.context.split(' | ').slice(1).join(' | ') : p.context;
       items.push({
         value: p.value,
@@ -231,158 +312,17 @@ export async function fetchLiveIocs(
       });
       count++;
     }
-    sources.push({ id: 'tweetfeed', ok: true, count });
-  } else {
-    sources.push({ id: 'tweetfeed', ok: false, count: 0 });
-  }
+    return { items, sources: [{ id: 'tweetfeed', ok: true, count }] };
+  },
+};
 
-  // ─── SANS ISC ───────────────────────────────────────────────────────────
-  if (sansIscText) {
-    const parsed = parseSansIsc(sansIscText, PER_FEED_CAP);
-    for (const e of parsed) {
-      items.push({
-        value: e.value,
-        kind: 'ip',
-        source: 'sans-isc',
-        reporter: 'ISC sensor network',
-        context: e.context,
-        observed_at: isoFromLoose(e.timestamp),
-      });
-    }
-    sources.push({ id: 'sans-isc', ok: true, count: parsed.length });
-  } else {
-    sources.push({ id: 'sans-isc', ok: false, count: 0 });
-  }
-
-  // ─── C2IntelFeeds ───────────────────────────────────────────────────────
-  if (c2IntelText) {
-    const parsed = parseC2IntelFeeds(c2IntelText, PER_FEED_CAP);
-    for (const e of parsed) {
-      items.push({
-        value: e.value,
-        kind: 'ip',
-        source: 'c2-intel',
-        reporter: 'drb-ra/C2IntelFeeds',
-        context: e.context,
-      });
-    }
-    sources.push({ id: 'c2-intel', ok: true, count: parsed.length });
-  } else {
-    sources.push({ id: 'c2-intel', ok: false, count: 0 });
-  }
-
-  // ─── URLhaus ────────────────────────────────────────────────────────────
-  if (urlhausText) {
-    const parsed = parseUrlhaus(urlhausText, PER_FEED_CAP);
-    for (const e of parsed) {
-      if (e.type !== 'url') continue;
-      items.push({
-        value: e.value,
-        kind: 'url',
-        source: 'urlhaus',
-        reporter: 'abuse.ch URLhaus',
-        context: e.context,
-        observed_at: isoFromLoose(e.timestamp),
-      });
-    }
-    sources.push({ id: 'urlhaus', ok: true, count: parsed.length });
-  } else {
-    sources.push({ id: 'urlhaus', ok: false, count: 0 });
-  }
-
-  // ─── Emerging Threats compromised-ips: daily-curated bare IPs ───────────
-  if (etCompromisedText) {
-    const parsed = parsePlainTextIps(etCompromisedText, PER_FEED_CAP);
-    for (const e of parsed) {
-      items.push({
-        value: e.value,
-        kind: 'ip',
-        source: 'emerging-threats',
-        reporter: 'Proofpoint ETOpen',
-        context: 'recent compromise / blocklist',
-      });
-    }
-    sources.push({ id: 'emerging-threats', ok: true, count: parsed.length });
-  } else {
-    sources.push({ id: 'emerging-threats', ok: false, count: 0 });
-  }
-
-  // ─── AlienVault OTX reputation: IPs + classification ────────────────────
-  if (otxReputationText) {
-    const parsed = parseAlienVaultReputation(otxReputationText, PER_FEED_CAP);
-    for (const e of parsed) {
-      items.push({
-        value: e.value,
-        kind: 'ip',
-        source: 'otx-reputation',
-        reporter: 'AlienVault OTX',
-        context: e.context,
-      });
-    }
-    sources.push({ id: 'otx-reputation', ok: true, count: parsed.length });
-  } else {
-    sources.push({ id: 'otx-reputation', ok: false, count: 0 });
-  }
-
-  // ─── SSLBL (abuse.ch) — SSL/TLS-fingerprinted botnet C2 IPs ─────────────
-  if (sslblText) {
-    const parsed = parseSslblC2(sslblText, PER_FEED_CAP);
-    for (const e of parsed) {
-      items.push({
-        value: e.value,
-        kind: 'ip',
-        source: 'sslbl-c2',
-        reporter: 'abuse.ch SSLBL',
-        context: e.context,
-        observed_at: isoFromLoose(e.timestamp),
-      });
-    }
-    sources.push({ id: 'sslbl-c2', ok: true, count: parsed.length });
-  } else {
-    sources.push({ id: 'sslbl-c2', ok: false, count: 0 });
-  }
-
-  // ─── Botvrij.eu — curated malicious domains ─────────────────────────────
-  if (botvrijText) {
-    const parsed = parseBotvrijDomains(botvrijText, PER_FEED_CAP);
-    for (const e of parsed) {
-      items.push({
-        value: e.value,
-        kind: 'domain',
-        source: 'botvrij',
-        reporter: 'Botvrij.eu',
-        context: e.context,
-      });
-    }
-    sources.push({ id: 'botvrij', ok: true, count: parsed.length });
-  } else {
-    sources.push({ id: 'botvrij', ok: false, count: 0 });
-  }
-
-  // ─── ThreatFox (mixed: url/domain/ip/hash) ──────────────────────────────
-  if (threatfoxText) {
-    const parsed = parseThreatfox(threatfoxText, PER_FEED_CAP);
-    let count = 0;
-    for (const e of parsed) {
-      const kind = iocKind(e.type);
-      if (!kind) continue;
-      items.push({
-        value: e.value,
-        kind,
-        source: 'threatfox',
-        reporter: 'abuse.ch ThreatFox',
-        context: e.context,
-        observed_at: isoFromLoose(e.timestamp),
-      });
-      count++;
-    }
-    sources.push({ id: 'threatfox', ok: true, count });
-  } else {
-    sources.push({ id: 'threatfox', ok: false, count: 0 });
-  }
-
-  // ─── MalwareBazaar (hash samples with family + file-type context) ───────
-  if (malwareBazaarResult) {
+/** MalwareBazaar: hash samples with family + file-type context. */
+const malwarebazaarSource: FeedSource = {
+  id: 'malwarebazaar',
+  run: async ({ executionCtx }) => {
+    const malwareBazaarResult = await fetchMalwareSamplesCached(executionCtx).catch(() => null);
+    const items: LiveIoc[] = [];
+    if (!malwareBazaarResult) return { items, sources: [{ id: 'malwarebazaar', ok: false, count: 0 }] };
     let count = 0;
     for (const s of malwareBazaarResult.samples.slice(0, PER_FEED_CAP)) {
       const context =
@@ -398,13 +338,25 @@ export async function fetchLiveIocs(
       });
       count++;
     }
-    sources.push({ id: 'malwarebazaar', ok: true, count });
-  } else {
-    sources.push({ id: 'malwarebazaar', ok: false, count: 0 });
-  }
+    return { items, sources: [{ id: 'malwarebazaar', ok: true, count }] };
+  },
+};
 
-  // ─── PhishTank + OpenPhish (verified phishing URLs; PhishTank carries brand attribution) ─
-  if (phishingResult) {
+/** PhishTank + OpenPhish: one fetch, two source entries (per-entry reporter). */
+const phishingSource: FeedSource = {
+  id: 'phishing',
+  run: async ({ executionCtx, kv }) => {
+    const phishingResult = await fetchPhishingUrlsCached(executionCtx, kv).catch(() => null);
+    const items: LiveIoc[] = [];
+    if (!phishingResult) {
+      return {
+        items,
+        sources: [
+          { id: 'phishtank', ok: false, count: 0 },
+          { id: 'openphish', ok: false, count: 0 },
+        ],
+      };
+    }
     let openphishCount = 0;
     let phishtankCount = 0;
     for (const u of phishingResult.urls) {
@@ -421,209 +373,88 @@ export async function fetchLiveIocs(
       if (u.source === 'phishtank') phishtankCount++;
       else openphishCount++;
     }
-    sources.push({ id: 'phishtank', ok: phishtankCount > 0, count: phishtankCount });
-    sources.push({ id: 'openphish', ok: openphishCount > 0, count: openphishCount });
-  } else {
-    sources.push({ id: 'phishtank', ok: false, count: 0 });
-    sources.push({ id: 'openphish', ok: false, count: 0 });
-  }
+    return {
+      items,
+      sources: [
+        { id: 'phishtank', ok: phishtankCount > 0, count: phishtankCount },
+        { id: 'openphish', ok: openphishCount > 0, count: openphishCount },
+      ],
+    };
+  },
+};
 
-  // ─── Andrea Fortuna Defacements (defaced site URLs) ────────────────────
-  let afDefacements = afDefacementsRaw ?? [];
-  let afDefacementsOk = afDefacements.length > 0;
-  let afDefacementsStale = false;
+/** Andrea Fortuna defacements: pre-built LiveIoc[] + KV last-good fallback. */
+const andreafortunaSource: FeedSource = {
+  id: 'andreafortuna-defacements',
+  run: async ({ executionCtx, kv }) => {
+    const afDefacementsRaw = await fetchAFDefacements().catch(() => [] as LiveIoc[]);
+    let afDefacements = afDefacementsRaw ?? [];
+    let afDefacementsOk = afDefacements.length > 0;
+    let afDefacementsStale = false;
 
-  if (afDefacementsOk && kv) {
-    executionCtx?.waitUntil(
-      (async () => {
-        if (await shouldWriteLastGood('live-iocs:af-defacements')) {
-          await kv.put(
-            AF_DEFACEMENTS_LASTGOOD_KEY,
-            JSON.stringify({ items: afDefacements, refreshed_at: new Date().toISOString() }),
-            { expirationTtl: LASTGOOD_TTL_SECONDS }
-          );
+    if (afDefacementsOk && kv) {
+      executionCtx?.waitUntil(
+        (async () => {
+          if (await shouldWriteLastGood('live-iocs:af-defacements')) {
+            await kv.put(
+              AF_DEFACEMENTS_LASTGOOD_KEY,
+              JSON.stringify({ items: afDefacements, refreshed_at: new Date().toISOString() }),
+              { expirationTtl: LASTGOOD_TTL_SECONDS }
+            );
+          }
+        })()
+      );
+    } else if (!afDefacementsOk && kv) {
+      try {
+        const raw = await kv.get(AF_DEFACEMENTS_LASTGOOD_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw) as { items: typeof afDefacements };
+          if (Array.isArray(parsed.items) && parsed.items.length > 0) {
+            afDefacements = parsed.items;
+            afDefacementsOk = true;
+            afDefacementsStale = true;
+          }
         }
-      })()
-    );
-  } else if (!afDefacementsOk && kv) {
-    try {
-      const raw = await kv.get(AF_DEFACEMENTS_LASTGOOD_KEY);
-      if (raw) {
-        const parsed = JSON.parse(raw) as { items: typeof afDefacements };
-        if (Array.isArray(parsed.items) && parsed.items.length > 0) {
-          afDefacements = parsed.items;
-          afDefacementsOk = true;
-          afDefacementsStale = true;
-        }
+      } catch {
+        /* leave ok = false */
       }
-    } catch {
-      /* leave ok = false */
     }
-  }
 
-  for (const e of afDefacements) {
-    items.push(e);
-  }
+    const items: LiveIoc[] = [];
+    for (const e of afDefacements) items.push(e);
 
-  const newestAf = afDefacements
-    .map((i) => i.observed_at)
-    .filter((t): t is string => Boolean(t))
-    .sort()
-    .pop();
+    const newestAf = afDefacements
+      .map((i) => i.observed_at)
+      .filter((t): t is string => Boolean(t))
+      .sort()
+      .pop();
 
-  sources.push({
-    id: 'andreafortuna-defacements',
-    ok: afDefacementsOk,
-    count: afDefacements.length,
-    ...(newestAf ? { newest_observation: newestAf } : {}),
-    ...(afDefacementsStale ? { stale: true } : {}),
-  });
+    return {
+      items,
+      sources: [
+        {
+          id: 'andreafortuna-defacements',
+          ok: afDefacementsOk,
+          count: afDefacements.length,
+          ...(newestAf ? { newest_observation: newestAf } : {}),
+          ...(afDefacementsStale ? { stale: true } : {}),
+        },
+      ],
+    };
+  },
+};
 
-  // ─── CriticalPathSecurity Public Intelligence Feeds (2026-05-30) ──────
-  const CPS_BASE = 'https://raw.githubusercontent.com/CriticalPathSecurity/Public-Intelligence-Feeds/master';
-  const cpsUrls = [
-    `${CPS_BASE}/binarydefense.txt`,
-    `${CPS_BASE}/tor-exit.txt`,
-    `${CPS_BASE}/avanzato_c2.txt`,
-    `${CPS_BASE}/cps-collected-iocs.txt`,
-    'https://blocklist.greensnow.co/greensnow.txt',
-    'https://lists.blocklist.de/lists/all.txt',
-    'https://cinsscore.com/list/ci-badguys.txt',
-  ];
-  const [
-    binaryDefenseText,
-    torExitText,
-    avanzatoC2Text,
-    cpsCollectedText,
-    greenSnowText,
-    blocklistDeText,
-    cinsscoreText,
-  ] = await concurrentMap(cpsUrls, (url) => fetchText(url), 6);
-
-  // ─── BinaryDefense IPs ──────────────────────────────────────────────────
-  if (binaryDefenseText) {
-    const parsed = parsePlainTextIps(binaryDefenseText, PER_FEED_CAP);
-    for (const e of parsed) {
-      items.push({
-        value: e.value,
-        kind: 'ip',
-        source: 'binarydefense',
-        reporter: 'BinaryDefense',
-        context: 'curated malicious IP blocklist',
-      });
+/** MyThreatIntel REST API: sha256 IOCs + family/tags (token-gated via env). */
+const mythreatintelSource: FeedSource = {
+  id: 'mythreatintel',
+  run: async ({ env }) => {
+    const mtiIocResult = env
+      ? await fetchMtiSource(env, 'iocs', { limit: PER_FEED_CAP }).catch(() => null)
+      : null;
+    const items: LiveIoc[] = [];
+    if (!(mtiIocResult && mtiIocResult.ok && mtiIocResult.items.length > 0)) {
+      return { items, sources: [{ id: 'mythreatintel', ok: false, count: 0 }] };
     }
-    sources.push({ id: 'binarydefense', ok: true, count: parsed.length });
-  } else {
-    sources.push({ id: 'binarydefense', ok: false, count: 0 });
-  }
-
-  // ─── Tor Exit Nodes ─────────────────────────────────────────────────────
-  if (torExitText) {
-    const parsed = parsePlainTextIps(torExitText, PER_FEED_CAP);
-    for (const e of parsed) {
-      items.push({
-        value: e.value,
-        kind: 'ip',
-        source: 'tor-exit',
-        reporter: 'Tor Project',
-        context: 'Tor exit node',
-      });
-    }
-    sources.push({ id: 'tor-exit', ok: true, count: parsed.length });
-  } else {
-    sources.push({ id: 'tor-exit', ok: false, count: 0 });
-  }
-
-  // ─── Avanzato C2 IPs ────────────────────────────────────────────────────
-  if (avanzatoC2Text) {
-    const parsed = parsePlainTextIps(avanzatoC2Text, PER_FEED_CAP);
-    for (const e of parsed) {
-      items.push({
-        value: e.value,
-        kind: 'ip',
-        source: 'avanzato-c2',
-        reporter: 'CriticalPathSecurity',
-        context: 'Avanzato malware C2 infrastructure',
-      });
-    }
-    sources.push({ id: 'avanzato-c2', ok: true, count: parsed.length });
-  } else {
-    sources.push({ id: 'avanzato-c2', ok: false, count: 0 });
-  }
-
-  // ─── CPS Collected IOCs ─────────────────────────────────────────────────
-  if (cpsCollectedText) {
-    const parsed = parsePlainTextIps(cpsCollectedText, PER_FEED_CAP);
-    for (const e of parsed) {
-      items.push({
-        value: e.value,
-        kind: 'ip',
-        source: 'cps-collected',
-        reporter: 'CriticalPathSecurity',
-        context: 'CPS internally collected malicious IPs',
-      });
-    }
-    sources.push({ id: 'cps-collected', ok: true, count: parsed.length });
-  } else {
-    sources.push({ id: 'cps-collected', ok: false, count: 0 });
-  }
-
-  // ─── GreenSnow IP Blocklist ────────────────────────────────────────────
-  if (greenSnowText) {
-    const parsed = parsePlainTextIps(greenSnowText, PER_FEED_CAP);
-    for (const e of parsed) {
-      items.push({
-        value: e.value,
-        kind: 'ip',
-        source: 'greensnow',
-        reporter: 'GreenSnow',
-        context: 'malicious IP blocklist',
-      });
-    }
-    sources.push({ id: 'greensnow', ok: true, count: parsed.length });
-  } else {
-    sources.push({ id: 'greensnow', ok: false, count: 0 });
-  }
-
-  // ─── Blocklist.de (all attack types) ────────────────────────────────────
-  if (blocklistDeText) {
-    const parsed = parsePlainTextIps(blocklistDeText, PER_FEED_CAP);
-    for (const e of parsed) {
-      items.push({
-        value: e.value,
-        kind: 'ip',
-        source: 'blocklist-de',
-        reporter: 'Blocklist.de',
-        context: 'reported attack source (48h)',
-      });
-    }
-    sources.push({ id: 'blocklist-de', ok: true, count: parsed.length });
-  } else {
-    sources.push({ id: 'blocklist-de', ok: false, count: 0 });
-  }
-
-  // ─── CINSscore Bad IP List ─────────────────────────────────────────────
-  if (cinsscoreText) {
-    const parsed = parsePlainTextIps(cinsscoreText, PER_FEED_CAP);
-    for (const e of parsed) {
-      items.push({
-        value: e.value,
-        kind: 'ip',
-        source: 'cinsscore',
-        reporter: 'CINSscore',
-        context: 'suspicious/malicious IP',
-      });
-    }
-    sources.push({ id: 'cinsscore', ok: true, count: parsed.length });
-  } else {
-    sources.push({ id: 'cinsscore', ok: false, count: 0 });
-  }
-
-  // ─── MyThreatIntel REST API (sha256 IOCs + family/tags) ─────────────────
-  // Token-gated: when MYTHREATINTEL_API_TOKEN is unset (dev/preview) or the
-  // upstream is unhealthy, mtiIocResult is null / not-ok and this source is
-  // simply absent — the existing single-source-down tolerance covers it.
-  if (mtiIocResult && mtiIocResult.ok && mtiIocResult.items.length > 0) {
     let count = 0;
     for (const raw of mtiIocResult.items.slice(0, PER_FEED_CAP)) {
       const r = raw as MtiIoc;
@@ -643,247 +474,261 @@ export async function fetchLiveIocs(
       });
       count++;
     }
-    sources.push({ id: 'mythreatintel', ok: count > 0, count });
-  } else {
-    sources.push({ id: 'mythreatintel', ok: false, count: 0 });
-  }
+    return { items, sources: [{ id: 'mythreatintel', ok: count > 0, count }] };
+  },
+};
 
-  // ─── Additional threatfeeds.io sources ─────────────────────────────────
-  const additionalFeedUrls = [
-    'https://feodotracker.abuse.ch/downloads/ipblocklist.csv',
-    'https://gist.githubusercontent.com/BBcan177/bf29d47ea04391cb3eb0/raw/',
-    'https://gist.githubusercontent.com/BBcan177/4a8bf37c131be4803cb2/raw',
-    'https://www.joewein.net/dl/bl/dom-bl.txt',
-    'https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/hosts.txt',
-    'https://raw.githubusercontent.com/Hestat/minerchk/master/hostslist.txt',
-    'https://www.botvrij.eu/data/ioclist.hostname.raw',
-    'https://www.botvrij.eu/data/ioclist.url.raw',
-    'https://www.botvrij.eu/data/ioclist.ip-dst.raw',
-    'https://raw.githubusercontent.com/LinuxTracker/Blocklists/master/HancitorIPs.txt',
-    'https://www.darklist.de/raw.php',
-    'https://danger.rulez.sk/projects/bruteforceblocker/blist.php',
-  ];
-  const [
-    feodoTrackerText,
-    bbcan177IpsText,
-    bbcan177DnsblText,
-    domainsBlacklistText,
-    noCoinText,
-    moneroMinerText,
-    botvrijHostnamesText,
-    botvrijUrlsText,
-    botvrijIpsText,
-    hancitorIpsText,
-    darklistText,
-    bruteForceBlockerText,
-  ] = await concurrentMap(additionalFeedUrls, (url) => fetchText(url), 6);
+// Registry, ordered exactly as the original sequential blocks pushed sources —
+// concurrentMap preserves input order, so the flattened sources/items keep this
+// order (the post-sort and per-source recount depend only on it being stable).
+const FEED_SOURCES: FeedSource[] = [
+  tweetfeedSource,
+  textFeedSource({
+    id: 'sans-isc',
+    url: 'https://isc.sans.edu/api/sources/attacks/200/?json',
+    parse: parseSansIsc,
+    kind: 'ip',
+    reporter: 'ISC sensor network',
+    context: entryContext,
+    withTimestamp: true,
+  }),
+  textFeedSource({
+    id: 'c2-intel',
+    url: 'https://raw.githubusercontent.com/drb-ra/C2IntelFeeds/master/feeds/IPC2s.csv',
+    parse: parseC2IntelFeeds,
+    kind: 'ip',
+    reporter: 'drb-ra/C2IntelFeeds',
+    context: entryContext,
+  }),
+  textFeedSource({
+    id: 'urlhaus',
+    url: 'https://urlhaus.abuse.ch/downloads/csv_recent/',
+    parse: parseUrlhaus,
+    kind: 'url',
+    reporter: 'abuse.ch URLhaus',
+    context: entryContext,
+    withTimestamp: true,
+    filterType: 'url',
+  }),
+  textFeedSource({
+    id: 'emerging-threats',
+    url: 'https://rules.emergingthreats.net/blockrules/compromised-ips.txt',
+    parse: parsePlainTextIps,
+    kind: 'ip',
+    reporter: 'Proofpoint ETOpen',
+    context: 'recent compromise / blocklist',
+  }),
+  textFeedSource({
+    id: 'otx-reputation',
+    url: 'https://reputation.alienvault.com/reputation.generic',
+    parse: parseAlienVaultReputation,
+    kind: 'ip',
+    reporter: 'AlienVault OTX',
+    context: entryContext,
+  }),
+  textFeedSource({
+    id: 'sslbl-c2',
+    url: 'https://sslbl.abuse.ch/blacklist/sslipblacklist.csv',
+    parse: parseSslblC2,
+    kind: 'ip',
+    reporter: 'abuse.ch SSLBL',
+    context: entryContext,
+    withTimestamp: true,
+  }),
+  textFeedSource({
+    id: 'botvrij',
+    url: 'https://www.botvrij.eu/data/ioclist.domain',
+    parse: parseBotvrijDomains,
+    kind: 'domain',
+    reporter: 'Botvrij.eu',
+    context: entryContext,
+  }),
+  textFeedSource({
+    id: 'threatfox',
+    url: 'https://threatfox.abuse.ch/export/csv/recent/',
+    parse: parseThreatfox,
+    kind: 'per-entry',
+    reporter: 'abuse.ch ThreatFox',
+    context: entryContext,
+    withTimestamp: true,
+  }),
+  malwarebazaarSource,
+  phishingSource,
+  andreafortunaSource,
+  textFeedSource({
+    id: 'binarydefense',
+    url: `${CPS_BASE}/binarydefense.txt`,
+    parse: parsePlainTextIps,
+    kind: 'ip',
+    reporter: 'BinaryDefense',
+    context: 'curated malicious IP blocklist',
+  }),
+  textFeedSource({
+    id: 'tor-exit',
+    url: `${CPS_BASE}/tor-exit.txt`,
+    parse: parsePlainTextIps,
+    kind: 'ip',
+    reporter: 'Tor Project',
+    context: 'Tor exit node',
+  }),
+  textFeedSource({
+    id: 'avanzato-c2',
+    url: `${CPS_BASE}/avanzato_c2.txt`,
+    parse: parsePlainTextIps,
+    kind: 'ip',
+    reporter: 'CriticalPathSecurity',
+    context: 'Avanzato malware C2 infrastructure',
+  }),
+  textFeedSource({
+    id: 'cps-collected',
+    url: `${CPS_BASE}/cps-collected-iocs.txt`,
+    parse: parsePlainTextIps,
+    kind: 'ip',
+    reporter: 'CriticalPathSecurity',
+    context: 'CPS internally collected malicious IPs',
+  }),
+  textFeedSource({
+    id: 'greensnow',
+    url: 'https://blocklist.greensnow.co/greensnow.txt',
+    parse: parsePlainTextIps,
+    kind: 'ip',
+    reporter: 'GreenSnow',
+    context: 'malicious IP blocklist',
+  }),
+  textFeedSource({
+    id: 'blocklist-de',
+    url: 'https://lists.blocklist.de/lists/all.txt',
+    parse: parsePlainTextIps,
+    kind: 'ip',
+    reporter: 'Blocklist.de',
+    context: 'reported attack source (48h)',
+  }),
+  textFeedSource({
+    id: 'cinsscore',
+    url: 'https://cinsscore.com/list/ci-badguys.txt',
+    parse: parsePlainTextIps,
+    kind: 'ip',
+    reporter: 'CINSscore',
+    context: 'suspicious/malicious IP',
+  }),
+  mythreatintelSource,
+  textFeedSource({
+    id: 'feodo-tracker',
+    url: 'https://feodotracker.abuse.ch/downloads/ipblocklist.csv',
+    parse: parseFeodoTracker,
+    kind: 'ip',
+    reporter: 'abuse.ch Feodo Tracker',
+    context: entryContext,
+  }),
+  textFeedSource({
+    id: 'bbcan177-ips',
+    url: 'https://gist.githubusercontent.com/BBcan177/bf29d47ea04391cb3eb0/raw/',
+    parse: parsePlainTextIps,
+    kind: 'ip',
+    reporter: 'BBcan177',
+    context: 'malicious IP blocklist',
+  }),
+  textFeedSource({
+    id: 'bbcan177-dnsbl',
+    url: 'https://gist.githubusercontent.com/BBcan177/4a8bf37c131be4803cb2/raw',
+    parse: parsePhishingArmy,
+    kind: 'domain',
+    reporter: 'BBcan177',
+    context: 'IRC botnet domains',
+  }),
+  textFeedSource({
+    id: 'domains-blacklist',
+    url: 'https://www.joewein.net/dl/bl/dom-bl.txt',
+    parse: parsePhishingArmy,
+    kind: 'domain',
+    reporter: 'Joewein.net',
+    context: 'known malicious domain',
+  }),
+  textFeedSource({
+    id: 'nocoin',
+    url: 'https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/hosts.txt',
+    parse: parsePhishingArmy,
+    kind: 'domain',
+    reporter: 'NoCoin',
+    context: 'cryptomining / browser miner',
+  }),
+  textFeedSource({
+    id: 'monero-miner',
+    url: 'https://raw.githubusercontent.com/Hestat/minerchk/master/hostslist.txt',
+    parse: parsePhishingArmy,
+    kind: 'domain',
+    reporter: 'MinerBlock',
+    context: 'Monero mining pool / miner domain',
+  }),
+  textFeedSource({
+    id: 'botvrij-hostnames',
+    url: 'https://www.botvrij.eu/data/ioclist.hostname.raw',
+    parse: parsePhishingArmy,
+    kind: 'domain',
+    reporter: 'Botvrij.eu',
+    context: 'curated malicious hostname',
+  }),
+  textFeedSource({
+    id: 'botvrij-urls',
+    url: 'https://www.botvrij.eu/data/ioclist.url.raw',
+    parse: parseBotvrijUrls,
+    kind: 'url',
+    reporter: 'Botvrij.eu',
+    context: 'curated malicious URL',
+    okRequiresItems: true,
+  }),
+  textFeedSource({
+    id: 'botvrij-ips',
+    url: 'https://www.botvrij.eu/data/ioclist.ip-dst.raw',
+    parse: parsePlainTextIps,
+    kind: 'ip',
+    reporter: 'Botvrij.eu',
+    context: 'curated malicious IP',
+  }),
+  textFeedSource({
+    id: 'hancitor',
+    url: 'https://raw.githubusercontent.com/LinuxTracker/Blocklists/master/HancitorIPs.txt',
+    parse: parsePlainTextIps,
+    kind: 'ip',
+    reporter: 'LinuxTracker',
+    context: 'Hancitor malspam source',
+  }),
+  textFeedSource({
+    id: 'darklist',
+    url: 'https://www.darklist.de/raw.php',
+    parse: parsePlainTextIps,
+    kind: 'ip',
+    reporter: 'Darklist.de',
+    context: 'reported malicious IP',
+  }),
+  textFeedSource({
+    id: 'bruteforce-blocker',
+    url: 'https://danger.rulez.sk/projects/bruteforceblocker/blist.php',
+    parse: parsePlainTextIps,
+    kind: 'ip',
+    reporter: 'BruteForce Blocker',
+    context: 'brute-force attack source',
+  }),
+];
 
-  // ─── Feodo Tracker (abuse.ch botnet C2 IPs) ────────────────────────────
-  if (feodoTrackerText) {
-    const parsed = parseFeodoTracker(feodoTrackerText, PER_FEED_CAP);
-    for (const e of parsed) {
-      items.push({
-        value: e.value,
-        kind: 'ip',
-        source: 'feodo-tracker',
-        reporter: 'abuse.ch Feodo Tracker',
-        context: e.context,
-      });
-    }
-    sources.push({ id: 'feodo-tracker', ok: true, count: parsed.length });
-  } else {
-    sources.push({ id: 'feodo-tracker', ok: false, count: 0 });
-  }
+export async function fetchLiveIocs(
+  executionCtx?: { waitUntil: (p: Promise<unknown>) => void },
+  kv?: KVNamespace,
+  env?: Env
+): Promise<LiveIocsResponse> {
+  // Fan out across every registered feed source with a bounded concurrency.
+  // Replaces the three sequential fetch batches (P7: a slow feed in batch 1
+  // delayed the start of batch 3). concurrentMap preserves input order, so the
+  // flattened sources/items keep FEED_SOURCES order — which the freshness sort
+  // and the per-source recount below rely on being stable.
+  const deps: FeedDeps = { executionCtx, kv, env };
+  const feedResults = await concurrentMap(FEED_SOURCES, (s) => s.run(deps), FEED_FANOUT_CONCURRENCY);
 
-  // ─── BBcan177 Malicious IPs ───────────────────────────────────────────
-  if (bbcan177IpsText) {
-    const parsed = parsePlainTextIps(bbcan177IpsText, PER_FEED_CAP);
-    for (const e of parsed) {
-      items.push({
-        value: e.value,
-        kind: 'ip',
-        source: 'bbcan177-ips',
-        reporter: 'BBcan177',
-        context: 'malicious IP blocklist',
-      });
-    }
-    sources.push({ id: 'bbcan177-ips', ok: true, count: parsed.length });
-  } else {
-    sources.push({ id: 'bbcan177-ips', ok: false, count: 0 });
-  }
-
-  // ─── BBcan177 DNSBL ───────────────────────────────────────────────────
-  if (bbcan177DnsblText) {
-    const parsed = parsePhishingArmy(bbcan177DnsblText, PER_FEED_CAP);
-    for (const e of parsed) {
-      items.push({
-        value: e.value,
-        kind: 'domain',
-        source: 'bbcan177-dnsbl',
-        reporter: 'BBcan177',
-        context: 'IRC botnet domains',
-      });
-    }
-    sources.push({ id: 'bbcan177-dnsbl', ok: true, count: parsed.length });
-  } else {
-    sources.push({ id: 'bbcan177-dnsbl', ok: false, count: 0 });
-  }
-
-  // ─── Domains Blacklist (joewein.net) ──────────────────────────────────
-  if (domainsBlacklistText) {
-    const parsed = parsePhishingArmy(domainsBlacklistText, PER_FEED_CAP);
-    for (const e of parsed) {
-      items.push({
-        value: e.value,
-        kind: 'domain',
-        source: 'domains-blacklist',
-        reporter: 'Joewein.net',
-        context: 'known malicious domain',
-      });
-    }
-    sources.push({ id: 'domains-blacklist', ok: true, count: parsed.length });
-  } else {
-    sources.push({ id: 'domains-blacklist', ok: false, count: 0 });
-  }
-
-  // ─── NoCoin (cryptomining domain blocklist) ───────────────────────────
-  if (noCoinText) {
-    const parsed = parsePhishingArmy(noCoinText, PER_FEED_CAP);
-    for (const e of parsed) {
-      items.push({
-        value: e.value,
-        kind: 'domain',
-        source: 'nocoin',
-        reporter: 'NoCoin',
-        context: 'cryptomining / browser miner',
-      });
-    }
-    sources.push({ id: 'nocoin', ok: true, count: parsed.length });
-  } else {
-    sources.push({ id: 'nocoin', ok: false, count: 0 });
-  }
-
-  // ─── Monero Miner domains ─────────────────────────────────────────────
-  if (moneroMinerText) {
-    const parsed = parsePhishingArmy(moneroMinerText, PER_FEED_CAP);
-    for (const e of parsed) {
-      items.push({
-        value: e.value,
-        kind: 'domain',
-        source: 'monero-miner',
-        reporter: 'MinerBlock',
-        context: 'Monero mining pool / miner domain',
-      });
-    }
-    sources.push({ id: 'monero-miner', ok: true, count: parsed.length });
-  } else {
-    sources.push({ id: 'monero-miner', ok: false, count: 0 });
-  }
-
-  // ─── Botvrij.eu hostnames ─────────────────────────────────────────────
-  if (botvrijHostnamesText) {
-    const parsed = parsePhishingArmy(botvrijHostnamesText, PER_FEED_CAP);
-    for (const e of parsed) {
-      items.push({
-        value: e.value,
-        kind: 'domain',
-        source: 'botvrij-hostnames',
-        reporter: 'Botvrij.eu',
-        context: 'curated malicious hostname',
-      });
-    }
-    sources.push({ id: 'botvrij-hostnames', ok: true, count: parsed.length });
-  } else {
-    sources.push({ id: 'botvrij-hostnames', ok: false, count: 0 });
-  }
-
-  // ─── Botvrij.eu URLs ──────────────────────────────────────────────────
-  if (botvrijUrlsText) {
-    const urls = botvrijUrlsText
-      .split('\n')
-      .map((l) => l.trim())
-      .filter((l) => l.startsWith('http'))
-      .slice(0, PER_FEED_CAP);
-    for (const url of urls) {
-      items.push({
-        value: url,
-        kind: 'url',
-        source: 'botvrij-urls',
-        reporter: 'Botvrij.eu',
-        context: 'curated malicious URL',
-      });
-    }
-    sources.push({ id: 'botvrij-urls', ok: urls.length > 0, count: urls.length });
-  } else {
-    sources.push({ id: 'botvrij-urls', ok: false, count: 0 });
-  }
-
-  // ─── Botvrij.eu IPs ───────────────────────────────────────────────────
-  if (botvrijIpsText) {
-    const parsed = parsePlainTextIps(botvrijIpsText, PER_FEED_CAP);
-    for (const e of parsed) {
-      items.push({
-        value: e.value,
-        kind: 'ip',
-        source: 'botvrij-ips',
-        reporter: 'Botvrij.eu',
-        context: 'curated malicious IP',
-      });
-    }
-    sources.push({ id: 'botvrij-ips', ok: true, count: parsed.length });
-  } else {
-    sources.push({ id: 'botvrij-ips', ok: false, count: 0 });
-  }
-
-  // ─── Hancitor malspam IPs ─────────────────────────────────────────────
-  if (hancitorIpsText) {
-    const parsed = parsePlainTextIps(hancitorIpsText, PER_FEED_CAP);
-    for (const e of parsed) {
-      items.push({
-        value: e.value,
-        kind: 'ip',
-        source: 'hancitor',
-        reporter: 'LinuxTracker',
-        context: 'Hancitor malspam source',
-      });
-    }
-    sources.push({ id: 'hancitor', ok: true, count: parsed.length });
-  } else {
-    sources.push({ id: 'hancitor', ok: false, count: 0 });
-  }
-
-  // ─── Darklist.de IP blocklist ─────────────────────────────────────────
-  if (darklistText) {
-    const parsed = parsePlainTextIps(darklistText, PER_FEED_CAP);
-    for (const e of parsed) {
-      items.push({
-        value: e.value,
-        kind: 'ip',
-        source: 'darklist',
-        reporter: 'Darklist.de',
-        context: 'reported malicious IP',
-      });
-    }
-    sources.push({ id: 'darklist', ok: true, count: parsed.length });
-  } else {
-    sources.push({ id: 'darklist', ok: false, count: 0 });
-  }
-
-  // ─── Brute Force Blocker ──────────────────────────────────────────────
-  if (bruteForceBlockerText) {
-    const parsed = parsePlainTextIps(bruteForceBlockerText, PER_FEED_CAP);
-    for (const e of parsed) {
-      items.push({
-        value: e.value,
-        kind: 'ip',
-        source: 'bruteforce-blocker',
-        reporter: 'BruteForce Blocker',
-        context: 'brute-force attack source',
-      });
-    }
-    sources.push({ id: 'bruteforce-blocker', ok: true, count: parsed.length });
-  } else {
-    sources.push({ id: 'bruteforce-blocker', ok: false, count: 0 });
+  const items: LiveIoc[] = [];
+  const sources: LiveSource[] = [];
+  for (const r of feedResults) {
+    for (const it of r.items) items.push(it);
+    for (const s of r.sources) sources.push(s);
   }
 
   // Drop stale items — observed before the freshness cutoff. Items without
