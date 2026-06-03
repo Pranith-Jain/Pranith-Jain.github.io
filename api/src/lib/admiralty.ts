@@ -44,6 +44,7 @@ const SOURCE_RELIABILITY: Partial<Record<ProviderId, Reliability>> = {
   yaraify: 'C',
   malpedia: 'B',
   kaspersky: 'B',
+  cape: 'B',
 };
 
 /** Indicator-type baseline credibility — more persistent artifacts score higher. */

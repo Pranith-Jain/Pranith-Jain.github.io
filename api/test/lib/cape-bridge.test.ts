@@ -6,6 +6,7 @@ import {
   taskStatus,
   fetchReport,
   normalizeReport,
+  searchHash,
   CapeUnconfiguredError,
   CapeBridgeError,
   type CapeEnv,
@@ -153,5 +154,72 @@ describe('normalizeReport', () => {
     const n = normalizeReport({}, 1);
     expect(n.verdict).toBe('unknown');
     expect(n.score).toBe(0);
+  });
+});
+
+describe('searchHash', () => {
+  it('throws CapeUnconfiguredError when the bridge URL is unset', async () => {
+    await expect(searchHash({}, 'a'.repeat(64))).rejects.toBeInstanceOf(CapeUnconfiguredError);
+  });
+
+  it('GETs the sha256 search endpoint and returns the max malscore + task ids', async () => {
+    const spy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          error: false,
+          data: [
+            { id: 5, malscore: 8 },
+            { id: 9, malscore: 3 },
+          ],
+        }),
+        {
+          status: 200,
+          headers: { 'content-type': 'application/json' },
+        }
+      )
+    );
+    const hit = await searchHash(env, 'A'.repeat(64));
+    expect(hit.found).toBe(true);
+    expect(hit.taskCount).toBe(2);
+    expect(hit.topScore).toBe(8);
+    expect(hit.taskIds).toEqual([5, 9]);
+    expect(String(spy.mock.calls[0]?.[0])).toBe(
+      `https://cape.example.com/apiv2/tasks/search/sha256/${'a'.repeat(64)}/`
+    );
+  });
+
+  it('picks the hash type (md5/sha1) from the hash length', async () => {
+    const spy = vi
+      .spyOn(globalThis, 'fetch')
+      .mockImplementation(
+        async () =>
+          new Response(JSON.stringify({ data: [] }), { status: 200, headers: { 'content-type': 'application/json' } })
+      );
+    await searchHash(env, 'b'.repeat(32));
+    await searchHash(env, 'c'.repeat(40));
+    expect(String(spy.mock.calls[0]?.[0])).toContain('/tasks/search/md5/');
+    expect(String(spy.mock.calls[1]?.[0])).toContain('/tasks/search/sha1/');
+  });
+
+  it('returns found=false on empty results', async () => {
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(JSON.stringify({ error: false, data: [] }), {
+        status: 200,
+        headers: { 'content-type': 'application/json' },
+      })
+    );
+    const hit = await searchHash(env, 'a'.repeat(64));
+    expect(hit.found).toBe(false);
+    expect(hit.taskCount).toBe(0);
+    expect(hit.topScore).toBeNull();
+  });
+
+  it('throws CapeBridgeError on an unsupported hash length', async () => {
+    await expect(searchHash(env, 'abc')).rejects.toBeInstanceOf(CapeBridgeError);
+  });
+
+  it('throws CapeBridgeError on a non-2xx upstream', async () => {
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('nope', { status: 500 }));
+    await expect(searchHash(env, 'a'.repeat(64))).rejects.toBeInstanceOf(CapeBridgeError);
   });
 });

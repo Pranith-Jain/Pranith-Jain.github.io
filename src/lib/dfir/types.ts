@@ -74,7 +74,8 @@ export type ProviderId =
   | 'yaraify'
   | 'phishtank'
   | 'malwareworld'
-  | 'kaspersky';
+  | 'kaspersky'
+  | 'cape';
 
 export interface ProviderResultWire {
   source: ProviderId;

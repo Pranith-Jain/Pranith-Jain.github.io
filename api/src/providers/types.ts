@@ -44,7 +44,8 @@ export type ProviderId =
   | 'criminalip'
   | 'certpl'
   | 'x4bnet'
-  | 'kaspersky';
+  | 'kaspersky'
+  | 'cape';
 
 export type Verdict = 'clean' | 'suspicious' | 'malicious' | 'unknown';
 
@@ -82,6 +83,10 @@ export interface ProviderEnv {
   CRIMINALIP_API_KEY?: string;
   KASPERSKY_API_KEY?: string;
   SPUR_API_KEY?: string;
+  /** Self-hosted CAPEv2 sandbox bridge (optional). The `cape` provider does a
+   *  hash lookup against past analyses; degrades to 'unsupported' when unset. */
+  CAPE_BRIDGE_URL?: string;
+  CAPE_BRIDGE_TOKEN?: string;
 }
 
 export type ProviderAdapter = (indicator: Indicator, env: ProviderEnv, signal: AbortSignal) => Promise<ProviderResult>;
@@ -137,4 +142,5 @@ export const PROVIDER_SUPPORT: Record<ProviderId, IndicatorType[]> = {
   certpl: ['domain'],
   x4bnet: ['ipv4', 'ipv6'],
   kaspersky: ['ipv4', 'domain', 'url', 'hash'],
+  cape: ['hash'],
 };

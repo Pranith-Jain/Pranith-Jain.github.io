@@ -50,6 +50,15 @@ export interface CapeNormalizedReport {
   target?: { filename?: string; sha256?: string };
 }
 
+/** Result of looking a sample hash up against past CAPE analyses. */
+export interface CapeHashHit {
+  found: boolean;
+  taskCount: number;
+  /** Highest CAPE malscore (0-10) across matching tasks, if the search exposes it. */
+  topScore: number | null;
+  taskIds: number[];
+}
+
 /** Raised when the bridge is asked to act but `CAPE_BRIDGE_URL` is unset. */
 export class CapeUnconfiguredError extends Error {
   constructor() {
@@ -169,6 +178,44 @@ export async function fetchReport(env: CapeEnv, id: number, signal?: AbortSignal
   const res = await fetch(`${base}/tasks/report/${id}/`, { headers: { ...authHeaders(env) }, signal });
   if (!res.ok) throw new CapeBridgeError(`CAPE report failed: HTTP ${res.status}`);
   return res.json();
+}
+
+interface CapeSearchTask {
+  id?: number;
+  task_id?: number;
+  malscore?: number;
+  info?: { score?: number };
+}
+interface CapeSearchResponse {
+  error?: boolean;
+  data?: CapeSearchTask[];
+}
+
+const HASH_TYPE_BY_LEN: Record<number, 'md5' | 'sha1' | 'sha256'> = { 32: 'md5', 40: 'sha1', 64: 'sha256' };
+
+/** Look a sample hash up against past CAPE analyses (no detonation). */
+export async function searchHash(env: CapeEnv, hash: string, signal?: AbortSignal): Promise<CapeHashHit> {
+  const base = requireConfigured(env);
+  const h = hash.trim().toLowerCase();
+  const hashType = HASH_TYPE_BY_LEN[h.length];
+  if (!hashType || !/^[a-f0-9]+$/.test(h)) {
+    throw new CapeBridgeError('unsupported hash for CAPE search (expected MD5/SHA-1/SHA-256)', 400);
+  }
+
+  const res = await fetch(`${base}/tasks/search/${hashType}/${h}/`, { headers: { ...authHeaders(env) }, signal });
+  if (!res.ok) throw new CapeBridgeError(`CAPE search failed: HTTP ${res.status}`);
+
+  const json = (await res.json()) as CapeSearchResponse;
+  const tasks = Array.isArray(json.data) ? json.data : [];
+  const taskIds: number[] = [];
+  let topScore: number | null = null;
+  for (const t of tasks) {
+    const id = typeof t.id === 'number' ? t.id : typeof t.task_id === 'number' ? t.task_id : null;
+    if (id !== null && taskIds.length < 10) taskIds.push(id);
+    const sc = typeof t.malscore === 'number' ? t.malscore : typeof t.info?.score === 'number' ? t.info.score : null;
+    if (sc !== null && (topScore === null || sc > topScore)) topScore = sc;
+  }
+  return { found: tasks.length > 0, taskCount: tasks.length, topScore, taskIds };
 }
 
 export function normalizeReport(raw: unknown, taskId: number): CapeNormalizedReport {
