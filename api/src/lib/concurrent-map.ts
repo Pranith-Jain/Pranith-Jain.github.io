@@ -6,7 +6,7 @@
  * that causes head-of-line blocking.
  */
 export async function concurrentMap<T, R>(
-  items: T[],
+  items: readonly T[],
   fn: (item: T, index: number) => Promise<R>,
   limit = 6
 ): Promise<R[]> {
