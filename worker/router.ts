@@ -1,5 +1,5 @@
 import { injectScriptNonce } from './csp';
-import { getOrInjectOg, injectOgMeta, OG_CACHE_TTL_SECONDS } from './og-rewriter';
+import { getOrInjectOg, injectOgMeta } from './og-rewriter';
 import type { Env } from './env';
 
 /**
@@ -315,11 +315,11 @@ export async function fetchPrerenderedOrShell(
     // SPA shell references content-hashed JS/CSS chunks that are safe
     // to cache immutably, but the shell HTML itself must refresh on
     // every deploy so users pick up new lazy chunks (e.g. a new
-    // NotFound page, the React Router table). `no-cache` makes the
-    // browser always revalidate with the CDN; Cloudflare returns 304
-    // for unchanged shells (cheap) and 200 for new ones. 5-minute
-    // `max-age` lets the CDN coalesce repeat requests within a
-    // session before falling back to revalidation.
+    // NotFound page, the React Router table). `max-age=0, must-revalidate`
+    // makes the browser revalidate on every load; the asset layer's etag
+    // returns 304 for unchanged shells (cheap) and 200 for new ones, so
+    // a returning visitor never serves a stale shell that imports a
+    // since-deleted chunk.
     h.set('cache-control', 'public, max-age=0, must-revalidate');
     return new Response(body, { status: r.status, statusText: r.statusText, headers: h });
   }
@@ -343,7 +343,15 @@ export async function fetchPrerenderedOrShell(
   }
   const ogRewritten = await injectOgMeta(prerenderRes, url, env, ctx, nonce);
   const headers = new Headers(ogRewritten.headers);
-  headers.set('cache-control', `public, max-age=${OG_CACHE_TTL_SECONDS}`);
+  // A prerendered shell references the same content-hashed JS/CSS chunks as
+  // the SPA shell, and those chunk filenames change (and the old ones are
+  // deleted) on every deploy. Caching this HTML in the *browser* for a day
+  // means a returning visitor serves a stale shell that imports a now-404'd
+  // lazy chunk → the app crashes into the "Update available" boundary. So it
+  // must revalidate on every load, exactly like the SPA-shell and 404 paths
+  // above. The worker's own etag-keyed Cache API entry (see injectOgMeta)
+  // is unaffected by this header, so server-side hit rate is preserved.
+  headers.set('cache-control', 'public, max-age=0, must-revalidate');
   headers.set('x-ssr-source', 'prerendered');
   return new Response(ogRewritten.body, {
     status: ogRewritten.status,
