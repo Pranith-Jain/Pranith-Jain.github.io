@@ -1,7 +1,11 @@
-const BASE_URL = process.env.BASE_URL || 'https://pranithjain.qzz.io';
-const ADMIN_TOKEN = process.env.ADMIN_TOKEN;
-if (!ADMIN_TOKEN) {
-  console.error('FATAL: ADMIN_TOKEN env var required');
+const CF_API_TOKEN = process.env.CF_API_TOKEN;
+const CF_ACCOUNT_ID = process.env.CF_ACCOUNT_ID;
+if (!CF_API_TOKEN) {
+  console.error('FATAL: CF_API_TOKEN env var required');
+  process.exit(1);
+}
+if (!CF_ACCOUNT_ID) {
+  console.error('FATAL: CF_ACCOUNT_ID env var required');
   process.exit(1);
 }
 
@@ -176,24 +180,21 @@ async function buildFeed() {
   };
 }
 
-async function pushFeed(feed) {
-  const url = `${BASE_URL}/api/v1/admin/reddit-feed`;
+const KV_NAMESPACE_ID = '5125e769e49f4a1586f81d1935f9856a';
+const KV_KEY = 'reddit-feed:data:v1';
+
+async function pushFeedViaApi(feed) {
+  const url = `https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/storage/kv/namespaces/${KV_NAMESPACE_ID}/values/${KV_KEY}`;
   const r = await fetch(url, {
-    method: 'POST',
+    method: 'PUT',
     headers: {
-      'authorization': `Bearer ${ADMIN_TOKEN}`,
+      authorization: `Bearer ${CF_API_TOKEN}`,
       'content-type': 'application/json',
     },
     body: JSON.stringify(feed),
   });
-  const text = await r.text();
-  let result;
-  try {
-    result = JSON.parse(text);
-  } catch {
-    result = { raw: text.slice(0, 200) };
-  }
-  return { status: r.status, result };
+  const body = await r.json();
+  return { status: r.status, result: body };
 }
 
 async function main() {
@@ -202,11 +203,11 @@ async function main() {
   const liveCount = feed.items.filter((i) => i.pub_date > new Date(Date.now() - 86400000).toISOString()).length;
   console.log(`  items: ${feed.items.length} (${liveCount} from last 24h), warnings: ${feed.warnings.length}`);
 
-  console.log('Pushing to worker...');
-  const { status, result } = await pushFeed(feed);
+  console.log('Pushing to KV via Cloudflare API...');
+  const { status, result } = await pushFeedViaApi(feed);
   console.log(`  HTTP ${status}: ${JSON.stringify(result)}`);
 
-  if (status !== 200) {
+  if (status < 200 || status >= 300) {
     console.error('Push failed');
     process.exit(1);
   }
