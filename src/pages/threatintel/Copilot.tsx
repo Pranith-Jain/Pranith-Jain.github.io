@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { sanitizeAiHtml } from '../../lib/sanitize-html';
 import {
   ArrowLeft,
   Send,
@@ -130,8 +131,13 @@ export default function Copilot(): JSX.Element {
     let cancelled = false;
     void (async () => {
       const { default: DOMPurify } = await import('isomorphic-dompurify');
+      // 1) strip ALL model-emitted HTML to plain text, 2) render our trusted
+      // markdown subset, 3) sanitize the RESULT. The final pass is defense in
+      // depth: if renderMarkdown ever emits an attacker-influenced attribute
+      // (e.g. a future link rule), it gets stripped before it reaches the DOM.
       const safeMd = DOMPurify.sanitize(md, { ALLOWED_TAGS: [] });
-      if (!cancelled) setNarrativeHtml(renderMarkdown(safeMd));
+      const safe = await sanitizeAiHtml(renderMarkdown(safeMd));
+      if (!cancelled) setNarrativeHtml(safe);
     })();
     return () => {
       cancelled = true;

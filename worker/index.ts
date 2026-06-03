@@ -64,6 +64,24 @@ export default {
     // it carries the same security headers (CSP/HSTS/nosniff/…) as every other
     // surface instead of bypassing withSecurityHeaders.
     if (url.pathname.startsWith('/api/mcp')) {
+      // Require an API key to open an MCP session. Tools already key-gate their
+      // downstream /api/v1 calls, but this blocks anonymous session init /
+      // list_tools and closes the exposure if OPEN_PUBLIC_READS is ever set.
+      // CORS preflight (OPTIONS) carries no credentials and must pass. The key
+      // is validated downstream per tool call; here we only require its presence
+      // (no currently-working client is keyless — keyless tools 401 already).
+      if (request.method !== 'OPTIONS') {
+        const authz = request.headers.get('authorization') ?? '';
+        const hasKey = /^Bearer\s+\S/i.test(authz) || !!request.headers.get('x-api-key');
+        if (!hasKey) {
+          return withSecurityHeaders(
+            new Response(JSON.stringify({ error: 'api key required for MCP' }), {
+              status: 401,
+              headers: { 'content-type': 'application/json', 'www-authenticate': 'Bearer' },
+            })
+          );
+        }
+      }
       const mcpRes = await DfirMcpServer.serve('/api/mcp', { binding: 'DFIR_MCP' }).fetch(request, env, ctx);
       return withSecurityHeaders(mcpRes);
     }

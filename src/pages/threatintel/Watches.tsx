@@ -2,7 +2,8 @@ import { useEffect, useState, useCallback } from 'react';
 import { ArrowLeft, Plus, Trash2, Bell, RefreshCw, AlertTriangle, ExternalLink, Activity, Search } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
-import { adminAuthHeaders } from '../../lib/admin-token';
+import { adminAuthHeaders, readAdminToken } from '../../lib/admin-token';
+import { AdminRequired } from '../../components/AdminRequired';
 
 interface Watch {
   id: string;
@@ -135,6 +136,10 @@ export default function Watches(): JSX.Element {
       setError(e instanceof Error ? e.message : String(e));
     }
   };
+
+  // Operator tool — its API is admin-gated, so show a clean locked state to
+  // non-admin visitors instead of a red error.
+  if (!readAdminToken()) return <AdminRequired tool="Watches" />;
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">

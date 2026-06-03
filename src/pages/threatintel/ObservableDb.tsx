@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback, type FormEvent } from 'react';
 import { BackLink } from '../../components/BackLink';
-import { adminAuthHeaders } from '../../lib/admin-token';
+import { adminAuthHeaders, readAdminToken } from '../../lib/admin-token';
+import { AdminRequired } from '../../components/AdminRequired';
 import {
   ArrowLeft,
   Search,
@@ -226,6 +227,10 @@ export default function ObservableDb(): JSX.Element {
       /* ignore */
     }
   };
+
+  // Operator tool — its API is admin-gated, so show a clean locked state to
+  // non-admin visitors instead of a red "Failed to load".
+  if (!readAdminToken()) return <AdminRequired tool="The Observable Database" />;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
