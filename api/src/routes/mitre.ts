@@ -113,11 +113,16 @@ export async function mitreTechniqueHandler(c: Context<{ Bindings: Env }>) {
     return c.json({ error: 'mitre_unreachable' }, 502);
   }
 
-  const technique = objects.find(
-    (o) =>
-      o.type === 'attack-pattern' &&
-      o.external_references?.some((r) => r.external_id === techniqueId || r.url?.includes(`/techniques/${techniqueId}`))
-  );
+  // Prefer an EXACT external_id match (e.g. 'T1059') — it's unambiguous and
+  // never matches a sub-technique ('T1059.007'). The URL fallback uses endsWith,
+  // not includes, so `/techniques/T1059` no longer matches `/techniques/T1059/007`
+  // (the old `includes` resolved T1059 to the JavaScript sub-technique).
+  const isAttackPattern = (o: MitreStixObject) => o.type === 'attack-pattern';
+  const technique =
+    objects.find((o) => isAttackPattern(o) && o.external_references?.some((r) => r.external_id === techniqueId)) ??
+    objects.find(
+      (o) => isAttackPattern(o) && o.external_references?.some((r) => r.url?.endsWith(`/techniques/${techniqueId}`))
+    );
 
   if (!technique) {
     return c.json({ error: 'technique not found' }, 404);
