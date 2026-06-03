@@ -4,17 +4,12 @@ const BASE = 'https://opentip.kaspersky.com/api/v1';
 
 const SUPPORTED_TYPES = new Set(['ipv4', 'domain', 'url', 'hash']);
 
-interface KasperskyZone {
-  zone?: 'green' | 'yellow' | 'orange' | 'red' | 'grey';
-  threat_name?: string;
-  classification?: string;
-}
-
 interface KasperskyResponse {
-  ip?: KasperskyZone;
-  domain?: KasperskyZone;
-  url?: KasperskyZone;
-  hash?: KasperskyZone;
+  // OpenTIP returns the verdict as a top-level PascalCase `Zone`
+  // (Red|Orange|Yellow|Green|Grey); metadata lives in *GeneralInfo objects.
+  // The old shape (json.ip/json.domain with lowercase `zone`) matched nothing,
+  // so every lookup returned `unknown` even with a valid key.
+  Zone?: string;
   FileGeneralInfo?: {
     DetectionRate?: number;
     DetectionName?: string;
@@ -57,7 +52,11 @@ export const kaspersky: ProviderAdapter = async (indicator, env, signal) => {
   if (!key) return base('unsupported');
 
   try {
-    const url = `${BASE}/search/${indicator.type}?${indicator.type}=${encodeURIComponent(indicator.value)}`;
+    // OpenTIP endpoints are /search/{ip|domain|url|hash} and take the indicator
+    // in the `request` query param (NOT `?ip=`/`?domain=`). The IP endpoint path
+    // is `ip`, not `ipv4`. The old form 404'd / returned nothing for everything.
+    const pathType = indicator.type === 'ipv4' ? 'ip' : indicator.type;
+    const url = `${BASE}/search/${pathType}?request=${encodeURIComponent(indicator.value)}`;
     const res = await fetch(url, {
       headers: { 'x-api-key': key, Accept: 'application/json' },
       signal,
@@ -83,39 +82,25 @@ export const kaspersky: ProviderAdapter = async (indicator, env, signal) => {
 
     const json = (await res.json()) as KasperskyResponse;
 
-    let zone: KasperskyZone | undefined;
-    switch (indicator.type) {
-      case 'ipv4':
-        zone = json.ip;
-        break;
-      case 'domain':
-        zone = json.domain;
-        break;
-      case 'url':
-        zone = json.url;
-        break;
-      case 'hash':
-        zone = json.hash;
-        if (json.FileGeneralInfo?.DetectionRate) {
-          const rate = json.FileGeneralInfo.DetectionRate;
-          const r = rate >= 20 ? 'red' : rate >= 10 ? 'orange' : 'grey';
-          zone = { zone: r as KasperskyZone['zone'], threat_name: json.FileGeneralInfo.DetectionName };
-        }
-        break;
+    // Verdict is the top-level `Zone` (PascalCase) — lowercase to map it.
+    let zoneStr = (json.Zone ?? '').toLowerCase();
+    const threatName = json.FileGeneralInfo?.DetectionName;
+    // For hashes, refine from the AV detection rate when present.
+    if (indicator.type === 'hash' && json.FileGeneralInfo?.DetectionRate) {
+      const rate = json.FileGeneralInfo.DetectionRate;
+      if (rate >= 20) zoneStr = 'red';
+      else if (rate >= 10 && zoneStr !== 'red') zoneStr = 'orange';
     }
 
-    const threatName: string | undefined = zone?.threat_name ?? json.FileGeneralInfo?.DetectionName;
-
-    const { score, verdict, tags } = zoneToScore(zone?.zone);
+    const { score, verdict, tags } = zoneToScore(zoneStr);
     if (threatName) tags.push(threatName);
 
     return base('ok', {
       score,
       verdict,
       raw_summary: {
-        zone: zone?.zone ?? 'unknown',
+        zone: zoneStr || 'unknown',
         threat_name: threatName ?? null,
-        classification: zone?.classification ?? null,
       },
       tags,
     });

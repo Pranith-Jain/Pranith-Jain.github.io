@@ -19,7 +19,10 @@ import type { ProviderAdapter, ProviderResult, Verdict } from './types';
 const supports = new Set(['ipv4', 'ipv6']);
 
 interface FeodoEntry {
-  ip: string;
+  // Upstream JSON field is `ip_address` — the old `ip` was always undefined, so
+  // the lookup map keyed everything under `undefined` and EVERY C2 IP came back
+  // "clean" (a high-confidence botnet-C2 feed producing zero signal).
+  ip_address: string;
   port: number;
   hostname: string;
   malware: string;
@@ -35,14 +38,14 @@ const CACHE_TTL = 30 * 60 * 1000; // 30 min
 
 async function getFeodoList(signal: AbortSignal): Promise<Map<string, FeodoEntry>> {
   const now = Date.now();
-  if (cachedList && (now - cacheTime) < CACHE_TTL) {
+  if (cachedList && now - cacheTime < CACHE_TTL) {
     return cachedList;
   }
 
-  const res = await fetch(
-    'https://feodotracker.abuse.ch/downloads/ipblocklist_recommended.json',
-    { signal, headers: { 'User-Agent': 'threat-intel-platform/1.0' } }
-  );
+  const res = await fetch('https://feodotracker.abuse.ch/downloads/ipblocklist_recommended.json', {
+    signal,
+    headers: { 'User-Agent': 'threat-intel-platform/1.0' },
+  });
 
   if (!res.ok) throw new Error(`Feodo API error: ${res.status}`);
 
@@ -50,7 +53,7 @@ async function getFeodoList(signal: AbortSignal): Promise<Map<string, FeodoEntry
   const map = new Map<string, FeodoEntry>();
 
   for (const entry of entries) {
-    map.set(entry.ip, entry);
+    map.set(entry.ip_address, entry);
   }
 
   cachedList = map;
@@ -101,7 +104,7 @@ export const feodo: ProviderAdapter = async (indicator, _env, signal) => {
       verdict,
       tags: [...new Set(tags)].slice(0, 6),
       raw_summary: {
-        ip: entry.ip,
+        ip: entry.ip_address,
         port: entry.port,
         hostname: entry.hostname,
         malware: entry.malware,

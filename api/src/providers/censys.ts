@@ -66,17 +66,19 @@ export const censys: ProviderAdapter = async (indicator, env, signal) => {
 
   const pat = env.CENSYS_PAT;
   const orgId = env.CENSYS_ORG_ID;
-  const token = orgId ? `${pat}:${orgId}` : pat;
 
   try {
     const url = `https://api.platform.censys.io/v3/global/asset/host/${encodeURIComponent(indicator.value)}`;
-    const res = await fetch(url, {
-      signal,
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/json',
-      },
-    });
+    // Censys Platform v3: PAT in the Bearer header, org id in a SEPARATE
+    // X-Organization-ID header. The old `Bearer ${pat}:${orgId}` concatenation
+    // was an invalid token → 401/403 (silently swallowed to "no-access") for
+    // every org-scoped account.
+    const headers: Record<string, string> = {
+      Authorization: `Bearer ${pat}`,
+      Accept: 'application/json',
+    };
+    if (orgId) headers['X-Organization-ID'] = orgId;
+    const res = await fetch(url, { signal, headers });
 
     // 401 / 403 = missing / invalid PAT, inactive token, or wrong org.
     if (res.status === 401 || res.status === 403) {

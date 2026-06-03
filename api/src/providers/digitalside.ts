@@ -22,7 +22,7 @@ const CACHE_TTL = 60 * 60 * 1000; // 1 hour
 
 async function fetchFeed(url: string, signal: AbortSignal): Promise<Set<string>> {
   const cached = feedCache.get(url);
-  if (cached && (Date.now() - cached.time) < CACHE_TTL) {
+  if (cached && Date.now() - cached.time < CACHE_TTL) {
     return cached.data;
   }
 
@@ -67,17 +67,13 @@ export const digitalside: ProviderAdapter = async (indicator, _env, signal) => {
 
     if (indicator.type === 'url' || indicator.type === 'domain') {
       feedUrls.push(
-        'https://raw.githubusercontent.com/davidonzo/Threat-Intel/main/lists/latesturls.txt',
-        'https://raw.githubusercontent.com/davidonzo/Threat-Intel/main/lists/latestdomains.txt'
+        'https://raw.githubusercontent.com/davidonzo/Threat-Intel/master/lists/latesturls.txt',
+        'https://raw.githubusercontent.com/davidonzo/Threat-Intel/master/lists/latestdomains.txt'
       );
     } else if (indicator.type === 'ipv4') {
-      feedUrls.push(
-        'https://raw.githubusercontent.com/davidonzo/Threat-Intel/main/lists/latestips.txt'
-      );
+      feedUrls.push('https://raw.githubusercontent.com/davidonzo/Threat-Intel/master/lists/latestips.txt');
     } else if (indicator.type === 'hash') {
-      feedUrls.push(
-        'https://raw.githubusercontent.com/davidonzo/Threat-Intel/main/lists/latesthashes.txt'
-      );
+      feedUrls.push('https://raw.githubusercontent.com/davidonzo/Threat-Intel/master/lists/latesthashes.txt');
     }
 
     const feeds = await Promise.all(feedUrls.map((url) => fetchFeed(url, signal)));

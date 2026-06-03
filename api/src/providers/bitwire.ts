@@ -1,4 +1,5 @@
 import type { ProviderAdapter, ProviderResult } from './types';
+import { parseCidrRanges, ipv4InRanges } from '../lib/cidr';
 
 const supports = new Set(['ipv4']);
 const FEED = 'https://raw.githubusercontent.com/bitwire-it/ipblocklist/main/outbound.txt';
@@ -29,21 +30,16 @@ export const bitwire: ProviderAdapter = async (indicator, _env, signal) => {
     if (!res.ok) return base('error', { error: `${res.status} ${res.statusText}`.trim() });
     const text = await res.text();
 
-    const set = new Set<string>();
-    for (const line of text.split(/\r?\n/)) {
-      const t = line.trim();
-      if (!t || t.startsWith('#')) continue;
-      // Bitwire uses bare IPs and CIDRs. For CIDRs, also store the network address for /32 hits.
-      const slash = t.indexOf('/');
-      set.add(slash === -1 ? t : t.substring(0, slash));
-    }
-
-    const hit = set.has(indicator.value);
+    // Feed is bare IPs + CIDRs. The old code stored only the CIDR network
+    // address and exact-matched, so an IP inside a /31 (etc.) was silently
+    // "clean". Expand to integer ranges and test containment.
+    const ranges = parseCidrRanges(text);
+    const hit = ipv4InRanges(indicator.value, ranges);
     return base('ok', {
       score: hit ? 80 : 0,
       verdict: hit ? 'malicious' : 'clean',
       tags: hit ? ['bitwire-blocklist', 'outbound-c2'] : [],
-      raw_summary: { listed: hit, list_size: set.size },
+      raw_summary: { listed: hit, list_size: ranges.length },
     });
   } catch (err) {
     return base('error', { error: err instanceof Error ? err.message : String(err) });

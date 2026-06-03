@@ -41,31 +41,31 @@ export const urlscan: ProviderAdapter = async (indicator, env, signal) => {
     if (!res.ok) return base('error', { error: `${res.status} ${res.statusText}`.trim() });
 
     const json = (await res.json()) as {
-      results?: Array<{
-        _score?: number;
-        tags?: string[];
-        task?: { url?: string };
-        verdicts?: { overall?: { score?: number } };
-      }>;
+      results?: Array<{ tags?: string[]; task?: { url?: string } }>;
       total?: number;
     };
 
     const results = json.results ?? [];
-    const topScore = results.length > 0 ? Math.max(...results.map((r) => Number(r._score ?? 0))) : 0;
-    const score = Math.min(100, Math.max(0, topScore));
-    const verdict: Verdict = score >= 70 ? 'malicious' : score >= 40 ? 'suspicious' : 'clean';
-
-    const allTags = results.flatMap((r) => r.tags ?? []);
-    const tags = [...new Set(allTags)].slice(0, 10);
+    // urlscan's Search API runs with scoring DISABLED — `_score` is null on every
+    // result, so the old `max(_score)` was always 0 and the verdict was always
+    // 'clean', even for heavily-flagged phishing hosts (a false-negative that
+    // diluted the composite). There's no reliable per-result verdict inline, so
+    // derive a coarse signal from result tags and ABSTAIN ('unknown') rather
+    // than asserting 'clean' on the absence of a signal.
+    const allTags = [...new Set(results.flatMap((r) => r.tags ?? []).map((t) => t.toLowerCase()))];
+    const MALICIOUS_TAGS = ['phishing', 'malicious', 'malware', 'c2'];
+    const flagged = allTags.filter((t) => MALICIOUS_TAGS.some((m) => t.includes(m)));
+    const score = flagged.length > 0 ? 60 : 0;
+    const verdict: Verdict = flagged.length > 0 ? 'suspicious' : 'unknown';
 
     return base('ok', {
       score,
       verdict,
       raw_summary: {
         result_count: results.length,
-        top_score: topScore,
+        flagged_tags: flagged.slice(0, 8),
       },
-      tags,
+      tags: allTags.slice(0, 10),
     });
   } catch (err) {
     return base('error', { error: err instanceof Error ? err.message : String(err) });
