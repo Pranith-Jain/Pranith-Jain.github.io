@@ -71,6 +71,23 @@ const STRICT_CONFIG = {
   ALLOWED_TAGS: SANITIZE_CONFIG.ALLOWED_TAGS.filter((t: string) => t !== 'img' && t !== 'figure' && t !== 'figcaption'),
 };
 
+let relHookInstalled = false;
+/** Load DOMPurify (cached dynamic import) and install the rel-hardening hook once. */
+async function loadPurify() {
+  const { default: DOMPurify } = await import('isomorphic-dompurify');
+  if (!relHookInstalled) {
+    relHookInstalled = true;
+    // Force rel="noopener noreferrer" on any link that opens a new tab so the
+    // opened page can't reach window.opener (reverse-tabnabbing).
+    DOMPurify.addHook('afterSanitizeAttributes', (node: Element) => {
+      if (node.nodeName === 'A' && node.hasAttribute('target')) {
+        node.setAttribute('rel', 'noopener noreferrer');
+      }
+    });
+  }
+  return DOMPurify;
+}
+
 /**
  * Sanitize HTML for general display (markdown bodies, CVE descriptions, etc.).
  * Uses a restrictive config: no scripts, no event handlers, no javascript: URIs.
@@ -78,7 +95,7 @@ const STRICT_CONFIG = {
  * Dynamically imports DOMPurify to avoid bloating the initial bundle.
  */
 export async function sanitizeHtml(html: string): Promise<string> {
-  const { default: DOMPurify } = await import('isomorphic-dompurify');
+  const DOMPurify = await loadPurify();
   return String(DOMPurify.sanitize(html, SANITIZE_CONFIG));
 }
 
@@ -87,7 +104,7 @@ export async function sanitizeHtml(html: string): Promise<string> {
  * removes images that an LLM might generate via prompt injection.
  */
 export async function sanitizeAiHtml(html: string): Promise<string> {
-  const { default: DOMPurify } = await import('isomorphic-dompurify');
+  const DOMPurify = await loadPurify();
   return String(DOMPurify.sanitize(html, STRICT_CONFIG));
 }
 

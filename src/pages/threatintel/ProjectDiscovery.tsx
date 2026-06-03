@@ -45,6 +45,7 @@ interface LeaksResponse {
 }
 
 function firstNum(data: Record<string, unknown>, key: string, field: string): number | null {
+  if (!data || typeof data !== 'object') return null;
   const arr = data[key];
   if (!Array.isArray(arr) || arr.length === 0) return null;
   const v = (arr[0] as Record<string, unknown>)?.[field];
@@ -78,11 +79,14 @@ function CredentialsTab(): JSX.Element {
     }
   };
 
-  const exposure = data ? firstNum(data.data, 'combolist_exposure', 'combolist_exposure') : null;
-  const users = data ? firstNum(data.data, 'leak_user_count', 'user') : null;
-  const devices = data ? firstNum(data.data, 'leak_devices_count', 'devices') : null;
-  const samples = (data?.data.user_sample_data as Array<Record<string, unknown>> | undefined) ?? [];
-  const topUrls = (data?.data.top_used_urls_by_user as Array<{ count?: number; url?: string }> | undefined) ?? [];
+  // Guard against a degraded-but-200 upstream returning `data: null`/scalar —
+  // accessing data.data.<field> on that would crash the page.
+  const dd = (data && typeof data.data === 'object' && data.data ? data.data : {}) as Record<string, unknown>;
+  const exposure = data ? firstNum(dd, 'combolist_exposure', 'combolist_exposure') : null;
+  const users = data ? firstNum(dd, 'leak_user_count', 'user') : null;
+  const devices = data ? firstNum(dd, 'leak_devices_count', 'devices') : null;
+  const samples = (dd.user_sample_data as Array<Record<string, unknown>> | undefined) ?? [];
+  const topUrls = (dd.top_used_urls_by_user as Array<{ count?: number; url?: string }> | undefined) ?? [];
 
   return (
     <div>

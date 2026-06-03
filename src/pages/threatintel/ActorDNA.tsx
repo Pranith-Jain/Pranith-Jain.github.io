@@ -67,6 +67,7 @@ export default function ActorDNA(): JSX.Element {
   const fetchActors = async () => {
     try {
       const res = await fetch('/api/v1/threat-intel/actor-dna');
+      if (!res.ok) throw new Error(`actor list failed (${res.status})`);
       const data = await res.json();
       setActors(data.actors ?? []);
     } catch (err) {

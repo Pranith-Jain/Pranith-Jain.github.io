@@ -261,7 +261,15 @@ export default function PirDashboard(): JSX.Element {
       const updated = await fetch('/api/v1/threat-intel/pirs', { headers: adminAuthHeaders() }).then(
         (r) => r.json() as Promise<PirResponse>
       );
-      setData(updated);
+      // Normalize like fetchAll() — a partial 200 body here would otherwise
+      // white-screen the page (data.pirs.filter on undefined) right after a save.
+      setData({
+        ...updated,
+        pirs: updated.pirs ?? [],
+        scores: updated.scores ?? [],
+        fresh_sources: updated.fresh_sources ?? [],
+        active_count: updated.active_count ?? 0,
+      });
     } catch (e) {
       alert(e instanceof Error ? e.message : 'Operation failed');
     } finally {

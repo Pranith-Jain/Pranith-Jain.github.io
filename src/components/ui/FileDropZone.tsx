@@ -65,7 +65,9 @@ export function FileDropZone({
       onDrop={onDrop}
       onClick={() => !disabled && inputRef.current?.click()}
       onKeyDown={(e) => {
-        if (!disabled && (e.key === 'Enter' || e.key === ' ')) inputRef.current?.click();
+        if (disabled || (e.key !== 'Enter' && e.key !== ' ')) return;
+        e.preventDefault(); // Space on a role=button must not scroll the page
+        inputRef.current?.click();
       }}
       className={[
         'rounded-2xl border-2 border-dashed p-12 text-center cursor-pointer transition-colors',

@@ -36,14 +36,25 @@ export function Modal({
   const previousFocus = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    if (open) {
-      previousFocus.current = document.activeElement as HTMLElement;
-      document.body.style.overflow = 'hidden';
-    } else {
+    if (!open) {
       document.body.style.overflow = '';
       previousFocus.current?.focus();
+      return;
     }
+    previousFocus.current = document.activeElement as HTMLElement;
+    document.body.style.overflow = 'hidden';
+    // Move focus INTO the dialog on open — otherwise focus stays on the trigger
+    // behind the backdrop and the Tab-trap below only engages once focus is
+    // already inside (so the first Tab can escape to background content).
+    const t = setTimeout(() => {
+      overlayRef.current
+        ?.querySelector<HTMLElement>(
+          'button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+        ?.focus();
+    }, 0);
     return () => {
+      clearTimeout(t);
       document.body.style.overflow = '';
     };
   }, [open]);

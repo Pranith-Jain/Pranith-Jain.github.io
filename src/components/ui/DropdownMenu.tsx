@@ -71,7 +71,10 @@ export function DropdownMenu({
       {open && (
         <div
           id={menuId}
-          role="menu"
+          // Plain disclosure of Tab-navigable buttons. We deliberately do NOT
+          // claim role="menu"/"menuitem" — that contract requires arrow-key
+          // roving focus + Home/End + focus-return, which isn't implemented;
+          // an empty menu role is worse than none (SR says "menu", arrows do nothing).
           className={`absolute top-full z-50 mt-1 min-w-[180px] overflow-hidden rounded-lg border border-slate-200 bg-white py-1 shadow-lg dark:border-slate-700 dark:bg-slate-900 ${
             align === 'right' ? 'right-0' : 'left-0'
           } ${menuClassName}`}
@@ -80,7 +83,6 @@ export function DropdownMenu({
             <button
               key={item.value}
               type="button"
-              role="menuitem"
               disabled={item.disabled}
               onClick={() => {
                 onSelect(item.value);

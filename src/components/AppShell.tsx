@@ -219,7 +219,10 @@ export function AppShell({ mode, isDark, onToggleTheme, children }: AppShellProp
         {sidebarConfig && (
           <MobileSidebarDrawer open={mobileNavOpen} onClose={() => setMobileNavOpen(false)} config={sidebarConfig} />
         )}
-        <main id="main-content" key={pageKey} className="flex-1 min-w-0">
+        {/* tabIndex={-1} so the SkipToContent anchor (href="#main-content") can
+            actually move focus here — without it the skip link only scrolls and
+            focus stays in the header, breaking it across the whole TI/DFIR app. */}
+        <main id="main-content" key={pageKey} tabIndex={-1} className="flex-1 min-w-0 outline-none">
           <div className="animate-fade-in-up">
             <SectionErrorBoundary sectionName={section.label}>{children}</SectionErrorBoundary>
           </div>

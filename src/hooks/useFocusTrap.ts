@@ -64,32 +64,28 @@ export function useFocusTrap({ isActive, onEscape }: UseFocusTrapOptions) {
     [isActive, onEscape, getFocusableElements]
   );
 
+  // Capture + restore focus. Keyed ONLY on isActive (getFocusableElements is a
+  // stable useCallback) so a changing `onEscape`/`handleKeyDown` identity — e.g.
+  // the inline arrows in Drawer/CommandPalette — can't re-run this effect and
+  // yank focus back to the trigger while the overlay is still open.
   useEffect(() => {
     if (!isActive) return;
-
-    // Store the previously focused element
     previouslyFocusedElement.current = document.activeElement as HTMLElement;
-
-    // Focus the first focusable element in the container
     const focusableElements = getFocusableElements();
-    if (focusableElements.length > 0) {
-      // Small delay to ensure the container is visible
-      setTimeout(() => {
-        focusableElements[0].focus();
-      }, 0);
-    }
-
-    // Add keyboard event listener
-    document.addEventListener('keydown', handleKeyDown);
-
+    const t = focusableElements.length > 0 ? setTimeout(() => focusableElements[0]?.focus(), 0) : undefined;
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-      // Restore focus when trap is deactivated
-      if (previouslyFocusedElement.current) {
-        previouslyFocusedElement.current.focus();
-      }
+      if (t) clearTimeout(t);
+      previouslyFocusedElement.current?.focus();
     };
-  }, [isActive, handleKeyDown, getFocusableElements]);
+  }, [isActive, getFocusableElements]);
+
+  // Keydown listener is re-attached when handleKeyDown changes, but never
+  // touches focus capture/restore — so identity churn is harmless here.
+  useEffect(() => {
+    if (!isActive) return;
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isActive, handleKeyDown]);
 
   return containerRef;
 }
