@@ -300,6 +300,80 @@ interface CvedbResponse {
   cpes?: string[];
 }
 
+interface Ssvc {
+  exploitation: string | null;
+  automatable: string | null;
+  technical_impact: string | null;
+  /** Derived CISA SSVC action label (approximation of the published tree). */
+  decision: string | null;
+}
+
+/** CISA Vulnrichment raw path: develop/{YYYY}/{floor(num/1000)}xxx/CVE-….json */
+function vulnrichmentUrl(cveUpper: string): string | null {
+  const m = /^CVE-(\d{4})-(\d+)$/.exec(cveUpper);
+  if (!m) return null;
+  const bucket = `${Math.floor(Number(m[2]) / 1000)}xxx`;
+  return `https://raw.githubusercontent.com/cisagov/vulnrichment/develop/${m[1]}/${bucket}/${cveUpper}.json`;
+}
+
+function deriveSsvcDecision(expl: string | null, autom: string | null, impact: string | null): string | null {
+  if (!expl) return null;
+  const e = expl.toLowerCase();
+  const a = (autom ?? '').toLowerCase();
+  const i = (impact ?? '').toLowerCase();
+  if (e === 'active' && a === 'yes' && i === 'total') return 'Act';
+  if (e === 'active') return 'Attend';
+  if (e === 'poc' && a === 'yes' && i === 'total') return 'Attend';
+  if (e === 'poc') return 'Track*';
+  return 'Track';
+}
+
+async function fetchSsvc(cveUpper: string): Promise<Ssvc | null> {
+  const url = vulnrichmentUrl(cveUpper);
+  if (!url) return null;
+  try {
+    const res = await fetchResilient(
+      url,
+      {
+        headers: { accept: 'application/json', 'user-agent': 'pranithjain-dfir/1.0' },
+        cf: { cacheTtl: 6 * 60 * 60, cacheEverything: true },
+      },
+      { attempts: 2, timeoutMs: 12_000 }
+    );
+    if (!res.ok) return null;
+    const json = (await res.json()) as {
+      containers?: {
+        adp?: Array<{
+          metrics?: Array<{ other?: { type?: string; content?: { options?: Array<Record<string, string>> } } }>;
+        }>;
+      };
+    };
+    for (const a of json.containers?.adp ?? []) {
+      for (const metric of a.metrics ?? []) {
+        const opts = metric.other?.type === 'ssvc' ? metric.other.content?.options : undefined;
+        if (Array.isArray(opts)) {
+          const get = (k: string): string | null => {
+            for (const o of opts) if (o[k] != null) return o[k]!;
+            return null;
+          };
+          const exploitation = get('Exploitation');
+          const automatable = get('Automatable');
+          const technical_impact = get('Technical Impact');
+          return {
+            exploitation,
+            automatable,
+            technical_impact,
+            decision: deriveSsvcDecision(exploitation, automatable, technical_impact),
+          };
+        }
+      }
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
 export async function pdCveDetailHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cve = (c.req.query('cve') ?? '').trim().toLowerCase();
   if (!CVE_ID_RE.test(cve)) {
@@ -334,6 +408,9 @@ export async function pdCveDetailHandler(c: Context<{ Bindings: Env }>): Promise
     });
   }
 
+  // CISA Vulnrichment SSVC (optional — null when CISA hasn't enriched the CVE).
+  const ssvc = await fetchSsvc(cveUpper);
+
   const response = new Response(
     JSON.stringify({
       cve: cveUpper,
@@ -348,6 +425,7 @@ export async function pdCveDetailHandler(c: Context<{ Bindings: Env }>): Promise
       published: d.published_time ?? null,
       cpes: Array.isArray(d.cpes) ? d.cpes.slice(0, 40) : [],
       references: Array.isArray(d.references) ? d.references.slice(0, 20) : [],
+      ssvc,
     }),
     {
       status: 200,

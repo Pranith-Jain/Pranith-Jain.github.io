@@ -395,6 +395,12 @@ interface CveDetail {
   published: string | null;
   cpes: string[];
   references: string[];
+  ssvc: {
+    exploitation: string | null;
+    automatable: string | null;
+    technical_impact: string | null;
+    decision: string | null;
+  } | null;
 }
 type DetailState = CveDetail | 'loading' | 'error';
 
@@ -607,7 +613,29 @@ function CvesTab(): JSX.Element {
                                       ransomware: {det.ransomware_campaign}
                                     </span>
                                   )}
+                                  {det.ssvc?.decision && (
+                                    <span
+                                      className={`font-mono px-2 py-0.5 rounded border ${
+                                        det.ssvc.decision === 'Act'
+                                          ? 'border-rose-500/50 bg-rose-500/15 text-rose-700 dark:text-rose-300'
+                                          : det.ssvc.decision.startsWith('Attend')
+                                            ? 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300'
+                                            : 'border-slate-300 dark:border-slate-700 text-slate-500'
+                                      }`}
+                                      title="CISA SSVC decision (derived)"
+                                    >
+                                      SSVC: {det.ssvc.decision}
+                                    </span>
+                                  )}
                                 </div>
+                                {det.ssvc &&
+                                  (det.ssvc.exploitation || det.ssvc.automatable || det.ssvc.technical_impact) && (
+                                    <p className="font-mono text-[11px] text-slate-500">
+                                      <span className="text-slate-400">CISA SSVC:</span> exploitation=
+                                      {det.ssvc.exploitation ?? '—'} · automatable={det.ssvc.automatable ?? '—'} ·
+                                      impact={det.ssvc.technical_impact ?? '—'}
+                                    </p>
+                                  )}
                                 {det.summary && (
                                   <p className="text-slate-600 dark:text-slate-400 leading-snug max-w-3xl">
                                     {det.summary}

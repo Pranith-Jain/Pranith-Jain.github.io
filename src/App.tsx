@@ -191,6 +191,8 @@ const CryptoScamFeedPage = lazy(() => import('./pages/threatintel/CryptoScamFeed
 const ActorUsernamesPage = lazy(() => import('./pages/threatintel/ActorUsernames'));
 const PhishingWordlistsPage = lazy(() => import('./pages/threatintel/PhishingWordlists'));
 const ProjectDiscoveryPage = lazy(() => import('./pages/threatintel/ProjectDiscovery'));
+const RansomPaymentsPage = lazy(() => import('./pages/threatintel/RansomPayments'));
+const AbuseRepPage = lazy(() => import('./pages/dfir/AbuseRep'));
 const XFirehosePage = lazy(() => import('./pages/threatintel/XFirehose'));
 const FeedStatusPage = lazy(() => import('./pages/threatintel/FeedStatus'));
 const MetricsPage = lazy(() => import('./pages/threatintel/Metrics'));
@@ -293,6 +295,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/blog/:slug', Component: BlogPost },
   { path: '/dfir', Component: DFIR },
   { path: '/dfir/ioc-check', Component: IocCheck },
+  { path: '/dfir/abuse-rep', Component: AbuseRepPage },
   { path: '/dfir/phishing', Component: Phishing },
   { path: '/dfir/threat-hunt', Component: ThreatHunt },
   { path: '/dfir/domain', Component: Domain },
@@ -379,6 +382,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/actor-usernames', Component: ActorUsernamesPage },
   { path: '/threatintel/phishing-wordlists', Component: PhishingWordlistsPage },
   { path: '/threatintel/projectdiscovery', Component: ProjectDiscoveryPage },
+  { path: '/threatintel/ransom-payments', Component: RansomPaymentsPage },
   { path: '/threatintel/x', Component: XFirehosePage },
   { path: '/threatintel/status', Component: FeedStatusPage },
   { path: '/threatintel/metrics', Component: MetricsPage },

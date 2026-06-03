@@ -85,6 +85,7 @@ const threatIntel: SidebarConfig = {
       items: [
         { label: 'Briefings', href: '/threatintel/briefings', icon: Newspaper },
         { label: 'Ransomware', href: '/threatintel/ransomware-activity', icon: Flame },
+        { label: 'Ransom Payments', href: '/threatintel/ransom-payments', icon: Bitcoin },
         { label: 'Darkweb', href: '/threatintel/darkweb', icon: Globe },
         { label: 'Hunt Wordlists', href: '/threatintel/phishing-wordlists', icon: FileSearch },
         { label: 'Predictive', href: '/threatintel/predictive', icon: TrendingUp },
@@ -111,6 +112,7 @@ const dfir: SidebarConfig = {
       items: [
         { label: 'Dashboard', href: '/dfir', icon: LayoutDashboard },
         { label: 'IOC Check', href: '/dfir/ioc-check', icon: Search },
+        { label: 'Abuse Rep', href: '/dfir/abuse-rep', icon: ShieldAlert },
         { label: 'Email Defense', href: '/dfir/email-defense', icon: Mail },
         { label: 'Phishing', href: '/dfir/phishing', icon: AlertTriangle },
         { label: 'Domain Rep', href: '/dfir/domain-rep', icon: Globe },
