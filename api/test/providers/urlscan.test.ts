@@ -17,23 +17,13 @@ const env: ProviderEnv = {
 beforeEach(() => vi.restoreAllMocks());
 
 describe('urlscan adapter', () => {
-  it('returns ok with score derived from highest _score in results', async () => {
+  it('flags suspicious from malicious result tags (Search API _score is always null)', async () => {
     vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(
       new Response(
         JSON.stringify({
           results: [
-            {
-              _score: 75,
-              tags: ['phishing', 'malware'],
-              task: { url: 'https://evil.com' },
-              verdicts: { overall: { score: 75 } },
-            },
-            {
-              _score: 50,
-              tags: ['suspicious'],
-              task: { url: 'https://evil.com/page' },
-              verdicts: { overall: { score: 50 } },
-            },
+            { tags: ['phishing', 'malware'], task: { url: 'https://evil.com' } },
+            { tags: ['certstream'], task: { url: 'https://evil.com/page' } },
           ],
           total: 2,
         }),
@@ -45,21 +35,20 @@ describe('urlscan adapter', () => {
 
     expect(r.status).toBe('ok');
     expect(r.source).toBe('urlscan');
-    expect(r.score).toBe(75);
-    expect(r.verdict).toBe('malicious');
+    expect(r.score).toBe(60);
+    expect(r.verdict).toBe('suspicious');
     expect(r.tags).toContain('phishing');
-    expect(r.tags).toContain('malware');
-    expect(r.raw_summary).toMatchObject({ result_count: 2, top_score: 75 });
+    expect(r.raw_summary).toMatchObject({ result_count: 2 });
     expect(r.cached).toBe(false);
   });
 
-  it('returns score 0 when results array is empty', async () => {
+  it('abstains (unknown, NOT a false clean) when results are empty', async () => {
     vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(
       new Response(JSON.stringify({ results: [], total: 0 }), { status: 200 })
     );
     const r = await urlscan({ type: 'domain', value: 'safe.com' }, env, AbortSignal.timeout(2000));
     expect(r.score).toBe(0);
-    expect(r.verdict).toBe('clean');
+    expect(r.verdict).toBe('unknown');
   });
 
   it('returns error on 401', async () => {

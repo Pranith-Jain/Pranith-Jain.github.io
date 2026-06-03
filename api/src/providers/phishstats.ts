@@ -20,11 +20,14 @@ const supports = new Set(['url', 'domain']);
 
 interface PhishStatsResponse {
   url?: string;
+  host?: string;
+  domain?: string;
   score?: number;
-  firstseen?: string;
-  lastseen?: string;
-  brand?: string;
-  country?: string;
+  date?: string;
+  date_update?: string;
+  title?: string;
+  countryname?: string;
+  countrycode?: string;
   ip?: string;
   asn?: string;
   isp?: string;
@@ -47,12 +50,12 @@ export const phishstats: ProviderAdapter = async (indicator, _env, signal) => {
   if (!supports.has(indicator.type)) return base('unsupported');
 
   try {
-    // Search by URL or domain
-    const searchParam = indicator.type === 'url'
-      ? `url=${encodeURIComponent(indicator.value)}`
-      : `domain=${encodeURIComponent(indicator.value)}`;
-
-    const url = `https://phishstats.info/api/phish?${searchParam}&size=1`;
+    // PhishStats uses an xmysql-style REST API on api.phishstats.info.
+    // Filter syntax: _where=(field,like,~value~)  — the ~ are LIKE wildcards.
+    const needle = indicator.value.toLowerCase();
+    const field = indicator.type === 'url' ? 'url' : 'host';
+    const where = `(${field},like,~${indicator.value}~)`;
+    const url = `https://api.phishstats.info/api/phishing?_where=${encodeURIComponent(where)}&_sort=-date&_size=20`;
     const res = await fetch(url, {
       signal,
       headers: { Accept: 'application/json' },
@@ -72,9 +75,15 @@ export const phishstats: ProviderAdapter = async (indicator, _env, signal) => {
     if (!res.ok) return base('error', { error: `${res.status} ${res.statusText}`.trim() });
 
     const data = await res.json();
-    const items = Array.isArray(data) ? data : [data];
+    const items = (Array.isArray(data) ? data : [data]) as PhishStatsResponse[];
 
-    if (items.length === 0) {
+    // Don't blindly trust items[0] — a `like` filter can return loosely-related
+    // rows. Confirm a row's url/host/domain actually contains the indicator.
+    const item = items.find((it) =>
+      [it.url, it.host, it.domain].some((f) => typeof f === 'string' && f.toLowerCase().includes(needle))
+    );
+
+    if (!item) {
       return base('ok', {
         score: 0,
         verdict: 'clean',
@@ -83,32 +92,30 @@ export const phishstats: ProviderAdapter = async (indicator, _env, signal) => {
       });
     }
 
-    const item = items[0] as PhishStatsResponse;
-    const score = item.score ?? 0;
-
-    // Verdict based on PhishStats score
+    // PhishStats score is roughly 0-10 (higher = more likely phishing); the
+    // mere presence of a confirmed-matching row is already a phishing signal.
+    const score = typeof item.score === 'number' ? item.score : 0;
     let verdict: Verdict;
-    if (score >= 70) verdict = 'malicious';
-    else if (score >= 40) verdict = 'suspicious';
+    if (score >= 7) verdict = 'malicious';
     else if (score > 0) verdict = 'suspicious';
-    else verdict = 'clean';
+    else verdict = 'suspicious'; // matched a known phishing record
 
-    const tags: string[] = [];
-    if (item.brand) tags.push(`brand:${item.brand}`);
-    if (item.country) tags.push(item.country);
+    const tags: string[] = ['phishstats'];
+    if (item.title) tags.push(`brand:${item.title}`);
+    if (item.countrycode) tags.push(item.countrycode);
     if (item.ip) tags.push(`ip:${item.ip}`);
     if (item.asn) tags.push(`asn:${item.asn}`);
 
     return base('ok', {
-      score,
+      score: Math.min(100, Math.round(score * 10)),
       verdict,
       tags: [...new Set(tags)].slice(0, 6),
       raw_summary: {
         score: item.score,
-        first_seen: item.firstseen,
-        last_seen: item.lastseen,
-        brand: item.brand,
-        country: item.country,
+        first_seen: item.date,
+        last_seen: item.date_update,
+        title: item.title,
+        country: item.countryname,
         ip: item.ip,
         asn: item.asn,
         isp: item.isp,

@@ -37,7 +37,7 @@ async function fetchFeed(url: string, signal: AbortSignal): Promise<Set<string>>
   const entries = new Set(
     text
       .split('\n')
-      .map((l) => l.trim())
+      .map((l) => l.trim().toLowerCase())
       .filter((l) => l && !l.startsWith('#'))
   );
 
@@ -86,7 +86,10 @@ export const digitalside: ProviderAdapter = async (indicator, _env, signal) => {
     for (let i = 0; i < feeds.length; i++) {
       const feed = feeds[i];
       if (!feed) continue;
-      if (feed.has(value) || [...feed].some((entry) => entry.includes(value))) {
+      // Exact membership only. Substring matching produced false-positive
+      // "malicious" verdicts (e.g. "1.2.3.4" matching "11.2.3.40") and was an
+      // O(feed-size) scan on every miss. Feeds are normalized to lowercase.
+      if (feed.has(value)) {
         found = true;
         feedSource = feedUrls[i]?.split('/').pop() ?? 'unknown';
         break;

@@ -1,7 +1,6 @@
 import type { ProviderAdapter, ProviderResult } from './types';
 
 const supports = new Set(['url', 'domain']);
-const FEED = 'https://data.phishtank.com/data/online-valid.json';
 const CACHE_TTL_SECONDS = 1800;
 
 /**
@@ -43,13 +42,12 @@ export const phishtank: ProviderAdapter = async (indicator, env, signal) => {
   }
 
   try {
-    const url = FEED;
+    // PhishTank supplies the app key as a PATH segment, not an Authorization
+    // header: http://data.phishtank.com/data/<app_key>/online-valid.json
+    const url = `https://data.phishtank.com/data/${encodeURIComponent(appKey)}/online-valid.json`;
     const res = await fetch(url, {
       signal,
-      headers: {
-        'user-agent': 'pranithjain.qzz.io DFIR',
-        Authorization: `Bearer ${appKey}`,
-      },
+      headers: { 'user-agent': 'pranithjain.qzz.io DFIR' },
       cf: { cacheTtl: CACHE_TTL_SECONDS, cacheEverything: true },
     });
     if (res.status === 403 || res.status === 401) {
@@ -68,12 +66,29 @@ export const phishtank: ProviderAdapter = async (indicator, env, signal) => {
     }>;
 
     const target = indicator.value.toLowerCase();
+    const stripSlash = (u: string) => u.replace(/\/+$/, '');
 
     let hit = false;
     let brand = '';
     for (const e of entries) {
       const feedUrl = (e.url || e.phishing_url || '').toLowerCase();
-      if (feedUrl.includes(target) || target.includes(feedUrl)) {
+      if (!feedUrl) continue;
+      // Match on host equality (domain) or normalized URL equality (url).
+      // The old bidirectional `includes` produced false positives (a short
+      // domain matching any feed URL containing it, and vice-versa).
+      let match = false;
+      if (indicator.type === 'domain') {
+        let host = '';
+        try {
+          host = new URL(feedUrl).hostname;
+        } catch {
+          host = '';
+        }
+        match = host === target || host.endsWith(`.${target}`);
+      } else {
+        match = stripSlash(feedUrl) === stripSlash(target);
+      }
+      if (match) {
         hit = true;
         brand = e.target ?? '';
         break;
