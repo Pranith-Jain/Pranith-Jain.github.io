@@ -1,5 +1,6 @@
 import apiApp from '../api/src/index';
 import { LiveFeedDO } from './durable-objects/live-feed';
+import { CronLockDO } from './durable-objects/cron-lock';
 import { DfirMcpServer } from './mcp-server';
 import { generateNonce, withSecurityHeaders } from './csp';
 import { fetchPrerenderedOrShell } from './router';
@@ -7,7 +8,7 @@ import { handleScheduled } from './scheduled';
 import { logStartupValidation } from './bindings';
 import type { Env } from './env';
 
-export { LiveFeedDO, DfirMcpServer };
+export { LiveFeedDO, DfirMcpServer, CronLockDO };
 export type { Env };
 
 /**
