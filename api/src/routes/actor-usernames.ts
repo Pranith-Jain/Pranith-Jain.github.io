@@ -186,6 +186,9 @@ export async function actorUsernamesHandler(c: Context<{ Bindings: Env }>): Prom
   if (rawQ.length < MIN_QUERY_LEN) {
     return c.json({ error: `query must be at least ${MIN_QUERY_LEN} characters` }, 400);
   }
+  if (rawQ.length > 64) {
+    return c.json({ error: 'query too long (max 64 chars)' }, 400);
+  }
 
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheReq = new Request(`https://actor-usernames-cache.internal/v1/${mode}/${encodeURIComponent(rawQ)}`);

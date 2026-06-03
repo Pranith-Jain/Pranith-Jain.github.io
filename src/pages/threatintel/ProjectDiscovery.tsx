@@ -107,7 +107,7 @@ function CredentialsTab(): JSX.Element {
       <DataState
         loading={loading}
         error={error}
-        empty={!!data && exposure === null && users === null && samples.length === 0}
+        empty={!!data && exposure === null && users === null && samples.length === 0 && topUrls.length === 0}
         emptyLabel="No leak exposure data for this identifier."
         rows={5}
       >

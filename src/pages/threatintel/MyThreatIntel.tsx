@@ -5,6 +5,7 @@ import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, ExternalLink, Globe, Loader2, Radar, RefreshCw, Search } from 'lucide-react';
 import { DataState } from '../../components/DataState';
 import { StatBar } from '../../components/StatBar';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 
 /**
  * MyThreatIntel dashboard — one surface over the official REST API
@@ -602,7 +603,8 @@ export default function MyThreatIntel(): JSX.Element {
                       {cols.map((col) => {
                         const text = cellText(row[col.key]);
                         const isHash = col.key === 'sha256';
-                        const isUrl = (col.key === 'url' || col.key === 'onion') && text.startsWith('http');
+                        const safeUrl = col.key === 'url' || col.key === 'onion' ? sanitizeUrl(text) : '';
+                        const isUrl = safeUrl !== '';
                         const isLong = col.key === 'description' || col.key === 'page_title';
                         return (
                           <td
@@ -624,7 +626,7 @@ export default function MyThreatIntel(): JSX.Element {
                               </span>
                             ) : isUrl ? (
                               <a
-                                href={text}
+                                href={safeUrl || undefined}
                                 target="_blank"
                                 rel="noreferrer noopener"
                                 className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline break-all"

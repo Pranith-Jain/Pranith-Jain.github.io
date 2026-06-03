@@ -44,6 +44,8 @@ export default function ActorUsernames(): JSX.Element {
   const [error, setError] = useState<string | null>(null);
   // The query we actually fetched (submitted), distinct from the live input.
   const [submitted, setSubmitted] = useState(searchParams.get('q') ?? '');
+  // Bumped to force a re-fetch of the same query (e.g. the retry button).
+  const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
     fetch('/api/v1/actor-usernames/stats')
@@ -78,7 +80,7 @@ export default function ActorUsernames(): JSX.Element {
     return () => {
       cancelled = true;
     };
-  }, [submitted, mode]);
+  }, [submitted, mode, refreshKey]);
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -194,7 +196,7 @@ export default function ActorUsernames(): JSX.Element {
           error={error}
           empty={!!data && data.results.length === 0}
           emptyLabel={`No forum hits for “${submitted.trim()}”.`}
-          onRetry={() => setSubmitted((s) => s)}
+          onRetry={() => setRefreshKey((k) => k + 1)}
           rows={6}
         >
           <ul className="space-y-2">
