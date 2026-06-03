@@ -14,9 +14,10 @@
  * Budget rules:
  *   - Up to MAX_IOCS_TO_ENRICH from the input list (highest-value types
  *     first: hash > url > domain > ipv4 > ipv6 > email).
- *   - Cached results are free. Only fresh upstream calls count toward
- *     MAX_FRESH_SUBREQUESTS. Beyond that, remaining (ioc × provider) pairs
- *     are skipped and marked partial.
+ *   - Cache reads, fresh fetches, AND cache writes all count as subrequests
+ *     (Free plan: 50/invocation). The whole call is bounded by
+ *     HARD_SUBREQUEST_CAP; IoCs past the budget are still emitted, just
+ *     without provider depth. See enrichBulk for the exact accounting.
  *   - Per-provider timeout from `PROVIDER_TIMEOUT_MS`.
  */
 
