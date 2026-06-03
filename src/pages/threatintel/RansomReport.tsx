@@ -170,6 +170,144 @@ export default function RansomReport(): JSX.Element {
   const toolCats = useMemo(() => Object.entries(profile?.tools ?? {}).filter(([, v]) => v.length > 0), [profile]);
   const locations = profile?.locations ?? [];
 
+  // One-click PDF download. jsPDF + autotable are dynamically imported so they
+  // stay out of the initial bundle (loaded only when the operator exports).
+  const downloadPdf = async () => {
+    if (!profile) return;
+    const { jsPDF } = await import('jspdf');
+    const autoTable = (await import('jspdf-autotable')).default;
+    const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+    const pageW = doc.internal.pageSize.getWidth();
+    const pageH = doc.internal.pageSize.getHeight();
+    const margin = 40;
+    const maxW = pageW - margin * 2;
+    let y = margin;
+
+    const ensure = (h: number) => {
+      if (y + h > pageH - margin) {
+        doc.addPage();
+        y = margin;
+      }
+    };
+    const heading = (t: string) => {
+      ensure(30);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(11);
+      doc.setTextColor(30);
+      doc.text(t.toUpperCase(), margin, y);
+      y += 5;
+      doc.setDrawColor(200);
+      doc.line(margin, y, pageW - margin, y);
+      y += 14;
+    };
+    const para = (t: string, size = 9, color = 80) => {
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(size);
+      doc.setTextColor(color);
+      for (const line of doc.splitTextToSize(t, maxW) as string[]) {
+        ensure(size + 4);
+        doc.text(line, margin, y);
+        y += size + 4;
+      }
+    };
+
+    const name = (profile.group ?? selected).toUpperCase();
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor(120);
+    doc.text('RANSOMWARE THREAT INTELLIGENCE REPORT', margin, y);
+    y += 20;
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(20);
+    doc.setTextColor(20);
+    doc.text(name, margin, y);
+    y += 16;
+    const meta = [
+      profile.firstseen && `First seen: ${profile.firstseen.slice(0, 10)}`,
+      profile.lastseen && `Last seen: ${profile.lastseen.slice(0, 10)}`,
+      typeof profile.victims === 'number' && `Victims: ${profile.victims}`,
+      profile.negotiation_count ? `Negotiations: ${profile.negotiation_count}` : '',
+    ]
+      .filter(Boolean)
+      .join('    ');
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(110);
+    doc.text(meta, margin, y);
+    y += 20;
+
+    if (profile.description) {
+      heading('Overview');
+      para(profile.description);
+      y += 8;
+    }
+
+    if (ttps.length > 0) {
+      heading('MITRE ATT&CK TTPs');
+      for (const t of ttps) {
+        ensure(16);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(9.5);
+        doc.setTextColor(40);
+        doc.text(`${t.tactic_id ?? ''} ${t.tactic_name ?? ''}`.trim(), margin, y);
+        y += 12;
+        for (const tech of t.techniques ?? []) {
+          para(
+            `- ${tech.technique_id ?? ''} ${tech.technique_name ?? ''}${tech.technique_details ? ` — ${tech.technique_details}` : ''}`,
+            8.5,
+            90
+          );
+        }
+        y += 4;
+      }
+    }
+
+    if (vulns.length > 0) {
+      heading(`Exploited Vulnerabilities (${vulns.length})`);
+      autoTable(doc, {
+        startY: y,
+        margin: { left: margin, right: margin },
+        head: [['CVE', 'Severity', 'CVSS', 'Vendor', 'Product']],
+        body: vulns.map((v) => [v.CVE ?? '', v.severity ?? '', String(v.CVSS ?? ''), v.Vendor ?? '', v.Product ?? '']),
+        styles: { fontSize: 8, cellPadding: 3 },
+        headStyles: { fillColor: [30, 41, 59] },
+        theme: 'striped',
+      });
+      y = (doc as unknown as { lastAutoTable?: { finalY: number } }).lastAutoTable?.finalY ?? y;
+      y += 16;
+    }
+
+    if (toolCats.length > 0) {
+      heading('Tools & Utilities');
+      for (const [cat, tools] of toolCats) para(`${cat}: ${tools.join(', ')}`, 8.5, 80);
+      y += 8;
+    }
+
+    if (locations.length > 0) {
+      heading(`Leak-site Infrastructure / IOCs (${locations.length})`);
+      for (const l of locations) {
+        para(`[${l.type ?? 'site'}] ${l.fqdn ?? l.slug ?? ''}${l.title ? ` — ${l.title}` : ''}`, 8, 90);
+      }
+      y += 8;
+    }
+
+    heading('YARA Detection');
+    para(
+      yaraCount && yaraCount > 0
+        ? `${yaraCount} YARA rule(s) published for this group on ransomware.live.`
+        : 'No YARA rules published for this group on ransomware.live.'
+    );
+
+    const pages = doc.getNumberOfPages();
+    for (let i = 1; i <= pages; i++) {
+      doc.setPage(i);
+      doc.setFontSize(7);
+      doc.setTextColor(150);
+      doc.text(`Source: ransomware.live · pranithjain.qzz.io · page ${i}/${pages}`, margin, pageH - 20);
+    }
+    doc.save(`ransom-report-${(profile.group ?? selected).replace(/[^a-z0-9]/gi, '_')}.pdf`);
+  };
+
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
       {/* Scoped print CSS — print only the report card as a clean PDF. */}
@@ -241,7 +379,7 @@ export default function RansomReport(): JSX.Element {
           {profile && (
             <button
               type="button"
-              onClick={() => window.print()}
+              onClick={() => void downloadPdf()}
               className="inline-flex items-center justify-center gap-1.5 text-xs font-mono px-4 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40"
             >
               <FileDown size={13} /> PDF
