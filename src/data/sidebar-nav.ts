@@ -86,6 +86,7 @@ const threatIntel: SidebarConfig = {
         { label: 'Briefings', href: '/threatintel/briefings', icon: Newspaper },
         { label: 'Ransomware', href: '/threatintel/ransomware-activity', icon: Flame },
         { label: 'Ransom Payments', href: '/threatintel/ransom-payments', icon: Bitcoin },
+        { label: 'Ransom Report', href: '/threatintel/ransom-report', icon: FileText },
         { label: 'Darkweb', href: '/threatintel/darkweb', icon: Globe },
         { label: 'Hunt Wordlists', href: '/threatintel/phishing-wordlists', icon: FileSearch },
         { label: 'Predictive', href: '/threatintel/predictive', icon: TrendingUp },

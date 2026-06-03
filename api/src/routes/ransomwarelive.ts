@@ -42,6 +42,14 @@ const RESOURCES: Record<string, ResourceSpec> = {
   // victims-recent (HudsonRock infostealer-enriched), separate cache slot.
   infostealer: { path: () => '/victims/recent', ttl: 1800 },
   groups: { path: () => '/groups', ttl: 21600 },
+  // Per-group profile (description, locations, MITRE TTPs, tools, exploited CVEs).
+  group: { path: (a) => `/group/${encodeURIComponent(a ?? '')}`, ttl: 21600, argRequired: true },
+  // Victims attributed to a group.
+  groupvictims: { path: (a) => `/groupvictims/${encodeURIComponent(a ?? '')}`, ttl: 3600, argRequired: true },
+  // Free-text victim search.
+  searchvictims: { path: (a) => `/searchvictims/${encodeURIComponent(a ?? '')}`, ttl: 3600, argRequired: true },
+  // Victims by ISO country code.
+  countryvictims: { path: (a) => `/countryvictims/${encodeURIComponent(a ?? '')}`, ttl: 3600, argRequired: true },
   negotiations: {
     path: (a) => (a ? `/negotiations/${encodeURIComponent(a)}` : '/negotiations'),
     ttl: 3600,
@@ -71,9 +79,13 @@ export async function fetchRlUpstream(env: Env, path: string): Promise<unknown |
   const apiKey = env.RANSOMWARELIVE_API_KEY;
   if (!apiKey) return null;
   try {
-    const r = await fetchResilient(`${API_BASE}${path}`, {
-      headers: { 'X-API-KEY': apiKey, Accept: 'application/json' },
-    }, { attempts: 3, timeoutMs: FETCH_TIMEOUT_MS });
+    const r = await fetchResilient(
+      `${API_BASE}${path}`,
+      {
+        headers: { 'X-API-KEY': apiKey, Accept: 'application/json' },
+      },
+      { attempts: 3, timeoutMs: FETCH_TIMEOUT_MS }
+    );
     if (!r.ok) return null;
     return (await r.json()) as unknown;
   } catch {

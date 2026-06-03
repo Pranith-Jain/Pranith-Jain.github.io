@@ -1,0 +1,421 @@
+import { useEffect, useMemo, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { ArrowLeft, FileDown, Loader2, Search, ShieldAlert } from 'lucide-react';
+import { BackLink } from '../../components/BackLink';
+import { DataState } from '../../components/DataState';
+import { sanitizeUrl } from '../../lib/sanitize-url';
+
+/**
+ * Ransomware Intel Report — a per-threat-group CTI report assembled from the
+ * ransomware.live PRO API (reused via the /api/v1/rl proxy). Mirrors the
+ * RansomCTI tool's report (Overview, MITRE TTPs, Tools, Exploited CVEs,
+ * infrastructure/IOCs, YARA) but renders in-app with a print-to-PDF export
+ * instead of an Excel workbook.
+ */
+
+interface Technique {
+  technique_id?: string;
+  technique_name?: string;
+  technique_details?: string;
+}
+interface Ttp {
+  tactic_id?: string;
+  tactic_name?: string;
+  techniques?: Technique[];
+}
+interface Vuln {
+  Vendor?: string;
+  Product?: string;
+  CVE?: string;
+  CVSS?: number;
+  severity?: string;
+}
+interface RlLocation {
+  fqdn?: string;
+  title?: string;
+  slug?: string;
+  type?: string;
+}
+interface GroupProfile {
+  group?: string;
+  description?: string;
+  added_date?: string;
+  victims?: number;
+  firstseen?: string;
+  lastseen?: string;
+  ttps?: Ttp[];
+  vulnerabilities?: Vuln[];
+  tools?: Record<string, string[]>;
+  locations?: RlLocation[];
+  has_negotiations?: boolean;
+  negotiation_count?: number;
+  has_ransomnote?: boolean;
+  ransomnotes_count?: number;
+  url?: string;
+}
+interface RlEnvelope<T> {
+  resource: string;
+  arg: string | null;
+  fetched_at: string;
+  data: T;
+}
+interface GroupListItem {
+  group: string;
+  altname?: string | null;
+  victims?: number;
+}
+
+const SEV_PILL: Record<string, string> = {
+  critical: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
+  high: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
+  medium: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
+  low: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300',
+};
+
+function Section({ title, children }: { title: string; children: React.ReactNode }): JSX.Element {
+  return (
+    <section className="mb-6 break-inside-avoid">
+      <h2 className="text-xs font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400 border-b border-slate-200 dark:border-slate-800 pb-1.5 mb-3">
+        {title}
+      </h2>
+      {children}
+    </section>
+  );
+}
+
+export default function RansomReport(): JSX.Element {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [groups, setGroups] = useState<GroupListItem[]>([]);
+  const [selected, setSelected] = useState(searchParams.get('group') ?? '');
+  const [input, setInput] = useState(searchParams.get('group') ?? '');
+  const [profile, setProfile] = useState<GroupProfile | null>(null);
+  const [yaraCount, setYaraCount] = useState<number | null>(null);
+  const [yaraText, setYaraText] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [notConfigured, setNotConfigured] = useState(false);
+
+  // Group list for the picker (347 groups) — cached upstream 6h.
+  useEffect(() => {
+    fetch('/api/v1/rl/groups')
+      .then((r) => (r.ok ? (r.json() as Promise<RlEnvelope<{ groups?: GroupListItem[] }>>) : null))
+      .then((d) => setGroups(d?.data.groups ?? []))
+      .catch(() => setGroups([]));
+  }, []);
+
+  useEffect(() => {
+    const g = selected.trim().toLowerCase();
+    if (!g) {
+      setProfile(null);
+      return;
+    }
+    let cancelled = false;
+    setLoading(true);
+    setError(null);
+    setNotConfigured(false);
+    setProfile(null);
+    setYaraCount(null);
+    setYaraText(null);
+
+    const profileReq = fetch(`/api/v1/rl/group/${encodeURIComponent(g)}`).then(async (r) => {
+      if (r.status === 503) {
+        throw new Error('__not_configured__');
+      }
+      if (!r.ok) throw new Error(`Couldn't load group profile (HTTP ${r.status}).`);
+      return (await r.json()) as RlEnvelope<GroupProfile>;
+    });
+
+    // YARA is best-effort — a missing ruleset shouldn't fail the report.
+    const yaraReq = fetch(`/api/v1/rl/yara/${encodeURIComponent(g)}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .catch(() => null);
+
+    Promise.all([profileReq, yaraReq])
+      .then(([p, y]) => {
+        if (cancelled) return;
+        setProfile(p.data);
+        const yd = (y as RlEnvelope<unknown> | null)?.data;
+        if (Array.isArray(yd)) setYaraCount(yd.length);
+        else if (typeof yd === 'string') {
+          setYaraText(yd);
+          setYaraCount(yd ? (yd.match(/^\s*rule\s/gim)?.length ?? null) : 0);
+        } else if (yd && typeof yd === 'object') {
+          const rules = (yd as { rules?: unknown }).rules;
+          if (Array.isArray(rules)) setYaraCount(rules.length);
+        }
+      })
+      .catch((e: Error) => {
+        if (cancelled) return;
+        if (e.message === '__not_configured__') setNotConfigured(true);
+        else setError(e.message);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [selected]);
+
+  const submit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const g = input.trim();
+    setSelected(g);
+    setSearchParams(g ? { group: g } : {}, { replace: true });
+  };
+
+  const ttps = useMemo(() => (profile?.ttps ?? []).filter((t) => (t.techniques?.length ?? 0) > 0), [profile]);
+  const vulns = profile?.vulnerabilities ?? [];
+  const toolCats = useMemo(() => Object.entries(profile?.tools ?? {}).filter(([, v]) => v.length > 0), [profile]);
+  const locations = profile?.locations ?? [];
+
+  return (
+    <div className="max-w-4xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+      {/* Scoped print CSS — print only the report card as a clean PDF. */}
+      <style>{`@media print {
+        body * { visibility: hidden !important; }
+        #ransom-report, #ransom-report * { visibility: visible !important; }
+        #ransom-report { position: absolute; left: 0; top: 0; width: 100%; padding: 0 12px; }
+        .no-print { display: none !important; }
+        a { color: #000 !important; text-decoration: none !important; }
+      }`}</style>
+
+      <div className="no-print">
+        <BackLink
+          to="/threatintel"
+          className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        >
+          <ArrowLeft size={14} /> back
+        </BackLink>
+
+        <div className="animate-fade-in-up">
+          <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
+            <ShieldAlert size={28} className="text-brand-600 dark:text-brand-400" /> Ransomware intel report
+          </h1>
+          <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
+            Per-group CTI report — overview, MITRE ATT&amp;CK TTPs, exploited CVEs, tooling, leak-site infrastructure,
+            and YARA — assembled from{' '}
+            <a
+              href="https://www.ransomware.live"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-brand-600 dark:text-brand-400 hover:underline"
+            >
+              ransomware.live
+            </a>
+            . Export to PDF for SOC / detection-engineering handoff.
+          </p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
+            {groups.length || 347} tracked groups.
+          </p>
+        </div>
+
+        <form onSubmit={submit} className="flex flex-col sm:flex-row gap-3 mb-6">
+          <div className="relative flex-1">
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <input
+              type="text"
+              list="rl-groups"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="threat group — e.g. lockbit3, akira, qilin"
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              aria-label="Threat group"
+            />
+            <datalist id="rl-groups">
+              {groups.map((g) => (
+                <option key={g.group} value={g.group}>
+                  {g.victims ? `${g.victims} victims` : ''}
+                </option>
+              ))}
+            </datalist>
+          </div>
+          <button
+            type="submit"
+            disabled={loading || !input.trim()}
+            className="inline-flex items-center justify-center gap-1.5 text-xs font-mono px-4 py-2 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:border-brand-500/70 disabled:opacity-50"
+          >
+            {loading ? <Loader2 size={13} className="animate-spin" /> : <ShieldAlert size={13} />} build report
+          </button>
+          {profile && (
+            <button
+              type="button"
+              onClick={() => window.print()}
+              className="inline-flex items-center justify-center gap-1.5 text-xs font-mono px-4 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40"
+            >
+              <FileDown size={13} /> PDF
+            </button>
+          )}
+        </form>
+
+        {notConfigured && (
+          <div className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-6 text-sm text-amber-800 dark:text-amber-200">
+            <strong className="font-semibold">ransomware.live not configured.</strong> This report needs the
+            operator&apos;s ransomware.live PRO key (<code className="font-mono text-xs">RANSOMWARELIVE_API_KEY</code>).
+          </div>
+        )}
+      </div>
+
+      {!notConfigured && (
+        <DataState
+          loading={loading}
+          error={error}
+          empty={!profile && !loading && !!selected}
+          emptyLabel={`No ransomware.live profile for “${selected}”.`}
+          rows={8}
+        >
+          {profile && (
+            <div id="ransom-report">
+              {/* Report header */}
+              <div className="mb-6 pb-4 border-b border-slate-200 dark:border-slate-800">
+                <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mb-1">
+                  Ransomware Threat Intelligence Report
+                </div>
+                <h2 className="text-2xl font-display font-bold capitalize">{profile.group ?? selected}</h2>
+                <div className="flex flex-wrap gap-x-5 gap-y-1 mt-2 text-[12px] font-mono text-slate-500">
+                  {profile.firstseen && <span>first seen: {profile.firstseen.slice(0, 10)}</span>}
+                  {profile.lastseen && <span>last seen: {profile.lastseen.slice(0, 10)}</span>}
+                  {typeof profile.victims === 'number' && <span>victims: {profile.victims.toLocaleString()}</span>}
+                  {profile.negotiation_count ? <span>negotiations: {profile.negotiation_count}</span> : null}
+                </div>
+              </div>
+
+              {profile.description && (
+                <Section title="Overview">
+                  <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 whitespace-pre-wrap">
+                    {profile.description}
+                  </p>
+                </Section>
+              )}
+
+              {ttps.length > 0 && (
+                <Section title="MITRE ATT&CK TTPs">
+                  <div className="space-y-3">
+                    {ttps.map((t) => (
+                      <div key={t.tactic_id ?? t.tactic_name}>
+                        <div className="text-[12px] font-mono font-semibold text-slate-800 dark:text-slate-200">
+                          {t.tactic_id} · {t.tactic_name}
+                        </div>
+                        <ul className="mt-1 space-y-0.5">
+                          {(t.techniques ?? []).map((tech, i) => (
+                            <li
+                              key={`${tech.technique_id}-${i}`}
+                              className="text-[12px] text-slate-600 dark:text-slate-400"
+                            >
+                              <span className="font-mono text-slate-700 dark:text-slate-300">{tech.technique_id}</span>{' '}
+                              {tech.technique_name}
+                              {tech.technique_details ? ` — ${tech.technique_details}` : ''}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                </Section>
+              )}
+
+              {vulns.length > 0 && (
+                <Section title={`Exploited vulnerabilities (${vulns.length})`}>
+                  <div className="overflow-x-auto rounded border border-slate-200 dark:border-slate-800">
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="bg-slate-50 dark:bg-slate-900 text-left">
+                          {['CVE', 'Severity', 'CVSS', 'Vendor', 'Product'].map((h) => (
+                            <th
+                              key={h}
+                              className="px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-slate-500 whitespace-nowrap"
+                            >
+                              {h}
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {vulns.map((v, i) => (
+                          <tr key={`${v.CVE}-${i}`} className="border-t border-slate-100 dark:border-slate-800/70">
+                            <td className="px-3 py-1.5 whitespace-nowrap">
+                              <a
+                                href={sanitizeUrl(`https://nvd.nist.gov/vuln/detail/${v.CVE}`) || undefined}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="font-mono text-[12px] text-brand-600 dark:text-brand-400 hover:underline"
+                              >
+                                {v.CVE}
+                              </a>
+                            </td>
+                            <td className="px-3 py-1.5">
+                              <span
+                                className={`text-[11px] font-mono px-2 py-0.5 rounded border ${SEV_PILL[(v.severity ?? '').toLowerCase()] ?? 'border-slate-300 dark:border-slate-700 text-slate-500'}`}
+                              >
+                                {v.severity ?? '—'}
+                              </span>
+                            </td>
+                            <td className="px-3 py-1.5 font-mono text-[12px] tabular-nums text-slate-600 dark:text-slate-400">
+                              {v.CVSS ?? '—'}
+                            </td>
+                            <td className="px-3 py-1.5 text-[12px] text-slate-600 dark:text-slate-400">
+                              {v.Vendor ?? '—'}
+                            </td>
+                            <td className="px-3 py-1.5 text-[12px] text-slate-600 dark:text-slate-400">
+                              {v.Product ?? '—'}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </Section>
+              )}
+
+              {toolCats.length > 0 && (
+                <Section title="Tools & utilities">
+                  <div className="space-y-2">
+                    {toolCats.map(([cat, tools]) => (
+                      <div key={cat}>
+                        <span className="text-[11px] font-mono font-semibold text-slate-700 dark:text-slate-300">
+                          {cat}:{' '}
+                        </span>
+                        <span className="text-[12px] text-slate-600 dark:text-slate-400">{tools.join(', ')}</span>
+                      </div>
+                    ))}
+                  </div>
+                </Section>
+              )}
+
+              {locations.length > 0 && (
+                <Section title={`Leak-site infrastructure / IOCs (${locations.length})`}>
+                  <ul className="space-y-1 font-mono text-[11px]">
+                    {locations.map((l, i) => (
+                      <li key={`${l.fqdn}-${i}`} className="break-all text-slate-600 dark:text-slate-400">
+                        <span className="text-slate-400">[{l.type ?? 'site'}]</span> {l.fqdn ?? l.slug}
+                        {l.title ? ` — ${l.title}` : ''}
+                      </li>
+                    ))}
+                  </ul>
+                </Section>
+              )}
+
+              <Section title="YARA detection">
+                <p className="text-[12px] text-slate-600 dark:text-slate-400">
+                  {yaraCount && yaraCount > 0
+                    ? `${yaraCount} YARA rule${yaraCount === 1 ? '' : 's'} published for this group on ransomware.live.`
+                    : 'No YARA rules published for this group on ransomware.live.'}
+                </p>
+                {yaraText && (
+                  <pre className="mt-2 max-h-72 overflow-auto rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3 text-[11px] font-mono whitespace-pre-wrap">
+                    {yaraText.slice(0, 20000)}
+                  </pre>
+                )}
+              </Section>
+
+              <p className="mt-6 pt-3 border-t border-slate-200 dark:border-slate-800 text-[10px] font-mono text-slate-400">
+                Source: ransomware.live · generated by pranithjain.qzz.io threat-intel platform
+              </p>
+            </div>
+          )}
+        </DataState>
+      )}
+    </div>
+  );
+}
