@@ -14,6 +14,7 @@ import {
   ShoppingCart,
 } from 'lucide-react';
 import { INFOSTEALER_FAMILIES } from '../../data/threatintel/infostealer-families';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 
 /**
  * Infostealer live tracker. Three independent live sources composed on one
@@ -469,7 +470,7 @@ export default function Infostealer(): JSX.Element {
             >
               <div className="flex items-start justify-between gap-2">
                 <a
-                  href={m.url}
+                  href={sanitizeUrl(m.url)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-display font-semibold text-sm text-brand-600 dark:text-brand-400 hover:underline break-all"
@@ -553,7 +554,7 @@ export default function Infostealer(): JSX.Element {
               </div>
               <div className="flex items-center gap-2 mt-1">
                 <a
-                  href={s.url}
+                  href={sanitizeUrl(s.url)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-mono text-[11px] text-brand-600 dark:text-brand-400 hover:underline break-all"
@@ -791,7 +792,7 @@ export default function Infostealer(): JSX.Element {
                           {s.when && <span className="text-slate-400 text-[10px]">{s.when.slice(0, 10)}</span>}
                           {s.link && (
                             <a
-                              href={s.link}
+                              href={sanitizeUrl(s.link)}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="ml-auto text-brand-600 dark:text-brand-400 hover:underline"
@@ -849,7 +850,7 @@ export default function Infostealer(): JSX.Element {
                         className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3"
                       >
                         <a
-                          href={a.link}
+                          href={sanitizeUrl(a.link)}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="font-display font-semibold text-sm text-brand-600 dark:text-brand-400 hover:underline block mb-1"

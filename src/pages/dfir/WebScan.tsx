@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
 import { SEVERITY_TONE } from '../../components/severity';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 
 type Severity = 'critical' | 'high' | 'medium' | 'low' | 'info' | 'good';
 
@@ -349,7 +350,7 @@ export default function WebScan(): JSX.Element {
                   >
                     <div className="flex items-baseline justify-between gap-2">
                       <a
-                        href={`${data.url.replace(/\/$/, '')}${p.path}`}
+                        href={sanitizeUrl(`${data.url.replace(/\/$/, '')}${p.path}`)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="font-mono text-[12px] text-rose-700 dark:text-rose-300 hover:underline inline-flex items-center gap-1"

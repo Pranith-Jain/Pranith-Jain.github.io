@@ -334,35 +334,59 @@ async function fetchOne(url: string, perSource: number, env?: Env): Promise<Fetc
     // Retry transient 429/5xx — several upstreams (hnrss.org, ycombinator,
     // some vendor blogs) rate-limit the shared Worker IP; one miss used to
     // silently drop the whole feed for the visit.
-    const res = await fetchResilient(
-      url,
-      {
-        redirect: 'follow',
-        headers: {
-          'user-agent':
-            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) pranithjain-rss/1.0 Safari/537.36',
-          accept: 'application/rss+xml, application/atom+xml, application/xml;q=0.9, text/xml;q=0.9, */*;q=0.5',
-          'accept-language': 'en-US,en;q=0.9',
-        },
-        // Only edge-cache SUCCESSFUL responses. With a blanket `cacheTtl`,
-        // `cacheEverything` also caches 4xx/5xx — so a transient 403 (several
-        // origins, e.g. ccb.belgium.be, are Cloudflare-fronted and intermittently
-        // challenge our datacenter egress IP) got pinned for the whole TTL,
-        // surfacing as a stuck `http_403` badge even though a fresh fetch
-        // succeeds. `cacheTtlByStatus` with 0 for error buckets re-fetches them.
-        cf: {
-          cacheTtlByStatus: { '200-299': CACHE_TTL_SECONDS, '300-399': 0, '400-599': 0 },
-          cacheEverything: true,
-        },
-      } as RequestInit,
-      // attempts: 1 — Cloudflare Workers have a 50-subrequest limit per
-      // invocation; 3 retries × 54 feeds blew the budget (manifested as
-      // `fetch_failed: Too many subrequests by single Worker invocation`
-      // for the feeds that arrived after the budget was exhausted). One
-      // attempt per feed keeps us well under the cap; the 30s edge cache
-      // catches the next visit.
-      { attempts: 1, timeoutMs: FETCH_TIMEOUT_MS }
-    );
+    const fetchInit = {
+      // Manual redirect handling — see the per-hop re-validation loop below.
+      redirect: 'manual' as const,
+      headers: {
+        'user-agent':
+          'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) pranithjain-rss/1.0 Safari/537.36',
+        accept: 'application/rss+xml, application/atom+xml, application/xml;q=0.9, text/xml;q=0.9, */*;q=0.5',
+        'accept-language': 'en-US,en;q=0.9',
+      },
+      // Only edge-cache SUCCESSFUL responses. With a blanket `cacheTtl`,
+      // `cacheEverything` also caches 4xx/5xx — so a transient 403 (several
+      // origins, e.g. ccb.belgium.be, are Cloudflare-fronted and intermittently
+      // challenge our datacenter egress IP) got pinned for the whole TTL,
+      // surfacing as a stuck `http_403` badge even though a fresh fetch
+      // succeeds. `cacheTtlByStatus` with 0 for error buckets re-fetches them.
+      cf: {
+        cacheTtlByStatus: { '200-299': CACHE_TTL_SECONDS, '300-399': 0, '400-599': 0 },
+        cacheEverything: true,
+      },
+    } as RequestInit;
+    // attempts: 1 — Cloudflare Workers have a 50-subrequest limit per
+    // invocation; 3 retries × 54 feeds blew the budget. One attempt per feed
+    // keeps us well under the cap; the 30s edge cache catches the next visit.
+    const resilientOpts = { attempts: 1, timeoutMs: FETCH_TIMEOUT_MS };
+
+    // Follow redirects MANUALLY, re-validating every hop's host against the
+    // allow-list. An allow-listed origin with an open redirect could otherwise
+    // bounce `redirect:'follow'` to an arbitrary internal/private target,
+    // defeating the allow-list (SSRF-2). Hop count is bounded.
+    let currentUrl = url;
+    let res = await fetchResilient(currentUrl, fetchInit, resilientOpts);
+    for (let hop = 0; hop < 4 && res.status >= 300 && res.status < 400; hop++) {
+      const location = res.headers.get('location');
+      if (!location) break;
+      let next: URL;
+      try {
+        next = new URL(location, currentUrl);
+      } catch {
+        return { items: [], error: 'redirect_malformed' };
+      }
+      if (next.protocol !== 'http:' && next.protocol !== 'https:') {
+        return { items: [], error: 'redirect_unsupported_protocol' };
+      }
+      if (!ALLOWED_HOSTS.has(next.hostname.toLowerCase())) {
+        return { items: [], error: 'redirect_not_allowlisted' };
+      }
+      await res.body?.cancel().catch(() => {});
+      currentUrl = next.toString();
+      res = await fetchResilient(currentUrl, fetchInit, resilientOpts);
+    }
+    if (res.status >= 300 && res.status < 400) {
+      return { items: [], error: 'too_many_redirects' };
+    }
     if (res.status === 429) {
       console.warn(`feeds-aggregate: 429 from ${parsed.hostname} for ${url}`);
       return { items: [], error: 'rate_limited_429' };

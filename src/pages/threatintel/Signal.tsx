@@ -6,6 +6,7 @@ import { DataState } from '../../components/DataState';
 import { FeedAggregateCard } from '../../components/intel/FeedAggregateCard';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 import { XLivePanel } from '../../components/threatintel/XLivePanel';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 
 /**
  * /threatintel/signal — the high-signal subset of /threatintel/writeups.
@@ -255,7 +256,7 @@ export default function Signal(): JSX.Element {
               key={it.url}
               className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4"
             >
-              <a href={it.url} target="_blank" rel="noopener noreferrer" className="group block">
+              <a href={sanitizeUrl(it.url)} target="_blank" rel="noopener noreferrer" className="group block">
                 <div className="flex items-baseline justify-between gap-3 mb-1.5">
                   <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400">
                     {it.source}

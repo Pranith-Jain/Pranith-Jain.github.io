@@ -3,6 +3,7 @@ import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Rss, ExternalLink, Globe, Shield, Newspaper, Cpu, GraduationCap, Wrench } from 'lucide-react';
 import { rssFeeds } from '../../data/rssFeeds';
 import type { RSSFeed } from '../../data/rssFeeds';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 
 const CATEGORY_META: Record<RSSFeed['category'], { label: string; icon: typeof Rss; className: string }> = {
   vulnerability: { label: 'Vulnerability', icon: Shield, className: 'text-rose-600 dark:text-rose-400' },
@@ -156,7 +157,7 @@ export default function FeedSources(): JSX.Element {
                         <span className="ml-auto">
                           {f.url && (
                             <a
-                              href={f.url}
+                              href={sanitizeUrl(f.url)}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="inline-flex items-center gap-0.5 hover:text-brand-600 dark:hover:text-brand-400"

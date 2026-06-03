@@ -12,6 +12,7 @@ import {
   ArrowLeft,
 } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 
 interface FeedCatalogEntry {
   vendor: string;
@@ -213,7 +214,7 @@ export default function FeedCatalog() {
                       <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">{entry.description}</p>
                     </div>
                     <a
-                      href={entry.raw_url}
+                      href={sanitizeUrl(entry.raw_url)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 shrink-0 mt-1"

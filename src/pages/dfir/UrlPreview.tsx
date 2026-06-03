@@ -214,7 +214,7 @@ export default function UrlPreview(): JSX.Element {
               <span className="font-mono text-xs text-slate-500">{(result.bytes_read / 1024).toFixed(1)} KB read</span>
             </div>
             <a
-              href={result.final_url}
+              href={sanitizeUrl(result.final_url)}
               target="_blank"
               rel="noopener noreferrer"
               className="text-brand-600 dark:text-brand-400 hover:underline font-mono text-sm break-all flex items-center gap-1"
@@ -311,7 +311,7 @@ export default function UrlPreview(): JSX.Element {
                       }}
                     />
                     <a
-                      href={result.favicon}
+                      href={sanitizeUrl(result.favicon)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-brand-600 dark:text-brand-400 hover:underline"
@@ -359,7 +359,7 @@ export default function UrlPreview(): JSX.Element {
               <div className="flex items-center justify-between mb-3">
                 <h3 className="font-display font-semibold text-lg">urlscan.io</h3>
                 <a
-                  href={result.urlscan.result}
+                  href={sanitizeUrl(result.urlscan.result)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm font-mono text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
@@ -368,7 +368,7 @@ export default function UrlPreview(): JSX.Element {
                 </a>
               </div>
               {result.urlscan.screenshot && (
-                <a href={result.urlscan.result} target="_blank" rel="noopener noreferrer">
+                <a href={sanitizeUrl(result.urlscan.result)} target="_blank" rel="noopener noreferrer">
                   <img
                     src={result.urlscan.screenshot}
                     alt="urlscan screenshot"
@@ -441,7 +441,7 @@ export default function UrlPreview(): JSX.Element {
             <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
               <div className="text-xs uppercase tracking-wider text-slate-500 font-mono mb-1">Canonical URL</div>
               <a
-                href={result.canonical}
+                href={sanitizeUrl(result.canonical)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-brand-600 dark:text-brand-400 hover:underline font-mono text-sm break-all"

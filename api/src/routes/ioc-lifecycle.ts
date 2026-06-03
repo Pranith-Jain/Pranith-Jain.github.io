@@ -71,7 +71,9 @@ export interface IocLifecycle {
  * migration, but for edge deployment we create on first access.
  */
 async function ensureTable(db: D1Database): Promise<void> {
-  await db.prepare(`
+  await db
+    .prepare(
+      `
     CREATE TABLE IF NOT EXISTS ioc_lifecycle (
       indicator TEXT PRIMARY KEY,
       indicator_type TEXT NOT NULL,
@@ -87,7 +89,9 @@ async function ensureTable(db: D1Database): Promise<void> {
       created_at TEXT NOT NULL,
       updated_at TEXT NOT NULL
     )
-  `).run();
+  `
+    )
+    .run();
   await db.prepare('CREATE INDEX IF NOT EXISTS idx_ioc_lifecycle_last_seen ON ioc_lifecycle(last_seen)').run();
   await db.prepare('CREATE INDEX IF NOT EXISTS idx_ioc_lifecycle_type ON ioc_lifecycle(indicator_type)').run();
   await db.prepare('CREATE INDEX IF NOT EXISTS idx_ioc_lifecycle_score ON ioc_lifecycle(peak_score)').run();
@@ -108,78 +112,57 @@ export async function recordIocObservation(
   await ensureTable(db);
 
   const now = new Date().toISOString();
+  // Read the current row only to compute the merge inputs (source/tag union,
+  // EMA decay). The WRITE below is a single atomic upsert so two concurrent
+  // first-seen observations can't both INSERT (PRIMARY KEY throw / 500), and
+  // observation_count is incremented in SQL off the live value rather than a
+  // stale read — closing the SELECT-then-write race (RACE-1).
   const existing = await db
     .prepare('SELECT * FROM ioc_lifecycle WHERE indicator = ?')
     .bind(indicator)
     .first<IocLifecycleRow>();
 
-  if (existing) {
-    // Update existing record
-    const prevSources: string[] = JSON.parse(existing.sources_seen ?? '[]');
-    const allSources = [...new Set([...prevSources, ...sources])];
-    const peakScore = Math.max(existing.peak_score, score);
+  const prevSources: string[] = existing ? JSON.parse(existing.sources_seen ?? '[]') : [];
+  const allSources = [...new Set([...prevSources, ...sources])].slice(0, 50);
+  const peakScore = existing ? Math.max(existing.peak_score, score) : score;
+  const newDecayRate = existing ? existing.decay_rate * 0.8 + (score - existing.current_score) * 0.2 : 0.0;
+  const prevTags: string[] = existing ? JSON.parse(existing.tags ?? '[]') : [];
+  const allTags = [...new Set([...prevTags, ...tags])].slice(0, 20);
 
-    // Decay rate: exponential moving average of score changes
-    const scoreDelta = score - existing.current_score;
-    const newDecayRate = existing.decay_rate * 0.8 + scoreDelta * 0.2;
-
-    const prevTags: string[] = JSON.parse(existing.tags ?? '[]');
-    const allTags = [...new Set([...prevTags, ...tags])];
-
-    await db
-      .prepare(
-        `UPDATE ioc_lifecycle SET
-          last_seen = ?,
-          peak_score = ?,
-          current_score = ?,
-          observation_count = observation_count + 1,
-          sources_seen = ?,
-          last_sources = ?,
-          decay_rate = ?,
-          tags = ?,
-          updated_at = ?
-        WHERE indicator = ?`
-      )
-      .bind(
-        now,
-        peakScore,
-        score,
-        JSON.stringify(allSources.slice(0, 50)),
-        JSON.stringify(sources),
-        newDecayRate,
-        JSON.stringify(allTags.slice(0, 20)),
-        now,
-        indicator
-      )
-      .run();
-  } else {
-    // Insert new record
-    await db
-      .prepare(
-        `INSERT INTO ioc_lifecycle (
-          indicator, indicator_type, first_seen, last_seen,
-          peak_score, current_score, observation_count,
-          sources_seen, last_sources, decay_rate, tags,
-          created_at, updated_at
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
-      )
-      .bind(
-        indicator,
-        indicatorType,
-        now,
-        now,
-        score,
-        score,
-        1,
-        JSON.stringify(sources),
-        JSON.stringify(sources),
-        0.0,
-        JSON.stringify(tags),
-        now,
-        now
-      )
-      .run();
-  }
+  await db
+    .prepare(
+      `INSERT INTO ioc_lifecycle (
+        indicator, indicator_type, first_seen, last_seen,
+        peak_score, current_score, observation_count,
+        sources_seen, last_sources, decay_rate, tags,
+        created_at, updated_at
+      ) VALUES (?, ?, ?, ?, ?, ?, 1, ?, ?, ?, ?, ?, ?)
+      ON CONFLICT(indicator) DO UPDATE SET
+        last_seen = excluded.last_seen,
+        peak_score = MAX(ioc_lifecycle.peak_score, excluded.peak_score),
+        current_score = excluded.current_score,
+        observation_count = ioc_lifecycle.observation_count + 1,
+        sources_seen = excluded.sources_seen,
+        last_sources = excluded.last_sources,
+        decay_rate = excluded.decay_rate,
+        tags = excluded.tags,
+        updated_at = excluded.updated_at`
+    )
+    .bind(
+      indicator,
+      indicatorType,
+      now,
+      now,
+      peakScore,
+      score,
+      JSON.stringify(allSources),
+      JSON.stringify(sources),
+      newDecayRate,
+      JSON.stringify(allTags),
+      now,
+      now
+    )
+    .run();
 }
 
 /** Convert a DB row to the API response format. */
@@ -256,11 +239,15 @@ export async function iocLifecycleHandler(c: Context<{ Bindings: Env }>): Promis
     .first<IocLifecycleRow>();
 
   if (!row) {
-    return c.json({
-      indicator,
-      found: false,
-      message: 'IOC not tracked in lifecycle database',
-    }, 200, { 'Cache-Control': `public, max-age=${CACHE_TTL}` });
+    return c.json(
+      {
+        indicator,
+        found: false,
+        message: 'IOC not tracked in lifecycle database',
+      },
+      200,
+      { 'Cache-Control': `public, max-age=${CACHE_TTL}` }
+    );
   }
 
   const lifecycle = rowToLifecycle(row);
@@ -306,7 +293,10 @@ export async function iocLifecycleTrendingHandler(c: Context<{ Bindings: Env }>)
   query += ' ORDER BY observation_count DESC, peak_score DESC LIMIT ?';
   params.push(limit);
 
-  const rows = await db.prepare(query).bind(...params).all<IocLifecycleRow>();
+  const rows = await db
+    .prepare(query)
+    .bind(...params)
+    .all<IocLifecycleRow>();
   const trending = rows.results?.map(rowToLifecycle) ?? [];
 
   const response = c.json({ trending, count: trending.length }, 200, {

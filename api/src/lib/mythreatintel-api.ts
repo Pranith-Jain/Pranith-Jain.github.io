@@ -28,6 +28,12 @@ import type { Env } from '../env';
 
 const API_BASE = 'https://mythreatintel.com/api/';
 const FETCH_TIMEOUT_MS = 12_000;
+/**
+ * The `source=dns` scan is an active, real-time dnstwist run (40 threads) the
+ * upstream docs put at 30–120s. It needs a far larger budget than the static
+ * sources — anything short aborts mid-scan.
+ */
+const DNS_FETCH_TIMEOUT_MS = 115_000;
 
 /** Canonical `?source=` values. Matches the documented curl examples. */
 export const MTI_SOURCES = [
@@ -302,4 +308,120 @@ export async function fetchMtiSource(env: Env, source: MtiSource, query: MtiQuer
 
   // Cache holds the full canonical payload; this caller gets its slice.
   return slice(result);
+}
+
+// ─── DNS permutation scan (source=dns) ─────────────────────────────────────
+//
+// Structurally distinct from the static sources: it takes a `domain` (plus
+// optional `tlds`/`words`), runs a live dnstwist scan, and returns one object
+// PER GENERATED DOMAIN — not the `{status, metadata, data}` envelope. The docs
+// show a bare top-level array; the jq examples reference `.data[]`. We accept
+// either shape defensively.
+
+export interface MtiDnsRecord {
+  /** Permutation type: original, addition, tld-swap, keyword, … */
+  fuzzer?: string;
+  domain?: string;
+  dns_a?: string[];
+  dns_aaaa?: string[];
+  dns_mx?: string[];
+  dns_ns?: string[];
+}
+
+export interface MtiDnsResult {
+  ok: boolean;
+  count: number;
+  items: MtiDnsRecord[];
+  upstreamStatus?: number;
+  upstreamDetail?: string;
+}
+
+export interface MtiDnsQuery {
+  /** Target apex domain, e.g. "company.com". */
+  domain: string;
+  /** Extra comma-separated TLDs to broaden typosquatting detection. */
+  tlds?: string;
+  /** Comma-separated keywords for login-/secure- style variants. */
+  words?: string;
+}
+
+const DNS_EMPTY: MtiDnsResult = { ok: false, count: 0, items: [] };
+
+/** Edge-cache key for a DNS scan — varies by every input that changes results. */
+export function mtiDnsCacheKey(domain: string, tlds: string, words: string): string {
+  return `https://mti-dns-cache.internal/v1/${encodeURIComponent(domain)}/${encodeURIComponent(tlds)}/${encodeURIComponent(words)}`;
+}
+
+/** Scan TTL — a live scan is expensive (30–120s); reuse for 30 min. */
+const DNS_TTL_SECONDS = 30 * 60;
+
+/**
+ * Run a MyThreatIntel DNS permutation scan. Never throws; returns `ok:false`
+ * on missing token / upstream failure, with the upstream status + detail so
+ * the handler can distinguish an expired token (401) from an outage.
+ */
+export async function fetchMtiDns(env: Env, query: MtiDnsQuery): Promise<MtiDnsResult> {
+  const token = env.MYTHREATINTEL_API_TOKEN;
+  if (!token) return DNS_EMPTY;
+
+  const domain = query.domain.trim().toLowerCase();
+  const tlds = (query.tlds ?? '').trim();
+  const words = (query.words ?? '').trim();
+
+  const cache = (caches as unknown as { default: Cache }).default;
+  const cacheReq = new Request(mtiDnsCacheKey(domain, tlds, words));
+  const cached = await cache.match(cacheReq);
+  if (cached) {
+    try {
+      return (await cached.json()) as MtiDnsResult;
+    } catch {
+      /* fall through to a fresh scan */
+    }
+  }
+
+  const url = new URL(API_BASE);
+  url.searchParams.set('source', 'dns');
+  url.searchParams.set('domain', domain);
+  if (tlds) url.searchParams.set('tlds', tlds);
+  if (words) url.searchParams.set('words', words);
+
+  let parsed: unknown;
+  try {
+    const res = await fetch(url.toString(), {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+        'User-Agent': 'pranithjain.qzz.io DFIR toolkit (read-only)',
+      },
+      signal: AbortSignal.timeout(DNS_FETCH_TIMEOUT_MS),
+    });
+    if (!res.ok) {
+      const detail = await res
+        .text()
+        .then((t) => t.slice(0, 200))
+        .catch(() => '');
+      return { ...DNS_EMPTY, upstreamStatus: res.status, upstreamDetail: detail };
+    }
+    parsed = await res.json();
+  } catch (err) {
+    return { ...DNS_EMPTY, upstreamStatus: 0, upstreamDetail: err instanceof Error ? err.message : String(err) };
+  }
+
+  // Accept either a bare array or a `{ data: [...] }` envelope.
+  const data: MtiDnsRecord[] = Array.isArray(parsed)
+    ? (parsed as MtiDnsRecord[])
+    : Array.isArray((parsed as { data?: unknown })?.data)
+      ? (parsed as { data: MtiDnsRecord[] }).data
+      : [];
+
+  const result: MtiDnsResult = { ok: true, count: data.length, items: data };
+
+  if (result.items.length > 0) {
+    const toCache = new Response(JSON.stringify(result), {
+      status: 200,
+      headers: { 'content-type': 'application/json', 'cache-control': `public, max-age=${DNS_TTL_SECONDS}` },
+    });
+    await cache.put(cacheReq, toCache);
+  }
+  return result;
 }

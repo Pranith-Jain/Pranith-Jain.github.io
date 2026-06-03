@@ -18,6 +18,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import {
   fetchMtiSource,
+  fetchMtiDns,
   isMtiSource,
   MTI_SOURCES,
   MTI_TTL,
@@ -126,6 +127,60 @@ export async function mtiHandler(c: Context<{ Bindings: Env }>): Promise<Respons
   return c.json(
     { source, generated_at: new Date().toISOString(), total: result.total, count: result.count, items: result.items },
     200,
+    { 'cache-control': 'no-store' }
+  );
+}
+
+/**
+ * DNS permutation (typosquatting) scan.
+ *
+ *   GET /api/v1/mti-dns?domain=<apex>&tlds=<csv>&words=<csv>
+ *
+ * Active dnstwist scan via MyThreatIntel (30–120s). No last-good fallback —
+ * a scan is per-domain and on-demand. Same token contract as the source proxy:
+ * 503 when unset, 502 (carrying upstream_status) when the token is rejected.
+ */
+const DOMAIN_RE = /^(?=.{1,253}$)([a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}$/;
+
+export async function mtiDnsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const domain = (c.req.query('domain') ?? '').trim().toLowerCase();
+  if (!DOMAIN_RE.test(domain)) {
+    return c.json({ error: 'invalid_domain', detail: 'expected an apex domain like company.com' }, 400, {
+      'cache-control': 'no-store',
+    });
+  }
+  if (!c.env.MYTHREATINTEL_API_TOKEN) {
+    return c.json({ error: 'not_configured', detail: 'MYTHREATINTEL_API_TOKEN secret is not set' }, 503, {
+      'cache-control': 'no-store',
+    });
+  }
+
+  // Light input hygiene: allowlist chars, cap length — these are forwarded
+  // verbatim to a fixed upstream host (no SSRF surface, but keep them sane).
+  const sanitizeCsv = (v: string): string =>
+    v
+      .toLowerCase()
+      .replace(/[^a-z0-9,.-]/g, '')
+      .slice(0, 200);
+  const tlds = sanitizeCsv(c.req.query('tlds') ?? '');
+  const words = sanitizeCsv(c.req.query('words') ?? '');
+
+  const result = await fetchMtiDns(c.env, { domain, tlds, words });
+
+  if (result.ok) {
+    return c.json({ domain, generated_at: new Date().toISOString(), count: result.count, items: result.items }, 200, {
+      'cache-control': `public, max-age=${30 * 60}`,
+    });
+  }
+
+  return c.json(
+    {
+      error: 'upstream_unavailable',
+      domain,
+      upstream_status: result.upstreamStatus ?? null,
+      upstream_detail: result.upstreamDetail ?? null,
+    },
+    502,
     { 'cache-control': 'no-store' }
   );
 }

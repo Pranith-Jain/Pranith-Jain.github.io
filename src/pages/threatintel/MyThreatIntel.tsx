@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { CopyButton } from '../../components/ui/CopyButton';
 import { relativeAgo as shortRel } from '../../lib/relativeTime';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, ExternalLink, Radar, RefreshCw, Search } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Globe, Loader2, Radar, RefreshCw, Search } from 'lucide-react';
 import { DataState } from '../../components/DataState';
 import { StatBar } from '../../components/StatBar';
 
@@ -162,29 +162,283 @@ function DistBar({ rows, distKey }: { rows: MtiRow[]; distKey: string | null }):
   );
 }
 
+interface DnsRow {
+  fuzzer?: string;
+  domain?: string;
+  dns_a?: string[];
+  dns_aaaa?: string[];
+  dns_mx?: string[];
+  dns_ns?: string[];
+}
+interface DnsResponse {
+  domain: string;
+  generated_at: string;
+  count: number;
+  items: DnsRow[];
+}
+
+function recArr(v: string[] | undefined): string {
+  return v && v.length > 0 ? v.join(', ') : '—';
+}
+
+/** Shared "integration disabled" banner — token unset vs. token rejected. */
+function DisabledBanner({ reason }: { reason: 'not_configured' | 'token_invalid' }): JSX.Element {
+  return (
+    <div className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-6 text-sm text-amber-800 dark:text-amber-200">
+      {reason === 'token_invalid' ? (
+        <>
+          <strong className="font-semibold">MyThreatIntel token expired or invalid.</strong> The upstream API rejected
+          the configured credential (HTTP 401). The site operator needs to refresh the{' '}
+          <code className="font-mono text-xs">MYTHREATINTEL_API_TOKEN</code> secret with a valid key.
+        </>
+      ) : (
+        <>
+          <strong className="font-semibold">Operator dashboard disabled.</strong> Ask the site operator to enable the
+          MyThreatIntel integration.
+        </>
+      )}
+    </div>
+  );
+}
+
+/**
+ * Active dnstwist typosquatting scan (MyThreatIntel `source=dns`). On-demand —
+ * the operator enters an apex domain (+ optional extra TLDs / keywords) and we
+ * fire a live scan. The upstream takes 30–120s, so this is a deliberate button
+ * press with a long-running loading state, not an auto-fetch.
+ */
+function DnsScanPanel(): JSX.Element {
+  const [domain, setDomain] = useState('');
+  const [tlds, setTlds] = useState('');
+  const [words, setWords] = useState('');
+  const [data, setData] = useState<DnsResponse | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [disabledReason, setDisabledReason] = useState<'not_configured' | 'token_invalid' | null>(null);
+  const [onlyRegistered, setOnlyRegistered] = useState(false);
+
+  const scan = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const d = domain.trim().toLowerCase();
+    if (!d) return;
+    setLoading(true);
+    setError(null);
+    setData(null);
+    setDisabledReason(null);
+    try {
+      const params = new URLSearchParams({ domain: d });
+      if (tlds.trim()) params.set('tlds', tlds.trim());
+      if (words.trim()) params.set('words', words.trim());
+      const r = await fetch(`/api/v1/mti-dns?${params.toString()}`);
+      if (r.status === 503) {
+        const j = (await r.json().catch(() => ({}))) as { error?: string };
+        if (j.error === 'not_configured') {
+          setDisabledReason('not_configured');
+          return;
+        }
+      }
+      if (r.status === 502) {
+        const j = (await r.json().catch(() => ({}))) as { error?: string; upstream_status?: number | null };
+        if (j.error === 'upstream_unavailable' && (j.upstream_status === 401 || j.upstream_status === 403)) {
+          setDisabledReason('token_invalid');
+          return;
+        }
+      }
+      if (r.status === 400) {
+        const j = (await r.json().catch(() => ({}))) as { detail?: string };
+        throw new Error(j.detail || 'invalid domain');
+      }
+      if (!r.ok) throw new Error(`scan failed (${r.status})`);
+      setData((await r.json()) as DnsResponse);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : String(err));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const rows = useMemo(() => {
+    if (!data) return [] as DnsRow[];
+    return onlyRegistered ? data.items.filter((r) => (r.dns_a?.length ?? 0) > 0) : data.items;
+  }, [data, onlyRegistered]);
+
+  return (
+    <div>
+      <form
+        onSubmit={scan}
+        className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-4 space-y-3"
+      >
+        <div className="flex flex-col sm:flex-row gap-3">
+          <input
+            type="text"
+            value={domain}
+            onChange={(e) => setDomain(e.target.value)}
+            placeholder="apex domain — e.g. company.com"
+            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            aria-label="Target apex domain"
+          />
+          <button
+            type="submit"
+            disabled={loading || !domain.trim()}
+            className="inline-flex items-center justify-center gap-1.5 text-xs font-mono px-4 py-2 rounded border border-brand-500/40 bg-brand-500/10 text-brand-700 dark:text-brand-300 hover:border-brand-500/70 disabled:opacity-50"
+          >
+            {loading ? <Loader2 size={13} className="animate-spin" /> : <Globe size={13} />}
+            {loading ? 'scanning…' : 'scan'}
+          </button>
+        </div>
+        <div className="flex flex-col sm:flex-row gap-3">
+          <input
+            type="text"
+            value={tlds}
+            onChange={(e) => setTlds(e.target.value)}
+            placeholder="extra TLDs (optional) — ru,cn,xyz,top"
+            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-xs focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            aria-label="Extra TLDs"
+          />
+          <input
+            type="text"
+            value={words}
+            onChange={(e) => setWords(e.target.value)}
+            placeholder="keywords (optional) — login,secure,vpn"
+            className="flex-1 px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-xs focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+            aria-label="Keyword variants"
+          />
+        </div>
+        <p className="text-[11px] font-mono text-slate-500">
+          Live dnstwist scan — typically 30–120s depending on domain and TLD breadth.
+        </p>
+      </form>
+
+      {disabledReason ? (
+        <DisabledBanner reason={disabledReason} />
+      ) : (
+        <DataState
+          loading={loading}
+          error={error}
+          empty={!!data && rows.length === 0}
+          emptyLabel={onlyRegistered ? 'No resolving look-alike domains found.' : 'No permutations returned.'}
+          rows={8}
+        >
+          {data && (
+            <>
+              <div className="flex items-center justify-between gap-3 mb-3 flex-wrap">
+                <p className="text-[11px] font-mono text-slate-500">
+                  {data.count.toLocaleString()} permutations for{' '}
+                  <span className="text-slate-700 dark:text-slate-300">{data.domain}</span> · showing{' '}
+                  {rows.length.toLocaleString()}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setOnlyRegistered((v) => !v)}
+                  className={`text-[11px] font-mono px-2 py-1 rounded border ${
+                    onlyRegistered
+                      ? 'border-rose-500/60 bg-rose-500/15 text-rose-700 dark:text-rose-300'
+                      : 'border-slate-300 dark:border-slate-700 text-slate-500'
+                  }`}
+                >
+                  registered only
+                </button>
+              </div>
+              <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-800">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="bg-slate-50 dark:bg-slate-900 text-left">
+                      {['Permutation', 'Domain', 'A', 'MX', 'NS', 'Registered'].map((h) => (
+                        <th
+                          key={h}
+                          scope="col"
+                          className="px-3 py-2 font-mono text-[11px] uppercase tracking-wider text-slate-500 whitespace-nowrap"
+                        >
+                          {h}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {rows.map((r, i) => {
+                      const registered = (r.dns_a?.length ?? 0) > 0;
+                      return (
+                        <tr
+                          key={`${r.domain}-${i}`}
+                          className="border-t border-slate-100 dark:border-slate-800/70 align-top hover:bg-slate-50/60 dark:hover:bg-slate-900/40"
+                        >
+                          <td className="px-3 py-2 font-mono text-[11px] text-slate-500 whitespace-nowrap">
+                            {r.fuzzer || '—'}
+                          </td>
+                          <td className="px-3 py-2 font-mono text-[12px] text-slate-800 dark:text-slate-200 break-all">
+                            {r.domain || '—'}
+                          </td>
+                          <td className="px-3 py-2 font-mono text-[11px] text-slate-600 dark:text-slate-400 break-all">
+                            {recArr(r.dns_a)}
+                          </td>
+                          <td className="px-3 py-2 font-mono text-[11px] text-slate-600 dark:text-slate-400 break-all">
+                            {recArr(r.dns_mx)}
+                          </td>
+                          <td className="px-3 py-2 font-mono text-[11px] text-slate-600 dark:text-slate-400 break-all">
+                            {recArr(r.dns_ns)}
+                          </td>
+                          <td className="px-3 py-2 whitespace-nowrap">
+                            {registered ? (
+                              <span className="text-[11px] font-mono px-2 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300">
+                                resolves
+                              </span>
+                            ) : (
+                              <span className="text-[11px] font-mono text-slate-400">—</span>
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </>
+          )}
+        </DataState>
+      )}
+    </div>
+  );
+}
+
 export default function MyThreatIntel(): JSX.Element {
+  const [view, setView] = useState<'records' | 'dns'>('records');
   const [source, setSource] = useState<Source>('iocs');
   const [data, setData] = useState<MtiResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [notConfigured, setNotConfigured] = useState(false);
+  // null = healthy. 'not_configured' = no token secret set. 'token_invalid' =
+  // token set but upstream rejected it (401/403 → expired or wrong key).
+  const [disabledReason, setDisabledReason] = useState<'not_configured' | 'token_invalid' | null>(null);
   const [query, setQuery] = useState('');
   const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
+    // The DNS tab owns its own fetch lifecycle — don't fire the records query
+    // (and a needless upstream call) while it's active.
+    if (view !== 'records') return;
     let cancelled = false;
     setLoading(true);
     // Clear the previous source's data so the table doesn't show stale
     // rows from tab N-1 while tab N is loading.
     setData(null);
     setError(null);
-    setNotConfigured(false);
+    setDisabledReason(null);
     fetch(`/api/v1/mti?source=${source}&limit=300`)
       .then(async (r) => {
         if (r.status === 503) {
           const j = (await r.json().catch(() => ({}))) as { error?: string };
           if (j.error === 'not_configured') {
-            if (!cancelled) setNotConfigured(true);
+            if (!cancelled) setDisabledReason('not_configured');
+            return null;
+          }
+        }
+        // Token is set but upstream rejected it (expired / invalid key). The
+        // proxy surfaces the real upstream status in the 502 body — read it so
+        // we can show a precise message instead of a generic "upstream 502".
+        if (r.status === 502) {
+          const j = (await r.json().catch(() => ({}))) as { error?: string; upstream_status?: number | null };
+          if (j.error === 'upstream_unavailable' && (j.upstream_status === 401 || j.upstream_status === 403)) {
+            if (!cancelled) setDisabledReason('token_invalid');
             return null;
           }
         }
@@ -203,7 +457,7 @@ export default function MyThreatIntel(): JSX.Element {
     return () => {
       cancelled = true;
     };
-  }, [source, refreshKey]);
+  }, [source, refreshKey, view]);
 
   const cols = COLUMNS[source];
   const filtered = useMemo(() => {
@@ -242,9 +496,12 @@ export default function MyThreatIntel(): JSX.Element {
             <button
               key={s}
               type="button"
-              onClick={() => setSource(s)}
+              onClick={() => {
+                setSource(s);
+                setView('records');
+              }}
               className={`text-xs font-mono px-3 py-1.5 rounded border transition-colors ${
-                source === s
+                view === 'records' && source === s
                   ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
                   : 'border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
               }`}
@@ -252,35 +509,46 @@ export default function MyThreatIntel(): JSX.Element {
               {SOURCE_LABEL[s]}
             </button>
           ))}
-        </div>
-        <div className="flex items-center gap-3">
-          <div className="relative flex-1">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-            <input
-              type="search"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder={`Filter ${SOURCE_LABEL[source].toLowerCase()}…`}
-              className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
-              aria-label="Filter records"
-            />
-          </div>
           <button
             type="button"
-            onClick={() => setRefreshKey((k) => k + 1)}
-            className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40"
+            onClick={() => setView('dns')}
+            className={`inline-flex items-center gap-1 text-xs font-mono px-3 py-1.5 rounded border transition-colors ${
+              view === 'dns'
+                ? 'border-brand-500/60 bg-brand-500/15 text-brand-700 dark:text-brand-300'
+                : 'border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-brand-500/40'
+            }`}
           >
-            <RefreshCw size={12} /> refresh
+            <Globe size={12} /> DNS typosquat
           </button>
         </div>
+        {view === 'records' && (
+          <div className="flex items-center gap-3">
+            <div className="relative flex-1">
+              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+              <input
+                type="search"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder={`Filter ${SOURCE_LABEL[source].toLowerCase()}…`}
+                className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                aria-label="Filter records"
+              />
+            </div>
+            <button
+              type="button"
+              onClick={() => setRefreshKey((k) => k + 1)}
+              className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40"
+            >
+              <RefreshCw size={12} /> refresh
+            </button>
+          </div>
+        )}
       </section>
 
-      {notConfigured ? (
-        <div className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-6 text-sm text-amber-800 dark:text-amber-200">
-          <strong className="font-semibold">Operator dashboard disabled.</strong> Ask the site operator to enable the
-          MyThreatIntel integration. The rest of the threat-intel section keeps working off the existing free feeds in
-          the meantime.
-        </div>
+      {view === 'dns' ? (
+        <DnsScanPanel />
+      ) : disabledReason ? (
+        <DisabledBanner reason={disabledReason} />
       ) : (
         <>
           {data?.stale && (

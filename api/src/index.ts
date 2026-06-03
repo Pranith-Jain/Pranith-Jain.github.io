@@ -28,7 +28,7 @@ import { cryptoTraceHandler } from './routes/crypto-trace';
 import { abuseRssHandler } from './routes/abuse-rss';
 import { mtiRansomwareRssHandler } from './routes/mti-ransomware-rss';
 import { ransomwareMergedRssHandler } from './routes/ransomware-merged-rss';
-import { mtiHandler } from './routes/mti';
+import { mtiHandler, mtiDnsHandler } from './routes/mti';
 import { mispProxyHandler } from './routes/misp';
 import { waybackCdxHandler } from './routes/wayback';
 import { threatPulseHandler } from './routes/threat-pulse';
@@ -306,6 +306,12 @@ import { proxyNovaSearchHandler } from './routes/proxynova';
 import { identityProxyHandler } from './routes/identity-proxy';
 import { hudsonRockSearchHandler, hudsonRockDomainHandler } from './routes/hudsonrock';
 import { projectDiscoveryHandler } from './routes/projectdiscovery';
+import {
+  pdLeaksHandler,
+  pdSubdomainsHandler,
+  pdCvesHandler,
+  pdCveDetailHandler,
+} from './routes/projectdiscovery-intel';
 import { hackMyIpBreachHandler } from './routes/hackmyip';
 import {
   telegramLeakSearchHandler,
@@ -560,6 +566,9 @@ app.get('/api/v1/breach/proxynova', proxyNovaSearchHandler);
 app.get('/api/v1/breach/hudsonrock', hudsonRockSearchHandler);
 app.get('/api/v1/breach/hudsonrock/domain', hudsonRockDomainHandler);
 app.get('/api/v1/breach/projectdiscovery', projectDiscoveryHandler);
+app.get('/api/v1/pd/leaks', pdLeaksHandler);
+app.get('/api/v1/pd/subdomains', pdSubdomainsHandler);
+app.get('/api/v1/pd/cves', pdCvesHandler);
 app.get('/api/v1/breach/hackmyip', hackMyIpBreachHandler);
 app.get('/api/v1/identity/lookup', identityProxyHandler);
 app.get('/api/v1/url-preview', urlPreviewHandler);
@@ -639,6 +648,7 @@ app.get('/api/v1/victim-releaks', victimReleaksHandler);
 app.get('/api/v1/live-iocs', liveIocsHandler);
 app.get('/api/v1/detections', detectionsHandler);
 app.get('/api/v1/mti', mtiHandler);
+app.get('/api/v1/mti-dns', mtiDnsHandler);
 app.get('/api/v1/writeups', writeupsHandler);
 app.get('/api/v1/c2-tracker', c2TrackerHandler);
 app.get('/api/v1/aggregated-feeds', aggregatedFeedsHandler);

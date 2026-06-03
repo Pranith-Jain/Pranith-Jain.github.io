@@ -1,4 +1,5 @@
 import type { FeaturedArticle } from '../../core/entities';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 
 interface FeaturedProps {
   featuredArticles: FeaturedArticle[];
@@ -30,7 +31,7 @@ export function Featured({ featuredArticles }: FeaturedProps) {
         {featuredArticles.map((article) => (
           <a
             key={article.title}
-            href={article.url}
+            href={sanitizeUrl(article.url)}
             target="_blank"
             rel="noreferrer"
             className="group flex flex-col gap-5 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 transition hover:border-brand-500/40 h-full"

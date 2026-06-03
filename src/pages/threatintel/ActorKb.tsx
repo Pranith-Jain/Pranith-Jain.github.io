@@ -5,6 +5,7 @@ import { ArrowLeft, ExternalLink, Search, Users, Bug, Globe, BookOpen, RefreshCw
 import { type KbActor } from '../../data/dfir/actor-kb';
 import { DataState } from '../../components/DataState';
 import ActorOtxSweep from '../../components/threatintel/ActorOtxSweep';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 
 interface SkeletonActor {
   slug: string;
@@ -268,7 +269,7 @@ export default function ActorKb(): JSX.Element {
               <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
                 <h2 className="text-2xl font-display font-bold">{selected.name}</h2>
                 <a
-                  href={selected.url}
+                  href={sanitizeUrl(selected.url)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 text-[12px] font-mono px-1.5 py-0.5 rounded border border-brand-500/30 bg-brand-500/5 text-brand-700 dark:text-brand-300 hover:bg-brand-500/10"

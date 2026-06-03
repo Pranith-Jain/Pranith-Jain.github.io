@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ExternalLink, Loader2, Twitter, Heart, Repeat, MessageSquare } from 'lucide-react';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 
 interface TweetItem {
   id: string;
@@ -133,7 +134,7 @@ export function XLivePanel({
                     </span>
                     <span className="text-[10px] font-mono text-slate-500">@{t.author.screen_name}</span>
                     <a
-                      href={t.url}
+                      href={sanitizeUrl(t.url)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="ml-auto text-[10px] font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-0.5"

@@ -5,6 +5,11 @@ export interface Env {
   KV_CACHE?: KVNamespace;
   /** Producer binding for the live-IOC per-source feed fan-out (PR2/PR3). */
   FEEDS_QUEUE?: Queue<FeedQueueMessage>;
+  /** Durable Object used as a globally-consistent single-flight lease AND, via
+   *  its `incr` op, an atomic windowed counter for the admin rate-limit bucket
+   *  (so a parallel burst can't bypass the brute-force cap). Optional — the
+   *  rate limiter degrades to the per-colo Cache/KV path when it is unbound. */
+  CRON_LOCK_DO?: DurableObjectNamespace;
   BRIEFINGS_DB?: D1Database;
   CASE_STUDIES: KVNamespace;
   AI: Ai;
@@ -67,6 +72,12 @@ export interface Env {
    *  consumers (live-iocs, ransomware-recent) fall back to the existing
    *  t.me/s/mythreatintel scraper so nothing that works today breaks. */
   MYTHREATINTEL_API_TOKEN?: string;
+  /** ProjectDiscovery Cloud Platform API key (free tier; set via
+   *  `wrangler secret put PDCP_API_KEY`). Used as the Chaos `Authorization`
+   *  header for free public-domain subdomain recon. Optional — the
+   *  /api/v1/pd/subdomains endpoint returns 503 when unset; the credentials
+   *  (leaks stats) and CVE-catalog endpoints need no key and work regardless. */
+  PDCP_API_KEY?: string;
   /** Telegram bot token for CTI-archive posting + leak-monitor bot.
    *  TELEGRAM_CHANNEL_ID can be a comma-separated list of target chats
    *  for the archive. Optional — both features skip gracefully when unset. */

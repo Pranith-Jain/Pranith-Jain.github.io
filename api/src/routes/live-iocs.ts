@@ -990,6 +990,23 @@ async function composeOrFallback(c: Context<{ Bindings: Env }>): Promise<LiveIoc
   return fetchLiveIocs(c.executionCtx, kv, c.env);
 }
 
+// In-isolate single-flight for the cold-cache build (DOS-1). On a cold colo
+// cache, N concurrent requests would each launch the full ~33-source upstream
+// fan-out (cache stampede). Collapsing concurrent builds onto one shared
+// in-flight promise per isolate means only one fan-out runs while the rest
+// await its result; the promise clears on settle so the next cold miss
+// rebuilds. The result is request-agnostic (global live-IOC data), so sharing
+// the first caller's build across the others is correct.
+let inflightLiveIocsBuild: Promise<LiveIocsResponse> | null = null;
+
+function buildLiveIocsSingleFlight(c: Context<{ Bindings: Env }>): Promise<LiveIocsResponse> {
+  if (inflightLiveIocsBuild) return inflightLiveIocsBuild;
+  inflightLiveIocsBuild = composeOrFallback(c).finally(() => {
+    inflightLiveIocsBuild = null;
+  });
+  return inflightLiveIocsBuild;
+}
+
 export async function liveIocsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheReq = new Request(CACHE_KEY);
@@ -1010,7 +1027,7 @@ export async function liveIocsHandler(c: Context<{ Bindings: Env }>): Promise<Re
       c.executionCtx.waitUntil(
         (async () => {
           try {
-            const body = await composeOrFallback(c);
+            const body = await buildLiveIocsSingleFlight(c);
             const ttl = body.degraded ? DEGRADED_TTL_SECONDS : CACHE_TTL_SECONDS;
             const fresh = new Response(JSON.stringify(body), {
               status: 200,
@@ -1037,7 +1054,7 @@ export async function liveIocsHandler(c: Context<{ Bindings: Env }>): Promise<Re
     });
   }
 
-  const body = await composeOrFallback(c);
+  const body = await buildLiveIocsSingleFlight(c);
   // Adaptive TTL: when a build is degraded (an upstream FETCH failed — not a
   // source that was simply, legitimately empty), cache briefly so the next
   // request retries instead of locking a partial snapshot in for the full

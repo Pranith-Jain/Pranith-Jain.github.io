@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
 import { ArrowLeft, Search, RefreshCw, AlertTriangle, FileText, ExternalLink } from 'lucide-react';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 
 interface LeakEntry {
   id: number;
@@ -241,7 +242,7 @@ export default function TelegramLeaks(): JSX.Element {
                     )}
                     {entry.message_link && (
                       <a
-                        href={entry.message_link}
+                        href={sanitizeUrl(entry.message_link)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline ml-auto"

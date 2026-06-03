@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Bug, Copy, ExternalLink, Radio, Globe, Calendar, Shield, Layers } from 'lucide-react';
 import { INFOSTEALER_FAMILIES } from '../../data/threatintel/infostealer-families';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 
 interface SampleItem {
   family: string;
@@ -241,7 +242,7 @@ export default function InfostealerDetail(): JSX.Element {
                 </div>
                 <div className="flex items-center gap-2">
                   <a
-                    href={s.url}
+                    href={sanitizeUrl(s.url)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="font-mono text-[11px] text-brand-600 dark:text-brand-400 hover:underline break-all flex-1 min-w-0"

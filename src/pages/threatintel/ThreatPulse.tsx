@@ -18,6 +18,7 @@ import { DataState } from '../../components/DataState';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
 import { LiveFreshnessPill } from '../../components/LiveFreshnessPill';
 import { relativeAgo } from '../../lib/relativeTime';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 
 /** Build a deep link for an entity label so the analyst can pivot
  *  straight into the platform / MITRE rather than re-typing the ID. */
@@ -358,7 +359,12 @@ export default function ThreatPulse(): JSX.Element {
                             const className =
                               'font-display font-semibold text-base text-slate-900 dark:text-slate-100 break-all hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1';
                             return link.external ? (
-                              <a href={link.href} target="_blank" rel="noopener noreferrer" className={className}>
+                              <a
+                                href={sanitizeUrl(link.href)}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={className}
+                              >
                                 {entity.label}
                                 <ExternalLink size={11} className="shrink-0 opacity-70" />
                               </a>

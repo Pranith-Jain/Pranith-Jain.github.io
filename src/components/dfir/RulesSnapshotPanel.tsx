@@ -4,6 +4,7 @@ import { SnapshotCard, type SnapshotAccent } from './SnapshotCard';
 import { useWatchlist, watchHits } from './useWatchlist';
 import { shortRel } from '../../lib/relativeTime';
 import { decodeHtml } from '../../lib/htmlDecode';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 
 /**
  * Live snapshot for /threatintel/rules — buckets the recent_commits returned by
@@ -168,7 +169,7 @@ export function RulesSnapshotPanel(): JSX.Element {
                           title={matched.length > 0 ? `watchlist match: ${matched.join(', ')}` : undefined}
                         />
                         <a
-                          href={cm.link}
+                          href={sanitizeUrl(cm.link)}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="truncate text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 flex-1 min-w-0 inline-flex items-center gap-1"

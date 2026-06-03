@@ -74,6 +74,28 @@ export class CronLockDO {
       return Response.json({ ok: true });
     }
 
+    if (op === 'incr') {
+      // Atomic windowed counter (rate-limit buckets). `cron` is the counter
+      // key, `ttlMs` the window. A DO is single-threaded, so this
+      // read-modify-write is atomic and globally consistent — a parallel burst
+      // cannot undercount (which the per-colo Cache/KV path allowed). Returns
+      // the post-increment count so the caller checks `count > LIMIT` with no
+      // separate check-then-write window.
+      const counterKey = `count:${cron}`;
+      const nowMs = Date.now();
+      const cur = await this.ctx.storage.get<{ count: number; expiresAt: number }>(counterKey);
+      if (!cur || cur.expiresAt <= nowMs) {
+        await this.ctx.storage.put<{ count: number; expiresAt: number }>(counterKey, {
+          count: 1,
+          expiresAt: nowMs + (ttlMs ?? DEFAULT_TTL_MS),
+        });
+        return Response.json({ count: 1 });
+      }
+      const count = cur.count + 1;
+      await this.ctx.storage.put<{ count: number; expiresAt: number }>(counterKey, { count, expiresAt: cur.expiresAt });
+      return Response.json({ count });
+    }
+
     return Response.json({ error: `unknown op: ${op}` }, { status: 400 });
   }
 }

@@ -13,6 +13,7 @@ import {
   type ResourceKind,
   type ResourceTag,
 } from '../../data/threatintel/external-resources';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 
 const ALL_KINDS = Object.keys(KIND_LABELS) as ResourceKind[];
 const ALL_TAGS = Object.keys(TAG_LABELS) as ResourceTag[];
@@ -407,7 +408,7 @@ export default function ExternalResources(): JSX.Element {
           >
             <div className="flex items-baseline justify-between gap-2 mb-1">
               <a
-                href={r.url}
+                href={sanitizeUrl(r.url)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1 min-w-0 break-words"

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Shield, Server, Search, Bug, Globe, Database, ExternalLink, AlertTriangle, ArrowLeft } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 
 interface AggregatedFeed {
   id: string;
@@ -178,7 +179,7 @@ export default function AggregatedFeeds() {
                       <p className="text-slate-600 dark:text-slate-400 text-sm mt-0.5">{feed.description}</p>
                     </div>
                     <a
-                      href={feed.url}
+                      href={sanitizeUrl(feed.url)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 shrink-0 mt-1"

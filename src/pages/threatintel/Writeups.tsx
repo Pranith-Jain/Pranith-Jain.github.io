@@ -5,6 +5,7 @@ import { ArrowLeft, BookText, ExternalLink, RefreshCw, Search } from 'lucide-rea
 import { DataState } from '../../components/DataState';
 import { FeedAggregateCard } from '../../components/intel/FeedAggregateCard';
 import { AiSummaryCard } from '../../components/intel/AiSummaryCard';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 
 /**
  * /threatintel/writeups — live aggregation of long-form CTI writeups from
@@ -329,7 +330,7 @@ export default function Writeups(): JSX.Element {
               key={`${it.url}-${i}`}
               className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 hover:border-brand-500/40 transition-colors"
             >
-              <a href={it.url} target="_blank" rel="noopener noreferrer" className="group block">
+              <a href={sanitizeUrl(it.url)} target="_blank" rel="noopener noreferrer" className="group block">
                 <div className="flex items-start justify-between gap-3 mb-1.5 flex-wrap">
                   <h3 className="font-display font-semibold text-base text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 flex-1 min-w-0">
                     {it.title}

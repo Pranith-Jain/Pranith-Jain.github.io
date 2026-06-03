@@ -149,6 +149,31 @@ function isBypassed(pathname: string): boolean {
   return false;
 }
 
+/**
+ * Atomically increment the admin rate-limit bucket via the CRON_LOCK_DO `incr`
+ * op and return the post-increment count, or null when the DO is unbound or
+ * errors (so the caller can fall back to the legacy KV/Cache path). A Durable
+ * Object is single-threaded, so the read-modify-write is atomic and globally
+ * consistent — this closes the parallel-burst bypass (RL-RACE-1) on the
+ * brute-force-protection bucket without putting a DO hop on every public request.
+ */
+async function atomicAdminIncr(c: Context<{ Bindings: Env }>, ip: string, bucket: number): Promise<number | null> {
+  const ns = (c.env as { CRON_LOCK_DO?: DurableObjectNamespace }).CRON_LOCK_DO;
+  if (!ns) return null;
+  try {
+    const id = ns.idFromName(`rl:admin:${ip}:${bucket}`);
+    const res = await ns.get(id).fetch('https://cron-lock.internal/incr', {
+      method: 'POST',
+      body: JSON.stringify({ op: 'incr', cron: `admin:${ip}:${bucket}`, ttlMs: WINDOW_SEC * 2 * 1000 }),
+    });
+    if (!res.ok) return null;
+    const data = (await res.json()) as { count?: number };
+    return typeof data.count === 'number' ? data.count : null;
+  } catch {
+    return null;
+  }
+}
+
 export async function rateLimit(c: Context<{ Bindings: Env }>, next: Next): Promise<Response | void> {
   const url = new URL(c.req.url);
   if (!url.pathname.startsWith('/api/v1/')) return next();
@@ -173,18 +198,29 @@ export async function rateLimit(c: Context<{ Bindings: Env }>, next: Next): Prom
 
   let count = 0;
   let adminCount = 0;
+  let adminViaDO = false;
   try {
     const hit = await cache.match(key);
     if (hit) count = parseInt(await hit.text(), 10) || 0;
     if (adminKey) {
-      // Admin uses KV for global consistency; fall back to Cache API.
-      const kv = (c.env as unknown as Record<string, unknown>).KV_CACHE as KvNamespace | undefined;
-      if (kv) {
-        const adminHit = await kv.get(`rl:admin:${ip}:${bucket}`);
-        if (adminHit) adminCount = parseInt(adminHit, 10) || 0;
+      // Prefer the atomic, globally-consistent DO counter (RL-RACE-1). It
+      // increments as part of the read, so the returned value is the
+      // post-increment count — map it back to the pre-increment value the
+      // check below expects, and skip the separate write further down.
+      const doCount = await atomicAdminIncr(c, ip, bucket);
+      if (doCount !== null) {
+        adminCount = doCount - 1;
+        adminViaDO = true;
       } else {
-        const adminHit = await cache.match(adminKey);
-        if (adminHit) adminCount = parseInt(await adminHit.text(), 10) || 0;
+        // DO unavailable — fall back to KV (global-ish) / Cache API.
+        const kv = (c.env as unknown as Record<string, unknown>).KV_CACHE as KvNamespace | undefined;
+        if (kv) {
+          const adminHit = await kv.get(`rl:admin:${ip}:${bucket}`);
+          if (adminHit) adminCount = parseInt(adminHit, 10) || 0;
+        } else {
+          const adminHit = await cache.match(adminKey);
+          if (adminHit) adminCount = parseInt(await adminHit.text(), 10) || 0;
+        }
       }
     }
   } catch {
@@ -232,10 +268,10 @@ export async function rateLimit(c: Context<{ Bindings: Env }>, next: Next): Prom
       )
       .catch(() => undefined)
   );
-  if (adminKey) {
-    // Admin strict bucket uses KV so the count is global (not per-colo).
-    // The KV write budget concern doesn't apply — admin endpoints see
-    // orders of magnitude less traffic than public ones.
+  if (adminKey && !adminViaDO) {
+    // Legacy admin write — only when the atomic DO path was NOT used (the DO
+    // already incremented its own counter). KV gives a global-ish count;
+    // admin endpoints see orders of magnitude less traffic than public ones.
     const kv = (c.env as unknown as Record<string, unknown>).KV_CACHE as KvNamespace | undefined;
     if (kv) {
       c.executionCtx.waitUntil(

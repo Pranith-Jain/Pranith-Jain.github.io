@@ -217,7 +217,7 @@ export default function ActorTimeline(): JSX.Element {
                         <div className="mt-2 ml-[200px] pl-0 flex items-center gap-2 flex-wrap text-[11px] font-mono text-slate-500">
                           {g.mitre ? (
                             <a
-                              href={g.mitre.url}
+                              href={sanitizeUrl(g.mitre.url)}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded border border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300 hover:underline"

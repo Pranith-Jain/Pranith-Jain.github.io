@@ -5,6 +5,7 @@ import { type AggregatedFeedResponse } from '../../services/rssService';
 import { SnapshotCard } from './SnapshotCard';
 import { useWatchlist, watchHits } from './useWatchlist';
 import { shortRel } from '../../lib/relativeTime';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 
 /**
  * Live "right now" snapshot — 6 cards: Ransomware claims, Cybersec
@@ -555,7 +556,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                             title={matched.length > 0 ? `watchlist match: ${matched.join(', ')}` : undefined}
                           />
                           <a
-                            href={it.link}
+                            href={sanitizeUrl(it.link)}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="font-display font-semibold text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 truncate flex-1 min-w-0"
@@ -628,7 +629,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                             title={matched.length > 0 ? `watchlist match: ${matched.join(', ')}` : undefined}
                           />
                           <a
-                            href={it.link}
+                            href={sanitizeUrl(it.link)}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="font-display font-semibold text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 truncate flex-1 min-w-0"
@@ -699,7 +700,7 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
                             title={matched.length > 0 ? `watchlist match: ${matched.join(', ')}` : undefined}
                           />
                           <a
-                            href={it.link}
+                            href={sanitizeUrl(it.link)}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="font-display font-semibold text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 truncate flex-1 min-w-0"
