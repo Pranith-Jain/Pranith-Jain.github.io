@@ -1,7 +1,10 @@
-import type { D1Database } from '@cloudflare/workers-types';
+import type { D1Database, Queue } from '@cloudflare/workers-types';
+import type { FeedQueueMessage } from './lib/live-iocs-slices';
 
 export interface Env {
   KV_CACHE?: KVNamespace;
+  /** Producer binding for the live-IOC per-source feed fan-out (PR2/PR3). */
+  FEEDS_QUEUE?: Queue<FeedQueueMessage>;
   BRIEFINGS_DB?: D1Database;
   CASE_STUDIES: KVNamespace;
   AI: Ai;

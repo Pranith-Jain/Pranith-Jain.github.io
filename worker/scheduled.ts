@@ -27,6 +27,7 @@ import { indexAllCorpora } from '../api/src/routes/rag-corpus-index';
 import { detectPirAlerts } from '../api/src/routes/pir';
 import { runGraphIngest } from '../api/src/routes/graph-ingest';
 import { autoRunFeedJobs } from '../api/src/routes/feed-scheduler';
+import { enqueueAllFeeds } from '../api/src/routes/live-iocs';
 import type { D1Database } from '@cloudflare/workers-types';
 import { acquireCronLease } from './durable-objects/cron-lock';
 
@@ -83,6 +84,13 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
   if (csCron === '0 * * * *') {
     ctx.waitUntil(runPublisherNow(env as unknown as CaseStudyEnv, csNow).catch(logCronFail('publisher')));
     ctx.waitUntil(runTelegramArchive(env).catch(logCronFail('telegram-archive')));
+    // Live-IOC slice warmer — enqueue a per-source refresh so the live-iocs
+    // page composes from fresh KV slices instead of paying the synchronous
+    // fan-out on a cold cache (PR3). Idle backstop; the handler also enqueues
+    // (debounced) on cache miss during active use.
+    if (env.FEEDS_QUEUE) {
+      ctx.waitUntil(enqueueAllFeeds(env.FEEDS_QUEUE).catch(logCronFail('live-iocs-enqueue')));
+    }
     ctx.waitUntil(
       warmIntelBundles(env as unknown as ApiEnv)
         .then((r) =>

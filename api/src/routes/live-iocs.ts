@@ -1,8 +1,9 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import type { D1Database } from '@cloudflare/workers-types';
+import type { D1Database, Queue } from '@cloudflare/workers-types';
 import { shouldWriteLastGood } from '../lib/lastgood-debounce';
 import { concurrentMap } from '../lib/concurrent-map';
+import { readSlice, type FeedQueueMessage } from '../lib/live-iocs-slices';
 import {
   parseTweetFeed,
   parseSansIsc,
@@ -733,26 +734,23 @@ export async function runFeedSourceById(id: string, deps: FeedDeps): Promise<Fee
   return source.run(deps);
 }
 
-export async function fetchLiveIocs(
-  executionCtx?: { waitUntil: (p: Promise<unknown>) => void },
-  kv?: KVNamespace,
-  env?: Env
+/**
+ * Post-processing shared by the synchronous fan-out (fetchLiveIocs) and the
+ * slice-composed read (composeLiveIocs): freshness filter → newest-first sort
+ * → compose-time feed-scheduler D1 read → per-source recount → drop empty
+ * sources → degraded flag → per-source newest_observation. Keeping this in one
+ * place guarantees both paths emit a byte-identical response shape.
+ *
+ * `extraDegraded` lets the compose path flag degraded when a per-source slice
+ * is missing (the source is simply absent from `sources`, so the ok===false
+ * check below can't see it).
+ */
+async function finalizeLiveIocs(
+  items: LiveIoc[],
+  sources: LiveSource[],
+  env?: Env,
+  extraDegraded = false
 ): Promise<LiveIocsResponse> {
-  // Fan out across every registered feed source with a bounded concurrency.
-  // Replaces the three sequential fetch batches (P7: a slow feed in batch 1
-  // delayed the start of batch 3). concurrentMap preserves input order, so the
-  // flattened sources/items keep FEED_SOURCES order — which the freshness sort
-  // and the per-source recount below rely on being stable.
-  const deps: FeedDeps = { executionCtx, kv, env };
-  const feedResults = await concurrentMap(FEED_SOURCES, (s) => s.run(deps), FEED_FANOUT_CONCURRENCY);
-
-  const items: LiveIoc[] = [];
-  const sources: LiveSource[] = [];
-  for (const r of feedResults) {
-    for (const it of r.items) items.push(it);
-    for (const s of r.sources) sources.push(s);
-  }
-
   // Drop stale items — observed before the freshness cutoff. Items without
   // observed_at survive (they're bulk-snapshot feeds whose freshness is
   // governed by the upstream publish cadence, not per-entry).
@@ -769,9 +767,10 @@ export async function fetchLiveIocs(
   });
 
   // ─── Feed scheduler IOCs (from graph_nodes D1) ──────────────────────────
-  // These are IOCs fetched by the feed scheduler's auto-run cron and stored
-  // in graph_nodes. We pull the most recent entries here so they appear
-  // alongside the hardcoded live sources.
+  // IOCs fetched by the feed scheduler's auto-run cron and stored in
+  // graph_nodes. This stays a compose-time D1 read (it bypasses the staleness
+  // filter), so both the synchronous and the slice-composed paths surface the
+  // same feed-scheduler IOCs.
   const db = (env as { BRIEFINGS_DB?: D1Database } | undefined)?.BRIEFINGS_DB;
   if (db) {
     try {
@@ -826,19 +825,18 @@ export async function fetchLiveIocs(
 
   // Drop silent-failure sources from the response — sources that returned
   // zero usable items are noise in the UI and look like permanent breakage
-  // when they're often a one-off upstream hiccup. They'll be re-tried on the
-  // next cache miss.
+  // when they're often a one-off upstream hiccup.
   const activeSources = sources.filter((s) => s.count > 0);
-  // Computed from the FULL `sources` (failed sources are filtered out of
-  // activeSources, so this signal would be invisible after the filter — which
-  // is exactly why the old `body.sources.some(count===0)` TTL check was dead).
-  const degraded = sources.some((s) => s.ok === false);
+  // `degraded` is true when an upstream FETCH failed (some source ok===false)
+  // OR `extraDegraded` is set — the compose-on-read path passes that when a
+  // per-source slice is missing (not yet warmed / expired), so an incomplete
+  // slice set drives the shorter cache TTL and self-heals.
+  const degraded = extraDegraded || sources.some((s) => s.ok === false);
 
   // Per-source freshness: newest per-entry observation timestamp.
   // Sources without per-entry timestamps (C2IntelFeeds, ET compromised-ips,
   // OTX reputation) get newest_observation=undefined — UI renders that as
-  // "no per-entry timestamp" so analysts know the data is bulk-snapshot,
-  // not per-entry-dated.
+  // "no per-entry timestamp" so analysts know the data is bulk-snapshot.
   const newestBySource = new Map<string, string>();
   for (const it of freshItems) {
     if (!it.observed_at) continue;
@@ -857,6 +855,117 @@ export async function fetchLiveIocs(
     items: freshItems.slice(0, MAX_ITEMS),
     degraded,
   };
+}
+
+export async function fetchLiveIocs(
+  executionCtx?: { waitUntil: (p: Promise<unknown>) => void },
+  kv?: KVNamespace,
+  env?: Env
+): Promise<LiveIocsResponse> {
+  // Fan out across every registered feed source with a bounded concurrency.
+  // Replaces the three sequential fetch batches (P7: a slow feed in batch 1
+  // delayed the start of batch 3). concurrentMap preserves input order, so the
+  // flattened sources/items keep FEED_SOURCES order — which the freshness sort
+  // and the per-source recount in finalizeLiveIocs rely on being stable.
+  const deps: FeedDeps = { executionCtx, kv, env };
+  const feedResults = await concurrentMap(FEED_SOURCES, (s) => s.run(deps), FEED_FANOUT_CONCURRENCY);
+
+  const items: LiveIoc[] = [];
+  const sources: LiveSource[] = [];
+  for (const r of feedResults) {
+    for (const it of r.items) items.push(it);
+    for (const s of r.sources) sources.push(s);
+  }
+
+  return finalizeLiveIocs(items, sources, env);
+}
+
+// KV reads are cheap, so compose can fan over the slices wider than the
+// upstream fetch fan-out.
+const SLICE_READ_CONCURRENCY = 12;
+
+/**
+ * Compose the live-IOC response from the per-source KV slices instead of the
+ * synchronous fan-out. Reads every registry slice in parallel, flattens them
+ * in FEED_SOURCE_IDS order (so finalize's stable sort + recount behave exactly
+ * as the sync path), and flags `extraDegraded` when any slice is missing.
+ * Returns the response plus the number of slices present, so the caller can
+ * fall back to the synchronous fan-out on a cold start (no slices yet).
+ */
+export async function composeLiveIocs(
+  kv: KVNamespace,
+  env?: Env
+): Promise<{ response: LiveIocsResponse; presentSlices: number }> {
+  const slices = await concurrentMap(FEED_SOURCE_IDS, (id) => readSlice(kv, id), SLICE_READ_CONCURRENCY);
+  const items: LiveIoc[] = [];
+  const sources: LiveSource[] = [];
+  let presentSlices = 0;
+  for (const slice of slices) {
+    if (!slice) continue;
+    presentSlices++;
+    // Defensive per-slice cap mirroring the sync path (each source's run() caps
+    // at PER_FEED_CAP). A slice is written from that already-capped result, so
+    // this only guards against a corrupted/oversized slice ballooning compose.
+    for (const it of slice.items.slice(0, PER_FEED_CAP)) items.push(it);
+    for (const s of slice.sources) sources.push(s);
+  }
+  const extraDegraded = presentSlices < FEED_SOURCE_IDS.length;
+  const response = await finalizeLiveIocs(items, sources, env, extraDegraded);
+  return { response, presentSlices };
+}
+
+/** Enqueue a refresh for every registry source (one message per source). */
+export async function enqueueAllFeeds(queue: Queue<FeedQueueMessage>): Promise<void> {
+  await queue.sendBatch(FEED_SOURCE_IDS.map((id) => ({ body: { sourceId: id } })));
+}
+
+const ENQUEUE_COOLDOWN_KEY = 'live-iocs:enqueue-cooldown';
+const ENQUEUE_COOLDOWN_SECONDS = 5 * 60;
+
+/**
+ * Enqueue a slice refresh, debounced via a short KV cooldown so a burst of
+ * cache misses (per-PoP caches miss independently) doesn't re-enqueue the full
+ * source set every request. The cooldown is written only AFTER a successful
+ * enqueue, so a failed sendBatch doesn't lock out retries for the window. The
+ * get-then-put isn't atomic, but a redundant enqueue just re-refreshes
+ * idempotent slices, so the race is harmless.
+ */
+async function maybeEnqueueAllFeeds(
+  queue: Queue<FeedQueueMessage> | undefined,
+  kv: KVNamespace | undefined
+): Promise<void> {
+  if (!queue) return;
+  if (kv && (await kv.get(ENQUEUE_COOLDOWN_KEY))) return;
+  await enqueueAllFeeds(queue);
+  if (kv) {
+    await kv.put(ENQUEUE_COOLDOWN_KEY, new Date().toISOString(), { expirationTtl: ENQUEUE_COOLDOWN_SECONDS });
+  }
+}
+
+/**
+ * Build the response body for a cache miss / revalidation: compose from the KV
+ * slices and warm them (debounced) for next time. Falls back to the synchronous
+ * fan-out only on a true cold start (no slices present yet), so the page is
+ * never empty before the producer has run.
+ */
+async function composeOrFallback(c: Context<{ Bindings: Env }>): Promise<LiveIocsResponse> {
+  const kv = c.env.KV_CACHE;
+  c.executionCtx.waitUntil(
+    maybeEnqueueAllFeeds(c.env.FEEDS_QUEUE, kv).catch((e) =>
+      console.error(
+        JSON.stringify({ job: 'live-iocs-enqueue', status: 'failed', error: e instanceof Error ? e.message : String(e) })
+      )
+    )
+  );
+  if (kv) {
+    const { response, presentSlices } = await composeLiveIocs(kv, c.env);
+    // Serve the composed response when slices exist AND it isn't empty. An empty
+    // compose (e.g. the only present slices are timestamped and all their items
+    // aged out) falls through to the sync fan-out so the page is never blank.
+    if (presentSlices > 0 && response.total > 0) return response;
+  }
+  // Cold start (no KV, zero slices, or an empty compose) — synchronous fan-out.
+  return fetchLiveIocs(c.executionCtx, kv, c.env);
 }
 
 export async function liveIocsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
@@ -879,7 +988,7 @@ export async function liveIocsHandler(c: Context<{ Bindings: Env }>): Promise<Re
       c.executionCtx.waitUntil(
         (async () => {
           try {
-            const body = await fetchLiveIocs(c.executionCtx, c.env.KV_CACHE, c.env);
+            const body = await composeOrFallback(c);
             const ttl = body.degraded ? DEGRADED_TTL_SECONDS : CACHE_TTL_SECONDS;
             const fresh = new Response(JSON.stringify(body), {
               status: 200,
@@ -906,7 +1015,7 @@ export async function liveIocsHandler(c: Context<{ Bindings: Env }>): Promise<Re
     });
   }
 
-  const body = await fetchLiveIocs(c.executionCtx, c.env.KV_CACHE, c.env);
+  const body = await composeOrFallback(c);
   // Adaptive TTL: when a build is degraded (an upstream FETCH failed — not a
   // source that was simply, legitimately empty), cache briefly so the next
   // request retries instead of locking a partial snapshot in for the full
