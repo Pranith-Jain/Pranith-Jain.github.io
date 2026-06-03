@@ -51,7 +51,11 @@ export class LiveFeedDO {
     }
 
     const pair = new WebSocketPair();
-    const [client, server] = Object.values(pair);
+    // WebSocketPair is a { 0, 1 } pair — index directly so both halves stay
+    // typed WebSocket (Object.values widens to WebSocket[], which is
+    // element-possibly-undefined under noUncheckedIndexedAccess).
+    const client = pair[0];
+    const server = pair[1];
     const sessionId = crypto.randomUUID();
 
     this.sessions.set(sessionId, server);
@@ -66,7 +70,7 @@ export class LiveFeedDO {
       if (this.sessions.size === 0) {
         this.lastSnapshots.clear();
         this.ipConnections.clear();
-        this.ctx.storage?.setAlarm(undefined).catch(() => {});
+        this.ctx.storage?.deleteAlarm().catch(() => {});
       }
     };
     server.addEventListener('close', cleanup);

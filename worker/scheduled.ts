@@ -83,7 +83,7 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
   // intel-bundle warmer.
   if (csCron === '0 * * * *') {
     ctx.waitUntil(runPublisherNow(env as unknown as CaseStudyEnv, csNow).catch(logCronFail('publisher')));
-    ctx.waitUntil(runTelegramArchive(env).catch(logCronFail('telegram-archive')));
+    ctx.waitUntil(runTelegramArchive(env as unknown as ApiEnv).catch(logCronFail('telegram-archive')));
     // Live-IOC slice warmer — enqueue a per-source refresh so the live-iocs
     // page composes from fresh KV slices instead of paying the synchronous
     // fan-out on a cold cache (PR3). Idle backstop; the handler also enqueues

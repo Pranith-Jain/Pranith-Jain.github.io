@@ -56,6 +56,11 @@ jobs:
         run: npm ci --legacy-peer-deps
       - name: tsc (api)
         run: npx tsc --noEmit -p api/tsconfig.json
+      # tsc (worker) — worker/ is in no other tsconfig. This config extends
+      # api/tsconfig and adds ../worker, so it reuses the api/ deps installed
+      # above and holds worker code to the same strictness as api (issue #89).
+      - name: tsc (worker)
+        run: npx tsc --noEmit -p api/tsconfig.worker.json
 
   test-root:
     name: Vitest (root)

@@ -74,7 +74,10 @@ export function generateOgSvg(data: OgImageData): string {
     research: { primary: '#0ea5e9', secondary: '#38bdf8', badge: '#0284c7' },
     default: { primary: '#2c3ee5', secondary: '#435ef1', badge: '#1e3aaf' },
   };
-  const accent = accentMap[type] ?? accentMap.default;
+  // `default` is a literal key always present in accentMap; assert it so
+  // `accent` is non-undefined (the Record index is element-optional under
+  // noUncheckedIndexedAccess).
+  const accent = accentMap[type] ?? accentMap.default!;
 
   // Type label
   const typeLabel: Record<string, string> = {

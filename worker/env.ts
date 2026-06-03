@@ -1,6 +1,4 @@
 import type { Ai, D1Database, Queue } from '@cloudflare/workers-types';
-import type { LiveFeedDO } from './durable-objects/live-feed';
-import type { CronLockDO } from './durable-objects/cron-lock';
 import type { DfirMcpServer } from './mcp-server';
 import type { FeedQueueMessage } from '../api/src/lib/live-iocs-slices';
 
@@ -10,9 +8,12 @@ export interface Env {
   BRIEFINGS_DB?: D1Database;
   CASE_STUDIES: KVNamespace;
   AI: Ai;
-  LIVE_FEED_DO: DurableObjectNamespace<LiveFeedDO>;
+  // Fetch-interface DOs (no RPC) — the plain LiveFeedDO/CronLockDO classes
+  // aren't DurableObjectBranded, so bind them as the untyped namespace; calls
+  // go through .get(id).fetch(). DfirMcpServer (McpAgent) keeps its generic.
+  LIVE_FEED_DO: DurableObjectNamespace;
   DFIR_MCP: DurableObjectNamespace<DfirMcpServer>;
-  CRON_LOCK_DO: DurableObjectNamespace<CronLockDO>;
+  CRON_LOCK_DO: DurableObjectNamespace;
   /** Producer binding for the live-IOC per-source feed fan-out (PR2). */
   FEEDS_QUEUE?: Queue<FeedQueueMessage>;
   NVD_API_KEY?: string;
