@@ -51,9 +51,12 @@ export default function CrossCorrelate(): JSX.Element {
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(body),
     })
-      .then((r) => r.json() as Promise<CorrelateResponse>)
+      .then(async (r) => {
+        if (!r.ok) throw new Error(`Couldn't correlate (HTTP ${r.status}).`);
+        return r.json() as Promise<CorrelateResponse>;
+      })
       .then(setData)
-      .catch((e) => setError(e.message))
+      .catch((e) => setError(e instanceof Error ? e.message : String(e)))
       .finally(() => setLoading(false));
   }
 

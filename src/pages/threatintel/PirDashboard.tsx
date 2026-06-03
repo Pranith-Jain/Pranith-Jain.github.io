@@ -169,9 +169,18 @@ export default function PirDashboard(): JSX.Element {
 
   const fetchAll = () => {
     fetch('/api/v1/threat-intel/pirs', { headers: adminAuthHeaders() })
-      .then((r) => r.json() as Promise<PirResponse>)
+      .then(async (r) => {
+        if (!r.ok) {
+          throw new Error(
+            r.status === 401 || r.status === 403
+              ? 'This operator dashboard requires an admin token.'
+              : `Couldn't load PIRs (HTTP ${r.status}).`
+          );
+        }
+        return r.json() as Promise<PirResponse>;
+      })
       .then(setData)
-      .catch((e) => setError(e.message))
+      .catch((e) => setError(e instanceof Error ? e.message : String(e)))
       .finally(() => setLoading(false));
     fetch('/api/v1/threat-intel/pirs/alerts?include_acknowledged=true', { headers: adminAuthHeaders() })
       .then((r) => r.json() as Promise<AlertResponse>)

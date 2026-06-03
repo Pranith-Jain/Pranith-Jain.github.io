@@ -80,6 +80,12 @@ export default function TelegramLeaks(): JSX.Element {
     };
   }, [refreshKey, search, severityFilter, channelFilter, offset]);
 
+  // Reset pagination to page 1 whenever a filter changes — otherwise a new
+  // query runs with a stale offset and can render a false "no results".
+  useEffect(() => {
+    setOffset(0);
+  }, [search, severityFilter, channelFilter]);
+
   useEffect(() => {
     let cancelled = false;
     fetch('/api/v1/telegram-leaks/watched-channels', { signal: AbortSignal.timeout(5000) })

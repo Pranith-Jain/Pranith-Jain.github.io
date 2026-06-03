@@ -38,9 +38,18 @@ export default function Assessments(): JSX.Element {
   useEffect(() => {
     const params = statusFilter ? `?status=${statusFilter}` : '';
     fetch(`/api/v1/threat-intel/assessments${params}`, { headers: adminAuthHeaders() })
-      .then((r) => r.json() as Promise<{ results: Assessment[] }>)
-      .then((d) => setData(d.results))
-      .catch((e) => setError(e.message))
+      .then(async (r) => {
+        if (!r.ok) {
+          throw new Error(
+            r.status === 401 || r.status === 403
+              ? 'This operator dashboard requires an admin token.'
+              : `Couldn't load assessments (HTTP ${r.status}).`
+          );
+        }
+        return r.json() as Promise<{ results: Assessment[] }>;
+      })
+      .then((d) => setData(d.results ?? []))
+      .catch((e) => setError(e instanceof Error ? e.message : String(e)))
       .finally(() => setLoading(false));
   }, [statusFilter]);
 

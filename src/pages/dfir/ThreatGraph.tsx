@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { api } from '../../lib/api-client';
+import { readAdminToken } from '../../lib/admin-token';
 import {
   ArrowLeft,
   Network,
@@ -150,28 +151,30 @@ export default function ThreatGraph(): JSX.Element {
             </button>
           ))}
         </div>
-        <button
-          onClick={async () => {
-            setIngesting(true);
-            setIngestResult(null);
-            try {
-              const r = await api.post<{ ok: boolean; total: { nodes_upserted: number; edges_created: number } }>(
-                '/api/v1/graph/ingest?source=ioc'
-              );
-              setIngestResult(`Ingested ${r.total.nodes_upserted} nodes, ${r.total.edges_created} edges`);
-              fetchStats();
-            } catch (e) {
-              setIngestResult(`Error: ${e instanceof Error ? e.message : String(e)}`);
-            } finally {
-              setIngesting(false);
-            }
-          }}
-          disabled={ingesting}
-          className="ml-auto px-3 py-1.5 rounded-lg text-xs font-mono border border-slate-200 dark:border-slate-700 text-slate-500 hover:border-brand-500/30 transition-colors flex items-center gap-1.5 disabled:opacity-50"
-        >
-          {ingesting ? <Loader2 size={12} className="animate-spin" /> : <Database size={12} />}
-          {ingesting ? 'Ingesting…' : 'Ingest IOC Sources'}
-        </button>
+        {readAdminToken() && (
+          <button
+            onClick={async () => {
+              setIngesting(true);
+              setIngestResult(null);
+              try {
+                const r = await api.post<{ ok: boolean; total: { nodes_upserted: number; edges_created: number } }>(
+                  '/api/v1/graph/ingest?source=ioc'
+                );
+                setIngestResult(`Ingested ${r.total.nodes_upserted} nodes, ${r.total.edges_created} edges`);
+                fetchStats();
+              } catch (e) {
+                setIngestResult(`Error: ${e instanceof Error ? e.message : String(e)}`);
+              } finally {
+                setIngesting(false);
+              }
+            }}
+            disabled={ingesting}
+            className="ml-auto px-3 py-1.5 rounded-lg text-xs font-mono border border-slate-200 dark:border-slate-700 text-slate-500 hover:border-brand-500/30 transition-colors flex items-center gap-1.5 disabled:opacity-50"
+          >
+            {ingesting ? <Loader2 size={12} className="animate-spin" /> : <Database size={12} />}
+            {ingesting ? 'Ingesting…' : 'Ingest IOC Sources'}
+          </button>
+        )}
       </div>
       {ingestResult && (
         <div className="rounded-xl border border-emerald-300/70 dark:border-emerald-800/60 bg-emerald-50/60 dark:bg-emerald-950/30 p-3 mb-6 text-xs text-emerald-700 dark:text-emerald-300 font-mono flex items-center gap-2">

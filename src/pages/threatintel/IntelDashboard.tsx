@@ -56,7 +56,10 @@ export default function IntelDashboard(): JSX.Element {
   useEffect(() => {
     let cancelled = false;
     Promise.all([
-      fetch('/api/v1/intel-dashboard').then((r) => r.json() as Promise<DashboardData>),
+      fetch('/api/v1/intel-dashboard').then((r) => {
+        if (!r.ok) throw new Error(`Couldn't load the dashboard (HTTP ${r.status}).`);
+        return r.json() as Promise<DashboardData>;
+      }),
       fetch('/api/v1/snapshot')
         .then((r) => r.json() as Promise<Record<string, unknown>>)
         .catch(() => null),

@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { api } from '../../lib/api-client';
-import { adminAuthHeaders } from '../../lib/admin-token';
+import { adminAuthHeaders, readAdminToken } from '../../lib/admin-token';
 import { ArrowLeft, Shield, Globe, AlertTriangle, Loader2, Plus, Trash2, RefreshCw, Eye } from 'lucide-react';
 import { CopyButton } from '../../components/dfir/CopyButton';
 
@@ -114,7 +114,9 @@ export default function CtMonitor(): JSX.Element {
   );
 
   useEffect(() => {
-    fetchWatched();
+    // The watchlist endpoint is admin-gated; only fetch it when an admin token
+    // is present so public visitors don't get a 401 error banner on load.
+    if (readAdminToken()) fetchWatched();
   }, [fetchWatched]);
   useEffect(() => {
     if (selectedDomain) fetchCerts(selectedDomain);

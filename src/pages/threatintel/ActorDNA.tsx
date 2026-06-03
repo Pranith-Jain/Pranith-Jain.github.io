@@ -78,10 +78,17 @@ export default function ActorDNA(): JSX.Element {
     setLoading(true);
     try {
       const res = await fetch(`/api/v1/threat-intel/actor-dna/${actorId}`);
+      if (!res.ok) throw new Error(`actor DNA unavailable (HTTP ${res.status})`);
       const data = await res.json();
+      // Guard against an error/edge body — the detail pane deep-accesses nested
+      // fields (ttp_signature, victimology, operational_tempo) and would crash.
+      if (!data || typeof data !== 'object' || !data.ttp_signature) {
+        throw new Error('actor DNA response was malformed');
+      }
       setSelectedActor(data);
     } catch (err) {
       console.error('Failed to fetch actor DNA:', err);
+      setSelectedActor(null);
     } finally {
       setLoading(false);
     }

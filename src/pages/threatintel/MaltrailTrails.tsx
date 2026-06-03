@@ -121,7 +121,7 @@ export default function MaltrailTrails(): JSX.Element {
                   >
                     <div className="font-semibold truncate">{f.name.replace(/\.txt$/i, '')}</div>
                     <div className="text-[10px] text-slate-400 mt-0.5">
-                      {f.actors[0]} · {(f.size / 1024).toFixed(1)} KB
+                      {f.actors?.[0] ?? '—'} · {(f.size / 1024).toFixed(1)} KB
                     </div>
                   </button>
                 ))}
