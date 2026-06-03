@@ -1,7 +1,8 @@
-import type { Ai, D1Database } from '@cloudflare/workers-types';
+import type { Ai, D1Database, Queue } from '@cloudflare/workers-types';
 import type { LiveFeedDO } from './durable-objects/live-feed';
 import type { CronLockDO } from './durable-objects/cron-lock';
 import type { DfirMcpServer } from './mcp-server';
+import type { FeedQueueMessage } from '../api/src/lib/live-iocs-slices';
 
 export interface Env {
   ASSETS: { fetch: (req: Request) => Promise<Response> };
@@ -12,6 +13,8 @@ export interface Env {
   LIVE_FEED_DO: DurableObjectNamespace<LiveFeedDO>;
   DFIR_MCP: DurableObjectNamespace<DfirMcpServer>;
   CRON_LOCK_DO: DurableObjectNamespace<CronLockDO>;
+  /** Producer binding for the live-IOC per-source feed fan-out (PR2). */
+  FEEDS_QUEUE?: Queue<FeedQueueMessage>;
   NVD_API_KEY?: string;
   VT_API_KEY?: string;
   ABUSEIPDB_API_KEY?: string;

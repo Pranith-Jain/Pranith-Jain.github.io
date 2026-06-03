@@ -77,5 +77,25 @@
 	// env.SELF.fetch() instead of re-entering the public origin over DNS+TLS.
 	"services": [
 		{ "binding": "SELF", "service": "pranithjain" }
-	]
+	],
+	// Live-IOC per-source feed fan-out (PR2, dormant until PR3 wires the producer).
+	// The consumer runs one feed source per message and writes its KV slice
+	// (live-iocs:slice:<id>); a poison/exhausted message lands in the DLQ.
+	// Both queues must exist before deploy: `wrangler queues create live-iocs-feeds`
+	// and `wrangler queues create live-iocs-feeds-dlq`.
+	"queues": {
+		"producers": [
+			{ "binding": "FEEDS_QUEUE", "queue": "live-iocs-feeds" }
+		],
+		"consumers": [
+			{
+				"queue": "live-iocs-feeds",
+				"max_batch_size": 10,
+				"max_batch_timeout": 5,
+				"max_retries": 3,
+				"max_concurrency": 3,
+				"dead_letter_queue": "live-iocs-feeds-dlq"
+			}
+		]
+	}
 }

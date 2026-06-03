@@ -85,7 +85,7 @@ export interface LiveIoc {
   observed_at?: string;
 }
 
-interface LiveSource {
+export interface LiveSource {
   id: string;
   ok: boolean;
   count: number;
@@ -172,12 +172,12 @@ function iocKind(t: string): IocKind | null {
 // the entry returned here.
 // ─────────────────────────────────────────────────────────────────────────
 
-type FeedDeps = {
+export type FeedDeps = {
   executionCtx?: { waitUntil: (p: Promise<unknown>) => void };
   kv?: KVNamespace;
   env?: Env;
 };
-type FeedResult = { items: LiveIoc[]; sources: LiveSource[] };
+export type FeedResult = { items: LiveIoc[]; sources: LiveSource[] };
 interface FeedSource {
   id: string;
   run: (deps: FeedDeps) => Promise<FeedResult>;
@@ -710,6 +710,28 @@ const FEED_SOURCES: FeedSource[] = [
     context: 'brute-force attack source',
   }),
 ];
+
+/**
+ * Registry source ids — the per-source runner units the queue fan-out
+ * enqueues. NB: this is the FeedSource.id set (32 entries, incl. the
+ * 'phishing' wrapper that emits phishtank + openphish), NOT the response
+ * source-id set. It excludes 'feed-scheduler' (a compose-time D1 read that
+ * bypasses the staleness filter — see fetchLiveIocs).
+ */
+export const FEED_SOURCE_IDS: readonly string[] = FEED_SOURCES.map((s) => s.id);
+
+/**
+ * Run a single registered feed source by id and return its contributed
+ * items + source-health entries. Returns null for an unknown id (the queue
+ * consumer acks-without-retry on null). The result is intentionally the raw
+ * pre-freshness-filter contribution — slice consumers (compose-on-read) apply
+ * the freshness filter + recount at read time, exactly as fetchLiveIocs does.
+ */
+export async function runFeedSourceById(id: string, deps: FeedDeps): Promise<FeedResult | null> {
+  const source = FEED_SOURCES.find((s) => s.id === id);
+  if (!source) return null;
+  return source.run(deps);
+}
 
 export async function fetchLiveIocs(
   executionCtx?: { waitUntil: (p: Promise<unknown>) => void },

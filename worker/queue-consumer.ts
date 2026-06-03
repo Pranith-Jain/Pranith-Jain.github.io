@@ -1,0 +1,87 @@
+/**
+ * Live-IOC feed queue consumer.
+ *
+ * Each message names one feed source. The consumer runs that source via the
+ * registry (`runFeedSourceById`) and parks its contribution in a per-source KV
+ * slice (`live-iocs:slice:<id>`). This is the producer side of the
+ * compose-on-read model: the read path (PR3) stitches the slices together
+ * instead of doing the synchronous ~33-source fan-out on a cache miss.
+ *
+ * PR2 ships this dormant — nothing enqueues yet; PR3 wires the producer
+ * (cron + cold-cache) and flips the read path.
+ */
+import type { Env } from './env';
+import type { Env as ApiEnv } from '../api/src/env';
+import { runFeedSourceById, type FeedDeps } from '../api/src/routes/live-iocs';
+import { writeSlice, type FeedQueueMessage } from '../api/src/lib/live-iocs-slices';
+import { concurrentMap } from '../api/src/lib/concurrent-map';
+
+// Within-batch fan-out bound. The relevant runtime limit is ~6 simultaneously
+// OPEN outbound connections (not a total-subrequest cap). Several sources fan
+// out beyond a single fetch — andreafortuna does fetch + KV get/put, and the
+// cached malwarebazaar/phishing helpers do fetch + KV — so 4 leaves headroom
+// under that limit for those secondary subrequests. (max_concurrency in
+// wrangler.jsonc separately bounds parallel batch invocations.)
+const BATCH_CONCURRENCY = 4;
+
+export async function handleQueue(
+  batch: MessageBatch<FeedQueueMessage>,
+  env: Env,
+  ctx: ExecutionContext
+): Promise<void> {
+  const kv = env.KV_CACHE;
+  if (!kv) {
+    // No KV → nowhere to write slices. Ack everything so a misconfigured env
+    // doesn't wedge the queue in an endless retry loop; the startup binding
+    // validator already surfaces a missing KV_CACHE.
+    for (const msg of batch.messages) msg.ack();
+    console.error(JSON.stringify({ job: 'live-iocs-slice', status: 'no_kv', acked: batch.messages.length }));
+    return;
+  }
+
+  const deps: FeedDeps = { executionCtx: ctx, kv, env: env as unknown as ApiEnv };
+
+  await concurrentMap(
+    batch.messages,
+    async (msg) => {
+      // Extract inside the try: a malformed body (null at runtime) must not
+      // throw out of the per-message task — that would reject concurrentMap and
+      // bubble out of handleQueue, retrying the WHOLE batch (re-running already
+      // -acked messages). Keep failures scoped to their own message.
+      let sourceId = '';
+      try {
+        // Runtime-guard the body (a cross-version producer could send a
+        // malformed shape) — the generic already types it, so no cast needed.
+        sourceId = msg.body && typeof msg.body.sourceId === 'string' ? msg.body.sourceId : '';
+        if (!sourceId) {
+          // Ack (no retry — a malformed body won't parse on redelivery) but log
+          // so a burst of bad messages is observable once PR3 wires the producer.
+          console.warn(JSON.stringify({ job: 'live-iocs-slice', status: 'empty_id' }));
+          msg.ack();
+          return;
+        }
+        const result = await runFeedSourceById(sourceId, deps);
+        if (!result) {
+          // Unknown source id — ack so a stale/poison message doesn't loop to the DLQ.
+          console.warn(JSON.stringify({ job: 'live-iocs-slice', sourceId, status: 'unknown_source' }));
+          msg.ack();
+          return;
+        }
+        await writeSlice(kv, sourceId, result);
+        msg.ack();
+      } catch (e) {
+        // Transient (KV write / unexpected) — let the queue retry, then DLQ.
+        console.error(
+          JSON.stringify({
+            job: 'live-iocs-slice',
+            sourceId: sourceId || null,
+            status: 'failed',
+            error: e instanceof Error ? e.message : String(e),
+          })
+        );
+        msg.retry();
+      }
+    },
+    BATCH_CONCURRENCY
+  );
+}

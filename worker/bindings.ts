@@ -36,6 +36,7 @@ export const BINDING_SPECS: ReadonlyArray<BindingSpec> = [
   { key: 'LIVE_FEED_DO', tier: 'optional', powers: '/api/v1/ws/live-feed WebSocket' },
   { key: 'DFIR_MCP', tier: 'optional', powers: '/api/mcp (DFIR MCP server)' },
   { key: 'CRON_LOCK_DO', tier: 'optional', powers: 'cron single-flight lease (overlap guard)' },
+  { key: 'FEEDS_QUEUE', tier: 'optional', powers: 'live-iocs per-source feed fan-out (slice warmer)' },
   { key: 'ASSETS', tier: 'critical', powers: 'static SPA assets, prerendered HTML' },
 ];
 
