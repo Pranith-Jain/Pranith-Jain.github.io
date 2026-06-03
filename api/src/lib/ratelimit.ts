@@ -3,7 +3,13 @@ import type { Env } from '../env';
 
 type KvNamespace = import('@cloudflare/workers-types').KVNamespace;
 
-const LIMIT = 30; // requests per minute, applied to user-input endpoints
+const LIMIT = 30; // keyless (website / anonymous) requests per minute per IP/colo
+// Authenticated API-key callers get 4x headroom. The same-origin website is
+// keyless and stays at LIMIT (its expensive fan-outs are bypassed/edge-cached,
+// so 30/min of non-bypassed lookups is ample for a real visitor); a scraper
+// that spoofs the Origin header to pass the auth gate also stays capped at
+// LIMIT, while legitimate high-volume consumers are nudged to use a key.
+const LIMIT_KEYED = 120;
 const WINDOW_SEC = 60;
 
 /**
@@ -198,6 +204,11 @@ export async function rateLimit(c: Context<{ Bindings: Env }>, next: Next): Prom
   }
 
   const ip = c.req.header('cf-connecting-ip') ?? 'anon';
+  // `authenticate` runs before this middleware and sets `c.user` only for a
+  // VALID API key — so keyed external callers get LIMIT_KEYED, while the keyless
+  // website and any spoofed-Origin scraper get the firm LIMIT.
+  const keyed = Boolean((c as Context<{ Bindings: Env }> & { user?: unknown }).user);
+  const limit = keyed ? LIMIT_KEYED : LIMIT;
   const bucket = Math.floor(Date.now() / 1000 / WINDOW_SEC);
   const cache = (caches as unknown as { default: Cache }).default;
   const ipEnc = encodeURIComponent(ip);
@@ -236,10 +247,10 @@ export async function rateLimit(c: Context<{ Bindings: Env }>, next: Next): Prom
     return next(); // cache error — fail open
   }
 
-  if (count >= LIMIT) {
-    return c.json({ error: 'rate_limited', limit: LIMIT, window_seconds: WINDOW_SEC }, 429, {
+  if (count >= limit) {
+    return c.json({ error: 'rate_limited', limit, window_seconds: WINDOW_SEC }, 429, {
       'retry-after': String(WINDOW_SEC),
-      'x-ratelimit-limit': String(LIMIT),
+      'x-ratelimit-limit': String(limit),
       'x-ratelimit-remaining': '0',
       'x-ratelimit-reset': String((bucket + 1) * WINDOW_SEC),
       'cache-control': 'no-store',

@@ -82,3 +82,46 @@ describe('rate limiter', () => {
     expect((res as Response | undefined)?.status).toBe(429);
   });
 });
+
+describe('rate limiter — keyed callers get 4x headroom', () => {
+  // Run rateLimit with a ctx whose executionCtx.waitUntil work is AWAITED inside
+  // the test — otherwise the under-limit path's background cache.put runs after
+  // the test and trips vitest-pool-workers' isolated-storage guard. `keyed` adds
+  // the `user` that authenticate() sets for a valid API key.
+  async function run(url: string, method: string, ip: string, keyed: boolean) {
+    const ctx = makeCtx(url, method, ip) as unknown as {
+      user?: unknown;
+      executionCtx: { waitUntil: (p: Promise<unknown>) => void };
+    };
+    if (keyed) ctx.user = { id: 'k1', role: 'readonly' };
+    const pending: Promise<unknown>[] = [];
+    ctx.executionCtx = { waitUntil: (p) => pending.push(p) };
+    let nextCalled = false;
+    const res = await rateLimit(ctx as unknown as Parameters<typeof rateLimit>[0], async () => {
+      nextCalled = true;
+    });
+    await Promise.allSettled(pending);
+    return { res: res as Response | undefined, nextCalled };
+  }
+
+  it('keyed caller passes the keyless limit (30)', async () => {
+    await seedRateLimit('198.51.100.50', 30);
+    const { res, nextCalled } = await run('https://x/api/v1/ioc/check', 'GET', '198.51.100.50', true);
+    expect(nextCalled).toBe(true);
+    expect(res).toBeUndefined();
+  });
+
+  it('keyless caller IS blocked at 30 on the same endpoint', async () => {
+    await seedRateLimit('198.51.100.52', 30);
+    const { res } = await run('https://x/api/v1/ioc/check', 'GET', '198.51.100.52', false);
+    expect(res?.status).toBe(429);
+  });
+
+  it('keyed caller is blocked at the keyed limit (120)', async () => {
+    await seedRateLimit('198.51.100.51', 120);
+    const { res } = await run('https://x/api/v1/ioc/check', 'GET', '198.51.100.51', true);
+    expect(res?.status).toBe(429);
+    const body = (await res!.json()) as Record<string, unknown>;
+    expect(body.limit).toBe(120);
+  });
+});
