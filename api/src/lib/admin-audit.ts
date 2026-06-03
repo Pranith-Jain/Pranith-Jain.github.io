@@ -58,16 +58,16 @@ export function auditAdminAction(
   const ip = c.req.header('cf-connecting-ip') ?? 'unknown';
   const country = visitorCountry(c.req.raw);
 
-  // Extract admin token prefix for attribution (never log the full token).
-  const authz = c.req.header('authorization') ?? '';
-  const adminToken = c.req.header('x-admin-token') ?? '';
-  const tokenSource = /^Bearer\s+(.+)$/i.exec(authz)?.[1] ?? adminToken;
-  const tokenPrefix = tokenSource ? tokenSource.slice(0, 8) : 'unknown';
+  // Attribution actor. We deliberately do NOT log any portion of the admin
+  // token (even a prefix) — there is a single shared ADMIN_TOKEN, so a prefix
+  // adds no attribution value while putting secret material into a queryable
+  // analytics store. The IP below is the real attribution signal.
+  const actor = 'admin';
 
   const metaStr = meta ? JSON.stringify(meta) : '';
 
   trackEvent(c.env as Pick<Env, 'AJ_analytics'>, 'admin_action', {
-    blobs: [action, tokenPrefix, ip, metaStr],
+    blobs: [action, actor, ip, metaStr],
     doubles: [1],
     indexes: [country],
   });

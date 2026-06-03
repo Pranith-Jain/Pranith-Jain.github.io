@@ -23,6 +23,7 @@ import {
   ListChecks,
 } from 'lucide-react';
 import { FeedbackWidget } from '../../components/FeedbackWidget';
+import { adminAuthHeaders } from '../../lib/admin-token';
 
 interface Pir {
   id: string;
@@ -167,16 +168,16 @@ export default function PirDashboard(): JSX.Element {
   const [saving, setSaving] = useState(false);
 
   const fetchAll = () => {
-    fetch('/api/v1/threat-intel/pirs')
+    fetch('/api/v1/threat-intel/pirs', { headers: adminAuthHeaders() })
       .then((r) => r.json() as Promise<PirResponse>)
       .then(setData)
       .catch((e) => setError(e.message))
       .finally(() => setLoading(false));
-    fetch('/api/v1/threat-intel/pirs/alerts?include_acknowledged=true')
+    fetch('/api/v1/threat-intel/pirs/alerts?include_acknowledged=true', { headers: adminAuthHeaders() })
       .then((r) => r.json() as Promise<AlertResponse>)
       .then((r) => setAlerts(r.results))
       .catch((e) => console.error('Failed to load alerts', e));
-    fetch('/api/v1/threat-intel/pirs/routing')
+    fetch('/api/v1/threat-intel/pirs/routing', { headers: adminAuthHeaders() })
       .then((r) => r.json() as Promise<RoutingResponse>)
       .then((r) => setRouting(r.routes))
       .catch((e) => console.error('Failed to load routing', e));
@@ -213,7 +214,7 @@ export default function PirDashboard(): JSX.Element {
       const method = isEdit ? 'PUT' : 'POST';
       const res = await fetch(url, {
         method,
-        headers: { 'content-type': 'application/json' },
+        headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
         body: JSON.stringify({
           title: formTitle,
           consumer: formConsumer,
@@ -236,7 +237,9 @@ export default function PirDashboard(): JSX.Element {
       });
       if (!res.ok) throw new Error(`Failed to ${isEdit ? 'update' : 'create'} PIR`);
       resetForm();
-      const updated = await fetch('/api/v1/threat-intel/pirs').then((r) => r.json() as Promise<PirResponse>);
+      const updated = await fetch('/api/v1/threat-intel/pirs', { headers: adminAuthHeaders() }).then(
+        (r) => r.json() as Promise<PirResponse>
+      );
       setData(updated);
     } catch (e) {
       alert(e instanceof Error ? e.message : 'Operation failed');
@@ -248,7 +251,7 @@ export default function PirDashboard(): JSX.Element {
   async function handleDelete(id: string) {
     if (!confirm('Delete this PIR?')) return;
     try {
-      const res = await fetch(`/api/v1/threat-intel/pirs/${id}`, { method: 'DELETE' });
+      const res = await fetch(`/api/v1/threat-intel/pirs/${id}`, { method: 'DELETE', headers: adminAuthHeaders() });
       if (!res.ok) throw new Error('Failed to delete');
       fetchAll();
     } catch (e) {
@@ -259,7 +262,10 @@ export default function PirDashboard(): JSX.Element {
   async function handleAcknowledge(alertId: string) {
     setAcknowledging((prev) => new Set(prev).add(alertId));
     try {
-      await fetch(`/api/v1/threat-intel/pirs/alerts/${alertId}/acknowledge`, { method: 'PATCH' });
+      await fetch(`/api/v1/threat-intel/pirs/alerts/${alertId}/acknowledge`, {
+        method: 'PATCH',
+        headers: adminAuthHeaders(),
+      });
       setAlerts((prev) => prev.map((a) => (a.id === alertId ? { ...a, acknowledged: true } : a)));
     } catch {
       /* non-fatal */
@@ -275,7 +281,10 @@ export default function PirDashboard(): JSX.Element {
   async function handleAcknowledgeAll() {
     setAckAllLoading(true);
     try {
-      await fetch('/api/v1/threat-intel/pirs/alerts/acknowledge-all', { method: 'POST' });
+      await fetch('/api/v1/threat-intel/pirs/alerts/acknowledge-all', {
+        method: 'POST',
+        headers: adminAuthHeaders(),
+      });
       setAlerts((prev) => prev.map((a) => ({ ...a, acknowledged: true })));
     } catch {
       /* non-fatal */

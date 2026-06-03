@@ -55,7 +55,7 @@ export default function AboutPage() {
           </p>
         </div>
 
-        <div className="space-y-12">
+        <div className="stagger space-y-12">
           {storyChapters.map((chapter) => (
             <div key={chapter.period} className="relative pl-8 sm:pl-10">
               <div className="absolute left-0 top-1 bottom-0 w-px bg-slate-200 dark:bg-slate-800" />

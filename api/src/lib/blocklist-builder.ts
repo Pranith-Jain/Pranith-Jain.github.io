@@ -16,6 +16,22 @@ export interface BlocklistSet {
 
 let sidCounter = 9_000_000;
 
+/**
+ * Strict bare-IPv4 (optionally /CIDR) validator. Feed IOC values flow into
+ * generated iptables/Suricata rule text by string interpolation, so a value
+ * containing spaces/quotes/newlines would inject attacker-controlled rules
+ * into the downloadable blocklist (some upstream parsers — e.g. TweetFeed —
+ * don't format-check the value). Anything that is not a clean dotted-quad
+ * (each octet 0–255), with an optional /0–32 suffix, is dropped before it can
+ * reach a rule line.
+ */
+const STRICT_IPV4 =
+  /^(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(?:\/(?:3[0-2]|[12]?\d))?$/;
+
+function sanitizeIps(ips: string[]): string[] {
+  return ips.filter((ip) => STRICT_IPV4.test(ip));
+}
+
 function buildPfSense(ips: string[]): string {
   if (ips.length === 0) return '# No IPs available';
   return ips.join('\n');
@@ -49,13 +65,20 @@ function buildSuricata(ips: string[]): string {
   return header.join('\n') + '\n' + rules.join('\n') + '\n';
 }
 
-export async function buildBlocklists(kv?: KVNamespace, executionCtx?: { waitUntil: (p: Promise<unknown>) => void }): Promise<BlocklistSet> {
+export async function buildBlocklists(
+  kv?: KVNamespace,
+  executionCtx?: { waitUntil: (p: Promise<unknown>) => void }
+): Promise<BlocklistSet> {
   // Try CF cache first, then live fetch
   const cache = caches.default;
   const cached = await cache.match(new Request(LIVE_IOCS_CACHE_KEY));
   let data: LiveIocsResponse | null = null;
   if (cached) {
-    try { data = (await cached.json()) as LiveIocsResponse; } catch { /* ignore */ }
+    try {
+      data = (await cached.json()) as LiveIocsResponse;
+    } catch {
+      /* ignore */
+    }
   }
   if (!data) {
     try {
@@ -65,7 +88,7 @@ export async function buildBlocklists(kv?: KVNamespace, executionCtx?: { waitUnt
     }
   }
 
-  const ips = [...new Set(data.items.filter((i) => i.kind === 'ip').map((i) => i.value))].sort();
+  const ips = sanitizeIps([...new Set(data.items.filter((i) => i.kind === 'ip').map((i) => i.value))]).sort();
   const generated_at = new Date().toISOString();
   const result: BlocklistSet = {
     pfsense: buildPfSense(ips),
@@ -79,14 +102,20 @@ export async function buildBlocklists(kv?: KVNamespace, executionCtx?: { waitUnt
   // Saves 3 KV writes/day (4→1) within the free-tier budget.
   if (kv) {
     try {
-      await kv.put(BLOCKLIST_KV_ALL_KEY, JSON.stringify({
-        pfsense: result.pfsense,
-        iptables: result.iptables,
-        suricata: result.suricata,
-        ip_count: ips.length,
-        generated_at,
-      }), { expirationTtl: CACHE_TTL });
-    } catch { /* ignore - handlers fall back to live gen */ }
+      await kv.put(
+        BLOCKLIST_KV_ALL_KEY,
+        JSON.stringify({
+          pfsense: result.pfsense,
+          iptables: result.iptables,
+          suricata: result.suricata,
+          ip_count: ips.length,
+          generated_at,
+        }),
+        { expirationTtl: CACHE_TTL }
+      );
+    } catch {
+      /* ignore - handlers fall back to live gen */
+    }
   }
 
   return result;
@@ -94,5 +123,11 @@ export async function buildBlocklists(kv?: KVNamespace, executionCtx?: { waitUnt
 
 function emptySet(): BlocklistSet {
   const ts = new Date().toISOString();
-  return { pfsense: '# No IPs available', iptables: '#!/bin/sh\n# No IPs available\n', suricata: '# No Suricata rules generated — no IPs available\n', ip_count: 0, generated_at: ts };
+  return {
+    pfsense: '# No IPs available',
+    iptables: '#!/bin/sh\n# No IPs available\n',
+    suricata: '# No Suricata rules generated — no IPs available\n',
+    ip_count: 0,
+    generated_at: ts,
+  };
 }

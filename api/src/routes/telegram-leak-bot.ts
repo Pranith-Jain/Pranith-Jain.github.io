@@ -1,6 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { requireAdmin } from '../lib/admin-auth';
+import { requireAdmin, safeEqual } from '../lib/admin-auth';
 
 interface TelegramUpdate {
   update_id: number;
@@ -214,14 +214,16 @@ export async function telegramLeakBotWebhookHandler(c: Context<{ Bindings: Env }
   // Validate Telegram webhook secret_token. When registering the webhook
   // via `setWebhook`, we pass `secret_token=<TELEGRAM_WEBHOOK_SECRET>`.
   // Telegram sends it back as `X-Telegram-Bot-Api-Secret-Token` on every
-  // update. This prevents anyone who discovers the webhook URL from
-  // injecting fake updates.
+  // update. This is the ONLY authentication on this path (it is exempt from
+  // the API-key middleware), so we FAIL CLOSED: if the secret is not
+  // configured, refuse to process updates rather than accepting forged ones.
   const webhookSecret = c.env.TELEGRAM_WEBHOOK_SECRET;
-  if (webhookSecret) {
-    const provided = c.req.header('x-telegram-bot-api-secret-token');
-    if (provided !== webhookSecret) {
-      return c.json({ error: 'forbidden' }, 403);
-    }
+  if (!webhookSecret) {
+    return c.json({ error: 'webhook secret not configured' }, 503);
+  }
+  const provided = c.req.header('x-telegram-bot-api-secret-token') ?? '';
+  if (!safeEqual(provided, webhookSecret)) {
+    return c.json({ error: 'forbidden' }, 403);
   }
 
   const update = (await c.req.json()) as TelegramUpdate;

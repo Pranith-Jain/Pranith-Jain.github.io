@@ -75,13 +75,8 @@ export interface KillChainPhase {
 /**
  * Build a timeline for a specific IOC.
  */
-export async function buildIocTimeline(
-  db: D1Database,
-  indicator: string
-): Promise<TemporalIoc | null> {
-  const row = await db.prepare(
-    'SELECT * FROM ioc_lifecycle WHERE indicator = ?'
-  ).bind(indicator).first<{
+export async function buildIocTimeline(db: D1Database, indicator: string): Promise<TemporalIoc | null> {
+  const row = await db.prepare('SELECT * FROM ioc_lifecycle WHERE indicator = ?').bind(indicator).first<{
     indicator: string;
     indicator_type: string;
     first_seen: string;
@@ -130,7 +125,8 @@ export async function buildIocTimeline(
     });
   }
 
-  if (inactiveHours > 168) { // 7 days
+  if (inactiveHours > 168) {
+    // 7 days
     timeline.push({
       timestamp: new Date(lastSeen.getTime() + 168 * 60 * 60 * 1000).toISOString(),
       score: 0,
@@ -142,8 +138,7 @@ export async function buildIocTimeline(
   // Calculate velocity
   const observationsPerDay = row.observation_count / Math.max(1, ageHours / 24);
   const trend: TemporalIoc['velocity']['trend'] =
-    row.decay_rate > 5 ? 'accelerating' :
-    row.decay_rate < -5 ? 'decelerating' : 'stable';
+    row.decay_rate > 5 ? 'accelerating' : row.decay_rate < -5 ? 'decelerating' : 'stable';
 
   // Predict dormancy
   let predictedDormancy: string | null = null;
@@ -182,19 +177,23 @@ export async function detectCampaigns(
   minIndicators: number = 3
 ): Promise<Campaign[]> {
   // Get recent IOCs
-  const rows = await db.prepare(`
+  const rows = await db
+    .prepare(
+      `
     SELECT indicator, indicator_type, first_seen, last_seen, peak_score, sources_seen
     FROM ioc_lifecycle
     WHERE first_seen > datetime('now', '-30 days')
     ORDER BY first_seen
-  `).all<{
-    indicator: string;
-    indicator_type: string;
-    first_seen: string;
-    last_seen: string;
-    peak_score: number;
-    sources_seen: string;
-  }>();
+  `
+    )
+    .all<{
+      indicator: string;
+      indicator_type: string;
+      first_seen: string;
+      last_seen: string;
+      peak_score: number;
+      sources_seen: string;
+    }>();
 
   const iocs = rows.results ?? [];
   if (iocs.length < minIndicators) return [];
@@ -236,7 +235,7 @@ export async function detectCampaigns(
 
       campaigns.push({
         id: `campaign-${Date.now()}-${campaigns.length}`,
-        indicators: cluster.map(c => c.indicator),
+        indicators: cluster.map((c) => c.indicator),
         first_seen: firstSeen,
         last_seen: lastSeen,
         duration_hours: Math.round(durationHours),
@@ -264,50 +263,48 @@ function detectKillChainPhases(
   const now = new Date().toISOString();
 
   // Phase 1: Reconnaissance (domains, URLs)
-  const reconIocs = iocs.filter(i => ['domain', 'url'].includes(i.indicator_type));
+  const reconIocs = iocs.filter((i) => ['domain', 'url'].includes(i.indicator_type));
   if (reconIocs.length > 0) {
     phases.push({
       phase: 'Reconnaissance',
       start: now,
       end: now,
-      indicators: reconIocs.map(i => i.indicator),
+      indicators: reconIocs.map((i) => i.indicator),
     });
   }
 
   // Phase 2: Weaponization (hashes appearing)
-  const weaponIocs = iocs.filter(i => i.indicator_type === 'hash');
+  const weaponIocs = iocs.filter((i) => i.indicator_type === 'hash');
   if (weaponIocs.length > 0) {
     phases.push({
       phase: 'Weaponization',
       start: now,
       end: now,
-      indicators: weaponIocs.map(i => i.indicator),
+      indicators: weaponIocs.map((i) => i.indicator),
     });
   }
 
   // Phase 3: Delivery (phishing URLs, malicious domains)
-  const deliveryIocs = iocs.filter(i =>
-    i.indicator_type === 'url' && i.peak_score > 50
-  );
+  const deliveryIocs = iocs.filter((i) => i.indicator_type === 'url' && i.peak_score > 50);
   if (deliveryIocs.length > 0) {
     phases.push({
       phase: 'Delivery',
       start: now,
       end: now,
-      indicators: deliveryIocs.map(i => i.indicator),
+      indicators: deliveryIocs.map((i) => i.indicator),
     });
   }
 
   // Phase 4: Command & Control (IPs, high-score domains)
-  const c2Iocs = iocs.filter(i =>
-    i.indicator_type === 'ipv4' || (i.indicator_type === 'domain' && i.peak_score > 70)
+  const c2Iocs = iocs.filter(
+    (i) => i.indicator_type === 'ipv4' || (i.indicator_type === 'domain' && i.peak_score > 70)
   );
   if (c2Iocs.length > 0) {
     phases.push({
       phase: 'Command & Control',
       start: now,
       end: now,
-      indicators: c2Iocs.map(i => i.indicator),
+      indicators: c2Iocs.map((i) => i.indicator),
     });
   }
 
@@ -335,15 +332,20 @@ export async function calculateThreatVelocity(
     '30d': '-720',
   };
   const hours = periodHours[period] ?? '-24';
-  const rows = await db.prepare(`
+  const rows = await db
+    .prepare(
+      `
     SELECT indicator_type, first_seen, sources_seen
     FROM ioc_lifecycle
     WHERE first_seen > datetime('now', ? || ' hours')
-  `).bind(hours).all<{
-    indicator_type: string;
-    first_seen: string;
-    sources_seen: string;
-  }>();
+  `
+    )
+    .bind(hours)
+    .all<{
+      indicator_type: string;
+      first_seen: string;
+      sources_seen: string;
+    }>();
 
   const iocs = rows.results ?? [];
 
@@ -361,17 +363,19 @@ export async function calculateThreatVelocity(
   }
 
   // Calculate acceleration (compare to previous period)
-  const previousPeriodRows = await db.prepare(`
+  const previousPeriodRows = await db
+    .prepare(
+      `
     SELECT COUNT(*) as count FROM ioc_lifecycle
     WHERE first_seen > datetime('now', '-${periodMap[period]}', '-${periodMap[period]}')
       AND first_seen <= datetime('now', '-${periodMap[period]}')
-  `).first<{ count: number }>();
+  `
+    )
+    .first<{ count: number }>();
 
   const currentCount = iocs.length;
   const previousCount = previousPeriodRows?.count ?? 0;
-  const acceleration = previousCount > 0
-    ? ((currentCount - previousCount) / previousCount) * 100
-    : 100;
+  const acceleration = previousCount > 0 ? ((currentCount - previousCount) / previousCount) * 100 : 100;
 
   // Top sources
   const topSources = Object.entries(sourceCounts)
@@ -401,9 +405,7 @@ export async function predictIocDormancy(
   confidence: number;
   factors: string[];
 } | null> {
-  const row = await db.prepare(
-    'SELECT * FROM ioc_lifecycle WHERE indicator = ?'
-  ).bind(indicator).first<{
+  const row = await db.prepare('SELECT * FROM ioc_lifecycle WHERE indicator = ?').bind(indicator).first<{
     indicator: string;
     indicator_type: string;
     first_seen: string;
@@ -441,13 +443,18 @@ export async function predictIocDormancy(
   }
 
   // Factor 3: Similar IOCs dormancy pattern
-  const similarDormant = await db.prepare(`
+  const similarDormant = await db
+    .prepare(
+      `
     SELECT AVG(julianday(last_seen) - julianday(first_seen)) as avg_lifetime
     FROM ioc_lifecycle
     WHERE indicator_type = ?
       AND current_score < 10
       AND indicator != ?
-  `).bind(row.indicator_type, indicator).first<{ avg_lifetime: number }>();
+  `
+    )
+    .bind(row.indicator_type, indicator)
+    .first<{ avg_lifetime: number }>();
 
   if (similarDormant?.avg_lifetime) {
     factors.push(`Similar ${row.indicator_type} IOCs average ${Math.round(similarDormant.avg_lifetime)} day lifetime`);
@@ -505,12 +512,16 @@ export async function temporalCampaignsHandler(c: Context<{ Bindings: Env }>): P
 
   const campaigns = await detectCampaigns(db, windowHours, minIndicators);
 
-  return c.json({
-    campaigns,
-    count: campaigns.length,
-    window_hours: windowHours,
-    min_indicators: minIndicators,
-  }, 200, { 'Cache-Control': 'public, max-age=120' });
+  return c.json(
+    {
+      campaigns,
+      count: campaigns.length,
+      window_hours: windowHours,
+      min_indicators: minIndicators,
+    },
+    200,
+    { 'Cache-Control': 'public, max-age=120' }
+  );
 }
 
 /** GET /api/v1/temporal/velocity */
@@ -518,7 +529,15 @@ export async function temporalVelocityHandler(c: Context<{ Bindings: Env }>): Pr
   const db = c.env.BRIEFINGS_DB;
   if (!db) return c.json({ error: 'Database not configured' }, 503);
 
-  const period = (c.req.query('period') ?? '24h') as '1h' | '24h' | '7d' | '30d';
+  // Validate against the fixed set — an unknown value would interpolate as the
+  // string "undefined" into a datetime() modifier downstream (malformed-SQL
+  // error / DoS), so default invalid input to '24h' rather than cast blindly.
+  const periodRaw = c.req.query('period') ?? '24h';
+  const period: '1h' | '24h' | '7d' | '30d' = (['1h', '24h', '7d', '30d'] as const).includes(
+    periodRaw as '1h' | '24h' | '7d' | '30d'
+  )
+    ? (periodRaw as '1h' | '24h' | '7d' | '30d')
+    : '24h';
 
   const velocity = await calculateThreatVelocity(db, period);
 

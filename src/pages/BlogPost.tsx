@@ -299,9 +299,10 @@ export default function BlogPost() {
 
             <img
               className="mb-6 w-full h-auto rounded-lg border border-slate-200 dark:border-slate-800"
-              alt=""
+              alt={`Hero visual for ${post.title}`}
               width={1200}
               height={630}
+              loading="lazy"
               src={`data:image/svg+xml;utf8,${encodeURIComponent(post.hero)}`}
             />
 

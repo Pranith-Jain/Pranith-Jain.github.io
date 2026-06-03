@@ -29,6 +29,16 @@ export interface Assessment {
 }
 
 const KV_PREFIX = 'assessment:v1';
+const INDEX_CACHE_KEY = 'https://assessment-index-cache.internal/v1';
+const INDEX_CACHE_TTL = 30;
+
+function cacheApi(): Cache | null {
+  try {
+    return (caches as unknown as { default: Cache }).default;
+  } catch {
+    return null;
+  }
+}
 
 function generateId(): string {
   return `asmt-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
@@ -38,6 +48,15 @@ async function loadAll(env: Env): Promise<Assessment[]> {
   try {
     const kv = env.KV_CACHE;
     if (!kv) return [];
+    const cache = cacheApi();
+    if (cache) {
+      try {
+        const r = await cache.match(INDEX_CACHE_KEY);
+        if (r) return (await r.json()) as Assessment[];
+      } catch {
+        /* fall through */
+      }
+    }
     const list = await kv.list({ prefix: KV_PREFIX + ':' });
     const assessments: Assessment[] = [];
     for (const key of list.keys) {
@@ -48,7 +67,16 @@ async function loadAll(env: Env): Promise<Assessment[]> {
         /* skip */
       }
     }
-    return assessments.sort((a, b) => b.created_at.localeCompare(a.created_at));
+    const sorted = assessments.sort((a, b) => b.created_at.localeCompare(a.created_at));
+    if (cache && sorted.length > 0) {
+      cache
+        .put(
+          INDEX_CACHE_KEY,
+          new Response(JSON.stringify(sorted), { headers: { 'cache-control': `max-age=${INDEX_CACHE_TTL}` } })
+        )
+        .catch(() => {});
+    }
+    return sorted;
   } catch {
     return [];
   }
@@ -60,6 +88,9 @@ async function save(env: Env, assessment: Assessment): Promise<void> {
   // Assessments are durable intelligence products — persist indefinitely.
   // (KV rejects expirationTtl:0 at runtime; omit the option to never expire.)
   await kv.put(`${KV_PREFIX}:${assessment.id}`, JSON.stringify(assessment));
+  // Invalidate the cached index so the next loadAll picks up the change
+  const cache = cacheApi();
+  if (cache) cache.delete(INDEX_CACHE_KEY).catch(() => {});
 }
 
 /**
@@ -137,9 +168,28 @@ export async function assessmentDetailHandler(c: Context<{ Bindings: Env }>): Pr
     const kv = c.env.KV_CACHE;
     if (!kv) return c.json({ error: 'assessment storage not configured' }, 503);
     const id = c.req.param('id');
+    const cacheKey = `https://assessment-detail-cache.internal/v1/${id}`;
+    const cache = cacheApi();
+    if (cache) {
+      try {
+        const r = await cache.match(new Request(cacheKey));
+        if (r) return c.json((await r.json()) as Assessment);
+      } catch {
+        /* fall through */
+      }
+    }
     const raw = await kv.get(`${KV_PREFIX}:${id}`);
     if (!raw) return c.json({ error: 'assessment not found' }, 404);
-    return c.json(JSON.parse(raw) as Assessment);
+    const assessment = JSON.parse(raw) as Assessment;
+    if (cache) {
+      cache
+        .put(
+          new Request(cacheKey),
+          new Response(JSON.stringify(assessment), { headers: { 'cache-control': `max-age=${INDEX_CACHE_TTL}` } })
+        )
+        .catch(() => {});
+    }
+    return c.json(assessment);
   } catch (e) {
     return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
   }
@@ -160,12 +210,22 @@ export async function assessmentUpdateHandler(c: Context<{ Bindings: Env }>): Pr
     const body = await c.req.json<Partial<Assessment>>();
     const now = new Date().toISOString();
 
+    // Strip server-controlled fields from the client body so they cannot be
+    // mass-assigned via the raw JSON (id/created_at/updated_at are pinned below;
+    // published_at is set ONLY by the real status transition, not by the caller).
+    const { id: _id, created_at: _ca, updated_at: _ua, published_at: _pa, ...rest } = body;
+    void _id;
+    void _ca;
+    void _ua;
+    void _pa;
+
     const updated: Assessment = {
       ...existing,
-      ...body,
+      ...rest,
       id: existing.id,
       created_at: existing.created_at,
       updated_at: now,
+      published_at: existing.published_at,
     };
 
     // If transitioning to published, set published_at
@@ -189,6 +249,11 @@ export async function assessmentDeleteHandler(c: Context<{ Bindings: Env }>): Pr
     if (!kv) return c.json({ error: 'assessment storage not configured' }, 503);
     const id = c.req.param('id');
     await kv.delete(`${KV_PREFIX}:${id}`);
+    const cache = cacheApi();
+    if (cache) {
+      cache.delete(INDEX_CACHE_KEY).catch(() => {});
+      cache.delete(new Request(`https://assessment-detail-cache.internal/v1/${id}`)).catch(() => {});
+    }
     return c.json({ ok: true, deleted: id });
   } catch (e) {
     return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);

@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { FeedbackWidget } from '../../components/FeedbackWidget';
 import { BackLink } from '../../components/BackLink';
+import { adminAuthHeaders } from '../../lib/admin-token';
 
 interface Source {
   name: string;
@@ -145,7 +146,7 @@ export default function Copilot(): JSX.Element {
     try {
       const res = await fetch('/api/v1/copilot/investigate', {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
+        headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
         body: JSON.stringify({ query: q.trim() }),
       });
       if (!res.ok) {
@@ -376,7 +377,7 @@ export default function Copilot(): JSX.Element {
                 try {
                   const res = await fetch('/api/v1/threat-intel/assessments', {
                     method: 'POST',
-                    headers: { 'content-type': 'application/json' },
+                    headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
                     body: JSON.stringify({
                       title: `Copilot: ${result.query}`,
                       type:

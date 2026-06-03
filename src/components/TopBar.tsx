@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, Moon, Sun, Shield, Radar, Menu } from 'lucide-react';
+import { Search, Moon, Sun, Shield, Radar, Menu, X } from 'lucide-react';
 
 interface TopBarProps {
   sectionLabel: string;
@@ -84,7 +84,11 @@ export function TopBar({
             aria-expanded={mobileNavOpen ?? false}
             aria-controls="mobile-sidebar-drawer"
           >
-            <Menu className="h-4 w-4" aria-hidden="true" />
+            {mobileNavOpen ? (
+              <X className="h-4 w-4" aria-hidden="true" />
+            ) : (
+              <Menu className="h-4 w-4" aria-hidden="true" />
+            )}
           </button>
         )}
         <Link

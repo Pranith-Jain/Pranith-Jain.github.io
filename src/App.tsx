@@ -187,6 +187,9 @@ const TelegramLeakStatsPage = lazy(() => import('./pages/threatintel/TelegramLea
 const IntelDashboardPage = lazy(() => import('./pages/threatintel/IntelDashboard'));
 const BreachDisclosuresPage = lazy(() => import('./pages/threatintel/BreachDisclosures'));
 const RedditFirehosePage = lazy(() => import('./pages/threatintel/RedditFirehose'));
+const CryptoScamFeedPage = lazy(() => import('./pages/threatintel/CryptoScamFeed'));
+const ActorUsernamesPage = lazy(() => import('./pages/threatintel/ActorUsernames'));
+const PhishingWordlistsPage = lazy(() => import('./pages/threatintel/PhishingWordlists'));
 const XFirehosePage = lazy(() => import('./pages/threatintel/XFirehose'));
 const FeedStatusPage = lazy(() => import('./pages/threatintel/FeedStatus'));
 const MetricsPage = lazy(() => import('./pages/threatintel/Metrics'));
@@ -371,6 +374,9 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/telegram-leaks/channels', Component: TelegramDiscoveredChannelsPage },
   { path: '/threatintel/breach', Component: BreachDisclosuresPage },
   { path: '/threatintel/reddit', Component: RedditFirehosePage },
+  { path: '/threatintel/crypto-scams', Component: CryptoScamFeedPage },
+  { path: '/threatintel/actor-usernames', Component: ActorUsernamesPage },
+  { path: '/threatintel/phishing-wordlists', Component: PhishingWordlistsPage },
   { path: '/threatintel/x', Component: XFirehosePage },
   { path: '/threatintel/status', Component: FeedStatusPage },
   { path: '/threatintel/metrics', Component: MetricsPage },

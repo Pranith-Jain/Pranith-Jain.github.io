@@ -156,7 +156,7 @@ function SidebarContentCollapsed({ config }: { config: SidebarConfig }): JSX.Ele
                 title={item.label}
                 className={`grid h-9 w-9 mx-auto place-items-center rounded-lg transition focus:outline-none focus:ring-2 focus:ring-brand-500 ${
                   active
-                    ? 'bg-brand-500/10 text-brand-700 dark:text-brand-300'
+                    ? 'bg-brand-500/10 text-brand-700 dark:text-brand-300 border-l-2 border-brand-500 rounded-l-none'
                     : 'text-slate-500 hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-white'
                 }`}
               >

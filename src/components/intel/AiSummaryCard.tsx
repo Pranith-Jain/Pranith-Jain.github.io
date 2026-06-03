@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { Sparkles, RefreshCw, Loader2 } from 'lucide-react';
+import { adminAuthHeaders } from '../../lib/admin-token';
 
 /**
  * <AiSummaryCard> — AI-generated operational summary for a feed surface.
@@ -47,7 +48,7 @@ export function AiSummaryCard({ surface, items, dayKey, className }: AiSummaryCa
     try {
       const res = await fetch('/api/v1/ai-summary', {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
+        headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
         body: JSON.stringify({
           surface,
           date,

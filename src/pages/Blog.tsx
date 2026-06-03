@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link, useParams, Navigate } from 'react-router-dom';
 import { ArrowLeft, Search } from 'lucide-react';
 import { DataState } from '../components/DataState';
+import { estimateReadingTime } from '../lib/content-utils';
 
 interface PostEntry {
   slug: string;
@@ -276,6 +277,8 @@ export default function Blog() {
                 <span>Pranith Jain</span>
                 <span aria-hidden="true">·</span>
                 <time>{formatDate(p.publishedAt)}</time>
+                <span aria-hidden="true">·</span>
+                <span>{estimateReadingTime(p.excerpt)} min read</span>
               </div>
               {p.tags.length > 0 && (
                 <div className="flex flex-wrap gap-1.5 mt-2">

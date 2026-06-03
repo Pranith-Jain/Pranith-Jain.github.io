@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { ArrowLeft, Plus, Trash2, Bell, RefreshCw, AlertTriangle, ExternalLink, Activity, Search } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
+import { adminAuthHeaders } from '../../lib/admin-token';
 
 interface Watch {
   id: string;
@@ -54,7 +55,10 @@ export default function Watches(): JSX.Element {
     setLoading(true);
     setError(null);
     try {
-      const [wRes, aRes] = await Promise.all([fetch('/api/v1/watches'), fetch('/api/v1/watches/log')]);
+      const [wRes, aRes] = await Promise.all([
+        fetch('/api/v1/watches', { headers: adminAuthHeaders() }),
+        fetch('/api/v1/watches/log', { headers: adminAuthHeaders() }),
+      ]);
       if (!wRes.ok) throw new Error('Failed to load watches');
       const wData = await wRes.json();
       const aData = aRes.ok ? await aRes.json() : { alerts: [] };
@@ -77,7 +81,7 @@ export default function Watches(): JSX.Element {
     try {
       const res = await fetch('/api/v1/watches', {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
+        headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
         body: JSON.stringify(form),
       });
       if (!res.ok) {
@@ -109,7 +113,7 @@ export default function Watches(): JSX.Element {
     try {
       const res = await fetch(`/api/v1/watches/${id}`, {
         method: 'PUT',
-        headers: { 'content-type': 'application/json' },
+        headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
         body: JSON.stringify(editForm),
       });
       if (!res.ok) throw new Error('Failed to update');
@@ -124,7 +128,7 @@ export default function Watches(): JSX.Element {
   const handleDelete = async (id: string) => {
     if (!window.confirm('Delete this watch? This cannot be undone.')) return;
     try {
-      const res = await fetch(`/api/v1/watches/${id}`, { method: 'DELETE' });
+      const res = await fetch(`/api/v1/watches/${id}`, { method: 'DELETE', headers: adminAuthHeaders() });
       if (!res.ok) throw new Error('Failed to delete');
       setWatches((prev) => prev.filter((w) => w.id !== id));
     } catch (e) {

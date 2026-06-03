@@ -19,6 +19,7 @@ import {
 } from '../lib/ioc-feed-parsers';
 import { fetchMalwareSamplesCached } from './malware-samples';
 import { fetchPhishingUrlsCached } from './phishing-urls';
+import { fetchCryptoScamCached } from './crypto-scam-feed';
 import { trackEvent, visitorCountry } from '../lib/analytics';
 import { fetchAFDefacements } from '../lib/andreafortuna-feeds';
 import { fetchMtiSource, type MtiIoc } from '../lib/mythreatintel-api';
@@ -274,9 +275,7 @@ const parseBotvrijUrls = (text: string, cap: number): ParsedEntry[] =>
 const tweetfeedSource: FeedSource = {
   id: 'tweetfeed',
   run: async () => {
-    const tweetfeedText = await fetchText(
-      'https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/today.csv'
-    );
+    const tweetfeedText = await fetchText('https://raw.githubusercontent.com/0xDanielLopez/TweetFeed/master/today.csv');
     const items: LiveIoc[] = [];
     if (!tweetfeedText) return { items, sources: [{ id: 'tweetfeed', ok: false, count: 0 }] };
     const parsed = parseTweetFeed(tweetfeedText, PER_FEED_CAP);
@@ -384,6 +383,26 @@ const phishingSource: FeedSource = {
   },
 };
 
+/** spmedia crypto-scam domains: shared cached fetch, mapped to domain IOCs. */
+const cryptoScamSource: FeedSource = {
+  id: 'crypto-scam',
+  run: async ({ executionCtx, kv }) => {
+    const result = await fetchCryptoScamCached(executionCtx, kv).catch(() => null);
+    const items: LiveIoc[] = [];
+    if (!result) return { items, sources: [{ id: 'crypto-scam', ok: false, count: 0 }] };
+    for (const it of result.items.slice(0, PER_FEED_CAP)) {
+      items.push({
+        value: it.domain,
+        kind: 'domain',
+        source: 'crypto-scam',
+        reporter: 'spmedia crypto-scam feed',
+        context: 'crypto phishing / scam / drainer',
+      });
+    }
+    return { items, sources: [{ id: 'crypto-scam', ok: items.length > 0, count: items.length }] };
+  },
+};
+
 /** Andrea Fortuna defacements: pre-built LiveIoc[] + KV last-good fallback. */
 const andreafortunaSource: FeedSource = {
   id: 'andreafortuna-defacements',
@@ -449,9 +468,7 @@ const andreafortunaSource: FeedSource = {
 const mythreatintelSource: FeedSource = {
   id: 'mythreatintel',
   run: async ({ env }) => {
-    const mtiIocResult = env
-      ? await fetchMtiSource(env, 'iocs', { limit: PER_FEED_CAP }).catch(() => null)
-      : null;
+    const mtiIocResult = env ? await fetchMtiSource(env, 'iocs', { limit: PER_FEED_CAP }).catch(() => null) : null;
     const items: LiveIoc[] = [];
     if (!(mtiIocResult && mtiIocResult.ok && mtiIocResult.items.length > 0)) {
       return { items, sources: [{ id: 'mythreatintel', ok: false, count: 0 }] };
@@ -555,6 +572,7 @@ const FEED_SOURCES: FeedSource[] = [
   }),
   malwarebazaarSource,
   phishingSource,
+  cryptoScamSource,
   andreafortunaSource,
   textFeedSource({
     id: 'binarydefense',
@@ -953,7 +971,11 @@ async function composeOrFallback(c: Context<{ Bindings: Env }>): Promise<LiveIoc
   c.executionCtx.waitUntil(
     maybeEnqueueAllFeeds(c.env.FEEDS_QUEUE, kv).catch((e) =>
       console.error(
-        JSON.stringify({ job: 'live-iocs-enqueue', status: 'failed', error: e instanceof Error ? e.message : String(e) })
+        JSON.stringify({
+          job: 'live-iocs-enqueue',
+          status: 'failed',
+          error: e instanceof Error ? e.message : String(e),
+        })
       )
     )
   );

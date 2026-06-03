@@ -12,6 +12,9 @@ import type { Env } from './env';
 export { LiveFeedDO, DfirMcpServer, CronLockDO };
 export type { Env };
 
+/** Origins permitted to open the live-feed WebSocket (same set the API trusts). */
+const WS_ALLOWED_ORIGINS = new Set(['https://pranithjain.qzz.io', 'http://localhost:5173', 'http://localhost:8787']);
+
 /**
  * Generate a request ID for distributed tracing.
  * 128-bit random → hex (32 chars). Included in response headers and
@@ -45,13 +48,24 @@ export default {
 
     // WebSocket upgrade — route to the LiveFeed Durable Object
     if (url.pathname.startsWith('/api/v1/ws/live-feed') && request.headers.get('upgrade') === 'websocket') {
+      // Reject cross-origin / origin-less upgrades. The live-feed DO is a single
+      // global instance with a small connection cap, so an unauthenticated
+      // cross-origin or scripted client could otherwise hold every slot (global
+      // DoS). Browsers always send Origin on a WS handshake; accept only ours.
+      const wsOrigin = request.headers.get('origin') ?? '';
+      if (!WS_ALLOWED_ORIGINS.has(wsOrigin)) {
+        return new Response('forbidden origin', { status: 403 });
+      }
       const doId = env.LIVE_FEED_DO.idFromName('global');
       return env.LIVE_FEED_DO.get(doId).fetch(request);
     }
 
-    // MCP server — DFIR & Threat Intel tools for AI agents
+    // MCP server — DFIR & Threat Intel tools for AI agents. Wrap the response so
+    // it carries the same security headers (CSP/HSTS/nosniff/…) as every other
+    // surface instead of bypassing withSecurityHeaders.
     if (url.pathname.startsWith('/api/mcp')) {
-      return DfirMcpServer.serve('/api/mcp', { binding: 'DFIR_MCP' }).fetch(request, env, ctx);
+      const mcpRes = await DfirMcpServer.serve('/api/mcp', { binding: 'DFIR_MCP' }).fetch(request, env, ctx);
+      return withSecurityHeaders(mcpRes);
     }
 
     // Forward to the api app for the explicit /api/* prefix AND for the

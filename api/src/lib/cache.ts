@@ -29,6 +29,18 @@ export class ProviderCache {
     return `provider:${provider}:${indicator.value.toLowerCase()}`;
   }
 
+  private cacheUrl(provider: string, indicator: Indicator): string {
+    return `https://provider-cache.internal/v1/${provider}/${indicator.value.toLowerCase()}`;
+  }
+
+  private cacheApi(): Cache | null {
+    try {
+      return (caches as unknown as { default: Cache }).default;
+    } catch {
+      return null;
+    }
+  }
+
   /**
    * Cache TTL (seconds) per indicator type, with per-provider overrides.
    * Hashes are the most stable (24h), IPv4 the most volatile (1h), URLs and
@@ -65,11 +77,30 @@ export class ProviderCache {
    * distinguish a hit from a fresh upstream response.
    */
   async get(provider: string, indicator: Indicator): Promise<ProviderResult | null> {
+    // Check per-colo Cache API first — same-colо repeat queries skip KV entirely
+    const cache = this.cacheApi();
+    if (cache) {
+      try {
+        const r = await cache.match(new Request(this.cacheUrl(provider, indicator)));
+        if (r) return { ...((await r.json()) as ProviderResult), cached: true };
+      } catch {
+        /* fall through to KV */
+      }
+    }
     if (!this.kv) return null;
     const key = this.buildKey(provider, indicator);
     try {
       const cached = (await this.kv.get(key, 'json')) as ProviderResult | null;
-      if (cached) return { ...cached, cached: true };
+      if (cached) {
+        // Populate the per-colo cache so the same indicator queried again in
+        // this colo doesn't hit KV
+        const ttl = ProviderCache.ttlSeconds(indicator.type, provider);
+        const cacheResp = new Response(JSON.stringify(cached), {
+          headers: { 'cache-control': `public, max-age=${ttl}` },
+        });
+        cache?.put(new Request(this.cacheUrl(provider, indicator)), cacheResp).catch(() => {});
+        return { ...cached, cached: true };
+      }
       return cached;
     } catch {
       return null;
@@ -89,6 +120,15 @@ export class ProviderCache {
     } catch {
       /* best-effort — cache failure shouldn't break the request */
     }
+    // Write-through to per-colo Cache API so subsequent queries in this colo
+    // hit cache before KV
+    const cache = this.cacheApi();
+    if (cache) {
+      const cacheResp = new Response(JSON.stringify(data), {
+        headers: { 'cache-control': `public, max-age=${ttl}` },
+      });
+      cache.put(new Request(this.cacheUrl(provider, indicator)), cacheResp).catch(() => {});
+    }
   }
 
   /**
@@ -102,6 +142,11 @@ export class ProviderCache {
       await this.kv.delete(key);
     } catch {
       /* best-effort */
+    }
+    // Purge from per-colo cache
+    const cache = this.cacheApi();
+    if (cache) {
+      cache.delete(new Request(this.cacheUrl(provider, indicator))).catch(() => {});
     }
   }
 }

@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback, type FormEvent } from 'react';
 import { BackLink } from '../../components/BackLink';
+import { adminAuthHeaders } from '../../lib/admin-token';
 import {
   ArrowLeft,
   Plus,
@@ -91,8 +92,8 @@ export default function FeedScheduler(): JSX.Element {
     setError(null);
     try {
       const [jRes, hRes] = await Promise.all([
-        fetch('/api/v1/feed-scheduler'),
-        fetch('/api/v1/feed-scheduler-history'),
+        fetch('/api/v1/feed-scheduler', { headers: adminAuthHeaders() }),
+        fetch('/api/v1/feed-scheduler-history', { headers: adminAuthHeaders() }),
       ]);
       if (!jRes.ok) throw new Error('Failed to load');
       const jData = (await jRes.json()) as { jobs: FeedJob[]; presets: FeedPreset[] };
@@ -138,7 +139,7 @@ export default function FeedScheduler(): JSX.Element {
     try {
       const res = await fetch('/api/v1/feed-scheduler', {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
+        headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
         body: JSON.stringify({
           name: form.name.trim(),
           source_url: form.source_url.trim(),
@@ -170,7 +171,7 @@ export default function FeedScheduler(): JSX.Element {
 
   const deleteJob = async (id: string, name: string) => {
     try {
-      const res = await fetch(`/api/v1/feed-scheduler/${id}`, { method: 'DELETE' });
+      const res = await fetch(`/api/v1/feed-scheduler/${id}`, { method: 'DELETE', headers: adminAuthHeaders() });
       if (!res.ok) {
         flash('error', 'Failed to delete feed');
         return;
@@ -186,7 +187,7 @@ export default function FeedScheduler(): JSX.Element {
     try {
       const res = await fetch(`/api/v1/feed-scheduler/${id}`, {
         method: 'PATCH',
-        headers: { 'content-type': 'application/json' },
+        headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
         body: JSON.stringify({ enabled }),
       });
       if (!res.ok) {
@@ -207,7 +208,7 @@ export default function FeedScheduler(): JSX.Element {
     try {
       const res = await fetch(`/api/v1/feed-scheduler/${id}`, {
         method: 'PATCH',
-        headers: { 'content-type': 'application/json' },
+        headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
         body: JSON.stringify(updates),
       });
       if (!res.ok) {
@@ -227,7 +228,7 @@ export default function FeedScheduler(): JSX.Element {
     if (runningJobs.has(id)) return;
     setRunningJobs((prev) => new Set(prev).add(id));
     try {
-      const res = await fetch(`/api/v1/feed-scheduler/${id}/run`, { method: 'POST' });
+      const res = await fetch(`/api/v1/feed-scheduler/${id}/run`, { method: 'POST', headers: adminAuthHeaders() });
       if (!res.ok) {
         flash('error', 'Failed to trigger feed run');
         return;

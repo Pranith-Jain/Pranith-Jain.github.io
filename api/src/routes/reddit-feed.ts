@@ -1,44 +1,37 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { requireAdmin } from '../lib/admin-auth';
 
 /**
- * Cybersec Reddit firehose. Curated set of public subreddits; each exposes
- * an RSS / JSON feed at /r/<name>/.rss (and /.json) — no auth, no rate-limit
- * key for low-frequency access. We use the .rss variant since it's
- * stable and the smallest parse surface.
+ * Cybersec Reddit firehose. Curated set of public subreddits.
  *
- * Cost: each subreddit returns ~25 posts × ~2KB RSS. Cap at 8 posts each;
- * fan out in parallel with bounded concurrency. Cached 30 min — Reddit's
- * pace + reddit.com's bot-detection make tighter polling counterproductive.
+ * Reddit blocks Cloudflare Workers IP ranges at the network level. Data
+ * is pushed to KV by a GitHub Action cron (scripts/fetch-reddit-feed.mjs)
+ * which runs every 30 min. The KV-backed read replaces the now-defunct
+ * RSS2JSON proxy (also on Cloudflare, also blocked).
  *
- * Pattern mirrors api/src/routes/telegram-feed.ts so the shape is
- * familiar; consumed by /threatintel/reddit.
+ * KV key is written by the admin endpoint POST /api/v1/admin/reddit-feed
+ * and read here as the primary data source.
  */
 
-const FETCH_TIMEOUT_MS = 12_000;
+const RSS2JSON_API = 'https://api.rss2json.com/v1/api.json';
+const REDDIT_FEED_KV_KEY = 'reddit-feed:data:v1';
+const FETCH_TIMEOUT_MS = 15_000;
 const CACHE_TTL = 30 * 60;
 const CONCURRENCY = 4;
-/** Per-sub cap. 2026-05-23: was 25. Reddit's RSS endpoint accepts
- *  limit=100 — bumping brings the firehose closer to the 500/7d ceiling
- *  the rest of the feeds target (16 subs × 100 = up to 1600 raw items
- *  before MAX_POST_AGE_DAYS + dedup/filter). */
 const MAX_POSTS_PER_SUB = 100;
-/** Drop posts older than this many days — keeps the firehose "current
- *  week" rather than the rolling all-time top of each RSS. */
 const MAX_POST_AGE_DAYS = 7;
 const MAX_TEXT_LEN = 400;
 
 interface SubSpec {
   name: string;
-  /** Display name. */
   label: string;
   blurb: string;
   topic: 'news' | 'research' | 'red-team' | 'blue-team' | 'osint' | 'malware' | 'help' | 'scams';
 }
 
 /**
- * Curated cybersec / DFIR subreddit set. Liveness-checked 2026-05-11.
- * Bump on additions / removals; the catalog is small enough to inline.
+ * Curated cybersec / DFIR subreddit set. Liveness-checked 2026-06-03.
  */
 const SUBS: SubSpec[] = [
   {
@@ -78,9 +71,6 @@ const SUBS: SubSpec[] = [
     blurb: 'Microsoft Sentinel — KQL hunts, content packs',
     topic: 'blue-team',
   },
-  // Carding / scam coverage (added 2026-05-11). Live-probed; r/fraud,
-  // r/CreditCardFraud, r/carding, r/BankFraud, r/ScamAlert all 404'd or
-  // are banned — only legitimate victim/researcher subs remain.
   {
     name: 'Scams',
     label: 'r/Scams',
@@ -114,11 +104,8 @@ export interface RedditFeedItem {
   sub_blurb: string;
   title: string;
   link: string;
-  /** ISO 8601 from Reddit's <updated> / <published>. */
   pub_date: string;
-  /** Truncated post body (Reddit's RSS includes the text/preview). */
   text: string;
-  /** Author handle (no /u/ prefix). */
   author: string;
 }
 
@@ -129,85 +116,44 @@ export interface RedditFeedResponse {
   warnings: string[];
 }
 
-/** Reddit's .rss is Atom-shaped: `<entry>` tags with title/link/updated/content/author. */
-function parseAtomEntries(xml: string): Array<{
+interface Rss2JsonItem {
   title: string;
+  pubDate: string;
   link: string;
-  pub_date: string;
-  content: string;
   author: string;
-}> {
-  const out: Array<{ title: string; link: string; pub_date: string; content: string; author: string }> = [];
-  const entryRe = /<entry[\s\S]*?<\/entry>/g;
-  const entries = xml.match(entryRe) ?? [];
-  for (const block of entries) {
-    const title = /<title[^>]*>([\s\S]*?)<\/title>/.exec(block)?.[1] ?? '';
-    const link = /<link[^>]*href="([^"]+)"/.exec(block)?.[1] ?? '';
-    const updated = /<updated>([^<]+)<\/updated>/.exec(block)?.[1] ?? '';
-    const content = /<content[^>]*>([\s\S]*?)<\/content>/.exec(block)?.[1] ?? '';
-    // Author is nested: <author><name>name</name></author>
-    const author = /<author>[\s\S]*?<name>([^<]+)<\/name>/.exec(block)?.[1] ?? '';
-    out.push({
-      title: decodeEntities(stripCdata(title)).trim(),
-      link,
-      pub_date: updated,
-      content: stripHtml(stripCdata(content)),
-      author: author.replace(/^\/u\//, ''),
-    });
-  }
-  return out;
-}
-
-function stripCdata(s: string): string {
-  return s.replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1');
-}
-
-function decodeEntities(s: string): string {
-  return s
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&apos;/g, "'")
-    .replace(/&nbsp;/g, ' ');
+  content: string;
 }
 
 function stripHtml(s: string): string {
   const withBreaks = s.replace(/<br\s*\/?>/gi, '\n').replace(/<p[^>]*>/gi, '\n');
-  return decodeEntities(withBreaks.replace(/<[^>]+>/g, '')).trim();
+  return withBreaks.replace(/<[^>]+>/g, '').trim();
 }
 
 async function fetchSub(spec: SubSpec): Promise<{ ok: boolean; items: RedditFeedItem[] }> {
-  const url = `https://www.reddit.com/r/${encodeURIComponent(spec.name)}/.rss?limit=${MAX_POSTS_PER_SUB}`;
+  const rssUrl = `https://www.reddit.com/r/${encodeURIComponent(spec.name)}/.rss?limit=${MAX_POSTS_PER_SUB}`;
+  const proxyUrl = `${RSS2JSON_API}?rss_url=${encodeURIComponent(rssUrl)}`;
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
   try {
-    const r = await fetch(url, {
+    const r = await fetch(proxyUrl, {
       signal: ctrl.signal,
       headers: {
-        // Reddit blocks the default Workers UA — use a browser-shaped one
-        // (Reddit's terms allow personal-use scraping from a clearly-identified
-        // UA at low frequency, which is what this is).
-        'user-agent': 'Mozilla/5.0 (compatible; pranithjain-dfir/1.0; +https://pranithjain.qzz.io)',
-        accept: 'application/atom+xml, application/rss+xml, application/xml;q=0.9, */*;q=0.5',
-        'accept-language': 'en-US,en;q=0.9',
+        'user-agent': 'pranithjain-dfir/1.0',
+        accept: 'application/json',
       },
-      redirect: 'follow',
-      cf: { cacheTtl: 1800, cacheEverything: true },
     });
     if (!r.ok) return { ok: false, items: [] };
-    const xml = await r.text();
+    const body = (await r.json()) as { status?: string; items?: Rss2JsonItem[] };
+    if (body.status !== 'ok' || !Array.isArray(body.items)) return { ok: false, items: [] };
+
     const cutoff = Date.now() - MAX_POST_AGE_DAYS * 86_400_000;
-    const entries = parseAtomEntries(xml).slice(0, MAX_POSTS_PER_SUB);
-    const items: RedditFeedItem[] = entries
-      .filter((e) => e.title && e.link && e.pub_date)
-      // Drop posts older than the 7d window. RSS feeds occasionally surface
-      // "top of all time" entries that drown out current activity.
+    const items: RedditFeedItem[] = body.items
+      .filter((e) => e.title && e.link && e.pubDate)
       .filter((e) => {
-        const t = Date.parse(e.pub_date);
+        const t = Date.parse(e.pubDate);
         return !Number.isFinite(t) || t >= cutoff;
       })
+      .slice(0, MAX_POSTS_PER_SUB)
       .map((e) => ({
         sub: spec.name,
         sub_label: spec.label,
@@ -215,9 +161,9 @@ async function fetchSub(spec: SubSpec): Promise<{ ok: boolean; items: RedditFeed
         sub_blurb: spec.blurb,
         title: e.title.slice(0, 240),
         link: e.link,
-        pub_date: e.pub_date,
-        text: e.content.slice(0, MAX_TEXT_LEN),
-        author: e.author,
+        pub_date: new Date(e.pubDate).toISOString(),
+        text: stripHtml(e.content ?? '').slice(0, MAX_TEXT_LEN),
+        author: (e.author ?? '').replace(/^\/u\//, ''),
       }));
     return { ok: true, items };
   } catch {
@@ -227,8 +173,33 @@ async function fetchSub(spec: SubSpec): Promise<{ ok: boolean; items: RedditFeed
   }
 }
 
-/** Pure-data fetcher exposed for snapshot composition. */
-export async function fetchRedditFeed(): Promise<RedditFeedResponse> {
+/**
+ * Try reading the Reddit feed from KV (pushed by GitHub Action).
+ * Returns null if no data or any error occurs.
+ */
+async function readKvFeed(kv: KVNamespace | undefined): Promise<RedditFeedResponse | null> {
+  if (!kv) return null;
+  try {
+    const raw = await kv.get(REDDIT_FEED_KV_KEY, 'json');
+    if (!raw) return null;
+    const data = raw as unknown as RedditFeedResponse;
+    if (!Array.isArray(data.items) || !Array.isArray(data.subs)) return null;
+    return data;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Pure-data fetcher exported for snapshot composition.
+ *
+ * Reads from KV first (GitHub Action push), falls back to direct RSS2JSON
+ * fetch (which will likely fail since Reddit blocks Cloudflare Workers).
+ */
+export async function fetchRedditFeed(kv?: KVNamespace | undefined): Promise<RedditFeedResponse> {
+  const fromKv = await readKvFeed(kv);
+  if (fromKv) return fromKv;
+
   const warnings: string[] = [];
   const subStatus: RedditFeedResponse['subs'] = [];
   const allItems: RedditFeedItem[] = [];
@@ -246,7 +217,6 @@ export async function fetchRedditFeed(): Promise<RedditFeedResponse> {
   }
   await Promise.all(Array.from({ length: CONCURRENCY }, worker));
 
-  // Newest-first across all subs.
   allItems.sort((a, b) => b.pub_date.localeCompare(a.pub_date));
 
   return {
@@ -257,8 +227,7 @@ export async function fetchRedditFeed(): Promise<RedditFeedResponse> {
   };
 }
 
-// Bumped v2 → v3 alongside MAX_POSTS_PER_SUB 8→25 and the 7d cutoff filter.
-export const REDDIT_FEED_CACHE_KEY = 'https://reddit-feed-cache.internal/v4-7d-100pc';
+export const REDDIT_FEED_CACHE_KEY = 'https://reddit-feed-cache.internal/v9-kv';
 
 export async function redditFeedHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;
@@ -266,8 +235,35 @@ export async function redditFeedHandler(c: Context<{ Bindings: Env }>): Promise<
   const cached = await cache.match(cacheKey);
   if (cached) return new Response(cached.body, cached);
 
-  const body = await fetchRedditFeed();
+  const body = await fetchRedditFeed(c.env.KV_CACHE);
   const response = c.json(body, 200, { 'Cache-Control': `public, max-age=${CACHE_TTL}` });
   c.executionCtx.waitUntil(cache.put(cacheKey, response.clone()));
   return response;
+}
+
+/**
+ * POST /api/v1/admin/reddit-feed — accepts a pre-fetched RedditFeedResponse
+ * payload from the GitHub Action feeder and stores it in KV. The public
+ * handler reads KV next time it serves the endpoint.
+ */
+export async function pushRedditFeedHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const gate = requireAdmin(c);
+  if ('error' in gate) return gate.error;
+
+  if (!c.env.KV_CACHE) {
+    return c.json({ error: 'KV_CACHE not bound' }, 500);
+  }
+
+  const body = (await c.req.json().catch(() => null)) as RedditFeedResponse | null;
+  if (!body || !Array.isArray(body.items) || !Array.isArray(body.subs)) {
+    return c.json({ error: 'invalid payload: expected RedditFeedResponse shape' }, 400);
+  }
+
+  await c.env.KV_CACHE.put(REDDIT_FEED_KV_KEY, JSON.stringify(body));
+
+  const cache = (caches as unknown as { default: Cache }).default;
+  const cacheKey = new Request(REDDIT_FEED_CACHE_KEY);
+  c.executionCtx.waitUntil(cache.delete(cacheKey).catch(() => {}));
+
+  return c.json({ ok: true, items: body.items.length, subs: body.subs.length });
 }

@@ -147,6 +147,13 @@ export class SsrfError extends Error {
 }
 
 export async function pinnedFetch(rawUrl: string, init?: RequestInit): Promise<Response> {
+  // `pinnedFetch` validates + pins ONLY the first hostname. Letting the
+  // runtime follow a 3xx would re-resolve the redirect target with no pin and
+  // no public-IP re-validation — an SSRF bypass. Refuse the unsafe combination
+  // outright; callers that must follow redirects use `pinnedFetchFollow`.
+  if (init?.redirect === 'follow') {
+    throw new SsrfError(500, 'pinnedFetch cannot follow redirects safely — use pinnedFetchFollow');
+  }
   let parsed: URL;
   try {
     parsed = new URL(rawUrl);

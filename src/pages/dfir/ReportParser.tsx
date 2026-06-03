@@ -13,6 +13,7 @@ import {
   MapPin,
 } from 'lucide-react';
 import { CopyButton } from '../../components/dfir/CopyButton';
+import { adminAuthHeaders } from '../../lib/admin-token';
 
 interface ExtractedReport {
   extraction_id: string;
@@ -55,7 +56,7 @@ export default function ReportParser(): JSX.Element {
       const body = mode === 'url' ? { url: input } : { text: input };
       const res = await fetch('/api/v1/report/parse', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { ...adminAuthHeaders(), 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
       if (!res.ok) {

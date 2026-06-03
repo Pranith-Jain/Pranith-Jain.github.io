@@ -243,7 +243,7 @@ export default function DFIRPage(): JSX.Element {
           Three picks, one prescribed sequence. Skip the grid below if any of these match what's on your screen right
           now.
         </p>
-        <ol className="grid gap-3 sm:grid-cols-3">
+        <ol className="stagger grid gap-3 sm:grid-cols-3">
           {START_HERE.map((p, i) => (
             <li key={p.path}>
               <Link

@@ -317,6 +317,14 @@ export function parseTweetFeed(body: string, cap: number = CAP): IocEntry[] {
     if (!type) continue;
     const value = cols[3];
     if (!value) continue;
+    // TweetFeed CSV is unquoted and untrusted. Reject malformed IP values so a
+    // crafted field (spaces/quotes/newlines) can't poison the live-IOC set or,
+    // via blocklist-builder, inject rules into the downloadable firewall lists.
+    if (
+      type === 'ipv4' &&
+      !/^(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)$/.test(value)
+    )
+      continue;
     const tags = cols[4] || undefined;
     const reporter = cols[1] || undefined;
     const context = [reporter, tags].filter(Boolean).join(' | ') || undefined;

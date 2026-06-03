@@ -23,7 +23,17 @@ import { requireAdmin } from '../lib/admin-auth';
  */
 
 const KV_KEY = 'external-resources:dynamic';
+const RES_CACHE_KEY = 'https://external-resources-cache.internal/v1';
+const RES_CACHE_TTL = 30;
 const MAX_ENTRIES = 500;
+
+function resCacheApi(): Cache | null {
+  try {
+    return (caches as unknown as { default: Cache }).default;
+  } catch {
+    return null;
+  }
+}
 
 type ResourceKind = 'training' | 'lab' | 'tool' | 'dashboard' | 'directory' | 'samples' | 'community' | 'research';
 
@@ -56,13 +66,40 @@ type AdminCtx = Context<{ Bindings: Env }>;
 // never appears on the wire.
 
 async function readDynamic(kv: KVNamespace): Promise<ExternalResource[]> {
+  const cache = resCacheApi();
+  if (cache) {
+    try {
+      const r = await cache.match(RES_CACHE_KEY);
+      if (r) return (await r.json()) as ExternalResource[];
+    } catch {
+      /* fall through */
+    }
+  }
   const raw = await kv.get(KV_KEY, 'json');
   if (!raw || !Array.isArray(raw)) return [];
-  return raw as ExternalResource[];
+  const items = raw as ExternalResource[];
+  if (cache && items.length > 0) {
+    cache
+      .put(
+        RES_CACHE_KEY,
+        new Response(JSON.stringify(items), { headers: { 'cache-control': `max-age=${RES_CACHE_TTL}` } })
+      )
+      .catch(() => {});
+  }
+  return items;
 }
 
 async function writeDynamic(kv: KVNamespace, items: ExternalResource[]): Promise<void> {
   await kv.put(KV_KEY, JSON.stringify(items));
+  const cache = resCacheApi();
+  if (cache) {
+    cache
+      .put(
+        RES_CACHE_KEY,
+        new Response(JSON.stringify(items), { headers: { 'cache-control': `max-age=${RES_CACHE_TTL}` } })
+      )
+      .catch(() => {});
+  }
 }
 
 /**

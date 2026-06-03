@@ -3,6 +3,7 @@ import type { Env } from '../env';
 import { safeJsonBody } from '../lib/safe-body';
 import { ensureGraphTables, upsertNode, type NodeType } from './threat-graph';
 import { recordIocObservation } from './ioc-lifecycle';
+import { pinnedFetchFollow } from '../lib/ssrf-guard';
 import type { D1Database } from '@cloudflare/workers-types';
 
 interface FeedJob {
@@ -30,19 +31,101 @@ interface FeedRunHistory {
 }
 
 const JOBS_KV_KEY = 'feed-scheduler:jobs:v1';
+const JOBS_CACHE_KEY = 'https://feed-jobs-cache.internal/v1';
+const JOBS_CACHE_TTL = 30;
+const HISTORY_ALL_KV_KEY = 'feed-scheduler:history:all';
 const MAX_HISTORY = 20;
 
+function cacheApi(): Cache | null {
+  try {
+    return (caches as unknown as { default: Cache }).default;
+  } catch {
+    return null;
+  }
+}
+
+async function readJobsCached(): Promise<FeedJob[] | null> {
+  const cache = cacheApi();
+  if (!cache) return null;
+  try {
+    const r = await cache.match(JOBS_CACHE_KEY);
+    return r ? ((await r.json()) as FeedJob[]) : null;
+  } catch {
+    return null;
+  }
+}
+
+async function writeJobsCache(jobs: FeedJob[]): Promise<void> {
+  const cache = cacheApi();
+  if (!cache) return;
+  try {
+    await cache.put(
+      JOBS_CACHE_KEY,
+      new Response(JSON.stringify(jobs), {
+        headers: { 'content-type': 'application/json', 'cache-control': `max-age=${JOBS_CACHE_TTL}` },
+      })
+    );
+  } catch {
+    /* best-effort */
+  }
+}
+
 async function listJobs(kv: KVNamespace): Promise<FeedJob[]> {
+  const cached = await readJobsCached();
+  if (cached) return cached;
   const raw = await kv.get(JOBS_KV_KEY, 'json').catch(() => null);
-  return (raw as FeedJob[]) ?? [];
+  const jobs = (raw as FeedJob[]) ?? [];
+  await writeJobsCache(jobs);
+  return jobs;
+}
+
+async function invalidateJobsCache(): Promise<void> {
+  const cache = cacheApi();
+  if (!cache) return;
+  try {
+    await cache.delete(JOBS_CACHE_KEY);
+  } catch {
+    /* best-effort */
+  }
 }
 
 async function saveJobs(kv: KVNamespace, jobs: FeedJob[]): Promise<void> {
   await kv.put(JOBS_KV_KEY, JSON.stringify(jobs));
+  await writeJobsCache(jobs);
 }
 
 export type { FeedJob, FeedRunHistory };
 export { listJobs, saveJobs };
+
+/**
+ * Append a run to the combined history blob so getFeedJobsHistoryAllHandler
+ * can serve all histories with 1 KV read instead of 1 + N reads for N jobs.
+ * Reads the existing blob, updates the per-job array, and writes it back.
+ */
+async function readCombinedHistory(kv: KVNamespace): Promise<Record<string, FeedRunHistory[]>> {
+  try {
+    const raw = (await kv.get(HISTORY_ALL_KV_KEY, 'json')) as Record<string, FeedRunHistory[]> | null;
+    return raw ?? {};
+  } catch {
+    return {};
+  }
+}
+
+/**
+ * Update the combined history blob for a single job. Called after every per-job
+ * history write so getFeedJobsHistoryAllHandler reads 1 KV key instead of N+1.
+ * Reuses the already-computed hist array to avoid re-reading per-job history.
+ */
+async function writeCombinedHistoryForJob(kv: KVNamespace, jobId: string, hist: FeedRunHistory[]): Promise<void> {
+  try {
+    const raw = (await kv.get(HISTORY_ALL_KV_KEY, 'json').catch(() => null)) as Record<string, FeedRunHistory[]> | null;
+    const all = raw ?? {};
+    all[jobId] = hist;
+    await kv.put(HISTORY_ALL_KV_KEY, JSON.stringify(all));
+  } catch {
+    /* best-effort */
+  }
+}
 
 function now(): string {
   return new Date().toISOString();
@@ -233,6 +316,16 @@ export async function deleteFeedJobHandler(c: Context<{ Bindings: Env }>): Promi
 
   const historyKey = `feed-scheduler:history:${id}`;
   await kv.delete(historyKey).catch(() => {});
+  // Remove job's history from the combined blob
+  try {
+    const raw = (await kv.get(HISTORY_ALL_KV_KEY, 'json').catch(() => null)) as Record<string, FeedRunHistory[]> | null;
+    if (raw && raw[id]) {
+      delete raw[id];
+      await kv.put(HISTORY_ALL_KV_KEY, JSON.stringify(raw));
+    }
+  } catch {
+    /* best-effort */
+  }
 
   return c.json({ ok: true });
 }
@@ -256,7 +349,10 @@ export async function runFeedJobHandler(c: Context<{ Bindings: Env }>): Promise<
   await saveJobs(kv, jobs);
 
   try {
-    const res = await fetch(job.source_url, { signal: AbortSignal.timeout(15000) });
+    // SSRF-guarded: validates + pins the host and re-validates each redirect
+    // hop, blocking private/loopback/link-local/cloud-metadata targets even
+    // though this is admin-gated (defence-in-depth on the cron egress path).
+    const res = await pinnedFetchFollow(job.source_url, { signal: AbortSignal.timeout(15000) });
     if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`.trim());
 
     const text = await res.text();
@@ -283,6 +379,7 @@ export async function runFeedJobHandler(c: Context<{ Bindings: Env }>): Promise<
     const existing = (await kv.get(historyKey, 'json').catch(() => null)) as FeedRunHistory[] | null;
     const hist = [history, ...(existing ?? [])].slice(0, MAX_HISTORY);
     await kv.put(historyKey, JSON.stringify(hist));
+    await writeCombinedHistoryForJob(kv, id, hist);
 
     return c.json({ job, run: history });
   } catch (err) {
@@ -306,6 +403,7 @@ export async function runFeedJobHandler(c: Context<{ Bindings: Env }>): Promise<
     const existing = (await kv.get(historyKey, 'json').catch(() => null)) as FeedRunHistory[] | null;
     const hist = [history, ...(existing ?? [])].slice(0, MAX_HISTORY);
     await kv.put(historyKey, JSON.stringify(hist));
+    await writeCombinedHistoryForJob(kv, id, hist);
 
     return c.json({ job, run: history }, 200);
   }
@@ -327,12 +425,7 @@ export async function getFeedJobsHistoryAllHandler(c: Context<{ Bindings: Env }>
   const kv = c.env.KV_CACHE;
   if (!kv) return c.json({ error: 'KV not available' }, 503);
 
-  const jobs = await listJobs(kv);
-  const allHistory: Record<string, FeedRunHistory[]> = {};
-  for (const job of jobs) {
-    const h = (await kv.get(`feed-scheduler:history:${job.id}`, 'json').catch(() => null)) as FeedRunHistory[] | null;
-    if (h && h.length > 0) allHistory[job.id] = h;
-  }
+  const allHistory = await readCombinedHistory(kv);
   return c.json({ history: allHistory }, 200, { 'Cache-Control': 'no-store' });
 }
 
@@ -375,7 +468,8 @@ export async function autoRunFeedJobs(
   try {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 15000);
-    const res = await fetch(job.source_url, { signal: controller.signal });
+    // SSRF-guarded egress (re-validates + re-pins every redirect hop).
+    const res = await pinnedFetchFollow(job.source_url, { signal: controller.signal });
     clearTimeout(timeout);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
@@ -455,6 +549,7 @@ export async function autoRunFeedJobs(
   const existing = (await kv.get(historyKey, 'json').catch(() => null)) as FeedRunHistory[] | null;
   const hist = [history, ...(existing ?? [])].slice(0, MAX_HISTORY);
   await kv.put(historyKey, JSON.stringify(hist));
+  await writeCombinedHistoryForJob(kv, job.id, hist);
 
   return { ran: 1, saved: savedCount, skipped: due.length - 1 };
 }

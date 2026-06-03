@@ -2,6 +2,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { stealerParserJsonSchema, rawLogTextSchema } from '../lib/validation-schemas';
 import { validationError } from '../lib/api-error';
+import { pinnedFetchFollow, SsrfError } from '../lib/ssrf-guard';
 
 /**
  * Infostealer Log Parser — extract credentials and IOCs from stealer logs.
@@ -182,12 +183,18 @@ export async function stealerParserHandler(c: Context<{ Bindings: Env }>): Promi
 
       if (!text && parsed.data.url) {
         try {
-          const res = await fetch(parsed.data.url, {
+          // SSRF-safe: validates + pins the host and re-validates every redirect
+          // hop, blocking private/loopback/link-local/cloud-metadata targets.
+          const res = await pinnedFetchFollow(parsed.data.url, {
             signal: AbortSignal.timeout(15000),
             headers: { 'User-Agent': 'threat-intel-parser/1.0' },
           });
           if (res.ok) text = await res.text();
-        } catch {
+          else await res.body?.cancel().catch(() => {});
+        } catch (e) {
+          if (e instanceof SsrfError) {
+            return c.json({ error: 'blocked', message: e.detail }, 400);
+          }
           return c.json({ error: 'Failed to fetch URL' }, 400);
         }
       }

@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Wand2, Loader2, Download, Shield, FileCode, Database, AlertTriangle, Code } from 'lucide-react';
 import { CopyButton } from '../../components/dfir/CopyButton';
+import { adminAuthHeaders } from '../../lib/admin-token';
 
 type RuleType = 'yara' | 'sigma' | 'kql' | 'splunk' | 'lucene' | 'eql' | 'snort' | 'powershell' | 'dlp' | 'supplychain';
 
@@ -181,7 +182,7 @@ export default function AiRuleGenerator(): JSX.Element {
 
       const res = await fetch('/api/v1/rules/generate', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { ...adminAuthHeaders(), 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
       if (!res.ok) {

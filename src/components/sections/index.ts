@@ -9,3 +9,4 @@ export { Featured } from './Featured';
 export { Memberships } from './Memberships';
 export { Contact } from './Contact';
 export { Solutions } from './Solutions';
+export { Toolkits } from './Toolkits';

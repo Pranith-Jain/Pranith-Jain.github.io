@@ -29,7 +29,7 @@ import { runGraphIngest } from '../api/src/routes/graph-ingest';
 import { autoRunFeedJobs } from '../api/src/routes/feed-scheduler';
 import { enqueueAllFeeds } from '../api/src/routes/live-iocs';
 import type { D1Database } from '@cloudflare/workers-types';
-import { acquireCronLease } from './durable-objects/cron-lock';
+import { acquireCronLease, releaseCronLease } from './durable-objects/cron-lock';
 
 // Lease TTL for the cron single-flight gate. Generous so it covers the
 // worst-case job window (the briefing build runs well past the old 120s) —
@@ -67,6 +67,12 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
   if (lease.failOpen) {
     console.log(JSON.stringify({ job: 'cron-lock', cron, status: 'do_error_fail_open' }));
   }
+
+  // Release the single-flight lease as soon as the dispatched work settles, so a
+  // retry / next fire isn't blocked for the whole TTL. Chained via `.finally`
+  // onto each branch's waitUntil promise (per spec, the chain waits for the
+  // returned promise). A no-op when we failed open (no real token to match).
+  const releaseLease = (): Promise<void> => releaseCronLease(env, cron, lease.token ?? '');
 
   // === Case-study generator — piggybacks on the existing 3 crons ===
   const csNow = new Date(event.scheduledTime);
@@ -138,6 +144,7 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
       runDiscoveryNow(env as unknown as CaseStudyEnv, csNow)
         .catch(logCronFail('discovery'))
         .finally(() => logCronDone({ path: 'discovery' }))
+        .finally(releaseLease)
     );
     return;
   }
@@ -148,6 +155,7 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
       runPlannerNow(env as unknown as CaseStudyEnv, csNow)
         .catch(logCronFail('planner'))
         .finally(() => logCronDone({ path: 'planner' }))
+        .finally(releaseLease)
     );
     return;
   }
@@ -585,7 +593,9 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
         } catch (e) {
           logCronFail('retention-sweep')(e);
         }
-      })().catch(logCronFail('hourly-cron'))
+      })()
+        .catch(logCronFail('hourly-cron'))
+        .finally(releaseLease)
     );
     ctx.waitUntil(Promise.resolve().then(() => logCronDone({ path: 'hourly' })));
     return;
@@ -628,7 +638,9 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           );
         }
         logCronDone({ path: 'briefing-dedicated', type: 'landscape' });
-      })().catch(logCronFail('landscape-dedicated'))
+      })()
+        .catch(logCronFail('landscape-dedicated'))
+        .finally(releaseLease)
     );
     return;
   }
@@ -675,6 +687,8 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
         );
       }
       logCronDone({ path: 'briefing-dedicated', type });
-    })().catch(logCronFail('briefing-dedicated'))
+    })()
+      .catch(logCronFail('briefing-dedicated'))
+      .finally(releaseLease)
   );
 }

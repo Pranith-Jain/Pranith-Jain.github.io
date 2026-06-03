@@ -17,7 +17,7 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { pinnedFetch, SsrfError } from '../lib/ssrf-guard';
+import { pinnedFetchFollow, SsrfError } from '../lib/ssrf-guard';
 import { badRequest, internalError } from '../lib/api-error';
 import { z } from 'zod';
 
@@ -303,12 +303,14 @@ export async function openDirectoryScanHandler(c: Context<{ Bindings: Env }>): P
   const start = Date.now();
 
   try {
-    const res = await pinnedFetch(url, {
+    // pinnedFetchFollow re-validates + re-pins EVERY redirect hop, so a public
+    // first URL that 302s to a private/loopback/link-local/cloud-metadata
+    // target is blocked (the old pinnedFetch + redirect:'follow' did not).
+    const res = await pinnedFetchFollow(url, {
       headers: {
         'User-Agent': 'Mozilla/5.0 (compatible; DFIR-OpenDir/1.0; +https://pranithjain.qzz.io)',
         Accept: 'text/html,application/xhtml+xml,*/*',
       },
-      redirect: 'follow',
       signal: AbortSignal.timeout(15000),
     });
 

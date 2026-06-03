@@ -117,10 +117,15 @@ npx wrangler secret put RANSOMWARELIVE_API_KEY  # ransomware.live PRO (negotiati
 npx wrangler secret put MYTHREATINTEL_API_TOKEN # MyThreatIntel REST API (CVE/actor/victim primary; TG-scrape fallback)
 npx wrangler secret put GROQ_API_KEY            # case-study generation primary model (Workers AI fallback)
 
-# Scoped admin tokens (one per surface — no shared blast radius)
-npx wrangler secret put ADMIN_TOKEN             # case-study admin (X-Admin-Token header)
+# Admin tokens. NOTE: ADMIN_TOKEN is a SINGLE shared admin secret — it gates
+# every admin surface (case-study pipeline, external-resources, campaigns,
+# TAXII writes, API-key minting, telegram channels, intel-bundle inspect, and
+# the operator-only DFIR data + AI endpoints). Treat it as high-value; a leak
+# unlocks the whole admin plane. BRIEFINGS_ADMIN_TOKEN is the one genuinely
+# separate token (briefings build/backfill/sweep only).
+npx wrangler secret put ADMIN_TOKEN             # shared admin secret (Authorization: Bearer OR X-Admin-Token)
 npx wrangler secret put BRIEFINGS_ADMIN_TOKEN   # briefings build/backfill/sweep (Bearer)
-npx wrangler secret put RESOURCES_ADMIN_TOKEN   # external-resources curation (Bearer)
+npx wrangler secret put TELEGRAM_WEBHOOK_SECRET # REQUIRED if TELEGRAM_BOT_TOKEN is set — bot-webhook fails closed without it
 
 # Telegram CTI digest (optional)
 npx wrangler secret put TELEGRAM_BOT_TOKEN      # bot for hourly digest broadcasts

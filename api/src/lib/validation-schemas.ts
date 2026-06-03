@@ -594,9 +594,16 @@ export const actorEnrichStreamSchema = z.object({
 });
 
 export const campaignGeneratorSchema = z.object({
-  topic: z.string().min(3).max(200),
-  format: z.enum(['briefing', 'report', 'executive']).optional().default('briefing'),
-  context: z.string().max(5000).optional(),
+  input: z
+    .object({
+      actor: z.string().max(200).optional(),
+      sector: z.string().max(200).optional(),
+      ttps: z.string().max(3000).optional(),
+      iocs: z.array(z.string().max(300)).max(30).optional(),
+      notes: z.string().max(2000).optional(),
+    })
+    .optional()
+    .default({}),
 });
 
 export const automationRunSchema = z.object({

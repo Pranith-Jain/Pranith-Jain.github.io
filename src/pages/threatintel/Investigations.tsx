@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback, type FormEvent } from 'react';
 import { BackLink } from '../../components/BackLink';
+import { adminAuthHeaders } from '../../lib/admin-token';
 import {
   ArrowLeft,
   Plus,
@@ -112,7 +113,7 @@ function InvestigationsPage(): JSX.Element {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/v1/investigations');
+      const res = await fetch('/api/v1/investigations', { headers: adminAuthHeaders() });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = (await res.json()) as { investigations: Investigation[] };
       setInvestigations(data.investigations);
@@ -130,7 +131,7 @@ function InvestigationsPage(): JSX.Element {
 
   const refreshInvestigation = useCallback(async (id: string) => {
     try {
-      const res = await fetch(`/api/v1/investigations/${id}`);
+      const res = await fetch(`/api/v1/investigations/${id}`, { headers: adminAuthHeaders() });
       if (!res.ok) return;
       const data = (await res.json()) as { investigation: Investigation };
       setActiveInv(data.investigation);
@@ -146,7 +147,7 @@ function InvestigationsPage(): JSX.Element {
     try {
       const res = await fetch('/api/v1/investigations', {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
+        headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
         body: JSON.stringify({
           title: createForm.title.trim(),
           description: createForm.description,
@@ -173,7 +174,7 @@ function InvestigationsPage(): JSX.Element {
     try {
       const res = await fetch(`/api/v1/investigations/${id}`, {
         method: 'PATCH',
-        headers: { 'content-type': 'application/json' },
+        headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
         body: JSON.stringify({ status }),
       });
       if (!res.ok) return;
@@ -187,7 +188,7 @@ function InvestigationsPage(): JSX.Element {
 
   const deleteInvestigation = async (id: string) => {
     try {
-      await fetch(`/api/v1/investigations/${id}`, { method: 'DELETE' });
+      await fetch(`/api/v1/investigations/${id}`, { method: 'DELETE', headers: adminAuthHeaders() });
       setInvestigations((prev) => prev.filter((i) => i.id !== id));
       if (activeInv?.id === id) setActiveInv(null);
     } catch {
@@ -200,7 +201,7 @@ function InvestigationsPage(): JSX.Element {
     try {
       await fetch(`/api/v1/investigations/${activeInv.id}/observables`, {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
+        headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
         body: JSON.stringify({ value: obsValue.trim(), type: obsType }),
       });
       setObsValue('');
@@ -213,7 +214,10 @@ function InvestigationsPage(): JSX.Element {
   const removeObservable = async (obsId: string) => {
     if (!activeInv) return;
     try {
-      await fetch(`/api/v1/investigations/${activeInv.id}/observables/${obsId}`, { method: 'DELETE' });
+      await fetch(`/api/v1/investigations/${activeInv.id}/observables/${obsId}`, {
+        method: 'DELETE',
+        headers: adminAuthHeaders(),
+      });
       await refreshInvestigation(activeInv.id);
     } catch {
       /* ignore */
@@ -225,7 +229,7 @@ function InvestigationsPage(): JSX.Element {
     try {
       await fetch(`/api/v1/investigations/${activeInv.id}/tasks`, {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
+        headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
         body: JSON.stringify({ title: taskTitle.trim() }),
       });
       setTaskTitle('');
@@ -240,7 +244,7 @@ function InvestigationsPage(): JSX.Element {
     try {
       await fetch(`/api/v1/investigations/${activeInv.id}/tasks/${taskId}`, {
         method: 'PATCH',
-        headers: { 'content-type': 'application/json' },
+        headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
         body: JSON.stringify({ status }),
       });
       await refreshInvestigation(activeInv.id);
@@ -254,7 +258,7 @@ function InvestigationsPage(): JSX.Element {
     try {
       await fetch(`/api/v1/investigations/${activeInv.id}/notes`, {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
+        headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
         body: JSON.stringify({ message: noteText.trim() }),
       });
       setNoteText('');
@@ -269,7 +273,7 @@ function InvestigationsPage(): JSX.Element {
     try {
       const res = await fetch(`/api/v1/investigations/${activeInv.id}`, {
         method: 'PATCH',
-        headers: { 'content-type': 'application/json' },
+        headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
         body: JSON.stringify({ severity }),
       });
       if (!res.ok) return;

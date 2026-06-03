@@ -10,6 +10,15 @@ import type { Env } from '../env';
  */
 
 const KV_PREFIX = 'novelty:v1';
+const NOVELTY_CACHE_PREFIX = 'https://novelty-cache.internal/v1/';
+
+function noveltyCacheApi(): Cache | null {
+  try {
+    return (caches as unknown as { default: Cache }).default;
+  } catch {
+    return null;
+  }
+}
 
 /**
  * Compute a stable hash for dedup text.
@@ -40,6 +49,20 @@ export async function checkNovelty(
   // No store bound → treat everything as novel (fail-open, don't crash).
   if (!kv) return { novel: true, score: 1.0, first_seen: null };
   const key = `${KV_PREFIX}:${hash(text)}`;
+  // Check per-colo cache first — same hash queried repeatedly (e.g. UI polling)
+  // avoids hitting KV every time.
+  const cache = noveltyCacheApi();
+  if (cache) {
+    try {
+      const r = await cache.match(new Request(NOVELTY_CACHE_PREFIX + hash(text)));
+      if (r) {
+        const { first_seen, score } = (await r.json()) as { first_seen: string; score: number };
+        return { novel: false, score, first_seen };
+      }
+    } catch {
+      /* fall through */
+    }
+  }
   const existing = await kv.get(key);
 
   if (existing) {
@@ -47,7 +70,17 @@ export async function checkNovelty(
     const firstSeen = new Date(existing);
     const ageDays = (Date.now() - firstSeen.getTime()) / 86_400_000;
     const score = Math.max(0, 1 - ageDays / 90);
-    return { novel: false, score: Math.round(score * 100) / 100, first_seen: existing };
+    const result = { novel: false, score: Math.round(score * 100) / 100, first_seen: existing };
+    // Populate per-colo cache so repeated queries of the same hash skip KV
+    if (cache) {
+      cache
+        .put(
+          new Request(NOVELTY_CACHE_PREFIX + hash(text)),
+          new Response(JSON.stringify(result), { headers: { 'cache-control': 'max-age=60' } })
+        )
+        .catch(() => {});
+    }
+    return result;
   }
 
   if (markSeen) {

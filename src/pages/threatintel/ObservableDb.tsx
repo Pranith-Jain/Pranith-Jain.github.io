@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback, type FormEvent } from 'react';
 import { BackLink } from '../../components/BackLink';
+import { adminAuthHeaders } from '../../lib/admin-token';
 import {
   ArrowLeft,
   Search,
@@ -118,7 +119,7 @@ export default function ObservableDb(): JSX.Element {
       params.set('sort', 'updated_at');
       params.set('order', 'desc');
 
-      const res = await fetch(`/api/v1/observable-db?${params}`);
+      const res = await fetch(`/api/v1/observable-db?${params}`, { headers: adminAuthHeaders() });
       if (!res.ok) throw new Error('Failed to load');
       const data = (await res.json()) as { entries: ObservableEntry[]; total: number };
       setEntries(data.entries);
@@ -140,7 +141,7 @@ export default function ObservableDb(): JSX.Element {
     try {
       const res = await fetch('/api/v1/observable-db', {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
+        headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
         body: JSON.stringify({
           indicator: addIndicator.trim(),
           type: addType,
@@ -165,7 +166,7 @@ export default function ObservableDb(): JSX.Element {
 
   const deleteObservable = async (id: string) => {
     try {
-      const res = await fetch(`/api/v1/observable-db/${id}`, { method: 'DELETE' });
+      const res = await fetch(`/api/v1/observable-db/${id}`, { method: 'DELETE', headers: adminAuthHeaders() });
       if (!res.ok) return;
       setEntries((prev) => prev.filter((e) => e.id !== id));
       setTotal((prev) => prev - 1);
@@ -181,7 +182,7 @@ export default function ObservableDb(): JSX.Element {
     try {
       const res = await fetch(`/api/v1/observable-db/${selected.id}/notes`, {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
+        headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
         body: JSON.stringify({ text: noteText.trim(), author: noteAuthor.trim() || 'anonymous' }),
       });
       if (!res.ok) return;
@@ -197,7 +198,10 @@ export default function ObservableDb(): JSX.Element {
   const deleteNote = async (noteId: string) => {
     if (!selected) return;
     try {
-      const res = await fetch(`/api/v1/observable-db/${selected.id}/notes/${noteId}`, { method: 'DELETE' });
+      const res = await fetch(`/api/v1/observable-db/${selected.id}/notes/${noteId}`, {
+        method: 'DELETE',
+        headers: adminAuthHeaders(),
+      });
       if (!res.ok) return;
       const data = (await res.json()) as { entry: ObservableEntry };
       setSelected(data.entry);
@@ -211,7 +215,7 @@ export default function ObservableDb(): JSX.Element {
     try {
       const res = await fetch(`/api/v1/observable-db/${id}`, {
         method: 'PATCH',
-        headers: { 'content-type': 'application/json' },
+        headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
         body: JSON.stringify({ tags }),
       });
       if (!res.ok) return;

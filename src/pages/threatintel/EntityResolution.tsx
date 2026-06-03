@@ -16,6 +16,7 @@ import {
   Shield,
   AlertTriangle,
 } from 'lucide-react';
+import { adminAuthHeaders } from '../../lib/admin-token';
 
 // ── Types mirroring the backend API ──────────────────────────────────────
 
@@ -133,7 +134,9 @@ export default function EntityResolution(): JSX.Element {
   // ── PIR relevance ───────────────────────────────────────────────────
   async function fetchRelevantPirs(q: string) {
     try {
-      const res = await fetch(`/api/v1/threat-intel/pirs/relevant?q=${encodeURIComponent(q.trim())}`);
+      const res = await fetch(`/api/v1/threat-intel/pirs/relevant?q=${encodeURIComponent(q.trim())}`, {
+        headers: adminAuthHeaders(),
+      });
       if (res.ok) {
         const data = (await res.json()) as { results: PirRef[] };
         setRelevantPirs(data.results);

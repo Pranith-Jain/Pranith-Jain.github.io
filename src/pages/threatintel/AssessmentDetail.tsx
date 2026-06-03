@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Edit3, CheckCircle2, Archive, AlertTriangle } from 'lucide-react';
+import { adminAuthHeaders } from '../../lib/admin-token';
 
 interface Assessment {
   id: string;
@@ -39,7 +40,7 @@ export default function AssessmentDetail(): JSX.Element {
 
   useEffect(() => {
     if (!id) return;
-    fetch(`/api/v1/threat-intel/assessments/${id}`)
+    fetch(`/api/v1/threat-intel/assessments/${id}`, { headers: adminAuthHeaders() })
       .then((r) => {
         if (!r.ok) throw new Error('Not found');
         return r.json() as Promise<Assessment>;
@@ -55,7 +56,7 @@ export default function AssessmentDetail(): JSX.Element {
     try {
       const res = await fetch(`/api/v1/threat-intel/assessments/${assessment.id}`, {
         method: 'PUT',
-        headers: { 'content-type': 'application/json' },
+        headers: { ...adminAuthHeaders(), 'content-type': 'application/json' },
         body: JSON.stringify({ status: nextStatus }),
       });
       if (!res.ok) throw new Error('Transition failed');

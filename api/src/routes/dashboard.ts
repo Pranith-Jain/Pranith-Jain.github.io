@@ -24,10 +24,50 @@ interface DashboardData {
 }
 
 const WATCHLIST_KV_KEY = 'dashboard:watchlist';
+const WATCHLIST_CACHE_KEY = 'https://dashboard-watchlist-cache.internal/v1';
+const WATCHLIST_CACHE_TTL = 60;
+
+function cacheApi(): Cache | null {
+  try {
+    return (caches as unknown as { default: Cache }).default;
+  } catch {
+    return null;
+  }
+}
+
+async function readWatchlistCached(): Promise<Watchlist | null> {
+  const cache = cacheApi();
+  if (!cache) return null;
+  try {
+    const r = await cache.match(WATCHLIST_CACHE_KEY);
+    return r ? ((await r.json()) as Watchlist) : null;
+  } catch {
+    return null;
+  }
+}
+
+async function writeWatchlistCache(wl: Watchlist): Promise<void> {
+  const cache = cacheApi();
+  if (!cache) return;
+  try {
+    await cache.put(
+      WATCHLIST_CACHE_KEY,
+      new Response(JSON.stringify(wl), {
+        headers: { 'content-type': 'application/json', 'cache-control': `max-age=${WATCHLIST_CACHE_TTL}` },
+      })
+    );
+  } catch {
+    /* best-effort */
+  }
+}
 
 async function readWatchlist(kv: KVNamespace): Promise<Watchlist> {
+  const cached = await readWatchlistCached();
+  if (cached) return cached;
   const raw = await kv.get(WATCHLIST_KV_KEY, 'json').catch(() => null);
-  return (raw as Watchlist) ?? { domains: [], emails: [] };
+  const wl = (raw as Watchlist) ?? { domains: [], emails: [] };
+  await writeWatchlistCache(wl);
+  return wl;
 }
 
 async function readCache<T>(key: string): Promise<T | null> {
@@ -63,6 +103,7 @@ export async function updateWatchlistHandler(c: Context<{ Bindings: Env }>): Pro
     emails: (body.emails ?? []).slice(0, 20).map((e: unknown) => String(e).toLowerCase().trim()),
   };
   await kv.put(WATCHLIST_KV_KEY, JSON.stringify(wl));
+  await writeWatchlistCache(wl);
   return c.json({ ok: true, watchlist: wl });
 }
 

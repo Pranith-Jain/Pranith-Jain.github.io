@@ -23,10 +23,18 @@ import type { Env } from '../env';
 
 type AdminCtx = Context<{ Bindings: Env }>;
 
-function safeEqual(a: string, b: string): boolean {
-  if (a.length !== b.length) return false;
-  let mismatch = 0;
-  for (let i = 0; i < a.length; i += 1) mismatch |= a.charCodeAt(i) ^ b.charCodeAt(i);
+/**
+ * Constant-time string comparison. Folds the length check into the
+ * accumulator and always iterates over the SECRET (`b`) length, so a
+ * wrong-length candidate does not short-circuit and leak the secret's
+ * length via response timing. Out-of-range `a.charCodeAt(i)` is NaN, and
+ * `NaN | 0 === 0`, so a shorter candidate still runs the full loop.
+ */
+export function safeEqual(a: string, b: string): boolean {
+  let mismatch = a.length ^ b.length;
+  for (let i = 0; i < b.length; i += 1) {
+    mismatch |= (a.charCodeAt(i) | 0) ^ b.charCodeAt(i);
+  }
   return mismatch === 0;
 }
 

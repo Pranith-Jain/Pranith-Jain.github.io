@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { getSiteUrl } from '../lib/site-config';
+import { safeEqual } from '../lib/admin-auth';
 import type { D1Database } from '@cloudflare/workers-types';
 
 /**
@@ -185,9 +186,11 @@ export async function taxiiObjectsHandler(c: Context<{ Bindings: Env }>): Promis
 /** POST /api/taxii2/collections/{id}/objects/ — Add STIX objects */
 export async function taxiiAddObjectsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   // Require admin token — TAXII write operations are admin-only.
+  // Constant-time compare (safeEqual) to avoid leaking the token via timing.
   const auth = c.req.header('Authorization') ?? '';
   const token = auth.startsWith('Bearer ') ? auth.slice(7) : '';
-  if (!token || token !== c.env.ADMIN_TOKEN) {
+  const required = c.env.ADMIN_TOKEN ?? '';
+  if (!required || !token || !safeEqual(token, required)) {
     return c.json({ title: 'Unauthorized', description: 'Valid admin token required' }, 401, {
       'Content-Type': TAXII_CONTENT_TYPE,
     });
@@ -414,14 +417,12 @@ async function getVulnerabilityObjects(db: D1Database, limit: number): Promise<R
 
 async function getBriefingObjects(db: D1Database, limit: number, env?: Env): Promise<Record<string, unknown>[]> {
   const rows = await db
-    .prepare(
-      'SELECT slug, title, type, published_at FROM briefings ORDER BY published_at DESC LIMIT ?'
-    )
+    .prepare('SELECT slug, title, type, published_at FROM briefings ORDER BY published_at DESC LIMIT ?')
     .bind(limit)
     .all<{ slug: string; title: string; type: string; published_at: string }>();
   return (rows.results ?? []).map((row) => {
     const siteUrl = env ? getSiteUrl(env) : 'https://pranithjain.qzz.io';
-    return ({
+    return {
       type: 'report',
       spec_version: '2.1',
       id: `report--${row.slug}`,
@@ -431,10 +432,8 @@ async function getBriefingObjects(db: D1Database, limit: number, env?: Env): Pro
       description: `${row.type} threat intelligence briefing`,
       report_types: ['threat-report'],
       published: row.published_at,
-      external_references: [
-        { source_name: 'briefing', url: `${siteUrl}/threatintel/briefings/${row.slug}` },
-      ],
-    } satisfies Record<string, unknown>);
+      external_references: [{ source_name: 'briefing', url: `${siteUrl}/threatintel/briefings/${row.slug}` }],
+    } satisfies Record<string, unknown>;
   });
 }
 

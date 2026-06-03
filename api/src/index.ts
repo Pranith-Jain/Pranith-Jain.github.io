@@ -46,8 +46,11 @@ import {
 import { cveRecentHandler } from './routes/cve-recent';
 import { cveThreatMapHandler } from './routes/cve-threat-map';
 import { phishingUrlsHandler } from './routes/phishing-urls';
+import { cryptoScamFeedHandler } from './routes/crypto-scam-feed';
+import { actorUsernamesHandler, actorUsernamesStatsHandler } from './routes/actor-usernames';
+import { phishingWordlistsHandler } from './routes/phishing-wordlists';
 import { malwareSamplesHandler } from './routes/malware-samples';
-import { redditFeedHandler } from './routes/reddit-feed';
+import { redditFeedHandler, pushRedditFeedHandler } from './routes/reddit-feed';
 import { xFeedHandler } from './routes/x-feed';
 import { feedStatusHandler } from './routes/feed-status';
 import { iocCorrelationHandler } from './routes/ioc-correlation';
@@ -252,6 +255,7 @@ import { errorHandler } from './lib/error-handler';
 import { serverTiming } from './lib/server-timing';
 import { requestId } from './lib/request-id';
 import { authenticate } from './lib/auth';
+import { requireAdminMiddleware } from './lib/admin-auth';
 import { validate, validateText } from './lib/validate';
 import { looseValidation } from './lib/loose-validate';
 import { createExternalResourceSchema, telegramCustomChannelSchema } from './lib/schemas';
@@ -348,6 +352,42 @@ app.use('/api/v1/*', requestLogger);
 app.use('/api/v1/*', rateLimit);
 app.use('/api/v1/*', apiVersion);
 app.use('/api/taxii2/*', rateLimit);
+
+// ── Operator-only gates ────────────────────────────────────────────────────
+// Sensitive DFIR working data (read AND write — no per-user ownership exists,
+// so an open read is a full data dump) and costly AI/paid endpoints require the
+// admin token (Authorization: Bearer ADMIN_TOKEN or X-Admin-Token). Registered
+// after the global /api/v1/* chain so these run after cors/csrf/auth/ratelimit
+// but before the route handler. Header-based "same-origin" trust is NOT an
+// authentication grant for these — the admin token is required regardless of
+// Origin. The bare path + `/*` cover the collection root and all sub-routes.
+const ADMIN_GATED_PREFIXES = [
+  '/api/v1/malware-vault',
+  '/api/v1/observable-db',
+  '/api/v1/investigations',
+  '/api/v1/threat-intel/assessments',
+  '/api/v1/threat-intel/pirs',
+  '/api/v1/watches',
+  '/api/v1/feed-scheduler',
+  '/api/v1/feed-scheduler-history',
+  '/api/v1/ct-monitor',
+  '/api/v1/dashboard',
+  '/api/v1/rag',
+  '/api/v1/copilot',
+];
+for (const base of ADMIN_GATED_PREFIXES) {
+  app.use(base, requireAdminMiddleware);
+  app.use(`${base}/*`, requireAdminMiddleware);
+}
+// Single-path / costly-AI gates. `/api/v1/rules/*` and `/api/v1/yara/*` match
+// the generate/validate sub-paths but NOT the public `/api/v1/rules` feed.
+app.use('/api/v1/graph/ingest', requireAdminMiddleware);
+app.use('/api/v1/threat-intel/novelty/batch', requireAdminMiddleware);
+app.use('/api/v1/report/parse', requireAdminMiddleware);
+app.use('/api/v1/ai-summary', requireAdminMiddleware);
+app.use('/api/v1/yara/*', requireAdminMiddleware);
+app.use('/api/v1/rules/generate', requireAdminMiddleware);
+app.use('/api/v1/rules/validate', requireAdminMiddleware);
 
 import {
   iocCheckSchema,
@@ -585,8 +625,13 @@ app.post(
 app.get('/api/v1/cve-recent', cveRecentHandler);
 app.get('/api/v1/cve-threat-map', cveThreatMapHandler);
 app.get('/api/v1/phishing-urls', phishingUrlsHandler);
+app.get('/api/v1/crypto-scam-feed', cryptoScamFeedHandler);
+app.get('/api/v1/actor-usernames', actorUsernamesHandler);
+app.get('/api/v1/actor-usernames/stats', actorUsernamesStatsHandler);
+app.get('/api/v1/phishing-wordlists', phishingWordlistsHandler);
 app.get('/api/v1/malware-samples', malwareSamplesHandler);
 app.get('/api/v1/reddit-feed', redditFeedHandler);
+app.post('/api/v1/admin/reddit-feed', pushRedditFeedHandler);
 app.get('/api/v1/x-feed', xFeedHandler);
 app.get('/api/v1/feed-status', feedStatusHandler);
 app.get('/api/v1/ioc-correlation', iocCorrelationHandler);

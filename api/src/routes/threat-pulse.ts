@@ -170,20 +170,20 @@ const REDDIT_SUBS = [
 async function fetchRedditPulse(out: Map<string, PulseEntity>): Promise<void> {
   const results = await Promise.allSettled(
     REDDIT_SUBS.map(async (sub) => {
-      const res = await fetch(`https://www.reddit.com/r/${sub}/.rss?limit=5`, {
+      const rssUrl = `https://www.reddit.com/r/${sub}/.rss?limit=5`;
+      const proxyUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+      const res = await fetch(proxyUrl, {
         headers: {
-          'user-agent': 'Mozilla/5.0 (compatible; pranithjain-threat-pulse/1.0)',
-          accept: 'application/atom+xml',
+          'user-agent': 'pranithjain-threat-pulse/1.0',
+          accept: 'application/json',
         },
         signal: AbortSignal.timeout(10_000),
       });
       if (!res.ok) return;
-      const xml = await res.text();
-      const entries = [...xml.matchAll(/<entry[\s\S]*?<\/entry>/g)];
-      for (const entry of entries) {
-        const title = /<title[^>]*>([\s\S]*?)<\/title>/.exec(entry[0])?.[1] ?? '';
-        const content = /<content[^>]*>([\s\S]*?)<\/content>/.exec(entry[0])?.[1] ?? '';
-        const blob = `${title} ${content}`.replace(/<[^>]+>/g, '');
+      const body = (await res.json()) as { status?: string; items?: Array<{ title?: string; content?: string }> };
+      if (body.status !== 'ok' || !Array.isArray(body.items)) return;
+      for (const item of body.items) {
+        const blob = `${item.title ?? ''} ${item.content ?? ''}`.replace(/<[^>]+>/g, '');
         classifyEntities(blob, `reddit:${sub}`, out);
       }
     })

@@ -6,6 +6,8 @@ import { MobileSidebarDrawer } from './MobileSidebarDrawer';
 import { getSidebarForSection } from '../data/sidebar-nav';
 import { SectionErrorBoundary } from './ErrorBoundary';
 import { useDataFetch } from '../hooks/useDataFetch';
+import { useScrollProgress } from '../hooks/useScrollProgress';
+import { BackToTop } from './ui/BackToTop';
 import { recordVisit } from '../lib/recentTools';
 
 const SECTION_META: Record<'dfir' | 'threatintel', { label: string; href: string; accent: string }> = {
@@ -189,6 +191,7 @@ export function AppShell({ mode, isDark, onToggleTheme, children }: AppShellProp
   // the hamburger in the TopBar. Closes automatically on every route
   // change so navigating via the drawer never leaves the panel
   // dangling in front of a different page.
+  const { showBackToTop, scrollToTop } = useScrollProgress();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   useEffect(() => {
     setMobileNavOpen(false);
@@ -211,7 +214,7 @@ export function AppShell({ mode, isDark, onToggleTheme, children }: AppShellProp
         onOpenMobileNav={() => setMobileNavOpen(true)}
         mobileNavOpen={mobileNavOpen}
       />
-      <div className="flex-1 flex min-h-0 max-w-[1500px] w-full mx-auto px-3 sm:px-6">
+      <div className="flex-1 flex min-h-0 max-w-[1500px] w-full mx-auto px-3 sm:px-6 gap-4">
         {sidebarConfig && <Sidebar config={sidebarConfig} />}
         {sidebarConfig && (
           <MobileSidebarDrawer open={mobileNavOpen} onClose={() => setMobileNavOpen(false)} config={sidebarConfig} />
@@ -223,6 +226,7 @@ export function AppShell({ mode, isDark, onToggleTheme, children }: AppShellProp
         </main>
       </div>
       <AppStatusBar mode={mode} />
+      <BackToTop visible={showBackToTop} onClick={scrollToTop} />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { api } from '../../lib/api-client';
+import { adminAuthHeaders } from '../../lib/admin-token';
 import { ArrowLeft, Shield, Globe, AlertTriangle, Loader2, Plus, Trash2, RefreshCw, Eye } from 'lucide-react';
 import { CopyButton } from '../../components/dfir/CopyButton';
 
@@ -46,7 +47,9 @@ export default function CtMonitor(): JSX.Element {
     setLoading(true);
     setError(null);
     try {
-      const data = await api.get<{ watched?: WatchedDomain[] }>('/api/v1/ct-monitor/watched');
+      const data = await api.get<{ watched?: WatchedDomain[] }>('/api/v1/ct-monitor/watched', {
+        headers: adminAuthHeaders(),
+      });
       setWatched(data.watched ?? []);
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
@@ -59,7 +62,8 @@ export default function CtMonitor(): JSX.Element {
     setCertsLoading(true);
     try {
       const data = await api.get<{ certs?: CertInfo[] }>(
-        `/api/v1/ct-monitor/certs?domain=${encodeURIComponent(domain)}&days=30`
+        `/api/v1/ct-monitor/certs?domain=${encodeURIComponent(domain)}&days=30`,
+        { headers: adminAuthHeaders() }
       );
       setCerts(data.certs ?? []);
     } catch (err) {
@@ -74,10 +78,14 @@ export default function CtMonitor(): JSX.Element {
     setLoading(true);
     setError(null);
     try {
-      await api.post('/api/v1/ct-monitor/watch', {
-        domain: newDomain.trim(),
-        alert_types: ['new_subdomain', 'suspicious_name', 'wildcard', 'short_validity'],
-      });
+      await api.post(
+        '/api/v1/ct-monitor/watch',
+        {
+          domain: newDomain.trim(),
+          alert_types: ['new_subdomain', 'suspicious_name', 'wildcard', 'short_validity'],
+        },
+        { headers: adminAuthHeaders() }
+      );
       setNewDomain('');
       await fetchWatched();
     } catch (err) {
@@ -90,7 +98,9 @@ export default function CtMonitor(): JSX.Element {
   const removeDomain = useCallback(
     async (domain: string) => {
       try {
-        await api.delete(`/api/v1/ct-monitor/watch/${encodeURIComponent(domain)}`);
+        await api.delete(`/api/v1/ct-monitor/watch/${encodeURIComponent(domain)}`, {
+          headers: adminAuthHeaders(),
+        });
         await fetchWatched();
         if (selectedDomain === domain) {
           setSelectedDomain(null);

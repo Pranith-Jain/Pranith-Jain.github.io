@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
 import { ArrowLeft, FileText, ChevronRight } from 'lucide-react';
+import { adminAuthHeaders } from '../../lib/admin-token';
 
 interface Assessment {
   id: string;
@@ -36,7 +37,7 @@ export default function Assessments(): JSX.Element {
 
   useEffect(() => {
     const params = statusFilter ? `?status=${statusFilter}` : '';
-    fetch(`/api/v1/threat-intel/assessments${params}`)
+    fetch(`/api/v1/threat-intel/assessments${params}`, { headers: adminAuthHeaders() })
       .then((r) => r.json() as Promise<{ results: Assessment[] }>)
       .then((d) => setData(d.results))
       .catch((e) => setError(e.message))

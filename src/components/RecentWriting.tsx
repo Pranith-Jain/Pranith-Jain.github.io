@@ -58,6 +58,32 @@ function loadEntries(): Entry[] {
   return [...cases, ...research].sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1)).slice(0, 4);
 }
 
+export function RecentWritingSkeleton(): JSX.Element {
+  return (
+    <section className="mt-20 scroll-mt-24">
+      <div className="mb-8 max-w-3xl">
+        <div className="mb-3 h-4 w-20 rounded bg-slate-200 dark:bg-slate-800 animate-pulse" />
+        <div className="h-10 w-64 rounded bg-slate-200 dark:bg-slate-800 animate-pulse" />
+        <div className="mt-4 h-5 w-96 rounded bg-slate-200 dark:bg-slate-800 animate-pulse" />
+      </div>
+      <div className="grid gap-4 md:grid-cols-2">
+        {[1, 2, 3, 4].map((i) => (
+          <div
+            key={i}
+            className="flex h-full flex-col gap-3 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5"
+          >
+            <div className="h-4 w-28 rounded bg-slate-200 dark:bg-slate-800 animate-pulse" />
+            <div className="h-6 w-3/4 rounded bg-slate-200 dark:bg-slate-800 animate-pulse" />
+            <div className="h-4 w-full rounded bg-slate-200 dark:bg-slate-800 animate-pulse" />
+            <div className="h-4 w-2/3 rounded bg-slate-200 dark:bg-slate-800 animate-pulse" />
+            <div className="mt-auto h-4 w-32 rounded bg-slate-200 dark:bg-slate-800 animate-pulse" />
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export function RecentWriting(): JSX.Element | null {
   const entries = useMemo(() => loadEntries(), []);
   if (entries.length === 0) return null;

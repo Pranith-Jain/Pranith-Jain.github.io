@@ -62,7 +62,13 @@ export class LiveFeedDO {
     this.ipConnections.set(clientIp, ipCount + 1);
     server.accept();
 
+    // Guard against double cleanup: a socket fires BOTH 'close' and 'error',
+    // and both listeners point here. Without the flag the per-IP counter is
+    // decremented twice, corrupting the accounting and easing slot capture.
+    let cleaned = false;
     const cleanup = () => {
+      if (cleaned) return;
+      cleaned = true;
       this.sessions.delete(sessionId);
       const remaining = this.ipConnections.get(clientIp) ?? 1;
       if (remaining <= 1) this.ipConnections.delete(clientIp);

@@ -33,8 +33,18 @@ interface ObservableEntry {
 }
 
 const KV_KEY = 'observable-db:v2';
+const OBS_CACHE_KEY = 'https://observable-db-cache.internal/v2';
+const OBS_CACHE_TTL = 30;
 const VALID_TLPS = ['white', 'green', 'amber', 'red'] as const;
 const VALID_TYPES = ['ip', 'domain', 'url', 'hash', 'email', 'unknown'] as const;
+
+function cacheApi(): Cache | null {
+  try {
+    return (caches as unknown as { default: Cache }).default;
+  } catch {
+    return null;
+  }
+}
 
 function now(): string {
   return new Date().toISOString();
@@ -45,12 +55,43 @@ function uuid(): string {
 }
 
 async function loadAll(kv: KVNamespace): Promise<ObservableEntry[]> {
+  const cache = cacheApi();
+  if (cache) {
+    try {
+      const r = await cache.match(OBS_CACHE_KEY);
+      if (r) return (await r.json()) as ObservableEntry[];
+    } catch {
+      /* fall through */
+    }
+  }
   const raw = await kv.get(KV_KEY, 'json').catch(() => null);
-  return (raw as ObservableEntry[]) ?? [];
+  const entries = (raw as ObservableEntry[]) ?? [];
+  if (cache && entries.length > 0) {
+    cache
+      .put(
+        OBS_CACHE_KEY,
+        new Response(JSON.stringify(entries), {
+          headers: { 'cache-control': `max-age=${OBS_CACHE_TTL}` },
+        })
+      )
+      .catch(() => {});
+  }
+  return entries;
 }
 
 async function saveAll(kv: KVNamespace, entries: ObservableEntry[]): Promise<void> {
   await kv.put(KV_KEY, JSON.stringify(entries));
+  const cache = cacheApi();
+  if (cache) {
+    cache
+      .put(
+        OBS_CACHE_KEY,
+        new Response(JSON.stringify(entries), {
+          headers: { 'cache-control': `max-age=${OBS_CACHE_TTL}` },
+        })
+      )
+      .catch(() => {});
+  }
 }
 
 export async function listObservablesHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
