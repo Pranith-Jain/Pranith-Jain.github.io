@@ -2,6 +2,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { WRITEUP_SOURCES, type WriteupSourceSpec } from '../lib/writeup-sources';
 import { concurrentMap } from '../lib/concurrent-map';
+import { safeIso } from '../lib/safe-date';
 
 /**
  * Source labels marked as `tier: 'signal'`. Computed once at module load
@@ -174,7 +175,7 @@ function parseRss(body: string, kind: Writeup['kind'], sourceLabel: string): Wri
 
     if (!title || !link) continue;
     const summary = contentEncoded || description;
-    const isoPublished = pubDate ? new Date(pubDate).toISOString() : undefined;
+    const isoPublished = safeIso(pubDate);
 
     out.push({
       title: title.trim(),
@@ -216,7 +217,7 @@ function parseAtom(body: string, kind: Writeup['kind'], sourceLabel: string): Wr
 
     if (!title || !link) continue;
     const body = content || summary;
-    const isoPublished = dateRaw ? new Date(dateRaw).toISOString() : undefined;
+    const isoPublished = safeIso(dateRaw);
 
     out.push({
       title: title.trim(),

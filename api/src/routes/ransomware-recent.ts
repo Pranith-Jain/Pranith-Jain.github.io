@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { classifySector, type Sector } from '../lib/sector-classifier';
+import { safeIsoOr } from '../lib/safe-date';
 import { fetchMythreatintelRansomwareVictims } from '../lib/mythreatintel-parser';
 import { fetchAFRansomwareVictims } from '../lib/andreafortuna-feeds';
 import { fetchMtiSource, type MtiRansomwareClaim } from '../lib/mythreatintel-api';
@@ -171,8 +172,9 @@ async function fetchRansomfeedVictims(): Promise<RansomwareVictim[]> {
       // We already stripped tags, so match the plain-text form.
       const groupMatch = /Ransomware group called\s+([^\s,]+)/i.exec(cleanedDesc);
       const group = (groupMatch?.[1] ?? 'unknown').trim().toLowerCase();
-      const discovered = pub ? new Date(pub).toISOString() : new Date().toISOString();
-      if (Number.isNaN(Date.parse(discovered))) continue;
+      // safeIsoOr never throws on a junk date (the old `new Date(pub).toISOString()`
+      // did, dropping the whole feed); falls back to now() for missing/unparseable.
+      const discovered = safeIsoOr(pub);
       items.push({
         victim,
         group,

@@ -119,12 +119,15 @@ export const cveLookupSchema = z
 
 // ── MITRE Technique ──────────────────────────────────────────────
 
+// The handler (mitre.ts mitreTechniqueHandler) reads `technique` (with `t`/`q`
+// aliases) and does its own required + format validation. The prior schema
+// required `id`, which the handler never reads, so every `?technique=T1059`
+// was 400'd by this middleware before the handler ran. Keep these optional and
+// let the handler own the required/format checks.
 export const mitreTechniqueSchema = z.object({
-  id: z
-    .string()
-    .min(1, 'technique ID is required')
-    .max(20, 'technique ID too long')
-    .regex(/^T\d{4}(\.\d{3})?$/, 'invalid MITRE technique format — expected TNNNN or TNNNN.NNN'),
+  technique: z.string().max(20).optional(),
+  t: z.string().max(20).optional(),
+  q: z.string().max(20).optional(),
 });
 
 // ── Search Endpoints ─────────────────────────────────────────────
@@ -162,9 +165,12 @@ export const waybackSchema = z.object({
 
 // ── Google Dorks ─────────────────────────────────────────────────
 
+// The handler (google-dorks.ts) reads `q` (required, self-validated) and `num`
+// (parsed + clamped itself). The prior schema required `domain`/`type`, which
+// the handler never reads, so every `?q=...` was 400'd before the handler ran.
 export const googleDorksSchema = z.object({
-  domain: domainPattern,
-  type: z.enum(['files', 'login', 'sensitive', 'all']).optional().default('all'),
+  q: z.string().min(1).max(500).optional(),
+  num: z.string().max(4).optional(),
 });
 
 // ── Crypto Trace ─────────────────────────────────────────────────

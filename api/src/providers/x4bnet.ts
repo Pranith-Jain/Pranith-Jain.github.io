@@ -1,6 +1,9 @@
 import type { ProviderAdapter, ProviderResult } from './types';
+import { parseCidrRanges, ipv4InRanges } from '../lib/cidr';
 
-const supports = new Set(['ipv4', 'ipv6']);
+// The X4BNet feed is IPv4 CIDR ranges only, so this adapter resolves IPv4
+// indicators. (There's no IPv6 feed wired here.)
+const supports = new Set(['ipv4']);
 const FEED = 'https://raw.githubusercontent.com/X4BNet/lists_vpn/main/output/vpn/ipv4.txt';
 const CACHE_TTL_SECONDS = 3600;
 
@@ -25,18 +28,15 @@ export const x4bnet: ProviderAdapter = async (indicator, _env, signal) => {
     if (!res.ok) return base('error', { error: `${res.status} ${res.statusText}`.trim() });
     const text = await res.text();
 
-    const ips = new Set<string>();
-    for (const line of text.split(/\r?\n/)) {
-      const t = line.trim();
-      if (t && !t.startsWith('#')) ips.add(t);
-    }
-
-    const hit = ips.has(indicator.value);
+    // The feed is CIDR ranges (e.g. 2.56.16.0/22), so expand to integer ranges
+    // and test containment — a bare-IP Set.has() never matches a CIDR string.
+    const ranges = parseCidrRanges(text);
+    const hit = ipv4InRanges(indicator.value, ranges);
     return base('ok', {
       score: hit ? 70 : 0,
       verdict: hit ? 'suspicious' : 'clean',
       tags: hit ? ['vpn-endpoint', 'x4bnet-vpn'] : [],
-      raw_summary: { listed: hit, feed_size: ips.size, source: 'X4BNet VPN list' },
+      raw_summary: { listed: hit, feed_size: ranges.length, source: 'X4BNet VPN list' },
     });
   } catch (err) {
     return base('error', { error: err instanceof Error ? err.message : String(err) });

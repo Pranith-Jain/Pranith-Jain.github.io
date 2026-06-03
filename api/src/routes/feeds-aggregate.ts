@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { fetchResilient } from '../lib/fetch-resilient';
+import { safeIso } from '../lib/safe-date';
 import { buildMtiRansomwareRss, MTI_RANSOMWARE_FEED_PATH } from './mti-ransomware-rss';
 import { buildRansomwareMergedRss, RANSOMWARE_MERGED_FEED_PATH } from './ransomware-merged-rss';
 
@@ -265,7 +266,7 @@ function parseFeedBody(body: string, sourceUrl: string, host: string, perSource:
     if (!link) link = pickTag(inner, 'guid');
     const description = pickTag(inner, 'description') || pickTag(inner, 'summary') || pickTag(inner, 'content');
     const pubRaw = pickTag(inner, 'pubDate') || pickTag(inner, 'updated') || pickTag(inner, 'published') || '';
-    const pubDate = pubRaw ? new Date(pubRaw).toISOString() : '';
+    const pubDate = safeIso(pubRaw) ?? '';
     const guid = pickTag(inner, 'guid') || pickTag(inner, 'id') || link;
     items.push({
       source: host,

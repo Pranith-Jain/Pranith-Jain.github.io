@@ -6,6 +6,14 @@ main = "src/index.ts"
 compatibility_date = "2025-04-01"
 compatibility_flags = ["nodejs_compat"]
 
+[vars]
+# Test runtime only. The external-read API-key gate (auth.ts) is a PRODUCTION
+# behavior; the SELF.fetch route tests predate it and exercise handlers as
+# public reads, so restore keyless reads here. Prod (wrangler.jsonc) does NOT
+# set this, so production reads stay gated. The gate itself is covered by a
+# dedicated unit test (test/lib/auth-gate.test.ts).
+OPEN_PUBLIC_READS = "true"
+
 # NOTE: id "test-only-not-deployed" is a placeholder. The vitest-pool-workers
 # test pool uses in-memory KV regardless. Real production id gets set when
 # Plan 1 Task 5 (deferred — Cloudflare provisioning) is completed.
