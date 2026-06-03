@@ -4,6 +4,7 @@ import { Sidebar } from './Sidebar';
 import { TopBar } from './TopBar';
 import { MobileSidebarDrawer } from './MobileSidebarDrawer';
 import { getSidebarForSection } from '../data/sidebar-nav';
+import { SectionErrorBoundary } from './ErrorBoundary';
 import { useDataFetch } from '../hooks/useDataFetch';
 import { recordVisit } from '../lib/recentTools';
 
@@ -216,7 +217,9 @@ export function AppShell({ mode, isDark, onToggleTheme, children }: AppShellProp
           <MobileSidebarDrawer open={mobileNavOpen} onClose={() => setMobileNavOpen(false)} config={sidebarConfig} />
         )}
         <main id="main-content" key={pageKey} className="flex-1 min-w-0">
-          <div className="animate-fade-in-up">{children}</div>
+          <div className="animate-fade-in-up">
+            <SectionErrorBoundary sectionName={section.label}>{children}</SectionErrorBoundary>
+          </div>
         </main>
       </div>
       <AppStatusBar mode={mode} />

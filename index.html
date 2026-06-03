@@ -80,12 +80,12 @@
          Type system (2026-05): Bricolage Grotesque (display, characterful grotesque),
          Hanken Grotesk (body, clean + readable), JetBrains Mono (IOC/terminal data).
          Replaced the generic Inter/Poppins/Space Grotesk trio. -->
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
-    />
+    <!-- No `rel=preload as=style` here: the media="print" + onload swap below
+         already fetches the CSS off the render-blocking path, and a preload
+         pointing at a print-media stylesheet is never "used" within the
+         browser's window — it fired a console warning and a duplicate fetch.
+         preconnect (above) keeps the connection warm; font-display:swap (in
+         the css2 request) covers FOIT. -->
     <link
       href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"

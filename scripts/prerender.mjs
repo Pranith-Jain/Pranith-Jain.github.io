@@ -234,7 +234,6 @@ const ROUTES = [
   '/threatintel/signal',
   '/threatintel/research',
   '/threatintel/cve-list',
-  '/threatintel/cve-threat-map',
   '/threatintel/threat-map',
   '/threatintel/deepdarkcti',
   '/threatintel/ransomware-live',
