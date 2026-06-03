@@ -307,39 +307,42 @@ export default function DFIRPage(): JSX.Element {
           specific tools the case exercised, with a sentence of context.
           Anchored to the prose body of the case study, not telemetry. */}
       <section>
-        <div className="flex items-baseline justify-between mb-5">
-          <h2 className="font-display font-bold text-xl text-slate-900 dark:text-slate-100">Used in real cases</h2>
-        </div>
-        <ul className="space-y-3">
-          {TOOL_CASES.map((tc) => (
-            <li
-              key={tc.caseSlug}
-              className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-4"
-            >
-              <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1.5">
-                <Link
-                  to={tc.caseSlug}
-                  className="font-display font-semibold text-base text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400"
-                >
-                  {tc.caseTitle}
-                </Link>
-                <span className="text-[11px] font-mono text-slate-500">{tc.caseSlug}</span>
-              </div>
-              <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-2">{tc.contribution}</p>
-              <div className="flex flex-wrap gap-1.5">
-                {tc.tools.map((t) => (
+        <details>
+          <summary className="cursor-pointer rounded font-display text-xl font-bold text-slate-900 hover:text-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 dark:text-slate-100 dark:hover:text-brand-400">
+            Used in real cases{' '}
+            <span className="font-mono text-[11px] font-normal text-slate-500">({TOOL_CASES.length})</span>
+          </summary>
+          <ul className="mt-5 space-y-3">
+            {TOOL_CASES.map((tc) => (
+              <li
+                key={tc.caseSlug}
+                className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-4"
+              >
+                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1.5">
                   <Link
-                    key={t.path}
-                    to={t.path}
-                    className="text-[11px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/60 hover:text-brand-600 dark:hover:text-brand-400"
+                    to={tc.caseSlug}
+                    className="font-display font-semibold text-base text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400"
                   >
-                    {t.label}
+                    {tc.caseTitle}
                   </Link>
-                ))}
-              </div>
-            </li>
-          ))}
-        </ul>
+                  <span className="text-[11px] font-mono text-slate-500">{tc.caseSlug}</span>
+                </div>
+                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-2">{tc.contribution}</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {tc.tools.map((t) => (
+                    <Link
+                      key={t.path}
+                      to={t.path}
+                      className="text-[11px] font-mono px-2 py-1 rounded border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-brand-500/60 hover:text-brand-600 dark:hover:text-brand-400"
+                    >
+                      {t.label}
+                    </Link>
+                  ))}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </details>
       </section>
 
       {/* Utilities & converters — duplicative of well-known online tools
