@@ -37,7 +37,7 @@ export function Featured({ featuredArticles }: FeaturedProps) {
           >
             <div className="flex items-center justify-between">
               <div
-                className={`grid h-12 w-12 place-items-center rounded-xl font-black text-lg ${
+                className={`grid h-12 w-12 place-items-center rounded-xl font-bold text-lg ${
                   article.category === 'Security Specialist'
                     ? 'bg-slate-50 text-slate-700 dark:bg-slate-800 dark:text-slate-300'
                     : 'bg-brand-50 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300'

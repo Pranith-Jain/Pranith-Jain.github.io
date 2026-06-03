@@ -56,7 +56,7 @@ export function Memberships({ memberships }: MembershipsProps) {
             >
               <div className="flex items-center justify-between">
                 <div
-                  className={`grid h-12 w-12 place-items-center rounded-xl font-black text-lg ${colors.bg} ${colors.text} ${colors.darkBg} ${colors.darkText}`}
+                  className={`grid h-12 w-12 place-items-center rounded-xl font-bold text-lg ${colors.bg} ${colors.text} ${colors.darkBg} ${colors.darkText}`}
                 >
                   {membership.abbreviation}
                 </div>
