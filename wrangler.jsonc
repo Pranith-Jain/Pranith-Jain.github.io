@@ -71,5 +71,11 @@
 	],
 	"analytics_engine_datasets": [
 		{ "binding": "AJ_analytics", "dataset": "PJ" }
+	],
+	// Self-referencing service binding: lets the MCP server (a Durable Object,
+	// with no per-call ExecutionContext) call our own /api/* in-process via
+	// env.SELF.fetch() instead of re-entering the public origin over DNS+TLS.
+	"services": [
+		{ "binding": "SELF", "service": "pranithjain" }
 	]
 }

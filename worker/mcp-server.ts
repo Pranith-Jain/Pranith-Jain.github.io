@@ -5,11 +5,15 @@ import { z } from 'zod';
 type Env = {
   KV_CACHE?: KVNamespace;
   BRIEFINGS_DB?: D1Database;
+  /** Self-referencing service binding — lets tool calls hit our own /api/* in
+   *  process (no public DNS/TLS round-trip). Optional so a missing binding
+   *  falls back to a public fetch. */
+  SELF?: Fetcher;
 };
 
 const API_BASE = 'https://pranithjain.qzz.io';
 
-async function apiFetch<T>(path: string, apiKey?: string, init?: RequestInit): Promise<T> {
+async function apiFetch<T>(self: Fetcher | undefined, path: string, apiKey?: string, init?: RequestInit): Promise<T> {
   const headers: Record<string, string> = {
     accept: 'application/json',
     ...((init?.headers as Record<string, string>) ?? {}),
@@ -17,10 +21,10 @@ async function apiFetch<T>(path: string, apiKey?: string, init?: RequestInit): P
   if (apiKey) {
     headers['authorization'] = `Bearer ${apiKey}`;
   }
-  const res = await fetch(`${API_BASE}${path}`, {
-    ...init,
-    headers,
-  });
+  const req = new Request(`${API_BASE}${path}`, { ...init, headers });
+  // Prefer the in-process SELF service binding (no public DNS/TLS hop back into
+  // our own origin); fall back to a public fetch if the binding isn't present.
+  const res = self ? await self.fetch(req) : await fetch(req);
   if (!res.ok) {
     const body = await res.text().catch(() => '');
     throw new Error(`API ${res.status}: ${body.slice(0, 200)}`);
@@ -62,6 +66,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       { indicator: z.string().describe('The IOC to check — IP, domain, URL, or hash') },
       async ({ indicator }) => {
         const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
           `/api/v1/ioc/check?indicator=${encodeURIComponent(indicator)}`,
           this.apiKey
         );
@@ -76,6 +81,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       { cve_id: z.string().describe('CVE identifier, e.g. CVE-2024-3094') },
       async ({ cve_id }) => {
         const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
           `/api/v1/cve/lookup?id=${encodeURIComponent(cve_id)}`,
           this.apiKey
         );
@@ -90,6 +96,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       { q: z.string().describe('Search keyword — vendor, product, or vulnerability type') },
       async ({ q }) => {
         const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
           `/api/v1/cve/search?q=${encodeURIComponent(q)}`,
           this.apiKey
         );
@@ -104,6 +111,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       { actor: z.string().describe('Threat actor name or slug, e.g. APT28, lazarus-group') },
       async ({ actor }) => {
         const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
           `/api/v1/actor-enrich?actor=${encodeURIComponent(actor)}`,
           this.apiKey
         );
@@ -118,6 +126,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       { q: z.string().describe('Search query — malware family name or actor name') },
       async ({ q }) => {
         const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
           `/api/v1/malpedia/search?q=${encodeURIComponent(q)}`,
           this.apiKey
         );
@@ -132,6 +141,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       { domain: z.string().describe('Fully qualified domain name, e.g. example.com') },
       async ({ domain }) => {
         const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
           `/api/v1/domain/lookup?domain=${encodeURIComponent(domain)}`,
           this.apiKey
         );
@@ -146,6 +156,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       { asn: z.string().describe('AS number, e.g. AS13335 or 13335') },
       async ({ asn }) => {
         const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
           `/api/v1/asn/lookup?asn=${encodeURIComponent(asn)}`,
           this.apiKey
         );
@@ -160,6 +171,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       { q: z.string().describe('Triage search query — family:name, tag:ransomware, md5:..., url:...') },
       async ({ q }) => {
         const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
           `/api/v1/triage/search?q=${encodeURIComponent(q)}`,
           this.apiKey
         );
@@ -173,7 +185,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       "Get today's threat intelligence briefing. A curated digest of the latest CVEs, ransomware activity, data breaches, and emerging threats from the past 24 hours.",
       {},
       async () => {
-        const data = await apiFetch<Record<string, unknown>>('/api/v1/briefings/today', this.apiKey);
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/briefings/today', this.apiKey);
         return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
       }
     );
@@ -185,7 +197,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       { limit: z.number().optional().describe('Max briefings to return (default 10)') },
       async ({ limit }) => {
         const qs = limit ? `?limit=${limit}` : '';
-        const data = await apiFetch<Record<string, unknown>>(`/api/v1/briefings/list${qs}`, this.apiKey);
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, `/api/v1/briefings/list${qs}`, this.apiKey);
         return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
       }
     );
@@ -196,7 +208,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       'Get the latest live IOC feed — real-time indicators of compromise aggregated from 20+ sources including blocklists, tweet feeds, abuse.ch, and community submissions.',
       {},
       async () => {
-        const data = await apiFetch<Record<string, unknown>>('/api/v1/live-iocs', this.apiKey);
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/live-iocs', this.apiKey);
         return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
       }
     );
@@ -207,7 +219,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       'Get recent ransomware activity — latest victims, group activity, and leak-site posts from ransomware.live and other trackers.',
       {},
       async () => {
-        const data = await apiFetch<Record<string, unknown>>('/api/v1/ransomware-recent', this.apiKey);
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/ransomware-recent', this.apiKey);
         return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
       }
     );
@@ -218,7 +230,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       'Analyze raw email source for phishing indicators. Parses headers, checks SPF/DKIM/DMARC, extracts URLs, and computes a risk score with flags.',
       { raw_email: z.string().describe('Full raw email source (headers + body)') },
       async ({ raw_email }) => {
-        const data = await apiFetch<Record<string, unknown>>('/api/v1/phishing/analyze', this.apiKey, {
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/phishing/analyze', this.apiKey, {
           method: 'POST',
           headers: { 'content-type': 'text/plain' },
           body: raw_email,
@@ -234,6 +246,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       { q: z.string().describe('Search query') },
       async ({ q }) => {
         const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
           `/api/v1/unified-search?q=${encodeURIComponent(q)}`,
           this.apiKey
         );
@@ -247,7 +260,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       'Get the latest detection rules feed — Sigma, YARA, and Snort rules mapped to threat actors, malware families, and MITRE ATT&CK techniques.',
       {},
       async () => {
-        const data = await apiFetch<Record<string, unknown>>('/api/v1/detections', this.apiKey);
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/detections', this.apiKey);
         return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
       }
     );
@@ -258,7 +271,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       'Get a global threat overview — top active threat actors, trending malware families, most exploited CVEs, and geopolitical cyber events from the past week.',
       {},
       async () => {
-        const data = await apiFetch<Record<string, unknown>>('/api/v1/threat-pulse', this.apiKey);
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/threat-pulse', this.apiKey);
         return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
       }
     );
@@ -270,6 +283,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       { q: z.string().describe('IOC or keyword to correlate') },
       async ({ q }) => {
         const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
           `/api/v1/ioc-correlation?q=${encodeURIComponent(q)}`,
           this.apiKey
         );
@@ -287,6 +301,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       },
       async ({ target, type }) => {
         const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
           `/api/v1/breach/${type}?q=${encodeURIComponent(target)}`,
           this.apiKey
         );
@@ -300,7 +315,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       'Get the health and freshness status of all 30+ threat intelligence feed sources. Shows last update time, error rates, and data volume.',
       {},
       async () => {
-        const data = await apiFetch<Record<string, unknown>>('/api/v1/feed-status', this.apiKey);
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/feed-status', this.apiKey);
         return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
       }
     );
@@ -312,6 +327,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       { technique_id: z.string().describe('MITRE ATT&CK technique ID, e.g. T1566.001') },
       async ({ technique_id }) => {
         const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
           `/api/v1/mitre/technique?id=${encodeURIComponent(technique_id)}`,
           this.apiKey
         );
@@ -326,6 +342,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       { indicator: z.string().describe('The IOC to get relationships for') },
       async ({ indicator }) => {
         const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
           `/api/v1/relationship-graph?indicator=${encodeURIComponent(indicator)}`,
           this.apiKey
         );
@@ -340,6 +357,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       { ip: z.string().describe('IPv4 or IPv6 address') },
       async ({ ip }) => {
         const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
           `/api/v1/ip-geo?ip=${encodeURIComponent(ip)}`,
           this.apiKey
         );
@@ -359,7 +377,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       },
       async ({ format }) => {
         const fmt = format ?? 'meta';
-        const data = await apiFetch<Record<string, unknown>>(`/api/v1/blocklists/${fmt}`, this.apiKey);
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, `/api/v1/blocklists/${fmt}`, this.apiKey);
         return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
       }
     );
@@ -371,6 +389,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       { q: z.string().describe('Malware family name or keyword') },
       async ({ q }) => {
         const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
           `/api/v1/malpedia/search?q=${encodeURIComponent(q)}`,
           this.apiKey
         );
@@ -385,6 +404,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       { url: z.string().describe('URL to look up in the Wayback Machine') },
       async ({ url }) => {
         const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
           `/api/v1/wayback/cdx?url=${encodeURIComponent(url)}`,
           this.apiKey
         );
@@ -398,7 +418,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       'Analyze a URL for phishing indicators. Checks against PhishTank, OpenPhish, URLhaus, and performs visual similarity analysis.',
       { url: z.string().describe('URL to analyze') },
       async ({ url }) => {
-        const data = await apiFetch<Record<string, unknown>>(`/api/v1/phishing/analyze`, this.apiKey, {
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, `/api/v1/phishing/analyze`, this.apiKey, {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
           body: JSON.stringify({ url }),
@@ -414,6 +434,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       { url: z.string().describe('URL to scan') },
       async ({ url }) => {
         const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
           `/api/v1/web-scan?url=${encodeURIComponent(url)}`,
           this.apiKey
         );
@@ -431,6 +452,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       },
       async ({ domain, dork_type }) => {
         const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
           `/api/v1/google-dorks?domain=${encodeURIComponent(domain)}&type=${dork_type ?? 'all'}`,
           this.apiKey
         );
@@ -449,7 +471,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       async ({ address, chain }) => {
         const qs = new URLSearchParams({ address });
         if (chain) qs.set('chain', chain);
-        const data = await apiFetch<Record<string, unknown>>(`/api/v1/crypto-trace?${qs}`, this.apiKey);
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, `/api/v1/crypto-trace?${qs}`, this.apiKey);
         return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
       }
     );
@@ -466,7 +488,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         if (!text && !url) {
           throw new Error('Either text or url must be provided');
         }
-        const data = await apiFetch<Record<string, unknown>>('/api/v1/report/parse', this.apiKey, {
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/report/parse', this.apiKey, {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
           body: JSON.stringify({ text, url }),
@@ -482,6 +504,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       { indicator: z.string().describe('The IOC to get lifecycle data for') },
       async ({ indicator }) => {
         const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
           `/api/v1/ioc-lifecycle?indicator=${encodeURIComponent(indicator)}`,
           this.apiKey
         );
@@ -501,7 +524,11 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         const params = new URLSearchParams();
         if (limit) params.set('limit', String(limit));
         if (type) params.set('type', type);
-        const data = await apiFetch<Record<string, unknown>>(`/api/v1/ioc-lifecycle/trending?${params}`, this.apiKey);
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/ioc-lifecycle/trending?${params}`,
+          this.apiKey
+        );
         return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
       }
     );
@@ -518,7 +545,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         complexity: z.enum(['basic', 'standard', 'advanced']).optional().describe('Rule complexity level'),
       },
       async ({ description, strings, family, filetype, complexity }) => {
-        const data = await apiFetch<Record<string, unknown>>('/api/v1/yara/generate', this.apiKey, {
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/yara/generate', this.apiKey, {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
           body: JSON.stringify({ description, strings, family, filetype, complexity }),
@@ -535,7 +562,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         rule: z.string().describe('The YARA rule text to validate'),
       },
       async ({ rule }) => {
-        const data = await apiFetch<Record<string, unknown>>('/api/v1/yara/validate', this.apiKey, {
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/yara/validate', this.apiKey, {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
           body: JSON.stringify({ rule }),
@@ -556,7 +583,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
           .describe('Types of alerts to generate'),
       },
       async ({ domain, alert_types }) => {
-        const data = await apiFetch<Record<string, unknown>>('/api/v1/ct-monitor/watch', this.apiKey, {
+        const data = await apiFetch<Record<string, unknown>>(this.env.SELF, '/api/v1/ct-monitor/watch', this.apiKey, {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
           body: JSON.stringify({ domain, alert_types }),
@@ -577,7 +604,11 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         const params = new URLSearchParams({ domain });
         if (days) params.set('days', String(days));
         if (limit) params.set('limit', String(limit));
-        const data = await apiFetch<Record<string, unknown>>(`/api/v1/ct-monitor/certs?${params}`, this.apiKey);
+        const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
+          `/api/v1/ct-monitor/certs?${params}`,
+          this.apiKey
+        );
         return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
       }
     );
@@ -589,6 +620,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       { domain: z.string().describe('Domain to get history for, e.g. evil-example.com') },
       async ({ domain }) => {
         const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
           `/api/v1/domain/history?domain=${encodeURIComponent(domain)}`,
           this.apiKey
         );
@@ -601,13 +633,18 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
       'Pivot across domains by shared registrant attributes. Find other domains owned by the same entity by matching registrant email, organization, nameservers, or registrar. Critical for mapping attacker infrastructure — if a malicious domain shares its registrant email with 50 other domains, those are likely all owned by the same threat actor.',
       {
         domain: z.string().describe('Domain to pivot from'),
-        type: z.enum(['email', 'org', 'nameserver', 'registrar', 'all']).optional()
-          .describe('Pivot type (default: all) — email pivots by registrant email, org by organization, nameserver by shared NS, registrar by same registrar'),
+        type: z
+          .enum(['email', 'org', 'nameserver', 'registrar', 'all'])
+          .optional()
+          .describe(
+            'Pivot type (default: all) — email pivots by registrant email, org by organization, nameserver by shared NS, registrar by same registrar'
+          ),
       },
       async ({ domain, type }) => {
         const params = new URLSearchParams({ domain });
         if (type) params.set('type', type);
         const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
           `/api/v1/domain/history/pivot?${params}`,
           this.apiKey
         );
@@ -627,6 +664,7 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
         if (email) params.set('email', email);
         if (org) params.set('org', org);
         const data = await apiFetch<Record<string, unknown>>(
+          this.env.SELF,
           `/api/v1/domain/history/search?${params}`,
           this.apiKey
         );
