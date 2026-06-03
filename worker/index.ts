@@ -34,7 +34,7 @@ export default {
     // the routes that depend on the missing binding, and this log
     // names the binding explicitly. Memoized internally so warm
     // requests are a no-op.
-    logStartupValidation(env);
+    logStartupValidation(env as unknown as Record<string, unknown>);
 
     // Honour an inbound x-request-id (operator curl) so a hand-driven
     // reproduction stays greppable through the entire request chain.

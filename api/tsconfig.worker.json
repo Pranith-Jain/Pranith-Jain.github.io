@@ -1,0 +1,15 @@
+{
+  // Typecheck worker/ — which no other tsconfig covers (issue #89). It extends
+  // api/tsconfig (same strictness + Cloudflare Workers types) and adds ../worker.
+  // It lives under api/ and must be run from the api project so api/node_modules
+  // (workers-types, vitest-pool-workers, @types/node) resolves. `src/**` is kept
+  // in the program (not just pulled transitively) so api's ambient type setup is
+  // fully loaded — without it some node-compat types (e.g. timer `.unref()`)
+  // don't resolve. api/tsconfig.json is what actually gates api/.
+  // Run: `tsc --noEmit -p api/tsconfig.worker.json`.
+  "extends": "./tsconfig.json",
+  // noEmit so a bare `tsc -p` is typecheck-only (api/tsconfig relies on the CLI
+  // flag and has no noEmit — running this without --noEmit would spray .js).
+  "compilerOptions": { "noEmit": true },
+  "include": ["src/**/*.ts", "../worker/**/*.ts"]
+}

@@ -224,7 +224,7 @@ export async function injectOgMeta(
     // Ignore a cached EMPTY body — a poisoned entry (see the write guard
     // below) must self-heal on the next request, not be served for the TTL.
     if (cached && cachedText.length > 0) {
-      const body = injectScriptNonce(cachedText, nonce);
+      const body = nonce ? injectScriptNonce(cachedText, nonce) : cachedText;
       return new Response(body, {
         headers: {
           'content-type': cached.headers.get('content-type') ?? 'text/html;charset=UTF-8',
