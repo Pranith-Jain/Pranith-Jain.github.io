@@ -118,9 +118,12 @@ export async function pdSubdomainsHandler(c: Context<{ Bindings: Env }>): Promis
       `${CHAOS_BASE}/${encodeURIComponent(domain)}/subdomains`,
       {
         headers: {
-          // Chaos authenticates via the raw key in the Authorization header
-          // (not Bearer, not X-Api-Key) per chaos.projectdiscovery.io/docs.
+          // Send the PDCP key on BOTH headers: legacy Chaos used the raw key in
+          // `Authorization`, the unified PDCP cloud key uses `X-Api-Key`. The
+          // dns.projectdiscovery.io endpoint now expects the PDCP key, so cover
+          // both schemes — harmless and avoids a 401 on whichever it checks.
           Authorization: c.env.PDCP_API_KEY,
+          'X-Api-Key': c.env.PDCP_API_KEY,
           accept: 'application/json',
           'user-agent': 'pranithjain.qzz.io DFIR toolkit (read-only)',
         },
