@@ -179,7 +179,17 @@ export default function PirDashboard(): JSX.Element {
         }
         return r.json() as Promise<PirResponse>;
       })
-      .then(setData)
+      // Normalize: a 200 with a partial/empty body (missing pirs/scores/etc.)
+      // would otherwise crash the render (data.pirs.filter on undefined).
+      .then((d) =>
+        setData({
+          ...d,
+          pirs: d.pirs ?? [],
+          scores: d.scores ?? [],
+          fresh_sources: d.fresh_sources ?? [],
+          active_count: d.active_count ?? 0,
+        })
+      )
       .catch((e) => setError(e instanceof Error ? e.message : String(e)))
       .finally(() => setLoading(false));
     fetch('/api/v1/threat-intel/pirs/alerts?include_acknowledged=true', { headers: adminAuthHeaders() })
