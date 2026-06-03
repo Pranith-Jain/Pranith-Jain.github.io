@@ -105,11 +105,22 @@ export function authenticate(mode: boolean | 'external-only'): MiddlewareHandler
       return next();
     }
 
-    // Allow GET/HEAD/OPTIONS through without a key for 'external-only' mode.
-    // The data is public on the website; requiring keys for read-only CLI
-    // access adds friction without security benefit. Mutations (POST/DELETE)
-    // still require a key.
-    if (mode === 'external-only' && (c.req.method === 'GET' || c.req.method === 'HEAD' || c.req.method === 'OPTIONS')) {
+    // CORS preflight carries no credentials and must always pass — the real
+    // (keyed) request is gated separately.
+    if (c.req.method === 'OPTIONS') {
+      return next();
+    }
+
+    // External reads (GET/HEAD) are gated behind an API key. Mint one at /admin
+    // and send it via `Authorization: Bearer <key>` or `X-API-Key`. The website
+    // itself is exempt via the same-origin check above. Emergency valve:
+    // set the OPEN_PUBLIC_READS secret to 'true' to restore keyless reads
+    // without a redeploy.
+    if (
+      mode === 'external-only' &&
+      c.env.OPEN_PUBLIC_READS === 'true' &&
+      (c.req.method === 'GET' || c.req.method === 'HEAD')
+    ) {
       return next();
     }
 

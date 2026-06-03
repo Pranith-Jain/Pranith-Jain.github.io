@@ -11,6 +11,11 @@ export interface Env {
    *  rate limiter degrades to the per-colo Cache/KV path when it is unbound. */
   CRON_LOCK_DO?: DurableObjectNamespace;
   BRIEFINGS_DB?: D1Database;
+  /** Emergency valve for the external-read API-key gate. When set to the string
+   *  `'true'` (a Worker secret, so it can be toggled without a redeploy),
+   *  external GET/HEAD `/api/v1/*` reads are allowed WITHOUT an API key again —
+   *  restoring the fully-public behavior. Unset/anything-else keeps reads gated. */
+  OPEN_PUBLIC_READS?: string;
   CASE_STUDIES: KVNamespace;
   AI: Ai;
   VECTORIZE?: VectorizeIndex;
