@@ -212,6 +212,13 @@ export const SECTIONS: Section[] = [
         icon: Microscope,
       },
       {
+        path: '/dfir/cape-sandbox',
+        useCase: 'Detonate a sample in your own CAPEv2 sandbox.',
+        label: 'CAPE Sandbox',
+        desc: 'Upload a file to a self-hosted CAPEv2 instance · pulls back signatures, dropped files, and network IOCs · admin-gated bridge, dormant until CAPE_BRIDGE_URL is configured',
+        icon: FlaskConical,
+      },
+      {
         path: '/dfir/stealer-parser',
         useCase: 'Parse infostealer logs (Redline, Raccoon, Vidar, Lumma).',
         label: 'Infostealer Log Parser',

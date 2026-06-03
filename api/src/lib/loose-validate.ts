@@ -121,11 +121,17 @@ export function looseValidation(options: { maxBodyBytes?: number } = {}): Middle
     // ── 3. Body bounds for mutating methods ─────────────────────────
     if (METHODS_WITH_BODY.has(c.req.method)) {
       const contentType = (c.req.header('content-type') ?? '').toLowerCase();
+      // Binary/multipart uploads (e.g. malware-vault, CAPE submit) are governed
+      // by the per-route size cap in the handler — skip BOTH this Content-Length
+      // pre-check and the body-text parse below, so a legitimate sample over the
+      // 256 KB text cap isn't rejected here before the handler can enforce its
+      // own (larger) limit.
+      const isMultipart = contentType.includes('multipart/form-data');
       const contentLength = Number(c.req.header('content-length') ?? '0');
       // Reject early on a declared Content-Length over the cap without
       // buffering the body — `Number.isFinite` guards against bogus
       // values like '0' (zero-length body is allowed) or NaN.
-      if (Number.isFinite(contentLength) && contentLength > maxBody) {
+      if (!isMultipart && Number.isFinite(contentLength) && contentLength > maxBody) {
         return c.json({ error: 'body_too_large', limit_bytes: maxBody, observed_bytes: contentLength }, 413);
       }
       // For JSON bodies, also parse and depth-check. We buffer the body
@@ -135,7 +141,10 @@ export function looseValidation(options: { maxBodyBytes?: number } = {}): Middle
       // missing content-type, which we treat permissively as text/json);
       // for binary uploads (e.g. malware-vault) we trust the per-route
       // size cap that runs in the handler.
-      if (contentType.includes('application/json') || contentType === '' || contentType.includes('text/')) {
+      if (
+        !isMultipart &&
+        (contentType.includes('application/json') || contentType === '' || contentType.includes('text/'))
+      ) {
         let raw: string;
         try {
           raw = await c.req.text();
