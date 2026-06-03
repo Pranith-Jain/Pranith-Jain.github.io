@@ -630,15 +630,23 @@ export const adminPurgeSchema = z.object({
   pattern: z.string().max(500).optional(),
 });
 
+// Mirror the retention handler's contract (admin-retention.ts) and the
+// RetentionTab UI, both of which use `days` (NOT `max_age_days`). The prior
+// `max_age_days` field matched nothing and was silently stripped, so a custom
+// retention window from the UI was being dropped by this middleware.
 export const adminRetentionSchema = z.object({
+  days: z.number().int().min(1).max(3650).optional(),
   dry_run: z.boolean().optional().default(false),
-  max_age_days: z.number().int().min(1).max(3650).optional(),
 });
 
+// Mirror the api-key handler's contract (admin-keys.ts createKeySchema), the
+// ApiKeysTab UI, and the D1 schema (migration 0006: `label`, `role` ∈
+// {admin, readonly}). The prior name/scope/expires_in_days shape matched
+// nothing implemented, so this middleware 400'd every create request before
+// the handler ran — that was the "API key creator throwing an error" bug.
 export const adminApiKeyCreateSchema = z.object({
-  name: z.string().min(1).max(200),
-  scope: z.enum(['read', 'write', 'admin']).optional().default('read'),
-  expires_in_days: z.number().int().min(1).max(3650).optional(),
+  label: z.string().min(1).max(100),
+  role: z.enum(['admin', 'readonly']).default('readonly'),
 });
 
 // ── Dashboard Watchlist (alt name) ──────────────────────────────
