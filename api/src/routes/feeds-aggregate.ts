@@ -13,14 +13,19 @@ import { buildRansomwareMergedRss, RANSOMWARE_MERGED_FEED_PATH } from './ransomw
  * its existing FeedItem type.
  *
  * GET /api/v1/feeds/aggregate?urls=<comma-separated-urls>
- *   - urls: comma-separated, URL-encoded list of feed URLs (max 50)
+ *   - urls: comma-separated, URL-encoded list of feed URLs (max MAX_FEEDS)
  *   - limit: max items to return after merging + sorting (default 30, max 100)
  *   - perSource: max items per source before global cap (default 3, max 10)
  *
  * Items are sorted newest-first by pubDate.
  */
 
-const MAX_FEEDS = 80;
+// Hard ceiling on feeds per invocation. Each feed costs ≥1 subrequest even
+// fully warm (the cache match counts), plus fetch + redirects + put when cold,
+// so this must stay well under CF's 50-subrequest-per-invocation cap. The
+// frontend already chunks large feed lists (rssService AGGREGATOR_CHUNK_SIZE)
+// into separate requests; 40 is a safety ceiling for direct/uncommon callers.
+const MAX_FEEDS = 40;
 /** Default page-size when caller doesn't pass ?limit=. Bumped 30 → 100 so
  *  the threat-pulse / threat-feeds pages surface a representative week
  *  rather than just a day's churn. */
@@ -33,10 +38,12 @@ const DEFAULT_PER_SOURCE = 5;
 const MAX_PER_SOURCE = 25;
 const FETCH_TIMEOUT_MS = 20_000;
 // Per-URL parsed-response cache key prefix — checked BEFORE the upstream
-// fetch in fetchOne. caches.default.match() doesn't consume a subrequest,
-// so a warm cache lets us return ~30 feeds without hitting CF's 50-req
-// cap at all. TTL kept generous (10 min) because RSS items rarely change
-// faster than that for the slow upstreams that timeout most often.
+// fetch in fetchOne. NOTE: caches.default.match() DOES count as a subrequest
+// (Cache API ops share the same per-invocation budget as fetch()). The win
+// is not "zero subrequests" — it's swapping a slow upstream fetch (+ up to 4
+// redirect hops + a write-back put) for a single cheap local cache read, and
+// avoiding the timeout-prone origin entirely. TTL kept generous because RSS
+// items rarely change faster than that for the slow upstreams that timeout most.
 // 1h — long enough that most users land on a warm cache for the entire
 // session. RSS feeds rarely publish more than once per hour, and the
 // cache-first pattern means cold-cache visits are the only ones that
@@ -305,13 +312,14 @@ async function fetchOne(url: string, perSource: number, env?: Env): Promise<Fetc
     return { items: [], error: 'host_not_in_allowlist' };
   }
 
-  // Explicit edge-cache lookup BEFORE the upstream fetch. caches.default
-  // operations don't count against Cloudflare's 50-subrequest-per-Worker
-  // budget; fetch() always does, even when served from cf.cacheTtl. So
-  // we read here first — a warm cache means we burn zero subrequests for
-  // most feeds. This is the actual fix for the "every Google News feed
-  // times out under load" pattern: once any visitor warmed the cache, the
-  // slow upstream is bypassed entirely until TTL expires.
+  // Explicit edge-cache lookup BEFORE the upstream fetch. Both caches.default
+  // ops AND fetch() count against Cloudflare's 50-subrequest-per-invocation
+  // budget — so the win here is NOT "free", it's that a warm read costs ONE
+  // cheap cache match instead of a slow upstream fetch (+ up to 4 redirect
+  // hops + a write-back put). That's still ~1 subrequest per warm feed, which
+  // is why the caller must bound the feed count (MAX_FEEDS). This is the fix
+  // for the "every Google News feed times out under load" pattern: once any
+  // visitor warmed the cache, the slow upstream is bypassed until TTL expires.
   // Synthetic internal URL as the cache key — pattern used elsewhere in
   // the codebase (lib/cache.ts ProviderCache). `s-maxage` on the cached
   // Response is what actually makes Cloudflare's edge cache honor TTL.
@@ -395,11 +403,11 @@ async function fetchOne(url: string, perSource: number, env?: Env): Promise<Fetc
     const body = await res.text();
     const items = parseFeedBody(body, url, parsed.hostname, perSource);
     if (items.length === 0) return { items: [], error: 'parser_zero_items' };
-    // Write-through the per-URL edge cache so the next reader skips the
-    // upstream fetch entirely (caches.default.match doesn't burn a
-    // subrequest). This is the actual remedy for the Krebs / Web3 /
-    // rekt.news / Google News timeouts — once any visitor warms the
-    // cache, subsequent readers see them as instant 25-item hits.
+    // Write-through the per-URL edge cache so the next reader skips the slow
+    // upstream fetch + redirect chain (the match still costs ~1 subrequest,
+    // but it's local and fast vs the timeout-prone origin). This is the remedy
+    // for the Krebs / Web3 / rekt.news / Google News timeouts — once any
+    // visitor warms the cache, subsequent readers see them as instant hits.
     try {
       // `s-maxage` is the edge-cache directive Cloudflare's caches.default
       // honors; `max-age` alone is browser/client only. Without s-maxage,

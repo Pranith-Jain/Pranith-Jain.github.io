@@ -222,6 +222,18 @@ export async function snapshotHandler(c: Context<{ Bindings: Env }>): Promise<Re
   // a single slow upstream used to pin the whole snapshot to 15-16s on
   // cold cache. The other 5 cards run in the same Promise.all and are
   // not blocked by the slowest one.
+  //
+  // SUBREQUEST BUDGET: this path composes many fan-outs in ONE invocation,
+  // so on a fully-cold cache it can approach CF's 50-subrequest cap. It is
+  // bounded in practice by: (1) reading the ransomware + telegram per-route
+  // caches FIRST (one match each instead of their 7- / 31-upstream fan-outs),
+  // (2) the per-URL feed caches inside aggregateFeeds (warm = ~1 match/feed),
+  // (3) the snapshot cron keeping this whole response warm so users almost
+  // never hit the cold path, and (4) safe()/budgeted() degrading any single
+  // over-budget source instead of failing the response. A fully cold colo can
+  // still shed a card; the deeper fix (dedicated per-bundle feed caches read
+  // first, like ransomware/telegram above) is deferred to avoid destabilizing
+  // this heavily-tuned path.
   const [ransomware, telegram, scam, threatIntel, techAi, briefings] = await Promise.all([
     budgeted(async () => {
       const cached = await cache.match(RANSOMWARE_RECENT_CACHE_KEY);

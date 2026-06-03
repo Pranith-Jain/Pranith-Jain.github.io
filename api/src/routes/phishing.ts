@@ -10,7 +10,11 @@ import { tweetfeed } from '../providers/tweetfeed';
 import type { ProviderEnv, ProviderResult } from '../providers/types';
 
 const MAX_BODY_BYTES = 64 * 1024;
-const MAX_URLS_TO_CHECK = 10;
+// Each checked URL fans out to 5 providers (1 fetch each), so this × 5 must
+// stay under CF's 50-subrequest-per-invocation cap with headroom for the
+// route's own I/O. 10 × 5 = 50 left zero margin and tripped "Too many
+// subrequests" on busy emails; 6 × 5 = 30 is safe.
+const MAX_URLS_TO_CHECK = 6;
 
 interface UrlVerdict {
   url: string;

@@ -59,12 +59,12 @@ export async function osvScanHandler(c: Context<{ Bindings: Env }>): Promise<Res
     }
   });
   // Cap detail lookups: each is a subrequest and a Worker invocation has a
-  // hard ~50-subrequest budget (querybatch already used 1). 400 would blow
-  // it and silently truncate. 40 distinct advisories is plenty for a
-  // realistic lockfile; ids beyond the cap still appear (id only, no
-  // summary) and `detailed_capped` flags it for the client.
+  // hard 50-subrequest budget (querybatch already used 1). 400 would blow
+  // it and silently truncate. 35 distinct advisories is plenty for a
+  // realistic lockfile and leaves headroom under the cap; ids beyond it still
+  // appear (id only, no summary) and `detailed_capped` flags it for the client.
   const allIds = [...idToPkgs.keys()];
-  const ids = allIds.slice(0, 40);
+  const ids = allIds.slice(0, 35);
   const detailedCapped = allIds.length > ids.length;
 
   const details = new Map<string, { summary?: string; severity?: string; aliases?: string[]; fixed?: string }>();

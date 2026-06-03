@@ -153,9 +153,17 @@ export async function domainRepHandler(c: Context<{ Bindings: Env }>): Promise<R
       );
     }
 
+    // Subrequest budget: each DNSBL check is one DoH fetch, and CF caps a
+    // Worker at 50 subrequests/invocation. DOMAIN_DNSBLS (6) + N IPs × IP_DNSBLS
+    // (17) must stay under that. At 3 IPs this was 6 + 51 = 57 — over the cap,
+    // so the tail checks failed with "Too many subrequests". Check only the
+    // primary resolved IP (6 + 17 = 23): the A records for one domain almost
+    // always share reputation, so the marginal coverage of IPs 2–3 wasn't
+    // worth blowing the budget.
+    const ipsToCheck = ips.slice(0, 1);
     const [domainChecks, ...ipResults] = await Promise.all([
       Promise.all(DOMAIN_DNSBLS.map((bl) => checkDomainBlacklist(target, bl, signal))),
-      ...ips.slice(0, 3).map(async (ipAddr) => ({
+      ...ipsToCheck.map(async (ipAddr) => ({
         ip: ipAddr,
         checks: await Promise.all(IP_DNSBLS.map((bl) => checkIpBlacklist(ipAddr, bl, signal))),
       })),
