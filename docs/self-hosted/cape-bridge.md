@@ -6,6 +6,14 @@ The app ships a **dormant** CAPE integration. The Worker code
 `503` until you set the `CAPE_BRIDGE_URL` secret. Nothing here runs on
 Cloudflare — you stand up CAPE yourself and point the Worker at it.
 
+The frontend hides the tool until it's live: the CAPE Sandbox card is omitted
+from the DFIR grid, inline search, and the ⌘K palette, and a direct visit to
+`/dfir/cape-sandbox` redirects to `/dfir`. This is driven by a public probe,
+`GET /api/v1/features` (`{ "cape": false, "recon": false }` — booleans only,
+no URLs/tokens), which flips to `true` the moment `CAPE_BRIDGE_URL` is set. So
+setting the secret below is all it takes to surface the tool — no redeploy,
+no frontend change.
+
 > ⚠️ **Not free.** CAPE does _dynamic_ detonation, which needs a host with
 > **nested virtualization (KVM)** and a **Windows guest VM**. Free VM tiers
 > (Oracle ARM, micro instances) cannot do this. Budget a small bare-metal /

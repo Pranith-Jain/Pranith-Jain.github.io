@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ExternalLink, Search as SearchIcon, X } from 'lucide-react';
 import { SECTIONS, EXTERNAL, TOOL_COUNT, type Tool, type Section, type ToolGroup } from './tool-sections';
 import { useDebounce } from '../../hooks/useDebounce';
+import { useFeatures, toolVisible } from '../../lib/features';
 
 // Re-export so existing call sites (CommandPalette, DFIR.tsx) that previously
 // imported these from ToolGrid keep working without churn.
@@ -86,8 +87,19 @@ export function ToolGrid({ group }: { group?: ToolGroup } = {}): JSX.Element {
   const [query, setQuery] = useState('');
   const debouncedQuery = useDebounce(query, 100);
   const q = debouncedQuery.trim();
+  const features = useFeatures();
 
-  const baseSections = useMemo(() => (group ? SECTIONS.filter((s) => s.group === group) : SECTIONS), [group]);
+  // Scope to the requested group, then drop tools gated behind a
+  // deployment flag that isn't enabled (dormant self-hosted bridges).
+  // Everything downstream — search, counts, empty-state — flows from
+  // this visible set so a hidden tool never leaks into the tallies.
+  const baseSections = useMemo(
+    () =>
+      (group ? SECTIONS.filter((s) => s.group === group) : SECTIONS)
+        .map((s) => ({ ...s, tools: s.tools.filter((t) => toolVisible(t.requiresFlag, features)) }))
+        .filter((s) => s.tools.length > 0),
+    [group, features]
+  );
 
   const filteredSections = useMemo(
     () =>
@@ -142,9 +154,9 @@ export function ToolGrid({ group }: { group?: ToolGroup } = {}): JSX.Element {
           </>
         ) : (
           <>
-            {group ? baseSections.reduce((n, s) => n + s.tools.length, 0) : TOOL_COUNT} tools across{' '}
-            {baseSections.length} categor{baseSections.length === 1 ? 'y' : 'ies'}. Everything runs client-side or
-            through this site's edge worker. Nothing leaves your browser unless the tool page says otherwise.
+            {baseSections.reduce((n, s) => n + s.tools.length, 0)} tools across {baseSections.length} categor
+            {baseSections.length === 1 ? 'y' : 'ies'}. Everything runs client-side or through this site's edge worker.
+            Nothing leaves your browser unless the tool page says otherwise.
           </>
         )}
       </p>

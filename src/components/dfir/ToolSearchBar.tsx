@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Search, ArrowRight, X } from 'lucide-react';
 import { SECTIONS, GROUP_META, MAIN_TOOL_COUNT, type Tool, type ToolGroup } from './tool-sections';
+import { useFeatures, toolVisible } from '../../lib/features';
 
 /**
  * Inline tool-search bar at the top of /dfir.
@@ -66,14 +67,16 @@ export function ToolSearchBar(): JSX.Element {
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
 
+  const features = useFeatures();
   const q = query.trim().toLowerCase();
   const hits = useMemo(() => {
     if (q === '') return [];
-    return INDEX.map((e) => ({ ...e, _score: score(e, q) }))
+    return INDEX.filter((e) => toolVisible(e.tool.requiresFlag, features))
+      .map((e) => ({ ...e, _score: score(e, q) }))
       .filter((e) => e._score > 0)
       .sort((a, b) => (b._score !== a._score ? b._score - a._score : a.tool.label.localeCompare(b.tool.label)))
       .slice(0, 8);
-  }, [q]);
+  }, [q, features]);
 
   // Reset highlighted row when result set shrinks/changes so we never
   // end up with an active index past the end of the list.

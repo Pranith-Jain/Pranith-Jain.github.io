@@ -57,6 +57,7 @@ import {
   FolderOpen,
   type LucideIcon,
 } from 'lucide-react';
+import type { FeatureFlag } from '../../lib/features';
 
 export interface Tool {
   path: string;
@@ -84,6 +85,16 @@ export interface Tool {
   /** Typical 1-line workflow hint (e.g. "Paste IOC → review consensus
    *  → pivot to /threatintel/correlation"). Optional. */
   workflow?: string;
+  /**
+   * Hide this tool from all nav + search until the named deployment
+   * feature flag is enabled (see `GET /api/v1/features` and
+   * `src/lib/features.tsx`). Used for dormant self-hosted bridges that
+   * only work once an operator sets the matching `*_BRIDGE_URL` secret —
+   * no point advertising a tool that just returns a 503 setup hint. The
+   * route still exists; direct navigation is handled by a page-level
+   * guard that redirects when the flag is off.
+   */
+  requiresFlag?: FeatureFlag;
 }
 
 /**
@@ -217,6 +228,7 @@ export const SECTIONS: Section[] = [
         label: 'CAPE Sandbox',
         desc: 'Upload a file to a self-hosted CAPEv2 instance · pulls back signatures, dropped files, and network IOCs · admin-gated bridge, dormant until CAPE_BRIDGE_URL is configured',
         icon: FlaskConical,
+        requiresFlag: 'cape',
       },
       {
         path: '/dfir/stealer-parser',
@@ -465,6 +477,7 @@ export const SECTIONS: Section[] = [
         label: 'Recon Bridge',
         desc: 'Drive Go/Python recon CLIs that can’t run on Workers · passive subdomains, attack-surface mapping, emails, OSINT footprint · admin-gated, dormant until RECON_BRIDGE_URL is configured',
         icon: Crosshair,
+        requiresFlag: 'recon',
       },
       {
         path: '/dfir/open-directory',

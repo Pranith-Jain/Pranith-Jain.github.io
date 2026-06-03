@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Search, X, Command, ArrowRight, Loader2 } from 'lucide-react';
 import { useFocusTrap } from '../../hooks/useFocusTrap';
 import { SECTIONS, type Tool } from './ToolGrid';
+import { useFeatures, toolVisible } from '../../lib/features';
 import { detectIoc as detectIocBase, type IocType as BaseIocType } from '../../lib/dfir/ioc-detect';
 import {
   loadCatalogIndex,
@@ -55,6 +56,9 @@ const TOOL_ENTRIES: SearchEntry[] = TOOLS_FLAT.map((t) => ({
 
 /** Path → icon component, populated from ToolGrid for the tool-kind rows. */
 const TOOL_ICONS = new Map(TOOLS_FLAT.map((t) => [t.path, t.icon]));
+
+/** Path → deployment flag gating the tool, for tools that have one. */
+const TOOL_FLAG_BY_PATH = new Map(TOOLS_FLAT.map((t) => [t.path, t.requiresFlag]));
 
 function loadRecent(): string[] {
   try {
@@ -403,6 +407,8 @@ export function CommandPalette(): JSX.Element | null {
   const listRef = useRef<HTMLUListElement | null>(null);
   const catalogLoadedRef = useRef(false);
 
+  const features = useFeatures();
+
   const dialogRef = useFocusTrap({ isActive: open, onEscape: () => setOpen(false) });
 
   // Open on Cmd+K / Ctrl+K. Close on Esc.
@@ -441,7 +447,10 @@ export function CommandPalette(): JSX.Element | null {
     }
   }, [open]);
 
-  const fullIndex = useMemo<SearchEntry[]>(() => [...TOOL_ENTRIES, ...catalog], [catalog]);
+  const fullIndex = useMemo<SearchEntry[]>(
+    () => [...TOOL_ENTRIES.filter((e) => toolVisible(TOOL_FLAG_BY_PATH.get(e.path), features)), ...catalog],
+    [catalog, features]
+  );
   const matches = useMemo(() => {
     const base = searchEntries(query, recent, fullIndex, kindFilter);
     // Pivots only when no kind-filter is active (otherwise they'd be silently

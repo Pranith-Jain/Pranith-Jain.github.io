@@ -98,6 +98,7 @@ import { registerBlogRoutes } from './routes/blog-public';
 import { pageViewsHandler } from './routes/pageviews';
 import { registerAdminRoutes } from './routes/case-study-admin';
 import { healthDetailedHandler } from './routes/health-detailed';
+import { featuresHandler } from './routes/features';
 import { c2TrackerHandler } from './routes/c2-tracker';
 import {
   intelBundleHandler,
@@ -479,6 +480,11 @@ app.get('/api/v1/health', (c) =>
   c.json({ ok: true, timestamp: new Date().toISOString() }, 200, { 'Cache-Control': 'public, max-age=60' })
 );
 app.get('/api/v1/health/detailed', healthDetailedHandler);
+
+// Public boolean map of configured optional self-hosted bridges. The
+// frontend probes this to hide dormant tools (CAPE sandbox, recon
+// bridge) until their *_BRIDGE_URL secret is set. Booleans only.
+app.get('/api/v1/features', featuresHandler);
 
 // ── OpenAPI Specification ────────────────────────────────────────
 app.get('/api/v1/openapi.json', (c) => {

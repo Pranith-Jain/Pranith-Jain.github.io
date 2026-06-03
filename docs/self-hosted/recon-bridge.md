@@ -7,6 +7,12 @@ until you set `RECON_BRIDGE_URL`. Subfinder / Amass / theHarvester / SpiderFoot
 are Go/Python CLIs that can't run on Workers, so they run on your box and the
 Worker is just a typed, admin-gated client.
 
+The frontend hides the tool until it's live: the Recon Bridge card is omitted
+from the DFIR grid, inline search, and the ⌘K palette, and a direct visit to
+`/dfir/recon-bridge` redirects to `/dfir`. This is driven by a public probe,
+`GET /api/v1/features` (`{ "cape": false, "recon": false }` — booleans only),
+which flips `recon` to `true` the moment `RECON_BRIDGE_URL` is set.
+
 > ✅ **Can be free.** Unlike the CAPE sandbox, these CLIs run fine on a free
 > small VM (e.g. an Oracle Cloud ARM always-free instance) — no nested virt.
 

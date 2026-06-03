@@ -11,6 +11,7 @@ import { Layout } from './components/Layout';
 import { AppShell } from './components/AppShell';
 import { BackgroundLayer } from './components/BackgroundLayer';
 import { LazyRoute } from './components/LazyRoute';
+import { FeaturesProvider } from './components/FeaturesProvider';
 
 const CommandPalette = lazy(() =>
   import('./components/dfir/CommandPalette').then((m) => ({ default: m.CommandPalette }))
@@ -672,7 +673,9 @@ function PortfolioShell({
 function App() {
   return (
     <BrowserRouter>
-      <AppContent />
+      <FeaturesProvider>
+        <AppContent />
+      </FeaturesProvider>
     </BrowserRouter>
   );
 }

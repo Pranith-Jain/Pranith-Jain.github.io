@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import {
   AlertTriangle,
   ArrowLeft,
@@ -18,6 +18,7 @@ import { VerdictChip } from '../../components/dfir/VerdictChip';
 import { CopyChip } from '../../components/dfir/CopyButton';
 import { adminAuthHeaders, readAdminToken, writeAdminToken } from '../../lib/admin-token';
 import { fetchJson } from '../../lib/fetch-json';
+import { useFeatures } from '../../lib/features';
 import type { Verdict } from '../../lib/dfir/types';
 
 interface NormalizedReport {
@@ -79,6 +80,7 @@ export default function CapeSandbox(): JSX.Element {
   const [error, setError] = useState<string | null>(null);
   const [setupHint, setSetupHint] = useState<string | null>(null);
   const pollCount = useRef(0);
+  const { cape, loaded } = useFeatures();
 
   const submit = useCallback(async () => {
     if (!file) return;
@@ -162,6 +164,12 @@ export default function CapeSandbox(): JSX.Element {
   }, [phase, taskId]);
 
   const busy = phase === 'submitting' || phase === 'polling';
+
+  // The CAPE bridge is a dormant, self-hosted integration. When the
+  // deployment hasn't configured it, the tool is hidden from nav/search;
+  // a direct visit here redirects back to the hub rather than showing a
+  // tool that can only return a 503 setup hint.
+  if (loaded && !cape) return <Navigate to="/dfir" replace />;
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">

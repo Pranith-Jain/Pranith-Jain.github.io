@@ -93,6 +93,30 @@ export function generateOpenApiSpec(): Record<string, unknown> {
           },
         },
       },
+      '/api/v1/features': {
+        get: {
+          tags: ['Health'],
+          summary: 'Configured optional feature bridges',
+          description:
+            'Public boolean map of which optional self-hosted bridges this deployment has configured (CAPE sandbox, recon bridge). Booleans only — never the bridge URLs or tokens. Used by the frontend to hide dormant tools until their *_BRIDGE_URL secret is set.',
+          responses: {
+            '200': {
+              description: 'Feature flag map',
+              content: {
+                'application/json': {
+                  schema: {
+                    type: 'object',
+                    properties: {
+                      cape: { type: 'boolean' },
+                      recon: { type: 'boolean' },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
       '/api/v1/health/{dependency}': {
         get: {
           tags: ['Health'],
@@ -233,7 +257,8 @@ export function generateOpenApiSpec(): Record<string, unknown> {
         post: {
           tags: ['Phishing'],
           summary: 'Analyze email for phishing',
-          description: 'Parse raw email source for phishing indicators. Checks SPF/DKIM/DMARC, extracts URLs, computes risk score.',
+          description:
+            'Parse raw email source for phishing indicators. Checks SPF/DKIM/DMARC, extracts URLs, computes risk score.',
           requestBody: {
             required: true,
             content: {
