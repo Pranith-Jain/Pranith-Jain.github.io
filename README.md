@@ -8,11 +8,12 @@ Portfolio of **Pranith Jain** — security analyst working threat intel, email d
 
 ## Preview
 
-<p align="center">
-  <img src="docs/screenshots/home-desktop.png" alt="pranithjain.qzz.io homepage — desktop" width="680" />
-  &nbsp;
-  <img src="docs/screenshots/home-mobile.png" alt="pranithjain.qzz.io homepage — mobile" width="190" />
-</p>
+<table align="center">
+  <tr>
+    <td align="center" valign="top"><img src="docs/screenshots/home-desktop.png" alt="pranithjain.qzz.io homepage — desktop" height="400" /></td>
+    <td align="center" valign="top"><img src="docs/screenshots/home-mobile.png" alt="pranithjain.qzz.io homepage — mobile" height="400" /></td>
+  </tr>
+</table>
 <p align="center">
   <sub>Dark-mode · SSR-prerendered · edge-cached · zero-signup · <a href="docs/screenshots/home-full.png">full homepage&nbsp;→</a></sub>
 </p>
