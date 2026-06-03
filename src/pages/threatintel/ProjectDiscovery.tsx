@@ -214,6 +214,7 @@ function SubdomainsTab(): JSX.Element {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [notConfigured, setNotConfigured] = useState(false);
+  const [keyInvalid, setKeyInvalid] = useState(false);
   const [filter, setFilter] = useState('');
   const [copied, setCopied] = useState(false);
   const [visible, setVisible] = useState(200);
@@ -226,6 +227,7 @@ function SubdomainsTab(): JSX.Element {
     setError(null);
     setData(null);
     setNotConfigured(false);
+    setKeyInvalid(false);
     try {
       const r = await fetch(`/api/v1/pd/subdomains?domain=${encodeURIComponent(d)}`);
       if (r.status === 503) {
@@ -233,7 +235,16 @@ function SubdomainsTab(): JSX.Element {
         return;
       }
       if (!r.ok) {
-        const j = (await r.json().catch(() => ({}))) as { error?: string; detail?: string };
+        const j = (await r.json().catch(() => ({}))) as {
+          error?: string;
+          detail?: string;
+          upstream_status?: number | null;
+        };
+        // Key is set but Chaos rejected it (expired / invalid / no Chaos access).
+        if (j.error === 'upstream_unavailable' && (j.upstream_status === 401 || j.upstream_status === 403)) {
+          setKeyInvalid(true);
+          return;
+        }
         throw new Error(j.detail || j.error || `scan failed (${r.status})`);
       }
       setData((await r.json()) as SubdomainsResponse);
@@ -278,22 +289,41 @@ function SubdomainsTab(): JSX.Element {
         </button>
       </form>
 
-      {notConfigured ? (
+      {notConfigured || keyInvalid ? (
         <div className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-6 text-sm text-amber-800 dark:text-amber-200 flex items-start gap-3">
           <KeyRound size={18} className="shrink-0 mt-0.5" />
           <div>
-            <strong className="font-semibold">Subdomain recon not configured.</strong> This uses ProjectDiscovery&apos;s
-            free Chaos dataset, which needs a free API key. The operator sets{' '}
-            <code className="font-mono text-xs">PDCP_API_KEY</code> (from{' '}
-            <a
-              href="https://cloud.projectdiscovery.io/settings/api-key"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline"
-            >
-              cloud.projectdiscovery.io
-            </a>
-            ). The Credentials and CVE tabs need no key and work now.
+            {keyInvalid ? (
+              <>
+                <strong className="font-semibold">Chaos API key rejected.</strong> The configured{' '}
+                <code className="font-mono text-xs">PDCP_API_KEY</code> was rejected by ProjectDiscovery (HTTP 401) — it
+                may be expired, malformed, or lack Chaos/recon access. The operator should set a valid key from{' '}
+                <a
+                  href="https://cloud.projectdiscovery.io/settings/api-key"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline"
+                >
+                  cloud.projectdiscovery.io
+                </a>
+                . The Credentials and CVE tabs need no key and work now.
+              </>
+            ) : (
+              <>
+                <strong className="font-semibold">Subdomain recon not configured.</strong> This uses
+                ProjectDiscovery&apos;s free Chaos dataset, which needs a free API key. The operator sets{' '}
+                <code className="font-mono text-xs">PDCP_API_KEY</code> (from{' '}
+                <a
+                  href="https://cloud.projectdiscovery.io/settings/api-key"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline"
+                >
+                  cloud.projectdiscovery.io
+                </a>
+                ). The Credentials and CVE tabs need no key and work now.
+              </>
+            )}
           </div>
         </div>
       ) : (

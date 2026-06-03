@@ -245,20 +245,48 @@ async function queryHudsonRockEmail(email: string): Promise<BreachEntry[]> {
   }
 }
 
+interface PdLeakStats {
+  combolist_exposure?: Array<{ combolist_exposure?: number }>;
+  leak_user_count?: Array<{ user?: number }>;
+  leak_devices_count?: Array<{ devices?: number }>;
+}
+
+/** Read the first element's numeric field from a PD stats array. */
+function pdFirstNum(arr: Array<Record<string, unknown>> | undefined, field: string): number {
+  const v = arr?.[0]?.[field];
+  return typeof v === 'number' ? v : 0;
+}
+
 async function queryProjectDiscovery(email: string): Promise<BreachEntry[]> {
-  // ProjectDiscovery's email-leak stats endpoint doesn't return a per-breach
-  // payload — it just confirms the service is reachable. We surface the
-  // reachability in `sources_queried` (the handler decides that) but do NOT
-  // synthesize a "breach" entry. Otherwise the aggregate `found: true` would
-  // fire for every email that hits a 200 — even when no actual breach was
-  // reported — which made the email/domain lookups unusable for triage.
+  // ProjectDiscovery's leak-stats endpoint returns aggregate exposure (combolist
+  // hits, leaked-credential count, infected devices) rather than a per-breach
+  // list. We synthesize ONE summary entry ONLY when there is real exposure
+  // (count > 0) — so the aggregate `found` flag stays honest and a reachable-
+  // but-clean address doesn't get a phantom breach.
   try {
     const res = await fetch(`https://api.projectdiscovery.io/v1/leaks/stats/email?email=${encodeURIComponent(email)}`, {
       headers: { accept: 'application/json', 'user-agent': UA },
       signal: AbortSignal.timeout(8000),
     });
     if (!res.ok) return [];
-    return [];
+    const stats = (await res.json()) as PdLeakStats;
+    const combolists = pdFirstNum(stats.combolist_exposure, 'combolist_exposure');
+    const users = pdFirstNum(stats.leak_user_count, 'user');
+    const devices = pdFirstNum(stats.leak_devices_count, 'devices');
+    const count = Math.max(combolists, users);
+    if (count <= 0) return [];
+    return [
+      {
+        name: 'Credential exposure (stealer logs & combolists)',
+        pwn_count: count,
+        description:
+          `Seen in ${combolists.toLocaleString()} combolist exposure(s) and ${users.toLocaleString()} leaked ` +
+          `credential record(s)${devices > 0 ? ` across ${devices.toLocaleString()} infected device(s)` : ''}, ` +
+          `aggregated by ProjectDiscovery from infostealer logs and breach datasets.`,
+        data_classes: ['Email addresses', 'Passwords', 'Infostealer logs'],
+        source: 'projectdiscovery' as const,
+      },
+    ];
   } catch {
     return [];
   }
