@@ -1,0 +1,21 @@
+name: Reddit Feed Fetcher
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+jobs:
+  fetch-reddit:
+    name: Fetch Reddit RSS and push to KV
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Fetch + push Reddit feed
+        run: node scripts/fetch-reddit-feed.mjs
+        env:
+          BASE_URL: 'https://pranithjain.qzz.io'
+          ADMIN_TOKEN: ${{ secrets.ADMIN_TOKEN }}
