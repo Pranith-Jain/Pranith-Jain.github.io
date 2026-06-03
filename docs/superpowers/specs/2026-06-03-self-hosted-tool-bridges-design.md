@@ -100,31 +100,28 @@ One generic recon service contract behind `RECON_BRIDGE_URL` / `RECON_BRIDGE_TOK
   tiny HTTP wrapper + `cloudflared`. **Can be free** (runs on a free Oracle ARM
   VM — unlike CAPE).
 
-## Subsystem 3 — External TAXII 2.1 puller (build third)
+## Subsystem 3 — External TAXII 2.1 puller — **CUT (not built)**
 
-Scheduled-cron + route that polls a free external TAXII 2.1 server and ingests
-STIX via the existing `api/src/lib/stix-import.ts` → intel pipeline.
-
-- **Confirm-a-feed step first:** verify a genuinely-free external TAXII 2.1
-  server still exists (MITRE deprecated its hosted TAXII; Anomali Limo shut
-  down). If none is free → **fallback (user-approved):** a scheduled
-  STIX-over-HTTPS refresh of curated bundle URLs (same ingest path, minus the
-  TAXII discovery/collection dance).
-- `api/src/lib/taxii-client.ts` (poll-side, distinct from the server in
-  `routes/taxii.ts`) + a scheduled hook in `worker/scheduled.ts` + KV/D1 cursor
-  so we only pull new objects. Config via `TAXII_POLL_URL?` (+ token if needed).
+**Outcome:** dropped after the confirm-a-feed step. The only readily-free
+external TAXII 2.1 server is MITRE's `attack-taxii.mitre.org`, which the app
+**already** consumes (`api/src/routes/stix-fetch.ts`); other free real-time
+TAXII feeds (e.g. Anomali Limo) have shut down. A TAXII client would therefore
+duplicate existing coverage or sit idle — the same low-value reasoning that cut
+OpenCTI. Left unbuilt by decision; revisit only if a worthwhile free/owned TAXII
+feed appears.
 
 ---
 
 ## Build order & packaging
 
-CAPE → recon → TAXII, **each its own PR**, each typecheck-clean (per-edit `tsc`
-hook) and route-tested locally (un-sandboxed) before the next. Deploy from repo
-root (two-wrangler topology). No wiring into the 44-provider fan-out in PR1 —
-noted as an optional follow-up (add a `cape` hash-lookup adapter later).
+CAPE → recon, **each its own PR**, each typecheck-clean (per-edit `tsc` hook)
+and route-tested locally (un-sandboxed) before the next. Deploy from repo root
+(two-wrangler topology). The deferred follow-up — a `cape` hash-lookup adapter
+in the 44-provider enrichment fan-out — was subsequently built (and surfaced on
+the malware-scan page). TAXII was cut (see above).
 
 ## Out of scope
 
 - OpenCTI live client (cut).
+- External TAXII puller (cut — see Subsystem 3).
 - Running/operating any self-hosted box (operator task; we ship code + docs).
-- Wiring CAPE/recon into the unified enrichment fan-out (follow-up).
