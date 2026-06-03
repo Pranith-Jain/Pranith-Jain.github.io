@@ -39,6 +39,12 @@ interface MitreStixObject {
   x_mitre_platforms?: string[];
   x_mitre_data_sources?: string[];
   x_mitre_detection?: string;
+  // STIX relationship fields — actor↔technique links live in `relationship`
+  // objects (relationship_type 'uses'), not on the intrusion-set itself.
+  relationship_type?: string;
+  source_ref?: string;
+  target_ref?: string;
+  aliases?: string[];
   created: string;
   modified: string;
 }
@@ -125,23 +131,28 @@ export async function mitreTechniqueHandler(c: Context<{ Bindings: Env }>) {
     .slice(0, 5)
     .map((o) => o.external_references?.find((r) => r.external_id?.startsWith('T'))?.external_id ?? o.id);
 
+  // Actors that USE this technique. MITRE links them via `relationship` objects
+  // (relationship_type 'uses', target_ref = the technique's STIX id), NOT via the
+  // intrusion-set's own external_references (which only carry the group's own
+  // Gxxxx id) — the old code matched the technique id there and so always
+  // returned an empty actor list.
+  const intrusionSets = new Map<string, MitreStixObject>();
+  for (const obj of objects) {
+    if (obj.type === 'intrusion-set') intrusionSets.set(obj.id, obj);
+  }
   const actorMap = new Map<string, MitreActor>();
   for (const obj of objects) {
-    if (obj.type === 'intrusion-set') {
-      const alias = obj.name ?? '';
-      const techRefs = obj.external_references ?? [];
-      for (const ref of techRefs) {
-        if (ref.external_id === techniqueId) {
-          if (!actorMap.has(obj.id)) {
-            actorMap.set(obj.id, {
-              id: obj.id,
-              name: alias,
-              aliases: [],
-            });
-          }
-        }
-      }
-    }
+    if (obj.type !== 'relationship' || obj.relationship_type !== 'uses') continue;
+    if (obj.target_ref !== technique.id || !obj.source_ref) continue;
+    const actor = intrusionSets.get(obj.source_ref);
+    if (!actor || actorMap.has(actor.id)) continue;
+    const name = actor.name ?? '';
+    actorMap.set(actor.id, {
+      id: actor.id,
+      name,
+      aliases: (actor.aliases ?? []).filter((a) => a && a !== name).slice(0, 8),
+    });
+    if (actorMap.size >= 40) break; // bound response size
   }
 
   const response: TechniqueLookupResponse = {

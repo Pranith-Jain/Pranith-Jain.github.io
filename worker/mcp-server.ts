@@ -82,7 +82,18 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
     version: '1.0.0',
   });
 
-  /** API key extracted from the MCP client's Authorization header. */
+  /**
+   * API key extracted from the MCP client's Authorization header, used to
+   * authorize downstream `/api/v1/*` calls (which are now key-gated).
+   *
+   * INVARIANT: McpAgent maps one MCP session → one Durable Object instance, so
+   * a given instance serves a single client and this per-instance field is
+   * effectively per-client. Do NOT register a second connection onto the same
+   * instance with a different key — there is no per-call connection context in
+   * the SDK's `server.tool` callbacks, so an in-flight tool call reads whatever
+   * `this.apiKey` currently holds. If multi-connection sessions are ever added,
+   * thread the key through per-connection state instead of this field.
+   */
   private apiKey: string | undefined;
 
   /**

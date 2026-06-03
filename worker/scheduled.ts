@@ -449,27 +449,30 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
 
         // === Graph ingestion (daily at 2am UTC) ===
         if (csNow.getUTCHours() === 2) {
-          try {
-            if (!db) {
-              console.warn('graph-ingest: no db');
-              return;
+          // Guard hoisted OUT of the try: a missing db must skip ONLY graph-ingest,
+          // not `return` from the whole hourly IIFE (which previously skipped
+          // feed-scheduler, rag-reindex, infra-scan, AND the retention sweep).
+          if (!db) {
+            console.warn('graph-ingest: no db — skipping graph-ingest; other hourly jobs continue');
+          } else {
+            try {
+              const gResult = await runGraphIngest(db, 'all', env as never);
+              console.log(
+                JSON.stringify({
+                  job: 'graph-ingest',
+                  nodes_upserted: gResult['threat-intel']?.nodes_upserted ?? 0,
+                  edges_created: gResult['threat-intel']?.edges_created ?? 0,
+                  per_source: Object.fromEntries(
+                    Object.entries(gResult).map(([k, v]) => [
+                      k,
+                      { n: v.nodes_upserted, e: v.edges_created, err: v.errors.length },
+                    ])
+                  ),
+                })
+              );
+            } catch (e) {
+              logCronFail('graph-ingest')(e);
             }
-            const gResult = await runGraphIngest(db, 'all', env as never);
-            console.log(
-              JSON.stringify({
-                job: 'graph-ingest',
-                nodes_upserted: gResult['threat-intel']?.nodes_upserted ?? 0,
-                edges_created: gResult['threat-intel']?.edges_created ?? 0,
-                per_source: Object.fromEntries(
-                  Object.entries(gResult).map(([k, v]) => [
-                    k,
-                    { n: v.nodes_upserted, e: v.edges_created, err: v.errors.length },
-                  ])
-                ),
-              })
-            );
-          } catch (e) {
-            logCronFail('graph-ingest')(e);
           }
         }
 

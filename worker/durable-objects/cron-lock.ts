@@ -83,11 +83,19 @@ export class CronLockDO {
       // separate check-then-write window.
       const counterKey = `count:${cron}`;
       const nowMs = Date.now();
+      const windowMs = ttlMs ?? DEFAULT_TTL_MS;
+      // The rate-limit caller keys a DISTINCT DO instance per (ip, window-bucket)
+      // — each instance is written once and never revisited (the next bucket is a
+      // new instance), so without cleanup its single counter key would leak in DO
+      // storage forever. Schedule a self-cleanup alarm to deleteAll() after the
+      // window lapses. Resetting it each incr means cleanup fires `windowMs` after
+      // the last write.
       const cur = await this.ctx.storage.get<{ count: number; expiresAt: number }>(counterKey);
+      await this.ctx.storage.setAlarm(nowMs + windowMs + 5_000);
       if (!cur || cur.expiresAt <= nowMs) {
         await this.ctx.storage.put<{ count: number; expiresAt: number }>(counterKey, {
           count: 1,
-          expiresAt: nowMs + (ttlMs ?? DEFAULT_TTL_MS),
+          expiresAt: nowMs + windowMs,
         });
         return Response.json({ count: 1 });
       }
@@ -97,6 +105,29 @@ export class CronLockDO {
     }
 
     return Response.json({ error: `unknown op: ${op}` }, { status: 400 });
+  }
+
+  /**
+   * Self-cleanup for the per-(ip, bucket) rate-limit counter instances. Only the
+   * `incr` path schedules an alarm; the global lease DO never does, so its
+   * `lease:` keys are untouched. Once a counter window has lapsed, the instance
+   * is inert — drop all its storage so these single-use instances don't
+   * accumulate. `lease:` keys (only present on the global instance, which has no
+   * alarm) are never reached here.
+   */
+  async alarm(): Promise<void> {
+    const now = Date.now();
+    const counters = await this.ctx.storage.list<{ expiresAt: number }>({ prefix: 'count:' });
+    let liveCounters = 0;
+    const expired: string[] = [];
+    for (const [k, v] of counters) {
+      if (!v || v.expiresAt <= now) expired.push(k);
+      else liveCounters += 1;
+    }
+    if (expired.length) await this.ctx.storage.delete(expired);
+    // If a counter is somehow still live (alarm fired early), re-arm; otherwise
+    // this instance is empty and can be left to evict.
+    if (liveCounters > 0) await this.ctx.storage.setAlarm(now + 60_000);
   }
 }
 

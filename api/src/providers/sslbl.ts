@@ -29,8 +29,11 @@ export const sslbl: ProviderAdapter = async (indicator, _env, signal) => {
     for (const line of text.split(/\r?\n/)) {
       const t = line.trim();
       if (!t || t.startsWith('#')) continue;
+      // CSV schema is `Firstseen,DstIP,DstPort` — the IP is column 2 (parts[1]),
+      // NOT parts[0] (the timestamp, which never matches the IPv4 regex so the
+      // set was always empty → every lookup wrongly "clean").
       const parts = t.split(',');
-      if (parts.length >= 1 && /^\d+\.\d+\.\d+\.\d+$/.test(parts[0]!)) ips.add(parts[0]!);
+      if (parts.length >= 2 && /^\d+\.\d+\.\d+\.\d+$/.test(parts[1]!)) ips.add(parts[1]!);
     }
 
     const hit = ips.has(indicator.value.toLowerCase());
