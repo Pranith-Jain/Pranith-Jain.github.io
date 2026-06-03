@@ -18,6 +18,13 @@
 /fonts/*.woff2
   Cache-Control: public, max-age=31536000, immutable
 
+# fonts.css references content-hashed woff2, so it can't be immutable (a stale copy
+# could point at a purged hash). But the Workers default (max-age=0, must-revalidate)
+# render-blocks a 304 on every hard navigation. stale-while-revalidate serves it
+# instantly from cache and refreshes in the background instead.
+/fonts/fonts.css
+  Cache-Control: public, max-age=600, stale-while-revalidate=86400
+
 # Topojson is 190KB and stable; cache for a week
 /world-110m.json
   Cache-Control: public, max-age=604800
