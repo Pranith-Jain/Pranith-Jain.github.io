@@ -90,6 +90,9 @@ function compileSearch(query: string): ((item: FeedItem) => boolean) | null {
       const lastSlash = trimmed.lastIndexOf('/');
       const pattern = trimmed.slice(1, lastSlash);
       const flags = trimmed.slice(lastSlash + 1) || 'i';
+      // Guard against ReDoS: cap length and refuse nested quantifiers.
+      if (pattern.length > 200) return null;
+      if (/(\([^)]*[+*][^)]*\)|\[[^\]]*\][+*])[+*]/.test(pattern)) return null;
       const re = new RegExp(pattern, flags);
       return (item) => re.test(`${item.title ?? ''} ${item.description ?? ''}`);
     } catch {
@@ -813,10 +816,13 @@ interface RansomwareResponse {
 }
 
 export function RansomwareActivityPanel(): JSX.Element {
+  const [searchParams] = useSearchParams();
   const [data, setData] = useState<RansomwareResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [groupFilter, setGroupFilter] = useState<string | 'all'>('all');
+  // Honor a victim deep-link (e.g. from RansomwareMap: ?q=<victim>).
+  const [victimQuery, setVictimQuery] = useState(searchParams.get('q') ?? '');
   const [expanded, setExpanded] = useState(false);
   const [lightbox, setLightbox] = useState<{ url: string; victim: string; group: string } | null>(null);
   const [newOnly, setNewOnly] = useState(false);
@@ -855,12 +861,14 @@ export function RansomwareActivityPanel(): JSX.Element {
 
   const filteredVictims = useMemo(() => {
     if (!data) return [];
+    const q = victimQuery.trim().toLowerCase();
     return data.victims.filter((v) => {
       if (groupFilter !== 'all' && v.group !== groupFilter) return false;
       if (newOnly && !isNewSince(v.discovered, lastVisit)) return false;
+      if (q && !v.victim.toLowerCase().includes(q) && !v.group.toLowerCase().includes(q)) return false;
       return true;
     });
-  }, [data, groupFilter, newOnly, lastVisit]);
+  }, [data, groupFilter, newOnly, lastVisit, victimQuery]);
 
   const newCount = useMemo(() => {
     if (!data || !lastVisit) return 0;
@@ -884,6 +892,17 @@ export function RansomwareActivityPanel(): JSX.Element {
         <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400" title={data?.source ?? ''}>
           {loading ? 'loading…' : data ? `${data.count} leak-site posts · multi-source merge` : ''}
         </span>
+      </div>
+
+      <div className="mb-3">
+        <input
+          type="search"
+          value={victimQuery}
+          onChange={(e) => setVictimQuery(e.target.value)}
+          placeholder="Filter by victim or group…"
+          aria-label="Filter ransomware activity by victim or group"
+          className="w-full sm:max-w-xs text-[12px] font-mono px-2.5 py-1.5 rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 focus:outline-none focus:border-brand-500/60"
+        />
       </div>
 
       {error && (
@@ -1170,7 +1189,7 @@ function highlightTelegramText(text: string, watchTerms: string[]): JSX.Element 
   return (
     <>
       {parts.map((p, i) =>
-        re.test(p) ? (
+        i % 2 === 1 ? (
           <mark key={`${p}-${i}`} className="bg-amber-300/40 dark:bg-amber-400/30 text-inherit rounded px-0.5">
             {p}
           </mark>

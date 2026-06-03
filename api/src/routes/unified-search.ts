@@ -430,7 +430,7 @@ const IOC_RE_IP = /^(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|
 const IOC_RE_DOMAIN = /^([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/;
 const IOC_RE_HASH = /^[a-fA-F0-9]{32,64}$/;
 
-async function searchIocCheck(needle: string): Promise<SearchSection> {
+async function searchIocCheck(needle: string, env: import('../env').Env): Promise<SearchSection> {
   const q = needle.trim();
   const iocType = IOC_RE_IP.test(q) ? 'ip' : IOC_RE_DOMAIN.test(q) ? 'domain' : IOC_RE_HASH.test(q) ? 'hash' : null;
   if (!iocType) return { label: 'IOC Check (live)', kind: 'iocs', total: 0, items: [] };
@@ -438,12 +438,14 @@ async function searchIocCheck(needle: string): Promise<SearchSection> {
   // Quick reputation check via abuseipdb for IPs, otherwise signal from live IOC feeds
   const items: SearchItem[] = [];
 
-  if (iocType === 'ip') {
+  // Only call AbuseIPDB when a real key is configured. The old code sent a
+  // hardcoded 'dummy' key, guaranteeing a 401 and silently returning nothing.
+  if (iocType === 'ip' && env.ABUSEIPDB_API_KEY) {
     try {
       const res = await fetch(
         `https://api.abuseipdb.com/api/v2/check?ipAddress=${encodeURIComponent(q)}&maxAgeInDays=90`,
         {
-          headers: { Key: 'dummy', Accept: 'application/json' },
+          headers: { Key: env.ABUSEIPDB_API_KEY, Accept: 'application/json' },
           signal: AbortSignal.timeout(5000),
         }
       ).catch(() => null);
@@ -644,7 +646,7 @@ export async function unifiedSearchHandler(ctx: Context<{ Bindings: import('../e
     searchMalwareSamples(needle),
     searchMalpedia(needle),
     searchCveLookup(needle),
-    searchIocCheck(needle),
+    searchIocCheck(needle, ctx.env),
     searchActorKb(needle),
   ]);
 

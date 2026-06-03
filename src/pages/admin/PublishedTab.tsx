@@ -101,7 +101,6 @@ export default function PublishedTab() {
       if (r.ok) {
         setSocialAndExpand(slug, {
           loadingTwitter: false,
-          loadingLinkedin: false,
           error: null,
         });
         if (r.content) {
@@ -134,7 +133,6 @@ export default function PublishedTab() {
       if (r.ok) {
         setSocialAndExpand(slug, {
           loadingLinkedin: false,
-          loadingTwitter: false,
           error: null,
         });
         if (r.content) {

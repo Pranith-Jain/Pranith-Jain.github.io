@@ -80,6 +80,7 @@ export default function Analyze(): JSX.Element {
   const [filterVerdict, setFilterVerdict] = useState<VerdictFilter>('all');
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
   const inputRef = useRef<HTMLInputElement>(null);
+  const streamCloseRef = useRef<(() => void) | null>(null);
 
   const detectedType = input ? detectType(input) : 'unknown';
 
@@ -123,7 +124,8 @@ export default function Analyze(): JSX.Element {
     setEligible([]);
     setExpanded(new Set());
 
-    streamIoc(val, {
+    streamCloseRef.current?.();
+    streamCloseRef.current = streamIoc(val, {
       onMeta: (m) => setEligible(m.providers),
       onResult: (r) => setResults((prev) => [...prev, r]),
       onDone: (s) => {
@@ -142,6 +144,8 @@ export default function Analyze(): JSX.Element {
     e.preventDefault();
     runCheck();
   };
+
+  useEffect(() => () => streamCloseRef.current?.(), []);
 
   const autoRanRef = useRef(false);
   useEffect(() => {

@@ -21,7 +21,9 @@ function parseBplist(buf: Uint8Array): unknown {
   const offsets: number[] = [];
   for (let i = 0; i < numObj; i++) offsets.push(readSized(offTableOff + i * offSize, offSize));
 
-  const parseObj = (idx: number): unknown => {
+  const parseObj = (idx: number, depth = 0): unknown => {
+    if (depth > 256) throw new Error('plist too deeply nested');
+    if (idx < 0 || idx >= numObj) throw new Error('object ref out of range');
     let p = offsets[idx]!;
     const marker = buf[p]!;
     const hi = marker >> 4;
@@ -66,15 +68,15 @@ function parseBplist(buf: Uint8Array): unknown {
       case 0xa: {
         const n = extLen();
         const arr: unknown[] = [];
-        for (let i = 0; i < n; i++) arr.push(parseObj(readSized(p + i * refSize, refSize)));
+        for (let i = 0; i < n; i++) arr.push(parseObj(readSized(p + i * refSize, refSize), depth + 1));
         return arr;
       }
       case 0xd: {
         const n = extLen();
         const o: Record<string, unknown> = {};
         for (let i = 0; i < n; i++) {
-          const k = parseObj(readSized(p + i * refSize, refSize));
-          const v = parseObj(readSized(p + (n + i) * refSize, refSize));
+          const k = parseObj(readSized(p + i * refSize, refSize), depth + 1);
+          const v = parseObj(readSized(p + (n + i) * refSize, refSize), depth + 1);
           o[String(k)] = v;
         }
         return o;

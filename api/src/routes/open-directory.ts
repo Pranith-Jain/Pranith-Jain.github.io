@@ -196,12 +196,10 @@ function parseDirectoryListing(html: string, _baseUrl: string): DirEntry[] {
     const isDir = href.endsWith('/');
     const ext = isDir ? null : (normalizedName.split('.').pop()?.toLowerCase() ?? null);
 
-    // Try to extract size from nearby text
+    // Try to extract size from nearby text (same row in Apache/nginx/Python listings)
     let size: number | null = null;
-    const sizeMatch = new RegExp(
-      `${normalizedName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}[^]*?(\\d+(?:\\.\\d+)?)\\s*(bytes?|KB|MB|GB|TB)`,
-      'i'
-    ).exec(html);
+    const after = html.slice(match.index + match[0].length, match.index + match[0].length + 200);
+    const sizeMatch = /(\d+(?:\.\d+)?)\s*(bytes?|KB|MB|GB|TB)/i.exec(after);
     if (sizeMatch) {
       const num = parseFloat(sizeMatch[1]!);
       const unit = sizeMatch[2]?.toLowerCase();

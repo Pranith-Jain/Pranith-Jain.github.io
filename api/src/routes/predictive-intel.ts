@@ -357,7 +357,7 @@ export function identifyIntelligenceGaps(pirs?: Pir[], sourceCoverage?: Record<s
   // PIR-derived gaps — gaps created by active PIRs with low source coverage
   if (pirs) {
     const activePirs = pirs.filter(
-      (p) => (p.status === 'active' && p.priority === 'critical') || p.priority === 'high'
+      (p) => p.status === 'active' && (p.priority === 'critical' || p.priority === 'high')
     );
     for (const pir of activePirs) {
       // Calculate source coverage for this PIR's relevant sources

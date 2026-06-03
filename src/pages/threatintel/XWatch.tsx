@@ -336,6 +336,7 @@ export default function XWatch(): JSX.Element {
     if (authStatus && !authStatus.configured) return;
     const allHandles = Array.from(new Set([...SECTIONS.flatMap((s) => s.handles), ...customHandles]));
     let cancelled = false;
+    const ctrl = new AbortController();
     setProbing(true);
     setActivity((prev) => {
       const next: Record<string, number | undefined> = {};
@@ -351,7 +352,7 @@ export default function XWatch(): JSX.Element {
           include_replies: includeReplies ? '1' : '0',
           include_pinned: '0',
         });
-        const r = await fetch(`/api/v1/x-firehose?${qs.toString()}`);
+        const r = await fetch(`/api/v1/x-firehose?${qs.toString()}`, { signal: ctrl.signal });
         if (!r.ok) return { h, count: 0 };
         const body = (await r.json()) as FirehoseResponse;
         return { h, count: body.items?.length ?? 0 };
@@ -369,6 +370,7 @@ export default function XWatch(): JSX.Element {
     });
     return () => {
       cancelled = true;
+      ctrl.abort();
     };
     // Re-probe when window/replies/auth changes. customHandles changes
     // intentionally NOT in dep list — adding a custom handle probes that

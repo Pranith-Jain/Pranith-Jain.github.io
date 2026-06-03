@@ -538,6 +538,10 @@ export default function AssetIntel(): JSX.Element {
     if (initial && typeFromQuery(initial)) void scan(initial.trim());
   }, [initial, scan]);
 
+  useEffect(() => {
+    setInput(initial);
+  }, [initial]);
+
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (input.trim() && typeFromQuery(input)) void scan(input.trim());

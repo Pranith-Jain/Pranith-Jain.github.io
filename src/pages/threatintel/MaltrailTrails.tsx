@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, FileText, Search, Users } from 'lucide-react';
 import { IocChip } from '../../components/dfir/IocChip';
@@ -33,6 +33,7 @@ export default function MaltrailTrails(): JSX.Element {
   const [selected, setSelected] = useState<string | null>(null);
   const [content, setContent] = useState<TrailContent | null>(null);
   const [contentLoading, setContentLoading] = useState(false);
+  const reqRef = useRef<string | null>(null);
 
   useEffect(() => {
     let alive = true;
@@ -54,18 +55,22 @@ export default function MaltrailTrails(): JSX.Element {
   }, []);
 
   const fetchTrail = (name: string) => {
+    reqRef.current = name;
     setSelected(name);
     setContent(null);
     setContentLoading(true);
     fetch(`/api/v1/maltrail/fetch?trail=${encodeURIComponent(name)}`)
       .then((r) => (r.ok ? r.json() : Promise.reject(String(r.status))))
       .then((d: TrailContent) => {
+        if (reqRef.current !== name) return; // stale response, a newer trail was clicked
         if (d.ok) setContent(d);
       })
       .catch(() => {
         /* silent */
       })
-      .finally(() => setContentLoading(false));
+      .finally(() => {
+        if (reqRef.current === name) setContentLoading(false);
+      });
   };
 
   return (

@@ -378,7 +378,31 @@ export async function reportParserHandler(c: Context<{ Bindings: Env }>): Promis
           if (!res.ok) {
             return c.json({ error: `Failed to fetch URL: ${res.status}` }, 400);
           }
-          text = await res.text();
+          const cl = res.headers.get('content-length');
+          if (cl && Number(cl) > MAX_TEXT_LENGTH) {
+            return c.json({ error: 'Remote content too large' }, 400);
+          }
+          // Stream-read with a hard byte cap. `await res.text()` would buffer an
+          // arbitrarily large upstream body into memory (DoS) — reachable via
+          // the public MCP parse_threat_report tool.
+          const reader = res.body?.getReader();
+          if (!reader) {
+            text = '';
+          } else {
+            const decoder = new TextDecoder('utf-8');
+            let bytesRead = 0;
+            let buf = '';
+            while (bytesRead < MAX_TEXT_LENGTH) {
+              const { value, done } = await reader.read();
+              if (done) break;
+              if (value) {
+                bytesRead += value.byteLength;
+                buf += decoder.decode(value, { stream: true });
+              }
+            }
+            void reader.cancel();
+            text = buf;
+          }
         } catch (err) {
           if (err instanceof SsrfError) {
             return c.json({ error: err.detail }, err.status as 400 | 403 | 502);

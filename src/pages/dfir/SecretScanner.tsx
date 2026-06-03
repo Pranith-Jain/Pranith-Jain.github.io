@@ -1,6 +1,5 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import type { Severity as Sev } from '../../components/severity';
-import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, AlertTriangle, ShieldAlert, ShieldX, ShieldCheck, Info } from 'lucide-react';
 
@@ -173,15 +172,11 @@ const SAMPLE = [
 ].join('\n');
 
 export default function SecretScanner(): JSX.Element {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const initial = searchParams.get('q') ?? '';
-  const [input, setInput] = useState(initial);
+  // NEVER sync the scanned text to the URL. This tool promises "nothing leaves
+  // your browser"; mirroring the paste into ?q= would persist live credentials
+  // in history, share-links, the Referer header, and extension-readable state.
+  const [input, setInput] = useState('');
   const result = useMemo(() => analyze(input), [input]);
-
-  useEffect(() => {
-    if (input) setSearchParams({ q: input }, { replace: true });
-    else setSearchParams({}, { replace: true });
-  }, [input, setSearchParams]);
 
   const counts = useMemo(() => {
     const c: Record<Sev, number> = { critical: 0, high: 0, medium: 0, low: 0, info: 0 };

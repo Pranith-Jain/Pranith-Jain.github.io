@@ -3,6 +3,7 @@ import { BackLink } from '../../components/BackLink';
 import { DataState } from '../../components/DataState';
 import { ArrowLeft, RefreshCw, Radio, ExternalLink, Check, X, Search, Lock } from 'lucide-react';
 import { adminAuthHeaders, readAdminToken, writeAdminToken } from '../../lib/admin-token';
+import { sanitizeUrl } from '../../lib/sanitize-url';
 
 interface DiscoveredChannel {
   id: number;
@@ -222,9 +223,9 @@ export default function TelegramDiscoveredChannels(): JSX.Element {
                   </div>
                   <div className="flex items-center gap-3 text-[10px] font-mono text-slate-500 dark:text-slate-400">
                     <span>discovered {new Date(ch.discovered_at).toLocaleString()}</span>
-                    {ch.source_message && (
+                    {ch.source_message && sanitizeUrl(ch.source_message) && (
                       <a
-                        href={ch.source_message}
+                        href={sanitizeUrl(ch.source_message)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1 text-brand-600 dark:text-brand-400 hover:underline"

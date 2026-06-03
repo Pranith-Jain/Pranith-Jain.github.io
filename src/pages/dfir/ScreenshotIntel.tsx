@@ -37,6 +37,13 @@ export default function ScreenshotIntel(): JSX.Element {
     setEnts([]);
     setOcr(null);
     setNote('');
+    // Reject oversized uploads before decoding — a small compressed image can
+    // decompress to a huge canvas allocation (decompression-bomb DoS).
+    if (file.size > 25 * 1024 * 1024) {
+      setNote('Image too large (max 25 MB).');
+      setBusy(false);
+      return;
+    }
     try {
       // EXIF / metadata (exifr — already a dependency)
       try {
@@ -48,12 +55,21 @@ export default function ScreenshotIntel(): JSX.Element {
       }
       // QR decode (jsQR — lazy chunk, tiny pure-JS, no wasm)
       const bmp = await createImageBitmap(file);
+      // Guard against pixel-dimension bombs: a 25 MB file can still decode to
+      // hundreds of megapixels, allocating gigabytes for the canvas/ImageData.
+      if (bmp.width * bmp.height > 40_000_000) {
+        bmp.close();
+        setNote('Image dimensions too large to analyze (max ~40 MP).');
+        setBusy(false);
+        return;
+      }
       const cv = document.createElement('canvas');
       cv.width = bmp.width;
       cv.height = bmp.height;
       const ctx = cv.getContext('2d')!;
       ctx.drawImage(bmp, 0, 0);
       const img = ctx.getImageData(0, 0, cv.width, cv.height);
+      bmp.close();
       const jsQR = (await import('jsqr')).default;
       const code = jsQR(img.data, img.width, img.height);
       const qrText = code?.data ?? '';

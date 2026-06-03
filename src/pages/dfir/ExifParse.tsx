@@ -1,6 +1,7 @@
 import { useState, useCallback, useRef } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Upload, MapPin, Camera, Image, FileText, ShieldCheck } from 'lucide-react';
+import { fileTooLarge } from '../../lib/dfir/file-guard';
 
 // exifr is ~76KB. Lazy-load on first file drop so the route's initial chunk
 // only ships the drop-zone UI, not the parser library.
@@ -82,6 +83,12 @@ export default function ExifParse(): JSX.Element {
     setMetadata(null);
     setFileName(file.name);
     try {
+      const tooBig = fileTooLarge(file.size);
+      if (tooBig) {
+        setError(tooBig);
+        setLoading(false);
+        return;
+      }
       const arrayBuf = await file.arrayBuffer();
       const exifr = exifrRef.current ?? (exifrRef.current = await import('exifr'));
       const parseOptions = { gps: true, exif: true, ifd0: true, iptc: true } as unknown as Parameters<

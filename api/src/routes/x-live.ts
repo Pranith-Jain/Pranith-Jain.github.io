@@ -151,35 +151,19 @@ async function fetchTweetFeed(): Promise<string> {
  * repeated visits.
  */
 async function fetchFxTweet(statusId: string): Promise<FxTweet | null> {
-  const cache = (caches as unknown as { default: Cache }).default;
-  const cacheKey = new Request(`https://x-live-status-cache.internal/v1?id=${statusId}`);
-  try {
-    const hit = await cache.match(cacheKey);
-    if (hit) {
-      const body = (await hit.json()) as FxResponse;
-      return body.tweet ?? null;
-    }
-  } catch {
-    /* fall through */
-  }
+  // Use Cloudflare edge caching via the fetch `cf` option instead of explicit
+  // Cache API match+put. The old approach cost up to 2 extra subrequests per
+  // status (a read + a write); fanning out over MAX_STATUS_LOOKUPS statuses on
+  // a cold cache blew the Free-plan 50-subrequest budget. cf.cacheTtl adds none.
   try {
     const res = await fetch(`${FXTWITTER_BASE}${statusId}`, {
       headers: { accept: 'application/json', 'user-agent': 'pranithjain-dfir/1.0' },
       signal: AbortSignal.timeout(FETCH_TIMEOUT),
-    });
+      cf: { cacheTtl: STATUS_CACHE_TTL, cacheEverything: true },
+    } as RequestInit);
     if (!res.ok) return null;
     const body = (await res.json()) as FxResponse;
-    if (!body.tweet) return null;
-    // Cache the parsed response.
-    const cacheable = new Response(JSON.stringify(body), {
-      status: 200,
-      headers: {
-        'content-type': 'application/json',
-        'cache-control': `public, max-age=${STATUS_CACHE_TTL}, s-maxage=${STATUS_CACHE_TTL}`,
-      },
-    });
-    await cache.put(cacheKey, cacheable);
-    return body.tweet;
+    return body.tweet ?? null;
   } catch {
     return null;
   }
@@ -409,9 +393,7 @@ export async function xLiveHandler(c: Context<{ Bindings: Env }>): Promise<Respo
     const kv = (c.env as { KV_CACHE?: KVNamespace }).KV_CACHE;
     if (kv) {
       c.executionCtx.waitUntil(
-        kv
-          .put(KV_FALLBACK_KEY, JSON.stringify(body), { expirationTtl: 86_400 })
-          .catch(() => undefined)
+        kv.put(KV_FALLBACK_KEY, JSON.stringify(body), { expirationTtl: 86_400 }).catch(() => undefined)
       );
     }
   }

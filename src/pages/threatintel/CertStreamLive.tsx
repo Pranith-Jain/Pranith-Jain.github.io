@@ -201,8 +201,9 @@ export default function CertStreamLive(): JSX.Element {
             type="text"
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
+            disabled={streaming}
             placeholder="e.g. %anthrop%   (use % as wildcard)"
-            className="flex-1 rounded border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-3 py-2 text-sm font-mono focus:border-brand-500 focus:outline-none"
+            className="flex-1 rounded border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 px-3 py-2 text-sm font-mono focus:border-brand-500 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
             onKeyDown={(e) => {
               if (e.key === 'Enter' && !streaming) start();
             }}

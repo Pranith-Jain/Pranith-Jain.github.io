@@ -214,6 +214,9 @@ export async function negotiationTranscriptHandler(c: Context<{ Bindings: Env }>
   if (!/^[\w .-]{1,64}$/.test(group) || !/^[\w.-]{1,64}$/.test(id)) {
     return c.json({ error: 'bad_params' }, 400, { 'cache-control': 'no-store' });
   }
+  if (group === '.' || group === '..' || id === '.' || id === '..') {
+    return c.json({ error: 'bad_params' }, 400, { 'cache-control': 'no-store' });
+  }
 
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheReq = new Request(`https://negotiation-transcript.internal/v1/${encodeURIComponent(group)}/${id}`);

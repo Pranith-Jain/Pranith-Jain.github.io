@@ -30,14 +30,14 @@ interface InternetDBResponse {
 
 /** Ports commonly associated with insecure/exposed services. */
 const RISKY_PORTS = new Set([
-  21,   // FTP
-  23,   // Telnet
-  25,   // SMTP
-  110,  // POP3
-  135,  // MSRPC
-  139,  // NetBIOS
-  143,  // IMAP
-  445,  // SMB
+  21, // FTP
+  23, // Telnet
+  25, // SMTP
+  110, // POP3
+  135, // MSRPC
+  139, // NetBIOS
+  143, // IMAP
+  445, // SMB
   1433, // MSSQL
   1521, // Oracle
   2049, // NFS
@@ -60,21 +60,21 @@ const ACTIVELY_EXPLOITED_CVES = new Set([
   'CVE-2021-44832', // Log4Shell follow-up
   'CVE-2023-44487', // HTTP/2 Rapid Reset
   'CVE-2023-46747', // BIG-IP
-  'CVE-2023-4966',  // Citrix Bleed
+  'CVE-2023-4966', // Citrix Bleed
   'CVE-2023-20198', // Cisco IOS XE
   'CVE-2023-22515', // Confluence
-  'CVE-2024-3094',  // XZ Utils
+  'CVE-2024-3094', // XZ Utils
   'CVE-2024-21762', // FortiOS
   'CVE-2024-23897', // Jenkins
   'CVE-2024-23917', // JetBrains TeamCity
   'CVE-2024-27198', // JetBrains TeamCity
-  'CVE-2024-1709',  // ConnectWise ScreenConnect
+  'CVE-2024-1709', // ConnectWise ScreenConnect
 ]);
 
 export const shodanInternetDB: ProviderAdapter = async (indicator, _env, signal) => {
   const now = new Date().toISOString();
   const base = (status: ProviderResult['status'], extra: Partial<ProviderResult> = {}): ProviderResult => ({
-    source: 'shodan',
+    source: 'shodan-internetdb',
     status,
     score: 0,
     verdict: 'unknown',

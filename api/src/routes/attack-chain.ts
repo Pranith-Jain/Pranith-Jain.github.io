@@ -60,32 +60,32 @@ const IOC_TECHNIQUE_MAP: Array<{
   // Initial Access
   { pattern: /phish|spoof|fake/i, type: 'url', technique: 'T1566.002', tactic: 'TA0001', confidence: 80 },
   { pattern: /exploit|cve|vuln/i, type: 'domain', technique: 'T1190', tactic: 'TA0001', confidence: 75 },
-  
+
   // Execution
   { pattern: /powershell|ps1|cmd/i, type: 'hash', technique: 'T1059.001', tactic: 'TA0002', confidence: 85 },
   { pattern: /javascript|js|vbs/i, type: 'hash', technique: 'T1059.007', tactic: 'TA0002', confidence: 80 },
   { pattern: /macro|office|doc/i, type: 'hash', technique: 'T1204.002', tactic: 'TA0002', confidence: 75 },
-  
+
   // Persistence
   { pattern: /scheduled|task|schtasks/i, type: 'hash', technique: 'T1053.005', tactic: 'TA0003', confidence: 80 },
   { pattern: /registry|run.*key/i, type: 'hash', technique: 'T1547.001', tactic: 'TA0003', confidence: 85 },
   { pattern: /service|svchost/i, type: 'hash', technique: 'T1543.003', tactic: 'TA0003', confidence: 75 },
-  
+
   // Defense Evasion
   { pattern: /obfuscat|encode|pack/i, type: 'hash', technique: 'T1027', tactic: 'TA0005', confidence: 70 },
   { pattern: /inject|hollow/i, type: 'hash', technique: 'T1055', tactic: 'TA0005', confidence: 85 },
-  
+
   // Credential Access
   { pattern: /mimikatz|credential|dump/i, type: 'hash', technique: 'T1003', tactic: 'TA0006', confidence: 90 },
   { pattern: /keylog|stealer/i, type: 'hash', technique: 'T1056.001', tactic: 'TA0006', confidence: 80 },
-  
+
   // Command and Control
   { pattern: /cobalt|beacon|c2/i, type: 'ip', technique: 'T1071', tactic: 'TA0011', confidence: 85 },
   { pattern: /tor|onion|proxy/i, type: 'domain', technique: 'T1090', tactic: 'TA0011', confidence: 70 },
-  
+
   // Exfiltration
   { pattern: /exfil|upload|transfer/i, type: 'ip', technique: 'T1041', tactic: 'TA0010', confidence: 75 },
-  
+
   // Impact
   { pattern: /ransom|encrypt|lockbit|conti/i, type: 'hash', technique: 'T1486', tactic: 'TA0040', confidence: 90 },
   { pattern: /wiper|destroy|shred/i, type: 'hash', technique: 'T1485', tactic: 'TA0040', confidence: 85 },
@@ -94,14 +94,14 @@ const IOC_TECHNIQUE_MAP: Array<{
 // Known malware → technique mappings
 const MALWARE_TECHNIQUES: Record<string, string[]> = {
   'cobalt strike': ['T1071', 'T1055', 'T1059.001', 'T1053.005'],
-  'mimikatz': ['T1003', 'T1558.003', 'T1550.002'],
-  'emotet': ['T1566.001', 'T1204.002', 'T1059.001', 'T1547.001'],
-  'trickbot': ['T1566.001', 'T1059.001', 'T1003', 'T1021.002'],
-  'lockbit': ['T1486', 'T1489', 'T1490', 'T1078'],
-  'conti': ['T1486', 'T1059.001', 'T1071', 'T1021.002'],
-  'lazarus': ['T1566.001', 'T1059.001', 'T1055', 'T1071'],
-  'apt28': ['T1566.001', 'T1059.001', 'T1003', 'T1071'],
-  'apt29': ['T1190', 'T1059.001', 'T1055', 'T1078'],
+  mimikatz: ['T1003', 'T1558.003', 'T1550.002'],
+  emotet: ['T1566.001', 'T1204.002', 'T1059.001', 'T1547.001'],
+  trickbot: ['T1566.001', 'T1059.001', 'T1003', 'T1021.002'],
+  lockbit: ['T1486', 'T1489', 'T1490', 'T1078'],
+  conti: ['T1486', 'T1059.001', 'T1071', 'T1021.002'],
+  lazarus: ['T1566.001', 'T1059.001', 'T1055', 'T1071'],
+  apt28: ['T1566.001', 'T1059.001', 'T1003', 'T1071'],
+  apt29: ['T1190', 'T1059.001', 'T1055', 'T1078'],
 };
 
 // ── Reconstruction Logic ────────────────────────────────────────────────
@@ -156,14 +156,21 @@ export async function reconstructAttackChain(
         addTechnique(techniqueMap, mapping.technique, indicator, mapping.confidence);
       }
     }
+  }
 
-    // Check against known IOCs in the database
-    const dbTechniques = await db.prepare(`
-      SELECT technique_id FROM ioc_techniques WHERE indicator = ?
-    `).bind(indicator).all<{ technique_id: string }>();
-
-    for (const row of dbTechniques.results ?? []) {
-      addTechnique(techniqueMap, row.technique_id, indicator, 70);
+  // Check against known IOCs in the database in ONE batched query. The old
+  // per-indicator query inside the loop fired up to 500 D1 subrequests and
+  // blew the Free-plan 50-subrequest/invocation cap. SELECT `indicator` too
+  // so techniques stay attributed to the correct IOC.
+  const uniqueIndicators = [...new Set(indicators)];
+  if (uniqueIndicators.length > 0) {
+    const placeholders = uniqueIndicators.map(() => '?').join(',');
+    const rows = await db
+      .prepare(`SELECT indicator, technique_id FROM ioc_techniques WHERE indicator IN (${placeholders})`)
+      .bind(...uniqueIndicators)
+      .all<{ indicator: string; technique_id: string }>();
+    for (const row of rows.results ?? []) {
+      addTechnique(techniqueMap, row.technique_id, row.indicator, 70);
     }
   }
 
@@ -178,7 +185,7 @@ export async function reconstructAttackChain(
   }
 
   // Phase 3: Organize by tactic
-  const tactics = MITRE_TACTICS.map(tactic => {
+  const tactics = MITRE_TACTICS.map((tactic) => {
     const tacticTechniques: AttackChain['tactics'][0]['techniques'] = [];
 
     for (const [techniqueId, data] of techniqueMap) {
@@ -201,7 +208,7 @@ export async function reconstructAttackChain(
   });
 
   // Phase 4: Calculate kill chain progress
-  const coveredTactics = tactics.filter(t => t.coverage > 0).length;
+  const coveredTactics = tactics.filter((t) => t.coverage > 0).length;
   const killChainProgress = Math.round((coveredTactics / MITRE_TACTICS.length) * 100);
 
   // Phase 5: Predict next move
@@ -252,28 +259,28 @@ function getTechniqueInfo(id: string): MitreTechnique | null {
   const techniques: Record<string, { name: string; tactic: string }> = {
     'T1566.001': { name: 'Spearphishing Attachment', tactic: 'TA0001' },
     'T1566.002': { name: 'Spearphishing Link', tactic: 'TA0001' },
-    'T1190': { name: 'Exploit Public-Facing Application', tactic: 'TA0001' },
+    T1190: { name: 'Exploit Public-Facing Application', tactic: 'TA0001' },
     'T1059.001': { name: 'PowerShell', tactic: 'TA0002' },
     'T1059.007': { name: 'JavaScript', tactic: 'TA0002' },
     'T1204.002': { name: 'Malicious File', tactic: 'TA0002' },
     'T1053.005': { name: 'Scheduled Task', tactic: 'TA0003' },
     'T1547.001': { name: 'Registry Run Keys', tactic: 'TA0003' },
     'T1543.003': { name: 'Windows Service', tactic: 'TA0003' },
-    'T1027': { name: 'Obfuscated Files', tactic: 'TA0005' },
-    'T1055': { name: 'Process Injection', tactic: 'TA0005' },
-    'T1003': { name: 'OS Credential Dumping', tactic: 'TA0006' },
+    T1027: { name: 'Obfuscated Files', tactic: 'TA0005' },
+    T1055: { name: 'Process Injection', tactic: 'TA0005' },
+    T1003: { name: 'OS Credential Dumping', tactic: 'TA0006' },
     'T1056.001': { name: 'Keylogging', tactic: 'TA0006' },
-    'T1071': { name: 'Application Layer Protocol', tactic: 'TA0011' },
-    'T1090': { name: 'Proxy', tactic: 'TA0011' },
-    'T1041': { name: 'Exfiltration Over C2', tactic: 'TA0010' },
-    'T1486': { name: 'Data Encrypted for Impact', tactic: 'TA0040' },
-    'T1485': { name: 'Data Destruction', tactic: 'TA0040' },
+    T1071: { name: 'Application Layer Protocol', tactic: 'TA0011' },
+    T1090: { name: 'Proxy', tactic: 'TA0011' },
+    T1041: { name: 'Exfiltration Over C2', tactic: 'TA0010' },
+    T1486: { name: 'Data Encrypted for Impact', tactic: 'TA0040' },
+    T1485: { name: 'Data Destruction', tactic: 'TA0040' },
     'T1021.002': { name: 'SMB/Windows Admin Shares', tactic: 'TA0008' },
     'T1558.003': { name: 'Kerberoasting', tactic: 'TA0006' },
     'T1550.002': { name: 'Pass the Hash', tactic: 'TA0005' },
-    'T1489': { name: 'Service Stop', tactic: 'TA0040' },
-    'T1490': { name: 'Inhibit System Recovery', tactic: 'TA0040' },
-    'T1078': { name: 'Valid Accounts', tactic: 'TA0003' },
+    T1489: { name: 'Service Stop', tactic: 'TA0040' },
+    T1490: { name: 'Inhibit System Recovery', tactic: 'TA0040' },
+    T1078: { name: 'Valid Accounts', tactic: 'TA0003' },
   };
 
   const info = techniques[id];
@@ -294,13 +301,13 @@ function predictNextMove(
   context?: { actors?: string[]; malware?: string[] }
 ): AttackChain['predicted_next'] {
   // Find the last tactic with coverage
-  const coveredTactics = tactics.filter(t => t.coverage > 0);
+  const coveredTactics = tactics.filter((t) => t.coverage > 0);
   if (coveredTactics.length === 0) return null;
 
   const lastCovered = coveredTactics[coveredTactics.length - 1];
   if (!lastCovered) return null;
 
-  const nextTacticIndex = MITRE_TACTICS.findIndex(t => t.id === lastCovered.tactic.id) + 1;
+  const nextTacticIndex = MITRE_TACTICS.findIndex((t) => t.id === lastCovered.tactic.id) + 1;
 
   if (nextTacticIndex >= MITRE_TACTICS.length || nextTacticIndex < 0) return null;
 
@@ -311,7 +318,7 @@ function predictNextMove(
   const predictedTechniques: string[] = [];
   let rationale = '';
 
-  if (nextTactic.id === 'TA0002' && context?.malware?.some(m => m.toLowerCase().includes('emotet'))) {
+  if (nextTactic.id === 'TA0002' && context?.malware?.some((m) => m.toLowerCase().includes('emotet'))) {
     predictedTechniques.push('T1059.001'); // PowerShell
     rationale = 'Emotet typically uses PowerShell for execution';
   } else if (nextTactic.id === 'TA0011') {
@@ -333,9 +340,9 @@ function identifyGaps(tactics: AttackChain['tactics']): string[] {
   const gaps: string[] = [];
 
   // Check for critical gaps in the kill chain
-  const hasInitialAccess = tactics.some(t => t.tactic.id === 'TA0001' && t.coverage > 0);
-  const hasExecution = tactics.some(t => t.tactic.id === 'TA0002' && t.coverage > 0);
-  const hasC2 = tactics.some(t => t.tactic.id === 'TA0011' && t.coverage > 0);
+  const hasInitialAccess = tactics.some((t) => t.tactic.id === 'TA0001' && t.coverage > 0);
+  const hasExecution = tactics.some((t) => t.tactic.id === 'TA0002' && t.coverage > 0);
+  const hasC2 = tactics.some((t) => t.tactic.id === 'TA0011' && t.coverage > 0);
 
   if (!hasInitialAccess) gaps.push('Missing initial access vector');
   if (!hasExecution && hasC2) gaps.push('Execution method unknown despite C2 detection');
@@ -344,10 +351,7 @@ function identifyGaps(tactics: AttackChain['tactics']): string[] {
   return gaps;
 }
 
-function generateRecommendations(
-  tactics: AttackChain['tactics'],
-  gaps: string[]
-): AttackChain['recommendations'] {
+function generateRecommendations(tactics: AttackChain['tactics'], gaps: string[]): AttackChain['recommendations'] {
   const recommendations: AttackChain['recommendations'] = [];
 
   // Generate recommendations based on detected tactics
@@ -425,7 +429,11 @@ export async function attackChainHandler(c: Context<{ Bindings: Env }>): Promise
 
 /** GET /api/v1/attack-chain/techniques — List all MITRE techniques */
 export async function attackChainTechniquesHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  return c.json({
-    tactics: MITRE_TACTICS,
-  }, 200, { 'Cache-Control': 'public, max-age=3600' });
+  return c.json(
+    {
+      tactics: MITRE_TACTICS,
+    },
+    200,
+    { 'Cache-Control': 'public, max-age=3600' }
+  );
 }

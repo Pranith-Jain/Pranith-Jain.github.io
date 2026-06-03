@@ -107,6 +107,19 @@ export async function updateWatchlistHandler(c: Context<{ Bindings: Env }>): Pro
   return c.json({ ok: true, watchlist: wl });
 }
 
+function iocMatchesDomain(value: string, domain: string): boolean {
+  const v = value.toLowerCase().trim();
+  // exact host or proper subdomain
+  if (v === domain || v.endsWith('.' + domain)) return true;
+  // url-valued IOC: compare parsed hostname
+  try {
+    const host = new URL(v.includes('://') ? v : 'http://' + v).hostname;
+    return host === domain || host.endsWith('.' + domain);
+  } catch {
+    return false;
+  }
+}
+
 export async function dashboardHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const kv = c.env.KV_CACHE;
   if (!kv) return c.json({ error: 'KV not available' }, 503);
@@ -135,9 +148,7 @@ export async function dashboardHandler(c: Context<{ Bindings: Env }>): Promise<R
   for (const domain of wl.domains) {
     const domainLower = domain.toLowerCase();
 
-    const domainIocs = (liveIocs?.items ?? []).filter(
-      (i) => i.value.toLowerCase() === domainLower || i.value.toLowerCase().includes(domainLower)
-    );
+    const domainIocs = (liveIocs?.items ?? []).filter((i) => iocMatchesDomain(i.value, domainLower));
 
     const domainBreaches = (breaches?.breaches ?? []).filter((b) => b.domain?.toLowerCase() === domainLower);
 

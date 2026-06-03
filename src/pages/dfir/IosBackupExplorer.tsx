@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Smartphone, Upload } from 'lucide-react';
 import { loadSql } from '../../lib/loadSql';
+import { fileTooLarge } from '../../lib/dfir/file-guard';
 import { useDebounce } from '../../hooks/useDebounce';
 
 interface FileRow {
@@ -24,6 +25,12 @@ export default function IosBackupExplorer(): JSX.Element {
   async function open(file: File) {
     setBusy(true);
     setErr('');
+    const tooBig = fileTooLarge(file.size);
+    if (tooBig) {
+      setErr(tooBig);
+      setBusy(false);
+      return;
+    }
     let db: { close?: () => void } | null = null;
     try {
       const SQL = await loadSql();

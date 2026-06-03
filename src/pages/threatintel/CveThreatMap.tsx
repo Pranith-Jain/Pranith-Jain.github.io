@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect, useMemo, useState } from 'react';
+import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Globe, Loader2, Pause, Play, RefreshCw, X, ShieldAlert } from 'lucide-react';
@@ -224,23 +224,33 @@ export default function CveThreatMap(): JSX.Element {
   const [globeView, setGlobeView] = useState(false);
   const [liveMode, setLiveMode] = useState(false);
   const [nextRefreshIn, setNextRefreshIn] = useState(REFRESH_INTERVAL_MS / 1000);
+  const loadIdRef = useRef(0);
 
   const load = async () => {
+    const myId = ++loadIdRef.current;
     setLoading(true);
     setError(null);
     try {
       const r = await fetch('/api/v1/cve-threat-map');
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      setData((await r.json()) as CveThreatMapResponse);
+      const json = (await r.json()) as CveThreatMapResponse;
+      if (loadIdRef.current === myId) setData(json);
     } catch (e) {
-      setError((e as Error).message);
+      if (loadIdRef.current === myId) setError((e as Error).message);
     } finally {
-      setLoading(false);
+      if (loadIdRef.current === myId) setLoading(false);
     }
   };
 
   useEffect(() => {
     void load();
+    return () => {
+      // Bump the monotonic load id so any in-flight load() resolves as stale
+      // and won't setState after unmount. Writing the ref in cleanup is the
+      // intent here (not reading a captured node), so the hooks lint is moot.
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      loadIdRef.current++;
+    };
   }, []);
 
   useEffect(() => {

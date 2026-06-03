@@ -1,16 +1,19 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Activity, Upload, Loader2 } from 'lucide-react';
-import { fileTooLarge, yieldToPaint } from '../../lib/dfir/file-guard';
+import { fileTooLarge, yieldToPaint, MAX_PARSE_BYTES } from '../../lib/dfir/file-guard';
 
 /* ── LZXPRESS Huffman decompression ([MS-XCA] 2.2) — for Win8+/Win10+ ──
    prefetch, which is wrapped in a MAM\x04 container. */
 function decompressLzxpressHuffman(src: Uint8Array, outSize: number): Uint8Array {
+  if (!Number.isFinite(outSize) || outSize < 0 || outSize > MAX_PARSE_BYTES)
+    throw new Error('MAM declared output size out of range');
   const out = new Uint8Array(outSize);
   let op = 0;
   let ip = 0;
 
   while (op < outSize) {
+    if (ip >= src.length) throw new Error('truncated MAM stream');
     // 256-byte Huffman table → 512 four-bit code lengths.
     const lengths = new Uint8Array(512);
     for (let i = 0; i < 256; i++) {

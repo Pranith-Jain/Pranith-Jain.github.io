@@ -66,9 +66,15 @@ function isSameOrigin(c: Context<{ Bindings: Env }>): boolean {
   const allowed = new Set(ALLOWED_ORIGINS);
   if (c.env?.SITE_URL) allowed.add(c.env.SITE_URL.replace(/\/$/, ''));
   if (origin && allowed.has(origin)) return true;
+  // Compare the Referer's parsed ORIGIN, not a string prefix. A prefix match
+  // let `https://pranithjain.qzz.io.evil.com/` satisfy the gate.
   const referer = c.req.header('referer') ?? '';
-  for (const allowedOrigin of allowed) {
-    if (referer.startsWith(allowedOrigin)) return true;
+  if (referer) {
+    try {
+      if (allowed.has(new URL(referer).origin)) return true;
+    } catch {
+      /* malformed referer — fall through to deny */
+    }
   }
   return false;
 }

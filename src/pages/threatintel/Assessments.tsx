@@ -36,6 +36,9 @@ export default function Assessments(): JSX.Element {
   const [statusFilter, setStatusFilter] = useState<string | null>(null);
 
   useEffect(() => {
+    let cancelled = false;
+    setLoading(true);
+    setError(null);
     const params = statusFilter ? `?status=${statusFilter}` : '';
     fetch(`/api/v1/threat-intel/assessments${params}`, { headers: adminAuthHeaders() })
       .then(async (r) => {
@@ -48,9 +51,18 @@ export default function Assessments(): JSX.Element {
         }
         return r.json() as Promise<{ results: Assessment[] }>;
       })
-      .then((d) => setData(d.results ?? []))
-      .catch((e) => setError(e instanceof Error ? e.message : String(e)))
-      .finally(() => setLoading(false));
+      .then((d) => {
+        if (!cancelled) setData(d.results ?? []);
+      })
+      .catch((e) => {
+        if (!cancelled) setError(e instanceof Error ? e.message : String(e));
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, [statusFilter]);
 
   return (

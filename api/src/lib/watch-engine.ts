@@ -4,6 +4,7 @@ import type { D1Database } from '@cloudflare/workers-types';
 // and ransomware-group watch alerts never fired on live indicators).
 import { LIVE_IOCS_CACHE_KEY } from '../routes/live-iocs';
 import { RANSOMWARE_RECENT_CACHE_KEY } from '../routes/ransomware-recent';
+import { pinnedFetch } from './ssrf-guard';
 
 export interface Watch {
   id: string;
@@ -250,7 +251,7 @@ export async function checkWatches(kv: KVNamespace, now: string, db?: D1Database
         alerts.push(event);
         watch.last_triggered = now;
         try {
-          await fetch(watch.webhook, {
+          await pinnedFetch(watch.webhook, {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify({

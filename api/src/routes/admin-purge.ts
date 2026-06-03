@@ -10,7 +10,7 @@
  * Body:
  *   { urls: ["https://pranithjain.qzz.io/api/v1/feed-status"] }
  *
- * Or with a pattern prefix:
+ * Or with a pattern prefix (Cloudflare Enterprise-only):
  *   { prefix: "/threatintel" }
  *   → purges everything under /threatintel
  */
@@ -22,10 +22,12 @@ import { badRequest, internalError, serviceUnavailable } from '../lib/api-error'
 import { auditAdminAction } from '../lib/admin-audit';
 import { z } from 'zod';
 
-const purgeSchema = z.object({
-  urls: z.array(z.string().url()).optional(),
-  prefix: z.string().min(1).optional(),
-}).refine((d) => d.urls || d.prefix, { message: 'provide either "urls" or "prefix"' });
+const purgeSchema = z
+  .object({
+    urls: z.array(z.string().url()).optional(),
+    prefix: z.string().min(1).optional(),
+  })
+  .refine((d) => d.urls || d.prefix, { message: 'provide either "urls" or "prefix"' });
 
 const CF_API = 'https://api.cloudflare.com/client/v4';
 
@@ -44,14 +46,17 @@ export async function purgeCacheHandler(c: Context<{ Bindings: Env }>): Promise<
     // Fallback: per-URL Cache API delete (colo-local only).
     const cache = (caches as unknown as { default: Cache }).default;
     const urls = parsed.data.urls ?? [];
-    if (urls.length === 0) return serviceUnavailable(c, 'CF_API_TOKEN unset — provide explicit urls for colo-level purge');
+    if (urls.length === 0)
+      return serviceUnavailable(c, 'CF_API_TOKEN unset — provide explicit urls for colo-level purge');
 
     let purged = 0;
     for (const url of urls) {
       try {
         await cache.delete(new Request(url));
         purged++;
-      } catch { /* skip */ }
+      } catch {
+        /* skip */
+      }
     }
     return c.json({ ok: true, method: 'cache-api-colo', purged, total: urls.length });
   }
@@ -61,7 +66,7 @@ export async function purgeCacheHandler(c: Context<{ Bindings: Env }>): Promise<
   if (parsed.data.urls) {
     payload.files = parsed.data.urls;
   } else if (parsed.data.prefix) {
-    payload.prefix = parsed.data.prefix;
+    payload.prefixes = [parsed.data.prefix];
   }
 
   try {
@@ -79,7 +84,7 @@ export async function purgeCacheHandler(c: Context<{ Bindings: Env }>): Promise<
       return c.json({ error: 'purge_failed', message: `CF API ${res.status}: ${text.slice(0, 200)}` }, 502);
     }
 
-    const cfResult = await res.json() as { success: boolean; errors: unknown[] };
+    const cfResult = (await res.json()) as { success: boolean; errors: unknown[] };
     if (!cfResult.success) {
       return c.json({ error: 'purge_failed', message: JSON.stringify(cfResult.errors) }, 502);
     }

@@ -277,8 +277,8 @@ export default function Phishing(): JSX.Element {
         </h2>
         <p className="text-xs text-slate-500 mb-4 max-w-xl">
           Paste a suspected phishing URL. The page content is fetched server-side, then a structural fingerprint
-          (stripped of text/scripts/styles) is hashed in your browser and checked against known kits. Only the hash
-          leaves your browser.
+          (stripped of text/scripts/styles) is hashed in your browser. The hash and the submitted URL are sent to
+          aggregate sightings; the URL is retained for up to 30 days and may be shown to others as a sample URL.
         </p>
         <div className="flex gap-2">
           <input

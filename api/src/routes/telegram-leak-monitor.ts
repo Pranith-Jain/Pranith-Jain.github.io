@@ -435,9 +435,7 @@ export async function runTelegramLeakScanner(
   // Count changes via affected rows (D1 batch returns arrays of results
   // where each result has meta.changes). Sum them up.
   const batchResults = results.flat();
-  const channelsDiscovered = batchResults
-    .slice(0, discStmts.length)
-    .reduce((sum, r) => sum + d1Changes(r), 0);
+  const channelsDiscovered = batchResults.slice(0, discStmts.length).reduce((sum, r) => sum + d1Changes(r), 0);
   const leaksFound = batchResults
     .slice(discStmts.length, discStmts.length + leakStmts.length)
     .reduce((sum, r) => sum + d1Changes(r), 0);
@@ -849,10 +847,13 @@ export async function telegramLeakGeoHandler(c: Context<{ Bindings: Env }>): Pro
       }
     }
 
-    const geoPoints: Array<{ domain: string; ip: string; country: string; countryCode: string }> = [];
-    let count = 0;
-    for (const domain of domainSet) {
-      if (count >= 50) break;
+    // Hard-cap total domains BEFORE the loop. The old code counted only
+    // successes, so failed lookups (2 fetches each) ran unbounded and could
+    // blow the Free-plan 50-subrequest cap. Cap at 20 (1 D1 read + ≤20 DoH +
+    // 1 batched geo POST = ≤22 subrequests), then batch the geo step.
+    const domains = Array.from(domainSet).slice(0, 20);
+    const resolved: Array<{ domain: string; ip: string }> = [];
+    for (const domain of domains) {
       try {
         const dnsRes = await fetch(`https://cloudflare-dns.com/dns-query?name=${domain}&type=A`, {
           headers: { accept: 'application/dns-json' },
@@ -861,16 +862,35 @@ export async function telegramLeakGeoHandler(c: Context<{ Bindings: Env }>): Pro
         if (!dnsRes.ok) continue;
         const dnsData = (await dnsRes.json()) as { Answer?: Array<{ data: string }> };
         const ip = dnsData.Answer?.[0]?.data;
-        if (!ip || !/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(ip)) continue;
+        if (ip && /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(ip)) resolved.push({ domain, ip });
+      } catch {
+        /* skip */
+      }
+    }
 
-        const geoRes = await fetch(`http://ip-api.com/json/${ip}?fields=query,status,country,countryCode`, {
-          signal: AbortSignal.timeout(3000),
+    const geoPoints: Array<{ domain: string; ip: string; country: string; countryCode: string }> = [];
+    if (resolved.length) {
+      try {
+        const res = await fetch('http://ip-api.com/batch?fields=query,status,country,countryCode', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify(resolved.map((r) => ({ query: r.ip }))),
+          signal: AbortSignal.timeout(4000),
         });
-        if (!geoRes.ok) continue;
-        const geo = (await geoRes.json()) as { status?: string; country?: string; countryCode?: string };
-        if (geo.status === 'success' && geo.country && geo.countryCode) {
-          geoPoints.push({ domain, ip, country: geo.country, countryCode: geo.countryCode });
-          count++;
+        if (res.ok) {
+          const arr = (await res.json()) as Array<{
+            query: string;
+            status?: string;
+            country?: string;
+            countryCode?: string;
+          }>;
+          const byIp = new Map(arr.map((g) => [g.query, g]));
+          for (const r of resolved) {
+            const g = byIp.get(r.ip);
+            if (g && g.status === 'success' && g.country && g.countryCode) {
+              geoPoints.push({ domain: r.domain, ip: r.ip, country: g.country, countryCode: g.countryCode });
+            }
+          }
         }
       } catch {
         /* skip */

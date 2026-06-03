@@ -194,7 +194,9 @@ const passCharLiterals: Pass = {
       const codes = [...full.matchAll(/\[char\]\s*(0x[0-9a-fA-F]+|\d+)/g)].map((m) =>
         m[1].startsWith('0x') ? parseInt(m[1], 16) : parseInt(m[1], 10)
       );
-      const text = String.fromCharCode(...codes);
+      if (codes.length > 50_000) return full;
+      let text = '';
+      for (const c of codes) text += String.fromCharCode(c);
       changed = true;
       return `'${text.replace(/'/g, "''")}'`;
     });
@@ -206,7 +208,9 @@ const passCharLiterals: Pass = {
         const v = m[0];
         return v.startsWith('0x') ? parseInt(v, 16) : parseInt(v, 10);
       });
-      const text = String.fromCharCode(...codes);
+      if (codes.length > 50_000) return _full;
+      let text = '';
+      for (const c of codes) text += String.fromCharCode(c);
       changed = true;
       return `'${text.replace(/'/g, "''")}'`;
     });
@@ -260,7 +264,13 @@ export function deobfuscate(input: string): DeobfResult {
   while (anyChange && iteration < MAX_ITERATIONS) {
     anyChange = false;
     for (const pass of PASSES) {
-      const { out, changed } = pass.apply(cur);
+      let result;
+      try {
+        result = pass.apply(cur);
+      } catch {
+        continue;
+      }
+      const { out, changed } = result;
       if (changed) {
         steps.push({ passName: pass.name, before: cur, after: out });
         cur = out;

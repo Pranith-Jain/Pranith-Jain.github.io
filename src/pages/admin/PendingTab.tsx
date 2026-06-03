@@ -105,7 +105,7 @@ export default function PendingTab() {
         </thead>
         <tbody>
           {pending.map((c) => (
-            <tr key={c.key} className="border-b border-zinc-800/60 align-top">
+            <tr key={`${c.type}:${c.key}`} className="border-b border-zinc-800/60 align-top">
               <td className="py-2 pr-4 text-slate-400 uppercase text-xs">{c.type}</td>
               <td className="py-2 pr-4 text-slate-100">{c.title}</td>
               <td className="py-2 pr-4 text-slate-300 tabular-nums">{c.score.toFixed(2)}</td>

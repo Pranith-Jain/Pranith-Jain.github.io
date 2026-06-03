@@ -113,6 +113,16 @@ function parseAxml(buf: Uint8Array): { namespaces: AxmlNamespace[]; tags: AxmlTa
   const styleCount = readU32(buf, off + 12);
   const flags = readU32(buf, off + 16);
 
+  // The string-pool counts are attacker-controlled. Validate them against the
+  // real chunk/buffer bounds before using them as loop limits — otherwise a
+  // crafted AXML blob drives a multi-billion-iteration read (DoS).
+  if (strCount < 0 || styleCount < 0 || strCount > 1_000_000 || styleCount > 1_000_000) {
+    return { namespaces, tags, strings };
+  }
+  if (off + 28 + strCount * 4 + styleCount * 4 > Math.min(off + chunkSize, buf.length)) {
+    return { namespaces, tags, strings };
+  }
+
   const strOffsets: number[] = [];
   for (let i = 0; i < strCount; i++) {
     strOffsets.push(readU32(buf, off + 28 + i * 4));
@@ -465,13 +475,30 @@ export async function analyzeApk(file: File): Promise<{
     const zip = await JSZip.loadAsync(bytes);
     analysis.fileCount = Object.keys(zip.files).length;
 
+    // Zip-bomb guards: bound both per-entry and total inflated bytes. JSZip
+    // inflates an entry fully into memory, so a small APK can decompress to
+    // gigabytes. Skip oversized entries and stop once the total budget is hit.
+    const MAX_ENTRY_BYTES = 64 * 1024 * 1024; // 64 MB / entry
+    const MAX_TOTAL_BYTES = 256 * 1024 * 1024; // 256 MB total
+    let totalInflated = 0;
+    const inflate = async (entry: (typeof zip.files)[string]): Promise<Uint8Array | null> => {
+      if (totalInflated >= MAX_TOTAL_BYTES) return null;
+      const hint = (entry as unknown as { _data?: { uncompressedSize?: number } })._data?.uncompressedSize;
+      if (typeof hint === 'number' && hint > MAX_ENTRY_BYTES) return null;
+      const data = await entry.async('uint8array');
+      if (data.length > MAX_ENTRY_BYTES) return null;
+      totalInflated += data.length;
+      return totalInflated > MAX_TOTAL_BYTES ? null : data;
+    };
+
     for (const [path, entry] of Object.entries(zip.files)) {
       if (entry.dir) continue;
 
       if (path === 'AndroidManifest.xml') {
-        manifestBytes = await entry.async('uint8array');
+        manifestBytes = await inflate(entry);
       } else if (path.endsWith('.dex')) {
-        const dexData = await entry.async('uint8array');
+        const dexData = await inflate(entry);
+        if (!dexData) continue;
         const dexInfo = parseDexHeader(dexData);
         analysis.dexFiles.push({
           name: path.split('/').pop() ?? path,
@@ -499,8 +526,8 @@ export async function analyzeApk(file: File): Promise<{
 
       // Extract strings from DEX files and other binary files
       if (path.endsWith('.dex') || path.endsWith('.xml') || path.endsWith('.MF') || path.endsWith('.SF')) {
-        const content = await entry.async('uint8array');
-        allStrings.push(...extractStrings(content));
+        const content = await inflate(entry);
+        if (content) allStrings.push(...extractStrings(content));
       }
     }
   } catch {

@@ -245,6 +245,53 @@ async function queryHudsonRockEmail(email: string): Promise<BreachEntry[]> {
   }
 }
 
+async function queryHudsonRockDomain(domain: string): Promise<BreachDomainEntry[]> {
+  // The by-domain endpoint returns aggregate exposure (compromised employees,
+  // users, third parties) rather than a per-record list, so we synthesize ONE
+  // summary entry ONLY when there is real exposure (total > 0) — same honest
+  // count-guard as queryProjectDiscovery, keeping the `found` flag truthful.
+  try {
+    const res = await fetch(
+      `https://cavalier.hudsonrock.com/api/json/v2/osint-tools/search-by-domain?domain=${encodeURIComponent(domain)}`,
+      {
+        headers: { accept: 'application/json', 'user-agent': UA },
+        signal: AbortSignal.timeout(8000),
+      }
+    );
+    if (!res.ok) return [];
+    const data = (await res.json()) as {
+      total?: number;
+      employees?: number;
+      users?: number;
+      third_parties?: number;
+      logo?: string;
+      last_employee_compromised?: string;
+      last_user_compromised?: string;
+    };
+    const total = typeof data.total === 'number' ? data.total : 0;
+    if (total <= 0) return [];
+    const employees = data.employees ?? 0;
+    const users = data.users ?? 0;
+    const thirdParties = data.third_parties ?? 0;
+    const lastCompromised = data.last_user_compromised || data.last_employee_compromised;
+    return [
+      {
+        name: 'HudsonRock: domain stealer-log exposure',
+        breach_date: lastCompromised ? lastCompromised.slice(0, 10) : undefined,
+        pwn_count: total,
+        description:
+          `${employees.toLocaleString()} compromised employee(s), ${users.toLocaleString()} compromised ` +
+          `user(s) and ${thirdParties.toLocaleString()} third-party exposure(s) from infostealer logs.`,
+        domain,
+        logo: data.logo || undefined,
+        source: 'hudsonrock' as const,
+      },
+    ];
+  } catch {
+    return [];
+  }
+}
+
 interface PdLeakStats {
   combolist_exposure?: Array<{ combolist_exposure?: number }>;
   leak_user_count?: Array<{ user?: number }>;
@@ -487,7 +534,7 @@ export async function breachDomainHandler(c: Context<{ Bindings: Env }>): Promis
     queryXonDomain(domain),
     queryLcDomain(domain),
     queryLeakIx(domain),
-    queryHudsonRockEmail(domain),
+    queryHudsonRockDomain(domain),
   ]);
   const sourceNames: BreachSource[] = ['xposedornot', 'leakcheck', 'leakix', 'hudsonrock'];
 

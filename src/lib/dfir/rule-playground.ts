@@ -52,6 +52,16 @@ function escapeRegex(s: string): string {
   return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+/**
+ * Cheap ReDoS guard: reject user-supplied regex sources that contain a nested
+ * unbounded quantifier (e.g. `(a+)+`, `(a*)*`, `(a+)*`) — the classic
+ * catastrophic-backtracking shape. Not exhaustive, but blocks the trivially
+ * pathological patterns from hanging the tab.
+ */
+function isLikelyCatastrophicRegex(source: string): boolean {
+  return /\([^)]*[+*][^)]*\)\s*[+*]/.test(source);
+}
+
 // ─────────────────────────────────────────────────────────────────────────
 // YARA parser
 // ─────────────────────────────────────────────────────────────────────────
@@ -134,7 +144,7 @@ export function parseYaraRule(rule: string): ParsedRule {
       try {
         if (raw.startsWith('"')) {
           const literal = raw.slice(1, -1).replace(/\\(.)/g, '$1');
-          const flags = mods.includes('nocase') || mods.includes('ascii') === false ? 'i' : '';
+          const flags = mods.includes('nocase') ? 'i' : '';
           if (mods.includes('wide')) {
             // wide = UTF-16LE — interleave NULs. We can't rely on the sample
             // being binary, so fall back to a relaxed pattern.
@@ -158,7 +168,11 @@ export function parseYaraRule(rule: string): ParsedRule {
           const body = raw.slice(1, lastSlash);
           const flags = raw.slice(lastSlash + 1);
           const cleaned = flags.replace(/[^gimsuy]/g, '');
-          needles.push({ name: id, pattern: new RegExp(body, cleaned), kind: 'yara_regex' });
+          if (isLikelyCatastrophicRegex(body)) {
+            warnings.push(`String ${id}: regex skipped — nested unbounded quantifier (ReDoS risk).`);
+          } else {
+            needles.push({ name: id, pattern: new RegExp(body, cleaned), kind: 'yara_regex' });
+          }
         }
       } catch (e) {
         warnings.push(`String ${id}: ${e instanceof Error ? e.message : 'invalid'}`);
@@ -313,6 +327,10 @@ export function parseSigmaRule(rule: string): ParsedRule {
         } else if (mod === 'endswith') {
           pattern = new RegExp(escapeRegex(v), 'i');
         } else if (mod === 're') {
+          if (isLikelyCatastrophicRegex(v)) {
+            warnings.push(`Sigma value ${tagName}: regex skipped — nested unbounded quantifier (ReDoS risk).`);
+            continue;
+          }
           pattern = new RegExp(v, 'i');
         } else {
           pattern = new RegExp(escapeRegex(v), 'i');
@@ -351,6 +369,11 @@ export interface RuleMatchResult {
 export function matchRule(rule: string, sample: string): RuleMatchResult {
   const parsed = parseRule(rule);
   const matches: RuleStringMatch[] = [];
+  const MAX_SAMPLE = 64 * 1024;
+  if (sample.length > MAX_SAMPLE) {
+    parsed.warnings.push(`Sample truncated to ${MAX_SAMPLE} chars for matching.`);
+    sample = sample.slice(0, MAX_SAMPLE);
+  }
   for (const n of parsed.needles) {
     let m: RegExpExecArray | null;
     const re = new RegExp(n.pattern.source, n.pattern.flags.includes('g') ? n.pattern.flags : n.pattern.flags + 'g');

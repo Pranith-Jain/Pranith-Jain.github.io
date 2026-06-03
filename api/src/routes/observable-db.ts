@@ -37,6 +37,8 @@ const OBS_CACHE_KEY = 'https://observable-db-cache.internal/v2';
 const OBS_CACHE_TTL = 30;
 const VALID_TLPS = ['white', 'green', 'amber', 'red'] as const;
 const VALID_TYPES = ['ip', 'domain', 'url', 'hash', 'email', 'unknown'] as const;
+const MAX_ENTRIES = 5000;
+const MAX_NOTES_PER_ENTRY = 200;
 
 function cacheApi(): Cache | null {
   try {
@@ -214,6 +216,7 @@ export async function saveObservableHandler(c: Context<{ Bindings: Env }>): Prom
     last_checked_at: now_,
   };
 
+  if (entries.length >= MAX_ENTRIES) return c.json({ error: 'observable DB is full' }, 507);
   entries.push(entry);
   await saveAll(kv, entries);
   return c.json({ entry, updated: false }, 201);
@@ -287,6 +290,8 @@ export async function addObservableNoteHandler(c: Context<{ Bindings: Env }>): P
     author: body.author ?? 'anonymous',
   };
   const entry = { ...entries[idx]! } as ObservableEntry;
+  if (entry.notes.length >= MAX_NOTES_PER_ENTRY)
+    return c.json({ error: 'note limit reached for this observable' }, 507);
   entry.notes = [...entry.notes, note];
   entry.updated_at = now();
   entries[idx] = entry;

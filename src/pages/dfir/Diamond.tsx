@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Diamond as DiamondIcon, Loader2, RotateCcw, Download, ExternalLink, Wand2 } from 'lucide-react';
@@ -148,10 +148,13 @@ function Diamond(): JSX.Element {
   const [autoFillIndicator, setAutoFillIndicator] = useState('');
   const [autoFilling, setAutoFilling] = useState(false);
   const [autoFillNote, setAutoFillNote] = useState<string | null>(null);
+  const abortRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
     setEvent(loadEvent());
   }, []);
+
+  useEffect(() => () => abortRef.current?.abort(), []);
 
   useEffect(() => {
     try {
@@ -180,6 +183,10 @@ function Diamond(): JSX.Element {
       setAutoFillNote('Unrecognized indicator. Expected IP / IPv6 / domain / URL / hash / CVE.');
       return;
     }
+    abortRef.current?.abort();
+    const ac = new AbortController();
+    abortRef.current = ac;
+    const { signal } = ac;
     setAutoFilling(true);
     setAutoFillNote(null);
     const filled: string[] = [];
@@ -191,7 +198,8 @@ function Diamond(): JSX.Element {
         // The actor-timeline endpoint exposes the top-8 active groups; if
         // our input matches one, we get description, raas flag, MITRE ref,
         // and recent-window counts in one fetch.
-        const tlRes = await fetch('/api/v1/actor-timeline');
+        const tlRes = await fetch('/api/v1/actor-timeline', { signal });
+        if (signal.aborted) return;
         if (tlRes.ok) {
           interface ActorRow {
             slug: string;
@@ -204,6 +212,7 @@ function Diamond(): JSX.Element {
             all_time_count?: number;
           }
           const body = (await tlRes.json()) as { groups: ActorRow[] };
+          if (signal.aborted) return;
           const row = body.groups.find((g) => g.slug === value || g.display_name.toLowerCase() === value);
           if (row) {
             const advParts: string[] = [row.display_name];
@@ -234,7 +243,8 @@ function Diamond(): JSX.Element {
         }
 
         // Also pull recent victims of this actor for the Victim corner.
-        const rRes = await fetch('/api/v1/ransomware-recent');
+        const rRes = await fetch('/api/v1/ransomware-recent', { signal });
+        if (signal.aborted) return;
         if (rRes.ok) {
           interface Victim {
             victim: string;
@@ -243,6 +253,7 @@ function Diamond(): JSX.Element {
             sector?: string;
           }
           const body = (await rRes.json()) as { victims: Victim[] };
+          if (signal.aborted) return;
           const hits = body.victims.filter((v) => v.group === value).slice(0, 3);
           if (hits.length > 0) {
             const victimStr = hits.map((h) => `${h.victim}${h.sector ? ` (${h.sector})` : ''}`).join(', ');
@@ -266,7 +277,8 @@ function Diamond(): JSX.Element {
 
       // ─── CVE: pull actor list + KEV context from cve-recent ────────────
       if (type === 'cve') {
-        const res = await fetch('/api/v1/cve-recent');
+        const res = await fetch('/api/v1/cve-recent', { signal });
+        if (signal.aborted) return;
         if (res.ok) {
           const body = (await res.json()) as {
             cves: Array<{
@@ -277,6 +289,7 @@ function Diamond(): JSX.Element {
               actors?: Array<{ slug: string; mitre_id?: string; mitre_name?: string }>;
             }>;
           };
+          if (signal.aborted) return;
           const cve = body.cves.find((c) => c.id === value);
           if (cve) {
             const adversaryParts: string[] = [];
@@ -310,15 +323,18 @@ function Diamond(): JSX.Element {
       if (type === 'ip' || type === 'ipv6') {
         const [iocRes, geoRes, corrRes] = await Promise.allSettled([
           fetch(
-            `/api/v1/ioc/check?indicator=${encodeURIComponent(value)}&providers=greynoise,abuseipdb,otx,threatfox,cinsarmy`
+            `/api/v1/ioc/check?indicator=${encodeURIComponent(value)}&providers=greynoise,abuseipdb,otx,threatfox,cinsarmy`,
+            { signal }
           ),
-          fetch(`/api/v1/ip-geo?ip=${encodeURIComponent(value)}`),
-          fetch('/api/v1/ioc-correlation'),
+          fetch(`/api/v1/ip-geo?ip=${encodeURIComponent(value)}`, { signal }),
+          fetch('/api/v1/ioc-correlation', { signal }),
         ]);
+        if (signal.aborted) return;
 
         // ip-geo → Infrastructure corner
         if (geoRes.status === 'fulfilled' && geoRes.value.ok) {
           const g = (await geoRes.value.json()) as { country?: string; city?: string; org?: string; as?: string };
+          if (signal.aborted) return;
           const parts = [g.org ?? g.as, g.country, g.city].filter(Boolean);
           if (parts.length > 0) {
             setEvent((e) => ({
@@ -334,6 +350,7 @@ function Diamond(): JSX.Element {
           const c = (await corrRes.value.json()) as {
             ips: Array<{ value: string; sources: string[]; source_count: number; context?: string }>;
           };
+          if (signal.aborted) return;
           const hit = c.ips.find((i) => i.value === value);
           if (hit) {
             const advFromCorr = `Observed in ${hit.source_count} independent feeds (${hit.sources.join(', ')})${hit.context ? ` · context: ${hit.context}` : ''}`;
@@ -347,6 +364,7 @@ function Diamond(): JSX.Element {
           // SSE stream — read the whole text and grep for tags. This is a
           // pragmatic shortcut; for a proper read we'd parse event-stream.
           const text = await iocRes.value.text();
+          if (signal.aborted) return;
           const tags = new Set<string>();
           for (const line of text.split('\n')) {
             const m = /"tags":\s*\[([^\]]*)\]/.exec(line);
@@ -369,10 +387,11 @@ function Diamond(): JSX.Element {
       if (type === 'domain' || type === 'url') {
         const lookupTarget = type === 'url' ? new URL(value).hostname : value;
         const [domainRes, corrRes, victimRes] = await Promise.allSettled([
-          fetch(`/api/v1/domain/lookup?domain=${encodeURIComponent(lookupTarget)}`),
-          fetch('/api/v1/ioc-correlation'),
-          fetch('/api/v1/ransomware-recent'),
+          fetch(`/api/v1/domain/lookup?domain=${encodeURIComponent(lookupTarget)}`, { signal }),
+          fetch('/api/v1/ioc-correlation', { signal }),
+          fetch('/api/v1/ransomware-recent', { signal }),
         ]);
+        if (signal.aborted) return;
 
         // Victim cross-match: ransomware-recent victim names sometimes ARE
         // domain forms (e.g. "bayareaherbs.com"). If the input domain matches
@@ -385,10 +404,13 @@ function Diamond(): JSX.Element {
             sector?: string;
           }
           const vb = (await victimRes.value.json()) as { victims: Victim[] };
+          if (signal.aborted) return;
           const target = lookupTarget.toLowerCase();
-          const hit = vb.victims.find(
-            (v) => v.victim.toLowerCase().includes(target) || target.includes(v.victim.toLowerCase())
-          );
+          const hit = vb.victims.find((v) => {
+            const vn = v.victim.trim().toLowerCase();
+            if (vn.length < 4) return false;
+            return vn === target || vn === 'www.' + target || target === 'www.' + vn;
+          });
           if (hit) {
             setEvent((e) => ({
               ...e,
@@ -406,6 +428,7 @@ function Diamond(): JSX.Element {
             whois?: { registrar?: string; created?: string };
             dns?: { a?: string[] };
           };
+          if (signal.aborted) return;
           const infra: string[] = [lookupTarget];
           if (d.whois?.registrar) infra.push(`registrar: ${d.whois.registrar}`);
           if (d.whois?.created) infra.push(`created: ${d.whois.created.slice(0, 10)}`);
@@ -419,6 +442,7 @@ function Diamond(): JSX.Element {
             domains: Array<{ value: string; sources: string[]; source_count: number; context?: string }>;
             urls: Array<{ value: string; sources: string[]; source_count: number; context?: string }>;
           };
+          if (signal.aborted) return;
           const pool = type === 'url' ? c.urls : c.domains;
           const hit = pool.find((i) => i.value === (type === 'url' ? value : lookupTarget));
           if (hit) {
@@ -431,7 +455,8 @@ function Diamond(): JSX.Element {
 
       // ─── hash: malware-sample lookup for family signature ─────────────
       if (type === 'hash') {
-        const res = await fetch('/api/v1/malware-samples');
+        const res = await fetch('/api/v1/malware-samples', { signal });
+        if (signal.aborted) return;
         if (res.ok) {
           const body = (await res.json()) as {
             samples: Array<{
@@ -443,6 +468,7 @@ function Diamond(): JSX.Element {
               file_type?: string;
             }>;
           };
+          if (signal.aborted) return;
           const hit = body.samples.find((s) => s.sha256 === value || s.md5 === value || s.sha1 === value);
           if (hit) {
             const cap = `${hit.signature ?? 'Unknown family'}${hit.file_type ? ` (${hit.file_type})` : ''}${hit.tags?.length ? ` — tags: ${hit.tags.slice(0, 5).join(', ')}` : ''}`;
@@ -459,6 +485,7 @@ function Diamond(): JSX.Element {
       }
 
       // Always stamp the indicator on Infrastructure if nothing else filled it.
+      if (signal.aborted) return;
       setEvent((e) => ({
         ...e,
         infrastructure: e.infrastructure || `Observed indicator: ${value} (${type})`,
@@ -472,9 +499,10 @@ function Diamond(): JSX.Element {
         `Filled: ${filled.join(', ')}. ${skipped.length ? `Skipped: ${skipped.join('; ')}. ` : ''}Edit any field to refine.`
       );
     } catch (e) {
+      if ((e as Error).name === 'AbortError') return;
       setAutoFillNote(`Auto-fill failed: ${(e as Error).message}`);
     } finally {
-      setAutoFilling(false);
+      if (!signal.aborted) setAutoFilling(false);
     }
   };
 

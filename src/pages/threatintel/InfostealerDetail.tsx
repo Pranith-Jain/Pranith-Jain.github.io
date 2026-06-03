@@ -44,7 +44,11 @@ export default function InfostealerDetail(): JSX.Element {
     ]).then(([mbRes, liRes]) => {
       if (!alive) return;
 
-      const tag = family.threatfoxTag?.toLowerCase().replace(/\s+/g, '') ?? '';
+      const names = new Set(
+        [family.threatfoxTag, family.name, ...family.aliases]
+          .map((n) => (n ?? '').toLowerCase().replace(/\s+/g, ''))
+          .filter(Boolean)
+      );
 
       // Match samples by signature/tag.  Compare without spaces so
       // "agent tesla" (regex match) === "agenttesla" (threatfoxTag).
@@ -58,7 +62,7 @@ export default function InfostealerDetail(): JSX.Element {
               const hay = `${sig} ${tags.join(' ')}`;
               const m = hay.match(STEALER_RE);
               if (!m) return null;
-              if (m[0].toLowerCase().replace(/\s+/g, '') !== tag) return null;
+              if (!names.has(m[0].toLowerCase().replace(/\s+/g, ''))) return null;
               return {
                 family: m[0],
                 sha256: String(s.sha256 ?? ''),
@@ -81,7 +85,7 @@ export default function InfostealerDetail(): JSX.Element {
           const ci = liData.items
             .filter((i) => {
               const ctx = String(i.context ?? '').toLowerCase();
-              return tag.length > 0 && ctx.includes(tag);
+              return [...names].some((n) => ctx.includes(n));
             })
             .map((i) => ({
               value: String(i.value ?? ''),

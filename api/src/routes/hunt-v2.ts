@@ -181,36 +181,6 @@ async function checkTelegramLeaks(db: D1Database, value: string, type: string): 
 
 // ── Breach data ──────────────────────────────────────────────────────────
 
-async function checkHibp(value: string, isEmail: boolean): Promise<BreachHit[]> {
-  if (!isEmail) return [];
-  try {
-    const sha1 = async (s: string) => {
-      const buf = await crypto.subtle.digest('SHA-1', new TextEncoder().encode(s.toLowerCase()));
-      return Array.from(new Uint8Array(buf))
-        .map((b) => b.toString(16).padStart(2, '0'))
-        .join('');
-    };
-    const hash = await sha1(value);
-    const prefix = hash.slice(0, 5);
-    const suffix = hash.slice(5).toUpperCase();
-    const res = await fetch(`https://api.pwnedpasswords.com/range/${prefix}`, {
-      headers: { 'user-agent': UA },
-      signal: AbortSignal.timeout(5_000),
-    });
-    if (!res.ok) return [];
-    const body = await res.text();
-    const found = body.split('\n').some((l) => l.startsWith(suffix));
-    if (found) {
-      return [
-        { name: 'HIBP (password breach)', source: 'hibp', description: 'Email appears in HIBP password breach corpus' },
-      ];
-    }
-    return [];
-  } catch {
-    return [];
-  }
-}
-
 async function checkHudsonRock(value: string, isEmail: boolean): Promise<BreachHit[]> {
   if (!isEmail) return [];
   try {
@@ -222,13 +192,14 @@ async function checkHudsonRock(value: string, isEmail: boolean): Promise<BreachH
       }
     );
     if (!res.ok) return [];
-    const data = (await res.json()) as { data?: { stealer_count?: number } };
-    if (data?.data?.stealer_count && data.data.stealer_count > 0) {
+    const data = (await res.json()) as { data?: unknown[] };
+    const count = Array.isArray(data?.data) ? data.data.length : 0;
+    if (count > 0) {
       return [
         {
           name: 'HudsonRock stealer logs',
           source: 'hudsonrock',
-          description: `${data.data.stealer_count} stealer infections found`,
+          description: `${count} stealer infections found`,
         },
       ];
     }
@@ -240,7 +211,7 @@ async function checkHudsonRock(value: string, isEmail: boolean): Promise<BreachH
 
 async function checkBreaches(value: string, type: string): Promise<BreachHit[]> {
   const isEmail = type === 'email';
-  const results = await Promise.allSettled([checkHibp(value, isEmail), checkHudsonRock(value, isEmail)]);
+  const results = await Promise.allSettled([checkHudsonRock(value, isEmail)]);
   return results.flatMap((r) => (r.status === 'fulfilled' ? r.value : []));
 }
 

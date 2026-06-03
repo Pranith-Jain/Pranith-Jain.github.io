@@ -320,8 +320,13 @@ export async function ctCertsHandler(c: Context<{ Bindings: Env }>): Promise<Res
 /** Store certificates and check for alerts. */
 async function storeCerts(db: D1Database, domain: string, certs: CrtShCert[], alertTypes: string[]): Promise<number> {
   let alertCount = 0;
+  const stmts: D1PreparedStatement[] = [];
 
-  for (const cert of certs) {
+  // crt.sh returns large, duplicate-heavy result sets. Cap the number we
+  // persist so a single invocation stays well under D1's per-batch statement
+  // limit and the Free-plan 50-subrequest cap (the old code did one serial
+  // .run() per cert — hundreds of subrequests on a busy domain).
+  for (const cert of certs.slice(0, 90)) {
     const names = cert.name_value
       ? cert.name_value
           .split('\n')
@@ -363,26 +368,30 @@ async function storeCerts(db: D1Database, domain: string, certs: CrtShCert[], al
 
     if (alertType) alertCount++;
 
-    // Upsert certificate
-    await db
-      .prepare(
-        `INSERT OR IGNORE INTO ct_certs (id, domain, common_name, names, issuer, not_before, not_after, serial, first_seen, alert_type, alert_message)
+    // Queue the upsert; flushed as a single batched round-trip below.
+    stmts.push(
+      db
+        .prepare(
+          `INSERT OR IGNORE INTO ct_certs (id, domain, common_name, names, issuer, not_before, not_after, serial, first_seen, alert_type, alert_message)
          VALUES (?, ?, ?, ?, ?, ?, ?, ?, datetime('now'), ?, ?)`
-      )
-      .bind(
-        cert.id,
-        domain,
-        cert.common_name,
-        JSON.stringify(names),
-        cert.issuer_name,
-        cert.not_before,
-        cert.not_after,
-        cert.serial_number,
-        alertType,
-        alertMessage
-      )
-      .run();
+        )
+        .bind(
+          cert.id,
+          domain,
+          cert.common_name,
+          JSON.stringify(names),
+          cert.issuer_name,
+          cert.not_before,
+          cert.not_after,
+          cert.serial_number,
+          alertType,
+          alertMessage
+        )
+    );
   }
+
+  // One subrequest for all inserts (atomic) instead of N serial writes.
+  if (stmts.length) await db.batch(stmts);
 
   return alertCount;
 }

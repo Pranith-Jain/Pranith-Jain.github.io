@@ -183,10 +183,18 @@ export default function CtMonitor(): JSX.Element {
           ) : (
             <div className="space-y-1.5">
               {watched.map((w) => (
-                <button
+                <div
                   key={w.domain}
+                  role="button"
+                  tabIndex={0}
                   onClick={() => setSelectedDomain(w.domain)}
-                  className={`w-full text-left p-3 rounded-lg border transition-colors ${selectedDomain === w.domain ? 'border-brand-500/60 bg-brand-500/5' : 'border-slate-200 dark:border-slate-800 hover:border-brand-500/30'}`}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setSelectedDomain(w.domain);
+                    }
+                  }}
+                  className={`w-full text-left p-3 rounded-lg border transition-colors cursor-pointer ${selectedDomain === w.domain ? 'border-brand-500/60 bg-brand-500/5' : 'border-slate-200 dark:border-slate-800 hover:border-brand-500/30'}`}
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-mono">{w.domain}</span>
@@ -203,7 +211,7 @@ export default function CtMonitor(): JSX.Element {
                   <div className="text-[10px] font-mono text-slate-400 mt-0.5">
                     {w.cert_count} certs · {w.last_checked ? new Date(w.last_checked).toLocaleDateString() : 'Never'}
                   </div>
-                </button>
+                </div>
               ))}
             </div>
           )}

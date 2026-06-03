@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { getJson, postJson } from './adminApi';
 
 /**
@@ -47,6 +47,7 @@ export default function DraftsTab() {
   const [previewLoading, setPreviewLoading] = useState<string | null>(null);
   const [actionBusy, setActionBusy] = useState<string | null>(null);
   const [actionMsg, setActionMsg] = useState<string | null>(null);
+  const latestPreviewReq = useRef<string | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -67,15 +68,18 @@ export default function DraftsTab() {
   }, [load]);
 
   async function loadPreview(slug: string) {
+    latestPreviewReq.current = slug;
     setPreviewLoading(slug);
     setActionMsg(null);
     try {
       const p = await getJson<DraftPreview>(`/drafts/${encodeURIComponent(slug)}`);
+      if (latestPreviewReq.current !== slug) return; // superseded by a newer click
       setPreview(p);
     } catch (e) {
+      if (latestPreviewReq.current !== slug) return;
       setActionMsg(`preview failed: ${e instanceof Error ? e.message : String(e)}`);
     } finally {
-      setPreviewLoading(null);
+      if (latestPreviewReq.current === slug) setPreviewLoading(null);
     }
   }
 

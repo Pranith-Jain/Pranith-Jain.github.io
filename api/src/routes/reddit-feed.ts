@@ -80,7 +80,10 @@ export async function redditFeedHandler(c: Context<{ Bindings: Env }>): Promise<
   if (cached) return new Response(cached.body, cached);
 
   const body = await fetchRedditFeed();
-  const response = c.json(body, 200, { 'Cache-Control': `public, max-age=${CACHE_TTL}` });
-  c.executionCtx.waitUntil(cache.put(cacheKey, response.clone()));
+  const cacheable = body.items.length > 0;
+  const response = c.json(body, 200, {
+    'Cache-Control': cacheable ? `public, max-age=${CACHE_TTL}` : 'no-store',
+  });
+  if (cacheable) c.executionCtx.waitUntil(cache.put(cacheKey, response.clone()));
   return response;
 }

@@ -145,7 +145,8 @@ export async function assessmentListHandler(c: Context<{ Bindings: Env }>): Prom
   try {
     const statusFilter = c.req.query('status') as AssessmentStatus | undefined;
     const typeFilter = c.req.query('type') as AssessmentType | undefined;
-    const limit = Math.min(100, parseInt(c.req.query('limit') ?? '50', 10));
+    const n = parseInt(c.req.query('limit') ?? '50', 10);
+    const limit = Number.isFinite(n) ? Math.min(100, Math.max(1, n)) : 50;
 
     let assessments = await loadAll(c.env);
     if (statusFilter) assessments = assessments.filter((a) => a.status === statusFilter);

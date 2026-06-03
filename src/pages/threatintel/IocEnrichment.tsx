@@ -65,6 +65,8 @@ export default function IocEnrichment(): JSX.Element {
   const [expanded, setExpanded] = useState(true);
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const reqIdRef = useRef(0);
+  const abortRef = useRef<AbortController | null>(null);
 
   // Close the source dropdown on click-outside or Escape (a native <select>
   // would get this for free; this custom one has to wire it up).
@@ -97,25 +99,35 @@ export default function IocEnrichment(): JSX.Element {
   const handleSearch = useCallback(async () => {
     const q = query.trim();
     if (!q) return;
+    const myId = ++reqIdRef.current;
+    abortRef.current?.abort();
+    const controller = new AbortController();
+    abortRef.current = controller;
 
     setLoading(true);
     setError(null);
     setData(null);
 
     try {
-      const res = await fetch(`${source.url}${encodeURIComponent(q)}`);
+      const res = await fetch(`${source.url}${encodeURIComponent(q)}`, { signal: controller.signal });
       if (!res.ok) {
         const errBody = await res.json().catch(() => null);
         throw new Error(errBody?.error ?? `HTTP ${res.status}`);
       }
       const json = await res.json();
+      if (myId !== reqIdRef.current) return;
       setData(json);
     } catch (e: unknown) {
+      if (e instanceof DOMException && e.name === 'AbortError') return;
+      if (myId !== reqIdRef.current) return;
       setError(e instanceof Error ? e.message : 'Request failed');
     } finally {
-      setLoading(false);
+      if (myId === reqIdRef.current) setLoading(false);
     }
   }, [query, source]);
+
+  // Abort any in-flight request on unmount (also prevents setState-after-unmount).
+  useEffect(() => () => abortRef.current?.abort(), []);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') handleSearch();

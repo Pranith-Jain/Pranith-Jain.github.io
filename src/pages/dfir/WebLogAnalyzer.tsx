@@ -14,6 +14,8 @@ interface Row {
   tags: string[];
 }
 
+const MAX_BYTES = 20 * 1024 * 1024; // 20MB
+
 const LINE_RE =
   /^(\S+)\s+\S+\s+\S+\s+\[([^\]]+)\]\s+"(\S+)\s+([^"\s]+)[^"]*"\s+(\d{3})\s+(\S+)(?:\s+"([^"]*)"\s+"([^"]*)")?/;
 
@@ -28,7 +30,7 @@ const RULES: Array<[string, RegExp]> = [
 ];
 
 function analyze(text: string): { rows: Row[]; total: number; parsed: number } {
-  const lines = text.split(/\r?\n/);
+  const lines = text.split(/\r?\n/).slice(0, 500000);
   const rows: Row[] = [];
   let parsed = 0;
   for (let i = 0; i < lines.length; i++) {
@@ -132,7 +134,13 @@ export default function WebLogAnalyzer(): JSX.Element {
         className="hidden"
         onChange={async (e) => {
           const f = e.target.files?.[0];
-          if (f) setText(await f.text());
+          if (!f) return;
+          if (f.size > MAX_BYTES) {
+            alert(`File too large (${(f.size / 1048576).toFixed(1)}MB). Max 20MB; split or pre-filter the log.`);
+            e.target.value = '';
+            return;
+          }
+          setText(await f.text());
         }}
       />
 

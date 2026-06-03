@@ -32,7 +32,11 @@ import { ACTOR_ALIASES } from '../data/threat-actor-aliases';
 const MALTRAIL_API = 'https://api.github.com/repos/stamparm/maltrail/contents/trails/static/malware';
 const SKELETON_KEY_PREFIX = 'skeleton-actor:';
 const SKELETON_INDEX_KEY = 'skeleton-actor:index';
-const MAX_SKELETONS_PER_RUN = 200;
+// Bounds total KV writes per invocation. Each create is 1 put; each update is
+// 1 get + 1 put. With the index read + list fetch, capping combined work at 15
+// keeps worst-case subrequests (~33) well under the Free-plan 50/invocation cap.
+// A large maltrail repo syncs incrementally across cron runs.
+const MAX_SKELETONS_PER_RUN = 15;
 const APT_FILE_RE = /^apt_([a-z0-9._-]+)\.txt$/i;
 
 export interface SkeletonActor {
@@ -123,7 +127,10 @@ export async function maltrailSyncHandler(c: Context<{ Bindings: Env }>): Promis
   const finalSlugs = new Set(existingSlugs);
 
   for (const f of aptFiles) {
-    if (created.length >= MAX_SKELETONS_PER_RUN) {
+    // Count BOTH creates and updates — each one costs a KV write (updates also
+    // a read). The old guard only counted creates, so an all-updates run could
+    // still fire hundreds of subrequests.
+    if (created.length + updated.length >= MAX_SKELETONS_PER_RUN) {
       skipped.push(f.name);
       continue;
     }
@@ -222,8 +229,14 @@ export async function listSkeletonActorsHandler(c: Context<{ Bindings: Env }>): 
     });
   }
 
+  // Cap the per-slug fan-out: on a cold cache this is one KV get per slug, and
+  // an unbounded index (the sync job appends over time) would blow the
+  // Free-plan 50-subrequest cap. Read at most 45 (index read + cache.match
+  // already consumed a couple). The Cache API front keeps this off the hot path.
+  const MAX_READS = 45;
+  const slice = slugs.slice(0, MAX_READS);
   const records = await Promise.all(
-    slugs.map(async (slug) => {
+    slice.map(async (slug) => {
       try {
         const raw = await kv.get(`${SKELETON_KEY_PREFIX}${slug}`);
         return raw ? (JSON.parse(raw) as SkeletonActor) : null;
@@ -234,9 +247,17 @@ export async function listSkeletonActorsHandler(c: Context<{ Bindings: Env }>): 
   );
 
   const items = records.filter((r): r is SkeletonActor => r !== null);
-  const response = c.json({ items, count: items.length, generated_at: new Date().toISOString() }, 200, {
-    'cache-control': 'public, max-age=300',
-  });
+  const response = c.json(
+    {
+      items,
+      count: items.length,
+      total: slugs.length,
+      truncated: slugs.length > MAX_READS,
+      generated_at: new Date().toISOString(),
+    },
+    200,
+    { 'cache-control': 'public, max-age=300' }
+  );
   c.executionCtx.waitUntil(cache.put(cacheReq, response.clone()));
   return response;
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, type FormEvent } from 'react';
+import { useState, useEffect, useCallback, useRef, type FormEvent } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { Search, Loader2, ArrowLeft, ExternalLink, FileDown, X } from 'lucide-react';
 
@@ -27,6 +27,7 @@ export default function Yarahub(): JSX.Element {
   const [contentLoading, setContentLoading] = useState(false);
   const [contentName, setContentName] = useState<string | null>(null);
   const [contentError, setContentError] = useState<string | null>(null);
+  const latestRuleReq = useRef(0);
 
   const fetchRules = useCallback(async () => {
     setLoading(true);
@@ -70,19 +71,23 @@ export default function Yarahub(): JSX.Element {
   };
 
   const viewRule = async (uuid: string, ruleName?: string) => {
+    const reqId = ++latestRuleReq.current;
     setContentName(ruleName ?? uuid);
     setContentLoading(true);
     setRuleContent(null);
     setContentError(null);
     try {
       const res = await fetch(`/api/v1/yara-hub/rule/${encodeURIComponent(uuid)}`);
+      if (latestRuleReq.current !== reqId) return;
       if (!res.ok) {
         const body = await res.json().catch(() => ({}));
+        if (latestRuleReq.current !== reqId) return;
         throw new Error(((body as Record<string, unknown>)?.error as string) ?? `HTTP ${res.status}`);
       }
       const ct = res.headers.get('content-type') ?? '';
       if (ct.includes('json')) {
         const json = (await res.json()) as Record<string, unknown>;
+        if (latestRuleReq.current !== reqId) return;
         if (json.rule_content) {
           setRuleContent(json.rule_content as string);
         } else if (json.data && typeof json.data === 'object' && (json.data as Record<string, unknown>).rule_content) {
@@ -96,13 +101,16 @@ export default function Yarahub(): JSX.Element {
           setContentError('Unexpected response format — showing raw JSON');
         }
       } else {
-        setRuleContent(await res.text());
+        const text = await res.text();
+        if (latestRuleReq.current !== reqId) return;
+        setRuleContent(text);
       }
     } catch (e) {
+      if (latestRuleReq.current !== reqId) return;
       setContentError(e instanceof Error ? e.message : 'Unknown error');
       setRuleContent(null);
     } finally {
-      setContentLoading(false);
+      if (latestRuleReq.current === reqId) setContentLoading(false);
     }
   };
 

@@ -2,6 +2,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { listWatches, saveWatch, deleteWatch, getAlertLog, type Watch } from '../lib/watch-engine';
 import { safeJsonBody } from '../lib/safe-body';
+import { assertPublicHost } from '../lib/ssrf-guard';
 
 export async function listWatchesHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const kv = c.env.KV_CACHE;
@@ -29,11 +30,17 @@ export async function createWatchHandler(c: Context<{ Bindings: Env }>): Promise
     return c.json({ error: 'Invalid type' }, 400);
   }
 
+  let url: URL;
   try {
-    new URL(body.webhook);
+    url = new URL(body.webhook);
   } catch {
     return c.json({ error: 'Invalid webhook URL' }, 400);
   }
+  if (url.protocol !== 'http:' && url.protocol !== 'https:') {
+    return c.json({ error: 'webhook must be http(s)' }, 400);
+  }
+  const host = await assertPublicHost(url.hostname);
+  if (!host.ok) return c.json({ error: 'webhook host not allowed' }, 400);
 
   const watch: Watch = {
     id: crypto.randomUUID(),
@@ -67,11 +74,17 @@ export async function updateWatchHandler(c: Context<{ Bindings: Env }>): Promise
   if (body.label !== undefined) watch.label = body.label;
   if (body.value !== undefined) watch.value = body.value;
   if (body.webhook !== undefined) {
+    let url: URL;
     try {
-      new URL(body.webhook);
+      url = new URL(body.webhook);
     } catch {
       return c.json({ error: 'Invalid webhook URL' }, 400);
     }
+    if (url.protocol !== 'http:' && url.protocol !== 'https:') {
+      return c.json({ error: 'webhook must be http(s)' }, 400);
+    }
+    const host = await assertPublicHost(url.hostname);
+    if (!host.ok) return c.json({ error: 'webhook host not allowed' }, 400);
     watch.webhook = body.webhook;
   }
   if (body.type !== undefined) {

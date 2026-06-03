@@ -45,13 +45,31 @@ interface DmarcReport {
   records: DmarcRecord[];
 }
 
-function unzip(buf: ArrayBuffer): Promise<ArrayBuffer> {
-  return new Promise((resolve, reject) => {
-    const ds = new DecompressionStream('gzip');
-    const blob = new Blob([buf]);
-    const stream = blob.stream().pipeThrough(ds);
-    new Response(stream).arrayBuffer().then(resolve).catch(reject);
-  });
+const MAX_DECOMPRESSED = 60 * 1024 * 1024;
+
+async function unzip(buf: ArrayBuffer): Promise<ArrayBuffer> {
+  const ds = new DecompressionStream('gzip');
+  const blob = new Blob([buf]);
+  const reader = blob.stream().pipeThrough(ds).getReader();
+  const chunks: Uint8Array[] = [];
+  let total = 0;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    total += value.byteLength;
+    if (total > MAX_DECOMPRESSED) {
+      reader.cancel();
+      throw new Error('Decompressed report exceeds size limit.');
+    }
+    chunks.push(value);
+  }
+  const out = new Uint8Array(total);
+  let offset = 0;
+  for (const chunk of chunks) {
+    out.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  return out.buffer;
 }
 
 function parseDmarcXml(xml: string): DmarcReport {
@@ -205,6 +223,7 @@ export default function DmarcAnalyzer(): JSX.Element {
       setFileName(file.name);
 
       try {
+        if (file.size > 25 * 1024 * 1024) throw new Error('File too large (max 25 MB compressed).');
         const buf = await file.arrayBuffer();
         let xml: string;
 
@@ -216,7 +235,10 @@ export default function DmarcAnalyzer(): JSX.Element {
           const zip = await JSZip.loadAsync(buf);
           const firstXml = Object.keys(zip.files).find((n) => n.endsWith('.xml'));
           if (!firstXml) throw new Error('No XML file found in zip archive');
-          xml = await zip.files[firstXml].async('text');
+          const entry = zip.files[firstXml];
+          const uncompressed = (entry as unknown as { _data?: { uncompressedSize?: number } })._data?.uncompressedSize;
+          if (uncompressed && uncompressed > MAX_DECOMPRESSED) throw new Error('Decompressed XML exceeds size limit.');
+          xml = await entry.async('text');
         } else {
           xml = new TextDecoder().decode(buf);
         }
@@ -320,7 +342,7 @@ export default function DmarcAnalyzer(): JSX.Element {
           <CheckCircle2 size={12} /> Files never stored
         </div>
         <div className="flex items-center gap-2 text-xs font-mono text-amber-700 dark:text-amber-300 bg-amber-500/10 border border-amber-500/30 rounded-full px-3 py-1">
-          <Loader2 size={12} /> Up to 100 MB
+          <Loader2 size={12} /> Up to 25 MB
         </div>
         <div className="flex items-center gap-2 text-xs font-mono text-fuchsia-700 dark:text-fuchsia-300 bg-fuchsia-500/10 border border-fuchsia-500/30 rounded-full px-3 py-1">
           <CheckCircle2 size={12} /> .xml .gz .zip
@@ -359,7 +381,7 @@ export default function DmarcAnalyzer(): JSX.Element {
           Drag &amp; drop your DMARC XML report here
         </p>
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
-          or click to browse — .xml, .gz, .zip up to 100 MB
+          or click to browse — .xml, .gz, .zip up to 25 MB
         </p>
       </div>
 

@@ -56,14 +56,15 @@ export async function hudsonRockSearchHandler(c: Context<{ Bindings: Env }>): Pr
     if (!res.ok) return c.json({ error: `Hudson Rock upstream ${res.status}` }, 502);
 
     const data = (await res.json()) as HudsonRockResponse;
-    const totalCredentials = data.data.reduce((sum, entry) => sum + entry.credentials.length, 0);
+    const entries = Array.isArray(data?.data) ? data.data : [];
+    const totalCredentials = entries.reduce((sum, entry) => sum + entry.credentials.length, 0);
 
     const body = JSON.stringify({
       email,
-      found: data.data.length > 0,
-      total_infections: data.data.length,
+      found: entries.length > 0,
+      total_infections: entries.length,
       total_credentials: totalCredentials,
-      results: data.data.map((entry) => ({
+      results: entries.map((entry) => ({
         stealer_id: entry.stealer,
         stealer_family: entry.stealer_family,
         date_compromised: entry.date_compromised,

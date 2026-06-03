@@ -17,13 +17,23 @@ export default function ActorDetail(): JSX.Element {
 
   useEffect(() => {
     if (!actor) return;
+    let cancelled = false;
     setCvesLoading(true);
     const aliases = encodeURIComponent(actor.aliases.join(','));
     fetch(`/api/v1/actor-cves?slug=${encodeURIComponent(actor.slug)}&aliases=${aliases}`)
       .then((r) => (r.ok ? (r.json() as Promise<ActorCvesResponse>) : null))
-      .then((d) => setLinkedCves(d?.cves ?? []))
-      .catch(() => setLinkedCves([]))
-      .finally(() => setCvesLoading(false));
+      .then((d) => {
+        if (!cancelled) setLinkedCves(d?.cves ?? []);
+      })
+      .catch(() => {
+        if (!cancelled) setLinkedCves([]);
+      })
+      .finally(() => {
+        if (!cancelled) setCvesLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, [actor]);
 
   if (!actor) {

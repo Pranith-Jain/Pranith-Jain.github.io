@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { BackLink } from '../../components/BackLink';
 import {
   ArrowLeft,
@@ -98,6 +98,7 @@ export default function RelationshipGraphPage(): JSX.Element {
   const [layoutMode, setLayoutMode] = useState<LayoutMode>('dagre');
   const [pathFinder, setPathFinder] = useState<PathFinderState>({ phase: 'idle' });
   const [expandedCount, setExpandedCount] = useState(0);
+  const reqIdRef = useRef(0);
 
   useEffect(() => {
     fetch('/api/v1/cve-recent')
@@ -126,6 +127,7 @@ export default function RelationshipGraphPage(): JSX.Element {
   const fetchGraph = useCallback(
     async (q: string) => {
       if (!q.trim()) return;
+      const reqId = ++reqIdRef.current;
       setLoading(true);
       setError(null);
       setSelectedNode(null);
@@ -133,17 +135,20 @@ export default function RelationshipGraphPage(): JSX.Element {
       setPathFinder({ phase: 'idle' });
       try {
         const res = await fetch(`/api/v1/relationship-graph?q=${encodeURIComponent(q.trim())}&depth=${depth}`);
+        if (reqId !== reqIdRef.current) return; // stale; a newer request started
         if (!res.ok) {
           const body = (await res.json().catch(() => ({}))) as { error?: string };
           throw new Error(body.error ?? `HTTP ${res.status}`);
         }
         const data = (await res.json()) as GraphResponse;
+        if (reqId !== reqIdRef.current) return;
         setGraphData(data);
       } catch (e) {
+        if (reqId !== reqIdRef.current) return;
         setError((e as Error).message);
         setGraphData(null);
       } finally {
-        setLoading(false);
+        if (reqId === reqIdRef.current) setLoading(false);
       }
     },
     [depth]

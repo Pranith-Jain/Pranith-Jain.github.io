@@ -153,7 +153,7 @@ function analyze(text: string): Analysis | null {
         where,
         fix: 'Enumerate only the permissions the role’s purpose requires.',
       });
-    const hitEsc = ESC_PERMS.filter((e) => perms.includes(e) || perms.some((p) => p.endsWith('.setiampolicy')));
+    const hitEsc = perms.filter((p) => ESC_PERMS.includes(p) || p.endsWith('.setiampolicy'));
     if (hitEsc.length > 0)
       findings.push({
         sev: 'critical',
