@@ -648,20 +648,22 @@ export default function BriefingDetail(): JSX.Element {
           daily/weekly findings/IOC tables render. */}
       {briefing.type === 'landscape' && <LandscapeReportView briefing={briefing as unknown as LandscapeReport} />}
 
-      {/* Stats bar */}
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-8">
-        <div className="flex flex-wrap items-center justify-around gap-6">
-          <StatPill label="findings" value={stats.findings} />
-          <StatPill label="sections" value={stats.sections} />
-          <StatPill label="CVEs" value={stats.cves} />
-          <StatPill label="KEVs" value={stats.kevs} />
-          <StatPill label="IOCs" value={stats.iocs} />
-          <StatPill label="critical" value={stats.critical} accent="text-rose-600 dark:text-rose-400" />
-          <StatPill label="high" value={stats.high} accent="text-orange-600 dark:text-orange-400" />
-          <StatPill label="medium" value={stats.medium} accent="text-amber-600 dark:text-amber-400" />
-          <StatPill label="low" value={stats.low} accent="text-slate-600 dark:text-slate-300" />
-        </div>
-      </section>
+      {/* Stats bar — daily/weekly only; landscape has its own stats in LandscapeReportView. */}
+      {briefing.type !== 'landscape' && (
+        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-8">
+          <div className="flex flex-wrap items-center justify-around gap-6">
+            <StatPill label="findings" value={stats.findings} />
+            <StatPill label="sections" value={stats.sections} />
+            <StatPill label="CVEs" value={stats.cves} />
+            <StatPill label="KEVs" value={stats.kevs} />
+            <StatPill label="IOCs" value={stats.iocs} />
+            <StatPill label="critical" value={stats.critical} accent="text-rose-600 dark:text-rose-400" />
+            <StatPill label="high" value={stats.high} accent="text-orange-600 dark:text-orange-400" />
+            <StatPill label="medium" value={stats.medium} accent="text-amber-600 dark:text-amber-400" />
+            <StatPill label="low" value={stats.low} accent="text-slate-600 dark:text-slate-300" />
+          </div>
+        </section>
+      )}
 
       {/* Structured STIX 2.1 intel view. Renders an enriched card backed by
           /api/v1/intel-bundle — heuristic-extracted actors, malware, CVEs,

@@ -44,12 +44,6 @@ const RESOURCES: Record<string, ResourceSpec> = {
   groups: { path: () => '/groups', ttl: 21600 },
   // Per-group profile (description, locations, MITRE TTPs, tools, exploited CVEs).
   group: { path: (a) => `/group/${encodeURIComponent(a ?? '')}`, ttl: 21600, argRequired: true },
-  // Victims attributed to a group.
-  groupvictims: { path: (a) => `/groupvictims/${encodeURIComponent(a ?? '')}`, ttl: 3600, argRequired: true },
-  // Free-text victim search.
-  searchvictims: { path: (a) => `/searchvictims/${encodeURIComponent(a ?? '')}`, ttl: 3600, argRequired: true },
-  // Victims by ISO country code.
-  countryvictims: { path: (a) => `/countryvictims/${encodeURIComponent(a ?? '')}`, ttl: 3600, argRequired: true },
   negotiations: {
     path: (a) => (a ? `/negotiations/${encodeURIComponent(a)}` : '/negotiations'),
     ttl: 3600,

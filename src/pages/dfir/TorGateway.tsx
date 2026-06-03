@@ -6,9 +6,8 @@ const GATEWAYS = [
   { label: 'Tor2web', url: 'https://{onion}.tor2web.io' },
   { label: 'Tor.link', url: 'https://{onion}.tor.link' },
   { label: 'Onion.ws', url: 'https://{onion}.onion.ws' },
-  { label: 'Onion.ws (alternate)', url: 'https://{onion}.onion.ws' },
   { label: 'Onion.sh', url: 'https://{onion}.onion.sh' },
-  { label: 'DuckDuckGo', url: 'https://{onion}.onion.live' },
+  { label: 'Onion.live', url: 'https://{onion}.onion.live' },
 ];
 
 export default function TorGateway() {

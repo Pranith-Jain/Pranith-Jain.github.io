@@ -143,20 +143,6 @@ export default function PgpTool() {
 
       {mode !== 'generate' && (
         <div className="grid gap-4 sm:grid-cols-2">
-          {mode !== 'sign' && mode !== 'encrypt' ? null : (
-            <div>
-              <label className="text-xs font-mono text-slate-500 mb-1 block">
-                Public Key (armored)
-                <textarea
-                  value={publicKey}
-                  onChange={(e) => setPublicKey(e.target.value)}
-                  rows={6}
-                  className="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 p-2 text-xs font-mono text-slate-900 dark:text-slate-100 mt-1"
-                  placeholder="-----BEGIN PGP PUBLIC KEY BLOCK-----"
-                />
-              </label>
-            </div>
-          )}
           {mode !== 'verify' && mode !== 'encrypt' ? null : (
             <div>
               <label className="text-xs font-mono text-slate-500 mb-1 block">
