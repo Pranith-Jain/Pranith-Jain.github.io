@@ -98,7 +98,7 @@ export class ProviderCache {
         const cacheResp = new Response(JSON.stringify(cached), {
           headers: { 'cache-control': `public, max-age=${ttl}` },
         });
-        cache?.put(new Request(this.cacheUrl(provider, indicator)), cacheResp).catch(() => {});
+        if (cache) await cache.put(new Request(this.cacheUrl(provider, indicator)), cacheResp).catch(() => {});
         return { ...cached, cached: true };
       }
       return cached;
@@ -127,7 +127,7 @@ export class ProviderCache {
       const cacheResp = new Response(JSON.stringify(data), {
         headers: { 'cache-control': `public, max-age=${ttl}` },
       });
-      cache.put(new Request(this.cacheUrl(provider, indicator)), cacheResp).catch(() => {});
+      await cache.put(new Request(this.cacheUrl(provider, indicator)), cacheResp).catch(() => {});
     }
   }
 
@@ -146,7 +146,7 @@ export class ProviderCache {
     // Purge from per-colo cache
     const cache = this.cacheApi();
     if (cache) {
-      cache.delete(new Request(this.cacheUrl(provider, indicator))).catch(() => {});
+      await cache.delete(new Request(this.cacheUrl(provider, indicator))).catch(() => {});
     }
   }
 }

@@ -79,16 +79,6 @@ async function listJobs(kv: KVNamespace): Promise<FeedJob[]> {
   return jobs;
 }
 
-async function invalidateJobsCache(): Promise<void> {
-  const cache = cacheApi();
-  if (!cache) return;
-  try {
-    await cache.delete(JOBS_CACHE_KEY);
-  } catch {
-    /* best-effort */
-  }
-}
-
 async function saveJobs(kv: KVNamespace, jobs: FeedJob[]): Promise<void> {
   await kv.put(JOBS_KV_KEY, JSON.stringify(jobs));
   await writeJobsCache(jobs);
