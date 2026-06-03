@@ -157,6 +157,7 @@ const CveResourcesCatalog = lazy(() => import('./pages/dfir/CveResourcesCatalog'
 const WebScan = lazy(() => import('./pages/dfir/WebScan'));
 const MalwareScan = lazy(() => import('./pages/dfir/MalwareScan'));
 const CapeSandbox = lazy(() => import('./pages/dfir/CapeSandbox'));
+const ReconBridge = lazy(() => import('./pages/dfir/ReconBridge'));
 const ReverseImage = lazy(() => import('./pages/dfir/ReverseImage'));
 const EmlExtractor = lazy(() => import('./pages/dfir/EmlExtractor'));
 const ScamWatch = lazy(() => import('./pages/dfir/ScamWatch'));
@@ -475,6 +476,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/web-scan', Component: WebScan },
   { path: '/dfir/malware-scan', Component: MalwareScan },
   { path: '/dfir/cape-sandbox', Component: CapeSandbox },
+  { path: '/dfir/recon-bridge', Component: ReconBridge },
   { path: '/dfir/reverse-image', Component: ReverseImage },
   { path: '/dfir/eml', Component: EmlExtractor },
   { path: '/dfir/url-rep', Component: UrlReputation },

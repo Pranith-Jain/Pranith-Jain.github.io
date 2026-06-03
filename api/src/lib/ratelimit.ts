@@ -137,10 +137,14 @@ const ADMIN_STRICT_LIMIT = 5;
 const ADMIN_STRICT_PREFIX = '/api/v1/admin/';
 function isAdminStrict(pathname: string, method: string): boolean {
   if (method === 'GET' || method === 'HEAD' || method === 'OPTIONS') return false;
-  // CAPE submit fans out to an expensive detonation; cap it like other admin
-  // mutations even though it lives outside the /admin/ prefix.
+  // CAPE submit (detonation) and recon scan (active enumeration) fan out to
+  // expensive self-hosted work; cap them like other admin mutations even though
+  // they live outside the /admin/ prefix.
   return (
-    pathname.startsWith(ADMIN_STRICT_PREFIX) || BRIEFINGS_ADMIN.has(pathname) || pathname === '/api/v1/cape/submit'
+    pathname.startsWith(ADMIN_STRICT_PREFIX) ||
+    BRIEFINGS_ADMIN.has(pathname) ||
+    pathname === '/api/v1/cape/submit' ||
+    pathname === '/api/v1/recon/scan'
   );
 }
 

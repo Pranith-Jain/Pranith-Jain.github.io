@@ -132,4 +132,13 @@ export interface Env {
    *  `wrangler.jsonc#vars.SITE_URL` — used for CORS, RSS links, and
    *  canonical URLs. Falls back to the hardcoded default. */
   SITE_URL?: string;
+  /** Base URL of a self-hosted recon bridge (Subfinder/Amass/theHarvester/
+   *  SpiderFoot behind a small HTTP wrapper + Cloudflare Tunnel). The client
+   *  appends `/recon`. Optional — the /api/v1/recon/* routes return 503 until
+   *  set, so nothing breaks. See docs/self-hosted/recon-bridge.md. */
+  RECON_BRIDGE_URL?: string;
+  /** Bearer token for the recon bridge. Set via
+   *  `wrangler secret put RECON_BRIDGE_TOKEN`. Optional — omit if the bridge
+   *  is only reachable through a locked-down tunnel. */
+  RECON_BRIDGE_TOKEN?: string;
 }

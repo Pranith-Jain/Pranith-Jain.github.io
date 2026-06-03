@@ -299,6 +299,7 @@ import { correlateHandler } from './routes/cross-correlate';
 import { huntingQueryHandler } from './routes/hunting-queries';
 import { sandboxLookupHandler } from './routes/sandbox';
 import { capeSubmitHandler, capeTaskHandler, capeReportHandler } from './routes/sandbox-cape';
+import { reconScanHandler } from './routes/recon';
 import { irPlaybookHandler } from './routes/ir-playbooks';
 import { aiSummaryHandler } from './routes/ai-summary';
 import { leakIxSearchHandler } from './routes/leakix';
@@ -846,6 +847,8 @@ app.get('/api/v1/sandbox/lookup', sandboxLookupHandler);
 app.post('/api/v1/cape/submit', capeSubmitHandler);
 app.get('/api/v1/cape/task/:id', capeTaskHandler);
 app.get('/api/v1/cape/report/:id', capeReportHandler);
+// Self-hosted recon bridge (admin-gated; dormant 503 until RECON_BRIDGE_URL is set).
+app.post('/api/v1/recon/scan', reconScanHandler);
 app.post('/api/v1/ir-playbooks/generate', validate('json', irPlaybookSchema), irPlaybookHandler);
 
 // ── Temporal Analysis ────────────────────────────────────────────

@@ -460,6 +460,13 @@ export const SECTIONS: Section[] = [
         icon: ScanLine,
       },
       {
+        path: '/dfir/recon-bridge',
+        useCase: 'Run Subfinder/Amass/theHarvester/SpiderFoot on a self-hosted bridge.',
+        label: 'Recon Bridge',
+        desc: 'Drive Go/Python recon CLIs that can’t run on Workers · passive subdomains, attack-surface mapping, emails, OSINT footprint · admin-gated, dormant until RECON_BRIDGE_URL is configured',
+        icon: Crosshair,
+      },
+      {
         path: '/dfir/open-directory',
         useCase: 'Scan for exposed open directories and malware staging.',
         label: 'Open Directory Scanner',
