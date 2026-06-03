@@ -212,8 +212,14 @@ export const iocTrendingSchema = z.object({
 
 // ── Relationship Graph ───────────────────────────────────────────
 
+// GET handler (relationship-graph.ts) reads query `q` (required) + `depth?`.
 export const relationshipGraphSchema = z.object({
-  indicator: indicatorPattern,
+  q: z
+    .string()
+    .min(1, 'missing query param q')
+    .max(2048)
+    .transform((s) => s.trim()),
+  depth: z.string().regex(/^\d+$/, 'depth must be a number').optional(),
 });
 
 // ── Unified Search ───────────────────────────────────────────────
@@ -237,9 +243,11 @@ export const ragQuerySchema = z.object({
 
 // ── Bloom Filter ─────────────────────────────────────────────────
 
+// Handler (bloom-filter.ts bloomCheckHandler) reads indicator (required) + type?
+// (ipv4|domain|url|hash). /bloom/check binds to THIS (not hashAnalyzeSchema).
 export const bloomCheckSchema = z.object({
-  type: z.enum(['ip', 'domain', 'hash']),
-  value: indicatorPattern,
+  indicator: z.string().min(1, 'indicator required').max(2048),
+  type: z.enum(['ipv4', 'domain', 'url', 'hash']).optional(),
 });
 
 // ── Hash Analysis (file/analyze) ────────────────────────────────
@@ -275,9 +283,10 @@ export const telegramChannelActionSchema = z.object({
   reason: z.string().max(500).optional(),
 });
 
+// Handler (telegram-leak-bot.ts) reads ONLY the `url` query param (no JSON body),
+// so this is bound as validate('query', …) in index.ts.
 export const telegramBotRegisterSchema = z.object({
-  bot_token: z.string().min(20, 'bot token too short').max(100, 'bot token too long'),
-  webhook_url: z.string().url('webhook_url must be a valid URL').max(500),
+  url: z.string().url('url must be a valid URL').max(500),
 });
 
 // ── AI / LLM Endpoints (cost-abuse guards) ─────────────────────
@@ -301,15 +310,18 @@ export const copilotInvestigateSchema = z.object({
   query: z.string().min(1, 'query required').max(500, 'query too long'),
 });
 
+// Handler (hunting-queries.ts) reads threat (required) + platforms? (plural array).
 export const huntingQuerySchema = z.object({
-  platform: z.enum(['splunk', 'elastic', 'kql', 'sigma', 'kusto']).optional(),
-  hypothesis: z.string().min(10, 'hypothesis too short').max(2000),
-  data_sources: z.array(z.string().max(100)).max(20).optional(),
+  threat: z.string().min(1, 'threat description required').max(2000),
+  platforms: z.array(z.string().min(1).max(50)).max(7).optional(),
 });
 
+// Handler (ir-playbooks.ts) reads incident_type (required, self-validated enum)
+// + context?. Kept a length-bounded string so the handler's case-insensitive
+// enum check stays authoritative.
 export const irPlaybookSchema = z.object({
-  scenario: z.string().min(10, 'scenario too short').max(2000),
-  severity: z.enum(['low', 'medium', 'high', 'critical']).optional(),
+  incident_type: z.string().min(1, 'incident_type required').max(50),
+  context: z.string().max(2000).optional(),
 });
 
 export const ruleGenerateSchema = z.object({
@@ -334,30 +346,56 @@ export const threatIntelFeedbackSchema = z.object({
   sector: z.string().max(100).optional(),
 });
 
+// Handler (assessments.ts assessmentCreateHandler) requires title/type/topic/body;
+// type mirrors AssessmentType. assessmentUpdateSchema (.partial()) inherits this.
 export const assessmentSchema = z.object({
   title: z.string().min(1).max(200),
-  type: z.enum(['actor', 'campaign', 'ttp', 'infrastructure', 'malware']).optional(),
-  summary: z.string().max(5000).optional(),
-  findings: z.array(z.string().max(1000)).max(50).optional(),
-  indicators: z.array(indicatorPattern).max(100).optional(),
-  confidence: z.enum(['low', 'medium', 'high']).optional(),
+  type: z.enum(['actor', 'campaign', 'cve', 'ransomware', 'sector', 'general']),
+  topic: z.string().min(1).max(500),
+  body: z.string().min(1).max(50_000),
+  sources: z.array(z.string().max(200)).max(100).optional(),
+  confidence_score: z.number().min(0).max(100).optional(),
+  confidence_level: z.string().max(50).optional(),
+  author: z.string().max(100).optional(),
+  sector: z.string().max(100).optional(),
+  related_pirs: z.array(z.string().max(200)).max(100).optional(),
 });
 
-export const assessmentUpdateSchema = assessmentSchema.partial();
+// assessmentUpdateHandler spreads Partial<Assessment> — all optional, plus the
+// publish-transition `status` (AssessmentStatus).
+export const assessmentUpdateSchema = assessmentSchema
+  .extend({
+    status: z.enum(['draft', 'review', 'published', 'archived']).optional(),
+  })
+  .partial();
 
 // ── PIR (Priority Intelligence Requirement) ─────────────────────
 
+// Handler (pir.ts pirCreateHandler) requires title/consumer/decision; the rest
+// optional. Enums mirror PirCategory/PirPriority/PirStatus.
 export const pirCreateSchema = z.object({
   title: z.string().min(1).max(200),
-  description: z.string().min(1).max(5000),
-  priority: z.enum(['low', 'medium', 'high', 'critical']).optional().default('medium'),
-  sector: z.string().max(100).optional(),
-  indicators: z.array(indicatorPattern).max(100).optional(),
+  consumer: z.string().min(1).max(200),
+  decision: z.string().min(1).max(2000),
+  description: z.string().max(5000).optional(),
+  category: z
+    .enum(['ransomware', 'apt', 'phishing', 'vulnerability', 'supply_chain', 'insider', 'sector', 'general'])
+    .optional(),
+  priority: z.enum(['critical', 'high', 'medium', 'low']).optional(),
+  status: z.enum(['active', 'paused', 'completed', 'archived']).optional(),
+  kiqs: z.array(z.string().max(500)).max(50).optional(),
+  relevant_sources: z.array(z.string().max(100)).max(100).optional(),
+  coverage_score: z.number().min(0).max(100).optional(),
+  min_source_ratio: z.number().min(0).max(100).optional(),
 });
 
-export const pirUpdateSchema = pirCreateSchema.partial().extend({
-  status: z.enum(['open', 'investigating', 'resolved', 'closed']).optional(),
-});
+// pirUpdateHandler spreads Partial<Pir> — all fields optional (status now lives
+// in the corrected base). Adds the cadence field the update path accepts.
+export const pirUpdateSchema = pirCreateSchema
+  .extend({
+    collection_cadence_hours: z.number().min(1).max(168).optional(),
+  })
+  .partial();
 
 export const pirAlertAckSchema = z.object({
   note: z.string().max(1000).optional(),
@@ -396,46 +434,59 @@ export const investigationTaskUpdateSchema = investigationTaskSchema.partial().e
   status: z.enum(['pending', 'in_progress', 'completed', 'cancelled']).optional(),
 });
 
+// Handler (investigations.ts addNoteHandler) reads `message`, not `content`.
 export const investigationNoteSchema = z.object({
-  content: z.string().min(1).max(10_000),
+  message: z.string().min(1).max(8_000),
 });
 
 // ── Feed Scheduler (admin) ──────────────────────────────────────
 
+// Handler (feed-scheduler.ts createFeedJobHandler) reads name/source_url/parser/
+// interval_minutes/tags. `enabled` is included so feedJobUpdateSchema (.partial())
+// accepts it (updateFeedJobHandler reads `enabled`); create forces it true.
 export const feedJobCreateSchema = z.object({
   name: z.string().min(1).max(200),
-  source: z.string().min(1).max(200),
-  schedule: z.string().min(1).max(100),
-  enabled: z.boolean().optional().default(true),
-  config: z.record(z.string(), z.unknown()).optional(),
+  source_url: z.string().min(1).max(2048),
+  parser: z.enum(['plaintext-ips', 'plaintext-domains', 'plaintext-urls', 'plaintext-hashes', 'csv', 'json']),
+  interval_minutes: z.number().int().min(1).max(525_600).optional(),
+  tags: z.array(z.string().max(50)).max(20).optional(),
+  enabled: z.boolean().optional(),
 });
 
 export const feedJobUpdateSchema = feedJobCreateSchema.partial();
 
 // ── Observable DB (user data) ───────────────────────────────────
 
+// Handler (observable-db.ts saveObservableHandler) reads indicator/type/...,
+// not value/context/confidence-enum. observableUpdateSchema (.partial()) below
+// inherits this corrected shape, which updateObservableHandler also reads.
 export const observableCreateSchema = z.object({
-  type: z.enum(['ip', 'domain', 'hash', 'url', 'email', 'cve']),
-  value: z.string().min(1).max(2048),
+  indicator: z.string().min(1).max(2048),
+  type: z.enum(['ip', 'domain', 'url', 'hash', 'email', 'unknown']),
+  composite_score: z.number().optional(),
+  verdicts: z.array(z.record(z.string(), z.unknown())).max(100).optional(),
   tags: z.array(z.string().max(50)).max(20).optional(),
-  context: z.string().max(2000).optional(),
-  confidence: z.enum(['low', 'medium', 'high']).optional(),
+  tlp: z.enum(['white', 'green', 'amber', 'red']).optional(),
+  confidence: z.number().min(0).max(100).optional(),
 });
 
 export const observableUpdateSchema = observableCreateSchema.partial();
 
+// Handler (observable-db.ts addObservableNoteHandler) reads text/author.
 export const observableNoteSchema = z.object({
-  content: z.string().min(1).max(10_000),
+  text: z.string().min(1).max(10_000),
+  author: z.string().max(200).optional(),
 });
 
 // ── Watches (user data) ─────────────────────────────────────────
 
+// Handler (watches.ts createWatchHandler) reads label/type/value/webhook (all
+// required); watchUpdateSchema (.partial()) inherits this and matches updateWatchHandler.
 export const watchCreateSchema = z.object({
-  name: z.string().min(1).max(200),
-  type: z.enum(['indicator', 'actor', 'campaign', 'cve']),
-  target: z.string().min(1).max(2048),
-  threshold: z.number().int().min(1).max(100).optional(),
-  enabled: z.boolean().optional().default(true),
+  label: z.string().min(1).max(200),
+  type: z.enum(['ransomware-group', 'cve-keyword', 'actor', 'ioc']),
+  value: z.string().min(1).max(2048),
+  webhook: z.string().url('webhook must be a valid URL').max(2048),
 });
 
 export const watchUpdateSchema = watchCreateSchema.partial();
@@ -451,19 +502,27 @@ export const externalResourceCreateSchema = z.object({
 
 // ── Campaigns (user data) ───────────────────────────────────────
 
+// Handler (campaigns.ts saveCampaignHandler) requires a `campaign` object with
+// `campaign_name`; nested doc fields are trusted (passthrough). Plus input?/
+// generated_at?/model_used?.
 export const campaignCreateSchema = z.object({
-  name: z.string().min(1).max(200),
-  actor: z.string().max(200).optional(),
-  description: z.string().max(5000).optional(),
-  start_date: z
-    .string()
-    .regex(/^\d{4}-\d{2}-\d{2}$/)
+  campaign: z
+    .object({
+      campaign_name: z.string().min(1).max(300),
+    })
+    .passthrough(),
+  input: z
+    .object({
+      actor: z.string().max(200).optional(),
+      sector: z.string().max(200).optional(),
+      ttps: z.string().max(3000).optional(),
+      notes: z.string().max(2000).optional(),
+      iocs: z.array(z.string().max(300)).max(100).optional(),
+    })
+    .passthrough()
     .optional(),
-  end_date: z
-    .string()
-    .regex(/^\d{4}-\d{2}-\d{2}$/)
-    .optional(),
-  indicators: z.array(indicatorPattern).max(100).optional(),
+  generated_at: z.string().max(50).optional(),
+  model_used: z.string().max(100).optional(),
 });
 
 // ── Dashboard Watchlist ─────────────────────────────────────────
@@ -484,54 +543,64 @@ export const intelBundleBuildSchema = z.object({
 
 // ── Predictive / Threat Intel POST endpoints ────────────────────
 
+// Handler (predictive-intel.ts) reads technical?/behavioral?/actors? — all
+// optional (an empty body is valid and returns an assessment).
 export const predictiveAttributionSchema = z.object({
-  indicator: indicatorPattern,
-  candidate_actors: z.array(z.string().min(1).max(200)).min(1).max(20),
-});
-
-export const attackChainReconstructSchema = z.object({
-  incident_id: z.string().min(1).max(200).optional(),
-  events: z
-    .array(
-      z.object({
-        timestamp: z.string().max(50),
-        event_type: z.string().max(100),
-        description: z.string().max(1000),
-        source: z.string().max(200).optional(),
-      })
-    )
-    .min(1)
-    .max(500),
-});
-
-export const actorDnaMatchSchema = z.object({
-  indicator: indicatorPattern,
-  candidate_actors: z.array(z.string().min(1).max(200)).min(1).max(20).optional(),
-});
-
-export const correlationSchema = z.object({
-  indicators: z.array(indicatorPattern).min(1).max(50),
-  timeframe: z
-    .string()
-    .regex(/^\d+[hd]$/)
+  technical: z
+    .array(z.object({ indicator: z.string().min(1).max(2048), type: z.string().min(1).max(50) }))
+    .max(500)
     .optional(),
+  behavioral: z
+    .array(z.object({ pattern: z.string().min(1).max(500) }))
+    .max(500)
+    .optional(),
+  actors: z.array(z.string().min(1).max(200)).max(50).optional(),
 });
 
+// Handler (attack-chain.ts) reads indicators[] (required) + actors?/malware?.
+export const attackChainReconstructSchema = z.object({
+  indicators: z.array(indicatorPattern).min(1).max(500),
+  actors: z.array(z.string().min(1).max(200)).max(50).optional(),
+  malware: z.array(z.string().min(1).max(200)).max(50).optional(),
+});
+
+// Handler (actor-dna.ts) reads ttps[] (required) + infrastructure?/sectors?/regions?.
+export const actorDnaMatchSchema = z.object({
+  ttps: z.array(z.string().min(1).max(200)).min(1).max(100),
+  infrastructure: z.array(z.string().min(1).max(200)).max(100).optional(),
+  sectors: z.array(z.string().min(1).max(100)).max(50).optional(),
+  regions: z.array(z.string().min(1).max(100)).max(50).optional(),
+});
+
+// Handler (cross-correlate.ts correlateHandler) reads sector?/actor?/cve_id? —
+// all optional (tolerates an empty body).
+export const correlationSchema = z.object({
+  sector: z.string().max(100).optional(),
+  actor: z.string().max(200).optional(),
+  cve_id: z.string().max(20).optional(),
+});
+
+// Handler (novelty.ts noveltyBatchHandler) reads texts[] (required) + mark_seen?.
 export const noveltyBatchSchema = z.object({
+  texts: z.array(z.string().min(1).max(10_000)).min(1, 'texts[] required').max(500),
+  mark_seen: z.boolean().optional(),
+});
+
+// Handler (campaign-lifecycle.ts) reads indicators[] as OBJECTS {value,type,...}
+// (required) + name?/actor?.
+export const campaignAnalyzeSchema = z.object({
   indicators: z
     .array(
       z.object({
-        type: z.enum(['ip', 'domain', 'hash', 'url']),
         value: z.string().min(1).max(2048),
+        type: z.string().min(1).max(20),
+        first_seen: z.string().max(40).optional(),
+        score: z.number().optional(),
       })
     )
-    .min(1)
+    .min(1, 'indicators array required')
     .max(500),
-});
-
-export const campaignAnalyzeSchema = z.object({
-  campaign_id: z.string().min(1).max(200).optional(),
-  indicators: z.array(indicatorPattern).max(100).optional(),
+  name: z.string().max(200).optional(),
   actor: z.string().max(200).optional(),
 });
 
@@ -543,14 +612,14 @@ export const threatIntelEntityExtractSchema = z.object({
     .optional(),
 });
 
+// Handler (entity-resolver.ts entityProfileHandler) reads ids[] (required).
 export const threatIntelEntityProfileSchema = z.object({
-  entity_type: z.enum(['actor', 'malware', 'tool', 'campaign']),
-  entity_name: z.string().min(1).max(200),
+  ids: z.array(z.string().min(1).max(200)).min(1).max(20),
 });
 
+// Handler (ach.ts) reads only `topic` (min 3 chars), not actor/format.
 export const achGenerateSchema = z.object({
-  actor: z.string().min(1).max(200),
-  format: z.enum(['stix', 'mitre', 'narrative']).optional().default('stix'),
+  topic: z.string().min(3).max(2000),
 });
 
 // ── Domain / Misc ───────────────────────────────────────────────
@@ -565,38 +634,35 @@ export const openDirScanSchema = z.object({
   extensions: z.array(z.string().max(20)).max(50).optional(),
 });
 
+// Handler (graph-ingest.ts) reads ONLY the `source` query param (no JSON body),
+// so this is bound as validate('query', …) in index.ts.
 export const graphIngestSchema = z.object({
-  nodes: z
-    .array(
-      z.object({
-        id: z.string().min(1).max(500),
-        type: z.string().min(1).max(100),
-        properties: z.record(z.string(), z.unknown()).optional(),
-      })
-    )
-    .max(1000),
-  edges: z
-    .array(
-      z.object({
-        source: z.string().min(1).max(500),
-        target: z.string().min(1).max(500),
-        relationship: z.string().min(1).max(100),
-      })
-    )
-    .max(2000),
+  source: z.enum(['all', 'ioc', 'phishing', 'telegram', 'ransomware']).optional(),
 });
 
 // ── MISP / Webhook / Admin ──────────────────────────────────────
 
+// Handler (misp.ts) reads baseUrl/apiKey/endpoint/params, not method/path/body.
 export const mispProxySchema = z.object({
-  method: z.enum(['GET', 'POST']),
-  path: z.string().min(1).max(500),
-  body: z.record(z.string(), z.unknown()).optional(),
+  baseUrl: z.string().min(1).max(2048),
+  apiKey: z.string().min(1).max(500),
+  endpoint: z.string().min(1).max(500),
+  params: z.record(z.string(), z.string()).optional(),
 });
 
+// Handler (actor-enrich-stream.ts) reads actors[] (each {slug,name,aliases?}) + limit.
 export const actorEnrichStreamSchema = z.object({
-  actor: z.string().min(1).max(200),
-  stream_type: z.enum(['pulse', 'indicators', 'malware']).optional().default('pulse'),
+  actors: z
+    .array(
+      z.object({
+        slug: z.string().min(1).max(64),
+        name: z.string().min(1).max(200),
+        aliases: z.array(z.string().max(200)).max(50).optional(),
+      })
+    )
+    .min(1)
+    .max(200),
+  limit: z.number().int().min(1).max(50).optional(),
 });
 
 export const campaignGeneratorSchema = z.object({
@@ -612,9 +678,9 @@ export const campaignGeneratorSchema = z.object({
     .default({}),
 });
 
+// Handler (automation.ts) reads only `target`; `workflow` is derived server-side.
 export const automationRunSchema = z.object({
-  workflow: z.string().min(1).max(200),
-  params: z.record(z.string(), z.unknown()).optional(),
+  target: z.string().min(1).max(500),
 });
 
 export const ragIndexSchema = z.object({
@@ -631,10 +697,14 @@ export const ragIndexSchema = z.object({
     .max(100),
 });
 
-export const adminPurgeSchema = z.object({
-  target: z.enum(['cache', 'kv', 'r2']),
-  pattern: z.string().max(500).optional(),
-});
+// Mirrors the handler's internal purgeSchema (admin-purge.ts): it reads
+// `urls`/`prefix` (one required), never `target`/`pattern`.
+export const adminPurgeSchema = z
+  .object({
+    urls: z.array(z.string().url()).max(100).optional(),
+    prefix: z.string().min(1).max(500).optional(),
+  })
+  .refine((d) => d.urls || d.prefix, { message: 'provide either "urls" or "prefix"' });
 
 // Mirror the retention handler's contract (admin-retention.ts) and the
 // RetentionTab UI, both of which use `days` (NOT `max_age_days`). The prior

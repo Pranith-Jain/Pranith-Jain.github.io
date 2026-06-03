@@ -417,6 +417,7 @@ import {
   unifiedSearchSchema,
   ragQuerySchema,
   hashAnalyzeSchema,
+  bloomCheckSchema,
   osvScanSchema,
   telegramChannelActionSchema,
   telegramBotRegisterSchema,
@@ -640,7 +641,7 @@ app.get('/api/v1/telegram-leaks/bot-webhook-status', telegramLeakBotWebhookStatu
 app.post('/api/v1/telegram-leaks/bot-webhook', telegramLeakBotWebhookHandler);
 app.post(
   '/api/v1/telegram-leaks/register-webhook',
-  validate('json', telegramBotRegisterSchema),
+  validate('query', telegramBotRegisterSchema),
   telegramLeakBotRegisterHandler
 );
 
@@ -837,14 +838,14 @@ app.post('/api/v1/stealer/parse', stealerParserHandler);
 // ── Bloom Filter ─────────────────────────────────────────────────
 app.get('/api/v1/bloom/stats', bloomStatsHandler);
 app.get('/api/v1/bloom/:type', bloomFilterHandler);
-app.post('/api/v1/bloom/check', validate('json', hashAnalyzeSchema), bloomCheckHandler);
+app.post('/api/v1/bloom/check', validate('json', bloomCheckSchema), bloomCheckHandler);
 
 // ── Threat Graph ─────────────────────────────────────────────────
 app.get('/api/v1/graph/node/:type/:value', graphNodeHandler);
 app.get('/api/v1/graph/path', graphPathHandler);
 app.get('/api/v1/graph/communities', graphCommunitiesHandler);
 app.get('/api/v1/graph/stats', graphStatsHandler);
-app.post('/api/v1/graph/ingest', validate('json', graphIngestSchema), graphIngestManualHandler);
+app.post('/api/v1/graph/ingest', validate('query', graphIngestSchema), graphIngestManualHandler);
 
 // ── Hunting & IR Tools ─────────────────────────────────────────────
 app.post('/api/v1/hunting-queries/generate', validate('json', huntingQuerySchema), huntingQueryHandler);

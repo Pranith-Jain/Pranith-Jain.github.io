@@ -21,11 +21,12 @@ const urlPattern = z.string().url().max(2048);
 // Handler uses safeJsonBody and reads: name, url, kind, description, why
 // See routes/external-resources.ts:createExternalResourceHandler
 
+// Handler treats description as OPTIONAL (defaults to name) and trims url to 600.
 export const createExternalResourceSchema = z.object({
   name: z.string().min(1).max(120),
-  url: urlPattern,
+  url: z.string().url().max(600),
   kind: z.enum(['training', 'lab', 'tool', 'dashboard', 'directory', 'samples', 'community', 'research']),
-  description: z.string().min(1).max(600),
+  description: z.string().max(600).optional(),
   why: z.string().max(600).optional(),
 });
 
@@ -36,7 +37,10 @@ export const createExternalResourceSchema = z.object({
 export const telegramCustomChannelSchema = z.object({
   handle: z
     .string()
-    .regex(/^@?[a-zA-Z][a-zA-Z0-9_]{3,31}$/, 'invalid handle — must be 4-32 alphanumeric chars, starting with a letter'),
+    .regex(
+      /^@?[a-zA-Z][a-zA-Z0-9_]{3,31}$/,
+      'invalid handle — must be 4-32 alphanumeric chars, starting with a letter'
+    ),
   name: z.string().min(1).max(100).optional(),
 });
 
