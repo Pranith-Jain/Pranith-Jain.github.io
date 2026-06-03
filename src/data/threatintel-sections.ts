@@ -271,6 +271,13 @@ export const SECTIONS: Section[] = [
         icon: Layers,
         badge: 'new',
       },
+      {
+        to: '/threatintel/crypto-scams',
+        label: 'Crypto Scam Feed',
+        desc: 'Curated feed of fresh crypto phishing, scam, drainer, and pig-butchering domains (spmedia Crypto-Scam Threat Intel Feed, refreshed daily). Also feeds the live-IOC firehose.',
+        icon: AlertOctagon,
+        badge: 'new',
+      },
     ],
   },
   // ── Platform Overview ───────────────────────────────────────────
@@ -444,6 +451,13 @@ export const SECTIONS: Section[] = [
         icon: Send,
         badge: 'new',
       },
+      {
+        to: '/threatintel/projectdiscovery',
+        label: 'ProjectDiscovery Intel',
+        desc: 'Free ProjectDiscovery intel — combolist/leak exposure for an email or domain, Chaos public-domain subdomain recon, and the Nuclei-template CVE catalogue. No paid PD scan credits used.',
+        icon: Target,
+        badge: 'new',
+      },
     ],
   },
   // ── Feed Management ─────────────────────────────────────────────
@@ -606,6 +620,13 @@ export const SECTIONS: Section[] = [
         icon: FileCode,
         badge: 'new',
       },
+      {
+        to: '/threatintel/phishing-wordlists',
+        label: 'Phishing Hunting Wordlists',
+        desc: 'Phishing-kit hunting wordlists (spmedia PhishingSecLists) — Gobuster/ffuf fuzzing lists for the filenames threat actors use to stash stolen creds, admin panels, and webshells on phishing infra.',
+        icon: FileText,
+        badge: 'new',
+      },
     ],
   },
   // ── Threat Actors ───────────────────────────────────────────────
@@ -651,6 +672,13 @@ export const SECTIONS: Section[] = [
         label: 'Maltrail APT Trails',
         desc: 'Per-actor IOC trail files curated by Miroslav Stampar. Browse 75+ APT trail files.',
         icon: FileCode,
+        badge: 'new',
+      },
+      {
+        to: '/threatintel/actor-usernames',
+        label: 'Threat-Actor Usernames',
+        desc: 'Search ~291k threat-actor handles scraped from ~25 cybercrime/hacking forums (spmedia Threat-Actor-Usernames-Scrape). Shows which forums a handle appears on, active vs. defunct.',
+        icon: UserCheck,
         badge: 'new',
       },
     ],
