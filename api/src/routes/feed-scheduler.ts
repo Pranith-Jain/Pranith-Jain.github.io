@@ -32,7 +32,10 @@ interface FeedRunHistory {
 
 const JOBS_KV_KEY = 'feed-scheduler:jobs:v1';
 const JOBS_CACHE_KEY = 'https://feed-jobs-cache.internal/v1';
-const JOBS_CACHE_TTL = 30;
+// Backstop TTL only — every saveJobs() write-throughs this Cache-API entry, so
+// it stays coherent regardless of TTL. 300s (was 30s) cuts KV reads from an
+// admin dashboard that polls the jobs list.
+const JOBS_CACHE_TTL = 300;
 const HISTORY_ALL_KV_KEY = 'feed-scheduler:history:all';
 const MAX_HISTORY = 20;
 

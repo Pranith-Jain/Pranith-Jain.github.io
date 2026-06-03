@@ -31,6 +31,34 @@ const FILTER_SIZES: Record<string, { bits: number; hashes: number }> = {
 
 const KV_PREFIX = 'bloom:';
 
+// Per-colo Cache API front for filter entries. Filters are rebuilt hourly
+// (KV expirationTtl 3600), so a 300s per-colo cache safely spares KV reads on
+// every /bloom/:type, /bloom/check, and especially /bloom/stats (which reads
+// one key per filter type → N reads) request.
+const FILTER_ENTRY_CACHE_TTL = 300;
+function filterCacheReq(type: string): Request {
+  return new Request(`https://bloom-filter-cache.internal/v1/${type}`);
+}
+async function readFilterEntry(kv: KVNamespace, type: string): Promise<unknown | null> {
+  const cache = (caches as unknown as { default: Cache }).default;
+  try {
+    const hit = await cache.match(filterCacheReq(type));
+    if (hit) return await hit.json();
+  } catch {
+    /* fall through to KV */
+  }
+  const cached = await kv.get(`${KV_PREFIX}${type}`, 'json');
+  if (cached) {
+    await cache
+      .put(
+        filterCacheReq(type),
+        new Response(JSON.stringify(cached), { headers: { 'cache-control': `max-age=${FILTER_ENTRY_CACHE_TTL}` } })
+      )
+      .catch(() => {});
+  }
+  return cached;
+}
+
 /** Simple bloom filter implementation */
 class BloomFilter {
   private bits: Uint8Array;
@@ -143,8 +171,8 @@ export async function bloomFilterHandler(c: Context<{ Bindings: Env }>): Promise
 
   const cacheKey = `${KV_PREFIX}${type}`;
 
-  // Try cached filter
-  const cached = await kv.get(cacheKey, 'json');
+  // Try cached filter (per-colo Cache API → KV)
+  const cached = await readFilterEntry(kv, type);
   if (cached && typeof cached === 'object' && 'data' in cached) {
     return c.json(
       {
@@ -175,6 +203,14 @@ export async function bloomFilterHandler(c: Context<{ Bindings: Env }>): Promise
     built_at: new Date().toISOString(),
   };
   await kv.put(cacheKey, JSON.stringify(entry), { expirationTtl: 3600 });
+  // Write-through the per-colo cache so the freshly built filter is reused
+  // without a KV round-trip on subsequent same-colo requests.
+  await (caches as unknown as { default: Cache }).default
+    .put(
+      filterCacheReq(type),
+      new Response(JSON.stringify(entry), { headers: { 'cache-control': `max-age=${FILTER_ENTRY_CACHE_TTL}` } })
+    )
+    .catch(() => {});
 
   return c.json(
     {
@@ -217,8 +253,7 @@ export async function bloomCheckHandler(c: Context<{ Bindings: Env }>): Promise<
   const kv = c.env.KV_CACHE;
   if (!kv) return c.json({ error: 'KV not available' }, 503);
 
-  const cacheKey = `${KV_PREFIX}${type}`;
-  const cached = await kv.get(cacheKey, 'json');
+  const cached = await readFilterEntry(kv, type);
 
   if (!cached || typeof cached !== 'object' || !('data' in cached)) {
     return c.json({
@@ -252,8 +287,7 @@ export async function bloomStatsHandler(c: Context<{ Bindings: Env }>): Promise<
   const stats: Record<string, unknown> = {};
 
   for (const type of Object.keys(FILTER_SIZES)) {
-    const cacheKey = `${KV_PREFIX}${type}`;
-    const cached = await kv.get(cacheKey, 'json');
+    const cached = await readFilterEntry(kv, type);
 
     if (cached && typeof cached === 'object' && 'count' in cached) {
       const entry = cached as { count: number; built_at: string; config: { bits: number; hashes: number } };

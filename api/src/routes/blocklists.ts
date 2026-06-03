@@ -10,19 +10,45 @@ interface BlocklistAll {
   generated_at: string;
 }
 
+// Per-colo Cache API front for the shared blocklist blob. All four public
+// endpoints (pfsense/iptables/suricata/meta) read the SAME KV object, so a
+// 300s per-colo cache (matching the responses' max-age contract) collapses
+// their cold-edge KV reads to ~1 per colo per 5 min instead of one per request.
+const BLOCKLIST_CACHE_KEY = 'https://blocklist-cache.internal/v1-all';
+const BLOCKLIST_CACHE_TTL = 300;
+
 async function readAllFromKv(kv: KVNamespace | undefined): Promise<BlocklistAll | null> {
   if (!kv) return null;
+  const cache = (caches as unknown as { default: Cache }).default;
+  try {
+    const hit = await cache.match(new Request(BLOCKLIST_CACHE_KEY));
+    if (hit) return (await hit.json()) as BlocklistAll;
+  } catch {
+    /* fall through to KV */
+  }
   try {
     const raw = await kv.get(BLOCKLIST_KV_ALL_KEY, 'json');
-    if (raw && typeof raw === 'object' && 'pfsense' in raw) return raw as BlocklistAll;
-  } catch { /* ignore */ }
+    if (raw && typeof raw === 'object' && 'pfsense' in raw) {
+      const all = raw as BlocklistAll;
+      // Write-through so subsequent reads in this colo skip KV for the TTL.
+      await cache
+        .put(
+          new Request(BLOCKLIST_CACHE_KEY),
+          new Response(JSON.stringify(all), { headers: { 'cache-control': `max-age=${BLOCKLIST_CACHE_TTL}` } })
+        )
+        .catch(() => {});
+      return all;
+    }
+  } catch {
+    /* ignore */
+  }
   return null;
 }
 
 async function serveFormat(
   kv: KVNamespace | undefined,
   format: 'pfsense' | 'iptables' | 'suricata',
-  _ctx: Context<{ Bindings: Env }>,
+  _ctx: Context<{ Bindings: Env }>
 ): Promise<Response | null> {
   const all = await readAllFromKv(kv);
   if (all) {
@@ -71,7 +97,9 @@ export async function blocklistSuricataHandler(c: Context<{ Bindings: Env }>): P
 export async function blocklistMetaHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const all = await readAllFromKv(c.env.KV_CACHE);
   if (all) {
-    return c.json({ ok: true, ip_count: all.ip_count, generated_at: all.generated_at, source: 'kv' }, 200, { 'Cache-Control': 'public, max-age=60' });
+    return c.json({ ok: true, ip_count: all.ip_count, generated_at: all.generated_at, source: 'kv' }, 200, {
+      'Cache-Control': 'public, max-age=60',
+    });
   }
   return c.json({ ok: false, error: 'no blocklist data' }, 503);
 }

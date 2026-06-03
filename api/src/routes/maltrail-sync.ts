@@ -197,9 +197,23 @@ export async function maltrailSyncHandler(c: Context<{ Bindings: Env }>): Promis
   );
 }
 
+const SKELETON_LIST_CACHE_KEY = 'https://skeleton-actors-cache.internal/v1-list';
+
 export async function listSkeletonActorsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const kv = c.env.KV_CACHE;
   if (!kv) return c.json({ items: [], count: 0, error: 'KV not configured' });
+
+  // Per-colo Cache API front: this handler does an index read + one KV get per
+  // slug (N+1). The list is rebuilt by the maltrail-sync cron/admin job, so a
+  // 300s cache (matching the response max-age) avoids the N+1 on every request.
+  const cache = (caches as unknown as { default: Cache }).default;
+  const cacheReq = new Request(SKELETON_LIST_CACHE_KEY);
+  try {
+    const hit = await cache.match(cacheReq);
+    if (hit) return new Response(hit.body, hit);
+  } catch {
+    /* fall through to a fresh build */
+  }
 
   const slugs = await readSkeletonIndex(kv);
   if (slugs.length === 0) {
@@ -220,9 +234,11 @@ export async function listSkeletonActorsHandler(c: Context<{ Bindings: Env }>): 
   );
 
   const items = records.filter((r): r is SkeletonActor => r !== null);
-  return c.json({ items, count: items.length, generated_at: new Date().toISOString() }, 200, {
+  const response = c.json({ items, count: items.length, generated_at: new Date().toISOString() }, 200, {
     'cache-control': 'public, max-age=300',
   });
+  c.executionCtx.waitUntil(cache.put(cacheReq, response.clone()));
+  return response;
 }
 
 const SLUG_PARAM_RE = /^[a-z0-9][a-z0-9-]{0,63}$/;
