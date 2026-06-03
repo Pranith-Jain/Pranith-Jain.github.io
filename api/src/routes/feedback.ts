@@ -98,6 +98,7 @@ export async function feedbackCreateHandler(c: Context<{ Bindings: Env }>): Prom
     agg[feedback.rating]++;
     agg.overall_score = Math.round(((agg.useful + agg.actioned + agg.accurate) / Math.max(1, agg.total)) * 100);
     await kv.put(aggKey, JSON.stringify(agg), { expirationTtl: 7776000 });
+    await invalidateFeedbackList();
 
     return c.json({ ok: true, feedback, aggregate: agg }, 201);
   } catch (e) {
@@ -109,6 +110,54 @@ export async function feedbackCreateHandler(c: Context<{ Bindings: Env }>): Prom
  * GET /api/v1/threat-intel/feedback
  * Query params: target_type, target_id, limit (default 50)
  */
+const FEEDBACK_LIST_CACHE = 'https://feedback-list-cache.internal/v1';
+const FEEDBACK_LIST_TTL = 60;
+
+/**
+ * Load + cache the full feedback set once per TTL. The `kv.list` + one `kv.get`
+ * per key is the single most expensive read op in this file; caching the whole
+ * set per-colo and filtering in-memory serves every (target_type, target_id)
+ * combination from one cached scan.
+ */
+async function loadAllFeedback(kv: KVNamespace): Promise<Feedback[]> {
+  const cache = (caches as unknown as { default: Cache }).default;
+  try {
+    const hit = await cache.match(new Request(FEEDBACK_LIST_CACHE));
+    if (hit) return (await hit.json()) as Feedback[];
+  } catch {
+    /* fall through to a fresh scan */
+  }
+  const listResult = await kv.list({ prefix: KV_PREFIX + ':', limit: 1000 });
+  const feedbacks: Feedback[] = [];
+  for (const key of listResult.keys.slice(0, 500)) {
+    if (key.name.startsWith(KV_PREFIX + ':agg:')) continue;
+    try {
+      const raw = await kv.get(key.name);
+      if (raw) feedbacks.push(JSON.parse(raw) as Feedback);
+    } catch {
+      /* skip corrupt */
+    }
+  }
+  feedbacks.sort((a, b) => b.created_at.localeCompare(a.created_at));
+  await cache
+    .put(
+      new Request(FEEDBACK_LIST_CACHE),
+      new Response(JSON.stringify(feedbacks), { headers: { 'cache-control': `max-age=${FEEDBACK_LIST_TTL}` } })
+    )
+    .catch(() => {});
+  return feedbacks;
+}
+
+/** Purge the cached feedback list (same-colo) after a create/delete so the
+ *  writer sees their change immediately; other colos refresh within TTL. */
+async function invalidateFeedbackList(): Promise<void> {
+  try {
+    await (caches as unknown as { default: Cache }).default.delete(new Request(FEEDBACK_LIST_CACHE));
+  } catch {
+    /* best-effort */
+  }
+}
+
 export async function feedbackListHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
     const targetType = c.req.query('target_type') as FeedbackTarget | undefined;
@@ -117,27 +166,11 @@ export async function feedbackListHandler(c: Context<{ Bindings: Env }>): Promis
 
     const kv = c.env.KV_CACHE;
     if (!kv) return c.json({ error: 'feedback storage not configured' }, 503);
-    // List all feedback keys
-    const listResult = await kv.list({ prefix: KV_PREFIX + ':' });
-    const keys = listResult.keys.slice(0, 500);
 
-    const feedbacks: Feedback[] = [];
-    for (const key of keys) {
-      if (key.name.startsWith(KV_PREFIX + ':agg:')) continue;
-      try {
-        const raw = await kv.get(key.name);
-        if (raw) {
-          const fb = JSON.parse(raw) as Feedback;
-          if (targetType && fb.target_type !== targetType) continue;
-          if (targetId && fb.target_id !== targetId) continue;
-          feedbacks.push(fb);
-        }
-      } catch {
-        /* skip corrupt */
-      }
-    }
+    let feedbacks = await loadAllFeedback(kv);
+    if (targetType) feedbacks = feedbacks.filter((fb) => fb.target_type === targetType);
+    if (targetId) feedbacks = feedbacks.filter((fb) => fb.target_id === targetId);
 
-    feedbacks.sort((a, b) => b.created_at.localeCompare(a.created_at));
     return c.json({
       total: feedbacks.length,
       results: feedbacks.slice(0, limit),
@@ -200,6 +233,7 @@ export async function feedbackDeleteHandler(c: Context<{ Bindings: Env }>): Prom
         await kv.delete(aggKey);
       }
     }
+    await invalidateFeedbackList();
 
     return c.json({ ok: true, deleted: id });
   } catch (e) {

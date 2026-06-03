@@ -80,6 +80,20 @@ async function writeIndex(kv: KVNamespace, entries: IndexEntry[]): Promise<void>
   await kv.put(INDEX_KEY, JSON.stringify(entries));
 }
 
+// Per-colo Cache API fronts for the public read handlers. Writes (admin-only)
+// purge same-colo so the operator sees changes immediately; other colos
+// refresh within the response max-age. readIndex stays KV-direct for mutations.
+function campaignsCache(): Cache {
+  return (caches as unknown as { default: Cache }).default;
+}
+const listCacheReq = (): Request => new Request('https://campaigns-cache.internal/v1/list');
+const detailCacheReq = (id: string): Request => new Request(`https://campaigns-cache.internal/v1/detail/${id}`);
+async function invalidateCampaignCaches(id?: string): Promise<void> {
+  const cache = campaignsCache();
+  await cache.delete(listCacheReq()).catch(() => {});
+  if (id) await cache.delete(detailCacheReq(id)).catch(() => {});
+}
+
 function indexEntryFor(saved: SavedCampaign): IndexEntry {
   return {
     id: saved.id,
@@ -142,6 +156,7 @@ export async function saveCampaignHandler(c: Context<{ Bindings: Env }>): Promis
   } catch (err) {
     console.warn('campaigns: index write failed (campaign still saved)', err);
   }
+  await invalidateCampaignCaches(validated.id);
 
   return c.json({ id: validated.id, saved_at: validated.saved_at }, 201, { 'cache-control': 'no-store' });
 }
@@ -149,10 +164,16 @@ export async function saveCampaignHandler(c: Context<{ Bindings: Env }>): Promis
 export async function listCampaignsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const kv = c.env.KV_CACHE;
   if (!kv) return c.json({ items: [], count: 0, error: 'KV not configured' });
+  const cache = campaignsCache();
+  const req = listCacheReq();
+  const hit = await cache.match(req).catch(() => null);
+  if (hit) return new Response(hit.body, hit);
   const index = await readIndex(kv);
-  return c.json({ items: index, count: index.length, generated_at: new Date().toISOString() }, 200, {
+  const resp = c.json({ items: index, count: index.length, generated_at: new Date().toISOString() }, 200, {
     'cache-control': 'public, max-age=30',
   });
+  c.executionCtx.waitUntil(cache.put(req, resp.clone()));
+  return resp;
 }
 
 export async function getCampaignHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
@@ -160,10 +181,16 @@ export async function getCampaignHandler(c: Context<{ Bindings: Env }>): Promise
   if (!kv) return c.json({ error: 'KV not configured' }, 500);
   const id = c.req.param('id') ?? '';
   if (!ID_RE.test(id)) return c.json({ error: 'invalid id' }, 400);
+  const cache = campaignsCache();
+  const req = detailCacheReq(id);
+  const hit = await cache.match(req).catch(() => null);
+  if (hit) return new Response(hit.body, hit);
   const raw = await kv.get(`campaign:${id}`);
   if (!raw) return c.json({ error: 'campaign not found' }, 404);
   try {
-    return c.json(JSON.parse(raw), 200, { 'cache-control': 'public, max-age=300' });
+    const resp = c.json(JSON.parse(raw), 200, { 'cache-control': 'public, max-age=300' });
+    c.executionCtx.waitUntil(cache.put(req, resp.clone()));
+    return resp;
   } catch {
     return c.json({ error: 'corrupted campaign record' }, 500);
   }
@@ -186,5 +213,6 @@ export async function deleteCampaignHandler(c: Context<{ Bindings: Env }>): Prom
   } catch (err) {
     console.warn('campaigns: index delete failed', err);
   }
+  await invalidateCampaignCaches(id);
   return c.json({ ok: true, id }, 200);
 }
