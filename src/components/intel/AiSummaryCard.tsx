@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { Sparkles, RefreshCw, Loader2 } from 'lucide-react';
-import { adminAuthHeaders } from '../../lib/admin-token';
+import { adminAuthHeaders, readAdminToken } from '../../lib/admin-token';
 
 /**
  * <AiSummaryCard> — AI-generated operational summary for a feed surface.
@@ -41,6 +41,11 @@ export function AiSummaryCard({ surface, items, dayKey, className }: AiSummaryCa
 
   const date = dayKey ?? new Date().toISOString().slice(0, 10);
 
+  // AI summary is an operator-only feature: the endpoint is admin-gated, so a
+  // public visitor (no admin token) would only ever get a 401. Gate the UI on
+  // the same token so the card stays silent instead of surfacing that 401.
+  const isAdmin = readAdminToken() !== null;
+
   const fetchSummary = useCallback(async () => {
     if (items.length === 0) return;
     setLoading(true);
@@ -75,15 +80,15 @@ export function AiSummaryCard({ surface, items, dayKey, className }: AiSummaryCa
     }
   }, [surface, date, items]);
 
-  // Auto-fetch on mount when items are available.
+  // Auto-fetch on mount when items are available (admins only).
   useEffect(() => {
-    if (items.length > 0 && !data && !loading && !error) {
+    if (isAdmin && items.length > 0 && !data && !loading && !error) {
       fetchSummary();
     }
-  }, [items.length, data, loading, error, fetchSummary]);
+  }, [isAdmin, items.length, data, loading, error, fetchSummary]);
 
-  // Don't render at all if there are no items.
-  if (items.length === 0) return null;
+  // Don't render for non-admins (would only 401) or when there are no items.
+  if (!isAdmin || items.length === 0) return null;
 
   return (
     <div
