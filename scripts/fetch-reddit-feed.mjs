@@ -44,41 +44,82 @@ function stripHtml(s) {
   return withBreaks.replace(/<[^>]+>/g, '').trim();
 }
 
-function parseRssItems(xml, spec) {
+function parseFeedItems(xml, spec) {
   const items = [];
-  const itemRegex = /<item>([\s\S]*?)<\/item>/gi;
-  let m;
-  while ((m = itemRegex.exec(xml)) !== null) {
-    const block = m[1];
-    const get = (tag) => {
-      const r = new RegExp(`<${tag}[^>]*>(.*?)</${tag}>`, 'is');
-      const x = r.exec(block);
-      return x ? x[1].trim() : '';
-    };
-    const title = get('title');
-    const pubDate = get('pubDate');
-    const link = get('link');
-    const author = (get('author') || get('dc:creator')).replace(/^\/u\//, '');
-    let content = get('content:encoded') || get('description');
-    content = stripHtml(content);
+  const isAtom = xml.includes('<feed') && xml.includes('xmlns="http://www.w3.org/2005/Atom"');
 
-    if (!title || !link || !pubDate) continue;
+  if (isAtom) {
+    const entryRegex = /<entry>([\s\S]*?)<\/entry>/gi;
+    let m;
+    while ((m = entryRegex.exec(xml)) !== null) {
+      const block = m[1];
+      const get = (tag) => {
+        const r = new RegExp(`<${tag}[^>]*>(.*?)</${tag}>`, 'is');
+        const x = r.exec(block);
+        return x ? x[1].trim() : '';
+      };
+      const title = get('title');
+      const pubDate = get('published') || get('updated');
+      const linkMatch = /<link[^>]*href="([^"]*)"/.exec(block);
+      const link = linkMatch ? linkMatch[1] : '';
+      const authorMatch = /<author>[\s\S]*?<name>(.*?)<\/name>[\s\S]*?<\/author>/i.exec(block);
+      const author = authorMatch ? authorMatch[1].trim() : '';
+      let content = get('content') || get('summary');
+      content = stripHtml(content);
 
-    const cutoff = Date.now() - MAX_POST_AGE_DAYS * 86_400_000;
-    const t = Date.parse(pubDate);
-    if (!Number.isFinite(t) || t < cutoff) continue;
+      if (!title || !link || !pubDate) continue;
 
-    items.push({
-      sub: spec.name,
-      sub_label: spec.label,
-      sub_topic: normalizeTopic(spec.topic),
-      sub_blurb: spec.blurb,
-      title: title.slice(0, 240),
-      link,
-      pub_date: new Date(pubDate).toISOString(),
-      text: content.slice(0, MAX_TEXT_LEN),
-      author,
-    });
+      const cutoff = Date.now() - MAX_POST_AGE_DAYS * 86_400_000;
+      const t = Date.parse(pubDate);
+      if (!Number.isFinite(t) || t < cutoff) continue;
+
+      items.push({
+        sub: spec.name,
+        sub_label: spec.label,
+        sub_topic: normalizeTopic(spec.topic),
+        sub_blurb: spec.blurb,
+        title: title.slice(0, 240),
+        link,
+        pub_date: new Date(pubDate).toISOString(),
+        text: content.slice(0, MAX_TEXT_LEN),
+        author,
+      });
+    }
+  } else {
+    const itemRegex = /<item>([\s\S]*?)<\/item>/gi;
+    let m;
+    while ((m = itemRegex.exec(xml)) !== null) {
+      const block = m[1];
+      const get = (tag) => {
+        const r = new RegExp(`<${tag}[^>]*>(.*?)</${tag}>`, 'is');
+        const x = r.exec(block);
+        return x ? x[1].trim() : '';
+      };
+      const title = get('title');
+      const pubDate = get('pubDate');
+      const link = get('link');
+      const author = (get('author') || get('dc:creator')).replace(/^\/u\//, '');
+      let content = get('content:encoded') || get('description');
+      content = stripHtml(content);
+
+      if (!title || !link || !pubDate) continue;
+
+      const cutoff = Date.now() - MAX_POST_AGE_DAYS * 86_400_000;
+      const t = Date.parse(pubDate);
+      if (!Number.isFinite(t) || t < cutoff) continue;
+
+      items.push({
+        sub: spec.name,
+        sub_label: spec.label,
+        sub_topic: normalizeTopic(spec.topic),
+        sub_blurb: spec.blurb,
+        title: title.slice(0, 240),
+        link,
+        pub_date: new Date(pubDate).toISOString(),
+        text: content.slice(0, MAX_TEXT_LEN),
+        author,
+      });
+    }
   }
   return items;
 }
@@ -97,7 +138,8 @@ async function fetchSub(spec) {
     });
     if (!r.ok) return { ok: false, items: [], error: `HTTP ${r.status}` };
     const xml = await r.text();
-    const items = parseRssItems(xml, spec);
+    if (!xml || xml.length < 100) return { ok: false, items: [], error: 'empty response' };
+    const items = parseFeedItems(xml, spec);
     return { ok: true, items };
   } catch (e) {
     return { ok: false, items: [], error: e.message };
@@ -144,7 +186,13 @@ async function pushFeed(feed) {
     },
     body: JSON.stringify(feed),
   });
-  const result = await r.json();
+  const text = await r.text();
+  let result;
+  try {
+    result = JSON.parse(text);
+  } catch {
+    result = { raw: text.slice(0, 200) };
+  }
   return { status: r.status, result };
 }
 
