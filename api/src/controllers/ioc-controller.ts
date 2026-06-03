@@ -198,6 +198,9 @@ async function runProviderChecks(
   write: (event: string, data: unknown) => void
 ): Promise<ProviderResult[]> {
   const collected: ProviderResult[] = [];
+  // One KV read for the whole indicator (vs. one per provider) keeps the
+  // fan-out under the Workers Free-plan 50-subrequests-per-invocation limit.
+  await cache.primeBatch(indicator);
   await runChunked(
     eligible,
     async (p) => {
@@ -207,7 +210,7 @@ async function runProviderChecks(
         write('result', skipped);
         return;
       }
-      const cached = await cache.get(p, indicator);
+      const cached = cache.getBatched(p);
       if (cached) {
         collected.push(cached);
         write('result', cached);
@@ -220,7 +223,7 @@ async function runProviderChecks(
         collected.push(r);
         write('result', r);
         if (r.status === 'ok') {
-          await cache.set(p, indicator, r);
+          cache.stageBatched(p, indicator, r);
           await recordProviderSuccess(p);
         } else {
           await recordProviderFailure(p);
@@ -234,6 +237,9 @@ async function runProviderChecks(
     },
     PROVIDER_CHUNK_SIZE
   );
+  // One KV write persists every freshly-fetched provider result for this
+  // indicator (vs. one put per provider).
+  await cache.flushBatch(indicator);
   return collected;
 }
 

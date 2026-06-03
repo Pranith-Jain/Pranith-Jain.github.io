@@ -8,6 +8,12 @@ export function getCache(): Cache {
 
 import type { Indicator, ProviderResult } from '../providers/types';
 
+/** One provider's cached result plus its absolute expiry (epoch seconds). */
+interface BatchEntry {
+  r: ProviderResult;
+  exp: number;
+}
+
 /**
  * KV-backed provider result cache.
  *
@@ -21,12 +27,28 @@ import type { Indicator, ProviderResult } from '../providers/types';
 export class ProviderCache {
   private kv: KVNamespace | null;
 
+  /**
+   * Batched-mode state. The IOC fan-out checks N providers in a single
+   * Worker invocation; doing a per-provider KV get + set (and the Cache
+   * API front below) burns ~2N+ subrequests, which on the Workers Free
+   * plan trips the 50-subrequests-per-invocation ceiling once N grows
+   * past ~12. Batched mode collapses that to ONE KV read (`primeBatch`)
+   * and ONE KV write (`flushBatch`) for the whole indicator, keyed by a
+   * single combined key holding every provider's result.
+   */
+  private primed: Record<string, BatchEntry> | null = null;
+  private staged: Record<string, BatchEntry> = {};
+
   constructor(kv: KVNamespace | undefined | null) {
     this.kv = kv ?? null;
   }
 
   private buildKey(provider: string, indicator: Indicator): string {
     return `provider:${provider}:${indicator.value.toLowerCase()}`;
+  }
+
+  private batchKey(indicator: Indicator): string {
+    return `iocbatch:${indicator.type}:${indicator.value.toLowerCase()}`;
   }
 
   private cacheUrl(provider: string, indicator: Indicator): string {
@@ -147,6 +169,70 @@ export class ProviderCache {
     const cache = this.cacheApi();
     if (cache) {
       await cache.delete(new Request(this.cacheUrl(provider, indicator))).catch(() => {});
+    }
+  }
+
+  // ---- Batched mode (used by the IOC fan-out) ------------------------------
+  //
+  // Every provider result for one indicator lives under a single combined
+  // KV key. `primeBatch` reads it once; `getBatched` serves per-provider hits
+  // from memory (zero subrequests); `stageBatched` queues fresh results; and
+  // `flushBatch` writes them all back in one KV put. This keeps the whole
+  // fan-out to 2 cache subrequests total instead of ~2 per provider, staying
+  // under the Workers Free-plan 50-subrequests-per-invocation limit.
+
+  /** Load the combined cache entry for `indicator` (one KV read). */
+  async primeBatch(indicator: Indicator): Promise<void> {
+    this.primed = {};
+    this.staged = {};
+    if (!this.kv) return;
+    try {
+      const map = (await this.kv.get(this.batchKey(indicator), 'json')) as Record<string, BatchEntry> | null;
+      if (map) this.primed = map;
+    } catch {
+      /* best-effort — treat as cold */
+    }
+  }
+
+  /**
+   * Per-provider lookup against the primed batch. Returns the cached result
+   * (with `cached: true`) when present and unexpired, else null. No subrequest.
+   * Caller must have awaited `primeBatch` first.
+   */
+  getBatched(provider: string): ProviderResult | null {
+    const now = Math.floor(Date.now() / 1000);
+    const entry = this.primed?.[provider];
+    if (entry && entry.exp > now) return { ...entry.r, cached: true };
+    return null;
+  }
+
+  /** Queue a fresh provider result for the next `flushBatch`. No subrequest. */
+  stageBatched(provider: string, indicator: Indicator, data: ProviderResult): void {
+    const ttl = ProviderCache.ttlSeconds(indicator.type, provider);
+    this.staged[provider] = { r: data, exp: Math.floor(Date.now() / 1000) + ttl };
+  }
+
+  /**
+   * Write the merged batch (still-valid primed entries + freshly staged ones)
+   * back under the combined key in one KV put. The key's TTL tracks the
+   * longest-lived entry so storage is bounded; per-entry `exp` gates reads.
+   */
+  async flushBatch(indicator: Indicator): Promise<void> {
+    if (!this.kv) return;
+    const now = Math.floor(Date.now() / 1000);
+    const merged: Record<string, BatchEntry> = {};
+    for (const [p, e] of Object.entries(this.primed ?? {})) {
+      if (e.exp > now) merged[p] = e;
+    }
+    Object.assign(merged, this.staged);
+    const entries = Object.values(merged);
+    if (entries.length === 0) return;
+    const maxExp = entries.reduce((m, e) => Math.max(m, e.exp), now);
+    const ttl = Math.max(60, maxExp - now);
+    try {
+      await this.kv.put(this.batchKey(indicator), JSON.stringify(merged), { expirationTtl: ttl });
+    } catch {
+      /* best-effort — a cache write failure shouldn't break the request */
     }
   }
 }

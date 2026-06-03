@@ -67,4 +67,52 @@ describe('ProviderCache', () => {
     const got = await cache.get('virustotal', { type: 'domain', value: 'example.COM' });
     expect(got?.score).toBe(50);
   });
+
+  describe('batched mode', () => {
+    const ind = { type: 'domain' as const, value: 'batch.example.com' };
+
+    it('stage then flush then re-prime returns the result with cached=true', async () => {
+      await cache.primeBatch(ind);
+      expect(cache.getBatched('virustotal')).toBeNull(); // cold
+
+      cache.stageBatched('virustotal', ind, sample);
+      await cache.flushBatch(ind);
+
+      // A fresh instance proves it round-tripped through KV under one key.
+      const next = new ProviderCache(env.KV_CACHE);
+      await next.primeBatch(ind);
+      const got = next.getBatched('virustotal');
+      expect(got?.score).toBe(50);
+      expect(got?.cached).toBe(true);
+      // A provider that was never staged stays a miss.
+      expect(next.getBatched('abuseipdb')).toBeNull();
+    });
+
+    it('flush merges fresh results with still-valid primed entries', async () => {
+      await cache.primeBatch(ind);
+      cache.stageBatched('virustotal', ind, sample);
+      await cache.flushBatch(ind);
+
+      // Second run stages a different provider; virustotal must survive.
+      const run2 = new ProviderCache(env.KV_CACHE);
+      await run2.primeBatch(ind);
+      run2.stageBatched('otx', ind, { ...sample, source: 'otx', score: 30 });
+      await run2.flushBatch(ind);
+
+      const run3 = new ProviderCache(env.KV_CACHE);
+      await run3.primeBatch(ind);
+      expect(run3.getBatched('virustotal')?.score).toBe(50);
+      expect(run3.getBatched('otx')?.score).toBe(30);
+    });
+
+    it('case-insensitive value shares the batch key', async () => {
+      await cache.primeBatch({ type: 'domain', value: 'CASE.example.com' });
+      cache.stageBatched('virustotal', { type: 'domain', value: 'CASE.example.com' }, sample);
+      await cache.flushBatch({ type: 'domain', value: 'CASE.example.com' });
+
+      const next = new ProviderCache(env.KV_CACHE);
+      await next.primeBatch({ type: 'domain', value: 'case.EXAMPLE.com' });
+      expect(next.getBatched('virustotal')?.score).toBe(50);
+    });
+  });
 });
