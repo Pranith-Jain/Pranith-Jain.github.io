@@ -118,6 +118,7 @@ export default function RansomReport(): JSX.Element {
     setProfile(null);
     setYaraCount(null);
     setYaraText(null);
+    setPdfError(null);
 
     const profileReq = fetch(`/api/v1/rl/group/${encodeURIComponent(g)}`).then(async (r) => {
       if (r.status === 503) {
