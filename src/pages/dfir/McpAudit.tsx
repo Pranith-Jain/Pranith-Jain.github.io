@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { Plug, AlertTriangle, CheckCircle2, ExternalLink, ArrowLeft, Terminal } from 'lucide-react';
 import { auditConfig, summarise, type Finding, type Severity } from '../../lib/dfir/mcp-audit';
+import { SEVERITY_TONE as SEV_STYLES } from '../../components/severity';
 
 const SAMPLE_CLEAN = `{
   "mcpServers": {
@@ -76,14 +77,6 @@ const SAMPLE_CC_DIRTY = `{
   },
   "enableAllProjectMcpServers": true
 }`;
-
-const SEV_STYLES: Record<Severity, string> = {
-  critical: 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/30',
-  high: 'bg-orange-500/15 text-orange-700 dark:text-orange-300 border-orange-500/30',
-  medium: 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30',
-  low: 'bg-sky-500/15 text-sky-700 dark:text-sky-300 border-sky-500/30',
-  info: 'bg-slate-500/15 text-slate-700 dark:text-slate-300 border-slate-500/30',
-};
 
 export default function McpAudit(): JSX.Element {
   const [input, setInput] = useState('');

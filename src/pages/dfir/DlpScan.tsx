@@ -13,13 +13,7 @@ import {
   type Severity,
   type Category,
 } from '../../lib/dfir/dlp-patterns';
-
-const SEV_STYLES: Record<Severity, string> = {
-  critical: 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/30',
-  high: 'bg-orange-500/15 text-orange-700 dark:text-orange-300 border-orange-500/30',
-  medium: 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30',
-  low: 'bg-sky-500/15 text-sky-700 dark:text-sky-300 border-sky-500/30',
-};
+import { SEVERITY_TONE as SEV_STYLES } from '../../components/severity';
 
 const CONF_STYLES: Record<Confidence, string> = {
   verified: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',

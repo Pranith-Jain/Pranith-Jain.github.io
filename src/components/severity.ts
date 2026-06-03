@@ -19,3 +19,16 @@ export const SEVERITY_TONE: Record<Severity, string> = {
   low: 'border-slate-400/50 bg-slate-400/10 text-slate-600 dark:text-slate-300',
   info: 'border-sky-500/50 bg-sky-500/15 text-sky-700 dark:text-sky-300',
 };
+
+/**
+ * Solid bar/dot fill per severity — for progress bars, count strips, and
+ * legend dots where the translucent badge tone (SEVERITY_TONE) reads too
+ * faint. Same ramp and same `low`=slate rule.
+ */
+export const SEVERITY_BAR: Record<Severity, string> = {
+  critical: 'bg-rose-500',
+  high: 'bg-orange-500',
+  medium: 'bg-amber-500',
+  low: 'bg-slate-400',
+  info: 'bg-sky-500',
+};
