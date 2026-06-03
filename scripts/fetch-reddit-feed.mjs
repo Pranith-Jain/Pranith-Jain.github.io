@@ -1,13 +1,9 @@
-const CF_API_TOKEN = process.env.CF_API_TOKEN;
-const CF_ACCOUNT_ID = process.env.CF_ACCOUNT_ID;
-if (!CF_API_TOKEN) {
-  console.error('FATAL: CF_API_TOKEN env var required');
-  process.exit(1);
-}
-if (!CF_ACCOUNT_ID) {
-  console.error('FATAL: CF_ACCOUNT_ID env var required');
-  process.exit(1);
-}
+import { writeFileSync } from 'node:fs';
+
+// Writes the built feed to reddit-feed.json. The GitHub workflow publishes that
+// file to the `reddit-feed-data` branch and the Worker reads it from GitHub
+// raw — no Cloudflare KV / API token involved.
+const OUT_FILE = 'reddit-feed.json';
 
 // Keep in sync with api/src/routes/reddit-feed.ts
 const SUBS = [
@@ -180,37 +176,21 @@ async function buildFeed() {
   };
 }
 
-const KV_NAMESPACE_ID = '5125e769e49f4a1586f81d1935f9856a';
-const KV_KEY = 'reddit-feed:data:v1';
-
-async function pushFeedViaApi(feed) {
-  const url = `https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/storage/kv/namespaces/${KV_NAMESPACE_ID}/values/${KV_KEY}`;
-  const r = await fetch(url, {
-    method: 'PUT',
-    headers: {
-      authorization: `Bearer ${CF_API_TOKEN}`,
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify(feed),
-  });
-  const body = await r.json();
-  return { status: r.status, result: body };
-}
-
 async function main() {
   console.log('Building Reddit feed...');
   const feed = await buildFeed();
   const liveCount = feed.items.filter((i) => i.pub_date > new Date(Date.now() - 86400000).toISOString()).length;
   console.log(`  items: ${feed.items.length} (${liveCount} from last 24h), warnings: ${feed.warnings.length}`);
 
-  console.log('Pushing to KV via Cloudflare API...');
-  const { status, result } = await pushFeedViaApi(feed);
-  console.log(`  HTTP ${status}: ${JSON.stringify(result)}`);
-
-  if (status < 200 || status >= 300) {
-    console.error('Push failed');
+  // Don't publish an empty feed — if every sub failed, keep the last-good data
+  // on the branch rather than overwriting it with nothing.
+  if (feed.items.length === 0) {
+    console.error('Refusing to publish an empty feed (all sources failed)');
     process.exit(1);
   }
+
+  writeFileSync(OUT_FILE, JSON.stringify(feed));
+  console.log(`Wrote ${OUT_FILE} (${feed.items.length} items) — workflow will publish to reddit-feed-data branch`);
 }
 
 main().catch((e) => {

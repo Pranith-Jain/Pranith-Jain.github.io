@@ -5,17 +5,39 @@ on:
     - cron: '*/30 * * * *'
   workflow_dispatch:
 
+# Needed to push the built feed to the reddit-feed-data branch.
+permissions:
+  contents: write
+
 jobs:
   fetch-reddit:
-    name: Fetch Reddit RSS and push to KV
+    name: Fetch Reddit RSS and publish to data branch
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - name: Fetch + push Reddit feed
+      - name: Build feed JSON
         run: node scripts/fetch-reddit-feed.mjs
+      - name: Publish to reddit-feed-data branch
         env:
-          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
-          CF_ACCOUNT_ID: '6a7461d701e2e1c989e05137b0255405'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -s reddit-feed.json
+          # Publish as a single-commit ORPHAN branch holding only the data file,
+          # force-pushed each run. No history growth, and the branch carries no
+          # workflow / wrangler / config files, so no CI / Workers-Builds / Deno
+          # integration reacts to it. The Worker reads it from raw.githubusercontent.com.
+          tmp="$(mktemp -d)"
+          cp reddit-feed.json "$tmp/reddit-feed.json"
+          cd "$tmp"
+          git init -q
+          git checkout -q -b reddit-feed-data
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reddit-feed.json
+          git commit -q -m "chore(reddit): feed data $(date -u +%FT%TZ) [skip ci]"
+          git push -q -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:reddit-feed-data
+          echo "Published reddit-feed.json to reddit-feed-data"
