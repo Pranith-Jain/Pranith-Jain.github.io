@@ -13,6 +13,7 @@ import { NEGOTIATIONS_CACHE_KEY } from './negotiations';
 import { type IndicatorType } from '../lib/indicator';
 import type { Indicator, ProviderEnv, ProviderResult, ProviderAdapter } from '../providers/types';
 import { lookupCve } from '../lib/cve-lookup';
+import { fetchRlUpstream } from './ransomwarelive';
 import { ACTOR_ALIASES } from '../data/threat-actor-aliases';
 import { virustotal as vtProvider } from '../providers/virustotal';
 import { abuseipdb as abuseProvider } from '../providers/abuseipdb';
@@ -514,6 +515,46 @@ async function gatherLiveEnrichment(query: string, queryType: QueryType, env: En
     ];
   }
 
+  // For CVE — Shodan CVEDB adds exploitation context (CVSS, EPSS, KEV, ransomware).
+  if (queryType === 'cve') {
+    try {
+      const res = await fetch(`https://cvedb.shodan.io/cve/${query.trim().toUpperCase()}`, {
+        headers: { accept: 'application/json', 'user-agent': 'pranithjain-dfir/1.0' },
+        signal: AbortSignal.timeout(PROVIDER_TIMEOUT),
+      });
+      if (res.ok) {
+        const d = (await res.json()) as {
+          summary?: string;
+          cvss?: number;
+          cvss_v3?: number;
+          epss?: number;
+          ranking_epss?: number;
+          kev?: boolean;
+          ransomware_campaign?: string;
+          propose_action?: string;
+        };
+        return [
+          {
+            name: 'Shodan CVEDB (live)',
+            items: 1,
+            data: {
+              cvss: typeof d.cvss_v3 === 'number' ? d.cvss_v3 : (d.cvss ?? null),
+              epss: d.epss ?? null,
+              epss_percentile: d.ranking_epss ?? null,
+              kev: d.kev === true,
+              ransomware_campaign: d.ransomware_campaign ?? null,
+              propose_action: d.propose_action ?? null,
+              summary: d.summary ?? null,
+            },
+          },
+        ];
+      }
+    } catch {
+      /* cvedb optional */
+    }
+    return [];
+  }
+
   // For actor/ransomware — check Malpedia live + Wikipedia for background context
   if (queryType === 'actor' || queryType === 'ransomware' || queryType === 'generic') {
     const liveSources: Source[] = [];
@@ -641,6 +682,32 @@ async function gatherLiveEnrichment(query: string, queryType: QueryType, env: En
       } catch {
         /* wikipedia search failed */
       }
+    }
+
+    // ransomware.live group profile — live TTPs, exploited CVEs, tooling (PRO key).
+    try {
+      const rl = (await fetchRlUpstream(env, `/group/${encodeURIComponent(ql)}`)) as {
+        description?: string;
+        ttps?: unknown[];
+        vulnerabilities?: { CVE?: string }[];
+        tools?: Record<string, string[]>;
+        victims?: number;
+      } | null;
+      if (rl && (rl.description || (rl.ttps?.length ?? 0) > 0 || (rl.vulnerabilities?.length ?? 0) > 0)) {
+        liveSources.push({
+          name: 'Ransomware.live Profile',
+          items: (rl.ttps?.length ?? 0) + (rl.vulnerabilities?.length ?? 0),
+          data: {
+            description: rl.description ?? null,
+            victims: rl.victims ?? null,
+            ttps: rl.ttps ?? [],
+            exploited_cves: (rl.vulnerabilities ?? []).map((v) => v.CVE).filter(Boolean),
+            tools: rl.tools ?? {},
+          },
+        });
+      }
+    } catch {
+      /* RL profile optional */
     }
 
     return liveSources;

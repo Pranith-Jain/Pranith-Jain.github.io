@@ -36,6 +36,14 @@ interface RlLocation {
   slug?: string;
   type?: string;
 }
+interface RlVictim {
+  victim?: string;
+  group?: string;
+  country?: string;
+  activity?: string;
+  discovered?: string;
+  attackdate?: string;
+}
 interface GroupProfile {
   group?: string;
   description?: string;
@@ -91,6 +99,7 @@ export default function RansomReport(): JSX.Element {
   const [profile, setProfile] = useState<GroupProfile | null>(null);
   const [yaraCount, setYaraCount] = useState<number | null>(null);
   const [yaraText, setYaraText] = useState<string | null>(null);
+  const [victims, setVictims] = useState<RlVictim[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [notConfigured, setNotConfigured] = useState(false);
@@ -119,6 +128,7 @@ export default function RansomReport(): JSX.Element {
     setYaraCount(null);
     setYaraText(null);
     setPdfError(null);
+    setVictims([]);
 
     const profileReq = fetch(`/api/v1/rl/group/${encodeURIComponent(g)}`).then(async (r) => {
       if (r.status === 503) {
@@ -133,8 +143,14 @@ export default function RansomReport(): JSX.Element {
       .then((r) => (r.ok ? r.json() : null))
       .catch(() => null);
 
-    Promise.all([profileReq, yaraReq])
-      .then(([p, y]) => {
+    // Recent victims: groupvictims/searchvictims return null on this key, so
+    // pull the recent-100 feed and filter to this group. Best-effort.
+    const victimsReq = fetch('/api/v1/rl/victims-recent')
+      .then((r) => (r.ok ? r.json() : null))
+      .catch(() => null);
+
+    Promise.all([profileReq, yaraReq, victimsReq])
+      .then(([p, y, vr]) => {
         if (cancelled) return;
         setProfile(p.data);
         const yd = (y as RlEnvelope<unknown> | null)?.data;
@@ -146,6 +162,8 @@ export default function RansomReport(): JSX.Element {
           const rules = (yd as { rules?: unknown }).rules;
           if (Array.isArray(rules)) setYaraCount(rules.length);
         }
+        const allVictims = (vr as RlEnvelope<{ victims?: RlVictim[] }> | null)?.data?.victims ?? [];
+        setVictims(allVictims.filter((v) => (v.group ?? '').toLowerCase() === g));
       })
       .catch((e: Error) => {
         if (cancelled) return;
@@ -301,6 +319,26 @@ export default function RansomReport(): JSX.Element {
           para(`[${l.type ?? 'site'}] ${l.fqdn ?? l.slug ?? ''}${l.title ? ` — ${l.title}` : ''}`, 8, 90);
         }
         y += 8;
+      }
+
+      if (victims.length > 0) {
+        heading(`Recent Victims (${victims.length})`);
+        autoTable(doc, {
+          startY: y,
+          margin: { left: margin, right: margin },
+          head: [['Victim', 'Country', 'Sector', 'Disclosed']],
+          body: victims.map((v) => [
+            v.victim ?? '',
+            v.country ?? '',
+            v.activity ?? '',
+            (v.discovered ?? v.attackdate ?? '').slice(0, 10),
+          ]),
+          styles: { fontSize: 8, cellPadding: 3 },
+          headStyles: { fillColor: [30, 41, 59] },
+          theme: 'striped',
+        });
+        y = (doc as unknown as { lastAutoTable?: { finalY: number } }).lastAutoTable?.finalY ?? y;
+        y += 16;
       }
 
       heading('YARA Detection');
@@ -552,6 +590,48 @@ export default function RansomReport(): JSX.Element {
                       </li>
                     ))}
                   </ul>
+                </Section>
+              )}
+
+              {victims.length > 0 && (
+                <Section title={`Recent victims (${victims.length})`}>
+                  <p className="text-[10px] font-mono text-slate-400 mb-2">
+                    From the latest 100 disclosures on ransomware.live.
+                  </p>
+                  <div className="overflow-x-auto rounded border border-slate-200 dark:border-slate-800">
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="bg-slate-50 dark:bg-slate-900 text-left">
+                          {['Victim', 'Country', 'Sector', 'Disclosed'].map((h) => (
+                            <th
+                              key={h}
+                              className="px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-slate-500 whitespace-nowrap"
+                            >
+                              {h}
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {victims.map((v, i) => (
+                          <tr key={`${v.victim}-${i}`} className="border-t border-slate-100 dark:border-slate-800/70">
+                            <td className="px-3 py-1.5 text-[12px] text-slate-700 dark:text-slate-300 break-all">
+                              {v.victim ?? '—'}
+                            </td>
+                            <td className="px-3 py-1.5 text-[12px] text-slate-600 dark:text-slate-400">
+                              {v.country ?? '—'}
+                            </td>
+                            <td className="px-3 py-1.5 text-[12px] text-slate-600 dark:text-slate-400">
+                              {v.activity ?? '—'}
+                            </td>
+                            <td className="px-3 py-1.5 font-mono text-[11px] text-slate-500 whitespace-nowrap">
+                              {(v.discovered ?? v.attackdate ?? '').slice(0, 10) || '—'}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 </Section>
               )}
 
