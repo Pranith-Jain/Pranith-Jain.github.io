@@ -194,6 +194,25 @@ const ALLOWED_HOSTS = new Set([
   'www.osv.dev',
   // Same-origin synthesised feeds (merged ransomware, MTI ransomware)
   'pranithjain.qzz.io',
+  // Dead-feed fixes 2026-06: feeds moved hosts / dropped www. Allow the new
+  // final hosts so the host check doesn't silently drop them (sync w/ feeds.ts).
+  'projectzero.google', // was googleprojectzero.blogspot.com (302 → new host)
+  'www.malwarebytes.com', // was blog.malwarebytes.com (301)
+  'malwarebytes.com',
+  'api.theregister.com', // theregister atom moved to the api host
+  'theregister.com',
+  'databreaches.net', // 301 www → apex
+  'hackread.com', // 301 www → apex
+  'redhuntlabs.com', // research.redhuntlabs.com/feed.xml → 404; blog feed on apex
+  'www.redhuntlabs.com',
+  'www.recordedfuture.com', // /rss.xml → 404; /feed works
+  'recordedfuture.com',
+  // Allow-list gaps surfaced by the host-vs-feeds cross-check (2026-06):
+  // both return valid XML but were silently dropped.
+  'cyberscoop.com',
+  'www.cyberscoop.com',
+  'grahamcluley.com',
+  'www.grahamcluley.com',
 ]);
 
 interface AggregatedItem {

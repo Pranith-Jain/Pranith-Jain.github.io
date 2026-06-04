@@ -16,7 +16,7 @@ export const rssFeeds: RSSFeed[] = [
   {
     id: 'cisa-alerts',
     name: 'CISA Alerts',
-    url: 'https://www.cisa.gov/uscert/ncas/alerts.xml',
+    url: 'https://www.cisa.gov/cybersecurity-advisories/cybersecurity-advisories.xml',
     description: 'US-CERT Current Activity - Latest cybersecurity alerts and advisories',
     category: 'advisory',
     source: 'CISA',
@@ -25,7 +25,7 @@ export const rssFeeds: RSSFeed[] = [
   {
     id: 'cisa-medical-advisories',
     name: 'CISA Medical Advisories',
-    url: 'https://www.cisa.gov/uscert/ncas/current-activity.xml',
+    url: 'https://www.cisa.gov/cybersecurity-advisories/ics-medical-advisories.xml',
     description: 'Healthcare and medical device cybersecurity advisories',
     category: 'advisory',
     source: 'CISA',
@@ -77,7 +77,7 @@ export const rssFeeds: RSSFeed[] = [
   {
     id: 'eset',
     name: 'ESET WeLiveSecurity',
-    url: 'https://www.welivesecurity.com/feed/',
+    url: 'https://www.welivesecurity.com/en/rss/feed/',
     description: 'European-focused threat research, esp. Russia/Ukraine cyber operations',
     category: 'threat-intel',
     source: 'welivesecurity.com',
@@ -95,7 +95,7 @@ export const rssFeeds: RSSFeed[] = [
   {
     id: 'crowdstrike',
     name: 'CrowdStrike Blog',
-    url: 'https://www.crowdstrike.com/blog/feed/',
+    url: 'https://www.crowdstrike.com/en-us/blog/feed',
     description: 'Endpoint-driven adversary intelligence and incident reports',
     category: 'threat-intel',
     source: 'crowdstrike.com',
@@ -194,7 +194,7 @@ export const rssFeeds: RSSFeed[] = [
   {
     id: 'hackread-breaches',
     name: 'HackRead · Data Breaches',
-    url: 'https://www.hackread.com/category/security/data-breach/feed/',
+    url: 'https://hackread.com/category/security/data-breach/feed/',
     description: 'HackRead breach reporting — covers global incidents with notable focus on India + emerging markets',
     category: 'threat-intel',
     source: 'hackread.com',
@@ -221,7 +221,7 @@ export const rssFeeds: RSSFeed[] = [
   {
     id: 'databreaches',
     name: 'DataBreaches.net',
-    url: 'https://www.databreaches.net/feed/',
+    url: 'https://databreaches.net/feed/',
     description:
       'Breach reporting and analysis from Dissent. Wide coverage of healthcare, education, and government incidents',
     category: 'threat-intel',
@@ -262,7 +262,7 @@ export const rssFeeds: RSSFeed[] = [
   {
     id: 'google-project-zero',
     name: 'Google Project Zero',
-    url: 'https://googleprojectzero.blogspot.com/feeds/posts/default',
+    url: 'https://projectzero.google/feed.xml',
     description: 'Zero-day vulnerability research from the Google Project Zero team',
     category: 'threat-intel',
     source: 'googleprojectzero.blogspot.com',
@@ -283,7 +283,7 @@ export const rssFeeds: RSSFeed[] = [
   {
     id: 'malwarebytes-labs',
     name: 'Malwarebytes Labs',
-    url: 'https://blog.malwarebytes.com/feed/',
+    url: 'https://www.malwarebytes.com/blog/feed/index.xml',
     description: 'Consumer and enterprise malware research from Malwarebytes Labs',
     category: 'threat-intel',
     source: 'malwarebytes.com',
@@ -404,7 +404,7 @@ export const rssFeeds: RSSFeed[] = [
   {
     id: 'schneier',
     name: 'Schneier on Security',
-    url: 'https://www.schneier.com/blog/atom.xml',
+    url: 'https://www.schneier.com/feed/atom/',
     description: "Bruce Schneier's security blog and essays",
     category: 'general',
     source: 'Schneier',
@@ -422,7 +422,7 @@ export const rssFeeds: RSSFeed[] = [
   {
     id: 'theregister-security',
     name: 'The Register - Security',
-    url: 'https://www.theregister.com/security/headlines.atom',
+    url: 'https://api.theregister.com/api/v1/article?orderBy=published&site_id=2&remapper=rss&query=tag:security',
     description: 'Biting the hand that feeds IT - Security news',
     category: 'news',
     source: 'The Register',
@@ -481,23 +481,14 @@ export const rssFeeds: RSSFeed[] = [
   {
     id: 'recorded-future',
     name: 'Recorded Future Blog',
-    url: 'https://www.recordedfuture.com/rss.xml',
+    url: 'https://www.recordedfuture.com/feed',
     description: 'Recorded Future threat research — threat intel, APT tracking, and strategic analysis',
     category: 'threat-intel',
     source: 'recordedfuture.com',
     language: 'en-US',
   },
-  // hnrss.org rate-limits worker egress as of 2026-05. Replaced HN-query feeds with
-  // a direct The Cyber Wire feed for cybersecurity news.
-  {
-    id: 'thecyberwire',
-    name: 'The Cyber Wire',
-    url: 'https://thecyberwire.com/feed.xml',
-    description: 'Daily cybersecurity news briefing — curated stories across threat intel, policy, and industry',
-    category: 'news',
-    source: 'thecyberwire.com',
-    language: 'en-US',
-  },
+  // The Cyber Wire feed (thecyberwire.com/feed.xml) → 404 as of 2026-06 after the
+  // N2K migration; no stable public RSS replacement. Removed.
   {
     id: 'yc-blog',
     name: 'Y Combinator Blog',
@@ -516,7 +507,7 @@ export const rssFeeds: RSSFeed[] = [
   {
     id: 'redhunt-research',
     name: 'RedHunt Labs Research',
-    url: 'https://research.redhuntlabs.com/feed.xml',
+    url: 'https://redhuntlabs.com/blog/feed/',
     description:
       'Attack surface management research, vulnerability disclosures, and APT infrastructure tracking by RedHunt Labs',
     category: 'threat-intel',
@@ -822,7 +813,7 @@ export const rssFeeds: RSSFeed[] = [
   {
     id: 'venturebeat-security',
     name: 'VentureBeat — Security',
-    url: 'https://venturebeat.com/category/security/feed/',
+    url: 'https://venturebeat.com/category/security/feed',
     description: 'Enterprise security industry coverage — funding, AI/security crossover, vendor moves',
     category: 'tech',
     source: 'venturebeat.com',
@@ -889,7 +880,7 @@ export const rssFeeds: RSSFeed[] = [
   {
     id: 'google-ai',
     name: 'Google AI Blog',
-    url: 'https://blog.google/technology/ai/rss/',
+    url: 'https://blog.google/innovation-and-ai/technology/ai/rss/',
     description: 'Google research and product launches under the AI tag',
     category: 'tech',
     source: 'blog.google',
@@ -991,7 +982,7 @@ export const rssFeeds: RSSFeed[] = [
   {
     id: 'cybernews',
     name: 'CyberNews',
-    url: 'https://cybernews.com/feed/',
+    url: 'https://feeds.feedburner.com/cybernews',
     description: 'CyberNews — data breach investigations, cybersecurity research, and exposure reports.',
     category: 'threat-intel',
     source: 'cybernews.com',
@@ -1134,7 +1125,7 @@ export const rssFeeds: RSSFeed[] = [
   {
     id: 'deepmind-blog',
     name: 'Google DeepMind',
-    url: 'https://blog.google/technology/google-deepmind/rss/',
+    url: 'https://blog.google/innovation-and-ai/models-and-research/google-deepmind/rss/',
     description: 'DeepMind research announcements and model releases',
     category: 'tech',
     source: 'blog.google',
@@ -1224,15 +1215,7 @@ export const landingIndustryFeeds = [
   'gnews-infosec-startup',
 ];
 
-export const landingGeneralTechFeeds = [
-  'ars-tech',
-  'mit-tech-review',
-  'hn-frontpage',
-  'hn-ask',
-  'hn-show',
-  'thecyberwire',
-  'yc-blog',
-];
+export const landingGeneralTechFeeds = ['ars-tech', 'mit-tech-review', 'hn-frontpage', 'hn-ask', 'hn-show', 'yc-blog'];
 
 /** Backward-compat alias retained for any older callers. */
 export const defaultTechFeeds = landingGeneralTechFeeds;
@@ -1293,7 +1276,13 @@ export const landingThreatInvestigation = [
   'infostealers-com',
 ];
 
-export const landingThreatReddit = ['reddit-netsec', 'reddit-malware', 'reddit-blueteamsec', 'reddit-threatintel'];
+// Reddit blocks Cloudflare Worker egress IPs at the network level (see
+// api/src/routes/reddit-feed.ts), so the /feeds/proxy + /feeds/aggregate paths
+// can NEVER fetch r/*.rss — they returned errors here. Reddit threat-intel
+// content is served instead at /threatintel/reddit, fed by a GitHub Action that
+// publishes reddit-feed.json to the reddit-feed-data branch (raw.githubusercontent).
+// Emptied so this page stops surfacing perpetually-failing feeds.
+export const landingThreatReddit: string[] = [];
 
 export const landingThreatVulns = ['exploitdb'];
 

@@ -159,6 +159,22 @@ const ALLOWED_HOSTS = new Set([
   'github.com',
   'osv.dev',
   'www.osv.dev',
+  // Dead-feed fixes 2026-06 (sync w/ feeds-aggregate.ts)
+  'projectzero.google',
+  'www.malwarebytes.com',
+  'malwarebytes.com',
+  'api.theregister.com',
+  'theregister.com',
+  'databreaches.net',
+  'hackread.com',
+  'redhuntlabs.com',
+  'www.redhuntlabs.com',
+  'www.recordedfuture.com',
+  'recordedfuture.com',
+  'cyberscoop.com',
+  'www.cyberscoop.com',
+  'grahamcluley.com',
+  'www.grahamcluley.com',
 ]);
 
 export async function feedProxyHandler(c: Context<{ Bindings: Env }>) {
