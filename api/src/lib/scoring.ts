@@ -34,6 +34,8 @@ const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>> = {
     // IPinfo: privacy detection + ASN. Low weight — supplementary data.
     ipinfo: 1,
     kaspersky: 3,
+    // VulnCheck IP Intel: C2 / initial-access / honeypot attribution. High weight.
+    vulncheck: 4,
   },
   // IPv6 shares the provider pool with IPv4 (same data sources, same
   // quality). Mirror the IPv4 weights exactly; per-provider special-cases

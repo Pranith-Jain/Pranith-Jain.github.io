@@ -56,6 +56,7 @@ import { certpl } from '../providers/certpl';
 import { x4bnet } from '../providers/x4bnet';
 import { kaspersky } from '../providers/kaspersky';
 import { cape } from '../providers/cape';
+import { vulncheck } from '../providers/vulncheck';
 
 const PROVIDER_CHUNK_SIZE = 10;
 
@@ -105,6 +106,7 @@ const ADAPTERS: Record<ProviderId, ProviderAdapter> = {
   x4bnet,
   kaspersky,
   cape,
+  vulncheck,
 };
 
 /**
@@ -140,6 +142,7 @@ function buildProviderEnv(c: Context<{ Bindings: Env }>): ProviderEnv {
     SPUR_API_KEY: c.env.SPUR_API_KEY,
     CAPE_BRIDGE_URL: c.env.CAPE_BRIDGE_URL,
     CAPE_BRIDGE_TOKEN: c.env.CAPE_BRIDGE_TOKEN,
+    VULNCHECK_API_TOKEN: c.env.VULNCHECK_API_TOKEN,
   };
 }
 

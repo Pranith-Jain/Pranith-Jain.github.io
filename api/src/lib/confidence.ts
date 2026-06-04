@@ -220,6 +220,13 @@ export const SOURCE_RELIABILITY_REGISTRY: Record<string, SourceReliabilityEntry>
     description: 'Crowdsourced IP reputation — community reports',
     known_bias: 'Community-vetted; can be gamed',
   },
+  vulncheck: {
+    id: 'vulncheck',
+    name: 'VulnCheck',
+    reliability: 'A',
+    category: 'primary',
+    description: 'Commercial exploit & IP intelligence — C2/initial-access attribution, exploitation-in-the-wild',
+  },
   otx: {
     id: 'otx',
     name: 'AlienVault OTX',

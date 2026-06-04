@@ -45,7 +45,8 @@ export type ProviderId =
   | 'certpl'
   | 'x4bnet'
   | 'kaspersky'
-  | 'cape';
+  | 'cape'
+  | 'vulncheck';
 
 export type Verdict = 'clean' | 'suspicious' | 'malicious' | 'unknown';
 
@@ -87,6 +88,9 @@ export interface ProviderEnv {
    *  hash lookup against past analyses; degrades to 'unsupported' when unset. */
   CAPE_BRIDGE_URL?: string;
   CAPE_BRIDGE_TOKEN?: string;
+  /** Free VulnCheck Community token. The `vulncheck` provider degrades to
+   *  'unsupported' when unset. */
+  VULNCHECK_API_TOKEN?: string;
 }
 
 export type ProviderAdapter = (indicator: Indicator, env: ProviderEnv, signal: AbortSignal) => Promise<ProviderResult>;
@@ -143,4 +147,5 @@ export const PROVIDER_SUPPORT: Record<ProviderId, IndicatorType[]> = {
   x4bnet: ['ipv4', 'ipv6'],
   kaspersky: ['ipv4', 'domain', 'url', 'hash'],
   cape: ['hash'],
+  vulncheck: ['ipv4'],
 };

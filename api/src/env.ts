@@ -62,6 +62,11 @@ export interface Env {
    *  Optional — case-study generation uses Groq as the quality primary when
    *  set, and falls back to Workers AI when unset/unavailable. */
   GROQ_API_KEY?: string;
+  /** Free VulnCheck Community token (`wrangler secret put VULNCHECK_API_TOKEN`).
+   *  Powers the `vulncheck` IP-intel provider, CVE-lookup exploitation enrichment,
+   *  and the report engine's VulnCheck source. Optional — those degrade cleanly
+   *  when unset. */
+  VULNCHECK_API_TOKEN?: string;
   /** X (Twitter) auth cookies for the cookie-authenticated firehose at
    *  /api/v1/x-firehose. Set via `wrangler secret put X_AUTH_TOKEN` and
    *  `wrangler secret put X_CT0` (values are the `auth_token` and `ct0`
