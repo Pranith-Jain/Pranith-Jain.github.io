@@ -130,3 +130,21 @@ export interface SocialContent {
   linkedin: string;
   generatedAt: string;
 }
+
+/** Per-platform manual-posting state for the social scheduling queue. */
+export interface SocialScheduleEntry {
+  /** ISO 8601 — optional planned post time (manual posting; just a reminder). */
+  scheduledAt?: string;
+  status: 'pending' | 'posted';
+  /** ISO 8601 — set when the admin marks it posted. */
+  postedAt?: string;
+}
+
+/** Tracks whether each platform's generated copy has been posted, and when
+ *  it is planned for. Manual posting only — there is no auto-post. */
+export interface SocialSchedule {
+  slug: string;
+  twitter?: SocialScheduleEntry;
+  linkedin?: SocialScheduleEntry;
+  updatedAt: string;
+}

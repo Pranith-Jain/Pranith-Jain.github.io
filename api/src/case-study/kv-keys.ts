@@ -20,4 +20,7 @@ export const kv = {
   socialTwitter: (slug: string) => `social:${slug}:twitter`,
   socialLinkedin: (slug: string) => `social:${slug}:linkedin`,
   social: (slug: string) => `social:${slug}`,
+  /** Manual-posting status/schedule for a post's social copy. Separate key
+   *  so it never collides with the generated-content `social:*` keys. */
+  socialSchedule: (slug: string) => `social-schedule:${slug}`,
 };
