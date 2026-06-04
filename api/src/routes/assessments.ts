@@ -77,7 +77,8 @@ async function loadAll(env: Env): Promise<Assessment[]> {
         .catch(() => {});
     }
     return sorted;
-  } catch {
+  } catch (e) {
+    console.warn(JSON.stringify({ job: 'assessments-load', error: e instanceof Error ? e.message : String(e) }));
     return [];
   }
 }

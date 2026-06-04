@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { sseStream } from '../lib/sse';
+import { getParsed } from '../lib/validate';
 
 const ORIGIN = 'https://report-builder.internal';
 
@@ -12,7 +13,7 @@ function stub(env: Env) {
 /** POST /api/v1/report/build → kick a report job, return its id. */
 export async function buildReportHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   if (!c.env.REPORT_BUILDER) return c.json({ error: 'report builder unavailable' }, 503);
-  const body = (c as unknown as { parsed: { subject: string; template?: string; tlp: string } }).parsed;
+  const body = await getParsed<{ subject: string; template?: string; tlp: string }>(c, () => c.req.json());
   const id = crypto.randomUUID();
   await stub(c.env).fetch(`${ORIGIN}/build`, { method: 'POST', body: JSON.stringify({ id, ...body }) });
   return c.json({ report_id: id }, 202);

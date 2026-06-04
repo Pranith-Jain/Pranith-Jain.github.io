@@ -58,6 +58,7 @@ export default function ActorDNA(): JSX.Element {
   const [ttpsInput, setTtpsInput] = useState('');
   const [matches, setMatches] = useState<DNAMatch[]>([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(['ttp', 'victimology']));
 
   useEffect(() => {
@@ -70,8 +71,9 @@ export default function ActorDNA(): JSX.Element {
       if (!res.ok) throw new Error(`actor list failed (${res.status})`);
       const data = await res.json();
       setActors(data.actors ?? []);
+      setError(null);
     } catch (err) {
-      console.error('Failed to fetch actors:', err);
+      setError((err as Error).message);
     }
   };
 
@@ -87,8 +89,9 @@ export default function ActorDNA(): JSX.Element {
         throw new Error('actor DNA response was malformed');
       }
       setSelectedActor(data);
+      setError(null);
     } catch (err) {
-      console.error('Failed to fetch actor DNA:', err);
+      setError((err as Error).message);
       setSelectedActor(null);
     } finally {
       setLoading(false);
@@ -111,8 +114,9 @@ export default function ActorDNA(): JSX.Element {
       });
       const data = await res.json();
       setMatches(data.matches ?? []);
+      setError(null);
     } catch (err) {
-      console.error('Failed to match TTPs:', err);
+      setError((err as Error).message);
     } finally {
       setLoading(false);
     }
@@ -145,6 +149,11 @@ export default function ActorDNA(): JSX.Element {
       </div>
 
       {/* Mode Toggle */}
+      {error && (
+        <p role="alert" className="text-sm font-mono text-rose-600 dark:text-rose-400 mb-4">
+          {error}
+        </p>
+      )}
       <div className="flex gap-2 mb-6">
         <button
           onClick={() => setMatchMode(false)}

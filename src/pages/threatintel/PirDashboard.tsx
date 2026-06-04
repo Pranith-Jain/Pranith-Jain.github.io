@@ -197,11 +197,17 @@ export default function PirDashboard(): JSX.Element {
       // `alerts` is consumed unguarded in render (alerts.filter) — never set it
       // to undefined from an error body, or the page crashes.
       .then((r) => setAlerts(r?.results ?? []))
-      .catch((e) => console.error('Failed to load alerts', e));
+      .catch((e) => {
+        console.error('Failed to load alerts', e);
+        setError((prev) => prev ?? (e instanceof Error ? e.message : String(e)));
+      });
     fetch('/api/v1/threat-intel/pirs/routing', { headers: adminAuthHeaders() })
       .then((r) => (r.ok ? (r.json() as Promise<RoutingResponse>) : null))
       .then((r) => setRouting(r?.routes ?? []))
-      .catch((e) => console.error('Failed to load routing', e));
+      .catch((e) => {
+        console.error('Failed to load routing', e);
+        setError((prev) => prev ?? (e instanceof Error ? e.message : String(e)));
+      });
   };
 
   useEffect(() => {

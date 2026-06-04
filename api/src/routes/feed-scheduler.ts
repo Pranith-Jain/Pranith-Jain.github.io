@@ -508,8 +508,14 @@ export async function autoRunFeedJobs(
           // Track in IOC lifecycle table
           const lt = nodeType === 'ip' ? 'ipv4' : nodeType;
           recordIocObservation(db, trimmed, lt, 50, [`feed:${job.name}`]).catch(() => {});
-        } catch {
-          /* single node failure won't abort */
+        } catch (nodeErr) {
+          console.warn(
+            JSON.stringify({
+              job: 'feed-scheduler',
+              nodeId: trimmed,
+              error: nodeErr instanceof Error ? nodeErr.message : String(nodeErr),
+            })
+          );
         }
       }
     }

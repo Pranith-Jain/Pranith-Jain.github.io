@@ -128,7 +128,7 @@ interface AttackChain {
   gaps: string[];
   recommendations: Array<{
     action: string;
-    priority: 'high' | 'medium' | 'low';
+    priority: 'critical' | 'high' | 'medium' | 'low';
     technique: string;
   }>;
 }
@@ -376,7 +376,7 @@ function generateRecommendations(tactics: AttackChain['tactics'], gaps: string[]
       case 'TA0011':
         recommendations.push({
           action: 'Implement network segmentation and monitor outbound C2 traffic',
-          priority: 'critical' as unknown as 'high',
+          priority: 'critical',
           technique: 'T1071',
         });
         break;
