@@ -30,6 +30,13 @@ export interface RunDiscoveryDeps {
    * slot. Optional — absent = legacy behaviour (no extra change for tests).
    */
   isSuppressed?: (key: string) => boolean;
+  /**
+   * Per-topic selector. Default = strict top-N by score (legacy behaviour,
+   * keeps existing tests deterministic). `runDiscoveryNow` injects a
+   * date-seeded weighted sampler so the daily queue varies instead of
+   * re-emitting the same top-N every run.
+   */
+  selectPerTopic?: (cands: Candidate[], k: number, topic: string) => Candidate[];
 }
 
 export interface RunDiscoveryResult {
@@ -64,7 +71,9 @@ export async function runDiscovery(deps: RunDiscoveryDeps): Promise<RunDiscovery
         }
         return true;
       });
-      const top = [...fresh].sort((a, b) => b.score - a.score).slice(0, perTopic);
+      const select =
+        deps.selectPerTopic ?? ((cs: Candidate[], k: number) => [...cs].sort((a, b) => b.score - a.score).slice(0, k));
+      const top = select(fresh, perTopic, name);
       byTopic[name] = top.length;
       selected.push(...top);
     } catch (err) {

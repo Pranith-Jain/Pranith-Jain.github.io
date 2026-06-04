@@ -103,4 +103,28 @@ describe('runDiscovery', () => {
     expect(result.byTopic.cve).toBe(0);
     expect(new Set(writes.map((w) => w.type))).toEqual(new Set(['actor', 'malware', 'ransom']));
   });
+
+  it('uses an injected selectPerTopic when provided', async () => {
+    const writes: Candidate[] = [];
+    const env = {
+      runners: {
+        cve: async () => [sampleC('c1', 'cve', 0.9), sampleC('c2', 'cve', 0.8), sampleC('c3', 'cve', 0.7)],
+        actor: async () => [],
+        malware: async () => [],
+        ransom: async () => [],
+      },
+      putCandidate: async (c: Candidate) => {
+        writes.push(c);
+      },
+      commitDedup: async () => {},
+      now: new Date('2026-05-14T06:00:00Z'),
+      perTopic: 2,
+      // Selector that takes the LOWEST scored instead of the default top-k,
+      // proving the seam is honored (not the built-in sort).
+      selectPerTopic: (cands: Candidate[], k: number) => [...cands].sort((a, b) => a.score - b.score).slice(0, k),
+    };
+    const result = await runDiscovery(env as any);
+    expect(result.byTopic.cve).toBe(2);
+    expect(writes.map((w) => w.key).sort()).toEqual(['c2', 'c3']);
+  });
 });
