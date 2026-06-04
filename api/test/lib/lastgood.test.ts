@@ -87,6 +87,31 @@ describe('readLastGood', () => {
   });
 });
 
+describe('readLastGood Cache-API shadow', () => {
+  it('serves a repeat read from the per-colo shadow without a second KV read', async () => {
+    const kv = makeKV();
+    const getSpy = vi.spyOn(kv, 'get');
+    kv.store.set('lastgood:v1:shadowkey', { value: JSON.stringify({ n: 7 }) });
+    const env = makeEnv(kv);
+    const first = await readLastGood<{ n: number }>(env, 'shadowkey');
+    const second = await readLastGood<{ n: number }>(env, 'shadowkey');
+    expect(first).toEqual({ n: 7 });
+    expect(second).toEqual({ n: 7 });
+    // First read hit KV (and populated the shadow); the second came from cache.
+    expect(getSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it('write-through keeps the shadow coherent (read after write, zero KV reads)', async () => {
+    const kv = makeKV();
+    const env = makeEnv(kv);
+    await writeLastGood(env, 'wt', { v: 1 }, { force: true });
+    const getSpy = vi.spyOn(kv, 'get');
+    const r = await readLastGood<{ v: number }>(env, 'wt');
+    expect(r).toEqual({ v: 1 });
+    expect(getSpy).not.toHaveBeenCalled(); // served from the write-through shadow
+  });
+});
+
 describe('writeLastGood', () => {
   it('returns false when KV is unbound (no write, no throw)', async () => {
     const env = makeEnv(null);
