@@ -15,28 +15,79 @@ const CONF_CLASS: Record<string, string> = {
   Low: 'bg-rose-500/15 text-rose-700 dark:text-rose-300',
 };
 
-/** Turn `[n]` markers into in-page anchor links to the sources appendix. */
-function withCitations(text: string): JSX.Element {
-  const parts = text.split(/(\[\d+\])/g);
+/** Render inline markdown: `**bold**` runs and `[n]` citation links. */
+function renderInline(text: string): JSX.Element {
+  const parts = text.split(/(\*\*[^*]+\*\*|\[\d+\])/g);
   return (
     <>
       {parts.map((p, i) => {
-        const m = /^\[(\d+)\]$/.exec(p);
-        if (m) {
+        const cite = /^\[(\d+)\]$/.exec(p);
+        if (cite) {
           return (
             <a
               key={i}
-              href={`#report-src-${m[1]}`}
+              href={`#report-src-${cite[1]}`}
               className="text-brand-600 dark:text-brand-400 hover:underline align-super text-[10px]"
             >
-              [{m[1]}]
+              [{cite[1]}]
             </a>
           );
         }
+        const bold = /^\*\*([^*]+)\*\*$/.exec(p);
+        if (bold) return <strong key={i}>{bold[1]}</strong>;
         return <Fragment key={i}>{p}</Fragment>;
       })}
     </>
   );
+}
+
+/** Render a markdown body as blocks: `- `/`* ` → bullet list, `#` → bold line, else paragraphs. */
+function renderBody(md: string): JSX.Element {
+  const lines = md.split('\n');
+  const blocks: JSX.Element[] = [];
+  let bullets: string[] = [];
+  const flush = () => {
+    if (bullets.length) {
+      const items = bullets;
+      blocks.push(
+        <ul key={`u${blocks.length}`} className="list-disc pl-5 space-y-1 my-1.5">
+          {items.map((b, i) => (
+            <li key={i}>{renderInline(b)}</li>
+          ))}
+        </ul>
+      );
+      bullets = [];
+    }
+  };
+  for (const raw of lines) {
+    const line = raw.trimEnd();
+    if (!line.trim()) {
+      flush();
+      continue;
+    }
+    const bullet = /^\s*[-*]\s+(.*)$/.exec(line);
+    if (bullet) {
+      bullets.push(bullet[1]);
+      continue;
+    }
+    flush();
+    const heading = /^\s{0,3}#{1,6}\s+(.*)$/.exec(line);
+    if (heading) {
+      blocks.push(
+        <p key={`h${blocks.length}`} className="font-semibold text-slate-800 dark:text-slate-200 mt-2">
+          {renderInline(heading[1])}
+        </p>
+      );
+      continue;
+    }
+    blocks.push(
+      <p key={`p${blocks.length}`} className="my-1.5">
+        {renderInline(line)}
+      </p>
+    );
+  }
+  flush();
+  return <>{blocks}</>;
 }
 
 interface Props {
@@ -92,9 +143,9 @@ export function ReportView({ report, onExportPdf, onExportMd }: Props): JSX.Elem
       {/* Executive summary */}
       <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
         <h2 className="font-display font-semibold text-lg mb-2">Executive Summary</h2>
-        <p className="text-sm leading-relaxed whitespace-pre-wrap text-slate-700 dark:text-slate-300">
-          {withCitations(report.executive_summary)}
-        </p>
+        <div className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+          {renderBody(report.executive_summary)}
+        </div>
       </section>
 
       {/* Key findings */}
@@ -109,7 +160,7 @@ export function ReportView({ report, onExportPdf, onExportMd }: Props): JSX.Elem
                 >
                   {f.confidence}
                 </span>
-                <span>{withCitations(f.text)}</span>
+                <span>{renderInline(f.text)}</span>
               </li>
             ))}
           </ul>
@@ -123,9 +174,7 @@ export function ReportView({ report, onExportPdf, onExportMd }: Props): JSX.Elem
           className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5"
         >
           <h2 className="font-display font-semibold text-lg mb-2">{sec.heading}</h2>
-          <div className="text-sm leading-relaxed whitespace-pre-wrap text-slate-700 dark:text-slate-300">
-            {withCitations(sec.body_md)}
-          </div>
+          <div className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">{renderBody(sec.body_md)}</div>
         </section>
       ))}
 

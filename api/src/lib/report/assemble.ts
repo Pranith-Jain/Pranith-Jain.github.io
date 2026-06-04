@@ -26,7 +26,12 @@ const FINDING_TYPE: Record<TemplateId, FindingType> = {
 };
 
 function firstSentence(md: string): string {
-  const text = md.replace(/[#*_`>[\]]/g, '').trim();
+  const text = md
+    .replace(/\[(High|Medium|Low)\]/gi, '') // confidence tag is shown as a separate chip
+    .replace(/^\s{0,3}#{1,6}\s+/gm, '') // stray headings
+    .replace(/[#*_`>[\]]/g, '')
+    .replace(/^\s*[-•]\s*/, '') // leading bullet marker
+    .trim();
   const m = text.match(/^.*?[.!?](\s|$)/);
   return (m ? m[0] : text).trim().slice(0, 240);
 }
@@ -131,9 +136,9 @@ export function assembleReport(input: AssembleInput): Report {
     },
     cover: {
       title: tmpl.title(subject.canonical),
-      subtitle: `${subject.type.toUpperCase()} · ${template}`,
+      subtitle: `${subject.type.toUpperCase()} intelligence report`,
       tlp,
-      subject_badges: [subject.type, template],
+      subject_badges: [...new Set([subject.type, template])],
       generated_at: generatedAt,
     },
     executive_summary: writer.executive_summary,

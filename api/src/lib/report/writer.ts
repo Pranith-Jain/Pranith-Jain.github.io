@@ -86,13 +86,20 @@ export async function writeReport(input: WriteInput, deps: WriteDeps): Promise<W
   for (const def of template.sections) {
     const refs = assignment[def.id] ?? [];
     if (refs.length === 0) continue; // skip sections with no evidence
-    const sys = `You are a senior CTI analyst. Write the "${def.heading}" section of a professional threat report. ${def.guidance} Cite evidence inline as [n] using ONLY the provided refs. Do NOT invent CVE IDs, CVSS, or MITRE technique IDs. Use confidence tags [High]/[Medium]/[Low]. Markdown, no heading line.${conflictNote}`;
+    const sys =
+      `You are a senior CTI analyst writing the "${def.heading}" section of a professional threat report about ${input.subject}. ${def.guidance}\n` +
+      `STRICT RULES:\n` +
+      `- Write ONLY about ${input.subject}. Do NOT mention, compare to, or draw analogies with any other CVE, product, vendor, version, or incident that is not the subject — even if it appears in the evidence. Unrelated history is noise; omit it.\n` +
+      `- Ground every statement in the evidence below and cite inline as [n] using the provided ref numbers. Never contradict the evidence (e.g. if evidence says it is on KEV, say it is).\n` +
+      `- If the evidence for this section is thin, say so in ONE short sentence. Do NOT pad with speculation or filler.\n` +
+      `- Do NOT invent CVE IDs, CVSS scores, versions, dates, products, or technique IDs.\n` +
+      `- Output clean prose and "- " bullets only. Do NOT write any markdown heading (no #, ##, ###) and do NOT repeat the section title. Mark each claim's confidence inline as [High]/[Medium]/[Low].${conflictNote}`;
     const user = `Subject: ${input.subject}\nEvidence:\n${evidenceBlock(citations, refs)}`;
     let body = '';
     try {
-      const r = await run(deps.ai, { system: sys, user, maxTokens: 700, temperature: 0.3 }, { groqKey: deps.groqKey });
+      const r = await run(deps.ai, { system: sys, user, maxTokens: 700, temperature: 0.25 }, { groqKey: deps.groqKey });
       modelUsed = r.modelUsed;
-      body = guard(r.text.trim(), input.allowlist);
+      body = stripHeadings(guard(r.text.trim(), input.allowlist));
     } catch {
       body = '_Section unavailable (model error)._';
     }
@@ -102,14 +109,23 @@ export async function writeReport(input: WriteInput, deps: WriteDeps): Promise<W
   // --- Executive summary (last, from the drafted sections) ---
   let executive_summary = '';
   try {
-    const sys = `Write a 3-5 sentence executive summary of this threat report for a decision-maker. Markdown. No new facts beyond the sections.`;
-    const user = sections.map((s) => `## ${s.heading}\n${s.body_md}`).join('\n\n');
-    const r = await run(deps.ai, { system: sys, user, maxTokens: 400, temperature: 0.3 }, { groqKey: deps.groqKey });
+    const sys = `Write a 3-5 sentence executive summary of this report about ${input.subject} for a decision-maker. Plain prose only — NO heading, NO markdown headers (#), NO bullet list, NO section title. Use only facts already in the sections; introduce no new CVEs, products, or claims, and never reference unrelated CVEs/incidents.`;
+    const user = sections.map((s) => `${s.heading}: ${s.body_md}`).join('\n\n');
+    const r = await run(deps.ai, { system: sys, user, maxTokens: 400, temperature: 0.25 }, { groqKey: deps.groqKey });
     modelUsed = r.modelUsed;
-    executive_summary = guard(r.text.trim(), input.allowlist);
+    executive_summary = stripHeadings(guard(r.text.trim(), input.allowlist));
   } catch {
     executive_summary = sections[0]?.body_md.slice(0, 400) ?? '';
   }
 
   return { executive_summary, sections, citations, modelUsed };
+}
+
+/** Remove stray markdown heading markers the model sometimes emits despite instructions. */
+function stripHeadings(text: string): string {
+  return text
+    .split('\n')
+    .map((line) => line.replace(/^\s{0,3}#{1,6}\s+/, ''))
+    .join('\n')
+    .trim();
 }

@@ -46,6 +46,40 @@ export async function exportReportPdf(report: Report): Promise<void> {
     y += 18;
     doc.setTextColor(30, 41, 59);
   };
+  const cleanInline = (s: string) => s.replace(/\*\*([^*]+)\*\*/g, '$1');
+  const bulletPara = (text: string, size = 10) => {
+    doc.setFontSize(size);
+    const lines = doc.splitTextToSize(text, maxW - 14) as string[];
+    lines.forEach((line, i) => {
+      ensure(size + 4);
+      if (i === 0) doc.text('•', margin, y);
+      doc.text(line, margin + 14, y);
+      y += size + 2;
+    });
+    y += 2;
+  };
+  // Render a markdown section body: strip bold markers, headings → bold-ish line,
+  // `- `/`* ` → bullets, else paragraphs.
+  const mdBlock = (md: string) => {
+    for (const raw of md.split('\n')) {
+      const line = raw.trim();
+      if (!line) {
+        y += 3;
+        continue;
+      }
+      const h = /^#{1,6}\s+(.*)$/.exec(line);
+      if (h) {
+        para(cleanInline(h[1]), 11, 3);
+        continue;
+      }
+      const b = /^[-*]\s+(.*)$/.exec(line);
+      if (b) {
+        bulletPara(cleanInline(b[1]));
+        continue;
+      }
+      para(cleanInline(line), 10, 4);
+    }
+  };
 
   // ── Cover ──
   doc.setFillColor(tr, tg, tb);
@@ -75,15 +109,12 @@ export async function exportReportPdf(report: Report): Promise<void> {
 
   // ── Executive summary ──
   heading('Executive Summary');
-  para(report.executive_summary || '—');
+  mdBlock(report.executive_summary || '—');
 
   // ── Sections ──
   for (const sec of report.sections) {
     heading(sec.heading);
-    para(
-      sec.body_md.replace(/\s*\[\d+\]/g, (m) => m.trim()),
-      10
-    );
+    mdBlock(sec.body_md.replace(/\s*\[(\d+)\]/g, '[$1]'));
   }
 
   // ── Appendix tables ──

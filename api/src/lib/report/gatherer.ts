@@ -176,7 +176,15 @@ export const FETCHERS: Record<string, Fetcher> = {
   'rag-corpus': async (ctx, src) => {
     try {
       const chunks = await queryCorpus(ctx.env, ctx.subject.canonical, 8);
-      const items: SourceItem[] = chunks.map((c) => ({
+      // Keep only chunks that actually mention the subject OR are a strong
+      // semantic match (score ≥ 0.7). Loosely-similar chunks (e.g. unrelated
+      // old CVEs surfaced for a brand-new CVE) only pad the report with noise.
+      const q = ctx.subject.canonical.toLowerCase();
+      const relevant = chunks.filter((c) => {
+        const hay = `${c.metadata.text ?? ''} ${c.metadata.title ?? ''}`.toLowerCase();
+        return hay.includes(q) || c.score >= 0.7;
+      });
+      const items: SourceItem[] = relevant.map((c) => ({
         text: c.metadata.text ?? c.metadata.title ?? '',
         url: c.metadata.url,
         observed_at: c.metadata.timestamp,
@@ -270,20 +278,43 @@ function cveFetcher(): Fetcher {
     const r = await lookupCve(ctx.subject.canonical);
     if (!r.ok) return base(src, r.status === 404 ? 'empty' : 'error');
     const d = r.data;
-    const items: SourceItem[] = [
-      {
-        text: `${d.cve_id}: ${d.description ?? ''}`.trim(),
+    // Emit explicit, separately-citable facts so the writer states KEV/CVSS/
+    // affected-product/actor correctly instead of guessing from a one-liner.
+    const items: SourceItem[] = [];
+    if (d.description)
+      items.push({
+        text: `${d.cve_id}: ${d.description}`,
         observed_at: d.published,
-        fields: {
-          kind: 'cve',
-          cvss: d.cvss?.base_score,
-          severity: d.cvss?.severity,
-          epss: d.epss?.score,
-          kev: d.kev?.in_kev,
-        },
-      },
-    ];
-    return base(src, 'ok', items);
+        fields: { kind: 'cve', cve: d.cve_id },
+      });
+    if (d.cvss) {
+      items.push({
+        text: `CVSS ${d.cvss.base_score} (${d.cvss.severity})${d.cvss.vector ? `, vector ${d.cvss.vector}` : ''}.`,
+        fields: { kind: 'cve', cve: d.cve_id, cvss: d.cvss.base_score, severity: d.cvss.severity },
+      });
+    }
+    items.push({
+      text: d.kev?.in_kev
+        ? `CISA KEV: LISTED${d.kev.date_added ? ` (added ${d.kev.date_added}` : ''}${d.kev.due_date ? `, remediation due ${d.kev.due_date})` : d.kev.date_added ? ')' : ''}${d.kev.known_ransomware ? ' · tied to known ransomware campaigns' : ''}.`
+        : `CISA KEV: not listed.`,
+      fields: { kind: 'cve', cve: d.cve_id, kev: !!d.kev?.in_kev },
+    });
+    if (d.epss)
+      items.push({
+        text: `EPSS: ${d.epss.score} (${Math.round((d.epss.percentile ?? 0) * 100)}th percentile).`,
+        fields: { kind: 'cve', cve: d.cve_id, epss: d.epss.score },
+      });
+    if (d.affected_products?.length)
+      items.push({
+        text: `Affected: ${d.affected_products.slice(0, 8).join('; ')}.`,
+        fields: { kind: 'cve', cve: d.cve_id },
+      });
+    if (d.actors?.length)
+      items.push({
+        text: `Reported threat actors: ${d.actors.join(', ')}.`,
+        fields: { kind: 'cve', cve: d.cve_id, actors: d.actors },
+      });
+    return base(src, items.length ? 'ok' : 'empty', items);
   };
 }
 
