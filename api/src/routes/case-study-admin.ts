@@ -111,18 +111,28 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
   admin.post('/candidates/skip-all', async (c) => {
     const typeHint = (c.req.query('type') ?? '') as CaseStudyType | '';
     const filterType = typeHint && TYPES.includes(typeHint as CaseStudyType) ? (typeHint as CaseStudyType) : null;
-    const all = await listAllCandidates(c.env.CASE_STUDIES);
-    const target = filterType ? all.filter((x) => x.type === filterType) : all;
-    for (const cand of target) {
-      await deleteCandidate(c.env.CASE_STUDIES, cand.type, cand.key);
+    const ns = c.env.CASE_STUDIES;
+    // List KEY NAMES only (no per-candidate body reads) and parse the stable
+    // key from the `candidates:<type>:<stableKey>` name — stable keys are
+    // slugified (no colons), so split(':') is safe. Keeps this to 1 list +
+    // N deletes + 1 batched suppress (≈ the existing GET /candidates cost),
+    // respecting the Free-plan 50-subrequests/invocation budget.
+    const prefix = filterType ? csKvKeys.candidatesPrefix(filterType) : csKvKeys.candidatesAllPrefix;
+    const stableKeys: string[] = [];
+    let cursor: string | undefined;
+    for (let page = 0; page < 5; page += 1) {
+      const res = await ns.list({ prefix, cursor });
+      for (const k of res.keys) {
+        await ns.delete(k.name);
+        const parts = k.name.split(':'); // candidates:<type>:<stableKey>
+        if (parts.length >= 3) stableKeys.push(parts.slice(2).join(':'));
+      }
+      if (res.list_complete) break;
+      cursor = res.cursor;
     }
     const until = new Date(Date.now() + 30 * 24 * 3600 * 1000);
-    await suppressDedupMany(
-      c.env.CASE_STUDIES,
-      target.map((x) => x.key),
-      until
-    );
-    return c.json({ ok: true, cleared: target.length });
+    await suppressDedupMany(ns, stableKeys, until);
+    return c.json({ ok: true, cleared: stableKeys.length });
   });
 
   // Manual pipeline trigger — the cron-only stages (discover daily,

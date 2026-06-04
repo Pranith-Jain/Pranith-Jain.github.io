@@ -40,4 +40,27 @@ describe('PendingTab clear-all', () => {
     fireEvent.click(screen.getByRole('button', { name: /clear all/i }));
     await waitFor(() => expect(postJson).toHaveBeenCalledWith('/candidates/skip-all'));
   });
+
+  it('does not call skip-all when the confirm is dismissed', async () => {
+    vi.spyOn(window, 'confirm').mockReturnValue(false);
+    getJson.mockResolvedValueOnce({
+      pending: [
+        {
+          key: 'cve-1',
+          type: 'cve',
+          title: 'T',
+          rationale: 'r',
+          score: 0.9,
+          evidence: {},
+          discoveredAt: '2026-06-04T06:00:00Z',
+          status: 'pending',
+        },
+      ],
+    });
+
+    render(<PendingTab />);
+    await screen.findByText('T');
+    fireEvent.click(screen.getByRole('button', { name: /clear all/i }));
+    expect(postJson).not.toHaveBeenCalled();
+  });
 });

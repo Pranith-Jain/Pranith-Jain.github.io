@@ -22,4 +22,12 @@ describe('discoverEuvd', () => {
     const out = await discoverEuvd({ fetch, now, getDedup: async () => null });
     expect(out).toEqual([]);
   });
+
+  it('skips entries older than the 7-day window', async () => {
+    const now = new Date('2026-06-04T06:00:00Z');
+    const old = [{ id: 'EUVD-2026-0001', description: 'stale', datePublished: '2026-04-01T00:00:00Z', baseScore: 8 }];
+    const fetch = (async () => new Response(JSON.stringify(old), { status: 200 })) as any;
+    const out = await discoverEuvd({ fetch, now, getDedup: async () => null });
+    expect(out).toEqual([]);
+  });
 });

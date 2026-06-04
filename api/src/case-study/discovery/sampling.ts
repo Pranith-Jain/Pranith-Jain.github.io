@@ -31,6 +31,7 @@ export function dateSeed(now: Date): number {
  * same top-N every run. `rand` is injected so callers control the seed.
  */
 export function weightedSampleByScore(cands: Candidate[], k: number, rand: () => number): Candidate[] {
+  if (k <= 0) return [];
   if (cands.length <= k) return [...cands].sort((a, b) => b.score - a.score);
   const pool = [...cands].sort((a, b) => b.score - a.score);
   // pool.length > k >= 1, so shift() is always defined here

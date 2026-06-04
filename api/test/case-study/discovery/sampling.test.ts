@@ -28,6 +28,10 @@ describe('weightedSampleByScore', () => {
     expect(out.map((x) => x.key)).toEqual(['a', 'b']);
   });
 
+  it('returns [] when k <= 0 even with a non-empty pool', () => {
+    expect(weightedSampleByScore(pool, 0, mulberry32(1))).toEqual([]);
+  });
+
   it('returns exactly k unique items', () => {
     const out = weightedSampleByScore(pool, 3, mulberry32(42));
     expect(out).toHaveLength(3);

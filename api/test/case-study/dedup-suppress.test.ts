@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { suppressDedupMany, isKeySuppressed, loadDedupMap } from '../../src/case-study/storage/dedup';
+import { suppressDedupMany, isKeySuppressed, loadDedupMap, saveDedupMap } from '../../src/case-study/storage/dedup';
 import type { DedupRecord } from '../../src/case-study/types';
 
 function mockKv() {
@@ -55,5 +55,24 @@ describe('suppression', () => {
     const map = await loadDedupMap(ns);
     expect(map['cve-2026-1']!.suppressedUntil).toBe(until.toISOString());
     expect(map['cve-2026-2']!.suppressedUntil).toBe(until.toISOString());
+  });
+
+  it('prune keeps a stale-lastSeenAt record while its suppression is active, drops one without', async () => {
+    const ns = mockKv();
+    const now = new Date('2026-06-04T00:00:00Z');
+    // saveDedupMap applies prune against `now`. Both records were last seen
+    // 6 years ago (well past the 90-day window); only the suppressed one
+    // should survive.
+    await saveDedupMap(
+      ns,
+      {
+        'old-but-suppressed': { lastSeenAt: '2020-01-01T00:00:00Z', suppressedUntil: '2026-07-04T00:00:00Z' },
+        'old-and-stale': { lastSeenAt: '2020-01-01T00:00:00Z' },
+      },
+      now
+    );
+    const map = await loadDedupMap(ns);
+    expect(map['old-but-suppressed']).toBeDefined();
+    expect(map['old-and-stale']).toBeUndefined();
   });
 });

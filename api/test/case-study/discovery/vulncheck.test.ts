@@ -39,4 +39,15 @@ describe('discoverVulnCheckKev', () => {
     expect(out[0]!.key).toBe('cve-2026-9999');
     expect(out[0]!.title).toContain('CVE-2026-9999');
   });
+
+  it('a non-ok response yields [] (graceful, no throw)', async () => {
+    const fetch = (async () => new Response('nope', { status: 403 })) as any;
+    const out = await discoverVulnCheckKev({
+      fetch,
+      now: new Date('2026-06-04T06:00:00Z'),
+      getDedup: async () => null,
+      token: 'tok',
+    });
+    expect(out).toEqual([]);
+  });
 });
