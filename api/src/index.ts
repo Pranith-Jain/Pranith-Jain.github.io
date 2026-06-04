@@ -164,6 +164,7 @@ import {
   getVaultTagsHandler,
 } from './routes/malware-vault';
 import { copilotInvestigateHandler } from './routes/copilot';
+import { buildReportHandler, getReportHandler, streamReportHandler } from './routes/report';
 import { automationRunHandler } from './routes/automation';
 import { dashboardHandler, getWatchlistHandler, updateWatchlistHandler } from './routes/dashboard';
 import { maltiverseSearchHandler } from './routes/maltiverse';
@@ -385,6 +386,7 @@ const ADMIN_GATED_PREFIXES = [
   '/api/v1/dashboard',
   '/api/v1/rag',
   '/api/v1/copilot',
+  '/api/v1/report',
 ];
 for (const base of ADMIN_GATED_PREFIXES) {
   app.use(base, requireAdminMiddleware);
@@ -423,6 +425,7 @@ import {
   telegramBotRegisterSchema,
   aiSummarySchema,
   copilotInvestigateSchema,
+  reportBuildSchema,
   huntingQuerySchema,
   irPlaybookSchema,
   ruleGenerateSchema,
@@ -795,6 +798,9 @@ app.post('/api/v1/rag/index-all', async (c) => {
 app.post('/api/v1/ai-summary', validate('json', aiSummarySchema), aiSummaryHandler);
 app.post('/api/v1/copilot/investigate', validate('json', copilotInvestigateSchema), copilotInvestigateHandler);
 app.get('/api/v1/copilot/investigate', copilotInvestigateHandler);
+app.post('/api/v1/report/build', validate('json', reportBuildSchema), buildReportHandler);
+app.get('/api/v1/report/:id', getReportHandler);
+app.get('/api/v1/report/:id/stream', streamReportHandler);
 app.post('/api/v1/automation/run', validate('json', automationRunSchema), automationRunHandler);
 app.get('/api/v1/maltiverse/search', maltiverseSearchHandler);
 app.get('/api/v1/inquest/search', inquestSearchHandler);

@@ -818,3 +818,10 @@ export const stealerParserJsonSchema = z
  * `validateText()`.
  */
 export const rawLogTextSchema = z.string().min(1, 'log body is required').max(500_000, 'log body too long (max 500KB)');
+
+/** Copilot full-report build request. */
+export const reportBuildSchema = z.object({
+  subject: z.string().min(1, 'subject is required').max(200, 'subject too long'),
+  template: z.enum(['ransomware-group', 'threat-actor', 'cve', 'ioc']).optional(),
+  tlp: z.enum(['CLEAR', 'GREEN', 'AMBER', 'RED']).optional().default('AMBER'),
+});
