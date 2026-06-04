@@ -17,6 +17,9 @@ import {
 import { FeedbackWidget } from '../../components/FeedbackWidget';
 import { BackLink } from '../../components/BackLink';
 import { adminAuthHeaders } from '../../lib/admin-token';
+import { buildReport, pollReport, type Report, type Progress } from '../../lib/threatintel/report-client';
+import { exportReportPdf } from '../../lib/threatintel/report-pdf';
+import { ReportView } from '../../components/threatintel/ReportView';
 
 interface Source {
   name: string;
@@ -114,6 +117,34 @@ export default function Copilot(): JSX.Element {
   const [saved, setSaved] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  // ── Full-report mode (heavyweight DO-backed pipeline) ──
+  const [mode, setMode] = useState<'quick' | 'report'>('quick');
+  const [template, setTemplate] = useState<string>('auto');
+  const [tlp, setTlp] = useState<string>('AMBER');
+  const [progress, setProgress] = useState<Progress | null>(null);
+  const [report, setReport] = useState<Report | null>(null);
+
+  const runReport = async (q: string) => {
+    if (!q.trim()) return;
+    setError(null);
+    setReport(null);
+    setProgress({ phase: 'queued', pct: 0, detail: 'Queued' });
+    try {
+      const id = await buildReport(q.trim(), template === 'auto' ? undefined : template, tlp);
+      const r = await pollReport(id, setProgress);
+      setReport(r);
+      setProgress(null);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : String(e));
+      setProgress(null);
+    }
+  };
+
+  const submit = (q: string) => {
+    if (mode === 'report') void runReport(q);
+    else void investigate(q);
+  };
+
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
@@ -190,6 +221,53 @@ export default function Copilot(): JSX.Element {
         </p>
       </div>
 
+      {/* Mode toggle */}
+      <div className="flex flex-wrap items-center gap-2 mb-3">
+        <div className="inline-flex rounded-lg border border-slate-200 dark:border-slate-800 overflow-hidden text-xs font-mono">
+          <button
+            onClick={() => setMode('quick')}
+            aria-pressed={mode === 'quick'}
+            className={`px-3 py-1.5 ${mode === 'quick' ? 'bg-brand-600 text-white' : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300'}`}
+          >
+            Quick answer
+          </button>
+          <button
+            onClick={() => setMode('report')}
+            aria-pressed={mode === 'report'}
+            className={`px-3 py-1.5 ${mode === 'report' ? 'bg-brand-600 text-white' : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300'}`}
+          >
+            Full report
+          </button>
+        </div>
+        {mode === 'report' && (
+          <>
+            <select
+              value={template}
+              onChange={(e) => setTemplate(e.target.value)}
+              aria-label="Report template"
+              className="text-xs font-mono px-2 py-1.5 rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900"
+            >
+              <option value="auto">Auto template</option>
+              <option value="ransomware-group">Ransomware Group</option>
+              <option value="threat-actor">Threat Actor</option>
+              <option value="cve">CVE / Vulnerability</option>
+              <option value="ioc">IOC Dossier</option>
+            </select>
+            <select
+              value={tlp}
+              onChange={(e) => setTlp(e.target.value)}
+              aria-label="TLP classification"
+              className="text-xs font-mono px-2 py-1.5 rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900"
+            >
+              <option value="CLEAR">TLP:CLEAR</option>
+              <option value="GREEN">TLP:GREEN</option>
+              <option value="AMBER">TLP:AMBER</option>
+              <option value="RED">TLP:RED</option>
+            </select>
+          </>
+        )}
+      </div>
+
       {/* Search input */}
       <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
         <div className="relative">
@@ -199,20 +277,47 @@ export default function Copilot(): JSX.Element {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && void investigate(query)}
-            placeholder="Ask about any CVE, threat actor, ransomware group, IP, or domain..."
+            onKeyDown={(e) => e.key === 'Enter' && submit(query)}
+            placeholder={
+              mode === 'report'
+                ? 'Subject for a full report (group, actor, CVE, or IOC)…'
+                : 'Ask about any CVE, threat actor, ransomware group, IP, or domain...'
+            }
             className="w-full pl-9 pr-14 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
-            disabled={loading}
+            disabled={loading || !!progress}
           />
           <button
-            onClick={() => investigate(query)}
-            disabled={loading || !query.trim()}
+            onClick={() => submit(query)}
+            disabled={loading || !!progress || !query.trim()}
             className="absolute right-1 top-1/2 -translate-y-1/2 p-1.5 rounded bg-brand-600 dark:bg-brand-500 hover:bg-brand-700 dark:hover:bg-brand-400 disabled:opacity-30 disabled:cursor-not-allowed text-white transition-colors"
           >
-            {loading ? <Loader2 size={14} className="animate-spin" /> : <Send size={14} />}
+            {loading || progress ? <Loader2 size={14} className="animate-spin" /> : <Send size={14} />}
           </button>
         </div>
       </section>
+
+      {/* Report build progress */}
+      {progress && !report && (
+        <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 mb-6">
+          <div className="flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 mb-2">
+            <span className="inline-flex items-center gap-2">
+              <Loader2 size={13} className="animate-spin text-brand-500" /> {progress.phase}
+            </span>
+            <span>{progress.pct}%</span>
+          </div>
+          <div className="h-1.5 rounded bg-slate-200 dark:bg-slate-800 overflow-hidden">
+            <div className="h-full bg-brand-500 transition-all" style={{ width: `${progress.pct}%` }} />
+          </div>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 font-mono">{progress.detail}</p>
+        </section>
+      )}
+
+      {/* Rendered report */}
+      {report && (
+        <div className="mb-6">
+          <ReportView report={report} onExportPdf={() => void exportReportPdf(report)} />
+        </div>
+      )}
 
       {/* Quick examples */}
       {!result && !loading && !error && (
