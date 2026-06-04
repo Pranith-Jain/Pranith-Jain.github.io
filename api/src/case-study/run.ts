@@ -23,7 +23,7 @@ import { runPublisher } from './publishing/publisher';
 import { putCandidate } from './storage/candidates';
 import { listApproved, getApproved, unapprove } from './storage/approved';
 import { setSchedule, markSlotStatus, pickDueSlot } from './storage/schedule';
-import { loadDedupMap, touchDedup, touchDedupMany } from './storage/dedup';
+import { loadDedupMap, touchDedup, touchDedupMany, isKeySuppressed } from './storage/dedup';
 import { putPost, listPostIndex } from './storage/posts';
 import { putDraft } from './storage/drafts';
 import { recordFailure } from './storage/failed';
@@ -86,12 +86,7 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
   //     already soft-deweights it so it won't dominate, but the topic keeps
   //     producing instead of going silent for weeks.
   const REPUBLISH_BLOCK_MS = 60 * 24 * 3600 * 1000;
-  const isSuppressed = (key: string): boolean => {
-    const rec = dedupMap[key];
-    if (!rec || !rec.publishedSlug) return false;
-    const t = Date.parse(rec.lastSeenAt);
-    return !Number.isNaN(t) && now.getTime() - t < REPUBLISH_BLOCK_MS;
-  };
+  const isSuppressed = (key: string): boolean => isKeySuppressed(dedupMap[key] ?? null, now, REPUBLISH_BLOCK_MS);
   // One rand stream per run, seeded by the UTC date: stable within a day,
   // different the next. Weighted by score so high-value items stay likely
   // (and the single top item is guaranteed) without freezing the queue.
