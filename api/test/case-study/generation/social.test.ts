@@ -128,3 +128,15 @@ describe('generateSocialContent', () => {
     expect(res.generatedAt).toBeTruthy();
   });
 });
+
+describe('whitespace tidy', () => {
+  it('collapses 3+ blank lines to one and strips trailing spaces', async () => {
+    const { generateLinkedinContent } = await import('../../../src/case-study/generation/social');
+    const ai = { run: async () => ({ response: 'Hook line.   \n\n\n\nSecond para.\n\n\n- bullet  ' }) } as any;
+    const res = await generateLinkedinContent(mockPost, ai, new Date());
+    expect(res.linkedin).not.toMatch(/\n{3,}/); // no 3+ consecutive newlines
+    expect(res.linkedin).not.toMatch(/[ \t]\n/); // no trailing space before a newline
+    expect(res.linkedin).not.toMatch(/[ \t]$/); // no trailing space at the end
+    expect(res.linkedin).toContain('Hook line.\n\nSecond para.');
+  });
+});

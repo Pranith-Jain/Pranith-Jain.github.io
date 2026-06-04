@@ -30,6 +30,22 @@ function gist(body: string): string {
   return b.length <= BODY_CAP ? b : `${b.slice(0, BODY_CAP)}\n…[article continues — summarise from the above]`;
 }
 
+/**
+ * Tidy generated social copy: strip trailing spaces, collapse runs of spaces,
+ * and cap consecutive blank lines at ONE. The model tends to over-space
+ * (a blank line between every short line + trailing whitespace), which reads
+ * as sparse padding on LinkedIn/X. Whitespace BETWEEN posts (the "\n\n" the
+ * thread relies on) is preserved; only 3+ newlines collapse to a single blank.
+ */
+function tidySocial(text: string): string {
+  return text
+    .split('\n')
+    .map((line) => line.replace(/[ \t]+$/g, '').replace(/[ \t]{2,}/g, ' '))
+    .join('\n')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+}
+
 function buildTwitterPrompt(post: Post): string {
   const postUrl = `https://pranithjain.qzz.io/blog/${post.slug}`;
   return (
@@ -65,7 +81,7 @@ function buildLinkedinPrompt(post: Post): string {
     `- THE FOLD: only the first ~210 characters show before "...more". The first 1-2 lines must carry the single most specific, surprising fact and make the reader expand. No throat-clearing, no "I've been thinking about", no label like "New post:".\n` +
     `- LINK PLACEMENT (critical): the post body must contain NO link. An external link in a LinkedIn post body cuts reach 50-60%. Deliver the full insight natively, then add a separate final block on its own line, exactly: "FIRST COMMENT: ${postUrl}" — that is posted as the first comment, not in the post.\n` +
     `- Then the analysis: the pattern or contrast, the technical detail that matters (CVSS / CWE / exploit chain / affected versions / detection logic / victimology — only what the facts support, no padding).\n` +
-    `- Formatting is mobile-first: very short paragraphs (1-3 lines), a blank line between almost every paragraph, generous white space. No walls of text.\n` +
+    `- Formatting is mobile-first and TIGHT: short paragraphs (1-3 lines) with a SINGLE blank line between paragraphs. Never a blank line between every line, never two blank lines in a row, no trailing spaces. Scannable, not sparse. No walls of text and no padding whitespace.\n` +
     `- Include ONE scannable "- " bulleted list (4-8 items) of concrete specifics (named victims / affected products+versions / CVEs / IOCs — whichever the data has). Do not skip it.\n` +
     `- Defensive takeaway must be specific to THIS threat model and non-obvious. If the facts don't support concrete defense, say plainly what actually reduces exposure (the detection gap, the access vector, the recovery posture) in one or two sharp lines.\n` +
     `- Close with one substantive question that provokes a practitioner reply (not "what do you think?").\n` +
@@ -109,8 +125,8 @@ export async function generateSocialContent(post: Post, ai: Ai, now: Date, groqK
   // link block, are multi-part artifacts for MANUAL copy-paste posting, and
   // model output is already bounded by maxTokens. A single-post char cap here
   // mangled threads and dropped the trailing link block.
-  const twitter = twitterRes.status === 'fulfilled' ? twitterRes.value.text.trim() : '';
-  const linkedin = linkedinRes.status === 'fulfilled' ? linkedinRes.value.text.trim() : '';
+  const twitter = twitterRes.status === 'fulfilled' ? tidySocial(twitterRes.value.text) : '';
+  const linkedin = linkedinRes.status === 'fulfilled' ? tidySocial(linkedinRes.value.text) : '';
 
   return {
     slug: post.slug,
@@ -131,7 +147,7 @@ export async function generateTwitterContent(
     { system: SOCIAL_SYSTEM, user: buildTwitterPrompt(post), temperature: 0.7, maxTokens: 1200 },
     { groqKey }
   );
-  return { twitter: res.text.trim(), generatedAt: now.toISOString() };
+  return { twitter: tidySocial(res.text), generatedAt: now.toISOString() };
 }
 
 export async function generateLinkedinContent(
@@ -145,5 +161,5 @@ export async function generateLinkedinContent(
     { system: SOCIAL_SYSTEM, user: buildLinkedinPrompt(post), temperature: 0.7, maxTokens: 1400 },
     { groqKey }
   );
-  return { linkedin: res.text.trim(), generatedAt: now.toISOString() };
+  return { linkedin: tidySocial(res.text), generatedAt: now.toISOString() };
 }
