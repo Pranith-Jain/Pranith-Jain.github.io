@@ -145,4 +145,60 @@ describe('admin routes', () => {
     expect(env.__store.has('candidates:cve:cve-1')).toBe(false);
     expect(env.__store.has('candidates:actor:actor-1')).toBe(true);
   });
+
+  const hdr = { 'X-Admin-Token': 'sekret' };
+  const jhdr = { 'X-Admin-Token': 'sekret', 'content-type': 'application/json' };
+  const getSchedule = async (env: any) =>
+    (await (await app().request('/api/v1/admin/schedule', { headers: hdr }, env)).json()) as any;
+
+  it('publish-soon schedules an approved candidate due now, reschedule moves it', async () => {
+    const env = mockEnv();
+    env.__store.set('approved:cve-soon-1', JSON.stringify({ ...cand, key: 'cve-soon-1', status: 'approved' }));
+
+    const soon = await app().request(
+      '/api/v1/admin/approved/cve-soon-1/publish-soon',
+      { method: 'POST', headers: hdr },
+      env
+    );
+    expect(soon.status).toBe(200);
+    let sched = await getSchedule(env);
+    const slot = sched.schedule.find((s: any) => s.candidateId === 'cve-soon-1');
+    expect(slot).toBeTruthy();
+    expect(slot.status).toBe('pending');
+
+    const r = await app().request(
+      '/api/v1/admin/schedule/cve-soon-1/reschedule',
+      { method: 'POST', headers: jhdr, body: JSON.stringify({ slotAt: '2030-01-01T10:00:00.000Z' }) },
+      env
+    );
+    expect(r.status).toBe(200);
+    sched = await getSchedule(env);
+    expect(sched.schedule.find((s: any) => s.candidateId === 'cve-soon-1').slotAt).toBe('2030-01-01T10:00:00.000Z');
+  });
+
+  it('publish-soon 404s an unknown approved candidate', async () => {
+    const env = mockEnv();
+    const r = await app().request('/api/v1/admin/approved/nope/publish-soon', { method: 'POST', headers: hdr }, env);
+    expect(r.status).toBe(404);
+  });
+
+  it('reschedule rejects an invalid slotAt with 400', async () => {
+    const env = mockEnv();
+    const r = await app().request(
+      '/api/v1/admin/schedule/whatever/reschedule',
+      { method: 'POST', headers: jhdr, body: JSON.stringify({ slotAt: 'not-a-date' }) },
+      env
+    );
+    expect(r.status).toBe(400);
+  });
+
+  it('reschedule 404s an unknown slot', async () => {
+    const env = mockEnv();
+    const r = await app().request(
+      '/api/v1/admin/schedule/no-such-slot/reschedule',
+      { method: 'POST', headers: jhdr, body: JSON.stringify({ slotAt: '2030-01-01T10:00:00.000Z' }) },
+      env
+    );
+    expect(r.status).toBe(404);
+  });
 });

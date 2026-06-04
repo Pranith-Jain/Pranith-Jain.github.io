@@ -176,6 +176,24 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     return c.json({ ok: true });
   });
 
+  // Fast lane: schedule an approved candidate for the NEXT hourly publisher
+  // run (live <1h) instead of waiting for the daily planner. Unlike
+  // publish-now it does NOT generate synchronously — it drops a due slot and
+  // lets the existing hourly publisher cron do the work.
+  admin.post('/approved/:id/publish-soon', async (c) => {
+    const id = c.req.param('id');
+    const candidate = await getApproved(c.env.CASE_STUDIES, id);
+    if (!candidate) return c.json({ error: 'approved candidate not found' }, 404);
+    const schedule = await getSchedule(c.env.CASE_STUDIES);
+    const slotAt = new Date().toISOString();
+    const exists = schedule.some((s) => s.candidateId === id);
+    const next = exists
+      ? schedule.map((s) => (s.candidateId === id ? { ...s, slotAt, status: 'pending' as const, error: undefined } : s))
+      : [...schedule, { candidateId: id, slotAt, status: 'pending' as const }];
+    await setSchedule(c.env.CASE_STUDIES, next);
+    return c.json({ ok: true, candidateId: id, slotAt });
+  });
+
   admin.get('/schedule', async (c) => {
     const schedule = await getSchedule(c.env.CASE_STUDIES);
     // Verify published slugs still exist and mark stale slots as pending
@@ -245,6 +263,25 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
   admin.post('/schedule/:candidateId/remove', async (c) => {
     await removeSlot(c.env.CASE_STUDIES, c.req.param('candidateId'));
     return c.json({ ok: true });
+  });
+
+  // Reschedule a pending/failed slot to a new time (resets it to pending so
+  // the publisher picks it up at the new slotAt). Published slots are immutable.
+  admin.post('/schedule/:candidateId/reschedule', async (c) => {
+    const candidateId = c.req.param('candidateId');
+    const parsed = await safeJsonBody<{ slotAt?: string }>(c, { maxBytes: 1024 });
+    if ('error' in parsed) return parsed.error;
+    const slotAt = parsed.value?.slotAt;
+    if (!slotAt || Number.isNaN(Date.parse(slotAt))) {
+      return c.json({ error: 'valid slotAt (ISO 8601) required' }, 400);
+    }
+    const schedule = await getSchedule(c.env.CASE_STUDIES);
+    const slot = schedule.find((s) => s.candidateId === candidateId);
+    if (!slot) return c.json({ error: 'slot not found' }, 404);
+    if (slot.status === 'published') return c.json({ error: 'cannot reschedule a published slot' }, 400);
+    const iso = new Date(slotAt).toISOString();
+    await markSlotStatus(c.env.CASE_STUDIES, candidateId, 'pending', { slotAt: iso, error: undefined });
+    return c.json({ ok: true, candidateId, slotAt: iso });
   });
 
   admin.get('/posts', async (c) => {
