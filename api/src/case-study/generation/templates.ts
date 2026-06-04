@@ -45,7 +45,7 @@ const SYSTEM_PROMPT =
   `- Name entities explicitly and repeatedly, product, version, CVE id, malware family, threat actor, rather than pronouns ("it", "the flaw"). Entity clarity is what gets a page cited by answer engines.\n` +
   `- Tie a specific number to the ground-truth data wherever it supports one (CVSS, affected version, victim count, dwell time). A body section with no number is usually too vague.\n` +
   `- Where the data supports a detection, include ONE named, copy-pasteable artifact in a fenced code block labelled with its language: a Sigma rule, a KQL/SPL hunting query, or a YARA signature. Only when the facts justify it, never fabricate a rule or IOC you do not have.\n` +
-  `- The "## FAQ" before References: 4-6 questions a defender would genuinely ask about THIS case, each answered in 40-60 words. Phrase each question as a real search query; keep each answer self-contained.\n` +
+  `- The "## FAQ" before References: 4-6 questions a defender would genuinely ask about THIS case. Format each as a "### " question heading (phrased as a real search query, ending in "?") followed by a self-contained 40-60 word answer paragraph. This exact shape lets the page emit FAQ structured data.\n` +
   `</answer-engine>\n\n` +
   `<estimative-language>\n` +
   `- Separate likelihood from confidence; never fuse them in one clause. Likelihood = how probable ("unlikely", "likely", "very likely", "almost certain"). Confidence = strength of the evidence ("low/moderate/high confidence", from source quality and corroboration).\n` +

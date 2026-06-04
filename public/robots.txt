@@ -11,3 +11,19 @@ Sitemap: https://pranithjain.qzz.io/sitemap.xml
 Disallow: /admin/
 Disallow: /private/
 Disallow: /api/
+
+# AI answer-engine crawlers — explicitly allowed so blog/threat-intel content
+# is eligible to be cited in AI Overviews / ChatGPT / Perplexity / Claude
+# answers (blocking would make it invisible to those engines). A named group
+# does not inherit the `*` rules, so the private-area disallows are repeated.
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: PerplexityBot
+User-agent: ClaudeBot
+User-agent: Claude-Web
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: /api/
