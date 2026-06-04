@@ -37,7 +37,7 @@ describe('LinkedIn prompt', () => {
     );
   });
 
-  it('encodes the LinkedIn fold + mobile-first whitespace + scannable list contract', async () => {
+  it('encodes the 2026 LinkedIn contract: link-in-first-comment, 3-5 hashtags, carousel option', async () => {
     const { generateLinkedinContent } = await import('../../../src/case-study/generation/social');
     await generateLinkedinContent(
       mockPost,
@@ -46,10 +46,15 @@ describe('LinkedIn prompt', () => {
         expect(user).toContain('THE FOLD');
         expect(user).toContain('210 characters');
         expect(user).toMatch(/mobile-first/i);
-        expect(user).toContain('No raw URLs in the body');
+        // Reach-killer fix: no body link; the link goes in a FIRST COMMENT block.
+        expect(user).toContain('FIRST COMMENT:');
+        expect(user).toMatch(/body must contain NO link/i);
         expect(user).toContain('1300-2000 characters');
         expect(user).toMatch(/scannable .* bulleted list/);
-        expect(user).toMatch(/at most two lowercase hashtags/i);
+        expect(user).toMatch(/3-5 specific, on-topic hashtags/i);
+        expect(user).toContain('CAROUSEL OUTLINE:');
+        // Removed legacy rules.
+        expect(user).not.toMatch(/at most two lowercase hashtags/i);
       }),
       new Date()
     );
@@ -57,31 +62,36 @@ describe('LinkedIn prompt', () => {
 });
 
 describe('Twitter prompt', () => {
-  it('encodes the standalone-hook, no-pad, end-counter thread contract', async () => {
+  it('encodes the 2026 thread contract: 5-8 posts, link-in-reply, bookmark+reply optimization', async () => {
     const { generateTwitterContent } = await import('../../../src/case-study/generation/social');
     await generateTwitterContent(
       mockPost,
       mockAi((msgs) => {
         const user = msgs.find((m: any) => m.role === 'user')?.content ?? '';
-        expect(user).toContain('2-5 posts');
-        expect(user).toContain('must stand alone');
+        expect(user).toContain('5-8 posts');
+        expect(user).toMatch(/stands? alone/i);
         expect(user).toMatch(/does NOT start with "1\/"/);
-        expect(user).toContain('< 270 chars');
-        expect(user).not.toContain('3-6 tweets');
-        expect(user).not.toContain('5-7 tweets');
+        // Reach-killer fix: no link in post 1; link goes in a FIRST REPLY block.
+        expect(user).toContain('FIRST REPLY:');
+        expect(user).toMatch(/bookmark/i);
+        expect(user).toMatch(/repl(y|ies)/i);
+        expect(user).toContain('< 280 chars');
+        // Removed legacy rule.
+        expect(user).not.toContain('2-5 posts');
       }),
       new Date()
     );
   });
 
-  it('includes the post URL and bans hashtags', async () => {
+  it('includes the post URL and allows at most one hashtag', async () => {
     const { generateTwitterContent } = await import('../../../src/case-study/generation/social');
     await generateTwitterContent(
       mockPost,
       mockAi((msgs) => {
         const user = msgs.find((m: any) => m.role === 'user')?.content ?? '';
         expect(user).toContain('pranithjain.qzz.io/blog/cve-2026-20182-cisco-catalyst-sd-wan-con');
-        expect(user).toContain('No hashtags');
+        expect(user).toMatch(/at most ONE hashtag/i);
+        expect(user).not.toContain('No hashtags');
       }),
       new Date()
     );
