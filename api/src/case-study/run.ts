@@ -6,6 +6,7 @@
  * blocks must not re-implement dep wiring.
  */
 import { runDiscovery } from './discovery';
+import { mulberry32, dateSeed, weightedSampleByScore } from './discovery/sampling';
 import { discoverCves } from './discovery/cve';
 import { discoverActors } from './discovery/actor';
 import { discoverMalware } from './discovery/malware';
@@ -91,7 +92,14 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
     const t = Date.parse(rec.lastSeenAt);
     return !Number.isNaN(t) && now.getTime() - t < REPUBLISH_BLOCK_MS;
   };
+  // One rand stream per run, seeded by the UTC date: stable within a day,
+  // different the next. Weighted by score so high-value items stay likely
+  // (and the single top item is guaranteed) without freezing the queue.
+  const rand = mulberry32(dateSeed(now));
+  const selectPerTopic = (cands: Parameters<typeof weightedSampleByScore>[0], k: number) =>
+    weightedSampleByScore(cands, k, rand);
   return runDiscovery({
+    selectPerTopic,
     isSuppressed,
     runners: {
       cve: () => discoverCves({ fetch: globalThis.fetch, now, getDedup: memGet }),
