@@ -820,6 +820,7 @@ export function RansomwareActivityPanel(): JSX.Element {
   const [data, setData] = useState<RansomwareResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [retryCount, setRetryCount] = useState(0);
   const [groupFilter, setGroupFilter] = useState<string | 'all'>('all');
   // Honor a victim deep-link (e.g. from RansomwareMap: ?q=<victim>).
   const [victimQuery, setVictimQuery] = useState(searchParams.get('q') ?? '');
@@ -844,6 +845,7 @@ export function RansomwareActivityPanel(): JSX.Element {
     let cancelled = false;
     (async () => {
       try {
+        setError(null);
         const res = await fetch('/api/v1/ransomware-recent');
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const json = (await res.json()) as RansomwareResponse;
@@ -857,7 +859,7 @@ export function RansomwareActivityPanel(): JSX.Element {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [retryCount]);
 
   const filteredVictims = useMemo(() => {
     if (!data) return [];
@@ -906,8 +908,15 @@ export function RansomwareActivityPanel(): JSX.Element {
       </div>
 
       {error && (
-        <p role="alert" className="text-sm font-mono text-rose-600 dark:text-rose-400">
-          Could not load ransomware feed: {error}
+        <p role="alert" className="text-sm font-mono text-rose-600 dark:text-rose-400 flex items-center gap-3">
+          <span>Could not load ransomware feed: {error}</span>
+          <button
+            type="button"
+            onClick={() => setRetryCount((n) => n + 1)}
+            className="shrink-0 text-xs font-mono px-2 py-1 rounded border border-rose-400/60 hover:bg-rose-500/10"
+          >
+            retry
+          </button>
         </p>
       )}
 

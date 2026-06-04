@@ -631,9 +631,16 @@ export async function fetchRansomwareRecent(env?: Env): Promise<{
  * deploy/key-bump — has no neighbour to borrow from and would serve "0
  * claims". KV is global: any healthy colo's fetch refreshes it, and every
  * other colo can fall back to it. 48h TTL covers a long upstream outage.
+ *
+ * Reads shadow through caches.default (per-colo, free) so repeated cache
+ * misses on the same colo don't each hit KV. The shadow TTL matches the
+ * edge-cache TTL so a stale shadow is never older than the edge cache.
  */
 const RANSOMWARE_LASTGOOD_KV_KEY = 'ransomware-recent:lastgood:v1';
 const LASTGOOD_TTL_SECONDS = 172800;
+const LASTGOOD_SHADOW_TTL_SECONDS = 900; // matches edge-cache TTL
+
+const lastgoodShadowKey = new Request('https://ransomware-recent-lastgood-shadow.internal/v1');
 
 async function writeRansomwareLastGood(env: Env, body: ResponseBody): Promise<void> {
   if (!env.KV_CACHE || body.victims.length === 0) return;
@@ -646,6 +653,17 @@ async function writeRansomwareLastGood(env: Env, body: ResponseBody): Promise<vo
     await env.KV_CACHE.put(RANSOMWARE_LASTGOOD_KV_KEY, JSON.stringify(body), {
       expirationTtl: LASTGOOD_TTL_SECONDS,
     });
+    const cache = (caches as unknown as { default: Cache }).default;
+    try {
+      await cache.put(
+        lastgoodShadowKey,
+        new Response(JSON.stringify(body), {
+          headers: { 'content-type': 'application/json', 'cache-control': `max-age=${LASTGOOD_SHADOW_TTL_SECONDS}` },
+        })
+      );
+    } catch {
+      /* best-effort shadow */
+    }
   } catch {
     /* non-fatal */
   }
@@ -653,9 +671,29 @@ async function writeRansomwareLastGood(env: Env, body: ResponseBody): Promise<vo
 
 async function readRansomwareLastGood(env: Env): Promise<ResponseBody | null> {
   if (!env.KV_CACHE) return null;
+  const cache = (caches as unknown as { default: Cache }).default;
+  try {
+    const hit = await cache.match(lastgoodShadowKey);
+    if (hit) return (await hit.json()) as ResponseBody;
+  } catch {
+    /* fall through to KV */
+  }
   try {
     const lg = (await env.KV_CACHE.get(RANSOMWARE_LASTGOOD_KV_KEY, 'json')) as ResponseBody | null;
-    return lg && Array.isArray(lg.victims) && lg.victims.length > 0 ? lg : null;
+    if (lg && Array.isArray(lg.victims) && lg.victims.length > 0) {
+      try {
+        await cache.put(
+          lastgoodShadowKey,
+          new Response(JSON.stringify(lg), {
+            headers: { 'content-type': 'application/json', 'cache-control': `max-age=${LASTGOOD_SHADOW_TTL_SECONDS}` },
+          })
+        );
+      } catch {
+        /* best-effort shadow */
+      }
+      return lg;
+    }
+    return null;
   } catch {
     return null;
   }
@@ -693,7 +731,19 @@ export async function ransomwareRecentHandler(c: Context<{ Bindings: Env }>): Pr
 
   const { body, upstreamOk, rateLimited } = await fetchRansomwareRecent(c.env);
 
+  // On rate-limit: try KV lastgood before hard-failing with 429. A cold-colo
+  // visitor shouldn't see an upstream 429 when we have stale-but-good data in
+  // the global lastgood store.
   if (rateLimited) {
+    const lastGood = await readRansomwareLastGood(c.env);
+    if (lastGood) {
+      const response = c.json(lastGood, 200, {
+        'Cache-Control': `public, max-age=${CACHE_TTL_SECONDS}, stale-while-revalidate=${CACHE_TTL_SECONDS * 4}`,
+        'x-cache': 'LASTGOOD',
+      });
+      c.executionCtx.waitUntil(cache.put(cacheKey, response.clone()));
+      return response;
+    }
     return c.json({ error: 'upstream_rate_limited', upstream: 'www.ransomlook.io', upstream_status: 429 }, 429, {
       'retry-after': rateLimited.retryAfter,
       'cache-control': 'no-store',
