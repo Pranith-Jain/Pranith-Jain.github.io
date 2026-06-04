@@ -7,7 +7,6 @@ import { reportBuildSchema } from '../../src/lib/validation-schemas';
 
 // Mirror how api/src/index.ts wires the report routes: admin gate + validate.
 function app() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const a = new Hono<any>();
   a.use('/api/v1/report', requireAdminMiddleware);
   a.use('/api/v1/report/*', requireAdminMiddleware);
@@ -18,7 +17,6 @@ function app() {
 
 // ADMIN_TOKEN set; REPORT_BUILDER intentionally unbound in this harness so the
 // handler reaches its 503 guard once auth + validation pass.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const env = (): any => ({ ADMIN_TOKEN: 'sekret' });
 
 function post(body: unknown, auth = true) {
