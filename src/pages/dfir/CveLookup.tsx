@@ -50,6 +50,7 @@ interface CveLookupResult {
   epss?: EpssData;
   actors?: string[];
   actor_links?: ActorLink[];
+  vulncheck?: { cve: string; exploited: boolean; records: number; reported: string[] };
 }
 
 const ACTOR_LINK_SOURCE_LABEL: Record<string, string> = {
@@ -192,6 +193,14 @@ export default function CveLookup(): JSX.Element {
                   title="CISA has tied this CVE to a known ransomware campaign — top remediation priority"
                 >
                   Ransomware
+                </span>
+              )}
+              {result.vulncheck?.exploited && (
+                <span
+                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider bg-fuchsia-100 text-fuchsia-900 dark:bg-fuchsia-900/40 dark:text-fuchsia-300 border border-fuchsia-400 dark:border-fuchsia-700"
+                  title={`VulnCheck reports real-world exploitation / initial-access intel (${result.vulncheck.records} record(s))${result.vulncheck.reported.length ? ` · ${result.vulncheck.reported.join(', ')}` : ''}`}
+                >
+                  VulnCheck: Exploited
                 </span>
               )}
               {result.cvss && (
