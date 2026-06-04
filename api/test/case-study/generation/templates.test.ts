@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { buildPrompt } from '../../../src/case-study/generation/templates';
+import { buildPrompt, requiredSections } from '../../../src/case-study/generation/templates';
 
 describe('buildPrompt', () => {
   it('CVE prompt contains all required outline sections', () => {
@@ -19,6 +19,31 @@ describe('buildPrompt', () => {
     expect(user).toContain('## Indicators of compromise');
     expect(user).toContain('## References');
     expect(user).toContain('"cveId":"CVE-2026-1234"');
+  });
+
+  it('structured types get answer-engine sections (TL;DR + FAQ) and AEO/estimative directives', () => {
+    const { system, user } = buildPrompt({ type: 'cve', title: 'CVE-2026-1234', facts: {} });
+    // Outline carries the answer-first TL;DR (lead) and a FAQ before References.
+    expect(user).toContain('## TL;DR');
+    expect(user).toContain('## FAQ');
+    const tldrIdx = user.indexOf('## TL;DR');
+    const faqIdx = user.indexOf('## FAQ');
+    const refsIdx = user.indexOf('## References');
+    expect(tldrIdx).toBeLessThan(faqIdx);
+    expect(faqIdx).toBeLessThan(refsIdx);
+    // System prompt carries the 2026 AEO + estimative-language directives.
+    expect(system).toContain('<answer-engine>');
+    expect(system).toContain('<estimative-language>');
+    // requiredSections mirrors the outline so QA tracking stays in sync.
+    const req = requiredSections('cve');
+    expect(req).toContain('## TL;DR');
+    expect(req).toContain('## FAQ');
+  });
+
+  it('analysis type (free-form) is unaffected by AEO sections', () => {
+    expect(requiredSections('analysis')).toEqual([]);
+    const { user } = buildPrompt({ type: 'analysis', title: 'A framework', facts: {} });
+    expect(user).not.toContain('## TL;DR');
   });
 
   it('actor prompt has actor-specific outline', () => {

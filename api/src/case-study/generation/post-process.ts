@@ -64,6 +64,8 @@ function isFiller(text: string): boolean {
 
 /** Replace section names used without `##` prefix with proper markdown headers. */
 const ALL_HEADINGS = [
+  'TL;DR',
+  'FAQ',
   'Summary',
   'What is this vulnerability',
   'Affected products',

@@ -30,14 +30,28 @@ const SYSTEM_PROMPT =
   `- Distinguish fact (in data) from analysis (your inference) with confidence language; do not present inference as confirmed.\n` +
   `</grounding>\n\n` +
   `<format>\n` +
-  `- Markdown. Hook paragraph first, then "## SectionName" on its own line for each section.\n` +
+  `- Markdown. Hook paragraph first, then a "## TL;DR" section, then "## SectionName" on its own line for each section.\n` +
   `- Short paragraphs, 2-4 sentences. Bullets and numbered lists in body sections.\n` +
   `- No raw URLs in prose. Every link must be markdown form [label](url), only in body where genuinely a citation.\n` +
-  `- End with a ## References section, each URL a bullet.\n` +
+  `- A "## FAQ" section immediately before ## References, then the ## References section, each URL a bullet.\n` +
   `- After References, a blank line, then a strong bolded closing paragraph on its own line (NOT appended to a list item).\n` +
-  `- 1000-1500 words. If a section has nothing real, omit it. Never write "not well documented", "little is known", or any filler.\n` +
+  `- 1000-1600 words including the TL;DR and FAQ. If a section has nothing real, omit it. Never write "not well documented", "little is known", or any filler.\n` +
   `- Every section starts with "## " followed by the heading name.\n` +
   `</format>\n\n` +
+  `<answer-engine>\n` +
+  `- Immediately after the hook, write a "## TL;DR": 2-4 sentences, max ~120 words, that stands entirely on its own if quoted out of context. State the core finding, the named product/version or actor affected, the impact, and the single hardest number from the data. No "this post covers", no preamble.\n` +
+  `- Phrase section headings the way a defender would actually search them ("How does the exploit work?", "Who is affected?", "How do you detect it?") wherever it reads naturally. Concrete questions beat abstract labels.\n` +
+  `- Lead each section with its most load-bearing sentence (the answer), then support it. Any single paragraph, lifted out, should still make sense and be quotable.\n` +
+  `- Name entities explicitly and repeatedly, product, version, CVE id, malware family, threat actor, rather than pronouns ("it", "the flaw"). Entity clarity is what gets a page cited by answer engines.\n` +
+  `- Tie a specific number to the ground-truth data wherever it supports one (CVSS, affected version, victim count, dwell time). A body section with no number is usually too vague.\n` +
+  `- Where the data supports a detection, include ONE named, copy-pasteable artifact in a fenced code block labelled with its language: a Sigma rule, a KQL/SPL hunting query, or a YARA signature. Only when the facts justify it, never fabricate a rule or IOC you do not have.\n` +
+  `- The "## FAQ" before References: 4-6 questions a defender would genuinely ask about THIS case, each answered in 40-60 words. Phrase each question as a real search query; keep each answer self-contained.\n` +
+  `</answer-engine>\n\n` +
+  `<estimative-language>\n` +
+  `- Separate likelihood from confidence; never fuse them in one clause. Likelihood = how probable ("unlikely", "likely", "very likely", "almost certain"). Confidence = strength of the evidence ("low/moderate/high confidence", from source quality and corroboration).\n` +
+  `- Pattern: "This is likely affiliate movement, not a new compromise. Confidence is moderate, based on two corroborating leak-site timelines." Not "we believe this may possibly be...".\n` +
+  `- Avoid bare hedges ("may", "might", "could", "possibly", "it seems", "we believe"). State the estimate and its confidence instead.\n` +
+  `</estimative-language>\n\n` +
   PIPELINE_OUTPUT_GUARDRAIL;
 
 const OUTLINES: Record<CaseStudyType, string[]> = {
@@ -156,6 +170,26 @@ const OUTLINES: Record<CaseStudyType, string[]> = {
     // The prompt guides the model to build a framework, not fill sections.
   ],
 };
+
+const TLDR_SECTION = '## TL;DR';
+const FAQ_SECTION = '## FAQ';
+
+/**
+ * Structured types get an answer-first `## TL;DR` (lead) and a `## FAQ`
+ * (just before References) for 2026 answer-engine optimisation. `analysis`
+ * is a free-form thought-leadership type with no fixed outline — left as-is.
+ * Used by BOTH the prompt outline and `requiredSections` so the two never
+ * drift. (Missing TL;DR/FAQ is a NON-blocking flag in post-process — they
+ * are requested, not publish-gated, so weaker models never hard-fail.)
+ */
+function withAeoSections(type: CaseStudyType, outline: string[]): string[] {
+  if (type === 'analysis' || outline.length === 0) return outline;
+  const out = [TLDR_SECTION, ...outline];
+  const refsIdx = out.findIndex((h) => /^##\s+references\b/i.test(h));
+  if (refsIdx < 0) out.push(FAQ_SECTION);
+  else out.splice(refsIdx, 0, FAQ_SECTION);
+  return out;
+}
 
 export interface BuildPromptInput {
   type: CaseStudyType;
@@ -321,7 +355,7 @@ const ANALYSIS_GUIDANCE =
   `- Write like a practitioner sharing hard-won insight, not an analyst writing a report.`;
 
 export function buildPrompt(input: BuildPromptInput): BuiltPrompt {
-  const outline = OUTLINES[input.type].join('\n');
+  const outline = withAeoSections(input.type, OUTLINES[input.type]).join('\n');
 
   // Defence-in-depth against prompt injection from upstream-supplied strings
   // (NVD descriptions, leak-site group names, RSS titles, etc.). scrubEvidence
@@ -332,7 +366,8 @@ export function buildPrompt(input: BuildPromptInput): BuiltPrompt {
   // everything between them is data, not instructions.
   const scrubbedFacts = scrubEvidence(input.facts) as Record<string, unknown>;
   const factsBlock = input.type === 'briefing' ? briefingDigest(scrubbedFacts) : clampFacts(scrubbedFacts);
-  const typeGuidance = input.type === 'briefing' ? BRIEFING_GUIDANCE : input.type === 'analysis' ? ANALYSIS_GUIDANCE : '';
+  const typeGuidance =
+    input.type === 'briefing' ? BRIEFING_GUIDANCE : input.type === 'analysis' ? ANALYSIS_GUIDANCE : '';
 
   const sources = (input.sources ?? []).slice(0, 25);
   const sourcesBlock =
@@ -360,5 +395,5 @@ export function buildPrompt(input: BuildPromptInput): BuiltPrompt {
 }
 
 export function requiredSections(type: CaseStudyType): string[] {
-  return OUTLINES[type];
+  return withAeoSections(type, OUTLINES[type]);
 }
