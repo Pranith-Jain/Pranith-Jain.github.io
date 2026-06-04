@@ -18,6 +18,10 @@ import { discoverAiSec } from './discovery/aisec';
 import { discoverIntel } from './discovery/intel';
 import { discoverBriefing } from './discovery/briefing';
 import { discoverFromPlatformData } from './discovery/platform-data';
+import { discoverAdvisories } from './discovery/advisories';
+import { discoverVulnCheckKev } from './discovery/vulncheck';
+import { discoverEuvd } from './discovery/euvd';
+import { activeRunnerNames } from './discovery/rotation';
 import { runPlanner } from './publishing/planner';
 import { runPublisher } from './publishing/publisher';
 import { putCandidate } from './storage/candidates';
@@ -30,10 +34,11 @@ import { recordFailure } from './storage/failed';
 import { renderRss } from './rendering/rss';
 import { generatePost } from './generation';
 import { kv as csKvKeys } from './kv-keys';
-import { ACTOR_RSS_FEEDS } from './config';
+import { ACTOR_RSS_FEEDS, ADVISORY_RSS_FEEDS } from './config';
 import { getSiteUrl } from '../lib/site-config';
 import { fetchRecentVictims } from './ransom-source';
 import type { D1Database } from '@cloudflare/workers-types';
+import type { Candidate } from './types';
 
 /** The subset of bindings the case-study pipeline needs. */
 export interface CaseStudyEnv {
@@ -42,6 +47,8 @@ export interface CaseStudyEnv {
   ABUSECH_AUTH_KEY?: string;
   BRIEFINGS_DB?: D1Database;
   GROQ_API_KEY?: string;
+  /** Free VulnCheck Community token. Absent = VulnCheck KEV runner is a no-op. */
+  VULNCHECK_API_TOKEN?: string;
   SITE_URL?: string;
   /**
    * When set to the literal "true" (string from `wrangler secret` or
@@ -93,73 +100,70 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
   const rand = mulberry32(dateSeed(now));
   const selectPerTopic = (cands: Parameters<typeof weightedSampleByScore>[0], k: number) =>
     weightedSampleByScore(cands, k, rand);
+  const allRunners: Record<string, () => Promise<Candidate[]>> = {
+    vulncheck: () =>
+      discoverVulnCheckKev({ fetch: globalThis.fetch, now, getDedup: memGet, token: env.VULNCHECK_API_TOKEN ?? '' }),
+    cve: () => discoverCves({ fetch: globalThis.fetch, now, getDedup: memGet }),
+    actor: () => discoverActors({ fetch: globalThis.fetch, now, getDedup: memGet, feeds: ACTOR_RSS_FEEDS }),
+    malware: () =>
+      discoverMalware({ fetch: globalThis.fetch, now, getDedup: memGet, abuseChKey: env.ABUSECH_AUTH_KEY ?? '' }),
+    ransom: () =>
+      discoverRansomware({ fetchVictims: () => fetchRecentVictims(globalThis.fetch), now, getDedup: memGet }),
+    releak: () =>
+      discoverReleaks({
+        // Re-uses the existing /api/v1/victim-releaks surface — same data
+        // that powers /threatintel/re-leaks, already 6h edge-cached so
+        // the cron fan-out cost is one cheap GET per discovery run.
+        fetchReleaks: async () => {
+          try {
+            const r = await globalThis.fetch(`${getSiteUrl(env)}/api/v1/victim-releaks`);
+            if (!r.ok) return [];
+            const data = (await r.json()) as { releaks?: ReleakRow[] };
+            return data.releaks ?? [];
+          } catch {
+            return [];
+          }
+        },
+        now,
+        getDedup: memGet,
+      }),
+    breach: () => discoverBreaches({ fetch: globalThis.fetch, now, getDedup: memGet }),
+    scam: () => discoverScams({ fetch: globalThis.fetch, now, getDedup: memGet }),
+    aisec: () => discoverAiSec({ fetch: globalThis.fetch, now, getDedup: memGet }),
+    intel: () => discoverIntel({ fetch: globalThis.fetch, now, getDedup: memGet }),
+    advisories: () => discoverAdvisories({ fetch: globalThis.fetch, now, getDedup: memGet, feeds: ADVISORY_RSS_FEEDS }),
+    euvd: () => discoverEuvd({ fetch: globalThis.fetch, now, getDedup: memGet }),
+    briefing: () =>
+      env.BRIEFINGS_DB
+        ? discoverBriefing({ briefingsDb: env.BRIEFINGS_DB, now, getDedup: memGet })
+        : Promise.resolve([]),
+    // Platform data: uses the platform's own aggregated intelligence
+    // (ransomware.live, Telegram leaks, IOC trending, threat pulse)
+    // instead of external RSS feeds. Higher source weight because it's
+    // our own curated data.
+    platform: () =>
+      discoverFromPlatformData({
+        apiFetch: async (path) => {
+          const url = `${getSiteUrl(env)}${path}`;
+          const r = await globalThis.fetch(url);
+          if (!r.ok) return null;
+          return r.json();
+        },
+        now,
+        getDedup: memGet,
+      }),
+  };
+  // Always-on = high-value / our own data. The rest rotate over 3 days so
+  // each daily run hits a different, smaller feed subset: more day-to-day
+  // variety AND fewer subrequests per invocation (Free-plan 50/inv budget).
+  const ALWAYS_ON = new Set(['cve', 'vulncheck', 'actor', 'ransom', 'platform']);
+  const active = new Set(activeRunnerNames(Object.keys(allRunners), ALWAYS_ON, now, 3));
+  const runners = Object.fromEntries(Object.entries(allRunners).filter(([name]) => active.has(name)));
+
   return runDiscovery({
     selectPerTopic,
     isSuppressed,
-    runners: {
-      cve: () => discoverCves({ fetch: globalThis.fetch, now, getDedup: memGet }),
-      actor: () =>
-        discoverActors({
-          fetch: globalThis.fetch,
-          now,
-          getDedup: memGet,
-          feeds: ACTOR_RSS_FEEDS,
-        }),
-      malware: () =>
-        discoverMalware({
-          fetch: globalThis.fetch,
-          now,
-          getDedup: memGet,
-          abuseChKey: env.ABUSECH_AUTH_KEY ?? '',
-        }),
-      ransom: () =>
-        discoverRansomware({
-          fetchVictims: () => fetchRecentVictims(globalThis.fetch),
-          now,
-          getDedup: memGet,
-        }),
-      releak: () =>
-        discoverReleaks({
-          // Re-uses the existing /api/v1/victim-releaks surface — same data
-          // that powers /threatintel/re-leaks, already 6h edge-cached so
-          // the cron fan-out cost is one cheap GET per discovery run.
-          fetchReleaks: async () => {
-            try {
-              const r = await globalThis.fetch(`${getSiteUrl(env)}/api/v1/victim-releaks`);
-              if (!r.ok) return [];
-              const data = (await r.json()) as { releaks?: ReleakRow[] };
-              return data.releaks ?? [];
-            } catch {
-              return [];
-            }
-          },
-          now,
-          getDedup: memGet,
-        }),
-      breach: () => discoverBreaches({ fetch: globalThis.fetch, now, getDedup: memGet }),
-      scam: () => discoverScams({ fetch: globalThis.fetch, now, getDedup: memGet }),
-      aisec: () => discoverAiSec({ fetch: globalThis.fetch, now, getDedup: memGet }),
-      intel: () => discoverIntel({ fetch: globalThis.fetch, now, getDedup: memGet }),
-      briefing: () =>
-        env.BRIEFINGS_DB
-          ? discoverBriefing({ briefingsDb: env.BRIEFINGS_DB, now, getDedup: memGet })
-          : Promise.resolve([]),
-      // Platform data: uses the platform's own aggregated intelligence
-      // (ransomware.live, Telegram leaks, IOC trending, threat pulse)
-      // instead of external RSS feeds. Higher source weight because it's
-      // our own curated data.
-      platform: () =>
-        discoverFromPlatformData({
-          apiFetch: async (path) => {
-            const url = `${getSiteUrl(env)}${path}`;
-            const r = await globalThis.fetch(url);
-            if (!r.ok) return null;
-            return r.json();
-          },
-          now,
-          getDedup: memGet,
-        }),
-    },
+    runners,
     putCandidate: (c) => putCandidate(env.CASE_STUDIES, c),
     commitDedup: (keys, n) => touchDedupMany(env.CASE_STUDIES, keys, n),
     now,
