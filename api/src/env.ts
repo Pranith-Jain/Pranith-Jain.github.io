@@ -10,6 +10,8 @@ export interface Env {
    *  (so a parallel burst can't bypass the brute-force cap). Optional — the
    *  rate limiter degrades to the per-colo Cache/KV path when it is unbound. */
   CRON_LOCK_DO?: DurableObjectNamespace;
+  /** Report-generation pipeline DO (Copilot full-report builder). */
+  REPORT_BUILDER?: DurableObjectNamespace;
   BRIEFINGS_DB?: D1Database;
   /** Emergency valve for the external-read API-key gate. When set to the string
    *  `'true'` (a Worker secret, so it can be toggled without a redeploy),

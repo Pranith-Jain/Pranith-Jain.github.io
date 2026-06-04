@@ -1,6 +1,7 @@
 import apiApp from '../api/src/index';
 import { LiveFeedDO } from './durable-objects/live-feed';
 import { CronLockDO } from './durable-objects/cron-lock';
+import { ReportBuilderDO } from './durable-objects/report-builder';
 import { DfirMcpServer } from './mcp-server';
 import { generateNonce, withSecurityHeaders } from './csp';
 import { fetchPrerenderedOrShell } from './router';
@@ -9,7 +10,7 @@ import { handleQueue } from './queue-consumer';
 import { logStartupValidation } from './bindings';
 import type { Env } from './env';
 
-export { LiveFeedDO, DfirMcpServer, CronLockDO };
+export { LiveFeedDO, DfirMcpServer, CronLockDO, ReportBuilderDO };
 export type { Env };
 
 /** Origins permitted to open the live-feed WebSocket (same set the API trusts). */
