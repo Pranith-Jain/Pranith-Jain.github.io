@@ -19,6 +19,8 @@ import { otx } from '../../providers/otx';
 import { greynoise } from '../../providers/greynoise';
 import { urlscan } from '../../providers/urlscan';
 import { malwarebazaar } from '../../providers/malwarebazaar';
+import { vulncheck } from '../../providers/vulncheck';
+import { vulncheckCve } from '../vulncheck';
 import type { ProviderAdapter } from '../../providers/types';
 
 export interface GatherContext {
@@ -244,6 +246,21 @@ export const FETCHERS: Record<string, Fetcher> = {
   greynoise: providerFetcher(greynoise),
   urlscan: providerFetcher(urlscan),
   malwarebazaar: providerFetcher(malwarebazaar),
+  vulncheck: providerFetcher(vulncheck),
+
+  // VulnCheck CVE exploitation intel (cve template)
+  'vulncheck-cve': async (ctx, src) => {
+    if (ctx.subject.type !== 'cve') return base(src, 'empty');
+    const token = ctx.env.VULNCHECK_API_TOKEN;
+    if (!token) return base(src, 'empty');
+    const vc = await vulncheckCve(token, ctx.subject.canonical, ctx.signal);
+    if (!vc) return base(src, 'error');
+    if (!vc.exploited) return base(src, 'empty');
+    const text = `VulnCheck: ${vc.cve} has real-world exploitation intel (${vc.records} record(s))${vc.reported.length ? ` · reported by ${vc.reported.join(', ')}` : ''}.`;
+    return base(src, 'ok', [
+      { text, fields: { kind: 'vulncheck', exploited: true, records: vc.records, reported: vc.reported } },
+    ]);
+  },
 };
 
 // Shared CVE fetcher (nvd/epss/kev all resolve from one lookupCve call).

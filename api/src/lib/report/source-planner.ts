@@ -36,6 +36,7 @@ export const SOURCE_CATALOG: Record<TemplateId, SourceDescriptor[]> = {
     { id: 'epss', name: 'EPSS', kind: 'live', authority: 'A', cost: 1 },
     { id: 'kev', name: 'CISA KEV', kind: 'live', authority: 'A', cost: 1 },
     { id: 'shodan-cvedb', name: 'Shodan CVEDB', kind: 'live', authority: 'B', cost: 2 },
+    { id: 'vulncheck-cve', name: 'VulnCheck Exploitation', kind: 'live', authority: 'A', cost: 1 },
   ],
   ioc: [
     { id: 'live-iocs', name: 'Live IOCs', kind: 'cache', authority: 'C', cost: 0 },
@@ -47,6 +48,7 @@ export const SOURCE_CATALOG: Record<TemplateId, SourceDescriptor[]> = {
     { id: 'otx', name: 'AlienVault OTX', kind: 'live', authority: 'C', cost: 1 },
     { id: 'urlscan', name: 'URLScan', kind: 'live', authority: 'C', cost: 1 },
     { id: 'malwarebazaar', name: 'MalwareBazaar', kind: 'live', authority: 'A', cost: 1 },
+    { id: 'vulncheck', name: 'VulnCheck IP Intel', kind: 'live', authority: 'A', cost: 1 },
   ],
 };
 
