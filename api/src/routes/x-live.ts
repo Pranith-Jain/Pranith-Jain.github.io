@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { readLastGood, writeLastGood } from '../lib/lastgood';
 
 /**
  * Live X (Twitter) feed for cybersec researchers — hybrid pipeline:
@@ -388,34 +389,27 @@ export async function xLiveHandler(c: Context<{ Bindings: Env }>): Promise<Respo
   };
 
   // Persist successful responses in KV so we have a fallback when the live
-  // pipeline produces empty results (fxtwitter down / rate-limited).
+  // pipeline produces empty results (fxtwitter down / rate-limited). Debounced
+  // via the shared lastgood write helper (1 KV write / 6h / colo / key) so a
+  // busy public endpoint doesn't burn write quota on every successful fetch.
   if (items.length > 0) {
-    const kv = (c.env as { KV_CACHE?: KVNamespace }).KV_CACHE;
-    if (kv) {
-      c.executionCtx.waitUntil(
-        kv.put(KV_FALLBACK_KEY, JSON.stringify(body), { expirationTtl: 86_400 }).catch(() => undefined)
-      );
-    }
+    c.executionCtx.waitUntil(
+      writeLastGood(c.env, KV_FALLBACK_KEY, body, { ttlSeconds: 86_400, keyPrefix: '' }).catch(() => undefined)
+    );
   }
 
-  // When the live pipeline returned nothing, try KV fallback before serving
-  // empty data. Avoids the 10-min cache poisoning window where a transient
-  // fxtwitter outage causes repeated empty responses.
+  // When the live pipeline returned nothing, try the cross-colo lastgood
+  // fallback before serving empty data. Avoids the 10-min cache poisoning
+  // window where a transient fxtwitter outage causes repeated empty responses.
+  // `readLastGood` shadow-caches the value in `caches.default` so a cold start
+  // is the only KV read; the rest are free cache hits.
   if (items.length === 0 && lookedUp > 0) {
-    const kv = (c.env as { KV_CACHE?: KVNamespace }).KV_CACHE;
-    if (kv) {
-      try {
-        const raw = await kv.get(KV_FALLBACK_KEY);
-        if (raw) {
-          const fallback = JSON.parse(raw) as XLiveResponse;
-          fallback.stale = true;
-          fallback.generated_at = new Date().toISOString();
-          fallback.since_hours = sinceHours;
-          body = fallback;
-        }
-      } catch {
-        /* KV error — serve the empty response */
-      }
+    const fallback = await readLastGood<XLiveResponse>(c.env, KV_FALLBACK_KEY, { keyPrefix: '' });
+    if (fallback && fallback.items.length > 0) {
+      fallback.stale = true;
+      fallback.generated_at = new Date().toISOString();
+      fallback.since_hours = sinceHours;
+      body = fallback;
     }
   }
 

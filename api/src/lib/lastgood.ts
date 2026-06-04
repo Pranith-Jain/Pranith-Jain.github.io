@@ -63,8 +63,17 @@ async function writeShadow<T>(cache: Cache, key: string, value: T): Promise<void
  * Read the global last-good payload for `key`, or null if none / KV absent /
  * read error. Never throws — a missing fallback degrades to the caller's own
  * empty-state handling.
+ *
+ * `keyPrefix` defaults to `'lastgood:v1:'` for the canonical keys used by the
+ * PIR feed and briefing builder. Pass `''` to use the key as the full KV key
+ * verbatim — for legacy lastgood slots whose names already encode their own
+ * namespacing (e.g. `cybercrime/af-datamarkets-lastgood/v1`).
  */
-export async function readLastGood<T>(env: Env, key: string): Promise<T | null> {
+export async function readLastGood<T>(
+  env: Pick<Env, 'KV_CACHE'>,
+  key: string,
+  opts: { keyPrefix?: string } = {}
+): Promise<T | null> {
   if (!env.KV_CACHE) return null;
   const cache = cacheApi();
   if (cache) {
@@ -75,8 +84,9 @@ export async function readLastGood<T>(env: Env, key: string): Promise<T | null> 
       /* fall through to KV */
     }
   }
+  const fullKey = `${opts.keyPrefix ?? KEY_PREFIX}${key}`;
   try {
-    const value = (await env.KV_CACHE.get(`${KEY_PREFIX}${key}`, 'json')) as T | null;
+    const value = (await env.KV_CACHE.get(fullKey, 'json')) as T | null;
     // Populate the shadow so the next read (this colo) is a cache hit, not a KV
     // read. Only cache real values — a null means "no fallback yet", and caching
     // that would mask a value written by another colo for up to the TTL.
@@ -96,19 +106,23 @@ export async function readLastGood<T>(env: Env, key: string): Promise<T | null> 
  * like a cron precompute that runs on a fixed cadence and should always refresh
  * the global copy (the debounce only exists to throttle request-path writes).
  *
+ * `keyPrefix` defaults to `'lastgood:v1:'`. Pass `''` to use the key verbatim
+ * for legacy lastgood slots (see `readLastGood`).
+ *
  * Returns true when a write was actually issued (debounce cold), false when it
  * was skipped or KV is unavailable — useful for logging/tests.
  */
 export async function writeLastGood<T>(
-  env: Env,
+  env: Pick<Env, 'KV_CACHE'>,
   key: string,
   value: T,
-  opts: { ttlSeconds?: number; debounceTtlSeconds?: number; force?: boolean } = {}
+  opts: { ttlSeconds?: number; debounceTtlSeconds?: number; force?: boolean; keyPrefix?: string } = {}
 ): Promise<boolean> {
   if (!env.KV_CACHE) return false;
+  const fullKey = `${opts.keyPrefix ?? KEY_PREFIX}${key}`;
   try {
     if (!opts.force && !(await shouldWriteLastGood(`lastgood:${key}`, opts.debounceTtlSeconds))) return false;
-    await env.KV_CACHE.put(`${KEY_PREFIX}${key}`, JSON.stringify(value), {
+    await env.KV_CACHE.put(fullKey, JSON.stringify(value), {
       expirationTtl: opts.ttlSeconds ?? DEFAULT_TTL_SECONDS,
     });
     // Write-through the per-colo shadow so reads stay coherent with KV (a fresh

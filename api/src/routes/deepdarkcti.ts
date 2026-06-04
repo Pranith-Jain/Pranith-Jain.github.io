@@ -3,6 +3,7 @@ import type { Env } from '../env';
 import { fetchResilient } from '../lib/fetch-resilient';
 import { DDC_FILES, parseDDCFile, type DDCEntry, type DDCFileConfig } from '../lib/deepdarkcti-parser';
 import { shouldWriteLastGood } from '../lib/lastgood-debounce';
+import { readLastGood } from '../lib/lastgood';
 
 /** Exported so /api/v1/feed-status can read the same cached payload directly. */
 export const DEEPDARKCTI_CACHE_KEY = 'https://deepdarkcti-cache.internal/v1';
@@ -40,10 +41,14 @@ function lastGoodKey(file: string): string {
 
 async function fetchFile(cfg: DDCFileConfig): Promise<string | null> {
   try {
-    const res = await fetchResilient(`${RAW_BASE}/${cfg.file}`, {
-      headers: { 'user-agent': 'pranithjain-dfir/1.0', accept: 'text/plain, */*' },
-      cf: { cacheTtl: CACHE_TTL_SECONDS, cacheEverything: true },
-    } as RequestInit, { attempts: 3, timeoutMs: FETCH_TIMEOUT_MS });
+    const res = await fetchResilient(
+      `${RAW_BASE}/${cfg.file}`,
+      {
+        headers: { 'user-agent': 'pranithjain-dfir/1.0', accept: 'text/plain, */*' },
+        cf: { cacheTtl: CACHE_TTL_SECONDS, cacheEverything: true },
+      } as RequestInit,
+      { attempts: 3, timeoutMs: FETCH_TIMEOUT_MS }
+    );
     if (!res.ok) return null;
     return await res.text();
   } catch {
@@ -85,21 +90,18 @@ async function resolveFile(
   // Fetch failed → restore last-good if present.
   if (kv) {
     try {
-      const rawLg = await kv.get(lastGoodKey(cfg.file));
-      if (rawLg) {
-        const lg = JSON.parse(rawLg) as LastGoodSlice;
-        if (Array.isArray(lg.entries) && lg.entries.length > 0) {
-          return {
-            entries: lg.entries,
-            result: {
-              source_file: cfg.file,
-              ok: false,
-              count: lg.entries.length,
-              total_seen: lg.entries.length,
-              stale: true,
-            },
-          };
-        }
+      const lg = await readLastGood<LastGoodSlice>({ KV_CACHE: kv }, lastGoodKey(cfg.file), { keyPrefix: '' });
+      if (lg && Array.isArray(lg.entries) && lg.entries.length > 0) {
+        return {
+          entries: lg.entries,
+          result: {
+            source_file: cfg.file,
+            ok: false,
+            count: lg.entries.length,
+            total_seen: lg.entries.length,
+            stale: true,
+          },
+        };
       }
     } catch {
       /* fall through */

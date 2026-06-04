@@ -4,6 +4,7 @@ import { fetchResilient } from '../lib/fetch-resilient';
 import { safeIso } from '../lib/safe-date';
 import { CYBERCRIME_SOURCES, type CybercrimeSource } from '../lib/cybercrime-sources';
 import { shouldWriteLastGood } from '../lib/lastgood-debounce';
+import { readLastGood } from '../lib/lastgood';
 import { fetchAFDatamarkets } from '../lib/andreafortuna-feeds';
 
 /**
@@ -297,14 +298,13 @@ export async function fetchCybercrime(
     );
   } else if (!afOk && kv) {
     try {
-      const raw = await kv.get(AF_DATAMARKETS_LASTGOOD_KEY);
-      if (raw) {
-        const parsed = JSON.parse(raw) as { items: typeof afItems };
-        if (Array.isArray(parsed.items) && parsed.items.length > 0) {
-          afItems = parsed.items;
-          afOk = true;
-          afStale = true;
-        }
+      const parsed = await readLastGood<{ items: typeof afItems }>({ KV_CACHE: kv }, AF_DATAMARKETS_LASTGOOD_KEY, {
+        keyPrefix: '',
+      });
+      if (parsed && Array.isArray(parsed.items) && parsed.items.length > 0) {
+        afItems = parsed.items;
+        afOk = true;
+        afStale = true;
       }
     } catch {
       /* leave afOk = false */

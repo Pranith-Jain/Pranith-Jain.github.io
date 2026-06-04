@@ -2,6 +2,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import type { D1Database, Queue } from '@cloudflare/workers-types';
 import { shouldWriteLastGood } from '../lib/lastgood-debounce';
+import { readLastGood } from '../lib/lastgood';
 import { concurrentMap } from '../lib/concurrent-map';
 import { readSlice, type FeedQueueMessage } from '../lib/live-iocs-slices';
 import {
@@ -426,14 +427,15 @@ const andreafortunaSource: FeedSource = {
       );
     } else if (!afDefacementsOk && kv) {
       try {
-        const raw = await kv.get(AF_DEFACEMENTS_LASTGOOD_KEY);
-        if (raw) {
-          const parsed = JSON.parse(raw) as { items: typeof afDefacements };
-          if (Array.isArray(parsed.items) && parsed.items.length > 0) {
-            afDefacements = parsed.items;
-            afDefacementsOk = true;
-            afDefacementsStale = true;
-          }
+        const parsed = await readLastGood<{ items: typeof afDefacements }>(
+          { KV_CACHE: kv },
+          AF_DEFACEMENTS_LASTGOOD_KEY,
+          { keyPrefix: '' }
+        );
+        if (parsed && Array.isArray(parsed.items) && parsed.items.length > 0) {
+          afDefacements = parsed.items;
+          afDefacementsOk = true;
+          afDefacementsStale = true;
         }
       } catch {
         /* leave ok = false */
@@ -898,23 +900,26 @@ export async function fetchLiveIocs(
   return finalizeLiveIocs(items, sources, env);
 }
 
-// KV reads are cheap, so compose can fan over the slices wider than the
-// upstream fetch fan-out.
+// Cache API reads are free and parallel, so compose can fan over the slices
+// wider than the upstream fetch fan-out.
 const SLICE_READ_CONCURRENCY = 12;
 
 /**
- * Compose the live-IOC response from the per-source KV slices instead of the
- * synchronous fan-out. Reads every registry slice in parallel, flattens them
- * in FEED_SOURCE_IDS order (so finalize's stable sort + recount behave exactly
- * as the sync path), and flags `extraDegraded` when any slice is missing.
- * Returns the response plus the number of slices present, so the caller can
- * fall back to the synchronous fan-out on a cold start (no slices yet).
+ * Compose the live-IOC response from the per-source Cache API slices instead of
+ * the synchronous fan-out. Reads every registry slice in parallel, flattens
+ * them in FEED_SOURCE_IDS order (so finalize's stable sort + recount behave
+ * exactly as the sync path), and flags `extraDegraded` when any slice is
+ * missing. Returns the response plus the number of slices present, so the
+ * caller can fall back to the synchronous fan-out on a cold start (no slices
+ * yet, or an empty compose).
+ *
+ * Slices live in the per-colo Cache API (free, not counted against the KV
+ * write quota) — see `api/src/lib/live-iocs-slices.ts` for the budget
+ * reasoning. Cold-colo misses return null; the response flags `extraDegraded`
+ * and the caller falls through to the synchronous fan-out.
  */
-export async function composeLiveIocs(
-  kv: KVNamespace,
-  env?: Env
-): Promise<{ response: LiveIocsResponse; presentSlices: number }> {
-  const slices = await concurrentMap(FEED_SOURCE_IDS, (id) => readSlice(kv, id), SLICE_READ_CONCURRENCY);
+export async function composeLiveIocs(env?: Env): Promise<{ response: LiveIocsResponse; presentSlices: number }> {
+  const slices = await concurrentMap(FEED_SOURCE_IDS, (id) => readSlice(id), SLICE_READ_CONCURRENCY);
   const items: LiveIoc[] = [];
   const sources: LiveSource[] = [];
   let presentSlices = 0;
@@ -939,32 +944,71 @@ export async function enqueueAllFeeds(queue: Queue<FeedQueueMessage>): Promise<v
 
 const ENQUEUE_COOLDOWN_KEY = 'live-iocs:enqueue-cooldown';
 const ENQUEUE_COOLDOWN_SECONDS = 5 * 60;
+// Per-colo shadow of the KV cooldown marker. `caches.default` is free and
+// fast, so we only do the KV read on a miss (1 per cooldown per colo instead
+// of 1 per page request). The shadow TTL equals the cooldown TTL, so a stale
+// "cooling down" answer can only ever delay — never cause a runaway enqueue.
+const ENQUEUE_COOLDOWN_SHADOW = new Request('https://live-iocs-enqueue-cooldown-shadow.internal/v1');
 
 /**
  * Enqueue a slice refresh, debounced via a short KV cooldown so a burst of
- * cache misses (per-PoP caches miss independently) doesn't re-enqueue the full
- * source set every request. The cooldown is written only AFTER a successful
- * enqueue, so a failed sendBatch doesn't lock out retries for the window. The
- * get-then-put isn't atomic, but a redundant enqueue just re-refreshes
- * idempotent slices, so the race is harmless.
+ * hits doesn't fire 33 fan-out fetches per source. Re-checks the KV marker
+ * for cross-colo coordination, but caches the result in `caches.default` for
+ * `ENQUEUE_COOLDOWN_SECONDS` so a hot path is a cache hit, not a KV read.
  */
+async function isEnqueueCoolingDown(kv: KVNamespace | undefined): Promise<boolean> {
+  if (!kv) return false;
+  const cache = (caches as unknown as { default: Cache }).default;
+  if (cache) {
+    try {
+      if (await cache.match(ENQUEUE_COOLDOWN_SHADOW)) return true;
+    } catch {
+      /* fall through to KV */
+    }
+  }
+  const fresh = await kv.get(ENQUEUE_COOLDOWN_KEY).catch(() => null);
+  if (cache && fresh) {
+    try {
+      await cache.put(
+        ENQUEUE_COOLDOWN_SHADOW,
+        new Response('1', { headers: { 'cache-control': `max-age=${ENQUEUE_COOLDOWN_SECONDS}` } })
+      );
+    } catch {
+      /* best-effort — a miss just falls back to KV next time */
+    }
+  }
+  return !!fresh;
+}
+
 async function maybeEnqueueAllFeeds(
   queue: Queue<FeedQueueMessage> | undefined,
   kv: KVNamespace | undefined
 ): Promise<void> {
   if (!queue) return;
-  if (kv && (await kv.get(ENQUEUE_COOLDOWN_KEY))) return;
+  if (await isEnqueueCoolingDown(kv)) return;
   await enqueueAllFeeds(queue);
   if (kv) {
     await kv.put(ENQUEUE_COOLDOWN_KEY, new Date().toISOString(), { expirationTtl: ENQUEUE_COOLDOWN_SECONDS });
+    const cache = (caches as unknown as { default: Cache }).default;
+    if (cache) {
+      try {
+        await cache.put(
+          ENQUEUE_COOLDOWN_SHADOW,
+          new Response('1', { headers: { 'cache-control': `max-age=${ENQUEUE_COOLDOWN_SECONDS}` } })
+        );
+      } catch {
+        /* best-effort */
+      }
+    }
   }
 }
 
 /**
- * Build the response body for a cache miss / revalidation: compose from the KV
- * slices and warm them (debounced) for next time. Falls back to the synchronous
- * fan-out only on a true cold start (no slices present yet), so the page is
- * never empty before the producer has run.
+ * Build the response body for a cache miss / revalidation: compose from the
+ * per-colo Cache API slices and warm them (debounced) for next time. Falls
+ * back to the synchronous fan-out only on a true cold start (no slices present
+ * yet, or an empty compose), so the page is never empty before the producer
+ * has run.
  */
 async function composeOrFallback(c: Context<{ Bindings: Env }>): Promise<LiveIocsResponse> {
   const kv = c.env.KV_CACHE;
@@ -979,14 +1023,12 @@ async function composeOrFallback(c: Context<{ Bindings: Env }>): Promise<LiveIoc
       )
     )
   );
-  if (kv) {
-    const { response, presentSlices } = await composeLiveIocs(kv, c.env);
-    // Serve the composed response when slices exist AND it isn't empty. An empty
-    // compose (e.g. the only present slices are timestamped and all their items
-    // aged out) falls through to the sync fan-out so the page is never blank.
-    if (presentSlices > 0 && response.total > 0) return response;
-  }
-  // Cold start (no KV, zero slices, or an empty compose) — synchronous fan-out.
+  const { response, presentSlices } = await composeLiveIocs(c.env);
+  // Serve the composed response when slices exist AND it isn't empty. An empty
+  // compose (e.g. the only present slices are timestamped and all their items
+  // aged out) falls through to the sync fan-out so the page is never blank.
+  if (presentSlices > 0 && response.total > 0) return response;
+  // Cold start (zero slices, or an empty compose) — synchronous fan-out.
   return fetchLiveIocs(c.executionCtx, kv, c.env);
 }
 

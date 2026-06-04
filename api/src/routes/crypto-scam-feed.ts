@@ -2,6 +2,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { fetchResilient } from '../lib/fetch-resilient';
 import { shouldWriteLastGood } from '../lib/lastgood-debounce';
+import { readLastGood } from '../lib/lastgood';
 
 /**
  * Crypto-scam / crypto-phishing domain feed.
@@ -115,16 +116,10 @@ function parseItems(raw: RawFeed): CryptoScamItem[] {
   return out;
 }
 
-async function readLastGood(kv: KVNamespace | undefined): Promise<CryptoScamItem[] | null> {
-  if (!kv) return null;
-  try {
-    const raw = await kv.get(LASTGOOD_KEY);
-    if (!raw) return null;
-    const parsed = JSON.parse(raw) as LastGoodSlice;
-    return Array.isArray(parsed.items) && parsed.items.length > 0 ? parsed.items : null;
-  } catch {
-    return null;
-  }
+async function readLastGoodSlice(env: Env): Promise<CryptoScamItem[] | null> {
+  const parsed = await readLastGood<LastGoodSlice>(env, LASTGOOD_KEY, { keyPrefix: '' });
+  if (!parsed) return null;
+  return Array.isArray(parsed.items) && parsed.items.length > 0 ? parsed.items : null;
 }
 
 function writeLastGood(
@@ -176,7 +171,7 @@ export async function fetchCryptoScam(
   if (items.length > 0) {
     writeLastGood(kv, items, executionCtx);
   } else {
-    const restored = await readLastGood(kv);
+    const restored = await readLastGoodSlice({ KV_CACHE: kv } as unknown as Env);
     if (restored) {
       items = restored;
       stale = true;

@@ -191,3 +191,41 @@ describe('lastgood + withLastGood integration', () => {
     expect(got).toEqual(original);
   });
 });
+
+describe('readLastGood / writeLastGood with custom keyPrefix', () => {
+  // Several routes (x-live, cybercrime, live-iocs AF, crypto-scam-feed,
+  // deepdarkcti) carry their own namespacing in the key already
+  // (e.g. 'cybercrime/af-datamarkets-lastgood/v1'). They use keyPrefix: ''
+  // to use the key verbatim — no double-namespace under 'lastgood:v1:'.
+  it('keyPrefix: "" writes under the literal key (no lastgood:v1: prefix)', async () => {
+    const kv = makeKV();
+    const env = makeEnv(kv);
+    await writeLastGood(env, 'cybercrime/af-datamarkets-lastgood/v1', { n: 1 }, { keyPrefix: '', force: true });
+    expect(kv.store.has('lastgood:v1:cybercrime/af-datamarkets-lastgood/v1')).toBe(false);
+    expect(kv.store.has('cybercrime/af-datamarkets-lastgood/v1')).toBe(true);
+  });
+
+  it('keyPrefix: "" round-trips a read of a literal-key write', async () => {
+    const kv = makeKV();
+    const env = makeEnv(kv);
+    await writeLastGood(env, 'x-live:fallback:v1', { items: [1, 2] }, { keyPrefix: '', force: true });
+    const got = await readLastGood<{ items: number[] }>(env, 'x-live:fallback:v1', { keyPrefix: '' });
+    expect(got).toEqual({ items: [1, 2] });
+  });
+
+  it('default keyPrefix still namespaced (no cross-talk with literal keys)', async () => {
+    const kv = makeKV();
+    const env = makeEnv(kv);
+    // Distinct key names per write — sharing one name across the shadow would
+    // hit the write-through cache from the second write, masking the test.
+    await writeLastGood(env, 'k-default', { tag: 'default' }, { force: true });
+    await writeLastGood(env, 'k-literal', { tag: 'literal' }, { keyPrefix: '', force: true });
+    expect(await readLastGood<{ tag: string }>(env, 'k-default')).toEqual({ tag: 'default' });
+    expect(await readLastGood<{ tag: string }>(env, 'k-literal', { keyPrefix: '' })).toEqual({
+      tag: 'literal',
+    });
+    // The literal write must not have leaked into the namespaced namespace.
+    expect(kv.store.has('lastgood:v1:k-literal')).toBe(false);
+    expect(kv.store.has('k-literal')).toBe(true);
+  });
+});
