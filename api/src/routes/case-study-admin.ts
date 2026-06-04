@@ -530,6 +530,30 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     }
   });
 
+  // Which posts already have social copy (and for which platform), from ONE
+  // KV.list of social:* key-NAMES — so the Published tab sets button state
+  // without a per-post /social fetch (was 3 KV reads × N posts on every load).
+  admin.get('/social-index', async (c) => {
+    const ns = c.env.CASE_STUDIES;
+    const index: Record<string, { twitter: boolean; linkedin: boolean }> = {};
+    const mark = (slug: string, patch: Partial<{ twitter: boolean; linkedin: boolean }>) => {
+      index[slug] = { twitter: false, linkedin: false, ...index[slug], ...patch };
+    };
+    let cursor: string | undefined;
+    for (let page = 0; page < 10; page += 1) {
+      const res = await ns.list({ prefix: 'social:', cursor });
+      for (const k of res.keys) {
+        const rest = k.name.slice('social:'.length); // <slug> | <slug>:twitter | <slug>:linkedin
+        if (rest.endsWith(':twitter')) mark(rest.slice(0, -':twitter'.length), { twitter: true });
+        else if (rest.endsWith(':linkedin')) mark(rest.slice(0, -':linkedin'.length), { linkedin: true });
+        else if (rest && !rest.includes(':')) mark(rest, { twitter: true, linkedin: true });
+      }
+      if (res.list_complete) break;
+      cursor = res.cursor;
+    }
+    return c.json({ index });
+  });
+
   admin.get('/social/:slug', async (c) => {
     const slug = c.req.param('slug');
     if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);

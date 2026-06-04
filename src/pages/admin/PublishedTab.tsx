@@ -44,6 +44,10 @@ interface SocialEntry {
   loadingLinkedin: boolean;
   data: SocialContent | null;
   error: string | null;
+  // Per-platform presence from the cheap /social-index list, so button state
+  // doesn't need the full per-post /social fetch on load.
+  hasTwitter: boolean;
+  hasLinkedin: boolean;
 }
 
 type SocialState = Record<string, SocialEntry>;
@@ -65,18 +69,26 @@ export default function PublishedTab() {
     try {
       const d = await getJson<{ posts: PostEntry[] }>('/posts');
       setPosts(d.posts);
+      // ONE /social-index list call instead of a /social fetch per post (each
+      // of which read 3 KV keys). Full content is fetched lazily on expand.
+      let idx: Record<string, { twitter: boolean; linkedin: boolean }> = {};
+      try {
+        idx = (await getJson<{ index: Record<string, { twitter: boolean; linkedin: boolean }> }>('/social-index'))
+          .index;
+      } catch {
+        /* index is optional */
+      }
       const initial: SocialState = {};
-      await Promise.all(
-        d.posts.map(async (p) => {
-          initial[p.slug] = { loadingTwitter: false, loadingLinkedin: false, data: null, error: null };
-          try {
-            const r = await getJson<{ ok: boolean; social: SocialContent }>(`/social/${encodeURIComponent(p.slug)}`);
-            if (r.ok) initial[p.slug] = { loadingTwitter: false, loadingLinkedin: false, data: r.social, error: null };
-          } catch {
-            /* social data is optional */
-          }
-        })
-      );
+      for (const p of d.posts) {
+        initial[p.slug] = {
+          loadingTwitter: false,
+          loadingLinkedin: false,
+          data: null,
+          error: null,
+          hasTwitter: idx[p.slug]?.twitter ?? false,
+          hasLinkedin: idx[p.slug]?.linkedin ?? false,
+        };
+      }
       setSocial(initial);
     } catch (e) {
       setError(e instanceof Error ? e.message : 'failed to load');
@@ -110,6 +122,24 @@ export default function PublishedTab() {
     setExpanded(slug);
   }
 
+  // Lazy-load the full social content the first time a row is expanded (the
+  // list view only knows per-platform presence, not the copy itself).
+  async function viewSocial(slug: string) {
+    if (expanded === slug) {
+      setExpanded(null);
+      return;
+    }
+    if (!social[slug]?.data) {
+      try {
+        const r = await getJson<{ ok: boolean; social: SocialContent }>(`/social/${encodeURIComponent(slug)}`);
+        if (r.ok) setSocial((prev) => ({ ...prev, [slug]: { ...prev[slug], data: r.social } as SocialEntry }));
+      } catch {
+        /* social content is optional */
+      }
+    }
+    setExpanded(slug);
+  }
+
   async function generateTwitter(slug: string) {
     setSocial((prev) => ({ ...prev, [slug]: { ...prev[slug], loadingTwitter: true, error: null } }));
     try {
@@ -130,7 +160,7 @@ export default function PublishedTab() {
             const existing = prev[slug]?.data ?? { slug, twitter: '', linkedin: '', generatedAt: r.generatedAt };
             return {
               ...prev,
-              [slug]: { ...prev[slug], data: { ...existing, twitter: r.content }, error: null },
+              [slug]: { ...prev[slug], data: { ...existing, twitter: r.content }, error: null, hasTwitter: true },
             };
           });
         }
@@ -162,7 +192,7 @@ export default function PublishedTab() {
             const existing = prev[slug]?.data ?? { slug, twitter: '', linkedin: '', generatedAt: r.generatedAt };
             return {
               ...prev,
-              [slug]: { ...prev[slug], data: { ...existing, linkedin: r.content }, error: null },
+              [slug]: { ...prev[slug], data: { ...existing, linkedin: r.content }, error: null, hasLinkedin: true },
             };
           });
         }
@@ -223,8 +253,8 @@ export default function PublishedTab() {
           <tbody>
             {posts.map((p) => {
               const s = social[p.slug];
-              const hasTwitter = !!s?.data?.twitter;
-              const hasLinkedin = !!s?.data?.linkedin;
+              const hasTwitter = !!s?.hasTwitter;
+              const hasLinkedin = !!s?.hasLinkedin;
               const hasAny = hasTwitter || hasLinkedin;
               const isExpanded = expanded === p.slug;
               return (
@@ -262,7 +292,7 @@ export default function PublishedTab() {
                       </button>
                       {hasAny && (
                         <button
-                          onClick={() => setExpanded(isExpanded ? null : p.slug)}
+                          onClick={() => void viewSocial(p.slug)}
                           className="px-2 py-1 border border-slate-700 rounded text-xs hover:bg-slate-800"
                         >
                           {isExpanded ? 'Hide' : 'View'}

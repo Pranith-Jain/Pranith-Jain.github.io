@@ -247,6 +247,17 @@ describe('admin routes', () => {
     expect(sched.find((s: any) => s.candidateId === 'live').status).toBe('published');
   });
 
+  it('social-index reports per-platform presence from one list (no per-post fan-out)', async () => {
+    const env = mockEnv();
+    env.__store.set('social:post-a', JSON.stringify({ slug: 'post-a', twitter: 't', linkedin: 'l', generatedAt: '' }));
+    env.__store.set('social:post-b:twitter', 'just twitter');
+    const r = await app().request('/api/v1/admin/social-index', { headers: hdr }, env);
+    expect(r.status).toBe(200);
+    const idx = ((await r.json()) as any).index;
+    expect(idx['post-a']).toEqual({ twitter: true, linkedin: true });
+    expect(idx['post-b']).toEqual({ twitter: true, linkedin: false });
+  });
+
   it('social-schedule: rejects an unknown platform with 400', async () => {
     const env = mockEnv();
     const r = await app().request(
