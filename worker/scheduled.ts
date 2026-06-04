@@ -609,9 +609,16 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
   }
 
   // === Dedicated briefings cron path ===
-  if (cron !== '30 0 * * *' && cron !== '45 0 * * 1' && cron !== '30 2 1 * *') return;
+  if (cron !== '30 0 * * *' && cron !== '45 0 * * 1' && cron !== '30 2 1 * *') {
+    // Unknown cron string — release the lease immediately so a stale entry
+    // doesn't block a future (legitimate) fire of the same string for the
+    // full TTL window.
+    await releaseLease();
+    return;
+  }
   if (!env.BRIEFINGS_DB) {
     console.warn('scheduled: BRIEFINGS_DB not bound, skipping');
+    await releaseLease();
     return;
   }
 
