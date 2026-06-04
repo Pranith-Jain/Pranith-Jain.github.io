@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { getJson, postJson, postJsonWithBody } from './adminApi';
 import { bestTimeHint, type SocialPlatform } from './socialHints';
+import { splitSocial } from '../../lib/social-parts';
 
 interface ScheduleEntry {
   scheduledAt?: string;
@@ -173,10 +174,6 @@ export default function PublishedTab() {
     }
   }
 
-  function copyText(text: string) {
-    navigator.clipboard.writeText(text).catch(() => {});
-  }
-
   if (loading) return <p className="text-slate-400">Loading…</p>;
   if (error)
     return (
@@ -291,7 +288,6 @@ export default function PublishedTab() {
       {expanded && social[expanded]?.data && (
         <SocialContentPanel
           data={social[expanded].data!}
-          onCopy={copyText}
           onClose={() => setExpanded(null)}
           onRegenTwitter={() => generateTwitter(expanded)}
           onRegenLinkedin={() => generateLinkedin(expanded)}
@@ -311,7 +307,6 @@ export default function PublishedTab() {
 
 function SocialContentPanel({
   data,
-  onCopy,
   onClose,
   onRegenTwitter,
   onRegenLinkedin,
@@ -319,21 +314,12 @@ function SocialContentPanel({
   regenLinkedinBusy,
 }: {
   data: SocialContent;
-  onCopy: (t: string) => void;
   onClose: () => void;
   onRegenTwitter: () => void;
   onRegenLinkedin: () => void;
   regenTwitterBusy: boolean;
   regenLinkedinBusy: boolean;
 }) {
-  const [copyMsg, setCopyMsg] = useState<'twitter' | 'linkedin' | null>(null);
-
-  function copy(label: 'twitter' | 'linkedin') {
-    onCopy(data[label]);
-    setCopyMsg(label);
-    setTimeout(() => setCopyMsg(null), 1500);
-  }
-
   return (
     <div className="mt-6 rounded border border-slate-700 p-4">
       <div className="flex items-center justify-between mb-4">
@@ -346,55 +332,95 @@ function SocialContentPanel({
 
       <SchedulePanel slug={data.slug} />
 
-      <div className="mb-6">
-        <div className="flex items-center justify-between mb-2">
-          <h4 className="text-xs font-semibold uppercase tracking-wider text-blue-400">Twitter Thread</h4>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={onRegenTwitter}
-              disabled={regenTwitterBusy}
-              className="text-[10px] uppercase tracking-wider text-slate-500 hover:text-slate-300 disabled:opacity-50"
-              title="Regenerate"
-            >
-              {regenTwitterBusy ? '…' : 'Regenerate'}
-            </button>
-            <button
-              onClick={() => copy('twitter')}
-              className="px-2 py-1 border border-slate-700 rounded text-xs hover:bg-slate-800"
-            >
-              {copyMsg === 'twitter' ? 'Copied!' : 'Copy'}
-            </button>
-          </div>
-        </div>
-        <pre className="bg-slate-900 rounded p-3 text-xs text-slate-300 whitespace-pre-wrap font-mono leading-relaxed max-h-80 overflow-y-auto">
-          {data.twitter}
-        </pre>
-      </div>
+      <SocialSection
+        heading="Twitter Thread"
+        text={data.twitter}
+        onRegen={onRegenTwitter}
+        regenBusy={regenTwitterBusy}
+      />
+      <SocialSection
+        heading="LinkedIn Post"
+        text={data.linkedin}
+        onRegen={onRegenLinkedin}
+        regenBusy={regenLinkedinBusy}
+      />
+    </div>
+  );
+}
 
-      <div>
-        <div className="flex items-center justify-between mb-2">
-          <h4 className="text-xs font-semibold uppercase tracking-wider text-blue-400">LinkedIn Post</h4>
-          <div className="flex items-center gap-2">
+/** One platform's generated copy, with the link + carousel blocks split out so
+ *  each can be copied separately — the link must go in the first comment/reply,
+ *  not the post body, so you never paste it into the post itself. */
+function SocialSection({
+  heading,
+  text,
+  onRegen,
+  regenBusy,
+}: {
+  heading: string;
+  text: string;
+  onRegen: () => void;
+  regenBusy: boolean;
+}) {
+  const parts = splitSocial(text);
+  const [copied, setCopied] = useState<string | null>(null);
+  function copy(key: string, value: string) {
+    navigator.clipboard.writeText(value).catch(() => {});
+    setCopied(key);
+    setTimeout(() => setCopied(null), 1500);
+  }
+  return (
+    <div className="mb-6 last:mb-0">
+      <div className="flex items-center justify-between mb-2">
+        <h4 className="text-xs font-semibold uppercase tracking-wider text-blue-400">{heading}</h4>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={onRegen}
+            disabled={regenBusy}
+            className="text-[10px] uppercase tracking-wider text-slate-500 hover:text-slate-300 disabled:opacity-50"
+            title="Regenerate"
+          >
+            {regenBusy ? '…' : 'Regenerate'}
+          </button>
+          <button
+            onClick={() => copy('body', parts.body)}
+            className="px-2 py-1 border border-slate-700 rounded text-xs hover:bg-slate-800"
+          >
+            {copied === 'body' ? 'Copied!' : 'Copy post'}
+          </button>
+        </div>
+      </div>
+      <pre className="bg-slate-900 rounded p-3 text-xs text-slate-300 whitespace-pre-wrap font-mono leading-relaxed max-h-80 overflow-y-auto">
+        {parts.body}
+      </pre>
+      {parts.link && (
+        <div className="mt-2 flex flex-wrap items-center gap-2 text-xs">
+          <span className="text-slate-500">{parts.link.label}:</span>
+          <span className="font-mono text-slate-300 break-all">{parts.link.value}</span>
+          <button
+            onClick={() => copy('link', parts.link!.value)}
+            className="px-2 py-0.5 border border-sky-700 rounded hover:bg-sky-900/30"
+          >
+            {copied === 'link' ? 'Copied!' : 'Copy link'}
+          </button>
+        </div>
+      )}
+      {parts.carousel && (
+        <div className="mt-2">
+          <div className="flex items-center justify-between mb-1">
+            <span className="text-[10px] uppercase tracking-wider text-slate-500">Carousel outline</span>
             <button
-              onClick={onRegenLinkedin}
-              disabled={regenLinkedinBusy}
-              className="text-[10px] uppercase tracking-wider text-slate-500 hover:text-slate-300 disabled:opacity-50"
-              title="Regenerate"
+              onClick={() => copy('carousel', parts.carousel!)}
+              className="px-2 py-0.5 border border-slate-700 rounded text-xs hover:bg-slate-800"
             >
-              {regenLinkedinBusy ? '…' : 'Regenerate'}
-            </button>
-            <button
-              onClick={() => copy('linkedin')}
-              className="px-2 py-1 border border-slate-700 rounded text-xs hover:bg-slate-800"
-            >
-              {copyMsg === 'linkedin' ? 'Copied!' : 'Copy'}
+              {copied === 'carousel' ? 'Copied!' : 'Copy'}
             </button>
           </div>
+          <pre className="bg-slate-900 rounded p-2 text-xs text-slate-400 whitespace-pre-wrap font-mono max-h-40 overflow-y-auto">
+            {parts.carousel}
+          </pre>
         </div>
-        <pre className="bg-slate-900 rounded p-3 text-xs text-slate-300 whitespace-pre-wrap font-mono leading-relaxed max-h-80 overflow-y-auto">
-          {data.linkedin}
-        </pre>
-      </div>
+      )}
     </div>
   );
 }
@@ -470,6 +496,8 @@ function SchedulePanel({ slug }: { slug: string }) {
         {rows.map((platform) => {
           const entry = sched?.[platform];
           const status = entry?.status ?? 'pending';
+          const overdue =
+            status === 'pending' && entry?.scheduledAt ? new Date(entry.scheduledAt).getTime() < Date.now() : false;
           return (
             <div key={platform} className="flex flex-wrap items-center gap-2 text-xs">
               <span className="w-16 uppercase text-slate-400">{platform}</span>
@@ -483,6 +511,11 @@ function SchedulePanel({ slug }: { slug: string }) {
                 {status}
                 {entry?.postedAt ? ` ${new Date(entry.postedAt).toLocaleDateString()}` : ''}
               </span>
+              {overdue && (
+                <span className="px-1.5 py-0.5 rounded text-[10px] bg-red-900/40 text-red-300 border border-red-700/50">
+                  overdue
+                </span>
+              )}
               <input
                 type="datetime-local"
                 defaultValue={toLocalInput(entry?.scheduledAt)}
