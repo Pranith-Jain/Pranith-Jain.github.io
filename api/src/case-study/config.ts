@@ -16,5 +16,18 @@ export const ACTOR_RSS_FEEDS: string[] = [
   'https://thedfirreport.com/feed/',
 ];
 
+// Government / regional advisory + state-actor research feeds. Distinct from
+// ACTOR_RSS_FEEDS and intel.ts FEEDS — added 2026-06-04 for source diversity
+// (OT/ICS, EU/UK/APAC, state-actor). All public RSS, no auth.
+// NOTE: verify each resolves + parses on first ingest (set a real UA — CISA
+// 403s default bot UAs). Providers silently rot; confirm against live output.
+export const ADVISORY_RSS_FEEDS: string[] = [
+  'https://www.cisa.gov/cybersecurity-advisories/ics-advisories.xml',
+  'https://blog.google/threat-analysis-group/rss/',
+  'https://www.ncsc.gov.uk/api/1/services/v1/all-rss-feed.xml',
+  'https://asec.ahnlab.com/en/feed/',
+  'https://blogs.jpcert.or.jp/en/atom.xml',
+];
+
 // SITE_URL is now dynamically resolved via getSiteUrl(env) from site-config.
 // Import site-config where env context is available and call getSiteUrl(env).
