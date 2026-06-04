@@ -13,7 +13,7 @@ export type CaseStudyType =
   | 'methodology'
   | 'trend'
   | 'briefing'
-  | 'analysis';  // Thought leadership / framework pieces
+  | 'analysis'; // Thought leadership / framework pieces
 
 export type CandidateStatus = 'pending' | 'approved' | 'skipped' | 'published';
 
@@ -109,6 +109,10 @@ export interface PostIndexEntry {
 export interface DedupRecord {
   lastSeenAt: string;
   publishedSlug?: string;
+  /** ISO 8601. When in the future, discovery hard-suppresses this key
+   *  (set by admin Skip / Clear-all). Distinct from the 60-day published
+   *  republish-block, which is keyed off `publishedSlug`. */
+  suppressedUntil?: string;
 }
 
 export interface FailureRecord {

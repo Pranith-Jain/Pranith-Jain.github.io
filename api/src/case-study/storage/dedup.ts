@@ -24,7 +24,11 @@ function prune(map: DedupMap, now: Date): DedupMap {
   const out: DedupMap = {};
   for (const [k, v] of Object.entries(map)) {
     const t = Date.parse(v.lastSeenAt);
-    if (!Number.isNaN(t) && t >= cutoff) out[k] = v;
+    const recent = !Number.isNaN(t) && t >= cutoff;
+    // Keep an active suppression even if lastSeenAt is old, so a skipped
+    // item stays suppressed for its full window instead of being pruned.
+    const suppressActive = v.suppressedUntil ? Date.parse(v.suppressedUntil) > now.getTime() : false;
+    if (recent || suppressActive) out[k] = v;
   }
   return out;
 }
@@ -93,4 +97,40 @@ export async function touchDedupMany(ns: KVNamespace, keys: string[], when: Date
     map[k] = { lastSeenAt: iso, ...(prev?.publishedSlug ? { publishedSlug: prev.publishedSlug } : {}) };
   }
   await saveDedupMap(ns, map, when);
+}
+
+/** Pure suppression gate shared by discovery. `republishBlockMs` is the
+ *  published-key window (60d). Returns true when the key must NOT be
+ *  re-suggested right now. */
+export function isKeySuppressed(rec: DedupRecord | null, now: Date, republishBlockMs: number): boolean {
+  if (!rec) return false;
+  if (rec.suppressedUntil) {
+    const s = Date.parse(rec.suppressedUntil);
+    if (!Number.isNaN(s) && now.getTime() < s) return true;
+  }
+  if (!rec.publishedSlug) return false;
+  const t = Date.parse(rec.lastSeenAt);
+  return !Number.isNaN(t) && now.getTime() - t < republishBlockMs;
+}
+
+/** Mark many keys suppressed until `until` in ONE read + ONE write
+ *  (admin Skip / Clear-all). Preserves existing lastSeenAt/publishedSlug. */
+export async function suppressDedupMany(
+  ns: KVNamespace,
+  keys: string[],
+  until: Date,
+  now: Date = new Date()
+): Promise<void> {
+  if (keys.length === 0) return;
+  const map = await loadDedupMap(ns);
+  const iso = until.toISOString();
+  for (const k of keys) {
+    const prev = map[k];
+    map[k] = {
+      lastSeenAt: prev?.lastSeenAt ?? now.toISOString(),
+      ...(prev?.publishedSlug ? { publishedSlug: prev.publishedSlug } : {}),
+      suppressedUntil: iso,
+    };
+  }
+  await saveDedupMap(ns, map, now);
 }
