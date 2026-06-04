@@ -97,4 +97,52 @@ describe('admin routes', () => {
     expect(r.status).toBe(200);
     expect(env.__store.has(`candidates:cve:${cand.key}`)).toBe(false);
   });
+
+  it('skip writes a 30-day suppression record', async () => {
+    const env = mockEnv();
+    env.__store.set(`candidates:cve:${cand.key}`, JSON.stringify(cand));
+    const r = await app().request(
+      `/api/v1/admin/candidates/${cand.key}/skip?type=cve`,
+      { method: 'POST', headers: { 'X-Admin-Token': 'sekret' } },
+      env
+    );
+    expect(r.status).toBe(200);
+    const dedup = JSON.parse(env.__store.get('meta:dedup-index') as string);
+    expect(dedup[cand.key].suppressedUntil).toBeTruthy();
+    expect(new Date(dedup[cand.key].suppressedUntil).getTime()).toBeGreaterThan(Date.now());
+  });
+
+  it('skip-all clears every pending candidate and suppresses them', async () => {
+    const env = mockEnv();
+    env.__store.set('candidates:cve:cve-1', JSON.stringify({ ...cand, key: 'cve-1' }));
+    env.__store.set('candidates:actor:actor-1', JSON.stringify({ ...cand, key: 'actor-1', type: 'actor' }));
+    const r = await app().request(
+      '/api/v1/admin/candidates/skip-all',
+      { method: 'POST', headers: { 'X-Admin-Token': 'sekret' } },
+      env
+    );
+    expect(r.status).toBe(200);
+    const body = (await r.json()) as any;
+    expect(body.cleared).toBe(2);
+    expect(env.__store.has('candidates:cve:cve-1')).toBe(false);
+    expect(env.__store.has('candidates:actor:actor-1')).toBe(false);
+    const dedup = JSON.parse(env.__store.get('meta:dedup-index') as string);
+    expect(dedup['cve-1'].suppressedUntil).toBeTruthy();
+    expect(dedup['actor-1'].suppressedUntil).toBeTruthy();
+  });
+
+  it('skip-all with ?type clears only that type', async () => {
+    const env = mockEnv();
+    env.__store.set('candidates:cve:cve-1', JSON.stringify({ ...cand, key: 'cve-1' }));
+    env.__store.set('candidates:actor:actor-1', JSON.stringify({ ...cand, key: 'actor-1', type: 'actor' }));
+    const r = await app().request(
+      '/api/v1/admin/candidates/skip-all?type=cve',
+      { method: 'POST', headers: { 'X-Admin-Token': 'sekret' } },
+      env
+    );
+    expect(r.status).toBe(200);
+    expect(((await r.json()) as any).cleared).toBe(1);
+    expect(env.__store.has('candidates:cve:cve-1')).toBe(false);
+    expect(env.__store.has('candidates:actor:actor-1')).toBe(true);
+  });
 });

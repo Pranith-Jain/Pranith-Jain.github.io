@@ -5,7 +5,7 @@ import { requireAdminMiddleware } from '../lib/admin-auth';
 import { safeJsonBody } from '../lib/safe-body';
 import { listAllCandidates, getCandidate, deleteCandidate } from '../case-study/storage/candidates';
 import { countByPrefix } from '../case-study/storage/kv-util';
-import { getDedup, touchDedup } from '../case-study/storage/dedup';
+import { getDedup, touchDedup, suppressDedupMany } from '../case-study/storage/dedup';
 import { approve, unapprove, listApproved, getApproved } from '../case-study/storage/approved';
 import { getSchedule, setSchedule, markSlotStatus, removeSlot } from '../case-study/storage/schedule';
 import { putPost, listPostIndex, removePost } from '../case-study/storage/posts';
@@ -98,7 +98,31 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     const type = (c.req.query('type') ?? '') as CaseStudyType;
     if (!TYPES.includes(type)) return c.json({ error: 'type required' }, 400);
     await deleteCandidate(c.env.CASE_STUDIES, type, id);
+    // Suppress for 30 days so the next discovery run does not re-surface
+    // the exact item the admin just rejected.
+    const until = new Date(Date.now() + 30 * 24 * 3600 * 1000);
+    await suppressDedupMany(c.env.CASE_STUDIES, [id], until);
     return c.json({ ok: true });
+  });
+
+  // Bulk dismiss: clear the whole pending queue (or one type) in one action,
+  // suppressing each for 30 days so they don't immediately re-appear. One
+  // KV.list + N deletes + ONE batched dedup write (subrequest-budget aware).
+  admin.post('/candidates/skip-all', async (c) => {
+    const typeHint = (c.req.query('type') ?? '') as CaseStudyType | '';
+    const filterType = typeHint && TYPES.includes(typeHint as CaseStudyType) ? (typeHint as CaseStudyType) : null;
+    const all = await listAllCandidates(c.env.CASE_STUDIES);
+    const target = filterType ? all.filter((x) => x.type === filterType) : all;
+    for (const cand of target) {
+      await deleteCandidate(c.env.CASE_STUDIES, cand.type, cand.key);
+    }
+    const until = new Date(Date.now() + 30 * 24 * 3600 * 1000);
+    await suppressDedupMany(
+      c.env.CASE_STUDIES,
+      target.map((x) => x.key),
+      until
+    );
+    return c.json({ ok: true, cleared: target.length });
   });
 
   // Manual pipeline trigger — the cron-only stages (discover daily,
