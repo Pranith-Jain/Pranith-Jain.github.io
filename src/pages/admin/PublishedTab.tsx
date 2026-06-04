@@ -1,5 +1,26 @@
 import { useCallback, useEffect, useState } from 'react';
 import { getJson, postJson, postJsonWithBody } from './adminApi';
+import { bestTimeHint, type SocialPlatform } from './socialHints';
+
+interface ScheduleEntry {
+  scheduledAt?: string;
+  status: 'pending' | 'posted';
+  postedAt?: string;
+}
+interface SocialScheduleData {
+  slug: string;
+  twitter?: ScheduleEntry;
+  linkedin?: ScheduleEntry;
+  updatedAt: string;
+}
+
+function toLocalInput(iso?: string): string {
+  if (!iso) return '';
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return '';
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
 
 interface PostEntry {
   slug: string;
@@ -323,6 +344,8 @@ function SocialContentPanel({
       </div>
       <p className="text-xs text-slate-500 mb-4">Generated {new Date(data.generatedAt).toLocaleString()}</p>
 
+      <SchedulePanel slug={data.slug} />
+
       <div className="mb-6">
         <div className="flex items-center justify-between mb-2">
           <h4 className="text-xs font-semibold uppercase tracking-wider text-blue-400">Twitter Thread</h4>
@@ -371,6 +394,114 @@ function SocialContentPanel({
         <pre className="bg-slate-900 rounded p-3 text-xs text-slate-300 whitespace-pre-wrap font-mono leading-relaxed max-h-80 overflow-y-auto">
           {data.linkedin}
         </pre>
+      </div>
+    </div>
+  );
+}
+
+/** Manual-posting queue for one post: per-platform status, a planned time,
+ *  and a best-time hint. Posting itself stays manual (copy → paste). */
+function SchedulePanel({ slug }: { slug: string }) {
+  const [sched, setSched] = useState<SocialScheduleData | null>(null);
+  const [busy, setBusy] = useState<SocialPlatform | null>(null);
+  const [msg, setMsg] = useState<string | null>(null);
+
+  const loadSched = useCallback(async () => {
+    try {
+      const r = await getJson<{ schedule: SocialScheduleData | null }>(`/social-schedule/${encodeURIComponent(slug)}`);
+      setSched(r.schedule);
+    } catch {
+      /* schedule is optional */
+    }
+  }, [slug]);
+
+  useEffect(() => {
+    void loadSched();
+  }, [loadSched]);
+
+  async function saveTime(platform: SocialPlatform, localValue: string) {
+    setBusy(platform);
+    setMsg(null);
+    try {
+      const scheduledAt = localValue ? new Date(localValue).toISOString() : '';
+      const r = await postJsonWithBody<{ ok: boolean; schedule: SocialScheduleData }>(
+        `/social-schedule/${encodeURIComponent(slug)}/${platform}`,
+        { scheduledAt }
+      );
+      setSched(r.schedule);
+      setMsg(localValue ? `${platform} time saved` : `${platform} time cleared`);
+    } catch (e) {
+      setMsg(e instanceof Error ? e.message : String(e));
+    } finally {
+      setBusy(null);
+    }
+  }
+
+  async function togglePosted(platform: SocialPlatform, current: 'pending' | 'posted') {
+    setBusy(platform);
+    setMsg(null);
+    try {
+      const r =
+        current === 'posted'
+          ? await postJsonWithBody<{ ok: boolean; schedule: SocialScheduleData }>(
+              `/social-schedule/${encodeURIComponent(slug)}/${platform}`,
+              { status: 'pending' }
+            )
+          : await postJson<{ ok: boolean; schedule: SocialScheduleData }>(
+              `/social-schedule/${encodeURIComponent(slug)}/${platform}/mark-posted`
+            );
+      setSched(r.schedule);
+    } catch (e) {
+      setMsg(e instanceof Error ? e.message : String(e));
+    } finally {
+      setBusy(null);
+    }
+  }
+
+  const rows: SocialPlatform[] = ['twitter', 'linkedin'];
+
+  return (
+    <div className="mb-6 rounded border border-slate-800 bg-slate-900/40 p-3">
+      <div className="flex items-center justify-between mb-2">
+        <h4 className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Posting queue</h4>
+        {msg && <span className="text-[10px] text-slate-500">{msg}</span>}
+      </div>
+      <div className="space-y-3">
+        {rows.map((platform) => {
+          const entry = sched?.[platform];
+          const status = entry?.status ?? 'pending';
+          return (
+            <div key={platform} className="flex flex-wrap items-center gap-2 text-xs">
+              <span className="w-16 uppercase text-slate-400">{platform}</span>
+              <span
+                className={`px-1.5 py-0.5 rounded text-[10px] ${
+                  status === 'posted'
+                    ? 'bg-emerald-900/40 text-emerald-300 border border-emerald-700/50'
+                    : 'bg-amber-900/30 text-amber-300 border border-amber-700/40'
+                }`}
+              >
+                {status}
+                {entry?.postedAt ? ` ${new Date(entry.postedAt).toLocaleDateString()}` : ''}
+              </span>
+              <input
+                type="datetime-local"
+                defaultValue={toLocalInput(entry?.scheduledAt)}
+                onBlur={(e) => void saveTime(platform, e.target.value)}
+                disabled={busy === platform}
+                className="bg-slate-950 border border-slate-700 rounded px-1.5 py-0.5 text-slate-300 disabled:opacity-50"
+                title="Planned post time (saved on blur)"
+              />
+              <button
+                onClick={() => void togglePosted(platform, status)}
+                disabled={busy === platform}
+                className="px-2 py-0.5 border border-slate-700 rounded hover:bg-slate-800 disabled:opacity-50"
+              >
+                {status === 'posted' ? 'Mark pending' : 'Mark posted'}
+              </button>
+              <span className="text-[10px] text-slate-500">{bestTimeHint(platform)}</span>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
