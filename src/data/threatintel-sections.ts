@@ -79,6 +79,13 @@ export const SECTIONS: Section[] = [
         badge: 'live',
       },
       {
+        to: '/threatintel/ransom-report',
+        label: 'Ransomware group report',
+        desc: 'Searchable per-group dossier from the ransomware.live PRO API: overview, MITRE ATT&CK TTPs, tooling, exploited CVEs, infrastructure/IOCs, and per-group YARA rules — with print-to-PDF export.',
+        icon: FileText,
+        badge: 'live',
+      },
+      {
         to: '/threatintel/ransomware-map',
         label: 'Ransomware victim geo-heatmap',
         desc: 'World choropleth shaded by victim count per country, aggregated from ransomfeed.it, ransomwatch, ransomware.live, and Andrea Fortuna.',
