@@ -43,61 +43,10 @@ interface CopilotResponse {
   confidence?: ConfidenceScore;
 }
 
-type QueryType = 'cve' | 'ip' | 'domain' | 'hash' | 'actor' | 'ransomware' | 'generic';
+import { detectType } from '../lib/report/subject-resolver';
+import type { SubjectType } from '../lib/report/types';
 
-const CVE_RE = /^CVE-\d{4}-\d{4,}$/i;
-const IP_RE = /^(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)$/;
-const DOMAIN_RE = /^([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/;
-const HASH_RE = /^[a-fA-F0-9]{32,64}$/;
-
-function detectType(query: string): QueryType {
-  if (CVE_RE.test(query.trim())) return 'cve';
-  if (IP_RE.test(query.trim())) return 'ip';
-  if (DOMAIN_RE.test(query.trim())) return 'domain';
-  if (HASH_RE.test(query.trim())) return 'hash';
-  const lower = query.toLowerCase();
-  if (
-    [
-      'lockbit',
-      'ransom',
-      'ransomware',
-      'hive',
-      'clop',
-      'blackcat',
-      'alphv',
-      'royal',
-      'play',
-      'akira',
-      'bashe',
-      'bianlian',
-      'cuba',
-      'dragonforce',
-      '8base',
-    ].some((k) => lower.includes(k))
-  )
-    return 'ransomware';
-  if (
-    [
-      'apt',
-      'group',
-      'actor',
-      'threat',
-      'scattered',
-      'lazarus',
-      'kimsu',
-      'fancy',
-      'cozy',
-      'knotweed',
-      'midnight',
-      'volt',
-      'typhoon',
-      'panda',
-      'dragon',
-    ].some((k) => lower.includes(k))
-  )
-    return 'actor';
-  return 'generic';
-}
+type QueryType = SubjectType;
 
 async function readCache<T>(key: string): Promise<T | null> {
   try {
