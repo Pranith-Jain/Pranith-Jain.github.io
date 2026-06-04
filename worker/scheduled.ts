@@ -40,8 +40,10 @@ import type { Env } from './env';
 
 /**
  * Cron-triggered work. Dispatched on cron string:
- * - "5 0 * * *"  → daily briefing for the prior calendar day
- * - "15 0 * * 1" → weekly briefing for the prior ISO week (Mon → Sun)
+ * - "5 0 * * *"  → daily case-study discovery
+ * - "15 0 * * *" → daily case-study planner (drains the approved backlog)
+ * - "30 0 * * *" → daily briefing for the prior calendar day
+ * - "45 0 * * 1" → weekly briefing for the prior ISO week (Mon → Sun)
  * - "0 * * * *"  → warm /api/v1/snapshot + /api/v1/ioc-snapshot once
  *                  per hour. Was every 5 min — that cadence was burning
  *                  Workers KV writes for negligible UX gain. Snapshot
@@ -149,8 +151,10 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
     return;
   }
 
-  // Case-study planner — its own invocation.
-  if (csCron === '15 0 * * 1') {
+  // Case-study planner — its own invocation. Daily (was weekly Mondays) so
+  // the approved backlog drains each morning instead of waiting up to a week.
+  // No cron added; this slot moved from "15 0 * * 1" to "15 0 * * *".
+  if (csCron === '15 0 * * *') {
     ctx.waitUntil(
       runPlannerNow(env as unknown as CaseStudyEnv, csNow)
         .catch(logCronFail('planner'))
