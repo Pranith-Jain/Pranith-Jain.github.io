@@ -98,14 +98,11 @@ Partition all feeds into N groups; each daily run executes a rotating subset (e.
 
 ## 4. Phase 2 — Writing & Content Quality
 
-### 4.1 Model upgrade (mandatory — current model is deprecated)
+### 4.1 Model: keep Llama-4-Scout (no swap)
 
-`ai-client.ts`:
+**Decision (2026-06-04): no model change.** An earlier research pass wrongly flagged `meta-llama/llama-4-scout-17b-16e-instruct` as deprecated. Re-verified against Groq's live deprecation list: Scout is **not** deprecated or scheduled for shutdown (it's Preview-tier, 17B). It works; the user chose to keep it. The Workers AI `llama-3.3-70b` fallback chain and fail-fast-on-429 stay as-is. `ai-client.ts` is **not** touched in Phase 2.
 
-- **Blog default:** `openai/gpt-oss-120b`, `reasoning_effort: "low"` (or `"medium"`), with a system instruction: _no chain-of-thought, no preamble, output only the article._ (gpt-oss is a reasoning model and will leak "thinking" otherwise.)
-- **Social default:** `llama-3.3-70b-versatile` (stable, natural, no reasoning leakage).
-- **Fallback chain:** unchanged Workers AI models. Keep fail-fast-on-429.
-- Free-tier TPM on gpt-oss-120b is tight (8K) for long blog generation — note for ops; Developer tier raises it. Generation already defers to next hourly cron on rate-limit, so this degrades gracefully.
+The real writing-quality lever is the prompt/QA work below (§4.2–4.4), which improves output on any model. (For the record, deprecated-on-Groq models that were therefore never options: llama-4-Maverick, Kimi-K2.)
 
 ### 4.2 Blog prompt upgrade (2026 AEO/GEO) — `templates.ts`
 
