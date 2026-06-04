@@ -201,4 +201,42 @@ describe('admin routes', () => {
     );
     expect(r.status).toBe(404);
   });
+
+  it('social-schedule: upsert a planned time then mark posted', async () => {
+    const env = mockEnv();
+    // Unscheduled → null
+    let r = await app().request('/api/v1/admin/social-schedule/my-post-1', { headers: hdr }, env);
+    expect(r.status).toBe(200);
+    expect(((await r.json()) as any).schedule).toBeNull();
+
+    // Plan a twitter time
+    r = await app().request(
+      '/api/v1/admin/social-schedule/my-post-1/twitter',
+      { method: 'POST', headers: jhdr, body: JSON.stringify({ scheduledAt: '2026-06-10T09:00:00.000Z' }) },
+      env
+    );
+    expect(r.status).toBe(200);
+    expect(((await r.json()) as any).schedule.twitter.scheduledAt).toBe('2026-06-10T09:00:00.000Z');
+
+    // Mark linkedin posted (independent of twitter)
+    r = await app().request(
+      '/api/v1/admin/social-schedule/my-post-1/linkedin/mark-posted',
+      { method: 'POST', headers: hdr },
+      env
+    );
+    expect(r.status).toBe(200);
+    const body = ((await r.json()) as any).schedule;
+    expect(body.linkedin.status).toBe('posted');
+    expect(body.twitter.scheduledAt).toBe('2026-06-10T09:00:00.000Z'); // unchanged
+  });
+
+  it('social-schedule: rejects an unknown platform with 400', async () => {
+    const env = mockEnv();
+    const r = await app().request(
+      '/api/v1/admin/social-schedule/my-post-1/mastodon',
+      { method: 'POST', headers: jhdr, body: JSON.stringify({ status: 'posted' }) },
+      env
+    );
+    expect(r.status).toBe(400);
+  });
 });

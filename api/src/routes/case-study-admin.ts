@@ -6,6 +6,12 @@ import { safeJsonBody } from '../lib/safe-body';
 import { listAllCandidates, getCandidate, deleteCandidate } from '../case-study/storage/candidates';
 import { countByPrefix } from '../case-study/storage/kv-util';
 import { getDedup, touchDedup, suppressDedupMany } from '../case-study/storage/dedup';
+import {
+  getSocialSchedule,
+  upsertSocialSchedule,
+  markSocialPosted,
+  isSocialPlatform,
+} from '../case-study/storage/social-schedule';
 import { approve, unapprove, listApproved, getApproved } from '../case-study/storage/approved';
 import { getSchedule, setSchedule, markSlotStatus, removeSlot } from '../case-study/storage/schedule';
 import { putPost, listPostIndex, removePost } from '../case-study/storage/posts';
@@ -282,6 +288,44 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     const iso = new Date(slotAt).toISOString();
     await markSlotStatus(c.env.CASE_STUDIES, candidateId, 'pending', { slotAt: iso, error: undefined });
     return c.json({ ok: true, candidateId, slotAt: iso });
+  });
+
+  // ─── Social posting queue (manual-posting status + planned time) ───────
+  // Social copy is posted by hand (no API), so this just tracks per-platform
+  // status (pending/posted) and an optional planned time, surfaced in the
+  // Published tab so nothing slips.
+  admin.get('/social-schedule/:slug', async (c) => {
+    const slug = c.req.param('slug');
+    if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
+    const schedule = await getSocialSchedule(c.env.CASE_STUDIES, slug);
+    return c.json({ schedule });
+  });
+
+  admin.post('/social-schedule/:slug/:platform/mark-posted', async (c) => {
+    const slug = c.req.param('slug');
+    const platform = c.req.param('platform');
+    if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
+    if (!isSocialPlatform(platform)) return c.json({ error: 'platform must be twitter or linkedin' }, 400);
+    const schedule = await markSocialPosted(c.env.CASE_STUDIES, slug, platform);
+    return c.json({ ok: true, schedule });
+  });
+
+  admin.post('/social-schedule/:slug/:platform', async (c) => {
+    const slug = c.req.param('slug');
+    const platform = c.req.param('platform');
+    if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
+    if (!isSocialPlatform(platform)) return c.json({ error: 'platform must be twitter or linkedin' }, 400);
+    const parsed = await safeJsonBody<{ scheduledAt?: string; status?: 'pending' | 'posted' }>(c, { maxBytes: 1024 });
+    if ('error' in parsed) return parsed.error;
+    const patch: { scheduledAt?: string; status?: 'pending' | 'posted' } = {};
+    if (parsed.value && 'scheduledAt' in parsed.value) {
+      const at = parsed.value.scheduledAt ?? '';
+      if (at !== '' && Number.isNaN(Date.parse(at))) return c.json({ error: 'invalid scheduledAt' }, 400);
+      patch.scheduledAt = at === '' ? undefined : new Date(at).toISOString();
+    }
+    if (parsed.value?.status === 'pending' || parsed.value?.status === 'posted') patch.status = parsed.value.status;
+    const schedule = await upsertSocialSchedule(c.env.CASE_STUDIES, slug, platform, patch);
+    return c.json({ ok: true, schedule });
   });
 
   admin.get('/posts', async (c) => {
