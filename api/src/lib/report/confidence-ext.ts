@@ -22,7 +22,7 @@ const HALF_LIFE_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
 const FLOOR = 0.1;
 
 /**
- * Temporal decay factor in (FLOOR, 1] using a 30-day half-life. A freshly
+ * Temporal decay factor in [FLOOR, 1] using a 30-day half-life. A freshly
  * fetched/observed claim scores 1.0; a 30-day-old one ≈0.5. Invalid or missing
  * timestamps clamp to FLOOR so stale-but-unknown data is down-weighted, not zeroed.
  */

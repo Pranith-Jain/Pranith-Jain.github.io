@@ -884,6 +884,7 @@ Expected: clean (0 warnings).
 ## What Plan A deliberately leaves out (next plans)
 
 - **Plan B — Gather/Validate/Rank:** `gatherer.ts` (cache + live fetches, `env`/`fetch`-mocked), `validator.ts` (NVD/MITRE/actor validation + contradiction detection), `ranker.ts` (recency×authority×relevance using `freshnessDecay`).
+  - **Carry-forward note (from Plan A review):** `SOURCE_CATALOG` ids in `source-planner.ts` (e.g. `kev`, `greynoise`, `shodan-cvedb`) do NOT match `SOURCE_RELIABILITY_REGISTRY` keys (e.g. `cisa-kev`), and several have no registry entry. The catalog carries the correct grade inline in its `authority` field — so the sources appendix MUST use `descriptor.authority`, NOT `gradeSources(catalogId)` (which would silently fall back to `F`). If registry grades are wanted, add an explicit `catalogId → registryId` map in Plan B; do not pass catalog ids straight into `gradeSources`.
 - **Plan C — Writer:** outline → per-section draft → assemble → hallucination guard, via `runCompletion`.
 - **Plan D — `ReportBuilderDO` + `report.ts` endpoints + WS streaming** (+ wrangler DO binding).
 - **Plan E — Frontend:** Copilot mode toggle, template/TLP pickers, phase stepper, Report renderer, PDF export.
