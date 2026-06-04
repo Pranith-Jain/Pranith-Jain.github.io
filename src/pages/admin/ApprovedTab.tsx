@@ -60,6 +60,24 @@ export default function ApprovedTab() {
     }
   }
 
+  // Fast lane: queue for the next hourly publisher run (live <1h) instead of
+  // generating synchronously now (publish-now) or waiting for the daily planner.
+  async function publishSoon(id: string) {
+    setPublishing(id);
+    setPublishMsg(null);
+    try {
+      const r = await postJson<{ ok?: boolean; slotAt?: string; error?: string }>(
+        `/approved/${encodeURIComponent(id)}/publish-soon`
+      );
+      setPublishMsg(r.ok ? 'Queued for the next hourly publish (≤1h)' : `Error: ${r.error}`);
+      await load();
+    } catch (e) {
+      setPublishMsg(`Error: ${e instanceof Error ? e.message : String(e)}`);
+    } finally {
+      setPublishing(null);
+    }
+  }
+
   if (loading) return <p className="text-slate-400">Loading…</p>;
   if (error)
     return (
@@ -120,6 +138,14 @@ export default function ApprovedTab() {
                     className="px-2 py-1 border border-green-700 rounded text-xs hover:bg-green-900/30 disabled:opacity-50"
                   >
                     {publishing === c.key ? 'Publishing…' : 'Publish now'}
+                  </button>
+                  <button
+                    onClick={() => publishSoon(c.key)}
+                    disabled={publishing === c.key}
+                    className="px-2 py-1 border border-sky-700 rounded text-xs hover:bg-sky-900/30 disabled:opacity-50"
+                    title="Queue for the next hourly publish (≤1h)"
+                  >
+                    Publish soon
                   </button>
                   <button
                     onClick={() => unapprove(c.key)}

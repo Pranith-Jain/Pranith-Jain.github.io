@@ -69,6 +69,30 @@ export default function ScheduleTab() {
     }
   }
 
+  async function reschedule(candidateId: string) {
+    const input = window.prompt('Reschedule to (local date/time, e.g. 2026-06-10 14:30):');
+    if (!input) return;
+    const d = new Date(input);
+    if (Number.isNaN(d.getTime())) {
+      setMsg('Invalid date/time');
+      return;
+    }
+    setPublishing(candidateId);
+    setMsg(null);
+    try {
+      const r = await postJsonWithBody<{ ok?: boolean; slotAt?: string; error?: string }>(
+        `/schedule/${encodeURIComponent(candidateId)}/reschedule`,
+        { slotAt: d.toISOString() }
+      );
+      setMsg(r.ok && r.slotAt ? `Rescheduled to ${new Date(r.slotAt).toLocaleString()}` : `Error: ${r.error}`);
+      await load();
+    } catch (e) {
+      setMsg(`Error: ${e instanceof Error ? e.message : String(e)}`);
+    } finally {
+      setPublishing(null);
+    }
+  }
+
   if (loading) return <p className="text-slate-400">Loading…</p>;
   if (error)
     return (
@@ -121,6 +145,14 @@ export default function ScheduleTab() {
                         className="px-2 py-1 border border-green-700 rounded text-xs hover:bg-green-900/30 disabled:opacity-50"
                       >
                         {publishing === s.candidateId ? 'Publishing…' : 'Publish now'}
+                      </button>
+                      <button
+                        onClick={() => reschedule(s.candidateId)}
+                        disabled={publishing === s.candidateId}
+                        className="px-2 py-1 border border-sky-700 rounded text-xs hover:bg-sky-900/30 disabled:opacity-50"
+                        title="Move this slot to a new date/time"
+                      >
+                        Reschedule
                       </button>
                       <button
                         onClick={() => removeSlot(s.candidateId)}
