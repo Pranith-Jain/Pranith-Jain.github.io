@@ -230,6 +230,23 @@ describe('admin routes', () => {
     expect(body.twitter.scheduledAt).toBe('2026-06-10T09:00:00.000Z'); // unchanged
   });
 
+  it('schedule self-heals a published slot whose post was removed (1 list, not N gets)', async () => {
+    const env = mockEnv();
+    env.__store.set(
+      'schedule:upcoming',
+      JSON.stringify([
+        { candidateId: 'gone', slotAt: '2026-06-01T00:00:00.000Z', status: 'published', publishedSlug: 'gone-slug' },
+        { candidateId: 'live', slotAt: '2026-06-02T00:00:00.000Z', status: 'published', publishedSlug: 'live-slug' },
+      ])
+    );
+    env.__store.set('posts:live-slug', JSON.stringify({ slug: 'live-slug' }));
+    const r = await app().request('/api/v1/admin/schedule', { headers: hdr }, env);
+    expect(r.status).toBe(200);
+    const sched = ((await r.json()) as any).schedule;
+    expect(sched.find((s: any) => s.candidateId === 'gone').status).toBe('pending');
+    expect(sched.find((s: any) => s.candidateId === 'live').status).toBe('published');
+  });
+
   it('social-schedule: rejects an unknown platform with 400', async () => {
     const env = mockEnv();
     const r = await app().request(

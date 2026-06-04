@@ -1,4 +1,4 @@
-import type { Candidate, Post, Slot } from '../types';
+import type { Candidate, Post, PostIndexEntry, Slot } from '../types';
 import { slotIdFor } from '../stable-keys';
 
 export interface RunPublisherDeps {
@@ -7,7 +7,7 @@ export interface RunPublisherDeps {
   getApproved: (stableKey: string) => Promise<Candidate | null>;
   unapprove: (stableKey: string) => Promise<void>;
   generatePost: (candidate: Candidate, now: Date) => Promise<Post>;
-  putPost: (post: Post) => Promise<void>;
+  putPost: (post: Post) => Promise<PostIndexEntry[]>;
   /**
    * Optional draft sink. When `requireApproval` is true the generated
    * post is written here instead of `putPost`; RSS / unapprove / dedup
@@ -15,7 +15,7 @@ export interface RunPublisherDeps {
    * draft is sitting in the queue.
    */
   putDraft?: (post: Post) => Promise<void>;
-  refreshRss: () => Promise<void>;
+  refreshRss: (index?: PostIndexEntry[]) => Promise<void>;
   touchDedup: (stableKey: string, when: Date, publishedSlug: string) => Promise<void>;
   recordFailure: (rec: {
     slotId: string;
@@ -83,8 +83,8 @@ export async function runPublisher(deps: RunPublisherDeps): Promise<{ published:
       return { published: 0, slug: post.slug };
     }
 
-    await deps.putPost(post);
-    await deps.refreshRss();
+    const index = await deps.putPost(post);
+    await deps.refreshRss(index);
     await deps.unapprove(candidate.key);
     await deps.touchDedup(candidate.key, deps.now, post.slug);
     await deps.markSlotStatus(slot.candidateId, 'published', { publishedSlug: post.slug });

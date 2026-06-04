@@ -201,19 +201,31 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
   });
 
   admin.get('/schedule', async (c) => {
-    const schedule = await getSchedule(c.env.CASE_STUDIES);
-    // Verify published slugs still exist and mark stale slots as pending
-    const updated = await Promise.all(
-      schedule.map(async (s) => {
-        if (s.status === 'published' && s.publishedSlug) {
-          const post = await c.env.CASE_STUDIES.get(csKvKeys.post(s.publishedSlug), 'json');
-          if (!post) return { ...s, status: 'pending' as const, publishedSlug: undefined };
-        }
-        return s;
-      })
-    );
-    const changed = updated.some((s, i) => s.status !== schedule[i]?.status);
-    if (changed) await setSchedule(c.env.CASE_STUDIES, updated);
+    const ns = c.env.CASE_STUDIES;
+    const schedule = await getSchedule(ns);
+    // Verify published slots still have a live post (self-heal a slot whose
+    // post was unpublished → mark it pending so it can republish). Use ONE
+    // KV.list of post key-NAMES instead of one get-of-the-full-body per
+    // published slot, and skip it entirely when nothing is published.
+    const hasPublished = schedule.some((s) => s.status === 'published' && s.publishedSlug);
+    let updated = schedule;
+    if (hasPublished) {
+      const live = new Set<string>();
+      let cursor: string | undefined;
+      for (let page = 0; page < 5; page += 1) {
+        const res = await ns.list({ prefix: 'posts:', cursor });
+        for (const k of res.keys) live.add(k.name);
+        if (res.list_complete) break;
+        cursor = res.cursor;
+      }
+      updated = schedule.map((s) =>
+        s.status === 'published' && s.publishedSlug && !live.has(csKvKeys.post(s.publishedSlug))
+          ? { ...s, status: 'pending' as const, publishedSlug: undefined }
+          : s
+      );
+      const changed = updated.some((s, i) => s.status !== schedule[i]?.status);
+      if (changed) await setSchedule(ns, updated);
+    }
     return c.json({ schedule: updated });
   });
 
@@ -239,11 +251,11 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     const now = new Date();
     try {
       const post = await generatePost({ candidate, ai: c.env.AI as never, now, groqKey: c.env.GROQ_API_KEY });
-      await putPost(c.env.CASE_STUDIES, post);
+      const postIndex = await putPost(c.env.CASE_STUDIES, post);
 
-      // RSS only needs index-level fields — render straight from the posts
-      // index (1 KV read) instead of fan-out-reading every full post.
-      const rss = renderRss(await listPostIndex(c.env.CASE_STUDIES), { siteUrl: getSiteUrl(c.env) });
+      // RSS only needs index-level fields; reuse the index putPost just wrote
+      // instead of re-reading posts:index from KV.
+      const rss = renderRss(postIndex, { siteUrl: getSiteUrl(c.env) });
       await c.env.CASE_STUDIES.put(csKvKeys.metaRss, rss);
 
       await markSlotStatus(c.env.CASE_STUDIES, candidateId, 'published', { publishedSlug: post.slug });
@@ -463,11 +475,11 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
       sources: sources ?? [],
     };
 
-    await putPost(c.env.CASE_STUDIES, post);
+    const postIndex = await putPost(c.env.CASE_STUDIES, post);
 
-    // RSS only needs index-level fields — render straight from the posts
-    // index (1 KV read) instead of fan-out-reading every full post.
-    const rss = renderRss(await listPostIndex(c.env.CASE_STUDIES), { siteUrl: getSiteUrl(c.env) });
+    // RSS only needs index-level fields; reuse the index putPost just wrote
+    // instead of re-reading posts:index from KV.
+    const rss = renderRss(postIndex, { siteUrl: getSiteUrl(c.env) });
     await c.env.CASE_STUDIES.put(csKvKeys.metaRss, rss);
 
     return c.json({ ok: true, slug });
@@ -484,11 +496,11 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
 
     try {
       const post = await generatePost({ candidate, ai: c.env.AI as never, now, groqKey: c.env.GROQ_API_KEY });
-      await putPost(c.env.CASE_STUDIES, post);
+      const postIndex = await putPost(c.env.CASE_STUDIES, post);
 
-      // RSS only needs index-level fields — render straight from the posts
-      // index (1 KV read) instead of fan-out-reading every full post.
-      const rss = renderRss(await listPostIndex(c.env.CASE_STUDIES), { siteUrl: getSiteUrl(c.env) });
+      // RSS only needs index-level fields; reuse the index putPost just wrote
+      // instead of re-reading posts:index from KV.
+      const rss = renderRss(postIndex, { siteUrl: getSiteUrl(c.env) });
       await c.env.CASE_STUDIES.put(csKvKeys.metaRss, rss);
 
       await unapprove(c.env.CASE_STUDIES, candidate.key);

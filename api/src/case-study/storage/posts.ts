@@ -33,7 +33,9 @@ function toIndexEntry(p: Post): PostIndexEntry {
  */
 const POSTS_INDEX_CAP = 500;
 
-export async function putPost(ns: KVNamespace, p: Post): Promise<void> {
+/** Returns the updated post index so callers (RSS render) can reuse it
+ *  instead of re-reading `posts:index` from KV right after this write. */
+export async function putPost(ns: KVNamespace, p: Post): Promise<PostIndexEntry[]> {
   await ns.put(kv.post(p.slug), JSON.stringify(p));
   const index = await listPostIndex(ns);
   const filtered = index.filter((e) => e.slug !== p.slug);
@@ -41,6 +43,7 @@ export async function putPost(ns: KVNamespace, p: Post): Promise<void> {
   filtered.sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
   const capped = filtered.slice(0, POSTS_INDEX_CAP);
   await ns.put(kv.postsIndex, JSON.stringify(capped));
+  return capped;
 }
 
 export async function removePost(ns: KVNamespace, slug: string): Promise<void> {

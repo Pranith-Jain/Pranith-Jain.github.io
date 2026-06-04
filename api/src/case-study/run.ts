@@ -204,10 +204,12 @@ export function runPublisherNow(env: CaseStudyEnv, now: Date) {
       generatePost({ candidate: cand, ai: env.AI as never, now: n, groqKey: env.GROQ_API_KEY, validationEnv }),
     putPost: (p) => putPost(env.CASE_STUDIES, p),
     putDraft: (p) => putDraft(env.CASE_STUDIES, p),
-    refreshRss: async () => {
-      // RSS only needs index-level fields — render straight from the posts
-      // index (1 KV read) instead of fan-out-reading every full post.
-      const rss = renderRss(await listPostIndex(env.CASE_STUDIES), { siteUrl: getSiteUrl(env) });
+    refreshRss: async (index) => {
+      // RSS only needs index-level fields. Reuse the index putPost just wrote
+      // (passed in) so we don't re-read posts:index from KV on every publish;
+      // fall back to a fresh read when no index is supplied.
+      const list = index ?? (await listPostIndex(env.CASE_STUDIES));
+      const rss = renderRss(list, { siteUrl: getSiteUrl(env) });
       await env.CASE_STUDIES.put(csKvKeys.metaRss, rss);
     },
     touchDedup: (k, when, slug) => touchDedup(env.CASE_STUDIES, k, when, slug),
