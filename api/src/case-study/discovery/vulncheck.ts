@@ -9,9 +9,10 @@ interface VcKevEntry {
   cve?: string[];
   vendorProject?: string;
   product?: string;
-  name?: string;
+  vulnerabilityName?: string;
   shortDescription?: string;
   date_added?: string;
+  knownRansomwareCampaignUse?: string;
 }
 
 export interface DiscoverVulnCheckDeps {
@@ -61,9 +62,10 @@ export async function discoverVulnCheckKev(deps: DiscoverVulnCheckDeps): Promise
           cve: cveId,
           vendor: e.vendorProject,
           product: e.product,
-          name: e.name,
+          name: e.vulnerabilityName,
           dateAdded: e.date_added,
           description: e.shortDescription,
+          ransomware: e.knownRansomwareCampaignUse,
           url: `https://www.vulncheck.com/cve/${cveId}`,
         },
         discoveredAt: deps.now.toISOString(),
