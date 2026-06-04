@@ -59,6 +59,18 @@ export default function PendingTab() {
     }
   }
 
+  async function clearAll() {
+    if (!window.confirm('Clear all pending candidates? They will be suppressed for 30 days.')) return;
+    setActionMsg(null);
+    try {
+      const res = await postJson<{ cleared: number }>('/candidates/skip-all');
+      setActionMsg(`Cleared ${res.cleared} candidate(s)`);
+      await load();
+    } catch (e) {
+      setActionMsg(`clear all failed: ${e instanceof Error ? e.message : String(e)}`);
+    }
+  }
+
   if (loading) return <p className="text-slate-400">Loading…</p>;
   if (error)
     return (
@@ -79,7 +91,15 @@ export default function PendingTab() {
 
   return (
     <div className="overflow-x-auto">
-      {actionMsg && <p className="text-xs font-mono text-slate-400 mb-2">{actionMsg}</p>}
+      <div className="flex items-center justify-between mb-2">
+        {actionMsg ? <p className="text-xs font-mono text-slate-400">{actionMsg}</p> : <span />}
+        <button
+          onClick={() => void clearAll()}
+          className="px-2 py-1 border border-red-700/60 text-red-300 rounded text-xs hover:bg-red-900/30"
+        >
+          Clear all
+        </button>
+      </div>
       <table className="w-full text-sm">
         <thead className="text-left text-xs uppercase tracking-wider text-slate-500 border-b border-slate-800">
           <tr>
