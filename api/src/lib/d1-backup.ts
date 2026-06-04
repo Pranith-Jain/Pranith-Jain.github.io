@@ -69,7 +69,11 @@ export async function runD1Backup(db: D1Database, kv: KVNamespace): Promise<Back
     total_size_bytes: 0,
   };
 
-  // Export each table
+  // Export each table into ONE coalesced payload. Previously this wrote one KV
+  // key per table (~11 writes/run); a single `:tables` key drops that to 1 write
+  // — meaningful against the Free-plan ~1k-writes/day budget. The payload maps
+  // table → JSON-lines so a restore can still pull an individual table.
+  const tableData: Record<string, string> = {};
   for (const table of BACKUP_TABLES) {
     const { data, rows } = await exportTable(db, table);
     const sizeBytes = new TextEncoder().encode(data).length;
@@ -77,15 +81,15 @@ export async function runD1Backup(db: D1Database, kv: KVNamespace): Promise<Back
     manifest.tables[table] = { rows, size_bytes: sizeBytes };
     manifest.total_rows += rows;
     manifest.total_size_bytes += sizeBytes;
-
-    // Store table data in KV (24h TTL as safety net)
-    if (rows > 0) {
-      const key = `${BACKUP_PREFIX}${dateKey}:${table}`;
-      await kv.put(key, data, { expirationTtl: 86400 * MAX_BACKUPS });
-    }
+    if (rows > 0) tableData[table] = data;
   }
 
-  // Store manifest
+  // One write for all table data + one for the manifest (was N+1).
+  if (Object.keys(tableData).length > 0) {
+    await kv.put(`${BACKUP_PREFIX}${dateKey}:tables`, JSON.stringify(tableData), {
+      expirationTtl: 86400 * MAX_BACKUPS,
+    });
+  }
   const manifestKey = `${BACKUP_PREFIX}${dateKey}:manifest`;
   await kv.put(manifestKey, JSON.stringify(manifest), { expirationTtl: 86400 * MAX_BACKUPS });
 

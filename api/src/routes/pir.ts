@@ -706,11 +706,17 @@ export async function detectPirAlerts(env: Pick<Env, 'KV_CACHE'>): Promise<{ tot
     }
   }
 
-  // Consolidate into a single KV key — replaces the old per-hour key pattern
+  // Consolidate into a single KV key — replaces the old per-hour key pattern.
+  // Only WRITE when there is genuinely a new alert id: the hourly cron otherwise
+  // re-persists an identical set every run, burning the Free-plan write budget.
   if (alerts.length > 0 && env.KV_CACHE) {
     const existing = (await env.KV_CACHE.get(ALERT_ACTIVE_KEY, 'json').catch(() => null)) as PirAlert[] | null;
-    const merged = [...alerts, ...(existing ?? [])].slice(0, MAX_ALERTS_STORED);
-    await env.KV_CACHE.put(ALERT_ACTIVE_KEY, JSON.stringify(merged), { expirationTtl: 604800 });
+    const seen = new Set((existing ?? []).map((a) => a.id));
+    const fresh = alerts.filter((a) => !seen.has(a.id));
+    if (fresh.length > 0) {
+      const merged = [...fresh, ...(existing ?? [])].slice(0, MAX_ALERTS_STORED);
+      await env.KV_CACHE.put(ALERT_ACTIVE_KEY, JSON.stringify(merged), { expirationTtl: 604800 });
+    }
   }
 
   return { total: activePirs.length, alerts };

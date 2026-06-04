@@ -181,14 +181,26 @@ export class ProviderCache {
   // fan-out to 2 cache subrequests total instead of ~2 per provider, staying
   // under the Workers Free-plan 50-subrequests-per-invocation limit.
 
-  /** Load the combined cache entry for `indicator` (one KV read). */
+  /** Cache-API request key for an indicator's combined batch entry. */
+  private batchCacheReq(indicator: Indicator): Request {
+    return new Request(`https://ioc-batch.internal/v1/${encodeURIComponent(this.batchKey(indicator))}`);
+  }
+
+  /**
+   * Load the combined cache entry for `indicator` from the Cloudflare Cache API
+   * (per-colo, free — does NOT count against the KV quota). Provider results are
+   * ephemeral and per-colo caching is sufficient, so this keeps the hot IOC-check
+   * path off KV entirely.
+   */
   async primeBatch(indicator: Indicator): Promise<void> {
     this.primed = {};
     this.staged = {};
-    if (!this.kv) return;
     try {
-      const map = (await this.kv.get(this.batchKey(indicator), 'json')) as Record<string, BatchEntry> | null;
-      if (map) this.primed = map;
+      const hit = await CACHE_PLATFORM.default.match(this.batchCacheReq(indicator));
+      if (hit) {
+        const map = (await hit.json()) as Record<string, BatchEntry> | null;
+        if (map) this.primed = map;
+      }
     } catch {
       /* best-effort — treat as cold */
     }
@@ -218,7 +230,6 @@ export class ProviderCache {
    * longest-lived entry so storage is bounded; per-entry `exp` gates reads.
    */
   async flushBatch(indicator: Indicator): Promise<void> {
-    if (!this.kv) return;
     const now = Math.floor(Date.now() / 1000);
     const merged: Record<string, BatchEntry> = {};
     for (const [p, e] of Object.entries(this.primed ?? {})) {
@@ -230,7 +241,11 @@ export class ProviderCache {
     const maxExp = entries.reduce((m, e) => Math.max(m, e.exp), now);
     const ttl = Math.max(60, maxExp - now);
     try {
-      await this.kv.put(this.batchKey(indicator), JSON.stringify(merged), { expirationTtl: ttl });
+      // Cache API instead of KV — per-colo, free, no KV-write quota cost.
+      const res = new Response(JSON.stringify(merged), {
+        headers: { 'content-type': 'application/json', 'cache-control': `public, max-age=${ttl}` },
+      });
+      await CACHE_PLATFORM.default.put(this.batchCacheReq(indicator), res);
     } catch {
       /* best-effort — a cache write failure shouldn't break the request */
     }
