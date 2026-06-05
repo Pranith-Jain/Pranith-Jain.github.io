@@ -1,35 +1,36 @@
 import { describe, it, expect } from 'vitest';
 import { computeDailyWindow, computeLiveDailyWindow } from '../../src/lib/briefing-window';
 
-describe('computeDailyWindow (48h calendar-day)', () => {
-  it('produces a 48h window ending at start-of-today UTC', () => {
-    // 2026-06-05 04:30:00Z → window is 2026-06-03 00:00 → 2026-06-05 00:00
+describe('computeDailyWindow (24h calendar-day)', () => {
+  it('produces a 24h window ending at start-of-today UTC', () => {
+    // 2026-06-05 04:30:00Z → window is 2026-06-04 00:00 → 2026-06-05 00:00,
+    // labelled by the start day (yesterday, the actual day being reported).
     const anchor = new Date('2026-06-05T04:30:00Z');
     const { start, end, slug, rangeLabel } = computeDailyWindow(anchor);
-    expect(start.toISOString()).toBe('2026-06-03T00:00:00.000Z');
+    expect(start.toISOString()).toBe('2026-06-04T00:00:00.000Z');
     expect(end.toISOString()).toBe('2026-06-05T00:00:00.000Z');
     expect(slug).toBe('daily-2026-06-04');
-    expect(rangeLabel).toBe('2026-06-03 – 2026-06-04 (48h)');
+    expect(rangeLabel).toBe('2026-06-04 – 2026-06-04 (24h)');
   });
 
   it('crosses a month boundary correctly', () => {
     const anchor = new Date('2026-07-01T00:30:00Z');
     const { start, end, slug, rangeLabel } = computeDailyWindow(anchor);
-    expect(start.toISOString()).toBe('2026-06-29T00:00:00.000Z');
+    expect(start.toISOString()).toBe('2026-06-30T00:00:00.000Z');
     expect(end.toISOString()).toBe('2026-07-01T00:00:00.000Z');
     expect(slug).toBe('daily-2026-06-30');
-    expect(rangeLabel).toBe('2026-06-29 – 2026-06-30 (48h)');
+    expect(rangeLabel).toBe('2026-06-30 – 2026-06-30 (24h)');
   });
 });
 
-describe('computeLiveDailyWindow (48h ending at "now")', () => {
-  it('produces a 48h window ending at the current instant and slugs to today', () => {
+describe('computeLiveDailyWindow (24h ending at "now")', () => {
+  it('produces a 24h window ending at the current instant and slugs to today', () => {
     const now = new Date('2026-06-05T05:10:54Z');
     const { start, end, slug, rangeLabel } = computeLiveDailyWindow(now);
-    expect(start.toISOString()).toBe('2026-06-03T05:10:54.000Z');
+    expect(start.toISOString()).toBe('2026-06-04T05:10:54.000Z');
     expect(end.toISOString()).toBe('2026-06-05T05:10:54.000Z');
     expect(slug).toBe('daily-2026-06-05');
-    expect(rangeLabel).toBe('2026-06-03 – 2026-06-05 (48h, live)');
+    expect(rangeLabel).toBe('2026-06-04 – 2026-06-05 (24h, live)');
   });
 
   it('morning build: live window differs from calendar-day window', () => {

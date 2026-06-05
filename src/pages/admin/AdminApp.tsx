@@ -13,6 +13,7 @@ import ManualTab from './ManualTab';
 import IntelBundleTab from './IntelBundleTab';
 import ApiKeysTab from './ApiKeysTab';
 import RetentionTab from './RetentionTab';
+import BriefingsTab from './BriefingsTab';
 
 type TabKey =
   | 'pending'
@@ -25,6 +26,7 @@ type TabKey =
   | 'manual'
   | 'intel'
   | 'apikeys'
+  | 'briefings'
   | 'retention';
 
 const TABS: Array<{ key: TabKey; label: string }> = [
@@ -40,6 +42,7 @@ const TABS: Array<{ key: TabKey; label: string }> = [
   { key: 'health', label: 'Health' },
   { key: 'intel', label: 'Intel bundle' },
   { key: 'apikeys', label: 'API Keys' },
+  { key: 'briefings', label: 'Briefings' },
   { key: 'retention', label: 'Retention' },
 ];
 
@@ -181,6 +184,7 @@ export default function AdminApp() {
         {active === 'manual' && <ManualTab />}
         {active === 'intel' && <IntelBundleTab />}
         {active === 'apikeys' && <ApiKeysTab />}
+        {active === 'briefings' && <BriefingsTab />}
         {active === 'retention' && <RetentionTab />}
       </section>
     </div>

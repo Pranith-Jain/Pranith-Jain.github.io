@@ -197,7 +197,11 @@ const ROUTES = [
   '/threatintel/cross-campaign',
   '/threatintel/actors',
   '/threatintel/rules',
-  '/threatintel/briefings',
+  // '/threatintel/briefings' removed from prerender: list is data-driven
+  // (fetches /api/v1/briefings/list on mount). Prerendering the empty
+  // initial state causes a React 18 hydration mismatch that leaves the
+  // stale SSR'd list visible. Same root cause as the detail-page fix in
+  // worker/router.ts (DYNAMIC_ROUTE_FALLBACKS).
 
   // ── ThreatIntel pages (4) — 0 API calls ───────────────────────
   '/threatintel/about',

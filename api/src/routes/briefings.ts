@@ -12,6 +12,7 @@ import {
   type BriefingType,
 } from '../lib/briefing-builder';
 import { extractBriefingTags } from '../lib/briefing-tags';
+import { requireAdmin as requireSharedAdmin, safeEqual } from '../lib/admin-auth';
 
 /**
  * Walk every finding in the briefing and attach auto-extracted tags
@@ -71,6 +72,25 @@ function briefingsCacheKey(c: Context<{ Bindings: Env }>): Request {
 // hours. SWR keeps it cheap (one revalidation per window, stale served free).
 const BRIEFINGS_CC = 'public, max-age=300, s-maxage=300, stale-while-revalidate=600';
 
+/** True when the request carries a VALID operator admin token. */
+function isAdminRequest(c: Context<{ Bindings: Env }>): boolean {
+  return 'ok' in requireSharedAdmin(c);
+}
+
+/**
+ * Purge the edge-cached detail + print entries for one slug, so a rebuild or
+ * delete is reflected immediately on the public page (otherwise the deleted/
+ * stale body lingers for up to the 5m TTL + 10m stale-while-revalidate). The
+ * paginated /list keys can't be enumerated to purge; admin reads bypass the
+ * cache (isAdminRequest) and the public list self-corrects within the TTL.
+ */
+async function purgeBriefingDetailCache(slug: string): Promise<void> {
+  const cache = caches.default;
+  const base = `https://briefings-cache.internal/${BRIEFINGS_CACHE_VERSION}/api/v1/briefings/${slug}`;
+  await cache.delete(new Request(base, { method: 'GET' }));
+  await cache.delete(new Request(`${base}/print`, { method: 'GET' }));
+}
+
 export async function listBriefingsHandler(c: Context<{ Bindings: Env }>) {
   const db = dbOrError(c);
   if (!db) return c.json({ error: 'briefings database not bound' }, 503);
@@ -84,19 +104,23 @@ export async function listBriefingsHandler(c: Context<{ Bindings: Env }>) {
     const qRaw = c.req.query('q');
     const q = qRaw ? qRaw.trim().slice(0, 100) : undefined;
 
+    // Admin reads bypass the edge cache so the operator sees the live D1 state
+    // immediately after a build/delete/prune (a cached list otherwise still
+    // shows a just-deleted row, which is what made delete look like it failed).
+    const skipCache = !!q || isAdminRequest(c);
     const cache = caches.default;
     const key = briefingsCacheKey(c);
     // Search bypasses the per-PoP cache (unbounded query cardinality); the
     // paginated non-search list is cached per (type, limit, offset).
-    const cached = q ? null : await cache.match(key);
+    const cached = skipCache ? null : await cache.match(key);
     if (cached) return new Response(cached.body, cached);
 
     const { items, total } = await listBriefings(db, { type, q, limit, offset });
     const res = c.json({ items, total }, 200, {
-      'cache-control': q ? 'no-store' : BRIEFINGS_CC,
+      'cache-control': skipCache ? 'no-store' : BRIEFINGS_CC,
       'last-modified': new Date().toUTCString(),
     });
-    if (!q) c.executionCtx.waitUntil(cache.put(key, res.clone()));
+    if (!skipCache) c.executionCtx.waitUntil(cache.put(key, res.clone()));
     return res;
   } catch (err) {
     console.error('listBriefingsHandler error:', err instanceof Error ? err.message : String(err));
@@ -146,38 +170,31 @@ export async function todayBriefingHandler(c: Context<{ Bindings: Env }>) {
   return res;
 }
 
-/**
- * Constant-time string compare to avoid leaking the admin token via timing
- * differences. Workers V8 strings still aren't truly constant-time but this
- * removes the obvious early-exit shortcut of `===`.
- */
-function safeEqual(a: string, b: string): boolean {
-  if (a.length !== b.length) return false;
-  let mismatch = 0;
-  for (let i = 0; i < a.length; i += 1) mismatch |= a.charCodeAt(i) ^ b.charCodeAt(i);
-  return mismatch === 0;
-}
-
 type AdminCtx = Context<{ Bindings: Env }>;
 
-function extractAdminToken(c: AdminCtx): string {
-  const authz = c.req.header('authorization') ?? '';
-  const bearer = /^Bearer\s+(.+)$/i.exec(authz)?.[1];
-  if (bearer) return bearer;
-  return c.req.header('x-admin-token') ?? '';
-}
-
+/**
+ * Admin gate for briefing mutations (build / backfill / sweep).
+ *
+ * Primary token is the shared operator `ADMIN_TOKEN` — the SAME token the
+ * whole /admin UI logs in with (lib/admin-auth: "one token, all admin
+ * surfaces"). This is what was broken: briefings used to require a SEPARATE
+ * `BRIEFINGS_ADMIN_TOKEN`, so the admin panel's token always 401'd here.
+ *
+ * A dedicated `BRIEFINGS_ADMIN_TOKEN`, if still configured, is also accepted
+ * for back-compat with any standalone backfill scripts/curls. Either token
+ * authorizes the request.
+ */
 function requireAdmin(c: AdminCtx): { error: Response } | { ok: true } {
-  const required = c.env.BRIEFINGS_ADMIN_TOKEN;
-  if (!required) {
-    return { error: c.json({ error: 'admin endpoint disabled' }, 403) };
+  const shared = requireSharedAdmin(c);
+  if ('ok' in shared) return shared;
+  const legacy = c.env.BRIEFINGS_ADMIN_TOKEN;
+  if (legacy) {
+    const bearer = /^Bearer\s+(.+)$/i.exec(c.req.header('authorization') ?? '')?.[1];
+    const token = bearer || c.req.header('x-admin-token') || '';
+    if (token && safeEqual(token, legacy)) return { ok: true };
   }
-
-  const token = extractAdminToken(c);
-  if (!token || !safeEqual(token, required)) {
-    return { error: c.json({ error: 'unauthorized' }, 401) };
-  }
-  return { ok: true };
+  // Neither token matched — surface the shared gate's 401/403 response.
+  return shared;
 }
 
 /**
@@ -194,12 +211,18 @@ export async function buildBriefingHandler(c: AdminCtx) {
   if (typeRaw !== 'daily' && typeRaw !== 'weekly' && typeRaw !== 'landscape') {
     return c.json({ error: 'type must be daily, weekly, or landscape' }, 400);
   }
+  // `?live=1` builds the live daily-today window (slug daily-<today>) instead of
+  // the closed daily-yesterday — the only way to rebuild today's in-progress
+  // briefing on demand (build defaults to yesterday; backfill only does closed
+  // days). Ignored for weekly/landscape.
+  const live = c.req.query('live') === '1' && typeRaw === 'daily';
 
   try {
     if (typeRaw === 'landscape') {
       const { buildLandscapeReport, writeLandscapeReport } = await import('../lib/landscape-builder');
       const report = await buildLandscapeReport(new Date(), { env: c.env });
       const result = await writeLandscapeReport(db, report);
+      await purgeBriefingDetailCache(report.slug);
       return c.json(
         {
           ok: result.written,
@@ -213,9 +236,14 @@ export async function buildBriefingHandler(c: AdminCtx) {
     const briefing = await buildBriefing(typeRaw as BriefingType, undefined, {
       nvdApiKey: c.env.NVD_API_KEY,
       env: c.env,
+      live,
     });
-    await writeBriefing(db, briefing);
-    return c.json({ ok: true, slug: briefing.slug, stats: briefing.stats }, 200);
+    const result = await writeBriefing(db, briefing);
+    await purgeBriefingDetailCache(briefing.slug);
+    return c.json(
+      { ok: true, slug: briefing.slug, stats: briefing.stats, written: result.written, reason: result.reason },
+      200
+    );
   } catch (err) {
     console.error('briefing build failed:', err);
     return c.json(
@@ -502,5 +530,73 @@ export async function sweepBriefingsHandler(c: AdminCtx) {
       },
       500
     );
+  }
+}
+
+/**
+ * Admin delete — remove a single briefing by slug.
+ *
+ * POST /api/v1/briefings/delete?slug=daily-2026-06-04
+ *   Authorization: Bearer <ADMIN_TOKEN>
+ *
+ * Used by the admin Briefings tab to drop a junk / empty row. The edge cache
+ * for the slug (max-age 5m) may still serve the old body briefly; that's
+ * acceptable for an operator action.
+ */
+export async function deleteBriefingHandler(c: AdminCtx) {
+  const db = c.env.BRIEFINGS_DB;
+  if (!db) return c.json({ error: 'briefings database not bound' }, 503);
+  const auth = requireAdmin(c);
+  if ('error' in auth) return auth.error;
+
+  const slug = c.req.query('slug');
+  if (!slug || !/^[a-z0-9-]+$/i.test(slug)) {
+    return c.json({ error: 'invalid or missing slug' }, 400);
+  }
+  try {
+    // Idempotent: report whether the row existed, but ALWAYS return 200 — a
+    // delete of an already-gone row (e.g. a double-click, or a re-click while a
+    // stale cached list still showed it) must not surface as an error. The old
+    // `res.meta.changes` gate returned 404 even on a successful delete.
+    const existed = await db.prepare('SELECT 1 FROM briefings WHERE slug = ?').bind(slug).first();
+    await db.prepare('DELETE FROM briefings WHERE slug = ?').bind(slug).run();
+    await purgeBriefingDetailCache(slug);
+    return c.json({ ok: true, slug, deleted: !!existed }, 200);
+  } catch (err) {
+    console.error('delete briefing failed:', err);
+    return c.json({ error: 'delete failed', slug }, 500);
+  }
+}
+
+/**
+ * Admin prune — delete every daily/weekly briefing whose stats show 0 findings
+ * AND 0 IOCs (the "empty" rows a budget-starved heal used to ship).
+ *
+ * POST /api/v1/briefings/prune-empty
+ *   Authorization: Bearer <ADMIN_TOKEN>
+ *
+ * Scoped to daily/weekly and to rows that EXPLICITLY carry findings=0 AND
+ * iocs=0 — landscape reports (different stats shape, no findings/iocs keys)
+ * have json_extract → NULL, so `= 0` is false and they're never touched.
+ */
+export async function pruneEmptyBriefingsHandler(c: AdminCtx) {
+  const db = c.env.BRIEFINGS_DB;
+  if (!db) return c.json({ error: 'briefings database not bound' }, 503);
+  const auth = requireAdmin(c);
+  if ('error' in auth) return auth.error;
+
+  const where =
+    "type IN ('daily','weekly') AND json_extract(stats_json,'$.findings') = 0 AND json_extract(stats_json,'$.iocs') = 0";
+  try {
+    const found = await db.prepare(`SELECT slug FROM briefings WHERE ${where}`).all<{ slug: string }>();
+    const slugs = (found.results ?? []).map((r) => r.slug);
+    if (slugs.length > 0) {
+      await db.prepare(`DELETE FROM briefings WHERE ${where}`).run();
+      await Promise.all(slugs.map((s) => purgeBriefingDetailCache(s)));
+    }
+    return c.json({ ok: true, deleted: slugs }, 200);
+  } catch (err) {
+    console.error('prune-empty failed:', err);
+    return c.json({ error: 'prune failed' }, 500);
   }
 }

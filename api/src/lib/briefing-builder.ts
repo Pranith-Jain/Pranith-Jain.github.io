@@ -619,6 +619,18 @@ async function fetchNvdRecent(start: Date, end: Date, apiKey?: string): Promise<
  * items embed the full CVE 5.1 record (containers.cna.metrics) so this is a
  * NON-lossy fallback — real CVSS, not just the OSV vector. Used only when
  * the NVD paging path returns nothing.
+ *
+ * The CIRCL endpoint mixes TWO record shapes: OSV-shaped advisories
+ * (top-level `published`, `database_specific.nvd_published_at`, `details`,
+ * `database_specific.cwe_ids`) AND native CVE 5.x records
+ * (`cveMetadata.cveId`, `cveMetadata.datePublished`, descriptions and CWE
+ * IDs nested under `containers.cna.*`). A pre-2026-05-31 build of this
+ * parser only understood the OSV shape — after CIRCL finished migrating to
+ * CVE 5.x, EVERY record was silently dropped (`Date.parse('')` → NaN,
+ * `withinRange` returned false, the briefing degraded to "no high/critical
+ * CVEs published" even when dozens had been). 2026-06-04 / 2026-06-05
+ * dailies were the visible symptom. Fix: pull publish date / CWE IDs /
+ * description from whichever shape is present, in that priority order.
  */
 async function fetchCirclRecent(start: Date, end: Date): Promise<NvdCve[]> {
   // Size the window: ~weekly windows need a deeper pull than daily ones.
@@ -633,35 +645,126 @@ async function fetchCirclRecent(start: Date, end: Date): Promise<NvdCve[]> {
   const items = (await res.json()) as Record<string, unknown>[];
   const out: NvdCve[] = [];
   for (const it of Array.isArray(items) ? items : []) {
-    const aliases = Array.isArray(it.aliases) ? (it.aliases as string[]) : [];
-    const cveId =
-      aliases.find((a) => /^CVE-\d{4}-\d+$/.test(a)) ??
-      (typeof it.id === 'string' && /^CVE-/.test(it.id) ? it.id : null);
+    // Resolve the CVE ID first — every code path below assumes we have one.
+    const cveId = resolveCirclCveId(it);
     if (!cveId) continue;
-    const ds = (it.database_specific ?? {}) as { nvd_published_at?: string; cwe_ids?: string[] };
-    const pub = new Date(String(ds.nvd_published_at ?? it.published ?? ''));
+
+    // Publish date — try CVE 5.x first (the current shape), fall back to OSV.
+    // CRITICAL: returning NaN here (because the field is missing) used to
+    // filter the row out entirely. The new resolver returns '' on miss so
+    // the explicit `if (!pubIso) continue` below is the one true gate.
+    const pubIso = resolveCirclPublished(it);
+    if (!pubIso) continue;
+    const pub = new Date(pubIso);
     if (Number.isNaN(pub.getTime()) || pub < start || pub >= end) continue;
-    // CVSS from the embedded CVE 5.1 cna metrics (real base score).
-    const cna = ((it.containers as Record<string, unknown>)?.cna ?? {}) as Record<string, unknown>;
-    let baseScore: number | undefined;
-    let baseSeverity: string | undefined;
-    for (const m of (cna.metrics as Record<string, unknown>[]) ?? []) {
-      const v = (m.cvssV3_1 ?? m.cvssV3_0) as { baseScore?: number; baseSeverity?: string } | undefined;
-      if (v?.baseScore != null) {
-        baseScore = v.baseScore;
-        baseSeverity = v.baseSeverity;
-        break;
-      }
-    }
+
+    const baseScore = resolveCirclBaseScore(it);
     if (baseScore == null) continue; // briefing only surfaces CVSS-scored CVEs
+
+    const description = resolveCirclDescription(it);
+    const cweIds = resolveCirclCweIds(it);
+
     out.push({
       id: cveId,
-      descriptions: [{ lang: 'en', value: String(it.details ?? '') }],
-      metrics: { cvssMetricV31: [{ cvssData: { baseScore, ...(baseSeverity ? { baseSeverity } : {}) } }] },
-      weaknesses: (ds.cwe_ids ?? []).map((c) => ({ description: [{ lang: 'en', value: c }] })),
+      descriptions: [{ lang: 'en', value: description }],
+      metrics: { cvssMetricV31: [{ cvssData: { baseScore } }] },
+      weaknesses: cweIds.map((c) => ({ description: [{ lang: 'en', value: c }] })),
     });
   }
   return out;
+}
+
+/**
+ * Extract the CVE ID from either an OSV-shaped record (`aliases`, `id`) or a
+ * native CVE 5.x record (`cveMetadata.cveId`). Returns null if neither
+ * shape carries a valid CVE-NNNN-NNNN id.
+ */
+export function resolveCirclCveId(it: Record<string, unknown>): string | null {
+  const cveMeta = (it.cveMetadata as Record<string, unknown> | undefined) ?? {};
+  if (typeof cveMeta.cveId === 'string' && /^CVE-\d{4}-\d+$/.test(cveMeta.cveId)) {
+    return cveMeta.cveId;
+  }
+  const aliases = Array.isArray(it.aliases) ? (it.aliases as unknown[]) : [];
+  for (const a of aliases) {
+    if (typeof a === 'string' && /^CVE-\d{4}-\d+$/.test(a)) return a;
+  }
+  if (typeof it.id === 'string' && /^CVE-\d{4}-\d+$/.test(it.id)) return it.id;
+  return null;
+}
+
+/**
+ * Publish date for window filtering. Order: CVE 5.x `cveMetadata.datePublished`
+ * → CVE 5.x `containers.cna.datePublic` (advisory-shaped) → OSV
+ * `database_specific.nvd_published_at` → OSV top-level `published`. Returns
+ * '' (NOT an Invalid Date) so the caller can distinguish "missing" from
+ * "unparseable".
+ */
+export function resolveCirclPublished(it: Record<string, unknown>): string {
+  const cveMeta = (it.cveMetadata as Record<string, unknown> | undefined) ?? {};
+  if (typeof cveMeta.datePublished === 'string' && cveMeta.datePublished) {
+    return cveMeta.datePublished;
+  }
+  const cna = ((it.containers as Record<string, unknown> | undefined)?.cna ?? {}) as Record<string, unknown>;
+  if (typeof cna.datePublic === 'string' && cna.datePublic) return cna.datePublic;
+  const ds = (it.database_specific as Record<string, unknown> | undefined) ?? {};
+  if (typeof ds.nvd_published_at === 'string' && ds.nvd_published_at) {
+    return ds.nvd_published_at;
+  }
+  if (typeof it.published === 'string' && it.published) return it.published;
+  return '';
+}
+
+/**
+ * Base CVSS score from the embedded CVE 5.x cna metrics (real score, not the
+ * OSV vector). Returns undefined if no CVSS-bearing metric is present.
+ */
+export function resolveCirclBaseScore(it: Record<string, unknown>): number | undefined {
+  const cna = ((it.containers as Record<string, unknown> | undefined)?.cna ?? {}) as Record<string, unknown>;
+  for (const m of (cna.metrics as Record<string, unknown>[]) ?? []) {
+    const v = (m.cvssV3_1 ?? m.cvssV3_0) as { baseScore?: number; baseSeverity?: string } | undefined;
+    if (v?.baseScore != null) return v.baseScore;
+  }
+  // OSV-shaped records carry a `severity` array with CVSS_V3 vectors but no
+  // numeric baseScore — not useful for the briefing (we already have the
+  // NVD path for the score). Returning undefined here is correct: the
+  // caller skips it and the NVD pass will pick it up.
+  return undefined;
+}
+
+/**
+ * English description. CVE 5.x nest it under
+ * `containers.cna.descriptions[].value`; OSV puts the prose at top-level
+ * `details`.
+ */
+function resolveCirclDescription(it: Record<string, unknown>): string {
+  const cna = ((it.containers as Record<string, unknown> | undefined)?.cna ?? {}) as Record<string, unknown>;
+  const descs = cna.descriptions as Array<Record<string, unknown>> | undefined;
+  if (Array.isArray(descs)) {
+    const en = descs.find((d) => d.lang === 'en' && typeof d.value === 'string');
+    if (en) return String(en.value);
+    if (descs[0] && typeof descs[0].value === 'string') return String(descs[0].value);
+  }
+  return typeof it.details === 'string' ? it.details : '';
+}
+
+/**
+ * CWE IDs. CVE 5.x nest them under
+ * `containers.cna.problemTypes[].descriptions[].cweId`; OSV uses
+ * `database_specific.cwe_ids` (a string[]).
+ */
+function resolveCirclCweIds(it: Record<string, unknown>): string[] {
+  const cna = ((it.containers as Record<string, unknown> | undefined)?.cna ?? {}) as Record<string, unknown>;
+  const out = new Set<string>();
+  for (const pt of (cna.problemTypes as Array<Record<string, unknown>>) ?? []) {
+    for (const d of (pt.descriptions as Array<Record<string, unknown>>) ?? []) {
+      if (typeof d.cweId === 'string') out.add(d.cweId);
+    }
+  }
+  const ds = (it.database_specific as Record<string, unknown> | undefined) ?? {};
+  for (const c of (ds.cwe_ids as string[] | undefined) ?? []) {
+    if (typeof c === 'string') out.add(c);
+  }
+  return Array.from(out);
 }
 
 async function fetchNvdByIds(cveIds: string[], apiKey?: string): Promise<Map<string, NvdCve>> {
@@ -688,35 +791,75 @@ async function fetchNvdByIds(cveIds: string[], apiKey?: string): Promise<Map<str
   return out;
 }
 
+// THROWS on hard failure (non-2xx / network / timeout) so the resilient
+// wrapper below can fall back to last-good instead of silently zeroing the
+// briefing's IOC half. Do NOT add a try/catch that returns [] here — that's
+// exactly how daily-2026-06-04/05 shipped with 0 IOCs while abuse.ch had
+// 700+ in-window URLhaus entries.
 async function fetchAbuseFeed(source: SourceId, timeoutMs = 15_000): Promise<IocEntry[]> {
+  const meta = FEED_SOURCES[source];
+  // No Cloudflare edge caching here. Briefings run daily / weekly (not
+  // bursty user traffic), and a stale-by-30-min CSV body can MASSIVELY
+  // under-count what's actually in the window — the 2026-04-27→
+  // 2026-05-03 weekly briefing matched only 90 IOCs because the edge
+  // had served a stale URLhaus snapshot whose tail predated the window
+  // start. Force a fresh upstream fetch each briefing run.
+  //
+  // We add a per-run cache buster as belt-and-braces — if Cloudflare ever
+  // ignores `cacheEverything: false`, the query param still bypasses it.
+  const sep = meta.url.includes('?') ? '&' : '?';
+  const url = `${meta.url}${sep}_briefing=${Date.now()}`;
+  const res = await fetch(url, {
+    headers: { 'user-agent': NVD_UA },
+    signal: AbortSignal.timeout(timeoutMs),
+    cf: { cacheEverything: false },
+  } as RequestInit);
+  if (!res.ok) throw new Error(`${source} feed ${res.status}`);
+  const body = await res.text();
+  // Pass UNCAPPED — the briefing-builder needs the full feed so it can filter
+  // by the briefing's date window before display-capping (display cap is applied
+  // in bucketIocs at 30 per type). Without this, the default cap-100 would only
+  // ever return the most recent 100 entries — fine for "live IOC stream" but
+  // disastrous for backfilled briefings that need yesterday's IOCs.
+  const summary = buildSummary(source, body, UNCAPPED);
+  return summary.entries;
+}
+
+/**
+ * Resilient IOC-feed fetch backed by the 14-day last-good cache.
+ *
+ * abuse.ch rate-limits the shared Cloudflare Worker egress IP, so a single
+ * briefing build can transiently get a 429/empty even though the feed is
+ * healthy (and even though /api/v1/live-iocs — a different, capped path —
+ * works seconds later). That's how daily-2026-06-04/05 were written with
+ * 0 IOCs while the other dailies that week carried 900–1,600.
+ *
+ * Differences from the generic `withLastGood`:
+ *  - an EMPTY live result is treated as suspect (these recent feeds publish
+ *    hundreds/day and are never legitimately empty), so we prefer last-good
+ *    over it and NEVER cache an empty array over a known-good one;
+ *  - the cache is per-source and short-lived in practice — the hourly heal
+ *    refreshes it, so a same-day window still matches recent timestamps.
+ */
+async function fetchFeedResilient(env: Env | undefined, source: SourceId): Promise<IocEntry[]> {
+  const key = `briefing-feed-${source}`;
   try {
-    const meta = FEED_SOURCES[source];
-    // No Cloudflare edge caching here. Briefings run daily / weekly (not
-    // bursty user traffic), and a stale-by-30-min CSV body can MASSIVELY
-    // under-count what's actually in the window — the 2026-04-27→
-    // 2026-05-03 weekly briefing matched only 90 IOCs because the edge
-    // had served a stale URLhaus snapshot whose tail predated the window
-    // start. Force a fresh upstream fetch each briefing run.
-    //
-    // We add a per-run cache buster as belt-and-braces — if Cloudflare ever
-    // ignores `cacheEverything: false`, the query param still bypasses it.
-    const sep = meta.url.includes('?') ? '&' : '?';
-    const url = `${meta.url}${sep}_briefing=${Date.now()}`;
-    const res = await fetch(url, {
-      headers: { 'user-agent': NVD_UA },
-      signal: AbortSignal.timeout(timeoutMs),
-      cf: { cacheEverything: false },
-    } as RequestInit);
-    if (!res.ok) return [];
-    const body = await res.text();
-    // Pass UNCAPPED — the briefing-builder needs the full feed so it can filter
-    // by the briefing's date window before display-capping (display cap is applied
-    // in bucketIocs at 30 per type). Without this, the default cap-100 would only
-    // ever return the most recent 100 entries — fine for "live IOC stream" but
-    // disastrous for backfilled briefings that need yesterday's IOCs.
-    const summary = buildSummary(source, body, UNCAPPED);
-    return summary.entries;
+    const entries = await fetchAbuseFeed(source);
+    if (entries.length > 0) {
+      if (env) await writeLastGood(env, key, entries, { ttlSeconds: LASTGOOD_TTL_SEC });
+      return entries;
+    }
+    // Empty is suspect — prefer a non-empty last-good if we have one.
+    if (env) {
+      const hit = await readLastGood<IocEntry[]>(env, key);
+      if (hit && hit.length > 0) return hit;
+    }
+    return entries;
   } catch {
+    if (env) {
+      const hit = await readLastGood<IocEntry[]>(env, key);
+      if (hit) return hit;
+    }
     return [];
   }
 }
@@ -1442,10 +1585,10 @@ export async function buildBriefing(
       // NVD is window-specific, so the cache key carries the range; the hourly
       // catch-up rebuilds the same slug/window and reuses any prior success.
       wrap(withLastGood(mtiEnv, 'briefing-kev', fetchKev), [] as KevEntry[]),
-      fetchAbuseFeed('urlhaus').catch(() => [] as IocEntry[]),
-      fetchAbuseFeed('malwarebazaar').catch(() => [] as IocEntry[]),
-      fetchAbuseFeed('threatfox').catch(() => [] as IocEntry[]),
-      fetchAbuseFeed('tweetfeed').catch(() => [] as IocEntry[]),
+      fetchFeedResilient(mtiEnv, 'urlhaus'),
+      fetchFeedResilient(mtiEnv, 'malwarebazaar'),
+      fetchFeedResilient(mtiEnv, 'threatfox'),
+      fetchFeedResilient(mtiEnv, 'tweetfeed'),
       wrap(
         withLastGood(mtiEnv, `briefing-nvd?s=${startMs}&e=${endMs}`, async () => {
           // NVD first; on throw OR empty, fall back to CIRCL exactly ONCE
@@ -1630,6 +1773,34 @@ export async function buildBriefing(
   // don't mistake the cap for the count.
   let iocsRawTotal = allIocs.length;
   let iocs = bucketIocs(allIocs);
+
+  // Per-source diagnostics — emit raw-fetched vs in-window counts for every
+  // feed so a future "0 IOCs" briefing is debuggable from logs alone (was: had
+  // to reproduce locally to learn whether the fetch or the window filter zeroed
+  // it). `fetched` is the full feed size; `inWindow` is what survived the date
+  // filter. fetched>0 & inWindow=0 ⇒ window/timestamp issue; fetched=0 ⇒ the
+  // feed fetch failed (or last-good was also empty).
+  console.log(
+    JSON.stringify({
+      job: 'briefing-build-sources',
+      slug,
+      live: !!opts.live,
+      window: { start: rangeStart.toISOString(), end: rangeEnd.toISOString() },
+      findings: {
+        kev: kevFindings.length,
+        nvd: nvdFindings.length,
+        mti: mtiCveFindings.length,
+        cvefeed: cvefeedFindings.length,
+      },
+      feeds: {
+        urlhaus: { fetched: urlhaus.length, inWindow: urlhausMatched.length },
+        malwarebazaar: { fetched: malwarebazaar.length, inWindow: malwarebazaarMatched.length },
+        threatfox: { fetched: threatfox.length, inWindow: threatfoxMatched.length },
+        tweetfeed: { fetched: tweetfeed.length, inWindow: tweetfeedMatched.length },
+      },
+      iocsRawTotal,
+    })
+  );
 
   // IOC source attribution — only feeds that actually returned data this run.
   // KEV/NVD belong to the findings half of the briefing, not the IOC half.
@@ -1922,6 +2093,19 @@ export async function writeBriefing(
     if (existing) return { written: false, reason: 'already_exists' };
   }
 
+  // Guard: a briefing whose body is empty is unreadable — `readBriefing`
+  // calls `safeJsonParse(body, null)` and an empty string returns the
+  // fallback, so the GET handler serves a 404 for a row that's actually
+  // in D1. We've seen this from an aborted build / partial write — never
+  // let it persist. `buildBriefing` always returns a fully-formed object,
+  // so an empty `body` would be a code bug; the `briefing.body` field
+  // doesn't exist (the briefing IS the body), so we check the JSON-serialised
+  // string length instead.
+  const bodyJson = JSON.stringify(briefing);
+  if (bodyJson.length < 100) {
+    return { written: false, reason: 'empty_body_refused' };
+  }
+
   // Don't clobber a good briefing with an empty one. The daily cron rebuilds
   // a slug from live KEV/NVD/abuse.ch; if those feeds are quiet or time out
   // at build time the result is 0 findings / 0 IOCs. INSERT OR REPLACE would
@@ -1932,13 +2116,25 @@ export async function writeBriefing(
   const isEmpty = briefing.stats.findings === 0 && briefing.stats.iocs === 0;
   if (isEmpty) {
     const prior = await db
-      .prepare('SELECT stats_json FROM briefings WHERE slug = ?')
+      .prepare('SELECT stats_json, body FROM briefings WHERE slug = ?')
       .bind(briefing.slug)
-      .first<{ stats_json: string }>();
+      .first<{ stats_json?: string; body?: string }>();
     if (prior) {
-      const ps = safeJsonParse<Partial<BriefingStats>>(prior.stats_json, {});
-      if ((ps.findings ?? 0) > 0 || (ps.iocs ?? 0) > 0) {
-        return { written: false, reason: 'kept_richer_existing' };
+      // Special case: a prior row whose body is explicitly stored as
+      // empty is unreadable (`readBriefing` → `safeJsonParse('', null)`
+      // → null → 404). The "don't downgrade" guard would lock the
+      // heal cycle on it forever, so DROP it and proceed. We only
+      // treat a body as "empty" when the column was returned AND is
+      // short — an undefined body (not selected, e.g. the test stub)
+      // isn't an unreadable row, so we skip the cleanup.
+      const priorBodyKnown = prior.body !== undefined && prior.body !== null;
+      if (priorBodyKnown && prior.body!.trim().length < 100) {
+        await db.prepare('DELETE FROM briefings WHERE slug = ?').bind(briefing.slug).run();
+      } else {
+        const ps = safeJsonParse<Partial<BriefingStats>>(prior.stats_json, {});
+        if ((ps.findings ?? 0) > 0 || (ps.iocs ?? 0) > 0) {
+          return { written: false, reason: 'kept_richer_existing' };
+        }
       }
     }
   }

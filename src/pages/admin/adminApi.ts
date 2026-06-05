@@ -73,6 +73,32 @@ export async function postJsonWithBody<T>(path: string, body: unknown, init: Req
   return r.json() as Promise<T>;
 }
 
+// Briefing admin/read endpoints live at /api/v1/briefings/* (NOT under the
+// /api/v1/admin BASE). The build/backfill/sweep mutations require the admin
+// token (sent on both headers via adminAuthHeaders); list/get are public but
+// sending the token is harmless. Same 401 + error handling as the BASE helpers.
+const BRIEFINGS_BASE = '/api/v1/briefings';
+
+export async function briefingsGet<T>(path: string): Promise<T> {
+  const r = await fetch(BRIEFINGS_BASE + path, { headers: headers() });
+  if (r.status === 401) {
+    handleUnauthorized();
+    throw new Error('unauthorized');
+  }
+  if (!r.ok) throw new Error(await extractError(r));
+  return r.json() as Promise<T>;
+}
+
+export async function briefingsPost<T>(path: string): Promise<T> {
+  const r = await fetch(BRIEFINGS_BASE + path, { method: 'POST', headers: headers() });
+  if (r.status === 401) {
+    handleUnauthorized();
+    throw new Error('unauthorized');
+  }
+  if (!r.ok) throw new Error(await extractError(r));
+  return r.json() as Promise<T>;
+}
+
 /**
  * Probe the admin token without mounting the shell. Used by AdminApp on
  * mount: if the cached token is stale, we surface the login screen

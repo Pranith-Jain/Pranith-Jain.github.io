@@ -177,7 +177,11 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/cross-campaign', '/__prerendered/threatintel__cross-campaign'],
   ['/threatintel/actors', '/__prerendered/threatintel__actors'],
   ['/threatintel/rules', '/__prerendered/threatintel__rules'],
-  ['/threatintel/briefings', '/__prerendered/threatintel__briefings'],
+  // '/threatintel/briefings' removed from PRERENDERED_ROUTES: list is
+  // data-driven (fetches /api/v1/briefings/list on mount). Prerendering
+  // the empty initial state causes a React 18 hydration mismatch that
+  // leaves the stale SSR'd list visible. Same root cause as the detail-
+  // page fix above (DYNAMIC_ROUTE_FALLBACKS).
 
   // ── ThreatIntel: pages ────────────────────────────────────────
   ['/threatintel/about', '/__prerendered/threatintel__about'],

@@ -43,10 +43,18 @@ import type { Env } from './env';
 
 /**
  * Cron-triggered work. Dispatched on cron string:
- * - "5 0 * * *"  → daily case-study discovery
- * - "15 0 * * *" → daily case-study planner (drains the approved backlog)
+ * - "5 0 * * *"  → daily case-study discovery + planner (chained; one
+ *                  lease, planner runs after discovery finishes so it
+ *                  sees the just-updated candidate queue)
  * - "30 0 * * *" → daily briefing for the prior calendar day
  * - "45 0 * * 1" → weekly briefing for the prior ISO week (Mon → Sun)
+ * - "20 * * * *" → briefing self-heal, ONE build per invocation. Its OWN
+ *                  invocation so the build gets a fresh Free-plan
+ *                  50-subrequest budget — when it shared "0 * * * *",
+ *                  telegram scraping + the warm fan-out spent the budget
+ *                  first and the build's KEV/NVD/abuse.ch fetches threw
+ *                  "Too many subrequests", shipping empty briefings
+ *                  (daily-2026-06-04/05).
  * - "0 * * * *"  → warm /api/v1/snapshot + /api/v1/ioc-snapshot once
  *                  per hour. Was every 5 min — that cadence was burning
  *                  Workers KV writes for negligible UX gain. Snapshot
@@ -143,25 +151,32 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
     }
   }
 
-  // Case-study discovery — its OWN invocation
+  // Case-study discovery + planner — single daily invocation. Discovery
+  // populates today's candidate queue; the planner runs immediately after
+  // against the just-updated backlog so the day's first publish slot has
+  // fresh approved material to schedule. Chained sequentially (NOT in
+  // parallel) so the planner sees candidates the discovery run may have
+  // also flagged for auto-approval, and so a single shared lease covers
+  // both — one DO acquire/release for the whole pipeline.
   if (csCron === '5 0 * * *') {
     ctx.waitUntil(
-      runDiscoveryNow(env as unknown as CaseStudyEnv, csNow)
-        .catch(logCronFail('discovery'))
-        .finally(() => logCronDone({ path: 'discovery' }))
-        .finally(releaseLease)
-    );
-    return;
-  }
-
-  // Case-study planner — its own invocation. Daily (was weekly Mondays) so
-  // the approved backlog drains each morning instead of waiting up to a week.
-  // No cron added; this slot moved from "15 0 * * 1" to "15 0 * * *".
-  if (csCron === '15 0 * * *') {
-    ctx.waitUntil(
-      runPlannerNow(env as unknown as CaseStudyEnv, csNow)
-        .catch(logCronFail('planner'))
-        .finally(() => logCronDone({ path: 'planner' }))
+      (async () => {
+        try {
+          await runDiscoveryNow(env as unknown as CaseStudyEnv, csNow);
+        } catch (e) {
+          logCronFail('discovery')(e);
+          // Don't rethrow: a discovery failure must not block the planner,
+          // which operates on the existing approved backlog and is the
+          // half the platform actually depends on daily.
+        }
+        try {
+          await runPlannerNow(env as unknown as CaseStudyEnv, csNow);
+        } catch (e) {
+          logCronFail('planner')(e);
+        }
+        logCronDone({ path: 'discovery+planner' });
+      })()
+        .catch(logCronFail('discovery+planner'))
         .finally(releaseLease)
     );
     return;
@@ -232,136 +247,17 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           );
         }
 
-        let rebuiltThisHour = false;
+        // Briefing self-heal runs in its OWN cron ("20 * * * *",
+        // runBriefingHealOnce) — NOT here. It used to do three briefing builds
+        // in this same invocation, after telegram scraping + the warm fan-out
+        // had already spent most of the Free-plan 50-subrequest budget, so the
+        // build's KEV/NVD/abuse.ch fetches threw "Too many subrequests" and it
+        // shipped empty briefings (daily-2026-06-04/05). Isolating it gives the
+        // build a clean budget.
 
-        const healOne = async (
-          type: 'daily' | 'weekly',
-          slug: string,
-          opts?: {
-            minAgeMs?: number;
-            /**
-             * Extra "this row is stale" predicate consulted when the standard
-             * richness/degraded check says the row is fine. Lets the weekly
-             * heal catch a briefing that `isBriefingRich` wrongly passes (e.g.
-             * W22's 5 findings) by comparing it against its dailies.
-             */
-            extraHealCheck?: (row: { stats_json?: string; body?: string } | null) => Promise<boolean>;
-            /**
-             * When true, `buildBriefing` uses `now` as the window end (not
-             * start-of-today-UTC). Required when the heal targets today's
-             * slug — otherwise buildBriefing computes the wrong window end
-             * and the slug mismatch would silently write to the wrong row.
-             */
-            live?: boolean;
-          }
-        ) => {
-          if (!db) return;
-          // Read stats AND body in one query: stats decide richness, body
-          // carries the `degraded` flag + `generated_at` the cooldown needs.
-          // A degraded briefing keeps its abuse.ch IOCs, so a richness-only
-          // check (the old isRich short-circuit) saw iocs>0 and skipped it
-          // forever — weekly-2026-W22 stayed degraded indefinitely after
-          // upstreams recovered. `briefingNeedsHeal` keeps degraded rows
-          // eligible for rebuild, subject only to the cooldown.
-          const row = await db
-            .prepare('SELECT stats_json, body FROM briefings WHERE slug = ?')
-            .bind(slug)
-            .first<{ stats_json?: string; body?: string }>();
-          const needsHeal = briefingNeedsHeal(row, { now: Date.now(), cooldownMs: opts?.minAgeMs });
-          const extraHeal = !needsHeal && opts?.extraHealCheck ? await opts.extraHealCheck(row) : false;
-          if (!needsHeal && !extraHeal) return;
-          rebuiltThisHour = true;
-          try {
-            const briefing = await buildBriefing(type, undefined, {
-              nvdApiKey: env.NVD_API_KEY,
-              env: env as unknown as ApiEnv,
-              live: opts?.live,
-            });
-            const result = await writeBriefing(db, briefing);
-            if (result.written) {
-              console.log(
-                `scheduled(${type}-catch-up): wrote ${briefing.slug} (findings=${briefing.stats.findings}, iocs=${briefing.stats.iocs}, live=${opts?.live ? 'yes' : 'no'})`
-              );
-            }
-          } catch (err) {
-            console.error(
-              JSON.stringify({
-                job: `scheduled(${type}-catch-up)`,
-                status: 'build_failed',
-                error: err instanceof Error ? err.message : String(err),
-              })
-            );
-          }
-        };
-
-        // Daily: skip UTC hour 0 — the 00:30 dedicated cron is imminent.
-        // Cooldown 30min — the daily catches up on quiet days; doesn't need
-        // to retry every hour, but once an hour is fine and short enough
-        // that the next attempt lands inside most rate-limit cool-offs.
-        if (db && new Date().getUTCHours() !== 0) {
-          const yesterday = new Date(Date.now() - 86400_000);
-          await healOne('daily', `daily-${yesterday.toISOString().slice(0, 10)}`, {
-            minAgeMs: 30 * 60_000,
-            // NVD (and sometimes cvefeed) lags 12-24h, so the 00:30 build can
-            // miss yesterday's high/critical CVEs and land findings=0 while the
-            // abuse.ch IOC feeds still populate. isBriefingRich counts iocs>0 as
-            // complete, so without this the daily would freeze CVE-less for good
-            // (the early-May dailies). Re-enrich while live feeds still cover
-            // yesterday; 3h cooldown keeps a genuinely CVE-quiet day from
-            // rebuilding hourly.
-            extraHealCheck: async (row) => dailyNeedsCveReenrich(row, { now: Date.now(), cooldownMs: 3 * 60 * 60_000 }),
-          });
-        }
-        // "Today's" live daily — covers the 48h ending at the current instant,
-        // slugged by today's calendar day. The dedicated 00:30 cron only
-        // writes the prior day's briefing, so without this the platform would
-        // show a blank `daily-${today}` until the next morning's 00:30. The
-        // heal is gated on the same 30min cooldown so back-to-back hours
-        // don't hammer the build; a 60min cooldown is fine for the live
-        // variant since the window rolls forward by 1h each rebuild and the
-        // "yesterday" heal above covers the calendar-day build. `live: true`
-        // is REQUIRED — without it, buildBriefing anchors on start-of-today-
-        // UTC and would compute slug=daily-yesterday, mismatching the row
-        // this heal is targeting.
-        if (db) {
-          const today = new Date();
-          await healOne('daily', `daily-${today.toISOString().slice(0, 10)}`, {
-            minAgeMs: 60 * 60_000,
-            live: true,
-          });
-        }
-        // Weekly self-heal — every hour (was: once/day at UTC hour 2). The
-        // weekly cron only fires Mondays, so a degraded weekly was previously
-        // stuck for 7 days. Hourly retry with a 30min cooldown recovers
-        // within an hour of KEV/NVD coming back, while not burning a full
-        // rebuild on back-to-back hours while upstreams stay blocked.
-        if (db) {
-          await healOne('weekly', expectedWeeklySlug(), {
-            minAgeMs: 30 * 60_000,
-            // The weekly feeds are recent-only, so a weekly built late re-queries
-            // a window they no longer cover and collapses to KEV-only even though
-            // its dailies are rich (the W22 bug). `isBriefingRich` then sees a few
-            // findings and skips the heal forever. Catch that by comparing the
-            // stored weekly against its constituent dailies; the rebuild now rolls
-            // them in, so once repaired it's no longer sparse and stops rebuilding.
-            extraHealCheck: async (row) => {
-              let range: { range_start?: string; range_end?: string } = {};
-              try {
-                range = row?.body ? JSON.parse(row.body) : {};
-              } catch {
-                return false;
-              }
-              if (!range.range_start || !range.range_end) return false;
-              return weeklyUndercountsDailies(db, expectedWeeklySlug(), range.range_start, range.range_end);
-            },
-          });
-        }
-
-        // When a briefing catch-up already spent this hour's subrequest budget,
-        // skip ONLY the heavy cache-warm fan-out below — but still fall through
-        // to the cheap KV/D1 maintenance jobs (watch engine, blocklist, PIR
-        // alerts, retention, feed scheduler). This previously `return`ed, which
-        // paused alerting + retention for the entire hour on upstream-lag days.
+        // Cache-warm fan-out. Briefing builds no longer share this invocation
+        // (they moved to the "20 * * * *" heal cron), so this always runs — it
+        // no longer needs to be skipped to spare the briefing build's budget.
         const start = Date.now();
         const baseUrl = 'https://pranithjain.qzz.io';
         const perSourceTargets = [
@@ -392,9 +288,7 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           await res.arrayBuffer();
           return { path, status: res.status };
         }
-        if (rebuiltThisHour) {
-          console.log('scheduled: skipped snapshot warm this hour — briefing catch-up took the subrequest budget');
-        } else {
+        {
           const perSource = await Promise.allSettled(perSourceTargets.map(warm));
           const composers = await Promise.allSettled(composerTargets.map(warm));
           const summary = [...perSource, ...composers]
@@ -664,6 +558,21 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
     return;
   }
 
+  // === Briefing self-heal — dedicated hourly invocation ===
+  // Runs ALONE (no telegram scrape, no warm fan-out) so the briefing build
+  // gets a fresh Free-plan 50-subrequest budget. Rebuilds AT MOST ONE briefing
+  // per fire (see runBriefingHealOnce) — three builds in one invocation is what
+  // busted the budget and shipped empty briefings when this lived in 0 * * * *.
+  if (cron === '20 * * * *') {
+    ctx.waitUntil(
+      runBriefingHealOnce(env)
+        .catch(logCronFail('briefing-heal'))
+        .finally(() => logCronDone({ path: 'briefing-heal' }))
+        .finally(releaseLease)
+    );
+    return;
+  }
+
   // === Dedicated briefings cron path ===
   if (cron !== '30 0 * * *' && cron !== '45 0 * * 1' && cron !== '30 2 1 * *') {
     // Unknown cron string — release the lease immediately so a stale entry
@@ -761,4 +670,113 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
       .catch(logCronFail('briefing-dedicated'))
       .finally(releaseLease)
   );
+}
+
+/**
+ * Briefing self-heal — rebuilds AT MOST ONE briefing per call, in priority
+ * order: a broken/stale daily-yesterday, then the live daily-today, then the
+ * weekly. Called from the dedicated "20 * * * *" cron.
+ *
+ * One build per invocation is the whole point: a single briefing build fits
+ * comfortably under the Free-plan 50-subrequest cap (the 00:30 dedicated cron
+ * proves it), but THREE builds in one invocation — which is what the old
+ * inline heal did inside "0 * * * *", on top of telegram scraping and the warm
+ * fan-out — blew the budget, so every KEV/NVD/abuse.ch fetch threw "Too many
+ * subrequests" and the heal wrote 0-finding / 0-IOC briefings
+ * (daily-2026-06-04/05). A backlog of stale rows drains over the next few
+ * hourly ticks instead of all at once.
+ *
+ * `healOne` returns true once it ATTEMPTS a build (even if that build throws),
+ * so the caller stops after one — a failed build still spent the invocation's
+ * budget, and retrying a second build in the same fire would likely fail too.
+ */
+async function runBriefingHealOnce(env: Env): Promise<void> {
+  const db = env.BRIEFINGS_DB as D1Database | undefined;
+  if (!db) return;
+
+  const healOne = async (
+    type: 'daily' | 'weekly',
+    slug: string,
+    opts?: {
+      minAgeMs?: number;
+      extraHealCheck?: (row: { stats_json?: string; body?: string } | null) => Promise<boolean>;
+      live?: boolean;
+    }
+  ): Promise<boolean> => {
+    // Read stats AND body in one query: stats decide richness, body carries the
+    // `degraded` flag + `generated_at` the cooldown needs. A degraded briefing
+    // keeps its abuse.ch IOCs, so a richness-only check saw iocs>0 and skipped
+    // it forever; `briefingNeedsHeal` keeps degraded rows eligible, subject to
+    // the cooldown.
+    const row = await db
+      .prepare('SELECT stats_json, body FROM briefings WHERE slug = ?')
+      .bind(slug)
+      .first<{ stats_json?: string; body?: string }>();
+    const needsHeal = briefingNeedsHeal(row, { now: Date.now(), cooldownMs: opts?.minAgeMs });
+    const extraHeal = !needsHeal && opts?.extraHealCheck ? await opts.extraHealCheck(row) : false;
+    if (!needsHeal && !extraHeal) return false;
+    try {
+      const briefing = await buildBriefing(type, undefined, {
+        nvdApiKey: env.NVD_API_KEY,
+        env: env as unknown as ApiEnv,
+        live: opts?.live,
+      });
+      const result = await writeBriefing(db, briefing);
+      console.log(
+        `scheduled(${type}-heal): ${result.written ? 'wrote' : `skipped(${result.reason})`} ${briefing.slug} (findings=${briefing.stats.findings}, iocs=${briefing.stats.iocs}, live=${opts?.live ? 'yes' : 'no'})`
+      );
+    } catch (err) {
+      console.error(
+        JSON.stringify({
+          job: `scheduled(${type}-heal)`,
+          status: 'build_failed',
+          error: err instanceof Error ? err.message : String(err),
+        })
+      );
+    }
+    return true; // attempted a build — this invocation's one slot is spent
+  };
+
+  // 1) daily-yesterday — skip at UTC hour 0 (the 00:30 dedicated cron owns it).
+  //    NVD/cvefeed lag 12-24h, so re-enrich while live feeds still cover it;
+  //    3h cooldown keeps a genuinely CVE-quiet day from rebuilding hourly.
+  if (new Date().getUTCHours() !== 0) {
+    const yesterday = new Date(Date.now() - 86400_000);
+    const healed = await healOne('daily', `daily-${yesterday.toISOString().slice(0, 10)}`, {
+      minAgeMs: 30 * 60_000,
+      extraHealCheck: async (row) => dailyNeedsCveReenrich(row, { now: Date.now(), cooldownMs: 3 * 60 * 60_000 }),
+    });
+    if (healed) return;
+  }
+
+  // 2) live daily-today — the dedicated 00:30 cron only writes the PRIOR day,
+  //    so this keeps `daily-${today}` populated through the day. `live: true`
+  //    is REQUIRED — without it buildBriefing slugs to yesterday and writes the
+  //    wrong row.
+  {
+    const today = new Date();
+    const healed = await healOne('daily', `daily-${today.toISOString().slice(0, 10)}`, {
+      minAgeMs: 60 * 60_000,
+      live: true,
+    });
+    if (healed) return;
+  }
+
+  // 3) weekly — the cron only fires Mondays, so without an hourly retry a
+  //    degraded weekly stays stuck for 7 days. The extra check catches a weekly
+  //    that `isBriefingRich` wrongly passes because its recent-only feeds no
+  //    longer cover the window even though its dailies are rich (the W22 bug).
+  await healOne('weekly', expectedWeeklySlug(), {
+    minAgeMs: 30 * 60_000,
+    extraHealCheck: async (row) => {
+      let range: { range_start?: string; range_end?: string } = {};
+      try {
+        range = row?.body ? JSON.parse(row.body) : {};
+      } catch {
+        return false;
+      }
+      if (!range.range_start || !range.range_end) return false;
+      return weeklyUndercountsDailies(db, expectedWeeklySlug(), range.range_start, range.range_end);
+    },
+  });
 }

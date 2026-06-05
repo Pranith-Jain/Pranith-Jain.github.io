@@ -827,7 +827,10 @@ function filterByDaysWindow(body: ResponseBody, days: number): ResponseBody {
     .map(([sector, count]) => ({
       sector,
       count,
-      pct: classifiedTotal > 0 ? Math.round((count / classifiedTotal) * 100) : 0,
+      // Match the full-body builder: Unknown's pct is 0 because the
+      // denominator (classifiedTotal) excludes it. With Unknown=21 and
+      // classified=8, naive (21/8)*100=263 — a "percentage" > 100.
+      pct: sector === 'Unknown' || classifiedTotal === 0 ? 0 : Math.round((count / classifiedTotal) * 100),
     }))
     .sort((a, b) => b.count - a.count);
   return {

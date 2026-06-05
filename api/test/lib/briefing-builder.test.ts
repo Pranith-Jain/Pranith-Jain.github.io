@@ -9,6 +9,9 @@ import {
   dailyNeedsCveReenrich,
   isBriefingRich,
   isBriefingDegraded,
+  resolveCirclCveId,
+  resolveCirclPublished,
+  resolveCirclBaseScore,
   type Briefing,
 } from '../../src/lib/briefing-builder';
 import { readLastGood, writeLastGood } from '../../src/lib/lastgood';
@@ -383,5 +386,57 @@ describe('dailyNeedsCveReenrich', () => {
 
   it('returns false for a missing row', () => {
     expect(dailyNeedsCveReenrich(null, { now: NOW, cooldownMs: 0 })).toBe(false);
+  });
+});
+
+describe('CIRCL CVE 5.x parsing (regression: findings=0 on 2026-06-04/05)', () => {
+  // Shape returned by https://cve.circl.lu/api/last today: a native CVE 5.x
+  // record. The OLD parser only read `database_specific.nvd_published_at` /
+  // top-level `published` — NEITHER exists here — so `new Date('')` was an
+  // Invalid Date and EVERY item was filtered out of the window, collapsing the
+  // CIRCL fallback (and thus the whole briefing on NVD-lag days) to 0 findings.
+  const cve5x: Record<string, unknown> = {
+    cveMetadata: {
+      cveId: 'CVE-2026-12345',
+      datePublished: '2026-06-04T10:30:00.000Z',
+    },
+    containers: {
+      cna: {
+        descriptions: [{ lang: 'en', value: 'Heap overflow in Example Server.' }],
+        metrics: [{ cvssV3_1: { baseScore: 9.8, baseSeverity: 'CRITICAL' } }],
+        problemTypes: [{ descriptions: [{ cweId: 'CWE-787' }] }],
+      },
+    },
+  };
+
+  it('resolves the CVE id from cveMetadata.cveId', () => {
+    expect(resolveCirclCveId(cve5x)).toBe('CVE-2026-12345');
+  });
+
+  it('resolves the publish date from cveMetadata.datePublished (the bug)', () => {
+    expect(resolveCirclPublished(cve5x)).toBe('2026-06-04T10:30:00.000Z');
+    // Critically: NOT empty — empty is what made the window filter drop it.
+    expect(resolveCirclPublished(cve5x)).not.toBe('');
+  });
+
+  it('resolves the base score from the embedded cna CVSS metric', () => {
+    expect(resolveCirclBaseScore(cve5x)).toBe(9.8);
+  });
+
+  it('still handles the legacy OSV shape (aliases + database_specific)', () => {
+    const osv: Record<string, unknown> = {
+      id: 'OSV-2026-1',
+      aliases: ['CVE-2026-99999'],
+      published: '2026-06-04T00:00:00Z',
+      database_specific: { nvd_published_at: '2026-06-04T01:00:00Z' },
+    };
+    expect(resolveCirclCveId(osv)).toBe('CVE-2026-99999');
+    expect(resolveCirclPublished(osv)).toBe('2026-06-04T01:00:00Z');
+  });
+
+  it('returns empty/null for an unrelated record so the caller can skip it', () => {
+    expect(resolveCirclCveId({ foo: 'bar' })).toBeNull();
+    expect(resolveCirclPublished({ foo: 'bar' })).toBe('');
+    expect(resolveCirclBaseScore({ foo: 'bar' })).toBeUndefined();
   });
 });

@@ -74,6 +74,8 @@ import {
   buildBriefingHandler,
   backfillBriefingsHandler,
   sweepBriefingsHandler,
+  deleteBriefingHandler,
+  pruneEmptyBriefingsHandler,
   briefingsForActorHandler,
   briefingPrintHandler,
 } from './routes/briefings';
@@ -739,6 +741,8 @@ app.get('/api/v1/briefings/today', todayBriefingHandler);
 app.post('/api/v1/briefings/build', buildBriefingHandler);
 app.post('/api/v1/briefings/backfill', backfillBriefingsHandler);
 app.post('/api/v1/briefings/sweep', sweepBriefingsHandler);
+app.post('/api/v1/briefings/prune-empty', pruneEmptyBriefingsHandler);
+app.post('/api/v1/briefings/delete', deleteBriefingHandler);
 app.get('/api/v1/briefings/for-actor/:slug', briefingsForActorHandler);
 app.get('/api/v1/briefings/:slug/print', briefingPrintHandler);
 app.get('/api/v1/briefings/:slug', getBriefingHandler);
