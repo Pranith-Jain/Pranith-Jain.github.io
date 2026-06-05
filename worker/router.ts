@@ -153,7 +153,6 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/log-parser', '/__prerendered/dfir__log-parser'],
   ['/dfir/socmint', '/__prerendered/dfir__socmint'],
   ['/dfir/tools/about', '/__prerendered/dfir__tools__about'],
-  ['/dfir/recon-bridge', '/__prerendered/dfir__recon-bridge'],
   ['/dfir/web-scan', '/__prerendered/dfir__web-scan'],
   ['/dfir/malware-scan', '/__prerendered/dfir__malware-scan'],
   ['/dfir/sample-scan', '/__prerendered/dfir__sample-scan'],
@@ -322,7 +321,13 @@ const DYNAMIC_ROUTE_FALLBACKS: ReadonlyArray<[RegExp, string]> = [
   [/^\/threatintel\/c\/[^/]+$/i, '/__prerendered/threatintel'],
   [/^\/threatintel\/wiki\/[^/]+$/i, '/__prerendered/threatintel__wiki'],
   [/^\/threatintel\/actors\/[^/]+$/i, '/__prerendered/threatintel__actors'],
-  [/^\/threatintel\/briefings\/[^/]+$/i, '/__prerendered/threatintel__briefings'],
+  // Briefings detail pages intentionally do NOT fall back to the index
+  // prerender: the index DOM (skeleton list, filter pills, aria-current on
+  // Briefings) and the detail DOM (executive summary, findings, IOCs) are
+  // completely different trees. React 18's hydration mismatch handler leaves
+  // the SSR'd DOM in place and only logs a warning, so the user would see
+  // the index skeleton forever. Serve the empty SPA shell instead — the
+  // client hydrates clean and BriefingDetail takes over.
   [/^\/threatintel\/campaigns\/[^/]+$/i, '/__prerendered/threatintel__campaigns'],
   [/^\/threatintel\/research\/[^/]+$/i, '/__prerendered/threatintel__research'],
   [/^\/threatintel\/infostealer\/[^/]+$/i, '/__prerendered/threatintel__infostealer'],

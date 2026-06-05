@@ -45,7 +45,6 @@ export type ProviderId =
   | 'certpl'
   | 'x4bnet'
   | 'kaspersky'
-  | 'cape'
   | 'vulncheck';
 
 export type Verdict = 'clean' | 'suspicious' | 'malicious' | 'unknown';
@@ -84,10 +83,6 @@ export interface ProviderEnv {
   CRIMINALIP_API_KEY?: string;
   KASPERSKY_API_KEY?: string;
   SPUR_API_KEY?: string;
-  /** Self-hosted CAPEv2 sandbox bridge (optional). The `cape` provider does a
-   *  hash lookup against past analyses; degrades to 'unsupported' when unset. */
-  CAPE_BRIDGE_URL?: string;
-  CAPE_BRIDGE_TOKEN?: string;
   /** Free VulnCheck Community token. The `vulncheck` provider degrades to
    *  'unsupported' when unset. */
   VULNCHECK_API_TOKEN?: string;
@@ -146,6 +141,5 @@ export const PROVIDER_SUPPORT: Record<ProviderId, IndicatorType[]> = {
   certpl: ['domain'],
   x4bnet: ['ipv4', 'ipv6'],
   kaspersky: ['ipv4', 'domain', 'url', 'hash'],
-  cape: ['hash'],
   vulncheck: ['ipv4'],
 };

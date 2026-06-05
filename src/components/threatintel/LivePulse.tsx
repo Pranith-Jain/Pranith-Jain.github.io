@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Flame, Radar, ShieldAlert, Activity } from 'lucide-react';
 import { Sparkline } from './Sparkline';
 import { StatBand, StatCell, StatNumber, STAT_NUM, STAT_SUB, prefersReducedMotion } from '../StatBand';
+import { dedupRansomwareVictims } from '../../lib/dedup-ransomware';
 
 /**
  * LivePulse — the live "operations console" band at the top of /threatintel,
@@ -74,10 +75,17 @@ function computeRansom(victims: RansomwareVictim[]): RansomMetric {
     if (i < 7) last7.add(k);
     else prior7.add(k);
   }
+  // Dedupe by (group + victim), keeping the earliest discovery date. The
+  // upstream /api/v1/ransomware-recent already collapses same-day
+  // (group, victim) dupes, but the same victim can still appear on
+  // multiple days when different trackers index it 1-3 days apart. For a
+  // "this group made N claims" surface each unique victim should count
+  // once — same fix as src/pages/threatintel/Metrics.tsx.
+  const deduped = dedupRansomwareVictims(victims);
   const groups = new Map<string, number>();
   let l7 = 0;
   let p7 = 0;
-  for (const v of victims) {
+  for (const v of deduped) {
     const t = Date.parse(v.discovered);
     if (Number.isNaN(t)) continue;
     const k = dayKey(t);

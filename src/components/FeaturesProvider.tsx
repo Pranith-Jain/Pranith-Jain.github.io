@@ -21,8 +21,6 @@ export function FeaturesProvider({ children }: { children: ReactNode }): JSX.Ele
         // always-on tools both flash the same "loading" UX and reveal
         // themselves only after the probe settles.
         setState({
-          cape: Boolean(data?.cape),
-          recon: Boolean(data?.recon),
           samples: Boolean(data?.samples),
           loaded: true,
         });

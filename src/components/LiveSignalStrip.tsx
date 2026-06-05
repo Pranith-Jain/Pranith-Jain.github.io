@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Activity, Flame, Radio, ShieldAlert } from 'lucide-react';
+import { dedupRansomwareVictims } from '../lib/dedup-ransomware';
 
 /**
  * Live-from-the-platform strip on the portfolio root. The goal: a first-
@@ -106,9 +107,13 @@ export function LiveSignalStrip(): JSX.Element {
       // contradicting the week's larger total.
       let t1: Tile = { ...empty, icon: Flame, label: 'Ransomware claims · last 24h', accent: 'rose' };
       if (rRes.status === 'fulfilled') {
-        const victims = ((rRes.value as { victims?: RansomwareVictim[] }).victims ?? []).filter((v) =>
-          within24h(v.discovered)
-        );
+        // Dedupe by (group + victim), keeping the earliest discovery date.
+        // The upstream merge collapses same-day dupes, but the same victim
+        // can still appear on multiple days when different trackers index
+        // it 1-3 days apart. For a "today's claims" surface each unique
+        // victim should count once.
+        const all = (rRes.value as { victims?: RansomwareVictim[] }).victims ?? [];
+        const victims = dedupRansomwareVictims(all).filter((v) => within24h(v.discovered));
         const counts = new Map<string, number>();
         for (const v of victims) counts.set(v.group, (counts.get(v.group) ?? 0) + 1);
         const [topGroup, topCount] = [...counts.entries()].sort((a, b) => b[1] - a[1])[0] ?? ['', 0];

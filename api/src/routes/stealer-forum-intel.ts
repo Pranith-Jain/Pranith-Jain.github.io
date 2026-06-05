@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { buildDeepDarkCti } from './deepdarkcti';
-import { fetchTelegramFeed, getTelegramFeedCacheKey, TELEGRAM_FEED_CACHE_KEY } from './telegram-feed';
+import { getTelegramFeedCacheKey, TELEGRAM_FEED_CACHE_KEY } from './telegram-feed';
 import { REDDIT_FEED_CACHE_KEY } from './reddit-feed';
 
 /**
@@ -23,7 +23,7 @@ import { REDDIT_FEED_CACHE_KEY } from './reddit-feed';
  * Cached 30 min — inputs are themselves cached upstream.
  */
 
-export const STEALER_FORUM_INTEL_CACHE_KEY = 'https://stealer-forum-intel-cache.internal/v9-tg-fallback';
+export const STEALER_FORUM_INTEL_CACHE_KEY = 'https://stealer-forum-intel-cache.internal/v13-no-debug';
 const CACHE_TTL_SECONDS = 30 * 60;
 
 /** deepdarkCTI category labels that map to combo/stealer/forum tradecraft. */
@@ -99,62 +99,53 @@ export async function buildStealerForumIntel(env: Env, ctx: ExecutionContext): P
 
   // 2. Keyword-tagged chatter — counts + pointers, never body text.
   //
-  // Read both feeds from the *Cache API*. The SFI build is already at the
-  // Cloudflare concurrent-subrequest limit (7 forum fetches in parallel),
-  // so we keep tg/rd reads sequential AFTER the forum block completes.
+  // Read both feeds from the *Cache API* — never via direct fetch() in
+  // the SFI. Reasons:
+  //   - The SFI build is already near the Cloudflare subrequest limit
+  //     (deepdarkCTI + forums fan out to many upstream calls). A direct
+  //     tg/rd fetch tips it over and the response is 500.
   //   - The telegram feed uses a *bump-aware* cache key; we resolve it
   //     via getTelegramFeedCacheKey(env) so the SFI reads the same key
-  //     the feed producer wrote to (no string-vs-Request drift).
+  //     the feed producer wrote to (no string-vs-Request drift). We
+  //     also try the base key (no bump) as a fallback in case the bump
+  //     just changed and the hourly cron hasn't republished yet.
   //   - Reddit uses a static cache key. The producer wraps it in
   //     `new Request(...)` for `cache.put`; we mirror that here with
   //     `new Request(...)` for `cache.match` so the keys normalize
   //     identically (string-vs-Request mismatch has been a real cause
   //     of silent 0s in this codebase).
-  //   - If the telegram cache misses (e.g. bump just changed and the
-  //     hourly cron hasn't republished yet), fall back to a direct
-  //     fetchTelegramFeed() call. This hits t.me but is bounded by the
-  //     SFI's own 30-min cache on the composite response.
   const tgCache = (caches as unknown as { default: Cache }).default;
   const tgKeyReq = await getTelegramFeedCacheKey(env);
-  const tgMatch = await tgCache.match(tgKeyReq);
-  let tg: {
-    items?: Array<{ channel_name?: string; permalink?: string; datetime?: string; text?: string }>;
-  } | null = null;
-  if (tgMatch) {
-    tg = (await tgMatch.clone().json()) as typeof tg;
-    tgMatch.body?.cancel();
-  } else {
-    // Cache miss — try the base key (no bump) and fall back to a direct fetch.
-    const baseMatch = await tgCache.match(new Request(TELEGRAM_FEED_CACHE_KEY));
-    if (baseMatch) {
-      tg = (await baseMatch.clone().json()) as typeof tg;
-      baseMatch.body?.cancel();
-    } else if (env.KV_CACHE) {
-      try {
-        const fresh = await fetchTelegramFeed(env.KV_CACHE);
-        tg = fresh;
-        // Warm the cache for next time (and shadow write the bump-aware key).
-        ctx.waitUntil(
-          tgCache.put(
-            tgKeyReq,
-            new Response(JSON.stringify(fresh), {
-              headers: { 'content-type': 'application/json', 'cache-control': 'public, max-age=1800' },
-            })
-          )
-        );
-      } catch {
-        tg = null;
-      }
+  type TgFeed = { items?: Array<{ channel_name?: string; permalink?: string; datetime?: string; text?: string }> };
+  type RdFeed = {
+    items?: Array<{ sub_label?: string; link?: string; pub_date?: string; title?: string; text?: string }>;
+  };
+  let tg: TgFeed | null = null;
+  let rd: RdFeed | null = null;
+  try {
+    let tgMatch: Response | undefined;
+    tgMatch = await tgCache.match(tgKeyReq);
+    if (!tgMatch) {
+      // Fall back to the base key (no bump suffix). The producer writes
+      // BOTH the bump-aware key and the base key in the feed handler so
+      // consumers (e.g. the stealer-forum-intel chatter counter) always
+      // find data, even across a bump change.
+      tgMatch = await tgCache.match(new Request(TELEGRAM_FEED_CACHE_KEY));
     }
+    if (tgMatch) {
+      tg = (await tgMatch.json()) as TgFeed;
+    }
+  } catch {
+    tg = null;
   }
-  const rdKeyReq = new Request(REDDIT_FEED_CACHE_KEY);
-  const rdMatch = await tgCache.match(rdKeyReq);
-  const rd = rdMatch
-    ? ((await rdMatch.clone().json()) as {
-        items?: Array<{ sub_label?: string; link?: string; pub_date?: string; title?: string; text?: string }>;
-      } | null)
-    : null;
-  rdMatch?.body?.cancel();
+  try {
+    const rdMatch = await tgCache.match(new Request(REDDIT_FEED_CACHE_KEY));
+    if (rdMatch) {
+      rd = (await rdMatch.json()) as RdFeed;
+    }
+  } catch {
+    rd = null;
+  }
 
   const tgSamples: ChatterSample[] = [];
   let tgMatches = 0;

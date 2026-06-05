@@ -981,7 +981,7 @@ function buildExecutiveSummary(args: {
   ransomwareTotal?: number;
 }): string {
   const { type, range_label, findings, iocs, iocsRawTotal, iocSources, iocPerSource } = args;
-  const span = type === 'weekly' ? 'This week' : 'In the past 48 hours';
+  const span = type === 'weekly' ? 'This week' : 'In the past 24 hours';
   const critCount = findings.filter((f) => f.severity === 'critical').length;
   const highCount = findings.filter((f) => f.severity === 'high').length;
   const vendors = topVendors(findings, 3);
@@ -1394,7 +1394,7 @@ export async function buildBriefing(
   let title: string;
 
   if (type === 'daily') {
-    // Daily: covers a 48h window ending at the start of "today" UTC. Window
+    // Daily: covers a 24h window ending at the start of "today" UTC. Window
     // math lives in `briefing-window.ts` so the same rule is unit-testable
     // and reusable. The `live: true` opt overrides the end-of-window to
     // `now` — used by the hourly heal to write a `daily-${today}` row that

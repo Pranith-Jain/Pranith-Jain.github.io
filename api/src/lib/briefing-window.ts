@@ -1,14 +1,5 @@
 /**
- * Daily briefing window — 48h ending at the start of "today" UTC.
- *
- * The 24h window used previously was fragile: NVD/KEV indexer lag means CVEs
- * published on the day being reported often don't surface until 24-36h later.
- * A 24h build at 00:30 (and the hourly self-heal) routinely landed findings=0
- * on days that genuinely had high/critical CVEs. 48h gives the indexers
- * headroom without crossing into "weekly" territory; the date label and slug
- * still pin the briefing to the calendar day. The exec summary and the
- * briefing page header spell out the actual window so analysts know they're
- * looking at a 48h brief labelled by day.
+ * Daily briefing window — 24h ending at the start of "today" UTC.
  *
  * `isoDate` is intentionally not imported here — the caller is `buildBriefing`
  * in `briefing-builder.ts` which already has it. We only export the pure
@@ -20,7 +11,7 @@ export interface DailyWindow {
   end: Date;
   /** "YYYY-MM-DD" of the calendar day this briefing labels itself with. */
   slug: string;
-  /** Human-readable range, e.g. "2026-06-03 – 2026-06-04 (48h)". */
+  /** Human-readable range, e.g. "2026-06-04 – 2026-06-04 (24h)". */
   rangeLabel: string;
 }
 
@@ -34,18 +25,17 @@ function isoDate(d: Date): string {
 
 export function computeDailyWindow(anchor: Date): DailyWindow {
   const end = new Date(Date.UTC(anchor.getUTCFullYear(), anchor.getUTCMonth(), anchor.getUTCDate()));
-  const start = new Date(end.getTime() - 2 * 86400_000);
-  const dayBefore = new Date(end.getTime() - 86400_000);
+  const start = new Date(end.getTime() - 86400_000);
   return {
     start,
     end,
-    slug: `daily-${isoDate(dayBefore)}`,
-    rangeLabel: `${isoDate(start)} – ${isoDate(dayBefore)} (48h)`,
+    slug: `daily-${isoDate(start)}`,
+    rangeLabel: `${isoDate(start)} – ${isoDate(start)} (24h)`,
   };
 }
 
 /**
- * "Live" daily — window is the 48h ending at the current instant, NOT at
+ * "Live" daily — window is the 24h ending at the current instant, NOT at
  * the start of today. Used by the hourly heal to give a `daily-${today}`
  * row that analysts can open right now (the dedicated 00:30 cron only
  * writes the prior day's briefing). The slug is always today's calendar
@@ -53,11 +43,11 @@ export function computeDailyWindow(anchor: Date): DailyWindow {
  * spell out that the window ends "now" so it's clear the data is partial.
  */
 export function computeLiveDailyWindow(now: Date): DailyWindow {
-  const start = new Date(now.getTime() - 2 * 86400_000);
+  const start = new Date(now.getTime() - 86400_000);
   return {
     start,
     end: now,
     slug: `daily-${isoDate(now)}`,
-    rangeLabel: `${isoDate(start)} – ${isoDate(now)} (48h, live)`,
+    rangeLabel: `${isoDate(start)} – ${isoDate(now)} (24h, live)`,
   };
 }

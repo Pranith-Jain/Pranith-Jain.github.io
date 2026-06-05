@@ -112,16 +112,6 @@ export interface Env {
   CF_API_TOKEN?: string;
   /** Triage (tria.ge) API key. Set via `wrangler secret put TRIAGE_API_KEY`. */
   TRIAGE_API_KEY?: string;
-  /** Base URL of a self-hosted CAPEv2 sandbox reached through a Cloudflare
-   *  Tunnel (e.g. `https://cape.example.com`). The client appends `/apiv2/...`.
-   *  Optional — the /api/v1/cape/* routes return 503 (and the bridge reports
-   *  itself unconfigured) when unset, so nothing breaks until an operator
-   *  stands up CAPE. See docs/self-hosted/cape-bridge.md. */
-  CAPE_BRIDGE_URL?: string;
-  /** CAPEv2 API token, sent as `Authorization: Token <token>`. Set via
-   *  `wrangler secret put CAPE_BRIDGE_TOKEN`. Optional — omit if the CAPE
-   *  instance has API auth disabled (only safe behind a locked-down tunnel). */
-  CAPE_BRIDGE_TOKEN?: string;
   /** CrowdSec CTI API key (free registration at crowdsec.net). Optional —
    *  the /api/v1/ioc/check CrowdSec provider degrades to 'unsupported'
    *  when unset. Free tier: 1000 lookups/month. */
@@ -144,13 +134,4 @@ export interface Env {
    *  `wrangler.jsonc#vars.SITE_URL` — used for CORS, RSS links, and
    *  canonical URLs. Falls back to the hardcoded default. */
   SITE_URL?: string;
-  /** Base URL of a self-hosted recon bridge (Subfinder/Amass/theHarvester/
-   *  SpiderFoot behind a small HTTP wrapper + Cloudflare Tunnel). The client
-   *  appends `/recon`. Optional — the /api/v1/recon/* routes return 503 until
-   *  set, so nothing breaks. See docs/self-hosted/recon-bridge.md. */
-  RECON_BRIDGE_URL?: string;
-  /** Bearer token for the recon bridge. Set via
-   *  `wrangler secret put RECON_BRIDGE_TOKEN`. Optional — omit if the bridge
-   *  is only reachable through a locked-down tunnel. */
-  RECON_BRIDGE_TOKEN?: string;
 }

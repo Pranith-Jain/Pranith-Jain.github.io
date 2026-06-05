@@ -3,23 +3,18 @@ import { createContext, useContext } from 'react';
 /**
  * Deployment feature flags for optional, self-hosted bridges.
  *
- * Some tools (the CAPE malware sandbox, the recon CLI bridge) only work
- * once an operator stands up their own backend and sets the matching
- * `*_BRIDGE_URL` secret on the Worker. Until then the routes return a
- * 503 setup hint — so there's no point advertising the tool in nav or
- * search. `FeaturesProvider` probes `GET /api/v1/features` once on load
- * and feeds the result through this context so the UI can hide dormant
- * tools.
- *
- * The probe returns only booleans (never the URLs/tokens), so it's safe
- * to call unauthenticated.
+ * The sample scanner is always-on (no secret required). The
+ * `FeaturesProvider` still probes `GET /api/v1/features` on load to
+ * learn which optional always-on flags the server advertises, but
+ * the public boolean map only carries the always-on `samples` flag
+ * today — dormant self-hosted bridges (CAPE/recon) were removed.
  *
  * The Provider component lives in `components/FeaturesProvider.tsx`; this
  * module stays component-free so Fast Refresh / react-refresh stays happy
  * (same split rationale as `components/dfir/tool-sections.ts`).
  */
 
-export type FeatureFlag = 'cape' | 'recon' | 'samples';
+export type FeatureFlag = 'samples';
 export type Features = Record<FeatureFlag, boolean>;
 
 export interface FeaturesState extends Features {
@@ -37,7 +32,7 @@ export interface FeaturesState extends Features {
  * `samples` is always-on (no secret required) but still defaults to
  * `false` until the probe resolves, matching the other flags' behaviour.
  */
-export const DEFAULT_FEATURES: FeaturesState = { cape: false, recon: false, samples: false, loaded: false };
+export const DEFAULT_FEATURES: FeaturesState = { samples: false, loaded: false };
 
 export const FeaturesContext = createContext<FeaturesState>(DEFAULT_FEATURES);
 

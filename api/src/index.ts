@@ -302,9 +302,7 @@ import {
 import { correlateHandler } from './routes/cross-correlate';
 import { huntingQueryHandler } from './routes/hunting-queries';
 import { sandboxLookupHandler } from './routes/sandbox';
-import { capeSubmitHandler, capeTaskHandler, capeReportHandler } from './routes/sandbox-cape';
 import { sampleScanHandler } from './routes/sample-scan';
-import { reconScanHandler } from './routes/recon';
 import { irPlaybookHandler } from './routes/ir-playbooks';
 import { aiSummaryHandler } from './routes/ai-summary';
 import { leakIxSearchHandler } from './routes/leakix';
@@ -488,8 +486,8 @@ app.get('/api/v1/health', (c) =>
 app.get('/api/v1/health/detailed', healthDetailedHandler);
 
 // Public boolean map of configured optional self-hosted bridges. The
-// frontend probes this to hide dormant tools (CAPE sandbox, recon
-// bridge) until their *_BRIDGE_URL secret is set. Booleans only.
+// frontend probes this to hide dormant tools until their *_BRIDGE_URL
+// secret is set. Booleans only.
 app.get('/api/v1/features', featuresHandler);
 
 // ── OpenAPI Specification ────────────────────────────────────────
@@ -860,16 +858,10 @@ app.post('/api/v1/graph/ingest', validate('query', graphIngestSchema), graphInge
 // ── Hunting & IR Tools ─────────────────────────────────────────────
 app.post('/api/v1/hunting-queries/generate', validate('json', huntingQuerySchema), huntingQueryHandler);
 app.get('/api/v1/sandbox/lookup', sandboxLookupHandler);
-// CAPEv2 self-hosted sandbox bridge (admin-gated; dormant 503 until CAPE_BRIDGE_URL is set).
-app.post('/api/v1/cape/submit', capeSubmitHandler);
-app.get('/api/v1/cape/task/:id', capeTaskHandler);
-app.get('/api/v1/cape/report/:id', capeReportHandler);
 // Free "lite 0x12" — multi-provider hash fan-out + public-sandbox deep links.
 // Always on; no bridge secret required. See docs/free/sample-scan.md.
 app.post('/api/v1/sample/scan', sampleScanHandler);
 app.get('/api/v1/sample/scan', sampleScanHandler);
-// Self-hosted recon bridge (admin-gated; dormant 503 until RECON_BRIDGE_URL is set).
-app.post('/api/v1/recon/scan', reconScanHandler);
 app.post('/api/v1/ir-playbooks/generate', validate('json', irPlaybookSchema), irPlaybookHandler);
 
 // ── Temporal Analysis ────────────────────────────────────────────

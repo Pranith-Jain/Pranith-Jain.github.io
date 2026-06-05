@@ -7,7 +7,6 @@ import { threatfox } from '../providers/threatfox';
 import { otx } from '../providers/otx';
 import { hashlookup } from '../providers/hashlookup';
 import { tweetfeed } from '../providers/tweetfeed';
-import { cape } from '../providers/cape';
 import type { ProviderAdapter, ProviderEnv, ProviderResult } from '../providers/types';
 import { compositeScore } from '../lib/scoring';
 
@@ -54,8 +53,6 @@ export async function fileAnalyzeHandler(c: Context<{ Bindings: Env }>) {
     URLSCAN_API_KEY: c.env.URLSCAN_API_KEY ?? '',
     HYBRID_ANALYSIS_API_KEY: c.env.HYBRID_ANALYSIS_API_KEY ?? '',
     ABUSECH_AUTH_KEY: c.env.ABUSECH_AUTH_KEY,
-    CAPE_BRIDGE_URL: c.env.CAPE_BRIDGE_URL,
-    CAPE_BRIDGE_TOKEN: c.env.CAPE_BRIDGE_TOKEN,
   };
   const indicator = { type: 'hash' as const, value: hash };
   const signal = AbortSignal.timeout(8000);
@@ -86,7 +83,6 @@ export async function fileAnalyzeHandler(c: Context<{ Bindings: Env }>) {
     safeCall('otx', otx),
     safeCall('hashlookup', hashlookup),
     safeCall('tweetfeed', tweetfeed),
-    safeCall('cape', cape),
   ]);
 
   const composite = compositeScore('hash', providers);

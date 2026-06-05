@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { RefreshCw } from 'lucide-react';
+import { dedupRansomwareVictims } from '../lib/dedup-ransomware';
 
 /**
  * Hero-section sparkline that renders the last 7 days of ransomware
@@ -82,7 +83,13 @@ function computeBars(victims: RansomwareVictim[]): ComputedBars {
     const d = new Date(now.getTime() - i * 86400_000);
     map.set(d.toISOString().slice(0, 10), 0);
   }
-  for (const v of victims) {
+  // Dedupe by (group + victim), keeping the earliest discovery date. The
+  // upstream merge already collapses same-day dupes, but the same victim
+  // can still appear on multiple days when different trackers index it
+  // 1-3 days apart — without this the bars inflate (matching the "today
+  // = 200+" surface the metrics page hit).
+  const deduped = dedupRansomwareVictims(victims as Parameters<typeof dedupRansomwareVictims>[0]);
+  for (const v of deduped) {
     const k = dayKey(v.discovered);
     if (map.has(k)) map.set(k, (map.get(k) ?? 0) + 1);
   }

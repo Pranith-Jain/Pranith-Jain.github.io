@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { AttackHeatmap } from '../../components/threatintel/AttackHeatmap';
 import { BackLink } from '../../components/BackLink';
 import { fetchJson } from '../../lib/fetch-json';
+import { dedupRansomwareVictims } from '../../lib/dedup-ransomware';
 import {
   Activity,
   ArrowLeft,
@@ -398,7 +399,7 @@ export default function Metrics(): JSX.Element {
       try {
         const [rRes, cRes, pRes, tmRes, mRes, rlRes, c2Res, brRes, plRes, ddcRes, mtiCveRes, mtiGrpRes] =
           await Promise.allSettled([
-            fetchJson('/api/v1/ransomware-recent', opts),
+            fetchJson(`/api/v1/ransomware-recent?days=${windowDays}`, opts),
             fetchJson('/api/v1/cve-recent', opts),
             fetchJson('/api/v1/phishing-urls', opts),
             fetchJson('/api/v1/threat-map', opts),
@@ -502,10 +503,28 @@ export default function Metrics(): JSX.Element {
     return ransomwareWindowDayKeys.has(new Date(t).toISOString().slice(0, 10));
   };
 
+  /**
+   * De-duplicate the ransomware feed before any panel aggregates it.
+   *
+   * The merged feed from /api/v1/ransomware-recent collapses same-day
+   * (group, victim) duplicates at the worker, but the same victim can
+   * still appear on multiple days when different upstream trackers
+   * index it on different dates (Ransomlook vs cti.fyi vs ransomfeed
+   * often disagree by 1-3 days). For metrics — "top groups", cadence,
+   * headline read, sectors — we want each unique victim to count ONCE
+   * per group, with the *earliest* discovery date winning. This was
+   * the source of the "thegentlemen = 200+" surface where the real
+   * distinct-victim count for the window was 51.
+   */
+  const dedupedRansomware = useMemo<RansomwareVictim[]>(
+    () => dedupRansomwareVictims(state.ransomware ?? []) as RansomwareVictim[],
+    [state.ransomware]
+  );
+
   const topRansomwareGroups = useMemo<HBarItem[]>(() => {
-    if (!state.ransomware) return [];
+    if (!dedupedRansomware.length) return [];
     const map = new Map<string, number>();
-    for (const v of state.ransomware) {
+    for (const v of dedupedRansomware) {
       if (!inRansomwareWindow(v.discovered)) continue;
       map.set(v.group, (map.get(v.group) ?? 0) + 1);
     }
@@ -514,17 +533,17 @@ export default function Metrics(): JSX.Element {
       .sort((a, b) => b.value - a.value)
       .slice(0, 10);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.ransomware, ransomwareWindowDayKeys]);
+  }, [dedupedRansomware, ransomwareWindowDayKeys]);
 
   // MyThreatIntel: which currently-active ransomware groups carry a
   // MyThreatIntel actor profile, ranked by their recent victim volume.
   // Joins the merged ransomware feed (already MTI-enriched) with the MTI
   // group catalogue so the bar = "active AND profiled".
   const mtiProfiledActiveGroups = useMemo<HBarItem[]>(() => {
-    if (!state.ransomware || !state.mtiGroups || state.mtiGroups.length === 0) return [];
+    if (!dedupedRansomware.length || !state.mtiGroups || state.mtiGroups.length === 0) return [];
     const profiled = new Set(state.mtiGroups.map((g) => g.group_id.toLowerCase()));
     const map = new Map<string, number>();
-    for (const v of state.ransomware) {
+    for (const v of dedupedRansomware) {
       if (!inRansomwareWindow(v.discovered)) continue;
       if (!profiled.has(v.group.toLowerCase())) continue;
       map.set(v.group, (map.get(v.group) ?? 0) + 1);
@@ -534,7 +553,7 @@ export default function Metrics(): JSX.Element {
       .sort((a, b) => b.value - a.value)
       .slice(0, 12);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.ransomware, state.mtiGroups, ransomwareWindowDayKeys]);
+  }, [dedupedRansomware, state.mtiGroups, ransomwareWindowDayKeys]);
 
   // 11. NEW — country-origin of malicious IPs. data.threatMap.countries was
   // already being fetched but never visualised. Plain HBar; not gated by
@@ -548,7 +567,7 @@ export default function Metrics(): JSX.Element {
   }, [state.threatMap]);
 
   const ransomwareCadence = useMemo(() => {
-    if (!state.ransomware) return [] as { label: string; value: number }[];
+    if (!dedupedRansomware.length) return [] as { label: string; value: number }[];
     const map = new Map<string, number>();
     const now = new Date();
     // Build 7 day buckets so empty days show as 0. Was 30 days; the page
@@ -559,7 +578,7 @@ export default function Metrics(): JSX.Element {
       const key = d.toISOString().slice(0, 10);
       map.set(key, 0);
     }
-    for (const v of state.ransomware) {
+    for (const v of dedupedRansomware) {
       const key = dayKey(v.discovered);
       if (map.has(key)) map.set(key, (map.get(key) ?? 0) + 1);
     }
@@ -568,7 +587,7 @@ export default function Metrics(): JSX.Element {
       label: k.slice(5),
       value: v,
     }));
-  }, [state.ransomware]);
+  }, [dedupedRansomware]);
 
   /**
    * Headline read: an opinionated, automatically-computed interpretation
@@ -583,7 +602,7 @@ export default function Metrics(): JSX.Element {
    * values land.
    */
   const headlineRead = useMemo(() => {
-    if (!state.ransomware || state.ransomware.length === 0) return null;
+    if (!dedupedRansomware.length) return null;
     const now = new Date();
     const day = 86400_000;
 
@@ -608,7 +627,7 @@ export default function Metrics(): JSX.Element {
     let prior7 = 0;
     const last7Groups = new Set<string>();
     const last7GroupCounts = new Map<string, number>();
-    for (const v of state.ransomware) {
+    for (const v of dedupedRansomware) {
       // dayKey via Date.parse round-trip so non-ISO timestamps from MTI
       // (which can arrive as "YYYY-MM-DD HH:MM:SS.fff") normalise to the
       // same UTC-date string the bucket sets above use.
@@ -673,7 +692,7 @@ export default function Metrics(): JSX.Element {
       distinctGroupsLast7: last7Groups.size,
       sentences: [sentenceTrend, sentenceConcentration, sentenceReadout].filter(Boolean),
     };
-  }, [state.ransomware]);
+  }, [dedupedRansomware]);
 
   const cveSeverityCounts = useMemo(() => {
     const counts: Record<RecentCve['severity'], number> = {
@@ -737,9 +756,9 @@ export default function Metrics(): JSX.Element {
   }, [state.threatMap]);
 
   const targetedSectors = useMemo<HBarItem[]>(() => {
-    if (!state.ransomware) return [];
+    if (!dedupedRansomware.length) return [];
     const map = new Map<string, number>();
-    for (const v of state.ransomware) {
+    for (const v of dedupedRansomware) {
       if (!inRansomwareWindow(v.discovered)) continue;
       const s = v.sector || 'Unknown';
       if (s === 'Unknown') continue;
@@ -750,16 +769,16 @@ export default function Metrics(): JSX.Element {
       .sort((a, b) => b.value - a.value)
       .slice(0, 10);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.ransomware, ransomwareWindowDayKeys]);
+  }, [dedupedRansomware, ransomwareWindowDayKeys]);
 
   const sectorClassifiedPct = useMemo(() => {
-    if (!state.ransomware?.length) return 0;
-    const within = state.ransomware.filter((v) => inRansomwareWindow(v.discovered));
+    if (!dedupedRansomware.length) return 0;
+    const within = dedupedRansomware.filter((v) => inRansomwareWindow(v.discovered));
     if (!within.length) return 0;
     const known = within.filter((v) => v.sector && v.sector !== 'Unknown').length;
     return Math.round((known / within.length) * 100);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.ransomware, ransomwareWindowDayKeys]);
+  }, [dedupedRansomware, ransomwareWindowDayKeys]);
 
   /** Top vendors on the KEV catalogue. Parsed from "[KEV] Vendor Product:" prefix in description. */
   const topKevVendors = useMemo<HBarItem[]>(() => {
@@ -944,14 +963,18 @@ export default function Metrics(): JSX.Element {
     // `withinDays` filter used a rolling 168-hour window which counted
     // a partial day at the trailing edge that the chart's calendar
     // buckets excluded — that's the 239-vs-231 discrepancy users hit.
+    //
+    // We count DISTINCT (group, victim) pairs, not raw rows, so the
+    // same victim reported by multiple upstream trackers across
+    // different days doesn't double-count.
     let r = 0;
-    if (state.ransomware) {
+    if (dedupedRansomware.length) {
       const now = new Date();
       const windowDayKeys = new Set<string>();
       for (let i = 0; i < windowDays; i += 1) {
         windowDayKeys.add(new Date(now.getTime() - i * 86400_000).toISOString().slice(0, 10));
       }
-      for (const v of state.ransomware) {
+      for (const v of dedupedRansomware) {
         const t = Date.parse(v.discovered);
         if (Number.isNaN(t)) continue;
         if (windowDayKeys.has(new Date(t).toISOString().slice(0, 10))) r += 1;
@@ -963,7 +986,7 @@ export default function Metrics(): JSX.Element {
     const ips = state.threatMap?.total_ips ?? 0;
     const c2 = state.c2?.count ?? 0;
     return { r, c, kevCount, p, ips, c2 };
-  }, [state, windowDays]);
+  }, [state, windowDays, dedupedRansomware]);
 
   // Live deltas — change in each headline counter since the previous refresh.
   // Only meaningful within a fixed window, so it resets when windowDays flips
@@ -1183,7 +1206,7 @@ export default function Metrics(): JSX.Element {
               icon={Skull}
               title="Most active ransomware groups"
               question={`Who's claiming the most victims in the last ${windowDays} days?`}
-              footer={`Ransomlook + MyThreatIntel CTI events + ransomfeed.it + ransomwatch · ${(state.ransomware?.length ?? 0).toLocaleString()} merged claims (deduped by group + victim + day)`}
+              footer={`Ransomlook + MyThreatIntel CTI events + ransomfeed.it + ransomwatch · ${dedupedRansomware.length.toLocaleString()} unique victims (deduped by group + victim, earliest discovery wins)`}
               href="/threatintel/ransomware-activity"
               interpretation={ransomwareGroupsRead}
             >

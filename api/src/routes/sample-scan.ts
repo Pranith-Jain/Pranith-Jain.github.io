@@ -47,7 +47,6 @@ import { malshare } from '../providers/malshare';
 import { hashlookup } from '../providers/hashlookup';
 import { yaraify } from '../providers/yaraify';
 import { kaspersky } from '../providers/kaspersky';
-import { cape } from '../providers/cape';
 import { trackEvent, visitorCountry } from '../lib/analytics';
 
 // ─── Constants ────────────────────────────────────────────────────────────
@@ -64,7 +63,6 @@ const HASH_PROVIDERS: ReadonlyArray<ProviderId> = [
   'hashlookup',
   'yaraify',
   'kaspersky',
-  'cape',
 ];
 
 const ADAPTERS: Record<ProviderId, ProviderAdapter> = {
@@ -77,7 +75,6 @@ const ADAPTERS: Record<ProviderId, ProviderAdapter> = {
   hashlookup,
   yaraify,
   kaspersky,
-  cape,
 } as unknown as Record<ProviderId, ProviderAdapter>;
 
 // ─── Types ────────────────────────────────────────────────────────────────
@@ -142,8 +139,6 @@ function buildProviderEnv(c: Ctx): ProviderEnv {
     CRIMINALIP_API_KEY: c.env.CRIMINALIP_API_KEY,
     KASPERSKY_API_KEY: c.env.KASPERSKY_API_KEY,
     SPUR_API_KEY: c.env.SPUR_API_KEY,
-    CAPE_BRIDGE_URL: c.env.CAPE_BRIDGE_URL,
-    CAPE_BRIDGE_TOKEN: c.env.CAPE_BRIDGE_TOKEN,
     VULNCHECK_API_TOKEN: c.env.VULNCHECK_API_TOKEN,
   };
 }

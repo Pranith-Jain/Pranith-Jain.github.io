@@ -25,7 +25,7 @@ import { normalizeGroup } from '../lib/group-normalize';
  */
 
 /** Exported so /api/v1/snapshot can read the same cached payload directly. */
-export const RANSOMWARE_RECENT_CACHE_KEY = 'https://ransomware-recent-cache.internal/v9-af-source';
+export const RANSOMWARE_RECENT_CACHE_KEY = 'https://ransomware-recent-cache.internal/v11-tz-abbrev-fix';
 const CACHE_KEY = RANSOMWARE_RECENT_CACHE_KEY;
 /**
  * Edge-cache TTL on the merged ransomware feed. Was 1 hour, which made
@@ -126,6 +126,64 @@ function toIsoDate(s: string): string {
 }
 
 /**
+ * Map of common RFC-2822 timezone abbreviations (used by RSS feeds —
+ * notably ransomfeed.it) to a fixed UTC offset. V8's Date.parse does
+ * NOT understand abbreviations like "CEST" / "CET" / "PDT"; it returns
+ * NaN, which would make every ransomfeed item silently look like "now"
+ * in the metrics page. We replace the abbreviation with a numeric
+ * offset here so Date.parse accepts the result.
+ *
+ * Northern-hemisphere DST rules (CEST ↔ CET, PDT ↔ PST, etc.) are
+ * hardcoded — ransomfeed.it publishes from an EU server so we only
+ * need the European ones in practice, but the full table is small.
+ */
+const TZ_ABBREV_TO_OFFSET: Record<string, string> = {
+  UTC: '+0000',
+  GMT: '+0000',
+  // Europe
+  CET: '+0100',
+  CEST: '+0200',
+  EET: '+0200',
+  EEST: '+0300',
+  // North America (the offsets are the same regardless of hemisphere
+  // when looking at a single source — ransomfeed is always CET/CEST
+  // today, but other RSS sources vary)
+  EST: '-0500',
+  EDT: '-0400',
+  CST: '-0600',
+  CDT: '-0500',
+  MST: '-0700',
+  MDT: '-0600',
+  PST: '-0800',
+  PDT: '-0700',
+  AKST: '-0900',
+  AKDT: '-0800',
+  HST: '-1000',
+};
+
+/**
+ * Parse an RFC-2822 pubDate that ends in a *timezone abbreviation*
+ * (e.g. "Fri, 05 Jun 2026 00:50:22 CEST") into an ISO string with a
+ * numeric offset V8 can read. Returns undefined if we can't recognise
+ * the abbreviation; caller should fall back to safeIsoOr.
+ */
+function parseRssDateWithTzAbbrev(raw: string): string | undefined {
+  if (!raw) return undefined;
+  // Match "... HH:MM:SS ABBR" at the end. The abbrev is 2-5 letters
+  // and we look it up in the offset table.
+  const m = /^(.+?\d{2}:\d{2}:\d{2})\s+([A-Z]{2,5})\s*$/.exec(raw.trim());
+  if (!m) return undefined;
+  const abbr = m[2]!;
+  const offset = TZ_ABBREV_TO_OFFSET[abbr];
+  if (!offset) return undefined;
+  // "Fri, 05 Jun 2026 00:50:22 CEST" → "Fri, 05 Jun 2026 00:50:22 +0200"
+  const normalized = `${m[1]!} ${offset}`;
+  const t = Date.parse(normalized);
+  if (!Number.isFinite(t)) return undefined;
+  return new Date(t).toISOString();
+}
+
+/**
  * Parse ransomfeed.it's RSS into our normalized victim shape.
  *
  * Feed item format:
@@ -153,6 +211,14 @@ async function fetchRansomfeedVictims(): Promise<RansomwareVictim[]> {
     const items: RansomwareVictim[] = [];
     const itemRe = /<item\b[^>]*>([\s\S]*?)<\/item>/gi;
     let m: RegExpExecArray | null;
+    // 7-day cutoff: ransomfeed.it's RSS often omits a parseable <pubDate>
+    // (unparseable dates fall through to safeIsoOr→now), and without a
+    // hard cutoff the merge can surface months-old items stamped "today"
+    // — which inflated the metrics page "today = 200+" surface. Cap the
+    // window so the per-day count matches what the upstream actually
+    // indexed. RSS is newest-first-ish but not guaranteed; we read all
+    // items and let the cutoff filter.
+    const cutoffMs = Date.now() - 7 * 24 * 3600 * 1000;
     while ((m = itemRe.exec(body)) !== null) {
       const block = m[1];
       if (!block) continue;
@@ -175,7 +241,23 @@ async function fetchRansomfeedVictims(): Promise<RansomwareVictim[]> {
       const group = normalizeGroup(groupMatch?.[1] ?? 'unknown');
       // safeIsoOr never throws on a junk date (the old `new Date(pub).toISOString()`
       // did, dropping the whole feed); falls back to now() for missing/unparseable.
-      const discovered = safeIsoOr(pub);
+      //
+      // ransomfeed.it publishes `pubDate` as RFC-2822 with a *timezone
+      // abbreviation* (e.g. "CEST", "CET", "UTC"). V8's Date.parse does
+      // NOT understand those abbreviations — it returns NaN and
+      // safeIsoOr would silently fall back to `new Date().toISOString()`,
+      // making every item look like "today" in the metrics page. Parse
+      // the abbreviation ourselves with the well-known offset table,
+      // then normalize to ISO with a real +HH:MM offset so Date.parse
+      // accepts it.
+      const discovered = parseRssDateWithTzAbbrev(pub) ?? safeIsoOr(pub);
+      // Skip items with unparseable `pubDate` (would default to now and
+      // show up as "today" in metrics). Only the structured trackers
+      // — Ransomlook, cti.fyi, ransomware.live, ransomwatch, MTI —
+      // feed us rows we trust without an upstream date.
+      const parsed = Date.parse(discovered);
+      if (!Number.isFinite(parsed)) continue;
+      if (parsed < cutoffMs) continue;
       items.push({
         victim,
         group,
@@ -381,6 +463,11 @@ async function fetchCtiFyiVictims(): Promise<RansomwareVictim[]> {
 async function fetchMtiApiVictims(env: Env): Promise<RansomwareVictim[]> {
   const res = await fetchMtiSource(env, 'ransomware', { limit: MAX_ITEMS }).catch(() => null);
   if (!res || !res.ok) return [];
+  // 7-day cutoff: the MTI REST API returns the latest N rows (no
+  // server-side date filter). Without this, months-old claims get
+  // pulled into the merge and inflate the metrics counts. We trust
+  // the upstream date field and skip anything older than 7 days.
+  const cutoffMs = Date.now() - 7 * 24 * 3600 * 1000;
   const out: RansomwareVictim[] = [];
   for (const raw of res.items) {
     const e = raw as MtiRansomwareClaim;
@@ -388,7 +475,8 @@ async function fetchMtiApiVictims(env: Env): Promise<RansomwareVictim[]> {
     const gang = e.gang?.trim();
     if (!victim || !gang || !e.date) continue;
     const discovered = toIsoDate(e.date);
-    if (Number.isNaN(Date.parse(discovered))) continue;
+    const parsed = Date.parse(discovered);
+    if (!Number.isFinite(parsed) || parsed < cutoffMs) continue;
     const description = e.description?.trim() || undefined;
     const country = e.country?.trim();
     out.push({
@@ -703,7 +791,66 @@ async function readRansomwareLastGood(env: Env): Promise<ResponseBody | null> {
   }
 }
 
+/**
+ * Apply the `?days=N` window filter to a merged-victim response. The
+ * upstream fetchers each keep a 7-day sliding window internally, but
+ * some (MTI REST, X cache) do not, and the cached response itself is
+ * always 7 days — so without this client-side filter the `?days=1`
+ * and `?days=7` views returned identical payloads, which inflated
+ * the metrics page (e.g. "today's 200+ claims" when the real daily
+ * number is < 100). The filter is bounded — 1..30 days, default 7.
+ */
+function filterByDaysWindow(body: ResponseBody, days: number): ResponseBody {
+  if (days >= 30) return body; // cache is 7d; >30 is a no-op
+  const cutoffMs = Date.now() - days * 24 * 3600 * 1000;
+  const victims = body.victims.filter((v) => {
+    const t = Date.parse(v.discovered);
+    return Number.isFinite(t) && t >= cutoffMs;
+  });
+  // Recompute the pre-aggregated rollups so the JSON matches the
+  // windowed victims list. Without this, the `groups` array would
+  // still reflect the unfiltered 7-day counts and disagree with the
+  // victim list length — confusing for any consumer that reads both.
+  const groupCounts = new Map<string, number>();
+  const sectorCounts = new Map<Sector, number>();
+  for (const v of victims) {
+    groupCounts.set(v.group, (groupCounts.get(v.group) ?? 0) + 1);
+    const s = v.sector ?? 'Unknown';
+    sectorCounts.set(s, (sectorCounts.get(s) ?? 0) + 1);
+  }
+  // Match the production `sectors` shape: an array of {sector, count, pct}
+  // where pct is the share of *classified* (non-Unknown) victims. The
+  // Unknown row is included with its own count so analysts can see how
+  // much we couldn't classify.
+  const classifiedTotal = victims.filter((v) => v.sector && v.sector !== 'Unknown').length;
+  const sectors: ResponseBody['sectors'] = [...sectorCounts.entries()]
+    .map(([sector, count]) => ({
+      sector,
+      count,
+      pct: classifiedTotal > 0 ? Math.round((count / classifiedTotal) * 100) : 0,
+    }))
+    .sort((a, b) => b.count - a.count);
+  return {
+    ...body,
+    victims,
+    count: victims.length,
+    groups: [...groupCounts.entries()]
+      .map(([group, count]) => ({ group, count }))
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 12),
+    sectors,
+  };
+}
+
+function parseDaysParam(raw: string | undefined): number {
+  const n = raw ? parseInt(raw, 10) : 7;
+  if (!Number.isFinite(n) || n < 1) return 7;
+  if (n > 30) return 30;
+  return n;
+}
+
 export async function ransomwareRecentHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const days = parseDaysParam(c.req.query('days'));
   const cache = (caches as unknown as { default: Cache }).default;
   const cacheKey = new Request(CACHE_KEY);
   const cached = await cache.match(cacheKey);
@@ -730,7 +877,9 @@ export async function ransomwareRecentHandler(c: Context<{ Bindings: Env }>): Pr
         })()
       );
     }
-    return new Response(cached.body, cached);
+    if (days === 7) return new Response(cached.body, cached);
+    const filtered = filterByDaysWindow((await cached.json()) as ResponseBody, days);
+    return c.json(filtered, 200, { 'x-cache': 'FILTERED' });
   }
 
   const { body, upstreamOk, rateLimited } = await fetchRansomwareRecent(c.env);
@@ -769,6 +918,12 @@ export async function ransomwareRecentHandler(c: Context<{ Bindings: Env }>): Pr
       cacheable = true; // real data again — safe to cache locally
     }
   }
+
+  // Apply the `?days=N` window filter to the freshly-built response.
+  // We always cache the 7-day payload (so revalidation is cheap) and
+  // filter per-request — this keeps the cache simple and the day-1
+  // day-7 day-30 views consistent.
+  if (days !== 7) finalBody = filterByDaysWindow(finalBody, days);
 
   // An empty payload is never cacheable — serve it with no-store so a transient
   // zero-victim result can't get pinned at the edge or in the browser for the

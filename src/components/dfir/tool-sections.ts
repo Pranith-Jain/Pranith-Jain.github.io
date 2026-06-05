@@ -227,16 +227,8 @@ export const SECTIONS: Section[] = [
         path: '/dfir/sample-scan',
         useCase: 'Composite hash verdict + one-click public-sandbox detonation.',
         label: 'Sample Scan (lite 0x12)',
-        desc: 'Hash fan-out across 10 free public reputation engines (VT, MB, YARAify, Hybrid, OTX, ThreatFox, Malshare, Hashlookup, Kaspersky, optional CAPE) · composite verdict + family/signature aggregation · 12 free public-sandbox deep links (Triage, ANY.RUN, Joe, CAPE public, Intezer, InQuest, …) for one-click detonation',
+        desc: 'Hash fan-out across 9 free public reputation engines (VT, MB, YARAify, Hybrid, OTX, ThreatFox, Malshare, Hashlookup, Kaspersky) · composite verdict + family/signature aggregation · 12 free public-sandbox deep links (Triage, ANY.RUN, Joe, Intezer, InQuest, …) for one-click detonation',
         icon: ScanSearch,
-      },
-      {
-        path: '/dfir/cape-sandbox',
-        useCase: 'Detonate a sample in your own CAPEv2 sandbox.',
-        label: 'CAPE Sandbox',
-        desc: 'Upload a file to a self-hosted CAPEv2 instance · pulls back signatures, dropped files, and network IOCs · admin-gated bridge, dormant until CAPE_BRIDGE_URL is configured',
-        icon: FlaskConical,
-        requiresFlag: 'cape',
       },
       {
         path: '/dfir/stealer-parser',
@@ -478,14 +470,6 @@ export const SECTIONS: Section[] = [
         label: 'Asset Intelligence',
         desc: 'IP → exposed host with open ports, CVEs, artifacts · domain → WHOIS timeline, registration changes, related domains · auto-detects input type',
         icon: ScanLine,
-      },
-      {
-        path: '/dfir/recon-bridge',
-        useCase: 'Run Subfinder/Amass/theHarvester/SpiderFoot on a self-hosted bridge.',
-        label: 'Recon Bridge',
-        desc: 'Drive Go/Python recon CLIs that can’t run on Workers · passive subdomains, attack-surface mapping, emails, OSINT footprint · admin-gated, dormant until RECON_BRIDGE_URL is configured',
-        icon: Crosshair,
-        requiresFlag: 'recon',
       },
       {
         path: '/dfir/open-directory',

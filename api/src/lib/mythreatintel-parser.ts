@@ -208,6 +208,11 @@ export interface MtiRansomwareVictim {
 export async function fetchMythreatintelRansomwareVictims(): Promise<MtiRansomwareVictim[]> {
   const html = await fetchMtiHtml();
   if (!html) return [];
+  // 7-day cutoff matching the other fetchers in the ransomware-recent
+  // merge. The MTI t.me channel carries historical ALERTA RANSOMWARE
+  // messages going back months/years; without a cutoff the metrics
+  // page could surface 2024 incidents under "last 7 days".
+  const cutoffMs = Date.now() - 7 * 24 * 3600 * 1000;
   const out: MtiRansomwareVictim[] = [];
   for (const msg of iterateMessages(html)) {
     if (!msg.text.includes('ALERTA RANSOMWARE')) continue;
@@ -221,6 +226,8 @@ export async function fetchMythreatintelRansomwareVictims(): Promise<MtiRansomwa
     if (!victim || !group) continue;
     const discovered = fecha ? fechaToIso(fecha) : null;
     if (!discovered) continue;
+    const parsed = Date.parse(discovered);
+    if (!Number.isFinite(parsed) || parsed < cutoffMs) continue;
     const cleanDesc = descMatch && descMatch !== 'N/D' ? descMatch.slice(0, 320) : undefined;
     out.push({
       victim,

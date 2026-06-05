@@ -115,8 +115,13 @@ export async function fetchAFDefacements(): Promise<LiveIoc[]> {
  * AF ransomware-victim `name` is "<Group>: <Victim> - <description>".
  * The description segment is optional ("Loki: Credit Freedom & Restoration").
  * Group is lowercased to match the convention in ransomware-recent.ts.
+ *
+ * The caller passes a `cutoffMs` so the fetcher can apply a 7-day window
+ * (matching the other merge sources) without baking Date.now() into the
+ * parser — tests use fixed historical data and would otherwise fail.
+ * Pass `0` to disable the cutoff.
  */
-export function parseAFRansomwareVictims(entries: AFEntry[]): RansomwareVictim[] {
+export function parseAFRansomwareVictims(entries: AFEntry[], cutoffMs = 0): RansomwareVictim[] {
   const out: RansomwareVictim[] = [];
   for (const e of entries) {
     if (!e.name) continue;
@@ -127,10 +132,25 @@ export function parseAFRansomwareVictims(entries: AFEntry[]): RansomwareVictim[]
     const victim = (dash > 0 ? rest.slice(0, dash) : rest).trim();
     const description = dash > 0 ? rest.slice(dash + 3).trim() || undefined : undefined;
     if (!victim || !group) continue;
+    const iso = toIso(e.timestamp);
+    if (iso) {
+      const t = Date.parse(iso);
+      if (!Number.isFinite(t) || (cutoffMs > 0 && t < cutoffMs)) continue;
+    } else if (cutoffMs > 0) {
+      // No parseable timestamp — skip when a cutoff is in effect, since we
+      // can't confirm freshness. Every other source supplies a real date;
+      // surfacing undated rows would create the same "today = 200+"
+      // inflation we just fixed.
+      continue;
+    }
     out.push({
       victim,
       group: group.toLowerCase(),
-      discovered: toIso(e.timestamp) ?? e.timestamp,
+      // Fall back to the raw timestamp when the parser can't normalize it,
+      // so callers that pass cutoffMs = 0 (tests, one-off parsers) still
+      // see a discovered value. The fetcher never hits this path because
+      // it sets a cutoff that drops undated rows.
+      discovered: iso ?? e.timestamp,
       description,
       source_url: e.url || 'https://ctifeeds.andreafortuna.org/',
       screen_url: e.screenshot || undefined,
@@ -176,7 +196,12 @@ export function parseAFDataleaks(entries: AFEntry[]): BreachDisclosure[] {
 export async function fetchAFRansomwareVictims(): Promise<RansomwareVictim[]> {
   const raw = await fetchJson(RANSOMWARE_VICTIMS_URL);
   if (!raw) return [];
-  return parseAFRansomwareVictims(raw);
+  // 7-day cutoff matching the other fetchers in the ransomware-recent
+  // merge. AF's `timestamp` field is the upstream publication date;
+  // without a cutoff, months-old claims can leak into the metrics page
+  // (same root cause as the ransomfeed unparseable-date issue).
+  const cutoffMs = Date.now() - 7 * 24 * 3600 * 1000;
+  return parseAFRansomwareVictims(raw, cutoffMs);
 }
 
 export async function fetchAFDataleaks(): Promise<BreachDisclosure[]> {

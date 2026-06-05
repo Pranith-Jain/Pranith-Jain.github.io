@@ -309,9 +309,9 @@ export default function SampleScan(): JSX.Element {
         </h1>
         <p className="mt-2 max-w-prose text-sm text-slate-600 dark:text-slate-400">
           Drop a sample (or paste a hash) → static analysis (SHA-256 / SHA-1 / MD5, magic-byte family, entropy,
-          suspicious strings) → 10-engine free public reputation fan-out (VirusTotal, MalwareBazaar, YARAify, Hybrid
-          Analysis, OTX, ThreatFox, Malshare, Hashlookup, Kaspersky, optional CAPE) → composite verdict + one-click deep
-          links to 12 free public sandboxes for deeper detonation.
+          suspicious strings) → 9-engine free public reputation fan-out (VirusTotal, MalwareBazaar, YARAify, Hybrid
+          Analysis, OTX, ThreatFox, Malshare, Hashlookup, Kaspersky) → composite verdict + one-click deep links to 12
+          free public sandboxes for deeper detonation.
         </p>
         <p className="mt-2 max-w-prose text-xs text-slate-500 dark:text-slate-500">
           <strong className="text-slate-700 dark:text-slate-300">Free, no secrets required.</strong> Cloudflare Workers
@@ -588,11 +588,7 @@ export default function SampleScan(): JSX.Element {
         <Link to="/dfir/malware-scan" className="text-brand-600 hover:underline dark:text-brand-400">
           malware-scan
         </Link>{' '}
-        (the older hash-only surface), and{' '}
-        <Link to="/dfir/cape-sandbox" className="text-brand-600 hover:underline dark:text-brand-400">
-          CAPE sandbox
-        </Link>{' '}
-        (self-hosted KVM detonation if you ever stand it up).
+        (the older hash-only surface).
       </p>
     </div>
   );

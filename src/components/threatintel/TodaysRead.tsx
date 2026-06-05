@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BookOpen, ShieldAlert, Flame, ArrowRight } from 'lucide-react';
 import { publishedResearch } from '../../data/threatintel/research';
+import { dedupRansomwareVictims } from '../../lib/dedup-ransomware';
 
 /**
  * "Today's read" — opinionated three-card promotion at the top of
@@ -74,7 +75,7 @@ function weeklyRansomwareLine(victims: RansomwareVictim[]): { primary: string; s
   let last7 = 0;
   let prior7 = 0;
   const groupCounts = new Map<string, number>();
-  for (const v of victims) {
+  for (const v of dedupRansomwareVictims(victims)) {
     const t = Date.parse(v.discovered);
     if (Number.isNaN(t)) continue;
     const key = new Date(t).toISOString().slice(0, 10);

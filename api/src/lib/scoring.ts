@@ -102,7 +102,6 @@ const WEIGHTS: Record<IndicatorType, Partial<Record<ProviderId, number>>> = {
     hashlookup: 3,
     tweetfeed: 2,
     kaspersky: 4,
-    cape: 4,
   },
   // EmailRep is the only provider with first-class email signal — it pulls
   // from breach data, blocklists, and reputation feeds. Weight it as the

@@ -554,9 +554,35 @@ export async function telegramFeedHandler(c: Context<{ Bindings: Env }>): Promis
   if (cached) return new Response(cached.body, cached);
 
   const body = await fetchTelegramFeed(c.env.KV_CACHE);
-  const response = c.json(body, 200, { 'Cache-Control': `public, max-age=${CACHE_TTL}` });
-  c.executionCtx.waitUntil(cache.put(cacheKey, response.clone()));
-  return response;
+  // Serialize once and build TWO independent Response objects — one to
+  // return to the client, two to cache. Cloning the returned response
+  // in `waitUntil` was failing (the cloned stream got canceled by the
+  // client's read or by the runtime's per-invocation cleanup), which
+  // left the cache empty and forced the next request to rebuild from
+  // scratch. Two independent Responses eliminates the dependency.
+  const json = JSON.stringify(body);
+  const cacheHeaders = {
+    'content-type': 'application/json',
+    'cache-control': `public, max-age=${CACHE_TTL}`,
+  };
+  const cacheResponseBump = new Response(json, { headers: cacheHeaders });
+  const cacheResponseBase = new Response(json, { headers: cacheHeaders });
+  const clientResponse = new Response(json, { status: 200, headers: cacheHeaders });
+  c.executionCtx.waitUntil(
+    (async () => {
+      try {
+        await cache.put(cacheKey, cacheResponseBump);
+      } catch {
+        /* swallow */
+      }
+      try {
+        await cache.put(new Request(TELEGRAM_FEED_CACHE_KEY), cacheResponseBase);
+      } catch {
+        /* swallow */
+      }
+    })()
+  );
+  return clientResponse;
 }
 
 // ─── Custom channels (user-added) ────────────────────────────────────────────
