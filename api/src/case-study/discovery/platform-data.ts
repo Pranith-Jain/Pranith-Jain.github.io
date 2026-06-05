@@ -20,6 +20,7 @@
 import type { Candidate, DedupRecord } from '../types';
 import { topicKey } from '../stable-keys';
 import { recencyScore, severityScore, noveltyScore, finalScore } from '../scoring';
+import { normalizeGroup } from '../../lib/group-normalize';
 
 export interface PlatformDataDeps {
   /** Fetch from the platform's own API endpoints (internal, no auth needed). */
@@ -58,8 +59,13 @@ async function discoverFromRansomware(deps: PlatformDataDeps): Promise<Candidate
       if (!v.group || !v.victim) continue;
       const posted = new Date(v.discovered);
       if (posted < sevenDaysAgo) continue;
-
-      const key = `ransom-${v.group.toLowerCase().replace(/\s+/g, '-')}-${posted.toISOString().slice(0, 7)}`;
+      // Normalize the group slug so "thegentlemen" / "the gentlemen" /
+      // "TheGentlemen" all fold into the same discovery key — otherwise the
+      // 3+ victim threshold was being met by *one* gang split across 2
+      // slugs, producing duplicate discovery candidates.
+      const slug = normalizeGroup(v.group);
+      if (slug === 'unknown') continue;
+      const key = `ransom-${slug}-${posted.toISOString().slice(0, 7)}`;
       const existing = groups.get(key) ?? {
         victims: [],
         latest: new Date(0),
@@ -86,13 +92,14 @@ async function discoverFromRansomware(deps: PlatformDataDeps): Promise<Candidate
       });
 
       const groupName = info.victims[0]!.group;
+      const displayGroup = normalizeGroup(groupName);
       const sectorList = [...info.sectors].slice(0, 5);
       const countryList = [...info.countries].slice(0, 5);
 
       candidates.push({
         key,
         type: 'ransom',
-        title: `${groupName}: ${info.victims.length} new victims across ${sectorList.length || 'multiple'} sectors`,
+        title: `${displayGroup}: ${info.victims.length} new victims across ${sectorList.length || 'multiple'} sectors`,
         rationale: `${info.victims.length} victim posts on ransomware leak sites in last 7 days · Sectors: ${sectorList.join(', ') || 'unknown'} · Countries: ${countryList.join(', ') || 'unknown'}`,
         score,
         evidence: {

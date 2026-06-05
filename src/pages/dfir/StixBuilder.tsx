@@ -161,11 +161,20 @@ export default function StixBuilder(): JSX.Element {
 
   function downloadBundle() {
     if (!build.result) return;
-    const blob = new Blob([JSON.stringify(build.result.bundle, null, 2)], { type: 'application/json' });
+    // Use the IANA-registered STIX 2.1 media type (`application/stix+json;
+    // version=2.1`) so strict consumers (MISP import, OpenCTI ingest,
+    // TAXII 2.1 collectors) detect the file correctly from the content
+    // type alone — the same mime the canonical server export endpoint at
+    // /api/v1/intel-bundle/:id/export.stix.json sends. The `.stix.json`
+    // suffix matches the server's filename so the two paths produce
+    // byte-identical-looking downloads.
+    const blob = new Blob([JSON.stringify(build.result.bundle, null, 2)], {
+      type: 'application/stix+json; version=2.1',
+    });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `${build.result.bundle.id}.json`;
+    a.download = `${build.result.bundle.id}.stix.json`;
     a.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   }

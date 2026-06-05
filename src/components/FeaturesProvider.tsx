@@ -16,7 +16,16 @@ export function FeaturesProvider({ children }: { children: ReactNode }): JSX.Ele
       .then((r) => (r.ok ? (r.json() as Promise<Partial<Features>>) : null))
       .then((data) => {
         if (cancelled) return;
-        setState({ cape: Boolean(data?.cape), recon: Boolean(data?.recon), loaded: true });
+        // `samples` is always-on server-side (no secret) but defaults to
+        // false here until the probe resolves, so dormant-gated tools and
+        // always-on tools both flash the same "loading" UX and reveal
+        // themselves only after the probe settles.
+        setState({
+          cape: Boolean(data?.cape),
+          recon: Boolean(data?.recon),
+          samples: Boolean(data?.samples),
+          loaded: true,
+        });
       })
       .catch(() => {
         // Network/parse failure: leave flags dormant but mark loaded so

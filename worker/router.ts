@@ -155,6 +155,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/tools/about', '/__prerendered/dfir__tools__about'],
   ['/dfir/web-scan', '/__prerendered/dfir__web-scan'],
   ['/dfir/malware-scan', '/__prerendered/dfir__malware-scan'],
+  ['/dfir/sample-scan', '/__prerendered/dfir__sample-scan'],
   ['/dfir/eml', '/__prerendered/dfir__eml'],
   ['/dfir/url-rep', '/__prerendered/dfir__url-rep'],
   ['/dfir/email-rep', '/__prerendered/dfir__email-rep'],
@@ -235,6 +236,58 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/threatintel/live-iocs', '/__prerendered/threatintel__live-iocs'],
   ['/threatintel/detections', '/__prerendered/threatintel__detections'],
   ['/threatintel/assessments', '/__prerendered/threatintel__assessments'],
+  ['/threatintel/feed-quality', '/__prerendered/threatintel__feed-quality'],
+
+  // ── Phase 4 (2026-06-04): 43 real static routes that existed in App.tsx
+  //    but had no entry here, so they were served as the bare SPA shell.
+  //    See scripts/prerender.mjs for the matching ROUTES entries.
+
+  // ── Portfolio (2) ────────────────────────────────────────────
+  ['/admin', '/__prerendered/admin'],
+  ['/copilot', '/__prerendered/copilot'],
+
+  // ── DFIR: real pages (10) ────────────────────────────────────
+  ['/dfir/abuse-rep', '/__prerendered/dfir__abuse-rep'],
+  ['/dfir/asset-intel', '/__prerendered/dfir__asset-intel'],
+  ['/dfir/blocklists', '/__prerendered/dfir__blocklists'],
+  ['/dfir/ct-monitor', '/__prerendered/dfir__ct-monitor'],
+  ['/dfir/file', '/__prerendered/dfir__file'],
+  ['/dfir/host-graph', '/__prerendered/dfir__host-graph'],
+  ['/dfir/identity-lookup', '/__prerendered/dfir__identity-lookup'],
+  ['/dfir/ioc-lifecycle', '/__prerendered/dfir__ioc-lifecycle'],
+  ['/dfir/report-parser', '/__prerendered/dfir__report-parser'],
+  ['/dfir/threat-hunt', '/__prerendered/dfir__threat-hunt'],
+
+  // ── ThreatIntel: real pages, not redirects (28) ──────────────
+  ['/threatintel/ach', '/__prerendered/threatintel__ach'],
+  ['/threatintel/actor-usernames', '/__prerendered/threatintel__actor-usernames'],
+  ['/threatintel/aggregated-feeds', '/__prerendered/threatintel__aggregated-feeds'],
+  ['/threatintel/analyze', '/__prerendered/threatintel__analyze'],
+  ['/threatintel/atlas', '/__prerendered/threatintel__atlas'],
+  ['/threatintel/collection-slo', '/__prerendered/threatintel__collection-slo'],
+  ['/threatintel/cross-correlate', '/__prerendered/threatintel__cross-correlate'],
+  ['/threatintel/crypto-scams', '/__prerendered/threatintel__crypto-scams'],
+  ['/threatintel/darkweb-tools', '/__prerendered/threatintel__darkweb-tools'],
+  ['/threatintel/entity-resolution', '/__prerendered/threatintel__entity-resolution'],
+  ['/threatintel/feed-catalog', '/__prerendered/threatintel__feed-catalog'],
+  ['/threatintel/feed-scheduler', '/__prerendered/threatintel__feed-scheduler'],
+  ['/threatintel/insider-threat-matrix', '/__prerendered/threatintel__insider-threat-matrix'],
+  ['/threatintel/intel-dashboard', '/__prerendered/threatintel__intel-dashboard'],
+  ['/threatintel/investigations', '/__prerendered/threatintel__investigations'],
+  ['/threatintel/malware-iocs', '/__prerendered/threatintel__malware-iocs'],
+  ['/threatintel/malware-vault', '/__prerendered/threatintel__malware-vault'],
+  ['/threatintel/observable-db', '/__prerendered/threatintel__observable-db'],
+  ['/threatintel/phishing-wordlists', '/__prerendered/threatintel__phishing-wordlists'],
+  ['/threatintel/pir-dashboard', '/__prerendered/threatintel__pir-dashboard'],
+  ['/threatintel/projectdiscovery', '/__prerendered/threatintel__projectdiscovery'],
+  ['/threatintel/ransom-payments', '/__prerendered/threatintel__ransom-payments'],
+  ['/threatintel/ransom-report', '/__prerendered/threatintel__ransom-report'],
+  ['/threatintel/relationship-graph', '/__prerendered/threatintel__relationship-graph'],
+  ['/threatintel/source-reliability', '/__prerendered/threatintel__source-reliability'],
+  ['/threatintel/telegram-leaks', '/__prerendered/threatintel__telegram-leaks'],
+  ['/threatintel/telegram-leaks/channels', '/__prerendered/threatintel__telegram-leaks__channels'],
+  ['/threatintel/telegram-leaks/stats', '/__prerendered/threatintel__telegram-leaks__stats'],
+  ['/threatintel/yara', '/__prerendered/threatintel__yara'],
 ]);
 
 /**

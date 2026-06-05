@@ -1209,4 +1209,22 @@ export const RESOURCES: ExternalResource[] = [
     description:
       "This platform's TAXII 2.1 server for automated threat intelligence sharing. Compatible with MISP, OpenCTI, Splunk SOAR, and other TAXII clients. Collections: IOCs, actors, malware, vulnerabilities, briefings.",
   },
+  {
+    id: 'nexus-osint',
+    name: 'Nexus OSINT',
+    url: 'https://nexusosint.fr/',
+    kind: 'dashboard',
+    tags: ['osint', 'threat-intel'],
+    description:
+      'French open-source intelligence platform — real-time aggregation across geopolitics, cyber, and military domains. Multi-source dashboard surfacing breaking events with structured metadata for analysts tracking hybrid threats.',
+  },
+  {
+    id: 'cloak-matrix',
+    name: 'CLOAK Matrix',
+    url: 'https://opsectechniques.com/',
+    kind: 'research',
+    tags: ['dfir', 'osint'],
+    description:
+      'OPSEC techniques and procedures reference — tactic → technique → sub-technique → procedure hierarchy modeled after MITRE ATT&CK but scoped to operational-security tradecraft. Useful for blue teams mapping counter-surveillance controls and red teams modelling adversary OPSEC gaps.',
+  },
 ];

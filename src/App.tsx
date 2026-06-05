@@ -59,6 +59,7 @@ const Decode = lazy(() => import('./pages/dfir/Decode'));
 const Encoder = lazy(() => import('./pages/dfir/Encoder'));
 const CertSearch = lazy(() => import('./pages/dfir/CertSearch'));
 const AsnLookup = lazy(() => import('./pages/dfir/AsnLookup'));
+const HostGraph = lazy(() => import('./pages/dfir/HostGraph'));
 const Breach = lazy(() => import('./pages/dfir/Breach'));
 const ExifParse = lazy(() => import('./pages/dfir/ExifParse'));
 const MitreMatrix = lazy(() => import('./pages/dfir/MitreMatrix'));
@@ -157,8 +158,8 @@ const PrefetchAnalyzer = lazy(() => import('./pages/dfir/PrefetchAnalyzer'));
 const CveResourcesCatalog = lazy(() => import('./pages/dfir/CveResourcesCatalog'));
 const WebScan = lazy(() => import('./pages/dfir/WebScan'));
 const MalwareScan = lazy(() => import('./pages/dfir/MalwareScan'));
-const CapeSandbox = lazy(() => import('./pages/dfir/CapeSandbox'));
-const ReconBridge = lazy(() => import('./pages/dfir/ReconBridge'));
+const SampleScan = lazy(() => import('./pages/dfir/SampleScan'));
+
 const ReverseImage = lazy(() => import('./pages/dfir/ReverseImage'));
 const EmlExtractor = lazy(() => import('./pages/dfir/EmlExtractor'));
 const ScamWatch = lazy(() => import('./pages/dfir/ScamWatch'));
@@ -246,6 +247,7 @@ const PirDashboard = lazy(() => import('./pages/threatintel/PirDashboard'));
 const ACH = lazy(() => import('./pages/threatintel/ACH'));
 const CrossCorrelate = lazy(() => import('./pages/threatintel/CrossCorrelate'));
 const Assessments = lazy(() => import('./pages/threatintel/Assessments'));
+const FeedQuality = lazy(() => import('./pages/threatintel/FeedQuality'));
 const AssessmentDetail = lazy(() => import('./pages/threatintel/AssessmentDetail'));
 const EntityResolution = lazy(() => import('./pages/threatintel/EntityResolution'));
 const AggregatedFeeds = lazy(() => import('./pages/threatintel/AggregatedFeeds'));
@@ -333,6 +335,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/atlas', Component: AtlasMatrix },
   { path: '/threatintel/atlas', Component: AtlasMatrix },
   { path: '/dfir/asn', Component: AsnLookup },
+  { path: '/dfir/host-graph', Component: HostGraph },
   { path: '/dfir/breach', Component: Breach },
   { path: '/dfir/exif', Component: ExifParse },
   { path: '/threatintel/mitre', Component: MitreMatrix },
@@ -476,8 +479,8 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/cve-resources', Component: CveResourcesCatalog },
   { path: '/dfir/web-scan', Component: WebScan },
   { path: '/dfir/malware-scan', Component: MalwareScan },
-  { path: '/dfir/cape-sandbox', Component: CapeSandbox },
-  { path: '/dfir/recon-bridge', Component: ReconBridge },
+  { path: '/dfir/sample-scan', Component: SampleScan },
+
   { path: '/dfir/reverse-image', Component: ReverseImage },
   { path: '/dfir/eml', Component: EmlExtractor },
   { path: '/dfir/url-rep', Component: UrlReputation },
@@ -515,6 +518,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/cross-correlate', Component: CrossCorrelate },
   { path: '/threatintel/assessments', Component: Assessments },
   { path: '/threatintel/assessments/:id', Component: AssessmentDetail },
+  { path: '/threatintel/feed-quality', Component: FeedQuality },
   { path: '/threatintel/entity-resolution', Component: EntityResolution },
   { path: '/dfir/pgp-tool', Component: PgpTool },
   { path: '/dfir/tor-gateway', Component: TorGateway },

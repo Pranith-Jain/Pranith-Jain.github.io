@@ -180,6 +180,7 @@ const ROUTES = [
   '/dfir/tools/about',
   '/dfir/web-scan',
   '/dfir/malware-scan',
+  '/dfir/sample-scan',
   '/dfir/eml',
   '/dfir/url-rep',
   '/dfir/email-rep',
@@ -263,6 +264,60 @@ const ROUTES = [
   '/threatintel/live-iocs',
   '/threatintel/detections',
   '/threatintel/assessments',
+  '/threatintel/feed-quality',
+
+  // ── Phase 4 (2026-06-04): 43 real static routes that existed in App.tsx
+  //    but had no entry here or in worker/router.ts PRERENDERED_ROUTES.
+  //    Without this, those routes were served as the bare SPA shell and
+  //    cached 24h as if "prerendered" (silent drift). Now they get the
+  //    same chrome+loading-state treatment as their siblings.
+
+  // ── Portfolio (2) ────────────────────────────────────────────
+  '/admin',
+  '/copilot',
+
+  // ── DFIR: real pages (10) ────────────────────────────────────
+  '/dfir/abuse-rep',
+  '/dfir/asset-intel',
+  '/dfir/blocklists',
+  '/dfir/ct-monitor',
+  '/dfir/file',
+  '/dfir/host-graph',
+  '/dfir/identity-lookup',
+  '/dfir/ioc-lifecycle',
+  '/dfir/report-parser',
+  '/dfir/threat-hunt',
+
+  // ── ThreatIntel: real pages, not redirects (28) ──────────────
+  '/threatintel/ach',
+  '/threatintel/actor-usernames',
+  '/threatintel/aggregated-feeds',
+  '/threatintel/analyze',
+  '/threatintel/atlas',
+  '/threatintel/collection-slo',
+  '/threatintel/cross-correlate',
+  '/threatintel/crypto-scams',
+  '/threatintel/darkweb-tools',
+  '/threatintel/entity-resolution',
+  '/threatintel/feed-catalog',
+  '/threatintel/feed-scheduler',
+  '/threatintel/insider-threat-matrix',
+  '/threatintel/intel-dashboard',
+  '/threatintel/investigations',
+  '/threatintel/malware-iocs',
+  '/threatintel/malware-vault',
+  '/threatintel/observable-db',
+  '/threatintel/phishing-wordlists',
+  '/threatintel/pir-dashboard',
+  '/threatintel/projectdiscovery',
+  '/threatintel/ransom-payments',
+  '/threatintel/ransom-report',
+  '/threatintel/relationship-graph',
+  '/threatintel/source-reliability',
+  '/threatintel/telegram-leaks',
+  '/threatintel/telegram-leaks/channels',
+  '/threatintel/telegram-leaks/stats',
+  '/threatintel/yara',
 ];
 
 const SHELL_PATH = resolve(ROOT, 'dist/index.html');

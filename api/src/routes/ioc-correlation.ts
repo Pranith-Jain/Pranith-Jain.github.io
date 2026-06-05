@@ -50,6 +50,10 @@ interface CorrelatedIoc {
   last_seen?: string;
 }
 
+// Re-export the CorrelatedIoc shape so consumers (e.g. the TIFCE engine) can
+// type their cross-feed index without re-declaring the same interface.
+export type { CorrelatedIoc };
+
 interface SourceMeta {
   id: string;
   ok: boolean;

@@ -1,8 +1,8 @@
 /**
- * Per-source KV slices for the live-IOC feed fan-out.
+ * Per-source slices for the live-IOC feed fan-out.
  *
  * The queue consumer runs one feed source (see `runFeedSourceById`) and parks
- * its contribution here under `live-iocs:slice:<sourceId>`. A later
+ * its contribution here under a per-source Cache API entry. A later
  * compose-on-read handler (PR3) reads every slice, flattens them, and applies
  * the freshness filter + per-source recount — replacing the synchronous
  * ~33-source fan-out that `fetchLiveIocs` does on a cache miss today.
@@ -10,6 +10,25 @@
  * Slices store the RAW pre-freshness contribution (exactly what the source's
  * run() returned), so the reader stays the single source of truth for the
  * freshness window and the count recompute.
+ *
+ * # Why Cache API, not KV
+ *
+ * The live-IOC cron runs hourly and enqueues all ~34 sources; the queue
+ * consumer writes one slice per source per refresh. At 34 sources × 24
+ * refreshes that was 816 KV writes/day — ~80% of the Workers free-tier
+ * 1,000-writes-per-day quota, leaving no headroom for any other feature.
+ *
+ * Slices are an ideal Cache API fit: per-colo, ephemeral, no cross-colo
+ * coordination needed (each colo's cron + queue consumer warms its own copy
+ * within a minute of cold start), and the 6h `cache-control: max-age` outlives
+ * the 1h refresh cadence with margin — a transient upstream flake keeps the
+ * last-good contribution visible instead of dropping the source. The Cache
+ * API is free and unlimited; a write never counts against the KV quota.
+ *
+ * A cold colo sees `presentSlices = 0` for up to one cron cycle after
+ * `enqueueAllFeeds` fires, at which point `composeOrFallback` falls through to
+ * the synchronous `fetchLiveIocs` fan-out — the same fallback it uses for
+ * true cold start today. The page is never blank.
  */
 import type { LiveIoc, LiveSource, FeedResult } from '../routes/live-iocs';
 
@@ -20,9 +39,9 @@ export interface FeedQueueMessage {
 
 export const SLICE_KEY_PREFIX = 'live-iocs:slice:';
 
-/** KV key for a source's slice. */
-export function sliceKey(sourceId: string): string {
-  return SLICE_KEY_PREFIX + sourceId;
+/** Cache API request key for a source's slice (internal URL — never fetched). */
+export function sliceKey(sourceId: string): Request {
+  return new Request(`https://live-iocs-slice.internal/v1/${encodeURIComponent(sourceId)}`);
 }
 
 /**
@@ -42,25 +61,59 @@ export interface LiveIocSlice {
   sources: LiveSource[];
 }
 
-/** Persist a source's contribution as its slice (overwrites the prior one). */
-export async function writeSlice(kv: KVNamespace, sourceId: string, result: FeedResult): Promise<void> {
+/**
+ * Persist a source's contribution as its slice in the per-colo Cache API
+ * (overwrites the prior entry). Best-effort: a Cache API failure is swallowed
+ * so a transient cache outage doesn't wedge the queue consumer's retry loop —
+ * the cron will simply rebuild the slice on the next refresh.
+ */
+export async function writeSlice(sourceId: string, result: FeedResult): Promise<void> {
   const slice: LiveIocSlice = {
     source_id: sourceId,
     generated_at: new Date().toISOString(),
     items: result.items,
     sources: result.sources,
   };
-  await kv.put(sliceKey(sourceId), JSON.stringify(slice), { expirationTtl: SLICE_TTL_SECONDS });
+  const cache = getDefaultCache();
+  if (!cache) return;
+  try {
+    await cache.put(
+      sliceKey(sourceId),
+      new Response(JSON.stringify(slice), {
+        headers: {
+          'content-type': 'application/json',
+          'cache-control': `public, max-age=${SLICE_TTL_SECONDS}`,
+        },
+      })
+    );
+  } catch {
+    /* best-effort — a cache write failure must not break the queue consumer */
+  }
 }
 
-/** Read a source's slice, or null if absent / unparseable. */
-export async function readSlice(kv: KVNamespace, sourceId: string): Promise<LiveIocSlice | null> {
-  const raw = await kv.get(sliceKey(sourceId));
-  if (!raw) return null;
+/**
+ * Read a source's slice from the per-colo Cache API, or null if absent /
+ * unparseable. Cold-colo misses return null; the caller (`composeLiveIocs`)
+ * reports `presentSlices < FEED_SOURCE_IDS.length` so the response flags
+ * `extraDegraded` and the read path falls back to the synchronous fan-out.
+ */
+export async function readSlice(sourceId: string): Promise<LiveIocSlice | null> {
+  const cache = getDefaultCache();
+  if (!cache) return null;
   try {
-    const parsed = JSON.parse(raw) as LiveIocSlice;
+    const hit = await cache.match(sliceKey(sourceId));
+    if (!hit) return null;
+    const parsed = (await hit.json()) as LiveIocSlice | null;
     if (!parsed || !Array.isArray(parsed.items) || !Array.isArray(parsed.sources)) return null;
     return parsed;
+  } catch {
+    return null;
+  }
+}
+
+function getDefaultCache(): Cache | null {
+  try {
+    return (caches as unknown as { default: Cache }).default;
   } catch {
     return null;
   }

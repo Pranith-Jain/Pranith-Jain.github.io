@@ -126,6 +126,7 @@ const ROUTE_LABELS: Record<string, string> = {
   '/threatintel/external-resources': 'External Resources',
   '/threatintel/feed-catalog': 'Feed Catalog',
   '/threatintel/feed-status': 'Feed Status',
+  '/threatintel/feed-quality': 'Feed Quality',
   '/threatintel/about': 'About',
   '/threatintel/cybercrime': 'Cyber Crime',
   '/threatintel/malware-iocs': 'Malware IOCs',

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Search, Loader2, FileSearch } from 'lucide-react';
+import { ArrowLeft, Search, Loader2, FileSearch, FileDown, AlertCircle } from 'lucide-react';
 import { streamIoc } from '../../lib/dfir/api';
 import { detectType } from '../../lib/dfir/indicator-client';
 import type { ProviderResultWire, DoneEvent } from '../../lib/dfir/types';
@@ -88,6 +88,13 @@ export default function IocPivot(): JSX.Element {
   const [summary, setSummary] = useState<DoneEvent | null>(null);
   const [streaming, setStreaming] = useState(false);
   const stopRef = useRef<(() => void) | null>(null);
+  // STIX export state — built lazily on first click, then the bundleId is
+  // remembered so the user can re-trigger the download without rebuilding.
+  // `stixBuilding` is a separate flag from `streaming` (the live enrichment)
+  // so the buttons can show independent spinners.
+  const [stixBundleId, setStixBundleId] = useState<string | null>(null);
+  const [stixBuilding, setStixBuilding] = useState(false);
+  const [stixError, setStixError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!active) return;
@@ -135,6 +142,52 @@ export default function IocPivot(): JSX.Element {
     const text = [active, ...pivots.map((p) => p.value)].join('\n');
     sessionStorage.setItem('ioc-extractor-pipe', text);
     navigate('/dfir/extract?from=pivot');
+  }
+
+  /**
+   * Compose the current pivot session (center + all discovered pivots +
+   * per-source verdicts) into a STIX 2.1 bundle via the existing
+   * /api/v1/intel-bundle/build endpoint (mode='iocs'). The endpoint
+   * normalises the input into a synthetic body, runs it through the same
+   * extractor as the manual STIX builder, and persists the resulting
+   * bundle. The returned bundleId links to the canonical server export
+   * endpoint, which serves the strict `application/stix+json; version=2.1`
+   * media type that MISP / OpenCTI / TAXII collectors expect.
+   */
+  async function buildPivotStix(): Promise<void> {
+    if (stixBuilding || streaming) return;
+    if (!active) return;
+    setStixBuilding(true);
+    setStixError(null);
+    try {
+      // mode='iocs' takes a newline-separated indicator list. The build
+      // endpoint classifies each line via detectType() before assembly, so
+      // the bundle emits one indicator object per pivot even though the
+      // source input is bare text with no context.
+      const input = [active, ...pivots.map((p) => p.value)].join('\n');
+      const res = await fetch('/api/v1/intel-bundle/build', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          mode: 'iocs',
+          input,
+          sourceName: `IOC pivot session: ${active}`,
+          tlp: 'AMBER',
+        }),
+      });
+      if (!res.ok) {
+        const text = await res.text().catch(() => res.statusText);
+        throw new Error(`build failed (${res.status}): ${text.slice(0, 200)}`);
+      }
+      const data = (await res.json()) as { bundle?: { id?: string } };
+      const id = data.bundle?.id;
+      if (!id) throw new Error('build response missing bundle.id');
+      setStixBundleId(id);
+    } catch (err) {
+      setStixError(err instanceof Error ? err.message : String(err));
+    } finally {
+      setStixBuilding(false);
+    }
   }
 
   // Radial layout.
@@ -302,17 +355,49 @@ export default function IocPivot(): JSX.Element {
 
           {pivots.length > 0 && (
             <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
-              <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center justify-between mb-2 gap-2 flex-wrap">
                 <h3 className="text-[11px] font-mono uppercase tracking-wider text-slate-500">
                   Pivot indicators ({pivots.length})
                 </h3>
-                <button
-                  type="button"
-                  onClick={pipeToExtractor}
-                  className="text-[11px] font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
-                >
-                  <FileSearch size={11} /> Extract IOCs →
-                </button>
+                <div className="flex items-center gap-2 flex-wrap">
+                  {stixBundleId ? (
+                    <a
+                      href={`/api/v1/intel-bundle/${encodeURIComponent(stixBundleId)}/export.stix.json`}
+                      download={`${stixBundleId}.stix.json`}
+                      className="text-[11px] font-mono px-2 py-0.5 rounded border border-emerald-500/40 bg-emerald-500/5 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/10 inline-flex items-center gap-1"
+                    >
+                      <FileDown size={11} /> STIX
+                    </a>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => void buildPivotStix()}
+                      disabled={stixBuilding || streaming}
+                      className="text-[11px] font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 disabled:opacity-40 inline-flex items-center gap-1"
+                    >
+                      {stixBuilding ? (
+                        <Loader2 size={11} className="animate-spin" />
+                      ) : stixError ? (
+                        <AlertCircle size={11} className="text-rose-500" />
+                      ) : (
+                        <FileDown size={11} />
+                      )}
+                      {stixBuilding ? 'building…' : stixError ? 'retry STIX' : 'STIX'}
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    onClick={pipeToExtractor}
+                    className="text-[11px] font-mono px-2 py-0.5 rounded border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 inline-flex items-center gap-1"
+                  >
+                    <FileSearch size={11} /> Extract IOCs →
+                  </button>
+                </div>
+                {stixError && (
+                  <span role="alert" className="basis-full text-[10px] font-mono text-rose-700 dark:text-rose-300 mt-1">
+                    {stixError}
+                  </span>
+                )}
               </div>
               <div className="flex flex-wrap gap-1.5">
                 {pivots.map((pv) => (

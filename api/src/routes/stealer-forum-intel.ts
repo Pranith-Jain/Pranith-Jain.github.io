@@ -1,8 +1,8 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { buildDeepDarkCti } from './deepdarkcti';
-import { TELEGRAM_FEED_CACHE_KEY } from './telegram-feed';
-import { REDDIT_FEED_CACHE_KEY } from './reddit-feed';
+import { fetchTelegramFeed } from './telegram-feed';
+import { fetchRedditFeed } from './reddit-feed';
 
 /**
  * Combo & stealer-forum INTELLIGENCE — strictly metadata-about, never the
@@ -23,7 +23,7 @@ import { REDDIT_FEED_CACHE_KEY } from './reddit-feed';
  * Cached 30 min — inputs are themselves cached upstream.
  */
 
-export const STEALER_FORUM_INTEL_CACHE_KEY = 'https://stealer-forum-intel-cache.internal/v1';
+export const STEALER_FORUM_INTEL_CACHE_KEY = 'https://stealer-forum-intel-cache.internal/v6-debug-rd';
 const CACHE_TTL_SECONDS = 30 * 60;
 
 /** deepdarkCTI category labels that map to combo/stealer/forum tradecraft. */
@@ -98,12 +98,45 @@ export async function buildStealerForumIntel(env: Env, ctx: ExecutionContext): P
   }
 
   // 2. Keyword-tagged chatter — counts + pointers, never body text.
-  const tg = await readCachedJson<{
-    items?: Array<{ channel_name?: string; permalink?: string; datetime?: string; text?: string }>;
-  }>(TELEGRAM_FEED_CACHE_KEY);
-  const rd = await readCachedJson<{
+  //
+  // The Telegram feed is fetched DIRECTLY (no cache) here. Reasons:
+  //   - The feed uses a *bump-aware* cache key that rotates whenever the
+  //     admin adds/removes a custom channel. The SFI's own cache.shadow
+  //     lag (60s) means the SFI can read a stale bump and look up a key
+  //     the feed no longer uses — that was the source of "0 chatter hits"
+  //     on the infostealer page even when the feed had matching items.
+  //   - The SFI has its own 30-min cache on the composite response, so
+  //     re-fetching the Telegram feed here (one upstream call per SFI
+  //     rebuild) is bounded and free in practice.
+  //   - Direct fetch means the SFI always sees the freshest feed contents
+  //     — important because the chatter counters are a daily-visited UI
+  //     surface and a 60s shadow miss was leaving them silently empty.
+  let tg: { items?: Array<{ channel_name?: string; permalink?: string; datetime?: string; text?: string }> } | null =
+    null;
+  try {
+    tg = await fetchTelegramFeed(env.KV_CACHE);
+  } catch {
+    tg = null;
+  }
+  // Reddit is fetched the same way — the v11-raw key was returning cache-
+  // miss results in the same colo where the feed endpoint itself was
+  // serving fresh data, suggesting a key drift between the producer and
+  // the consumer. Direct fetch is bounded by the SFI's own 30-min cache.
+  let rd: {
     items?: Array<{ sub_label?: string; link?: string; pub_date?: string; title?: string; text?: string }>;
-  }>(REDDIT_FEED_CACHE_KEY);
+  } | null = null;
+  try {
+    rd = await fetchRedditFeed();
+  } catch (e) {
+    console.log('[sfi] reddit feed fetch error:', String(e));
+    rd = null;
+  }
+  console.log(
+    '[sfi] rd items:',
+    rd?.items?.length ?? 0,
+    'warnings:',
+    (rd as { warnings?: string[] } | null)?.warnings ?? []
+  );
 
   const tgSamples: ChatterSample[] = [];
   let tgMatches = 0;

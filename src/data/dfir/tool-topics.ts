@@ -89,6 +89,16 @@ export const TOOL_TOPICS: ToolTopic[] = [
     blurb: 'Drop a file → client-side static analysis + multi-engine dispatcher',
   },
   {
+    term: 'sample scan',
+    href: '/dfir/sample-scan',
+    blurb: 'Free multi-engine hash verdict + one-click public-sandbox detonation',
+  },
+  {
+    term: 'lite 0x12',
+    href: '/dfir/sample-scan',
+    blurb: 'Free alternative to 0x12darksandbox — hash fan-out + public sandbox links',
+  },
+  {
     term: 'sandbox',
     href: '/dfir/malware-scan',
     blurb: 'Multi-engine sandbox dispatcher (VT, MB, ANY.RUN, Joe, Hybrid)',

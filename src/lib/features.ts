@@ -19,7 +19,7 @@ import { createContext, useContext } from 'react';
  * (same split rationale as `components/dfir/tool-sections.ts`).
  */
 
-export type FeatureFlag = 'cape' | 'recon';
+export type FeatureFlag = 'cape' | 'recon' | 'samples';
 export type Features = Record<FeatureFlag, boolean>;
 
 export interface FeaturesState extends Features {
@@ -33,8 +33,11 @@ export interface FeaturesState extends Features {
  * direction — better than flashing a tool we may immediately hide. This
  * is also the value returned when no provider is mounted (e.g. in unit
  * tests), so components degrade gracefully rather than throwing.
+ *
+ * `samples` is always-on (no secret required) but still defaults to
+ * `false` until the probe resolves, matching the other flags' behaviour.
  */
-export const DEFAULT_FEATURES: FeaturesState = { cape: false, recon: false, loaded: false };
+export const DEFAULT_FEATURES: FeaturesState = { cape: false, recon: false, samples: false, loaded: false };
 
 export const FeaturesContext = createContext<FeaturesState>(DEFAULT_FEATURES);
 

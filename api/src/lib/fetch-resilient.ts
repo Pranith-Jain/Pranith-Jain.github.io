@@ -26,6 +26,12 @@ export interface ResilientOptions {
   timeoutMs?: number;
   /** Statuses worth retrying. Default: 429 + all 5xx. */
   retryStatuses?: (status: number) => boolean;
+  /**
+   * DI hook — supply a `fetch`-shaped function for tests or for routing
+   * through a non-global `fetch` (e.g. one with a custom connection
+   * adapter). Defaults to the runtime's `globalThis.fetch`.
+   */
+  fetch?: typeof globalThis.fetch;
 }
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
@@ -44,13 +50,14 @@ export async function fetchResilient(
   const maxDelay = opts.maxDelayMs ?? 3000;
   const timeoutMs = opts.timeoutMs ?? 8000;
   const retryable = opts.retryStatuses ?? defaultRetryable;
+  const fetchFn = opts.fetch ?? globalThis.fetch.bind(globalThis);
 
   let lastErr: unknown;
   for (let attempt = 1; attempt <= attempts; attempt++) {
     try {
       // Respect a caller-provided signal; otherwise bound each attempt.
       const reqInit: RequestInit = init?.signal ? init : { ...init, signal: AbortSignal.timeout(timeoutMs) };
-      const res = await fetch(input, reqInit);
+      const res = await fetchFn(input, reqInit);
       if (res.ok || !retryable(res.status) || attempt === attempts) return res;
       const ra = parseInt(res.headers.get('retry-after') ?? '', 10);
       // Full jitter: randomize within the delay window to decorrelate

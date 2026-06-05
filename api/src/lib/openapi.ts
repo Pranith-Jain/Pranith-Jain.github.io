@@ -98,7 +98,7 @@ export function generateOpenApiSpec(): Record<string, unknown> {
           tags: ['Health'],
           summary: 'Configured optional feature bridges',
           description:
-            'Public boolean map of which optional self-hosted bridges this deployment has configured (CAPE sandbox, recon bridge). Booleans only — never the bridge URLs or tokens. Used by the frontend to hide dormant tools until their *_BRIDGE_URL secret is set.',
+            'Public boolean map of which optional self-hosted bridges this deployment has configured (CAPE sandbox, recon bridge). Booleans only — never the bridge URLs or tokens. Used by the frontend to hide dormant tools until their *_BRIDGE_URL secret is set. `samples` is always `true` — the /api/v1/sample/scan endpoint is free and self-contained (no bridge required).',
           responses: {
             '200': {
               description: 'Feature flag map',
@@ -109,11 +109,46 @@ export function generateOpenApiSpec(): Record<string, unknown> {
                     properties: {
                       cape: { type: 'boolean' },
                       recon: { type: 'boolean' },
+                      samples: { type: 'boolean' },
                     },
                   },
                 },
               },
             },
+          },
+        },
+      },
+      '/api/v1/sample/scan': {
+        post: {
+          tags: ['Malware Analysis'],
+          summary: 'Free "lite 0x12" multi-provider hash fan-out',
+          description:
+            'Always-on free hash fan-out across 10 public reputation providers (VirusTotal, MalwareBazaar, YARAify, ' +
+            'Hybrid Analysis, OTX, ThreatFox, Malshare, Hashlookup, Kaspersky, optional CAPE). Streams per-provider ' +
+            'results as SSE, then a final `done` event with composite score, verdict, signatures, families, and ' +
+            'one-click deep links to 12 free public sandboxes (Triage, ANY.RUN, Joe Sandbox, CAPE public, Intezer, ' +
+            'InQuest, etc). The frontend `SampleScan` page computes the SHA-256 client-side (via `analyseFile`) and ' +
+            'posts just the hash here — Cloudflare Workers Free caps CPU at 10ms/invocation so server-side hashing ' +
+            'is not viable. `GET ?hash=<hex>` is also accepted as a quick smoke-test.',
+          requestBody: {
+            required: true,
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  required: ['hash'],
+                  properties: { hash: { type: 'string', description: 'MD5 / SHA-1 / SHA-256 hex' } },
+                },
+              },
+            },
+          },
+          responses: {
+            '200': {
+              description: 'SSE stream of provider results, terminating with composite verdict + public-sandbox links',
+              content: { 'text/event-stream': { schema: { type: 'string' } } },
+            },
+            '400': { description: 'Invalid or missing hash' },
+            '429': { description: 'SSE concurrent limit reached' },
           },
         },
       },

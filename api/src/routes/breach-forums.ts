@@ -110,6 +110,29 @@ function trackerUrl(name: string): string {
   return `https://darkwebinformer.com/?s=${encodeURIComponent(name)}`;
 }
 
+/**
+ * Exported for the status-delta engine (api/src/lib/breach-forum-status.ts)
+ * so the cron can take a snapshot of the curated set without rebuilding
+ * it from source. Returns the same `CURATED` table in a shape the engine
+ * understands (with category + url derived the same way `buildBreachForums`
+ * derives them for the public route).
+ */
+export function getCuratedForums(): Array<{
+  name: string;
+  status: string;
+  category: string;
+  url: string;
+  note: string;
+}> {
+  return CURATED.map((c) => ({
+    name: c.name,
+    status: c.status,
+    category: c.kind === 'market' ? 'Notable underground marketplace' : 'Notable breach/leak forum',
+    url: trackerUrl(c.name),
+    note: c.note,
+  }));
+}
+
 interface ForumRow {
   name: string;
   /** 'directory' (deepdarkCTI) or 'curated'. */
@@ -139,10 +162,10 @@ export async function buildBreachForums(env: Env, ctx: ExecutionContext): Promis
       rows.push({
         name: e.name,
         origin: 'directory',
-        category: e.category,
+        category: e.category ?? 'Uncategorized',
         url: e.url,
         onion: e.onion,
-        status: e.status,
+        status: e.status ?? 'unknown',
       });
       directory++;
     }

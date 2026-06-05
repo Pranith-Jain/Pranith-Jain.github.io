@@ -337,6 +337,13 @@ export const SECTIONS: Section[] = [
         icon: Target,
         badge: 'new',
       },
+      {
+        to: '/threatintel/feed-quality',
+        label: 'TIFCE Feed Quality',
+        desc: 'Four-pillar scorecard (originality, platform relevance, signal vs noise, freshness) for every IOC feed — re-implementation of the TIFCE framework.',
+        icon: BarChart3,
+        badge: 'new',
+      },
     ],
   },
   // ── AI & Automation ─────────────────────────────────────────────

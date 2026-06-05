@@ -153,11 +153,22 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
         getDedup: memGet,
       }),
   };
-  // Always-on = high-value / our own data. The rest rotate over 3 days so
-  // each daily run hits a different, smaller feed subset: more day-to-day
-  // variety AND fewer subrequests per invocation (Free-plan 50/inv budget).
-  const ALWAYS_ON = new Set(['cve', 'vulncheck', 'actor', 'ransom', 'platform']);
-  const active = new Set(activeRunnerNames(Object.keys(allRunners), ALWAYS_ON, now, 3));
+  // Discovery diversity model (2026-06-05):
+  //   - 4 high-value "always-on" topics the user always wants to see:
+  //     `cve` (CVEs), `actor` (threat-actor activity), `ransom` (ransomware
+  //     victims), `platform` (own aggregated intel). These give the daily
+  //     queue a stable spine.
+  //   - 4 additional topics rotate across the 7-day window. Each day of
+  //     the week a different subset is added, so the full catalog of 11
+  //     optional topics gets surfaced over the week without flooding a
+  //     single day. The rotation lives in `rotation.ts` — partition the
+  //     optional set by `dayOfYear % 7` so the cycle is stable and
+  //     human-predictable (Mon: malware + scam, Tue: breach + aisec, …).
+  //   - Total active per day: 4 always + 4 rotating = 8 topics. Combined
+  //     with perTopic=1, that yields exactly 8 candidates per discovery,
+  //     which the admin can actually triage end-to-end.
+  const ALWAYS_ON = new Set(['cve', 'actor', 'ransom', 'platform']);
+  const active = new Set(activeRunnerNames(Object.keys(allRunners), ALWAYS_ON, now, 7));
   const runners = Object.fromEntries(Object.entries(allRunners).filter(([name]) => active.has(name)));
 
   return runDiscovery({
@@ -167,6 +178,19 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
     putCandidate: (c) => putCandidate(env.CASE_STUDIES, c),
     commitDedup: (keys, n) => touchDedupMany(env.CASE_STUDIES, keys, n),
     now,
+    // Diversity controls:
+    //   - perTopic=1: at most ONE candidate per topic. The 11-runner
+    //     "always-on" set used 3-per-topic × 11 = ~33 candidates per
+    //     discovery, but the weighted sampler kept the same top items
+    //     dominating because each topic's pool is small and the date seed
+    //     only varies the *order*. One per topic guarantees no single
+    //     topic fills the admin queue, and forces variety in the daily
+    //     candidate set.
+    //   - limit=8: hard cap on the daily queue. Combined with perTopic=1
+    //     and 8 always-on topics, this gives a small, curated daily set
+    //     the admin can actually triage.
+    perTopic: 1,
+    limit: 8,
   });
 }
 

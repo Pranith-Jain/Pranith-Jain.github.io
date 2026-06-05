@@ -67,7 +67,12 @@ export async function handleQueue(
           msg.ack();
           return;
         }
-        await writeSlice(kv, sourceId, result);
+        // writeSlice persists to the per-colo Cache API (free, not counted
+        // against the KV write quota) — see live-iocs-slices.ts doc for the
+        // budget reasoning. `kv` stays in the deps for sources that need it
+        // (e.g. andreafortuna's last-good mirror), but the slice itself does
+        // not touch KV.
+        await writeSlice(sourceId, result);
         msg.ack();
       } catch (e) {
         // Transient (KV write / unexpected) — let the queue retry, then DLQ.

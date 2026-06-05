@@ -61,6 +61,8 @@ import { detectionsHandler } from './routes/detections';
 import { deepDarkCtiHandler } from './routes/deepdarkcti';
 import { stealerForumIntelHandler } from './routes/stealer-forum-intel';
 import { breachForumsHandler } from './routes/breach-forums';
+import { breachForumStatusHandler } from './routes/breach-forum-status';
+import { breachCoverageHandler } from './routes/breach-coverage';
 import { negotiationsHandler, negotiationTranscriptHandler } from './routes/negotiations';
 import { ransomwareLiveHandler } from './routes/ransomwarelive';
 import { writeupsHandler } from './routes/writeups';
@@ -301,6 +303,7 @@ import { correlateHandler } from './routes/cross-correlate';
 import { huntingQueryHandler } from './routes/hunting-queries';
 import { sandboxLookupHandler } from './routes/sandbox';
 import { capeSubmitHandler, capeTaskHandler, capeReportHandler } from './routes/sandbox-cape';
+import { sampleScanHandler } from './routes/sample-scan';
 import { reconScanHandler } from './routes/recon';
 import { irPlaybookHandler } from './routes/ir-playbooks';
 import { aiSummaryHandler } from './routes/ai-summary';
@@ -385,7 +388,6 @@ const ADMIN_GATED_PREFIXES = [
   '/api/v1/ct-monitor',
   '/api/v1/dashboard',
   '/api/v1/rag',
-  '/api/v1/copilot',
   '/api/v1/report',
 ];
 for (const base of ADMIN_GATED_PREFIXES) {
@@ -596,6 +598,8 @@ app.get('/api/v1/rules', detectionRulesHandler);
 app.get('/api/v1/deepdarkcti', deepDarkCtiHandler);
 app.get('/api/v1/stealer-forum-intel', stealerForumIntelHandler);
 app.get('/api/v1/breach-forums', breachForumsHandler);
+app.get('/api/v1/breach-forum-status/deltas', breachForumStatusHandler);
+app.get('/api/v1/breach-coverage', breachCoverageHandler);
 app.get('/api/v1/negotiations', negotiationsHandler);
 app.get('/api/v1/negotiations/:group/:id', negotiationTranscriptHandler);
 app.get('/api/v1/rl/:resource', ransomwareLiveHandler);
@@ -860,6 +864,10 @@ app.get('/api/v1/sandbox/lookup', sandboxLookupHandler);
 app.post('/api/v1/cape/submit', capeSubmitHandler);
 app.get('/api/v1/cape/task/:id', capeTaskHandler);
 app.get('/api/v1/cape/report/:id', capeReportHandler);
+// Free "lite 0x12" — multi-provider hash fan-out + public-sandbox deep links.
+// Always on; no bridge secret required. See docs/free/sample-scan.md.
+app.post('/api/v1/sample/scan', sampleScanHandler);
+app.get('/api/v1/sample/scan', sampleScanHandler);
 // Self-hosted recon bridge (admin-gated; dormant 503 until RECON_BRIDGE_URL is set).
 app.post('/api/v1/recon/scan', reconScanHandler);
 app.post('/api/v1/ir-playbooks/generate', validate('json', irPlaybookSchema), irPlaybookHandler);

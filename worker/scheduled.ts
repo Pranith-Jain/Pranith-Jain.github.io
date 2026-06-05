@@ -21,6 +21,9 @@ import { fetchTelegramFeed } from '../api/src/routes/telegram-feed';
 import { refreshVictimReleaksCache } from '../api/src/routes/victim-releaks';
 import { warmIntelBundles } from '../api/src/lib/intel-bundle-warm';
 import { checkWatches } from '../api/src/lib/watch-engine';
+import { buildStatusSnapshot, upsertStatusSnapshot } from '../api/src/lib/breach-forum-status';
+import { getCuratedForums } from '../api/src/routes/breach-forums';
+import { buildDeepDarkCti } from '../api/src/routes/deepdarkcti';
 import { buildBlocklists } from '../api/src/lib/blocklist-builder';
 import { indexTelegramLeaks } from '../api/src/routes/rag-index';
 import { indexAllCorpora } from '../api/src/routes/rag-corpus-index';
@@ -243,6 +246,13 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
              * W22's 5 findings) by comparing it against its dailies.
              */
             extraHealCheck?: (row: { stats_json?: string; body?: string } | null) => Promise<boolean>;
+            /**
+             * When true, `buildBriefing` uses `now` as the window end (not
+             * start-of-today-UTC). Required when the heal targets today's
+             * slug — otherwise buildBriefing computes the wrong window end
+             * and the slug mismatch would silently write to the wrong row.
+             */
+            live?: boolean;
           }
         ) => {
           if (!db) return;
@@ -265,11 +275,12 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
             const briefing = await buildBriefing(type, undefined, {
               nvdApiKey: env.NVD_API_KEY,
               env: env as unknown as ApiEnv,
+              live: opts?.live,
             });
             const result = await writeBriefing(db, briefing);
             if (result.written) {
               console.log(
-                `scheduled(${type}-catch-up): wrote ${briefing.slug} (findings=${briefing.stats.findings}, iocs=${briefing.stats.iocs})`
+                `scheduled(${type}-catch-up): wrote ${briefing.slug} (findings=${briefing.stats.findings}, iocs=${briefing.stats.iocs}, live=${opts?.live ? 'yes' : 'no'})`
               );
             }
           } catch (err) {
@@ -299,6 +310,24 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
             // yesterday; 3h cooldown keeps a genuinely CVE-quiet day from
             // rebuilding hourly.
             extraHealCheck: async (row) => dailyNeedsCveReenrich(row, { now: Date.now(), cooldownMs: 3 * 60 * 60_000 }),
+          });
+        }
+        // "Today's" live daily — covers the 48h ending at the current instant,
+        // slugged by today's calendar day. The dedicated 00:30 cron only
+        // writes the prior day's briefing, so without this the platform would
+        // show a blank `daily-${today}` until the next morning's 00:30. The
+        // heal is gated on the same 30min cooldown so back-to-back hours
+        // don't hammer the build; a 60min cooldown is fine for the live
+        // variant since the window rolls forward by 1h each rebuild and the
+        // "yesterday" heal above covers the calendar-day build. `live: true`
+        // is REQUIRED — without it, buildBriefing anchors on start-of-today-
+        // UTC and would compute slug=daily-yesterday, mismatching the row
+        // this heal is targeting.
+        if (db) {
+          const today = new Date();
+          await healOne('daily', `daily-${today.toISOString().slice(0, 10)}`, {
+            minAgeMs: 60 * 60_000,
+            live: true,
           });
         }
         // Weekly self-heal — every hour (was: once/day at UTC hour 2). The
@@ -393,6 +422,33 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           }
         } catch (e) {
           console.error(JSON.stringify({ job: 'watch-engine', error: e instanceof Error ? e.message : String(e) }));
+        }
+
+        // === Breach-forum status snapshot ===
+        // Hourly: re-snapshot the deepdarkCTI forum directory + the curated
+        // well-known list, write to D1. The deltas route computes
+        // transitions from the history table. DDC re-read is fast (KV
+        // cache hit, the 12h cold-cache fallback only matters on the
+        // first run of the day). D1 batch write is ~30-50 rows — well
+        // under the 1k/day KV-equivalent we budget elsewhere.
+        try {
+          if (env.BRIEFINGS_DB) {
+            const ddc = await buildDeepDarkCti(env.KV_CACHE, ctx);
+            const curated = getCuratedForums();
+            const observedAt = new Date().toISOString();
+            const snapshot = buildStatusSnapshot(ddc, curated, observedAt);
+            await upsertStatusSnapshot(env.BRIEFINGS_DB as D1Database, snapshot);
+            console.log(
+              JSON.stringify({
+                job: 'breach-forum-status-snapshot',
+                rows: snapshot.rows.length,
+                ddc_entries: ddc.entries.filter((e) => /^(Criminal Forums|Dark Markets)$/i.test(e.category)).length,
+                curated_entries: curated.length,
+              })
+            );
+          }
+        } catch (e) {
+          logCronFail('breach-forum-status-snapshot')(e);
         }
 
         // === Daily leak entry cleanup (6am UTC) ===

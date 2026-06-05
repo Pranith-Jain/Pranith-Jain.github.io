@@ -22,6 +22,11 @@ export function featuresHandler(c: Context<{ Bindings: Env }>): Response {
     {
       cape: isCapeConfigured(c.env),
       recon: isReconConfigured(c.env),
+      // Always-on: /api/v1/sample/scan fans out to free public lookup APIs
+      // (VirusTotal, MalwareBazaar, YARAify, Hybrid Analysis, ...) plus
+      // surfaces one-click deep links to free public sandboxes. No secret
+      // required. See docs/free/sample-scan.md.
+      samples: true,
     },
     200,
     { 'Cache-Control': 'public, max-age=60' }

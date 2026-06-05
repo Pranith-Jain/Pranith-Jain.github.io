@@ -279,8 +279,8 @@ export const osvScanSchema = z.object({
 // ── Telegram Leak Monitor (admin) ───────────────────────────────
 
 export const telegramChannelActionSchema = z.object({
-  channel_id: z.string().min(1, 'channel_id required').max(200),
-  reason: z.string().max(500).optional(),
+  handle: z.string().min(1, 'handle required').max(200),
+  category: z.string().max(100).optional(),
 });
 
 // Handler (telegram-leak-bot.ts) reads ONLY the `url` query param (no JSON body),

@@ -46,6 +46,7 @@ import {
   Database,
   Smartphone,
   ScanLine,
+  ScanSearch,
   Binary,
   Activity,
   Fingerprint,
@@ -221,6 +222,13 @@ export const SECTIONS: Section[] = [
         label: 'Malware Scanner',
         desc: 'Drop a file · client-side hashing + entropy + strings + heuristic tags · dispatches the hash to 11 public engines (VT, MalwareBazaar, ANY.RUN, Joe Sandbox, Hybrid Analysis, OTX, etc)',
         icon: Microscope,
+      },
+      {
+        path: '/dfir/sample-scan',
+        useCase: 'Composite hash verdict + one-click public-sandbox detonation.',
+        label: 'Sample Scan (lite 0x12)',
+        desc: 'Hash fan-out across 10 free public reputation engines (VT, MB, YARAify, Hybrid, OTX, ThreatFox, Malshare, Hashlookup, Kaspersky, optional CAPE) · composite verdict + family/signature aggregation · 12 free public-sandbox deep links (Triage, ANY.RUN, Joe, CAPE public, Intezer, InQuest, …) for one-click detonation',
+        icon: ScanSearch,
       },
       {
         path: '/dfir/cape-sandbox',

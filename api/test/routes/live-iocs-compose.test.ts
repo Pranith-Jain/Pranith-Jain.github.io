@@ -1,25 +1,23 @@
-import { env } from 'cloudflare:test';
 import { describe, it, expect, beforeEach } from 'vitest';
 import { composeLiveIocs, enqueueAllFeeds, FEED_SOURCE_IDS } from '../../src/routes/live-iocs';
-import { writeSlice } from '../../src/lib/live-iocs-slices';
-import type { Env } from '../../src/env';
+import { writeSlice, sliceKey } from '../../src/lib/live-iocs-slices';
 
-const kv = env.KV_CACHE!;
-// The test env (ProvidedEnv) declares only KV_CACHE; composeLiveIocs only
-// touches KV_CACHE/BRIEFINGS_DB at runtime, so cast through unknown like the
-// sibling tests (briefing-builder, intel-bundle-warm) do.
-const apiEnv = env as unknown as Env;
+// Slices now live in the per-colo Cache API (free, not the KV write quota),
+// so the test driver uses `caches.default` for setup/teardown rather than KV.
+// `composeLiveIocs` takes an optional `Env`; the D1 read inside
+// `finalizeLiveIocs` is guarded by `env?.BRIEFINGS_DB` and is non-fatal, so
+// the test simply omits it.
+const cache = (caches as unknown as { default: Cache }).default;
 
-async function clearSlices() {
-  const all = await kv.list({ prefix: 'live-iocs:slice:' });
-  await Promise.all(all.keys.map((k) => kv.delete(k.name)));
+async function clearAllSlices(): Promise<void> {
+  await Promise.all(FEED_SOURCE_IDS.map((id) => cache.delete(sliceKey(id))));
 }
 
-describe('composeLiveIocs', () => {
-  beforeEach(clearSlices);
+describe('composeLiveIocs (Cache API slices)', () => {
+  beforeEach(clearAllSlices);
 
   it('merges present slices and flags degraded when the set is incomplete', async () => {
-    await writeSlice(kv, 'emerging-threats', {
+    await writeSlice('emerging-threats', {
       items: [
         {
           value: '1.1.1.1',
@@ -31,14 +29,14 @@ describe('composeLiveIocs', () => {
       ],
       sources: [{ id: 'emerging-threats', ok: true, count: 1 }],
     });
-    await writeSlice(kv, 'botvrij', {
+    await writeSlice('botvrij', {
       items: [{ value: 'evil.example', kind: 'domain', source: 'botvrij', reporter: 'Botvrij.eu', context: 'x' }],
       sources: [{ id: 'botvrij', ok: true, count: 1 }],
     });
 
-    const { response, presentSlices } = await composeLiveIocs(kv, apiEnv);
+    const { response, presentSlices } = await composeLiveIocs();
     expect(presentSlices).toBe(2);
-    // 2 of 32 slices present → extraDegraded → degraded true
+    // 2 of N slices present → extraDegraded → degraded true
     expect(response.degraded).toBe(true);
     const ids = response.sources.map((s) => s.id);
     expect(ids).toContain('emerging-threats');
@@ -50,13 +48,19 @@ describe('composeLiveIocs', () => {
 
   it('drops a source whose slice contributed no fresh items (recount), keeps degraded', async () => {
     // an item observed long before the 7-day staleness cutoff is filtered out
-    await writeSlice(kv, 'tweetfeed', {
+    await writeSlice('tweetfeed', {
       items: [
-        { value: 'stale.example', kind: 'domain', source: 'tweetfeed', reporter: 'x', observed_at: '2020-01-01T00:00:00.000Z' },
+        {
+          value: 'stale.example',
+          kind: 'domain',
+          source: 'tweetfeed',
+          reporter: 'x',
+          observed_at: '2020-01-01T00:00:00.000Z',
+        },
       ],
       sources: [{ id: 'tweetfeed', ok: true, count: 1 }],
     });
-    const { response, presentSlices } = await composeLiveIocs(kv, apiEnv);
+    const { response, presentSlices } = await composeLiveIocs();
     expect(presentSlices).toBe(1);
     // the only item was stale → no active sources, but still degraded (incomplete set)
     expect(response.items.map((i) => i.value)).not.toContain('stale.example');
@@ -65,7 +69,7 @@ describe('composeLiveIocs', () => {
   });
 
   it('returns presentSlices=0 when no slices exist (caller falls back to sync)', async () => {
-    const { presentSlices } = await composeLiveIocs(kv, apiEnv);
+    const { presentSlices } = await composeLiveIocs();
     expect(presentSlices).toBe(0);
   });
 });

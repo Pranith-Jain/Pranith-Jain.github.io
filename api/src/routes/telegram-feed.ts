@@ -517,7 +517,7 @@ export const TELEGRAM_FEED_CACHE_KEY = 'https://telegram-feed-cache.internal/v10
 const BUMP_SHADOW_CACHE_KEY = new Request('https://tg-bump-shadow.internal/v1');
 const BUMP_SHADOW_TTL = 60;
 
-async function readBumpValue(env: Env): Promise<string | null> {
+export async function readBumpValue(env: Env): Promise<string | null> {
   const cache = (caches as unknown as { default: Cache }).default;
   try {
     const shadow = await cache.match(BUMP_SHADOW_CACHE_KEY);
@@ -542,10 +542,14 @@ async function readBumpValue(env: Env): Promise<string | null> {
   return fresh;
 }
 
+export async function getTelegramFeedCacheKey(env: Env): Promise<Request> {
+  const bump = await readBumpValue(env);
+  return new Request(`${TELEGRAM_FEED_CACHE_KEY}${bump ? `-${bump}` : ''}`);
+}
+
 export async function telegramFeedHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;
-  const bump = await readBumpValue(c.env);
-  const cacheKey = new Request(`${TELEGRAM_FEED_CACHE_KEY}${bump ? `-${bump}` : ''}`);
+  const cacheKey = await getTelegramFeedCacheKey(c.env);
   const cached = await cache.match(cacheKey);
   if (cached) return new Response(cached.body, cached);
 

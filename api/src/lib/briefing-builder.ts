@@ -16,6 +16,8 @@ import { readLastGood, writeLastGood } from './lastgood';
 import type { Env } from '../env';
 import { fetchMtiSource, type MtiCveRecord } from './mythreatintel-api';
 import { fetchRansomwareRecent, type RansomwareVictim } from '../routes/ransomware-recent';
+import { normalizeGroup } from './group-normalize';
+import { computeDailyWindow, computeLiveDailyWindow } from './briefing-window';
 import { fetchCveFeedHighSeverity, type CveFeedEntry } from '../routes/cve-recent';
 import { runCompletion } from '../case-study/generation/ai-client';
 
@@ -979,7 +981,7 @@ function buildExecutiveSummary(args: {
   ransomwareTotal?: number;
 }): string {
   const { type, range_label, findings, iocs, iocsRawTotal, iocSources, iocPerSource } = args;
-  const span = type === 'weekly' ? 'This week' : 'In the past 24 hours';
+  const span = type === 'weekly' ? 'This week' : 'In the past 48 hours';
   const critCount = findings.filter((f) => f.severity === 'critical').length;
   const highCount = findings.filter((f) => f.severity === 'high').length;
   const vendors = topVendors(findings, 3);
@@ -1381,7 +1383,7 @@ export async function weeklyUndercountsDailies(
 export async function buildBriefing(
   type: BriefingType,
   anchor: Date = new Date(),
-  opts: { nvdApiKey?: string; env?: Env } = {}
+  opts: { nvdApiKey?: string; env?: Env; live?: boolean } = {}
 ): Promise<Briefing> {
   // Compute window
   let rangeStart: Date;
@@ -1392,14 +1394,18 @@ export async function buildBriefing(
   let title: string;
 
   if (type === 'daily') {
-    // Daily: covers the previous calendar day (UTC)
-    const end = new Date(Date.UTC(anchor.getUTCFullYear(), anchor.getUTCMonth(), anchor.getUTCDate()));
-    const start = new Date(end.getTime() - 86400_000);
-    rangeStart = start;
-    rangeEnd = end;
-    dateLabel = isoDate(start);
-    rangeLabel = dateLabel;
-    slug = `daily-${dateLabel}`;
+    // Daily: covers a 48h window ending at the start of "today" UTC. Window
+    // math lives in `briefing-window.ts` so the same rule is unit-testable
+    // and reusable. The `live: true` opt overrides the end-of-window to
+    // `now` — used by the hourly heal to write a `daily-${today}` row that
+    // analysts can open right now, before the dedicated 00:30 cron replaces
+    // it tomorrow morning.
+    const w = opts.live ? computeLiveDailyWindow(anchor) : computeDailyWindow(anchor);
+    rangeStart = w.start;
+    rangeEnd = w.end;
+    dateLabel = w.slug.replace(/^daily-/, '');
+    rangeLabel = w.rangeLabel;
+    slug = w.slug;
     title = `Daily Threat Briefing — ${dateLabel}`;
   } else {
     // Weekly: prior ISO week (Mon→Sun) ending the day before anchor
@@ -1646,7 +1652,12 @@ export async function buildBriefing(
   //
   // Dedupe key here is (group + victim + day) — guards against the rare
   // case where two trackers surfaced the same claim with slightly different
-  // timestamps (merges that didn't catch them upstream).
+  // timestamps (merges that didn't catch them upstream). `normalizeGroup` is
+  // applied so "thegentlemen" / "the gentlemen" / "TheGentlemen" all collapse
+  // to the same canonical slug — the upstream merge already does this, but
+  // applying it here too means a sparse `ransomwareBundle` (e.g. one tracker
+  // only) still produces a stable per-day key, and the title shows the
+  // canonical spelling instead of the raw tracker artifact.
   const ransomwareVictims = ransomwareBundle.victims;
   const ransomwareGroups = ransomwareBundle.groups;
   const ransomwareSectors = ransomwareBundle.sectors;
@@ -1657,16 +1668,17 @@ export async function buildBriefing(
     if (!discovered) continue;
     if (!withinRange(discovered, startMs, endMs)) continue;
     const victim = v.victim?.trim();
-    const group = v.group?.trim();
-    if (!victim || !group) continue;
+    if (!victim) continue;
+    const group = normalizeGroup(v.group);
+    if (!group || group === 'unknown') continue;
     const day = discovered.slice(0, 10); // YYYY-MM-DD
-    const dedupeKey = `${group.toLowerCase()}|${victim.toLowerCase()}|${day}`;
+    const dedupeKey = `${group}|${victim.toLowerCase()}|${day}`;
     if (seenRwVictim.has(dedupeKey)) continue;
     seenRwVictim.add(dedupeKey);
     const desc = v.description?.trim();
     const location = v.country ? ` (${v.country})` : '';
     ransomwareFindings.push({
-      id: `rw-${group.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${victim
+      id: `rw-${group.replace(/[^a-z0-9]+/g, '-')}-${victim
         .toLowerCase()
         .replace(/[^a-z0-9]+/g, '-')
         .slice(0, 40)}-${day}`,

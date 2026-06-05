@@ -7,6 +7,7 @@ import { fetchAFRansomwareVictims } from '../lib/andreafortuna-feeds';
 import { fetchMtiSource, type MtiRansomwareClaim } from '../lib/mythreatintel-api';
 import { shouldWriteLastGood } from '../lib/lastgood-debounce';
 import { readXClaimsCache } from './x-claims';
+import { normalizeGroup } from '../lib/group-normalize';
 
 /**
  * Recent ransomware leak-site posts via Ransomlook.io's free `/api/recent`
@@ -171,7 +172,7 @@ async function fetchRansomfeedVictims(): Promise<RansomwareVictim[]> {
       // Extract group from description: "Ransomware group called <b>X</b> claims attack for <b>Y</b>".
       // We already stripped tags, so match the plain-text form.
       const groupMatch = /Ransomware group called\s+([^\s,]+)/i.exec(cleanedDesc);
-      const group = (groupMatch?.[1] ?? 'unknown').trim().toLowerCase();
+      const group = normalizeGroup(groupMatch?.[1] ?? 'unknown');
       // safeIsoOr never throws on a junk date (the old `new Date(pub).toISOString()`
       // did, dropping the whole feed); falls back to now() for missing/unparseable.
       const discovered = safeIsoOr(pub);
@@ -229,7 +230,7 @@ async function fetchRansomwatchVictims(): Promise<RansomwareVictim[]> {
       const victim = e.post_title.trim();
       out.push({
         victim,
-        group: e.group_name.trim().toLowerCase(),
+        group: normalizeGroup(e.group_name),
         discovered,
         source_url: 'https://github.com/joshhighet/ransomwatch',
         sector: classifySector(victim, undefined),
@@ -281,7 +282,7 @@ async function fetchRansomwareLiveVictims(): Promise<RansomwareVictim[]> {
       const description = e.description?.trim() || undefined;
       out.push({
         victim,
-        group: e.group_name.trim().toLowerCase(),
+        group: normalizeGroup(e.group_name),
         discovered,
         description,
         source_url: 'https://www.ransomware.live/',
@@ -327,7 +328,7 @@ export function ctiFyiPostToVictim(e: CtiFyiPost): RansomwareVictim | null {
   if (!victim || !group || !e.discovered) return null;
   const discovered = toIsoDate(e.discovered);
   if (Number.isNaN(Date.parse(discovered))) return null;
-  const slug = group.toLowerCase();
+  const slug = normalizeGroup(group);
   const screen = e.screenshot_path?.trim();
   return {
     victim,
@@ -392,7 +393,7 @@ async function fetchMtiApiVictims(env: Env): Promise<RansomwareVictim[]> {
     const country = e.country?.trim();
     out.push({
       victim,
-      group: gang.toLowerCase(),
+      group: normalizeGroup(gang),
       discovered,
       description: description && description.length > 320 ? description.slice(0, 317) + '…' : description,
       source_url: 'https://mythreatintel.com/',
@@ -423,7 +424,10 @@ function mergeVictims(...lists: RansomwareVictim[][]): RansomwareVictim[] {
   const byKey = new Map<string, RansomwareVictim>();
   const key = (v: RansomwareVictim) => {
     const day = v.discovered.slice(0, 10); // YYYY-MM-DD
-    return `${v.group}|${v.victim.toLowerCase().trim()}|${day}`;
+    // normalizeGroup is idempotent — every fetcher above already calls it, but
+    // applying it here too means a future caller that forgets the step still
+    // gets a stable dedupe. The 1st occurrence (source-priority order) wins.
+    return `${normalizeGroup(v.group)}|${v.victim.toLowerCase().trim()}|${day}`;
   };
   // Insert in source-priority order. Earlier lists win ties — call sites pass
   // Ransomlook first because its entries carry screen_url which the UI inlines.
@@ -516,7 +520,7 @@ export async function fetchRansomwareRecent(env?: Env): Promise<{
           const description = e.description?.trim() || undefined;
           return {
             victim,
-            group: e.group_name!.trim().toLowerCase(),
+            group: normalizeGroup(e.group_name),
             discovered: toIsoDate(e.discovered),
             description,
             source_url: e.link
