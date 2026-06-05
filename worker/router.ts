@@ -153,6 +153,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/log-parser', '/__prerendered/dfir__log-parser'],
   ['/dfir/socmint', '/__prerendered/dfir__socmint'],
   ['/dfir/tools/about', '/__prerendered/dfir__tools__about'],
+  ['/dfir/recon-bridge', '/__prerendered/dfir__recon-bridge'],
   ['/dfir/web-scan', '/__prerendered/dfir__web-scan'],
   ['/dfir/malware-scan', '/__prerendered/dfir__malware-scan'],
   ['/dfir/sample-scan', '/__prerendered/dfir__sample-scan'],

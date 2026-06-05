@@ -178,6 +178,7 @@ const ROUTES = [
   '/dfir/log-parser',
   '/dfir/socmint',
   '/dfir/tools/about',
+  '/dfir/recon-bridge',
   '/dfir/web-scan',
   '/dfir/malware-scan',
   '/dfir/sample-scan',

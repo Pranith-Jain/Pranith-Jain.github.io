@@ -140,6 +140,7 @@ const OsintFramework = lazy(() => import('./pages/dfir/OsintFramework'));
 const SecopsCatalog = lazy(() => import('./pages/dfir/SecopsCatalog'));
 const ToolsCategory = lazy(() => import('./pages/dfir/ToolsCategory'));
 const ToolsAbout = lazy(() => import('./pages/dfir/ToolsAbout'));
+const ReconBridge = lazy(() => import('./pages/dfir/ReconBridge'));
 const TimestampConverter = lazy(() => import('./pages/dfir/TimestampConverter'));
 const HashCalculator = lazy(() => import('./pages/dfir/HashCalculator'));
 const DorkBuilder = lazy(() => import('./pages/dfir/DorkBuilder'));
@@ -459,6 +460,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/secops-tools', Component: SecopsCatalog },
   { path: '/dfir/tools/about', Component: ToolsAbout },
   { path: '/dfir/tools/:group', Component: ToolsCategory },
+  { path: '/dfir/recon-bridge', Component: ReconBridge },
   { path: '/dfir/timestamp', Component: TimestampConverter },
   { path: '/dfir/hash-calc', Component: HashCalculator },
   { path: '/dfir/dork-builder', Component: DorkBuilder },

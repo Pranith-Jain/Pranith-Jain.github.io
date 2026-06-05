@@ -1,8 +1,8 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { buildDeepDarkCti } from './deepdarkcti';
-import { fetchTelegramFeed } from './telegram-feed';
-import { fetchRedditFeed } from './reddit-feed';
+import { getTelegramFeedCacheKey } from './telegram-feed';
+import { REDDIT_FEED_CACHE_KEY } from './reddit-feed';
 
 /**
  * Combo & stealer-forum INTELLIGENCE — strictly metadata-about, never the
@@ -23,7 +23,7 @@ import { fetchRedditFeed } from './reddit-feed';
  * Cached 30 min — inputs are themselves cached upstream.
  */
 
-export const STEALER_FORUM_INTEL_CACHE_KEY = 'https://stealer-forum-intel-cache.internal/v6-debug-rd';
+export const STEALER_FORUM_INTEL_CACHE_KEY = 'https://stealer-forum-intel-cache.internal/v8-cache-req-mirror';
 const CACHE_TTL_SECONDS = 30 * 60;
 
 /** deepdarkCTI category labels that map to combo/stealer/forum tradecraft. */
@@ -99,44 +99,38 @@ export async function buildStealerForumIntel(env: Env, ctx: ExecutionContext): P
 
   // 2. Keyword-tagged chatter — counts + pointers, never body text.
   //
-  // The Telegram feed is fetched DIRECTLY (no cache) here. Reasons:
-  //   - The feed uses a *bump-aware* cache key that rotates whenever the
-  //     admin adds/removes a custom channel. The SFI's own cache.shadow
-  //     lag (60s) means the SFI can read a stale bump and look up a key
-  //     the feed no longer uses — that was the source of "0 chatter hits"
-  //     on the infostealer page even when the feed had matching items.
-  //   - The SFI has its own 30-min cache on the composite response, so
-  //     re-fetching the Telegram feed here (one upstream call per SFI
-  //     rebuild) is bounded and free in practice.
-  //   - Direct fetch means the SFI always sees the freshest feed contents
-  //     — important because the chatter counters are a daily-visited UI
-  //     surface and a 60s shadow miss was leaving them silently empty.
-  let tg: { items?: Array<{ channel_name?: string; permalink?: string; datetime?: string; text?: string }> } | null =
-    null;
-  try {
-    tg = await fetchTelegramFeed(env.KV_CACHE);
-  } catch {
-    tg = null;
-  }
-  // Reddit is fetched the same way — the v11-raw key was returning cache-
-  // miss results in the same colo where the feed endpoint itself was
-  // serving fresh data, suggesting a key drift between the producer and
-  // the consumer. Direct fetch is bounded by the SFI's own 30-min cache.
-  let rd: {
-    items?: Array<{ sub_label?: string; link?: string; pub_date?: string; title?: string; text?: string }>;
-  } | null = null;
-  try {
-    rd = await fetchRedditFeed();
-  } catch (e) {
-    console.log('[sfi] reddit feed fetch error:', String(e));
-    rd = null;
-  }
-  console.log(
-    '[sfi] rd items:',
-    rd?.items?.length ?? 0,
-    'warnings:',
-    (rd as { warnings?: string[] } | null)?.warnings ?? []
-  );
+  // Read both feeds from the *Cache API* — never via direct fetch() in
+  // the SFI. Reasons:
+  //   - The SFI build is already at the Cloudflare concurrent-subrequest
+  //     limit (7 forum fetches in parallel). A direct tg/rd fetch tips
+  //     it over and the responses are "deadlock canceled" — leaving us
+  //     with empty arrays and 0 chatter matches, silently.
+  //   - The telegram feed uses a *bump-aware* cache key; we resolve it
+  //     via getTelegramFeedCacheKey(env) so the SFI reads the same key
+  //     the feed producer wrote to (no string-vs-Request drift).
+  //   - Reddit uses a static cache key. The producer wraps it in
+  //     `new Request(...)` for `cache.put`; we mirror that here with
+  //     `new Request(...)` for `cache.match` so the keys normalize
+  //     identically (string-vs-Request mismatch has been a real cause
+  //     of silent 0s in this codebase).
+  const tgKeyReq = await getTelegramFeedCacheKey(env);
+  const tgCache = (caches as unknown as { default: Cache }).default;
+  const tgMatch = await tgCache.match(tgKeyReq);
+  const tg = tgMatch
+    ? ((await tgMatch.clone().json()) as {
+        items?: Array<{ channel_name?: string; permalink?: string; datetime?: string; text?: string }>;
+      } | null)
+    : null;
+  tgMatch?.body?.cancel();
+  const rdKeyReq = new Request(REDDIT_FEED_CACHE_KEY);
+  const rdMatch = await tgCache.match(rdKeyReq);
+  const rd = rdMatch
+    ? ((await rdMatch.clone().json()) as {
+        items?: Array<{ sub_label?: string; link?: string; pub_date?: string; title?: string; text?: string }>;
+      } | null)
+    : null;
+  rdMatch?.body?.cancel();
+  console.log('[sfi] tg items:', tg?.items?.length ?? 0, 'rd items:', rd?.items?.length ?? 0);
 
   const tgSamples: ChatterSample[] = [];
   let tgMatches = 0;

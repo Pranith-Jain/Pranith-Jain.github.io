@@ -33,13 +33,32 @@ const SETUP_HINT =
 
 type Ctx = Context<{ Bindings: Env }>;
 
+function errName(err: unknown): string | undefined {
+  return typeof err === 'object' && err !== null && 'name' in err
+    ? ((err as { name: unknown }).name as string)
+    : undefined;
+}
+
 function isTimeout(err: unknown): boolean {
-  return (
-    typeof err === 'object' &&
-    err !== null &&
-    'name' in err &&
-    ((err as { name: unknown }).name === 'TimeoutError' || (err as { name: unknown }).name === 'AbortError')
-  );
+  // AbortSignal.timeout() throws TimeoutError; other AbortController aborts
+  // throw AbortError. The combined signal in the handler above can fire
+  // either path — we treat both as a 504 (the bridge took too long or the
+  // request was forcibly cancelled by the runtime).
+  const name = errName(err);
+  return name === 'TimeoutError' || name === 'AbortError';
+}
+
+function isClientAbort(err: unknown): boolean {
+  // A client disconnect surfaces as an AbortError whose `cause` or message
+  // references the request signal. `AbortSignal.timeout()` timeouts don't
+  // have that marker, so we can tell them apart and skip writing a response
+  // (499 = nginx "client closed request", conventional for this case).
+  if (errName(err) !== 'AbortError') return false;
+  if (err instanceof Error) {
+    const m = err.message ?? '';
+    if (m.includes('timeout')) return false;
+  }
+  return true;
 }
 
 export async function reconScanHandler(c: Ctx): Promise<Response> {
@@ -66,12 +85,19 @@ export async function reconScanHandler(c: Ctx): Promise<Response> {
   }
 
   try {
-    const result = await runRecon(c.env, { tool, target }, AbortSignal.timeout(RECON_TIMEOUT_MS));
+    // Combine the 120s timeout with the request's own abort signal so a
+    // client disconnect cancels the in-flight bridge call (otherwise the
+    // recon CLI keeps running on the operator's box for the full timeout
+    // window — a real resource leak, not just a cosmetic one).
+    const signal = AbortSignal.any([AbortSignal.timeout(RECON_TIMEOUT_MS), c.req.raw.signal]);
+    const result = await runRecon(c.env, { tool, target }, signal);
     return c.json(result, 200);
   } catch (err) {
     if (err instanceof ReconUnconfiguredError) {
       return c.json({ error: 'recon bridge not configured', setup: SETUP_HINT }, 503);
     }
+    // Client disconnected before the bridge finished — nothing to report.
+    if (isClientAbort(err)) return c.body(null, 499);
     if (isTimeout(err)) return c.json({ error: 'recon bridge timed out' }, 504);
     if (err instanceof ReconBridgeError) return c.json({ error: err.message }, 502);
     // Generic for unknown errors — avoids leaking an internal bridge hostname

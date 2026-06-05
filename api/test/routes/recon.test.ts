@@ -76,4 +76,41 @@ describe('POST /api/v1/recon/scan', () => {
     expect(body.count).toBe(1);
     expect(String(spy.mock.calls[0]?.[0])).toBe('https://recon.example.com/recon');
   });
+
+  it('cancels the in-flight bridge call when the client disconnects (AbortError w/ no timeout marker)', async () => {
+    const ac = new AbortController();
+    const spy = vi.spyOn(globalThis, 'fetch').mockImplementation(async (_input, init) => {
+      // Simulate the bridge call being aborted by the combined signal.
+      ac.abort();
+      // The DOMException shape AbortController.abort() produces.
+      throw new DOMException('This operation was aborted', 'AbortError');
+    });
+    const promise = app().request(
+      '/api/v1/recon/scan',
+      {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', Authorization: 'Bearer sekret' },
+        body: JSON.stringify({ tool: 'subfinder', target: 'example.com' }),
+        signal: ac.signal,
+      },
+      configured()
+    );
+    const r = await promise;
+    expect(spy).toHaveBeenCalled();
+    // 499 = "client closed request" — no body to write, just acknowledge.
+    expect(r.status).toBe(499);
+  });
+
+  it('returns 504 (not 499) when the 120s timeout fires', async () => {
+    vi.spyOn(globalThis, 'fetch').mockImplementation(async () => {
+      // AbortSignal.timeout() throws a TimeoutError specifically. Mark the
+      // message so the handler's isClientAbort guard can distinguish this
+      // from a client-side abort.
+      const e = new Error('The operation was aborted due to timeout');
+      e.name = 'TimeoutError';
+      throw e;
+    });
+    const r = await post({ tool: 'subfinder', target: 'example.com' }, configured());
+    expect(r.status).toBe(504);
+  });
 });
