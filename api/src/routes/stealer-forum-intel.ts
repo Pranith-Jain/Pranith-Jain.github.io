@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { buildDeepDarkCti } from './deepdarkcti';
-import { getTelegramFeedCacheKey } from './telegram-feed';
+import { fetchTelegramFeed, getTelegramFeedCacheKey, TELEGRAM_FEED_CACHE_KEY } from './telegram-feed';
 import { REDDIT_FEED_CACHE_KEY } from './reddit-feed';
 
 /**
@@ -23,7 +23,7 @@ import { REDDIT_FEED_CACHE_KEY } from './reddit-feed';
  * Cached 30 min — inputs are themselves cached upstream.
  */
 
-export const STEALER_FORUM_INTEL_CACHE_KEY = 'https://stealer-forum-intel-cache.internal/v8-cache-req-mirror';
+export const STEALER_FORUM_INTEL_CACHE_KEY = 'https://stealer-forum-intel-cache.internal/v9-tg-fallback';
 const CACHE_TTL_SECONDS = 30 * 60;
 
 /** deepdarkCTI category labels that map to combo/stealer/forum tradecraft. */
@@ -99,12 +99,9 @@ export async function buildStealerForumIntel(env: Env, ctx: ExecutionContext): P
 
   // 2. Keyword-tagged chatter — counts + pointers, never body text.
   //
-  // Read both feeds from the *Cache API* — never via direct fetch() in
-  // the SFI. Reasons:
-  //   - The SFI build is already at the Cloudflare concurrent-subrequest
-  //     limit (7 forum fetches in parallel). A direct tg/rd fetch tips
-  //     it over and the responses are "deadlock canceled" — leaving us
-  //     with empty arrays and 0 chatter matches, silently.
+  // Read both feeds from the *Cache API*. The SFI build is already at the
+  // Cloudflare concurrent-subrequest limit (7 forum fetches in parallel),
+  // so we keep tg/rd reads sequential AFTER the forum block completes.
   //   - The telegram feed uses a *bump-aware* cache key; we resolve it
   //     via getTelegramFeedCacheKey(env) so the SFI reads the same key
   //     the feed producer wrote to (no string-vs-Request drift).
@@ -113,15 +110,43 @@ export async function buildStealerForumIntel(env: Env, ctx: ExecutionContext): P
   //     `new Request(...)` for `cache.match` so the keys normalize
   //     identically (string-vs-Request mismatch has been a real cause
   //     of silent 0s in this codebase).
-  const tgKeyReq = await getTelegramFeedCacheKey(env);
+  //   - If the telegram cache misses (e.g. bump just changed and the
+  //     hourly cron hasn't republished yet), fall back to a direct
+  //     fetchTelegramFeed() call. This hits t.me but is bounded by the
+  //     SFI's own 30-min cache on the composite response.
   const tgCache = (caches as unknown as { default: Cache }).default;
+  const tgKeyReq = await getTelegramFeedCacheKey(env);
   const tgMatch = await tgCache.match(tgKeyReq);
-  const tg = tgMatch
-    ? ((await tgMatch.clone().json()) as {
-        items?: Array<{ channel_name?: string; permalink?: string; datetime?: string; text?: string }>;
-      } | null)
-    : null;
-  tgMatch?.body?.cancel();
+  let tg: {
+    items?: Array<{ channel_name?: string; permalink?: string; datetime?: string; text?: string }>;
+  } | null = null;
+  if (tgMatch) {
+    tg = (await tgMatch.clone().json()) as typeof tg;
+    tgMatch.body?.cancel();
+  } else {
+    // Cache miss — try the base key (no bump) and fall back to a direct fetch.
+    const baseMatch = await tgCache.match(new Request(TELEGRAM_FEED_CACHE_KEY));
+    if (baseMatch) {
+      tg = (await baseMatch.clone().json()) as typeof tg;
+      baseMatch.body?.cancel();
+    } else if (env.KV_CACHE) {
+      try {
+        const fresh = await fetchTelegramFeed(env.KV_CACHE);
+        tg = fresh;
+        // Warm the cache for next time (and shadow write the bump-aware key).
+        ctx.waitUntil(
+          tgCache.put(
+            tgKeyReq,
+            new Response(JSON.stringify(fresh), {
+              headers: { 'content-type': 'application/json', 'cache-control': 'public, max-age=1800' },
+            })
+          )
+        );
+      } catch {
+        tg = null;
+      }
+    }
+  }
   const rdKeyReq = new Request(REDDIT_FEED_CACHE_KEY);
   const rdMatch = await tgCache.match(rdKeyReq);
   const rd = rdMatch
@@ -130,7 +155,6 @@ export async function buildStealerForumIntel(env: Env, ctx: ExecutionContext): P
       } | null)
     : null;
   rdMatch?.body?.cancel();
-  console.log('[sfi] tg items:', tg?.items?.length ?? 0, 'rd items:', rd?.items?.length ?? 0);
 
   const tgSamples: ChatterSample[] = [];
   let tgMatches = 0;

@@ -1,10 +1,9 @@
 import { useCallback, useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AlertTriangle, ArrowLeft, FileWarning, Globe, Loader2, Lock, Mail, Radar, Search } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
 import { CopyChip } from '../../components/dfir/CopyButton';
 import { adminAuthHeaders, readAdminToken, writeAdminToken } from '../../lib/admin-token';
-import { useFeatures } from '../../lib/features';
 
 interface ReconResult {
   tool: string;
@@ -77,7 +76,6 @@ export default function ReconBridge(): JSX.Element {
   const [result, setResult] = useState<ReconResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [setupHint, setSetupHint] = useState<string | null>(null);
-  const { recon, loaded } = useFeatures();
 
   const run = useCallback(async () => {
     const t = target.trim();
@@ -108,11 +106,6 @@ export default function ReconBridge(): JSX.Element {
       setRunning(false);
     }
   }, [tool, target]);
-
-  // Dormant, self-hosted integration: hidden from nav/search until the
-  // deployment configures RECON_BRIDGE_URL. A direct visit redirects to
-  // the hub rather than showing a tool that can only 503.
-  if (loaded && !recon) return <Navigate to="/dfir" replace />;
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
