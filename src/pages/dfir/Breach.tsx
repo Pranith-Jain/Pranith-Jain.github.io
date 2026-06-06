@@ -69,7 +69,7 @@ interface BreachEmailResponse {
 interface BreachDomainResponse {
   domain: string;
   found: boolean;
-  source: 'xposedornot' | 'leakcheck' | 'none';
+  source: 'xposedornot' | 'leakcheck' | 'leakix' | 'hudsonrock' | 'projectdiscovery' | 'none';
   sources_queried: string[];
   breach_count: number;
   breaches: BreachEntry[];
@@ -672,6 +672,10 @@ function DomainTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Elemen
               , and{' '}
               <a href="https://cavalier.hudsonrock.com" target="_blank" rel="noopener noreferrer" className="underline">
                 Hudson Rock
+              </a>
+              , and{' '}
+              <a href="https://projectdiscovery.io" target="_blank" rel="noopener noreferrer" className="underline">
+                ProjectDiscovery
               </a>{' '}
               in parallel. Treat any single hit as a starting point, not a verdict.{' '}
               <strong>Don't query domains you don't have authorization for.</strong>

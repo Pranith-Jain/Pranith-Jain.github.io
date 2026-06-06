@@ -4,7 +4,7 @@ import { Bug, AlertTriangle, Flame, ShieldCheck, ExternalLink } from 'lucide-rea
 import { fetchJson } from '../../lib/fetch-json';
 import { SocShell, SocKpi, SocSection, SocPanel, type SocStatus } from '../../components/threatintel/soc/SocShell';
 import { SocBar, SocDonut, type BarItem, type DonutSlice } from '../../components/threatintel/soc/SocCharts';
-import { downloadCsv, dayKey } from '../../components/threatintel/soc/utils';
+import { downloadCsv, dayKey, formatNumber } from '../../components/threatintel/soc/utils';
 import { CHART_RANK, CHART_SEV } from '../../components/threatintel/soc/tone';
 
 /* ─── Data shape (matches /api/v1/cve-recent) ──────────────────────── */
@@ -315,7 +315,7 @@ export default function SocVulns(): JSX.Element {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
         <SocKpi
           label="Discovered CVEs"
-          value={total.toLocaleString()}
+          value={formatNumber(total)}
           severity="info"
           sub={`published in last ${windowDays} days`}
           icon={<Bug size={16} />}
@@ -346,7 +346,7 @@ export default function SocVulns(): JSX.Element {
         />
         <SocKpi
           label="CISA KEV"
-          value={kevTotal.toLocaleString()}
+          value={formatNumber(kevTotal)}
           severity="critical"
           sub="known-exploited · all-time"
           icon={<ShieldCheck size={16} />}
@@ -376,7 +376,7 @@ export default function SocVulns(): JSX.Element {
               slices={sevSlices}
               size={180}
               thickness={26}
-              centerLabel={`${total.toLocaleString()}`}
+              centerLabel={formatNumber(total)}
               centerSub="cves in window"
             />
           ) : (
@@ -438,7 +438,7 @@ function KevTable({ rows }: { rows: RecentCve[] }): JSX.Element {
             <th className="px-4 sm:px-2 py-2 font-medium">CVE</th>
             <th className="px-2 py-2 font-medium">CVSS</th>
             <th className="px-2 py-2 font-medium">Sev</th>
-            <th className="px-2 py-2 py-2 font-medium">Vendor</th>
+            <th className="px-2 py-2 font-medium">Vendor</th>
             <th className="px-2 py-2 font-medium text-right">Added to KEV</th>
           </tr>
         </thead>

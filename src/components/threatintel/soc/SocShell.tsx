@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, RefreshCw, Download, Loader2, Clock } from 'lucide-react';
 import { SEVERITY_DOT, SEVERITY_PILL, SEVERITY_TEXT, type SocSeverity } from './tone';
@@ -65,6 +65,8 @@ export function SocShell({
   description,
 }: SocShellProps): JSX.Element {
   const [nextRefreshIn, setNextRefreshIn] = useState<number>(autoRefreshMs);
+  const onRefreshRef = useRef(onRefresh);
+  onRefreshRef.current = onRefresh;
 
   useEffect(() => {
     if (autoRefreshMs <= 0) return;
@@ -72,14 +74,14 @@ export function SocShell({
     const id = window.setInterval(() => {
       setNextRefreshIn((v) => {
         if (v <= 1000) {
-          onRefresh();
+          queueMicrotask(() => onRefreshRef.current());
           return autoRefreshMs;
         }
         return v - 1000;
       });
     }, 1000);
     return () => window.clearInterval(id);
-  }, [autoRefreshMs, onRefresh]);
+  }, [autoRefreshMs]);
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100">

@@ -38,7 +38,7 @@ interface RuleNarrative {
 }
 const RULE_NARRATIVES: Record<string, RuleNarrative> = {
   'cobalt-strike-c2': {
-    what: 'Indicators match a tracked Cobalt Strike / generic C2 server profile aggregated by Feodo Tracker and abuse.ch.',
+    what: 'Indicators match a tracked Cobalt Strike / generic C2 server profile aggregated from C2Intel, ThreatFox, and CriticalPathSecurity feeds.',
     why: 'These are commodity post-exploitation frameworks running on internet-reachable infrastructure right now. A beacon from your network to one of these is post-compromise traffic, not opportunistic scanning.',
     action:
       'Block the IPs at egress today and pull the last 24-72 hours of outbound flows for any host that resolved them.',

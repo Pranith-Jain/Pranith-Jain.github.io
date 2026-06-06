@@ -1,4 +1,5 @@
 import type { ProviderAdapter, ProviderResult, Verdict } from './types';
+import { classifyResponseError, classifyThrownError, toProviderError } from '../lib/provider-errors';
 
 const supports = new Set(['ipv4', 'ipv6', 'domain', 'url', 'hash']);
 
@@ -54,7 +55,7 @@ export const otx: ProviderAdapter = async (indicator, env, signal) => {
       headers: { 'X-OTX-API-KEY': key },
       signal,
     });
-    if (!res.ok) return base('error', { error: `${res.status} ${res.statusText}`.trim() });
+    if (!res.ok) return base('error', toProviderError(classifyResponseError(res)));
 
     const json = (await res.json()) as {
       pulse_info?: {
@@ -88,6 +89,6 @@ export const otx: ProviderAdapter = async (indicator, env, signal) => {
       tags: sampleNames,
     });
   } catch (err) {
-    return base('error', { error: err instanceof Error ? err.message : String(err) });
+    return base('error', toProviderError(classifyThrownError(err)));
   }
 };

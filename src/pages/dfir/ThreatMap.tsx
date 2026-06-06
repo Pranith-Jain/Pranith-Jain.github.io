@@ -772,7 +772,6 @@ const SOURCE_META: Record<string, SourceMeta> = {
   },
   'Blocklist.de': { desc: 'Recent attacker IPs (per-port)', ipsType: 'ip', href: 'https://www.blocklist.de/' },
   'Phishing Army': { desc: 'Phishing-domain blocklist', ipsType: 'domain', href: 'https://phishing.army/' },
-  'Feodo Tracker': { desc: 'Banking-trojan C2 infrastructure', ipsType: 'ip', href: 'https://feodotracker.abuse.ch/' },
   OpenPhish: { desc: 'Real-time phishing-URL feed', ipsType: 'url', href: 'https://openphish.com/' },
   TweetFeed: { desc: 'Community-shared IOCs from Twitter/X', ipsType: 'ip', href: 'https://tweetfeed.live/' },
 };

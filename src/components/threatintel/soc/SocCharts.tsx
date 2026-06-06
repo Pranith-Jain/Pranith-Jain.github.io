@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from 'react';
 import { CHART_RANK } from './tone';
+import { formatNumber } from './utils';
 
 /* ─── Horizontal bar chart with hover tooltip + click-through ──────── */
 
@@ -47,7 +48,7 @@ export function SocBar({
     return <p className="text-meta font-mono text-slate-500 italic">{emptyText}</p>;
   }
   const ceiling = max ?? Math.max(...items.map((i) => i.value), 1);
-  const fmt = (n: number): string => n.toLocaleString();
+  const fmt = formatNumber;
 
   if (vertical) {
     const w = 720;
@@ -231,7 +232,7 @@ export function SocDonut({
   legend = false,
   emptyText = 'No data in window.',
 }: SocDonutProps): JSX.Element {
-  const [hover, setHover] = useState<number | null>(null);
+  const [hover, setHover] = useState<string | null>(null);
   const total = slices.reduce((s, x) => s + x.value, 0);
 
   if (total === 0) {
@@ -276,16 +277,16 @@ export function SocDonut({
                 r={r}
                 fill="none"
                 stroke={s.color}
-                strokeWidth={hover === i ? thickness + 4 : thickness}
+                strokeWidth={hover === s.label ? thickness + 4 : thickness}
                 strokeDasharray={`${dash} ${circumference - dash}`}
                 strokeDashoffset={offset}
                 transform={`rotate(-90 ${c} ${c})`}
-                onMouseEnter={() => setHover(i)}
+                onMouseEnter={() => setHover(s.label)}
                 onMouseLeave={() => setHover(null)}
                 style={{ transition: 'stroke-width 120ms ease', cursor: 'pointer' }}
               >
                 <title>
-                  {s.label}: {s.value.toLocaleString()} ({((s.value / total) * 100).toFixed(1)}%)
+                  {s.label}: {s.value.toLocaleString('en-US')} ({((s.value / total) * 100).toFixed(1)}%)
                 </title>
               </circle>
             );
@@ -312,17 +313,19 @@ export function SocDonut({
           {slices
             .slice()
             .sort((a, b) => b.value - a.value)
-            .map((s, i) => (
+            .map((s) => (
               <li
                 key={s.label}
-                className="flex items-center gap-2"
-                onMouseEnter={() => setHover(i)}
+                className={`flex items-center gap-2 rounded px-1 -mx-1 transition-colors ${
+                  hover === s.label ? 'bg-slate-100 dark:bg-slate-800/60' : ''
+                }`}
+                onMouseEnter={() => setHover(s.label)}
                 onMouseLeave={() => setHover(null)}
               >
                 <span className="inline-block h-2.5 w-2.5 rounded-sm shrink-0" style={{ backgroundColor: s.color }} />
                 <span className="truncate text-slate-700 dark:text-slate-300">{s.label}</span>
                 <span className="ml-auto text-slate-500 tabular-nums">
-                  {s.value.toLocaleString()}{' '}
+                  {s.value.toLocaleString('en-US')}{' '}
                   <span className="text-slate-400">({((s.value / total) * 100).toFixed(1)}%)</span>
                 </span>
               </li>
@@ -330,11 +333,11 @@ export function SocDonut({
         </ul>
       ) : (
         <ul className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-1 text-meta font-mono">
-          {slices.map((s, i) => (
+          {slices.map((s) => (
             <li
               key={s.label}
               className="flex items-center gap-2"
-              onMouseEnter={() => setHover(i)}
+              onMouseEnter={() => setHover(s.label)}
               onMouseLeave={() => setHover(null)}
             >
               <span className="inline-block h-2 w-2 rounded-sm shrink-0" style={{ backgroundColor: s.color }} />

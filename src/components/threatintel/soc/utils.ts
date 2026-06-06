@@ -1,5 +1,14 @@
 /** Time helpers used by SOC dashboards (relative age, day-bucketing, CSV export). */
 
+/**
+ * Locale-stable integer formatter. Always uses thousands separators from
+ * the en-US convention so the server-prerendered HTML matches what the
+ * client hydrates with (avoids React hydration warnings on EU locales).
+ */
+export function formatNumber(n: number): string {
+  return n.toLocaleString('en-US');
+}
+
 export function timeAgo(iso: string | null | undefined): string {
   if (!iso) return '—';
   const t = Date.parse(iso);
@@ -22,22 +31,23 @@ export function dayKey(iso: string | null | undefined): string | null {
 }
 
 /**
- * Build a CSV blob from a 2D array and trigger a download. Handles the
- * RFC-4180 minimum: quote any cell containing comma, quote, or newline;
- * escape embedded quotes by doubling.
+ * Build a CSV blob from a 2D array and trigger a download. RFC-4180 with
+ * Windows-Excel friendliness: CRLF line endings, UTF-8 BOM (so Excel
+ * detects non-ASCII correctly), and deferred `revokeObjectURL` so the
+ * download is never cut off in slow browsers.
  */
 export function downloadCsv(filename: string, rows: (string | number)[][]): void {
   const esc = (v: string | number): string => {
     const s = String(v);
-    if (/[",\n]/.test(s)) return `"${s.replace(/"/g, '""')}"`;
+    if (/[",\r\n]/.test(s)) return `"${s.replace(/"/g, '""')}"`;
     return s;
   };
-  const csv = rows.map((r) => r.map(esc).join(',')).join('\n');
-  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+  const csv = rows.map((r) => r.map(esc).join(',')).join('\r\n');
+  const blob = new Blob(['\uFEFF', csv], { type: 'text/csv;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
   a.download = filename;
   a.click();
-  URL.revokeObjectURL(url);
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
 }

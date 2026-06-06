@@ -37,8 +37,8 @@ describe('runFeedSourceById', () => {
 });
 
 describe('FEED_SOURCE_IDS', () => {
-  it('lists the 33 runner units in registry order', () => {
-    expect(FEED_SOURCE_IDS).toHaveLength(33);
+  it('lists the 32 runner units in registry order', () => {
+    expect(FEED_SOURCE_IDS).toHaveLength(32);
     expect(FEED_SOURCE_IDS[0]).toBe('tweetfeed');
     expect(FEED_SOURCE_IDS).toContain('emerging-threats');
     expect(FEED_SOURCE_IDS).toContain('mythreatintel');

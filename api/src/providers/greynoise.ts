@@ -1,4 +1,5 @@
 import type { ProviderAdapter, ProviderResult, Verdict } from './types';
+import { classifyResponseError, classifyThrownError, toProviderError } from '../lib/provider-errors';
 
 /**
  * GreyNoise community endpoint — KEYLESS.
@@ -65,8 +66,8 @@ export const greynoise: ProviderAdapter = async (indicator, _env, signal) => {
         tags: ['no-record'],
       });
     }
-    if (res.status === 429) return base('error', { error: 'rate_limited' });
-    if (!res.ok) return base('error', { error: `${res.status} ${res.statusText}`.trim() });
+    if (res.status === 429) return base('error', toProviderError(classifyResponseError(res)));
+    if (!res.ok) return base('error', toProviderError(classifyResponseError(res)));
 
     const json = (await res.json()) as GreyNoiseCommunityResponse;
     const classification = json.classification ?? 'unknown';
@@ -107,6 +108,6 @@ export const greynoise: ProviderAdapter = async (indicator, _env, signal) => {
       tags,
     });
   } catch (err) {
-    return base('error', { error: err instanceof Error ? err.message : String(err) });
+    return base('error', toProviderError(classifyThrownError(err)));
   }
 };

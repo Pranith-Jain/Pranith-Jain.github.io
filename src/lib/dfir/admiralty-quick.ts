@@ -32,7 +32,6 @@ const SOURCE_RELIABILITY: Record<string, AdmiraltyReliability> = {
   'sans-isc': 'B',
   'cisa-kev': 'A',
   spamhaus: 'B',
-  feodo: 'B',
   // OSINT aggregators / GitHub-maintained
   'c2-intel': 'C',
   otx: 'C',

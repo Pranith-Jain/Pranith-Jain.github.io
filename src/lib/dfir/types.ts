@@ -75,7 +75,22 @@ export type ProviderId =
   | 'phishtank'
   | 'malwareworld'
   | 'kaspersky'
-  | 'cape';
+  | 'cape'
+  | 'secrets';
+
+export type ProviderErrorCode =
+  | 'rate_limited'
+  | 'upstream_5xx'
+  | 'upstream_4xx'
+  | 'unauthorized'
+  | 'forbidden'
+  | 'not_found'
+  | 'timeout'
+  | 'network'
+  | 'parse'
+  | 'unsupported_indicator'
+  | 'no_api_key'
+  | 'unknown';
 
 export interface ProviderResultWire {
   source: ProviderId;
@@ -85,8 +100,22 @@ export interface ProviderResultWire {
   raw_summary: Record<string, unknown>;
   tags: string[];
   error?: string;
+  error_code?: ProviderErrorCode;
+  error_status?: number;
+  error_tags?: string[];
   fetched_at: string;
   cached: boolean;
+}
+
+/**
+ * One secret finding emitted by the `secrets` provider, surfaced via
+ * `raw_summary.findings` (the server redacts the matched value, so
+ * `redacted` is safe to render directly).
+ */
+export interface SecretFindingWire {
+  type: string;
+  redacted: string;
+  source: 'url_string' | 'response_body';
 }
 
 export interface MetaEvent {

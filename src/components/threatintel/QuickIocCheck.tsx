@@ -90,9 +90,29 @@ export default function QuickIocCheck() {
                 key={r.source}
                 className="flex items-center justify-between px-2 py-1 rounded bg-slate-50 dark:bg-slate-950 text-[10px]"
               >
-                <span className="font-mono text-slate-700 dark:text-slate-300 capitalize">{r.source}</span>
+                <span className="font-mono text-slate-700 dark:text-slate-300 capitalize">
+                  {r.source}
+                  {r.status === 'error' && r.error_code && (
+                    <span
+                      className={`ml-2 font-mono px-1 py-0.5 rounded border ${
+                        r.error_code === 'rate_limited'
+                          ? 'text-amber-700 dark:text-amber-300 border-amber-500/30'
+                          : r.error_code === 'upstream_5xx' ||
+                              r.error_code === 'upstream_4xx' ||
+                              r.error_code === 'unauthorized' ||
+                              r.error_code === 'forbidden'
+                            ? 'text-rose-700 dark:text-rose-300 border-rose-500/30'
+                            : 'text-slate-600 dark:text-slate-400 border-slate-500/30'
+                      }`}
+                      title={r.error ?? ''}
+                    >
+                      {r.error_code}
+                      {r.error_status ? ` · ${r.error_status}` : ''}
+                    </span>
+                  )}
+                </span>
                 <div className="flex items-center gap-2">
-                  <span className="font-mono text-slate-500">{r.score}</span>
+                  <span className="font-mono text-slate-500">{r.status === 'error' ? '—' : r.score}</span>
                   <VerdictChip verdict={r.verdict} />
                 </div>
               </div>

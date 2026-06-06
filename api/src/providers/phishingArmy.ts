@@ -1,4 +1,5 @@
 import type { ProviderAdapter, ProviderResult } from './types';
+import { classifyResponseError, classifyThrownError, toProviderError } from '../lib/provider-errors';
 
 const supports = new Set(['domain', 'url']);
 const FEED = 'https://phishing.army/download/phishing_army_blocklist.txt';
@@ -39,7 +40,7 @@ export const phishingArmy: ProviderAdapter = async (indicator, _env, signal) => 
 
   try {
     const res = await fetch(FEED, { signal, cf: { cacheTtl: CACHE_TTL_SECONDS, cacheEverything: true } });
-    if (!res.ok) return base('error', { error: `${res.status} ${res.statusText}`.trim() });
+    if (!res.ok) return base('error', toProviderError(classifyResponseError(res)));
     const text = await res.text();
 
     const set = new Set<string>();
@@ -70,6 +71,6 @@ export const phishingArmy: ProviderAdapter = async (indicator, _env, signal) => 
       raw_summary: { listed: hit, list_size: set.size, checked: candidate },
     });
   } catch (err) {
-    return base('error', { error: err instanceof Error ? err.message : String(err) });
+    return base('error', toProviderError(classifyThrownError(err)));
   }
 };

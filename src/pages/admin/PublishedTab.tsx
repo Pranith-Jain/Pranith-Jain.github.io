@@ -373,6 +373,7 @@ function SocialContentPanel({
         text={data.linkedin}
         onRegen={onRegenLinkedin}
         regenBusy={regenLinkedinBusy}
+        tight
       />
     </div>
   );
@@ -386,11 +387,15 @@ function SocialSection({
   text,
   onRegen,
   regenBusy,
+  tight,
 }: {
   heading: string;
   text: string;
   onRegen: () => void;
   regenBusy: boolean;
+  /** Tighter line-height for paragraph-shaped copy (LinkedIn). Twitter
+   *  threads are line-shaped and keep the looser height. */
+  tight?: boolean;
 }) {
   const parts = splitSocial(text);
   const [copied, setCopied] = useState<string | null>(null);
@@ -420,7 +425,11 @@ function SocialSection({
           </button>
         </div>
       </div>
-      <pre className="bg-slate-900 rounded p-3 text-xs text-slate-300 whitespace-pre-wrap font-mono leading-relaxed max-h-80 overflow-y-auto">
+      <pre
+        className={`bg-slate-900 rounded p-3 text-xs text-slate-300 whitespace-pre-wrap font-mono ${
+          tight ? 'leading-normal' : 'leading-relaxed'
+        } max-h-80 overflow-y-auto`}
+      >
         {parts.body}
       </pre>
       {parts.link && (

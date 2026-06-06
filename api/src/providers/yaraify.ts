@@ -1,4 +1,5 @@
 import type { ProviderAdapter, ProviderResult } from './types';
+import { classifyResponseError, classifyThrownError, toProviderError } from '../lib/provider-errors';
 
 const supports = new Set(['hash']);
 const API_URL = 'https://yaraify-api.abuse.ch/api/v1/';
@@ -28,7 +29,7 @@ export const yaraify: ProviderAdapter = async (indicator, env, signal) => {
       signal,
     });
 
-    if (!res.ok) return base('error', { error: `${res.status}` });
+    if (!res.ok) return base('error', toProviderError(classifyResponseError(res)));
 
     // YARAify nests everything under `data`; lookup_hash returns metadata + a
     // `tasks` array (each task holds clamav_results / static_results / unpack_results).
@@ -85,6 +86,6 @@ export const yaraify: ProviderAdapter = async (indicator, env, signal) => {
       },
     });
   } catch (err) {
-    return base('error', { error: err instanceof Error ? err.message : String(err) });
+    return base('error', toProviderError(classifyThrownError(err)));
   }
 };

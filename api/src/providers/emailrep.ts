@@ -1,4 +1,5 @@
 import type { ProviderAdapter, ProviderResult, Verdict } from './types';
+import { classifyResponseError, classifyThrownError, toProviderError } from '../lib/provider-errors';
 
 /**
  * EmailRep.io — reputation lookup for an email address.
@@ -94,8 +95,8 @@ export const emailrep: ProviderAdapter = async (indicator, env, signal) => {
 
     // 429 → quota; surface as error so the composite shows the gap rather
     // than implying a clean verdict.
-    if (res.status === 429) return base('error', { error: 'rate_limited' });
-    if (!res.ok) return base('error', { error: `${res.status} ${res.statusText}`.trim() });
+    if (res.status === 429) return base('error', toProviderError(classifyResponseError(res)));
+    if (!res.ok) return base('error', toProviderError(classifyResponseError(res)));
 
     const data = (await res.json()) as EmailRepResponse;
     const d = data.details ?? {};
@@ -150,6 +151,6 @@ export const emailrep: ProviderAdapter = async (indicator, env, signal) => {
       },
     });
   } catch (err) {
-    return base('error', { error: err instanceof Error ? err.message : String(err) });
+    return base('error', toProviderError(classifyThrownError(err)));
   }
 };

@@ -46,6 +46,51 @@ function tidySocial(text: string): string {
     .trim();
 }
 
+/**
+ * LinkedIn-specific tidy on top of the shared one. LinkedIn renders a single
+ * `\n` as a soft return (line break within a paragraph) and `\n\n` as a
+ * paragraph break (visible blank line). The model often writes a vertical
+ * stack of one-sentence "paragraphs" with a blank line between each — that
+ * reads as padded whitespace on the platform. We collapse consecutive tight
+ * blocks (single short non-list / non-hashtag / non-special-label lines) into
+ * a single dense block separated by soft returns, so a blank line only falls
+ * where it actually delimits a section. Twitter uses tidySocial() directly
+ * because each tweet intentionally IS its own line.
+ */
+function tidyLinkedin(text: string): string {
+  const base = tidySocial(text);
+  const blocks = base.split(/\n\n+/);
+  const merged: string[] = [];
+  let buffer: string[] = [];
+  const flush = () => {
+    if (buffer.length === 0) return;
+    merged.push(buffer.join('\n'));
+    buffer = [];
+  };
+  const isTight = (block: string): boolean => {
+    const lines = block.split('\n');
+    if (lines.length !== 1) return false;
+    const line = lines[0] ?? '';
+    if (line === '') return false;
+    if (line.length > 110) return false;
+    if (line.startsWith('- ') || /^\d+\.\s/.test(line)) return false;
+    if (line.startsWith('#')) return false;
+    if (line.startsWith('**') || line.startsWith('>')) return false;
+    if (/^(FIRST (COMMENT|REPLY):|CAROUSEL OUTLINE:)/i.test(line)) return false;
+    return true;
+  };
+  for (const block of blocks) {
+    if (isTight(block)) {
+      buffer.push(block);
+    } else {
+      flush();
+      merged.push(block);
+    }
+  }
+  flush();
+  return merged.join('\n\n');
+}
+
 function buildTwitterPrompt(post: Post): string {
   const postUrl = `https://pranithjain.qzz.io/blog/${post.slug}`;
   return (
@@ -81,7 +126,7 @@ function buildLinkedinPrompt(post: Post): string {
     `- THE FOLD: only the first ~210 characters show before "...more". The first 1-2 lines must carry the single most specific, surprising fact and make the reader expand. No throat-clearing, no "I've been thinking about", no label like "New post:".\n` +
     `- LINK PLACEMENT (critical): the post body must contain NO link. An external link in a LinkedIn post body cuts reach 50-60%. Deliver the full insight natively, then add a separate final block on its own line, exactly: "FIRST COMMENT: ${postUrl}" — that is posted as the first comment, not in the post.\n` +
     `- Then the analysis: the pattern or contrast, the technical detail that matters (CVSS / CWE / exploit chain / affected versions / detection logic / victimology — only what the facts support, no padding).\n` +
-    `- Formatting is mobile-first and TIGHT: short paragraphs (1-3 lines) with a SINGLE blank line between paragraphs. Never a blank line between every line, never two blank lines in a row, no trailing spaces. Scannable, not sparse. No walls of text and no padding whitespace.\n` +
+    `- Formatting is mobile-first and TIGHT: each paragraph is 2-4 sentences written as a single block (NOT one sentence per line — a vertical stack of single-sentence lines reads as padded whitespace on LinkedIn). A SINGLE blank line between paragraphs. Never a blank line between every line, never two blank lines in a row, no trailing spaces. Scannable, not sparse. No walls of text and no padding whitespace. Note: LinkedIn renders a single newline as a soft return (line break within a paragraph, not a paragraph break) — so write a paragraph as one block, use blank lines only between sections.\n` +
     `- Include ONE scannable "- " bulleted list (4-8 items) of concrete specifics (named victims / affected products+versions / CVEs / IOCs — whichever the data has). Do not skip it.\n` +
     `- Defensive takeaway must be specific to THIS threat model and non-obvious. If the facts don't support concrete defense, say plainly what actually reduces exposure (the detection gap, the access vector, the recovery posture) in one or two sharp lines.\n` +
     `- Close with one substantive question that provokes a practitioner reply (not "what do you think?").\n` +
@@ -126,7 +171,7 @@ export async function generateSocialContent(post: Post, ai: Ai, now: Date, groqK
   // model output is already bounded by maxTokens. A single-post char cap here
   // mangled threads and dropped the trailing link block.
   const twitter = twitterRes.status === 'fulfilled' ? tidySocial(twitterRes.value.text) : '';
-  const linkedin = linkedinRes.status === 'fulfilled' ? tidySocial(linkedinRes.value.text) : '';
+  const linkedin = linkedinRes.status === 'fulfilled' ? tidyLinkedin(linkedinRes.value.text) : '';
 
   return {
     slug: post.slug,
@@ -161,5 +206,5 @@ export async function generateLinkedinContent(
     { system: SOCIAL_SYSTEM, user: buildLinkedinPrompt(post), temperature: 0.7, maxTokens: 1400 },
     { groqKey }
   );
-  return { linkedin: tidySocial(res.text), generatedAt: now.toISOString() };
+  return { linkedin: tidyLinkedin(res.text), generatedAt: now.toISOString() };
 }

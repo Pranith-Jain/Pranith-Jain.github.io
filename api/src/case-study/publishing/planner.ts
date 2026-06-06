@@ -43,7 +43,14 @@ export async function runPlanner(deps: RunPlannerDeps): Promise<{ scheduled: num
     return { scheduled: 0 };
   }
 
-  const targetN = Math.min(approved.length, 2 + Math.floor(deps.random() * 2));
+  // Daily cap: 4-6 slots weighted toward Tue/Wed/Thu (WEEKDAY_WEIGHTS).
+  // Was 2-3 which left the queue visually empty on quiet days; with the
+  // larger discovery surface (perTopic=2, more optionals) the approved
+  // backlog holds 15-30 items, so 4-6/day drains it within a week while
+  // keeping the publisher's per-hour cost bounded. Upper bound matches
+  // the publisher's realistic daily ceiling (one publish/hour × 6 work
+  // hours + a couple evening ones).
+  const targetN = Math.min(approved.length, 4 + Math.floor(deps.random() * 3));
   const dayOffsets = pickWeightedDistinct(deps.random, targetN);
   const baseDay = new Date(
     Date.UTC(deps.now.getUTCFullYear(), deps.now.getUTCMonth(), deps.now.getUTCDate(), 0, 0, 0, 0)

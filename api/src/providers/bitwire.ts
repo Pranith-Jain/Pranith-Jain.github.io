@@ -1,4 +1,5 @@
 import type { ProviderAdapter, ProviderResult } from './types';
+import { classifyResponseError, classifyThrownError, toProviderError } from '../lib/provider-errors';
 import { parseCidrRanges, ipv4InRanges } from '../lib/cidr';
 
 const supports = new Set(['ipv4']);
@@ -27,7 +28,7 @@ export const bitwire: ProviderAdapter = async (indicator, _env, signal) => {
 
   try {
     const res = await fetch(FEED, { signal, cf: { cacheTtl: CACHE_TTL_SECONDS, cacheEverything: true } });
-    if (!res.ok) return base('error', { error: `${res.status} ${res.statusText}`.trim() });
+    if (!res.ok) return base('error', toProviderError(classifyResponseError(res)));
     const text = await res.text();
 
     // Feed is bare IPs + CIDRs. The old code stored only the CIDR network
@@ -42,6 +43,6 @@ export const bitwire: ProviderAdapter = async (indicator, _env, signal) => {
       raw_summary: { listed: hit, list_size: ranges.length },
     });
   } catch (err) {
-    return base('error', { error: err instanceof Error ? err.message : String(err) });
+    return base('error', toProviderError(classifyThrownError(err)));
   }
 };

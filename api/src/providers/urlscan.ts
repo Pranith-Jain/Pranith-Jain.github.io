@@ -1,4 +1,5 @@
 import type { ProviderAdapter, ProviderResult, Verdict } from './types';
+import { classifyResponseError, classifyThrownError, toProviderError } from '../lib/provider-errors';
 
 const supports = new Set(['url', 'domain']);
 
@@ -38,7 +39,7 @@ export const urlscan: ProviderAdapter = async (indicator, env, signal) => {
         raw_summary: { reason: `${res.status} from URLScan` },
       });
     }
-    if (!res.ok) return base('error', { error: `${res.status} ${res.statusText}`.trim() });
+    if (!res.ok) return base('error', toProviderError(classifyResponseError(res)));
 
     const json = (await res.json()) as {
       results?: Array<{ tags?: string[]; task?: { url?: string } }>;
@@ -68,6 +69,6 @@ export const urlscan: ProviderAdapter = async (indicator, env, signal) => {
       tags: allTags.slice(0, 10),
     });
   } catch (err) {
-    return base('error', { error: err instanceof Error ? err.message : String(err) });
+    return base('error', toProviderError(classifyThrownError(err)));
   }
 };

@@ -1,4 +1,10 @@
 import type { ProviderAdapter, ProviderResult } from './types';
+import {
+  classifyResponseError,
+  classifyThrownError,
+  toProviderError,
+  type ProviderErrorInfo,
+} from '../lib/provider-errors';
 
 const supports = new Set(['ipv4']);
 const DROP = 'https://www.spamhaus.org/drop/drop.txt';
@@ -26,25 +32,63 @@ export const spamhaus: ProviderAdapter = async (indicator, _env, signal) => {
       fetch(DROP, { signal, cf: { cacheTtl: CACHE_TTL_SECONDS, cacheEverything: true } }),
       fetch(EDROP, { signal, cf: { cacheTtl: CACHE_TTL_SECONDS, cacheEverything: true } }),
     ]);
-    if (!dropRes.ok && !edropRes.ok) return base('error', { error: 'feed_unavailable' });
+
+    // Partial failure: if one feed is reachable, the composite still
+    // gets a meaningful answer (DROP-only is the operational reality
+    // more often than total downtime). We surface the dead feed in
+    // error_tags so the operator can see the gap.
+    const dropError = !dropRes.ok ? classifyResponseError(dropRes) : null;
+    const edropError = !edropRes.ok ? classifyResponseError(edropRes) : null;
+    if (dropError && edropError) {
+      // Both feeds dead — return the more specific one (5xx or 429
+      // wins over a generic 4xx).
+      const primary = pickPrimaryError(dropError, edropError);
+      return base('error', toProviderError(primary));
+    }
 
     const text = `${dropRes.ok ? await dropRes.text() : ''}\n${edropRes.ok ? await edropRes.text() : ''}`;
     const ranges = parseRanges(text);
 
     const ip = ipv4ToInt(indicator.value);
-    if (ip === null) return base('error', { error: 'bad_ipv4' });
+    if (ip === null) return base('error', { error: 'bad_ipv4', error_code: 'parse', error_tags: ['parse'] });
 
     const hit = ranges.some(([start, end]) => ip >= start && ip <= end);
+    const partialErrorTags = [dropError, edropError]
+      .filter((e): e is ProviderErrorInfo => e !== null)
+      .flatMap((e) => e.tags);
+
     return base('ok', {
       score: hit ? 85 : 0,
       verdict: hit ? 'malicious' : 'clean',
-      tags: hit ? ['spamhaus-drop'] : [],
-      raw_summary: { listed: hit, ranges_checked: ranges.length },
+      tags: [...(hit ? ['spamhaus-drop'] : []), ...partialErrorTags],
+      raw_summary: {
+        listed: hit,
+        ranges_checked: ranges.length,
+        ...(dropError ? { drop_error: dropError.error } : {}),
+        ...(edropError ? { edrop_error: edropError.error } : {}),
+      },
     });
   } catch (err) {
-    return base('error', { error: err instanceof Error ? err.message : String(err) });
+    return base('error', toProviderError(classifyThrownError(err)));
   }
 };
+
+/**
+ * When both Spamhaus feeds fail, pick the more actionable one to surface
+ * as the primary error. 5xx and 429 (rate-limited) both mean "the
+ * upstream is having a problem" and are more useful to see than a
+ * generic 4xx (which is usually a Cloudflare challenge page).
+ */
+function pickPrimaryError(a: ProviderErrorInfo, b: ProviderErrorInfo): ProviderErrorInfo {
+  const rank = (e: ProviderErrorInfo): number => {
+    if (e.code === 'rate_limited') return 4;
+    if (e.code === 'upstream_5xx') return 3;
+    if (e.code === 'upstream_4xx') return 2;
+    if (e.code === 'forbidden') return 1;
+    return 0;
+  };
+  return rank(a) >= rank(b) ? a : b;
+}
 
 function parseRanges(text: string): [number, number][] {
   const out: [number, number][] = [];

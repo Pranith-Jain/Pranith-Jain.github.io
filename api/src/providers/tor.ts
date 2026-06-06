@@ -1,4 +1,5 @@
 import type { ProviderAdapter, ProviderResult } from './types';
+import { classifyResponseError, classifyThrownError, toProviderError } from '../lib/provider-errors';
 
 const supports = new Set(['ipv4']);
 const FEED = 'https://check.torproject.org/exit-addresses';
@@ -22,7 +23,7 @@ export const tor: ProviderAdapter = async (indicator, _env, signal) => {
 
   try {
     const res = await fetch(FEED, { signal, cf: { cacheTtl: CACHE_TTL_SECONDS, cacheEverything: true } });
-    if (!res.ok) return base('error', { error: `${res.status} ${res.statusText}`.trim() });
+    if (!res.ok) return base('error', toProviderError(classifyResponseError(res)));
     const text = await res.text();
 
     const exits = new Set<string>();
@@ -41,6 +42,6 @@ export const tor: ProviderAdapter = async (indicator, _env, signal) => {
       raw_summary: { listed: hit, exit_count: exits.size },
     });
   } catch (err) {
-    return base('error', { error: err instanceof Error ? err.message : String(err) });
+    return base('error', toProviderError(classifyThrownError(err)));
   }
 };

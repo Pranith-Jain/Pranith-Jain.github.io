@@ -1,4 +1,5 @@
 import type { ProviderAdapter, ProviderResult } from './types';
+import { classifyResponseError, classifyThrownError, toProviderError } from '../lib/provider-errors';
 
 const supports = new Set(['hash']);
 
@@ -22,9 +23,9 @@ export const malshare: ProviderAdapter = async (indicator, env, signal) => {
   try {
     const url = `https://malshare.com/api.php?api_key=${encodeURIComponent(env.MALSHARE_API_KEY)}&action=details&hash=${encodeURIComponent(indicator.value)}`;
     const res = await fetch(url, { signal });
-    if (!res.ok) return base('error', { error: `${res.status} ${res.statusText}`.trim() });
+    if (!res.ok) return base('error', toProviderError(classifyResponseError(res)));
 
-    const data = await res.json() as MalShareDetail;
+    const data = (await res.json()) as MalShareDetail;
 
     // MalShare returns { "error": "Sample not found" } for unknown hashes
     if (data.error) {
@@ -53,7 +54,7 @@ export const malshare: ProviderAdapter = async (indicator, env, signal) => {
       },
     });
   } catch (err) {
-    return base('error', { error: err instanceof Error ? err.message : String(err) });
+    return base('error', toProviderError(classifyThrownError(err)));
   }
 };
 

@@ -1,4 +1,10 @@
 import type { ProviderAdapter, ProviderResult, Verdict } from './types';
+import {
+  classifyResponseError,
+  classifyThrownError,
+  toProviderError,
+  type ProviderErrorInfo,
+} from '../lib/provider-errors';
 
 const supports = new Set(['domain']);
 
@@ -20,9 +26,8 @@ export const doh: ProviderAdapter = async (indicator, _env, signal) => {
 
   try {
     // allSettled so one record-type timeout doesn't nuke the whole DNS
-    // report. `query()` returns null/undefined on its own internal failures
-    // already, but a hard reject (cf-egress network drop, AbortError on
-    // shared signal) used to take down all five lookups.
+    // report. Each lookup is independent — partial success is still
+    // useful (e.g. A-record NXDOMAIN is enough to flag the domain).
     const settled = await Promise.allSettled([
       query(indicator.value, 'A', signal),
       query(indicator.value, 'MX', signal),
@@ -30,14 +35,35 @@ export const doh: ProviderAdapter = async (indicator, _env, signal) => {
       query(indicator.value, 'TXT', signal),
       query(`_dmarc.${indicator.value}`, 'TXT', signal),
     ]);
-    const valueOf = <T>(s: PromiseSettledResult<T>): T | null => (s.status === 'fulfilled' ? s.value : null);
-    const a = valueOf(settled[0]);
-    const mx = valueOf(settled[1]);
-    const ns = valueOf(settled[2]);
-    const txt = valueOf(settled[3]);
-    const dmarc = valueOf(settled[4]);
 
-    if (!a) return base('error', { error: 'doh_unavailable' });
+    const okLookups: DohResponse[] = [];
+    const partialErrors: ProviderErrorInfo[] = [];
+    for (const s of settled) {
+      if (s.status === 'fulfilled') {
+        if (s.value.ok) okLookups.push(s.value.response);
+        else partialErrors.push(s.value.error);
+      } else {
+        partialErrors.push(classifyThrownError(s.reason));
+      }
+    }
+
+    // Total DoH failure — every lookup either 4xx/5xx'd or threw. We
+    // can't tell the user anything about this domain, and we want them
+    // to see "rate-limited" / "upstream 5xx" specifically (not the
+    // pre-refactor generic 'doh_unavailable').
+    if (okLookups.length === 0) {
+      const first = partialErrors[0];
+      const info: ProviderErrorInfo = first
+        ? first
+        : { error: 'doh_unavailable', code: 'upstream_5xx', tags: ['upstream-5xx'] };
+      return base('error', toProviderError(info));
+    }
+
+    const a: DohResponse = okLookups[0]!;
+    const mx: DohResponse | undefined = okLookups[1];
+    const ns: DohResponse | undefined = okLookups[2];
+    const txt: DohResponse | undefined = okLookups[3];
+    const dmarc: DohResponse | undefined = okLookups[4];
 
     const tags: string[] = [];
     let score = 0;
@@ -60,10 +86,15 @@ export const doh: ProviderAdapter = async (indicator, _env, signal) => {
     if (!spf) tags.push('no-spf');
     if (!hasDmarc) tags.push('no-dmarc');
 
+    // Partial failure note — the verdict still reflects what we did
+    // learn, but the operator can see "3 of 5 lookups failed" in
+    // error_tags if any of the parallel queries 429'd.
+    const partialErrorTags = partialErrors.flatMap((e) => e.tags);
+
     return base('ok', {
       score,
       verdict,
-      tags,
+      tags: [...tags, ...partialErrorTags],
       raw_summary: {
         nxdomain: a.Status === 3,
         has_a: !!a.Answer,
@@ -71,10 +102,14 @@ export const doh: ProviderAdapter = async (indicator, _env, signal) => {
         has_ns: !!ns?.Answer,
         spf,
         dmarc: hasDmarc,
+        ...(partialErrors.length > 0
+          ? { partial_failure: `${partialErrors.length}/${settled.length} DoH lookups failed` }
+          : {}),
+        ...(partialErrors.length > 0 ? { partial_error_tags: [...new Set(partialErrorTags)] } : {}),
       },
     });
   } catch (err) {
-    return base('error', { error: err instanceof Error ? err.message : String(err) });
+    return base('error', toProviderError(classifyThrownError(err)));
   }
 };
 
@@ -83,15 +118,22 @@ interface DohResponse {
   Answer?: { data?: string }[];
 }
 
-async function query(name: string, type: string, signal: AbortSignal): Promise<DohResponse | null> {
+type QueryResult = { ok: true; response: DohResponse } | { ok: false; error: ProviderErrorInfo };
+
+async function query(name: string, type: string, signal: AbortSignal): Promise<QueryResult> {
+  let r: Response;
   try {
-    const r = await fetch(`https://cloudflare-dns.com/dns-query?name=${encodeURIComponent(name)}&type=${type}`, {
+    r = await fetch(`https://cloudflare-dns.com/dns-query?name=${encodeURIComponent(name)}&type=${type}`, {
       headers: { accept: 'application/dns-json' },
       signal,
     });
-    if (!r.ok) return null;
-    return (await r.json()) as DohResponse;
-  } catch {
-    return null;
+  } catch (err) {
+    return { ok: false, error: classifyThrownError(err) };
+  }
+  if (!r.ok) return { ok: false, error: classifyResponseError(r) };
+  try {
+    return { ok: true, response: (await r.json()) as DohResponse };
+  } catch (err) {
+    return { ok: false, error: classifyThrownError(err) };
   }
 }

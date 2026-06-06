@@ -49,13 +49,13 @@ import { spur } from '../providers/spur';
 import { crowdsec } from '../providers/crowdsec';
 import { ipinfo } from '../providers/ipinfo';
 import { phishstats } from '../providers/phishstats';
-import { feodo } from '../providers/feodo';
 import { digitalside } from '../providers/digitalside';
 import { criminalip } from '../providers/criminalip';
 import { certpl } from '../providers/certpl';
 import { x4bnet } from '../providers/x4bnet';
 import { kaspersky } from '../providers/kaspersky';
 import { vulncheck } from '../providers/vulncheck';
+import { secrets } from '../providers/secrets';
 
 const PROVIDER_CHUNK_SIZE = 10;
 
@@ -98,13 +98,13 @@ const ADAPTERS: Record<ProviderId, ProviderAdapter> = {
   crowdsec,
   ipinfo,
   phishstats,
-  feodo,
   digitalside,
   criminalip,
   certpl,
   x4bnet,
   kaspersky,
   vulncheck,
+  secrets,
 };
 
 /**

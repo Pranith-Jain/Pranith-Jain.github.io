@@ -1,4 +1,5 @@
 import type { ProviderAdapter, ProviderResult, Verdict } from './types';
+import { classifyResponseError, classifyThrownError, toProviderError } from '../lib/provider-errors';
 
 const supports = new Set(['ipv4', 'ipv6']);
 
@@ -22,7 +23,7 @@ export const abuseipdb: ProviderAdapter = async (indicator, env, signal) => {
   // request and surfacing an opaque 401 in the composite. Mirrors the
   // pattern in emailrep.ts.
   const key = (env as { ABUSEIPDB_API_KEY?: string }).ABUSEIPDB_API_KEY;
-  if (!key) return base('unsupported');
+  if (!key) return base('unsupported', { error: 'no_api_key', error_code: 'no_api_key', error_tags: ['no-api-key'] });
 
   try {
     const url = `https://api.abuseipdb.com/api/v2/check?ipAddress=${encodeURIComponent(indicator.value)}&maxAgeInDays=90`;
@@ -33,7 +34,7 @@ export const abuseipdb: ProviderAdapter = async (indicator, env, signal) => {
       },
       signal,
     });
-    if (!res.ok) return base('error', { error: `${res.status} ${res.statusText}`.trim() });
+    if (!res.ok) return base('error', toProviderError(classifyResponseError(res)));
 
     const json = (await res.json()) as {
       data?: {
@@ -65,6 +66,6 @@ export const abuseipdb: ProviderAdapter = async (indicator, env, signal) => {
       tags,
     });
   } catch (err) {
-    return base('error', { error: err instanceof Error ? err.message : String(err) });
+    return base('error', toProviderError(classifyThrownError(err)));
   }
 };

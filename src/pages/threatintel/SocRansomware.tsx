@@ -4,7 +4,7 @@ import { ShieldAlert, Skull, Users, Crosshair, ExternalLink } from 'lucide-react
 import { fetchJson } from '../../lib/fetch-json';
 import { SocShell, SocKpi, SocSection, SocPanel, type SocStatus } from '../../components/threatintel/soc/SocShell';
 import { SocBar, SocDonut, type BarItem, type DonutSlice } from '../../components/threatintel/soc/SocCharts';
-import { downloadCsv, dayKey } from '../../components/threatintel/soc/utils';
+import { downloadCsv, dayKey, formatNumber } from '../../components/threatintel/soc/utils';
 import { CHART_RANK } from '../../components/threatintel/soc/tone';
 
 /* ─── Data shape (matches /api/v1/ransomware-recent) ────────────────── */
@@ -254,7 +254,7 @@ export default function SocRansomware(): JSX.Element {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-6">
         <SocKpi
           label="Registered victims"
-          value={totalClaims.toLocaleString()}
+          value={formatNumber(totalClaims)}
           severity="critical"
           sub={`in last ${windowDays} days`}
           icon={<Skull size={16} />}

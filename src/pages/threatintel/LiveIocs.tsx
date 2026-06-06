@@ -86,7 +86,6 @@ const SOURCE_PILL: Record<string, string> = {
   greensnow: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
   'blocklist-de': 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   cinsscore: 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
-  'feodo-tracker': 'border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300',
   'bbcan177-ips': 'border-blue-500/40 bg-blue-500/10 text-blue-700 dark:text-blue-300',
   'bbcan177-dnsbl': 'border-indigo-500/40 bg-indigo-500/10 text-indigo-700 dark:text-indigo-300',
   'domains-blacklist': 'border-slate-500/40 bg-slate-500/10 text-slate-700 dark:text-slate-300',
@@ -219,8 +218,8 @@ export default function LiveIocs(): JSX.Element {
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
           Sources: TweetFeed, SANS ISC, C2IntelFeeds, Emerging Threats compromised-ips, AlienVault OTX reputation,
           URLhaus, ThreatFox, MalwareBazaar, PhishTank, Binary Defense, Tor Exit Nodes, Avanzato C2, CPS Collected,
-          GreenSnow, Blocklist.de, CINSscore, AndreaFortuna Defacements, Feodo Tracker, BBcan177 IPs/DNSBL, Domains
-          Blacklist, NoCoin, Monero Miner, Botvrij hostnames/URLs/IPs, Hancitor, Darklist, Brute Force Blocker.
+          GreenSnow, Blocklist.de, CINSscore, AndreaFortuna Defacements, BBcan177 IPs/DNSBL, Domains Blacklist, NoCoin,
+          Monero Miner, Botvrij hostnames/URLs/IPs, Hancitor, Darklist, Brute Force Blocker.
         </p>
       </div>
 

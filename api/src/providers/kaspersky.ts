@@ -1,4 +1,5 @@
 import type { ProviderAdapter, ProviderResult, Verdict } from './types';
+import { classifyResponseError, classifyThrownError, toProviderError } from '../lib/provider-errors';
 
 const BASE = 'https://opentip.kaspersky.com/api/v1';
 
@@ -78,7 +79,7 @@ export const kaspersky: ProviderAdapter = async (indicator, env, signal) => {
         raw_summary: { reason: 'rate limited' },
       });
     }
-    if (!res.ok) return base('error', { error: `${res.status} ${res.statusText}`.trim() });
+    if (!res.ok) return base('error', toProviderError(classifyResponseError(res)));
 
     const json = (await res.json()) as KasperskyResponse;
 
@@ -105,6 +106,6 @@ export const kaspersky: ProviderAdapter = async (indicator, env, signal) => {
       tags,
     });
   } catch (err) {
-    return base('error', { error: err instanceof Error ? err.message : String(err) });
+    return base('error', toProviderError(classifyThrownError(err)));
   }
 };

@@ -1,4 +1,5 @@
 import type { ProviderAdapter, ProviderResult } from './types';
+import { classifyResponseError, classifyThrownError, toProviderError } from '../lib/provider-errors';
 import { parseCidrRanges, ipv4InRanges } from '../lib/cidr';
 
 // The X4BNet feed is IPv4 CIDR ranges only, so this adapter resolves IPv4
@@ -25,7 +26,7 @@ export const x4bnet: ProviderAdapter = async (indicator, _env, signal) => {
 
   try {
     const res = await fetch(FEED, { signal, cf: { cacheTtl: CACHE_TTL_SECONDS, cacheEverything: true } });
-    if (!res.ok) return base('error', { error: `${res.status} ${res.statusText}`.trim() });
+    if (!res.ok) return base('error', toProviderError(classifyResponseError(res)));
     const text = await res.text();
 
     // The feed is CIDR ranges (e.g. 2.56.16.0/22), so expand to integer ranges
@@ -39,6 +40,6 @@ export const x4bnet: ProviderAdapter = async (indicator, _env, signal) => {
       raw_summary: { listed: hit, feed_size: ranges.length, source: 'X4BNet VPN list' },
     });
   } catch (err) {
-    return base('error', { error: err instanceof Error ? err.message : String(err) });
+    return base('error', toProviderError(classifyThrownError(err)));
   }
 };

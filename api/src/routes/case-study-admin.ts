@@ -385,6 +385,16 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
   admin.post('/drafts/:slug/reject', async (c) => {
     const slug = c.req.param('slug');
     if (!validSlug(slug)) return c.json({ error: 'invalid slug' }, 400);
+    // Clean up the schedule slot the publisher parked this draft under.
+    // The draft Post carries the original candidateId; without this the
+    // slot stays `status: 'draft'` pointing at nothing, and the next
+    // hourly publisher tick records an `approved candidate missing`
+    // failure for it. Mirrors what /approved/:id/unapprove does for the
+    // non-draft path (which already calls removeSlot).
+    const draft = await getDraft(c.env.CASE_STUDIES, slug);
+    if (draft?.candidateId) {
+      await removeSlot(c.env.CASE_STUDIES, draft.candidateId);
+    }
     await rejectDraft(c.env.CASE_STUDIES, slug);
     return c.json({ ok: true });
   });
@@ -645,6 +655,19 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
       scheduleCount: schedule.length,
       failureCount,
       postsCount: postsIndex.length,
+      // Pipeline config — surfaced so the admin tab can show whether the
+      // approval gate is on (BLOG_APPROVAL_REQUIRED=true → posts land in
+      // drafts:<slug> and need manual approval to publish). Without this
+      // an admin who toggled the secret on would see the "0 published
+      // today" symptom and have to grep the worker env to find the cause.
+      approvalRequired: c.env.BLOG_APPROVAL_REQUIRED === 'true',
+      // Secret presence (boolean, never the value) — lets the health tab
+      // tell the operator "Groq key is missing" instead of "publisher
+      // returned 429" weeks later.
+      secrets: {
+        groq: !!c.env.GROQ_API_KEY,
+        vulncheck: !!c.env.VULNCHECK_API_TOKEN,
+      },
     });
   });
 

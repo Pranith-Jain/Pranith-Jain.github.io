@@ -1571,9 +1571,8 @@ export async function buildBriefing(
   // the briefing window can date-filter it. Snapshot blocklists (Blocklist.de, Binary
   // Defense, Ipsum, Phishing Army, Bitwire) were removed because they publish a
   // current-state list with no per-IP "first seen" — they inflated IOC counts on quiet
-  // KEV days and made daily briefings look richer than they were. Feodo Tracker
-  // (2026-05-12) was removed for the same reason: upstream publication had stopped.
-  // OpenPhish (2026-05-13) was removed because parseOpenPhish emits no per-entry
+  // KEV days and made daily briefings look richer than they were. OpenPhish
+  // (2026-05-13) was removed because parseOpenPhish emits no per-entry
   // timestamps — every entry was silently dropped by matchTimestamp, so the fetch
   // was wasted latency that never contributed to a single briefing.
   const wrap = <T>(p: Promise<T>, fallback: T) =>

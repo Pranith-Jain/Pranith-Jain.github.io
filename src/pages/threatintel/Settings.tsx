@@ -63,13 +63,6 @@ const INTEGRATIONS: Integration[] = [
     capability: 'Recent IOC submissions tagged by malware family (abuse.ch)',
     status: 'live',
   },
-  {
-    name: 'Feodo Tracker',
-    category: 'reputation',
-    icon: Bug,
-    capability: 'Active C2 IPs for known banking trojans (abuse.ch)',
-    status: 'live',
-  },
   // ─── Reconnaissance + exposure ──────────────────────────────────────────
   {
     name: 'Shodan',

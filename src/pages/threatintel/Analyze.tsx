@@ -204,7 +204,7 @@ export default function Analyze(): JSX.Element {
       <div className="animate-fade-in-up mb-8">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Analysis Orchestration</h1>
         <p className="text-slate-600 dark:text-slate-400 max-w-2xl text-sm font-mono">
-          Multi-source observable enrichment — fans out to 44 threat intel providers in parallel and aggregates results
+          Multi-source observable enrichment — fans out to 45 threat intel providers in parallel and aggregates results
           into a structured verdict table. Inspired by IntelOwl's parallel analyzer pattern.
         </p>
       </div>
@@ -258,7 +258,7 @@ export default function Analyze(): JSX.Element {
       {streaming && results.length === 0 && (
         <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 text-center animate-pulse">
           <Loader2 size={24} className="animate-spin mx-auto text-slate-400 mb-3" />
-          <p className="text-sm font-mono text-slate-500">Opening SSE stream to 44 providers…</p>
+          <p className="text-sm font-mono text-slate-500">Opening SSE stream to 45 providers…</p>
         </div>
       )}
 
@@ -438,16 +438,39 @@ export default function Analyze(): JSX.Element {
                         <td className="px-3 py-2.5">
                           <span className="text-[12px] font-mono text-slate-600 dark:text-slate-400 line-clamp-1">
                             {r.status === 'error'
-                              ? r.error
+                              ? (r.error ?? r.error_code ?? 'error')
                               : r.status === 'unsupported'
                                 ? 'Not supported for this indicator type'
-                                : Object.keys(r.raw_summary).length > 0
-                                  ? JSON.stringify(r.raw_summary).slice(0, 120) + '…'
-                                  : '—'}
+                                : r.source === 'secrets' && Array.isArray(r.raw_summary.finding_types)
+                                  ? `${r.raw_summary.finding_count ?? 0} finding${
+                                      (r.raw_summary.finding_count ?? 0) === 1 ? '' : 's'
+                                    } · ${(r.raw_summary.finding_types as string[]).slice(0, 3).join(', ')}`
+                                  : Object.keys(r.raw_summary).length > 0
+                                    ? JSON.stringify(r.raw_summary).slice(0, 120) + '…'
+                                    : '—'}
                           </span>
                         </td>
                         <td className="px-3 py-2.5">
                           <div className="flex flex-wrap gap-1 max-w-[200px]">
+                            {r.status === 'error' && r.error_code && (
+                              <span
+                                className={`text-[10px] font-mono px-1 py-0.5 rounded border ${
+                                  r.error_code === 'rate_limited'
+                                    ? 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30'
+                                    : r.error_code === 'upstream_5xx' ||
+                                        r.error_code === 'upstream_4xx' ||
+                                        r.error_code === 'unauthorized' ||
+                                        r.error_code === 'forbidden'
+                                      ? 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/30'
+                                      : r.error_code === 'timeout' || r.error_code === 'network'
+                                        ? 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30'
+                                        : 'bg-slate-500/15 text-slate-600 dark:text-slate-400 border-slate-500/30'
+                                }`}
+                              >
+                                {r.error_code}
+                                {r.error_status ? ` · ${r.error_status}` : ''}
+                              </span>
+                            )}
                             {r.tags.slice(0, 3).map((t) => (
                               <span
                                 key={t}
@@ -472,21 +495,45 @@ export default function Analyze(): JSX.Element {
               <div className="border-t border-slate-200 dark:border-slate-800 divide-y divide-slate-100 dark:divide-slate-800/50">
                 {sortedResults
                   .filter((r) => expanded.has(r.source))
-                  .map((r) => (
-                    <div key={`detail-${r.source}`} className="p-4 bg-slate-50/50 dark:bg-slate-900/30">
-                      <h4 className="font-display font-semibold text-xs uppercase tracking-wider text-slate-500 mb-2">
-                        {r.source} — raw evidence
-                      </h4>
-                      <pre className="text-[12px] font-mono text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap break-all max-h-60 overflow-y-auto">
-                        {JSON.stringify(r.raw_summary, null, 2)}
-                      </pre>
-                      {r.fetched_at && (
-                        <p className="mt-2 text-[10px] font-mono text-slate-400">
-                          fetched: {new Date(r.fetched_at).toISOString()}
-                        </p>
-                      )}
-                    </div>
-                  ))}
+                  .map((r) => {
+                    const secretFindings = Array.isArray(r.raw_summary.findings)
+                      ? (r.raw_summary.findings as Array<Record<string, unknown>>).filter(
+                          (f) => typeof f.type === 'string' && typeof f.redacted === 'string'
+                        )
+                      : [];
+                    return (
+                      <div key={`detail-${r.source}`} className="p-4 bg-slate-50/50 dark:bg-slate-900/30">
+                        <h4 className="font-display font-semibold text-xs uppercase tracking-wider text-slate-500 mb-2">
+                          {r.source} — raw evidence
+                        </h4>
+                        {r.source === 'secrets' && secretFindings.length > 0 && (
+                          <ul className="mb-3 space-y-1.5">
+                            {secretFindings.map((f, i) => (
+                              <li
+                                key={`${f.type as string}-${i}`}
+                                className="flex items-center gap-2 text-[12px] font-mono"
+                              >
+                                <span className="px-1.5 py-0.5 rounded bg-rose-500/15 text-rose-700 dark:text-rose-300 border border-rose-500/30">
+                                  {f.type as string}
+                                </span>
+                                <span className="text-rose-700 dark:text-rose-300 break-all">
+                                  {f.redacted as string}
+                                </span>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                        <pre className="text-[12px] font-mono text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap break-all max-h-60 overflow-y-auto">
+                          {JSON.stringify(r.raw_summary, null, 2)}
+                        </pre>
+                        {r.fetched_at && (
+                          <p className="mt-2 text-[10px] font-mono text-slate-400">
+                            fetched: {new Date(r.fetched_at).toISOString()}
+                          </p>
+                        )}
+                      </div>
+                    );
+                  })}
               </div>
             )}
           </div>
@@ -522,8 +569,8 @@ export default function Analyze(): JSX.Element {
           <Search size={32} className="mx-auto text-slate-300 dark:text-slate-700 mb-3" />
           <p className="text-sm font-mono text-slate-500">Enter an observable above to run a multi-source analysis</p>
           <p className="text-xs font-mono text-slate-400 mt-2">
-            Fans out to 44 threat intel providers — Spamhaus, VirusTotal, AbuseIPDB, AlienVault OTX, ThreatFox, URLhaus,
-            GreyNoise, and more
+            Fans out to 45 threat intel providers — Spamhaus, VirusTotal, AbuseIPDB, AlienVault OTX, ThreatFox, URLhaus,
+            GreyNoise, and a local secrets regex bank
           </p>
         </div>
       )}

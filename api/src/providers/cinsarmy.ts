@@ -1,4 +1,5 @@
 import type { ProviderAdapter, ProviderResult } from './types';
+import { classifyResponseError, classifyThrownError, toProviderError } from '../lib/provider-errors';
 
 const supports = new Set(['ipv4']);
 const FEED = 'https://cinsscore.com/list/ci-badguys.txt';
@@ -26,7 +27,7 @@ export const cinsarmy: ProviderAdapter = async (indicator, _env, signal) => {
 
   try {
     const res = await fetch(FEED, { signal, cf: { cacheTtl: CACHE_TTL_SECONDS, cacheEverything: true } });
-    if (!res.ok) return base('error', { error: `${res.status} ${res.statusText}`.trim() });
+    if (!res.ok) return base('error', toProviderError(classifyResponseError(res)));
     const text = await res.text();
 
     const list = new Set<string>();
@@ -45,6 +46,6 @@ export const cinsarmy: ProviderAdapter = async (indicator, _env, signal) => {
       raw_summary: { listed: hit, list_size: list.size },
     });
   } catch (err) {
-    return base('error', { error: err instanceof Error ? err.message : String(err) });
+    return base('error', toProviderError(classifyThrownError(err)));
   }
 };

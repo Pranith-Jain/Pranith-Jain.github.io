@@ -72,7 +72,9 @@ describe('abuseipdb adapter', () => {
     );
     const r = await abuseipdb({ type: 'ipv4', value: '1.2.3.4' }, env, AbortSignal.timeout(2000));
     expect(r.status).toBe('error');
-    expect(r.error).toMatch(/401/);
+    expect(r.error_code).toBe('unauthorized');
+    expect(r.error_status).toBe(401);
+    expect(r.error_tags).toContain('401');
   });
 
   it('returns unsupported for domain indicator', async () => {

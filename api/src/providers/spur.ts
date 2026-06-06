@@ -1,4 +1,5 @@
 import type { ProviderAdapter, ProviderResult, Verdict } from './types';
+import { classifyResponseError, classifyThrownError, toProviderError } from '../lib/provider-errors';
 
 /**
  * Spur.us — requires API key for v2 endpoint.
@@ -76,8 +77,8 @@ export const spur: ProviderAdapter = async (indicator, env, signal) => {
       });
     }
 
-    if (res.status === 429) return base('error', { error: 'rate_limited' });
-    if (!res.ok) return base('error', { error: `${res.status} ${res.statusText}`.trim() });
+    if (res.status === 429) return base('error', toProviderError(classifyResponseError(res)));
+    if (!res.ok) return base('error', toProviderError(classifyResponseError(res)));
 
     const json = (await res.json()) as SpurResponse;
 
@@ -143,6 +144,6 @@ export const spur: ProviderAdapter = async (indicator, env, signal) => {
       },
     });
   } catch (err) {
-    return base('error', { error: err instanceof Error ? err.message : String(err) });
+    return base('error', toProviderError(classifyThrownError(err)));
   }
 };

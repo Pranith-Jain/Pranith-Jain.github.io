@@ -395,11 +395,33 @@ export default function Metrics(): JSX.Element {
     const opts = { signal: ctrl.signal, cache: 'no-store' } as const;
     setState((s) => ({ ...s, loading: true, error: null }));
 
+    // Ransomware-recent is the heaviest feed — a multi-tracker fan-out with a
+    // 15-min edge TTL. On a cache-miss the synchronous fan-out can transiently
+    // return an empty 200 (cold colo, thin upstreams, no last-good yet) or time
+    // out, which blanked ALL SIX ransomware panels to "No data". Retry once on
+    // empty/failure so one transient doesn't zero the page; the retry often hits
+    // a now-warm cache or a recovered upstream.
+    const fetchRansomwareResilient = async (): Promise<{ victims: RansomwareVictim[] } | null> => {
+      for (let attempt = 0; attempt < 2; attempt += 1) {
+        try {
+          const r = (await fetchJson(`/api/v1/ransomware-recent?days=${windowDays}`, opts)) as {
+            victims?: RansomwareVictim[];
+          };
+          if (r.victims && r.victims.length > 0) return { victims: r.victims };
+        } catch {
+          /* fall through to retry */
+        }
+        if (cancelled || attempt === 1) break;
+        await new Promise((res) => setTimeout(res, 1500));
+      }
+      return null;
+    };
+
     (async () => {
       try {
         const [rRes, cRes, pRes, tmRes, mRes, rlRes, c2Res, brRes, plRes, ddcRes, mtiCveRes, mtiGrpRes] =
           await Promise.allSettled([
-            fetchJson(`/api/v1/ransomware-recent?days=${windowDays}`, opts),
+            fetchRansomwareResilient(),
             fetchJson('/api/v1/cve-recent', opts),
             fetchJson('/api/v1/phishing-urls', opts),
             fetchJson('/api/v1/threat-map', opts),
@@ -449,7 +471,9 @@ export default function Metrics(): JSX.Element {
             : null;
         setState({
           ransomware:
-            rRes.status === 'fulfilled' ? ((rRes.value as { victims: RansomwareVictim[] }).victims ?? []) : null,
+            rRes.status === 'fulfilled'
+              ? ((rRes.value as { victims: RansomwareVictim[] } | null)?.victims ?? null)
+              : null,
           cves: mergedCves,
           phishing: pRes.status === 'fulfilled' ? ((pRes.value as { urls: PhishingUrl[] }).urls ?? []) : null,
           threatMap: tmRes.status === 'fulfilled' ? (tmRes.value as ThreatMapResponse) : null,

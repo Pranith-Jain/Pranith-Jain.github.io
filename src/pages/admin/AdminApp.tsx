@@ -47,8 +47,16 @@ const TABS: Array<{ key: TabKey; label: string }> = [
 ];
 
 const STAGES: Array<{ stage: 'discover' | 'plan' | 'publish'; label: string; hint: string }> = [
-  { stage: 'discover', label: 'Run discovery', hint: 'Populate the pending queue now (normally daily cron)' },
-  { stage: 'plan', label: 'Run planner', hint: 'Schedule approved candidates now (normally weekly cron)' },
+  {
+    stage: 'discover',
+    label: 'Run discovery',
+    hint: 'Populate the pending queue now (normally daily cron at 00:05 UTC)',
+  },
+  {
+    stage: 'plan',
+    label: 'Run planner',
+    hint: 'Schedule approved candidates now (runs daily, chained after discovery)',
+  },
   { stage: 'publish', label: 'Publish now', hint: 'Generate + publish the next due slot (normally hourly cron)' },
 ];
 
@@ -59,6 +67,7 @@ function summariseRunResult(stage: string, result: unknown): string {
   if (typeof r.slug === 'string') return `${stage}: published /blog/${r.slug}`;
   if (typeof r.scheduled === 'number') return `${stage}: scheduled ${r.scheduled} slot(s)`;
   if (typeof r.discovered === 'number') return `${stage}: discovered ${r.discovered} candidate(s)`;
+  if (typeof r.published === 'number') return `${stage}: published ${r.published}`;
   if (typeof r.count === 'number') return `${stage}: ${r.count}`;
   return `${stage}: ${JSON.stringify(result).slice(0, 160)}`;
 }
@@ -80,6 +89,30 @@ function PipelineBar() {
     }
   }
 
+  // Run the full pipeline in one click. Chained sequentially: discovery
+  // populates the pending queue, planner schedules the next 4-6 days, the
+  // publisher fires the now-due slot. Surfaces the cron "5 0 * * *" + "0 *
+  // * * *" sequence as a one-shot for the operator who wants to nudge the
+  // system without waiting for the next fire.
+  async function runAll() {
+    setBusy('all');
+    setMsg(null);
+    const parts: string[] = [];
+    try {
+      const d = await postJson<{ ok?: boolean; result?: unknown; error?: string }>(`/run/discover`);
+      parts.push(summariseRunResult('discover', d.result));
+      const p = await postJson<{ ok?: boolean; result?: unknown; error?: string }>(`/run/plan`);
+      parts.push(summariseRunResult('plan', p.result));
+      const u = await postJson<{ ok?: boolean; result?: unknown; error?: string }>(`/run/publish`);
+      parts.push(summariseRunResult('publish', u.result));
+      setMsg(parts.join(' · '));
+    } catch (e) {
+      setMsg(`${parts.join(' · ')}${parts.length ? ' · ' : ''}${e instanceof Error ? e.message : String(e)}`);
+    } finally {
+      setBusy(null);
+    }
+  }
+
   return (
     <div className="mb-6 rounded border border-slate-800 p-3">
       <div className="flex flex-wrap items-center gap-2">
@@ -95,6 +128,14 @@ function PipelineBar() {
             {busy === s.stage ? `${s.label}…` : s.label}
           </button>
         ))}
+        <button
+          onClick={() => void runAll()}
+          disabled={busy !== null}
+          title="Discover → Plan → Publish in sequence (≈ what the daily cron does)"
+          className="px-3 py-1 border border-emerald-700/60 text-emerald-300 rounded text-sm hover:bg-emerald-900/30 disabled:opacity-50"
+        >
+          {busy === 'all' ? 'Running full pipeline…' : 'Run full pipeline'}
+        </button>
       </div>
       {msg && <p className="mt-2 text-xs font-mono text-slate-400 break-all">{msg}</p>}
     </div>

@@ -39,15 +39,36 @@ export type ProviderId =
   | 'crowdsec'
   | 'ipinfo'
   | 'phishstats'
-  | 'feodo'
   | 'digitalside'
   | 'criminalip'
   | 'certpl'
   | 'x4bnet'
   | 'kaspersky'
-  | 'vulncheck';
+  | 'vulncheck'
+  | 'secrets';
 
 export type Verdict = 'clean' | 'suspicious' | 'malicious' | 'unknown';
+
+/**
+ * Categorised provider error codes. Surfaced to the UI so an operator can
+ * see "this provider is rate-limited" vs "this provider's upstream is
+ * throwing 5xx" vs "this provider needs a key" without parsing the raw
+ * `error` string. The `error` field is still kept for backward compat
+ * and human readability.
+ */
+export type ProviderErrorCode =
+  | 'rate_limited'
+  | 'upstream_5xx'
+  | 'upstream_4xx'
+  | 'unauthorized'
+  | 'forbidden'
+  | 'not_found'
+  | 'timeout'
+  | 'network'
+  | 'parse'
+  | 'unsupported_indicator'
+  | 'no_api_key'
+  | 'unknown';
 
 export interface ProviderResult {
   source: ProviderId;
@@ -57,6 +78,14 @@ export interface ProviderResult {
   raw_summary: Record<string, unknown>;
   tags: string[];
   error?: string;
+  /** Categorised error — see ProviderErrorCode. Absent when status === 'ok'. */
+  error_code?: ProviderErrorCode;
+  /** HTTP status code that triggered the error, when applicable. */
+  error_status?: number;
+  /** Stable, UI-friendly tags for the error. Mirrors `error_code` plus the
+   *  numeric status (e.g. ['rate-limited', '429']) so the front-end can
+   *  group/filter without re-parsing the `error` string. */
+  error_tags?: string[];
   fetched_at: string; // ISO
   cached: boolean;
 }
@@ -135,11 +164,11 @@ export const PROVIDER_SUPPORT: Record<ProviderId, IndicatorType[]> = {
   crowdsec: ['ipv4', 'ipv6'],
   ipinfo: ['ipv4', 'ipv6'],
   phishstats: ['url', 'domain'],
-  feodo: ['ipv4', 'ipv6'],
   digitalside: ['url', 'domain', 'hash', 'ipv4'],
   criminalip: ['ipv4', 'ipv6'],
   certpl: ['domain'],
   x4bnet: ['ipv4', 'ipv6'],
   kaspersky: ['ipv4', 'domain', 'url', 'hash'],
   vulncheck: ['ipv4'],
+  secrets: ['url'],
 };

@@ -33,6 +33,21 @@ type ProviderResultWire = {
   raw_summary: Record<string, unknown>;
   tags: string[];
   error?: string;
+  error_code?:
+    | 'rate_limited'
+    | 'upstream_5xx'
+    | 'upstream_4xx'
+    | 'unauthorized'
+    | 'forbidden'
+    | 'not_found'
+    | 'timeout'
+    | 'network'
+    | 'parse'
+    | 'unsupported_indicator'
+    | 'no_api_key'
+    | 'unknown';
+  error_status?: number;
+  error_tags?: string[];
   fetched_at: string;
   cached: boolean;
 };
@@ -204,8 +219,12 @@ function ProviderRow({ r }: { r: ProviderResultWire }): JSX.Element {
             <span className="tabular-nums">{r.score}/100</span>
           </>
         ) : r.status === 'error' ? (
-          <span className="text-rose-500" title={r.error ?? ''}>
-            err
+          <span
+            className="text-rose-500"
+            title={`${r.error ?? ''}${r.error_code ? ` (${r.error_code}${r.error_status ? ` · ${r.error_status}` : ''})` : ''}`}
+          >
+            {r.error_code ?? 'err'}
+            {r.error_status ? ` · ${r.error_status}` : ''}
           </span>
         ) : (
           <span className="text-slate-400">skipped</span>

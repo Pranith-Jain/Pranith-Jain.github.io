@@ -30,4 +30,19 @@ export interface Env {
   HYBRID_ANALYSIS_API_KEY?: string;
   ABUSECH_AUTH_KEY?: string;
   RANSOMWARELIVE_API_KEY?: string;
+  // Case-study generation pipeline. These were previously only declared
+  // on the api/ env type and accessed via `env as unknown as CaseStudyEnv`
+  // casts inside the pipeline orchestrators — a missing secret would
+  // silently degrade generation (Groq quota-exhausted → 429, missing
+  // GROQ_API_KEY → Workers AI fallback, missing VULNCHECK_API_TOKEN →
+  // optional runner no-op) without any startup-time warning. Surfacing
+  // them here lets `logStartupValidation` and the /health endpoint
+  // report their presence, and gives the type system something to
+  // check when run.ts and the admin routes read these via the
+  // structured CaseStudyEnv cast.
+  GROQ_API_KEY?: string;
+  VULNCHECK_API_TOKEN?: string;
+  /** Set to literal "true" to route every new post to drafts:<slug> for
+   *  human approval; anything else (unset, "false", "0") auto-publishes. */
+  BLOG_APPROVAL_REQUIRED?: string;
 }

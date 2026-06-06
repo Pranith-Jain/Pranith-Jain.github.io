@@ -24,11 +24,17 @@ export const vulncheck: ProviderAdapter = async (indicator, env, signal) => {
 
   if (!supports.has(indicator.type)) return base('unsupported');
   const token = env.VULNCHECK_API_TOKEN;
-  if (!token) return base('unsupported', { error: 'no_vulncheck_token' });
+  if (!token)
+    return base('unsupported', { error: 'no_vulncheck_token', error_code: 'no_api_key', error_tags: ['no-api-key'] });
 
   try {
     const intel = await vulncheckIp(token, indicator.value, signal);
-    if (!intel) return base('error', { error: 'vulncheck_fetch_failed' });
+    if (!intel)
+      return base('error', {
+        error: 'vulncheck_fetch_failed',
+        error_code: 'upstream_5xx',
+        error_tags: ['upstream-5xx'],
+      });
     if (!intel.found) {
       return base('ok', { score: 0, verdict: 'clean', tags: ['not-listed'], raw_summary: { found: false } });
     }

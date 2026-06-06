@@ -137,6 +137,53 @@ describe('whitespace tidy', () => {
     expect(res.linkedin).not.toMatch(/\n{3,}/); // no 3+ consecutive newlines
     expect(res.linkedin).not.toMatch(/[ \t]\n/); // no trailing space before a newline
     expect(res.linkedin).not.toMatch(/[ \t]$/); // no trailing space at the end
-    expect(res.linkedin).toContain('Hook line.\n\nSecond para.');
+    // Two consecutive tight single-line paragraphs get merged into one dense
+    // block (soft-return joined); the blank line BEFORE the list is kept
+    // because '- bullet' is a list item and not a "tight" block.
+    expect(res.linkedin).toContain('Hook line.\nSecond para.');
+    expect(res.linkedin).toContain('\n\n- bullet');
+  });
+});
+
+describe('LinkedIn sparse-merge tidy', () => {
+  it('joins consecutive short single-line paragraphs with soft returns and keeps blank lines before lists / hashtags / special blocks', async () => {
+    const { generateLinkedinContent } = await import('../../../src/case-study/generation/social');
+    const ai = {
+      run: async () => ({
+        response: [
+          'First short line.',
+          '',
+          'Second short line.',
+          '',
+          'Third short line.',
+          '',
+          '- bullet 1',
+          '- bullet 2',
+          '',
+          '#DFIR #ThreatIntel',
+          '',
+          'FIRST COMMENT: https://pranithjain.qzz.io/blog/x',
+        ].join('\n'),
+      }),
+    } as any;
+    const res = await generateLinkedinContent(mockPost, ai, new Date());
+    // The three consecutive tight blocks merge into one dense block.
+    expect(res.linkedin).toContain('First short line.\nSecond short line.\nThird short line.');
+    expect(res.linkedin).not.toContain('First short line.\n\nSecond short line.');
+    // The list, hashtag, and FIRST COMMENT are NOT merged with the body.
+    expect(res.linkedin).toContain('\n\n- bullet 1');
+    expect(res.linkedin).toContain('\n\n#DFIR #ThreatIntel');
+    expect(res.linkedin).toContain('\n\nFIRST COMMENT:');
+  });
+
+  it('keeps a long single-line paragraph as its own block (not merged with neighbors)', async () => {
+    const { generateLinkedinContent } = await import('../../../src/case-study/generation/social');
+    const long = 'x'.repeat(200);
+    const ai = {
+      run: async () => ({ response: `Short one.\n\n${long}\n\nShort two.` }),
+    } as any;
+    const res = await generateLinkedinContent(mockPost, ai, new Date());
+    // The long line is its own block, so the short lines stay separated from it.
+    expect(res.linkedin).toContain(`Short one.\n\n${long}\n\nShort two.`);
   });
 });

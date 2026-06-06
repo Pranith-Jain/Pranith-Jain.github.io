@@ -16,7 +16,6 @@ import {
   parseSslblC2,
   parseBotvrijDomains,
   parsePhishingArmy,
-  parseFeodoTracker,
 } from '../lib/ioc-feed-parsers';
 import { fetchMalwareSamplesCached } from './malware-samples';
 import { fetchPhishingUrlsCached } from './phishing-urls';
@@ -633,14 +632,6 @@ const FEED_SOURCES: FeedSource[] = [
     context: 'suspicious/malicious IP',
   }),
   mythreatintelSource,
-  textFeedSource({
-    id: 'feodo-tracker',
-    url: 'https://feodotracker.abuse.ch/downloads/ipblocklist.csv',
-    parse: parseFeodoTracker,
-    kind: 'ip',
-    reporter: 'abuse.ch Feodo Tracker',
-    context: entryContext,
-  }),
   textFeedSource({
     id: 'bbcan177-ips',
     url: 'https://gist.githubusercontent.com/BBcan177/bf29d47ea04391cb3eb0/raw/',

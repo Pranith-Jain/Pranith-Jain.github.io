@@ -311,4 +311,51 @@ describe('GET /api/v1/breach/domain', () => {
     const r = await SELF.fetch('https://x/api/v1/breach/domain?domain=example.com');
     expect(r.status).toBe(502);
   });
+
+  it('queries ProjectDiscovery and surfaces combolist exposure as a domain summary', async () => {
+    let pdCalled = false;
+    vi.spyOn(globalThis, 'fetch').mockImplementation(async (input) => {
+      const url = String(input);
+      if (url.includes('projectdiscovery.io')) {
+        pdCalled = true;
+        return new Response(
+          JSON.stringify({
+            combolist_exposure: [{ combolist_exposure: 4200 }],
+            leak_user_count: [{ user: 1800 }],
+            leak_devices_count: [{ devices: 75 }],
+          }),
+          { status: 200 }
+        );
+      }
+      // Primary upstreams report nothing for this domain.
+      return new Response(JSON.stringify({ status: 'success', message: null, exposedBreaches: [] }), { status: 200 });
+    });
+    const r = await SELF.fetch('https://x/api/v1/breach/domain?domain=example.com');
+    expect(r.status).toBe(200);
+    expect(pdCalled).toBe(true);
+    const body = (await r.json()) as Record<string, unknown>;
+    expect(body.found).toBe(true);
+    expect(body.source).toBe('projectdiscovery');
+    expect(body.sources_queried as string[]).toContain('projectdiscovery');
+    const breaches = body.breaches as Array<Record<string, unknown>>;
+    expect(breaches.length).toBe(1);
+    expect(breaches[0]!.source).toBe('projectdiscovery');
+    expect(breaches[0]!.pwn_count).toBe(4200);
+    expect(breaches[0]!.name).toMatch(/domain credential exposure/i);
+  });
+
+  it('returns found=false when ProjectDiscovery is the only source reachable but has zero exposure', async () => {
+    vi.spyOn(globalThis, 'fetch').mockImplementation(async (input) => {
+      const url = String(input);
+      if (url.includes('projectdiscovery.io')) {
+        return new Response(JSON.stringify({ combolist_exposure: [] }), { status: 200 });
+      }
+      return new Response(JSON.stringify({ status: 'success', message: null, exposedBreaches: [] }), { status: 200 });
+    });
+    const r = await SELF.fetch('https://x/api/v1/breach/domain?domain=clean-domain.com');
+    expect(r.status).toBe(200);
+    const body = (await r.json()) as Record<string, unknown>;
+    expect(body.found).toBe(false);
+    expect(body.breach_count).toBe(0);
+  });
 });

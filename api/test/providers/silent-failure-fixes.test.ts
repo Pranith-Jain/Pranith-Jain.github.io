@@ -1,5 +1,4 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { feodo } from '../../src/providers/feodo';
 import { kaspersky } from '../../src/providers/kaspersky';
 import { urlscan } from '../../src/providers/urlscan';
 import { censys } from '../../src/providers/censys';
@@ -9,19 +8,6 @@ import type { ProviderEnv } from '../../src/providers/types';
 
 const env = {} as ProviderEnv;
 beforeEach(() => vi.restoreAllMocks());
-
-describe('feodo — keys the C2 map on ip_address (not the always-undefined `ip`)', () => {
-  const FEED = JSON.stringify([
-    { ip_address: '50.16.16.211', port: 443, status: 'online', hostname: 'x', malware: 'QakBot' },
-  ]);
-  it('flags a listed C2 IP as malicious', async () => {
-    vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(new Response(FEED, { status: 200 }));
-    const r = await feodo({ type: 'ipv4', value: '50.16.16.211' }, env, AbortSignal.timeout(2000));
-    expect(r.verdict).toBe('malicious');
-    expect(r.score).toBe(95);
-    expect(r.raw_summary).toMatchObject({ ip: '50.16.16.211', malware: 'QakBot' });
-  });
-});
 
 describe('kaspersky — reads top-level Zone (PascalCase) via the request= param', () => {
   it('maps Zone:"Red" to malicious', async () => {

@@ -1,4 +1,5 @@
 import type { ProviderAdapter, ProviderResult, Verdict } from './types';
+import { classifyResponseError, classifyThrownError, toProviderError } from '../lib/provider-errors';
 
 /**
  * IPinfo.io — FREE TIER (50k requests/month with free token).
@@ -100,8 +101,8 @@ export const ipinfo: ProviderAdapter = async (indicator, env, signal) => {
       });
     }
 
-    if (res.status === 429) return base('error', { error: 'rate_limited' });
-    if (!res.ok) return base('error', { error: `${res.status} ${res.statusText}`.trim() });
+    if (res.status === 429) return base('error', toProviderError(classifyResponseError(res)));
+    if (!res.ok) return base('error', toProviderError(classifyResponseError(res)));
 
     const json = (await res.json()) as IPinfoResponse;
 
@@ -219,6 +220,6 @@ export const ipinfo: ProviderAdapter = async (indicator, env, signal) => {
       },
     });
   } catch (err) {
-    return base('error', { error: err instanceof Error ? err.message : String(err) });
+    return base('error', toProviderError(classifyThrownError(err)));
   }
 };

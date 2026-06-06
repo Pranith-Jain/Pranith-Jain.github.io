@@ -7,9 +7,14 @@ interface Health {
   scheduleCount: number;
   failureCount: number;
   postsCount: number;
+  approvalRequired?: boolean;
+  secrets?: { groq?: boolean; vulncheck?: boolean };
 }
 
-const CARDS: Array<{ key: keyof Health; label: string }> = [
+const CARDS: Array<{
+  key: 'pendingCount' | 'approvedCount' | 'scheduleCount' | 'failureCount' | 'postsCount';
+  label: string;
+}> = [
   { key: 'pendingCount', label: 'Pending' },
   { key: 'approvedCount', label: 'Approved' },
   { key: 'scheduleCount', label: 'Scheduled' },
@@ -62,6 +67,31 @@ export default function HealthTab() {
 
   if (!health) return null;
 
+  // Badges the operator needs to see at a glance:
+  //   - approval gate: if on, new posts land in drafts:<slug> instead of
+  //     auto-publishing. Easy to mis-set on the worker and then wonder
+  //     why nothing publishes.
+  //   - missing secrets: a deploy that forgot GROQ_API_KEY will look like
+  //     "publisher 429'd" hours later; this surfaces it immediately.
+  const badges: Array<{ tone: 'ok' | 'warn' | 'err'; text: string }> = [];
+  if (health.approvalRequired) {
+    badges.push({ tone: 'warn', text: 'Approval gate ON — new posts queue in Drafts' });
+  } else {
+    badges.push({ tone: 'ok', text: 'Auto-publish ON' });
+  }
+  if (health.secrets) {
+    if (!health.secrets.groq) {
+      badges.push({ tone: 'err', text: 'GROQ_API_KEY missing — falls back to Workers AI' });
+    } else {
+      badges.push({ tone: 'ok', text: 'Groq key set' });
+    }
+    if (!health.secrets.vulncheck) {
+      badges.push({ tone: 'warn', text: 'VULNCHECK_API_TOKEN missing — KEV runner no-ops' });
+    } else {
+      badges.push({ tone: 'ok', text: 'VulnCheck key set' });
+    }
+  }
+
   return (
     <div>
       <div className="flex items-center justify-between mb-3">
@@ -86,6 +116,24 @@ export default function HealthTab() {
           </div>
         ))}
       </div>
+      {badges.length > 0 && (
+        <div className="mt-4 flex flex-wrap gap-2">
+          {badges.map((b, i) => (
+            <span
+              key={i}
+              className={
+                b.tone === 'ok'
+                  ? 'px-2 py-1 rounded text-xs border border-emerald-700/50 bg-emerald-900/30 text-emerald-300'
+                  : b.tone === 'warn'
+                    ? 'px-2 py-1 rounded text-xs border border-amber-700/50 bg-amber-900/30 text-amber-300'
+                    : 'px-2 py-1 rounded text-xs border border-red-700/50 bg-red-900/30 text-red-300'
+              }
+            >
+              {b.text}
+            </span>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

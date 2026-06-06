@@ -31,6 +31,11 @@ export interface BindingSpec {
 export const BINDING_SPECS: ReadonlyArray<BindingSpec> = [
   { key: 'BRIEFINGS_DB', tier: 'critical', powers: '/api/v1/briefings/*, intel-bundle, observable-db, investigations' },
   { key: 'KV_CACHE', tier: 'critical', powers: 'edge rate-limit counters, persisted feed-scheduler jobs' },
+  {
+    key: 'CASE_STUDIES',
+    tier: 'critical',
+    powers: 'auto-discovered case-study pipeline (KV) — discovery, planning, publishing',
+  },
   { key: 'AI', tier: 'optional', powers: '/api/v1/ai-summary, /api/v1/copilot/investigate, LLM enrichers' },
   { key: 'VECTORIZE', tier: 'optional', powers: '/api/v1/rag/query, semantic search' },
   { key: 'LIVE_FEED_DO', tier: 'optional', powers: '/api/v1/ws/live-feed WebSocket' },
@@ -38,6 +43,25 @@ export const BINDING_SPECS: ReadonlyArray<BindingSpec> = [
   { key: 'CRON_LOCK_DO', tier: 'optional', powers: 'cron single-flight lease (overlap guard)' },
   { key: 'FEEDS_QUEUE', tier: 'optional', powers: 'live-iocs per-source feed fan-out (slice warmer)' },
   { key: 'ASSETS', tier: 'critical', powers: 'static SPA assets, prerendered HTML' },
+  // Case-study generation secrets. Each is optional (the pipeline degrades
+  // independently), but a missing one is a silent feature regression — the
+  // /health endpoint + startup log now flag their presence so a fresh
+  // deploy that forgot to set GROQ_API_KEY doesn't ship 429-failing posts.
+  {
+    key: 'GROQ_API_KEY',
+    tier: 'optional',
+    powers: 'case-study LLM (primary provider; falls back to Workers AI when unset)',
+  },
+  {
+    key: 'VULNCHECK_API_TOKEN',
+    tier: 'optional',
+    powers: 'case-study KEV enrichment (vulncheck runner no-ops when unset)',
+  },
+  {
+    key: 'BLOG_APPROVAL_REQUIRED',
+    tier: 'optional',
+    powers: 'case-study approval gate (set to "true" to require human approval; unset = auto-publish)',
+  },
 ];
 
 export interface BindingStatus {

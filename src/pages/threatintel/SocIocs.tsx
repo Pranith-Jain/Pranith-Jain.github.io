@@ -4,7 +4,7 @@ import { Radar, Activity, ShieldAlert, Zap, Database, ExternalLink } from 'lucid
 import { fetchJson } from '../../lib/fetch-json';
 import { SocShell, SocKpi, SocSection, SocPanel, type SocStatus } from '../../components/threatintel/soc/SocShell';
 import { SocBar, SocDonut, type BarItem, type DonutSlice } from '../../components/threatintel/soc/SocCharts';
-import { downloadCsv, dayKey } from '../../components/threatintel/soc/utils';
+import { downloadCsv, dayKey, formatNumber } from '../../components/threatintel/soc/utils';
 import { CHART_RANK } from '../../components/threatintel/soc/tone';
 
 /* ─── Data shape (matches /api/v1/live-iocs) ───────────────────────── */
@@ -197,7 +197,7 @@ export default function SocIocs(): JSX.Element {
     const diff = data.total - prevTotal;
     if (diff === 0) return { text: '· stable', direction: 'flat' as const };
     return {
-      text: `${diff > 0 ? '+' : ''}${diff.toLocaleString()} new`,
+      text: `${diff > 0 ? '+' : ''}${formatNumber(diff)} new`,
       direction: diff > 0 ? ('up' as const) : ('down' as const),
     };
   }, [prevTotal, data]);
@@ -320,9 +320,9 @@ export default function SocIocs(): JSX.Element {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
         <SocKpi
           label="Total captured IOCs"
-          value={data ? data.total.toLocaleString() : '—'}
+          value={data ? formatNumber(data.total) : '—'}
           severity="info"
-          sub={`${totalInWindow.toLocaleString()} observed in last ${windowDays}d`}
+          sub={`${formatNumber(totalInWindow)} observed in last ${windowDays}d`}
           icon={<Database size={16} />}
           delta={totalDelta?.text}
           deltaDirection={totalDelta?.direction}
@@ -396,7 +396,7 @@ export default function SocIocs(): JSX.Element {
           </button>
         )}
         {kindFilter.size > 0 && (
-          <span className="text-meta font-mono text-slate-500 ml-2">{kindFilteredTotal.toLocaleString()} matching</span>
+          <span className="text-meta font-mono text-slate-500 ml-2">{formatNumber(kindFilteredTotal)} matching</span>
         )}
       </div>
 
@@ -409,7 +409,7 @@ export default function SocIocs(): JSX.Element {
               slices={typeSlices}
               size={180}
               thickness={26}
-              centerLabel={totalInWindow.toLocaleString()}
+              centerLabel={formatNumber(totalInWindow)}
               centerSub="in window"
             />
           ) : (
@@ -500,7 +500,7 @@ function TopCriticalList({ rows }: { rows: { ioc: LiveIoc; score: number }[] }):
       {rows.map((r, i) => (
         <li key={`${r.ioc.value}-${i}`} className="text-meta font-mono">
           <div className="flex items-baseline gap-2 mb-0.5">
-            <span className="text-purple-600 dark:text-purple-400 tabular-nums shrink-0">{r.score}</span>
+            <span className="text-rose-600 dark:text-rose-400 tabular-nums shrink-0">{r.score}</span>
             <span className="text-slate-700 dark:text-slate-300 truncate" title={r.ioc.value}>
               {r.ioc.value}
             </span>

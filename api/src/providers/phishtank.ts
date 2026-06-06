@@ -1,4 +1,5 @@
 import type { ProviderAdapter, ProviderResult } from './types';
+import { classifyResponseError, classifyThrownError, toProviderError } from '../lib/provider-errors';
 
 const supports = new Set(['url', 'domain']);
 const CACHE_TTL_SECONDS = 1800;
@@ -55,7 +56,7 @@ export const phishtank: ProviderAdapter = async (indicator, env, signal) => {
         error: `PhishTank rejected app_key (${res.status}) — provision a new key`,
       });
     }
-    if (!res.ok) return base('error', { error: `${res.status}` });
+    if (!res.ok) return base('error', toProviderError(classifyResponseError(res)));
     const entries = (await res.json()) as Array<{
       url: string;
       phishing_url?: string;
@@ -102,6 +103,6 @@ export const phishtank: ProviderAdapter = async (indicator, env, signal) => {
       raw_summary: { listed: hit, list_size: entries.length, source: 'phishtank.com' },
     });
   } catch (err) {
-    return base('error', { error: err instanceof Error ? err.message : String(err) });
+    return base('error', toProviderError(classifyThrownError(err)));
   }
 };

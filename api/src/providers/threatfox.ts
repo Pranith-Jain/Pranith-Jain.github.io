@@ -1,4 +1,5 @@
 import type { ProviderAdapter, ProviderResult } from './types';
+import { classifyResponseError, classifyThrownError, toProviderError } from '../lib/provider-errors';
 
 const supports = new Set(['ipv4', 'ipv6', 'domain', 'url', 'hash']);
 
@@ -26,7 +27,7 @@ export const threatfox: ProviderAdapter = async (indicator, env, signal) => {
       body: JSON.stringify({ query: 'search_ioc', search_term: indicator.value }),
       signal,
     });
-    if (!res.ok) return base('error', { error: `${res.status} ${res.statusText}`.trim() });
+    if (!res.ok) return base('error', toProviderError(classifyResponseError(res)));
 
     const data = (await res.json()) as { query_status: string; data?: ThreatFoxItem[] };
     if (data.query_status === 'no_result' || (data.query_status === 'ok' && !data.data?.length)) {
@@ -58,7 +59,7 @@ export const threatfox: ProviderAdapter = async (indicator, env, signal) => {
       },
     });
   } catch (err) {
-    return base('error', { error: err instanceof Error ? err.message : String(err) });
+    return base('error', toProviderError(classifyThrownError(err)));
   }
 };
 

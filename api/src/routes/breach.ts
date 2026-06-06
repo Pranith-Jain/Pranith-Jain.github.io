@@ -339,6 +339,43 @@ async function queryProjectDiscovery(email: string): Promise<BreachEntry[]> {
   }
 }
 
+async function queryProjectDiscoveryDomain(domain: string): Promise<BreachDomainEntry[]> {
+  // Same shape as the email endpoint — aggregate combolist exposure and
+  // per-domain leaked-credential samples. Synthesize ONE summary entry ONLY
+  // when there is real exposure so a reachable-but-clean domain doesn't get
+  // a phantom breach.
+  try {
+    const res = await fetch(
+      `https://api.projectdiscovery.io/v1/leaks/stats/domain?domain=${encodeURIComponent(domain)}`,
+      {
+        headers: { accept: 'application/json', 'user-agent': UA },
+        signal: AbortSignal.timeout(8000),
+      }
+    );
+    if (!res.ok) return [];
+    const stats = (await res.json()) as PdLeakStats;
+    const combolists = pdFirstNum(stats.combolist_exposure, 'combolist_exposure');
+    const users = pdFirstNum(stats.leak_user_count, 'user');
+    const devices = pdFirstNum(stats.leak_devices_count, 'devices');
+    const count = Math.max(combolists, users);
+    if (count <= 0) return [];
+    return [
+      {
+        name: 'Domain credential exposure (stealer logs & combolists)',
+        domain,
+        pwn_count: count,
+        description:
+          `Seen in ${combolists.toLocaleString()} combolist exposure(s) and ${users.toLocaleString()} leaked ` +
+          `credential record(s)${devices > 0 ? ` across ${devices.toLocaleString()} infected device(s)` : ''}, ` +
+          `aggregated by ProjectDiscovery from infostealer logs and breach datasets.`,
+        source: 'projectdiscovery' as const,
+      },
+    ];
+  } catch {
+    return [];
+  }
+}
+
 async function queryHackMyIp(email: string): Promise<BreachEntry[]> {
   // Same as ProjectDiscovery above — the endpoint confirms reachability but
   // doesn't return a per-record payload. Synthetic entries used to inflate
@@ -535,8 +572,9 @@ export async function breachDomainHandler(c: Context<{ Bindings: Env }>): Promis
     queryLcDomain(domain),
     queryLeakIx(domain),
     queryHudsonRockDomain(domain),
+    queryProjectDiscoveryDomain(domain),
   ]);
-  const sourceNames: BreachSource[] = ['xposedornot', 'leakcheck', 'leakix', 'hudsonrock'];
+  const sourceNames: BreachSource[] = ['xposedornot', 'leakcheck', 'leakix', 'hudsonrock', 'projectdiscovery'];
 
   // See breachEmailHandler — 502 when both primary upstreams reject.
   const primaryRejected = sources[0]?.status === 'rejected' && sources[1]?.status === 'rejected';

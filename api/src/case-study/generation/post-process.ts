@@ -223,7 +223,6 @@ const REFERENCE_HOST_ALLOWLIST = new Set<string>([
   'threatfox.abuse.ch',
   'urlhaus.abuse.ch',
   'bazaar.abuse.ch',
-  'feodotracker.abuse.ch',
   // Vendor / research labs
   'unit42.paloaltonetworks.com',
   'sentinelone.com',

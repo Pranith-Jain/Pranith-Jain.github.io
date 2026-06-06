@@ -14,18 +14,21 @@ const c = (key: string): Candidate => ({
 });
 
 describe('runPlanner', () => {
-  it('plans 2-3 slots in the upcoming week', async () => {
+  it('plans 4-6 slots in the upcoming week', async () => {
     let written: any[] = [];
     await runPlanner({
-      listApproved: async () => [c('a'), c('b'), c('c'), c('d')],
+      listApproved: async () => [c('a'), c('b'), c('c'), c('d'), c('e'), c('f'), c('g')],
       setSchedule: async (slots) => {
         written = slots;
       },
       now: new Date('2026-05-17T23:00:00Z'),
       random: () => 0.5,
     });
-    expect(written.length).toBeGreaterThanOrEqual(2);
-    expect(written.length).toBeLessThanOrEqual(3);
+    // Raised from 2-3 → 4-6 in 2026-06 to feed the larger discovery queue
+    // (perTopic=2, 6-7 active topics/day) without leaving the planner
+    // capped when the approved backlog is healthy.
+    expect(written.length).toBeGreaterThanOrEqual(4);
+    expect(written.length).toBeLessThanOrEqual(6);
     for (const slot of written) {
       const t = new Date(slot.slotAt);
       expect(t.getTime()).toBeGreaterThan(Date.UTC(2026, 4, 17, 23));

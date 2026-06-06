@@ -1,4 +1,5 @@
 import type { ProviderAdapter, ProviderResult } from './types';
+import { classifyResponseError, classifyThrownError, toProviderError } from '../lib/provider-errors';
 
 const supports = new Set(['ipv4']);
 // Level 3 = IPs that appear on at least 3 source blocklists. Strong consensus, low false-positive rate.
@@ -27,7 +28,7 @@ export const ipsum: ProviderAdapter = async (indicator, _env, signal) => {
 
   try {
     const res = await fetch(FEED, { signal, cf: { cacheTtl: CACHE_TTL_SECONDS, cacheEverything: true } });
-    if (!res.ok) return base('error', { error: `${res.status} ${res.statusText}`.trim() });
+    if (!res.ok) return base('error', toProviderError(classifyResponseError(res)));
     const text = await res.text();
 
     // Map IP → consensus score (number of source lists that flagged it)
@@ -53,6 +54,6 @@ export const ipsum: ProviderAdapter = async (indicator, _env, signal) => {
       raw_summary: { listed: hit, consensus_sources: consensus ?? 0, list_size: map.size },
     });
   } catch (err) {
-    return base('error', { error: err instanceof Error ? err.message : String(err) });
+    return base('error', toProviderError(classifyThrownError(err)));
   }
 };

@@ -1,4 +1,5 @@
 import type { ProviderAdapter, ProviderResult, Verdict } from './types';
+import { classifyResponseError, classifyThrownError, toProviderError } from '../lib/provider-errors';
 
 /**
  * PhishStats.info — FREE, NO AUTH.
@@ -71,8 +72,8 @@ export const phishstats: ProviderAdapter = async (indicator, _env, signal) => {
       });
     }
 
-    if (res.status === 429) return base('error', { error: 'rate_limited' });
-    if (!res.ok) return base('error', { error: `${res.status} ${res.statusText}`.trim() });
+    if (res.status === 429) return base('error', toProviderError(classifyResponseError(res)));
+    if (!res.ok) return base('error', toProviderError(classifyResponseError(res)));
 
     const data = await res.json();
     const items = (Array.isArray(data) ? data : [data]) as PhishStatsResponse[];
@@ -122,6 +123,6 @@ export const phishstats: ProviderAdapter = async (indicator, _env, signal) => {
       },
     });
   } catch (err) {
-    return base('error', { error: err instanceof Error ? err.message : String(err) });
+    return base('error', toProviderError(classifyThrownError(err)));
   }
 };

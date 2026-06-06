@@ -47,7 +47,6 @@ const FRAMEWORK_COLORS: Record<string, string> = {
 const SOURCE_COLORS: Record<string, string> = {
   c2intel: 'bg-blue-500/15 text-blue-700 dark:text-blue-300 border-blue-500/30',
   threatfox: 'bg-fuchsia-500/15 text-fuchsia-700 dark:text-fuchsia-300 border-fuchsia-500/30',
-  feodo: 'bg-orange-500/15 text-orange-700 dark:text-orange-300 border-orange-500/30',
 };
 
 export default function C2Tracker(): JSX.Element {
@@ -100,10 +99,9 @@ export default function C2Tracker(): JSX.Element {
         </h1>
         <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl">
           Aggregated live C2 server infrastructure deduped across six independent feeds: C2IntelFeeds (drb-ra),
-          ThreatFox (abuse.ch), Feodo Tracker (abuse.ch), CriticalPathSecurity Public-Intelligence-Feeds, CriminalIP
-          C2-Daily-Feed, and TweetFeed (#C2-tagged tweets). Each framework family is fairly sampled so filters like
-          asyncrat or havoc show real entries even when cobaltstrike dominates the total. Cross-check individual IPs via
-          the IOC Checker.
+          ThreatFox (abuse.ch), CriticalPathSecurity Public-Intelligence-Feeds, CriminalIP C2-Daily-Feed, and TweetFeed
+          (#C2-tagged tweets). Each framework family is fairly sampled so filters like asyncrat or havoc show real
+          entries even when cobaltstrike dominates the total. Cross-check individual IPs via the IOC Checker.
         </p>
       </div>
 
@@ -157,8 +155,7 @@ export default function C2Tracker(): JSX.Element {
                 ))}
               </div>
               <p className="text-xs font-mono text-slate-500 mt-3">
-                Sources: C2IntelFeeds · ThreatFox · Feodo · CriticalPathSecurity · CriminalIP · TweetFeed — cached 30
-                min
+                Sources: C2IntelFeeds · ThreatFox · CriticalPathSecurity · CriminalIP · TweetFeed — cached 30 min
               </p>
             </section>
 
