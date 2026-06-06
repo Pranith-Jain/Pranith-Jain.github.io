@@ -115,6 +115,7 @@ const PRERENDERED_ROUTES = new Map<string, string>([
   ['/dfir/nhi', '/__prerendered/dfir__nhi'],
   ['/dfir/jwt', '/__prerendered/dfir__jwt'],
   ['/dfir/privacy', '/__prerendered/dfir__privacy'],
+  ['/dfir/zero-trust-ai-agents', '/__prerendered/dfir__zero-trust-ai-agents'],
 
   // ── DFIR: dark web workbench ──────────────────────────────────
   ['/dfir/pgp-tool', '/__prerendered/dfir__pgp-tool'],

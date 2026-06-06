@@ -70,6 +70,7 @@ const IocPivot = lazy(() => import('./pages/dfir/IocPivot'));
 const JwtInspect = lazy(() => import('./pages/dfir/JwtInspect'));
 const GoogleDorks = lazy(() => import('./pages/dfir/GoogleDorks'));
 const IamPolicyAnalyzer = lazy(() => import('./pages/dfir/IamPolicyAnalyzer'));
+const ZeroTrustAiAgents = lazy(() => import('./pages/dfir/ZeroTrustAiAgents'));
 const SecurityGroupAnalyzer = lazy(() => import('./pages/dfir/SecurityGroupAnalyzer'));
 const CloudTrailTriage = lazy(() => import('./pages/dfir/CloudTrailTriage'));
 const K8sRbacAnalyzer = lazy(() => import('./pages/dfir/K8sRbacAnalyzer'));
@@ -345,6 +346,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/jwt', Component: JwtInspect },
   { path: '/dfir/google-dorks', Component: GoogleDorks },
   { path: '/dfir/iam-analyzer', Component: IamPolicyAnalyzer },
+  { path: '/dfir/zero-trust-ai-agents', Component: ZeroTrustAiAgents },
   { path: '/dfir/sg-analyzer', Component: SecurityGroupAnalyzer },
   { path: '/dfir/cloudtrail-triage', Component: CloudTrailTriage },
   { path: '/dfir/k8s-rbac', Component: K8sRbacAnalyzer },

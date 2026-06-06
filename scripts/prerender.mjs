@@ -144,6 +144,7 @@ const ROUTES = [
   '/dfir/nhi',
   '/dfir/jwt',
   '/dfir/privacy',
+  '/dfir/zero-trust-ai-agents',
 
   // ── DFIR: dark web workbench (2) — 0 API calls ────────────────
   '/dfir/pgp-tool',
