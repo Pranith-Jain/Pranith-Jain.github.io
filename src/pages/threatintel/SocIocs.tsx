@@ -2,9 +2,10 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Radar, Activity, ShieldAlert, Zap, Database, ExternalLink } from 'lucide-react';
 import { fetchJson } from '../../lib/fetch-json';
-import { SocShell, SocKpi, SocSection, SocPanel, type SocTone } from '../../components/threatintel/soc/SocShell';
+import { SocShell, SocKpi, SocSection, SocPanel, type SocStatus } from '../../components/threatintel/soc/SocShell';
 import { SocBar, SocDonut, type BarItem, type DonutSlice } from '../../components/threatintel/soc/SocCharts';
 import { downloadCsv, dayKey } from '../../components/threatintel/soc/utils';
+import { CHART_RANK } from '../../components/threatintel/soc/tone';
 
 /* ─── Data shape (matches /api/v1/live-iocs) ───────────────────────── */
 
@@ -91,16 +92,16 @@ function criticalityBucket(score: number): 'critical' | 'sensitive' | 'informati
 }
 
 const CRIT_COLOR: Record<'critical' | 'sensitive' | 'informational', string> = {
-  critical: '#a855f7', // purple-500
-  sensitive: '#c084fc', // purple-400
-  informational: '#475569', // slate-600
+  critical: '#e11d48', // rose-600 (severity.critical)
+  sensitive: '#f59e0b', // amber-500 (severity.medium)
+  informational: '#0ea5e9', // sky-500 (severity.info)
 };
 
 const KIND_COLOR: Record<IocKind, string> = {
-  ip: '#c084fc',
-  url: '#a855f7',
-  domain: '#9333ea',
-  hash: '#7e22ce',
+  ip: '#2c3ee5', // brand-600
+  url: '#435ef1', // brand-500
+  domain: '#0ea5e9', // sky-500
+  hash: '#64748b', // slate-500
 };
 
 const KIND_LABEL: Record<IocKind, string> = {
@@ -180,12 +181,12 @@ export default function SocIocs(): JSX.Element {
   }, [inWindowScoped]);
 
   /* ─── Status: derived from critical count ─────────────────────── */
-  const status = useMemo<{ label: string; tone: SocTone }>(() => {
-    if (!data) return { label: 'LOADING', tone: 'amber' };
+  const status = useMemo<SocStatus>(() => {
+    if (!data) return { label: 'Loading', severity: 'medium' };
     const c = buckets.critical;
-    if (c > 500) return { label: 'CRITICAL VOLUME — INVESTIGATE', tone: 'red' };
-    if (c > 100) return { label: 'ELEVATED CRITICAL FLOW', tone: 'amber' };
-    return { label: 'ACTIVE SENSORS', tone: 'purple' };
+    if (c > 500) return { label: 'Critical volume · investigate', severity: 'critical' };
+    if (c > 100) return { label: 'Elevated critical flow', severity: 'high' };
+    return { label: 'Active sensors', severity: 'info' };
   }, [data, buckets.critical]);
 
   const totalInWindow = inWindowScoped.length;
@@ -194,8 +195,11 @@ export default function SocIocs(): JSX.Element {
   const totalDelta = useMemo(() => {
     if (prevTotal == null || !data) return null;
     const diff = data.total - prevTotal;
-    if (diff === 0) return { text: 'stable', tone: 'slate' as const };
-    return { text: `${diff > 0 ? '+' : ''}${diff.toLocaleString()} new`, tone: 'emerald' as const };
+    if (diff === 0) return { text: '· stable', direction: 'flat' as const };
+    return {
+      text: `${diff > 0 ? '+' : ''}${diff.toLocaleString()} new`,
+      direction: diff > 0 ? ('up' as const) : ('down' as const),
+    };
   }, [prevTotal, data]);
 
   /* ─── Type distribution (donut) ───────────────────────────────── */
@@ -219,7 +223,7 @@ export default function SocIocs(): JSX.Element {
         label: s.id,
         value: s.count,
         hint: s.ok ? undefined : 'fetch failed',
-        color: s.ok ? (i < 3 ? '#a855f7' : i < 6 ? '#c084fc' : '#9333ea') : '#475569',
+        color: s.ok ? CHART_RANK[Math.min(i, CHART_RANK.length - 1)] : '#94a3b8',
       }));
   }, [sources]);
 
@@ -289,9 +293,8 @@ export default function SocIocs(): JSX.Element {
 
   return (
     <SocShell
-      title="INDICATORS OF COMPROMISE (IOC)"
-      tone="purple"
-      icon={<Radar size={20} />}
+      title="Indicators of compromise"
+      icon={<Radar size={28} />}
       status={status}
       generatedAt={data?.generated_at ?? null}
       loading={loading}
@@ -300,9 +303,15 @@ export default function SocIocs(): JSX.Element {
       windowDays={windowDays}
       onWindowChange={setWindowDays}
       onExport={onExport}
+      description={
+        <span>
+          Live aggregation across {sources.length} upstream feeds — blocklists, threat intel, C2 trackers, and sandboxed
+          malware samples. Criticality is a 0-100 score combining source reputation, kind, and context richness; filter
+          by IOC kind to drill into a specific signal.
+        </span>
+      }
       meta={
         <span>
-          Live aggregation from <code className="text-slate-700 dark:text-slate-300">/api/v1/live-iocs</code> ·{' '}
           {activeSources}/{sources.length} sources healthy{data?.degraded ? ' · degraded' : ''}
         </span>
       }
@@ -310,16 +319,16 @@ export default function SocIocs(): JSX.Element {
       {/* ─── KPI row ──────────────────────────────────────────────── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
         <SocKpi
-          label="TOTAL CAPTURED IOCS"
+          label="Total captured IOCs"
           value={data ? data.total.toLocaleString() : '—'}
-          tone="purple"
+          severity="info"
           sub={`${totalInWindow.toLocaleString()} observed in last ${windowDays}d`}
           icon={<Database size={16} />}
           delta={totalDelta?.text}
-          deltaTone={totalDelta?.tone}
+          deltaDirection={totalDelta?.direction}
         />
         <SocKpi
-          label="CRITICAL"
+          label="Critical"
           value={
             <span className="inline-flex items-baseline gap-2">
               {buckets.critical}
@@ -328,12 +337,12 @@ export default function SocIocs(): JSX.Element {
               </span>
             </span>
           }
-          tone="red"
+          severity="critical"
           sub="score ≥ 70 · block & investigate"
           icon={<ShieldAlert size={16} />}
         />
         <SocKpi
-          label="SENSITIVE"
+          label="Sensitive"
           value={
             <span className="inline-flex items-baseline gap-2">
               {buckets.sensitive}
@@ -342,14 +351,14 @@ export default function SocIocs(): JSX.Element {
               </span>
             </span>
           }
-          tone="purple"
+          severity="medium"
           sub="score 40-69 · enrich & review"
           icon={<Zap size={16} />}
         />
         <SocKpi
-          label="ACTIVE SOURCES"
+          label="Active sources"
           value={`${activeSources}/${sources.length}`}
-          tone="cyan"
+          severity="ok"
           sub="upstream feeds reporting"
           icon={<Activity size={16} />}
         />
@@ -369,8 +378,8 @@ export default function SocIocs(): JSX.Element {
               onClick={() => toggleKind(k)}
               className={`text-meta font-mono px-2.5 py-1 rounded border transition-colors ${
                 on
-                  ? 'border-purple-500 bg-purple-500/20 text-purple-700 dark:text-purple-200'
-                  : 'border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 hover:border-purple-500/40'
+                  ? 'border-brand-500 bg-brand-500/15 text-brand-700 dark:text-brand-300'
+                  : 'border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 hover:border-brand-500/40'
               }`}
             >
               {KIND_LABEL[k]}
@@ -381,7 +390,7 @@ export default function SocIocs(): JSX.Element {
           <button
             type="button"
             onClick={() => setKindFilter(new Set())}
-            className="text-meta font-mono text-slate-500 hover:text-rose-500 ml-1"
+            className="text-meta font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400 ml-1"
           >
             clear
           </button>
@@ -393,8 +402,8 @@ export default function SocIocs(): JSX.Element {
 
       {/* ─── Charts row 1 ─────────────────────────────────────────── */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4 mb-6">
-        <SocPanel tone="purple">
-          <SocSection title="DISTRIBUTION BY TYPE" tone="purple" />
+        <SocPanel>
+          <SocSection title="Distribution by type" />
           {typeSlices.length > 0 ? (
             <SocDonut
               slices={typeSlices}
@@ -408,24 +417,23 @@ export default function SocIocs(): JSX.Element {
           )}
         </SocPanel>
 
-        <SocPanel tone="purple">
+        <SocPanel>
           <SocSection
-            title="THREAT FREQUENCY BY SOURCE"
-            tone="purple"
+            title="Threat frequency by source"
             right={
               <Link
                 to="/threatintel/feed-status"
-                className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-brand-500"
+                className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
               >
                 feeds <ExternalLink size={10} />
               </Link>
             }
           />
-          <SocBar items={sourceBars} tone="purple" />
+          <SocBar items={sourceBars} />
         </SocPanel>
 
-        <SocPanel tone="purple">
-          <SocSection title="CRITICALITY DISTRIBUTION" tone="purple" />
+        <SocPanel>
+          <SocSection title="Criticality distribution" />
           {critSlices.length > 0 ? (
             <SocDonut
               slices={critSlices}
@@ -447,10 +455,9 @@ export default function SocIocs(): JSX.Element {
 
       {/* ─── Charts row 2: timeline + top critical ────────────────── */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4">
-        <SocPanel tone="purple" className="lg:col-span-2">
+        <SocPanel className="lg:col-span-2">
           <SocSection
-            title="OBSERVATION TIMELINE"
-            tone="purple"
+            title="Observation timeline"
             right={
               <span className="text-meta font-mono text-slate-500">
                 peak {Math.max(0, ...dailyCounts.map((d) => d.value))} / day
@@ -459,21 +466,19 @@ export default function SocIocs(): JSX.Element {
           />
           <SocBar
             items={dailyCounts.slice(-30)}
-            tone="purple"
             vertical
             height={180}
             emptyText="No IOCs with per-entry timestamps in window."
           />
         </SocPanel>
 
-        <SocPanel tone="red">
+        <SocPanel>
           <SocSection
-            title="TOP CRITICAL"
-            tone="red"
+            title="Top critical"
             right={
               <Link
                 to="/threatintel/live-iocs"
-                className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-brand-500"
+                className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
               >
                 all <ExternalLink size={10} />
               </Link>

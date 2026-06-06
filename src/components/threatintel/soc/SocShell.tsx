@@ -1,38 +1,12 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, RefreshCw, Download, Loader2, Clock } from 'lucide-react';
-import { TONE_BG, TONE_PILL_BG, TONE_RING, TONE_TEXT, TONE_GLOW, type SocTone } from './tone';
+import { SEVERITY_DOT, SEVERITY_PILL, SEVERITY_TEXT, type SocSeverity } from './tone';
 import { timeAgo } from './utils';
 
-export type { SocTone } from './tone';
+export type { SocSeverity } from './tone';
 
-/* ─── L-shaped corner brackets (the tactical frame) ────────────────── */
-
-export function CornerBrackets({ tone = 'cyan' }: { tone?: SocTone }): JSX.Element {
-  const c = TONE_TEXT[tone];
-  return (
-    <>
-      <span
-        aria-hidden="true"
-        className={`pointer-events-none absolute left-0 top-0 h-3 w-3 border-l-2 border-t-2 ${c.replace('text-', 'border-')} rounded-tl-sm`}
-      />
-      <span
-        aria-hidden="true"
-        className={`pointer-events-none absolute right-0 top-0 h-3 w-3 border-r-2 border-t-2 ${c.replace('text-', 'border-')} rounded-tr-sm`}
-      />
-      <span
-        aria-hidden="true"
-        className={`pointer-events-none absolute left-0 bottom-0 h-3 w-3 border-l-2 border-b-2 ${c.replace('text-', 'border-')} rounded-bl-sm`}
-      />
-      <span
-        aria-hidden="true"
-        className={`pointer-events-none absolute right-0 bottom-0 h-3 w-3 border-r-2 border-b-2 ${c.replace('text-', 'border-')} rounded-br-sm`}
-      />
-    </>
-  );
-}
-
-/* ─── Page shell (header, status pill, time-range, refresh, export) ── */
+/* ─── Page shell — brand-aligned header + controls ─────────────────── */
 
 interface WindowOption {
   days: number;
@@ -45,11 +19,15 @@ const DEFAULT_WINDOWS: ReadonlyArray<WindowOption> = [
   { days: 90, label: '90D' },
 ];
 
+export interface SocStatus {
+  label: string;
+  severity: SocSeverity;
+}
+
 interface SocShellProps {
   title: string;
   icon: ReactNode;
-  tone: SocTone;
-  status: { label: string; tone: SocTone };
+  status: SocStatus;
   /** ISO string the data was last generated at. */
   generatedAt: string | null;
   loading: boolean;
@@ -65,12 +43,13 @@ interface SocShellProps {
   children: ReactNode;
   /** Right-side extra content under the header (e.g. key totals). */
   meta?: ReactNode;
+  /** Short description for under the h1 (matches the IntelDashboard pattern). */
+  description?: ReactNode;
 }
 
 export function SocShell({
   title,
   icon,
-  tone,
   status,
   generatedAt,
   loading,
@@ -83,6 +62,7 @@ export function SocShell({
   onExport,
   children,
   meta,
+  description,
 }: SocShellProps): JSX.Element {
   const [nextRefreshIn, setNextRefreshIn] = useState<number>(autoRefreshMs);
 
@@ -103,86 +83,72 @@ export function SocShell({
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100">
-      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-        <Link
-          to="/threatintel"
-          className="inline-flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-4 font-mono"
-        >
-          <ArrowLeft size={14} /> back to threatintel
-        </Link>
+      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 py-12 text-slate-900 dark:text-slate-100">
+        <BackLink />
 
-        {/* ── Header ──────────────────────────────────────────────── */}
-        <header className="mb-6 sm:mb-8">
-          <div className="flex flex-wrap items-start justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <span
-                className={`grid place-items-center h-9 w-9 rounded border ${TONE_RING[tone]} ${TONE_PILL_BG[tone]} ${TONE_TEXT[tone]}`}
-              >
-                {icon}
-              </span>
-              <h1 className="text-2xl sm:text-3xl font-display font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
-                {title}
-              </h1>
-            </div>
+        <div className="animate-fade-in-up mb-8">
+          <h1 className="text-3xl sm:text-4xl font-display font-bold flex items-center gap-3">
+            <span className="text-brand-600 dark:text-brand-400 [&_svg]:shrink-0">{icon}</span>
+            {title}
+            <SocStatusBadge status={status} />
+          </h1>
+          {description && (
+            <p className="text-slate-600 dark:text-slate-400 mt-2 max-w-3xl leading-relaxed">{description}</p>
+          )}
+          {meta && <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-2">{meta}</p>}
+        </div>
 
-            <div className="flex flex-wrap items-center gap-2">
-              <SocStatusBadge label={status.label} tone={status.tone} />
-              {generatedAt && (
-                <span className="hidden sm:inline-flex items-center gap-1.5 text-meta font-mono text-slate-500 dark:text-slate-400">
-                  <Clock size={12} /> updated {timeAgo(generatedAt)}
-                </span>
-              )}
-            </div>
+        {/* Controls */}
+        <div className="mb-8 flex flex-wrap items-center gap-2">
+          <div className="inline-flex rounded-lg border border-slate-200 dark:border-slate-800 overflow-hidden">
+            {windows.map((w) => {
+              const on = w.days === windowDays;
+              return (
+                <button
+                  key={w.days}
+                  type="button"
+                  onClick={() => onWindowChange(w.days)}
+                  className={`text-meta font-mono px-3 py-1.5 transition-colors ${
+                    on
+                      ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300'
+                      : 'bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                  }`}
+                >
+                  {w.label}
+                </button>
+              );
+            })}
           </div>
 
-          {meta && <div className="mt-3 text-meta font-mono text-slate-500 dark:text-slate-400">{meta}</div>}
+          <button
+            type="button"
+            onClick={onRefresh}
+            disabled={loading}
+            className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-brand-500/40 disabled:opacity-50 transition-colors"
+          >
+            {loading ? <Loader2 size={12} className="animate-spin" /> : <RefreshCw size={12} />}
+            refresh
+            {autoRefreshMs > 0 && !loading && (
+              <span className="text-slate-400 dark:text-slate-500">· {Math.ceil(nextRefreshIn / 1000)}s</span>
+            )}
+          </button>
 
-          {/* Controls */}
-          <div className="mt-5 flex flex-wrap items-center gap-2">
-            <div className="inline-flex rounded border border-slate-200 dark:border-slate-800 overflow-hidden">
-              {windows.map((w) => {
-                const on = w.days === windowDays;
-                return (
-                  <button
-                    key={w.days}
-                    type="button"
-                    onClick={() => onWindowChange(w.days)}
-                    className={`text-meta font-mono px-3 py-1.5 transition-colors ${
-                      on
-                        ? `${TONE_BG[tone]} text-white`
-                        : 'bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
-                    }`}
-                  >
-                    {w.label}
-                  </button>
-                );
-              })}
-            </div>
+          <button
+            type="button"
+            onClick={onExport}
+            className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-brand-500/40 transition-colors"
+          >
+            <Download size={12} /> export csv
+          </button>
 
-            <button
-              type="button"
-              onClick={onRefresh}
-              disabled={loading}
-              className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-brand-500/40 disabled:opacity-50 transition-colors"
-            >
-              {loading ? <Loader2 size={12} className="animate-spin" /> : <RefreshCw size={12} />}
-              refresh
-              {autoRefreshMs > 0 && !loading && (
-                <span className="text-slate-400 dark:text-slate-500">· {Math.ceil(nextRefreshIn / 1000)}s</span>
-              )}
-            </button>
+          {generatedAt && (
+            <span className="hidden sm:inline-flex items-center gap-1.5 text-meta font-mono text-slate-500 dark:text-slate-400 ml-1">
+              <Clock size={12} /> updated {timeAgo(generatedAt)}
+            </span>
+          )}
 
-            <button
-              type="button"
-              onClick={onExport}
-              className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-brand-500/40 transition-colors"
-            >
-              <Download size={12} /> export csv
-            </button>
-
-            {error && <span className="text-meta font-mono text-rose-600 dark:text-rose-400 ml-2">{error}</span>}
-          </div>
-        </header>
+          {error && <span className="text-meta font-mono text-rose-600 dark:text-rose-400 ml-2">{error}</span>}
+        </div>
 
         {children}
       </div>
@@ -190,43 +156,52 @@ export function SocShell({
   );
 }
 
-/* ─── Status pill (DEFCON-style with pulsing dot) ──────────────────── */
+/* ─── Back link (matches the rest of the app's BackLink pattern) ──── */
 
-export function SocStatusBadge({ label, tone }: { label: string; tone: SocTone }): JSX.Element {
+function BackLink(): JSX.Element {
+  return (
+    <Link
+      to="/threatintel"
+      className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+    >
+      <ArrowLeft size={14} /> back to threatintel
+    </Link>
+  );
+}
+
+/* ─── Status badge (small, severity-colored, sits next to the h1) ──── */
+
+function SocStatusBadge({ status }: { status: SocStatus }): JSX.Element {
   return (
     <span
-      className={`inline-flex items-center gap-2 rounded border px-2.5 py-1 text-meta font-mono uppercase tracking-wider ${TONE_TEXT[tone]} ${TONE_RING[tone]} ${TONE_PILL_BG[tone]}`}
+      className={`inline-flex items-center gap-1.5 ml-1 px-2 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider border ${SEVERITY_PILL[status.severity]}`}
     >
-      <span className="relative flex h-2 w-2">
-        <span className={`absolute inset-0 rounded-full ${TONE_BG[tone]} opacity-75 animate-ping`} />
-        <span className={`relative inline-flex rounded-full h-2 w-2 ${TONE_BG[tone]}`} />
+      <span className={`relative flex h-1.5 w-1.5`}>
+        <span className={`absolute inset-0 rounded-full ${SEVERITY_DOT[status.severity]} opacity-75 animate-ping`} />
+        <span className={`relative inline-flex rounded-full h-1.5 w-1.5 ${SEVERITY_DOT[status.severity]}`} />
       </span>
-      {label}
+      {status.label}
     </span>
   );
 }
 
-/* ─── Section header (underlined with `>` arrow) ───────────────────── */
+/* ─── Section header (matches the brand h2 pattern used elsewhere) ── */
 
 export function SocSection({
   title,
-  tone = 'cyan',
-  children,
   right,
+  children,
 }: {
   title: string;
-  tone?: SocTone;
-  children?: ReactNode;
   right?: ReactNode;
+  children?: ReactNode;
 }): JSX.Element {
   return (
     <section className="mb-4">
-      <div className="flex items-center gap-2 mb-3">
-        <span aria-hidden="true" className={`font-mono ${TONE_TEXT[tone]}`}>
-          {'>'}
-        </span>
-        <h2 className={`text-eyebrow font-mono uppercase tracking-[0.18em] ${TONE_TEXT[tone]}`}>{title}</h2>
-        <span className="flex-1 h-px bg-slate-200 dark:bg-slate-800" />
+      <div className="flex items-center justify-between gap-3 mb-3">
+        <h2 className="text-sm font-bold uppercase tracking-[0.15em] text-brand-600 dark:text-brand-400 font-mono">
+          {title}
+        </h2>
         {right}
       </div>
       {children}
@@ -234,81 +209,61 @@ export function SocSection({
   );
 }
 
-/* ─── KPI card (huge number with glow + delta + bracket frame) ─────── */
+/* ─── KPI card (matches the standard IntelDashboard style) ────────── */
 
 export function SocKpi({
   label,
   value,
-  tone = 'cyan',
+  severity = 'info',
   sub,
   delta,
-  deltaTone,
+  deltaDirection = 'up',
   icon,
 }: {
   label: string;
   value: ReactNode;
-  tone?: SocTone;
+  severity?: SocSeverity;
   sub?: ReactNode;
-  /** Inline delta chip (e.g. "+12 vs last 7d"). */
+  /** Inline delta chip (e.g. "+12 vs last 7d"). Direction picks the hue. */
   delta?: string;
-  /** Tone override for the delta chip. Defaults to emerald-up / rose-down. */
-  deltaTone?: 'emerald' | 'rose' | 'amber' | 'slate';
+  /** '+' / '−' / '~' — 'up' rose, 'down' emerald, 'flat' slate. */
+  deltaDirection?: 'up' | 'down' | 'flat';
   icon?: ReactNode;
 }): JSX.Element {
+  const deltaCls =
+    deltaDirection === 'up'
+      ? 'text-rose-600 dark:text-rose-400'
+      : deltaDirection === 'down'
+        ? 'text-emerald-600 dark:text-emerald-400'
+        : 'text-slate-500 dark:text-slate-400';
   return (
-    <div
-      className={`relative rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-4 sm:p-5`}
-    >
-      <CornerBrackets tone={tone} />
+    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 sm:p-5">
       <div className="flex items-center justify-between mb-2">
-        <span className={`text-eyebrow font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400`}>
+        <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
           {label}
         </span>
-        {icon && <span className={`${TONE_TEXT[tone]} opacity-70`}>{icon}</span>}
+        {icon && <span className="text-slate-400 dark:text-slate-500">{icon}</span>}
       </div>
       <div
-        className={`font-mono font-extrabold leading-none tabular-nums text-4xl sm:text-5xl ${TONE_TEXT[tone]} ${TONE_GLOW[tone]}`}
+        className={`font-mono font-extrabold leading-none tabular-nums text-3xl sm:text-4xl ${SEVERITY_TEXT[severity]}`}
       >
         {value}
       </div>
       <div className="mt-2 flex items-center justify-between gap-2 text-meta font-mono text-slate-500 dark:text-slate-400">
         <span className="truncate">{sub}</span>
-        {delta && (
-          <span
-            className={
-              deltaTone === 'rose'
-                ? 'text-rose-500 dark:text-rose-400'
-                : deltaTone === 'amber'
-                  ? 'text-amber-500 dark:text-amber-400'
-                  : deltaTone === 'slate'
-                    ? 'text-slate-500'
-                    : 'text-emerald-500 dark:text-emerald-400'
-            }
-          >
-            {delta}
-          </span>
-        )}
+        {delta && <span className={deltaCls}>{delta}</span>}
       </div>
     </div>
   );
 }
 
-/* ─── Panel wrapper (corner brackets + ring) ───────────────────────── */
+/* ─── Panel wrapper (matches the standard section panel) ──────────── */
 
-export function SocPanel({
-  tone = 'cyan',
-  className = '',
-  children,
-}: {
-  tone?: SocTone;
-  className?: string;
-  children: ReactNode;
-}): JSX.Element {
+export function SocPanel({ className = '', children }: { className?: string; children: ReactNode }): JSX.Element {
   return (
     <div
-      className={`relative rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-4 sm:p-5 ${className}`}
+      className={`rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 sm:p-5 ${className}`}
     >
-      <CornerBrackets tone={tone} />
       {children}
     </div>
   );

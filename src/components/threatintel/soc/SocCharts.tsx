@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from 'react';
-import { TONE_BG, TONE_TEXT, type SocTone } from './tone';
+import { CHART_RANK } from './tone';
 
 /* ─── Horizontal bar chart with hover tooltip + click-through ──────── */
 
@@ -20,7 +20,6 @@ interface SocBarProps {
   items: BarItem[];
   /** Hard ceiling for bar widths. Default: max of all values. */
   max?: number;
-  tone?: SocTone;
   /** Show a numeric axis at the bottom (0 / mid / max). */
   axis?: boolean;
   /** Render as a vertical bar (column) chart instead. */
@@ -29,21 +28,23 @@ interface SocBarProps {
   height?: number;
   emptyText?: string;
   onItemClick?: (item: BarItem, index: number) => void;
+  /** Color slot for items without an explicit override. */
+  defaultColor?: string;
 }
 
 export function SocBar({
   items,
   max,
-  tone = 'cyan',
   axis = false,
   vertical = false,
   height = 180,
   emptyText = 'No data in window.',
   onItemClick,
+  defaultColor,
 }: SocBarProps): JSX.Element {
   const [hover, setHover] = useState<number | null>(null);
   if (items.length === 0) {
-    return <p className="text-meta font-mono text-slate-500 dark:text-slate-500 italic">{emptyText}</p>;
+    return <p className="text-meta font-mono text-slate-500 italic">{emptyText}</p>;
   }
   const ceiling = max ?? Math.max(...items.map((i) => i.value), 1);
   const fmt = (n: number): string => n.toLocaleString();
@@ -56,7 +57,7 @@ export function SocBar({
     const innerH = height - padB - 8;
     const slotW = innerW / items.length;
     const barW = Math.max(2, slotW * 0.7);
-    const color = TONE_BG[tone];
+    const fallback = defaultColor ?? CHART_RANK[0];
     return (
       <div className="overflow-x-auto">
         <svg viewBox={`0 0 ${w} ${height}`} className="w-full" role="img" aria-label="Bar chart">
@@ -91,7 +92,7 @@ export function SocBar({
             const x = padL + i * slotW + (slotW - barW) / 2;
             const h = (it.value / ceiling) * innerH;
             const y = innerH - h;
-            const fill = it.color ?? color;
+            const fill = it.color ?? fallback;
             const isHover = hover === i;
             return (
               <g
@@ -117,7 +118,7 @@ export function SocBar({
                     textAnchor="middle"
                     fontSize="9"
                     fill="currentColor"
-                    className="fill-slate-200"
+                    className="fill-slate-700 dark:fill-slate-200"
                     fontFamily="ui-monospace,monospace"
                   >
                     {fmt(it.value)}
@@ -145,7 +146,7 @@ export function SocBar({
     <ul className="space-y-1.5">
       {items.map((it, i) => {
         const pct = (it.value / ceiling) * 100;
-        const color = it.color ?? TONE_BG[tone];
+        const color = it.color ?? defaultColor ?? CHART_RANK[Math.min(i, CHART_RANK.length - 1)];
         const isHover = hover === i;
         return (
           <li key={`${it.label}-${i}`} className="text-meta font-mono">
@@ -234,7 +235,7 @@ export function SocDonut({
   const total = slices.reduce((s, x) => s + x.value, 0);
 
   if (total === 0) {
-    return <p className="text-meta font-mono text-slate-500 dark:text-slate-500 italic">{emptyText}</p>;
+    return <p className="text-meta font-mono text-slate-500 italic">{emptyText}</p>;
   }
 
   const r = size / 2 - thickness / 2;
@@ -356,24 +357,24 @@ export interface SparkPoint {
 
 interface SocSparklineProps {
   points: SparkPoint[];
-  tone?: SocTone;
   height?: number;
   fill?: boolean;
   /** Show label ticks on x-axis (sparse to avoid clutter). */
   showAxis?: boolean;
   emptyText?: string;
+  color?: string;
 }
 
 export function SocSparkline({
   points,
-  tone = 'cyan',
   height = 140,
   fill = true,
   showAxis = true,
   emptyText = 'No data.',
+  color,
 }: SocSparklineProps): JSX.Element {
   if (points.length === 0) {
-    return <p className="text-meta font-mono text-slate-500 dark:text-slate-500 italic">{emptyText}</p>;
+    return <p className="text-meta font-mono text-slate-500 italic">{emptyText}</p>;
   }
   const w = 720;
   const padL = 32;
@@ -383,8 +384,7 @@ export function SocSparkline({
   const innerH = height - padB - padT;
   const max = Math.max(...points.map((p) => p.value), 1);
   const slotW = innerW / points.length;
-  const color = TONE_BG[tone];
-  const stroke = TONE_TEXT[tone].replace('text-', 'stroke-');
+  const fillColor = color ?? CHART_RANK[0];
 
   const pathD = points
     .map((p, i) => {
@@ -430,14 +430,14 @@ export function SocSparkline({
           );
         })}
 
-        {fill && <path d={fillD} fill={color} opacity={0.18} />}
-        <path d={pathD} className={stroke} strokeWidth={1.5} fill="none" />
+        {fill && <path d={fillD} fill={fillColor} opacity={0.18} />}
+        <path d={pathD} stroke={fillColor} strokeWidth={1.5} fill="none" />
 
         {points.map((p, i) => {
           const x = padL + i * slotW + slotW / 2;
           const y = padT + innerH - (p.value / max) * innerH;
           return (
-            <circle key={i} cx={x} cy={y} r={1.6} fill={color}>
+            <circle key={i} cx={x} cy={y} r={1.6} fill={fillColor}>
               <title>
                 {p.label}: {p.value}
               </title>

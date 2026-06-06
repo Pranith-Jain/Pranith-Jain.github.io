@@ -1,74 +1,58 @@
 /**
- * Tactical "accent" hue for a SOC panel — used to color its KPI value,
- * corner brackets, section header, and chart bars. Each tone follows the
- * brand pill convention: `-500/40` border + `-500/10` bg + dark-mode
- * `-300` text on a dark-mode `-900/60` panel. The TONE_TEXT map also
- * drives the corner-bracket border via `replace('text-', 'border-')`,
- * so the dark: variant propagates automatically.
+ * Color tokens for the SOC dashboards. The dashboards are brand-aligned:
+ * chrome (icons, h1, h2, panels) uses the canonical brand indigo; data
+ * colors come from the severity scale in tailwind.config.js so a critical
+ * reading on the SOC page reads the same as a critical reading on any
+ * other page (rose-600, rose-500, amber-500, emerald-500, sky-500).
+ *
+ * Per-page "tactical" hue (ransomware=red, vulns=cyan, iocs=purple) is
+ * gone — pages differentiate by their icon, title, and data, not by
+ * custom chrome. The live/SOC character still comes from auto-refresh,
+ * delta chips, and severity-driven status pills.
  */
-export type SocTone = 'red' | 'cyan' | 'purple' | 'amber' | 'emerald' | 'blue' | 'rose';
 
-/**
- * Text/foreground hue. The light-mode shade is a brand-aligned `-700` so
- * the color is readable on white cards; dark mode uses the pale `-300`
- * shade so the color glows on the slate-900 panel.
- */
-export const TONE_TEXT: Record<SocTone, string> = {
-  red: 'text-red-700 dark:text-red-300',
-  cyan: 'text-cyan-700 dark:text-cyan-300',
-  purple: 'text-purple-700 dark:text-purple-300',
-  amber: 'text-amber-700 dark:text-amber-300',
-  emerald: 'text-emerald-700 dark:text-emerald-300',
-  blue: 'text-sky-700 dark:text-sky-300',
-  rose: 'text-rose-700 dark:text-rose-300',
+/** Page-wide severity tokens — mirror tailwind.config.js `severity`. */
+export type SocSeverity = 'critical' | 'high' | 'medium' | 'low' | 'ok' | 'info';
+
+export const SEVERITY_TEXT: Record<SocSeverity, string> = {
+  critical: 'text-rose-700 dark:text-rose-300',
+  high: 'text-rose-600 dark:text-rose-300',
+  medium: 'text-amber-600 dark:text-amber-300',
+  low: 'text-emerald-600 dark:text-emerald-300',
+  ok: 'text-emerald-600 dark:text-emerald-300',
+  info: 'text-sky-600 dark:text-sky-300',
 };
 
-export const TONE_BG: Record<SocTone, string> = {
-  red: 'bg-red-500',
-  cyan: 'bg-cyan-500',
-  purple: 'bg-purple-500',
-  amber: 'bg-amber-500',
-  emerald: 'bg-emerald-500',
-  blue: 'bg-sky-500',
-  rose: 'bg-rose-500',
+export const SEVERITY_PILL: Record<SocSeverity, string> = {
+  critical: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
+  high: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
+  medium: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
+  low: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
+  ok: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
+  info: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300',
 };
 
-/**
- * Pill background — brand `-500/10` tint in light mode (visible on white
- * cards without screaming) and the tactical `-900/60` panel in dark mode.
- * Status badge, header icon container, and KPI corner accents all reuse this.
- */
-export const TONE_PILL_BG: Record<SocTone, string> = {
-  red: 'bg-red-500/10 dark:bg-slate-900/60',
-  cyan: 'bg-cyan-500/10 dark:bg-slate-900/60',
-  purple: 'bg-purple-500/10 dark:bg-slate-900/60',
-  amber: 'bg-amber-500/10 dark:bg-slate-900/60',
-  emerald: 'bg-emerald-500/10 dark:bg-slate-900/60',
-  blue: 'bg-sky-500/10 dark:bg-slate-900/60',
-  rose: 'bg-rose-500/10 dark:bg-slate-900/60',
+/** Status pill dot — solid severity hue. */
+export const SEVERITY_DOT: Record<SocSeverity, string> = {
+  critical: 'bg-rose-500',
+  high: 'bg-rose-500',
+  medium: 'bg-amber-500',
+  low: 'bg-emerald-500',
+  ok: 'bg-emerald-500',
+  info: 'bg-sky-500',
 };
 
-export const TONE_RING: Record<SocTone, string> = {
-  red: 'border-red-500/30 ring-red-500/30 dark:border-red-400/30',
-  cyan: 'border-cyan-500/30 ring-cyan-500/30 dark:border-cyan-400/30',
-  purple: 'border-purple-500/30 ring-purple-500/30 dark:border-purple-400/30',
-  amber: 'border-amber-500/30 ring-amber-500/30 dark:border-amber-400/30',
-  emerald: 'border-emerald-500/30 ring-emerald-500/30 dark:border-emerald-400/30',
-  blue: 'border-sky-500/30 ring-sky-500/30 dark:border-sky-400/30',
-  rose: 'border-rose-500/30 ring-rose-500/30 dark:border-rose-400/30',
+/** Chart fill colors — keep the NVD/CVSS severity scale recognizable. */
+export const CHART_SEV: Record<string, string> = {
+  CRITICAL: '#e11d48', // rose-600
+  HIGH: '#f43f5e', // rose-500
+  MEDIUM: '#f59e0b', // amber-500
+  LOW: '#0ea5e9', // sky-500
+  NONE: '#64748b', // slate-500
+  UNKNOWN: '#475569', // slate-600
 };
 
-/**
- * Drop-shadow glow. In light mode we use the deeper `-600` hue at lower
- * alpha so the halo is visible against a white card without overwhelming
- * the text. In dark mode the brighter `-300` shade glows on the slate panel.
- */
-export const TONE_GLOW: Record<SocTone, string> = {
-  red: 'drop-shadow-[0_0_14px_rgba(220,38,38,0.35)] dark:drop-shadow-[0_0_18px_rgba(248,113,113,0.55)]',
-  cyan: 'drop-shadow-[0_0_14px_rgba(8,145,178,0.35)] dark:drop-shadow-[0_0_18px_rgba(34,211,238,0.55)]',
-  purple: 'drop-shadow-[0_0_14px_rgba(147,51,234,0.35)] dark:drop-shadow-[0_0_18px_rgba(192,132,252,0.55)]',
-  amber: 'drop-shadow-[0_0_14px_rgba(217,119,6,0.35)] dark:drop-shadow-[0_0_18px_rgba(251,191,36,0.55)]',
-  emerald: 'drop-shadow-[0_0_14px_rgba(5,150,105,0.35)] dark:drop-shadow-[0_0_18px_rgba(52,211,153,0.55)]',
-  blue: 'drop-shadow-[0_0_14px_rgba(2,132,199,0.35)] dark:drop-shadow-[0_0_18px_rgba(56,189,248,0.55)]',
-  rose: 'drop-shadow-[0_0_14px_rgba(225,29,72,0.35)] dark:drop-shadow-[0_0_18px_rgba(251,113,133,0.55)]',
-};
+/** Bar-chart brand-aligned scale. Top three = primary brand shade,
+ *  mid = sky-400, long tail = slate. Use the same gradient for any
+ *  ranked list so the SOC charts feel like the rest of the app. */
+export const CHART_RANK = ['#2c3ee5', '#435ef1', '#6d8bf7', '#0ea5e9', '#38bdf8', '#7dd3fc', '#94a3b8', '#64748b'];

@@ -2,9 +2,10 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Bug, AlertTriangle, Flame, ShieldCheck, ExternalLink } from 'lucide-react';
 import { fetchJson } from '../../lib/fetch-json';
-import { SocShell, SocKpi, SocSection, SocPanel, type SocTone } from '../../components/threatintel/soc/SocShell';
+import { SocShell, SocKpi, SocSection, SocPanel, type SocStatus } from '../../components/threatintel/soc/SocShell';
 import { SocBar, SocDonut, type BarItem, type DonutSlice } from '../../components/threatintel/soc/SocCharts';
 import { downloadCsv, dayKey } from '../../components/threatintel/soc/utils';
+import { CHART_RANK, CHART_SEV } from '../../components/threatintel/soc/tone';
 
 /* ─── Data shape (matches /api/v1/cve-recent) ──────────────────────── */
 
@@ -32,15 +33,15 @@ interface CveRecentResponse {
   cves: RecentCve[];
 }
 
-/* ─── Severity palette (canonical — mirrors src/components/Badge.tsx) ── */
+/* ─── Severity palette (canonical — mirrors tailwind.config severity tokens) ── */
 
 const SEV_COLOR: Record<Severity, string> = {
-  CRITICAL: '#e11d48', // rose-600
-  HIGH: '#f97316', // orange-500
-  MEDIUM: '#f59e0b', // amber-500
-  LOW: '#06b6d4', // cyan-500
-  NONE: '#64748b', // slate-500
-  UNKNOWN: '#475569', // slate-600
+  CRITICAL: CHART_SEV.CRITICAL,
+  HIGH: CHART_SEV.HIGH,
+  MEDIUM: CHART_SEV.MEDIUM,
+  LOW: CHART_SEV.LOW,
+  NONE: CHART_SEV.NONE,
+  UNKNOWN: CHART_SEV.UNKNOWN,
 };
 
 const SEV_ORDER: Severity[] = ['CRITICAL', 'HIGH', 'MEDIUM', 'LOW', 'NONE', 'UNKNOWN'];
@@ -174,16 +175,19 @@ export default function SocVulns(): JSX.Element {
   const kevDelta = useMemo(() => {
     if (prevKev == null) return null;
     const diff = kevTotal - prevKev;
-    if (diff === 0) return { text: '0 new KEV', tone: 'slate' as const };
-    return { text: `${diff > 0 ? '+' : ''}${diff} KEV`, tone: 'rose' as const };
+    if (diff === 0) return { text: '· stable', direction: 'flat' as const };
+    return {
+      text: `${diff > 0 ? '+' : ''}${diff} KEV`,
+      direction: diff > 0 ? ('up' as const) : ('down' as const),
+    };
   }, [prevKev, kevTotal]);
 
-  /* ─── Status: derived from data, not hardcoded ────────────────── */
-  const status = useMemo<{ label: string; tone: SocTone }>(() => {
-    if (!data) return { label: 'LOADING', tone: 'amber' };
-    if (counts.CRITICAL > 20) return { label: 'CRITICAL SURFACE — PATCH NOW', tone: 'red' };
-    if (counts.CRITICAL > 5) return { label: 'ELEVATED CRITICAL EXPOSURE', tone: 'amber' };
-    return { label: 'SYSTEM: NOMINAL / TRACKING EXPOSURES', tone: 'cyan' };
+  /* ─── Status: severity-driven, derived from data ─────────────── */
+  const status = useMemo<SocStatus>(() => {
+    if (!data) return { label: 'Loading', severity: 'medium' };
+    if (counts.CRITICAL > 20) return { label: 'Critical · patch now', severity: 'critical' };
+    if (counts.CRITICAL > 5) return { label: 'High · elevated exposure', severity: 'high' };
+    return { label: 'Tracking exposures', severity: 'ok' };
   }, [data, counts.CRITICAL]);
 
   /* ─── Daily detection frequency ───────────────────────────────── */
@@ -222,7 +226,7 @@ export default function SocVulns(): JSX.Element {
       label: x.label,
       value: x.value,
       hint: total ? `${Math.round((x.value / total) * 100)}%` : undefined,
-      color: i < 3 ? '#06b6d4' : i < 6 ? '#0ea5e9' : '#64748b',
+      color: CHART_RANK[Math.min(i, CHART_RANK.length - 1)],
       href: `/threatintel/cve-list?vendor=${encodeURIComponent(x.label)}`,
     }));
   }, [inWindow, total]);
@@ -275,9 +279,8 @@ export default function SocVulns(): JSX.Element {
 
   return (
     <SocShell
-      title="VULNERABILITY MONITORING"
-      tone="cyan"
-      icon={<Bug size={20} />}
+      title="Vulnerability monitoring"
+      icon={<Bug size={28} />}
       status={status}
       generatedAt={data?.generated_at ?? null}
       loading={loading}
@@ -286,10 +289,19 @@ export default function SocVulns(): JSX.Element {
       windowDays={windowDays}
       onWindowChange={setWindowDays}
       onExport={onExport}
+      description={
+        <span>
+          NVD + CISA KEV + MyThreatIntel + cvefeed.io merged for the chosen window. Critical and high counts derived
+          from CVSS; KEV tracks the all-time known-exploited corpus. Drill into the vendor list or jump to the{' '}
+          <Link to="/threatintel/cve-list" className="text-brand-600 dark:text-brand-400 hover:underline">
+            full CVE list
+          </Link>
+          .
+        </span>
+      }
       meta={
         <span>
-          NVD + CISA KEV + MyThreatIntel ·{' '}
-          <code className="text-slate-700 dark:text-slate-300">/api/v1/cve-recent</code>
+          NVD · CISA KEV · MyThreatIntel · cvefeed.io
           {data?.sources && (
             <>
               {' '}
@@ -302,64 +314,63 @@ export default function SocVulns(): JSX.Element {
       {/* ─── KPI row ──────────────────────────────────────────────── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
         <SocKpi
-          label="DISCOVERED CVES"
+          label="Discovered CVEs"
           value={total.toLocaleString()}
-          tone="cyan"
+          severity="info"
           sub={`published in last ${windowDays} days`}
           icon={<Bug size={16} />}
         />
         <SocKpi
-          label="CRITICAL VECTORS"
+          label="Critical vectors"
           value={
             <span className="inline-flex items-baseline gap-2">
               {counts.CRITICAL}
               <span className="text-2xl text-slate-500 dark:text-slate-400">({criticalPct}%)</span>
             </span>
           }
-          tone="rose"
+          severity="critical"
           sub="CVSS ≥ 9.0"
           icon={<Flame size={16} />}
         />
         <SocKpi
-          label="HIGH SEVERITY"
+          label="High severity"
           value={
             <span className="inline-flex items-baseline gap-2">
               {counts.HIGH}
               <span className="text-2xl text-slate-500 dark:text-slate-400">({highPct}%)</span>
             </span>
           }
-          tone="amber"
+          severity="high"
           sub="CVSS 7.0 – 8.9"
           icon={<AlertTriangle size={16} />}
         />
         <SocKpi
           label="CISA KEV"
           value={kevTotal.toLocaleString()}
-          tone="red"
+          severity="critical"
           sub="known-exploited · all-time"
           icon={<ShieldCheck size={16} />}
           delta={kevDelta?.text}
-          deltaTone={kevDelta?.tone}
+          deltaDirection={kevDelta?.direction}
         />
       </div>
 
       {/* ─── Charts row 1: line / donut / vendors ────────────────── */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4 mb-6">
-        <SocPanel tone="cyan">
+        <SocPanel>
           <SocSection
-            title="DETECTION FREQUENCY"
-            tone="cyan"
+            title="Detection frequency"
             right={
               <span className="text-meta font-mono text-slate-500">
                 peak {Math.max(0, ...dailyCounts.map((d) => d.value))} / day
               </span>
             }
           />
-          <SocBar items={dailyCounts.slice(-30)} tone="cyan" vertical height={180} emptyText="No CVEs in window." />
+          <SocBar items={dailyCounts.slice(-30)} vertical height={180} emptyText="No CVEs in window." />
         </SocPanel>
 
-        <SocPanel tone="rose">
-          <SocSection title="SEVERITY INDEX" tone="rose" />
+        <SocPanel>
+          <SocSection title="Severity index" />
           {sevSlices.length > 0 ? (
             <SocDonut
               slices={sevSlices}
@@ -373,38 +384,36 @@ export default function SocVulns(): JSX.Element {
           )}
         </SocPanel>
 
-        <SocPanel tone="cyan">
+        <SocPanel>
           <SocSection
-            title="TOP VENDORS"
-            tone="cyan"
+            title="Top vendors"
             right={
               <Link
                 to="/threatintel/cve-list"
-                className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-brand-500"
+                className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
               >
                 all <ExternalLink size={10} />
               </Link>
             }
           />
-          <SocBar items={topVendors} tone="cyan" onItemClick={onItemClick} />
+          <SocBar items={topVendors} onItemClick={onItemClick} />
         </SocPanel>
       </div>
 
       {/* ─── Charts row 2: CVSS dist + KEV list ──────────────────── */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4">
-        <SocPanel tone="cyan">
-          <SocSection title="CVSS DISTRIBUTION" tone="cyan" />
-          <SocBar items={cvssBins} tone="cyan" vertical height={160} />
+        <SocPanel>
+          <SocSection title="CVSS distribution" />
+          <SocBar items={cvssBins} vertical height={160} />
         </SocPanel>
 
-        <SocPanel tone="red" className="lg:col-span-2">
+        <SocPanel className="lg:col-span-2">
           <SocSection
-            title="KEV-FLAGGED (RECENT)"
-            tone="red"
+            title="KEV-flagged (recent)"
             right={
               <Link
                 to="/threatintel/cve-list?kev=1"
-                className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-brand-500"
+                className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
               >
                 feed <ExternalLink size={10} />
               </Link>
@@ -442,7 +451,7 @@ function KevTable({ rows }: { rows: RecentCve[] }): JSX.Element {
               <td className="px-4 sm:px-2 py-1.5">
                 <Link
                   to={`/dfir/cve?id=${encodeURIComponent(c.id)}`}
-                  className="text-cyan-600 dark:text-cyan-400 hover:underline"
+                  className="text-brand-600 dark:text-brand-400 hover:underline"
                 >
                   {c.id}
                 </Link>

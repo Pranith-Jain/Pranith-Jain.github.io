@@ -2,9 +2,10 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ShieldAlert, Skull, Users, Crosshair, ExternalLink } from 'lucide-react';
 import { fetchJson } from '../../lib/fetch-json';
-import { SocShell, SocKpi, SocSection, SocPanel, type SocTone } from '../../components/threatintel/soc/SocShell';
+import { SocShell, SocKpi, SocSection, SocPanel, type SocStatus } from '../../components/threatintel/soc/SocShell';
 import { SocBar, SocDonut, type BarItem, type DonutSlice } from '../../components/threatintel/soc/SocCharts';
 import { downloadCsv, dayKey } from '../../components/threatintel/soc/utils';
+import { CHART_RANK } from '../../components/threatintel/soc/tone';
 
 /* ─── Data shape (matches /api/v1/ransomware-recent) ────────────────── */
 
@@ -37,45 +38,27 @@ interface RansomwareResponse {
   victims: RansomwareVictim[];
 }
 
-/* ─── Palette: ransomware = red family, with amber/pink accents ───── */
+/* ─── Palette: brand-aligned chart colors ──────────────────────────── */
 
+// Sector hues — derived from the brand severity scale so a Healthcare
+// ransomware spike reads the same as a critical finding on any other page.
 const SECTOR_COLORS: Record<string, string> = {
-  Healthcare: '#fb7185', // rose-400
-  Finance: '#f97316', // orange-500
-  Government: '#ef4444', // red-500
-  Technology: '#fbbf24', // amber-400
-  Manufacturing: '#ec4899', // pink-500
-  Education: '#f59e0b', // amber-500
-  Retail: '#fb923c', // orange-400
-  Energy: '#dc2626', // red-600
-  'Professional Services': '#f43f5e', // rose-500
-  Transportation: '#eab308', // yellow-500
-  Media: '#facc15', // yellow-400
-  Unknown: '#475569', // slate-600
+  Healthcare: '#e11d48', // rose-600 (critical)
+  Finance: '#f43f5e', // rose-500 (high)
+  Government: '#f43f5e',
+  Technology: '#f59e0b', // amber-500 (medium)
+  Manufacturing: '#f59e0b',
+  Education: '#0ea5e9', // sky-500 (info)
+  Retail: '#0ea5e9',
+  Energy: '#0ea5e9',
+  'Professional Services': '#f59e0b',
+  Transportation: '#0ea5e9',
+  Media: '#94a3b8', // slate-400
+  Unknown: '#64748b', // slate-500
 };
 
 function colorForSector(s: string): string {
   return SECTOR_COLORS[s] ?? '#94a3b8';
-}
-
-function colorForGroup(rank: number, total: number): string {
-  // Gradient from vivid red at top → dim slate at bottom
-  const t = total <= 1 ? 0 : rank / (total - 1);
-  if (t < 0.15) return '#f87171'; // red-400
-  if (t < 0.3) return '#fb7185'; // rose-400
-  if (t < 0.5) return '#ec4899'; // pink-500
-  if (t < 0.7) return '#f97316'; // orange-500
-  if (t < 0.85) return '#fbbf24'; // amber-400
-  return '#64748b'; // slate-500
-}
-
-function colorForCountry(_country: string, rank: number, total: number): string {
-  const t = total <= 1 ? 0 : rank / (total - 1);
-  if (t < 0.2) return '#f87171';
-  if (t < 0.4) return '#fb7185';
-  if (t < 0.6) return '#f97316';
-  if (t < 0.8) return '#fbbf24';
-  return '#eab308';
 }
 
 export default function SocRansomware(): JSX.Element {
@@ -142,31 +125,31 @@ export default function SocRansomware(): JSX.Element {
   const delta = useMemo(() => {
     if (prevCount == null || !data) return null;
     const diff = data.count - prevCount;
-    if (diff === 0) return { text: '0 vs last refresh', tone: 'slate' as const };
+    if (diff === 0) return { text: '· stable', direction: 'flat' as const };
     return {
-      text: `${diff > 0 ? '+' : ''}${diff} new since last refresh`,
-      tone: diff > 0 ? ('rose' as const) : ('emerald' as const),
+      text: `${diff > 0 ? '+' : ''}${diff} since last refresh`,
+      direction: diff > 0 ? ('up' as const) : ('down' as const),
     };
   }, [prevCount, data]);
 
-  /* ─── Status logic (DEFCON-style) ──────────────────────────────── */
-  const status = useMemo<{ label: string; tone: SocTone }>(() => {
-    if (!data) return { label: 'LOADING', tone: 'amber' };
-    if (data.count === 0) return { label: 'SYSTEM: NOMINAL', tone: 'emerald' };
+  /* ─── Status logic (severity-driven) ───────────────────────────── */
+  const status = useMemo<SocStatus>(() => {
+    if (!data) return { label: 'Loading', severity: 'medium' };
+    if (data.count === 0) return { label: 'Nominal', severity: 'ok' };
     if (kpis.topPct !== '—' && parseInt(kpis.topPct, 10) >= 20)
-      return { label: 'DEFCON 2 — ACTIVE INTRUSIONS', tone: 'red' };
-    if (data.count > 50) return { label: 'DEFCON 3 — ACTIVE INTRUSIONS DETECTED', tone: 'red' };
-    if (data.count > 10) return { label: 'DEFCON 4 — ELEVATED ACTIVITY', tone: 'amber' };
-    return { label: 'DEFCON 5 — LOW ACTIVITY', tone: 'emerald' };
+      return { label: 'Critical · active intrusions', severity: 'critical' };
+    if (data.count > 50) return { label: 'High · active intrusions detected', severity: 'high' };
+    if (data.count > 10) return { label: 'Elevated activity', severity: 'medium' };
+    return { label: 'Low activity', severity: 'low' };
   }, [data, kpis.topPct]);
 
   /* ─── Charts data ──────────────────────────────────────────────── */
   const groupBars: BarItem[] = useMemo(() => {
     const groups = data?.groups ?? [];
-    return groups.slice(0, 12).map((g, i, arr) => ({
+    return groups.slice(0, 12).map((g, i) => ({
       label: g.group,
       value: g.count,
-      color: colorForGroup(i, arr.length),
+      color: CHART_RANK[Math.min(i, CHART_RANK.length - 1)],
       href: `/threatintel/actors/${encodeURIComponent(slugifyGroup(g.group))}`,
     }));
   }, [data]);
@@ -194,11 +177,11 @@ export default function SocRansomware(): JSX.Element {
     const slices: DonutSlice[] = top.map((x, i) => ({
       label: x.country,
       value: x.value,
-      color: colorForCountry(x.country, i, top.length),
+      color: CHART_RANK[Math.min(i, CHART_RANK.length - 1)],
     }));
-    if (rest > 0) slices.push({ label: 'Other', value: rest, color: '#475569' });
+    if (rest > 0) slices.push({ label: 'Other', value: rest, color: '#94a3b8' });
     const unknown = victims.length - arr.reduce((s, x) => s + x.value, 0);
-    if (unknown > 0) slices.push({ label: 'Unknown', value: unknown, color: '#334155' });
+    if (unknown > 0) slices.push({ label: 'Unknown', value: unknown, color: '#64748b' });
     return slices;
   }, [victims]);
 
@@ -240,9 +223,8 @@ export default function SocRansomware(): JSX.Element {
 
   return (
     <SocShell
-      title="INCIDENT RESPONSE / RANSOMWARE"
-      tone="red"
-      icon={<ShieldAlert size={20} />}
+      title="Ransomware intelligence"
+      icon={<ShieldAlert size={28} />}
       status={status}
       generatedAt={data?.generated_at ?? null}
       loading={loading}
@@ -251,42 +233,50 @@ export default function SocRansomware(): JSX.Element {
       windowDays={windowDays}
       onWindowChange={setWindowDays}
       onExport={onExport}
+      description={
+        <span>
+          Recent ransomware leak-site claims merged across{' '}
+          <Link to="/threatintel/ransomware-activity" className="text-brand-600 dark:text-brand-400 hover:underline">
+            live trackers
+          </Link>
+          , deduped by (group + victim + day). Volume, top actors, country and sector attribution with auto-refresh and
+          CSV export.
+        </span>
+      }
       meta={
         <span>
-          Live aggregation from <code className="text-slate-700 dark:text-slate-300">/api/v1/ransomware-recent</code> ·
-          source: <span className="uppercase">{data?.source ?? '—'}</span>
-          {' · '}
-          {data?.victims.length ?? 0} cross-claim records
+          source: <span className="uppercase">{data?.source ?? '—'}</span> · {data?.victims.length ?? 0} cross-claim
+          records
         </span>
       }
     >
       {/* ─── KPI row ──────────────────────────────────────────────── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-6">
         <SocKpi
-          label="REGISTERED VICTIMS"
+          label="Registered victims"
           value={totalClaims.toLocaleString()}
-          tone="red"
+          severity="critical"
           sub={`in last ${windowDays} days`}
           icon={<Skull size={16} />}
           delta={delta?.text}
-          deltaTone={delta?.tone}
+          deltaDirection={delta?.direction}
         />
         <SocKpi
-          label="THREAT GROUPS"
+          label="Threat groups"
           value={totalGroups}
-          tone="amber"
+          severity="medium"
           sub="distinct actors in window"
           icon={<Users size={16} />}
         />
         <SocKpi
-          label="MAIN ACTOR"
+          label="Main actor"
           value={
             <span className="inline-flex items-baseline gap-2">
               <span className="truncate">{kpis.topName}</span>
               <span className="text-2xl text-slate-500 dark:text-slate-400">({kpis.topPct})</span>
             </span>
           }
-          tone="rose"
+          severity="high"
           sub="share of total claims"
           icon={<Crosshair size={16} />}
         />
@@ -294,24 +284,23 @@ export default function SocRansomware(): JSX.Element {
 
       {/* ─── Charts row 1: actor bar + country donut + sector donut ─── */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4 mb-6">
-        <SocPanel tone="red">
+        <SocPanel>
           <SocSection
-            title="VOLUME BY ACTOR"
-            tone="red"
+            title="Volume by actor"
             right={
               <Link
                 to="/threatintel/actors"
-                className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-brand-500"
+                className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
               >
                 all <ExternalLink size={10} />
               </Link>
             }
           />
-          <SocBar items={groupBars} tone="red" axis onItemClick={onItemClick} />
+          <SocBar items={groupBars} axis onItemClick={onItemClick} />
         </SocPanel>
 
-        <SocPanel tone="rose">
-          <SocSection title="DISTRIBUTION BY COUNTRY" tone="rose" />
+        <SocPanel>
+          <SocSection title="Distribution by country" />
           {countrySlices.length > 0 ? (
             <SocDonut
               slices={countrySlices}
@@ -333,8 +322,8 @@ export default function SocRansomware(): JSX.Element {
           )}
         </SocPanel>
 
-        <SocPanel tone="amber">
-          <SocSection title="DISTRIBUTION BY SECTOR" tone="amber" />
+        <SocPanel>
+          <SocSection title="Distribution by sector" />
           {sectorSlices.length > 0 ? (
             <SocDonut slices={sectorSlices} size={180} thickness={26} centerSub="by sector" />
           ) : (
@@ -345,10 +334,9 @@ export default function SocRansomware(): JSX.Element {
 
       {/* ─── Charts row 2: timeline + sector bars ─────────────────── */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4">
-        <SocPanel tone="red" className="lg:col-span-2">
+        <SocPanel className="lg:col-span-2">
           <SocSection
-            title="CLAIM FREQUENCY (DAILY)"
-            tone="red"
+            title="Claim frequency (daily)"
             right={
               <span className="text-meta font-mono text-slate-500">
                 peak {Math.max(0, ...timeline.map((t) => t.value))} / day
@@ -357,17 +345,15 @@ export default function SocRansomware(): JSX.Element {
           />
           <SocBar
             items={timeline.slice(-30).map((t) => ({ label: t.label, value: t.value }))}
-            tone="red"
             vertical
             height={180}
             emptyText="No claims in this window."
           />
         </SocPanel>
 
-        <SocPanel tone="amber">
+        <SocPanel>
           <SocSection
-            title="SECTOR BREAKDOWN"
-            tone="amber"
+            title="Sector breakdown"
             right={<span className="text-meta font-mono text-slate-500">by share %</span>}
           />
           <SocBar
@@ -377,21 +363,19 @@ export default function SocRansomware(): JSX.Element {
               hint: `${s.pct}%`,
               color: colorForSector(s.sector),
             }))}
-            tone="amber"
           />
         </SocPanel>
       </div>
 
       {/* ─── Recent claims table ──────────────────────────────────── */}
       <div className="mt-6">
-        <SocPanel tone="rose">
+        <SocPanel>
           <SocSection
-            title="RECENT CLAIMS"
-            tone="rose"
+            title="Recent claims"
             right={
               <Link
                 to="/threatintel/ransomware-activity"
-                className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-brand-500"
+                className="inline-flex items-center gap-1 text-meta font-mono text-slate-500 hover:text-brand-600 dark:hover:text-brand-400"
               >
                 feed <ExternalLink size={10} />
               </Link>
@@ -437,7 +421,7 @@ function RecentClaims({ rows }: { rows: RansomwareVictim[] }): JSX.Element {
               <td className="px-2 py-1.5 text-slate-700 dark:text-slate-300">
                 <Link
                   to={`/threatintel/actors/${encodeURIComponent(slugifyGroup(v.group))}`}
-                  className="hover:text-brand-500"
+                  className="hover:text-brand-600 dark:hover:text-brand-400"
                 >
                   {v.group}
                 </Link>
