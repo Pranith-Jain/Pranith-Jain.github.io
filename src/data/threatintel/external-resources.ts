@@ -33,7 +33,8 @@ export type ResourceTag =
   | 'ai-security'
   | 'blocklist'
   | 'sandbox'
-  | 'telegram';
+  | 'telegram'
+  | 'anonymity';
 
 export interface ExternalResource {
   id: string;
@@ -94,6 +95,7 @@ export const TAG_LABELS: Record<ResourceTag, string> = {
   blocklist: 'Blocklist',
   sandbox: 'Sandbox',
   telegram: 'Telegram',
+  anonymity: 'Anonymity',
 };
 
 export const TAG_PILL: Record<ResourceTag, string> = {
@@ -109,6 +111,7 @@ export const TAG_PILL: Record<ResourceTag, string> = {
   blocklist: 'border-slate-500/40 bg-slate-500/10 text-slate-700 dark:text-slate-300',
   sandbox: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
   telegram: 'border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300',
+  anonymity: 'border-pink-500/40 bg-pink-500/10 text-pink-700 dark:text-pink-300',
 };
 
 export const RESOURCES: ExternalResource[] = [
@@ -1010,15 +1013,6 @@ export const RESOURCES: ExternalResource[] = [
       "Phishing URL statistics and reputation data. Score, first/last seen, target brand, hosting country. Free API, no authentication required. Integrated into this platform's IOC checker.",
   },
   {
-    id: 'feodo-tracker',
-    name: 'Feodo Tracker',
-    url: 'https://feodotracker.abuse.ch/',
-    kind: 'dashboard',
-    tags: ['c2', 'threat-intel', 'blocklist'],
-    description:
-      "Botnet C2 tracker by abuse.ch — tracks Dridex, Emotet, TrickBot, QakBot, and BazarLoader C2 servers. Free IP blocklists updated every 5 minutes. Integrated into this platform's IOC checker.",
-  },
-  {
     id: 'digitalside-intel',
     name: 'Digital Side Threat Intel',
     url: 'https://github.com/davidonzo/Threat-Intel',
@@ -1226,5 +1220,78 @@ export const RESOURCES: ExternalResource[] = [
     tags: ['dfir', 'osint'],
     description:
       'OPSEC techniques and procedures reference — tactic → technique → sub-technique → procedure hierarchy modeled after MITRE ATT&CK but scoped to operational-security tradecraft. Useful for blue teams mapping counter-surveillance controls and red teams modelling adversary OPSEC gaps.',
+  },
+  // ── Anonymity & OpSec tools ──────────────────────────────────────
+  {
+    id: 'onionscan',
+    name: 'OnionScan',
+    url: 'https://onionscan.org/',
+    kind: 'tool',
+    tags: ['anonymity', 'osint', 'darkweb'],
+    description:
+      'Tor hidden-service scanner that probes .onion operators for opsec leaks and misconfiguration that could deanonymize them. Reports on exposed server banners, EXIF in page assets, open ports, Apache mod_status leaks, and other metadata that has historically been used to identify Silk Road-style operators. MIT, Go, s-rah/onionscan.',
+  },
+  {
+    id: 'onionscout',
+    name: 'OnionScout',
+    url: 'https://pypi.org/project/onionscout/',
+    kind: 'tool',
+    tags: ['anonymity', 'osint', 'darkweb'],
+    description:
+      'Lightweight Python CLI for auditing Tor hidden services for clearnet dependencies, metadata leaks, fingerprinting indicators, and basic de-anonymization risks. Modern (2026) alternative to OnionScan, pip-installable.',
+  },
+  {
+    id: 'droidfs',
+    name: 'DroidFS',
+    url: 'https://github.com/hardcore-sushi/DroidFS',
+    kind: 'tool',
+    tags: ['anonymity', 'dfir'],
+    description:
+      'Android encrypted overlay filesystem using gocryptfs (and CryFS). Mounts volumes as virtual disks without root, keeping data invisible to other apps and media scanners. AGPL-3.0, on F-Droid. Critical for mobile OpSec — encrypted photo capture, internal file viewer, fingerprint unlock, auto-lock on background.',
+  },
+  {
+    id: 'macchangerx',
+    name: 'MacChangerX',
+    url: 'https://github.com/ramad0na/MACChangerX',
+    kind: 'tool',
+    tags: ['anonymity'],
+    description:
+      'Python Linux MAC changer with random / spoof / anti-fingerprint modes. Bundles log clearing, hostname spoofing, DNS cache flushing, and Bluetooth MAC rotation — all-in-one L2 fingerprint erasure. MIT, requires root. (Small but free and works.)',
+  },
+  {
+    id: 'spoofdpi',
+    name: 'SpoofDPI',
+    url: 'https://github.com/xvzc/spoofdpi',
+    kind: 'tool',
+    tags: ['anonymity'],
+    description:
+      'Go-based anti-censorship proxy that bypasses Deep Packet Inspection without root/admin by modifying the length of the first packets in the TLS handshake, defeating packet-based DPI used by ISPs to censor the web. Apache-2.0, 4.6k★, install via Homebrew or single binary from GitHub releases.',
+  },
+  {
+    id: 'kloak',
+    name: 'kloak',
+    url: 'https://github.com/Whonix/kloak',
+    kind: 'tool',
+    tags: ['anonymity'],
+    description:
+      'Keystroke and mouse anti-fingerprinting tool. Emulates an average typing rhythm by randomizing inter-key intervals + speed, defeating keystroke-biometric identification. Also obfuscates mouse path/timing. BSD-3-Clause, Wayland-native, ships in Whonix / Tails. Original vmonaco/kloak archived; Whonix fork is the active branch.',
+  },
+  {
+    id: 'proxychains-ng',
+    name: 'ProxyChains-NG',
+    url: 'https://github.com/rofl0r/proxychains-ng',
+    kind: 'tool',
+    tags: ['anonymity'],
+    description:
+      "LD_PRELOAD hook that routes any dynamically-linked program's TCP traffic through a proxy cascade. Fork of the classic proxychains adding IPv6 support, mixed SOCKS4/5 + HTTP/HTTPS chaining, and automatic failover to live nodes. GPL-2.0, available in apt/brew/Arch.",
+  },
+  {
+    id: 'raspiblitz',
+    name: 'RaspiBlitz',
+    url: 'https://github.com/raspiblitz/raspiblitz',
+    kind: 'tool',
+    tags: ['anonymity', 'osint'],
+    description:
+      "DIY Bitcoin + Lightning full node on a Raspberry Pi with integrated Tor, Electrum server, and physical-key HD wallet isolation. Self-sovereign hardware node with zero cloud dependence. MIT, but the hardware (Pi 4/5 + 1-2 TB SSD + PSU) costs ~$200-400 — software is free, the appliance isn't.",
   },
 ];
