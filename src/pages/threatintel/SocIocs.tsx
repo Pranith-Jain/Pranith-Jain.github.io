@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Radar, Activity, ShieldAlert, Zap, Database, ExternalLink } from 'lucide-react';
 import { fetchJson } from '../../lib/fetch-json';
@@ -118,6 +118,7 @@ export default function SocIocs(): JSX.Element {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [prevTotal, setPrevTotal] = useState<number | null>(null);
+  const dataRef = useRef<LiveIocsResponse | null>(null);
   /** Map kind -> active set (null = all). Empty = no filter. */
   const [kindFilter, setKindFilter] = useState<Set<IocKind>>(new Set());
 
@@ -126,10 +127,7 @@ export default function SocIocs(): JSX.Element {
     setError(null);
     try {
       const r = (await fetchJson('/api/v1/live-iocs', { signal, cache: 'no-store' })) as LiveIocsResponse;
-      setData((prev) => {
-        if (prev) setPrevTotal(prev.total);
-        return r;
-      });
+      setData(r);
     } catch (e) {
       if ((e as { name?: string }).name !== 'AbortError') {
         setError(e instanceof Error ? e.message : 'Failed to load.');
@@ -138,6 +136,14 @@ export default function SocIocs(): JSX.Element {
       setLoading(false);
     }
   }, []);
+
+  // Capture previous total on each successful load for the delta chip.
+  useEffect(() => {
+    if (data && dataRef.current && dataRef.current !== data) {
+      setPrevTotal(dataRef.current.total);
+    }
+    dataRef.current = data;
+  }, [data]);
 
   useEffect(() => {
     const ctrl = new AbortController();
@@ -148,25 +154,21 @@ export default function SocIocs(): JSX.Element {
   const items = useMemo(() => data?.items ?? [], [data]);
   const sources = useMemo(() => data?.sources ?? [], [data]);
 
-  /* ─── Windowing + kind filter ─────────────────────────────────── */
-  const inWindow = useMemo(() => {
+  /* ─── Windowing (time) + kind filter (UI) ────────────────────── */
+  // For totals/KPIs, count uses the time window but ignores the kind filter
+  // so a user can still see "X total / Y of those IPs".
+  const inWindowScoped = useMemo(() => {
     const cutoff = Date.now() - windowDays * 86400_000;
     return items.filter((i) => {
-      if (kindFilter.size > 0 && !kindFilter.has(i.kind)) return false;
       if (!i.observed_at) return true; // bulk-snapshot sources have no per-entry time
       return Date.parse(i.observed_at) >= cutoff;
     });
-  }, [items, windowDays, kindFilter]);
-
-  const inWindowScoped = useMemo(() => {
-    // For totals/KPIs, count uses the window filter but ignores kind filter
-    // so a user can still see "X total / Y of those IPs".
-    const cutoff = Date.now() - windowDays * 86400_000;
-    return items.filter((i) => {
-      if (!i.observed_at) return true;
-      return Date.parse(i.observed_at) >= cutoff;
-    });
   }, [items, windowDays]);
+
+  const inWindow = useMemo(() => {
+    if (kindFilter.size === 0) return inWindowScoped;
+    return inWindowScoped.filter((i) => kindFilter.has(i.kind));
+  }, [inWindowScoped, kindFilter]);
 
   /* ─── Criticality buckets ─────────────────────────────────────── */
   const buckets = useMemo(() => {

@@ -1,7 +1,7 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, RefreshCw, Download, Loader2, Clock } from 'lucide-react';
-import { TONE_BG, TONE_RING, TONE_TEXT, TONE_GLOW, type SocTone } from './tone';
+import { TONE_BG, TONE_PILL_BG, TONE_RING, TONE_TEXT, TONE_GLOW, type SocTone } from './tone';
 import { timeAgo } from './utils';
 
 export type { SocTone } from './tone';
@@ -116,11 +116,13 @@ export function SocShell({
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div className="flex items-center gap-3">
               <span
-                className={`grid place-items-center h-9 w-9 rounded border ${TONE_RING[tone]} bg-slate-900/40 dark:bg-slate-900/60 ${TONE_TEXT[tone]}`}
+                className={`grid place-items-center h-9 w-9 rounded border ${TONE_RING[tone]} ${TONE_PILL_BG[tone]} ${TONE_TEXT[tone]}`}
               >
                 {icon}
               </span>
-              <h1 className="text-2xl sm:text-3xl font-display font-extrabold tracking-tight">{title}</h1>
+              <h1 className="text-2xl sm:text-3xl font-display font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
+                {title}
+              </h1>
             </div>
 
             <div className="flex flex-wrap items-center gap-2">
@@ -193,7 +195,7 @@ export function SocShell({
 export function SocStatusBadge({ label, tone }: { label: string; tone: SocTone }): JSX.Element {
   return (
     <span
-      className={`inline-flex items-center gap-2 rounded border px-2.5 py-1 text-meta font-mono uppercase tracking-wider ${TONE_TEXT[tone]} ${TONE_RING[tone]} bg-slate-900/40 dark:bg-slate-900/60`}
+      className={`inline-flex items-center gap-2 rounded border px-2.5 py-1 text-meta font-mono uppercase tracking-wider ${TONE_TEXT[tone]} ${TONE_RING[tone]} ${TONE_PILL_BG[tone]}`}
     >
       <span className="relative flex h-2 w-2">
         <span className={`absolute inset-0 rounded-full ${TONE_BG[tone]} opacity-75 animate-ping`} />

@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { ShieldAlert, Skull, Users, Crosshair, ExternalLink } from 'lucide-react';
 import { fetchJson } from '../../lib/fetch-json';
 import { SocShell, SocKpi, SocSection, SocPanel, type SocTone } from '../../components/threatintel/soc/SocShell';
@@ -85,6 +85,7 @@ export default function SocRansomware(): JSX.Element {
   const [error, setError] = useState<string | null>(null);
   /** Previous count of victims (for delta chip). Captured on the prior successful load. */
   const [prevCount, setPrevCount] = useState<number | null>(null);
+  const dataRef = useRef<RansomwareResponse | null>(null);
 
   const load = useCallback(
     async (signal?: AbortSignal) => {
@@ -95,15 +96,7 @@ export default function SocRansomware(): JSX.Element {
           signal,
           cache: 'no-store',
         })) as RansomwareResponse;
-        // Capture previous count before overwriting so the delta chip on the
-        // KPI card compares "now" vs "30s ago" rather than always reading 0.
-        setData((prev) => {
-          if (prev) setPrevCount(prev.count);
-          return r;
-        });
-        if (!r.victims || r.victims.length === 0) {
-          setData(r);
-        }
+        setData(r);
       } catch (e) {
         if ((e as { name?: string }).name !== 'AbortError') {
           setError(e instanceof Error ? e.message : 'Failed to load.');
@@ -114,6 +107,16 @@ export default function SocRansomware(): JSX.Element {
     },
     [windowDays]
   );
+
+  // Capture the previous data on each successful load so the delta chip
+  // compares "now" vs "last refresh" rather than always reading 0. The ref
+  // is updated *after* reading so we always see the prior value.
+  useEffect(() => {
+    if (data && dataRef.current && dataRef.current !== data) {
+      setPrevCount(dataRef.current.count);
+    }
+    dataRef.current = data;
+  }, [data]);
 
   useEffect(() => {
     const ctrl = new AbortController();
@@ -141,10 +144,10 @@ export default function SocRansomware(): JSX.Element {
     const diff = data.count - prevCount;
     if (diff === 0) return { text: '0 vs last refresh', tone: 'slate' as const };
     return {
-      text: `${diff > 0 ? '+' : ''}${diff} new since ${windowDays - 1}d ago`,
+      text: `${diff > 0 ? '+' : ''}${diff} new since last refresh`,
       tone: diff > 0 ? ('rose' as const) : ('emerald' as const),
     };
-  }, [prevCount, data, windowDays]);
+  }, [prevCount, data]);
 
   /* ─── Status logic (DEFCON-style) ──────────────────────────────── */
   const status = useMemo<{ label: string; tone: SocTone }>(() => {
@@ -224,9 +227,13 @@ export default function SocRansomware(): JSX.Element {
   }, [data, victims, windowDays]);
 
   /* ─── Handlers ─────────────────────────────────────────────────── */
-  const onItemClick = useCallback((it: BarItem) => {
-    if (it.href) window.location.assign(it.href);
-  }, []);
+  const navigate = useNavigate();
+  const onItemClick = useCallback(
+    (it: BarItem) => {
+      if (it.href) navigate(it.href);
+    },
+    [navigate]
+  );
 
   const totalClaims = data?.count ?? 0;
   const totalGroups = data?.groups.length ?? 0;

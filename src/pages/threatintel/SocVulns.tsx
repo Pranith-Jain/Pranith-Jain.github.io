@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Bug, AlertTriangle, Flame, ShieldCheck, ExternalLink } from 'lucide-react';
 import { fetchJson } from '../../lib/fetch-json';
 import { SocShell, SocKpi, SocSection, SocPanel, type SocTone } from '../../components/threatintel/soc/SocShell';
@@ -113,16 +113,14 @@ export default function SocVulns(): JSX.Element {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [prevKev, setPrevKev] = useState<number | null>(null);
+  const dataRef = useRef<CveRecentResponse | null>(null);
 
   const load = useCallback(async (signal?: AbortSignal) => {
     setLoading(true);
     setError(null);
     try {
       const r = (await fetchJson('/api/v1/cve-recent', { signal, cache: 'no-store' })) as CveRecentResponse;
-      setData((prev) => {
-        if (prev) setPrevKev(prev.kev_count);
-        return r;
-      });
+      setData(r);
     } catch (e) {
       if ((e as { name?: string }).name !== 'AbortError') {
         setError(e instanceof Error ? e.message : 'Failed to load.');
@@ -131,6 +129,15 @@ export default function SocVulns(): JSX.Element {
       setLoading(false);
     }
   }, []);
+
+  // Capture previous KEV count on each successful load for the delta chip.
+  // Ref is updated *after* reading so we always see the prior value.
+  useEffect(() => {
+    if (data && dataRef.current && dataRef.current !== data) {
+      setPrevKev(dataRef.current.kev_count);
+    }
+    dataRef.current = data;
+  }, [data]);
 
   useEffect(() => {
     const ctrl = new AbortController();
@@ -162,9 +169,7 @@ export default function SocVulns(): JSX.Element {
   const total = inWindow.length;
   const criticalPct = total ? Math.round((counts.CRITICAL / total) * 1000) / 10 : 0;
   const highPct = total ? Math.round((counts.HIGH / total) * 1000) / 10 : 0;
-  const kevInWindow = inWindow.filter((c) => c.kev).length;
   const kevTotal = data?.kev_count ?? 0;
-  void kevInWindow;
 
   const kevDelta = useMemo(() => {
     if (prevKev == null) return null;
@@ -260,9 +265,13 @@ export default function SocVulns(): JSX.Element {
     downloadCsv(`soc-vulns-${windowDays}d-${new Date().toISOString().slice(0, 10)}.csv`, rows);
   }, [data, inWindow, windowDays]);
 
-  const onItemClick = useCallback((it: BarItem) => {
-    if (it.href) window.location.assign(it.href);
-  }, []);
+  const navigate = useNavigate();
+  const onItemClick = useCallback(
+    (it: BarItem) => {
+      if (it.href) navigate(it.href);
+    },
+    [navigate]
+  );
 
   return (
     <SocShell
