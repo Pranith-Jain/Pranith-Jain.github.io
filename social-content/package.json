@@ -1,0 +1,17 @@
+{
+  "name": "@pranithjain/social-content",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Offline content generator for LinkedIn carousels, Instagram posts, and Twitter/X threads — brand-aligned, funnel-mapped, cybersecurity thought leadership.",
+  "scripts": {
+    "build": "tsc",
+    "generate": "ts-node src/cli.ts",
+    "generate:all": "ts-node src/cli.ts --all",
+    "preview": "open output/*.html"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "ts-node": "^10.9.0",
+    "@types/node": "^20.0.0"
+  }
+}
