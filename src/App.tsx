@@ -202,6 +202,9 @@ const AbuseRepPage = lazy(() => import('./pages/dfir/AbuseRep'));
 const XFirehosePage = lazy(() => import('./pages/threatintel/XFirehose'));
 const FeedStatusPage = lazy(() => import('./pages/threatintel/FeedStatus'));
 const MetricsPage = lazy(() => import('./pages/threatintel/Metrics'));
+const SocRansomware = lazy(() => import('./pages/threatintel/SocRansomware'));
+const SocVulns = lazy(() => import('./pages/threatintel/SocVulns'));
+const SocIocs = lazy(() => import('./pages/threatintel/SocIocs'));
 const IocCorrelationPage = lazy(() => import('./pages/threatintel/IocCorrelation'));
 const ActorTimelinePage = lazy(() => import('./pages/threatintel/ActorTimeline'));
 const VictimReleaksPage = lazy(() => import('./pages/threatintel/VictimReleaks'));
@@ -396,6 +399,9 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/x', Component: XFirehosePage },
   { path: '/threatintel/status', Component: FeedStatusPage },
   { path: '/threatintel/metrics', Component: MetricsPage },
+  { path: '/threatintel/soc-ransomware', Component: SocRansomware },
+  { path: '/threatintel/soc-vulns', Component: SocVulns },
+  { path: '/threatintel/soc-iocs', Component: SocIocs },
   { path: '/threatintel/correlation', Component: IocCorrelationPage },
   { path: '/threatintel/actor-timeline', Component: ActorTimelinePage },
   { path: '/threatintel/re-leaks', Component: VictimReleaksPage },
