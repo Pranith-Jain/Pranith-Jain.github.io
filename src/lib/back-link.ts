@@ -52,6 +52,10 @@ const THREATINTEL_TOOL_TO_CATEGORY: Record<string, string> = {
   briefings: 'cti-platforms',
   'feed-sources': 'cti-platforms',
   settings: 'cti-platforms',
+  // soc-dashboards
+  'soc-ransomware': 'soc-dashboards',
+  'soc-vulns': 'soc-dashboards',
+  'soc-iocs': 'soc-dashboards',
   // ioc-detection
   'live-iocs': 'ioc-detection',
   correlation: 'ioc-detection',

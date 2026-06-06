@@ -32,6 +32,7 @@ describe('backCategoryFor', () => {
       'darkweb-breach',
       'feeds-news',
       'cti-platforms',
+      'soc-dashboards',
       'ioc-detection',
       'adversary',
       'knowledge',

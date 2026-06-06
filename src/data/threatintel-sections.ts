@@ -239,6 +239,36 @@ export const SECTIONS: Section[] = [
       },
     ],
   },
+  // ── SOC Dashboards ──────────────────────────────────────────────
+  {
+    id: 'soc-dashboards',
+    label: 'SOC Dashboards',
+    blurb:
+      'Tactical operational views. Live data, auto-refresh, time-range selector, CSV export, status pill driven by the actual data shape.',
+    tools: [
+      {
+        to: '/threatintel/soc-ransomware',
+        label: 'SOC: Ransomware',
+        desc: 'Red DEFCON-style panel. Top actors, country + sector distribution, daily claim frequency, recent victims. Status escalates when the dominant actor holds ≥20% of claims.',
+        icon: BarChart3,
+        badge: 'new',
+      },
+      {
+        to: '/threatintel/soc-vulns',
+        label: 'SOC: Vulnerabilities',
+        desc: 'Cyan panel. NVD CVE feed merged with CISA KEV + MTI ransomware-use flag. Detection frequency, severity index, top vendors, KEV-flagged table.',
+        icon: Activity,
+        badge: 'new',
+      },
+      {
+        to: '/threatintel/soc-iocs',
+        label: 'SOC: IOC Stream',
+        desc: 'Purple panel. Indicator firehose with per-IOC criticality score (source reputation + kind + context richness), kind filter chips, source bars, top-critical list.',
+        icon: Radar,
+        badge: 'new',
+      },
+    ],
+  },
   // ── News & Press ────────────────────────────────────────────────
   {
     id: 'news-press',
