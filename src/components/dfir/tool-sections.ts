@@ -969,6 +969,13 @@ export const SECTIONS: Section[] = [
         desc: 'Adversarial-ML technique matrix. tactics + techniques for AI/ML attack surface · live from mitre/atlas-data',
         icon: Crosshair,
       },
+      {
+        path: '/dfir/zero-trust-ai-agents',
+        useCase: 'Read the reference card for securing AI agent identities and tool calls.',
+        label: 'Zero Trust for AI Agents',
+        desc: 'Static reference card / infographic recasting Zero Trust principles (verify explicitly, least privilege, assume breach) for the AI-agent threat surface — identity, prompts, tool calls, memory, exfil paths. Phase-by-phase workflow, model + data + supply-chain control matrix, and detection signals.',
+        icon: ShieldCheck,
+      },
     ],
   },
   {
