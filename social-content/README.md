@@ -14,7 +14,15 @@ cd social-content
 npm install
 npm run generate          # generate all examples
 npm run generate:all      # same as above
-npx ts-node src/cli.ts examples/tofu/01-mfa-myth.md   # single file
+
+# Generate from a single spec
+npx ts-node src/cli.ts examples/tofu/01-mfa-myth.md
+
+# AI agent — topic → spec → output (one command)
+npm run agent -- "MFA bypass techniques" --funnel tofu --hook contrarian
+
+# Repurpose — one spec → all platforms
+npm run repurpose examples/tofu/01-mfa-myth.md
 ```
 
 Output goes to `output/`. Open the `-carousel.html` file in Chrome, print to PDF, upload to LinkedIn.
@@ -24,21 +32,43 @@ Output goes to `output/`. Open the `-carousel.html` file in Chrome, print to PDF
 ## How It Works
 
 ```
-examples/*.md  →  parser  →  ContentSpec  →  generators  →  output/
-                                                          ├── *-carousel.html
-                                                          ├── *-linkedin-post.md
-                                                          ├── *-ig-caption.md
-                                                          ├── *-twitter-thread.md
-                                                          ├── *-twitter-post.md
-                                                          └── *-readme.md
+                          ┌─────────────┐
+                          │  Topic/idea  │
+                          └──────┬──────┘
+                                 │
+                          ┌──────▼──────┐
+                          │   agent.ts   │  AI generates spec from topic
+                          └──────┬──────┘
+                                 │
+                          ┌──────▼──────┐
+                          │  .md spec    │  YAML frontmatter + slides
+                          └──────┬──────┘
+                                 │
+                    ┌────────────┼────────────┐
+                    │            │            │
+             ┌──────▼──────┐ ┌──▼────┐ ┌─────▼─────┐
+             │  cli.ts      │ │repo-  │ │  Manual   │
+             │  (generate)  │ │purpose│ │  edit     │
+             └──────┬──────┘ └──┬────┘ └─────┬─────┘
+                    │           │            │
+             ┌──────▼──────┐   │     ┌──────▼──────┐
+             │  output/     │   │     │  examples/  │
+             │  *.html      │   │     │  *.md       │
+             │  *.md        │   │     └─────────────┘
+             └─────────────┘   │
+                          ┌────▼────────┐
+                          │ All platforms│
+                          │ LinkedIn    │
+                          │ Instagram   │
+                          │ Twitter     │
+                          └─────────────┘
 ```
 
-1. **Write** a content spec in `examples/` (markdown with YAML frontmatter)
-2. **Run** `npm run generate`
-3. **Open** the HTML carousel in Chrome
-4. **Print** to PDF (Ctrl+P → Save as PDF)
-5. **Upload** the PDF to LinkedIn as a carousel post
-6. **Copy** the post caption from the `-linkedin-post.md` file
+### Three ways to generate
+
+1. **Manual**: Write a .md spec in `examples/`, run `npm run generate`
+2. **Agent**: Run `npm run agent -- "topic"` — AI generates the spec and runs the generator
+3. **Repurpose**: Run `npm run repurpose spec.md` — generates all platform variants from one spec
 
 ---
 
@@ -106,38 +136,35 @@ See `research/funnel-framework.md` for the full framework.
 
 ```
 social-content/
-├── package.json
-├── tsconfig.json
-├── README.md
-├── research/                    # Research documents
-│   ├── carousel-specs.md        # Platform specs & best practices
-│   ├── hook-formulas.md         # 8 hook patterns with examples
-│   ├── funnel-framework.md      # TOFU/MOFU/BOFU mapping
-│   └── target-audience.md       # Audience personas
-├── brand/                       # Brand tokens
-│   └── tokens.md                # Colors, fonts, layout rules
-├── src/                         # Generator source code
-│   ├── cli.ts                   # CLI entry point
-│   ├── parser.ts                # Markdown frontmatter parser
-│   ├── content-spec.ts          # Content type definitions
-│   ├── brand.ts                 # Brand tokens (TypeScript)
-│   ├── carousel-renderer.ts     # HTML carousel renderer
+├── SKILL.md              # Opencode skill definition
+├── AGENTS.md             # Agent behavior rules
+├── README.md             # User documentation
+├── research/             # Platform specs, hooks, funnel, personas
+│   ├── carousel-specs.md
+│   ├── hook-formulas.md
+│   ├── funnel-framework.md
+│   └── target-audience.md
+├── brand/                # Brand tokens
+│   └── tokens.md
+├── prompts/              # AI prompt templates
+│   └── templates.md
+├── src/                  # Generator source code
+│   ├── cli.ts            # CLI entry point
+│   ├── agent.ts          # AI content agent
+│   ├── repurpose.ts      # Cross-platform repurposer
+│   ├── parser.ts         # Markdown frontmatter parser
+│   ├── content-spec.ts   # Content type definitions
+│   ├── brand.ts          # Brand tokens (TypeScript)
+│   ├── carousel-renderer.ts
 │   └── generators/
-│       ├── linkedin.ts          # LinkedIn post + carousel
-│       ├── instagram.ts         # Instagram caption + carousel
-│       └── twitter.ts           # Twitter thread + post
-├── examples/                    # Content specs
-│   ├── tofu/
-│   │   ├── 01-mfa-myth.md       # Contrarian myth-bust
-│   │   ├── 02-80-percent-stat.md # Data shock
-│   │   └── 03-infostealer-rise.md # Hot take thread
-│   ├── mofu/
-│   │   ├── 01-siem-vs-edr.md    # Tool comparison
-│   │   └── 02-mitre-attck-t1059.md # Detection tutorial
-│   └── bofu/
-│       ├── 01-portfolio-showcase.md # Project showcase
-│       └── 02-hire-me.md         # Hire-me CTA
-└── output/                      # Generated files (gitignored)
+│       ├── linkedin.ts
+│       ├── instagram.ts
+│       └── twitter.ts
+├── examples/             # Content specs
+│   ├── tofu/             # Top of funnel
+│   ├── mofu/             # Middle of funnel
+│   └── bofu/             # Bottom of funnel
+└── output/               # Generated files (gitignored)
 ```
 
 ---
@@ -174,6 +201,63 @@ See `research/carousel-specs.md` for full specs.
 3. Run `npm run generate`
 4. Open the HTML in Chrome, print to PDF
 5. Upload to the platform
+
+Or use the agent:
+
+```bash
+npm run agent -- "your topic" --funnel tofu --hook contrarian
+```
+
+Or repurpose an existing spec:
+
+```bash
+npm run repurpose examples/tofu/01-mfa-myth.md
+```
+
+---
+
+## AI Agent Workflow
+
+The agent takes a topic and generates a full content spec:
+
+```bash
+npm run agent -- "Credential Stuffing Attacks" --funnel tofu --hook data-shock
+```
+
+Options:
+
+- `--funnel` — tofu | mofu | bofu (default: tofu)
+- `--platform` — linkedin | instagram | twitter (default: linkedin)
+- `--format` — carousel | thread | post (default: carousel)
+- `--persona` — target audience (default: Junior SOC Analyst)
+- `--hook` — hook type (default: curiosity-gap)
+
+The agent writes the spec to `examples/<funnel>/` and runs the generator.
+
+---
+
+## Prompt Templates
+
+See `prompts/templates.md` for reusable AI prompts:
+
+1. **Topic → Content Spec** — full pipeline prompt
+2. **Hook Generator** — 10 hook options for any topic
+3. **Slide Writer** — write individual slides
+4. **Thread Writer** — convert carousel to thread
+5. **Repurposer** — adapt content across platforms
+6. **Content Calendar** — 4-week posting schedule
+7. **Persona-Specific** — tailored for each audience
+8. **Engagement Optimizer** — review and improve content
+
+---
+
+## Agent Rules
+
+See `AGENTS.md` for content generation rules:
+
+- Always: specific numbers, one idea per slide, actionable takeaways
+- Never: generic quotes, walls of text, vendor marketing language
+- Quality checklist: hook, CTA, format, persona verification
 
 ---
 

@@ -7,6 +7,8 @@
     "build": "tsc",
     "generate": "ts-node src/cli.ts",
     "generate:all": "ts-node src/cli.ts --all",
+    "agent": "ts-node src/agent.ts",
+    "repurpose": "ts-node src/repurpose.ts",
     "preview": "open output/*.html"
   },
   "devDependencies": {
