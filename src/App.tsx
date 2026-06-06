@@ -110,6 +110,7 @@ const BloomFilter = lazy(() => import('./pages/dfir/BloomFilter'));
 const AiRuleGenerator = lazy(() => import('./pages/dfir/AiRuleGenerator'));
 const ThreatGraph = lazy(() => import('./pages/dfir/ThreatGraph'));
 const AttackChain = lazy(() => import('./pages/dfir/AttackChain'));
+const AttackNavigator = lazy(() => import('./pages/dfir/AttackNavigator'));
 const ActorDNA = lazy(() => import('./pages/threatintel/ActorDNA'));
 const PredictiveIntel = lazy(() => import('./pages/threatintel/PredictiveIntel'));
 const InsiderThreatMatrix = lazy(() => import('./pages/threatintel/InsiderThreatMatrix'));
@@ -263,6 +264,7 @@ const Investigations = lazy(() => import('./pages/threatintel/Investigations'));
 const FeedScheduler = lazy(() => import('./pages/threatintel/FeedScheduler'));
 const ObservableDb = lazy(() => import('./pages/threatintel/ObservableDb'));
 const MalwareVault = lazy(() => import('./pages/threatintel/MalwareVault'));
+const SecretLeaks = lazy(() => import('./pages/threatintel/SecretLeaks'));
 
 /**
  * /dfir/file?h=<hash> is the legacy entry point for the standalone hash
@@ -443,6 +445,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/ai-rule-generator', Component: AiRuleGenerator },
   { path: '/dfir/threat-graph', Component: ThreatGraph },
   { path: '/dfir/attack-chain', Component: AttackChain },
+  { path: '/dfir/attack-navigator', Component: AttackNavigator },
   { path: '/dfir/hunting-query-generator', Component: HuntingQueryGenerator },
   { path: '/dfir/sandbox', Component: SandboxIntegration },
   { path: '/dfir/ir-playbooks', Component: IrPlaybooks },
@@ -515,6 +518,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/feed-scheduler', Component: FeedScheduler },
   { path: '/threatintel/observable-db', Component: ObservableDb },
   { path: '/threatintel/malware-vault', Component: MalwareVault },
+  { path: '/threatintel/secret-leaks', Component: SecretLeaks },
   { path: '/threatintel/about', Component: ThreatIntelAbout },
   { path: '/threatintel/c/:cat', Component: ThreatIntelHome },
   { path: '/threatintel', Component: ThreatIntelHome },

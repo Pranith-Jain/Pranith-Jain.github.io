@@ -899,6 +899,13 @@ export const SECTIONS: Section[] = [
         icon: Crosshair,
       },
       {
+        path: '/dfir/attack-navigator',
+        useCase: 'Visualize LLM attack techniques on the ATT&CK matrix.',
+        label: 'LLM ATT&CK Navigator',
+        desc: '14 tactics · ARiES risk scores · actor prevalence · color-coded matrix · sub-technique drill-down',
+        icon: Target,
+      },
+      {
         path: '/dfir/diamond',
         useCase: 'Model an intrusion with the Diamond model.',
         label: 'Diamond Model',

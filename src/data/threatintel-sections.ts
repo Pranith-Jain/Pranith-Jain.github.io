@@ -21,6 +21,7 @@ import {
   Globe2,
   Grid3x3,
   Handshake,
+  Info,
   KeyRound,
   Layers,
   LayoutDashboard,
@@ -130,7 +131,7 @@ export const SECTIONS: Section[] = [
         to: '/threatintel/breach-forums',
         label: 'Breach / leak-forum tracker',
         desc: 'Directory of criminal forums + dark markets (deepdarkCTI) plus a curated set of notable breach/leak forums.',
-        icon: ShieldAlert,
+        icon: Shield,
         badge: 'live',
       },
       {
@@ -157,7 +158,7 @@ export const SECTIONS: Section[] = [
         to: '/threatintel/breach',
         label: 'Live breach disclosures',
         desc: 'Public breach disclosures from Have I Been Pwned, with verification flags, sensitivity markers, and the data classes that leaked.',
-        icon: ShieldAlert,
+        icon: Database,
         badge: 'live',
       },
       {
@@ -192,6 +193,13 @@ export const SECTIONS: Section[] = [
         label: 'Telegram Leak Stats',
         desc: 'KPIs, severity distribution, top channels and domains from the Telegram leak database.',
         icon: BarChart3,
+        badge: 'new',
+      },
+      {
+        to: '/threatintel/secret-leaks',
+        label: 'Secret Leak Dashboard',
+        desc: 'Exposed API keys, tokens, and credentials in public repos. Provider rankings, repo leaderboards, severity mix.',
+        icon: KeyRound,
         badge: 'new',
       },
     ],
@@ -392,7 +400,7 @@ export const SECTIONS: Section[] = [
       {
         to: '/threatintel/analyze',
         label: 'Analysis Orchestration',
-        desc: 'IntelOwl-inspired observable analysis. Single input fans out to all 44 SSE providers with composite score and verdict chips.',
+        desc: 'IntelOwl-inspired observable analysis. Single input fans out to all 45 SSE providers with composite score and verdict chips.',
         icon: Search,
         badge: 'new',
       },
@@ -634,7 +642,7 @@ export const SECTIONS: Section[] = [
         to: '/threatintel/cve-list',
         label: 'Live CVE updates',
         desc: 'NVD published-CVE feed (last 14 days) merged with CISA KEV catalogue. Severity, KEV flag, ransomware-use flag.',
-        icon: ShieldAlert,
+        icon: Shield,
         badge: 'live',
       },
       {
@@ -695,7 +703,7 @@ export const SECTIONS: Section[] = [
         to: '/threatintel/actor-timeline',
         label: 'Actor activity timeline',
         desc: 'Per-actor leak-site cadence Gantt for the most-active ransomware groups.',
-        icon: ShieldAlert,
+        icon: BarChart3,
       },
       {
         to: '/threatintel/actor-dna',
@@ -808,7 +816,6 @@ export const SECTIONS: Section[] = [
         label: 'Research (authored)',
         desc: "Original adversary-tracking and methodology pieces by Pranith Jain. Every claim sourced to the platform's data or third-party reporting.",
         icon: FileText,
-        badge: 'authored',
       },
       {
         to: '/threatintel/signal',
@@ -832,6 +839,12 @@ export const SECTIONS: Section[] = [
     label: 'Knowledge & Reference',
     blurb: 'Wiki, catalogs, awesome lists, external resources, and Telegram directory.',
     tools: [
+      {
+        to: '/threatintel/about',
+        label: 'About the platform',
+        desc: "What's covered, the data-principles that shape it (live-not-cached, verify-first, cross-source, open/portable), and the analyst-first design intent behind the surface.",
+        icon: Info,
+      },
       {
         to: '/threatintel/wiki',
         label: 'Knowledge Base',

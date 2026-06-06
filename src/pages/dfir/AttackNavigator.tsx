@@ -1,0 +1,599 @@
+import { useState, useMemo, useEffect, useCallback } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { BackLink } from '../../components/BackLink';
+import { ArrowLeft, ExternalLink, Search, X, Shield } from 'lucide-react';
+import type { MitreTactic } from '../../data/dfir/mitre-matrix';
+import { threatActors } from '../../data/dfir/threat-actors';
+
+type ColorMode = 'prevalence' | 'risk' | 'actor_pct';
+
+interface TechniqueScore {
+  raw_mean: number;
+  adjusted: number;
+  prevalence: number;
+  count: number;
+  n_actors: number;
+  pct_actors: number;
+  n_scored?: number;
+}
+
+const usedByActors = new Set<string>();
+for (const a of threatActors) {
+  for (const t of a.techniques) usedByActors.add(t);
+}
+
+function actorsByTechnique(id: string): typeof threatActors {
+  return threatActors.filter((a) => a.techniques.includes(id));
+}
+
+const RISK_THRESHOLDS = [
+  { min: 85, label: 'Critical', color: '#F44336', bg: 'bg-red-500', text: 'text-red-700 dark:text-red-300' },
+  { min: 70, label: 'High', color: '#FF9800', bg: 'bg-orange-500', text: 'text-orange-700 dark:text-orange-300' },
+  { min: 50, label: 'Medium', color: '#FFC107', bg: 'bg-amber-500', text: 'text-amber-700 dark:text-amber-300' },
+  { min: 0, label: 'Low', color: '#66BB6A', bg: 'bg-green-500', text: 'text-green-700 dark:text-green-300' },
+];
+
+const PCT_COLORS = [
+  { min: 50, color: '#7f1d1d', label: '>50%' },
+  { min: 25, color: '#b91c1c', label: '25-50%' },
+  { min: 10, color: '#e8540c', label: '10-25%' },
+  { min: 2, color: '#f5a623', label: '2-10%' },
+  { min: 0, color: '#f9d976', label: '<2%' },
+];
+
+function getRiskColor(score: number): string {
+  if (score >= 85) return RISK_THRESHOLDS[0].color;
+  if (score >= 70) return RISK_THRESHOLDS[1].color;
+  if (score >= 50) return RISK_THRESHOLDS[2].color;
+  return RISK_THRESHOLDS[3].color;
+}
+
+function getPctColor(pct: number): string {
+  if (pct >= 50) return PCT_COLORS[0].color;
+  if (pct >= 25) return PCT_COLORS[1].color;
+  if (pct >= 10) return PCT_COLORS[2].color;
+  if (pct >= 2) return PCT_COLORS[3].color;
+  if (pct > 0) return PCT_COLORS[4].color;
+  return '#FFFFFF';
+}
+
+function getPrevalenceColor(prev: number): string {
+  if (prev >= 1.5) return '#7f1d1d';
+  if (prev >= 1.2) return '#b91c1c';
+  if (prev >= 1.0) return '#e8540c';
+  if (prev >= 0.5) return '#f5a623';
+  return '#FFFFFF';
+}
+
+function hexToRgb(hex: string): [number, number, number] {
+  const h = hex.replace('#', '');
+  return [parseInt(h.substring(0, 2), 16), parseInt(h.substring(2, 4), 16), parseInt(h.substring(4, 6), 16)];
+}
+
+function relativeLuminance(r: number, g: number, b: number): number {
+  const srgb = [r, g, b].map((c) => {
+    const s = c / 255;
+    return s <= 0.04045 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
+  });
+  return 0.2126 * srgb[0] + 0.7152 * srgb[1] + 0.0722 * srgb[2];
+}
+
+function fgFor(bgHex: string): string {
+  if (bgHex === '#FFFFFF') return '#1c1917';
+  const [r, g, b] = hexToRgb(bgHex);
+  return relativeLuminance(r, g, b) > 0.55 ? '#1c1917' : '#ffffff';
+}
+
+function getColor(score: TechniqueScore | undefined, mode: ColorMode): string {
+  if (!score) return '#FFFFFF';
+  switch (mode) {
+    case 'risk':
+      return getRiskColor(score.raw_mean);
+    case 'actor_pct':
+      return getPctColor(score.pct_actors);
+    case 'prevalence':
+      return getPrevalenceColor(score.prevalence);
+  }
+}
+
+function getLegendItems(mode: ColorMode): Array<{ label: string; color: string }> {
+  switch (mode) {
+    case 'risk':
+      return RISK_THRESHOLDS.map((t) => ({
+        label: `${t.label} (${t.min === 0 ? '0-49' : t.min === 50 ? '50-69' : t.min === 70 ? '70-84' : '85-100'})`,
+        color: t.color,
+      }));
+    case 'actor_pct':
+      return PCT_COLORS.map((t) => ({ label: t.label, color: t.color }));
+    case 'prevalence':
+      return [
+        { label: 'Very High (1.5)', color: '#7f1d1d' },
+        { label: 'High (1.2)', color: '#b91c1c' },
+        { label: 'Moderate (1.0)', color: '#e8540c' },
+        { label: 'Base (0.5)', color: '#f5a623' },
+      ];
+  }
+}
+
+const MODE_LABELS: Record<ColorMode, string> = {
+  prevalence: 'Prevalence multiplier',
+  risk: 'LLM Risk Score (ARiES)',
+  actor_pct: '% of observed actors',
+};
+
+const META = {
+  total_actors: 832,
+  total_observations: 13873,
+  study_period: 'March 2025 - March 2026',
+};
+
+export default function AttackNavigator(): JSX.Element {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [query, setQuery] = useState(searchParams.get('q') ?? '');
+  const [selectedId, setSelectedId] = useState<string | null>(searchParams.get('id'));
+  const [colorMode, setColorMode] = useState<ColorMode>('actor_pct');
+  const [mitreMatrix, setMitreMatrix] = useState<MitreTactic[]>([]);
+  const [scores, setScores] = useState<Record<string, TechniqueScore>>({});
+
+  useEffect(() => {
+    let cancelled = false;
+    void import('../../data/dfir/mitre-matrix').then((m) => {
+      if (!cancelled) setMitreMatrix(m.mitreMatrix);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    void import('../../data/dfir/attack-navigator-scores')
+      .then((m) => {
+        if (!cancelled) setScores(m.attackNavigatorScores);
+      })
+      .catch(() => {
+        // Scores file may not exist yet — use empty
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const openTechnique = useCallback(
+    (id: string) => {
+      setSelectedId(id);
+      setSearchParams((prev) => {
+        const next = new URLSearchParams(prev);
+        next.set('id', id);
+        return next;
+      });
+    },
+    [setSearchParams]
+  );
+
+  const closeDrawer = useCallback(() => {
+    setSelectedId(null);
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.delete('id');
+      return next;
+    });
+  }, [setSearchParams]);
+
+  useEffect(() => {
+    if (!selectedId) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeDrawer();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [selectedId, closeDrawer]);
+
+  useEffect(() => {
+    setSearchParams(
+      (prev) => {
+        const next = new URLSearchParams(prev);
+        if (query.trim()) next.set('q', query.trim());
+        else next.delete('q');
+        return next;
+      },
+      { replace: true }
+    );
+  }, [query, setSearchParams]);
+
+  const matches = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return null;
+    const set = new Set<string>();
+    for (const tactic of mitreMatrix) {
+      for (const t of tactic.techniques) {
+        if (
+          t.id.toLowerCase().includes(q) ||
+          t.name.toLowerCase().includes(q) ||
+          (t.description ?? '').toLowerCase().includes(q) ||
+          (t.subtechniques ?? []).some((s) => s.id.toLowerCase().includes(q) || s.name.toLowerCase().includes(q))
+        ) {
+          set.add(t.id);
+        }
+      }
+    }
+    return set;
+  }, [query, mitreMatrix]);
+
+  const selectedScore = selectedId ? scores[selectedId] : undefined;
+  const selectedActors = selectedId ? actorsByTechnique(selectedId) : [];
+
+  const selectedTechnique = useMemo(() => {
+    if (!selectedId) return null;
+    for (const tactic of mitreMatrix) {
+      for (const t of tactic.techniques) {
+        if (t.id === selectedId) return t;
+        if (t.subtechniques) {
+          const sub = t.subtechniques.find((s) => s.id === selectedId);
+          if (sub) return { ...sub, parent: t };
+        }
+      }
+    }
+    return null;
+  }, [selectedId, mitreMatrix]);
+
+  return (
+    <div className="max-w-full px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+      <div className="max-w-[1600px] mx-auto">
+        <BackLink
+          to="/dfir"
+          className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+        >
+          <ArrowLeft size={14} /> back to DFIR
+        </BackLink>
+
+        <div className="animate-fade-in-up">
+          <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">LLM ATT&amp;CK Navigator</h1>
+          <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-4xl">
+            Interactive matrix mapping LLM-specific attack techniques to the MITRE ATT&amp;CK framework. Color intensity
+            reflects technique prevalence, risk scores, or actor adoption. Click any highlighted tile for full detail
+            including ARiES scores, sub-techniques, and linked actors.
+          </p>
+          <div className="flex flex-wrap items-center gap-4 text-sm font-mono text-slate-500 mb-3">
+            <span>
+              <span className="text-slate-900 dark:text-slate-100">{META.total_actors}</span> observed actors
+            </span>
+            <span aria-hidden="true">&middot;</span>
+            <span>
+              <span className="text-slate-900 dark:text-slate-100">{META.total_observations.toLocaleString()}</span>{' '}
+              observations
+            </span>
+            <span aria-hidden="true">&middot;</span>
+            <span>
+              Study: <span className="text-slate-900 dark:text-slate-100">{META.study_period}</span>
+            </span>
+          </div>
+          <div className="flex items-center gap-2 mb-4">
+            <Shield size={14} className="text-brand-500" />
+            <span className="text-xs font-mono text-slate-500">
+              Based on{' '}
+              <a
+                href="https://red.anthropic.com/2026/attack-navigator/navigator"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-brand-600 dark:text-brand-400 hover:underline"
+              >
+                Anthropic LLM ATT&amp;CK research
+              </a>
+            </span>
+          </div>
+        </div>
+
+        {/* Toolbar */}
+        <div className="flex flex-wrap items-center gap-2 mb-6 mt-6">
+          <div className="relative flex-1 min-w-[260px] max-w-md">
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search ID, name, or description..."
+              className="w-full pl-9 pr-4 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              aria-label="Search ATT&CK techniques"
+            />
+          </div>
+          <label className="flex items-center gap-2 text-xs font-mono text-slate-600 dark:text-slate-400">
+            Color by:
+            <select
+              value={colorMode}
+              onChange={(e) => setColorMode(e.target.value as ColorMode)}
+              className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded px-2 py-1.5 text-xs font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
+            >
+              <option value="actor_pct">% of observed actors</option>
+              <option value="risk">LLM Risk Score (ARiES)</option>
+              <option value="prevalence">Prevalence multiplier</option>
+            </select>
+          </label>
+        </div>
+
+        {/* Legend */}
+        <div className="flex flex-wrap items-center gap-3 mb-6 text-xs font-mono text-slate-500">
+          <span className="font-semibold uppercase tracking-wider text-[10px] text-slate-400">
+            {MODE_LABELS[colorMode]}:
+          </span>
+          {getLegendItems(colorMode).map((item) => (
+            <span key={item.label} className="inline-flex items-center gap-1.5">
+              <span
+                className="inline-block w-4 h-4 rounded border border-slate-300 dark:border-slate-600"
+                style={{ backgroundColor: item.color }}
+              />
+              {item.label}
+            </span>
+          ))}
+          <span className="inline-flex items-center gap-1.5 ml-2">
+            <span className="inline-block w-4 h-4 rounded border-2 border-slate-900 dark:border-slate-100 bg-white dark:bg-slate-800" />
+            Observed (border)
+          </span>
+        </div>
+
+        {matches && (
+          <p className="text-xs font-mono text-cyan-600 dark:text-cyan-400 mb-4">{matches.size} techniques match</p>
+        )}
+
+        {/* Mobile hint */}
+        <p className="sm:hidden text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-2 italic">
+          Swipe horizontally to scan tactics &rarr;
+        </p>
+
+        {/* Matrix */}
+        <div className="overflow-x-auto pb-4 -mx-4 sm:mx-0 px-4 sm:px-0">
+          <div className="flex gap-1 min-w-max bg-slate-100 dark:bg-slate-800/50 p-1 rounded-lg">
+            {mitreMatrix.map((tactic) => {
+              const tacticCount = tactic.techniques.length;
+              return (
+                <div key={tactic.id} className="w-[150px] flex-shrink-0 flex flex-col gap-[2px]">
+                  {/* Tactic header */}
+                  <div className="sticky top-0 z-10 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded px-2 py-2 text-center min-h-[52px] flex flex-col justify-center">
+                    <a
+                      href={`https://attack.mitre.org/tactics/${tactic.id}/`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                      title={tactic.description}
+                    >
+                      <div className="text-[10px] font-mono font-bold leading-tight text-slate-900 dark:text-slate-100">
+                        {tactic.name}
+                      </div>
+                      <div className="text-[9px] font-mono text-slate-400 mt-0.5">{tacticCount} techniques</div>
+                    </a>
+                  </div>
+
+                  {/* Technique cells */}
+                  {tactic.techniques.map((technique) => {
+                    const score = scores[technique.id];
+                    const isObserved = !!score || usedByActors.has(technique.id);
+                    const bg = getColor(score, colorMode);
+                    const fg = fgFor(bg);
+                    const isMatch = matches ? matches.has(technique.id) : true;
+                    const isDimmed = matches !== null && !isMatch;
+                    const isSelected = selectedId === technique.id;
+                    const actors = actorsByTechnique(technique.id);
+
+                    return (
+                      <button
+                        key={technique.id}
+                        type="button"
+                        onClick={() => openTechnique(technique.id)}
+                        className={[
+                          'relative w-full text-left border px-1.5 py-1 min-h-[42px] transition-all text-[10.5px] leading-tight overflow-hidden word-break-break-word hyphens-auto rounded-sm',
+                          isSelected ? 'ring-2 ring-brand-500/60 dark:ring-brand-400/60' : '',
+                          isDimmed ? 'opacity-25' : '',
+                          isObserved
+                            ? 'border-2 border-slate-900 dark:border-slate-100 cursor-pointer hover:brightness-95'
+                            : 'border border-slate-200 dark:border-slate-700 cursor-default',
+                        ].join(' ')}
+                        style={{ backgroundColor: bg, color: fg }}
+                        title={technique.name}
+                      >
+                        <div className={`font-mono ${isObserved ? 'font-semibold' : 'font-medium'}`}>
+                          {technique.id}
+                        </div>
+                        <div className={`mt-0.5 ${isObserved ? 'font-semibold' : 'font-medium'} line-clamp-2`}>
+                          {technique.name}
+                        </div>
+                        {score && score.pct_actors > 0 && (
+                          <div className="mt-0.5 font-mono text-[9px] opacity-80">
+                            {score.pct_actors.toFixed(1)}% actors
+                          </div>
+                        )}
+                        {actors.length > 0 && (
+                          <div className="mt-0.5 font-mono text-[9px] opacity-80">
+                            {actors.length === 1 ? actors[0].name : `${actors.length} actors`}
+                          </div>
+                        )}
+                        {technique.subtechniques && technique.subtechniques.length > 0 && (
+                          <div className="mt-0.5 font-mono text-[9px] opacity-60">
+                            +{technique.subtechniques.length} sub
+                          </div>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Legend footer */}
+        <div className="mt-8 flex flex-wrap gap-4 text-xs font-mono text-slate-500">
+          <div className="flex items-center gap-2">
+            <span className="inline-block w-4 h-4 rounded border-2 border-slate-900 dark:border-slate-100 bg-white dark:bg-slate-800" />
+            Observed technique (clickable)
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="inline-block w-4 h-4 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800" />
+            Not observed
+          </div>
+        </div>
+      </div>
+
+      {/* Detail drawer */}
+      {selectedId && (
+        <>
+          <div
+            className="fixed inset-0 z-40 bg-slate-900/40 dark:bg-slate-950/60 backdrop-blur-sm"
+            onClick={closeDrawer}
+            aria-hidden="true"
+          />
+          <aside
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="navigator-detail-title"
+            className="fixed right-0 top-0 z-50 h-full w-full max-w-xl overflow-y-auto bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 shadow-2xl"
+          >
+            <div className="sticky top-0 z-10 flex items-center justify-between gap-4 px-6 py-4 bg-white/95 dark:bg-slate-900/95 border-b border-slate-200 dark:border-slate-800 backdrop-blur">
+              <div className="min-w-0">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-brand-600 dark:text-brand-400">
+                  {selectedId}
+                </span>
+                <h2
+                  id="navigator-detail-title"
+                  className="font-display font-bold text-lg text-slate-900 dark:text-slate-100 truncate"
+                >
+                  {selectedTechnique?.name ?? selectedId}
+                </h2>
+              </div>
+              <button
+                type="button"
+                onClick={closeDrawer}
+                aria-label="Close details"
+                className="shrink-0 inline-flex items-center justify-center min-h-[44px] min-w-[44px] rounded text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              >
+                <X size={18} aria-hidden="true" />
+              </button>
+            </div>
+
+            <div className="px-6 py-5 space-y-6">
+              {/* Activity stats */}
+              {selectedScore && (
+                <div className="bg-slate-50 dark:bg-slate-800/60 rounded-lg p-4 border border-slate-200 dark:border-slate-700">
+                  <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-3">Activity</h3>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">Distinct actors:</span>
+                      <span className="font-mono font-semibold">
+                        {selectedScore.n_actors} ({selectedScore.pct_actors.toFixed(1)}% of {META.total_actors})
+                      </span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">Total observations:</span>
+                      <span className="font-mono font-semibold">{selectedScore.count.toLocaleString()}</span>
+                    </div>
+                    <div className="border-t border-slate-200 dark:border-slate-700 pt-2 mt-2">
+                      <div className="text-[10px] font-mono uppercase text-slate-400 mb-1">ARiES Risk Score</div>
+                      <div className="flex justify-between">
+                        <span className="text-slate-500">Raw mean:</span>
+                        <span className="font-mono font-semibold">{selectedScore.raw_mean.toFixed(1)}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-slate-500">Adjusted (mean x prevalence):</span>
+                        <span className="font-mono font-semibold">{selectedScore.adjusted.toFixed(1)}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-slate-500">Prevalence multiplier:</span>
+                        <span className="font-mono font-semibold">{selectedScore.prevalence}x</span>
+                      </div>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">Scored observations:</span>
+                      <span className="font-mono font-semibold">{selectedScore.n_scored}</span>
+                    </div>
+                  </div>
+                  <div className="mt-3">
+                    <span
+                      className="inline-block px-3 py-1 rounded font-mono text-sm font-bold"
+                      style={{
+                        backgroundColor: getRiskColor(selectedScore.raw_mean),
+                        color: fgFor(getRiskColor(selectedScore.raw_mean)),
+                      }}
+                    >
+                      {RISK_THRESHOLDS.find((t) => selectedScore.raw_mean >= t.min)?.label ?? 'Low'} Risk
+                    </span>
+                  </div>
+                </div>
+              )}
+
+              {/* Linked actors */}
+              {selectedActors.length > 0 && (
+                <div>
+                  <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2">
+                    Tracked actors using this technique ({selectedActors.length})
+                  </h3>
+                  <div className="space-y-1.5">
+                    {selectedActors.map((a) => (
+                      <div
+                        key={a.slug}
+                        className="px-3 py-2 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60"
+                      >
+                        <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">{a.name}</div>
+                        {a.aliases.length > 0 && (
+                          <div className="text-xs font-mono text-slate-500 mt-0.5">
+                            aka {a.aliases.slice(0, 4).join(', ')}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Sub-techniques */}
+              {selectedTechnique &&
+                'subtechniques' in selectedTechnique &&
+                (selectedTechnique as { subtechniques?: Array<{ id: string; name: string }> }).subtechniques && (
+                  <div>
+                    <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2">Sub-techniques</h3>
+                    <div className="space-y-1">
+                      {(selectedTechnique as { subtechniques: Array<{ id: string; name: string }> }).subtechniques.map(
+                        (sub) => {
+                          const subScore = scores[sub.id];
+                          return (
+                            <div
+                              key={sub.id}
+                              className="flex items-center gap-3 px-3 py-2 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60"
+                            >
+                              <span className="text-xs font-mono text-brand-600 dark:text-brand-400 w-20 flex-shrink-0">
+                                {sub.id}
+                              </span>
+                              <span className="text-sm text-slate-800 dark:text-slate-200 flex-1">{sub.name}</span>
+                              {subScore && (
+                                <span
+                                  className="text-xs font-mono px-2 py-0.5 rounded font-semibold"
+                                  style={{
+                                    backgroundColor: getRiskColor(subScore.raw_mean),
+                                    color: fgFor(getRiskColor(subScore.raw_mean)),
+                                  }}
+                                >
+                                  {subScore.raw_mean.toFixed(0)}
+                                </span>
+                              )}
+                            </div>
+                          );
+                        }
+                      )}
+                    </div>
+                  </div>
+                )}
+
+              {/* MITRE link */}
+              <a
+                href={`https://attack.mitre.org/techniques/${selectedId}/`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 text-slate-700 dark:text-slate-300 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+              >
+                Open on attack.mitre.org <ExternalLink size={12} />
+              </a>
+            </div>
+          </aside>
+        </>
+      )}
+    </div>
+  );
+}
