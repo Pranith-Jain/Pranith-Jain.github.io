@@ -39,6 +39,15 @@ interface BreachEmailResponse {
   sources_queried: string[];
   breach_count: number;
   breaches: BreachEntry[];
+  /**
+   * Free, keyless email-verification result (throwaway.sslboard.com +
+   * rapid-email-verifier.fly.dev merged). Always populated — a status
+   * of 'unknown' with both `sources` flags false is what we return when
+   * both free APIs were unreachable. The verifier is a deliverability
+   * check, NOT a breach source, so it lives in a separate field rather
+   * than `sources_queried` / `breaches`.
+   */
+  verification: EmailVerification;
 }
 
 interface BreachDomainEntry {
@@ -393,6 +402,175 @@ async function queryHackMyIp(email: string): Promise<BreachEntry[]> {
   }
 }
 
+/**
+ * Combined email-verification result. Sourced from two free, keyless
+ * public APIs (throwaway.sslboard.com + rapid-email-verifier.fly.dev)
+ * merged into one shape so the client only has to render a single card.
+ * The `sources` field records which APIs actually answered, useful for
+ * the UI's tooltip ("verified by 2 of 2 free services").
+ *
+ * - `disposable` is true if EITHER source flags it as throwaway.
+ * - `hasMx` is true if EITHER source confirms MX records exist.
+ * - `status` is the headline verdict ("deliverable" | "undeliverable" |
+ *   "risky" | "unknown"). Computed in `queryEmailVerification` below.
+ * - `score` is a 0-100 confidence derived from the booleans; no source
+ *   publishes a number directly, so this is a local heuristic, NOT
+ *   a vendor-published metric. Documented in `deriveVerificationScore`.
+ */
+export interface EmailVerification {
+  status: 'deliverable' | 'undeliverable' | 'risky' | 'unknown';
+  /** 0-100 confidence derived from the booleans (see `deriveVerificationScore`). */
+  score: number;
+  isDisposable: boolean;
+  hasMx: boolean;
+  validTld: boolean;
+  domainExists: boolean;
+  syntaxValid: boolean;
+  isRole: boolean;
+  isAlias: boolean;
+  /** Which of the two free APIs answered. */
+  sources: {
+    throwaway: boolean;
+    rapid: boolean;
+  };
+}
+
+/** Per-source raw payload from throwaway.sslboard.com. */
+interface ThrowawayResponse {
+  email?: string;
+  domain?: string;
+  valid_tld?: boolean;
+  has_mx?: boolean;
+  disposable?: boolean;
+  should_reject?: boolean;
+}
+
+/** Per-source raw payload from rapid-email-verifier.fly.dev. */
+interface RapidResponse {
+  email?: string;
+  validations?: {
+    syntax?: boolean;
+    domain_exists?: boolean;
+    mx_records?: boolean;
+  };
+  status?: 'VALID' | 'INVALID' | 'RISKY' | string;
+  is_disposable?: boolean;
+  is_role_account?: boolean;
+  is_alias?: boolean;
+}
+
+/**
+ * Free, keyless disposable / MX / TLD check.
+ * Source: https://throwaway.sslboard.com/  (open source,
+ * https://github.com/sslboard/throwaway). Returns `null` on failure so
+ * the caller can fall back to the other source.
+ */
+async function queryThrowaway(email: string): Promise<ThrowawayResponse | null> {
+  try {
+    const res = await fetch(`https://throwaway.sslboard.com/check?email=${encodeURIComponent(email)}`, {
+      headers: { accept: 'application/json', 'user-agent': UA },
+      signal: AbortSignal.timeout(6000),
+    });
+    if (!res.ok) return null;
+    return (await res.json()) as ThrowawayResponse;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Free, keyless syntax + domain + MX + role + alias check.
+ * Source: https://rapid-email-verifier.fly.dev/
+ * (open source, https://github.com/umuterturk/email-verifier). Returns
+ * `null` on failure so the caller can fall back to the other source.
+ */
+async function queryRapid(email: string): Promise<RapidResponse | null> {
+  try {
+    const res = await fetch(`https://rapid-email-verifier.fly.dev/api/validate?email=${encodeURIComponent(email)}`, {
+      headers: { accept: 'application/json', 'user-agent': UA },
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!res.ok) return null;
+    return (await res.json()) as RapidResponse;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Compute a 0-100 score from the combined boolean signals. Documented as
+ * a heuristic (no source publishes a number) so the UI can show a bar
+ * without claiming false authority. Weights:
+ *   - valid TLD: 15
+ *   - domain exists: 25
+ *   - has MX: 30
+ *   - syntax valid: 15
+ *   - not role: 5
+ *   - not alias: 5
+ *   - not disposable: 5  (large penalty when flagged)
+ */
+function deriveVerificationScore(v: {
+  validTld: boolean;
+  domainExists: boolean;
+  hasMx: boolean;
+  syntaxValid: boolean;
+  isRole: boolean;
+  isAlias: boolean;
+  isDisposable: boolean;
+}): number {
+  let s = 0;
+  if (v.validTld) s += 15;
+  if (v.domainExists) s += 25;
+  if (v.hasMx) s += 30;
+  if (v.syntaxValid) s += 15;
+  if (!v.isRole) s += 5;
+  if (!v.isAlias) s += 5;
+  if (!v.isDisposable) s += 5;
+  return s;
+}
+
+/**
+ * Run both free verifiers in parallel and merge into one verdict. Always
+ * returns an object — when BOTH sources fail we still return a record
+ * with all booleans false and a status of 'unknown', so the UI can
+ * surface "verifier unreachable" rather than failing silently.
+ */
+async function queryEmailVerification(email: string): Promise<EmailVerification> {
+  const [throwaway, rapid] = await Promise.all([queryThrowaway(email), queryRapid(email)]);
+  const validTld = Boolean(throwaway?.valid_tld);
+  const hasMx = Boolean(throwaway?.has_mx) || Boolean(rapid?.validations?.mx_records);
+  const isDisposable = Boolean(throwaway?.disposable) || Boolean(rapid?.is_disposable);
+  const syntaxValid = Boolean(rapid?.validations?.syntax);
+  const domainExists = Boolean(rapid?.validations?.domain_exists);
+  const isRole = Boolean(rapid?.is_role_account);
+  const isAlias = Boolean(rapid?.is_alias);
+
+  // Headline status — false on the "must-have" signals is undeliverable;
+  // any soft red flag (role, alias) drops to risky; clean baseline is
+  // deliverable. If we got nothing from either source, unknown.
+  const noSourceData = !throwaway && !rapid;
+  const status: EmailVerification['status'] = noSourceData
+    ? 'unknown'
+    : isDisposable || !hasMx || !validTld || !syntaxValid || !domainExists
+      ? 'undeliverable'
+      : isRole || isAlias
+        ? 'risky'
+        : 'deliverable';
+
+  return {
+    status,
+    score: deriveVerificationScore({ validTld, hasMx, syntaxValid, domainExists, isRole, isAlias, isDisposable }),
+    isDisposable,
+    hasMx,
+    validTld,
+    domainExists,
+    syntaxValid,
+    isRole,
+    isAlias,
+    sources: { throwaway: throwaway != null, rapid: rapid != null },
+  };
+}
+
 async function queryXonDomain(domain: string): Promise<BreachDomainEntry[]> {
   const upstream = await fetch(`${XON_BASE}/breaches?domain=${encodeURIComponent(domain)}`, {
     headers: { 'user-agent': UA, accept: 'application/json' },
@@ -548,6 +726,7 @@ export async function breachEmailHandler(c: Context<{ Bindings: Env }>): Promise
     sources_queried: sourcesQueried,
     breach_count: breaches.length,
     breaches,
+    verification: await queryEmailVerification(email),
   };
   return c.json(resp, 200, { 'Cache-Control': 'public, max-age=3600' });
 }

@@ -200,6 +200,150 @@ describe('GET /api/v1/breach/email', () => {
     const r = await SELF.fetch('https://x/api/v1/breach/email?email=test@example.com');
     expect(r.status).toBe(502);
   });
+
+  it('surfaces a deliverable verification when both free verifiers agree', async () => {
+    vi.spyOn(globalThis, 'fetch').mockImplementation(async (input) => {
+      const url = String(input);
+      if (url.includes('throwaway.sslboard.com')) {
+        return new Response(
+          JSON.stringify({
+            email: 'a@example.com',
+            domain: 'example.com',
+            valid_tld: true,
+            has_mx: true,
+            disposable: false,
+            should_reject: false,
+          }),
+          { status: 200 }
+        );
+      }
+      if (url.includes('rapid-email-verifier.fly.dev')) {
+        return new Response(
+          JSON.stringify({
+            email: 'a@example.com',
+            validations: { syntax: true, domain_exists: true, mx_records: true },
+            status: 'VALID',
+            is_disposable: false,
+            is_role_account: false,
+            is_alias: false,
+          }),
+          { status: 200 }
+        );
+      }
+      return new Response(JSON.stringify({ status: 'success', message: null, exposedBreaches: [] }), { status: 200 });
+    });
+    const r = await SELF.fetch('https://x/api/v1/breach/email?email=a@example.com');
+    expect(r.status).toBe(200);
+    const body = (await r.json()) as { verification: Record<string, unknown> };
+    const v = body.verification;
+    expect(v.status).toBe('deliverable');
+    expect(v.isDisposable).toBe(false);
+    expect(v.hasMx).toBe(true);
+    expect(v.syntaxValid).toBe(true);
+    expect(v.validTld).toBe(true);
+    expect(v.domainExists).toBe(true);
+    expect(v.isRole).toBe(false);
+    expect(v.isAlias).toBe(false);
+    expect(v.score).toBe(100);
+    expect((v.sources as Record<string, boolean>).throwaway).toBe(true);
+    expect((v.sources as Record<string, boolean>).rapid).toBe(true);
+  });
+
+  it('marks the verification undeliverable when either source flags the address as disposable', async () => {
+    vi.spyOn(globalThis, 'fetch').mockImplementation(async (input) => {
+      const url = String(input);
+      if (url.includes('throwaway.sslboard.com')) {
+        return new Response(
+          JSON.stringify({
+            email: 'a@mailinator.com',
+            domain: 'mailinator.com',
+            valid_tld: true,
+            has_mx: true,
+            disposable: true,
+            should_reject: true,
+          }),
+          { status: 200 }
+        );
+      }
+      if (url.includes('rapid-email-verifier.fly.dev')) {
+        return new Response(
+          JSON.stringify({
+            email: 'a@mailinator.com',
+            validations: { syntax: true, domain_exists: true, mx_records: true },
+            status: 'VALID',
+            is_disposable: false,
+            is_role_account: false,
+            is_alias: false,
+          }),
+          { status: 200 }
+        );
+      }
+      return new Response(JSON.stringify({ status: 'success', message: null, exposedBreaches: [] }), { status: 200 });
+    });
+    const r = await SELF.fetch('https://x/api/v1/breach/email?email=a@mailinator.com');
+    expect(r.status).toBe(200);
+    const body = (await r.json()) as { verification: Record<string, unknown> };
+    expect(body.verification.status).toBe('undeliverable');
+    expect(body.verification.isDisposable).toBe(true);
+  });
+
+  it('returns status=risky for a role address (info@)', async () => {
+    vi.spyOn(globalThis, 'fetch').mockImplementation(async (input) => {
+      const url = String(input);
+      if (url.includes('throwaway.sslboard.com')) {
+        return new Response(
+          JSON.stringify({
+            email: 'info@corp.com',
+            domain: 'corp.com',
+            valid_tld: true,
+            has_mx: true,
+            disposable: false,
+            should_reject: false,
+          }),
+          { status: 200 }
+        );
+      }
+      if (url.includes('rapid-email-verifier.fly.dev')) {
+        return new Response(
+          JSON.stringify({
+            email: 'info@corp.com',
+            validations: { syntax: true, domain_exists: true, mx_records: true },
+            status: 'VALID',
+            is_disposable: false,
+            is_role_account: true,
+            is_alias: false,
+          }),
+          { status: 200 }
+        );
+      }
+      return new Response(JSON.stringify({ status: 'success', message: null, exposedBreaches: [] }), { status: 200 });
+    });
+    const r = await SELF.fetch('https://x/api/v1/breach/email?email=info@corp.com');
+    expect(r.status).toBe(200);
+    const body = (await r.json()) as { verification: Record<string, unknown> };
+    expect(body.verification.status).toBe('risky');
+    expect(body.verification.isRole).toBe(true);
+  });
+
+  it('returns status=unknown with sources empty when BOTH free verifiers fail', async () => {
+    vi.spyOn(globalThis, 'fetch').mockImplementation(async (input) => {
+      const url = String(input);
+      if (url.includes('throwaway.sslboard.com') || url.includes('rapid-email-verifier.fly.dev')) {
+        return new Response('boom', { status: 502 });
+      }
+      return new Response(JSON.stringify({ status: 'success', message: null, exposedBreaches: [] }), { status: 200 });
+    });
+    const r = await SELF.fetch('https://x/api/v1/breach/email?email=any@thing.com');
+    expect(r.status).toBe(200);
+    const body = (await r.json()) as { verification: Record<string, unknown> };
+    expect(body.verification.status).toBe('unknown');
+    expect((body.verification.sources as Record<string, boolean>).throwaway).toBe(false);
+    expect((body.verification.sources as Record<string, boolean>).rapid).toBe(false);
+    // When both verifiers return null, the "absence of red flags" weights
+    // still apply: !isRole + !isAlias + !isDisposable = 5+5+5 = 15. The
+    // positive weights (TLD/domain/MX/syntax) all stay at 0.
+    expect(body.verification.score).toBe(15);
+  });
 });
 
 // ─── Domain handler ───────────────────────────────────────────────────────────

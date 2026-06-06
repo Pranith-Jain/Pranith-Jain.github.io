@@ -13,6 +13,10 @@ import {
   ExternalLink,
   AlertTriangle,
   Users,
+  BadgeCheck,
+  MailCheck,
+  MailX,
+  Inbox,
 } from 'lucide-react';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
 import { BreachDatabasesPanel } from '../../components/dfir/BreachDatabasesPanel';
@@ -37,7 +41,7 @@ const SOURCE_COLORS: Record<string, string> = {
   leakix: 'bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border-cyan-500/30',
   proxynova: 'bg-orange-500/10 text-orange-700 dark:text-orange-300 border-orange-500/30',
   hudsonrock: 'bg-rose-500/10 text-rose-700 dark:text-rose-300 border-rose-500/30',
-  projectdiscovery: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/30',
+  projectdiscovery: 'bg-fuchsia-500/10 text-fuchsia-700 dark:text-fuchsia-300 border-fuchsia-500/30',
   hackmyip: 'bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/30',
 };
 
@@ -58,12 +62,37 @@ interface BreachEntry {
   source?: string;
 }
 
+/**
+ * Email-deliverability verdict. Sourced from two free, keyless public
+ * APIs (throwaway.sslboard.com + rapid-email-verifier.fly.dev) merged
+ * server-side. `status` is the headline verdict and `score` is a
+ * heuristic 0-100 derived from the booleans (NOT a vendor-published
+ * metric — see `deriveVerificationScore` in breach.ts for weights).
+ */
+interface EmailVerification {
+  status: 'deliverable' | 'undeliverable' | 'risky' | 'unknown';
+  score: number;
+  isDisposable: boolean;
+  hasMx: boolean;
+  validTld: boolean;
+  domainExists: boolean;
+  syntaxValid: boolean;
+  isRole: boolean;
+  isAlias: boolean;
+  sources: { throwaway: boolean; rapid: boolean };
+}
+
 interface BreachEmailResponse {
   email: string;
   found: boolean;
   sources_queried: string[];
   breach_count: number;
   breaches: BreachEntry[];
+  /**
+   * Free, keyless deliverability check (always populated; status
+   * 'unknown' with sources empty when both free APIs were unreachable).
+   */
+  verification: EmailVerification;
 }
 
 interface BreachDomainResponse {
@@ -90,7 +119,7 @@ function humanizeCount(n: number): string {
   if (n >= 1_000_000_000) return `${(n / 1_000_000_000).toFixed(1)}B`;
   if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
   if (n >= 1_000) return `${(n / 1_000).toFixed(0)}K`;
-  return n.toLocaleString();
+  return n.toLocaleString('en-US');
 }
 
 function getSeverity(count: number): { label: string; classes: string } {
@@ -110,6 +139,85 @@ function getSeverity(count: number): { label: string; classes: string } {
   return {
     label: 'Low',
     classes: 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900/30 dark:text-cyan-300 border-cyan-300 dark:border-cyan-700',
+  };
+}
+
+/**
+ * Map a merged email-verification result to a UI verdict (label + classes).
+ * The verdict is the headline signal a user needs ("can mail reach this
+ * address?"); the raw booleans are surfaced as a small grid below for
+ * analysts who want the precise source signals.
+ */
+function getVerificationVerdict(v: EmailVerification): {
+  label: string;
+  classes: string;
+  Icon: typeof BadgeCheck;
+  blurb: string;
+} {
+  if (v.isDisposable) {
+    return {
+      label: 'Disposable',
+      classes: 'bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300 border-rose-300 dark:border-rose-700',
+      Icon: MailX,
+      blurb: 'This is a throwaway / temporary-mail address. Breach records here are rarely actionable.',
+    };
+  }
+  if (v.status === 'undeliverable') {
+    const reason = !v.syntaxValid
+      ? 'The address fails basic syntax checks'
+      : !v.validTld
+        ? 'The domain TLD is not recognized'
+        : !v.domainExists
+          ? 'The domain does not resolve in DNS'
+          : !v.hasMx
+            ? 'The domain has no mail-exchange records'
+            : 'Mail to this address will not be accepted';
+    return {
+      label: 'Undeliverable',
+      classes: 'bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300 border-rose-300 dark:border-rose-700',
+      Icon: MailX,
+      blurb: `${reason}. Breach records may be stale or mis-typed.`,
+    };
+  }
+  if (v.isRole) {
+    return {
+      label: 'Role address',
+      classes: 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900/30 dark:text-cyan-300 border-cyan-300 dark:border-cyan-700',
+      Icon: Inbox,
+      blurb: 'This is a shared role address (info@, abuse@, postmaster@, …) — not tied to one person.',
+    };
+  }
+  if (v.isAlias) {
+    return {
+      label: 'Alias',
+      classes: 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900/30 dark:text-cyan-300 border-cyan-300 dark:border-cyan-700',
+      Icon: Inbox,
+      blurb: 'Plus-addressed or aliased (e.g. user+tag@). Pivot to the underlying mailbox before action.',
+    };
+  }
+  if (v.status === 'risky') {
+    return {
+      label: 'Risky',
+      classes:
+        'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300 border-amber-300 dark:border-amber-700',
+      Icon: AlertTriangle,
+      blurb: 'Deliverability is uncertain — treat breach records with caution.',
+    };
+  }
+  if (v.status === 'deliverable') {
+    return {
+      label: 'Deliverable',
+      classes:
+        'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300 border-emerald-300 dark:border-emerald-700',
+      Icon: MailCheck,
+      blurb: 'Mail to this address is expected to be accepted by the recipient MX.',
+    };
+  }
+  return {
+    label: 'Unknown',
+    classes: 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 border-slate-300 dark:border-slate-700',
+    Icon: BadgeCheck,
+    blurb: 'Neither free verifier (throwaway.sslboard.com, rapid-email-verifier.fly.dev) responded.',
   };
 }
 
@@ -167,6 +275,117 @@ function BreachCards({ breaches }: { breaches: BreachEntry[] }): JSX.Element {
           {b.description && <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2">{b.description}</p>}
         </div>
       ))}
+    </div>
+  );
+}
+
+/**
+ * Email-verification card. Renders the deliverability verdict with a
+ * score bar and a small grid of raw signals (syntax / TLD / domain / MX /
+ * role / alias / disposable). The card is intentionally a peer of the
+ * breach summary, not a child — a deliverable address is independent
+ * evidence that the breach dataset is current, not a derivative signal.
+ *
+ * Sourced from two free, keyless public APIs (throwaway.sslboard.com +
+ * rapid-email-verifier.fly.dev). The "2/2 sources" badge in the header
+ * tells the operator which APIs actually answered.
+ */
+function VerificationCard({ verification }: { verification: EmailVerification }): JSX.Element {
+  const v = getVerificationVerdict(verification);
+  const Icon = v.Icon;
+  const sourceCount = (verification.sources.throwaway ? 1 : 0) + (verification.sources.rapid ? 1 : 0);
+  return (
+    <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+      <div className="flex items-start gap-4">
+        <Icon size={22} className="shrink-0 mt-0.5 text-slate-500" />
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 flex-wrap">
+            <h3 className="font-display font-semibold text-base">Email deliverability</h3>
+            <span
+              className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider border ${v.classes}`}
+            >
+              {v.label}
+            </span>
+            <span className="text-[10px] font-mono text-slate-500">verified by {sourceCount}/2 free sources</span>
+            <a
+              href="https://github.com/sslboard/throwaway"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-[10px] font-mono text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+            >
+              throwaway <ExternalLink size={9} />
+            </a>
+            <a
+              href="https://github.com/umuterturk/email-verifier"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-[10px] font-mono text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+            >
+              rapid-verifier <ExternalLink size={9} />
+            </a>
+          </div>
+          <p className="text-sm text-slate-600 dark:text-slate-400 mt-1.5">{v.blurb}</p>
+
+          <div className="mt-3 flex items-center gap-3">
+            <div className="flex-1 h-1.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+              <div
+                className={`h-full ${
+                  verification.score >= 80
+                    ? 'bg-emerald-500'
+                    : verification.score >= 50
+                      ? 'bg-amber-500'
+                      : 'bg-rose-500'
+                }`}
+                style={{ width: `${Math.max(2, Math.min(100, verification.score))}%` }}
+              />
+            </div>
+            <span className="text-xs font-mono text-slate-500 shrink-0">score {verification.score}/100</span>
+          </div>
+
+          <div className="mt-3 grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-1.5 text-[11px] font-mono">
+            <Signal label="syntax" value={verification.syntaxValid} />
+            <Signal label="valid TLD" value={verification.validTld} />
+            <Signal label="domain" value={verification.domainExists} />
+            <Signal label="MX records" value={verification.hasMx} />
+            <Signal label="disposable" value={verification.isDisposable} />
+            <Signal label="role" value={verification.isRole} />
+            <Signal label="alias" value={verification.isAlias} />
+            <SourceSignal label="throwaway / rapid" t={verification.sources.throwaway} r={verification.sources.rapid} />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/**
+ * Two-dot source attribution: throwaway dot + rapid dot, each green
+ * when the corresponding API answered. Visually compact alternative to
+ * two separate `Signal` rows.
+ */
+function SourceSignal({ label, t, r }: { label: string; t: boolean; r: boolean }): JSX.Element {
+  return (
+    <div className="flex items-center gap-1.5">
+      <span
+        className={`inline-block w-1.5 h-1.5 rounded-full ${t ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-slate-600'}`}
+      />
+      <span
+        className={`inline-block w-1.5 h-1.5 rounded-full ${r ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-slate-600'}`}
+      />
+      <span className="text-slate-700 dark:text-slate-300">{label}</span>
+    </div>
+  );
+}
+
+function Signal({ label, value }: { label: string; value: boolean }): JSX.Element {
+  return (
+    <div className="flex items-center gap-1.5">
+      <span
+        className={`inline-block w-1.5 h-1.5 rounded-full ${value ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-slate-600'}`}
+      />
+      <span className={value ? 'text-slate-700 dark:text-slate-300' : 'text-slate-400 dark:text-slate-500'}>
+        {label}
+      </span>
     </div>
   );
 }
@@ -294,7 +513,7 @@ function PasswordTab(): JSX.Element {
                 <AlertTriangle size={24} className="text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
                 <div>
                   <h2 className="font-display font-bold text-xl mb-1">
-                    Seen in <span className="font-mono">{result.count.toLocaleString()}</span>{' '}
+                    Seen in <span className="font-mono">{result.count.toLocaleString('en-US')}</span>{' '}
                     {result.count === 1 ? 'breach' : 'breaches'}
                   </h2>
                   <div className="mb-3">
@@ -555,6 +774,11 @@ function EmailTab({ initialQuery = '' }: { initialQuery?: string }): JSX.Element
               </p>
             </div>
           )}
+
+          {/* Hunter.io deliverability card (only when the server returned
+              a verification result — `undefined` means no HUNTER_API_KEY
+              is configured, `null` means the call failed). */}
+          {result.verification && <VerificationCard verification={result.verification} />}
 
           {/* SOCMINT pivot CTA */}
           <Link
