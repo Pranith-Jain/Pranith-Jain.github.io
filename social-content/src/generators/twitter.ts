@@ -7,6 +7,7 @@
  * Each tweet is separated by a blank line for easy copy-paste.
  */
 
+import { BRAND } from '../brand';
 import type { ContentSpec } from '../content-spec';
 
 function truncate(s: string, max: number): string {
@@ -51,7 +52,7 @@ export function generateTwitterThread(spec: ContentSpec): string[] {
     .slice(0, 3)
     .map((t) => `#${t}`)
     .join(' ');
-  tweets.push(truncate(`${cta}\n\n${tags}`, 275));
+  tweets.push(truncate(`${cta}\n\n${tags}\n\n— Pranith Jain ▰ ${BRAND.portfolioUrl}`, 275));
 
   return tweets;
 }
@@ -64,7 +65,7 @@ export function generateTwitterPost(spec: ContentSpec): string {
     .map((t) => `#${t}`)
     .join(' ');
 
-  return truncate(`${hook}\n\n${cta}\n\n${tags}`, 280);
+  return truncate(`${hook}\n\n${cta}\n\n${tags}\n\n— Pranith Jain ▰ ${BRAND.portfolioUrl}`, 280);
 }
 
 export function generateTwitterThreadText(spec: ContentSpec): string {

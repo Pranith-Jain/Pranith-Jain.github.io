@@ -41,7 +41,7 @@ export function generateLinkedInPost(spec: ContentSpec): string {
 
   const tags = spec.hashtags.map((t) => `#${t}`).join(' ');
   post += `${tags}\n`;
-  post += `\n— Pranith Jain`;
+  post += `\n— Pranith Jain ▰ ${BRAND.portfolioUrl}`;
 
   return post;
 }
@@ -51,10 +51,12 @@ export function generateLinkedInCarouselHTML(spec: ContentSpec): string {
 }
 
 export function generateLinkedInReadme(spec: ContentSpec): string {
-  return `# LinkedIn Carousel: ${spec.title}
+  return `# ▰ Pranith Jain · ${BRAND.portfolioUrl}
 
-## Funnel: ${spec.funnel.toUpperCase()} | Persona: ${spec.persona}
-## Hook: ${spec.hook} | Platform: LinkedIn
+## LinkedIn Carousel: ${spec.title}
+
+### Funnel: ${spec.funnel.toUpperCase()} | Persona: ${spec.persona}
+### Hook: ${spec.hook} | Platform: LinkedIn
 
 ### Upload Instructions
 1. Open the .html file in Chrome

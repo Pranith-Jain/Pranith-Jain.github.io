@@ -78,6 +78,7 @@ export const BRAND = {
     mofu: { accent: '#0ea5e9', tint: '#e0f2fe', deep: '#bae6fd', label: 'MOFU' },
     bofu: { accent: '#10b981', tint: '#d1fae5', deep: '#a7f3d0', label: 'BOFU' },
   },
+  portfolioUrl: 'pranithjain.qzz.io',
   platform: {
     linkedin: '#0a66c2',
     instagram: '#e4405f',

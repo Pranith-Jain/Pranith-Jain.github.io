@@ -20,7 +20,7 @@ export function generateInstagramCaption(spec: ContentSpec): string {
 
   const cta = spec.cta || 'Save this post for later 🔖';
 
-  let caption = `${hook}\n\n`;
+  let caption = `▰▰▰ Pranith Jain · ${BRAND.portfolioUrl}\n\n${hook}\n\n`;
 
   if (points.length > 0) {
     for (let i = 0; i < points.length; i++) {
