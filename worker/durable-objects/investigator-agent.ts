@@ -51,7 +51,7 @@ export class InvestigatorAgentDO {
         status: 'running',
         steps: [],
         currentStep: 0,
-        maxSteps: body.maxSteps ?? 8,
+        maxSteps: body.maxSteps ?? 3,
         report: null,
         modelUsed: null,
         startedAt: new Date().toISOString(),
@@ -70,6 +70,13 @@ export class InvestigatorAgentDO {
       const id = url.searchParams.get('id') ?? '';
       const state = await this.ctx.storage.get<AgentState>(`state:${id}`);
       return state ? Response.json(state) : Response.json({ error: 'not found' }, { status: 404 });
+    }
+
+    // DELETE /delete — clean up DO storage
+    if (url.pathname === '/delete' && request.method === 'DELETE') {
+      const id = url.searchParams.get('id') ?? '';
+      if (id) await this.ctx.storage.delete(`state:${id}`);
+      return Response.json({ ok: true });
     }
 
     return new Response('not found', { status: 404 });

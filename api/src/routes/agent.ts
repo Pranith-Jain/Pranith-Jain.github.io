@@ -1,23 +1,19 @@
 /**
  * Agent investigation API routes.
  *
- * POST /api/v1/agent/investigate  — start a new autonomous investigation
- * GET  /api/v1/agent/:id          — poll investigation state
- * GET  /api/v1/agent/:id/stream   — SSE stream of step events
- * GET  /api/v1/agent/sessions     — list recent investigations
+ * POST   /api/v1/agent/investigate  — start a new autonomous investigation
+ * GET    /api/v1/agent/:id          — poll investigation state
+ * GET    /api/v1/agent/:id/stream   — SSE stream of step events
+ * GET    /api/v1/agent/sessions     — list recent investigations
+ * DELETE /api/v1/agent/:id          — delete an investigation session
  */
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import type { AgentState } from '../lib/agent/types';
 import { trackEvent, visitorCountry } from '../lib/analytics';
 
-const AGENT_CACHE_TTL = 60; // 1 minute cache for session state
+const AGENT_CACHE_TTL = 60;
 
-/**
- * POST /api/v1/agent/investigate
- * Start a new autonomous investigation. Returns a session ID that can be
- * polled via GET /api/v1/agent/:id or streamed via GET /api/v1/agent/:id/stream.
- */
 export async function agentInvestigateHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
     let body: { query?: string; maxSteps?: number };
@@ -31,17 +27,16 @@ export async function agentInvestigateHandler(c: Context<{ Bindings: Env }>): Pr
     if (!query) return c.json({ error: 'query is required' }, 400);
     if (query.length > 2000) return c.json({ error: 'query too long (max 2000 chars)' }, 400);
 
-    const maxSteps = Math.min(Math.max(body.maxSteps ?? 4, 1), 8);
+    const maxSteps = Math.min(Math.max(body.maxSteps ?? 3, 1), 6);
     const queryType = detectQueryType(query);
     const id = crypto.randomUUID();
 
     const doNamespace = c.env.INVESTIGATOR_AGENT;
-    if (!doNamespace) return c.json({ error: 'Agent not configured (INVESTIGATOR_AGENT binding missing)' }, 503);
+    if (!doNamespace) return c.json({ error: 'Agent not configured' }, 503);
 
     const doId = doNamespace.idFromName(id);
     const stub = doNamespace.get(doId);
 
-    // Forward the request to the Durable Object
     const doRes = await stub.fetch(`https://agent/investigate`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
@@ -65,10 +60,6 @@ export async function agentInvestigateHandler(c: Context<{ Bindings: Env }>): Pr
   }
 }
 
-/**
- * GET /api/v1/agent/:id
- * Poll the current state of an investigation.
- */
 export async function agentStateHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const id = c.req.param('id');
   if (!id) return c.json({ error: 'id required' }, 400);
@@ -80,18 +71,12 @@ export async function agentStateHandler(c: Context<{ Bindings: Env }>): Promise<
   const stub = doNamespace.get(doId);
 
   const doRes = await stub.fetch(`https://agent/state?id=${encodeURIComponent(id)}`);
-  if (!doRes.ok) {
-    return c.json({ error: 'not found' }, 404);
-  }
+  if (!doRes.ok) return c.json({ error: 'not found' }, 404);
 
   const state = (await doRes.json()) as AgentState;
   return c.json(state, 200, { 'Cache-Control': `public, max-age=${AGENT_CACHE_TTL}` });
 }
 
-/**
- * GET /api/v1/agent/:id/stream
- * SSE stream of investigation progress. Emits an event each time a step completes.
- */
 export async function agentStreamHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const id = c.req.param('id');
   if (!id) return c.json({ error: 'id required' }, 400);
@@ -118,7 +103,6 @@ export async function agentStreamHandler(c: Context<{ Bindings: Env }>): Promise
         }
       };
 
-      // Poll the DO every 500ms until done/error
       const interval = setInterval(async () => {
         if (closed) {
           clearInterval(interval);
@@ -129,7 +113,6 @@ export async function agentStreamHandler(c: Context<{ Bindings: Env }>): Promise
           if (!res.ok) return;
           const state = (await res.json()) as AgentState;
 
-          // Emit new steps
           for (const step of state.steps) {
             if (step.stepNumber > lastStep) {
               send(JSON.stringify({ type: 'step', step }));
@@ -137,7 +120,6 @@ export async function agentStreamHandler(c: Context<{ Bindings: Env }>): Promise
             }
           }
 
-          // Emit completion
           if (state.status === 'done' || state.status === 'error') {
             send(
               JSON.stringify({
@@ -160,7 +142,6 @@ export async function agentStreamHandler(c: Context<{ Bindings: Env }>): Promise
         }
       }, 500);
 
-      // Timeout after 5 minutes
       setTimeout(() => {
         if (!closed) {
           send(JSON.stringify({ type: 'error', error: 'Investigation timed out (5m)' }));
@@ -186,10 +167,6 @@ export async function agentStreamHandler(c: Context<{ Bindings: Env }>): Promise
   });
 }
 
-/**
- * GET /api/v1/agent/sessions
- * List recent investigation sessions from D1.
- */
 export async function agentSessionsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
   if (!db) return c.json({ error: 'database not configured' }, 503);
@@ -209,22 +186,50 @@ export async function agentSessionsHandler(c: Context<{ Bindings: Env }>): Promi
   return c.json({ sessions: res.results ?? [] }, 200, { 'Cache-Control': 'public, max-age=30' });
 }
 
+/**
+ * DELETE /api/v1/agent/:id
+ * Delete an investigation session from D1 and the Durable Object.
+ */
+export async function agentDeleteHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const id = c.req.param('id');
+  if (!id) return c.json({ error: 'id required' }, 400);
+
+  const db = c.env.BRIEFINGS_DB;
+  if (!db) return c.json({ error: 'database not configured' }, 503);
+
+  // Delete from D1
+  await db.prepare('DELETE FROM agent_sessions WHERE id = ?').bind(id).run();
+
+  // Also clean up the DO storage if it exists
+  const doNamespace = c.env.INVESTIGATOR_AGENT;
+  if (doNamespace) {
+    try {
+      const doId = doNamespace.idFromName(id);
+      const stub = doNamespace.get(doId);
+      await stub.fetch(`https://agent/delete?id=${encodeURIComponent(id)}`, { method: 'DELETE' });
+    } catch {
+      // DO might not exist — non-fatal
+    }
+  }
+
+  return c.json({ ok: true });
+}
+
 /** Detect query type from the input text. */
 function detectQueryType(query: string): string {
   const q = query.toLowerCase();
-  // CVE pattern
   if (/\bcve-\d{4}-\d{4,}/i.test(query)) return 'cve';
-  // IPv4
   if (/\b(?:\d{1,3}\.){3}\d{1,3}\b/.test(query)) return 'ip';
-  // Hash (MD5/SHA1/SHA256)
   if (/\b[a-fA-F0-9]{32,64}\b/.test(query)) return 'hash';
-  // Domain
   if (/\b(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}\b/i.test(query) && !q.startsWith('how ')) return 'domain';
-  // Actor / ransomware
-  if (/\b(apt\d+|lazarus|fin\d+|ta\d+|lockbit|blackcat|alphv|cl0p|rhysida|play|akira|black basta)\b/i.test(q))
+  if (
+    /\b(apt\d+|lazarus|fin\d+|ta\d+|lockbit|blackcat|alphv|cl0p|rhysida|play|akira|black basta|kimsuky|sandworm|turla|cozy bear)\b/i.test(
+      q
+    )
+  )
     return 'actor';
   if (/\bransomware\b/i.test(q)) return 'ransomware';
-  // Phishing
   if (/\bphish/i.test(q)) return 'phishing';
+  if (/\bcampaign/i.test(q)) return 'campaign';
   return 'generic';
 }
