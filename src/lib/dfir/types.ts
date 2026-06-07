@@ -76,6 +76,7 @@ export type ProviderId =
   | 'malwareworld'
   | 'kaspersky'
   | 'cape'
+  | 'maltiverse'
   | 'secrets';
 
 export type ProviderErrorCode =

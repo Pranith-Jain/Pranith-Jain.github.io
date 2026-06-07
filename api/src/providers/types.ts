@@ -45,6 +45,7 @@ export type ProviderId =
   | 'x4bnet'
   | 'kaspersky'
   | 'vulncheck'
+  | 'maltiverse'
   | 'secrets';
 
 export type Verdict = 'clean' | 'suspicious' | 'malicious' | 'unknown';
@@ -170,5 +171,6 @@ export const PROVIDER_SUPPORT: Record<ProviderId, IndicatorType[]> = {
   x4bnet: ['ipv4', 'ipv6'],
   kaspersky: ['ipv4', 'domain', 'url', 'hash'],
   vulncheck: ['ipv4'],
+  maltiverse: ['ipv4', 'ipv6', 'domain', 'url', 'hash'],
   secrets: ['url'],
 };

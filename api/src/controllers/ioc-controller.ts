@@ -55,6 +55,7 @@ import { certpl } from '../providers/certpl';
 import { x4bnet } from '../providers/x4bnet';
 import { kaspersky } from '../providers/kaspersky';
 import { vulncheck } from '../providers/vulncheck';
+import { maltiverse } from '../providers/maltiverse';
 import { secrets } from '../providers/secrets';
 
 const PROVIDER_CHUNK_SIZE = 10;
@@ -104,6 +105,7 @@ const ADAPTERS: Record<ProviderId, ProviderAdapter> = {
   x4bnet,
   kaspersky,
   vulncheck,
+  maltiverse,
   secrets,
 };
 
