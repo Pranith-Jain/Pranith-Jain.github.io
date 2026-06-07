@@ -20,6 +20,7 @@ import { normalizeGroup } from './group-normalize';
 import { computeDailyWindow, computeLiveDailyWindow } from './briefing-window';
 import { fetchCveFeedHighSeverity, type CveFeedEntry } from '../routes/cve-recent';
 import { runCompletion } from '../case-study/generation/ai-client';
+import { findUngroundedCves, detectSlop } from './ai-output-validator';
 
 const NVD_UA = 'Mozilla/5.0 (compatible; pranithjain-dfir/1.0; +https://pranithjain.qzz.io)';
 const NVD_API = 'https://services.nvd.nist.gov/rest/json/cves/2.0';
@@ -1285,6 +1286,16 @@ async function buildLlmExecutiveSummary(args: Parameters<typeof buildExecutiveSu
 
     const text = result.text?.trim();
     if (text && text.length > 50 && text.length < 2000) {
+      // Validate grounding: check CVEs in summary exist in findings
+      const findingsText = findings.map((f) => `${f.id} ${f.title}`).join(' ');
+      const ungrounded = findUngroundedCves(text, findingsText);
+      const slop = detectSlop(text);
+
+      // If major issues, fall back to template
+      if (ungrounded.length > 2 || slop.length > 3) {
+        return templateSummary;
+      }
+
       return text;
     }
   } catch {

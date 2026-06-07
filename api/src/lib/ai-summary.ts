@@ -15,6 +15,7 @@
 
 import type { Env } from '../env';
 import { runCompletion } from '../case-study/generation/ai-client';
+import { findUngroundedCves, extractCves, detectSlop } from './ai-output-validator';
 
 export interface SummaryInput {
   /** Page surface name (e.g. "CTI Writeups", "Cybercrime", "Signal"). */
@@ -31,6 +32,11 @@ export interface SummaryResult {
   summary: string;
   modelUsed: string;
   itemCount: number;
+  _validation?: {
+    quality_score?: number;
+    ungrounded_cves?: string[];
+    slop_count?: number;
+  };
 }
 
 const SYSTEM_PROMPT = `You are a senior cyber-threat-intelligence analyst. Given a list of security items from a specific feed surface, write a concise operational summary (150-300 words) for a CTI team.
@@ -99,10 +105,30 @@ export async function generateAiSummary(input: SummaryInput, env: Env): Promise<
     const text = typeof result.text === 'string' ? result.text.trim() : '';
     if (!text || text.length < 50) return null;
 
+    // Validate grounding against source items
+    const sourceText = input.items.map((i) => `${i.title} ${i.body}`).join(' ');
+    const ungrounded = findUngroundedCves(text, sourceText);
+    const slop = detectSlop(text);
+    const sourceCves = new Set(extractCves(sourceText));
+    const textCves = extractCves(text);
+    const groundedCves = textCves.filter((c) => sourceCves.has(c));
+
+    // Quality score: start at 100, deduct for issues
+    let quality = 100;
+    if (ungrounded.length > 0) quality -= ungrounded.length * 15;
+    if (slop.length > 1) quality -= slop.length * 10;
+    if (textCves.length > 0 && groundedCves.length === 0) quality -= 20; // CVEs mentioned but none grounded
+    quality = Math.max(0, Math.min(100, quality));
+
     return {
       summary: text,
       modelUsed: result.modelUsed,
       itemCount: Math.min(input.items.length, input.maxItems ?? 30),
+      _validation: {
+        quality_score: quality,
+        ungrounded_cves: ungrounded.length > 0 ? ungrounded : undefined,
+        slop_count: slop.length > 0 ? slop.length : undefined,
+      },
     };
   } catch (err) {
     console.warn(
