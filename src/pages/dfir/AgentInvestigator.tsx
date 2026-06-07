@@ -166,7 +166,7 @@ export default function AgentInvestigator(): JSX.Element {
         status: 'running',
         steps: [],
         currentStep: 0,
-        maxSteps: 3,
+        maxSteps: 6,
         report: null,
         modelUsed: null,
         startedAt: new Date().toISOString(),
@@ -231,7 +231,7 @@ export default function AgentInvestigator(): JSX.Element {
           structured report with STIX 2.1 export.
         </p>
         <p className="text-xs text-slate-500 font-mono flex items-center gap-2">
-          <span>2-3 step focused investigation</span>
+          <span>2-6 step CTI investigation</span>
           <span>·</span>
           <span>30+ intel tools</span>
           <span>·</span>
@@ -412,6 +412,17 @@ function StepCard({ step }: { step: AgentStep }): JSX.Element {
   const [expanded, setExpanded] = useState(false);
   const isRunning = step.status === 'running';
 
+  const phaseColors: Record<string, string> = {
+    collection: 'border-sky-500/40 bg-sky-500/10 text-sky-600',
+    enrichment: 'border-violet-500/40 bg-violet-500/10 text-violet-600',
+    analysis: 'border-amber-500/40 bg-amber-500/10 text-amber-600',
+    production: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-600',
+    synthesis: 'border-brand-500/40 bg-brand-500/10 text-brand-600',
+  };
+  const phase =
+    step.plan.match(/phase\s*(\d)|collection|enrichment|analysis|production|synthesis/i)?.[0]?.toLowerCase() ?? '';
+  const phaseColor = phaseColors[phase] ?? phaseColors.collection;
+
   return (
     <article className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
       <button
@@ -425,7 +436,7 @@ function StepCard({ step }: { step: AgentStep }): JSX.Element {
               ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-600'
               : step.status === 'error'
                 ? 'border-rose-500/40 bg-rose-500/10 text-rose-600'
-                : 'border-brand-500/40 bg-brand-500/10 text-brand-600'
+                : phaseColor
           }`}
         >
           {isRunning ? <Loader2 size={12} className="animate-spin" /> : step.stepNumber}
@@ -544,68 +555,171 @@ function buildMarkdown(state: AgentState): string {
 function buildStixBundle(state: AgentState): Record<string, unknown> {
   const objects: Record<string, unknown>[] = [];
   const now = new Date().toISOString();
-
-  // Extract IOCs from report
   const report = state.report ?? '';
-  const ipv4s =
-    report.match(/\b(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)\b/g) ?? [];
-  const hashes = report.match(/\b[a-fA-F0-9]{64}\b/g) ?? [];
-  const cves = report.match(/\bCVE-\d{4}-\d{4,}\b/gi) ?? [];
-  const mitres = report.match(/\bT\d{4}(?:\.\d{3})?\b/g) ?? [];
 
-  // Add vulnerability objects for CVEs
-  for (const cve of [...new Set(cves)]) {
+  // Extract entities
+  const ipv4s = [
+    ...new Set(
+      report.match(/\b(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)\b/g) ?? []
+    ),
+  ];
+  const hashes = [...new Set(report.match(/\b[a-fA-F0-9]{64}\b/g) ?? [])];
+  const cves = [...new Set((report.match(/\bCVE-\d{4}-\d{4,}\b/gi) ?? []).map((c) => c.toUpperCase()))];
+  const mitres = [...new Set(report.match(/\bT\d{4}(?:\.\d{3})?\b/g) ?? [])];
+  const domains = [
+    ...new Set(
+      report.match(/\b(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+(?:com|org|net|io|co|ru|cn|onion)\b/gi) ?? []
+    ),
+  ];
+
+  // Create report object
+  const reportId = `report--${crypto.randomUUID()}`;
+  objects.push({
+    type: 'report',
+    spec_version: '2.1',
+    id: reportId,
+    created: now,
+    modified: now,
+    name: `Investigation: ${state.query}`,
+    published: now,
+    object_refs: [] as string[], // filled below
+  });
+
+  // Vulnerability objects for CVEs
+  for (const cve of cves) {
+    const id = `vulnerability--${crypto.randomUUID()}`;
     objects.push({
       type: 'vulnerability',
       spec_version: '2.1',
-      id: `vulnerability--${crypto.randomUUID()}`,
+      id,
       created: now,
       modified: now,
-      name: cve.toUpperCase(),
-      external_references: [{ source_name: 'cve', external_id: cve.toUpperCase() }],
+      name: cve,
+      external_references: [{ source_name: 'cve', external_id: cve }],
     });
+    (objects[0].object_refs as string[]).push(id);
   }
 
-  // Add indicator objects for IOCs
-  for (const ip of [...new Set(ipv4s)]) {
+  // Indicator objects for IOCs
+  for (const ip of ipv4s) {
+    const id = `indicator--${crypto.randomUUID()}`;
     objects.push({
       type: 'indicator',
       spec_version: '2.1',
-      id: `indicator--${crypto.randomUUID()}`,
+      id,
       created: now,
       modified: now,
       name: `IPv4: ${ip}`,
       pattern: `[ipv4-addr:value = '${ip}']`,
       pattern_type: 'stix',
       valid_from: now,
+      labels: ['malicious-activity'],
     });
+    (objects[0].object_refs as string[]).push(id);
   }
 
-  for (const hash of [...new Set(hashes)]) {
+  for (const hash of hashes) {
+    const id = `indicator--${crypto.randomUUID()}`;
     objects.push({
       type: 'indicator',
       spec_version: '2.1',
-      id: `indicator--${crypto.randomUUID()}`,
+      id,
       created: now,
       modified: now,
       name: `SHA256: ${hash.slice(0, 16)}...`,
       pattern: `[file:hashes.'SHA-256' = '${hash}']`,
       pattern_type: 'stix',
       valid_from: now,
+      labels: ['malicious-activity'],
     });
+    (objects[0].object_refs as string[]).push(id);
   }
 
-  // Add attack-pattern objects for MITRE techniques
-  for (const t of [...new Set(mitres)]) {
+  for (const domain of domains.slice(0, 10)) {
+    const id = `indicator--${crypto.randomUUID()}`;
+    objects.push({
+      type: 'indicator',
+      spec_version: '2.1',
+      id,
+      created: now,
+      modified: now,
+      name: `Domain: ${domain}`,
+      pattern: `[domain-name:value = '${domain}']`,
+      pattern_type: 'stix',
+      valid_from: now,
+      labels: ['malicious-activity'],
+    });
+    (objects[0].object_refs as string[]).push(id);
+  }
+
+  // Attack pattern objects for MITRE techniques
+  const attackPatternIds: string[] = [];
+  for (const t of mitres) {
+    const id = `attack-pattern--${crypto.randomUUID()}`;
     objects.push({
       type: 'attack-pattern',
       spec_version: '2.1',
-      id: `attack-pattern--${crypto.randomUUID()}`,
+      id,
       created: now,
       modified: now,
       name: t,
       external_references: [{ source_name: 'mitre-attack', external_id: t }],
     });
+    attackPatternIds.push(id);
+    (objects[0].object_refs as string[]).push(id);
+  }
+
+  // Threat actor (if actor query)
+  if (state.queryType === 'actor' || state.queryType === 'ransomware') {
+    const actorId = `threat-actor--${crypto.randomUUID()}`;
+    objects.push({
+      type: 'threat-actor',
+      spec_version: '2.1',
+      id: actorId,
+      created: now,
+      modified: now,
+      name: state.query,
+      threat_actor_types: ['crime-syndicate'],
+      roles: ['agent'],
+    });
+    (objects[0].object_refs as string[]).push(actorId);
+
+    // Link actor to techniques
+    for (const apId of attackPatternIds) {
+      const relId = `relationship--${crypto.randomUUID()}`;
+      objects.push({
+        type: 'relationship',
+        spec_version: '2.1',
+        id: relId,
+        created: now,
+        modified: now,
+        relationship_type: 'uses',
+        source_ref: actorId,
+        target_ref: apId,
+      });
+      (objects[0].object_refs as string[]).push(relId);
+    }
+  }
+
+  // Link indicators to vulnerabilities
+  const vulnIds = objects.filter((o) => o.type === 'vulnerability').map((o) => o.id as string);
+  const indicatorIds = objects.filter((o) => o.type === 'indicator').map((o) => o.id as string);
+
+  for (const vId of vulnIds) {
+    for (const iId of indicatorIds.slice(0, 3)) {
+      const relId = `relationship--${crypto.randomUUID()}`;
+      objects.push({
+        type: 'relationship',
+        spec_version: '2.1',
+        id: relId,
+        created: now,
+        modified: now,
+        relationship_type: 'indicates',
+        source_ref: iId,
+        target_ref: vId,
+      });
+      (objects[0].object_refs as string[]).push(relId);
+    }
   }
 
   return {

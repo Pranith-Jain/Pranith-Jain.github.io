@@ -1,22 +1,23 @@
 /**
- * Agent planner — identifies the target, picks the single most valuable
- * tool call, executes, then synthesizes. The goal is 2-3 steps max:
- *   Step 1: Primary lookup (check_ioc / lookup_cve / enrich_actor)
- *   Step 2: Enrichment if step 1 returned actionable leads
- *   Step 3: Synthesize
+ * CTI Analyst Agent — Multi-phase planner.
+ *
+ * Investigation follows the intelligence cycle:
+ *   Phase 1: COLLECTION    — Get raw data from primary sources
+ *   Phase 2: ENRICHMENT    — Cross-correlate, pivot, expand
+ *   Phase 3: ANALYSIS      — Attribute, assess confidence, map kill chain
+ *   Phase 4: PRODUCTION    — Generate rules, STIX, campaigns, hunt queries
+ *   Phase 5: SYNTHESIS     — Final analyst-grade report
+ *
+ * The planner decides which phase we're in and picks the most valuable
+ * next tool call. It synthesizes when enough data is collected.
  */
 import type { Ai } from '@cloudflare/workers-types';
 import { runCompletion, type CompletionInput } from '../../case-study/generation/ai-client';
 import type { AgentStep, AgentTool, PlannerOutput } from './types';
-import { buildPlannerPrompt, buildPlannerUserPrompt } from './prompts';
 import { describeTools } from './tools';
 
 const MAX_PARSE_RETRIES = 2;
 
-/**
- * Ask the LLM what to do next. Returns a PlannerOutput with tool calls
- * (if any) and a shouldSynthesize flag.
- */
 export async function planNextStep(
   ai: Ai,
   query: string,
@@ -27,29 +28,35 @@ export async function planNextStep(
   tools: AgentTool[],
   opts: { groqKey?: string }
 ): Promise<PlannerOutput> {
-  // Force synthesis at step maxSteps or later with any data
-  if (currentStep >= maxSteps && steps.some((s) => s.results.length > 0)) {
+  const totalResults = steps.reduce((n, s) => n + s.results.filter((r) => r.status === 'ok').length, 0);
+
+  // Force synthesis conditions
+  if (currentStep >= maxSteps && totalResults > 0) {
     return {
-      reasoning: `Step ${currentStep} of ${maxSteps} — synthesizing report from collected data.`,
+      reasoning: `Step ${currentStep}/${maxSteps} — synthesizing report.`,
       toolCalls: [],
       shouldSynthesize: true,
     };
   }
-
-  // Force synthesis at maxSteps-1 if we already have 2+ successful tool results
-  const totalResults = steps.reduce((n, s) => n + s.results.filter((r) => r.status === 'ok').length, 0);
-  if (currentStep >= maxSteps - 1 && totalResults >= 2) {
+  if (currentStep >= maxSteps - 1 && totalResults >= 3) {
     return {
-      reasoning: `Have ${totalResults} successful tool results — synthesizing now.`,
+      reasoning: `${totalResults} successful results — synthesizing to preserve context.`,
+      toolCalls: [],
+      shouldSynthesize: true,
+    };
+  }
+  if (totalResults >= 6) {
+    return {
+      reasoning: `${totalResults} results collected — enough for a comprehensive report.`,
       toolCalls: [],
       shouldSynthesize: true,
     };
   }
 
   const toolDescriptions = describeTools(tools);
-  const system = buildPlannerPrompt(toolDescriptions, maxSteps);
-  const user = buildPlannerUserPrompt(query, queryType, steps, currentStep, maxSteps);
-  const input: CompletionInput = { system, user, maxTokens: 1000, temperature: 0.2 };
+  const system = buildCtiPlannerPrompt(toolDescriptions, maxSteps, queryType);
+  const user = buildCtiUserPrompt(query, queryType, steps, currentStep, maxSteps);
+  const input: CompletionInput = { system, user, maxTokens: 1200, temperature: 0.2 };
 
   let lastErr: unknown;
   for (let attempt = 0; attempt <= MAX_PARSE_RETRIES; attempt++) {
@@ -59,19 +66,139 @@ export async function planNextStep(
     } catch (err) {
       lastErr = err;
       if (attempt < MAX_PARSE_RETRIES) {
-        input.user = `${user}\n\nIMPORTANT: Your previous response was not valid JSON. Respond with ONLY the JSON object.`;
+        input.user = `${user}\n\nIMPORTANT: Respond with ONLY valid JSON.`;
       }
     }
   }
-  console.warn('planner: failed to parse LLM output, synthesizing', lastErr);
-  return {
-    reasoning: 'Planner parse failure — synthesizing with available data.',
-    toolCalls: [],
-    shouldSynthesize: true,
-  };
+  console.warn('planner: parse failure, synthesizing', lastErr);
+  return { reasoning: 'Planner failure — synthesizing.', toolCalls: [], shouldSynthesize: true };
 }
 
-/** Parse the LLM's raw output into a PlannerOutput. */
+function buildCtiPlannerPrompt(toolDescriptions: string, maxSteps: number, queryType: string): string {
+  return `<role>You are a senior CTI analyst running an investigation. You have ${maxSteps} steps to collect, enrich, analyze, and produce intelligence from ${toolDescriptions.split('\n').length} available tools.</role>
+
+<available_tools>
+${toolDescriptions}
+</available_tools>
+
+<intelligence_cycle>
+Phase 1 — COLLECTION (Steps 1-2): Get raw data from the most relevant primary source.
+Phase 2 — ENRICHMENT (Steps 2-4): Cross-correlate findings, pivot on related entities.
+Phase 3 — ANALYSIS (Steps 3-5): Attribute, assess confidence, map to kill chain.
+Phase 4 — PRODUCTION (Step 4-6): Generate detection rules, STIX bundles, hunt queries.
+Phase 5 — SYNTHESIS (Final step): Compile everything into an analyst-grade report.
+</intelligence_cycle>
+
+<tool_selection_rules>
+FOR ${queryType.toUpperCase()} QUERIES:
+
+${
+  queryType === 'cve'
+    ? `Step 1: lookup_cve (get CVSS, EPSS, KEV, affected products)
+Step 2: enrich_actor for any actors linked to this CVE, OR lookup_mitre for related techniques
+Step 3: generate_yara_rule or generate_hunting_queries for detection
+Step 4: Synthesize`
+    : ''
+}
+
+${
+  queryType === 'ip' || queryType === 'domain' || queryType === 'hash'
+    ? `Step 1: check_ioc (30+ provider verdicts)
+Step 2: get_relationships + get_ioc_lifecycle (map connections, assess activity)
+Step 3: If domain — lookup_domain + pivot_domain. If IP — lookup_ip_geo + lookup_asn. If hash — sample_scan + malware_family_detail
+Step 4: generate_yara_rule for detection. Synthesize`
+    : ''
+}
+
+${
+  queryType === 'actor' || queryType === 'ransomware'
+    ? `Step 1: enrich_actor (profile, aliases, MITRE, CVEs)
+Step 2: actor_timeline + get_ransomware_activity (recent campaigns, victims)
+Step 3: actor_cves + analyze_campaign (attribution, kill chain)
+Step 4: generate_yara_rule + get_blocklists (detection + defense)
+Step 5: Synthesize`
+    : ''
+}
+
+${
+  queryType === 'phishing'
+    ? `Step 1: analyze_phishing_url (verdict, extraction)
+Step 2: check_ioc on extracted IOCs + lookup_domain on extracted domains
+Step 3: generate_yara_rule + generate_hunting_queries
+Step 4: Synthesize`
+    : ''
+}
+
+${
+  queryType === 'campaign'
+    ? `Step 1: unified_search (find related intel)
+Step 2: cross_correlate + analyze_campaign (lifecycle, kill chain)
+Step 3: generate_yara_rule + generate_hunting_queries (detection)
+Step 4: Synthesize`
+    : ''
+}
+
+${
+  queryType === 'generic'
+    ? `Step 1: unified_search (find what this is about)
+Step 2: Based on results — enrich with the most relevant tool (check_ioc, enrich_actor, lookup_cve)
+Step 3: Synthesize`
+    : ''
+}
+</tool_selection_rules>
+
+<critical_rules>
+- NEVER call the same tool with the same args twice.
+- NEVER call broad dump tools: get_live_iocs, get_today_briefing, get_feed_status, get_feed_catalog.
+- Maximum 2 tool calls per step. 1 is often better.
+- After 3+ successful results with good data, SYNTHESIZE IMMEDIATELY.
+- More tools ≠ better reports. Quality of data > quantity of data.
+- For rule generation: ALWAYS include the malware family name and known strings from the data you collected.
+</critical_rules>
+
+<output_format>
+Respond with ONLY valid JSON:
+{
+  "phase": "collection|enrichment|analysis|production|synthesis",
+  "reasoning": "Why these tools for this phase",
+  "toolCalls": [{ "tool": "name", "args": {...}, "reasoning": "why" }],
+  "shouldSynthesize": false
+}
+</output_format>`;
+}
+
+function buildCtiUserPrompt(
+  query: string,
+  queryType: string,
+  steps: AgentStep[],
+  currentStep: number,
+  maxSteps: number
+): string {
+  const historyBlock = steps
+    .filter((s) => s.results.length > 0)
+    .map((s) => {
+      const results = s.results
+        .map((r) => {
+          const status = r.status === 'ok' ? 'OK' : `ERR`;
+          const data = r.data ? JSON.stringify(r.data).slice(0, 500) : '(no data)';
+          return `  ${r.tool}: ${status} — ${data}`;
+        })
+        .join('\n');
+      return `Step ${s.stepNumber} (${s.plan.slice(0, 80)}):\n${results}`;
+    })
+    .join('\n\n');
+
+  return `<investigation>
+Query: ${query}
+Type: ${queryType}
+Step: ${currentStep + 1} of ${maxSteps}
+</investigation>
+
+${historyBlock ? `<collected_data>\n${historyBlock}\n</collected_data>` : '<collected_data>None yet — start with Phase 1: Collection.</collected_data>'}
+
+What is the most valuable next tool call? If I have enough data for a comprehensive report, set shouldSynthesize=true.`;
+}
+
 function parsePlannerOutput(raw: string, tools: AgentTool[], steps: AgentStep[]): PlannerOutput {
   let cleaned = raw.trim();
   if (cleaned.startsWith('```')) {
@@ -79,7 +206,7 @@ function parsePlannerOutput(raw: string, tools: AgentTool[], steps: AgentStep[])
   }
   const firstBrace = cleaned.indexOf('{');
   const lastBrace = cleaned.lastIndexOf('}');
-  if (firstBrace === -1 || lastBrace === -1) throw new Error('No JSON object found');
+  if (firstBrace === -1 || lastBrace === -1) throw new Error('No JSON found');
   cleaned = cleaned.slice(firstBrace, lastBrace + 1);
 
   const parsed = JSON.parse(cleaned) as {
@@ -88,9 +215,9 @@ function parsePlannerOutput(raw: string, tools: AgentTool[], steps: AgentStep[])
     shouldSynthesize?: boolean;
   };
 
-  if (typeof parsed !== 'object' || parsed === null) throw new Error('Planner output is not an object');
+  if (typeof parsed !== 'object' || parsed === null) throw new Error('Not an object');
 
-  // Deduplicate: filter out tool calls already made in previous steps
+  // Deduplicate
   const called = new Set<string>();
   for (const s of steps) {
     for (const r of s.results) {
@@ -107,22 +234,14 @@ function parsePlannerOutput(raw: string, tools: AgentTool[], steps: AgentStep[])
       called.add(key);
       return true;
     })
-    .map((tc) => ({
-      tool: tc.tool,
-      args: tc.args ?? {},
-      reasoning: tc.reasoning ?? '',
-    }));
+    .map((tc) => ({ tool: tc.tool, args: tc.args ?? {}, reasoning: tc.reasoning ?? '' }));
 
   if (parsed.shouldSynthesize === true) {
     return { reasoning: parsed.reasoning ?? '', toolCalls: [], shouldSynthesize: true };
   }
 
   if (toolCalls.length === 0) {
-    return {
-      reasoning: parsed.reasoning ?? 'No valid tool calls — synthesizing.',
-      toolCalls: [],
-      shouldSynthesize: true,
-    };
+    return { reasoning: parsed.reasoning ?? 'No valid calls — synthesizing.', toolCalls: [], shouldSynthesize: true };
   }
 
   return { reasoning: parsed.reasoning ?? '', toolCalls, shouldSynthesize: false };

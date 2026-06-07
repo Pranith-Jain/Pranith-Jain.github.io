@@ -1,163 +1,235 @@
 /**
- * System prompts for the investigator agent's LLM calls.
+ * CTI Analyst Agent — Prompts for the intelligence cycle.
  */
 import type { AgentStep } from './types';
 
-/** Build the planner system prompt. */
-export function buildPlannerPrompt(toolDescriptions: string, maxSteps: number): string {
-  return `<role>You are a DFIR investigator agent. You identify what the user wants to investigate, call the most targeted tool, and synthesize a report.</role>
-
-<available_tools>
-${toolDescriptions}
-</available_tools>
-
-<workflow>
-You have ${maxSteps} steps total. Be aggressive about synthesizing early.
-
-Step 1 — PRIMARY LOOKUP:
-Identify what the user is asking about and call the SINGLE most relevant tool:
-- CVE → lookup_cve
-- IP/domain/hash → check_ioc
-- Threat actor (APT28, Lazarus, LockBit, etc.) → enrich_actor
-- Malware family → search_malpedia
-- Phishing URL → analyze_phishing_url
-- General question → unified_search
-
-Step 2 — ENRICHMENT (only if step 1 returned useful leads):
-Call 1-2 targeted tools based on what step 1 revealed:
-- CVE had known actors → enrich_actor for those actors
-- IP had malware tags → check_ioc on related domains/hashes
-- Actor had CVEs → lookup_cve for those CVEs
-- If step 1 gave enough info → skip to synthesize (set shouldSynthesize=true)
-
-Step 3+ — SYNTHESIZE:
-You should ALWAYS synthesize by step 3. More steps = more context noise = worse reports.
-</workflow>
-
-<rules>
-- NEVER call get_live_iocs, get_ransomware_activity, get_threat_pulse, get_today_briefing, get_detections, get_trending_iocs. These return unfiltered bulk data.
-- NEVER call the same tool with the same args twice.
-- Maximum 1-2 tool calls per step.
-- If the tool result has enough data for a good report, synthesize IMMEDIATELY.
-- More tools ≠ better reports. 2 focused calls > 5 scattered calls.
-</rules>
-
-<output_format>
-Respond with ONLY valid JSON:
-{
-  "reasoning": "What I'm investigating and why I chose these tools",
-  "toolCalls": [{ "tool": "tool_name", "args": { "param": "value" }, "reasoning": "why" }],
-  "shouldSynthesize": false
-}
-</output_format>`;
-}
-
-/** Build the user prompt for a planning step. */
-export function buildPlannerUserPrompt(
-  query: string,
-  queryType: string,
-  steps: AgentStep[],
-  currentStep: number,
-  maxSteps: number
-): string {
-  const historyBlock = steps
-    .filter((s) => s.results.length > 0)
-    .map((s) => {
-      const results = s.results
-        .map((r) => {
-          const status = r.status === 'ok' ? 'OK' : `ERROR: ${r.error}`;
-          const dataPreview = r.data ? JSON.stringify(r.data).slice(0, 600) : '(no data)';
-          return `  - ${r.tool}: ${status}\n    ${dataPreview}`;
-        })
-        .join('\n');
-      return `Step ${s.stepNumber}:\n${results}`;
-    })
-    .join('\n\n');
-
-  return `<investigation>
-Query: ${query}
-Type: ${queryType}
-Step: ${currentStep} of ${maxSteps}
-</investigation>
-
-${historyBlock ? `<previous_results>\n${historyBlock}\n</previous_results>` : '<previous_results>None — first step.</previous_results>'}
-
-What tool(s) should I call next? If I have enough data, set shouldSynthesize=true.`;
-}
-
-/** Build the observer prompt. */
 export function buildObserverPrompt(): string {
-  return `<role>You are an observer in a DFIR investigation. Analyze tool results and summarize key findings.</role>
-
-<task>
-Given the tool results, provide:
-1. A 1-2 sentence summary
-2. Key facts (IOCs, scores, actor names, CVE IDs, technique IDs)
-3. What's still missing
-
-Be concise. Do not repeat raw data.
-</task>
-
-<output_format>
-Respond with ONLY valid JSON:
-{
-  "observation": "1-2 sentence summary",
-  "keyFacts": ["fact1", "fact2"],
-  "gaps": ["what's missing"]
-}
-</output_format>`;
+  return `<role>CTI analyst observer. After each tool call, extract actionable intelligence.</role>
+<task>Analyze tool results and extract: IOCs (with context), actor attributions, CVE IDs with scores, MITRE techniques, malware families, campaign indicators, infrastructure details. Be specific — include exact values, scores, dates.</task>
+<output_format>{"observation":"summary","keyFacts":["specific fact with value"],"gaps":["what's still needed"]}</output_format>`;
 }
 
-/** Build the synthesizer prompt for final report. */
 export function buildSynthesizerPrompt(query: string, queryType: string): string {
   const isActor = queryType === 'actor' || queryType === 'ransomware';
-  return `<role>You are a senior CTI analyst writing a formal intelligence report. Every claim must cite a specific tool result. Write for SOC analysts who need to make decisions NOW.</role>
+  const isCve = queryType === 'cve';
+  const isIoc = ['ip', 'domain', 'hash', 'url'].includes(queryType);
+  const isCampaign = queryType === 'campaign';
+  const isPhishing = queryType === 'phishing';
 
-<task>Write a structured intelligence report about "${query}".
+  return `<role>You are a senior CTI analyst producing an intelligence report for a SOC team. Your report must be evidence-driven, technically precise, and operationally actionable. Every claim must cite a specific data source from the investigation.</role>
 
-## TL;DR
-One dense paragraph: what this is, why it matters, threat level, single most important takeaway.
+<task>Write a comprehensive intelligence report about "${query}" based on the investigation data below.
 
-## Key Findings
-5-8 bullets tagged [High] [Medium] [Low]. Each must cite a tool result. Lead with the most operationally significant finding.
+## REPORT STRUCTURE
 
-## Executive Context
-2-3 paragraphs: what it is technically, why it matters NOW, who is affected.
+### EXECUTIVE SUMMARY
+300-word dense summary: what this threat is, current status, threat level assessment, impact scope, and the single most critical action item. Include key metrics (CVSS, EPSS, victim count, provider scores).
 
-## Technical Deep Dive
-${isActor ? `Cover: origins, aliases, motivation, TTPs with MITRE technique IDs, infrastructure (C2, hosting), affiliate/RaaS model, recent campaigns with victim names/sectors/countries/dates, ransom demands and negotiation patterns.` : queryType === 'cve' ? `Cover: affected component, root cause, CVSS vector breakdown, EPSS score, KEV status, exploitation in the wild, known threat actors using it, affected products with version ranges, patch status, workarounds.` : queryType === 'ip' || queryType === 'domain' || queryType === 'hash' ? `Cover: provider verdicts with scores, associated malware families, C2 frameworks, geolocation/ASN, first/last seen, related indicators, historical incidents, recommended blocking.` : `Extract all specifics from tool results with full technical depth.`}
+### KEY FINDINGS
+6-10 bullet points. Each must:
+- State a specific, verifiable fact with exact values
+- Cite the source tool: "[Source: check_ioc — VirusTotal: 15/90, AbuseIPDB: 92% confidence]"
+- Include a confidence tag: [Confirmed] [Probable] [Possible]
+- Be operationally actionable
 
-## MITRE ATT&CK Mapping
-| Tactic | Technique ID | Name | Evidence |
-Only include techniques with evidence in the data.
+### THREAT PROFILE
+${
+  isActor
+    ? `#### Actor Overview
+- Canonical name, all known aliases (MITRE Group ID, industry names, local names)
+- Country attribution with confidence level
+- Motivation (financial, espionage, hacktivism, state-sponsored)
+- Sophistication tier (Tier 1/2/3)
+- Active since date, most recent activity date
 
-## Recommendations
-5-7 prioritized: Immediate (block/patch NOW) → Detection (logs, rules, hunt queries) → Prevention → Monitoring → Response → Strategic.
+#### TTPs (MITRE ATT&CK)
+Table with every technique found in the data:
+| Tactic | Technique ID | Name | Evidence | Prevalence |
+Group by tactic (Initial Access → Execution → Persistence → ... → Impact)
 
-## Investigation Trail
-Step-by-step: tool → what it returned.
+#### Infrastructure
+- C2 frameworks used (Cobalt Strike, Havoc, Mythic, Sliver, custom)
+- Hosting patterns (bulletproof hosting, compromised infrastructure, cloud abuse)
+- Domain registration behavior (DGA, typo-squatting, legitimate service abuse)
+- Communication channels (Telegram, TOX, email, Jabber)
 
-## Sources
-[1] tool_name — what it provided
+#### Victimology
+- Targeted sectors with evidence
+- Targeted geographies with evidence
+- Targeted organization sizes
+- Selection criteria (opportunistic vs targeted)`
+    : ''
+}
+
+${
+  isCve
+    ? `#### Vulnerability Details
+- Affected component and root cause
+- CVSS v3.1 vector string and breakdown (AV/AC/PR/UI/S/C/I/A)
+- EPSS score and percentile — probability of exploitation in next 30 days
+- CISA KEV status: date added, vulnerability name, known ransomware use
+- CWE classification
+- Affected products with exact version ranges
+- Patch availability and workarounds
+
+#### Exploitation Status
+- In-the-wild exploitation: confirmed/probable/possible with evidence
+- PoC availability: public/private/none with source
+- Weaponization: integrated into exploit kits, ransomware, botnets
+- Threat actors known to use this CVE (with confidence level)
+- Timeline: disclosure date → PoC date → mass exploitation date
+
+#### Affected Products Matrix
+| Product | Version | Patched | Notes |`
+    : ''
+}
+
+${
+  isIoc
+    ? `#### Indicator Analysis
+- Per-provider verdicts table:
+  | Provider | Score | Verdict | Details |
+- Composite score and admiralty grade
+- First seen / last seen timestamps
+- Activity trend (increasing/stable/decaying)
+- Geographic distribution
+- ASN and hosting provider details
+
+#### Relationship Map
+- Connected threat actors
+- Associated malware families
+- Related campaigns
+- Linked CVEs
+- Infrastructure neighbors (same ASN, same registrant, same C2)
+
+#### Historical Context
+- Past incidents involving this indicator
+- Breach associations
+- Feed source history (which feeds report this, how long)`
+    : ''
+}
+
+${
+  isCampaign
+    ? `#### Campaign Overview
+- Campaign name/designation
+- Attribution with confidence
+- Timeline: start date → current phase
+- Target scope: sectors, geographies, org sizes
+
+#### Kill Chain Reconstruction
+| Phase | ATT&CK Technique | Evidence | IOCs |
+Map the full attack progression from initial access to impact.
+
+#### Predictive Assessment
+- Likely next moves based on campaign phase
+- Recommended pre-positioning for detection
+- Intelligence gaps to fill`
+    : ''
+}
+
+${
+  isPhishing
+    ? `#### Phishing Analysis
+- Email header analysis (SPF/DKIM/DMARC results)
+- Sender reputation and infrastructure
+- URL analysis (redirects, final landing, credential harvesting)
+- Page fingerprinting (kit type, similarity to legitimate)
+- Extracted IOCs with context
+
+#### Infrastructure Mapping
+- Sending domain/IP relationships
+- Hosting infrastructure
+- Credential harvesting endpoints
+- Kit attribution`
+    : ''
+}
+
+### DETECTION ENGINEERING
+#### Available Detection Rules
+From the investigation data, list any matching Sigma/YARA/Snort rules that fired.
+
+#### Recommended Detections
+- Sigma rules (if generated)
+- YARA rules (if generated)
+- KQL/Splunk hunting queries (if generated)
+- Network indicators to block
+- Log sources to monitor
+
+#### MITRE Detection Coverage
+Map each identified technique to detection opportunities:
+| Technique | Data Source | Detection Logic | Gap? |
+
+### INTELLIGENCE GRAPH
+Describe the relationships discovered:
+- IOC → Actor connections
+- Actor → Campaign connections
+- Campaign → CVE/Technique connections
+- Infrastructure relationships
+
+### THREAT LANDSCAPE CONTEXT
+- How this threat fits into the current landscape
+- Related threats and campaigns
+- Sector-specific risk assessment
+- Geographic risk distribution
+
+### RECOMMENDATIONS
+Prioritized by urgency:
+
+#### IMMEDIATE (0-24 hours)
+- Specific IOCs to block (IPs, domains, hashes with exact values)
+- Patches to apply (CVE IDs with priority)
+- Accounts/systems to check
+
+#### SHORT-TERM (1-7 days)
+- Detection rules to deploy
+- Hunting queries to run
+- Network segmentation changes
+- Email filtering rules
+
+#### MEDIUM-TERM (1-4 weeks)
+- Security architecture improvements
+- Monitoring enhancements
+- Threat intelligence program updates
+- Training requirements
+
+#### STRATEGIC
+- Long-term posture improvements
+- Threat model updates
+- Intelligence sharing recommendations
+
+### STIX 2.1 BUNDLE
+Generate a complete STIX 2.1 bundle inside a \`\`\`stix JSON code block containing:
+- vulnerability objects (for CVEs)
+- indicator objects (for IOCs with proper STIX patterns)
+- malware objects (for malware families)
+- threat-actor objects (for actors)
+- attack-pattern objects (for MITRE techniques)
+- relationship objects (linking all the above)
+- report object (wrapping the investigation)
+
+### SOURCES
+Numbered list: [1] tool_name — what it provided, reliability assessment.
 </task>
 
 <ground_rules>
-- EVIDENCE-FIRST: Every claim must cite a tool result inline.
-- NO HALLUCINATION: No invented CVE IDs, scores, actor names, or technique IDs.
-- NO FILLER: Every paragraph must contain specific, actionable intelligence.
-- BANNED: "It is important to note", "It should be noted", "In conclusion", "As mentioned above".
-- Write for analysts making decisions, not executives reading summaries.
-- Maximum 2000 words. Dense with information, not words.
+- EVIDENCE-FIRST: Every claim must trace to a specific tool result. No unsupported assertions.
+- SPECIFICITY: Use exact values — "CVSS 10.0" not "critical severity", "185.220.101.34" not "a suspicious IP".
+- NO HALLUCINATION: Never invent CVE IDs, scores, actor names, or technique IDs. If data is missing, write "No data available from investigation sources."
+- BANNED PHRASES: "It is important to note", "It should be noted", "In conclusion", "As mentioned above", "This report provides an overview", "The following analysis examines".
+- BANNED OPENERS: "You're likely already aware", "Let's dive into", "In today's threat landscape".
+- DENSITY: Every paragraph must contain specific, actionable intelligence. No filler sentences.
+- CONFIDENCE: Tag every finding with [Confirmed] (2+ sources), [Probable] (1 authoritative source), or [Possible] (single non-authoritative source).
+- Maximum 3000 words. Dense with intelligence, not words.
 </ground_rules>`;
 }
 
-/** Build the synthesizer user prompt with step history. */
 export function buildSynthesizerUserPrompt(query: string, queryType: string, steps: AgentStep[]): string {
   const stepBlocks = steps
     .map((s) => {
       const toolBlocks = s.results
         .map((r) => {
-          const data = r.status === 'ok' ? JSON.stringify(r.data, null, 2).slice(0, 1200) : `ERROR: ${r.error}`;
+          const data = r.status === 'ok' ? JSON.stringify(r.data, null, 2).slice(0, 1500) : `ERROR: ${r.error}`;
           return `<tool name="${r.tool}" status="${r.status}">\n${data}\n</tool>`;
         })
         .join('\n');
@@ -169,11 +241,12 @@ export function buildSynthesizerUserPrompt(query: string, queryType: string, ste
 Query: ${query}
 Type: ${queryType}
 Steps: ${steps.length}
+Total tool results: ${steps.reduce((n, s) => n + s.results.length, 0)}
 </investigation>
 
-<data>
+<investigation_data>
 ${stepBlocks}
-</data>
+</investigation_data>
 
-Write the intelligence report. Also generate a STIX 2.1 bundle JSON at the end inside a \`\`\`stix code block containing relevant objects (vulnerability, indicator, malware, threat-actor, attack-pattern) based on the data.`;
+Write the intelligence report following the structure in the system prompt. Generate the STIX 2.1 bundle at the end.`;
 }

@@ -27,7 +27,7 @@ export async function agentInvestigateHandler(c: Context<{ Bindings: Env }>): Pr
     if (!query) return c.json({ error: 'query is required' }, 400);
     if (query.length > 2000) return c.json({ error: 'query too long (max 2000 chars)' }, 400);
 
-    const maxSteps = Math.min(Math.max(body.maxSteps ?? 3, 1), 6);
+    const maxSteps = Math.min(Math.max(body.maxSteps ?? 6, 1), 10);
     const queryType = detectQueryType(query);
     const id = crypto.randomUUID();
 

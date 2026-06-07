@@ -51,7 +51,7 @@ export class InvestigatorAgentDO {
         status: 'running',
         steps: [],
         currentStep: 0,
-        maxSteps: body.maxSteps ?? 3,
+        maxSteps: body.maxSteps ?? 6,
         report: null,
         modelUsed: null,
         startedAt: new Date().toISOString(),
