@@ -2,12 +2,27 @@ import type { Ai } from '@cloudflare/workers-types';
 import type { Post } from '../types';
 import { runCompletion } from './ai-client';
 import { VOICE_IDENTITY, COPYWRITING_RULES, PIPELINE_OUTPUT_GUARDRAIL } from './copywriting';
+import { stripUntrustedUrls, findUngroundedCves, detectSlop } from '../../lib/ai-output-validator';
 
 export interface SocialContent {
   slug: string;
   twitter: string;
   linkedin: string;
   generatedAt: string;
+  _validation?: {
+    twitter_quality?: SocialQuality;
+    linkedin_quality?: SocialQuality;
+  };
+}
+
+export interface SocialQuality {
+  char_count: number;
+  over_limit: boolean;
+  ungrounded_cves: string[];
+  untrusted_urls: number;
+  slop_count: number;
+  score: number; // 0-100
+  issues: string[];
 }
 
 const SOCIAL_SYSTEM =
@@ -32,10 +47,7 @@ function gist(body: string): string {
 
 /**
  * Tidy generated social copy: strip trailing spaces, collapse runs of spaces,
- * and cap consecutive blank lines at ONE. The model tends to over-space
- * (a blank line between every short line + trailing whitespace), which reads
- * as sparse padding on LinkedIn/X. Whitespace BETWEEN posts (the "\n\n" the
- * thread relies on) is preserved; only 3+ newlines collapse to a single blank.
+ * and cap consecutive blank lines at ONE.
  */
 function tidySocial(text: string): string {
   return text
@@ -47,15 +59,7 @@ function tidySocial(text: string): string {
 }
 
 /**
- * LinkedIn-specific tidy on top of the shared one. LinkedIn renders a single
- * `\n` as a soft return (line break within a paragraph) and `\n\n` as a
- * paragraph break (visible blank line). The model often writes a vertical
- * stack of one-sentence "paragraphs" with a blank line between each — that
- * reads as padded whitespace on the platform. We collapse consecutive tight
- * blocks (single short non-list / non-hashtag / non-special-label lines) into
- * a single dense block separated by soft returns, so a blank line only falls
- * where it actually delimits a section. Twitter uses tidySocial() directly
- * because each tweet intentionally IS its own line.
+ * LinkedIn-specific tidy: collapse consecutive tight blocks into dense paragraphs.
  */
 function tidyLinkedin(text: string): string {
   const base = tidySocial(text);
@@ -91,6 +95,142 @@ function tidyLinkedin(text: string): string {
   return merged.join('\n\n');
 }
 
+// ── Post-processing validation ──────────────────────────────────────────
+
+const TWITTER_HARD_LIMIT = 280;
+const LINKEDIN_HARD_LIMIT = 3000;
+
+/**
+ * Validate social content against the source case study.
+ * Checks: character limits, CVE grounding, URL allowlisting, slop detection.
+ */
+function validateSocial(text: string, platform: 'twitter' | 'linkedin', sourceBody: string): SocialQuality {
+  const issues: string[] = [];
+
+  // For Twitter threads, we check individual posts, not the whole thread
+  let maxPostLength = 0;
+  if (platform === 'twitter') {
+    const posts = text.split(/\n\n+/).filter((p) => p.trim().length > 0);
+    for (const post of posts) {
+      // Strip counter suffix like " (1/6)" before measuring
+      const clean = post.replace(/\s*\(\d+\/\d+\)\s*$/, '').trim();
+      if (clean.length > maxPostLength) maxPostLength = clean.length;
+    }
+    if (maxPostLength > TWITTER_HARD_LIMIT) {
+      issues.push(`Post exceeds ${TWITTER_HARD_LIMIT} chars (${maxPostLength})`);
+    }
+  } else {
+    // LinkedIn: check body before FIRST COMMENT
+    const bodyPart = text.split(/FIRST COMMENT:/i)[0]?.trim() ?? text;
+    if (bodyPart.length > LINKEDIN_HARD_LIMIT) {
+      issues.push(`LinkedIn body exceeds ${LINKEDIN_HARD_LIMIT} chars (${bodyPart.length})`);
+    }
+    maxPostLength = bodyPart.length;
+  }
+
+  // CVE grounding: check CVEs in social exist in source
+  const ungrounded = findUngroundedCves(text, sourceBody);
+  if (ungrounded.length > 0) {
+    issues.push(`${ungrounded.length} ungrounded CVE(s): ${ungrounded.slice(0, 3).join(', ')}`);
+  }
+
+  // URL allowlisting
+  const { stripped } = stripUntrustedUrls(text);
+  if (stripped.length > 0) {
+    issues.push(`${stripped.length} untrusted URL(s)`);
+  }
+
+  // Slop detection
+  const slop = detectSlop(text);
+  if (slop.length > 1) {
+    issues.push(`${slop.length} AI-slop phrases`);
+  }
+
+  // Score: start at 100, deduct for issues
+  let score = 100;
+  if (platform === 'twitter' && maxPostLength > TWITTER_HARD_LIMIT) score -= 30;
+  if (platform === 'linkedin' && maxPostLength > LINKEDIN_HARD_LIMIT) score -= 20;
+  score -= Math.min(30, ungrounded.length * 15);
+  score -= Math.min(15, stripped.length * 5);
+  score -= Math.min(15, slop.length * 7);
+  score = Math.max(0, Math.min(100, score));
+
+  return {
+    char_count: maxPostLength,
+    over_limit: platform === 'twitter' ? maxPostLength > TWITTER_HARD_LIMIT : maxPostLength > LINKEDIN_HARD_LIMIT,
+    ungrounded_cves: ungrounded,
+    untrusted_urls: stripped.length,
+    slop_count: slop.length,
+    score,
+    issues,
+  };
+}
+
+/**
+ * Strip untrusted URLs and ungrounded CVEs from social content.
+ * Returns cleaned text.
+ */
+function cleanSocial(text: string, sourceBody: string): string {
+  let cleaned = text;
+
+  // Strip untrusted URLs
+  const { cleaned: urlCleaned } = stripUntrustedUrls(cleaned);
+  cleaned = urlCleaned;
+
+  // Remove ungrounded CVE references (replace with generic phrasing)
+  const ungrounded = findUngroundedCves(cleaned, sourceBody);
+  for (const cve of ungrounded) {
+    // Replace "CVE-2024-1234" with "the vulnerability" or similar
+    cleaned = cleaned.replace(new RegExp(cve.replace('-', '\\-'), 'gi'), 'the vulnerability');
+  }
+
+  return cleaned;
+}
+
+// ── Self-heal loop ──────────────────────────────────────────────────────
+
+const MAX_SOCIAL_RETRIES = 1;
+
+async function generateWithValidation(
+  ai: Ai,
+  system: string,
+  userPrompt: string,
+  platform: 'twitter' | 'linkedin',
+  sourceBody: string,
+  groqKey?: string,
+  maxTokens = 1200
+): Promise<{ text: string; quality: SocialQuality }> {
+  let lastText = '';
+  let lastQuality: SocialQuality;
+
+  for (let attempt = 0; attempt <= MAX_SOCIAL_RETRIES; attempt++) {
+    let prompt = userPrompt;
+
+    // On retry, add validation feedback
+    if (attempt > 0 && lastQuality) {
+      const feedback = lastQuality.issues.map((i) => `- ${i}`).join('\n');
+      prompt = `${userPrompt}\n\n---\nPREVIOUS ATTEMPT HAD ISSUES:\n${feedback}\n\nFix these issues. Return ONLY the corrected content.`;
+    }
+
+    const result = await runCompletion(ai, { system, user: prompt, temperature: 0.7, maxTokens }, { groqKey });
+
+    lastText = platform === 'twitter' ? tidySocial(result.text) : tidyLinkedin(result.text);
+    lastQuality = validateSocial(lastText, platform, sourceBody);
+
+    // If quality is acceptable, break
+    if (lastQuality.score >= 60 && !lastQuality.over_limit) break;
+
+    // Clean the output for the next attempt
+    lastText = cleanSocial(lastText, sourceBody);
+    lastQuality = validateSocial(lastText, platform, sourceBody);
+    if (lastQuality.score >= 60 && !lastQuality.over_limit) break;
+  }
+
+  return { text: lastText, quality: lastQuality! };
+}
+
+// ── Prompt builders ─────────────────────────────────────────────────────
+
 function buildTwitterPrompt(post: Post): string {
   const postUrl = `https://pranithjain.qzz.io/blog/${post.slug}`;
   return (
@@ -102,6 +242,7 @@ function buildTwitterPrompt(post: Post): string {
     `- REPLY-WORTHY (conversation is the other top signal): frame one post as an arguable, evidence-backed analytical take so practitioners answer. End on a concrete question, not "thoughts?".\n` +
     `- Middle posts: one concrete idea each, standalone-valuable. Append " (n/N)" at the END of each post (not the start). Each post < 280 chars incl. the counter.\n` +
     `- At most ONE hashtag, only if genuinely specific (a campaign or CVE tag), on the last post. At most ONE functional emoji (a single alert marker), never decorative. Prefer zero of both.\n` +
+    `- CRITICAL: Every CVE ID, statistic, and IOC must come from the input data. Do NOT invent numbers, CVEs, or victim counts.\n` +
     `</format>\n\n` +
     `<examples>\n` +
     `GOOD post 1: "Lockbit5 posted 15 victims in 7 days, 4 of them already appeared under other affiliates this quarter. Same haul, second auction. Affiliate movement, not new compromise. (1/6)"\n` +
@@ -133,6 +274,7 @@ function buildLinkedinPrompt(post: Post): string {
     `- 1300-2000 characters in the body. End with 3-5 specific, on-topic hashtags (e.g. #DFIR #ThreatIntel #IncidentResponse) on their own final line — topical tags are a 2026 topic-authority signal; never a generic stack, never mid-sentence.\n` +
     `- Bold at most one phrase with **asterisks**, only if it earns it. No emojis. No raw URLs in the body (the ONLY link is the FIRST COMMENT block).\n` +
     `- OPTIONAL: when the case is a meaty technical breakdown, ALSO append a "CAROUSEL OUTLINE:" block of 5-8 one-line slide titles (hook slide, one idea per slide, takeaway slide). Document/carousel posts get the highest reach in 2026. Skip it for thin or breaking items.\n` +
+    `- CRITICAL: Every CVE ID, statistic, and IOC must come from the input data. Do NOT invent numbers, CVEs, or victim counts.\n` +
     `</format>\n\n` +
     `<examples>\n` +
     `HOOK — GOOD: "Lockbit5 dropped 15 new victims this week, but 4 of those targets already appeared on a different affiliate's leak site this quarter. The same haul is being re-auctioned. Affiliate dispute, not new compromise."\n` +
@@ -148,36 +290,28 @@ function buildLinkedinPrompt(post: Post): string {
   );
 }
 
+// ── Public API ──────────────────────────────────────────────────────────
+
 export async function generateSocialContent(post: Post, ai: Ai, now: Date, groqKey?: string): Promise<SocialContent> {
-  // allSettled, not all: social copy is ancillary. A transient AI failure
-  // on ONE channel must not reject the whole step (which would make the
-  // publisher record the entire case-study publish as failed) — ship with
-  // whatever succeeded; the publisher/UI already tolerate empty strings.
   const [twitterRes, linkedinRes] = await Promise.allSettled([
-    runCompletion(
-      ai,
-      { system: SOCIAL_SYSTEM, user: buildTwitterPrompt(post), temperature: 0.7, maxTokens: 1200 },
-      { groqKey }
-    ),
-    runCompletion(
-      ai,
-      { system: SOCIAL_SYSTEM, user: buildLinkedinPrompt(post), temperature: 0.7, maxTokens: 1400 },
-      { groqKey }
-    ),
+    generateWithValidation(ai, SOCIAL_SYSTEM, buildTwitterPrompt(post), 'twitter', post.body, groqKey, 1200),
+    generateWithValidation(ai, SOCIAL_SYSTEM, buildLinkedinPrompt(post), 'linkedin', post.body, groqKey, 1400),
   ]);
 
-  // No truncation: a Twitter thread, and a LinkedIn post + its FIRST COMMENT
-  // link block, are multi-part artifacts for MANUAL copy-paste posting, and
-  // model output is already bounded by maxTokens. A single-post char cap here
-  // mangled threads and dropped the trailing link block.
-  const twitter = twitterRes.status === 'fulfilled' ? tidySocial(twitterRes.value.text) : '';
-  const linkedin = linkedinRes.status === 'fulfilled' ? tidyLinkedin(linkedinRes.value.text) : '';
+  const twitter = twitterRes.status === 'fulfilled' ? twitterRes.value.text : '';
+  const linkedin = linkedinRes.status === 'fulfilled' ? linkedinRes.value.text : '';
+  const twitterQuality = twitterRes.status === 'fulfilled' ? twitterRes.value.quality : undefined;
+  const linkedinQuality = linkedinRes.status === 'fulfilled' ? linkedinRes.value.quality : undefined;
 
   return {
     slug: post.slug,
     twitter,
     linkedin,
     generatedAt: now.toISOString(),
+    _validation: {
+      twitter_quality: twitterQuality,
+      linkedin_quality: linkedinQuality,
+    },
   };
 }
 
@@ -186,13 +320,17 @@ export async function generateTwitterContent(
   ai: Ai,
   now: Date,
   groqKey?: string
-): Promise<{ twitter: string; generatedAt: string }> {
-  const res = await runCompletion(
+): Promise<{ twitter: string; generatedAt: string; _validation?: { quality: SocialQuality } }> {
+  const { text, quality } = await generateWithValidation(
     ai,
-    { system: SOCIAL_SYSTEM, user: buildTwitterPrompt(post), temperature: 0.7, maxTokens: 1200 },
-    { groqKey }
+    SOCIAL_SYSTEM,
+    buildTwitterPrompt(post),
+    'twitter',
+    post.body,
+    groqKey,
+    1200
   );
-  return { twitter: tidySocial(res.text), generatedAt: now.toISOString() };
+  return { twitter: text, generatedAt: now.toISOString(), _validation: { quality } };
 }
 
 export async function generateLinkedinContent(
@@ -200,11 +338,15 @@ export async function generateLinkedinContent(
   ai: Ai,
   now: Date,
   groqKey?: string
-): Promise<{ linkedin: string; generatedAt: string }> {
-  const res = await runCompletion(
+): Promise<{ linkedin: string; generatedAt: string; _validation?: { quality: SocialQuality } }> {
+  const { text, quality } = await generateWithValidation(
     ai,
-    { system: SOCIAL_SYSTEM, user: buildLinkedinPrompt(post), temperature: 0.7, maxTokens: 1400 },
-    { groqKey }
+    SOCIAL_SYSTEM,
+    buildLinkedinPrompt(post),
+    'linkedin',
+    post.body,
+    groqKey,
+    1400
   );
-  return { linkedin: tidyLinkedin(res.text), generatedAt: now.toISOString() };
+  return { linkedin: text, generatedAt: now.toISOString(), _validation: { quality } };
 }

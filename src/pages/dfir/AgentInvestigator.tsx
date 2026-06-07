@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
 import { useDataFetch } from '../../hooks/useDataFetch';
+import { extractStixBundle, StixRelationshipGraph, StixObjectTable } from '../../components/StixBundleViewer';
 
 interface AgentToolResult {
   tool: string;
@@ -413,9 +414,29 @@ export default function AgentInvestigator(): JSX.Element {
             </details>
           )}
 
-          <div className="prose prose-sm dark:prose-invert max-w-none font-mono text-sm leading-relaxed whitespace-pre-wrap">
-            {agentState.report}
-          </div>
+          {/* Report with inline STIX */}
+          {(() => {
+            const bundle = extractStixBundle(agentState.report ?? '');
+            // Split report at the STIX code block to render it inline
+            const reportWithoutStix = (agentState.report ?? '')
+              .replace(/```stix\s*\n[\s\S]*?```/, '')
+              .replace(/```json\s*\n\{[\s\S]*?"type"\s*:\s*"bundle"[\s\S]*?\}\s*\n```/, '')
+              .trim();
+
+            return (
+              <>
+                <div className="prose prose-sm dark:prose-invert max-w-none font-mono text-sm leading-relaxed whitespace-pre-wrap">
+                  {reportWithoutStix}
+                </div>
+
+                {/* STIX relationship graph — inline after report text */}
+                {bundle && <StixRelationshipGraph bundle={bundle} />}
+
+                {/* STIX object table — inline after relationships */}
+                {bundle && <StixObjectTable bundle={bundle} />}
+              </>
+            );
+          })()}
         </section>
       )}
 

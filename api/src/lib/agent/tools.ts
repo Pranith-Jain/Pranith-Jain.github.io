@@ -150,14 +150,21 @@ export function buildToolRegistry(
       params: [{ name: 'actor', type: 'string', description: 'Actor slug (apt28, lazarus-group)', required: true }],
       execute: (args) => {
         const slug = String(args.actor).toLowerCase().replace(/\s+/g, '-');
-        return apiFetch(self, `/api/v1/actor-cves?actor=${encodeURIComponent(slug)}`, apiKey, undefined, ih);
+        return apiFetch(self, `/api/v1/actor-cves?slug=${encodeURIComponent(slug)}`, apiKey, undefined, ih);
       },
     },
     {
       name: 'search_malpedia',
       description:
-        'Search Malpedia for malware families or threat actors. Returns descriptions, references, YARA rules.',
-      params: [{ name: 'q', type: 'string', description: 'Malware family or actor name', required: true }],
+        'Search Malpedia for malware families or threat actors. Returns descriptions, references, YARA rules. For actors, use the actor name (e.g. "APT28", "Fancy Bear"). For malware, use the family name.',
+      params: [
+        {
+          name: 'q',
+          type: 'string',
+          description: 'Search query — actor name, malware family, or keyword',
+          required: true,
+        },
+      ],
       execute: (args) =>
         apiFetch(self, `/api/v1/malpedia/search?q=${encodeURIComponent(String(args.q))}`, apiKey, undefined, ih),
     },
@@ -483,27 +490,41 @@ export function buildToolRegistry(
     // ══════════════════════════════════════════════════════════════════════
     {
       name: 'analyze_campaign',
-      description:
-        'Campaign lifecycle analysis — phase detection (preparation→delivery→exploitation→C2→exfil→monetization), predictive modeling.',
+      description: 'Campaign lifecycle analysis — phase detection, predictive modeling, kill chain mapping.',
       params: [
-        { name: 'actor', type: 'string', description: 'Threat actor', required: true },
+        { name: 'actor', type: 'string', description: 'Threat actor slug (apt28, lazarus-group)', required: true },
         { name: 'iocs', type: 'string', description: 'Known IOCs (comma-separated)', required: false },
       ],
-      execute: (args) =>
-        apiFetch(
+      execute: (args) => {
+        const indicators = args.iocs
+          ? String(args.iocs)
+              .split(',')
+              .map((v) => {
+                const val = v.trim();
+                const type = /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(val)
+                  ? 'ipv4'
+                  : /^[a-fA-F0-9]{32,64}$/.test(val)
+                    ? 'hash'
+                    : /^https?:\/\//.test(val)
+                      ? 'url'
+                      : /\./.test(val)
+                        ? 'domain'
+                        : 'ipv4';
+                return { value: val, type };
+              })
+          : [];
+        return apiFetch(
           self,
           '/api/v1/threat-intel/campaign/analyze',
           apiKey,
           {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({
-              actor: String(args.actor),
-              indicators: args.iocs ? String(args.iocs).split(',') : [],
-            }),
+            body: JSON.stringify({ actor: String(args.actor), indicators }),
           },
           ih
-        ),
+        );
+      },
     },
     {
       name: 'cross_campaign_correlate',
@@ -571,21 +592,6 @@ export function buildToolRegistry(
     // ══════════════════════════════════════════════════════════════════════
     //  DARK WEB & CYBERCRIME
     // ══════════════════════════════════════════════════════════════════════
-    {
-      name: 'search_malpedia',
-      description:
-        'Search Malpedia for malware families or threat actors. Returns descriptions, references, YARA rules. For actors, use the actor name (e.g. "APT28", "Fancy Bear"). For malware, use the family name.',
-      params: [
-        {
-          name: 'q',
-          type: 'string',
-          description: 'Search query — actor name, malware family, or keyword',
-          required: true,
-        },
-      ],
-      execute: (args) =>
-        apiFetch(self, `/api/v1/malpedia/search?q=${encodeURIComponent(String(args.q))}`, apiKey, undefined, ih),
-    },
     {
       name: 'get_breach_forums',
       description: 'Breach forum monitoring — recent posts, actor claims, data leaks.',
@@ -666,33 +672,44 @@ export function buildToolRegistry(
     // ══════════════════════════════════════════════════════════════════════
     {
       name: 'build_stix_bundle',
-      description: 'Build STIX 2.1 bundle from text, IOCs, or URL. Produces structured threat intelligence objects.',
+      description:
+        'Build STIX 2.1 bundle for an indicator, actor, or CVE. Produces structured threat intelligence objects with relationships.',
       params: [
-        { name: 'text', type: 'string', description: 'Text with IOCs/entities', required: false },
-        { name: 'url', type: 'string', description: 'URL to fetch and extract from', required: false },
+        { name: 'indicator', type: 'string', description: 'IOC (IP, domain, hash, URL)', required: false },
+        { name: 'actor', type: 'string', description: 'Threat actor name', required: false },
+        { name: 'cve', type: 'string', description: 'CVE ID', required: false },
       ],
-      execute: (args) =>
-        apiFetch(
+      execute: (args) => {
+        const body: Record<string, unknown> = { include_relationships: true };
+        if (args.indicator) body.indicator = String(args.indicator);
+        if (args.actor) body.actor = String(args.actor);
+        if (args.cve) body.cve = String(args.cve);
+        return apiFetch(
           self,
           '/api/v1/intel-bundle/build',
           apiKey,
           {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ text: args.text, url: args.url }),
+            body: JSON.stringify(body),
           },
           ih
-        ),
+        );
+      },
     },
     {
       name: 'parse_threat_report',
-      description: 'Parse threat report — extract IOCs, actors, malware, MITRE techniques, CVEs, sectors.',
+      description:
+        'Parse threat report to extract IOCs, actors, malware, MITRE techniques, CVEs. Supports text input or URL (max 100K chars for URL content).',
       params: [
-        { name: 'text', type: 'string', description: 'Report text', required: false },
-        { name: 'url', type: 'string', description: 'Report URL', required: false },
+        { name: 'text', type: 'string', description: 'Report text (max 100K chars)', required: false },
+        { name: 'url', type: 'string', description: 'Report URL (content must be under 100K chars)', required: false },
       ],
       execute: (args) => {
         if (!args.text && !args.url) return Promise.reject(new Error('text or url required'));
+        // Truncate text if too long
+        let text = args.text ? String(args.text) : undefined;
+        if (text && text.length > 95000) text = text.slice(0, 95000) + '\n[truncated]';
         return apiFetch(
           self,
           '/api/v1/report/parse',
@@ -700,10 +717,18 @@ export function buildToolRegistry(
           {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ text: args.text, url: args.url }),
+            body: JSON.stringify({ text, url: args.url }),
           },
           ih
-        );
+        ).catch((err) => {
+          // If URL content was too long, return a helpful error
+          if (String(err).includes('too long')) {
+            return {
+              error: 'Report content exceeds 100K limit. Try with a shorter URL or paste relevant sections as text.',
+            };
+          }
+          throw err;
+        });
       },
     },
 
@@ -741,17 +766,9 @@ export function buildToolRegistry(
     // ══════════════════════════════════════════════════════════════════════
     {
       name: 'get_blocklists',
-      description: 'Pre-generated firewall blocklists — pfSense, iptables, Suricata format.',
-      params: [
-        {
-          name: 'format',
-          type: 'enum',
-          description: 'Format',
-          required: false,
-          enum: ['pfsense', 'iptables', 'suricata', 'meta'],
-        },
-      ],
-      execute: (args) => apiFetch(self, `/api/v1/blocklists/${args.format ?? 'meta'}`, apiKey, undefined, ih),
+      description: 'Blocklist metadata — IP counts, generation time, available formats (pfSense, iptables, Suricata).',
+      params: [],
+      execute: () => apiFetch(self, '/api/v1/blocklists/meta', apiKey, undefined, ih),
     },
 
     // ══════════════════════════════════════════════════════════════════════

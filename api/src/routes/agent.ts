@@ -221,6 +221,7 @@ function detectQueryType(query: string): string {
   if (/\bcve-\d{4}-\d{4,}/i.test(query)) return 'cve';
   if (/\b(?:\d{1,3}\.){3}\d{1,3}\b/.test(query)) return 'ip';
   if (/\b[a-fA-F0-9]{32,64}\b/.test(query)) return 'hash';
+  if (/^https?:\/\//i.test(query.trim())) return 'url';
   if (/\b(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}\b/i.test(query) && !q.startsWith('how ')) return 'domain';
   if (
     /\b(apt\d+|lazarus|fin\d+|ta\d+|lockbit|blackcat|alphv|cl0p|rhysida|play|akira|black basta|kimsuky|sandworm|turla|cozy bear)\b/i.test(

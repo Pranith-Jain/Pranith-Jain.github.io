@@ -138,6 +138,14 @@ Step 4: Synthesize`
 }
 
 ${
+  queryType === 'url'
+    ? `Step 1: parse_threat_report with url=<the URL> (extract IOCs, actors, CVEs, techniques from the report)
+Step 2: For each major IOC/actor/CVE found — enrich with check_ioc, enrich_actor, or lookup_cve
+Step 3: Synthesize`
+    : ''
+}
+
+${
   queryType === 'generic'
     ? `Step 1: unified_search (find what this is about)
 Step 2: Based on results — enrich with the most relevant tool (check_ioc, enrich_actor, lookup_cve)
