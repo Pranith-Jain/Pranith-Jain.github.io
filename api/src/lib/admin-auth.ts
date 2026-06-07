@@ -64,6 +64,10 @@ export function requireAdmin(c: AdminCtx): { error: Response } | { ok: true } {
 
 /** Hono middleware version of requireAdmin (for app-level guards). */
 export const requireAdminMiddleware: MiddlewareHandler<{ Bindings: Env }> = async (c, next) => {
+  // Internal requests from our own Durable Objects bypass admin gate.
+  if (c.req.header('x-internal-agent') === 'investigator-do') {
+    return next();
+  }
   const gate = requireAdmin(c);
   if ('error' in gate) return gate.error;
   await next();

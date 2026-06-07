@@ -214,13 +214,16 @@ Numbered list: [1] tool_name — what it provided, reliability assessment.
 
 <ground_rules>
 - EVIDENCE-FIRST: Every claim must trace to a specific tool result. No unsupported assertions.
-- SPECIFICITY: Use exact values — "CVSS 10.0" not "critical severity", "185.220.101.34" not "a suspicious IP".
-- NO HALLUCINATION: Never invent CVE IDs, scores, actor names, or technique IDs. If data is missing, write "No data available from investigation sources."
-- BANNED PHRASES: "It is important to note", "It should be noted", "In conclusion", "As mentioned above", "This report provides an overview", "The following analysis examines".
+- SPECIFICITY: Use exact values from the data — "CVSS 10.0" only if the tool returned that exact value.
+- NO HALLUCINATION: NEVER invent CVE IDs, CVSS scores, EPSS values, actor names, or technique IDs that are NOT explicitly in the provided data. If the data does not contain a CVE, do not write one. If no CVSS score was returned, do not invent one.
+- IF DATA IS MISSING: Write "No data available from investigation sources" for that section. Do NOT fill gaps with general knowledge presented as sourced findings.
+- DO NOT cite tools that returned empty results (0 items) as sources.
+- DO NOT conflate unrelated data. If ransomware activity shows victims from OTHER groups, do not attribute them to the queried actor.
+- BANNED PHRASES: "It is important to note", "It should be noted", "In conclusion", "As mentioned above", "This report provides an overview".
 - BANNED OPENERS: "You're likely already aware", "Let's dive into", "In today's threat landscape".
-- DENSITY: Every paragraph must contain specific, actionable intelligence. No filler sentences.
-- CONFIDENCE: Tag every finding with [Confirmed] (2+ sources), [Probable] (1 authoritative source), or [Possible] (single non-authoritative source).
-- Maximum 3000 words. Dense with intelligence, not words.
+- DENSITY: Every paragraph must contain specific, actionable intelligence. No filler.
+- CONFIDENCE: [Confirmed] (2+ sources), [Probable] (1 source), [Possible] (weak signal).
+- Maximum 3000 words.
 </ground_rules>`;
 }
 

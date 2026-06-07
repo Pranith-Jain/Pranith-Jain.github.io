@@ -7,27 +7,44 @@ import { runCompletion, type CompletionInput } from '../../case-study/generation
 import type { AgentStep, SynthesizerOutput } from './types';
 import { buildSynthesizerPrompt, buildSynthesizerUserPrompt } from './prompts';
 
-/**
- * Generate the final intelligence report from the investigation steps.
- */
+interface DataQuality {
+  totalOk: number;
+  totalErr: number;
+  emptyResults: number;
+}
+
 export async function synthesizeReport(
   ai: Ai,
   query: string,
   queryType: string,
   steps: AgentStep[],
-  opts: { groqKey?: string }
+  opts: { groqKey?: string; dataQuality?: DataQuality }
 ): Promise<SynthesizerOutput> {
+  const dq = opts.dataQuality ?? {
+    totalOk: steps.reduce((n, s) => n + s.results.filter((r) => r.status === 'ok').length, 0),
+    totalErr: steps.reduce((n, s) => n + s.results.filter((r) => r.status === 'error').length, 0),
+    emptyResults: 0,
+  };
+
+  // If almost all tools failed or returned empty, the report will be thin.
+  // Add a warning to the synthesizer so it doesn't hallucinate to fill gaps.
+  let dataWarning = '';
+  if (dq.totalOk <= 1) {
+    dataWarning = `\n\nWARNING: Only ${dq.totalOk} tool(s) returned data. ${dq.totalErr} failed. The report must honestly reflect this — write "No data available from investigation sources" for sections without evidence. DO NOT invent data.`;
+  } else if (dq.emptyResults > dq.totalOk / 2) {
+    dataWarning = `\n\nWARNING: ${dq.emptyResults} of ${dq.totalOk} tool results were nearly empty. Report sections without evidence must state "No data available from investigation sources."`;
+  }
+
   const system = buildSynthesizerPrompt(query, queryType);
-  const user = buildSynthesizerUserPrompt(query, queryType, steps);
-  const input: CompletionInput = { system, user, maxTokens: 4000, temperature: 0.4 };
+  const user = buildSynthesizerUserPrompt(query, queryType, steps) + dataWarning;
+  const input: CompletionInput = { system, user, maxTokens: 4000, temperature: 0.3 };
 
   const { text, modelUsed } = await runCompletion(ai, input, { groqKey: opts.groqKey });
 
-  // Extract structured metadata from the report
   const keyFindings = extractKeyFindings(text);
   const iocs = extractIocs(text);
   const mitre = extractMitre(text);
-  const confidence = estimateConfidence(steps);
+  const confidence = estimateConfidence(steps, dq);
 
   return {
     report: text,
@@ -39,21 +56,18 @@ export async function synthesizeReport(
   };
 }
 
-/** Extract bullet points from Key Findings section. */
 function extractKeyFindings(report: string): string[] {
   const match = report.match(/## Key Findings\s*\n([\s\S]*?)(?=\n## |\n#|$)/);
   if (!match?.[1]) return [];
   return match[1]
     .split('\n')
-    .map((l) => l.replace(/^[-*]\s*(?:\[(?:High|Medium|Low)\]\s*)?/, '').trim())
+    .map((l) => l.replace(/^[-*]\s*(?:\[(?:High|Medium|Low|Confirmed|Probable|Possible)\]\s*)?/, '').trim())
     .filter((l) => l.length > 10)
-    .slice(0, 6);
+    .slice(0, 10);
 }
 
-/** Extract IOCs (IPs, domains, hashes) from the report text. */
 function extractIocs(report: string): string[] {
   const iocs: string[] = [];
-  // IPv4 (exclude common non-IOC ranges: 0.x, 127.x, 224+)
   const ipv4 = /\b(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)\b/g;
   let m: RegExpExecArray | null;
   while ((m = ipv4.exec(report)) !== null) {
@@ -62,58 +76,38 @@ function extractIocs(report: string): string[] {
     if (first === 0 || first === 127 || first >= 224) continue;
     iocs.push(ip);
   }
-  // SHA256
   const sha256 = /\b[a-fA-F0-9]{64}\b/g;
   while ((m = sha256.exec(report)) !== null) iocs.push(m[0]);
-  // Domains — must have a valid TLD and not be common reference domains
-  const SKIP_DOMAINS = new Set([
+  const SKIP = new Set([
     'example.com',
     'example.org',
-    'example.net',
     'github.com',
-    'github.io',
     'mitre.org',
-    'attack.mitre.org',
     'nvd.nist.gov',
-    'cve.mitre.org',
     'cloudflare.com',
     'microsoft.com',
     'google.com',
-    'amazon.com',
     'wikipedia.org',
-    'archive.org',
-    'zenodo.org',
-    'virustotal.com',
-    'abuseipdb.com',
-    'shodan.io',
-    'otx.alienvault.com',
   ]);
-  const domains =
-    /\b(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+(?:com|org|net|io|co|ru|cn|de|uk|fr|br|jp|kr|in|au|info|xyz|top|cc|pw|tk|ml|ga|cf|gq|onion)\b/gi;
+  const domains = /\b(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+(?:com|org|net|io|co|ru|cn|onion)\b/gi;
   while ((m = domains.exec(report)) !== null) {
     const d = m[0].toLowerCase();
-    if (SKIP_DOMAINS.has(d)) continue;
-    // Skip version-like strings (e.g. "v2.0", "3.1.4")
-    if (/^\d+\.\d+/.test(d)) continue;
+    if (SKIP.has(d) || /^\d+\.\d+/.test(d)) continue;
     iocs.push(d);
   }
   return [...new Set(iocs)].slice(0, 20);
 }
 
-/** Extract MITRE ATT&CK technique IDs from the report. */
 function extractMitre(report: string): string[] {
-  const re = /\bT\d{4}(?:\.\d{3})?\b/g;
-  const matches = report.match(re) ?? [];
-  return [...new Set(matches)];
+  return [...new Set(report.match(/\bT\d{4}(?:\.\d{3})?\b/g) ?? [])];
 }
 
-/** Estimate overall confidence from investigation quality. */
-function estimateConfidence(steps: AgentStep[]): 'high' | 'medium' | 'low' {
-  const totalTools = steps.reduce((n, s) => n + s.results.length, 0);
-  const successfulTools = steps.reduce((n, s) => n + s.results.filter((r) => r.status === 'ok').length, 0);
-  const errorRate = totalTools > 0 ? 1 - successfulTools / totalTools : 1;
-
-  if (successfulTools >= 6 && errorRate < 0.2) return 'high';
-  if (successfulTools >= 3 && errorRate < 0.5) return 'medium';
+function estimateConfidence(steps: AgentStep[], dq?: DataQuality): 'high' | 'medium' | 'low' {
+  const ok = dq?.totalOk ?? steps.reduce((n, s) => n + s.results.filter((r) => r.status === 'ok').length, 0);
+  const total =
+    ok + (dq?.totalErr ?? steps.reduce((n, s) => n + s.results.filter((r) => r.status === 'error').length, 0));
+  const errRate = total > 0 ? 1 - ok / total : 1;
+  if (ok >= 6 && errRate < 0.2) return 'high';
+  if (ok >= 3 && errRate < 0.5) return 'medium';
   return 'low';
 }

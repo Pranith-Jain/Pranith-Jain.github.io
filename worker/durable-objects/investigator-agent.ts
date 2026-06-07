@@ -195,10 +195,11 @@ export class InvestigatorAgentDO {
 
       const start = Date.now();
       try {
-        // 10s timeout per tool call
+        // 20s timeout per tool call — some endpoints (enrich_actor, check_ioc)
+        // fan out to multiple external providers and need more time.
         const data = await Promise.race([
           tool.execute(call.args),
-          new Promise<never>((_, reject) => setTimeout(() => reject(new Error('Tool timeout (10s)')), 10_000)),
+          new Promise<never>((_, reject) => setTimeout(() => reject(new Error('Tool timeout (20s)')), 20_000)),
         ]);
         return { tool: call.tool, args: call.args, status: 'ok', data, durationMs: Date.now() - start };
       } catch (err) {
@@ -242,7 +243,18 @@ export class InvestigatorAgentDO {
     };
 
     try {
-      const result = await synthesizeReport(ai, state.query, state.queryType, state.steps, { groqKey });
+      // Assess data quality before synthesis
+      const totalOk = state.steps.reduce((n, s) => n + s.results.filter((r) => r.status === 'ok').length, 0);
+      const totalErr = state.steps.reduce((n, s) => n + s.results.filter((r) => r.status === 'error').length, 0);
+      const emptyResults = state.steps.reduce(
+        (n, s) => n + s.results.filter((r) => r.status === 'ok' && r.data && JSON.stringify(r.data).length < 50).length,
+        0
+      );
+
+      const result = await synthesizeReport(ai, state.query, state.queryType, state.steps, {
+        groqKey,
+        dataQuality: { totalOk, totalErr, emptyResults },
+      });
       state.report = result.report;
       state.modelUsed = result.modelUsed;
 

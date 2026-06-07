@@ -146,10 +146,12 @@ export function buildToolRegistry(
     },
     {
       name: 'actor_cves',
-      description: 'CVEs attributed to a specific threat actor — what vulnerabilities does this group exploit?',
-      params: [{ name: 'actor', type: 'string', description: 'Actor name', required: true }],
-      execute: (args) =>
-        apiFetch(self, `/api/v1/actor-cves?actor=${encodeURIComponent(String(args.actor))}`, apiKey, undefined, ih),
+      description: 'CVEs attributed to a specific threat actor. Use slug format (apt28, lazarus-group, lockbit).',
+      params: [{ name: 'actor', type: 'string', description: 'Actor slug (apt28, lazarus-group)', required: true }],
+      execute: (args) => {
+        const slug = String(args.actor).toLowerCase().replace(/\s+/g, '-');
+        return apiFetch(self, `/api/v1/actor-cves?actor=${encodeURIComponent(slug)}`, apiKey, undefined, ih);
+      },
     },
     {
       name: 'search_malpedia',
@@ -373,13 +375,13 @@ export function buildToolRegistry(
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify({
               description: String(args.description),
+              type: args.format ? String(args.format) : 'yara',
               family: args.family ? String(args.family) : undefined,
               strings: args.strings
                 ? String(args.strings)
                     .split(',')
                     .map((s) => s.trim())
                 : undefined,
-              format: args.format ? String(args.format) : 'yara',
             }),
           },
           ih
@@ -430,10 +432,22 @@ export function buildToolRegistry(
     // ══════════════════════════════════════════════════════════════════════
     {
       name: 'lookup_mitre',
-      description: 'MITRE ATT&CK technique — name, description, tactics, mitigations, detection, related actors.',
-      params: [{ name: 'technique_id', type: 'string', description: 'Technique ID (T1566.001)', required: true }],
+      description:
+        'MITRE ATT&CK technique lookup by EXACT ID. Must be in format T1234 or T1234.001 (e.g. T1566, T1566.001). Do NOT use technique names — only IDs work.',
+      params: [
+        {
+          name: 'technique_id',
+          type: 'string',
+          description: 'Exact technique ID (T1566 or T1566.001)',
+          required: true,
+        },
+      ],
       execute: (args) => {
-        const enc = encodeURIComponent(String(args.technique_id));
+        const id = String(args.technique_id).trim();
+        if (!/^T\d{4}(?:\.\d{3})?$/.test(id)) {
+          return Promise.reject(new Error(`Invalid technique ID format: "${id}". Expected T1234 or T1234.001`));
+        }
+        const enc = encodeURIComponent(id);
         return apiFetch(self, `/api/v1/mitre/technique?id=${enc}&technique=${enc}`, apiKey, undefined, ih);
       },
     },
@@ -483,7 +497,10 @@ export function buildToolRegistry(
           {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ actor: String(args.actor), iocs: args.iocs ? String(args.iocs).split(',') : [] }),
+            body: JSON.stringify({
+              actor: String(args.actor),
+              indicators: args.iocs ? String(args.iocs).split(',') : [],
+            }),
           },
           ih
         ),
@@ -555,11 +572,19 @@ export function buildToolRegistry(
     //  DARK WEB & CYBERCRIME
     // ══════════════════════════════════════════════════════════════════════
     {
-      name: 'search_darkweb',
-      description: 'Deep/dark web CTI search — threat actor communications, marketplace listings.',
-      params: [{ name: 'q', type: 'string', description: 'Search query', required: true }],
+      name: 'search_malpedia',
+      description:
+        'Search Malpedia for malware families or threat actors. Returns descriptions, references, YARA rules. For actors, use the actor name (e.g. "APT28", "Fancy Bear"). For malware, use the family name.',
+      params: [
+        {
+          name: 'q',
+          type: 'string',
+          description: 'Search query — actor name, malware family, or keyword',
+          required: true,
+        },
+      ],
       execute: (args) =>
-        apiFetch(self, `/api/v1/deepdarkcti?q=${encodeURIComponent(String(args.q))}`, apiKey, undefined, ih),
+        apiFetch(self, `/api/v1/malpedia/search?q=${encodeURIComponent(String(args.q))}`, apiKey, undefined, ih),
     },
     {
       name: 'get_breach_forums',
