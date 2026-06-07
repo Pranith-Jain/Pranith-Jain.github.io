@@ -58,7 +58,6 @@ export function SocBar({
     const innerH = height - padB - 8;
     const slotW = innerW / items.length;
     const barW = Math.max(2, slotW * 0.7);
-    const fallback = defaultColor ?? CHART_RANK[0];
     return (
       <div className="overflow-x-auto">
         <svg viewBox={`0 0 ${w} ${height}`} className="w-full" role="img" aria-label="Bar chart">
@@ -93,7 +92,7 @@ export function SocBar({
             const x = padL + i * slotW + (slotW - barW) / 2;
             const h = (it.value / ceiling) * innerH;
             const y = innerH - h;
-            const fill = it.color ?? fallback;
+            const fill = it.color ?? defaultColor ?? CHART_RANK[Math.min(i, CHART_RANK.length - 1)];
             const isHover = hover === i;
             return (
               <g
