@@ -7,7 +7,7 @@ format: carousel
 hook: how-to
 persona: Detection Engineer
 hashtags: cybersecurity, MITRE, ATT&CK, T1059, detection-engineering
-cta: Save this. The Sigma rule pack with all 8 sub-techniques drops in the next post.
+cta: If this helped, save it for your next detection review.
 notes: How-to hook. Framework variant = 8 sub-techniques in a 2x4 grid. Each card = technique + 1 detection idea.
 ---
 
@@ -104,5 +104,5 @@ The one everyone forgets until Cisco gets popped.
 
 ---
 
-CTA: Save this.
-Next post: full Sigma rule pack for all 8 sub-techniques — one rule per technique, tested.
+CTA: If this helped,
+save it for your next detection review.

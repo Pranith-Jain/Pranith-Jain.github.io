@@ -7,7 +7,7 @@ format: carousel
 hook: story
 persona: Junior SOC Analyst
 hashtags: cybersecurity, infostealer, redline, raccoon, DFIR
-cta: Save this. I post a RedLine teardown next week — malware sample + IOCs included.
+cta: If this helped, save it for your next malware analysis.
 notes: Story hook. Framework walks the attack chain. Each slide = one phase with specific tools and IOCs.
 ---
 
@@ -60,5 +60,5 @@ The stolen creds hit a marketplace within hours.
 
 ---
 
-CTA: Save this.
-Next post: full RedLine teardown — sample, IOCs, and the Splunk rule that catches it.
+CTA: If this helped,
+save it for your next malware analysis.

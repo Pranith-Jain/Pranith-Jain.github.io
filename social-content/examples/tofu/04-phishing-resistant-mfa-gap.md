@@ -7,7 +7,7 @@ format: carousel
 hook: data-shock
 persona: Security Practitioner
 hashtags: cybersecurity, MFA, FIDO2, passkeys, blue-team
-cta: Save this. Next post: the FIDO2 rollout playbook — 4 weeks, one team, zero SMS.
+cta: If this helped, save it for your next security review.
 notes: Data-shock hook. Contrarian angle: the gap between "we have MFA" and "we have phishing-resistant MFA" is where 2024-2025 breaches live. Stat + 5-bypass list + 4-step framework + real-world quote. Specific tools (Evilginx2, Modlishka, Lumma, StealC, YubiKey, Windows Hello). Microsoft 99.9% stat + push fatigue dwell time + AiTM relay TTPs from MITRE ATT&CK T1556 + T1078.
 ---
 
@@ -47,5 +47,5 @@ The gap between "we have MFA" and "we have phishing-resistant MFA" is where the 
 
 ---
 
-CTA: Want the rollout playbook?
-Save this. Next post: the FIDO2 rollout playbook — 4 weeks, one team, zero SMS.
+CTA: If this helped,
+save it for your next security review.

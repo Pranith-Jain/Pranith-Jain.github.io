@@ -7,7 +7,7 @@ format: carousel
 hook: how-to
 persona: Detection Engineer
 hashtags: cybersecurity, SIEM, EDR, detection-engineering
-cta: Save this. Reply with your stack — I'll send the gap analysis template.
+cta: If this helped, save it for your next gap analysis.
 notes: How-to hook. Comparison variant compares coverage across 5 attack stages. CTA is a feedback loop.
 ---
 
@@ -71,5 +71,5 @@ How to build coverage without buying more.
 
 ---
 
-CTA: Reply with your stack.
-I drop a free gap-analysis template for the comments.
+CTA: If this helped,
+save it for your next gap analysis.

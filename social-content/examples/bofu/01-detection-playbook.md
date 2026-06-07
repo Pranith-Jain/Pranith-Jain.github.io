@@ -7,7 +7,7 @@ format: carousel
 hook: story
 persona: Detection Engineer
 hashtags: cybersecurity, detection-engineering, SOC, DFIR
-cta: Save this. Full Notion template with the Sigma rules drops in the next post.
+cta: If this helped, save it for your next IR.
 notes: Story hook. Framework variant = the 6 phases of the playbook, each with a specific action.
 ---
 
@@ -89,5 +89,5 @@ Detections without narrative = alert fatigue.
 
 ---
 
-CTA: Save this.
-Next post: Notion template with the 10 detection rules + runbook structure, free.
+CTA: If this helped,
+save it for your next IR.

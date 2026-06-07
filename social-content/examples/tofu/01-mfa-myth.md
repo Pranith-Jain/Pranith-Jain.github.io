@@ -7,7 +7,7 @@ format: carousel
 hook: contrarian
 persona: Junior SOC Analyst
 hashtags: cybersecurity, MFA, security, blue-team
-cta: Save this. I'll send the detection queries in my next post.
+cta: If this helped, save it for your next IR.
 notes: Contrarian hook. 4 myth/fact pairs in a 2x2 framework. Each card = one misconception with the truth + an action.
 ---
 
@@ -60,5 +60,5 @@ No. It's a detection problem you haven't built.
 
 ---
 
-CTA: Want the detection queries?
-Save this post. I drop the Splunk + Sentinel KQL next week.
+CTA: If this helped,
+save it for your next IR.

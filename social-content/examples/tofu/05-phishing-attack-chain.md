@@ -7,7 +7,7 @@ format: carousel
 hook: data-shock
 persona: Security Practitioner
 hashtags: cybersecurity, phishing, email-security, blue-team
-cta: Save this. Next post: 5 KQL queries to detect these in M365.
+cta: If this helped, save it for your next phishing investigation.
 notes: Data-shock hook. The 5-stage phishing attack chain: recon → weaponize → deliver → exploit → hand-off. Cites Verizon DBIR 2024 (68% human element), Valimail (3.4B emails/day), IBM ($4.9M avg breach cost). Real TTPs (MITRE ATT&CK T1566, T1598, T1078). Targets SOC analysts + email security engineers. Next post: KQL detection queries for M365.
 ---
 
@@ -47,5 +47,5 @@ The best phishing email you've ever seen is the one that got past your email gat
 
 ---
 
-CTA: Want the detection queries?
-Save this. Next post: 5 KQL queries to detect these in M365.
+CTA: If this helped,
+save it for your next phishing investigation.

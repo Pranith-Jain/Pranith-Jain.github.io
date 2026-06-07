@@ -7,7 +7,7 @@ format: carousel
 hook: contrarian
 persona: CISO
 hashtags: cybersecurity, build-vs-buy, detection-engineering, SOC
-cta: Save this. Reply with your decision — I send the ROI calculator in the comments.
+cta: If this helped, save it for your next vendor review.
 notes: Contrarian hook. Comparison variant (not framework) — 4 dimensions with Build / Buy / Hybrid columns.
 ---
 
@@ -76,5 +76,5 @@ The honest framework.
 
 ---
 
-CTA: Reply with your stack.
-I drop a free build-vs-buy ROI calculator in the comments.
+CTA: If this helped,
+save it for your next vendor review.

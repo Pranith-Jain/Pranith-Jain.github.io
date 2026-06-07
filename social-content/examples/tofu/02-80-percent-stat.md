@@ -7,7 +7,7 @@ format: carousel
 hook: data-shock
 persona: Junior SOC Analyst
 hashtags: cybersecurity, breach, credentials, DFIR, SOC
-cta: Save this. Follow for detection rules that actually catch credential abuse.
+cta: If this helped, save it for your next threat brief.
 notes: Data-shock hook. Stat hero on slide 2 to drive the number home. List of 3 detection signals. CTA references the next post.
 ---
 
@@ -52,5 +52,5 @@ What to build this week.
 
 ---
 
-CTA: Save this.
-Detection rules for credential abuse drop next week.
+CTA: If this helped,
+save it for your next threat brief.
