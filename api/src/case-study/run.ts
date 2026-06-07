@@ -66,6 +66,10 @@ export interface CaseStudyEnv {
    */
   VT_API_KEY?: string;
   ABUSEIPDB_API_KEY?: string;
+  /** Self-referencing service binding — same Worker, in-process.
+   *  Used by the platform-data discovery runner to call /api/v1/*
+   *  without going through the public URL + API-key gate. */
+  SELF?: { fetch: (req: RequestInfo, init?: RequestInit) => Promise<Response> };
 }
 
 export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
@@ -114,9 +118,12 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
         // Re-uses the existing /api/v1/victim-releaks surface — same data
         // that powers /threatintel/re-leaks, already 6h edge-cached so
         // the cron fan-out cost is one cheap GET per discovery run.
+        // Uses SELF service binding to bypass the public API-key gate.
         fetchReleaks: async () => {
           try {
-            const r = await globalThis.fetch(`${getSiteUrl(env)}/api/v1/victim-releaks`);
+            const url = `https://pranithjain.qzz.io/api/v1/victim-releaks`;
+            const fetcher = env.SELF ?? globalThis.fetch;
+            const r = await fetcher(new Request(url));
             if (!r.ok) return [];
             const data = (await r.json()) as { releaks?: ReleakRow[] };
             return data.releaks ?? [];
@@ -140,14 +147,20 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
     // Platform data: uses the platform's own aggregated intelligence
     // (ransomware.live, Telegram leaks, IOC trending, threat pulse)
     // instead of external RSS feeds. Higher source weight because it's
-    // our own curated data.
+    // our own curated data. Uses the SELF service binding for in-process
+    // calls so /api/v1/* endpoints don't hit the public API-key gate.
     platform: () =>
       discoverFromPlatformData({
         apiFetch: async (path) => {
-          const url = `${getSiteUrl(env)}${path}`;
-          const r = await globalThis.fetch(url);
-          if (!r.ok) return null;
-          return r.json();
+          try {
+            const url = `https://pranithjain.qzz.io${path}`;
+            const fetcher = env.SELF ?? globalThis.fetch;
+            const r = await fetcher(new Request(url));
+            if (!r.ok) return null;
+            return r.json();
+          } catch {
+            return null;
+          }
         },
         now,
         getDedup: memGet,

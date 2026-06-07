@@ -8,6 +8,10 @@ export interface Env {
   BRIEFINGS_DB?: D1Database;
   CASE_STUDIES: KVNamespace;
   AI: Ai;
+  /** Self-referencing service binding — same Worker, in-process. Lets the
+   *  case-study discovery runner (and cron) call /api/v1/* endpoints
+   *  without going through the public URL + API-key gate. */
+  SELF: { fetch: (req: RequestInfo, init?: RequestInit) => Promise<Response> };
   // Fetch-interface DOs (no RPC) — the plain LiveFeedDO/CronLockDO classes
   // aren't DurableObjectBranded, so bind them as the untyped namespace; calls
   // go through .get(id).fetch(). DfirMcpServer (McpAgent) keeps its generic.
