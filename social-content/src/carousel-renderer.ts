@@ -83,20 +83,25 @@ function sideAccentBar(accent: string, side: 'left' | 'right'): string {
   return `<div style="position:absolute; top:120px; bottom:120px; ${side}:0; width:8px; background:linear-gradient(to bottom, ${accent}, ${accent}00); z-index:2;"></div>`;
 }
 
-function brandMark(dark: boolean): string {
+function brandMark(dark: boolean, accent: string): string {
+  const fg = dark ? 'rgba(255,255,255,0.85)' : C.slate[800];
+  const muted = dark ? 'rgba(255,255,255,0.5)' : C.slate[400];
   return `
-    <div style="position:absolute; top:48px; left:56px; display:flex; align-items:center; gap:12px; z-index:3;">
-      <svg viewBox="0 0 36 36" width="36" height="36" xmlns="http://www.w3.org/2000/svg">
+    <div style="position:absolute; top:44px; left:56px; display:flex; align-items:center; gap:14px; z-index:3;">
+      <svg viewBox="0 0 40 40" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="bm" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="${C.brand[600]}"/>
-            <stop offset="100%" stop-color="${C.brand[500]}"/>
+            <stop offset="0%" stop-color="${accent}"/>
+            <stop offset="100%" stop-color="${accent}cc"/>
           </linearGradient>
         </defs>
-        <rect width="36" height="36" rx="9" fill="url(#bm)"/>
-        <text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" fill="white" font-family="${FONTS.display}" font-weight="800" font-size="14">PJ</text>
+        <path d="M20 2 L36 8 L36 20 Q36 30 20 38 Q4 30 4 20 L4 8 Z" fill="url(#bm)"/>
+        <text x="20" y="22" dominant-baseline="central" text-anchor="middle" fill="white" font-family="${FONTS.display}" font-weight="800" font-size="15" letter-spacing="-0.5">PJ</text>
       </svg>
-      <span style="font-family:${FONTS.mono}; font-size:11px; color:${dark ? 'rgba(255,255,255,0.7)' : C.slate[500]}; letter-spacing:0.16em; font-weight:600;">PRANITHJAIN</span>
+      <div style="display:flex; flex-direction:column; gap:1px;">
+        <span style="font-family:${FONTS.display}; font-size:16px; color:${fg}; letter-spacing:-0.3px; font-weight:700; line-height:1.1;">Pranith Jain</span>
+        <span style="font-family:${FONTS.mono}; font-size:9px; color:${muted}; letter-spacing:0.22em; text-transform:uppercase; font-weight:600;">Detection Engineering</span>
+      </div>
     </div>
   `;
 }
@@ -147,7 +152,7 @@ function renderHook(slide: ContentSlide, index: number, total: number, accent: s
     ${progressBar(index, total, true, accent)}
     ${cornerAccent(accent, 'tr')}
     ${cornerAccent(funnel.accent, 'bl')}
-    ${brandMark(true)}
+    ${brandMark(true, accent)}
     <div style="position:relative; z-index:2; max-width:880px;">
       ${eyebrowPill(funnel.label, accent, true, C.slate[900])}
       <h1 style="font-family:${FONTS.display}; font-size:104px; font-weight:800;
@@ -303,7 +308,7 @@ function renderQuote(slide: ContentSlide, index: number, total: number, accent: 
   ">
     ${progressBar(index, total, true, accent)}
     ${cornerAccent(accent, 'tr')}
-    ${brandMark(true)}
+    ${brandMark(true, accent)}
     <div style="position:relative; z-index:2; max-width:880px;">
       <div style="font-family:${FONTS.display}; font-size:200px; line-height:0.4; color:${accent}; opacity:0.4; margin-bottom:20px;">"</div>
       <p style="font-family:${FONTS.display}; font-size:56px; line-height:1.2; color:${C.white}; margin:0 0 40px 0; font-weight:600; letter-spacing:-1.5px;">
@@ -379,7 +384,7 @@ function renderCTA(
     ${progressBar(index, total, true, accent)}
     ${cornerAccent(accent, 'tr')}
     ${cornerAccent(funnel.accent, 'bl')}
-    ${brandMark(true)}
+    ${brandMark(true, accent)}
     <div style="position:relative; z-index:2; max-width:880px;">
       ${eyebrowPill('YOUR NEXT STEP', C.white, true, C.slate[900])}
       <h2 style="font-family:${FONTS.display}; font-size:88px; font-weight:800;
@@ -474,12 +479,8 @@ export function renderCarouselHTML(spec: ContentSpec): string {
 </head>
 <body>
   <div style="text-align:center; max-width:920px; margin:0 auto 8px;">
-    <div style="font-family:${FONTS.mono}; font-size:12px; color:${accent};
-      letter-spacing:0.2em; text-transform:uppercase; font-weight:700; margin-bottom:16px;">
-      ${funnel.label} · ${spec.platform} · ${spec.format} · ${spec.hook}
-    </div>
-    <h1 style="font-family:${FONTS.display}; font-size:32px; font-weight:800;
-      color:${C.slate[900]}; margin:0; letter-spacing:-1px;
+    <h1 style="font-family:${FONTS.display}; font-size:36px; font-weight:800;
+      color:${C.slate[900]}; margin:0; letter-spacing:-1.2px;
       max-width:880px; margin-left:auto; margin-right:auto; line-height:1.15;
       overflow-wrap:break-word; word-wrap:break-word; hyphens:auto;">
       ${escapeHTML(spec.title)}
