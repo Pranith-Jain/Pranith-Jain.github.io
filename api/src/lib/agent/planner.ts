@@ -28,13 +28,25 @@ export async function planNextStep(
   const system = buildPlannerPrompt(toolDescriptions, maxSteps);
   const user = buildPlannerUserPrompt(query, queryType, steps, currentStep, maxSteps);
 
+  // Force synthesis if we're at step maxSteps-1 or later with any data.
+  // The planner sometimes keeps calling tools until the budget is exhausted,
+  // leaving no room for the synthesis step. This guard ensures the agent
+  // always produces a report if it has any investigation data.
+  if (currentStep >= maxSteps - 1 && steps.some((s) => s.results.length > 0)) {
+    return {
+      reasoning: `Step ${currentStep} of ${maxSteps} — synthesizing to preserve context budget.`,
+      toolCalls: [],
+      shouldSynthesize: true,
+    };
+  }
+
   const input: CompletionInput = { system, user, maxTokens: 1500, temperature: 0.3 };
 
   let lastErr: unknown;
   for (let attempt = 0; attempt <= MAX_PARSE_RETRIES; attempt++) {
     const { text } = await runCompletion(ai, input, { groqKey: opts.groqKey });
     try {
-      const parsed = parsePlannerOutput(text, tools);
+      const parsed = parsePlannerOutput(text, tools, steps);
       return parsed;
     } catch (err) {
       lastErr = err;
@@ -54,7 +66,7 @@ export async function planNextStep(
 }
 
 /** Parse the LLM's raw output into a PlannerOutput. */
-function parsePlannerOutput(raw: string, tools: AgentTool[]): PlannerOutput {
+function parsePlannerOutput(raw: string, tools: AgentTool[], steps: AgentStep[]): PlannerOutput {
   // Strip markdown fences if the LLM wrapped its output
   let cleaned = raw.trim();
   if (cleaned.startsWith('```')) {
@@ -75,8 +87,23 @@ function parsePlannerOutput(raw: string, tools: AgentTool[]): PlannerOutput {
   if (typeof parsed !== 'object' || parsed === null) throw new Error('Planner output is not an object');
 
   const toolNames = new Set(tools.map((t) => t.name));
+
+  // Build a set of already-called (tool, args) pairs to prevent duplicates
+  const called = new Set<string>();
+  for (const s of steps) {
+    for (const r of s.results) {
+      called.add(`${r.tool}:${JSON.stringify(r.args)}`);
+    }
+  }
+
   const toolCalls = (parsed.toolCalls ?? [])
     .filter((tc) => tc.tool && toolNames.has(tc.tool))
+    .filter((tc) => {
+      const key = `${tc.tool}:${JSON.stringify(tc.args ?? {})}`;
+      if (called.has(key)) return false; // skip duplicate
+      called.add(key); // mark as called within this step too
+      return true;
+    })
     .map((tc) => ({
       tool: tc.tool,
       args: tc.args ?? {},

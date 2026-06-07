@@ -31,7 +31,7 @@ export async function agentInvestigateHandler(c: Context<{ Bindings: Env }>): Pr
     if (!query) return c.json({ error: 'query is required' }, 400);
     if (query.length > 2000) return c.json({ error: 'query too long (max 2000 chars)' }, 400);
 
-    const maxSteps = Math.min(Math.max(body.maxSteps ?? 8, 1), 12);
+    const maxSteps = Math.min(Math.max(body.maxSteps ?? 4, 1), 8);
     const queryType = detectQueryType(query);
     const id = crypto.randomUUID();
 
@@ -181,6 +181,7 @@ export async function agentStreamHandler(c: Context<{ Bindings: Env }>): Promise
       'content-type': 'text/event-stream',
       'cache-control': 'no-cache',
       connection: 'keep-alive',
+      'x-accel-buffering': 'no',
     },
   });
 }

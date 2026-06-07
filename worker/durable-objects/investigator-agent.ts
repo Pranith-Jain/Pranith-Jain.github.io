@@ -6,6 +6,21 @@ import { planNextStep } from '../../api/src/lib/agent/planner';
 import { observeStep } from '../../api/src/lib/agent/observer';
 import { synthesizeReport } from '../../api/src/lib/agent/synthesizer';
 
+/** Truncate JSON-serializable data to a max char length. Returns valid JSON. */
+function truncateData(data: unknown, maxChars: number): unknown {
+  const json = JSON.stringify(data);
+  if (json.length <= maxChars) return data;
+  // Truncate and try to re-parse. If the cut point breaks the JSON, just
+  // return a summary string instead of broken JSON.
+  const truncated = json.slice(0, maxChars);
+  try {
+    return JSON.parse(truncated);
+  } catch {
+    // JSON is broken at the cut point — return a safe string summary
+    return { _truncated: true, _original_chars: json.length, _preview: truncated.slice(0, 500) };
+  }
+}
+
 /**
  * Alarm-driven autonomous investigator agent. Each `alarm()` runs ONE
  * planning+execution cycle, persists state, and reschedules until the
@@ -249,6 +264,16 @@ export class InvestigatorAgentDO {
     const db = (this.env as unknown as ApiEnv).BRIEFINGS_DB;
     if (!db) return;
 
+    // Truncate tool result data to keep D1 rows manageable. Full data stays
+    // in the in-memory state for the synthesizer, but D1 only needs summaries.
+    const trimmedSteps = state.steps.map((s) => ({
+      ...s,
+      results: s.results.map((r) => ({
+        ...r,
+        data: r.data ? truncateData(r.data, 2000) : r.data,
+      })),
+    }));
+
     await db
       .prepare(
         `INSERT INTO agent_sessions (id, query, query_type, status, steps_json, report_json, model_used, total_steps, created_at, updated_at)
@@ -266,7 +291,7 @@ export class InvestigatorAgentDO {
         state.query,
         state.queryType,
         state.status,
-        JSON.stringify(state.steps),
+        JSON.stringify(trimmedSteps),
         state.report ?? null,
         state.modelUsed ?? null,
         state.currentStep,

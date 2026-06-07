@@ -140,7 +140,7 @@ export default function AgentInvestigator(): JSX.Element {
       es.onerror = () => {
         // SSE connection lost — poll once to get final state
         es.close();
-        if (activeId) {
+        if (id) {
           fetch(`/api/v1/agent/${id}`)
             .then((r) => r.json())
             .then((s) => {
@@ -158,7 +158,7 @@ export default function AgentInvestigator(): JSX.Element {
         status: 'running',
         steps: [],
         currentStep: 0,
-        maxSteps: 8,
+        maxSteps: 4,
         report: null,
         modelUsed: null,
         startedAt: new Date().toISOString(),
@@ -203,7 +203,7 @@ export default function AgentInvestigator(): JSX.Element {
           <span>·</span>
           <span>Durable Object state</span>
           <span>·</span>
-          <span>Max 8 steps</span>
+          <span>Max 4 steps</span>
         </p>
       </div>
 
@@ -379,9 +379,9 @@ function StepCard({ step }: { step: AgentStep }): JSX.Element {
             <span className="text-xs font-mono text-slate-500 truncate">{step.plan.slice(0, 120)}</span>
           </div>
           <div className="flex items-center gap-2 mt-1 flex-wrap">
-            {step.toolCalls.map((tc) => (
+            {step.toolCalls.map((tc, i) => (
               <span
-                key={tc.tool}
+                key={`${tc.tool}-${i}`}
                 className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400"
               >
                 <Zap size={8} className="inline mr-0.5" />
@@ -404,8 +404,8 @@ function StepCard({ step }: { step: AgentStep }): JSX.Element {
             <p className="text-xs font-mono text-slate-700 dark:text-slate-300">{step.plan}</p>
           </div>
 
-          {step.results.map((r) => (
-            <div key={r.tool} className="rounded border border-slate-200 dark:border-slate-800 p-2.5">
+          {step.results.map((r, i) => (
+            <div key={`${r.tool}-${i}`} className="rounded border border-slate-200 dark:border-slate-800 p-2.5">
               <div className="flex items-center gap-2 mb-1">
                 <span
                   className={`text-[10px] font-mono font-bold ${r.status === 'ok' ? 'text-emerald-600' : 'text-rose-600'}`}

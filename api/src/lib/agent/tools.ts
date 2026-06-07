@@ -302,14 +302,16 @@ export function buildToolRegistry(
         { name: 'target', type: 'string', description: 'Email address or domain', required: true },
         { name: 'type', type: 'enum', description: 'Target type', required: true, enum: ['email', 'domain'] },
       ],
-      execute: (args) =>
-        apiFetch(
+      execute: (args) => {
+        const breachType = args.type === 'email' || args.type === 'domain' ? args.type : 'email';
+        return apiFetch(
           self,
-          `/api/v1/breach/${args.type}?${args.type}=${encodeURIComponent(String(args.target))}`,
+          `/api/v1/breach/${breachType}?${breachType}=${encodeURIComponent(String(args.target))}`,
           apiKey,
           undefined,
           ih
-        ),
+        );
+      },
     },
 
     // ── MITRE ATT&CK ─────────────────────────────────────────────────
@@ -387,11 +389,24 @@ export function buildToolRegistry(
       description:
         'Parse a threat report to extract IOCs, actors, malware families, MITRE techniques, CVEs, and targeted sectors.',
       params: [
-        { name: 'text', type: 'string', description: 'Report text to analyze', required: false },
-        { name: 'url', type: 'string', description: 'URL of the report to fetch and analyze', required: false },
+        {
+          name: 'text',
+          type: 'string',
+          description: 'Report text to analyze (required if url not provided)',
+          required: false,
+        },
+        {
+          name: 'url',
+          type: 'string',
+          description: 'URL of the report to fetch and analyze (required if text not provided)',
+          required: false,
+        },
       ],
-      execute: (args) =>
-        apiFetch(
+      execute: (args) => {
+        if (!args.text && !args.url) {
+          return Promise.reject(new Error('Either text or url must be provided'));
+        }
+        return apiFetch(
           self,
           '/api/v1/report/parse',
           apiKey,
@@ -401,7 +416,8 @@ export function buildToolRegistry(
             body: JSON.stringify({ text: args.text, url: args.url }),
           },
           ih
-        ),
+        );
+      },
     },
 
     // ── CT Monitoring ─────────────────────────────────────────────────

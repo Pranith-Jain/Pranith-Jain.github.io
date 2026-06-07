@@ -53,18 +53,49 @@ function extractKeyFindings(report: string): string[] {
 /** Extract IOCs (IPs, domains, hashes) from the report text. */
 function extractIocs(report: string): string[] {
   const iocs: string[] = [];
-  // IPv4
-  const ipv4 = /\b(?:\d{1,3}\.){3}\d{1,3}\b/g;
+  // IPv4 (exclude common non-IOC ranges: 0.x, 127.x, 224+)
+  const ipv4 = /\b(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)\b/g;
   let m: RegExpExecArray | null;
-  while ((m = ipv4.exec(report)) !== null) iocs.push(m[0]);
+  while ((m = ipv4.exec(report)) !== null) {
+    const ip = m[0];
+    const first = Number(ip.split('.')[0]);
+    if (first === 0 || first === 127 || first >= 224) continue;
+    iocs.push(ip);
+  }
   // SHA256
   const sha256 = /\b[a-fA-F0-9]{64}\b/g;
   while ((m = sha256.exec(report)) !== null) iocs.push(m[0]);
-  // Domains (rough)
-  const domains = /\b(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}\b/gi;
+  // Domains — must have a valid TLD and not be common reference domains
+  const SKIP_DOMAINS = new Set([
+    'example.com',
+    'example.org',
+    'example.net',
+    'github.com',
+    'github.io',
+    'mitre.org',
+    'attack.mitre.org',
+    'nvd.nist.gov',
+    'cve.mitre.org',
+    'cloudflare.com',
+    'microsoft.com',
+    'google.com',
+    'amazon.com',
+    'wikipedia.org',
+    'archive.org',
+    'zenodo.org',
+    'virustotal.com',
+    'abuseipdb.com',
+    'shodan.io',
+    'otx.alienvault.com',
+  ]);
+  const domains =
+    /\b(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+(?:com|org|net|io|co|ru|cn|de|uk|fr|br|jp|kr|in|au|info|xyz|top|cc|pw|tk|ml|ga|cf|gq|onion)\b/gi;
   while ((m = domains.exec(report)) !== null) {
     const d = m[0].toLowerCase();
-    if (!d.includes('example.com') && !d.includes('github.com') && !d.includes('mitre.org')) iocs.push(d);
+    if (SKIP_DOMAINS.has(d)) continue;
+    // Skip version-like strings (e.g. "v2.0", "3.1.4")
+    if (/^\d+\.\d+/.test(d)) continue;
+    iocs.push(d);
   }
   return [...new Set(iocs)].slice(0, 20);
 }
