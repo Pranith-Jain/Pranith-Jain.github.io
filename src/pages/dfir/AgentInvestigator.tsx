@@ -51,6 +51,11 @@ interface AgentState {
   startedAt: string;
   completedAt: string | null;
   error: string | null;
+  qa?: {
+    qualityScore: number;
+    flaggedClaims: string[];
+    missingFacts: string[];
+  };
 }
 
 interface SessionEntry {
@@ -341,6 +346,19 @@ export default function AgentInvestigator(): JSX.Element {
                 {agentState.modelUsed}
               </span>
             )}
+            {agentState.qa && (
+              <span
+                className={`text-[10px] font-mono px-2 py-0.5 rounded border ${
+                  agentState.qa.qualityScore >= 80
+                    ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-600'
+                    : agentState.qa.qualityScore >= 60
+                      ? 'border-amber-500/40 bg-amber-500/10 text-amber-600'
+                      : 'border-rose-500/40 bg-rose-500/10 text-rose-600'
+                }`}
+              >
+                QA: {agentState.qa.qualityScore}/100
+              </span>
+            )}
             <div className="ml-auto flex gap-2">
               <button
                 onClick={() => downloadReport(agentState, 'md')}
@@ -356,6 +374,45 @@ export default function AgentInvestigator(): JSX.Element {
               </button>
             </div>
           </div>
+
+          {/* QA Details */}
+          {agentState.qa && (agentState.qa.flaggedClaims.length > 0 || agentState.qa.missingFacts.length > 0) && (
+            <details className="mb-4 rounded border border-amber-500/30 bg-amber-500/5 p-3">
+              <summary className="text-xs font-mono font-bold text-amber-700 dark:text-amber-300 cursor-pointer">
+                QA Verification Notes ({agentState.qa.flaggedClaims.length} flagged, {agentState.qa.missingFacts.length}{' '}
+                added)
+              </summary>
+              {agentState.qa.flaggedClaims.length > 0 && (
+                <div className="mt-2">
+                  <div className="text-[10px] font-mono uppercase tracking-wider text-amber-600 mb-1">
+                    Flagged Claims
+                  </div>
+                  <ul className="space-y-1">
+                    {agentState.qa.flaggedClaims.map((c, i) => (
+                      <li key={i} className="text-[10px] font-mono text-amber-700 dark:text-amber-300">
+                        • {c}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {agentState.qa.missingFacts.length > 0 && (
+                <div className="mt-2">
+                  <div className="text-[10px] font-mono uppercase tracking-wider text-amber-600 mb-1">
+                    Added from Data
+                  </div>
+                  <ul className="space-y-1">
+                    {agentState.qa.missingFacts.slice(0, 5).map((f, i) => (
+                      <li key={i} className="text-[10px] font-mono text-amber-700 dark:text-amber-300">
+                        + {f}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </details>
+          )}
+
           <div className="prose prose-sm dark:prose-invert max-w-none font-mono text-sm leading-relaxed whitespace-pre-wrap">
             {agentState.report}
           </div>

@@ -94,10 +94,9 @@ FOR ${queryType.toUpperCase()} QUERIES:
 
 ${
   queryType === 'cve'
-    ? `Step 1: lookup_cve (get CVSS, EPSS, KEV, affected products)
-Step 2: enrich_actor for any actors linked to this CVE, OR lookup_mitre for related techniques
-Step 3: generate_yara_rule or generate_hunting_queries for detection
-Step 4: Synthesize`
+    ? `Step 1: lookup_cve (get CVSS, EPSS, KEV, affected products, references, CWE)
+Step 2: unified_search for exploitation intel OR generate_yara_rule for detection
+Step 3: Synthesize. Do NOT call enrich_actor (it's for actors, not CVEs). Do NOT call lookup_mitre without a real technique ID from the CVE data.`
     : ''
 }
 
@@ -150,10 +149,13 @@ Step 3: Synthesize`
 <critical_rules>
 - NEVER call the same tool with the same args twice.
 - NEVER call broad dump tools: get_live_iocs, get_today_briefing, get_feed_status, get_feed_catalog.
+- NEVER call enrich_actor for CVE queries — enrich_actor is for threat actors only.
+- NEVER call lookup_mitre with a placeholder like "TXXXX" — only use real technique IDs from data (T1190, T1566.001, etc). If you don't have a real ID, don't call lookup_mitre.
 - Maximum 2 tool calls per step. 1 is often better.
 - After 3+ successful results with good data, SYNTHESIZE IMMEDIATELY.
 - More tools ≠ better reports. Quality of data > quantity of data.
 - For rule generation: ALWAYS include the malware family name and known strings from the data you collected.
+- If a tool returned 0 results, do NOT call it again with the same query.
 </critical_rules>
 
 <output_format>

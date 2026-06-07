@@ -65,6 +65,12 @@ export interface AgentState {
   startedAt: string;
   completedAt: string | null;
   error: string | null;
+  /** QA verification results (populated after QA phase) */
+  qa?: {
+    qualityScore: number;
+    flaggedClaims: string[];
+    missingFacts: string[];
+  };
 }
 
 // ── Planner output ───────────────────────────────────────────────────────

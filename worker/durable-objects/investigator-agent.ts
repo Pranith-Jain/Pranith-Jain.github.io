@@ -5,6 +5,7 @@ import { buildToolRegistry } from '../../api/src/lib/agent/tools';
 import { planNextStep } from '../../api/src/lib/agent/planner';
 import { observeStep } from '../../api/src/lib/agent/observer';
 import { synthesizeReport } from '../../api/src/lib/agent/synthesizer';
+import { verifyReport } from '../../api/src/lib/agent/qa-verifier';
 
 /** Truncate JSON-serializable data to a max char length. Returns valid JSON. */
 function truncateData(data: unknown, maxChars: number): unknown {
@@ -255,15 +256,47 @@ export class InvestigatorAgentDO {
         groqKey,
         dataQuality: { totalOk, totalErr, emptyResults },
       });
-      state.report = result.report;
-      state.modelUsed = result.modelUsed;
 
-      synthesizeStep.observation = `Report synthesized. ${result.keyFindings.length} key findings, confidence: ${result.confidence}, ${result.iocsExtracted.length} IOCs extracted, ${result.mitreTechniques.length} MITRE techniques.`;
-      synthesizeStep.status = 'done';
-      synthesizeStep.completedAt = new Date().toISOString();
+      // ── QA PHASE ─────────────────────────────────────────────────────
+      // Run the QA verifier to fact-check the report against collected data.
+      // This catches hallucinations, adds missing facts, and scores quality.
+      const qaStepNum = stepNum + 1;
+      const qaStep: AgentStep = {
+        stepNumber: qaStepNum,
+        plan: 'QA verification — fact-checking report against collected data',
+        toolCalls: [],
+        results: [],
+        status: 'running',
+        startedAt: new Date().toISOString(),
+      };
+
+      try {
+        const qa = await verifyReport(ai, state.query, state.queryType, result.report, state.steps, { groqKey });
+
+        // Use the verified report (hallucinations removed, facts added)
+        state.report = qa.verifiedReport;
+        state.modelUsed = `${result.modelUsed} → QA:${qa.modelUsed}`;
+        state.qa = {
+          qualityScore: qa.qualityScore,
+          flaggedClaims: qa.flaggedClaims,
+          missingFacts: qa.missingFacts,
+        };
+
+        qaStep.observation = `QA complete. Score: ${qa.qualityScore}/100. Flagged: ${qa.flaggedClaims.length} claims. Missing: ${qa.missingFacts.length} facts.`;
+        qaStep.status = 'done';
+        qaStep.completedAt = new Date().toISOString();
+      } catch (qaErr) {
+        // QA failure is non-fatal — keep the original report
+        qaStep.observation = `QA failed: ${qaErr instanceof Error ? qaErr.message : String(qaErr)}. Original report preserved.`;
+        qaStep.status = 'error';
+        qaStep.completedAt = new Date().toISOString();
+        state.report = result.report;
+        state.modelUsed = result.modelUsed;
+      }
 
       state.steps.push(synthesizeStep);
-      state.currentStep = stepNum;
+      state.steps.push(qaStep);
+      state.currentStep = qaStepNum;
       state.status = 'done';
       state.completedAt = new Date().toISOString();
     } catch (err) {
