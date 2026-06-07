@@ -1294,4 +1294,64 @@ export const RESOURCES: ExternalResource[] = [
     description:
       "DIY Bitcoin + Lightning full node on a Raspberry Pi with integrated Tor, Electrum server, and physical-key HD wallet isolation. Self-sovereign hardware node with zero cloud dependence. MIT, but the hardware (Pi 4/5 + 1-2 TB SSD + PSU) costs ~$200-400 — software is free, the appliance isn't.",
   },
+  // ── AI Security & Agent Skills (2026-06-07) ─────────────────────────
+  {
+    id: 'anthropic-cybersecurity-skills',
+    name: 'Anthropic Cybersecurity Skills',
+    url: 'https://github.com/mukul975/Anthropic-Cybersecurity-Skills',
+    kind: 'directory',
+    featured: true,
+    tags: ['ai-security', 'threat-intel', 'dfir'],
+    description:
+      '754 structured cybersecurity skills for AI agents across 26 security domains. Mapped to 5 frameworks: MITRE ATT&CK v19.1, NIST CSF 2.0, MITRE ATLAS, D3FEND, and NIST AI RMF. Works with Claude Code, Copilot, Codex CLI, Cursor, Gemini CLI, and 20+ platforms. 14,000+ GitHub stars.',
+  },
+  {
+    id: 'awesome-agent-skills',
+    name: 'Awesome Agent Skills',
+    url: 'https://github.com/VoltAgent/awesome-agent-skills',
+    kind: 'directory',
+    featured: true,
+    tags: ['ai-security'],
+    description:
+      'Collection of 1,400+ AI agent skills from official dev teams (Anthropic, Google, Vercel, Stripe, Cloudflare, Trail of Bits) and the community. Compatible with Claude Code, Codex, Gemini CLI, Cursor, and agentskills.io standard. 24,000+ GitHub stars.',
+  },
+  {
+    id: 'awesome-ai-security',
+    name: 'Awesome AI Security',
+    url: 'https://github.com/ottosulin/awesome-ai-security',
+    kind: 'directory',
+    featured: true,
+    tags: ['ai-security', 'threat-intel'],
+    description:
+      'Curated list of AI security resources — frameworks, standards, red teaming tools, LLM attack techniques, agentic AI security, MCP security, adversarial ML, and AI governance. 1,000+ GitHub stars.',
+  },
+  {
+    id: 'openosint-agent',
+    name: 'OpenOSINT',
+    url: 'https://github.com/OpenOSINT/OpenOSINT',
+    kind: 'tool',
+    tags: ['osint', 'threat-intel', 'ai-security'],
+    description:
+      'AI-powered OSINT agent with interactive REPL, CLI, MCP server, and Web UI. 16 tools for email, username, breach, WHOIS, IP, subdomain, Shodan, VirusTotal, Censys, and DNS intelligence. Supports Claude, GPT-4, and local Ollama models. Apache 2.0.',
+  },
+  // ── Pentesting & Web Security (2026-06-07) ──────────────────────────
+  {
+    id: 'awesome-pentest',
+    name: 'Awesome Pentest',
+    url: 'https://github.com/enaqx/awesome-pentest',
+    kind: 'directory',
+    featured: true,
+    tags: ['dfir', 'osint', 'malware'],
+    description:
+      'Comprehensive curated collection of 10,000+ penetration testing resources — tools, books, frameworks, CTF platforms, network tools, exploit development, OSINT, web exploitation, reverse engineering, and security conferences. 26,000+ GitHub stars.',
+  },
+  {
+    id: 'owasp-web-checklist',
+    name: 'OWASP Web Security Testing Checklist',
+    url: 'https://github.com/0xRadi/OWASP-Web-Checklist',
+    kind: 'directory',
+    tags: ['vulnerability', 'threat-intel'],
+    description:
+      'Structured OWASP checklist covering 100+ web application security tests — info gathering, config management, authentication, session management, authorization, data validation, cryptography, and business logic. 2,000+ GitHub stars.',
+  },
 ];
