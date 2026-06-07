@@ -19,6 +19,8 @@ import type { Ai } from '@cloudflare/workers-types';
 
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
 const GROQ_MODEL = 'meta-llama/llama-4-scout-17b-16e-instruct';
+/** Higher-quality model for synthesis and report generation. Supports reasoning_effort. */
+const GROQ_MODEL_QUALITY = 'openai/gpt-oss-120b';
 const GROQ_TIMEOUT_MS = 30_000;
 
 // Workers-AI fallback chain (no key). Kept to two models — under an
@@ -40,6 +42,8 @@ export interface CompletionOutput {
 export interface CompletionOpts {
   /** Groq API key; when present Groq is tried first. */
   groqKey?: string;
+  /** Use the higher-quality model (openai/oos-120b) for synthesis. */
+  quality?: boolean;
 }
 
 /** Distinct type so callers (publisher/cron) can treat quota as "defer & retry later". */
@@ -71,21 +75,27 @@ export function isRateLimited(err: unknown): boolean {
   );
 }
 
-async function runGroq(key: string, input: CompletionInput): Promise<string> {
+async function runGroq(key: string, input: CompletionInput, model?: string): Promise<string> {
   let res: Response;
   try {
+    const isQualityModel = (model ?? GROQ_MODEL) === GROQ_MODEL_QUALITY;
+    const body: Record<string, unknown> = {
+      model: model ?? GROQ_MODEL,
+      messages: [
+        { role: 'system', content: input.system },
+        { role: 'user', content: input.user },
+      ],
+      max_completion_tokens: input.maxTokens ?? 4000,
+      temperature: input.temperature ?? 0.5,
+    };
+    // gpt-oss-120b supports reasoning_effort for chain-of-thought depth
+    if (isQualityModel) {
+      body.reasoning_effort = 'medium';
+    }
     res = await fetch(GROQ_URL, {
       method: 'POST',
       headers: { Authorization: `Bearer ${key}`, 'content-type': 'application/json' },
-      body: JSON.stringify({
-        model: GROQ_MODEL,
-        messages: [
-          { role: 'system', content: input.system },
-          { role: 'user', content: input.user },
-        ],
-        max_tokens: input.maxTokens ?? 4000,
-        temperature: input.temperature ?? 0.5,
-      }),
+      body: JSON.stringify(body),
       signal: AbortSignal.timeout(GROQ_TIMEOUT_MS),
     });
   } catch (err) {
@@ -125,10 +135,20 @@ export async function runCompletion(
 ): Promise<CompletionOutput> {
   // 1. Groq primary (own quota + quality) when configured.
   if (opts.groqKey) {
+    const model = opts.quality ? GROQ_MODEL_QUALITY : GROQ_MODEL;
     try {
-      const text = await runGroq(opts.groqKey, input);
-      return { text, modelUsed: `groq:${GROQ_MODEL}` };
+      const text = await runGroq(opts.groqKey, input, model);
+      return { text, modelUsed: `groq:${model}` };
     } catch (err) {
+      // If quality model failed, try the standard model before falling back to Workers AI
+      if (opts.quality && model !== GROQ_MODEL) {
+        try {
+          const text = await runGroq(opts.groqKey, input, GROQ_MODEL);
+          return { text, modelUsed: `groq:${GROQ_MODEL}` };
+        } catch {
+          /* both Groq models failed, fall through */
+        }
+      }
       if (isRateLimited(err)) {
         console.warn('runCompletion: groq rate-limited, falling back to Workers AI', err);
       } else {

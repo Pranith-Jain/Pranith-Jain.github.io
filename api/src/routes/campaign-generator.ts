@@ -214,7 +214,7 @@ export async function campaignGeneratorHandler(c: Context<{ Bindings: Env }>): P
     const out = await runCompletion(
       c.env.AI,
       { system: SYSTEM_PROMPT, user: userPrompt, maxTokens: 1500, temperature: 0.3 },
-      { groqKey: c.env.GROQ_API_KEY }
+      { groqKey: c.env.GROQ_API_KEY, quality: true }
     );
     completionText = out.text;
     modelUsed = out.modelUsed;

@@ -147,7 +147,7 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
     sources,
   });
 
-  const completion = await runCompletion(ai, { system, user }, { groqKey });
+  const completion = await runCompletion(ai, { system, user }, { groqKey, quality: true });
 
   const factsText = JSON.stringify(candidate.evidence);
   let processed = postProcess({ type: candidate.type, raw: completion.text, factsText });
@@ -173,7 +173,7 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
           `Be specific and substantive (no thin sections, no repeated sentences, cite real sources). ` +
           `Only reference facts/CVEs present in the GROUND TRUTH DATA above; mark any historical CVE as context, not a finding.`,
       },
-      { groqKey }
+      { groqKey, quality: true }
     );
     processed = postProcess({ type: candidate.type, raw: repair.text, factsText });
   }

@@ -895,7 +895,7 @@ async function callGroq(env: Env, system: string, user: string): Promise<string>
         { role: 'system', content: system },
         { role: 'user', content: user },
       ],
-      max_tokens: 4000,
+      max_completion_tokens: 4000,
       temperature: 0.3,
     }),
     signal: AbortSignal.timeout(45000),

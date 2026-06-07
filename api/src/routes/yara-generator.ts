@@ -76,7 +76,7 @@ interface GeneratedRule {
 // ── AI Client (Groq primary → Workers AI fallback) ─────────────────────
 
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
-const GROQ_MODEL = 'meta-llama/llama-4-scout-17b-16e-instruct';
+const GROQ_MODEL = 'openai/gpt-oss-120b';
 const CF_MODEL = '@cf/meta/llama-3.3-70b-instruct-fp8-fast' as const;
 const CF_MODEL_FALLBACK = '@cf/meta/llama-3.1-8b-instruct' as const;
 
@@ -102,8 +102,9 @@ async function runGroq(key: string, input: LlmInput): Promise<string> {
         { role: 'system', content: input.system },
         { role: 'user', content: input.user },
       ],
-      max_tokens: input.maxTokens ?? 2500,
+      max_completion_tokens: input.maxTokens ?? 2500,
       temperature: input.temperature ?? 0.2,
+      reasoning_effort: 'medium',
     }),
     signal: AbortSignal.timeout(30_000),
   });

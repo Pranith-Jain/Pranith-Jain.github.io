@@ -401,7 +401,7 @@ Constraints: be specific (use group/sector/country names from above), be concise
           maxTokens: 200,
           temperature: 0.3,
         },
-        { groqKey: env.GROQ_API_KEY }
+        { groqKey: env.GROQ_API_KEY, quality: true }
       ),
       new Promise<never>((_, reject) => setTimeout(() => reject(new Error('llm-landscape-timeout')), 6000)),
     ]);

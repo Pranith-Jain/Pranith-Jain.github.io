@@ -39,7 +39,7 @@ export async function synthesizeReport(
   const user = buildSynthesizerUserPrompt(query, queryType, steps) + dataWarning;
   const input: CompletionInput = { system, user, maxTokens: 4000, temperature: 0.3 };
 
-  const { text, modelUsed } = await runCompletion(ai, input, { groqKey: opts.groqKey });
+  const { text, modelUsed } = await runCompletion(ai, input, { groqKey: opts.groqKey, quality: true });
 
   const keyFindings = extractKeyFindings(text);
   const iocs = extractIocs(text);

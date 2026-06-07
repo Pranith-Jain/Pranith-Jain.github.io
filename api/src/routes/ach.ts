@@ -161,13 +161,14 @@ async function callLlm(env: Env, system: string, user: string): Promise<string> 
         method: 'POST',
         headers: { Authorization: `Bearer ${key}`, 'content-type': 'application/json' },
         body: JSON.stringify({
-          model: 'meta-llama/llama-4-scout-17b-16e-instruct',
+          model: 'openai/gpt-oss-120b',
           messages: [
             { role: 'system', content: system },
             { role: 'user', content: user },
           ],
-          max_tokens: 4000,
+          max_completion_tokens: 4000,
           temperature: 0.2,
+          reasoning_effort: 'medium',
         }),
         signal: AbortSignal.timeout(45000),
       });
