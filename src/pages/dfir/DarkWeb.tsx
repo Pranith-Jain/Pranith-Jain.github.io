@@ -758,7 +758,15 @@ export function BreachDisclosuresPanel(): JSX.Element {
 // Recent Ransomware Activity panel — pulls Ransomlook.io's leak-site posts
 // ─────────────────────────────────────────────────────────────────────────
 
-type RansomwareOrigin = 'ransomlook' | 'mti' | 'ransomfeed' | 'ransomwatch' | 'ctifyi' | 'x';
+type RansomwareOrigin =
+  | 'ransomlook'
+  | 'mti'
+  | 'ransomfeed'
+  | 'ransomwatch'
+  | 'ransomwarelive'
+  | 'andreafortuna'
+  | 'ctifyi'
+  | 'x';
 
 interface RansomwareVictim {
   victim: string;
@@ -794,6 +802,16 @@ const ORIGIN_PILL: Record<RansomwareOrigin, { label: string; cls: string; toolti
     label: 'RW',
     cls: 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
     tooltip: 'ransomwatch — joshhighet/ransomwatch GitHub posts.json',
+  },
+  ransomwarelive: {
+    label: 'RL!',
+    cls: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
+    tooltip: 'ransomware.live — public victim dump with country + sector data',
+  },
+  andreafortuna: {
+    label: 'AF',
+    cls: 'border-lime-500/40 bg-lime-500/10 text-lime-700 dark:text-lime-300',
+    tooltip: 'Andrea Fortuna CTI feeds — ransomware victim tracker',
   },
   ctifyi: {
     label: 'CTI',
