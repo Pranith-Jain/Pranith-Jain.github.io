@@ -1,75 +1,75 @@
 ---
 slug: mofu-01-siem-vs-edr
-title: SIEM vs EDR vs XDR — When to Use Each
+title: SIEM vs EDR: What Catches What
 funnel: mofu
 platform: linkedin
 format: carousel
-hook: curiosity-gap
-persona: Mid-Level Detection Engineer
-hashtags: SIEM, EDR, XDR, detection, cybersecurity
-cta: Save this post for your next tool evaluation
-notes: MOFU deep-dive content. Builds authority through framework thinking. Targeted at practitioners making tool decisions.
+hook: how-to
+persona: Detection Engineer
+hashtags: cybersecurity, SIEM, EDR, detection-engineering
+cta: Save this. Reply with your stack — I'll send the gap analysis template.
+notes: How-to hook. Comparison variant compares coverage across 5 attack stages. CTA is a feedback loop.
 ---
 
-There's one question every detection team gets wrong.
-SIEM, EDR, or XDR? Here's when to use each.
-
----
-
-The Problem
-
-- Most teams buy tools without a detection strategy
-- SIEM for everything = alert fatigue
-- EDR for everything = endpoint-only blind spot
-- You need the right tool for the right threat
+SIEM vs EDR.
+Same SOC, two tools, totally different jobs. Here's the map.
 
 ---
 
-SIEM — The Correlation Engine
-Best for: log aggregation, compliance, cross-source correlation
+KIND: list
+What your SIEM catches.
 
-- Ingests logs from firewalls, IDS, cloud, apps
-- Great for detecting patterns across data sources
-- Weak at: real-time endpoint visibility, deep process analysis
-
----
-
-EDR — The Endpoint Microscope
-Best for: endpoint detection, malware analysis, incident response
-
-- Deep process telemetry, file/memory analysis
-- Real-time response (isolate, kill, quarantine)
-- Weak at: network visibility, cloud workload coverage
+- Lateral movement (logon events, SMB, WinRM, RDP, SSH)
+- Privilege escalation (new group membership, sudo, runas)
+- Data exfil (DNS tunneling, large outbound transfers, beaconing)
+- Identity attacks (impossible travel, MFA fatigue, new-ASN logins)
+- SIEM = your correlation engine. Logs are the substrate.
 
 ---
 
-XDR — The Unified Platform
-Best for: cross-domain correlation, SOC efficiency
+KIND: list
+What your EDR catches.
 
-- Correlates endpoint + network + cloud + identity
-- Reduces alert volume through intelligent fusion
-- Weak at: depth in any single domain vs best-of-breed
-
----
-
-The Decision Framework
-Ask 3 questions:
-
-1. What's your primary threat model? (APT → EDR, compliance → SIEM)
-2. What's your team maturity? (Junior → XDR, senior → best-of-breed)
-3. What's your data volume? (High → SIEM, low → EDR)
+- Malware execution (file writes, process injection, hollowing)
+- Persistence (scheduled tasks, services, registry Run keys)
+- Credential dumping (LSASS access, Mimikatz signatures, SAM reads)
+- Living-off-the-land binaries (PowerShell, WMI, PsExec telemetry)
+- EDR = your behavior engine. Endpoint telemetry is the substrate.
 
 ---
 
-The Real Answer
+KIND: list
+Where most stacks have gaps.
 
-- Start with EDR (visibility matters most)
-- Add SIEM for correlation and compliance
-- Graduate to XDR when you have the team to operate it
-- Tools don't replace skill — invest in people first
+- Insider threat: needs DLP + UEBA, neither SIEM nor EDR does this alone
+- Cloud: AWS GuardDuty / Azure Defender, not on-prem SIEM rules
+- Email: needs a separate stack (Proofpoint, Mimecast, IRONSCALES)
+- Network east-west: needs NDR (Vectra, ExtraHop, Corelight) for lateral spread
+- Identity: needs ITDR (CrowdStrike Falcon, Microsoft Defender for Identity)
 
 ---
 
-CTA: What's your current stack? Drop it in the comments — I'll give you my honest assessment.
+KIND: list
+The 5 attack stages and which tool wins.
 
-#SIEM #EDR #XDR #detection #cybersecurity
+- Initial Access → EDR (phishing payload execution)
+- Execution → EDR (process tree, LOLBins)
+- Persistence → EDR (registry, scheduled tasks)
+- Lateral Movement → SIEM (auth logs, SMB, RDP)
+- Exfil → SIEM (DNS, proxy, firewall logs)
+- Both. Always. Don't pick one.
+
+---
+
+KIND: list
+How to build coverage without buying more.
+
+- Map your detections to MITRE ATT&CK. Find the 30% with zero coverage.
+- Add EDR telemetry into your SIEM (Sysmon + Crowdstream-style forwarding).
+- Write 3 high-fidelity correlation rules per quarter. Not 30 garbage ones.
+- Detection engineers > more logs.
+
+---
+
+CTA: Reply with your stack.
+I drop a free gap-analysis template for the comments.

@@ -4,6 +4,17 @@
  *
  * Authors write a markdown file with YAML frontmatter; the CLI parses
  * it into a `ContentSpec` and feeds it to the appropriate generator.
+ *
+ * Design system (3 base kinds + 4 content variants):
+ *   hook       — slide 1, dark gradient, big headline, scroll-stopper
+ *   content    — body slide (default), light bg, scannable
+ *   cta        — last slide, dark gradient, big headline + button
+ *
+ *   Content variants (auto-detected from slide content):
+ *   stat       — huge number + label
+ *   list       — 3–5 bullets with numbers/icons
+ *   framework  — 4–6 numbered cards in 2-column grid
+ *   quote      — large pull-quote with attribution
  */
 
 export type FunnelStage = 'tofu' | 'mofu' | 'bofu';
@@ -27,40 +38,22 @@ export type HookType =
   | 'hot-take'
   | 'question';
 
-export type SlideLayout =
-  | 'auto' // Auto-detect from content
-  | 'hero' // Dark gradient, big headline, used for slide 1
-  | 'stat' // Big number hero
-  | 'list' // Numbered cards with icons
-  | 'framework' // 2-column grid
-  | 'comparison' // Side-by-side compare
-  | 'quote' // Large pull-quote
-  | 'cta'; // Brand-color CTA slide
+export type SlideKind = 'hook' | 'content' | 'cta' | 'stat' | 'list' | 'framework' | 'quote';
 
 export interface ContentSlide {
   /** Slide number (1-indexed). */
   index: number;
+  /** Optional kind override. If omitted, auto-detected: slide 1 = hook, last = cta, stat/quote/framework/list based on content. */
+  kind?: SlideKind;
   /** Headline text (large, bold). */
   headline: string;
   /** Body text (smaller, supporting). */
   body?: string;
-  /** Bullet points (if present, rendered instead of body). */
+  /** Bullet points (if present, rendered as a list/framework variant). */
   bullets?: string[];
-  /** Statistic to highlight (renders as a large number). */
+  /** Statistic to highlight (renders as a huge number). */
   stat?: { value: string; label: string };
-  /** Visual element hint (icon name → emoji/SVG lookup, or 'none'). */
-  visual?: string;
-  /** Background override (CSS color). */
-  bg?: string;
-  /** Text color override (CSS color). */
-  color?: string;
-  /** Accent color override for this slide (CSS color). */
-  accent?: string;
-  /** Small uppercase label above headline ("THE PROBLEM", "KEY INSIGHT"). */
-  eyebrow?: string;
-  /** Force a specific layout (default: auto-detect). */
-  layout?: SlideLayout;
-  /** Is this the CTA slide? */
+  /** Mark as CTA slide (renderer will use the cta layout). */
   isCTA?: boolean;
 }
 

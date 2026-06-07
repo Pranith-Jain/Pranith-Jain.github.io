@@ -1,73 +1,64 @@
 ---
 slug: tofu-03-infostealer-rise
-title: Infostealers Are the New APT — And Nobody's Talking About It
+title: Infostealers Are Eating Corporate America
 funnel: tofu
-platform: twitter
-format: thread
-hook: hot-take
-persona: Mid-Level Detection Engineer
-hashtags: infostealer, threatintel, cybersecurity, malware
-cta: Follow for threat intel breakdowns every week
-notes: Hot take thread. Contrarian position on infostealers being underappreciated. Data-driven. High share potential.
+platform: linkedin
+format: carousel
+hook: story
+persona: Junior SOC Analyst
+hashtags: cybersecurity, infostealer, redline, raccoon, DFIR
+cta: Save this. I post a RedLine teardown next week — malware sample + IOCs included.
+notes: Story hook. Framework walks the attack chain. Each slide = one phase with specific tools and IOCs.
 ---
 
-Hot take: Infostealers are more dangerous than APTs right now.
-
-And most security teams are completely blind to them.
-
-## Here's why. 🧵
-
-What are infostealers?
-
-Malware that steals:
-• Browser passwords & cookies
-• Crypto wallets
-• Session tokens (bypasses MFA)
-• Autofill data (addresses, credit cards)
-
-## RedLine, Raccoon, Vidar, Lumma — you've heard the names. But have you DETECTED them?
-
-The numbers:
-
-• 10B+ credentials leaked via infostealers (SpyCloud 2024)
-• Infostealer infections grew 300% YoY
-• Average time to credential abuse: < 24 hours
-• Cost per stolen record: $165 (IBM 2024)
+Last week, our SOC got owned.
+The attacker logged in with a valid password.
 
 ---
 
-Why they're more dangerous than APTs:
+KIND: framework
+Phase 1: The Drop
+RedLine, Raccoon, Vidar — the malware that starts it all.
 
-1. Scale — one stealer hits thousands of machines
-2. Speed — creds appear on dark web within hours
-3. Stealth — no C2 beaconing, no lateral movement needed
-4. Access — valid creds bypass everything (MFA, EDR, SIEM)
-
----
-
-The attack chain:
-
-Infostealer infection → Credential dump → Dark web sale → Credential stuffing → Business email compromise → Ransomware
-
-## The stealer is step 1. The breach is step 6. Your SIEM sees nothing.
-
-What you should be detecting:
-
-• Browser credential store access patterns
-• Mass cookie extraction from browser profiles
-• Unusual outbound traffic to paste sites / Telegram bots
-• Process injection into browser processes
-• New login sessions from stolen cookies
+- Phishing email with .iso attachment (bypasses email AV)
+- User double-clicks → loader writes to %TEMP%
+- C2: HTTPS to attacker domain, looks like a CDN
+- Persistence: scheduled task, registry Run key, or LNK in Startup
 
 ---
 
-The uncomfortable truth:
+KIND: framework
+Phase 2: The Theft
+The malware grabs everything it can find.
 
-Your EDR might detect the stealer.
-But it won't detect the credential abuse 3 days later.
+- Browser: cookies, saved passwords, autofill, crypto wallets
+- Files: .doc, .xls, .pdf, .txt, .kdbx in user folders
+- Clipboard, screenshots, system info, Wi-Fi creds
+- 30+ data types exfiltrated in under 60 seconds
 
-## That's a SIEM problem. And most SIEMs aren't configured for it.
+---
 
-CTA: Follow @pranithjain for threat intel breakdowns that actually help you detect things.
+KIND: framework
+Phase 3: The Exfil
+Data is sent over HTTPS to the C2, often within minutes.
 
-#infostealer #threatintel #cybersecurity #malware
+- Single POST request, multipart, encrypted with the malware's RSA key
+- Beacon every 10 min if the loader is still alive
+- C2 rotates daily (1 domain per day, often on a fresh VPS)
+- 70% of stealers use Cloudflare or similar CDN to hide
+
+---
+
+KIND: framework
+Phase 4: The Hand-off
+The stolen creds hit a marketplace within hours.
+
+- Genesis Market, Russian Market, 2easy — these are the storefronts
+- Bot profiles sold as "subscription" with browser fingerprint + cookies
+- Initial Access Brokers (IABs) package the best ones for ransomware crews
+- Time from stealer infection to ransomware deployment: 4–14 days
+
+---
+
+CTA: Save this.
+Next post: full RedLine teardown — sample, IOCs, and the Splunk rule that catches it.

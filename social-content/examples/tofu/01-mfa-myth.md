@@ -1,66 +1,64 @@
 ---
 slug: tofu-01-mfa-myth
-title: 5 MFA Myths That Will Blow Your Mind
+title: 4 MFA Myths That Get You Owned
 funnel: tofu
 platform: linkedin
 format: carousel
 hook: contrarian
 persona: Junior SOC Analyst
-hashtags: cybersecurity, MFA, security, DFIR, threatintel
-cta: Follow for more myth-busting every week
-notes: High-reach TOFU content. Contrarian hook stops the scroll. Each slide is one myth, easy to consume.
+hashtags: cybersecurity, MFA, security, blue-team
+cta: Save this. I'll send the detection queries in my next post.
+notes: Contrarian hook. 4 myth/fact pairs in a 2x2 framework. Each card = one misconception with the truth + an action.
 ---
 
-MFA Won't Save You.
-Here are 5 myths most security pros still believe.
-
----
-
-Myth 1: MFA = Unbreakable
-
-- MFA stops 99% of automated attacks
-- But targeted attacks bypass MFA in minutes
-- SIM swapping, prompt bombing, real-time phishing
+MFA won't save you.
+4 myths that get SOC teams owned.
 
 ---
 
-Myth 2: SMS MFA Is Good Enough
+KIND: framework
+MFA stops 99% of attacks.
+It misses the 1% that matters.
 
-- SMS is the weakest form of MFA
-- SS7 protocol attacks intercept texts in seconds
-- NIST deprecated SMS MFA back in 2017
-
----
-
-Myth 3: MFA Stops All Phishing
-
-- Modern phishing kits proxy MFA tokens in real time
-- Evilginx2 captures session cookies AND MFA codes
-- The user sees a normal login flow — nothing looks wrong
+- Yes — push-notification MFA blocks 99% of automated credential stuffing
+- The 1% that bypasses it costs more than the 99% it stops
+- SIM swap, prompt bombing, and real-time phishing bypass push MFA
+- Action: enable number-matching + FIDO2 keys for high-value accounts
 
 ---
 
-Myth 4: Hardware Keys Are Too Expensive
+KIND: framework
+MFA = Security.
+Wrong. MFA is a layer, not a wall.
 
-- A YubiKey costs $50 per user
-- A single breach costs $4.88M on average (IBM 2024)
-- That's a 97,600% ROI on hardware keys
-
----
-
-Myth 5: MFA Is Set-and-Forget
-
-- MFA enrollment degrades over time
-- Users find workarounds (backup codes in sticky notes)
-- Continuous verification > one-time MFA
+- MFA does not protect against session hijacking
+- Stolen session cookies bypass MFA entirely (think Evilginx, Muraena)
+- MFA does not detect credential stuffing at scale
+- Action: pair MFA with conditional access + session monitoring
 
 ---
 
-CTA: The real lesson? MFA is necessary but insufficient.
-Layer it with: phishing-resistant auth, behavioral analytics, and zero-trust architecture.
+KIND: framework
+SMS-based MFA is fine.
+No. It's the weakest factor you can deploy.
+
+- SIM swap costs $50–$1,000 and bypasses SMS in minutes
+- SS7 intercept lets attackers redirect SMS at the carrier level
+- 80% of SIM swaps target high-value crypto and finance accounts
+- Action: kill SMS MFA for any account that touches money or infra
 
 ---
 
-What MFA myth surprised you the most? Drop it below 👇
+KIND: framework
+MFA fatigue is a user problem.
+No. It's a detection problem you haven't built.
 
-#cybersecurity #MFA #security #DFIR #threatintel
+- Attackers send 50–100 push prompts until the user accepts one
+- "I just hit accept by accident" is the most common breach story
+- Your SIEM probably has no rule for repeated MFA denials
+- Action: alert on >3 MFA denials in 5 min for the same user
+
+---
+
+CTA: Want the detection queries?
+Save this post. I drop the Splunk + Sentinel KQL next week.

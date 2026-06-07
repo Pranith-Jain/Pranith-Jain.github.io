@@ -7,74 +7,50 @@ format: carousel
 hook: data-shock
 persona: Junior SOC Analyst
 hashtags: cybersecurity, breach, credentials, DFIR, SOC
-cta: Save this. Follow for detection templates that actually work.
-notes: Stat shock hook with a pattern interrupt. Stat hero slide sets the tone, body slides give the framework.
+cta: Save this. Follow for detection rules that actually catch credential abuse.
+notes: Data-shock hook. Stat hero on slide 2 to drive the number home. List of 3 detection signals. CTA references the next post.
 ---
 
-STAT: 80%|of breaches use valid credentials.
-EYEBROW: The Stat That Changes Everything
-ACCENT: #e11d48
-
----
-
-Your SIEM Misses This
-EYEBROW: The Reframe
-VISUAL: alert
-
-- Stolen credentials > zero-days in real-world attacks
-- Your SIEM is probably not detecting this
-- The perimeter is dead. Credentials are the new perimeter.
-- You're chasing malware while they walk through the front door
+80% of breaches use valid credentials.
+Attackers aren't breaking in. They're logging in.
 
 ---
 
-Where Credentials Get Stolen
-EYEBROW: The Sources
-VISUAL: key
-
-- Phishing (real-time proxy kits like Evilginx2)
-- Infostealer malware (RedLine, Raccoon, Vidar)
-- Dark web markets (combo lists, credential dumps)
-- Third-party breaches (credential stuffing)
+KIND: stat
+STAT: 80%|of breaches involve valid credentials.
+Stop chasing zero-days.
 
 ---
 
-How to Detect Credential Abuse
-EYEBROW: The Signals
-VISUAL: eye
+KIND: list
+The 3 detection signals that catch most credential abuse.
 
-- Impossible travel (login from two countries in 1 hour)
-- New device + new location + sensitive action
-- MFA fatigue attacks (repeated push notifications)
-- Service account anomalies (human behavior on machines)
-
----
-
-The 3 Signals That Matter Most
-EYEBROW: The Priority
-VISUAL: target
-
-- First-time login from a new ASN or geography
-- Privilege escalation within 24 hours of a new login
+- First-time login from a new ASN or geography for that user
+- Privilege escalation within 24 hours of a brand-new login
 - Bulk data access from a previously dormant account
-- These three catch 80% of credential abuse
+- These three catch ~80% of credential abuse in most environments
 
 ---
 
-The Uncomfortable Truth
-EYEBROW: The Wake-Up Call
-VISUAL: fire
+KIND: list
+Your SIEM probably misses this. Here's why.
 
-- Most SOC teams don't have detection rules for credential abuse
-- They're too busy chasing malware alerts
-- Credentials are the new perimeter, detect accordingly
-- The teams that figure this out first will survive
+- Most SIEM rules look for malware hashes and known IOCs
+- A "valid login" looks like a normal login to a rule-based engine
+- Anomaly detection requires UEBA, which most shops don't have
+- The attackers know this. They move slowly to stay below the threshold
 
 ---
 
-CTA: Want detection rules for credential abuse?
-EYEBROW: Your Move
-VISUAL: rocket
-Save this post and follow for templates.
+KIND: list
+What to build this week.
 
-#cybersecurity #breach #credentials #DFIR #SOC
+- Impossible-travel rule: login from two countries in 1 hour
+- New-device + new-location + sensitive action within 30 min
+- Service account: human behavior on a machine account
+- Alert on >3 MFA denials in 5 min for the same user (MFA fatigue)
+
+---
+
+CTA: Save this.
+Detection rules for credential abuse drop next week.
