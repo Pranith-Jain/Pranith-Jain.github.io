@@ -3,6 +3,7 @@ import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Activity } from 'lucide-react';
 import { RansomwareActivityPanel } from '../dfir/DarkWeb';
 import { LiveFreshnessPill } from '../../components/LiveFreshnessPill';
+import { LiveIndicator } from '../../components/LiveIndicator';
 
 /**
  * Live ransomware activity page. Thin wrapper around the
@@ -27,6 +28,9 @@ export default function RansomwareActivity(): JSX.Element {
           <Activity size={28} className="text-brand-600 dark:text-brand-400" /> Live ransomware activity
           <LiveFreshnessPill tone="live" className="ml-1" />
         </h1>
+        <div className="mb-6">
+          <LiveIndicator label="Live · ransomware telemetry" note="hourly from 6 trackers" size="md" />
+        </div>
         <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
           Recent ransomware leak-site claims merged across multiple trackers —{' '}
           <a

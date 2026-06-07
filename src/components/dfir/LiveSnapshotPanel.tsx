@@ -6,6 +6,7 @@ import { SnapshotCard } from './SnapshotCard';
 import { useWatchlist, watchHits } from './useWatchlist';
 import { shortRel } from '../../lib/relativeTime';
 import { sanitizeUrl } from '../../lib/sanitize-url';
+import { LiveIndicator } from '../LiveIndicator';
 
 /**
  * Live "right now" snapshot — 6 cards: Ransomware claims, Cybersec
@@ -36,6 +37,11 @@ interface Props {
   headerLabel?: string | null;
   subtitle?: string;
   mbClass?: string;
+  /** When true, swap the static header label for the green-pulse LIVE
+   *  indicator (the same one /threatintel's LivePulse band uses). Defaults
+   *  to `true` so /threatintel reads as live; /dfir mounts set this to
+   *  `false` to keep the historical "Right now" wording. */
+  showLiveIndicator?: boolean;
 }
 
 interface RansomwareVictim {
@@ -157,7 +163,7 @@ function isNewSince(iso: string | undefined, since: number): boolean {
 }
 
 export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
-  const { compact = false, headerLabel = 'Right now', subtitle, mbClass = 'mb-12' } = props;
+  const { compact = false, headerLabel = 'Right now', subtitle, mbClass = 'mb-12', showLiveIndicator = true } = props;
 
   const lastVisit = useLastVisit();
   const watchlist = useWatchlist();
@@ -325,9 +331,29 @@ export function LiveSnapshotPanel(props: Props = {}): JSX.Element {
     <section className={mbClass}>
       {headerLabel !== null && (
         <div className="flex items-baseline justify-between mb-4 flex-wrap gap-2">
-          <h2 className="font-display font-bold text-xl inline-flex items-center gap-2 flex-wrap">
-            {headerLabel}
-            {lastVisit > 0 && totalNew > 0 && (
+          <h2 className="font-display font-bold text-xl inline-flex items-center gap-3 flex-wrap">
+            {showLiveIndicator ? (
+              <LiveIndicator
+                label={
+                  headerLabel === 'Right now' ? 'Live · platform telemetry' : `Live · ${headerLabel.toLowerCase()}`
+                }
+                note=""
+                size="md"
+                trailing={
+                  lastVisit > 0 && totalNew > 0 ? (
+                    <span
+                      className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full border border-amber-500/50 bg-amber-500/15 text-amber-700 dark:text-amber-300"
+                      title={`${totalNew} new items since your last visit`}
+                    >
+                      {totalNew} new since last visit
+                    </span>
+                  ) : undefined
+                }
+              />
+            ) : (
+              <span>{headerLabel}</span>
+            )}
+            {!showLiveIndicator && lastVisit > 0 && totalNew > 0 && (
               <span
                 className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full border border-amber-500/50 bg-amber-500/15 text-amber-700 dark:text-amber-300"
                 title={`${totalNew} new items since your last visit`}

@@ -900,10 +900,24 @@ export const SECTIONS: Section[] = [
       },
       {
         path: '/dfir/attack-navigator',
-        useCase: 'Visualize LLM attack techniques on the ATT&CK matrix.',
-        label: 'LLM ATT&CK Navigator',
-        desc: '3 matrices in one — MITRE ATT&CK Enterprise (14 tactics, ARiES scores) · A3M Agentic AI (17 phases, 167 techniques) · MITRE D3FEND (7 tactics, 250+ defensive techniques) — all live',
+        useCase: 'Visualize adversary techniques on the MITRE ATT&CK matrix.',
+        label: 'MITRE ATT&CK Navigator',
+        desc: '14 tactics · ~200 techniques · ARiES risk scores + % actor use + prevalence modes · drawer with technique detail · live from mitre/cti',
         icon: Target,
+      },
+      {
+        path: '/dfir/attack-navigator?matrix=a3m',
+        useCase: 'Map AI-agent attacks across the A3M kill chain.',
+        label: 'A3M Agentic AI Matrix',
+        desc: '17-phase Agentic AI Attack Matrix · 167 techniques · purple-violet tile map · live from cyberriskevaluator.com/A3M',
+        icon: Sparkles,
+      },
+      {
+        path: '/dfir/attack-navigator?matrix=d3fend',
+        useCase: 'Browse the MITRE D3FEND defensive-technique ontology.',
+        label: 'MITRE D3FEND Matrix',
+        desc: '7 defensive tactics (Model · Harden · Detect · Isolate · Deceive · Evict · Restore) · 250+ techniques with definitions · live from d3fend.mitre.org',
+        icon: ShieldCheck,
       },
       {
         path: '/dfir/diamond',
