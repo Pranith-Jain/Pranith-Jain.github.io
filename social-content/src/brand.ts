@@ -1,8 +1,11 @@
 /**
- * Brand tokens for social content generation.
- * Derived from the portfolio tailwind.config.js — single source of truth.
- * These are CSS values, not Tailwind classes, so the HTML renderer
- * works standalone without Tailwind.
+ * Brand tokens matching pranithjain.qzz.io design system.
+ * Single source of truth for all generated content.
+ *
+ * Aligned with `tailwind.config.js`:
+ *   - brand-100/200 = tints for TOFU
+ *   - sky-100/200    = tints for MOFU
+ *   - emerald-100/200 = tints for BOFU
  */
 
 export const BRAND = {
@@ -14,11 +17,31 @@ export const BRAND = {
       300: '#a1b6fb',
       400: '#6d8bf7',
       500: '#435ef1',
-      600: '#2c3ee5', // primary
+      600: '#2c3ee5',
       700: '#232ebf',
       800: '#21299b',
       900: '#1f267c',
       950: '#121649',
+    },
+    sky: {
+      50: '#f0f9ff',
+      100: '#e0f2fe',
+      200: '#bae6fd',
+      300: '#7dd3fc',
+      400: '#38bdf8',
+      500: '#0ea5e9',
+      600: '#0284c7',
+      700: '#0369a1',
+    },
+    emerald: {
+      50: '#ecfdf5',
+      100: '#d1fae5',
+      200: '#a7f3d0',
+      300: '#6ee7b7',
+      400: '#34d399',
+      500: '#10b981',
+      600: '#059669',
+      700: '#047857',
     },
     severity: {
       critical: '#e11d48',
@@ -45,18 +68,21 @@ export const BRAND = {
   fonts: {
     display: '"Bricolage Grotesque", "Hanken Grotesk", sans-serif',
     body: '"Hanken Grotesk", ui-sans-serif, system-ui, sans-serif',
-    mono: '"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace',
+    mono: '"JetBrains Mono", ui-monospace, monospace',
   },
-  // Funnel-specific color themes
+  // Funnel colors: accent (CTA buttons, side bars, brand mark)
+  //               tint  (light backgrounds, cards)
+  //               deep  (gradient mid-tone, top-fade)
   funnel: {
-    tofu: { accent: '#2c3ee5', bg: '#f5f7ff', label: 'TOFU' }, // brand-600
-    mofu: { accent: '#0ea5e9', bg: '#f0f9ff', label: 'MOFU' }, // sky-500
-    bofu: { accent: '#10b981', bg: '#ecfdf5', label: 'BOFU' }, // emerald-500
+    tofu: { accent: '#2c3ee5', tint: '#ebf0fe', deep: '#ced9fd', label: 'TOFU' },
+    mofu: { accent: '#0ea5e9', tint: '#e0f2fe', deep: '#bae6fd', label: 'MOFU' },
+    bofu: { accent: '#10b981', tint: '#d1fae5', deep: '#a7f3d0', label: 'BOFU' },
   },
-  // Platform-specific color overrides
   platform: {
     linkedin: '#0a66c2',
     instagram: '#e4405f',
     twitter: '#1d9bf0',
   },
 } as const;
+
+export const FONTS = BRAND.fonts;

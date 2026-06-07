@@ -18,33 +18,11 @@
  */
 
 import type { ContentSpec, ContentSlide, FunnelStage, SlideKind } from './content-spec';
-import { BRAND } from './brand';
+import { BRAND, FONTS } from './brand';
 
-const FONTS = BRAND.fonts;
+const N = BRAND.colors.neutral;
 
-const C = {
-  brand: { 400: '#6d8bf7', 500: '#435ef1', 600: '#2c3ee5', 700: '#232ebf', 800: '#21299b' },
-  slate: {
-    50: '#f8fafc',
-    100: '#f1f5f9',
-    200: '#e2e8f0',
-    300: '#cbd5e1',
-    400: '#94a3b8',
-    500: '#64748b',
-    600: '#475569',
-    700: '#334155',
-    800: '#1e293b',
-    900: '#0f172a',
-    950: '#020617',
-  },
-  white: '#ffffff',
-};
-
-const FUNNEL: Record<FunnelStage, { accent: string; tint: string; deep: string; label: string }> = {
-  tofu: { accent: C.brand[600], tint: '#eef1ff', deep: '#d6dffd', label: 'TOFU' },
-  mofu: { accent: '#0ea5e9', tint: '#e0f4ff', deep: '#b8e5ff', label: 'MOFU' },
-  bofu: { accent: '#10b981', tint: '#e6fbf3', deep: '#c4f3df', label: 'BOFU' },
-};
+const FUNNEL: Record<FunnelStage, { accent: string; tint: string; deep: string; label: string }> = BRAND.funnel;
 
 type FunnelColors = (typeof FUNNEL)['tofu'];
 
@@ -84,7 +62,7 @@ function sideAccentBar(accent: string, side: 'left' | 'right'): string {
 }
 
 function brandMark(dark: boolean, accent: string): string {
-  const fg = dark ? 'rgba(255,255,255,0.85)' : C.slate[800];
+  const fg = dark ? 'rgba(255,255,255,0.85)' : N[800];
   return `
     <div style="position:absolute; top:52px; left:56px; display:flex; align-items:center; gap:14px; z-index:3;">
       <svg viewBox="0 0 40 40" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
@@ -103,8 +81,8 @@ function brandMark(dark: boolean, accent: string): string {
 }
 
 function slideIndicator(index: number, total: number, dark: boolean, accent: string): string {
-  const fg = dark ? 'rgba(255,255,255,0.5)' : C.slate[400];
-  const active = dark ? C.white : accent;
+  const fg = dark ? 'rgba(255,255,255,0.5)' : N[400];
+  const active = dark ? N.white : accent;
   return `
     <div style="position:absolute; bottom:48px; right:56px; display:flex; align-items:center; gap:14px; z-index:3;">
       <div style="display:flex; gap:5px;">
@@ -114,13 +92,13 @@ function slideIndicator(index: number, total: number, dark: boolean, accent: str
             `<div style="width:6px; height:6px; border-radius:50%; background:${i === index - 1 ? active : fg};"></div>`
         ).join('')}
       </div>
-      <span style="font-family:${FONTS.mono}; font-size:12px; color:${dark ? 'rgba(255,255,255,0.6)' : C.slate[400]}; font-weight:600; letter-spacing:0.06em;">${String(index).padStart(2, '0')} / ${String(total).padStart(2, '0')}</span>
+      <span style="font-family:${FONTS.mono}; font-size:12px; color:${dark ? 'rgba(255,255,255,0.6)' : N[400]}; font-weight:600; letter-spacing:0.06em;">${String(index).padStart(2, '0')} / ${String(total).padStart(2, '0')}</span>
     </div>
   `;
 }
 
 function eyebrowPill(text: string, accent: string, dark: boolean, tint: string): string {
-  const bg = dark ? 'rgba(255,255,255,0.08)' : tint !== C.white ? tint : C.white;
+  const bg = dark ? 'rgba(255,255,255,0.08)' : tint !== N.white ? tint : N.white;
   const border = dark ? 'rgba(255,255,255,0.15)' : `${accent}30`;
   const textColor = dark ? 'rgba(255,255,255,0.8)' : accent;
   return `
@@ -137,8 +115,8 @@ function renderHook(slide: ContentSlide, index: number, total: number, accent: s
   return `
   <div class="slide" style="
     width:1080px; height:1350px;
-    background:linear-gradient(160deg, ${C.slate[950]} 0%, ${C.slate[900]} 40%, ${funnel.deep}55 100%);
-    color:${C.white};
+    background:linear-gradient(160deg, ${N[950]} 0%, ${N[900]} 40%, ${funnel.deep}55 100%);
+    color:${N.white};
     position:relative; overflow:hidden;
     display:flex; flex-direction:column; justify-content:center;
     padding:120px 96px;
@@ -150,9 +128,9 @@ function renderHook(slide: ContentSlide, index: number, total: number, accent: s
     ${cornerAccent(funnel.accent, 'bl')}
     ${brandMark(true, accent)}
     <div style="position:relative; z-index:2; max-width:880px;">
-      ${eyebrowPill(funnel.label, accent, true, C.slate[900])}
+      ${eyebrowPill(funnel.label, accent, true, N[900])}
       <h1 style="font-family:${FONTS.display}; font-size:104px; font-weight:800;
-        line-height:0.95; margin:0 0 36px 0; color:${C.white}; letter-spacing:-4px;
+        line-height:0.95; margin:0 0 36px 0; color:${N.white}; letter-spacing:-4px;
         max-width:920px;">
         ${escapeHTML(slide.headline)}
       </h1>
@@ -166,8 +144,8 @@ function renderStat(slide: ContentSlide, index: number, total: number, accent: s
   return `
   <div class="slide" style="
     width:1080px; height:1350px;
-    background:linear-gradient(165deg, ${funnel.tint} 0%, ${C.white} 50%, ${funnel.tint} 100%);
-    color:${C.slate[900]};
+    background:linear-gradient(165deg, ${funnel.tint} 0%, ${N.white} 50%, ${funnel.tint} 100%);
+    color:${N[900]};
     position:relative; overflow:hidden;
     display:flex; flex-direction:column; justify-content:center; align-items:center;
     padding:120px 96px;
@@ -178,12 +156,12 @@ function renderStat(slide: ContentSlide, index: number, total: number, accent: s
     ${dotPattern(0.05)}
     ${cornerAccent(accent, 'tr')}
     <div style="position:relative; z-index:2; text-align:center; max-width:880px;">
-      ${eyebrowPill('KEY STATISTIC', accent, false, C.white)}
+      ${eyebrowPill('KEY STATISTIC', accent, false, N.white)}
       <div style="font-family:${FONTS.display}; font-size:320px; font-weight:800;
         line-height:0.85; margin:0 0 32px 0; color:${accent}; letter-spacing:-14px;">
         ${escapeHTML(slide.stat!.value)}
       </div>
-      <p style="font-family:${FONTS.body}; font-size:32px; line-height:1.4; color:${C.slate[700]}; margin:0; max-width:760px; font-weight:500;">
+      <p style="font-family:${FONTS.body}; font-size:32px; line-height:1.4; color:${N[700]}; margin:0; max-width:760px; font-weight:500;">
         ${escapeHTML(slide.stat!.label)}
       </p>
     </div>
@@ -202,8 +180,8 @@ function renderList(
   return `
   <div class="slide" style="
     width:1080px; height:1350px;
-    background:${C.white};
-    color:${C.slate[900]};
+    background:${N.white};
+    color:${N[900]};
     position:relative; overflow:hidden;
     display:flex; flex-direction:column; justify-content:center;
     padding:120px 96px;
@@ -215,7 +193,7 @@ function renderList(
     <div style="position:relative; z-index:2; max-width:880px; margin-left:48px;">
       ${eyebrowPill(`${bullets.length} POINTS`, accent, false, funnel.tint)}
       <h2 style="font-family:${FONTS.display}; font-size:64px; font-weight:800;
-        line-height:1.0; margin:0 0 48px 0; color:${C.slate[900]}; letter-spacing:-2.5px;
+        line-height:1.0; margin:0 0 48px 0; color:${N[900]}; letter-spacing:-2.5px;
         max-width:880px;">
         ${escapeHTML(slide.headline)}
       </h2>
@@ -224,10 +202,10 @@ function renderList(
           .map(
             (b, i) => `
           <div style="display:flex; align-items:flex-start; gap:24px; padding:20px 24px; background:${funnel.tint}80; border-radius:14px; border-left:4px solid ${accent};">
-            <div style="flex-shrink:0; width:44px; height:44px; border-radius:10px; background:${accent}; display:flex; align-items:center; justify-content:center; font-family:${FONTS.mono}; font-size:16px; font-weight:700; color:${C.white};">
+            <div style="flex-shrink:0; width:44px; height:44px; border-radius:10px; background:${accent}; display:flex; align-items:center; justify-content:center; font-family:${FONTS.mono}; font-size:16px; font-weight:700; color:${N.white};">
               ${String(i + 1).padStart(2, '0')}
             </div>
-            <p style="font-family:${FONTS.body}; font-size:24px; line-height:1.4; color:${C.slate[800]}; margin:6px 0 0 0; font-weight:500; flex:1;">
+            <p style="font-family:${FONTS.body}; font-size:24px; line-height:1.4; color:${N[800]}; margin:6px 0 0 0; font-weight:500; flex:1;">
               ${escapeHTML(b)}
             </p>
           </div>
@@ -251,8 +229,8 @@ function renderFramework(
   return `
   <div class="slide" style="
     width:1080px; height:1350px;
-    background:linear-gradient(180deg, ${funnel.tint} 0%, ${C.white} 100%);
-    color:${C.slate[900]};
+    background:linear-gradient(180deg, ${funnel.tint} 0%, ${N.white} 100%);
+    color:${N[900]};
     position:relative; overflow:hidden;
     display:flex; flex-direction:column; justify-content:center;
     padding:120px 96px;
@@ -262,9 +240,9 @@ function renderFramework(
     ${progressBar(index, total, false, accent)}
     ${gridPattern(0.03, accent)}
     <div style="position:relative; z-index:2; max-width:880px; width:100%;">
-      ${eyebrowPill(`${bullets.length}-STEP FRAMEWORK`, accent, false, C.white)}
+      ${eyebrowPill(`${bullets.length}-STEP FRAMEWORK`, accent, false, N.white)}
       <h2 style="font-family:${FONTS.display}; font-size:56px; font-weight:800;
-        line-height:1.05; margin:0 0 48px 0; color:${C.slate[900]}; letter-spacing:-2px;
+        line-height:1.05; margin:0 0 48px 0; color:${N[900]}; letter-spacing:-2px;
         max-width:880px;">
         ${escapeHTML(slide.headline)}
       </h2>
@@ -272,12 +250,12 @@ function renderFramework(
         ${bullets
           .map(
             (b, i) => `
-          <div style="padding:28px 24px; background:${C.white}; border:1px solid ${C.slate[200]}; border-radius:16px; box-shadow:0 2px 8px ${C.slate[200]}; position:relative; overflow:hidden;">
+          <div style="padding:28px 24px; background:${N.white}; border:1px solid ${N[200]}; border-radius:16px; box-shadow:0 2px 8px ${N[200]}; position:relative; overflow:hidden;">
             <div style="position:absolute; top:0; left:0; right:0; height:4px; background:${accent};"></div>
             <div style="font-family:${FONTS.mono}; font-size:13px; color:${accent}; text-transform:uppercase; letter-spacing:0.18em; font-weight:700; margin:12px 0 12px 0;">
               STEP ${String(i + 1).padStart(2, '0')}
             </div>
-            <p style="font-family:${FONTS.body}; font-size:21px; line-height:1.45; color:${C.slate[800]}; margin:0; font-weight:500;">
+            <p style="font-family:${FONTS.body}; font-size:21px; line-height:1.45; color:${N[800]}; margin:0; font-weight:500;">
               ${escapeHTML(b)}
             </p>
           </div>
@@ -294,8 +272,8 @@ function renderQuote(slide: ContentSlide, index: number, total: number, accent: 
   return `
   <div class="slide" style="
     width:1080px; height:1350px;
-    background:linear-gradient(160deg, ${C.slate[950]} 0%, ${C.slate[900]} 50%, ${funnel.deep}66 100%);
-    color:${C.white};
+    background:linear-gradient(160deg, ${N[950]} 0%, ${N[900]} 50%, ${funnel.deep}66 100%);
+    color:${N.white};
     position:relative; overflow:hidden;
     display:flex; flex-direction:column; justify-content:center;
     padding:120px 96px;
@@ -307,7 +285,7 @@ function renderQuote(slide: ContentSlide, index: number, total: number, accent: 
     ${brandMark(true, accent)}
     <div style="position:relative; z-index:2; max-width:880px;">
       <div style="font-family:${FONTS.display}; font-size:200px; line-height:0.4; color:${accent}; opacity:0.4; margin-bottom:20px;">"</div>
-      <p style="font-family:${FONTS.display}; font-size:56px; line-height:1.2; color:${C.white}; margin:0 0 40px 0; font-weight:600; letter-spacing:-1.5px;">
+      <p style="font-family:${FONTS.display}; font-size:56px; line-height:1.2; color:${N.white}; margin:0 0 40px 0; font-weight:600; letter-spacing:-1.5px;">
         ${escapeHTML(slide.body ?? slide.headline)}
       </p>
       ${
@@ -335,8 +313,8 @@ function renderContent(
   return `
   <div class="slide" style="
     width:1080px; height:1350px;
-    background:${C.white};
-    color:${C.slate[900]};
+    background:${N.white};
+    color:${N[900]};
     position:relative; overflow:hidden;
     display:flex; flex-direction:column; justify-content:center;
     padding:120px 96px;
@@ -347,11 +325,11 @@ function renderContent(
     ${cornerAccent(accent, 'bl')}
     <div style="position:relative; z-index:2; max-width:880px;">
       <h2 style="font-family:${FONTS.display}; font-size:72px; font-weight:800;
-        line-height:1.0; margin:0 0 40px 0; color:${C.slate[900]}; letter-spacing:-3px;
+        line-height:1.0; margin:0 0 40px 0; color:${N[900]}; letter-spacing:-3px;
         max-width:880px;">
         ${escapeHTML(slide.headline)}
       </h2>
-      ${slide.body ? `<p style="font-family:${FONTS.body}; font-size:30px; line-height:1.5; color:${C.slate[700]}; margin:0; max-width:820px; font-weight:400;">${escapeHTML(slide.body)}</p>` : ''}
+      ${slide.body ? `<p style="font-family:${FONTS.body}; font-size:30px; line-height:1.5; color:${N[700]}; margin:0; max-width:820px; font-weight:400;">${escapeHTML(slide.body)}</p>` : ''}
     </div>
     ${slideIndicator(index, total, false, accent)}
   </div>`;
@@ -368,8 +346,8 @@ function renderCTA(
   return `
   <div class="slide" style="
     width:1080px; height:1350px;
-    background:linear-gradient(160deg, ${accent} 0%, ${funnel.deep}88 50%, ${C.slate[950]} 100%);
-    color:${C.white};
+    background:linear-gradient(160deg, ${accent} 0%, ${funnel.deep}88 50%, ${N[950]} 100%);
+    color:${N.white};
     position:relative; overflow:hidden;
     display:flex; flex-direction:column; justify-content:center; align-items:center;
     padding:120px 96px;
@@ -382,14 +360,14 @@ function renderCTA(
     ${cornerAccent(funnel.accent, 'bl')}
     ${brandMark(true, accent)}
     <div style="position:relative; z-index:2; max-width:880px;">
-      ${eyebrowPill('YOUR NEXT STEP', C.white, true, C.slate[900])}
+      ${eyebrowPill('YOUR NEXT STEP', N.white, true, N[900])}
       <h2 style="font-family:${FONTS.display}; font-size:88px; font-weight:800;
-        line-height:1.0; margin:0 0 40px 0; color:${C.white}; letter-spacing:-3px;
+        line-height:1.0; margin:0 0 40px 0; color:${N.white}; letter-spacing:-3px;
         max-width:880px;">
         ${escapeHTML(slide.headline)}
       </h2>
       ${slide.body ? `<p style="font-family:${FONTS.body}; font-size:26px; line-height:1.45; color:rgba(255,255,255,0.85); margin:0 0 48px 0; max-width:760px; font-weight:400;">${escapeHTML(slide.body)}</p>` : ''}
-      <div style="display:inline-flex; align-items:center; gap:12px; padding:22px 36px; background:${C.white}; color:${C.slate[900]}; border-radius:100px; font-family:${FONTS.body}; font-size:20px; font-weight:700; box-shadow:0 12px 32px rgba(0,0,0,0.2);">
+      <div style="display:inline-flex; align-items:center; gap:12px; padding:22px 36px; background:${N.white}; color:${N[900]}; border-radius:100px; font-family:${FONTS.body}; font-size:20px; font-weight:700; box-shadow:0 12px 32px rgba(0,0,0,0.2);">
         ${escapeHTML(spec.cta)}
         <span style="font-size:22px;">→</span>
       </div>
@@ -457,7 +435,7 @@ export function renderCarouselHTML(spec: ContentSpec): string {
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
       font-family: ${FONTS.body};
-      background: ${C.slate[100]};
+      background: ${N[100]};
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -476,7 +454,7 @@ export function renderCarouselHTML(spec: ContentSpec): string {
 <body>
   <div style="text-align:center; max-width:920px; margin:0 auto 8px;">
     <h1 style="font-family:${FONTS.display}; font-size:36px; font-weight:800;
-      color:${C.slate[900]}; margin:0; letter-spacing:-1.2px;
+      color:${N[900]}; margin:0; letter-spacing:-1.2px;
       max-width:880px; margin-left:auto; margin-right:auto; line-height:1.15;
       overflow-wrap:break-word; word-wrap:break-word; hyphens:auto;">
       ${escapeHTML(spec.title)}
@@ -530,7 +508,7 @@ export function renderSingleSlideHTML(spec: ContentSpec, slideIndex: number): st
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
       display:flex; justify-content:center; align-items:center;
-      min-height:100vh; background:${C.slate[100]}; padding:48px;
+      min-height:100vh; background:${N[100]}; padding:48px;
     }
   </style>
 </head>
