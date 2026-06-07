@@ -308,6 +308,14 @@ export const projects: Project[] = [
     href: '/dfir',
   },
   {
+    title: 'Autonomous DFIR Agent',
+    description:
+      'An autonomous investigator agent at /dfir/agent. Describe what to investigate in natural language — the agent classifies the query type, plans which of 30+ intelligence tools to call, executes them in parallel, observes results, and repeats for up to 8 reasoning steps before synthesizing a structured intelligence report. Built on a Cloudflare Durable Object for stateful multi-step execution with alarm-driven scheduling, the same pattern used by the report builder. LLM planning via Groq (primary) with Workers AI fallback. Real-time progress streamed to the frontend via SSE.',
+    tags: ['Cloudflare Workers', 'Durable Objects', 'LLM', 'Groq', 'TypeScript', 'Jun 2026'],
+    github: 'https://github.com/Pranith-Jain/Pranith-Jain.github.io',
+    href: '/dfir/agent',
+  },
+  {
     title: 'CTI STIX Connector',
     description:
       'A small Python CLI that takes the messy stuff (JSON campaign blobs, CSV IOC dumps from wherever) and emits a clean STIX 2.1 bundle on the other side. Containerized, runs as non-root (UID 1000), strict-mode entrypoint, 38 pytest tests because I got bitten once by a silent parse failure that made it through review. Plugs into this site at /threatintel/actors and /api/v1/cti/parse.',
@@ -550,6 +558,7 @@ export const navLinks: NavLinkExt[] = [
     ],
   },
   { label: 'Copilot', href: '/copilot' },
+  { label: 'Agent', href: '/dfir/agent' },
   { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '/#contact', cta: true },
 ];

@@ -115,10 +115,9 @@ async function runGroq(key: string, input: LlmInput): Promise<string> {
   return text;
 }
 
-async function runWorkersAi(ai: Env['AI'], model: string, input: LlmInput): Promise<string> {
-  const aiClient = ai!;
-  const res = (await aiClient.run(
-    model as Parameters<typeof aiClient.run>[0],
+async function runWorkersAi(ai: NonNullable<Env['AI']>, model: string, input: LlmInput): Promise<string> {
+  const res = (await ai.run(
+    model as Parameters<typeof ai.run>[0],
     {
       messages: [
         { role: 'system', content: input.system },
@@ -126,7 +125,7 @@ async function runWorkersAi(ai: Env['AI'], model: string, input: LlmInput): Prom
       ],
       max_tokens: input.maxTokens ?? 2500,
       temperature: input.temperature ?? 0.2,
-    } as Parameters<typeof aiClient.run>[1]
+    } as Parameters<typeof ai.run>[1]
   )) as { response?: string };
   if (!res || typeof res.response !== 'string' || !res.response.trim()) {
     throw new Error(`Empty response from ${model}`);
@@ -152,9 +151,10 @@ async function runLlm(ai: Env['AI'], groqKey: string | undefined, input: LlmInpu
 
   // 2. Workers AI fallback (70b primary, 8b tertiary)
   if (ai) {
+    const aiClient = ai as NonNullable<Env['AI']>;
     for (const model of [CF_MODEL, CF_MODEL_FALLBACK]) {
       try {
-        const text = await runWorkersAi(ai, model, input);
+        const text = await runWorkersAi(aiClient, model, input);
         return { text, modelUsed: model };
       } catch (err) {
         const msg = (err instanceof Error ? err.message : String(err)).toLowerCase();
@@ -1202,33 +1202,31 @@ async function generateWithRetry(
   let lastContent = '';
   let lastValidation: ValidationResult = { valid: false, errors: [], warnings: [] };
   let modelUsed = '';
+  let actualRetries = 0;
 
   for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
-    const messages: Array<{ role: string; content: string }> = [
-      { role: 'system', content: system },
-      { role: 'user', content: user },
-    ];
+    let promptUser = user;
 
-    // On retry, add the previous failure as feedback
+    // On retry, append the previous failure as context
     if (attempt > 0) {
-      messages.push({
-        role: 'assistant',
-        content: lastContent,
-      });
-      messages.push({
-        role: 'user',
-        content: `The rule you generated has these syntax errors:\n${lastValidation.errors.map((e) => `- ${e}`).join('\n')}\n\nPlease fix these issues and return the corrected rule ONLY. No explanations.`,
-      });
+      actualRetries = attempt;
+      promptUser = `${user}
+
+---
+PREVIOUS ATTEMPT (had errors):
+${lastContent}
+
+ERRORS TO FIX:
+${lastValidation.errors.map((e) => `- ${e}`).join('\n')}
+
+Please return the corrected rule ONLY. No explanations.`;
     }
 
     const result = await runLlm(ai, groqKey, {
       system,
-      user: messages
-        .filter((m) => m.role !== 'system')
-        .map((m) => m.content)
-        .join('\n\n'),
+      user: promptUser,
       maxTokens: 2500,
-      temperature: Math.max(0.1, 0.2 - attempt * 0.05), // Lower temperature on retries
+      temperature: Math.max(0.1, 0.2 - attempt * 0.05),
     });
 
     modelUsed = result.modelUsed;
@@ -1238,7 +1236,7 @@ async function generateWithRetry(
     if (lastValidation.valid) break;
   }
 
-  return { content: lastContent, validation: lastValidation, retries: Math.min(MAX_RETRIES, MAX_RETRIES), modelUsed };
+  return { content: lastContent, validation: lastValidation, retries: actualRetries, modelUsed };
 }
 
 // ── Route Handlers ───────────────────────────────────────────────────────
