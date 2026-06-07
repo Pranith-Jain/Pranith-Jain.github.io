@@ -24,6 +24,7 @@ import { malwarebazaar as mbProvider } from '../providers/malwarebazaar';
 import { malshare as msProvider } from '../providers/malshare';
 import { queryCorpus, formatRetrievedContext } from '../lib/rag-embedder';
 import { computeConfidence, type ConfidenceScore } from '../lib/confidence';
+import { validateAiOutput } from '../lib/ai-output-validator';
 
 interface Source {
   name: string;
@@ -973,6 +974,11 @@ export async function copilotInvestigateHandler(c: Context<{ Bindings: Env }>): 
       modelUsed = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
     }
 
+    // ── Post-process validation: ground claims, strip fabrications ────
+    const sourceData = allSources.map((s) => JSON.stringify(s.data)).join('\n');
+    const validation = validateAiOutput(narrative, sourceData, { minWords: 100, requireCitations: true });
+    narrative = validation.cleaned;
+
     const totalSourceItems = allSources.reduce((n, s) => n + s.items, 0);
     const response: CopilotResponse = {
       query: query.trim(),
@@ -982,7 +988,12 @@ export async function copilotInvestigateHandler(c: Context<{ Bindings: Env }>): 
       model_used: modelUsed,
       processed_at: new Date().toISOString(),
       confidence,
-      _meta: { total_sources: allSources.length, total_items: totalSourceItems },
+      _meta: {
+        total_sources: allSources.length,
+        total_items: totalSourceItems,
+        quality_score: validation.quality.score,
+        quality_issues: validation.quality.issues,
+      },
     };
 
     return c.json(response, 200, { 'Cache-Control': 'no-store' });

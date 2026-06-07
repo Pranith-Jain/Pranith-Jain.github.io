@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { runCompletion } from '../case-study/generation/ai-client';
+import { detectSlop } from '../lib/ai-output-validator';
 
 /**
  * POST /api/v1/ir-playbooks/generate
@@ -31,6 +32,10 @@ interface PlaybookResponse {
   incident_type: string;
   playbook: Playbook;
   related_playbooks: Array<{ id: string; title: string; category: string }>;
+  _validation?: {
+    step_count?: number;
+    slop_detected?: string[];
+  };
 }
 
 const SYSTEM_PROMPT = `You are a senior incident response manager. Generate a structured IR playbook for the given incident type.
@@ -73,8 +78,16 @@ Rules:
 const MAX_CALL_TIMEOUT = 15000;
 
 const VALID_TYPES = [
-  'ransomware', 'phishing', 'data-breach', 'bec', 'insider-threat',
-  'supply-chain', 'apt', 'malware', 'ddos', 'credential-theft',
+  'ransomware',
+  'phishing',
+  'data-breach',
+  'bec',
+  'insider-threat',
+  'supply-chain',
+  'apt',
+  'malware',
+  'ddos',
+  'credential-theft',
 ];
 
 export async function irPlaybookHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
@@ -87,10 +100,13 @@ export async function irPlaybookHandler(c: Context<{ Bindings: Env }>): Promise<
 
   const incidentType = body.incident_type?.trim().toLowerCase();
   if (!incidentType || !VALID_TYPES.includes(incidentType)) {
-    return c.json({
-      error: 'bad_request',
-      message: `incident_type required, one of: ${VALID_TYPES.join(', ')}`,
-    }, 400);
+    return c.json(
+      {
+        error: 'bad_request',
+        message: `incident_type required, one of: ${VALID_TYPES.join(', ')}`,
+      },
+      400
+    );
   }
 
   const context = body.context?.trim();
@@ -122,22 +138,35 @@ export async function irPlaybookHandler(c: Context<{ Bindings: Env }>): Promise<
     const pb = parsed.playbook;
     if (!pb?.title || !pb?.steps) throw new Error('incomplete playbook');
 
+    // Validate steps have meaningful content (not just filler)
+    const validatedSteps = (pb.steps ?? [])
+      .map((s, i) => ({
+        id: s.id ?? `step-${i + 1}`,
+        title: s.title ?? `Step ${i + 1}`,
+        description: s.description ?? '',
+        tools: s.tools ?? [],
+        estimated_time: s.estimated_time ?? '15 min',
+        critical: s.critical ?? false,
+      }))
+      .filter((s) => s.description.length > 20); // Drop empty/filler steps
+
+    // Detect slop in descriptions
+    const allDescriptions = validatedSteps.map((s) => s.description).join(' ');
+    const slop = detectSlop(allDescriptions);
+
     const response: PlaybookResponse = {
       incident_type: incidentType,
       playbook: {
         id: pb.id ?? incidentType,
         title: pb.title,
         category: pb.category ?? incidentType,
-        severity: (['critical', 'high', 'medium', 'low'].includes(pb.severity ?? '') ? pb.severity : 'high') as 'critical' | 'high' | 'medium' | 'low',
+        severity: (['critical', 'high', 'medium', 'low'].includes(pb.severity ?? '') ? pb.severity : 'high') as
+          | 'critical'
+          | 'high'
+          | 'medium'
+          | 'low',
         description: pb.description ?? '',
-        steps: (pb.steps ?? []).map((s, i) => ({
-          id: s.id ?? `step-${i + 1}`,
-          title: s.title ?? `Step ${i + 1}`,
-          description: s.description ?? '',
-          tools: s.tools ?? [],
-          estimated_time: s.estimated_time ?? '15 min',
-          critical: s.critical ?? false,
-        })),
+        steps: validatedSteps,
         tools_used: pb.tools_used ?? [],
         estimated_total_time: pb.estimated_total_time ?? '1-2 hours',
       },
@@ -145,6 +174,10 @@ export async function irPlaybookHandler(c: Context<{ Bindings: Env }>): Promise<
         .filter((r) => r.id && r.title)
         .slice(0, 3)
         .map((r) => ({ id: r.id!, title: r.title!, category: r.category ?? '' })),
+      _validation: {
+        step_count: validatedSteps.length,
+        slop_detected: slop.length > 0 ? slop.map((s) => s.phrase) : undefined,
+      },
     };
 
     return c.json(response, 200, { 'cache-control': 'public, max-age=3600' });

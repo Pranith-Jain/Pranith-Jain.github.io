@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { runCompletion } from '../case-study/generation/ai-client';
+import { findInvalidMitreIds } from '../lib/ai-output-validator';
 
 /**
  * POST /api/v1/hunting-queries/generate
@@ -19,6 +20,10 @@ interface HuntingResult {
   queries: HuntingQuery[];
   mitre_techniques: string[];
   recommended_actions: string[];
+  _validation?: {
+    query_count?: number;
+    invalid_mitre_ids?: string[];
+  };
 }
 
 const SYSTEM_PROMPT = `You are a senior detection engineer. Given a threat description, generate hunting queries for the requested SIEM platforms.
@@ -93,14 +98,29 @@ export async function huntingQueryHandler(c: Context<{ Bindings: Env }>): Promis
         siem: q.siem!,
         query: q.query!,
         description: q.description ?? '',
-        confidence: (['high', 'medium', 'low'].includes(q.confidence ?? '') ? q.confidence : 'medium') as 'high' | 'medium' | 'low',
+        confidence: (['high', 'medium', 'low'].includes(q.confidence ?? '') ? q.confidence : 'medium') as
+          | 'high'
+          | 'medium'
+          | 'low',
       }));
+
+    // Validate MITRE IDs — filter out invented ones
+    const rawMitre = (parsed.mitre_techniques ?? []).filter((t) => /^T\d{4}(\.\d{3})?$/.test(t));
+    const invalidMitre = findInvalidMitreIds(rawMitre.join(' '));
+    const validMitre = rawMitre.filter((t) => !invalidMitre.includes(t));
+
+    // Validate queries have minimum content
+    const validatedQueries = queries.filter((q) => q.query.length > 10);
 
     const response: HuntingResult = {
       threat,
-      queries,
-      mitre_techniques: (parsed.mitre_techniques ?? []).filter((t) => /^T\d{4}(\.\d{3})?$/.test(t)),
+      queries: validatedQueries,
+      mitre_techniques: validMitre,
       recommended_actions: (parsed.recommended_actions ?? []).slice(0, 5),
+      _validation: {
+        query_count: validatedQueries.length,
+        invalid_mitre_ids: invalidMitre.length > 0 ? invalidMitre : undefined,
+      },
     };
 
     return c.json(response, 200, { 'cache-control': 'public, max-age=3600' });

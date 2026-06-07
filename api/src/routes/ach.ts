@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { queryCorpus } from '../lib/rag-embedder';
+import { findUngroundedCves, findInvalidMitreIds } from '../lib/ai-output-validator';
 
 // ── Types ─────────────────────────────────────────────────────────────────
 
@@ -30,6 +31,10 @@ export interface AchResponse {
   key_assumptions: string[];
   recommended_collection: string[];
   model_used: string;
+  _validation?: {
+    ungrounded_cves?: string[];
+    invalid_mitre_ids?: string[];
+  };
 }
 
 // ── LLM prompt builder ────────────────────────────────────────────────────
@@ -200,6 +205,7 @@ export async function achHandler(c: Context<{ Bindings: Env }>): Promise<Respons
     }
 
     const { corpus, sources } = await gatherAchContext(c.env, topic);
+    const sourceData = corpus + '\n' + sources;
 
     const system = buildAchSystemPrompt();
     const user = buildAchUserPrompt(topic, corpus, sources);
@@ -215,11 +221,20 @@ export async function achHandler(c: Context<{ Bindings: Env }>): Promise<Respons
       return c.json({ error: 'LLM response was not valid JSON', raw }, 502);
     }
 
+    // Validate grounding: check for hallucinated CVEs and invalid ATT&CK IDs
+    const rawText = JSON.stringify(parsed);
+    const ungroundedCves = findUngroundedCves(rawText, sourceData);
+    const invalidMitre = findInvalidMitreIds(rawText);
+
     const response: AchResponse = {
       ...parsed,
       topic,
       generated_at: new Date().toISOString(),
       model_used: 'llama-4-scout-17b-16e-instruct',
+      _validation: {
+        ungrounded_cves: ungroundedCves.length > 0 ? ungroundedCves : undefined,
+        invalid_mitre_ids: invalidMitre.length > 0 ? invalidMitre : undefined,
+      },
     };
 
     return c.json(response, 200, { 'Cache-Control': 'no-store' });

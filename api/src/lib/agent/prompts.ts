@@ -22,15 +22,28 @@ export function buildSynthesizerPrompt(query: string, queryType: string): string
 
 ## REPORT STRUCTURE
 
+CRITICAL ANTI-HALLUCINATION RULES:
+- If a tool returned 0 results or errored, DO NOT cite it as a source
+- If no tool returned EPSS data, write "EPSS: Not available" — do not invent a score
+- If no tool returned KEV data, write "KEV status: Not available" — do not invent status
+- If no tool mentioned PoC availability, write "PoC: Not determined" — do not assume
+- If no tool mentioned in-the-wild exploitation, write "Exploitation status: Not determined" — do not guess
+- If no tool returned threat actor data for this CVE, write "No actors identified" — do not invent
+- If no tool returned victim count, write "Victim count: Not available" — do not estimate
+- NEVER write "threat level is critical/high/medium" unless a tool explicitly returned a threat level
+- NEVER write "impact scope is widespread" unless a tool explicitly returned scope data
+- When data is missing, write the EXACT phrase "Not available from investigation data" — this is honest and correct
+
 ### EXECUTIVE SUMMARY
-300-word dense summary: what this threat is, current status, threat level assessment, impact scope, and the single most critical action item. Include key metrics (CVSS, EPSS, victim count, provider scores).
+150-word summary. ONLY include metrics that appear in the tool data. If CVSS is in the data, include it. If EPSS is NOT in the data, do not mention EPSS. If no victim count was returned, do not mention victim count. Lead with what IS known, skip what ISN'T.
 
 ### KEY FINDINGS
-6-10 bullet points. Each must:
-- State a specific, verifiable fact with exact values
-- Cite the source tool: "[Source: check_ioc — VirusTotal: 15/90, AbuseIPDB: 92% confidence]"
+4-8 bullet points. Each must:
+- State a specific, verifiable fact with exact values FROM THE DATA
+- Cite the source tool: "[Source: lookup_cve]"
 - Include a confidence tag: [Confirmed] [Probable] [Possible]
 - Be operationally actionable
+- ONLY include findings that are directly supported by tool data. Do not add "general knowledge" findings.
 
 ### THREAT PROFILE
 ${
@@ -64,23 +77,25 @@ Group by tactic (Initial Access → Execution → Persistence → ... → Impact
 ${
   isCve
     ? `#### Vulnerability Details
-- Affected component and root cause
-- CVSS v3.1 vector string and breakdown (AV/AC/PR/UI/S/C/I/A)
-- EPSS score and percentile — probability of exploitation in next 30 days
-- CISA KEV status: date added, vulnerability name, known ransomware use
-- CWE classification
-- Affected products with exact version ranges
-- Patch availability and workarounds
+- Affected component and root cause (ONLY if in data)
+- CVSS v3.1 vector string (copy EXACTLY from data — do not round or paraphrase)
+- EPSS score: ONLY if lookup_cve returned it. If not, write "EPSS: Not available from investigation data"
+- CISA KEV status: ONLY if lookup_cve returned kev data. If not, write "KEV status: Not available from investigation data"
+- CWE classification (copy EXACTLY from data)
+- Affected products with exact version ranges (copy EXACTLY from data)
+- Patch availability: ONLY if mentioned in data
 
 #### Exploitation Status
-- In-the-wild exploitation: confirmed/probable/possible with evidence
-- PoC availability: public/private/none with source
-- Weaponization: integrated into exploit kits, ransomware, botnets
-- Threat actors known to use this CVE (with confidence level)
-- Timeline: disclosure date → PoC date → mass exploitation date
+CRITICAL: Only write what the data explicitly states.
+- In-the-wild exploitation: ONLY write "confirmed" or "probable" if a tool result explicitly says so. Otherwise write "Status: Not determined from investigation data"
+- PoC availability: ONLY write "public" if a tool result explicitly mentions a PoC. Otherwise write "PoC status: Not determined from investigation data"
+- Weaponization: ONLY if mentioned in data. Otherwise skip.
+- Threat actors known to use this CVE: ONLY if a tool returned actor data. Otherwise write "No threat actors identified in investigation data"
+- Timeline: ONLY dates that appear in data. Do not invent dates.
 
 #### Affected Products Matrix
-| Product | Version | Patched | Notes |`
+| Product | Version | Patched | Notes |
+ONLY include products from the lookup_cve data. Do not invent products.`
     : ''
 }
 
@@ -174,29 +189,22 @@ Describe the relationships discovered:
 - Geographic risk distribution
 
 ### RECOMMENDATIONS
-Prioritized by urgency:
+ONLY include recommendations backed by actual data:
 
 #### IMMEDIATE (0-24 hours)
-- Specific IOCs to block (IPs, domains, hashes with exact values)
-- Patches to apply (CVE IDs with priority)
-- Accounts/systems to check
+- Specific IOCs to block: ONLY list IOCs from tool results (IPs, domains, hashes with exact values from data)
+- Patches to apply: ONLY list CVE IDs from lookup_cve data
+- If no IOCs were found, write "No specific IOCs identified for immediate blocking"
 
 #### SHORT-TERM (1-7 days)
-- Detection rules to deploy
-- Hunting queries to run
-- Network segmentation changes
-- Email filtering rules
+- Detection rules to deploy: ONLY reference rules that were actually generated (from generate_yara_rule data)
+- If no rules were generated, write "No detection rules generated during this investigation"
 
 #### MEDIUM-TERM (1-4 weeks)
-- Security architecture improvements
-- Monitoring enhancements
-- Threat intelligence program updates
-- Training requirements
+- ONLY include if supported by data. Generic advice like "improve monitoring" is acceptable but must be brief.
 
 #### STRATEGIC
-- Long-term posture improvements
-- Threat model updates
-- Intelligence sharing recommendations
+- Brief generic advice acceptable here (2-3 sentences max)
 
 ### STIX 2.1 BUNDLE
 Generate a complete STIX 2.1 bundle inside a \`\`\`stix JSON code block containing:
@@ -240,16 +248,40 @@ export function buildSynthesizerUserPrompt(query: string, queryType: string, ste
     })
     .join('\n\n');
 
+  // Build a data availability checklist
+  const allTools = steps.flatMap((s) => s.results);
+  const okTools = allTools.filter((r) => r.status === 'ok');
+  const errTools = allTools.filter((r) => r.status === 'error');
+  const hasData = (tool: string) => okTools.some((r) => r.tool === tool && r.data);
+
+  const availability = [
+    `lookup_cve: ${hasData('lookup_cve') ? 'YES — has CVSS, CWE, references' : 'NO'}`,
+    `check_ioc: ${hasData('check_ioc') ? 'YES — has provider verdicts' : 'NO'}`,
+    `enrich_actor: ${hasData('enrich_actor') ? 'YES — has actor profile' : 'NO'}`,
+    `generate_yara_rule: ${hasData('generate_yara_rule') ? 'YES — has detection rule' : 'NO'}`,
+    `unified_search: ${hasData('unified_search') ? 'YES — has search results' : 'NO'}`,
+    `EPSS data: ${JSON.stringify(okTools.find((r) => r.tool === 'lookup_cve')?.data ?? '').includes('epss') ? 'YES' : 'NO — DO NOT mention EPSS'}`,
+    `KEV data: ${JSON.stringify(okTools.find((r) => r.tool === 'lookup_cve')?.data ?? '').includes('kev') ? 'YES' : 'NO — DO NOT mention KEV'}`,
+    `Threat actor data: ${hasData('enrich_actor') || hasData('unified_search') ? 'YES' : 'NO — DO NOT invent actors'}`,
+    `Victim count: ${JSON.stringify(allTools.map((r) => JSON.stringify(r.data))).includes('victim') || JSON.stringify(allTools.map((r) => JSON.stringify(r.data))).includes('count') ? 'YES' : 'NO — DO NOT mention victim count'}`,
+  ];
+
   return `<investigation>
 Query: ${query}
 Type: ${queryType}
 Steps: ${steps.length}
-Total tool results: ${steps.reduce((n, s) => n + s.results.length, 0)}
+Total tool results: ${steps.reduce((n, s) => n + s.results.length, 0)} (${okTools.length} ok, ${errTools.length} failed)
 </investigation>
+
+<data_availability>
+${availability.join('\n')}
+</data_availability>
+
+CRITICAL: Only write about data that is AVAILABLE above. If something says "NO — DO NOT", then DO NOT write about it. Write "Not available from investigation data" instead.
 
 <investigation_data>
 ${stepBlocks}
 </investigation_data>
 
-Write the intelligence report following the structure in the system prompt. Generate the STIX 2.1 bundle at the end.`;
+Write the intelligence report following the structure in the system prompt. For any section where data is NOT available, write "Not available from investigation data" — do NOT invent information.`;
 }
