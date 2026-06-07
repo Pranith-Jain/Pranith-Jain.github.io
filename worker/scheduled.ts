@@ -749,18 +749,22 @@ async function runBriefingHealOnce(env: Env): Promise<void> {
     if (healed) return;
   }
 
-  // 2) live daily-today — the dedicated 00:30 cron only writes the PRIOR day,
-  //    so this keeps `daily-${today}` populated through the day. `live: true`
-  //    is REQUIRED — without it buildBriefing slugs to yesterday and writes the
-  //    wrong row.
-  {
-    const today = new Date();
-    const healed = await healOne('daily', `daily-${today.toISOString().slice(0, 10)}`, {
-      minAgeMs: 60 * 60_000,
-      live: true,
-    });
-    if (healed) return;
-  }
+  // 2) live daily-today — DISABLED 2026-06-07.
+  //    The 00:30 UTC daily cron is the canonical producer of a "daily"
+  //    row — it builds the closed 24h window for the prior calendar day
+  //    and writes a regular (non-live) briefing. The hourly heal used to
+  //    ALSO build a `live: true` daily for the current day so analysts
+  //    could open a "today so far" view mid-day, but the data contract
+  //    collided with the list page: the live row always sorted above
+  //    the just-built regular (its `range_end` = today > regular's
+  //    `range_end` = yesterday), so a same-day live entry could mask a
+  //    missing or degraded regular daily for the prior day. Disabling
+  //    step 2 means the heal is now strictly a re-enricher for the
+  //    prior-day daily and the weekly — never a producer of a new slug.
+  //    If the mid-day "today so far" view is wanted back, the right
+  //    place is a SEPARATE page (e.g. /threatintel/live-briefing) that
+  //    reads the same upstream feeds live, not a row in the briefings
+  //    table that competes with the 00:30 cron.
 
   // 3) weekly — the cron only fires Mondays, so without an hourly retry a
   //    degraded weekly stays stuck for 7 days. The extra check catches a weekly
