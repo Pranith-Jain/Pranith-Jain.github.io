@@ -212,7 +212,11 @@ async function generateWithValidation(
       prompt = `${userPrompt}\n\n---\nPREVIOUS ATTEMPT HAD ISSUES:\n${feedback}\n\nFix these issues. Return ONLY the corrected content.`;
     }
 
-    const result = await runCompletion(ai, { system, user: prompt, temperature: 0.7, maxTokens }, { groqKey });
+    const result = await runCompletion(
+      ai,
+      { system, user: prompt, temperature: 0.7, maxTokens },
+      { groqKey, quality: true }
+    );
 
     lastText = platform === 'twitter' ? tidySocial(result.text) : tidyLinkedin(result.text);
     lastQuality = validateSocial(lastText, platform, sourceBody);
@@ -292,10 +296,69 @@ function buildLinkedinPrompt(post: Post): string {
 
 // ── Public API ──────────────────────────────────────────────────────────
 
+/**
+ * Extract verified facts from a post body to ground social content generation.
+ * This prevents hallucination by giving the model explicit facts to reference.
+ */
+function extractVerifiedFacts(body: string): string {
+  const facts: string[] = [];
+
+  // Extract CVEs
+  const cves = body.match(/CVE-\d{4}-\d{4,}/g) ?? [];
+  if (cves.length > 0) facts.push(`CVEs mentioned: ${[...new Set(cves)].slice(0, 8).join(', ')}`);
+
+  // Extract IPs
+  const ips = body.match(/\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/g) ?? [];
+  const realIps = ips.filter((ip) => !ip.startsWith('10.') && !ip.startsWith('192.168.') && !ip.startsWith('172.'));
+  if (realIps.length > 0) facts.push(`IOCs (IPs): ${[...new Set(realIps)].slice(0, 5).join(', ')}`);
+
+  // Extract hashes
+  const hashes = body.match(/\b[a-fA-F0-9]{64}\b/g) ?? [];
+  if (hashes.length > 0) facts.push(`Hashes: ${[...new Set(hashes)].slice(0, 3).join(', ')}`);
+
+  // Extract actor/group names (common patterns)
+  const actorPatterns =
+    body.match(
+      /\b(APT\d+|Lazarus|FIN\d+|TA\d+|LockBit|Cl0p|Black Basta|ALPHV|Rhysida|Akira|Play|Royal|Conti|REvil|Maze|Ryuk|Emotet|TrickBot|Cobalt Strike)\b/gi
+    ) ?? [];
+  if (actorPatterns.length > 0)
+    facts.push(`Actors/groups: ${[...new Set(actorPatterns.map((a) => a.toLowerCase()))].slice(0, 5).join(', ')}`);
+
+  // Extract MITRE techniques
+  const techniques = body.match(/T\d{4}(?:\.\d{3})?/g) ?? [];
+  if (techniques.length > 0) facts.push(`MITRE techniques: ${[...new Set(techniques)].slice(0, 5).join(', ')}`);
+
+  // Extract sectors
+  const sectorPatterns =
+    body.match(
+      /\b(healthcare|manufacturing|finance|government|education|energy|retail|technology|transportation|media)\b/gi
+    ) ?? [];
+  if (sectorPatterns.length > 0)
+    facts.push(`Sectors: ${[...new Set(sectorPatterns.map((s) => s.toLowerCase()))].slice(0, 5).join(', ')}`);
+
+  // Extract victim counts
+  const victimCounts = body.match(/\b(\d+)\s*(?:victims?|targets?|organizations?|companies?)\b/gi) ?? [];
+  if (victimCounts.length > 0) facts.push(`Victim counts: ${victimCounts.slice(0, 3).join(', ')}`);
+
+  if (facts.length === 0) return '';
+  return `\n<verified_facts from_case_study>\n${facts.join('\n')}\nUse ONLY these facts when making specific claims in the social post. Do NOT invent numbers, CVEs, or statistics.\n</verified_facts>`;
+}
+
 export async function generateSocialContent(post: Post, ai: Ai, now: Date, groqKey?: string): Promise<SocialContent> {
+  // Extract verified facts from the case study to ground social content
+  const factNote = extractVerifiedFacts(post.body);
+
   const [twitterRes, linkedinRes] = await Promise.allSettled([
-    generateWithValidation(ai, SOCIAL_SYSTEM, buildTwitterPrompt(post), 'twitter', post.body, groqKey, 1200),
-    generateWithValidation(ai, SOCIAL_SYSTEM, buildLinkedinPrompt(post), 'linkedin', post.body, groqKey, 1400),
+    generateWithValidation(ai, SOCIAL_SYSTEM, buildTwitterPrompt(post) + factNote, 'twitter', post.body, groqKey, 1200),
+    generateWithValidation(
+      ai,
+      SOCIAL_SYSTEM,
+      buildLinkedinPrompt(post) + factNote,
+      'linkedin',
+      post.body,
+      groqKey,
+      1400
+    ),
   ]);
 
   const twitter = twitterRes.status === 'fulfilled' ? twitterRes.value.text : '';
@@ -321,10 +384,11 @@ export async function generateTwitterContent(
   now: Date,
   groqKey?: string
 ): Promise<{ twitter: string; generatedAt: string; _validation?: { quality: SocialQuality } }> {
+  const factNote = extractVerifiedFacts(post.body);
   const { text, quality } = await generateWithValidation(
     ai,
     SOCIAL_SYSTEM,
-    buildTwitterPrompt(post),
+    buildTwitterPrompt(post) + factNote,
     'twitter',
     post.body,
     groqKey,
@@ -339,10 +403,11 @@ export async function generateLinkedinContent(
   now: Date,
   groqKey?: string
 ): Promise<{ linkedin: string; generatedAt: string; _validation?: { quality: SocialQuality } }> {
+  const factNote = extractVerifiedFacts(post.body);
   const { text, quality } = await generateWithValidation(
     ai,
     SOCIAL_SYSTEM,
-    buildLinkedinPrompt(post),
+    buildLinkedinPrompt(post) + factNote,
     'linkedin',
     post.body,
     groqKey,

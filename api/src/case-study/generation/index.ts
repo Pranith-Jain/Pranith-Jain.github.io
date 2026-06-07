@@ -6,6 +6,78 @@ import { postProcess } from './post-process';
 import { renderHeroSvg } from './hero-svg';
 import { validateIocsLive, type IocValidationEnv } from './ioc-live-validation';
 
+// ── Fact verification (pre-generation) ──────────────────────────────────
+
+interface VerifiedFacts {
+  cves: string[];
+  iocs: string[];
+  actors: string[];
+  families: string[];
+  techniques: string[];
+  sectors: string[];
+  countries: string[];
+  dates: string[];
+  summary: string;
+}
+
+const FACT_VERIFY_SYSTEM = `You are a fact extractor for a CTI pipeline. Given raw evidence from threat intelligence sources, extract and verify the key facts that can be used in a blog post.
+
+RULES:
+- Extract ONLY facts explicitly present in the evidence. Do NOT infer or invent.
+- For CVEs: extract complete CVE IDs (CVE-YYYY-NNNNN). If a CVE is partial (e.g., "CVE-2024"), note it as incomplete.
+- For IOCs: extract IPs, domains, hashes, URLs that appear in the evidence.
+- For actors/groups: extract named threat actors or ransomware groups.
+- For techniques: extract MITRE ATT&CK IDs (T1234 or T1234.567).
+- For sectors/countries: extract mentioned sectors and countries.
+- For dates: extract specific dates mentioned.
+- Return a JSON object with these fields. Empty arrays are valid.
+
+Output ONLY valid JSON, no markdown.`;
+
+function buildFactVerifyPrompt(evidence: Record<string, unknown>): string {
+  const evidenceStr = JSON.stringify(evidence, null, 2);
+  return `<evidence>\n${evidenceStr.slice(0, 10000)}\n</evidence>\n\nExtract and verify all factual claims from this evidence.`;
+}
+
+/**
+ * Pre-generation fact verification: extract structured facts from evidence
+ * before writing. These verified facts are injected into the prompt to
+ * ground the content generation in actual data.
+ */
+async function verifyFacts(evidence: Record<string, unknown>, ai: Ai, groqKey?: string): Promise<VerifiedFacts | null> {
+  try {
+    const result = await runCompletion(
+      ai,
+      {
+        system: FACT_VERIFY_SYSTEM,
+        user: buildFactVerifyPrompt(evidence),
+        maxTokens: 1500,
+        temperature: 0.1,
+      },
+      { groqKey, quality: true }
+    );
+
+    const text = result.text.trim();
+    const jsonMatch = text.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) return null;
+
+    const parsed = JSON.parse(jsonMatch[0]) as Partial<VerifiedFacts>;
+    return {
+      cves: Array.isArray(parsed.cves) ? parsed.cves.filter((c) => /^CVE-\d{4}-\d{4,}$/.test(c)) : [],
+      iocs: Array.isArray(parsed.iocs) ? parsed.iocs.slice(0, 20) : [],
+      actors: Array.isArray(parsed.actors) ? parsed.actors.slice(0, 10) : [],
+      families: Array.isArray(parsed.families) ? parsed.families.slice(0, 10) : [],
+      techniques: Array.isArray(parsed.techniques) ? parsed.techniques.filter((t) => /^T\d{4}(\.\d{3})?$/.test(t)) : [],
+      sectors: Array.isArray(parsed.sectors) ? parsed.sectors.slice(0, 10) : [],
+      countries: Array.isArray(parsed.countries) ? parsed.countries.slice(0, 10) : [],
+      dates: Array.isArray(parsed.dates) ? parsed.dates.slice(0, 10) : [],
+      summary: typeof parsed.summary === 'string' ? parsed.summary.slice(0, 500) : '',
+    };
+  } catch {
+    return null; // Non-fatal — generation continues without verified facts
+  }
+}
+
 function slugify(title: string): string {
   return title
     .toLowerCase()
@@ -138,6 +210,10 @@ export interface GeneratePostDeps {
 export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
   const { candidate, ai, now, groqKey } = deps;
 
+  // ── Step 1: Verify facts before writing ──────────────────────────────
+  // Extract structured facts from evidence to ground the content generation.
+  const verifiedFacts = await verifyFacts(candidate.evidence, ai, groqKey);
+
   const sources = extractSources(candidate.evidence);
 
   const { system, user } = buildPrompt({
@@ -147,7 +223,19 @@ export async function generatePost(deps: GeneratePostDeps): Promise<Post> {
     sources,
   });
 
-  const completion = await runCompletion(ai, { system, user }, { groqKey, quality: true });
+  // Inject verified facts into the prompt for grounding
+  const factNote = verifiedFacts
+    ? `\n\n<verified_facts>\nThese facts have been extracted and verified from the evidence. Use ONLY these facts (plus the ground truth data) when making specific claims:\n` +
+      `CVEs: ${verifiedFacts.cves.length > 0 ? verifiedFacts.cves.join(', ') : 'none'}\n` +
+      `Actors: ${verifiedFacts.actors.length > 0 ? verifiedFacts.actors.join(', ') : 'none'}\n` +
+      `Families: ${verifiedFacts.families.length > 0 ? verifiedFacts.families.join(', ') : 'none'}\n` +
+      `Techniques: ${verifiedFacts.techniques.length > 0 ? verifiedFacts.techniques.join(', ') : 'none'}\n` +
+      `Sectors: ${verifiedFacts.sectors.length > 0 ? verifiedFacts.sectors.join(', ') : 'none'}\n` +
+      `IOCs: ${verifiedFacts.iocs.length > 0 ? verifiedFacts.iocs.slice(0, 5).join(', ') + (verifiedFacts.iocs.length > 5 ? ` (+${verifiedFacts.iocs.length - 5} more)` : '') : 'none'}\n` +
+      `</verified_facts>`
+    : '';
+
+  const completion = await runCompletion(ai, { system, user: user + factNote }, { groqKey, quality: true });
 
   const factsText = JSON.stringify(candidate.evidence);
   let processed = postProcess({ type: candidate.type, raw: completion.text, factsText });
