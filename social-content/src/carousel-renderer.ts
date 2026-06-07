@@ -65,15 +65,15 @@ function brandMark(dark: boolean, accent: string): string {
   const fg = dark ? 'rgba(255,255,255,0.85)' : N[800];
   return `
     <div style="position:absolute; top:52px; left:56px; display:flex; align-items:center; gap:14px; z-index:3;">
-      <svg viewBox="0 0 40 40" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 36 36" width="36" height="36" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="bm" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="${accent}"/>
             <stop offset="100%" stop-color="${accent}cc"/>
           </linearGradient>
         </defs>
-        <path d="M20 2 L36 8 L36 20 Q36 30 20 38 Q4 30 4 20 L4 8 Z" fill="url(#bm)"/>
-        <text x="20" y="22" dominant-baseline="central" text-anchor="middle" fill="white" font-family="${FONTS.display}" font-weight="800" font-size="15" letter-spacing="-0.5">PJ</text>
+        <rect width="36" height="36" rx="8" fill="url(#bm)"/>
+        <text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" fill="white" font-family="${FONTS.display}" font-weight="800" font-size="16">PJ</text>
       </svg>
       <span style="font-family:${FONTS.display}; font-size:18px; color:${fg}; letter-spacing:-0.3px; font-weight:700;">Pranith Jain</span>
     </div>

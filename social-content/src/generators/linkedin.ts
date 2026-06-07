@@ -41,7 +41,7 @@ export function generateLinkedInPost(spec: ContentSpec): string {
 
   const tags = spec.hashtags.map((t) => `#${t}`).join(' ');
   post += `${tags}\n`;
-  post += `\n— Pranith Jain | DFIR & Threat Intelligence`;
+  post += `\n— Pranith Jain`;
 
   return post;
 }

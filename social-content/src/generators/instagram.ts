@@ -31,10 +31,16 @@ export function generateInstagramCaption(spec: ContentSpec): string {
 
   caption += `${cta}\n\n`;
 
-  // IG hashtags: mix of sizes
+  // IG hashtags: 3-5 mixed sizes (per platform rules). If spec provides
+  // hashtags, use those (capped at 5). Otherwise fall back to defaults.
   caption += `.\n.\n.\n`;
-  const tags = spec.hashtags.map((t) => `#${t}`).join(' ');
-  caption += `${tags} #cybersecurity #infosec #DFIR #threatintel #security`;
+  const tags = (
+    spec.hashtags.length > 0 ? spec.hashtags : ['cybersecurity', 'infosec', 'DFIR', 'threatintel', 'security']
+  )
+    .slice(0, 5)
+    .map((t) => `#${t}`)
+    .join(' ');
+  caption += tags;
 
   return caption;
 }
