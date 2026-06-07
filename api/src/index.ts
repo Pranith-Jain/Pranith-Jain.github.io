@@ -285,6 +285,7 @@ import { maltrailSyncHandler, listSkeletonActorsHandler, getSkeletonActorHandler
 import { maliciousPackagesHandler } from './routes/malicious-packages';
 import { secretLeaksHandler } from './routes/secret-leaks';
 import { feedQualityHandler } from './routes/tifce';
+import { agentInvestigateHandler, agentStateHandler, agentStreamHandler, agentSessionsHandler } from './routes/agent';
 import { attackNavigatorHandler } from './routes/attack-navigator';
 import { a3mMatrixHandler } from './routes/a3m-matrix';
 import { d3fendMatrixHandler } from './routes/d3fend-matrix';
@@ -673,6 +674,10 @@ app.get('/api/v1/reddit-feed', redditFeedHandler);
 app.get('/api/v1/x-feed', xFeedHandler);
 app.get('/api/v1/feed-status', feedStatusHandler);
 app.get('/api/v1/feed-quality', feedQualityHandler);
+app.post('/api/v1/agent/investigate', agentInvestigateHandler);
+app.get('/api/v1/agent/sessions', agentSessionsHandler);
+app.get('/api/v1/agent/:id/stream', agentStreamHandler);
+app.get('/api/v1/agent/:id', agentStateHandler);
 app.get('/api/v1/ioc-correlation', iocCorrelationHandler);
 app.get('/api/v1/actor-timeline', actorTimelineHandler);
 app.get('/api/v1/victim-releaks', victimReleaksHandler);

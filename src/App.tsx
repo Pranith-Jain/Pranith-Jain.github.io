@@ -125,6 +125,7 @@ const EmailDefense = lazy(() => import('./pages/dfir/EmailDefense'));
 const Nhi = lazy(() => import('./pages/dfir/Nhi'));
 const PowershellDeobf = lazy(() => import('./pages/dfir/PowershellDeobf'));
 const AgentMap = lazy(() => import('./pages/dfir/AgentMap'));
+const AgentInvestigator = lazy(() => import('./pages/dfir/AgentInvestigator'));
 const Tabletop = lazy(() => import('./pages/dfir/Tabletop'));
 const Grc = lazy(() => import('./pages/dfir/Grc'));
 const DlpScan = lazy(() => import('./pages/dfir/DlpScan'));
@@ -455,6 +456,8 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/nhi', Component: Nhi },
   { path: '/dfir/powershell-deobf', Component: PowershellDeobf },
   { path: '/dfir/agent-map', Component: AgentMap },
+  { path: '/dfir/agent', Component: AgentInvestigator },
+  { path: '/threatintel/agent', Component: AgentInvestigator },
   { path: '/dfir/tabletop', Component: Tabletop },
   { path: '/dfir/grc', Component: Grc },
   { path: '/dfir/dlp-scan', Component: DlpScan },

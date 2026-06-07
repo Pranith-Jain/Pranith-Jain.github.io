@@ -20,6 +20,8 @@ export interface Env {
   CRON_LOCK_DO: DurableObjectNamespace;
   /** Report-generation pipeline DO (alarm-driven Copilot full-report builder). */
   REPORT_BUILDER: DurableObjectNamespace;
+  /** Autonomous investigator agent DO. */
+  INVESTIGATOR_AGENT: DurableObjectNamespace;
   /** Producer binding for the live-IOC per-source feed fan-out (PR2). */
   FEEDS_QUEUE?: Queue<FeedQueueMessage>;
   NVD_API_KEY?: string;

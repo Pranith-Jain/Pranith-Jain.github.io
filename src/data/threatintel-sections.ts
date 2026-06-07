@@ -6,6 +6,7 @@ import {
   Bell,
   BookOpen,
   BookText,
+  Bot,
   Briefcase,
   Bug,
   Cloud,
@@ -395,6 +396,13 @@ export const SECTIONS: Section[] = [
         label: 'AI Investigation Copilot',
         desc: 'AI-powered threat investigation. Paste a CVE, IP, domain, hash, or actor name — auto-detects query type, fans out to cache sources.',
         icon: Sparkles,
+        badge: 'new',
+      },
+      {
+        to: '/dfir/agent',
+        label: 'Autonomous Investigator Agent',
+        desc: 'Multi-step autonomous agent. Describe what to investigate — the agent plans, calls 30+ intel tools, analyzes results, and produces a structured report.',
+        icon: Bot,
         badge: 'new',
       },
       {

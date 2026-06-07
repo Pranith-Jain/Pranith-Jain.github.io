@@ -108,6 +108,13 @@ export function authenticate(mode: boolean | 'external-only'): MiddlewareHandler
       return next();
     }
 
+    // Internal requests from our own Durable Objects via the SELF service
+    // binding. DOs set X-Internal-Agent to identify themselves. This avoids
+    // the need for DOs to carry API keys for in-process calls.
+    if (c.req.header('x-internal-agent') === 'investigator-do') {
+      return next();
+    }
+
     // 'external-only': allow same-origin (frontend) without a key
     if (mode === 'external-only' && isSameOrigin(c)) {
       return next();

@@ -40,6 +40,7 @@ const ROUTE_LABELS: Record<string, string> = {
   '/dfir/iam-analyzer': 'IAM Analyzer',
   '/dfir/rule-converter': 'Rule Converter',
   '/dfir/detection-lab': 'Detection Lab',
+  '/dfir/agent': 'Agent',
   '/dfir/atlas': 'MITRE ATLAS',
   '/dfir/mitre': 'MITRE ATT&CK',
   '/dfir/stix-builder': 'STIX Builder',

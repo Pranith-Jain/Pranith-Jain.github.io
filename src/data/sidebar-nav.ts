@@ -4,8 +4,9 @@ import {
   AlertOctagon,
   AlertTriangle,
   BarChart3,
-  BookOpen,
   Bitcoin,
+  BookOpen,
+  Bot,
   Bug,
   Compass,
   Crosshair,
@@ -115,6 +116,7 @@ const dfir: SidebarConfig = {
       title: 'Triage',
       items: [
         { label: 'Dashboard', href: '/dfir', icon: LayoutDashboard },
+        { label: 'Agent', href: '/dfir/agent', icon: Bot },
         { label: 'IOC Check', href: '/dfir/ioc-check', icon: Search },
         { label: 'Abuse Rep', href: '/dfir/abuse-rep', icon: ShieldAlert },
         { label: 'Email Defense', href: '/dfir/email-defense', icon: Mail },

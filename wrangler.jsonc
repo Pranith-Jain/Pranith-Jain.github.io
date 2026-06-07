@@ -53,7 +53,8 @@
 			{ "name": "LIVE_FEED_DO", "class_name": "LiveFeedDO" },
 			{ "name": "DFIR_MCP", "class_name": "DfirMcpServer" },
 			{ "name": "CRON_LOCK_DO", "class_name": "CronLockDO" },
-			{ "name": "REPORT_BUILDER", "class_name": "ReportBuilderDO" }
+			{ "name": "REPORT_BUILDER", "class_name": "ReportBuilderDO" },
+			{ "name": "INVESTIGATOR_AGENT", "class_name": "InvestigatorAgentDO" }
 		]
 	},
 	"triggers": {
@@ -68,7 +69,8 @@
 		{ "tag": "v1", "new_sqlite_classes": ["LiveFeedDO"] },
 		{ "tag": "v2", "new_sqlite_classes": ["DfirMcpServer"] },
 		{ "tag": "v3", "new_sqlite_classes": ["CronLockDO"] },
-		{ "tag": "v4", "new_sqlite_classes": ["ReportBuilderDO"] }
+		{ "tag": "v4", "new_sqlite_classes": ["ReportBuilderDO"] },
+		{ "tag": "v5", "new_sqlite_classes": ["InvestigatorAgentDO"] }
 	],
 	"analytics_engine_datasets": [
 		{ "binding": "AJ_analytics", "dataset": "PJ" }
