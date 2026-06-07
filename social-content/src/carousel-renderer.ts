@@ -85,9 +85,8 @@ function sideAccentBar(accent: string, side: 'left' | 'right'): string {
 
 function brandMark(dark: boolean, accent: string): string {
   const fg = dark ? 'rgba(255,255,255,0.85)' : C.slate[800];
-  const muted = dark ? 'rgba(255,255,255,0.5)' : C.slate[400];
   return `
-    <div style="position:absolute; top:44px; left:56px; display:flex; align-items:center; gap:14px; z-index:3;">
+    <div style="position:absolute; top:52px; left:56px; display:flex; align-items:center; gap:14px; z-index:3;">
       <svg viewBox="0 0 40 40" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="bm" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -98,10 +97,7 @@ function brandMark(dark: boolean, accent: string): string {
         <path d="M20 2 L36 8 L36 20 Q36 30 20 38 Q4 30 4 20 L4 8 Z" fill="url(#bm)"/>
         <text x="20" y="22" dominant-baseline="central" text-anchor="middle" fill="white" font-family="${FONTS.display}" font-weight="800" font-size="15" letter-spacing="-0.5">PJ</text>
       </svg>
-      <div style="display:flex; flex-direction:column; gap:1px;">
-        <span style="font-family:${FONTS.display}; font-size:16px; color:${fg}; letter-spacing:-0.3px; font-weight:700; line-height:1.1;">Pranith Jain</span>
-        <span style="font-family:${FONTS.mono}; font-size:9px; color:${muted}; letter-spacing:0.22em; text-transform:uppercase; font-weight:600;">Detection Engineering</span>
-      </div>
+      <span style="font-family:${FONTS.display}; font-size:18px; color:${fg}; letter-spacing:-0.3px; font-weight:700;">Pranith Jain</span>
     </div>
   `;
 }
