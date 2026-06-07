@@ -87,7 +87,7 @@ function buildLinkedinPrompt(post: Post): string {
     `- Close with one substantive question that provokes a practitioner reply (not "what do you think?").\n` +
     `- 1300-2000 characters in the body. End with 3-5 specific, on-topic hashtags (e.g. #DFIR #ThreatIntel #IncidentResponse) on their own final line — topical tags are a 2026 topic-authority signal; never a generic stack, never mid-sentence.\n` +
     `- Bold at most one phrase with **asterisks**, only if it earns it. No emojis. No raw URLs in the body (the ONLY link is the FIRST COMMENT block).\n` +
-    `- OPTIONAL: when the case is a meaty technical breakdown, ALSO append a "CAROUSEL OUTLINE:" block of 5-8 one-line slide titles (hook slide, one idea per slide, takeaway slide). Document/carousel posts get the highest reach in 2026. Skip it for thin or breaking items.\n` +
+    `- OPTIONAL: when the case is a meaty technical breakdown, ALSO append a "CAROUSEL OUTLINE:" block of 5-8 one-line slide titles (hook slide, one idea per slide, takeaway slide). Document/carousel posts get the highest reach in 2026. Skip it for thin or breaking items. The last slide must be a concrete defensive or analytical takeaway specific to THIS case — never a generic CTA like "save this for later", "share this with your team", "if this helped", or any engagement-bait.\n` +
     `</format>\n\n` +
     `<examples>\n` +
     `HOOK — GOOD: "Lockbit5 dropped 15 new victims this week, but 4 of those targets already appeared on a different affiliate's leak site this quarter. The same haul is being re-auctioned. Affiliate dispute, not new compromise."\n` +
