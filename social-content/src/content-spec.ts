@@ -27,6 +27,16 @@ export type HookType =
   | 'hot-take'
   | 'question';
 
+export type SlideLayout =
+  | 'auto' // Auto-detect from content
+  | 'hero' // Dark gradient, big headline, used for slide 1
+  | 'stat' // Big number hero
+  | 'list' // Numbered cards with icons
+  | 'framework' // 2-column grid
+  | 'comparison' // Side-by-side compare
+  | 'quote' // Large pull-quote
+  | 'cta'; // Brand-color CTA slide
+
 export interface ContentSlide {
   /** Slide number (1-indexed). */
   index: number;
@@ -38,12 +48,18 @@ export interface ContentSlide {
   bullets?: string[];
   /** Statistic to highlight (renders as a large number). */
   stat?: { value: string; label: string };
-  /** Visual element hint (icon name, illustration, or 'none'). */
+  /** Visual element hint (icon name → emoji/SVG lookup, or 'none'). */
   visual?: string;
   /** Background override (CSS color). */
   bg?: string;
   /** Text color override (CSS color). */
   color?: string;
+  /** Accent color override for this slide (CSS color). */
+  accent?: string;
+  /** Small uppercase label above headline ("THE PROBLEM", "KEY INSIGHT"). */
+  eyebrow?: string;
+  /** Force a specific layout (default: auto-detect). */
+  layout?: SlideLayout;
   /** Is this the CTA slide? */
   isCTA?: boolean;
 }

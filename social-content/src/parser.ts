@@ -32,7 +32,15 @@
  * ```
  */
 
-import type { ContentSpec, ContentSlide, FunnelStage, Platform, ContentFormat, HookType } from './content-spec';
+import type {
+  ContentSpec,
+  ContentSlide,
+  FunnelStage,
+  Platform,
+  ContentFormat,
+  HookType,
+  SlideLayout,
+} from './content-spec';
 
 function parseFrontmatter(raw: string): Record<string, string> {
   const out: Record<string, string> = {};
@@ -52,12 +60,25 @@ function parseSlide(raw: string, index: number): ContentSlide {
     .trim()
     .split('\n')
     .filter((l) => l.trim().length > 0);
-  const headline = lines[0]?.replace(/^#+\s*/, '').trim() ?? `Slide ${index}`;
+  let headline = lines[0]?.replace(/^#+\s*/, '').trim() ?? `Slide ${index}`;
   const rest = lines.slice(1);
 
   const bullets: string[] = [];
   let body: string | undefined;
   let stat: ContentSlide['stat'];
+  let eyebrow: string | undefined;
+  let accent: string | undefined;
+  let visual: string | undefined;
+  let layout: ContentSlide['layout'];
+  let bg: string | undefined;
+  let color: string | undefined;
+
+  // Check for STAT: in headline line
+  const headlineStat = headline.match(/^STAT:\s*(.+?)\s*\|\s*(.+)$/);
+  if (headlineStat) {
+    stat = { value: headlineStat[1]!.trim(), label: headlineStat[2]!.trim() };
+    headline = ''; // No headline when stat is present
+  }
 
   for (const line of rest) {
     const trimmed = line.trim();
@@ -72,6 +93,18 @@ function parseSlide(raw: string, index: number): ContentSlide {
       if (parts.length >= 2 && parts[0] && parts[1]) {
         stat = { value: parts[0], label: parts[1] };
       }
+    } else if (trimmed.startsWith('EYEBROW:')) {
+      eyebrow = trimmed.slice(8).trim();
+    } else if (trimmed.startsWith('ACCENT:')) {
+      accent = trimmed.slice(7).trim();
+    } else if (trimmed.startsWith('ICON:') || trimmed.startsWith('VISUAL:')) {
+      visual = trimmed.replace(/^(ICON|VISUAL):\s*/, '').trim();
+    } else if (trimmed.startsWith('LAYOUT:')) {
+      layout = trimmed.slice(7).trim() as ContentSlide['layout'];
+    } else if (trimmed.startsWith('BG:')) {
+      bg = trimmed.slice(3).trim();
+    } else if (trimmed.startsWith('COLOR:')) {
+      color = trimmed.slice(6).trim();
     } else if (trimmed.startsWith('CTA:')) {
       // handled via isCTA flag below
     } else if (!body) {
@@ -88,6 +121,12 @@ function parseSlide(raw: string, index: number): ContentSlide {
     body: body || undefined,
     bullets: bullets.length > 0 ? bullets : undefined,
     stat,
+    visual,
+    eyebrow,
+    accent,
+    layout,
+    bg,
+    color,
     isCTA: isCTA || undefined,
   };
 }
