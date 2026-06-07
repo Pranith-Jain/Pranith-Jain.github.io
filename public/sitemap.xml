@@ -50,7 +50,7 @@
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
-  <!-- DFIR tools (114) -->
+  <!-- DFIR tools (115) -->
   <url>
     <loc>https://pranithjain.qzz.io/dfir/ai-rule-generator</loc>
     <lastmod>2026-06-06</lastmod>
@@ -347,6 +347,12 @@
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/dfir/cve-prioritizer</loc>
+    <lastmod>2026-06-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pranithjain.qzz.io/dfir/attack-navigator</loc>
     <lastmod>2026-06-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -735,7 +741,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  <!-- Threat Intel — pages (100) -->
+  <!-- Threat Intel — pages (101) -->
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/mitre</loc>
     <lastmod>2026-06-06</lastmod>
@@ -834,6 +840,12 @@
   </url>
   <url>
     <loc>https://pranithjain.qzz.io/threatintel/osint-framework</loc>
+    <lastmod>2026-06-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pranithjain.qzz.io/threatintel/secret-leaks</loc>
     <lastmod>2026-06-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>

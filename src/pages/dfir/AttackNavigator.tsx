@@ -1,9 +1,27 @@
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
+import { DataState } from '../../components/DataState';
 import { ArrowLeft, ExternalLink, Search, X, Shield } from 'lucide-react';
-import type { MitreTactic } from '../../data/dfir/mitre-matrix';
 import { threatActors } from '../../data/dfir/threat-actors';
+
+type MatrixSource = 'attack' | 'a3m' | 'd3fend';
+
+interface MitreTechniqueLite {
+  id: string;
+  name: string;
+  description?: string;
+  d3fend_id?: string;
+  subtechniques?: Array<{ id: string; name: string }>;
+}
+
+interface MitreTactic {
+  id: string;
+  name: string;
+  description?: string;
+  short_name?: string;
+  techniques: MitreTechniqueLite[];
+}
 
 type ColorMode = 'prevalence' | 'risk' | 'actor_pct';
 
@@ -121,43 +139,69 @@ const MODE_LABELS: Record<ColorMode, string> = {
   actor_pct: '% of observed actors',
 };
 
-const META = {
-  total_actors: 832,
-  total_observations: 13873,
-  study_period: 'March 2025 - March 2026',
-};
-
 export default function AttackNavigator(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
+  const initialSource = (searchParams.get('matrix') ?? 'attack') as MatrixSource;
   const [query, setQuery] = useState(searchParams.get('q') ?? '');
   const [selectedId, setSelectedId] = useState<string | null>(searchParams.get('id'));
   const [colorMode, setColorMode] = useState<ColorMode>('actor_pct');
+  const [matrixSource, setMatrixSource] = useState<MatrixSource>(
+    initialSource === 'a3m' || initialSource === 'd3fend' ? initialSource : 'attack'
+  );
   const [mitreMatrix, setMitreMatrix] = useState<MitreTactic[]>([]);
   const [scores, setScores] = useState<Record<string, TechniqueScore>>({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [generatedAt, setGeneratedAt] = useState<string | null>(null);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
-    void import('../../data/dfir/mitre-matrix').then((m) => {
-      if (!cancelled) setMitreMatrix(m.mitreMatrix);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  useEffect(() => {
-    let cancelled = false;
-    void import('../../data/dfir/attack-navigator-scores')
-      .then((m) => {
-        if (!cancelled) setScores(m.attackNavigatorScores);
+    const ctrl = new AbortController();
+    setLoading(true);
+    setError(null);
+    const endpoint =
+      matrixSource === 'a3m'
+        ? '/api/v1/a3m-matrix'
+        : matrixSource === 'd3fend'
+          ? '/api/v1/d3fend-matrix'
+          : '/api/v1/attack-navigator';
+    fetch(endpoint, { signal: ctrl.signal })
+      .then((r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
       })
-      .catch(() => {
-        // Scores file may not exist yet — use empty
+      .then((d: { matrix: MitreTactic[]; scores?: Record<string, TechniqueScore>; generated_at: string }) => {
+        if (cancelled) return;
+        setMitreMatrix(d.matrix);
+        setScores(d.scores ?? {});
+        setGeneratedAt(d.generated_at);
+      })
+      .catch((e) => {
+        if (!cancelled && (e as { name?: string }).name !== 'AbortError') {
+          setError(e instanceof Error ? e.message : String(e));
+        }
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
       });
     return () => {
       cancelled = true;
+      ctrl.abort();
     };
-  }, []);
+  }, [refreshKey, matrixSource]);
+
+  useEffect(() => {
+    setSearchParams(
+      (prev) => {
+        const next = new URLSearchParams(prev);
+        if (matrixSource !== 'attack') next.set('matrix', matrixSource);
+        else next.delete('matrix');
+        return next;
+      },
+      { replace: true }
+    );
+  }, [matrixSource, setSearchParams]);
 
   const openTechnique = useCallback(
     (id: string) => {
@@ -248,40 +292,132 @@ export default function AttackNavigator(): JSX.Element {
         </BackLink>
 
         <div className="animate-fade-in-up">
-          <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">LLM ATT&amp;CK Navigator</h1>
+          <div className="flex items-center gap-3 mb-2">
+            <h1 className="text-3xl sm:text-4xl font-display font-bold">
+              {matrixSource === 'attack' && 'LLM ATT&CK Navigator'}
+              {matrixSource === 'a3m' && 'A3M Matrix'}
+              {matrixSource === 'd3fend' && 'D3FEND Matrix'}
+            </h1>
+            {!loading && !error && (
+              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 text-[10px] font-mono uppercase">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                live
+              </span>
+            )}
+          </div>
           <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-4xl">
-            Interactive matrix mapping LLM-specific attack techniques to the MITRE ATT&amp;CK framework. Color intensity
-            reflects technique prevalence, risk scores, or actor adoption. Click any highlighted tile for full detail
-            including ARiES scores, sub-techniques, and linked actors.
+            {matrixSource === 'attack' &&
+              'Interactive matrix mapping LLM-specific attack techniques to the MITRE ATT&CK framework. Color intensity reflects technique prevalence, risk scores, or actor adoption. Click any highlighted tile for full detail including ARiES scores, sub-techniques, and linked actors.'}
+            {matrixSource === 'a3m' &&
+              'A3M Matrix (Agentic AI Attack Matrix) — 167 techniques across 17 phases, covering reconnaissance to impact for tool-using agents, browser automation, RAG, memory, and SaaS integrations. Click any technique for full detail.'}
+            {matrixSource === 'd3fend' &&
+              'MITRE D3FEND — defensive countermeasure matrix. 250+ techniques across 7 tactics (Model, Harden, Detect, Isolate, Deceive, Evict, Restore) mapped to the artifacts they protect. Click any technique for full detail.'}
           </p>
           <div className="flex flex-wrap items-center gap-4 text-sm font-mono text-slate-500 mb-3">
             <span>
-              <span className="text-slate-900 dark:text-slate-100">{META.total_actors}</span> observed actors
+              <span className="text-slate-900 dark:text-slate-100">{Object.keys(scores).length}</span> scored techniques
             </span>
             <span aria-hidden="true">&middot;</span>
             <span>
-              <span className="text-slate-900 dark:text-slate-100">{META.total_observations.toLocaleString()}</span>{' '}
-              observations
+              <span className="text-slate-900 dark:text-slate-100">{mitreMatrix.length}</span> tactics
             </span>
             <span aria-hidden="true">&middot;</span>
             <span>
-              Study: <span className="text-slate-900 dark:text-slate-100">{META.study_period}</span>
+              <span className="text-slate-900 dark:text-slate-100">
+                {mitreMatrix.reduce((sum, t) => sum + t.techniques.length, 0)}
+              </span>{' '}
+              techniques tracked
             </span>
+            {generatedAt && (
+              <>
+                <span aria-hidden="true">&middot;</span>
+                <span>
+                  Updated:{' '}
+                  <span className="text-slate-900 dark:text-slate-100">{new Date(generatedAt).toLocaleString()}</span>
+                </span>
+              </>
+            )}
           </div>
           <div className="flex items-center gap-2 mb-4">
             <Shield size={14} className="text-brand-500" />
             <span className="text-xs font-mono text-slate-500">
-              Based on{' '}
-              <a
-                href="https://red.anthropic.com/2026/attack-navigator/navigator"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-brand-600 dark:text-brand-400 hover:underline"
-              >
-                Anthropic LLM ATT&amp;CK research
-              </a>
+              {matrixSource === 'attack' && (
+                <>
+                  Based on{' '}
+                  <a
+                    href="https://red.anthropic.com/2026/attack-navigator/navigator"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-brand-600 dark:text-brand-400 hover:underline"
+                  >
+                    Anthropic LLM ATT&amp;CK research
+                  </a>
+                </>
+              )}
+              {matrixSource === 'a3m' && (
+                <>
+                  Source:{' '}
+                  <a
+                    href="https://www.cyberriskevaluator.com/A3M_Matrix_Agentic_AI_Attack_Matrix.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-brand-600 dark:text-brand-400 hover:underline"
+                  >
+                    A3M Matrix — Agentic AI Attack Matrix
+                  </a>
+                </>
+              )}
+              {matrixSource === 'd3fend' && (
+                <>
+                  Source:{' '}
+                  <a
+                    href="https://d3fend.mitre.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-brand-600 dark:text-brand-400 hover:underline"
+                  >
+                    MITRE D3FEND™
+                  </a>
+                </>
+              )}
             </span>
           </div>
+        </div>
+
+        {/* Matrix source tabs */}
+        <div className="flex flex-wrap items-center gap-1 mb-4 border-b border-slate-200 dark:border-slate-800">
+          {[
+            { id: 'attack' as const, label: 'MITRE ATT&CK', sub: 'Enterprise · live' },
+            { id: 'a3m' as const, label: 'A3M Matrix', sub: 'Agentic AI · live' },
+            { id: 'd3fend' as const, label: 'D3FEND', sub: 'Defensive · live' },
+          ].map((t) => (
+            <button
+              key={t.id}
+              type="button"
+              onClick={() => {
+                setMatrixSource(t.id);
+                setSelectedId(null);
+                setSearchParams(
+                  (prev) => {
+                    const next = new URLSearchParams(prev);
+                    if (t.id !== 'attack') next.set('matrix', t.id);
+                    else next.delete('matrix');
+                    next.delete('id');
+                    return next;
+                  },
+                  { replace: true }
+                );
+              }}
+              className={`flex flex-col items-start gap-0.5 px-4 py-2.5 text-sm font-mono border-b-2 transition-colors ${
+                matrixSource === t.id
+                  ? 'border-brand-500 text-brand-600 dark:text-brand-400'
+                  : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+              }`}
+            >
+              <span className="font-semibold">{t.label}</span>
+              <span className="text-[9px] uppercase tracking-wider text-slate-400">{t.sub}</span>
+            </button>
+          ))}
         </div>
 
         {/* Toolbar */}
@@ -294,37 +430,51 @@ export default function AttackNavigator(): JSX.Element {
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search ID, name, or description..."
               className="w-full pl-9 pr-4 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
-              aria-label="Search ATT&CK techniques"
+              aria-label="Search techniques"
             />
           </div>
-          <label className="flex items-center gap-2 text-xs font-mono text-slate-600 dark:text-slate-400">
-            Color by:
-            <select
-              value={colorMode}
-              onChange={(e) => setColorMode(e.target.value as ColorMode)}
-              className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded px-2 py-1.5 text-xs font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
-            >
-              <option value="actor_pct">% of observed actors</option>
-              <option value="risk">LLM Risk Score (ARiES)</option>
-              <option value="prevalence">Prevalence multiplier</option>
-            </select>
-          </label>
+          {matrixSource === 'attack' && (
+            <label className="flex items-center gap-2 text-xs font-mono text-slate-600 dark:text-slate-400">
+              Color by:
+              <select
+                value={colorMode}
+                onChange={(e) => setColorMode(e.target.value as ColorMode)}
+                className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded px-2 py-1.5 text-xs font-mono text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500"
+              >
+                <option value="actor_pct">% of observed actors</option>
+                <option value="risk">LLM Risk Score (ARiES)</option>
+                <option value="prevalence">Prevalence multiplier</option>
+              </select>
+            </label>
+          )}
         </div>
 
         {/* Legend */}
         <div className="flex flex-wrap items-center gap-3 mb-6 text-xs font-mono text-slate-500">
-          <span className="font-semibold uppercase tracking-wider text-[10px] text-slate-400">
-            {MODE_LABELS[colorMode]}:
-          </span>
-          {getLegendItems(colorMode).map((item) => (
-            <span key={item.label} className="inline-flex items-center gap-1.5">
+          {matrixSource === 'attack' ? (
+            <>
+              <span className="font-semibold uppercase tracking-wider text-[10px] text-slate-400">
+                {MODE_LABELS[colorMode]}:
+              </span>
+              {getLegendItems(colorMode).map((item) => (
+                <span key={item.label} className="inline-flex items-center gap-1.5">
+                  <span
+                    className="inline-block w-4 h-4 rounded border border-slate-300 dark:border-slate-600"
+                    style={{ backgroundColor: item.color }}
+                  />
+                  {item.label}
+                </span>
+              ))}
+            </>
+          ) : (
+            <span className="inline-flex items-center gap-1.5">
               <span
                 className="inline-block w-4 h-4 rounded border border-slate-300 dark:border-slate-600"
-                style={{ backgroundColor: item.color }}
+                style={{ backgroundColor: matrixSource === 'a3m' ? '#8F00FF' : '#0ea5e9' }}
               />
-              {item.label}
+              {matrixSource === 'a3m' ? 'A3M technique' : 'D3FEND technique'}
             </span>
-          ))}
+          )}
           <span className="inline-flex items-center gap-1.5 ml-2">
             <span className="inline-block w-4 h-4 rounded border-2 border-slate-900 dark:border-slate-100 bg-white dark:bg-slate-800" />
             Observed (border)
@@ -341,96 +491,109 @@ export default function AttackNavigator(): JSX.Element {
         </p>
 
         {/* Matrix */}
-        <div className="overflow-x-auto pb-4 -mx-4 sm:mx-0 px-4 sm:px-0">
-          <div className="flex gap-1 min-w-max bg-slate-100 dark:bg-slate-800/50 p-1 rounded-lg">
-            {mitreMatrix.map((tactic) => {
-              const tacticCount = tactic.techniques.length;
-              return (
-                <div key={tactic.id} className="w-[150px] flex-shrink-0 flex flex-col gap-[2px]">
-                  {/* Tactic header */}
-                  <div className="sticky top-0 z-10 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded px-2 py-2 text-center min-h-[52px] flex flex-col justify-center">
-                    <a
-                      href={`https://attack.mitre.org/tactics/${tactic.id}/`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
-                      title={tactic.description}
-                    >
-                      <div className="text-[10px] font-mono font-bold leading-tight text-slate-900 dark:text-slate-100">
-                        {tactic.name}
-                      </div>
-                      <div className="text-[9px] font-mono text-slate-400 mt-0.5">{tacticCount} techniques</div>
-                    </a>
-                  </div>
-
-                  {/* Technique cells */}
-                  {tactic.techniques.map((technique) => {
-                    const score = scores[technique.id];
-                    const isObserved = !!score || usedByActors.has(technique.id);
-                    const bg = getColor(score, colorMode);
-                    const fg = fgFor(bg);
-                    const isMatch = matches ? matches.has(technique.id) : true;
-                    const isDimmed = matches !== null && !isMatch;
-                    const isSelected = selectedId === technique.id;
-                    const actors = actorsByTechnique(technique.id);
-
-                    return (
-                      <button
-                        key={technique.id}
-                        type="button"
-                        onClick={() => openTechnique(technique.id)}
-                        className={[
-                          'relative w-full text-left border px-1.5 py-1 min-h-[42px] transition-all text-[10.5px] leading-tight overflow-hidden word-break-break-word hyphens-auto rounded-sm',
-                          isSelected ? 'ring-2 ring-brand-500/60 dark:ring-brand-400/60' : '',
-                          isDimmed ? 'opacity-25' : '',
-                          isObserved
-                            ? 'border-2 border-slate-900 dark:border-slate-100 cursor-pointer hover:brightness-95'
-                            : 'border border-slate-200 dark:border-slate-700 cursor-default',
-                        ].join(' ')}
-                        style={{ backgroundColor: bg, color: fg }}
-                        title={technique.name}
+        <DataState
+          loading={loading}
+          error={error}
+          empty={!loading && !error && mitreMatrix.length === 0}
+          emptyLabel="No MITRE ATT&CK data available"
+          onRetry={() => setRefreshKey((k) => k + 1)}
+        >
+          <div className="overflow-x-auto pb-4 -mx-4 sm:mx-0 px-4 sm:px-0">
+            <div className="flex gap-1 min-w-max bg-slate-100 dark:bg-slate-800/50 p-1 rounded-lg">
+              {mitreMatrix.map((tactic) => {
+                const tacticCount = tactic.techniques.length;
+                return (
+                  <div key={tactic.id} className="w-[150px] flex-shrink-0 flex flex-col gap-[2px]">
+                    {/* Tactic header */}
+                    <div className="sticky top-0 z-10 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded px-2 py-2 text-center min-h-[52px] flex flex-col justify-center">
+                      <a
+                        href={`https://attack.mitre.org/tactics/${tactic.id}/`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                        title={tactic.description ?? tactic.name}
                       >
-                        <div className={`font-mono ${isObserved ? 'font-semibold' : 'font-medium'}`}>
-                          {technique.id}
+                        <div className="text-[10px] font-mono font-bold leading-tight text-slate-900 dark:text-slate-100">
+                          {tactic.name}
                         </div>
-                        <div className={`mt-0.5 ${isObserved ? 'font-semibold' : 'font-medium'} line-clamp-2`}>
-                          {technique.name}
-                        </div>
-                        {score && score.pct_actors > 0 && (
-                          <div className="mt-0.5 font-mono text-[9px] opacity-80">
-                            {score.pct_actors.toFixed(1)}% actors
-                          </div>
-                        )}
-                        {actors.length > 0 && (
-                          <div className="mt-0.5 font-mono text-[9px] opacity-80">
-                            {actors.length === 1 ? actors[0].name : `${actors.length} actors`}
-                          </div>
-                        )}
-                        {technique.subtechniques && technique.subtechniques.length > 0 && (
-                          <div className="mt-0.5 font-mono text-[9px] opacity-60">
-                            +{technique.subtechniques.length} sub
-                          </div>
-                        )}
-                      </button>
-                    );
-                  })}
-                </div>
-              );
-            })}
-          </div>
-        </div>
+                        <div className="text-[9px] font-mono text-slate-400 mt-0.5">{tacticCount} techniques</div>
+                      </a>
+                    </div>
 
-        {/* Legend footer */}
-        <div className="mt-8 flex flex-wrap gap-4 text-xs font-mono text-slate-500">
-          <div className="flex items-center gap-2">
-            <span className="inline-block w-4 h-4 rounded border-2 border-slate-900 dark:border-slate-100 bg-white dark:bg-slate-800" />
-            Observed technique (clickable)
+                    {/* Technique cells */}
+                    {tactic.techniques.map((technique) => {
+                      const score = scores[technique.id];
+                      const isObserved = matrixSource !== 'attack' || !!score || usedByActors.has(technique.id);
+                      const bg =
+                        matrixSource === 'attack'
+                          ? getColor(score, colorMode)
+                          : matrixSource === 'a3m'
+                            ? '#8F00FF'
+                            : '#0ea5e9';
+                      const fg = fgFor(bg);
+                      const isMatch = matches ? matches.has(technique.id) : true;
+                      const isDimmed = matches !== null && !isMatch;
+                      const isSelected = selectedId === technique.id;
+                      const actors = actorsByTechnique(technique.id);
+
+                      return (
+                        <button
+                          key={technique.id}
+                          type="button"
+                          onClick={() => openTechnique(technique.id)}
+                          className={[
+                            'relative w-full text-left border px-1.5 py-1 min-h-[42px] transition-all text-[10.5px] leading-tight overflow-hidden word-break-break-word hyphens-auto rounded-sm',
+                            isSelected ? 'ring-2 ring-brand-500/60 dark:ring-brand-400/60' : '',
+                            isDimmed ? 'opacity-25' : '',
+                            isObserved
+                              ? 'border-2 border-slate-900 dark:border-slate-100 cursor-pointer hover:brightness-95'
+                              : 'border border-slate-200 dark:border-slate-700 cursor-default',
+                          ].join(' ')}
+                          style={{ backgroundColor: bg, color: fg }}
+                          title={technique.name}
+                        >
+                          <div className={`font-mono ${isObserved ? 'font-semibold' : 'font-medium'}`}>
+                            {technique.id}
+                          </div>
+                          <div className={`mt-0.5 ${isObserved ? 'font-semibold' : 'font-medium'} line-clamp-2`}>
+                            {technique.name}
+                          </div>
+                          {score && score.pct_actors > 0 && (
+                            <div className="mt-0.5 font-mono text-[9px] opacity-80">
+                              {score.pct_actors.toFixed(1)}% actors
+                            </div>
+                          )}
+                          {actors.length > 0 && matrixSource === 'attack' && (
+                            <div className="mt-0.5 font-mono text-[9px] opacity-80">
+                              {actors.length === 1 ? actors[0].name : `${actors.length} actors`}
+                            </div>
+                          )}
+                          {technique.subtechniques && technique.subtechniques.length > 0 && (
+                            <div className="mt-0.5 font-mono text-[9px] opacity-60">
+                              +{technique.subtechniques.length} sub
+                            </div>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                );
+              })}
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="inline-block w-4 h-4 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800" />
-            Not observed
+
+          {/* Legend footer */}
+          <div className="mt-8 flex flex-wrap gap-4 text-xs font-mono text-slate-500">
+            <div className="flex items-center gap-2">
+              <span className="inline-block w-4 h-4 rounded border-2 border-slate-900 dark:border-slate-100 bg-white dark:bg-slate-800" />
+              Observed technique (clickable)
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="inline-block w-4 h-4 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800" />
+              Not observed
+            </div>
           </div>
-        </div>
+        </DataState>
       </div>
 
       {/* Detail drawer */}
@@ -471,14 +634,14 @@ export default function AttackNavigator(): JSX.Element {
 
             <div className="px-6 py-5 space-y-6">
               {/* Activity stats */}
-              {selectedScore && (
+              {selectedScore && matrixSource === 'attack' && (
                 <div className="bg-slate-50 dark:bg-slate-800/60 rounded-lg p-4 border border-slate-200 dark:border-slate-700">
                   <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-3">Activity</h3>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
                       <span className="text-slate-500">Distinct actors:</span>
                       <span className="font-mono font-semibold">
-                        {selectedScore.n_actors} ({selectedScore.pct_actors.toFixed(1)}% of {META.total_actors})
+                        {selectedScore.n_actors} ({selectedScore.pct_actors.toFixed(1)}% prevalence)
                       </span>
                     </div>
                     <div className="flex justify-between">
@@ -581,14 +744,37 @@ export default function AttackNavigator(): JSX.Element {
                   </div>
                 )}
 
-              {/* MITRE link */}
+              {/* D3FEND definition (A3M doesn't have one; D3FEND does) */}
+              {selectedTechnique &&
+                matrixSource === 'd3fend' &&
+                (selectedTechnique as MitreTechniqueLite & { d3fend_id?: string; definition?: string }).definition && (
+                  <div>
+                    <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 mb-2">Definition</h3>
+                    <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                      {(selectedTechnique as MitreTechniqueLite & { definition?: string }).definition}
+                    </p>
+                  </div>
+                )}
+
+              {/* External link */}
               <a
-                href={`https://attack.mitre.org/techniques/${selectedId}/`}
+                href={
+                  matrixSource === 'attack'
+                    ? `https://attack.mitre.org/techniques/${selectedId}/`
+                    : matrixSource === 'a3m'
+                      ? 'https://www.cyberriskevaluator.com/A3M_Matrix_Agentic_AI_Attack_Matrix.html'
+                      : `https://d3fend.mitre.org/technique/${(selectedTechnique as MitreTechniqueLite & { d3fend_id?: string })?.d3fend_id ?? selectedId}/`
+                }
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 text-slate-700 dark:text-slate-300 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
               >
-                Open on attack.mitre.org <ExternalLink size={12} />
+                {matrixSource === 'attack'
+                  ? 'Open on attack.mitre.org'
+                  : matrixSource === 'a3m'
+                    ? 'Open A3M Matrix'
+                    : 'Open on d3fend.mitre.org'}{' '}
+                <ExternalLink size={12} />
               </a>
             </div>
           </aside>

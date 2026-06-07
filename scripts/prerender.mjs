@@ -119,7 +119,6 @@ const ROUTES = [
   '/dfir/mcp-audit',
   '/dfir/agent-map',
   '/dfir/cve-prioritizer',
-  '/dfir/attack-navigator',
 
   // ── DFIR: cloud security (7) — 0 API calls ────────────────────
   '/dfir/iam-analyzer',
@@ -215,7 +214,6 @@ const ROUTES = [
   '/threatintel/secops-tools',
   '/threatintel/cve-resources',
   '/threatintel/osint-framework',
-  '/threatintel/secret-leaks',
 
   // ── ThreatIntel: live-feed surfaces (38) — prerendered chrome ─
   // Client hydrates and fetches /api/v1/* on mount.

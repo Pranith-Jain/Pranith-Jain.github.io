@@ -902,7 +902,7 @@ export const SECTIONS: Section[] = [
         path: '/dfir/attack-navigator',
         useCase: 'Visualize LLM attack techniques on the ATT&CK matrix.',
         label: 'LLM ATT&CK Navigator',
-        desc: '14 tactics · ARiES risk scores · actor prevalence · color-coded matrix · sub-technique drill-down',
+        desc: '3 matrices in one — MITRE ATT&CK Enterprise (14 tactics, ARiES scores) · A3M Agentic AI (17 phases, 167 techniques) · MITRE D3FEND (7 tactics, 250+ defensive techniques) — all live',
         icon: Target,
       },
       {

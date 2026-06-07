@@ -145,7 +145,7 @@ const dfir: SidebarConfig = {
         { label: 'Decode', href: '/dfir/decode', icon: FileCode },
         { label: 'Sec Headers', href: '/dfir/sec-headers', icon: Shield },
         { label: 'Kill Chain', href: '/dfir/kill-chain', icon: Map },
-        { label: 'LLM ATT&CK Nav', href: '/dfir/attack-navigator', icon: Target },
+        { label: 'ATT&CK Nav', href: '/dfir/attack-navigator', icon: Target },
         { label: 'Diamond', href: '/dfir/diamond', icon: Target },
       ],
     },

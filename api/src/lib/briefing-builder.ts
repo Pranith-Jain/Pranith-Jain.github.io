@@ -1976,7 +1976,7 @@ export async function buildBriefing(
     date: dateLabel,
     date_range: rangeLabel,
     range_start: isoDate(rangeStart),
-    range_end: isoDate(new Date(rangeEnd.getTime() - 86400_000)),
+    range_end: opts.live ? isoDate(rangeEnd) : isoDate(new Date(rangeEnd.getTime() - 86400_000)),
     generated_at: new Date().toISOString(),
     executive_summary,
     stats,
@@ -2225,7 +2225,7 @@ export async function listBriefings(
 
   const result = await db
     .prepare(
-      `SELECT slug, type, title, date, date_range, range_end, stats_json, sources_json FROM briefings${whereSql} ORDER BY range_end DESC LIMIT ? OFFSET ?`
+      `SELECT slug, type, title, date, date_range, range_end, stats_json, sources_json FROM briefings${whereSql} ORDER BY range_end DESC, date DESC LIMIT ? OFFSET ?`
     )
     .bind(...whereParams, limit, offset)
     .all<{
