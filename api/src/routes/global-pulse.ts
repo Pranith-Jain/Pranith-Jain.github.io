@@ -2125,6 +2125,84 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       /* degraded */
     }
 
+    // Direct fetches for remaining cache-dependent sources
+    let finalRedditEvents = redditEvents;
+    let finalTelegramEvents = telegramEvents;
+    let finalInfostealerEvents = infostealerEvents;
+    let finalCybercrimeEvents = cybercrimeEvents;
+    let finalResearchEvents = researchEvents;
+
+    // Fetch Reddit directly if empty
+    if (finalRedditEvents.length === 0) {
+      try {
+        const res = await fetch('https://pranithjain.qzz.io/api/v1/reddit-feed', {
+          signal: AbortSignal.timeout(10000),
+        });
+        if (res.ok) {
+          const data = (await res.json()) as Parameters<typeof fromReddit>[0];
+          finalRedditEvents = safe(() => fromReddit(data));
+        }
+      } catch {
+        /* degraded */
+      }
+    }
+
+    // Fetch X/Telegram directly if empty
+    if (finalTelegramEvents.length === 0) {
+      try {
+        const res = await fetch('https://pranithjain.qzz.io/api/v1/x-feed', { signal: AbortSignal.timeout(10000) });
+        if (res.ok) {
+          const data = (await res.json()) as Parameters<typeof fromXFeed>[0];
+          finalTelegramEvents = safe(() => fromXFeed(data));
+        }
+      } catch {
+        /* degraded */
+      }
+    }
+
+    // Fetch infostealer directly if empty
+    if (finalInfostealerEvents.length === 0) {
+      try {
+        const res = await fetch('https://pranithjain.qzz.io/api/v1/stealer-forum-intel', {
+          signal: AbortSignal.timeout(10000),
+        });
+        if (res.ok) {
+          const data = (await res.json()) as Parameters<typeof fromStealerForum>[0];
+          finalInfostealerEvents = safe(() => fromStealerForum(data));
+        }
+      } catch {
+        /* degraded */
+      }
+    }
+
+    // Fetch cybercrime directly if empty
+    if (finalCybercrimeEvents.length === 0) {
+      try {
+        const res = await fetch('https://pranithjain.qzz.io/api/v1/cyber-crime', {
+          signal: AbortSignal.timeout(10000),
+        });
+        if (res.ok) {
+          const data = (await res.json()) as Parameters<typeof fromCybercrime>[0];
+          finalCybercrimeEvents = safe(() => fromCybercrime(data));
+        }
+      } catch {
+        /* degraded */
+      }
+    }
+
+    // Fetch research/writeups directly if empty
+    if (finalResearchEvents.length === 0) {
+      try {
+        const res = await fetch('https://pranithjain.qzz.io/api/v1/writeups', { signal: AbortSignal.timeout(10000) });
+        if (res.ok) {
+          const data = (await res.json()) as Parameters<typeof fromWriteups>[0];
+          finalResearchEvents = safe(() => fromWriteups(data));
+        }
+      } catch {
+        /* degraded */
+      }
+    }
+
     // ── Merge + sort ───────────────────────────────────────────────────
     const allEvents = [
       ...earthquakes,
@@ -2145,17 +2223,17 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       ...finalLiveIocEvents,
       ...finalRansomwareEvents,
       ...darkwebEvents,
-      ...infostealerEvents,
+      ...finalInfostealerEvents,
       ...finalPhishingEvents,
       ...finalMalwareEvents,
       ...finalCveEvents,
       ...detectionEvents,
-      ...cybercrimeEvents,
+      ...finalCybercrimeEvents,
       ...breachEvents,
-      ...researchEvents,
+      ...finalResearchEvents,
       ...briefingEvents,
-      ...redditEvents,
-      ...telegramEvents,
+      ...finalRedditEvents,
+      ...finalTelegramEvents,
       ...xEvents,
       ...scamEvents,
     ].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
@@ -2181,20 +2259,20 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
         cisa_advisory: cisaKev.length,
         blocklist: blocklistAttackers.length + compromisedIPs.length,
         cyber_attack: finalLiveIocEvents.length + dshieldAttackers.length,
-        reddit: redditEvents.length,
-        telegram: telegramEvents.length,
+        reddit: finalRedditEvents.length,
+        telegram: finalTelegramEvents.length,
         x_feed: xEvents.length,
         scam: scamEvents.length,
         breach: breachEvents.length,
         briefing: briefingEvents.length,
         darkweb: darkwebEvents.length,
-        infostealer: infostealerEvents.length,
+        infostealer: finalInfostealerEvents.length,
         phishing: finalPhishingEvents.length,
         malware: finalMalwareEvents.length + urlhausMalware.length,
         ransomware: finalRansomwareEvents.length,
         detection: detectionEvents.length,
-        cybercrime: cybercrimeEvents.length,
-        research: researchEvents.length,
+        cybercrime: finalCybercrimeEvents.length,
+        research: finalResearchEvents.length,
         cve: finalCveEvents.length,
       },
     };
