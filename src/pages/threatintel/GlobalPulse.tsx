@@ -22,11 +22,16 @@ import {
   WifiOff,
   ExternalLink,
   ChevronRight,
+  ChevronDown,
+  Layers,
+  Filter,
+  X,
+  Clock,
+  Crosshair,
 } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { Badge } from '../../components/ui/Badge';
-import { StatCards } from '../../components/ui/StatCards';
 import type { CtiArc, CtiPoint } from '../../components/threatintel/cti/geo';
 import { severityColor, synthesizeArcs, deriveKpis } from '../../components/threatintel/cti/geo';
 
@@ -88,189 +93,260 @@ interface GlobalPulseResponse {
 
 interface LayerDef {
   label: string;
+  shortLabel: string;
   icon: ReactNode;
   color: string;
-  glowColor: string;
+  bgColor: string;
   group: 'geo' | 'intel' | 'social';
 }
 
 const LAYER_DEFS: Record<PulseKind, LayerDef> = {
   earthquake: {
     label: 'Earthquakes',
-    icon: <Activity size={12} />,
-    color: 'text-orange-500',
-    glowColor: '#f97316',
+    shortLabel: 'EQ',
+    icon: <Activity size={14} />,
+    color: 'text-orange-400',
+    bgColor: 'bg-orange-500/10 border-orange-500/20',
     group: 'geo',
   },
-  war_room: { label: 'War Room', icon: <Flame size={12} />, color: 'text-red-600', glowColor: '#dc2626', group: 'geo' },
+  war_room: {
+    label: 'War Room',
+    shortLabel: 'WAR',
+    icon: <Flame size={14} />,
+    color: 'text-red-400',
+    bgColor: 'bg-red-500/10 border-red-500/20',
+    group: 'geo',
+  },
   geopolitical: {
     label: 'Geopolitical',
-    icon: <Globe size={12} />,
-    color: 'text-purple-500',
-    glowColor: '#a855f7',
+    shortLabel: 'GEO',
+    icon: <Globe size={14} />,
+    color: 'text-purple-400',
+    bgColor: 'bg-purple-500/10 border-purple-500/20',
     group: 'geo',
   },
   aircraft: {
     label: 'Aircraft',
-    icon: <Plane size={12} />,
-    color: 'text-indigo-500',
-    glowColor: '#6366f1',
+    shortLabel: 'AIR',
+    icon: <Plane size={14} />,
+    color: 'text-indigo-400',
+    bgColor: 'bg-indigo-500/10 border-indigo-500/20',
     group: 'geo',
   },
   ioc_activity: {
     label: 'IOC Activity',
-    icon: <Radio size={12} />,
-    color: 'text-rose-500',
-    glowColor: '#f43f5e',
+    shortLabel: 'IOC',
+    icon: <Radio size={14} />,
+    color: 'text-rose-400',
+    bgColor: 'bg-rose-500/10 border-rose-500/20',
     group: 'intel',
   },
   cyber_attack: {
     label: 'Live IOCs',
-    icon: <Zap size={12} />,
-    color: 'text-red-500',
-    glowColor: '#ef4444',
+    shortLabel: 'IOC',
+    icon: <Zap size={14} />,
+    color: 'text-red-400',
+    bgColor: 'bg-red-500/10 border-red-500/20',
     group: 'intel',
   },
-  cve: { label: 'CVEs', icon: <Bug size={12} />, color: 'text-amber-600', glowColor: '#d97706', group: 'intel' },
+  cve: {
+    label: 'CVEs',
+    shortLabel: 'CVE',
+    icon: <Bug size={14} />,
+    color: 'text-amber-400',
+    bgColor: 'bg-amber-500/10 border-amber-500/20',
+    group: 'intel',
+  },
   ransomware: {
     label: 'Ransomware',
-    icon: <Skull size={12} />,
-    color: 'text-rose-600',
-    glowColor: '#e11d48',
+    shortLabel: 'RANSOM',
+    icon: <Skull size={14} />,
+    color: 'text-rose-500',
+    bgColor: 'bg-rose-600/10 border-rose-600/20',
     group: 'intel',
   },
   darkweb: {
     label: 'Dark Web',
-    icon: <ShieldAlert size={12} />,
-    color: 'text-purple-600',
-    glowColor: '#9333ea',
+    shortLabel: 'DARK',
+    icon: <ShieldAlert size={14} />,
+    color: 'text-purple-500',
+    bgColor: 'bg-purple-600/10 border-purple-600/20',
     group: 'intel',
   },
   infostealer: {
     label: 'Infostealers',
-    icon: <Bug size={12} />,
-    color: 'text-orange-600',
-    glowColor: '#ea580c',
+    shortLabel: 'STEALER',
+    icon: <Bug size={14} />,
+    color: 'text-orange-500',
+    bgColor: 'bg-orange-600/10 border-orange-600/20',
     group: 'intel',
   },
   phishing: {
     label: 'Phishing',
-    icon: <AlertTriangle size={12} />,
-    color: 'text-amber-500',
-    glowColor: '#f59e0b',
+    shortLabel: 'PHISH',
+    icon: <AlertTriangle size={14} />,
+    color: 'text-amber-400',
+    bgColor: 'bg-amber-500/10 border-amber-500/20',
     group: 'intel',
   },
-  malware: { label: 'Malware', icon: <Bug size={12} />, color: 'text-red-400', glowColor: '#f87171', group: 'intel' },
+  malware: {
+    label: 'Malware',
+    shortLabel: 'MAL',
+    icon: <Bug size={14} />,
+    color: 'text-red-400',
+    bgColor: 'bg-red-500/10 border-red-500/20',
+    group: 'intel',
+  },
   detection: {
     label: 'Detections',
-    icon: <Shield size={12} />,
-    color: 'text-emerald-500',
-    glowColor: '#10b981',
+    shortLabel: 'DETECT',
+    icon: <Shield size={14} />,
+    color: 'text-emerald-400',
+    bgColor: 'bg-emerald-500/10 border-emerald-500/20',
     group: 'intel',
   },
   cybercrime: {
     label: 'Cybercrime',
-    icon: <Zap size={12} />,
+    shortLabel: 'CRIME',
+    icon: <Zap size={14} />,
     color: 'text-red-400',
-    glowColor: '#f87171',
+    bgColor: 'bg-red-500/10 border-red-500/20',
     group: 'intel',
   },
   c2_tracker: {
     label: 'C2 Tracker',
-    icon: <ShieldAlert size={12} />,
-    color: 'text-rose-600',
-    glowColor: '#e11d48',
+    shortLabel: 'C2',
+    icon: <Crosshair size={14} />,
+    color: 'text-rose-500',
+    bgColor: 'bg-rose-600/10 border-rose-600/20',
     group: 'intel',
   },
   cisa_advisory: {
-    label: 'CISA Advisories',
-    icon: <AlertTriangle size={12} />,
-    color: 'text-amber-600',
-    glowColor: '#d97706',
+    label: 'CISA KEV',
+    shortLabel: 'KEV',
+    icon: <AlertTriangle size={14} />,
+    color: 'text-amber-500',
+    bgColor: 'bg-amber-600/10 border-amber-600/20',
     group: 'intel',
   },
   blocklist: {
     label: 'Blocklist',
-    icon: <ShieldAlert size={12} />,
-    color: 'text-slate-500',
-    glowColor: '#64748b',
+    shortLabel: 'BL',
+    icon: <ShieldAlert size={14} />,
+    color: 'text-slate-400',
+    bgColor: 'bg-slate-500/10 border-slate-500/20',
     group: 'intel',
   },
   breach: {
     label: 'Breaches',
-    icon: <ShieldAlert size={12} />,
+    shortLabel: 'BREACH',
+    icon: <ShieldAlert size={14} />,
     color: 'text-red-400',
-    glowColor: '#f87171',
+    bgColor: 'bg-red-500/10 border-red-500/20',
     group: 'intel',
   },
   scam: {
     label: 'Scam',
-    icon: <AlertTriangle size={12} />,
-    color: 'text-amber-500',
-    glowColor: '#f59e0b',
+    shortLabel: 'SCAM',
+    icon: <AlertTriangle size={14} />,
+    color: 'text-amber-400',
+    bgColor: 'bg-amber-500/10 border-amber-500/20',
     group: 'intel',
   },
   briefing: {
     label: 'Briefings',
-    icon: <Newspaper size={12} />,
-    color: 'text-emerald-500',
-    glowColor: '#10b981',
+    shortLabel: 'INTEL',
+    icon: <Newspaper size={14} />,
+    color: 'text-emerald-400',
+    bgColor: 'bg-emerald-500/10 border-emerald-500/20',
     group: 'intel',
   },
   research: {
     label: 'Research',
-    icon: <Newspaper size={12} />,
-    color: 'text-sky-500',
-    glowColor: '#0ea5e9',
+    shortLabel: 'RSRCH',
+    icon: <Newspaper size={14} />,
+    color: 'text-sky-400',
+    bgColor: 'bg-sky-500/10 border-sky-500/20',
     group: 'social',
   },
-  reddit: { label: 'Reddit', icon: <Rss size={12} />, color: 'text-orange-400', glowColor: '#fb923c', group: 'social' },
+  reddit: {
+    label: 'Reddit',
+    shortLabel: 'RDDT',
+    icon: <Rss size={14} />,
+    color: 'text-orange-400',
+    bgColor: 'bg-orange-500/10 border-orange-500/20',
+    group: 'social',
+  },
   telegram: {
     label: 'Telegram',
-    icon: <MessageSquare size={12} />,
+    shortLabel: 'TG',
+    icon: <MessageSquare size={14} />,
     color: 'text-cyan-400',
-    glowColor: '#22d3ee',
+    bgColor: 'bg-cyan-500/10 border-cyan-500/20',
     group: 'social',
   },
   x_feed: {
     label: 'X/Bluesky',
-    icon: <AtSign size={12} />,
+    shortLabel: 'X',
+    icon: <AtSign size={14} />,
     color: 'text-blue-400',
-    glowColor: '#60a5fa',
+    bgColor: 'bg-blue-500/10 border-blue-500/20',
     group: 'social',
   },
   tech_news: {
-    label: 'Tech News',
-    icon: <Newspaper size={12} />,
+    label: 'Tech Infra',
+    shortLabel: 'TECH',
+    icon: <Newspaper size={14} />,
     color: 'text-sky-400',
-    glowColor: '#38bdf8',
+    bgColor: 'bg-sky-500/10 border-sky-500/20',
     group: 'social',
   },
 };
 
 /* ─── Helpers ───────────────────────────────────────────────────────────── */
 
-const SEVERITY_VARIANT: Record<string, 'danger' | 'warning' | 'default'> = {
-  critical: 'danger',
-  high: 'warning',
-  medium: 'warning',
-  low: 'default',
-};
-
-const SEVERITY_DOT: Record<string, string> = {
-  critical: 'bg-rose-500 shadow-rose-500/50',
-  high: 'bg-orange-500 shadow-orange-500/50',
-  medium: 'bg-amber-500 shadow-amber-500/50',
-  low: 'bg-emerald-500 shadow-emerald-500/50',
+const SEVERITY_CONFIG = {
+  critical: {
+    dot: 'bg-rose-500',
+    ring: 'ring-rose-500/30',
+    text: 'text-rose-400',
+    bg: 'bg-rose-500/10',
+    badge: 'danger' as const,
+    pulse: true,
+  },
+  high: {
+    dot: 'bg-orange-500',
+    ring: 'ring-orange-500/30',
+    text: 'text-orange-400',
+    bg: 'bg-orange-500/10',
+    badge: 'warning' as const,
+    pulse: false,
+  },
+  medium: {
+    dot: 'bg-amber-500',
+    ring: 'ring-amber-500/30',
+    text: 'text-amber-400',
+    bg: 'bg-amber-500/10',
+    badge: 'warning' as const,
+    pulse: false,
+  },
+  low: {
+    dot: 'bg-emerald-500',
+    ring: 'ring-emerald-500/30',
+    text: 'text-emerald-400',
+    bg: 'bg-emerald-500/10',
+    badge: 'default' as const,
+    pulse: false,
+  },
 };
 
 function formatTime(ts: string): string {
   const d = new Date(ts);
   const diff = Date.now() - d.getTime();
-  if (diff < 60_000) return 'just now';
-  if (diff < 3_600_000) return `${Math.floor(diff / 60_000)}m ago`;
-  if (diff < 86_400_000) return `${Math.floor(diff / 3_600_000)}h ago`;
-  return d.toLocaleDateString();
+  if (diff < 60_000) return 'now';
+  if (diff < 3_600_000) return `${Math.floor(diff / 60_000)}m`;
+  if (diff < 86_400_000) return `${Math.floor(diff / 3_600_000)}h`;
+  return `${Math.floor(diff / 86_400_000)}d`;
 }
 
 function formatTimeFull(ts: string): string {
@@ -278,14 +354,6 @@ function formatTimeFull(ts: string): string {
 }
 
 const ALL_KINDS = Object.keys(LAYER_DEFS) as PulseKind[];
-
-/* ─── Layer group definitions ───────────────────────────────────────────── */
-
-const GROUP_LABELS: Record<string, string> = {
-  geo: 'Geospatial',
-  intel: 'Threat Intel',
-  social: 'Social / OSINT',
-};
 
 /* ─── Component ─────────────────────────────────────────────────────────── */
 
@@ -316,10 +384,11 @@ export default function GlobalPulse(): JSX.Element {
   );
   const [autoRefresh, setAutoRefresh] = useState(true);
   const [selectedEvent, setSelectedEvent] = useState<PulseEvent | null>(null);
-  const [viewMode, setViewMode] = useState<'all' | 'geo' | 'intel' | 'social'>('all');
   const [mapMode, setMapMode] = useState<'2d' | '3d'>('3d');
   const [focus, setFocus] = useState<{ lat: number; lng: number } | null>(null);
   const [lastUpdated, setLastUpdated] = useState<string | null>(null);
+  const [showFilters, setShowFilters] = useState(false);
+  const [severityFilter, setSeverityFilter] = useState<Set<string>>(new Set(['critical', 'high', 'medium', 'low']));
   const loadIdRef = useRef(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -365,36 +434,17 @@ export default function GlobalPulse(): JSX.Element {
     });
   }, []);
 
-  const toggleGroup = useCallback((group: PulseKind[]) => {
-    setActiveLayers((prev) => {
-      const next = new Set(prev);
-      const allOn = group.every((k) => next.has(k));
-      for (const k of group) {
-        if (allOn) next.delete(k);
-        else next.add(k);
-      }
-      return next;
-    });
-  }, []);
-
   const filteredEvents = useMemo(() => {
     if (!data) return [];
-    let events = data.events.filter((e) => activeLayers.has(e.kind));
-    if (viewMode !== 'all') {
-      const groupKinds = ALL_KINDS.filter((k) => LAYER_DEFS[k].group === viewMode);
-      events = events.filter((e) => groupKinds.includes(e.kind));
-    }
-    return events;
-  }, [data, activeLayers, viewMode]);
+    return data.events.filter((e) => activeLayers.has(e.kind) && severityFilter.has(e.severity));
+  }, [data, activeLayers, severityFilter]);
 
-  // Geo points for globe/map
   const geoPoints = useMemo(() => {
     return filteredEvents
       .filter((e) => e.lat !== 0 || e.lng !== 0)
       .map((e) => ({ id: e.id, lat: e.lat, lng: e.lng, severity: e.severity, kind: e.kind }));
   }, [filteredEvents]);
 
-  // Globe data
   const globePoints: CtiPoint[] = useMemo(() => {
     return geoPoints.map((p) => ({
       lat: p.lat,
@@ -409,218 +459,289 @@ export default function GlobalPulse(): JSX.Element {
   const globeArcs: CtiArc[] = useMemo(() => synthesizeArcs(globePoints), [globePoints]);
   const kpis = useMemo(() => deriveKpis(globePoints, filteredEvents.length), [globePoints, filteredEvents]);
 
-  // Count active layers with data
-  const activeWithData = useMemo(() => {
-    if (!data) return 0;
-    return ALL_KINDS.filter((k) => activeLayers.has(k) && (data.layers[k] ?? 0) > 0).length;
-  }, [data, activeLayers]);
-
-  // Point click → focus globe
   const handlePointClick = useCallback((point: CtiPoint) => {
     setFocus({ lat: point.lat, lng: point.lng });
   }, []);
 
-  const headerExtra = (
-    <div className="space-y-3 mt-2">
-      {/* Map mode toggle + view tabs */}
-      <div className="flex items-center gap-2 flex-wrap">
-        <div className="inline-flex rounded-lg border border-slate-200 dark:border-slate-800 overflow-hidden">
-          <button
-            type="button"
-            onClick={() => setMapMode('3d')}
-            className={`inline-flex items-center gap-1 text-[11px] font-mono px-3 py-1.5 transition-colors ${mapMode === '3d' ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300' : 'bg-white dark:bg-slate-900 text-slate-500'}`}
-          >
-            <Box size={12} /> 3D Globe
-          </button>
-          <button
-            type="button"
-            onClick={() => setMapMode('2d')}
-            className={`inline-flex items-center gap-1 text-[11px] font-mono px-3 py-1.5 transition-colors ${mapMode === '2d' ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300' : 'bg-white dark:bg-slate-900 text-slate-500'}`}
-          >
-            <Map size={12} /> 2D Map
-          </button>
-        </div>
-        <div className="inline-flex rounded-lg border border-slate-200 dark:border-slate-800 overflow-hidden">
-          {(
-            [
-              ['all', 'All'],
-              ['geo', 'Geo'],
-              ['intel', 'Intel'],
-              ['social', 'Social'],
-            ] as const
-          ).map(([m, label]) => (
-            <button
-              key={m}
-              type="button"
-              onClick={() => setViewMode(m)}
-              className={`text-[11px] font-mono px-3 py-1.5 transition-colors ${viewMode === m ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300' : 'bg-white dark:bg-slate-900 text-slate-500'}`}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
-        {/* Live status indicator */}
-        <div className="flex items-center gap-1.5 ml-auto">
-          {autoRefresh ? (
-            <Wifi size={12} className="text-emerald-500 animate-pulse" />
-          ) : (
-            <WifiOff size={12} className="text-slate-400" />
-          )}
-          <span className="text-[10px] font-mono text-slate-500">{geoPoints.length} geo pts</span>
-          {lastUpdated && <span className="text-[10px] font-mono text-slate-400">· {formatTime(lastUpdated)}</span>}
-        </div>
-      </div>
+  // Group layers by category
+  const layerGroups = useMemo(() => {
+    const groups: Record<string, Array<{ kind: PulseKind; def: LayerDef; count: number; active: boolean }>> = {
+      geo: [],
+      intel: [],
+      social: [],
+    };
+    for (const kind of ALL_KINDS) {
+      const def = LAYER_DEFS[kind];
+      const count = data?.layers[kind] ?? 0;
+      groups[def.group].push({ kind, def, count, active: activeLayers.has(kind) });
+    }
+    return groups;
+  }, [data, activeLayers]);
 
-      {/* Layer toggles by group */}
-      <div className="flex flex-wrap gap-3">
-        {(['geo', 'intel', 'social'] as const).map((group) => {
-          const groupKinds = ALL_KINDS.filter((k) => LAYER_DEFS[k].group === group);
-          const groupCount = groupKinds.reduce((sum, k) => sum + (data?.layers[k] ?? 0), 0);
-          return (
-            <div key={group} className="flex items-center gap-1.5">
-              <button
-                type="button"
-                onClick={() => toggleGroup(groupKinds)}
-                className={`text-[9px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded transition-colors ${groupKinds.some((k) => activeLayers.has(k)) ? 'text-brand-600 dark:text-brand-400' : 'text-slate-400'}`}
-                title={`${GROUP_LABELS[group]} — ${groupCount} events`}
-              >
-                {group} ({groupCount})
-              </button>
-              {groupKinds.map((kind) => {
-                const def = LAYER_DEFS[kind];
-                const on = activeLayers.has(kind);
-                const count = data?.layers[kind] ?? 0;
-                const hasData = count > 0;
-                return (
-                  <button
-                    key={kind}
-                    type="button"
-                    onClick={() => toggleLayer(kind)}
-                    className={`inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono rounded-md border transition-all ${
-                      on
-                        ? hasData
-                          ? 'border-brand-500/50 bg-brand-500/10 text-brand-700 dark:text-brand-300'
-                          : 'border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-800/50 text-slate-400'
-                        : 'border-slate-200 dark:border-slate-800 text-slate-400 opacity-60'
-                    }`}
-                    title={`${def.label} — ${count} events`}
-                  >
-                    <span className={on && hasData ? def.color : ''}>{def.icon}</span>
-                    {def.label}
-                    <span className={`${on && hasData ? 'opacity-70' : 'opacity-40'}`}>{count}</span>
-                  </button>
-                );
-              })}
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Controls row */}
-      <div className="flex items-center gap-2 flex-wrap">
-        <button
-          type="button"
-          onClick={() => setAutoRefresh((p) => !p)}
-          className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono rounded-lg border transition-colors ${autoRefresh ? 'border-emerald-500/60 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300' : 'border-slate-300 dark:border-slate-700 text-slate-500'}`}
-        >
-          <RefreshCw size={12} className={autoRefresh ? 'animate-spin' : ''} /> Auto-refresh
-        </button>
-        <button
-          type="button"
-          onClick={load}
-          disabled={loading}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono rounded-lg border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors disabled:opacity-50"
-        >
-          <RefreshCw size={12} className={loading ? 'animate-spin' : ''} /> Refresh
-        </button>
-        {/* Select all / none quick actions */}
-        <button
-          type="button"
-          onClick={() => setActiveLayers(new Set(ALL_KINDS))}
-          className="text-[10px] font-mono px-2 py-1 rounded text-brand-600 dark:text-brand-400 hover:bg-brand-500/10 transition-colors"
-        >
-          Select All
-        </button>
-        <button
-          type="button"
-          onClick={() => setActiveLayers(new Set())}
-          className="text-[10px] font-mono px-2 py-1 rounded text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-        >
-          Clear All
-        </button>
-      </div>
-    </div>
-  );
+  // KPI stats
+  const stats = useMemo(() => {
+    if (!data) return null;
+    const bySeverity = { critical: 0, high: 0, medium: 0, low: 0 };
+    const bySource: Record<string, number> = {};
+    for (const e of filteredEvents) {
+      bySeverity[e.severity]++;
+      bySource[e.source] = (bySource[e.source] || 0) + 1;
+    }
+    const topSources = Object.entries(bySource)
+      .sort(([, a], [, b]) => b - a)
+      .slice(0, 5);
+    return { bySeverity, topSources, geoCount: geoPoints.length };
+  }, [data, filteredEvents, geoPoints]);
 
   return (
     <DataPageLayout
       backTo="/threatintel"
       icon={<Globe size={28} />}
-      title="Global Pulse — Live Intel"
-      description="Real-time global intelligence: 3D globe with severity arcs, earthquakes, cyber attacks, IOCs, ransomware, dark web, phishing, malware, CVEs, breaches, social feeds, and more."
-      headerExtra={headerExtra}
+      title="Global Pulse"
+      description="Real-time global intelligence across cyber, geopolitical, and social domains"
       loading={loading && !data}
       error={error}
       onRetry={load}
     >
       {data && (
-        <>
-          {/* KPIs */}
-          <StatCards
-            cards={[
-              { label: 'Total Events', value: data.total_events, icon: <Activity size={16} /> },
-              {
-                label: 'Critical',
-                value: kpis.critical,
-                icon: <AlertTriangle size={16} />,
-                color: 'text-rose-600 dark:text-rose-400',
-              },
-              {
-                label: 'High',
-                value: kpis.high,
-                icon: <Shield size={16} />,
-                color: 'text-orange-600 dark:text-orange-400',
-              },
-              {
-                label: 'Geo Points',
-                value: kpis.geoCount,
-                icon: <Globe size={16} />,
-                color: 'text-sky-600 dark:text-sky-400',
-              },
-              {
-                label: 'Active Layers',
-                value: `${activeWithData}/${activeLayers.size}`,
-                icon: <Radio size={16} />,
-                color: 'text-emerald-600 dark:text-emerald-400',
-              },
-            ]}
-          />
-
-          {/* Degraded data warning */}
-          {data.total_events < 10 && (
-            <div className="mt-4 rounded-lg border border-amber-500/30 bg-amber-500/5 px-4 py-3 flex items-center gap-3">
-              <AlertTriangle size={16} className="text-amber-500 shrink-0" />
-              <div>
-                <p className="text-xs font-medium text-amber-700 dark:text-amber-300">Limited data available</p>
-                <p className="text-[11px] text-amber-600/70 dark:text-amber-400/70">
-                  Some data feeds may be warming up. Try refreshing in a moment for more comprehensive coverage.
-                </p>
+        <div className="space-y-4">
+          {/* ─── Top Stats Bar ─── */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <Activity size={14} className="text-slate-400" />
+                <span className="text-[10px] font-mono uppercase text-slate-500">Total Events</span>
               </div>
+              <div className="text-2xl font-bold font-mono text-slate-900 dark:text-white">{data.total_events}</div>
+              <div className="text-[10px] font-mono text-slate-500 mt-1">{geoPoints.length} geo-located</div>
+            </div>
+
+            <div className="rounded-xl border border-rose-500/20 bg-rose-500/5 p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <AlertTriangle size={14} className="text-rose-400" />
+                <span className="text-[10px] font-mono uppercase text-rose-500/70">Critical</span>
+              </div>
+              <div className="text-2xl font-bold font-mono text-rose-400">{kpis.critical}</div>
+              <div className="text-[10px] font-mono text-rose-500/60 mt-1">
+                {stats?.bySeverity.high ?? 0} high severity
+              </div>
+            </div>
+
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <Layers size={14} className="text-slate-400" />
+                <span className="text-[10px] font-mono uppercase text-slate-500">Active Layers</span>
+              </div>
+              <div className="text-2xl font-bold font-mono text-slate-900 dark:text-white">{activeLayers.size}</div>
+              <div className="text-[10px] font-mono text-slate-500 mt-1">
+                {ALL_KINDS.length - activeLayers.size} hidden
+              </div>
+            </div>
+
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <Clock size={14} className="text-slate-400" />
+                <span className="text-[10px] font-mono uppercase text-slate-500">Last Update</span>
+              </div>
+              <div className="text-lg font-bold font-mono text-slate-900 dark:text-white">
+                {lastUpdated ? formatTime(lastUpdated) : '—'}
+              </div>
+              <div className="flex items-center gap-1.5 mt-1">
+                {autoRefresh ? (
+                  <>
+                    <Wifi size={10} className="text-emerald-400" />
+                    <span className="text-[10px] font-mono text-emerald-500">Live</span>
+                  </>
+                ) : (
+                  <>
+                    <WifiOff size={10} className="text-slate-400" />
+                    <span className="text-[10px] font-mono text-slate-500">Paused</span>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* ─── Controls Bar ─── */}
+          <div className="flex items-center gap-2 flex-wrap">
+            {/* Map Mode Toggle */}
+            <div className="inline-flex rounded-lg border border-slate-200 dark:border-slate-800 overflow-hidden">
+              <button
+                type="button"
+                onClick={() => setMapMode('3d')}
+                className={`inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 transition-colors ${
+                  mapMode === '3d'
+                    ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300'
+                    : 'bg-white dark:bg-slate-900 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800'
+                }`}
+              >
+                <Box size={14} /> 3D Globe
+              </button>
+              <button
+                type="button"
+                onClick={() => setMapMode('2d')}
+                className={`inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 transition-colors ${
+                  mapMode === '2d'
+                    ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300'
+                    : 'bg-white dark:bg-slate-900 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800'
+                }`}
+              >
+                <Map size={14} /> 2D Map
+              </button>
+            </div>
+
+            {/* Filters Toggle */}
+            <button
+              type="button"
+              onClick={() => setShowFilters(!showFilters)}
+              className={`inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded-lg border transition-colors ${
+                showFilters
+                  ? 'border-brand-500/50 bg-brand-500/10 text-brand-700 dark:text-brand-300'
+                  : 'border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800'
+              }`}
+            >
+              <Filter size={14} />
+              Filters
+              {activeLayers.size < ALL_KINDS.length && (
+                <span className="ml-1 px-1.5 py-0.5 text-[10px] rounded-full bg-brand-500/20 text-brand-600 dark:text-brand-400">
+                  {activeLayers.size}
+                </span>
+              )}
+            </button>
+
+            {/* Refresh Controls */}
+            <div className="flex items-center gap-2 ml-auto">
+              <button
+                type="button"
+                onClick={() => setAutoRefresh((p) => !p)}
+                className={`inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-lg border transition-colors ${
+                  autoRefresh
+                    ? 'border-emerald-500/60 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
+                    : 'border-slate-200 dark:border-slate-800 text-slate-500'
+                }`}
+              >
+                <RefreshCw size={12} className={autoRefresh ? 'animate-spin' : ''} />
+                {autoRefresh ? 'Live' : 'Paused'}
+              </button>
+              <button
+                type="button"
+                onClick={load}
+                disabled={loading}
+                className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors disabled:opacity-50"
+              >
+                <RefreshCw size={12} className={loading ? 'animate-spin' : ''} />
+                Refresh
+              </button>
+            </div>
+          </div>
+
+          {/* ─── Filters Panel ─── */}
+          {showFilters && (
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4 animate-fade-in">
+              {/* Severity Filter */}
+              <div className="mb-4">
+                <h4 className="text-[10px] font-mono uppercase text-slate-500 mb-2">Severity</h4>
+                <div className="flex gap-2">
+                  {(['critical', 'high', 'medium', 'low'] as const).map((sev) => {
+                    const config = SEVERITY_CONFIG[sev];
+                    const active = severityFilter.has(sev);
+                    return (
+                      <button
+                        key={sev}
+                        type="button"
+                        onClick={() => {
+                          setSeverityFilter((prev) => {
+                            const next = new Set(prev);
+                            if (next.has(sev)) next.delete(sev);
+                            else next.add(sev);
+                            return next;
+                          });
+                        }}
+                        className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-mono rounded-lg border transition-all ${
+                          active
+                            ? `${config.bg} border-current ${config.text}`
+                            : 'border-slate-200 dark:border-slate-800 text-slate-400 opacity-60'
+                        }`}
+                      >
+                        <span className={`w-2 h-2 rounded-full ${active ? config.dot : 'bg-slate-400'}`} />
+                        {sev}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Layer Groups */}
+              {(['geo', 'intel', 'social'] as const).map((group) => {
+                const layers = layerGroups[group];
+                const activeCount = layers.filter((l) => l.active).length;
+                const groupLabels = { geo: 'Geospatial', intel: 'Threat Intel', social: 'Social / OSINT' };
+                return (
+                  <div key={group} className="mb-4 last:mb-0">
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="text-[10px] font-mono uppercase text-slate-500">
+                        {groupLabels[group]}
+                        <span className="ml-2 text-slate-400">
+                          ({activeCount}/{layers.length})
+                        </span>
+                      </h4>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setActiveLayers((prev) => {
+                            const next = new Set(prev);
+                            const allActive = layers.every((l) => next.has(l.kind));
+                            for (const l of layers) {
+                              if (allActive) next.delete(l.kind);
+                              else next.add(l.kind);
+                            }
+                            return next;
+                          });
+                        }}
+                        className="text-[10px] font-mono text-brand-500 hover:text-brand-600"
+                      >
+                        {activeCount === layers.length ? 'Clear' : 'Select All'}
+                      </button>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {layers.map(({ kind, def, count, active }) => (
+                        <button
+                          key={kind}
+                          type="button"
+                          onClick={() => toggleLayer(kind)}
+                          className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-mono rounded-lg border transition-all ${
+                            active
+                              ? count > 0
+                                ? `${def.bgColor} ${def.color} border-current`
+                                : 'border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-800/50 text-slate-400'
+                              : 'border-slate-200 dark:border-slate-800 text-slate-400 opacity-50'
+                          }`}
+                        >
+                          <span className={active && count > 0 ? def.color : 'text-slate-400'}>{def.icon}</span>
+                          {def.shortLabel}
+                          {count > 0 && (
+                            <span className={`text-[10px] ${active ? 'opacity-70' : 'opacity-40'}`}>{count}</span>
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           )}
 
-          {/* Map + Feed */}
-          <div className="mt-6 grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-6">
-            {/* Map/Globe */}
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 overflow-hidden min-h-[350px] sm:min-h-[500px] relative">
-              {/* Empty state for globe */}
-              {geoPoints.length === 0 && mapMode === '3d' && (
+          {/* ─── Main Content: Globe + Feed ─── */}
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-4">
+            {/* Globe/Map */}
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 overflow-hidden min-h-[400px] lg:min-h-[600px] relative">
+              {geoPoints.length === 0 && (
                 <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
-                  <div className="bg-slate-900/80 backdrop-blur-sm rounded-xl px-6 py-4 text-center border border-slate-700/50">
-                    <Globe size={32} className="text-slate-500 mx-auto mb-2" />
-                    <p className="text-sm text-slate-400 font-medium">No geolocated events</p>
-                    <p className="text-[11px] text-slate-500 mt-1">
-                      Enable IOC Activity or Earthquake layers to see points on the globe
+                  <div className="bg-slate-900/90 backdrop-blur-sm rounded-xl px-6 py-5 text-center border border-slate-700/50 max-w-xs">
+                    <Crosshair size={32} className="text-slate-500 mx-auto mb-3" />
+                    <p className="text-sm text-slate-300 font-medium">No geolocated events</p>
+                    <p className="text-xs text-slate-500 mt-1.5">
+                      Enable more layers in Filters to see points on the globe
                     </p>
                   </div>
                 </div>
@@ -628,27 +749,21 @@ export default function GlobalPulse(): JSX.Element {
               {mapMode === '3d' ? (
                 <Suspense
                   fallback={
-                    <div className="flex items-center justify-center h-[350px] sm:h-[500px] text-sm text-slate-400">
+                    <div className="flex items-center justify-center h-full">
                       <div className="flex flex-col items-center gap-3">
                         <div className="w-10 h-10 rounded-full border-2 border-brand-500/30 border-t-brand-500 animate-spin" />
-                        <span className="animate-pulse">Loading globe…</span>
+                        <span className="text-sm text-slate-400 animate-pulse">Loading globe…</span>
                       </div>
                     </div>
                   }
                 >
-                  <CtiGlobe
-                    arcs={globeArcs}
-                    points={globePoints}
-                    focus={focus}
-                    onPointClick={handlePointClick}
-                    autoRotate={false}
-                  />
+                  <CtiGlobe arcs={globeArcs} points={globePoints} focus={focus} onPointClick={handlePointClick} />
                 </Suspense>
               ) : (
                 <Suspense
                   fallback={
-                    <div className="flex items-center justify-center h-[350px] sm:h-[500px] text-sm text-slate-400">
-                      Loading map…
+                    <div className="flex items-center justify-center h-full">
+                      <span className="text-sm text-slate-400">Loading map…</span>
                     </div>
                   }
                 >
@@ -656,190 +771,212 @@ export default function GlobalPulse(): JSX.Element {
                 </Suspense>
               )}
               {/* Legend */}
-              <div className="flex flex-wrap items-center gap-3 px-3 py-2 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60">
+              <div className="absolute bottom-0 left-0 right-0 flex items-center gap-4 px-4 py-2.5 bg-gradient-to-t from-slate-900/90 to-transparent">
                 {(['critical', 'high', 'medium', 'low'] as const).map((sev) => (
-                  <div key={sev} className="flex items-center gap-1">
-                    <span className={`w-2 h-2 rounded-full shadow-sm ${SEVERITY_DOT[sev]}`} />
-                    <span className="text-[9px] font-mono text-slate-500 capitalize">{sev}</span>
+                  <div key={sev} className="flex items-center gap-1.5">
+                    <span className={`w-2 h-2 rounded-full ${SEVERITY_CONFIG[sev].dot}`} />
+                    <span className="text-[10px] font-mono text-slate-400 capitalize">{sev}</span>
                   </div>
                 ))}
-                <span className="text-[9px] font-mono text-slate-500 ml-2 border-l border-slate-200 dark:border-slate-700 pl-2">
-                  Arcs = observed source telemetry → focal target
-                </span>
-                <span className="text-[9px] font-mono text-slate-400 ml-auto">
-                  {geoPoints.length} points · {globeArcs.length} arcs
+                <span className="text-[10px] font-mono text-slate-500 ml-auto">
+                  {geoPoints.length} pts · {globeArcs.length} arcs
                 </span>
               </div>
             </div>
 
-            {/* Event feed */}
-            <aside className="space-y-1 max-h-[400px] sm:max-h-[660px] overflow-y-auto pr-1 custom-scrollbar">
-              <div className="sticky top-0 bg-white dark:bg-slate-950 pb-2 z-10 flex items-center justify-between">
-                <h3 className="text-sm font-semibold font-mono text-slate-700 dark:text-slate-300">
-                  Live Feed ({filteredEvents.length})
-                </h3>
-                {filteredEvents.length > 0 && (
-                  <span className="text-[10px] font-mono text-slate-400">
+            {/* Event Feed */}
+            <aside className="flex flex-col rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 overflow-hidden">
+              {/* Feed Header */}
+              <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200 dark:border-slate-800">
+                <div className="flex items-center gap-2">
+                  <Radio size={14} className="text-rose-400 animate-pulse" />
+                  <h3 className="text-sm font-semibold font-mono text-slate-700 dark:text-slate-300">Live Feed</h3>
+                  <span className="text-xs font-mono text-slate-500">({filteredEvents.length})</span>
+                </div>
+                {filteredEvents.filter((e) => e.severity === 'critical').length > 0 && (
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/20">
                     {filteredEvents.filter((e) => e.severity === 'critical').length} critical
                   </span>
                 )}
               </div>
-              {filteredEvents.length === 0 ? (
-                <div className="flex flex-col items-center justify-center py-12 text-center">
-                  <Radio size={24} className="text-slate-300 dark:text-slate-600 mb-3" />
-                  <p className="text-xs text-slate-400 font-medium">No events match active layers</p>
-                  <p className="text-[11px] text-slate-500 mt-1">Enable some layers above to see live data</p>
-                  <button
-                    type="button"
-                    onClick={() => setActiveLayers(new Set(ALL_KINDS))}
-                    className="mt-3 text-[11px] font-mono px-3 py-1.5 rounded-lg border border-brand-500/30 text-brand-600 dark:text-brand-400 hover:bg-brand-500/10 transition-colors"
-                  >
-                    Enable All Layers
-                  </button>
-                </div>
-              ) : (
-                filteredEvents.slice(0, 100).map((ev) => {
-                  const def = LAYER_DEFS[ev.kind];
-                  const isSelected = selectedEvent?.id === ev.id;
-                  const hasGeo = ev.lat !== 0 || ev.lng !== 0;
-                  return (
+
+              {/* Feed List */}
+              <div className="flex-1 overflow-y-auto custom-scrollbar max-h-[500px] lg:max-h-none">
+                {filteredEvents.length === 0 ? (
+                  <div className="flex flex-col items-center justify-center py-16 text-center px-4">
+                    <Filter size={32} className="text-slate-300 dark:text-slate-600 mb-4" />
+                    <p className="text-sm text-slate-400 font-medium">No events match filters</p>
+                    <p className="text-xs text-slate-500 mt-1">Adjust layers or severity filters above</p>
                     <button
-                      key={ev.id}
                       type="button"
                       onClick={() => {
-                        setSelectedEvent(isSelected ? null : ev);
-                        if (hasGeo) setFocus({ lat: ev.lat, lng: ev.lng });
+                        setActiveLayers(new Set(ALL_KINDS));
+                        setSeverityFilter(new Set(['critical', 'high', 'medium', 'low']));
                       }}
-                      className={`w-full text-left rounded-lg border p-2.5 transition-all ${
-                        isSelected
-                          ? 'border-brand-500/60 bg-brand-500/5 shadow-sm'
-                          : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800/30'
-                      }`}
+                      className="mt-4 text-xs font-mono px-4 py-2 rounded-lg bg-brand-500/10 text-brand-600 dark:text-brand-400 hover:bg-brand-500/20 transition-colors"
                     >
-                      <div className="flex items-start gap-2.5">
-                        {/* Severity indicator dot */}
-                        <div className="mt-1 shrink-0 relative">
-                          <span className={`w-2 h-2 rounded-full block shadow-sm ${SEVERITY_DOT[ev.severity]}`} />
-                          {ev.severity === 'critical' && (
-                            <span className="absolute inset-0 w-2 h-2 rounded-full bg-rose-500 animate-ping opacity-40" />
-                          )}
-                        </div>
-                        <div className={`shrink-0 ${def?.color ?? 'text-slate-400'}`}>{def?.icon}</div>
-                        <div className="min-w-0 flex-1">
-                          <span className="text-[11px] font-medium text-slate-800 dark:text-slate-200 truncate block">
-                            {ev.title}
-                          </span>
-                          <p className="text-[10px] text-slate-500 dark:text-slate-400 truncate mt-0.5">
-                            {ev.description}
-                          </p>
-                          <div className="flex items-center gap-2 mt-1 flex-wrap">
-                            <span className="text-[9px] font-mono text-slate-400">{formatTime(ev.timestamp)}</span>
-                            <span className="text-[9px] font-mono text-slate-400">{ev.source}</span>
-                            {hasGeo && (
-                              <span className="text-[9px] font-mono text-brand-500 flex items-center gap-0.5">
-                                <Globe size={8} /> geo
-                              </span>
-                            )}
-                            {ev.url && (
-                              <a
-                                href={ev.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onClick={(e) => e.stopPropagation()}
-                                className="text-[9px] font-mono text-brand-500 hover:underline flex items-center gap-0.5"
-                              >
-                                <ExternalLink size={8} /> src
-                              </a>
-                            )}
-                          </div>
-                        </div>
-                        <ChevronRight
-                          size={12}
-                          className={`shrink-0 mt-1 transition-transform ${isSelected ? 'rotate-90 text-brand-500' : 'text-slate-300 dark:text-slate-600'}`}
-                        />
-                      </div>
+                      Reset All Filters
                     </button>
-                  );
-                })
-              )}
+                  </div>
+                ) : (
+                  <div className="divide-y divide-slate-100 dark:divide-slate-800/50">
+                    {filteredEvents.slice(0, 80).map((ev) => {
+                      const def = LAYER_DEFS[ev.kind];
+                      const sevConfig = SEVERITY_CONFIG[ev.severity];
+                      const isSelected = selectedEvent?.id === ev.id;
+                      const hasGeo = ev.lat !== 0 || ev.lng !== 0;
+
+                      return (
+                        <button
+                          key={ev.id}
+                          type="button"
+                          onClick={() => {
+                            setSelectedEvent(isSelected ? null : ev);
+                            if (hasGeo) setFocus({ lat: ev.lat, lng: ev.lng });
+                          }}
+                          className={`w-full text-left px-4 py-3 transition-colors ${
+                            isSelected ? 'bg-brand-500/5' : 'hover:bg-slate-50 dark:hover:bg-slate-800/30'
+                          }`}
+                        >
+                          <div className="flex items-start gap-3">
+                            {/* Severity + Icon */}
+                            <div className="shrink-0 mt-0.5 relative">
+                              <span className={`w-3 h-3 rounded-full block ${sevConfig.dot}`} />
+                              {sevConfig.pulse && (
+                                <span className="absolute inset-0 w-3 h-3 rounded-full bg-rose-500 animate-ping opacity-40" />
+                              )}
+                            </div>
+
+                            {/* Content */}
+                            <div className="min-w-0 flex-1">
+                              <div className="flex items-center gap-2 mb-1">
+                                <span className={def?.color ?? 'text-slate-400'}>{def?.icon}</span>
+                                <span className="text-[10px] font-mono uppercase text-slate-500">
+                                  {def?.shortLabel}
+                                </span>
+                                <span className="text-[10px] font-mono text-slate-400 ml-auto">
+                                  {formatTime(ev.timestamp)}
+                                </span>
+                              </div>
+                              <p className="text-xs font-medium text-slate-800 dark:text-slate-200 line-clamp-1">
+                                {ev.title}
+                              </p>
+                              <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5">
+                                {ev.description}
+                              </p>
+                              <div className="flex items-center gap-2 mt-1.5">
+                                <span className="text-[10px] font-mono text-slate-400">{ev.source}</span>
+                                {hasGeo && (
+                                  <span className="text-[10px] font-mono text-brand-500 flex items-center gap-0.5">
+                                    <Crosshair size={8} /> geo
+                                  </span>
+                                )}
+                                {ev.url && (
+                                  <a
+                                    href={ev.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={(e) => e.stopPropagation()}
+                                    className="text-[10px] font-mono text-brand-500 hover:underline ml-auto"
+                                  >
+                                    <ExternalLink size={10} />
+                                  </a>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
             </aside>
           </div>
 
-          {/* Selected event detail */}
+          {/* ─── Selected Event Detail ─── */}
           {selectedEvent && (
-            <div className="mt-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 animate-fade-in-up">
+            <div className="rounded-xl border border-brand-500/30 bg-brand-500/5 p-5 animate-fade-in">
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1">
-                  <div className="flex items-center gap-2.5">
-                    <span className={`shrink-0 ${LAYER_DEFS[selectedEvent.kind]?.color}`}>
+                  <div className="flex items-center gap-3 mb-3">
+                    <span className={LAYER_DEFS[selectedEvent.kind]?.color}>
                       {LAYER_DEFS[selectedEvent.kind]?.icon}
                     </span>
-                    <h3 className="text-sm font-bold text-slate-900 dark:text-white">{selectedEvent.title}</h3>
-                    <Badge size="sm" variant={SEVERITY_VARIANT[selectedEvent.severity] ?? 'default'}>
+                    <h3 className="text-base font-bold text-slate-900 dark:text-white">{selectedEvent.title}</h3>
+                    <Badge size="sm" variant={SEVERITY_CONFIG[selectedEvent.severity]?.badge ?? 'default'}>
                       {selectedEvent.severity}
                     </Badge>
                   </div>
-                  <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
+                  <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
                     {selectedEvent.description}
                   </p>
-                  <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5 text-[10px] font-mono text-slate-500">
-                    <span>
-                      Source: <span className="text-slate-700 dark:text-slate-300">{selectedEvent.source}</span>
-                    </span>
-                    <span>
-                      Type:{' '}
-                      <span className="text-slate-700 dark:text-slate-300">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    <div>
+                      <span className="text-[10px] font-mono uppercase text-slate-500 block">Source</span>
+                      <span className="text-xs font-mono text-slate-700 dark:text-slate-300">
+                        {selectedEvent.source}
+                      </span>
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-mono uppercase text-slate-500 block">Type</span>
+                      <span className="text-xs font-mono text-slate-700 dark:text-slate-300">
                         {LAYER_DEFS[selectedEvent.kind]?.label ?? selectedEvent.kind}
                       </span>
-                    </span>
-                    <span>
-                      Time:{' '}
-                      <span className="text-slate-700 dark:text-slate-300">
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-mono uppercase text-slate-500 block">Time</span>
+                      <span className="text-xs font-mono text-slate-700 dark:text-slate-300">
                         {formatTimeFull(selectedEvent.timestamp)}
                       </span>
-                    </span>
+                    </div>
                     {selectedEvent.country && (
-                      <span>
-                        Country: <span className="text-slate-700 dark:text-slate-300">{selectedEvent.country}</span>
-                      </span>
+                      <div>
+                        <span className="text-[10px] font-mono uppercase text-slate-500 block">Country</span>
+                        <span className="text-xs font-mono text-slate-700 dark:text-slate-300">
+                          {selectedEvent.country}
+                        </span>
+                      </div>
                     )}
                     {(selectedEvent.lat !== 0 || selectedEvent.lng !== 0) && (
-                      <span>
-                        Coords:{' '}
-                        <span className="text-slate-700 dark:text-slate-300">
-                          {selectedEvent.lat.toFixed(2)}, {selectedEvent.lng.toFixed(2)}
+                      <div>
+                        <span className="text-[10px] font-mono uppercase text-slate-500 block">Coordinates</span>
+                        <span className="text-xs font-mono text-slate-700 dark:text-slate-300">
+                          {selectedEvent.lat.toFixed(4)}, {selectedEvent.lng.toFixed(4)}
                         </span>
-                      </span>
+                      </div>
                     )}
                     {selectedEvent.magnitude != null && (
-                      <span>
-                        Magnitude:{' '}
-                        <span className="text-slate-700 dark:text-slate-300">{selectedEvent.magnitude.toFixed(1)}</span>
-                      </span>
-                    )}
-                    {selectedEvent.url && (
-                      <a
-                        href={selectedEvent.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-0.5"
-                      >
-                        <ExternalLink size={10} /> View source
-                      </a>
+                      <div>
+                        <span className="text-[10px] font-mono uppercase text-slate-500 block">Magnitude</span>
+                        <span className="text-xs font-mono text-slate-700 dark:text-slate-300">
+                          {selectedEvent.magnitude.toFixed(1)}
+                        </span>
+                      </div>
                     )}
                   </div>
+                  {selectedEvent.url && (
+                    <a
+                      href={selectedEvent.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 mt-4 text-xs font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                    >
+                      <ExternalLink size={12} /> View source
+                    </a>
+                  )}
                 </div>
                 <button
                   type="button"
                   onClick={() => setSelectedEvent(null)}
-                  className="text-[10px] font-mono px-2 py-1 rounded text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                  className="shrink-0 p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                 >
-                  Close
+                  <X size={16} />
                 </button>
               </div>
             </div>
           )}
-        </>
+        </div>
       )}
     </DataPageLayout>
   );
