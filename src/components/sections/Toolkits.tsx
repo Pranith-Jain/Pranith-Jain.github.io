@@ -79,7 +79,17 @@ export function Toolkits() {
                   </li>
                 ))}
               </ul>
-              <div className="mt-6 flex items-center gap-1.5 text-sm font-semibold text-brand-600 dark:text-brand-400">
+              <div className="mt-4 flex flex-wrap gap-1.5">
+                {tk.builtWith.map((tech) => (
+                  <span
+                    key={tech}
+                    className="rounded-md border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/60 px-2 py-0.5 text-[10px] font-mono text-slate-500 dark:text-slate-400"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+              <div className="mt-5 flex items-center gap-1.5 text-sm font-semibold text-brand-600 dark:text-brand-400">
                 <Wrench className="h-3.5 w-3.5" aria-hidden="true" />
                 <span>{tk.cta}</span>
                 <span className="transition-transform group-hover:translate-x-0.5" aria-hidden="true">

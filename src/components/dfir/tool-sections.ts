@@ -112,7 +112,7 @@ export interface Tool {
  * (separate OSINT / AI-sec / Data-security / GRC surfaces) while the
  * full /dfir grid stays as the power-user index.
  */
-export type ToolGroup = 'dfir' | 'ir' | 'ti' | 'osint' | 'aisec' | 'cloudsec' | 'apisec' | 'datasec' | 'grc';
+export type ToolGroup = 'dfir' | 'ir' | 'ti' | 'osint' | 'aisec' | 'cloudsec' | 'apisec' | 'datasec' | 'grc' | 'case-ir' | 'tip-core' | 'deception' | 'forensics-adv' | 'platform';
 
 export const GROUP_META: Record<ToolGroup, { label: string; blurb: string }> = {
   dfir: {
@@ -145,6 +145,26 @@ export const GROUP_META: Record<ToolGroup, { label: string; blurb: string }> = {
   },
   datasec: { label: 'Data Security Tools', blurb: 'Sensitive-data detection, classification & handling, privacy hub.' },
   grc: { label: 'GRC & Posture Tools', blurb: 'Compliance & maturity, tabletop exercises, kill chain, OWASP, NHI.' },
+  'case-ir': {
+    label: 'Case Management & IR',
+    blurb: 'Incident case tracking, automated playbooks, evidence chain-of-custody, and structured analysis workflows.',
+  },
+  'tip-core': {
+    label: 'Threat Intel Platform',
+    blurb: 'Core TIP features — IOC lifecycle, intel requirements, confidence scoring, detection-as-code, and export.',
+  },
+  deception: {
+    label: 'Deception & Hunting',
+    blurb: 'Canary tokens, honeypots, behavioral anomaly detection, threat modeling, and hypothesis-driven hunting.',
+  },
+  'forensics-adv': {
+    label: 'Advanced Forensics',
+    blurb: 'Memory dumps, disk timelines, and deep network forensics for advanced investigation.',
+  },
+  platform: {
+    label: 'Platform & Integration',
+    blurb: 'API docs, multi-tenancy, offline mode, dashboard widgets, and platform extensibility.',
+  },
 };
 
 export interface Section {
@@ -1156,7 +1176,7 @@ export const SECTIONS: Section[] = [
     id: 'case-management',
     label: 'Case Management & IR',
     blurb: 'Incident response case tracking, playbooks, evidence chain-of-custody, and structured analysis.',
-    group: 'ir',
+    group: 'case-ir',
     tools: [
       {
         path: '/dfir/cases',
@@ -1200,7 +1220,7 @@ export const SECTIONS: Section[] = [
     id: 'tip-core',
     label: 'Threat Intel Platform',
     blurb: 'Core TIP features — IOC lifecycle, intel requirements, confidence scoring, detection-as-code.',
-    group: 'ti',
+    group: 'tip-core',
     tools: [
       {
         path: '/dfir/ioc-lifecycle',
@@ -1242,9 +1262,9 @@ export const SECTIONS: Section[] = [
   // ─── Deception & Analytics ─────────────────────────────────────────
   {
     id: 'deception-analytics',
-    label: 'Deception & Analytics',
+    label: 'Deception & Hunting',
     blurb: 'Canary tokens, honeypots, behavioral anomaly detection, and threat modeling.',
-    group: 'ir',
+    group: 'deception',
     tools: [
       {
         path: '/dfir/deception',
@@ -1274,7 +1294,7 @@ export const SECTIONS: Section[] = [
     id: 'advanced-forensics',
     label: 'Advanced Forensics',
     blurb: 'Memory, disk, and network forensics for deep investigation.',
-    group: 'dfir',
+    group: 'forensics-adv',
     tools: [
       {
         path: '/dfir/memory-forensics',
@@ -1304,7 +1324,7 @@ export const SECTIONS: Section[] = [
     id: 'platform',
     label: 'Platform & Integration',
     blurb: 'API docs, multi-tenancy, offline mode, and platform features.',
-    group: 'ir',
+    group: 'platform',
     tools: [
       {
         path: '/dfir/api-docs',
