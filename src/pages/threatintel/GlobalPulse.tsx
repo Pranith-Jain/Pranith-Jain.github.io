@@ -440,7 +440,7 @@ export default function GlobalPulse(): JSX.Element {
   const geoPoints = useMemo(() => {
     return filteredEvents
       .filter((e) => e.lat !== 0 || e.lng !== 0)
-      .map((e) => ({ id: e.id, lat: e.lat, lng: e.lng, severity: e.severity, kind: e.kind }));
+      .map((e) => ({ id: e.id, lat: e.lat, lng: e.lng, severity: e.severity, kind: e.kind, title: e.title, description: e.description, source: e.source }));
   }, [filteredEvents]);
 
   const globePoints: CtiPoint[] = useMemo(() => {
@@ -798,7 +798,10 @@ export default function GlobalPulse(): JSX.Element {
                     </div>
                   }
                 >
-                  <PulseMap markers={geoPoints} />
+                  <PulseMap markers={geoPoints} onMarkerClick={(m) => {
+                    const event = filteredEvents.find(e => e.id === m.id);
+                    if (event) setSelectedEvent(event);
+                  }} />
                 </Suspense>
               )}
 

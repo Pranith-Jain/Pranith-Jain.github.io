@@ -1,10 +1,15 @@
 /**
- * PulseMap - 2D world map with animated markers
+ * PulseMap - 2D world map with interactive markers
  *
- * Uses react-simple-maps with proper theme support and animated markers.
+ * Features:
+ *  - Click markers to see details
+ *  - Hover tooltips
+ *  - Animated pulse effects
+ *  - Theme-aware styling
+ *  - Info panel for selected marker
  */
 
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState, useEffect, useCallback } from 'react';
 // eslint-disable-next-line @typescript-eslint/no-restricted-imports -- PulseMap is lazy-loaded
 import { ComposableMap, Geographies, Geography, Marker } from 'react-simple-maps';
 
@@ -43,10 +48,14 @@ interface MarkerData {
   lng: number;
   severity: 'critical' | 'high' | 'medium' | 'low';
   kind: EventKind;
+  title?: string;
+  description?: string;
+  source?: string;
 }
 
 interface PulseMapProps {
   markers: MarkerData[];
+  onMarkerClick?: (marker: MarkerData) => void;
 }
 
 const SEVERITY_RADIUS: Record<string, number> = {
@@ -84,8 +93,39 @@ const KIND_COLORS: Record<EventKind, string> = {
   cve: '#d97706',
 };
 
-export default function PulseMap({ markers }: PulseMapProps): JSX.Element {
+const KIND_LABELS: Record<EventKind, string> = {
+  earthquake: 'Earthquake',
+  ioc_activity: 'IOC Activity',
+  geopolitical: 'Geopolitical',
+  tech_news: 'Tech Infrastructure',
+  reddit: 'Reddit',
+  telegram: 'Telegram',
+  x_feed: 'X/Bluesky',
+  scam: 'Scam',
+  breach: 'Breach',
+  briefing: 'Briefing',
+  cyber_attack: 'Cyber Attack',
+  aircraft: 'Aircraft',
+  war_room: 'War Zone',
+  c2_tracker: 'C2 Server',
+  cisa_advisory: 'CISA Advisory',
+  blocklist: 'Blocklist',
+  darkweb: 'Dark Web',
+  infostealer: 'Infostealer',
+  phishing: 'Phishing',
+  malware: 'Malware',
+  ransomware: 'Ransomware',
+  detection: 'Detection',
+  cybercrime: 'Cybercrime',
+  research: 'Research',
+  cve: 'CVE',
+};
+
+export default function PulseMap({ markers, onMarkerClick }: PulseMapProps): JSX.Element {
   const [isDark, setIsDark] = useState(false);
+  const [hoveredMarker, setHoveredMarker] = useState<MarkerData | null>(null);
+  const [selectedMarker, setSelectedMarker] = useState<MarkerData | null>(null);
+  const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
 
   // Detect theme
   useEffect(() => {
@@ -105,6 +145,11 @@ export default function PulseMap({ markers }: PulseMapProps): JSX.Element {
   const landStroke = isDark ? '#2a3a4a' : '#d1d5db';
   const landHover = isDark ? '#2a3a4a' : '#9ca3af';
   const bgColor = isDark ? '#0a0f1a' : '#f9fafb';
+
+  const handleMarkerClick = useCallback((marker: MarkerData) => {
+    setSelectedMarker(marker);
+    onMarkerClick?.(marker);
+  }, [onMarkerClick]);
 
   return (
     <div className="relative w-full h-full" style={{ background: bgColor }}>
@@ -141,7 +186,15 @@ export default function PulseMap({ markers }: PulseMapProps): JSX.Element {
           const color = KIND_COLORS[m.kind] ?? '#64748b';
           return (
             <Marker key={m.id} coordinates={[m.lng, m.lat]}>
-              <g style={{ pointerEvents: 'none' }}>
+              <g
+                style={{ cursor: 'pointer', pointerEvents: 'all' }}
+                onClick={() => handleMarkerClick(m)}
+                onMouseEnter={(e) => {
+                  setHoveredMarker(m);
+                  setTooltipPos({ x: e.clientX, y: e.clientY });
+                }}
+                onMouseLeave={() => setHoveredMarker(null)}
+              >
                 {/* Outer glow */}
                 <circle r={r * 3} fill={color} opacity={0.1}>
                   <animate attributeName="r" values={`${r * 2};${r * 4};${r * 2}`} dur="3s" repeatCount="indefinite" />
@@ -162,9 +215,83 @@ export default function PulseMap({ markers }: PulseMapProps): JSX.Element {
         })}
       </ComposableMap>
 
+      {/* Tooltip */}
+      {hoveredMarker && !selectedMarker && (
+        <div
+          className="fixed z-50 pointer-events-none"
+          style={{ left: tooltipPos.x + 10, top: tooltipPos.y - 10 }}
+        >
+          <div className="bg-slate-900/95 backdrop-blur-sm rounded-lg border border-slate-700/50 px-3 py-2 shadow-xl max-w-xs">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="w-2 h-2 rounded-full" style={{ backgroundColor: KIND_COLORS[hoveredMarker.kind] }} />
+              <span className="text-[10px] font-mono uppercase text-slate-400">
+                {KIND_LABELS[hoveredMarker.kind]}
+              </span>
+            </div>
+            {hoveredMarker.title && (
+              <p className="text-xs font-medium text-slate-200 line-clamp-2">{hoveredMarker.title}</p>
+            )}
+            <div className="flex items-center gap-2 mt-1">
+              <span className="text-[10px] font-mono capitalize"
+                style={{ color: hoveredMarker.severity === 'critical' ? '#ef4444' : hoveredMarker.severity === 'high' ? '#f97316' : '#f59e0b' }}>
+                {hoveredMarker.severity}
+              </span>
+              {hoveredMarker.source && (
+                <span className="text-[10px] font-mono text-slate-500">{hoveredMarker.source}</span>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Selected Marker Detail Panel */}
+      {selectedMarker && (
+        <div className="absolute top-4 right-4 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md rounded-xl border border-slate-200 dark:border-slate-700 p-4 max-w-sm shadow-2xl z-10">
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="w-3 h-3 rounded-full" style={{ backgroundColor: KIND_COLORS[selectedMarker.kind] }} />
+                <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded"
+                  style={{ backgroundColor: KIND_COLORS[selectedMarker.kind] + '20', color: KIND_COLORS[selectedMarker.kind] }}>
+                  {KIND_LABELS[selectedMarker.kind]}
+                </span>
+              </div>
+              {selectedMarker.title && (
+                <p className="text-sm font-semibold text-slate-900 dark:text-white">{selectedMarker.title}</p>
+              )}
+              {selectedMarker.description && (
+                <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">{selectedMarker.description}</p>
+              )}
+              <div className="flex items-center gap-3 mt-2">
+                <span className="text-[10px] font-mono capitalize"
+                  style={{ color: selectedMarker.severity === 'critical' ? '#ef4444' : selectedMarker.severity === 'high' ? '#f97316' : '#f59e0b' }}>
+                  {selectedMarker.severity}
+                </span>
+                {selectedMarker.source && (
+                  <span className="text-[10px] font-mono text-slate-500">{selectedMarker.source}</span>
+                )}
+                <span className="text-[10px] font-mono text-slate-500">
+                  {selectedMarker.lat.toFixed(2)}, {selectedMarker.lng.toFixed(2)}
+                </span>
+              </div>
+            </div>
+            <button
+              onClick={() => setSelectedMarker(null)}
+              className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Marker count overlay */}
       <div className="absolute bottom-2 left-2 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-md px-2 py-1 border border-slate-200 dark:border-slate-700">
-        <span className="text-[10px] font-mono text-slate-600 dark:text-slate-400">{markers.length} points</span>
+        <span className="text-[10px] font-mono text-slate-600 dark:text-slate-400">
+          {markers.length} points · Click for details
+        </span>
       </div>
     </div>
   );

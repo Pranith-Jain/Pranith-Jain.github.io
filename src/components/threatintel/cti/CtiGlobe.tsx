@@ -1,7 +1,12 @@
 /**
  * CtiGlobe - 3D interactive globe using globe.gl
  *
- * Uses globe.gl directly for better control and performance.
+ * Features:
+ *  - Smooth mouse/touch rotation and zoom
+ *  - Click points to focus and show details
+ *  - Auto-rotate after inactivity
+ *  - Hover tooltips
+ *  - Animated arcs and rings
  */
 
 import { useEffect, useRef, useState, useMemo, type JSX } from 'react';
@@ -23,7 +28,7 @@ interface CtiGlobeProps {
   points: CtiPoint[];
   focus: { lat: number; lng: number } | null;
   onPointClick?: (point: CtiPoint) => void;
-  onArcHover?: (arc: CtiArc | null) => void;
+  onPointHover?: (point: CtiPoint | null) => void;
   autoRotate?: boolean;
 }
 
@@ -34,7 +39,7 @@ export default function CtiGlobe({
   points,
   focus,
   onPointClick,
-  onArcHover,
+  onPointHover,
   autoRotate = false,
 }: CtiGlobeProps): JSX.Element {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -43,8 +48,11 @@ export default function CtiGlobe({
   const rotAngleRef = useRef(0);
   const rafRef = useRef(0);
   const userInteracting = useRef(false);
+  const lastInteraction = useRef(Date.now());
   const [ready, setReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [hoveredPoint, setHoveredPoint] = useState<CtiPoint | null>(null);
+  const [selectedPoint, setSelectedPoint] = useState<CtiPoint | null>(null);
 
   // Ring data for critical/high severity points
   const ringData: RingDatum[] = useMemo(
@@ -55,7 +63,7 @@ export default function CtiGlobe({
         .map((p) => ({
           lat: p.lat,
           lng: p.lng,
-          size: p.severity === 'critical' ? 3.5 : 2.5,
+          size: p.severity === 'critical' ? 4.0 : 2.8,
           color: severityColor(p.severity),
         })),
     [points]
@@ -70,7 +78,7 @@ export default function CtiGlobe({
       const w = container.clientWidth;
       const h = container.clientHeight;
 
-      const globe = new Globe(container)
+      const globe = Globe()(container)
         .width(w)
         .height(h)
         // Globe appearance
@@ -93,24 +101,24 @@ export default function CtiGlobe({
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .pointAltitude((p: any) => {
           const alts: Record<string, number> = {
-            critical: 0.12,
-            high: 0.07,
-            medium: 0.045,
-            low: 0.03,
+            critical: 0.15,
+            high: 0.09,
+            medium: 0.055,
+            low: 0.035,
             info: 0.02,
           };
-          return alts[p.severity] ?? 0.03;
+          return alts[p.severity] ?? 0.035;
         })
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .pointRadius((p: any) => {
           const sizes: Record<string, number> = {
-            critical: 1.8,
-            high: 1.3,
-            medium: 0.8,
-            low: 0.5,
-            info: 0.35,
+            critical: 2.0,
+            high: 1.5,
+            medium: 1.0,
+            low: 0.6,
+            info: 0.4,
           };
-          return sizes[p.severity] ?? 0.6;
+          return sizes[p.severity] ?? 0.7;
         })
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .pointLabel((p: any) => {
@@ -119,33 +127,47 @@ export default function CtiGlobe({
             <div style="
               background: rgba(10,15,26,0.95);
               color: #e2e8f0;
-              padding: 12px 16px;
-              border-radius: 10px;
+              padding: 14px 18px;
+              border-radius: 12px;
               font-size: 12px;
-              font-family: monospace;
-              max-width: 300px;
+              font-family: 'SF Mono', 'Fira Code', monospace;
+              max-width: 320px;
               border: 1px solid ${sevColor}50;
-              box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+              box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+              backdrop-filter: blur(10px);
             ">
-              <div style="font-weight: 600; margin-bottom: 6px; color: #f8fafc; font-size: 13px;">${p.label}</div>
-              <div style="display: flex; align-items: center; gap: 8px; margin-top: 6px;">
+              <div style="font-weight: 600; margin-bottom: 8px; color: #f8fafc; font-size: 14px;">${p.label}</div>
+              <div style="display: flex; align-items: center; gap: 10px; margin-top: 8px;">
                 <span style="
                   background: ${sevColor}25;
                   color: ${sevColor};
-                  padding: 2px 8px;
-                  border-radius: 4px;
-                  font-size: 10px;
+                  padding: 3px 10px;
+                  border-radius: 6px;
+                  font-size: 11px;
                   font-weight: 600;
                   text-transform: uppercase;
                 ">${p.severity}</span>
-                <span style="opacity: 0.6; font-size: 11px;">Count: ${p.count}</span>
+                <span style="opacity: 0.6; font-size: 12px;">Count: ${p.count}</span>
               </div>
+              <div style="margin-top: 8px; font-size: 11px; opacity: 0.5;">Click to focus</div>
             </div>
           `;
         })
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .onPointClick((p: any) => {
-          onPointClick?.(p as CtiPoint);
+          const point = p as CtiPoint;
+          setSelectedPoint(point);
+          onPointClick?.(point);
+          lastInteraction.current = Date.now();
+        })
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .onPointHover((p: any) => {
+          const point = p ? (p as CtiPoint) : null;
+          setHoveredPoint(point);
+          onPointHover?.(point);
+          if (typeof document !== 'undefined') {
+            document.body.style.cursor = point ? 'pointer' : 'default';
+          }
         })
         // Rings
         .ringsData(ringData)
@@ -158,15 +180,15 @@ export default function CtiGlobe({
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .ringMaxRadius((r: any) => r.size)
         .ringAltitude(0.005)
-        .ringRepeatPeriod(1800)
+        .ringRepeatPeriod(2000)
         // Arcs
         .arcsData(arcs)
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .arcColor((a: any) => a.color)
         .arcDashLength(0.6)
-        .arcDashGap(0.05)
-        .arcDashAnimateTime(2500)
-        .arcStroke(0.4)
+        .arcDashGap(0.04)
+        .arcDashAnimateTime(3000)
+        .arcStroke(0.5)
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .arcLabel((a: any) => {
           return `
@@ -180,15 +202,40 @@ export default function CtiGlobe({
               max-width: 280px;
               border: 1px solid ${a.color}40;
               box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-            ">
-              ${a.label}
-            </div>
+            ">${a.label}</div>
           `;
-        })
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .onArcHover((a: any) => {
-          onArcHover?.(a ? (a as CtiArc) : null);
         });
+
+      // Enable controls
+      globe.controls().enableDamping = true;
+      globe.controls().dampingFactor = 0.1;
+      globe.controls().rotateSpeed = 0.8;
+      globe.controls().zoomSpeed = 1.2;
+      globe.controls().minDistance = 150;
+      globe.controls().maxDistance = 500;
+
+      // Track user interaction
+      container.addEventListener('mousedown', () => {
+        userInteracting.current = true;
+        lastInteraction.current = Date.now();
+      });
+      container.addEventListener('mouseup', () => {
+        setTimeout(() => {
+          userInteracting.current = false;
+        }, 2000);
+      });
+      container.addEventListener('wheel', () => {
+        lastInteraction.current = Date.now();
+      });
+      container.addEventListener('touchstart', () => {
+        userInteracting.current = true;
+        lastInteraction.current = Date.now();
+      });
+      container.addEventListener('touchend', () => {
+        setTimeout(() => {
+          userInteracting.current = false;
+        }, 2000);
+      });
 
       // Set initial POV
       globe.pointOfView({ lat: 20, lng: 0, altitude: 2.5 }, 0);
@@ -219,49 +266,43 @@ export default function CtiGlobe({
     if (!globeRef.current) return;
     try {
       globeRef.current.pointsData(points);
-    } catch {
-      /* ignore */
-    }
+    } catch { /* ignore */ }
   }, [points]);
 
   useEffect(() => {
     if (!globeRef.current) return;
     try {
       globeRef.current.ringsData(ringData);
-    } catch {
-      /* ignore */
-    }
+    } catch { /* ignore */ }
   }, [ringData]);
 
   useEffect(() => {
     if (!globeRef.current) return;
     try {
       globeRef.current.arcsData(arcs);
-    } catch {
-      /* ignore */
-    }
+    } catch { /* ignore */ }
   }, [arcs]);
 
   // Focus on point
   useEffect(() => {
     if (!focus || !globeRef.current) return;
     userInteracting.current = true;
-    globeRef.current.pointOfView({ lat: focus.lat, lng: focus.lng, altitude: 1.5 }, 1200);
+    globeRef.current.pointOfView({ lat: focus.lat, lng: focus.lng, altitude: 1.8 }, 1500);
     setTimeout(() => {
       userInteracting.current = false;
-    }, 4000);
+    }, 5000);
   }, [focus]);
 
-  // Auto-rotation
+  // Auto-rotation (resume after 10s of inactivity)
   useEffect(() => {
     if (!autoRotate || !globeRef.current) return;
 
-    let lastTime = performance.now();
-    const rotate = (now: number) => {
-      const delta = (now - lastTime) / 1000;
-      lastTime = now;
-      if (!userInteracting.current && globeRef.current) {
-        rotAngleRef.current += delta * 2.5;
+    const rotate = () => {
+      const now = Date.now();
+      const timeSinceInteraction = now - lastInteraction.current;
+
+      if (!userInteracting.current && timeSinceInteraction > 10000 && globeRef.current) {
+        rotAngleRef.current += 0.15;
         const pov = globeRef.current.pointOfView();
         globeRef.current.pointOfView({ lat: pov.lat, lng: rotAngleRef.current % 360 }, 0);
       }
@@ -279,20 +320,14 @@ export default function CtiGlobe({
         <div className="text-center p-6 max-w-sm">
           <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-slate-800/50 flex items-center justify-center">
             <svg className="w-8 h-8 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1.5}
-                d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
-              />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+                d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
             </svg>
           </div>
           <p className="text-sm font-medium text-slate-300 mb-1">Globe Unavailable</p>
           <p className="text-xs text-slate-500 mb-4">{error}</p>
-          <button
-            onClick={() => window.location.reload()}
-            className="px-4 py-2 text-xs font-mono rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 transition-colors"
-          >
+          <button onClick={() => window.location.reload()}
+            className="px-4 py-2 text-xs font-mono rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 transition-colors">
             Reload Page
           </button>
         </div>
@@ -301,7 +336,7 @@ export default function CtiGlobe({
   }
 
   return (
-    <div className="relative w-full h-full bg-[#0a0f1a]">
+    <div className="relative w-full h-full bg-[#0a0f1a] overflow-hidden">
       {/* Globe container */}
       <div ref={containerRef} className="w-full h-full" />
 
@@ -321,7 +356,59 @@ export default function CtiGlobe({
         </div>
       )}
 
-      {/* Stats overlay */}
+      {/* Hovered Point Info */}
+      {hoveredPoint && !selectedPoint && (
+        <div className="absolute top-4 left-4 bg-[#0f1629]/90 backdrop-blur-sm rounded-lg border border-slate-700/50 px-4 py-3 pointer-events-none max-w-xs">
+          <div className="flex items-center gap-3">
+            <span className="w-3 h-3 rounded-full" style={{ backgroundColor: severityColor(hoveredPoint.severity) }} />
+            <div>
+              <p className="text-sm font-medium text-slate-200">{hoveredPoint.label}</p>
+              <p className="text-xs text-slate-400 mt-0.5">{hoveredPoint.severity.toUpperCase()} · Count: {hoveredPoint.count}</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Selected Point Detail */}
+      {selectedPoint && (
+        <div className="absolute top-4 left-4 bg-[#0f1629]/95 backdrop-blur-md rounded-xl border border-slate-700/50 p-4 max-w-sm shadow-2xl">
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="w-3 h-3 rounded-full" style={{ backgroundColor: severityColor(selectedPoint.severity) }} />
+                <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded"
+                  style={{ backgroundColor: severityColor(selectedPoint.severity) + '25', color: severityColor(selectedPoint.severity) }}>
+                  {selectedPoint.severity}
+                </span>
+              </div>
+              <p className="text-sm font-semibold text-white">{selectedPoint.label}</p>
+              <p className="text-xs text-slate-400 mt-1">Count: {selectedPoint.count}</p>
+              {selectedPoint.countryCode && (
+                <p className="text-xs text-slate-500 mt-1">Country: {selectedPoint.countryCode}</p>
+              )}
+            </div>
+            <button onClick={() => setSelectedPoint(null)}
+              className="text-slate-500 hover:text-slate-300 transition-colors">
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Controls Help */}
+      {ready && (
+        <div className="absolute bottom-4 right-4 bg-[#0f1629]/80 backdrop-blur-sm rounded-lg border border-slate-700/50 px-3 py-2 pointer-events-none">
+          <div className="text-[10px] font-mono text-slate-500 space-y-1">
+            <div>🖱️ Drag to rotate</div>
+            <div>🔍 Scroll to zoom</div>
+            <div>👆 Click point for details</div>
+          </div>
+        </div>
+      )}
+
+      {/* Stats */}
       {ready && (
         <div className="absolute bottom-4 left-4 bg-[#0f1629]/80 backdrop-blur-sm rounded-lg border border-slate-700/50 px-3 py-1.5 pointer-events-none">
           <span className="text-[10px] font-mono text-slate-400">
