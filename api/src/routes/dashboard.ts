@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, serviceUnavailable } from '../lib/api-error';
 // Canonical producer key — the watchlist `ioc_sightings` read previously
 // hardcoded stale v11 and so was always 0 for every watched domain.
 import { LIVE_IOCS_CACHE_KEY } from './live-iocs';
@@ -83,20 +84,20 @@ async function readCache<T>(key: string): Promise<T | null> {
 
 export async function getWatchlistHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not available' }, 503);
+  if (!kv) return serviceUnavailable(c, 'KV not available');
   const wl = await readWatchlist(kv);
   return c.json({ watchlist: wl });
 }
 
 export async function updateWatchlistHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not available' }, 503);
+  if (!kv) return serviceUnavailable(c, 'KV not available');
   const body = await c.req.json<{ domains?: unknown[]; emails?: unknown[] }>();
   if (body.domains !== undefined && !Array.isArray(body.domains)) {
-    return c.json({ error: 'domains must be an array' }, 400);
+    return badRequest(c, 'domains must be an array');
   }
   if (body.emails !== undefined && !Array.isArray(body.emails)) {
-    return c.json({ error: 'emails must be an array' }, 400);
+    return badRequest(c, 'emails must be an array');
   }
   const wl: Watchlist = {
     domains: (body.domains ?? []).slice(0, 20).map((d: unknown) => String(d).toLowerCase().trim()),
@@ -122,7 +123,7 @@ function iocMatchesDomain(value: string, domain: string): boolean {
 
 export async function dashboardHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not available' }, 503);
+  if (!kv) return serviceUnavailable(c, 'KV not available');
 
   const wl = await readWatchlist(kv);
   const results: DomainStatus[] = [];

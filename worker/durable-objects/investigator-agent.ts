@@ -6,6 +6,7 @@ import { planNextStep } from '../../api/src/lib/agent/planner';
 import { observeStep } from '../../api/src/lib/agent/observer';
 import { synthesizeReport } from '../../api/src/lib/agent/synthesizer';
 import { verifyReport } from '../../api/src/lib/agent/qa-verifier';
+import { signInternalToken } from '../../api/src/lib/internal-token';
 
 /** Truncate JSON-serializable data to a max char length. Returns valid JSON. */
 function truncateData(data: unknown, maxChars: number): unknown {
@@ -133,8 +134,10 @@ export class InvestigatorAgentDO {
     // Pass admin token so tool calls bypass the external API key gate.
     // The DO calls /api/v1/* via the SELF service binding (in-process) but
     // the authenticate('external-only') middleware still requires credentials
-    // for non-same-origin requests. An internal header bypasses this.
-    const tools = buildToolRegistry(this.env.SELF, undefined, { 'x-internal-agent': 'investigator-do' });
+    // for non-same-origin requests. A signed internal token (HMAC-SHA256,
+    // 5-min TTL) replaces the old spoofable X-Internal-Agent header.
+    const internalToken = await signInternalToken('investigator-do');
+    const tools = buildToolRegistry(this.env.SELF, undefined, { 'x-internal-token': internalToken });
 
     const stepNum = state.currentStep + 1;
     const stepStart = new Date().toISOString();

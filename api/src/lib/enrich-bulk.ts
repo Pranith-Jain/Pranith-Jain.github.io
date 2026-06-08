@@ -25,74 +25,10 @@ import type { Env } from '../env';
 import type { IndicatorType } from './indicator';
 import { ProviderCache } from './cache';
 import { compositeScore } from './scoring';
-import {
-  PROVIDER_SUPPORT,
-  type Indicator,
-  type ProviderAdapter,
-  type ProviderId,
-  type ProviderResult,
-} from '../providers/types';
+import { BULK_ADAPTERS, PROVIDER_SUPPORT } from '../providers';
+import type { Indicator, ProviderAdapter, ProviderId, ProviderResult } from '../providers/types';
 
-// Tighter than the deep `/api/v1/ioc` path (8s) — the bulk pipeline is
-// rendering live cards, so trading completeness for snappy first-paint
-// is the right call. Providers that exceed this drop into the
-// `partial` flag rather than holding the bundle.
 const BULK_PROVIDER_TIMEOUT_MS = 3000;
-
-// Free providers — no paid API key required. The abuse.ch set (urlhaus,
-// threatfox, malwarebazaar, yaraify) needs ABUSECH_AUTH_KEY which the
-// platform already sets in the Worker env; if missing they each return
-// `error` and are dropped from the composite without surfacing.
-import { urlhaus } from '../providers/urlhaus';
-import { threatfox } from '../providers/threatfox';
-import { malwarebazaar } from '../providers/malwarebazaar';
-import { malshare } from '../providers/malshare';
-import { yaraify } from '../providers/yaraify';
-import { tor } from '../providers/tor';
-import { spamhaus } from '../providers/spamhaus';
-import { doh } from '../providers/doh';
-import { openphish } from '../providers/openphish';
-import { cinsarmy } from '../providers/cinsarmy';
-import { bitwire } from '../providers/bitwire';
-import { blocklistde } from '../providers/blocklistde';
-import { binarydefense } from '../providers/binarydefense';
-import { ipsum } from '../providers/ipsum';
-import { phishingArmy } from '../providers/phishingArmy';
-import { tweetfeed } from '../providers/tweetfeed';
-import { hashlookup } from '../providers/hashlookup';
-import { c2tracker } from '../providers/c2tracker';
-import { sslbl } from '../providers/sslbl';
-import { malwareworld } from '../providers/malwareworld';
-import { emailrep } from '../providers/emailrep';
-import { pulsedive } from '../providers/pulsedive';
-import { kaspersky } from '../providers/kaspersky';
-
-/** Adapters allowed in the bulk path. */
-const BULK_ADAPTERS: Partial<Record<ProviderId, ProviderAdapter>> = {
-  urlhaus,
-  threatfox,
-  malwarebazaar,
-  malshare,
-  yaraify,
-  tor,
-  spamhaus,
-  doh,
-  openphish,
-  cinsarmy,
-  bitwire,
-  blocklistde,
-  binarydefense,
-  ipsum,
-  phishingArmy,
-  tweetfeed,
-  hashlookup,
-  c2tracker,
-  sslbl,
-  malwareworld,
-  emailrep,
-  pulsedive,
-  kaspersky,
-};
 
 const BULK_PROVIDER_IDS = Object.keys(BULK_ADAPTERS) as ProviderId[];
 

@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from 'react';
 import { probeAuth } from './adminApi';
-import { writeAdminToken, clearAdminToken } from '../../lib/admin-token';
+import { createAdminSession, clearAdminSession, writeAdminToken, clearAdminToken } from '../../lib/admin-token';
 
 interface Props {
   onLogin: (token: string) => void;
@@ -17,14 +17,25 @@ export default function AdminLogin({ onLogin }: Props) {
     if (!trimmed) return;
     setError(null);
     setBusy(true);
-    // Probe the token against /admin/health before committing. The previous
-    // flow stored any string in localStorage and dropped the user into the
-    // shell, where the first tab's fetch failed with 401 and triggered a
-    // reload loop.
+    // Create an HttpOnly session cookie. The server validates the token
+    // and sets a Secure/HttpOnly/SameSite=Strict cookie that JS cannot
+    // read — the primary auth mechanism. localStorage is a fallback.
+    const sessionOk = await createAdminSession(trimmed);
+    if (sessionOk) {
+      // Cookie set — probe to confirm the session works
+      const ok = await probeAuth();
+      if (ok) {
+        setBusy(false);
+        onLogin(trimmed);
+        return;
+      }
+    }
+    // Fallback: try direct header-based auth (legacy, or cookie failed)
     writeAdminToken(trimmed);
     const ok = await probeAuth();
     if (!ok) {
       clearAdminToken();
+      await clearAdminSession();
       setError('Token rejected — check the value and try again.');
       setBusy(false);
       return;

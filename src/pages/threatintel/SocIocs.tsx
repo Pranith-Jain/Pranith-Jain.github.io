@@ -5,7 +5,7 @@ import { fetchJson } from '../../lib/fetch-json';
 import { SocShell, SocKpi, SocSection, SocPanel, type SocStatus } from '../../components/threatintel/soc/SocShell';
 import { SocBar, SocDonut, type BarItem, type DonutSlice } from '../../components/threatintel/soc/SocCharts';
 import { downloadCsv, dayKey, formatNumber } from '../../components/threatintel/soc/utils';
-import { CHART_RANK } from '../../components/threatintel/soc/tone';
+import { CHART_RANK, CHART_DAILY, CHART_IOC_KIND, CHART_CRIT } from '../../components/threatintel/soc/tone';
 
 /* ─── Data shape (matches /api/v1/live-iocs) ───────────────────────── */
 
@@ -91,18 +91,8 @@ function criticalityBucket(score: number): 'critical' | 'sensitive' | 'informati
   return 'informational';
 }
 
-const CRIT_COLOR: Record<'critical' | 'sensitive' | 'informational', string> = {
-  critical: '#e11d48', // rose-600 (severity.critical)
-  sensitive: '#f59e0b', // amber-500 (severity.medium)
-  informational: '#0ea5e9', // sky-500 (severity.info)
-};
-
-const KIND_COLOR: Record<IocKind, string> = {
-  ip: '#2c3ee5', // brand-600
-  url: '#435ef1', // brand-500
-  domain: '#0ea5e9', // sky-500
-  hash: '#64748b', // slate-500
-};
+const CRIT_COLOR: Record<string, string> = CHART_CRIT;
+const KIND_COLOR: Record<string, string> = CHART_IOC_KIND;
 
 const KIND_LABEL: Record<IocKind, string> = {
   ip: 'IP',
@@ -405,13 +395,7 @@ export default function SocIocs(): JSX.Element {
         <SocPanel>
           <SocSection title="Distribution by type" />
           {typeSlices.length > 0 ? (
-            <SocDonut
-              slices={typeSlices}
-              size={180}
-              thickness={26}
-              centerLabel={formatNumber(totalInWindow)}
-              centerSub="in window"
-            />
+            <SocDonut slices={typeSlices} size={180} centerLabel={formatNumber(totalInWindow)} centerSub="in window" />
           ) : (
             <p className="text-meta font-mono text-slate-500 italic">No IOCs in window.</p>
           )}
@@ -438,7 +422,6 @@ export default function SocIocs(): JSX.Element {
             <SocDonut
               slices={critSlices}
               size={180}
-              thickness={26}
               centerLabel={
                 <span>
                   {buckets.critical}
@@ -468,6 +451,7 @@ export default function SocIocs(): JSX.Element {
             items={dailyCounts.slice(-30)}
             vertical
             height={180}
+            defaultColor={CHART_DAILY}
             emptyText="No IOCs with per-entry timestamps in window."
           />
         </SocPanel>

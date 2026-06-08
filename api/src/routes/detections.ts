@@ -99,7 +99,7 @@ export async function detectionsHandler(c: Context<{ Bindings: Env }>): Promise<
       status: 200,
       headers: {
         'content-type': 'application/json',
-        'cache-control': `public, max-age=${CACHE_TTL_SECONDS}`,
+        'cache-control': `public, max-age=${CACHE_TTL_SECONDS}, stale-while-revalidate=${CACHE_TTL_SECONDS * 4}`,
         'x-cache': 'HIT',
       },
     });
@@ -113,7 +113,7 @@ export async function detectionsHandler(c: Context<{ Bindings: Env }>): Promise<
     status: 200,
     headers: {
       'content-type': 'application/json',
-      'cache-control': `public, max-age=${ttl}`,
+      'cache-control': `public, max-age=${ttl}, stale-while-revalidate=${ttl * 4}`,
       'x-cache': 'MISS',
     },
   });

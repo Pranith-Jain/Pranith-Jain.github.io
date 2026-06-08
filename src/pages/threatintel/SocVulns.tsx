@@ -5,7 +5,7 @@ import { fetchJson } from '../../lib/fetch-json';
 import { SocShell, SocKpi, SocSection, SocPanel, type SocStatus } from '../../components/threatintel/soc/SocShell';
 import { SocBar, SocDonut, type BarItem, type DonutSlice } from '../../components/threatintel/soc/SocCharts';
 import { downloadCsv, dayKey, formatNumber } from '../../components/threatintel/soc/utils';
-import { CHART_RANK, CHART_SEV } from '../../components/threatintel/soc/tone';
+import { CHART_RANK, CHART_SEV, CHART_DAILY, SEV_ORDER } from '../../components/threatintel/soc/tone';
 
 /* ─── Data shape (matches /api/v1/cve-recent) ──────────────────────── */
 
@@ -33,18 +33,9 @@ interface CveRecentResponse {
   cves: RecentCve[];
 }
 
-/* ─── Severity palette (canonical — mirrors tailwind.config severity tokens) ── */
+/* ─── Severity palette (canonical — imported from tone.ts) ─────────── */
 
-const SEV_COLOR: Record<Severity, string> = {
-  CRITICAL: CHART_SEV.CRITICAL,
-  HIGH: CHART_SEV.HIGH,
-  MEDIUM: CHART_SEV.MEDIUM,
-  LOW: CHART_SEV.LOW,
-  NONE: CHART_SEV.NONE,
-  UNKNOWN: CHART_SEV.UNKNOWN,
-};
-
-const SEV_ORDER: Severity[] = ['CRITICAL', 'HIGH', 'MEDIUM', 'LOW', 'NONE', 'UNKNOWN'];
+const SEV_COLOR: Record<string, string> = CHART_SEV;
 
 /* ─── Vendor extraction (best-effort from CVE description) ─────────── */
 
@@ -205,10 +196,10 @@ export default function SocVulns(): JSX.Element {
   }, [inWindow]);
 
   /* ─── Severity index (donut) ───────────────────────────────────── */
-  const sevSlices: DonutSlice[] = useMemo(
-    () => SEV_ORDER.filter((s) => counts[s] > 0).map((s) => ({ label: s, value: counts[s], color: SEV_COLOR[s] })),
-    [counts]
-  );
+  const sevSlices: DonutSlice[] = useMemo(() => {
+    const sevs = SEV_ORDER as Severity[];
+    return sevs.filter((s) => counts[s] > 0).map((s) => ({ label: s, value: counts[s], color: SEV_COLOR[s] }));
+  }, [counts]);
 
   /* ─── Top vendors ─────────────────────────────────────────────── */
   const topVendors: BarItem[] = useMemo(() => {
@@ -366,19 +357,19 @@ export default function SocVulns(): JSX.Element {
               </span>
             }
           />
-          <SocBar items={dailyCounts.slice(-30)} vertical height={180} emptyText="No CVEs in window." />
+          <SocBar
+            items={dailyCounts.slice(-30)}
+            vertical
+            height={180}
+            defaultColor={CHART_DAILY}
+            emptyText="No CVEs in window."
+          />
         </SocPanel>
 
         <SocPanel>
           <SocSection title="Severity index" />
           {sevSlices.length > 0 ? (
-            <SocDonut
-              slices={sevSlices}
-              size={180}
-              thickness={26}
-              centerLabel={formatNumber(total)}
-              centerSub="cves in window"
-            />
+            <SocDonut slices={sevSlices} size={180} centerLabel={formatNumber(total)} centerSub="cves in window" />
           ) : (
             <p className="text-meta font-mono text-slate-500 italic">No CVEs in window.</p>
           )}
@@ -404,7 +395,7 @@ export default function SocVulns(): JSX.Element {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4">
         <SocPanel>
           <SocSection title="CVSS distribution" />
-          <SocBar items={cvssBins} vertical height={160} />
+          <SocBar items={cvssBins} vertical height={160} defaultColor={CHART_DAILY} />
         </SocPanel>
 
         <SocPanel className="lg:col-span-2">

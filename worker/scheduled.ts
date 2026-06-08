@@ -255,7 +255,7 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
         // Cache-warm fan-out. The heal is conditional (only fires when
         // the briefing is empty/degraded), so this always runs.
         const start = Date.now();
-        const baseUrl = 'https://pranithjain.qzz.io';
+        const baseUrl = (env as unknown as { SITE_URL?: string }).SITE_URL ?? 'https://pranithjain.qzz.io';
         const perSourceTargets = [
           '/api/v1/threat-map',
           '/api/v1/rules',
@@ -283,7 +283,7 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           '/api/v1/cyber-crime',
           '/api/v1/writeups',
           '/api/v1/telegram-feed',
-          '/api/v1/onion-watch',
+          '/api/v1/secret-leaks',
         ];
         // USGS earthquake warmup — write to a dedicated cache key so
         // global-pulse can read it without doing its own fetch.
@@ -318,9 +318,16 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
               headers: { 'content-type': 'application/json', 'cache-control': 'public, max-age=600' },
             });
             await cache.put(usgsReq, usgsResp);
-            console.log(`scheduled: warmed USGS earthquakes (${events.length} events)`);
+            console.log(JSON.stringify({ job: 'cache-warm', sub: 'usgs', events: events.length }));
           } catch (e) {
-            console.error(`scheduled: USGS warmup failed: ${e instanceof Error ? e.message : String(e)}`);
+            console.error(
+              JSON.stringify({
+                job: 'cache-warm',
+                sub: 'usgs',
+                status: 'failed',
+                error: e instanceof Error ? e.message : String(e),
+              })
+            );
           }
         }
         const composerTargets = ['/api/v1/snapshot', '/api/v1/ioc-snapshot'];
@@ -343,7 +350,7 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
                 : `${path}=err(${(r.reason as Error).message})`;
             })
             .join(' ');
-          console.log(`scheduled: warmed in ${Date.now() - start}ms — ${summary}`);
+          console.log(JSON.stringify({ job: 'cache-warm', duration_ms: Date.now() - start, summary }));
         }
 
         // === Write warmed data to KV for global-pulse fallback ===
@@ -366,10 +373,18 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
               const body = await res.text();
               await env.KV_CACHE.put(t.kvKey, body, { expirationTtl: 3600 });
             } catch (e) {
-              console.error(`scheduled: KV write failed for ${t.path}: ${e instanceof Error ? e.message : String(e)}`);
+              console.error(
+                JSON.stringify({
+                  job: 'cache-warm',
+                  sub: 'kv-write',
+                  path: t.path,
+                  status: 'failed',
+                  error: e instanceof Error ? e.message : String(e),
+                })
+              );
             }
           }
-          console.log('scheduled: wrote global-pulse KV fallbacks');
+          console.log(JSON.stringify({ job: 'cache-warm', sub: 'kv-global-pulse', status: 'written' }));
         }
 
         // === Watch engine ===
@@ -477,7 +492,7 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           // not `return` from the whole hourly IIFE (which previously skipped
           // feed-scheduler, rag-reindex, infra-scan, AND the retention sweep).
           if (!db) {
-            console.warn('graph-ingest: no db — skipping graph-ingest; other hourly jobs continue');
+            console.warn(JSON.stringify({ job: 'graph-ingest', status: 'skipped', reason: 'no db bound' }));
           } else {
             try {
               const gResult = await runGraphIngest(db, 'all', env as never);
@@ -630,7 +645,13 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
                   });
                   await writeBriefing(db2, briefing);
                   console.log(
-                    `hourly-heal(daily): ${briefing.slug} findings=${briefing.stats.findings} iocs=${briefing.stats.iocs}`
+                    JSON.stringify({
+                      job: 'hourly-heal',
+                      type: 'daily',
+                      slug: briefing.slug,
+                      findings: briefing.stats.findings,
+                      iocs: briefing.stats.iocs,
+                    })
                   );
                 } catch (e) {
                   logCronFail('hourly-heal(daily)')(e);
@@ -671,7 +692,13 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
                   });
                   await writeBriefing(db2, briefing);
                   console.log(
-                    `hourly-heal(weekly): ${briefing.slug} findings=${briefing.stats.findings} iocs=${briefing.stats.iocs}`
+                    JSON.stringify({
+                      job: 'hourly-heal',
+                      type: 'weekly',
+                      slug: briefing.slug,
+                      findings: briefing.stats.findings,
+                      iocs: briefing.stats.iocs,
+                    })
                   );
                 } catch (e) {
                   logCronFail('hourly-heal(weekly)')(e);
@@ -683,27 +710,29 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           }
         }
 
-        // === 30-day data retention sweep ===
-        // Runs on the hourly cron so we don't burn a 6th trigger slot.
-        // The sweep is a no-op most hours (no rows past 30d yet) but
-        // guarantees the data-minimization policy is enforced.
-        try {
-          const { runRetentionSweep } = await import('../api/src/lib/retention');
-          const db = env.BRIEFINGS_DB as D1Database;
-          const result = await runRetentionSweep(db);
-          if (result.total_deleted > 0) {
-            console.log(
-              JSON.stringify({
-                job: 'retention-sweep',
-                deleted: result.total_deleted,
-                tables_swept: result.tables_swept,
-                duration_ms: result.duration_ms,
-                days: result.days,
-              })
-            );
+        // === 30-day data retention sweep (daily at 6am UTC) ===
+        // Runs once daily instead of hourly — the sweep is a no-op most
+        // runs (no rows past 30d yet) but guarantees the data-minimization
+        // policy is enforced.
+        if (csNow.getUTCHours() === 6) {
+          try {
+            const { runRetentionSweep } = await import('../api/src/lib/retention');
+            const db = env.BRIEFINGS_DB as D1Database;
+            const result = await runRetentionSweep(db);
+            if (result.total_deleted > 0) {
+              console.log(
+                JSON.stringify({
+                  job: 'retention-sweep',
+                  deleted: result.total_deleted,
+                  tables_swept: result.tables_swept,
+                  duration_ms: result.duration_ms,
+                  days: result.days,
+                })
+              );
+            }
+          } catch (e) {
+            logCronFail('retention-sweep')(e);
           }
-        } catch (e) {
-          logCronFail('retention-sweep')(e);
         }
       })()
         .catch(logCronFail('hourly-cron'))
@@ -722,7 +751,7 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
     return;
   }
   if (!env.BRIEFINGS_DB) {
-    console.warn('scheduled: BRIEFINGS_DB not bound, skipping');
+    console.warn(JSON.stringify({ job: 'briefing-build', status: 'skipped', reason: 'BRIEFINGS_DB not bound' }));
     await releaseLease();
     return;
   }
@@ -745,7 +774,14 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           const report = await buildLandscapeReport(new Date(), { env: env as unknown as ApiEnv });
           const result = await writeLandscapeReport(db, report);
           console.log(
-            `scheduled(landscape): ${result.written ? 'wrote' : 'skipped'} ${slug} (reason=${result.reason ?? 'n/a'}, victims=${report.stats.ransomware_victims}, groups=${report.stats.top_groups})`
+            JSON.stringify({
+              job: 'landscape-build',
+              written: result.written,
+              slug,
+              reason: result.reason ?? 'n/a',
+              victims: report.stats.ransomware_victims,
+              groups: report.stats.top_groups,
+            })
           );
         } catch (err) {
           console.error(
@@ -777,7 +813,13 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
         });
         await writeBriefing(db, briefing);
         console.log(
-          `scheduled: wrote ${briefing.slug} (findings=${briefing.stats.findings}, iocs=${briefing.stats.iocs})`
+          JSON.stringify({
+            job: 'briefing-build',
+            type,
+            slug: briefing.slug,
+            findings: briefing.stats.findings,
+            iocs: briefing.stats.iocs,
+          })
         );
       } catch (err) {
         console.error(
@@ -793,7 +835,12 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
         const result = await sweepOldBriefings(db, BRIEFING_MAX_AGE_DAYS);
         if (result.deleted.length > 0) {
           console.log(
-            `scheduled: swept ${result.deleted.length} old briefings (${result.deleted.join(', ')}); kept ${result.kept}`
+            JSON.stringify({
+              job: 'briefing-sweep',
+              deleted: result.deleted.length,
+              slugs: result.deleted,
+              kept: result.kept,
+            })
           );
         }
       } catch (err) {

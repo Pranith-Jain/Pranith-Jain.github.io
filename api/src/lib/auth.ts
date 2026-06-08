@@ -19,9 +19,19 @@
 import type { Context, MiddlewareHandler, Next } from 'hono';
 import type { Env } from '../env';
 import { unauthorized } from './api-error';
+import { validateInternalToken, ALLOWED_INTERNAL_CALLERS } from './internal-token';
 
 /** Allowed origins that bypass API key requirement. */
 const ALLOWED_ORIGINS = new Set(['https://pranithjain.qzz.io', 'http://localhost:5173', 'http://localhost:8787']);
+
+/**
+ * OPEN_PUBLIC_READS auto-expiry. The emergency valve (wrangler secret)
+ * disables API key auth for all GET/HEAD requests when set to 'true'.
+ * To prevent accidental permanent exposure, we track when the valve was
+ * first observed open and auto-close after VALVE_MAX_AGE_MS.
+ */
+const VALVE_MAX_AGE_MS = 60 * 60_000; // 1 hour
+let valveOpenedAt: number | null = null;
 
 /** Request paths that bypass API key auth — used for webhooks called by external services (Telegram, etc.). Handler-level auth (requireAdmin) still applies. */
 const EXEMPT_PATHS = new Set([
@@ -109,10 +119,15 @@ export function authenticate(mode: boolean | 'external-only'): MiddlewareHandler
     }
 
     // Internal requests from our own Durable Objects via the SELF service
-    // binding. DOs set X-Internal-Agent to identify themselves. This avoids
-    // the need for DOs to carry API keys for in-process calls.
-    if (c.req.header('x-internal-agent') === 'investigator-do') {
-      return next();
+    // binding. DOs carry a signed internal token (HMAC-SHA256, short TTL)
+    // that replaces the old spoofable X-Internal-Agent header.
+    const internalToken = c.req.header('x-internal-token') ?? '';
+    if (internalToken) {
+      const result = await validateInternalToken(internalToken);
+      if (result.ok && ALLOWED_INTERNAL_CALLERS.has(result.caller)) {
+        return next();
+      }
+      // Invalid or expired token — fall through to normal auth (reject).
     }
 
     // 'external-only': allow same-origin (frontend) without a key
@@ -130,13 +145,49 @@ export function authenticate(mode: boolean | 'external-only'): MiddlewareHandler
     // and send it via `Authorization: Bearer <key>` or `X-API-Key`. The website
     // itself is exempt via the same-origin check above. Emergency valve:
     // set the OPEN_PUBLIC_READS secret to 'true' to restore keyless reads
-    // without a redeploy.
+    // without a redeploy. Auto-closes after VALVE_MAX_AGE_MS to prevent
+    // permanent accidental exposure.
     if (
       mode === 'external-only' &&
       c.env.OPEN_PUBLIC_READS === 'true' &&
       (c.req.method === 'GET' || c.req.method === 'HEAD')
     ) {
-      return next();
+      // Track when the valve was first observed open
+      if (valveOpenedAt === null) {
+        valveOpenedAt = Date.now();
+        console.warn(
+          JSON.stringify({
+            level: 'warn',
+            event: 'open_public_reads_valve_opened',
+            message: 'OPEN_PUBLIC_READS is true — API key auth disabled for GET/HEAD. Auto-closes in 1 hour.',
+            auto_close_at: new Date(Date.now() + VALVE_MAX_AGE_MS).toISOString(),
+          })
+        );
+      }
+      // Auto-close after the max age
+      if (Date.now() - valveOpenedAt > VALVE_MAX_AGE_MS) {
+        console.error(
+          JSON.stringify({
+            level: 'error',
+            event: 'open_public_reads_valve_expired',
+            message: 'OPEN_PUBLIC_READS valve auto-closed after 1 hour. Set again via wrangler secret if needed.',
+          })
+        );
+        valveOpenedAt = null;
+        // Fall through to normal auth (reject the request)
+      } else {
+        // Log every request that passes through the valve
+        console.warn(
+          JSON.stringify({
+            level: 'warn',
+            event: 'open_public_reads_passthrough',
+            path: new URL(c.req.url).pathname,
+            method: c.req.method,
+            remaining_ms: VALVE_MAX_AGE_MS - (Date.now() - valveOpenedAt),
+          })
+        );
+        return next();
+      }
     }
 
     const required = mode === true || mode === 'external-only';

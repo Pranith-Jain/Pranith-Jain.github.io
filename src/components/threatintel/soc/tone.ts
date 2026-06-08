@@ -1,18 +1,14 @@
 /**
- * Color tokens for the SOC dashboards. The dashboards are brand-aligned:
- * chrome (icons, h1, h2, panels) uses the canonical brand indigo; data
- * colors come from the severity scale in tailwind.config.js so a critical
- * reading on the SOC page reads the same as a critical reading on any
- * other page (rose-600, rose-500, amber-500, emerald-500, sky-500).
+ * Color tokens for the SOC dashboards. All chart fills, severity tokens,
+ * and per-domain palettes live here — pages never define their own colors.
  *
- * Per-page "tactical" hue (ransomware=red, vulns=cyan, iocs=purple) is
- * gone — pages differentiate by their icon, title, and data, not by
- * custom chrome. The live/SOC character still comes from auto-refresh,
- * delta chips, and severity-driven status pills.
+ * Severity tokens mirror `tailwind.config.js` so a critical finding reads
+ * the same on any page (rose → amber → emerald → slate).
  */
 
-/** Page-wide severity tokens — mirror tailwind.config.js `severity`. */
 export type SocSeverity = 'critical' | 'high' | 'medium' | 'low' | 'ok' | 'info';
+
+/* ─── Tailwind class tokens ───────────────────────────────────────── */
 
 export const SEVERITY_TEXT: Record<SocSeverity, string> = {
   critical: 'text-rose-700 dark:text-rose-300',
@@ -32,7 +28,6 @@ export const SEVERITY_PILL: Record<SocSeverity, string> = {
   info: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300',
 };
 
-/** Status pill dot — solid severity hue. */
 export const SEVERITY_DOT: Record<SocSeverity, string> = {
   critical: 'bg-rose-500',
   high: 'bg-rose-500',
@@ -42,17 +37,62 @@ export const SEVERITY_DOT: Record<SocSeverity, string> = {
   info: 'bg-sky-500',
 };
 
-/** Chart fill colors — keep the NVD/CVSS severity scale recognizable. */
+/* ─── Hex fill palettes (chart colours) ───────────────────────────── */
+
+/** Severity → fill hex — mirrors tailwind severity tokens exactly. */
 export const CHART_SEV: Record<string, string> = {
-  CRITICAL: '#e11d48', // rose-600
-  HIGH: '#f43f5e', // rose-500
-  MEDIUM: '#f59e0b', // amber-500
-  LOW: '#0ea5e9', // sky-500
-  NONE: '#64748b', // slate-500
-  UNKNOWN: '#475569', // slate-600
+  CRITICAL: '#e11d48',
+  HIGH: '#f43f5e',
+  MEDIUM: '#f59e0b',
+  LOW: '#10b981',
+  NONE: '#64748b',
+  UNKNOWN: '#475569',
 };
 
-/** Bar-chart brand-aligned scale. Top three = primary brand shade,
- *  mid = sky-400, long tail = slate. Use the same gradient for any
- *  ranked list so the SOC charts feel like the rest of the app. */
-export const CHART_RANK = ['#2c3ee5', '#435ef1', '#6d8bf7', '#0ea5e9', '#38bdf8', '#7dd3fc', '#94a3b8', '#64748b'];
+/** Canonical severity ordering (highest → lowest). */
+export const SEV_ORDER: string[] = ['CRITICAL', 'HIGH', 'MEDIUM', 'LOW', 'NONE', 'UNKNOWN'];
+
+/**
+ * Ranked-list severity gradient. Top-ranked items use severity colours
+ * (rose → amber) so the most important threat visually pops; lower
+ * ranks fade through sky to slate.
+ */
+export const CHART_RANK = ['#e11d48', '#f43f5e', '#f59e0b', '#0ea5e9', '#38bdf8', '#7dd3fc', '#94a3b8', '#64748b'];
+
+/** Single-brand fill for time-series / timeline bars (not ranked data). */
+export const CHART_DAILY = '#2c3ee5';
+
+/* ─── Domain-specific palettes ────────────────────────────────────── */
+
+/** Ransomware sector → fill hex. Mapped from tailwind severity so a
+ *  Healthcare spike reads as critical and Finance as high, etc. */
+export const CHART_SECTOR: Record<string, string> = {
+  Healthcare: '#e11d48',
+  Finance: '#f43f5e',
+  Government: '#f43f5e',
+  Technology: '#f59e0b',
+  Manufacturing: '#f59e0b',
+  Education: '#0ea5e9',
+  Retail: '#0ea5e9',
+  Energy: '#0ea5e9',
+  'Professional Services': '#f59e0b',
+  Transportation: '#0ea5e9',
+  Media: '#94a3b8',
+  Unknown: '#64748b',
+};
+
+/** IOC kind → fill hex. Brand-first so IP/URL (network-blockable) use
+ *  the primary brand hue, Domain uses sky, hash uses slate. */
+export const CHART_IOC_KIND: Record<string, string> = {
+  ip: '#2c3ee5',
+  url: '#435ef1',
+  domain: '#0ea5e9',
+  hash: '#64748b',
+};
+
+/** IOC criticality tier → fill hex. Uses the severity scale. */
+export const CHART_CRIT: Record<string, string> = {
+  critical: '#e11d48',
+  sensitive: '#f59e0b',
+  informational: '#0ea5e9',
+};

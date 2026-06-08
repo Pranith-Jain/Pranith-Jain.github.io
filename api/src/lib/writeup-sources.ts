@@ -30,6 +30,7 @@ export type WriteupSourceSpec =
   | ({ kind: 'devto'; handle: string; label?: string } & WriteupSourceFields)
   | ({ kind: 'hashnode'; host: string; label?: string } & WriteupSourceFields)
   | ({ kind: 'rss'; url: string; label: string } & WriteupSourceFields)
+  | ({ kind: 'jsonfeed'; url: string; label: string } & WriteupSourceFields)
   | ({
       kind: 'manual';
       title: string;
@@ -144,6 +145,22 @@ export const WRITEUP_SOURCES: WriteupSourceSpec[] = [
   // HTML 200 but no inline data island; the RSS feeds expose the same
   // underlying content in machine-readable form.
   { kind: 'rss', url: 'https://cvefeed.io/rssfeed/newsroom.xml', label: 'cvefeed.io Newsroom' },
+
+  // ─── JSON Feed sources (JSON Feed v1.1 format) ──────────────────────
+  // Lyrie Research — autonomous CTI platform publishing CVE deep-dives,
+  // active exploitation analysis, breach reports, and original threat
+  // research. Uses JSON Feed v1.1 format with rich markdown content.
+  {
+    kind: 'jsonfeed',
+    url: 'https://lyrie.ai/research/api/feed.json',
+    label: 'Lyrie Research',
+    tier: 'signal',
+  },
+  // Lyrie Research RSS — same content as the JSON feed above but in
+  // standard RSS 2.0 format. Included as a fallback source so the
+  // writeups aggregator can parse it via the RSS parser if the JSON
+  // feed endpoint is slower or returns a different item set.
+  { kind: 'rss', url: 'https://lyrie.ai/research/api/rss', label: 'Lyrie Research (RSS)', tier: 'signal' },
 
   // ─── Skipped sources (documented so we don't re-add them blindly) ────
   // ransomnews.online (requested 2026-05-12): no machine-readable feed.

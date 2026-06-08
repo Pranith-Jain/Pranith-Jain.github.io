@@ -48,7 +48,9 @@ export function withSecurityHeaders(response: Response, nonce?: string): Respons
     h.set('strict-transport-security', 'max-age=63072000; includeSubDomains; preload');
   if (!h.has('cross-origin-opener-policy')) h.set('cross-origin-opener-policy', 'same-origin');
   if (!h.has('cross-origin-embedder-policy')) h.set('cross-origin-embedder-policy', 'require-corp');
-  if (!h.has('server')) h.set('server', 'PranithJain');
+  // Remove the default Cloudflare server header but don't replace it with
+  // a custom value — no need to advertise the server identity.
+  h.delete('server');
   // Bodyless statuses (101 switching-protocols, 204/205/304) are defined to
   // carry a null body — passing response.body for one throws RangeError. The
   // current call graph never emits these here, but guarding keeps

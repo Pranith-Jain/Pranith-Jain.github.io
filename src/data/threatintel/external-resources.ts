@@ -1354,4 +1354,26 @@ export const RESOURCES: ExternalResource[] = [
     description:
       'Structured OWASP checklist covering 100+ web application security tests — info gathering, config management, authentication, session management, authorization, data validation, cryptography, and business logic. 2,000+ GitHub stars.',
   },
+  {
+    id: 'cti-as-a-code',
+    name: 'CTI as a Code',
+    url: 'https://anpa1200.github.io/CTI_as_a_Code/',
+    kind: 'training',
+    featured: true,
+    tags: ['threat-intel', 'dfir'],
+    description:
+      'Version-controlled CTI methodology with 8 structured training assignments covering reactive, proactive, and full-cycle intelligence. Docker Compose lab stack (OpenCTI, TheHive, Cortex, Elastic SIEM). Evidence-traced analysis with deployable Sigma rule output.',
+    why: 'Practitioner-grade CTI training that treats investigations like software engineering — version-controlled, template-driven, evidence-traced, and reproducible.',
+  },
+  {
+    id: 'misp-galaxy',
+    name: 'MISP Galaxy',
+    url: 'https://www.misp-galaxy.org/',
+    kind: 'research',
+    featured: true,
+    tags: ['threat-intel', 'malware'],
+    description:
+      'Open knowledge base of threat actor clusters, malware, ransomware, tools, and ATT&CK matrices. 200+ clusters covering threat actors, backdoors, bankers, exploit kits, ransomware, RATs, and surveillance vendors. CC0-licensed — importable into any threat intelligence platform.',
+    why: 'Definitive open-source repository of structured threat intelligence clusters — the reference for actor naming, tool tracking, and cross-platform STIX-compatible sharing.',
+  },
 ];

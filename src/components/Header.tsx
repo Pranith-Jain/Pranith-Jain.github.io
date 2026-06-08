@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { memo, useState, useEffect, useRef, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown, Command } from 'lucide-react';
 import type { NavLink } from '../core/entities';
@@ -12,7 +12,7 @@ interface HeaderProps {
   navLinks: NavLink[];
 }
 
-export function Header({ isDark, onToggleTheme, navLinks }: HeaderProps) {
+export const Header = memo(function Header({ isDark, onToggleTheme, navLinks }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -431,4 +431,4 @@ export function Header({ isDark, onToggleTheme, navLinks }: HeaderProps) {
       </div>
     </>
   );
-}
+});

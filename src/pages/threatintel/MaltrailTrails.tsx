@@ -109,8 +109,16 @@ export default function MaltrailTrails(): JSX.Element {
               <FileText size={15} className="text-brand-600 dark:text-brand-400" />
               Trail files ({files?.length ?? '…'})
             </h2>
-            {loading && <p className="text-xs font-mono text-slate-500 animate-pulse">loading…</p>}
-            {error && <p className="text-xs font-mono text-rose-500">err: {error}</p>}
+            {loading && (
+              <p role="status" aria-live="polite" className="text-xs font-mono text-slate-500 animate-pulse">
+                loading…
+              </p>
+            )}
+            {error && (
+              <p role="alert" className="text-xs font-mono text-rose-500">
+                err: {error}
+              </p>
+            )}
             {files && (
               <div className="space-y-1 max-h-[70vh] overflow-y-auto">
                 {files.map((f) => (
@@ -146,7 +154,9 @@ export default function MaltrailTrails(): JSX.Element {
 
           {contentLoading && (
             <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 text-center">
-              <p className="text-xs font-mono text-slate-500 animate-pulse">fetching trail file…</p>
+              <p role="status" aria-live="polite" className="text-xs font-mono text-slate-500 animate-pulse">
+                fetching trail file…
+              </p>
             </div>
           )}
 

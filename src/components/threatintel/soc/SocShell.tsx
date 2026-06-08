@@ -152,7 +152,54 @@ export function SocShell({
           {error && <span className="text-meta font-mono text-rose-600 dark:text-rose-400 ml-2">{error}</span>}
         </div>
 
-        {children}
+        {loading ? <SocSkeleton /> : children}
+      </div>
+    </div>
+  );
+}
+
+/* ─── Loading skeleton (shimmer placeholders for the full grid) ──── */
+
+function SocSkeleton(): JSX.Element {
+  const shimmer = 'animate-pulse rounded bg-slate-200 dark:bg-slate-800';
+  return (
+    <div className="space-y-6" aria-label="Loading dashboard">
+      {/* KPI skeleton row */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        {[1, 2, 3, 4].map((i) => (
+          <div
+            key={i}
+            className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 sm:p-5"
+          >
+            <div className={`${shimmer} h-3 w-16 mb-3`} />
+            <div className={`${shimmer} h-7 w-24 mb-2`} />
+            <div className={`${shimmer} h-3 w-32`} />
+          </div>
+        ))}
+      </div>
+      {/* Chart skeleton row */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4">
+        {[1, 2, 3].map((i) => (
+          <div
+            key={i}
+            className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 sm:p-5"
+          >
+            <div className={`${shimmer} h-3 w-24 mb-6`} />
+            <div className={`${shimmer} h-32 w-full`} />
+          </div>
+        ))}
+      </div>
+      {/* Second chart skeleton row */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4">
+        {[1, 2, 3].map((i) => (
+          <div
+            key={i}
+            className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 sm:p-5"
+          >
+            <div className={`${shimmer} h-3 w-20 mb-6`} />
+            <div className={`${shimmer} h-24 w-full`} />
+          </div>
+        ))}
       </div>
     </div>
   );

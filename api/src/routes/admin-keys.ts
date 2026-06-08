@@ -5,11 +5,72 @@
 
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { requireAdmin } from '../lib/admin-auth';
+import { requireAdmin, safeEqual } from '../lib/admin-auth';
 import { generateApiKey, revokeApiKey, listApiKeys } from '../lib/auth';
 import { badRequest, internalError } from '../lib/api-error';
 import { auditAdminAction } from '../lib/admin-audit';
 import { z } from 'zod';
+
+const SESSION_COOKIE = 'admin_session';
+const SESSION_MAX_AGE = 60 * 60; // 1 hour (seconds, for Set-Cookie max-age)
+
+/**
+ * Build the Set-Cookie header value for the admin session.
+ * HttpOnly: JS cannot read the cookie (XSS cannot exfiltrate the token).
+ * Secure: only sent over HTTPS.
+ * SameSite=Strict: not sent on cross-origin requests (CSRF protection).
+ * Path=/api: only sent to API routes (not static assets).
+ *
+ * The cookie value is `token:version` — the version allows server-side
+ * revocation without rotating the token itself.
+ */
+function sessionCookie(token: string, version?: string): string {
+  const value = version ? `${token}:${version}` : token;
+  return `${SESSION_COOKIE}=${value}; HttpOnly; Secure; SameSite=Strict; Path=/api; Max-Age=${SESSION_MAX_AGE}`;
+}
+
+const clearSessionCookie = `${SESSION_COOKIE}=; HttpOnly; Secure; SameSite=Strict; Path=/api; Max-Age=0`;
+
+/**
+ * POST /api/v1/admin/session — create an admin session.
+ *
+ * Validates the admin token from the request body and sets an HttpOnly
+ * cookie. The browser will send this cookie automatically on subsequent
+ * requests, so the frontend no longer needs to store the token in
+ * localStorage.
+ *
+ * The token is still accepted via Authorization/X-Admin-Token headers
+ * for backward compatibility and non-browser clients.
+ */
+export async function createSessionHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const required = c.env.ADMIN_TOKEN;
+  if (!required) return c.json({ error: 'admin endpoint disabled' }, 403);
+
+  const body = await c.req.json().catch(() => null);
+  const token = body?.token;
+  if (typeof token !== 'string' || !token) {
+    return badRequest(c, 'token field required');
+  }
+  if (!safeEqual(token, required)) {
+    return c.json({ error: 'unauthorized', message: 'invalid admin token' }, 401);
+  }
+
+  auditAdminAction(c, 'api_key_create', { keyId: 'session', label: 'session-cookie', role: 'admin' });
+  return c.json({ ok: true, expires_in_seconds: SESSION_MAX_AGE }, 200, {
+    'Set-Cookie': sessionCookie(token, c.env.ADMIN_TOKEN_VERSION),
+    'Cache-Control': 'no-store',
+  });
+}
+
+/**
+ * DELETE /api/v1/admin/session — clear the admin session cookie (logout).
+ */
+export async function deleteSessionHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  return c.json({ ok: true }, 200, {
+    'Set-Cookie': clearSessionCookie,
+    'Cache-Control': 'no-store',
+  });
+}
 
 const createKeySchema = z.object({
   label: z.string().min(1).max(100),

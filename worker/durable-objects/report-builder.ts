@@ -42,13 +42,31 @@ export class ReportBuilderDO {
     let anyPending = false;
     for (const [key, state] of all) {
       if (state.phase === 'done' || state.phase === 'error') continue;
-      const next = await advance(state, {
-        env: this.env as unknown as ApiEnv,
-        write: { ai: (this.env as unknown as ApiEnv).AI, groqKey: (this.env as unknown as ApiEnv).GROQ_API_KEY },
-      });
-      await this.ctx.storage.put(key, next);
-      if (next.phase === 'done' || next.phase === 'error') await this.persist(next);
-      else anyPending = true;
+      try {
+        const next = await advance(state, {
+          env: this.env as unknown as ApiEnv,
+          write: { ai: (this.env as unknown as ApiEnv).AI, groqKey: (this.env as unknown as ApiEnv).GROQ_API_KEY },
+        });
+        await this.ctx.storage.put(key, next);
+        if (next.phase === 'done' || next.phase === 'error') await this.persist(next);
+        else anyPending = true;
+      } catch (err) {
+        console.error(
+          JSON.stringify({
+            job: 'report-builder-alarm',
+            reportId: state.id,
+            error: err instanceof Error ? err.message : String(err),
+          })
+        );
+        // Mark as error so the report doesn't stay stuck in 'building' forever
+        const errored: ReportState = {
+          ...state,
+          phase: 'error',
+          error: err instanceof Error ? err.message : 'alarm failed',
+        };
+        await this.ctx.storage.put(key, errored);
+        await this.persist(errored);
+      }
     }
     if (anyPending) await this.ctx.storage.setAlarm(Date.now() + 1);
   }

@@ -698,7 +698,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     const response = new Response(json, {
       headers: {
         'content-type': 'application/json',
-        'cache-control': `public, max-age=${CACHE_TTL}`,
+        'cache-control': `public, max-age=${CACHE_TTL}, stale-while-revalidate=${CACHE_TTL * 4}`,
         'access-control-allow-origin': '*',
       },
     });

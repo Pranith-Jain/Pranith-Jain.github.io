@@ -213,6 +213,8 @@ const ALLOWED_HOSTS = new Set([
   'www.cyberscoop.com',
   'grahamcluley.com',
   'www.grahamcluley.com',
+  // Lyrie Research — autonomous CTI platform with JSON Feed v1.1
+  'lyrie.ai',
 ]);
 
 interface AggregatedItem {

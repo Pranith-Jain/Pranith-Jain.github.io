@@ -15,7 +15,11 @@ export { LiveFeedDO, DfirMcpServer, CronLockDO, ReportBuilderDO, InvestigatorAge
 export type { Env };
 
 /** Origins permitted to open the live-feed WebSocket (same set the API trusts). */
-const WS_ALLOWED_ORIGINS = new Set(['https://pranithjain.qzz.io', 'http://localhost:5173', 'http://localhost:8787']);
+const WS_ALLOWED_ORIGINS_STATIC = new Set([
+  'https://pranithjain.qzz.io',
+  'http://localhost:5173',
+  'http://localhost:8787',
+]);
 
 /**
  * Generate a request ID for distributed tracing.
@@ -55,7 +59,9 @@ export default {
       // cross-origin or scripted client could otherwise hold every slot (global
       // DoS). Browsers always send Origin on a WS handshake; accept only ours.
       const wsOrigin = request.headers.get('origin') ?? '';
-      if (!WS_ALLOWED_ORIGINS.has(wsOrigin)) {
+      const wsAllowed = new Set(WS_ALLOWED_ORIGINS_STATIC);
+      if (env.SITE_URL) wsAllowed.add(env.SITE_URL.replace(/\/$/, ''));
+      if (!wsAllowed.has(wsOrigin)) {
         return new Response('forbidden origin', { status: 403 });
       }
       const doId = env.LIVE_FEED_DO.idFromName('global');

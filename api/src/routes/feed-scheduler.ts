@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { safeJsonBody } from '../lib/safe-body';
+import { badRequest, notFound, serviceUnavailable } from '../lib/api-error';
 import { ensureGraphTables, upsertNode, type NodeType } from './threat-graph';
 import { recordIocObservation } from './ioc-lifecycle';
 import { pinnedFetchFollow } from '../lib/ssrf-guard';
@@ -201,14 +202,14 @@ const PRESETS: { id: string; name: string; source_url: string; parser: FeedJob['
 
 export async function listFeedJobsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not available' }, 503);
+  if (!kv) return serviceUnavailable(c, 'KV not available');
   const jobs = await listJobs(kv);
   return c.json({ jobs, presets: PRESETS }, 200, { 'Cache-Control': 'no-store' });
 }
 
 export async function createFeedJobHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not available' }, 503);
+  if (!kv) return serviceUnavailable(c, 'KV not available');
 
   const parsed = await safeJsonBody<{
     name: string;
@@ -221,17 +222,17 @@ export async function createFeedJobHandler(c: Context<{ Bindings: Env }>): Promi
   const body = parsed.value;
 
   if (!body.name?.trim() || !body.source_url?.trim() || !body.parser) {
-    return c.json({ error: 'name, source_url, and parser are required' }, 400);
+    return badRequest(c, 'name, source_url, and parser are required');
   }
 
   if (!VALID_PARSERS.includes(body.parser)) {
-    return c.json({ error: `Invalid parser. Must be one of: ${VALID_PARSERS.join(', ')}` }, 400);
+    return badRequest(c, `Invalid parser. Must be one of: ${VALID_PARSERS.join(', ')}`);
   }
 
   try {
     new URL(body.source_url);
   } catch {
-    return c.json({ error: 'Invalid source_url' }, 400);
+    return badRequest(c, 'Invalid source_url');
   }
 
   const now_ = now();
@@ -258,10 +259,10 @@ export async function createFeedJobHandler(c: Context<{ Bindings: Env }>): Promi
 
 export async function updateFeedJobHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not available' }, 503);
+  if (!kv) return serviceUnavailable(c, 'KV not available');
 
   const id = c.req.param('id');
-  if (!id) return c.json({ error: 'id required' }, 400);
+  if (!id) return badRequest(c, 'id required');
 
   const parsed = await safeJsonBody<Partial<FeedJob>>(c, { maxBytes: 4 * 1024 });
   if ('error' in parsed) return parsed.error;
@@ -269,18 +270,18 @@ export async function updateFeedJobHandler(c: Context<{ Bindings: Env }>): Promi
 
   const jobs = await listJobs(kv);
   const idx = jobs.findIndex((j) => j.id === id);
-  if (idx < 0) return c.json({ error: 'job not found' }, 404);
+  if (idx < 0) return notFound(c, 'job not found');
 
   const job = { ...jobs[idx]! } as FeedJob;
   if (body.parser !== undefined && !VALID_PARSERS.includes(body.parser)) {
-    return c.json({ error: `Invalid parser. Must be one of: ${VALID_PARSERS.join(', ')}` }, 400);
+    return badRequest(c, `Invalid parser. Must be one of: ${VALID_PARSERS.join(', ')}`);
   }
   if (body.name !== undefined) job.name = body.name;
   if (body.source_url !== undefined) {
     try {
       new URL(body.source_url);
     } catch {
-      return c.json({ error: 'Invalid source_url' }, 400);
+      return badRequest(c, 'Invalid source_url');
     }
     job.source_url = body.source_url;
   }
@@ -295,14 +296,14 @@ export async function updateFeedJobHandler(c: Context<{ Bindings: Env }>): Promi
 
 export async function deleteFeedJobHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not available' }, 503);
+  if (!kv) return serviceUnavailable(c, 'KV not available');
 
   const id = c.req.param('id');
-  if (!id) return c.json({ error: 'id required' }, 400);
+  if (!id) return badRequest(c, 'id required');
 
   const jobs = await listJobs(kv);
   const idx = jobs.findIndex((j) => j.id === id);
-  if (idx < 0) return c.json({ error: 'job not found' }, 404);
+  if (idx < 0) return notFound(c, 'job not found');
 
   jobs.splice(idx, 1);
   await saveJobs(kv, jobs);
@@ -325,14 +326,14 @@ export async function deleteFeedJobHandler(c: Context<{ Bindings: Env }>): Promi
 
 export async function runFeedJobHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not available' }, 503);
+  if (!kv) return serviceUnavailable(c, 'KV not available');
 
   const id = c.req.param('id');
-  if (!id) return c.json({ error: 'id required' }, 400);
+  if (!id) return badRequest(c, 'id required');
 
   const jobs = await listJobs(kv);
   const idx = jobs.findIndex((j) => j.id === id);
-  if (idx < 0) return c.json({ error: 'job not found' }, 404);
+  if (idx < 0) return notFound(c, 'job not found');
 
   const job = jobs[idx]!;
   const startedAt = now();
@@ -404,10 +405,10 @@ export async function runFeedJobHandler(c: Context<{ Bindings: Env }>): Promise<
 
 export async function getFeedJobHistoryHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not available' }, 503);
+  if (!kv) return serviceUnavailable(c, 'KV not available');
 
   const id = c.req.param('id');
-  if (!id) return c.json({ error: 'id required' }, 400);
+  if (!id) return badRequest(c, 'id required');
 
   const historyKey = `feed-scheduler:history:${id}`;
   const history = (await kv.get(historyKey, 'json').catch(() => null)) as FeedRunHistory[] | null;
@@ -416,7 +417,7 @@ export async function getFeedJobHistoryHandler(c: Context<{ Bindings: Env }>): P
 
 export async function getFeedJobsHistoryAllHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not available' }, 503);
+  if (!kv) return serviceUnavailable(c, 'KV not available');
 
   const allHistory = await readCombinedHistory(kv);
   return c.json({ history: allHistory }, 200, { 'Cache-Control': 'no-store' });

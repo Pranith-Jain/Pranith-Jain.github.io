@@ -30,7 +30,6 @@ export class LiveFeedDO {
   constructor(ctx: DurableObjectState, env: unknown) {
     this.ctx = ctx;
     this.env = env;
-    this.ctx.blockConcurrencyWhile(async () => {});
   }
 
   async fetch(request: Request): Promise<Response> {

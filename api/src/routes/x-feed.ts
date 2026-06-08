@@ -345,7 +345,9 @@ export async function xFeedHandler(c: Context<{ Bindings: Env }>): Promise<Respo
   if (cached) return new Response(cached.body, cached);
 
   const body = await fetchXFeed();
-  const response = c.json(body, 200, { 'Cache-Control': `public, max-age=${CACHE_TTL}` });
+  const response = c.json(body, 200, {
+    'Cache-Control': `public, max-age=${CACHE_TTL}, stale-while-revalidate=${CACHE_TTL * 4}`,
+  });
   c.executionCtx.waitUntil(cache.put(cacheKey, response.clone()));
   return response;
 }

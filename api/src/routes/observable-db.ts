@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { safeJsonBody } from '../lib/safe-body';
+import { badRequest, notFound, serviceUnavailable } from '../lib/api-error';
 
 interface ProviderVerdict {
   provider: string;
@@ -98,7 +99,7 @@ async function saveAll(kv: KVNamespace, entries: ObservableEntry[]): Promise<voi
 
 export async function listObservablesHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not available' }, 503);
+  if (!kv) return serviceUnavailable(c, 'KV not available');
 
   const query = c.req.query('q')?.toLowerCase().trim();
   const typeFilter = c.req.query('type');
@@ -145,21 +146,21 @@ export async function listObservablesHandler(c: Context<{ Bindings: Env }>): Pro
 
 export async function getObservableHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not available' }, 503);
+  if (!kv) return serviceUnavailable(c, 'KV not available');
 
   const id = c.req.param('id');
-  if (!id) return c.json({ error: 'id required' }, 400);
+  if (!id) return badRequest(c, 'id required');
 
   const entries = await loadAll(kv);
   const entry = entries.find((e) => e.id === id);
-  if (!entry) return c.json({ error: 'not found' }, 404);
+  if (!entry) return notFound(c);
 
   return c.json({ entry }, 200, { 'Cache-Control': 'no-store' });
 }
 
 export async function saveObservableHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not available' }, 503);
+  if (!kv) return serviceUnavailable(c, 'KV not available');
 
   const parsed = await safeJsonBody<{
     indicator: string;
@@ -174,7 +175,7 @@ export async function saveObservableHandler(c: Context<{ Bindings: Env }>): Prom
   const body = parsed.value;
 
   if (!body.indicator?.trim() || !body.type) {
-    return c.json({ error: 'indicator and type are required' }, 400);
+    return badRequest(c, 'indicator and type are required');
   }
 
   const now_ = now();
@@ -224,10 +225,10 @@ export async function saveObservableHandler(c: Context<{ Bindings: Env }>): Prom
 
 export async function updateObservableHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not available' }, 503);
+  if (!kv) return serviceUnavailable(c, 'KV not available');
 
   const id = c.req.param('id');
-  if (!id) return c.json({ error: 'id required' }, 400);
+  if (!id) return badRequest(c, 'id required');
 
   const parsed = await safeJsonBody<{ tags?: string[]; tlp?: ObservableEntry['tlp']; confidence?: number }>(c, {
     maxBytes: 8 * 1024,
@@ -237,7 +238,7 @@ export async function updateObservableHandler(c: Context<{ Bindings: Env }>): Pr
 
   const entries = await loadAll(kv);
   const idx = entries.findIndex((e) => e.id === id);
-  if (idx < 0) return c.json({ error: 'not found' }, 404);
+  if (idx < 0) return notFound(c);
 
   const entry = { ...entries[idx]! } as ObservableEntry;
   if (body.tags !== undefined) entry.tags = body.tags;
@@ -252,14 +253,14 @@ export async function updateObservableHandler(c: Context<{ Bindings: Env }>): Pr
 
 export async function deleteObservableHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not available' }, 503);
+  if (!kv) return serviceUnavailable(c, 'KV not available');
 
   const id = c.req.param('id');
-  if (!id) return c.json({ error: 'id required' }, 400);
+  if (!id) return badRequest(c, 'id required');
 
   const entries = await loadAll(kv);
   const idx = entries.findIndex((e) => e.id === id);
-  if (idx < 0) return c.json({ error: 'not found' }, 404);
+  if (idx < 0) return notFound(c);
 
   entries.splice(idx, 1);
   await saveAll(kv, entries);
@@ -268,20 +269,20 @@ export async function deleteObservableHandler(c: Context<{ Bindings: Env }>): Pr
 
 export async function addObservableNoteHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not available' }, 503);
+  if (!kv) return serviceUnavailable(c, 'KV not available');
 
   const id = c.req.param('id');
-  if (!id) return c.json({ error: 'id required' }, 400);
+  if (!id) return badRequest(c, 'id required');
 
   const parsed = await safeJsonBody<{ text: string; author?: string }>(c, { maxBytes: 4 * 1024 });
   if ('error' in parsed) return parsed.error;
   const body = parsed.value;
 
-  if (!body.text?.trim()) return c.json({ error: 'text is required' }, 400);
+  if (!body.text?.trim()) return badRequest(c, 'text is required');
 
   const entries = await loadAll(kv);
   const idx = entries.findIndex((e) => e.id === id);
-  if (idx < 0) return c.json({ error: 'not found' }, 404);
+  if (idx < 0) return notFound(c);
 
   const note: ObservableNote = {
     id: uuid(),
@@ -301,15 +302,15 @@ export async function addObservableNoteHandler(c: Context<{ Bindings: Env }>): P
 
 export async function deleteObservableNoteHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not available' }, 503);
+  if (!kv) return serviceUnavailable(c, 'KV not available');
 
   const id = c.req.param('id');
   const noteId = c.req.param('noteId');
-  if (!id || !noteId) return c.json({ error: 'id and noteId required' }, 400);
+  if (!id || !noteId) return badRequest(c, 'id and noteId required');
 
   const entries = await loadAll(kv);
   const idx = entries.findIndex((e) => e.id === id);
-  if (idx < 0) return c.json({ error: 'not found' }, 404);
+  if (idx < 0) return notFound(c);
 
   const entry = { ...entries[idx]! } as ObservableEntry;
   entry.notes = entry.notes.filter((n) => n.id !== noteId);
@@ -321,7 +322,7 @@ export async function deleteObservableNoteHandler(c: Context<{ Bindings: Env }>)
 
 export async function getObservableTagsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const kv = c.env.KV_CACHE;
-  if (!kv) return c.json({ error: 'KV not available' }, 503);
+  if (!kv) return serviceUnavailable(c, 'KV not available');
 
   const entries = await loadAll(kv);
   const tagSet = new Set<string>();

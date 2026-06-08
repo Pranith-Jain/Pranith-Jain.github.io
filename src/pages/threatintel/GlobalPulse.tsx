@@ -277,9 +277,17 @@ export default function GlobalPulse(): JSX.Element {
       if (intervalRef.current) clearInterval(intervalRef.current);
       return;
     }
-    intervalRef.current = setInterval(load, 30_000);
+    intervalRef.current = window.setInterval(() => {
+      if (document.visibilityState !== 'visible') return;
+      void load();
+    }, 30_000);
+    const onVisible = () => {
+      if (document.visibilityState === 'visible') void load();
+    };
+    document.addEventListener('visibilitychange', onVisible);
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
+      document.removeEventListener('visibilitychange', onVisible);
     };
   }, [autoRefresh, load]);
 

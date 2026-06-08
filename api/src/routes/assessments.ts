@@ -58,15 +58,17 @@ async function loadAll(env: Env): Promise<Assessment[]> {
       }
     }
     const list = await kv.list({ prefix: KV_PREFIX + ':' });
-    const assessments: Assessment[] = [];
-    for (const key of list.keys) {
-      try {
-        const raw = await kv.get(key.name);
-        if (raw) assessments.push(JSON.parse(raw) as Assessment);
-      } catch {
-        /* skip */
-      }
-    }
+    const results = await Promise.all(
+      list.keys.map(async (key) => {
+        try {
+          const raw = await kv.get(key.name);
+          return raw ? (JSON.parse(raw) as Assessment) : null;
+        } catch {
+          return null;
+        }
+      })
+    );
+    const assessments: Assessment[] = results.filter((a): a is Assessment => a !== null);
     const sorted = assessments.sort((a, b) => b.created_at.localeCompare(a.created_at));
     if (cache && sorted.length > 0) {
       cache

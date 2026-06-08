@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { Eye, Linkedin, Github, Mail } from 'lucide-react';
 import { usePageViewCounter, formatViewCount } from '../hooks';
@@ -33,7 +34,7 @@ const BUILD_LINKS: Array<{ label: string; href: string }> = [
   { label: 'Blog', href: '/blog' },
 ];
 
-export function Footer({ personalInfo }: FooterProps) {
+export const Footer = memo(function Footer({ personalInfo }: FooterProps) {
   const currentYear = new Date().getFullYear();
   const { count, isNewSession } = usePageViewCounter();
 
@@ -143,4 +144,4 @@ export function Footer({ personalInfo }: FooterProps) {
       </div>
     </footer>
   );
-}
+});

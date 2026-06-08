@@ -1,3 +1,4 @@
+import { Virtuoso } from 'react-virtuoso';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link, useSearchParams } from 'react-router-dom';
@@ -513,13 +514,16 @@ export default function DarkWeb(): JSX.Element {
         </div>
 
         {matched.length > 0 && (
-          <ul className="space-y-3" aria-label="Feed items">
-            {matched.map(({ item: it, watchMatches }) => {
+          <Virtuoso
+            style={{ height: '80vh' }}
+            totalCount={matched.length}
+            itemContent={(index) => {
+              const { item: it, watchMatches } = matched[index]!;
               const hit = watchMatches.length > 0;
               return (
                 <li
                   key={it.guid ?? it.link}
-                  className={`rounded-lg border p-4 transition-colors ${
+                  className={`rounded-lg border p-4 transition-colors mb-3 ${
                     hit
                       ? 'border-amber-400 bg-amber-50/50 dark:bg-amber-900/15 dark:border-amber-700'
                       : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900'
@@ -558,8 +562,15 @@ export default function DarkWeb(): JSX.Element {
                   )}
                 </li>
               );
-            })}
-          </ul>
+            }}
+            components={{
+              List: ({ children, style }) => (
+                <ul className="space-y-3" aria-label="Feed items" style={style}>
+                  {children}
+                </ul>
+              ),
+            }}
+          />
         )}
 
         <footer className="mt-12 text-xs font-mono text-slate-500 leading-relaxed">

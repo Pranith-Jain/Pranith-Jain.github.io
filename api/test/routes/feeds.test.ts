@@ -60,7 +60,7 @@ describe('GET /api/v1/feeds/proxy', () => {
     // SSRF guard: the proxy follows redirects only within the allow-list.
     // evil.example is not allow-listed, so the redirect is refused, not followed.
     expect(r.status).toBe(403);
-    const body = (await r.json()) as { error?: string };
-    expect(body.error).toMatch(/non-allow-listed host/i);
+    const body = (await r.json()) as { error?: string; message?: string };
+    expect(body.message ?? body.error).toMatch(/non-allow-listed host/i);
   });
 });

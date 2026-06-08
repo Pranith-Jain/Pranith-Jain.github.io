@@ -2,6 +2,7 @@ import type { Context } from 'hono';
 import type { D1Database } from '@cloudflare/workers-types';
 import type { Env } from '../env';
 import { safeJsonBody } from '../lib/safe-body';
+import { badRequest, notFound, serviceUnavailable } from '../lib/api-error';
 
 interface Observable {
   id: string;
@@ -246,7 +247,7 @@ async function loadAllInvestigations(db: D1Database): Promise<Investigation[]> {
 
 export async function listInvestigationsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'Database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'Database not configured');
   await ensureTables(db);
   const investigations = await loadAllInvestigations(db);
   return c.json({ investigations }, 200, { 'Cache-Control': 'no-store' });
@@ -254,7 +255,7 @@ export async function listInvestigationsHandler(c: Context<{ Bindings: Env }>): 
 
 export async function createInvestigationHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'Database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'Database not configured');
 
   const parsed = await safeJsonBody<{
     title: string;
@@ -266,7 +267,7 @@ export async function createInvestigationHandler(c: Context<{ Bindings: Env }>):
   if ('error' in parsed) return parsed.error;
   const body = parsed.value;
 
-  if (!body.title?.trim()) return c.json({ error: 'title is required' }, 400);
+  if (!body.title?.trim()) return badRequest(c, 'title is required');
   await ensureTables(db);
 
   const now_ = now();
@@ -314,23 +315,23 @@ export async function createInvestigationHandler(c: Context<{ Bindings: Env }>):
 
 export async function getInvestigationHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'Database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'Database not configured');
 
   const id = c.req.param('id');
-  if (!id) return c.json({ error: 'id required' }, 400);
+  if (!id) return badRequest(c, 'id required');
   await ensureTables(db);
 
   const investigation = await loadFullInvestigation(db, id);
-  if (!investigation) return c.json({ error: 'investigation not found' }, 404);
+  if (!investigation) return notFound(c, 'investigation not found');
   return c.json({ investigation }, 200, { 'Cache-Control': 'no-store' });
 }
 
 export async function updateInvestigationHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'Database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'Database not configured');
 
   const id = c.req.param('id');
-  if (!id) return c.json({ error: 'id required' }, 400);
+  if (!id) return badRequest(c, 'id required');
 
   const parsed = await safeJsonBody<{
     title?: string;
@@ -345,7 +346,7 @@ export async function updateInvestigationHandler(c: Context<{ Bindings: Env }>):
   await ensureTables(db);
 
   const existing = await db.prepare('SELECT * FROM investigations WHERE id = ?').bind(id).first();
-  if (!existing) return c.json({ error: 'investigation not found' }, 404);
+  if (!existing) return notFound(c, 'investigation not found');
 
   const inv = rowToInvestigation(existing as Record<string, unknown>);
   const timelineInserts: Array<{ type: string; message: string }> = [];
@@ -387,14 +388,14 @@ export async function updateInvestigationHandler(c: Context<{ Bindings: Env }>):
 
 export async function deleteInvestigationHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'Database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'Database not configured');
 
   const id = c.req.param('id');
-  if (!id) return c.json({ error: 'id required' }, 400);
+  if (!id) return badRequest(c, 'id required');
   await ensureTables(db);
 
   const existing = await db.prepare('SELECT id FROM investigations WHERE id = ?').bind(id).first();
-  if (!existing) return c.json({ error: 'investigation not found' }, 404);
+  if (!existing) return notFound(c, 'investigation not found');
 
   // CASCADE delete children manually (D1 doesn't support FK constraints)
   await db.prepare('DELETE FROM investigation_observables WHERE investigation_id = ?').bind(id).run();
@@ -407,10 +408,10 @@ export async function deleteInvestigationHandler(c: Context<{ Bindings: Env }>):
 
 export async function addObservableHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'Database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'Database not configured');
 
   const id = c.req.param('id');
-  if (!id) return c.json({ error: 'id required' }, 400);
+  if (!id) return badRequest(c, 'id required');
 
   const parsed = await safeJsonBody<{ value: string; type: Observable['type']; description?: string; tags?: string[] }>(
     c,
@@ -418,11 +419,11 @@ export async function addObservableHandler(c: Context<{ Bindings: Env }>): Promi
   );
   if ('error' in parsed) return parsed.error;
   const body = parsed.value;
-  if (!body.value?.trim() || !body.type) return c.json({ error: 'value and type required' }, 400);
+  if (!body.value?.trim() || !body.type) return badRequest(c, 'value and type required');
   await ensureTables(db);
 
   const existing = await db.prepare('SELECT id FROM investigations WHERE id = ?').bind(id).first();
-  if (!existing) return c.json({ error: 'investigation not found' }, 404);
+  if (!existing) return notFound(c, 'investigation not found');
 
   const observable: Observable = {
     id: crypto.randomUUID(),
@@ -461,18 +462,18 @@ export async function addObservableHandler(c: Context<{ Bindings: Env }>): Promi
 
 export async function removeObservableHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'Database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'Database not configured');
 
   const id = c.req.param('id');
   const obsId = c.req.param('observableId');
-  if (!id || !obsId) return c.json({ error: 'id and observableId required' }, 400);
+  if (!id || !obsId) return badRequest(c, 'id and observableId required');
   await ensureTables(db);
 
   const obs = await db
     .prepare('SELECT * FROM investigation_observables WHERE id = ? AND investigation_id = ?')
     .bind(obsId, id)
     .first();
-  if (!obs) return c.json({ error: 'observable not found' }, 404);
+  if (!obs) return notFound(c, 'observable not found');
 
   const removed = rowToObservable(obs as Record<string, unknown>);
   await db.prepare('DELETE FROM investigation_observables WHERE id = ?').bind(obsId).run();
@@ -491,19 +492,19 @@ export async function removeObservableHandler(c: Context<{ Bindings: Env }>): Pr
 
 export async function addTaskHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'Database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'Database not configured');
 
   const id = c.req.param('id');
-  if (!id) return c.json({ error: 'id required' }, 400);
+  if (!id) return badRequest(c, 'id required');
 
   const parsed = await safeJsonBody<{ title: string; description?: string }>(c, { maxBytes: 4 * 1024 });
   if ('error' in parsed) return parsed.error;
   const body = parsed.value;
-  if (!body.title?.trim()) return c.json({ error: 'title required' }, 400);
+  if (!body.title?.trim()) return badRequest(c, 'title required');
   await ensureTables(db);
 
   const existing = await db.prepare('SELECT id FROM investigations WHERE id = ?').bind(id).first();
-  if (!existing) return c.json({ error: 'investigation not found' }, 404);
+  if (!existing) return notFound(c, 'investigation not found');
 
   const task: Task = {
     id: crypto.randomUUID(),
@@ -533,11 +534,11 @@ export async function addTaskHandler(c: Context<{ Bindings: Env }>): Promise<Res
 
 export async function updateTaskHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'Database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'Database not configured');
 
   const id = c.req.param('id');
   const taskId = c.req.param('taskId');
-  if (!id || !taskId) return c.json({ error: 'id and taskId required' }, 400);
+  if (!id || !taskId) return badRequest(c, 'id and taskId required');
 
   const parsed = await safeJsonBody<{ title?: string; description?: string; status?: Task['status'] }>(c, {
     maxBytes: 4 * 1024,
@@ -550,7 +551,7 @@ export async function updateTaskHandler(c: Context<{ Bindings: Env }>): Promise<
     .prepare('SELECT * FROM investigation_tasks WHERE id = ? AND investigation_id = ?')
     .bind(taskId, id)
     .first();
-  if (!taskRow) return c.json({ error: 'task not found' }, 404);
+  if (!taskRow) return notFound(c, 'task not found');
 
   const task = rowToTask(taskRow as Record<string, unknown>);
   if (body.title !== undefined) task.title = body.title.trim();
@@ -577,19 +578,19 @@ export async function updateTaskHandler(c: Context<{ Bindings: Env }>): Promise<
 
 export async function addNoteHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'Database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'Database not configured');
 
   const id = c.req.param('id');
-  if (!id) return c.json({ error: 'id required' }, 400);
+  if (!id) return badRequest(c, 'id required');
 
   const parsed = await safeJsonBody<{ message: string }>(c, { maxBytes: 8 * 1024 });
   if ('error' in parsed) return parsed.error;
   const body = parsed.value;
-  if (!body.message?.trim()) return c.json({ error: 'message required' }, 400);
+  if (!body.message?.trim()) return badRequest(c, 'message required');
   await ensureTables(db);
 
   const existing = await db.prepare('SELECT id FROM investigations WHERE id = ?').bind(id).first();
-  if (!existing) return c.json({ error: 'investigation not found' }, 404);
+  if (!existing) return notFound(c, 'investigation not found');
 
   const tl = timelineEntry('note-added', body.message.trim());
   await db

@@ -238,6 +238,16 @@ export const rssFeeds: RSSFeed[] = [
     language: 'en',
   },
   {
+    id: 'lyrie-research',
+    name: 'Lyrie Research',
+    url: 'https://lyrie.ai/research/api/rss',
+    description:
+      'Autonomous CTI platform — CVE deep-dives, active exploitation, breaches, and original threat research',
+    category: 'threat-intel',
+    source: 'lyrie.ai',
+    language: 'en',
+  },
+  {
     id: 'the-record',
     name: 'The Record',
     url: 'https://therecord.media/feed',

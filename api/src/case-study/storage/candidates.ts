@@ -2,11 +2,11 @@ import type { KVNamespace } from '@cloudflare/workers-types';
 import type { Candidate, CaseStudyType } from '../types';
 import { kv } from '../kv-keys';
 
-const SEVEN_DAYS_SECONDS = 7 * 24 * 3600;
+const THIRTY_DAYS_SECONDS = 30 * 24 * 3600;
 
 export async function putCandidate(ns: KVNamespace, c: Candidate): Promise<void> {
   await ns.put(kv.candidate(c.type, c.key), JSON.stringify(c), {
-    expirationTtl: SEVEN_DAYS_SECONDS,
+    expirationTtl: THIRTY_DAYS_SECONDS,
   });
 }
 

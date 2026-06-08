@@ -683,6 +683,44 @@ export const automationRunSchema = z.object({
   target: z.string().min(1).max(500),
 });
 
+// ── Agent Investigate ────────────────────────────────────────────
+
+export const agentInvestigateSchema = z.object({
+  query: z
+    .string()
+    .min(1, 'query is required')
+    .max(2000, 'query too long (max 2000 chars)')
+    .transform((s) => s.trim()),
+  queryType: z.string().max(50).optional(),
+  maxSteps: z.number().int().min(1).max(10).optional(),
+});
+
+// ── Briefings (query-param validated) ────────────────────────────
+
+export const briefingBuildSchema = z.object({
+  type: z.enum(['daily', 'weekly', 'landscape']),
+  live: z.literal('1').optional(),
+});
+
+export const briefingBackfillSchema = z.object({
+  days: z
+    .string()
+    .optional()
+    .transform((s) => (s ? Math.min(Math.max(parseInt(s, 10) || 14, 0), 21) : 14)),
+  weeks: z
+    .string()
+    .optional()
+    .transform((s) => (s ? Math.min(Math.max(parseInt(s, 10) || 3, 0), 4) : 3)),
+  force: z.literal('1').optional(),
+});
+
+export const briefingDeleteSchema = z.object({
+  slug: z
+    .string()
+    .min(1, 'slug is required')
+    .regex(/^[a-z0-9-]+$/i, 'invalid slug format'),
+});
+
 export const ragIndexSchema = z.object({
   source: z.string().min(1).max(200),
   documents: z

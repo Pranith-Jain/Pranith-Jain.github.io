@@ -59,15 +59,15 @@ describe('candidates storage', () => {
     expect(fetched).toEqual(sampleCandidate);
   });
 
-  it('writes with 7-day TTL', async () => {
+  it('writes with 30-day TTL', async () => {
     const kv = mockKV() as any;
     await putCandidate(kv, sampleCandidate);
     const entry = kv.store.get('candidates:cve:cve-2026-1234');
     expect(entry?.expiresAt).toBeDefined();
     const now = Date.now();
-    const sevenDays = 7 * 24 * 3600 * 1000;
-    expect(entry!.expiresAt! - now).toBeGreaterThan(sevenDays - 60_000);
-    expect(entry!.expiresAt! - now).toBeLessThan(sevenDays + 60_000);
+    const thirtyDays = 30 * 24 * 3600 * 1000;
+    expect(entry!.expiresAt! - now).toBeGreaterThan(thirtyDays - 60_000);
+    expect(entry!.expiresAt! - now).toBeLessThan(thirtyDays + 60_000);
   });
 
   it('listCandidates returns candidates of a type', async () => {

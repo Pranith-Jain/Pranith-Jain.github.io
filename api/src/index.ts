@@ -67,6 +67,8 @@ import { negotiationsHandler, negotiationTranscriptHandler } from './routes/nego
 import { ransomwareLiveHandler } from './routes/ransomwarelive';
 import { writeupsHandler } from './routes/writeups';
 import { cybercrimeHandler } from './routes/cybercrime';
+import { iocExplainHandler, iocRuleHandler } from './routes/ioc-verdict';
+import { globalPulseHandler } from './routes/global-pulse';
 import {
   listBriefingsHandler,
   getBriefingHandler,
@@ -265,7 +267,13 @@ import { requireAdminMiddleware } from './lib/admin-auth';
 import { validate, validateText } from './lib/validate';
 import { looseValidation } from './lib/loose-validate';
 import { createExternalResourceSchema, telegramCustomChannelSchema } from './lib/schemas';
-import { createApiKeyHandler, listApiKeysHandler, revokeApiKeyHandler } from './routes/admin-keys';
+import {
+  createApiKeyHandler,
+  listApiKeysHandler,
+  revokeApiKeyHandler,
+  createSessionHandler,
+  deleteSessionHandler,
+} from './routes/admin-keys';
 import { purgeCacheHandler } from './routes/admin-purge';
 import { runRetentionHandler } from './routes/admin-retention';
 import { malpediaActorHandler, malpediaFamilyHandler, malpediaSearchHandler } from './routes/malpedia';
@@ -482,6 +490,10 @@ import {
   actorEnrichStreamSchema,
   campaignGeneratorSchema,
   automationRunSchema,
+  agentInvestigateSchema,
+  briefingBuildSchema,
+  briefingBackfillSchema,
+  briefingDeleteSchema,
   ragIndexSchema,
   adminPurgeSchema,
   adminRetentionSchema,
@@ -668,6 +680,7 @@ app.post(
   telegramLeakBotRegisterHandler
 );
 
+app.get('/api/v1/global-pulse', globalPulseHandler);
 app.get('/api/v1/cve-recent', cveRecentHandler);
 app.get('/api/v1/cve-threat-map', cveThreatMapHandler);
 app.get('/api/v1/phishing-urls', phishingUrlsHandler);
@@ -680,12 +693,14 @@ app.get('/api/v1/reddit-feed', redditFeedHandler);
 app.get('/api/v1/x-feed', xFeedHandler);
 app.get('/api/v1/feed-status', feedStatusHandler);
 app.get('/api/v1/feed-quality', feedQualityHandler);
-app.post('/api/v1/agent/investigate', agentInvestigateHandler);
+app.post('/api/v1/agent/investigate', validate('json', agentInvestigateSchema), agentInvestigateHandler);
 app.delete('/api/v1/agent/:id', agentDeleteHandler);
 app.get('/api/v1/agent/sessions', agentSessionsHandler);
 app.get('/api/v1/agent/:id/stream', agentStreamHandler);
 app.get('/api/v1/agent/:id', agentStateHandler);
 app.get('/api/v1/ioc-correlation', iocCorrelationHandler);
+app.post('/api/v1/ioc/explain', iocExplainHandler);
+app.post('/api/v1/ioc/rule', iocRuleHandler);
 app.get('/api/v1/actor-timeline', actorTimelineHandler);
 app.get('/api/v1/victim-releaks', victimReleaksHandler);
 app.get('/api/v1/live-iocs', liveIocsHandler);
@@ -760,11 +775,11 @@ app.get('/api/v1/pageviews', pageViewsHandler);
 app.get('/api/v1/briefings/list', listBriefingsHandler);
 app.get('/api/v1/briefings/rss', briefingsRssHandler);
 app.get('/api/v1/briefings/today', todayBriefingHandler);
-app.post('/api/v1/briefings/build', buildBriefingHandler);
-app.post('/api/v1/briefings/backfill', backfillBriefingsHandler);
+app.post('/api/v1/briefings/build', validate('query', briefingBuildSchema), buildBriefingHandler);
+app.post('/api/v1/briefings/backfill', validate('query', briefingBackfillSchema), backfillBriefingsHandler);
 app.post('/api/v1/briefings/sweep', sweepBriefingsHandler);
 app.post('/api/v1/briefings/prune-empty', pruneEmptyBriefingsHandler);
-app.post('/api/v1/briefings/delete', deleteBriefingHandler);
+app.post('/api/v1/briefings/delete', validate('query', briefingDeleteSchema), deleteBriefingHandler);
 app.get('/api/v1/briefings/for-actor/:slug', briefingsForActorHandler);
 app.get('/api/v1/briefings/:slug/print', briefingPrintHandler);
 app.get('/api/v1/briefings/:slug', getBriefingHandler);
@@ -806,6 +821,8 @@ app.get('/api/v1/x-claims', xClaimsHandler);
 app.post('/api/v1/admin/keys', validate('json', adminApiKeyCreateSchema), createApiKeyHandler);
 app.get('/api/v1/admin/keys', listApiKeysHandler);
 app.delete('/api/v1/admin/keys/:id', revokeApiKeyHandler);
+app.post('/api/v1/admin/session', createSessionHandler);
+app.delete('/api/v1/admin/session', deleteSessionHandler);
 app.post('/api/v1/admin/purge', validate('json', adminPurgeSchema), purgeCacheHandler);
 app.post('/api/v1/admin/retention/run', validate('json', adminRetentionSchema), runRetentionHandler);
 app.get('/api/v1/blocklists/pfsense', blocklistPfSenseHandler);

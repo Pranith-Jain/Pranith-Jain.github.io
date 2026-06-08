@@ -16,7 +16,7 @@ import { sanitizeUrl } from '../../lib/sanitize-url';
  * blog is one line: append to WRITEUP_SOURCES, redeploy, done.
  */
 
-type WriteupKind = 'medium' | 'devto' | 'hashnode' | 'rss' | 'manual';
+type WriteupKind = 'medium' | 'devto' | 'hashnode' | 'rss' | 'jsonfeed' | 'manual';
 
 interface Writeup {
   title: string;
@@ -41,6 +41,7 @@ const KIND_PILL: Record<WriteupKind, string> = {
   devto: 'border-violet-500/40 bg-violet-500/10 text-violet-700 dark:text-violet-300',
   hashnode: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300',
   rss: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
+  jsonfeed: 'border-cyan-500/40 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300',
   manual: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
 };
 
@@ -49,6 +50,7 @@ const KIND_LABEL: Record<WriteupKind, string> = {
   devto: 'dev.to',
   hashnode: 'Hashnode',
   rss: 'Vendor / Blog',
+  jsonfeed: 'JSON Feed',
   manual: 'Featured',
 };
 
@@ -146,7 +148,7 @@ export default function Writeups(): JSX.Element {
   }, [data, query, kindFilter, sourceFilter]);
 
   const kindCounts = useMemo(() => {
-    const m: Record<WriteupKind, number> = { medium: 0, devto: 0, hashnode: 0, rss: 0, manual: 0 };
+    const m: Record<WriteupKind, number> = { medium: 0, devto: 0, hashnode: 0, rss: 0, jsonfeed: 0, manual: 0 };
     if (!data) return m;
     for (const it of data.items) m[it.kind] += 1;
     return m;

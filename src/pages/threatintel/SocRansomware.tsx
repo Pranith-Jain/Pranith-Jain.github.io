@@ -5,7 +5,7 @@ import { fetchJson } from '../../lib/fetch-json';
 import { SocShell, SocKpi, SocSection, SocPanel, type SocStatus } from '../../components/threatintel/soc/SocShell';
 import { SocBar, SocDonut, type BarItem, type DonutSlice } from '../../components/threatintel/soc/SocCharts';
 import { downloadCsv, dayKey, formatNumber } from '../../components/threatintel/soc/utils';
-import { CHART_RANK } from '../../components/threatintel/soc/tone';
+import { CHART_RANK, CHART_DAILY, CHART_SECTOR } from '../../components/threatintel/soc/tone';
 
 /* ─── Data shape (matches /api/v1/ransomware-recent) ────────────────── */
 
@@ -38,27 +38,8 @@ interface RansomwareResponse {
   victims: RansomwareVictim[];
 }
 
-/* ─── Palette: brand-aligned chart colors ──────────────────────────── */
-
-// Sector hues — derived from the brand severity scale so a Healthcare
-// ransomware spike reads the same as a critical finding on any other page.
-const SECTOR_COLORS: Record<string, string> = {
-  Healthcare: '#e11d48', // rose-600 (critical)
-  Finance: '#f43f5e', // rose-500 (high)
-  Government: '#f43f5e',
-  Technology: '#f59e0b', // amber-500 (medium)
-  Manufacturing: '#f59e0b',
-  Education: '#0ea5e9', // sky-500 (info)
-  Retail: '#0ea5e9',
-  Energy: '#0ea5e9',
-  'Professional Services': '#f59e0b',
-  Transportation: '#0ea5e9',
-  Media: '#94a3b8', // slate-400
-  Unknown: '#64748b', // slate-500
-};
-
 function colorForSector(s: string): string {
-  return SECTOR_COLORS[s] ?? '#94a3b8';
+  return CHART_SECTOR[s] ?? '#94a3b8';
 }
 
 export default function SocRansomware(): JSX.Element {
@@ -199,6 +180,16 @@ export default function SocRansomware(): JSX.Element {
       .map(([label, value]) => ({ label: label.slice(5), value }));
   }, [victims]);
 
+  /* ─── Actor volume donut ────────────────────────────────────────── */
+  const actorDonut: DonutSlice[] = useMemo(() => {
+    const groups = data?.groups ?? [];
+    return groups.slice(0, 8).map((g, i) => ({
+      label: g.group,
+      value: g.count,
+      color: CHART_RANK[Math.min(i, CHART_RANK.length - 1)],
+    }));
+  }, [data]);
+
   /* ─── Export ───────────────────────────────────────────────────── */
   const onExport = useCallback(() => {
     if (!data) return;
@@ -305,7 +296,6 @@ export default function SocRansomware(): JSX.Element {
             <SocDonut
               slices={countrySlices}
               size={180}
-              thickness={26}
               centerLabel={
                 <span>
                   {countrySlices[0]?.label ?? '—'}
@@ -325,14 +315,14 @@ export default function SocRansomware(): JSX.Element {
         <SocPanel>
           <SocSection title="Distribution by sector" />
           {sectorSlices.length > 0 ? (
-            <SocDonut slices={sectorSlices} size={180} thickness={26} centerSub="by sector" />
+            <SocDonut slices={sectorSlices} size={180} centerSub="by sector" />
           ) : (
             <p className="text-meta font-mono text-slate-500 italic">No sector attribution in this window.</p>
           )}
         </SocPanel>
       </div>
 
-      {/* ─── Charts row 2: timeline + sector bars ─────────────────── */}
+      {/* ─── Charts row 2: timeline + sector bars + actor donut ────── */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4">
         <SocPanel className="lg:col-span-2">
           <SocSection
@@ -347,24 +337,36 @@ export default function SocRansomware(): JSX.Element {
             items={timeline.slice(-30).map((t) => ({ label: t.label, value: t.value }))}
             vertical
             height={180}
+            defaultColor={CHART_DAILY}
             emptyText="No claims in this window."
           />
         </SocPanel>
 
-        <SocPanel>
-          <SocSection
-            title="Sector breakdown"
-            right={<span className="text-meta font-mono text-slate-500">by share %</span>}
-          />
-          <SocBar
-            items={(data?.sectors ?? []).slice(0, 8).map((s) => ({
-              label: s.sector,
-              value: s.count,
-              hint: `${s.pct}%`,
-              color: colorForSector(s.sector),
-            }))}
-          />
-        </SocPanel>
+        <div className="space-y-3 sm:space-y-4">
+          <SocPanel>
+            <SocSection
+              title="Sector breakdown"
+              right={<span className="text-meta font-mono text-slate-500">by share %</span>}
+            />
+            <SocBar
+              items={(data?.sectors ?? []).slice(0, 8).map((s) => ({
+                label: s.sector,
+                value: s.count,
+                hint: `${s.pct}%`,
+                color: colorForSector(s.sector),
+              }))}
+            />
+          </SocPanel>
+
+          <SocPanel>
+            <SocSection title="VOLUMEN POR ACTOR" />
+            {actorDonut.length > 0 ? (
+              <SocDonut slices={actorDonut} size={180} legend />
+            ) : (
+              <p className="text-meta font-mono text-slate-500 italic">No actor data in this window.</p>
+            )}
+          </SocPanel>
+        </div>
       </div>
 
       {/* ─── Recent claims table ──────────────────────────────────── */}

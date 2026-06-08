@@ -279,7 +279,7 @@ export async function threatMapHandler(c: Context<{ Bindings: Env }>) {
       status: 200,
       headers: {
         'content-type': 'application/json',
-        'cache-control': `public, max-age=${CACHE_TTL_SECONDS}`,
+        'cache-control': `public, max-age=${CACHE_TTL_SECONDS}, stale-while-revalidate=${CACHE_TTL_SECONDS * 4}`,
         'x-cache': 'HIT',
       },
     });
@@ -291,7 +291,7 @@ export async function threatMapHandler(c: Context<{ Bindings: Env }>) {
     status: 200,
     headers: {
       'content-type': 'application/json',
-      'cache-control': `public, max-age=${CACHE_TTL_SECONDS}`,
+      'cache-control': `public, max-age=${CACHE_TTL_SECONDS}, stale-while-revalidate=${CACHE_TTL_SECONDS * 4}`,
       'x-cache': 'MISS',
     },
   });

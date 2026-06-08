@@ -6,6 +6,7 @@ interface CacheEntry {
 
 const store = new Map<string, CacheEntry>();
 const CACHE_MAX = 200;
+const inFlight = new Map<string, Promise<unknown>>();
 let evictTimer: ReturnType<typeof setInterval> | null = null;
 
 function startEvictTimer(): void {
@@ -43,11 +44,6 @@ export const memoryCache = {
 
   set<T>(key: string, data: T, ttl: number): void {
     const now = Date.now();
-    // Refresh recency: a plain Map.set() on an existing key keeps its original
-    // insertion position, so deleting first re-inserts it at the newest slot.
-    // That makes Map iteration order == recency order, letting us evict the
-    // oldest entry in O(1) (store.keys().next()) instead of an O(n) scan for
-    // the minimum fetchedAt on every set past the cap.
     store.delete(key);
     if (store.size >= CACHE_MAX) {
       const oldest = store.keys().next().value;
@@ -63,5 +59,26 @@ export const memoryCache = {
 
   clear(): void {
     store.clear();
+  },
+
+  dedup<T>(key: string, fetcher: () => Promise<T>, ttl: number): Promise<T> {
+    const hit = store.get(key);
+    if (hit && Date.now() - hit.fetchedAt < hit.ttl) {
+      return Promise.resolve(hit.data as T);
+    }
+    const pending = inFlight.get(key);
+    if (pending) return pending as Promise<T>;
+    const promise = fetcher()
+      .then((data) => {
+        inFlight.delete(key);
+        memoryCache.set(key, data, ttl);
+        return data;
+      })
+      .catch((err) => {
+        inFlight.delete(key);
+        throw err;
+      });
+    inFlight.set(key, promise);
+    return promise;
   },
 };

@@ -53,6 +53,12 @@ export interface Env {
   DFIR_DEV_ERRORS?: string;
   AJ_analytics?: AnalyticsEngineDataset;
   ADMIN_TOKEN: string;
+  /** Increment to invalidate all existing admin session cookies without
+   *  rotating the ADMIN_TOKEN secret itself. The session cookie endpoint
+   *  stamps this value into the cookie; the auth gate rejects stale versions.
+   *  Set via `wrangler secret put ADMIN_TOKEN_VERSION`. Optional — when
+   *  unset, version checking is disabled (all cookies are valid). */
+  ADMIN_TOKEN_VERSION?: string;
   /** Bearer token for briefings admin endpoints (build, backfill, sweep).
    *  Set via `wrangler secret put BRIEFINGS_ADMIN_TOKEN`. Optional — when
    *  unset, the briefings admin handlers return 404. */

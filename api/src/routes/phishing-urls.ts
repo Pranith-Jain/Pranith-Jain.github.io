@@ -506,7 +506,7 @@ export async function fetchPhishingUrlsCached(
     const resp = new Response(JSON.stringify(body), {
       headers: {
         'content-type': 'application/json',
-        'cache-control': `public, max-age=${ttlFor(body)}`,
+        'cache-control': `public, max-age=${ttlFor(body)}, stale-while-revalidate=${ttlFor(body) * 4}`,
       },
     });
     executionCtx.waitUntil(cache.put(new Request(PHISHING_URLS_CACHE_KEY), resp));
@@ -525,7 +525,7 @@ export async function phishingUrlsHandler(c: Context<{ Bindings: Env }>): Promis
     status: 200,
     headers: {
       'content-type': 'application/json',
-      'cache-control': `public, max-age=${ttlFor(body)}`,
+      'cache-control': `public, max-age=${ttlFor(body)}, stale-while-revalidate=${ttlFor(body) * 4}`,
     },
   });
   c.executionCtx.waitUntil(cache.put(cacheReq, response.clone()));

@@ -275,9 +275,16 @@ export default function RansomwareLive(): JSX.Element {
         </button>
       </div>
 
-      {loading && <div className="font-mono text-sm text-slate-500">loading {active.label}…</div>}
+      {loading && (
+        <p role="status" aria-live="polite" className="font-mono text-sm text-slate-500">
+          loading {active.label}…
+        </p>
+      )}
       {error && (
-        <div className="rounded-lg border border-rose-500/40 bg-rose-500/10 p-4 font-mono text-sm text-rose-700 dark:text-rose-300 flex items-start justify-between gap-3">
+        <div
+          role="alert"
+          className="rounded-lg border border-rose-500/40 bg-rose-500/10 p-4 font-mono text-sm text-rose-700 dark:text-rose-300 flex items-start justify-between gap-3"
+        >
           <span>{error}</span>
           <button
             type="button"

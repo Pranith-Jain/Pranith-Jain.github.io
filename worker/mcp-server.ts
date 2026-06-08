@@ -10,9 +10,11 @@ type Env = {
    *  process (no public DNS/TLS round-trip). Optional so a missing binding
    *  falls back to a public fetch. */
   SELF?: Fetcher;
+  /** Canonical site URL — used instead of hardcoded domain. */
+  SITE_URL?: string;
 };
 
-const API_BASE = 'https://pranithjain.qzz.io';
+const API_BASE_DEFAULT = 'https://pranithjain.qzz.io';
 
 async function apiFetch<T>(self: Fetcher | undefined, path: string, apiKey?: string, init?: RequestInit): Promise<T> {
   const headers: Record<string, string> = {
@@ -22,7 +24,7 @@ async function apiFetch<T>(self: Fetcher | undefined, path: string, apiKey?: str
   if (apiKey) {
     headers['authorization'] = `Bearer ${apiKey}`;
   }
-  const req = new Request(`${API_BASE}${path}`, { ...init, headers });
+  const req = new Request(`${API_BASE_DEFAULT}${path}`, { ...init, headers });
   // Prefer the in-process SELF service binding (no public DNS/TLS hop back into
   // our own origin); fall back to a public fetch if the binding isn't present.
   const res = self ? await self.fetch(req) : await fetch(req);
@@ -48,7 +50,7 @@ async function apiFetchSse(
   if (apiKey) {
     headers['authorization'] = `Bearer ${apiKey}`;
   }
-  const req = new Request(`${API_BASE}${path}`, { headers });
+  const req = new Request(`${API_BASE_DEFAULT}${path}`, { headers });
   const res = self ? await self.fetch(req) : await fetch(req);
   if (!res.ok) {
     const body = await res.text().catch(() => '');
@@ -88,11 +90,14 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
    *
    * INVARIANT: McpAgent maps one MCP session → one Durable Object instance, so
    * a given instance serves a single client and this per-instance field is
-   * effectively per-client. Do NOT register a second connection onto the same
-   * instance with a different key — there is no per-call connection context in
-   * the SDK's `server.tool` callbacks, so an in-flight tool call reads whatever
-   * `this.apiKey` currently holds. If multi-connection sessions are ever added,
-   * thread the key through per-connection state instead of this field.
+   * effectively per-client. The key is updated on EVERY onConnect call (i.e.
+   * every reconnection), so a client that rotates its key and reconnects will
+   * immediately use the new key for all subsequent tool calls.
+   *
+   * NOTE: there is no per-call connection context in the SDK's `server.tool`
+   * callbacks, so an in-flight tool call reads whatever `this.apiKey` currently
+   * holds. If multi-connection sessions are ever added, thread the key through
+   * per-connection state instead of this field.
    */
   private apiKey: string | undefined;
 
@@ -101,6 +106,9 @@ export class DfirMcpServer extends McpAgent<Env, Record<string, never>, Record<s
    * from the initial request headers (the streamable-HTTP transport forwards
    * the original client headers on the internal connection request) so the
    * tool handlers below can authorize downstream API calls.
+   *
+   * The key is updated unconditionally — if a client reconnects with a new
+   * key (e.g. after rotation), subsequent tool calls use the new key.
    */
   override async onConnect(conn: Connection, ctx: ConnectionContext): Promise<void> {
     const authz = ctx.request.headers.get('authorization') ?? '';

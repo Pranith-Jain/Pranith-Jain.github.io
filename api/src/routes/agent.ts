@@ -9,6 +9,7 @@
  */
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, notFound, internalError, serviceUnavailable } from '../lib/api-error';
 import type { AgentState } from '../lib/agent/types';
 import { trackEvent, visitorCountry } from '../lib/analytics';
 
@@ -20,19 +21,19 @@ export async function agentInvestigateHandler(c: Context<{ Bindings: Env }>): Pr
     try {
       body = await c.req.json<{ query?: string; maxSteps?: number }>();
     } catch {
-      return c.json({ error: 'Invalid JSON body' }, 400);
+      return badRequest(c, 'Invalid JSON body');
     }
 
     const query = body.query?.trim();
-    if (!query) return c.json({ error: 'query is required' }, 400);
-    if (query.length > 2000) return c.json({ error: 'query too long (max 2000 chars)' }, 400);
+    if (!query) return badRequest(c, 'query is required');
+    if (query.length > 2000) return badRequest(c, 'query too long (max 2000 chars)');
 
     const maxSteps = Math.min(Math.max(body.maxSteps ?? 6, 1), 10);
     const queryType = detectQueryType(query);
     const id = crypto.randomUUID();
 
     const doNamespace = c.env.INVESTIGATOR_AGENT;
-    if (!doNamespace) return c.json({ error: 'Agent not configured' }, 503);
+    if (!doNamespace) return serviceUnavailable(c, 'Agent not configured');
 
     const doId = doNamespace.idFromName(id);
     const stub = doNamespace.get(doId);
@@ -45,7 +46,7 @@ export async function agentInvestigateHandler(c: Context<{ Bindings: Env }>): Pr
 
     if (!doRes.ok) {
       const err = await doRes.text().catch(() => 'unknown error');
-      return c.json({ error: `Agent spawn failed: ${err}` }, 500);
+      return internalError(c, err);
     }
 
     trackEvent(c.env, 'api_call', {
@@ -56,22 +57,22 @@ export async function agentInvestigateHandler(c: Context<{ Bindings: Env }>): Pr
     return c.json({ id, queryType, maxSteps, status: 'running' }, 201);
   } catch (err) {
     console.error('agentInvestigateHandler error:', err);
-    return c.json({ error: 'agent_handler_error', message: err instanceof Error ? err.message : String(err) }, 500);
+    return internalError(c, err);
   }
 }
 
 export async function agentStateHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const id = c.req.param('id');
-  if (!id) return c.json({ error: 'id required' }, 400);
+  if (!id) return badRequest(c, 'id required');
 
   const doNamespace = c.env.INVESTIGATOR_AGENT;
-  if (!doNamespace) return c.json({ error: 'Agent not configured' }, 503);
+  if (!doNamespace) return serviceUnavailable(c, 'Agent not configured');
 
   const doId = doNamespace.idFromName(id);
   const stub = doNamespace.get(doId);
 
   const doRes = await stub.fetch(`https://agent/state?id=${encodeURIComponent(id)}`);
-  if (!doRes.ok) return c.json({ error: 'not found' }, 404);
+  if (!doRes.ok) return notFound(c);
 
   const state = (await doRes.json()) as AgentState;
   return c.json(state, 200, { 'Cache-Control': `public, max-age=${AGENT_CACHE_TTL}` });
@@ -79,10 +80,10 @@ export async function agentStateHandler(c: Context<{ Bindings: Env }>): Promise<
 
 export async function agentStreamHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const id = c.req.param('id');
-  if (!id) return c.json({ error: 'id required' }, 400);
+  if (!id) return badRequest(c, 'id required');
 
   const doNamespace = c.env.INVESTIGATOR_AGENT;
-  if (!doNamespace) return c.json({ error: 'Agent not configured' }, 503);
+  if (!doNamespace) return serviceUnavailable(c, 'Agent not configured');
 
   const doId = doNamespace.idFromName(id);
   const stub = doNamespace.get(doId);
@@ -169,7 +170,7 @@ export async function agentStreamHandler(c: Context<{ Bindings: Env }>): Promise
 
 export async function agentSessionsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not configured');
 
   const limit = Math.min(Number(c.req.query('limit') ?? 20), 50);
 
@@ -192,10 +193,10 @@ export async function agentSessionsHandler(c: Context<{ Bindings: Env }>): Promi
  */
 export async function agentDeleteHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const id = c.req.param('id');
-  if (!id) return c.json({ error: 'id required' }, 400);
+  if (!id) return badRequest(c, 'id required');
 
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'database not configured' }, 503);
+  if (!db) return serviceUnavailable(c, 'database not configured');
 
   // Delete from D1
   await db.prepare('DELETE FROM agent_sessions WHERE id = ?').bind(id).run();

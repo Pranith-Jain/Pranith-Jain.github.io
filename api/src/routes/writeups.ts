@@ -67,7 +67,7 @@ export interface Writeup {
   /** Per-post author when the feed exposes one. */
   author?: string;
   /** Type of source for UI filtering. */
-  kind: 'medium' | 'devto' | 'hashnode' | 'rss' | 'manual';
+  kind: 'medium' | 'devto' | 'hashnode' | 'rss' | 'jsonfeed' | 'manual';
 }
 
 export interface WriteupsResponse {
@@ -83,13 +83,17 @@ export interface WriteupsResponse {
   items: Writeup[];
 }
 
-async function fetchText(url: string): Promise<string | null> {
+async function fetchText(url: string, kind?: string): Promise<string | null> {
   try {
+    const accept =
+      kind === 'jsonfeed'
+        ? 'application/feed+json, application/json, */*'
+        : 'application/rss+xml, application/xml, text/xml, */*';
     const res = await fetch(url, {
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
       headers: {
         'user-agent': 'Mozilla/5.0 (compatible; pranithjain-writeups/1.0; +https://pranithjain.qzz.io)',
-        accept: 'application/rss+xml, application/xml, text/xml, */*',
+        accept,
       },
       cf: { cacheTtl: 1800, cacheEverything: true },
     });
@@ -150,8 +154,78 @@ function htmlToText(html: string, max = 280): string {
 /** Tiny RSS 2.0 + Atom feed-item extractor. Auto-detects format on the body. */
 function parseFeedItems(body: string, kind: Writeup['kind'], sourceLabel: string): Writeup[] {
   // Detect format: Atom feeds open with <feed xmlns="…/Atom"> or contain <entry>.
+  // JSON Feed starts with { and has a "version" field.
+  if (kind === 'jsonfeed') return parseJsonFeed(body, kind, sourceLabel);
   const isAtom = /<feed\b[^>]*xmlns=["'][^"']*Atom/i.test(body) || /<entry\b/i.test(body);
   return isAtom ? parseAtom(body, kind, sourceLabel) : parseRss(body, kind, sourceLabel);
+}
+
+/** Parse a JSON Feed v1.0/v1.1 document. */
+function parseJsonFeed(body: string, kind: Writeup['kind'], sourceLabel: string): Writeup[] {
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(body);
+  } catch {
+    return [];
+  }
+  if (!parsed || typeof parsed !== 'object' || !('items' in parsed)) return [];
+  const feed = parsed as { items: unknown };
+  if (!Array.isArray(feed.items)) return [];
+  const out: Writeup[] = [];
+  for (const item of feed.items as unknown[]) {
+    if (!item || typeof item !== 'object') continue;
+    const record = item as Record<string, unknown>;
+    const title = typeof record.title === 'string' ? record.title.trim() : '';
+    const url = typeof record.url === 'string' ? record.url : typeof record.id === 'string' ? record.id : '';
+    if (!title || !url) continue;
+
+    // Date: prefer date_published, fall back to date_modified
+    const dateRaw =
+      typeof record.date_published === 'string'
+        ? record.date_published
+        : typeof record.date_modified === 'string'
+          ? record.date_modified
+          : undefined;
+    const isoPublished = dateRaw ? safeIso(dateRaw) : undefined;
+
+    // Description: prefer content_text (plain text), fall back to summary
+    const contentText = typeof record.content_text === 'string' ? record.content_text : '';
+    const summary = typeof record.summary === 'string' ? record.summary : '';
+    const description = contentText || summary;
+    const truncated = description
+      ? description.length > 280
+        ? description.slice(0, 280).trimEnd() + '…'
+        : description
+      : undefined;
+
+    // Tags
+    const tags = Array.isArray(record.tags)
+      ? (record.tags as unknown[]).filter((t): t is string => typeof t === 'string')
+      : undefined;
+
+    // Author
+    let author: string | undefined;
+    if (Array.isArray(record.authors)) {
+      for (const a of record.authors as unknown[]) {
+        if (a && typeof a === 'object' && typeof (a as Record<string, unknown>).name === 'string') {
+          author = (a as Record<string, unknown>).name as string;
+          break;
+        }
+      }
+    }
+
+    out.push({
+      title,
+      url,
+      source: sourceLabel,
+      published: isoPublished && !Number.isNaN(Date.parse(isoPublished)) ? isoPublished : undefined,
+      description: truncated,
+      tags: tags && tags.length > 0 ? tags : undefined,
+      author,
+      kind,
+    });
+  }
+  return out;
 }
 
 function parseRss(body: string, kind: Writeup['kind'], sourceLabel: string): Writeup[] {
@@ -254,6 +328,8 @@ function sourceRss(spec: WriteupSourceSpec): { label: string; rssUrl: string | n
       return { label: spec.label ?? 'Hashnode', rssUrl: `https://${spec.host}/rss.xml`, kind: 'hashnode' };
     case 'rss':
       return { label: spec.label, rssUrl: spec.url, kind: 'rss' };
+    case 'jsonfeed':
+      return { label: spec.label, rssUrl: spec.url, kind: 'jsonfeed' };
     case 'manual':
       return { label: spec.source, rssUrl: null, kind: 'manual' };
   }
@@ -285,7 +361,7 @@ export async function fetchWriteups(): Promise<WriteupsResponse> {
     sourceMeta.push({ kind: 'manual', label: 'Curated', ok: true, count: manuals.length });
   }
 
-  // ─── RSS-backed sources in parallel ────────────────────────────────────
+  // ─── RSS + JSON Feed-backed sources in parallel ──────────────────────
   const rssSpecs = WRITEUP_SOURCES.filter((s) => s.kind !== 'manual') as Exclude<
     WriteupSourceSpec,
     { kind: 'manual' }
@@ -293,7 +369,7 @@ export async function fetchWriteups(): Promise<WriteupsResponse> {
   const rssReady = concurrentMap(rssSpecs, async (spec) => {
     const { label, rssUrl, kind } = sourceRss(spec);
     if (!rssUrl) return { spec, label, kind, ok: false, items: [] as Writeup[], error: 'no rss url' };
-    const body = await fetchText(rssUrl);
+    const body = await fetchText(rssUrl, kind);
     if (!body) return { spec, label, kind, ok: false, items: [] as Writeup[], error: 'fetch failed' };
     let parsed: Writeup[];
     try {
@@ -446,7 +522,7 @@ export async function writeupsHandler(c: Context<{ Bindings: Env }>): Promise<Re
         status: 200,
         headers: {
           'content-type': 'application/json',
-          'cache-control': `public, max-age=${CACHE_TTL_SECONDS}`,
+          'cache-control': `public, max-age=${CACHE_TTL_SECONDS}, stale-while-revalidate=${CACHE_TTL_SECONDS * 4}`,
         },
       });
 
@@ -478,7 +554,10 @@ export async function writeupsHandler(c: Context<{ Bindings: Env }>): Promise<Re
       }),
       {
         status: 200,
-        headers: { 'content-type': 'application/json', 'cache-control': 'public, max-age=60' },
+        headers: {
+          'content-type': 'application/json',
+          'cache-control': 'public, max-age=60, stale-while-revalidate=240',
+        },
       }
     );
   }

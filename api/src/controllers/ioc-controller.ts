@@ -10,104 +10,9 @@ import { ProviderCache } from '../lib/cache';
 import { trackEvent, visitorCountry } from '../lib/analytics';
 import { isCircuitOpen, recordProviderFailure, recordProviderSuccess } from '../lib/circuit-breaker';
 import type { ProviderResult, ProviderId, ProviderAdapter, ProviderEnv } from '../providers/types';
-import { PROVIDER_SUPPORT, PROVIDER_TIMEOUT_MS } from '../providers/types';
-import { virustotal } from '../providers/virustotal';
-import { abuseipdb } from '../providers/abuseipdb';
-import { shodan } from '../providers/shodan';
-import { censys } from '../providers/censys';
-import { netlas } from '../providers/netlas';
-import { otx } from '../providers/otx';
-import { urlscan } from '../providers/urlscan';
-import { hybridanalysis } from '../providers/hybridanalysis';
-import { spamhaus } from '../providers/spamhaus';
-import { tor } from '../providers/tor';
-import { doh } from '../providers/doh';
-import { openphish } from '../providers/openphish';
-import { threatfox } from '../providers/threatfox';
-import { urlhaus } from '../providers/urlhaus';
-import { malwarebazaar } from '../providers/malwarebazaar';
-import { malshare } from '../providers/malshare';
-import { hashlookup } from '../providers/hashlookup';
-import { cinsarmy } from '../providers/cinsarmy';
-import { bitwire } from '../providers/bitwire';
-import { blocklistde } from '../providers/blocklistde';
-import { binarydefense } from '../providers/binarydefense';
-import { ipsum } from '../providers/ipsum';
-import { phishingArmy } from '../providers/phishingArmy';
-import { tweetfeed } from '../providers/tweetfeed';
-import { greynoise } from '../providers/greynoise';
-import { c2tracker } from '../providers/c2tracker';
-import { sslbl } from '../providers/sslbl';
-import { yaraify } from '../providers/yaraify';
-import { phishtank } from '../providers/phishtank';
-import { malwareworld } from '../providers/malwareworld';
-import { emailrep } from '../providers/emailrep';
-import { malpedia } from '../providers/malpedia';
-import { pulsedive } from '../providers/pulsedive';
-import { shodanInternetDB } from '../providers/shodan-internetdb';
-import { spur } from '../providers/spur';
-import { crowdsec } from '../providers/crowdsec';
-import { ipinfo } from '../providers/ipinfo';
-import { phishstats } from '../providers/phishstats';
-import { digitalside } from '../providers/digitalside';
-import { criminalip } from '../providers/criminalip';
-import { certpl } from '../providers/certpl';
-import { x4bnet } from '../providers/x4bnet';
-import { kaspersky } from '../providers/kaspersky';
-import { vulncheck } from '../providers/vulncheck';
-import { maltiverse } from '../providers/maltiverse';
-import { secrets } from '../providers/secrets';
+import { ADAPTERS, buildProviderEnv, PROVIDER_SUPPORT, PROVIDER_TIMEOUT_MS } from '../providers';
 
 const PROVIDER_CHUNK_SIZE = 10;
-
-const ADAPTERS: Record<ProviderId, ProviderAdapter> = {
-  virustotal,
-  abuseipdb,
-  shodan,
-  censys,
-  netlas,
-  otx,
-  urlscan,
-  hybridanalysis,
-  spamhaus,
-  tor,
-  doh,
-  openphish,
-  threatfox,
-  urlhaus,
-  malwarebazaar,
-  malshare,
-  hashlookup,
-  cinsarmy,
-  bitwire,
-  blocklistde,
-  binarydefense,
-  ipsum,
-  phishingArmy,
-  tweetfeed,
-  greynoise,
-  c2tracker,
-  sslbl,
-  yaraify,
-  phishtank,
-  malwareworld,
-  emailrep,
-  malpedia,
-  pulsedive,
-  'shodan-internetdb': shodanInternetDB,
-  spur,
-  crowdsec,
-  ipinfo,
-  phishstats,
-  digitalside,
-  criminalip,
-  certpl,
-  x4bnet,
-  kaspersky,
-  vulncheck,
-  maltiverse,
-  secrets,
-};
 
 /**
  * Process items in chunks of `size` with parallel execution within each chunk.
@@ -120,28 +25,6 @@ async function runChunked<T>(items: T[], fn: (item: T) => Promise<void>, size: n
     // Use allSettled so one provider failure doesn't block the entire chunk
     await Promise.allSettled(chunk.map(fn));
   }
-}
-
-function buildProviderEnv(c: Context<{ Bindings: Env }>): ProviderEnv {
-  return {
-    VT_API_KEY: c.env.VT_API_KEY ?? '',
-    ABUSEIPDB_API_KEY: c.env.ABUSEIPDB_API_KEY ?? '',
-    SHODAN_API_KEY: c.env.SHODAN_API_KEY ?? '',
-    CENSYS_PAT: c.env.CENSYS_PAT ?? '',
-    CENSYS_ORG_ID: c.env.CENSYS_ORG_ID ?? '',
-    NETLAS_API_KEY: c.env.NETLAS_API_KEY ?? '',
-    OTX_API_KEY: c.env.OTX_API_KEY ?? '',
-    URLSCAN_API_KEY: c.env.URLSCAN_API_KEY ?? '',
-    HYBRID_ANALYSIS_API_KEY: c.env.HYBRID_ANALYSIS_API_KEY ?? '',
-    ABUSECH_AUTH_KEY: c.env.ABUSECH_AUTH_KEY,
-    MALSHARE_API_KEY: c.env.MALSHARE_API_KEY,
-    CROWDSEC_API_KEY: c.env.CROWDSEC_API_KEY,
-    IPINFO_TOKEN: c.env.IPINFO_TOKEN,
-    CRIMINALIP_API_KEY: c.env.CRIMINALIP_API_KEY,
-    KASPERSKY_API_KEY: c.env.KASPERSKY_API_KEY,
-    SPUR_API_KEY: c.env.SPUR_API_KEY,
-    VULNCHECK_API_TOKEN: c.env.VULNCHECK_API_TOKEN,
-  };
 }
 
 export interface IocController {
@@ -168,7 +51,7 @@ export function createIocController(): IocController {
       }
 
       const eligible = (Object.keys(ADAPTERS) as ProviderId[]).filter((p) => PROVIDER_SUPPORT[p].includes(type));
-      const providerEnv = buildProviderEnv(c);
+      const providerEnv = buildProviderEnv(c.env);
       const cache = new ProviderCache(c.env.KV_CACHE);
 
       return sseStream<unknown>(async (write) => {

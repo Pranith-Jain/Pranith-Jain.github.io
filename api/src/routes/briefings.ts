@@ -13,6 +13,7 @@ import {
 } from '../lib/briefing-builder';
 import { extractBriefingTags } from '../lib/briefing-tags';
 import { requireAdmin as requireSharedAdmin, safeEqual } from '../lib/admin-auth';
+import { badRequest, notFound, internalError, serviceUnavailable } from '../lib/api-error';
 
 /**
  * Walk every finding in the briefing and attach auto-extracted tags
@@ -93,7 +94,7 @@ async function purgeBriefingDetailCache(slug: string): Promise<void> {
 
 export async function listBriefingsHandler(c: Context<{ Bindings: Env }>) {
   const db = dbOrError(c);
-  if (!db) return c.json({ error: 'briefings database not bound' }, 503);
+  if (!db) return serviceUnavailable(c, 'briefings database not bound');
   try {
     const typeRaw = c.req.query('type');
     const type = typeRaw === 'daily' || typeRaw === 'weekly' || typeRaw === 'landscape' ? typeRaw : undefined;
@@ -124,23 +125,23 @@ export async function listBriefingsHandler(c: Context<{ Bindings: Env }>) {
     return res;
   } catch (err) {
     console.error('listBriefingsHandler error:', err instanceof Error ? err.message : String(err));
-    return c.json({ error: 'briefings list failed' }, 500);
+    return internalError(c, err);
   }
 }
 
 export async function getBriefingHandler(c: Context<{ Bindings: Env }>) {
   const db = dbOrError(c);
-  if (!db) return c.json({ error: 'briefings database not bound' }, 503);
+  if (!db) return serviceUnavailable(c, 'briefings database not bound');
   const slug = c.req.param('slug');
   if (!slug || !/^[a-z0-9-]+$/i.test(slug)) {
-    return c.json({ error: 'invalid slug' }, 400);
+    return badRequest(c, 'invalid slug');
   }
   const cache = caches.default;
   const key = briefingsCacheKey(c);
   const cached = await cache.match(key);
   if (cached) return new Response(cached.body, cached);
   const briefing = await readBriefing(db, slug);
-  if (!briefing) return c.json({ error: 'not found' }, 404);
+  if (!briefing) return notFound(c);
   const res = c.json(enrichBriefingWithTags(briefing), 200, {
     'cache-control': BRIEFINGS_CC,
     'last-modified': new Date().toUTCString(),
@@ -151,7 +152,7 @@ export async function getBriefingHandler(c: Context<{ Bindings: Env }>) {
 
 export async function todayBriefingHandler(c: Context<{ Bindings: Env }>) {
   const db = dbOrError(c);
-  if (!db) return c.json({ error: 'briefings database not bound' }, 503);
+  if (!db) return serviceUnavailable(c, 'briefings database not bound');
   const cache = caches.default;
   const key = briefingsCacheKey(c);
   const cached = await cache.match(key);
@@ -203,13 +204,13 @@ function requireAdmin(c: AdminCtx): { error: Response } | { ok: true } {
  */
 export async function buildBriefingHandler(c: AdminCtx) {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'briefings database not bound' }, 503);
+  if (!db) return serviceUnavailable(c, 'briefings database not bound');
   const auth = requireAdmin(c);
   if ('error' in auth) return auth.error;
 
   const typeRaw = c.req.query('type');
   if (typeRaw !== 'daily' && typeRaw !== 'weekly' && typeRaw !== 'landscape') {
-    return c.json({ error: 'type must be daily, weekly, or landscape' }, 400);
+    return badRequest(c, 'type must be daily, weekly, or landscape');
   }
   // `?live=1` builds the live daily-today window (slug daily-<today>) instead of
   // the closed daily-yesterday — the only way to rebuild today's in-progress
@@ -270,7 +271,7 @@ export async function buildBriefingHandler(c: AdminCtx) {
  */
 export async function backfillBriefingsHandler(c: AdminCtx) {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'briefings database not bound' }, 503);
+  if (!db) return serviceUnavailable(c, 'briefings database not bound');
   const auth = requireAdmin(c);
   if ('error' in auth) return auth.error;
 
@@ -345,15 +346,15 @@ export async function backfillBriefingsHandler(c: AdminCtx) {
  */
 export async function briefingPrintHandler(c: Context<{ Bindings: Env }>) {
   const db = dbOrError(c);
-  if (!db) return c.json({ error: 'briefings database not bound' }, 503);
+  if (!db) return serviceUnavailable(c, 'briefings database not bound');
 
   const slug = c.req.param('slug');
   if (!slug || !/^[a-z0-9-]+$/i.test(slug)) {
-    return c.json({ error: 'invalid slug' }, 400);
+    return badRequest(c, 'invalid slug');
   }
 
   const briefing = await readBriefing(db, slug);
-  if (!briefing) return c.json({ error: 'not found' }, 404);
+  if (!briefing) return notFound(c);
 
   const b = briefing as unknown as Record<string, unknown>;
   const sections = (b.sections as Array<Record<string, unknown>>) ?? [];
@@ -435,11 +436,11 @@ export async function briefingPrintHandler(c: Context<{ Bindings: Env }>) {
 
 export async function briefingsForActorHandler(c: Context<{ Bindings: Env }>) {
   const db = dbOrError(c);
-  if (!db) return c.json({ error: 'briefings database not bound' }, 503);
+  if (!db) return serviceUnavailable(c, 'briefings database not bound');
 
   const actorSlug = c.req.param('slug')?.toLowerCase();
   if (!actorSlug || !/^[a-z0-9-]+$/.test(actorSlug)) {
-    return c.json({ error: 'invalid actor slug' }, 400);
+    return badRequest(c, 'invalid actor slug');
   }
 
   const cache = caches.default;
@@ -510,7 +511,7 @@ export async function briefingsForActorHandler(c: Context<{ Bindings: Env }>) {
 
 export async function sweepBriefingsHandler(c: AdminCtx) {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'briefings database not bound' }, 503);
+  if (!db) return serviceUnavailable(c, 'briefings database not bound');
   const auth = requireAdmin(c);
   if ('error' in auth) return auth.error;
 
@@ -545,13 +546,13 @@ export async function sweepBriefingsHandler(c: AdminCtx) {
  */
 export async function deleteBriefingHandler(c: AdminCtx) {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'briefings database not bound' }, 503);
+  if (!db) return serviceUnavailable(c, 'briefings database not bound');
   const auth = requireAdmin(c);
   if ('error' in auth) return auth.error;
 
   const slug = c.req.query('slug');
   if (!slug || !/^[a-z0-9-]+$/i.test(slug)) {
-    return c.json({ error: 'invalid or missing slug' }, 400);
+    return badRequest(c, 'invalid or missing slug');
   }
   try {
     // Idempotent: report whether the row existed, but ALWAYS return 200 — a
@@ -581,7 +582,7 @@ export async function deleteBriefingHandler(c: AdminCtx) {
  */
 export async function pruneEmptyBriefingsHandler(c: AdminCtx) {
   const db = c.env.BRIEFINGS_DB;
-  if (!db) return c.json({ error: 'briefings database not bound' }, 503);
+  if (!db) return serviceUnavailable(c, 'briefings database not bound');
   const auth = requireAdmin(c);
   if ('error' in auth) return auth.error;
 
@@ -597,6 +598,6 @@ export async function pruneEmptyBriefingsHandler(c: AdminCtx) {
     return c.json({ ok: true, deleted: slugs }, 200);
   } catch (err) {
     console.error('prune-empty failed:', err);
-    return c.json({ error: 'prune failed' }, 500);
+    return internalError(c, err);
   }
 }

@@ -131,8 +131,18 @@ export default function CtiPlatform(): JSX.Element {
 
   // Auto-refresh every 60s
   useEffect(() => {
-    const id = setInterval(load, 60_000);
-    return () => clearInterval(id);
+    const id = window.setInterval(() => {
+      if (document.visibilityState !== 'visible') return;
+      void load();
+    }, 60_000);
+    const onVisible = () => {
+      if (document.visibilityState === 'visible') void load();
+    };
+    document.addEventListener('visibilitychange', onVisible);
+    return () => {
+      window.clearInterval(id);
+      document.removeEventListener('visibilitychange', onVisible);
+    };
   }, [load]);
 
   // Filter events by active layers

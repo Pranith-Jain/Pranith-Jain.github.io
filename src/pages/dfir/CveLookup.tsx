@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, BookText, ExternalLink, Gauge } from 'lucide-react';
+import { ArrowLeft, BookText, ExternalLink, FileCode, Gauge, Loader2, Copy, Check, ChevronDown } from 'lucide-react';
 import { CopyButton } from '../../components/dfir/CopyButton';
 import { prioritise, TIER_LABELS, TIER_STYLES, TIER_BARS } from '../../lib/dfir/cve-priority';
 import { RelatedWikiArticles } from '../../components/dfir/RelatedWikiArticles';
@@ -77,6 +77,56 @@ export default function CveLookup(): JSX.Element {
   const [error, setError] = useState<string | null>(null);
   const [refTagFilter, setRefTagFilter] = useState<Set<string>>(new Set());
   const autoFetched = useRef(false);
+
+  const [explainText, setExplainText] = useState<string | null>(null);
+  const [explainLoading, setExplainLoading] = useState(false);
+  const [ruleText, setRuleText] = useState<string | null>(null);
+  const [ruleName, setRuleName] = useState<string | null>(null);
+  const [ruleLoading, setRuleLoading] = useState(false);
+  const [ruleFormat, setRuleFormat] = useState<'kql' | 'sigma' | 'yara'>('kql');
+  const [copied, setCopied] = useState<'explain' | 'rule' | null>(null);
+
+  const explainCve = async () => {
+    if (!result) return;
+    setExplainLoading(true);
+    setExplainText(null);
+    try {
+      const res = await fetch('/api/v1/copilot/investigate', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ query: result.cve_id }),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = (await res.json()) as { narrative: string };
+      setExplainText(data.narrative);
+    } catch {
+      /* ignore */
+    } finally {
+      setExplainLoading(false);
+    }
+  };
+
+  const generateRule = async () => {
+    if (!result) return;
+    setRuleLoading(true);
+    setRuleText(null);
+    setRuleName(null);
+    try {
+      const res = await fetch('/api/v1/ioc/rule', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ indicator: result.cve_id, format: ruleFormat }),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = (await res.json()) as { rule_name: string; rule_text: string };
+      setRuleName(data.rule_name);
+      setRuleText(data.rule_text);
+    } catch {
+      /* ignore */
+    } finally {
+      setRuleLoading(false);
+    }
+  };
 
   const valid = CVE_RE.test(input.trim());
   const canSubmit = valid && !loading;
@@ -334,6 +384,98 @@ export default function CveLookup(): JSX.Element {
               </section>
             );
           })()}
+
+          {/* AI Actions */}
+          <section className="flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={explainCve}
+              disabled={explainLoading}
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 text-sm font-medium text-slate-700 dark:text-slate-300 hover:border-brand-500/40 transition-colors disabled:opacity-50"
+            >
+              {explainLoading ? <Loader2 size={14} className="animate-spin" /> : <ChevronDown size={14} />}
+              AI explain
+            </button>
+
+            <div className="flex items-center gap-1.5">
+              {(['kql', 'sigma', 'yara'] as const).map((f) => (
+                <button
+                  key={f}
+                  type="button"
+                  onClick={() => setRuleFormat(f)}
+                  className={`px-3 py-2 rounded-lg text-xs font-mono border transition-colors ${
+                    ruleFormat === f
+                      ? 'border-brand-500/60 bg-brand-500/10 text-brand-700 dark:text-brand-300'
+                      : 'border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700'
+                  }`}
+                >
+                  {f.toUpperCase()}
+                </button>
+              ))}
+              <button
+                type="button"
+                onClick={generateRule}
+                disabled={ruleLoading}
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 text-sm font-medium text-slate-700 dark:text-slate-300 hover:border-brand-500/40 transition-colors disabled:opacity-50"
+              >
+                {ruleLoading ? <Loader2 size={14} className="animate-spin" /> : <FileCode size={14} />}
+                Generate rule
+              </button>
+            </div>
+          </section>
+
+          {explainText && (
+            <section className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 animate-fade-in-up">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  AI Analysis
+                </h3>
+                <button
+                  type="button"
+                  onClick={() => {
+                    navigator.clipboard.writeText(explainText);
+                    setCopied('explain');
+                    setTimeout(() => setCopied(null), 2000);
+                  }}
+                  className="text-xs font-mono text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+                >
+                  {copied === 'explain' ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}
+                </button>
+              </div>
+              <div className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed prose prose-sm dark:prose-invert max-w-none">
+                <div dangerouslySetInnerHTML={{ __html: explainText }} />
+              </div>
+            </section>
+          )}
+
+          {ruleText && (
+            <section className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 animate-fade-in-up">
+              <div className="flex items-center justify-between p-3 border-b border-slate-200 dark:border-slate-800">
+                <div className="flex items-center gap-2">
+                  <FileCode size={14} className="text-brand-600 dark:text-brand-400" />
+                  <span className="text-sm font-mono font-semibold text-slate-700 dark:text-slate-300">{ruleName}</span>
+                  <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500">
+                    {ruleFormat.toUpperCase()}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    navigator.clipboard.writeText(ruleText);
+                    setCopied('rule');
+                    setTimeout(() => setCopied(null), 2000);
+                  }}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                >
+                  {copied === 'rule' ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}
+                  {copied === 'rule' ? 'Copied' : 'Copy'}
+                </button>
+              </div>
+              <pre className="p-4 overflow-x-auto text-xs font-mono text-slate-800 dark:text-slate-200 leading-relaxed whitespace-pre max-h-96 overflow-y-auto">
+                {ruleText}
+              </pre>
+            </section>
+          )}
 
           {/* Description */}
           {result.description && (

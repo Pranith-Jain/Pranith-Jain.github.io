@@ -416,12 +416,19 @@ export default function Infostealer(): JSX.Element {
 
       <p className="font-mono text-[11px] text-slate-500 mb-4">{TABS.find((t) => t.id === tab)!.blurb}</p>
 
-      {loading && <div className="font-mono text-sm text-slate-500">loading…</div>}
+      {loading && (
+        <p role="status" aria-live="polite" className="font-mono text-sm text-slate-500">
+          loading…
+        </p>
+      )}
 
       {!loading && tab === 'hudsonrock' && (
         <>
           {hrErr && (
-            <div className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-4 font-mono text-sm text-amber-700 dark:text-amber-300">
+            <div
+              role="alert"
+              className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-4 font-mono text-sm text-amber-700 dark:text-amber-300"
+            >
               {hrErr}
             </div>
           )}
@@ -814,7 +821,10 @@ export default function Infostealer(): JSX.Element {
       {!loading && tab === 'articles' && (
         <>
           {articlesErr && (
-            <div className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-4 font-mono text-sm text-amber-700 dark:text-amber-300">
+            <div
+              role="alert"
+              className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-4 font-mono text-sm text-amber-700 dark:text-amber-300"
+            >
               {articlesErr}
             </div>
           )}

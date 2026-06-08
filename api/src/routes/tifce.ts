@@ -223,11 +223,20 @@ async function loadPlatformReportedSet(db: D1Database): Promise<Set<string>> {
 async function loadDetectionFiredSet(env: Env): Promise<Set<string>> {
   const kv = env.KV_CACHE;
   if (!kv) return new Set();
+
+  const cache = (caches as unknown as { default: Cache }).default;
+  const CACHE_KEY = 'https://detection-results-cache.internal/v1';
+  if (cache) {
+    try {
+      const hit = await cache.match(new Request(CACHE_KEY));
+      if (hit) return new Set<string>((await hit.json()) as string[]);
+    } catch {
+      /* fall through */
+    }
+  }
+
   const set = new Set<string>();
   try {
-    // The detection-results KV namespace isn't directly listed in the
-    // Env type — go through a string-keyed list with the established prefix.
-    // We bound the scan to keep the route's read budget predictable.
     let cursor: string | undefined;
     let scanned = 0;
     const SCAN_CAP = 2000;
@@ -237,27 +246,43 @@ async function loadDetectionFiredSet(env: Env): Promise<Set<string>> {
         limit: 200,
         ...(cursor ? { cursor } : {}),
       });
-      for (const k of page.keys ?? []) {
-        scanned += 1;
-        if (scanned > SCAN_CAP) break;
-        const raw = await kv.get(k.name);
-        if (!raw) continue;
-        try {
-          const parsed = JSON.parse(raw) as { iocs?: unknown; fired_at?: string };
-          const firedAt = typeof parsed.fired_at === 'string' ? Date.parse(parsed.fired_at) : 0;
-          if (firedAt && Date.now() - firedAt > 24 * 3_600_000) continue;
-          if (Array.isArray(parsed.iocs)) {
-            for (const i of parsed.iocs) {
-              if (typeof i === 'string') set.add(i);
+      const pageKeys = page.keys ?? [];
+      const pageResults = await Promise.all(
+        pageKeys.map(async (k) => {
+          scanned += 1;
+          if (scanned > SCAN_CAP) return null;
+          const raw = await kv.get(k.name);
+          if (!raw) return null;
+          try {
+            const parsed = JSON.parse(raw) as { iocs?: unknown; fired_at?: string };
+            const firedAt = typeof parsed.fired_at === 'string' ? Date.parse(parsed.fired_at) : 0;
+            if (firedAt && Date.now() - firedAt > 24 * 3_600_000) return null;
+            if (Array.isArray(parsed.iocs)) {
+              return parsed.iocs.filter((i): i is string => typeof i === 'string');
             }
+            return null;
+          } catch {
+            return null;
           }
-        } catch {
-          /* skip */
-        }
+        })
+      );
+      for (const iocs of pageResults) {
+        if (iocs) for (const i of iocs) set.add(i);
       }
       cursor = page.cursor;
       if (scanned > SCAN_CAP) break;
     } while (cursor);
+
+    if (cache && set.size > 0) {
+      cache
+        .put(
+          new Request(CACHE_KEY),
+          new Response(JSON.stringify([...set]), {
+            headers: { 'cache-control': `max-age=${300}` },
+          })
+        )
+        .catch(() => {});
+    }
     return set;
   } catch (err) {
     console.error('tifce: detection-fired set load failed', err);

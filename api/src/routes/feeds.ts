@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
 import { safeErrorMessage } from '../lib/error';
+import { badRequest, forbidden } from '../lib/api-error';
 
 const TIMEOUT_MS = 10_000;
 
@@ -175,24 +176,26 @@ const ALLOWED_HOSTS = new Set([
   'www.cyberscoop.com',
   'grahamcluley.com',
   'www.grahamcluley.com',
+  // Lyrie Research — autonomous CTI platform with JSON Feed v1.1
+  'lyrie.ai',
 ]);
 
 export async function feedProxyHandler(c: Context<{ Bindings: Env }>) {
   const url = c.req.query('url');
-  if (!url) return c.json({ error: 'missing url' }, 400);
+  if (!url) return badRequest(c, 'missing url');
 
   let parsed: URL;
   try {
     parsed = new URL(url);
   } catch {
-    return c.json({ error: 'invalid url' }, 400);
+    return badRequest(c, 'invalid url');
   }
   if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
-    return c.json({ error: 'unsupported protocol' }, 400);
+    return badRequest(c, 'unsupported protocol');
   }
   // Allow-list to prevent SSRF / abuse
   if (!ALLOWED_HOSTS.has(parsed.hostname.toLowerCase())) {
-    return c.json({ error: `host not in allow-list: ${parsed.hostname}` }, 403);
+    return forbidden(c, `host not in allow-list: ${parsed.hostname}`);
   }
 
   try {
@@ -226,10 +229,10 @@ export async function feedProxyHandler(c: Context<{ Bindings: Env }>) {
         return c.json({ error: 'upstream redirect to malformed url' }, 502);
       }
       if (next.protocol !== 'http:' && next.protocol !== 'https:') {
-        return c.json({ error: `upstream redirect to unsupported protocol: ${next.protocol}` }, 403);
+        return forbidden(c, `upstream redirect to unsupported protocol: ${next.protocol}`);
       }
       if (!ALLOWED_HOSTS.has(next.hostname.toLowerCase())) {
-        return c.json({ error: `upstream redirect to non-allow-listed host: ${next.hostname}` }, 403);
+        return forbidden(c, `upstream redirect to non-allow-listed host: ${next.hostname}`);
       }
       current = next;
       if (hop === 4) return c.json({ error: 'too many redirects' }, 502);

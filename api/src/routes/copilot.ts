@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
+import { badRequest, internalError } from '../lib/api-error';
 import { LIVE_IOCS_CACHE_KEY } from './live-iocs';
 import { RANSOMWARE_RECENT_CACHE_KEY } from './ransomware-recent';
 import { ACTOR_TIMELINE_CACHE_KEY } from './actor-timeline';
@@ -919,10 +920,10 @@ export async function copilotInvestigateHandler(c: Context<{ Bindings: Env }>): 
       query = body.query ?? '';
     }
     if (!query || query.trim().length === 0) {
-      return c.json({ error: 'query is required (POST body or ?q= param)' }, 400);
+      return badRequest(c, 'query is required (POST body or ?q= param)');
     }
     if (query.length > 500) {
-      return c.json({ error: 'query too long (max 500 chars)' }, 400);
+      return badRequest(c, 'query too long (max 500 chars)');
     }
 
     const queryType = detectType(query);
@@ -999,6 +1000,6 @@ export async function copilotInvestigateHandler(c: Context<{ Bindings: Env }>): 
 
     return c.json(response, 200, { 'Cache-Control': 'no-store' });
   } catch (e) {
-    return c.json({ error: e instanceof Error ? e.message : String(e) }, 500);
+    return internalError(c, e);
   }
 }
