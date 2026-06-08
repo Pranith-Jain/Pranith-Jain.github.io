@@ -37,7 +37,7 @@ const SIGNAL_LABELS: Set<string> = new Set(
 // up immediately rather than waiting for the 1h TTL.
 // Bumped v10 → v11 alongside MAX_ITEMS 150→500, MAX_PER_SOURCE 15→30, and
 // the 7d cutoff filter applied to the post-dedup merged list.
-export const WRITEUPS_CACHE_KEY = 'https://writeups-cache.internal/v15-manual-redirect';
+export const WRITEUPS_CACHE_KEY = 'https://writeups-cache.internal/v16-simple-fetch';
 const CACHE_KEY = WRITEUPS_CACHE_KEY;
 const CACHE_TTL_SECONDS = 3600;
 const FETCH_TIMEOUT_MS = 12_000;
@@ -91,7 +91,6 @@ async function fetchText(url: string, kind?: string): Promise<string | null> {
         : 'application/rss+xml, application/atom+xml, application/xml;q=0.9, text/xml;q=0.9, */*;q=0.5';
     const res = await fetch(url, {
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-      redirect: 'manual',
       headers: {
         'user-agent':
           'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) pranithjain-rss/1.0 Safari/537.36',
@@ -99,27 +98,8 @@ async function fetchText(url: string, kind?: string): Promise<string | null> {
         'accept-language': 'en-US,en;q=0.9',
       },
     });
-    // Follow redirects manually (max 5 hops) to stay consistent with feed proxy
-    let current = res;
-    let hops = 0;
-    while (current.status >= 300 && current.status < 400 && hops < 5) {
-      const location = current.headers.get('location');
-      if (!location) break;
-      const nextUrl = new URL(location, url).toString();
-      current = await fetch(nextUrl, {
-        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-        redirect: 'manual',
-        headers: {
-          'user-agent':
-            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) pranithjain-rss/1.0 Safari/537.36',
-          accept,
-          'accept-language': 'en-US,en;q=0.9',
-        },
-      });
-      hops++;
-    }
-    if (!current.ok) return null;
-    return await current.text();
+    if (!res.ok) return null;
+    return await res.text();
   } catch {
     return null;
   }
