@@ -39,7 +39,22 @@ export interface FinalScoreInput {
 }
 
 export function finalScore({ recency, severity, novelty, sourceWeight }: FinalScoreInput): number {
-  // Weights chosen so no single dimension can carry a candidate alone.
   const weighted = 0.3 * recency + 0.35 * severity + 0.25 * novelty + 0.1 * sourceWeight;
+  return Number(weighted.toFixed(4));
+}
+
+export interface TrendingAwareScoreInput extends FinalScoreInput {
+  trending?: number;
+}
+
+export function finalScoreWithTrending({
+  recency,
+  severity,
+  novelty,
+  sourceWeight,
+  trending,
+}: TrendingAwareScoreInput): number {
+  if (typeof trending !== 'number') return finalScore({ recency, severity, novelty, sourceWeight });
+  const weighted = 0.25 * recency + 0.25 * severity + 0.2 * novelty + 0.1 * sourceWeight + 0.2 * trending;
   return Number(weighted.toFixed(4));
 }

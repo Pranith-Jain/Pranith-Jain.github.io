@@ -187,12 +187,6 @@ api/package.json                       # Add lint script
 
 1. ✅ **DONE** - Fix TypeScript/lint issues
 2. 🔄 **NEXT** - Hash type detection (1 hr)
-3. 📋 **TODO** - CVE lookup (3 hrs)
-4. 📋 **TODO** - Base64 decoder (2 hrs)
-5. 📋 **TODO** - ASN lookup (3 hrs)
-6. 📋 **TODO** - SSL timeline (4 hrs)
-7. 📋 **TODO** - Breach checker (3 hrs)
-8. 📋 **TODO** - EXIF parser (4 hrs)
 
 ---
 

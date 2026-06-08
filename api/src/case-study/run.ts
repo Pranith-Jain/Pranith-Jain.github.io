@@ -21,6 +21,7 @@ import { discoverFromPlatformData } from './discovery/platform-data';
 import { discoverAdvisories } from './discovery/advisories';
 import { discoverVulnCheckKev } from './discovery/vulncheck';
 import { discoverEuvd } from './discovery/euvd';
+import { discoverAgenticTrends } from './discovery/agentic-trends';
 import { activeRunnerNames } from './discovery/rotation';
 import { runPlanner } from './publishing/planner';
 import { runPublisher } from './publishing/publisher';
@@ -165,23 +166,30 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
         now,
         getDedup: memGet,
       }),
+    // Agentic trends: uses LLM to discover trending cybersecurity content
+    // beyond the configured RSS/API sources. Produces high-quality candidates
+    // with hooks, angles, and trending signals. Falls back gracefully when
+    // the LLM call fails (returns empty array).
+    trends: () =>
+      discoverAgenticTrends({
+        now,
+        getDedup: memGet,
+        ai: env.AI,
+        groqKey: env.GROQ_API_KEY,
+      }),
   };
-  // Discovery diversity model (2026-06-06):
-  //   - 4 high-value "always-on" topics the user always wants to see:
-  //     `cve` (CVEs), `actor` (threat-actor activity), `ransom` (ransomware
-  //     victims), `platform` (own aggregated intel). These give the daily
-  //     queue a stable spine.
+  // Discovery diversity model (2026-06-08 — agentic discovery):
+  //   - 5 high-value "always-on" topics: `cve`, `actor`, `ransom`,
+  //     `platform`, `trends` (agentic LLM-powered trending content).
+  //     The new `trends` runner finds quality/trending content beyond
+  //     the configured RSS/API sources using the LLM.
   //   - The remaining 10 optional topics partition into 4 day-buckets
-  //     (rotation.ts), so each day surfaces 2-3 of them. The 4-day cycle
-  //     was tightened from 7 to give a denser daily queue without
-  //     sacrificing variety (every optional still rotates through a
-  //     4-day window).
-  //   - Total active per day: 4 always + 2-3 rotating = 6-7 topics.
-  //     Combined with perTopic=2, that yields 12-14 candidates per
-  //     discovery — the admin can still triage end-to-end (the Pending
-  //     tab fits on one screen) but the queue has enough density to
-  //     power the 4-6-slot/day planner without starving.
-  const ALWAYS_ON = new Set(['cve', 'actor', 'ransom', 'platform']);
+  //     (rotation.ts), so each day surfaces 2-3 of them.
+  //   - Total active per day: 5 always + 2-3 rotating = 7-8 topics.
+  //     perTopic=1 yields 7-8 high-quality candidates per discovery.
+  //     Quality over quantity: each candidate is enriched with hooks,
+  //     angles, and content specs (adopting social-content approach).
+  const ALWAYS_ON = new Set(['cve', 'actor', 'ransom', 'platform', 'trends']);
   const active = new Set(activeRunnerNames(Object.keys(allRunners), ALWAYS_ON, now, 4));
   const runners = Object.fromEntries(Object.entries(allRunners).filter(([name]) => active.has(name)));
 
@@ -192,18 +200,15 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
     putCandidate: (c) => putCandidate(env.CASE_STUDIES, c),
     commitDedup: (keys, n) => touchDedupMany(env.CASE_STUDIES, keys, n),
     now,
-    // Diversity controls:
-    //   - perTopic=2: up to TWO candidates per active topic. Raised from
-    //     1 so a CVE-rich or actor-busy day surfaces enough material to
-    //     fill the 4-6-slot planner without forcing the same top-1
-    //     candidate to dominate. The weighted sampler still varies
-    //     *which* two are picked, so the queue isn't deterministic.
-    //   - limit=20: hard cap on the daily queue. Comfortably above the
-    //     12-14 nominal yield (6-7 topics × 2) so a busy day with
-    //     multiple high-scoring candidates in one topic still gets
-    //     represented, but well under the admin-triage ceiling.
-    perTopic: 2,
-    limit: 20,
+    // Diversity controls (2026-06-08 — refined discovery):
+    //   - perTopic=1: ONE high-quality candidate per topic. Changed from
+    //     2 so the queue has only vetted, enriched candidates. The new
+    //     agentic `trends` runner adds 5 always-on quality finds, so
+    //     the daily yield (~7-8) still fills the 4-6-slot planner.
+    //   - limit=12: hard cap. Comfortable for 7-8 topics × 1 plus a busy
+    //     day where a rotating topic yields a strong extra candidate.
+    perTopic: 1,
+    limit: 12,
   });
 }
 
