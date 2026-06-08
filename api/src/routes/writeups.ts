@@ -37,7 +37,7 @@ const SIGNAL_LABELS: Set<string> = new Set(
 // up immediately rather than waiting for the 1h TTL.
 // Bumped v10 → v11 alongside MAX_ITEMS 150→500, MAX_PER_SOURCE 15→30, and
 // the 7d cutoff filter applied to the post-dedup merged list.
-export const WRITEUPS_CACHE_KEY = 'https://writeups-cache.internal/v16-simple-fetch';
+export const WRITEUPS_CACHE_KEY = 'https://writeups-cache.internal/v17-manual-redirect-v2';
 const CACHE_KEY = WRITEUPS_CACHE_KEY;
 const CACHE_TTL_SECONDS = 3600;
 const FETCH_TIMEOUT_MS = 12_000;
@@ -89,17 +89,34 @@ async function fetchText(url: string, kind?: string): Promise<string | null> {
       kind === 'jsonfeed'
         ? 'application/feed+json, application/json, */*'
         : 'application/rss+xml, application/atom+xml, application/xml;q=0.9, text/xml;q=0.9, */*;q=0.5';
-    const res = await fetch(url, {
-      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-      headers: {
-        'user-agent':
-          'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) pranithjain-rss/1.0 Safari/537.36',
-        accept,
-        'accept-language': 'en-US,en;q=0.9',
-      },
-    });
-    if (!res.ok) return null;
-    return await res.text();
+    // Use redirect:'manual' + manual follow to match the feed-proxy approach
+    // (which successfully fetches Cloudflare-hosted sites like lyrie.ai).
+    let currentUrl = url;
+    for (let hop = 0; hop <= 5; hop++) {
+      const res = await fetch(currentUrl, {
+        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+        redirect: 'manual',
+        headers: {
+          'user-agent':
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) pranithjain-rss/1.0 Safari/537.36',
+          accept,
+          'accept-language': 'en-US,en;q=0.9',
+        },
+      });
+      if (res.status >= 300 && res.status < 400) {
+        const location = res.headers.get('location');
+        if (!location) return null;
+        try {
+          currentUrl = new URL(location, currentUrl).toString();
+        } catch {
+          return null;
+        }
+        continue;
+      }
+      if (!res.ok) return null;
+      return await res.text();
+    }
+    return null; // too many redirects
   } catch {
     return null;
   }
