@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { Download, FileCode, FileText, Shield, Copy, Check, Loader2 } from 'lucide-react';
+import { Download, FileCode, FileText, Shield, Copy, Check, Loader2, type LucideIcon } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
 
 type ExportFormat = 'stix' | 'misp' | 'sigma' | 'yara' | 'snort' | 'suricata' | 'csv' | 'pfsense';
 
-const FORMATS: Array<{ id: ExportFormat; label: string; desc: string; icon: typeof FileCode }> = [
+const FORMATS: Array<{ id: ExportFormat; label: string; desc: string; icon: LucideIcon }> = [
   { id: 'stix', label: 'STIX 2.1', desc: 'Structured Threat Information eXpression bundle', icon: Shield },
   { id: 'misp', label: 'MISP Event', desc: 'MISP event format for sharing platforms', icon: FileCode },
   { id: 'sigma', label: 'Sigma Rule', desc: 'Generic SIEM detection rule format', icon: FileCode },
@@ -24,12 +24,23 @@ export default function ExportHub(): JSX.Element {
   const [copied, setCopied] = useState(false);
 
   const parseIOCs = () => {
-    const lines = iocInput.split('\n').map((l) => l.trim()).filter(Boolean);
+    const lines = iocInput
+      .split('\n')
+      .map((l) => l.trim())
+      .filter(Boolean);
     return lines.map((line) => {
       const parts = line.split(',').map((p) => p.trim());
       const value = parts[0];
       const type = parts[1] ?? detectType(value);
-      return { value, type, confidence: Number(parts[2] ?? 50), first_seen: parts[3] ?? new Date().toISOString(), last_seen: parts[4] ?? new Date().toISOString(), tags: (parts[5] ?? '').split(';').filter(Boolean), source: parts[6] ?? 'manual' };
+      return {
+        value,
+        type,
+        confidence: Number(parts[2] ?? 50),
+        first_seen: parts[3] ?? new Date().toISOString(),
+        last_seen: parts[4] ?? new Date().toISOString(),
+        tags: (parts[5] ?? '').split(';').filter(Boolean),
+        source: parts[6] ?? 'manual',
+      };
     });
   };
 
@@ -48,12 +59,31 @@ export default function ExportHub(): JSX.Element {
     setLoading(true);
     try {
       const iocs = parseIOCs();
-      const body = selected === 'misp' ? { iocs, event_name: eventName } : selected === 'yara' ? { name: eventName, description: 'Exported rules', hash_iocs: iocs.filter((i) => i.type.startsWith('hash')).map((i) => i.value), string_iocs: [] } : selected === 'snort' || selected === 'suricata' ? { name: eventName, ip_iocs: iocs.filter((i) => i.type === 'ip').map((i) => i.value) } : iocs;
-      const res = await fetch(`/api/v1/export/${selected}`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
+      const body =
+        selected === 'misp'
+          ? { iocs, event_name: eventName }
+          : selected === 'yara'
+            ? {
+                name: eventName,
+                description: 'Exported rules',
+                hash_iocs: iocs.filter((i) => i.type.startsWith('hash')).map((i) => i.value),
+                string_iocs: [],
+              }
+            : selected === 'snort' || selected === 'suricata'
+              ? { name: eventName, ip_iocs: iocs.filter((i) => i.type === 'ip').map((i) => i.value) }
+              : iocs;
+      const res = await fetch(`/api/v1/export/${selected}`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(body),
+      });
       const text = await res.text();
       setResult(text);
-    } catch (e) { setResult(`Error: ${(e as Error).message}`); }
-    finally { setLoading(false); }
+    } catch (e) {
+      setResult(`Error: ${(e as Error).message}`);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const copyResult = async () => {
@@ -64,9 +94,18 @@ export default function ExportHub(): JSX.Element {
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 text-slate-900 dark:text-slate-100">
-      <BackLink to="/dfir" className="inline-flex items-center gap-1.5 text-xs font-mono text-slate-500 hover:text-brand-600 mb-6">← back to DFIR</BackLink>
-      <h1 className="text-3xl font-display font-bold flex items-center gap-3 mb-2"><Download className="text-brand-600" /> Export Hub</h1>
-      <p className="text-slate-600 dark:text-slate-400 mb-8">Export IOCs to standard formats — STIX, MISP, Sigma, YARA, Snort, Suricata, CSV, pfSense</p>
+      <BackLink
+        to="/dfir"
+        className="inline-flex items-center gap-1.5 text-xs font-mono text-slate-500 hover:text-brand-600 mb-6"
+      >
+        ← back to DFIR
+      </BackLink>
+      <h1 className="text-3xl font-display font-bold flex items-center gap-3 mb-2">
+        <Download className="text-brand-600" /> Export Hub
+      </h1>
+      <p className="text-slate-600 dark:text-slate-400 mb-8">
+        Export IOCs to standard formats — STIX, MISP, Sigma, YARA, Snort, Suricata, CSV, pfSense
+      </p>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div>
@@ -75,8 +114,14 @@ export default function ExportHub(): JSX.Element {
             {FORMATS.map((f) => {
               const Icon = f.icon;
               return (
-                <button key={f.id} onClick={() => setSelected(f.id)} className={`text-left p-3 rounded-lg border text-sm ${selected === f.id ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/20' : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900'}`}>
-                  <div className="flex items-center gap-2 mb-1"><Icon size={14} /> <span className="font-medium">{f.label}</span></div>
+                <button
+                  key={f.id}
+                  onClick={() => setSelected(f.id)}
+                  className={`text-left p-3 rounded-lg border text-sm ${selected === f.id ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/20' : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900'}`}
+                >
+                  <div className="flex items-center gap-2 mb-1">
+                    <Icon size={14} /> <span className="font-medium">{f.label}</span>
+                  </div>
                   <p className="text-[10px] text-slate-500">{f.desc}</p>
                 </button>
               );
@@ -84,13 +129,29 @@ export default function ExportHub(): JSX.Element {
           </div>
           <div className="mb-4">
             <span className="block text-xs font-medium text-slate-500 mb-1">Export Name</span>
-            <input value={eventName} onChange={(e) => setEventName(e.target.value)} className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm" />
+            <input
+              value={eventName}
+              onChange={(e) => setEventName(e.target.value)}
+              className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm"
+            />
           </div>
           <div className="mb-4">
-            <span className="block text-xs font-medium text-slate-500 mb-1">IOCs (one per line, optional: value,type,confidence)</span>
-            <textarea value={iocInput} onChange={(e) => setIocInput(e.target.value)} rows={8} className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-mono text-xs" placeholder={"1.2.3.4\nmalware.com\nabc123def456...,hash-sha256,80"} />
+            <span className="block text-xs font-medium text-slate-500 mb-1">
+              IOCs (one per line, optional: value,type,confidence)
+            </span>
+            <textarea
+              value={iocInput}
+              onChange={(e) => setIocInput(e.target.value)}
+              rows={8}
+              className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-mono text-xs"
+              placeholder={'1.2.3.4\nmalware.com\nabc123def456...,hash-sha256,80'}
+            />
           </div>
-          <button onClick={exportData} disabled={loading || !iocInput.trim()} className="w-full px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium disabled:opacity-50 inline-flex items-center justify-center gap-2">
+          <button
+            onClick={exportData}
+            disabled={loading || !iocInput.trim()}
+            className="w-full px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium disabled:opacity-50 inline-flex items-center justify-center gap-2"
+          >
             {loading ? <Loader2 size={16} className="animate-spin" /> : <Download size={16} />} Export
           </button>
         </div>
@@ -98,8 +159,19 @@ export default function ExportHub(): JSX.Element {
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-sm font-semibold uppercase text-slate-500">Output</h2>
             {result && (
-              <button onClick={copyResult} className="text-xs text-slate-500 hover:text-brand-600 inline-flex items-center gap-1">
-                {copied ? <><Check size={12} className="text-emerald-500" /> Copied</> : <><Copy size={12} /> Copy</>}
+              <button
+                onClick={copyResult}
+                className="text-xs text-slate-500 hover:text-brand-600 inline-flex items-center gap-1"
+              >
+                {copied ? (
+                  <>
+                    <Check size={12} className="text-emerald-500" /> Copied
+                  </>
+                ) : (
+                  <>
+                    <Copy size={12} /> Copy
+                  </>
+                )}
               </button>
             )}
           </div>

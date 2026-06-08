@@ -280,25 +280,27 @@ export default function DFIRPage(): JSX.Element {
           </Link>
         </div>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {(['dfir', 'ir', 'ti', 'case-ir', 'tip-core', 'deception', 'forensics-adv', 'osint', 'aisec', 'cloudsec', 'apisec', 'datasec', 'grc', 'platform'] as ToolGroup[]).map((g) => (
-            <Link
-              key={g}
-              to={`/dfir/tools/${g}`}
-              className="group rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 hover:border-brand-500/40 transition-colors"
-            >
-              <div className="flex items-center justify-between mb-1.5">
-                <span className="font-display font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
-                  {GROUP_META[g].label}
-                </span>
-                <ArrowRight
-                  size={14}
-                  className="text-slate-300 dark:text-slate-700 group-hover:text-brand-500 transition-colors"
-                  aria-hidden="true"
-                />
-              </div>
-              <p className="text-[13px] text-slate-600 dark:text-slate-400 leading-relaxed">{GROUP_META[g].blurb}</p>
-            </Link>
-          ))}
+          {(['core-dfir', 'investigation', 'intelligence', 'recon', 'specialized', 'grc', 'aisec'] as ToolGroup[]).map(
+            (g) => (
+              <Link
+                key={g}
+                to={`/dfir/tools/${g}`}
+                className="group rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 hover:border-brand-500/40 transition-colors"
+              >
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="font-display font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+                    {GROUP_META[g].label}
+                  </span>
+                  <ArrowRight
+                    size={14}
+                    className="text-slate-300 dark:text-slate-700 group-hover:text-brand-500 transition-colors"
+                    aria-hidden="true"
+                  />
+                </div>
+                <p className="text-[13px] text-slate-600 dark:text-slate-400 leading-relaxed">{GROUP_META[g].blurb}</p>
+              </Link>
+            )
+          )}
         </div>
       </section>
 

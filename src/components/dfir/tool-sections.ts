@@ -60,7 +60,6 @@ import {
   Zap,
   Gauge,
   Download,
-  BarChart3,
   LayoutDashboard,
   Rss,
   WifiOff,
@@ -112,7 +111,7 @@ export interface Tool {
  * (separate OSINT / AI-sec / Data-security / GRC surfaces) while the
  * full /dfir grid stays as the power-user index.
  */
-export type ToolGroup = 'core-dfir' | 'investigation' | 'intelligence' | 'recon' | 'specialized';
+export type ToolGroup = 'core-dfir' | 'investigation' | 'intelligence' | 'recon' | 'specialized' | 'grc' | 'aisec';
 
 export const GROUP_META: Record<ToolGroup, { label: string; blurb: string }> = {
   'core-dfir': {
@@ -134,6 +133,14 @@ export const GROUP_META: Record<ToolGroup, { label: string; blurb: string }> = {
   specialized: {
     label: 'Specialized',
     blurb: 'AI security, cloud, API, data security, GRC, case management, deception, platform.',
+  },
+  grc: {
+    label: 'GRC & Posture',
+    blurb: 'Compliance, maturity assessments, tabletop exercises, kill chain, OWASP.',
+  },
+  aisec: {
+    label: 'AI Security',
+    blurb: 'LLM red-teaming, prompt injection, MCP audit, agent attack surface, ATLAS.',
   },
 };
 
@@ -1193,13 +1200,6 @@ export const SECTIONS: Section[] = [
     group: 'specialized',
     tools: [
       {
-        path: '/dfir/ioc-lifecycle',
-        useCase: 'Track an IOC from discovery through aging to expiry.',
-        label: 'IOC Lifecycle Manager',
-        desc: 'Full IOC lifecycle: discovery → enrichment → active → aging → expired/whitelisted. Confidence decay, multi-source corroboration, false-positive feedback loop. Auto-aging sweep.',
-        icon: Activity,
-      },
-      {
         path: '/dfir/confidence-scoring',
         useCase: 'Score intel using Admiralty reliability × credibility matrix.',
         label: 'Confidence Scoring',
@@ -1235,13 +1235,6 @@ export const SECTIONS: Section[] = [
         label: 'Deception Technology',
         desc: 'Canary token generation (DNS, web, document, AWS key, SQL, Windows share) with alerting and correlation. Plant tokens, detect intruders early, track trigger counts.',
         icon: Eye,
-      },
-      {
-        path: '/dfir/behavioral-analytics',
-        useCase: 'Detect unusual spikes in IOC feed volume.',
-        label: 'Behavioral Analytics',
-        desc: 'Statistical anomaly detection on IOC feeds. Z-score anomalies, moving average detection, frequency analysis, Shannon entropy (DGA detection), off-hours activity patterns.',
-        icon: BarChart3,
       },
       {
         path: '/dfir/threat-models',

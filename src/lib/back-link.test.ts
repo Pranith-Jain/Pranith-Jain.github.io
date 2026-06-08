@@ -9,8 +9,8 @@ describe('backCategoryFor', () => {
   });
 
   it('maps a dfir tool slug to /dfir/tools/<group>', () => {
-    expect(backCategoryFor('/dfir/ioc-check')).toBe('/dfir/tools/dfir');
-    expect(backCategoryFor('/dfir/domain')).toBe('/dfir/tools/ir');
+    expect(backCategoryFor('/dfir/ioc-check')).toBe('/dfir/tools/core-dfir');
+    expect(backCategoryFor('/dfir/domain')).toBe('/dfir/tools/investigation');
     expect(backCategoryFor('/dfir/prompt-injection')).toBe('/dfir/tools/aisec');
   });
 

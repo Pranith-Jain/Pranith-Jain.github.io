@@ -6,7 +6,7 @@ import { GROUP_META, type ToolGroup } from '../../components/dfir/tool-sections'
 import { personalInfo } from '../../data/content';
 import { AppHero } from '../../components/AppHero';
 
-const VALID: ToolGroup[] = ['core-dfir', 'investigation', 'intelligence', 'recon', 'specialized'];
+const VALID: ToolGroup[] = ['core-dfir', 'investigation', 'intelligence', 'recon', 'specialized', 'grc', 'aisec'];
 
 const HERO: Record<ToolGroup, { kicker: string; title: string; sub: string }> = {
   'core-dfir': {
@@ -33,6 +33,16 @@ const HERO: Record<ToolGroup, { kicker: string; title: string; sub: string }> = 
     kicker: 'Advanced · Cloud · API · AI · GRC · Platform',
     title: 'Specialized Tools',
     sub: 'AI security, cloud posture, API audit, data security, GRC, case management, deception, and platform features.',
+  },
+  grc: {
+    kicker: 'Compliance · Maturity · Tabletop · Frameworks',
+    title: 'GRC & Posture Tools',
+    sub: 'Compliance assessments, maturity scoring, tabletop exercises, kill chain mapping, and OWASP analysis.',
+  },
+  aisec: {
+    kicker: 'LLM · Prompt Injection · MCP · Agent · ATLAS',
+    title: 'AI Security Tools',
+    sub: 'LLM red-teaming, prompt injection testing, MCP audit, AI agent attack surface mapping, and MITRE ATLAS.',
   },
 };
 

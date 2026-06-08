@@ -292,9 +292,19 @@ const ROUTES = [
   '/dfir/file',
   '/dfir/host-graph',
   '/dfir/identity-lookup',
-  '/dfir/ioc-lifecycle',
   '/dfir/report-parser',
   '/dfir/threat-hunt',
+
+  // ── Phase 5: New gap features ─────────────────────────────────
+  '/dfir/cases',
+  '/dfir/playbooks',
+  '/dfir/threat-hunting',
+  '/dfir/export-hub',
+  '/dfir/detection-as-code',
+  '/dfir/deception',
+  '/dfir/structured-analysis',
+  '/dfir/threat-models',
+  '/dfir/confidence-scoring',
 
   // ── ThreatIntel: real pages, not redirects (28) ──────────────
   '/threatintel/ach',
