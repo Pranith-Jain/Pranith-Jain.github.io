@@ -3,6 +3,17 @@ import Globe from 'react-globe.gl';
 import type { CtiArc, CtiPoint } from './geo';
 import { severityColor } from './geo';
 
+/* ─── WebGL detection ───────────────────────────────────────────────────── */
+
+function hasWebGL(): boolean {
+  try {
+    const canvas = document.createElement('canvas');
+    return !!(canvas.getContext('webgl') || canvas.getContext('webgl2') || canvas.getContext('experimental-webgl'));
+  } catch {
+    return false;
+  }
+}
+
 /* ─── Props ────────────────────────────────────────────────────────────── */
 
 interface CtiGlobeProps {
@@ -32,6 +43,14 @@ export default function CtiGlobe({
   const rotAngleRef = useRef(0);
   const rafRef = useRef(0);
   const userInteracting = useRef(false);
+  const [webglError, setWebglError] = useState(false);
+
+  // Check WebGL support on mount
+  useEffect(() => {
+    if (!hasWebGL()) {
+      setWebglError(true);
+    }
+  }, []);
 
   // Resize observer
   useEffect(() => {
@@ -151,33 +170,46 @@ export default function CtiGlobe({
 
   return (
     <div ref={containerRef} className="w-full h-full min-h-[400px]" style={{ position: 'relative' }}>
-      <Globe
-        ref={globeRef}
-        width={dimensions.w}
-        height={dimensions.h}
-        globeImageUrl="https://unpkg.com/three-globe/example/img/earth-night.jpg"
-        bumpImageUrl="https://unpkg.com/three-globe/example/img/earth-topology.png"
-        backgroundColor="rgba(0,0,0,0)"
-        atmosphereColor="#2c3ee5"
-        atmosphereAltitude={0.15}
-        arcsData={arcs}
-        arcColor={arcColor}
-        arcDashLength={0.4}
-        arcDashGap={0.2}
-        arcDashAnimateTime={2000}
-        arcStroke={0.5}
-        arcLabel={arcLabel}
-        onArcHover={handleArcHover}
-        pointsData={points}
-        pointColor={pointColor}
-        pointAltitude={pointAltitude}
-        pointRadius={pointRadius}
-        pointLabel={pointLabel}
-        onPointClick={handlePointClick}
-        pointsMerge={false}
-        showAtmosphere={true}
-        animateIn={true}
-      />
+      {webglError ? (
+        <div className="flex items-center justify-center h-full min-h-[400px] text-center p-6">
+          <div>
+            <div className="text-4xl mb-3">🌐</div>
+            <p className="text-sm text-slate-400 mb-2">3D Globe requires WebGL support.</p>
+            <p className="text-xs text-slate-500">
+              Your browser may not support WebGL or it may be disabled. Try a different browser or enable hardware
+              acceleration.
+            </p>
+          </div>
+        </div>
+      ) : (
+        <Globe
+          ref={globeRef}
+          width={dimensions.w}
+          height={dimensions.h}
+          globeImageUrl="https://unpkg.com/three-globe/example/img/earth-night.jpg"
+          bumpImageUrl="https://unpkg.com/three-globe/example/img/earth-topology.png"
+          backgroundColor="rgba(0,0,0,0)"
+          atmosphereColor="#2c3ee5"
+          atmosphereAltitude={0.15}
+          arcsData={arcs}
+          arcColor={arcColor}
+          arcDashLength={0.4}
+          arcDashGap={0.2}
+          arcDashAnimateTime={2000}
+          arcStroke={0.5}
+          arcLabel={arcLabel}
+          onArcHover={handleArcHover}
+          pointsData={points}
+          pointColor={pointColor}
+          pointAltitude={pointAltitude}
+          pointRadius={pointRadius}
+          pointLabel={pointLabel}
+          onPointClick={handlePointClick}
+          pointsMerge={false}
+          showAtmosphere={true}
+          animateIn={true}
+        />
+      )}
     </div>
   );
 }
