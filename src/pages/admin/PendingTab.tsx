@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { getJson, postJson } from './adminApi';
+import { getJson, postJson, postJsonWithBody } from './adminApi';
 
 interface Candidate {
   key: string;
@@ -12,11 +12,15 @@ interface Candidate {
   status: string;
 }
 
+type GenResult = Record<string, unknown>;
+
 export default function PendingTab() {
   const [pending, setPending] = useState<Candidate[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [actionMsg, setActionMsg] = useState<string | null>(null);
+  const [generating, setGenerating] = useState<Record<string, string>>({});
+  const [genResults, setGenResults] = useState<Record<string, GenResult>>({});
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -68,6 +72,24 @@ export default function PendingTab() {
       await load();
     } catch (e) {
       setActionMsg(`clear all failed: ${e instanceof Error ? e.message : String(e)}`);
+    }
+  }
+
+  async function generate(candidate: Candidate, format: string) {
+    const key = `${candidate.key}:${format}`;
+    setGenerating((prev) => ({ ...prev, [key]: 'generating' }));
+    setGenResults((prev) => ({ ...prev, [key]: {} }));
+    try {
+      const res = await postJsonWithBody<{ ok: boolean; result: GenResult; errors?: string[] }>(
+        `/candidates/${encodeURIComponent(candidate.key)}/generate?type=${encodeURIComponent(candidate.type)}`,
+        { formats: [format] }
+      );
+      setGenResults((prev) => ({ ...prev, [key]: res }));
+      setActionMsg(`${format} generated for ${candidate.title.slice(0, 50)}`);
+    } catch (e) {
+      setActionMsg(`${format} failed: ${e instanceof Error ? e.message : String(e)}`);
+    } finally {
+      setGenerating((prev) => ({ ...prev, [key]: '' }));
     }
   }
 
@@ -134,23 +156,79 @@ export default function PendingTab() {
                 {new Date(c.discoveredAt).toLocaleString()}
               </td>
               <td className="py-2 whitespace-nowrap">
-                <button
-                  onClick={() => approve(c.key, c.type)}
-                  className="px-2 py-1 mr-2 bg-emerald-700/40 border border-emerald-600/60 rounded text-xs hover:bg-emerald-700/60"
-                >
-                  Approve
-                </button>
-                <button
-                  onClick={() => skip(c.key, c.type)}
-                  className="px-2 py-1 border border-slate-700 rounded text-xs hover:bg-slate-800"
-                >
-                  Skip
-                </button>
+                <div className="flex flex-wrap gap-1">
+                  <button
+                    onClick={() => approve(c.key, c.type)}
+                    className="px-2 py-1 bg-emerald-700/40 border border-emerald-600/60 rounded text-xs hover:bg-emerald-700/60"
+                  >
+                    Approve
+                  </button>
+                  <button
+                    onClick={() => skip(c.key, c.type)}
+                    className="px-2 py-1 border border-slate-700 rounded text-xs hover:bg-slate-800"
+                  >
+                    Skip
+                  </button>
+                  <GenerateBtn
+                    label="Blog"
+                    busy={generating[`${c.key}:blog`]}
+                    ok={genResults[`${c.key}:blog`]?.ok as boolean | undefined}
+                    onClick={() => generate(c, 'blog')}
+                  />
+                  <GenerateBtn
+                    label="LI"
+                    busy={generating[`${c.key}:linkedin`]}
+                    ok={genResults[`${c.key}:linkedin`]?.ok as boolean | undefined}
+                    onClick={() => generate(c, 'linkedin')}
+                  />
+                  <GenerateBtn
+                    label="Tw"
+                    busy={generating[`${c.key}:twitter`]}
+                    ok={genResults[`${c.key}:twitter`]?.ok as boolean | undefined}
+                    onClick={() => generate(c, 'twitter')}
+                  />
+                </div>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
+  );
+}
+
+function GenerateBtn({
+  label,
+  busy,
+  ok,
+  onClick,
+}: {
+  label: string;
+  busy?: string;
+  ok?: boolean;
+  onClick: () => void;
+}) {
+  const base = 'px-2 py-1 rounded text-xs border ';
+  if (busy === 'generating') {
+    return (
+      <button disabled className={base + 'border-amber-600/40 text-amber-500 opacity-60 cursor-wait'}>
+        {label}…
+      </button>
+    );
+  }
+  if (ok === true) {
+    return (
+      <button disabled className={base + 'border-emerald-700/40 text-emerald-400 opacity-60'}>
+        {label} ✓
+      </button>
+    );
+  }
+  return (
+    <button
+      onClick={onClick}
+      className={base + 'border-blue-700/60 text-blue-300 hover:bg-blue-900/30 hover:border-blue-600/80'}
+    >
+      {label}
+    </button>
   );
 }

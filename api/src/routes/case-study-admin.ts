@@ -640,7 +640,8 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     const parsed = await safeJsonBody<{ formats?: string[]; type?: string }>(c, { maxBytes: 4096 });
     if ('error' in parsed) return parsed.error;
     const formats = parsed.value?.formats ?? ['linkedin', 'twitter'];
-    const typeHint = (parsed.value?.type ?? '') as CaseStudyType;
+    // Accept type from body or query string (frontend sends ?type= for type disambiguation)
+    const typeHint = (parsed.value?.type || c.req.query('type') || '') as string as CaseStudyType;
     let candidate: Candidate | null = null;
 
     if (typeHint && TYPES.includes(typeHint)) {
