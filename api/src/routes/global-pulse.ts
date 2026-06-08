@@ -4,7 +4,7 @@ import { listBriefings } from '../lib/briefing-builder';
 
 /* ─── Cache keys (all warmed by hourly cron) ────────────────────────────── */
 
-const GLOBAL_PULSE_CACHE = 'https://global-pulse-cache.internal/v18-kvwrite';
+const GLOBAL_PULSE_CACHE = 'https://global-pulse-cache.internal/v20-final';
 const CACHE_TTL = 300;
 
 const CACHE_KEYS = {

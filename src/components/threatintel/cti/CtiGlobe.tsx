@@ -1,5 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import Globe from 'react-globe.gl';
+import { Component, useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
 import type { CtiArc, CtiPoint } from './geo';
 import { severityColor } from './geo';
 
@@ -14,62 +13,154 @@ function hasWebGL(): boolean {
   }
 }
 
-/* ─── Props ────────────────────────────────────────────────────────────── */
+/* ─── Error boundary for Globe ──────────────────────────────────────────── */
 
-interface CtiGlobeProps {
-  arcs: CtiArc[];
-  points: CtiPoint[];
-  focus: { lat: number; lng: number } | null;
-  onPointClick?: (point: CtiPoint) => void;
-  onArcHover?: (arc: CtiArc | null) => void;
-  /** When true, globe auto-rotates. Defaults to false (user controls). */
-  autoRotate?: boolean;
+interface GlobeErrorBoundaryState {
+  hasError: boolean;
+  error: Error | null;
 }
 
-/* ─── Globe wrapper ────────────────────────────────────────────────────── */
+class GlobeErrorBoundary extends Component<{ children: ReactNode }, GlobeErrorBoundaryState> {
+  state: GlobeErrorBoundaryState = { hasError: false, error: null };
 
-export default function CtiGlobe({
+  static getDerivedStateFromError(error: Error): GlobeErrorBoundaryState {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error): void {
+    console.error('Globe rendering error:', error);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="flex items-center justify-center h-full min-h-[400px] text-center p-6">
+          <div>
+            <div className="text-4xl mb-3">🌐</div>
+            <p className="text-sm text-slate-400 mb-2">3D Globe failed to render.</p>
+            <p className="text-xs text-slate-500 mb-3">
+              {this.state.error?.message?.includes('WebGL')
+                ? 'WebGL is not available or was blocked by your browser.'
+                : 'An error occurred while initializing the 3D globe.'}
+            </p>
+            <button
+              onClick={() => this.setState({ hasError: false, error: null })}
+              className="px-3 py-1 text-xs rounded border border-slate-600 text-slate-400 hover:text-slate-200 hover:border-slate-400 transition"
+            >
+              Retry
+            </button>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+/* ─── Lazy Globe loader ─────────────────────────────────────────────────── */
+
+function GlobeRenderer({
   arcs,
   points,
   focus,
   onPointClick,
   onArcHover,
-  autoRotate = false,
-}: CtiGlobeProps): JSX.Element {
+  autoRotate,
+  width,
+  height,
+}: {
+  arcs: CtiArc[];
+  points: CtiPoint[];
+  focus: { lat: number; lng: number } | null;
+  onPointClick?: (point: CtiPoint) => void;
+  onArcHover?: (arc: CtiArc | null) => void;
+  autoRotate: boolean;
+  width: number;
+  height: number;
+}) {
+  // Lazy import to avoid SSR issues and to isolate Three.js loading
+  const [Globe, setGlobe] = useState<(typeof import('react-globe.gl'))['default'] | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    import('react-globe.gl')
+      .then((mod) => {
+        if (!cancelled) setGlobe(() => mod.default);
+      })
+      .catch((err) => {
+        if (!cancelled) setLoadError(err instanceof Error ? err.message : 'Failed to load globe library');
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  if (loadError) {
+    return (
+      <div className="flex items-center justify-center h-full min-h-[400px] text-center p-6">
+        <div>
+          <div className="text-4xl mb-3">🌐</div>
+          <p className="text-sm text-slate-400 mb-2">Failed to load 3D globe library.</p>
+          <p className="text-xs text-slate-500">{loadError}</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!Globe) {
+    return (
+      <div className="flex items-center justify-center h-full min-h-[400px]">
+        <div className="text-sm text-slate-400 animate-pulse">Loading 3D globe…</div>
+      </div>
+    );
+  }
+
+  return (
+    <GlobeInner
+      Globe={Globe}
+      arcs={arcs}
+      points={points}
+      focus={focus}
+      onPointClick={onPointClick}
+      onArcHover={onArcHover}
+      autoRotate={autoRotate}
+      width={width}
+      height={height}
+    />
+  );
+}
+
+/* ─── Inner Globe component (only rendered after library loads) ─────────── */
+
+function GlobeInner({
+  Globe,
+  arcs,
+  points,
+  focus,
+  onPointClick,
+  onArcHover,
+  autoRotate,
+  width,
+  height,
+}: {
+  Globe: (typeof import('react-globe.gl'))['default'];
+  arcs: CtiArc[];
+  points: CtiPoint[];
+  focus: { lat: number; lng: number } | null;
+  onPointClick?: (point: CtiPoint) => void;
+  onArcHover?: (arc: CtiArc | null) => void;
+  autoRotate: boolean;
+  width: number;
+  height: number;
+}) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const globeRef = useRef<any>(null);
-  const [dimensions, setDimensions] = useState({ w: 800, h: 600 });
-  const containerRef = useRef<HTMLDivElement>(null);
   const rotAngleRef = useRef(0);
   const rafRef = useRef(0);
   const userInteracting = useRef(false);
-  const [webglError, setWebglError] = useState(false);
 
-  // Check WebGL support on mount
-  useEffect(() => {
-    if (!hasWebGL()) {
-      setWebglError(true);
-    }
-  }, []);
-
-  // Resize observer
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const observer = new ResizeObserver((entries) => {
-      const entry = entries[0];
-      if (entry) {
-        setDimensions({
-          w: Math.floor(entry.contentRect.width),
-          h: Math.floor(entry.contentRect.height),
-        });
-      }
-    });
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  // Auto-rotation loop — only runs when autoRotate=true AND user isn't interacting
+  // Auto-rotation loop
   useEffect(() => {
     if (!autoRotate) return;
     let lastTime = performance.now();
@@ -86,28 +177,6 @@ export default function CtiGlobe({
     rafRef.current = requestAnimationFrame(rotate);
     return () => cancelAnimationFrame(rafRef.current);
   }, [autoRotate]);
-
-  // Pause rotation on user interaction
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const down = () => {
-      userInteracting.current = true;
-    };
-    const up = () => {
-      setTimeout(() => {
-        userInteracting.current = false;
-      }, 2000);
-    };
-    el.addEventListener('pointerdown', down);
-    el.addEventListener('pointerup', up);
-    el.addEventListener('wheel', down);
-    return () => {
-      el.removeEventListener('pointerdown', down);
-      el.removeEventListener('pointerup', up);
-      el.removeEventListener('wheel', down);
-    };
-  }, []);
 
   // Focus on point change
   useEffect(() => {
@@ -155,6 +224,7 @@ export default function CtiGlobe({
   // Event handlers
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handlePointClick = useCallback(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (point: any) => {
       onPointClick?.(point as CtiPoint);
     },
@@ -162,6 +232,7 @@ export default function CtiGlobe({
   );
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleArcHover = useCallback(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (arc: any) => {
       onArcHover?.(arc ? (arc as CtiArc) : null);
     },
@@ -169,8 +240,89 @@ export default function CtiGlobe({
   );
 
   return (
-    <div ref={containerRef} className="w-full h-full min-h-[400px]" style={{ position: 'relative' }}>
-      {webglError ? (
+    <Globe
+      ref={globeRef}
+      width={width}
+      height={height}
+      globeImageUrl="https://unpkg.com/three-globe/example/img/earth-night.jpg"
+      bumpImageUrl="https://unpkg.com/three-globe/example/img/earth-topology.png"
+      backgroundColor="rgba(0,0,0,0)"
+      atmosphereColor="#2c3ee5"
+      atmosphereAltitude={0.15}
+      arcsData={arcs}
+      arcColor={arcColor}
+      arcDashLength={0.4}
+      arcDashGap={0.2}
+      arcDashAnimateTime={2000}
+      arcStroke={0.5}
+      arcLabel={arcLabel}
+      onArcHover={handleArcHover}
+      pointsData={points}
+      pointColor={pointColor}
+      pointAltitude={pointAltitude}
+      pointRadius={pointRadius}
+      pointLabel={pointLabel}
+      onPointClick={handlePointClick}
+      pointsMerge={false}
+      showAtmosphere={true}
+      animateIn={true}
+    />
+  );
+}
+
+/* ─── Props ────────────────────────────────────────────────────────────── */
+
+interface CtiGlobeProps {
+  arcs: CtiArc[];
+  points: CtiPoint[];
+  focus: { lat: number; lng: number } | null;
+  onPointClick?: (point: CtiPoint) => void;
+  onArcHover?: (arc: CtiArc | null) => void;
+  /** When true, globe auto-rotates. Defaults to false (user controls). */
+  autoRotate?: boolean;
+}
+
+/* ─── Globe wrapper ────────────────────────────────────────────────────── */
+
+export default function CtiGlobe({
+  arcs,
+  points,
+  focus,
+  onPointClick,
+  onArcHover,
+  autoRotate = false,
+}: CtiGlobeProps): JSX.Element {
+  const [dimensions, setDimensions] = useState({ w: 800, h: 600 });
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [webglError, setWebglError] = useState(false);
+
+  // Check WebGL support on mount
+  useEffect(() => {
+    if (!hasWebGL()) {
+      setWebglError(true);
+    }
+  }, []);
+
+  // Resize observer
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const observer = new ResizeObserver((entries) => {
+      const entry = entries[0];
+      if (entry) {
+        setDimensions({
+          w: Math.floor(entry.contentRect.width),
+          h: Math.floor(entry.contentRect.height),
+        });
+      }
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  if (webglError) {
+    return (
+      <div ref={containerRef} className="w-full h-full min-h-[400px]" style={{ position: 'relative' }}>
         <div className="flex items-center justify-center h-full min-h-[400px] text-center p-6">
           <div>
             <div className="text-4xl mb-3">🌐</div>
@@ -181,35 +333,24 @@ export default function CtiGlobe({
             </p>
           </div>
         </div>
-      ) : (
-        <Globe
-          ref={globeRef}
+      </div>
+    );
+  }
+
+  return (
+    <div ref={containerRef} className="w-full h-full min-h-[400px]" style={{ position: 'relative' }}>
+      <GlobeErrorBoundary>
+        <GlobeRenderer
+          arcs={arcs}
+          points={points}
+          focus={focus}
+          onPointClick={onPointClick}
+          onArcHover={onArcHover}
+          autoRotate={autoRotate}
           width={dimensions.w}
           height={dimensions.h}
-          globeImageUrl="https://unpkg.com/three-globe/example/img/earth-night.jpg"
-          bumpImageUrl="https://unpkg.com/three-globe/example/img/earth-topology.png"
-          backgroundColor="rgba(0,0,0,0)"
-          atmosphereColor="#2c3ee5"
-          atmosphereAltitude={0.15}
-          arcsData={arcs}
-          arcColor={arcColor}
-          arcDashLength={0.4}
-          arcDashGap={0.2}
-          arcDashAnimateTime={2000}
-          arcStroke={0.5}
-          arcLabel={arcLabel}
-          onArcHover={handleArcHover}
-          pointsData={points}
-          pointColor={pointColor}
-          pointAltitude={pointAltitude}
-          pointRadius={pointRadius}
-          pointLabel={pointLabel}
-          onPointClick={handlePointClick}
-          pointsMerge={false}
-          showAtmosphere={true}
-          animateIn={true}
         />
-      )}
+      </GlobeErrorBoundary>
     </div>
   );
 }
