@@ -7,6 +7,7 @@ describe('buildPrompt', () => {
       type: 'cve',
       title: 'CVE-2026-1234',
       facts: { cveId: 'CVE-2026-1234', vendor: 'Fortinet' },
+      sources: [{ url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-1234', title: 'NVD' }],
     });
     expect(system).toContain('#COPYWRITING RULES');
     expect(system).toContain('#ENGAGEMENT BAIT STRATEGIES');
@@ -22,7 +23,12 @@ describe('buildPrompt', () => {
   });
 
   it('structured types get answer-engine sections (TL;DR + FAQ) and AEO/estimative directives', () => {
-    const { system, user } = buildPrompt({ type: 'cve', title: 'CVE-2026-1234', facts: {} });
+    const { system, user } = buildPrompt({
+      type: 'cve',
+      title: 'CVE-2026-1234',
+      facts: {},
+      sources: [{ url: 'https://nvd.nist.gov/vuln/detail/CVE-2026-1234', title: 'NVD' }],
+    });
     // Outline carries the answer-first TL;DR (lead) and a FAQ before References.
     expect(user).toContain('## TL;DR');
     expect(user).toContain('## FAQ');
