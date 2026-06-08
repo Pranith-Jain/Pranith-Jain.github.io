@@ -180,7 +180,7 @@ function validateYaraSyntax(rule: string): { valid: boolean; errors: string[]; w
   const ruleDecl = rule.match(/\brule\s+(\w+)/);
   if (!ruleDecl) {
     errors.push('Missing rule declaration (expected: rule <name> { ... })');
-  } else if (!/^[a-zA-Z_]\w*$/.test(ruleDecl[1])) {
+  } else if (ruleDecl[1] && !/^[a-zA-Z_]\w*$/.test(ruleDecl[1])) {
     errors.push(`Invalid rule name "${ruleDecl[1]}" — must be alphanumeric + underscore, starting with letter`);
   }
 
@@ -209,7 +209,7 @@ function validateYaraSyntax(rule: string): { valid: boolean; errors: string[]; w
     } else {
       // Check for hex string syntax errors
       for (const match of rule.matchAll(/\$\w+\s*=\s*\{([^}]+)\}/g)) {
-        const hex = match[1].replace(/\s+/g, '');
+        const hex = (match[1] ?? '').replace(/\s+/g, '');
         if (!/^[0-9a-fA-F?*\s]+$/.test(hex)) {
           warnings.push('Possible invalid hex string detected');
           break;
@@ -484,14 +484,14 @@ function postProcess(type: RuleType, rule: string): string {
   const detector = formatDetectors[type];
   let start = 0;
   for (let i = 0; i < lines.length; i++) {
-    if (detector(lines[i])) {
+    if (lines[i] && detector(lines[i]!)) {
       start = i;
       break;
     }
   }
   let end = lines.length - 1;
   for (let i = lines.length - 1; i >= start; i--) {
-    if (lines[i].trim()) {
+    if (lines[i]?.trim()) {
       end = i;
       break;
     }

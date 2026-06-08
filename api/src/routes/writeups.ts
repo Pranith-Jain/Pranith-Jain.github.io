@@ -37,7 +37,7 @@ const SIGNAL_LABELS: Set<string> = new Set(
 // up immediately rather than waiting for the 1h TTL.
 // Bumped v10 → v11 alongside MAX_ITEMS 150→500, MAX_PER_SOURCE 15→30, and
 // the 7d cutoff filter applied to the post-dedup merged list.
-export const WRITEUPS_CACHE_KEY = 'https://writeups-cache.internal/v21-feed-proxy-fallback';
+export const WRITEUPS_CACHE_KEY = 'https://writeups-cache.internal/v22-simplified';
 const CACHE_KEY = WRITEUPS_CACHE_KEY;
 const CACHE_TTL_SECONDS = 3600;
 const FETCH_TIMEOUT_MS = 12_000;
@@ -85,63 +85,26 @@ export interface WriteupsResponse {
 
 async function fetchText(url: string, kind?: string): Promise<string | null> {
   try {
-    const reqHeaders: Record<string, string> = {
-      'user-agent':
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) pranithjain-rss/1.0 Safari/537.36',
-      accept:
-        kind === 'jsonfeed'
-          ? 'application/feed+json, application/json, */*'
-          : 'application/rss+xml, application/atom+xml, application/xml;q=0.9, text/xml;q=0.9, */*;q=0.5',
-      'accept-language': 'en-US,en;q=0.9',
-    };
-    let current = new URL(url);
-    let upstream: Response | null = null;
-    for (let hop = 0; hop < 5; hop += 1) {
-      const fetchOpts: RequestInit = {
-        redirect: 'manual',
-        headers: reqHeaders,
-        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-      };
-      // For Cloudflare-hosted sites, try the feed proxy path first (which
-      // successfully fetches lyrie.ai, cvefeed.io). Fall back to direct fetch.
-      if (hop === 0 && isCloudflareHosted(current.hostname)) {
-        try {
-          const proxyUrl = `https://pranithjain.qzz.io/api/v1/feeds/proxy?url=${encodeURIComponent(current.toString())}`;
-          const proxyRes = await fetch(proxyUrl, { signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) });
-          if (proxyRes.ok) {
-            const text = await proxyRes.text();
-            if (text && text.length > 100) return text;
-          }
-        } catch {
-          // Fall through to direct fetch
-        }
-      }
-      upstream = await fetch(current.toString(), fetchOpts);
-      if (upstream.status < 300 || upstream.status >= 400) break;
-      const location = upstream.headers.get('location');
-      if (!location) break;
-      let next: URL;
-      try {
-        next = new URL(location, current);
-      } catch {
-        return null;
-      }
-      current = next;
-      if (hop === 4) return null;
-    }
-    if (!upstream || !upstream.ok) return null;
-    const ct = upstream.headers.get('content-type') ?? '';
+    const accept =
+      kind === 'jsonfeed'
+        ? 'application/feed+json, application/json, */*'
+        : 'application/rss+xml, application/atom+xml, application/xml;q=0.9, text/xml;q=0.9, */*;q=0.5';
+    const res = await fetch(url, {
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      headers: {
+        'user-agent':
+          'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) pranithjain-rss/1.0 Safari/537.36',
+        accept,
+        'accept-language': 'en-US,en;q=0.9',
+      },
+    });
+    if (!res.ok) return null;
+    const ct = res.headers.get('content-type') ?? '';
     if (ct.includes('text/html')) return null;
-    return await upstream.text();
+    return await res.text();
   } catch {
     return null;
   }
-}
-
-/** Check if a hostname is behind Cloudflare (heuristic: known CF-hosted sites). */
-const CF_HOSTED = new Set(['lyrie.ai', 'www.lyrie.ai', 'cvefeed.io', 'www.cvefeed.io']);
-function isCloudflareHosted(hostname: string): boolean {
-  return CF_HOSTED.has(hostname);
 }
 
 /** Strip CDATA + decode HTML entities (named + numeric) commonly emitted by RSS / Atom. */

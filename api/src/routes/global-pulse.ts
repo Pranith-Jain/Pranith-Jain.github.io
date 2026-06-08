@@ -4,7 +4,7 @@ import { listBriefings } from '../lib/briefing-builder';
 
 /* ─── Cache keys (all warmed by hourly cron) ────────────────────────────── */
 
-const GLOBAL_PULSE_CACHE = 'https://global-pulse-cache.internal/v17-cacheonly-final';
+const GLOBAL_PULSE_CACHE = 'https://global-pulse-cache.internal/v18-kvwrite';
 const CACHE_TTL = 300;
 
 const CACHE_KEYS = {
@@ -509,7 +509,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     const kv = c.env.KV_CACHE;
 
     // Telegram cache key may have a bump suffix
-    let telegramCacheKey = CACHE_KEYS.telegram;
+    let telegramCacheKey: string = CACHE_KEYS.telegram;
     try {
       const bump = kv ? await kv.get('tg:custom-channels:bump').catch(() => null) : null;
       if (bump) telegramCacheKey = `${CACHE_KEYS.telegram}-${bump}`;
@@ -536,7 +536,6 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       cybercrimeData,
       writeupsData,
       cveData,
-      usgsData,
     ] = await Promise.all([
       readCache(cache, CACHE_KEYS.threatMap),
       readCache(cache, CACHE_KEYS.reddit),
@@ -616,6 +615,49 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     const finalWriteups = writeupsData ?? writeupsKv;
     const finalOnion = onionData ?? onionKv;
 
+    // ── Direct endpoint fallback for still-missing layers ─────────────
+    // The Cache API is per-colo and KV may be empty on first visit.
+    // Fetch directly from the route endpoints as last resort.
+    const fetchDirect = async (path: string): Promise<unknown | null> => {
+      try {
+        const res = await fetch(`https://pranithjain.qzz.io${path}`, { signal: AbortSignal.timeout(10000) });
+        if (!res.ok) return null;
+        return await res.json();
+      } catch {
+        return null;
+      }
+    };
+
+    // Only fetch what we're still missing (max 3 to stay under subrequest limit)
+    const missing: Array<[string, string]> = [];
+    if (!finalReddit) missing.push(['/api/v1/reddit-feed', 'reddit']);
+    if (!finalX) missing.push(['/api/v1/x-feed', 'x']);
+    if (!finalTm) missing.push(['/api/v1/threat-map', 'tm']);
+
+    // Fetch up to 3 missing endpoints
+    const directResults = await Promise.all(missing.slice(0, 3).map(([path]) => fetchDirect(path)));
+
+    // Apply direct results
+    let directReddit = finalReddit,
+      directX = finalX,
+      directTm = finalTm;
+    for (let i = 0; i < Math.min(missing.length, 3); i++) {
+      const [, key] = missing[i];
+      const data = directResults[i];
+      if (!data) continue;
+      if (key === 'reddit') directReddit = data;
+      if (key === 'x') directX = data;
+      if (key === 'tm') directTm = data;
+    }
+
+    // Final merged data
+    const mergedReddit = finalReddit ?? directReddit;
+    const mergedX = finalX ?? directX;
+    const mergedTm = finalTm ?? directTm;
+    const mergedCve = finalCve;
+    const mergedRansom = finalRansom;
+    const mergedBreach = finalBreach;
+
     // ── Convert → events ───────────────────────────────────────────────
     const safe = <T>(fn: () => T): T => {
       try {
@@ -624,12 +666,14 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
         return [] as unknown as T;
       }
     };
-    const iocEvents = safe(() => (finalTm ? iocFromThreatMap(finalTm) : []));
-    const redditEvents = safe(() => (finalReddit ? fromReddit(finalReddit) : []));
+    const iocEvents = safe(() =>
+      mergedTm ? iocFromThreatMap(mergedTm as Parameters<typeof iocFromThreatMap>[0]) : []
+    );
+    const redditEvents = safe(() => (mergedReddit ? fromReddit(mergedReddit as Parameters<typeof fromReddit>[0]) : []));
     const telegramEvents = safe(() => (finalTg ? fromTelegram(finalTg) : []));
-    const xEvents = safe(() => (finalX ? fromXFeed(finalX) : []));
+    const xEvents = safe(() => (mergedX ? fromXFeed(mergedX) : []));
     const scamEvents = safe(() => (finalScam ? fromScam(finalScam) : []));
-    const breachEvents = safe(() => (finalBreach ? fromBreaches(finalBreach) : []));
+    const breachEvents = safe(() => (mergedBreach ? fromBreaches(mergedBreach) : []));
     const liveIocEvents = safe(() => (finalIoc ? fromLiveIocs(finalIoc) : []));
     const darkwebEvents = safe(() => [
       ...(finalDdc ? fromDeepdarkcti(finalDdc) : []),
@@ -638,11 +682,11 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     const infostealerEvents = safe(() => (finalStealer ? fromStealerForum(finalStealer) : []));
     const phishingEvents = safe(() => (finalPhishing ? fromPhishing(finalPhishing) : []));
     const malwareEvents = safe(() => (finalMalware ? fromMalware(finalMalware) : []));
-    const ransomwareEvents = safe(() => (finalRansom ? fromRansomware(finalRansom) : []));
+    const ransomwareEvents = safe(() => (mergedRansom ? fromRansomware(mergedRansom) : []));
     const detectionEvents = safe(() => (finalDetections ? fromDetections(finalDetections) : []));
     const cybercrimeEvents = safe(() => (finalCybercrime ? fromCybercrime(finalCybercrime) : []));
     const researchEvents = safe(() => (finalWriteups ? fromWriteups(finalWriteups) : []));
-    const cveEvents = safe(() => (finalCve ? fromCveRecent(finalCve) : []));
+    const cveEvents = safe(() => (mergedCve ? fromCveRecent(mergedCve) : []));
     const earthquakes: PulseEvent[] = [];
 
     // Briefings (D1)
@@ -684,7 +728,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       total_events: allEvents.length,
       events: allEvents,
       layers: {
-        earthquakes: earthquakes.length,
+        earthquake: earthquakes.length,
         ioc_activity: iocEvents.length,
         geopolitical: 0,
         tech_news: 0,
@@ -721,6 +765,38 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       },
     });
     c.executionCtx.waitUntil(cache.put(cacheReq, response.clone()));
+
+    // Write source data to KV in background (globally replicated fallback)
+    // This ensures other colos can read data even if their local cache is cold.
+    if (kv) {
+      const kvWrites: Array<Promise<void>> = [];
+      const kvMap: Array<[string, unknown]> = [
+        ['gp:threat-map', tmData],
+        ['gp:telegram-feed', tgData],
+        ['gp:x-feed', xData],
+        ['gp:reddit-feed', redditData],
+        ['gp:cve-recent', cveData],
+        ['gp:ransomware-recent', ransomwareData],
+        ['gp:breach-disclosures', breachData],
+        ['gp:deepdarkcti', ddcData],
+        ['gp:live-iocs', liveIocsData],
+        ['gp:crypto-scam-feed', scamData],
+        ['gp:phishing-urls', phishingData],
+        ['gp:malware-samples', malwareData],
+        ['gp:detections', detectionsData],
+        ['gp:cyber-crime', cybercrimeData],
+        ['gp:writeups', writeupsData],
+        ['gp:onion-watch', onionData],
+        ['gp:stealer-forum-intel', stealerData],
+      ];
+      for (const [key, val] of kvMap) {
+        if (val) {
+          kvWrites.push(kv.put(key, JSON.stringify(val), { expirationTtl: 3600 }).catch(() => {}));
+        }
+      }
+      c.executionCtx.waitUntil(Promise.all(kvWrites));
+    }
+
     return response;
   } catch (e) {
     console.error('global-pulse error:', e instanceof Error ? e.message : String(e));

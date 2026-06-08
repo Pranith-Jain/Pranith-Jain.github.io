@@ -123,8 +123,7 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
         fetchReleaks: async () => {
           try {
             const url = `https://pranithjain.qzz.io/api/v1/victim-releaks`;
-            const fetcher = env.SELF ?? globalThis.fetch;
-            const r = await fetcher(new Request(url));
+            const r = await globalThis.fetch(new Request(url));
             if (!r.ok) return [];
             const data = (await r.json()) as { releaks?: ReleakRow[] };
             return data.releaks ?? [];
@@ -155,8 +154,7 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
         apiFetch: async (path) => {
           try {
             const url = `https://pranithjain.qzz.io${path}`;
-            const fetcher = env.SELF ?? globalThis.fetch;
-            const r = await fetcher(new Request(url));
+            const r = await globalThis.fetch(new Request(url));
             if (!r.ok) return null;
             return r.json();
           } catch {

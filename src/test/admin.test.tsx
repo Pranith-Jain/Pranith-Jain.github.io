@@ -80,8 +80,14 @@ describe('AdminApp', () => {
           })
         );
       }
-      if (u.includes('/approve')) {
-        return new Response(JSON.stringify({ ok: true, approved: 'cve-1' }));
+      if (u.includes('/approve') || u.includes('/generate')) {
+        return new Response(
+          JSON.stringify({
+            ok: true,
+            approved: 'cve-1',
+            result: { blog: { slug: 'test', title: 'Test', status: 'draft' } },
+          })
+        );
       }
       return new Response(JSON.stringify({ pending: [] }));
     }) as unknown as typeof fetch;
@@ -94,7 +100,7 @@ describe('AdminApp', () => {
     await waitFor(() => expect(screen.getByText('Test CVE')).toBeInTheDocument());
     fireEvent.click(screen.getByRole('button', { name: /approve/i }));
     await waitFor(() => {
-      expect(calls.some((c) => c.includes('POST') && c.includes('/candidates/cve-1/approve'))).toBe(true);
+      expect(calls.some((c) => c.includes('POST') && c.includes('/candidates/cve-1/generate'))).toBe(true);
     });
   });
 });

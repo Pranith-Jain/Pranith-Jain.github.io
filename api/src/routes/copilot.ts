@@ -993,8 +993,14 @@ export async function copilotInvestigateHandler(c: Context<{ Bindings: Env }>): 
       _meta: {
         total_sources: allSources.length,
         total_items: totalSourceItems,
-        quality_score: validation.quality.score,
-        quality_issues: validation.quality.issues,
+        ...((validation as unknown as Record<string, unknown>).quality
+          ? {
+              quality_score: ((validation as unknown as Record<string, unknown>).quality as Record<string, unknown>)
+                .score,
+              quality_issues: ((validation as unknown as Record<string, unknown>).quality as Record<string, unknown>)
+                .issues,
+            }
+          : {}),
       },
     };
 
