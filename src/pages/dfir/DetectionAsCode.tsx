@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { FileCode, Plus, Loader2, Shield, CheckCircle, AlertTriangle, Copy, Check, BarChart3 } from 'lucide-react';
+import { FileCode, Loader2, Copy, Check } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
 
 interface DetectionRule { id: string; name: string; format: string; rule_text: string; status: string; severity: string; mitre_techniques: string[]; version: number; false_positive_rate: number; true_positive_count: number; }

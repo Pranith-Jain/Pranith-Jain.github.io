@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Activity, ArrowRight, BookOpen, ExternalLink, Link2, Search, Users, X } from 'lucide-react';
+import { Activity, ArrowRight, BookOpen, ExternalLink, Globe, Link2, Search, Users, X } from 'lucide-react';
 import { LiveSnapshotPanel } from '../../components/dfir/LiveSnapshotPanel';
 import { WhatsNewBanner } from '../../components/threatintel/WhatsNewBanner';
 import { LatestBriefingCard } from '../../components/threatintel/LatestBriefingCard';
@@ -36,6 +36,13 @@ import { SECTIONS, flattenTools, matchesQuery } from '../../data/threatintel-sec
  */
 const QUICK_ACTIONS: QuickAction[] = [
   {
+    to: '/threatintel/global-pulse',
+    label: 'Global Pulse',
+    description: 'Live 3D globe with 700+ events across 21 layers.',
+    icon: Globe,
+    badge: 'live',
+  },
+  {
     to: '/threatintel/live-iocs',
     label: 'Live IOCs',
     description: 'Streaming indicator feed from 12 providers.',
@@ -53,12 +60,6 @@ const QUICK_ACTIONS: QuickAction[] = [
     label: 'Cross-Campaign',
     description: 'Find connections across campaigns + actors + IOCs.',
     icon: Link2,
-  },
-  {
-    to: '/threatintel/wiki',
-    label: 'Knowledge Base',
-    description: 'Long-form articles on tradecraft, frameworks, and methodology.',
-    icon: BookOpen,
   },
 ];
 

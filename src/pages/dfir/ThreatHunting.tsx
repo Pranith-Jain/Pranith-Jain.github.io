@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Target, Plus, Search, Loader2, ChevronRight, CheckCircle, AlertTriangle, Clock, Filter } from 'lucide-react';
+import { Target, Plus, Loader2, CheckCircle, Clock } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
 
 interface Hunt { id: string; title: string; hypothesis: string; status: string; priority: string; kill_chain_phase: string; mitre_techniques: string[]; findings_count: number; true_positives: number; created_at: string; }
-interface HuntTemplate { id: string; name: string; category: string; hypothesis_template: string; data_sources: string[]; mitre_techniques: string[]; }
+interface HuntTemplate { id: string; name: string; category: string; hypothesis_template: string; data_sources: string[]; mitre_techniques: string[]; kill_chain_phase: string; }
 
 export default function ThreatHunting(): JSX.Element {
   const [hunts, setHunts] = useState<Hunt[]>([]);

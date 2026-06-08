@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Brain, Plus, Loader2, ChevronRight, CheckCircle } from 'lucide-react';
+import { Brain, Plus, Loader2 } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
 
 interface SatAnalysis { id: string; type: string; title: string; question: string; status: string; confidence: number; created_at: string; }
@@ -20,7 +20,7 @@ const SAT_TYPES = [
 export default function StructuredAnalysis(): JSX.Element {
   const [analyses, setAnalyses] = useState<SatAnalysis[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filterType, setFilterType] = useState('all');
+  const [filterType] = useState('all');
   const [showCreate, setShowCreate] = useState(false);
   const [newAnalysis, setNewAnalysis] = useState({ type: 'ach', title: '', question: '', description: '' });
 

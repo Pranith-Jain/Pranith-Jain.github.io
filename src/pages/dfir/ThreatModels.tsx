@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Shield, Plus, Loader2 } from 'lucide-react';
+import { Shield, Loader2 } from 'lucide-react';
 import { BackLink } from '../../components/BackLink';
 
 interface ThreatModel { id: string; name: string; method: string; status: string; assets: unknown[]; threats: unknown[]; created_at: string; }

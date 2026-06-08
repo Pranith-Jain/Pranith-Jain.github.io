@@ -78,7 +78,7 @@ export default function CtiGlobe({
       const w = container.clientWidth;
       const h = container.clientHeight;
 
-      const globe = Globe()(container)
+      const globe = new Globe(container, { animateIn: true })
         .width(w)
         .height(h)
         // Globe appearance
