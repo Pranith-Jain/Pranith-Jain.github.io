@@ -92,12 +92,12 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
   // 21d — but `commitDedup` marks every *kept* candidate seen, so topics
   // with stable keys (cve/actor/malware/briefing) got fully starved within
   // days and discovery collapsed to one topic. Correct model:
-  //   - PUBLISHED key  → hard-suppress for 60d (never republish the same
+  //   - PUBLISHED key  → hard-suppress for 30d (never republish the same
   //     story). `publishedSlug` is set only by the publisher's touchDedup.
   //   - merely surfaced (kept, not published) → NO hard gate. noveltyScore
   //     already soft-deweights it so it won't dominate, but the topic keeps
   //     producing instead of going silent for weeks.
-  const REPUBLISH_BLOCK_MS = 60 * 24 * 3600 * 1000;
+  const REPUBLISH_BLOCK_MS = 30 * 24 * 3600 * 1000;
   const isSuppressed = (key: string): boolean => isKeySuppressed(dedupMap[key] ?? null, now, REPUBLISH_BLOCK_MS);
   // One rand stream per run, seeded by the UTC date: stable within a day,
   // different the next. Weighted by score so high-value items stay likely
@@ -174,7 +174,6 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
       discoverAgenticTrends({
         now,
         getDedup: memGet,
-        ai: env.AI,
         groqKey: env.GROQ_API_KEY,
       }),
   };

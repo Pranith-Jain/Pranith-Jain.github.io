@@ -5,7 +5,6 @@ import { recencyScore, severityScore, noveltyScore, finalScore } from '../scorin
 export interface AgenticTrendsDeps {
   now: Date;
   getDedup: (stableKey: string) => Promise<DedupRecord | null>;
-  ai: unknown;
   groqKey?: string;
 }
 
@@ -19,13 +18,16 @@ interface TrendCandidate {
   trendingSignal: number;
 }
 
-const TREND_DISCOVERY_PROMPT = `You are a cybersecurity threat-intel analyst scanning for trending stories.
+const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
+const GROQ_MODEL = 'meta-llama/llama-4-scout-17b-16e-instruct';
+
+const SYSTEM_PROMPT = `You are a cybersecurity threat-intel analyst scanning for trending stories.
 
 Today's date: {DATE}
 
-Your task: Identify 3-5 genuinely trending cybersecurity stories RIGHT NOW that would make high-quality blog content. Look for:
+Your task: Identify 5 genuinely trending cybersecurity stories RIGHT NOW that would make high-quality blog content. Look for:
 
-1. **Active exploitation** — CVEs with proof-of-concept, active campaigns, real受害 victims
+1. **Active exploitation** — CVEs with proof-of-concept, active campaigns, real victims
 2. **Emerging threat-actor activity** — new groups, shifted TTPs, notable campaigns
 3. **Ransomware evolution** — new encryptors, extortion tactics, notable victims
 4. **Novel attack techniques** — research papers, tooling, methodology shifts
@@ -55,14 +57,6 @@ For each story, output a JSON object with these fields:
 }
 
 Return ONLY a valid JSON array. No markdown, no commentary.`;
-
-function buildPrompt(now: Date): { system: string; user: string } {
-  const dateStr = now.toISOString().slice(0, 10);
-  return {
-    system: TREND_DISCOVERY_PROMPT.replace('{DATE}', dateStr),
-    user: `What are the top trending cybersecurity stories as of ${dateStr}? Focus on stories with real, specific details that a detection engineer or threat intel analyst would need to know about today.`,
-  };
-}
 
 function parseTrendResponse(text: string): TrendCandidate[] {
   const cleaned = text
@@ -99,18 +93,47 @@ const TYPE_MAP: Record<string, CaseStudyType> = {
   malware: 'malware',
 };
 
-export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Candidate[]> {
-  try {
-    const { ai, groqKey, now, getDedup } = deps;
-    const { runCompletion } = await import('../generation/ai-client');
-    const prompt = buildPrompt(now);
-    const result = await runCompletion(
-      ai as never,
-      { system: prompt.system, user: prompt.user, maxTokens: 3000, temperature: 0.3 },
-      { groqKey, quality: false }
-    );
+async function callGroq(key: string, prompt: string, userMsg: string): Promise<string> {
+  const res = await fetch(GROQ_URL, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${key}`, 'content-type': 'application/json' },
+    body: JSON.stringify({
+      model: GROQ_MODEL,
+      messages: [
+        { role: 'system', content: prompt },
+        { role: 'user', content: userMsg },
+      ],
+      max_completion_tokens: 4000,
+      temperature: 0.3,
+    }),
+    signal: AbortSignal.timeout(30_000),
+  });
+  if (!res.ok) {
+    const body = await res.text().catch(() => '');
+    throw new Error(`groq HTTP ${res.status}: ${body.slice(0, 200)}`);
+  }
+  const j = (await res.json()) as { choices?: Array<{ message?: { content?: string } }> };
+  const text = j?.choices?.[0]?.message?.content;
+  if (typeof text !== 'string' || !text.trim()) throw new Error('groq empty response');
+  return text;
+}
 
-    const trends = parseTrendResponse(result.text);
+export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Candidate[]> {
+  const { groqKey, now, getDedup } = deps;
+
+  if (!groqKey) {
+    console.warn('discoverAgenticTrends: GROQ_API_KEY not set, skipping');
+    return [];
+  }
+
+  try {
+    const prompt = SYSTEM_PROMPT.replace('{DATE}', now.toISOString().slice(0, 10));
+    const userMsg = `What are the top trending cybersecurity stories as of ${now.toISOString().slice(0, 10)}? Focus on stories with real, specific details that a detection engineer or threat intel analyst would need to know about today.`;
+
+    const text = await callGroq(groqKey, prompt, userMsg);
+    console.log(JSON.stringify({ runner: 'agentic-trends', rawLength: text.length, preview: text.slice(0, 200) }));
+
+    const trends = parseTrendResponse(text);
     if (trends.length === 0) {
       console.warn('discoverAgenticTrends: LLM returned no parseable trends');
       return [];
@@ -120,28 +143,23 @@ export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Ca
     const seenKeys = new Set<string>();
 
     for (const t of trends) {
-      const key = topicKey(
-        'agentic',
-        t.title
-          .slice(0, 80)
-          .toLowerCase()
-          .replace(/[^a-z0-9]+/g, '-')
-      );
+      const seed = t.title
+        .slice(0, 80)
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-');
+      const key = topicKey('agentic', seed);
       if (seenKeys.has(key)) continue;
       seenKeys.add(key);
 
       const dedup = await getDedup(key);
       const trendingBoost = Math.min(1, Math.max(0, t.trendingSignal ?? 0.5));
-
       const score = finalScore({
         recency: 1.0,
         severity: severityScore({}),
         novelty: noveltyScore(dedup, now),
         sourceWeight: 0.8,
       });
-
       const adjustedScore = Number((score * 0.6 + trendingBoost * 0.4).toFixed(4));
-
       const type = TYPE_MAP[t.type?.toLowerCase()] ?? 'trend';
 
       candidates.push({
@@ -170,10 +188,9 @@ export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Ca
         candidatesGenerated: candidates.length,
       })
     );
-
     return candidates;
   } catch (err) {
-    console.warn('discoverAgenticTrends failed:', err);
+    console.warn('discoverAgenticTrends failed:', err instanceof Error ? err.message : String(err));
     return [];
   }
 }
