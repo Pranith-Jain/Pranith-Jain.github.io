@@ -277,7 +277,7 @@ function buildLinkedinPrompt(src: SocialSource): string {
   const postUrl = src.slug.startsWith('http') ? src.slug : `https://pranithjain.qzz.io/blog/${src.slug}`;
   return (
     `<format name="LinkedIn post">\n` +
-    `- 1300 characters max (body only, before FIRST COMMENT and hashtags).\n` +
+    `- 1300-2000 characters (body only, before FIRST COMMENT and hashtags). Best length is around 1600.\n` +
     `- HOOK in first 2 lines. PAS structure: name the problem, agitate, tease the solution. ` +
     `No throat-clearing, no "New post!", no "I've been thinking about".\n` +
     `- BODY: story or insight in the middle. 2-3 short paragraphs, each 1-3 sentences. ` +
