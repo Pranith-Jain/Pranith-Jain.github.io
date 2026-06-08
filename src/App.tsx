@@ -268,6 +268,26 @@ const FeedScheduler = lazy(() => import('./pages/threatintel/FeedScheduler'));
 const ObservableDb = lazy(() => import('./pages/threatintel/ObservableDb'));
 const MalwareVault = lazy(() => import('./pages/threatintel/MalwareVault'));
 const SecretLeaks = lazy(() => import('./pages/threatintel/SecretLeaks'));
+const CaseManager = lazy(() => import('./pages/dfir/CaseManager'));
+const Playbooks = lazy(() => import('./pages/dfir/Playbooks'));
+const ThreatHunting = lazy(() => import('./pages/dfir/ThreatHunting'));
+const ExportHub = lazy(() => import('./pages/dfir/ExportHub'));
+const DetectionAsCode = lazy(() => import('./pages/dfir/DetectionAsCode'));
+const DeceptionTech = lazy(() => import('./pages/dfir/DeceptionTech'));
+const StructuredAnalysis = lazy(() => import('./pages/dfir/StructuredAnalysis'));
+const ThreatModels = lazy(() => import('./pages/dfir/ThreatModels'));
+const IntelRequirements = lazy(() => import('./pages/dfir/IntelRequirements'));
+const BehavioralAnalytics = lazy(() => import('./pages/dfir/BehavioralAnalytics'));
+const IocLifecyclePage = lazy(() => import('./pages/dfir/IocLifecyclePage'));
+const ConfidenceScoring = lazy(() => import('./pages/dfir/ConfidenceScoring'));
+const MemoryForensics = lazy(() => import('./pages/dfir/MemoryForensics'));
+const NetworkForensics = lazy(() => import('./pages/dfir/NetworkForensics'));
+const DiskTimeline = lazy(() => import('./pages/dfir/DiskTimeline'));
+const DashboardWidgets = lazy(() => import('./pages/dfir/DashboardWidgets'));
+const TipFeatures = lazy(() => import('./pages/dfir/TipFeatures'));
+const OfflineMode = lazy(() => import('./pages/dfir/OfflineMode'));
+const MultiTenancy = lazy(() => import('./pages/dfir/MultiTenancy'));
+const ApiDocs = lazy(() => import('./pages/dfir/ApiDocs'));
 
 /**
  * /dfir/file?h=<hash> is the legacy entry point for the standalone hash
@@ -543,6 +563,28 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/dfir/pgp-tool', Component: PgpTool },
   { path: '/dfir/tor-gateway', Component: TorGateway },
   { path: '/dfir/blocklists', Component: Blocklists },
+  // ── 24 Gap Features ──────────────────────────────────────────────
+  { path: '/dfir/cases', Component: CaseManager },
+  { path: '/dfir/cases/:id', Component: CaseManager },
+  { path: '/dfir/playbooks', Component: Playbooks },
+  { path: '/dfir/threat-hunting', Component: ThreatHunting },
+  { path: '/dfir/export-hub', Component: ExportHub },
+  { path: '/dfir/detection-as-code', Component: DetectionAsCode },
+  { path: '/dfir/deception', Component: DeceptionTech },
+  { path: '/dfir/structured-analysis', Component: StructuredAnalysis },
+  { path: '/dfir/threat-models', Component: ThreatModels },
+  { path: '/dfir/intel-requirements', Component: IntelRequirements },
+  { path: '/dfir/behavioral-analytics', Component: BehavioralAnalytics },
+  { path: '/dfir/ioc-lifecycle', Component: IocLifecyclePage },
+  { path: '/dfir/confidence-scoring', Component: ConfidenceScoring },
+  { path: '/dfir/memory-forensics', Component: MemoryForensics },
+  { path: '/dfir/network-forensics', Component: NetworkForensics },
+  { path: '/dfir/disk-timeline', Component: DiskTimeline },
+  { path: '/dfir/dashboard-widgets', Component: DashboardWidgets },
+  { path: '/dfir/tip-features', Component: TipFeatures },
+  { path: '/dfir/offline-mode', Component: OfflineMode },
+  { path: '/dfir/multi-tenancy', Component: MultiTenancy },
+  { path: '/dfir/api-docs', Component: ApiDocs },
   { path: '/admin', Component: AdminApp },
 ];
 

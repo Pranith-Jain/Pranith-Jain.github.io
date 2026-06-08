@@ -387,6 +387,8 @@ export default function GlobalPulse(): JSX.Element {
   const [lastUpdated, setLastUpdated] = useState<string | null>(null);
   const [showFilters, setShowFilters] = useState(false);
   const [severityFilter, setSeverityFilter] = useState<Set<string>>(new Set(['critical', 'high', 'medium', 'low']));
+  const [searchQuery, setSearchQuery] = useState('');
+  const [timeRange, setTimeRange] = useState<number>(0); // 0 = all time, hours
   const loadIdRef = useRef(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -434,8 +436,30 @@ export default function GlobalPulse(): JSX.Element {
 
   const filteredEvents = useMemo(() => {
     if (!data) return [];
-    return data.events.filter((e) => activeLayers.has(e.kind) && severityFilter.has(e.severity));
-  }, [data, activeLayers, severityFilter]);
+    const now = Date.now();
+    return data.events.filter((e) => {
+      // Layer filter
+      if (!activeLayers.has(e.kind)) return false;
+      // Severity filter
+      if (!severityFilter.has(e.severity)) return false;
+      // Time range filter
+      if (timeRange > 0) {
+        const eventTime = new Date(e.timestamp).getTime();
+        if (now - eventTime > timeRange * 3600000) return false;
+      }
+      // Search filter
+      if (searchQuery) {
+        const q = searchQuery.toLowerCase();
+        return (
+          e.title.toLowerCase().includes(q) ||
+          e.description.toLowerCase().includes(q) ||
+          e.source.toLowerCase().includes(q) ||
+          e.kind.toLowerCase().includes(q)
+        );
+      }
+      return true;
+    });
+  }, [data, activeLayers, severityFilter, searchQuery, timeRange]);
 
   const geoPoints = useMemo(() => {
     return filteredEvents
@@ -562,6 +586,52 @@ export default function GlobalPulse(): JSX.Element {
 
           {/* ─── Controls Bar ─── */}
           <div className="flex items-center gap-2 flex-wrap">
+            {/* Search Bar */}
+            <div className="relative flex-1 min-w-[200px] max-w-md">
+              <input
+                type="text"
+                placeholder="Search events..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-8 pr-3 py-2 text-xs font-mono rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 placeholder-slate-400 focus:outline-none focus:border-brand-500/50"
+              />
+              <svg className="absolute left-2.5 top-2.5 w-3.5 h-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-2 top-2 text-slate-400 hover:text-slate-600"
+                >
+                  <X size={14} />
+                </button>
+              )}
+            </div>
+
+            {/* Time Range Filter */}
+            <div className="inline-flex rounded-lg border border-slate-200 dark:border-slate-800 overflow-hidden">
+              {[
+                { hours: 0, label: 'All' },
+                { hours: 1, label: '1h' },
+                { hours: 6, label: '6h' },
+                { hours: 24, label: '24h' },
+                { hours: 168, label: '7d' },
+              ].map((t) => (
+                <button
+                  key={t.hours}
+                  type="button"
+                  onClick={() => setTimeRange(t.hours)}
+                  className={`text-[11px] font-mono px-2.5 py-2 transition-colors ${
+                    timeRange === t.hours
+                      ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300'
+                      : 'bg-white dark:bg-slate-900 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800'
+                  }`}
+                >
+                  {t.label}
+                </button>
+              ))}
+            </div>
+
             {/* Map Mode Toggle */}
             <div className="inline-flex rounded-lg border border-slate-200 dark:border-slate-800 overflow-hidden">
               <button

@@ -631,16 +631,16 @@ function fromDetections(data: {
 }
 
 function fromCybercrime(data: {
-  items?: Array<{ title: string; source?: string; url?: string; date?: string }>;
+  items?: Array<{ title: string; source?: string; url?: string; date?: string; published?: string }>;
 }): PulseEvent[] {
-  return (data.items ?? []).slice(0, 20).map((i, idx) => ({
+  return (data.items ?? []).slice(0, 30).map((i, idx) => ({
     id: `crime-${idx}-${i.title.slice(-15)}`,
     kind: 'cybercrime' as const,
     title: i.title.slice(0, 120),
     description: `Cybercrime intel from ${i.source || 'unknown'}`,
     lat: 0,
     lng: 0,
-    timestamp: i.date || new Date().toISOString(),
+    timestamp: i.published || i.date || new Date().toISOString(),
     severity: 'medium' as const,
     source: i.source || 'Cybercrime',
     url: i.url,
