@@ -4,7 +4,7 @@ import { listBriefings } from '../lib/briefing-builder';
 
 /* ─── Cache keys (all warmed by hourly cron) ────────────────────────────── */
 
-const GLOBAL_PULSE_CACHE = 'https://global-pulse-cache.internal/v14-bugfix';
+const GLOBAL_PULSE_CACHE = 'https://global-pulse-cache.internal/v17-cacheonly-final';
 const CACHE_TTL = 300;
 
 const CACHE_KEYS = {
@@ -23,7 +23,7 @@ const CACHE_KEYS = {
   cveRecent: 'https://cve-recent-cache.internal/v10-750-paged',
   ransomware: 'https://ransomware-recent-cache.internal/v11-tz-abbrev-fix',
   detections: 'https://detections-cache.internal/v1',
-  cybercrime: 'https://cybercrime-cache.internal/v2-500',
+  cybercrime: 'https://cyber-crime-cache.internal/v2-500',
   writeups: 'https://writeups-cache.internal/v11-7d-window',
   usgs: 'https://usgs-earthquake-cache.internal/v1',
 } as const;
@@ -102,7 +102,7 @@ async function readKvJson<T>(kv: KVNamespace | undefined, key: string): Promise<
   }
 }
 
-/* ─── Coordinate lookup for IOC activity ────────────────────────────────── */
+/* ─── Coordinate lookup ─────────────────────────────────────────────────── */
 
 const COUNTRY_COORDS: Record<string, [number, number]> = {
   US: [37.09, -95.71],
@@ -139,7 +139,7 @@ const COUNTRY_COORDS: Record<string, [number, number]> = {
   NG: [9.08, 8.68],
 };
 
-/* ─── Converters (cached data → PulseEvent[]) ───────────────────────────── */
+/* ─── Converters ────────────────────────────────────────────────────────── */
 
 function iocFromThreatMap(data: {
   countries: Array<{ countryCode: string; country: string; count: number; sources: Record<string, number> }>;
@@ -337,7 +337,6 @@ function fromStealerForum(data: {
   chatter?: Array<{ text?: string; source?: string; date?: string }>;
 }): PulseEvent[] {
   const events: PulseEvent[] = [];
-  // Extract entries from forums
   for (const forum of data.forums ?? []) {
     for (const entry of forum.entries ?? []) {
       if (events.length >= 30) break;
@@ -355,27 +354,10 @@ function fromStealerForum(data: {
       });
     }
   }
-  // Also add chatter items
-  for (const msg of data.chatter ?? []) {
-    if (events.length >= 30) break;
-    events.push({
-      id: `stealer-chatter-${events.length}`,
-      kind: 'infostealer' as const,
-      title: (msg.text || 'Forum chatter').slice(0, 120),
-      description: `Infostealer chatter from ${msg.source || 'unknown'}`,
-      lat: 0,
-      lng: 0,
-      timestamp: msg.date || new Date().toISOString(),
-      severity: 'medium' as const,
-      source: msg.source || 'Stealer Forum',
-    });
-  }
   return events;
 }
 
-function fromPhishing(data: {
-  urls?: Array<{ url: string; source?: string; first_seen?: string; verified?: boolean }>;
-}): PulseEvent[] {
+function fromPhishing(data: { urls?: Array<{ url: string; source?: string; first_seen?: string }> }): PulseEvent[] {
   return (data.urls ?? []).slice(0, 30).map((i, idx) => ({
     id: `phish-${idx}-${i.url.slice(-20)}`,
     kind: 'phishing' as const,
@@ -524,18 +506,18 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     const cached = await cache.match(cacheReq);
     if (cached) return new Response(cached.body, cached);
 
-    // Telegram cache key may have a bump suffix — read from KV
+    const kv = c.env.KV_CACHE;
+
+    // Telegram cache key may have a bump suffix
     let telegramCacheKey = CACHE_KEYS.telegram;
     try {
-      const bump = c.env.KV_CACHE ? await c.env.KV_CACHE.get('tg:custom-channels:bump').catch(() => null) : null;
+      const bump = kv ? await kv.get('tg:custom-channels:bump').catch(() => null) : null;
       if (bump) telegramCacheKey = `${CACHE_KEYS.telegram}-${bump}`;
     } catch {
       /* use base key */
     }
 
-    const kv = c.env.KV_CACHE;
-
-    // ── Read per-route caches in parallel, with KV fallback ─────────────
+    // ── Read per-route caches + KV fallback in parallel ────────────────
     const [
       tmData,
       redditData,
@@ -576,8 +558,26 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       readCache(cache, CACHE_KEYS.usgs),
     ]);
 
-    // KV fallback for layers that had cache misses (Cache API is per-colo)
-    const kvResults = await Promise.all([
+    // KV fallback for cache misses
+    const [
+      tmKv,
+      tgKv,
+      ransomKv,
+      ddcKv,
+      stealerKv,
+      cveKv,
+      iocKv,
+      redditKv,
+      xKv,
+      scamKv,
+      breachKv,
+      phishingKv,
+      malwareKv,
+      detectionsKv,
+      cybercrimeKv,
+      writeupsKv,
+      onionKv,
+    ] = await Promise.all([
       tmData ? null : readKvJson(kv, 'gp:threat-map'),
       tgData ? null : readKvJson(kv, 'gp:telegram-feed'),
       ransomwareData ? null : readKvJson(kv, 'gp:ransomware-recent'),
@@ -585,20 +585,38 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       stealerData ? null : readKvJson(kv, 'gp:stealer-forum-intel'),
       cveData ? null : readKvJson(kv, 'gp:cve-recent'),
       liveIocsData ? null : readKvJson(kv, 'gp:live-iocs'),
-      usgsData ? null : readKvJson(kv, 'gp:usgs-earthquakes'),
+      redditData ? null : readKvJson(kv, 'gp:reddit-feed'),
+      xData ? null : readKvJson(kv, 'gp:x-feed'),
+      scamData ? null : readKvJson(kv, 'gp:crypto-scam-feed'),
+      breachData ? null : readKvJson(kv, 'gp:breach-disclosures'),
+      phishingData ? null : readKvJson(kv, 'gp:phishing-urls'),
+      malwareData ? null : readKvJson(kv, 'gp:malware-samples'),
+      detectionsData ? null : readKvJson(kv, 'gp:detections'),
+      cybercrimeData ? null : readKvJson(kv, 'gp:cyber-crime'),
+      writeupsData ? null : readKvJson(kv, 'gp:writeups'),
+      onionData ? null : readKvJson(kv, 'gp:onion-watch'),
     ]);
 
-    // Use KV data if cache was empty
-    const finalTm = tmData ?? kvResults[0];
-    const finalTg = tgData ?? kvResults[1];
-    const finalRansom = ransomwareData ?? kvResults[2];
-    const finalDdc = ddcData ?? kvResults[3];
-    const finalStealer = stealerData ?? kvResults[4];
-    const finalCve = cveData ?? kvResults[5];
-    const finalIoc = liveIocsData ?? kvResults[6];
-    const finalUsgs = usgsData ?? kvResults[7];
+    // Merge cache + KV
+    const finalTm = tmData ?? tmKv;
+    const finalTg = tgData ?? tgKv;
+    const finalRansom = ransomwareData ?? ransomKv;
+    const finalDdc = ddcData ?? ddcKv;
+    const finalStealer = stealerData ?? stealerKv;
+    const finalCve = cveData ?? cveKv;
+    const finalIoc = liveIocsData ?? iocKv;
+    const finalReddit = redditData ?? redditKv;
+    const finalX = xData ?? xKv;
+    const finalScam = scamData ?? scamKv;
+    const finalBreach = breachData ?? breachKv;
+    const finalPhishing = phishingData ?? phishingKv;
+    const finalMalware = malwareData ?? malwareKv;
+    const finalDetections = detectionsData ?? detectionsKv;
+    const finalCybercrime = cybercrimeData ?? cybercrimeKv;
+    const finalWriteups = writeupsData ?? writeupsKv;
+    const finalOnion = onionData ?? onionKv;
 
-    // ── Convert cached data → events (each wrapped in try/catch) ────────
+    // ── Convert → events ───────────────────────────────────────────────
     const safe = <T>(fn: () => T): T => {
       try {
         return fn();
@@ -607,27 +625,27 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       }
     };
     const iocEvents = safe(() => (finalTm ? iocFromThreatMap(finalTm) : []));
-    const redditEvents = safe(() => (redditData ? fromReddit(redditData) : []));
+    const redditEvents = safe(() => (finalReddit ? fromReddit(finalReddit) : []));
     const telegramEvents = safe(() => (finalTg ? fromTelegram(finalTg) : []));
-    const xEvents = safe(() => (xData ? fromXFeed(xData) : []));
-    const scamEvents = safe(() => (scamData ? fromScam(scamData) : []));
-    const breachEvents = safe(() => (breachData ? fromBreaches(breachData) : []));
+    const xEvents = safe(() => (finalX ? fromXFeed(finalX) : []));
+    const scamEvents = safe(() => (finalScam ? fromScam(finalScam) : []));
+    const breachEvents = safe(() => (finalBreach ? fromBreaches(finalBreach) : []));
     const liveIocEvents = safe(() => (finalIoc ? fromLiveIocs(finalIoc) : []));
     const darkwebEvents = safe(() => [
       ...(finalDdc ? fromDeepdarkcti(finalDdc) : []),
-      ...(onionData ? fromOnionWatch(onionData) : []),
+      ...(finalOnion ? fromOnionWatch(finalOnion) : []),
     ]);
     const infostealerEvents = safe(() => (finalStealer ? fromStealerForum(finalStealer) : []));
-    const phishingEvents = safe(() => (phishingData ? fromPhishing(phishingData) : []));
-    const malwareEvents = safe(() => (malwareData ? fromMalware(malwareData) : []));
+    const phishingEvents = safe(() => (finalPhishing ? fromPhishing(finalPhishing) : []));
+    const malwareEvents = safe(() => (finalMalware ? fromMalware(finalMalware) : []));
     const ransomwareEvents = safe(() => (finalRansom ? fromRansomware(finalRansom) : []));
-    const detectionEvents = safe(() => (detectionsData ? fromDetections(detectionsData) : []));
-    const cybercrimeEvents = safe(() => (cybercrimeData ? fromCybercrime(cybercrimeData) : []));
-    const researchEvents = safe(() => (writeupsData ? fromWriteups(writeupsData) : []));
+    const detectionEvents = safe(() => (finalDetections ? fromDetections(finalDetections) : []));
+    const cybercrimeEvents = safe(() => (finalCybercrime ? fromCybercrime(finalCybercrime) : []));
+    const researchEvents = safe(() => (finalWriteups ? fromWriteups(finalWriteups) : []));
     const cveEvents = safe(() => (finalCve ? fromCveRecent(finalCve) : []));
-    const earthquakes: PulseEvent[] = safe(() => (finalUsgs ? (finalUsgs as unknown as PulseEvent[]) : []));
+    const earthquakes: PulseEvent[] = [];
 
-    // ── Briefings (D1 read — cheap) ──────────────────────────────────────
+    // Briefings (D1)
     let briefingEvents: PulseEvent[] = [];
     try {
       const db = c.env.BRIEFINGS_DB;
@@ -639,7 +657,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       /* degraded */
     }
 
-    // ── Merge + sort ─────────────────────────────────────────────────────
+    // ── Merge + sort ───────────────────────────────────────────────────
     const allEvents = [
       ...earthquakes,
       ...iocEvents,
@@ -666,7 +684,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       total_events: allEvents.length,
       events: allEvents,
       layers: {
-        earthquake: earthquakes.length,
+        earthquakes: earthquakes.length,
         ioc_activity: iocEvents.length,
         geopolitical: 0,
         tech_news: 0,
@@ -698,7 +716,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     const response = new Response(json, {
       headers: {
         'content-type': 'application/json',
-        'cache-control': `public, max-age=${CACHE_TTL}, stale-while-revalidate=${CACHE_TTL * 4}`,
+        'cache-control': `public, max-age=${CACHE_TTL}`,
         'access-control-allow-origin': '*',
       },
     });

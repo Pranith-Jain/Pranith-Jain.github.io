@@ -342,16 +342,9 @@ export const SECTIONS: Section[] = [
       {
         to: '/threatintel/global-pulse',
         label: 'Global Pulse — Live Intel',
-        desc: 'Real-time global intelligence hub: earthquakes, cyber attacks, IOCs, CVEs, ransomware, dark web, infostealers, phishing, malware, breaches, scam, research, Reddit, Telegram, X, and tech news. All feeds live.',
+        desc: 'Real-time global intelligence hub: 3D globe with severity arcs, earthquakes, cyber attacks, IOCs, ransomware, dark web, phishing, malware, CVEs, breaches, Reddit, Telegram, X, and tech news. All feeds live.',
         icon: Radio,
         badge: 'live',
-      },
-      {
-        to: '/threatintel/cti-platform',
-        label: 'CTI Platform',
-        desc: '3D threat globe with severity arcs, impact points, critical CVEs, live IOC feed, and real-time social intel from Reddit, Telegram, X, and more.',
-        icon: Globe2,
-        badge: 'new',
       },
       {
         to: '/threatintel/metrics',

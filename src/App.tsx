@@ -93,7 +93,6 @@ const StixBuilder = lazy(() => import('./pages/dfir/StixBuilder'));
 const DarkWeb = lazy(() => import('./pages/dfir/DarkWeb'));
 const ThreatMap = lazy(() => import('./pages/dfir/ThreatMap'));
 const GlobalPulse = lazy(() => import('./pages/threatintel/GlobalPulse'));
-const CtiPlatform = lazy(() => import('./pages/threatintel/CtiPlatform'));
 const Rules = lazy(() => import('./pages/dfir/Rules'));
 const Owasp = lazy(() => import('./pages/dfir/Owasp'));
 const PromptInjection = lazy(() => import('./pages/dfir/PromptInjection'));
@@ -423,7 +422,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/exploitable-cves', Component: ExploitableCves },
   { path: '/threatintel/threat-map', Component: ThreatMap },
   { path: '/threatintel/global-pulse', Component: GlobalPulse },
-  { path: '/threatintel/cti-platform', Component: CtiPlatform },
+  { path: '/threatintel/cti-platform', Component: GlobalPulse },
   { path: '/threatintel/rules', Component: Rules },
   { path: '/threatintel/deepdarkcti', Component: DeepDarkCTI },
   { path: '/threatintel/ransomware-live', Component: RansomwareLive },

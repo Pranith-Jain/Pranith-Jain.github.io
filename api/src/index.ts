@@ -212,6 +212,9 @@ import {
   temporalPredictHandler,
 } from './routes/temporal-analysis';
 import { attackChainHandler, attackChainTechniquesHandler } from './routes/attack-chain';
+import { attackChainCveHandler } from './routes/attack-chain-cve';
+import { campaignDetectHandler, campaignDetectDetailHandler } from './routes/campaign-detect';
+import { campaignForecastHandler } from './routes/campaign-forecast';
 import {
   actorDnaMatchHandler,
   actorDnaGetHandler,
