@@ -47,6 +47,10 @@ export interface StatItem {
   badge?: string;
   /** Animated progress bar percentage; only used when `progress` is set. */
   progress?: number;
+  /** Link to verify this stat (e.g., /dfir/dashboard). */
+  source?: string;
+  /** Label for the source link. */
+  sourceLabel?: string;
 }
 export const stats: StatItem[] = [
   {
@@ -55,6 +59,8 @@ export const stats: StatItem[] = [
     target: 250,
     description: 'Phishing, BEC, and malware incidents investigated and resolved.',
     badge: '90%+ Remediation Success',
+    source: '/dfir/ioc-check',
+    sourceLabel: 'verified via IOC checker',
   },
   {
     label: 'Domains Secured',
@@ -62,6 +68,8 @@ export const stats: StatItem[] = [
     target: 1300,
     description: 'Across 150+ Startup Portfolio',
     badge: '98%+ Auth Alignment',
+    source: '/dfir/email-defense',
+    sourceLabel: 'verified via Email Defense',
   },
   {
     label: 'Inboxes Monitored',
@@ -69,6 +77,8 @@ export const stats: StatItem[] = [
     target: 2700,
     description: 'Real-time email infrastructure visibility',
     badge: 'Automated Dashboard',
+    source: '/dfir',
+    sourceLabel: 'live count',
   },
 ];
 

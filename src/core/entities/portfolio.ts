@@ -6,6 +6,10 @@ export interface StatItem {
   description: string;
   badge?: string;
   progress?: number;
+  /** Link to verify this stat (e.g., /dfir/dashboard). */
+  source?: string;
+  /** Label for the source link. */
+  sourceLabel?: string;
 }
 
 export interface Skill {

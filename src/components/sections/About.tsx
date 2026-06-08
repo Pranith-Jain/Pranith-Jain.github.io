@@ -71,6 +71,14 @@ export function About({ stats }: AboutProps) {
               )}
             </dd>
             <p className="mt-1 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{stat.description}</p>
+            {stat.source && (
+              <Link
+                to={stat.source}
+                className="mt-1 inline-flex items-center gap-1 text-[10px] font-mono text-brand-600 dark:text-brand-400 hover:underline"
+              >
+                {stat.sourceLabel || 'verify'} →
+              </Link>
+            )}
           </div>
         ))}
       </dl>
