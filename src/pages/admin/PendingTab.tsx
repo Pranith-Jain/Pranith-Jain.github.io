@@ -42,10 +42,15 @@ export default function PendingTab() {
   async function approve(id: string, type: string) {
     setActionMsg(null);
     try {
-      // Pass `type` so the backend doesn't first-match across all 12 type
-      // buckets — candidate `key`s aren't guaranteed unique across types.
-      await postJson(`/candidates/${encodeURIComponent(id)}/approve?type=${encodeURIComponent(type)}`);
-      setActionMsg(`Approved ${id}`);
+      const res = await postJsonWithBody<{ ok: boolean; result: Record<string, unknown>; errors?: string[] }>(
+        `/candidates/${encodeURIComponent(id)}/generate?type=${encodeURIComponent(type)}`,
+        { formats: ['blog'] }
+      );
+      if (res.ok) {
+        setActionMsg(`Blog draft created from ${id}`);
+      } else {
+        setActionMsg(`approve failed: ${(res.errors ?? ['unknown']).join(', ')}`);
+      }
       await load();
     } catch (e) {
       setActionMsg(`approve failed: ${e instanceof Error ? e.message : String(e)}`);
@@ -169,12 +174,6 @@ export default function PendingTab() {
                   >
                     Skip
                   </button>
-                  <GenerateBtn
-                    label="Blog"
-                    busy={generating[`${c.key}:blog`]}
-                    ok={genResults[`${c.key}:blog`]?.ok as boolean | undefined}
-                    onClick={() => generate(c, 'blog')}
-                  />
                   <GenerateBtn
                     label="LI"
                     busy={generating[`${c.key}:linkedin`]}

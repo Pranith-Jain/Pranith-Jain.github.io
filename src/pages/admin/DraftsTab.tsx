@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { getJson, postJson } from './adminApi';
+import { getJson, postJson, postJsonWithBody } from './adminApi';
 
 /**
  * Drafts queue — populated by the publisher when BLOG_APPROVAL_REQUIRED
@@ -47,6 +47,7 @@ export default function DraftsTab() {
   const [previewLoading, setPreviewLoading] = useState<string | null>(null);
   const [actionBusy, setActionBusy] = useState<string | null>(null);
   const [actionMsg, setActionMsg] = useState<string | null>(null);
+  const [socialGen, setSocialGen] = useState<Record<string, string>>({});
   const latestPreviewReq = useRef<string | null>(null);
 
   const load = useCallback(async () => {
@@ -115,6 +116,20 @@ export default function DraftsTab() {
       setActionMsg(`reject failed: ${e instanceof Error ? e.message : String(e)}`);
     } finally {
       setActionBusy(null);
+    }
+  }
+
+  async function generateSocial(slug: string, platform: string) {
+    const key = `${slug}:${platform}`;
+    setSocialGen((prev) => ({ ...prev, [key]: 'busy' }));
+    setActionMsg(null);
+    try {
+      await postJsonWithBody(`/social/${encodeURIComponent(slug)}/${platform}`, {});
+      setActionMsg(`${platform} generated for ${slug}`);
+    } catch (e) {
+      setActionMsg(`${platform} failed: ${e instanceof Error ? e.message : String(e)}`);
+    } finally {
+      setSocialGen((prev) => ({ ...prev, [key]: '' }));
     }
   }
 
@@ -215,6 +230,16 @@ export default function DraftsTab() {
                         >
                           {rejectBusy ? '…' : 'Reject'}
                         </button>
+                        <SocialBtn
+                          label="LI"
+                          busy={socialGen[`${d.slug}:linkedin`]}
+                          onClick={() => void generateSocial(d.slug, 'linkedin')}
+                        />
+                        <SocialBtn
+                          label="Tw"
+                          busy={socialGen[`${d.slug}:twitter`]}
+                          onClick={() => void generateSocial(d.slug, 'twitter')}
+                        />
                       </div>
                     </td>
                   </tr>
@@ -338,5 +363,24 @@ function DraftPreviewPanel({
         </button>
       </div>
     </div>
+  );
+}
+
+function SocialBtn({ label, busy, onClick }: { label: string; busy?: string; onClick: () => void }) {
+  const base = 'px-2 py-1 rounded text-xs border ';
+  if (busy === 'busy') {
+    return (
+      <button disabled className={base + 'border-amber-600/40 text-amber-500 opacity-60 cursor-wait'}>
+        {label}…
+      </button>
+    );
+  }
+  return (
+    <button
+      onClick={onClick}
+      className={base + 'border-purple-700/60 text-purple-300 hover:bg-purple-900/30 hover:border-purple-600/80'}
+    >
+      {label}
+    </button>
   );
 }

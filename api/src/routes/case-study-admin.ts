@@ -658,12 +658,21 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
     const result: Record<string, unknown> = {};
     const errors: string[] = [];
 
+    console.log(JSON.stringify({ job: 'generate', key, formats, type: typeHint, title: candidate.title }));
+
     for (const fmt of formats) {
       try {
         if (fmt === 'blog') {
           const post = await generatePost({ candidate, ai: c.env.AI as never, now, groqKey: c.env.GROQ_API_KEY });
           await putDraft(c.env.CASE_STUDIES, post);
           result.blog = { slug: post.slug, title: post.title, status: 'draft' };
+          // Blog generation = "approve" — remove candidate from pending
+          if (typeHint && TYPES.includes(typeHint)) {
+            await deleteCandidate(c.env.CASE_STUDIES, typeHint, key);
+          } else {
+            const ft = candidate.type;
+            if (TYPES.includes(ft)) await deleteCandidate(c.env.CASE_STUDIES, ft, key);
+          }
         } else if (fmt === 'linkedin') {
           const { linkedin, generatedAt, _validation } = await generateLinkedinFromCandidate(
             candidate,
