@@ -2226,6 +2226,29 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       }
     }
 
+    // Fetch detections directly if empty
+    let finalDetectionEvents = detectionEvents;
+    if (finalDetectionEvents.length === 0) {
+      try {
+        const res = await fetch('https://pranithjain.qzz.io/api/v1/detections', { signal: AbortSignal.timeout(10000) });
+        if (res.ok) {
+          const data = (await res.json()) as Parameters<typeof fromDetections>[0];
+          finalDetectionEvents = safe(() => fromDetections(data));
+        }
+      } catch { /* degraded */ }
+    }
+
+    // Fetch telegram directly if empty
+    if (finalTelegramEvents.length === 0) {
+      try {
+        const res = await fetch('https://pranithjain.qzz.io/api/v1/telegram-feed', { signal: AbortSignal.timeout(10000) });
+        if (res.ok) {
+          const data = (await res.json()) as Parameters<typeof fromTelegram>[0];
+          finalTelegramEvents = safe(() => fromTelegram(data));
+        }
+      } catch { /* degraded */ }
+    }
+
     // ── Merge + sort ───────────────────────────────────────────────────
     const allEvents = [
       ...earthquakes,
@@ -2250,7 +2273,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       ...finalPhishingEvents,
       ...finalMalwareEvents,
       ...finalCveEvents,
-      ...detectionEvents,
+      ...finalDetectionEvents,
       ...finalCybercrimeEvents,
       ...breachEvents,
       ...finalResearchEvents,
@@ -2293,7 +2316,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
         phishing: finalPhishingEvents.length,
         malware: finalMalwareEvents.length + urlhausMalware.length,
         ransomware: finalRansomwareEvents.length,
-        detection: detectionEvents.length,
+        detection: finalDetectionEvents.length,
         cybercrime: finalCybercrimeEvents.length,
         research: finalResearchEvents.length,
         cve: finalCveEvents.length,
