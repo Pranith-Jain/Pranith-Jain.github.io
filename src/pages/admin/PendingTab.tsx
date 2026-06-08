@@ -14,6 +14,12 @@ interface Candidate {
 
 type GenResult = Record<string, unknown>;
 
+interface SocialPreview {
+  key: string;
+  platform: string;
+  content: string;
+}
+
 export default function PendingTab() {
   const [pending, setPending] = useState<Candidate[]>([]);
   const [loading, setLoading] = useState(true);
@@ -21,6 +27,7 @@ export default function PendingTab() {
   const [actionMsg, setActionMsg] = useState<string | null>(null);
   const [generating, setGenerating] = useState<Record<string, string>>({});
   const [genResults, setGenResults] = useState<Record<string, GenResult>>({});
+  const [socialPreview, setSocialPreview] = useState<SocialPreview | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -90,6 +97,10 @@ export default function PendingTab() {
         { formats: [format] }
       );
       setGenResults((prev) => ({ ...prev, [key]: res }));
+      const content = (res.result?.[format] as { content?: string } | undefined)?.content ?? '';
+      if (content) {
+        setSocialPreview({ key: candidate.key, platform: format, content });
+      }
       setActionMsg(`${format} generated for ${candidate.title.slice(0, 50)}`);
     } catch (e) {
       setActionMsg(`${format} failed: ${e instanceof Error ? e.message : String(e)}`);
@@ -151,47 +162,51 @@ export default function PendingTab() {
           </tr>
         </thead>
         <tbody>
-          {pending.map((c) => (
-            <tr key={`${c.type}:${c.key}`} className="border-b border-zinc-800/60 align-top">
-              <td className="py-2 pr-4 text-slate-400 uppercase text-xs">{c.type}</td>
-              <td className="py-2 pr-4 text-slate-100">{c.title}</td>
-              <td className="py-2 pr-4 text-slate-300 tabular-nums">{c.score.toFixed(2)}</td>
-              <td className="py-2 pr-4 text-slate-400 max-w-md">{c.rationale}</td>
-              <td className="py-2 pr-4 text-slate-500 text-xs whitespace-nowrap">
-                {new Date(c.discoveredAt).toLocaleString()}
-              </td>
-              <td className="py-2 whitespace-nowrap">
-                <div className="flex flex-wrap gap-1">
-                  <button
-                    onClick={() => approve(c.key, c.type)}
-                    className="px-2 py-1 bg-emerald-700/40 border border-emerald-600/60 rounded text-xs hover:bg-emerald-700/60"
-                  >
-                    Approve
-                  </button>
-                  <button
-                    onClick={() => skip(c.key, c.type)}
-                    className="px-2 py-1 border border-slate-700 rounded text-xs hover:bg-slate-800"
-                  >
-                    Skip
-                  </button>
-                  <GenerateBtn
-                    label="LI"
-                    busy={generating[`${c.key}:linkedin`]}
-                    ok={genResults[`${c.key}:linkedin`]?.ok as boolean | undefined}
-                    onClick={() => generate(c, 'linkedin')}
-                  />
-                  <GenerateBtn
-                    label="Tw"
-                    busy={generating[`${c.key}:twitter`]}
-                    ok={genResults[`${c.key}:twitter`]?.ok as boolean | undefined}
-                    onClick={() => generate(c, 'twitter')}
-                  />
-                </div>
-              </td>
-            </tr>
-          ))}
+          {pending.map((c) => {
+            const showSocial = socialPreview?.key === c.key;
+            return (
+              <tr key={`${c.type}:${c.key}`} className="border-b border-zinc-800/60 align-top">
+                <td className="py-2 pr-4 text-slate-400 uppercase text-xs">{c.type}</td>
+                <td className="py-2 pr-4 text-slate-100">{c.title}</td>
+                <td className="py-2 pr-4 text-slate-300 tabular-nums">{c.score.toFixed(2)}</td>
+                <td className="py-2 pr-4 text-slate-400 max-w-md">{c.rationale}</td>
+                <td className="py-2 pr-4 text-slate-500 text-xs whitespace-nowrap">
+                  {new Date(c.discoveredAt).toLocaleString()}
+                </td>
+                <td className="py-2 whitespace-nowrap">
+                  <div className="flex flex-wrap gap-1">
+                    <button
+                      onClick={() => approve(c.key, c.type)}
+                      className="px-2 py-1 bg-emerald-700/40 border border-emerald-600/60 rounded text-xs hover:bg-emerald-700/60"
+                    >
+                      Approve
+                    </button>
+                    <button
+                      onClick={() => skip(c.key, c.type)}
+                      className="px-2 py-1 border border-slate-700 rounded text-xs hover:bg-slate-800"
+                    >
+                      Skip
+                    </button>
+                    <GenerateBtn
+                      label="LI"
+                      busy={generating[`${c.key}:linkedin`]}
+                      ok={genResults[`${c.key}:linkedin`]?.ok as boolean | undefined}
+                      onClick={() => generate(c, 'linkedin')}
+                    />
+                    <GenerateBtn
+                      label="Tw"
+                      busy={generating[`${c.key}:twitter`]}
+                      ok={genResults[`${c.key}:twitter`]?.ok as boolean | undefined}
+                      onClick={() => generate(c, 'twitter')}
+                    />
+                  </div>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
+      {socialPreview && <SocialPreviewPanel preview={socialPreview} onClose={() => setSocialPreview(null)} />}
     </div>
   );
 }
@@ -229,5 +244,43 @@ function GenerateBtn({
     >
       {label}
     </button>
+  );
+}
+
+function SocialPreviewPanel({ preview, onClose }: { preview: SocialPreview; onClose: () => void }) {
+  const [copied, setCopied] = useState(false);
+
+  async function copyText(text: string) {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // fallback: select the textarea content
+    }
+  }
+
+  return (
+    <div className="mt-4 rounded border border-slate-700 p-4">
+      <div className="flex items-center justify-between mb-2">
+        <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+          {preview.platform === 'linkedin' ? 'LinkedIn' : 'Twitter'} — {preview.key.slice(0, 50)}
+        </h3>
+        <div className="flex gap-2">
+          <button
+            onClick={() => void copyText(preview.content)}
+            className="px-2 py-1 border border-slate-700 rounded text-xs hover:bg-slate-800"
+          >
+            {copied ? 'Copied!' : 'Copy'}
+          </button>
+          <button onClick={onClose} className="text-xs text-slate-500 hover:text-slate-300">
+            Close
+          </button>
+        </div>
+      </div>
+      <pre className="whitespace-pre-wrap text-sm text-slate-200 font-sans bg-zinc-950 border border-slate-800 rounded p-3 max-h-[60vh] overflow-y-auto leading-relaxed">
+        {preview.content}
+      </pre>
+    </div>
   );
 }
