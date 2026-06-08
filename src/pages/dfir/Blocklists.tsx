@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Download, RefreshCw, Clock, Shield, Terminal, Activity, Copy, Check } from 'lucide-react';
 
@@ -33,12 +33,23 @@ export default function BlocklistsPage(): JSX.Element {
   const [error, setError] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState(false);
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
+  const mountedRef = useRef(true);
+  const copyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+      if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+    };
+  }, []);
 
   const fetchMeta = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
       const res = await fetch('/api/v1/blocklists/meta');
+      if (!mountedRef.current) return;
       if (!res.ok) {
         const body = await res.text().catch(() => '');
         throw new Error(body ? `HTTP ${res.status}: ${body.slice(0, 100)}` : `HTTP ${res.status}`);
@@ -46,11 +57,13 @@ export default function BlocklistsPage(): JSX.Element {
       const ct = res.headers.get('content-type') ?? '';
       if (!ct.includes('json')) throw new Error('Server returned non-JSON response');
       const data = (await res.json()) as BlocklistMeta;
+      if (!mountedRef.current) return;
       setMeta(data);
     } catch (e) {
+      if (!mountedRef.current) return;
       setError((e as Error).message);
     } finally {
-      setLoading(false);
+      if (mountedRef.current) setLoading(false);
     }
   }, []);
 
@@ -100,7 +113,8 @@ export default function BlocklistsPage(): JSX.Element {
       const text = await res.text();
       await navigator.clipboard.writeText(text);
       setCopiedKey(key);
-      setTimeout(() => setCopiedKey(null), 1500);
+      if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+      copyTimerRef.current = setTimeout(() => setCopiedKey(null), 1500);
     } catch {
       /* ignore */
     }

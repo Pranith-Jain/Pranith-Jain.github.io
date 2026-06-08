@@ -1,5 +1,11 @@
-import { useMemo } from 'react';
-// eslint-disable-next-line @typescript-eslint/no-restricted-imports -- PulseMap is lazy-loaded in GlobalPulse.tsx
+/**
+ * PulseMap - 2D world map with animated markers
+ *
+ * Uses react-simple-maps with proper theme support and animated markers.
+ */
+
+import { useMemo, useState, useEffect } from 'react';
+// eslint-disable-next-line @typescript-eslint/no-restricted-imports -- PulseMap is lazy-loaded
 import { ComposableMap, Geographies, Geography, Marker } from 'react-simple-maps';
 
 const TOPO_URL = '/world-110m.json';
@@ -44,10 +50,10 @@ interface PulseMapProps {
 }
 
 const SEVERITY_RADIUS: Record<string, number> = {
-  critical: 7,
-  high: 5,
-  medium: 3.5,
-  low: 2.5,
+  critical: 8,
+  high: 6,
+  medium: 4,
+  low: 3,
 };
 
 const KIND_COLORS: Record<EventKind, string> = {
@@ -78,82 +84,88 @@ const KIND_COLORS: Record<EventKind, string> = {
   cve: '#d97706',
 };
 
-function markerColor(m: MarkerData): string {
-  return KIND_COLORS[m.kind] ?? '#64748b';
-}
-
-function markerGlow(m: MarkerData): string {
-  const color = KIND_COLORS[m.kind] ?? '#64748b';
-  return `${color}40`;
-}
-
 export default function PulseMap({ markers }: PulseMapProps): JSX.Element {
-  const topMarkers = useMemo(() => markers.slice(0, 300), [markers]);
+  const [isDark, setIsDark] = useState(false);
 
   // Detect theme
-  const isDark = typeof document !== 'undefined' && document.documentElement.classList.contains('dark');
+  useEffect(() => {
+    const checkTheme = () => {
+      setIsDark(document.documentElement.classList.contains('dark'));
+    };
+    checkTheme();
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    return () => observer.disconnect();
+  }, []);
 
-  // Theme-aware colors
-  const landFill = isDark ? '#1e293b' : '#e2e8f0';
-  const landStroke = isDark ? '#334155' : '#cbd5e1';
-  const landHover = isDark ? '#334155' : '#94a3b8';
+  const topMarkers = useMemo(() => markers.slice(0, 300), [markers]);
+
+  // Theme colors
+  const landFill = isDark ? '#1a2332' : '#e5e7eb';
+  const landStroke = isDark ? '#2a3a4a' : '#d1d5db';
+  const landHover = isDark ? '#2a3a4a' : '#9ca3af';
+  const bgColor = isDark ? '#0a0f1a' : '#f9fafb';
 
   return (
-    <ComposableMap
-      projection="geoMercator"
-      projectionConfig={{ scale: 140 }}
-      width={900}
-      height={460}
-      style={{ width: '100%', height: 'auto', background: 'transparent' }}
-    >
-      <Geographies geography={TOPO_URL}>
-        {({ geographies }) =>
-          geographies.map((geo) => (
-            <Geography
-              key={geo.rsmKey}
-              geography={geo}
-              fill={landFill}
-              stroke={landStroke}
-              strokeWidth={0.3}
-              style={{
-                default: { outline: 'none' },
-                hover: { outline: 'none', fill: landHover },
-                pressed: { outline: 'none' },
-              }}
-            />
-          ))
-        }
-      </Geographies>
-      {topMarkers.map((m) => {
-        const r = SEVERITY_RADIUS[m.severity] ?? 3;
-        const color = markerColor(m);
-        const glow = markerGlow(m);
-        return (
-          <Marker key={m.id} coordinates={[m.lng, m.lat]}>
-            <g style={{ pointerEvents: 'none' }}>
-              {/* Outer glow ring */}
-              <circle r={r * 2.5} fill={glow} opacity={0.2}>
-                <animate
-                  attributeName="r"
-                  values={`${r * 1.5};${r * 3};${r * 1.5}`}
-                  dur="3s"
-                  repeatCount="indefinite"
-                />
-                <animate attributeName="opacity" values="0.3;0;0.3" dur="3s" repeatCount="indefinite" />
-              </circle>
-              {/* Pulse ring */}
-              <circle r={r} fill="none" stroke={color} strokeWidth={1.5} opacity={0.7}>
-                <animate attributeName="r" values={`${r};${r * 2};${r}`} dur="2s" repeatCount="indefinite" />
-                <animate attributeName="opacity" values="0.7;0;0.7" dur="2s" repeatCount="indefinite" />
-              </circle>
-              {/* Core dot */}
-              <circle r={r} fill={color} opacity={0.9} />
-              {/* Bright center */}
-              <circle r={r * 0.35} fill={isDark ? '#fff' : color} opacity={isDark ? 0.8 : 0.4} />
-            </g>
-          </Marker>
-        );
-      })}
-    </ComposableMap>
+    <div className="relative w-full h-full" style={{ background: bgColor }}>
+      <ComposableMap
+        projection="geoMercator"
+        projectionConfig={{
+          scale: 140,
+          center: [0, 20],
+        }}
+        width={900}
+        height={460}
+        style={{ width: '100%', height: 'auto' }}
+      >
+        <Geographies geography={TOPO_URL}>
+          {({ geographies }) =>
+            geographies.map((geo) => (
+              <Geography
+                key={geo.rsmKey}
+                geography={geo}
+                fill={landFill}
+                stroke={landStroke}
+                strokeWidth={0.3}
+                style={{
+                  default: { outline: 'none' },
+                  hover: { outline: 'none', fill: landHover },
+                  pressed: { outline: 'none' },
+                }}
+              />
+            ))
+          }
+        </Geographies>
+        {topMarkers.map((m) => {
+          const r = SEVERITY_RADIUS[m.severity] ?? 4;
+          const color = KIND_COLORS[m.kind] ?? '#64748b';
+          return (
+            <Marker key={m.id} coordinates={[m.lng, m.lat]}>
+              <g style={{ pointerEvents: 'none' }}>
+                {/* Outer glow */}
+                <circle r={r * 3} fill={color} opacity={0.1}>
+                  <animate attributeName="r" values={`${r * 2};${r * 4};${r * 2}`} dur="3s" repeatCount="indefinite" />
+                  <animate attributeName="opacity" values="0.15;0;0.15" dur="3s" repeatCount="indefinite" />
+                </circle>
+                {/* Pulse ring */}
+                <circle r={r} fill="none" stroke={color} strokeWidth={1.5} opacity={0.7}>
+                  <animate attributeName="r" values={`${r};${r * 2.5};${r}`} dur="2s" repeatCount="indefinite" />
+                  <animate attributeName="opacity" values="0.7;0;0.7" dur="2s" repeatCount="indefinite" />
+                </circle>
+                {/* Core dot */}
+                <circle r={r} fill={color} opacity={0.9} />
+                {/* Bright center */}
+                <circle r={r * 0.3} fill="#fff" opacity={isDark ? 0.9 : 0.6} />
+              </g>
+            </Marker>
+          );
+        })}
+      </ComposableMap>
+
+      {/* Marker count overlay */}
+      <div className="absolute bottom-2 left-2 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm rounded-md px-2 py-1 border border-slate-200 dark:border-slate-700">
+        <span className="text-[10px] font-mono text-slate-600 dark:text-slate-400">{markers.length} points</span>
+      </div>
+    </div>
   );
 }

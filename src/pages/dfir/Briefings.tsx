@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
 import { ArrowLeft, Rss, ChevronRight, ChevronLeft, Search } from 'lucide-react';
@@ -61,7 +61,11 @@ export default function Briefings(): JSX.Element {
   // Debounce the search so we hit the server on a pause, not per keystroke.
   const debouncedQuery = useDebounce(query, 300);
 
+  const mountedRef = useRef(true);
+
   useEffect(() => {
+    mountedRef.current = true;
+    const ctrl = new AbortController();
     setLoading(true);
     setError(null);
     // Filter + search server-side so `total` and the page are the same
@@ -71,7 +75,7 @@ export default function Briefings(): JSX.Element {
     if (filter !== 'all') params.set('type', filter);
     const q = debouncedQuery.trim();
     if (q) params.set('q', q);
-    fetch(`/api/v1/briefings/list?${params.toString()}`)
+    fetch(`/api/v1/briefings/list?${params.toString()}`, { signal: ctrl.signal })
       .then(async (r) => {
         if (!r.ok) {
           const body = (await r.json().catch(() => ({}))) as { error?: string };
@@ -80,11 +84,21 @@ export default function Briefings(): JSX.Element {
         return (await r.json()) as { items: ListItem[]; total: number };
       })
       .then((d) => {
+        if (!mountedRef.current || ctrl.signal.aborted) return;
         setItems(d.items);
         setTotal(d.total);
       })
-      .catch((err: Error) => setError(err.message))
-      .finally(() => setLoading(false));
+      .catch((err: Error) => {
+        if (err.name === 'AbortError' || !mountedRef.current) return;
+        setError(err.message);
+      })
+      .finally(() => {
+        if (mountedRef.current) setLoading(false);
+      });
+    return () => {
+      mountedRef.current = false;
+      ctrl.abort();
+    };
   }, [reloadKey, offset, activeLimit, filter, debouncedQuery]);
 
   // The server now filters, searches, and sorts (range_end DESC); render the

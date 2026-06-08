@@ -55,15 +55,17 @@ export default function IntelDashboard(): JSX.Element {
 
   useEffect(() => {
     let cancelled = false;
+    const ctrl = new AbortController();
+    const opts = { signal: ctrl.signal };
     Promise.all([
-      fetch('/api/v1/intel-dashboard').then((r) => {
+      fetch('/api/v1/intel-dashboard', opts).then((r) => {
         if (!r.ok) throw new Error(`Couldn't load the dashboard (HTTP ${r.status}).`);
         return r.json() as Promise<DashboardData>;
       }),
-      fetch('/api/v1/snapshot')
+      fetch('/api/v1/snapshot', opts)
         .then((r) => r.json() as Promise<Record<string, unknown>>)
         .catch(() => null),
-      fetch('/api/v1/feed-status')
+      fetch('/api/v1/feed-status', opts)
         .then((r) => r.json() as Promise<{ overall?: string }>)
         .catch(() => null),
     ])
@@ -71,6 +73,7 @@ export default function IntelDashboard(): JSX.Element {
         if (!cancelled) setData(dash);
       })
       .catch((e) => {
+        if (e instanceof DOMException && e.name === 'AbortError') return;
         if (!cancelled) setError(e.message);
       })
       .finally(() => {
@@ -78,6 +81,7 @@ export default function IntelDashboard(): JSX.Element {
       });
     return () => {
       cancelled = true;
+      ctrl.abort();
     };
   }, []);
 

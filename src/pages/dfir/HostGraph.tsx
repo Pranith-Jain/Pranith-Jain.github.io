@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, type FormEvent } from 'react';
+import { useCallback, useEffect, useRef, useState, type FormEvent } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { Search, Network, Building2, Globe, Mail, Database, AlertTriangle, Clock, ExternalLink } from 'lucide-react';
 import { CopyButton } from '../../components/dfir/CopyButton';
@@ -84,8 +84,23 @@ export default function HostGraphView(): JSX.Element {
 
   const inputKind = classifyInput(query);
 
+  const ctrlRef = useRef<AbortController | null>(null);
+  const mountedRef = useRef(true);
+
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+      ctrlRef.current?.abort();
+    };
+  }, []);
+
   const fetchGraph = useCallback(
     async (q: string) => {
+      ctrlRef.current?.abort();
+      const ctrl = new AbortController();
+      ctrlRef.current = ctrl;
+
       setError('');
       setResult(null);
       setSubmitted(q);
@@ -107,11 +122,14 @@ export default function HostGraphView(): JSX.Element {
             ? `asn=${encodeURIComponent(q.trim())}`
             : `cidr=${encodeURIComponent(q.trim())}`;
       try {
-        const res = await fetch(`${API}/asn-graph?${param}`);
+        const res = await fetch(`${API}/asn-graph?${param}`, { signal: ctrl.signal });
         const body = (await res.json().catch(() => ({}))) as Partial<GraphResponse> & { message?: string };
+        if (!mountedRef.current || ctrl.signal.aborted) return;
         if (!res.ok) throw new Error(body.message || `HTTP ${res.status}`);
         setResult(body as GraphResponse);
       } catch (e) {
+        if (e instanceof DOMException && e.name === 'AbortError') return;
+        if (!mountedRef.current) return;
         setError(e instanceof Error ? e.message : 'Lookup failed');
       }
     },

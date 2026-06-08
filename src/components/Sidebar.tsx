@@ -98,11 +98,19 @@ export function SidebarContent({ config }: { config: SidebarConfig }): JSX.Eleme
 export function Sidebar({ config }: SidebarProps): JSX.Element {
   const [collapsed, setCollapsed] = useState<boolean>(() => {
     if (typeof window === 'undefined') return false;
-    return window.localStorage.getItem(STORAGE_KEY) === 'true';
+    try {
+      return window.localStorage.getItem(STORAGE_KEY) === 'true';
+    } catch {
+      return false;
+    }
   });
 
   useEffect(() => {
-    window.localStorage.setItem(STORAGE_KEY, String(collapsed));
+    try {
+      window.localStorage.setItem(STORAGE_KEY, String(collapsed));
+    } catch {
+      /* private mode / quota */
+    }
   }, [collapsed]);
 
   const width = collapsed ? 'w-14' : 'w-60';

@@ -1,4 +1,4 @@
-import { useState, useCallback, type FormEvent } from 'react';
+import { useState, useCallback, useRef, useEffect, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Search,
@@ -109,25 +109,43 @@ export default function WhoisHistory(): JSX.Element {
   const [pivotLoading, setPivotLoading] = useState(false);
   const [expandedSnapshot, setExpandedSnapshot] = useState<number | null>(null);
   const [activeTab, setActiveTab] = useState<'timeline' | 'changes' | 'pivots'>('timeline');
+  const ctrlRef = useRef<AbortController | null>(null);
+  const mountedRef = useRef(true);
+
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+      ctrlRef.current?.abort();
+    };
+  }, []);
 
   const fetchHistory = useCallback(async (domain: string) => {
+    ctrlRef.current?.abort();
+    const ctrl = new AbortController();
+    ctrlRef.current = ctrl;
+
     setLoading(true);
     setError('');
     setHistory(null);
     setPivots(null);
     try {
-      const res = await fetch(`${API}/domain/history?domain=${encodeURIComponent(domain)}`);
+      const res = await fetch(`${API}/domain/history?domain=${encodeURIComponent(domain)}`, { signal: ctrl.signal });
+      if (!mountedRef.current || ctrl.signal.aborted) return;
       if (!res.ok) {
         const body = (await res.json().catch(() => ({}))) as { message?: string };
         throw new Error(body.message || `HTTP ${res.status}`);
       }
       const data = (await res.json()) as HistoryResult;
+      if (!mountedRef.current || ctrl.signal.aborted) return;
       setHistory(data);
       setActiveTab('timeline');
     } catch (e) {
+      if (e instanceof DOMException && e.name === 'AbortError') return;
+      if (!mountedRef.current) return;
       setError(e instanceof Error ? e.message : 'lookup failed');
     } finally {
-      setLoading(false);
+      if (mountedRef.current) setLoading(false);
     }
   }, []);
 
@@ -135,14 +153,18 @@ export default function WhoisHistory(): JSX.Element {
     setPivotLoading(true);
     try {
       const res = await fetch(`${API}/domain/history/pivot?domain=${encodeURIComponent(domain)}&type=${type}`);
+      if (!mountedRef.current) return;
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = (await res.json()) as PivotResult;
+      if (!mountedRef.current) return;
       setPivots(data);
       setActiveTab('pivots');
     } catch (e) {
+      if (e instanceof DOMException && e.name === 'AbortError') return;
+      if (!mountedRef.current) return;
       setError(e instanceof Error ? e.message : 'pivot failed');
     } finally {
-      setPivotLoading(false);
+      if (mountedRef.current) setPivotLoading(false);
     }
   }, []);
 
