@@ -208,6 +208,10 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
     //     day where a rotating topic yields a strong extra candidate.
     perTopic: 1,
     limit: 12,
+    // Agentic runner gets 3 slots — it produces net-new LLM-generated
+    // content that doesn't hit the dedup wall, so it fills the gap when
+    // feed-based topics return all-suppressed.
+    perTopicOverride: { trends: 3 },
   });
 }
 

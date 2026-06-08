@@ -37,6 +37,13 @@ export interface RunDiscoveryDeps {
    * re-emitting the same top-N every run.
    */
   selectPerTopic?: (cands: Candidate[], k: number, topic: string) => Candidate[];
+  /**
+   * Per-topic override for `perTopic`. Topics in this map use their own
+   * limit instead of the global `perTopic`. Lets agentic runners like
+   * `trends` contribute multiple candidates while keeping feed-based
+   * runners at 1.
+   */
+  perTopicOverride?: Record<string, number>;
 }
 
 export interface RunDiscoveryResult {
@@ -71,9 +78,10 @@ export async function runDiscovery(deps: RunDiscoveryDeps): Promise<RunDiscovery
         }
         return true;
       });
+      const topicPerTopic = deps.perTopicOverride?.[name] ?? perTopic;
       const select =
         deps.selectPerTopic ?? ((cs: Candidate[], k: number) => [...cs].sort((a, b) => b.score - a.score).slice(0, k));
-      const top = select(fresh, perTopic, name);
+      const top = select(fresh, topicPerTopic, name);
       byTopic[name] = top.length;
       selected.push(...top);
     } catch (err) {
