@@ -155,9 +155,8 @@ export default function CtiGlobe({
         ref={globeRef}
         width={dimensions.w}
         height={dimensions.h}
-        globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
-        bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
-        backgroundImageUrl=""
+        globeImageUrl="https://unpkg.com/three-globe/example/img/earth-night.jpg"
+        bumpImageUrl="https://unpkg.com/three-globe/example/img/earth-topology.png"
         backgroundColor="rgba(0,0,0,0)"
         atmosphereColor="#2c3ee5"
         atmosphereAltitude={0.15}
