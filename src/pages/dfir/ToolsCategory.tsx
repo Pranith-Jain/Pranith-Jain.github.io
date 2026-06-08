@@ -6,78 +6,33 @@ import { GROUP_META, type ToolGroup } from '../../components/dfir/tool-sections'
 import { personalInfo } from '../../data/content';
 import { AppHero } from '../../components/AppHero';
 
-const VALID: ToolGroup[] = ['dfir', 'ir', 'ti', 'case-ir', 'tip-core', 'deception', 'forensics-adv', 'osint', 'aisec', 'cloudsec', 'apisec', 'datasec', 'grc', 'platform'];
+const VALID: ToolGroup[] = ['core-dfir', 'investigation', 'intelligence', 'recon', 'specialized'];
 
 const HERO: Record<ToolGroup, { kicker: string; title: string; sub: string }> = {
-  ir: {
+  'core-dfir': {
     kicker: 'Privacy-first · No upload · No login · Local analysis only',
-    title: 'Incident-response tools that run entirely in your browser',
-    sub: 'Investigate domains, network/edge, email & phishing, vulns and identity — all client-side, no data shipped off-box.',
+    title: 'Core DFIR — Triage & Analysis',
+    sub: 'IOC checks, malware triage, file analysis, artifact parsers. Everything runs in your browser — no data leaves your device.',
   },
-  ti: {
+  investigation: {
     kicker: 'Privacy-first · No upload · No login · Local analysis only',
-    title: 'Threat-intel tooling, fully client-side',
-    sub: 'Author and test detections — YARA/Sigma, LOLBins lookup, log-timeline, STIX — without uploading rules or data.',
+    title: 'Investigation — Infrastructure & Identity',
+    sub: 'Domain/network lookups, asset analysis, email security, vulnerability checks. Client-side, instant results.',
   },
-  dfir: {
+  intelligence: {
     kicker: 'Privacy-first · No upload · No login · Local analysis only',
-    title: 'Privacy-first DFIR tools that run entirely in your browser',
-    sub: 'Analyze indicators, timestamps, files, logs and email headers locally. No upload. No login. Instant results.',
+    title: 'Intelligence — Detection & Standards',
+    sub: 'Rule converters, STIX/TAXII tools, IR playbooks, hunting frameworks. Author and test without uploading.',
   },
-  'case-ir': {
-    kicker: 'End-to-end incident management · Case tracking · Playbooks',
-    title: 'Case management and incident response workflows',
-    sub: 'Track incidents from detection to closure. Automated playbooks, evidence chain-of-custody, timeline reconstruction, and structured analysis.',
-  },
-  'tip-core': {
-    kicker: 'IOC lifecycle · Detection-as-code · Export · Confidence scoring',
-    title: 'Threat intelligence platform core features',
-    sub: 'Manage IOCs through their full lifecycle. Detection rule versioning, coverage analysis, multi-format export, and confidence scoring.',
-  },
-  deception: {
-    kicker: 'Canary tokens · Anomaly detection · Threat modeling · Hunting',
-    title: 'Deception technology and advanced hunting',
-    sub: 'Plant canary tokens to detect intruders early. Behavioral analytics for anomaly detection. Hypothesis-driven threat hunting.',
-  },
-  'forensics-adv': {
-    kicker: 'Memory · Disk · Network · Deep analysis',
-    title: 'Advanced forensics for deep investigation',
-    sub: 'Memory dump analysis, disk timeline reconstruction, and deep network forensics including JA3 fingerprinting and beacon detection.',
-  },
-  osint: {
+  recon: {
     kicker: 'Privacy-first · No upload · No login · Local analysis only',
-    title: 'Privacy-first OSINT tools that run entirely in your browser',
-    sub: 'Pivot across domains, emails, usernames, images and web resources — collected and normalized client-side.',
+    title: 'Recon & OSINT — Identity, Network, Dark Web',
+    sub: 'Username pivots, network intel, image analysis, dark web tools, privacy checks. Collected client-side.',
   },
-  aisec: {
-    kicker: 'Privacy-first · No upload · No login · Local analysis only',
-    title: 'AI-security tooling that never leaves your browser',
-    sub: 'Probe prompts, audit MCP/agent surfaces and map model risk without shipping payloads to a third party.',
-  },
-  cloudsec: {
-    kicker: 'Privacy-first · No upload · No login · Local analysis only',
-    title: 'Cloud-security analyzers that run in your browser',
-    sub: 'Audit AWS/GCP/Azure IAM, security groups/NSG, K8s RBAC, CloudTrail and Terraform plans — paste config, nothing uploaded.',
-  },
-  apisec: {
-    kicker: 'Privacy-first · No upload · No login · Local analysis only',
-    title: 'API-security tooling, fully client-side',
-    sub: 'OpenAPI/Swagger audit, HTTP security headers, secret scanning, GraphQL and OSV dependency checks — analysed locally.',
-  },
-  datasec: {
-    kicker: 'Privacy-first · No upload · No login · Local analysis only',
-    title: 'Data-security utilities with zero data exfiltration',
-    sub: 'Detect and classify sensitive data and review handling — entirely on your own device.',
-  },
-  grc: {
-    kicker: 'Privacy-first · No upload · No login · Local analysis only',
-    title: 'GRC & posture workbench, fully client-side',
-    sub: 'Run compliance, maturity, tabletop and framework exercises with nothing sent off-box.',
-  },
-  platform: {
-    kicker: 'API · Multi-tenancy · Offline · Dashboard · Integration',
-    title: 'Platform integration and administration',
-    sub: 'REST API documentation, multi-tenancy with RBAC, offline mode, dashboard widgets, and TIP integration features.',
+  specialized: {
+    kicker: 'Advanced · Cloud · API · AI · GRC · Platform',
+    title: 'Specialized Tools',
+    sub: 'AI security, cloud posture, API audit, data security, GRC, case management, deception, and platform features.',
   },
 };
 
@@ -195,7 +150,7 @@ export default function ToolsCategory(): JSX.Element {
       ))}
 
       {/* Why local */}
-      {g === 'dfir' && (
+      {g === 'core-dfir' && (
         <section className="mt-12 mb-8 rounded-2xl border border-brand-500/30 dark:border-brand-500/20 bg-brand-500/5 p-8">
           <h2 className="font-display font-bold text-xl flex items-center gap-2 mb-4">
             <Search size={20} className="text-brand-600 dark:text-brand-400" /> Quick demo — Identity Lookup

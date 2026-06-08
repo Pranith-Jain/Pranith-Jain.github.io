@@ -112,58 +112,28 @@ export interface Tool {
  * (separate OSINT / AI-sec / Data-security / GRC surfaces) while the
  * full /dfir grid stays as the power-user index.
  */
-export type ToolGroup = 'dfir' | 'ir' | 'ti' | 'osint' | 'aisec' | 'cloudsec' | 'apisec' | 'datasec' | 'grc' | 'case-ir' | 'tip-core' | 'deception' | 'forensics-adv' | 'platform';
+export type ToolGroup = 'core-dfir' | 'investigation' | 'intelligence' | 'recon' | 'specialized';
 
 export const GROUP_META: Record<ToolGroup, { label: string; blurb: string }> = {
-  dfir: {
-    label: 'DFIR / Forensics',
-    blurb: 'Triage + artifact parsing. IOC/hash, decoders, EVTX/registry/PE/prefetch, SQLite, PCAP.',
+  'core-dfir': {
+    label: 'Core DFIR',
+    blurb: 'Triage & analysis — IOC checks, malware triage, file analysis, artifact parsers.',
   },
-  ir: {
-    label: 'Incident Response',
-    blurb: 'Domain/network/edge investigation, email & phishing response, vuln + identity checks.',
+  investigation: {
+    label: 'Investigation',
+    blurb: 'Infrastructure & identity — domain/network, assets, email security, vulnerabilities.',
   },
-  ti: {
-    label: 'Threat-Intel Tools',
-    blurb: 'Detection engineering. YARA/Sigma, LOLBins, log timeline, STIX.',
+  intelligence: {
+    label: 'Intelligence',
+    blurb: 'Detection & standards — rule converters, STIX/TAXII, IR playbooks, hunting tools.',
   },
-  osint: {
-    label: 'OSINT & Recon',
-    blurb: 'Recon, attribution, dark web, privacy checks. Username, image, archive, geo, PGP, Tor.',
+  recon: {
+    label: 'Recon & OSINT',
+    blurb: 'Identity, network intel, image analysis, dark web, privacy checks.',
   },
-  aisec: {
-    label: 'AI Security Tools',
-    blurb: 'LLM red-teaming, prompt-injection, MCP audit, agent attack surface, ATLAS.',
-  },
-  cloudsec: {
-    label: 'Cloud Security Tools',
-    blurb: 'AWS/GCP/Azure IAM, security groups/NSG, K8s RBAC, CloudTrail, Terraform/IaC. pre-deploy → runtime.',
-  },
-  apisec: {
-    label: 'API Security Tools',
-    blurb: 'OpenAPI/Swagger audit, HTTP security headers, secret scanning, GraphQL & dependency (OSV) checks.',
-  },
-  datasec: { label: 'Data Security Tools', blurb: 'Sensitive-data detection, classification & handling, privacy hub.' },
-  grc: { label: 'GRC & Posture Tools', blurb: 'Compliance & maturity, tabletop exercises, kill chain, OWASP, NHI.' },
-  'case-ir': {
-    label: 'Case Management & IR',
-    blurb: 'Incident case tracking, automated playbooks, evidence chain-of-custody, and structured analysis workflows.',
-  },
-  'tip-core': {
-    label: 'Threat Intel Platform',
-    blurb: 'Core TIP features — IOC lifecycle, intel requirements, confidence scoring, detection-as-code, and export.',
-  },
-  deception: {
-    label: 'Deception & Hunting',
-    blurb: 'Canary tokens, honeypots, behavioral anomaly detection, threat modeling, and hypothesis-driven hunting.',
-  },
-  'forensics-adv': {
-    label: 'Advanced Forensics',
-    blurb: 'Memory dumps, disk timelines, and deep network forensics for advanced investigation.',
-  },
-  platform: {
-    label: 'Platform & Integration',
-    blurb: 'API docs, multi-tenancy, offline mode, dashboard widgets, and platform extensibility.',
+  specialized: {
+    label: 'Specialized',
+    blurb: 'AI security, cloud, API, data security, GRC, case management, deception, platform.',
   },
 };
 
@@ -186,7 +156,7 @@ export const SECTIONS: Section[] = [
   // ── DFIR / Forensics group ───────────────────────────────────────
   {
     id: 'ioc-triage',
-    group: 'dfir',
+    group: 'core-dfir',
     label: 'IOC Triage',
     blurb: 'Check, extract, and track indicators across 24+ sources.',
     tools: [
@@ -240,7 +210,7 @@ export const SECTIONS: Section[] = [
   },
   {
     id: 'malware-triage',
-    group: 'dfir',
+    group: 'core-dfir',
     label: 'Malware Triage',
     blurb: 'Analyse files, parse stealer logs, and check breach corpora.',
     tools: [
@@ -290,7 +260,7 @@ export const SECTIONS: Section[] = [
   },
   {
     id: 'file-analysis',
-    group: 'dfir',
+    group: 'core-dfir',
     label: 'File Analysis',
     blurb: 'Decode, hash, and inspect binaries and encoded payloads.',
     tools: [
@@ -359,7 +329,7 @@ export const SECTIONS: Section[] = [
   },
   {
     id: 'artifact-parsers',
-    group: 'dfir',
+    group: 'core-dfir',
     label: 'Artifact Parsers & Logs',
     blurb: 'PCAP, registry, EVTX, SQLite, browser and mobile artifacts.',
     tools: [
@@ -431,7 +401,7 @@ export const SECTIONS: Section[] = [
   // ── IR group ──────────────────────────────────────────────────────
   {
     id: 'domain-network',
-    group: 'ir',
+    group: 'investigation',
     label: 'Domain & Network',
     blurb: 'WHOIS, DNS, reputation, and infrastructure lookups.',
     tools: [
@@ -488,7 +458,7 @@ export const SECTIONS: Section[] = [
   },
   {
     id: 'asset-surface',
-    group: 'ir',
+    group: 'investigation',
     label: 'Asset & Attack Surface',
     blurb: 'Exposed-host analysis, asset intel, and web scanning.',
     tools: [
@@ -525,7 +495,7 @@ export const SECTIONS: Section[] = [
   // ── Email Security ────────────────────────────────────────────────
   {
     id: 'email',
-    group: 'ir',
+    group: 'investigation',
     label: 'Email Security',
     blurb: 'Phishing analysis and BEC-defense for the domain you protect.',
     tools: [
@@ -579,7 +549,7 @@ export const SECTIONS: Section[] = [
   },
   {
     id: 'vulns-identity',
-    group: 'ir',
+    group: 'investigation',
     label: 'Vulnerabilities & Identity',
     blurb: 'CVE triage, breach exposure, and identity verification.',
     tools: [
@@ -609,7 +579,7 @@ export const SECTIONS: Section[] = [
   // ── OSINT group ───────────────────────────────────────────────────
   {
     id: 'identity-search',
-    group: 'osint',
+    group: 'recon',
     label: 'Identity & Search',
     blurb: 'Username pivots, Google dorking, archive recon.',
     tools: [
@@ -659,7 +629,7 @@ export const SECTIONS: Section[] = [
   },
   {
     id: 'network-url-intel',
-    group: 'osint',
+    group: 'recon',
     label: 'Network & URL Intel',
     blurb: 'IP geo, URL reputation, crypto tracing.',
     tools: [
@@ -710,7 +680,7 @@ export const SECTIONS: Section[] = [
   },
   {
     id: 'image-brand',
-    group: 'osint',
+    group: 'recon',
     label: 'Image & Brand',
     blurb: 'EXIF, reverse-image search, brand impersonation monitoring.',
     tools: [
@@ -746,7 +716,7 @@ export const SECTIONS: Section[] = [
   },
   {
     id: 'data-sec',
-    group: 'datasec',
+    group: 'specialized',
     label: 'Data Security & DLP',
     blurb: 'Find sensitive data; decide how to handle it.',
     tools: [
@@ -775,7 +745,7 @@ export const SECTIONS: Section[] = [
   },
   {
     id: 'det-rules',
-    group: 'ti',
+    group: 'intelligence',
     label: 'Detection Rules & Converters',
     blurb: 'Build, convert, and test detection rules across formats.',
     tools: [
@@ -829,7 +799,7 @@ export const SECTIONS: Section[] = [
   },
   {
     id: 'stix-taxii',
-    group: 'ti',
+    group: 'intelligence',
     label: 'STIX & TAXII',
     blurb: 'Threat intelligence standards, graph analysis, and attack chain mapping.',
     tools: [
@@ -879,7 +849,7 @@ export const SECTIONS: Section[] = [
   },
   {
     id: 'ir-hunting',
-    group: 'ti',
+    group: 'intelligence',
     label: 'IR & Hunting Tools',
     blurb: 'LOLBins reference, log analysis, sandbox queries, and IR playbooks.',
     tools: [
@@ -1029,7 +999,7 @@ export const SECTIONS: Section[] = [
   },
   {
     id: 'dark-web',
-    group: 'osint',
+    group: 'recon',
     label: 'Dark Web Workbench',
     blurb: 'PGP operations, .onion gateway links, and reference resources for dark web investigations.',
     tools: [
@@ -1051,7 +1021,7 @@ export const SECTIONS: Section[] = [
   },
   {
     id: 'reference',
-    group: 'osint',
+    group: 'recon',
     label: 'Personal & Privacy',
     blurb: 'Your own state and privacy hygiene.',
     tools: [
@@ -1073,7 +1043,7 @@ export const SECTIONS: Section[] = [
   },
   {
     id: 'cloud',
-    group: 'cloudsec',
+    group: 'specialized',
     label: 'Cloud Security',
     blurb: 'Cloud posture & least-privilege review. runs entirely in your browser.',
     tools: [
@@ -1130,7 +1100,7 @@ export const SECTIONS: Section[] = [
   },
   {
     id: 'api-sec',
-    group: 'apisec',
+    group: 'specialized',
     label: 'API Security',
     blurb: 'Spec, header, secret & GraphQL review. OWASP API Top 10, runs entirely in your browser.',
     tools: [
@@ -1176,7 +1146,7 @@ export const SECTIONS: Section[] = [
     id: 'case-management',
     label: 'Case Management & IR',
     blurb: 'Incident response case tracking, playbooks, evidence chain-of-custody, and structured analysis.',
-    group: 'case-ir',
+    group: 'specialized',
     tools: [
       {
         path: '/dfir/cases',
@@ -1220,7 +1190,7 @@ export const SECTIONS: Section[] = [
     id: 'tip-core',
     label: 'Threat Intel Platform',
     blurb: 'Core TIP features — IOC lifecycle, intel requirements, confidence scoring, detection-as-code.',
-    group: 'tip-core',
+    group: 'specialized',
     tools: [
       {
         path: '/dfir/ioc-lifecycle',
@@ -1228,13 +1198,6 @@ export const SECTIONS: Section[] = [
         label: 'IOC Lifecycle Manager',
         desc: 'Full IOC lifecycle: discovery → enrichment → active → aging → expired/whitelisted. Confidence decay, multi-source corroboration, false-positive feedback loop. Auto-aging sweep.',
         icon: Activity,
-      },
-      {
-        path: '/dfir/intel-requirements',
-        useCase: 'Define PIRs and identify collection gaps.',
-        label: 'Intelligence Requirements (PIR)',
-        desc: 'Priority Intelligence Requirements with collection source mapping, coverage scoring, gap analysis. Track which PIRs are well-covered vs need more sources.',
-        icon: Target,
       },
       {
         path: '/dfir/confidence-scoring',
@@ -1264,7 +1227,7 @@ export const SECTIONS: Section[] = [
     id: 'deception-analytics',
     label: 'Deception & Hunting',
     blurb: 'Canary tokens, honeypots, behavioral anomaly detection, and threat modeling.',
-    group: 'deception',
+    group: 'specialized',
     tools: [
       {
         path: '/dfir/deception',
@@ -1289,42 +1252,12 @@ export const SECTIONS: Section[] = [
       },
     ],
   },
-  // ─── Forensics (Advanced) ─────────────────────────────────────────
-  {
-    id: 'advanced-forensics',
-    label: 'Advanced Forensics',
-    blurb: 'Memory, disk, and network forensics for deep investigation.',
-    group: 'forensics-adv',
-    tools: [
-      {
-        path: '/dfir/memory-forensics',
-        useCase: 'Analyze a memory dump for injected code.',
-        label: 'Memory Forensics',
-        desc: 'Volatility 3 integration — upload memory dumps for process list, network connections, injected code, malfind results. Process tree reconstruction and IOC correlation.',
-        icon: Microscope,
-      },
-      {
-        path: '/dfir/network-forensics',
-        useCase: 'Detect C2 beaconing from Zeek conn.log data.',
-        label: 'Network Forensics',
-        desc: 'Zeek/Bro log analysis (conn.log, dns.log, http.log, ssl.log), JA3/JA3S fingerprinting, DNS tunneling detection, C2 beacon detection, TLS certificate chain analysis.',
-        icon: Network,
-      },
-      {
-        path: '/dfir/disk-timeline',
-        useCase: 'Reconstruct file system timeline from an MFT dump.',
-        label: 'Disk Forensics Timeline',
-        desc: 'NTFS/MFT parser, USN Journal analysis, SuperTimeline generation (mactime format), file system metadata extraction. Upload disk artifacts for timeline reconstruction.',
-        icon: Clock,
-      },
-    ],
-  },
   // ─── Platform & Admin ──────────────────────────────────────────────
   {
     id: 'platform',
     label: 'Platform & Integration',
     blurb: 'API docs, multi-tenancy, offline mode, and platform features.',
-    group: 'platform',
+    group: 'specialized',
     tools: [
       {
         path: '/dfir/api-docs',
