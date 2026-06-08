@@ -389,8 +389,79 @@ export default function GlobalPulse(): JSX.Element {
   const [severityFilter, setSeverityFilter] = useState<Set<string>>(new Set(['critical', 'high', 'medium', 'low']));
   const [searchQuery, setSearchQuery] = useState('');
   const [timeRange, setTimeRange] = useState<number>(0); // 0 = all time, hours
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const globeContainerRef = useRef<HTMLDivElement>(null);
   const loadIdRef = useRef(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  // Keyboard shortcuts
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') return;
+      
+      switch (e.key.toLowerCase()) {
+        case 'f':
+          e.preventDefault();
+          toggleFullscreen();
+          break;
+        case 'r':
+          e.preventDefault();
+          load();
+          break;
+        case 'escape':
+          setSelectedEvent(null);
+          setShowFilters(false);
+          break;
+        case 's':
+          e.preventDefault();
+          setShowFilters(prev => !prev);
+          break;
+        case '1':
+          setMapMode('3d');
+          break;
+        case '2':
+          setMapMode('2d');
+          break;
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [load]);
+
+  // Fullscreen toggle
+  const toggleFullscreen = useCallback(() => {
+    if (!globeContainerRef.current) return;
+    if (!document.fullscreenElement) {
+      globeContainerRef.current.requestFullscreen().then(() => setIsFullscreen(true)).catch(() => {});
+    } else {
+      document.exitFullscreen().then(() => setIsFullscreen(false)).catch(() => {});
+    }
+  }, []);
+
+  // Listen for fullscreen changes
+  useEffect(() => {
+    const handler = () => setIsFullscreen(!!document.fullscreenElement);
+    document.addEventListener('fullscreenchange', handler);
+    return () => document.removeEventListener('fullscreenchange', handler);
+  }, []);
+
+  // Export to CSV
+  const exportToCsv = useCallback(() => {
+    if (!filteredEvents.length) return;
+    const headers = ['ID', 'Kind', 'Title', 'Description', 'Severity', 'Source', 'Timestamp', 'Latitude', 'Longitude'];
+    const rows = filteredEvents.map(e => [
+      e.id, e.kind, e.title, e.description, e.severity, e.source, e.timestamp, e.lat, e.lng
+    ]);
+    const csv = [headers.join(','), ...rows.map(r => r.map(v => typeof v === 'string' ? '"' + v.replace(/"/g, '""') + '"' : v).join(','))].join('\n');
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'global-pulse-' + new Date().toISOString().split('T')[0] + '.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+  }, [filteredEvents]);
 
   const load = useCallback(async () => {
     const myId = ++loadIdRef.current;
@@ -700,6 +771,36 @@ export default function GlobalPulse(): JSX.Element {
                 <RefreshCw size={12} className={loading ? 'animate-spin' : ''} />
                 Refresh
               </button>
+              {/* Fullscreen */}
+              <button
+                type="button"
+                onClick={toggleFullscreen}
+                className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                title="Toggle fullscreen (F)"
+              >
+                {isFullscreen ? (
+                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                ) : (
+                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                  </svg>
+                )}
+                {isFullscreen ? 'Exit' : 'Full'}
+              </button>
+              {/* Export */}
+              <button
+                type="button"
+                onClick={exportToCsv}
+                className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono rounded-lg border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                title="Export to CSV"
+              >
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                Export
+              </button>
             </div>
           </div>
 
@@ -803,8 +904,9 @@ export default function GlobalPulse(): JSX.Element {
           <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_420px] gap-5">
             {/* Globe/Map Container */}
             <div
+              ref={globeContainerRef}
               className="relative rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-[#0a0f1a]"
-              style={{ minHeight: '600px', maxHeight: '750px' }}
+              style={{ minHeight: '600px', maxHeight: isFullscreen ? '100vh' : '750px' }}
             >
               {/* Globe Status Badge */}
               <div className="absolute top-4 right-4 z-20 flex items-center gap-2">

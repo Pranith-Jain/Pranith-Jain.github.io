@@ -79,11 +79,11 @@ export default function CaseManager(): JSX.Element {
 
       {/* Filters */}
       <div className="flex gap-2 mb-6 flex-wrap">
-        <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value as any)} className="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm">
+        <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value as CaseStatus | 'all')} className="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm">
           <option value="all">All Statuses</option>
           {['open', 'triaging', 'investigating', 'containing', 'eradicating', 'recovering', 'closed'].map((s) => <option key={s} value={s}>{s}</option>)}
         </select>
-        <select value={filterSeverity} onChange={(e) => setFilterSeverity(e.target.value as any)} className="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm">
+        <select value={filterSeverity} onChange={(e) => setFilterSeverity(e.target.value as CaseSeverity | 'all')} className="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm">
           <option value="all">All Severities</option>
           {['low', 'medium', 'high', 'critical'].map((s) => <option key={s} value={s}>{s}</option>)}
         </select>
@@ -129,22 +129,22 @@ export default function CaseManager(): JSX.Element {
             </div>
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-medium text-slate-500 mb-1">Title</label>
+                <span className="block text-xs font-medium text-slate-500 mb-1">Title</span>
                 <input value={newCase.title} onChange={(e) => setNewCase({ ...newCase, title: e.target.value })} className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm" placeholder="Ransomware incident on SRV-01" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-slate-500 mb-1">Description</label>
+                <span className="block text-xs font-medium text-slate-500 mb-1">Description</span>
                 <textarea value={newCase.description} onChange={(e) => setNewCase({ ...newCase, description: e.target.value })} rows={3} className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm" />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-medium text-slate-500 mb-1">Severity</label>
+                  <span className="block text-xs font-medium text-slate-500 mb-1">Severity</span>
                   <select value={newCase.severity} onChange={(e) => setNewCase({ ...newCase, severity: e.target.value as CaseSeverity })} className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
                     {['low', 'medium', 'high', 'critical'].map((s) => <option key={s} value={s}>{s}</option>)}
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-slate-500 mb-1">Type</label>
+                  <span className="block text-xs font-medium text-slate-500 mb-1">Type</span>
                   <select value={newCase.type} onChange={(e) => setNewCase({ ...newCase, type: e.target.value })} className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
                     {['ransomware', 'bec', 'data-breach', 'malware', 'phishing', 'insider-threat', 'apt', 'ddos', 'supply-chain', 'other'].map((t) => <option key={t} value={t}>{t}</option>)}
                   </select>

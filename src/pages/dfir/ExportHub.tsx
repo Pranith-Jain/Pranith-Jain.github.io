@@ -83,11 +83,11 @@ export default function ExportHub(): JSX.Element {
             })}
           </div>
           <div className="mb-4">
-            <label className="block text-xs font-medium text-slate-500 mb-1">Export Name</label>
+            <span className="block text-xs font-medium text-slate-500 mb-1">Export Name</span>
             <input value={eventName} onChange={(e) => setEventName(e.target.value)} className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm" />
           </div>
           <div className="mb-4">
-            <label className="block text-xs font-medium text-slate-500 mb-1">IOCs (one per line, optional: value,type,confidence)</label>
+            <span className="block text-xs font-medium text-slate-500 mb-1">IOCs (one per line, optional: value,type,confidence)</span>
             <textarea value={iocInput} onChange={(e) => setIocInput(e.target.value)} rows={8} className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-mono text-xs" placeholder={"1.2.3.4\nmalware.com\nabc123def456...,hash-sha256,80"} />
           </div>
           <button onClick={exportData} disabled={loading || !iocInput.trim()} className="w-full px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium disabled:opacity-50 inline-flex items-center justify-center gap-2">

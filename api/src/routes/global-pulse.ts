@@ -2150,14 +2150,37 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     // Fetch X/Telegram directly if empty
     if (finalTelegramEvents.length === 0) {
       try {
-        const res = await fetch('https://pranithjain.qzz.io/api/v1/x-feed', { signal: AbortSignal.timeout(10000) });
+        const res = await fetch('https://pranithjain.qzz.io/api/v1/telegram-feed', { signal: AbortSignal.timeout(10000) });
         if (res.ok) {
-          const data = (await res.json()) as Parameters<typeof fromXFeed>[0];
-          finalTelegramEvents = safe(() => fromXFeed(data));
+          const data = (await res.json()) as Parameters<typeof fromTelegram>[0];
+          finalTelegramEvents = safe(() => fromTelegram(data));
         }
       } catch {
         /* degraded */
       }
+    }
+
+    // Fetch scam directly if empty
+    let finalScamEvents = scamEvents;
+    if (finalScamEvents.length === 0) {
+      try {
+        const res = await fetch('https://pranithjain.qzz.io/api/v1/crypto-scam-feed', { signal: AbortSignal.timeout(10000) });
+        if (res.ok) {
+          const data = (await res.json()) as Parameters<typeof fromScam>[0];
+          finalScamEvents = safe(() => fromScam(data));
+        }
+      } catch { /* degraded */ }
+    }
+
+    // Fetch phishing directly if empty
+    if (finalPhishingEvents.length === 0) {
+      try {
+        const res = await fetch('https://pranithjain.qzz.io/api/v1/phishing-urls', { signal: AbortSignal.timeout(10000) });
+        if (res.ok) {
+          const data = (await res.json()) as Parameters<typeof fromPhishing>[0];
+          finalPhishingEvents = safe(() => fromPhishing(data));
+        }
+      } catch { /* degraded */ }
     }
 
     // Fetch infostealer directly if empty
@@ -2235,7 +2258,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       ...finalRedditEvents,
       ...finalTelegramEvents,
       ...xEvents,
-      ...scamEvents,
+      ...finalScamEvents,
     ].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
 
     const result: GlobalPulseResponse = {
@@ -2262,7 +2285,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
         reddit: finalRedditEvents.length,
         telegram: finalTelegramEvents.length,
         x_feed: xEvents.length,
-        scam: scamEvents.length,
+        scam: finalScamEvents.length,
         breach: breachEvents.length,
         briefing: briefingEvents.length,
         darkweb: darkwebEvents.length,

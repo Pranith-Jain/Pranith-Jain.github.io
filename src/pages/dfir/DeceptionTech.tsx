@@ -128,13 +128,13 @@ export default function DeceptionTech(): JSX.Element {
           <div className="w-full max-w-md rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-6">
             <h2 className="text-lg font-bold mb-4">New Canary Token</h2>
             <div className="space-y-4">
-              <div><label className="block text-xs font-medium text-slate-500 mb-1">Type</label>
+              <div><span className="block text-xs font-medium text-slate-500 mb-1">Type</span>
                 <select value={newToken.type} onChange={(e) => setNewToken({ ...newToken, type: e.target.value })} className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
                   {['dns', 'web', 'document', 'aws-key', 'sql-connection', 'windows-share'].map((t) => <option key={t} value={t}>{t}</option>)}
                 </select>
               </div>
-              <div><label className="block text-xs font-medium text-slate-500 mb-1">Name</label><input value={newToken.name} onChange={(e) => setNewToken({ ...newToken, name: e.target.value })} className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm" placeholder="Finance server DNS canary" /></div>
-              <div><label className="block text-xs font-medium text-slate-500 mb-1">Planted In</label><input value={newToken.planted_in} onChange={(e) => setNewToken({ ...newToken, planted_in: e.target.value })} className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm" placeholder="/finance/salary_backup.xlsx" /></div>
+              <div><span className="block text-xs font-medium text-slate-500 mb-1">Name</span><input value={newToken.name} onChange={(e) => setNewToken({ ...newToken, name: e.target.value })} className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm" placeholder="Finance server DNS canary" /></div>
+              <div><span className="block text-xs font-medium text-slate-500 mb-1">Planted In</span><input value={newToken.planted_in} onChange={(e) => setNewToken({ ...newToken, planted_in: e.target.value })} className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm" placeholder="/finance/salary_backup.xlsx" /></div>
               <div className="flex gap-2">
                 <button onClick={createToken} disabled={!newToken.name} className="flex-1 px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium disabled:opacity-50">Create</button>
                 <button onClick={() => setShowCreate(false)} className="px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 text-sm">Cancel</button>

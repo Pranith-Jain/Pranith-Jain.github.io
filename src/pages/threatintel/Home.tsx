@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Activity, ArrowRight, BookOpen, ExternalLink, Globe, Link2, Search, Users, X } from 'lucide-react';
+import { Activity, ArrowRight, ExternalLink, Globe, Link2, Search, Users, X } from 'lucide-react';
 import { LiveSnapshotPanel } from '../../components/dfir/LiveSnapshotPanel';
 import { WhatsNewBanner } from '../../components/threatintel/WhatsNewBanner';
 import { LatestBriefingCard } from '../../components/threatintel/LatestBriefingCard';

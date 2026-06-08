@@ -113,7 +113,7 @@ export default function Playbooks(): JSX.Element {
                 <h3 className="text-xs font-semibold uppercase text-slate-500">Inputs</h3>
                 {(selected.inputs as Array<{ name: string; label: string; required: boolean; type: string; options?: string[] }>).map((inp) => (
                   <div key={inp.name}>
-                    <label className="block text-xs font-medium text-slate-500 mb-1">{inp.label} {inp.required && <span className="text-rose-500">*</span>}</label>
+                    <span className="block text-xs font-medium text-slate-500 mb-1">{inp.label} {inp.required && <span className="text-rose-500">*</span>}</span>
                     {inp.type === 'select' && inp.options ? (
                       <select value={inputValues[inp.name] ?? ''} onChange={(e) => setInputValues({ ...inputValues, [inp.name]: e.target.value })} className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
                         <option value="">Select...</option>
