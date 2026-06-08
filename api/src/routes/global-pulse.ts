@@ -751,10 +751,12 @@ async function fetchNaturalEvents(): Promise<PulseEvent[]> {
 
 async function fetchFlights(): Promise<PulseEvent[]> {
   try {
+    // OpenSky may block Cloudflare Workers - use timeout and fallback
     const res = await fetch('https://opensky-network.org/api/states/all?lamin=20&lomin=-130&lamax=70&lomax=50', {
-      signal: AbortSignal.timeout(10000),
+      signal: AbortSignal.timeout(8000),
+      headers: { Accept: 'application/json' },
     });
-    if (!res.ok) return [];
+    if (!res.ok) return getStaticFlights();
     const data = (await res.json()) as {
       states?: Array<
         [
@@ -776,7 +778,8 @@ async function fetchFlights(): Promise<PulseEvent[]> {
         ]
       >;
     };
-    const sampled = (data.states ?? []).filter((_, i) => i % 20 === 0).slice(0, 30);
+    if (!data.states?.length) return getStaticFlights();
+    const sampled = data.states.filter((_, i) => i % 30 === 0).slice(0, 25);
     return sampled
       .map((s, idx) => {
         const [icao24, callsign, , , , lon, lat, , , , , , originCountry] = s;
@@ -794,8 +797,42 @@ async function fetchFlights(): Promise<PulseEvent[]> {
       })
       .filter((f) => f.lat !== 0 || f.lng !== 0);
   } catch {
-    return [];
+    return getStaticFlights();
   }
+}
+
+/* ─── Static Flight Data (Fallback) ───────────────────────────────────── */
+
+function getStaticFlights(): PulseEvent[] {
+  // Major airports worldwide for fallback visualization
+  const airports = [
+    { code: 'JFK', lat: 40.64, lng: -73.78, city: 'New York' },
+    { code: 'LAX', lat: 33.94, lng: -118.41, city: 'Los Angeles' },
+    { code: 'LHR', lat: 51.47, lng: -0.46, city: 'London' },
+    { code: 'CDG', lat: 49.01, lng: 2.55, city: 'Paris' },
+    { code: 'FRA', lat: 50.03, lng: 8.57, city: 'Frankfurt' },
+    { code: 'DXB', lat: 25.25, lng: 55.36, city: 'Dubai' },
+    { code: 'HND', lat: 35.55, lng: 139.78, city: 'Tokyo' },
+    { code: 'SIN', lat: 1.35, lng: 103.99, city: 'Singapore' },
+    { code: 'SYD', lat: -33.95, lng: 151.18, city: 'Sydney' },
+    { code: 'GRU', lat: -23.43, lng: -46.47, city: 'São Paulo' },
+    { code: 'JNB', lat: -26.13, lng: 28.24, city: 'Johannesburg' },
+    { code: 'PEK', lat: 40.08, lng: 116.58, city: 'Beijing' },
+    { code: 'ICN', lat: 37.46, lng: 126.44, city: 'Seoul' },
+    { code: 'BOM', lat: 19.09, lng: 72.87, city: 'Mumbai' },
+    { code: 'ORD', lat: 41.97, lng: -87.91, city: 'Chicago' },
+  ];
+  return airports.map((a, idx) => ({
+    id: `airport-${a.code}-${idx}`,
+    kind: 'aircraft' as const,
+    title: `${a.code} — ${a.city}`,
+    description: `Major airport hub`,
+    lat: a.lat,
+    lng: a.lng,
+    timestamp: new Date().toISOString(),
+    severity: 'low' as const,
+    source: 'Airport Data',
+  }));
 }
 
 /* ─── GDACS (Global Disaster Alerts) ──────────────────────────────────── */
