@@ -53,7 +53,7 @@ For each story, output a JSON object with these fields:
     "impact": "specific impact description",
     "urgency": "why now — e.g. 'exploitation observed in the wild', 'new variant detected'"
   },
-  "trendingSignal": 0.5 to 1.0 score
+  "trendingSignal": 0.85
 }
 
 Return ONLY a valid JSON array. No markdown, no commentary.`;
@@ -143,10 +143,12 @@ export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Ca
     const seenKeys = new Set<string>();
 
     for (const t of trends) {
-      const seed = t.title
+      const title = t.title || 'untitled';
+      const seed = title
         .slice(0, 80)
         .toLowerCase()
         .replace(/[^a-z0-9]+/g, '-');
+      if (!seed || seed.length < 5) continue;
       const key = topicKey('agentic', seed);
       if (seenKeys.has(key)) continue;
       seenKeys.add(key);
@@ -165,14 +167,14 @@ export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Ca
       candidates.push({
         key,
         type,
-        title: t.title,
-        rationale: t.rationale,
+        title,
+        rationale: t.rationale || title,
         score: adjustedScore,
         evidence: {
-          ...t.evidence,
-          hook: t.hook,
-          angle: t.angle,
-          trendingSignal: t.trendingSignal,
+          ...(t.evidence || {}),
+          hook: t.hook || '',
+          angle: t.angle || '',
+          trendingSignal: t.trendingSignal ?? trendingBoost,
           source: 'agentic-trends',
           generatedAt: now.toISOString(),
         },
