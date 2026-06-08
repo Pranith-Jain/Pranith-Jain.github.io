@@ -37,7 +37,7 @@ const SIGNAL_LABELS: Set<string> = new Set(
 // up immediately rather than waiting for the 1h TTL.
 // Bumped v10 → v11 alongside MAX_ITEMS 150→500, MAX_PER_SOURCE 15→30, and
 // the 7d cutoff filter applied to the post-dedup merged list.
-export const WRITEUPS_CACHE_KEY = 'https://writeups-cache.internal/v19-feed-proxy-style';
+export const WRITEUPS_CACHE_KEY = 'https://writeups-cache.internal/v20-html-safety';
 const CACHE_KEY = WRITEUPS_CACHE_KEY;
 const CACHE_TTL_SECONDS = 3600;
 const FETCH_TIMEOUT_MS = 12_000;
@@ -85,10 +85,6 @@ export interface WriteupsResponse {
 
 async function fetchText(url: string, kind?: string): Promise<string | null> {
   try {
-    // Match the feed-proxy approach exactly — it successfully fetches
-    // Cloudflare-hosted sites (lyrie.ai, cvefeed.io) that fail with
-    // the simpler fetch. Key differences: manual redirect, explicit
-    // accept-language, and no cf cache options on the redirect hops.
     const reqHeaders: Record<string, string> = {
       'user-agent':
         'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) pranithjain-rss/1.0 Safari/537.36',
@@ -119,6 +115,9 @@ async function fetchText(url: string, kind?: string): Promise<string | null> {
       if (hop === 4) return null;
     }
     if (!upstream || !upstream.ok) return null;
+    const ct = upstream.headers.get('content-type') ?? '';
+    // Safety: never echo HTML back as a feed response
+    if (ct.includes('text/html')) return null;
     return await upstream.text();
   } catch {
     return null;
