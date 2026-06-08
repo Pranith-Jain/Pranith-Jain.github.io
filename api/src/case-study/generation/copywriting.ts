@@ -66,6 +66,7 @@ export const AI_SLOP_PATTERNS: RegExp[] = [
   /you['’]re (likely|probably) (already aware|wondering|familiar|wondering how)/i,
   /chances are you['’]?ve/i,
   /you might be (wondering|thinking|asking)/i,
+  /\bbottleneck\b/i,
 ];
 
 /** Unambiguous slop — any one of these forces a rewrite (defense in depth). */
@@ -84,12 +85,15 @@ export const EGREGIOUS_SLOP: RegExp[] = [
 
 export const COPYWRITING_RULES =
   `#COPYWRITING RULES (APPLY TO EVERYTHING)\n\n` +
+  `**PAS framework: Problem — Agitation — Solution.**\n` +
+  `Every piece leads with a hook that names a specific pain (Problem), makes the reader feel why it matters to them (Agitation), then teases what's coming (Solution). Do this concisely in the first 2-3 sentences.\n\n` +
   `**Analyze, then construct. Never template.**\n` +
   `- Read the supplied facts first. Find the single most striking, specific angle in THIS data: a contrast, a pattern, an outlier number, an unexpected target mix, a timeline.\n` +
   `- Build the piece around that angle. Two posts about different events must not share a structure or an opener.\n` +
   `- The reader should feel a human analyst noticed something, not a script filled a form.\n\n` +
   `**Hook construction (most important):**\n` +
   `- The hook is derived from the facts, not bolted on. Lead with the specific thing that makes THIS case notable.\n` +
+  `- Simple and direct. No setup, straight to the point. About them, not you. Specific, never generic. One clear idea.\n` +
   `- Concrete and specific beats clever. "A defense contractor, an animal shelter, an aerospace firm. One group. One week." beats "You won't believe what happened."\n` +
   `- Vary hook form across pieces: a sharp contrast, a single hard number, a short fact triplet, a timeline jolt, a pattern call-out. Rotate. Do not reuse a form you'd use elsewhere.\n` +
   `- BANNED openers (formulaic, instantly recognizable as AI): "You're probably...", "You're likely...", "You might be...", "You've probably...", "Chances are...", "Imagine...", "Have you ever...", "In a world where...", "Picture this", "Let that sink in".\n\n` +

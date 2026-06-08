@@ -36,8 +36,9 @@ export interface SocialSource {
 
 const SOCIAL_SYSTEM =
   VOICE_IDENTITY +
-  `<task>You are a security practitioner writing platform-native posts. ` +
-  `Same person, same voice, shorter form. Never sound like a brand account.</task>\n\n` +
+  `<task>Content repurposing. You turn one piece of analysis into platform-native posts. ` +
+  `Not reformatting — rewriting for how each platform's algorithm thinks and how each audience consumes. ` +
+  `Same practitioner voice, shorter form. Never sound like a brand account.</task>\n\n` +
   COPYWRITING_RULES +
   `\n\n` +
   PIPELINE_OUTPUT_GUARDRAIL;
@@ -248,21 +249,23 @@ async function generateWithValidation(
 function buildTwitterPrompt(src: SocialSource): string {
   const postUrl = src.slug.startsWith('http') ? src.slug : `https://pranithjain.qzz.io/blog/${src.slug}`;
   return (
-    `<voice>\n` +
-    `Practitioner sharing a finding. Not hot takes, not brand voice. ` +
-    `The kind of thread you'd bookmark because it has actual signal.\n` +
-    `</voice>\n\n` +
     `<format name="X/Twitter thread">\n` +
-    `- Post 1 (<=280 chars): The single sharpest observation. A number, a named entity, a contrast. ` +
-    `NO "1/" prefix. NO link in post 1 (kills reach). NO teaser framing ("let's dive in", "big news").\n` +
-    `- Thread body: 3-6 posts. Each post is one concrete point — a data point, an observation, a question. ` +
-    `Append " (n/N)" at the END of each post (not the start).\n` +
-    `- LINK in the final "FIRST REPLY:" block on its own line: "FIRST REPLY: ${postUrl}"\n` +
-    `- Include ONE bookmark-worthy post: a reusable artifact (IOC list, affected versions, Sigma one-liner, CVE list).\n` +
-    `- End with a question or an analytical take that invites reply. Not "thoughts?".\n` +
-    `- At most ONE hashtag, only if genuinely specific (a campaign or CVE tag). At most ONE warning-level emoji (🔴 ⚠️), never decorative.\n` +
+    `- 5-7 posts for a technical breakdown. A single post for breaking news or one sharp take. Use only what the facts justify.\n` +
+    `- Post 1 (<=280 chars): Hook that stops the scroll. Use PAS. NO "1/" prefix. NO link (kills reach). NO teaser framing.\n` +
+    `- Posts 2-5: One clear idea per post. Examples, data points, or analysis. Each standalone-valuable.\n` +
+    `- Post 6 (or last): Insight or revelation — the analytical take that makes this thread worth reading.\n` +
+    `- Final post: CTA that invites reply. Not "thoughts?".\n` +
+    `- LINK in a separate final line: "FIRST REPLY: ${postUrl}"\n` +
+    `- Each post <280 characters. Append " (n/N)" at the END of each post.\n` +
+    `- Lowercase optional for personal tone. Fragments ok.\n` +
+    `- Include ONE bookmark-worthy post: a reusable artifact (IOC list, affected versions, CVE list).\n` +
+    `- At most ONE hashtag (if genuinely specific). At most ONE warning-level emoji (🔴 ⚠️), never decorative.\n` +
     `- CRITICAL: Every CVE ID, statistic, and IOC must come from the input data. Do not invent.\n` +
     `</format>\n\n` +
+    `<examples>\n` +
+    `GOOD post 1: "Lockbit5 posted 15 victims in 7 days. 4 already appeared under other affiliates this quarter. Same haul, second auction. Affiliate movement, not new compromise. (1/6)"\n` +
+    `BAD:   "1/ Today I want to talk about the Lockbit5 leak site activity. Let's dive in."\n` +
+    `</examples>\n\n` +
     `<input>\n` +
     `Title: ${src.title}\n\n` +
     `Details:\n${gist(src.body)}\n` +
@@ -273,34 +276,26 @@ function buildTwitterPrompt(src: SocialSource): string {
 function buildLinkedinPrompt(src: SocialSource): string {
   const postUrl = src.slug.startsWith('http') ? src.slug : `https://pranithjain.qzz.io/blog/${src.slug}`;
   return (
-    `<voice>\n` +
-    `You're an experienced DFIR/threat-intel practitioner sharing something you actually found interesting. ` +
-    `Not a reporter, not a brand. Someone who's been in the trenches and noticed a pattern worth flagging. ` +
-    `Write the way you'd talk to a peer at a conference — informed, specific, no fluff.\n` +
-    `</voice>\n\n` +
     `<format name="LinkedIn post">\n` +
-    `- HOOK (first 2 lines): One specific, surprising observation. A number, a contrast, a named entity. ` +
-    `Something that makes a defence practitioner stop scrolling. No throat-clearing, no "New post!", no "I've been thinking about".\n` +
-    `- BODY: 3-5 short paragraphs. Each paragraph is ONE idea, 1-3 sentences. ` +
-    `Lead with the insight (not the background). Then context, then what it means. ` +
-    `Think: "Here's what caught my eye → here's why it matters → here's what I'd do about it".\n` +
-    `- VOICE: Use "I" naturally ("I've been watching", "what stood out to me"). ` +
-    `Have a point of view — state your take, don't just describe. It's okay to say "I'm not sure this matters yet" or "this changes how I think about X".\n` +
-    `- DETAILS: Include ONE specific number, CVE, or named entity from the data. Be precise ("CVE-2026-42607 in Grav CMS, CVSS 9.1" not "a critical vuln").\n` +
+    `- 1300 characters max (body only, before FIRST COMMENT and hashtags).\n` +
+    `- HOOK in first 2 lines. PAS structure: name the problem, agitate, tease the solution. ` +
+    `No throat-clearing, no "New post!", no "I've been thinking about".\n` +
+    `- BODY: story or insight in the middle. 2-3 short paragraphs, each 1-3 sentences. ` +
+    `Lead with the insight, then context, then what it means. "Here's what caught my eye -> here's why it matters -> here's what I'd do about it".\n` +
+    `- VOICE: Use "I" naturally, have a point of view. Professional but human.\n` +
+    `- DETAILS: One specific number, CVE, or named entity from the data. Be precise.\n` +
     `- LINK: NEVER in body. Final line: "FIRST COMMENT: ${postUrl}"\n` +
-    `- CLOSE: One substantive question that invites practitioner experience ("Has anyone else seen this pattern?", "How are you handling the affiliate-handoff case?"). Not "Thoughts?" or "Let me know".\n` +
-    `- HASHTAGS: 3-5 on their own final line. Specific to this post (#Log4Shell #DFIR — NOT #CyberSecurity #Tech).\n` +
-    `- LENGTH: 1200-1800 characters for the body (before FIRST COMMENT and tags).\n` +
+    `- CLOSE: Strong CTA — one substantive question that invites practitioner experience. Not "Thoughts?" or "Let me know".\n` +
+    `- HASHTAGS: 3-5 on their own final line. Specific to this post (#Log4Shell #DFIR), not generic (#CyberSecurity).\n` +
     `- NO emojis. Bold at most ONE phrase with **asterisks**, only if it earns it.\n` +
-    `- NO carousel outlines, no "CAROUSEL OUTLINE:" blocks. Just the post.\n` +
+    `- NO carousel outlines, no section labels, no "CAROUSEL OUTLINE:" blocks.\n` +
     `- CRITICAL: Every CVE ID, statistic, and named entity must come from the input data. Do not invent.\n` +
     `</format>\n\n` +
     `<examples>\n` +
-    `HOOK — GOOD: "Lockbit5 listed 15 victims this week. 4 of those targets already appeared on a different affiliate's site this quarter. Same victims, second auction. That's not new compromise — that's affiliate churn."\n` +
+    `HOOK — GOOD: "Lockbit5 listed 15 victims this week. 4 of those targets already appeared on a different affiliate's site this quarter. That's not new compromise — that's affiliate churn."\n` +
     `HOOK — BAD: "🚨 The ransomware landscape is evolving. Lockbit5 is back and more dangerous than ever. Let's break it down."\n` +
-    `CLOSE — GOOD: "If your IR retainer treats every extortion note as a fresh compromise, how are you handling the re-victimisation angle? Curious how others are triaging this."\n` +
+    `CLOSE — GOOD: "If your IR retainer treats every extortion note as a fresh compromise, how are you handling the re-victimisation angle?"\n` +
     `CLOSE — BAD: "What do you think? Let me know in the comments!"\n` +
-    `LINK BLOCK: "FIRST COMMENT: ${postUrl}"\n` +
     `</examples>\n\n` +
     `<input>\n` +
     `Title: ${src.title}\n\n` +
