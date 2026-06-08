@@ -183,7 +183,7 @@ function computeExposureScore(severity: Severity, isCommit: boolean): number {
 
 export async function secretLeaksHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;
-  const cacheKey = new Request('https://secret-leaks-cache.internal/v2-ghfix');
+  const cacheKey = new Request('https://secret-leaks-cache.internal/v4-perpage100-v2');
   const cached = await cache.match(cacheKey);
   if (cached) return new Response(cached.body, cached);
 
@@ -223,9 +223,6 @@ export async function secretLeaksHandler(c: Context<{ Bindings: Env }>): Promise
   let totalScanned = 0;
 
   // Search GitHub for each secret pattern
-  console.log(
-    `secret-leaks: starting search with ${SECRET_PATTERNS.length} patterns, token=${ghToken ? 'set' : 'missing'}`
-  );
   const searches = SECRET_PATTERNS.map(async (sp) => {
     try {
       const headers: Record<string, string> = {
@@ -235,17 +232,13 @@ export async function secretLeaksHandler(c: Context<{ Bindings: Env }>): Promise
       if (ghToken) headers.authorization = `Bearer ${ghToken}`;
 
       const res = await fetchResilient(
-        `${GITHUB_SEARCH_API}?q=${encodeURIComponent(sp.pattern + ' in:file language:yaml language:json language:py language:js language:ts')}&per_page=10&sort=indexed&order=desc`,
+        `${GITHUB_SEARCH_API}?q=${encodeURIComponent(sp.pattern + ' in:file language:yaml language:json language:py language:js language:ts')}&per_page=100&sort=indexed&order=desc`,
         { headers, cf: { cacheTtl: CACHE_TTL_SECONDS, cacheEverything: true } } as RequestInit,
         { attempts: 2, timeoutMs: 8000 }
       );
 
-      if (!res.ok) {
-        console.warn(`secret-leaks: ${sp.provider} search failed: HTTP ${res.status}`);
-        return;
-      }
+      if (!res.ok) return;
       const data = (await res.json()) as GitHubSearchResponse;
-      console.log(`secret-leaks: ${sp.provider} found ${data.total_count} results, ${data.items.length} items`);
       totalScanned += data.total_count;
 
       for (const item of data.items) {
