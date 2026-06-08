@@ -1,5 +1,5 @@
 import type { Ai } from '@cloudflare/workers-types';
-import type { Post } from '../types';
+import type { Candidate, Post } from '../types';
 import { runCompletion } from './ai-client';
 import { VOICE_IDENTITY, COPYWRITING_RULES, PIPELINE_OUTPUT_GUARDRAIL } from './copywriting';
 import { stripUntrustedUrls, findUngroundedCves, detectSlop } from '../../lib/ai-output-validator';
@@ -25,6 +25,15 @@ export interface SocialQuality {
   issues: string[];
 }
 
+/** Minimal content source for social generation — works from published
+ *  posts, candidate evidence, or user-provided notes. */
+export interface SocialSource {
+  slug: string;
+  title: string;
+  /** Post body or candidate evidence formatted as text for the LLM. */
+  body: string;
+}
+
 const SOCIAL_SYSTEM =
   VOICE_IDENTITY +
   `<task>You are turning a published case study into platform-native posts for security practitioners. ` +
@@ -47,7 +56,7 @@ function gist(body: string): string {
 
 /**
  * Tidy generated social copy: strip trailing spaces, collapse runs of spaces,
- * and cap consecutive blank lines at ONE.
+ * cap consecutive blank lines at ONE, and replace em/en dashes with commas.
  */
 function tidySocial(text: string): string {
   return text
@@ -55,6 +64,7 @@ function tidySocial(text: string): string {
     .map((line) => line.replace(/[ \t]+$/g, '').replace(/[ \t]{2,}/g, ' '))
     .join('\n')
     .replace(/\n{3,}/g, '\n\n')
+    .replace(/(?<!\d)\s*[—–]\s*(?!\d)/g, ', ')
     .trim();
 }
 
@@ -201,7 +211,7 @@ async function generateWithValidation(
   maxTokens = 1200
 ): Promise<{ text: string; quality: SocialQuality }> {
   let lastText = '';
-  let lastQuality: SocialQuality;
+  let lastQuality: SocialQuality | undefined;
 
   for (let attempt = 0; attempt <= MAX_SOCIAL_RETRIES; attempt++) {
     let prompt = userPrompt;
@@ -235,8 +245,8 @@ async function generateWithValidation(
 
 // ── Prompt builders ─────────────────────────────────────────────────────
 
-function buildTwitterPrompt(post: Post): string {
-  const postUrl = `https://pranithjain.qzz.io/blog/${post.slug}`;
+function buildTwitterPrompt(src: SocialSource): string {
+  const postUrl = src.slug.startsWith('http') ? src.slug : `https://pranithjain.qzz.io/blog/${src.slug}`;
   return (
     `<format name="X/Twitter thread (2026)">\n` +
     `- LENGTH: 5-8 posts for a technical breakdown (exploit chain, IOCs, detection). A SINGLE post for breaking news or one sharp take. Use only what the facts justify — never pad to hit a number.\n` +
@@ -258,14 +268,14 @@ function buildTwitterPrompt(post: Post): string {
     `       ↑ "1/" prefix, preamble instead of payload.\n` +
     `</examples>\n\n` +
     `<input>\n` +
-    `Title: ${post.title}\n\n` +
-    `Body (lede + structure):\n${gist(post.body)}\n` +
+    `Title: ${src.title}\n\n` +
+    `Body (lede + structure):\n${gist(src.body)}\n` +
     `</input>`
   );
 }
 
-function buildLinkedinPrompt(post: Post): string {
-  const postUrl = `https://pranithjain.qzz.io/blog/${post.slug}`;
+function buildLinkedinPrompt(src: SocialSource): string {
+  const postUrl = src.slug.startsWith('http') ? src.slug : `https://pranithjain.qzz.io/blog/${src.slug}`;
   return (
     `<format name="LinkedIn post (2026)">\n` +
     `- THE FOLD: only the first ~210 characters show before "...more". The first 1-2 lines must carry the single most specific, surprising fact and make the reader expand. No throat-clearing, no "I've been thinking about", no label like "New post:".\n` +
@@ -288,8 +298,8 @@ function buildLinkedinPrompt(post: Post): string {
     `CLOSING — BAD: "What do you think? Let me know in the comments!"\n` +
     `</examples>\n\n` +
     `<input>\n` +
-    `Title: ${post.title}\n\n` +
-    `Body (lede + structure):\n${gist(post.body)}\n` +
+    `Title: ${src.title}\n\n` +
+    `Body (lede + structure):\n${gist(src.body)}\n` +
     `</input>`
   );
 }
@@ -297,7 +307,7 @@ function buildLinkedinPrompt(post: Post): string {
 // ── Public API ──────────────────────────────────────────────────────────
 
 /**
- * Extract verified facts from a post body to ground social content generation.
+ * Extract verified facts from text to ground social content generation.
  * This prevents hallucination by giving the model explicit facts to reference.
  */
 function extractVerifiedFacts(body: string): string {
@@ -344,38 +354,107 @@ function extractVerifiedFacts(body: string): string {
   return `\n<verified_facts from_case_study>\n${facts.join('\n')}\nUse ONLY these facts when making specific claims in the social post. Do NOT invent numbers, CVEs, or statistics.\n</verified_facts>`;
 }
 
-export async function generateSocialContent(post: Post, ai: Ai, now: Date, groqKey?: string): Promise<SocialContent> {
-  // Extract verified facts from the case study to ground social content
-  const factNote = extractVerifiedFacts(post.body);
+// ── Helpers ──────────────────────────────────────────────────────────────
+
+/** Convert a Post to a SocialSource (backward compat). */
+function postToSource(post: Post): SocialSource {
+  return { slug: post.slug, title: post.title, body: post.body };
+}
+
+/** Format candidate evidence as a text body for the LLM. */
+export function formatEvidenceText(evidence: Record<string, unknown>): string {
+  const parts: string[] = [];
+  const add = (label: string, val: unknown) => {
+    if (val === undefined || val === null) return;
+    const s = typeof val === 'string' ? val : JSON.stringify(val);
+    if (s.length > 0) parts.push(`${label}: ${s}`);
+  };
+  if (evidence.hook) add('Hook', evidence.hook);
+  if (evidence.angle) add('Angle', evidence.angle);
+  if (evidence.rationale) add('Rationale', evidence.rationale);
+  if (evidence.impact) add('Impact', evidence.impact);
+  if (evidence.urgency) add('Urgency', evidence.urgency);
+  if (Array.isArray(evidence.entities)) add('Entities', evidence.entities.join(', '));
+  if (Array.isArray(evidence.sources) && (evidence.sources as string[]).some((s) => s.startsWith('http'))) {
+    add('Sources', (evidence.sources as string[]).filter((s) => s.startsWith('http')).join(', '));
+  }
+  // Fallback: dump the whole evidence as formatted JSON
+  if (parts.length === 0) {
+    const { hook, angle, trendingSignal, generatedAt, source, ...rest } = evidence as Record<string, unknown>;
+    return JSON.stringify(rest, null, 2);
+  }
+  return parts.join('\n');
+}
+
+// ── Internal generators (accept SocialSource) ────────────────────────────
+
+async function generateTwitterFromSource(
+  src: SocialSource,
+  ai: Ai,
+  now: Date,
+  groqKey?: string
+): Promise<{ twitter: string; generatedAt: string; _validation?: { quality: SocialQuality } }> {
+  const factNote = extractVerifiedFacts(src.body);
+  const { text, quality } = await generateWithValidation(
+    ai,
+    SOCIAL_SYSTEM,
+    buildTwitterPrompt(src) + factNote,
+    'twitter',
+    src.body,
+    groqKey,
+    1200
+  );
+  return { twitter: text, generatedAt: now.toISOString(), _validation: { quality } };
+}
+
+async function generateLinkedinFromSource(
+  src: SocialSource,
+  ai: Ai,
+  now: Date,
+  groqKey?: string
+): Promise<{ linkedin: string; generatedAt: string; _validation?: { quality: SocialQuality } }> {
+  const factNote = extractVerifiedFacts(src.body);
+  const { text, quality } = await generateWithValidation(
+    ai,
+    SOCIAL_SYSTEM,
+    buildLinkedinPrompt(src) + factNote,
+    'linkedin',
+    src.body,
+    groqKey,
+    1400
+  );
+  return { linkedin: text, generatedAt: now.toISOString(), _validation: { quality } };
+}
+
+async function generateSocialFromSource(
+  src: SocialSource,
+  ai: Ai,
+  now: Date,
+  groqKey?: string
+): Promise<SocialContent> {
+  const factNote = extractVerifiedFacts(src.body);
 
   const [twitterRes, linkedinRes] = await Promise.allSettled([
-    generateWithValidation(ai, SOCIAL_SYSTEM, buildTwitterPrompt(post) + factNote, 'twitter', post.body, groqKey, 1200),
-    generateWithValidation(
-      ai,
-      SOCIAL_SYSTEM,
-      buildLinkedinPrompt(post) + factNote,
-      'linkedin',
-      post.body,
-      groqKey,
-      1400
-    ),
+    generateWithValidation(ai, SOCIAL_SYSTEM, buildTwitterPrompt(src) + factNote, 'twitter', src.body, groqKey, 1200),
+    generateWithValidation(ai, SOCIAL_SYSTEM, buildLinkedinPrompt(src) + factNote, 'linkedin', src.body, groqKey, 1400),
   ]);
 
-  const twitter = twitterRes.status === 'fulfilled' ? twitterRes.value.text : '';
-  const linkedin = linkedinRes.status === 'fulfilled' ? linkedinRes.value.text : '';
-  const twitterQuality = twitterRes.status === 'fulfilled' ? twitterRes.value.quality : undefined;
-  const linkedinQuality = linkedinRes.status === 'fulfilled' ? linkedinRes.value.quality : undefined;
-
   return {
-    slug: post.slug,
-    twitter,
-    linkedin,
+    slug: src.slug,
+    twitter: twitterRes.status === 'fulfilled' ? twitterRes.value.text : '',
+    linkedin: linkedinRes.status === 'fulfilled' ? linkedinRes.value.text : '',
     generatedAt: now.toISOString(),
     _validation: {
-      twitter_quality: twitterQuality,
-      linkedin_quality: linkedinQuality,
+      twitter_quality: twitterRes.status === 'fulfilled' ? twitterRes.value.quality : undefined,
+      linkedin_quality: linkedinRes.status === 'fulfilled' ? linkedinRes.value.quality : undefined,
     },
   };
+}
+
+// ── Public API (backward compat — accept Post) ───────────────────────────
+
+export async function generateSocialContent(post: Post, ai: Ai, now: Date, groqKey?: string): Promise<SocialContent> {
+  return generateSocialFromSource(postToSource(post), ai, now, groqKey);
 }
 
 export async function generateTwitterContent(
@@ -384,17 +463,7 @@ export async function generateTwitterContent(
   now: Date,
   groqKey?: string
 ): Promise<{ twitter: string; generatedAt: string; _validation?: { quality: SocialQuality } }> {
-  const factNote = extractVerifiedFacts(post.body);
-  const { text, quality } = await generateWithValidation(
-    ai,
-    SOCIAL_SYSTEM,
-    buildTwitterPrompt(post) + factNote,
-    'twitter',
-    post.body,
-    groqKey,
-    1200
-  );
-  return { twitter: text, generatedAt: now.toISOString(), _validation: { quality } };
+  return generateTwitterFromSource(postToSource(post), ai, now, groqKey);
 }
 
 export async function generateLinkedinContent(
@@ -403,15 +472,82 @@ export async function generateLinkedinContent(
   now: Date,
   groqKey?: string
 ): Promise<{ linkedin: string; generatedAt: string; _validation?: { quality: SocialQuality } }> {
-  const factNote = extractVerifiedFacts(post.body);
-  const { text, quality } = await generateWithValidation(
-    ai,
-    SOCIAL_SYSTEM,
-    buildLinkedinPrompt(post) + factNote,
-    'linkedin',
-    post.body,
-    groqKey,
-    1400
-  );
-  return { linkedin: text, generatedAt: now.toISOString(), _validation: { quality } };
+  return generateLinkedinFromSource(postToSource(post), ai, now, groqKey);
+}
+
+// ── New Public API (accept raw content) ──────────────────────────────────
+
+/** Generate LinkedIn+Twitter from a candidate's evidence. */
+export async function generateSocialFromCandidate(
+  candidate: Candidate,
+  ai: Ai,
+  now: Date,
+  groqKey?: string
+): Promise<SocialContent> {
+  const src: SocialSource = {
+    slug: candidate.key,
+    title: candidate.title,
+    body: formatEvidenceText(candidate.evidence),
+  };
+  return generateSocialFromSource(src, ai, now, groqKey);
+}
+
+/** Generate Twitter from a candidate's evidence. */
+export async function generateTwitterFromCandidate(
+  candidate: Candidate,
+  ai: Ai,
+  now: Date,
+  groqKey?: string
+): Promise<{ twitter: string; generatedAt: string; _validation?: { quality: SocialQuality } }> {
+  const src: SocialSource = {
+    slug: candidate.key,
+    title: candidate.title,
+    body: formatEvidenceText(candidate.evidence),
+  };
+  return generateTwitterFromSource(src, ai, now, groqKey);
+}
+
+/** Generate LinkedIn from a candidate's evidence. */
+export async function generateLinkedinFromCandidate(
+  candidate: Candidate,
+  ai: Ai,
+  now: Date,
+  groqKey?: string
+): Promise<{ linkedin: string; generatedAt: string; _validation?: { quality: SocialQuality } }> {
+  const src: SocialSource = {
+    slug: candidate.key,
+    title: candidate.title,
+    body: formatEvidenceText(candidate.evidence),
+  };
+  return generateLinkedinFromSource(src, ai, now, groqKey);
+}
+
+/** Generate social content from user-provided notes/text. */
+export async function generateSocialFromNotes(
+  notes: SocialSource,
+  ai: Ai,
+  now: Date,
+  groqKey?: string
+): Promise<SocialContent> {
+  return generateSocialFromSource(notes, ai, now, groqKey);
+}
+
+/** Generate Twitter from user-provided notes/text. */
+export async function generateTwitterFromNotes(
+  notes: SocialSource,
+  ai: Ai,
+  now: Date,
+  groqKey?: string
+): Promise<{ twitter: string; generatedAt: string; _validation?: { quality: SocialQuality } }> {
+  return generateTwitterFromSource(notes, ai, now, groqKey);
+}
+
+/** Generate LinkedIn from user-provided notes/text. */
+export async function generateLinkedinFromNotes(
+  notes: SocialSource,
+  ai: Ai,
+  now: Date,
+  groqKey?: string
+): Promise<{ linkedin: string; generatedAt: string; _validation?: { quality: SocialQuality } }> {
+  return generateLinkedinFromSource(notes, ai, now, groqKey);
 }

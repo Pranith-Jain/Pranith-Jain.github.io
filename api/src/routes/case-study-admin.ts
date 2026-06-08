@@ -28,7 +28,13 @@ import {
   generateSocialContent,
   generateTwitterContent,
   generateLinkedinContent,
+  generateSocialFromCandidate,
+  generateTwitterFromCandidate,
+  generateLinkedinFromCandidate,
+  generateTwitterFromNotes,
+  generateLinkedinFromNotes,
 } from '../case-study/generation/social';
+import { putDraft } from '../case-study/storage/drafts';
 
 /**
  * Slug validator shared with blog-public.ts — same regex, same reasoning.
@@ -261,15 +267,6 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
       await markSlotStatus(c.env.CASE_STUDIES, candidateId, 'published', { publishedSlug: post.slug });
       await unapprove(c.env.CASE_STUDIES, candidate.key);
       await touchDedup(c.env.CASE_STUDIES, candidate.key, now, post.slug);
-
-      // Auto-generate social content in the background — don't block the
-      // publish response. Failures are logged and don't affect publish.
-      const ctx = c.executionCtx;
-      ctx.waitUntil(
-        generateSocialContent(post, c.env.AI as never, new Date(), c.env.GROQ_API_KEY)
-          .then((social) => c.env.CASE_STUDIES.put(csKvKeys.social(post.slug), JSON.stringify(social)))
-          .catch((err: unknown) => console.error('auto-social-generation failed:', err))
-      );
 
       return c.json({ ok: true, slug: post.slug, title: post.title });
     } catch (err) {
@@ -635,6 +632,158 @@ export function registerAdminRoutes(app: Hono<{ Bindings: Env }>): void {
       console.error('linkedin generation failed:', err);
       return c.json({ error: 'linkedin_generation_failed' }, 500);
     }
+  });
+
+  // ─── Generate content from a candidate (blog/LinkedIn/Twitter) ──────
+  admin.post('/candidates/:key/generate', async (c) => {
+    const key = c.req.param('key');
+    const parsed = await safeJsonBody<{ formats?: string[]; type?: string }>(c, { maxBytes: 4096 });
+    if ('error' in parsed) return parsed.error;
+    const formats = parsed.value?.formats ?? ['linkedin', 'twitter'];
+    const typeHint = (parsed.value?.type ?? '') as CaseStudyType;
+    let candidate: Candidate | null = null;
+
+    if (typeHint && TYPES.includes(typeHint)) {
+      candidate = await getCandidate(c.env.CASE_STUDIES, typeHint, key);
+    } else {
+      for (const t of TYPES) {
+        candidate = await getCandidate(c.env.CASE_STUDIES, t, key);
+        if (candidate) break;
+      }
+    }
+    if (!candidate) return c.json({ error: 'candidate not found' }, 404);
+
+    const now = new Date();
+    const result: Record<string, unknown> = {};
+    const errors: string[] = [];
+
+    for (const fmt of formats) {
+      try {
+        if (fmt === 'blog') {
+          const post = await generatePost({ candidate, ai: c.env.AI as never, now, groqKey: c.env.GROQ_API_KEY });
+          await putDraft(c.env.CASE_STUDIES, post);
+          result.blog = { slug: post.slug, title: post.title, status: 'draft' };
+        } else if (fmt === 'linkedin') {
+          const { linkedin, generatedAt, _validation } = await generateLinkedinFromCandidate(
+            candidate,
+            c.env.AI as never,
+            now,
+            c.env.GROQ_API_KEY
+          );
+          await c.env.CASE_STUDIES.put(csKvKeys.socialCandidateLinkedin(key), linkedin);
+          result.linkedin = { content: linkedin, generatedAt, validation: _validation };
+        } else if (fmt === 'twitter') {
+          const { twitter, generatedAt, _validation } = await generateTwitterFromCandidate(
+            candidate,
+            c.env.AI as never,
+            now,
+            c.env.GROQ_API_KEY
+          );
+          await c.env.CASE_STUDIES.put(csKvKeys.socialCandidateTwitter(key), twitter);
+          result.twitter = { content: twitter, generatedAt, validation: _validation };
+        } else {
+          errors.push(`unknown format: ${fmt}`);
+        }
+      } catch (err) {
+        errors.push(`${fmt}: ${err instanceof Error ? err.message : String(err)}`);
+      }
+    }
+
+    // Store combined social content
+    if (result.linkedin || result.twitter) {
+      const combined = {
+        slug: key,
+        twitter: ((result.twitter as Record<string, unknown> | undefined)?.content as string) ?? '',
+        linkedin: ((result.linkedin as Record<string, unknown> | undefined)?.content as string) ?? '',
+        generatedAt: now.toISOString(),
+      };
+      await c.env.CASE_STUDIES.put(csKvKeys.socialCandidate(key), JSON.stringify(combined));
+    }
+
+    return c.json({ ok: errors.length === 0, result, errors: errors.length > 0 ? errors : undefined });
+  });
+
+  // ─── Generate content from custom input ─────────────────────────────
+  admin.post('/generate', async (c) => {
+    const parsed = await safeJsonBody<{
+      title: string;
+      content: string;
+      formats?: string[];
+      type?: string;
+    }>(c, { maxBytes: 128 * 1024 });
+    if ('error' in parsed) return parsed.error;
+    const { title, content, formats: rawFormats, type } = parsed.value;
+
+    if (!title?.trim()) return c.json({ error: 'title is required' }, 400);
+    if (!content?.trim()) return c.json({ error: 'content is required' }, 400);
+
+    const formats = rawFormats ?? ['linkedin', 'twitter'];
+    const now = new Date();
+
+    const slug = title
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .slice(0, 80);
+
+    const result: Record<string, unknown> = {};
+    const errors: string[] = [];
+
+    for (const fmt of formats) {
+      try {
+        if (fmt === 'blog') {
+          // Create a minimal pseudo-candidate for blog generation
+          const pseudo: Candidate = {
+            key: `custom-${slug}`,
+            type: (type as CaseStudyType | undefined) ?? 'analysis',
+            title,
+            rationale: title,
+            score: 0.8,
+            evidence: { userContent: content },
+            discoveredAt: now.toISOString(),
+            status: 'pending',
+          };
+          const post = await generatePost({
+            candidate: pseudo,
+            ai: c.env.AI as never,
+            now,
+            groqKey: c.env.GROQ_API_KEY,
+          });
+          await putDraft(c.env.CASE_STUDIES, post);
+          result.blog = { slug: post.slug, title: post.title, status: 'draft' };
+        } else if (fmt === 'linkedin') {
+          const notes = { slug: `custom-${slug}`, title, body: content };
+          const { linkedin, generatedAt, _validation } = await generateLinkedinFromNotes(
+            notes,
+            c.env.AI as never,
+            now,
+            c.env.GROQ_API_KEY
+          );
+          result.linkedin = { content: linkedin, generatedAt, validation: _validation };
+        } else if (fmt === 'twitter') {
+          const notes = { slug: `custom-${slug}`, title, body: content };
+          const { twitter, generatedAt, _validation } = await generateTwitterFromNotes(
+            notes,
+            c.env.AI as never,
+            now,
+            c.env.GROQ_API_KEY
+          );
+          result.twitter = { content: twitter, generatedAt, validation: _validation };
+        } else {
+          errors.push(`unknown format: ${fmt}`);
+        }
+      } catch (err) {
+        errors.push(`${fmt}: ${err instanceof Error ? err.message : String(err)}`);
+      }
+    }
+
+    return c.json({
+      ok: errors.length === 0,
+      slug: `custom-${slug}`,
+      result,
+      errors: errors.length > 0 ? errors : undefined,
+    });
   });
 
   admin.get('/health', async (c) => {

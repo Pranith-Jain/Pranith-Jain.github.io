@@ -20,6 +20,10 @@ export const kv = {
   socialTwitter: (slug: string) => `social:${slug}:twitter`,
   socialLinkedin: (slug: string) => `social:${slug}:linkedin`,
   social: (slug: string) => `social:${slug}`,
+  /** Standalone social content generated from a candidate (no blog post). */
+  socialCandidate: (key: string) => `social:standalone:${key}`,
+  socialCandidateTwitter: (key: string) => `social:standalone:${key}:twitter`,
+  socialCandidateLinkedin: (key: string) => `social:standalone:${key}:linkedin`,
   /** Manual-posting status/schedule for a post's social copy. Separate key
    *  so it never collides with the generated-content `social:*` keys. */
   socialSchedule: (slug: string) => `social-schedule:${slug}`,
