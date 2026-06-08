@@ -21,8 +21,6 @@ import {
   Wifi,
   WifiOff,
   ExternalLink,
-  ChevronRight,
-  ChevronDown,
   Layers,
   Filter,
   X,
@@ -33,7 +31,7 @@ import type { ReactNode } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
 import { Badge } from '../../components/ui/Badge';
 import type { CtiArc, CtiPoint } from '../../components/threatintel/cti/geo';
-import { severityColor, synthesizeArcs, deriveKpis } from '../../components/threatintel/cti/geo';
+import { synthesizeArcs, deriveKpis } from '../../components/threatintel/cti/geo';
 
 const PulseMap = lazy(() => import('./PulseMap'));
 const CtiGlobe = lazy(() => import('../../components/threatintel/cti/CtiGlobe'));
@@ -732,27 +730,60 @@ export default function GlobalPulse(): JSX.Element {
           )}
 
           {/* ─── Main Content: Globe + Feed ─── */}
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-4">
-            {/* Globe/Map */}
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 overflow-hidden min-h-[400px] lg:min-h-[600px] relative">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-4">
+            {/* Globe/Map Container */}
+            <div
+              className="relative rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-[#0a0f1a]"
+              style={{ minHeight: '500px' }}
+            >
+              {/* Globe Status Badge */}
+              <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
+                <div className="bg-[#0f1629]/80 backdrop-blur-sm rounded-lg border border-slate-600/50 px-3 py-1.5 flex items-center gap-2">
+                  <span
+                    className={`w-2 h-2 rounded-full ${mapMode === '3d' ? 'bg-brand-500 animate-pulse' : 'bg-emerald-500'}`}
+                  />
+                  <span className="text-[10px] font-mono text-slate-400">
+                    {mapMode === '3d' ? '3D Globe' : '2D Map'}
+                  </span>
+                </div>
+              </div>
+
+              {/* Empty State */}
               {geoPoints.length === 0 && (
-                <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
-                  <div className="bg-slate-900/90 backdrop-blur-sm rounded-xl px-6 py-5 text-center border border-slate-700/50 max-w-xs">
-                    <Crosshair size={32} className="text-slate-500 mx-auto mb-3" />
-                    <p className="text-sm text-slate-300 font-medium">No geolocated events</p>
-                    <p className="text-xs text-slate-500 mt-1.5">
-                      Enable more layers in Filters to see points on the globe
+                <div className="absolute inset-0 z-10 flex items-center justify-center">
+                  <div className="bg-[#0f1629]/90 backdrop-blur-sm rounded-xl px-8 py-6 text-center border border-slate-600/50 max-w-sm">
+                    <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-slate-800/50 flex items-center justify-center">
+                      <Crosshair size={28} className="text-slate-500" />
+                    </div>
+                    <p className="text-sm font-medium text-slate-300 mb-1">No Geolocated Events</p>
+                    <p className="text-xs text-slate-500 mb-4">
+                      Enable more layers in the Filters panel to see points on the globe
                     </p>
+                    <button
+                      type="button"
+                      onClick={() => setShowFilters(true)}
+                      className="text-xs font-mono px-4 py-2 rounded-lg bg-brand-500/10 text-brand-400 hover:bg-brand-500/20 border border-brand-500/30 transition-colors"
+                    >
+                      Open Filters
+                    </button>
                   </div>
                 </div>
               )}
+
+              {/* Globe/Map Component */}
               {mapMode === '3d' ? (
                 <Suspense
                   fallback={
                     <div className="flex items-center justify-center h-full">
-                      <div className="flex flex-col items-center gap-3">
-                        <div className="w-10 h-10 rounded-full border-2 border-brand-500/30 border-t-brand-500 animate-spin" />
-                        <span className="text-sm text-slate-400 animate-pulse">Loading globe…</span>
+                      <div className="flex flex-col items-center gap-4">
+                        <div className="relative">
+                          <div className="w-16 h-16 rounded-full border-2 border-brand-500/20" />
+                          <div className="absolute inset-0 w-16 h-16 rounded-full border-2 border-transparent border-t-brand-500 animate-spin" />
+                        </div>
+                        <div className="text-center">
+                          <p className="text-sm font-medium text-slate-300">Loading Globe</p>
+                          <p className="text-xs text-slate-500 mt-1">Initializing 3D renderer…</p>
+                        </div>
                       </div>
                     </div>
                   }
@@ -770,17 +801,20 @@ export default function GlobalPulse(): JSX.Element {
                   <PulseMap markers={geoPoints} />
                 </Suspense>
               )}
-              {/* Legend */}
-              <div className="absolute bottom-0 left-0 right-0 flex items-center gap-4 px-4 py-2.5 bg-gradient-to-t from-slate-900/90 to-transparent">
-                {(['critical', 'high', 'medium', 'low'] as const).map((sev) => (
-                  <div key={sev} className="flex items-center gap-1.5">
-                    <span className={`w-2 h-2 rounded-full ${SEVERITY_CONFIG[sev].dot}`} />
-                    <span className="text-[10px] font-mono text-slate-400 capitalize">{sev}</span>
-                  </div>
-                ))}
-                <span className="text-[10px] font-mono text-slate-500 ml-auto">
-                  {geoPoints.length} pts · {globeArcs.length} arcs
-                </span>
+
+              {/* Legend Overlay */}
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent px-4 py-3">
+                <div className="flex items-center gap-4">
+                  {(['critical', 'high', 'medium', 'low'] as const).map((sev) => (
+                    <div key={sev} className="flex items-center gap-1.5">
+                      <span className={`w-2.5 h-2.5 rounded-full ${SEVERITY_CONFIG[sev].dot}`} />
+                      <span className="text-[11px] font-mono text-slate-400 capitalize">{sev}</span>
+                    </div>
+                  ))}
+                  <span className="text-[11px] font-mono text-slate-500 ml-auto">
+                    {geoPoints.length} points · {globeArcs.length} arcs
+                  </span>
+                </div>
               </div>
             </div>
 

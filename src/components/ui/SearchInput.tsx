@@ -1,4 +1,4 @@
-import { useState, useRef, useId, useCallback, type ReactNode, type KeyboardEvent } from 'react';
+import { useState, useRef, useEffect, useId, useCallback, type ReactNode, type KeyboardEvent } from 'react';
 import { Search, X } from 'lucide-react';
 
 export interface Suggestion {
@@ -39,7 +39,14 @@ export function SearchInput({
   const [activeIdx, setActiveIdx] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
+  const blurTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const id = useId();
+
+  useEffect(() => {
+    return () => {
+      if (blurTimerRef.current) clearTimeout(blurTimerRef.current);
+    };
+  }, []);
   const listId = `${id}-results`;
 
   const showSuggestions = focused && suggestions && suggestions.length > 0 && value.length > 0;
@@ -80,7 +87,10 @@ export function SearchInput({
             setActiveIdx(-1);
           }}
           onFocus={() => setFocused(true)}
-          onBlur={() => setTimeout(() => setFocused(false), 150)}
+          onBlur={() => {
+            if (blurTimerRef.current) clearTimeout(blurTimerRef.current);
+            blurTimerRef.current = setTimeout(() => setFocused(false), 150);
+          }}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
           disabled={disabled}

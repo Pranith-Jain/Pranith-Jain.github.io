@@ -157,7 +157,7 @@ export default function CampaignDetail(): JSX.Element {
 
   if (deleted) {
     return (
-      <div className="max-w-3xl mx-auto px-4 sm:px-8 py-20 text-slate-900 dark:text-slate-100 text-center">
+      <div className="max-w-3xl mx-auto px-4 sm:px-8 py-12 sm:py-20 text-slate-900 dark:text-slate-100 text-center">
         <Trash2 size={28} className="mx-auto text-slate-400 mb-2" />
         <p className="text-sm font-mono text-slate-500 mb-3">Campaign deleted.</p>
         <Link

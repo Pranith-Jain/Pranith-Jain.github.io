@@ -216,7 +216,7 @@ export function AppShell({ mode, isDark, onToggleTheme, children }: AppShellProp
         onOpenMobileNav={() => setMobileNavOpen(true)}
         mobileNavOpen={mobileNavOpen}
       />
-      <div className="flex-1 flex min-h-0 max-w-[1500px] w-full mx-auto px-3 sm:px-6 gap-4">
+      <div className="flex-1 flex min-h-0 max-w-[1500px] w-full mx-auto px-3 sm:px-6 gap-3 sm:gap-4">
         {sidebarConfig && <Sidebar config={sidebarConfig} />}
         {sidebarConfig && (
           <MobileSidebarDrawer open={mobileNavOpen} onClose={() => setMobileNavOpen(false)} config={sidebarConfig} />
@@ -260,7 +260,7 @@ function AppStatusBar({ mode }: { mode: 'dfir' | 'threatintel' }): JSX.Element {
   });
 
   return (
-    <footer className="border-t border-slate-200/60 dark:border-white/10 bg-white/60 dark:bg-slate-950/60 backdrop-blur-xl">
+    <footer className="border-t border-slate-200/60 dark:border-white/10 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md sm:backdrop-blur-xl pb-[env(safe-area-inset-bottom)]">
       <div className="max-w-[1500px] mx-auto px-4 sm:px-6 min-h-[44px] sm:h-9 py-2 sm:py-0 flex items-center justify-between gap-3 text-[11px] font-mono text-slate-500 dark:text-slate-400">
         <div className="flex items-center gap-3 min-w-0">
           {mode === 'dfir' ? (

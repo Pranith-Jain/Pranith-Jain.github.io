@@ -46,8 +46,13 @@ export const memoryCache = {
     const now = Date.now();
     store.delete(key);
     if (store.size >= CACHE_MAX) {
-      const oldest = store.keys().next().value;
-      if (oldest !== undefined) store.delete(oldest);
+      // Evict expired entries first, then oldest if still over limit.
+      evictExpired();
+      while (store.size >= CACHE_MAX) {
+        const oldest = store.keys().next().value;
+        if (oldest !== undefined) store.delete(oldest);
+        else break;
+      }
     }
     store.set(key, { data, fetchedAt: now, ttl });
     startEvictTimer();

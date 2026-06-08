@@ -394,7 +394,7 @@ export default function RelationshipGraphPage(): JSX.Element {
       )}
 
       {/* Main layout */}
-      <div className="grid lg:grid-cols-[1fr_320px] gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6">
         {/* Graph canvas */}
         <div
           className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 overflow-hidden relative"

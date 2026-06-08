@@ -73,7 +73,7 @@ export function TopBar({
   const MarkIcon = mark === 'dfir' ? Shield : Radar;
 
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-200/60 bg-white/80 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/80 pt-[env(safe-area-inset-top)]">
+    <header className="sticky top-0 z-40 border-b border-slate-200/60 bg-white/80 backdrop-blur-md sm:backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/80 pt-[env(safe-area-inset-top)]">
       <div className="max-w-[1500px] mx-auto px-3 sm:px-6 h-14 sm:h-16 flex items-center gap-2 sm:gap-4">
         {onOpenMobileNav && (
           <button
@@ -114,7 +114,7 @@ export function TopBar({
         <button
           type="button"
           onClick={openPalette}
-          className="group flex-1 flex items-center gap-2 sm:gap-2.5 min-w-0 rounded-lg border border-slate-200/70 bg-slate-100/60 px-2.5 sm:px-3 py-1.5 min-h-[44px] sm:min-h-0 text-left text-sm text-slate-500 transition hover:border-slate-300 hover:bg-white dark:border-white/10 dark:bg-slate-900/50 dark:text-slate-400 dark:hover:border-white/20 dark:hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-500"
+          className="group flex-1 flex items-center gap-2 sm:gap-2.5 min-w-0 rounded-lg border border-slate-200/70 bg-slate-100/60 px-3 py-2 sm:px-3 sm:py-1.5 min-h-[44px] sm:min-h-0 text-left text-sm text-slate-500 transition hover:border-slate-300 hover:bg-white dark:border-white/10 dark:bg-slate-900/50 dark:text-slate-400 dark:hover:border-white/20 dark:hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-500"
           aria-label="Open search (press Cmd+K or Ctrl+K)"
         >
           <Search

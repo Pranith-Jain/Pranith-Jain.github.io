@@ -1639,6 +1639,85 @@ function getGeopoliticalEvents(): PulseEvent[] {
   }));
 }
 
+/* ─── Undersea Cables (Major Landing Points) ──────────────────────────── */
+
+const CABLE_LOCATIONS = [
+  { name: 'TAT-14 Landing (NJ)', lat: 40.44, lng: -74.0, cable: 'TAT-14' },
+  { name: 'MAREA Landing (VA)', lat: 36.85, lng: -76.0, cable: 'MAREA' },
+  { name: 'AC-1 Landing (NY)', lat: 40.65, lng: -74.05, cable: 'AC-1' },
+  { name: 'SEA-ME-WE 3 (Singapore)', lat: 1.26, lng: 103.84, cable: 'SEA-ME-WE 3' },
+  { name: 'SEA-ME-WE 4 (Marseille)', lat: 43.3, lng: 5.37, cable: 'SEA-ME-WE 4' },
+  { name: 'FLAG/REACH (Tokyo)', lat: 35.62, lng: 139.77, cable: 'FLAG' },
+  { name: 'APCN-2 (Hong Kong)', lat: 22.28, lng: 114.16, cable: 'APCN-2' },
+  { name: 'SAFE (South Africa)', lat: -33.9, lng: 18.42, cable: 'SAFE' },
+  { name: 'SAT-3/WASC (Lisbon)', lat: 38.72, lng: -9.14, cable: 'SAT-3' },
+  { name: 'WACS (London)', lat: 51.45, lng: 0.0, cable: 'WACS' },
+  { name: 'EIG (Mumbai)', lat: 19.0, lng: 72.85, cable: 'EIG' },
+  { name: 'Unity (LA)', lat: 33.74, lng: -118.29, cable: 'Unity' },
+  { name: 'Pacific Crossing (OR)', lat: 46.15, lng: -123.9, cable: 'PC-1' },
+  { name: 'AAG (Los Angeles)', lat: 33.75, lng: -118.3, cable: 'AAG' },
+  { name: 'JUPITER (Tokyo)', lat: 35.3, lng: 139.78, cable: 'JUPITER' },
+];
+
+function getCableEvents(): PulseEvent[] {
+  return CABLE_LOCATIONS.map((c, idx) => ({
+    id: `cable-${idx}-${c.cable}`,
+    kind: 'tech_news' as const,
+    title: c.name,
+    description: `Undersea cable landing · ${c.cable}`,
+    lat: c.lat,
+    lng: c.lng,
+    timestamp: new Date().toISOString(),
+    severity: 'low' as const,
+    source: 'Submarine Cable Map',
+  }));
+}
+
+/* ─── Stock Exchanges & Financial Centers ──────────────────────────────── */
+
+const FINANCIAL_LOCATIONS = [
+  // Stock Exchanges
+  { name: 'NYSE', lat: 40.71, lng: -74.01, type: 'exchange', country: 'US' },
+  { name: 'NASDAQ', lat: 40.76, lng: -73.98, type: 'exchange', country: 'US' },
+  { name: 'LSE', lat: 51.51, lng: -0.09, type: 'exchange', country: 'GB' },
+  { name: 'Tokyo SE', lat: 35.68, lng: 139.77, type: 'exchange', country: 'JP' },
+  { name: 'Shanghai SE', lat: 31.23, lng: 121.47, type: 'exchange', country: 'CN' },
+  { name: 'Hong Kong EX', lat: 22.28, lng: 114.16, type: 'exchange', country: 'HK' },
+  { name: 'Euronext', lat: 48.86, lng: 2.34, type: 'exchange', country: 'FR' },
+  { name: 'Shenzhen SE', lat: 22.54, lng: 114.06, type: 'exchange', country: 'CN' },
+  { name: 'Toronto SE', lat: 43.65, lng: -79.38, type: 'exchange', country: 'CA' },
+  { name: 'BSE India', lat: 18.93, lng: 72.84, type: 'exchange', country: 'IN' },
+  { name: 'Deutsche Börse', lat: 50.11, lng: 8.68, type: 'exchange', country: 'DE' },
+  { name: 'KRX Seoul', lat: 37.57, lng: 126.98, type: 'exchange', country: 'KR' },
+  { name: 'ASX Sydney', lat: -33.87, lng: 151.21, type: 'exchange', country: 'AU' },
+  { name: 'B3 São Paulo', lat: -23.55, lng: -46.63, type: 'exchange', country: 'BR' },
+  { name: 'Johannesburg SE', lat: -26.2, lng: 28.05, type: 'exchange', country: 'ZA' },
+  // Financial Centers
+  { name: 'Wall Street', lat: 40.71, lng: -74.01, type: 'financial', country: 'US' },
+  { name: 'City of London', lat: 51.51, lng: -0.08, type: 'financial', country: 'GB' },
+  { name: 'Singapore CBD', lat: 1.28, lng: 103.85, type: 'financial', country: 'SG' },
+  { name: 'Hong Kong Central', lat: 22.28, lng: 114.16, type: 'financial', country: 'HK' },
+  { name: 'Zurich Banking', lat: 47.37, lng: 8.54, type: 'financial', country: 'CH' },
+  { name: 'Dubai DIFC', lat: 25.22, lng: 55.28, type: 'financial', country: 'AE' },
+  { name: 'Frankfurt Banking', lat: 50.11, lng: 8.68, type: 'financial', country: 'DE' },
+  { name: 'Tokyo Marunouchi', lat: 35.68, lng: 139.77, type: 'financial', country: 'JP' },
+];
+
+function getFinancialEvents(): PulseEvent[] {
+  return FINANCIAL_LOCATIONS.map((f, idx) => ({
+    id: `fin-${f.type}-${idx}-${f.name.replace(/\s+/g, '-').toLowerCase()}`,
+    kind: 'geopolitical' as const,
+    title: f.name,
+    description: `${f.type === 'exchange' ? 'Stock Exchange' : 'Financial Center'} · ${f.country}`,
+    lat: f.lat,
+    lng: f.lng,
+    timestamp: new Date().toISOString(),
+    severity: 'low' as const,
+    source: 'Financial Data',
+    country: f.country,
+  }));
+}
+
 function fromCveRecent(data: {
   cves?: Array<{
     id: string;
@@ -1896,6 +1975,10 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     // Geopolitical hotspots (static data — conflicts, sanctions, military, nuclear)
     const geopoliticalEvents = getGeopoliticalEvents();
 
+    // Additional static data layers (cables, financial centers)
+    const cableEvents = getCableEvents();
+    const financialEvents = getFinancialEvents();
+
     // Briefings (D1)
     let briefingEvents: PulseEvent[] = [];
     try {
@@ -1922,6 +2005,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       ...urlhausMalware,
       ...techInfra,
       ...geopoliticalEvents,
+      ...cableEvents,
+      ...financialEvents,
       ...iocEvents,
       ...liveIocEvents,
       ...ransomwareEvents,
@@ -1951,8 +2036,9 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
         geopolitical:
           naturalEvents.length +
           gdacsAlerts.length +
-          geopoliticalEvents.filter((e) => e.kind === 'geopolitical').length,
-        tech_news: techInfra.length,
+          geopoliticalEvents.filter((e) => e.kind === 'geopolitical').length +
+          financialEvents.length,
+        tech_news: techInfra.length + cableEvents.length,
         war_room:
           naturalEvents.filter((e) => e.kind === 'war_room').length +
           geopoliticalEvents.filter((e) => e.kind === 'war_room').length,

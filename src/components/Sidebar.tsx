@@ -112,7 +112,7 @@ export function Sidebar({ config }: SidebarProps): JSX.Element {
       className={`hidden md:flex flex-col ${width} flex-shrink-0 transition-[width] duration-200 ease-out`}
       aria-label={`${config.sectionLabel} navigation`}
     >
-      <div className="sticky top-16 max-h-[calc(100vh-4rem)] flex flex-col border-r border-slate-200/60 bg-white/80 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/80">
+      <div className="sticky top-16 max-h-[calc(100vh-4rem)] flex flex-col border-r border-slate-200/60 bg-white/80 backdrop-blur-md lg:backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/80">
         {collapsed ? <SidebarContentCollapsed config={config} /> : <SidebarContent config={config} />}
         <div className="flex items-center justify-between gap-2 border-t border-slate-200/60 px-2 py-1.5 dark:border-white/10">
           {/* Expanded state shows the item count in SidebarContent's footer

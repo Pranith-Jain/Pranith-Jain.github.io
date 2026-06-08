@@ -561,7 +561,7 @@ function StepCard({ step }: { step: AgentStep }): JSX.Element {
                 <span className="text-[10px] font-mono text-slate-500">{r.durationMs}ms</span>
               </div>
               {r.error && <p className="text-[10px] font-mono text-rose-600">{r.error}</p>}
-              {r.data && (
+              {r.data !== undefined && r.data !== null && (
                 <pre className="text-[10px] font-mono text-slate-600 dark:text-slate-400 overflow-x-auto max-h-48 overflow-y-auto whitespace-pre-wrap break-all">
                   {JSON.stringify(r.data, null, 2).slice(0, 2000)}
                 </pre>

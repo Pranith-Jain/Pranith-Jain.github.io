@@ -219,7 +219,7 @@ export default function AgentMap(): JSX.Element {
 
       {graph && (
         <>
-          <section className="grid gap-4 lg:grid-cols-[1fr_320px] mb-6">
+          <section className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-4 mb-6">
             {/* Graph */}
             <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
               <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400 font-mono mb-2">

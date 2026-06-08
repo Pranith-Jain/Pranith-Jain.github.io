@@ -84,7 +84,7 @@ export function FeedbackWidget({ targetType, targetId, sector, compact, onFeedba
           type="button"
           onClick={() => handleSubmit('useful')}
           disabled={saving}
-          className="p-1 rounded text-slate-400 hover:text-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 transition-colors disabled:opacity-50"
+          className="p-2 sm:p-1 rounded text-slate-400 hover:text-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 transition-colors disabled:opacity-50"
           title="Useful"
         >
           <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -99,7 +99,7 @@ export function FeedbackWidget({ targetType, targetId, sector, compact, onFeedba
           type="button"
           onClick={() => handleSubmit('not_useful')}
           disabled={saving}
-          className="p-1 rounded text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors disabled:opacity-50"
+          className="p-2 sm:p-1 rounded text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors disabled:opacity-50"
           title="Not useful"
         >
           <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

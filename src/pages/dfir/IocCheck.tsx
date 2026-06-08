@@ -16,7 +16,6 @@ import {
   Copy,
   Check,
   ChevronDown,
-  ChevronUp,
   Layers,
   Loader2,
 } from 'lucide-react';

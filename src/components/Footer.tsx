@@ -39,9 +39,9 @@ export const Footer = memo(function Footer({ personalInfo }: FooterProps) {
   const { count, isNewSession } = usePageViewCounter();
 
   return (
-    <footer className="mt-24 pb-6" role="contentinfo">
+    <footer className="mt-24 pb-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))]" role="contentinfo">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="grid gap-10 border-t border-slate-200/60 pt-10 dark:border-white/10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr]">
+        <div className="grid gap-8 border-t border-slate-200/60 pt-10 dark:border-white/10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr]">
           {/* Brand column */}
           <div>
             <Link

@@ -18,6 +18,9 @@
     <!-- Theme and Security -->
     <meta name="theme-color" content="#2c3ee5" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <!-- X-Frame-Options + X-Content-Type-Options + Permissions-Policy live in
          public/_headers (HTTP-header-delivered only — meta versions trigger
          browser console warnings). X-XSS-Protection is deprecated everywhere
@@ -96,7 +99,7 @@
        and AppShell.tsx (/dfir, /threatintel) already use `overflow-x-clip`
        on their inner wrappers to contain decorative blobs without
        creating a scroll context; the body-level rule was redundant. -->
-  <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50 transition-colors duration-300 motion-reduce:transition-none">
+  <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50 transition-colors duration-300 motion-reduce:transition-none overscroll-y-none">
 
     <!-- Main app root -->
     <div id="root"></div>

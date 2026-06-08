@@ -94,7 +94,7 @@ export function Modal({
       role="dialog"
       aria-modal="true"
       aria-labelledby={titleId}
-      className="fixed inset-0 z-[60] flex items-center justify-center p-4 sm:p-6"
+      className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center p-0 sm:p-6"
     >
       <div
         className="fixed inset-0 bg-black/50 backdrop-blur-sm"
@@ -102,7 +102,7 @@ export function Modal({
         aria-hidden="true"
       />
       <div
-        className={`relative z-10 w-full ${SIZE[size]} max-h-[85vh] overflow-y-auto rounded-2xl border border-slate-200/60 bg-white shadow-xl dark:border-slate-700/60 dark:bg-slate-900 animate-fade-in-up`}
+        className={`relative z-10 w-full ${SIZE[size]} max-h-[90vh] sm:max-h-[85vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl border border-slate-200/60 bg-white shadow-xl dark:border-slate-700/60 dark:bg-slate-900 animate-fade-in-up`}
       >
         <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4 dark:border-slate-800">
           <h2 id={titleId} className="text-lg font-display font-bold text-slate-900 dark:text-white">

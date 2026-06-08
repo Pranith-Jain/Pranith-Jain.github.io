@@ -55,6 +55,7 @@ export function Drawer({ open, onClose, title, children, side = 'right', size = 
         aria-modal="true"
         aria-labelledby={titleId}
         className={`fixed top-0 z-50 flex h-full max-h-[100dvh] w-full flex-col overflow-hidden bg-white shadow-2xl dark:bg-slate-900 pt-[env(safe-area-inset-top)] ${sideClasses} ${SIZE[size]} ${className}`}
+        style={{ WebkitOverflowScrolling: 'touch' }}
       >
         <div className="sticky top-0 z-10 flex items-center justify-between gap-3 sm:gap-4 border-b border-slate-200 bg-white/95 px-4 sm:px-6 py-3 sm:py-4 backdrop-blur dark:border-slate-800 dark:bg-slate-900/95">
           <h2

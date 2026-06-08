@@ -163,7 +163,6 @@ export default function PendingTab() {
         </thead>
         <tbody>
           {pending.map((c) => {
-            const showSocial = socialPreview?.key === c.key;
             return (
               <tr key={`${c.type}:${c.key}`} className="border-b border-zinc-800/60 align-top">
                 <td className="py-2 pr-4 text-slate-400 uppercase text-xs">{c.type}</td>

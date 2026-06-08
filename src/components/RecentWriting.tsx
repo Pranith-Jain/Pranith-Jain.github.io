@@ -116,7 +116,7 @@ export function RecentWriting(): JSX.Element | null {
         </div>
       </div>
 
-      <ul className="grid gap-4 md:grid-cols-2">
+      <ul className="grid gap-3 sm:gap-4 grid-cols-1 md:grid-cols-2">
         {entries.map((e) => {
           const Icon = e.kind === 'research' ? BookOpen : FileText;
           const pillColor =

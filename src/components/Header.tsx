@@ -157,11 +157,11 @@ export const Header = memo(function Header({ isDark, onToggleTheme, navLinks }: 
       <header
         className={`sticky top-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? 'border-b border-slate-200/60 bg-white/80 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/80'
-            : 'border-b border-transparent bg-white/65 backdrop-blur-xl dark:bg-slate-950/60'
+            ? 'border-b border-slate-200/60 bg-white/80 backdrop-blur-md sm:backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/80'
+            : 'border-b border-transparent bg-white/65 backdrop-blur-md sm:backdrop-blur-xl dark:bg-slate-950/60'
         }`}
       >
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2.5 sm:py-3 sm:px-6">
           {/* Logo */}
           <Link
             to="/"

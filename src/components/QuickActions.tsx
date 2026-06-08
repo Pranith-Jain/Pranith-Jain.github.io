@@ -84,6 +84,7 @@ export function QuickActions({
   const accent = ACCENT[tone];
   return (
     <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 ${className}`}>
+      {/* Mobile: single column for full-width tiles; tablet: 2-col; desktop: 4-col */}
       {actions.map((a, i) => {
         const Icon = a.icon;
         return (

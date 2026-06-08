@@ -13,7 +13,7 @@ function hasWebGL(): boolean {
   }
 }
 
-/* ─── Error boundary for Globe ──────────────────────────────────────────── */
+/* ─── Error boundary ────────────────────────────────────────────────────── */
 
 interface GlobeErrorBoundaryState {
   hasError: boolean;
@@ -34,20 +34,29 @@ class GlobeErrorBoundary extends Component<{ children: ReactNode }, GlobeErrorBo
   render() {
     if (this.state.hasError) {
       return (
-        <div className="flex items-center justify-center h-full min-h-[300px] sm:min-h-[400px] text-center p-6">
-          <div>
-            <div className="text-4xl mb-3">🌐</div>
-            <p className="text-sm text-slate-400 mb-2">3D Globe failed to render.</p>
-            <p className="text-xs text-slate-500 mb-3">
+        <div className="flex items-center justify-center h-full w-full bg-[#0a0f1a]">
+          <div className="text-center p-6 max-w-sm">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-slate-800/50 flex items-center justify-center">
+              <svg className="w-8 h-8 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
+                />
+              </svg>
+            </div>
+            <p className="text-sm font-medium text-slate-300 mb-1">Globe Unavailable</p>
+            <p className="text-xs text-slate-500 mb-4">
               {this.state.error?.message?.includes('WebGL')
-                ? 'WebGL is not available or was blocked by your browser.'
-                : 'An error occurred while initializing the 3D globe.'}
+                ? 'WebGL is not supported in your browser'
+                : 'Failed to initialize 3D renderer'}
             </p>
             <button
               onClick={() => this.setState({ hasError: false, error: null })}
-              className="px-3 py-1 text-xs rounded border border-slate-600 text-slate-400 hover:text-slate-200 hover:border-slate-400 transition"
+              className="px-4 py-2 text-xs font-mono rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 transition-colors"
             >
-              Retry
+              Try Again
             </button>
           </div>
         </div>
@@ -57,7 +66,7 @@ class GlobeErrorBoundary extends Component<{ children: ReactNode }, GlobeErrorBo
   }
 }
 
-/* ─── Custom point ring data (halo effect around critical points) ──────── */
+/* ─── Types ─────────────────────────────────────────────────────────────── */
 
 interface RingDatum {
   lat: number;
@@ -66,7 +75,7 @@ interface RingDatum {
   color: string;
 }
 
-/* ─── Lazy Globe loader ─────────────────────────────────────────────────── */
+/* ─── Globe Renderer ────────────────────────────────────────────────────── */
 
 function GlobeRenderer({
   arcs,
@@ -106,11 +115,10 @@ function GlobeRenderer({
 
   if (loadError) {
     return (
-      <div className="flex items-center justify-center h-full min-h-[300px] sm:min-h-[400px] text-center p-6">
-        <div>
-          <div className="text-4xl mb-3">🌐</div>
-          <p className="text-sm text-slate-400 mb-2">Failed to load 3D globe library.</p>
-          <p className="text-xs text-slate-500">{loadError}</p>
+      <div className="flex items-center justify-center h-full w-full bg-[#0a0f1a]">
+        <div className="text-center p-6">
+          <p className="text-sm text-slate-400 mb-2">Failed to load globe</p>
+          <p className="text-xs text-slate-600">{loadError}</p>
         </div>
       </div>
     );
@@ -118,10 +126,16 @@ function GlobeRenderer({
 
   if (!Globe) {
     return (
-      <div className="flex items-center justify-center h-full min-h-[300px] sm:min-h-[400px]">
-        <div className="flex flex-col items-center gap-3">
-          <div className="w-10 h-10 rounded-full border-2 border-brand-500/30 border-t-brand-500 animate-spin" />
-          <p className="text-sm text-slate-400 animate-pulse">Loading 3D globe…</p>
+      <div className="flex items-center justify-center h-full w-full bg-[#0a0f1a]">
+        <div className="flex flex-col items-center gap-4">
+          <div className="relative">
+            <div className="w-16 h-16 rounded-full border-2 border-blue-500/20" />
+            <div className="absolute inset-0 w-16 h-16 rounded-full border-2 border-transparent border-t-blue-500 animate-spin" />
+          </div>
+          <div className="text-center">
+            <p className="text-sm font-medium text-slate-300">Initializing Globe</p>
+            <p className="text-xs text-slate-500 mt-1">Loading 3D renderer…</p>
+          </div>
         </div>
       </div>
     );
@@ -142,7 +156,7 @@ function GlobeRenderer({
   );
 }
 
-/* ─── Inner Globe component (only rendered after library loads) ─────────── */
+/* ─── Inner Globe ───────────────────────────────────────────────────────── */
 
 function GlobeInner({
   Globe,
@@ -170,29 +184,31 @@ function GlobeInner({
   const rotAngleRef = useRef(0);
   const rafRef = useRef(0);
   const userInteracting = useRef(false);
+  const [hoveredPoint, setHoveredPoint] = useState<CtiPoint | null>(null);
 
-  // Build ring (halo) data for critical/high severity points
+  // Ring data for critical/high severity points
   const ringData: RingDatum[] = points
     .filter((p) => p.severity === 'critical' || p.severity === 'high')
+    .slice(0, 60)
     .map((p) => ({
       lat: p.lat,
       lng: p.lng,
-      size: p.severity === 'critical' ? 2.0 : 1.4,
+      size: p.severity === 'critical' ? 3.0 : 2.0,
       color: severityColor(p.severity),
     }));
 
-  // Build label data for critical points (show country/id labels)
+  // Label data for critical points
   const labelData = points
-    .filter((p) => p.severity === 'critical' && p.label)
-    .slice(0, 15)
+    .filter((p) => p.severity === 'critical')
+    .slice(0, 25)
     .map((p) => ({
       lat: p.lat,
       lng: p.lng,
-      text: p.label.length > 25 ? p.label.slice(0, 25) + '…' : p.label,
+      text: p.label.length > 28 ? p.label.slice(0, 28) + '…' : p.label,
       color: severityColor(p.severity),
     }));
 
-  // Auto-rotation loop
+  // Auto-rotation
   useEffect(() => {
     if (!autoRotate) return;
     let lastTime = performance.now();
@@ -200,7 +216,7 @@ function GlobeInner({
       const delta = (now - lastTime) / 1000;
       lastTime = now;
       if (!userInteracting.current && globeRef.current) {
-        rotAngleRef.current += delta * 5;
+        rotAngleRef.current += delta * 2.5;
         const pov = globeRef.current.pointOfView();
         globeRef.current.pointOfView({ lat: pov.lat, lng: rotAngleRef.current % 360 }, 0);
       }
@@ -210,65 +226,48 @@ function GlobeInner({
     return () => cancelAnimationFrame(rafRef.current);
   }, [autoRotate]);
 
-  // Focus on point change
+  // Focus on point
   useEffect(() => {
     if (focus && globeRef.current) {
       userInteracting.current = true;
-      globeRef.current.pointOfView({ lat: focus.lat, lng: focus.lng, altitude: 1.5 }, 1000);
+      globeRef.current.pointOfView({ lat: focus.lat, lng: focus.lng, altitude: 1.5 }, 1200);
       setTimeout(() => {
         userInteracting.current = false;
-      }, 3000);
+      }, 4000);
     }
   }, [focus]);
 
-  // Accessor wrappers
+  // Accessors
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const arcColor = useCallback((arc: any) => {
-    const a = arc as CtiArc;
-    // Use gradient-like effect: brighter at source, dimmer at target
-    return a.color;
-  }, []);
+  const arcColor = useCallback((arc: any) => (arc as CtiArc).color, []);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const pointColor = useCallback((point: any) => {
-    const p = point as CtiPoint;
-    return severityColor(p.severity);
-  }, []);
+  const pointColor = useCallback((point: any) => severityColor((point as CtiPoint).severity), []);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const pointAltitude = useCallback((point: any) => {
-    const p = point as CtiPoint;
-    const alts: Record<string, number> = {
-      critical: 0.08,
-      high: 0.05,
-      medium: 0.035,
-      low: 0.02,
-      info: 0.015,
-    };
-    return alts[p.severity] ?? 0.02;
+    const alts: Record<string, number> = { critical: 0.12, high: 0.07, medium: 0.045, low: 0.03, info: 0.02 };
+    return alts[(point as CtiPoint).severity] ?? 0.03;
   }, []);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const pointRadius = useCallback((point: any) => {
-    const p = point as CtiPoint;
-    // Larger base radius for better visibility
-    return Math.min(Math.max(Math.log2(p.count + 1) * 1.0 + 0.3, 0.4), 4);
+    const sizes: Record<string, number> = { critical: 1.5, high: 1.1, medium: 0.7, low: 0.5, info: 0.35 };
+    return sizes[(point as CtiPoint).severity] ?? 0.6;
   }, []);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const pointLabel = useCallback((point: any) => {
     const p = point as CtiPoint;
     const sevColor = severityColor(p.severity);
-    return `<div style="background:rgba(15,23,42,0.92);color:#e2e8f0;padding:10px 14px;border-radius:8px;font-size:12px;font-family:monospace;max-width:280px;border:1px solid ${sevColor}40;backdrop-filter:blur(8px);">
-      <div style="font-weight:bold;margin-bottom:4px;color:#f8fafc;font-size:13px;">${p.label}</div>
-      <div style="display:flex;gap:12px;margin-top:4px;">
-        <span style="color:${sevColor};">● ${p.severity.toUpperCase()}</span>
-        <span style="opacity:0.6;">Count: ${p.count}</span>
+    return `<div style="background:rgba(10,15,26,0.95);color:#e2e8f0;padding:12px 16px;border-radius:10px;font-size:12px;font-family:monospace;max-width:300px;border:1px solid ${sevColor}50;box-shadow:0 8px 32px rgba(0,0,0,0.5);">
+      <div style="font-weight:600;margin-bottom:6px;color:#f8fafc;font-size:13px;">${p.label}</div>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:6px;">
+        <span style="background:${sevColor}25;color:${sevColor};padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600;text-transform:uppercase;">${p.severity}</span>
+        <span style="opacity:0.6;font-size:11px;">Count: ${p.count}</span>
       </div>
     </div>`;
   }, []);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const arcLabel = useCallback((arc: any) => {
     const a = arc as CtiArc;
-    return `<div style="background:rgba(15,23,42,0.92);color:#e2e8f0;padding:8px 12px;border-radius:6px;font-size:11px;font-family:monospace;max-width:280px;border:1px solid ${a.color}40;">
-      ${a.label}
-    </div>`;
+    return `<div style="background:rgba(10,15,26,0.95);color:#e2e8f0;padding:10px 14px;border-radius:8px;font-size:11px;font-family:monospace;max-width:280px;border:1px solid ${a.color}40;box-shadow:0 4px 16px rgba(0,0,0,0.4);">${a.label}</div>`;
   }, []);
 
   // Ring accessors
@@ -277,7 +276,7 @@ function GlobeInner({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const ringMaxRadius = useCallback((ring: any) => (ring as RingDatum).size, []);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const ringAltitude = useCallback(() => 0.01, []);
+  const ringAltitude = useCallback(() => 0.005, []);
 
   // Label accessors
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -287,86 +286,99 @@ function GlobeInner({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const labelText = useCallback((l: any) => l.text, []);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const labelColor = useCallback((l: any) => l.color + 'cc', []);
+  const labelColor = useCallback((l: any) => l.color + 'ee', []);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const labelSize = useCallback(() => 0.5, []);
+  const labelSize = useCallback(() => 0.7, []);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const labelAltitude = useCallback(() => 0.09, []);
+  const labelAltitude = useCallback(() => 0.14, []);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const labelDotRadius = useCallback(() => 0, []);
+  const labelDotRadius = useCallback(() => 0.4, []);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const labelResolution = useCallback(() => 2, []);
+  const labelResolution = useCallback(() => 3, []);
 
   // Event handlers
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handlePointClick = useCallback(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (point: any) => {
-      onPointClick?.(point as CtiPoint);
-    },
-    [onPointClick]
-  );
+  const handlePointClick = useCallback((point: any) => onPointClick?.(point as CtiPoint), [onPointClick]);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleArcHover = useCallback(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (arc: any) => {
-      onArcHover?.(arc ? (arc as CtiArc) : null);
-    },
-    [onArcHover]
-  );
+  const handlePointHover = useCallback((point: any) => {
+    setHoveredPoint(point ? (point as CtiPoint) : null);
+    if (typeof document !== 'undefined') document.body.style.cursor = point ? 'pointer' : 'default';
+  }, []);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleArcHover = useCallback((arc: any) => onArcHover?.(arc ? (arc as CtiArc) : null), [onArcHover]);
 
   return (
-    <Globe
-      ref={globeRef}
-      width={width}
-      height={height}
-      // ── Globe appearance ──
-      globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
-      bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
-      backgroundImageUrl=""
-      backgroundColor="rgba(0,0,0,0)"
-      // Atmosphere with enhanced glow
-      showAtmosphere={true}
-      atmosphereColor="#3b82f6"
-      atmosphereAltitude={0.2}
-      // Subtle graticule grid for spatial reference
-      showGraticules={true}
-      // ── Points ──
-      pointsData={points}
-      pointColor={pointColor}
-      pointAltitude={pointAltitude}
-      pointRadius={pointRadius}
-      pointLabel={pointLabel}
-      onPointClick={handlePointClick}
-      pointsMerge={false}
-      // ── Rings (halo pulse around critical/high points) ──
-      ringsData={ringData}
-      ringColor={ringColor}
-      ringMaxRadius={ringMaxRadius}
-      ringAltitude={ringAltitude}
-      ringRepeatPeriod={1200}
-      // ── Labels for critical points ──
-      labelsData={labelData}
-      labelLat={labelLat}
-      labelLng={labelLng}
-      labelText={labelText}
-      labelColor={labelColor}
-      labelSize={labelSize}
-      labelAltitude={labelAltitude}
-      labelDotRadius={labelDotRadius}
-      labelResolution={labelResolution}
-      // ── Arcs ──
-      arcsData={arcs}
-      arcColor={arcColor}
-      arcDashLength={0.4}
-      arcDashGap={0.15}
-      arcDashAnimateTime={1800}
-      arcStroke={0.6}
-      arcLabel={arcLabel}
-      onArcHover={handleArcHover}
-      // ── Animation ──
-      animateIn={true}
-    />
+    <div className="relative w-full h-full bg-[#0a0f1a]">
+      <Globe
+        ref={globeRef}
+        width={width}
+        height={height}
+        // ── Globe Appearance (World Monitor style) ──
+        globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
+        bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
+        backgroundImageUrl=""
+        backgroundColor="rgba(0,0,0,0)"
+        // Atmosphere - bright blue glow like World Monitor
+        showAtmosphere={true}
+        atmosphereColor="#4f8fff"
+        atmosphereAltitude={0.2}
+        // No graticules for cleaner look
+        showGraticules={false}
+        // ── Points ──
+        pointsData={points}
+        pointColor={pointColor}
+        pointAltitude={pointAltitude}
+        pointRadius={pointRadius}
+        pointLabel={pointLabel}
+        onPointClick={handlePointClick}
+        onPointHover={handlePointHover}
+        pointsMerge={points.length > 100}
+        // ── Rings ──
+        ringsData={ringData}
+        ringColor={ringColor}
+        ringMaxRadius={ringMaxRadius}
+        ringAltitude={ringAltitude}
+        ringRepeatPeriod={1800}
+        // ── Labels ──
+        labelsData={labelData}
+        labelLat={labelLat}
+        labelLng={labelLng}
+        labelText={labelText}
+        labelColor={labelColor}
+        labelSize={labelSize}
+        labelAltitude={labelAltitude}
+        labelDotRadius={labelDotRadius}
+        labelResolution={labelResolution}
+        // ── Arcs ──
+        arcsData={arcs}
+        arcColor={arcColor}
+        arcDashLength={0.6}
+        arcDashGap={0.05}
+        arcDashAnimateTime={2500}
+        arcStroke={0.4}
+        arcLabel={arcLabel}
+        onArcHover={handleArcHover}
+        // ── Animation ──
+        animateIn={true}
+      />
+
+      {/* Hovered Point Info */}
+      {hoveredPoint && (
+        <div className="absolute top-4 left-4 bg-[#0f1629]/90 backdrop-blur-sm rounded-lg border border-slate-700/50 px-3 py-2 pointer-events-none">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full" style={{ backgroundColor: severityColor(hoveredPoint.severity) }} />
+            <span className="text-xs font-mono text-slate-300">{hoveredPoint.label}</span>
+          </div>
+        </div>
+      )}
+
+      {/* Stats Overlay */}
+      <div className="absolute bottom-4 left-4 bg-[#0f1629]/80 backdrop-blur-sm rounded-lg border border-slate-700/50 px-3 py-1.5 pointer-events-none">
+        <span className="text-[10px] font-mono text-slate-400">
+          {points.length} points · {arcs.length} arcs
+        </span>
+      </div>
+    </div>
   );
 }
 
@@ -378,11 +390,10 @@ interface CtiGlobeProps {
   focus: { lat: number; lng: number } | null;
   onPointClick?: (point: CtiPoint) => void;
   onArcHover?: (arc: CtiArc | null) => void;
-  /** When true, globe auto-rotates. Defaults to false (user controls). */
   autoRotate?: boolean;
 }
 
-/* ─── Globe wrapper ────────────────────────────────────────────────────── */
+/* ─── Main Export ───────────────────────────────────────────────────────── */
 
 export default function CtiGlobe({
   arcs,
@@ -396,14 +407,10 @@ export default function CtiGlobe({
   const containerRef = useRef<HTMLDivElement>(null);
   const [webglError, setWebglError] = useState(false);
 
-  // Check WebGL support on mount
   useEffect(() => {
-    if (!hasWebGL()) {
-      setWebglError(true);
-    }
+    if (!hasWebGL()) setWebglError(true);
   }, []);
 
-  // Resize observer
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
@@ -422,14 +429,22 @@ export default function CtiGlobe({
 
   if (webglError) {
     return (
-      <div ref={containerRef} className="w-full h-full min-h-[300px] sm:min-h-[400px]" style={{ position: 'relative' }}>
-        <div className="flex items-center justify-center h-full min-h-[300px] sm:min-h-[400px] text-center p-6">
+      <div ref={containerRef} className="w-full h-full min-h-[400px] bg-[#0a0f1a]">
+        <div className="flex items-center justify-center h-full text-center p-6">
           <div>
-            <div className="text-4xl mb-3">🌐</div>
-            <p className="text-sm text-slate-400 mb-2">3D Globe requires WebGL support.</p>
-            <p className="text-xs text-slate-500">
-              Your browser may not support WebGL or it may be disabled. Try a different browser or enable hardware
-              acceleration.
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-slate-800/50 flex items-center justify-center">
+              <svg className="w-8 h-8 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
+                />
+              </svg>
+            </div>
+            <p className="text-sm font-medium text-slate-300 mb-1">WebGL Not Available</p>
+            <p className="text-xs text-slate-500 max-w-xs">
+              Your browser doesn't support WebGL. Try Chrome, Firefox, or Edge.
             </p>
           </div>
         </div>
@@ -438,7 +453,7 @@ export default function CtiGlobe({
   }
 
   return (
-    <div ref={containerRef} className="w-full h-full min-h-[300px] sm:min-h-[400px]" style={{ position: 'relative' }}>
+    <div ref={containerRef} className="w-full h-full min-h-[400px] bg-[#0a0f1a] overflow-hidden">
       <GlobeErrorBoundary>
         <GlobeRenderer
           arcs={arcs}

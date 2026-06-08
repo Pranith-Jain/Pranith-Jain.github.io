@@ -84,11 +84,19 @@ function markerColor(m: MarkerData): string {
 
 function markerGlow(m: MarkerData): string {
   const color = KIND_COLORS[m.kind] ?? '#64748b';
-  return `${color}60`;
+  return `${color}40`;
 }
 
 export default function PulseMap({ markers }: PulseMapProps): JSX.Element {
   const topMarkers = useMemo(() => markers.slice(0, 300), [markers]);
+
+  // Detect theme
+  const isDark = typeof document !== 'undefined' && document.documentElement.classList.contains('dark');
+
+  // Theme-aware colors
+  const landFill = isDark ? '#1e293b' : '#e2e8f0';
+  const landStroke = isDark ? '#334155' : '#cbd5e1';
+  const landHover = isDark ? '#334155' : '#94a3b8';
 
   return (
     <ComposableMap
@@ -104,12 +112,12 @@ export default function PulseMap({ markers }: PulseMapProps): JSX.Element {
             <Geography
               key={geo.rsmKey}
               geography={geo}
-              fill="#1e293b"
-              stroke="#334155"
+              fill={landFill}
+              stroke={landStroke}
               strokeWidth={0.3}
               style={{
                 default: { outline: 'none' },
-                hover: { outline: 'none', fill: '#334155' },
+                hover: { outline: 'none', fill: landHover },
                 pressed: { outline: 'none' },
               }}
             />
@@ -124,24 +132,24 @@ export default function PulseMap({ markers }: PulseMapProps): JSX.Element {
           <Marker key={m.id} coordinates={[m.lng, m.lat]}>
             <g style={{ pointerEvents: 'none' }}>
               {/* Outer glow ring */}
-              <circle r={r * 2.5} fill={glow} opacity={0.15}>
+              <circle r={r * 2.5} fill={glow} opacity={0.2}>
                 <animate
                   attributeName="r"
                   values={`${r * 1.5};${r * 3};${r * 1.5}`}
                   dur="3s"
                   repeatCount="indefinite"
                 />
-                <animate attributeName="opacity" values="0.2;0;0.2" dur="3s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="0.3;0;0.3" dur="3s" repeatCount="indefinite" />
               </circle>
               {/* Pulse ring */}
-              <circle r={r} fill="none" stroke={color} strokeWidth={1} opacity={0.6}>
+              <circle r={r} fill="none" stroke={color} strokeWidth={1.5} opacity={0.7}>
                 <animate attributeName="r" values={`${r};${r * 2};${r}`} dur="2s" repeatCount="indefinite" />
-                <animate attributeName="opacity" values="0.6;0;0.6" dur="2s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="0.7;0;0.7" dur="2s" repeatCount="indefinite" />
               </circle>
               {/* Core dot */}
               <circle r={r} fill={color} opacity={0.9} />
               {/* Bright center */}
-              <circle r={r * 0.4} fill="#fff" opacity={0.7} />
+              <circle r={r * 0.35} fill={isDark ? '#fff' : color} opacity={isDark ? 0.8 : 0.4} />
             </g>
           </Marker>
         );

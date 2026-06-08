@@ -47,6 +47,7 @@ function getObjectName(obj: StixObject): string {
 }
 
 /** Extract STIX bundle from report text. Handles ```stix and ```json blocks. */
+// eslint-disable-next-line react-refresh/only-export-components -- utility co-located with the viewer component
 export function extractStixBundle(report: string): StixBundle | null {
   // Try ```stix block first
   const stixMatch = report.match(/```stix\s*\n([\s\S]*?)```/);

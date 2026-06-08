@@ -206,7 +206,7 @@ export function LiveSignalStrip(): JSX.Element {
           /threatintel →
         </Link>
       </div>
-      <div className="grid gap-3 sm:grid-cols-3">
+      <div className="grid gap-3 grid-cols-1 sm:grid-cols-3">
         {(
           tiles ?? [
             {

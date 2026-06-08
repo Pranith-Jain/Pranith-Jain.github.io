@@ -498,7 +498,7 @@ export default function Metrics(): JSX.Element {
       cancelled = true;
       ctrl.abort();
     };
-  }, [refreshKey]);
+  }, [refreshKey, windowDays]);
 
   /* ─── Derived metrics ─── */
 

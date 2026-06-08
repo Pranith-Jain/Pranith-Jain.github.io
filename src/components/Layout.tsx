@@ -36,7 +36,7 @@ export function Layout({ children }: LayoutProps) {
           exceed the viewport (wide tables, code blocks, long inline
           strings) will trigger the document's native horizontal scroll
           on mobile so the user can pan to read them. */}
-      <div className="relative mx-auto max-w-6xl px-4 pb-20 pt-14 sm:px-6">{children}</div>
+      <div className="relative mx-auto max-w-6xl px-4 pb-20 pt-10 sm:pt-14 sm:px-6">{children}</div>
     </div>
   );
 }

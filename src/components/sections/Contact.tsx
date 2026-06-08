@@ -13,7 +13,7 @@ export function Contact({ personalInfo }: ContactProps) {
           from the rest of the page) but drops the blurred blobs and
           rounded-[3rem]; uses the same rounded-2xl + thin chrome the rest
           of the design system uses. */}
-      <div className="relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-900 px-6 py-14 dark:bg-brand-950 sm:px-10 lg:py-16">
+      <div className="relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-900 px-5 py-10 dark:bg-brand-950 sm:px-10 sm:py-14 lg:py-16">
         {/* Subtle dot grid — kept because it gives the dark panel texture
             without ringing the AI-design bell. The blurred radial blobs
             were removed. */}
@@ -79,7 +79,7 @@ export function Contact({ personalInfo }: ContactProps) {
                 href={personalInfo.linkedInUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-3 sm:text-sm text-xs font-bold text-slate-500 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-lg px-3 py-3 min-h-[44px]"
+                className="group flex items-center gap-3 sm:text-sm text-xs font-bold text-slate-500 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-lg px-3 py-3 min-h-[48px]"
                 aria-label="Visit LinkedIn profile (opens in new tab)"
               >
                 <span className="rounded-md bg-white/5 p-2 transition group-hover:bg-white/10">
@@ -93,7 +93,7 @@ export function Contact({ personalInfo }: ContactProps) {
                 href={personalInfo.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-3 sm:text-sm text-xs font-bold text-slate-500 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-lg px-3 py-3 min-h-[44px]"
+                className="group flex items-center gap-3 sm:text-sm text-xs font-bold text-slate-500 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-lg px-3 py-3 min-h-[48px]"
                 aria-label="Visit GitHub profile (opens in new tab)"
               >
                 <span className="rounded-md bg-white/5 p-2 transition group-hover:bg-white/10">
@@ -107,7 +107,7 @@ export function Contact({ personalInfo }: ContactProps) {
                 href={personalInfo.resumeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-3 sm:text-sm text-xs font-bold text-slate-500 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-lg px-3 py-3 min-h-[44px]"
+                className="group flex items-center gap-3 sm:text-sm text-xs font-bold text-slate-500 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-lg px-3 py-3 min-h-[48px]"
                 aria-label="View resume (opens in new tab)"
               >
                 <span className="rounded-md bg-white/5 p-2 transition group-hover:bg-white/10">
@@ -121,7 +121,7 @@ export function Contact({ personalInfo }: ContactProps) {
                 href={personalInfo.featuredUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-3 sm:text-sm text-xs font-bold text-slate-500 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-lg px-3 py-3 min-h-[44px]"
+                className="group flex items-center gap-3 sm:text-sm text-xs font-bold text-slate-500 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-slate-900 rounded-lg px-3 py-3 min-h-[48px]"
                 aria-label="View Featured Experts profile (opens in new tab)"
               >
                 <span className="rounded-md bg-white/5 p-2 transition group-hover:bg-white/10">
