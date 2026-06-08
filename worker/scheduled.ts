@@ -274,9 +274,55 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
           '/api/v1/reddit-feed',
           '/api/v1/x-feed',
           '/api/v1/detections',
-          '/api/v1/maltiverse/search?q=ransomware',
-          '/api/v1/certspotter/search?domain=example.com',
+          '/api/v1/global-pulse',
+          '/api/v1/crypto-scam-feed',
+          '/api/v1/breach-disclosures',
+          '/api/v1/live-iocs',
+          '/api/v1/deepdarkcti',
+          '/api/v1/stealer-forum-intel',
+          '/api/v1/cyber-crime',
+          '/api/v1/writeups',
+          '/api/v1/telegram-feed',
+          '/api/v1/onion-watch',
         ];
+        // USGS earthquake warmup — write to a dedicated cache key so
+        // global-pulse can read it without doing its own fetch.
+        async function warmUsgs() {
+          try {
+            const res = await fetch('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.geojson');
+            if (!res.ok) return;
+            const data = (await res.json()) as {
+              features: Array<{ properties: Record<string, unknown>; geometry: { coordinates: number[] } }>;
+            };
+            const events = data.features.map((f) => {
+              const p = f.properties;
+              const [lng, lat] = f.geometry.coordinates as [number, number, number?];
+              const mag = p.mag as number;
+              return {
+                id: `eq-${p.code}`,
+                kind: 'earthquake',
+                title: p.title ?? `M${mag} earthquake`,
+                description: p.place ?? 'Unknown location',
+                lat,
+                lng,
+                magnitude: mag,
+                timestamp: new Date(p.time as number).toISOString(),
+                severity: mag >= 6 ? 'critical' : mag >= 5 ? 'high' : mag >= 4 ? 'medium' : 'low',
+                source: 'USGS',
+                url: p.url,
+              };
+            });
+            const cache = caches.default;
+            const usgsReq = new Request('https://usgs-earthquake-cache.internal/v1');
+            const usgsResp = new Response(JSON.stringify(events), {
+              headers: { 'content-type': 'application/json', 'cache-control': 'public, max-age=600' },
+            });
+            await cache.put(usgsReq, usgsResp);
+            console.log(`scheduled: warmed USGS earthquakes (${events.length} events)`);
+          } catch (e) {
+            console.error(`scheduled: USGS warmup failed: ${e instanceof Error ? e.message : String(e)}`);
+          }
+        }
         const composerTargets = ['/api/v1/snapshot', '/api/v1/ioc-snapshot'];
         async function warm(path: string) {
           const req = new Request(baseUrl + path, { method: 'GET' });
@@ -287,6 +333,8 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
         {
           const perSource = await Promise.allSettled(perSourceTargets.map(warm));
           const composers = await Promise.allSettled(composerTargets.map(warm));
+          // Warm USGS earthquakes into dedicated cache
+          await warmUsgs();
           const summary = [...perSource, ...composers]
             .map((r, i) => {
               const path = [...perSourceTargets, ...composerTargets][i];
@@ -296,6 +344,32 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
             })
             .join(' ');
           console.log(`scheduled: warmed in ${Date.now() - start}ms — ${summary}`);
+        }
+
+        // === Write warmed data to KV for global-pulse fallback ===
+        // The Cache API is per-colo, so global-pulse may miss cached data.
+        // KV is globally replicated — write key endpoints' data there.
+        if (env.KV_CACHE) {
+          const kvTargets = [
+            { path: '/api/v1/threat-map', kvKey: 'gp:threat-map' },
+            { path: '/api/v1/telegram-feed', kvKey: 'gp:telegram-feed' },
+            { path: '/api/v1/ransomware-recent', kvKey: 'gp:ransomware-recent' },
+            { path: '/api/v1/deepdarkcti', kvKey: 'gp:deepdarkcti' },
+            { path: '/api/v1/stealer-forum-intel', kvKey: 'gp:stealer-forum-intel' },
+            { path: '/api/v1/cve-recent', kvKey: 'gp:cve-recent' },
+            { path: '/api/v1/live-iocs', kvKey: 'gp:live-iocs' },
+          ];
+          for (const t of kvTargets) {
+            try {
+              const req = new Request(baseUrl + t.path);
+              const res = await apiApp.fetch(req, env as never, ctx);
+              const body = await res.text();
+              await env.KV_CACHE.put(t.kvKey, body, { expirationTtl: 3600 });
+            } catch (e) {
+              console.error(`scheduled: KV write failed for ${t.path}: ${e instanceof Error ? e.message : String(e)}`);
+            }
+          }
+          console.log('scheduled: wrote global-pulse KV fallbacks');
         }
 
         // === Watch engine ===

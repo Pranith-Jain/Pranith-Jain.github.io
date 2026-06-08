@@ -40,6 +40,7 @@ import {
   TrendingUp,
   Users,
   UserCheck,
+  Zap,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -337,6 +338,20 @@ export const SECTIONS: Section[] = [
         label: 'Cyber Threat Map',
         desc: 'Live geolocation of malicious infrastructure. Choropleth map plus country leaderboard.',
         icon: Globe2,
+      },
+      {
+        to: '/threatintel/global-pulse',
+        label: 'Global Pulse — Live Intel',
+        desc: 'Real-time global intelligence hub: earthquakes, cyber attacks, IOCs, CVEs, ransomware, dark web, infostealers, phishing, malware, breaches, scam, research, Reddit, Telegram, X, and tech news. All feeds live.',
+        icon: Radio,
+        badge: 'live',
+      },
+      {
+        to: '/threatintel/cti-platform',
+        label: 'CTI Platform',
+        desc: '3D threat globe with severity arcs, impact points, critical CVEs, live IOC feed, and real-time social intel from Reddit, Telegram, X, and more.',
+        icon: Globe2,
+        badge: 'new',
       },
       {
         to: '/threatintel/metrics',
@@ -652,6 +667,13 @@ export const SECTIONS: Section[] = [
         desc: 'NVD published-CVE feed (last 14 days) merged with CISA KEV catalogue. Severity, KEV flag, ransomware-use flag.',
         icon: Shield,
         badge: 'live',
+      },
+      {
+        to: '/threatintel/exploitable-cves',
+        label: 'Exploitable CVEs',
+        desc: 'Live feed of CVEs with known exploits and active exploitation. Aggregated from vendor labs, CISA KEV, Lyrie Research, and community sources. Modeled after redteam.community.',
+        icon: Zap,
+        badge: 'new',
       },
       {
         to: '/threatintel/domain-monitor',
