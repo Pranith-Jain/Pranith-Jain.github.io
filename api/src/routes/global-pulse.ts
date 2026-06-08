@@ -2016,6 +2016,70 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       }
     }
 
+    // Fetch ransomware data directly if cache is empty
+    let finalRansomwareEvents = ransomwareEvents;
+    if (finalRansomwareEvents.length === 0) {
+      try {
+        const ransomRes = await fetch('https://pranithjain.qzz.io/api/v1/ransomware-recent?days=7', {
+          signal: AbortSignal.timeout(10000),
+        });
+        if (ransomRes.ok) {
+          const ransomData = (await ransomRes.json()) as Parameters<typeof fromRansomware>[0];
+          finalRansomwareEvents = safe(() => fromRansomware(ransomData));
+        }
+      } catch {
+        /* degraded */
+      }
+    }
+
+    // Fetch live IOCs directly if cache is empty
+    let finalLiveIocEvents = liveIocEvents;
+    if (finalLiveIocEvents.length === 0) {
+      try {
+        const iocRes = await fetch('https://pranithjain.qzz.io/api/v1/live-iocs', {
+          signal: AbortSignal.timeout(10000),
+        });
+        if (iocRes.ok) {
+          const iocData = (await iocRes.json()) as Parameters<typeof fromLiveIocs>[0];
+          finalLiveIocEvents = safe(() => fromLiveIocs(iocData));
+        }
+      } catch {
+        /* degraded */
+      }
+    }
+
+    // Fetch phishing data directly if cache is empty
+    let finalPhishingEvents = phishingEvents;
+    if (finalPhishingEvents.length === 0) {
+      try {
+        const phishRes = await fetch('https://pranithjain.qzz.io/api/v1/phishing-urls', {
+          signal: AbortSignal.timeout(10000),
+        });
+        if (phishRes.ok) {
+          const phishData = (await phishRes.json()) as Parameters<typeof fromPhishing>[0];
+          finalPhishingEvents = safe(() => fromPhishing(phishData));
+        }
+      } catch {
+        /* degraded */
+      }
+    }
+
+    // Fetch malware data directly if cache is empty
+    let finalMalwareEvents = malwareEvents;
+    if (finalMalwareEvents.length === 0) {
+      try {
+        const malRes = await fetch('https://pranithjain.qzz.io/api/v1/malware-samples', {
+          signal: AbortSignal.timeout(10000),
+        });
+        if (malRes.ok) {
+          const malData = (await malRes.json()) as Parameters<typeof fromMalware>[0];
+          finalMalwareEvents = safe(() => fromMalware(malData));
+        }
+      } catch {
+        /* degraded */
+      }
+    }
+
     // Fetch additional geo-located data from free public APIs (inspired by World Monitor)
     const [
       naturalEvents,
@@ -2078,12 +2142,12 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       ...cableEvents,
       ...financialEvents,
       ...finalIocEvents,
-      ...liveIocEvents,
-      ...ransomwareEvents,
+      ...finalLiveIocEvents,
+      ...finalRansomwareEvents,
       ...darkwebEvents,
       ...infostealerEvents,
-      ...phishingEvents,
-      ...malwareEvents,
+      ...finalPhishingEvents,
+      ...finalMalwareEvents,
       ...finalCveEvents,
       ...detectionEvents,
       ...cybercrimeEvents,
@@ -2116,7 +2180,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
         c2_tracker: botnetC2.length,
         cisa_advisory: cisaKev.length,
         blocklist: blocklistAttackers.length + compromisedIPs.length,
-        cyber_attack: liveIocEvents.length + dshieldAttackers.length,
+        cyber_attack: finalLiveIocEvents.length + dshieldAttackers.length,
         reddit: redditEvents.length,
         telegram: telegramEvents.length,
         x_feed: xEvents.length,
@@ -2125,9 +2189,9 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
         briefing: briefingEvents.length,
         darkweb: darkwebEvents.length,
         infostealer: infostealerEvents.length,
-        phishing: phishingEvents.length,
-        malware: malwareEvents.length + urlhausMalware.length,
-        ransomware: ransomwareEvents.length,
+        phishing: finalPhishingEvents.length,
+        malware: finalMalwareEvents.length + urlhausMalware.length,
+        ransomware: finalRansomwareEvents.length,
         detection: detectionEvents.length,
         cybercrime: cybercrimeEvents.length,
         research: researchEvents.length,
