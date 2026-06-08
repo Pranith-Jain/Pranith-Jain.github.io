@@ -37,7 +37,7 @@ const SIGNAL_LABELS: Set<string> = new Set(
 // up immediately rather than waiting for the 1h TTL.
 // Bumped v10 → v11 alongside MAX_ITEMS 150→500, MAX_PER_SOURCE 15→30, and
 // the 7d cutoff filter applied to the post-dedup merged list.
-export const WRITEUPS_CACHE_KEY = 'https://writeups-cache.internal/v12-lyrie-jsonfeed';
+export const WRITEUPS_CACHE_KEY = 'https://writeups-cache.internal/v13-lyrie-ua-fix';
 const CACHE_KEY = WRITEUPS_CACHE_KEY;
 const CACHE_TTL_SECONDS = 3600;
 const FETCH_TIMEOUT_MS = 12_000;
@@ -92,7 +92,8 @@ async function fetchText(url: string, kind?: string): Promise<string | null> {
     const res = await fetch(url, {
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
       headers: {
-        'user-agent': 'Mozilla/5.0 (compatible; pranithjain-writeups/1.0; +https://pranithjain.qzz.io)',
+        'user-agent':
+          'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) pranithjain-writeups/1.0 Safari/537.36',
         accept,
       },
       cf: { cacheTtl: 1800, cacheEverything: true },

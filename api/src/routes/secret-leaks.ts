@@ -188,7 +188,7 @@ export async function secretLeaksHandler(c: Context<{ Bindings: Env }>): Promise
   if (cached) return new Response(cached.body, cached);
 
   const kv = c.env.KV_CACHE;
-  const kvKey = 'secret-leaks:lastgood/v1';
+  const kvKey = 'secret-leaks:lastgood/v2';
   const ghToken = c.env.GITHUB_TOKEN;
 
   // KV last-good fallback — read before hitting GitHub API
