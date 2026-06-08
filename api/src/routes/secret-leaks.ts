@@ -183,7 +183,7 @@ function computeExposureScore(severity: Severity, isCommit: boolean): number {
 
 export async function secretLeaksHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const cache = (caches as unknown as { default: Cache }).default;
-  const cacheKey = new Request('https://secret-leaks-cache.internal/v4-perpage100-v2');
+  const cacheKey = new Request('https://secret-leaks-cache.internal/v5-noedgecache');
   const cached = await cache.match(cacheKey);
   if (cached) return new Response(cached.body, cached);
 
@@ -233,8 +233,8 @@ export async function secretLeaksHandler(c: Context<{ Bindings: Env }>): Promise
 
       const res = await fetchResilient(
         `${GITHUB_SEARCH_API}?q=${encodeURIComponent(sp.pattern + ' in:file language:yaml language:json language:py language:js language:ts')}&per_page=100&sort=indexed&order=desc`,
-        { headers, cf: { cacheTtl: CACHE_TTL_SECONDS, cacheEverything: true } } as RequestInit,
-        { attempts: 2, timeoutMs: 8000 }
+        { headers },
+        { attempts: 2, timeoutMs: 10000 }
       );
 
       if (!res.ok) return;
