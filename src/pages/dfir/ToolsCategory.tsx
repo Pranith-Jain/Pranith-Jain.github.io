@@ -6,7 +6,7 @@ import { GROUP_META, type ToolGroup } from '../../components/dfir/tool-sections'
 import { personalInfo } from '../../data/content';
 import { AppHero } from '../../components/AppHero';
 
-const VALID: ToolGroup[] = ['dfir', 'ir', 'ti', 'osint', 'aisec', 'cloudsec', 'apisec', 'datasec', 'grc'];
+const VALID: ToolGroup[] = ['dfir', 'ir', 'ti', 'case-ir', 'tip-core', 'deception', 'forensics-adv', 'osint', 'aisec', 'cloudsec', 'apisec', 'datasec', 'grc', 'platform'];
 
 const HERO: Record<ToolGroup, { kicker: string; title: string; sub: string }> = {
   ir: {
@@ -23,6 +23,26 @@ const HERO: Record<ToolGroup, { kicker: string; title: string; sub: string }> = 
     kicker: 'Privacy-first · No upload · No login · Local analysis only',
     title: 'Privacy-first DFIR tools that run entirely in your browser',
     sub: 'Analyze indicators, timestamps, files, logs and email headers locally. No upload. No login. Instant results.',
+  },
+  'case-ir': {
+    kicker: 'End-to-end incident management · Case tracking · Playbooks',
+    title: 'Case management and incident response workflows',
+    sub: 'Track incidents from detection to closure. Automated playbooks, evidence chain-of-custody, timeline reconstruction, and structured analysis.',
+  },
+  'tip-core': {
+    kicker: 'IOC lifecycle · Detection-as-code · Export · Confidence scoring',
+    title: 'Threat intelligence platform core features',
+    sub: 'Manage IOCs through their full lifecycle. Detection rule versioning, coverage analysis, multi-format export, and confidence scoring.',
+  },
+  deception: {
+    kicker: 'Canary tokens · Anomaly detection · Threat modeling · Hunting',
+    title: 'Deception technology and advanced hunting',
+    sub: 'Plant canary tokens to detect intruders early. Behavioral analytics for anomaly detection. Hypothesis-driven threat hunting.',
+  },
+  'forensics-adv': {
+    kicker: 'Memory · Disk · Network · Deep analysis',
+    title: 'Advanced forensics for deep investigation',
+    sub: 'Memory dump analysis, disk timeline reconstruction, and deep network forensics including JA3 fingerprinting and beacon detection.',
   },
   osint: {
     kicker: 'Privacy-first · No upload · No login · Local analysis only',
@@ -53,6 +73,11 @@ const HERO: Record<ToolGroup, { kicker: string; title: string; sub: string }> = 
     kicker: 'Privacy-first · No upload · No login · Local analysis only',
     title: 'GRC & posture workbench, fully client-side',
     sub: 'Run compliance, maturity, tabletop and framework exercises with nothing sent off-box.',
+  },
+  platform: {
+    kicker: 'API · Multi-tenancy · Offline · Dashboard · Integration',
+    title: 'Platform integration and administration',
+    sub: 'REST API documentation, multi-tenancy with RBAC, offline mode, dashboard widgets, and TIP integration features.',
   },
 };
 

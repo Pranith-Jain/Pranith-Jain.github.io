@@ -280,7 +280,7 @@ export default function DFIRPage(): JSX.Element {
           </Link>
         </div>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {(['dfir', 'ir', 'ti', 'osint', 'aisec', 'cloudsec', 'apisec', 'datasec', 'grc'] as ToolGroup[]).map((g) => (
+          {(['dfir', 'ir', 'ti', 'case-ir', 'tip-core', 'deception', 'forensics-adv', 'osint', 'aisec', 'cloudsec', 'apisec', 'datasec', 'grc', 'platform'] as ToolGroup[]).map((g) => (
             <Link
               key={g}
               to={`/dfir/tools/${g}`}
