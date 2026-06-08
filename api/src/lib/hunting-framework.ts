@@ -182,16 +182,20 @@ export const HUNT_TEMPLATES: HuntTemplate[] = [
   { id: 'supply-chain', name: 'Supply Chain Compromise', category: 'threat', hypothesis_template: 'A third-party dependency or vendor has been compromised', data_sources: ['dependency-audit', 'network-flow', 'authentication-logs'], suggested_queries: [{ language: 'custom', query: 'Review recent dependency updates for anomalous behavior patterns' }], mitre_techniques: ['T1195', 'T1195.002'], kill_chain_phase: 'initial-access' },
 ];
 
+function safeJson<T>(val: unknown, fallback: T): T {
+  try { return JSON.parse(val as string) as T; } catch { return fallback; }
+}
+
 function parseHunt(r: Record<string, unknown>): Hunt {
   return {
     id: r.id as string, title: r.title as string, hypothesis: r.hypothesis as string, description: r.description as string,
     status: r.status as HuntStatus, priority: r.priority as HuntPriority, kill_chain_phase: r.kill_chain_phase as string,
-    mitre_techniques: JSON.parse(r.mitre_techniques as string), data_sources: JSON.parse(r.data_sources as string),
+    mitre_techniques: safeJson(r.mitre_techniques, []), data_sources: safeJson(r.data_sources, []),
     query: r.query as string, query_language: r.query_language as Hunt['query_language'],
     assigned_to: r.assigned_to as string, created_by: r.created_by as string,
     started_at: r.started_at as string | null, completed_at: r.completed_at as string | null,
     findings_count: r.findings_count as number, true_positives: r.true_positives as number,
-    false_positives: r.false_positives as number, tags: JSON.parse(r.tags as string),
+    false_positives: r.false_positives as number, tags: safeJson(r.tags, []),
     created_at: r.created_at as string, updated_at: r.updated_at as string,
   };
 }

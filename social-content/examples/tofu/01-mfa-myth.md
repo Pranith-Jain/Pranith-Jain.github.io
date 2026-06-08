@@ -1,64 +1,72 @@
 ---
 slug: tofu-01-mfa-myth
-title: 4 MFA Myths That Get You Owned
+title: MFA Won't Save You, 5 Myths That Keep Getting People Breached
 funnel: tofu
 platform: linkedin
 format: carousel
 hook: contrarian
 persona: Junior SOC Analyst
-hashtags: cybersecurity, MFA, security, blue-team
-cta: If this helped, save it for your next IR.
-notes: Contrarian hook. 4 myth/fact pairs in a 2x2 framework. Each card = one misconception with the truth + an action.
+hashtags: cybersecurity, MFA, security, DFIR, threatintel
+cta: Save this post. Your team needs to see it.
+notes: Contrarian hook that challenges a sacred cow. Each slide is one myth with a concrete attack vector. High save rate because it's reference-worthy. Front-loads the hardest-hitting myth.
 ---
 
 MFA won't save you.
-4 myths that get SOC teams owned.
+Here are 5 myths that keep getting people breached.
 
 ---
 
-KIND: framework
-MFA stops 99% of attacks.
-It misses the 1% that matters.
+Myth 1: MFA = Unbreakable
 
-- Yes — push-notification MFA blocks 99% of automated credential stuffing
-- The 1% that bypasses it costs more than the 99% it stops
-- SIM swap, prompt bombing, and real-time phishing bypass push MFA
-- Action: enable number-matching + FIDO2 keys for high-value accounts
+- MFA stops 99% of automated attacks
+- But targeted attacks bypass it in minutes
+- SIM swapping, prompt bombing, real-time phishing
+- If you think MFA = security, you're already compromised
 
 ---
 
-KIND: framework
-MFA = Security.
-Wrong. MFA is a layer, not a wall.
+Myth 2: SMS MFA Is "Good Enough"
 
-- MFA does not protect against session hijacking
-- Stolen session cookies bypass MFA entirely (think Evilginx, Muraena)
-- MFA does not detect credential stuffing at scale
-- Action: pair MFA with conditional access + session monitoring
+- SMS is the weakest form of MFA
+- SS7 protocol attacks intercept texts in seconds
+- NIST deprecated SMS MFA back in 2017
+- Yet 62% of organizations still use it (Microsoft 2024)
 
 ---
 
-KIND: framework
-SMS-based MFA is fine.
-No. It's the weakest factor you can deploy.
+Myth 3: MFA Stops All Phishing
 
-- SIM swap costs $50–$1,000 and bypasses SMS in minutes
-- SS7 intercept lets attackers redirect SMS at the carrier level
-- 80% of SIM swaps target high-value crypto and finance accounts
-- Action: kill SMS MFA for any account that touches money or infra
+- Modern phishing kits proxy MFA tokens in real time
+- Evilginx2 captures session cookies AND MFA codes
+- The user sees a normal login flow, nothing looks wrong
+- Your MFA is now their MFA
 
 ---
 
-KIND: framework
-MFA fatigue is a user problem.
-No. It's a detection problem you haven't built.
+Myth 4: Hardware Keys Are "Too Expensive"
 
-- Attackers send 50–100 push prompts until the user accepts one
-- "I just hit accept by accident" is the most common breach story
-- Your SIEM probably has no rule for repeated MFA denials
-- Action: alert on >3 MFA denials in 5 min for the same user
+- A YubiKey costs $50 per user
+- A single breach costs $4.88M on average (IBM 2024)
+- That's a 97,600% ROI on hardware keys
+- The expensive option is doing nothing
 
 ---
 
-CTA: If this helped,
-save it for your next IR.
+Myth 5: MFA Is Set-and-Forget
+
+- MFA enrollment degrades over time
+- Users find workarounds (backup codes in sticky notes)
+- Continuous verification > one-time MFA
+- If you're not testing your MFA, it's not working
+
+---
+
+CTA: The real lesson?
+MFA is necessary but insufficient.
+Layer it with: phishing-resistant auth, behavioral analytics, and zero-trust architecture.
+
+---
+
+What MFA myth surprised you the most? Drop it below 👇
+
+#cybersecurity #MFA #security #DFIR #threatintel

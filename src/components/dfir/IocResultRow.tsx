@@ -85,7 +85,7 @@ export function IocResultRow({ r }: { r: ProviderResultWire }): JSX.Element {
             </li>
           ))}
           {findings.length > 3 && (
-            <li className="text-[10px] font-mono text-rose-700 dark:text-rose-400">
+            <li className="text-[11px] font-mono text-rose-700 dark:text-rose-400">
               +{findings.length - 3} more (see raw evidence)
             </li>
           )}

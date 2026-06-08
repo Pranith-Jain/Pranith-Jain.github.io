@@ -1959,129 +1959,31 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
         return [] as unknown as T;
       }
     };
-    const iocEvents = safe(() =>
-      mergedTm ? iocFromThreatMap(mergedTm as Parameters<typeof iocFromThreatMap>[0]) : []
-    );
 
-    // Fetch threat map directly if cache is empty
-    let finalIocEvents = iocEvents;
-    if (finalIocEvents.length === 0) {
-      try {
-        const tmRes = await fetch('https://pranithjain.qzz.io/api/v1/threat-map', {
-          signal: AbortSignal.timeout(10000),
-        });
-        if (tmRes.ok) {
-          const tmData = (await tmRes.json()) as Parameters<typeof iocFromThreatMap>[0];
-          finalIocEvents = safe(() => iocFromThreatMap(tmData));
-        }
-      } catch {
-        /* degraded */
-      }
-    }
-    const redditEvents = safe(() => (mergedReddit ? fromReddit(mergedReddit as Parameters<typeof fromReddit>[0]) : []));
-    const telegramEvents = safe(() => (finalTg ? fromTelegram(finalTg) : []));
-    const xEvents = safe(() => (mergedX ? fromXFeed(mergedX) : []));
-    const scamEvents = safe(() => (mergedScam ? fromScam(mergedScam) : []));
-    const breachEvents = safe(() => (mergedBreach ? fromBreaches(mergedBreach) : []));
-    const liveIocEvents = safe(() => (mergedIoc ? fromLiveIocs(mergedIoc) : []));
+    // Convert all data to events using batch data
+    const iocEvents = safe(() => iocFromThreatMap(mergedTm as Parameters<typeof iocFromThreatMap>[0]));
+    const redditEvents = safe(() => finalRedditData ? fromReddit(finalRedditData as Parameters<typeof fromReddit>[0]) : []);
+    const telegramEvents = safe(() => finalTelegramData ? fromTelegram(finalTelegramData as Parameters<typeof fromTelegram>[0]) : []);
+    const xEvents = safe(() => finalXData ? fromXFeed(finalXData as Parameters<typeof fromXFeed>[0]) : []);
+    const scamEvents = safe(() => finalScamData ? fromScam(finalScamData as Parameters<typeof fromScam>[0]) : []);
+    const breachEvents = safe(() => mergedBreach ? fromBreaches(mergedBreach as Parameters<typeof fromBreaches>[0]) : []);
+    const liveIocEvents = safe(() => finalIocData ? fromLiveIocs(finalIocData as Parameters<typeof fromLiveIocs>[0]) : []);
     const darkwebEvents = safe(() => [
       ...(finalDdc ? fromDeepdarkcti(finalDdc) : []),
       ...(finalOnion ? fromOnionWatch(finalOnion) : []),
     ]);
-    const infostealerEvents = safe(() => (finalStealer ? fromStealerForum(finalStealer) : []));
-    const phishingEvents = safe(() => (mergedPhishing ? fromPhishing(mergedPhishing) : []));
-    const malwareEvents = safe(() => (mergedMalware ? fromMalware(mergedMalware) : []));
-    const ransomwareEvents = safe(() => (mergedRansom ? fromRansomware(mergedRansom) : []));
-    const detectionEvents = safe(() => (finalDetections ? fromDetections(finalDetections) : []));
-    const cybercrimeEvents = safe(() => (finalCybercrime ? fromCybercrime(finalCybercrime) : []));
-    const researchEvents = safe(() => (finalWriteups ? fromWriteups(finalWriteups) : []));
-    const cveEvents = safe(() => (mergedCve ? fromCveRecent(mergedCve) : []));
+    const infostealerEvents = safe(() => finalStealerData ? fromStealerForum(finalStealerData as Parameters<typeof fromStealerForum>[0]) : []);
+    const phishingEvents = safe(() => finalPhishingData ? fromPhishing(finalPhishingData as Parameters<typeof fromPhishing>[0]) : []);
+    const malwareEvents = safe(() => finalMalwareData ? fromMalware(finalMalwareData as Parameters<typeof fromMalware>[0]) : []);
+    const ransomwareEvents = safe(() => finalRansomData ? fromRansomware(finalRansomData as Parameters<typeof fromRansomware>[0]) : []);
+    const detectionEvents = safe(() => finalDetectionsData ? fromDetections(finalDetectionsData as Parameters<typeof fromDetections>[0]) : []);
+    const cybercrimeEvents = safe(() => finalCybercrimeData ? fromCybercrime(finalCybercrimeData as Parameters<typeof fromCybercrime>[0]) : []);
+    const researchEvents = safe(() => finalWriteupsData ? fromWriteups(finalWriteupsData as Parameters<typeof fromWriteups>[0]) : []);
+    const cveEvents = safe(() => finalCveData ? fromCveRecent(finalCveData as Parameters<typeof fromCveRecent>[0]) : []);
 
-    // Fetch earthquakes directly from USGS (cache was never populated)
-    const earthquakes = await fetchEarthquakes();
-
-    // Fetch CVE data directly if cache is empty
-    let finalCveEvents = cveEvents;
-    if (finalCveEvents.length === 0) {
-      try {
-        const cveRes = await fetch('https://pranithjain.qzz.io/api/v1/cve-recent?days=7', {
-          signal: AbortSignal.timeout(10000),
-        });
-        if (cveRes.ok) {
-          const cveData = (await cveRes.json()) as Parameters<typeof fromCveRecent>[0];
-          finalCveEvents = safe(() => fromCveRecent(cveData));
-        }
-      } catch {
-        /* degraded */
-      }
-    }
-
-    // Fetch ransomware data directly if cache is empty
-    let finalRansomwareEvents = ransomwareEvents;
-    if (finalRansomwareEvents.length === 0) {
-      try {
-        const ransomRes = await fetch('https://pranithjain.qzz.io/api/v1/ransomware-recent?days=7', {
-          signal: AbortSignal.timeout(10000),
-        });
-        if (ransomRes.ok) {
-          const ransomData = (await ransomRes.json()) as Parameters<typeof fromRansomware>[0];
-          finalRansomwareEvents = safe(() => fromRansomware(ransomData));
-        }
-      } catch {
-        /* degraded */
-      }
-    }
-
-    // Fetch live IOCs directly if cache is empty
-    let finalLiveIocEvents = liveIocEvents;
-    if (finalLiveIocEvents.length === 0) {
-      try {
-        const iocRes = await fetch('https://pranithjain.qzz.io/api/v1/live-iocs', {
-          signal: AbortSignal.timeout(10000),
-        });
-        if (iocRes.ok) {
-          const iocData = (await iocRes.json()) as Parameters<typeof fromLiveIocs>[0];
-          finalLiveIocEvents = safe(() => fromLiveIocs(iocData));
-        }
-      } catch {
-        /* degraded */
-      }
-    }
-
-    // Fetch phishing data directly if cache is empty
-    let finalPhishingEvents = phishingEvents;
-    if (finalPhishingEvents.length === 0) {
-      try {
-        const phishRes = await fetch('https://pranithjain.qzz.io/api/v1/phishing-urls', {
-          signal: AbortSignal.timeout(10000),
-        });
-        if (phishRes.ok) {
-          const phishData = (await phishRes.json()) as Parameters<typeof fromPhishing>[0];
-          finalPhishingEvents = safe(() => fromPhishing(phishData));
-        }
-      } catch {
-        /* degraded */
-      }
-    }
-
-    // Fetch malware data directly if cache is empty
-    let finalMalwareEvents = malwareEvents;
-    if (finalMalwareEvents.length === 0) {
-      try {
-        const malRes = await fetch('https://pranithjain.qzz.io/api/v1/malware-samples', {
-          signal: AbortSignal.timeout(10000),
-        });
-        if (malRes.ok) {
-          const malData = (await malRes.json()) as Parameters<typeof fromMalware>[0];
-          finalMalwareEvents = safe(() => fromMalware(malData));
-        }
-      } catch {
-        /* degraded */
-      }
-    }
-
-    // Fetch additional geo-located data from free public APIs (inspired by World Monitor)
+    // Fetch ALL data sources in parallel (batched for efficiency)
     const [
+      earthquakes,
       naturalEvents,
       flights,
       gdacsAlerts,
@@ -2092,6 +1994,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       cisaKev,
       urlhausMalware,
     ] = await Promise.all([
+      fetchEarthquakes(),
       fetchNaturalEvents(),
       fetchFlights(),
       fetchGdacsAlerts(),
@@ -2112,6 +2015,76 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     // Additional static data layers (cables, financial centers)
     const cableEvents = getCableEvents();
     const financialEvents = getFinancialEvents();
+
+    // Batch fetch all internal endpoints that might be missing
+    const INTERNAL_ENDPOINTS = [
+      { key: 'cve', path: '/api/v1/cve-recent?days=7' },
+      { key: 'ransomware', path: '/api/v1/ransomware-recent?days=7' },
+      { key: 'liveIocs', path: '/api/v1/live-iocs' },
+      { key: 'phishing', path: '/api/v1/phishing-urls' },
+      { key: 'malware', path: '/api/v1/malware-samples' },
+      { key: 'reddit', path: '/api/v1/reddit-feed' },
+      { key: 'telegram', path: '/api/v1/telegram-feed' },
+      { key: 'xFeed', path: '/api/v1/x-feed' },
+      { key: 'scam', path: '/api/v1/crypto-scam-feed' },
+      { key: 'stealer', path: '/api/v1/stealer-forum-intel' },
+      { key: 'cybercrime', path: '/api/v1/cyber-crime' },
+      { key: 'writeups', path: '/api/v1/writeups' },
+      { key: 'detections', path: '/api/v1/detections' },
+    ];
+
+    // Only fetch endpoints that we don't already have cached data for
+    const needsFetch = INTERNAL_ENDPOINTS.filter(ep => {
+      switch (ep.key) {
+        case 'cve': return !mergedCve;
+        case 'ransomware': return !mergedRansom;
+        case 'liveIocs': return !mergedIoc;
+        case 'phishing': return !mergedPhishing;
+        case 'malware': return !mergedMalware;
+        case 'reddit': return !mergedReddit;
+        case 'telegram': return !finalTg;
+        case 'xFeed': return !mergedX;
+        case 'scam': return !mergedScam;
+        case 'stealer': return !finalStealer;
+        case 'cybercrime': return !finalCybercrime;
+        case 'writeups': return !finalWriteups;
+        case 'detections': return !finalDetections;
+        default: return true;
+      }
+    });
+
+    // Batch fetch all needed endpoints in parallel
+    const batchResults = new Map<string, unknown>();
+    if (needsFetch.length > 0) {
+      const batchPromises = needsFetch.map(ep =>
+        fetchDirect(ep.path).then(data => ({ key: ep.key, data })).catch(() => ({ key: ep.key, data: null }))
+      );
+      const results = await Promise.all(batchPromises);
+      for (const r of results) {
+        if (r.data) batchResults.set(r.key, r.data);
+      }
+    }
+
+    // Helper to get data from batch or cache
+    const getBatchData = <T>(key: string, cached: T | null): T | null => {
+      if (cached) return cached;
+      return (batchResults.get(key) as T) ?? null;
+    };
+
+    // Apply batch results to fill gaps
+    const finalCveData = getBatchData('cve', mergedCve);
+    const finalRansomData = getBatchData('ransomware', mergedRansom);
+    const finalIocData = getBatchData('liveIocs', mergedIoc);
+    const finalPhishingData = getBatchData('phishing', mergedPhishing);
+    const finalMalwareData = getBatchData('malware', mergedMalware);
+    const finalRedditData = getBatchData('reddit', mergedReddit);
+    const finalTelegramData = getBatchData('telegram', finalTg);
+    const finalXData = getBatchData('xFeed', mergedX);
+    const finalScamData = getBatchData('scam', mergedScam);
+    const finalStealerData = getBatchData('stealer', finalStealer);
+    const finalCybercrimeData = getBatchData('cybercrime', finalCybercrime);
+    const finalWriteupsData = getBatchData('writeups', finalWriteups);
+    const finalDetectionsData = getBatchData('detections', finalDetections);
 
     // Briefings (D1)
     let briefingEvents: PulseEvent[] = [];
@@ -2265,23 +2238,23 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       ...geopoliticalEvents,
       ...cableEvents,
       ...financialEvents,
-      ...finalIocEvents,
-      ...finalLiveIocEvents,
-      ...finalRansomwareEvents,
+      ...iocEvents,
+      ...liveIocEvents,
+      ...ransomwareEvents,
       ...darkwebEvents,
-      ...finalInfostealerEvents,
-      ...finalPhishingEvents,
-      ...finalMalwareEvents,
-      ...finalCveEvents,
-      ...finalDetectionEvents,
-      ...finalCybercrimeEvents,
+      ...infostealerEvents,
+      ...phishingEvents,
+      ...malwareEvents,
+      ...cveEvents,
+      ...detectionEvents,
+      ...cybercrimeEvents,
       ...breachEvents,
-      ...finalResearchEvents,
+      ...researchEvents,
       ...briefingEvents,
-      ...finalRedditEvents,
-      ...finalTelegramEvents,
+      ...redditEvents,
+      ...telegramEvents,
       ...xEvents,
-      ...finalScamEvents,
+      ...scamEvents,
     ].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
 
     const result: GlobalPulseResponse = {
@@ -2290,7 +2263,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       events: allEvents,
       layers: {
         earthquake: earthquakes.length,
-        ioc_activity: finalIocEvents.length,
+        ioc_activity: iocEvents.length,
         geopolitical:
           naturalEvents.length +
           gdacsAlerts.length +
@@ -2304,22 +2277,22 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
         c2_tracker: botnetC2.length,
         cisa_advisory: cisaKev.length,
         blocklist: blocklistAttackers.length + compromisedIPs.length,
-        cyber_attack: finalLiveIocEvents.length + dshieldAttackers.length,
-        reddit: finalRedditEvents.length,
-        telegram: finalTelegramEvents.length,
+        cyber_attack: liveIocEvents.length + dshieldAttackers.length,
+        reddit: redditEvents.length,
+        telegram: telegramEvents.length,
         x_feed: xEvents.length,
-        scam: finalScamEvents.length,
+        scam: scamEvents.length,
         breach: breachEvents.length,
         briefing: briefingEvents.length,
         darkweb: darkwebEvents.length,
-        infostealer: finalInfostealerEvents.length,
-        phishing: finalPhishingEvents.length,
-        malware: finalMalwareEvents.length + urlhausMalware.length,
-        ransomware: finalRansomwareEvents.length,
-        detection: finalDetectionEvents.length,
-        cybercrime: finalCybercrimeEvents.length,
-        research: finalResearchEvents.length,
-        cve: finalCveEvents.length,
+        infostealer: infostealerEvents.length,
+        phishing: phishingEvents.length,
+        malware: malwareEvents.length + urlhausMalware.length,
+        ransomware: ransomwareEvents.length,
+        detection: detectionEvents.length,
+        cybercrime: cybercrimeEvents.length,
+        research: researchEvents.length,
+        cve: cveEvents.length,
       },
     };
 

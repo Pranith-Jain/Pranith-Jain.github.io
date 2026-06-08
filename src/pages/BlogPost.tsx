@@ -219,7 +219,7 @@ export default function BlogPost() {
         );
         setRelatedPosts(posts.filter((p) => related.some((r) => r.slug === p.slug)));
       })
-      .catch((e) => console.error('Failed to load related posts', e));
+      .catch(() => { /* related posts are non-critical */ });
     return () => {
       cancelled = true;
     };

@@ -25,14 +25,14 @@ export function Hero({ personalInfo }: HeroProps) {
 
         <HeroLiveSparkline />
 
-        <div className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-medium text-slate-500 dark:text-slate-400">
-          <span>Threat Intelligence</span>
-          <span className="text-slate-300 dark:text-slate-700">/</span>
-          <span>Email Defense</span>
-          <span className="text-slate-300 dark:text-slate-700">/</span>
-          <span>DFIR &amp; Detection</span>
-          <span className="text-slate-300 dark:text-slate-700">/</span>
-          <span className="text-emerald-600 dark:text-emerald-400">AU Ambassador</span>
+        <div className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-mono text-slate-500 dark:text-slate-400">
+          <span>60+ tools</span>
+          <span className="text-slate-300 dark:text-slate-700">·</span>
+          <span>18 feeds</span>
+          <span className="text-slate-300 dark:text-slate-700">·</span>
+          <span>no login</span>
+          <span className="text-slate-300 dark:text-slate-700">·</span>
+          <span>edge-hosted on Cloudflare</span>
         </div>
 
         <p className="mt-6 max-w-2xl text-xl leading-relaxed text-slate-700 dark:text-slate-300">
@@ -60,19 +60,17 @@ export function Hero({ personalInfo }: HeroProps) {
         </p>
 
         <div className="mt-7 flex flex-wrap gap-2.5">
-          <a
-            href={personalInfo.calendlyUrl}
-            target="_blank"
-            rel="noreferrer"
+          <Link
+            to="/dfir/ioc-check"
             className="inline-flex items-center justify-center rounded-md bg-brand-600 px-5 py-3.5 sm:py-3 text-base font-semibold text-white transition hover:bg-brand-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
           >
-            Book strategy call
-          </a>
+            Try IOC Check
+          </Link>
           <Link
             to="/threatintel"
             className="inline-flex items-center justify-center rounded-md border border-slate-300 dark:border-slate-700 px-5 py-3.5 sm:py-3 text-base font-semibold text-slate-700 dark:text-slate-200 transition hover:border-brand-500/60 hover:text-brand-600 dark:hover:text-brand-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
           >
-            Threat intel
+            Threat Intel Platform
           </Link>
         </div>
       </div>

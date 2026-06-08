@@ -331,6 +331,10 @@ export async function runAgingSweep(db: D1Database, minConfidence = 10): Promise
   return expired;
 }
 
+function safeJson<T>(val: unknown, fallback: T): T {
+  try { return JSON.parse(val as string) as T; } catch { return fallback; }
+}
+
 function parseManagedIOC(r: Record<string, unknown>): ManagedIOC {
   return {
     id: r.id as string,
@@ -339,14 +343,14 @@ function parseManagedIOC(r: Record<string, unknown>): ManagedIOC {
     status: r.status as IocStatus,
     confidence: r.confidence as number,
     tlp: r.tlp as ManagedIOC['tlp'],
-    sources: JSON.parse(r.sources as string) as IocSource[],
+    sources: safeJson(r.sources, []),
     corroboration_count: r.corroboration_count as number,
     first_seen: r.first_seen as string,
     last_seen: r.last_seen as string,
     expires_at: r.expires_at as string | null,
-    tags: JSON.parse(r.tags as string) as string[],
+    tags: safeJson(r.tags, []),
     context: r.context as string,
-    related_iocs: JSON.parse(r.related_iocs as string) as string[],
+    related_iocs: safeJson(r.related_iocs, []),
     false_positive_reports: r.false_positive_reports as number,
     analyst_notes: r.analyst_notes as string,
     created_at: r.created_at as string,

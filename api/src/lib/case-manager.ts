@@ -756,6 +756,10 @@ export async function getCaseStats(db: D1Database): Promise<CaseStats> {
 
 /* ─── Parsers ────────────────────────────────────────────────────────────── */
 
+function safeJson<T>(val: unknown, fallback: T): T {
+  try { return JSON.parse(val as string) as T; } catch { return fallback; }
+}
+
 function parseCase(r: Record<string, unknown>): Case {
   return {
     id: r.id as string,
@@ -771,10 +775,10 @@ function parseCase(r: Record<string, unknown>): Case {
     updated_at: r.updated_at as string,
     closed_at: r.closed_at as string | null,
     incident_date: r.incident_date as string | null,
-    tags: JSON.parse(r.tags as string) as string[],
-    mitre_techniques: JSON.parse(r.mitre_techniques as string) as string[],
-    affected_assets: JSON.parse(r.affected_assets as string) as string[],
-    threat_actors: JSON.parse(r.threat_actors as string) as string[],
+    tags: safeJson(r.tags, []),
+    mitre_techniques: safeJson(r.mitre_techniques, []),
+    affected_assets: safeJson(r.affected_assets, []),
+    threat_actors: safeJson(r.threat_actors, []),
     summary: r.summary as string | null,
   };
 }
@@ -791,8 +795,8 @@ function parseEvidence(r: Record<string, unknown>): Evidence {
     file_size: r.file_size as number | null,
     collected_by: r.collected_by as string,
     collected_at: r.collected_at as string,
-    chain_of_custody: JSON.parse(r.chain_of_custody as string) as CustodyEntry[],
-    tags: JSON.parse(r.tags as string) as string[],
+    chain_of_custody: safeJson(r.chain_of_custody, []),
+    tags: safeJson(r.tags, []),
     tlp: r.tlp as TLPLevel,
   };
 }

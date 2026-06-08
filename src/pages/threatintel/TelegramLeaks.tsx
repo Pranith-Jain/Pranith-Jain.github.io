@@ -94,7 +94,6 @@ export default function TelegramLeaks(): JSX.Element {
         if (!cancelled && d?.channels) setChannels(d.channels.map((c) => c.handle));
       })
       .catch((err) => {
-        console.error('Failed to load watched channels', err);
         setError((prev) => prev ?? (err instanceof Error ? err.message : String(err)));
       });
     return () => {

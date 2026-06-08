@@ -1,64 +1,83 @@
 ---
 slug: tofu-03-infostealer-rise
-title: Infostealers Are Eating Corporate America
+title: Infostealers Are the New APT, And Most Teams Are Completely Blind
 funnel: tofu
-platform: linkedin
-format: carousel
-hook: story
-persona: Junior SOC Analyst
-hashtags: cybersecurity, infostealer, redline, raccoon, DFIR
-cta: If this helped, save it for your next malware analysis.
-notes: Story hook. Framework walks the attack chain. Each slide = one phase with specific tools and IOCs.
+platform: twitter
+format: thread
+hook: hot-take
+persona: Mid-Level Detection Engineer
+hashtags: infostealer, threatintel, cybersecurity, malware
+cta: Follow for threat intel breakdowns that actually help you detect things.
+notes: Hot take thread. Contrarian position on infostealers being underappreciated. Data-driven. High share potential. Front-loads the controversial claim.
 ---
 
-Last week, our SOC got owned.
-The attacker logged in with a valid password.
+Hot take: Infostealers are more dangerous than APTs right now.
 
----
+And most security teams are completely blind to them.
 
-KIND: framework
-Phase 1: The Drop
-RedLine, Raccoon, Vidar — the malware that starts it all.
-
-- Phishing email with .iso attachment (bypasses email AV)
-- User double-clicks → loader writes to %TEMP%
-- C2: HTTPS to attacker domain, looks like a CDN
-- Persistence: scheduled task, registry Run key, or LNK in Startup
+Here's why. 🧵
 
 ---
 
-KIND: framework
-Phase 2: The Theft
-The malware grabs everything it can find.
+What are infostealers?
 
-- Browser: cookies, saved passwords, autofill, crypto wallets
-- Files: .doc, .xls, .pdf, .txt, .kdbx in user folders
-- Clipboard, screenshots, system info, Wi-Fi creds
-- 30+ data types exfiltrated in under 60 seconds
+Malware that steals:
+- Browser passwords & cookies
+- Crypto wallets
+- Session tokens (bypasses MFA)
+- Autofill data (addresses, credit cards)
 
----
-
-KIND: framework
-Phase 3: The Exfil
-Data is sent over HTTPS to the C2, often within minutes.
-
-- Single POST request, multipart, encrypted with the malware's RSA key
-- Beacon every 10 min if the loader is still alive
-- C2 rotates daily (1 domain per day, often on a fresh VPS)
-- 70% of stealers use Cloudflare or similar CDN to hide
+RedLine, Raccoon, Vidar, Lumma. You've heard the names. But have you DETECTED them?
 
 ---
 
-KIND: framework
-Phase 4: The Hand-off
-The stolen creds hit a marketplace within hours.
+The numbers don't lie:
 
-- Genesis Market, Russian Market, 2easy — these are the storefronts
-- Bot profiles sold as "subscription" with browser fingerprint + cookies
-- Initial Access Brokers (IABs) package the best ones for ransomware crews
-- Time from stealer infection to ransomware deployment: 4–14 days
+- 10B+ credentials leaked via infostealers (SpyCloud 2024)
+- Infostealer infections grew 300% YoY
+- Average time to credential abuse: < 24 hours
+- Cost per stolen record: $165 (IBM 2024)
+
+This isn't a niche threat. It's an epidemic.
 
 ---
 
-CTA: If this helped,
-save it for your next malware analysis.
+Why they're more dangerous than APTs:
+
+1. Scale, one stealer hits thousands of machines
+2. Speed, creds appear on dark web within hours
+3. Stealth, no C2 beaconing, no lateral movement needed
+4. Access, valid creds bypass everything (MFA, EDR, SIEM)
+
+---
+
+The attack chain:
+
+Infostealer infection → Credential dump → Dark web sale → Credential stuffing → Business email compromise → Ransomware
+
+The stealer is step 1. The breach is step 6. Your SIEM sees nothing.
+
+---
+
+What you should be detecting:
+
+- Browser credential store access patterns
+- Mass cookie extraction from browser profiles
+- Unusual outbound traffic to paste sites / Telegram bots
+- Process injection into browser processes
+- New login sessions from stolen cookies
+
+---
+
+The uncomfortable truth:
+
+Your EDR might detect the stealer.
+But it won't detect the credential abuse 3 days later.
+
+That's a SIEM problem. And most SIEMs aren't configured for it.
+
+---
+
+Follow @pranithjain for threat intel breakdowns that actually help you detect things.
+
+#infostealer #threatintel #cybersecurity #malware

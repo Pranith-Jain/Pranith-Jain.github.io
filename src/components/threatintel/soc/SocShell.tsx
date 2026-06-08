@@ -83,6 +83,13 @@ export function SocShell({
     return () => window.clearInterval(id);
   }, [autoRefreshMs]);
 
+  // Reset the auto-refresh countdown whenever a refresh starts (manual
+  // click or auto-fire). Otherwise the countdown keeps ticking down
+  // through a manual refresh and the next auto-refresh fires too soon.
+  useEffect(() => {
+    if (loading) setNextRefreshIn(autoRefreshMs);
+  }, [loading, autoRefreshMs]);
+
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100">
       <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 py-12 text-slate-900 dark:text-slate-100">
@@ -223,7 +230,7 @@ function BackLink(): JSX.Element {
 function SocStatusBadge({ status }: { status: SocStatus }): JSX.Element {
   return (
     <span
-      className={`inline-flex items-center gap-1.5 ml-1 px-2 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider border ${SEVERITY_PILL[status.severity]}`}
+      className={`inline-flex items-center gap-1.5 ml-1 px-2 py-0.5 rounded-full text-[11px] font-mono uppercase tracking-wider border ${SEVERITY_PILL[status.severity]}`}
     >
       <span className={`relative flex h-1.5 w-1.5`}>
         <span className={`absolute inset-0 rounded-full ${SEVERITY_DOT[status.severity]} opacity-75 animate-ping`} />
@@ -288,7 +295,7 @@ export function SocKpi({
   return (
     <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 sm:p-5">
       <div className="flex items-center justify-between mb-2">
-        <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
+        <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
           {label}
         </span>
         {icon && <span className="text-slate-400 dark:text-slate-500">{icon}</span>}

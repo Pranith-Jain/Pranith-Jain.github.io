@@ -172,6 +172,10 @@ export async function acknowledgeAlert(db: D1Database, alertId: string, analyst:
   return (result.meta?.changes ?? 0) > 0;
 }
 
+function safeJson<T>(val: unknown, fallback: T): T {
+  try { return JSON.parse(val as string) as T; } catch { return fallback; }
+}
+
 function parseCanaryToken(r: Record<string, unknown>): CanaryToken {
-  return { id: r.id as string, type: r.type as CanaryType, name: r.name as string, description: r.description as string, token_value: r.token_value as string, planted_in: r.planted_in as string, planted_by: r.planted_by as string, callback_url: r.callback_url as string, is_active: (r.is_active as number) === 1, created_at: r.created_at as string, last_triggered: r.last_triggered as string | null, trigger_count: r.trigger_count as number, tags: JSON.parse(r.tags as string) };
+  return { id: r.id as string, type: r.type as CanaryType, name: r.name as string, description: r.description as string, token_value: r.token_value as string, planted_in: r.planted_in as string, planted_by: r.planted_by as string, callback_url: r.callback_url as string, is_active: (r.is_active as number) === 1, created_at: r.created_at as string, last_triggered: r.last_triggered as string | null, trigger_count: r.trigger_count as number, tags: safeJson(r.tags, []) };
 }

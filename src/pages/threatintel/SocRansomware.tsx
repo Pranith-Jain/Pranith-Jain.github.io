@@ -236,8 +236,12 @@ export default function SocRansomware(): JSX.Element {
       }
       meta={
         <span>
-          source: <span className="uppercase">{data?.source ?? '—'}</span> · {data?.victims.length ?? 0} cross-claim
-          records
+          source: <span className="uppercase">{data?.source ?? '—'}</span>
+          {data && data.victims.length > 0
+            ? ` · ${data.victims.length} cross-claim record${data.victims.length === 1 ? '' : 's'}`
+            : data
+              ? ' · no claims in window'
+              : ''}
         </span>
       }
     >
@@ -400,7 +404,7 @@ function RecentClaims({ rows }: { rows: RansomwareVictim[] }): JSX.Element {
     <div className="overflow-x-auto -mx-4 sm:mx-0">
       <table className="w-full text-meta font-mono">
         <thead>
-          <tr className="text-left text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-500 border-b border-slate-200 dark:border-slate-800">
+          <tr className="text-left text-[11px] uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">
             <th className="px-4 sm:px-2 py-2 font-mono font-medium">Victim</th>
             <th className="px-2 py-2 font-mono font-medium">Group</th>
             <th className="px-2 py-2 font-mono font-medium">Sector</th>

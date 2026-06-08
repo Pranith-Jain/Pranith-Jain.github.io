@@ -387,12 +387,40 @@ export default function GlobalPulse(): JSX.Element {
   const [lastUpdated, setLastUpdated] = useState<string | null>(null);
   const [showFilters, setShowFilters] = useState(false);
   const [severityFilter, setSeverityFilter] = useState<Set<string>>(new Set(['critical', 'high', 'medium', 'low']));
+
+  const load = useCallback(async () => {
+    const myId = ++loadIdRef.current;
+    setLoading(true);
+    setError(null);
+    try {
+      const r = await fetch('/api/v1/global-pulse');
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      const json = (await r.json()) as GlobalPulseResponse;
+      if (loadIdRef.current === myId) {
+        setData(json);
+        setLastUpdated(new Date().toISOString());
+      }
+    } catch (e) {
+      if (loadIdRef.current === myId) setError((e as Error).message);
+    } finally {
+      if (loadIdRef.current === myId) setLoading(false);
+    }
+  }, []);
   const [searchQuery, setSearchQuery] = useState('');
   const [timeRange, setTimeRange] = useState<number>(0); // 0 = all time, hours
   const [isFullscreen, setIsFullscreen] = useState(false);
   const globeContainerRef = useRef<HTMLDivElement>(null);
   const loadIdRef = useRef(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const toggleFullscreen = useCallback(() => {
+    if (!globeContainerRef.current) return;
+    if (!document.fullscreenElement) {
+      globeContainerRef.current.requestFullscreen().then(() => setIsFullscreen(true)).catch(() => {});
+    } else {
+      document.exitFullscreen().then(() => setIsFullscreen(false)).catch(() => {});
+    }
+  }, []);
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -427,17 +455,7 @@ export default function GlobalPulse(): JSX.Element {
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
-  }, [load]);
-
-  // Fullscreen toggle
-  const toggleFullscreen = useCallback(() => {
-    if (!globeContainerRef.current) return;
-    if (!document.fullscreenElement) {
-      globeContainerRef.current.requestFullscreen().then(() => setIsFullscreen(true)).catch(() => {});
-    } else {
-      document.exitFullscreen().then(() => setIsFullscreen(false)).catch(() => {});
-    }
-  }, []);
+  }, [load, toggleFullscreen]);
 
   // Listen for fullscreen changes
   useEffect(() => {
@@ -445,6 +463,29 @@ export default function GlobalPulse(): JSX.Element {
     document.addEventListener('fullscreenchange', handler);
     return () => document.removeEventListener('fullscreenchange', handler);
   }, []);
+
+  const filteredEvents = useMemo(() => {
+    if (!data) return [];
+    const now = Date.now();
+    return data.events.filter((e) => {
+      if (!activeLayers.has(e.kind)) return false;
+      if (!severityFilter.has(e.severity)) return false;
+      if (timeRange > 0) {
+        const eventTime = new Date(e.timestamp).getTime();
+        if (now - eventTime > timeRange * 3600000) return false;
+      }
+      if (searchQuery) {
+        const q = searchQuery.toLowerCase();
+        return (
+          e.title.toLowerCase().includes(q) ||
+          e.description.toLowerCase().includes(q) ||
+          e.source.toLowerCase().includes(q) ||
+          e.kind.toLowerCase().includes(q)
+        );
+      }
+      return true;
+    });
+  }, [data, activeLayers, severityFilter, searchQuery, timeRange]);
 
   // Export to CSV
   const exportToCsv = useCallback(() => {
@@ -462,25 +503,6 @@ export default function GlobalPulse(): JSX.Element {
     a.click();
     URL.revokeObjectURL(url);
   }, [filteredEvents]);
-
-  const load = useCallback(async () => {
-    const myId = ++loadIdRef.current;
-    setLoading(true);
-    setError(null);
-    try {
-      const r = await fetch('/api/v1/global-pulse');
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      const json = (await r.json()) as GlobalPulseResponse;
-      if (loadIdRef.current === myId) {
-        setData(json);
-        setLastUpdated(new Date().toISOString());
-      }
-    } catch (e) {
-      if (loadIdRef.current === myId) setError((e as Error).message);
-    } finally {
-      if (loadIdRef.current === myId) setLoading(false);
-    }
-  }, []);
 
   useEffect(() => {
     load();
@@ -504,33 +526,6 @@ export default function GlobalPulse(): JSX.Element {
       return next;
     });
   }, []);
-
-  const filteredEvents = useMemo(() => {
-    if (!data) return [];
-    const now = Date.now();
-    return data.events.filter((e) => {
-      // Layer filter
-      if (!activeLayers.has(e.kind)) return false;
-      // Severity filter
-      if (!severityFilter.has(e.severity)) return false;
-      // Time range filter
-      if (timeRange > 0) {
-        const eventTime = new Date(e.timestamp).getTime();
-        if (now - eventTime > timeRange * 3600000) return false;
-      }
-      // Search filter
-      if (searchQuery) {
-        const q = searchQuery.toLowerCase();
-        return (
-          e.title.toLowerCase().includes(q) ||
-          e.description.toLowerCase().includes(q) ||
-          e.source.toLowerCase().includes(q) ||
-          e.kind.toLowerCase().includes(q)
-        );
-      }
-      return true;
-    });
-  }, [data, activeLayers, severityFilter, searchQuery, timeRange]);
 
   const geoPoints = useMemo(() => {
     return filteredEvents

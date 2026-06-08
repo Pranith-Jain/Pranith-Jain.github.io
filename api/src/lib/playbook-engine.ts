@@ -527,6 +527,10 @@ function evaluateCondition(condition: string, context: Record<string, unknown>):
 
 /* ─── Parsers ────────────────────────────────────────────────────────────── */
 
+function safeJson<T>(val: unknown, fallback: T): T {
+  try { return JSON.parse(val as string) as T; } catch { return fallback; }
+}
+
 function parsePlaybook(r: Record<string, unknown>): Playbook {
   return {
     id: r.id as string,
@@ -534,10 +538,10 @@ function parsePlaybook(r: Record<string, unknown>): Playbook {
     description: r.description as string,
     category: r.category as string,
     status: r.status as PlaybookStatus,
-    steps: JSON.parse(r.steps as string) as PlaybookStep[],
-    inputs: JSON.parse(r.inputs as string) as Playbook['inputs'],
-    tags: JSON.parse(r.tags as string) as string[],
-    mitre_techniques: JSON.parse(r.mitre_techniques as string) as string[],
+    steps: safeJson(r.steps, []),
+    inputs: safeJson(r.inputs, []),
+    tags: safeJson(r.tags, []),
+    mitre_techniques: safeJson(r.mitre_techniques, []),
     created_by: r.created_by as string,
     created_at: r.created_at as string,
     updated_at: r.updated_at as string,

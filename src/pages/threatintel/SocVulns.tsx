@@ -5,7 +5,7 @@ import { fetchJson } from '../../lib/fetch-json';
 import { SocShell, SocKpi, SocSection, SocPanel, type SocStatus } from '../../components/threatintel/soc/SocShell';
 import { SocBar, SocDonut, type BarItem, type DonutSlice } from '../../components/threatintel/soc/SocCharts';
 import { downloadCsv, dayKey, formatNumber } from '../../components/threatintel/soc/utils';
-import { CHART_RANK, CHART_SEV, CHART_DAILY, SEV_ORDER } from '../../components/threatintel/soc/tone';
+import { CHART_RANK, CHART_SEV, SEVERITY_PILL, type SocSeverity } from '../../components/threatintel/soc/tone';
 
 /* ─── Data shape (matches /api/v1/cve-recent) ──────────────────────── */
 
@@ -33,9 +33,24 @@ interface CveRecentResponse {
   cves: RecentCve[];
 }
 
-/* ─── Severity palette (canonical — imported from tone.ts) ─────────── */
+/* ─── Severity palette (canonical — mirrors tailwind.config severity tokens) ── */
 
-const SEV_COLOR: Record<string, string> = CHART_SEV;
+const SEV_COLOR: Record<Severity, string> = {
+  CRITICAL: CHART_SEV.CRITICAL,
+  HIGH: CHART_SEV.HIGH,
+  MEDIUM: CHART_SEV.MEDIUM,
+  LOW: CHART_SEV.LOW,
+  NONE: CHART_SEV.NONE,
+  UNKNOWN: CHART_SEV.UNKNOWN,
+};
+
+const SEV_ORDER: Severity[] = ['CRITICAL', 'HIGH', 'MEDIUM', 'LOW', 'NONE', 'UNKNOWN'];
+
+/** Map NVD severity to the SOC pill token. NONE/UNKNOWN render as `info`. */
+function cveSevToSoc(s: Severity): SocSeverity {
+  if (s === 'NONE' || s === 'UNKNOWN') return 'info';
+  return s.toLowerCase() as SocSeverity;
+}
 
 /* ─── Vendor extraction (best-effort from CVE description) ─────────── */
 
@@ -196,10 +211,10 @@ export default function SocVulns(): JSX.Element {
   }, [inWindow]);
 
   /* ─── Severity index (donut) ───────────────────────────────────── */
-  const sevSlices: DonutSlice[] = useMemo(() => {
-    const sevs = SEV_ORDER as Severity[];
-    return sevs.filter((s) => counts[s] > 0).map((s) => ({ label: s, value: counts[s], color: SEV_COLOR[s] }));
-  }, [counts]);
+  const sevSlices: DonutSlice[] = useMemo(
+    () => SEV_ORDER.filter((s) => counts[s] > 0).map((s) => ({ label: s, value: counts[s], color: SEV_COLOR[s] })),
+    [counts]
+  );
 
   /* ─── Top vendors ─────────────────────────────────────────────── */
   const topVendors: BarItem[] = useMemo(() => {
@@ -357,19 +372,19 @@ export default function SocVulns(): JSX.Element {
               </span>
             }
           />
-          <SocBar
-            items={dailyCounts.slice(-30)}
-            vertical
-            height={180}
-            defaultColor={CHART_DAILY}
-            emptyText="No CVEs in window."
-          />
+          <SocBar items={dailyCounts.slice(-30)} vertical height={180} emptyText="No CVEs in window." />
         </SocPanel>
 
         <SocPanel>
           <SocSection title="Severity index" />
           {sevSlices.length > 0 ? (
-            <SocDonut slices={sevSlices} size={180} centerLabel={formatNumber(total)} centerSub="cves in window" />
+            <SocDonut
+              slices={sevSlices}
+              size={180}
+              thickness={26}
+              centerLabel={formatNumber(total)}
+              centerSub="cves in window"
+            />
           ) : (
             <p className="text-meta font-mono text-slate-500 italic">No CVEs in window.</p>
           )}
@@ -395,7 +410,7 @@ export default function SocVulns(): JSX.Element {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4">
         <SocPanel>
           <SocSection title="CVSS distribution" />
-          <SocBar items={cvssBins} vertical height={160} defaultColor={CHART_DAILY} />
+          <SocBar items={cvssBins} vertical height={160} />
         </SocPanel>
 
         <SocPanel className="lg:col-span-2">
@@ -425,7 +440,7 @@ function KevTable({ rows }: { rows: RecentCve[] }): JSX.Element {
     <div className="overflow-x-auto -mx-4 sm:mx-0">
       <table className="w-full text-meta font-mono">
         <thead>
-          <tr className="text-left text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-500 border-b border-slate-200 dark:border-slate-800">
+          <tr className="text-left text-[11px] uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">
             <th className="px-4 sm:px-2 py-2 font-medium">CVE</th>
             <th className="px-2 py-2 font-medium">CVSS</th>
             <th className="px-2 py-2 font-medium">Sev</th>
@@ -452,8 +467,7 @@ function KevTable({ rows }: { rows: RecentCve[] }): JSX.Element {
               </td>
               <td className="px-2 py-1.5">
                 <span
-                  className="inline-block px-1.5 py-0.5 rounded text-[10px] font-mono"
-                  style={{ backgroundColor: `${SEV_COLOR[c.severity]}22`, color: SEV_COLOR[c.severity] }}
+                  className={`inline-block px-1.5 py-0.5 rounded text-[11px] font-mono border ${SEVERITY_PILL[cveSevToSoc(c.severity)]}`}
                 >
                   {c.severity}
                 </span>
