@@ -1,17 +1,10 @@
 /**
  * CtiGlobe - 3D interactive globe using globe.gl
  *
- * Re-engineered for World Monitor-style appearance:
- *  - globe.gl v2 with proper configuration
- *  - Earth textures: night + topology
- *  - Blue atmosphere glow
- *  - Points with altitude based on severity
- *  - Animated arcs with dash effect
- *  - Pulsing rings for critical points
- *  - Auto-rotate after inactivity
+ * Uses globe.gl directly for better control and performance.
  */
 
-import { useEffect, useRef, useState, useCallback, useMemo, type JSX } from 'react';
+import { useEffect, useRef, useState, useMemo, type JSX } from 'react';
 import Globe from 'globe.gl';
 import type { CtiArc, CtiPoint } from './geo';
 import { severityColor } from './geo';
@@ -45,7 +38,8 @@ export default function CtiGlobe({
   autoRotate = false,
 }: CtiGlobeProps): JSX.Element {
   const containerRef = useRef<HTMLDivElement>(null);
-  const globeRef = useRef<ReturnType<typeof Globe> | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const globeRef = useRef<any>(null);
   const rotAngleRef = useRef(0);
   const rafRef = useRef(0);
   const userInteracting = useRef(false);
@@ -69,10 +63,16 @@ export default function CtiGlobe({
 
   // Initialize globe
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (!containerRef.current || globeRef.current) return;
 
     try {
-      const globe = Globe()(containerRef.current)
+      const container = containerRef.current;
+      const w = container.clientWidth;
+      const h = container.clientHeight;
+
+      const globe = new Globe(container)
+        .width(w)
+        .height(h)
         // Globe appearance
         .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
         .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
@@ -84,10 +84,14 @@ export default function CtiGlobe({
         .atmosphereAltitude(0.2)
         // Points
         .pointsData(points)
-        .pointLat((p: unknown) => (p as CtiPoint).lat)
-        .pointLng((p: unknown) => (p as CtiPoint).lng)
-        .pointColor((p: unknown) => severityColor((p as CtiPoint).severity))
-        .pointAltitude((p: unknown) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .pointLat((p: any) => p.lat)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .pointLng((p: any) => p.lng)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .pointColor((p: any) => severityColor(p.severity))
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .pointAltitude((p: any) => {
           const alts: Record<string, number> = {
             critical: 0.12,
             high: 0.07,
@@ -95,9 +99,10 @@ export default function CtiGlobe({
             low: 0.03,
             info: 0.02,
           };
-          return alts[(p as CtiPoint).severity] ?? 0.03;
+          return alts[p.severity] ?? 0.03;
         })
-        .pointRadius((p: unknown) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .pointRadius((p: any) => {
           const sizes: Record<string, number> = {
             critical: 1.8,
             high: 1.3,
@@ -105,11 +110,11 @@ export default function CtiGlobe({
             low: 0.5,
             info: 0.35,
           };
-          return sizes[(p as CtiPoint).severity] ?? 0.6;
+          return sizes[p.severity] ?? 0.6;
         })
-        .pointLabel((p: unknown) => {
-          const point = p as CtiPoint;
-          const sevColor = severityColor(point.severity);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .pointLabel((p: any) => {
+          const sevColor = severityColor(p.severity);
           return `
             <div style="
               background: rgba(10,15,26,0.95);
@@ -117,12 +122,12 @@ export default function CtiGlobe({
               padding: 12px 16px;
               border-radius: 10px;
               font-size: 12px;
-              font-family: 'SF Mono', 'Fira Code', monospace;
+              font-family: monospace;
               max-width: 300px;
               border: 1px solid ${sevColor}50;
               box-shadow: 0 8px 32px rgba(0,0,0,0.5);
             ">
-              <div style="font-weight: 600; margin-bottom: 6px; color: #f8fafc; font-size: 13px;">${point.label}</div>
+              <div style="font-weight: 600; margin-bottom: 6px; color: #f8fafc; font-size: 13px;">${p.label}</div>
               <div style="display: flex; align-items: center; gap: 8px; margin-top: 6px;">
                 <span style="
                   background: ${sevColor}25;
@@ -132,32 +137,38 @@ export default function CtiGlobe({
                   font-size: 10px;
                   font-weight: 600;
                   text-transform: uppercase;
-                ">${point.severity}</span>
-                <span style="opacity: 0.6; font-size: 11px;">Count: ${point.count}</span>
+                ">${p.severity}</span>
+                <span style="opacity: 0.6; font-size: 11px;">Count: ${p.count}</span>
               </div>
             </div>
           `;
         })
-        .onPointClick((p: unknown) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .onPointClick((p: any) => {
           onPointClick?.(p as CtiPoint);
         })
         // Rings
         .ringsData(ringData)
-        .ringLat((r: unknown) => (r as RingDatum).lat)
-        .ringLng((r: unknown) => (r as RingDatum).lng)
-        .ringColor((r: unknown) => (r as RingDatum).color)
-        .ringMaxRadius((r: unknown) => (r as RingDatum).size)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .ringLat((r: any) => r.lat)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .ringLng((r: any) => r.lng)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .ringColor((r: any) => r.color)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .ringMaxRadius((r: any) => r.size)
         .ringAltitude(0.005)
         .ringRepeatPeriod(1800)
         // Arcs
         .arcsData(arcs)
-        .arcColor((a: unknown) => (a as CtiArc).color)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .arcColor((a: any) => a.color)
         .arcDashLength(0.6)
         .arcDashGap(0.05)
         .arcDashAnimateTime(2500)
         .arcStroke(0.4)
-        .arcLabel((a: unknown) => {
-          const arc = a as CtiArc;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .arcLabel((a: any) => {
           return `
             <div style="
               background: rgba(10,15,26,0.95);
@@ -165,20 +176,19 @@ export default function CtiGlobe({
               padding: 10px 14px;
               border-radius: 8px;
               font-size: 11px;
-              font-family: 'SF Mono', 'Fira Code', monospace;
+              font-family: monospace;
               max-width: 280px;
-              border: 1px solid ${arc.color}40;
+              border: 1px solid ${a.color}40;
               box-shadow: 0 4px 16px rgba(0,0,0,0.4);
             ">
-              ${arc.label}
+              ${a.label}
             </div>
           `;
         })
-        .onArcHover((a: unknown) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .onArcHover((a: any) => {
           onArcHover?.(a ? (a as CtiArc) : null);
-        })
-        // Animation
-        .animateIn(true);
+        });
 
       // Set initial POV
       globe.pointOfView({ lat: 20, lng: 0, altitude: 2.5 }, 0);
@@ -189,18 +199,15 @@ export default function CtiGlobe({
       // Handle resize
       const resizeObserver = new ResizeObserver(() => {
         if (containerRef.current && globeRef.current) {
-          const w = containerRef.current.clientWidth;
-          const h = containerRef.current.clientHeight;
-          globeRef.current.width(w).height(h);
+          const newW = containerRef.current.clientWidth;
+          const newH = containerRef.current.clientHeight;
+          globeRef.current.width(newW).height(newH);
         }
       });
-      resizeObserver.observe(containerRef.current);
+      resizeObserver.observe(container);
 
       return () => {
         resizeObserver.disconnect();
-        if (globeRef.current) {
-          globeRef.current = null;
-        }
       };
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to initialize globe');
@@ -210,17 +217,29 @@ export default function CtiGlobe({
   // Update data when it changes
   useEffect(() => {
     if (!globeRef.current) return;
-    globeRef.current.pointsData(points);
+    try {
+      globeRef.current.pointsData(points);
+    } catch {
+      /* ignore */
+    }
   }, [points]);
 
   useEffect(() => {
     if (!globeRef.current) return;
-    globeRef.current.ringsData(ringData);
+    try {
+      globeRef.current.ringsData(ringData);
+    } catch {
+      /* ignore */
+    }
   }, [ringData]);
 
   useEffect(() => {
     if (!globeRef.current) return;
-    globeRef.current.arcsData(arcs);
+    try {
+      globeRef.current.arcsData(arcs);
+    } catch {
+      /* ignore */
+    }
   }, [arcs]);
 
   // Focus on point

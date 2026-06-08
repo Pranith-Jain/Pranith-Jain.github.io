@@ -730,11 +730,11 @@ export default function GlobalPulse(): JSX.Element {
           )}
 
           {/* ─── Main Content: Globe + Feed ─── */}
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_380px] gap-5">
             {/* Globe/Map Container */}
             <div
               className="relative rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-[#0a0f1a]"
-              style={{ minHeight: '500px' }}
+              style={{ minHeight: '550px', maxHeight: '700px' }}
             >
               {/* Globe Status Badge */}
               <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
@@ -819,7 +819,10 @@ export default function GlobalPulse(): JSX.Element {
             </div>
 
             {/* Event Feed */}
-            <aside className="flex flex-col rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 overflow-hidden">
+            <aside
+              className="flex flex-col rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 overflow-hidden"
+              style={{ minHeight: '550px', maxHeight: '700px' }}
+            >
               {/* Feed Header */}
               <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200 dark:border-slate-800">
                 <div className="flex items-center gap-2">
@@ -835,7 +838,7 @@ export default function GlobalPulse(): JSX.Element {
               </div>
 
               {/* Feed List */}
-              <div className="flex-1 overflow-y-auto custom-scrollbar max-h-[500px] lg:max-h-none">
+              <div className="flex-1 overflow-y-auto custom-scrollbar">
                 {filteredEvents.length === 0 ? (
                   <div className="flex flex-col items-center justify-center py-16 text-center px-4">
                     <Filter size={32} className="text-slate-300 dark:text-slate-600 mb-4" />
