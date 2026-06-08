@@ -1925,6 +1925,22 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     const iocEvents = safe(() =>
       mergedTm ? iocFromThreatMap(mergedTm as Parameters<typeof iocFromThreatMap>[0]) : []
     );
+
+    // Fetch threat map directly if cache is empty
+    let finalIocEvents = iocEvents;
+    if (finalIocEvents.length === 0) {
+      try {
+        const tmRes = await fetch('https://pranithjain.qzz.io/api/v1/threat-map', {
+          signal: AbortSignal.timeout(10000),
+        });
+        if (tmRes.ok) {
+          const tmData = (await tmRes.json()) as Parameters<typeof iocFromThreatMap>[0];
+          finalIocEvents = safe(() => iocFromThreatMap(tmData));
+        }
+      } catch {
+        /* degraded */
+      }
+    }
     const redditEvents = safe(() => (mergedReddit ? fromReddit(mergedReddit as Parameters<typeof fromReddit>[0]) : []));
     const telegramEvents = safe(() => (finalTg ? fromTelegram(finalTg) : []));
     const xEvents = safe(() => (mergedX ? fromXFeed(mergedX) : []));
@@ -1943,8 +1959,25 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     const cybercrimeEvents = safe(() => (finalCybercrime ? fromCybercrime(finalCybercrime) : []));
     const researchEvents = safe(() => (finalWriteups ? fromWriteups(finalWriteups) : []));
     const cveEvents = safe(() => (mergedCve ? fromCveRecent(mergedCve) : []));
+
     // Fetch earthquakes directly from USGS (cache was never populated)
     const earthquakes = await fetchEarthquakes();
+
+    // Fetch CVE data directly if cache is empty
+    let finalCveEvents = cveEvents;
+    if (finalCveEvents.length === 0) {
+      try {
+        const cveRes = await fetch('https://pranithjain.qzz.io/api/v1/cve-recent?days=7', {
+          signal: AbortSignal.timeout(10000),
+        });
+        if (cveRes.ok) {
+          const cveData = (await cveRes.json()) as Parameters<typeof fromCveRecent>[0];
+          finalCveEvents = safe(() => fromCveRecent(cveData));
+        }
+      } catch {
+        /* degraded */
+      }
+    }
 
     // Fetch additional geo-located data from free public APIs (inspired by World Monitor)
     const [
@@ -2007,14 +2040,14 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       ...geopoliticalEvents,
       ...cableEvents,
       ...financialEvents,
-      ...iocEvents,
+      ...finalIocEvents,
       ...liveIocEvents,
       ...ransomwareEvents,
       ...darkwebEvents,
       ...infostealerEvents,
       ...phishingEvents,
       ...malwareEvents,
-      ...cveEvents,
+      ...finalCveEvents,
       ...detectionEvents,
       ...cybercrimeEvents,
       ...breachEvents,
@@ -2032,7 +2065,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       events: allEvents,
       layers: {
         earthquake: earthquakes.length,
-        ioc_activity: iocEvents.length,
+        ioc_activity: finalIocEvents.length,
         geopolitical:
           naturalEvents.length +
           gdacsAlerts.length +
@@ -2061,7 +2094,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
         detection: detectionEvents.length,
         cybercrime: cybercrimeEvents.length,
         research: researchEvents.length,
-        cve: cveEvents.length,
+        cve: finalCveEvents.length,
       },
     };
 

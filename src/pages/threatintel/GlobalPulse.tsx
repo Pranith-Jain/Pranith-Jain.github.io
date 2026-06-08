@@ -730,11 +730,11 @@ export default function GlobalPulse(): JSX.Element {
           )}
 
           {/* ─── Main Content: Globe + Feed ─── */}
-          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_380px] gap-5">
+          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_420px] gap-5">
             {/* Globe/Map Container */}
             <div
               className="relative rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-[#0a0f1a]"
-              style={{ minHeight: '550px', maxHeight: '700px' }}
+              style={{ minHeight: '600px', maxHeight: '750px' }}
             >
               {/* Globe Status Badge */}
               <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
@@ -821,7 +821,7 @@ export default function GlobalPulse(): JSX.Element {
             {/* Event Feed */}
             <aside
               className="flex flex-col rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 overflow-hidden"
-              style={{ minHeight: '550px', maxHeight: '700px' }}
+              style={{ minHeight: '600px', maxHeight: '750px' }}
             >
               {/* Feed Header */}
               <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200 dark:border-slate-800">
