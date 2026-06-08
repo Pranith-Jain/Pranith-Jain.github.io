@@ -44,10 +44,10 @@ interface PulseMapProps {
 }
 
 const SEVERITY_RADIUS: Record<string, number> = {
-  critical: 6,
-  high: 4,
-  medium: 3,
-  low: 2,
+  critical: 7,
+  high: 5,
+  medium: 3.5,
+  low: 2.5,
 };
 
 const KIND_COLORS: Record<EventKind, string> = {
@@ -79,9 +79,12 @@ const KIND_COLORS: Record<EventKind, string> = {
 };
 
 function markerColor(m: MarkerData): string {
-  const base = KIND_COLORS[m.kind] ?? '#64748b';
-  if (m.severity === 'critical') return base;
-  return base + '88';
+  return KIND_COLORS[m.kind] ?? '#64748b';
+}
+
+function markerGlow(m: MarkerData): string {
+  const color = KIND_COLORS[m.kind] ?? '#64748b';
+  return `${color}60`;
 }
 
 export default function PulseMap({ markers }: PulseMapProps): JSX.Element {
@@ -93,7 +96,7 @@ export default function PulseMap({ markers }: PulseMapProps): JSX.Element {
       projectionConfig={{ scale: 140 }}
       width={900}
       height={460}
-      style={{ width: '100%', height: 'auto' }}
+      style={{ width: '100%', height: 'auto', background: 'transparent' }}
     >
       <Geographies geography={TOPO_URL}>
         {({ geographies }) =>
@@ -102,8 +105,8 @@ export default function PulseMap({ markers }: PulseMapProps): JSX.Element {
               key={geo.rsmKey}
               geography={geo}
               fill="#1e293b"
-              stroke="#0f172a"
-              strokeWidth={0.4}
+              stroke="#334155"
+              strokeWidth={0.3}
               style={{
                 default: { outline: 'none' },
                 hover: { outline: 'none', fill: '#334155' },
@@ -113,22 +116,36 @@ export default function PulseMap({ markers }: PulseMapProps): JSX.Element {
           ))
         }
       </Geographies>
-      {topMarkers.map((m) => (
-        <Marker key={m.id} coordinates={[m.lng, m.lat]}>
-          <g style={{ pointerEvents: 'none' }}>
-            <circle r={SEVERITY_RADIUS[m.severity] ?? 3} fill={markerColor(m)} opacity={0.85}>
-              <animate
-                attributeName="r"
-                values={`${SEVERITY_RADIUS[m.severity] ?? 3};${(SEVERITY_RADIUS[m.severity] ?? 3) * 2.5};${SEVERITY_RADIUS[m.severity] ?? 3}`}
-                dur="2.4s"
-                repeatCount="indefinite"
-              />
-              <animate attributeName="opacity" values="0.85;0;0.85" dur="2.4s" repeatCount="indefinite" />
-            </circle>
-            <circle r={SEVERITY_RADIUS[m.severity] ?? 3} fill={markerColor(m)} />
-          </g>
-        </Marker>
-      ))}
+      {topMarkers.map((m) => {
+        const r = SEVERITY_RADIUS[m.severity] ?? 3;
+        const color = markerColor(m);
+        const glow = markerGlow(m);
+        return (
+          <Marker key={m.id} coordinates={[m.lng, m.lat]}>
+            <g style={{ pointerEvents: 'none' }}>
+              {/* Outer glow ring */}
+              <circle r={r * 2.5} fill={glow} opacity={0.15}>
+                <animate
+                  attributeName="r"
+                  values={`${r * 1.5};${r * 3};${r * 1.5}`}
+                  dur="3s"
+                  repeatCount="indefinite"
+                />
+                <animate attributeName="opacity" values="0.2;0;0.2" dur="3s" repeatCount="indefinite" />
+              </circle>
+              {/* Pulse ring */}
+              <circle r={r} fill="none" stroke={color} strokeWidth={1} opacity={0.6}>
+                <animate attributeName="r" values={`${r};${r * 2};${r}`} dur="2s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="0.6;0;0.6" dur="2s" repeatCount="indefinite" />
+              </circle>
+              {/* Core dot */}
+              <circle r={r} fill={color} opacity={0.9} />
+              {/* Bright center */}
+              <circle r={r * 0.4} fill="#fff" opacity={0.7} />
+            </g>
+          </Marker>
+        );
+      })}
     </ComposableMap>
   );
 }

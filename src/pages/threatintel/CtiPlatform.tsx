@@ -79,6 +79,15 @@ const LAYER_DEFS: Record<string, LayerDef> = {
   scam: { label: 'Scam', icon: <AlertTriangle size={12} />, color: 'text-amber-500', group: 'intel' },
   detection: { label: 'Detections', icon: <Shield size={12} />, color: 'text-emerald-500', group: 'intel' },
   cybercrime: { label: 'Cybercrime', icon: <Zap size={12} />, color: 'text-red-400', group: 'intel' },
+  c2_tracker: { label: 'C2 Tracker', icon: <ShieldAlert size={12} />, color: 'text-rose-600', group: 'intel' },
+  cisa_advisory: {
+    label: 'CISA Advisories',
+    icon: <AlertTriangle size={12} />,
+    color: 'text-amber-600',
+    group: 'intel',
+  },
+  blocklist: { label: 'Blocklist', icon: <ShieldAlert size={12} />, color: 'text-slate-500', group: 'intel' },
+  tech_news: { label: 'Tech Infrastructure', icon: <Newspaper size={12} />, color: 'text-sky-400', group: 'social' },
   research: { label: 'Research', icon: <Newspaper size={12} />, color: 'text-sky-500', group: 'social' },
   reddit: { label: 'Reddit', icon: <Rss size={12} />, color: 'text-orange-400', group: 'social' },
   telegram: { label: 'Telegram', icon: <MessageSquare size={12} />, color: 'text-cyan-400', group: 'social' },
@@ -103,6 +112,13 @@ export default function CtiPlatform(): JSX.Element {
       'cve',
       'phishing',
       'infostealer',
+      'c2_tracker',
+      'cisa_advisory',
+      'blocklist',
+      'war_room',
+      'aircraft',
+      'geopolitical',
+      'tech_news',
     ])
   );
   const [focus, setFocus] = useState<{ lat: number; lng: number } | null>(null);
@@ -299,67 +315,122 @@ export default function CtiPlatform(): JSX.Element {
       )}
 
       {/* Main grid: globe + event feed */}
-      <div className="grid lg:grid-cols-[1fr_340px] gap-4 mb-4">
-        <SocPanel className="relative overflow-hidden min-h-[500px]">
-          {points.length > 0 ? (
-            <Suspense
-              fallback={
-                <div className="flex items-center justify-center h-[500px]">
-                  <Globe
-                    size={32}
-                    className="text-brand-500 animate-spin mx-auto mb-2"
-                    style={{ animationDuration: '3s' }}
-                  />
-                </div>
-              }
-            >
-              <CtiGlobe arcs={arcs} points={points} focus={focus} onPointClick={handlePointClick} autoRotate={false} />
-            </Suspense>
-          ) : (
-            <div className="flex items-center justify-center h-[500px] text-xs font-mono text-slate-400">
-              {loading ? 'Loading…' : 'No geo data. Enable layers above.'}
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-4 mb-4">
+        <SocPanel className="relative overflow-hidden min-h-[350px] sm:min-h-[500px]">
+          {/* Empty state overlay for globe */}
+          {points.length === 0 && !loading && (
+            <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
+              <div className="bg-slate-900/80 backdrop-blur-sm rounded-xl px-6 py-4 text-center border border-slate-700/50">
+                <Globe size={32} className="text-slate-500 mx-auto mb-2" />
+                <p className="text-sm text-slate-400 font-medium">No geolocated events</p>
+                <p className="text-[11px] text-slate-500 mt-1">
+                  Enable IOC Activity or Earthquake layers to see points on the globe
+                </p>
+              </div>
             </div>
           )}
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center h-[350px] sm:h-[500px]">
+                <div className="flex flex-col items-center gap-3">
+                  <div className="w-10 h-10 rounded-full border-2 border-brand-500/30 border-t-brand-500 animate-spin" />
+                  <p className="text-sm text-slate-400 animate-pulse">Loading globe…</p>
+                </div>
+              </div>
+            }
+          >
+            <CtiGlobe arcs={arcs} points={points} focus={focus} onPointClick={handlePointClick} autoRotate={false} />
+          </Suspense>
+          {/* Legend */}
+          <div className="absolute bottom-0 left-0 right-0 flex flex-wrap items-center gap-3 px-3 py-2 border-t border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-sm">
+            {(['critical', 'high', 'medium', 'low'] as const).map((sev) => (
+              <div key={sev} className="flex items-center gap-1">
+                <span
+                  className={`w-2 h-2 rounded-full ${sev === 'critical' ? 'bg-rose-500' : sev === 'high' ? 'bg-orange-500' : sev === 'medium' ? 'bg-amber-500' : 'bg-emerald-500'}`}
+                />
+                <span className="text-[9px] font-mono text-slate-500 capitalize">{sev}</span>
+              </div>
+            ))}
+            <span className="text-[9px] font-mono text-slate-400 ml-auto">
+              {points.length} pts · {arcs.length} arcs
+            </span>
+          </div>
         </SocPanel>
 
         {/* Event feed */}
-        <SocPanel className="max-h-[600px] overflow-y-auto">
-          <h3 className="text-[10px] font-mono uppercase tracking-[0.15em] text-slate-500 dark:text-slate-400 mb-3">
-            Live Feed ({filteredEvents.length})
-          </h3>
+        <SocPanel className="max-h-[400px] sm:max-h-[600px] overflow-y-auto custom-scrollbar">
+          <div className="sticky top-0 bg-white dark:bg-slate-950 pb-2 z-10 flex items-center justify-between">
+            <h3 className="text-[10px] font-mono uppercase tracking-[0.15em] text-slate-500 dark:text-slate-400">
+              Live Feed ({filteredEvents.length})
+            </h3>
+            {filteredEvents.length > 0 && (
+              <span className="text-[10px] font-mono text-slate-400">
+                {filteredEvents.filter((e) => e.severity === 'critical').length} critical
+              </span>
+            )}
+          </div>
           <div className="space-y-1">
-            {filteredEvents.slice(0, 80).map((ev) => {
-              const def = LAYER_DEFS[ev.kind] ?? { label: ev.kind, icon: <Radio size={12} />, color: 'text-slate-400' };
-              return (
-                <button
-                  key={ev.id}
-                  type="button"
-                  onClick={() => {
-                    setSelectedEvent(selectedEvent?.id === ev.id ? null : ev);
-                    if (ev.lat !== 0 || ev.lng !== 0) setFocus({ lat: ev.lat, lng: ev.lng });
-                  }}
-                  className={`w-full text-left rounded-lg border p-2 transition-colors ${
-                    selectedEvent?.id === ev.id
-                      ? 'border-brand-500/60 bg-brand-500/5'
-                      : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 hover:border-slate-300 dark:hover:border-slate-700'
-                  }`}
-                >
-                  <div className="flex items-start gap-2">
-                    <span className={`mt-0.5 shrink-0 ${def.color}`}>{def.icon}</span>
-                    <div className="min-w-0 flex-1">
-                      <span className="text-[11px] font-medium text-slate-800 dark:text-slate-200 truncate block">
-                        {ev.title}
-                      </span>
-                      <p className="text-[10px] text-slate-500 dark:text-slate-400 truncate">{ev.description}</p>
-                      <div className="flex items-center gap-2 mt-0.5">
-                        <span className="text-[9px] font-mono text-slate-400">{ev.source}</span>
-                        <span className="text-[9px] font-mono text-slate-400">{ev.severity}</span>
+            {filteredEvents.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-12 text-center">
+                <Radio size={24} className="text-slate-300 dark:text-slate-600 mb-3" />
+                <p className="text-xs text-slate-400 font-medium">No events match active layers</p>
+                <p className="text-[11px] text-slate-500 mt-1">Enable some layers above to see live data</p>
+              </div>
+            ) : (
+              filteredEvents.slice(0, 80).map((ev) => {
+                const def = LAYER_DEFS[ev.kind] ?? {
+                  label: ev.kind,
+                  icon: <Radio size={12} />,
+                  color: 'text-slate-400',
+                };
+                const isSelected = selectedEvent?.id === ev.id;
+                const hasGeo = ev.lat !== 0 || ev.lng !== 0;
+                return (
+                  <button
+                    key={ev.id}
+                    type="button"
+                    onClick={() => {
+                      setSelectedEvent(isSelected ? null : ev);
+                      if (hasGeo) setFocus({ lat: ev.lat, lng: ev.lng });
+                    }}
+                    className={`w-full text-left rounded-lg border p-2 transition-all ${
+                      isSelected
+                        ? 'border-brand-500/60 bg-brand-500/5 shadow-sm'
+                        : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 hover:border-slate-300 dark:hover:border-slate-700'
+                    }`}
+                  >
+                    <div className="flex items-start gap-2">
+                      {/* Severity indicator */}
+                      <div className="mt-1 shrink-0">
+                        <span
+                          className={`w-2 h-2 rounded-full block ${
+                            ev.severity === 'critical'
+                              ? 'bg-rose-500'
+                              : ev.severity === 'high'
+                                ? 'bg-orange-500'
+                                : ev.severity === 'medium'
+                                  ? 'bg-amber-500'
+                                  : 'bg-emerald-500'
+                          }`}
+                        />
+                      </div>
+                      <span className={`mt-0.5 shrink-0 ${def.color}`}>{def.icon}</span>
+                      <div className="min-w-0 flex-1">
+                        <span className="text-[11px] font-medium text-slate-800 dark:text-slate-200 truncate block">
+                          {ev.title}
+                        </span>
+                        <p className="text-[10px] text-slate-500 dark:text-slate-400 truncate">{ev.description}</p>
+                        <div className="flex items-center gap-2 mt-0.5">
+                          <span className="text-[9px] font-mono text-slate-400">{ev.source}</span>
+                          <span className="text-[9px] font-mono text-slate-400 capitalize">{ev.severity}</span>
+                          {hasGeo && <span className="text-[9px] font-mono text-brand-500">geo</span>}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </button>
-              );
-            })}
+                  </button>
+                );
+              })
+            )}
           </div>
         </SocPanel>
       </div>

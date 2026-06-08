@@ -214,6 +214,39 @@
 }
 
 /* ─────────────────────────────────────────────────────────────────────
+   Mobile backdrop-blur reduction.
+
+   backdrop-blur is GPU-expensive on low-end phones. On screens below
+   the sm breakpoint, downgrade blur-xl → blur-md and drop blur on
+   decorative (non-interactive) surfaces entirely. The visual difference
+   is negligible on a phone held at arm's length; the frame-rate
+   improvement is not.
+   ───────────────────────────────────────────────────────────────────── */
+@media (max-width: 639px) {
+  .backdrop-blur-xl {
+    backdrop-blur: 8px; /* was 24px */
+  }
+  /* Decorative blobs and background layers don't need blur on mobile */
+  .blur-\[120px\],
+  .blur-\[100px\] {
+    filter: none;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   Mobile safe-area padding for bottom-fixed elements.
+
+   The iPhone notch/home-indicator area can clip fixed-bottom UI.
+   This ensures the AppStatusBar and BackToTop button respect the
+   safe area on notched devices.
+   ───────────────────────────────────────────────────────────────────── */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  footer {
+    padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
    Entrance animations
    Used as Tailwind-ish utility classes (animate-fade-in, animate-fade-in-up)
    to replace framer-motion's <motion.X initial=... animate=... /> pattern
@@ -249,6 +282,41 @@
 
 .animate-fade-in-up {
   animation: dfir-fade-in-up 0.4s ease-out both;
+}
+
+/* Custom scrollbar for event feeds */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-slate-300 dark:bg-slate-700;
+}
+
+/* Globe container dark background for better contrast */
+.globe-bg {
+  background: radial-gradient(ellipse at center, #0f172a 0%, #020617 100%);
+}
+
+/* Pulse ring animation for severity dots */
+@keyframes severity-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.75;
+  }
+  75%,
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+.animate-severity-ping {
+  animation: severity-ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
 /* ─────────────────────────────────────────────────────────────────────
