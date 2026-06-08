@@ -199,19 +199,16 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
     putCandidate: (c) => putCandidate(env.CASE_STUDIES, c),
     commitDedup: (keys, n) => touchDedupMany(env.CASE_STUDIES, keys, n),
     now,
-    // Diversity controls (2026-06-08 — refined discovery):
-    //   - perTopic=1: ONE high-quality candidate per topic. Changed from
-    //     2 so the queue has only vetted, enriched candidates. The new
-    //     agentic `trends` runner adds 5 always-on quality finds, so
-    //     the daily yield (~7-8) still fills the 4-6-slot planner.
-    //   - limit=12: hard cap. Comfortable for 7-8 topics × 1 plus a busy
-    //     day where a rotating topic yields a strong extra candidate.
-    perTopic: 1,
+    // Diversity controls (2026-06-08 — target 7-10 candidates/run):
+    //   - perTopic=2: each feed-based topic contributes up to 2. When
+    //     most return 0 fresh (30d dedup wall), the survivors still
+    //     yield 7-10 combined with the agentic runner.
+    //   - limit=12: upper bound — comfortable for 7-10 target.
+    //   - trends=5: all 5 LLM suggestions pass through; they're the
+    //     primary fresh source when RSS/API feeds are fully suppressed.
+    perTopic: 2,
     limit: 12,
-    // Agentic runner gets 3 slots — it produces net-new LLM-generated
-    // content that doesn't hit the dedup wall, so it fills the gap when
-    // feed-based topics return all-suppressed.
-    perTopicOverride: { trends: 3 },
+    perTopicOverride: { trends: 5 },
   });
 }
 
