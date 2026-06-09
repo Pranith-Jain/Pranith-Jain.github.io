@@ -92,7 +92,7 @@ export async function withLastGood<T>(env: Env | undefined, cacheKey: string, li
 
 // ---- types --------------------------------------------------------------
 
-export type BriefingType = 'daily' | 'weekly';
+export type BriefingType = 'daily' | 'weekly' | 'landscape';
 export type Severity = 'critical' | 'high' | 'medium' | 'low' | 'unknown';
 
 export interface BriefingFinding {

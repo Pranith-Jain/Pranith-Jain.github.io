@@ -21,6 +21,8 @@ import { badRequest, notFound, internalError, serviceUnavailable } from '../lib/
  * read so existing DB-stored briefings get tags without a backfill.
  */
 function enrichBriefingWithTags(b: Briefing): Briefing {
+  // Landscape reports have a different structure — skip enrichment for them.
+  if (b.type === 'landscape') return b;
   const sections = b.sections.map((s) => ({
     ...s,
     findings: s.findings.map((f) => {
