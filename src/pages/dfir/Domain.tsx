@@ -1,7 +1,7 @@
-import { useState, type FormEvent } from 'react';
+import { useState, useEffect, useRef, type FormEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Search } from 'lucide-react';
+import { ArrowLeft, Search, ExternalLink, Globe, ChevronDown, ChevronRight, Fingerprint, Shield } from 'lucide-react';
 import type { DomainLookupResponse } from '../../lib/dfir/types';
 import { WhoisCard } from '../../components/dfir/WhoisCard';
 import { DnsRecordList } from '../../components/dfir/DnsRecordList';
@@ -13,6 +13,21 @@ import { RelatedActors } from '../../components/dfir/RelatedActors';
 
 const DOMAIN_RE = /^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/;
 
+interface WebamonHit {
+  'domain.name'?: string;
+  page_title?: string;
+  date?: string;
+  resolved_url?: string;
+  tag?: string;
+  meta?: { risk_score?: number; report_id?: string; script_count?: number; submission_url?: string };
+  fingerprint?: Record<string, string>;
+}
+
+interface WebamonData {
+  total_hits: number;
+  results: WebamonHit[];
+}
+
 export default function Domain(): JSX.Element {
   const [searchParams] = useSearchParams();
   const initialInput = searchParams.get('domain') ?? '';
@@ -20,6 +35,9 @@ export default function Domain(): JSX.Element {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<DomainLookupResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [webamon, setWebamon] = useState<WebamonData | null>(null);
+  const [webamonLoading, setWebamonLoading] = useState(false);
+  const webamonExpanded = useRef(true);
   const valid = DOMAIN_RE.test(input.trim());
 
   const onSubmit = async (e: FormEvent) => {
@@ -28,6 +46,7 @@ export default function Domain(): JSX.Element {
     setLoading(true);
     setResult(null);
     setError(null);
+    setWebamon(null);
     try {
       const r = await fetch(`/api/v1/domain/lookup?domain=${encodeURIComponent(input.trim())}`);
       if (!r.ok) {
@@ -52,6 +71,17 @@ export default function Domain(): JSX.Element {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (!result?.domain) return;
+    const domain = result.domain;
+    setWebamonLoading(true);
+    fetch(`/api/v1/webamon/search?search=${encodeURIComponent(`domain.name:${domain}`)}&size=1`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => setWebamon(d as WebamonData | null))
+      .catch(() => {})
+      .finally(() => setWebamonLoading(false));
+  }, [result?.domain]);
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
@@ -123,6 +153,124 @@ export default function Domain(): JSX.Element {
           <EmailAuthCard auth={result.email_auth} />
           <DnsRecordList dns={result.dns} />
           <CertList certs={result.certificates} />
+
+          {webamonLoading && (
+            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+              <div className="flex items-center gap-2 text-sm text-slate-500 font-mono">
+                <div className="animate-spin w-3 h-3 border-2 border-brand-500 border-t-transparent rounded-full" />
+                Checking Webamon scan data…
+              </div>
+            </section>
+          )}
+
+          {webamon && webamon.total_hits > 0 && (
+            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+              <button
+                onClick={() => (webamonExpanded.current = !webamonExpanded.current)}
+                className="w-full flex items-center gap-2 text-left"
+              >
+                {webamonExpanded.current ? (
+                  <ChevronDown size={16} className="text-slate-400" />
+                ) : (
+                  <ChevronRight size={16} className="text-slate-400" />
+                )}
+                <h2 className="font-display font-bold text-lg flex items-center gap-2">
+                  <Globe size={18} className="text-brand-600 dark:text-brand-400" /> Webamon Scan Data
+                </h2>
+                <span className="text-sm font-mono text-slate-500 font-normal">
+                  ({webamon.total_hits} scan{webamon.total_hits !== 1 ? 's' : ''})
+                </span>
+              </button>
+              {webamonExpanded.current &&
+                webamon.results.map((hit, i) => (
+                  <div key={hit.meta?.report_id ?? i} className="mt-4 grid grid-cols-2 gap-4 text-[13px]">
+                    <div>
+                      <h4 className="font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-1.5">
+                        <Shield size={13} /> Scan Summary
+                      </h4>
+                      <div className="space-y-1.5">
+                        {hit.page_title && (
+                          <div className="flex justify-between">
+                            <span className="text-slate-500">Page Title</span>
+                            <span className="text-slate-700 dark:text-slate-300 truncate ml-2">{hit.page_title}</span>
+                          </div>
+                        )}
+                        {hit.meta?.risk_score !== undefined && (
+                          <div className="flex justify-between">
+                            <span className="text-slate-500">Risk Score</span>
+                            <span
+                              className={`font-mono font-semibold ${hit.meta.risk_score >= 7 ? 'text-red-500' : hit.meta.risk_score >= 4 ? 'text-yellow-500' : 'text-green-500'}`}
+                            >
+                              {hit.meta.risk_score}
+                            </span>
+                          </div>
+                        )}
+                        {hit.meta?.script_count !== undefined && (
+                          <div className="flex justify-between">
+                            <span className="text-slate-500">Scripts</span>
+                            <span className="font-mono text-slate-700 dark:text-slate-300">
+                              {hit.meta.script_count}
+                            </span>
+                          </div>
+                        )}
+                        {hit.date && (
+                          <div className="flex justify-between">
+                            <span className="text-slate-500">Scanned</span>
+                            <span className="font-mono text-slate-700 dark:text-slate-300">{hit.date}</span>
+                          </div>
+                        )}
+                        {hit.resolved_url && (
+                          <div className="flex justify-between">
+                            <span className="text-slate-500">Resolved</span>
+                            <a
+                              href={hit.resolved_url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="font-mono text-brand-600 dark:text-brand-400 hover:underline truncate ml-2 inline-flex items-center gap-1"
+                            >
+                              {hit.resolved_url} <ExternalLink size={10} />
+                            </a>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    {hit.fingerprint && Object.values(hit.fingerprint).some((v) => v) && (
+                      <div>
+                        <h4 className="font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-1.5">
+                          <Fingerprint size={13} /> Fingerprints
+                        </h4>
+                        <div className="flex flex-wrap gap-1.5">
+                          {Object.entries(hit.fingerprint).map(([key, val]) => {
+                            if (!val || val === '4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945')
+                              return null;
+                            return (
+                              <a
+                                key={key}
+                                href={`/threatintel/webamon?q=${encodeURIComponent(`fingerprint.${key}:${val}`)}`}
+                                className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-brand-100 dark:hover:bg-brand-900/30 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                                title={`Search by ${key} fingerprint`}
+                              >
+                                <Fingerprint size={10} />
+                                {key}:{val.substring(0, 10)}…
+                              </a>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800">
+                <a
+                  href={`/threatintel/webamon?q=${encodeURIComponent(`domain.name:${result.domain}`)}`}
+                  className="text-[12px] text-brand-600 dark:text-brand-400 hover:underline font-mono inline-flex items-center gap-1"
+                >
+                  <Search size={11} /> Full Webamon search <ExternalLink size={10} />
+                </a>
+              </div>
+            </section>
+          )}
+
           <RelatedActors
             hints={{
               free_text: [result.rdap.registrar, ...result.rdap.nameservers].filter((s): s is string => !!s),

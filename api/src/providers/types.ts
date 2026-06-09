@@ -46,7 +46,8 @@ export type ProviderId =
   | 'kaspersky'
   | 'vulncheck'
   | 'maltiverse'
-  | 'secrets';
+  | 'secrets'
+  | 'webamon';
 
 export type Verdict = 'clean' | 'suspicious' | 'malicious' | 'unknown';
 
@@ -173,4 +174,5 @@ export const PROVIDER_SUPPORT: Record<ProviderId, IndicatorType[]> = {
   vulncheck: ['ipv4'],
   maltiverse: ['ipv4', 'ipv6', 'domain', 'url', 'hash'],
   secrets: ['url'],
+  webamon: ['domain'],
 };

@@ -258,6 +258,9 @@ const Assessments = lazy(() => import('./pages/threatintel/Assessments'));
 const FeedQuality = lazy(() => import('./pages/threatintel/FeedQuality'));
 const AssessmentDetail = lazy(() => import('./pages/threatintel/AssessmentDetail'));
 const EntityResolution = lazy(() => import('./pages/threatintel/EntityResolution'));
+const WebamonIntel = lazy(() => import('./pages/threatintel/WebamonIntel'));
+const WebamonSandbox = lazy(() => import('./pages/threatintel/WebamonSandbox'));
+const WebamonInfra = lazy(() => import('./pages/threatintel/WebamonInfra'));
 const AggregatedFeeds = lazy(() => import('./pages/threatintel/AggregatedFeeds'));
 const MalwareIocs = lazy(() => import('./pages/threatintel/MalwareIocs'));
 const FeedCatalog = lazy(() => import('./pages/threatintel/FeedCatalog'));
@@ -549,6 +552,9 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/assessments/:id', Component: AssessmentDetail },
   { path: '/threatintel/feed-quality', Component: FeedQuality },
   { path: '/threatintel/entity-resolution', Component: EntityResolution },
+  { path: '/threatintel/webamon', Component: WebamonIntel },
+  { path: '/threatintel/webamon/sandbox', Component: WebamonSandbox },
+  { path: '/threatintel/webamon/infra', Component: WebamonInfra },
   { path: '/dfir/pgp-tool', Component: PgpTool },
   { path: '/dfir/tor-gateway', Component: TorGateway },
   { path: '/dfir/blocklists', Component: Blocklists },

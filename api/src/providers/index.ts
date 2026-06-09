@@ -46,6 +46,7 @@ import { kaspersky } from './kaspersky';
 import { vulncheck } from './vulncheck';
 import { maltiverse } from './maltiverse';
 import { secrets } from './secrets';
+import { webamon } from './webamon';
 
 export { PROVIDER_SUPPORT, PROVIDER_TIMEOUT_MS };
 
@@ -96,6 +97,7 @@ export const ADAPTERS: Record<ProviderId, ProviderAdapter> = {
   vulncheck,
   maltiverse,
   secrets,
+  webamon,
 };
 
 export const BULK_ADAPTERS: Partial<Record<ProviderId, ProviderAdapter>> = {
@@ -171,6 +173,7 @@ export const PROVIDER_LABELS: Record<string, string> = {
   netlas: 'Netlas',
   criminalip: 'CriminalIP',
   digitalside: 'DigitalSide',
+  webamon: 'Webamon Intel',
 };
 
 export function buildProviderEnv(env: {

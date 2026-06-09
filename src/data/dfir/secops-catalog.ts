@@ -398,6 +398,26 @@ export const TOOLS: Tool[] = [
       'Identifies internet-background-noise scanners vs targeted activity. Free community tier (limited queries).',
   },
 
+  {
+    id: 'webamon',
+    name: 'Webamon',
+    url: 'https://intel.webamon.com',
+    categories: ['threat-intel', 'osint'],
+    pricing: 'freemium',
+    description:
+      'Threat-intel platform with Lucene-searchable IOC sweeps, fingerprint pivoting via MD5/SHA1/SHA256/SSDEEP hashes, and a Community API for sandbox + screenshot + infrastructure-graph lookups.',
+    badge: 'essential',
+  },
+  {
+    id: 'webamon-sandbox',
+    name: 'Webamon Sandbox',
+    url: 'https://intel.webamon.com',
+    categories: ['malware-analysis', 'threat-intel'],
+    pricing: 'freemium',
+    description:
+      'Cloud-based malware sandbox with screenshot capture and infrastructure graph. Free via Webamon Community API (sign-up).',
+  },
+
   // ── AI / LLM Security ──────────────────────────────────────────────────
   {
     id: 'garak',

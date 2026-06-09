@@ -12,9 +12,10 @@ import {
   Siren,
   ExternalLink,
   Loader2,
+  Monitor,
 } from 'lucide-react';
 
-type ToolKey = 'domain_lookup' | 'exposure' | 'web_scan' | 'takeover' | 'cert_search' | 'breach';
+type ToolKey = 'domain_lookup' | 'exposure' | 'web_scan' | 'takeover' | 'cert_search' | 'breach' | 'webamon';
 
 interface ToolResult {
   loading: boolean;
@@ -42,6 +43,7 @@ const INITIAL: State = {
   takeover: { ...INITIAL_TOOL },
   cert_search: { ...INITIAL_TOOL },
   breach: { ...INITIAL_TOOL },
+  webamon: { ...INITIAL_TOOL },
 };
 
 function reducer(state: State, action: Action): State {
@@ -139,6 +141,12 @@ const TOOL_CONFIG: Array<{ key: ToolKey; label: string; icon: typeof Shield; bui
     icon: AlertTriangle,
     buildUrl: (d) => `/api/v1/breach/domain?domain=${encodeURIComponent(d)}`,
   },
+  {
+    key: 'webamon',
+    label: 'Webamon Intel',
+    icon: Monitor,
+    buildUrl: (d) => `/api/v1/webamon/search?search=${encodeURIComponent(`domain.name:${d}`)}&size=3`,
+  },
 ];
 
 function ResultCard({
@@ -197,6 +205,10 @@ function ResultCard({
         const f = data.found as boolean | undefined;
         const bc = data.breach_count as number | undefined;
         return f && bc !== undefined ? `${bc} breaches` : 'none found';
+      }
+      case 'webamon': {
+        const d = data as { total_hits?: number } | undefined;
+        return d?.total_hits ? `${d.total_hits} scan${d.total_hits !== 1 ? 's' : ''}` : 'no recent scans';
       }
       default:
         return 'done';
@@ -304,6 +316,35 @@ function ResultCard({
           </p>
         );
       }
+      case 'webamon': {
+        const d = data as
+          | {
+              total_hits?: number;
+              results?: Array<{
+                'domain.name'?: string;
+                page_title?: string;
+                meta?: { risk_score?: number };
+                date?: string;
+              }>;
+            }
+          | undefined;
+        const results = d?.results ?? [];
+        const first = results[0];
+        return (
+          <div className="text-[11px] font-mono mt-1 text-slate-600 dark:text-slate-400">
+            {first ? (
+              <span>
+                Risk: <span className="text-slate-900 dark:text-slate-100">{first.meta?.risk_score ?? 'N/A'}</span>
+                {first.page_title ? <> · {first.page_title}</> : ''}
+              </span>
+            ) : d?.total_hits ? (
+              <span>{d.total_hits} scans found</span>
+            ) : (
+              <span className="text-slate-500">No scan data</span>
+            )}
+          </div>
+        );
+      }
       default:
         return null;
     }
@@ -327,7 +368,7 @@ function ResultCard({
         {state.loading && <Loader2 size={12} className="animate-spin text-slate-500 dark:text-slate-400 shrink-0" />}
         {!state.loading && !!state.data && !state.error && (
           <Link
-            to={`/dfir/${tool.key === 'domain_lookup' ? 'domain' : tool.key === 'web_scan' ? 'web-scan' : tool.key === 'cert_search' ? 'cert-search' : tool.key === 'breach' ? 'breach' : tool.key}?domain=${encodeURIComponent(domain)}`}
+            to={`/${tool.key === 'domain_lookup' ? 'dfir/domain' : tool.key === 'web_scan' ? 'dfir/web-scan' : tool.key === 'cert_search' ? 'dfir/cert-search' : tool.key === 'breach' ? 'dfir/breach' : tool.key === 'webamon' ? 'threatintel/webamon' : 'dfir/' + tool.key}?${tool.key === 'webamon' ? 'q' : 'domain'}=${encodeURIComponent(domain)}`}
             className="text-[10px] text-brand-600 dark:text-brand-400 hover:underline shrink-0 inline-flex items-center gap-0.5"
           >
             full <ExternalLink size={9} />

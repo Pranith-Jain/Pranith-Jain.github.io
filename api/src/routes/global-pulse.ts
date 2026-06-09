@@ -61,7 +61,8 @@ type PulseKind =
   | 'research'
   | 'cve'
   | 'actor_sighting'
-  | 'ioc_correlation';
+  | 'ioc_correlation'
+  | 'webamon_scan';
 
 interface PulseEvent {
   id: string;
@@ -1958,6 +1959,56 @@ function fromBreachForums(data: BreachForumsResponse): PulseEvent[] {
     }));
 }
 
+/* ─── Webamon ──────────────────────────────────────────────────────────── */
+
+const WEBAMON_SEARCH = 'https://search.webamon.com/search';
+
+interface WebamonHit {
+  'domain.name'?: string;
+  page_title?: string;
+  date?: string;
+  resolved_url?: string;
+  tag?: string;
+  meta?: { risk_score?: number; report_id?: string; script_count?: number };
+}
+
+interface WebamonResponse {
+  total_hits: number;
+  results: WebamonHit[];
+}
+
+async function fromWebamon(): Promise<PulseEvent[]> {
+  try {
+    const url = `${WEBAMON_SEARCH}?search=${encodeURIComponent('risk_score:>4')}&results=domain.name,page_title,meta.risk_score,meta.report_id,resolved_url,date,tag&size=15`;
+    const res = await fetch(url, {
+      signal: AbortSignal.timeout(10000),
+      headers: { accept: 'application/json', 'user-agent': 'pranithjain-dfir/1.0' },
+    });
+    if (!res.ok) return [];
+    const data = (await res.json()) as WebamonResponse;
+    if (!data.total_hits || !data.results?.length) return [];
+
+    return data.results.slice(0, 15).map((r, i) => ({
+      id: `webamon-${r.meta?.report_id ?? i}`,
+      kind: 'webamon_scan' as const,
+      title: r['domain.name'] ?? 'unknown',
+      description: r.page_title
+        ? `${r.page_title} · risk ${r.meta?.risk_score ?? '?'}`
+        : `Risk score: ${r.meta?.risk_score ?? '?'}${r.tag ? ` · ${r.tag}` : ''}`,
+      lat: 0,
+      lng: 0,
+      magnitude: r.meta?.risk_score ?? 0,
+      timestamp: r.date || new Date().toISOString(),
+      severity: (r.meta?.risk_score ?? 0) >= 7 ? 'high' : (r.meta?.risk_score ?? 0) >= 5 ? 'medium' : 'low',
+      source: 'Webamon Scan',
+      url: r.resolved_url,
+      country: undefined,
+    }));
+  } catch {
+    return [];
+  }
+}
+
 /* ─── Handler ───────────────────────────────────────────────────────────── */
 
 export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
@@ -2445,6 +2496,9 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       }
     }
 
+    // ── Webamon high-risk domain scans ─────────────────────────────────
+    const webamonEvents = await fromWebamon();
+
     // ── CTI category tagging ──────────────────────────────────────────
     const tagCti = <T extends PulseKind>(kind: T): PulseEvent['cti'] => {
       switch (kind) {
@@ -2470,6 +2524,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
           return 'threat';
         case 'ioc_correlation':
           return 'ioc';
+        case 'webamon_scan':
+          return 'threat';
         default:
           return 'other';
       }
@@ -2514,6 +2570,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       ...tagAll(actorEvents),
       ...tagAll(iocCorrEvents),
       ...tagAll(bfEvents),
+      ...tagAll(webamonEvents),
     ].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
 
     const result: GlobalPulseResponse = {
@@ -2554,6 +2611,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
         cve: finalCveEvents.length,
         actor_sighting: actorEvents.length,
         ioc_correlation: iocCorrEvents.length,
+        webamon_scan: webamonEvents.length,
       },
     };
 

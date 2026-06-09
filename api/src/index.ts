@@ -71,6 +71,16 @@ import { cybercrimeHandler } from './routes/cybercrime';
 import { iocExplainHandler, iocRuleHandler } from './routes/ioc-verdict';
 import { globalPulseHandler } from './routes/global-pulse';
 import {
+  webamonSearchHandler,
+  webamonScanHandler,
+  webamonReportsHandler,
+  webamonReportHandler,
+  webamonScreenshotHandler,
+  webamonDomainHandler,
+  webamonServerHandler,
+  webamonResourceHandler,
+} from './routes/webamon';
+import {
   listBriefingsHandler,
   getBriefingHandler,
   todayBriefingHandler,
@@ -692,6 +702,14 @@ app.post(
   telegramLeakBotRegisterHandler
 );
 
+app.get('/api/v1/webamon/search', webamonSearchHandler);
+app.post('/api/v1/webamon/scan', webamonScanHandler);
+app.get('/api/v1/webamon/reports', webamonReportsHandler);
+app.get('/api/v1/webamon/report/:id', webamonReportHandler);
+app.get('/api/v1/webamon/screenshot/:id', webamonScreenshotHandler);
+app.get('/api/v1/webamon/domain/:name', webamonDomainHandler);
+app.get('/api/v1/webamon/server/:ip', webamonServerHandler);
+app.get('/api/v1/webamon/resource/:sha256', webamonResourceHandler);
 app.get('/api/v1/global-pulse', globalPulseHandler);
 app.get('/api/v1/cve-recent', cveRecentHandler);
 app.get('/api/v1/cve-threat-map', cveThreatMapHandler);
