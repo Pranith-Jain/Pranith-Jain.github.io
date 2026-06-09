@@ -529,10 +529,27 @@ export default function BriefingDetail(): JSX.Element {
   const intelBody = useMemo(() => {
     if (!briefing) return '';
     const parts: string[] = [briefing.executive_summary];
-    for (const s of briefing.sections) {
-      parts.push(`\n\n## ${s.title}\n${s.blurb}`);
-      for (const f of s.findings) {
-        parts.push(`\n### ${f.title}\n${f.description}`);
+    // Landscape reports have a different structure — use named sections.
+    if (briefing.type === 'landscape') {
+      const lr = briefing as unknown as LandscapeReport;
+      for (const section of [
+        lr.top_threats,
+        lr.trending_actors,
+        lr.key_incidents,
+        lr.recommended_actions,
+        lr.outlook,
+      ]) {
+        parts.push(`\n\n## ${section.title}\n${section.blurb}`);
+        for (const f of section.findings) {
+          parts.push(`\n### ${f.title}\n${f.description}`);
+        }
+      }
+    } else {
+      for (const s of briefing.sections) {
+        parts.push(`\n\n## ${s.title}\n${s.blurb}`);
+        for (const f of s.findings) {
+          parts.push(`\n### ${f.title}\n${f.description}`);
+        }
       }
     }
     return parts.join('\n');
