@@ -144,11 +144,21 @@ export async function discoverAgenticTrends(deps: AgenticTrendsDeps): Promise<Ca
 
     for (const t of trends) {
       const title = t.title || 'untitled';
-      const seed = title
-        .slice(0, 80)
+      // Normalize the title to create a stable key that doesn't change
+      // between LLM runs. Strip common filler words, keep only the core
+      // topic (e.g., "prompt injection", "blacksuit ransomware", "eu cyber").
+      const coreTopic = title
         .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-');
-      if (!seed || seed.length < 5) continue;
+        .replace(/[^a-z0-9\s]+/g, '')
+        .replace(
+          /\b(new|novel|emergence|attack|technique|vulnerability|threat|actor|ransomware|group|targets|targeting|sector|sectors|regulations|directive|powered|systems|capabilities|tactics|victims|manipulation|integrity|across|continent|introduces|stricter|disclosure|requirements|organizations|allows|for|of|the|a|an|in|on|to|with|and|or|is|are|was|were|be|been|being|have|has|had|do|does|did|will|would|could|should|may|might|can|shall)\b/g,
+          ''
+        )
+        .replace(/\s+/g, ' ')
+        .trim()
+        .slice(0, 40);
+      const seed = coreTopic.replace(/\s+/g, '-');
+      if (!seed || seed.length < 3) continue;
       const key = topicKey('agentic', seed);
       if (seenKeys.has(key)) continue;
       seenKeys.add(key);
