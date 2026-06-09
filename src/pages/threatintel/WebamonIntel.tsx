@@ -292,7 +292,7 @@ export default function WebamonIntel(): JSX.Element {
 
     try {
       const fields =
-        'domain.name,page_title,meta.risk_score,fingerprint.tech,fingerprint.asn,fingerprint.ssl,fingerprint.dom,fingerprint.scan_fingerprint,fingerprint.domains,fingerprint.links,fingerprint.scripts,fingerprint.cookies,resolved_url,date,tag,sub_domain';
+        'domain.name,page_title,meta.risk_score,fingerprint.tech,fingerprint.asn,resolved_url,date,tag,sub_domain';
       const params = new URLSearchParams({
         search: trimmed,
         size: String(PAGE_SIZE),
