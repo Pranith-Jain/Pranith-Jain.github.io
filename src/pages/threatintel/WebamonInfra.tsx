@@ -6,12 +6,10 @@ import {
   Globe,
   Server,
   FileCode,
-  ExternalLink,
   ChevronDown,
   ChevronRight,
   Loader2,
   AlertTriangle,
-  Fingerprint,
 } from 'lucide-react';
 
 interface EntityResult {
@@ -52,7 +50,6 @@ export default function WebamonInfra(): JSX.Element {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<EntityResult | null>(null);
-  const [expanded, setExpanded] = useState(true);
 
   const doLookup = async (e: FormEvent) => {
     e.preventDefault();
@@ -77,24 +74,6 @@ export default function WebamonInfra(): JSX.Element {
       }
       const json = await res.json();
       setData({ [mode]: json as Record<string, unknown> });
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'lookup failed');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const searchByFingerprint = async (fp: string) => {
-    setMode('domain');
-    const esc = encodeURIComponent(fp);
-    setLoading(true);
-    setError(null);
-    setData(null);
-    try {
-      const res = await fetch(`/api/v1/webamon/domain/${encodeURIComponent('search')}?search=${esc}`);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const json = await res.json();
-      setData({ domain: json as Record<string, unknown> });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'lookup failed');
     } finally {

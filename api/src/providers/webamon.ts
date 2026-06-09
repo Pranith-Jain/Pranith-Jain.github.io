@@ -78,12 +78,9 @@ export const webamon: ProviderAdapter = async (indicator, _env, signal) => {
         domain: hit['domain.name'] ?? '',
         page_title: hit.page_title ?? '',
         risk_score: riskScore,
-        script_count: hit.meta?.script_count ?? 0,
-        report_id: hit.meta?.report_id ?? '',
         resolved_url: hit.resolved_url ?? '',
         tag: hit.tag ?? '',
         date: hit.date ?? '',
-        submission_url: hit.meta?.submission_url ?? '',
       },
     });
   } catch (err) {
