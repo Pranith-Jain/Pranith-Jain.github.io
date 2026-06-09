@@ -1183,13 +1183,6 @@ export const SECTIONS: Section[] = [
         desc: '10 standard intelligence analysis methods: ACH, Key Assumptions Check, Indicators Validator, Diagnostic Analysis, Red Team Analysis, Timeline Analysis, Outside-In Thinking, High Impact/Low Prob, Deception Detection, Argument Mapping.',
         icon: Brain,
       },
-      {
-        path: '/dfir/ir-playbooks',
-        useCase: 'Follow step-by-step containment procedures.',
-        label: 'IR Playbooks (Static)',
-        desc: 'Pre-written incident response playbooks for common scenarios. Step-by-step containment, eradication, and recovery procedures.',
-        icon: ScrollText,
-      },
     ],
   },
   // ─── Threat Intelligence Platform ──────────────────────────────────
