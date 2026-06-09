@@ -100,17 +100,29 @@ export async function touchDedupMany(ns: KVNamespace, keys: string[], when: Date
 }
 
 /** Pure suppression gate shared by discovery. `republishBlockMs` is the
- *  published-key window (60d). Returns true when the key must NOT be
- *  re-suggested right now. */
-export function isKeySuppressed(rec: DedupRecord | null, now: Date, republishBlockMs: number): boolean {
+ *  published-key window (30d). `surfacedBlockMs` is the window for items
+ *  that were surfaced (kept in discovery) but not published (7d).
+ *  Returns true when the key must NOT be re-suggested right now. */
+export function isKeySuppressed(
+  rec: DedupRecord | null,
+  now: Date,
+  republishBlockMs: number,
+  surfacedBlockMs?: number
+): boolean {
   if (!rec) return false;
   if (rec.suppressedUntil) {
     const s = Date.parse(rec.suppressedUntil);
     if (!Number.isNaN(s) && now.getTime() < s) return true;
   }
-  if (!rec.publishedSlug) return false;
   const t = Date.parse(rec.lastSeenAt);
-  return !Number.isNaN(t) && now.getTime() - t < republishBlockMs;
+  if (Number.isNaN(t)) return false;
+  const age = now.getTime() - t;
+  // Published items are suppressed for the full republish window (30d)
+  if (rec.publishedSlug && age < republishBlockMs) return true;
+  // Surfaced (but not published) items are suppressed for a shorter window (7d)
+  // to prevent the same candidates from appearing in every daily run
+  if (!rec.publishedSlug && surfacedBlockMs && age < surfacedBlockMs) return true;
+  return false;
 }
 
 /** Mark many keys suppressed until `until` in ONE read + ONE write
