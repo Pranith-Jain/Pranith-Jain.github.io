@@ -60,9 +60,6 @@ import {
   Zap,
   Gauge,
   Download,
-  LayoutDashboard,
-  Rss,
-  WifiOff,
   type LucideIcon,
 } from 'lucide-react';
 import type { FeatureFlag } from '../../lib/features';
@@ -1235,50 +1232,6 @@ export const SECTIONS: Section[] = [
         label: 'Threat Modeling',
         desc: 'STRIDE/PASTA threat models with attack surface inventory, threat-to-asset mapping, MITRE coverage analysis, and risk scoring. Identify gaps in your defenses.',
         icon: ShieldCheck,
-      },
-    ],
-  },
-  // ─── Platform & Admin ──────────────────────────────────────────────
-  {
-    id: 'platform',
-    label: 'Platform & Integration',
-    blurb: 'API docs, multi-tenancy, offline mode, and platform features.',
-    group: 'specialized',
-    tools: [
-      {
-        path: '/dfir/api-docs',
-        useCase: 'Integrate the platform with your SIEM via REST API.',
-        label: 'API Documentation',
-        desc: 'OpenAPI spec for all 175+ endpoints. API key management, webhook notifications, CLI tool, MCP server integration. Build on the platform.',
-        icon: Code2,
-      },
-      {
-        path: '/dfir/multi-tenancy',
-        useCase: 'Set up analyst roles for your SOC team.',
-        label: 'Multi-Tenancy & RBAC',
-        desc: 'Analyst roles (Read-only, Analyst, Lead, Admin), organization/workspace isolation, per-user audit log, API key scoping. Enterprise-grade access control.',
-        icon: Users,
-      },
-      {
-        path: '/dfir/offline-mode',
-        useCase: 'Download IOC database for air-gapped investigation.',
-        label: 'Offline / Air-Gapped Mode',
-        desc: 'Offline IOC database download and sync, local detection rule execution, offline report generation. Work without internet, sync when reconnected.',
-        icon: WifiOff,
-      },
-      {
-        path: '/dfir/dashboard-widgets',
-        useCase: 'Customize your SOC dashboard with live widgets.',
-        label: 'Dashboard Widgets',
-        desc: 'Real-time IOC feed ticker, geopolitical threat heatmap, threat actor spotlight, collection coverage matrix, vulnerability trending, ransomware activity timeline.',
-        icon: LayoutDashboard,
-      },
-      {
-        path: '/dfir/tip-features',
-        useCase: 'Subscribe to threat intel feeds and set up auto-ingestion.',
-        label: 'TIP Core Features',
-        desc: 'Intel sharing (TAXII push/pull), feed subscription management, automated ingestion pipelines, intel quality scoring, deduplication, TLP handling, dissemination rules.',
-        icon: Rss,
       },
     ],
   },
