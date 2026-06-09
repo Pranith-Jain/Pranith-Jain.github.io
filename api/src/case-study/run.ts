@@ -186,7 +186,9 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
   //     Quality over quantity: each candidate is enriched with hooks,
   //     angles, and content specs (adopting social-content approach).
   const ALWAYS_ON = new Set(['cve', 'actor', 'ransom', 'platform', 'trends']);
-  const active = new Set(activeRunnerNames(Object.keys(allRunners), ALWAYS_ON, now, 4));
+  // 6 rotation groups: with ~8 optional runners, each runs once every 6 days
+  // This ensures variety while keeping daily subrequest count manageable
+  const active = new Set(activeRunnerNames(Object.keys(allRunners), ALWAYS_ON, now, 6));
   const runners = Object.fromEntries(Object.entries(allRunners).filter(([name]) => active.has(name)));
 
   return runDiscovery({

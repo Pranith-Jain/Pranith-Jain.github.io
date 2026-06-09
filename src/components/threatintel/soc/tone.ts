@@ -42,7 +42,7 @@ export const SEVERITY_DOT: Record<SocSeverity, string> = {
 /** Severity → fill hex — mirrors tailwind severity tokens exactly. */
 export const CHART_SEV: Record<string, string> = {
   CRITICAL: '#e11d48',
-  HIGH: '#f59e0b',
+  HIGH: '#f97316',
   MEDIUM: '#f59e0b',
   LOW: '#10b981',
   NONE: '#64748b',

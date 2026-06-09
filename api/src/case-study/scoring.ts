@@ -48,6 +48,26 @@ export function finalScore({ recency, severity, novelty, sourceWeight }: FinalSc
   return Number(weighted.toFixed(4));
 }
 
+export interface FreshnessAwareScoreInput extends FinalScoreInput {
+  /** 0..1 bonus for topics not seen recently (0 = seen today, 1 = never seen) */
+  topicFreshness?: number;
+}
+
+/** Score with topic freshness bonus to ensure variety across discovery runs. */
+export function finalScoreWithFreshness({
+  recency,
+  severity,
+  novelty,
+  sourceWeight,
+  topicFreshness,
+}: FreshnessAwareScoreInput): number {
+  if (typeof topicFreshness !== 'number') return finalScore({ recency, severity, novelty, sourceWeight });
+  // Blend: 60% base score + 40% topic freshness
+  // This ensures topics not seen recently get a significant boost
+  const base = finalScore({ recency, severity, novelty, sourceWeight });
+  return Number((base * 0.6 + topicFreshness * 0.4).toFixed(4));
+}
+
 export interface TrendingAwareScoreInput extends FinalScoreInput {
   trending?: number;
 }

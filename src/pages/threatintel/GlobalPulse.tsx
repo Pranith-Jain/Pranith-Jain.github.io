@@ -361,23 +361,21 @@ export default function GlobalPulse(): JSX.Element {
   const [error, setError] = useState<string | null>(null);
   const [activeLayers, setActiveLayers] = useState<Set<PulseKind>>(
     new Set([
-      'earthquake',
+      'ransomware',
+      'cve',
       'ioc_activity',
       'cyber_attack',
-      'ransomware',
-      'breach',
-      'darkweb',
-      'cve',
-      'phishing',
-      'infostealer',
-      'malware',
       'c2_tracker',
       'cisa_advisory',
+      'detection',
+      'darkweb',
+      'infostealer',
+      'phishing',
+      'malware',
       'blocklist',
-      'war_room',
-      'aircraft',
-      'geopolitical',
-      'tech_news',
+      'breach',
+      'cybercrime',
+      'scam',
     ])
   );
   const [autoRefresh, setAutoRefresh] = useState(true);
@@ -387,6 +385,7 @@ export default function GlobalPulse(): JSX.Element {
   const [lastUpdated, setLastUpdated] = useState<string | null>(null);
   const [showFilters, setShowFilters] = useState(false);
   const [severityFilter, setSeverityFilter] = useState<Set<string>>(new Set(['critical', 'high', 'medium', 'low']));
+  const [ctiFilter, setCtiFilter] = useState<'all' | 'ransomware' | 'cve' | 'ioc'>('all');
 
   const load = useCallback(async () => {
     const myId = ++loadIdRef.current;
@@ -416,9 +415,15 @@ export default function GlobalPulse(): JSX.Element {
   const toggleFullscreen = useCallback(() => {
     if (!globeContainerRef.current) return;
     if (!document.fullscreenElement) {
-      globeContainerRef.current.requestFullscreen().then(() => setIsFullscreen(true)).catch(() => {});
+      globeContainerRef.current
+        .requestFullscreen()
+        .then(() => setIsFullscreen(true))
+        .catch(() => {});
     } else {
-      document.exitFullscreen().then(() => setIsFullscreen(false)).catch(() => {});
+      document
+        .exitFullscreen()
+        .then(() => setIsFullscreen(false))
+        .catch(() => {});
     }
   }, []);
 
@@ -427,7 +432,7 @@ export default function GlobalPulse(): JSX.Element {
     const handler = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement;
       if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') return;
-      
+
       switch (e.key.toLowerCase()) {
         case 'f':
           e.preventDefault();
@@ -443,7 +448,7 @@ export default function GlobalPulse(): JSX.Element {
           break;
         case 's':
           e.preventDefault();
-          setShowFilters(prev => !prev);
+          setShowFilters((prev) => !prev);
           break;
         case '1':
           setMapMode('3d');
@@ -464,37 +469,104 @@ export default function GlobalPulse(): JSX.Element {
     return () => document.removeEventListener('fullscreenchange', handler);
   }, []);
 
+  const ctiPriority = useCallback((kind: PulseKind): number => {
+    switch (kind) {
+      case 'ransomware':
+        return 5;
+      case 'cve':
+        return 4;
+      case 'cisa_advisory':
+        return 4;
+      case 'c2_tracker':
+        return 4;
+      case 'ioc_activity':
+      case 'cyber_attack':
+        return 3;
+      case 'detection':
+      case 'malware':
+        return 2;
+      case 'phishing':
+      case 'darkweb':
+      case 'infostealer':
+      case 'breach':
+      case 'cybercrime':
+      case 'blocklist':
+      case 'scam':
+        return 1;
+      default:
+        return 0;
+    }
+  }, []);
+
   const filteredEvents = useMemo(() => {
     if (!data) return [];
     const now = Date.now();
-    return data.events.filter((e) => {
-      if (!activeLayers.has(e.kind)) return false;
-      if (!severityFilter.has(e.severity)) return false;
-      if (timeRange > 0) {
-        const eventTime = new Date(e.timestamp).getTime();
-        if (now - eventTime > timeRange * 3600000) return false;
-      }
-      if (searchQuery) {
-        const q = searchQuery.toLowerCase();
-        return (
-          e.title.toLowerCase().includes(q) ||
-          e.description.toLowerCase().includes(q) ||
-          e.source.toLowerCase().includes(q) ||
-          e.kind.toLowerCase().includes(q)
-        );
-      }
-      return true;
-    });
-  }, [data, activeLayers, severityFilter, searchQuery, timeRange]);
+    const ctiKinds = new Set<PulseKind>([
+      'ransomware',
+      'cve',
+      'cisa_advisory',
+      'c2_tracker',
+      'ioc_activity',
+      'cyber_attack',
+      'detection',
+      'malware',
+      'phishing',
+      'darkweb',
+      'infostealer',
+      'breach',
+      'cybercrime',
+      'blocklist',
+      'scam',
+    ]);
+    return data.events
+      .filter((e) => {
+        if (!activeLayers.has(e.kind)) return false;
+        if (!severityFilter.has(e.severity)) return false;
+        if (timeRange > 0) {
+          const eventTime = new Date(e.timestamp).getTime();
+          if (now - eventTime > timeRange * 3600000) return false;
+        }
+        if (ctiFilter === 'ransomware' && e.kind !== 'ransomware') return false;
+        if (ctiFilter === 'cve' && e.kind !== 'cve') return false;
+        if (ctiFilter === 'ioc' && e.kind !== 'ioc_activity' && e.kind !== 'cyber_attack') return false;
+        if (searchQuery) {
+          const q = searchQuery.toLowerCase();
+          return (
+            e.title.toLowerCase().includes(q) ||
+            e.description.toLowerCase().includes(q) ||
+            e.source.toLowerCase().includes(q) ||
+            e.kind.toLowerCase().includes(q)
+          );
+        }
+        return true;
+      })
+      .sort((a, b) => {
+        const pa = ctiPriority(a.kind);
+        const pb = ctiPriority(b.kind);
+        if (pa !== pb) return pb - pa;
+        return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
+      });
+  }, [data, activeLayers, severityFilter, searchQuery, timeRange, ctiFilter, ctiPriority]);
 
   // Export to CSV
   const exportToCsv = useCallback(() => {
     if (!filteredEvents.length) return;
     const headers = ['ID', 'Kind', 'Title', 'Description', 'Severity', 'Source', 'Timestamp', 'Latitude', 'Longitude'];
-    const rows = filteredEvents.map(e => [
-      e.id, e.kind, e.title, e.description, e.severity, e.source, e.timestamp, e.lat, e.lng
+    const rows = filteredEvents.map((e) => [
+      e.id,
+      e.kind,
+      e.title,
+      e.description,
+      e.severity,
+      e.source,
+      e.timestamp,
+      e.lat,
+      e.lng,
     ]);
-    const csv = [headers.join(','), ...rows.map(r => r.map(v => typeof v === 'string' ? '"' + v.replace(/"/g, '""') + '"' : v).join(','))].join('\n');
+    const csv = [
+      headers.join(','),
+      ...rows.map((r) => r.map((v) => (typeof v === 'string' ? '"' + v.replace(/"/g, '""') + '"' : v)).join(',')),
+    ].join('\n');
     const blob = new Blob([csv], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -530,7 +602,16 @@ export default function GlobalPulse(): JSX.Element {
   const geoPoints = useMemo(() => {
     return filteredEvents
       .filter((e) => e.lat !== 0 || e.lng !== 0)
-      .map((e) => ({ id: e.id, lat: e.lat, lng: e.lng, severity: e.severity, kind: e.kind, title: e.title, description: e.description, source: e.source }));
+      .map((e) => ({
+        id: e.id,
+        lat: e.lat,
+        lng: e.lng,
+        severity: e.severity,
+        kind: e.kind,
+        title: e.title,
+        description: e.description,
+        source: e.source,
+      }));
   }, [filteredEvents]);
 
   const globePoints: CtiPoint[] = useMemo(() => {
@@ -586,7 +667,7 @@ export default function GlobalPulse(): JSX.Element {
       backTo="/threatintel"
       icon={<Globe size={28} />}
       title="Global Pulse"
-      description="Real-time global intelligence across cyber, geopolitical, and social domains"
+      description="Real-time CTI intelligence — ransomware, CVEs, IOCs, and threat activity"
       loading={loading && !data}
       error={error}
       onRetry={load}
@@ -661,8 +742,18 @@ export default function GlobalPulse(): JSX.Element {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-8 pr-3 py-2 text-xs font-mono rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 placeholder-slate-400 focus:outline-none focus:border-brand-500/50"
               />
-              <svg className="absolute left-2.5 top-2.5 w-3.5 h-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              <svg
+                className="absolute left-2.5 top-2.5 w-3.5 h-3.5 text-slate-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
               </svg>
               {searchQuery && (
                 <button
@@ -779,7 +870,12 @@ export default function GlobalPulse(): JSX.Element {
                   </svg>
                 ) : (
                   <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+                    />
                   </svg>
                 )}
                 {isFullscreen ? 'Exit' : 'Full'}
@@ -792,7 +888,12 @@ export default function GlobalPulse(): JSX.Element {
                 title="Export to CSV"
               >
                 <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  />
                 </svg>
                 Export
               </button>
@@ -836,7 +937,7 @@ export default function GlobalPulse(): JSX.Element {
               </div>
 
               {/* Layer Groups */}
-              {(['geo', 'intel', 'social'] as const).map((group) => {
+              {(['intel', 'geo', 'social'] as const).map((group) => {
                 const layers = layerGroups[group];
                 const activeCount = layers.filter((l) => l.active).length;
                 const groupLabels = { geo: 'Geospatial', intel: 'Threat Intel', social: 'Social / OSINT' };
@@ -965,10 +1066,13 @@ export default function GlobalPulse(): JSX.Element {
                     </div>
                   }
                 >
-                  <PulseMap markers={geoPoints} onMarkerClick={(m) => {
-                    const event = filteredEvents.find(e => e.id === m.id);
-                    if (event) setSelectedEvent(event);
-                  }} />
+                  <PulseMap
+                    markers={geoPoints}
+                    onMarkerClick={(m) => {
+                      const event = filteredEvents.find((e) => e.id === m.id);
+                      if (event) setSelectedEvent(event);
+                    }}
+                  />
                 </Suspense>
               )}
 
@@ -997,14 +1101,37 @@ export default function GlobalPulse(): JSX.Element {
               <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200 dark:border-slate-800">
                 <div className="flex items-center gap-2">
                   <Radio size={14} className="text-rose-400 animate-pulse" />
-                  <h3 className="text-sm font-semibold font-mono text-slate-700 dark:text-slate-300">Live Feed</h3>
+                  <h3 className="text-sm font-semibold font-mono text-slate-700 dark:text-slate-300">CTI Live Feed</h3>
                   <span className="text-xs font-mono text-slate-500">({filteredEvents.length})</span>
                 </div>
-                {filteredEvents.filter((e) => e.severity === 'critical').length > 0 && (
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/20">
-                    {filteredEvents.filter((e) => e.severity === 'critical').length} critical
-                  </span>
-                )}
+                <div className="flex items-center gap-1.5">
+                  {(() => {
+                    const ransomCount = filteredEvents.filter((e) => e.kind === 'ransomware').length;
+                    const cveCount = filteredEvents.filter((e) => e.kind === 'cve').length;
+                    const iocCount = filteredEvents.filter(
+                      (e) => e.kind === 'ioc_activity' || e.kind === 'cyber_attack'
+                    ).length;
+                    return (
+                      <>
+                        {ransomCount > 0 && (
+                          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-rose-500/10 text-rose-400">
+                            R{ransomCount}
+                          </span>
+                        )}
+                        {cveCount > 0 && (
+                          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-400">
+                            C{cveCount}
+                          </span>
+                        )}
+                        {iocCount > 0 && (
+                          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-sky-500/10 text-sky-400">
+                            I{iocCount}
+                          </span>
+                        )}
+                      </>
+                    );
+                  })()}
+                </div>
               </div>
 
               {/* Feed List */}

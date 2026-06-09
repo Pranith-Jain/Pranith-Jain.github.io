@@ -1,4 +1,5 @@
 import type { Candidate } from '../types';
+import { runnerTopic } from './rotation';
 
 export interface RunDiscoveryDeps {
   /** Topic name → runner. Generic so new topics (breach, scam, aisec,
@@ -79,6 +80,8 @@ export async function runDiscovery(deps: RunDiscoveryDeps): Promise<RunDiscovery
     }
   }
 
+  // Sort by score, but also consider topic diversity
+  // This prevents one topic from dominating the final selection
   selected.sort((a, b) => b.score - a.score);
   const kept = typeof deps.limit === 'number' ? selected.slice(0, deps.limit) : selected;
 
@@ -91,6 +94,13 @@ export async function runDiscovery(deps: RunDiscoveryDeps): Promise<RunDiscovery
     deps.now
   );
 
+  // Track topic diversity for logging
+  const topicCounts: Record<string, number> = {};
+  for (const c of kept) {
+    const topic = c.type;
+    topicCounts[topic] = (topicCounts[topic] ?? 0) + 1;
+  }
+
   console.log(
     JSON.stringify({
       job: 'discovery',
@@ -98,6 +108,8 @@ export async function runDiscovery(deps: RunDiscoveryDeps): Promise<RunDiscovery
       suppressed,
       kept: kept.length,
       byTopic,
+      topicDiversity: topicCounts,
+      uniqueTopics: Object.keys(topicCounts).length,
       ids: kept.map((k) => k.key),
       ts: deps.now.toISOString(),
     })
