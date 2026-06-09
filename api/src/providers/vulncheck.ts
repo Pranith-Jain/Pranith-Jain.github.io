@@ -29,36 +29,40 @@ export const vulncheck: ProviderAdapter = async (indicator, env, signal) => {
 
   try {
     const intel = await vulncheckIp(token, indicator.value, signal);
-    if (!intel)
+    if ('err' in intel) {
+      const code = intel.err.code;
+      const status = intel.err.status;
       return base('error', {
-        error: 'vulncheck_fetch_failed',
-        error_code: 'upstream_5xx',
-        error_tags: ['upstream-5xx'],
+        error: `vulncheck ${code}${status ? ` (${status})` : ''}`,
+        error_code: code,
+        error_tags: [code],
       });
-    if (!intel.found) {
+    }
+    const data = intel.ok;
+    if (!data.found) {
       return base('ok', { score: 0, verdict: 'clean', tags: ['not-listed'], raw_summary: { found: false } });
     }
 
     // C2 / initial-access are strong malicious signals; honeypot-only is suspicious.
-    const tags = intel.tags.map((t) => t.toLowerCase());
+    const tags = data.tags.map((t) => t.toLowerCase());
     const malicious = tags.some((t) => t.includes('c2') || t.includes('initial-access') || t.includes('botnet'));
     const score = malicious ? 90 : 50;
     const verdict: Verdict = malicious ? 'malicious' : 'suspicious';
 
-    const outTags = [...new Set(['vulncheck', ...intel.tags])].slice(0, 6);
-    if (intel.cves.length) outTags.push(`${intel.cves.length}-cves`);
+    const outTags = [...new Set(['vulncheck', ...data.tags])].slice(0, 6);
+    if (data.cves.length) outTags.push(`${data.cves.length}-cves`);
 
     return base('ok', {
       score,
       verdict,
       tags: outTags.slice(0, 8),
       raw_summary: {
-        detections: intel.detections,
-        tags: intel.tags,
-        country: intel.country,
-        asn: intel.asn,
-        hostnames: intel.hostnames,
-        cves: intel.cves,
+        detections: data.detections,
+        tags: data.tags,
+        country: data.country,
+        asn: data.asn,
+        hostnames: data.hostnames,
+        cves: data.cves,
         source: 'vulncheck ipintel-3d',
       },
     });

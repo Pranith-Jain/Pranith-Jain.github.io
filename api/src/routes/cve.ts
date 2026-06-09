@@ -18,7 +18,7 @@ export async function cveSearchHandler(c: Context<{ Bindings: Env }>) {
     try {
       data = (await res.json()) as Record<string, unknown>;
       const vc = await vulncheckCve(token, id, AbortSignal.timeout(6000));
-      if (vc) data.vulncheck = vc;
+      if ('ok' in vc) data.vulncheck = vc.ok;
       return c.json(data, 200, { 'Cache-Control': 'public, max-age=1800, s-maxage=3600' });
     } catch {
       // VulnCheck enrichment failed — return the un-enriched data we already parsed

@@ -10,6 +10,8 @@
  */
 const BASE = 'https://api.vulncheck.com/v3';
 const UA = 'pranithjain.qzz.io dfir';
+const TIMEOUT = 10_000;
+const MAX_RETRIES = 2;
 
 interface VcEnvelope {
   _meta?: { total_documents?: number };
@@ -19,17 +21,41 @@ interface VcEnvelope {
 const str = (v: unknown): string | undefined => (typeof v === 'string' && v ? v : undefined);
 const arr = (v: unknown): unknown[] => (Array.isArray(v) ? v : []);
 
-async function vcGet(path: string, token: string, signal?: AbortSignal): Promise<VcEnvelope | null> {
-  try {
-    const r = await fetch(`${BASE}${path}`, {
-      headers: { Accept: 'application/json', Authorization: `Bearer ${token}`, 'User-Agent': UA },
-      signal,
-    });
-    if (!r.ok) return null;
-    return (await r.json()) as VcEnvelope;
-  } catch {
-    return null;
+type VcError = { status: number; body?: string } | { network: true };
+
+async function vcGet(
+  path: string,
+  token: string,
+  signal?: AbortSignal
+): Promise<{ ok: VcEnvelope } | { err: VcError }> {
+  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+    try {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), TIMEOUT);
+      const combined = signal ? (AbortSignal.any ? AbortSignal.any([signal, ctrl.signal]) : ctrl.signal) : ctrl.signal;
+      const r = await fetch(`${BASE}${path}`, {
+        headers: { Accept: 'application/json', Authorization: `Bearer ${token}`, 'User-Agent': UA },
+        signal: combined,
+      });
+      clearTimeout(timer);
+      if (r.ok) {
+        const body = (await r.json()) as VcEnvelope;
+        return { ok: body };
+      }
+      if (r.status >= 500 && attempt < MAX_RETRIES) {
+        await new Promise((r2) => setTimeout(r2, 1000 * attempt));
+        continue;
+      }
+      return { err: { status: r.status } };
+    } catch {
+      if (attempt < MAX_RETRIES) {
+        await new Promise((r2) => setTimeout(r2, 1000 * attempt));
+        continue;
+      }
+      return { err: { network: true } };
+    }
   }
+  return { err: { network: true } };
 }
 
 export interface VcIpIntel {
@@ -44,12 +70,29 @@ export interface VcIpIntel {
   detections: number;
 }
 
+export interface VcErrorInfo {
+  code: 'upstream_5xx' | 'upstream_4xx' | 'network_error';
+  status?: number;
+}
+
 /** IP intelligence from the ipintel-3d index (C2 / initial-access / honeypot, ASN, country, CVEs). */
-export async function vulncheckIp(token: string, ip: string, signal?: AbortSignal): Promise<VcIpIntel | null> {
-  if (!token) return null;
+export async function vulncheckIp(
+  token: string,
+  ip: string,
+  signal?: AbortSignal
+): Promise<{ ok: VcIpIntel } | { err: VcErrorInfo }> {
+  if (!token) return { err: { code: 'upstream_4xx', status: 401 } };
   const res = await vcGet(`/index/ipintel-3d?ip=${encodeURIComponent(ip)}`, token, signal);
-  if (!res) return null;
-  const data = res.data ?? [];
+  if ('err' in res) {
+    const code =
+      'network' in res.err
+        ? ('network_error' as const)
+        : res.err.status >= 500
+          ? ('upstream_5xx' as const)
+          : ('upstream_4xx' as const);
+    return { err: { code, status: 'network' in res.err ? undefined : res.err.status } };
+  }
+  const data = res.ok.data ?? [];
   const tags = new Set<string>();
   const hostnames = new Set<string>();
   const cves = new Set<string>();
@@ -72,14 +115,16 @@ export async function vulncheckIp(token: string, ip: string, signal?: AbortSigna
     }
   }
   return {
-    found: data.length > 0,
-    ip,
-    country,
-    asn,
-    hostnames: [...hostnames].slice(0, 10),
-    tags: [...tags].slice(0, 10),
-    cves: [...cves].slice(0, 20),
-    detections: res._meta?.total_documents ?? data.length,
+    ok: {
+      found: data.length > 0,
+      ip,
+      country,
+      asn,
+      hostnames: [...hostnames].slice(0, 10),
+      tags: [...tags].slice(0, 10),
+      cves: [...cves].slice(0, 20),
+      detections: res.ok._meta?.total_documents ?? data.length,
+    },
   };
 }
 
@@ -93,11 +138,23 @@ export interface VcCveIntel {
 }
 
 /** CVE exploitation intel from the initial-access index (real-world exploitation signal). */
-export async function vulncheckCve(token: string, cve: string, signal?: AbortSignal): Promise<VcCveIntel | null> {
-  if (!token) return null;
+export async function vulncheckCve(
+  token: string,
+  cve: string,
+  signal?: AbortSignal
+): Promise<{ ok: VcCveIntel } | { err: VcErrorInfo }> {
+  if (!token) return { err: { code: 'upstream_4xx', status: 401 } };
   const res = await vcGet(`/index/initial-access?cve=${encodeURIComponent(cve)}`, token, signal);
-  if (!res) return null;
-  const data = res.data ?? [];
+  if ('err' in res) {
+    const code =
+      'network' in res.err
+        ? ('network_error' as const)
+        : res.err.status >= 500
+          ? ('upstream_5xx' as const)
+          : ('upstream_4xx' as const);
+    return { err: { code, status: 'network' in res.err ? undefined : res.err.status } };
+  }
+  const data = res.ok.data ?? [];
   const reported = new Set<string>();
   for (const d of data) {
     const s = str(d.threat_actor) ?? str(d.source) ?? str(d.author) ?? str(d.name);
@@ -107,6 +164,6 @@ export async function vulncheckCve(token: string, cve: string, signal?: AbortSig
       if (t) reported.add(t);
     }
   }
-  const records = res._meta?.total_documents ?? data.length;
-  return { cve: cve.toUpperCase(), exploited: records > 0, records, reported: [...reported].slice(0, 10) };
+  const records = res.ok._meta?.total_documents ?? data.length;
+  return { ok: { cve: cve.toUpperCase(), exploited: records > 0, records, reported: [...reported].slice(0, 10) } };
 }

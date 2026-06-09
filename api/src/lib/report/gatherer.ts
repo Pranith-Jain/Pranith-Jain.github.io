@@ -262,11 +262,11 @@ export const FETCHERS: Record<string, Fetcher> = {
     const token = ctx.env.VULNCHECK_API_TOKEN;
     if (!token) return base(src, 'empty');
     const vc = await vulncheckCve(token, ctx.subject.canonical, ctx.signal);
-    if (!vc) return base(src, 'error');
-    if (!vc.exploited) return base(src, 'empty');
-    const text = `VulnCheck: ${vc.cve} has real-world exploitation intel (${vc.records} record(s))${vc.reported.length ? ` · reported by ${vc.reported.join(', ')}` : ''}.`;
+    if ('err' in vc) return base(src, 'error');
+    if (!vc.ok.exploited) return base(src, 'empty');
+    const text = `VulnCheck: ${vc.ok.cve} has real-world exploitation intel (${vc.ok.records} record(s))${vc.ok.reported.length ? ` · reported by ${vc.ok.reported.join(', ')}` : ''}.`;
     return base(src, 'ok', [
-      { text, fields: { kind: 'vulncheck', exploited: true, records: vc.records, reported: vc.reported } },
+      { text, fields: { kind: 'vulncheck', exploited: true, records: vc.ok.records, reported: vc.ok.reported } },
     ]);
   },
 };
