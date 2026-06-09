@@ -22,26 +22,15 @@ export interface RunDiscoveryDeps {
   limit?: number;
   /**
    * Hard novelty gate. Returns true if a candidate key was already
-   * surfaced/published recently and must NOT be re-suggested yet. This is
-   * the decisive anti-repetition control: `noveltyScore` only *down-weights*
-   * a seen item, so within the recency window a thin feed pool kept
-   * re-emitting the same top-N every run. Suppressed keys are dropped before
-   * per-topic selection so genuinely fresher (lower-scored) items get a
-   * slot. Optional — absent = legacy behaviour (no extra change for tests).
+   * surfaced/published recently and must NOT be re-suggested yet.
    */
   isSuppressed?: (key: string) => boolean;
   /**
-   * Per-topic selector. Default = strict top-N by score (legacy behaviour,
-   * keeps existing tests deterministic). `runDiscoveryNow` injects a
-   * date-seeded weighted sampler so the daily queue varies instead of
-   * re-emitting the same top-N every run.
+   * Per-topic selector. Default = strict top-N by score.
    */
   selectPerTopic?: (cands: Candidate[], k: number, topic: string) => Candidate[];
   /**
-   * Per-topic override for `perTopic`. Topics in this map use their own
-   * limit instead of the global `perTopic`. Lets agentic runners like
-   * `trends` contribute multiple candidates while keeping feed-based
-   * runners at 1.
+   * Per-topic override for `perTopic`.
    */
   perTopicOverride?: Record<string, number>;
 }

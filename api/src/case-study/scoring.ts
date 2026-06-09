@@ -28,7 +28,10 @@ export function noveltyScore(prev: DedupRecord | null, now: Date): number {
   if (!prev) return 1.0;
   const age = now.getTime() - new Date(prev.lastSeenAt).getTime();
   if (age >= NINETY_DAYS) return 1.0;
-  return Math.max(0, age / NINETY_DAYS);
+  // Exponential decay: items seen today get ~0, items seen a week ago get ~0.3
+  // This strongly penalizes recently seen content to prevent repetition.
+  const normalizedAge = age / NINETY_DAYS;
+  return Math.max(0, Math.pow(normalizedAge, 0.5));
 }
 
 export interface FinalScoreInput {
@@ -39,7 +42,9 @@ export interface FinalScoreInput {
 }
 
 export function finalScore({ recency, severity, novelty, sourceWeight }: FinalScoreInput): number {
-  const weighted = 0.3 * recency + 0.35 * severity + 0.25 * novelty + 0.1 * sourceWeight;
+  // Novelty weight increased from 0.25 to 0.35 to strongly penalize
+  // recently seen items and prevent repetition in discovery.
+  const weighted = 0.25 * recency + 0.3 * severity + 0.35 * novelty + 0.1 * sourceWeight;
   return Number(weighted.toFixed(4));
 }
 
@@ -55,6 +60,7 @@ export function finalScoreWithTrending({
   trending,
 }: TrendingAwareScoreInput): number {
   if (typeof trending !== 'number') return finalScore({ recency, severity, novelty, sourceWeight });
-  const weighted = 0.25 * recency + 0.25 * severity + 0.2 * novelty + 0.1 * sourceWeight + 0.2 * trending;
+  // Novelty weight increased to strongly penalize recently seen items
+  const weighted = 0.2 * recency + 0.2 * severity + 0.3 * novelty + 0.1 * sourceWeight + 0.2 * trending;
   return Number(weighted.toFixed(4));
 }

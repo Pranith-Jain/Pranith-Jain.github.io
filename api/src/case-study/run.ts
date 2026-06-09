@@ -95,7 +95,7 @@ export async function runDiscoveryNow(env: CaseStudyEnv, now: Date) {
   //     high-severity items (CVE 0.99, ransomware groups) keep dominating
   //     because noveltyScore only soft-deweights them.
   const REPUBLISH_BLOCK_MS = 30 * 24 * 3600 * 1000;
-  const SURFACED_BLOCK_MS = 7 * 24 * 3600 * 1000;
+  const SURFACED_BLOCK_MS = 14 * 24 * 3600 * 1000;
   const isSuppressed = (key: string): boolean =>
     isKeySuppressed(dedupMap[key] ?? null, now, REPUBLISH_BLOCK_MS, SURFACED_BLOCK_MS);
   // One rand stream per run, seeded by the UTC date: stable within a day,
