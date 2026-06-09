@@ -708,53 +708,6 @@ export async function handleScheduled(event: ScheduledEvent, env: Env, ctx: Exec
               logCronFail('hourly-heal-check(weekly)')(e);
             }
           }
-
-          // === Live daily briefing — generate today's in-progress briefing ===
-          // Runs every hour to keep today's briefing fresh. Uses the `live: true`
-          // option which creates a window from 24h-ago to NOW with slug `daily-${today}`.
-          // writeBriefing's empty-body guard prevents overwriting a richer snapshot
-          // with a quieter one; writeBriefing's isEmpty check prevents downgrades.
-          try {
-            const todaySlug = `daily-${new Date().toISOString().slice(0, 10)}`;
-            const todayRow = await db2
-              .prepare('SELECT stats_json FROM briefings WHERE slug = ?')
-              .bind(todaySlug)
-              .first<{ stats_json?: string }>();
-            // Only rebuild if: (a) no row yet, or (b) row exists but is stale (>45 min old)
-            const shouldBuildLive =
-              !todayRow ||
-              (() => {
-                try {
-                  const stats = todayRow.stats_json ? JSON.parse(todayRow.stats_json) : {};
-                  const generatedAt = stats.generated_at ? new Date(stats.generated_at).getTime() : 0;
-                  return Date.now() - generatedAt > 45 * 60_000;
-                } catch {
-                  return true;
-                }
-              })();
-            if (shouldBuildLive) {
-              try {
-                const liveBriefing = await buildBriefing('daily', undefined, {
-                  nvdApiKey: env.NVD_API_KEY,
-                  env: env as unknown as ApiEnv,
-                  live: true,
-                });
-                await writeBriefing(db2, liveBriefing);
-                console.log(
-                  JSON.stringify({
-                    job: 'hourly-live-daily',
-                    slug: liveBriefing.slug,
-                    findings: liveBriefing.stats.findings,
-                    iocs: liveBriefing.stats.iocs,
-                  })
-                );
-              } catch (e) {
-                logCronFail('hourly-live-daily')(e);
-              }
-            }
-          } catch (e) {
-            logCronFail('hourly-live-daily-check')(e);
-          }
         }
 
         // === 30-day data retention sweep (daily at 6am UTC) ===
