@@ -708,8 +708,8 @@ export default function BriefingDetail(): JSX.Element {
         <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{briefing.executive_summary}</p>
       </section>
 
-      {/* Sections */}
-      {briefing.sections.length > 0 && (
+      {/* Sections — daily/weekly only; landscape uses LandscapeReportView above */}
+      {briefing.type !== 'landscape' && briefing.sections && briefing.sections.length > 0 && (
         <section className="mb-12 space-y-8">
           {briefing.sections.map((s) => (
             <div key={s.id}>
@@ -733,8 +733,8 @@ export default function BriefingDetail(): JSX.Element {
         </section>
       )}
 
-      {/* MITRE techniques observed */}
-      {briefing.mitre_techniques.length > 0 && (
+      {/* MITRE techniques observed — daily/weekly only */}
+      {briefing.type !== 'landscape' && briefing.mitre_techniques && briefing.mitre_techniques.length > 0 && (
         <section className="mb-10">
           <h2 className="font-display font-bold text-lg mb-3">MITRE ATT&amp;CK Techniques Observed</h2>
           <div className="flex flex-wrap gap-2">
@@ -745,21 +745,23 @@ export default function BriefingDetail(): JSX.Element {
         </section>
       )}
 
-      {/* IOCs */}
-      {(briefing.iocs.urls.length > 0 ||
-        briefing.iocs.domains.length > 0 ||
-        briefing.iocs.ipv4s.length > 0 ||
-        briefing.iocs.hashes.length > 0) && (
-        <section className="mb-10">
-          <h2 className="font-display font-bold text-lg mb-4">Active Threat Indicators</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <IocTable title="URLs" kind="url" entries={briefing.iocs.urls} />
-            <IocTable title="Domains" kind="domain" entries={briefing.iocs.domains} />
-            <IocTable title="IPv4" kind="ipv4" entries={briefing.iocs.ipv4s} />
-            <IocTable title="Hashes" kind="hash" entries={briefing.iocs.hashes} />
-          </div>
-        </section>
-      )}
+      {/* IOCs — daily/weekly only */}
+      {briefing.type !== 'landscape' &&
+        briefing.iocs &&
+        (briefing.iocs.urls.length > 0 ||
+          briefing.iocs.domains.length > 0 ||
+          briefing.iocs.ipv4s.length > 0 ||
+          briefing.iocs.hashes.length > 0) && (
+          <section className="mb-10">
+            <h2 className="font-display font-bold text-lg mb-4">Active Threat Indicators</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <IocTable title="URLs" kind="url" entries={briefing.iocs.urls} />
+              <IocTable title="Domains" kind="domain" entries={briefing.iocs.domains} />
+              <IocTable title="IPv4" kind="ipv4" entries={briefing.iocs.ipv4s} />
+              <IocTable title="Hashes" kind="hash" entries={briefing.iocs.hashes} />
+            </div>
+          </section>
+        )}
 
       {/* Footer */}
       <footer className="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 text-xs font-mono text-slate-500">
