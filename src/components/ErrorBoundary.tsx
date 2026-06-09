@@ -68,8 +68,9 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidUpdate(prevProps: Props): void {
-    // Reset error state when children change
-    if (this.props.resetOnChange && prevProps.children !== this.props.children) {
+    // Reset error state when children change (only when actively showing an error,
+    // to avoid reset loops from inline-created React elements).
+    if (this.props.resetOnChange && this.state.hasError && prevProps.children !== this.props.children) {
       this.setState({
         hasError: false,
         error: null,

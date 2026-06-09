@@ -117,6 +117,7 @@ export function SocShell({
                   key={w.days}
                   type="button"
                   onClick={() => onWindowChange(w.days)}
+                  aria-label={`${w.days} day window`}
                   className={`text-meta font-mono px-3 py-1.5 transition-colors ${
                     on
                       ? 'bg-brand-500/15 text-brand-700 dark:text-brand-300'
@@ -133,6 +134,7 @@ export function SocShell({
             type="button"
             onClick={onRefresh}
             disabled={loading}
+            aria-label="Refresh dashboard data"
             className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-brand-500/40 disabled:opacity-50 transition-colors"
           >
             {loading ? <Loader2 size={12} className="animate-spin" /> : <RefreshCw size={12} />}
@@ -145,6 +147,7 @@ export function SocShell({
           <button
             type="button"
             onClick={onExport}
+            aria-label="Export data as CSV"
             className="inline-flex items-center gap-1.5 text-meta font-mono px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-brand-500/40 transition-colors"
           >
             <Download size={12} /> export csv
@@ -172,8 +175,8 @@ function SocSkeleton(): JSX.Element {
   return (
     <div className="space-y-6" aria-label="Loading dashboard">
       {/* KPI skeleton row */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-        {[1, 2, 3, 4].map((i) => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+        {[1, 2, 3].map((i) => (
           <div
             key={i}
             className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 sm:p-5"

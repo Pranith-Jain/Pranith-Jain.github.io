@@ -100,6 +100,7 @@ export function useDataFetch<T = unknown>({
     const ctrl = new AbortController();
     ctrlRef.current = ctrl;
 
+    setError(null);
     setLoading(true);
     setStale(false);
 

@@ -302,9 +302,7 @@ export default function SocIocs(): JSX.Element {
       }
       meta={
         <span>
-          {sources.length === 0
-            ? 'awaiting first fetch'
-            : `${activeSources}/${sources.length} sources healthy`}
+          {sources.length === 0 ? 'awaiting first fetch' : `${activeSources}/${sources.length} sources healthy`}
           {data?.degraded ? ' · degraded' : ''}
         </span>
       }
@@ -369,6 +367,7 @@ export default function SocIocs(): JSX.Element {
               key={k}
               type="button"
               onClick={() => toggleKind(k)}
+              aria-pressed={on}
               className={`text-meta font-mono px-2.5 py-1 rounded border transition-colors ${
                 on
                   ? 'border-brand-500 bg-brand-500/15 text-brand-700 dark:text-brand-300'
@@ -406,7 +405,7 @@ export default function SocIocs(): JSX.Element {
 
         <SocPanel>
           <SocSection
-            title="Threat frequency by source"
+            title="IOC volume by source"
             right={
               <Link
                 to="/threatintel/feed-status"
@@ -445,9 +444,11 @@ export default function SocIocs(): JSX.Element {
           <SocSection
             title="Observation timeline"
             right={
-              <span className="text-meta font-mono text-slate-500">
-                peak {Math.max(0, ...dailyCounts.map((d) => d.value))} / day
-              </span>
+              dailyCounts.length > 0 ? (
+                <span className="text-meta font-mono text-slate-500">
+                  peak {Math.max(...dailyCounts.map((d) => d.value))} / day
+                </span>
+              ) : null
             }
           />
           <SocBar

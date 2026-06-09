@@ -55,8 +55,11 @@ export async function fetchResilient(
   let lastErr: unknown;
   for (let attempt = 1; attempt <= attempts; attempt++) {
     try {
-      // Respect a caller-provided signal; otherwise bound each attempt.
-      const reqInit: RequestInit = init?.signal ? init : { ...init, signal: AbortSignal.timeout(timeoutMs) };
+      // Always clone `init` so mutations (especially signal state from
+      // a previous attempt) don't carry over. When no caller-signal is
+      // provided, bound each attempt with its own timeout.
+      const reqInit: RequestInit = { ...init };
+      if (!init?.signal) reqInit.signal = AbortSignal.timeout(timeoutMs);
       const res = await fetchFn(input, reqInit);
       if (res.ok || !retryable(res.status) || attempt === attempts) return res;
       const ra = parseInt(res.headers.get('retry-after') ?? '', 10);

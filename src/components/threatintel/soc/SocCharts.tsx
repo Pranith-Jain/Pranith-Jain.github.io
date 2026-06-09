@@ -277,13 +277,13 @@ export function SocDonut({
                 r={r}
                 fill="none"
                 stroke={s.color}
-                strokeWidth={hover === s.label ? thickness + 4 : thickness}
+                strokeWidth={thickness}
                 strokeDasharray={`${dash} ${circumference - dash}`}
                 strokeDashoffset={offset}
                 transform={`rotate(-90 ${c} ${c})`}
                 onMouseEnter={() => setHover(s.label)}
                 onMouseLeave={() => setHover(null)}
-                style={{ transition: 'stroke-width 120ms ease', cursor: 'pointer' }}
+                style={{ transition: 'opacity 120ms ease', cursor: 'pointer', opacity: hover === s.label ? 0.8 : 1 }}
               >
                 <title>
                   {s.label}: {s.value.toLocaleString('en-US')} ({((s.value / total) * 100).toFixed(1)}%)
@@ -301,7 +301,9 @@ export function SocDonut({
                 </div>
               )}
               {centerSub && (
-                <div className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mt-0.5">{centerSub}</div>
+                <div className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mt-0.5">
+                  {centerSub}
+                </div>
               )}
             </div>
           </div>
@@ -419,16 +421,16 @@ export function SocSparkline({
                 className="text-slate-200 dark:text-slate-800"
                 strokeDasharray="2 3"
               />
-                <text
-                  x={padL - 4}
-                  y={y + 3}
-                  textAnchor="end"
-                  fontSize="10"
-                  className="fill-slate-400"
-                  fontFamily="ui-monospace,monospace"
-                >
-                  {Math.round(max * t)}
-                </text>
+              <text
+                x={padL - 4}
+                y={y + 3}
+                textAnchor="end"
+                fontSize="10"
+                className="fill-slate-400"
+                fontFamily="ui-monospace,monospace"
+              >
+                {Math.round(max * t)}
+              </text>
             </g>
           );
         })}
@@ -453,17 +455,17 @@ export function SocSparkline({
             const idx = points.indexOf(p);
             const x = padL + idx * slotW + slotW / 2;
             return (
-                <text
-                  key={`${p.label}-${i}`}
-                  x={x}
-                  y={height - 6}
-                  textAnchor="middle"
-                  fontSize="10"
-                  className="fill-slate-500"
-                  fontFamily="ui-monospace,monospace"
-                >
-                  {truncate(p.label, 8)}
-                </text>
+              <text
+                key={`${p.label}-${i}`}
+                x={x}
+                y={height - 6}
+                textAnchor="middle"
+                fontSize="10"
+                className="fill-slate-500"
+                fontFamily="ui-monospace,monospace"
+              >
+                {truncate(p.label, 8)}
+              </text>
             );
           })}
       </svg>

@@ -13,9 +13,9 @@ export function shortRel(iso?: string): string {
   if (!Number.isFinite(t)) return '';
   const ageS = Math.max(0, (Date.now() - t) / 1000);
   if (ageS < 60) return 'now';
-  if (ageS < 3600) return `${Math.round(ageS / 60)}m ago`;
-  if (ageS < 86400) return `${Math.round(ageS / 3600)}h ago`;
-  return `${Math.round(ageS / 86400)}d ago`;
+  if (ageS < 3600) return `${Math.floor(ageS / 60)}m ago`;
+  if (ageS < 86400) return `${Math.floor(ageS / 3600)}h ago`;
+  return `${Math.floor(ageS / 86400)}d ago`;
 }
 
 /**

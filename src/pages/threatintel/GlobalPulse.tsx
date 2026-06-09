@@ -63,7 +63,9 @@ type PulseKind =
   | 'detection'
   | 'cybercrime'
   | 'research'
-  | 'cve';
+  | 'cve'
+  | 'actor_sighting'
+  | 'ioc_correlation';
 
 interface PulseEvent {
   id: string;
@@ -78,6 +80,7 @@ interface PulseEvent {
   source: string;
   url?: string;
   country?: string;
+  cti?: 'ransomware' | 'cve' | 'ioc' | 'threat' | 'other';
 }
 
 interface GlobalPulseResponse {
@@ -153,6 +156,22 @@ const LAYER_DEFS: Record<PulseKind, LayerDef> = {
     icon: <Bug size={14} />,
     color: 'text-amber-400',
     bgColor: 'bg-amber-500/10 border-amber-500/20',
+    group: 'intel',
+  },
+  actor_sighting: {
+    label: 'Threat Actors',
+    shortLabel: 'ACTOR',
+    icon: <Skull size={14} />,
+    color: 'text-purple-400',
+    bgColor: 'bg-purple-500/10 border-purple-500/20',
+    group: 'intel',
+  },
+  ioc_correlation: {
+    label: 'IOC Correlations',
+    shortLabel: 'CORR',
+    icon: <Crosshair size={14} />,
+    color: 'text-cyan-400',
+    bgColor: 'bg-cyan-500/10 border-cyan-500/20',
     group: 'intel',
   },
   ransomware: {
@@ -376,6 +395,8 @@ export default function GlobalPulse(): JSX.Element {
       'breach',
       'cybercrime',
       'scam',
+      'actor_sighting',
+      'ioc_correlation',
     ])
   );
   const [autoRefresh, setAutoRefresh] = useState(true);
@@ -469,29 +490,15 @@ export default function GlobalPulse(): JSX.Element {
     return () => document.removeEventListener('fullscreenchange', handler);
   }, []);
 
-  const ctiPriority = useCallback((kind: PulseKind): number => {
-    switch (kind) {
+  const ctiPriority = useCallback((cti?: PulseEvent['cti']): number => {
+    switch (cti) {
       case 'ransomware':
         return 5;
       case 'cve':
         return 4;
-      case 'cisa_advisory':
-        return 4;
-      case 'c2_tracker':
-        return 4;
-      case 'ioc_activity':
-      case 'cyber_attack':
+      case 'ioc':
         return 3;
-      case 'detection':
-      case 'malware':
-        return 2;
-      case 'phishing':
-      case 'darkweb':
-      case 'infostealer':
-      case 'breach':
-      case 'cybercrime':
-      case 'blocklist':
-      case 'scam':
+      case 'threat':
         return 1;
       default:
         return 0;
@@ -501,23 +508,6 @@ export default function GlobalPulse(): JSX.Element {
   const filteredEvents = useMemo(() => {
     if (!data) return [];
     const now = Date.now();
-    const ctiKinds = new Set<PulseKind>([
-      'ransomware',
-      'cve',
-      'cisa_advisory',
-      'c2_tracker',
-      'ioc_activity',
-      'cyber_attack',
-      'detection',
-      'malware',
-      'phishing',
-      'darkweb',
-      'infostealer',
-      'breach',
-      'cybercrime',
-      'blocklist',
-      'scam',
-    ]);
     return data.events
       .filter((e) => {
         if (!activeLayers.has(e.kind)) return false;
@@ -526,9 +516,9 @@ export default function GlobalPulse(): JSX.Element {
           const eventTime = new Date(e.timestamp).getTime();
           if (now - eventTime > timeRange * 3600000) return false;
         }
-        if (ctiFilter === 'ransomware' && e.kind !== 'ransomware') return false;
-        if (ctiFilter === 'cve' && e.kind !== 'cve') return false;
-        if (ctiFilter === 'ioc' && e.kind !== 'ioc_activity' && e.kind !== 'cyber_attack') return false;
+        if (ctiFilter === 'ransomware' && e.cti !== 'ransomware') return false;
+        if (ctiFilter === 'cve' && e.cti !== 'cve') return false;
+        if (ctiFilter === 'ioc' && e.cti !== 'ioc') return false;
         if (searchQuery) {
           const q = searchQuery.toLowerCase();
           return (
@@ -541,8 +531,8 @@ export default function GlobalPulse(): JSX.Element {
         return true;
       })
       .sort((a, b) => {
-        const pa = ctiPriority(a.kind);
-        const pb = ctiPriority(b.kind);
+        const pa = ctiPriority(a.cti);
+        const pb = ctiPriority(b.cti);
         if (pa !== pb) return pb - pa;
         return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
       });
@@ -993,6 +983,41 @@ export default function GlobalPulse(): JSX.Element {
                   </div>
                 );
               })}
+
+              {/* CTI Defaults Reset */}
+              <div className="flex items-center gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveLayers(
+                      new Set([
+                        'ransomware',
+                        'cve',
+                        'ioc_activity',
+                        'cyber_attack',
+                        'c2_tracker',
+                        'cisa_advisory',
+                        'detection',
+                        'darkweb',
+                        'infostealer',
+                        'phishing',
+                        'malware',
+                        'blocklist',
+                        'breach',
+                        'cybercrime',
+                        'scam',
+                        'actor_sighting',
+                        'ioc_correlation',
+                      ])
+                    );
+                    setSeverityFilter(new Set(['critical', 'high', 'medium', 'low']));
+                    setCtiFilter('all');
+                  }}
+                  className="text-[10px] font-mono px-2.5 py-1.5 rounded-lg bg-brand-500/10 text-brand-600 dark:text-brand-400 hover:bg-brand-500/20 border border-brand-500/20 transition-colors"
+                >
+                  Reset to CTI Defaults
+                </button>
+              </div>
             </div>
           )}
 
@@ -1107,10 +1132,8 @@ export default function GlobalPulse(): JSX.Element {
                 <div className="flex items-center gap-1.5">
                   {(() => {
                     const ransomCount = filteredEvents.filter((e) => e.kind === 'ransomware').length;
-                    const cveCount = filteredEvents.filter((e) => e.kind === 'cve').length;
-                    const iocCount = filteredEvents.filter(
-                      (e) => e.kind === 'ioc_activity' || e.kind === 'cyber_attack'
-                    ).length;
+                    const cveCount = filteredEvents.filter((e) => e.cti === 'cve').length;
+                    const iocCount = filteredEvents.filter((e) => e.cti === 'ioc').length;
                     return (
                       <>
                         {ransomCount > 0 && (
@@ -1132,6 +1155,39 @@ export default function GlobalPulse(): JSX.Element {
                     );
                   })()}
                 </div>
+              </div>
+
+              {/* CTI Quick Filters */}
+              <div className="flex items-center gap-1.5 px-4 py-2 border-b border-slate-100 dark:border-slate-800/50">
+                {[
+                  { key: 'all' as const, label: 'All CTI' },
+                  { key: 'ransomware' as const, label: 'Ransomware', icon: <Skull size={12} /> },
+                  { key: 'cve' as const, label: 'CVEs', icon: <Bug size={12} /> },
+                  { key: 'ioc' as const, label: 'IOCs', icon: <Zap size={12} /> },
+                ].map((pill) => (
+                  <button
+                    key={pill.key}
+                    type="button"
+                    onClick={() => setCtiFilter(pill.key)}
+                    className={`inline-flex items-center gap-1 px-2 py-1 text-[10px] font-mono rounded-md border transition-colors ${
+                      ctiFilter === pill.key
+                        ? 'bg-brand-500/10 border-brand-500/40 text-brand-600 dark:text-brand-400'
+                        : 'border-transparent text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+                    }`}
+                  >
+                    {pill.icon}
+                    {pill.label}
+                  </button>
+                ))}
+                {ctiFilter !== 'all' && (
+                  <button
+                    type="button"
+                    onClick={() => setCtiFilter('all')}
+                    className="ml-auto text-[10px] font-mono text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+                  >
+                    <X size={12} />
+                  </button>
+                )}
               </div>
 
               {/* Feed List */}
@@ -1159,6 +1215,15 @@ export default function GlobalPulse(): JSX.Element {
                       const sevConfig = SEVERITY_CONFIG[ev.severity];
                       const isSelected = selectedEvent?.id === ev.id;
                       const hasGeo = ev.lat !== 0 || ev.lng !== 0;
+                      const isCti = ctiPriority(ev.cti) > 0;
+                      const ctiBorder =
+                        ev.cti === 'ransomware'
+                          ? 'border-l-rose-500'
+                          : ev.cti === 'cve'
+                            ? 'border-l-amber-500'
+                            : ev.cti === 'ioc'
+                              ? 'border-l-sky-500'
+                              : 'border-l-transparent';
 
                       return (
                         <button
@@ -1168,8 +1233,10 @@ export default function GlobalPulse(): JSX.Element {
                             setSelectedEvent(isSelected ? null : ev);
                             if (hasGeo) setFocus({ lat: ev.lat, lng: ev.lng });
                           }}
-                          className={`w-full text-left px-4 py-3 transition-colors ${
-                            isSelected ? 'bg-brand-500/5' : 'hover:bg-slate-50 dark:hover:bg-slate-800/30'
+                          className={`w-full text-left px-4 py-3 border-l-2 transition-colors ${
+                            isSelected
+                              ? 'bg-brand-500/5 border-l-brand-500'
+                              : `hover:bg-slate-50 dark:hover:bg-slate-800/30 ${ctiBorder}`
                           }`}
                         >
                           <div className="flex items-start gap-3">
@@ -1200,6 +1267,21 @@ export default function GlobalPulse(): JSX.Element {
                               </p>
                               <div className="flex items-center gap-2 mt-1.5">
                                 <span className="text-[10px] font-mono text-slate-400">{ev.source}</span>
+                                {isCti && (
+                                  <span
+                                    className={`text-[10px] font-mono ${
+                                      ev.cti === 'ransomware'
+                                        ? 'text-rose-400'
+                                        : ev.cti === 'cve'
+                                          ? 'text-amber-400'
+                                          : ev.cti === 'ioc'
+                                            ? 'text-sky-400'
+                                            : 'text-slate-400'
+                                    }`}
+                                  >
+                                    ● {ev.cti}
+                                  </span>
+                                )}
                                 {hasGeo && (
                                   <span className="text-[10px] font-mono text-brand-500 flex items-center gap-0.5">
                                     <Crosshair size={8} /> geo
@@ -1211,7 +1293,7 @@ export default function GlobalPulse(): JSX.Element {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     onClick={(e) => e.stopPropagation()}
-                                    className="text-[10px] font-mono text-brand-500 hover:underline ml-auto"
+                                    className="text-[10px] font-mono text-brand-500 hover:underline ml-auto flex items-center gap-0.5"
                                   >
                                     <ExternalLink size={10} />
                                   </a>

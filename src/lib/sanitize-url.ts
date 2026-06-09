@@ -14,6 +14,9 @@ export function sanitizeUrl(url: string | null | undefined): string {
   const trimmed = String(url).trim();
   try {
     const parsed = new URL(trimmed);
+    // Reject credential-containing URLs — `http://trusted.com@evil.com` parses
+    // as host `evil.com` with username `trusted.com`, enabling phishing.
+    if (parsed.username || parsed.password) return '';
     return SAFE_SCHEMES.includes(parsed.protocol) ? parsed.href : '';
   } catch {
     return '';

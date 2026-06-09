@@ -10,33 +10,37 @@ export function useInView<T extends HTMLElement = HTMLDivElement>(
   options: UseInViewOptions = {}
 ): [RefObject<T | null>, boolean] {
   const { threshold = 0.1, rootMargin = '0px 0px -50px 0px', triggerOnce = true } = options;
-  const ref = useRef<T>(null);
   const [isInView, setIsInView] = useState(false);
+  const ref = useRef<T>(null);
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const triggerOnceRef = useRef(triggerOnce);
+  triggerOnceRef.current = triggerOnce;
 
   useEffect(() => {
-    const element = ref.current;
-    if (!element) return;
+    const el = ref.current;
+    if (!el) return;
+
+    if (observerRef.current) observerRef.current.disconnect();
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsInView(true);
-          if (triggerOnce) {
-            observer.unobserve(element);
-          }
-        } else if (!triggerOnce) {
+          if (triggerOnceRef.current) observer.unobserve(el);
+        } else if (!triggerOnceRef.current) {
           setIsInView(false);
         }
       },
       { threshold, rootMargin }
     );
 
-    observer.observe(element);
+    observer.observe(el);
+    observerRef.current = observer;
 
     return () => {
       observer.disconnect();
     };
-  }, [threshold, rootMargin, triggerOnce]);
+  }, [threshold, rootMargin]);
 
   return [ref, isInView];
 }

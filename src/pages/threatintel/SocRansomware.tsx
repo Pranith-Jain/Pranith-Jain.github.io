@@ -240,7 +240,7 @@ export default function SocRansomware(): JSX.Element {
         <SocKpi
           label="Registered victims"
           value={formatNumber(totalClaims)}
-          severity="critical"
+          severity={totalClaims > 0 ? 'critical' : 'ok'}
           sub={`in last ${windowDays} days`}
           icon={<Skull size={16} />}
           delta={delta?.text}
@@ -322,9 +322,11 @@ export default function SocRansomware(): JSX.Element {
           <SocSection
             title="Claim frequency (daily)"
             right={
-              <span className="text-meta font-mono text-slate-500">
-                peak {Math.max(0, ...timeline.map((t) => t.value))} / day
-              </span>
+              timeline.length > 0 ? (
+                <span className="text-meta font-mono text-slate-500">
+                  peak {Math.max(...timeline.map((t) => t.value))} / day
+                </span>
+              ) : null
             }
           />
           <SocBar
@@ -353,19 +355,21 @@ export default function SocRansomware(): JSX.Element {
           </SocPanel>
 
           <SocPanel>
-            <SocSection title="Latest claims" />
-            {victims.length > 0 ? (
-              <ul className="space-y-1.5 text-meta font-mono">
-                {victims.slice(0, 5).map((v, i) => (
-                  <li key={`${v.victim}-${i}`} className="flex items-baseline gap-2 text-slate-700 dark:text-slate-300">
-                    <span className="truncate">{v.victim}</span>
-                    <span className="ml-auto text-slate-500 text-[11px] shrink-0">{v.group}</span>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="text-meta font-mono text-slate-500 italic">No claims in window.</p>
-            )}
+            <SocSection title="Quick stats" />
+            <dl className="space-y-2 text-meta font-mono">
+              <div className="flex items-baseline justify-between gap-2">
+                <dt className="text-slate-500 dark:text-slate-400">top country</dt>
+                <dd className="text-slate-700 dark:text-slate-300">{countrySlices[0]?.label ?? '—'}</dd>
+              </div>
+              <div className="flex items-baseline justify-between gap-2">
+                <dt className="text-slate-500 dark:text-slate-400">top group</dt>
+                <dd className="text-slate-700 dark:text-slate-300">{kpis.topName}</dd>
+              </div>
+              <div className="flex items-baseline justify-between gap-2">
+                <dt className="text-slate-500 dark:text-slate-400">sectors hit</dt>
+                <dd className="text-slate-700 dark:text-slate-300">{sectorSlices.length}</dd>
+              </div>
+            </dl>
           </SocPanel>
         </div>
       </div>

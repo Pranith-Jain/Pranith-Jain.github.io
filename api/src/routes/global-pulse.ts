@@ -26,6 +26,10 @@ const CACHE_KEYS = {
   cybercrime: 'https://cyber-crime-cache.internal/v2-500',
   writeups: 'https://writeups-cache.internal/v11-7d-window',
   usgs: 'https://usgs-earthquake-cache.internal/v1',
+  xClaims: 'https://x-claims-cache.internal/v2',
+  actorTimeline: 'https://actor-timeline-cache.internal/v3-mti',
+  iocCorrelation: 'https://ioc-correlation-cache.internal/v6-mti-hashes',
+  breachForums: 'https://breach-forums-cache.internal/v1',
 } as const;
 
 /* ─── Types ─────────────────────────────────────────────────────────────── */
@@ -55,7 +59,9 @@ type PulseKind =
   | 'detection'
   | 'cybercrime'
   | 'research'
-  | 'cve';
+  | 'cve'
+  | 'actor_sighting'
+  | 'ioc_correlation';
 
 interface PulseEvent {
   id: string;
@@ -70,6 +76,7 @@ interface PulseEvent {
   source: string;
   url?: string;
   country?: string;
+  cti?: 'ransomware' | 'cve' | 'ioc' | 'threat' | 'other';
 }
 
 interface GlobalPulseResponse {
@@ -1244,7 +1251,7 @@ function getTechInfrastructureEvents(): PulseEvent[] {
     description: `${loc.type.replace('_', ' ')} · ${loc.operator ?? loc.country}`,
     lat: loc.lat,
     lng: loc.lng,
-    timestamp: new Date().toISOString(),
+    timestamp: hoursAgo(48),
     severity: TECH_SEVERITY_MAP[loc.type] ?? 'low',
     source: 'Static Data',
     country: loc.country,
@@ -1669,7 +1676,7 @@ function getGeopoliticalEvents(): PulseEvent[] {
     description: `${loc.type.replace('_', ' ')} · ${loc.description}`,
     lat: loc.lat + (Math.random() - 0.5) * 1.5,
     lng: loc.lng + (Math.random() - 0.5) * 2,
-    timestamp: new Date().toISOString(),
+    timestamp: hoursAgo(48),
     severity: loc.severity,
     source: 'Geopolitical Intel',
     country: loc.country,
@@ -1704,7 +1711,7 @@ function getCableEvents(): PulseEvent[] {
     description: `Undersea cable landing · ${c.cable}`,
     lat: c.lat,
     lng: c.lng,
-    timestamp: new Date().toISOString(),
+    timestamp: hoursAgo(48),
     severity: 'low' as const,
     source: 'Submarine Cable Map',
   }));
@@ -1748,11 +1755,16 @@ function getFinancialEvents(): PulseEvent[] {
     description: `${f.type === 'exchange' ? 'Stock Exchange' : 'Financial Center'} · ${f.country}`,
     lat: f.lat,
     lng: f.lng,
-    timestamp: new Date().toISOString(),
+    timestamp: hoursAgo(48),
     severity: 'low' as const,
     source: 'Financial Data',
     country: f.country,
   }));
+}
+
+/* ─── Spread static data timestamps across last N hours ────────────── */
+function hoursAgo(maxHours = 24): string {
+  return new Date(Date.now() - Math.random() * maxHours * 3600000).toISOString();
 }
 
 function fromCveRecent(data: {
@@ -1782,6 +1794,166 @@ function fromCveRecent(data: {
     source: c.kev ? 'CISA KEV' : 'NVD',
     url: `https://nvd.nist.gov/vuln/detail/${c.id}`,
   }));
+}
+
+/* ─── X Claims (ransomware claims from Twitter) ──────────────────────────── */
+
+interface XClaimsResponse {
+  generated_at: string;
+  handles: string[];
+  ransomware: Array<{
+    victim: string;
+    group: string;
+    discovered: string;
+    description?: string;
+    source_url: string;
+    sector?: string;
+    country?: string;
+  }>;
+  breach: Array<{
+    victim?: string;
+    text: string;
+    source_url: string;
+    discovered: string;
+    handle: string;
+  }>;
+}
+
+function fromXClaims(data: XClaimsResponse): PulseEvent[] {
+  const events: PulseEvent[] = [];
+  for (const v of (data.ransomware ?? []).slice(0, 20)) {
+    events.push({
+      id: `xclaim-ransom-${v.victim}-${v.group}`,
+      kind: 'ransomware',
+      title: `${v.victim} — ${v.group} (X claim)`,
+      description: `${v.description || 'Ransomware claim from X/Twitter'} · ${v.sector || 'Unknown sector'}`,
+      lat: 0,
+      lng: 0,
+      timestamp: v.discovered || new Date().toISOString(),
+      severity: 'critical',
+      source: `X: ${v.group}`,
+      url: v.source_url,
+      country: v.country,
+    });
+  }
+  for (const b of (data.breach ?? []).slice(0, 10)) {
+    events.push({
+      id: `xclaim-breach-${b.discovered}-${b.victim?.slice(0, 20) || ''}`,
+      kind: 'breach',
+      title: `Breach claim: ${b.victim || 'Unknown'}`,
+      description: b.text.slice(0, 120),
+      lat: 0,
+      lng: 0,
+      timestamp: b.discovered || new Date().toISOString(),
+      severity: 'high',
+      source: `X: @${b.handle}`,
+      url: b.source_url,
+    });
+  }
+  return events;
+}
+
+/* ─── Actor Timeline (threat actor activity) ──────────────────────────────── */
+
+interface ActorTimelineResponse {
+  generated_at: string;
+  groups: Array<{
+    slug: string;
+    display_name: string;
+    posts_in_window: number;
+    all_time_count: number;
+    description?: string;
+    raas?: boolean;
+    mitre?: { id: string; name: string };
+  }>;
+}
+
+function fromActorTimeline(data: ActorTimelineResponse): PulseEvent[] {
+  return (data.groups ?? [])
+    .filter((g) => g.posts_in_window > 0)
+    .slice(0, 20)
+    .map((g) => ({
+      id: `actor-${g.slug}`,
+      kind: 'actor_sighting',
+      title: `${g.display_name} — ${g.posts_in_window} posts (30d)`,
+      description: `${g.raas ? 'RaaS · ' : ''}${g.description?.slice(0, 100) || 'Active threat actor group'}${g.mitre ? ` · MITRE: ${g.mitre.name}` : ''}`,
+      lat: 0,
+      lng: 0,
+      timestamp: new Date(data.generated_at).toISOString(),
+      severity: g.posts_in_window > 100 ? 'critical' : g.posts_in_window > 20 ? 'high' : 'medium',
+      source: 'Actor Timeline',
+    }));
+}
+
+/* ─── IOC Correlation (cross-feed IOCs) ──────────────────────────────────── */
+
+interface IocCorrelationResponse {
+  generated_at: string;
+  ips: Array<{ value: string; source_count: number; sources: string[]; context?: string; last_seen?: string }>;
+  urls: Array<{ value: string; source_count: number; sources: string[]; context?: string; last_seen?: string }>;
+  domains: Array<{ value: string; source_count: number; sources: string[]; context?: string; last_seen?: string }>;
+  hashes: Array<{ value: string; source_count: number; sources: string[]; context?: string; last_seen?: string }>;
+}
+
+function fromIocCorrelation(data: IocCorrelationResponse): PulseEvent[] {
+  const events: PulseEvent[] = [];
+  const byKind = { ips: 'ip', urls: 'url', domains: 'domain', hashes: 'hash' } as const;
+  for (const [key, kind] of Object.entries(byKind)) {
+    const items = (data as any)[key] as Array<{
+      value: string;
+      source_count: number;
+      sources: string[];
+      context?: string;
+      last_seen?: string;
+    }>;
+    for (const i of (items ?? []).filter((i) => i.source_count >= 2).slice(0, 10)) {
+      events.push({
+        id: `ioc-corr-${kind}-${i.value.slice(0, 20)}`,
+        kind: 'ioc_correlation',
+        title: `${kind.toUpperCase()}: ${i.value.slice(0, 80)}`,
+        description: `Cross-feed IOC (${i.source_count} sources) · ${i.context || 'No context'}`,
+        lat: 0,
+        lng: 0,
+        timestamp: i.last_seen || data.generated_at,
+        severity: i.source_count >= 5 ? 'critical' : i.source_count >= 3 ? 'high' : 'medium',
+        source: i.sources[0] || 'IOC Correlation',
+      });
+    }
+  }
+  return events;
+}
+
+/* ─── Breach Forums (forum intelligence) ──────────────────────────────────── */
+
+interface BreachForumsResponse {
+  generated_at: string;
+  rows: Array<{
+    name: string;
+    origin: 'directory' | 'curated';
+    category: string;
+    url: string;
+    onion: boolean;
+    status: string;
+    note?: string;
+  }>;
+}
+
+function fromBreachForums(data: BreachForumsResponse): PulseEvent[] {
+  return (data.rows ?? [])
+    .filter((f) => f.status === 'active' || f.status === 'volatile')
+    .slice(0, 15)
+    .map((f, idx) => ({
+      id: `bf-${idx}-${f.name.replace(/\s+/g, '-').toLowerCase()}`,
+      kind: 'darkweb',
+      title: f.name,
+      description: `${f.category} · ${f.status} · ${f.onion ? 'tor' : 'clearnet'}`,
+      lat: 0,
+      lng: 0,
+      timestamp: data.generated_at,
+      severity: f.status === 'active' ? 'high' : 'medium',
+      source: 'Breach Forums',
+      url: f.url,
+    }));
 }
 
 /* ─── Handler ───────────────────────────────────────────────────────────── */
@@ -1823,6 +1995,10 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       cybercrimeData,
       writeupsData,
       cveData,
+      xClaimsData,
+      actorData,
+      iocCorrData,
+      bfData,
     ] = await Promise.all([
       readCache(cache, CACHE_KEYS.threatMap),
       readCache(cache, CACHE_KEYS.reddit),
@@ -1842,6 +2018,10 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       readCache(cache, CACHE_KEYS.writeups),
       readCache(cache, CACHE_KEYS.cveRecent),
       readCache(cache, CACHE_KEYS.usgs),
+      readCache(cache, CACHE_KEYS.xClaims),
+      readCache(cache, CACHE_KEYS.actorTimeline),
+      readCache(cache, CACHE_KEYS.iocCorrelation),
+      readCache(cache, CACHE_KEYS.breachForums),
     ]);
 
     // KV fallback for cache misses
@@ -1863,6 +2043,10 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       cybercrimeKv,
       writeupsKv,
       onionKv,
+      xClaimsKv,
+      actorKv,
+      iocCorrKv,
+      bfKv,
     ] = await Promise.all([
       tmData ? null : readKvJson(kv, 'gp:threat-map'),
       tgData ? null : readKvJson(kv, 'gp:telegram-feed'),
@@ -1881,6 +2065,10 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       cybercrimeData ? null : readKvJson(kv, 'gp:cyber-crime'),
       writeupsData ? null : readKvJson(kv, 'gp:writeups'),
       onionData ? null : readKvJson(kv, 'gp:onion-watch'),
+      xClaimsData ? null : readKvJson(kv, 'gp:x-claims'),
+      actorData ? null : readKvJson(kv, 'gp:actor-timeline'),
+      iocCorrData ? null : readKvJson(kv, 'gp:ioc-correlation'),
+      bfData ? null : readKvJson(kv, 'gp:breach-forums'),
     ]);
 
     // Merge cache + KV
@@ -1901,6 +2089,10 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     const finalCybercrime = cybercrimeData ?? cybercrimeKv;
     const finalWriteups = writeupsData ?? writeupsKv;
     const finalOnion = onionData ?? onionKv;
+    const finalXClaims = xClaimsData ?? xClaimsKv;
+    const finalActor = actorData ?? actorKv;
+    const finalIocCorr = iocCorrData ?? iocCorrKv;
+    const finalBf = bfData ?? bfKv;
 
     // ── Direct endpoint fallback for still-missing layers ─────────────
     // Fetch ALL missing endpoints directly (Workers allow up to 50 subrequests).
@@ -1927,6 +2119,10 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     if (!finalPhishing) missing.push(['/api/v1/phishing-urls', 'phishing']);
     if (!finalMalware) missing.push(['/api/v1/malware-samples', 'malware']);
     if (!finalScam) missing.push(['/api/v1/crypto-scam-feed', 'scam']);
+    if (!finalXClaims) missing.push(['/api/v1/x-claims', 'xclaims']);
+    if (!finalActor) missing.push(['/api/v1/actor-timeline', 'actor']);
+    if (!finalIocCorr) missing.push(['/api/v1/ioc-correlation', 'iocc']);
+    if (!finalBf) missing.push(['/api/v1/breach-forums', 'bf']);
 
     // Fetch all missing in parallel (Workers subrequest limit is 50)
     const directResults = await Promise.all(missing.map(([path]) => fetchDirect(path)));
@@ -1950,6 +2146,10 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     const mergedPhishing = finalPhishing ?? (direct.phishing as typeof finalPhishing);
     const mergedMalware = finalMalware ?? (direct.malware as typeof finalMalware);
     const mergedScam = finalScam ?? (direct.scam as typeof finalScam);
+    const mergedXClaims = finalXClaims ?? (direct.xclaims as typeof finalXClaims);
+    const mergedActor = finalActor ?? (direct.actor as typeof finalActor);
+    const mergedIocCorr = finalIocCorr ?? (direct.iocc as typeof finalIocCorr);
+    const mergedBf = finalBf ?? (direct.bf as typeof finalBf);
 
     // ── Convert → events ───────────────────────────────────────────────
     const safe = <T>(fn: () => T): T => {
@@ -1996,6 +2196,12 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     const cybercrimeEvents = safe(() => (finalCybercrime ? fromCybercrime(finalCybercrime) : []));
     const researchEvents = safe(() => (finalWriteups ? fromWriteups(finalWriteups) : []));
     const cveEvents = safe(() => (mergedCve ? fromCveRecent(mergedCve) : []));
+    const xClaimsEvents = safe(() => (mergedXClaims ? fromXClaims(mergedXClaims as XClaimsResponse) : []));
+    const actorEvents = safe(() => (mergedActor ? fromActorTimeline(mergedActor as ActorTimelineResponse) : []));
+    const iocCorrEvents = safe(() =>
+      mergedIocCorr ? fromIocCorrelation(mergedIocCorr as IocCorrelationResponse) : []
+    );
+    const bfEvents = safe(() => (mergedBf ? fromBreachForums(mergedBf as BreachForumsResponse) : []));
 
     // Fetch earthquakes directly from USGS (cache was never populated)
     const earthquakes = await fetchEarthquakes();
@@ -2150,7 +2356,9 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     // Fetch X/Telegram directly if empty
     if (finalTelegramEvents.length === 0) {
       try {
-        const res = await fetch('https://pranithjain.qzz.io/api/v1/telegram-feed', { signal: AbortSignal.timeout(10000) });
+        const res = await fetch('https://pranithjain.qzz.io/api/v1/telegram-feed', {
+          signal: AbortSignal.timeout(10000),
+        });
         if (res.ok) {
           const data = (await res.json()) as Parameters<typeof fromTelegram>[0];
           finalTelegramEvents = safe(() => fromTelegram(data));
@@ -2164,23 +2372,31 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
     let finalScamEvents = scamEvents;
     if (finalScamEvents.length === 0) {
       try {
-        const res = await fetch('https://pranithjain.qzz.io/api/v1/crypto-scam-feed', { signal: AbortSignal.timeout(10000) });
+        const res = await fetch('https://pranithjain.qzz.io/api/v1/crypto-scam-feed', {
+          signal: AbortSignal.timeout(10000),
+        });
         if (res.ok) {
           const data = (await res.json()) as Parameters<typeof fromScam>[0];
           finalScamEvents = safe(() => fromScam(data));
         }
-      } catch { /* degraded */ }
+      } catch {
+        /* degraded */
+      }
     }
 
     // Fetch phishing directly if empty
     if (finalPhishingEvents.length === 0) {
       try {
-        const res = await fetch('https://pranithjain.qzz.io/api/v1/phishing-urls', { signal: AbortSignal.timeout(10000) });
+        const res = await fetch('https://pranithjain.qzz.io/api/v1/phishing-urls', {
+          signal: AbortSignal.timeout(10000),
+        });
         if (res.ok) {
           const data = (await res.json()) as Parameters<typeof fromPhishing>[0];
           finalPhishingEvents = safe(() => fromPhishing(data));
         }
-      } catch { /* degraded */ }
+      } catch {
+        /* degraded */
+      }
     }
 
     // Fetch infostealer directly if empty
@@ -2226,39 +2442,75 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       }
     }
 
+    // ── CTI category tagging ──────────────────────────────────────────
+    const tagCti = <T extends PulseKind>(kind: T): PulseEvent['cti'] => {
+      switch (kind) {
+        case 'ransomware':
+          return 'ransomware';
+        case 'cve':
+        case 'cisa_advisory':
+          return 'cve';
+        case 'ioc_activity':
+        case 'cyber_attack':
+        case 'c2_tracker':
+        case 'blocklist':
+          return 'ioc';
+        case 'detection':
+        case 'malware':
+        case 'phishing':
+        case 'darkweb':
+        case 'infostealer':
+        case 'breach':
+        case 'cybercrime':
+        case 'scam':
+        case 'actor_sighting':
+          return 'threat';
+        case 'ioc_correlation':
+          return 'ioc';
+        default:
+          return 'other';
+      }
+    };
+    const tagAll = <T extends { kind: PulseKind }>(arr: T[]): T[] =>
+      arr.map((e) => ({ ...e, cti: tagCti(e.kind) })) as T[];
+
     // ── Merge + sort ───────────────────────────────────────────────────
     const allEvents = [
-      ...earthquakes,
-      ...naturalEvents,
-      ...gdacsAlerts,
-      ...flights,
-      ...botnetC2,
-      ...dshieldAttackers,
-      ...compromisedIPs,
-      ...blocklistAttackers,
-      ...cisaKev,
-      ...urlhausMalware,
-      ...techInfra,
-      ...geopoliticalEvents,
-      ...cableEvents,
-      ...financialEvents,
-      ...finalIocEvents,
-      ...finalLiveIocEvents,
-      ...finalRansomwareEvents,
-      ...darkwebEvents,
-      ...finalInfostealerEvents,
-      ...finalPhishingEvents,
-      ...finalMalwareEvents,
-      ...finalCveEvents,
-      ...detectionEvents,
-      ...finalCybercrimeEvents,
-      ...breachEvents,
-      ...finalResearchEvents,
-      ...briefingEvents,
-      ...finalRedditEvents,
-      ...finalTelegramEvents,
-      ...xEvents,
-      ...finalScamEvents,
+      ...tagAll(earthquakes),
+      ...tagAll(naturalEvents),
+      ...tagAll(gdacsAlerts),
+      ...tagAll(flights),
+      ...tagAll(botnetC2),
+      ...tagAll(dshieldAttackers),
+      ...tagAll(compromisedIPs),
+      ...tagAll(blocklistAttackers),
+      ...tagAll(cisaKev),
+      ...tagAll(urlhausMalware),
+      ...tagAll(techInfra),
+      ...tagAll(geopoliticalEvents),
+      ...tagAll(cableEvents),
+      ...tagAll(financialEvents),
+      ...tagAll(finalIocEvents),
+      ...tagAll(finalLiveIocEvents),
+      ...tagAll(finalRansomwareEvents),
+      ...tagAll(darkwebEvents),
+      ...tagAll(finalInfostealerEvents),
+      ...tagAll(finalPhishingEvents),
+      ...tagAll(finalMalwareEvents),
+      ...tagAll(finalCveEvents),
+      ...tagAll(detectionEvents),
+      ...tagAll(finalCybercrimeEvents),
+      ...tagAll(breachEvents),
+      ...tagAll(finalResearchEvents),
+      ...tagAll(briefingEvents),
+      ...tagAll(finalRedditEvents),
+      ...tagAll(finalTelegramEvents),
+      ...tagAll(xEvents),
+      ...tagAll(finalScamEvents),
+      ...tagAll(xClaimsEvents),
+      ...tagAll(actorEvents),
+      ...tagAll(iocCorrEvents),
+      ...tagAll(bfEvents),
     ].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
 
     const result: GlobalPulseResponse = {
@@ -2297,6 +2549,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
         cybercrime: finalCybercrimeEvents.length,
         research: finalResearchEvents.length,
         cve: finalCveEvents.length,
+        actor_sighting: actorEvents.length,
+        ioc_correlation: iocCorrEvents.length,
       },
     };
 
@@ -2332,6 +2586,10 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
         ['gp:writeups', writeupsData],
         ['gp:onion-watch', onionData],
         ['gp:stealer-forum-intel', stealerData],
+        ['gp:x-claims', xClaimsData],
+        ['gp:actor-timeline', actorData],
+        ['gp:ioc-correlation', iocCorrData],
+        ['gp:breach-forums', bfData],
       ];
       for (const [key, val] of kvMap) {
         if (val) {

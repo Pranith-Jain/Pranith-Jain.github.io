@@ -193,8 +193,10 @@ export default function SocVulns(): JSX.Element {
     if (!data) return { label: 'Loading', severity: 'medium' };
     if (counts.CRITICAL > 20) return { label: 'Critical · patch now', severity: 'critical' };
     if (counts.CRITICAL > 5) return { label: 'High · elevated exposure', severity: 'high' };
+    if (counts.HIGH > 10) return { label: 'Elevated high-severity flow', severity: 'high' };
+    if (counts.HIGH > 0) return { label: 'Tracking high-severity CVEs', severity: 'medium' };
     return { label: 'Tracking exposures', severity: 'ok' };
-  }, [data, counts.CRITICAL]);
+  }, [data, counts.CRITICAL, counts.HIGH]);
 
   /* ─── Daily detection frequency ───────────────────────────────── */
   const dailyCounts = useMemo(() => {
@@ -241,7 +243,7 @@ export default function SocVulns(): JSX.Element {
   const cvssBins = useMemo(() => {
     if (inWindow.length === 0) return [];
     const bins = [
-      { label: '0.1-3.9', min: 0.1, max: 3.99, n: 0 },
+      { label: '0-3.9', min: 0, max: 3.99, n: 0 },
       { label: '4.0-6.9', min: 4.0, max: 6.99, n: 0 },
       { label: '7.0-8.9', min: 7.0, max: 8.99, n: 0 },
       { label: '9.0-10', min: 9.0, max: 10, n: 0 },
@@ -273,7 +275,7 @@ export default function SocVulns(): JSX.Element {
       ]);
     }
     downloadCsv(`soc-vulns-${windowDays}d-${new Date().toISOString().slice(0, 10)}.csv`, rows);
-  }, [data, inWindow, windowDays]);
+  }, [inWindow, windowDays]);
 
   const navigate = useNavigate();
   const onItemClick = useCallback(
@@ -367,9 +369,11 @@ export default function SocVulns(): JSX.Element {
           <SocSection
             title="Detection frequency"
             right={
-              <span className="text-meta font-mono text-slate-500">
-                peak {Math.max(0, ...dailyCounts.map((d) => d.value))} / day
-              </span>
+              dailyCounts.length > 0 ? (
+                <span className="text-meta font-mono text-slate-500">
+                  peak {Math.max(...dailyCounts.map((d) => d.value))} / day
+                </span>
+              ) : null
             }
           />
           <SocBar items={dailyCounts.slice(-30)} vertical height={180} emptyText="No CVEs in window." />
