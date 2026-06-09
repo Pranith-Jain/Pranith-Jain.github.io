@@ -21,7 +21,9 @@ const KIND_BADGE: Record<string, string> = {
 
 function timeAgo(iso?: string): string {
   if (!iso) return '';
-  const diff = Date.now() - new Date(iso).getTime();
+  const t = new Date(iso).getTime();
+  if (isNaN(t)) return '';
+  const diff = Date.now() - t;
   if (diff < 60_000) return 'just now';
   if (diff < 3_600_000) return `${Math.floor(diff / 60_000)}m ago`;
   if (diff < 86_400_000) return `${Math.floor(diff / 3_600_000)}h ago`;

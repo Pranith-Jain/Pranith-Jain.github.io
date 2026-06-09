@@ -407,6 +407,7 @@ export default function GlobalPulse(): JSX.Element {
   const [showFilters, setShowFilters] = useState(false);
   const [severityFilter, setSeverityFilter] = useState<Set<string>>(new Set(['critical', 'high', 'medium', 'low']));
   const [ctiFilter, setCtiFilter] = useState<'all' | 'ransomware' | 'cve' | 'ioc'>('all');
+  const loadIdRef = useRef(0);
 
   const load = useCallback(async () => {
     const myId = ++loadIdRef.current;
@@ -430,7 +431,6 @@ export default function GlobalPulse(): JSX.Element {
   const [timeRange, setTimeRange] = useState<number>(0); // 0 = all time, hours
   const [isFullscreen, setIsFullscreen] = useState(false);
   const globeContainerRef = useRef<HTMLDivElement>(null);
-  const loadIdRef = useRef(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const toggleFullscreen = useCallback(() => {

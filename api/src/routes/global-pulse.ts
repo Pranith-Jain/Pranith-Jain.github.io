@@ -632,7 +632,9 @@ function fromDetections(data: {
     lat: 0,
     lng: 0,
     timestamp: i.first_observed || new Date().toISOString(),
-    severity: (i.severity as PulseEvent['severity']) || ('medium' as const),
+    severity: (['critical', 'high', 'medium', 'low'].includes(i.severity)
+      ? i.severity
+      : 'medium') as PulseEvent['severity'],
     source: 'Detections',
   }));
 }
@@ -1836,9 +1838,9 @@ function fromXClaims(data: XClaimsResponse): PulseEvent[] {
       country: v.country,
     });
   }
-  for (const b of (data.breach ?? []).slice(0, 10)) {
+  for (const [bi, b] of (data.breach ?? []).slice(0, 10).entries()) {
     events.push({
-      id: `xclaim-breach-${b.discovered}-${b.victim?.slice(0, 20) || ''}`,
+      id: `xclaim-breach-${b.discovered}-${b.victim?.slice(0, 20) || ''}-${bi}`,
       kind: 'breach',
       title: `Breach claim: ${b.victim || 'Unknown'}`,
       description: b.text.slice(0, 120),
@@ -1995,6 +1997,7 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
       cybercrimeData,
       writeupsData,
       cveData,
+      usgsData,
       xClaimsData,
       actorData,
       iocCorrData,
@@ -2471,8 +2474,8 @@ export async function globalPulseHandler(c: Context<{ Bindings: Env }>): Promise
           return 'other';
       }
     };
-    const tagAll = <T extends { kind: PulseKind }>(arr: T[]): T[] =>
-      arr.map((e) => ({ ...e, cti: tagCti(e.kind) })) as T[];
+    const tagAll = <T extends { kind: PulseKind }>(arr: T[]): (T & { cti: PulseEvent['cti'] })[] =>
+      arr.map((e) => ({ ...e, cti: tagCti(e.kind) }));
 
     // ── Merge + sort ───────────────────────────────────────────────────
     const allEvents = [
