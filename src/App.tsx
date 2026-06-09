@@ -258,9 +258,7 @@ const Assessments = lazy(() => import('./pages/threatintel/Assessments'));
 const FeedQuality = lazy(() => import('./pages/threatintel/FeedQuality'));
 const AssessmentDetail = lazy(() => import('./pages/threatintel/AssessmentDetail'));
 const EntityResolution = lazy(() => import('./pages/threatintel/EntityResolution'));
-const WebamonIntel = lazy(() => import('./pages/threatintel/WebamonIntel'));
-const WebamonSandbox = lazy(() => import('./pages/threatintel/WebamonSandbox'));
-const WebamonInfra = lazy(() => import('./pages/threatintel/WebamonInfra'));
+const Webamon = lazy(() => import('./pages/threatintel/Webamon'));
 const AggregatedFeeds = lazy(() => import('./pages/threatintel/AggregatedFeeds'));
 const MalwareIocs = lazy(() => import('./pages/threatintel/MalwareIocs'));
 const FeedCatalog = lazy(() => import('./pages/threatintel/FeedCatalog'));
@@ -552,9 +550,7 @@ const ROUTES: ReadonlyArray<RouteDef> = [
   { path: '/threatintel/assessments/:id', Component: AssessmentDetail },
   { path: '/threatintel/feed-quality', Component: FeedQuality },
   { path: '/threatintel/entity-resolution', Component: EntityResolution },
-  { path: '/threatintel/webamon', Component: WebamonIntel },
-  { path: '/threatintel/webamon/sandbox', Component: WebamonSandbox },
-  { path: '/threatintel/webamon/infra', Component: WebamonInfra },
+  { path: '/threatintel/webamon', Component: Webamon },
   { path: '/dfir/pgp-tool', Component: PgpTool },
   { path: '/dfir/tor-gateway', Component: TorGateway },
   { path: '/dfir/blocklists', Component: Blocklists },
@@ -586,6 +582,8 @@ const REDIRECTS: ReadonlyArray<{ path: string; to: string }> = [
   { path: '/threatintel/phishing-urls', to: '/threatintel/live-iocs' },
   { path: '/threatintel/malware-samples', to: '/threatintel/live-iocs' },
   { path: '/threatintel/ransom-library', to: '/threatintel' },
+  { path: '/threatintel/webamon/sandbox', to: '/threatintel/webamon' },
+  { path: '/threatintel/webamon/infra', to: '/threatintel/webamon' },
   { path: '/dfir/discord-watch', to: '/threatintel/awesome-lists' },
   { path: '/dfir/industry-news', to: '/threatintel/tech-ai-news' },
   { path: '/difr', to: '/dfir' },

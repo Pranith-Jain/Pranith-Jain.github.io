@@ -1,0 +1,885 @@
+import { useState, useCallback, useEffect, useRef, type FormEvent } from 'react';
+import { BackLink } from '../../components/BackLink';
+import {
+  ArrowLeft,
+  Search,
+  ExternalLink,
+  ChevronDown,
+  ChevronRight,
+  Globe,
+  Fingerprint,
+  Tag,
+  Shield,
+  Send,
+  FileImage,
+  Loader2,
+  AlertTriangle,
+  CheckCircle,
+  Server,
+  FileCode,
+} from 'lucide-react';
+
+/* ─── Shared types ───────────────────────────────────────────────────── */
+
+interface Fingerprint {
+  tech?: string;
+  scan_fingerprint?: string;
+  dom?: string;
+  domains?: string;
+  links?: string;
+  scripts?: string;
+  ssl?: string;
+  asn?: string;
+  cookies?: string;
+}
+
+interface Meta {
+  submission_url?: string;
+  script_count?: number;
+  risk_score?: number;
+  report_id?: string;
+  domain_count?: number;
+  submission?: string;
+  submission_utc?: string;
+  request_count?: number;
+}
+
+interface WebamonResult {
+  _index: string;
+  'domain.name'?: string;
+  page_title?: string;
+  resolved_url?: string;
+  sub_domain?: string;
+  tag?: string;
+  meta?: Meta;
+  fingerprint?: Fingerprint;
+  matched_fields?: string[];
+}
+
+interface Pagination {
+  from: number;
+  size: number;
+  returned: number;
+  has_more: boolean;
+  current_page: number;
+  total_pages: number;
+  next_from: number | null;
+  prev_from: number | null;
+}
+
+interface WebamonSearchResponse {
+  search_string: string;
+  total_hits: number;
+  results: WebamonResult[];
+  pagination: Pagination;
+}
+
+/* ─── Search tab components ──────────────────────────────────────────── */
+
+const FINGERPRINT_FIELDS: Array<{ key: keyof Fingerprint; label: string }> = [
+  { key: 'tech', label: 'Tech' },
+  { key: 'asn', label: 'ASN' },
+  { key: 'ssl', label: 'SSL' },
+  { key: 'dom', label: 'DOM' },
+  { key: 'scan_fingerprint', label: 'Scan' },
+  { key: 'domains', label: 'Domains' },
+  { key: 'links', label: 'Links' },
+  { key: 'scripts', label: 'Scripts' },
+  { key: 'cookies', label: 'Cookies' },
+];
+
+function riskColor(score: number | undefined): string {
+  if (score === undefined || score === null) return 'text-slate-400';
+  if (score >= 10) return 'text-red-500';
+  if (score >= 7) return 'text-orange-500';
+  if (score >= 4) return 'text-yellow-500';
+  return 'text-green-500';
+}
+
+function FingerprintBadge({ value }: { value: string | undefined }) {
+  if (!value || value === '4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945') return null;
+  return (
+    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+      <Fingerprint size={10} />
+      {value.substring(0, 12)}…
+    </span>
+  );
+}
+
+function ResultRow({ result }: { result: WebamonResult }) {
+  const [expanded, setExpanded] = useState(false);
+  const domain = result['domain.name'] ?? '';
+  const risk = result.meta?.risk_score;
+  const hasFingerprints =
+    result.fingerprint &&
+    Object.values(result.fingerprint).some(
+      (v) => v && v !== '4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945'
+    );
+
+  return (
+    <div className="border border-slate-200 dark:border-slate-800 rounded-lg bg-white dark:bg-slate-900 overflow-hidden">
+      <button
+        onClick={() => setExpanded(!expanded)}
+        className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+      >
+        <div className="flex-shrink-0 text-slate-400">
+          {expanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
+        </div>
+        <div className="flex-1 min-w-0 grid grid-cols-12 gap-3 items-center text-[13px]">
+          <div className="col-span-3 font-mono text-brand-600 dark:text-brand-400 truncate" title={domain}>
+            {domain}
+          </div>
+          <div className="col-span-2 text-slate-700 dark:text-slate-300 truncate text-[12px]" title={result.page_title}>
+            {result.page_title ?? '—'}
+          </div>
+          <div className="col-span-1 font-mono font-semibold text-center">
+            {risk !== undefined ? (
+              <span className={riskColor(risk)}>{risk}</span>
+            ) : (
+              <span className="text-slate-400">—</span>
+            )}
+          </div>
+          <div className="col-span-2 text-slate-600 dark:text-slate-400 text-[12px] truncate">
+            {result.tag ? (
+              <span className="inline-flex items-center gap-1">
+                <Tag size={10} />
+                {result.tag}
+              </span>
+            ) : (
+              '—'
+            )}
+          </div>
+          <div className="col-span-2 text-right">
+            {result.resolved_url ? (
+              <a
+                href={result.resolved_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="inline-flex items-center gap-1 text-[11px] text-slate-400 hover:text-brand-600 dark:hover:text-brand-400"
+              >
+                <ExternalLink size={10} /> visit
+              </a>
+            ) : null}
+          </div>
+        </div>
+      </button>
+      {expanded && (
+        <div className="px-4 pb-4 pt-1 border-t border-slate-100 dark:border-slate-800">
+          <div className="grid grid-cols-2 gap-4 text-[13px] mt-3">
+            <div>
+              <h4 className="font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-1.5">
+                <Shield size={13} /> Meta
+              </h4>
+              <div className="space-y-1.5">
+                {result.meta?.report_id && (
+                  <div className="flex justify-between">
+                    <span className="text-slate-500">Report ID</span>
+                    <span className="font-mono text-[11px] text-slate-700 dark:text-slate-300 truncate ml-2">
+                      {result.meta.report_id}
+                    </span>
+                  </div>
+                )}
+                {result.meta?.submission_url && (
+                  <div className="flex justify-between">
+                    <span className="text-slate-500">Submission</span>
+                    <span className="font-mono text-[11px] text-slate-700 dark:text-slate-300 truncate ml-2">
+                      {result.meta.submission_url}
+                    </span>
+                  </div>
+                )}
+                {result.meta?.submission_utc && (
+                  <div className="flex justify-between">
+                    <span className="text-slate-500">Submitted</span>
+                    <span className="font-mono text-[11px] text-slate-700 dark:text-slate-300 ml-2">
+                      {result.meta.submission_utc}
+                    </span>
+                  </div>
+                )}
+                {result.meta?.script_count !== undefined && (
+                  <div className="flex justify-between">
+                    <span className="text-slate-500">Scripts</span>
+                    <span className="font-mono text-[11px] text-slate-700 dark:text-slate-300 ml-2">
+                      {result.meta.script_count}
+                    </span>
+                  </div>
+                )}
+                {result.meta?.domain_count !== undefined && (
+                  <div className="flex justify-between">
+                    <span className="text-slate-500">Domains</span>
+                    <span className="font-mono text-[11px] text-slate-700 dark:text-slate-300 ml-2">
+                      {result.meta.domain_count}
+                    </span>
+                  </div>
+                )}
+                {result.meta?.request_count !== undefined && (
+                  <div className="flex justify-between">
+                    <span className="text-slate-500">Requests</span>
+                    <span className="font-mono text-[11px] text-slate-700 dark:text-slate-300 ml-2">
+                      {result.meta.request_count}
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div>
+              <h4 className="font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-1.5">
+                <Fingerprint size={13} /> Fingerprints
+              </h4>
+              {hasFingerprints ? (
+                <div className="flex flex-wrap gap-1.5">
+                  {FINGERPRINT_FIELDS.map(({ key, label }) => (
+                    <div key={key} title={label}>
+                      <FingerprintBadge value={result.fingerprint?.[key]} />
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-slate-400 text-[12px]">No unique fingerprints</p>
+              )}
+            </div>
+          </div>
+          <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center gap-3 text-[11px] text-slate-400 font-mono">
+            <span>Index: {result._index}</span>
+            {result.sub_domain && <span>Subdomain: {result.sub_domain}</span>}
+            {result.matched_fields && result.matched_fields.length > 0 && (
+              <span>Matched: {result.matched_fields.join(', ')}</span>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+const SEARCH_EXAMPLES = [
+  'risk_score:>5',
+  'fingerprint.tech:*',
+  'tag:nrd_202606*',
+  'domain.name:example.com',
+  'page_title:login',
+];
+
+/* ─── Sandbox tab types ──────────────────────────────────────────────── */
+
+interface ScanResult {
+  status?: string;
+  report_id?: string;
+  message?: string;
+  error?: string;
+}
+
+interface ReportData {
+  id?: string;
+  status?: string;
+  submission_url?: string;
+  risk_score?: number;
+  screenshot?: string;
+  [key: string]: unknown;
+}
+
+/* ─── Infrastructure tab types ───────────────────────────────────────── */
+
+interface EntityResult {
+  domain?: Record<string, unknown>;
+  server?: Record<string, unknown>;
+  resource?: Record<string, unknown>;
+  error?: string;
+}
+
+function JsonBlock({ data, label }: { data: Record<string, unknown>; label: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-center gap-2 px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+      >
+        {open ? (
+          <ChevronDown size={14} className="text-slate-400" />
+        ) : (
+          <ChevronRight size={14} className="text-slate-400" />
+        )}
+        <span className="font-mono text-[13px] font-semibold text-slate-700 dark:text-slate-300">{label}</span>
+        <span className="text-[11px] text-slate-400 font-mono">{Object.keys(data).length} fields</span>
+      </button>
+      {open && (
+        <pre className="text-[11px] font-mono text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/50 p-4 overflow-x-auto max-h-96">
+          {JSON.stringify(data, null, 2)}
+        </pre>
+      )}
+    </div>
+  );
+}
+
+/* ─── Tabs ───────────────────────────────────────────────────────────── */
+
+type Tab = 'search' | 'sandbox' | 'infra';
+
+const TABS: { key: Tab; label: string; icon: typeof Globe }[] = [
+  { key: 'search', label: 'Search', icon: Search },
+  { key: 'sandbox', label: 'Sandbox', icon: Send },
+  { key: 'infra', label: 'Infrastructure', icon: Globe },
+];
+
+/* ─── Tab: Search ──────────────────────────────────────────────────── */
+
+function SearchTab() {
+  const [query, setQuery] = useState('');
+  const [data, setData] = useState<WebamonSearchResponse | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const reqIdRef = useRef(0);
+  const abortRef = useRef<AbortController | null>(null);
+  const PAGE_SIZE = 20;
+
+  useEffect(() => () => abortRef.current?.abort(), []);
+
+  const doSearch = useCallback(async (q: string, from: number) => {
+    const trimmed = q.trim();
+    if (!trimmed) return;
+    const myId = ++reqIdRef.current;
+    abortRef.current?.abort();
+    const controller = new AbortController();
+    abortRef.current = controller;
+    setLoading(true);
+    setError(null);
+    if (from === 0) setData(null);
+    try {
+      const params = new URLSearchParams({
+        search: trimmed,
+        size: String(PAGE_SIZE),
+        from: String(from),
+        results: 'domain.name,page_title,meta.risk_score,fingerprint.tech,fingerprint.asn,resolved_url,tag,sub_domain',
+      });
+      const res = await fetch(`/api/v1/webamon/search?${params}`, { signal: controller.signal });
+      if (!res.ok) {
+        const errBody = await res.json().catch(() => null);
+        throw new Error(errBody?.error ?? `HTTP ${res.status}`);
+      }
+      const json = (await res.json()) as WebamonSearchResponse;
+      if (myId !== reqIdRef.current) return;
+      setData(json);
+    } catch (e: unknown) {
+      if (e instanceof DOMException && e.name === 'AbortError') return;
+      if (myId !== reqIdRef.current) return;
+      setError(e instanceof Error ? e.message : 'Search failed');
+    } finally {
+      if (myId === reqIdRef.current) setLoading(false);
+    }
+  }, []);
+
+  const pagination = data?.pagination;
+
+  return (
+    <div>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          doSearch(query, 0);
+        }}
+        className="mb-6"
+      >
+        <div className="relative max-w-3xl">
+          <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+          <input
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Lucene query — e.g. domain.name:example.com, risk_score:>5, tag:nrd_202606*"
+            aria-label="Webamon search query"
+            className="w-full pl-11 pr-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400 font-mono"
+          />
+        </div>
+        <div className="mt-2 flex flex-wrap gap-2">
+          {SEARCH_EXAMPLES.map((ex) => (
+            <button
+              key={ex}
+              type="button"
+              onClick={() => {
+                setQuery(ex);
+                doSearch(ex, 0);
+              }}
+              className="px-2.5 py-1 rounded-md text-[11px] font-mono bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-brand-100 dark:hover:bg-brand-900/30 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+            >
+              {ex}
+            </button>
+          ))}
+        </div>
+      </form>
+
+      {loading && (
+        <div className="flex items-center gap-3 py-8 text-slate-500">
+          <div className="animate-spin w-4 h-4 border-2 border-brand-500 border-t-transparent rounded-full" />
+          <span className="font-mono text-sm">Querying Webamon index of 750M+ domains…</span>
+        </div>
+      )}
+
+      {error && (
+        <div className="rounded-lg border border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-900/20 px-4 py-3 text-sm text-red-700 dark:text-red-400 font-mono">
+          {error}
+        </div>
+      )}
+
+      {data && (
+        <div>
+          <div className="flex items-center justify-between mb-4 text-sm text-slate-500 dark:text-slate-400 font-mono">
+            <span>
+              {data.total_hits.toLocaleString()} result{data.total_hits !== 1 ? 's' : ''}
+              {data.search_string ? <span className="text-slate-400"> for &quot;{data.search_string}&quot;</span> : ''}
+            </span>
+            {pagination && data.total_hits > PAGE_SIZE && (
+              <span>
+                Page {pagination.current_page} of {pagination.total_pages}
+              </span>
+            )}
+          </div>
+          <div className="hidden sm:grid grid-cols-12 gap-3 px-7 py-2 text-[11px] font-semibold text-slate-400 uppercase tracking-wider font-mono">
+            <div className="col-span-3">Domain</div>
+            <div className="col-span-2">Page Title</div>
+            <div className="col-span-1 text-center">Risk</div>
+            <div className="col-span-2">Tag</div>
+            <div className="col-span-2 text-right">Link</div>
+          </div>
+          <div className="space-y-2">
+            {data.results.map((r, i) => (
+              <ResultRow key={`${r['domain.name'] ?? ''}-${r.meta?.report_id ?? i}`} result={r} />
+            ))}
+          </div>
+          {pagination && data.total_hits > PAGE_SIZE && (
+            <div className="flex items-center justify-center gap-3 mt-6">
+              <button
+                type="button"
+                disabled={pagination.prev_from === null}
+                onClick={() => doSearch(query, pagination.prev_from ?? 0)}
+                className="px-4 py-2 rounded-lg text-sm font-mono bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 disabled:opacity-30 hover:border-brand-500/40 transition-colors"
+              >
+                ← Prev
+              </button>
+              <span className="text-sm font-mono text-slate-500">
+                {pagination.current_page} / {pagination.total_pages}
+              </span>
+              <button
+                type="button"
+                disabled={pagination.next_from === null}
+                onClick={() => doSearch(query, pagination.next_from ?? 0)}
+                className="px-4 py-2 rounded-lg text-sm font-mono bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 disabled:opacity-30 hover:border-brand-500/40 transition-colors"
+              >
+                Next →
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+
+      {!loading && !error && !data && (
+        <div className="text-center py-16 text-slate-400">
+          <Search size={48} className="mx-auto mb-4 opacity-30" />
+          <p className="text-lg font-medium mb-1">Search Webamon's Domain Index</p>
+          <p className="text-sm max-w-md mx-auto">Enter a Lucene query above to search across 750M+ scanned domains.</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ─── Tab: Sandbox ──────────────────────────────────────────────────── */
+
+function SandboxTab() {
+  const [url, setUrl] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const [result, setResult] = useState<ScanResult | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [reportId, setReportId] = useState<string | null>(null);
+  const [reportData, setReportData] = useState<ReportData | null>(null);
+  const [loadingReport, setLoadingReport] = useState(false);
+  const [screenshotUrl, setScreenshotUrl] = useState<string | null>(null);
+  const [screenshotLoading, setScreenshotLoading] = useState(false);
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    if (!url.trim()) return;
+    setSubmitting(true);
+    setError(null);
+    setResult(null);
+    setReportId(null);
+    setReportData(null);
+    setScreenshotUrl(null);
+    try {
+      const res = await fetch('/api/v1/webamon/scan', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ submission_url: url.trim() }),
+      });
+      const data = (await res.json()) as ScanResult;
+      if (!res.ok) {
+        setError(data.error ?? `HTTP ${res.status}`);
+        return;
+      }
+      setResult(data);
+      if (data.report_id) {
+        setReportId(data.report_id);
+        void fetchReport(data.report_id);
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Request failed');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const fetchReport = async (rid: string) => {
+    setLoadingReport(true);
+    try {
+      const res = await fetch(`/api/v1/webamon/report/${encodeURIComponent(rid)}`);
+      if (res.ok) {
+        const data = (await res.json()) as ReportData;
+        setReportData(data);
+      }
+    } catch {
+      /* degraded */
+    } finally {
+      setLoadingReport(false);
+    }
+  };
+
+  const loadScreenshot = async (rid: string) => {
+    setScreenshotLoading(true);
+    try {
+      const res = await fetch(`/api/v1/webamon/screenshot/${encodeURIComponent(rid)}`);
+      if (res.ok) {
+        const blob = await res.blob();
+        setScreenshotUrl(URL.createObjectURL(blob));
+      }
+    } catch {
+      /* degraded */
+    } finally {
+      setScreenshotLoading(false);
+    }
+  };
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit} className="mb-8">
+        <div className="flex gap-2 max-w-2xl">
+          <input
+            type="text"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            placeholder="https://example.com or example.com"
+            aria-label="URL or domain to scan"
+            className="flex-1 px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          />
+          <button
+            type="submit"
+            disabled={!url.trim() || submitting}
+            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center gap-2"
+          >
+            {submitting ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
+            {submitting ? 'Submitting…' : 'Scan'}
+          </button>
+        </div>
+      </form>
+
+      {error && (
+        <div className="rounded-lg border border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-900/20 px-4 py-3 mb-6 text-sm text-red-700 dark:text-red-400 font-mono flex items-center gap-2">
+          <AlertTriangle size={14} /> {error}
+        </div>
+      )}
+
+      {result && (
+        <div className="space-y-6">
+          <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+            <h2 className="font-display font-bold text-lg mb-4 flex items-center gap-2">
+              <CheckCircle size={18} className="text-emerald-500" /> Scan Submitted
+            </h2>
+            <div className="grid grid-cols-2 gap-4 text-sm font-mono">
+              {result.status && (
+                <div>
+                  <span className="text-slate-500">Status</span>
+                  <p className="text-slate-900 dark:text-slate-100">{result.status}</p>
+                </div>
+              )}
+              {result.report_id && (
+                <div>
+                  <span className="text-slate-500">Report ID</span>
+                  <p className="text-brand-600 dark:text-brand-400 text-[12px] break-all">{result.report_id}</p>
+                </div>
+              )}
+              {result.message && (
+                <div className="col-span-2">
+                  <span className="text-slate-500">Message</span>
+                  <p className="text-slate-900 dark:text-slate-100">{result.message}</p>
+                </div>
+              )}
+            </div>
+          </section>
+
+          {loadingReport && (
+            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+              <div className="flex items-center gap-2 text-sm text-slate-500 font-mono">
+                <Loader2 size={14} className="animate-spin" /> Loading report…
+              </div>
+            </section>
+          )}
+
+          {reportData && (
+            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+              <h2 className="font-display font-bold text-lg mb-4 flex items-center gap-2">
+                <FileImage size={18} className="text-brand-600 dark:text-brand-400" /> Scan Report
+              </h2>
+              <pre className="text-[11px] font-mono text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/50 rounded-lg p-4 overflow-x-auto max-h-96">
+                {JSON.stringify(reportData, null, 2)}
+              </pre>
+            </section>
+          )}
+
+          {reportId && !screenshotUrl && !screenshotLoading && (
+            <button
+              onClick={() => loadScreenshot(reportId)}
+              className="px-4 py-2 rounded-lg text-sm font-mono bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-brand-500/40 transition-colors inline-flex items-center gap-2"
+            >
+              <FileImage size={14} /> Load Screenshot
+            </button>
+          )}
+
+          {screenshotLoading && (
+            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+              <div className="flex items-center gap-2 text-sm text-slate-500 font-mono">
+                <Loader2 size={14} className="animate-spin" /> Loading screenshot…
+              </div>
+            </section>
+          )}
+
+          {screenshotUrl && (
+            <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+              <h2 className="font-display font-bold text-lg mb-4 flex items-center gap-2">
+                <FileImage size={18} className="text-brand-600 dark:text-brand-400" /> Screenshot
+              </h2>
+              <img
+                src={screenshotUrl}
+                alt="Webamon scan screenshot"
+                className="rounded-lg border border-slate-200 dark:border-slate-800 w-full max-w-3xl"
+              />
+            </section>
+          )}
+        </div>
+      )}
+
+      {!result && !error && (
+        <div className="text-center py-16 text-slate-400">
+          <Send size={48} className="mx-auto mb-4 opacity-30" />
+          <p className="text-lg font-medium mb-1">Submit a URL for Sandbox Analysis</p>
+          <p className="text-sm max-w-md mx-auto">Enter a URL above to scan it through Webamon's sandbox.</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ─── Tab: Infrastructure ───────────────────────────────────────────── */
+
+function InfraTab() {
+  const [query, setQuery] = useState('');
+  const [mode, setMode] = useState<'domain' | 'server' | 'resource'>('domain');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [data, setData] = useState<EntityResult | null>(null);
+
+  const doLookup = async (e: FormEvent) => {
+    e.preventDefault();
+    const q = query.trim();
+    if (!q) return;
+    setLoading(true);
+    setError(null);
+    setData(null);
+    try {
+      const endpoint =
+        mode === 'domain'
+          ? `/api/v1/webamon/domain/${encodeURIComponent(q)}`
+          : mode === 'server'
+            ? `/api/v1/webamon/server/${encodeURIComponent(q)}`
+            : `/api/v1/webamon/resource/${encodeURIComponent(q)}`;
+      const res = await fetch(endpoint);
+      const body = await res.text();
+      let json: Record<string, unknown>;
+      try {
+        json = JSON.parse(body);
+      } catch {
+        throw new Error(body.substring(0, 200) || `HTTP ${res.status}`);
+      }
+      if (!res.ok) throw new Error((json as { error?: string })?.error ?? `HTTP ${res.status}`);
+      setData({ [mode]: json });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Lookup failed');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const MODES = [
+    { key: 'domain' as const, label: 'Domain', icon: Globe, placeholder: 'example.com' },
+    { key: 'server' as const, label: 'Server', icon: Server, placeholder: 'IP address' },
+    { key: 'resource' as const, label: 'Resource', icon: FileCode, placeholder: 'SHA256 hash' },
+  ];
+  const activeMode = MODES.find((m) => m.key === mode)!;
+
+  return (
+    <div>
+      <form onSubmit={doLookup} className="mb-6">
+        <div className="flex gap-2 max-w-3xl">
+          <div className="flex rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+            {MODES.map((m) => {
+              const Icon = m.icon;
+              const active = mode === m.key;
+              return (
+                <button
+                  key={m.key}
+                  type="button"
+                  onClick={() => setMode(m.key)}
+                  className={`px-3 py-2.5 text-[12px] font-mono flex items-center gap-1.5 transition-colors ${
+                    active
+                      ? 'bg-brand-600 dark:bg-brand-500 text-white'
+                      : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                  }`}
+                >
+                  <Icon size={13} /> {m.label}
+                </button>
+              );
+            })}
+          </div>
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder={activeMode.placeholder}
+            aria-label={activeMode.label}
+            className="flex-1 px-4 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+          />
+          <button
+            type="submit"
+            disabled={!query.trim() || loading}
+            className="px-4 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400"
+          >
+            {loading ? <Loader2 size={14} className="animate-spin" /> : <Search size={14} />}
+          </button>
+        </div>
+      </form>
+
+      {error && (
+        <div className="rounded-lg border border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-900/20 px-4 py-3 mb-6 text-sm text-red-700 dark:text-red-400 font-mono flex items-center gap-2">
+          <AlertTriangle size={14} /> {error}
+        </div>
+      )}
+
+      {loading && (
+        <div className="flex items-center gap-3 py-8 text-slate-500">
+          <div className="animate-spin w-4 h-4 border-2 border-brand-500 border-t-transparent rounded-full" />
+          <span className="font-mono text-sm">Querying Webamon infrastructure…</span>
+        </div>
+      )}
+
+      {data && (
+        <div className="space-y-3">
+          {data.domain && (
+            <div>
+              <h2 className="font-display font-bold text-lg mb-3 flex items-center gap-2">
+                <Globe size={18} className="text-brand-600 dark:text-brand-400" /> Domain Record
+              </h2>
+              <JsonBlock data={data.domain} label="domain" />
+            </div>
+          )}
+          {data.server && (
+            <div>
+              <h2 className="font-display font-bold text-lg mb-3 flex items-center gap-2">
+                <Server size={18} className="text-brand-600 dark:text-brand-400" /> Server Record
+              </h2>
+              <JsonBlock data={data.server} label="server" />
+            </div>
+          )}
+          {data.resource && (
+            <div>
+              <h2 className="font-display font-bold text-lg mb-3 flex items-center gap-2">
+                <FileCode size={18} className="text-brand-600 dark:text-brand-400" /> Resource Record
+              </h2>
+              <JsonBlock data={data.resource} label="resource" />
+            </div>
+          )}
+        </div>
+      )}
+
+      {!loading && !error && !data && (
+        <div className="text-center py-16 text-slate-400">
+          <Search size={48} className="mx-auto mb-4 opacity-30" />
+          <p className="text-lg font-medium mb-1">Explore Webamon's Infrastructure Graph</p>
+          <p className="text-sm max-w-md mx-auto">Look up a domain, server IP, or resource SHA256.</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ─── Main merged page ──────────────────────────────────────────────── */
+
+export default function Webamon(): JSX.Element {
+  const [tab, setTab] = useState<Tab>('search');
+
+  const TabIcon = TABS.find((t) => t.key === tab)!.icon;
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
+      <BackLink
+        to="/threatintel"
+        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
+      >
+        <ArrowLeft size={14} /> back
+      </BackLink>
+
+      <div className="animate-fade-in-up mb-8">
+        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
+          <Globe size={28} className="text-brand-600 dark:text-brand-400" /> Webamon
+        </h1>
+        <p className="text-slate-600 dark:text-slate-400 max-w-3xl">
+          Webamon threat intelligence platform — search 750M+ domains, submit URLs for sandbox analysis, and explore
+          infrastructure relationships. Data sourced from{' '}
+          <a
+            href="https://webamon.co.uk"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-brand-600 dark:text-brand-400 hover:underline"
+          >
+            Webamon
+          </a>
+          .
+        </p>
+      </div>
+
+      {/* Tab bar */}
+      <div className="flex gap-1 mb-8 border-b border-slate-200 dark:border-slate-800">
+        {TABS.map((t) => {
+          const Icon = t.icon;
+          const active = tab === t.key;
+          return (
+            <button
+              key={t.key}
+              type="button"
+              onClick={() => setTab(t.key)}
+              className={`flex items-center gap-2 px-4 py-3 text-[13px] font-mono font-semibold border-b-2 transition-colors ${
+                active
+                  ? 'border-brand-600 dark:border-brand-400 text-brand-600 dark:text-brand-400'
+                  : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+              }`}
+            >
+              <Icon size={15} /> {t.label}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Tab content */}
+      {tab === 'search' && <SearchTab />}
+      {tab === 'sandbox' && <SandboxTab />}
+      {tab === 'infra' && <InfraTab />}
+    </div>
+  );
+}

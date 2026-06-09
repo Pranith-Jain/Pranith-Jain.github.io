@@ -473,23 +473,9 @@ export const SECTIONS: Section[] = [
       },
       {
         to: '/threatintel/webamon',
-        label: 'Webamon Intel',
-        desc: "Search 750M+ scanned domains from Webamon's threat intelligence index with Lucene queries — scan data, risk scores, technology fingerprints, ASN, and tags.",
+        label: 'Webamon',
+        desc: 'Search 750M+ scanned domains, submit URLs for sandbox analysis, and explore infrastructure relationships — all in one view.',
         icon: Globe2,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/webamon/sandbox',
-        label: 'Webamon Sandbox',
-        desc: "Submit URLs to Webamon's scanning sandbox — retrieves resources, networks, DNS, tech stack, screenshots, certificates, and risk assessment.",
-        icon: Send,
-        badge: 'new',
-      },
-      {
-        to: '/threatintel/webamon/infra',
-        label: 'Webamon Infrastructure',
-        desc: "Query Webamon's infrastructure graph — look up domains, servers, and web resource SHA256 hashes to map connected infrastructure.",
-        icon: Server,
         badge: 'new',
       },
       {

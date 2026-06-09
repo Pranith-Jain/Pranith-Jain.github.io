@@ -1979,7 +1979,7 @@ interface WebamonResponse {
 
 async function fromWebamon(): Promise<PulseEvent[]> {
   try {
-    const url = `${WEBAMON_SEARCH}?search=${encodeURIComponent('risk_score:>4')}&results=domain.name,page_title,meta.risk_score,resolved_url,date,tag&size=15`;
+    const url = `${WEBAMON_SEARCH}?search=${encodeURIComponent('risk_score:>4')}&results=domain.name,page_title,meta.risk_score,resolved_url,tag&size=15`;
     const res = await fetch(url, {
       signal: AbortSignal.timeout(10000),
       headers: { accept: 'application/json', 'user-agent': 'pranithjain-dfir/1.0' },

@@ -39,7 +39,7 @@ export const webamon: ProviderAdapter = async (indicator, _env, signal) => {
     const timeoutSignal = AbortSignal.timeout(TIMEOUT_MS);
     const combined = AbortSignal.any ? AbortSignal.any([signal, timeoutSignal]) : signal;
 
-    const url = `${WEBAMON_SEARCH}?search=${encodeURIComponent(`domain.name:${indicator.value}`)}&results=domain.name,page_title,meta.risk_score,resolved_url,date,tag&size=1`;
+    const url = `${WEBAMON_SEARCH}?search=${encodeURIComponent(indicator.value)}&results=domain.name,page_title,meta.risk_score,resolved_url,tag&size=1`;
     const res = await fetch(url, {
       signal: combined,
       headers: { accept: 'application/json', 'user-agent': 'pranithjain-dfir/1.0' },

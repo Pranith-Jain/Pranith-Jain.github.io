@@ -1,10 +1,10 @@
 import type { Context } from 'hono';
 import type { Env } from '../env';
-import { authedFetch } from '../lib/webamon-auth';
 
-const WEBAMON_SEARCH = 'https://search.webamon.com/search';
+const WEBAMON_SEARCH = 'https://search.webamon.com';
 const TIMEOUT = 12_000;
 const CACHE_TTL = 300;
+const UA = 'pranithjain-dfir/1.0';
 
 interface WebamonResult {
   _index: string;
@@ -55,155 +55,143 @@ interface WebamonSearchResponse {
   };
 }
 
-/* ─── Public search API (no auth needed) ───────────────────────────────── */
+async function webamonFetch(path: string): Promise<Response | null> {
+  try {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), TIMEOUT);
+    const res = await fetch(`${WEBAMON_SEARCH}${path}`, {
+      signal: ctrl.signal,
+      headers: { accept: 'application/json', 'user-agent': UA },
+    });
+    clearTimeout(timer);
+    return res;
+  } catch {
+    return null;
+  }
+}
+
+/* ─── Search (public) ───────────────────────────────────────────────────── */
 
 export async function webamonSearchHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   const search = c.req.query('search')?.trim();
   if (!search) return c.json({ error: 'missing search query' }, 400);
   const results =
     c.req.query('results') ??
-    'domain.name,page_title,meta.risk_score,fingerprint.tech,fingerprint.asn,resolved_url,date,tag,sub_domain';
+    'domain.name,page_title,meta.risk_score,fingerprint.tech,fingerprint.asn,resolved_url,tag,sub_domain';
   const size = Math.min(Number(c.req.query('size')) || 20, 100);
   const from = Number(c.req.query('from')) || 0;
 
-  const upstream = `${WEBAMON_SEARCH}?search=${encodeURIComponent(search)}&results=${encodeURIComponent(results)}&size=${size}&from=${from}`;
+  const upstream = `/search?search=${encodeURIComponent(search)}&results=${encodeURIComponent(results)}&size=${size}&from=${from}`;
 
-  let data: WebamonSearchResponse | null = null;
-  let lastStatus = 0;
-  const MAX_ATTEMPTS = 2;
-
-  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
-    try {
-      const ctrl = new AbortController();
-      const timer = setTimeout(() => ctrl.abort(), TIMEOUT);
-      const res = await fetch(upstream, {
-        signal: ctrl.signal,
-        headers: { accept: 'application/json', 'user-agent': 'pranithjain-dfir/1.0' },
-      });
-      clearTimeout(timer);
-      if (res.ok) {
-        data = (await res.json()) as WebamonSearchResponse;
-        break;
-      }
-      lastStatus = res.status;
-      if (res.status !== 429 && res.status < 500) break;
-      if (attempt < MAX_ATTEMPTS) {
-        await new Promise((r) => setTimeout(r, 600 * attempt));
-      }
-    } catch (e) {
-      lastStatus = 0;
-      if (attempt < MAX_ATTEMPTS) await new Promise((r) => setTimeout(r, 600 * attempt));
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    const res = await webamonFetch(upstream);
+    if (res && res.ok) {
+      const data = (await res.json()) as WebamonSearchResponse;
+      return c.json(data, 200, { 'Cache-Control': `public, max-age=${CACHE_TTL}` });
+    }
+    if (res && res.status !== 429 && res.status >= 500 && attempt < 2) {
+      await new Promise((r) => setTimeout(r, 600 * attempt));
+    } else if (!res && attempt < 2) {
+      await new Promise((r) => setTimeout(r, 600 * attempt));
+    } else {
+      return c.json({ error: 'webamon upstream error', upstream_status: res?.status ?? 502 }, 502);
     }
   }
-
-  if (!data) {
-    return c.json({ error: 'webamon upstream error', upstream_status: lastStatus || 502 }, 502);
-  }
-
-  const response = c.json(data, 200, { 'Cache-Control': `public, max-age=${CACHE_TTL}` });
-  return response;
+  return c.json({ error: 'webamon upstream error' }, 502);
 }
 
-/* ─── Community API helpers (auth required) ────────────────────────────── */
+/* ─── Scan (public via search.webamon.com/scan) ──────────────────────────── */
 
-function noAuth(c: Context) {
-  return c.json(
-    { error: 'Webamon Community API not configured — set WEBAMON_API_KEY via wrangler secret put WEBAMON_API_KEY' },
-    503
-  );
-}
-
-/* POST /api/v1/webamon/scan — submit URL to sandbox */
 export async function webamonScanHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
-    const hasKey = !!c.env.WEBAMON_API_KEY;
-    const keyPreview = c.env.WEBAMON_API_KEY ? c.env.WEBAMON_API_KEY.substring(0, 6) + '...' : 'none';
-    if (!c.env.WEBAMON_API_KEY) return noAuth(c);
     const body = await c.req.json<{ submission_url?: string }>().catch(() => ({}));
     if (!body.submission_url) return c.json({ error: 'missing submission_url' }, 400);
-
-    const res = await authedFetch(c.env, '/scan', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ submission_url: body.submission_url }),
-    });
-    if (!res)
-      return c.json(
-        { error: 'webamon auth failed or upstream unreachable', key_present: hasKey, key_preview: keyPreview },
-        502
-      );
+    const res = await webamonFetch(`/scan?submission_url=${encodeURIComponent(body.submission_url)}`);
+    if (!res) return c.json({ error: 'webamon upstream unreachable' }, 502);
     const data = await res.json();
-    return c.json({ ...data, _key_present: hasKey, _key_preview: keyPreview }, res.ok ? 200 : res.status);
-  } catch {
-    return c.json({ error: 'internal_error', message: 'scan handler failed' }, 500);
+    return c.json(data, res.ok ? 200 : res.status);
+  } catch (err) {
+    return c.json(
+      { error: 'internal_error', message: err instanceof Error ? err.message : 'scan handler failed' },
+      500
+    );
   }
 }
 
-/* GET /api/v1/webamon/report — search reports */
+/* ─── Report lookup (public, search by report_id) ────────────────────────── */
+
 export async function webamonReportsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
-    if (!c.env.WEBAMON_API_KEY) return noAuth(c);
     const q = c.req.query('q') ?? '';
-    const res = await authedFetch(c.env, `/report?urlparams=${encodeURIComponent(q)}`);
-    if (!res) return c.json({ error: 'webamon auth failed or upstream unreachable' }, 502);
+    const lucene = q ? `&lucene_query=${encodeURIComponent(q)}` : '';
+    const res = await webamonFetch(`/search?index=scans${lucene}&size=20`);
+    if (!res) return c.json({ error: 'webamon upstream unreachable' }, 502);
     const data = await res.json();
     return c.json(data, res.ok ? 200 : res.status);
-  } catch {
-    return c.json({ error: 'internal_error', message: 'report search handler failed' }, 500);
+  } catch (err) {
+    return c.json(
+      { error: 'internal_error', message: err instanceof Error ? err.message : 'reports handler failed' },
+      500
+    );
   }
 }
 
-/* GET /api/v1/webamon/report/:id — get full report */
 export async function webamonReportHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
-    if (!c.env.WEBAMON_API_KEY) return noAuth(c);
     const id = c.req.param('id');
-    const res = await authedFetch(c.env, `/report/${encodeURIComponent(id)}`);
-    if (!res) return c.json({ error: 'webamon auth failed or upstream unreachable' }, 502);
+    const res = await webamonFetch(
+      `/search?lucene_query=${encodeURIComponent(`report_id:"${id}"`)}&index=scans&fields=domain.name,page_title,report_id,meta,resolved_url,tag,date&size=10`
+    );
+    if (!res) return c.json({ error: 'webamon upstream unreachable' }, 502);
     const data = await res.json();
     return c.json(data, res.ok ? 200 : res.status);
-  } catch {
-    return c.json({ error: 'internal_error', message: 'report detail handler failed' }, 500);
+  } catch (err) {
+    return c.json(
+      { error: 'internal_error', message: err instanceof Error ? err.message : 'report handler failed' },
+      500
+    );
   }
 }
 
-/* GET /api/v1/webamon/screenshot/:id — get screenshot image */
+/* ─── Screenshot (public via search.webamon.com/screenshot) ──────────────── */
+
 export async function webamonScreenshotHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
-    if (!c.env.WEBAMON_API_KEY) return noAuth(c);
     const id = c.req.param('id');
-    const res = await authedFetch(c.env, `/screenshot/${encodeURIComponent(id)}`);
+    const res = await webamonFetch(`/screenshot?report_id=${encodeURIComponent(id)}`);
     if (!res) return c.json({ error: 'screenshot not found' }, 404);
-    const blob = await res.blob();
-    return new Response(blob, {
-      status: 200,
-      headers: {
-        'content-type': res.headers.get('content-type') ?? 'image/png',
-        'cache-control': 'public, max-age=86400',
-      },
-    });
-  } catch {
-    return c.json({ error: 'internal_error', message: 'screenshot handler failed' }, 500);
+    const data = await res.json();
+    const screenshot = (data as { report?: { screenshot?: string } })?.report?.screenshot;
+    if (screenshot) {
+      const base64 = screenshot.replace(/^data:image\/\w+;base64,/, '');
+      const binary = atob(base64);
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+      return new Response(bytes, {
+        status: 200,
+        headers: { 'content-type': 'image/png', 'cache-control': 'public, max-age=86400' },
+      });
+    }
+    return c.json({ error: 'no screenshot in response' }, 404);
+  } catch (err) {
+    return c.json(
+      { error: 'internal_error', message: err instanceof Error ? err.message : 'screenshot handler failed' },
+      500
+    );
   }
 }
 
-/* GET /api/v1/webamon/domain/:name — domain details */
+/* ─── Infrastructure lookups via public search API ───────────────────────── */
+
 export async function webamonDomainHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
-    const hasKey = !!c.env.WEBAMON_API_KEY;
-    const keyPreview = c.env.WEBAMON_API_KEY ? c.env.WEBAMON_API_KEY.substring(0, 6) + '...' : 'none';
-    if (!c.env.WEBAMON_API_KEY) return noAuth(c);
     const name = c.req.param('name');
-    const search = c.req.query('search') ?? '';
-    const path = search ? `/domain?urlparams=${encodeURIComponent(search)}` : `/domain/${encodeURIComponent(name)}`;
-    const res = await authedFetch(c.env, path);
-    if (!res)
-      return c.json(
-        { error: 'webamon auth failed or upstream unreachable', key_present: hasKey, key_preview: keyPreview },
-        502
-      );
+    const res = await webamonFetch(
+      `/search?search=${encodeURIComponent(name)}&results=domain.name,resolved_url,page_title,meta.risk_score,meta.report_id,fingerprint.asn,fingerprint.tech,tag,sub_domain&size=20`
+    );
+    if (!res) return c.json({ error: 'webamon upstream unreachable' }, 502);
     const data = await res.json();
-    return c.json({ ...data, _key_present: hasKey, _key_preview: keyPreview }, res.ok ? 200 : res.status);
+    return c.json(data, res.ok ? 200 : res.status);
   } catch (err) {
     return c.json(
       { error: 'internal_error', message: err instanceof Error ? err.message : 'domain handler failed' },
@@ -212,31 +200,30 @@ export async function webamonDomainHandler(c: Context<{ Bindings: Env }>): Promi
   }
 }
 
-/* GET /api/v1/webamon/server/:ip — server details */
 export async function webamonServerHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
-    if (!c.env.WEBAMON_API_KEY) return noAuth(c);
     const ip = c.req.param('ip');
-    const search = c.req.query('search') ?? '';
-    const path = search ? `/server?urlparams=${encodeURIComponent(search)}` : `/server/${encodeURIComponent(ip)}`;
-    const res = await authedFetch(c.env, path);
-    if (!res) return c.json({ error: 'webamon auth failed or upstream unreachable' }, 502);
+    const res = await webamonFetch(
+      `/search?lucene_query=${encodeURIComponent(`ip:${ip}`)}&index=servers&fields=ip,domain.name&size=20`
+    );
+    if (!res) return c.json({ error: 'webamon upstream unreachable' }, 502);
     const data = await res.json();
     return c.json(data, res.ok ? 200 : res.status);
-  } catch {
-    return c.json({ error: 'internal_error', message: 'server handler failed' }, 500);
+  } catch (err) {
+    return c.json(
+      { error: 'internal_error', message: err instanceof Error ? err.message : 'server handler failed' },
+      500
+    );
   }
 }
 
-/* GET /api/v1/webamon/resource/:sha256 — resource details */
 export async function webamonResourceHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
-    if (!c.env.WEBAMON_API_KEY) return noAuth(c);
     const sha256 = c.req.param('sha256');
-    const search = c.req.query('search') ?? '';
-    const path = search ? `/resource?param1=${encodeURIComponent(search)}` : `/resource/${encodeURIComponent(sha256)}`;
-    const res = await authedFetch(c.env, path);
-    if (!res) return c.json({ error: 'webamon auth failed or upstream unreachable' }, 502);
+    const res = await webamonFetch(
+      `/search?lucene_query=${encodeURIComponent(`sha256:${sha256}`)}&index=resources&size=20`
+    );
+    if (!res) return c.json({ error: 'webamon upstream unreachable' }, 502);
     const data = await res.json();
     return c.json(data, res.ok ? 200 : res.status);
   } catch {
