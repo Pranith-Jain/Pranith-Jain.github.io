@@ -142,6 +142,7 @@ export interface Env {
    *  `wrangler.jsonc#vars.SITE_URL` — used for CORS, RSS links, and
    *  canonical URLs. Falls back to the hardcoded default. */
   SITE_URL?: string;
-  WEBAMON_CLIENT_ID?: string;
-  WEBAMON_CLIENT_SECRET?: string;
+  /** Webamon Community API key (legacy single key, set via `wrangler secret put WEBAMON_API_KEY`).
+   *  Optional — sandbox/screenshot/infra routes return 503 when unset. */
+  WEBAMON_API_KEY?: string;
 }

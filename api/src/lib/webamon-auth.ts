@@ -1,47 +1,34 @@
 import type { Env } from '../env';
 
-const AUTH_URL = 'https://community.webamon.co.uk/auth';
-const KV_KEY = 'webamon:bearer';
-const BUFFER_S = 3600;
+const COMMUNITY_API = 'https://community.webamon.com';
+const TIMEOUT_MS = 8000;
 
-export async function getWebamonToken(
-  env: Pick<Env, 'KV_CACHE' | 'WEBAMON_CLIENT_ID' | 'WEBAMON_CLIENT_SECRET'>
-): Promise<string | null> {
-  if (!env.WEBAMON_CLIENT_ID || !env.WEBAMON_CLIENT_SECRET) return null;
-
-  const cached = await env.KV_CACHE?.get(KV_KEY);
-  if (cached) return cached;
-
-  try {
-    const res = await fetch(AUTH_URL, {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ client_id: env.WEBAMON_CLIENT_ID, client_secret: env.WEBAMON_CLIENT_SECRET }),
-    });
-    if (!res.ok) return null;
-    const data = (await res.json()) as { bearer?: string };
-    if (!data.bearer) return null;
-
-    const expiresAt = Date.now() + 86400_000 - BUFFER_S * 1000;
-    env.KV_CACHE?.put(KV_KEY, data.bearer, { expiration: Math.floor(expiresAt / 1000) }).catch(() => {});
-    return data.bearer;
-  } catch {
-    return null;
-  }
+/**
+ * Uses the legacy single API key as a Bearer token directly.
+ * The Community API at community.webamon.com accepts the key as a Bearer
+ * token without a client_id/client_secret exchange.
+ */
+export function getWebamonToken(env: Pick<Env, 'WEBAMON_API_KEY'>): string | null {
+  return env.WEBAMON_API_KEY || null;
 }
 
 export async function authedFetch(
-  env: Pick<Env, 'KV_CACHE' | 'WEBAMON_CLIENT_ID' | 'WEBAMON_CLIENT_SECRET'>,
+  env: Pick<Env, 'WEBAMON_API_KEY'>,
   path: string,
   init?: RequestInit
 ): Promise<Response | null> {
-  const token = await getWebamonToken(env);
+  const token = getWebamonToken(env);
   if (!token) return null;
   try {
-    return await fetch(`https://community.webamon.co.uk${path}`, {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
+    const res = await fetch(`${COMMUNITY_API}${path}`, {
       ...init,
+      signal: ctrl.signal,
       headers: { ...init?.headers, authorization: `Bearer ${token}` },
     });
+    clearTimeout(timer);
+    return res;
   } catch {
     return null;
   }
