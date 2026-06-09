@@ -58,64 +58,50 @@ interface WebamonSearchResponse {
 /* ─── Public search API (no auth needed) ───────────────────────────────── */
 
 export async function webamonSearchHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
-  try {
-    const search = c.req.query('search')?.trim();
-    if (!search) return c.json({ error: 'missing search query' }, 400);
-    const results =
-      c.req.query('results') ??
-      'domain.name,page_title,meta.risk_score,fingerprint.tech,fingerprint.asn,fingerprint.ssl,fingerprint.dom,fingerprint.scan_fingerprint,fingerprint.domains,fingerprint.links,fingerprint.scripts,fingerprint.cookies,resolved_url,date,tag,sub_domain';
-    const size = Math.min(Number(c.req.query('size')) || 20, 100);
-    const from = Number(c.req.query('from')) || 0;
+  const search = c.req.query('search')?.trim();
+  if (!search) return c.json({ error: 'missing search query' }, 400);
+  const results =
+    c.req.query('results') ??
+    'domain.name,page_title,meta.risk_score,fingerprint.tech,fingerprint.asn,fingerprint.ssl,fingerprint.dom,fingerprint.scan_fingerprint,fingerprint.domains,fingerprint.links,fingerprint.scripts,fingerprint.cookies,resolved_url,date,tag,sub_domain';
+  const size = Math.min(Number(c.req.query('size')) || 20, 100);
+  const from = Number(c.req.query('from')) || 0;
 
-    const cache = caches as unknown as { default: Cache };
-    const cacheKey = new Request(
-      `https://webamon-cache.internal/v1?q=${encodeURIComponent(search)}&r=${results}&s=${size}&f=${from}`
-    );
-    const cached = await cache.match(cacheKey).catch(() => null);
-    if (cached) return new Response(cached.body, cached);
+  const upstream = `${WEBAMON_SEARCH}?search=${encodeURIComponent(search)}&results=${encodeURIComponent(results)}&size=${size}&from=${from}`;
 
-    const upstream = `${WEBAMON_SEARCH}?search=${encodeURIComponent(search)}&results=${encodeURIComponent(results)}&size=${size}&from=${from}`;
+  let data: WebamonSearchResponse | null = null;
+  let lastStatus = 0;
+  const MAX_ATTEMPTS = 2;
 
-    let data: WebamonSearchResponse | null = null;
-    let lastStatus = 0;
-    const MAX_ATTEMPTS = 2;
-
-    for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
-      try {
-        const ctrl = new AbortController();
-        const timer = setTimeout(() => ctrl.abort(), TIMEOUT);
-        const res = await fetch(upstream, {
-          signal: ctrl.signal,
-          headers: { accept: 'application/json', 'user-agent': 'pranithjain-dfir/1.0' },
-        });
-        clearTimeout(timer);
-        if (res.ok) {
-          data = (await res.json()) as WebamonSearchResponse;
-          break;
-        }
-        lastStatus = res.status;
-        if (res.status !== 429 && res.status < 500) break;
-        if (attempt < MAX_ATTEMPTS) {
-          await new Promise((r) => setTimeout(r, 600 * attempt));
-        }
-      } catch (e) {
-        lastStatus = 0;
-        if (attempt < MAX_ATTEMPTS) await new Promise((r) => setTimeout(r, 600 * attempt));
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    try {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), TIMEOUT);
+      const res = await fetch(upstream, {
+        signal: ctrl.signal,
+        headers: { accept: 'application/json', 'user-agent': 'pranithjain-dfir/1.0' },
+      });
+      clearTimeout(timer);
+      if (res.ok) {
+        data = (await res.json()) as WebamonSearchResponse;
+        break;
       }
+      lastStatus = res.status;
+      if (res.status !== 429 && res.status < 500) break;
+      if (attempt < MAX_ATTEMPTS) {
+        await new Promise((r) => setTimeout(r, 600 * attempt));
+      }
+    } catch (e) {
+      lastStatus = 0;
+      if (attempt < MAX_ATTEMPTS) await new Promise((r) => setTimeout(r, 600 * attempt));
     }
-
-    if (!data) {
-      return c.json({ error: 'webamon upstream error', upstream_status: lastStatus || 502 }, 502);
-    }
-
-    const response = c.json(data, 200, { 'Cache-Control': `public, max-age=${CACHE_TTL}` });
-    if (data.total_hits > 0) {
-      c.executionCtx.waitUntil(cache.put(cacheKey, response.clone()).catch(() => {}));
-    }
-    return response;
-  } catch {
-    return c.json({ error: 'webamon internal error' }, 502);
   }
+
+  if (!data) {
+    return c.json({ error: 'webamon upstream error', upstream_status: lastStatus || 502 }, 502);
+  }
+
+  const response = c.json(data, 200, { 'Cache-Control': `public, max-age=${CACHE_TTL}` });
+  return response;
 }
 
 /* ─── Community API helpers (auth required) ────────────────────────────── */

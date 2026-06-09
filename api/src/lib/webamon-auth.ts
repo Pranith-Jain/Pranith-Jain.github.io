@@ -25,7 +25,7 @@ export async function authedFetch(
     const res = await fetch(`${COMMUNITY_API}${path}`, {
       ...init,
       signal: ctrl.signal,
-      headers: { ...init?.headers, authorization: `Bearer ${token}` },
+      headers: { ...init?.headers, 'x-api-key': token },
     });
     clearTimeout(timer);
     return res;
