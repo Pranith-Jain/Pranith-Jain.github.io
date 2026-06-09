@@ -62,7 +62,7 @@ export async function webamonSearchHandler(c: Context<{ Bindings: Env }>): Promi
   if (!search) return c.json({ error: 'missing search query' }, 400);
   const results =
     c.req.query('results') ??
-    'domain.name,page_title,meta.risk_score,fingerprint.tech,fingerprint.asn,resolved_url,date,tag,sub_domain';
+    'domain.name,page_title,meta.risk_score,fingerprint.tech,fingerprint.asn,fingerprint.ssl,fingerprint.dom,fingerprint.scan_fingerprint,fingerprint.domains,fingerprint.links,fingerprint.scripts,fingerprint.cookies,resolved_url,date,tag,sub_domain';
   const size = Math.min(Number(c.req.query('size')) || 20, 100);
   const from = Number(c.req.query('from')) || 0;
 

@@ -291,7 +291,14 @@ export default function WebamonIntel(): JSX.Element {
     if (from === 0) setData(null);
 
     try {
-      const params = new URLSearchParams({ search: trimmed, size: String(PAGE_SIZE), from: String(from) });
+      const fields =
+        'domain.name,page_title,meta.risk_score,fingerprint.tech,fingerprint.asn,fingerprint.ssl,fingerprint.dom,fingerprint.scan_fingerprint,fingerprint.domains,fingerprint.links,fingerprint.scripts,fingerprint.cookies,resolved_url,date,tag,sub_domain';
+      const params = new URLSearchParams({
+        search: trimmed,
+        size: String(PAGE_SIZE),
+        from: String(from),
+        results: fields,
+      });
       const res = await fetch(`/api/v1/webamon/search?${params}`, { signal: controller.signal });
       if (!res.ok) {
         const errBody = await res.json().catch(() => null);
