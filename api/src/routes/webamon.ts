@@ -2,7 +2,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 
 const WEBAMON_SEARCH = 'https://search.webamon.com';
-const TIMEOUT = 12_000;
+const TIMEOUT = 20_000;
 const CACHE_TTL = 300;
 const UA = 'pranithjain-dfir/1.0';
 
@@ -55,19 +55,25 @@ interface WebamonSearchResponse {
   };
 }
 
-async function webamonFetch(path: string): Promise<Response | null> {
-  try {
-    const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), TIMEOUT);
-    const res = await fetch(`${WEBAMON_SEARCH}${path}`, {
-      signal: ctrl.signal,
-      headers: { accept: 'application/json', 'user-agent': UA },
-    });
-    clearTimeout(timer);
-    return res;
-  } catch {
-    return null;
+async function webamonFetch(path: string, retries = 2): Promise<Response | null> {
+  let last: null | { type: string; status?: number } = null;
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), TIMEOUT);
+      const res = await fetch(`${WEBAMON_SEARCH}${path}`, {
+        signal: ctrl.signal,
+        headers: { accept: 'application/json', 'user-agent': UA },
+      });
+      clearTimeout(timer);
+      if (res.ok || res.status !== 429) return res;
+      last = { type: 'rate_limited', status: res.status };
+    } catch {
+      last = { type: 'network_error' };
+    }
+    if (attempt < retries) await new Promise((r) => setTimeout(r, 800 * attempt));
   }
+  return null;
 }
 
 /* ─── Search (public) ───────────────────────────────────────────────────── */
@@ -123,8 +129,8 @@ export async function webamonScanHandler(c: Context<{ Bindings: Env }>): Promise
 export async function webamonReportsHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
     const q = c.req.query('q') ?? '';
-    const lucene = q ? `&lucene_query=${encodeURIComponent(q)}` : '';
-    const res = await webamonFetch(`/search?index=scans${lucene}&size=20`);
+    if (!q) return c.json({ error: 'missing search query (q)' }, 400);
+    const res = await webamonFetch(`/search?lucene_query=${encodeURIComponent(q)}&index=scans&size=20`);
     if (!res) return c.json({ error: 'webamon upstream unreachable' }, 502);
     const data = await res.json();
     return c.json(data, res.ok ? 200 : res.status);
@@ -140,7 +146,7 @@ export async function webamonReportHandler(c: Context<{ Bindings: Env }>): Promi
   try {
     const id = c.req.param('id');
     const res = await webamonFetch(
-      `/search?lucene_query=${encodeURIComponent(`report_id:"${id}"`)}&index=scans&fields=domain.name,page_title,report_id,meta,resolved_url,tag,date&size=10`
+      `/search?lucene_query=${encodeURIComponent(`report_id:"${id}"`)}&index=scans&results=domain.name,page_title,report_id,meta,resolved_url,tag&size=10`
     );
     if (!res) return c.json({ error: 'webamon upstream unreachable' }, 502);
     const data = await res.json();
@@ -204,7 +210,7 @@ export async function webamonServerHandler(c: Context<{ Bindings: Env }>): Promi
   try {
     const ip = c.req.param('ip');
     const res = await webamonFetch(
-      `/search?lucene_query=${encodeURIComponent(`ip:${ip}`)}&index=servers&fields=ip,domain.name&size=20`
+      `/search?lucene_query=${encodeURIComponent(`ip:${ip}`)}&index=servers&results=ip,domain.name&size=20`
     );
     if (!res) return c.json({ error: 'webamon upstream unreachable' }, 502);
     const data = await res.json();
