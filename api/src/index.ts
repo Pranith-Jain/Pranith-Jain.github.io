@@ -506,6 +506,16 @@ import {
 // ── Health Checks ──────────────────────────────────────────────────
 import { generateOpenApiSpec } from './lib/openapi';
 import { apiVersion } from './lib/api-version';
+import {
+  exportToStix21,
+  exportToMisp,
+  exportToSigma,
+  exportToYara,
+  exportToSnort,
+  exportToSuricata,
+  exportToCSV,
+  exportToPfSense,
+} from './lib/export-formats';
 
 app.get('/api/v1/health', (c) =>
   c.json({ ok: true, timestamp: new Date().toISOString() }, 200, { 'Cache-Control': 'public, max-age=60' })
@@ -1022,6 +1032,40 @@ app.post('/api/v1/watches', validate('json', watchCreateSchema), createWatchHand
 app.put('/api/v1/watches/:id', validate('json', watchUpdateSchema), updateWatchHandler);
 app.delete('/api/v1/watches/:id', deleteWatchHandler);
 app.get('/api/v1/watches/log', alertLogHandler);
+/* ─── Export Hub ──────────────────────────────────────────────────── */
+app.post('/api/v1/export/stix', async (c) => {
+  const body = await c.req.json();
+  return c.text(exportToStix21(body), 200, { 'content-type': 'application/json' });
+});
+app.post('/api/v1/export/misp', async (c) => {
+  const body = await c.req.json();
+  return c.text(exportToMisp(body.iocs, body.event_name ?? 'IOC Export'), 200, { 'content-type': 'application/json' });
+});
+app.post('/api/v1/export/sigma', async (c) => {
+  const body = await c.req.json();
+  return c.text(exportToSigma(body.name, body.description, body.iocs));
+});
+app.post('/api/v1/export/yara', async (c) => {
+  const body = await c.req.json();
+  return c.text(exportToYara(body.name, body.description, body.hash_iocs ?? [], body.string_iocs ?? []));
+});
+app.post('/api/v1/export/snort', async (c) => {
+  const body = await c.req.json();
+  return c.text(exportToSnort(body.name, body.ip_iocs ?? []));
+});
+app.post('/api/v1/export/suricata', async (c) => {
+  const body = await c.req.json();
+  return c.text(exportToSuricata(body.name, body.ip_iocs ?? []));
+});
+app.post('/api/v1/export/csv', async (c) => {
+  const body = await c.req.json();
+  return c.text(exportToCSV(body), 200, { 'content-type': 'text/csv' });
+});
+app.post('/api/v1/export/pfsense', async (c) => {
+  const body = await c.req.json();
+  return c.text(exportToPfSense(body));
+});
+
 app.notFound((c) => c.json({ error: 'not_found' }, 404));
 
 app.onError(errorHandler);

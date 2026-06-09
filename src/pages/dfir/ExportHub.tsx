@@ -62,16 +62,18 @@ export default function ExportHub(): JSX.Element {
       const body =
         selected === 'misp'
           ? { iocs, event_name: eventName }
-          : selected === 'yara'
-            ? {
-                name: eventName,
-                description: 'Exported rules',
-                hash_iocs: iocs.filter((i) => i.type.startsWith('hash')).map((i) => i.value),
-                string_iocs: [],
-              }
-            : selected === 'snort' || selected === 'suricata'
-              ? { name: eventName, ip_iocs: iocs.filter((i) => i.type === 'ip').map((i) => i.value) }
-              : iocs;
+          : selected === 'sigma'
+            ? { name: eventName, description: 'Exported IOCs', iocs }
+            : selected === 'yara'
+              ? {
+                  name: eventName,
+                  description: 'Exported rules',
+                  hash_iocs: iocs.filter((i) => i.type.startsWith('hash')).map((i) => i.value),
+                  string_iocs: [],
+                }
+              : selected === 'snort' || selected === 'suricata'
+                ? { name: eventName, ip_iocs: iocs.filter((i) => i.type === 'ip').map((i) => i.value) }
+                : iocs;
       const res = await fetch(`/api/v1/export/${selected}`, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },

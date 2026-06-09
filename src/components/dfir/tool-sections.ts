@@ -56,9 +56,6 @@ import {
   Upload,
   BookOpen,
   FolderOpen,
-  Brain,
-  Zap,
-  Gauge,
   Download,
   type LucideIcon,
 } from 'lucide-react';
@@ -1145,93 +1142,19 @@ export const SECTIONS: Section[] = [
       },
     ],
   },
-  // ─── Incident Response & Case Management ───────────────────────────
+  // ─── Export Hub ────────────────────────────────────────────────────
   {
-    id: 'case-management',
-    label: 'Case Management & IR',
-    blurb: 'Incident response case tracking, playbooks, evidence chain-of-custody, and structured analysis.',
+    id: 'export-hub',
+    label: 'Export Hub',
+    blurb: 'Export IOCs to 8 standard formats — STIX, MISP, Sigma, YARA, Snort, Suricata, CSV, pfSense.',
     group: 'specialized',
     tools: [
-      {
-        path: '/dfir/cases',
-        useCase: 'Track ransomware incidents from detection to closure.',
-        label: 'Case Manager',
-        desc: 'Incident response case tracking with evidence chain-of-custody, timeline reconstruction, analyst notes, and status workflow (Open → Triaging → Investigating → Containing → Closed). D1-backed persistent storage.',
-        icon: Shield,
-      },
-      {
-        path: '/dfir/playbooks',
-        useCase: 'Automatically enrich IOCs when a phishing email arrives.',
-        label: 'Playbook Engine',
-        desc: 'DAG-based automated incident response workflows. 6 pre-built templates (Phishing, Ransomware, BEC, Malware, Data Breach, IOC Enrichment). Steps: enrichment, condition, action, manual, report. Execute and track.',
-        icon: Zap,
-      },
-      {
-        path: '/dfir/threat-hunting',
-        useCase: 'Hunt for lateral movement using hypothesis-driven approach.',
-        label: 'Threat Hunting Framework',
-        desc: 'Hypothesis-driven hunting with templates (Lateral Movement, C2 Beacon, Data Exfil, Credential Dump, Persistence, Supply Chain). Track hunts from draft → hunting → completed with findings.',
-        icon: Target,
-      },
-      {
-        path: '/dfir/structured-analysis',
-        useCase: 'Run ACH to evaluate competing hypotheses about an adversary.',
-        label: 'Structured Analytic Techniques',
-        desc: '10 standard intelligence analysis methods: ACH, Key Assumptions Check, Indicators Validator, Diagnostic Analysis, Red Team Analysis, Timeline Analysis, Outside-In Thinking, High Impact/Low Prob, Deception Detection, Argument Mapping.',
-        icon: Brain,
-      },
-    ],
-  },
-  // ─── Threat Intelligence Platform ──────────────────────────────────
-  {
-    id: 'tip-core',
-    label: 'Threat Intel Platform',
-    blurb: 'Core TIP features — IOC lifecycle, intel requirements, confidence scoring, detection-as-code.',
-    group: 'specialized',
-    tools: [
-      {
-        path: '/dfir/confidence-scoring',
-        useCase: 'Score intel using Admiralty reliability × credibility matrix.',
-        label: 'Confidence Scoring',
-        desc: 'Admiralty/NATO reliability scale (A1-F6) with source reliability × information credibility matrix. Confidence decay over time, multi-source corroboration, source track record.',
-        icon: Gauge,
-      },
-      {
-        path: '/dfir/detection-as-code',
-        useCase: 'Track Sigma/YARA rule coverage against MITRE ATT&CK.',
-        label: 'Detection-as-Code',
-        desc: 'Version-controlled detection rules with testing, validation, coverage mapping (MITRE ATT&CK), and deployment pipeline. Sigma, YARA, Snort, Suricata, KQL formats.',
-        icon: FileCode,
-      },
       {
         path: '/dfir/export-hub',
         useCase: 'Export IOCs to STIX 2.1 for sharing with partners.',
         label: 'Export Hub',
         desc: 'Export IOCs to 8 standard formats: STIX 2.1, MISP Event, Sigma, YARA, Snort, Suricata, CSV, pfSense Alias. Open standards, no paid services.',
         icon: Download,
-      },
-    ],
-  },
-  // ─── Deception & Analytics ─────────────────────────────────────────
-  {
-    id: 'deception-analytics',
-    label: 'Deception & Hunting',
-    blurb: 'Canary tokens, honeypots, behavioral anomaly detection, and threat modeling.',
-    group: 'specialized',
-    tools: [
-      {
-        path: '/dfir/deception',
-        useCase: 'Plant a DNS canary token on the finance file server.',
-        label: 'Deception Technology',
-        desc: 'Canary token generation (DNS, web, document, AWS key, SQL, Windows share) with alerting and correlation. Plant tokens, detect intruders early, track trigger counts.',
-        icon: Eye,
-      },
-      {
-        path: '/dfir/threat-models',
-        useCase: 'Build a STRIDE model for your critical application.',
-        label: 'Threat Modeling',
-        desc: 'STRIDE/PASTA threat models with attack surface inventory, threat-to-asset mapping, MITRE coverage analysis, and risk scoring. Identify gaps in your defenses.',
-        icon: ShieldCheck,
       },
     ],
   },
