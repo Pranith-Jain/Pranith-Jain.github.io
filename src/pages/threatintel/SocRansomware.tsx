@@ -180,16 +180,6 @@ export default function SocRansomware(): JSX.Element {
       .map(([label, value]) => ({ label: label.slice(5), value }));
   }, [victims]);
 
-  /* ─── Actor volume donut ────────────────────────────────────────── */
-  const actorDonut: DonutSlice[] = useMemo(() => {
-    const groups = data?.groups ?? [];
-    return groups.slice(0, 8).map((g, i) => ({
-      label: g.group,
-      value: g.count,
-      color: CHART_RANK[Math.min(i, CHART_RANK.length - 1)],
-    }));
-  }, [data]);
-
   /* ─── Export ───────────────────────────────────────────────────── */
   const onExport = useCallback(() => {
     if (!data) return;
@@ -363,11 +353,18 @@ export default function SocRansomware(): JSX.Element {
           </SocPanel>
 
           <SocPanel>
-            <SocSection title="VOLUMEN POR ACTOR" />
-            {actorDonut.length > 0 ? (
-              <SocDonut slices={actorDonut} size={180} legend />
+            <SocSection title="Latest claims" />
+            {victims.length > 0 ? (
+              <ul className="space-y-1.5 text-meta font-mono">
+                {victims.slice(0, 5).map((v, i) => (
+                  <li key={`${v.victim}-${i}`} className="flex items-baseline gap-2 text-slate-700 dark:text-slate-300">
+                    <span className="truncate">{v.victim}</span>
+                    <span className="ml-auto text-slate-500 text-[11px] shrink-0">{v.group}</span>
+                  </li>
+                ))}
+              </ul>
             ) : (
-              <p className="text-meta font-mono text-slate-500 italic">No actor data in this window.</p>
+              <p className="text-meta font-mono text-slate-500 italic">No claims in window.</p>
             )}
           </SocPanel>
         </div>

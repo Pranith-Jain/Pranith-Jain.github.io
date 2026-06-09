@@ -12,7 +12,7 @@ export type SocSeverity = 'critical' | 'high' | 'medium' | 'low' | 'ok' | 'info'
 
 export const SEVERITY_TEXT: Record<SocSeverity, string> = {
   critical: 'text-rose-700 dark:text-rose-300',
-  high: 'text-rose-600 dark:text-rose-300',
+  high: 'text-orange-600 dark:text-orange-300',
   medium: 'text-amber-600 dark:text-amber-300',
   low: 'text-emerald-600 dark:text-emerald-300',
   ok: 'text-emerald-600 dark:text-emerald-300',
@@ -21,7 +21,7 @@ export const SEVERITY_TEXT: Record<SocSeverity, string> = {
 
 export const SEVERITY_PILL: Record<SocSeverity, string> = {
   critical: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
-  high: 'border-rose-500/40 bg-rose-500/10 text-rose-700 dark:text-rose-300',
+  high: 'border-orange-500/40 bg-orange-500/10 text-orange-700 dark:text-orange-300',
   medium: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
   low: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
   ok: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
@@ -30,7 +30,7 @@ export const SEVERITY_PILL: Record<SocSeverity, string> = {
 
 export const SEVERITY_DOT: Record<SocSeverity, string> = {
   critical: 'bg-rose-500',
-  high: 'bg-rose-500',
+  high: 'bg-orange-500',
   medium: 'bg-amber-500',
   low: 'bg-emerald-500',
   ok: 'bg-emerald-500',
@@ -42,7 +42,7 @@ export const SEVERITY_DOT: Record<SocSeverity, string> = {
 /** Severity → fill hex — mirrors tailwind severity tokens exactly. */
 export const CHART_SEV: Record<string, string> = {
   CRITICAL: '#e11d48',
-  HIGH: '#f43f5e',
+  HIGH: '#f59e0b',
   MEDIUM: '#f59e0b',
   LOW: '#10b981',
   NONE: '#64748b',

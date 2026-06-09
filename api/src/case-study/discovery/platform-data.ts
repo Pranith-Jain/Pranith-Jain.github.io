@@ -168,7 +168,8 @@ async function discoverFromTelegramLeaks(deps: PlatformDataDeps): Promise<Candid
     for (const [channel, info] of channelLeaks.entries()) {
       if (info.leaks.length < 2) continue; // Need multiple leaks to be interesting
 
-      const key = topicKey('telegram-leak', `${channel}-${deps.now.toISOString().slice(0, 10)}`);
+      // Use stable key without date - suppression window handles freshness
+      const key = topicKey('telegram-leak', channel);
       const dedup = await deps.getDedup(key);
 
       const score = finalScore({
