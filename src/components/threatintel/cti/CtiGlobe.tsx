@@ -14,6 +14,15 @@ import Globe from 'globe.gl';
 import type { CtiArc, CtiPoint } from './geo';
 import { severityColor } from './geo';
 
+function escHtml(s: string): string {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 /* ─── Types ─────────────────────────────────────────────────────────────── */
 
 interface RingDatum {
@@ -123,6 +132,7 @@ export default function CtiGlobe({
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .pointLabel((p: any) => {
           const sevColor = severityColor(p.severity);
+          const label = escHtml(p.label);
           return `
             <div style="
               background: rgba(10,15,26,0.95);
@@ -136,7 +146,7 @@ export default function CtiGlobe({
               box-shadow: 0 8px 32px rgba(0,0,0,0.6);
               backdrop-filter: blur(10px);
             ">
-              <div style="font-weight: 600; margin-bottom: 8px; color: #f8fafc; font-size: 14px;">${p.label}</div>
+              <div style="font-weight: 600; margin-bottom: 8px; color: #f8fafc; font-size: 14px;">${label}</div>
               <div style="display: flex; align-items: center; gap: 10px; margin-top: 8px;">
                 <span style="
                   background: ${sevColor}25;
@@ -191,6 +201,7 @@ export default function CtiGlobe({
         .arcStroke(0.5)
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .arcLabel((a: any) => {
+          const label = escHtml(a.label);
           return `
             <div style="
               background: rgba(10,15,26,0.95);
@@ -202,7 +213,7 @@ export default function CtiGlobe({
               max-width: 280px;
               border: 1px solid ${a.color}40;
               box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-            ">${a.label}</div>
+            ">${label}</div>
           `;
         });
 
@@ -266,21 +277,27 @@ export default function CtiGlobe({
     if (!globeRef.current) return;
     try {
       globeRef.current.pointsData(points);
-    } catch { /* ignore */ }
+    } catch {
+      /* ignore */
+    }
   }, [points]);
 
   useEffect(() => {
     if (!globeRef.current) return;
     try {
       globeRef.current.ringsData(ringData);
-    } catch { /* ignore */ }
+    } catch {
+      /* ignore */
+    }
   }, [ringData]);
 
   useEffect(() => {
     if (!globeRef.current) return;
     try {
       globeRef.current.arcsData(arcs);
-    } catch { /* ignore */ }
+    } catch {
+      /* ignore */
+    }
   }, [arcs]);
 
   // Focus on point
@@ -320,14 +337,20 @@ export default function CtiGlobe({
         <div className="text-center p-6 max-w-sm">
           <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-slate-800/50 flex items-center justify-center">
             <svg className="w-8 h-8 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-                d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1.5}
+                d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
+              />
             </svg>
           </div>
           <p className="text-sm font-medium text-slate-300 mb-1">Globe Unavailable</p>
           <p className="text-xs text-slate-500 mb-4">{error}</p>
-          <button onClick={() => window.location.reload()}
-            className="px-4 py-2 text-xs font-mono rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 transition-colors">
+          <button
+            onClick={() => window.location.reload()}
+            className="px-4 py-2 text-xs font-mono rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 transition-colors"
+          >
             Reload Page
           </button>
         </div>
@@ -363,7 +386,9 @@ export default function CtiGlobe({
             <span className="w-3 h-3 rounded-full" style={{ backgroundColor: severityColor(hoveredPoint.severity) }} />
             <div>
               <p className="text-sm font-medium text-slate-200">{hoveredPoint.label}</p>
-              <p className="text-xs text-slate-400 mt-0.5">{hoveredPoint.severity.toUpperCase()} · Count: {hoveredPoint.count}</p>
+              <p className="text-xs text-slate-400 mt-0.5">
+                {hoveredPoint.severity.toUpperCase()} · Count: {hoveredPoint.count}
+              </p>
             </div>
           </div>
         </div>
@@ -375,9 +400,17 @@ export default function CtiGlobe({
           <div className="flex items-start justify-between gap-3">
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-2">
-                <span className="w-3 h-3 rounded-full" style={{ backgroundColor: severityColor(selectedPoint.severity) }} />
-                <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded"
-                  style={{ backgroundColor: severityColor(selectedPoint.severity) + '25', color: severityColor(selectedPoint.severity) }}>
+                <span
+                  className="w-3 h-3 rounded-full"
+                  style={{ backgroundColor: severityColor(selectedPoint.severity) }}
+                />
+                <span
+                  className="text-[10px] font-mono uppercase px-2 py-0.5 rounded"
+                  style={{
+                    backgroundColor: severityColor(selectedPoint.severity) + '25',
+                    color: severityColor(selectedPoint.severity),
+                  }}
+                >
                   {selectedPoint.severity}
                 </span>
               </div>
@@ -387,8 +420,10 @@ export default function CtiGlobe({
                 <p className="text-xs text-slate-500 mt-1">Country: {selectedPoint.countryCode}</p>
               )}
             </div>
-            <button onClick={() => setSelectedPoint(null)}
-              className="text-slate-500 hover:text-slate-300 transition-colors">
+            <button
+              onClick={() => setSelectedPoint(null)}
+              className="text-slate-500 hover:text-slate-300 transition-colors"
+            >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>

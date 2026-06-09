@@ -414,7 +414,7 @@ export default function Infostealer(): JSX.Element {
         })}
       </div>
 
-      <p className="font-mono text-[11px] text-slate-500 mb-4">{TABS.find((t) => t.id === tab)!.blurb}</p>
+      <p className="font-mono text-[11px] text-slate-500 mb-4">{TABS.find((t) => t.id === tab)?.blurb ?? ''}</p>
 
       {loading && (
         <p role="status" aria-live="polite" className="font-mono text-sm text-slate-500">

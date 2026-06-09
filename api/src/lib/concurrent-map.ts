@@ -10,6 +10,7 @@ export async function concurrentMap<T, R>(
   fn: (item: T, index: number) => Promise<R>,
   limit = 6
 ): Promise<R[]> {
+  if (limit < 1) limit = 1;
   const results: R[] = new Array(items.length);
   let next = 0;
 

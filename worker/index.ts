@@ -64,6 +64,7 @@ export default {
       if (!wsAllowed.has(wsOrigin)) {
         return new Response('forbidden origin', { status: 403 });
       }
+      if (!env.LIVE_FEED_DO) return new Response('WebSocket not configured', { status: 503 });
       const doId = env.LIVE_FEED_DO.idFromName('global');
       return env.LIVE_FEED_DO.get(doId).fetch(request);
     }

@@ -70,7 +70,7 @@ export async function fetchResilient(
       await sleep(wait);
     } catch (err) {
       lastErr = err;
-      if (attempt === attempts) throw err;
+      if (attempt === attempts || init?.signal?.aborted) throw err;
       await sleep(Math.min(base * attempt, maxDelay));
     }
   }

@@ -2,6 +2,7 @@ import type { Context } from 'hono';
 import type { Env } from '../env';
 import { safeJsonBody } from '../lib/safe-body';
 import { badRequest, notFound, serviceUnavailable } from '../lib/api-error';
+import { requireAdmin } from '../lib/admin-auth';
 
 interface ProviderVerdict {
   provider: string;
@@ -159,6 +160,8 @@ export async function getObservableHandler(c: Context<{ Bindings: Env }>): Promi
 }
 
 export async function saveObservableHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const gate = requireAdmin(c);
+  if ('error' in gate) return gate.error;
   const kv = c.env.KV_CACHE;
   if (!kv) return serviceUnavailable(c, 'KV not available');
 
@@ -224,6 +227,8 @@ export async function saveObservableHandler(c: Context<{ Bindings: Env }>): Prom
 }
 
 export async function updateObservableHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const gate = requireAdmin(c);
+  if ('error' in gate) return gate.error;
   const kv = c.env.KV_CACHE;
   if (!kv) return serviceUnavailable(c, 'KV not available');
 
@@ -252,6 +257,8 @@ export async function updateObservableHandler(c: Context<{ Bindings: Env }>): Pr
 }
 
 export async function deleteObservableHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const gate = requireAdmin(c);
+  if ('error' in gate) return gate.error;
   const kv = c.env.KV_CACHE;
   if (!kv) return serviceUnavailable(c, 'KV not available');
 
@@ -268,6 +275,8 @@ export async function deleteObservableHandler(c: Context<{ Bindings: Env }>): Pr
 }
 
 export async function addObservableNoteHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const gate = requireAdmin(c);
+  if ('error' in gate) return gate.error;
   const kv = c.env.KV_CACHE;
   if (!kv) return serviceUnavailable(c, 'KV not available');
 
@@ -301,6 +310,8 @@ export async function addObservableNoteHandler(c: Context<{ Bindings: Env }>): P
 }
 
 export async function deleteObservableNoteHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const gate = requireAdmin(c);
+  if ('error' in gate) return gate.error;
   const kv = c.env.KV_CACHE;
   if (!kv) return serviceUnavailable(c, 'KV not available');
 

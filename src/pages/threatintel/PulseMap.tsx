@@ -40,7 +40,9 @@ type EventKind =
   | 'detection'
   | 'cybercrime'
   | 'research'
-  | 'cve';
+  | 'cve'
+  | 'actor_sighting'
+  | 'ioc_correlation';
 
 interface MarkerData {
   id: string;
@@ -91,6 +93,8 @@ const KIND_COLORS: Record<EventKind, string> = {
   cybercrime: '#dc2626',
   research: '#0284c7',
   cve: '#d97706',
+  actor_sighting: '#8b5cf6',
+  ioc_correlation: '#06b6d4',
 };
 
 const KIND_LABELS: Record<EventKind, string> = {
@@ -119,6 +123,8 @@ const KIND_LABELS: Record<EventKind, string> = {
   cybercrime: 'Cybercrime',
   research: 'Research',
   cve: 'CVE',
+  actor_sighting: 'Actor Sighting',
+  ioc_correlation: 'IOC Correlation',
 };
 
 export default function PulseMap({ markers, onMarkerClick }: PulseMapProps): JSX.Element {
@@ -146,10 +152,13 @@ export default function PulseMap({ markers, onMarkerClick }: PulseMapProps): JSX
   const landHover = isDark ? '#2a3a4a' : '#9ca3af';
   const bgColor = isDark ? '#0a0f1a' : '#f9fafb';
 
-  const handleMarkerClick = useCallback((marker: MarkerData) => {
-    setSelectedMarker(marker);
-    onMarkerClick?.(marker);
-  }, [onMarkerClick]);
+  const handleMarkerClick = useCallback(
+    (marker: MarkerData) => {
+      setSelectedMarker(marker);
+      onMarkerClick?.(marker);
+    },
+    [onMarkerClick]
+  );
 
   return (
     <div className="relative w-full h-full" style={{ background: bgColor }}>
@@ -217,23 +226,27 @@ export default function PulseMap({ markers, onMarkerClick }: PulseMapProps): JSX
 
       {/* Tooltip */}
       {hoveredMarker && !selectedMarker && (
-        <div
-          className="fixed z-50 pointer-events-none"
-          style={{ left: tooltipPos.x + 10, top: tooltipPos.y - 10 }}
-        >
+        <div className="fixed z-50 pointer-events-none" style={{ left: tooltipPos.x + 10, top: tooltipPos.y - 10 }}>
           <div className="bg-slate-900/95 backdrop-blur-sm rounded-lg border border-slate-700/50 px-3 py-2 shadow-xl max-w-xs">
             <div className="flex items-center gap-2 mb-1">
               <span className="w-2 h-2 rounded-full" style={{ backgroundColor: KIND_COLORS[hoveredMarker.kind] }} />
-              <span className="text-[10px] font-mono uppercase text-slate-400">
-                {KIND_LABELS[hoveredMarker.kind]}
-              </span>
+              <span className="text-[10px] font-mono uppercase text-slate-400">{KIND_LABELS[hoveredMarker.kind]}</span>
             </div>
             {hoveredMarker.title && (
               <p className="text-xs font-medium text-slate-200 line-clamp-2">{hoveredMarker.title}</p>
             )}
             <div className="flex items-center gap-2 mt-1">
-              <span className="text-[10px] font-mono capitalize"
-                style={{ color: hoveredMarker.severity === 'critical' ? '#ef4444' : hoveredMarker.severity === 'high' ? '#f97316' : '#f59e0b' }}>
+              <span
+                className="text-[10px] font-mono capitalize"
+                style={{
+                  color:
+                    hoveredMarker.severity === 'critical'
+                      ? '#ef4444'
+                      : hoveredMarker.severity === 'high'
+                        ? '#f97316'
+                        : '#f59e0b',
+                }}
+              >
                 {hoveredMarker.severity}
               </span>
               {hoveredMarker.source && (
@@ -251,8 +264,13 @@ export default function PulseMap({ markers, onMarkerClick }: PulseMapProps): JSX
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-2">
                 <span className="w-3 h-3 rounded-full" style={{ backgroundColor: KIND_COLORS[selectedMarker.kind] }} />
-                <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded"
-                  style={{ backgroundColor: KIND_COLORS[selectedMarker.kind] + '20', color: KIND_COLORS[selectedMarker.kind] }}>
+                <span
+                  className="text-[10px] font-mono uppercase px-2 py-0.5 rounded"
+                  style={{
+                    backgroundColor: KIND_COLORS[selectedMarker.kind] + '20',
+                    color: KIND_COLORS[selectedMarker.kind],
+                  }}
+                >
                   {KIND_LABELS[selectedMarker.kind]}
                 </span>
               </div>
@@ -263,8 +281,17 @@ export default function PulseMap({ markers, onMarkerClick }: PulseMapProps): JSX
                 <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">{selectedMarker.description}</p>
               )}
               <div className="flex items-center gap-3 mt-2">
-                <span className="text-[10px] font-mono capitalize"
-                  style={{ color: selectedMarker.severity === 'critical' ? '#ef4444' : selectedMarker.severity === 'high' ? '#f97316' : '#f59e0b' }}>
+                <span
+                  className="text-[10px] font-mono capitalize"
+                  style={{
+                    color:
+                      selectedMarker.severity === 'critical'
+                        ? '#ef4444'
+                        : selectedMarker.severity === 'high'
+                          ? '#f97316'
+                          : '#f59e0b',
+                  }}
+                >
                   {selectedMarker.severity}
                 </span>
                 {selectedMarker.source && (

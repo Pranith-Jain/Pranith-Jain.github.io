@@ -258,7 +258,7 @@ interface CveRecentResponse {
 }
 
 export function normalizeTopThreats(data: CveRecentResponse): ThreatCard[] {
-  return data.cves.slice(0, 10).map((c) => ({
+  return (data.cves ?? []).slice(0, 10).map((c) => ({
     id: c.id,
     title: c.id,
     severity: c.severity,
@@ -283,7 +283,7 @@ interface LiveIocsResponse {
 }
 
 export function normalizeFeed(data: LiveIocsResponse): FeedItem[] {
-  return data.items.slice(0, 50).map((item, i) => ({
+  return (data.items ?? []).slice(0, 50).map((item, i) => ({
     id: `feed-${i}-${item.value.slice(0, 20)}`,
     value: item.value,
     kind: item.kind,

@@ -358,8 +358,9 @@ const SEVERITY_CONFIG = {
 };
 
 function formatTime(ts: string): string {
-  const d = new Date(ts);
-  const diff = Date.now() - d.getTime();
+  const d = new Date(ts).getTime();
+  if (isNaN(d)) return '—';
+  const diff = Date.now() - d;
   if (diff < 60_000) return 'now';
   if (diff < 3_600_000) return `${Math.floor(diff / 60_000)}m`;
   if (diff < 86_400_000) return `${Math.floor(diff / 3_600_000)}h`;

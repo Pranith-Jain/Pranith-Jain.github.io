@@ -159,7 +159,7 @@ export default function RansomwareLive(): JSX.Element {
   // a re-fetch even when we already have a cached envelope.
   const [refreshTick, setRefreshTick] = useState<Record<string, number>>({});
 
-  const active = useMemo(() => TABS.find((t) => t.id === tab)!, [tab]);
+  const active = useMemo(() => TABS.find((t) => t.id === tab) ?? TABS[0]!, [tab]);
   const tick = refreshTick[active.resource] ?? 0;
 
   useEffect(() => {
@@ -299,7 +299,11 @@ export default function RansomwareLive(): JSX.Element {
         <>
           {tab === 'stats' ? <StatsView data={env.data} /> : <ListView data={env.data} />}
           <p className="font-mono text-[10px] text-slate-400 mt-3">
-            fetched {new Date(env.fetched_at).toLocaleString()}
+            fetched{' '}
+            {(() => {
+              const d = new Date(env.fetched_at);
+              return isNaN(d.getTime()) ? 'unknown' : d.toLocaleString();
+            })()}
           </p>
         </>
       )}

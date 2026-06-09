@@ -108,6 +108,10 @@ export function useCtiData({ mode, windowDays, layers: _layers }: UseCtiDataOpti
         const kpis = deriveKpis(points, feed.length);
 
         const degraded = mapRes.status === 'rejected' || topRes.status === 'rejected' || feedRes.status === 'rejected';
+        const allRejected = [mapRes, topRes, feedRes, sectorRes].every((r) => r.status === 'rejected');
+        if (allRejected) {
+          setError('All CTI data sources are unavailable.');
+        }
 
         setData({ arcs, points, topThreats, feed, kpis, sectors, generatedAt, degraded });
       } catch (e) {

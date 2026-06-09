@@ -28,6 +28,9 @@ export interface OgOverride {
  *  be poisoned by a request arriving on a non-canonical host. */
 const CANONICAL_ORIGIN = 'https://pranithjain.qzz.io';
 
+const OG_CACHE_VERSION = 'v3';
+export const OG_CACHE_TTL_SECONDS = 86400;
+
 const OG_OVERRIDES: Record<string, OgOverride> = {
   '/about': {
     title: 'About · Pranith Jain',
@@ -105,8 +108,8 @@ function findOgOverride(pathname: string): OgOverride | null {
   let merged: OgOverride = { title: '', description: '' };
   for (const { value } of matches) {
     merged = {
-      title: value.title || merged.title,
-      description: value.description || merged.description,
+      title: value.title ?? merged.title,
+      description: value.description ?? merged.description,
       image: value.image ?? merged.image,
     };
   }
@@ -160,10 +163,7 @@ function rewriteHtml(html: string, override: OgOverride | null, fullUrl: string,
       const imgAttr = escapeAttr(imgUrl);
       out = out
         .replace(/<meta property="og:image" content="[^"]*"/i, `<meta property="og:image" content="${imgAttr}"`)
-        .replace(
-          /<meta property="twitter:image" content="[^"]*"/i,
-          `<meta property="twitter:image" content="${imgAttr}"`
-        );
+        .replace(/<meta name="twitter:image" content="[^"]*"/i, `<meta name="twitter:image" content="${imgAttr}"`);
     }
   }
   if (nonce) {
@@ -200,8 +200,6 @@ export async function resolveOg(url: URL, env: Env): Promise<OgOverride | null> 
   return findOgOverride(url.pathname);
 }
 
-export const OG_CACHE_TTL_SECONDS = 86_400;
-
 /**
  * Mutate the static index.html so the OG / Twitter / canonical metadata
  * reflects the actual route. Only kicks in for HTML responses (asset router
@@ -217,7 +215,7 @@ export async function injectOgMeta(
   const etag = nonce ? (response.headers.get('etag') ?? response.headers.get('last-modified') ?? '') : '';
   if (etag) {
     const cacheKey = new Request(
-      `https://og-html.internal/v3/${encodeURIComponent(url.host)}${url.pathname}@${encodeURIComponent(etag)}`
+      `https://og-html.internal/${OG_CACHE_VERSION}/${encodeURIComponent(url.host)}${url.pathname}@${encodeURIComponent(etag)}`
     );
     const cached = await caches.default.match(cacheKey);
     const cachedText = cached ? await cached.text() : '';
@@ -294,9 +292,8 @@ export async function getOrInjectOg(request: Request, env: Env, ctx: ExecutionCo
 
   const etag = assetRes.headers.get('etag') ?? assetRes.headers.get('last-modified') ?? 'unversioned';
   const cache = caches.default;
-  const REWRITE_VERSION = 'v2';
   const cacheKey = new Request(
-    `https://og-html.internal/${REWRITE_VERSION}/${encodeURIComponent(url.host)}${url.pathname}@${encodeURIComponent(etag)}`
+    `https://og-html.internal/${OG_CACHE_VERSION}/${encodeURIComponent(url.host)}${url.pathname}@${encodeURIComponent(etag)}`
   );
   const cached = await cache.match(cacheKey);
   // Poisoned-cache guard. An empty cached body was being served to SPA
