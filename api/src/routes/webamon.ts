@@ -116,6 +116,8 @@ function noAuth(c: Context) {
 /* POST /api/v1/webamon/scan — submit URL to sandbox */
 export async function webamonScanHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
+    const hasKey = !!c.env.WEBAMON_API_KEY;
+    const keyPreview = c.env.WEBAMON_API_KEY ? c.env.WEBAMON_API_KEY.substring(0, 6) + '...' : 'none';
     if (!c.env.WEBAMON_API_KEY) return noAuth(c);
     const body = await c.req.json<{ submission_url?: string }>().catch(() => ({}));
     if (!body.submission_url) return c.json({ error: 'missing submission_url' }, 400);
@@ -125,9 +127,13 @@ export async function webamonScanHandler(c: Context<{ Bindings: Env }>): Promise
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ submission_url: body.submission_url }),
     });
-    if (!res) return c.json({ error: 'webamon auth failed or upstream unreachable' }, 502);
+    if (!res)
+      return c.json(
+        { error: 'webamon auth failed or upstream unreachable', key_present: hasKey, key_preview: keyPreview },
+        502
+      );
     const data = await res.json();
-    return c.json(data, res.ok ? 200 : res.status);
+    return c.json({ ...data, _key_present: hasKey, _key_preview: keyPreview }, res.ok ? 200 : res.status);
   } catch {
     return c.json({ error: 'internal_error', message: 'scan handler failed' }, 500);
   }
@@ -184,16 +190,25 @@ export async function webamonScreenshotHandler(c: Context<{ Bindings: Env }>): P
 /* GET /api/v1/webamon/domain/:name — domain details */
 export async function webamonDomainHandler(c: Context<{ Bindings: Env }>): Promise<Response> {
   try {
+    const hasKey = !!c.env.WEBAMON_API_KEY;
+    const keyPreview = c.env.WEBAMON_API_KEY ? c.env.WEBAMON_API_KEY.substring(0, 6) + '...' : 'none';
     if (!c.env.WEBAMON_API_KEY) return noAuth(c);
     const name = c.req.param('name');
     const search = c.req.query('search') ?? '';
     const path = search ? `/domain?urlparams=${encodeURIComponent(search)}` : `/domain/${encodeURIComponent(name)}`;
     const res = await authedFetch(c.env, path);
-    if (!res) return c.json({ error: 'webamon auth failed or upstream unreachable' }, 502);
+    if (!res)
+      return c.json(
+        { error: 'webamon auth failed or upstream unreachable', key_present: hasKey, key_preview: keyPreview },
+        502
+      );
     const data = await res.json();
-    return c.json(data, res.ok ? 200 : res.status);
-  } catch {
-    return c.json({ error: 'internal_error', message: 'domain handler failed' }, 500);
+    return c.json({ ...data, _key_present: hasKey, _key_preview: keyPreview }, res.ok ? 200 : res.status);
+  } catch (err) {
+    return c.json(
+      { error: 'internal_error', message: err instanceof Error ? err.message : 'domain handler failed' },
+      500
+    );
   }
 }
 
