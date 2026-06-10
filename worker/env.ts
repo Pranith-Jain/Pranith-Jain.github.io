@@ -1,4 +1,4 @@
-import type { Ai, D1Database, Queue } from '@cloudflare/workers-types';
+import type { Ai, D1Database, Fetcher, Queue } from '@cloudflare/workers-types';
 import type { DfirMcpServer } from './mcp-server';
 import type { FeedQueueMessage } from '../api/src/lib/live-iocs-slices';
 
@@ -11,7 +11,7 @@ export interface Env {
   /** Self-referencing service binding — same Worker, in-process. Lets the
    *  case-study discovery runner (and cron) call /api/v1/* endpoints
    *  without going through the public URL + API-key gate. */
-  SELF: { fetch: (req: RequestInfo, init?: RequestInit) => Promise<Response> };
+  SELF: Fetcher;
   // Fetch-interface DOs (no RPC) — the plain LiveFeedDO/CronLockDO classes
   // aren't DurableObjectBranded, so bind them as the untyped namespace; calls
   // go through .get(id).fetch(). DfirMcpServer (McpAgent) keeps its generic.
@@ -51,4 +51,7 @@ export interface Env {
   /** Set to literal "true" to route every new post to drafts:<slug> for
    *  human approval; anything else (unset, "false", "0") auto-publishes. */
   BLOG_APPROVAL_REQUIRED?: string;
+  /** Public site origin, used for WS origin allow-listing and absolute URLs in
+   *  the cron/scheduled paths. Optional — falls back to the canonical origin. */
+  SITE_URL?: string;
 }
