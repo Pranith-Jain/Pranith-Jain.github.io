@@ -377,6 +377,7 @@ import { securityUpdatesHandler } from './routes/security-updates';
 import { cisaKevHandler } from './routes/cisa-kev';
 import { passiveDnsLookupHandler } from './routes/passive-dns';
 import { gitHubSecurityHandler } from './routes/github-security';
+import { predictionsHandler } from './routes/predictions';
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -1072,6 +1073,7 @@ app.get('/api/v1/security-updates', validate('query', securityUpdatesSchema), se
 app.get('/api/v1/cisa-kev', validate('query', cisaKevSchema), cisaKevHandler);
 app.get('/api/v1/passive-dns', validate('query', passiveDnsSchema), passiveDnsLookupHandler);
 app.get('/api/v1/github-security', validate('query', githubSecuritySchema), gitHubSecurityHandler);
+app.get('/api/v1/predictions', predictionsHandler);
 
 app.get('/api/v1/dashboard', dashboardHandler);
 app.get('/api/v1/dashboard/watchlist', getWatchlistHandler);
