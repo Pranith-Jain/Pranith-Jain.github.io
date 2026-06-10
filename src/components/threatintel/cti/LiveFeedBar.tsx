@@ -38,7 +38,7 @@ export default function LiveFeedBar({ items }: LiveFeedBarProps): JSX.Element {
   if (items.length === 0) return <></>;
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 overflow-hidden">
+    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 overflow-hidden">
       <button
         type="button"
         onClick={() => setCollapsed((p) => !p)}

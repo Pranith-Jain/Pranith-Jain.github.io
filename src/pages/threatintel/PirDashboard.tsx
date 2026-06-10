@@ -426,7 +426,7 @@ export default function PirDashboard(): JSX.Element {
       {showCreateForm && (
         <form
           onSubmit={handleCreate}
-          className="mb-8 p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 space-y-3"
+          className="mb-8 p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 shadow-e1 space-y-3"
         >
           {editingId && <p className="text-mini font-mono text-brand-600">Editing {editingId}</p>}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -668,7 +668,7 @@ export default function PirDashboard(): JSX.Element {
           </button>
 
           {showRouting && (
-            <div className="mt-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 overflow-hidden">
+            <div className="mt-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 overflow-hidden">
               {/* Gantt chart */}
               {ganttRows.length > 0 && (
                 <div className="p-4 border-b border-slate-100 dark:border-slate-800">
@@ -737,7 +737,7 @@ export default function PirDashboard(): JSX.Element {
       )}
 
       {/* ── Filter bar ──────────────────────────────────────────────────── */}
-      <div className="mb-6 p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40">
+      <div className="mb-6 p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1">
         <div className="flex items-center gap-2 text-micro font-mono text-slate-500 mb-2">
           <Filter size={12} /> Filters
         </div>
@@ -861,7 +861,7 @@ export default function PirDashboard(): JSX.Element {
                 return (
                   <div
                     key={pir.id}
-                    className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 overflow-hidden"
+                    className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 overflow-hidden"
                   >
                     <button
                       type="button"

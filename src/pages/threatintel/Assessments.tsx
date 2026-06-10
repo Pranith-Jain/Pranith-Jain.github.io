@@ -118,7 +118,7 @@ export default function Assessments(): JSX.Element {
             <Link
               key={a.id}
               to={`/threatintel/assessments/${a.id}`}
-              className="block rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-4 hover:border-brand-500/40 transition-colors"
+              className="block rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-4 hover:border-brand-500/40 transition-colors"
             >
               <div className="flex items-center gap-3">
                 <span className={`text-micro font-mono px-1.5 py-0.5 rounded border ${STATUS_STYLES[a.status] ?? ''}`}>

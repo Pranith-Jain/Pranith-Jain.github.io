@@ -73,7 +73,7 @@ export default function CaseStudy(): JSX.Element {
   if (!study) return <Navigate to="/projects" replace />;
 
   return (
-    <div className="max-w-3xl mx-auto px-6 py-10 text-slate-900 dark:text-slate-100">
+    <div className="max-w-3xl mx-auto text-slate-900 dark:text-slate-100">
       <script
         type="application/ld+json"
         // Article structured data for richer SERP cards. All fields are our own

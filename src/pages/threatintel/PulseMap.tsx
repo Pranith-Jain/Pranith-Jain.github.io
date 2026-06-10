@@ -42,7 +42,8 @@ type EventKind =
   | 'research'
   | 'cve'
   | 'actor_sighting'
-  | 'ioc_correlation';
+  | 'ioc_correlation'
+  | 'webamon_scan';
 
 interface MarkerData {
   id: string;
@@ -95,6 +96,7 @@ const KIND_COLORS: Record<EventKind, string> = {
   cve: '#d97706',
   actor_sighting: '#8b5cf6',
   ioc_correlation: '#06b6d4',
+  webamon_scan: '#14b8a6',
 };
 
 const KIND_LABELS: Record<EventKind, string> = {
@@ -125,6 +127,7 @@ const KIND_LABELS: Record<EventKind, string> = {
   cve: 'CVE',
   actor_sighting: 'Actor Sighting',
   ioc_correlation: 'IOC Correlation',
+  webamon_scan: 'Web Scan',
 };
 
 export default function PulseMap({ markers, onMarkerClick }: PulseMapProps): JSX.Element {

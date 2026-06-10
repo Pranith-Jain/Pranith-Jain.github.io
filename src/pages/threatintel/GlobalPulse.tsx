@@ -30,7 +30,7 @@ import {
 } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { DataPageLayout } from '../../components/DataPageLayout';
-import { Badge } from '../../components/ui/Badge';
+import { SeverityPill } from '../../components/Badge';
 import type { CtiArc, CtiPoint } from '../../components/threatintel/cti/geo';
 import { synthesizeArcs, deriveKpis } from '../../components/threatintel/cti/geo';
 
@@ -678,7 +678,7 @@ export default function GlobalPulse(): JSX.Element {
         <div className="space-y-4">
           {/* ─── Top Stats Bar ─── */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 shadow-e1 p-4">
               <div className="flex items-center gap-2 mb-2">
                 <Activity size={14} className="text-slate-400" />
                 <span className="text-micro font-mono uppercase text-slate-500">Total Events</span>
@@ -698,7 +698,7 @@ export default function GlobalPulse(): JSX.Element {
               </div>
             </div>
 
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 shadow-e1 p-4">
               <div className="flex items-center gap-2 mb-2">
                 <Layers size={14} className="text-slate-400" />
                 <span className="text-micro font-mono uppercase text-slate-500">Active Layers</span>
@@ -709,7 +709,7 @@ export default function GlobalPulse(): JSX.Element {
               </div>
             </div>
 
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 shadow-e1 p-4">
               <div className="flex items-center gap-2 mb-2">
                 <Clock size={14} className="text-slate-400" />
                 <span className="text-micro font-mono uppercase text-slate-500">Last Update</span>
@@ -904,7 +904,7 @@ export default function GlobalPulse(): JSX.Element {
 
           {/* ─── Filters Panel ─── */}
           {showFilters && (
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-4 animate-fade-in">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 shadow-e1 p-4 animate-fade-in">
               {/* Severity Filter */}
               <div className="mb-4">
                 <h4 className="text-micro font-mono uppercase text-slate-500 mb-2">Severity</h4>
@@ -1131,7 +1131,7 @@ export default function GlobalPulse(): JSX.Element {
 
             {/* Event Feed */}
             <aside
-              className="flex flex-col rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 overflow-hidden"
+              className="flex flex-col rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 overflow-hidden"
               style={{ minHeight: '600px', maxHeight: '750px' }}
             >
               {/* Feed Header */}
@@ -1330,9 +1330,7 @@ export default function GlobalPulse(): JSX.Element {
                       {LAYER_DEFS[selectedEvent.kind]?.icon}
                     </span>
                     <h3 className="text-base font-bold text-slate-900 dark:text-white">{selectedEvent.title}</h3>
-                    <Badge size="sm" variant={SEVERITY_CONFIG[selectedEvent.severity]?.badge ?? 'default'}>
-                      {selectedEvent.severity}
-                    </Badge>
+                    <SeverityPill severity={selectedEvent.severity} />
                   </div>
                   <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
                     {selectedEvent.description}

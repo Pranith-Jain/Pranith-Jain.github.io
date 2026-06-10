@@ -132,7 +132,7 @@ export default function IrPlaybooks(): JSX.Element {
       </div>
 
       {/* Incident Type Selector */}
-      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 mb-6">
+      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5 mb-6">
         <h2 className="font-display font-bold text-sm mb-3">Incident Type</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2">
           {INCIDENT_TYPES.map((t) => {
@@ -183,7 +183,7 @@ export default function IrPlaybooks(): JSX.Element {
       {result && (
         <div className="space-y-5 animate-fade-in-up">
           {/* Playbook Header */}
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
             <div className="flex items-center justify-between mb-2">
               <h2 className="font-display font-bold text-lg">{result.playbook.title}</h2>
               <span
@@ -213,7 +213,7 @@ export default function IrPlaybooks(): JSX.Element {
               return (
                 <div
                   key={step.id}
-                  className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 overflow-hidden"
+                  className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 overflow-hidden"
                 >
                   <button
                     onClick={() => toggleStep(step.id)}
@@ -267,7 +267,7 @@ export default function IrPlaybooks(): JSX.Element {
           </div>
 
           {/* Tools Used Summary */}
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
             <h2 className="font-display font-bold text-sm mb-3">Tools Referenced</h2>
             <div className="flex flex-wrap gap-1.5">
               {result.playbook.tools_used.map((tool, i) => (
@@ -283,7 +283,7 @@ export default function IrPlaybooks(): JSX.Element {
 
           {/* Related Playbooks */}
           {result.related_playbooks.length > 0 && (
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
               <h2 className="font-display font-bold text-sm mb-3">Related Playbooks</h2>
               <div className="space-y-1.5">
                 {result.related_playbooks.map((rp, i) => (

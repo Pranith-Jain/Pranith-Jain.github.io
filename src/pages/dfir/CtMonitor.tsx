@@ -142,7 +142,7 @@ export default function CtMonitor(): JSX.Element {
         </p>
       </div>
 
-      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 mb-6">
+      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5 mb-6">
         <div className="flex gap-2">
           <input
             type="text"
@@ -170,7 +170,7 @@ export default function CtMonitor(): JSX.Element {
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
+        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
           <h2 className="font-display font-bold text-sm mb-4 flex items-center gap-2">
             <Eye size={14} className="text-brand-600 dark:text-brand-400" /> Watched ({watched.length})
           </h2>
@@ -217,7 +217,7 @@ export default function CtMonitor(): JSX.Element {
           )}
         </div>
 
-        <div className="lg:col-span-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
+        <div className="lg:col-span-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-display font-bold text-sm flex items-center gap-2">
               <Globe size={14} className="text-brand-600 dark:text-brand-400" /> Certs{' '}

@@ -318,7 +318,7 @@ export default function DFIRPage(): JSX.Element {
             {TOOL_CASES.map((tc) => (
               <li
                 key={tc.caseSlug}
-                className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-4"
+                className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-4"
               >
                 <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1.5">
                   <Link

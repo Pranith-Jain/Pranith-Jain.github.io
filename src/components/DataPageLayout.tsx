@@ -1,6 +1,13 @@
 import type { ReactNode } from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowLeft, Loader2, AlertTriangle, RefreshCw } from 'lucide-react';
+import { Loader2, AlertTriangle, RefreshCw } from 'lucide-react';
+import { AppBreadcrumb } from './AppBreadcrumb';
+
+/** Derive a section label for the breadcrumb home crumb from the back target. */
+function sectionCrumb(backTo: string, fallback: string): { label: string; href: string } {
+  if (backTo.startsWith('/threatintel')) return { label: 'Threat Intel', href: backTo };
+  if (backTo.startsWith('/dfir')) return { label: 'DFIR', href: backTo };
+  return { label: fallback, href: backTo };
+}
 
 export interface DataPageLayoutProps {
   backTo: string;
@@ -37,12 +44,7 @@ export function DataPageLayout({
 }: DataPageLayoutProps): JSX.Element {
   return (
     <div className={`max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100 ${className ?? ''}`}>
-      <Link
-        to={backTo}
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono transition-colors"
-      >
-        <ArrowLeft size={14} /> {backLabel}
-      </Link>
+      <AppBreadcrumb className="mb-8" home={sectionCrumb(backTo, backLabel)} items={[{ label: title }]} />
 
       <div className="animate-fade-in-up mb-10">
         <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">

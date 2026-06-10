@@ -29,7 +29,7 @@ const USERNAME_RE = /^[A-Za-z0-9_.-]{1,40}$/;
 function ProfileCard({ profile, platform }: { profile: IdentityProfile; platform: PlatformDef }) {
   const CatIcon = CAT_ICONS[platform.category] ?? Globe;
   return (
-    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-3 hover:border-slate-300 dark:hover:border-slate-700 transition-colors">
+    <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-3 hover:border-slate-300 dark:hover:border-slate-700 transition-colors">
       <div className="flex items-start gap-3">
         <div className="shrink-0">
           {profile.avatarUrl ? (

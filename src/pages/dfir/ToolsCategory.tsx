@@ -188,7 +188,7 @@ export default function ToolsCategory(): JSX.Element {
             ].map((ex) => (
               <div
                 key={ex.platform}
-                className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-3 flex items-center gap-3"
+                className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 shadow-e1 p-3 flex items-center gap-3"
               >
                 <div className="w-8 h-8 rounded-full bg-brand-500/10 flex items-center justify-center text-xs font-mono text-brand-600 dark:text-brand-400">
                   ✓

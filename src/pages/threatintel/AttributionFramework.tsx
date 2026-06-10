@@ -66,7 +66,7 @@ export default function AttributionFramework(): JSX.Element {
           Multi-signal attribution with confidence scoring.
         </p>
       </div>
-      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5 mb-6">
+      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5 mb-6">
         <h2 className="font-display font-bold text-sm mb-3">Indicators & Evidence</h2>
         <textarea
           value={indicators}
@@ -104,7 +104,7 @@ export default function AttributionFramework(): JSX.Element {
       )}
       {assessment && (
         <div className="space-y-5 animate-fade-in-up">
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
             <div className="flex items-center justify-between mb-3">
               <div>
                 <h2 className="font-display font-bold text-lg">{assessment.actor}</h2>
@@ -126,7 +126,7 @@ export default function AttributionFramework(): JSX.Element {
               />
             </div>
           </div>
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 overflow-hidden">
+          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 overflow-hidden">
             <button
               onClick={() => setExpandedEvidence(!expandedEvidence)}
               className="w-full flex items-center justify-between p-4 text-left hover:bg-slate-50 dark:hover:bg-slate-900/20 transition-colors"
@@ -160,7 +160,7 @@ export default function AttributionFramework(): JSX.Element {
             )}
           </div>
           {assessment.methodology && (
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 shadow-e1 p-5">
               <h3 className="font-display font-bold text-sm mb-2">Methodology</h3>
               <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">{assessment.methodology}</p>
             </div>
