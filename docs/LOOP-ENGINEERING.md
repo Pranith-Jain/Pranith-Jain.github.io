@@ -43,7 +43,10 @@ inherits this repo's footguns. See [`loops/README.md`](loops/README.md). Current
 - **Rebase Before Deploy** — refresh onto fast-moving `origin/main` before shipping.
 
 Plus generic loops that apply to most projects (Ship PR Until Green, De-Sloppify Pass,
-Coverage Until Threshold, PR Self-Review, Spec-First Ship) — see `loops/README.md`.
+Coverage Until Threshold, PR Self-Review, Spec-First Ship), and CTI/DFIR development
+loops tied to this repo's surfaces (Debug Systematically, Add Agent Tool, Add Provider,
+Add CTI Endpoint, Audit Provider Coverage, Audit Security Posture, Detection Rule
+Quality, Optimize Hot Path, Report Quality QA) — see `loops/README.md`.
 
 ## Layer 2 — Runtime loop engine (`api/src/lib/agent/`)
 

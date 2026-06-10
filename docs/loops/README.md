@@ -51,3 +51,21 @@ branch/auto-merge workflow.
 | [Coverage Until Threshold](coverage-until-threshold.md) | Raising test coverage                              | Coverage ≥ threshold with meaningful tests       |
 | [PR Self-Review](pr-self-review.md)                     | Before opening a PR                                | A fresh review pass finds nothing actionable     |
 | [Spec-First Ship](spec-first-ship.md)                   | Implementing from a `docs/superpowers/specs/` spec | Every checklist item implemented + tested        |
+
+## CTI / DFIR development loops
+
+Loops for building the AI-powered CTI platform + DFIR toolkit — tied to this repo's
+actual surfaces (the investigator agent, provider adapters, `/api/v1` routes, detection
+content, report QA).
+
+| Loop                                                  | Task                  | Exit when                                                 |
+| ----------------------------------------------------- | --------------------- | --------------------------------------------------------- |
+| [Debug Systematically](debug-systematically.md)       | Debugging             | Reproduction passes + root cause addressed (not masked)   |
+| [Add Agent Tool](add-agent-tool.md)                   | New tool              | Planner selects + uses the new investigator tool in a run |
+| [Add Provider](add-provider.md)                       | New integration       | New adapter returns real data via `check_ioc`, in budget  |
+| [Add CTI Endpoint](add-cti-endpoint.md)               | New feature           | New `/api/v1` route registered, schema-contracted, tested |
+| [Audit Provider Coverage](audit-provider-coverage.md) | Auditing              | Honest live/empty coverage map across every IOC type      |
+| [Audit Security Posture](audit-security-posture.md)   | Auditing              | Every exposure class checked; findings fixed or accepted  |
+| [Detection Rule Quality](detection-rule-quality.md)   | Detection engineering | Rule validates, matches TPs, zero benign matches          |
+| [Optimize Hot Path](optimize-hot-path.md)             | Optimisation          | Target latency met, <50 subrequests, correctness intact   |
+| [Report Quality QA](report-quality-qa.md)             | Quality               | QA score ≥ threshold, no unsupported claims               |
