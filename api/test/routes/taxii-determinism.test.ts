@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { getIocObjects, getVulnerabilityObjects } from '../../src/routes/taxii';
+import { getIocObjects, getVulnerabilityObjects, getBriefingObjects } from '../../src/routes/taxii';
 
 /**
  * Deterministic STIX object IDs (UUIDv5).
@@ -103,5 +103,35 @@ describe('taxii deterministic STIX object ids', () => {
     expect(a[0]!.id).toMatch(idRe);
     expect(a[0]!.id).toEqual(b[0]!.id);
     expect(a[0]!.name).toBe('CVE-2024-3094');
+  });
+
+  it('getBriefingObjects: report SDOs carry a non-empty object_refs (STIX 2.1 valid)', async () => {
+    const rows = [
+      { slug: 'daily-2026-01-01', title: 'Daily Briefing', type: 'daily', published_at: '2026-01-01T00:00:00Z' },
+      { slug: 'weekly-2026-w01', title: 'Weekly Briefing', type: 'weekly', published_at: '2026-01-02T00:00:00Z' },
+    ];
+    const objs = await getBriefingObjects(mockDb(rows), 100);
+
+    const producer = objs.find((o) => o.type === 'identity');
+    const reports = objs.filter((o) => o.type === 'report');
+    expect(producer).toBeDefined();
+    expect(reports).toHaveLength(2);
+
+    for (const r of reports) {
+      const refs = r.object_refs as string[] | undefined;
+      // Required by STIX 2.1 AND must be non-empty (STIX lists MUST NOT be empty).
+      expect(Array.isArray(refs)).toBe(true);
+      expect(refs!.length).toBeGreaterThan(0);
+      expect(refs![0]).toBe(producer!.id);
+      expect(r.created_by_ref).toBe(producer!.id);
+      expect(r.id).toMatch(new RegExp(`^report--${UUID}$`));
+    }
+
+    // Deterministic across fetches.
+    const objs2 = await getBriefingObjects(mockDb(rows), 100);
+    expect(objs.map((o) => o.id)).toEqual(objs2.map((o) => o.id));
+
+    // Empty briefings table → no objects (no orphan producer).
+    expect(await getBriefingObjects(mockDb([]), 100)).toEqual([]);
   });
 });

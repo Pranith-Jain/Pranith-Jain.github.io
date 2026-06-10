@@ -281,8 +281,15 @@ export function validateLlmEntities(
     attackPatterns,
     actorCandidates,
     malwareCandidates,
-    // The prompt asks the model to list techniques in kill-chain order, so
-    // when any survived validation we trust their order for the Attack-Flow.
+    // INTENTIONAL: the prompt asks the model to list techniques in the
+    // chronological/kill-chain order described in the report, and when any
+    // survive validation we TRUST that order for the Attack-Flow (the
+    // "LLM order when available" half of the design). We deliberately do NOT
+    // re-validate against strict tactic monotonicity — a real attack legitimately
+    // revisits tactics (e.g. discovery → execution → discovery), so forcing
+    // monotonic order would discard the LLM's signal. When this is false
+    // (no LLM techniques), stix-build falls back to deterministic
+    // `orderByTactic`. Accepted tradeoff: LLM-ordered flows are non-deterministic.
     flowOrdered: attackPatterns.length > 0,
   };
 }

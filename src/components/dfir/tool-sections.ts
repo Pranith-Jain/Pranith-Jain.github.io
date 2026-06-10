@@ -822,7 +822,7 @@ export const SECTIONS: Section[] = [
         path: '/dfir/stix-builder',
         useCase: 'Turn a threat-report into a STIX 2.1 bundle.',
         label: 'STIX Builder',
-        desc: 'Paste brief / IoC list / URL → heuristic extraction + enrichment → STIX 2.1 bundle (OpenCTI/MISP importable)',
+        desc: 'Paste brief / IoC list / URL — or upload a report file (PDF / DOCX / image / text / HTML) → extraction + enrichment → STIX 2.1 bundle with MITRE Attack-Flow (OpenCTI/MISP importable)',
         icon: FileCheck,
       },
       {

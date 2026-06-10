@@ -20,7 +20,10 @@ const BUDGETS = {
   'vendor-react-*.js': { uncompressed: 80_000, gzip: 28_000 },
   'vendor-icons-*.js': { uncompressed: 130_000, gzip: 38_000 },
   'index-*.js': { uncompressed: 280_000, gzip: 92_000 },
-  'index-*.css': { uncompressed: 168_000, gzip: 26_000 },
+  // Raw bumped 168→172KB for the STIX Builder file-upload + Attack-Flow UI
+  // (new Tailwind utilities, ~0.6KB raw). gzip held at 26KB — transfer/perf
+  // impact is nil; the raw guard just tracks utility-class growth.
+  'index-*.css': { uncompressed: 172_000, gzip: 26_000 },
   'vendor-xyflow-*.js': { uncompressed: 180_000, gzip: 58_000 },
   'vendor-maps-*.js': { uncompressed: 110_000, gzip: 38_000 },
   'vendor-md-*.js': { uncompressed: 70_000, gzip: 24_000 },
