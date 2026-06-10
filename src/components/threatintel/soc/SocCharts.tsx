@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from 'react';
-import { CHART_RANK, glowBox } from './tone';
+import { CHART_RANK } from './tone';
 import { groupSmallSlices } from './slices';
 import { formatNumber } from './utils';
 
@@ -74,7 +74,7 @@ export function SocBar({
                   x2={w - 8}
                   y2={y}
                   stroke="currentColor"
-                  className="text-slate-800"
+                  className="text-slate-200 dark:text-slate-800"
                   strokeDasharray="2 3"
                 />
                 <text
@@ -82,7 +82,7 @@ export function SocBar({
                   y={y + 3}
                   textAnchor="end"
                   fontSize="10"
-                  className="fill-slate-500"
+                  className="fill-slate-400 dark:fill-slate-500"
                   fontFamily="ui-monospace,monospace"
                 >
                   {fmt(Math.round(ceiling * t))}
@@ -120,7 +120,7 @@ export function SocBar({
                     y={y - 3}
                     textAnchor="middle"
                     fontSize="10"
-                    className="fill-slate-200"
+                    className="fill-slate-700 dark:fill-slate-200"
                     fontFamily="ui-monospace,monospace"
                   >
                     {fmt(it.value)}
@@ -131,7 +131,7 @@ export function SocBar({
                   y={innerH + 14}
                   textAnchor="middle"
                   fontSize="10"
-                  className="fill-slate-500"
+                  className="fill-slate-400 dark:fill-slate-500"
                   fontFamily="ui-monospace,monospace"
                 >
                   {truncate(it.label, Math.max(5, Math.floor(slotW / 7)))}
@@ -158,30 +158,32 @@ export function SocBar({
                 onClick={() => onItemClick?.(it, i)}
                 onMouseEnter={() => setHover(i)}
                 onMouseLeave={() => setHover(null)}
-                className={`text-left truncate text-slate-300 ${onItemClick ? 'hover:text-white cursor-pointer' : 'cursor-default'}`}
+                className={`text-left truncate text-slate-700 dark:text-slate-300 ${onItemClick ? 'hover:text-slate-900 dark:hover:text-white cursor-pointer' : 'cursor-default'}`}
                 title={it.label}
               >
                 {it.label}
               </button>
-              <span className="text-slate-400 tabular-nums shrink-0 flex items-center gap-1.5">
+              <span className="text-slate-500 dark:text-slate-400 tabular-nums shrink-0 flex items-center gap-1.5">
                 {fmt(it.value)}
-                {it.hint && <span className="text-slate-500">{it.hint}</span>}
+                {it.hint && <span className="text-slate-400 dark:text-slate-500">{it.hint}</span>}
                 {it.meta}
               </span>
             </div>
             <div
-              className="h-1.5 rounded-full bg-slate-800 overflow-hidden"
+              className="h-1.5 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden"
               onMouseEnter={() => setHover(i)}
               onMouseLeave={() => setHover(null)}
             >
               <div
-                className="h-full rounded-full transition-opacity"
-                style={{
-                  width: `${Math.max(1.5, pct)}%`,
-                  backgroundColor: color,
-                  opacity: isHover ? 0.85 : 1,
-                  boxShadow: glowBox(color),
-                }}
+                className="h-full rounded-full transition-opacity dark:[box-shadow:0_0_6px_var(--glow)]"
+                style={
+                  {
+                    width: `${Math.max(1.5, pct)}%`,
+                    backgroundColor: color,
+                    opacity: isHover ? 0.85 : 1,
+                    '--glow': `${color}66`,
+                  } as React.CSSProperties
+                }
                 aria-label={`${it.label}: ${fmt(it.value)}`}
               />
             </div>
@@ -267,7 +269,7 @@ export function SocDonut({
             r={r}
             fill="none"
             stroke="currentColor"
-            className="text-slate-800"
+            className="text-slate-200 dark:text-slate-800"
             strokeWidth={thickness}
           />
           {slices.map((s, i) => {
@@ -307,10 +309,14 @@ export function SocDonut({
           <div className="absolute inset-0 grid place-items-center text-center pointer-events-none">
             <div>
               {centerLabel && (
-                <div className="font-mono font-bold text-xl text-slate-100 tabular-nums">{centerLabel}</div>
+                <div className="font-mono font-bold text-xl text-slate-900 dark:text-slate-100 tabular-nums">
+                  {centerLabel}
+                </div>
               )}
               {centerSub && (
-                <div className="text-mini font-mono uppercase tracking-wider text-slate-400 mt-0.5">{centerSub}</div>
+                <div className="text-mini font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 mt-0.5">
+                  {centerSub}
+                </div>
               )}
             </div>
           </div>
@@ -322,18 +328,18 @@ export function SocDonut({
           <li
             key={s.label}
             className={`flex items-center gap-2 rounded px-1 -mx-1 transition-colors ${
-              hover === s.label ? 'bg-slate-800/60' : ''
+              hover === s.label ? 'bg-slate-100 dark:bg-slate-800/60' : ''
             }`}
             onMouseEnter={() => setHover(s.label)}
             onMouseLeave={() => setHover(null)}
           >
             <span className="inline-block h-2.5 w-2.5 rounded-sm shrink-0" style={{ backgroundColor: s.color }} />
-            <span className="truncate text-slate-300" title={s.label}>
+            <span className="truncate text-slate-700 dark:text-slate-300" title={s.label}>
               {s.label}
             </span>
-            <span className="ml-auto text-slate-400 tabular-nums shrink-0">
+            <span className="ml-auto text-slate-500 dark:text-slate-400 tabular-nums shrink-0">
               {s.value.toLocaleString('en-US')}{' '}
-              <span className="text-slate-500">({((s.value / total) * 100).toFixed(1)}%)</span>
+              <span className="text-slate-400 dark:text-slate-500">({((s.value / total) * 100).toFixed(1)}%)</span>
             </span>
           </li>
         ))}
@@ -407,7 +413,7 @@ export function SocSparkline({
                 x2={w - 8}
                 y2={y}
                 stroke="currentColor"
-                className="text-slate-800"
+                className="text-slate-200 dark:text-slate-800"
                 strokeDasharray="2 3"
               />
               <text
@@ -415,7 +421,7 @@ export function SocSparkline({
                 y={y + 3}
                 textAnchor="end"
                 fontSize="10"
-                className="fill-slate-500"
+                className="fill-slate-400 dark:fill-slate-500"
                 fontFamily="ui-monospace,monospace"
               >
                 {Math.round(max * t)}
@@ -450,7 +456,7 @@ export function SocSparkline({
                 y={height - 6}
                 textAnchor="middle"
                 fontSize="10"
-                className="fill-slate-500"
+                className="fill-slate-400 dark:fill-slate-500"
                 fontFamily="ui-monospace,monospace"
               >
                 {truncate(p.label, 8)}
