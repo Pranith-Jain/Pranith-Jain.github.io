@@ -826,6 +826,13 @@ export const SECTIONS: Section[] = [
         icon: FileCheck,
       },
       {
+        path: '/dfir/report-ingest',
+        useCase: 'Upload a report file and get a STIX 2.1 bundle.',
+        label: 'Report Ingest',
+        desc: 'Drag-drop a threat report (PDF/DOCX/image/HTML/text) → text extraction + IOC enrichment → STIX 2.1 bundle · .stix.json export',
+        icon: Upload,
+      },
+      {
         path: '/dfir/threat-graph',
         useCase: 'Visualize IOC relationships and discover threat communities.',
         label: 'Threat Intelligence Graph',
