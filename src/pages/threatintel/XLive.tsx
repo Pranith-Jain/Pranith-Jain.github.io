@@ -1,20 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { Link } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
-import {
-  ArrowLeft,
-  RefreshCw,
-  ExternalLink,
-  AlertTriangle,
-  Loader2,
-  MessageSquare,
-  Repeat,
-  Heart,
-  BarChart3,
-  Search,
-  Twitter,
-} from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { RefreshCw, ExternalLink, MessageSquare, Repeat, Heart, BarChart3, Search, Twitter } from 'lucide-react';
 
 interface LiveTweet {
   id: string;
@@ -142,60 +130,12 @@ export default function XLive(): JSX.Element {
     });
   }, [data, search, activeHandle]);
 
-  return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="mb-6 animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
-          <Twitter size={28} className="text-brand-600 dark:text-brand-400" /> X live (cybersec)
-          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
-            live · free
-          </span>
-        </h1>
-        <p className="text-sm font-mono text-slate-600 dark:text-slate-400 mt-1 max-w-3xl leading-relaxed">
-          Chronological X tweets from cybersec IOC-posting accounts — assembled by joining{' '}
-          <a
-            href="https://github.com/0xDanielLopez/TweetFeed"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
-          >
-            TweetFeed
-          </a>{' '}
-          (chronological permalink stream from ~30 monitored accounts) with{' '}
-          <a
-            href="https://github.com/FixTweet/FxTwitter"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
-          >
-            fxtwitter
-          </a>{' '}
-          (per-status enrichment for full text, author, media, engagement). This is the only free path that delivers{' '}
-          <em>recent</em> X content — X gates anonymous timeline access, but per-tweet embed previews stay open because
-          Discord/Slack/Telegram link cards depend on them.
-        </p>
-        <p className="text-[11px] font-mono text-slate-500 mt-2">
-          <strong>Coverage caveat:</strong> only tweets that TweetFeed surfaces (researcher-posted IOCs). Prose-only
-          researcher takes won&apos;t appear here. For non-IOC chatter use{' '}
-          <Link to="/threatintel/x" className="text-brand-600 dark:text-brand-400 hover:underline">
-            Bluesky+Mastodon firehose
-          </Link>
-          . For static profile reference, see{' '}
-          <Link to="/threatintel/x-watch" className="text-brand-600 dark:text-brand-400 hover:underline">
-            X profile highlights
-          </Link>
-          .
-        </p>
-      </div>
-
-      <section className="mb-4 flex flex-wrap items-center gap-2">
+  const headerExtra = (
+    <>
+      <section className="flex flex-wrap items-center gap-2">
+        <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+          live · free
+        </span>
         <label className="inline-flex items-center gap-1 text-[11px] font-mono text-slate-600 dark:text-slate-400">
           window:
           <select
@@ -231,7 +171,7 @@ export default function XLive(): JSX.Element {
       </section>
 
       {handleCounts.length > 0 && (
-        <div className="flex flex-wrap gap-1.5 mb-4">
+        <div className="flex flex-wrap gap-1.5 mt-3">
           <button
             type="button"
             onClick={() => setActiveHandle(null)}
@@ -259,19 +199,58 @@ export default function XLive(): JSX.Element {
           ))}
         </div>
       )}
+    </>
+  );
 
-      {error && (
-        <div className="rounded border border-rose-300 dark:border-rose-700 bg-rose-50 dark:bg-rose-950 p-3 text-xs font-mono text-rose-700 dark:text-rose-300 mb-4 inline-flex items-start gap-2">
-          <AlertTriangle size={14} className="shrink-0 mt-0.5" /> {error}
-        </div>
-      )}
-
-      {loading && !data && (
-        <p className="text-xs font-mono text-slate-500 inline-flex items-center gap-1">
-          <Loader2 size={11} className="animate-spin" /> joining TweetFeed × fxtwitter…
-        </p>
-      )}
-
+  return (
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Twitter size={28} />}
+      title="X live (cybersec)"
+      description={
+        <>
+          <span className="block text-sm font-mono max-w-3xl leading-relaxed">
+            Chronological X tweets from cybersec IOC-posting accounts — assembled by joining{' '}
+            <a
+              href="https://github.com/0xDanielLopez/TweetFeed"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-brand-600 dark:text-brand-400 hover:underline"
+            >
+              TweetFeed
+            </a>{' '}
+            (chronological permalink stream from ~30 monitored accounts) with{' '}
+            <a
+              href="https://github.com/FixTweet/FxTwitter"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-brand-600 dark:text-brand-400 hover:underline"
+            >
+              fxtwitter
+            </a>{' '}
+            (per-status enrichment for full text, author, media, engagement). This is the only free path that delivers{' '}
+            <em>recent</em> X content — X gates anonymous timeline access, but per-tweet embed previews stay open
+            because Discord/Slack/Telegram link cards depend on them.
+          </span>
+          <span className="block text-[11px] font-mono text-slate-500 mt-2">
+            <strong>Coverage caveat:</strong> only tweets that TweetFeed surfaces (researcher-posted IOCs). Prose-only
+            researcher takes won&apos;t appear here. For non-IOC chatter use{' '}
+            <Link to="/threatintel/x" className="text-brand-600 dark:text-brand-400 hover:underline">
+              Bluesky+Mastodon firehose
+            </Link>
+            . For static profile reference, see{' '}
+            <Link to="/threatintel/x-watch" className="text-brand-600 dark:text-brand-400 hover:underline">
+              X profile highlights
+            </Link>
+            .
+          </span>
+        </>
+      }
+      headerExtra={headerExtra}
+      loading={loading && !data}
+      error={error}
+      onRetry={() => load(sinceHours)}
+    >
       {!loading && data && filtered.length === 0 && (
         <p className="text-xs font-mono text-slate-500 rounded border border-dashed border-slate-300 dark:border-slate-700 p-4 text-center">
           {data.stale ? 'Showing cached data (upstream enrichment temporarily unavailable). ' : ''}
@@ -395,6 +374,6 @@ export default function XLive(): JSX.Element {
           ) · last {sinceHours}h · refreshed {formatTimeAgo(data.generated_at)}
         </p>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

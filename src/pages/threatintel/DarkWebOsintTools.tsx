@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { useSearchParams } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, ExternalLink, Github, Search, Globe, Star } from 'lucide-react';
+import { ExternalLink, Github, Search, Globe, Star } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import {
   TOOLS,
   CATEGORY_LABELS,
@@ -66,91 +66,94 @@ export default function DarkWebOsintTools(): JSX.Element {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
-          <Globe size={28} className="text-brand-600 dark:text-brand-400" /> Dark Web OSINT Tools
-        </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
-          {TOOLS.length} curated tools across {ALL_CATS.length} categories for investigating the dark web. Each entry
-          has a clear primary use case, source link, and honest description of what it does.
-        </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
-          Curated from the{' '}
-          <a
-            href="https://github.com/apurvsinghgautam/dark-web-osint-tools"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
-          >
-            dark-web-osint-tools
-          </a>{' '}
-          repository with additional sources and cross-references. See also{' '}
-          <a
-            href="https://github.com/apurvsinghgautam/robin"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-brand-600 dark:text-brand-400 hover:underline"
-          >
-            Robin
-          </a>{' '}
-          — an AI-powered dark-web investigation tool built on top of these engines.
-        </p>
-      </div>
-
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
-        <div className="relative">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
-          <input
-            type="search"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search tools — e.g. 'crawler', 'ahmia', 'onion scan'"
-            className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
-            aria-label="Search dark web OSINT tools"
-          />
-        </div>
-      </section>
-
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
-        <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-[11px] font-mono text-slate-500 mr-1">categories:</span>
-          {ALL_CATS.map((c) => {
-            const count = catCounts.get(c) ?? 0;
-            const active = activeCats.has(c);
-            const cls = active ? CATEGORY_PILL[c] : 'border-slate-300 dark:border-slate-700 text-slate-500';
-            return (
-              <button
-                key={c}
-                type="button"
-                onClick={() => toggleCat(c)}
-                className={`text-[11px] font-mono px-2 py-1 rounded border ${cls} ${count === 0 ? 'opacity-30' : ''}`}
-                title={CATEGORY_BLURB[c]}
-                disabled={count === 0 && !active}
-              >
-                {CATEGORY_LABELS[c]} <span className="opacity-70">· {count}</span>
-              </button>
-            );
-          })}
-          {(query || activeCats.size > 0) && (
-            <button
-              type="button"
-              onClick={clearAll}
-              className="sm:ml-auto text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline"
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Globe size={28} />}
+      title="Dark Web OSINT Tools"
+      maxWidthClass="max-w-6xl"
+      description={
+        <>
+          <span className="block mb-2">
+            {TOOLS.length} curated tools across {ALL_CATS.length} categories for investigating the dark web. Each entry
+            has a clear primary use case, source link, and honest description of what it does.
+          </span>
+          <span className="block text-xs text-slate-500 dark:text-slate-400 font-mono">
+            Curated from the{' '}
+            <a
+              href="https://github.com/apurvsinghgautam/dark-web-osint-tools"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-brand-600 dark:text-brand-400 hover:underline"
             >
-              clear filters
-            </button>
-          )}
-        </div>
-      </section>
+              dark-web-osint-tools
+            </a>{' '}
+            repository with additional sources and cross-references. See also{' '}
+            <a
+              href="https://github.com/apurvsinghgautam/robin"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-brand-600 dark:text-brand-400 hover:underline"
+            >
+              Robin
+            </a>{' '}
+            — an AI-powered dark-web investigation tool built on top of these engines.
+          </span>
+        </>
+      }
+      headerExtra={
+        <div className="space-y-6">
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+            <div className="relative">
+              <Search
+                size={16}
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                aria-hidden="true"
+              />
+              <input
+                type="search"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search tools — e.g. 'crawler', 'ahmia', 'onion scan'"
+                className="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded font-mono text-sm focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+                aria-label="Search dark web OSINT tools"
+              />
+            </div>
+          </section>
 
+          <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+            <div className="flex flex-wrap items-center gap-1.5">
+              <span className="text-[11px] font-mono text-slate-500 mr-1">categories:</span>
+              {ALL_CATS.map((c) => {
+                const count = catCounts.get(c) ?? 0;
+                const active = activeCats.has(c);
+                const cls = active ? CATEGORY_PILL[c] : 'border-slate-300 dark:border-slate-700 text-slate-500';
+                return (
+                  <button
+                    key={c}
+                    type="button"
+                    onClick={() => toggleCat(c)}
+                    className={`text-[11px] font-mono px-2 py-1 rounded border ${cls} ${count === 0 ? 'opacity-30' : ''}`}
+                    title={CATEGORY_BLURB[c]}
+                    disabled={count === 0 && !active}
+                  >
+                    {CATEGORY_LABELS[c]} <span className="opacity-70">· {count}</span>
+                  </button>
+                );
+              })}
+              {(query || activeCats.size > 0) && (
+                <button
+                  type="button"
+                  onClick={clearAll}
+                  className="sm:ml-auto text-[11px] font-mono text-brand-600 dark:text-brand-400 hover:underline"
+                >
+                  clear filters
+                </button>
+              )}
+            </div>
+          </section>
+        </div>
+      }
+    >
       <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-4">
         Showing {filtered.length} of {TOOLS.length}
       </p>
@@ -220,6 +223,6 @@ export default function DarkWebOsintTools(): JSX.Element {
           ?
         </p>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

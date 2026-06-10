@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef, type FormEvent } from 'react';
-import { BackLink } from '../../components/BackLink';
-import { Search, Loader2, ArrowLeft, ExternalLink, FileDown, X } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { Search, Loader2, ExternalLink, FileDown, X, FileCode } from 'lucide-react';
 
 interface YaraRuleEntry {
   rule_name: string;
@@ -115,17 +115,13 @@ export default function Yarahub(): JSX.Element {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up mb-8">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">YARA Rule Hub</h1>
-        <p className="text-slate-600 dark:text-slate-400 max-w-2xl text-sm font-mono">
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<FileCode size={28} />}
+      title="YARA Rule Hub"
+      maxWidthClass="max-w-6xl"
+      description={
+        <span className="text-sm font-mono">
           Browse and search YARA rules from{' '}
           <a
             href="https://yaraify.abuse.ch/yarahub/"
@@ -136,41 +132,38 @@ export default function Yarahub(): JSX.Element {
             YARAhub
           </a>{' '}
           by abuse.ch. Over 1,200 community-contributed rules with search by family, author, or rule name.
-        </p>
-      </div>
-
-      <form onSubmit={handleSearch} className="mb-6">
-        <label htmlFor="yara-search" className="sr-only">
-          Search YARA rules
-        </label>
-        <div className="flex gap-2">
-          <div className="flex-1 relative">
-            <input
-              id="yara-search"
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search by rule name, family, or author (e.g. MALWARE_Win_Neshta, emotet, trickbot)"
-              className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-[13px] text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
-            />
+        </span>
+      }
+      headerExtra={
+        <form onSubmit={handleSearch}>
+          <label htmlFor="yara-search" className="sr-only">
+            Search YARA rules
+          </label>
+          <div className="flex gap-2">
+            <div className="flex-1 relative">
+              <input
+                id="yara-search"
+                type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search by rule name, family, or author (e.g. MALWARE_Win_Neshta, emotet, trickbot)"
+                className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-[13px] text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={loading}
+              className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center gap-2"
+            >
+              {loading ? <Loader2 size={16} className="animate-spin" /> : <Search size={16} />}
+              Search
+            </button>
           </div>
-          <button
-            type="submit"
-            disabled={loading}
-            className="px-5 py-3 bg-brand-600 dark:bg-brand-500 text-white font-mono font-semibold rounded-lg disabled:opacity-30 hover:bg-brand-700 dark:hover:bg-brand-400 inline-flex items-center gap-2"
-          >
-            {loading ? <Loader2 size={16} className="animate-spin" /> : <Search size={16} />}
-            Search
-          </button>
-        </div>
-      </form>
-
-      {error && (
-        <div className="rounded-lg border border-rose-200 dark:border-rose-900 bg-rose-50 dark:bg-rose-950/30 p-4 mb-6">
-          <p className="text-[13px] font-mono text-rose-700 dark:text-rose-300">{error}</p>
-        </div>
-      )}
-
+        </form>
+      }
+      error={error}
+      onRetry={() => void fetchRules()}
+    >
       {loading && !error && (
         <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 text-center">
           <Loader2 size={20} className="animate-spin mx-auto text-slate-400 mb-2" />
@@ -326,6 +319,6 @@ export default function Yarahub(): JSX.Element {
           </a>
         </p>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

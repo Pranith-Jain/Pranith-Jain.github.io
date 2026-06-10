@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Rss, ExternalLink, Globe, Shield, Newspaper, Cpu, GraduationCap, Wrench } from 'lucide-react';
+import { Rss, ExternalLink, Globe, Shield, Newspaper, Cpu, GraduationCap, Wrench } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { rssFeeds } from '../../data/rssFeeds';
 import type { RSSFeed } from '../../data/rssFeeds';
 import { sanitizeUrl } from '../../lib/sanitize-url';
@@ -75,42 +75,36 @@ export default function FeedSources(): JSX.Element {
   const totalEnabled = rssFeeds.length - disabled.size;
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="mb-6 animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
-          <Rss size={26} className="text-brand-600 dark:text-brand-400" /> Feed Sources
-        </h1>
-        <p className="font-mono text-sm text-slate-600 dark:text-slate-400">
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Rss size={26} />}
+      title="Feed Sources"
+      description={
+        <span className="font-mono text-sm">
           {totalEnabled} / {rssFeeds.length} feeds enabled · aggregated every 30 minutes
-        </p>
-      </div>
-
-      <div className="flex flex-wrap items-center gap-3 mb-6 animate-fade-in-up">
-        <input
-          type="text"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search feeds by name, source, or description…"
-          className="flex-1 min-w-[200px] px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-[13px] text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
-        />
-        <label className="inline-flex items-center gap-1.5 text-[11px] font-mono text-slate-500 cursor-pointer select-none">
+        </span>
+      }
+      headerExtra={
+        <div className="flex flex-wrap items-center gap-3">
           <input
-            type="checkbox"
-            checked={showDisabled}
-            onChange={(e) => setShowDisabled(e.target.checked)}
-            className="rounded border-slate-400"
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search feeds by name, source, or description…"
+            className="flex-1 min-w-[200px] px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-[13px] text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500 dark:focus:border-brand-400"
           />
-          Show disabled
-        </label>
-      </div>
-
+          <label className="inline-flex items-center gap-1.5 text-[11px] font-mono text-slate-500 cursor-pointer select-none">
+            <input
+              type="checkbox"
+              checked={showDisabled}
+              onChange={(e) => setShowDisabled(e.target.checked)}
+              className="rounded border-slate-400"
+            />
+            Show disabled
+          </label>
+        </div>
+      }
+    >
       <div className="space-y-6">
         {filteredGroups.map(([cat, feeds]) => {
           const meta = CATEGORY_META[cat as RSSFeed['category']];
@@ -194,6 +188,6 @@ export default function FeedSources(): JSX.Element {
           </p>
         </div>
       </details>
-    </div>
+    </DataPageLayout>
   );
 }

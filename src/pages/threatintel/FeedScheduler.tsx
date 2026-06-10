@@ -1,20 +1,7 @@
 import { useEffect, useState, useCallback, type FormEvent } from 'react';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { adminAuthHeaders } from '../../lib/admin-token';
-import {
-  ArrowLeft,
-  Plus,
-  Trash2,
-  Play,
-  RefreshCw,
-  Loader2,
-  CheckCircle2,
-  XCircle,
-  Clock,
-  Search,
-  Pencil,
-  X,
-} from 'lucide-react';
+import { Plus, Trash2, Play, RefreshCw, Loader2, CheckCircle2, XCircle, Clock, Search, Pencil, X } from 'lucide-react';
 
 interface FeedJob {
   id: string;
@@ -260,42 +247,44 @@ export default function FeedScheduler(): JSX.Element {
   });
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
-        <div>
-          <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Feed Scheduler</h1>
-          <p className="text-sm font-mono text-slate-600 dark:text-slate-400 max-w-2xl">
-            Automated threat feed collection — configure external sources, set intervals, and manually trigger fetches.
-            Inspired by INTELMQ and Yeti.
-          </p>
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<RefreshCw size={28} />}
+      title="Feed Scheduler"
+      maxWidthClass="max-w-6xl"
+      description={
+        <span className="font-mono text-sm">
+          Automated threat feed collection — configure external sources, set intervals, and manually trigger fetches.
+          Inspired by INTELMQ and Yeti.
+        </span>
+      }
+      headerExtra={
+        <div className="space-y-6">
+          <div className="flex justify-start">
+            <button
+              type="button"
+              onClick={() => setShowForm(true)}
+              className="inline-flex items-center gap-2 px-4 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-lg hover:bg-brand-700 dark:hover:bg-brand-400"
+            >
+              <Plus size={14} /> Add Feed
+            </button>
+          </div>
+          <div className="relative max-w-sm">
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search feeds…"
+              className="w-full pl-9 pr-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-[13px] text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500"
+            />
+          </div>
         </div>
-        <button
-          type="button"
-          onClick={() => setShowForm(true)}
-          className="inline-flex items-center gap-2 px-4 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-lg hover:bg-brand-700 dark:hover:bg-brand-400"
-        >
-          <Plus size={14} /> Add Feed
-        </button>
-      </div>
-
-      <div className="relative mb-6 max-w-sm">
-        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-        <input
-          type="text"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search feeds…"
-          className="w-full pl-9 pr-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg font-mono text-[13px] text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-brand-500"
-        />
-      </div>
-
+      }
+      loading={loading}
+      error={error}
+      onRetry={() => void fetchData()}
+    >
       {showForm && (
         <form
           onSubmit={(e) => void createJob(e)}
@@ -407,20 +396,7 @@ export default function FeedScheduler(): JSX.Element {
         </div>
       )}
 
-      {error && (
-        <div className="rounded-lg border border-rose-200 dark:border-rose-900 bg-rose-50 dark:bg-rose-950/30 p-4 mb-6">
-          <p className="text-[13px] font-mono text-rose-700 dark:text-rose-300">{error}</p>
-        </div>
-      )}
-
-      {loading && (
-        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-12 text-center">
-          <Loader2 size={20} className="animate-spin mx-auto text-slate-400 mb-2" />
-          <p className="text-xs font-mono text-slate-500">Loading feed jobs…</p>
-        </div>
-      )}
-
-      {!loading && filtered.length === 0 && (
+      {filtered.length === 0 && (
         <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-12 text-center">
           <RefreshCw size={32} className="mx-auto text-slate-300 dark:text-slate-700 mb-3" />
           <p className="text-sm font-mono text-slate-500">{search ? 'No matching feeds' : 'No feed jobs configured'}</p>
@@ -432,224 +408,220 @@ export default function FeedScheduler(): JSX.Element {
         </div>
       )}
 
-      {!loading && (
-        <div className="space-y-3">
-          {filtered.map((job) => {
-            const jobHistory = history[job.id] ?? [];
-            const isRunning = runningJobs.has(job.id) || job.last_status === 'running';
-            const isDue =
-              job.last_run_at && Date.now() - new Date(job.last_run_at).getTime() > job.interval_minutes * 60000;
-            const isEditing = editingId === job.id;
-            return (
-              <div
-                key={job.id}
-                className={`rounded-lg border bg-white dark:bg-slate-900 p-4 transition-colors ${
-                  job.enabled
-                    ? 'border-slate-200 dark:border-slate-800'
-                    : 'border-slate-200/50 dark:border-slate-800/50 opacity-60'
-                }`}
-              >
-                {isEditing ? (
-                  <div>
-                    <div className="flex items-center justify-between mb-3">
-                      <h3 className="font-display font-semibold text-sm">Edit Feed</h3>
-                      <button
-                        type="button"
-                        onClick={() => setEditingId(null)}
-                        className="p-1 rounded text-slate-400 hover:text-slate-600"
-                      >
-                        <X size={13} />
-                      </button>
-                    </div>
-                    <div className="grid sm:grid-cols-2 gap-3">
+      <div className="space-y-3">
+        {filtered.map((job) => {
+          const jobHistory = history[job.id] ?? [];
+          const isRunning = runningJobs.has(job.id) || job.last_status === 'running';
+          const isDue =
+            job.last_run_at && Date.now() - new Date(job.last_run_at).getTime() > job.interval_minutes * 60000;
+          const isEditing = editingId === job.id;
+          return (
+            <div
+              key={job.id}
+              className={`rounded-lg border bg-white dark:bg-slate-900 p-4 transition-colors ${
+                job.enabled
+                  ? 'border-slate-200 dark:border-slate-800'
+                  : 'border-slate-200/50 dark:border-slate-800/50 opacity-60'
+              }`}
+            >
+              {isEditing ? (
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <h3 className="font-display font-semibold text-sm">Edit Feed</h3>
+                    <button
+                      type="button"
+                      onClick={() => setEditingId(null)}
+                      className="p-1 rounded text-slate-400 hover:text-slate-600"
+                    >
+                      <X size={13} />
+                    </button>
+                  </div>
+                  <div className="grid sm:grid-cols-2 gap-3">
+                    <input
+                      type="text"
+                      value={editForm.name}
+                      onChange={(e) => setEditForm((p) => ({ ...p, name: e.target.value }))}
+                      placeholder="Feed name"
+                      className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded font-mono text-[12px] focus:outline-none focus:border-brand-500"
+                    />
+                    <select
+                      value={editForm.parser}
+                      onChange={(e) => setEditForm((p) => ({ ...p, parser: e.target.value }))}
+                      className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded font-mono text-[12px] text-slate-700 dark:text-slate-300"
+                    >
+                      <option value="plaintext-ips">IP list</option>
+                      <option value="plaintext-domains">Domain list</option>
+                      <option value="plaintext-urls">URL list</option>
+                      <option value="plaintext-hashes">Hash list</option>
+                    </select>
+                    <div className="sm:col-span-2">
                       <input
                         type="text"
-                        value={editForm.name}
-                        onChange={(e) => setEditForm((p) => ({ ...p, name: e.target.value }))}
-                        placeholder="Feed name"
+                        value={editForm.source_url}
+                        onChange={(e) => setEditForm((p) => ({ ...p, source_url: e.target.value }))}
+                        placeholder="Source URL"
                         className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded font-mono text-[12px] focus:outline-none focus:border-brand-500"
                       />
-                      <select
-                        value={editForm.parser}
-                        onChange={(e) => setEditForm((p) => ({ ...p, parser: e.target.value }))}
-                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded font-mono text-[12px] text-slate-700 dark:text-slate-300"
-                      >
-                        <option value="plaintext-ips">IP list</option>
-                        <option value="plaintext-domains">Domain list</option>
-                        <option value="plaintext-urls">URL list</option>
-                        <option value="plaintext-hashes">Hash list</option>
-                      </select>
-                      <div className="sm:col-span-2">
-                        <input
-                          type="text"
-                          value={editForm.source_url}
-                          onChange={(e) => setEditForm((p) => ({ ...p, source_url: e.target.value }))}
-                          placeholder="Source URL"
-                          className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded font-mono text-[12px] focus:outline-none focus:border-brand-500"
-                        />
+                    </div>
+                    <input
+                      type="number"
+                      value={editForm.interval_minutes}
+                      onChange={(e) => setEditForm((p) => ({ ...p, interval_minutes: Number(e.target.value) }))}
+                      placeholder="Interval (minutes)"
+                      min={5}
+                      className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded font-mono text-[12px] focus:outline-none focus:border-brand-500"
+                    />
+                    <input
+                      type="text"
+                      value={editForm.tags}
+                      onChange={(e) => setEditForm((p) => ({ ...p, tags: e.target.value }))}
+                      placeholder="Tags (comma separated)"
+                      className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded font-mono text-[12px] focus:outline-none focus:border-brand-500"
+                    />
+                  </div>
+                  <div className="flex gap-2 mt-3">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        void updateJob(job.id, {
+                          name: editForm.name.trim(),
+                          source_url: editForm.source_url.trim(),
+                          parser: editForm.parser,
+                          interval_minutes: editForm.interval_minutes,
+                          tags: editForm.tags
+                            .split(',')
+                            .map((s) => s.trim())
+                            .filter(Boolean),
+                        })
+                      }
+                      disabled={!editForm.name.trim() || !editForm.source_url.trim()}
+                      className="px-4 py-2 bg-brand-600 dark:bg-brand-500 text-white font-mono text-[12px] font-semibold rounded disabled:opacity-30"
+                    >
+                      Save
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setEditingId(null)}
+                      className="px-4 py-2 border border-slate-200 dark:border-slate-800 text-slate-500 font-mono text-[12px] rounded"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
+                          {job.name}
+                        </h3>
+                        {job.last_status === 'ok' && <CheckCircle2 size={12} className="text-emerald-500 shrink-0" />}
+                        {job.last_status === 'error' && <XCircle size={12} className="text-rose-500 shrink-0" />}
+                        {isRunning && <Loader2 size={12} className="animate-spin text-blue-500 shrink-0" />}
+                        {job.last_status === null && <Clock size={12} className="text-slate-400 shrink-0" />}
                       </div>
-                      <input
-                        type="number"
-                        value={editForm.interval_minutes}
-                        onChange={(e) => setEditForm((p) => ({ ...p, interval_minutes: Number(e.target.value) }))}
-                        placeholder="Interval (minutes)"
-                        min={5}
-                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded font-mono text-[12px] focus:outline-none focus:border-brand-500"
-                      />
-                      <input
-                        type="text"
-                        value={editForm.tags}
-                        onChange={(e) => setEditForm((p) => ({ ...p, tags: e.target.value }))}
-                        placeholder="Tags (comma separated)"
-                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded font-mono text-[12px] focus:outline-none focus:border-brand-500"
-                      />
+                      <p className="text-[11px] font-mono text-slate-500 mt-0.5 truncate max-w-xl">{job.source_url}</p>
+                      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1.5 text-[10px] font-mono text-slate-400">
+                        <span className="capitalize">{job.parser.replace(/-/g, ' ')}</span>
+                        <span>Every {job.interval_minutes}m</span>
+                        {job.last_run_at && <span>Last: {relativeTime(job.last_run_at)}</span>}
+                        {job.last_status === 'ok' && <span>{job.last_item_count.toLocaleString()} items</span>}
+                        {isDue && job.enabled && <span className="text-amber-500">Due</span>}
+                        {job.tags.map((t) => (
+                          <span key={t} className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800">
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                      {job.last_error && (
+                        <p className="text-[10px] font-mono text-rose-500 mt-1 truncate">{job.last_error}</p>
+                      )}
                     </div>
-                    <div className="flex gap-2 mt-3">
+                    <div className="flex items-center gap-1 shrink-0">
                       <button
                         type="button"
-                        onClick={() =>
-                          void updateJob(job.id, {
-                            name: editForm.name.trim(),
-                            source_url: editForm.source_url.trim(),
-                            parser: editForm.parser,
-                            interval_minutes: editForm.interval_minutes,
-                            tags: editForm.tags
-                              .split(',')
-                              .map((s) => s.trim())
-                              .filter(Boolean),
-                          })
-                        }
-                        disabled={!editForm.name.trim() || !editForm.source_url.trim()}
-                        className="px-4 py-2 bg-brand-600 dark:bg-brand-500 text-white font-mono text-[12px] font-semibold rounded disabled:opacity-30"
+                        onClick={() => void runJob(job.id)}
+                        disabled={isRunning}
+                        className="p-1.5 rounded text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-30"
+                        title="Run now"
                       >
-                        Save
+                        <Play size={13} />
                       </button>
                       <button
                         type="button"
-                        onClick={() => setEditingId(null)}
-                        className="px-4 py-2 border border-slate-200 dark:border-slate-800 text-slate-500 font-mono text-[12px] rounded"
+                        onClick={() => {
+                          setEditingId(job.id);
+                          setEditForm({
+                            name: job.name,
+                            source_url: job.source_url,
+                            parser: job.parser,
+                            interval_minutes: job.interval_minutes,
+                            tags: job.tags.join(', '),
+                          });
+                        }}
+                        disabled={isRunning}
+                        className="p-1.5 rounded text-slate-400 hover:text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800"
+                        title="Edit"
                       >
-                        Cancel
+                        <Pencil size={13} />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => void toggleJob(job.id, !job.enabled)}
+                        className="p-1.5 rounded text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+                        title={job.enabled ? 'Disable' : 'Enable'}
+                      >
+                        <CheckCircle2 size={13} />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => void deleteJob(job.id, job.name)}
+                        className="p-1.5 rounded text-slate-400 hover:text-rose-500 hover:bg-slate-100 dark:hover:bg-slate-800"
+                        title="Delete"
+                      >
+                        <Trash2 size={13} />
                       </button>
                     </div>
                   </div>
-                ) : (
-                  <>
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2">
-                          <h3 className="font-display font-semibold text-sm text-slate-900 dark:text-slate-100">
-                            {job.name}
-                          </h3>
-                          {job.last_status === 'ok' && <CheckCircle2 size={12} className="text-emerald-500 shrink-0" />}
-                          {job.last_status === 'error' && <XCircle size={12} className="text-rose-500 shrink-0" />}
-                          {isRunning && <Loader2 size={12} className="animate-spin text-blue-500 shrink-0" />}
-                          {job.last_status === null && <Clock size={12} className="text-slate-400 shrink-0" />}
-                        </div>
-                        <p className="text-[11px] font-mono text-slate-500 mt-0.5 truncate max-w-xl">
-                          {job.source_url}
-                        </p>
-                        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1.5 text-[10px] font-mono text-slate-400">
-                          <span className="capitalize">{job.parser.replace(/-/g, ' ')}</span>
-                          <span>Every {job.interval_minutes}m</span>
-                          {job.last_run_at && <span>Last: {relativeTime(job.last_run_at)}</span>}
-                          {job.last_status === 'ok' && <span>{job.last_item_count.toLocaleString()} items</span>}
-                          {isDue && job.enabled && <span className="text-amber-500">Due</span>}
-                          {job.tags.map((t) => (
-                            <span key={t} className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800">
-                              {t}
-                            </span>
-                          ))}
-                        </div>
-                        {job.last_error && (
-                          <p className="text-[10px] font-mono text-rose-500 mt-1 truncate">{job.last_error}</p>
-                        )}
-                      </div>
-                      <div className="flex items-center gap-1 shrink-0">
-                        <button
-                          type="button"
-                          onClick={() => void runJob(job.id)}
-                          disabled={isRunning}
-                          className="p-1.5 rounded text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-30"
-                          title="Run now"
-                        >
-                          <Play size={13} />
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setEditingId(job.id);
-                            setEditForm({
-                              name: job.name,
-                              source_url: job.source_url,
-                              parser: job.parser,
-                              interval_minutes: job.interval_minutes,
-                              tags: job.tags.join(', '),
-                            });
-                          }}
-                          disabled={isRunning}
-                          className="p-1.5 rounded text-slate-400 hover:text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800"
-                          title="Edit"
-                        >
-                          <Pencil size={13} />
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => void toggleJob(job.id, !job.enabled)}
-                          className="p-1.5 rounded text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
-                          title={job.enabled ? 'Disable' : 'Enable'}
-                        >
-                          <CheckCircle2 size={13} />
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => void deleteJob(job.id, job.name)}
-                          className="p-1.5 rounded text-slate-400 hover:text-rose-500 hover:bg-slate-100 dark:hover:bg-slate-800"
-                          title="Delete"
-                        >
-                          <Trash2 size={13} />
-                        </button>
-                      </div>
-                    </div>
-                    {jobHistory.length > 0 && (
-                      <details className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800">
-                        <summary className="text-[10px] font-mono text-slate-400 cursor-pointer hover:text-slate-600 dark:hover:text-slate-300 select-none">
-                          Run history ({jobHistory.length})
-                        </summary>
-                        <div className="mt-2 space-y-1 max-h-32 overflow-y-auto">
-                          {jobHistory.slice(0, 10).map((h, i) => (
-                            <div
-                              key={`${h.started_at}-${i}`}
-                              className="flex items-center gap-2 text-[10px] font-mono text-slate-500"
-                            >
-                              {h.status === 'ok' ? (
-                                <CheckCircle2 size={10} className="text-emerald-500" />
-                              ) : (
-                                <XCircle size={10} className="text-rose-500" />
+                  {jobHistory.length > 0 && (
+                    <details className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800">
+                      <summary className="text-[10px] font-mono text-slate-400 cursor-pointer hover:text-slate-600 dark:hover:text-slate-300 select-none">
+                        Run history ({jobHistory.length})
+                      </summary>
+                      <div className="mt-2 space-y-1 max-h-32 overflow-y-auto">
+                        {jobHistory.slice(0, 10).map((h, i) => (
+                          <div
+                            key={`${h.started_at}-${i}`}
+                            className="flex items-center gap-2 text-[10px] font-mono text-slate-500"
+                          >
+                            {h.status === 'ok' ? (
+                              <CheckCircle2 size={10} className="text-emerald-500" />
+                            ) : (
+                              <XCircle size={10} className="text-rose-500" />
+                            )}
+                            <span>{new Date(h.started_at).toLocaleString()}</span>
+                            <span className="text-slate-400">—</span>
+                            <span>{h.item_count.toLocaleString()} items</span>
+                            {h.error && <span className="text-rose-500 truncate max-w-[200px]">{h.error}</span>}
+                            <span className="text-slate-400">
+                              (
+                              {Math.round(
+                                (new Date(h.finished_at).getTime() - new Date(h.started_at).getTime()) / 1000
                               )}
-                              <span>{new Date(h.started_at).toLocaleString()}</span>
-                              <span className="text-slate-400">—</span>
-                              <span>{h.item_count.toLocaleString()} items</span>
-                              {h.error && <span className="text-rose-500 truncate max-w-[200px]">{h.error}</span>}
-                              <span className="text-slate-400">
-                                (
-                                {Math.round(
-                                  (new Date(h.finished_at).getTime() - new Date(h.started_at).getTime()) / 1000
-                                )}
-                                s)
-                              </span>
-                            </div>
-                          ))}
-                        </div>
-                      </details>
-                    )}
-                  </>
-                )}
-              </div>
-            );
-          })}
-        </div>
-      )}
-    </div>
+                              s)
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </details>
+                  )}
+                </>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </DataPageLayout>
   );
 }

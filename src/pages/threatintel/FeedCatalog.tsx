@@ -1,17 +1,6 @@
 import { useState, useEffect } from 'react';
-import {
-  Search,
-  ExternalLink,
-  Shield,
-  Globe,
-  Hash,
-  Fingerprint,
-  FileText,
-  AlertTriangle,
-  Filter,
-  ArrowLeft,
-} from 'lucide-react';
-import { BackLink } from '../../components/BackLink';
+import { Search, ExternalLink, Shield, Globe, Hash, Fingerprint, FileText, Filter } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 
 interface FeedCatalogEntry {
@@ -93,84 +82,67 @@ export default function FeedCatalog() {
     return true;
   });
 
-  if (loading) {
-    return (
-      <div className="min-h-[60vh] flex items-center justify-center">
-        <div className="animate-pulse text-slate-500 dark:text-slate-400">Loading feed catalog...</div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-[60vh] flex items-center justify-center gap-3 text-red-600 dark:text-red-400">
-        <AlertTriangle className="w-6 h-6" />
-        <span>Failed to load: {error}</span>
-      </div>
-    );
-  }
-
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-      <div className="mb-8">
-        <h1 className="text-3xl font-display font-bold mb-2">Open-Source Threat Intel Feed Catalog</h1>
-        <p className="text-slate-600 dark:text-slate-400">
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Shield size={28} />}
+      title="Open-Source Threat Intel Feed Catalog"
+      description={
+        <>
           {data?.active ?? 0} active feeds out of {data?.total ?? 0} total, from {data?.vendors.length ?? 0} vendors
-        </p>
-      </div>
-
-      <div className="flex flex-wrap gap-3 mb-6">
-        <div className="relative flex-1 min-w-[200px]">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500" />
-          <input
-            type="text"
-            placeholder="Search vendors, descriptions, categories..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-brand-500"
-          />
+        </>
+      }
+      maxWidthClass="max-w-6xl"
+      loading={loading}
+      error={error}
+      headerExtra={
+        <div className="flex flex-wrap gap-3">
+          <div className="relative flex-1 min-w-[200px]">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500" />
+            <input
+              type="text"
+              placeholder="Search vendors, descriptions, categories..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full pl-10 pr-4 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-brand-500"
+            />
+          </div>
+          <select
+            value={vendorFilter}
+            onChange={(e) => setVendorFilter(e.target.value)}
+            className="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg text-slate-900 dark:text-slate-200 focus:outline-none focus:border-brand-500"
+          >
+            <option value="all">All Vendors</option>
+            {data?.vendors.map((v) => (
+              <option key={v} value={v}>
+                {v}
+              </option>
+            ))}
+          </select>
+          <select
+            value={categoryFilter}
+            onChange={(e) => setCategoryFilter(e.target.value)}
+            className="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg text-slate-900 dark:text-slate-200 focus:outline-none focus:border-brand-500"
+          >
+            <option value="all">All Types</option>
+            {data?.categories.map((c) => (
+              <option key={c} value={c}>
+                {c}
+              </option>
+            ))}
+          </select>
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+            className="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg text-slate-900 dark:text-slate-200 focus:outline-none focus:border-brand-500"
+          >
+            <option value="all">All Status</option>
+            <option value="Active">Active</option>
+            <option value="Offline">Offline</option>
+          </select>
         </div>
-        <select
-          value={vendorFilter}
-          onChange={(e) => setVendorFilter(e.target.value)}
-          className="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg text-slate-900 dark:text-slate-200 focus:outline-none focus:border-brand-500"
-        >
-          <option value="all">All Vendors</option>
-          {data?.vendors.map((v) => (
-            <option key={v} value={v}>
-              {v}
-            </option>
-          ))}
-        </select>
-        <select
-          value={categoryFilter}
-          onChange={(e) => setCategoryFilter(e.target.value)}
-          className="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg text-slate-900 dark:text-slate-200 focus:outline-none focus:border-brand-500"
-        >
-          <option value="all">All Types</option>
-          {data?.categories.map((c) => (
-            <option key={c} value={c}>
-              {c}
-            </option>
-          ))}
-        </select>
-        <select
-          value={statusFilter}
-          onChange={(e) => setStatusFilter(e.target.value)}
-          className="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg text-slate-900 dark:text-slate-200 focus:outline-none focus:border-brand-500"
-        >
-          <option value="all">All Status</option>
-          <option value="Active">Active</option>
-          <option value="Offline">Offline</option>
-        </select>
-      </div>
-
+      }
+    >
       <div className="flex items-center gap-2 mb-4 text-sm text-slate-500">
         <Filter className="w-4 h-4" />
         <span>
@@ -232,6 +204,6 @@ export default function FeedCatalog() {
           );
         })}
       </div>
-    </div>
+    </DataPageLayout>
   );
 }

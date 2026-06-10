@@ -2,8 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { sanitizeUrl } from '../../lib/sanitize-url';
 import { relativeAgo as shortRel } from '../../lib/relativeTime';
 import { useSearchParams } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, AtSign, Cloud, ExternalLink, Loader2, RefreshCw, Search, Sparkles } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { AtSign, Cloud, ExternalLink, RefreshCw, Search, Sparkles } from 'lucide-react';
 import { useLastVisit, isNewSince } from '../../hooks';
 
 type Platform = 'bluesky' | 'mastodon';
@@ -125,31 +125,9 @@ export default function XFirehose(): JSX.Element {
       return next;
     });
 
-  return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
-          <Cloud size={28} className="text-brand-600 dark:text-brand-400" /> Cybersec social firehose
-        </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
-          Curated stream from cybersec researchers and vendor labs on <strong>Bluesky</strong> and{' '}
-          <strong>Mastodon (infosec.exchange)</strong>. X killed its free read API in 2023 and the available Nitter
-          mirrors are unreliable, so most of these accounts have a mirror on Bluesky or Mastodon. Both expose proper
-          keyless RSS. Click any post to open the original.
-        </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-6">
-          {data ? `${data.handles.length} accounts indexed.` : '~16 accounts indexed.'}
-        </p>
-      </div>
-
-      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 mb-6">
+  const headerExtra = (
+    <>
+      <section className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
         <div className="flex items-center gap-3">
           <div className="relative flex-1">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -227,7 +205,7 @@ export default function XFirehose(): JSX.Element {
       </section>
 
       {data && (
-        <p className="text-[11px] font-mono text-slate-500 mb-4">
+        <p className="text-[11px] font-mono text-slate-500 mt-3">
           Showing {filtered.length} of {data.items.length} posts · snapshot{' '}
           <span className="text-slate-700 dark:text-slate-300">{shortRel(data.generated_at)}</span>
           {data.warnings.length > 0 && (
@@ -235,19 +213,32 @@ export default function XFirehose(): JSX.Element {
           )}
         </p>
       )}
+    </>
+  );
 
-      {loading && (
-        <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 flex items-center gap-3 font-mono text-sm text-slate-500">
-          <Loader2 size={16} className="animate-spin" /> loading Bluesky and Mastodon feeds…
-        </div>
-      )}
-
-      {error && (
-        <div className="rounded-lg border border-rose-500/40 bg-rose-500/5 p-4 font-mono text-sm text-rose-600 dark:text-rose-300">
-          Failed to load: {error}
-        </div>
-      )}
-
+  return (
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Cloud size={28} />}
+      title="Cybersec social firehose"
+      description={
+        <>
+          <span className="block max-w-3xl">
+            Curated stream from cybersec researchers and vendor labs on <strong>Bluesky</strong> and{' '}
+            <strong>Mastodon (infosec.exchange)</strong>. X killed its free read API in 2023 and the available Nitter
+            mirrors are unreliable, so most of these accounts have a mirror on Bluesky or Mastodon. Both expose proper
+            keyless RSS. Click any post to open the original.
+          </span>
+          <span className="block text-xs text-slate-500 dark:text-slate-400 font-mono mt-2">
+            {data ? `${data.handles.length} accounts indexed.` : '~16 accounts indexed.'}
+          </span>
+        </>
+      }
+      headerExtra={headerExtra}
+      loading={loading}
+      error={error}
+      onRetry={() => setRefreshKey((k) => k + 1)}
+    >
       <ul className="space-y-2">
         {filtered.slice(0, visible).map((it, i) => (
           <li
@@ -331,6 +322,6 @@ export default function XFirehose(): JSX.Element {
           )}
         </div>
       )}
-    </div>
+    </DataPageLayout>
   );
 }

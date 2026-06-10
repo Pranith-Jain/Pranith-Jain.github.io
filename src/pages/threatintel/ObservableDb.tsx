@@ -1,9 +1,8 @@
 import { useEffect, useState, useCallback, type FormEvent } from 'react';
-import { BackLink } from '../../components/BackLink';
+import { DataPageLayout } from '../../components/DataPageLayout';
 import { adminAuthHeaders, readAdminToken } from '../../lib/admin-token';
 import { AdminRequired } from '../../components/AdminRequired';
 import {
-  ArrowLeft,
   Search,
   Loader2,
   Trash2,
@@ -233,30 +232,30 @@ export default function ObservableDb(): JSX.Element {
   if (!readAdminToken()) return <AdminRequired tool="The Observable Database" />;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
-        <div>
-          <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2">Observable Database</h1>
-          <p className="text-sm font-mono text-slate-600 dark:text-slate-400 max-w-2xl">
-            Persistent IOC storage with enrichment history, tags, and notes. Inspired by Yeti.
-          </p>
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Database size={28} />}
+      title="Observable Database"
+      description={
+        <span className="font-mono text-sm">
+          Persistent IOC storage with enrichment history, tags, and notes. Inspired by Yeti.
+        </span>
+      }
+      headerExtra={
+        <div className="flex">
+          <button
+            type="button"
+            onClick={() => setShowAddForm(true)}
+            className="inline-flex items-center gap-2 px-4 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-lg hover:bg-brand-700 dark:hover:bg-brand-400"
+          >
+            <Plus size={14} /> Add Observable
+          </button>
         </div>
-        <button
-          type="button"
-          onClick={() => setShowAddForm(true)}
-          className="inline-flex items-center gap-2 px-4 py-2.5 bg-brand-600 dark:bg-brand-500 text-white font-mono text-sm font-semibold rounded-lg hover:bg-brand-700 dark:hover:bg-brand-400"
-        >
-          <Plus size={14} /> Add Observable
-        </button>
-      </div>
-
+      }
+      error={error}
+      onRetry={() => void fetchData()}
+      maxWidthClass="max-w-7xl"
+    >
       {showAddForm && (
         <form
           onSubmit={(e) => void addObservable(e)}
@@ -345,12 +344,6 @@ export default function ObservableDb(): JSX.Element {
         </div>
         <span className="text-[11px] font-mono text-slate-400">{total} observables</span>
       </div>
-
-      {error && (
-        <div className="rounded-lg border border-rose-200 dark:border-rose-900 bg-rose-50 dark:bg-rose-950/30 p-4 mb-6">
-          <p className="text-[13px] font-mono text-rose-700 dark:text-rose-300">{error}</p>
-        </div>
-      )}
 
       <div className="grid lg:grid-cols-3 gap-6">
         <div className={`${selected ? 'lg:col-span-2' : 'lg:col-span-3'}`}>
@@ -612,6 +605,6 @@ export default function ObservableDb(): JSX.Element {
           </div>
         )}
       </div>
-    </div>
+    </DataPageLayout>
   );
 }

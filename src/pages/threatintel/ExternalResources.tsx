@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { BackLink } from '../../components/BackLink';
-import { ArrowLeft, Compass, ExternalLink, KeyRound, Loader2, LogOut, Plus, Search, Trash2 } from 'lucide-react';
+import { DataPageLayout } from '../../components/DataPageLayout';
+import { Compass, ExternalLink, KeyRound, Loader2, LogOut, Plus, Search, Trash2 } from 'lucide-react';
 import {
   RESOURCES,
   KIND_LABELS,
@@ -209,27 +209,23 @@ export default function ExternalResources(): JSX.Element {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 text-slate-900 dark:text-slate-100">
-      <BackLink
-        to="/threatintel"
-        className="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 mb-8 font-mono"
-      >
-        <ArrowLeft size={14} /> back
-      </BackLink>
-
-      <div className="animate-fade-in-up">
-        <h1 className="text-3xl sm:text-4xl font-display font-bold mb-2 flex items-center gap-3">
-          <Compass size={28} className="text-brand-600 dark:text-brand-400" /> External Resources
-        </h1>
-        <p className="text-slate-600 dark:text-slate-400 mb-2 max-w-3xl leading-relaxed">
-          {merged.length} off-site sources I cross-reference: dashboards, OSINT directories, training labs, malware
-          samples, and research portfolios. Filter by kind or search across name and description.
-        </p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mb-8">
-          External sites change ownership and quality over time. Verify a specific link before relying on it.
-        </p>
-      </div>
-
+    <DataPageLayout
+      backTo="/threatintel"
+      icon={<Compass size={28} />}
+      title="External Resources"
+      maxWidthClass="max-w-6xl"
+      description={
+        <>
+          <span className="block max-w-3xl">
+            {merged.length} off-site sources I cross-reference: dashboards, OSINT directories, training labs, malware
+            samples, and research portfolios. Filter by kind or search across name and description.
+          </span>
+          <span className="block text-xs text-slate-500 dark:text-slate-400 font-mono mt-2">
+            External sites change ownership and quality over time. Verify a specific link before relying on it.
+          </span>
+        </>
+      }
+    >
       {/* Auth + Add row (compact when signed out) */}
       {token && (
         <AddResourceCard
@@ -515,7 +511,7 @@ export default function ExternalResources(): JSX.Element {
           </button>
         )}
       </div>
-    </div>
+    </DataPageLayout>
   );
 }
 
