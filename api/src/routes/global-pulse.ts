@@ -30,7 +30,7 @@ export const GP_FEEDS: ReadonlyArray<{ key: string; path: string }> = [
   { key: 'stealer', path: '/api/v1/stealer-forum-intel' },
   { key: 'secretleaks', path: '/api/v1/secret-leaks' },
   { key: 'malpkg', path: '/api/v1/malicious-packages' },
-  { key: 'exploit', path: '/api/v1/exploit-db?q=2026' },
+  { key: 'exploit', path: '/api/v1/exploit-db?latest=1' },
   { key: 'ghsa', path: '/api/v1/github-security?ecosystem=npm' },
   { key: 'kev', path: '/api/v1/cisa-kev?days=30' },
 ];

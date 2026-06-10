@@ -882,8 +882,11 @@ export const exploitDbSchema = z
     q: z.string().min(1).max(200).optional(),
     cve: cveIdPattern.optional(),
     type: z.enum(['remote', 'dos', 'webapps', 'local', 'shellcode']).optional(),
+    // latest=1 returns the newest exploits (optionally filtered by type) with no
+    // keyword/cve filter — used by the Global Pulse "exploit" layer.
+    latest: z.enum(['1', 'true']).optional(),
   })
-  .refine((v) => Boolean(v.q || v.cve), { message: 'q or cve is required' });
+  .refine((v) => Boolean(v.q || v.cve || v.latest), { message: 'q, cve, or latest is required' });
 
 export const cisaKevSchema = z.object({
   q: z.string().max(200).optional(),
